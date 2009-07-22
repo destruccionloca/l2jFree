@@ -22,9 +22,9 @@ public class ExPutItemResultForVariationMake extends L2GameServerPacket
 {
 	private static final String _S__FE_53_EXPUTITEMRESULTFORVARIATIONMAKE = "[S] FE:53 ExPutItemResultForVariationMake";
 
-	private int _itemObjId;
-	private int _unk1;
-	private int _unk2;
+	private final int _itemObjId;
+	private final int _unk1;
+	private final int _unk2;
 
 	public ExPutItemResultForVariationMake(int itemObjId)
 	{

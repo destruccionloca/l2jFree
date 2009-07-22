@@ -26,7 +26,7 @@ public class GMViewQuestInfo extends L2GameServerPacket
 {
 	private static final String S_99_GMVIEWQUESTINFO = "[S] 99 GMViewQuestInfo";
 
-    private L2PcInstance _activeChar;
+    private final L2PcInstance _activeChar;
 
 	public GMViewQuestInfo(L2PcInstance cha)
 	{

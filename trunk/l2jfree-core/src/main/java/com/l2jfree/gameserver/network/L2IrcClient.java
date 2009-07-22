@@ -55,8 +55,8 @@ public class L2IrcClient extends Thread
 	private static Log					_logChat			= LogFactory.getLog("irc");
 
 	private IRCConnection				conn;
-	private String						channel;
-	private String						nickname;
+	private final String						channel;
+	private final String						nickname;
 	protected boolean					forcedDisconnect	= false;
 	protected FastMap<String, String>	_authedGms			= new FastMap<String, String>();
 

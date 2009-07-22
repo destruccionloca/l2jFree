@@ -62,7 +62,7 @@ public class L2CabaleBufferInstance extends L2Npc
 
     private class CabalaAI implements Runnable
     {
-        private L2CabaleBufferInstance _caster;
+        private final L2CabaleBufferInstance _caster;
 
         protected CabalaAI(L2CabaleBufferInstance caster)
         {

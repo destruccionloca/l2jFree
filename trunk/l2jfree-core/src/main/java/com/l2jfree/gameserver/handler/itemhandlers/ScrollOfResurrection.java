@@ -27,16 +27,16 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-/** 
- * This class ... 
+/**
+ * This class ...
  * 
- * @version $Revision: 1.1.2.2.2.7 $ $Date: 2005/04/05 19:41:13 $ 
+ * @version $Revision: 1.1.2.2.2.7 $ $Date: 2005/04/05 19:41:13 $
  */
 public class ScrollOfResurrection implements IItemHandler
 {
 	// All the item IDs that this handler knows.
 	private static final int[]	ITEM_IDS	=
-											{ 737, 3936, 3959, 6387 };	
+											{ 737, 3936, 3959, 6387 };
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)

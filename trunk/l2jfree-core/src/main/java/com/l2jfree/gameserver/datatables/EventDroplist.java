@@ -36,7 +36,7 @@ public class EventDroplist
 	private final static Log		_log	= LogFactory.getLog(EventDroplist.class.getName());
 
 	/** The table containing all DataDrop object */
-	private FastList<DateDrop>		_allNpcDateDrops;
+	private final FastList<DateDrop>		_allNpcDateDrops;
 
 	public static EventDroplist getInstance()
 	{

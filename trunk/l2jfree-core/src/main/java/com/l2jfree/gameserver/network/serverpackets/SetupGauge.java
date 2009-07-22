@@ -30,9 +30,9 @@ public class SetupGauge extends L2GameServerPacket
 	public static final int CYAN = 2;
 	public static final int GREEN = 3;
 
-	private int _color;
-	private int _time1;
-	private int _time2;
+	private final int _color;
+	private final int _time1;
+	private final int _time2;
 
 	public SetupGauge(int color, int time)
 	{

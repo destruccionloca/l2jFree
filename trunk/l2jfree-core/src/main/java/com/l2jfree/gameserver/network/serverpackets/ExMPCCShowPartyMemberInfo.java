@@ -30,7 +30,7 @@ public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
 		_party = party;
 	}
 
-	private L2Party _party;
+	private final L2Party _party;
 
 	/**
 	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()

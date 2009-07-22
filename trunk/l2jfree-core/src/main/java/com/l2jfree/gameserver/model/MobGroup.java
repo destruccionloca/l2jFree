@@ -29,15 +29,15 @@ import com.l2jfree.tools.random.Rnd;
  * @author littlecrow
  *
  */
-public final class MobGroup 
+public final class MobGroup
 {
-	private L2NpcTemplate _npcTemplate;
-	private int _groupId;
-	private int _maxMobCount;
+	private final L2NpcTemplate _npcTemplate;
+	private final int _groupId;
+	private final int _maxMobCount;
 
 	private FastList<L2ControllableMobInstance> _mobs;
 
-	public MobGroup(int groupId, L2NpcTemplate npcTemplate, int maxMobCount) 
+	public MobGroup(int groupId, L2NpcTemplate npcTemplate, int maxMobCount)
 	{
 		_groupId = groupId;
 		_npcTemplate = npcTemplate;
@@ -94,7 +94,7 @@ public final class MobGroup
 		}
 	}
 
-	public L2NpcTemplate getTemplate() 
+	public L2NpcTemplate getTemplate()
 	{
 		return _npcTemplate;
 	}
@@ -113,14 +113,14 @@ public final class MobGroup
 		return false;
 	}
 
-	public void spawnGroup(int x, int y, int z) 
+	public void spawnGroup(int x, int y, int z)
 	{
 		if (getActiveMobCount() > 0) // can't spawn mob if already done
 			return;
 		
-		try 
+		try
 		{
-			for (int i = 0; i < getMaxMobCount(); i++) 
+			for (int i = 0; i < getMaxMobCount(); i++)
 			{
 				L2GroupSpawn spawn = new L2GroupSpawn(getTemplate());
 				
@@ -141,16 +141,16 @@ public final class MobGroup
 		catch (ClassNotFoundException e) {}
 	}
 
-	public void spawnGroup(L2PcInstance activeChar) 
+	public void spawnGroup(L2PcInstance activeChar)
 	{
 		spawnGroup(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 	}
 
 	public void teleportGroup(L2PcInstance player)
 	{
-		removeDead(); 
+		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -167,7 +167,7 @@ public final class MobGroup
 		}
 	}
 
-	public L2ControllableMobInstance getRandomMob() 
+	public L2ControllableMobInstance getRandomMob()
 	{
 		removeDead();
 		
@@ -178,14 +178,14 @@ public final class MobGroup
 		return getMobs().get(choice);
 	}
 
-	public void unspawnGroup() 
+	public void unspawnGroup()
 	{
 		removeDead();
 		
 		if (getActiveMobCount() == 0)
 			return;
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -199,11 +199,11 @@ public final class MobGroup
 		getMobs().clear();
 	}
 
-	public void killGroup(L2PcInstance activeChar) 
+	public void killGroup(L2PcInstance activeChar)
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -217,11 +217,11 @@ public final class MobGroup
 		getMobs().clear();
 	}
 
-	public void setAttackRandom() 
+	public void setAttackRandom()
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -232,11 +232,11 @@ public final class MobGroup
 		}
 	}
 
-	public void setAttackTarget(L2Character target) 
+	public void setAttackTarget(L2Character target)
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -246,11 +246,11 @@ public final class MobGroup
 		}
 	}
 
-	public void setIdleMode() 
+	public void setIdleMode()
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -260,11 +260,11 @@ public final class MobGroup
 		}
 	}
 
-	public void returnGroup(L2Character activeChar) 
+	public void returnGroup(L2Character activeChar)
 	{
 		setIdleMode();
 
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -279,11 +279,11 @@ public final class MobGroup
 		}
 	}
 
-	public void setFollowMode(L2Character character) 
+	public void setFollowMode(L2Character character)
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -293,11 +293,11 @@ public final class MobGroup
 		}
 	}
 
-	public void setCastMode() 
+	public void setCastMode()
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -307,11 +307,11 @@ public final class MobGroup
 		}
 	}
 
-	public void setNoMoveMode(boolean enabled) 
+	public void setNoMoveMode(boolean enabled)
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;
@@ -321,31 +321,31 @@ public final class MobGroup
 		}
 	}
 
-	protected void removeDead() 
+	protected void removeDead()
 	{
 		FastList<L2ControllableMobInstance> deadMobs = new FastList<L2ControllableMobInstance>();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 			if (mobInst != null && mobInst.isDead())
 				deadMobs.add(mobInst);
 		
 		getMobs().removeAll(deadMobs);
 	}
 
-	public void setInvul(boolean invulState) 
+	public void setInvul(boolean invulState)
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 			if (mobInst != null)
 				mobInst.setInvul(invulState);
 	}
 
-	public void setAttackGroup(MobGroup otherGrp) 
+	public void setAttackGroup(MobGroup otherGrp)
 	{
 		removeDead();
 		
-		for (L2ControllableMobInstance mobInst : getMobs()) 
+		for (L2ControllableMobInstance mobInst : getMobs())
 		{
 			if (mobInst == null)
 				continue;

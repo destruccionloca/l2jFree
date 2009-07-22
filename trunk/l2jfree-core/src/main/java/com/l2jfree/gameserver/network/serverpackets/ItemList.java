@@ -49,8 +49,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class ItemList extends L2GameServerPacket
 {
 	private static final String _S__11_ITEMLIST = "[S] 11 ItemList";
-	private L2ItemInstance[] _items;
-	private boolean _showWindow;
+	private final L2ItemInstance[] _items;
+	private final boolean _showWindow;
 
 	public ItemList(L2PcInstance cha, boolean showWindow)
 	{

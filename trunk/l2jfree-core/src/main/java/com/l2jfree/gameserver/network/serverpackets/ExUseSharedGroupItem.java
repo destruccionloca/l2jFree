@@ -21,7 +21,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExUseSharedGroupItem extends L2GameServerPacket
 {
 	private static final String	_S__FE_4A_EXUSESHAREDGROUPITEM	= "[S] FE:4a ExUseSharedGroupItem";
-	private int					_itemId, _grpId, _remainedTime, _totalTime;
+	private final int					_itemId, _grpId, _remainedTime, _totalTime;
 
 	public ExUseSharedGroupItem(int itemId, int grpId, int remainedTime, int totalTime)
 	{

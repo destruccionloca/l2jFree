@@ -115,7 +115,7 @@ public enum PlayerClass {
         berserker(Kamael, Fighter, Third), maleSoulbreaker(Kamael, Fighter, Third),
         femaleSoulbreaker(Kamael, Fighter, Third), arbalester(Kamael, Fighter, Third),
         doombringer(Kamael, Fighter, Fourth), maleSoulhound(Kamael,  Fighter, Fourth),
-        femaleSoulhound(Kamael, Fighter, Fourth), trickster(Kamael, Fighter, Fourth), 
+        femaleSoulhound(Kamael, Fighter, Fourth), trickster(Kamael, Fighter, Fourth),
         inspector(Kamael, Fighter, Third), judicator(Kamael, Fighter, Fourth);
 
     private Race _race;
@@ -131,7 +131,7 @@ public enum PlayerClass {
     private static final Set<PlayerClass> subclasseSet4 = EnumSet.of(Warlock, ElementalSummoner, PhantomSummoner);
     private static final Set<PlayerClass> subclasseSet5 = EnumSet.of(Sorceror, Spellsinger, Spellhowler);
 
-    private static final EnumMap<PlayerClass, Set<PlayerClass>> subclassSetMap 
+    private static final EnumMap<PlayerClass, Set<PlayerClass>> subclassSetMap
            = new EnumMap<PlayerClass, Set<PlayerClass>>(PlayerClass.class);
 
     static

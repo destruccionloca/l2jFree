@@ -50,7 +50,7 @@ public class InventoryUpdate extends L2GameServerPacket
 {
 	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
 	
-    private List<ItemInfo> _items;
+    private final List<ItemInfo> _items;
     
 	public InventoryUpdate()
 	{

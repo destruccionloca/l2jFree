@@ -42,7 +42,7 @@ public class TvTITeam
 
 	private boolean					_sitForced		= false;
 
-	private FastList<L2PcInstance>	_players		= new FastList<L2PcInstance>();
+	private final FastList<L2PcInstance>	_players		= new FastList<L2PcInstance>();
 
 	public TvTITeam(String teamName)
 	{

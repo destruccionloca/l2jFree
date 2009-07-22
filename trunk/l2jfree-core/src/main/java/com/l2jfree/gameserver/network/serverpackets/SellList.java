@@ -34,8 +34,8 @@ public class SellList extends L2GameServerPacket
 	private final static Log			_log			= LogFactory.getLog(SellList.class.getName());
 	private final L2PcInstance			_activeChar;
 	private final L2MerchantInstance	_lease;
-	private long						_money;
-	private FastList<L2ItemInstance>	_selllist		= new FastList<L2ItemInstance>();
+	private final long						_money;
+	private final FastList<L2ItemInstance>	_selllist		= new FastList<L2ItemInstance>();
 
 	public SellList(L2PcInstance player)
 	{

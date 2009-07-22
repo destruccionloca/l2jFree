@@ -88,12 +88,12 @@ public final class GameStatusThread extends Thread
 
 	private String				_gm;
 
-	private Socket				_cSocket;
+	private final Socket				_cSocket;
 
-	private PrintWriter			_print;
-	private BufferedReader		_read;
+	private final PrintWriter			_print;
+	private final BufferedReader		_read;
 
-	private long				_uptime;
+	private final long				_uptime;
 
 	private void telnetOutput(int type, String text)
 	{

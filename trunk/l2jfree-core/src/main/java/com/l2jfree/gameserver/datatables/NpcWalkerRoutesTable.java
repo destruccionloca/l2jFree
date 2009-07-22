@@ -37,7 +37,7 @@ public class NpcWalkerRoutesTable
 {
 	private final static Log			_log	= LogFactory.getLog(SpawnTable.class.getName());
 
-	private FastList<L2NpcWalkerNode>	_routes = new FastList<L2NpcWalkerNode>();
+	private final FastList<L2NpcWalkerNode>	_routes = new FastList<L2NpcWalkerNode>();
 
 	public static NpcWalkerRoutesTable getInstance()
 	{

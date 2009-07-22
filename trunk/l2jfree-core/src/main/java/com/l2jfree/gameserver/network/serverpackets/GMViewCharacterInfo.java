@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 public class GMViewCharacterInfo extends L2GameServerPacket
 {
 	private static final String _S__8F_GMVIEWCHARINFO = "[S] 8F GMViewCharacterInfo";
-	private L2PcInstance _activeChar;
+	private final L2PcInstance _activeChar;
 
 	/**
 	 * @param _characters

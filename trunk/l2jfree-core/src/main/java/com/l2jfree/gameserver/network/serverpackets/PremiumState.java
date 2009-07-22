@@ -21,8 +21,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class PremiumState extends L2GameServerPacket
 {
 	private static final String _S__FE_AA_EXGETBOOKMARKINFO = "[S] FE:AA PremiumState";
-	private int _objectId;
-	private int _state;
+	private final int _objectId;
+	private final int _state;
 	
 	public PremiumState(int objectId, int state)
 	{

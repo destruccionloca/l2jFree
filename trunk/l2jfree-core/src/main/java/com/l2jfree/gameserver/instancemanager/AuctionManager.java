@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.entity.Auction;
 public class AuctionManager
 {
 	protected static Log			_log			= LogFactory.getLog(AuctionManager.class.getName());
-	private List<Auction>			_auctions;
+	private final List<Auction>			_auctions;
 
 	private static final String[]	ITEM_INIT_DATA	=
 													{

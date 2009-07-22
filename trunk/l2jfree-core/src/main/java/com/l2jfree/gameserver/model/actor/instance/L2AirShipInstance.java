@@ -27,6 +27,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -266,7 +267,7 @@ public class L2AirShipInstance extends L2Character
 	
 	class AirShipCaptain implements Runnable
 	{
-		private L2AirShipInstance _airShip;
+		private final L2AirShipInstance _airShip;
 		
 		/**
 		 * @param i
@@ -286,7 +287,7 @@ public class L2AirShipInstance extends L2Character
 	{
 		private int _state;
 		
-		private L2AirShipInstance _airShip;
+		private final L2AirShipInstance _airShip;
 		
 		/**
 		 * @param i

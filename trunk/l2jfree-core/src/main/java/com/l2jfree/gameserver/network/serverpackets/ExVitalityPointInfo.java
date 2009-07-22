@@ -21,7 +21,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExVitalityPointInfo extends L2GameServerPacket
 {
 	private static final String _S__FE_A0_EXVITALITYPOINTINFO = "[S] FE:A0 ExVitalityPointInfo";
-	private int _vitalityPoints;
+	private final int _vitalityPoints;
 
 	public ExVitalityPointInfo(int vitPoints)
 	{

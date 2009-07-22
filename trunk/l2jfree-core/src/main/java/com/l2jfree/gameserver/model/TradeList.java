@@ -42,14 +42,14 @@ public class TradeList
 	public class TradeItem implements ElementalOwner
 	{
 		private int _objectId;
-		private L2Item _item;
+		private final L2Item _item;
 		private int _enchant;
 		private long _count;
 		private long _price;
 
 		private byte _elemAtkType = Elementals.NONE;
 		private int _elemAtkPower = 0;
-		private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
+		private final int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
 
 		public TradeItem(L2ItemInstance item, long count, long price)
@@ -152,9 +152,9 @@ public class TradeList
 
 	private final static Log _log = LogFactory.getLog(TradeList.class.getName());
 
-	private L2PcInstance _owner;
+	private final L2PcInstance _owner;
 	private L2PcInstance _partner;
-	private FastList<TradeItem> _items;
+	private final FastList<TradeItem> _items;
 	private String _title;
 	private boolean _packaged;
 

@@ -119,7 +119,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 				break;
 			case TYPE_CHANGE_ENCHANT:
 				showChangeEnchantInfo(activeChar);
-				break; 
+				break;
 			default:
 				_log.fatal("Unknown skill enchant type: " + _type);
 				break;

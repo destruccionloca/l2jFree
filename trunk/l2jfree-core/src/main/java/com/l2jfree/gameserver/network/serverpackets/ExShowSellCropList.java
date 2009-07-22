@@ -39,8 +39,8 @@ public class ExShowSellCropList extends L2GameServerPacket
 	private static final String					_S__FE_21_EXSHOWSELLCROPLIST	= "[S] FE:21 ExShowSellCropList";
 
 	private int									_manorId						= 1;
-	private FastMap<Integer, L2ItemInstance>	_cropsItems;
-	private FastMap<Integer, CropProcure>		_castleCrops;
+	private final FastMap<Integer, L2ItemInstance>	_cropsItems;
+	private final FastMap<Integer, CropProcure>		_castleCrops;
 
 	public ExShowSellCropList(L2PcInstance player, int manorId, List<CropProcure> crops)
 	{
@@ -81,7 +81,7 @@ public class ExShowSellCropList extends L2GameServerPacket
 			writeC(1);
 			writeD(L2Manor.getInstance().getRewardItem(item.getItemDisplayId(), 1)); // reward 1 id
 			writeC(1);
-			writeD(L2Manor.getInstance().getRewardItem(item.getItemDisplayId(), 2)); // reward 2 id 
+			writeD(L2Manor.getInstance().getRewardItem(item.getItemDisplayId(), 2)); // reward 2 id
 
 			if (_castleCrops.containsKey(item.getItemId()))
 			{

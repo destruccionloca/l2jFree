@@ -25,7 +25,7 @@ public class RequestTutorialPassCmdToServer extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_bypass = readS();
-	} 
+	}
 	@Override
 	protected void runImpl()
 	{

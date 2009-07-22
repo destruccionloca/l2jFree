@@ -39,7 +39,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	
 	/**
 	 * packet type id 0x11
-	 * format:		cd 
+	 * format:		cd
 	 * @param decrypt
 	 */
 	@Override
@@ -51,7 +51,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_log.isDebugEnabled()) 
+		if (_log.isDebugEnabled())
 			_log.debug("request unequip slot " + _slot);
 
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -92,7 +92,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
 			return;
 
-		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
+		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
 
 		for (L2ItemInstance element : unequiped)
 		{

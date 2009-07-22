@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2EffectPointInstance extends L2Npc
 {
-	private L2Character _owner;
+	private final L2Character _owner;
 
 	public L2EffectPointInstance(int objectId, L2NpcTemplate template, L2Character owner)
 	{

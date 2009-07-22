@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -36,7 +36,7 @@ public class FactionMember
     // Data Field
     private int _playerId                      = 0;
     private int _factionId                     = 0;
-    private int _factionPoints                 = 0;    
+    private int _factionPoints                 = 0;
     private int _contributions                 = 0;
     private long _joinDate;
     private int _side;
@@ -184,7 +184,7 @@ public class FactionMember
         if(amount<getFactionPoints())
         {
             _factionPoints -= amount;
-            updateDb();            
+            updateDb();
             return true;
         }
 

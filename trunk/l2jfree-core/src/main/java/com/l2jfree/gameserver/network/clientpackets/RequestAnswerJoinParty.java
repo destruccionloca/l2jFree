@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.JoinParty;
 
 /**
  *  sample
- *  2a 
+ *  2a
  *  01 00 00 00
  * 
  *  format  cdd
@@ -55,7 +55,7 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 
 		requestor.sendPacket(new JoinParty(_response));
 
-		if (_response == 1) 
+		if (_response == 1)
 		{
 			if (requestor.getParty() != null)
 			{
@@ -72,7 +72,7 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 		{
 			requestor.sendPacket(SystemMessageId.PLAYER_DECLINED);
 
-			//activate garbage collection if there are no other members in party (happens when we were creating a new one) 
+			//activate garbage collection if there are no other members in party (happens when we were creating a new one)
 			if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1)
 				requestor.setParty(null);
 		}

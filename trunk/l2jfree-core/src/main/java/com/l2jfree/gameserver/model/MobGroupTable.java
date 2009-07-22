@@ -22,29 +22,29 @@ import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
  * @author littlecrow
  *
  */
-public class MobGroupTable 
+public class MobGroupTable
 {
-	private FastMap<Integer, MobGroup> _groupMap;
+	private final FastMap<Integer, MobGroup> _groupMap;
 
 	public static final int FOLLOW_RANGE = 300;
 	public static final int RANDOM_RANGE = 300;
 
-	private MobGroupTable() 
+	private MobGroupTable()
 	{
 		_groupMap = new FastMap<Integer, MobGroup>();
 	}
 
-	public static MobGroupTable getInstance() 
+	public static MobGroupTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
 
-	public void addGroup(int groupKey, MobGroup group) 
+	public void addGroup(int groupKey, MobGroup group)
 	{
 		_groupMap.put(groupKey, group);
 	}
 
-	public MobGroup getGroup(int groupKey) 
+	public MobGroup getGroup(int groupKey)
 	{
 		return _groupMap.get(groupKey);
 	}

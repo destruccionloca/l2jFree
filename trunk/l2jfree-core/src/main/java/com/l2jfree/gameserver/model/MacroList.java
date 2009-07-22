@@ -41,10 +41,10 @@ public class MacroList
 {
 	private final static Log _log = LogFactory.getLog(MacroList.class.getName());
 
-	private L2PcInstance _owner;
+	private final L2PcInstance _owner;
 	private int _revision;
 	private int _macroId;
-	private FastMap<Integer, L2Macro> _macroses = new FastMap<Integer, L2Macro>();
+	private final FastMap<Integer, L2Macro> _macroses = new FastMap<Integer, L2Macro>();
 
 	public MacroList(L2PcInstance owner)
 	{
@@ -155,7 +155,7 @@ public class MacroList
 		catch (Exception e)
 		{
 			_log.warn( "could not store macro:", e);
-		} 
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
@@ -181,7 +181,7 @@ public class MacroList
 		catch (Exception e)
 		{
 			_log.warn( "could not delete macro:", e);
-		} 
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
@@ -231,7 +231,7 @@ public class MacroList
 		catch (Exception e)
 		{
 			_log.warn( "could not store shortcuts:", e);
-		} 
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);

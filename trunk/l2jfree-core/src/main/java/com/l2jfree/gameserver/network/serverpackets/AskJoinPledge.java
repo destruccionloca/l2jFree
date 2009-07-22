@@ -24,8 +24,8 @@ public class AskJoinPledge extends L2GameServerPacket
 {
 	private static final String _S__2C_ASKJOINPLEDGE = "[S] 2c AskJoinPledge [ds]";
 
-	private int _requestorObjId;
-	private String _pledgeName;
+	private final int _requestorObjId;
+	private final String _pledgeName;
 
 	public AskJoinPledge(int requestorObjId, String pledgeName)
 	{

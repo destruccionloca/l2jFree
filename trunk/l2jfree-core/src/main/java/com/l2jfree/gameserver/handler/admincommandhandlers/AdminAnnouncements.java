@@ -98,7 +98,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 			}
 		}
 
-		// Command is admin announce 
+		// Command is admin announce
 		else if (command.startsWith("admin_announce"))
 		{
 			// Call method from another class

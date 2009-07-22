@@ -342,11 +342,11 @@ public class Wedding implements IVoicedCommandHandler
 
 	private static class EscapeFinalizer implements Runnable
 	{
-		private L2PcInstance	_activeChar;
-		private int				_partnerx;
-		private int				_partnery;
-		private int				_partnerz;
-		private boolean			_to7sDungeon;
+		private final L2PcInstance	_activeChar;
+		private final int				_partnerx;
+		private final int				_partnery;
+		private final int				_partnerz;
+		private final boolean			_to7sDungeon;
 
 		EscapeFinalizer(L2PcInstance activeChar, int x, int y, int z, boolean to7sDungeon)
 		{

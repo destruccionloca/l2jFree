@@ -22,9 +22,9 @@ import java.util.Map;
 public class ExGetBossRecord extends L2GameServerPacket
 {
 	private static final String		_S__FE_33_EXGETBOSSRECORD	= "[S] FE:34 ExGetBossRecord";
-	private Map<Integer, Integer>	_bossRecordInfo;
-	private int						_ranking;
-	private int						_totalPoints;
+	private final Map<Integer, Integer>	_bossRecordInfo;
+	private final int						_ranking;
+	private final int						_totalPoints;
 
 	public ExGetBossRecord(int ranking, int totalScore, Map<Integer, Integer> list)
 	{

@@ -45,10 +45,10 @@ public class PlayableStat extends CharStat
 		if (value < 0 && getLevel() <= minimumLevel && (getExp() + value) <= getExpForLevel(minimumLevel))
 			return true;
 
-		if ((getExp() + value) < 0 || getExp() == (getExpForLevel(Experience.MAX_LEVEL) - 1)) 
+		if ((getExp() + value) < 0 || getExp() == (getExpForLevel(Experience.MAX_LEVEL) - 1))
 			return true;
 		
-		if (getExp() + value >= getExpForLevel(Experience.MAX_LEVEL)) 
+		if (getExp() + value >= getExpForLevel(Experience.MAX_LEVEL))
 			value = getExpForLevel(Experience.MAX_LEVEL) - 1 - getExp();
 
 		setExp(getExp() + value);
@@ -150,7 +150,7 @@ public class PlayableStat extends CharStat
 
 	public boolean addSp(int value)
 	{
-		if (value < 0) 
+		if (value < 0)
 		{
 			_log.warn("PlayableStat.addSp("+value+") : Wrong usage!");
 			return false;

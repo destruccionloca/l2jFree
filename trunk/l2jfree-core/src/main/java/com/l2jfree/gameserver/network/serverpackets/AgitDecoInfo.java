@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.entity.ClanHall.ClanHallFunction;
 public class AgitDecoInfo extends L2GameServerPacket
 {
     private static final String _S__FD_AGITDECOINFO = "[S] fd AgitDecoInfo [dcccccccccccdd]";
-    private ClanHall _clanHall;
+    private final ClanHall _clanHall;
     private ClanHallFunction _function;
     public AgitDecoInfo(ClanHall ClanHall)
     {

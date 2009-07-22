@@ -65,7 +65,7 @@ public class RecipeController
 {
 	private final static Log									_log			= LogFactory.getLog(RecipeController.class.getName());
 
-	private Map<Integer, L2RecipeList>							_lists;
+	private final Map<Integer, L2RecipeList>							_lists;
 	protected static final Map<L2PcInstance, RecipeItemMaker>	_activeMakers	= Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
 	private static final String									RECIPES_FILE	= "recipes.xml";
 
@@ -835,11 +835,11 @@ public class RecipeController
 		 */
 		private class TempItem
 		{ // no object id stored, this will be only "list" of items with it's owner
-			private int		_itemId;
+			private final int		_itemId;
 			private long		_quantity;
-			private int		_ownerId;
-			private int		_referencePrice;
-			private String	_itemName;
+			private final int		_ownerId;
+			private final int		_referencePrice;
+			private final String	_itemName;
 
 			/**
 			 * @param item

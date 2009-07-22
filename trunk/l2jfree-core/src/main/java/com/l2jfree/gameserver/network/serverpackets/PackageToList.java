@@ -29,7 +29,7 @@ import java.util.Map;
 public class PackageToList extends L2GameServerPacket
 {
 	private static final String _S__C2_PACKAGETOLIST = "[S] C2 PackageToList";
-	private Map<Integer,String> _players;
+	private final Map<Integer,String> _players;
 	
 	// Lecter : i put a char list here, but i'm unsure these really are Pc. I duno how freight work tho...
 	public PackageToList(Map<Integer,String> players)

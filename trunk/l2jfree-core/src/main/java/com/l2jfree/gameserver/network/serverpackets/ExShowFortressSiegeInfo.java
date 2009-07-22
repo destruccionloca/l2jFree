@@ -28,9 +28,9 @@ public class ExShowFortressSiegeInfo extends L2GameServerPacket
 {
 	private final static String S_FE_17_EXSHOWFORTRESSSIEGEINFO = "[S] FE:17 ExShowFortressSiegeInfo";
 
-	private int _fortId;
-	private int _size;
-	private Fort _fort;
+	private final int _fortId;
+	private final int _size;
+	private final Fort _fort;
 
 	/**
 	 * @param fortId

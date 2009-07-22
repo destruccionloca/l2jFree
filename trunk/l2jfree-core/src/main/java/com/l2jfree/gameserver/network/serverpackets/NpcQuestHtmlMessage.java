@@ -124,7 +124,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public final class NpcQuestHtmlMessage extends L2GameServerPacket
 {
-	private int _npcObjId;
+	private final int _npcObjId;
 	private StringBuilder _builder;
 	private int _questId = 0;
 	

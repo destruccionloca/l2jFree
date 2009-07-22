@@ -38,7 +38,7 @@ public class TransformationManager
 		return SingletonHolder._instance;
 	}
 
-	private Map<Integer, L2Transformation>	_transformations;
+	private final Map<Integer, L2Transformation>	_transformations;
 
 	private TransformationManager()
 	{
@@ -47,12 +47,12 @@ public class TransformationManager
 
 	public void report()
 	{
-		_log.info("Loaded: " + this.getAllTransformations().size() + " transformations.");
+		_log.info("Loaded: " + getAllTransformations().size() + " transformations.");
 	}
 
 	public boolean transformPlayer(int id, L2PcInstance player)
 	{
-		L2Transformation template = this.getTransformationById(id);
+		L2Transformation template = getTransformationById(id);
 		if (template != null)
 		{
 			if (player.getPet() != null)

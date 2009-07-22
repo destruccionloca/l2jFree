@@ -37,8 +37,8 @@ public class DynamicExtension
 	private static final String								CONFIG	= "config/extensions.properties";
 	private Properties										_prop;
 	private ConcurrentHashMap<String, Object>				_loadedExtensions;
-	private ConcurrentHashMap<String, ExtensionFunction>	_getters;
-	private ConcurrentHashMap<String, ExtensionFunction>	_setters;
+	private final ConcurrentHashMap<String, ExtensionFunction>	_getters;
+	private final ConcurrentHashMap<String, ExtensionFunction>	_setters;
 
 	/**
 	 * create an instance of DynamicExtension this will be done by GameServer

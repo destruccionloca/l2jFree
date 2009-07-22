@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class AutoAttackStart extends L2GameServerPacket
 {
 	private static final String _S__25_AUTOATTACKSTART = "[S] 25 AutoAttackStart [d]";
-	private int _targetObjId;
+	private final int _targetObjId;
 
 	/**
 	 * @param _characters

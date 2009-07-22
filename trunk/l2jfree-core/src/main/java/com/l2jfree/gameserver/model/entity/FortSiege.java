@@ -68,7 +68,7 @@ public class FortSiege extends AbstractSiege
 	// Schedule task
 	public class ScheduleEndSiegeTask implements Runnable
 	{
-		private Fort	_fortInst;
+		private final Fort	_fortInst;
 
 		public ScheduleEndSiegeTask(Fort pFort)
 		{
@@ -93,8 +93,8 @@ public class FortSiege extends AbstractSiege
 
 	public class ScheduleStartSiegeTask implements Runnable
 	{
-		private Fort _fortInst;
-		private int _time;
+		private final Fort _fortInst;
+		private final int _time;
 
 		public ScheduleStartSiegeTask(Fort pFort, int time)
 		{
@@ -165,7 +165,7 @@ public class FortSiege extends AbstractSiege
 
 	public class ScheduleSuspicoiusMerchantSpawn implements Runnable
 	{
-		private Fort _fortInst;
+		private final Fort _fortInst;
 		
 		public ScheduleSuspicoiusMerchantSpawn(Fort pFort)
 		{
@@ -190,7 +190,7 @@ public class FortSiege extends AbstractSiege
 
 	public class ScheduleSiegeRestore implements Runnable
 	{
-		private Fort _fortInst;
+		private final Fort _fortInst;
 		
 		public ScheduleSiegeRestore(Fort pFort)
 		{
@@ -218,12 +218,12 @@ public class FortSiege extends AbstractSiege
 	// =========================================================
 	// Data Field
 	// Attacker and Defender
-	private List<L2SiegeClan>			_attackerClans			= new FastList<L2SiegeClan>();			// L2SiegeClan
+	private final List<L2SiegeClan>			_attackerClans			= new FastList<L2SiegeClan>();			// L2SiegeClan
 
 	// Fort setting
 	protected FastMap<Integer, FastList<L2Spawn>> _commanders = new FastMap<Integer, FastList<L2Spawn>>();
 	protected FastList<L2Spawn>			_commandersSpawns;
-	private Fort[]						_fort;
+	private final Fort[]						_fort;
 	private boolean						_isInProgress			= false;
 	private FortSiegeGuardManager		_siegeGuardManager;
 	private ScheduledFuture<?>			_siegeEnd = null;

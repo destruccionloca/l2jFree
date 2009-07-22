@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class ChatPetition implements IChatHandler
 {
-	private SystemChatChannelId[]	_chatTypes	=
+	private final SystemChatChannelId[]	_chatTypes	=
 												{ SystemChatChannelId.Chat_GM_Pet, SystemChatChannelId.Chat_User_Pet };
 
 	/**

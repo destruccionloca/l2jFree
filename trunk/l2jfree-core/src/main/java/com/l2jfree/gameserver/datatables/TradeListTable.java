@@ -39,12 +39,12 @@ public class TradeListTable
 	private final static Log				_log	= LogFactory.getLog(TradeListTable.class.getName());
 
 	private int								_nextListId;
-	private FastMap<Integer, L2TradeList>	_lists = new FastMap<Integer, L2TradeList>();
+	private final FastMap<Integer, L2TradeList>	_lists = new FastMap<Integer, L2TradeList>();
 
 	/** Task launching the function for restore count of Item (Clan Hall) */
 	public class RestoreCount implements Runnable
 	{
-		private int	timer;
+		private final int	timer;
 
 		public RestoreCount(int time)
 		{

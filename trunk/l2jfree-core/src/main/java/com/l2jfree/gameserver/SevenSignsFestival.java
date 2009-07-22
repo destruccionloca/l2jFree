@@ -734,8 +734,8 @@ public class SevenSignsFestival implements SpawnListener
 	protected Map<Integer, List<L2PcInstance>>		_dawnPreviousParticipants;
 	protected Map<Integer, List<L2PcInstance>>		_duskPreviousParticipants;
 
-	private Map<Integer, Long>						_dawnFestivalScores;
-	private Map<Integer, Long>						_duskFestivalScores;
+	private final Map<Integer, Long>						_dawnFestivalScores;
+	private final Map<Integer, Long>						_duskFestivalScores;
 
 	/**
 	 * _festivalData is essentially an instance of the seven_signs_festival table and should be treated as such. Data is initially accessed by the related Seven
@@ -743,7 +743,7 @@ public class SevenSignsFestival implements SpawnListener
 	 * These are accessed by the use of an offset based on the number of festivals, thus: offset = FESTIVAL_COUNT + festivalId (Data for Dawn is always accessed
 	 * by offset > FESTIVAL_COUNT)
 	 */
-	private Map<Integer, Map<Integer, StatsSet>>	_festivalData;
+	private final Map<Integer, Map<Integer, StatsSet>>	_festivalData;
 
 	private SevenSignsFestival()
 	{
@@ -2002,10 +2002,10 @@ public class SevenSignsFestival implements SpawnListener
 		private FestivalSpawn						_witchSpawn;
 
 		private L2Npc								_witchInst;
-		private List<L2FestivalMonsterInstance>		_npcInsts;
+		private final List<L2FestivalMonsterInstance>		_npcInsts;
 
 		private List<L2PcInstance>					_participants;
-		private Map<L2PcInstance, FestivalSpawn>	_originalLocations;
+		private final Map<L2PcInstance, FestivalSpawn>	_originalLocations;
 
 		protected L2DarknessFestival(int cabal, int levelRange)
 		{

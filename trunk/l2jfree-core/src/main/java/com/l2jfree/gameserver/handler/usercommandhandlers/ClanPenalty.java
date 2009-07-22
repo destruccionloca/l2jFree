@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
- * Support for clan penalty user command.  
+ * Support for clan penalty user command.
  * @author Tempy
  */
 public class ClanPenalty implements IUserCommandHandler

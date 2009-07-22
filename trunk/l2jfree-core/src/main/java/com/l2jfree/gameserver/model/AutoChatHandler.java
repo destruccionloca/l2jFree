@@ -337,7 +337,7 @@ public class AutoChatHandler implements SpawnListener
 		private boolean _globalChat = false;
 		private boolean _isActive;
 
-		private FastMap<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
+		private final FastMap<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
 		protected ScheduledFuture<?> _chatTask;
 
 		protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, int chatRange, boolean chatRandom, boolean isGlobal)
@@ -749,8 +749,8 @@ public class AutoChatHandler implements SpawnListener
 		 */
 		private class AutoChatRunner implements Runnable
 		{
-			private int _runnerNpcId;
-			private int _objectId;
+			private final int _runnerNpcId;
+			private final int _objectId;
 
 			protected AutoChatRunner(int pNpcId, int pObjectId)
 			{

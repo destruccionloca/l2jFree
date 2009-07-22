@@ -71,7 +71,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	 */
 	public static class NpcInfo extends AbstractNpcInfo
 	{
-		private L2Npc _npc;
+		private final L2Npc _npc;
 
 		public NpcInfo(L2Npc cha)
 		{
@@ -183,7 +183,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 
 	public static class TrapInfo extends AbstractNpcInfo
 	{
-		private L2Trap _trap;
+		private final L2Trap _trap;
 
 		public TrapInfo(L2Trap cha)
 		{
@@ -281,7 +281,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	 */
 	public static class DecoyInfo extends AbstractNpcInfo
 	{
-		private L2Decoy _decoy;
+		private final L2Decoy _decoy;
 
 		public DecoyInfo(L2Decoy cha)
 		{
@@ -505,7 +505,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 				writeD(0x00);
 				writeD(0x00);
 				writeD(0x00);
-			}			
+			}
 		}
 
 		@Override
@@ -523,7 +523,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	 */
 	public static class SummonInfo extends AbstractNpcInfo
 	{
-		private L2Summon _summon;
+		private final L2Summon _summon;
 		private int _form = 0;
 		private int _val = 0;
 
@@ -663,8 +663,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	 */
 	public static class PcMorphInfo extends AbstractNpcInfo
 	{
-		private L2PcInstance	_pc;
-		private L2NpcTemplate	_template;
+		private final L2PcInstance	_pc;
+		private final L2NpcTemplate	_template;
 
 		public PcMorphInfo(L2PcInstance cha, L2NpcTemplate template)
 		{
@@ -687,7 +687,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);
 			writeD(_mAtkSpd);
 			writeD(_pAtkSpd);
-			writeD(_runSpd); 
+			writeD(_runSpd);
 			writeD(_walkSpd);
 			writeD(_swimRunSpd); // swimspeed
 			writeD(_swimWalkSpd); // swimspeed

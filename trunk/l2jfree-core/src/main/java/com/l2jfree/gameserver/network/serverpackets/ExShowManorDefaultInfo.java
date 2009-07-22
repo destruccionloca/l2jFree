@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.model.L2Manor;
  * d  - seed price
  * d  - seed level
  * d  - crop price
- * c 
+ * c
  * d  - reward 1 id
  * c
  * d  - reward 2 id

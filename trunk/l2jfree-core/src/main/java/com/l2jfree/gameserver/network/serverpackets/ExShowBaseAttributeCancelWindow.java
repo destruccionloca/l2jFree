@@ -21,7 +21,7 @@ public class ExShowBaseAttributeCancelWindow extends L2GameServerPacket
 {
 	private static final String		_S__FE_74_EXCSHOWBASEATTRIBUTECANCELWINDOW = "[S] FE:74 ExShowBaseAttributeCancelWindow";
 
-	private L2ItemInstance[]		_items;
+	private final L2ItemInstance[]		_items;
 
 	public ExShowBaseAttributeCancelWindow(L2PcInstance player)
 	{

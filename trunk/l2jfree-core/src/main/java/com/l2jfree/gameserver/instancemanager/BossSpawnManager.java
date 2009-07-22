@@ -62,7 +62,7 @@ public abstract class BossSpawnManager
 
 	private class SpawnTask implements Runnable
 	{
-		private int	bossId;
+		private final int	bossId;
 
 		public SpawnTask(int npcId)
 		{

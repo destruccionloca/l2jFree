@@ -33,10 +33,10 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 	public static final int		FREIGHT							= 1;
 	private final static Log	_log							= LogFactory.getLog(WareHouseWithdrawalList.class.getName());
 	private static final String	_S__54_WAREHOUSEWITHDRAWALLIST	= "[S] 42 WareHouseWithdrawalList";
-	private L2PcInstance		_activeChar;
-	private long				_activeCharAdena;
-	private L2ItemInstance[]	_items;
-	private int					_whType;
+	private final L2PcInstance		_activeChar;
+	private final long				_activeCharAdena;
+	private final L2ItemInstance[]	_items;
+	private final int					_whType;
 
 	public WareHouseWithdrawalList(L2PcInstance player, int type)
 	{
@@ -48,9 +48,10 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 		{
 			// Something went wrong!
 			_log.warn("error while sending withdraw request to: " + _activeChar.getName());
-			return;
+			_items = L2ItemInstance.EMPTY_ARRAY;
 		}
-		_items = _activeChar.getActiveWarehouse().getItems();
+		else
+			_items = _activeChar.getActiveWarehouse().getItems();
 
 		if (_log.isDebugEnabled())
 			for (L2ItemInstance item : _items)

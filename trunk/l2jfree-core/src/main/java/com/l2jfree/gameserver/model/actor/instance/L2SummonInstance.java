@@ -191,18 +191,18 @@ public class L2SummonInstance extends L2Summon
 			_summonConsumeTask = null;
 		}
 		
-		if (this.getOwner() != null && this.getOwner().getActiveWeaponInstance() != null)
+		if (getOwner() != null && getOwner().getActiveWeaponInstance() != null)
 		{
-			this.getOwner().getActiveWeaponInstance().updateElementAttrBonus(this.getOwner());
-			this.getOwner().sendPacket(new UserInfo(this.getOwner()));
+			getOwner().getActiveWeaponInstance().updateElementAttrBonus(getOwner());
+			getOwner().sendPacket(new UserInfo(getOwner()));
 		}
 		return true;
 	}
 
 	static class SummonConsume implements Runnable
 	{
-		private L2PcInstance		_activeChar;
-		private L2SummonInstance	_summon;
+		private final L2PcInstance		_activeChar;
+		private final L2SummonInstance	_summon;
 
 		SummonConsume(L2PcInstance activeChar, L2SummonInstance newpet)
 		{
@@ -288,10 +288,10 @@ public class L2SummonInstance extends L2Summon
 
 		super.unSummon(owner);
 
-		if (this.getOwner() != null && this.getOwner().getActiveWeaponInstance() != null)
+		if (getOwner() != null && getOwner().getActiveWeaponInstance() != null)
 		{
-			this.getOwner().getActiveWeaponInstance().updateElementAttrBonus(this.getOwner());
-			this.getOwner().sendPacket(new UserInfo(this.getOwner()));
+			getOwner().getActiveWeaponInstance().updateElementAttrBonus(getOwner());
+			getOwner().sendPacket(new UserInfo(getOwner()));
 		}
 
 	}

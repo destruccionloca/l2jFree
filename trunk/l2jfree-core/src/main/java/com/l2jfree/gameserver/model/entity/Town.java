@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 
 public class Town extends Entity
 {
-	private L2MapRegion _region;
+	private final L2MapRegion _region;
 
 	public Town(L2Zone zone)
 	{

@@ -26,6 +26,7 @@ import java.util.StringTokenizer;
 import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -210,7 +211,7 @@ public class L2BoatInstance extends L2Character
 		}
 	}
 
-	private String						_name;
+	private final String						_name;
 	protected L2BoatTrajet				_t1;
 	protected L2BoatTrajet				_t2;
 	protected int						_cycle	= 0;
@@ -342,8 +343,8 @@ public class L2BoatInstance extends L2Character
 
 	private class BoatCaptain implements Runnable
 	{
-		private int				_state;
-		private L2BoatInstance	_boat;
+		private final int				_state;
+		private final L2BoatInstance	_boat;
 
 		/**
 		 * @param i
@@ -401,7 +402,7 @@ public class L2BoatInstance extends L2Character
 	private class Boatrun implements Runnable
 	{
 		private int				_state;
-		private L2BoatInstance	_boat;
+		private final L2BoatInstance	_boat;
 
 		/**
 		 * @param i

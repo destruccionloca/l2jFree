@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PostBBSManager extends BaseBBSManager
 {
 
-	private Map<Topic,Post> _postByTopic;
+	private final Map<Topic,Post> _postByTopic;
 
 	public static PostBBSManager getInstance()
 	{

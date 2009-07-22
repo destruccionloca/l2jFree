@@ -20,8 +20,8 @@ package com.l2jfree.gameserver.network.serverpackets;
  */
 public class ExBrBroadcastEventState extends L2GameServerPacket
 {
-	private int _eventId;
-	private int _eventState;
+	private final int _eventId;
+	private final int _eventState;
 
 	public ExBrBroadcastEventState(int eventId, int eventState)
 	{

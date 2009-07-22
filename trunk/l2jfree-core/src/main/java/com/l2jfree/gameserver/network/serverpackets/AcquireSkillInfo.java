@@ -19,8 +19,8 @@ import javolution.util.FastList;
 public class AcquireSkillInfo extends L2GameServerPacket
 {
     private static final String _S__91_AQUIRESKILLINFO = "[S] 91 AquireSkillInfo [dddd d (dddd)]";
-    private FastList<Req> _reqs;
-    private int _id, _level, _spCost, _mode;    
+    private final FastList<Req> _reqs;
+    private final int _id, _level, _spCost, _mode;
     
 	private class Req
     {
@@ -45,7 +45,7 @@ public class AcquireSkillInfo extends L2GameServerPacket
         _level = level;
         _spCost = spCost;
         _mode = mode;
-    }   
+    }
     
     public void addRequirement(int type, int id, int count, int unk)
     {
@@ -79,5 +79,5 @@ public class AcquireSkillInfo extends L2GameServerPacket
     public String getType()
     {
         return _S__91_AQUIRESKILLINFO;
-    }   
+    }
 }

@@ -998,7 +998,7 @@ public class LastImperialTombManager extends BossLair
 	private class AnnouncementRegstrationInfo implements Runnable
 	{
 		private L2Npc	_npc	= null;
-		private int				_remaining;
+		private final int				_remaining;
 
 		public AnnouncementRegstrationInfo(L2Npc npc, int remaining)
 		{
@@ -1022,7 +1022,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class CheckTimeUp implements Runnable
 	{
-		private int	_remaining;
+		private final int	_remaining;
 
 		public CheckTimeUp(int remaining)
 		{

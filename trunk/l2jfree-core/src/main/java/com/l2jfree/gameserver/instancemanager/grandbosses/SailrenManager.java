@@ -347,8 +347,8 @@ public class SailrenManager extends BossLair
 	// Spawn monster.
 	private class SailrenSpawn implements Runnable
 	{
-		private int				_npcId;
-		private L2CharPosition	_pos	= new L2CharPosition(27628, -6109, -1982, 44732);
+		private final int				_npcId;
+		private final L2CharPosition	_pos	= new L2CharPosition(27628, -6109, -1982, 44732);
 
 		public SailrenSpawn(int npcId)
 		{
@@ -488,8 +488,8 @@ public class SailrenManager extends BossLair
 	// Social.
 	private class Social implements Runnable
 	{
-		private int				_action;
-		private L2Npc	_npc;
+		private final int				_action;
+		private final L2Npc	_npc;
 
 		public Social(L2Npc npc, int actionId)
 		{

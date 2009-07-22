@@ -82,22 +82,22 @@ public class L2Multisell
 	/**
 	 * This will generate the multisell list for the items.  There exist various
 	 * parameters in multisells that affect the way they will appear:
-	 * 1) inventory only: 
+	 * 1) inventory only:
 	 * 		* if true, only show items of the multisell for which the
 	 * 		  "primary" ingredients are already in the player's inventory.  By "primary"
-	 * 		  ingredients we mean weapon and armor. 
+	 * 		  ingredients we mean weapon and armor.
 	 * 		* if false, show the entire list.
-	 * 2) maintain enchantment: presumably, only lists with "inventory only" set to true 
+	 * 2) maintain enchantment: presumably, only lists with "inventory only" set to true
 	 * 		should sometimes have this as true.  This makes no sense otherwise...
 	 * 		* If true, then the product will match the enchantment level of the ingredient.
 	 * 		  if the player has multiple items that match the ingredient list but the enchantment
-	 * 		  levels differ, then the entries need to be duplicated to show the products and 
+	 * 		  levels differ, then the entries need to be duplicated to show the products and
 	 * 		  ingredients for each enchantment level.
 	 * 		  For example: If the player has a crystal staff +1 and a crystal staff +3 and goes
-	 * 		  to exchange it at the mammon, the list should have all exchange possibilities for 
+	 * 		  to exchange it at the mammon, the list should have all exchange possibilities for
 	 * 		  the +1 staff, followed by all possibilities for the +3 staff.
 	 * 		* If false, then any level ingredient will be considered equal and product will always
-	 * 		  be at +0 		
+	 * 		  be at +0
 	 * 3) apply taxes: Uses the "taxIngredient" entry in order to add a certain amount of adena to the ingredients
 	 */
 	private MultiSellListContainer generateMultiSell(int listId, boolean inventoryOnly, L2PcInstance player, int npcId, double taxRate)
@@ -117,16 +117,16 @@ public class L2Multisell
 				return list;
 			
 			L2ItemInstance[] items;
-			if (listTemplate.getMaintainEnchantment()) 
+			if (listTemplate.getMaintainEnchantment())
 				items = player.getInventory().getUniqueItemsByEnchantLevel(false,false,false);
-			else 
+			else
 				items = player.getInventory().getUniqueItems(false,false,false);
 				
 			int enchantLevel;
 			for (L2ItemInstance item : items)
 			{
 				// only do the matchup on equipable items that are not currently equipped
-				// so for each appropriate item, produce a set of entries for the multisell list. 
+				// so for each appropriate item, produce a set of entries for the multisell list.
 				if (!item.isWear() && (item.getItem() instanceof L2Armor || item.getItem() instanceof L2Weapon))
 				{
 					enchantLevel = (listTemplate.getMaintainEnchantment()? item.getEnchantLevel() : 0);
@@ -169,11 +169,11 @@ public class L2Multisell
 	}
 
 	// Regarding taxation, the following is the case:
-	// a) The taxes come out purely from the adena TaxIngredient 
+	// a) The taxes come out purely from the adena TaxIngredient
 	// b) If the entry has no adena ingredients other than the taxIngredient, the resulting
 	//    amount of adena is appended to the entry
 	// c) If the entry already has adena as an entry, the taxIngredient is used in order to increase
-	//	  the count for the existing adena ingredient 
+	//	  the count for the existing adena ingredient
 	private MultiSellEntry prepareEntry(MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantLevel, int augmentId, int mana, double taxRate)
 	{
 		MultiSellEntry newEntry = L2Multisell.getInstance().new MultiSellEntry();
@@ -267,8 +267,8 @@ public class L2Multisell
 	{
 		private int _entryId;
 
-		private List<MultiSellIngredient> _products = new FastList<MultiSellIngredient>();
-		private List<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
+		private final List<MultiSellIngredient> _products = new FastList<MultiSellIngredient>();
+		private final List<MultiSellIngredient> _ingredients = new FastList<MultiSellIngredient>();
 
 		/**
 		 * @param entryId The entryId to set.
@@ -638,7 +638,7 @@ public class L2Multisell
 				int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 				long count = Long.parseLong(n.getAttributes().getNamedItem("count").getNodeValue());
 				
-				MultiSellIngredient e = new MultiSellIngredient(id, count, false, false); 
+				MultiSellIngredient e = new MultiSellIngredient(id, count, false, false);
 				entry.addProduct(e);
 			}
 		}

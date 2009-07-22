@@ -42,7 +42,7 @@ public class DuelManager
 
 	// =========================================================
 	// Data Field
-	private FastList<Duel>	_duels;
+	private final FastList<Duel>	_duels;
 	private int				_currentDuelId	= 0x90;
 
 	// =========================================================

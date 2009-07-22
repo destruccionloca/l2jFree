@@ -23,7 +23,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class RestartResponse extends L2GameServerPacket
 {
 	private static final String _S__74_RESTARTRESPONSE = "[S] 74 RestartResponse";
-	private String _message;
+	private final String _message;
 
 	public RestartResponse()
 	{

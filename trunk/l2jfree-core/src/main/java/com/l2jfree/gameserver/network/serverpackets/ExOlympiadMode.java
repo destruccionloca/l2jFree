@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExOlympiadMode extends L2GameServerPacket
 {
 	private static final String _S__FE_7C_OLYMPIADMODE = "[S] FE:7c ExOlympiadMode [c]";
-	private int _mode;
+	private final int _mode;
 
 	/**
 	 * @param _mode (0 = return, 3 = spectate)
@@ -47,4 +47,4 @@ public class ExOlympiadMode extends L2GameServerPacket
 	{
 		return _S__FE_7C_OLYMPIADMODE;
 	}
-}	
+}

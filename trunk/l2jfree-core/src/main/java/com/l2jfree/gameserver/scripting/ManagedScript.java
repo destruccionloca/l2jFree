@@ -26,7 +26,7 @@ import javax.script.ScriptException;
  */
 public abstract class ManagedScript
 {
-	private File	_scriptFile;
+	private final File	_scriptFile;
 	private long	_lastLoadTime;
 	private boolean	_isActive;
 

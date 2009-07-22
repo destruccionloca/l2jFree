@@ -35,11 +35,13 @@ public class CharSelectionInfo extends L2GameServerPacket
 {
 	private static final String _S__09_CHARSELECTINFO = "[S] 09 CharSelectInfo [ddc (sdsddd dddd ddd ff d q ddddd dddddddddddddddddddddddddddddddddd ff ddd hh d)]";
 
-	private String _loginName;
+	private final String _loginName;
 
-	private int _sessionId, _activeId;
+	private final int _sessionId;
 
-	private CharSelectInfoPackage[] _characterPackages;
+	private int _activeId;
+
+	private final CharSelectInfoPackage[] _characterPackages;
 
 	/**
 	 * @param _characters

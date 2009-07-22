@@ -21,10 +21,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 
  * @version $Revision: 1.4.2.1.2.5 $ $Date: 2005/03/27 15:29:39 $
  */
-public class PartySmallWindowUpdate extends L2GameServerPacket 
+public class PartySmallWindowUpdate extends L2GameServerPacket
 {
 	private static final String _S__67_PARTYSMALLWINDOWUPDATE = "[S] 52 PartySmallWindowUpdate";
-	private L2PcInstance _member;
+	private final L2PcInstance _member;
 	
 	public PartySmallWindowUpdate(L2PcInstance member)
 	{

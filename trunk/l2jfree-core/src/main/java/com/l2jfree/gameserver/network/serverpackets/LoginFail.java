@@ -35,7 +35,7 @@ public class LoginFail extends L2GameServerPacket
 	public static final int ACCESS_FAILED_TRY_LATER4 = 9;
 	public static final int ACCESS_FAILED_TRY_LATER5 = 10;
 
-	private int _reason;
+	private final int _reason;
 
 	/**
 	 * @param _characters

@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class TutorialShowQuestionMark extends L2GameServerPacket
 {
 	private static final String _S__A7_TUTORIALSHOWQUESTIONMARK = "[S] a7 TutorialShowQuestionMark";
-	private int _mark;
+	private final int _mark;
 
 	public TutorialShowQuestionMark(int mark)
 	{

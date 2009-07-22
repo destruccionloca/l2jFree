@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * @author 
+ * @author
  *
  */
 public class AdminRide implements IAdminCommandHandler

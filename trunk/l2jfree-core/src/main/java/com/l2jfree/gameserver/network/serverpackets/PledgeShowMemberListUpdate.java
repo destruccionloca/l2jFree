@@ -25,16 +25,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PledgeShowMemberListUpdate extends L2GameServerPacket
 {
 	private static final String _S__54_PLEDGESHOWMEMBERLISTUPDATE = "[S] 54 PledgeShowMemberListUpdate";
-	private L2PcInstance _activeChar;
-	private int _pledgeType;
+	private final L2PcInstance _activeChar;
+	private final int _pledgeType;
 	private int _hasSponsor;
-	private String _name;
-	private int _level;
-	private int _classId;
-	private int _objectId;
-	private boolean _isOnline;
-	private int _race;
-	private int _sex;
+	private final String _name;
+	private final int _level;
+	private final int _classId;
+	private final int _objectId;
+	private final boolean _isOnline;
+	private final int _race;
+	private final int _sex;
 
 	public PledgeShowMemberListUpdate(L2PcInstance player)
 	{
@@ -64,9 +64,9 @@ public class PledgeShowMemberListUpdate extends L2GameServerPacket
 		_pledgeType = player.getSubPledgeType();
 		_race = player.getRace();
 		_sex = player.getSex();
-		if (_pledgeType == L2Clan.SUBUNIT_ACADEMY) 
+		if (_pledgeType == L2Clan.SUBUNIT_ACADEMY)
 			_hasSponsor = player.getSponsor() != 0 ? 1 : 0;
-		else 
+		else
 			_hasSponsor = 0;
 	}
 

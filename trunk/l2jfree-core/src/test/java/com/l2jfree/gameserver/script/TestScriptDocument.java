@@ -48,7 +48,7 @@ public class TestScriptDocument extends TestCase
         
         assertNull(sd.getDocument());
         assertEquals("test",sd.toString());
-    }    
+    }
     
     
 }

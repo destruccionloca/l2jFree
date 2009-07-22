@@ -48,7 +48,7 @@ public class ClanTable
 {
 	private static final Log		_log	= LogFactory.getLog(ClanTable.class.getName());
 
-	private Map<Integer, L2Clan>	_clans;
+	private final Map<Integer, L2Clan>	_clans;
 
 	public static ClanTable getInstance()
 	{

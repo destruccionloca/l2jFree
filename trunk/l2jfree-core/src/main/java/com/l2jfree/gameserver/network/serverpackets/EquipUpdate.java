@@ -22,8 +22,8 @@ public class EquipUpdate extends L2GameServerPacket
 {
 	private static final String _S__4B_EQUIPUPDATE = "[S] 4b EquipUpdate [ddd]";
 	
-	private L2ItemInstance _item;
-	private int _change;
+	private final L2ItemInstance _item;
+	private final int _change;
 	
 
 	public EquipUpdate(L2ItemInstance item, int change)
@@ -88,7 +88,7 @@ public class EquipUpdate extends L2GameServerPacket
 				break;
 			case L2Item.SLOT_BELT:
 				bodypart = 0x10;
-				break;				
+				break;
 		}
 		
 		if (_log.isDebugEnabled()) _log.info("body:" +bodypart);

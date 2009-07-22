@@ -42,11 +42,11 @@ public class GeoEditorThread extends Thread
 	// intervals of _sendDelay ms.
 	private int						_sendDelay	= 1000;												// default - once in second
 
-	private Socket					_geSocket;
+	private final Socket					_geSocket;
 
 	private OutputStream			_out;
 
-	private FastList<L2PcInstance>	_gms;
+	private final FastList<L2PcInstance>	_gms;
 
 	public GeoEditorThread(Socket ge)
 	{

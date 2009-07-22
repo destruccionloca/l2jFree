@@ -17,13 +17,13 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class RadarControl extends L2GameServerPacket
 {
     private static final String _S__EB_RadarControl = "[S] EB RadarControl";
-    private int _showRadar;
-    private int _type;
-    private int _x;
-    private int _y;
-    private int _z;
+    private final int _showRadar;
+    private final int _type;
+    private final int _x;
+    private final int _y;
+    private final int _z;
     /**
-     * 0xEB RadarControl         ddddd 
+     * 0xEB RadarControl         ddddd
      * @param _
      */
 

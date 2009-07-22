@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-/** 
+/**
  * @author evill33t
  * 
  */

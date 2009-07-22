@@ -228,7 +228,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 				xml += (price > 0) ? "  <!-- (" + itemName + ":Id " + itemId + ") for (" + price + " adena) --> \n" : "  <!-- (" + itemName + ":Id " + itemId
 						+ ") --> \n";
-				// *DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS in order to leave spaces between the items... 
+				// *DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS in order to leave spaces between the items...
 				// Easier to modify later...
 				xml += "  <item id=\"" + count * DEFAULT_SPACES_BETWEEN_MULTISELL_LIST_ITEMS + "\">\n";
 
@@ -1513,9 +1513,9 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 				continue;
 
 			int itemId = item.getItemId();
-			for (int x = 0; x < array.length; x++)
+			for (String finalElement : array)
 			{
-				String[] param = array[x].split(splitting);
+				String[] param = finalElement.split(splitting);
 
 				if (param.length != 3)
 					continue;
@@ -1525,7 +1525,7 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 
 				if (itemId == id)
 				{
-					newArray.add(array[x]);
+					newArray.add(finalElement);
 				}
 			}
 		}

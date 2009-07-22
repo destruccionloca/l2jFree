@@ -28,7 +28,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 class OlympiadManager implements Runnable
 {
-	private Map<Integer, OlympiadGame>			_olympiadInstances;
+	private final Map<Integer, OlympiadGame>			_olympiadInstances;
 
 	protected static final OlympiadStadium[]	STADIUMS	= {
 			new OlympiadStadium(-88000, -252637, -3331, 17100001, 17100002),

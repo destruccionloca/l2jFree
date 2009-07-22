@@ -29,7 +29,7 @@ public class Ride extends L2GameServerPacket
     private final int _x, _y, _z;
 
     /**
-     * 0x86 UnknownPackets         dddd 
+     * 0x86 UnknownPackets         dddd
      * @param _
      */
 

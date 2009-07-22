@@ -35,7 +35,7 @@ public class State
 	public final static byte STARTED = 1;
 	public final static byte COMPLETED = 2;
 
-	// discover the string representation of the state, for readable DB storage 
+	// discover the string representation of the state, for readable DB storage
 	public static String getStateName(byte state)
 	{
 		switch (state)
@@ -53,6 +53,6 @@ public class State
 			return 1;
 		if(statename.equals("Completed"))
 			return 2;
-		return 0;  
+		return 0;
 	}
 }

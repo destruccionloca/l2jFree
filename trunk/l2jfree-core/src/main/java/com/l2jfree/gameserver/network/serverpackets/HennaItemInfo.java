@@ -21,8 +21,8 @@ public class HennaItemInfo extends L2GameServerPacket
 {
 	private static final String	_S__E3_HennaItemInfo	= "[S] E3 HennaItemInfo";
 
-	private L2PcInstance		_activeChar;
-	private L2Henna				_henna;
+	private final L2PcInstance		_activeChar;
+	private final L2Henna				_henna;
 
 	public HennaItemInfo(L2Henna henna, L2PcInstance player)
 	{
@@ -39,7 +39,7 @@ public class HennaItemInfo extends L2GameServerPacket
 		writeD(_henna.getItemId()); //item id of dye
 		writeCompQ(_henna.getAmount()); // total amount of dye require
 		writeCompQ(_henna.getPrice()); //total amount of aden require to draw symbol
-		writeD(1); //able to draw or not 0 is false and 1 is true 
+		writeD(1); //able to draw or not 0 is false and 1 is true
 		writeCompQ(_activeChar.getAdena());
 
 		writeD(_activeChar.getINT()); //current INT

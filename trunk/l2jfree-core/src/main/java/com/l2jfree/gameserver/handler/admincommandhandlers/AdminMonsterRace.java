@@ -103,8 +103,8 @@ public class AdminMonsterRace implements IAdminCommandHandler
 	class RunRace implements Runnable
 	{
 
-		private int[][]			codes;
-		private L2PcInstance	activeChar;
+		private final int[][]			codes;
+		private final L2PcInstance	activeChar;
 
 		public RunRace(int[][] pCodes, L2PcInstance pActiveChar)
 		{
@@ -138,11 +138,11 @@ public class AdminMonsterRace implements IAdminCommandHandler
 
 	class RunEnd implements Runnable
 	{
-		private L2PcInstance	activeChar;
+		private final L2PcInstance	activeChar;
 
 		public RunEnd(L2PcInstance pActiveChar)
 		{
-			this.activeChar = pActiveChar;
+			activeChar = pActiveChar;
 		}
 
 		public void run()

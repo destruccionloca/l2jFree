@@ -88,16 +88,16 @@ public final class DoorTable
 				// devils (every 5 minutes)
 				else if (door.getDoorName().startsWith("pirate_isle"))
 					door.setAutoActionDelay(300000);
-				// Cruma Tower (every 20 minutes) 
+				// Cruma Tower (every 20 minutes)
 				else if (door.getDoorName().startsWith("cruma"))
 					door.setAutoActionDelay(1200000);
-				// Coral Garden Gate (every 15 minutes) 
+				// Coral Garden Gate (every 15 minutes)
 				else if (door.getDoorName().startsWith("Coral_garden"))
 					door.setAutoActionDelay(900000);
-				// Normil's cave (every 5 minutes) 
+				// Normil's cave (every 5 minutes)
 				else if (door.getDoorName().startsWith("Normils_cave"))
 					door.setAutoActionDelay(300000);
-				// Normil's Garden (every 15 minutes) 
+				// Normil's Garden (every 15 minutes)
 				else if (door.getDoorName().startsWith("Normils_garden"))
 					door.setAutoActionDelay(900000);
 				*/
@@ -291,7 +291,7 @@ public final class DoorTable
 				if (y <= doorInst.getYMax() && ty >= doorInst.getYMin() || ty <= doorInst.getYMax() && y >= doorInst.getYMin())
 				{
 					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
-					// in some cases the direct line check (only) in the beginning isn't sufficient, 
+					// in some cases the direct line check (only) in the beginning isn't sufficient,
 					// when char z changes a lot along the path
 					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.getOpen())
 					{

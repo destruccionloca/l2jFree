@@ -76,8 +76,8 @@ public class L2DecoyInstance extends L2Decoy
     
     static class DecoyLifetime implements Runnable
     {
-        private L2PcInstance _activeChar;
-        private L2DecoyInstance _Decoy;
+        private final L2PcInstance _activeChar;
+        private final L2DecoyInstance _Decoy;
         
         DecoyLifetime(L2PcInstance activeChar, L2DecoyInstance Decoy)
         {
@@ -99,8 +99,8 @@ public class L2DecoyInstance extends L2Decoy
     
     static class HateSpam implements Runnable
     {
-        private L2DecoyInstance _activeChar;
-        private L2Skill _skill;
+        private final L2DecoyInstance _activeChar;
+        private final L2Skill _skill;
         
         HateSpam(L2DecoyInstance activeChar, L2Skill Hate)
         {

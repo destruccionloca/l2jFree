@@ -65,7 +65,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	private final int _period;
 	
 	// Effect template
-	private EffectTemplate _template;
+	private final EffectTemplate _template;
 	
 	// counter
 	private int _count;

@@ -22,7 +22,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class PledgeShowMemberListDelete extends L2GameServerPacket
 {
 	private static final String _S__6B_PLEDGESHOWMEMBERLISTDELETE = "[S] 56 PledgeShowMemberListDelete";
-	private String _player;
+	private final String _player;
 	
 	public PledgeShowMemberListDelete(String playerName)
 	{

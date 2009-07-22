@@ -1613,14 +1613,14 @@ public class AdminSmartShop implements IAdminCommandHandler
 						}
 					}
 				boolean add = false;
-				for (int i = 0; i < list.length; i++)
+				for (Integer finalElement : list)
 				{
-					if (list[i] != null)
+					if (finalElement != null)
 					{
 						if (add)
 							first += ",";
 
-						first += list[i];
+						first += finalElement;
 						add = true;
 					}
 				}

@@ -30,7 +30,7 @@ public class PetItemList extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
-	private L2PetInstance _activeChar;
+	private final L2PetInstance _activeChar;
 
 	public PetItemList(L2PetInstance character)
 	{

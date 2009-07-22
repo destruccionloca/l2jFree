@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ExBrExtraUserInfo extends L2GameServerPacket
 {
-	private int _charObjId;
-	private int _val;
+	private final int _charObjId;
+	private final int _val;
 
 	public ExBrExtraUserInfo(L2PcInstance player)
 	{

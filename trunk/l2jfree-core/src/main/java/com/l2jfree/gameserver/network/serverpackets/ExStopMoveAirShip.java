@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
  */
 public class ExStopMoveAirShip extends L2GameServerPacket
 {
-    private L2AirShipInstance _ship;
+    private final L2AirShipInstance _ship;
 
 
     public ExStopMoveAirShip(L2AirShipInstance ship)

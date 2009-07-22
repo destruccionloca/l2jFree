@@ -18,8 +18,8 @@ public class AllyCrest extends L2GameServerPacket
 {
 	private static final String _S__AF_ALLYCREST = "[S] ae AllyCrest [ddb]";
 	
-	private int _crestId;
-	private int _crestSize;
+	private final int _crestId;
+	private final int _crestSize;
 	private byte[] _data;
 	
 	public AllyCrest(int crestId,byte[] data)

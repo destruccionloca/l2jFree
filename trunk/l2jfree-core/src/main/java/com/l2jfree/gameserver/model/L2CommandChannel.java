@@ -44,7 +44,7 @@ public class L2CommandChannel
 	 * Creates a New Command Channel and Add the Leaders party to the CC
 	 * @param leader Command channel leader
 	 */
-	public L2CommandChannel(L2PcInstance leader) 
+	public L2CommandChannel(L2PcInstance leader)
 	{
 		_commandLeader = leader;
 		_partys = new FastList<L2Party>();
@@ -138,10 +138,10 @@ public class L2CommandChannel
 	}
 
 	/**
-	 * Broadcast packet to every channel member 
+	 * Broadcast packet to every channel member
 	 * @param gsp a sendable packet
 	 */
-	public void broadcastToChannelMembers(L2GameServerPacket gsp) 
+	public void broadcastToChannelMembers(L2GameServerPacket gsp)
 	{
 		if (_partys != null)
 			for (L2Party party : _partys)
@@ -157,7 +157,7 @@ public class L2CommandChannel
 					party.broadcastCSToPartyMembers(gsp, broadcaster);
 	}
 
-	public void broadcastToChannelMembers(L2PcInstance exclude, L2GameServerPacket gsp) 
+	public void broadcastToChannelMembers(L2PcInstance exclude, L2GameServerPacket gsp)
 	{
 		if (_partys != null)
 			for (L2Party party : _partys)
@@ -226,7 +226,7 @@ public class L2CommandChannel
 		switch (npcId)
 		{
 			case 29001: // Queen Ant
-			case 29006: // Core	
+			case 29006: // Core
 			case 29014: // Orfen
 			case 29022: // Zaken
 				return (getMemberCount() > 36);

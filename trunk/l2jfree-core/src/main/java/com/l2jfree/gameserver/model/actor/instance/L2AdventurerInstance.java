@@ -91,9 +91,9 @@ public class L2AdventurerInstance extends L2NpcInstance
     }
 
 	/**
-	 * @param player  
-	 * @param bossLevel  
-	 * @param filename  
+	 * @param player
+	 * @param bossLevel
+	 * @param filename
 	 */
     private void showChatWindow(L2PcInstance player, int bossLevel, String filename)
     {

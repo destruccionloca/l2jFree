@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 
-public class RequestRecipeShopMakeItem extends L2GameClientPacket 
+public class RequestRecipeShopMakeItem extends L2GameClientPacket
 {
 	private static final String _C__AF_REQUESTRECIPESHOPMAKEITEM = "[C] B6 RequestRecipeShopMakeItem";
 
@@ -99,7 +99,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
 	@Override
-	public String getType() 
+	public String getType()
 	{
 		return _C__AF_REQUESTRECIPESHOPMAKEITEM;
 	}

@@ -22,13 +22,13 @@ import com.l2jfree.gameserver.model.quest.QuestState;
  * 
  * sample for rev 377:
  * 
- * 98 
+ * 98
  * 05 00 		number of quests
- * ff 00 00 00 
- * 0a 01 00 00 
- * 39 01 00 00 
- * 04 01 00 00 
- * a2 00 00 00 
+ * ff 00 00 00
+ * 0a 01 00 00
+ * 39 01 00 00
+ * 04 01 00 00
+ * a2 00 00 00
  * 
  * format h (d) h (dddh)   rev 377
  * format h (dd) h (dddd)  rev 417
@@ -39,8 +39,8 @@ public class QuestList extends L2GameServerPacket
 {
 	private static final String _S__98_QUESTLIST = "[S] 80 QuestList";
 
-	private Quest[] _quests;
-	private L2PcInstance _activeChar;
+	private final Quest[] _quests;
+	private final L2PcInstance _activeChar;
 
 	public QuestList(L2PcInstance player)
 	{

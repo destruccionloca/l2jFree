@@ -29,7 +29,7 @@ public class CharCreateFail extends L2GameServerPacket
 	public static final int REASON_NAME_ALREADY_EXISTS = 0x02;
 	public static final int REASON_16_ENG_CHARS = 0x03;
 	
-	private int _error;
+	private final int _error;
 
 	public CharCreateFail(int errorCode)
 	{

@@ -20,10 +20,10 @@ package com.l2jfree.gameserver.model;
 public class L2RecipeInstance
 {
 	/** The Identifier of the item needed in the L2RecipeInstance */
-	private int _itemId;
+	private final int _itemId;
 
 	/** The item quantity needed in the L2RecipeInstance */
-	private int _quantity;
+	private final int _quantity;
 
 
 	/**

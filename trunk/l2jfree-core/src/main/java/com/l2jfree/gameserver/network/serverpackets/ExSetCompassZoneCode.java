@@ -29,7 +29,7 @@ public class ExSetCompassZoneCode extends L2GameServerPacket
 	public static final int PVPZONE = 0x0E;
 	public static final int GENERALZONE = 0x0F;
 	
-	private int _zoneType;
+	private final int _zoneType;
 	
 	public ExSetCompassZoneCode(int val)
 	{

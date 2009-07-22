@@ -28,11 +28,11 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public class StopMove extends L2GameServerPacket
 {
 	private static final String _S__59_STOPMOVE = "[S] 47 StopMove";
-	private int _objectId;
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _heading;
+	private final int _objectId;
+	private final int _x;
+	private final int _y;
+	private final int _z;
+	private final int _heading;
 	
 
 	public StopMove(L2Character cha)

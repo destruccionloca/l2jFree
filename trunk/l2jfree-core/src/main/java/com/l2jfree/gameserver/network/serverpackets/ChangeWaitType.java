@@ -19,9 +19,9 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public class ChangeWaitType extends L2GameServerPacket
 {
 	private static final String _S__29_CHANGEWAITTYPE = "[S] 29 ChangeWaitType [ddddd]";
-	private int _charObjId;
-	private int _moveType;
-	private int _x, _y, _z;
+	private final int _charObjId;
+	private final int _moveType;
+	private final int _x, _y, _z;
     
     public static final int WT_SITTING = 0;
     public static final int WT_STANDING = 1;

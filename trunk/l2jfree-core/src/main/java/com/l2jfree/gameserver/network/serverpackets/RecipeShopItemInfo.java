@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RecipeShopItemInfo  extends L2GameServerPacket
 {
 	private static final String _S__DA_RecipeShopItemInfo = "[S] da RecipeShopItemInfo";
-	private L2PcInstance _crafter;
-	private int _recipeId;
+	private final L2PcInstance _crafter;
+	private final int _recipeId;
 
 	public RecipeShopItemInfo(L2PcInstance crafter, int recipeId)
 	{

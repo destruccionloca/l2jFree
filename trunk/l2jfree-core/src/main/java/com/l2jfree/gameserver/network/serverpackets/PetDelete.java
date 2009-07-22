@@ -19,8 +19,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class PetDelete extends L2GameServerPacket
 {
 	private static final String _S__CF_PETDELETE = "[S] b6 PetDelete";
-	private int _petId;
-	private int _petObjId;
+	private final int _petId;
+	private final int _petObjId;
 	
 	public PetDelete(int petId, int petObjId)
 	{

@@ -25,9 +25,9 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public class ShopPreviewList extends L2GameServerPacket
 {
 	private static final String S_F5_SHOPPREVIEWLIST = "[S] F5 ShopPreviewList";
-	private int _listId;
-	private L2ItemInstance[] _list;
-	private long _money;
+	private final int _listId;
+	private final L2ItemInstance[] _list;
+	private final long _money;
 	private int _expertise;
 
 	public ShopPreviewList(L2TradeList list, long currentMoney, int expertiseIndex)

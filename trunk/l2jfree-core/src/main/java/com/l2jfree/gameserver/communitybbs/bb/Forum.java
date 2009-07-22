@@ -46,15 +46,15 @@ public class Forum
 
 	private final static Log	_log			= LogFactory.getLog(Forum.class);
 
-	private List<Forum>			_children;
-	private Map<Integer, Topic>	_topic;
-	private int					_forumId;
+	private final List<Forum>			_children;
+	private final Map<Integer, Topic>	_topic;
+	private final int					_forumId;
 	private String				_forumName;
 	//private int _ForumParent;
 	private int					_forumType;
 	private int					_forumPost;
 	private int					_forumPerm;
-	private Forum				_fParent;
+	private final Forum				_fParent;
 	private int					_ownerID;
 	private boolean				_loaded			= false;
 

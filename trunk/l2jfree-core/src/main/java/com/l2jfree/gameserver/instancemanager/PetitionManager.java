@@ -46,8 +46,8 @@ public final class PetitionManager
 
 	private static int _lastUsedId;
 
-	private FastMap<Integer, Petition>	_pendingPetitions;
-	private FastMap<Integer, Petition>	_completedPetitions;
+	private final FastMap<Integer, Petition>	_pendingPetitions;
+	private final FastMap<Integer, Petition>	_completedPetitions;
 
 	private static enum PetitionState
 	{
@@ -66,17 +66,17 @@ public final class PetitionManager
 
 	private class Petition
 	{
-		private long					_submitTime	= System.currentTimeMillis();
+		private final long					_submitTime	= System.currentTimeMillis();
 		private long					_endTime	= -1;
 
-		private int						_id;
-		private PetitionType			_type;
+		private final int						_id;
+		private final PetitionType			_type;
 		private PetitionState			_state		= PetitionState.Pending;
-		private String					_content;
+		private final String					_content;
 
-		private FastList<CreatureSay>	_messageLog	= new FastList<CreatureSay>();
+		private final FastList<CreatureSay>	_messageLog	= new FastList<CreatureSay>();
 
-		private L2PcInstance			_petitioner;
+		private final L2PcInstance			_petitioner;
 		private L2PcInstance			_responder;
 
 		public Petition(L2PcInstance petitioner, String petitionText, int petitionType)
@@ -125,7 +125,7 @@ public final class PetitionManager
 
 					if (endState == PetitionState.Petitioner_Cancel)
 					{
-						// Receipt No. <ID> petition cancelled. 
+						// Receipt No. <ID> petition cancelled.
 						sm = new SystemMessage(SystemMessageId.RECENT_NO_S1_CANCELED);
 						sm.addNumber(getId());
 						getResponder().sendPacket(sm);
@@ -515,7 +515,7 @@ public final class PetitionManager
 		getPendingPetitions().put(newPetitionId, newPetition);
 
 		// Notify all GMs that a new petition has been submitted.
-		String msgContent = petitioner.getName() + " has submitted a new petition."; //(ID: " + newPetitionId + ")."; 
+		String msgContent = petitioner.getName() + " has submitted a new petition."; //(ID: " + newPetitionId + ").";
 		GmListTable.broadcastToGMs(new CreatureSay(petitioner.getObjectId(), SystemChatChannelId.Chat_Hero, "Petition System", msgContent));
 
 		return newPetitionId;

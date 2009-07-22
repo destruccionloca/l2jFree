@@ -56,14 +56,14 @@ public class Instance
 {
 	private final static Log			_log				= LogFactory.getLog(Instance.class.getName());
 
-	private int							_id;
+	private final int							_id;
 	private int							_tpx;
 	private int							_tpy;
 	private int							_tpz;
 	private String						_name;
-	private FastSet<Integer>			_players			= new FastSet<Integer>();
-	private FastList<L2Npc>				_npcs				= new FastList<L2Npc>();
-	private FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
+	private final FastSet<Integer>			_players			= new FastSet<Integer>();
+	private final FastList<L2Npc>				_npcs				= new FastList<L2Npc>();
+	private final FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
 	private int[]						_spawnLoc;
 	private boolean						_allowSummon		= true;
 	private boolean						_isPvPInstance		= false;
@@ -549,7 +549,7 @@ public class Instance
 
 	private class CheckTimeUp implements Runnable
 	{
-		private int	_remaining;
+		private final int	_remaining;
 
 		public CheckTimeUp(int remaining)
 		{

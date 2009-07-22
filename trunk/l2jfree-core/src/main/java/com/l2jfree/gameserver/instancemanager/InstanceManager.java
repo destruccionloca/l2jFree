@@ -31,8 +31,8 @@ public class InstanceManager
 {
 	private final static Log			_log			= LogFactory.getLog(InstanceManager.class.getName());
 
-	private FastMap<Integer, Instance>	_instanceList	= new FastMap<Integer, Instance>();
-	private FastMap<Integer, InstanceWorld> _instanceWorlds = new FastMap<Integer, InstanceWorld>();
+	private final FastMap<Integer, Instance>	_instanceList	= new FastMap<Integer, Instance>();
+	private final FastMap<Integer, InstanceWorld> _instanceWorlds = new FastMap<Integer, InstanceWorld>();
 
 	private int							_dynamic		= 300000;
 

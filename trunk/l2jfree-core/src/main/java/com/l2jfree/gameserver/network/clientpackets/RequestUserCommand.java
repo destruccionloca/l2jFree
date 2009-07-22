@@ -37,7 +37,7 @@ public class RequestUserCommand extends L2GameClientPacket
 	/**
 	 * packet type id 0xaa
 	 * format:	cd
-	 *  
+	 * 
 	 * @param rawPacket
 	 */
     @Override

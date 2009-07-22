@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 public class DoorStatusUpdate extends L2GameServerPacket
 {
 	private static final String _S__4d_DOORSTATUSUPDATE = "[S] 4d DoorStatusUpdate [ddddddd]";
-	private L2DoorInstance _door;
+	private final L2DoorInstance _door;
 
 	public DoorStatusUpdate(L2DoorInstance door)
 	{

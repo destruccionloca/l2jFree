@@ -25,8 +25,8 @@ import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 public class PledgeReceiveSubPledgeCreated extends L2GameServerPacket
 {
 	private static final String	_S__FE_3F_PLEDGERECEIVESUBPLEDGECREATED	= "[S] FE:3F PledgeReceiveSubPledgeCreated";
-	private SubPledge			_subPledge;
-	private L2Clan				_clan;
+	private final SubPledge			_subPledge;
+	private final L2Clan				_clan;
 
 	/**
 	 * @param member

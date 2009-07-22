@@ -25,10 +25,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreListSell extends L2GameServerPacket
 {
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
-	private int _objId;
-	private long _playerAdena;
-	private boolean _packageSale;
-	private TradeList.TradeItem[] _items;
+	private final int _objId;
+	private final long _playerAdena;
+	private final boolean _packageSale;
+	private final TradeList.TradeItem[] _items;
 	
 	// player's private shop
 	public PrivateStoreListSell(L2PcInstance player, L2PcInstance storePlayer)

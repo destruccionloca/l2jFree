@@ -22,7 +22,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class SendTradeRequest extends L2GameServerPacket
 {
 	private static final String _S__73_SENDTRADEREQUEST = "[S] 5e SendTradeRequest";
-	private int _senderID;
+	private final int _senderID;
 	
 	public SendTradeRequest(int senderID)
 	{

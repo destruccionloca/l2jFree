@@ -50,10 +50,10 @@ public class Duel
 
 	// =========================================================
 	// Data Field
-	private int _duelId;
+	private final int _duelId;
 	private L2PcInstance _playerA;
 	private L2PcInstance _playerB;
-	private boolean _partyDuel;
+	private final boolean _partyDuel;
 	private long _duelEndTime;
 	private int _surrenderRequest=0;
 	private int _countdown=4;
@@ -107,17 +107,16 @@ public class Duel
 
 	public class PlayerCondition
 	{
-		private L2PcInstance _player;
-		private double _hp;
-		private double _mp;
-		private double _cp;
-		private boolean _paDuel;
+		private final L2PcInstance _player;
+		private final double _hp;
+		private final double _mp;
+		private final double _cp;
+		private final boolean _paDuel;
 		private int _x, _y, _z;
 		private FastList<L2Effect> _debuffs;
 
 		public PlayerCondition(L2PcInstance player, boolean partyDuel)
 		{
-			if (player == null) return;
 			_player = player;
 			_hp = _player.getStatus().getCurrentHp();
 			_mp = _player.getStatus().getCurrentMp();
@@ -173,7 +172,7 @@ public class Duel
 	// Schedule task
 	public class ScheduleDuelTask implements Runnable
 	{
-		private Duel _duel;
+		private final Duel _duel;
 
 		public ScheduleDuelTask(Duel duel)
 		{
@@ -202,7 +201,7 @@ public class Duel
 
 	public class ScheduleStartDuelTask implements Runnable
 	{
-		private Duel _duel;
+		private final Duel _duel;
 
 		public ScheduleStartDuelTask(Duel duel)
 		{
@@ -233,8 +232,8 @@ public class Duel
 
 	public class ScheduleEndDuelTask implements Runnable
 	{
-		private Duel _duel;
-		private DuelResultEnum _result;
+		private final Duel _duel;
+		private final DuelResultEnum _result;
 
 		public ScheduleEndDuelTask(Duel duel, DuelResultEnum result)
 		{
@@ -405,11 +404,13 @@ public class Duel
 		{
 			for (L2PcInstance temp : _playerA.getParty().getPartyMembers())
 			{
-				_playerConditions.add(new PlayerCondition(temp, _partyDuel));
+				if (temp != null)
+					_playerConditions.add(new PlayerCondition(temp, _partyDuel));
 			}
 			for (L2PcInstance temp : _playerB.getParty().getPartyMembers())
 			{
-				_playerConditions.add(new PlayerCondition(temp, _partyDuel));
+				if (temp != null)
+					_playerConditions.add(new PlayerCondition(temp, _partyDuel));
 			}
 		}
 		else

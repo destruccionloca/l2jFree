@@ -42,7 +42,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public class SiegeInfo extends L2GameServerPacket
 {
 	private static final String	_S__C9_SIEGEINFO	= "[S] c9 SiegeInfo";
-	private Castle				_castle;
+	private final Castle				_castle;
 
 	public SiegeInfo(Castle castle)
 	{

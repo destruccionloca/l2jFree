@@ -30,7 +30,7 @@ import com.l2jfree.tools.geometry.Point3D;
  */
 public final class L2SkillSignet extends L2Skill
 {
-	private int	_effectNpcId;
+	private final int	_effectNpcId;
 	public int	effectId;
 
 	public L2SkillSignet(StatsSet set)

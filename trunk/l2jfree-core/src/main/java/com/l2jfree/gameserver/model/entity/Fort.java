@@ -47,20 +47,20 @@ public class Fort extends Siegeable<FortSiege>
 	// =========================================================
 	// Data Field
 	private int						_fortId			= 0;
-	private List<L2DoorInstance>	_doors			= new FastList<L2DoorInstance>();
+	private final List<L2DoorInstance>	_doors			= new FastList<L2DoorInstance>();
 	private L2StaticObjectInstance	_flagPole		= null;
-	private List<String>			_doorDefault	= new FastList<String>();
-	private List<String>			_flagPoleStats	= new FastList<String>();
+	private final List<String>			_doorDefault	= new FastList<String>();
+	private final List<String>			_flagPoleStats	= new FastList<String>();
 	private FortSiege				_siege			= null;
 	private Calendar				_siegeDate;
 	private long					_lastOwnedTime;
-	private FortManager				_spawnManager;
+	private final FortManager				_spawnManager;
 	private L2Clan					_fortOwner		= null;
 	private int						_fortType		= 0;
 	private int						_state			= 0;
 	private int						_castleId		= 0;
 
-	private FastMap<Integer, FortFunction> _function;
+	private final FastMap<Integer, FortFunction> _function;
 
 	private int						_blood			= 0;
 	private ScheduledFuture<?>		_fortUpdater;
@@ -74,11 +74,11 @@ public class Fort extends Siegeable<FortSiege>
 
 	public class FortFunction
 	{
-		private int _type;
+		private final int _type;
 		private int _lvl;
 		protected int _fee;
 		protected int _tempFee;
-		private long _rate;
+		private final long _rate;
 		private long _endDate;
 		protected boolean _inDebt;
 		public boolean _cwh;
@@ -252,7 +252,7 @@ public class Fort extends Siegeable<FortSiege>
 
 	public class ScheduleSpecialEnvoysDeSpawn implements Runnable
 	{
-		private Fort _fortInst;
+		private final Fort _fortInst;
 
 		public ScheduleSpecialEnvoysDeSpawn(Fort pFort)
 		{
@@ -905,8 +905,8 @@ public class Fort extends Siegeable<FortSiege>
 
 	private class endFortressSiege implements Runnable
 	{
-		private Fort _f;
-		private L2Clan _clan;
+		private final Fort _f;
+		private final L2Clan _clan;
 
 		public endFortressSiege(Fort f, L2Clan clan)
 		{

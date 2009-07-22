@@ -22,10 +22,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
  */
 public class VehicleCheckLocation extends L2GameServerPacket
 {
-	private L2BoatInstance _boat;
-	private int _x;
-	private int _y;
-	private int _z;
+	private final L2BoatInstance _boat;
+	private final int _x;
+	private final int _y;
+	private final int _z;
 	/**
 	 * @param instance
 	 * @param x

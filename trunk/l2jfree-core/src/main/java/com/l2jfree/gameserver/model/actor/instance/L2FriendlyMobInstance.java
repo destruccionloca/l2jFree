@@ -32,7 +32,7 @@ public class L2FriendlyMobInstance extends L2Attackable
 	{
 		super(objectId, template);
 		getKnownList();	// init knownlist
-	}	
+	}
 
 	@Override
 	public final FriendlyMobKnownList getKnownList()

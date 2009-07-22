@@ -20,7 +20,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExPCCafePointInfo extends L2GameServerPacket
 {
 	private static final String _S__FE_32_EXPCCAFEPOINTINFO = "[S] FE:32 ExPCCafePointInfo [ddcdc]";
-	private int _unk1, _unk2, _unk3, _unk4, _unk5 = 0;
+	private final int _unk1, _unk2, _unk3, _unk4;
+	private int _unk5 = 0;
 	
 	public ExPCCafePointInfo(int val1, int val2, int val3, int val4, int val5)
 	{

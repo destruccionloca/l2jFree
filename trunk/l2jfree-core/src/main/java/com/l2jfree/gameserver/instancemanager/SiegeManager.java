@@ -407,9 +407,9 @@ public class SiegeManager
 	public class SiegeSpawn
 	{
 		Location	_location;
-		private int	_npcId;
-		private int	_heading;
-		private int	_castleId;
+		private final int	_npcId;
+		private final int	_heading;
+		private final int	_castleId;
 		private int	_hp;
 
 		public SiegeSpawn(int castle_id, int x, int y, int z, int heading, int npc_id)

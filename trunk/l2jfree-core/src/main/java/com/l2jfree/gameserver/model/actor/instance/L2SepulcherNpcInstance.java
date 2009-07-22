@@ -348,8 +348,8 @@ public class L2SepulcherNpcInstance extends L2Npc
 	private class CloseNextDoor implements Runnable
 	{
 		final DoorTable	_DoorTable	= DoorTable.getInstance();
-		private int		_NpcId;
-		private int		_DoorId;
+		private final int		_NpcId;
+		private final int		_DoorId;
 
 		public CloseNextDoor(int npcId, int doorId)
 		{
@@ -376,7 +376,7 @@ public class L2SepulcherNpcInstance extends L2Npc
 
 	private class SpawnNextMysteriousBox implements Runnable
 	{
-		private int	_NpcId;
+		private final int	_NpcId;
 
 		public SpawnNextMysteriousBox(int npcId)
 		{
@@ -391,7 +391,7 @@ public class L2SepulcherNpcInstance extends L2Npc
 
 	private class SpawnMonster implements Runnable
 	{
-		private int	_NpcId;
+		private final int	_NpcId;
 
 		public SpawnMonster(int npcId)
 		{

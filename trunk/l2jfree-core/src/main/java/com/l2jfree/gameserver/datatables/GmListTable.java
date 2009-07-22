@@ -35,7 +35,7 @@ public class GmListTable
 	private final static Log				_log	= LogFactory.getLog(GmListTable.class.getName());
 
 	/** Set(L2PcInstance>) containing all the GM in game */
-	private FastMap<L2PcInstance, Boolean>	_gmList;
+	private final FastMap<L2PcInstance, Boolean>	_gmList;
 
 	public static GmListTable getInstance()
 	{

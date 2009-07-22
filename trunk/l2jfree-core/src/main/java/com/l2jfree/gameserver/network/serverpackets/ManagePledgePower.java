@@ -21,9 +21,9 @@ public class ManagePledgePower extends L2GameServerPacket
 {
     private static final String _S__30_MANAGEPLEDGEPOWER = "[S] 30 ManagePledgePower";
     
-    private int _action;
-    private L2Clan _clan;
-    private int _rank;
+    private final int _action;
+    private final L2Clan _clan;
+    private final int _rank;
     private int _privs;
     
     public ManagePledgePower(L2Clan clan, int action, int rank)

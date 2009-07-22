@@ -447,10 +447,10 @@ public class FortSiegeManager
 	public class SiegeSpawn
 	{
 		Location	_location;
-		private int	_npcId;
-		private int	_heading;
-		private int	_fortId;
-		private int _id;
+		private final int	_npcId;
+		private final int	_heading;
+		private final int	_fortId;
+		private final int _id;
 
 		public SiegeSpawn(int fort_id, int x, int y, int z, int heading, int npc_id, int id)
 		{

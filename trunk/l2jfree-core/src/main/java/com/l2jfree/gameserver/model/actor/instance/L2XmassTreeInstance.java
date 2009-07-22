@@ -30,11 +30,11 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2XmassTreeInstance extends L2Npc
 {
-	private ScheduledFuture<?>	_aiTask;
+	private final ScheduledFuture<?>	_aiTask;
 
 	class XmassAI implements Runnable
 	{
-		private L2XmassTreeInstance	_caster;
+		private final L2XmassTreeInstance	_caster;
 
 		protected XmassAI(L2XmassTreeInstance caster)
 		{

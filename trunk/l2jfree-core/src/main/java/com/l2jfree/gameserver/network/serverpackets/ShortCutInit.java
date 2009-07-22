@@ -28,17 +28,11 @@ public class ShortCutInit extends L2GameServerPacket
 {
 	private static final String _S__57_SHORTCUTINIT = "[S] 45 ShortCutInit";
 
-	private L2ShortCut[] _shortCuts;
-	private L2PcInstance _activeChar;
+	private final L2ShortCut[] _shortCuts;
 
 	public ShortCutInit(L2PcInstance activeChar)
 	{
-		_activeChar = activeChar;
-		
-		if (_activeChar == null)
-			return;
-		
-		_shortCuts = _activeChar.getAllShortCuts();
+		_shortCuts = activeChar.getAllShortCuts();
 	}
 
 	@Override
@@ -66,24 +60,24 @@ public class ShortCutInit extends L2GameServerPacket
 			case L2ShortCut.TYPE_SKILL: //2
 				writeD(sc.getId());
 				writeD(sc.getLevel());
-				writeC(0x00); // C5 
-				writeD(0x01); // C6 
+				writeC(0x00); // C5
+				writeD(0x01); // C6
 				break;
 			case L2ShortCut.TYPE_ACTION: //3
 				writeD(sc.getId());
-				writeD(0x01); // C6 
+				writeD(0x01); // C6
 				break;
 			case L2ShortCut.TYPE_MACRO: //4
 				writeD(sc.getId());
-				writeD(0x01); // C6 
+				writeD(0x01); // C6
 				break;
 			case L2ShortCut.TYPE_RECIPE: //5
 				writeD(sc.getId());
-				writeD(0x01); // C6 
+				writeD(0x01); // C6
 				break;
 			default:
 				writeD(sc.getId());
-				writeD(0x01); // C6 
+				writeD(0x01); // C6
 			}
 		}
 	}

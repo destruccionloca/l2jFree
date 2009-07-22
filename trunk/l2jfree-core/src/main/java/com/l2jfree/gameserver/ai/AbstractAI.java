@@ -692,7 +692,7 @@ public abstract class AbstractAI implements Ctrl
 			//CharMoveToLocation msg = new MoveToLocation(_actor);
 			if (((L2PcInstance)_actor).getBoat() != null)
 			{
-				MoveToLocationInVehicle msg = new MoveToLocationInVehicle(_actor, destination, origin);
+				MoveToLocationInVehicle msg = new MoveToLocationInVehicle((L2PcInstance)_actor, destination, origin);
 				_actor.broadcastPacket(msg);
 			}
 			
@@ -719,7 +719,7 @@ public abstract class AbstractAI implements Ctrl
 			//CharMoveToLocation msg = new CharMoveToLocation(_actor);
 			if (((L2PcInstance) _actor).getAirShip() != null)
 			{
-				ExMoveToLocationInAirShip msg = new ExMoveToLocationInAirShip(_actor, destination);
+				ExMoveToLocationInAirShip msg = new ExMoveToLocationInAirShip((L2PcInstance)_actor, destination);
 				_actor.broadcastPacket(msg);
 			}
 			

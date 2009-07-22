@@ -20,8 +20,8 @@ package com.l2jfree.gameserver.network.serverpackets;
  *
  * sample
  * <p>
- * 7d 
- * c1 b2 e0 4a 
+ * 7d
+ * c1 b2 e0 4a
  * 00 00 00 00
  * <p>
  * 
@@ -34,8 +34,8 @@ public class AskJoinAlly extends L2GameServerPacket
 {
 	private static final String _S__BB_ASKJOINALLY = "[S] bb AskJoinAlly [ds]";
 
-	private String _requestorName;
-    private int _requestorObjId;
+	private final String _requestorName;
+    private final int _requestorObjId;
 
 	/**
 	 *

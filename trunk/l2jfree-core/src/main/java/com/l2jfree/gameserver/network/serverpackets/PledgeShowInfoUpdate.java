@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.L2Clan;
 public class PledgeShowInfoUpdate extends L2GameServerPacket
 {
 	private static final String _S__A1_PLEDGESHOWINFOUPDATE = "[S] 88 PledgeShowInfoUpdate";
-	private L2Clan _clan;
+	private final L2Clan _clan;
 	
 	public PledgeShowInfoUpdate(L2Clan clan)
 	{
@@ -40,8 +40,8 @@ public class PledgeShowInfoUpdate extends L2GameServerPacket
 		writeD(_clan.getClanId());
 		writeD(_clan.getCrestId());
 		writeD(_clan.getLevel()); //clan level
-		writeD(_clan.getHasCastle()); 
-		writeD(_clan.getHasHideout()); 
+		writeD(_clan.getHasCastle());
+		writeD(_clan.getHasHideout());
 		writeD(_clan.getHasFort());
 		writeD(_clan.getRank());
 		writeD(_clan.getReputationScore()); // clan reputation score

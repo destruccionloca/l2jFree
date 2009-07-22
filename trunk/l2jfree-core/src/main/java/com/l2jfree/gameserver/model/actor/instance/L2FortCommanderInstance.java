@@ -51,7 +51,7 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 		if ( attacker == null || !(attacker instanceof L2PcInstance) )
 			return false;
 
-		boolean isFort = (getFort() != null && getFort().getFortId() > 0 
+		boolean isFort = (getFort() != null && getFort().getFortId() > 0
 			&& getFort().getSiege().getIsInProgress() &&
 				!getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
 

@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 /**
- * A2 00 FF 6F 7F 
+ * A2 00 FF 6F 7F
  * 
  * Format: (s) cccc
  * 
@@ -24,7 +24,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class TutorialEnableClientEvent extends L2GameServerPacket
 {
     private static final String _S__A2_TUTORIALENABLECLIENTEVENT = "[S] a2 TutorialEnableClientEvent";
-    private int _event;
+    private final int _event;
     
     public TutorialEnableClientEvent(int event)
     {

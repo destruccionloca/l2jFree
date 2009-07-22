@@ -31,9 +31,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class MoveOnVehicle extends L2GameServerPacket
 {
     private static final String _S__71_MOVEONVEICLE = "[S] 71 MoveOnVehicle";
-    private int _id;
-    private int _x, _y, _z;
-    private L2PcInstance _activeChar;
+    private final int _id;
+    private final int _x, _y, _z;
+    private final L2PcInstance _activeChar;
     
     public MoveOnVehicle(int vehicleID, L2PcInstance player, int x, int y, int z)
     {
@@ -49,7 +49,7 @@ public class MoveOnVehicle extends L2GameServerPacket
     {
         writeC(0x71);
         
-        writeD(_activeChar.getObjectId()); 
+        writeD(_activeChar.getObjectId());
         writeD(_id);
         writeD(_x);
         writeD(_y);

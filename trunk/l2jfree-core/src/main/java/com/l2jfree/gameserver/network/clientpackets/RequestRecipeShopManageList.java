@@ -101,7 +101,7 @@ public class RequestRecipeShopManageList extends L2GameClientPacket
 		if (privatetype == 1)
 		{
 			player.setPrivateStoreType(2);
-			player.sendPacket(new PrivateSellListSell(client.getActiveChar()));	
+			player.sendPacket(new PrivateSellListSell(client.getActiveChar()));
 			player.sendPacket(new ChangeWaitType (player,1));
 			player.broadcastPacket(new ChangeWaitType (player,1));
 			

@@ -16,11 +16,11 @@ package com.l2jfree.gameserver.model;
 
 import com.l2jfree.gameserver.RecipeController;
 
-public class L2ManufactureItem 
+public class L2ManufactureItem
 {
-	private int _recipeId;
-	private long _cost;
-	private boolean _isDwarven;
+	private final int _recipeId;
+	private final long _cost;
+	private final boolean _isDwarven;
 
 	public L2ManufactureItem(int recipeId, long cost)
 	{

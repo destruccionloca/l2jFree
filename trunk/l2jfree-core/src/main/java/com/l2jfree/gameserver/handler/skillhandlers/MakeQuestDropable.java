@@ -39,7 +39,7 @@ public class MakeQuestDropable implements ISkillHandler
 		
 		for (L2Character element : targets)
 		{
-			if (!(element instanceof L2MonsterInstance) || 
+			if (!(element instanceof L2MonsterInstance) ||
 					((L2MonsterInstance) element).getQuestDropable())
 			{
 				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);

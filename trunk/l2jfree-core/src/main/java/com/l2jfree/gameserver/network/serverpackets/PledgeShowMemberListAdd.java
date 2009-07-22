@@ -25,13 +25,13 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PledgeShowMemberListAdd extends L2GameServerPacket
 {
 	private static final String _S__55_PLEDGESHOWMEMBERLISTADD = "[S] 55 PledgeShowMemberListAdd";
-	private String _name;
-	private int _lvl;
-	private int _classId;
-	private int _isOnline;
-	private int _pledgeType;
-	private int _sex;
-	private int _race;
+	private final String _name;
+	private final int _lvl;
+	private final int _classId;
+	private final int _isOnline;
+	private final int _pledgeType;
+	private final int _sex;
+	private final int _race;
 
 	public PledgeShowMemberListAdd(L2PcInstance player)
 	{
@@ -62,10 +62,10 @@ public class PledgeShowMemberListAdd extends L2GameServerPacket
 		writeS(_name);
 		writeD(_lvl);
 		writeD(_classId);
-		writeD(_sex); 
+		writeD(_sex);
 		writeD(_race);
 		writeD(_isOnline); // 1=online 0=offline
-		writeD(_pledgeType); 
+		writeD(_pledgeType);
 	}
 
 	/* (non-Javadoc)

@@ -28,10 +28,10 @@ import com.l2jfree.tools.random.Rnd;
 public class MonsterRace
 {
 	private final static Log	_log	= LogFactory.getLog(MonsterRace.class);
-	private L2Npc[]				_monsters;
+	private final L2Npc[]				_monsters;
 	private Constructor<?>		_constructor;
 	private int[][]				_speeds;
-	private int[]				_first, _second;
+	private final int[]				_first, _second;
 
 	private MonsterRace()
 	{

@@ -80,7 +80,7 @@ public class TestL2NpcTemplate extends TestCase
         set.set("absorb_type","LAST_HIT");
         set.set("NPCFaction", 72);
         set.set("NPCFactionName", "faction name");
-        set.set("jClass","class");        
+        set.set("jClass","class");
         
         L2NpcTemplate template = new L2NpcTemplate(set);
         assertNotNull(template);

@@ -27,8 +27,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class GMViewPledgeInfo extends L2GameServerPacket
 {
 	private static final String _S__A9_GMVIEWPLEDGEINFO = "[S] 90 GMViewPledgeInfo";
-	private L2Clan _clan;
-	private L2PcInstance _activeChar;
+	private final L2Clan _clan;
+	private final L2PcInstance _activeChar;
 	
 	public GMViewPledgeInfo(L2Clan clan, L2PcInstance activeChar)
 	{
@@ -72,7 +72,7 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 			writeS(element.getName());
 			writeD(element.getLevel());
 			writeD(element.getClassId());
-			writeD(element.getSex()); 
+			writeD(element.getSex());
 			writeD(element.getRace());
 			writeD(element.isOnline() ? element.getObjectId() : 0);
 			writeD(element.getSponsor());

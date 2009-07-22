@@ -488,7 +488,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_newbie;
 
 	/** The table containing all Quests began by the L2PcInstance */
-	private Map<String, QuestState>			_quests					= new SingletonMap<String, QuestState>();
+	private final Map<String, QuestState>			_quests					= new SingletonMap<String, QuestState>();
 
 	/** The list containing all shortCuts of this L2PcInstance */
 	private ShortCuts						_shortCuts;
@@ -592,13 +592,13 @@ public final class L2PcInstance extends L2Playable
 	private L2Weapon						_fistsWeaponItem;
 
 	private long							_uptime;
-	private String							_accountName;
+	private final String							_accountName;
 
 	private final Map<Integer, String>		_chars					= new SingletonMap<Integer, String>();
 
 	/** The table containing all L2RecipeList of the L2PcInstance */
-	private Map<Integer, L2RecipeList>		_dwarvenRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
-	private Map<Integer, L2RecipeList>		_commonRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
+	private final Map<Integer, L2RecipeList>		_dwarvenRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
+	private final Map<Integer, L2RecipeList>		_commonRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
 
 	private int								_mountType;
 	private int								_mountNpcId;
@@ -684,10 +684,10 @@ public final class L2PcInstance extends L2Playable
 	public int								_telemode				= 0;
 
 	/** new loto ticket **/
-	private int								_loto[]					= new int[5];
+	private final int								_loto[]					= new int[5];
 	//public static int _loto_nums[] = {0,1,2,3,4,5,6,7,8,9,};
 	/** new race ticket **/
-	private int								_race[]					= new int[2];
+	private final int								_race[]					= new int[2];
 
 	private BlockList						_blockList;
 	private L2FriendList					_friendList;
@@ -697,7 +697,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_fishy					= 0;
 	private int								_fishz					= 0;
 
-	private List<Integer>					_transformAllowedSkills				= new SingletonList<Integer>();
+	private final List<Integer>					_transformAllowedSkills				= new SingletonList<Integer>();
 
 	private int								_team					= 0;
 	private int								_wantsPeace				= 0;
@@ -771,7 +771,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_evaluations;
 
 	/** List of players this player already evaluated */
-	private List<Integer>					_evaluated				= new SingletonList<Integer>();
+	private final List<Integer>					_evaluated				= new SingletonList<Integer>();
 
 	private boolean							_inCrystallize;
 
@@ -859,9 +859,9 @@ public final class L2PcInstance extends L2Playable
 	/** Skill casting information (used to queue when several skills are cast in a short time) **/
 	public class SkillDat
 	{
-		private L2Skill	_skill;
-		private boolean	_ctrlPressed;
-		private boolean	_shiftPressed;
+		private final L2Skill	_skill;
+		private final boolean	_ctrlPressed;
+		private final boolean	_shiftPressed;
 
 		protected SkillDat(L2Skill skill, boolean ctrlPressed, boolean shiftPressed)
 		{
@@ -13041,7 +13041,7 @@ public final class L2PcInstance extends L2Playable
 
 	private boolean _canFeed;
 
-	private Map<Integer, TimeStamp>	_reuseTimeStamps	= new SingletonMap<Integer, TimeStamp>().setShared();
+	private final Map<Integer, TimeStamp>	_reuseTimeStamps	= new SingletonMap<Integer, TimeStamp>().setShared();
 
 	public Map<Integer, TimeStamp> getReuseTimeStamps()
 	{
@@ -13056,9 +13056,9 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public static class TimeStamp
 	{
-		private int		skill;
-		private long	reuse;
-		private long	stamp;
+		private final int		skill;
+		private final long	reuse;
+		private final long	stamp;
 
 		public TimeStamp(int _skill, long _reuse)
 		{

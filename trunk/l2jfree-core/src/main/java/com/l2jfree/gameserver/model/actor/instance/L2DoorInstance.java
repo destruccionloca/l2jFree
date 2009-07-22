@@ -69,7 +69,7 @@ public class L2DoorInstance extends L2Character
 	protected final String		_name;
 	private boolean				_open;
 	private boolean				_isCommanderDoor;
-	private boolean				_unlockable;
+	private final boolean				_unlockable;
 
 	// when door is closed, the dimensions are
 	private int					_rangeXMin			= 0;

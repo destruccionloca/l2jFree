@@ -79,7 +79,7 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
         {
            _activeChar.sendMessage("Clan leader isn't online.");
             _activeChar.sendPacket(new ActionFailed());
-            return;                        
+            return;
         }
         
         if (leader.isTransactionInProgress())
@@ -88,7 +88,7 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
             sm.addString(leader.getName());
             _activeChar.sendPacket(sm);
             return;
-        } 
+        }
         
         leader.setTransactionRequester(player);
         _activeChar.setTransactionRequester(leader);

@@ -44,7 +44,7 @@ public class L2StaticObjectInstance extends L2Character
 	/** The interaction distance of the L2StaticObjectInstance */
 	public static final int INTERACTION_DISTANCE = 150;
 	
-	private int _staticObjectId;
+	private final int _staticObjectId;
 	private int _meshIndex = 0; // 0 - static objects, alternate static objects
 	private int _type = -1; // 0 - Map signs, 1 - Throne , 2 - Arena signs
 	private int _x;

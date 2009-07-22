@@ -32,7 +32,7 @@ public class TestIntList extends TestCase
         assertNotNull(arrayInt);
         assertEquals(4209,arrayInt[0]);
         assertEquals(4125,arrayInt[1]);
-    }    
+    }
     
     public void testGetIntWithWrongFormat ()
     {
@@ -44,5 +44,5 @@ public class TestIntList extends TestCase
         {
             assertNotNull(e);
         }
-    }    
+    }
 }

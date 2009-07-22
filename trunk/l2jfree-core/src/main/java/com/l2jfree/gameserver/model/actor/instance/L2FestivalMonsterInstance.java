@@ -31,13 +31,13 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2FestivalMonsterInstance extends L2MonsterInstance
 {
-	private boolean _isArcher;
-	private boolean _isChest;
+	private final boolean _isArcher;
+	private final boolean _isChest;
 	protected int _bonusMultiplier = 1;
 	  
     /**
      * Constructor of L2FestivalMonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
-     *  
+     * 
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Call the L2Character constructor to set the _template of the L2FestivalMonsterInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR) </li>
      * <li>Set the name of the L2MonsterInstance</li>

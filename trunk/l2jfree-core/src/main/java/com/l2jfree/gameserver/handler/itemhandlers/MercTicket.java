@@ -40,7 +40,7 @@ public class MercTicket implements IItemHandler
 	 * 1.e) Check if max number of tickets has been reached
 	 * 1.f) Check if max number of tickets from this ticket's TYPE has been reached
 	 * 2) If allowed, call the MercTicketManager to add the item and spawn in the world
-	 * 3) Remove the item from the person's inventory  
+	 * 3) Remove the item from the person's inventory
 	 */
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
@@ -106,7 +106,7 @@ public class MercTicket implements IItemHandler
 		 }
 
 		// Checking Seven Signs Quest Period
-		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION) 
+		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION)
 		{
 			//_log.warning("Someone has tried to spawn a guardian during Quest Event Period of The Seven Signs.");
 			activeChar.sendMessage("You cannot position any Mercenaries during Quest Period.");

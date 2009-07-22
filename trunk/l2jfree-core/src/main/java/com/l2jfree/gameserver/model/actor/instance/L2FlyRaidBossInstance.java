@@ -27,7 +27,7 @@ public final class L2FlyRaidBossInstance extends L2RaidBossInstance
     @Override
 	public void onSpawn()
     {
-    	this.setIsFlying(true);
+    	setIsFlying(true);
     	super.onSpawn();
     }
 }

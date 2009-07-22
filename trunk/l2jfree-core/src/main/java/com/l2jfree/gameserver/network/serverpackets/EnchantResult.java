@@ -18,9 +18,9 @@ public class EnchantResult extends L2GameServerPacket
 {
 	private static final String _S__87_ENCHANTRESULT = "[S] 87 EnchantResult";
 
-	private int _result;
-	private int _crystal;
-	private long _count;
+	private final int _result;
+	private final int _crystal;
+	private final long _count;
 
 	public EnchantResult(int result, int crystal, long count)
 	{

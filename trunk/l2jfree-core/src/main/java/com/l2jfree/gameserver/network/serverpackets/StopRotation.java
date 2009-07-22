@@ -22,7 +22,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class StopRotation extends L2GameServerPacket
 {
 	private static final String	_S__78_STOPROTATION	= "[S] 61 StopRotation";
-	private int					_charObjId, _degree, _speed;
+	private final int					_charObjId, _degree, _speed;
 
 	public StopRotation(int objectId, int degree, int speed)
 	{

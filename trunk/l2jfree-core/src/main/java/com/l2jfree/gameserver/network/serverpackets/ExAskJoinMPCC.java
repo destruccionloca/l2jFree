@@ -25,7 +25,7 @@ public class ExAskJoinMPCC extends L2GameServerPacket
 {
 	private static final String _S__FE_1A_EXASKJOINMPCC = "[S] FE:1a ExAskJoinMPCC [s]";
 
-	private String _requestorName;
+	private final String _requestorName;
 	/**
 	 * @param String Name of CCLeader
 	 */

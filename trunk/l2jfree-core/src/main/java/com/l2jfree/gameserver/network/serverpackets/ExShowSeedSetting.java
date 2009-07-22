@@ -37,9 +37,9 @@ public class ExShowSeedSetting extends L2GameServerPacket
 {
 	private static final String	_S__FE_1F_EXSHOWSEEDSETTING	= "[S] FE:1F ExShowSeedSetting";
 
-	private int					_manorId;
-	private int					_count;
-	private long[]				_seedData;														// data to send, size:_count*12
+	private final int					_manorId;
+	private final int					_count;
+	private final long[]				_seedData;														// data to send, size:_count*12
 
 	public ExShowSeedSetting(int manorId)
 	{
@@ -92,7 +92,7 @@ public class ExShowSeedSetting extends L2GameServerPacket
 		writeH(0x26); // SubId
 
 		writeD(_manorId); // manor id
-		writeD(_count); // size 
+		writeD(_count); // size
 
 		for (int i = 0; i < _count; i++)
 		{

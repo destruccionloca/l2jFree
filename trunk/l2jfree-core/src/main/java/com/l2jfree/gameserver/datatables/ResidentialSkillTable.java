@@ -39,7 +39,7 @@ public class ResidentialSkillTable
 
 	private static ResidentialSkillTable _instance = null;
 
-	private FastMap<Integer, L2Skill[]> _list = new FastMap<Integer, L2Skill[]>();
+	private final FastMap<Integer, L2Skill[]> _list = new FastMap<Integer, L2Skill[]>();
 
 	private ResidentialSkillTable()
 	{
@@ -113,7 +113,7 @@ public class ResidentialSkillTable
 
 	public static ResidentialSkillTable getInstance()
 	{
-		if (_instance == null) 
+		if (_instance == null)
 			_instance = new ResidentialSkillTable();
 		return _instance;
 	}

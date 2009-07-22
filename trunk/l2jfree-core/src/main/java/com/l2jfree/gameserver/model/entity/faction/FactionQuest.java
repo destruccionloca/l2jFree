@@ -50,7 +50,7 @@ public class FactionQuest
         _reward = reward;
         _mobId = mobId;
         _amount = amount;
-        _minLevel = minLevel; 
+        _minLevel = minLevel;
     }
     
     public int getId() { return _questId; }
@@ -58,11 +58,11 @@ public class FactionQuest
     public static String getDescr() { return _descr;}
     public static int getReward() { return _reward;}
     public static int getAmount() { return _amount;}
-    public static int getMobId() { return _mobId;}    
+    public static int getMobId() { return _mobId;}
     public static int getFactionId() { return _factionId;}
     public static int getMinLevel() { return _minLevel;}
 
-    public static void createFactionQuest(L2PcInstance player,int factionQuestId) 
+    public static void createFactionQuest(L2PcInstance player,int factionQuestId)
     {
         Connection con = null;
         try
@@ -105,7 +105,7 @@ public class FactionQuest
             statement.executeUpdate();
             statement.close();
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
             _log.warn( "could not delete char faction quest:", e);
         }

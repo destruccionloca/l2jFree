@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * This class handles following admin commands:  
- * - changelvl = change a character's access level 
- *  Can be used for character ban (as opposed to regular //ban that affects accounts) 
- *  or to grant mod/GM privileges ingame 
+ * This class handles following admin commands:
+ * - changelvl = change a character's access level
+ *  Can be used for character ban (as opposed to regular //ban that affects accounts)
+ *  or to grant mod/GM privileges ingame
  * @version $Revision: 1.1.2.2.2.3 $ $Date: 2005/04/11 10:06:00 $
  */
 public class AdminChangeAccessLevel implements IAdminCommandHandler
@@ -50,7 +50,7 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 
 	/**
 	 * If no character name is specified, tries to change GM's target access level. Else
-	 * if a character name is provided, will try to reach it either from L2World or from 
+	 * if a character name is provided, will try to reach it either from L2World or from
 	 * a database connection.
 	 * 
 	 * @param command

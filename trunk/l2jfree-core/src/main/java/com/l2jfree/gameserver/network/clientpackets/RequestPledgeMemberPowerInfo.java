@@ -54,9 +54,9 @@ public class RequestPledgeMemberPowerInfo extends L2GameClientPacket
             {
                 getClient().getActiveChar().sendPacket(new PledgeReceivePowerInfo(cm));
                 //_log.warn("Everything is Ok with this packet: "+_target);
-            }            
-            //else 
-                //_log.warn("Wtf is worng with this packet");            
+            }
+            //else
+                //_log.warn("Wtf is worng with this packet");
         }
         //_log.warn("Wtf is worng with this packet, no clan?!?!?!?!?");
 	}

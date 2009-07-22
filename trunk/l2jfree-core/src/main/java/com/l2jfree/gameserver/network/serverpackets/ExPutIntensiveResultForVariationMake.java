@@ -23,11 +23,11 @@ public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 {
 	private static final String	S_FE_54_EXPUTINTENSIVERESULTFORVARIATIONMAKE	= "[S] FE:54 ExPutIntensiveResultForVariationMake";
 
-	private int					_refinerItemObjId;
-	private int					_lifestoneItemId;
-	private int					_gemstoneItemId;
-	private int					_gemstoneCount;
-	private int					_unk2;
+	private final int					_refinerItemObjId;
+	private final int					_lifestoneItemId;
+	private final int					_gemstoneItemId;
+	private final int					_gemstoneCount;
+	private final int					_unk2;
 
 	public ExPutIntensiveResultForVariationMake(int refinerItemObjId, int lifeStoneId, int gemstoneItemId, int gemstoneCount)
 	{

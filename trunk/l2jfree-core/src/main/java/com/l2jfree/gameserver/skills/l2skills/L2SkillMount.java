@@ -25,8 +25,8 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 public class L2SkillMount extends L2Skill
 {
-	private int	_npcId;
-	private int	_itemId;
+	private final int	_npcId;
+	private final int	_itemId;
 
 	public L2SkillMount(StatsSet set)
 	{

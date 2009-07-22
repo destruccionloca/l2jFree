@@ -101,7 +101,7 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 			requestFailed(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 			return;
 		}
-		else if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY && 
+		else if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY &&
 				item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL)
 		{
 			activeChar.setActiveEnchantItem(null);

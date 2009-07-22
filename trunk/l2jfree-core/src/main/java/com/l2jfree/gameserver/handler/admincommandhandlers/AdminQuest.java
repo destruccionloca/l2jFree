@@ -77,7 +77,7 @@ public class AdminQuest implements IAdminCommandHandler
 		}
 		// script load should NOT be used in place of reload.  If a script is already loaded
 		// successfully, quest_reload ought to be used.  The script_load command should only
-		// be used for scripts that failed to load altogether (eg. due to errors) or that 
+		// be used for scripts that failed to load altogether (eg. due to errors) or that
 		// did not at all exist during server boot.  Using script_load to re-load a previously
 		// loaded script may cause unpredictable script flow, minor loss of data, and more.
 		// This provides a way to load new scripts without having to reboot the server.

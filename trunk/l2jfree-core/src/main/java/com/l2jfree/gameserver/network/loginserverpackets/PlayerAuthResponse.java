@@ -58,5 +58,5 @@ public class PlayerAuthResponse extends LoginServerBasePacket
 	public String getHost()
 	{
 		return _host;
-	}	
+	}
 }

@@ -32,8 +32,8 @@ import com.l2jfree.gameserver.model.L2Manor;
 public class ExShowSeedInfo extends L2GameServerPacket
 {
 	private static final String			_S__FE_1C_EXSHOWSEEDINFO	= "[S] FE:1C ExShowSeedInfo";
-	private List<SeedProduction>	_seeds;
-	private int							_manorId;
+	private final List<SeedProduction>	_seeds;
+	private final int							_manorId;
 
 	public ExShowSeedInfo(int manorId, List<SeedProduction> seeds)
 	{

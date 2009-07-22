@@ -240,7 +240,7 @@ public class L2Npc extends L2Character
 
 	public class DestroyTemporalNPC implements Runnable
 	{
-		private L2Spawn	_oldSpawn;
+		private final L2Spawn	_oldSpawn;
 
 		public DestroyTemporalNPC(L2Spawn spawn)
 		{

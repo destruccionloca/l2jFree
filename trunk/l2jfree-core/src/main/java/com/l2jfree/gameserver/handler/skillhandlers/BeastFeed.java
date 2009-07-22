@@ -20,8 +20,8 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/** 
- * @author _drunk_ 
+/**
+ * @author _drunk_
  */
 public class BeastFeed implements ISkillHandler
 {

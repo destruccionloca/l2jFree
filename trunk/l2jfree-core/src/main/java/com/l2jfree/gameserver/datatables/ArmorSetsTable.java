@@ -35,7 +35,7 @@ public class ArmorSetsTable
 {
 	private final static Log				_log	= LogFactory.getLog(ArmorSetsTable.class.getName());
 
-	private FastMap<Integer, L2ArmorSet>	_armorSets;
+	private final FastMap<Integer, L2ArmorSet>	_armorSets;
 
 	public static ArmorSetsTable getInstance()
 	{

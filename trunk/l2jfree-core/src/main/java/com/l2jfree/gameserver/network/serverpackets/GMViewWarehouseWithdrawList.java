@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 {
 	private static final String	_S__95_GMViewWarehouseWithdrawList	= "[S] 95 GMViewWarehouseWithdrawList";
-	private L2ItemInstance[]	_items;
-	private String				_playerName;
-	private L2PcInstance		_activeChar;
-	private long				_money;
+	private final L2ItemInstance[]	_items;
+	private final String				_playerName;
+	private final L2PcInstance		_activeChar;
+	private final long				_money;
 
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{

@@ -28,7 +28,7 @@ public class ExGetBookMarkInfoPacket extends L2GameServerPacket
 {
 	private static final String _S__FE_84_EXGETBOOKMARKINFOPACKET = "[S] FE:84 ExGetBookMarkInfoPacket";
 	
-	private L2PcInstance player;
+	private final L2PcInstance player;
 	public ExGetBookMarkInfoPacket(L2PcInstance cha)
 	{
 		player = cha;
@@ -44,7 +44,7 @@ public class ExGetBookMarkInfoPacket extends L2GameServerPacket
 		writeD(player.tpbookmark.size());
       
 
-		for (TeleportBookmark tpbm : player.tpbookmark) 
+		for (TeleportBookmark tpbm : player.tpbookmark)
 		{
 			writeD(tpbm._id);
 			writeD(tpbm._x);

@@ -3516,9 +3516,9 @@ public final class Config extends L2Config
 
 	public static class ClassMasterSettings
 	{
-		private FastMap<Integer, FastMap<Integer, Integer>>	_claimItems;
-		private FastMap<Integer, FastMap<Integer, Integer>>	_rewardItems;
-		private FastMap<Integer, Boolean>					_allowedClassChange;
+		private final FastMap<Integer, FastMap<Integer, Integer>>	_claimItems;
+		private final FastMap<Integer, FastMap<Integer, Integer>>	_rewardItems;
+		private final FastMap<Integer, Boolean>					_allowedClassChange;
 
 		public ClassMasterSettings(String _configLine)
 		{

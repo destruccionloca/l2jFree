@@ -171,7 +171,7 @@ public final class RecommendationManager
 	 * <LI>Restore player's evaluated player data (<I>if enabled in config</I>)</LI>
 	 * <LI>Update player's evaluation count and points*</LI><BR>
 	 * <I>* - for each 24 hours since the last evaluation data update for this player,
-	 * player loses 1-3 points</I> 
+	 * player loses 1-3 points</I>
 	 * @param player The loaded L2PcInstance
 	 */
 	public void onJoin(L2PcInstance player)

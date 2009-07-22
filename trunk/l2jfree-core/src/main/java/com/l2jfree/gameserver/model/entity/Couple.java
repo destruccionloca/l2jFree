@@ -25,7 +25,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -104,7 +104,7 @@ public class Couple
             statement.setInt(3, _player2Id);
             statement.setBoolean(4, false);
             statement.setLong(5, _affiancedDate);
-            statement.setLong(6, _weddingDate);            
+            statement.setLong(6, _weddingDate);
             statement.execute();
             statement.close();
         }
@@ -171,9 +171,9 @@ public class Couple
     public final int getId() { return _id; }
 
     public final int getPlayer1Id() { return _player1Id; }
-    public final int getPlayer2Id() { return _player2Id; }    
+    public final int getPlayer2Id() { return _player2Id; }
 
-    public final boolean getMaried() { return _maried; }    
+    public final boolean getMaried() { return _maried; }
 
     public final long getAffiancedDate() { return _affiancedDate; }
     public final long getWeddingDate() { return _weddingDate; }

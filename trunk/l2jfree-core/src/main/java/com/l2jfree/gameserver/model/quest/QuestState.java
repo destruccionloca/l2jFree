@@ -356,7 +356,7 @@ public final class QuestState
 	/**
 	 * Insert (or Update) in the database variables that need to stay persistant for this player after a reboot.
 	 * This function is for storage of values that do not related to a specific quest but are
-	 * global for all quests.  For example, player's can get only once the adena and XP reward for  
+	 * global for all quests.  For example, player's can get only once the adena and XP reward for
 	 * the first class quests, but they can make more than one first class quest.
 	 * @param var : String designating the name of the variable for the quest
 	 * @param value : String designating the value of the variable for the quest
@@ -389,7 +389,7 @@ public final class QuestState
 	 * Read from the database a previously saved variable for this quest.
 	 * Due to performance considerations, this function should best be used only when the quest is first loaded.
 	 * Subclasses of this class can define structures into which these loaded values can be saved.
-	 * However, on-demand usage of this function throughout the script is not prohibited, only not recommended. 
+	 * However, on-demand usage of this function throughout the script is not prohibited, only not recommended.
 	 * Values read from this function were entered by calls to "saveGlobalQuestVar"
 	 * @param var : String designating the name of the variable for the quest
 	 * @return String : String representing the loaded value for the passed var, or an empty string if the var was invalid
@@ -948,9 +948,9 @@ public final class QuestState
 		int[] itemIdList = getQuest().getRegisteredItemIds();
 		if (itemIdList != null)
 		{
-			for (int i=0; i<itemIdList.length; i++)
+			for (int finalElement : itemIdList)
 			{
-				takeItems(itemIdList[i], -1);
+				takeItems(finalElement, -1);
 			}
 		}
 		

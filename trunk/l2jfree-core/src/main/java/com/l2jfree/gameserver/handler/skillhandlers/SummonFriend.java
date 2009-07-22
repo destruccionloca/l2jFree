@@ -141,7 +141,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 		
-		if (summonerChar._inEventCTF || summonerChar._inEventTvT || summonerChar._inEventDM || summonerChar._inEventVIP 
+		if (summonerChar._inEventCTF || summonerChar._inEventTvT || summonerChar._inEventDM || summonerChar._inEventVIP
 				|| targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventDM || targetChar._inEventVIP)
 		{
 			summonerChar.sendMessage("You cannot summon your friend due to events restrictions.");

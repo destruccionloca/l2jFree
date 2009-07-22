@@ -19,8 +19,8 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 public class DropItem extends L2GameServerPacket
 {
 	private static final String	_S__16_DROPITEM	= "[S] 16 DropItem [ddddddddd]";
-	private L2ItemInstance		_item;
-	private int					_charObjId;
+	private final L2ItemInstance		_item;
+	private final int					_charObjId;
 
 	/**
 	 * Constructor of the DropItem server packet

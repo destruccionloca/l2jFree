@@ -75,8 +75,8 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 
 		// Correcting targetZ from floor level to head level (?)
 		// Client is giving floor level as targetZ but that floor level doesn't
-		// match our current geodata and teleport coords as good as head level! 
-		// L2J uses floor, not head level as char coordinates. This is some 
+		// match our current geodata and teleport coords as good as head level!
+		// L2J uses floor, not head level as char coordinates. This is some
 		// sort of incompatibility fix.
 		// Validate position packets sends head level.
 		_targetZ += activeChar.getTemplate().getCollisionHeight();

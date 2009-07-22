@@ -38,7 +38,7 @@ public class AirShipManager
 
 	private L2AirShipInstance _airShip = null;
 
-	private ArrayList<L2AirShipControllerInstance> _atcs = new ArrayList<L2AirShipControllerInstance>(2);
+	private final ArrayList<L2AirShipControllerInstance> _atcs = new ArrayList<L2AirShipControllerInstance>(2);
 
 	public static AirShipManager getInstance()
 	{

@@ -1202,11 +1202,11 @@ public class GeoEngine extends GeoData
 	        }
 	        if(debug) _log.warn("z:"+z+" x: "+cellX+" y:"+cellY+" la "+layers+" lo:"+lowerHeight+" up:"+upperHeight);
 	        // Check if LOS goes under a layer/floor
-	        // clearly under layer but not too much under 
+	        // clearly under layer but not too much under
 	        // lowerheight here only for geodata bug checking, layers very close? maybe could be removed
 	        if((z-upperHeight) < -10 && (z-upperHeight) > inc_z-10 && (z-lowerHeight) > 40) {
 	        	if (debug) _log.warn("false, incz"+inc_z);
-	        	return false; 
+	        	return false;
 	        }
 	        
 	        // or there's a fence/wall ahead when we're not on highest layer
@@ -1354,20 +1354,20 @@ public class GeoEngine extends GeoData
 			short height = geo.getShort(index);
 			n.getLoc().setZ(height);
 			if (parentdirection != 1) {
-				newNode = CellPathFinding.getInstance().readNode(x+1,y,height); 
+				newNode = CellPathFinding.getInstance().readNode(x+1,y,height);
 				//newNode.setCost(0);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != 2) {
-				newNode = CellPathFinding.getInstance().readNode(x,y+1,height); 
+				newNode = CellPathFinding.getInstance().readNode(x,y+1,height);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != -2) {
-				newNode = CellPathFinding.getInstance().readNode(x,y-1,height); 
+				newNode = CellPathFinding.getInstance().readNode(x,y-1,height);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != -1) {
-				newNode = CellPathFinding.getInstance().readNode(x-1,y,height); 
+				newNode = CellPathFinding.getInstance().readNode(x-1,y,height);
 				Neighbors.add(newNode);
 			}
 	    }
@@ -1382,25 +1382,25 @@ public class GeoEngine extends GeoData
 			height = (short)(height >> 1); //height / 2
 			n.getLoc().setZ(height);
 			if (NSWE != 15 && parentdirection != 0) return null; // no node with a block will be used
-			if (parentdirection != 1 && checkNSWE(NSWE,x,y,x+1,y)) 
+			if (parentdirection != 1 && checkNSWE(NSWE,x,y,x+1,y))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x+1,y,height); 
+				newNode = CellPathFinding.getInstance().readNode(x+1,y,height);
 				//newNode.setCost(basecost+50);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != 2 && checkNSWE(NSWE,x,y,x,y+1))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x,y+1,height); 
+				newNode = CellPathFinding.getInstance().readNode(x,y+1,height);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != -2 && checkNSWE(NSWE,x,y,x,y-1))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x,y-1,height); 
+				newNode = CellPathFinding.getInstance().readNode(x,y-1,height);
 				Neighbors.add(newNode);
 			}
-			if (parentdirection != -1 && checkNSWE(NSWE,x,y,x-1,y)) 
+			if (parentdirection != -1 && checkNSWE(NSWE,x,y,x-1,y))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x-1,y,height); 
+				newNode = CellPathFinding.getInstance().readNode(x-1,y,height);
 				Neighbors.add(newNode);
 			}
 	    }
@@ -1441,27 +1441,27 @@ public class GeoEngine extends GeoData
 	        }
 	        n.getLoc().setZ(tempz);
 	        if (NSWE != 15 && parentdirection != 0) return null; // no node with a block will be used
-	        if (parentdirection != 1 && checkNSWE(NSWE,x,y,x+1,y)) 
+	        if (parentdirection != 1 && checkNSWE(NSWE,x,y,x+1,y))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x+1,y,tempz); 
+				newNode = CellPathFinding.getInstance().readNode(x+1,y,tempz);
 				//newNode.setCost(basecost+50);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != 2 && checkNSWE(NSWE,x,y,x,y+1))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x,y+1,tempz); 
+				newNode = CellPathFinding.getInstance().readNode(x,y+1,tempz);
 				Neighbors.add(newNode);
 			}
 			if (parentdirection != -2 && checkNSWE(NSWE,x,y,x,y-1))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x,y-1,tempz); 
+				newNode = CellPathFinding.getInstance().readNode(x,y-1,tempz);
 				Neighbors.add(newNode);
 			}
-			if (parentdirection != -1 && checkNSWE(NSWE,x,y,x-1,y)) 
+			if (parentdirection != -1 && checkNSWE(NSWE,x,y,x-1,y))
 			{
-				newNode = CellPathFinding.getInstance().readNode(x-1,y,tempz); 
+				newNode = CellPathFinding.getInstance().readNode(x-1,y,tempz);
 				Neighbors.add(newNode);
-			}	    
+			}
 		}
 		Node[] result = new Node[Neighbors.size()];
 		return Neighbors.toArray(result);

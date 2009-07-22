@@ -20,7 +20,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.Future;
 
@@ -282,9 +281,8 @@ public class ArenaManager
 	{
 		String pattern = "";
 
-		for (Iterator<Integer> iter = _ranks.keySet().iterator(); iter.hasNext();)
+		for (Integer object : _ranks.keySet())
 		{
-			Integer object = iter.next();
 			ArenaRank ar = _ranks.get(object);
 
 			pattern += object + " : " + ar.kills + "-" + ar.death + " : " + ar.name + "\n";

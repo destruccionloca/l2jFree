@@ -35,7 +35,7 @@ public class FortSiegeGuardManager
 {
 	protected static final Log	_log				= LogFactory.getLog(FortSiegeGuardManager.class.getName());
 
-	private Fort				_fort;
+	private final Fort				_fort;
 	protected FastMap<Integer, FastList<L2Spawn>> _siegeGuards = new FastMap<Integer, FastList<L2Spawn>>();
 	protected FastList<L2Spawn> _siegeGuardsSpawns;
 

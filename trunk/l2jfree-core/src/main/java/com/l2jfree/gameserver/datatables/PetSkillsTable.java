@@ -33,7 +33,7 @@ public class PetSkillsTable
 {
 	private final static Log _log = LogFactory.getLog(PetSkillsTable.class.getName());
 
-	private FastMap<Integer, Map<Integer, L2PetSkillLearn>> _skillTrees;
+	private final FastMap<Integer, Map<Integer, L2PetSkillLearn>> _skillTrees;
 	
 	public static PetSkillsTable getInstance()
 	{

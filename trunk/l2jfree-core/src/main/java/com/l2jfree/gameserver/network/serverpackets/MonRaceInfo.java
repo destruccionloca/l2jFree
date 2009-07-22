@@ -30,10 +30,10 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 public class MonRaceInfo extends L2GameServerPacket
 {
     private static final String _S__DD_MonRaceInfo = "[S] dd MonRaceInfo";
-    private int _unknown1;
-    private int _unknown2;
-    private L2Npc[] _monsters;
-    private int[][] _speeds;
+    private final int _unknown1;
+    private final int _unknown2;
+    private final L2Npc[] _monsters;
+    private final int[][] _speeds;
     
     public MonRaceInfo(int unknown1 , int unknown2, L2Npc[] monsters, int[][] speeds)
     {
@@ -64,7 +64,7 @@ public class MonRaceInfo extends L2GameServerPacket
         for (int i=0; i<8; i++)
         {
             writeD(_monsters[i].getObjectId());                         //npcObjectID
-            writeD(_monsters[i].getTemplate().getNpcId()+1000000);   //npcID   
+            writeD(_monsters[i].getTemplate().getNpcId()+1000000);   //npcID
             writeD(14107);                                              //origin X
             writeD(181875 + (58 * (7-i)));                                  //origin Y
             writeD(-3566);                                              //origin Z
@@ -78,8 +78,8 @@ public class MonRaceInfo extends L2GameServerPacket
             for (int j=0; j<20; j++)
             {
                 if  (_unknown1 == 0 )
-                {   
-                    writeC(_speeds[i][j]); 
+                {
+                    writeC(_speeds[i][j]);
                 }
                 else
                     writeC(0);

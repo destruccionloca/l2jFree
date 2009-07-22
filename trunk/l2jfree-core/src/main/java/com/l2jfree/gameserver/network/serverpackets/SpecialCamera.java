@@ -18,12 +18,12 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class SpecialCamera extends L2GameServerPacket
 {
     private static final String _S__C7_SPECIALCAMERA = "[S] C7 SpecialCamera";
-    private int _id;
-    private int _dist;
-    private int _yaw;
-    private int _pitch;
-    private int _time;
-    private int _duration;
+    private final int _id;
+    private final int _dist;
+    private final int _yaw;
+    private final int _pitch;
+    private final int _time;
+    private final int _duration;
 
     public SpecialCamera(int id,int dist, int yaw, int pitch, int time, int duration)
     {
@@ -37,7 +37,7 @@ public class SpecialCamera extends L2GameServerPacket
     
     @Override
     public void writeImpl()
-    {   
+    {
         writeC(0xd6);
         writeD(_id);
         writeD(_dist);

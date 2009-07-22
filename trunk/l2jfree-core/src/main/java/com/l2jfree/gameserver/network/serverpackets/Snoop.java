@@ -21,11 +21,11 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class Snoop extends L2GameServerPacket
 {
 	private static final String _S__D5_SNOOP = "[S] D5 Snoop";
-	private int _convoId;
-	private String _name;
-	private int _type;
-	private String _speaker;
-	private String _msg;
+	private final int _convoId;
+	private final String _name;
+	private final int _type;
+	private final String _speaker;
+	private final String _msg;
 	
 	public Snoop(int id, String name, int type, String speaker, String msg)
 	{

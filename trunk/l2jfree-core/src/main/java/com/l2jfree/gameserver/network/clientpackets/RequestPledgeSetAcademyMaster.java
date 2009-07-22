@@ -64,19 +64,19 @@ public class RequestPledgeSetAcademyMaster extends L2GameClientPacket
         if (currentMember.getSubPledgeType() == L2Clan.SUBUNIT_ACADEMY)
         {
             apprenticeMember = currentMember;
-            sponsorMember = targetMember;   
+            sponsorMember = targetMember;
         }
         else
         {
             apprenticeMember = targetMember;
-            sponsorMember = currentMember;  
+            sponsorMember = currentMember;
         }
         
         L2PcInstance apprentice = apprenticeMember.getPlayerInstance();
         L2PcInstance sponsor = sponsorMember.getPlayerInstance();
 
         SystemMessage sm = null;
-        if(_set == 0) 
+        if(_set == 0)
         {
             // test: do we get the current sponsor & apprentice from this packet or no?
             if (apprentice != null) apprentice.setSponsor(0);
@@ -93,19 +93,19 @@ public class RequestPledgeSetAcademyMaster extends L2GameClientPacket
             sm = new SystemMessage(SystemMessageId.S2_CLAN_MEMBER_C1_S_APPRENTICE_HAS_BEEN_REMOVED);
         }
         else
-        {        
+        {
             if (apprenticeMember.getSponsor() != 0 || sponsorMember.getApprentice() != 0
                     || apprenticeMember.getApprentice() != 0 || sponsorMember.getSponsor() != 0)
             {
                 activeChar.sendMessage("Remove previous connections first.");
                 return;
             }
-            if (apprentice != null) 
+            if (apprentice != null)
                 apprentice.setSponsor(sponsorMember.getObjectId());
             else // offline
                 apprenticeMember.initApprenticeAndSponsor(0, sponsorMember.getObjectId());
 
-            if (sponsor != null) 
+            if (sponsor != null)
                 sponsor.setApprentice(apprenticeMember.getObjectId());
             else // offline
             	sponsorMember.initApprenticeAndSponsor(apprenticeMember.getObjectId(), 0);

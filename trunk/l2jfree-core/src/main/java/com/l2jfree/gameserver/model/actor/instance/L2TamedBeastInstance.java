@@ -309,7 +309,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 
 	private class CheckDuration implements Runnable
 	{
-		private L2TamedBeastInstance _tamedBeast;
+		private final L2TamedBeastInstance _tamedBeast;
     	
 		CheckDuration(L2TamedBeastInstance tamedBeast)
 		{
@@ -365,8 +365,8 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 
 	private class CheckOwnerBuffs implements Runnable
 	{
-		private L2TamedBeastInstance _tamedBeast;
-		private int _numBuffs;
+		private final L2TamedBeastInstance _tamedBeast;
+		private final int _numBuffs;
     	
 		CheckOwnerBuffs(L2TamedBeastInstance tamedBeast, int numBuffs)
 		{

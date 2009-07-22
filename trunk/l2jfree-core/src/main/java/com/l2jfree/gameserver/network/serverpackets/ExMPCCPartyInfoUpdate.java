@@ -26,8 +26,8 @@ public class ExMPCCPartyInfoUpdate extends L2GameServerPacket
 {
 
 	private static final String _S__FE_5B_EXMPCCPARTYINFOUPDATE = "[S] FE:5B ExMPCCPartyInfoUpdate";
-	private L2Party _party;
-	private int _mode;
+	private final L2Party _party;
+	private final int _mode;
 
 	/**
 	 * 

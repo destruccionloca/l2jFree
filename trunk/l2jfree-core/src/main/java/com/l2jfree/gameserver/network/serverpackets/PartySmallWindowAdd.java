@@ -17,11 +17,11 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
-public class PartySmallWindowAdd extends L2GameServerPacket 
+public class PartySmallWindowAdd extends L2GameServerPacket
 {
 	private static final String _S__4F_PARTYSMALLWINDOWADD = "[S] 4f PartySmallWindowAdd [dddsdddddddddd]";
 	
-	private L2PcInstance _member;
+	private final L2PcInstance _member;
 	
 	public PartySmallWindowAdd(L2PcInstance member)
 	{

@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * @author Rayan RPG
  *
  */
-public class L2NpcWalkerNode 
+public class L2NpcWalkerNode
 {
 	private int _routeId;
 	private int _npcId;

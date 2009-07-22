@@ -33,9 +33,9 @@ public class WareHouseDepositList extends L2GameServerPacket
 
 	private static final String		_S__41_WAREHOUSEDEPOSITLIST	= "[S] 41 WareHouseDepositList";
 
-	private long						_playerAdena;
-	private FastList<L2ItemInstance>	_items;
-	private int							_whType;
+	private final long						_playerAdena;
+	private final FastList<L2ItemInstance>	_items;
+	private final int							_whType;
 
 	public WareHouseDepositList(L2PcInstance player, int type)
 	{

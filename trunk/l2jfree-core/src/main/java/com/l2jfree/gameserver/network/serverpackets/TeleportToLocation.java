@@ -29,11 +29,11 @@ import com.l2jfree.gameserver.model.L2Object;
 public class TeleportToLocation extends L2GameServerPacket
 {
 	private static final String _S__38_TELEPORTTOLOCATION = "[S] 28 TeleportToLocation";
-	private int _targetObjId;
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _heading;
+	private final int _targetObjId;
+	private final int _x;
+	private final int _y;
+	private final int _z;
+	private final int _heading;
 	/**
 	 * @param _characters
 	 */

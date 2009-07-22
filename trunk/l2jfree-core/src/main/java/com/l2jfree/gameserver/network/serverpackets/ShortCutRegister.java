@@ -19,14 +19,14 @@ import com.l2jfree.gameserver.model.L2ShortCut;
  * 
  *
  * sample
- *  
- * 56 
+ * 
+ * 56
  * 01000000 04000000 dd9fb640 01000000
  * 
- * 56 
+ * 56
  * 02000000 07000000 38000000 03000000 01000000
  * 
- * 56 
+ * 56
  * 03000000 00000000 02000000 01000000
  * 
  * format   dd d/dd/d d
@@ -38,7 +38,7 @@ public class ShortCutRegister extends L2GameServerPacket
 {
 	private static final String _S__56_SHORTCUTREGISTER = "[S] 44 ShortCutRegister";
 	
-    private L2ShortCut _shortcut;
+    private final L2ShortCut _shortcut;
 
 	/**
 	 * Register new skill shortcut
@@ -77,7 +77,7 @@ public class ShortCutRegister extends L2GameServerPacket
         	writeD(_shortcut.getCharacterType());
         	break;
        /** these are same as default case, no need to duplicate, enable if packet get changed
-        */ 
+        */
        /*	case L2ShortCut.TYPE_ACTION: //3
         *		writeD(_shortcut.getId());
         *		writeD(_shortcut.getUserCommand());

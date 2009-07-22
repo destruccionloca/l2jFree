@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
  * 
  * @version $Revision: 1.2.2.2.2.4 $ $Date: 2005/03/27 15:29:33 $
  */
-public class CharSelectInfoPackage 
+public class CharSelectInfoPackage
 {
 	private String		_name;
 	private int			_objectId			= 0;
@@ -49,7 +49,7 @@ public class CharSelectInfoPackage
 	private double		_currentHp			= 0;
 	private int			_maxMp				= 0;
 	private double		_currentMp			= 0;
-	private int[][]		_paperdoll;
+	private final int[][]		_paperdoll;
 	private int			_transformationId	= 0;
 	private int			_x = 0, _y = 0, _z	= 0;
 

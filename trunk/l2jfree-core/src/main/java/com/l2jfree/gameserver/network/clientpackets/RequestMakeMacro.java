@@ -66,7 +66,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 		int _count = readC();
 		if (_count > MAX_MACRO_LENGTH) _count = MAX_MACRO_LENGTH;
 		
-		L2MacroCmd[] commands = new L2MacroCmd[_count];  
+		L2MacroCmd[] commands = new L2MacroCmd[_count];
         if (_log.isDebugEnabled()) _log.debug("Make macro id:"+_id+"\tname:"+_name+"\tdesc:"+_desc+"\tacronym:"+_acronym+"\ticon:"+_icon+"\tcount:"+_count);
         for (int i = 0; i < _count; i++)
         {
@@ -85,7 +85,7 @@ public class RequestMakeMacro extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-		L2PcInstance  player = getClient().getActiveChar(); 
+		L2PcInstance  player = getClient().getActiveChar();
 		if (player == null)
 		    return;
 		if (_commandsLenght > 255)

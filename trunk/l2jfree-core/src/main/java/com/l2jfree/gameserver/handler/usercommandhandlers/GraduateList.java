@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class GraduateList implements IUserCommandHandler
 {
-	private static final int[] COMMAND_IDS = { 110 }; 
+	private static final int[] COMMAND_IDS = { 110 };
 
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{

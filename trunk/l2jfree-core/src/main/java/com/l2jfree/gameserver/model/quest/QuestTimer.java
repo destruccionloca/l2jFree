@@ -51,11 +51,11 @@ public class QuestTimer
     // =========================================================
     // Data Field
     private boolean _isActive = true;
-    private String _name;
-    private Quest _quest;
-    private L2Npc _npc;
-    private L2PcInstance _player;
-    private boolean _isRepeating;
+    private final String _name;
+    private final Quest _quest;
+    private final L2Npc _npc;
+    private final L2PcInstance _player;
+    private final boolean _isRepeating;
     private ScheduledFuture<?> _scheduler;
 
     // =========================================================

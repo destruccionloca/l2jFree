@@ -39,7 +39,7 @@ public class Auction
 {
 	protected static Log _log = LogFactory.getLog(Auction.class.getName());
 	private int _id								= 0;
-	private int _adenaId						= 57;
+	private final int _adenaId						= 57;
 	private long _endDate;
 	private int _highestBidderId				= 0;
 	private String _highestBidderName			= "";
@@ -47,7 +47,7 @@ public class Auction
 	private int _itemId							= 0;
 	private String _itemName					= "";
 	private int _itemObjectId					= 0;
-	private int _itemQuantity					= 0;
+	private final int _itemQuantity					= 0;
 	private String _itemType					= "";
 	private int _sellerId						= 0;
 	private String _sellerClanName			 = "";
@@ -55,7 +55,7 @@ public class Auction
 	private int _currentBid						= 0;
 	private int _startingBid					= 0;
 
-	private Map<Integer, Bidder> _bidders		= new FastMap<Integer, Bidder>();
+	private final Map<Integer, Bidder> _bidders		= new FastMap<Integer, Bidder>();
 
 	private static final String[] ItemTypeName =
 	{
@@ -69,10 +69,10 @@ public class Auction
 
 	public class Bidder
 	{
-		private String _name;
-		private String _clanName;
+		private final String _name;
+		private final String _clanName;
 		private int _bid;
-		private Calendar _timeBid;
+		private final Calendar _timeBid;
 
 		public Bidder(String name, String clanName, int bid, long timeBid)
 		{

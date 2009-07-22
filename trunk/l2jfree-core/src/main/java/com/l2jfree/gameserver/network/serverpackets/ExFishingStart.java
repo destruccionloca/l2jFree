@@ -22,10 +22,10 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public class ExFishingStart extends L2GameServerPacket
 {
 	private static final String _S__FE_1E_EXFISHINGSTART = "[S] FE:1e ExFishingStart [ddddd cccc]";
-	private L2Character _activeChar;
-	private int _x,_y,_z, _fishType;
+	private final L2Character _activeChar;
+	private final int _x,_y,_z, _fishType;
 	@SuppressWarnings("unused")
-	private boolean _isNightLure;
+	private final boolean _isNightLure;
 	
 	public ExFishingStart(L2Character character, int fishType, int x, int y,int z, boolean isNightLure)
 	{

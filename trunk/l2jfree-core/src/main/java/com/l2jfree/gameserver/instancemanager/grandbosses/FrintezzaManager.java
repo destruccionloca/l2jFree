@@ -801,9 +801,9 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class SongEffectLaunched implements Runnable
 	{
-		private L2Object[]	_targets;
+		private final L2Object[]	_targets;
 
-		private int			_song, _previousHp, _currentTime;
+		private final int			_song, _previousHp, _currentTime;
 
 		/**
 		 * Constructor
@@ -1020,7 +1020,7 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class exitDecreaseRegHp implements Runnable
 	{
-		private L2Character _char;
+		private final L2Character _char;
 		
 		public exitDecreaseRegHp(L2Character character)
 		{
@@ -1179,9 +1179,9 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class attackerListener implements Runnable
 	{
-		private L2Character	_mob;
+		private final L2Character	_mob;
 
-		private int			_aggroDamage;
+		private final int			_aggroDamage;
 
 		public attackerListener(L2Character controller, int hate)
 		{
@@ -1452,7 +1452,7 @@ public class FrintezzaManager extends BossLair
 
 	private class respawnDemon implements Runnable
 	{
-		private L2MonsterInstance	_mob;
+		private final L2MonsterInstance	_mob;
 
 		public respawnDemon(L2MonsterInstance mob)
 		{
@@ -1742,9 +1742,9 @@ public class FrintezzaManager extends BossLair
 
 	private class doSkill implements Runnable
 	{
-		private L2Character	_caster;
-		private L2Skill		_skill;
-		private int			_interval, _range;
+		private final L2Character	_caster;
+		private final L2Skill		_skill;
+		private final int			_interval, _range;
 
 		/**
 		 * Shows skill animation effect and teleports to the target if it's out of range
@@ -1814,7 +1814,7 @@ public class FrintezzaManager extends BossLair
 
 	private class ReTarget implements Runnable
 	{
-		private L2Npc	_mob;
+		private final L2Npc	_mob;
 
 		public ReTarget(L2Npc mob)
 		{
@@ -2035,7 +2035,7 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class SetMobilised implements Runnable
 	{
-		private L2Npc	_boss;
+		private final L2Npc	_boss;
 
 		public SetMobilised(L2Npc boss)
 		{
@@ -2057,8 +2057,8 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class MoveToPos implements Runnable
 	{
-		private L2Npc	_npc;
-		private L2CharPosition	_pos;
+		private final L2Npc	_npc;
+		private final L2CharPosition	_pos;
 
 		public MoveToPos(L2Npc npc, L2CharPosition pos)
 		{

@@ -102,7 +102,7 @@ public class AdminLevel implements IAdminCommandHandler
 	}
 
 	/**
-	 * Show tips about command usage and syntax. 
+	 * Show tips about command usage and syntax.
 	 * @param command admin command name
 	 */
 	private void showAdminCommandHelp(L2PcInstance activeChar, String command)

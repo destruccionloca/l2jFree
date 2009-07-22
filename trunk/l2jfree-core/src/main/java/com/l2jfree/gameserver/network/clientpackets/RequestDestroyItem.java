@@ -47,12 +47,12 @@ public class RequestDestroyItem extends L2GameClientPacket
 	 * 
 	 * sample
 	 * 
-	 * 59 
-	 * 0b 00 00 40		// object id 
+	 * 59
+	 * 0b 00 00 40		// object id
 	 * 01 00 00 00		// count ??
 	 * 
 	 * 
-	 * format:		cdd  
+	 * format:		cdd
 	 * @param decrypt
 	 */
     @Override
@@ -136,7 +136,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 		if (itemToRemove.isEquipped())
 		{
 			L2ItemInstance[] unequiped =
-				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getLocationSlot()); 
+				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getLocationSlot());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (L2ItemInstance element : unequiped)
 			{
@@ -156,7 +156,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 					activeChar.getPet().unSummon(activeChar);
 
 				// if it's a pet control item, delete the pet
-				con = L2DatabaseFactory.getInstance().getConnection(con); 
+				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
 				statement.setInt(1, _objectId);
 				statement.execute();

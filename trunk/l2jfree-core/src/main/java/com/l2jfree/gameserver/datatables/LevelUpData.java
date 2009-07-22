@@ -50,7 +50,7 @@ public class LevelUpData
 
 	private final static Log				_log		= LogFactory.getLog(LevelUpData.class.getName());
 
-	private FastMap<Integer, L2LvlupData>	_lvlTable;
+	private final FastMap<Integer, L2LvlupData>	_lvlTable;
 
 	public static LevelUpData getInstance()
 	{

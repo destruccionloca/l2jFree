@@ -47,7 +47,7 @@ public class TestDateRange extends TestCase
         DateRange dr = DateRange.parse(firstDate, format);
 
         assertTrue(!dr.isValid());
-    }    
+    }
 
     public void testWithinRange()
     {
@@ -64,7 +64,7 @@ public class TestDateRange extends TestCase
         try
         {
             within = format.parse("15 Feb 2005");
-        } 
+        }
         catch (ParseException e)
         {
             fail(e.getMessage());
@@ -88,14 +88,14 @@ public class TestDateRange extends TestCase
         try
         {
             within = format.parse("18 Feb 2005");
-        } 
+        }
         catch (ParseException e)
         {
             fail(e.getMessage());
         }
 
         assertTrue(!dr.isWithinRange(within));
-    }    
+    }
     
     public void testNotWithinRange2()
     {
@@ -112,12 +112,12 @@ public class TestDateRange extends TestCase
         try
         {
             within = format.parse("16 Feb 2005");
-        } 
+        }
         catch (ParseException e)
         {
             fail(e.getMessage());
         }
 
         assertTrue(!dr.isWithinRange(within));
-    }        
+    }
 }

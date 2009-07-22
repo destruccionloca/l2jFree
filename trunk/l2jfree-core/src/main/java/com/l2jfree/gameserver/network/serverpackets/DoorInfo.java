@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 public class DoorInfo extends L2GameServerPacket
 {
 	private static final String _S__4C_DOORINFO = "[S] 4c DoorInfo [ddd]";
-	private L2DoorInstance _door;
+	private final L2DoorInstance _door;
 
 	public DoorInfo(L2DoorInstance door)
 	{

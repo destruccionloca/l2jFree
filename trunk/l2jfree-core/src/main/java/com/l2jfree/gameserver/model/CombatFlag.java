@@ -28,15 +28,15 @@ public class CombatFlag
 	public int				playerId	= 0;
 	private L2ItemInstance	_item		= null;
 
-	private Location		_location;
+	private final Location		_location;
 	public L2ItemInstance	itemInstance;
 
-	private int				_itemId;
+	private final int				_itemId;
 
 	@SuppressWarnings("unused")
-	private int				_heading;
+	private final int				_heading;
 	@SuppressWarnings("unused")
-	private int				_fortId;
+	private final int				_fortId;
 
 	// =========================================================
 	// Constructor

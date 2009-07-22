@@ -128,7 +128,7 @@ public class L2RaceManagerInstance extends L2Npc
     
     class Announcement implements Runnable
     {
-        private SystemMessageId _type;
+        private final SystemMessageId _type;
 
         public Announcement(SystemMessageId pType)
         {
@@ -412,7 +412,7 @@ public class L2RaceManagerInstance extends L2Npc
 
     public class Race
     {
-        private Info[] _info;
+        private final Info[] _info;
 
         public Race(Info[] pInfo)
         {
@@ -426,10 +426,10 @@ public class L2RaceManagerInstance extends L2Npc
 
         public class Info
         {
-            private int _id;
-            private int _place;
-            private int _odds;
-            private int _payout;
+            private final int _id;
+            private final int _place;
+            private final int _odds;
+            private final int _payout;
 
             public Info(int pId, int pPlace, int pOdds, int pPayout)
             {

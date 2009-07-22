@@ -38,7 +38,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	protected static int _strongHeal = 4718;
 	protected static int _weakHeal = 4717;
 
-	private FastList<Integer> _skillIds = new FastList<Integer>();
+	private final FastList<Integer> _skillIds = new FastList<Integer>();
 
 	private Future<?> _healingTask;
 
@@ -89,7 +89,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 
 	private class Heal implements Runnable
 	{
-		private L2BabyPetInstance _baby;
+		private final L2BabyPetInstance _baby;
 		public Heal(L2BabyPetInstance baby)
 		{
 			_baby = baby;

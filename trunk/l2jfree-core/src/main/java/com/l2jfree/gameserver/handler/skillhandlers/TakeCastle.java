@@ -24,8 +24,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/** 
- * @author _drunk_ 
+/**
+ * @author _drunk_
  */
 public class TakeCastle implements ISkillHandler
 {

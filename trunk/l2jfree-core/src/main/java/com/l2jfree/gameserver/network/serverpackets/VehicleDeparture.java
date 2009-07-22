@@ -22,12 +22,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
  */
 public class VehicleDeparture extends L2GameServerPacket
 {
-	private L2BoatInstance _boat;
-	private int _speed1;
-	private int _speed2;//rotation
-	private int _x;
-	private int _y;
-	private int _z;
+	private final L2BoatInstance _boat;
+	private final int _speed1;
+	private final int _speed2;//rotation
+	private final int _x;
+	private final int _y;
+	private final int _z;
 	/**
 	 * @param _boat
 	 * @param speed1
@@ -54,12 +54,12 @@ public class VehicleDeparture extends L2GameServerPacket
 	void writeImpl()
 	{
 		writeC(0x6c);
-		writeD(_boat.getObjectId());   
-		writeD(_speed1);        
-		writeD(_speed2);        
+		writeD(_boat.getObjectId());
+		writeD(_speed1);
+		writeD(_speed2);
 		writeD(_x);
-		writeD(_y);    
-		writeD(_z);  		
+		writeD(_y);
+		writeD(_z);
 	}
 
 	/* (non-Javadoc)

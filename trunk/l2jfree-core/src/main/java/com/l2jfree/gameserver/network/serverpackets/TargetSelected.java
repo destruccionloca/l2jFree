@@ -29,11 +29,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class TargetSelected extends L2GameServerPacket
 {
 	private static final String _S__39_TARGETSELECTED = "[S] 29 TargetSelected";
-	private int _objectId;
-	private int _targetObjId;
-	private int _x;
-	private int _y;
-	private int _z;
+	private final int _objectId;
+	private final int _targetObjId;
+	private final int _x;
+	private final int _y;
+	private final int _z;
 	
 
 	/**

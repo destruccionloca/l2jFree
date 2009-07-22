@@ -102,8 +102,8 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 			for (L2ItemInstance _item : _inventory.getItems())
 			{
-				if (!_item.isStackable() && 
-					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE && 
+				if (!_item.isStackable() &&
+					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
 					_item.getItem().getCrystalCount() > 0 &&
 					!_item.isHeroItem())
 				{
@@ -263,8 +263,8 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 				if( _item!=null &&
 					_item.getOwnerId()==player.getObjectId() &&
-					!_item.isStackable() && 
-					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE && 
+					!_item.isStackable() &&
+					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
 					_item.getItem().getCrystalCount() > 0 &&
 					i<_itemsSelected.size())
 				{
@@ -301,8 +301,8 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 				if( _item!=null &&
 					_item.getOwnerId()==player.getObjectId() &&
-					!_item.isStackable() && 
-					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE && 
+					!_item.isStackable() &&
+					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
 					_item.getItem().getCrystalCount() > 0)
 				{
 
@@ -453,7 +453,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 				_pageId = Integer.parseInt(st.nextToken());
 			}
-			catch (NumberFormatException  e){}  
+			catch (NumberFormatException  e){}
 
 			Inventory _inventory = player.getInventory();
 
@@ -550,7 +550,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 				_recipeObjId = Integer.parseInt(st.nextToken());
 				_quantity = Integer.parseInt(st.nextToken());
 			}
-			catch (NumberFormatException  e){}  
+			catch (NumberFormatException  e){}
 
 			Inventory _inventory = player.getInventory();
 

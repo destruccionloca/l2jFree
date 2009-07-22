@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class StopPledgeWar extends L2GameServerPacket
 {
     private static final String _S__7f_STOPPLEDGEWAR = "[S] 67 StopPledgeWar";
-    private String _pledgeName;
-    private String _playerName;
+    private final String _pledgeName;
+    private final String _playerName;
 
     public StopPledgeWar(String pledge, String charName)
     {

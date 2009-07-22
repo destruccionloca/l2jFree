@@ -25,8 +25,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/** 
- * @author _drunk_ 
+/**
+ * @author _drunk_
  */
 public class Spoil implements ISkillHandler
 {

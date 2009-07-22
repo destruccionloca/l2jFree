@@ -32,11 +32,11 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2SiegeFlagInstance extends L2Npc
 {
-	private L2Clan _clan;
-	private L2PcInstance _player;
-	private Siege _siege;
-	private FortSiege _fortSiege;
-	private boolean _isAdvanced;
+	private final L2Clan _clan;
+	private final L2PcInstance _player;
+	private final Siege _siege;
+	private final FortSiege _fortSiege;
+	private final boolean _isAdvanced;
 	private long _talkProtectionTime;
 
 	public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template, boolean advanced)
@@ -47,13 +47,14 @@ public final class L2SiegeFlagInstance extends L2Npc
 		_player = player;
 		_clan = player == null ? null : player.getClan();
 		_talkProtectionTime = 0;
+		_siege = SiegeManager.getInstance().getSiege(_player);
+		_fortSiege = FortSiegeManager.getInstance().getSiege(_player);
+		
 		if (_clan == null)
 		{
 			deleteMe();
 			return;
 		}
-		_siege = SiegeManager.getInstance().getSiege(_player);
-		_fortSiege = FortSiegeManager.getInstance().getSiege(_player);
 
 		if (_siege == null && _fortSiege == null)
 		{

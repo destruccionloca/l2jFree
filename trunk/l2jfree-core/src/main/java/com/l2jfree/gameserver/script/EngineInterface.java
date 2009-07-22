@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 /**
  * @author Luis Arias
  *
- * Define the contract for any engine interface. You should be able to add drop, 
+ * Define the contract for any engine interface. You should be able to add drop,
  * quest drop, event drop, modify pet stats and make action on player login
  */
 public interface EngineInterface

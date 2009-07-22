@@ -68,8 +68,8 @@ public class AdminUnblockIp implements IAdminCommandHandler
 	}
 
 	/**
-	 * @param ipAddress  
-	 * @param activeChar  
+	 * @param ipAddress
+	 * @param activeChar
 	 */
 	private boolean unblockIp(String ipAddress, L2PcInstance activeChar)
 	{

@@ -41,7 +41,7 @@ public class ExAirShipStopMove extends L2GameServerPacket
 	    writeH(0x66);
 	    
 	    writeD(_airShipId);
-	    writeD(_playerId);	    
+	    writeD(_playerId);
 	    writeD(_x);
 	    writeD(_y);
 	    writeD(_z);

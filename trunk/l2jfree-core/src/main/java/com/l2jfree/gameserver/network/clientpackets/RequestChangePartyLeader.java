@@ -41,7 +41,7 @@ public class RequestChangePartyLeader extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
 
-		if (activeChar.isInParty() && activeChar.getParty().isLeader(activeChar)) 
+		if (activeChar.isInParty() && activeChar.getParty().isLeader(activeChar))
 			activeChar.getParty().changePartyLeader(_name);
 
 		sendPacket(ActionFailed.STATIC_PACKET);

@@ -25,7 +25,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ShowCalculator extends L2GameServerPacket
 {
 	private static final String _S__DC_SHOWCALCULATOR = "[S] dc ShowCalculator";
-	private int _calculatorId;
+	private final int _calculatorId;
 
 	/**
 	 */

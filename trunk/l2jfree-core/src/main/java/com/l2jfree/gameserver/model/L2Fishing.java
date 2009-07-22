@@ -47,11 +47,11 @@ public class L2Fishing implements Runnable
 	private Future<?>		_fishAiTask;
 	private boolean			_thinking;
 	// Fish datas
-	private int				_fishId;
-	private int				_fishMaxHp;
+	private final int				_fishId;
+	private final int				_fishMaxHp;
 	private int				_fishCurHp;
-	private double			_regenHp;
-	private boolean			_isUpperGrade;
+	private final double			_regenHp;
+	private final boolean			_isUpperGrade;
 	private int				_lureType;
 
 	public void run()

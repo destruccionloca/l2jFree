@@ -28,7 +28,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 public class ExHeroList extends L2GameServerPacket
 {
 	private static final String		_S__FE_79_EXHEROLIST	= "[S] FE:79 ExHeroList [d(sdsdsdd)]";
-	private Map<Integer, StatsSet>	_heroList;
+	private final Map<Integer, StatsSet>	_heroList;
 
 	public ExHeroList()
 	{

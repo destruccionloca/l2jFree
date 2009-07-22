@@ -120,7 +120,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * The function saveGlobalData is, by default, called at shutdown, for all quests, by the QuestManager.
-	 * Children of this class can implement this function in order to convert their structures 
+	 * Children of this class can implement this function in order to convert their structures
 	 * into <var, value> tuples and make calls to save them to the database, if needed.
 	 * By default, nothing is saved.
 	 */
@@ -134,15 +134,15 @@ public class Quest extends ManagedScript
 		QUEST_START(true), // onTalk action from start npcs
 		ON_TALK(true), // onTalk action from npcs participating in a quest
 		ON_ATTACK(true), // onAttack action triggered when a mob gets attacked by someone
-		ON_KILL(true), // onKill action triggered when a mob gets killed. 
+		ON_KILL(true), // onKill action triggered when a mob gets killed.
 		ON_SPAWN(true), // onSpawn action triggered when an NPC is spawned or respawned.
-		ON_SKILL_SEE(true), // NPC or Mob saw a person casting a skill (regardless what the target is). 
-		ON_FACTION_CALL(true), // NPC or Mob saw a person casting a skill (regardless what the target is). 
-		ON_AGGRO_RANGE_ENTER(true), // a person came within the Npc/Mob's range 
+		ON_SKILL_SEE(true), // NPC or Mob saw a person casting a skill (regardless what the target is).
+		ON_FACTION_CALL(true), // NPC or Mob saw a person casting a skill (regardless what the target is).
+		ON_AGGRO_RANGE_ENTER(true), // a person came within the Npc/Mob's range
 		ON_SPELL_FINISHED(true);  // on spell finished action when npc finish casting skill
 
 		// control whether this event type is allowed for the same npc template in multiple quests
-		// or if the npc must be registered in at most one quest for the specified event 
+		// or if the npc must be registered in at most one quest for the specified event
 		private boolean	_allowMultipleRegistration;
 
 		QuestEventType(boolean allowMultipleRegistration)
@@ -230,7 +230,7 @@ public class Quest extends ManagedScript
 	{
 		// Add quest timer if timer doesn't already exist
 		FastList<QuestTimer> timers = getQuestTimers(name);
-		// no timer exists with the same name, at all 
+		// no timer exists with the same name, at all
 		if (timers == null)
 		{
 			timers = new FastList<QuestTimer>();
@@ -307,7 +307,7 @@ public class Quest extends ManagedScript
 		{
 			_rwLock.writeLock().unlock();
 		}
-	} 
+	}
 
 	public void cancelQuestTimer(String name, L2Npc npc, L2PcInstance player)
 	{
@@ -454,7 +454,7 @@ public class Quest extends ManagedScript
 		// else tell the player that
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 
-		// note: if the default html for this npc needs to be shown, onFirstTalk should 
+		// note: if the default html for this npc needs to be shown, onFirstTalk should
 		// call npc.showChatWindow(player) and then return null.
 		return true;
 	}
@@ -604,7 +604,7 @@ public class Quest extends ManagedScript
 	 * <LI><U>"res" ends with string ".html" :</U> an HTML is opened in order to be shown in a dialog box</LI>
 	 * <LI><U>"res" starts with "<html>" :</U> the message hold in "res" is shown in a dialog box</LI>
 	 * <LI><U>otherwise :</U> the message hold in "res" is shown in chat box</LI>
-	 * @param qs : QuestState 
+	 * @param qs : QuestState
 	 * @param res : String pointing out the message to show at the player
 	 * @return boolean
 	 */
@@ -734,8 +734,8 @@ public class Quest extends ManagedScript
 	/**
 	 * Insert (or Update) in the database variables that need to stay persistant for this quest after a reboot.
 	 * This function is for storage of values that do not related to a specific player but are
-	 * global for all characters.  For example, if we need to disable a quest-gatekeeper until 
-	 * a certain time (as is done with some grand-boss gatekeepers), we can save that time in the DB.  
+	 * global for all characters.  For example, if we need to disable a quest-gatekeeper until
+	 * a certain time (as is done with some grand-boss gatekeepers), we can save that time in the DB.
 	 * @param var : String designating the name of the variable for the quest
 	 * @param value : String designating the value of the variable for the quest
 	 */
@@ -767,7 +767,7 @@ public class Quest extends ManagedScript
 	 * Read from the database a previously saved variable for this quest.
 	 * Due to performance considerations, this function should best be used only when the quest is first loaded.
 	 * Subclasses of this class can define structures into which these loaded values can be saved.
-	 * However, on-demand usage of this function throughout the script is not prohibited, only not recommended. 
+	 * However, on-demand usage of this function throughout the script is not prohibited, only not recommended.
 	 * Values read from this function were entered by calls to "saveGlobalQuestVar"
 	 * @param var : String designating the name of the variable for the quest
 	 * @return String : String representing the loaded value for the passed var, or an empty string if the var was invalid
@@ -1015,7 +1015,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed mob will respond to for the specified Event type.<BR><BR>
 	 * @param npcId : id of the NPC to register
-	 * @param eventType : type of event being registered 
+	 * @param eventType : type of event being registered
 	 * @return L2NpcTemplate : Npc Template corresponding to the npcId, or null if the id is invalid
 	 */
 	public L2NpcTemplate addEventId(int npcId, QuestEventType eventType)
@@ -1145,12 +1145,12 @@ public class Quest extends ManagedScript
 	}
 
 	/**
-	 * Auxilary function for party quests. 
+	 * Auxilary function for party quests.
 	 * Note: This function is only here because of how commonly it may be used by quest developers.
 	 * For any variations on this function, the quest script can always handle things on its own
 	 * @param player: the instance of a player whose party is to be searched
 	 * @param value: the value of the "cond" variable that must be matched
-	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
+	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified
 	 * 			condition, or null if no match.
 	 */
 	public L2PcInstance getRandomPartyMember(L2PcInstance player, String value)
@@ -1159,14 +1159,14 @@ public class Quest extends ManagedScript
 	}
 
 	/**
-	 * Auxilary function for party quests. 
+	 * Auxilary function for party quests.
 	 * Note: This function is only here because of how commonly it may be used by quest developers.
 	 * For any variations on this function, the quest script can always handle things on its own
 	 * @param player: the instance of a player whose party is to be searched
 	 * @param var/value: a tuple specifying a quest condition that must be satisfied for
 	 *	 a party member to be considered.
-	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
-	 * 				condition, or null if no match.  If the var is null, any random party 
+	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified
+	 * 				condition, or null if no match.  If the var is null, any random party
 	 * 				member is returned (i.e. no condition is applied).
 	 * 				The party member must be within 1500 distance from the target of the reference
 	 * 				player, or if no target exists, 1500 distance from the player itself.
@@ -1194,8 +1194,8 @@ public class Quest extends ManagedScript
 			return null; // no match
 		}
 
-		// if the player is in a party, gather a list of all matching party members (possibly 
-		// including this player) 
+		// if the player is in a party, gather a list of all matching party members (possibly
+		// including this player)
 		FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
 
 		// get the target for enforcing distance limitations.
@@ -1219,13 +1219,13 @@ public class Quest extends ManagedScript
 	}
 
 	/**
-	 * Auxilary function for party quests. 
+	 * Auxilary function for party quests.
 	 * Note: This function is only here because of how commonly it may be used by quest developers.
 	 * For any variations on this function, the quest script can always handle things on its own
 	 * @param player: the instance of a player whose party is to be searched
 	 * @param state: the state in which the party member's queststate must be in order to be considered.
-	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
-	 * 				condition, or null if no match.  If the var is null, any random party 
+	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified
+	 * 				condition, or null if no match.  If the var is null, any random party
 	 * 				member is returned (i.e. no condition is applied).
 	 */
 	public L2PcInstance getRandomPartyMemberState(L2PcInstance player, byte state)
@@ -1247,8 +1247,8 @@ public class Quest extends ManagedScript
 			return null; // no match
 		}
 
-		// if the player is in a party, gather a list of all matching party members (possibly 
-		// including this player) 
+		// if the player is in a party, gather a list of all matching party members (possibly
+		// including this player)
 		FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
 
 		// get the target for enforcing distance limitations.
@@ -1273,7 +1273,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Show HTML file to client
 	 * @param fileName
-	 * @return String : message sent to client 
+	 * @return String : message sent to client
 	 */
 	public String showHtmlFile(L2PcInstance player, String fileName)
 	{
@@ -1373,7 +1373,7 @@ public class Quest extends ManagedScript
 				// Sometimes, even if the quest script specifies some xyz (for example npc.getX() etc) by the time the code
 				// reaches here, xyz have become 0!  Also, a questdev might have purposely set xy to 0,0...however,
 				// the spawn code is coded such that if x=y=0, it looks into location for the spawn loc!  This will NOT work
-				// with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the 
+				// with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the
 				// default spawn location, which is at the player's loc.
 				if ((x == 0) && (y == 0))
 				{
@@ -1435,7 +1435,7 @@ public class Quest extends ManagedScript
 	@Override
 	public String getScriptName()
 	{
-		return this.getName();
+		return getName();
 	}
 
 	/**
@@ -1463,10 +1463,10 @@ public class Quest extends ManagedScript
 	@Override
 	public boolean unload()
 	{
-		this.saveGlobalData();
+		saveGlobalData();
 		// cancel all pending timers before reloading.
 		// if timers ought to be restarted, the quest can take care of it
-		// with its code (example: save global data indicating what timer must 
+		// with its code (example: save global data indicating what timer must
 		// be restarted).
 		for (FastList<QuestTimer> timers : _allEventTimers.values())
 			for (QuestTimer timer : timers)

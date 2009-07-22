@@ -37,9 +37,9 @@ public class ExShowCropSetting extends L2GameServerPacket
 {
 	private static final String	_S__FE_20_EXSHOWCROPSETTING	= "[S] FE:20 ExShowCropSetting";
 
-	private int					_manorId;
-	private int					_count;
-	private long[]				_cropData;														// data to send, size:_count*14
+	private final int					_manorId;
+	private final int					_count;
+	private final long[]				_cropData;														// data to send, size:_count*14
 
 	public ExShowCropSetting(int manorId)
 	{
@@ -56,7 +56,7 @@ public class ExShowCropSetting extends L2GameServerPacket
 			_cropData[i * 14 + 2] = L2Manor.getInstance().getRewardItem(cr, 1);
 			_cropData[i * 14 + 3] = L2Manor.getInstance().getRewardItem(cr, 2);
 			_cropData[i * 14 + 4] = L2Manor.getInstance().getCropPuchaseLimit(cr);
-			_cropData[i * 14 + 5] = 0; // Looks like not used 
+			_cropData[i * 14 + 5] = 0; // Looks like not used
 			_cropData[i * 14 + 6] = L2Manor.getInstance().getCropBasicPrice(cr) * 60 / 100;
 			_cropData[i * 14 + 7] = L2Manor.getInstance().getCropBasicPrice(cr) * 10;
 			CropProcure cropPr = c.getCrop(cr, CastleManorManager.PERIOD_CURRENT);
@@ -108,7 +108,7 @@ public class ExShowCropSetting extends L2GameServerPacket
 			writeD((int) _cropData[i * 14 + 3]); // reward 2 id
 
 			writeD((int) _cropData[i * 14 + 4]); // next sale limit
-			writeD((int) _cropData[i * 14 + 5]); // ??? 
+			writeD((int) _cropData[i * 14 + 5]); // ???
 			writeD((int) _cropData[i * 14 + 6]); // min crop price
 			writeD((int) _cropData[i * 14 + 7]); // max crop price
 

@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class RequestRecipeBookOpen extends L2GameClientPacket 
+public class RequestRecipeBookOpen extends L2GameClientPacket
 {
 	private static final String _C__AC_REQUESTRECIPEBOOKOPEN = "[C] AC RequestRecipeBookOpen";
 	@SuppressWarnings("unused")
@@ -60,7 +60,7 @@ public class RequestRecipeBookOpen extends L2GameClientPacket
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
 	@Override
-	public String getType() 
+	public String getType()
 	{
 		return _C__AC_REQUESTRECIPEBOOKOPEN;
 	}

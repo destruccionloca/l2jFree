@@ -23,7 +23,7 @@ import com.l2jfree.Config;
  * 
  * @author Tempy
  */
-public final class SubClass 
+public final class SubClass
 {
 	private static final byte _maxLevel = Config.ALT_MAX_SUBCLASS_LEVEL < Experience.MAX_LEVEL
 												? Config.ALT_MAX_SUBCLASS_LEVEL : Experience.MAX_LEVEL - 1;
@@ -31,7 +31,7 @@ public final class SubClass
 	private ClassId _class;
 	private long _exp = Experience.LEVEL[40];
 	private int _sp = 0;
-	private byte _level = 40;    
+	private byte _level = 40;
 	private int _classIndex = 1;
 	
 	public SubClass(int classId, long exp, int sp, byte level, int classIndex)
@@ -52,7 +52,7 @@ public final class SubClass
 	
 	public SubClass()
 	{
-		// Used for specifying ALL attributes of a sub class directly, 
+		// Used for specifying ALL attributes of a sub class directly,
 		// using the preset default values.
 	}
 	
@@ -81,7 +81,7 @@ public final class SubClass
 		return _level;
 	}
 	
-	public int getClassIndex() 
+	public int getClassIndex()
 	{
 		return _classIndex;
 	}
@@ -104,7 +104,7 @@ public final class SubClass
 		_sp = spValue;
 	}
 	
-	public void setClassIndex(int classIndex) 
+	public void setClassIndex(int classIndex)
 	{
 		_classIndex = classIndex;
 	}

@@ -22,7 +22,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class TradeDone extends L2GameServerPacket
 {
 	private static final String S_1C_TRADEDONE = "[S] 1C TradeDone";
-	private int _num;
+	private final int _num;
 	
 	public TradeDone (int num)
 	{

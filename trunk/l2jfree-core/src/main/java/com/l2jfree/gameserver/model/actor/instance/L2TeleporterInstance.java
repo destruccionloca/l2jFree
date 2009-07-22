@@ -216,7 +216,7 @@ public final class L2TeleporterInstance extends L2Npc
 			Calendar cal = Calendar.getInstance();
 			int price = list.getPrice();
 			// From CT2 all players below lvl 40 have all ports for free
-			if (player.getLevel() < 40 && !this.getTemplate().isCustom())
+			if (player.getLevel() < 40 && !getTemplate().isCustom())
 			{
 				price = 0;
 			}
@@ -225,7 +225,7 @@ public final class L2TeleporterInstance extends L2Npc
 			// But only adena teleports
 			else if (!list.isForNoble())
 			{
-				if (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23 
+				if (cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23
 							&& (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7))
 					price /= 2;
 			}

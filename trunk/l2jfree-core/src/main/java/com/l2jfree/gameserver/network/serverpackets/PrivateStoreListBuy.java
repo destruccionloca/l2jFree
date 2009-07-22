@@ -26,9 +26,9 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 {
 	//	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
 	private static final String		_S__BE_PRIVATESTORELISTBUY	= "[S] be PrivateStoreListBuy";
-	private int						_objId;
-	private long					_playerAdena;
-	private TradeList.TradeItem[]	_items;
+	private final int						_objId;
+	private final long					_playerAdena;
+	private final TradeList.TradeItem[]	_items;
 
 	public PrivateStoreListBuy(L2PcInstance player, L2PcInstance storePlayer)
 	{

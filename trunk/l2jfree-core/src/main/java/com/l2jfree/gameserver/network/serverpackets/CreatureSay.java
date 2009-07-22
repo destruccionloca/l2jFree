@@ -19,10 +19,10 @@ import com.l2jfree.gameserver.network.SystemChatChannelId;
 public class CreatureSay extends L2GameServerPacket
 {
 	private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay [ddss]";
-	private int _objectId;
-	private SystemChatChannelId _channel;
-	private String _charName;
-	private String _text;
+	private final int _objectId;
+	private final SystemChatChannelId _channel;
+	private final String _charName;
+	private final String _text;
 
 	/**
 	 * @param _characters
@@ -53,5 +53,5 @@ public class CreatureSay extends L2GameServerPacket
 	public String getType()
 	{
 		return _S__4A_CREATURESAY;
-	}	
+	}
 }

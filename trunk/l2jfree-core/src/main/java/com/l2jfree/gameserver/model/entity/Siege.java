@@ -1556,8 +1556,8 @@ public class Siege extends AbstractSiege
 		else if (_castle.getCastleId() == 5)
 		{
 			int level = 0;
-			for (int i = 0; i < list.length; i++)
-				if (list[i].isUpgraded())
+			for (L2SiegeDangerZone finalElement : list)
+				if (finalElement.isUpgraded())
 					level++;
 			return level;
 		}

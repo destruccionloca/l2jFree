@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class TutorialShowHtml extends L2GameServerPacket
 {
 	private static final String _S__A6_TUTORIALSHOWHTML = "[S] a6 TutorialShowHtml";
-	private String _html;
+	private final String _html;
 	
 	public TutorialShowHtml(String html)
 	{

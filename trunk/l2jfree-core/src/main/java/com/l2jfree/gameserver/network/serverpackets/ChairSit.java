@@ -20,8 +20,8 @@ public class ChairSit extends L2GameServerPacket
 {
     private static final String _S__ED_CHAIRSIT = "[S] ed ChairSit [dd]";
     
-    private L2PcInstance _activeChar;
-    private int _staticObjectId;
+    private final L2PcInstance _activeChar;
+    private final int _staticObjectId;
 
     public ChairSit(L2PcInstance player, int staticObjectId)
     {

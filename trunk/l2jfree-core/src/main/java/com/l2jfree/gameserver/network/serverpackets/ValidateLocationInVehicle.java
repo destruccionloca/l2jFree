@@ -26,7 +26,7 @@ public class ValidateLocationInVehicle extends L2GameServerPacket
     private final L2PcInstance _activeChar;
 
     /**
-     * 0x73 ValidateLocationInVehicle         hdd 
+     * 0x73 ValidateLocationInVehicle         hdd
      * @param _characters
      */
     public ValidateLocationInVehicle(L2PcInstance player)

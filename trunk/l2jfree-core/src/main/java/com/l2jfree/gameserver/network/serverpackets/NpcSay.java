@@ -22,10 +22,10 @@ public final class NpcSay extends L2GameServerPacket
 {
 	// dddS
 	private static final String _S__30_NPCSAY = "[S] 30 NpcSay";
-	private int _objectId;
-	private int _textType;
-	private int _npcId;
-	private String _text;
+	private final int _objectId;
+	private final int _textType;
+	private final int _npcId;
+	private final String _text;
 
 	/**
 	 * @param _characters

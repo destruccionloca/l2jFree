@@ -18,7 +18,7 @@ public class ChooseInventoryItem extends L2GameServerPacket
 {
 	private static final String _S__7C_CHOOSEINVENTORYITEM = "[S] 7c ChooseInventoryItem [d]";
 
-	private int _itemId;
+	private final int _itemId;
 	   
 	public ChooseInventoryItem(int Item)
 	{

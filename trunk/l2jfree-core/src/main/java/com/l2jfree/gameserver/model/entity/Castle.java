@@ -72,8 +72,8 @@ public class Castle extends Siegeable<Siege>
 	private static final String			CASTLE_TRAP_LOAD						= "SELECT level FROM castle_zoneupgrade WHERE castleId=? AND side=?";
 	private static final String			CASTLE_TRAPS_REMOVE						= "DELETE FROM castle_zoneupgrade WHERE castleId=?";
 
-	private FastList<L2DoorInstance>	_doors									= new FastList<L2DoorInstance>();
-	private FastList<String>			_doorDefault							= new FastList<String>();
+	private final FastList<L2DoorInstance>	_doors									= new FastList<L2DoorInstance>();
+	private final FastList<String>			_doorDefault							= new FastList<String>();
 	private int							_castleId								= 0;
 	private Siege						_siege									= null;
 	private Calendar					_siegeDate;
@@ -84,9 +84,9 @@ public class Castle extends Siegeable<Siege>
 	private double						_taxRate								= 1.0;
 	private long						_treasury								= 0;
 	private int							_nbArtifact								= 1;
-	private Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
+	private final Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
 	private final int[]					_gate									= { Integer.MIN_VALUE, 0, 0 };
-    private Map<Integer,CastleFunction> _function;
+    private final Map<Integer,CastleFunction> _function;
     private ScheduledFuture<?>			_taxUpdate								= null;
 
 	/** Castle Functions */
@@ -99,11 +99,11 @@ public class Castle extends Siegeable<Siege>
 
 	public class CastleFunction
 	{
-		private int _type;
+		private final int _type;
 		private int _lvl;
 		protected int _fee;
 		protected int _tempFee;
-		private long _rate;
+		private final long _rate;
 		private long _endDate;
 		protected boolean _inDebt;
 		public boolean _cwh;

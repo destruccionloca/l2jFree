@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public class L2SkillAgathion extends L2Skill
 {
-	private int	_npcId;
+	private final int	_npcId;
 
 	public L2SkillAgathion(StatsSet set)
 	{

@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.L2Party;
 
 public class ExMultiPartyCommandChannelInfo extends L2GameServerPacket
 {
-	private L2CommandChannel _cc;
+	private final L2CommandChannel _cc;
 	
 	public ExMultiPartyCommandChannelInfo(L2CommandChannel cc)
 	{

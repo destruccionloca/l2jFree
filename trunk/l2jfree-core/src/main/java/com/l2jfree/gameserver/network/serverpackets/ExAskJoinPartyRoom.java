@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExAskJoinPartyRoom extends L2GameServerPacket
 {
 	private static final String _S__FE_35_EXASKJOINPARTYROOM = "[S] FE:35 ExAskJoinPartyRoom [s]";
-	private String _charName;
+	private final String _charName;
 	
 	
 	public ExAskJoinPartyRoom(String charName)

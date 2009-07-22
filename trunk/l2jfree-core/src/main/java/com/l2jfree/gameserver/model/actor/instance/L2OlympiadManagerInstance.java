@@ -167,7 +167,7 @@ public class L2OlympiadManagerInstance extends L2Npc
 			buffList.put(1078, 6); // Concentration Lv6
 			buffList.put(1068, 3); // Might Lv3
 			buffList.put(1240, 3); // Guidance Lv3
-			buffList.put(1077, 3); // Focus Lv3 
+			buffList.put(1077, 3); // Focus Lv3
 			buffList.put(1242, 3); // Death Whisper Lv3
 			buffList.put(1062, 2); // Berserk Spirit Lv2
 
@@ -201,7 +201,7 @@ public class L2OlympiadManagerInstance extends L2Npc
 				html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_nobuffs.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
-				this.deleteMe();
+				deleteMe();
 			}
 		}
 		else if (command.startsWith("Olympiad"))

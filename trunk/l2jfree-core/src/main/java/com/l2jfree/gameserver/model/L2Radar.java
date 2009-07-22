@@ -26,8 +26,8 @@ import com.l2jfree.gameserver.network.serverpackets.RadarControl;
  */
 public final class L2Radar
 {
-	private L2PcInstance        _player;
-	private FastList<RadarMarker> _markers;
+	private final L2PcInstance        _player;
+	private final FastList<RadarMarker> _markers;
 
 	public L2Radar(L2PcInstance player)
 	{

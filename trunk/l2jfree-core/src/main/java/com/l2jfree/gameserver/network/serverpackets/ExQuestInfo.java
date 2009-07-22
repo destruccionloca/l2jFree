@@ -31,7 +31,7 @@ public class ExQuestInfo extends L2GameServerPacket
 	protected void writeImpl()
     {
         writeC(0xfe);
-        writeH(0x20);       
+        writeH(0x20);
     }
 
     /* (non-Javadoc)

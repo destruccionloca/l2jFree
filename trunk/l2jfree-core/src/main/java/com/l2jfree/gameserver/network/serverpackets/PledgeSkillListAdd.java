@@ -22,8 +22,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class PledgeSkillListAdd extends L2GameServerPacket
 {
 	private static final String _S__FE_3A_PLEDGESKILLLISTADD = "[S] FE:3A PledgeSkillListAdd";
-	private int _id;
-	private int _lvl;
+	private final int _id;
+	private final int _lvl;
 	
 	public PledgeSkillListAdd(int id, int lvl)
 	{

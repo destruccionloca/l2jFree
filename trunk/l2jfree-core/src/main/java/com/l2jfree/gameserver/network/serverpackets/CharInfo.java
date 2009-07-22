@@ -28,16 +28,17 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class CharInfo extends L2GameServerPacket
 {
 	private static final String	_S__31_CHARINFO	= "[S] 31 CharInfo [dddddsddd dddddddddddd dddddddd hhhh d hhhhhhhhhhhh d hhhh hhhhhhhhhhhhhhhh dddddd dddddddd ffff ddd s ddddd ccccccc h c d c h ddd cc d ccc ddddddddddd]";
-	private L2PcInstance		_activeChar;
-	private PcAppearance		_appearance;
-	private Inventory			_inv;
-	private int					_x, _y, _z, _heading;
-	private int					_mAtkSpd, _pAtkSpd;
-	private int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
-	private float				_moveMultiplier, _attackSpeedMultiplier;
+	private final L2PcInstance		_activeChar;
+	private final PcAppearance		_appearance;
+	private final Inventory			_inv;
+	private final int					_x, _y, _z, _heading;
+	private final int					_mAtkSpd, _pAtkSpd;
+	private final int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd;
+	private int _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
+	private final float				_moveMultiplier, _attackSpeedMultiplier;
 	private int					_cursedWeaponLevel = 0;
 	private double				_collisionHeight, _collisionRadius;
-	private L2Transformation	_trans;
+	private final L2Transformation	_trans;
 
 	/**
 	 * @param _characters

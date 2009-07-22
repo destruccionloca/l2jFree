@@ -32,7 +32,7 @@ public class DateRange
 {
 	private final static Log	_log	= LogFactory.getLog(DateRange.class);
 
-	private Date				_startDate, _endDate;
+	private final Date				_startDate, _endDate;
 
 	/**
 	 * Constructor

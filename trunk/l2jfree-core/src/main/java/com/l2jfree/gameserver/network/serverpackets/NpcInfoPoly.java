@@ -31,18 +31,20 @@ public class NpcInfoPoly extends L2GameServerPacket
 	     
 	private static final String _S__22_NPCINFO = "[S] 16 NpcInfo";
 	private L2Character _activeChar;
-	private L2Object _obj;
+	private final L2Object _obj;
 	private int _x, _y, _z, _heading;
-	private int _npcId;
-	private boolean _isAttackable, _isSummoned, _isRunning, _isInCombat, _isAlikeDead;
+	private final int _npcId;
+	private boolean _isAttackable;
+	private final boolean _isSummoned;
+	private boolean _isRunning, _isInCombat, _isAlikeDead;
 	private int _mAtkSpd, _pAtkSpd;
 	private int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
 	private int _rhand, _lhand;
 	private String _name, _title;
 	private int _abnormalEffect;
 	L2NpcTemplate _template;
-	private int _collisionRadius;
-	private int _collisionHeight;
+	private final int _collisionRadius;
+	private final int _collisionHeight;
 
 	/**
 	 * @param _activeCharracters
@@ -77,12 +79,12 @@ public class NpcInfoPoly extends L2GameServerPacket
 			_runSpd = 120;
 			_walkSpd = 80;
 			_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
-			_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;	
+			_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 			_isRunning = _isInCombat = _isAlikeDead = false;
 			_name = "item";
 			_title = "polymorphed";
 			_abnormalEffect = 0;
-		}        
+		}
 		else
 		{
 			_x = _activeChar.getX();
@@ -111,7 +113,7 @@ public class NpcInfoPoly extends L2GameServerPacket
 		writeC(0x0c);
 		writeD(_obj.getObjectId());
 		writeD(_npcId+1000000);  // npctype id
-		writeD(_isAttackable ? 1 : 0); 
+		writeD(_isAttackable ? 1 : 0);
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);

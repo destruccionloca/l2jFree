@@ -22,7 +22,7 @@ import com.l2jfree.util.LinkedBunch;
 
 public class PcFreight extends ItemContainer
 {
-	private L2PcInstance	_owner;				// This is the L2PcInstance that owns this Freight;
+	private final L2PcInstance	_owner;				// This is the L2PcInstance that owns this Freight;
 	private int				_activeLocationId;
 	private int				_tempOwnerId	= 0;
 

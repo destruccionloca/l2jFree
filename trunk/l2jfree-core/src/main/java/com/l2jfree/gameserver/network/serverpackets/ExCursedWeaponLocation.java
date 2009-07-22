@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.Location;
 public class ExCursedWeaponLocation extends L2GameServerPacket
 {
 	private static final String _S__FE_47_EXCURSEDWEAPONLOCATION = "[S] FE:47 ExCursedWeaponLocation [d(dd ddd)]";
-	private FastList<CursedWeaponInfo> _cursedWeaponInfo;
+	private final FastList<CursedWeaponInfo> _cursedWeaponInfo;
 
 	public ExCursedWeaponLocation(FastList<CursedWeaponInfo> cursedWeaponInfo)
 	{

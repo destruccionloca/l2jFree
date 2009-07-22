@@ -26,8 +26,8 @@ public class PetStatusUpdate extends L2GameServerPacket
 {
 	private static final String _S__CE_PETSTATUSSHOW = "[S] B5 PetStatusUpdate";
 	
-	private L2Summon _summon;
-	private int _maxHp, _maxMp;
+	private final L2Summon _summon;
+	private final int _maxHp, _maxMp;
 	private int _maxFed, _curFed;
 	
 	public PetStatusUpdate(L2Summon summon)
@@ -59,7 +59,7 @@ public class PetStatusUpdate extends L2GameServerPacket
 		writeD(_maxHp);
 		writeD((int)_summon.getStatus().getCurrentMp());
 		writeD(_maxMp);
-		writeD(_summon.getLevel()); 
+		writeD(_summon.getLevel());
 		writeQ(_summon.getStat().getExp());
 		writeQ(_summon.getExpForThisLevel());// 0% absolute value
 		writeQ(_summon.getExpForNextLevel());// 100% absolute value

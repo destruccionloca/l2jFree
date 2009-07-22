@@ -17,14 +17,14 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class PlaySound extends L2GameServerPacket
 {
     private static final String _S__9E_PlaySound = "[S] 9E PlaySound [dSddddd]";
-    private int _mode;
-    private String _soundFile;
-    private int _unknown1;
-    private int _unknown2;
-    private int _x;
-    private int _y;
-    private int _z;
-    private int _unknown8;
+    private final int _mode;
+    private final String _soundFile;
+    private final int _unknown1;
+    private final int _unknown2;
+    private final int _x;
+    private final int _y;
+    private final int _z;
+    private final int _unknown8;
 
     public PlaySound(String soundFile)
     {

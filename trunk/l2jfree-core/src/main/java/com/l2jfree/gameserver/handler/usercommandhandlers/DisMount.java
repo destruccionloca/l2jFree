@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Support for /dismount command.  
+ * Support for /dismount command.
  * @author Micht
  */
 public class DisMount implements IUserCommandHandler

@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 
 /**
- * 15 
+ * 15
  * ee cc 11 43 		object id
  * 39 00 00 00 		item id
  * 8f 14 00 00 		x
@@ -26,8 +26,8 @@ import com.l2jfree.gameserver.model.L2Object;
  * 60 f2 ff ff 		z
  * 01 00 00 00 		show item count
  * 7a 00 00 00      count                                         .
- *  
- * format  dddddddd 
+ * 
+ * format  dddddddd
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */

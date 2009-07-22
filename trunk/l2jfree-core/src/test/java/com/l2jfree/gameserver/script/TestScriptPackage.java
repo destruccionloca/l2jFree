@@ -35,12 +35,12 @@ public class TestScriptPackage extends TestCase
         {
             new ScriptPackage(new ZipFile("unknownfile"));
             fail("File is found !");
-        } 
+        }
         catch (IOException e)
         {
             assertNotNull(e);
         }
-    }    
+    }
     
     public void testEmptyPackage() throws IOException
     {
@@ -48,7 +48,7 @@ public class TestScriptPackage extends TestCase
         String zipFile = this.getClass().getResource("emptydata.zip").getFile().replace("%20", " ");
         sp = new ScriptPackage(new ZipFile(zipFile));
         assertEquals(sp.getScriptFiles().size(),0 );
-    }    
+    }
     
     public void testZipPackageWithInvalidScript() throws IOException
     {
@@ -58,5 +58,5 @@ public class TestScriptPackage extends TestCase
         // We found 1 document. But the ScriptDocument does not contain any document
         assertEquals(sp.getScriptFiles().size(),1 );
         assertEquals(sp.getScriptFiles().get(0).getDocument(),null );
-    }         
+    }
 }

@@ -24,8 +24,8 @@ import com.l2jfree.gameserver.model.L2Clan;
 public class PledgeReceiveWarList extends L2GameServerPacket
 {
 	private static final String _S__FE_3E_PLEDGERECEIVEWARELIST = "[S] FE:3E PledgeReceiveWarList";
-	private L2Clan _clan;
-	private int _tab;
+	private final L2Clan _clan;
+	private final int _tab;
 	
 	public PledgeReceiveWarList(L2Clan clan, int tab)
 	{

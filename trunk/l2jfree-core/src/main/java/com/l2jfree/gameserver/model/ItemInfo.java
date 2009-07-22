@@ -24,42 +24,42 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public class ItemInfo implements ElementalOwner
 {
 	/** Identifier of the L2ItemInstance */
-	private int _objectId;
+	private final int _objectId;
 
 	/** The L2Item template of the L2ItemInstance */
-	private L2Item _item;
+	private final L2Item _item;
 
 	/** The level of enchant on the L2ItemInstance */
-	private int _enchant;
+	private final int _enchant;
 
 	/** The augmentation of the item */
 	private int _augmentation;
 
 	/** The quantity of L2ItemInstance */
-	private long _count;
+	private final long _count;
 
 	/** The price of the L2ItemInstance */
 	private long _price;
 
 	/** The custom L2ItemInstance types (used loto, race tickets) */
-	private int _type1;
-	private int _type2;
+	private final int _type1;
+	private final int _type2;
 
 	/** If True the L2ItemInstance is equipped */
-	private int _equipped;
+	private final int _equipped;
 
 	/** The action to do clientside (1=ADD, 2=MODIFY, 3=REMOVE) */
 	private int _change;
 
 	/** The mana of this item */
-	private int _mana;
-	private int _time;
+	private final int _mana;
+	private final int _time;
 
-	private int _location;
+	private final int _location;
 
 	private byte _elemAtkType = -2;
 	private int _elemAtkPower = 0;
-	private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
+	private final int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
 	/**
 	 * Get all information from L2ItemInstance to generate ItemInfo.<BR><BR>
@@ -67,9 +67,6 @@ public class ItemInfo implements ElementalOwner
 	 */
 	public ItemInfo(L2ItemInstance item)
 	{
-		if (item == null)
-			return;
-
 		// Get the Identifier of the L2ItemInstance
 		_objectId = item.getObjectId();
 
@@ -124,9 +121,6 @@ public class ItemInfo implements ElementalOwner
 
 	public ItemInfo(L2ItemInstance item, int change)
 	{
-		if (item == null)
-			return;
-
 		// Get the Identifier of the L2ItemInstance
 		_objectId = item.getObjectId();
 

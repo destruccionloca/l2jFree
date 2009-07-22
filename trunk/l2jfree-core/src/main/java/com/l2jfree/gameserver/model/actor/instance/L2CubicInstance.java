@@ -501,7 +501,7 @@ public class L2CubicInstance
 
 	private class Action implements Runnable
 	{
-		private int	_chance;
+		private final int	_chance;
 
 		public Action(int chance)
 		{

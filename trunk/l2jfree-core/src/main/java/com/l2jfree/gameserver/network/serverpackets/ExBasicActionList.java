@@ -74,14 +74,14 @@ public class ExBasicActionList extends L2GameServerPacket
 	17 - Pet Stop
 	18 - Pet Pickup
 	19 - Pet Unsummon
-	20 - 
+	20 -
 	21 - Summon Change Movement Mode
 	22 - Summon Attack
 	23 - Summon Stop
 	24 - Yes
 	25 - No
 	26 - Bow
-	27 - 
+	27 -
 	28 - Private Store - Buy
 	29 - Unaware
 	30 - Social Waiting
@@ -103,7 +103,7 @@ public class ExBasicActionList extends L2GameServerPacket
 	46 - Mega Storm Strike (Mew the Cat)
 	47 - Steal Blood (Silhouette)
 	48 - Mech. Cannon (Mechanic Golem)
-	49 - 
+	49 -
 	50 - Change of Party Leader
 	51 - General Manufacture
 	52 - Summon Unsummon
@@ -128,8 +128,8 @@ public class ExBasicActionList extends L2GameServerPacket
 	
 
 	1000 - Siege Hammer (Siege Golem)
-	1001 - 
-	1002 - 
+	1001 -
+	1002 -
 	1003 - Wild Stun (Wind Hatchling)
 	1004 - Wild Defense (Wind Hatchling)
 	1005 - Bright Burst (Star Hatchling)
@@ -145,9 +145,9 @@ public class ExBasicActionList extends L2GameServerPacket
 	1015 - Shade Sacrifice (Nightshade)
 	1016 - Cursed Blow (Cursed Man)
 	1017 - Cursed Strike/Stun (Cursed Man)
-	1018 - 
+	1018 -
 	...
-	1030 - 
+	1030 -
 	1031 - Slash (Feline King)
 	1032 - Spinning Slash (Feline King)
 	1033 - Grip of the Cat (Feline King)
@@ -195,9 +195,9 @@ public class ExBasicActionList extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0x5f);
 		writeD(_actionIds.length);
-		for (int i = 0; i < _actionIds.length; i++)
+		for (int finalActionId : _actionIds)
 		{
-			writeD(_actionIds[i]);
+			writeD(finalActionId);
 		}
 	}
 

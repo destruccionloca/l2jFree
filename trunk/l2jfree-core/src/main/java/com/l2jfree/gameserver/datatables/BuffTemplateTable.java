@@ -39,7 +39,7 @@ public class BuffTemplateTable
 	private final static Log			_log	= LogFactory.getLog(BuffTemplateTable.class.getName());
 
 	/** The table containing all buff templates */
-	private FastList<L2BuffTemplate>	_buffs;
+	private final FastList<L2BuffTemplate>	_buffs;
 
 	public static BuffTemplateTable getInstance()
 	{

@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class NicknameChanged extends L2GameServerPacket
 {
 	private static final String S_CC_NICKNAMECHANGED = "[S] cc NicknameChanged";
-	private String _title;
-	private int _objectId;
+	private final String _title;
+	private final int _objectId;
 
 	public NicknameChanged(L2PcInstance cha)
 	{

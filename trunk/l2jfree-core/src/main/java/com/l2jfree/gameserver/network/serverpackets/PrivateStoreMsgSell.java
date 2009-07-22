@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreMsgSell extends L2GameServerPacket
 {
 	private static final String _S__B5_PRIVATESTOREMSGSELL = "[S] 9c PrivateStoreMsgSell";
-	private int _objId;
+	private final int _objId;
 	private String _storeMsg;
 	
 	public PrivateStoreMsgSell(L2PcInstance player)

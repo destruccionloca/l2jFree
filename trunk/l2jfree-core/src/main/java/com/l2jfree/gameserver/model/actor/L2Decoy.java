@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public abstract class L2Decoy extends L2Character
 {
-    private L2PcInstance _owner;
+    private final L2PcInstance _owner;
     
     public L2Decoy(int objectId, L2CharTemplate template, L2PcInstance owner)
     {

@@ -15,30 +15,21 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2CharPosition;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class ExMoveToLocationInAirShip extends L2GameServerPacket
 {
-	private int _charObjId;
-	private int _airShipId;
-	private L2CharPosition _destination;
+	private final L2PcInstance _activeChar;
+	private final L2CharPosition _destination;
 	//private L2CharPosition _origin;
 	/**
 	 * @param actor
 	 * @param destination
 	 * @param origin
 	 */
-	public ExMoveToLocationInAirShip(L2Character actor, L2CharPosition destination)
+	public ExMoveToLocationInAirShip(L2PcInstance player, L2CharPosition destination)
 	{
-		if (!(actor instanceof L2PcInstance)) return;
-
-		L2PcInstance player = (L2PcInstance)actor;
-
-		if (player.getAirShip() == null) return;
-		
-		_charObjId = actor.getObjectId();
-		_airShipId = player.getAirShip().getObjectId();
+		_activeChar = player;
 		_destination = destination;
 		//_origin = origin;
 	}
@@ -49,10 +40,12 @@ public class ExMoveToLocationInAirShip extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
+		if (_activeChar.getAirShip() == null) return;
+		
 		writeC(0xfe);
 		writeH(0x6D);
-        writeD(_charObjId);
-        writeD(_airShipId);
+		writeD(_activeChar.getObjectId());
+		writeD(_activeChar.getAirShip().getObjectId());
 		writeD(_destination.x);
 		writeD(_destination.y);
 		writeD(_destination.z);

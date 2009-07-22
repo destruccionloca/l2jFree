@@ -18,9 +18,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 
 /**
- * 7B 74 00 75 00 74 00 6F 00 72 00 69 00 61 00 6C 
- * 00 5F 00 63 00 6C 00 6F 00 73 00 65 00 5F 00 32 
- * 00 00 00 
+ * 7B 74 00 75 00 74 00 6F 00 72 00 69 00 61 00 6C
+ * 00 5F 00 63 00 6C 00 6F 00 73 00 65 00 5F 00 32
+ * 00 00 00
  * 
  * Format: (c) S
  * 

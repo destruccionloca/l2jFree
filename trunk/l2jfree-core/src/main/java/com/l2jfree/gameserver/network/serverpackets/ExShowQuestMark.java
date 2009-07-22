@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.network.serverpackets;
  */
 public class ExShowQuestMark extends L2GameServerPacket
 {
-	private int _questId;
+	private final int _questId;
 	
 	public ExShowQuestMark(int questId)
 	{

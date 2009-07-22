@@ -26,16 +26,16 @@ package com.l2jfree.gameserver.network.serverpackets;
  * 0530: 10 91 00 00 00 60 9b d1 01 e4 6e ee 52 97 dd       .....`....n.R..
  * 
  * 
- *  
- * format   dd x...x 
+ * 
+ * format   dd x...x
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
 public class PledgeCrest extends L2GameServerPacket
 {
 	private static final String _S__84_PLEDGECREST = "[S] 6c PledgeCrest";
-	private int _crestId;
-	private int _crestSize;
+	private final int _crestId;
+	private final int _crestSize;
 	private byte[] _data;
 	
 	public PledgeCrest(int crestId,byte[] data)

@@ -32,10 +32,10 @@ public class Status extends Thread
 {
 	private static final Log	_log	= LogFactory.getLog(Status.class.getName());
 
-	private ServerSocket		statusServerSocket;
+	private final ServerSocket		statusServerSocket;
 
-	private long				_uptime;
-	private int					_statusPort;
+	private final long				_uptime;
+	private final int					_statusPort;
 	private String				_statusPw;
 
 	@Override

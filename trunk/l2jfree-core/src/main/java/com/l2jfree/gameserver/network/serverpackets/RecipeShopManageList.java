@@ -27,8 +27,8 @@ public class RecipeShopManageList extends L2GameServerPacket
 {
 
 	private static final String	_S__D8_RecipeShopManageList	= "[S] de RecipeShopManageList";
-	private L2PcInstance		_seller;
-	private boolean				_isDwarven;
+	private final L2PcInstance		_seller;
+	private final boolean				_isDwarven;
 	private L2RecipeList[]		_recipes;
 
 	public RecipeShopManageList(L2PcInstance seller, boolean isDwarven)

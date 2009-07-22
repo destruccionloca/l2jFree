@@ -27,8 +27,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class TradeStart extends L2GameServerPacket
 {
 	private static final String		_S__2E_TRADESTART	= "[S] 1E TradeStart";
-	private L2PcInstance			_activeChar;
-	private List<L2ItemInstance>	_itemList;
+	private final L2PcInstance			_activeChar;
+	private final List<L2ItemInstance>	_itemList;
 
 	public TradeStart(L2PcInstance player)
 	{

@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class ChatWhisper implements IChatHandler
 {
-	private SystemChatChannelId[]	_chatTypes	=
+	private final SystemChatChannelId[]	_chatTypes	=
 												{ SystemChatChannelId.Chat_Tell };
 
 	/**

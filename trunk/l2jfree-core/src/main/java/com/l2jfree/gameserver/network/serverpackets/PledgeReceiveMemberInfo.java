@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.L2ClanMember;
 public class PledgeReceiveMemberInfo extends L2GameServerPacket
 {
 	private static final String _S__FE_3D_PLEDGERECEIVEMEMBERINFO = "[S] FE:3D PledgeReceiveMemberInfo";
-	private L2ClanMember _member;
+	private final L2ClanMember _member;
 
 	/**
 	 * @param member
@@ -42,7 +42,7 @@ public class PledgeReceiveMemberInfo extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0x3e);
 
-		writeD(_member.getSubPledgeType()); 
+		writeD(_member.getSubPledgeType());
 		writeS(_member.getName());
 		writeS(_member.getTitle()); // title
 		writeD(_member.getPledgeRank()); // power

@@ -27,9 +27,9 @@ public class OlympiadStadium
 {
 	private boolean					_freeToUse	= true;
 	private static DoorTable		_doorTable;
-	private int[]					_coords		= new int[3];
-	private int[]					_doors		= new int[2];
-	private FastList<L2PcInstance>	_spectators;
+	private final int[]					_coords		= new int[3];
+	private final int[]					_doors		= new int[2];
+	private final FastList<L2PcInstance>	_spectators;
 
 	public boolean isFreeToUse()
 	{

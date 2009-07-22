@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSk
 public final class ExEnchantSkillInfo extends L2GameServerPacket
 {
     private static final String _S__FE_18_EXENCHANTSKILLINFO = "[S] FE:2a ExEnchantSkillInfo";
-    private FastList<SkillEnchantDetailElement> _routes;
+    private final FastList<SkillEnchantDetailElement> _routes;
     
     private final int _id;
     private final EnchantSkillType _type;

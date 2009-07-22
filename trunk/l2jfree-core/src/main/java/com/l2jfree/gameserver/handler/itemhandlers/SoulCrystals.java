@@ -131,9 +131,9 @@ public class SoulCrystals implements IItemHandler
 
 	static class CrystalFinalizer implements Runnable
 	{
-		private L2PcInstance	_activeChar;
-		private L2Attackable	_target;
-		private int				_crystalId;
+		private final L2PcInstance	_activeChar;
+		private final L2Attackable	_target;
+		private final int				_crystalId;
 
 		CrystalFinalizer(L2PcInstance activeChar, L2Object target, int crystalId)
 		{

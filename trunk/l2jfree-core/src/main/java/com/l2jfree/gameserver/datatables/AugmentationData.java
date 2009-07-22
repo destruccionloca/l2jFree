@@ -75,7 +75,7 @@ public class AugmentationData
 	private static final int			BASESTAT_INT		= 16343;
 	private static final int			BASESTAT_MEN		= 16344;
 
-	private FastList<?>[]				_augmentationStats;
+	private final FastList<?>[]				_augmentationStats;
 	private AugmentationSkill[]			_augmentationSkills;
 
 	// =========================================================
@@ -100,9 +100,9 @@ public class AugmentationData
 
 	public class AugmentationSkill
 	{
-		private int	_skillId;
-		private int	_maxSkillLevel;
-		private int	_augmentationSkillId;
+		private final int	_skillId;
+		private final int	_maxSkillLevel;
+		private final int	_augmentationSkillId;
 
 		public AugmentationSkill(int skillId, int maxSkillLevel, int augmentationSkillId)
 		{
@@ -124,11 +124,11 @@ public class AugmentationData
 
 	public class AugmentationStat
 	{
-		private Stats	_stat;
-		private int		_singleSize;
-		private int		_combinedSize;
-		private float	_singleValues[];
-		private float	_combinedValues[];
+		private final Stats	_stat;
+		private final int		_singleSize;
+		private final int		_combinedSize;
+		private final float	_singleValues[];
+		private final float	_combinedValues[];
 
 		public AugmentationStat(Stats stat, float sValues[], float cValues[])
 		{
@@ -333,7 +333,7 @@ public class AugmentationData
 
 		// Note: lifeStoneGrade: (0 means low grade, 3 top grade)
 		// First: determine whether we will add a skill/baseStatModifier or not
-		//        because this determine which color could be the result 
+		//        because this determine which color could be the result
 
 		int stat34 = 0;
 		boolean generateSkill = false;
@@ -477,8 +477,8 @@ public class AugmentationData
 
 	public class AugStat
 	{
-		private Stats	_stat;
-		private float	_value;
+		private final Stats	_stat;
+		private final float	_value;
 
 		public AugStat(Stats stat, float value)
 		{

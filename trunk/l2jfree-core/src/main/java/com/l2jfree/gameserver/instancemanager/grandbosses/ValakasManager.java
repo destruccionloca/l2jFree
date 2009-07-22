@@ -210,10 +210,10 @@ public class ValakasManager extends BossLair
 	// Do spawn Valakas.
 	private class ValakasSpawn implements Runnable
 	{
-		private int					_distance	= 6502500;
-		private int					_taskId;
+		private final int					_distance	= 6502500;
+		private final int					_taskId;
 		private L2GrandBossInstance	_valakas	= null;
-		private List<L2PcInstance>	_players	= getPlayersInside();
+		private final List<L2PcInstance>	_players	= getPlayersInside();
 
 		ValakasSpawn(int taskId, L2GrandBossInstance valakas)
 		{
@@ -652,7 +652,7 @@ public class ValakasManager extends BossLair
 	// Action is enabled the boss.
 	private class SetMobilised implements Runnable
 	{
-		private L2GrandBossInstance	_boss;
+		private final L2GrandBossInstance	_boss;
 
 		public SetMobilised(L2GrandBossInstance boss)
 		{
@@ -676,8 +676,8 @@ public class ValakasManager extends BossLair
 	// Move at random on after Valakas appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2Npc			_npc;
-		private L2CharPosition	_pos;
+		private final L2Npc			_npc;
+		private final L2CharPosition	_pos;
 
 		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
 		{
@@ -710,7 +710,7 @@ public class ValakasManager extends BossLair
 
 	private class RestartValakas implements Runnable
 	{
-		private L2Npc	_valakas;
+		private final L2Npc	_valakas;
 
 		public RestartValakas(L2Npc valakas)
 		{

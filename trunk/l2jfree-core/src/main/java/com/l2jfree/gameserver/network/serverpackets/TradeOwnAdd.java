@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.TradeList;
 public class TradeOwnAdd extends L2GameServerPacket
 {
 	private static final String	_S__30_TRADEOWNADD	= "[S] 20 TradeOwnAdd";
-	private TradeList.TradeItem	_item;
+	private final TradeList.TradeItem	_item;
 
 	public TradeOwnAdd(TradeList.TradeItem item)
 	{

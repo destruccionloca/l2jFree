@@ -53,7 +53,7 @@ public class DimensionalRiftManager
 {
 	protected static Log										_log							= LogFactory.getLog(DimensionalRiftManager.class.getName());
 
-	private FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>	_rooms							= new FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>();
+	private final FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>	_rooms							= new FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>();
 	private final static int									DIMENSIONAL_FRAGMENT_ITEM_ID	= 7079;
 	private final static int									MAX_PARTY_PER_AREA				= 3;
 

@@ -69,10 +69,11 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class UserInfo extends L2GameServerPacket
 {
 	private static final String	_S__04_USERINFO	= "[S] 04 UserInfo";
-	private L2PcInstance		_activeChar;
-	private PcAppearance		_appearance;
-	private int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flyRunSpd, _flyWalkSpd, _relation;
-	private float				_moveMultiplier;
+	private final L2PcInstance		_activeChar;
+	private final PcAppearance		_appearance;
+	private final int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd;
+	private int _flyRunSpd, _flyWalkSpd, _relation;
+	private final float				_moveMultiplier;
 
 	/**
 	 * @param _activeCharracters

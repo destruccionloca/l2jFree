@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
  */
 
 /**
- * 7E 01 00 00 00 
+ * 7E 01 00 00 00
  * 
  * Format: (c) cccc
  * 

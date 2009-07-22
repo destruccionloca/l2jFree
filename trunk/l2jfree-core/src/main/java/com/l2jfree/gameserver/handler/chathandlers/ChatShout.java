@@ -34,7 +34,7 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  */
 public class ChatShout implements IChatHandler
 {
-	private SystemChatChannelId[]	_chatTypes	=
+	private final SystemChatChannelId[]	_chatTypes	=
 												{ SystemChatChannelId.Chat_Shout };
 
 	/**

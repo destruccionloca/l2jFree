@@ -28,24 +28,24 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.Elemental
 public class L2WarehouseItem implements ElementalOwner
 {
 
-	private L2Item	_item;
-	private int		_object;
-	private long	_count;
-	private int		_owner;
-	private int		_enchant;
-	private int		_grade;
+	private final L2Item	_item;
+	private final int		_object;
+	private final long	_count;
+	private final int		_owner;
+	private final int		_enchant;
+	private final int		_grade;
 	private boolean	_isAugmented;
 	private int		_augmentationId;
-	private int		_manaLeft;
+	private final int		_manaLeft;
 
 	private byte _elemAtkType = -2;
 	private int _elemAtkPower = 0;
-	private int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
+	private final int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
 
-	private int		_type1;
-	private int		_type2;
+	private final int		_type1;
+	private final int		_type2;
 
-	private int _time;
+	private final int _time;
 
 	public L2WarehouseItem(L2ItemInstance item)
 	{

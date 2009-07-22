@@ -1212,20 +1212,20 @@ public final class Olympiad
 			ResultSet rset;
 			StatsSet hero;
 			FastList<StatsSet> soulHounds = new FastList<StatsSet>();
-			for (int i = 0; i < HERO_IDS.length; i++)
+			for (int finalElement : HERO_IDS)
 			{
 				statement = con.prepareStatement(OLYMPIAD_GET_HEROS);
-				statement.setInt(1, HERO_IDS[i]);
+				statement.setInt(1, finalElement);
 				rset = statement.executeQuery();
 				
 				if (rset.next())
 				{
 					hero = new StatsSet();
-					hero.set(CLASS_ID, HERO_IDS[i]);
+					hero.set(CLASS_ID, finalElement);
 					hero.set(CHAR_ID, rset.getInt(CHAR_ID));
 					hero.set(CHAR_NAME, rset.getString(CHAR_NAME));
 					
-					if (HERO_IDS[i] == 132 || HERO_IDS[i] == 133) // Male & Female Soulhounds rank as one hero class
+					if (finalElement == 132 || finalElement == 133) // Male & Female Soulhounds rank as one hero class
 					{
 						hero = _nobles.get(hero.getInteger(CHAR_ID));
 						hero.set(CHAR_ID, rset.getInt(CHAR_ID));

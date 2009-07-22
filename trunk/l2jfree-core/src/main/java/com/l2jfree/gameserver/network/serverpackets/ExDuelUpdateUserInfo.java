@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class ExDuelUpdateUserInfo extends L2GameServerPacket
 {
     private static final String _S__FE_50_EXDUELUPDATEUSERINFO = "[S] FE:50 ExDuelUpdateUserInfo [sddddddddd]";
-    private L2PcInstance _activeChar;
+    private final L2PcInstance _activeChar;
 
     public ExDuelUpdateUserInfo(L2PcInstance cha)
     {

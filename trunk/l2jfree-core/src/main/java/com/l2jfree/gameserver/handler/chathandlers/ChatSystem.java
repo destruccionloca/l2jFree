@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
  */
 public class ChatSystem implements IChatHandler
 {
-	private SystemChatChannelId[]	_chatTypes	=
+	private final SystemChatChannelId[]	_chatTypes	=
 												{ SystemChatChannelId.Chat_System };
 
 	/**

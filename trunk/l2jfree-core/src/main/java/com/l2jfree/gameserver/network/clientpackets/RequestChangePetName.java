@@ -47,7 +47,7 @@ public class RequestChangePetName extends L2GameClientPacket
 		L2Character activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
 
-		final L2Summon pet = activeChar.getPet(); 
+		final L2Summon pet = activeChar.getPet();
 		if (pet == null)
 		{
 			requestFailed(SystemMessageId.PETS_ARE_NOT_AVAILABLE_AT_THIS_TIME);

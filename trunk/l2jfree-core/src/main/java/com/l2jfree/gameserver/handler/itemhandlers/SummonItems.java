@@ -161,8 +161,8 @@ public class SummonItems implements IItemHandler
 
 	static class PetSummonFeedWait implements Runnable
 	{
-		private L2PcInstance	_activeChar;
-		private L2PetInstance	_petSummon;
+		private final L2PcInstance	_activeChar;
+		private final L2PetInstance	_petSummon;
 
 		PetSummonFeedWait(L2PcInstance activeChar, L2PetInstance petSummon)
 		{
@@ -181,9 +181,9 @@ public class SummonItems implements IItemHandler
 
 	static class PetSummonFinalizer implements Runnable
 	{
-		private L2PcInstance	_activeChar;
-		private L2ItemInstance _item;
-		private L2NpcTemplate _npcTemplate;
+		private final L2PcInstance	_activeChar;
+		private final L2ItemInstance _item;
+		private final L2NpcTemplate _npcTemplate;
 
 		PetSummonFinalizer(L2PcInstance activeChar, L2NpcTemplate npcTemplate, L2ItemInstance item)
 		{

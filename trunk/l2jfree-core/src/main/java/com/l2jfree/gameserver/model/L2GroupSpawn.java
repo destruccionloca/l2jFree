@@ -27,8 +27,8 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2GroupSpawn extends L2Spawn
 {
-	private Constructor<?>	_constructor;
-	private L2NpcTemplate	_template;
+	private final Constructor<?>	_constructor;
+	private final L2NpcTemplate	_template;
 
 	public L2GroupSpawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException
 	{

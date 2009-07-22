@@ -29,13 +29,13 @@ public class ExListPartyMatchingWaitingRoom extends L2GameServerPacket
 {
 	private FastList<L2PcInstance> _waiting;
 
-	private int _minLevel = 1; // To be implemented :)
-	private int _maxLevel = 80; // To be implemented :)
+	private final int _minLevel = 1; // To be implemented :)
+	private final int _maxLevel = 80; // To be implemented :)
 
 	/**
-	 * @param waiting  
-	 * @param searcher  
-	 * @param page  
+	 * @param waiting
+	 * @param searcher
+	 * @param page
 	 */
 	public ExListPartyMatchingWaitingRoom(Collection<L2PcInstance> waiting, L2PcInstance searcher, int page)
 	{

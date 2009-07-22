@@ -33,8 +33,8 @@ public class AcquireSkillList extends L2GameServerPacket
 
 	private static final String _S__90_AQUIRESKILLLIST = "[S] 90 AquireSkillList [dd (ddddd)]";
 	
-	private List<Skill> _skills;
-	private SkillType _fishingSkills;
+	private final List<Skill> _skills;
+	private final SkillType _fishingSkills;
 	
 	private class Skill
 	{

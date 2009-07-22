@@ -156,7 +156,7 @@ public class RequestSetSeed extends L2GameClientPacket
 			if (_sales != 0 && (MAX_ADENA / _sales) < _price)
 				return null;
 
-			return CastleManorManager.getInstance().getNewSeedProduction(_itemId, _sales, _price, _sales); 
+			return CastleManorManager.getInstance().getNewSeedProduction(_itemId, _sales, _price, _sales);
 		}
 	}
 

@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public class L2SkillSweep extends L2Skill
 {
-	private int	_absorbAbs;
+	private final int	_absorbAbs;
 
 	public L2SkillSweep(StatsSet set)
 	{

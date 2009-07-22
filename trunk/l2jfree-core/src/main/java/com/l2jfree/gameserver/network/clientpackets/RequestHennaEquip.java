@@ -89,8 +89,8 @@ public class RequestHennaEquip extends L2GameClientPacket
 	}
 
 	/**
-	 * Prevents henna drawing exploit: 
-	 * 1) talk to L2SymbolMakerInstance 
+	 * Prevents henna drawing exploit:
+	 * 1) talk to L2SymbolMakerInstance
 	 * 2) RequestHennaList
 	 * 3) Don't close the window and go to a GrandMaster and change your subclass
 	 * 4) Get SymbolMaker range again and press draw

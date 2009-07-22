@@ -19,8 +19,8 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/** 
- * @author _drunk_ 
+/**
+ * @author _drunk_
  */
 public class DrainSoul implements ISkillHandler
 {

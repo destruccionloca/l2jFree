@@ -79,7 +79,7 @@ public class AttackRequest extends L2GameClientPacket
 		if (activeChar.getTarget() != target)
 			target.onAction(activeChar);
 		else if ((target.getObjectId() != activeChar.getObjectId())
-				&& activeChar.getPrivateStoreType() == 0 
+				&& activeChar.getPrivateStoreType() == 0
 				&& activeChar.getActiveRequester() == null)
 			target.onForcedAttack(activeChar);
 

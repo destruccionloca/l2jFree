@@ -24,8 +24,8 @@ public final class ExOlympiadUserInfo extends L2GameServerPacket
 	// chcdSddddd
 	private static final String _S__FE_29_OLYMPIADUSERINFO = "[S] FE:7A ExOlympiadUserInfo";
 	
-	private int _side; // 1 = right, 2 = left
-	private L2PcInstance _player;
+	private final int _side; // 1 = right, 2 = left
+	private final L2PcInstance _player;
 	
 	public ExOlympiadUserInfo(L2PcInstance player)
 	{

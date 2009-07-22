@@ -22,11 +22,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class StopMoveInVehicle  extends L2GameServerPacket
 {
-	private L2PcInstance _activeChar;
-	private int _boatId;
+	private final L2PcInstance _activeChar;
+	private final int _boatId;
 	/**
 	 * @param player
-	 * @param boatid 
+	 * @param boatid
 	 */
 	public StopMoveInVehicle(L2PcInstance player, int boatId)
 	{
@@ -39,7 +39,7 @@ public class StopMoveInVehicle  extends L2GameServerPacket
 	 */
 	@Override
 	protected void writeImpl()
-	{		
+	{
 		writeC(0x7f);
 		writeD(_activeChar.getObjectId());
 		writeD(_boatId);

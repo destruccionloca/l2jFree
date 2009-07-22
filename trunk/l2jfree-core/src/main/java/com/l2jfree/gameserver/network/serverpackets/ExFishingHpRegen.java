@@ -22,8 +22,8 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public class ExFishingHpRegen extends L2GameServerPacket
 {
 	private static final String _S__FE_28_EXFISHINGHPREGEN = "[S] FE:28 ExFishingHPRegen [dddcccdc]";
-	private L2Character _activeChar;
-	private int _time, _fishHp, _hpMode, _anim, _goodUse, _penalty, _hpBarColor;
+	private final L2Character _activeChar;
+	private final int _time, _fishHp, _hpMode, _anim, _goodUse, _penalty, _hpBarColor;
 	
 	public ExFishingHpRegen(L2Character character, int time, int fishHp, int HPmode, int GoodUse, int anim, int penalty, int hpBarColor)
 	{
@@ -46,10 +46,10 @@ public class ExFishingHpRegen extends L2GameServerPacket
 		writeD(_activeChar.getObjectId());
 		writeD(_time);
 		writeD(_fishHp);
-		writeC(_hpMode); // 0 = HP stop, 1 = HP raise 
+		writeC(_hpMode); // 0 = HP stop, 1 = HP raise
 		writeC(_goodUse); // 0 = none, 1 = success, 2 = failed
 		writeC(_anim); // Anim: 0 = none, 1 = reeling, 2 = pumping
-		writeD(_penalty); // Penalty	
+		writeD(_penalty); // Penalty
 		writeC(_hpBarColor); // 0 = normal hp bar, 1 = purple hp bar
 	}
 

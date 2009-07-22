@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.model.L2Macro;
  * sample
  * 
  * e7
- * d // unknown change of Macro edit,add,delete 
+ * d // unknown change of Macro edit,add,delete
  * c // unknown
  * c //count of Macros
  * c // unknown
@@ -43,7 +43,7 @@ import com.l2jfree.gameserver.model.L2Macro;
  * format:		cdhcdSSScc (ccdcS)
  * @param decrypt
  */
-public class SendMacroList extends L2GameServerPacket 
+public class SendMacroList extends L2GameServerPacket
 {
 	private static final String _S__E7_SENDMACROLIST = "[S] E7 SendMacroList";
 
@@ -77,7 +77,7 @@ public class SendMacroList extends L2GameServerPacket
 			writeC(_macro.commands.length);		//count
 			
 			for (int i=0; i < _macro.commands.length; i++) {
-				L2Macro.L2MacroCmd cmd = _macro.commands[i]; 
+				L2Macro.L2MacroCmd cmd = _macro.commands[i];
 				writeC(i+1);		//i of count
 				writeC(cmd.type);		//type  1 = skill, 3 = action, 4 = shortcut
 				writeD(cmd.d1);		// skill id
@@ -86,7 +86,7 @@ public class SendMacroList extends L2GameServerPacket
 			}
 		}
 		
-//		writeD(1); //unknown change of Macro edit,add,delete 
+//		writeD(1); //unknown change of Macro edit,add,delete
 //		writeC(0); //unknown
 //		writeC(1);  //count of Macros
 //		writeC(1);       //unknown
@@ -97,7 +97,7 @@ public class SendMacroList extends L2GameServerPacket
 //		writeS("ADM"); 	//acronym
 //		writeC(0);		//icon
 //		writeC(2);		//count
-//		
+//
 //		writeC(1);		//i of count
 //		writeC(3);		//type  1 = skill, 3 = action, 4 = shortcut
 //		writeD(0);		// skill id

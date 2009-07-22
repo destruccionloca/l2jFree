@@ -35,7 +35,7 @@ public class PetInventoryUpdate extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(PetInventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
-	private List<ItemInfo> _items;
+	private final List<ItemInfo> _items;
 
 	/**
 	 * @param items
@@ -54,11 +54,11 @@ public class PetInventoryUpdate extends L2GameServerPacket
 		this(new FastList<ItemInfo>());
 	}
 
-	public void addItem(L2ItemInstance item) { _items.add(new ItemInfo(item)); }
-	public void addNewItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 1)); }
-	public void addModifiedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 2)); }
-	public void addRemovedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 3)); }
-	public void addItems(List<L2ItemInstance> items) { for (L2ItemInstance item : items) _items.add(new ItemInfo(item)); }
+	public void addItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item)); }
+	public void addNewItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 1)); }
+	public void addModifiedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 2)); }
+	public void addRemovedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 3)); }
+	public void addItems(List<L2ItemInstance> items) { if (items != null) for (L2ItemInstance item : items) if (item != null)  _items.add(new ItemInfo(item)); }
 
 	private void showDebug()
 	{

@@ -21,7 +21,7 @@ public class ExChooseInventoryAttributeItem extends L2GameServerPacket
 {
 	private static final String _S__FE_62_EXCHOOSEINVENTORYATTRIBUTEITEM = "[S] FE:62 ExChooseInventoryAttributeItem [d]";
 	
-	private int _itemId;
+	private final int _itemId;
 	
 	public ExChooseInventoryAttributeItem(int itemId)
 	{

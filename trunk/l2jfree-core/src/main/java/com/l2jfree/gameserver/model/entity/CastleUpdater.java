@@ -30,7 +30,7 @@ public class CastleUpdater implements Runnable
 {
 	private final static Log _log = LogFactory.getLog(CastleUpdater.class);
 	
-	private L2Clan _clan;
+	private final L2Clan _clan;
 	private int _runCount = 0;
 	
 	public CastleUpdater(L2Clan clan, int runCount)

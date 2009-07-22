@@ -25,15 +25,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 public class PetInfo extends L2GameServerPacket
 {
 	private static final String	_S__CA_PETINFO	= "[S] b1 PetInfo";
-	private L2Summon			_summon;
-	private int					_x, _y, _z, _heading;
-	private boolean				_isSummoned;
-	private int					_val;
-	private int					_mAtkSpd, _pAtkSpd;
-	private int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
-	private int					_maxHp, _maxMp;
+	private final L2Summon			_summon;
+	private final int					_x, _y, _z, _heading;
+	private final boolean				_isSummoned;
+	private final int					_val;
+	private final int					_mAtkSpd, _pAtkSpd;
+	private final int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd;
+	private int _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
+	private final int					_maxHp, _maxMp;
 	private int					_maxFed, _curFed;
-	private float				_multiplier;
+	private final float				_multiplier;
 
 	/**
 	 * rev 478  dddddddddddddddddddffffdddcccccSSdddddddddddddddddddddddddddhc

@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.RecipeBookItemList;
 
-public class RequestRecipeBookDestroy extends L2GameClientPacket 
+public class RequestRecipeBookDestroy extends L2GameClientPacket
 {
     private static final String _C__AC_REQUESTRECIPEBOOKDESTROY = "[C] AD RequestRecipeBookDestroy";
 
@@ -60,7 +60,7 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
      * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
      */
     @Override
-    public String getType() 
+    public String getType()
     {
         return _C__AC_REQUESTRECIPEBOOKDESTROY;
     }

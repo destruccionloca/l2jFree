@@ -34,8 +34,8 @@ public class ExShowProcureCropDetail extends L2GameServerPacket
 {
 	private static final String				_S__FE_22_EXSHOWPROCURECROPDETAIL	= "[S] FE:22 ExShowProcureCropDetail";
 
-	private int								_cropId;
-	private FastMap<Integer, CropProcure>	_castleCrops;
+	private final int								_cropId;
+	private final FastMap<Integer, CropProcure>	_castleCrops;
 
 	public ExShowProcureCropDetail(int cropId)
 	{

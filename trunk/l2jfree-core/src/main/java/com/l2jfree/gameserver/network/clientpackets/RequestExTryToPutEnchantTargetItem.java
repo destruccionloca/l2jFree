@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutEnchantTargetItemResult;
 
-/** 
+/**
  * @author evill33t
  * 
  */

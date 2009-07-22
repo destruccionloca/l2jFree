@@ -20,17 +20,17 @@ package com.l2jfree.gameserver.network.serverpackets;
  */
 public class ExShowScreenMessage extends L2GameServerPacket
 {
-	private int _type;
-	private int _sysMessageId;
-	private int _unk1;
-	private int _unk2;
-	private int _unk3;
-	private int _unk4;
-	private int _size;
-	private int _position;
-	private boolean _effect;
-	private String _text;
-	private int _time;
+	private final int _type;
+	private final int _sysMessageId;
+	private final int _unk1;
+	private final int _unk2;
+	private final int _unk3;
+	private final int _unk4;
+	private final int _size;
+	private final int _position;
+	private final boolean _effect;
+	private final String _text;
+	private final int _time;
 
 	public ExShowScreenMessage (String text, int time)
 	{
@@ -80,7 +80,7 @@ public class ExShowScreenMessage extends L2GameServerPacket
 		writeD(_unk1); // ?
 		writeD(_size); // font size 0 - normal, 1 - small
 		writeD(_unk2); // ?
-		writeD(_unk3); // ? 
+		writeD(_unk3); // ?
 		writeD(_effect == true ? 1 : 0); // upper effect (0 - disabled, 1 enabled) - _position must be 2 (center) otherwise no effect
 		writeD(_time); // time
 		writeD(_unk4); // ?

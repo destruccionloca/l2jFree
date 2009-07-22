@@ -72,7 +72,7 @@ public class L2Polygon implements Serializable
 	
 	/**
 	 * cn_PnPoly(): crossing number test for a point in a polygon
-	 * Return:  false = outside, true = inside 
+	 * Return:  false = outside, true = inside
 	 * http://www.geometryalgorithms.com/Archive/algorithm_0103/algorithm_0103.htm
 	 */
 	private final boolean cn_PnPoly(int x, int y)

@@ -410,7 +410,7 @@ public class L2CharacterAI extends AbstractAI
 		
 		// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
 		moveToInAirShip(destination, origin);
-	}	
+	}
 
 	/**
 	 * Manage the Follow Intention : Stop current Attack and Launch a Follow Task.<BR><BR>
@@ -1055,7 +1055,7 @@ public class L2CharacterAI extends AbstractAI
 				return true;
 
 			// while flying there is no move to cast
-			if (_actor.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST && 
+			if (_actor.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST &&
 					_actor instanceof L2PcInstance && ((L2PcInstance)_actor).isTransformed())
 			{
 				if (!((L2PcInstance)_actor).getTransformation().canStartFollowToCast())

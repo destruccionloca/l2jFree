@@ -24,12 +24,12 @@ import com.l2jfree.Config;
 public class SocialAction extends L2GameServerPacket
 {
 	private static final String _S__3D_SOCIALACTION = "[S] 2D SocialAction";
-	private int _charObjId;
-	private int _actionId;
+	private final int _charObjId;
+	private final int _actionId;
 	public static final int		LEVEL_UP			= Config.PACKET_FINAL ? 2122 : 15;
 	
 	/**
-	 * 0x3d SocialAction         dd 
+	 * 0x3d SocialAction         dd
 	 * @param _characters
 	 */
 	public SocialAction(int playerId, int actionId)

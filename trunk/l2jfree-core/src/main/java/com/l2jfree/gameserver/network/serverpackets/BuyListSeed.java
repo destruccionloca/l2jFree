@@ -29,9 +29,9 @@ public final class BuyListSeed extends L2GameServerPacket
 {
 	private static final String		_S__E9_BUYLISTSEED	= "[S] E9 BuyListSeed [dd h (hdddhhd)]";
 
-	private int						_manorId;
+	private final int						_manorId;
 	private List<L2ItemInstance>	_list				= new FastList<L2ItemInstance>();
-	private long					_money;
+	private final long					_money;
 
 	public BuyListSeed(L2TradeList list, int manorId, long currentMoney)
 	{

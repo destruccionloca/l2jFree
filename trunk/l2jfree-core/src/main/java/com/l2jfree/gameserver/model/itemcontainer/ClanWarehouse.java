@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class ClanWarehouse extends Warehouse
 {
-	private L2Clan _clan;
+	private final L2Clan _clan;
 
 	public ClanWarehouse(L2Clan clan)
 	{
@@ -47,7 +47,7 @@ public final class ClanWarehouse extends Warehouse
 	}
 
 	@Override
-	public ItemLocation getBaseLocation() 
+	public ItemLocation getBaseLocation()
 	{
 		return ItemLocation.CLANWH;
 	}

@@ -39,8 +39,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class MyTargetSelected extends L2GameServerPacket
 {
 	private static final String _S__BF_MYTARGETSELECTED = "[S] a6 MyTargetSelected";
-	private int _objectId;
-	private int _color;
+	private final int _objectId;
+	private final int _color;
 
 	/**
 	 * @param int objectId of the target

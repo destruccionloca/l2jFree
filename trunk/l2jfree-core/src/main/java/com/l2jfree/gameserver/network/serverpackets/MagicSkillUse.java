@@ -31,13 +31,13 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public class MagicSkillUse extends L2GameServerPacket
 {
 	private static final String _S__5A_MAGICSKILLUSER = "[S] 5A MagicSkillUser";
-	private int _targetId;
-	private int _skillId;
-	private int _skillLevel;
-	private int _skillTime;
-	private int _reuseDelay;
-	private int _charObjId, _x, _y, _z;
-	private int _flags;
+	private final int _targetId;
+	private final int _skillId;
+	private final int _skillLevel;
+	private final int _skillTime;
+	private final int _reuseDelay;
+	private final int _charObjId, _x, _y, _z;
+	//private final int _flags;
 	
 	public MagicSkillUse(L2Character cha, L2Character target, int skillId, int skillLevel, int skillTime, int reuseDelay)
 	{
@@ -50,7 +50,7 @@ public class MagicSkillUse extends L2GameServerPacket
 		_x = cha.getX();
 		_y = cha.getY();
 		_z = cha.getZ();
-		_flags |= 0x20;
+		//_flags |= 0x20;
 	}
 	
 	public MagicSkillUse(L2Character cha, int skillId, int skillLevel, int skillTime, int reuseDelay)

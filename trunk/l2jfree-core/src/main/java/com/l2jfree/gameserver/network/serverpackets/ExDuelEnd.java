@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExDuelEnd extends L2GameServerPacket
 {
 	private static final String _S__FE_4F_EXDUELEND = "[S] FE:4f ExDuelEnd [d]";
-	private int _unk1;
+	private final int _unk1;
 	
 	public ExDuelEnd(int unk1)
 	{

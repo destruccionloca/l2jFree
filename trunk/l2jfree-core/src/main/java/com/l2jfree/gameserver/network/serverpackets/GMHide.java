@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class GMHide extends L2GameServerPacket
 {
 	// cd
-	private int _mode;
+	private final int _mode;
 
 	/**
 	 * @param _mode (0 = display windows, 1 = hide windows)

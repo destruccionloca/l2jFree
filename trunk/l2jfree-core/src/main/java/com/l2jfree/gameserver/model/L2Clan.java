@@ -64,7 +64,7 @@ public class L2Clan
 	private String							_name;
 	private int								_clanId;
 	private L2ClanMember					_leader;
-	private Map<Integer, L2ClanMember>		_members					= new FastMap<Integer, L2ClanMember>();
+	private final Map<Integer, L2ClanMember>		_members					= new FastMap<Integer, L2ClanMember>();
 
 	private String							_allyName;
 	private int								_allyId;
@@ -93,15 +93,15 @@ public class L2Clan
 	/** Leader clan dissolve ally */
 	public static final int					PENALTY_TYPE_DISSOLVE_ALLY	= 4;
 
-	private ClanWarehouse					_warehouse					= new ClanWarehouse(this);
-	private List<Integer>					_atWarWith					= new FastList<Integer>();
-	private List<Integer>					_atWarAttackers				= new FastList<Integer>();
+	private final ClanWarehouse					_warehouse					= new ClanWarehouse(this);
+	private final List<Integer>					_atWarWith					= new FastList<Integer>();
+	private final List<Integer>					_atWarAttackers				= new FastList<Integer>();
 
 	private boolean							_hasCrestLarge;
 
 	private Forum							_forum;
 
-	private List<L2Skill>					_skillList					= new FastList<L2Skill>();
+	private final List<L2Skill>					_skillList					= new FastList<L2Skill>();
 
 	//  Clan Privileges
 	public static final int					CP_NOTHING					= 0;
@@ -1489,7 +1489,7 @@ public class L2Clan
 
 	public class SubPledge
 	{
-		private int		_id;
+		private final int		_id;
 		private String	_subPledgeName;
 		private int		_leaderId;
 
@@ -1528,8 +1528,8 @@ public class L2Clan
 
 	public class RankPrivs
 	{
-		private int	_rankId;
-		private int	_party;
+		private final int	_rankId;
+		private final int	_party;
 		private int	_rankPrivs;
 
 		public RankPrivs(int rank, int party, int privs)

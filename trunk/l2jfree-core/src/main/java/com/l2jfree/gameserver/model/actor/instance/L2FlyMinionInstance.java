@@ -27,7 +27,7 @@ public final class L2FlyMinionInstance extends L2MinionInstance
     @Override
 	public void onSpawn()
     {
-    	this.setIsFlying(true);
+    	setIsFlying(true);
     	super.onSpawn();
     }
 }

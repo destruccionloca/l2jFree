@@ -35,9 +35,9 @@ public class ClanHallManager
 {
 	protected static Log			_log	= LogFactory.getLog(ClanHallManager.class.getName());
 
-	private Map<Integer, ClanHall>	_clanHall;
-	private Map<Integer, ClanHall>	_freeClanHall;
-	private Map<Integer, ClanHall>	_allClanHalls;
+	private final Map<Integer, ClanHall>	_clanHall;
+	private final Map<Integer, ClanHall>	_freeClanHall;
+	private final Map<Integer, ClanHall>	_allClanHalls;
 	private static boolean			_loaded	= false;
 
 	public static ClanHallManager getInstance()

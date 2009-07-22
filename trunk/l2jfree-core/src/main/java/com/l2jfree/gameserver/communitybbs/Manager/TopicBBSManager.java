@@ -33,8 +33,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class TopicBBSManager extends BaseBBSManager
 {
-	private List<Topic>				_table;
-	private Map<Forum, Integer>		_maxId;
+	private final List<Topic>				_table;
+	private final Map<Forum, Integer>		_maxId;
 
 	public static TopicBBSManager getInstance()
 	{

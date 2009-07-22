@@ -73,8 +73,8 @@ public class FaenorInterface implements EngineInterface
 
 	/**
 	 * Adds a new drop to an NPC.  If the drop is sweep, it adds it to the NPC's Sweep category
-	 * If the drop is non-sweep, it creates a new category for this drop. 
-	 *  
+	 * If the drop is non-sweep, it creates a new category for this drop.
+	 * 
 	 * @param npc
 	 * @param drop
 	 * @param sweep
@@ -100,9 +100,9 @@ public class FaenorInterface implements EngineInterface
 	}
 
 	/**
-	 * Adds a new drop to an NPC, in the specified category.  If the category does not exist, 
-	 * it is created.  
-	 *  
+	 * Adds a new drop to an NPC, in the specified category.  If the category does not exist,
+	 * it is created.
+	 * 
 	 * @param npc
 	 * @param drop
 	 * @param category

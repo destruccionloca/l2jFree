@@ -23,9 +23,9 @@ import com.l2jfree.gameserver.model.L2TradeList;
 public final class BuyList extends L2GameServerPacket
 {
 	private static final String	_S__07_BUYLIST	= "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
-	private int					_listId;
-	private L2ItemInstance[]	_list;
-	private long				_money;
+	private final int					_listId;
+	private final L2ItemInstance[]	_list;
+	private final long				_money;
 	private double				_taxRate		= 1.;
 
 	public BuyList(L2TradeList list, long currentMoney)

@@ -477,8 +477,8 @@ public class BaiumManager extends BossLair
 	// Do social.
 	private class Social implements Runnable
 	{
-		private int		_action;
-		private L2Npc	_npc;
+		private final int		_action;
+		private final L2Npc	_npc;
 
 		public Social(L2Npc npc, int actionId)
 		{
@@ -496,7 +496,7 @@ public class BaiumManager extends BossLair
 	// Action is enabled the boss.
 	private class SetMobilised implements Runnable
 	{
-		private L2GrandBossInstance	_boss;
+		private final L2GrandBossInstance	_boss;
 
 		public SetMobilised(L2GrandBossInstance boss)
 		{
@@ -520,8 +520,8 @@ public class BaiumManager extends BossLair
 	// Move at random on after Baium appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2Npc			_npc;
-		private L2CharPosition	_pos;
+		private final L2Npc			_npc;
+		private final L2CharPosition	_pos;
 
 		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
 		{
@@ -547,8 +547,8 @@ public class BaiumManager extends BossLair
 	// Kill pc
 	private class KillPc implements Runnable
 	{
-		private L2PcInstance		_target;
-		private L2GrandBossInstance	_boss;
+		private final L2PcInstance		_target;
+		private final L2GrandBossInstance	_boss;
 
 		public KillPc(L2PcInstance target, L2GrandBossInstance boss)
 		{

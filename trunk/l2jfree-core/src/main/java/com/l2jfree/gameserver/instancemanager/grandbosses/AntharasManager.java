@@ -226,10 +226,10 @@ public class AntharasManager extends BossLair
 	// Do spawn Antharas.
 	private class AntharasSpawn implements Runnable
 	{
-		private int					_distance	= 6502500;
+		private final int					_distance	= 6502500;
 		private int					_taskId		= 0;
 		private L2GrandBossInstance	_antharas	= null;
-		private List<L2PcInstance>	_players	= getPlayersInside();
+		private final List<L2PcInstance>	_players	= getPlayersInside();
 
 		AntharasSpawn(int taskId, L2GrandBossInstance antharas)
 		{
@@ -476,7 +476,7 @@ public class AntharasManager extends BossLair
 	// Do spawn Behemoth.
 	private class BehemothSpawn implements Runnable
 	{
-		private int	_interval;
+		private final int	_interval;
 
 		public BehemothSpawn(int interval)
 		{
@@ -526,7 +526,7 @@ public class AntharasManager extends BossLair
 	// Do spawn Bomber.
 	private class BomberSpawn implements Runnable
 	{
-		private int	_interval;
+		private final int	_interval;
 
 		public BomberSpawn(int interval)
 		{
@@ -583,7 +583,7 @@ public class AntharasManager extends BossLair
 	// Do self destruction.
 	private class SelfDestructionOfBomber implements Runnable
 	{
-		private L2Npc	_bomber;
+		private final L2Npc	_bomber;
 
 		public SelfDestructionOfBomber(L2Npc bomber)
 		{
@@ -744,7 +744,7 @@ public class AntharasManager extends BossLair
 	// Action is enabled the boss.
 	private class SetMobilised implements Runnable
 	{
-		private L2GrandBossInstance	_boss;
+		private final L2GrandBossInstance	_boss;
 
 		public SetMobilised(L2GrandBossInstance boss)
 		{
@@ -768,8 +768,8 @@ public class AntharasManager extends BossLair
 	// Move at random on after Antharas appears.
 	private class MoveAtRandom implements Runnable
 	{
-		private L2Npc			_npc;
-		private L2CharPosition	_pos;
+		private final L2Npc			_npc;
+		private final L2CharPosition	_pos;
 
 		public MoveAtRandom(L2Npc npc, L2CharPosition pos)
 		{

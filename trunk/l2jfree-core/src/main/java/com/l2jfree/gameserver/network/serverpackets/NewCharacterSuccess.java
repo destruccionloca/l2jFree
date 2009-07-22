@@ -29,7 +29,7 @@ public class NewCharacterSuccess extends L2GameServerPacket
 {
 	// dddddddddddddddddddd
 	private static final String S_0D_CHARTEMPLATES = "[S] 0d CharTemplates";
-	private List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
+	private final List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
 
     public NewCharacterSuccess()
     {

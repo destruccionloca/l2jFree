@@ -56,8 +56,8 @@ public enum ClassId
 	templeKnight      (0x14,  false,  Race.Elf,   elvenKnight),
 	swordSinger       (0x15,  false,  Race.Elf,   elvenKnight),
 	elvenScout        (0x16,  false,  Race.Elf, elvenFighter),
-	plainsWalker      (0x17,  false,  Race.Elf,   elvenScout), 
-	silverRanger      (0x18,  false,  Race.Elf,   elvenScout), 
+	plainsWalker      (0x17,  false,  Race.Elf,   elvenScout),
+	silverRanger      (0x18,  false,  Race.Elf,   elvenScout),
 	
 	elvenMage         (0x19,   true,  Race.Elf, null),
 	elvenWizard       (0x1a,   true,  Race.Elf, elvenMage),
@@ -103,7 +103,7 @@ public enum ClassId
 	 * btw FU NCSoft for the amount of work you put me
 	 * through to do this!!
 	 * <START>
-	 */  
+	 */
 	dummyEntry1        (58, false, null, null),
 	dummyEntry2        (59, false, null, null),
 	dummyEntry3        (60, false, null, null),
@@ -141,33 +141,33 @@ public enum ClassId
 	
 	/*
 	 * Now the bad boys! new class ids :)) (3rd classes)
-	 */	
+	 */
 	duelist           (0x58,  false,  Race.Human, gladiator),
 	dreadnought       (0x59,  false,  Race.Human, warlord),
 	phoenixKnight     (0x5a,  false,  Race.Human, paladin),
 	hellKnight        (0x5b,  false,  Race.Human, darkAvenger),
-	sagittarius	      (0x5c,  false,  Race.Human, hawkeye), 
+	sagittarius	      (0x5c,  false,  Race.Human, hawkeye),
 	adventurer	      (0x5d,  false,  Race.Human, treasureHunter),
-	archmage	      (0x5e,  true,   Race.Human, sorceror), 
-	soultaker	      (0x5f,  true,   Race.Human, necromancer), 
-	arcanaLord	      (0x60,  true,   Race.Human, warlock), 
-	cardinal	      (0x61,  true,   Race.Human, bishop), 
+	archmage	      (0x5e,  true,   Race.Human, sorceror),
+	soultaker	      (0x5f,  true,   Race.Human, necromancer),
+	arcanaLord	      (0x60,  true,   Race.Human, warlock),
+	cardinal	      (0x61,  true,   Race.Human, bishop),
 	hierophant	      (0x62,  true,   Race.Human, prophet),
 	 
-	evaTemplar	      (0x63,  false,  Race.Elf,   templeKnight), 
-	swordMuse	      (0x64,  false,  Race.Elf,   swordSinger), 
+	evaTemplar	      (0x63,  false,  Race.Elf,   templeKnight),
+	swordMuse	      (0x64,  false,  Race.Elf,   swordSinger),
 	windRider	      (0x65,  false,  Race.Elf,   plainsWalker),
-	moonlightSentinel (0x66,  false,  Race.Elf,   silverRanger), 
-	mysticMuse	      (0x67,  true,   Race.Elf,   spellsinger), 
-	elementalMaster	  (0x68,  true,   Race.Elf,   elementalSummoner), 
+	moonlightSentinel (0x66,  false,  Race.Elf,   silverRanger),
+	mysticMuse	      (0x67,  true,   Race.Elf,   spellsinger),
+	elementalMaster	  (0x68,  true,   Race.Elf,   elementalSummoner),
 	evaSaint	      (0x69,  true,   Race.Elf,   elder),
 
-	shillienTemplar	  (0x6a,  false,  Race.Darkelf, shillienKnight), 
+	shillienTemplar	  (0x6a,  false,  Race.Darkelf, shillienKnight),
 	spectralDancer	  (0x6b,  false,  Race.Darkelf, bladedancer),
 	ghostHunter	      (0x6c,  false,  Race.Darkelf, abyssWalker),
-	ghostSentinel	  (0x6d,  false,  Race.Darkelf, phantomRanger), 
-	stormScreamer	  (0x6e,  true,   Race.Darkelf, spellhowler), 
-	spectralMaster	  (0x6f,  true,   Race.Darkelf, phantomSummoner), 
+	ghostSentinel	  (0x6d,  false,  Race.Darkelf, phantomRanger),
+	stormScreamer	  (0x6e,  true,   Race.Darkelf, spellhowler),
+	spectralMaster	  (0x6f,  true,   Race.Darkelf, phantomSummoner),
 	shillienSaint	  (0x70,  true,   Race.Darkelf, shillienElder),
 	 
 	titan	          (0x71,  false,  Race.Orc,  destroyer),
@@ -176,7 +176,7 @@ public enum ClassId
 	doomcryer	      (0x74,  true,   Race.Orc,  warcryer),
 
 	fortuneSeeker	  (0x75,  false,  Race.Dwarf,  bountyHunter),
-	maestro	          (0x76,  false,  Race.Dwarf,  warsmith), 
+	maestro	          (0x76,  false,  Race.Dwarf,  warsmith),
 	
 	dummyEntry31      (119, false, null, null),
 	dummyEntry32      (120, false, null, null),
@@ -228,24 +228,24 @@ public enum ClassId
 	 * Return the Identifier of the Class.<BR><BR>
 	 */
 	public final int getId()
-	{ 
+	{
 		return _id;
 	}
 
 	/**
 	 * Return True if the class is a mage class.<BR><BR>
 	 */
-	public final boolean isMage()  
-	{ 
-		return _isMage; 
+	public final boolean isMage()
+	{
+		return _isMage;
 	}
 	
 	/**
 	 * Return the Race object of the class.<BR><BR>
 	 */
-	public final Race getRace() 
-	{ 
-		return _race;   
+	public final Race getRace()
+	{
+		return _race;
 	}
 	
 	/**
@@ -254,7 +254,7 @@ public enum ClassId
 	 * @param cid The parent ClassId to check
 	 * 
 	 */
-	public final boolean childOf(ClassId cid) 
+	public final boolean childOf(ClassId cid)
 	{
 		if (_parent == null)
 			return false;
@@ -272,7 +272,7 @@ public enum ClassId
 	 * @param cid The parent ClassId to check
 	 * 
 	 */
-	public final boolean equalsOrChildOf(ClassId cid) 
+	public final boolean equalsOrChildOf(ClassId cid)
 	{
 		return this == cid || childOf(cid);
 	}
@@ -284,7 +284,7 @@ public enum ClassId
 	 * @param cid The parent ClassId to check
 	 * 
 	 */
-	public final int level() 
+	public final int level()
 	{
 		switch (_id)
 		{

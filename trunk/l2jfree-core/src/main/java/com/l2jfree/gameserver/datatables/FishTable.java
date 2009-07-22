@@ -41,7 +41,7 @@ public class FishTable
 
 	public static FishTable getInstance()
 	{
-		return SingletonHolder._instance; 
+		return SingletonHolder._instance;
 	}
 
 	private FishTable()

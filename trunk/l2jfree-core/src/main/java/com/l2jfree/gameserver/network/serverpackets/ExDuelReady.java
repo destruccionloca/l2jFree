@@ -17,15 +17,15 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExDuelReady extends L2GameServerPacket
 {
 	private static final String _S__FE_4D_ExDuelAskStart = "[S] FE:4d ExDuelReady 0x4b [d]";
-	private int _unk1;
+	private final int _unk1;
 
     public ExDuelReady()
     {
         _unk1 = 0;
-    }    
+    }
     
 	/**
-	 * @param int 
+	 * @param int
 	 */
 	public ExDuelReady(int unk1)
 	{

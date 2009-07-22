@@ -37,8 +37,8 @@ public class L2TradeList
 {
 	private final static Log _log = LogFactory.getLog(L2TradeList.class.getName());
 
-	private FastList<L2ItemInstance> _items;
-	private int _listId;
+	private final FastList<L2ItemInstance> _items;
+	private final int _listId;
 	private boolean _confirmed;
 	private boolean _gm;
 	private String _buystorename,_sellstorename;

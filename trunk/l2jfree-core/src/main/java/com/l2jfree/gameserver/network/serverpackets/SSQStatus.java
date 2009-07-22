@@ -40,8 +40,8 @@ public class SSQStatus extends L2GameServerPacket
 	private static Log			_log				= LogFactory.getLog(SSQStatus.class.getName());
 
 	private static final String	_S__F5_SSQStatus	= "[S] F5 RecordUpdate";
-	private L2PcInstance		_activeChar;
-	private int					_page;
+	private final L2PcInstance		_activeChar;
+	private final int					_page;
 
 	public SSQStatus(L2PcInstance player, int recordPage)
 	{
@@ -67,7 +67,7 @@ public class SSQStatus extends L2GameServerPacket
 		switch (_page)
 		{
 			case 1:
-				// [ddd cc dd ddd c ddd c]    
+				// [ddd cc dd ddd c ddd c]
 				writeD(SevenSigns.getInstance().getCurrentCycle());
 
 				int currentPeriod = SevenSigns.getInstance().getCurrentPeriod();

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class AdminForgePacket extends L2GameServerPacket
 {
-	private List<Part> _parts = new ArrayList<Part>();
+	private final List<Part> _parts = new ArrayList<Part>();
 	
 	private class Part
 	{

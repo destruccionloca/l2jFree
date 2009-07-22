@@ -41,7 +41,7 @@ public class SpawnTable
 {
 	private final static Log			_log		= LogFactory.getLog(SpawnTable.class.getName());
 
-	private Map<Integer, L2Spawn>		_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
+	private final Map<Integer, L2Spawn>		_spawntable	= new FastMap<Integer, L2Spawn>().setShared(true);
 	private int							_npcSpawnCount;
 	private int							_cSpawnCount;
 	private int							_highestDbId;

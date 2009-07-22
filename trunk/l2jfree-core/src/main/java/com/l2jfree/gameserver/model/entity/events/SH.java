@@ -63,8 +63,8 @@ public class SH
 
 	public static class Items
 	{
-		private L2Item	_item;
-		private int		_count;
+		private final L2Item	_item;
+		private final int		_count;
 
 		public Items(L2Item item, int count)
 		{

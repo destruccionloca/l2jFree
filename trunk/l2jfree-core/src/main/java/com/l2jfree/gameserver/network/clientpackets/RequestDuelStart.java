@@ -126,7 +126,7 @@ public final class RequestDuelStart extends L2GameClientPacket
 					activeChar.onTransactionRequest(partyLeader);
 					partyLeader.sendPacket(new ExDuelAskStart(activeChar.getName(), _partyDuel));
 
-					if (_log.isDebugEnabled()) 
+					if (_log.isDebugEnabled())
 				        _log.info(activeChar.getName() + " requested a duel with " + partyLeader.getName());
 
 					SystemMessage msg = new SystemMessage(SystemMessageId.C1_PARTY_HAS_BEEN_CHALLENGED_TO_A_DUEL);
@@ -149,7 +149,7 @@ public final class RequestDuelStart extends L2GameClientPacket
 				activeChar.onTransactionRequest(targetChar);
 				targetChar.sendPacket(new ExDuelAskStart(activeChar.getName(), _partyDuel));
 
-				if (_log.isDebugEnabled()) 
+				if (_log.isDebugEnabled())
 			        _log.info(activeChar.getName() + " requested a duel with " + targetChar.getName());
 
 				SystemMessage msg = new SystemMessage(SystemMessageId.C1_HAS_BEEN_CHALLENGED_TO_A_DUEL);

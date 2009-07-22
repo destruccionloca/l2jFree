@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
  * If the zip file doesn't contain any xml file, it is considered as an empty package.
  * Only xml file are read !
  * If a xml file is found but the ScriptDocument can't be extracted (the xml is not a valid script for sure)
- * we just log the error but the treatment continue. 
+ * we just log the error but the treatment continue.
  * 
  * @author Luis Arias
  *
@@ -39,8 +39,8 @@ public class ScriptPackage
 {
 	private final static Log		_log	= LogFactory.getLog(ScriptPackage.class);
 
-	private List<ScriptDocument>	_scriptFiles;
-	private String					_name;
+	private final List<ScriptDocument>	_scriptFiles;
+	private final String					_name;
 
 	public ScriptPackage(ZipFile pack)
 	{

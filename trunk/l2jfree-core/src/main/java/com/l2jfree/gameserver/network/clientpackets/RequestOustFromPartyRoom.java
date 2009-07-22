@@ -22,7 +22,7 @@ package com.l2jfree.gameserver.network.clientpackets;
  */
 public class RequestOustFromPartyRoom extends L2GameClientPacket
 {
-	private static final String _C__D0_01_REQUESTOUSTFROMPARTYROOM = "[C] D0:01 RequestOustFromPartyRoom";	
+	private static final String _C__D0_01_REQUESTOUSTFROMPARTYROOM = "[C] D0:01 RequestOustFromPartyRoom";
 	@SuppressWarnings("unused")
 	private int _id;
 

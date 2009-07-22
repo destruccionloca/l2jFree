@@ -25,7 +25,7 @@ public class RequestSiegeInfo extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-        // trigger 
+        // trigger
     }
 
     @Override

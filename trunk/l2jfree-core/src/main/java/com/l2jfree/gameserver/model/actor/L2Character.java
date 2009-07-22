@@ -194,7 +194,7 @@ public abstract class L2Character extends L2Object
 	protected L2Effect 				_invulEffect               			= null;
 	protected boolean				_isDisarmed							= false;
 	protected boolean				_isMarked							= false;
-	private int[]					lastPosition						=
+	private final int[]					lastPosition						=
 																		{ 0, 0, 0 };
 	protected CharStat				_stat;
 	protected CharStatus			_status;
@@ -812,7 +812,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public class CheckFalling implements Runnable
 	{
-		private int			_fallHeight;
+		private final int			_fallHeight;
 
 		public CheckFalling(int fallHeight)
 		{

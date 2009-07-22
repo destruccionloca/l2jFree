@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -135,7 +135,7 @@ public class AdminInstance implements IAdminCommandHandler
 
 		// set ghost mode on aka not appearing on any knownlist
 		// you will be invis to all players but you also dont get update packets ;)
-		// you will see snapshots (knownlist echoes?) if you port 
+		// you will see snapshots (knownlist echoes?) if you port
 		// so kinda useless atm
 		// TODO: enable broadcast packets for ghosts
 		else if (command.startsWith("admin_ghoston"))

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.skills.Env;
 
 final class ConditionTargetRace extends Condition
 {
-	private Race _race;
+	private final Race _race;
 
 	public ConditionTargetRace(Race race)
 	{

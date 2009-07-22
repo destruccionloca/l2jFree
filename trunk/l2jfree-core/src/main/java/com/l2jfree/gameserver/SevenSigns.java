@@ -120,11 +120,11 @@ public class SevenSigns
 	protected int									_compWinner;
 	protected int									_previousWinner;
 
-	private Map<Integer, StatsSet>					_signsPlayerData;
+	private final Map<Integer, StatsSet>					_signsPlayerData;
 
-	private Map<Integer, Integer>					_signsSealOwners;
-	private Map<Integer, Integer>					_signsDuskSealTotals;
-	private Map<Integer, Integer>					_signsDawnSealTotals;
+	private final Map<Integer, Integer>					_signsSealOwners;
+	private final Map<Integer, Integer>					_signsDuskSealTotals;
+	private final Map<Integer, Integer>					_signsDawnSealTotals;
 
 	private static AutoSpawnInstance				_merchantSpawn;
 	private static AutoSpawnInstance				_blacksmithSpawn;

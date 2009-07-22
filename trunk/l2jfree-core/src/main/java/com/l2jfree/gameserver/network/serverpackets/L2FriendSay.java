@@ -30,7 +30,7 @@ public class L2FriendSay extends L2GameServerPacket
 {
 	private static final String S_78_L2FRIENDSAY = "[S] 78 L2FriendSay";
 
-	private String _sender, _receiver, _message;
+	private final String _sender, _receiver, _message;
 
 	public L2FriendSay(String sender, String reciever, String message)
 	{

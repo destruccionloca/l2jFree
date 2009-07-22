@@ -20,7 +20,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/** 
+/**
  * @author Psychokiller1888
  * 
  */
@@ -32,7 +32,7 @@ public class AdminVitality implements IAdminCommandHandler
 	private static double			vitality		= 0.0;
 	
 	private static final String[]	ADMIN_COMMANDS	=
-	{ 
+	{
 		"admin_set_vitality",
 		"admin_set_vitality_level",
 		"admin_full_vitality",

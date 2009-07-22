@@ -39,20 +39,20 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class ClanHall extends Entity
 {
-	private int								_clanHallId;
+	private final int								_clanHallId;
 	private List<L2DoorInstance>			_doors;
-	private List<String>					_doorDefault;
-	private String							_name;
+	private final List<String>					_doorDefault;
+	private final String							_name;
 	private int								_ownerId;
 	private L2Clan							_ownerClan;
-	private int								_lease;
-	private String							_desc;
-	private String							_location;
+	private final int								_lease;
+	private final String							_desc;
+	private final String							_location;
 	protected long							_paidUntil;
-	private int								_grade;
+	private final int								_grade;
 	protected final int						_chRate						= 604800000;
 	protected boolean						_isFree						= true;
-	private Map<Integer, ClanHallFunction>	_functions;
+	private final Map<Integer, ClanHallFunction>	_functions;
 	protected boolean						_paid;
 
 	/** Clan Hall Functions */
@@ -67,11 +67,11 @@ public class ClanHall extends Entity
 
 	public class ClanHallFunction
 	{
-		private int			_type;
+		private final int			_type;
 		private int			_lvl;
 		protected int		_fee;
 		protected int		_tempFee;
-		private long		_rate;
+		private final long		_rate;
 		private long		_endDate;
 		protected boolean	_inDebt;
 		public boolean		_cwh;		// first activating clanhall function is payed from player inventory, any others from clan warehouse

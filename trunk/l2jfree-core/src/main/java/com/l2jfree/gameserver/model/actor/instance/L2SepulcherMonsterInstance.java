@@ -286,7 +286,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 			for (L2PcInstance mem : player.getParty().getPartyMembers())
 			{
 				QuestState qs = mem.getQuestState(questId);
-				if(qs != null && (qs.isStarted() || qs.isCompleted()) 
+				if(qs != null && (qs.isStarted() || qs.isCompleted())
 					&& mem.getInventory().getItemByItemId(oldBrooch) == null)
 				{
 					mem.addItem("Quest", cupId, 1, mem, true);
@@ -306,7 +306,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 	private class VictimShout implements Runnable
 	{
-		private L2SepulcherMonsterInstance _activeChar;
+		private final L2SepulcherMonsterInstance _activeChar;
 
 		public VictimShout(L2SepulcherMonsterInstance activeChar)
 		{
@@ -327,7 +327,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 	private class VictimSpawnKeyBox implements Runnable
 	{
-		private L2SepulcherMonsterInstance _activeChar;
+		private final L2SepulcherMonsterInstance _activeChar;
 
 		public VictimSpawnKeyBox(L2SepulcherMonsterInstance activeChar)
 		{
@@ -344,7 +344,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 			FourSepulchersManager.getInstance().spawnKeyBox(_activeChar);
 			broadcastPacket(new NpcSay(getObjectId(), 0, getNpcId(), "Many thanks for rescue me."));
-			if (_victimShout != null) 
+			if (_victimShout != null)
 			{
 				_victimShout.cancel(true);
 			}
@@ -456,7 +456,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 	private class ChangeImmortal implements Runnable
 	{
-		private L2SepulcherMonsterInstance activeChar;
+		private final L2SepulcherMonsterInstance activeChar;
 
 		public ChangeImmortal(L2SepulcherMonsterInstance mob)
 		{

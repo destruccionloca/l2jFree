@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 
 /**
- * This class is 
+ * This class is
  * 
  * @author  L2J_JP SANDMAN
  */

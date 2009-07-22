@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.L2Clan.RankPrivs;
  *
  * sample
  * 0000: 9c c10c0000 48 00 61 00 6d 00 62 00 75 00 72    .....H.a.m.b.u.r
- * 0010: 00 67 00 00 00 00000000 00000000 00000000 00000000 00000000 00000000 
- * 00 00 
+ * 0010: 00 67 00 00 00 00000000 00000000 00000000 00000000 00000000 00000000
+ * 00 00
  * 00000000                                           ...
  
   * format   dd ??
@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.model.L2Clan.RankPrivs;
 public class PledgePowerGradeList extends L2GameServerPacket
 {
 	private static final String _S__FE_3B_PLEDGEPOWERGRADELIST = "[S] FE:3B PledgePowerGradeList";
-    private RankPrivs[] _privs;
+    private final RankPrivs[] _privs;
 	
 	public PledgePowerGradeList(RankPrivs[] privs)
 	{

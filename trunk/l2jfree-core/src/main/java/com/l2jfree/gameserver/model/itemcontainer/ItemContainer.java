@@ -110,9 +110,9 @@ public abstract class ItemContainer
 	public L2ItemInstance getItemByItemId(int itemId, L2ItemInstance itemToIgnore)
 	{
 		for (L2ItemInstance item : _items)
-				if (item != null && item.getItemId() == itemId && 
-						!item.equals(itemToIgnore)) 
-					return item; 
+				if (item != null && item.getItemId() == itemId &&
+						!item.equals(itemToIgnore))
+					return item;
 		
 		return null;
 	}
@@ -216,7 +216,7 @@ public abstract class ItemContainer
 			item = olditem;
 
 			// Updates database
-			if (item.getItemId() == 57 && count < 10000 * Config.RATE_DROP_ADENA) 
+			if (item.getItemId() == 57 && count < 10000 * Config.RATE_DROP_ADENA)
 			{
 				// Small adena changes won't be saved to database all the time
 				if (GameTimeController.getGameTicks() % 5 == 0)
@@ -262,7 +262,7 @@ public abstract class ItemContainer
 			item.changeCount(process, count, actor, reference);
 			item.setLastChange(L2ItemInstance.MODIFIED);
 			// Updates database
-			if (itemId == 57 && count < 10000*Config.RATE_DROP_ADENA) 
+			if (itemId == 57 && count < 10000*Config.RATE_DROP_ADENA)
 			{
 				// Small adena changes won't be saved to database all the time
 				if (GameTimeController.getGameTicks() % 5 == 0)
@@ -293,7 +293,7 @@ public abstract class ItemContainer
 				// Updates database
 				item.updateDatabase();
 
-				// If stackable, end loop as entire count is included in 1 instance of item  
+				// If stackable, end loop as entire count is included in 1 instance of item
 				if (template.isStackable())
 					break;
 			}
@@ -479,7 +479,7 @@ public abstract class ItemContainer
             if (item.getCount() < count)
                 return null;
             
-            boolean removed = this.removeItem(item);
+            boolean removed = removeItem(item);
             if (!removed)
                 return null;
             
@@ -503,7 +503,7 @@ public abstract class ItemContainer
 	public L2ItemInstance destroyItem(String process, int objectId, long count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByObjectId(objectId);
-		if (item == null) 
+		if (item == null)
 		{
 			return null;
 		}
@@ -522,7 +522,7 @@ public abstract class ItemContainer
 	public L2ItemInstance destroyItemByItemId(String process, int itemId, long count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByItemId(itemId);
-		if (item == null) 
+		if (item == null)
 		{
 			return null;
 		}
@@ -537,7 +537,7 @@ public abstract class ItemContainer
 	 */
 	public synchronized void destroyAllItems(String process, L2PcInstance actor, L2Object reference)
 	{
-		for (L2ItemInstance item : _items) 
+		for (L2ItemInstance item : _items)
 			destroyItem(process, item, actor, reference);
 	}
 
@@ -577,7 +577,7 @@ public abstract class ItemContainer
 		}
 		catch (Exception e)
 		{
-			_log.fatal(e.getMessage(), e); 
+			_log.fatal(e.getMessage(), e);
 		}
 
 		FastList<L2Object> items = new FastList<L2Object>(_items);
@@ -587,7 +587,7 @@ public abstract class ItemContainer
 	}
 	
 	/**
-	 * Update database with items in inventory  
+	 * Update database with items in inventory
 	 */
 	public void updateDatabase()
 	{
@@ -646,7 +646,7 @@ public abstract class ItemContainer
     }
     
     /**
-	 * @param slots  
+	 * @param slots
 	 */
     public boolean validateCapacity(int slots)
 	{
@@ -654,7 +654,7 @@ public abstract class ItemContainer
 	}
     
     /**
-	 * @param weight  
+	 * @param weight
 	 */
     public boolean validateWeight(int weight)
 	{

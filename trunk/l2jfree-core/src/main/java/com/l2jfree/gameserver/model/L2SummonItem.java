@@ -33,7 +33,7 @@ public class L2SummonItem
 
 	public int getItemId()
 	{
-		return _itemId;     
+		return _itemId;
 	}
 
 	public int getNpcId()

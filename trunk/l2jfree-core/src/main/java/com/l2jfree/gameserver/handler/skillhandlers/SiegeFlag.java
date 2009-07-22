@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/** 
- * @author _drunk_ 
+/**
+ * @author _drunk_
  * 
  */
 public class SiegeFlag implements ISkillHandler

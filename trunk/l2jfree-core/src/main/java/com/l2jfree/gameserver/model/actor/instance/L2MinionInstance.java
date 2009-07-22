@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
- * This class manages all Minions. 
+ * This class manages all Minions.
  * In a group mob, there are one master called RaidBoss and several slaves called Minions.
  * 
  * @version $Revision: 1.20.4.6 $ $Date: 2005/04/06 16:13:39 $
@@ -32,7 +32,7 @@ public class L2MinionInstance extends L2MonsterInstance
 	
 	/**
 	 * Constructor of L2MinionInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
-	 *  
+	 * 
 	 * <B><U> Actions</U> :</B><BR><BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2MinionInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR) </li>
 	 * <li>Set the name of the L2MinionInstance</li>

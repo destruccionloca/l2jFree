@@ -59,7 +59,7 @@ public class RequestPledgeInfo extends L2GameClientPacket
 		L2Clan clan = ClanTable.getInstance().getClan(_clanId);
 		if (clan == null)
 		{
-			_log.warn("Clan data for clanId " + _clanId + " is missing for player " + activeChar.getName()); 
+			_log.warn("Clan data for clanId " + _clanId + " is missing for player " + activeChar.getName());
 			return; // we have no clan data ?!? should not happen
 		}
 

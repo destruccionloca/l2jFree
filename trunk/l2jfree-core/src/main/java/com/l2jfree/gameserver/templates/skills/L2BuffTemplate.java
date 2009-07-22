@@ -29,46 +29,46 @@ import com.l2jfree.gameserver.templates.StatsSet;
 public class L2BuffTemplate
 {
 	/** Id of buff template */
-	private int		_templateId;
+	private final int		_templateId;
 
 	/** Name of the buff template */
-	private String	_templateName;
+	private final String	_templateName;
 
 	/** Identifier of the skill (buff) to cast */
-	private int		_skillId;
+	private final int		_skillId;
 
 	/** Order of the skill in template */
-	private int		_skillOrder;
+	private final int		_skillOrder;
 
-	private L2Skill	_skill;
+	private final L2Skill	_skill;
 
 	/** Level of the skill (buff) to cast */
 	private int		_skillLevel;
 
 	/** Force cast, even if same effect present */
-	private boolean	_forceCast;
+	private final boolean	_forceCast;
 
 	/** Condition that player must have to obtain this buff */
 	/** Min player level */
-	private int		_minLevel;
+	private final int		_minLevel;
 
 	/** Max player level */
-	private int		_maxLevel;
+	private final int		_maxLevel;
 
 	/** Player's faction */
-	private int		_faction;
+	private final int		_faction;
 
 	/** Players's race */
-	private int		_race;
+	private final int		_race;
 
 	/** Magus/Fighter class of the player */
-	private int		_class;
+	private final int		_class;
 
 	/** Adena price */
-	private int		_adena;
+	private final int		_adena;
 
 	/** Faction points price */
-	private int		_points;
+	private final int		_points;
 
 	/**
 	 * Constructor of L2BuffTemplat.<BR>

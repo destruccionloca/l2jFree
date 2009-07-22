@@ -87,7 +87,7 @@ public final class ChanceCondition
 		}
 	}
 	
-	private TriggerType _triggerType;
+	private final TriggerType _triggerType;
 	
 	private final int _chance;
 	

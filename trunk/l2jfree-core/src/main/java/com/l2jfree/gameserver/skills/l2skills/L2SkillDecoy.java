@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class L2SkillDecoy extends L2Skill
 {
 
-	private int	_npcId;
+	private final int	_npcId;
 
 	public L2SkillDecoy(StatsSet set)
 	{

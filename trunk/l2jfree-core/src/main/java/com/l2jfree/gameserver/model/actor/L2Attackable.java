@@ -2675,7 +2675,7 @@ public class L2Attackable extends L2Npc
 
 	private class CommandChannelTimer implements Runnable
 	{
-		private L2CommandChannel _channel;
+		private final L2CommandChannel _channel;
 		
 		public CommandChannelTimer(L2CommandChannel channel)
 		{

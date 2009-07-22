@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @authos kerberos
@@ -22,20 +21,18 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ExValidateLocationInAirShip extends L2GameServerPacket
 {
-    private L2PcInstance _activeChar;
+    private final L2PcInstance _activeChar;
 
-    public ExValidateLocationInAirShip(L2Character player)
+    public ExValidateLocationInAirShip(L2PcInstance player)
     {
-    	if (!(player instanceof L2PcInstance)) return;
-
-		_activeChar = (L2PcInstance)player;
-
-		if (_activeChar.getAirShip() == null) return;
+        _activeChar = player;
     }
 
     @Override
 	protected final void writeImpl()
     {
+        if (_activeChar.getAirShip() == null) return;
+        
         writeC(0xfe);
         writeH(0x6F);
         writeD(_activeChar.getObjectId());

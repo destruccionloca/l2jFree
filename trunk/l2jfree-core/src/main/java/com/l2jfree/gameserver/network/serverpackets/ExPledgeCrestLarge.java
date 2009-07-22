@@ -20,8 +20,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExPledgeCrestLarge extends L2GameServerPacket
 {
 	private static final String _S__FE_1B_EXPLEDGECRESTLARGE = "[S] FE:1b ExPledgeCrestLarge [ddd b]";
-	private int _crestId;
-	private byte[] _data;
+	private final int _crestId;
+	private final byte[] _data;
 	
 	public ExPledgeCrestLarge(int crestId, byte[] data)
 	{

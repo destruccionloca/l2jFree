@@ -94,7 +94,7 @@ public class Escape implements IUserCommandHandler
 
 	static class EscapeFinalizer implements Runnable
 	{
-		private L2PcInstance	_activeChar;
+		private final L2PcInstance	_activeChar;
 
 		EscapeFinalizer(L2PcInstance activeChar)
 		{

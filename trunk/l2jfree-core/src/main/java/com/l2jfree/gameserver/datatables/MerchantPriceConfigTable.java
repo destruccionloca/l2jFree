@@ -50,7 +50,7 @@ public class MerchantPriceConfigTable implements InstanceListManager
 
 	private static final String					MPCS_FILE	= "MerchantPriceConfig.xml";
 
-	private Map<Integer, MerchantPriceConfig>	_mpcs		= new FastMap<Integer, MerchantPriceConfig>();
+	private final Map<Integer, MerchantPriceConfig>	_mpcs		= new FastMap<Integer, MerchantPriceConfig>();
 	private MerchantPriceConfig					_defaultMpc;
 
 	private MerchantPriceConfigTable()
@@ -58,7 +58,7 @@ public class MerchantPriceConfigTable implements InstanceListManager
 	}
 
 	/**
-	 * @param npc  
+	 * @param npc
 	 */
 	public MerchantPriceConfig getMerchantPriceConfig(L2MerchantInstance npc)
 	{
@@ -102,7 +102,7 @@ public class MerchantPriceConfigTable implements InstanceListManager
 			MerchantPriceConfig mpc;
 			for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
 			{
-				mpc = this.parseMerchantPriceConfig(n);
+				mpc = parseMerchantPriceConfig(n);
 				if (mpc != null)
 				{
 					_mpcs.put(mpc.getId(), mpc);
@@ -272,17 +272,17 @@ public class MerchantPriceConfigTable implements InstanceListManager
 
 		public double getCastleTaxRate()
 		{
-			return this.hasCastle() ? this.getCastle().getTaxRate() : 0.0;
+			return hasCastle() ? getCastle().getTaxRate() : 0.0;
 		}
 
 		public int getTotalTax()
 		{
-			return this.hasCastle() ? (getCastle().getTaxPercent() + getBaseTax()) : getBaseTax();
+			return hasCastle() ? (getCastle().getTaxPercent() + getBaseTax()) : getBaseTax();
 		}
 
 		public double getTotalTaxRate()
 		{
-			return this.getTotalTax() / 100.0;
+			return getTotalTax() / 100.0;
 		}
 
 		public void updateReferences()

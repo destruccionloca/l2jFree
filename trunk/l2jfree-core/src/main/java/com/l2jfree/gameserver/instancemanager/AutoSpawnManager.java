@@ -422,7 +422,7 @@ public class AutoSpawnManager
 	 */
 	private class AutoSpawner implements Runnable
 	{
-		private int	_objectId;
+		private final int	_objectId;
 
 		public AutoSpawner(int objectId)
 		{
@@ -556,7 +556,7 @@ public class AutoSpawnManager
 	 */
 	private class AutoDespawner implements Runnable
 	{
-		private int	_objectId;
+		private final int	_objectId;
 
 		public AutoDespawner(int objectId)
 		{
@@ -614,7 +614,7 @@ public class AutoSpawnManager
 		protected int					_lastLocIndex			= -1;
 
 		private final FastList<L2Npc>	_npcList				= new FastList<L2Npc>();
-		private FastList<Location>		_locList				= new FastList<Location>();
+		private final FastList<Location>		_locList				= new FastList<Location>();
 
 		private boolean					_spawnActive;
 		private boolean					_randomSpawn			= false;

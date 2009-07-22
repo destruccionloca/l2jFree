@@ -36,7 +36,7 @@ public class ExtractableSkillsData
 	private final static Log					_log		= LogFactory.getLog(ExtractableSkillsData.class.getName());
 
 	//          Map<itemid, L2ExtractableSkill>
-	private FastMap<Integer, L2ExtractableSkill>	_items  = new FastMap<Integer, L2ExtractableSkill>();
+	private final FastMap<Integer, L2ExtractableSkill>	_items  = new FastMap<Integer, L2ExtractableSkill>();
 
 	public static ExtractableSkillsData getInstance()
 	{

@@ -20,7 +20,7 @@ public class MoveToLocation extends L2GameServerPacket
 {
 	private static final String _S__2F_CHARMOVETOLOCATION = "[S] 2f CharMoveToLocation [ddddddd]";
 
-	private int _charObjId, _x, _y, _z, _xDst, _yDst, _zDst;
+	private final int _charObjId, _x, _y, _z, _xDst, _yDst, _zDst;
 	
 	public MoveToLocation(L2Character cha)
 	{

@@ -37,7 +37,7 @@ public class StaticObjects
 {
 	private final static Log						_log	= LogFactory.getLog(StaticObjects.class.getName());
 
-	private Map<Integer, L2StaticObjectInstance>	_staticObjects;
+	private final Map<Integer, L2StaticObjectInstance>	_staticObjects;
 
 	public static StaticObjects getInstance()
 	{

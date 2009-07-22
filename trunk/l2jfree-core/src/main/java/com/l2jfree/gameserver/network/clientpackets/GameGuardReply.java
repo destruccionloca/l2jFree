@@ -36,7 +36,7 @@ public class GameGuardReply extends L2GameClientPacket
         0xFFFFFFB6 , 0x10 , 0xFFFFFFE3 , 0xFFFFFF84 , 0xFFFFFFB3
     };
 
-    private byte[] _reply = new byte[8];
+    private final byte[] _reply = new byte[8];
 
     @Override
     protected void readImpl()

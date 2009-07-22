@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
 
 public class ServerStatusL2j extends GameServerBasePacket
 {
-	private Vector<Attribute>		_attributes;
+	private final Vector<Attribute>		_attributes;
 
 	public static final String[]	STATUS_STRING				= { "Auto", "Good", "Normal", "Full", "Down", "Gm Only" };
 

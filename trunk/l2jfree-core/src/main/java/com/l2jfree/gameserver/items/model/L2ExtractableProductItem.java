@@ -37,7 +37,7 @@ public class L2ExtractableProductItem
     }
 
     public int[] getAmmount()
-    { 
+    {
         return _ammount;
     }
 

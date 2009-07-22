@@ -48,7 +48,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
 public class SiegeDefenderList extends L2GameServerPacket
 {
 	private static final String _S__CA_SiegeDefenderList = "[S] cb SiegeDefenderList";
-	private Castle _castle;
+	private final Castle _castle;
 
 	public SiegeDefenderList(Castle castle)
 	{

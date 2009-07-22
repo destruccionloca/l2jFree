@@ -25,7 +25,7 @@ public class EtcStatusUpdate extends L2GameServerPacket
 {
 	private static final String _S__F9_ETCSTATUSUPDATE = "[S] f9 EtcStatusUpdate [dddddddd]";
 
-	private L2PcInstance _activeChar;
+	private final L2PcInstance _activeChar;
 
 	public EtcStatusUpdate(L2PcInstance activeChar)
 	{

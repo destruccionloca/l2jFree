@@ -25,10 +25,10 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public final class ServerObjectInfo extends L2GameServerPacket
 {
 	private static final String _S__92_SERVEROBJECTINFO = "[S] 92 ServerObjectInfo";
-	private L2Npc _activeChar;
-	private int _x, _y, _z, _heading;
-	private int _idTemplate;
-	private int _collisionHeight, _collisionRadius;
+	private final L2Npc _activeChar;
+	private final int _x, _y, _z, _heading;
+	private final int _idTemplate;
+	private final int _collisionHeight, _collisionRadius;
 
 	public ServerObjectInfo(L2Npc activeChar)
 	{

@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.skills.Env;
  */
 final class ConditionPlayerLandingZone extends Condition
 {
-	private boolean _val;
+	private final boolean _val;
 
 	public ConditionPlayerLandingZone(boolean val)
 	{

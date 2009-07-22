@@ -46,9 +46,9 @@ public class CrestCache
 		return SingletonHolder._instance;
 	}
 	
-	private FastMap<Integer, byte[]> _cachePledge = new FastMap<Integer, byte[]>().setShared(true);
-	private FastMap<Integer, byte[]> _cachePledgeLarge = new FastMap<Integer, byte[]>().setShared(true);
-	private FastMap<Integer, byte[]> _cacheAlly = new FastMap<Integer, byte[]>().setShared(true);
+	private final FastMap<Integer, byte[]> _cachePledge = new FastMap<Integer, byte[]>().setShared(true);
+	private final FastMap<Integer, byte[]> _cachePledgeLarge = new FastMap<Integer, byte[]>().setShared(true);
+	private final FastMap<Integer, byte[]> _cacheAlly = new FastMap<Integer, byte[]>().setShared(true);
 	
 	private int _loadedFiles;
 	private long _bytesBuffLen;

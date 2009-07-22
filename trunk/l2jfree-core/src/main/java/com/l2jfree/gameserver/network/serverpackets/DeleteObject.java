@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.L2Object;
 public class DeleteObject extends L2GameServerPacket
 {
 	private static final String _S__08_DELETEOBJECT = "[S] 08 DeleteObject [dd]";
-	private int _objectId;
+	private final int _objectId;
 
 	public DeleteObject(L2Object obj)
 	{

@@ -48,7 +48,7 @@ public class RequestExAcceptJoinMPCC extends L2GameClientPacket
         }
 
 		SystemMessage sm;
-		if (_response == 1) 
+		if (_response == 1)
 		{
 			boolean newCc = false;
 			if (!requestor.getParty().isInCommandChannel())

@@ -41,7 +41,7 @@ public abstract class L2Transformation
 
     /**
      * 
-     * @param id Internal id that server will use to associate this transformation 
+     * @param id Internal id that server will use to associate this transformation
      * @param graphicalId Client visible transformation id
      * @param duration Transformation duration in seconds
      * @param collisionRadius Collision Radius of the player while transformed
@@ -57,7 +57,7 @@ public abstract class L2Transformation
     
     /**
      * 
-     * @param id Internal id(will be used also as client graphical id) that server will use to associate this transformation 
+     * @param id Internal id(will be used also as client graphical id) that server will use to associate this transformation
      * @param duration Transformation duration in seconds
      * @param collisionRadius Collision Radius of the player while transformed
      * @param collisionHeight  Collision Height of the player while transformed

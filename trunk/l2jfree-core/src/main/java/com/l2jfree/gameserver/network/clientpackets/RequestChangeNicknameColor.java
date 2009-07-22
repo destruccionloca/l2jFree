@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/** 
+/**
  * @author evill33t
  */
 public class RequestChangeNicknameColor extends L2GameClientPacket
@@ -32,7 +32,7 @@ public class RequestChangeNicknameColor extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_color = readD();
-		_player = readS();		
+		_player = readS();
 	}
 
 	@Override

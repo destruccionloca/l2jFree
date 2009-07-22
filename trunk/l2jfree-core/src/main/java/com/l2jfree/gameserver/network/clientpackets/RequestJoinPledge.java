@@ -78,13 +78,13 @@ public class RequestJoinPledge extends L2GameClientPacket
 		if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
 		{
 			return;
-		} 
+		}
 		if (!activeChar.getRequest().setRequest(target, this))
 		{
 			return;
-		} 
+		}
 
-		AskJoinPledge ap = new AskJoinPledge(activeChar.getObjectId(), activeChar.getClan().getName()); 
+		AskJoinPledge ap = new AskJoinPledge(activeChar.getObjectId(), activeChar.getClan().getName());
 		target.sendPacket(ap);
 	}
 

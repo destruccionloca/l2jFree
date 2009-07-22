@@ -311,7 +311,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			if ((MAX_ADENA / _count) < _crop.getPrice())
 				return false;
 
-			_reward = L2Manor.getInstance().getRewardItem(_itemId, _crop.getReward()); 
+			_reward = L2Manor.getInstance().getRewardItem(_itemId, _crop.getReward());
 			return true;
 		}
 

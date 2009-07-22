@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/** 
+/**
  * @author evill33t
  * 
  */

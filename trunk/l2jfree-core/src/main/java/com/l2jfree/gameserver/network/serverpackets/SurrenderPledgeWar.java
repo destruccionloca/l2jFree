@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class SurrenderPledgeWar extends L2GameServerPacket
 {
     private static final String _S__81_SURRENDERPLEDGEWAR = "[S] 69 SurrenderPledgeWar";
-    private String _pledgeName;
-    private String _playerName;
+    private final String _pledgeName;
+    private final String _playerName;
 
     public SurrenderPledgeWar(String pledge, String charName)
     {

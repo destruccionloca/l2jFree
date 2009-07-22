@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/** 
+/**
  * @author evill33t
  * 
  */

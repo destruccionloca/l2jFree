@@ -34,25 +34,25 @@ public class L2RecipeList
 	private L2RecipeStatInstance[]	_altStatChange;
 
 	/** The Identifier of the Instance */
-	private int						_id;
+	private final int						_id;
 
 	/** The crafting level needed to use this L2RecipeList */
-	private int						_level;
+	private final int						_level;
 
 	/** The Identifier of the L2RecipeList */
-	private int						_recipeId;
+	private final int						_recipeId;
 
 	/** The name of the L2RecipeList */
-	private String					_recipeName;
+	private final String					_recipeName;
 
 	/** The crafting success rate when using the L2RecipeList */
-	private int						_successRate;
+	private final int						_successRate;
 
 	/** The Identifier of the Item crafted with this L2RecipeList */
-	private int						_itemId;
+	private final int						_itemId;
 
 	/** The quantity of Item crafted when using this L2RecipeList */
-	private int						_count;
+	private final int						_count;
 
 	/** The Identifier of the Rare Item crafted with this L2RecipeList */
 	private int						_rareItemId;
@@ -64,7 +64,7 @@ public class L2RecipeList
 	private int						_rarity;
 
 	/** If this a common or a dwarven recipe */
-	private boolean					_isDwarvenRecipe;
+	private final boolean					_isDwarvenRecipe;
 
 	/**
 	 * Constructor of L2RecipeList (create a new Recipe).<BR><BR>

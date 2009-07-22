@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 
-/** 
+/**
  * @author evill33t
  * 
  */
@@ -39,9 +39,9 @@ public class Faction
     private float _points                       = 0;
     private int _joinprice                      = 0;
     private int _side                           = 0; // 0 = Neutral 1 = Good 2 = Evil
-    private FastList<Integer> _list_classes     = new FastList<Integer>();
-    private FastList<Integer> _list_npcs        = new FastList<Integer>();
-    private FastMap<Integer, String> _list_title = new FastMap<Integer, String>();
+    private final FastList<Integer> _list_classes     = new FastList<Integer>();
+    private final FastList<Integer> _list_npcs        = new FastList<Integer>();
+    private final FastMap<Integer, String> _list_title = new FastMap<Integer, String>();
     
 	public Faction(int factionId)
     {
@@ -79,11 +79,11 @@ public class Faction
                 _side = _tside;
             
             if(_classlist.length()>0)
-                for (String id : _classlist.split(",")) 
+                for (String id : _classlist.split(","))
                     _list_classes.add(Integer.parseInt(id));
 
             if(_npclist.length()>0)
-                for (String id : _npclist.split(",")) 
+                for (String id : _npclist.split(","))
                     _list_npcs.add(Integer.parseInt(id));
             
             if(_titlelist.length()>0)
@@ -125,22 +125,22 @@ public class Faction
         }
     }
     
-    public void addPoints(int points) 
+    public void addPoints(int points)
     {
         _points+=points;
-        updateDB(); 
+        updateDB();
     }
 
     public void clearPoints()
     {
         _points = 0;
-        updateDB(); 
+        updateDB();
     }
 
     public final int getId() { return _Id; }
     public final String getName() { return _name; }
     public final float getPoints() { return _points; }
-    public final FastList<Integer> getClassList(){ return _list_classes; } 
+    public final FastList<Integer> getClassList(){ return _list_classes; }
     public final FastList<Integer> getNpcList(){ return _list_npcs; }
     public final FastMap<Integer, String> getTitle(){ return _list_title; }
     public final int getPrice() { return _joinprice; }

@@ -63,9 +63,9 @@ public class TVTInstance
 
 	private TvTITeam				_winner			= null;
 
-	private Vector<TvTITeam>		_teams			= new Vector<TvTITeam>();
+	private final Vector<TvTITeam>		_teams			= new Vector<TvTITeam>();
 
-	private FastList<L2PcInstance>	_tempJoinList	= new FastList<L2PcInstance>();
+	private final FastList<L2PcInstance>	_tempJoinList	= new FastList<L2PcInstance>();
 
 	public TVTInstance()
 	{

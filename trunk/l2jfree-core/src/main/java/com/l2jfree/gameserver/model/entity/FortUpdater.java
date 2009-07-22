@@ -27,8 +27,8 @@ public class FortUpdater implements Runnable
 {
 	protected static Log _log = LogFactory.getLog(FortUpdater.class.getName());
 	
-	private L2Clan _clan;
-	private Fort _fort;
+	private final L2Clan _clan;
+	private final Fort _fort;
 	private int _runCount;
 	
 	public FortUpdater(Fort fort, L2Clan clan, int runCount)

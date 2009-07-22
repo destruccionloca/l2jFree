@@ -74,14 +74,14 @@ public class FourSepulchersManager extends BossLair
 	protected ScheduledFuture<?>			_onPartyAnnihilatedTask	= null;
 
 
-	private int[][]							_startHallSpawn			=
+	private final int[][]							_startHallSpawn			=
 																	{
 																	{ 181632, -85587, -7218 },
 																	{ 179963, -88978, -7218 },
 																	{ 173217, -86132, -7218 },
 																	{ 175608, -82296, -7218 } };
 
-	private int[][][]						_shadowSpawnLoc			=
+	private final int[][][]						_shadowSpawnLoc			=
 																	{
 																	{
 																	{ 25339, 191231, -85574, -7216, 33380 },
@@ -193,29 +193,29 @@ public class FourSepulchersManager extends BossLair
 		if(currentTime >= _coolDownTimeEnd && currentTime < _entryTimeEnd) // Entry time check
 		{
 			cleanUp();
-			_changeEntryTimeTask = 
+			_changeEntryTimeTask =
 				ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(), 0);
 			_log.info("FourSepulchersManager: Beginning in Entry time");
 		}
 		else if(currentTime >= _entryTimeEnd && currentTime < _warmUpTimeEnd) // Warmup time check
 		{
 			cleanUp();
-			_changeWarmUpTimeTask = 
+			_changeWarmUpTimeTask =
 				ThreadPoolManager.getInstance().scheduleGeneral(new ChangeWarmUpTime(), 0);
 			_log.info("FourSepulchersManager: Beginning in WarmUp time");
 		}
 		else if(currentTime >= _warmUpTimeEnd && currentTime < _attackTimeEnd) // Attack time check
 		{
 			cleanUp();
-			_changeAttackTimeTask = 
+			_changeAttackTimeTask =
 				ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(), 0);
-			_log.info("FourSepulchersManager: Beginning in Attack time");    	
+			_log.info("FourSepulchersManager: Beginning in Attack time");
 		}
 		else // Else cooldown time and without cleanup because it's already implemented
 		{
-			_changeCoolDownTimeTask = 
+			_changeCoolDownTimeTask =
 				ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(), 0);
-			_log.info("FourSepulchersManager: Beginning in Cooldown time");  
+			_log.info("FourSepulchersManager: Beginning in Cooldown time");
 		}
 	}
 
@@ -1449,7 +1449,7 @@ public class FourSepulchersManager extends BossLair
 			if (min < 5)
 				return;
 
-			min = minuteSelect(min); 
+			min = minuteSelect(min);
 
 			String msg = min + " minute(s) have passed."; // Now this is a proper message ^^
 
@@ -1566,7 +1566,7 @@ public class FourSepulchersManager extends BossLair
 			// Searching time when warmup time will be ended:
 			// Counting difference between time when warmup time ends and current time
 			// and then launching change time task
-			if (_firstTimeRun) 
+			if (_firstTimeRun)
 				interval = _warmUpTimeEnd - Calendar.getInstance().getTimeInMillis();
 			else
 				interval = Config.ALT_FS_TIME_WARMUP * 60000;

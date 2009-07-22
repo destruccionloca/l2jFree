@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public class L2SkillDrain extends L2Skill
 {
-	private float	_absorbPart;
-	private int		_absorbAbs;
+	private final float	_absorbPart;
+	private final int		_absorbAbs;
 
 	public L2SkillDrain(StatsSet set)
 	{

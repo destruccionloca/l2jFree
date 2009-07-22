@@ -28,8 +28,8 @@ public class RecipeBookItemList extends L2GameServerPacket
 {
 	private static final String	_S__D6_RECIPEBOOKITEMLIST	= "[S] D6 RecipeBookItemList";
 	private L2RecipeList[]		_recipes;
-	private boolean				_isDwarvenCraft;
-	private int					_maxMp;
+	private final boolean				_isDwarvenCraft;
+	private final int					_maxMp;
 
 	public RecipeBookItemList(boolean isDwarvenCraft, int maxMp)
 	{
@@ -47,7 +47,7 @@ public class RecipeBookItemList extends L2GameServerPacket
 	{
 		writeC(0xDc);
 
-		writeD(_isDwarvenCraft ? 0x00 : 0x01); //0 = Dwarven - 1 = Common 
+		writeD(_isDwarvenCraft ? 0x00 : 0x01); //0 = Dwarven - 1 = Common
 		writeD(_maxMp);
 
 		if (_recipes == null)

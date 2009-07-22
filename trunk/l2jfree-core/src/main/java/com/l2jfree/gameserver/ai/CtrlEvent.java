@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.ai;
 
-/** 
+/**
  * This class contains an enum of each possibles evenements that can happen on an AI character.
  */
 
@@ -64,7 +64,7 @@ public enum CtrlEvent
 	 * For example, the actor was putted into a stun, so it's current attack
 	 * or movement has to be canceled. But after the stun state expired, the
 	 * actor may try to attack again. Another usage for CANCEL is a user's
-	 * attempt to cancel a cast/bow attack and so on. 
+	 * attempt to cancel a cast/bow attack and so on.
 	 */
 	EVT_CANCEL,
 	/** The character is dead */

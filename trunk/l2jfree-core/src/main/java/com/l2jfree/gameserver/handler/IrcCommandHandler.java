@@ -26,7 +26,7 @@ public class IrcCommandHandler
 {
 	private static IrcCommandHandler		_instance;
 
-	private Map<String, IIrcCommandHandler>	_datatable;
+	private final Map<String, IIrcCommandHandler>	_datatable;
 
 	public static IrcCommandHandler getInstance()
 	{

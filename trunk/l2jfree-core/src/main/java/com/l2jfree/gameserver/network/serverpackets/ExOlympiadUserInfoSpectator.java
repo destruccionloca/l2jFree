@@ -28,8 +28,8 @@ public class ExOlympiadUserInfoSpectator extends L2GameServerPacket
 {
 	// chcdSddddd
 	private static final String _S__FE_29_OLYMPIADUSERINFOSPECTATOR = "[S] FE:29 OlympiadUserInfoSpectator";
-	private int _side;
-	private L2PcInstance _player;
+	private final int _side;
+	private final L2PcInstance _player;
 	
 
 	/**

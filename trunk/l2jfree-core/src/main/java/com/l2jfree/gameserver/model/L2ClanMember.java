@@ -34,7 +34,7 @@ public class L2ClanMember
 {
 	private static final Log _log = LogFactory.getLog(L2ClanMember.class);
 	
-	private L2Clan			_clan;
+	private final L2Clan			_clan;
 	private int				_objectId;
 	private String			_name;
 	private String			_title;

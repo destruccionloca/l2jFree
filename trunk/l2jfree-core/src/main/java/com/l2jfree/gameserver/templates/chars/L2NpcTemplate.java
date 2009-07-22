@@ -93,8 +93,8 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private String								_npcFactionName;
 	private String								_jClass;
 	private AIType								_ai;
-	private boolean								_isQuestMonster;
-	private boolean								_dropHerbs;
+	private final boolean								_isQuestMonster;
+	private final boolean								_dropHerbs;
 
 	private Race								_race;
 

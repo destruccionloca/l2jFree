@@ -22,11 +22,11 @@ import java.util.Calendar;
  */
 public class ExShowDominionRegistry extends L2GameServerPacket
 {
-	private int _territoryId;
-	private int _clanReq = 0x00;
-	private int _mercReq = 0x00;
-	private int _warTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000);
-	private int _currentTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000);
+	private final int _territoryId;
+	private final int _clanReq = 0x00;
+	private final int _mercReq = 0x00;
+	private final int _warTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000);
+	private final int _currentTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000);
 	
 	public ExShowDominionRegistry(int terrId)
 	{

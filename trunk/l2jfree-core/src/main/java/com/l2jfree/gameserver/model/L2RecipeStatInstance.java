@@ -27,10 +27,10 @@ public class L2RecipeStatInstance
 	}
 
 	/** The Identifier of the statType */
-	private statType	_type;
+	private final statType	_type;
 
 	/** The value of the statType */
-	private int			_value;
+	private final int			_value;
 
 	/** Constructor of L2RecipeStatInstance. */
 	public L2RecipeStatInstance(String type, int value)

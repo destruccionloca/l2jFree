@@ -23,11 +23,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class GetOffVehicle extends L2GameServerPacket
 {
-	private int _x;
-	private int _y;
-	private int _z;
-	private L2PcInstance _activeChar;
-	private L2BoatInstance _boat;
+	private final int _x;
+	private final int _y;
+	private final int _z;
+	private final L2PcInstance _activeChar;
+	private final L2BoatInstance _boat;
 
 	/**
 	 * @param activeChar

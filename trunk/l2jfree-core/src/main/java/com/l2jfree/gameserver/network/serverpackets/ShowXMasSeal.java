@@ -21,7 +21,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ShowXMasSeal extends L2GameServerPacket
 {
 	private static final String _S__F2_SHOWXMASSEAL = "[S] F2 ShowXMasSeal";
-	private int _item;
+	private final int _item;
 
 	public ShowXMasSeal(int item)
 	{

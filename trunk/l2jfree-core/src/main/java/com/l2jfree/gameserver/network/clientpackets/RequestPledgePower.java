@@ -55,7 +55,7 @@ public class RequestPledgePower extends L2GameClientPacket
         }
         else
         {
-            ManagePledgePower mpp = new ManagePledgePower(getClient().getActiveChar().getClan(), _action, _rank);    
+            ManagePledgePower mpp = new ManagePledgePower(getClient().getActiveChar().getClan(), _action, _rank);
             player.sendPacket(mpp);
         }
     }

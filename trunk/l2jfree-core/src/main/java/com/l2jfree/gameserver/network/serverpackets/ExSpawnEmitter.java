@@ -47,6 +47,6 @@ public class ExSpawnEmitter extends L2GameServerPacket
         return "SpawnEmitter";
     }
 
-    private int _npcObjectId;
-    private int _playerObjectId;
+    private final int _npcObjectId;
+    private final int _playerObjectId;
 }

@@ -27,8 +27,8 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * This class handles following admin commands:
- * <li> add_exp_sp_to_character <i>shows menu for add or remove</i> 
- * <li> add_exp_sp exp sp <i>Adds exp & sp to target, displays menu if a parameter is missing</i> 
+ * <li> add_exp_sp_to_character <i>shows menu for add or remove</i>
+ * <li> add_exp_sp exp sp <i>Adds exp & sp to target, displays menu if a parameter is missing</i>
  * <li> remove_exp_sp exp sp <i>Removes exp & sp from target, displays menu if a parameter is missing</i>
  * @version $Revision: 1.2.4.6 $ $Date: 2005/04/11 10:06:06 $
  */
@@ -132,7 +132,7 @@ public class AdminExpSp implements IAdminCommandHandler
 			//Common character information
 			player.sendMessage("Admin is adding you " + expval + " xp and " + spval + " sp.");
 			player.addExpAndSp(expval, spval);
-			//Admin information	
+			//Admin information
 			activeChar.sendMessage("Added " + expval + " xp and " + spval + " sp to " + player.getName() + ".");
 			if (_log.isDebugEnabled())
 				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") added " + expval + " xp and " + spval + " sp to "
@@ -176,7 +176,7 @@ public class AdminExpSp implements IAdminCommandHandler
 			//Common character information
 			player.sendMessage("Admin is removing you " + expval + " xp and " + spval + " sp.");
 			player.removeExpAndSp(expval, spval);
-			//Admin information 
+			//Admin information
 			activeChar.sendMessage("Removed " + expval + " xp and " + spval + " sp from " + player.getName() + ".");
 			if (_log.isDebugEnabled())
 				_log.debug("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") removed " + expval + " xp and " + spval + " sp from "

@@ -18,7 +18,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.EnchantResult;
 
-/** 
+/**
  * @author evill33t
  * 
  */

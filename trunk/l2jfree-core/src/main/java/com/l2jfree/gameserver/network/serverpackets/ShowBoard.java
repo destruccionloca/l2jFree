@@ -56,8 +56,8 @@ public class ShowBoard extends L2GameServerPacket
 		}
 	}
 	
-	private String _htmlCode;
-	private String _id;
+	private final String _htmlCode;
+	private final String _id;
 	private List<String> _arg;
 
 	public ShowBoard(String htmlCode, String id)

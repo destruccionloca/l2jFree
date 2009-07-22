@@ -46,7 +46,7 @@ public class Post
 		public String	postTxt;
 	}
 
-	private List<CPost>	_post;
+	private final List<CPost>	_post;
 
 	/**
 	 * @param restore

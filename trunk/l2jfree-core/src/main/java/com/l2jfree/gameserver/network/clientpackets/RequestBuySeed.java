@@ -232,7 +232,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			// invalid price - seed disabled
 			if (_seed.getPrice() <= 0)
 				return false;
-			// try to buy more than castle can produce 
+			// try to buy more than castle can produce
 			if (_seed.getCanProduce() < _count)
 				return false;
 			// check for overflow

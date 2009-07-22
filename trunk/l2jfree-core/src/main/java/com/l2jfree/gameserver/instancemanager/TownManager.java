@@ -271,7 +271,7 @@ public class TownManager
 			return getTown(17);
 		case 18: // Primeval Isle
 			return getTown(18);
-		case 19: // Kamael Village 
+		case 19: // Kamael Village
 			return getTown(20);
 		case 20: // Fantasy Isle
 			return getTown(21);

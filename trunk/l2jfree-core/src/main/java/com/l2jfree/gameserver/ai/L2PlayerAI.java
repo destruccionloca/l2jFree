@@ -76,7 +76,7 @@ public class L2PlayerAI extends L2CharacterAI
 		 _log.warn("L2PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
 
-		// do nothing unless CAST intention 
+		// do nothing unless CAST intention
 		// however, forget interrupted actions when starting to use an offensive skill
 		if (intention != AI_INTENTION_CAST || (arg0 != null && ((L2Skill) arg0).isOffensive()))
 		{

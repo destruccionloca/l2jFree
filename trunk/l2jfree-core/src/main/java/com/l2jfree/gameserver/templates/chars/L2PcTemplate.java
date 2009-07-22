@@ -24,14 +24,14 @@ import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
- * Base template for all type of playable characters 
+ * Base template for all type of playable characters
  * Override {@link com.l2jfree.gameserver.templates.L2CharTemplate} to add some properties
- * specific to pc. 
+ * specific to pc.
  *
  * <br/>
  * <br/>
  * <font color="red">
- * <b>Property don't change in the time, this is just a template, not the currents status 
+ * <b>Property don't change in the time, this is just a template, not the currents status
  * of characters !</b>
  * </font>
  */
@@ -56,7 +56,7 @@ public class L2PcTemplate extends L2CharTemplate
 	private float			lvlMpAdd;
 	private float			lvlMpMod;
 
-	private List<PcTemplateItem> _items = new FastList<PcTemplateItem>();
+	private final List<PcTemplateItem> _items = new FastList<PcTemplateItem>();
 
 	public L2PcTemplate(StatsSet set)
 	{
@@ -329,24 +329,24 @@ public class L2PcTemplate extends L2CharTemplate
 		return Config.ALT_MINIMUM_FALL_HEIGHT;
 
 		/**
-		  	Dark Elf Fighter F 380 
-			Dark Elf Fighter M 350 
-			Dark Elf Mystic F 330 
-			Dark Elf Mystic M 300 
-			Dwarf Fighter F 200 
-			Dwarf Fighter M 180 
-			Elf Fighter F 380 
-			Elf Fighter M 350 
-			Elf Mystic F 330 
-			Elf Mystic M 300 
-			Human Fighter F 270 
-			Human Fighter M 250 
-			Human Mystic F 220 
-			Human Mystic M 200 
-			Orc Fighter F 220 
-			Orc Fighter M 200 
-			Orc Mystic F 280 
-			Orc Mystic M 250 
+		  	Dark Elf Fighter F 380
+			Dark Elf Fighter M 350
+			Dark Elf Mystic F 330
+			Dark Elf Mystic M 300
+			Dwarf Fighter F 200
+			Dwarf Fighter M 180
+			Elf Fighter F 380
+			Elf Fighter M 350
+			Elf Mystic F 330
+			Elf Mystic M 300
+			Human Fighter F 270
+			Human Fighter M 250
+			Human Mystic F 220
+			Human Mystic M 200
+			Orc Fighter F 220
+			Orc Fighter M 200
+			Orc Mystic F 280
+			Orc Mystic M 250
 		 */
 	}
 

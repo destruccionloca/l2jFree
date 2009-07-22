@@ -37,7 +37,7 @@ public class SummonItemsData
 {
 	private static final Log				_log	= LogFactory.getLog(SummonItemsData.class.getName());
 
-	private FastMap<Integer, L2SummonItem>	_summonitems;
+	private final FastMap<Integer, L2SummonItem>	_summonitems;
 
 	private int[] _summonItemIds;
 

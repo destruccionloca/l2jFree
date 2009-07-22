@@ -253,9 +253,9 @@ public class L2Manor
 	private class SeedData
 	{
 		private int _id;
-		private int _level;			// seed level
-		private int _crop;			// crop type
-		private int _mature;		// mature crop type
+		private final int _level;			// seed level
+		private final int _crop;			// crop type
+		private final int _mature;		// mature crop type
 		private int _type1;
 		private int _type2;
 		private int _manorId;		// id of manor (castle id) where seed can be farmed

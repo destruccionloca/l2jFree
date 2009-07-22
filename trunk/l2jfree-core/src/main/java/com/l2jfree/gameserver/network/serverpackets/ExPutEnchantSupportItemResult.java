@@ -22,7 +22,7 @@ public class ExPutEnchantSupportItemResult extends L2GameServerPacket
 {
 	private static final String _S__82_EXPUTENCHANTSUPPORTITEMRESULT = "[S] 82 ExPutEnchantSupportItemResult";
 	
-	private int _result;
+	private final int _result;
 	
 	/**
 	 * 

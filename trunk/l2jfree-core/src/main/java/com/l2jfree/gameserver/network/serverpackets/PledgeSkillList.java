@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.model.L2Skill;
 public class PledgeSkillList extends L2GameServerPacket
 {
 	private static final String _S__FE_39_PLEDGESKILLLIST = "[S] FE:39 PledgeSkillList";
-	private L2Clan _clan;
-	private Vector<Skill> _skill;
+	private final L2Clan _clan;
+	private final Vector<Skill> _skill;
     
     // Really strange place to put this code ??
     class Skill
