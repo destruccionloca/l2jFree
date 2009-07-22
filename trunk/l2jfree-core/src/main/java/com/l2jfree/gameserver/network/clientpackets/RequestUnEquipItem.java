@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -32,7 +29,6 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 public class RequestUnEquipItem extends L2GameClientPacket
 {
 	private static final String _C__11_REQUESTUNEQUIPITEM = "[C] 11 RequestUnequipItem";
-	private final static Log _log = LogFactory.getLog(RequestUnEquipItem.class.getName());
 
 	// cd
 	private int _slot;

@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -31,8 +28,9 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 	public static final int		CLAN							= 4;
 	public static final int		CASTLE							= 3;															//not sure
 	public static final int		FREIGHT							= 1;
-	private final static Log	_log							= LogFactory.getLog(WareHouseWithdrawalList.class.getName());
+	
 	private static final String	_S__54_WAREHOUSEWITHDRAWALLIST	= "[S] 42 WareHouseWithdrawalList";
+	
 	private final L2PcInstance		_activeChar;
 	private final long				_activeCharAdena;
 	private final L2ItemInstance[]	_items;

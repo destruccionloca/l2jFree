@@ -18,9 +18,6 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.ItemInfo;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
@@ -33,8 +30,8 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  */
 public class PetInventoryUpdate extends L2GameServerPacket
 {
-	private final static Log _log = LogFactory.getLog(PetInventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
+	
 	private final List<ItemInfo> _items;
 
 	/**

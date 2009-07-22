@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -28,7 +25,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestSurrenderPledgeWar extends L2GameClientPacket
 {
     private static final String _C__51_REQUESTSURRENDERPLEDGEWAR = "[C] 51 RequestSurrenderPledgeWar";
-    private final static Log _log = LogFactory.getLog(RequestSurrenderPledgeWar.class.getName());
 
     String _pledgeName;
     L2Clan _clan;

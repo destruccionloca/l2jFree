@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.TownManager;
@@ -44,8 +41,6 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class L2WarehouseInstance extends L2NpcInstance
 {
-	private final static Log	_log			= LogFactory.getLog(L2WarehouseInstance.class.getName());
-
 	private int					_closestTownId	= -1;
 
 	public L2WarehouseInstance(int objectId, L2NpcTemplate template)

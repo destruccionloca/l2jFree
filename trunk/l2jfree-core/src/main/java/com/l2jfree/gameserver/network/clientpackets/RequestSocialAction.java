@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -36,8 +33,6 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
 public class RequestSocialAction extends L2GameClientPacket
 {
 	private static final String _C__1B_REQUESTSOCIALACTION = "[C] 1B RequestSocialAction";
-	@SuppressWarnings("unused")
-	private final static Log _log = LogFactory.getLog(RequestSocialAction.class.getName());
 
 	// format  cd
 	private int _actionId;

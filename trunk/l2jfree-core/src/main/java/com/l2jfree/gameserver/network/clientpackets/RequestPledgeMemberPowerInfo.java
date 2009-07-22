@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceivePowerInfo;
@@ -30,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeReceivePowerInfo;
 public class RequestPledgeMemberPowerInfo extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestPledgeMemberPowerInfo";
-	static Log _log = LogFactory.getLog(RequestJoinPledge.class.getName());
 
 	@SuppressWarnings("unused")
     private int _unk1;

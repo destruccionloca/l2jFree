@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 
@@ -28,8 +25,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
  */
 public class PetItemList extends L2GameServerPacket
 {
-	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
+	
 	private final L2PetInstance _activeChar;
 
 	public PetItemList(L2PetInstance character)

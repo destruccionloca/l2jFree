@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.TradeList;
@@ -40,7 +37,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public final class RequestPackageSend extends L2GameClientPacket
 {
 	private static final String	_C_9F_REQUESTPACKAGESEND	= "[C] 9F RequestPackageSend";
-	protected static final Log	_log						= LogFactory.getLog(RequestPackageSend.class.getName());
+	
 	private int					_objectID;
 
 	private static final int BATCH_LENGTH = 8; // length of the one item

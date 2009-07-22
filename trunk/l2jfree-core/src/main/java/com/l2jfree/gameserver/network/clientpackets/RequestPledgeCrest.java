@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.cache.CrestCache;
 import com.l2jfree.gameserver.network.serverpackets.PledgeCrest;
 
@@ -28,7 +25,6 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeCrest;
  */
 public class RequestPledgeCrest extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(RequestPledgeCrest.class.getName());
 	private static final String _C__68_REQUESTPLEDGECREST = "[C] 68 RequestPledgeCrest";
 	
 	private int _crestId;

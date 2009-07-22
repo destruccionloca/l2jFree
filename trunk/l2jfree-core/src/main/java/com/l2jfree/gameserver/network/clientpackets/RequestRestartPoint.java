@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -41,7 +38,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 public class RequestRestartPoint extends L2GameClientPacket
 {
 	private static final String	_C__6d_REQUESTRESTARTPOINT	= "[C] 6d RequestRestartPoint";
-	private final static Log	_log						= LogFactory.getLog(RequestRestartPoint.class.getName());
 
 	protected int				_requestedPointType;
 	protected boolean			_continuation;

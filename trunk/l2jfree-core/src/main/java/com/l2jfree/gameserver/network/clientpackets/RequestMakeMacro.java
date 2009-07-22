@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Macro;
 import com.l2jfree.gameserver.model.L2Macro.L2MacroCmd;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -27,9 +24,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestMakeMacro extends L2GameClientPacket
 {
 	private L2Macro _macro;
-    private int _commandsLenght = 0;
-    private final static Log _log = LogFactory.getLog(RequestMakeMacro.class);
-        
+	private int _commandsLenght = 0;
+	
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
 	private static final int MAX_MACRO_LENGTH = 12;
 	

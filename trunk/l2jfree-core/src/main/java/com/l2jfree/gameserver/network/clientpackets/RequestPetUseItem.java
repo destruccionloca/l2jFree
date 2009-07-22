@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -30,7 +27,6 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class RequestPetUseItem extends L2GameClientPacket
 {
-	private final static Log	_log						= LogFactory.getLog(RequestPetUseItem.class.getName());
 	private static final String	_C__8A_REQUESTPETUSEITEM	= "[C] 8a RequestPetUseItem";
 
 	private int					_objectId;

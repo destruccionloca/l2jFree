@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.communitybbs.Manager.AuctionBBSManager;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
@@ -31,8 +28,6 @@ public class TaskProcessAuction extends TaskHandler
 	{
 		TaskManager.addUniqueTask(getName(), TaskTypes.TYPE_FIXED_SHEDULED, "3600000", "3600000", "");
 	}
-
-	private static final Log	_log	= LogFactory.getLog(TaskProcessAuction.class.getName());
 
 	@Override
 	void onTimeElapsed(ExecutedTask task, String[] params)

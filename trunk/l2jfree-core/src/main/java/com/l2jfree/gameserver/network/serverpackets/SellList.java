@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -31,7 +28,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class SellList extends L2GameServerPacket
 {
 	private static final String			_S__10_SELLLIST	= "[S] 10 SellList";
-	private final static Log			_log			= LogFactory.getLog(SellList.class.getName());
+	
 	private final L2PcInstance			_activeChar;
 	private final L2MerchantInstance	_lease;
 	private final long						_money;

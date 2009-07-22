@@ -15,16 +15,13 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ManagePledgePower;
 
 public class RequestPledgePower extends L2GameClientPacket
 {
-    static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePower";
+    
     private int _rank;
     private int _action;
     private int _privs;

@@ -15,18 +15,13 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Clan.RankPrivs;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ManagePledgePower;
 import com.l2jfree.gameserver.network.serverpackets.PledgePowerGradeList;
 
 public class RequestPledgePowerGradeList extends L2GameClientPacket
 {
-    static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePowerGradeList";
     
     @Override

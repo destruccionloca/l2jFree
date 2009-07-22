@@ -61,9 +61,9 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public abstract class L2Summon extends L2Playable
 {
-	public static final int	SIEGE_GOLEM_ID			= 14737;
-	public static final int	HOG_CANNON_ID			= 14768;
-	public static final int	SWOOP_CANNON_ID			= 14839;
+	public static final int SIEGE_GOLEM_ID = 14737;
+	public static final int HOG_CANNON_ID = 14768;
+	public static final int SWOOP_CANNON_ID = 14839;
 
 	private L2PcInstance	_owner;
 	//private int				_attackRange			= 36;		//Melee range

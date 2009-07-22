@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -50,7 +47,6 @@ import com.l2jfree.gameserver.util.Util;
 public class RequestWearItem extends L2GameClientPacket
 {
 	private static final String _C__C6_REQUESTWEARITEM = "[C] C6 RequestWearItem";
-	protected static Log _log = LogFactory.getLog(RequestWearItem.class.getName());
 
 	protected Future<?> _removeWearItemsTask;
 

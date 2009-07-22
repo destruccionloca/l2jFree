@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -28,9 +25,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestPartyMatchList extends L2GameClientPacket
 {
 	private static final String _C__80_REQUESTPARTYMATCHLIST = "[C] 80 RequestPartyMatchList";
-	@SuppressWarnings("unused")
-	private final static Log _log = LogFactory.getLog(RequestPartyMatchList.class.getName());
-
 
 	@Override
 	protected void readImpl()

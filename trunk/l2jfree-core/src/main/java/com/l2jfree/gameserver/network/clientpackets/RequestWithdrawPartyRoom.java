@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Format (ch) dd
@@ -24,8 +22,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestWithdrawPartyRoom extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(RequestWithdrawPartyRoom.class.getName());
 	private static final String _C__D0_02_REQUESTWITHDRAWPARTYROOM = "[C] D0:02 RequestWithdrawPartyRoom";
+	
 	private int _data1;
 	private int _data2;
 	

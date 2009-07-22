@@ -15,9 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -31,7 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeInfo;
 public class RequestPledgeInfo extends L2GameClientPacket
 {
 	private static final String _C__66_REQUESTPLEDGEINFO = "[C] 66 RequestPledgeInfo";
-	private final static Log _log = LogFactory.getLog(RequestPledgeInfo.class.getName());
 	
 	private int _clanId;
 	

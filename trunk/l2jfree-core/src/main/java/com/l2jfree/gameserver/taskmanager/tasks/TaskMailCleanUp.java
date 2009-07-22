@@ -19,9 +19,6 @@ import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.Vector;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.communitybbs.Manager.MailBBSManager;
@@ -38,8 +35,6 @@ public class TaskMailCleanUp extends TaskHandler
 	{
 		TaskManager.addUniqueTask(getName(), TaskTypes.TYPE_GLOBAL_TASK, "1", "13:00:00", "");
 	}
-
-	private static final Log	_log	= LogFactory.getLog(TaskMailCleanUp.class.getName());
 
 	@Override
 	void onTimeElapsed(ExecutedTask task, String[] params)

@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -37,9 +34,8 @@ import com.l2jfree.gameserver.templates.StatsSet;
  */
 public class SSQStatus extends L2GameServerPacket
 {
-	private static Log			_log				= LogFactory.getLog(SSQStatus.class.getName());
-
 	private static final String	_S__F5_SSQStatus	= "[S] F5 RecordUpdate";
+	
 	private final L2PcInstance		_activeChar;
 	private final int					_page;
 

@@ -17,9 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.ADENA_ID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
@@ -47,7 +44,6 @@ import com.l2jfree.gameserver.util.Util;
 public class SendWareHouseDepositList extends L2GameClientPacket
 {
 	private static final String _C__31_SENDWAREHOUSEDEPOSITLIST = "[C] 31 SendWareHouseDepositList";
-	private final static Log _log = LogFactory.getLog(SendWareHouseDepositList.class.getName());
 
 	private static final int BATCH_LENGTH = 8; // length of the one item
 	private static final int BATCH_LENGTH_FINAL = 12;

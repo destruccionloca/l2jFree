@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -34,9 +31,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  */
 public class RequestPetGetItem extends L2GameClientPacket
 {
-
-	private final static Log _log = LogFactory.getLog(RequestPetGetItem.class.getName());
-
 	private static final String _C__8f_REQUESTPETGETITEM= "[C] 8F RequestPetGetItem";
 
 	private int _objectId;
