@@ -1565,7 +1565,7 @@
     <set name="effectRange" val="400"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
-	<set name="lethal1" val="5"/>
+    <set name="lethal1" val="5"/>
     <set name="baseCritRate" val="15"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
@@ -1679,7 +1679,7 @@
     <set name="effectRange" val="900"/>
     <set name="flyType" val="CHARGE"/>
     <set name="hitTime" val="800"/>
-	<set name="reuseDelay" val="500"/>
+    <set name="reuseDelay" val="500"/>
     <set name="isDebuff" val="true"/>
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="14"/>
@@ -2047,9 +2047,9 @@
     <set name="effectRange" val="400"/>
     <set name="isDebuff" val="true"/>
     <set name="soulMaxConsumeCount" val="5"/>
-	<cond msg="Invalid target.">
-	    <target active_effect_id="495"/>
-	</cond>
+    <cond msg="Invalid target.">
+      <target active_effect_id="495"/>
+    </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>

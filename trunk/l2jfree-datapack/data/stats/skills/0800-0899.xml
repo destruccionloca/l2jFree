@@ -518,7 +518,7 @@
     <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="HEAL_PERCENT"/>
-	<set name="power" val="10"/>
+    <set name="power" val="10"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1500"/>
     <set name="reuseDelay" val="75000"/>

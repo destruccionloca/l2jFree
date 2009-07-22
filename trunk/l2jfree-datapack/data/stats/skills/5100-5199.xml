@@ -54,7 +54,7 @@
   <skill id="5106" levels="4" name="Capture A State">
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
-	<set name="isDebuff" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
@@ -68,7 +68,7 @@
   <skill id="5107" levels="4" name="Capture B State">
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
-	<set name="isDebuff" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>
@@ -82,7 +82,7 @@
   <skill id="5108" levels="4" name="Capture C State">
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
-	<set name="isDebuff" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
     <set name="effectRange" val="900"/>

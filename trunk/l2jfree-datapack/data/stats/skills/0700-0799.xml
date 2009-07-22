@@ -811,20 +811,20 @@
     <set name="chanceType" val="ON_MELEE"/>
     <for>
       <add order="0x40" stat="pAtk" val="100">
-       <and>
-	          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
-	          <not>
-	          	<using kind="Bow,Crossbow"/>
-	          </not>
-	      	</and> 
+        <and>
+          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
+            <not>
+              <using kind="Bow,Crossbow"/>
+            </not>
+        </and> 
       </add>
       <mul order="0x30" stat="pAtkSpd" val="1.1">
-      <and>
-	          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
-	          <not>
-	          	<using kind="Bow,Crossbow"/>
-	          </not>
-	      	</and> 
+        <and>
+          <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
+            <not>
+              <using kind="Bow,Crossbow"/>
+            </not>
+        </and> 
       </mul>
     </for>
   </skill>
@@ -837,21 +837,21 @@
     <set name="activationChance" val="10"/> <!-- guessed -->
     <set name="chanceType" val="ON_RANGE"/>
     <for>
-    <add order="0x40" stat="accCombat" val="8">
+      <add order="0x40" stat="accCombat" val="8">
         <and>
-	          <using kind="Bow,Crossbow"/>
-	          <not>
-			  <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
-	          </not>
-	    </and> 
+          <using kind="Bow,Crossbow"/>
+            <not>
+              <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
+            </not>
+          </and> 
 	</add>
-	  <add order="0x40" stat="pAtkRange" val="50">
+      <add order="0x40" stat="pAtkRange" val="50">
         <and>
-	          <using kind="Bow,Crossbow"/>
-	          <not>
-			  <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
-	          </not>
-	    </and> 
+          <using kind="Bow,Crossbow"/>
+            <not>
+              <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
+            </not>
+        </and> 
       </add>
     </for>
   </skill>

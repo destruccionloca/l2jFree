@@ -2233,7 +2233,7 @@
     <set name="skillRadius" val="#skillRadius"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1500"/>
-	<set name="staticReuse" val="true"/>
+    <set name="staticReuse" val="true"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
@@ -2322,7 +2322,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
-	<set name="staticReuse" val="true"/>
+    <set name="staticReuse" val="true"/>
     <set name="skillType" val="DRAIN"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

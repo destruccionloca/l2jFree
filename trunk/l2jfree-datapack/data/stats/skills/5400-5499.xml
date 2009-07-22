@@ -479,8 +479,8 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-	 <effect count="1" name="Debuff" time="30" val="0" noicon="1">
-		<mul order="0x30" stat="gainMp" val="#mp"/>
+      <effect count="1" name="Debuff" time="30" val="0" noicon="1">
+        <mul order="0x30" stat="gainMp" val="#mp"/>
       </effect>
     </for>
   </skill>

@@ -430,7 +430,7 @@
     <set name="skillRadius" val="200"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
-	<set name="staticReuse" val="true"/>
+    <set name="staticReuse" val="true"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
@@ -622,7 +622,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
-	<set name="staticReuse" val="true"/>
+    <set name="staticReuse" val="true"/>
     <set name="coolTime" val="200"/>
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
