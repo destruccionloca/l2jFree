@@ -25,8 +25,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
-import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager.DimensionalRiftRoom;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -45,7 +43,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
@@ -762,23 +759,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
 								&& GeoData.getInstance().canSeeTarget(_actor, npc))
 						{
-							if (originalAttackTarget instanceof L2PcInstance && originalAttackTarget.isInParty()
-									&& originalAttackTarget.getParty().isInDimensionalRift())
-							{
-								byte riftType = originalAttackTarget.getParty().getDimensionalRift().getType();
-								byte riftRoom = originalAttackTarget.getParty().getDimensionalRift().getCurrentRoom();
-
-								if (_actor instanceof L2RiftInvaderInstance)
-								{
-									DimensionalRiftRoom room = DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom);
-									if (room != null && !room.checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
-										continue;
-								}
-							}
-
-							// TODO: notifyEvent ought to be removed from here and added in the AI script, when implemented (Fulminus)
-							// Notify the L2Object AI with EVT_AGGRESSION
-							FactionAggressionNotificationQueue.add(faction_id, npc, originalAttackTarget);
 							if ((originalAttackTarget instanceof L2PcInstance) || (originalAttackTarget instanceof L2Summon))
 							{
 								L2PcInstance player = (originalAttackTarget instanceof L2PcInstance) ? (L2PcInstance) originalAttackTarget : ((L2Summon) originalAttackTarget)

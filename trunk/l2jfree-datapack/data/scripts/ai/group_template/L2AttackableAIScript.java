@@ -19,13 +19,16 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.ai.FactionAggressionNotificationQueue;
 import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.jython.QuestJython;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -141,9 +144,23 @@ public class L2AttackableAIScript extends QuestJython
 	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
 	{
 		L2Character originalAttackTarget = (isPet ? attacker.getPet(): attacker);
+
+		if (attacker.isInParty()
+				&& attacker.getParty().isInDimensionalRift())
+		{
+			byte riftType = attacker.getParty().getDimensionalRift().getType();
+			byte riftRoom = attacker.getParty().getDimensionalRift().getCurrentRoom();
+
+			if (caller instanceof L2RiftInvaderInstance
+					&& !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
+			{
+				return null;
+			}
+		}
+
 		// By default, when a faction member calls for help, attack the caller's attacker.
 		// Notify the AI with EVT_AGGRESSION
-		npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, originalAttackTarget, 1);
+		FactionAggressionNotificationQueue.add(npc.getFactionId(), npc, originalAttackTarget);
 		
 		return null;
 	}
