@@ -3517,3 +3517,6 @@ UPDATE `weapon` SET `change_weaponId` = 11145 WHERE `item_id` = 11157;
 UPDATE `weapon` SET `change_weaponId` = 11146 WHERE `item_id` = 11158;
 UPDATE `weapon` SET `change_weaponId` = 11147 WHERE `item_id` = 11159;
 UPDATE `weapon` SET `change_weaponId` = 11148 WHERE `item_id` = 11160;
+
+-- Sword of Ice and Fire
+UPDATE `weapon` SET `skills_item` = '8238-1' WHERE `item_id` = 13036;
