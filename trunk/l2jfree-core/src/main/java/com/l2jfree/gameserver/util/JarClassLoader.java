@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class JarClassLoader extends ClassLoader
 {
-	private static Log	_log	= LogFactory.getLog(JarClassLoader.class.getCanonicalName());
+	private static Log	_log	= LogFactory.getLog(JarClassLoader.class);
 	HashSet<String>		_jars	= new HashSet<String>();
 
 	public void addJarFile(String filename)

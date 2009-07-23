@@ -32,7 +32,7 @@ import com.l2jfree.config.L2Properties;
  */
 public class DynamicExtension
 {
-	private static Log										_log	= LogFactory.getLog(DynamicExtension.class.getCanonicalName());
+	private static Log										_log	= LogFactory.getLog(DynamicExtension.class);
 	private JarClassLoader									classLoader;
 	private static final String								CONFIG	= "config/extensions.properties";
 	private Properties										_prop;
