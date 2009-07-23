@@ -64,7 +64,7 @@ public class L2AirShipInstance extends L2Character
 		protected class L2AirShipPoint
 		{
 			public int speed1 = 350;
-			public int speed2 = 4000;
+//			public int speed2 = 4000;
 			public int x;
 			public int y;
 			public int z;

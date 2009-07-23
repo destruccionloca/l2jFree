@@ -837,7 +837,7 @@ public class RecipeController
 		{ // no object id stored, this will be only "list" of items with it's owner
 			private final int		_itemId;
 			private long		_quantity;
-			private final int		_ownerId;
+//			private final int		_ownerId;
 			private final int		_referencePrice;
 			private final String	_itemName;
 
@@ -850,7 +850,7 @@ public class RecipeController
 				super();
 				_itemId = item.getItemId();
 				_quantity = quantity;
-				_ownerId = item.getOwnerId();
+//				_ownerId = item.getOwnerId();
 				_itemName = item.getItem().getName();
 				_referencePrice = item.getReferencePrice();
 			}
@@ -884,13 +884,13 @@ public class RecipeController
 				return _itemId;
 			}
 
-			/**
-			 * @return Returns the ownerId.
-			 */
-			public int getOwnerId()
-			{
-				return _ownerId;
-			}
+//			/**
+//			 * @return Returns the ownerId.
+//			 */
+//			public int getOwnerId()
+//			{
+//				return _ownerId;
+//			}
 
 			/**
 			 * @return Returns the itemName.

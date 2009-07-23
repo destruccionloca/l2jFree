@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSweep;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -75,9 +74,6 @@ public class Sweep implements ISkillHandler
 					double hpDiff = hp - activeChar.getStatus().getCurrentHp();
 
 					activeChar.getStatus().increaseHp(hpDiff);
-					StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId());
-					suhp.addAttribute(StatusUpdate.CUR_HP, (int) hp);
-					activeChar.sendPacket(suhp);
 				}
 				if (items == null || items.length == 0)
 					continue;

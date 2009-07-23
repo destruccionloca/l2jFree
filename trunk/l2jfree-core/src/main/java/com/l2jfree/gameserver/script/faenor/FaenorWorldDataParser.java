@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.script.faenor;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.script.IntList;
@@ -31,7 +29,6 @@ import com.l2jfree.gameserver.script.ScriptEngine;
  */
 public class FaenorWorldDataParser extends FaenorParser
 {
-	static Log					_log		= LogFactory.getLog(FaenorWorldDataParser.class);
 	//Script Types
 	private final static String	PET_DATA	= "PetData";
 

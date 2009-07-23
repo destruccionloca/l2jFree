@@ -155,11 +155,6 @@ public class AdminSortMultisellItems implements IAdminCommandHandler
 			}
 		}
 
-		void addXML(String string)
-		{
-			xml += string;
-		}
-
 		void addItem(int itemId, int price)
 		{
 			String itemName = "";

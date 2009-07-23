@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -93,10 +92,6 @@ public class L2SkillDrain extends L2Skill
 			double hpDiff = hp - activeChar.getStatus().getCurrentHp();
 
 			activeChar.getStatus().increaseHp(hpDiff);
-
-			StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId());
-			suhp.addAttribute(StatusUpdate.CUR_HP, (int) hp);
-			activeChar.sendPacket(suhp);
 
 			// Check to see if we should damage the target
 			if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
@@ -176,10 +171,6 @@ public class L2SkillDrain extends L2Skill
 			double hp = Math.min(owner.getStatus().getCurrentHp() + hpAdd, owner.getMaxHp());
 
 			owner.getStatus().setCurrentHp(hp);
-
-			StatusUpdate suhp = new StatusUpdate(owner.getObjectId());
-			suhp.addAttribute(StatusUpdate.CUR_HP, (int) hp);
-			owner.sendPacket(suhp);
 
 			// Check to see if we should damage the target
 			if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))

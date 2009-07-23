@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -90,9 +89,6 @@ public class ManaHeal implements ISkillHandler
 			}
 
 			target.getStatus().setCurrentMp(mp + target.getStatus().getCurrentMp());
-			StatusUpdate sump = new StatusUpdate(target.getObjectId());
-			sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
-			target.sendPacket(sump);
 
 			if (actChar instanceof L2PcInstance && actChar != target)
 			{

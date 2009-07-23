@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExRegMax;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -41,7 +40,7 @@ public final class EffectHealOverTime extends L2Effect
 	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
-			getEffected().sendPacket(new ExRegMax(calc(), getTotalCount() * getPeriod(), getPeriod()));
+			((L2PcInstance)getEffected()).sendPacket(new ExRegMax(calc(), getTotalCount() * getPeriod(), getPeriod()));
 		return true;
 	}
 	
@@ -62,9 +61,6 @@ public final class EffectHealOverTime extends L2Effect
 			hp = maxhp;
 		}
 		getEffected().getStatus().setCurrentHp(hp);
-		StatusUpdate suhp = new StatusUpdate(getEffected().getObjectId());
-		suhp.addAttribute(StatusUpdate.CUR_HP, (int)hp);
-		getEffected().sendPacket(suhp);
 		return true;
 	}
 }

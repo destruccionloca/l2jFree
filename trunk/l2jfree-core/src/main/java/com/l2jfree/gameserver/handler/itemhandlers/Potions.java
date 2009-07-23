@@ -91,13 +91,13 @@ public class Potions implements IItemHandler
 			if (Config.ALT_MANA_POTIONS)
 				usePotion(activeChar, 9007, 1);
 			else
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
 		case 728: // Custom Mana Potion, xml: 9008
 			if (Config.ALT_MANA_POTIONS)
 				usePotion(activeChar, 9008, 1);
 			else
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
 		case 727: // Healing_potion, xml: 2032
 		case 1061:
@@ -130,7 +130,7 @@ Control of this needs to be moved back into potions.java so proper message suppo
 			if (activeChar.getActiveClass() >= 123 && activeChar.getActiveClass() <= 136) // Kamael classes only
 				res = usePotion(activeChar, 2499, 1);
 			else
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
 		case 20393: // Sweet Fruit Cocktail
 			res = usePotion(playable, 22056, 1);

@@ -45,9 +45,7 @@ public class BoatManager
 
 	// =========================================================
 	// Data Field
-	private Map<Integer, L2BoatInstance>	_staticItems	= new FastMap<Integer, L2BoatInstance>();
-	@SuppressWarnings("unused")
-	private boolean							_initialized;
+	private final Map<Integer, L2BoatInstance> _staticItems = new FastMap<Integer, L2BoatInstance>();
 
 	// =========================================================
 	// Constructor
@@ -61,10 +59,8 @@ public class BoatManager
 	// Method - Private
 	private final void load()
 	{
-		_initialized = true;
 		if (!Config.ALLOW_BOAT)
 		{
-			_initialized = false;
 			return;
 		}
 		LineNumberReader lnr = null;
@@ -89,12 +85,10 @@ public class BoatManager
 		}
 		catch (FileNotFoundException e)
 		{
-			_initialized = false;
 			_log.warn("boat.csv is missing in data folder");
 		}
 		catch (Exception e)
 		{
-			_initialized = false;
 			_log.warn("error while creating boat table ", e);
 		}
 		finally { IOUtils.closeQuietly(lnr); }
@@ -203,8 +197,6 @@ public class BoatManager
 	 */
 	public L2BoatInstance getBoat(int boatId)
 	{
-		if (_staticItems == null)
-			_staticItems = new FastMap<Integer, L2BoatInstance>();
 		return _staticItems.get(boatId);
 	}
 

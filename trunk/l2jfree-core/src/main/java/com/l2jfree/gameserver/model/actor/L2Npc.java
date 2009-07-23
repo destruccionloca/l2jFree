@@ -1323,6 +1323,7 @@ public class L2Npc extends L2Character
 				}
 				catch (Exception e)
 				{
+					_log.warn("", e);
 				}
 			}
 			else if (command.startsWith("ChangeRiftRoom"))

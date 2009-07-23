@@ -24,8 +24,7 @@ public class ExFishingStart extends L2GameServerPacket
 	private static final String _S__FE_1E_EXFISHINGSTART = "[S] FE:1e ExFishingStart [ddddd cccc]";
 	private final L2Character _activeChar;
 	private final int _x,_y,_z, _fishType;
-	@SuppressWarnings("unused")
-	private final boolean _isNightLure;
+//	private final boolean _isNightLure;
 	
 	public ExFishingStart(L2Character character, int fishType, int x, int y,int z, boolean isNightLure)
 	{
@@ -34,7 +33,7 @@ public class ExFishingStart extends L2GameServerPacket
 		_x = x;
 		_y = y;
 		_z = z;
-		_isNightLure = isNightLure;
+//		_isNightLure = isNightLure;
 	}
 
 	@Override

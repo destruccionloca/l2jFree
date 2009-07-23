@@ -9265,7 +9265,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			sendMessage("You have been chat banned by a server admin.");
 			if (_banchat_timer > 0)
-				_BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
+				_BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(), _banchat_timer);
 		}
 		else
 		{
@@ -9283,7 +9283,7 @@ public final class L2PcInstance extends L2Playable
 		if (isChatBanned())
 		{
 			sendMessage("Server admin making announce now, you can't chat.");
-			_BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(this), _banchat_timer);
+			_BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(), _banchat_timer);
 		}
 		else
 		{
@@ -9316,18 +9316,9 @@ public final class L2PcInstance extends L2Playable
 
 	private class SchedChatUnban implements Runnable
 	{
-		L2PcInstance	_player;
-		protected long	_startedAt;
-
-		protected SchedChatUnban(L2PcInstance player)
-		{
-			_player = player;
-			_startedAt = System.currentTimeMillis();
-		}
-
 		public void run()
 		{
-			_player.setChatBanned(false);
+			setChatBanned(false);
 		}
 	}
 
@@ -12395,7 +12386,7 @@ public final class L2PcInstance extends L2Playable
 				_jailTimer = delayInMinutes * 60000L; // In millisec
 
 				// Start the countdown
-				_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
+				_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(), _jailTimer);
 				sendMessage("You are in jail for " + delayInMinutes + " minutes.");
 			}
 
@@ -12447,7 +12438,7 @@ public final class L2PcInstance extends L2Playable
 			if (_jailTimer > 0)
 			{
 				// Restart the countdown
-				_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
+				_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(), _jailTimer);
 				sendMessage("You are still in jail for " + Math.round(_jailTimer / 60000) + " minutes.");
 			}
 
@@ -12507,18 +12498,9 @@ public final class L2PcInstance extends L2Playable
 
 	private class JailTask implements Runnable
 	{
-		L2PcInstance	_player;
-		protected long	_startedAt;
-
-		protected JailTask(L2PcInstance player)
-		{
-			_player = player;
-			_startedAt = System.currentTimeMillis();
-		}
-
 		public void run()
 		{
-			_player.setInJail(false, 0);
+			setInJail(false, 0);
 		}
 	}
 

@@ -741,6 +741,7 @@ public final class NpcTable
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 
 			try
@@ -752,6 +753,7 @@ public final class NpcTable
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 		}
 		catch (Exception e)

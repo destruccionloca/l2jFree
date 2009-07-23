@@ -1005,6 +1005,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
@@ -1032,6 +1033,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{
@@ -1061,6 +1063,7 @@ public class MailBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{

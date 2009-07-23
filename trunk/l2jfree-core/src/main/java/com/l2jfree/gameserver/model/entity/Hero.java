@@ -261,6 +261,7 @@ public class Hero
 				}
 				catch (NullPointerException e)
 				{
+					_log.warn("", e);
 				}
 			}
 		}

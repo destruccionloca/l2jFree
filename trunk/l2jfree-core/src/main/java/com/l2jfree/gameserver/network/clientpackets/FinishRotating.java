@@ -29,8 +29,7 @@ public class FinishRotating extends L2GameClientPacket
 	private static final String _C__4B_FINISHROTATING = "[C] 4B FinishRotating";
 
 	private int _degree;
-	@SuppressWarnings("unused")
-    private int _unknown;
+//	private int _unknown;
 
 	/**
 	 * packet type id 0x4a
@@ -47,7 +46,7 @@ public class FinishRotating extends L2GameClientPacket
     protected void readImpl()
     {
 		_degree = readD();
-		_unknown = readD();
+		/*_unknown =*/ readD();
 	}
 
     @Override

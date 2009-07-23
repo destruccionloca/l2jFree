@@ -22,10 +22,8 @@ public class Expression
 {
 	private final static Log	_log	= LogFactory.getLog(Expression.class);
 	private final BSFManager	_context;
-	@SuppressWarnings("unused")
-	private final String		_lang;
-	@SuppressWarnings("unused")
-	private final String		_code;
+//	private final String		_lang;
+//	private final String		_code;
 
 	public static Object eval(String lang, String code)
 	{
@@ -69,8 +67,8 @@ public class Expression
 	private Expression(BSFManager pContext, String pLang, String pCode)
 	{
 		_context = pContext;
-		_lang = pLang;
-		_code = pCode;
+//		_lang = pLang;
+//		_code = pCode;
 	}
 
 	public <T> void addDynamicVariable(String name, T value, Class<T> type)

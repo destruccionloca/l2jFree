@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -85,21 +84,17 @@ public class Manadam implements ISkillHandler
 
 				if (target instanceof L2PcInstance)
 				{
-					StatusUpdate sump = new StatusUpdate(target.getObjectId());
-					sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
-					target.sendPacket(sump);
-
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_C1);
 					sm.addCharName(activeChar);
 					sm.addNumber((int) mp);
-					target.sendPacket(sm);
+					((L2PcInstance)target).sendPacket(sm);
 				}
 
 				if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm2 = new SystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1);
 					sm2.addNumber((int) mp);
-					activeChar.sendPacket(sm2);
+					((L2PcInstance)activeChar).sendPacket(sm2);
 				}
 			}
 		}

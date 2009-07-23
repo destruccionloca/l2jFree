@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.script;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 /**
@@ -22,5 +24,7 @@ import org.w3c.dom.Node;
  */
 public abstract class Parser
 {
+	protected static final Log _log = LogFactory.getLog(Parser.class);
+	
 	public abstract void parseScript(Node node);
 }

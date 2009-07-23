@@ -33,21 +33,18 @@ public final class Action extends L2GameClientPacket
 
 	// cddddc
 	private int					_objectId;
-	@SuppressWarnings("unused")
-	private int					_originX;
-	@SuppressWarnings("unused")
-	private int					_originY;
-	@SuppressWarnings("unused")
-	private int					_originZ;
+//	private int					_originX;
+//	private int					_originY;
+//	private int					_originZ;
 	private int					_actionId;
 
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD(); // Target object Identifier
-		_originX = readD();
-		_originY = readD();
-		_originZ = readD();
+		/*_originX =*/ readD();
+		/*_originY =*/ readD();
+		/*_originZ =*/ readD();
 		_actionId = readC(); // Action identifier : 0-Simple click, 1-Shift click
 	}
 

@@ -36,7 +36,7 @@ public final class GPLLicenseChecker
 	 * Determines that it will check the whole project, or only the core itself.<br>
 	 * If set to 'true' then it requires other projects to be checked out near the core.
 	 */
-	private static final boolean WHOLE_PROJECT = false;
+	private static boolean WHOLE_PROJECT = false;
 	
 	public static void main(String[] args) throws IOException
 	{

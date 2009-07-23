@@ -149,8 +149,7 @@ public class L2Clan
 
 	private String							_notice;
 
-	@SuppressWarnings("unused")
-	private boolean							_noticeEnabled				= true;
+//	private boolean							_noticeEnabled				= true;
 
 	/**
 	 * Called if a clan is referenced only by id.
@@ -367,7 +366,7 @@ public class L2Clan
 			L2DatabaseFactory.close(con);
 		}
 
-		_noticeEnabled = noticeEnabled;
+//		_noticeEnabled = noticeEnabled;
 
 	}
 
@@ -1005,30 +1004,29 @@ public class L2Clan
 		}
 	}
 
-	@SuppressWarnings("unused")
-	private void updateWarsInDB()
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement("UPDATE clan_wars SET wantspeace1=? WHERE clan1=?");
-			statement.setInt(1, 0);
-			statement.setInt(2, 0);
-
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.error("Error updating clan wars data.", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
+//	private void updateWarsInDB()
+//	{
+//		Connection con = null;
+//		try
+//		{
+//			con = L2DatabaseFactory.getInstance().getConnection(con);
+//			PreparedStatement statement;
+//			statement = con.prepareStatement("UPDATE clan_wars SET wantspeace1=? WHERE clan1=?");
+//			statement.setInt(1, 0);
+//			statement.setInt(2, 0);
+//
+//			statement.execute();
+//			statement.close();
+//		}
+//		catch (Exception e)
+//		{
+//			_log.error("Error updating clan wars data.", e);
+//		}
+//		finally
+//		{
+//			L2DatabaseFactory.close(con);
+//		}
+//	}
 
 	private void restore()
 	{

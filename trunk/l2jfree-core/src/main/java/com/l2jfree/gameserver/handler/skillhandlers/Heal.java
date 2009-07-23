@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -120,9 +119,6 @@ public class Heal implements ISkillHandler
 			if (hp > 0)
 			{
 				target.getStatus().increaseHp(hp);
-				StatusUpdate su = new StatusUpdate(target.getObjectId());
-				su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
-				target.sendPacket(su);
 			}
 
 			if (target instanceof L2PcInstance)

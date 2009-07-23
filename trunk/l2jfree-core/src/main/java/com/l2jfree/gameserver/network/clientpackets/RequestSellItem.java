@@ -208,13 +208,13 @@ public class RequestSellItem extends L2GameClientPacket
 	private class Item
 	{
 		private final int _objectId;
-		private final int _itemId;
+//		private final int _itemId;
 		private final long _count;
 
 		public Item(int objId, int id, long num)
 		{
 			_objectId = objId;
-			_itemId = id;
+//			_itemId = id;
 			_count = num;
 		}
 
@@ -223,10 +223,10 @@ public class RequestSellItem extends L2GameClientPacket
 			return _objectId;
 		}
 
-		public int getItemId()
-		{
-			return _itemId;
-		}
+//		public int getItemId()
+//		{
+//			return _itemId;
+//		}
 
 		public long getCount()
 		{

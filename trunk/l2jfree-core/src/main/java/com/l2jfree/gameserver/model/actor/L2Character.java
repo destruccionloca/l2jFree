@@ -1748,7 +1748,6 @@ public abstract class L2Character extends L2Object
 		int initmpcons = getStat().getMpInitialConsume(skill);
 		if (initmpcons > 0)
 		{
-			StatusUpdate su = new StatusUpdate(getObjectId());
 			if (skill.isDance() || skill.isSong())
 			{
 				getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, initmpcons, null, null));
@@ -1761,8 +1760,6 @@ public abstract class L2Character extends L2Object
 			{
 				getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, initmpcons, null, null));
 			}
-			su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
-			sendPacket(su);
 		}
 		
 		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
@@ -6101,9 +6098,6 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			
-			StatusUpdate su = new StatusUpdate(getObjectId());
-			boolean isSendStatus = false;
-			
 			// Consume MP of the L2Character and Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
 			double mpConsume = getStat().getMpConsume(skill);
 			
@@ -6121,8 +6115,6 @@ public abstract class L2Character extends L2Object
 				{
 					getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, mpConsume, null, null));
 				}
-				su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
-				isSendStatus = true;
 			}
 			
 			// Consume HP if necessary and Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
@@ -6135,9 +6127,6 @@ public abstract class L2Character extends L2Object
 					consumeHp = getStatus().getCurrentHp() - 1.0;
 				
 				reduceCurrentHpByConsume(consumeHp);
-				
-				su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
-				isSendStatus = true;
 			}
 			
 			// Consume CP if necessary and Send the Server->Client packet StatusUpdate with current CP/HP and MP to all other L2PcInstance to inform
@@ -6150,14 +6139,7 @@ public abstract class L2Character extends L2Object
 					consumeCp = getStatus().getCurrentHp() - 1.0;
 				
 				getStatus().reduceCp((int)consumeCp);
-				
-				su.addAttribute(StatusUpdate.CUR_CP, (int)getStatus().getCurrentCp());
-				isSendStatus = true;
 			}
-			
-			// Send a Server->Client packet StatusUpdate with MP modification to the L2PcInstance
-			if (isSendStatus)
-				sendPacket(su);
 			
 			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
 			if (skill.getItemConsume() > 0)

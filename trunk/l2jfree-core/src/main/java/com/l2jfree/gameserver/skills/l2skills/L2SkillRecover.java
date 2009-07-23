@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.tools.random.Rnd;
@@ -77,23 +76,18 @@ public class L2SkillRecover extends L2Skill
 					continue;
 			}
 
-			StatusUpdate su = new StatusUpdate(target.getObjectId());
 			if (_cp > 0)
 			{
 				target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() + _cp);
-				su.addAttribute(StatusUpdate.CUR_CP, (int) target.getStatus().getCurrentCp());
 			}
 			if (_hp > 0)
 			{
 				target.getStatus().increaseHp(_hp);
-				su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 			}
 			if (_mp > 0)
 			{
 				target.getStatus().increaseMp(_mp);
-				su.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
 			}
-			target.sendPacket(su);
 			
 			if (_power <= 0)
 				continue; //do not negate anything

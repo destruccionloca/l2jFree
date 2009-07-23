@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.model;
 
 import javolution.util.FastList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2ControllableMobAI;
 import com.l2jfree.gameserver.datatables.SpawnTable;
@@ -31,6 +34,8 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class MobGroup
 {
+	private static final Log _log = LogFactory.getLog(MobGroup.class);
+	
 	private final L2NpcTemplate _npcTemplate;
 	private final int _groupId;
 	private final int _maxMobCount;
@@ -138,7 +143,10 @@ public final class MobGroup
 				getMobs().add((L2ControllableMobInstance) spawn.doGroupSpawn());
 			}
 		}
-		catch (ClassNotFoundException e) {}
+		catch (ClassNotFoundException e)
+		{
+			_log.warn("", e);
+		}
 	}
 
 	public void spawnGroup(L2PcInstance activeChar)

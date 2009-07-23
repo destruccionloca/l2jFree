@@ -1975,15 +1975,15 @@ public class SevenSignsFestival implements SpawnListener
 			return _festivalInstances.get(festivalId);
 		}
 
-		/**
-		 * Returns the number of currently running festivals <b>WITH</b> participants.
-		 * 
-		 * @return int Count
-		 */
-		public final int getInstanceCount()
-		{
-			return _festivalInstances.size();
-		}
+//		/**
+//		 * Returns the number of currently running festivals <b>WITH</b> participants.
+//		 *
+//		 * @return int Count
+//		 */
+//		public final int getInstanceCount()
+//		{
+//			return _festivalInstances.size();
+//		}
 	}
 
 	/**
@@ -2179,15 +2179,15 @@ public class SevenSignsFestival implements SpawnListener
 			}
 		}
 
-		public void setSpawnRate(int respawnDelay)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug("SevenSignsFestival: Modifying spawn rate of festival mobs to " + respawnDelay + " ms for festival "
-						+ SevenSigns.getCabalShortName(_cabal) + " (" + getFestivalName(_levelRange) + ")");
-
-			for (L2FestivalMonsterInstance monsterInst : _npcInsts)
-				monsterInst.getSpawn().setRespawnDelay(respawnDelay);
-		}
+//		public void setSpawnRate(int respawnDelay)
+//		{
+//			if (_log.isDebugEnabled())
+//				_log.debug("SevenSignsFestival: Modifying spawn rate of festival mobs to " + respawnDelay + " ms for festival "
+//						+ SevenSigns.getCabalShortName(_cabal) + " (" + getFestivalName(_levelRange) + ")");
+//
+//			for (L2FestivalMonsterInstance monsterInst : _npcInsts)
+//				monsterInst.getSpawn().setRespawnDelay(respawnDelay);
+//		}
 
 		/**
 		 * Used to spawn monsters unique to the festival. <BR>

@@ -672,10 +672,10 @@ public class AutoChatHandler implements SpawnListener
 					setActive(true);
 			}
 
-			protected AutoChatDefinition(AutoChatInstance chatInst, L2Npc npcInst)
-			{
-				this(chatInst, npcInst, null, -1);
-			}
+//			protected AutoChatDefinition(AutoChatInstance chatInst, L2Npc npcInst)
+//			{
+//				this(chatInst, npcInst, null, -1);
+//			}
 
 			protected String[] getChatTexts()
 			{

@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -61,9 +60,6 @@ public class CombatPointHeal implements ISkillHandler
 			sm.addNumber((int) cp);
 			target.sendPacket(sm);
 			target.getStatus().setCurrentCp(cp + target.getStatus().getCurrentCp());
-			StatusUpdate sump = new StatusUpdate(target.getObjectId());
-			sump.addAttribute(StatusUpdate.CUR_CP, (int) target.getStatus().getCurrentCp());
-			target.sendPacket(sump);
 		}
 	}
 

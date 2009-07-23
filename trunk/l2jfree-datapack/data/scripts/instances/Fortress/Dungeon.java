@@ -14,7 +14,6 @@
  */
 package instances.Fortress;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -26,7 +25,6 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -164,7 +162,7 @@ public class Dungeon extends QuestJython
 		private int							_state;
 		private boolean						_canEnter;
 
-		protected FastList<L2NpcInstance>	_rbList	= new FastList<L2NpcInstance>();
+//		protected FastList<L2NpcInstance>	_rbList	= new FastList<L2NpcInstance>();
 
 		private final int					STATE_4	= 4;
 		private final int					STATE_1	= 1;

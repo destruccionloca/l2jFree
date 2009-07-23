@@ -33,18 +33,16 @@ public class CombatFlag
 
 	private final int				_itemId;
 
-	@SuppressWarnings("unused")
-	private final int				_heading;
-	@SuppressWarnings("unused")
-	private final int				_fortId;
+//	private final int				_heading;
+//	private final int				_fortId;
 
 	// =========================================================
 	// Constructor
 	public CombatFlag(int fort_id, int x, int y, int z, int heading, int item_id)
 	{
-		_fortId = fort_id;
+//		_fortId = fort_id;
 		_location = new Location(x,y,z,heading);
-		_heading = heading;
+//		_heading = heading;
 		_itemId = item_id;
 	}
 

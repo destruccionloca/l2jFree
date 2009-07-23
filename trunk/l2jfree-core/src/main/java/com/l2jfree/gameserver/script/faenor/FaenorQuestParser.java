@@ -15,8 +15,6 @@
 package com.l2jfree.gameserver.script.faenor;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.script.Parser;
@@ -29,8 +27,6 @@ import com.l2jfree.gameserver.script.ScriptEngine;
  */
 public class FaenorQuestParser extends FaenorParser
 {
-	private final static Log	_log	= LogFactory.getLog(FaenorQuestParser.class);
-
 	@Override
 	public void parseScript(Node questNode)
 	{

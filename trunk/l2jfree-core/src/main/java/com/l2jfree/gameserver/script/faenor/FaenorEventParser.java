@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.script.faenor;
 
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.script.DateRange;
@@ -32,7 +30,6 @@ import com.l2jfree.gameserver.script.ScriptEngine;
  */
 public class FaenorEventParser extends FaenorParser
 {
-	static Log			_log		= LogFactory.getLog(FaenorEventParser.class);
 	private DateRange	_eventDates	= null;
 
 	@Override

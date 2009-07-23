@@ -1867,6 +1867,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		return false;
 	}

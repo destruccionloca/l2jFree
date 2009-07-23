@@ -162,6 +162,7 @@ public abstract class IdFactory
 		}
 		catch (SQLException e)
 		{
+			_log.warn("", e);
 		}
 		finally
 		{

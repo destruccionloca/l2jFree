@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
@@ -73,11 +72,8 @@ public final class BalanceLife implements ISkillHandler
 			
 			target.getStatus().increaseHp(target.getMaxHp() * percentHP - target.getStatus().getCurrentHp());
 			
-			StatusUpdate su = new StatusUpdate(target.getObjectId());
-			su.addAttribute(StatusUpdate.CUR_HP, (int)target.getStatus().getCurrentHp());
-			target.sendPacket(su);
-			
-			target.sendMessage(message);
+			if (target instanceof L2PcInstance)
+				((L2PcInstance)target).sendMessage(message);
 		}
 	}
 	

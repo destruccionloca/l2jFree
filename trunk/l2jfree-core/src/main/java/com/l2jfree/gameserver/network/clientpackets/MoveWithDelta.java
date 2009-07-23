@@ -23,19 +23,18 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  * d: dz
  * @author -Wooden-
  */
-@SuppressWarnings("unused")
 public class MoveWithDelta extends L2GameClientPacket
 {
-    private int _dx;
-    private int _dy;
-    private int _dz;
+//	private int _dx;
+//	private int _dy;
+//	private int _dz;
 
     @Override
     protected void readImpl()
     {
-    	_dx = readD();
-    	_dy = readD();
-    	_dz = readD();
+    	/*_dx =*/ readD();
+    	/*_dy =*/ readD();
+    	/*_dz =*/ readD();
     }
 
     @Override

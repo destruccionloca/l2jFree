@@ -77,6 +77,7 @@ public abstract class FaenorParser extends Parser
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 		if (defaultValue != null)
 			return defaultValue;

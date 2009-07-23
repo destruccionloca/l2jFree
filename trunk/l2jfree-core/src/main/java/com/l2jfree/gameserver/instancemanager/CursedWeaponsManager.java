@@ -159,14 +159,12 @@ public class CursedWeaponsManager
 			}
 
 			// Retrieve the L2PcInstance from the characters table of the database
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			ResultSet rset;
+			con = L2DatabaseFactory.getInstance().getConnection();
 
 			if (Config.ALLOW_CURSED_WEAPONS)
 			{
-				statement = con.prepareStatement("SELECT itemId, charId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
-				rset = statement.executeQuery();
+				PreparedStatement statement = con.prepareStatement("SELECT itemId, charId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
+				ResultSet rset = statement.executeQuery();
 
 				while (rset.next())
 				{
@@ -191,8 +189,8 @@ public class CursedWeaponsManager
 			}
 			else
 			{
-				statement = con.prepareStatement("TRUNCATE TABLE cursed_weapons");
-				rset = statement.executeQuery();
+				PreparedStatement statement = con.prepareStatement("TRUNCATE TABLE cursed_weapons");
+				ResultSet rset = statement.executeQuery();
 				rset.close();
 				statement.close();
 			}
@@ -211,9 +209,9 @@ public class CursedWeaponsManager
 				int itemId = cw.getItemId();
 				try
 				{
-					statement = con.prepareStatement("SELECT owner_id FROM items WHERE item_id=?");
+					PreparedStatement statement = con.prepareStatement("SELECT owner_id FROM items WHERE item_id=?");
 					statement.setInt(1, itemId);
-					rset = statement.executeQuery();
+					ResultSet rset = statement.executeQuery();
 
 					if (rset.next())
 					{
@@ -222,14 +220,14 @@ public class CursedWeaponsManager
 						_log.info("PROBLEM : Player " + playerId + " owns the cursed weapon " + itemId + " but he shouldn't.");
 
 						// Delete the item
-						statement = con.prepareStatement("DELETE FROM items WHERE owner_id=? AND item_id=?");
-						statement.setInt(1, playerId);
-						statement.setInt(2, itemId);
-						if (statement.executeUpdate() != 1)
+						PreparedStatement statement2 = con.prepareStatement("DELETE FROM items WHERE owner_id=? AND item_id=?");
+						statement2.setInt(1, playerId);
+						statement2.setInt(2, itemId);
+						if (statement2.executeUpdate() != 1)
 						{
 							_log.warn("Error while deleting cursed weapon " + itemId + " from userId " + playerId);
 						}
-						statement.close();
+						statement2.close();
 
 						// Delete the skill
 						/*
@@ -242,30 +240,24 @@ public class CursedWeaponsManager
 						}
 						*/
 						// Restore the player's old karma and pk count
-						statement = con.prepareStatement("UPDATE characters SET karma=?, pkkills=? WHERE charId = ?");
-						statement.setInt(1, cw.getPlayerKarma());
-						statement.setInt(2, cw.getPlayerPkKills());
-						statement.setInt(3, playerId);
-						if (statement.executeUpdate() != 1)
+						statement2 = con.prepareStatement("UPDATE characters SET karma=?, pkkills=? WHERE charId = ?");
+						statement2.setInt(1, cw.getPlayerKarma());
+						statement2.setInt(2, cw.getPlayerPkKills());
+						statement2.setInt(3, playerId);
+						if (statement2.executeUpdate() != 1)
 						{
 							_log.warn("Error while updating karma & pkkills for charId " + cw.getPlayerId());
 						}
+						statement2.close();
 						// clean up the cursedweapons table.
 						removeFromDb(itemId);
 					}
+					rset.close();
+					statement.close();
 				}
-				catch (SQLException sqlE)
+				catch (Exception e)
 				{
-				}
-				finally
-				{
-					try
-					{
-						statement.close();
-					}
-					catch (Exception e)
-					{
-					}
+					_log.warn("", e);
 				}
 			}
 		}
@@ -456,6 +448,7 @@ public class CursedWeaponsManager
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 	}
 

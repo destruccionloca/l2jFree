@@ -1662,13 +1662,13 @@ public final class Formulas
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_C1_DRAIN);
 					sm.addCharName(owner);
-					target.sendPacket(sm);
+					((L2PcInstance)target).sendPacket(sm);
 				}
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_C1_MAGIC);
 					sm.addCharName(owner);
-					target.sendPacket(sm);
+					((L2PcInstance)target).sendPacket(sm);
 				}
 			}
 		}

@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.model.olympiad;
 
 import javolution.util.FastList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -48,6 +51,8 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class OlympiadGame
 {
+	private static final Log _log = LogFactory.getLog(OlympiadGame.class);
+	
 	protected final COMP_TYPE			_type;
 	protected boolean					_aborted;
 	protected boolean					_gamestarted;
@@ -309,6 +314,7 @@ public class OlympiadGame
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 		}
 	}
@@ -429,6 +435,7 @@ public class OlympiadGame
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 		}
 	}
@@ -730,6 +737,7 @@ public class OlympiadGame
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 		}
 		else if (_playerOne == null || _playerOne.isOnline() == 0 || (playerOneHp == 0 && playerTwoHp != 0)
@@ -764,6 +772,7 @@ public class OlympiadGame
 			}
 			catch (Exception e)
 			{
+				_log.warn("", e);
 			}
 		}
 		else

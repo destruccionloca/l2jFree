@@ -196,16 +196,6 @@ public class L2Registry
 		return con;
 	}
 
-	/**
-	 * @deprecated unused
-	 *
-	 */
-	@Deprecated
-	public void shutdown()
-	{
-
-	}
-
 	public static ApplicationContext getApplicationContext()
 	{
 		return __ctx;

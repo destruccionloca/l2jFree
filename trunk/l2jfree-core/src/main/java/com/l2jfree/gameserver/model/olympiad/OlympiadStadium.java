@@ -16,6 +16,9 @@ package com.l2jfree.gameserver.model.olympiad;
 
 import javolution.util.FastList;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -25,6 +28,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class OlympiadStadium
 {
+	private static final Log _log = LogFactory.getLog(OlympiadStadium.class);
+	
 	private boolean					_freeToUse	= true;
 	private static DoorTable		_doorTable;
 	private final int[]					_coords		= new int[3];
@@ -74,8 +79,9 @@ public class OlympiadStadium
 			_doorTable.getDoor(getDoorID()[0]).openMe();
 			_doorTable.getDoor(getDoorID()[1]).openMe();
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
+			_log.warn("", e);
 		}
 	}
 
@@ -89,6 +95,7 @@ public class OlympiadStadium
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 		}
 	}
 
