@@ -27,14 +27,9 @@ import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.DoorTable;
@@ -48,6 +43,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.util.LookupTable;
 
 /**
  *
@@ -55,27 +51,19 @@ import com.l2jfree.tools.geometry.Point3D;
  */
 public class GeoEngine extends GeoData
 {
-	private static final Log					_log			= LogFactory.getLog(GeoEngine.class);
-
-	private static GeoEngine _instance;
-    private final static byte _e = 1;
-    private final static byte _w = 2;
-    private final static byte _s = 4;
-    private final static byte _n = 8;
-	private static Map<Short, MappedByteBuffer> _geodata = new FastMap<Short, MappedByteBuffer>();
-	private static Map<Short, IntBuffer> _geodataIndex = new FastMap<Short, IntBuffer>();
-	private static BufferedOutputStream _geoBugsOut;
-
-	public static GeoEngine getInstance()
-    {
-        if(_instance == null)
-            _instance = new GeoEngine();
-        return _instance;
-    }
-    public GeoEngine()
-    {
-        nInitGeodata();
-    }
+	private final static byte _e = 1;
+	private final static byte _w = 2;
+	private final static byte _s = 4;
+	private final static byte _n = 8;
+	
+	private final LookupTable<MappedByteBuffer> _geodata = new LookupTable<MappedByteBuffer>();
+	private final LookupTable<IntBuffer> _geodataIndex = new LookupTable<IntBuffer>();
+	private BufferedOutputStream _geoBugsOut;
+	
+	protected GeoEngine()
+	{
+		nInitGeodata();
+	}
 
     @Override
     public short getType(int x, int y)
@@ -224,7 +212,7 @@ public class GeoEngine extends GeoData
         return _geodata.get(region) != null;
     }
     
-    private static boolean canSee(int x, int y, double z, int tx, int ty, int tz)
+    private boolean canSee(int x, int y, double z, int tx, int ty, int tz)
     {
     	int dx = (tx - x);
         int dy = (ty - y);
@@ -347,7 +335,7 @@ public class GeoEngine extends GeoData
      *
      * Coordinates here are geodata x,y but z coordinate is world coordinate
      */
-    private static boolean canSeeDebug(L2PcInstance gm, int x, int y, double z, int tx, int ty, int tz)
+    private boolean canSeeDebug(L2PcInstance gm, int x, int y, double z, int tx, int ty, int tz)
     {
     	int dx = (tx - x);
         int dy = (ty - y);
@@ -467,7 +455,7 @@ public class GeoEngine extends GeoData
     /*
      *  MoveCheck
      */
-    private static Location moveCheck(Location startpoint, Location destiny, int x, int y, double z, int tx, int ty, int tz)
+    private Location moveCheck(Location startpoint, Location destiny, int x, int y, double z, int tx, int ty, int tz)
     {
     	int dx = (tx - x);
         int dy = (ty - y);
@@ -586,7 +574,7 @@ public class GeoEngine extends GeoData
         	return new Location(destiny.getX(),destiny.getY(),(int)z);
     }
 
-    private static byte sign(int x)
+    private byte sign(int x)
     {
     	if (x >= 0)
     		return +1;
@@ -595,7 +583,7 @@ public class GeoEngine extends GeoData
     }
 
 	//GeoEngine
-	private static void nInitGeodata()
+	private void nInitGeodata()
 	{
 		LineNumberReader lnr = null;
 		try
@@ -645,13 +633,17 @@ public class GeoEngine extends GeoData
 			throw new Error("Failed to Load geo_bugs.txt File.");
 		}
 	}
-	public static void unloadGeodata(byte rx, byte ry)
+	
+	@Override
+	public void unloadGeodata(byte rx, byte ry)
 	{
 		short regionoffset = (short)((rx << 5) + ry);
-		_geodataIndex.remove(regionoffset);
-		_geodata.remove(regionoffset);
+		_geodataIndex.set(regionoffset, null);
+		_geodata.set(regionoffset, null);
 	}
-	public static boolean loadGeodataFile(byte rx, byte ry)
+	
+	@Override
+	public boolean loadGeodataFile(byte rx, byte ry)
 	{
 		String fname = "./data/geodata/"+rx+"_"+ry+".l2j";
 		short regionoffset = (short)((rx << 5) + ry);
@@ -697,9 +689,9 @@ public class GeoEngine extends GeoData
 			            }
 			        }
 			    }
-				_geodataIndex.put(regionoffset, indexs);
+				_geodataIndex.set(regionoffset, indexs);
 			}
-			_geodata.put(regionoffset,geo);
+			_geodata.set(regionoffset,geo);
 
 			_log.info("Geo Engine: - Max Layers: "+flor+" Size: "+size+" Loaded: "+index);
 	    } catch (Exception e)
@@ -728,7 +720,7 @@ public class GeoEngine extends GeoData
 	 * @param y
 	 * @return Region Offset
 	 */
-	private static short getRegionOffset(int x, int y)
+	private short getRegionOffset(int x, int y)
 	{
 	    int rx = x >> 11; // =/(256 * 8)
 	    int ry = y >> 11;
@@ -739,7 +731,7 @@ public class GeoEngine extends GeoData
 	 * @param geo_pos
 	 * @return Block Index: 0-255
 	 */
-	private  static int getBlock(int geo_pos)
+	private int getBlock(int geo_pos)
 	{
 	    return (geo_pos >> 3) % 256;
 	}
@@ -748,7 +740,7 @@ public class GeoEngine extends GeoData
 	 * @param geo_pos
 	 * @return Cell Index: 0-7
 	 */
-	private static int getCell(int geo_pos)
+	private int getCell(int geo_pos)
 	{
 	    return geo_pos % 8;
 	}
@@ -760,7 +752,7 @@ public class GeoEngine extends GeoData
 	 * @param y
 	 * @return Type of geo_block: 0-2
 	 */
-	private static short nGetType(int x, int y)
+	private short nGetType(int x, int y)
 	{
 	    short region = getRegionOffset(x,y);
 		int blockX = getBlock(x);
@@ -786,7 +778,7 @@ public class GeoEngine extends GeoData
 	 * @param z
 	 * @return Nearest Z
 	 */
-	private static short nGetHeight(int geox, int geoy, int z)
+	private short nGetHeight(int geox, int geoy, int z)
 	{
 	    short region = getRegionOffset(geox,geoy);
 	    int blockX = getBlock(geox);
@@ -858,7 +850,7 @@ public class GeoEngine extends GeoData
 	 * @param z
 	 * @return One layer higher Z than parameter Z
 	 */
-	private static short nGetUpperHeight(int geox, int geoy, int z)
+	private short nGetUpperHeight(int geox, int geoy, int z)
 	{
 	    short region = getRegionOffset(geox,geoy);
 	    int blockX = getBlock(geox);
@@ -932,7 +924,7 @@ public class GeoEngine extends GeoData
 	 * @param zmax
 	 * @return Z betwen zmin and zmax
 	 */
-	private static short nGetSpawnHeight(int geox, int geoy, int zmin, int zmax, int spawnid)
+	private short nGetSpawnHeight(int geox, int geoy, int zmin, int zmax, int spawnid)
 	{
 	    short region = getRegionOffset(geox,geoy);
 	    int blockX = getBlock(geox);
@@ -1020,7 +1012,7 @@ public class GeoEngine extends GeoData
 	 * @param tz
 	 * @return True if char can move to (tx,ty,tz)
 	 */
-	private static double nCanMoveNext(int x, int y, int z, int tx, int ty, int tz)
+	private double nCanMoveNext(int x, int y, int z, int tx, int ty, int tz)
 	{
 	    short region = getRegionOffset(x,y);
 	    int blockX = getBlock(x);
@@ -1109,7 +1101,7 @@ public class GeoEngine extends GeoData
 	 * @param tz
 	 * @return True if Char can see target
 	 */
-	private static boolean nLOS(int x, int y, int z, int inc_x, int inc_y, double inc_z, int tz, boolean debug)
+	private boolean nLOS(int x, int y, int z, int inc_x, int inc_y, double inc_z, int tz, boolean debug)
 	{
 	    short region = getRegionOffset(x,y);
 	    int blockX = getBlock(x);
@@ -1475,7 +1467,7 @@ public class GeoEngine extends GeoData
 	 * @param ty
 	 * @return True if NSWE dont block given direction
 	 */
-	private static boolean checkNSWE(short NSWE, int x, int y, int tx, int ty)
+	private boolean checkNSWE(short NSWE, int x, int y, int tx, int ty)
     {
         //Check NSWE
 	    if(NSWE == 15)

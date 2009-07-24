@@ -99,7 +99,7 @@ public class AdminGeodata implements IAdminCommandHandler
 					byte rx = Byte.parseByte(v[0]);
 					byte ry = Byte.parseByte(v[1]);
 					
-					boolean result = GeoData.loadGeodataFile(rx, ry);
+					boolean result = GeoData.getInstance().loadGeodataFile(rx, ry);
 					
 					if (result)
 						activeChar.sendMessage("GeoEngine: File for region [" + rx + "," + ry + "] loaded succesfuly");
@@ -124,7 +124,7 @@ public class AdminGeodata implements IAdminCommandHandler
 					byte rx = Byte.parseByte(v[0]);
 					byte ry = Byte.parseByte(v[1]);
 					
-					GeoData.unloadGeodata(rx, ry);
+					GeoData.getInstance().unloadGeodata(rx, ry);
 					activeChar.sendMessage("GeoEngine: File for region [" + rx + "," + ry + "] unloaded.");
 				}
 				catch (Exception e)

@@ -13299,7 +13299,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (isTransformed())
 		{
-			setTransformAllowedSkills(new int[]{});
+			_transformAllowedSkills.clear();
 			_transformation.onUntransform(this);
 			_transformation = null;
 			stopEffects(L2EffectType.TRANSFORMATION);

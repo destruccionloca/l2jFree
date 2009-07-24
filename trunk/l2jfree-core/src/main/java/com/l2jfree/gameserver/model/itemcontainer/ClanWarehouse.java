@@ -22,50 +22,36 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public final class ClanWarehouse extends Warehouse
 {
 	private final L2Clan _clan;
-
+	
 	public ClanWarehouse(L2Clan clan)
 	{
 		_clan = clan;
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return "ClanWarehouse";
 	}
-
+	
 	@Override
 	public int getOwnerId()
 	{
 		return _clan.getClanId();
 	}
-
+	
 	@Override
 	public L2PcInstance getOwner()
 	{
 		return _clan.getLeader().getPlayerInstance();
 	}
-
+	
 	@Override
 	public ItemLocation getBaseLocation()
 	{
 		return ItemLocation.CLANWH;
 	}
-
-	public String getLocationId()
-	{
-		return "0";
-	}
-
-	public int getLocationId(boolean dummy)
-	{
-		return 0;
-	}
-
-	public void setLocationId(L2PcInstance dummy)
-	{
-	}
-
+	
 	@Override
 	public boolean validateCapacity(int slots)
 	{
