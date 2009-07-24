@@ -1,5 +1,5 @@
 Quest scripts define the complete or near-complete flow of events that take place from the 
-start to the end of a quest.  This includes, but is not limitted to, starting and accepting 
+start to the end of a quest.  This includes, but is not limited to, starting and accepting 
 the quest, following complex dialogs, attacking or killing mobs, finding quest items, spawning
 quest mobs, completing a quest, and getting rewards.
 
@@ -8,7 +8,7 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
-In addition, the jython library "sys" is generally imported for convinience.  More classes can
+In addition, the jython library "sys" is generally imported for convenience.  More classes can
 be imported as needed, in order to access other components of the core and enhance the abilities
 of the script.
 
@@ -114,8 +114,8 @@ These functions, their triggers, and the parameters passed into the script are d
 	
 12) REGISTRATION FUNCTIONS:
 	The functions described below have a single purpose: To register an NPC for event triggers.  Simply put,
-	an NPC must be registered in a quest for a particular event in order for the NPC to respond to the occurence
-	of thatevent.  
+	an NPC must be registered in a quest for a particular event in order for the NPC to respond to the occurrence
+	of that event.  
 	Registration Functions are NOT called automatically.  Instead, they should be added at the bottom of your 
 	quest script.
 	Descriptions of all registration functions follow:
@@ -128,7 +128,7 @@ These functions, their triggers, and the parameters passed into the script are d
 	b) addTalkId(npcId)
 		Registers an NPC for onTalk events.  These NPCs are not considered start NPCs (unless they are also
 		registered with addStartNpc).  NPCs registered using addTalkId will only respond to the player's
-		click of a "Quest" link if and only if the player has alredy started the quest.
+		click of a "Quest" link if and only if the player has already started the quest.
 		The parameter "npcId" contains the id of the template for this NPC.
 	c) addAttackId(npcId)
 		Registers an NPC for onAttack events.  The players do NOT need to be registered for the quest in order
@@ -152,12 +152,12 @@ These functions, their triggers, and the parameters passed into the script are d
 		
 13) OVERRIDABLE QUEST FUNCTIONS:
 	There exist a few functions which are automatically called by the core (and optionally manually called within
-	your script) which meant to be overriden by your quest script for special needs.   
+	your script) which meant to be overridden by your quest script for special needs.   
 	a) saveGlobalData()
-		Optional function.  If a quest (or ai) needs to keep track of variables that are persistant beyond a reboot
+		Optional function.  If a quest (or ai) needs to keep track of variables that are persistent beyond a reboot
 		but are not tied to any particular character (for example, count how many players have finished a quest in 
 		order to do some special action when the count reaches 1000), then you can override this function and add
-		code for saving your special variabls.  This function will automatically be called when the server is shutting
+		code for saving your special variables.  This function will automatically be called when the server is shutting
 		down as well as when you attempt to reload the quest using GM commands.  The actual functions used to save
 		those variables are described in section 11, below.  
 	b) init_LoadGlobalData()
@@ -175,19 +175,19 @@ These functions, their triggers, and the parameters passed into the script are d
 	self.foo(5)
 
 	The full listing of available functions can be seen in the class com.l2jfree.gameserver.model.quest.Quest, which 
-	is located at net/sf/l2j/gameserver/model/quest/Quest.java from the l2jserver project.  However, a few of the
+	is located at com/l2jfree/gameserver/model/quest/Quest.java from the l2jfree project.  However, a few of the
 	more common functions are summarized here:
 	a) startQuestTimer(name, time, npc, player, repeating)
 		Starts a timer.  The timer will call onAdvEvent(name, npc, player) each time that it fires.
 		The parameter name is a string which serves as the name of the timer (or "event").
 			time refers to the number of milliseconds that the timer will wait before it fires.
-		npc is the actual instance of an NPC or Mob assosiated with the timer.  If this timer is not tied to 
+		npc is the actual instance of an NPC or Mob associated with the timer.  If this timer is not tied to 
 			any particular instance, you should pass None as the parameter.
-		player is the actual instance of a player assosiated with the timer.  If this timer is not tied to 
+		player is the actual instance of a player associated with the timer.  If this timer is not tied to 
 			any particular instance, you should pass None as the parameter.
 		repeating is a boolean (True or False) variable.  If this is False, the timer will only fire once.  If 
 			this is True, the timer will keep firing at equal periods (equal to the "time" parameter) for ever, 
-			unless you explicitely cancel the timer, reboot the server, or reload the quest (assuming that your
+			unless you explicitly cancel the timer, reboot the server, or reload the quest (assuming that your
 			script doesn't automatically start the timer again when it loads).
 	b) getQuestTimer(name, npc, player)
 		Allows you to grab an instance of the timer.  This is primarily used behind the scenes (from core) and
@@ -208,7 +208,7 @@ These functions, their triggers, and the parameters passed into the script are d
 		Naturally, if both player and npc are null, matches are identified based solely on the name.
 	c) cancelQuestTimer(name, npc, player)
 		Cancels a timer.  See getQuestTimer for details on how this call will match and discover which timer to 
-		cancel.  If multiple timers match the parameters, only the first timer that the code discovers will be cancelled.
+		cancel.  If multiple timers match the parameters, only the first timer that the code discovers will be canceled.
 	d) saveGlobalQuestVar(var, value)
 		This permanently (until explicit deletion) saves a variable that is global for this quest.  Here, global 
 		refers to the fact that it is not tied to any particular player!  It does not mean global for all quest. 
