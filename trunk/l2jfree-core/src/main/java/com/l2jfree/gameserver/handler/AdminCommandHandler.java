@@ -96,6 +96,8 @@ import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.HandlerRegistry;
+import com.l2jfree.util.logging.L2LogHandler;
+import com.l2jfree.util.logging.L2LogHandler.LogListener;
 
 public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCommandHandler>
 {
@@ -103,7 +105,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 	{
 		return SingletonHolder._instance;
 	}
-
+	
 	private AdminCommandHandler()
 	{
 		register(new AdminAI());
@@ -178,83 +180,85 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminVIPEngine());
 		register(new AdminVitality());
 		register(new AdminZone());
-
+		
 		if (Config.IRC_ENABLED)
 			register(new AdminIRC());
-
+		
 		_log.info("AdminCommandHandler: Loaded " + size() + " handlers.");
-
+		
 		for (String cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
 			if (get(cmd) == null)
 				_log.warn("AdminCommandHandler: Command \"" + cmd + "\" isn't used anymore.");
 	}
-
+	
 	private void register(IAdminCommandHandler handler)
 	{
 		registerAll(handler, handler.getAdminCommandList());
-
+		
 		for (String element : handler.getAdminCommandList())
 			if (!Config.GM_COMMAND_PRIVILEGES.containsKey(element))
 				_log.warn("Command \"" + element + "\" have no access level definition. Can't be used.");
 	}
-
+	
 	public void useAdminCommand(final L2PcInstance activeChar, String message0)
 	{
 		final String message = message0.trim();
-
+		
 		String command = message;
 		String params = "";
-
+		
 		if (message.indexOf(" ") != -1)
 		{
 			command = message.substring(0, message.indexOf(" "));
 			params = message.substring(message.indexOf(" ") + 1);
 		}
-
+		
 		command = command.trim().toLowerCase();
 		params = params.trim();
-
+		
 		if (!activeChar.isGM() && !command.equals("admin_gm"))
 		{
 			Util.handleIllegalPlayerAction(activeChar, "AdminCommandHandler: A non-gm request.", Config.DEFAULT_PUNISH);
 			return;
 		}
-
+		
 		final IAdminCommandHandler handler = get(command);
-
+		
 		if (handler == null)
 		{
 			activeChar.sendMessage("No handler registered.");
-
+			
 			_log.warn("No handler registered for bypass '" + message + "'");
-
+			
 			return;
 		}
-
+		
 		if (!Config.GM_COMMAND_PRIVILEGES.containsKey(command))
 		{
 			activeChar.sendMessage("It has no access level definition. It can't be used.");
-
+			
 			_log.warn(message + "' have no access level definition. It can't be used.");
-
+			
 			return;
 		}
-
+		
 		if (activeChar.getAccessLevel() < Config.GM_COMMAND_PRIVILEGES.get(command))
 		{
 			activeChar.sendMessage("You don't have sufficient privileges.");
-
+			
 			_log.warn(activeChar + " does not have sufficient privileges for '" + message + "'.");
-
+			
 			return;
 		}
-
+		
 		GMAudit.auditGMAction(activeChar, "admincommand", command, params);
-
+		
 		final Future<?> task = ThreadPoolManager.getInstance().submitLongRunning(new Runnable() {
 			@Override
 			public void run()
 			{
+				_activeGm.set(activeChar);
+				
 				final long begin = System.currentTimeMillis();
 				try
 				{
@@ -263,21 +267,23 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 				catch (RuntimeException e)
 				{
 					activeChar.sendMessage("Exception during execution of  '" + message + "': " + e.toString());
-
+					
 					throw e;
 				}
 				finally
 				{
+					_activeGm.set(null);
+					
 					final long runtime = System.currentTimeMillis() - begin;
-
+					
 					if (runtime < ThreadPoolManager.MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING)
 						return;
-
+					
 					activeChar.sendMessage("The execution of '" + message + "' took " + Util.formatNumber(runtime) + " msec.");
 				}
 			}
 		});
-
+		
 		try
 		{
 			task.get(1000, TimeUnit.MILLISECONDS);
@@ -288,10 +294,26 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 			activeChar.sendMessage("The execution of '" + message + "' takes more time than 1000 msec, so execution done asynchronusly.");
 		}
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
 		protected static final AdminCommandHandler _instance = new AdminCommandHandler();
+	}
+	
+	private static final ThreadLocal<L2PcInstance> _activeGm = new ThreadLocal<L2PcInstance>();
+	
+	static
+	{
+		L2LogHandler.addListener(new LogListener() {
+			@Override
+			public void write(String s)
+			{
+				L2PcInstance gm = _activeGm.get();
+				
+				if (gm != null)
+					gm.sendMessage(s);
+			}
+		});
 	}
 }
