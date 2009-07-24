@@ -152,10 +152,10 @@ import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 public class GameServer
 {
-	private static final Log					_log			= LogFactory.getLog(GameServer.class);
-	private static final Calendar				_serverStarted	= Calendar.getInstance();
-	private static SelectorThread<L2GameClient>	_selectorThread;
-
+	private static final Log _log = LogFactory.getLog(GameServer.class);
+	private static final Calendar _serverStarted = Calendar.getInstance();
+	private static SelectorThread<L2GameClient> _selectorThread;
+	
 	public static void init() throws Exception
 	{
 		System.setProperty("python.home", ".");
@@ -171,26 +171,18 @@ public class GameServer
 		new File("log").mkdirs();
 		new File("log/java").mkdirs();
 		new File("log/error").mkdirs();
-		
-		new File("log/audit").mkdirs();
-		new File("log/chat").mkdirs();
-		new File("log/irc").mkdirs();
-		new File("log/item").mkdirs();
-		
-		new File("data/crests").mkdirs();
-		new File("data/serial").mkdirs();
 	}
 	
 	public static void main(String[] args) throws Exception
 	{
 		init();
-
+		
 		CoreInfo.showStartupInfo();
-
+		
 		long serverLoadStart = System.currentTimeMillis();
-
+		
 		Config.load();
-
+		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		Util.printSection("World");
@@ -214,21 +206,21 @@ public class GameServer
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
 		SQLQueue.getInstance();
-
+		
 		if (Config.GEODATA > 0)
 		{
 			GeoData.getInstance();
 			if (Config.GEODATA >= 2)
 				PathFinding.getInstance();
 		}
-
+		
 		StaticObjects.getInstance();
 		GameTimeController.getInstance();
 		TeleportLocationTable.getInstance();
 		BoatManager.getInstance();
 		InstanceManager.getInstance();
 		MerchantPriceConfigTable.getInstance().loadInstances();
-
+		
 		Util.printSection("TaskManagers");
 		AttackStanceTaskManager.getInstance();
 		DecayTaskManager.getInstance();
@@ -236,7 +228,7 @@ public class GameServer
 		LeakTaskManager.getInstance();
 		MovementController.getInstance();
 		PacketBroadcaster.getInstance();
-
+		
 		Util.printSection("Skills");
 		SkillTreeTable.getInstance();
 		SkillTable.getInstance();
@@ -280,7 +272,7 @@ public class GameServer
 		BlockListManager.getInstance();
 		RecommendationManager.getInstance();
 		FriendListManager.getInstance();
-
+		
 		Util.printSection("NPCs");
 		NpcTable.getInstance();
 		HtmCache.getInstance();
@@ -346,19 +338,19 @@ public class GameServer
 				else
 					_log.info("Compiled Scripts Cache is up-to-date.");
 			}
-
+			
 		}
 		catch (IOException e)
 		{
 			_log.fatal("Failed to store Compiled Scripts Cache.", e);
 		}
-
+		
 		QuestManager.getInstance().report();
 		TransformationManager.getInstance().report();
-
+		
 		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
-
+		
 		if (Config.ARENA_ENABLED)
 			ArenaManager.getInstance().engineInit();
 		if (Config.FISHERMAN_ENABLED)
@@ -390,7 +382,7 @@ public class GameServer
 		VanHalterManager.getInstance().init();
 		LastImperialTombManager.getInstance().init();
 		FrintezzaManager.getInstance().init();
-
+		
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)
 		{
@@ -414,7 +406,7 @@ public class GameServer
 		UserCommandHandler.getInstance();
 		VoicedCommandHandler.getInstance();
 		ChatHandler.getInstance();
-
+		
 		Util.printSection("Misc");
 		ObjectRestrictions.getInstance();
 		TaskManager.getInstance();
@@ -423,19 +415,19 @@ public class GameServer
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
 		ForumsBBSManager.getInstance();
-
+		
 		MerchantPriceConfigTable.getInstance().updateReferences();
 		CastleManager.getInstance().activateInstances();
 		FortManager.getInstance().activateInstances();
-
+		
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
-
+		
 		System.gc();
 		System.runFinalization();
-
+		
 		Util.printSection("ServerThreads");
 		LoginServerThread.getInstance().start();
-			
+		
 		if (Config.PACKET_FINAL)
 		{
 			L2GamePacketHandlerFinal gph = new L2GamePacketHandlerFinal();
@@ -456,28 +448,28 @@ public class GameServer
 			_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 			_selectorThread.start();
 		}
-
+		
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");
-
+		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();
-
+		
 		Util.printSection("l2jfree-core");
 		for (String line : CoreInfo.getFullVersionInfo())
 			_log.info(line);
 		_log.info("Operating System: " + Util.getOSName() + " " + Util.getOSVersion() + " " + Util.getOSArch());
 		_log.info("Available CPUs: " + Util.getAvailableProcessors());
-
+		
 		Util.printSection("Memory");
 		for (String line : Util.getMemUsage())
 			_log.info(line);
-
+		
 		_log.info("Maximum number of connected players: " + Config.MAXIMUM_ONLINE_USERS);
 		_log.info("Server loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds.");
-
+		
 		onStartup();
-
+		
 		Util.printSection("GameServerLog");
 		if (Config.ENABLE_JYTHON_SHELL)
 		{
@@ -485,9 +477,9 @@ public class GameServer
 			Util.JythonShell();
 		}
 	}
-
-	private static Set<StartupHook>	_startupHooks	= new HashSet<StartupHook>();
-
+	
+	private static Set<StartupHook> _startupHooks = new HashSet<StartupHook>();
+	
 	public synchronized static void addStartupHook(StartupHook hook)
 	{
 		if (_startupHooks != null)
@@ -495,27 +487,27 @@ public class GameServer
 		else
 			hook.onStartup();
 	}
-
+	
 	private synchronized static void onStartup()
 	{
 		final Set<StartupHook> startupHooks = _startupHooks;
-
+		
 		_startupHooks = null;
-
+		
 		for (StartupHook hook : startupHooks)
 			hook.onStartup();
 	}
-
+	
 	public interface StartupHook
 	{
 		public void onStartup();
 	}
-
+	
 	public static SelectorThread<L2GameClient> getSelectorThread()
 	{
 		return _selectorThread;
 	}
-
+	
 	public static Calendar getStartedTime()
 	{
 		return _serverStarted;

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,6 +54,8 @@ public final class GameTimeController
 	
 	private GameTimeController()
 	{
+		new File("data/serial").mkdirs();
+		
 		final Calendar cal = loadData();
 		
 		if (cal != null)
@@ -252,7 +255,7 @@ public final class GameTimeController
 				Thread.sleep(delay);
 		}
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

@@ -14,22 +14,55 @@
  */
 package com.l2jfree.gameserver.util.logging;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.LogRecord;
 
 import javolution.text.TextBuilder;
 
+import com.l2jfree.util.logging.L2LogFilter;
 import com.l2jfree.util.logging.L2LogFormatter;
 
 /**
- * @author Advi
+ * @author NB4L1
  */
-public final class ItemLogFormatter extends L2LogFormatter
+public final class ChatLog
 {
-	@Override
-	protected void format0(LogRecord record, TextBuilder tb)
+	static
 	{
-		appendDate(record, tb);
-		appendMessage(record, tb);
-		appendParameters(record, tb, ", ", true);
+		new File("log/chat").mkdirs();
+	}
+	
+	private ChatLog()
+	{
+	}
+	
+	public static final class Handler extends FileHandler
+	{
+		public Handler() throws IOException, SecurityException
+		{
+			super();
+		}
+	}
+	
+	public static final class Filter extends L2LogFilter
+	{
+		@Override
+		protected String getLoggerName()
+		{
+			return "chat";
+		}
+	}
+	
+	public static final class Formatter extends L2LogFormatter
+	{
+		@Override
+		protected void format0(LogRecord record, TextBuilder tb)
+		{
+			appendDate(record, tb);
+			appendParameters(record, tb, " ", false);
+			appendMessage(record, tb);
+		}
 	}
 }

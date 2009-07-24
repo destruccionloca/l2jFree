@@ -55,6 +55,8 @@ public class CrestCache
 	
 	private CrestCache()
 	{
+		new File("data/crests").mkdirs();
+		
 		convertOldPedgeFiles();
 		reload();
 	}
