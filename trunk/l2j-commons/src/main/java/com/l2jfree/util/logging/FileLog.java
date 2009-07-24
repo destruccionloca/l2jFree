@@ -23,17 +23,17 @@ import java.util.logging.FileHandler;
  */
 public final class FileLog
 {
-	static
-	{
-		new File("log/java").mkdirs();
-	}
-	
 	private FileLog()
 	{
 	}
 	
 	public static final class Handler extends FileHandler
 	{
+		static
+		{
+			new File("log/java").mkdirs();
+		}
+		
 		public Handler() throws IOException, SecurityException
 		{
 			super();

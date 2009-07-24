@@ -58,16 +58,6 @@ public class Config extends L2Config
 	{
 		System.setProperty("python.home", ".");
 		
-		Util.printSection("Preparations");
-		
-		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
-		{
-			System.out.print("L2Jfree servers should not run under root-account ... exited.");
-			System.exit(-1);
-		}
-		
-		new File("log").mkdirs();
-		
 		registerConfig(new AltConfig());
 		registerConfig(new AutoEventConfig());
 		registerConfig(new BossConfig());

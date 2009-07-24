@@ -73,9 +73,6 @@ public class L2LoginServer extends Config
 	{
 		// Create log folder
 		// ------------------
-		new File("log").mkdirs();
-		new File("log/java").mkdirs();
-		new File("log/error").mkdirs();
 		new File("log/login").mkdirs();
 		
 		// Initialize config

@@ -29,17 +29,17 @@ import com.l2jfree.util.logging.L2LogFormatter;
  */
 public final class AuditLog
 {
-	static
-	{
-		new File("log/audit").mkdirs();
-	}
-	
 	private AuditLog()
 	{
 	}
 	
 	public static final class Handler extends FileHandler
 	{
+		static
+		{
+			new File("log/audit").mkdirs();
+		}
+		
 		public Handler() throws IOException, SecurityException
 		{
 			super();

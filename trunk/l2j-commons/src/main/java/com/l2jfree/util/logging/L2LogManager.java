@@ -14,6 +14,7 @@
  */
 package com.l2jfree.util.logging;
 
+import java.io.File;
 import java.util.logging.LogManager;
 
 /**
@@ -21,6 +22,11 @@ import java.util.logging.LogManager;
  */
 public final class L2LogManager extends LogManager
 {
+	static
+	{
+		new File("log").mkdirs();
+	}
+	
 	public L2LogManager()
 	{
 	}

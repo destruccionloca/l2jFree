@@ -33,17 +33,17 @@ import com.l2jfree.util.logging.L2LogFormatter;
  */
 public final class ItemLog
 {
-	static
-	{
-		new File("log/item").mkdirs();
-	}
-	
 	private ItemLog()
 	{
 	}
 	
 	public static final class Handler extends FileHandler
 	{
+		static
+		{
+			new File("log/item").mkdirs();
+		}
+		
 		public Handler() throws IOException, SecurityException
 		{
 			super();

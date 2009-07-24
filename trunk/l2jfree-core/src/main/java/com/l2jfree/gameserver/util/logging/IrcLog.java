@@ -29,17 +29,17 @@ import com.l2jfree.util.logging.L2LogFormatter;
  */
 public final class IrcLog
 {
-	static
-	{
-		new File("log/irc").mkdirs();
-	}
-	
 	private IrcLog()
 	{
 	}
 	
 	public static final class Handler extends FileHandler
 	{
+		static
+		{
+			new File("log/irc").mkdirs();
+		}
+		
 		public Handler() throws IOException, SecurityException
 		{
 			super();

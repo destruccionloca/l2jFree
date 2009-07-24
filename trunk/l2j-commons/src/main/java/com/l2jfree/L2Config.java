@@ -43,6 +43,12 @@ public abstract class L2Config
 	
 	static
 	{
+		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
+		{
+			System.out.print("L2Jfree servers should not run under root-account ... exited.");
+			System.exit(-1);
+		}
+		
 		System.setProperty("line.separator", "\r\n");
 		System.setProperty("file.encoding", "UTF-8");
 		System.setProperty("org.apache.commons.logging.LogFactory", "org.apache.commons.logging.impl.LogFactoryImpl");

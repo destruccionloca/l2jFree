@@ -29,17 +29,17 @@ import com.l2jfree.util.logging.L2LogFormatter;
  */
 public final class ChatLog
 {
-	static
-	{
-		new File("log/chat").mkdirs();
-	}
-	
 	private ChatLog()
 	{
 	}
 	
 	public static final class Handler extends FileHandler
 	{
+		static
+		{
+			new File("log/chat").mkdirs();
+		}
+		
 		public Handler() throws IOException, SecurityException
 		{
 			super();

@@ -25,17 +25,17 @@ import java.util.logging.LogRecord;
  */
 public final class ErrorLog
 {
-	static
-	{
-		new File("log/error").mkdirs();
-	}
-	
 	private ErrorLog()
 	{
 	}
 	
 	public static final class Handler extends FileHandler
 	{
+		static
+		{
+			new File("log/error").mkdirs();
+		}
+		
 		public Handler() throws IOException, SecurityException
 		{
 			super();
