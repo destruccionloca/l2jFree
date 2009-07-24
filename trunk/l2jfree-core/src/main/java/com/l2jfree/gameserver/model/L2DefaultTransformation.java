@@ -24,33 +24,28 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * The enterworld packet will transform a player.
  * 
  * @author Ahmed
- *
  */
 public abstract class L2DefaultTransformation extends L2Transformation
 {
-	public L2DefaultTransformation(int id, double collisionRadius, double collisionHeight)
+	protected L2DefaultTransformation(int id, double collisionRadius, double collisionHeight)
 	{
 		super(id, collisionRadius, collisionHeight);
 	}
-
-	public L2DefaultTransformation(int id, int graphicalId, double collisionRadius, double collisionHeight)
-	{
-		super(id, graphicalId, collisionRadius, collisionHeight);
-	}
 	
 	@Override
-	public void addSkill(L2PcInstance player, int skillId, int skillLevel)
+	protected final void addSkill(L2PcInstance player, int skillId, int skillLevel)
 	{
 		player.addTransformAllowedSkill(skillId);
+		
 		super.addSkill(player, skillId, skillLevel);
 	}
-
-	public void addSkills(L2PcInstance player, int... skills)
+	
+	protected final void addSkills(L2PcInstance player, int... skillIds)
 	{
-		for (int skill : skills)
-			addSkill(player, skill, 1);
+		for (int skillId : skillIds)
+			addSkill(player, skillId, 1);
 	}
-
+	
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
@@ -59,32 +54,32 @@ public abstract class L2DefaultTransformation extends L2Transformation
 		
 		// give transformation skills
 		transformedSkills(player);
-
+		
 		// Transfrom Dispel
 		addSkill(player, 619, 1);
 		// Decrease Bow/Crossbow Attack Speed
 		addSkill(player, 5491, 1);
 	}
-
-	public abstract void transformedSkills(L2PcInstance player);
-
+	
+	protected abstract void transformedSkills(L2PcInstance player);
+	
 	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		// remove transformation skills
 		removeSkills(player);
-
+		
 		// Transfrom Dispel
 		removeSkill(player, 619);
 		// Decrease Bow/Crossbow Attack Speed
 		removeSkill(player, 5491);
 	}
-
-	public void removeSkills(L2PcInstance player, int... skills)
+	
+	protected final void removeSkills(L2PcInstance player, int... skillIds)
 	{
-		for (int skill : skills)
-			removeSkill(player, skill);
+		for (int skillId : skillIds)
+			removeSkill(player, skillId);
 	}
-
-	public abstract void removeSkills(L2PcInstance player);
+	
+	protected abstract void removeSkills(L2PcInstance player);
 }
