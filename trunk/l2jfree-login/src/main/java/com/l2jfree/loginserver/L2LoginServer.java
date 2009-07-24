@@ -35,7 +35,7 @@ import com.l2jfree.status.Status;
  * Main class for loginserver
  * 
  */
-public class L2LoginServer
+public class L2LoginServer extends Config
 {
 	/** Version sent if {@link Config#PROTOCOL_LEGACY} is false */
 	public static final int PROTOCOL_L2J = 258;

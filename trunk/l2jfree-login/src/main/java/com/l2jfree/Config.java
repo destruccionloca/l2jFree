@@ -27,7 +27,7 @@ import java.util.Properties;
  * 
  * @author mkizub
  */
-public final class Config extends L2Config
+public class Config extends L2Config
 {
 	/** Number of login tries before IP ban gets activated, default 10*/
 	public static int			LOGIN_TRY_BEFORE_BAN;
@@ -146,7 +146,7 @@ public final class Config extends L2Config
 	}
 
 	// it has no instancies
-	private Config()
+	protected Config()
 	{
 	}
 

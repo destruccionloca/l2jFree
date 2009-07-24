@@ -96,8 +96,8 @@ import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.HandlerRegistry;
-import com.l2jfree.util.logging.L2LogHandler;
-import com.l2jfree.util.logging.L2LogHandler.LogListener;
+import com.l2jfree.util.logging.ListeningLog;
+import com.l2jfree.util.logging.ListeningLog.LogListener;
 
 public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCommandHandler>
 {
@@ -305,11 +305,11 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 	
 	static
 	{
-		L2LogHandler.addListener(new LogListener() {
+		ListeningLog.addListener(new LogListener() {
 			@Override
 			public void write(String s)
 			{
-				L2PcInstance gm = _activeGm.get();
+				final L2PcInstance gm = _activeGm.get();
 				
 				if (gm != null)
 					gm.sendMessage(s);

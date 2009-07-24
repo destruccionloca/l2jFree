@@ -14,13 +14,43 @@
  */
 package com.l2jfree.util.logging;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
-public final class ErrorLogHandler extends FileHandler
+/**
+ * @author NB4L1
+ */
+public final class ErrorLog
 {
-	public ErrorLogHandler() throws IOException, SecurityException
+	static
 	{
-		super();
+		new File("log/error").mkdirs();
+	}
+	
+	private ErrorLog()
+	{
+	}
+	
+	public static final class Handler extends FileHandler
+	{
+		public Handler() throws IOException, SecurityException
+		{
+			super();
+		}
+	}
+	
+	public static final class Filter implements java.util.logging.Filter
+	{
+		public boolean isLoggable(LogRecord record)
+		{
+			return record.getLevel().intValue() > Level.INFO.intValue() || record.getThrown() != null;
+		}
+	}
+	
+	public static final class Formatter extends L2RuntimeLogFormatter
+	{
 	}
 }

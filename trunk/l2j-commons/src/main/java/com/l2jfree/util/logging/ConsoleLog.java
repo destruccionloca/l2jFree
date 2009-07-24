@@ -14,9 +14,26 @@
  */
 package com.l2jfree.util.logging;
 
+import java.util.logging.ConsoleHandler;
+
 /**
  * @author NB4L1
  */
-public final class ErrorLogFormatter extends L2RuntimeLogFormatter
+public final class ConsoleLog
 {
+	private ConsoleLog()
+	{
+	}
+	
+	public static final class Handler extends ConsoleHandler
+	{
+		public Handler()
+		{
+			super();
+		}
+	}
+	
+	public static final class Formatter extends L2RuntimeLogFormatter
+	{
+	}
 }

@@ -25,7 +25,7 @@ import com.l2jfree.loginserver.beans.Gameservers;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.tools.util.HexUtil;
 
-public class GameServerRegister
+public class GameServerRegister extends Config
 {
 	private String						_choice;
 	private static GameServerManager	gsServerManager;

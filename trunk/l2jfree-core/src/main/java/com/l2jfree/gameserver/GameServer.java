@@ -150,33 +150,14 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
-public class GameServer
+public class GameServer extends Config
 {
 	private static final Log _log = LogFactory.getLog(GameServer.class);
 	private static final Calendar _serverStarted = Calendar.getInstance();
 	private static SelectorThread<L2GameClient> _selectorThread;
 	
-	public static void init() throws Exception
-	{
-		System.setProperty("python.home", ".");
-		
-		Util.printSection("Preparations");
-		
-		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
-		{
-			System.out.print("L2Jfree servers should not run under root-account ... exited.");
-			System.exit(-1);
-		}
-		
-		new File("log").mkdirs();
-		new File("log/java").mkdirs();
-		new File("log/error").mkdirs();
-	}
-	
 	public static void main(String[] args) throws Exception
 	{
-		init();
-		
 		CoreInfo.showStartupInfo();
 		
 		long serverLoadStart = System.currentTimeMillis();

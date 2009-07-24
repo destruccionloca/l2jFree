@@ -52,10 +52,22 @@ import com.l2jfree.util.L2FastSet;
  * It's initialized at the very begin of startup, and later JIT will optimize
  * away debug/unused code.
  */
-public final class Config extends L2Config
+public class Config extends L2Config
 {
 	static
 	{
+		System.setProperty("python.home", ".");
+		
+		Util.printSection("Preparations");
+		
+		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
+		{
+			System.out.print("L2Jfree servers should not run under root-account ... exited.");
+			System.exit(-1);
+		}
+		
+		new File("log").mkdirs();
+		
 		registerConfig(new AltConfig());
 		registerConfig(new AutoEventConfig());
 		registerConfig(new BossConfig());
@@ -4339,7 +4351,7 @@ public final class Config extends L2Config
 	}
 
 	// it has no instancies
-	private Config()
+	protected Config()
 	{
 	}
 

@@ -79,7 +79,6 @@ public abstract class L2Config
 	
 	protected L2Config()
 	{
-		throw new InternalError();
 	}
 	
 	private static final HandlerRegistry<String, ConfigLoader> _loaders = new HandlerRegistry<String, ConfigLoader>(true) {

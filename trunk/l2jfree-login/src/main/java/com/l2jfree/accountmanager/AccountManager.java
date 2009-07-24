@@ -36,7 +36,7 @@ import com.l2jfree.loginserver.services.exception.AccountModificationException;
  * Enhanced L2JFree account manager.
  * @author savormix
  */
-public final class AccountManager
+public final class AccountManager extends Config
 {
 	private static final Log _log = LogFactory.getLog(AccountManager.class);
 	private static final String[] CMD = {

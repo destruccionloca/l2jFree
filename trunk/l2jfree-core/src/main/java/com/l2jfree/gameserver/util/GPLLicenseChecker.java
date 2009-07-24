@@ -25,10 +25,12 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
+import com.l2jfree.Config;
+
 /**
  * @author NB4L1
  */
-public final class GPLLicenseChecker
+public final class GPLLicenseChecker extends Config
 {
 	private static final ArrayList<String> MODIFIED = new ArrayList<String>();
 	

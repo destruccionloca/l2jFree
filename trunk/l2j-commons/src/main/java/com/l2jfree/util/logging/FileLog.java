@@ -14,6 +14,33 @@
  */
 package com.l2jfree.util.logging;
 
-public final class ConsoleLogFormatter extends L2RuntimeLogFormatter
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+
+/**
+ * @author NB4L1
+ */
+public final class FileLog
 {
+	static
+	{
+		new File("log/java").mkdirs();
+	}
+	
+	private FileLog()
+	{
+	}
+	
+	public static final class Handler extends FileHandler
+	{
+		public Handler() throws IOException, SecurityException
+		{
+			super();
+		}
+	}
+	
+	public static final class Formatter extends L2RuntimeLogFormatter
+	{
+	}
 }
