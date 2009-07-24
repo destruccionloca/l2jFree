@@ -20,7 +20,9 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
@@ -81,6 +83,14 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		if (player.isInDuel())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
+			return;
+		}
+
+		// Prevents player to start a craft shop inside a nostore zone. By heX1r0
+		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE));
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 

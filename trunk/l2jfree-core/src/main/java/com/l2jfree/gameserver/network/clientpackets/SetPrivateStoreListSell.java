@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
@@ -105,6 +106,15 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		{
 			player.sendPacket(new PrivateStoreManageListSell(player, _packageSale));
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+			return;
+		}
+
+		// Prevents player to start selling inside a nostore zone. By heX1r0
+		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
+		{
+			player.sendPacket(new PrivateStoreManageListSell(player, _packageSale));
+			sendPacket(SystemMessageId.NO_PRIVATE_STORE_HERE);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 

@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreManageListBuy;
@@ -147,6 +148,15 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 		{
 			player.sendPacket(new PrivateStoreManageListBuy(player));
 			player.sendPacket(new SystemMessage(SystemMessageId.THE_PURCHASE_PRICE_IS_HIGHER_THAN_MONEY));
+			return;
+		}
+
+		// Prevents player to start buying inside a nostore zone. By heX1r0
+		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
+		{
+			player.sendPacket(new PrivateStoreManageListBuy(player));
+			sendPacket(SystemMessageId.NO_PRIVATE_STORE_HERE);
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
