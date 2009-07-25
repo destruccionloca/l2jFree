@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
+DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,auction_lots,
                      auction_watch,auto_announcements,auto_chat,auto_chat_text,
                      castle,castle_door,castle_doorupgrade,castle_manor_procure,
                      castle_manor_production,castle_siege_guards,char_creation_items,char_templates,
