@@ -6,6 +6,9 @@ import javolution.text.TextBuilder;
 
 import com.l2jfree.util.logging.L2LogFormatter;
 
+/**
+ * @author NB4L1
+ */
 public abstract class L2LoginLogFormatter extends L2LogFormatter
 {
 	@Override

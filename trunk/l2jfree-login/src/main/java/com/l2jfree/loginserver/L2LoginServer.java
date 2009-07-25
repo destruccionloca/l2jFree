@@ -14,7 +14,6 @@
  */
 package com.l2jfree.loginserver;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -71,10 +70,6 @@ public class L2LoginServer extends Config
 
 	public L2LoginServer() throws IOException
 	{
-		// Create log folder
-		// ------------------
-		new File("log/login").mkdirs();
-		
 		// Initialize config
 		// ------------------
 		Config.load();
