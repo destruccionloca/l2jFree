@@ -139,6 +139,16 @@ public final class L2Weapon extends L2Equip
 		// http://www.l2p.bravehost.com/endL2P/misc.html
 		// Normal bows have a base Weapon Delay of 1500 - Like Draconic Bow (atkSpd == 293)
 		// Yumi bows have a base Weapon Delay of 820 - Like Soul Bow (atkSpd == 227)
+		//
+		// Standing still and with no SA, normal bows and yumi bows shoot the exact same number of shots per second.
+		// So time required for one attack:
+		// (333.3 / atkSpeed) * (1500 + weaponDelay) = x (constant)
+		//
+		// (333.3 / 293) * (1500 + 1500) = x = 3413
+		// (333.3 / 227) * (1500 + 820) = x = 3406
+		//
+		// weaponDelay = x * (atkSpeed / 333.3) - 1500
+		// weaponDelay = 3000 / 293 * atkSpeed - 1500
 		
 		if (type == L2WeaponType.BOW)
 		{
@@ -147,7 +157,8 @@ public final class L2Weapon extends L2Equip
 			if (atkSpeed == 227)
 				return 820;
 			
-			throw new IllegalArgumentException("Wrong bow parameters!");
+			return (int)(3000.0 / 293.0 * atkSpeed - 1500.0);
+			//throw new IllegalArgumentException("Wrong bow parameters!");
 		}
 		else if (type == L2WeaponType.CROSSBOW)
 		{
