@@ -1816,18 +1816,18 @@
     </for>
   </skill>
   <skill id="1490" levels="1" name="Healer Ability - Heal">
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5577"/>
     <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="30"/>
     <set name="chanceType" val="ON_HIT"/>
   </skill>
   <skill id="1491" levels="1" name="Summoner Ability - Spirit">
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5578"/>
     <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="30"/>
@@ -1842,7 +1842,7 @@
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="2000"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="120" val="0" triggeredId="5567" chanceType="ON_ATTACKED" activationChance="30">
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5567" chanceType="ON_ATTACKED" activationChance="30">
         <add order="0x40" stat="fireRes" val="10"/>
       </effect>
     </for>
@@ -1856,7 +1856,7 @@
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="2000"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="120" val="0" triggeredId="5568" chanceType="ON_ATTACKED" activationChance="30">
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5568" chanceType="ON_ATTACKED" activationChance="30">
         <add order="0x40" stat="waterRes" val="10"/>
       </effect>
     </for>
@@ -1870,7 +1870,7 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="120" val="0" triggeredId="5569" chanceType="ON_ATTACKED" activationChance="30">
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5569" chanceType="ON_ATTACKED" activationChance="30">
         <add order="0x40" stat="windRes" val="10"/>
       </effect>
     </for>
