@@ -209,7 +209,7 @@ public class MultiSellChoose extends L2GameClientPacket
 					_ingredientsList = null;
 					return;
 				}
-				if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
+				if (ItemTable.getInstance().getTemplate(e.getItemId()).isStackable())
 					_enchantment = 0;
 				break;
 			}
@@ -371,7 +371,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				}
 				default:
 				{
-					if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
+					if (ItemTable.getInstance().getTemplate(e.getItemId()).isStackable())
 					{
 						inv.addItem("Multisell", e.getItemId(), (e.getItemCount() * _amount), player, player.getTarget());
 					}
@@ -475,7 +475,7 @@ public class MultiSellChoose extends L2GameClientPacket
 			// not used for clan reputation and fame
 			else if (maintainEnchantment && newIngredient.getItemId() > 0)
 			{
-				L2Item tempItem = ItemTable.getInstance().createDummyItem(newIngredient.getItemId()).getItem();
+				L2Item tempItem = ItemTable.getInstance().getTemplate(newIngredient.getItemId());
 				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
@@ -500,7 +500,7 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 				// if it is an armor/weapon, modify the enchantment level appropriately
 				// (note, if maintain enchantment is "false" this modification will result to a +0)
-				L2Item tempItem = ItemTable.getInstance().createDummyItem(newIngredient.getItemId()).getItem();
+				L2Item tempItem = ItemTable.getInstance().getTemplate(newIngredient.getItemId());
 				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
 					newIngredient.setEnchantmentLevel(enchantLevel);
 			}

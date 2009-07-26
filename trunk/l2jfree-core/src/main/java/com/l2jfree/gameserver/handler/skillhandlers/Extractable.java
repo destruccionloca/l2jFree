@@ -103,14 +103,14 @@ public class Extractable implements ISkillHandler
 				if (createItemID[i] <= 0)
 					return;
 						
-				if (ItemTable.getInstance().createDummyItem(createItemID[i]) == null)
+				if (ItemTable.getInstance().getTemplate(createItemID[i]) == null)
 				{
 					_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
 					player.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
 					return;
 				}
 
-				if (ItemTable.getInstance().createDummyItem(createItemID[i]).isStackable())
+				if (ItemTable.getInstance().getTemplate(createItemID[i]).isStackable())
 					player.addItem("Extract", createItemID[i], createAmount[i], targets[0], false);
 				else
 				{

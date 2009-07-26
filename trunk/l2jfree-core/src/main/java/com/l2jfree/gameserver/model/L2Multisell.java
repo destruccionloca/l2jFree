@@ -201,7 +201,7 @@ public class L2Multisell
 			// not used for clan reputation and fame
 			else if (maintainEnchantment && newIngredient.getItemId() > 0)
 			{
-				L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
+				L2Item tempItem = ItemTable.getInstance().getTemplate(ing.getItemId());
 				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
@@ -229,7 +229,7 @@ public class L2Multisell
 			{
 				// if it is an armor/weapon, modify the enchantment level appropriately
 				// (note, if maintain enchantment is "false" this modification will result to a +0)
-				L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
+				L2Item tempItem = ItemTable.getInstance().getTemplate(ing.getItemId());
 				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
@@ -322,7 +322,7 @@ public class L2Multisell
 		{
 			for (MultiSellIngredient p : _products)
 			{
-				if (!ItemTable.getInstance().createDummyItem(p.getItemId()).isStackable())
+				if (!ItemTable.getInstance().getTemplate(p.getItemId()).isStackable())
 					return 0;
 			}
 			return 1;

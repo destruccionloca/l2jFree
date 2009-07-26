@@ -94,14 +94,14 @@ public class ExtractableItems implements IItemHandler
 				if (createItemID[i] <= 0)
 					return;
 
-				if (ItemTable.getInstance().createDummyItem(createItemID[i]) == null)
+				if (ItemTable.getInstance().getTemplate(createItemID[i]) == null)
 				{
 					_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
 					return;
 				}
 
-				if (ItemTable.getInstance().createDummyItem(createItemID[i]).isStackable())
+				if (ItemTable.getInstance().getTemplate(createItemID[i]).isStackable())
 				{
 					activeChar.addItem("Extract", createItemID[i], createAmount[i], activeChar, false);
 				}
