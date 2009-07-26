@@ -196,7 +196,6 @@ full_install()
 	$MYG < ../sql/character_macroses.sql &> /dev/null
 	$MYG < ../sql/character_quest_global_data.sql &> /dev/null
 	$MYG < ../sql/character_quests.sql &> /dev/null
-	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/character_recipebook.sql &> /dev/null
 	$MYG < ../sql/character_recommend_data.sql &> /dev/null
 	$MYG < ../sql/character_recommends.sql &> /dev/null
@@ -207,11 +206,11 @@ full_install()
 	$MYG < ../sql/character_tpbookmark.sql &> /dev/null
 	$MYG < ../sql/characters.sql &> /dev/null
 	$MYG < ../sql/clan_data.sql &> /dev/null
+	$MYG < ../sql/clan_notices.sql &> /dev/null
 	$MYG < ../sql/clan_privs.sql &> /dev/null
 	$MYG < ../sql/clan_skills.sql &> /dev/null
 	$MYG < ../sql/clan_subpledges.sql &> /dev/null
 	$MYG < ../sql/clan_wars.sql &> /dev/null
-	$MYG < ../sql/clan_notices.sql &> /dev/null
 	$MYG < ../sql/clanhall.sql &> /dev/null
 	$MYG < ../sql/clanhall_functions.sql &> /dev/null
 	$MYG < ../sql/class_list.sql &> /dev/null
@@ -221,18 +220,18 @@ full_install()
 	$MYG < ../sql/etcitem.sql &> /dev/null
 	$MYG < ../sql/fish.sql &> /dev/null
 	$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
-	$MYG < ../sql/forums.sql &> /dev/null
+	$MYG < ../sql/fort.sql &> /dev/null
 	$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 	$MYG < ../sql/fort_functions.sql &> /dev/null
 	$MYG < ../sql/fort_siege_guards.sql &> /dev/null
 	$MYG < ../sql/fort_spawnlist.sql &> /dev/null
 	$MYG < ../sql/fort_staticobjects.sql &> /dev/null
-	$MYG < ../sql/fort.sql &> /dev/null
 	$MYG < ../sql/fortsiege_clans.sql &> /dev/null
-	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
+	$MYG < ../sql/forums.sql &> /dev/null
 	$MYG < ../sql/games.sql &> /dev/null
 	$MYG < ../sql/global_tasks.sql &> /dev/null
 	$MYG < ../sql/gm_audit.sql &> /dev/null
+	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null
 	$MYG < ../sql/henna.sql &> /dev/null
 	$MYG < ../sql/henna_trees.sql &> /dev/null
 	$MYG < ../sql/heroes.sql &> /dev/null
@@ -265,9 +264,9 @@ full_install()
 	$MYG < ../sql/seven_signs_status.sql &> /dev/null
 	$MYG < ../sql/siege_clans.sql &> /dev/null
 	$MYG < ../sql/skill_learn.sql &> /dev/null
+	$MYG < ../sql/skill_residential.sql &> /dev/null
 	$MYG < ../sql/skill_spellbooks.sql &> /dev/null
 	$MYG < ../sql/skill_trees.sql &> /dev/null
-	$MYG < ../sql/skill_residential.sql &> /dev/null
 	$MYG < ../sql/spawnlist.sql &> /dev/null
 	$MYG < ../sql/special_skill_trees.sql &> /dev/null
 	$MYG < ../sql/teleport.sql &> /dev/null
@@ -277,7 +276,9 @@ full_install()
 	$MYG < ../sql/weapon.sql &> /dev/null
 	# L2JFree tables
 	$MYG < ../sql/buff_templates.sql &> /dev/null
+	$MYG < ../sql/changelog.sql &> /dev/null
 	$MYG < ../sql/character_blocks.sql &> /dev/null
+	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/couples.sql &> /dev/null
 	$MYG < ../sql/ctf.sql &> /dev/null
 	$MYG < ../sql/ctf_teams.sql &> /dev/null
@@ -291,15 +292,15 @@ full_install()
 	$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
 	$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
 	$MYG < ../sql/dm.sql &> /dev/null
-	$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
-	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/obj_restrictions.sql &> /dev/null
 	$MYG < ../sql/tvt.sql &> /dev/null
 	$MYG < ../sql/tvt_teams.sql &> /dev/null
 	$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/version.sql &> /dev/null
 	$MYG < ../sql/vip.sql &> /dev/null
-	$MYG < ../sql/obj_restrictions.sql &> /dev/null
 }
 
 # Database update
@@ -409,6 +410,7 @@ update_db()
 			$MYG < ../sql/updates/20080817update.sql
 			$MYG < ../sql/updates/20080917update.sql
 			$MYG < ../sql/updates/20080920update.sql
+			$MYG < ../sql/updates/20080920update_1.sql
 			$MYG < ../sql/updates/20081004update.sql
 			$MYG < ../sql/updates/20081227update.sql
 			$MYG < ../sql/updates/20090107update.sql
@@ -425,10 +427,10 @@ update_db()
 			$MYG < ../sql/updates/20090424update.sql
 			$MYG < ../sql/updates/20090424update_1.sql
 			$MYG < ../sql/updates/20090425update.sql
+			$MYG < ../sql/updates/20090501update.sql
 			$MYG < ../sql/updates/20090504update.sql
 			$MYG < ../sql/updates/20090507update.sql
 			$MYG < ../sql/updates/20090510update.sql
-			$MYG < ../sql/updates/20090501update.sql
 			$MYG < ../sql/updates/20090513update.sql
 			$MYG < ../sql/updates/20090514update.sql
 			$MYG < ../sql/updates/20090518update.sql

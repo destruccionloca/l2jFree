@@ -1,1 +1,3 @@
-DROP TABLE IF EXISTS accounts, gameservers;
+DROP TABLE IF EXISTS
+	accounts,
+	gameservers;
