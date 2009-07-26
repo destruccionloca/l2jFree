@@ -1,131 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Trader Alexandria (Luxury Shop) Armor -->
+  <!-- Trader Alexandria (Luxury Shop) Armor -->
 <list>
   <item id="1">
-    <!-- Ingredients -->
     <ingredient id="1460" count="138"/>
     <ingredient id="1459" count="415"/>
-    <!-- Products -->
     <production id="357" count="1"/>
   </item>
   <item id="2">
-    <!-- Ingredients -->
     <ingredient id="1460" count="86"/>
     <ingredient id="1459" count="259"/>
-    <!-- Products -->
     <production id="383" count="1"/>
   </item>
   <item id="3">
-    <!-- Ingredients -->
     <ingredient id="1460" count="52"/>
     <ingredient id="1459" count="156"/>
-    <!-- Products -->
     <production id="503" count="1"/>
   </item>
   <item id="4">
-    <!-- Ingredients -->
     <ingredient id="1460" count="35"/>
     <ingredient id="1459" count="104"/>
-    <!-- Products -->
     <production id="554" count="1"/>
   </item>
   <item id="5">
-    <!-- Ingredients -->
     <ingredient id="1460" count="35"/>
     <ingredient id="1459" count="104"/>
-    <!-- Products -->
     <production id="600" count="1"/>
   </item>
   <item id="6">
-    <!-- Ingredients -->
     <ingredient id="1460" count="35"/>
     <ingredient id="1459" count="104"/>
-    <!-- Products -->
     <production id="612" count="1"/>
   </item>
   <item id="7">
-    <!-- Ingredients -->
     <ingredient id="1460" count="36"/>
     <ingredient id="1459" count="109"/>
-    <!-- Products -->
     <production id="633" count="1"/>
   </item>
   <item id="8">
-    <!-- Ingredients -->
     <ingredient id="1460" count="36"/>
     <ingredient id="1459" count="109"/>
-    <!-- Products -->
     <production id="673" count="1"/>
   </item>
   <item id="9">
-    <!-- Ingredients -->
     <ingredient id="1460" count="138"/>
     <ingredient id="1459" count="415"/>
-    <!-- Products -->
     <production id="2376" count="1"/>
   </item>
   <item id="10">
-    <!-- Ingredients -->
     <ingredient id="1460" count="86"/>
     <ingredient id="1459" count="259"/>
-    <!-- Products -->
     <production id="2379" count="1"/>
   </item>
   <item id="11">
-    <!-- Ingredients -->
     <ingredient id="1460" count="104"/>
     <ingredient id="1459" count="311"/>
-    <!-- Products -->
     <production id="2384" count="1"/>
   </item>
   <item id="12">
-    <!-- Ingredients -->
     <ingredient id="1460" count="65"/>
     <ingredient id="1459" count="195"/>
-    <!-- Products -->
     <production id="2388" count="1"/>
   </item>
   <item id="13">
-    <!-- Ingredients -->
     <ingredient id="1460" count="169"/>
     <ingredient id="1459" count="506"/>
-    <!-- Products -->
     <production id="2390" count="1"/>
   </item>
   <item id="14">
-    <!-- Ingredients -->
     <ingredient id="1460" count="104"/>
     <ingredient id="1459" count="311"/>
-    <!-- Products -->
     <production id="2397" count="1"/>
   </item>
   <item id="15">
-    <!-- Ingredients -->
     <ingredient id="1460" count="65"/>
     <ingredient id="1459" count="195"/>
-    <!-- Products -->
     <production id="2402" count="1"/>
   </item>
   <item id="16">
-    <!-- Ingredients -->
     <ingredient id="1460" count="169"/>
     <ingredient id="1459" count="506"/>
-    <!-- Products -->
     <production id="2406" count="1"/>
   </item>
   <item id="17">
-    <!-- Ingredients -->
     <ingredient id="1460" count="52"/>
     <ingredient id="1459" count="156"/>
-    <!-- Products -->
     <production id="2415" count="1"/>
   </item>
   <item id="18">
-    <!-- Ingredients -->
     <ingredient id="1460" count="35"/>
     <ingredient id="1459" count="104"/>
-    <!-- Products -->
     <production id="2464" count="1"/>
   </item>
 </list>

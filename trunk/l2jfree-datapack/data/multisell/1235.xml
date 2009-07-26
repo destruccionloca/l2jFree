@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Apella Trader -->
-<!-- by Demolidor -->
+  <!-- Apella Trader -->
+  <!-- by Demolidor -->
 <list applyTaxes="true">
   <!-- Apella Helm -->
   <item id="1">

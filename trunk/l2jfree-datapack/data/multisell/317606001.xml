@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Newbie give weapon -->
+  <!-- Newbie give weapon -->
 <list>
   <!-- [Apprentice Adventurer's Staff] -->
   <item id="1">

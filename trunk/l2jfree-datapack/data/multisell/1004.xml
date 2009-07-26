@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Blacksmith Crafting Service -->
+  <!-- Blacksmith Crafting Service -->
 <list>
   <item id="1"> <!-- Braided Hemp -->
     <production id="1878" count="1"/>

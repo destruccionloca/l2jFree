@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Trader Alexandria (Luxury Shop) Miscellaneous -->
+  <!-- Trader Alexandria (Luxury Shop) Miscellaneous -->
 <list>
   <item id="1">
     <ingredient id="1459" count="200"/>

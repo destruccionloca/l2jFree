@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Seven Signs - Blacksmith of Mammon - SA: S-Grade -->
+  <!-- Seven Signs - Blacksmith of Mammon - SA: S-Grade -->
 <list maintainEnchantment="true">
   <!-- Forgotten Blade - Haste  -->
   <item id="1">
@@ -23,7 +23,7 @@
     <ingredient id="5914" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Basalt BattleHammer - HP DRAIN  -->
+  <!-- Basalt BattleHammer - HP Drain -->
   <item id="4">
     <production id="6584" count="1"/>
     <ingredient id="6365" count="1"/>
@@ -37,7 +37,7 @@
     <ingredient id="5911" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Basalt BattleHammer - HP REGEN  -->
+  <!-- Basalt BattleHammer - HP Regen -->
   <item id="6">
     <production id="6586" count="1"/>
     <ingredient id="6365" count="1"/>
@@ -51,7 +51,7 @@
     <ingredient id="5908" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Imperial Staff - MP REGEN  -->
+  <!-- Imperial Staff - MP Regen -->
   <item id="8">
     <production id="6588" count="1"/>
     <ingredient id="6366" count="1"/>
@@ -72,7 +72,7 @@
     <ingredient id="5908" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Angel Slayer - Hp Drain  -->
+  <!-- Angel Slayer - HP Drain  -->
   <item id="11">
     <production id="6591" count="1"/>
     <ingredient id="6367" count="1"/>
@@ -107,21 +107,21 @@
     <ingredient id="5914" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- DragonHunter Axe - HP REGEN  -->
+  <!-- DragonHunter Axe - HP Regen  -->
   <item id="16">
     <production id="6596" count="1"/>
     <ingredient id="6369" count="1"/>
     <ingredient id="5908" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- DragonHunter Axe - HEALTH  -->
+  <!-- DragonHunter Axe - Health -->
   <item id="17">
     <production id="6597" count="1"/>
     <ingredient id="6369" count="1"/>
     <ingredient id="5911" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- DragonHunter Axe - HP DRAIN  -->
+  <!-- DragonHunter Axe - HP Drain -->
   <item id="18">
     <production id="6598" count="1"/>
     <ingredient id="6369" count="1"/>
@@ -254,7 +254,7 @@
     <ingredient id="5914" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Basalt BattleHammer - Earth - HP DRAIN  -->
+  <!-- Basalt BattleHammer - Earth - HP Drain -->
   <item id="37">
     <production id="11211" count="1"/>
     <ingredient id="11210" count="1"/>
@@ -268,7 +268,7 @@
     <ingredient id="5911" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Basalt BattleHammer - Earth - HP REGEN  -->
+  <!-- Basalt BattleHammer - Earth - HP Regen -->
   <item id="39">
     <production id="11213" count="1"/>
     <ingredient id="11210" count="1"/>
@@ -282,7 +282,7 @@
     <ingredient id="5908" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Imperial Staff - Nature - MP REGEN  -->
+  <!-- Imperial Staff - Nature - MP Regen -->
   <item id="41">
     <production id="11232" count="1"/>
     <ingredient id="11230" count="1"/>
@@ -303,7 +303,7 @@
     <ingredient id="5908" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- Angel Slayer - Concentration - Hp Drain  -->
+  <!-- Angel Slayer - Concentration - HP Drain  -->
   <item id="44">
     <production id="11228" count="1"/>
     <ingredient id="11226" count="1"/>
@@ -338,21 +338,21 @@
     <ingredient id="5914" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- DragonHunter Axe - Lightning - HP REGEN  -->
+  <!-- DragonHunter Axe - Lightning - HP Regen -->
   <item id="49">
     <production id="11203" count="1"/>
     <ingredient id="11202" count="1"/>
     <ingredient id="5908" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- DragonHunter Axe - Lightning - HEALTH  -->
+  <!-- DragonHunter Axe - Lightning - Health -->
   <item id="50">
     <production id="11204" count="1"/>
     <ingredient id="11202" count="1"/>
     <ingredient id="5911" count="1"/>
     <ingredient id="2134" count="82"/>
   </item>
-  <!-- DragonHunter Axe - Lightning - HP DRAIN  -->
+  <!-- DragonHunter Axe - Lightning - HP Drain -->
   <item id="51">
     <production id="11205" count="1"/>
     <ingredient id="11202" count="1"/>

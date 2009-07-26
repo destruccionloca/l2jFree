@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Castle Merchant - magic related products (hear/face gear) -->
+  <!-- Castle Merchant - magic related products (hear/face gear) -->
 <list>
   <!-- Human Circlet -->
   <item id="1">

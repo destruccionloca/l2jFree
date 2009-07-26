@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Blacksmith Exchange Life Stones-->
+  <!-- Blacksmith Exchange Life Stones-->
 <list>
   <item id="1">
     <ingredient id="8723" count="5"/>

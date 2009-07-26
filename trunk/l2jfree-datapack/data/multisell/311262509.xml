@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Seven Signs - Blacksmith of Mammon - SA removal -->
+  <!-- Seven Signs - Blacksmith of Mammon - SA removal -->
 <list maintainEnchantment="true">
   <item id="1">
-    <production id="72" count="1"/>
     <ingredient id="4681" count="1"/>
+    <production id="72" count="1"/>
   </item>
   <item id="2">
-    <production id="72" count="1"/>
     <ingredient id="4682" count="1"/>
+    <production id="72" count="1"/>
   </item>
   <item id="3">
-    <production id="72" count="1"/>
     <ingredient id="4683" count="1"/>
+    <production id="72" count="1"/>
   </item>
   <item id="4">
-    <production id="71" count="1"/>
     <ingredient id="4711" count="1"/>
+    <production id="71" count="1"/>
   </item>
   <item id="5">
-    <production id="71" count="1"/>
     <ingredient id="4712" count="1"/>
+    <production id="71" count="1"/>
   </item>
   <item id="6">
-    <production id="71" count="1"/>
     <ingredient id="4713" count="1"/>
+    <production id="71" count="1"/>
   </item>
   <item id="7">
-    <production id="89" count="1"/>
     <ingredient id="4726" count="1"/>
+    <production id="89" count="1"/>
   </item>
   <item id="8">
-    <production id="89" count="1"/>
     <ingredient id="4727" count="1"/>
+    <production id="89" count="1"/>
   </item>
   <item id="9">
-    <production id="89" count="1"/>
     <ingredient id="4728" count="1"/>
+    <production id="89" count="1"/>
   </item>
   <item id="10">
-    <production id="160" count="1"/>
     <ingredient id="4729" count="1"/>
+    <production id="160" count="1"/>
   </item>
   <item id="11">
-    <production id="160" count="1"/>
     <ingredient id="4730" count="1"/>
+    <production id="160" count="1"/>
   </item>
   <item id="12">
-    <production id="160" count="1"/>
     <ingredient id="4731" count="1"/>
+    <production id="160" count="1"/>
   </item>
   <item id="13">
-    <production id="161" count="1"/>
     <ingredient id="4732" count="1"/>
+    <production id="161" count="1"/>
   </item>
   <item id="14">
-    <production id="161" count="1"/>
     <ingredient id="4733" count="1"/>
+    <production id="161" count="1"/>
   </item>
   <item id="15">
-    <production id="161" count="1"/>
     <ingredient id="4734" count="1"/>
+    <production id="161" count="1"/>
   </item>
   <item id="16">
     <production id="173" count="1"/>

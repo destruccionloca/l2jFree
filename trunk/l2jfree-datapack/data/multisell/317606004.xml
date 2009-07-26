@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Travelers give weapon -->
+  <!-- Travelers give weapon -->
 <list>
   <!-- [Traveler's Mace] -->
   <item id="1">

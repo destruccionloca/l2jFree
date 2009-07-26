@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Blacksmith Dual Swords D,C grade-->
+  <!-- Blacksmith Dual Swords D,C grade-->
 <list>
   <item id="1">
     <ingredient id="123" count="1"/>

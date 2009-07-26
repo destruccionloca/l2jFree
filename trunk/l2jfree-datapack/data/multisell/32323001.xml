@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Transformation Wizard Avant-Garde-->
+  <!-- Transformation Wizard Avant-Garde-->
 <list>
   <item id="1">
     <ingredient id="57" count="500000"/>

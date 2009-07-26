@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-<!-- Elemental potions multisell -->
+  <!-- Elemental Potions Multisell -->
 <list>
   <!-- Fire potion -->
   <item id="1">
