@@ -247,28 +247,12 @@ public class L2Party
 				member.sendPacket(msg);
 		}
 	}
-
-	/**
-	 * Broadcasts packet to every party member
-	 * @param type
-     * @param name
-     * @param text
-	 */
-	public void broadcastSnoopToPartyMembers(int type, String name, String text)
-	{
-		for (L2PcInstance member : getPartyMembers())
-		{
-			if (member == null)
-				continue;
-			member.broadcastSnoop(type, name, text);
-		}
-	}
 	
 	/**
 	 * Send a Server->Client packet to all other L2PcInstance of the Party.<BR><BR>
 	 */
 	public void broadcastToPartyMembers(L2PcInstance player, L2GameServerPacket msg)
-    {
+	{
 		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member != null && !member.equals(player))

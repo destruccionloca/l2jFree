@@ -53,10 +53,8 @@ public class ChatAll implements IChatHandler
 					&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 			{
 				player.sendPacket(cs);
-				player.broadcastSnoop(chatType.getId(), name, text);
 			}
 		}
 		activeChar.sendPacket(cs);
-		activeChar.broadcastSnoop(chatType.getId(), name, text);
 	}
 }

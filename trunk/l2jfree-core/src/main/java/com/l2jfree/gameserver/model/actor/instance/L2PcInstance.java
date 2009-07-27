@@ -34,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastList;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
@@ -179,6 +181,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -284,6 +287,8 @@ import com.l2jfree.util.SingletonMap;
  */
 public final class L2PcInstance extends L2Playable
 {
+	public static final L2PcInstance[] EMPTY_ARRAY = new L2PcInstance[0];
+	
 	// Character Skill SQL String Definitions:
 	private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
 	private static final String	ADD_NEW_SKILL					= "INSERT INTO character_skills (charId,skill_id,skill_level,skill_name,class_index) VALUES (?,?,?,?,?)";
@@ -502,8 +507,8 @@ public final class L2PcInstance extends L2Playable
 	private TradeList						_sellList;
 	private TradeList						_buyList;
 
-	private List<L2PcInstance>				_snoopListener; // List of GMs snooping this player
-	private List<L2PcInstance>				_snoopedPlayer; // List of players being snooped by this GM
+	private L2PcInstance[] _snoopers = L2PcInstance.EMPTY_ARRAY; // List of GMs snooping this player
+	private L2PcInstance[] _snoopedPlayers = L2PcInstance.EMPTY_ARRAY; // List of players being snooped by this GM
 
 	/** The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3, buymanage=4, STORE_PRIVATE_MANUFACTURE=5) */
 	private int								_privatestore;
@@ -11056,69 +11061,54 @@ public final class L2PcInstance extends L2Playable
 
 	/**
 	 * Function is used in the PLAYER, calls snoop for all GMs listening to this player speak.
-	 * @param type - type of msg channel of the snooped player
+	 * 
+	 * @param channel - msg channel of the snooped player
 	 * @param name - name of snooped player
-	 * @param _text - the msg the snooped player sent/received
+	 * @param text - the msg the snooped player sent/received
 	 */
-	public void broadcastSnoop(int type, String name, String _text)
+	public void broadcastSnoop(SystemChatChannelId channel, String name, String text)
 	{
-		if (_snoopListener == null)
+		if (_snoopers.length == 0)
 			return;
-
-		Snoop sn = new Snoop(getObjectId(), getName(), type, name, _text);
-		for (L2PcInstance pci : _snoopListener)
-		{
-			pci.sendPacket(sn);
-		}
+		
+		final Snoop sn = new Snoop(this, channel, name, text);
+		
+		for (L2PcInstance snooper : _snoopers)
+			snooper.sendPacket(sn);
 	}
-
+	
 	/**
 	 * Adds a spy ^^ GM to the player listener.
+	 * 
 	 * @param pci - GM char that listens to the conversation
 	 */
-	public void addSnooper(L2PcInstance pci)
+	public void addSnooper(L2PcInstance snooper)
 	{
-		if (_snoopListener == null)
-			_snoopListener = new SingletonList<L2PcInstance>();
-
-		if (!_snoopListener.contains(pci))
-			_snoopListener.add(pci); // GM list of "pci"s
+		if (!ArrayUtils.contains(_snoopers, snooper))
+			_snoopers = (L2PcInstance[])ArrayUtils.add(_snoopers, snooper);
 	}
-
-	public void removeSnooper(L2PcInstance pci)
+	
+	public void removeSnooper(L2PcInstance snooper)
 	{
-		if (_snoopListener != null)
-		{
-			_snoopListener.remove(pci);
-			if (_snoopListener.size() == 0)
-				_snoopListener = null;
-		}
+		_snoopers = (L2PcInstance[])ArrayUtils.removeElement(_snoopers, snooper);
 	}
-
+	
 	public void removeSnooped(L2PcInstance snooped)
 	{
-		if (_snoopedPlayer != null)
-		{
-			_snoopedPlayer.remove(snooped);
-			if (_snoopedPlayer.size() == 0)
-				_snoopedPlayer = null;
-		}
+		_snoopedPlayers = (L2PcInstance[])ArrayUtils.removeElement(_snoopedPlayers, snooped);
 	}
-
+	
 	/**
 	 * Adds a player to the GM queue for being listened.
 	 * @param pci - player we listen to
 	 */
-	public void addSnooped(L2PcInstance pci)
+	public void addSnooped(L2PcInstance snooped)
 	{
-		if (_snoopedPlayer == null)
-			_snoopedPlayer = new SingletonList<L2PcInstance>();
-
-		if (!_snoopedPlayer.contains(pci))
+		if (!ArrayUtils.contains(_snoopedPlayers, snooped))
 		{
-			_snoopedPlayer.add(pci);
-			Snoop sn = new Snoop(pci.getObjectId(), pci.getName(), 0, "", "*** Starting Snoop for "+pci.getName()+" ***");
-			sendPacket(sn);
+			_snoopedPlayers = (L2PcInstance[])ArrayUtils.add(_snoopedPlayers, snooped);
+			
+			sendPacket(new Snoop(snooped, SystemChatChannelId.Chat_Normal, "", "*** Starting snooping of player " + snooped.getName() + " ***"));
 		}
 	}
 	
@@ -11602,21 +11592,19 @@ public final class L2PcInstance extends L2Playable
 		if (getClanId() > 0)
 			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 
-		if (_snoopedPlayer != null)
+		if (_snoopedPlayers.length > 0)
 		{
-			for (L2PcInstance player : _snoopedPlayer)
-				player.removeSnooper(this);
-			_snoopedPlayer.clear();
-			_snoopedPlayer = null;
+			for (L2PcInstance snooped : _snoopedPlayers)
+				snooped.removeSnooper(this);
+			_snoopedPlayers = L2PcInstance.EMPTY_ARRAY;
 		}
-
-		if (_snoopListener != null)
+		
+		if (_snoopers.length > 0)
 		{
-			broadcastSnoop(0, "", "*** Player "+getName()+" logged off ***");
-			for (L2PcInstance player : _snoopListener)
-				player.removeSnooped(this);
-			_snoopListener.clear();
-			_snoopListener = null;
+			broadcastSnoop(SystemChatChannelId.Chat_Normal, "", "*** Player " + getName() + " logged off ***");
+			for (L2PcInstance snooper : _snoopers)
+				snooper.removeSnooped(this);
+			_snoopers = L2PcInstance.EMPTY_ARRAY;
 		}
 
 		for (Integer objId : getFriendList().getFriendIds())

@@ -14,16 +14,19 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 
 public class CreatureSay extends L2GameServerPacket
 {
 	private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay [ddss]";
+	
 	private final int _objectId;
 	private final SystemChatChannelId _channel;
 	private final String _charName;
 	private final String _text;
-
+	
 	/**
 	 * @param _characters
 	 */
@@ -34,7 +37,14 @@ public class CreatureSay extends L2GameServerPacket
 		_charName = charName;
 		_text = text;
 	}
-
+	
+	@Override
+	public void packetSent(L2GameClient client, L2PcInstance activeChar)
+	{
+		if (activeChar != null)
+			activeChar.broadcastSnoop(_channel, _charName, _text);
+	}
+	
 	@Override
 	protected final void writeImpl()
 	{

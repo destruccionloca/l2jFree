@@ -14,28 +14,29 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemChatChannelId;
+
 /**
  * CDSDDSS -> (0xd5)(objId)(name)(0x00)(type)(speaker)(name)
  */
-
 public class Snoop extends L2GameServerPacket
 {
 	private static final String _S__D5_SNOOP = "[S] D5 Snoop";
-	private final int _convoId;
-	private final String _name;
+	
+	private final L2PcInstance _snooped;
 	private final int _type;
 	private final String _speaker;
 	private final String _msg;
 	
-	public Snoop(int id, String name, int type, String speaker, String msg)
+	public Snoop(L2PcInstance snooped, SystemChatChannelId channel, String speaker, String msg)
 	{
-		_convoId = id;
-		_name = name;
-		_type = type;
+		_snooped = snooped;
+		_type = channel.getId();
 		_speaker = speaker;
 		_msg = msg;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
@@ -43,14 +44,14 @@ public class Snoop extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xdb);
-		writeD(_convoId);
-		writeS(_name);
+		writeD(_snooped.getObjectId());
+		writeS(_snooped.getName());
 		writeD(0);
 		writeD(_type);
 		writeS(_speaker);
 		writeS(_msg);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.BasePacket#getType()
 	 */

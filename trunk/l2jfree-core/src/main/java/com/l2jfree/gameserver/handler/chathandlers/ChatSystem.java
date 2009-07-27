@@ -51,11 +51,9 @@ public class ChatSystem implements IChatHandler
 			if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
 			{
 				player.sendPacket(cs);
-				player.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
 			}
 		}
 
 		activeChar.sendPacket(cs);
-		activeChar.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
 	}
 }

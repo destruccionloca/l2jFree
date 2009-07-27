@@ -1279,35 +1279,7 @@ public class L2Clan
 			}
 		}
 	}
-
-	public void broadcastSnoopToOnlineAllyMembers(int type, String name, String text)
-	{
-		if (getAllyId() == 0)
-		{
-			return;
-		}
-		for (L2Clan clan : ClanTable.getInstance().getClans())
-		{
-			if (clan.getAllyId() == getAllyId())
-			{
-				clan.broadcastSnoopToOnlineMembers(type, name, text);
-			}
-		}
-	}
-
-	public void broadcastSnoopToOnlineMembers(int type, String name, String text)
-	{
-		for (L2ClanMember member : _members.values())
-		{
-			if (member == null || !member.isOnline())
-				continue;
-
-			L2PcInstance pl = member.getPlayerInstance();
-			if (pl != null)
-				pl.broadcastSnoop(type, name, text);
-		}
-	}
-
+	
 	public void broadcastToOnlineMembers(L2GameServerPacket packet)
 	{
 		for (L2ClanMember member : _members.values())

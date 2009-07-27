@@ -74,7 +74,6 @@ public class ChatTrade implements IChatHandler
 						&& (player.getInstanceId() == activeChar.getInstanceId()))
 				{
 					player.sendPacket(cs);
-					player.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
 				}
 			}
 		}
@@ -85,7 +84,6 @@ public class ChatTrade implements IChatHandler
 				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)) && (player.getInstanceId() == activeChar.getInstanceId()))
 				{
 					player.sendPacket(cs);
-					player.broadcastSnoop(chatType.getId(), activeChar.getName(), text);
 				}
 			}
 		}
