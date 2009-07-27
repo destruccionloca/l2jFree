@@ -54,6 +54,8 @@ public abstract class ObjectPool<E>
 				
 				add(wrapper);
 			}
+			
+			trimToSize();
 		}
 	}
 	
@@ -89,7 +91,7 @@ public abstract class ObjectPool<E>
 	
 	public long getMaxLifeTime()
 	{
-		return 600000; // 10 min
+		return 60000; // 1 min
 	}
 	
 	public void clear()
