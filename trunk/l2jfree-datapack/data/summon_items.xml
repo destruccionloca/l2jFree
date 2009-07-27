@@ -149,4 +149,49 @@
     <npcId val="13130"/>
     <summonType val="2"/>
   </item>
+  <!-- Tawny Maned Lion -->
+  <item id="13547">
+    <npcId val="13146"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Tawny Maned Lion -->
+  <item id="14053">
+    <npcId val="13146"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Tawny Maned Lion -->
+  <item id="14066">
+    <npcId val="13146"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Tawny Maned Lion -->
+  <item id="20536">
+    <npcId val="13146"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Steam Sledge -->
+  <item id="13546">
+    <npcId val="13147"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Steam Beatle -->
+  <item id="14054">
+    <npcId val="13147"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Steam Beatle -->
+  <item id="14067">
+    <npcId val="13147"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Steam Beatle -->
+  <item id="20396">
+    <npcId val="13147"/>
+    <summonType val="2"/>
+  </item>
+  <!-- Steam Sledge -->
+  <item id="20535">
+    <npcId val="13147"/>
+    <summonType val="2"/>
+  </item>
 </list>

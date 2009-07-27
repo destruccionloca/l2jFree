@@ -2252,7 +2252,7 @@ INSERT INTO `armor` VALUES
 (13543,'Agathion Summon Bracelet - Collection','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8251-1;5780-1;3267-1'),
 (13544,'Agathion Summon Bracelet - Boy Teddy Bear','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8259-1;5958-1;3267-1'),
 (13545,'Agathion Summon Bracelet - Girl Teddy Bear','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8260-1;5959-1;3267-1'),
-(13546,'Steam Sledge Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','true','',''),
+(13546,'Steam Sledge Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','true','','8161-1'),
 (13547,'Tawny-Maned Lion Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8262-1'),
 (13687,'Knight\'s Cloak','back','false','heavy',220,'wood','s84',0,-1,-1,20,0,0,0,0,'false','false','true','false','',''),
 (13688,'Knight\'s Cloak - Light Armor exclusive','back','false','light',220,'wood','s84',0,-1,-1,20,0,0,0,0,'false','false','true','false','',''),
@@ -2326,11 +2326,11 @@ INSERT INTO `armor` VALUES
 (13976,'Poison Bottle 2','underwear','false','none',4830,'wood','b',0,-1,-1,36,0,0,0,0,'true','true','true','true','',''),
 (13977,'Poison Bottle 3','underwear','false','none',4830,'wood','a',0,-1,-1,36,0,0,0,0,'true','true','true','true','',''),
 (14027,'Collection Agathion Summon Bracelet','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8251-1;5780-1;3267-1'),
-(14053,'Gold-Maned Lion Mounting Bracelet - 7-day Limited Period','lbracelet','false','none',30,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','',''),
+(14053,'Gold-Maned Lion Mounting Bracelet - 7-day Limited Period','lbracelet','false','none',30,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','','8262-1'),
 (14054,'Steam Beatle Mounting Bracelet - 7-day Limited Period','lbracelet','false','none',30,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','','8261-1'),
 (14059,'Teddy Boy Agathion Bracelet - 30-day limited period','lbracelet','false','none',30,'wood','none',0,-1,43200,0,0,0,0,0,'false','false','true','false','','8259-1;5958-1;3267-1'),
 (14060,'Teddy Girl Agathion Bracelet - 30-day limited period','lbracelet','false','none',30,'wood','none',0,-1,43200,0,0,0,0,0,'false','false','true','false','','8260-1;5959-1;3267-1'),
-(14066,'Gold Maned Lion Mounting Bracelet (event) - 7-day Limited Period','lbracelet','false','none',30,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','',''),
+(14066,'Gold Maned Lion Mounting Bracelet (event) - 7-day Limited Period','lbracelet','false','none',30,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','','8262-1'),
 (14067,'Steam Beatle Mounting Bracelet (event) - 7-day Limited Period','lbracelet','false','none',30,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','','8261-1'),
 (14072,'Teddy Boy Agathion Bracelet (event) - 30-day limited period','lbracelet','false','none',30,'wood','none',0,-1,43200,0,0,0,0,0,'false','false','true','false','','8259-1;5958-1;3267-1'),
 (14073,'Teddy Girl Agathion Bracelet (event) - 30-day limited period','lbracelet','false','none',30,'wood','none',0,-1,43200,0,0,0,0,0,'false','false','true','false','','8260-1;5959-1;3267-1'),
@@ -2602,3 +2602,7 @@ UPDATE `armor` SET `skills_item` = '21038-1;3267-1;23039-1;23042-1' WHERE `item_
 UPDATE `armor` SET `skills_item` = '21039-1;3267-1;23040-1;23043-1' WHERE `item_id` = 20249;
 UPDATE `armor` SET `skills_item` = '21040-1;3267-1;23041-1;23044-1' WHERE `item_id` = 20250;
 UPDATE `armor` SET `skills_item` = '21041-1;3267-1;23045-1' WHERE `item_id` = 20252;
+
+INSERT INTO `armor` VALUES
+(20535, 'Steam Sledge Mounting Bracelet - 30 day limited period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 43200, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '', '8261-1'),
+(20536, 'Tawny Maned Lion Mounting Bracelet - 30 day limited period', 'lbracelet', 'false', 'none', 30, 'wood', 'none', 0, -1, 43200, 0, 0, 0, 0, 0, 'false', 'false', 'true', 'false', '', '8262-1');
