@@ -39,7 +39,12 @@ final class DocumentSkill extends DocumentBase
 	{
 		private ValidatingStatsSetPool()
 		{
-			super(false);
+		}
+		
+		@Override
+		protected boolean isShared()
+		{
+			return false;
 		}
 		
 		@Override

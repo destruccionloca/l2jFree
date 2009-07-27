@@ -14,72 +14,104 @@
  */
 package com.l2jfree.util;
 
+import java.util.ArrayList;
+
+import com.l2jfree.tools.random.Rnd;
+
 /**
  * @author NB4L1
  */
 public abstract class ObjectPool<E>
 {
-	private final int _maximumSize;
-	private final boolean _shared;
+	private static final L2Timer TIMER = new L2Timer(ObjectPool.class.getName());
 	
-	private volatile int _currentSize;
+	private final class ObjectPoolArrayList extends ArrayList<LinkedWrapper<E>>
+	{
+		public LinkedWrapper<E> removeLast()
+		{
+			final int size = size();
+			
+			if (size == 0)
+				return null;
+			else
+				return remove(size - 1);
+		}
+		
+		public void purge()
+		{
+			@SuppressWarnings("unchecked")
+			final LinkedWrapper<E>[] array = (LinkedWrapper<E>[])toArray(new LinkedWrapper<?>[size()]);
+			
+			clear();
+			
+			for (final LinkedWrapper<E> wrapper : array)
+			{
+				if (wrapper == null)
+					continue;
+				
+				if (wrapper._lastAccess + getMaxLifeTime() < System.currentTimeMillis())
+					continue;
+				
+				add(wrapper);
+			}
+		}
+	}
 	
-	private LinkedWrapper<E> _wrappers;
-	private LinkedWrapper<E> _values;
+	private final ObjectPoolArrayList _wrappers = new ObjectPoolArrayList();
+	private final ObjectPoolArrayList _values = new ObjectPoolArrayList();
 	
 	public ObjectPool()
 	{
-		this(Integer.MAX_VALUE, true);
+		TIMER.scheduleAtFixedRate(new Runnable() {
+			@Override
+			public void run()
+			{
+				_wrappers.purge();
+				_values.purge();
+			}
+		}, 60000, 60000 + Rnd.get(1000));
 	}
 	
-	public ObjectPool(int maxSize)
+	public final int getCurrentSize()
 	{
-		this(maxSize, true);
+		return _values.size();
 	}
 	
-	public ObjectPool(boolean shared)
+	protected int getMaximumSize()
 	{
-		this(Integer.MAX_VALUE, shared);
+		return Integer.MAX_VALUE;
 	}
 	
-	public ObjectPool(int maxSize, boolean shared)
+	protected boolean isShared()
 	{
-		_maximumSize = maxSize;
-		_shared = shared;
+		return true;
 	}
 	
-	public final int getMaximumSize()
+	public long getMaxLifeTime()
 	{
-		return _maximumSize;
-	}
-	
-	public final boolean isShared()
-	{
-		return _shared;
+		return 600000; // 10 min
 	}
 	
 	public void clear()
 	{
-		if (_shared)
+		if (isShared())
 		{
 			synchronized (this)
 			{
-				_currentSize = 0;
-				_wrappers = null;
-				_values = null;
+				_wrappers.trimToSize();
+				_values.trimToSize();
 			}
 		}
 		else
 		{
-			_currentSize = 0;
-			_wrappers = null;
-			_values = null;
+			_wrappers.trimToSize();
+			_values.trimToSize();
 		}
 	}
 	
 	public void store(E e)
 	{
-		if (_shared)
+		if (isShared())
 		{
 			synchronized (this)
 			{
@@ -94,18 +126,15 @@ public abstract class ObjectPool<E>
 	
 	private void store0(E e)
 	{
-		if (_currentSize >= _maximumSize)
+		if (getCurrentSize() >= getMaximumSize())
 			return;
 		
 		reset(e);
 		
-		_currentSize++;
-		
 		LinkedWrapper<E> wrapper = getWrapper();
 		wrapper.setValue(e);
-		wrapper.setNext(_values);
 		
-		_values = wrapper;
+		_values.add(wrapper);
 	}
 	
 	protected void reset(E e)
@@ -114,7 +143,7 @@ public abstract class ObjectPool<E>
 	
 	public E get()
 	{
-		if (_shared)
+		if (isShared())
 		{
 			synchronized (this)
 			{
@@ -129,18 +158,14 @@ public abstract class ObjectPool<E>
 	
 	private E get0()
 	{
-		LinkedWrapper<E> wrapper = _values;
+		LinkedWrapper<E> wrapper = _values.removeLast();
 		
 		if (wrapper == null)
 			return create();
 		
-		_values = _values.getNext();
-		
 		final E e = wrapper.getValue();
 		
 		storeWrapper(wrapper);
-		
-		_currentSize--;
 		
 		return e == null ? create() : e;
 	}
@@ -150,50 +175,37 @@ public abstract class ObjectPool<E>
 	private void storeWrapper(LinkedWrapper<E> wrapper)
 	{
 		wrapper.setValue(null);
-		wrapper.setNext(_wrappers);
 		
-		_wrappers = wrapper;
+		_wrappers.add(wrapper);
 	}
 	
 	private LinkedWrapper<E> getWrapper()
 	{
-		LinkedWrapper<E> wrapper = _wrappers;
-		
-		if (_wrappers != null)
-			_wrappers = _wrappers.getNext();
+		LinkedWrapper<E> wrapper = _wrappers.removeLast();
 		
 		if (wrapper == null)
 			wrapper = new LinkedWrapper<E>();
 		
 		wrapper.setValue(null);
-		wrapper.setNext(null);
 		
 		return wrapper;
 	}
 	
 	private static final class LinkedWrapper<E>
 	{
-		private LinkedWrapper<E> _next;
+		private long _lastAccess = System.currentTimeMillis();
 		private E _value;
 		
 		private E getValue()
 		{
+			_lastAccess = System.currentTimeMillis();
 			return _value;
 		}
 		
 		private void setValue(E value)
 		{
+			_lastAccess = System.currentTimeMillis();
 			_value = value;
-		}
-		
-		private LinkedWrapper<E> getNext()
-		{
-			return _next;
-		}
-		
-		private void setNext(LinkedWrapper<E> next)
-		{
-			_next = next;
 		}
 	}
 }

@@ -21,12 +21,12 @@ public abstract class ThreadLocalObjectPool<E> extends ObjectPool<E>
 {
 	public ThreadLocalObjectPool()
 	{
-		super(false);
 	}
 	
-	public ThreadLocalObjectPool(int maxSize)
+	@Override
+	protected boolean isShared()
 	{
-		super(maxSize, false);
+		return false;
 	}
 	
 	@Override
@@ -51,7 +51,19 @@ public abstract class ThreadLocalObjectPool<E> extends ObjectPool<E>
 		@Override
 		protected ObjectPool<E> initialValue()
 		{
-			return new ObjectPool<E>(getMaximumSize(), false) {
+			return new ObjectPool<E>() {
+				@Override
+				protected int getMaximumSize()
+				{
+					return ThreadLocalObjectPool.this.getMaximumSize();
+				}
+				
+				@Override
+				protected boolean isShared()
+				{
+					return false;
+				}
+				
 				@Override
 				protected void reset(E e)
 				{
