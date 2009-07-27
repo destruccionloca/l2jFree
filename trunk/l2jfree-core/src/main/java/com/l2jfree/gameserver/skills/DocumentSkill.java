@@ -35,18 +35,8 @@ import com.l2jfree.util.ObjectPool;
  */
 final class DocumentSkill extends DocumentBase
 {
-	private static final class ValidatingStatsSetPool extends ObjectPool<ValidatingStatsSet>
+	private final class ValidatingStatsSetPool extends ObjectPool<ValidatingStatsSet>
 	{
-		private ValidatingStatsSetPool()
-		{
-		}
-		
-		@Override
-		protected boolean isShared()
-		{
-			return false;
-		}
-		
 		@Override
 		protected ValidatingStatsSet create()
 		{
@@ -71,7 +61,7 @@ final class DocumentSkill extends DocumentBase
 		}
 	}
 	
-	private static final ValidatingStatsSetPool STATS_SET_POOL = new ValidatingStatsSetPool();
+	private final ValidatingStatsSetPool STATS_SET_POOL = new ValidatingStatsSetPool();
 	
 	private static final String[] VALID_NODE_NAMES = { "set", "for", "cond", // ...
 		"enchant1", "enchant1for", "enchant1cond", // ...
@@ -84,23 +74,23 @@ final class DocumentSkill extends DocumentBase
 		"enchant8", "enchant8for", "enchant8cond", // ...
 	};
 	
-	private static int _currentSkillId;
-	private static int _currentSkillLevel;
-	private static String _currentSkillName;
+	private int _currentSkillId;
+	private int _currentSkillLevel;
+	private String _currentSkillName;
 	
-	private static final ValidatingStatsSet _tables = new ValidatingStatsSet();
+	private final ValidatingStatsSet _tables = new ValidatingStatsSet();
 	
-	private static final List<ValidatingStatsSet> _sets = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets1 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets2 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets3 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets4 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets5 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets6 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets7 = new ArrayList<ValidatingStatsSet>();
-	private static final List<ValidatingStatsSet> _enchsets8 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _sets = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets1 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets2 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets3 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets4 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets5 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets6 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets7 = new ArrayList<ValidatingStatsSet>();
+	private final List<ValidatingStatsSet> _enchsets8 = new ArrayList<ValidatingStatsSet>();
 	
-	private static final List<L2Skill> _skills = new ArrayList<L2Skill>();
+	private final List<L2Skill> _skills = new ArrayList<L2Skill>();
 	
 	private final List<L2Skill> _skillsInFile = new ArrayList<L2Skill>();
 	

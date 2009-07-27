@@ -19,20 +19,8 @@ package com.l2jfree.util;
  */
 public abstract class ThreadLocalObjectPool<E> extends ObjectPool<E>
 {
-	public ThreadLocalObjectPool()
+	protected ThreadLocalObjectPool()
 	{
-	}
-	
-	@Override
-	protected boolean isShared()
-	{
-		return false;
-	}
-	
-	@Override
-	public void clear()
-	{
-		_pools.get().clear();
 	}
 	
 	@Override
@@ -59,9 +47,9 @@ public abstract class ThreadLocalObjectPool<E> extends ObjectPool<E>
 				}
 				
 				@Override
-				protected boolean isShared()
+				protected long getMaxLifeTime()
 				{
-					return false;
+					return ThreadLocalObjectPool.this.getMaxLifeTime();
 				}
 				
 				@Override

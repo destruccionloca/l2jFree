@@ -14,7 +14,8 @@
  */
 package com.l2jfree.util;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.l2jfree.tools.random.Rnd;
 
@@ -25,64 +26,34 @@ public abstract class ObjectPool<E>
 {
 	private static final L2Timer TIMER = new L2Timer(ObjectPool.class.getName());
 	
-	private final class ObjectPoolArrayList extends ArrayList<LinkedWrapper<E>>
-	{
-		public LinkedWrapper<E> removeLast()
-		{
-			final int size = size();
-			
-			if (size == 0)
-				return null;
-			else
-				return remove(size - 1);
-		}
-		
-		public void purge()
-		{
-			@SuppressWarnings("unchecked")
-			final LinkedWrapper<E>[] array = (LinkedWrapper<E>[])toArray(new LinkedWrapper<?>[size()]);
-			
-			clear();
-			
-			for (final LinkedWrapper<E> wrapper : array)
-			{
-				if (wrapper == null)
-					continue;
-				
-				if (wrapper._lastAccess + getMaxLifeTime() < System.currentTimeMillis())
-					continue;
-				
-				add(wrapper);
-			}
-			
-			trimToSize();
-		}
-		
-		public void clearAndTrim()
-		{
-			clear();
-			trimToSize();
-		}
-	}
+	private final ReentrantLock _lock = new ReentrantLock();
 	
-	private final ObjectPoolArrayList _wrappers = new ObjectPoolArrayList();
-	private final ObjectPoolArrayList _values = new ObjectPoolArrayList();
+	private Object[] _elements = new Object[0];
+	private long[] _access = new long[0];
+	private int _size = 0;
 	
-	public ObjectPool()
+	protected ObjectPool()
 	{
 		TIMER.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run()
 			{
-				_wrappers.purge();
-				_values.purge();
+				purge();
 			}
 		}, 60000, 60000 + Rnd.get(1000));
 	}
 	
-	public final int getCurrentSize()
+	public int getCurrentSize()
 	{
-		return _values.size();
+		_lock.lock();
+		try
+		{
+			return _size;
+		}
+		finally
+		{
+			_lock.unlock();
+		}
 	}
 	
 	protected int getMaximumSize()
@@ -90,130 +61,113 @@ public abstract class ObjectPool<E>
 		return Integer.MAX_VALUE;
 	}
 	
-	protected boolean isShared()
-	{
-		return true;
-	}
-	
-	public long getMaxLifeTime()
+	protected long getMaxLifeTime()
 	{
 		return 60000; // 1 min
 	}
 	
 	public void clear()
 	{
-		if (isShared())
+		_lock.lock();
+		try
 		{
-			synchronized (this)
-			{
-				_wrappers.clearAndTrim();
-				_values.clearAndTrim();
-			}
+			_elements = new Object[0];
+			_access = new long[0];
 		}
-		else
+		finally
 		{
-			_wrappers.clearAndTrim();
-			_values.clearAndTrim();
+			_lock.unlock();
 		}
 	}
 	
 	public void store(E e)
-	{
-		if (isShared())
-		{
-			synchronized (this)
-			{
-				store0(e);
-			}
-		}
-		else
-		{
-			store0(e);
-		}
-	}
-	
-	private void store0(E e)
 	{
 		if (getCurrentSize() >= getMaximumSize())
 			return;
 		
 		reset(e);
 		
-		LinkedWrapper<E> wrapper = getWrapper();
-		wrapper.setValue(e);
-		
-		_values.add(wrapper);
+		_lock.lock();
+		try
+		{
+			if (_size == _elements.length)
+			{
+				_elements = Arrays.copyOf(_elements, _elements.length + 10);
+				_access = Arrays.copyOf(_access, _access.length + 10);
+			}
+			
+			_elements[_size] = e;
+			_access[_size] = System.currentTimeMillis();
+			
+			_size++;
+		}
+		finally
+		{
+			_lock.unlock();
+		}
 	}
 	
 	protected void reset(E e)
 	{
 	}
 	
+	@SuppressWarnings("unchecked")
 	public E get()
 	{
-		if (isShared())
+		Object obj = null;
+		
+		_lock.lock();
+		try
 		{
-			synchronized (this)
+			if (_size > 0)
 			{
-				return get0();
+				_size--;
+				
+				obj = _elements[_size];
+				
+				_elements[_size] = null;
+				_access[_size] = 0;
 			}
 		}
-		else
+		finally
 		{
-			return get0();
+			_lock.unlock();
 		}
-	}
-	
-	private E get0()
-	{
-		LinkedWrapper<E> wrapper = _values.removeLast();
 		
-		if (wrapper == null)
-			return create();
-		
-		final E e = wrapper.getValue();
-		
-		storeWrapper(wrapper);
-		
-		return e == null ? create() : e;
+		return obj == null ? create() : (E)obj;
 	}
 	
 	protected abstract E create();
 	
-	private void storeWrapper(LinkedWrapper<E> wrapper)
+	public void purge()
 	{
-		wrapper.setValue(null);
-		
-		_wrappers.add(wrapper);
-	}
-	
-	private LinkedWrapper<E> getWrapper()
-	{
-		LinkedWrapper<E> wrapper = _wrappers.removeLast();
-		
-		if (wrapper == null)
-			wrapper = new LinkedWrapper<E>();
-		
-		wrapper.setValue(null);
-		
-		return wrapper;
-	}
-	
-	private static final class LinkedWrapper<E>
-	{
-		private long _lastAccess = System.currentTimeMillis();
-		private E _value;
-		
-		private E getValue()
+		_lock.lock();
+		try
 		{
-			_lastAccess = System.currentTimeMillis();
-			return _value;
+			int newIndex = 0;
+			for (int oldIndex = 0; oldIndex < _elements.length; oldIndex++)
+			{
+				final Object obj = _elements[oldIndex];
+				final long time = _access[oldIndex];
+				
+				_elements[oldIndex] = null;
+				_access[oldIndex] = 0;
+				
+				if (obj == null || time + getMaxLifeTime() < System.currentTimeMillis())
+					continue;
+				
+				_elements[newIndex] = obj;
+				_access[newIndex] = time;
+				
+				newIndex++;
+			}
+			
+			_elements = Arrays.copyOf(_elements, newIndex);
+			_access = Arrays.copyOf(_access, newIndex);
 		}
-		
-		private void setValue(E value)
+		finally
 		{
-			_lastAccess = System.currentTimeMillis();
-			_value = value;
+			_lock.unlock();
 		}
 	}
 }

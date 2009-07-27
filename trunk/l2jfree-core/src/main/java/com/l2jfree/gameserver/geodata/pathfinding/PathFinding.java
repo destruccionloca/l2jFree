@@ -26,8 +26,8 @@ import com.l2jfree.gameserver.geodata.pathfinding.utils.BinaryNodeHeap;
 import com.l2jfree.gameserver.geodata.pathfinding.utils.CellNodeMap;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.util.L2Arrays;
+import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.L2FastSet;
-import com.l2jfree.util.ThreadLocalObjectPool;
 
 /**
  * @author -Nemesiss-
@@ -55,10 +55,10 @@ public abstract class PathFinding
 		// Could be optimized e.g. not to calculate backwards as far as forwards.
 		
 		// List of Visited Nodes
-		L2FastSet<Node> visited = _nodeSets.get();
+		L2FastSet<Node> visited = L2Collections.newL2FastSet();
 		
 		// List of Nodes to Visit
-		L2FastSet<Node> to_visit = _nodeSets.get();
+		L2FastSet<Node> to_visit = L2Collections.newL2FastSet();
 		to_visit.add(start);
 		try
 		{
@@ -98,8 +98,8 @@ public abstract class PathFinding
 		}
 		finally
 		{
-			_nodeSets.store(visited);
-			_nodeSets.store(to_visit);
+			L2Collections.recycle(visited);
+			L2Collections.recycle(to_visit);
 		}
 	}
 	
@@ -120,7 +120,7 @@ public abstract class PathFinding
 		// List of Visited Nodes
 		CellNodeMap known = CellNodeMap.newInstance();
 		// List of Nodes to Visit
-		ArrayList<Node> to_visit = _nodeLists.get();
+		ArrayList<Node> to_visit = L2Collections.newArrayList();
 		to_visit.add(start);
 		known.add(start);
 		try
@@ -190,7 +190,7 @@ public abstract class PathFinding
 		finally
 		{
 			CellNodeMap.recycle(known);
-			_nodeLists.store(to_visit);
+			L2Collections.recycle(to_visit);
 		}
 	}
 	
@@ -206,9 +206,9 @@ public abstract class PathFinding
 		// load) level of intelligence though.
 		
 		// List of Visited Nodes
-		L2FastSet<Node> visited = _nodeSets.get();
+		L2FastSet<Node> visited = L2Collections.newL2FastSet();
 		// List of Nodes to Visit
-		ArrayList<Node> to_visit = _nodeLists.get();
+		ArrayList<Node> to_visit = L2Collections.newArrayList();
 		to_visit.add(start);
 		try
 		{
@@ -267,8 +267,8 @@ public abstract class PathFinding
 		}
 		finally
 		{
-			_nodeSets.store(visited);
-			_nodeLists.store(to_visit);
+			L2Collections.recycle(visited);
+			L2Collections.recycle(to_visit);
 		}
 	}
 	
@@ -280,7 +280,7 @@ public abstract class PathFinding
 		int end_x = end.getLoc().getX();
 		int end_y = end.getLoc().getY();
 		//List of Visited Nodes
-		L2FastSet<Node> visited = _nodeSets.get();//TODO! Add limit to cfg
+		L2FastSet<Node> visited = L2Collections.newL2FastSet();//TODO! Add limit to cfg
 		
 		// List of Nodes to Visit
 		BinaryNodeHeap to_visit = BinaryNodeHeap.newInstance();
@@ -331,14 +331,14 @@ public abstract class PathFinding
 		}
 		finally
 		{
-			_nodeSets.store(visited);
+			L2Collections.recycle(visited);
 			BinaryNodeHeap.recycle(to_visit);
 		}
 	}
 	
 	public AbstractNodeLoc[] constructPath(Node node)
 	{
-		ArrayList<AbstractNodeLoc> tmp = _abstractNodeLocLists.get();
+		ArrayList<AbstractNodeLoc> tmp = L2Collections.newArrayList();
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -369,7 +369,7 @@ public abstract class PathFinding
 		
 		AbstractNodeLoc[] path = tmp.toArray(new AbstractNodeLoc[tmp.size()]);
 		
-		_abstractNodeLocLists.store(tmp);
+		L2Collections.recycle(tmp);
 		
 		ArrayUtils.reverse(path);
 		
@@ -400,7 +400,7 @@ public abstract class PathFinding
 	
 	public AbstractNodeLoc[] constructPath2(Node node)
 	{
-		ArrayList<AbstractNodeLoc> tmp = _abstractNodeLocLists.get();
+		ArrayList<AbstractNodeLoc> tmp = L2Collections.newArrayList();
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -421,7 +421,7 @@ public abstract class PathFinding
 		
 		AbstractNodeLoc[] path = tmp.toArray(new AbstractNodeLoc[tmp.size()]);
 		
-		_abstractNodeLocLists.store(tmp);
+		L2Collections.recycle(tmp);
 		
 		ArrayUtils.reverse(path);
 		
@@ -486,46 +486,4 @@ public abstract class PathFinding
 	{
 		return L2World.MAP_MIN_Y + node_y * 128 + 48;
 	}
-	
-	private static final ThreadLocalObjectPool<L2FastSet<Node>> _nodeSets = new ThreadLocalObjectPool<L2FastSet<Node>>() {
-		@Override
-		protected void reset(L2FastSet<Node> set)
-		{
-			set.clear();
-		}
-		
-		@Override
-		protected L2FastSet<Node> create()
-		{
-			return new L2FastSet<Node>();
-		}
-	};
-	
-	private static final ThreadLocalObjectPool<ArrayList<Node>> _nodeLists = new ThreadLocalObjectPool<ArrayList<Node>>() {
-		@Override
-		protected void reset(ArrayList<Node> list)
-		{
-			list.clear();
-		}
-		
-		@Override
-		protected ArrayList<Node> create()
-		{
-			return new ArrayList<Node>();
-		}
-	};
-	
-	private static final ThreadLocalObjectPool<ArrayList<AbstractNodeLoc>> _abstractNodeLocLists = new ThreadLocalObjectPool<ArrayList<AbstractNodeLoc>>() {
-		@Override
-		protected void reset(ArrayList<AbstractNodeLoc> list)
-		{
-			list.clear();
-		}
-		
-		@Override
-		protected ArrayList<AbstractNodeLoc> create()
-		{
-			return new ArrayList<AbstractNodeLoc>();
-		}
-	};
 }

@@ -15,6 +15,7 @@
 package com.l2jfree.util;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -682,5 +683,53 @@ public final class L2Collections
 		{
 			throw new UnsupportedOperationException();
 		}
+	}
+	
+	private static final ObjectPool<ArrayList> ARRAY_LISTS = new ObjectPool<ArrayList>() {
+		@Override
+		protected void reset(ArrayList list)
+		{
+			list.clear();
+		}
+		
+		@Override
+		protected ArrayList create()
+		{
+			return new ArrayList();
+		}
+	};
+	
+	private static final ObjectPool<L2FastSet> L2_FAST_SETS = new ObjectPool<L2FastSet>() {
+		@Override
+		protected void reset(L2FastSet list)
+		{
+			list.clear();
+		}
+		
+		@Override
+		protected L2FastSet create()
+		{
+			return new L2FastSet();
+		}
+	};
+	
+	public static <T> ArrayList<T> newArrayList()
+	{
+		return ARRAY_LISTS.get();
+	}
+	
+	public static void recycle(ArrayList arrayList)
+	{
+		ARRAY_LISTS.store(arrayList);
+	}
+	
+	public static <T> L2FastSet<T> newL2FastSet()
+	{
+		return L2_FAST_SETS.get();
+	}
+	
+	public static void recycle(L2FastSet l2FastSet)
+	{
+		L2_FAST_SETS.store(l2FastSet);
 	}
 }

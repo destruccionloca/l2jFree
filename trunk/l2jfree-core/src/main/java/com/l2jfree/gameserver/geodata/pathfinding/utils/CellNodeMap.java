@@ -18,7 +18,7 @@ import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.util.L2FastSet;
-import com.l2jfree.util.ThreadLocalObjectPool;
+import com.l2jfree.util.ObjectPool;
 
 /**
  * @author Sami
@@ -36,7 +36,7 @@ public final class CellNodeMap
 		L2FastSet<Node> set = _cellIndex.get(n.getLoc().getY());
 		
 		if (set == null)
-			_cellIndex.put(n.getLoc().getY(), set = THREAD_LOCAL_SET_POOL.get());
+			_cellIndex.put(n.getLoc().getY(), set = SET_POOL.get());
 		
 		set.add(n);
 	}
@@ -52,21 +52,21 @@ public final class CellNodeMap
 	
 	public static CellNodeMap newInstance()
 	{
-		return THREAD_LOCAL_POOL.get();
+		return POOL.get();
 	}
 	
 	public static void recycle(CellNodeMap map)
 	{
-		THREAD_LOCAL_POOL.store(map);
+		POOL.store(map);
 	}
 	
-	private static final ThreadLocalObjectPool<CellNodeMap> THREAD_LOCAL_POOL = new ThreadLocalObjectPool<CellNodeMap>() {
+	private static final ObjectPool<CellNodeMap> POOL = new ObjectPool<CellNodeMap>() {
 		@Override
 		protected void reset(CellNodeMap map)
 		{
 			for (FastMap.Entry<Integer, L2FastSet<Node>> e = map._cellIndex.head(), end = map._cellIndex.tail(); (e = e.getNext()) != end;)
 			{
-				THREAD_LOCAL_SET_POOL.store(e.getValue());
+				SET_POOL.store(e.getValue());
 			}
 			
 			map._cellIndex.clear();
@@ -79,7 +79,7 @@ public final class CellNodeMap
 		}
 	};
 	
-	private static final ThreadLocalObjectPool<L2FastSet<Node>> THREAD_LOCAL_SET_POOL = new ThreadLocalObjectPool<L2FastSet<Node>>() {
+	private static final ObjectPool<L2FastSet<Node>> SET_POOL = new ObjectPool<L2FastSet<Node>>() {
 		@Override
 		protected void reset(L2FastSet<Node> set)
 		{

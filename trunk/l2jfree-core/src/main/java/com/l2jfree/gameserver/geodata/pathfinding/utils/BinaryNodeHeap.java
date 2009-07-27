@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.util.L2FastSet;
-import com.l2jfree.util.ThreadLocalObjectPool;
+import com.l2jfree.util.ObjectPool;
 
 /**
  * @author -Nemesiss-
@@ -109,15 +109,15 @@ public class BinaryNodeHeap
 	
 	public static BinaryNodeHeap newInstance()
 	{
-		return THREAD_LOCAL_POOL.get();
+		return POOL.get();
 	}
 	
 	public static void recycle(BinaryNodeHeap heap)
 	{
-		THREAD_LOCAL_POOL.store(heap);
+		POOL.store(heap);
 	}
 	
-	private static final ThreadLocalObjectPool<BinaryNodeHeap> THREAD_LOCAL_POOL = new ThreadLocalObjectPool<BinaryNodeHeap>() {
+	private static final ObjectPool<BinaryNodeHeap> POOL = new ObjectPool<BinaryNodeHeap>() {
 		@Override
 		protected void reset(BinaryNodeHeap heap)
 		{

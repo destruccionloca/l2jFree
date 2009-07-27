@@ -25,7 +25,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -47,7 +46,7 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.tools.geometry.Point3D;
-import com.l2jfree.util.ThreadLocalObjectPool;
+import com.l2jfree.util.L2Collections;
 
 /**
  * This class manages AI of L2Character.<BR><BR>
@@ -1242,17 +1241,17 @@ public class L2CharacterAI extends AbstractAI
 				}
 			}
 			
-			final List<L2Skill> generalSkills0 = LISTS.get();
-			final List<L2Skill> buffSkills0 = LISTS.get();
-			final List<L2Skill> debuffSkills0 = LISTS.get();
-			final List<L2Skill> cancelSkills0 = LISTS.get();
-			final List<L2Skill> healSkills0 = LISTS.get();
-			//final List<L2Skill> trickSkills0 = LISTS.get();
-			final List<L2Skill> generalDisablers0 = LISTS.get();
-			final List<L2Skill> sleepSkills0 = LISTS.get();
-			final List<L2Skill> rootSkills0 = LISTS.get();
-			final List<L2Skill> muteSkills0 = LISTS.get();
-			final List<L2Skill> resurrectSkills0 = LISTS.get();
+			final ArrayList<L2Skill> generalSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> buffSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> debuffSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> cancelSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> healSkills0 = L2Collections.newArrayList();
+			//final ArrayList<L2Skill> trickSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> generalDisablers0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> sleepSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> rootSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> muteSkills0 = L2Collections.newArrayList();
+			final ArrayList<L2Skill> resurrectSkills0 = L2Collections.newArrayList();
 			
 			// skill analysis
 			for (L2Skill sk : actor.getAllSkills())
@@ -1368,7 +1367,7 @@ public class L2CharacterAI extends AbstractAI
 			resurrectSkills = convert(resurrectSkills0);
 		}
 		
-		private L2Skill[] convert(List<L2Skill> list)
+		private L2Skill[] convert(ArrayList<L2Skill> list)
 		{
 			try
 			{
@@ -1376,24 +1375,9 @@ public class L2CharacterAI extends AbstractAI
 			}
 			finally
 			{
-				LISTS.store(list);
+				L2Collections.recycle(list);
 			}
 		}
-		
-		private static final ThreadLocalObjectPool<List<L2Skill>> LISTS = new ThreadLocalObjectPool<List<L2Skill>>() {
-			@Override
-			protected void reset(List<L2Skill> list)
-			{
-				list.clear();
-			}
-			
-			@Override
-			protected List<L2Skill> create()
-			{
-				return new ArrayList<L2Skill>();
-			}
-			
-		};
 	}
 	
 	protected static final class TargetAnalysis
