@@ -57,6 +57,12 @@ public abstract class ObjectPool<E>
 			
 			trimToSize();
 		}
+		
+		public void clearAndTrim()
+		{
+			clear();
+			trimToSize();
+		}
 	}
 	
 	private final ObjectPoolArrayList _wrappers = new ObjectPoolArrayList();
@@ -100,14 +106,14 @@ public abstract class ObjectPool<E>
 		{
 			synchronized (this)
 			{
-				_wrappers.trimToSize();
-				_values.trimToSize();
+				_wrappers.clearAndTrim();
+				_values.clearAndTrim();
 			}
 		}
 		else
 		{
-			_wrappers.trimToSize();
-			_values.trimToSize();
+			_wrappers.clearAndTrim();
+			_values.clearAndTrim();
 		}
 	}
 	
