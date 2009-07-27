@@ -17,7 +17,7 @@ package com.l2jfree.util.concurrent;
 /**
  * @author NB4L1
  */
-public interface Executor<T>
+public interface ForEachExecutable<T>
 {
-	public void executeForEach(Executable<T> executable);
+	public void execute(T element);
 }

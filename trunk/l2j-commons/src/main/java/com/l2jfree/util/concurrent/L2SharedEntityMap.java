@@ -21,7 +21,7 @@ import com.l2jfree.lang.L2Entity;
 /**
  * @author NB4L1
  */
-public final class L2SharedEntityMap<T extends L2Entity<Integer>> extends L2EntityMap<T> implements Iterable<T>, Executor<T>
+public final class L2SharedEntityMap<T extends L2Entity<Integer>> extends L2EntityMap<T> implements Iterable<T>, ForEachExecutor<T>
 {
 	@Override
 	public Iterator<T> iterator()
@@ -30,7 +30,7 @@ public final class L2SharedEntityMap<T extends L2Entity<Integer>> extends L2Enti
 	}
 	
 	@Override
-	public void executeForEach(Executable<T> executable)
+	public void executeForEach(ForEachExecutable<T> executable)
 	{
 		super.executeForEach(executable);
 	}

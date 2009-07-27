@@ -89,7 +89,7 @@ public abstract class L2EntityMap<T extends L2Entity<Integer>>
 		return _map.values().iterator();
 	}
 	
-	protected void executeForEach(Executable<T> executable)
+	protected void executeForEach(ForEachExecutable<T> executable)
 	{
 		if (_map.isEmpty())
 			return;
