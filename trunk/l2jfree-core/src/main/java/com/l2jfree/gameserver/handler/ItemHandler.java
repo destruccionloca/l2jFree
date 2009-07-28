@@ -58,14 +58,14 @@ public final class ItemHandler
 {
 	private static final Log _log = LogFactory.getLog(ItemHandler.class);
 	
-	private static ItemHandler _instance;
+	private static final class SingletonHolder
+	{
+		private static final ItemHandler INSTANCE = new ItemHandler();
+	}
 	
 	public static ItemHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new ItemHandler();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private final NumberHandlerRegistry<IItemHandler> _byItemId = new NumberHandlerRegistry<IItemHandler>() {

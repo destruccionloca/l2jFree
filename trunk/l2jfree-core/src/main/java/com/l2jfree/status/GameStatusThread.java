@@ -445,7 +445,7 @@ public final class GameStatusThread extends Thread
 					{
 					}
 
-					RunnableStatsManager.getInstance().dumpClassStats(sortBy);
+					RunnableStatsManager.dumpClassStats(sortBy);
 					_print.println("TPM-Classes dumped....");
 					_print.flush();
 				}
@@ -551,7 +551,7 @@ public final class GameStatusThread extends Thread
 					int igm = 0;
 					String gmList = "";
 
-					for (String player : GmListTable.getInstance().getAllGmNames(false))
+					for (String player : GmListTable.getAllGmNames(false))
 					{
 						gmList = gmList + ", " + player;
 						igm++;
@@ -1257,7 +1257,7 @@ public final class GameStatusThread extends Thread
 
 	private int getOnlineGMS()
 	{
-		return GmListTable.getInstance().getAllGms(true).size();
+		return GmListTable.getAllGms(true).size();
 	}
 
 	private String getUptime(long time)

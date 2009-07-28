@@ -373,7 +373,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						player.getClan().broadcastClanStatus();
 					}
 
-					RegionBBSManager.getInstance().changeCommunityBoard();
+					RegionBBSManager.changeCommunityBoard();
 				}
 				else if (target instanceof L2Npc)
 				{

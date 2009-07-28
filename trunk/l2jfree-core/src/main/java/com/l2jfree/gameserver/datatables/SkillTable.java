@@ -29,19 +29,19 @@ public final class SkillTable
 {
 	private static final Log _log = LogFactory.getLog(SkillTable.class);
 	
-	private static SkillTable _instance;
+	private static final class SingletonHolder
+	{
+		private static SkillTable INSTANCE = new SkillTable();
+	}
 	
 	public static SkillTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new SkillTable();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	public static void reload()
 	{
-		_instance = new SkillTable();
+		SingletonHolder.INSTANCE = new SkillTable();
 	}
 	
 	private final L2Skill[][] _skillTable;
@@ -83,7 +83,7 @@ public final class SkillTable
 		
 		_log.info("SkillTable: Occupying arrays for " + length + ".");
 		
-		_instance = this;
+		SingletonHolder.INSTANCE = this;
 		
 		Map<Integer, L2Skill> skillsByUID = new HashMap<Integer, L2Skill>();
 		

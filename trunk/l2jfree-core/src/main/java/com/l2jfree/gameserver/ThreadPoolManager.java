@@ -294,7 +294,7 @@ public final class ThreadPoolManager
 		System.out.println("\t... " + getTaskCount(_longRunningPool) + " long running tasks left.");
 		
 		if (TimeUnit.HOURS.toMillis(12) < (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis()))
-			RunnableStatsManager.getInstance().dumpClassStats();
+			RunnableStatsManager.dumpClassStats();
 	}
 	
 	public void purge()

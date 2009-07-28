@@ -119,20 +119,20 @@ public class AdminEffects implements IAdminCommandHandler
 				activeChar.getAppearance().setVisible();
 				activeChar.broadcastUserInfo();
 			}
-			RegionBBSManager.getInstance().changeCommunityBoard();
+			RegionBBSManager.changeCommunityBoard();
 		}
 		else if (command.startsWith("admin_invis"))
 		{
 			activeChar.getAppearance().setInvisible();
 			activeChar.updateInvisibilityStatus();
-			RegionBBSManager.getInstance().changeCommunityBoard();
+			RegionBBSManager.changeCommunityBoard();
 		}
 
 		else if (command.startsWith("admin_vis"))
 		{
 			activeChar.getAppearance().setVisible();
 			activeChar.broadcastUserInfo();
-			RegionBBSManager.getInstance().changeCommunityBoard();
+			RegionBBSManager.changeCommunityBoard();
 		}
 		else if (command.startsWith("admin_earthquake"))
 		{

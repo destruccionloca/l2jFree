@@ -189,9 +189,9 @@ public class EnterWorld extends L2GameClientPacket
 			}
 
 			if (Config.GM_STARTUP_AUTO_LIST)
-				GmListTable.getInstance().addGm(activeChar, false);
+				GmListTable.addGm(activeChar, false);
 			else
-				GmListTable.getInstance().addGm(activeChar, true);
+				GmListTable.addGm(activeChar, true);
 		}
 		else if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
 				&& activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
@@ -381,7 +381,7 @@ public class EnterWorld extends L2GameClientPacket
 		activeChar.academyCheck(activeChar.getClassId().getId());
 
 		// check for crowns
-		CrownManager.getInstance().checkCrowns(activeChar);
+		CrownManager.checkCrowns(activeChar);
 
 		if (Config.ONLINE_PLAYERS_AT_STARTUP)
 		{
@@ -440,7 +440,7 @@ public class EnterWorld extends L2GameClientPacket
 			//activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone"); - custom
 		}
 
-		RegionBBSManager.getInstance().changeCommunityBoard();
+		RegionBBSManager.changeCommunityBoard();
 
 		if (Config.GAMEGUARD_ENFORCE)
 			activeChar.sendPacket(GameGuardQuery.STATIC_PACKET);

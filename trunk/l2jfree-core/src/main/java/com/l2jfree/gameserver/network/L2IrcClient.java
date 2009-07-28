@@ -351,10 +351,10 @@ public class L2IrcClient extends Thread
 				}
 				else if (msg.equals("!gmlist"))
 				{
-					if (GmListTable.getInstance().getAllGms(false).size() == 0)
+					if (GmListTable.getAllGms(false).size() == 0)
 						sendChan("There are not any GMs that are providing customer service currently");
 					else
-						for (L2PcInstance gm : GmListTable.getInstance().getAllGms(false))
+						for (L2PcInstance gm : GmListTable.getAllGms(false))
 							sendChan(gm.getName());
 				}
 				else if (msg.equals("!rates"))

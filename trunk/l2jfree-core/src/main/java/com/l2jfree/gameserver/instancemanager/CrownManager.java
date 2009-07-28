@@ -34,22 +34,12 @@ public final class CrownManager
 {
 	private static final Log _log = LogFactory.getLog(CrownManager.class);
 	
-	private static CrownManager _instance;
-	
-	public static CrownManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new CrownManager();
-		
-		return _instance;
-	}
-	
-	private CrownManager()
+	static
 	{
 		_log.info("CrownManager: Initialized.");
 	}
 	
-	public void checkCrowns(L2Clan clan)
+	public static void checkCrowns(L2Clan clan)
 	{
 		if (clan == null)
 			return;
@@ -59,7 +49,7 @@ public final class CrownManager
 				checkCrowns(member.getPlayerInstance());
 	}
 	
-	public void checkCrowns(L2PcInstance activeChar)
+	public static void checkCrowns(L2PcInstance activeChar)
 	{
 		if (activeChar == null)
 			return;
@@ -79,7 +69,7 @@ public final class CrownManager
 			if (clan.getLeaderId() == activeChar.getObjectId())
 				isLeader = true;
 		}
-
+		
 		boolean alreadyFoundCirclet = false;
 		boolean alreadyFoundCrown = false;
 		

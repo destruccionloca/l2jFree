@@ -286,7 +286,7 @@ public class RegionBBSManager extends BaseBBSManager
 	{
 	}
 
-	public synchronized void changeCommunityBoard()
+	public static synchronized void changeCommunityBoard()
 	{
 		CommunityPageType.PLAYER.clear();
 		CommunityPageType.GM.clear();

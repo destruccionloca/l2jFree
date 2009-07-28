@@ -31,14 +31,14 @@ public final class SQLQueue extends SQLQueryQueue
 {
 	private static final Log _log = LogFactory.getLog(SQLQueue.class);
 	
-	private static SQLQueue _instance;
-	
-	public static final SQLQueue getInstance()
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
-			_instance = new SQLQueue();
-		
-		return _instance;
+		private static final SQLQueue INSTANCE = new SQLQueue();
+	}
+	
+	public static SQLQueue getInstance()
+	{
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private SQLQueue()

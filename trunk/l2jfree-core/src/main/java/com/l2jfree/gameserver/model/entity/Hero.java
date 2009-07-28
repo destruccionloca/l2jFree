@@ -329,7 +329,7 @@ public class Hero
 				}
 				player.broadcastUserInfo();
 
-				for (L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
+				for (L2Skill skill : HeroSkillTable.getHeroSkills())
 					player.addSkill(skill);
 			}
 			else

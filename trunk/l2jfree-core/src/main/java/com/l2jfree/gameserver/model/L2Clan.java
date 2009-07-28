@@ -466,8 +466,8 @@ public class L2Clan
 		broadcastToOnlineMembers(sm);
 		sm = null;
 
-		CrownManager.getInstance().checkCrowns(exLeader);
-		CrownManager.getInstance().checkCrowns(newLeader);
+		CrownManager.checkCrowns(exLeader);
+		CrownManager.checkCrowns(newLeader);
 	}
 
 	/**

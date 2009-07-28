@@ -31,16 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.ShowBoard;
 
 public class CommunityBoard
 {
-	private CommunityBoard()
-	{
-	}
-
-	public static CommunityBoard getInstance()
-	{
-		return SingletonHolder._instance;
-	}
-
-	public void handleCommands(L2GameClient client, String command)
+	public static void handleCommands(L2GameClient client, String command)
 	{
 		L2PcInstance activeChar = client.getActiveChar();
 		if (activeChar == null)
@@ -117,7 +108,7 @@ public class CommunityBoard
 	 * @param arg4
 	 * @param arg5
 	 */
-	public void handleWriteCommands(L2GameClient client, String url, String arg1, String arg2, String arg3, String arg4, String arg5)
+	public static void handleWriteCommands(L2GameClient client, String url, String arg1, String arg2, String arg3, String arg4, String arg5)
 	{
 		L2PcInstance activeChar = client.getActiveChar();
 		if (activeChar == null)
@@ -155,11 +146,5 @@ public class CommunityBoard
 			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
 			break;
 		}
-	}
-
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final CommunityBoard _instance = new CommunityBoard();
 	}
 }

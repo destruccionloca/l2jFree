@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.datatables;
 
+import java.util.List;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -32,17 +34,12 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class GmListTable
 {
-	private final static Log				_log	= LogFactory.getLog(GmListTable.class);
-
+	private static final Log _log = LogFactory.getLog(GmListTable.class);
+	
 	/** Set(L2PcInstance>) containing all the GM in game */
-	private final FastMap<L2PcInstance, Boolean>	_gmList;
-
-	public static GmListTable getInstance()
-	{
-		return SingletonHolder._instance;
-	}
-
-	public FastList<L2PcInstance> getAllGms(boolean includeHidden)
+	private static final FastMap<L2PcInstance, Boolean> _gmList = new FastMap<L2PcInstance, Boolean>().setShared(true);
+	
+	public static List<L2PcInstance> getAllGms(boolean includeHidden)
 	{
 		FastList<L2PcInstance> tmpGmList = new FastList<L2PcInstance>();
 		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
@@ -52,8 +49,8 @@ public class GmListTable
 		}
 		return tmpGmList;
 	}
-
-	public FastList<String> getAllGmNames(boolean includeHidden)
+	
+	public static List<String> getAllGmNames(boolean includeHidden)
 	{
 		FastList<String> tmpGmList = new FastList<String>();
 		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
@@ -65,66 +62,67 @@ public class GmListTable
 		}
 		return tmpGmList;
 	}
-
-	private GmListTable()
+	
+	static
 	{
 		_log.info("GmListTable: initialized.");
-		_gmList = new FastMap<L2PcInstance, Boolean>().setShared(true);
 	}
-
+	
 	/**
 	 * Add a L2PcInstance player to the Set _gmList
 	 */
-	public void addGm(L2PcInstance player, boolean hidden)
+	public static void addGm(L2PcInstance player, boolean hidden)
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("added gm: " + player.getName());
-
+		
 		_gmList.put(player, hidden);
 	}
-
-	public void deleteGm(L2PcInstance player)
+	
+	public static void deleteGm(L2PcInstance player)
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("deleted gm: " + player.getName());
-
+		
 		_gmList.remove(player);
 	}
-
+	
 	/**
 	 * GM will be displayed on clients gmlist
+	 * 
 	 * @param player
 	 */
-	public void showGm(L2PcInstance player)
+	public static void showGm(L2PcInstance player)
 	{
 		FastMap.Entry<L2PcInstance, Boolean> gm = _gmList.getEntry(player);
 		if (gm != null)
 			gm.setValue(false);
 	}
-
+	
 	/**
 	 * GM will no longer be displayed on clients gmlist
+	 * 
 	 * @param player
 	 */
-	public void hideGm(L2PcInstance player)
+	public static void hideGm(L2PcInstance player)
 	{
 		FastMap.Entry<L2PcInstance, Boolean> gm = _gmList.getEntry(player);
 		if (gm != null)
 			gm.setValue(true);
 	}
-
-	public boolean isGmOnline(boolean includeHidden)
+	
+	public static boolean isGmOnline(boolean includeHidden)
 	{
 		for (boolean b : _gmList.values())
 		{
 			if (includeHidden || !b)
 				return true;
 		}
-
+		
 		return false;
 	}
-
-	public void sendListToPlayer(L2PcInstance player)
+	
+	public static void sendListToPlayer(L2PcInstance player)
 	{
 		if (!isGmOnline(player.isGM()))
 		{
@@ -133,37 +131,31 @@ public class GmListTable
 		else
 		{
 			player.sendPacket(SystemMessageId.GM_LIST);
-
+			
 			for (String name : getAllGmNames(player.isGM()))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.GM_C1);
 				sm.addString(name);
 				player.sendPacket(sm);
 			}
-
+			
 			player.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 		}
 	}
-
+	
 	public static void broadcastToGMs(L2GameServerPacket packet)
 	{
-		for (L2PcInstance gm : getInstance().getAllGms(true))
+		for (L2PcInstance gm : getAllGms(true))
 		{
 			gm.sendPacket(packet);
 		}
 	}
-
+	
 	public static void broadcastMessageToGMs(String message)
 	{
-		for (L2PcInstance gm : getInstance().getAllGms(true))
+		for (L2PcInstance gm : getAllGms(true))
 		{
 			gm.sendPacket(SystemMessage.sendString(message));
 		}
-	}
-
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final GmListTable _instance = new GmListTable();
 	}
 }

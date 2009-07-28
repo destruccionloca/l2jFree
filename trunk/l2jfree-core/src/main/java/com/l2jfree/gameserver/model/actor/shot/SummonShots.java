@@ -75,7 +75,7 @@ public final class SummonShots extends CharShots
 		
 		for (int itemId : getActiveChar().getOwner().getShots().getAutoSoulShots())
 		{
-			if (ShotTable.getInstance().isBeastShot(itemId))
+			if (ShotTable.isBeastShot(itemId))
 			{
 				L2ItemInstance item = getActiveChar().getOwner().getInventory().getItemByItemId(itemId);
 				

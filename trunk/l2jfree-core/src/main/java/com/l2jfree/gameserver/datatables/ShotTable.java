@@ -24,17 +24,7 @@ public final class ShotTable
 {
 	private static final Log _log = LogFactory.getLog(ShotTable.class);
 	
-	private static ShotTable _instance;
-	
-	public static ShotTable getInstance()
-	{
-		if (_instance == null)
-			_instance = new ShotTable();
-		
-		return _instance;
-	}
-	
-	private ShotTable()
+	static
 	{
 		_log.info("ShotTable: initialized.");
 	}
@@ -42,24 +32,24 @@ public final class ShotTable
 	//================================================================
 	// Public
 	
-	public boolean isShot(int id) // 012345
+	public static boolean isShot(int id) // 012345
 	{
 		return isPcShot(id) || isBeastShot(id);
 	}
 	
 	//================================================================
-	public boolean isPcShot(int id) // 0123
+	public static boolean isPcShot(int id) // 0123
 	{
 		return isMagicShot(id) || isSoulShot(id) || isFishingShot(id);
 	}
 	
-	public boolean isBeastShot(int id) // 45
+	public static boolean isBeastShot(int id) // 45
 	{
 		return isBeastMagicShot(id) || isBeastSoulShot(id);
 	}
 	
 	//================================================================
-	public boolean isMagicShot(int id) // 0 - blessed spirit, 1 - spirit
+	public static boolean isMagicShot(int id) // 0 - blessed spirit, 1 - spirit
 	{
 		switch (id)
 		{
@@ -82,7 +72,7 @@ public final class ShotTable
 		return false;
 	}
 	
-	public boolean isBeastMagicShot(int id) // 4 - beast spirit
+	public static boolean isBeastMagicShot(int id) // 4 - beast spirit
 	{
 		switch (id)
 		{
@@ -94,7 +84,7 @@ public final class ShotTable
 	}
 	
 	//================================================================
-	public boolean isSoulShot(int id) // 2 - soul
+	public static boolean isSoulShot(int id) // 2 - soul
 	{
 		switch (id)
 		{
@@ -110,7 +100,7 @@ public final class ShotTable
 		return false;
 	}
 	
-	public boolean isBeastSoulShot(int id) // 5 - beast soul
+	public static boolean isBeastSoulShot(int id) // 5 - beast soul
 	{
 		switch (id)
 		{
@@ -121,7 +111,7 @@ public final class ShotTable
 	}
 	
 	//================================================================
-	public boolean isFishingShot(int id) // 3 - fishing
+	public static boolean isFishingShot(int id) // 3 - fishing
 	{
 		switch (id)
 		{

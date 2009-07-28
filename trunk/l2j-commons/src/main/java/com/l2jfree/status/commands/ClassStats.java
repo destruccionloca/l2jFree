@@ -37,7 +37,7 @@ public final class ClassStats extends StatusCommand
 		{
 		}
 		
-		RunnableStatsManager.getInstance().dumpClassStats(sortBy);
+		RunnableStatsManager.dumpClassStats(sortBy);
 		
 		println("Runnable stats dumped...");
 	}

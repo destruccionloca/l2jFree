@@ -51,7 +51,7 @@ public class IrcStatus implements IIrcCommandHandler
 
 	private int getOnlineGMS()
 	{
-		return GmListTable.getInstance().getAllGms(true).size();
+		return GmListTable.getAllGms(true).size();
 	}
 
 	public String[] getIrcCommandList()

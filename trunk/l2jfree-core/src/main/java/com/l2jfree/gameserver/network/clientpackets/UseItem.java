@@ -192,7 +192,7 @@ public final class UseItem extends L2GameClientPacket
 		if (itemId == 57)
 			return;
 
-		if (activeChar.isFishing() && !ShotTable.getInstance().isFishingShot(itemId))
+		if (activeChar.isFishing() && !ShotTable.isFishingShot(itemId))
 		{
 			// You cannot do anything else while fishing
 			activeChar.sendPacket(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);

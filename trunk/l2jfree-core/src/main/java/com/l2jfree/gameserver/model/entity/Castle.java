@@ -428,7 +428,7 @@ public class Castle extends Siegeable<Siege>
 				Announcements.getInstance().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
 
 				// remove crowns
-				CrownManager.getInstance().checkCrowns(oldOwner);
+				CrownManager.checkCrowns(oldOwner);
 			}
 		}
 
@@ -788,7 +788,7 @@ public class Castle extends Siegeable<Siege>
 				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
 
 				// give crowns
-				CrownManager.getInstance().checkCrowns(clan);
+				CrownManager.checkCrowns(clan);
 
 				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running
 			}

@@ -30,14 +30,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 @SuppressWarnings("unused")
 public final class MovementController extends AbstractPeriodicTaskManager
 {
-	private static MovementController _instance;
+	private static final class SingletonHolder
+	{
+		private static final MovementController INSTANCE = new MovementController();
+	}
 	
 	public static MovementController getInstance()
 	{
-		if (_instance == null)
-			_instance = new MovementController();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private static final class TickRange

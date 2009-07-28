@@ -154,9 +154,9 @@ public class RequestBypassToServer extends L2GameClientPacket
 				((L2Npc) object).onBypassFeedback(activeChar, _command);
 		}
 		else if (_command.startsWith("bbs_"))
-			CommunityBoard.getInstance().handleCommands(getClient(), _command);
+			CommunityBoard.handleCommands(getClient(), _command);
 		else if (_command.startsWith("_bbs"))
-			CommunityBoard.getInstance().handleCommands(getClient(), _command);
+			CommunityBoard.handleCommands(getClient(), _command);
 		else if (_command.startsWith("Quest "))
 		{
 			activeChar.validateBypass(_command);

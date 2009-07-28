@@ -26,22 +26,17 @@ import com.l2jfree.L2DatabaseFactory;
 
 public class PetNameTable
 {
-	private final static Log	_log	= LogFactory.getLog(PetNameTable.class);
-
-	public static PetNameTable getInstance()
-	{
-		return SingletonHolder._instance;
-	}
-
-	public boolean doesPetNameExist(String name, int petNpcId)
+	private final static Log _log = LogFactory.getLog(PetNameTable.class);
+	
+	public static boolean doesPetNameExist(String name, int petNpcId)
 	{
 		boolean result = true;
 		Connection con = null;
-
+		
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
+			PreparedStatement statement = con .prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
 			statement.setString(1, name);
 			statement.setString(2, Integer.toString(PetDataTable.getItemIdByPetId(petNpcId)));
 			ResultSet rset = statement.executeQuery();
@@ -57,13 +52,7 @@ public class PetNameTable
 		{
 			L2DatabaseFactory.close(con);
 		}
-
+		
 		return result;
-	}
-
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final PetNameTable _instance = new PetNameTable();
 	}
 }

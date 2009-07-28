@@ -51,7 +51,7 @@ public class AdminGm implements IAdminCommandHandler
 	{
 		if (activeChar.isGM())
 		{
-			GmListTable.getInstance().deleteGm(activeChar);
+			GmListTable.deleteGm(activeChar);
 			activeChar.setIsGM(false);
 
 			activeChar.sendMessage("You no longer have GM status.");
@@ -62,7 +62,7 @@ public class AdminGm implements IAdminCommandHandler
 		}
 		else
 		{
-			GmListTable.getInstance().addGm(activeChar, false);
+			GmListTable.addGm(activeChar, false);
 			activeChar.setIsGM(true);
 
 			activeChar.sendMessage("You now have GM status.");

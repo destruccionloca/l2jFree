@@ -39,19 +39,9 @@ public final class RunnableStatsManager
 {
 	private static final Log _log = LogFactory.getLog(RunnableStatsManager.class);
 	
-	private static RunnableStatsManager _instance;
+	private static final Map<Class<?>, ClassStat> _classStats = new HashMap<Class<?>, ClassStat>();
 	
-	public static RunnableStatsManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new RunnableStatsManager();
-		
-		return _instance;
-	}
-	
-	private final Map<Class<?>, ClassStat> _classStats = new HashMap<Class<?>, ClassStat>();
-	
-	private final class ClassStat
+	private static final class ClassStat
 	{
 		private final String _className;
 		
@@ -89,7 +79,7 @@ public final class RunnableStatsManager
 		}
 	}
 	
-	private final class MethodStat
+	private static final class MethodStat
 	{
 		private final ReentrantLock _lock = new ReentrantLock();
 		
@@ -124,7 +114,7 @@ public final class RunnableStatsManager
 		}
 	}
 	
-	private ClassStat getClassStat(Class<?> clazz, boolean synchronizedAlready)
+	private static ClassStat getClassStat(Class<?> clazz, boolean synchronizedAlready)
 	{
 		ClassStat classStat = _classStats.get(clazz);
 		
@@ -133,7 +123,7 @@ public final class RunnableStatsManager
 		
 		if (!synchronizedAlready)
 		{
-			synchronized (this)
+			synchronized (RunnableStatsManager.class)
 			{
 				return getClassStat(clazz, true);
 			}
@@ -142,12 +132,12 @@ public final class RunnableStatsManager
 		return new ClassStat(clazz);
 	}
 	
-	public void handleStats(Class<? extends Runnable> clazz, long runTime)
+	public static void handleStats(Class<? extends Runnable> clazz, long runTime)
 	{
 		handleStats(clazz, "run()", runTime);
 	}
 	
-	public void handleStats(Class<?> clazz, String methodName, long runTime)
+	public static void handleStats(Class<?> clazz, String methodName, long runTime)
 	{
 		getClassStat(clazz, false).getMethodStat(methodName, false).handleStats(runTime);
 	}
@@ -240,16 +230,16 @@ public final class RunnableStatsManager
 		private static final SortBy[] VALUES = SortBy.values();
 	}
 	
-	public void dumpClassStats()
+	public static void dumpClassStats()
 	{
 		dumpClassStats(null);
 	}
 	
-	public void dumpClassStats(final SortBy sortBy)
+	public static void dumpClassStats(final SortBy sortBy)
 	{
 		final List<MethodStat> methodStats = new ArrayList<MethodStat>();
 		
-		synchronized (this)
+		synchronized (RunnableStatsManager.class)
 		{
 			for (ClassStat classStat : _classStats.values())
 				for (MethodStat methodStat : classStat._methodStats)
@@ -345,7 +335,7 @@ public final class RunnableStatsManager
 		}
 	}
 	
-	private void appendAttribute(StringBuilder sb, SortBy sortBy, String value, int fillTo)
+	private static void appendAttribute(StringBuilder sb, SortBy sortBy, String value, int fillTo)
 	{
 		sb.append(sortBy._xmlAttributeName);
 		sb.append("=");

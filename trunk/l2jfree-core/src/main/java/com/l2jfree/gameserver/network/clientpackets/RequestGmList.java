@@ -38,7 +38,7 @@ public class RequestGmList extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
 
-		GmListTable.getInstance().sendListToPlayer(getClient().getActiveChar());
+		GmListTable.sendListToPlayer(getClient().getActiveChar());
 
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}

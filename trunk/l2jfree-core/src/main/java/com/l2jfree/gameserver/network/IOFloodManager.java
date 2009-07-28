@@ -42,14 +42,14 @@ public final class IOFloodManager implements IAcceptFilter
 		FAILED_RUNNING;
 	}
 	
-	private static IOFloodManager _instance;
+	private static final class SingletonHolder
+	{
+		private static final IOFloodManager INSTANCE = new IOFloodManager();
+	}
 	
 	public static IOFloodManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new IOFloodManager();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private final FloodManager _packets;

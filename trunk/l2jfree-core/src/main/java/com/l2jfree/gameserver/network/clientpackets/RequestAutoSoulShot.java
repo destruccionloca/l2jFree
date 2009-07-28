@@ -56,7 +56,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				L2ItemInstance shot = activeChar.getInventory().getItemByItemId(_shotId);
 				if (shot == null) return;
 
-				if (ShotTable.getInstance().isBeastShot(_shotId))
+				if (ShotTable.isBeastShot(_shotId))
 				{
 					L2Summon summon = activeChar.getPet();
 					if (summon != null)
@@ -77,7 +77,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 					}
 					else
 					{
-						if (ShotTable.getInstance().isMagicShot(_shotId))
+						if (ShotTable.isMagicShot(_shotId))
 							sendPacket(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH);
 						else
 							sendPacket(SystemMessageId.SOULSHOTS_GRADE_MISMATCH);

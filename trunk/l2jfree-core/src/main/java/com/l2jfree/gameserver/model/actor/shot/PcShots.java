@@ -121,7 +121,7 @@ public final class PcShots extends CharShots
 		
 		for (int itemId : getAutoSoulShots())
 		{
-			if (ShotTable.getInstance().isPcShot(itemId))
+			if (ShotTable.isPcShot(itemId))
 			{
 				L2ItemInstance item = getActiveChar().getInventory().getItemByItemId(itemId);
 				

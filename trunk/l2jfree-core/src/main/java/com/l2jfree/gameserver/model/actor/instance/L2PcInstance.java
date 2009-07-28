@@ -2058,7 +2058,7 @@ public final class L2PcInstance extends L2Playable
 			return;
 		
 		for (L2ItemInstance item : getInventory().getItems())
-			if (ShotTable.getInstance().isPcShot(item.getItemId()))
+			if (ShotTable.isPcShot(item.getItemId()))
 				if (item.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
 					getShots().removeAutoSoulShot(item.getItemId());
 	}
@@ -9392,10 +9392,10 @@ public final class L2PcInstance extends L2Playable
 	public void setHero(boolean hero)
 	{
 		if (hero && _baseClass == _activeClass)
-			for (L2Skill s : HeroSkillTable.getInstance().getHeroSkills())
+			for (L2Skill s : HeroSkillTable.getHeroSkills())
 				addSkill(s, false); // Dont Save Hero skills to Sql
 		else
-			for (L2Skill s : HeroSkillTable.getInstance().getHeroSkills())
+			for (L2Skill s : HeroSkillTable.getHeroSkills())
 				super.removeSkill(s); // Just Remove skills without deleting from Sql
 		_hero = hero;
 		sendSkillList();
@@ -9432,10 +9432,10 @@ public final class L2PcInstance extends L2Playable
 	public void setNoble(boolean val)
 	{
 		if (val)
-			for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
+			for (L2Skill s : NobleSkillTable.getNobleSkills())
 				addSkill(s, false); // Dont Save Noble skills to Sql
 		else
-			for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
+			for (L2Skill s : NobleSkillTable.getNobleSkills())
 				super.removeSkill(s); // Just Remove skills without deleting from Sql
 		_noble = val;
 		sendSkillList();
@@ -11527,7 +11527,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			try
 			{
-				GmListTable.getInstance().deleteGm(this);
+				GmListTable.deleteGm(this);
 			}
 			catch (Exception e)
 			{
@@ -11632,7 +11632,7 @@ public final class L2PcInstance extends L2Playable
 			_log.fatal( "deleteMe()", e);
 		}
 		
-		RegionBBSManager.getInstance().changeCommunityBoard();
+		RegionBBSManager.changeCommunityBoard();
 		
 		//getClearableReference().clear();
 		LeakTaskManager.getInstance().add(this);

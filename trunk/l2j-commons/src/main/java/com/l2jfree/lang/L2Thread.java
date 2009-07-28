@@ -82,7 +82,7 @@ public abstract class L2Thread extends Thread
 				}
 				finally
 				{
-					RunnableStatsManager.getInstance().handleStats(getClass(), System.nanoTime() - begin);
+					RunnableStatsManager.handleStats(getClass(), System.nanoTime() - begin);
 				}
 				
 				try
