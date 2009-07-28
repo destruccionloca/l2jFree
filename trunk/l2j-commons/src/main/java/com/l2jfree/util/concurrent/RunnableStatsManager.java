@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -90,6 +91,8 @@ public final class RunnableStatsManager
 	
 	private final class MethodStat
 	{
+		private final ReentrantLock _lock = new ReentrantLock();
+		
 		private final String _className;
 		private final String _methodName;
 		
@@ -104,12 +107,20 @@ public final class RunnableStatsManager
 			_methodName = methodName;
 		}
 		
-		private synchronized void handleStats(long runTime)
+		private void handleStats(long runTime)
 		{
-			_count++;
-			_total += runTime;
-			_min = Math.min(_min, runTime);
-			_max = Math.max(_max, runTime);
+			_lock.lock();
+			try
+			{
+				_count++;
+				_total += runTime;
+				_min = Math.min(_min, runTime);
+				_max = Math.max(_max, runTime);
+			}
+			finally
+			{
+				_lock.unlock();
+			}
 		}
 	}
 	

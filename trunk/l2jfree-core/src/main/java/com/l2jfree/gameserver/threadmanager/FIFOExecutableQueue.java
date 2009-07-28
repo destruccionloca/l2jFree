@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.threadmanager;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.l2jfree.gameserver.ThreadPoolManager;
 
 /**
@@ -25,19 +27,36 @@ public abstract class FIFOExecutableQueue implements Runnable
 	private static final byte QUEUED = 1;
 	private static final byte RUNNING = 2;
 	
+	private final ReentrantLock _lock = new ReentrantLock();
+	
 	private volatile byte _state = NONE;
 	
 	protected final void execute()
 	{
-		synchronized (this)
+		lock();
+		try
 		{
 			if (_state != NONE)
 				return;
 			
 			_state = QUEUED;
 		}
+		finally
+		{
+			unlock();
+		}
 		
 		ThreadPoolManager.getInstance().execute(this);
+	}
+	
+	public final void lock()
+	{
+		_lock.lock();
+	}
+	
+	public final void unlock()
+	{
+		_lock.unlock();
 	}
 	
 	public final void run()
@@ -65,8 +84,9 @@ public abstract class FIFOExecutableQueue implements Runnable
 		}
 	}
 	
-	private synchronized void setState(byte expected, byte value)
+	private void setState(byte expected, byte value)
 	{
+		lock();
 		try
 		{
 			if (_state != expected)
@@ -75,6 +95,8 @@ public abstract class FIFOExecutableQueue implements Runnable
 		finally
 		{
 			_state = value;
+			
+			unlock();
 		}
 	}
 	
