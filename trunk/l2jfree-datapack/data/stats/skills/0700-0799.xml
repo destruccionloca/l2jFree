@@ -816,7 +816,7 @@
             <not>
               <using kind="Bow,Crossbow"/>
             </not>
-        </and> 
+        </and>
       </add>
       <mul order="0x30" stat="pAtkSpd" val="1.1">
         <and>
@@ -824,7 +824,7 @@
             <not>
               <using kind="Bow,Crossbow"/>
             </not>
-        </and> 
+        </and>
       </mul>
     </for>
   </skill>
@@ -841,17 +841,17 @@
         <and>
           <using kind="Bow,Crossbow"/>
             <not>
-              <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
+              <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
             </not>
-          </and> 
-	</add>
+          </and>
+      </add>
       <add order="0x40" stat="pAtkRange" val="50">
         <and>
           <using kind="Bow,Crossbow"/>
             <not>
-              <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>	          	
+              <using kind="Sword,Big Sword,Blunt,Big Blunt,Pole,Dual Sword,Dual Fist,Dagger,Etc,Fist,Rod,Ancient,Rapier"/>
             </not>
-        </and> 
+        </and>
       </add>
     </for>
   </skill>
