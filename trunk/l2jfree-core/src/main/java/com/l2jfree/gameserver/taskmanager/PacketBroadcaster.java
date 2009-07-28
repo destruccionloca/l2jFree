@@ -80,18 +80,22 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 		protected final void trySendPacket(L2Character cha, byte mask)
 		{
 			if ((mask & mask()) == mask())
+			{
 				sendPacket(cha);
+				
+				cha.removePacketBroadcastMask(this);
+			}
 		}
 	}
 	
-	private static PacketBroadcaster _instance;
+	private static final class SingletonHolder
+	{
+		private static final PacketBroadcaster INSTANCE = new PacketBroadcaster();
+	}
 	
 	public static PacketBroadcaster getInstance()
 	{
-		if (_instance == null)
-			_instance = new PacketBroadcaster();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private static final BroadcastMode[] VALUES = BroadcastMode.values();
@@ -104,7 +108,7 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 	@Override
 	protected void callTask(L2Character cha)
 	{
-		for (byte mask; (mask = cha.clearPacketBroadcastMask()) != 0;)
+		for (byte mask; (mask = cha.getPacketBroadcastMask()) != 0;)
 			for (BroadcastMode mode : VALUES)
 				mode.trySendPacket(cha, mask);
 	}

@@ -40,60 +40,92 @@ public final class AttackStanceTaskManager extends AbstractPeriodicTaskManager
 		super(1000);
 	}
 	
-	public synchronized boolean getAttackStanceTask(L2Character actor)
+	public boolean getAttackStanceTask(L2Character actor)
 	{
-		if (actor instanceof L2Summon)
-			actor = ((L2Summon)actor).getOwner();
-		
-		return _attackStanceTasks.containsKey(actor);
+		readLock();
+		try
+		{
+			if (actor instanceof L2Summon)
+				actor = ((L2Summon)actor).getOwner();
+			
+			return _attackStanceTasks.containsKey(actor);
+		}
+		finally
+		{
+			readUnlock();
+		}
 	}
 	
-	public synchronized void addAttackStanceTask(L2Character actor)
+	public void addAttackStanceTask(L2Character actor)
 	{
-		if (actor instanceof L2Summon)
-			actor = ((L2Summon)actor).getOwner();
-		
-		if (actor instanceof L2PcInstance)
-			for (L2CubicInstance cubic : ((L2PcInstance)actor).getCubics().values())
-				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-					cubic.doAction();
-		
-		_attackStanceTasks.put(actor, System.currentTimeMillis() + COMBAT_TIME);
+		writeLock();
+		try
+		{
+			if (actor instanceof L2Summon)
+				actor = ((L2Summon)actor).getOwner();
+			
+			if (actor instanceof L2PcInstance)
+				for (L2CubicInstance cubic : ((L2PcInstance)actor).getCubics().values())
+					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+						cubic.doAction();
+			
+			_attackStanceTasks.put(actor, System.currentTimeMillis() + COMBAT_TIME);
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
-	public synchronized void removeAttackStanceTask(L2Character actor)
+	public void removeAttackStanceTask(L2Character actor)
 	{
-		if (actor instanceof L2Summon)
-			actor = ((L2Summon)actor).getOwner();
-		
-		_attackStanceTasks.remove(actor);
+		writeLock();
+		try
+		{
+			if (actor instanceof L2Summon)
+				actor = ((L2Summon)actor).getOwner();
+			
+			_attackStanceTasks.remove(actor);
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
 	@Override
-	public synchronized void run()
+	public void run()
 	{
-		for (Map.Entry<L2Character, Long> entry : _attackStanceTasks.entrySet())
+		writeLock();
+		try
 		{
-			if (System.currentTimeMillis() > entry.getValue())
+			for (Map.Entry<L2Character, Long> entry : _attackStanceTasks.entrySet())
 			{
-				final L2Character actor = entry.getKey();
-				
-				actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
-				
-				if (actor instanceof L2PcInstance)
+				if (System.currentTimeMillis() > entry.getValue())
 				{
-					final L2Summon pet = ((L2PcInstance)actor).getPet();
-					if (pet != null)
-						pet.broadcastPacket(new AutoAttackStop(pet.getObjectId()));
+					final L2Character actor = entry.getKey();
+					
+					actor.broadcastPacket(new AutoAttackStop(actor.getObjectId()));
+					
+					if (actor instanceof L2PcInstance)
+					{
+						final L2Summon pet = ((L2PcInstance)actor).getPet();
+						if (pet != null)
+							pet.broadcastPacket(new AutoAttackStop(pet.getObjectId()));
+					}
+					
+					actor.getAI().setAutoAttacking(false);
+					
+					_attackStanceTasks.remove(actor);
 				}
-				
-				actor.getAI().setAutoAttacking(false);
-				
-				_attackStanceTasks.remove(actor);
 			}
 		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

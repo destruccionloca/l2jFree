@@ -7057,7 +7057,7 @@ public abstract class L2Character extends L2Object
 		_isMinion = val;
 	}
 	
-	private byte _packetBroadcastMask;
+	private volatile byte _packetBroadcastMask;
 	
 	protected boolean shouldAddPacketBroadcastMask()
 	{
@@ -7069,24 +7069,19 @@ public abstract class L2Character extends L2Object
 		if (!shouldAddPacketBroadcastMask())
 			return;
 		
-		synchronized (PacketBroadcaster.getInstance())
-		{
-			_packetBroadcastMask |= mode.mask();
-			
-			PacketBroadcaster.getInstance().add(this);
-		}
+		_packetBroadcastMask |= mode.mask();
+		
+		PacketBroadcaster.getInstance().add(this);
 	}
 	
-	public final byte clearPacketBroadcastMask()
+	public final void removePacketBroadcastMask(BroadcastMode mode)
 	{
-		synchronized (PacketBroadcaster.getInstance())
-		{
-			final byte mask = _packetBroadcastMask;
-			
-			_packetBroadcastMask = 0;
-			
-			return mask;
-		}
+		_packetBroadcastMask &= ~mode.mask();
+	}
+	
+	public final byte getPacketBroadcastMask()
+	{
+		return _packetBroadcastMask;
 	}
 	
 	public final void broadcastFullInfo()

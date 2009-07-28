@@ -29,14 +29,30 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 		super(period);
 	}
 	
-	public final synchronized void add(T cha)
+	public final void add(T cha)
 	{
-		_queue.add(cha);
+		writeLock();
+		try
+		{
+			_queue.add(cha);
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
-	private final synchronized T removeFirst()
+	private final T removeFirst()
 	{
-		return _queue.removeFirst();
+		writeLock();
+		try
+		{
+			return _queue.removeFirst();
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
 	@Override
@@ -56,8 +72,7 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 			}
 			finally
 			{
-				RunnableStatsManager.getInstance().handleStats(task.getClass(), getCalledMethodName(),
-					System.nanoTime() - begin);
+				RunnableStatsManager.handleStats(task.getClass(), getCalledMethodName(), System.nanoTime() - begin);
 			}
 		}
 	}

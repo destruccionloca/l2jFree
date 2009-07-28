@@ -35,35 +35,64 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 		super(period);
 	}
 	
-	public synchronized boolean hasTask(T task)
+	public boolean hasTask(T task)
 	{
-		return _activeTasks.contains(task) || _startList.contains(task);
+		readLock();
+		try
+		{
+			return _activeTasks.contains(task) || _startList.contains(task);
+		}
+		finally
+		{
+			readUnlock();
+		}
 	}
 	
-	public final synchronized void startTask(T task)
+	public final void startTask(T task)
 	{
-		_startList.add(task);
-		
-		_stopList.remove(task);
+		writeLock();
+		try
+		{
+			_startList.add(task);
+			
+			_stopList.remove(task);
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
-	public final synchronized void stopTask(T task)
+	public final void stopTask(T task)
 	{
-		_stopList.add(task);
-		
-		_startList.remove(task);
+		writeLock();
+		try
+		{
+			_stopList.add(task);
+			
+			_startList.remove(task);
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
 	@Override
 	public final void run()
 	{
-		synchronized (this)
+		writeLock();
+		try
 		{
 			_activeTasks.addAll(_startList);
 			_activeTasks.removeAll(_stopList);
 			
 			_startList.clear();
 			_stopList.clear();
+		}
+		finally
+		{
+			writeUnlock();
 		}
 		
 		for (FastSet.Record r = _activeTasks.head(), end = _activeTasks.tail(); (r = r.getNext()) != end;)
@@ -81,8 +110,7 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 			}
 			finally
 			{
-				RunnableStatsManager.getInstance().handleStats(task.getClass(), getCalledMethodName(),
-					System.nanoTime() - begin);
+				RunnableStatsManager.handleStats(task.getClass(), getCalledMethodName(), System.nanoTime() - begin);
 			}
 		}
 	}

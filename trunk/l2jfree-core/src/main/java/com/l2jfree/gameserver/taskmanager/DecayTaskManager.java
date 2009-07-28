@@ -40,21 +40,45 @@ public final class DecayTaskManager extends AbstractPeriodicTaskManager
 		super(1000);
 	}
 	
-	public synchronized boolean hasDecayTask(L2Character actor)
+	public boolean hasDecayTask(L2Character actor)
 	{
-		return _decayTasks.containsKey(actor);
+		readLock();
+		try
+		{
+			return _decayTasks.containsKey(actor);
+		}
+		finally
+		{
+			readUnlock();
+		}
 	}
 	
-	public synchronized double getRemainingDecayTime(L2Character actor)
+	public double getRemainingDecayTime(L2Character actor)
 	{
-		double remaining = _decayTasks.get(actor) - System.currentTimeMillis();
-		
-		return remaining / getDecayTime0(actor);
+		readLock();
+		try
+		{
+			double remaining = _decayTasks.get(actor) - System.currentTimeMillis();
+			
+			return remaining / getDecayTime0(actor);
+		}
+		finally
+		{
+			readUnlock();
+		}
 	}
 	
-	public synchronized void addDecayTask(L2Character actor)
+	public void addDecayTask(L2Character actor)
 	{
-		_decayTasks.put(actor, System.currentTimeMillis() + getDecayTime0(actor));
+		writeLock();
+		try
+		{
+			_decayTasks.put(actor, System.currentTimeMillis() + getDecayTime0(actor));
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
 	private int getDecayTime0(L2Character actor)
@@ -91,43 +115,67 @@ public final class DecayTaskManager extends AbstractPeriodicTaskManager
 		return ATTACKABLE_DECAY_TIME;
 	}
 	
-	public synchronized void cancelDecayTask(L2Character actor)
+	public void cancelDecayTask(L2Character actor)
 	{
-		_decayTasks.remove(actor);
+		writeLock();
+		try
+		{
+			_decayTasks.remove(actor);
+		}
+		finally
+		{
+			writeUnlock();
+		}
 	}
 	
 	@Override
-	public synchronized void run()
+	public void run()
 	{
-		for (Map.Entry<L2Character, Long> entry : _decayTasks.entrySet())
+		writeLock();
+		try
 		{
-			if (System.currentTimeMillis() > entry.getValue())
+			for (Map.Entry<L2Character, Long> entry : _decayTasks.entrySet())
 			{
-				final L2Character actor = entry.getKey();
-				
-				actor.onDecay();
-				
-				_decayTasks.remove(actor);
+				if (System.currentTimeMillis() > entry.getValue())
+				{
+					final L2Character actor = entry.getKey();
+					
+					actor.onDecay();
+					
+					_decayTasks.remove(actor);
+				}
 			}
+		}
+		finally
+		{
+			writeUnlock();
 		}
 	}
 	
-	public synchronized String getStats()
+	public String getStats()
 	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("============= DecayTask Manager Report ============").append("\r\n");
-		sb.append("Tasks count: ").append(_decayTasks.size()).append("\r\n");
-		sb.append("Tasks dump:").append("\r\n");
-		
-		for (L2Character actor : _decayTasks.keySet())
+		readLock();
+		try
 		{
-			sb.append("(").append(_decayTasks.get(actor) - System.currentTimeMillis()).append(") - ");
-			sb.append(actor.getClass().getSimpleName()).append("/").append(actor.getName()).append("\r\n");
+			final StringBuilder sb = new StringBuilder();
+			sb.append("============= DecayTask Manager Report ============").append("\r\n");
+			sb.append("Tasks count: ").append(_decayTasks.size()).append("\r\n");
+			sb.append("Tasks dump:").append("\r\n");
+			
+			for (L2Character actor : _decayTasks.keySet())
+			{
+				sb.append("(").append(_decayTasks.get(actor) - System.currentTimeMillis()).append(") - ");
+				sb.append(actor.getClass().getSimpleName()).append("/").append(actor.getName()).append("\r\n");
+			}
+			
+			return sb.toString();
 		}
-		
-		return sb.toString();
+		finally
+		{
+			readUnlock();
+		}
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
