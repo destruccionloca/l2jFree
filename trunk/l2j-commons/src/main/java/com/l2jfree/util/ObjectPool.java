@@ -73,6 +73,7 @@ public abstract class ObjectPool<E>
 		{
 			_elements = new Object[0];
 			_access = new long[0];
+			_size = 0;
 		}
 		finally
 		{
@@ -164,6 +165,7 @@ public abstract class ObjectPool<E>
 			
 			_elements = Arrays.copyOf(_elements, newIndex);
 			_access = Arrays.copyOf(_access, newIndex);
+			_size = newIndex;
 		}
 		finally
 		{
