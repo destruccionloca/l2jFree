@@ -6,6 +6,15 @@
   <dependencySets>
     <dependencySet>
       <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>l2jfree:l2jfree-login</include>
+      </includes>
+    </dependencySet>
+    <dependencySet>
+      <outputDirectory>/lib/</outputDirectory>
+      <excludes>
+        <exclude>l2jfree:l2jfree-login</exclude>
+      </excludes>
     </dependencySet>
   </dependencySets>
   <fileSets>
