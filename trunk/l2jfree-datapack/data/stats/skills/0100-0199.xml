@@ -221,7 +221,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1200"/>
-    <set name="isDebuff" val="true"/>
+    <!-- <set name="isDebuff" val="true"/> -->
     <set name="skillType" val="AGGREMOVE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>

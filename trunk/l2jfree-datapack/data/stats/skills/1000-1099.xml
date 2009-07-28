@@ -1063,7 +1063,7 @@
     <set name="skillRadius" val="1000"/>
     <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="7000"/>
-    <set name="isDebuff" val="true"/>
+    <!-- <set name="isDebuff" val="true"/> -->
     <set name="lvlDepend" val="1"/>
     <set name="skillType" val="AGGREMOVE"/>
     <set name="isMagic" val="true"/>
