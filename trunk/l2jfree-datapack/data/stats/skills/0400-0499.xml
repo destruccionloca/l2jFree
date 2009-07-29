@@ -2047,13 +2047,13 @@
     <set name="effectRange" val="400"/>
     <set name="isDebuff" val="true"/>
     <set name="soulMaxConsumeCount" val="5"/>
-    <cond msg="Invalid target.">
-      <target active_effect_id="495"/>
-    </cond>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <cond msg="Invalid target.">
+      <target active_effect_id="495"/>
+    </cond>
     <for>
       <effect count="7" name="DamOverTime" time="3" val="74" abnormal="bleed" effectPower="60" effectType="BLEED">
         <mul order="0x30" stat="runSpd" val="0.8"/>

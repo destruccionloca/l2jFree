@@ -46,6 +46,7 @@
 <!ATTLIST player active_effect_id CDATA #IMPLIED>
 <!ATTLIST player class_id_restriction CDATA #IMPLIED>
 <!ATTLIST player isClanLeader (%boolean;) #IMPLIED>
+<!ATTLIST player subclass (%boolean;) #IMPLIED>
 <!ELEMENT player EMPTY>
 
 <!ATTLIST target aggro (%boolean;) #IMPLIED>
@@ -61,6 +62,7 @@
 <!ATTLIST target using CDATA #IMPLIED>
 <!ATTLIST target npcId CDATA #IMPLIED>
 <!ATTLIST target npcType CDATA #IMPLIED>
+<!ATTLIST target doorId CDATA #IMPLIED>
 <!ELEMENT target EMPTY>
 
 <!ATTLIST using kind CDATA #IMPLIED>

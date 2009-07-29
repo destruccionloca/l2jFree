@@ -91,7 +91,7 @@
 <!ATTLIST effect self (1) #IMPLIED>
 <!ATTLIST effect noicon (1) #IMPLIED>
 <!ATTLIST effect val CDATA #REQUIRED>
-<!ATTLIST effect abnormal (bleed|bleeding|poison|redcircle|ice|wind|fear|stun|sleep|mute|root|hold1|hold2|unknown13|bighead|flame|unknown16|grow|floatroot|dancestun|firerootstun|stealth|imprison1|imprison2|magiccircle|ice2|earthquake|unknown27|invulnerable|vitality) #IMPLIED>
+<!ATTLIST effect abnormal (bleed|bleeding|poison|redcircle|ice|wind|fear|stun|sleep|mute|root|hold1|hold2|unknown13|bighead|flame|unknown16|grow|floatroot|dancestun|firerootstun|stealth|imprison1|imprison2|magiccircle|ice2|earthquake|unknown27|invulnerable|vitality|deathmark) #IMPLIED>
 <!ATTLIST effect stackType CDATA #IMPLIED>
 <!ATTLIST effect stackOrder CDATA #IMPLIED>
 <!ATTLIST effect effectPower CDATA #IMPLIED>
@@ -100,7 +100,7 @@
 <!ATTLIST effect triggeredLevel CDATA #IMPLIED>
 <!ATTLIST effect chanceType CDATA #IMPLIED>
 <!ATTLIST effect activationChance CDATA #IMPLIED>
-<!ELEMENT effect (cond?,(%func;)*)> <!-- TODO: cond? -->
+<!ELEMENT effect (%func;)*>
 
 <!-- Stat -->
 <!ATTLIST set     stat CDATA #IMPLIED> <!-- overlapping with properties -->
