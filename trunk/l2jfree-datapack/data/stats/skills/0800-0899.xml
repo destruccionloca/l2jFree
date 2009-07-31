@@ -79,11 +79,8 @@
     <set name="reuseDelay" val="10000"/>
     <set name="transformId" val="312"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
-        <mul order="0x30" stat="sDef" val="0.5"/>
-      </effect>
-    </for>
+		<effect name="Transformation" time="18400" val="0"/>
+	</for>		
   </skill>
   <skill id="811" levels="1" name="Vanguard">
     <set name="mpConsume" val="31"/>
@@ -94,11 +91,8 @@
     <set name="reuseDelay" val="10000"/>
     <set name="transformId" val="313"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
-        <mul order="0x30" stat="sDef" val="0.5"/>
-      </effect>
-    </for>
+		<effect name="Transformation" time="18400" val="0"/>
+	</for>
   </skill>
   <skill id="812" levels="1" name="Vanguard">
     <set name="mpConsume" val="31"/>
@@ -109,11 +103,8 @@
     <set name="reuseDelay" val="10000"/>
     <set name="transformId" val="314"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
-        <mul order="0x30" stat="sDef" val="0.5"/>
-      </effect>
-    </for>
+		<effect name="Transformation" time="18400" val="0"/>
+	</for>
   </skill>
   <skill id="813" levels="1" name="Vanguard">
     <set name="mpConsume" val="31"/>
@@ -124,11 +115,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="315"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
-        <mul order="0x30" stat="sDef" val="0.5"/>
-      </effect>
-    </for>
+		<effect name="Transformation" time="18400" val="0"/>
+	</for>
   </skill>
   <skill id="814" levels="43" name="Full Swing">
     <!-- Vanguard Stance Skill -->
@@ -147,7 +135,7 @@
     <set name="skillRadius" val="150"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="17000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess - need retail confirmation -->
     <set name="hitTime" val="1070"/>
     <set name="coolTime" val="720"/>
     <set name="skillType" val="PDAM"/>
@@ -171,7 +159,7 @@
     <set name="skillRadius" val="150"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="17000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess - need retail confirmation -->
     <set name="hitTime" val="1070"/>
     <set name="coolTime" val="720"/>
     <set name="skillType" val="PDAM"/>
@@ -194,7 +182,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="20000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess - need retail confirmation -->
     <set name="hitTime" val="1620"/>
     <set name="coolTime" val="720"/>
     <set name="skillType" val="PDAM"/>
@@ -219,7 +207,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="17000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="8000"/> <!-- Guess - need retail confirmation -->
     <set name="hitTime" val="1730"/>
     <set name="coolTime" val="720"/>
     <set name="skillType" val="PDAM"/>

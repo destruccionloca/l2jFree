@@ -1000,8 +1000,9 @@
     <set name="power" val="#power"/>
     <set name="chanceType" val="ON_HIT"/>
     <set name="activationChance" val="#chance"/>
+	<set name="effectPower" val="100"/>
     <for>
-      <effect name="TargetMe" time="3" val="0"/>
+      <effect name="TargetMe" time="3" val="0" power="100"/>
     </for>
   </skill>
   <skill id="3081" levels="10" name="Item Skill: Charm">

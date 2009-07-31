@@ -315,7 +315,7 @@
     <set name="hitTime" val="1500"/>
     <set name="reuseDelay" val="2000"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" chanceType="ON_ATTACKED" activationChance="10"/>
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" chanceType="ON_ATTACKED" activationChance="10" noicon="1"/>
       <effect name="Buff" time="1200" val="0"/>
     </for>
   </skill>
@@ -323,10 +323,10 @@
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="750"/>
     <set name="effectRange" val="1250"/>
-    <set name="hitTime" val="4000"/>
+    <set name="hitTime" val="1800"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="76"/>
-    <set name="mpConsume" val="35"/>
+    <set name="mpConsume" val="43"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="166"/>
     <set name="reuseDelay" val="1200"/>
@@ -402,10 +402,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="316"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pvpMagicalDmg" val="0.4"/>
-      </effect>
-    </for>
+    	<effect name="Transformation" time="18400" val="0"/>
+	</for>    	
   </skill>
   <skill id="1521" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31"/>
@@ -416,10 +414,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="317"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pvpMagicalDmg" val="0.4"/>
-      </effect>
-    </for>
+    	<effect name="Transformation" time="18400" val="0"/>
+	</for>    	
   </skill>
   <skill id="1522" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31"/>
@@ -430,10 +426,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="318"/>
     <for>
-      <effect name="Transformation" time="18400" val="0">
-        <mul order="0x30" stat="pvpMagicalDmg" val="0.4"/>
-      </effect>
-    </for>
+    	<effect name="Transformation" time="18400" val="0"/>
+	</for>    	
   </skill>
   <skill id="1523" levels="42" name="Divine Punishment">
     <!-- Inquisitor Stance Skill -->

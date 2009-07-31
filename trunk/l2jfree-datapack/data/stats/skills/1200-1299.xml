@@ -259,7 +259,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="5000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -296,8 +296,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="1000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="reuseDelay" val="500"/>
+    <set name="hitTime" val="900"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

@@ -1208,7 +1208,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="5000"/>
+    <set name="hitTime" val="3500"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

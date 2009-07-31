@@ -47,7 +47,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="1000"/>
-    <set name="hitTime" val="5000"/>
+    <set name="hitTime" val="2500"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -69,7 +69,7 @@
     <set name="itemConsumeCount" val="4"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="1200"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="4000"/>
     <set name="skillRadius" val="1000"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="HEAL"/>
@@ -84,7 +84,7 @@
     <set name="skillType" val="SUMMON_FRIEND"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="mpConsume" val="180"/>
-    <set name="hitTime" val="15000"/>
+    <set name="hitTime" val="5000"/>
     <set name="reuseDelay" val="30000"/>
     <set name="castRange" val="-2"/>
     <set name="effectRange" val="-2"/>
@@ -781,7 +781,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="2400"/>
+    <set name="reuseDelay" val="2600"/>
     <set name="hitTime" val="1800"/>
     <set name="coolTime" val="300"/>
     <set name="skillType" val="MDAM"/>
