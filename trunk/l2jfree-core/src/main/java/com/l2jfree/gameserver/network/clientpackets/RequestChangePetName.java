@@ -68,7 +68,7 @@ public class RequestChangePetName extends L2GameClientPacket
         	requestFailed(SystemMessageId.NAMING_PETNAME_UP_TO_8CHARS);
 			return;
 		}
-        else if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(_name).matches())
+        else if (!Config.PET_NAME_PATTERN.matcher(_name).matches())
 		{
         	requestFailed(SystemMessageId.NAMING_PETNAME_CONTAINS_INVALID_CHARS);
 			return;
