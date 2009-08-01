@@ -85,6 +85,22 @@ public final class FuncTemplate
 				}
 				break;
 			}
+			case MCRITICAL_RATE:
+			{
+				if (clazz == FuncMul.class)
+				{
+					//throwException(pFunc, pStat, pOrder, pLambda);
+					clazz = FuncBaseMul.class;
+					pLambda = (pLambda - 1.0);
+				}
+				else if (clazz == FuncDiv.class)
+				{
+					//throwException(pFunc, pStat, pOrder, pLambda);
+					clazz = FuncBaseMul.class;
+					pLambda = ((1.0 / pLambda) - 1.0);
+				}
+				break;
+			}
 		}
 		
 		if (pStat.isMultiplicativeResist())
