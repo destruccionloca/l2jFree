@@ -694,7 +694,7 @@ public final class ItemTable
 		if (item.isStackable() && count > 1)
 			item.setCount(count);
 		
-		if (Config.LOG_ITEMS && !process.equals("Reset"))
+		if (Config.LOG_ITEMS && actor != null)
 		{
 			List<Object> param = new ArrayList<Object>();
 			param.add("CREATE:" + process);
@@ -759,7 +759,7 @@ public final class ItemTable
 			L2World.getInstance().removeObject(item);
 			IdFactory.getInstance().releaseId(item.getObjectId());
 			
-			if (Config.LOG_ITEMS)
+			if (Config.LOG_ITEMS && actor != null)
 			{
 				List<Object> param = new ArrayList<Object>();
 				param.add("DELETE:" + process);

@@ -14,6 +14,10 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import java.util.Map;
+
+import javolution.util.FastMap;
+
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -27,33 +31,34 @@ public class L2TownZone extends L2Zone
 		TownManager.getInstance().registerTown(this);
 	}
 	
+	private final Map<Integer, Byte> _map = new FastMap<Integer, Byte>().setShared(true);
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		boolean peace = true;
+		byte flag = FLAG_PEACE;
 		
 		switch (Config.ZONE_TOWN)
 		{
 			case 1: // PvP allowed for siege participants
 			{
 				if (character instanceof L2PcInstance && ((L2PcInstance)character).getSiegeState() != 0)
-					peace = false;
+					flag = FLAG_PVP;
 				break;
 			}
 			case 2: // PvP in towns all the time
 			{
-				peace = false;
+				flag = FLAG_PVP;
 				break;
 			}
 		}
 		
 		// TODO: PvP zone with debuffs etc. allowed or just general zone?
 		
-		if (peace)
-			character.setInsideZone(FLAG_PEACE, true);
-		else
-			character.setInsideZone(FLAG_PVP, true);
-
+		_map.put(character.getObjectId(), flag);
+		
+		character.setInsideZone(flag, true);
+		
 		character.setInsideZone(FLAG_TOWN, true);
 		
 		super.onEnter(character);
@@ -62,15 +67,12 @@ public class L2TownZone extends L2Zone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		// TODO: problems could happen if more pvp/peace zones are overlapping
-		if (character.isInsideZone(FLAG_PVP))
-			character.setInsideZone(FLAG_PVP, false);
+		Byte flag = _map.remove(character.getObjectId());
+		if (flag != null) // just incase something would happen
+			character.setInsideZone(flag.byteValue(), false);
 		
-		if (character.isInsideZone(FLAG_PEACE))
-			character.setInsideZone(FLAG_PEACE, false);
-
 		character.setInsideZone(FLAG_TOWN, false);
-
+		
 		super.onExit(character);
 	}
 }

@@ -924,12 +924,12 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		if (opcode2 != null)
 			sb.append(" : 0x").append(Integer.toHexString(opcode2));
 		sb.append(", Client: ").append(client);
-		_log.warn(sb);
+		_log.info(sb);
 		
 		byte[] array = new byte[buf.remaining()];
 		buf.get(array);
 		for (String line : StringUtils.split(HexUtil.printData(array), "\n"))
-			_log.warn(line);
+			_log.info(line);
 	}
 	
 	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)

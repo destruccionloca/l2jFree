@@ -2818,20 +2818,8 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (count > 0)
 		{
-			if (getInventory().getAdena() == Integer.MAX_VALUE)
-			{
-				sendMessage("You have reached maximum amount of adena.");
-				return;
-			}
-			else if (getInventory().getAdena() >= (Integer.MAX_VALUE - count))
-			{
-				count = Integer.MAX_VALUE - getInventory().getAdena();
-				 getInventory().addAdena(process, count, this, reference);
-			}
-			else if (getInventory().getAdena() < (Integer.MAX_VALUE - count))
-			{
-				 getInventory().addAdena(process, count, this, reference);
-			}
+			getInventory().addAdena(process, count, this, reference);
+			
 			if (sendMessage)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
