@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS
 
 DROP TABLE IF EXISTS
 	account_data,
-	accounts,
 	armor,
 	armorsets,
 	auction,
@@ -68,7 +67,6 @@ DROP TABLE IF EXISTS
 	forums,
 	four_sepulchers_spawnlist,
 	games,
-	gameservers,
 	global_tasks,
 	gm_audit,
 	grandboss_intervallist,
