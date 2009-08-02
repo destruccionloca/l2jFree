@@ -23,23 +23,12 @@ import com.l2jfree.gameserver.network.serverpackets.ExBrExtraUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.5.2.4 $ $Date: 2005/04/03 15:55:03 $
- */
-
-public class ChangeFace implements ISkillHandler
+public final class ChangeFace implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.CHANGE_APPEARANCE, };
-
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.handler.ISkillHandler#useSkill(com.l2jfree.gameserver.model.actor.L2Character,
-	 *      com.l2jfree.gameserver.model.L2Skill,
-	 *      com.l2jfree.gameserver.model.L2Object[])
-	 */
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.CHANGE_APPEARANCE };
+	
+	@Override
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
@@ -52,28 +41,18 @@ public class ChangeFace implements ISkillHandler
 			player.getAppearance().setHairColor(skill.getHairColorId());
 		if (skill.getHairStyleId() >= 0)
 			player.getAppearance().setHairStyle(skill.getHairStyleId());
-
+		
 		// Update the changed stat for the character in the DB.
 		player.store();
-
+		
 		// Broadcast the changes to the char and all those nearby.
 		player.broadcastPacket(new UserInfo(player));
 		player.broadcastPacket(new ExBrExtraUserInfo(player));
 	}
-
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()
-	 */
+	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
-	}
-
-	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
-	{
-		// TODO Auto-generated method stub
-
 	}
 }
