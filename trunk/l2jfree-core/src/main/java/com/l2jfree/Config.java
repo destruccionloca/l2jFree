@@ -1096,7 +1096,6 @@ public class Config extends L2Config
 	public static boolean			EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;						// Empty table ItemsOnGround after load all items
 	public static int				SAVE_DROPPED_ITEM_INTERVAL;								// Time interval to save into db items on ground
 	public static boolean			CLEAR_DROPPED_ITEM_TABLE;									// Clear all items stored in ItemsOnGround table
-	public static boolean			PRECISE_DROP_CALCULATION;									// Accept precise drop calculation ?
 	public static boolean			MULTIPLE_ITEM_DROP;										// Accept multi-items drop ?
 	/**
 	 * This is setting of experimental Client <--> Server Player coordinates
@@ -1257,7 +1256,6 @@ public class Config extends L2Config
 			SAVE_DROPPED_ITEM_INTERVAL = Integer.parseInt(optionsSettings.getProperty("SaveDroppedItemInterval", "0")) * 60000;
 			CLEAR_DROPPED_ITEM_TABLE = Boolean.parseBoolean(optionsSettings.getProperty("ClearDroppedItemTable", "false"));
 
-			PRECISE_DROP_CALCULATION = Boolean.parseBoolean(optionsSettings.getProperty("PreciseDropCalculation", "True"));
 			MULTIPLE_ITEM_DROP = Boolean.parseBoolean(optionsSettings.getProperty("MultipleItemDrop", "True"));
 
 			COORD_SYNCHRONIZE = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));

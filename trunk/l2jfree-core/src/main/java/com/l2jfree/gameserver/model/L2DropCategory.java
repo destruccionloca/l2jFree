@@ -19,6 +19,7 @@ import java.util.List;
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -113,7 +114,7 @@ public class L2DropCategory
 		int subCatChance = 0;
 		for (L2DropData drop : getAllDrops())
 		{
-			if (drop.getItemId() == 57 || drop.getItemId() == 5575 || drop.getItemId() == 6360 || drop.getItemId() == 6361 || drop.getItemId() == 6362)
+			if (ItemTable.isAdenaLikeItem(drop.getItemId()))
 			{
 				drops.add(drop);
 				subCatChance += drop.getChance();

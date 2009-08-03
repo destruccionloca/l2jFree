@@ -654,7 +654,7 @@ public final class ItemTable
 		// Create and Init the L2ItemInstance corresponding to the Item Identifier
 		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
 		
-		boolean isAdena = (itemId == 57 || itemId == 5575 || 6360 <= itemId && itemId <= 6362);
+		final boolean isAdena = isAdenaLikeItem(itemId);
 		
 		if (process.equalsIgnoreCase("loot") && (isAdena ? !Config.ALT_AUTO_LOOT_ADENA : !Config.ALT_AUTO_LOOT))
 		{
@@ -829,5 +829,20 @@ public final class ItemTable
 			}
 		}
 		return returnVal;
+	}
+	
+	public static boolean isAdenaLikeItem(int itemId)
+	{
+		switch (itemId)
+		{
+			case 57:
+			case 5575:
+			case 6360:
+			case 6361:
+			case 6362:
+				return true;
+			default:
+				return false;
+		}
 	}
 }

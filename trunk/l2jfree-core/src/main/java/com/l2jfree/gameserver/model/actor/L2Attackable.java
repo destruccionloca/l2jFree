@@ -1156,101 +1156,83 @@ public class L2Attackable extends L2Npc
 	private RewardItem calculateRewardItem(L2PcInstance lastAttacker, L2DropData drop, int levelModifier, boolean isSweep)
 	{
 		// Get default drop chance
-		float dropChance = drop.getChance();
-		int champRate;
-
-		int deepBlueDrop = 1;
+		final long dropChance = calculateDropChance(drop.getChance(), drop, isSweep, levelModifier);
+		
+		return dropItem(dropChance, drop);
+	}
+	
+	private long calculateDropChance(double chance, L2DropData drop, boolean isSweep, int levelModifier)
+	{
+		if (drop != null && drop.getItemId() == 57)
+			chance *= Config.RATE_DROP_ADENA;
+		else if (isSweep)
+			chance *= Config.RATE_DROP_SPOIL;
+		else
+			chance *= Config.RATE_DROP_ITEMS;
+		
+		if (isChampion())
+		{
+			if (ItemTable.isAdenaLikeItem(drop.getItemId()))
+				chance *= Config.CHAMPION_ADENA;
+			else
+				chance *= Config.CHAMPION_REWARDS;
+		}
+		
 		if (shouldPunishDeepBlueDrops())
 		{
 			if (levelModifier > 0)
 			{
 				// We should multiply by the server's drop rate, so we always get a low chance of drop for deep blue mobs.
 				// NOTE: This is valid only for adena drops! Others drops will still obey server's rate
-				deepBlueDrop = 3;
-				if (drop.getItemId() == 57)
-					deepBlueDrop *= (int) Config.RATE_DROP_ITEMS;
+				chance /= 3;
+				if (drop != null && drop.getItemId() == 57 && Config.RATE_DROP_ITEMS != 0)
+					chance /= Config.RATE_DROP_ITEMS;
 			}
+			
+			chance *= (100.0 - levelModifier) / 100.0;
 		}
-
-		if (deepBlueDrop == 0) //avoid div by 0
-			deepBlueDrop = 1;
-		// Check if we should apply our maths so deep blue mobs will not drop that easy
-		if (shouldPunishDeepBlueDrops())
-			dropChance = ((drop.getChance() - ((drop.getChance() * levelModifier) / 100)) / deepBlueDrop);
-
-		if (isChampion())
-		{
-			if (drop.getItemId() == 57 || drop.getItemId() == 5575 || drop.getItemId() == 6360 || drop.getItemId() == 6361 || drop.getItemId() == 6362)
-			{
-				champRate = Config.CHAMPION_ADENA;
-			}
-			else
-			{
-				champRate = Config.CHAMPION_REWARDS;
-			}
-		}
-		else
-		{
-			champRate = 1;
-		}
-
-		// Applies Drop rates
-		if (drop.getItemId() == 57)
-			dropChance *= Config.RATE_DROP_ADENA;
-		else if (isSweep)
-			dropChance *= Config.RATE_DROP_SPOIL;
-		else
-			dropChance *= Config.RATE_DROP_ITEMS;
-
-		// Round drop chance
-		dropChance = Math.round(dropChance) * champRate;
-
-		// Set our limits for chance of drop
-		if (dropChance < 1)
-			dropChance = 1;
-		//if (drop.getItemId() == 57 && dropChance > L2DropData.MAX_CHANCE) dropChance = L2DropData.MAX_CHANCE; // If item is adena, dont drop multiple time
-
-		// Get min and max Item quantity that can be dropped in one time
-		int minCount = drop.getMinDrop();
-		int maxCount = drop.getMaxDrop();
-		int itemCount = 0;
-
-		// Count and chance adjustment for high rate servers
-		if (dropChance > L2DropData.MAX_CHANCE && !Config.PRECISE_DROP_CALCULATION)
-		{
-			int multiplier = (int) dropChance / L2DropData.MAX_CHANCE;
-			if (minCount < maxCount)
-				itemCount += Rnd.get(minCount * multiplier, maxCount * multiplier);
-			else if (minCount == maxCount)
-				itemCount += minCount * multiplier;
-			else
-				itemCount += multiplier;
-			dropChance = dropChance % L2DropData.MAX_CHANCE;
-		}
-
+		
+		return (long)chance;
+	}
+	
+	private RewardItem dropItem(long dropChance, L2DropData drop)
+	{
+		if (dropChance <= 0)
+			return null;
+		
+		int multiplier = (int)(dropChance / L2DropData.MAX_CHANCE);
+		
+		dropChance %= L2DropData.MAX_CHANCE;
+		
 		// Check if the Item must be dropped
-		int random = Rnd.get(L2DropData.MAX_CHANCE);
-		while (random < dropChance)
-		{
-			// Get the item quantity dropped
-			if (minCount < maxCount)
-				itemCount += Rnd.get(minCount, maxCount);
-			else if (minCount == maxCount)
-				itemCount += minCount;
-			else
-				itemCount++;
-			// Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
-			dropChance -= L2DropData.MAX_CHANCE;
-		}
-
+		if (Rnd.get(L2DropData.MAX_CHANCE) < dropChance)
+			multiplier++;
+		
+		if (multiplier <= 0)
+			return null;
+		
+		// Get min and max Item quantity that can be dropped in one time
+		final int minCount = drop.getMinDrop();
+		final int maxCount = drop.getMaxDrop();
+		// Get the item quantity dropped
+		int itemCount;
+		
+		if (minCount == maxCount)
+			itemCount = minCount * multiplier;
+		else if (minCount < maxCount)
+			itemCount = Rnd.get(minCount * multiplier, maxCount * multiplier);
+		else
+			itemCount = multiplier;
+		
+		if (itemCount > 1 && !Config.MULTIPLE_ITEM_DROP && !ItemTable.getInstance().getTemplate(drop.getItemId()).isStackable())
+			itemCount = 1;
+		
 		if (itemCount > 0)
 			return new RewardItem(drop.getItemId(), itemCount);
-		else if (itemCount == 0 && _log.isDebugEnabled())
-			_log.info("Roll produced 0 items to drop...");
-
-		return null;
+		else
+			return null;
 	}
-
+	
 	/**
 	 * Calculates quantity of items for specific drop CATEGORY according to
 	 * current situation <br>
@@ -1266,48 +1248,19 @@ public class L2Attackable extends L2Npc
 	{
 		if (categoryDrops == null)
 			return null;
-
+		
 		// Get default drop chance for the category (that's the sum of chances for all items in the category)
 		// keep track of the base category chance as it'll be used later, if an item is drop from the category.
 		// for everything else, use the total "categoryDropChance"
-		int basecategoryDropChance = categoryDrops.getCategoryChance();
-		int categoryDropChance = basecategoryDropChance;
-		int champRate;
-
-		int deepBlueDrop = 1;
-		if (shouldPunishDeepBlueDrops())
-		{
-			if (levelModifier > 0)
-			{
-				// We should multiply by the server's drop rate, so we always get a low chance of drop for deep blue mobs.
-				// NOTE: This is valid only for adena drops! Others drops will still obey server's rate
-				deepBlueDrop = 3;
-			}
-		}
-
-		if (deepBlueDrop == 0) //avoid div by 0
-			deepBlueDrop = 1;
-		// Check if we should apply our maths so deep blue mobs will not drop that easy
-		if (shouldPunishDeepBlueDrops())
-			categoryDropChance = ((categoryDropChance - ((categoryDropChance * levelModifier) / 100)) / deepBlueDrop);
-
-		// Applies Drop rates
-		categoryDropChance *= Config.RATE_DROP_ITEMS;
-
-		// Round drop chance
-		categoryDropChance = Math.round(categoryDropChance);
-
-		// Set our limits for chance of drop
-		if (categoryDropChance < 1)
-			categoryDropChance = 1;
-
+		final long categoryDropChance = calculateDropChance(categoryDrops.getCategoryChance(), null, false, levelModifier);
+		
 		// Check if an Item from this category must be dropped
 		if (Rnd.get(L2DropData.MAX_CHANCE) < categoryDropChance)
 		{
 			L2DropData drop = categoryDrops.dropOne();
 			if (drop == null)
 				return null;
-
+			
 			// Now decide the quantity to drop based on the rates and penalties.  To get this value
 			// simply divide the modified categoryDropChance by the base category chance.  This
 			// results in a chance that will dictate the drops amounts: for each amount over 100
@@ -1319,106 +1272,13 @@ public class L2Attackable extends L2Npc
 			// chance to give a 4th time.
 			// At least 1 item will be dropped for sure.  So the chance will be adjusted to 100%
 			// if smaller.
-
-			if (isChampion())
-			{
-				if (drop.getItemId() == 57 || drop.getItemId() == 5575 || drop.getItemId() == 6360 || drop.getItemId() == 6361 || drop.getItemId() == 6362)
-				{
-					champRate = Config.CHAMPION_ADENA;
-				}
-				else
-				{
-					champRate = Config.CHAMPION_REWARDS;
-				}
-			}
-			else
-			{
-				champRate = 1;
-			}
-
-			int dropChance = drop.getChance();
-			if (drop.getItemId() == 57)
-				dropChance *= Config.RATE_DROP_ADENA;
-			else
-				dropChance *= Config.RATE_DROP_ITEMS;
-
-			dropChance = Math.round(dropChance) * champRate;
-
-			if (dropChance < L2DropData.MAX_CHANCE)
-				dropChance = L2DropData.MAX_CHANCE;
-
-			// Get min and max Item quantity that can be dropped in one time
-			int min = drop.getMinDrop();
-			int max = drop.getMaxDrop();
-			// Get the item quantity dropped
-			int itemCount = 0;
-
-			// Count and chance adjustment for high rate servers
-			if (dropChance > L2DropData.MAX_CHANCE && !Config.PRECISE_DROP_CALCULATION)
-			{
-				int multiplier = dropChance / L2DropData.MAX_CHANCE;
-				if (min < max)
-					itemCount += Rnd.get(min * multiplier, max * multiplier);
-				else if (min == max)
-					itemCount += min * multiplier;
-				else
-					itemCount += multiplier;
-
-				dropChance = dropChance % L2DropData.MAX_CHANCE;
-			}
-
-			// Check if the Item must be dropped
-			int random = Rnd.get(L2DropData.MAX_CHANCE);
-			while (random < dropChance)
-			{
-				// Get the item quantity dropped
-				if (min < max)
-					itemCount += Rnd.get(min, max);
-				else if (min == max)
-					itemCount += min;
-				else
-					itemCount++;
-
-				// Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
-				dropChance -= L2DropData.MAX_CHANCE;
-			}
-
-			if (itemCount > 1 && !Config.MULTIPLE_ITEM_DROP
-					&& !ItemTable.getInstance().getTemplate(drop.getItemId()).isStackable())
-				itemCount = 1;
-
-			if (itemCount > 0)
-				return new RewardItem(drop.getItemId(), itemCount);
-			else if (itemCount == 0 && _log.isDebugEnabled())
-				_log.info("Roll produced 0 items to drop...");
+			
+			final long dropChance = calculateDropChance(drop.getChance(), drop, false, levelModifier);
+			
+			return dropItem(Math.max(dropChance, L2DropData.MAX_CHANCE), drop);
 		}
+		
 		return null;
-
-		/*
-		 // Applies Drop rates
-		 if (drop.getItemId() == 57) dropChance *= Config.RATE_DROP_ADENA;
-		 else if (isSweep) dropChance *= Config.RATE_DROP_SPOIL;
-		 else dropChance *= Config.RATE_DROP_ITEMS;
-
-		 // Round drop chance
-		 dropChance = Math.round(dropChance);
-
-		 // Set our limits for chance of drop
-		 if (dropChance < 1) dropChance = 1;
-		//         if (drop.getItemId() == 57 && dropChance > L2DropData.MAX_CHANCE) dropChance = L2DropData.MAX_CHANCE; // If item is adena, dont drop multiple time
-
-		 // Get min and max Item quantity that can be dropped in one time
-		 int minCount = drop.getMinDrop();
-		 int maxCount = drop.getMaxDrop();
-		 int itemCount = 0;
-
-
-
-		 if (itemCount > 0) return new RewardItem(drop.getItemId(), itemCount);
-		 else if (itemCount == 0 && Config.DEBUG) _log.fine("Roll produced 0 items to drop...");
-
-		 return null;
-		 */
 	}
 
 	/**
