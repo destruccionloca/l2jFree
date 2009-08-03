@@ -7408,12 +7408,9 @@ public final class L2PcInstance extends L2Playable
 			// Loop through all skills in players skilltree
 			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
 				continue;
-			// forgotten scroll skills
-			if (skillid >= 755 && skillid <= 791)
-				continue skill_loop;
-			// amulet skills
-			if (skillid >= 1517 && skillid <= 1519)
-				continue skill_loop;
+			// skills learned by L2SkillType.LEARN_SKILL
+			if (SkillTable.getInstance().isLearnedSkill(skill))
+				continue;
 			// Exclude noble skills
 			if (isNoble() && NobleSkillTable.isNobleSkill(skillid))
 				continue skill_loop;
@@ -7446,11 +7443,12 @@ public final class L2PcInstance extends L2Playable
 			// Exclude VIP character
 			if (isCharViP() && Config.CHAR_VIP_SKIP_SKILLS_CHECK)
 				continue skill_loop;
-			// Remove skill and do a lil log message
-			removeSkill(skill);
-			sendMessage("Skill " + skill.getName() + " removed and gm informed!");
-			_log.fatal("Cheater! - Character " + getName() + " of Account " + getAccountName() + " VIP status :"
-				+ isCharViP() + " got skill " + skill.getName() + " removed!");
+			
+			// Remove skill from ingame, but not from the database to avoid accidentally removal of skills
+			// if something failed loading and do a lil log message
+			removeSkill(skill, false);
+			sendMessage("Skill " + skill.getName() + " removed and GM informed!");
+			_log.fatal("Cheater?! " + skill + " removed from " + getName() + " (" + getAccountName() + ")");
 		}
 	}
 

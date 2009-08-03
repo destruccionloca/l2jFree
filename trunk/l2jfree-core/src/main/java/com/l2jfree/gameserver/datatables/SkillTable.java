@@ -14,10 +14,11 @@
  */
 package com.l2jfree.gameserver.datatables;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +47,7 @@ public final class SkillTable
 	
 	private final L2Skill[][] _skillTable;
 	private final int[] _maxLevels;
+	private final Set<L2Skill> _learnedSkills = new HashSet<L2Skill>();
 	
 	private SkillTable()
 	{
@@ -103,6 +105,14 @@ public final class SkillTable
 				_log.warn("", e);
 			}
 		}
+		
+		for (L2Skill skill : skills)
+		{
+			final L2Skill learnedSkill = getInfo(skill.getNewSkillId(), skill.getNewSkillLvl());
+			
+			if (learnedSkill != null)
+				_learnedSkills.add(learnedSkill);
+		}
 	}
 	
 	public static int getSkillUID(L2Skill skill)
@@ -147,23 +157,21 @@ public final class SkillTable
 		return getMaxLevel(skill.getId());
 	}
 	
-	private L2Skill[] _siegeSkills;
-	
 	public L2Skill[] getSiegeSkills(boolean addNoble)
 	{
-		if (_siegeSkills == null)
-		{
-			List<L2Skill> list = new ArrayList<L2Skill>();
-			
-			list.add(getInfo(246, 1));
-			list.add(getInfo(247, 1));
-			
-			if (addNoble)
-				list.add(getInfo(326, 1));
-			
-			_siegeSkills = list.toArray(new L2Skill[list.size()]);
-		}
+		final L2Skill[] skills = new L2Skill[addNoble ? 3 : 2];
 		
-		return _siegeSkills;
+		skills[0] = getInfo(246, 1);
+		skills[1] = getInfo(247, 1);
+		
+		if (addNoble)
+			skills[2] = getInfo(326, 1);
+		
+		return skills;
+	}
+	
+	public boolean isLearnedSkill(L2Skill skill)
+	{
+		return _learnedSkills.contains(skill);
 	}
 }
