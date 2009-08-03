@@ -81,6 +81,8 @@ import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Thread;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 import com.l2jfree.util.concurrent.RunnableStatsManager.SortBy;
+import com.l2jfree.util.logging.ListeningLog;
+import com.l2jfree.util.logging.ListeningLog.LogListener;
 
 public final class GameStatusThread extends Thread
 {
@@ -1283,5 +1285,21 @@ public final class GameStatusThread extends Thread
 		statement.execute();
 		statement.close();
 	}
-
+	
+	static
+	{
+		ListeningLog.addListener(new LogListener() {
+			@Override
+			public void write(String s)
+			{
+				if (Thread.currentThread() instanceof GameStatusThread)
+				{
+					final GameStatusThread gst = (GameStatusThread)Thread.currentThread();
+					
+					gst._print.println(s);
+					gst._print.flush();
+				}
+			}
+		});
+	}
 }
