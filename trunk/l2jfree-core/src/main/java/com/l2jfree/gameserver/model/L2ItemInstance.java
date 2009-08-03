@@ -1374,28 +1374,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			inst.scheduleConsumeManaTask();
 		}
 
-		// if mana left is 0 delete this item
-		if (inst._mana == 0)
-		{
-			// Already done in decreaseMana()
-			/*
-			Connection con = null;
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection();
-				inst.removeFromDb(con);
-			}
-			catch (SQLException e)
-			{
-				_log.warn("", e);
-			}
-			finally
-			{
-				L2DatabaseFactory.close(con);
-			}
-			*/
-			return null;
-		}
 		if (inst.isTimeLimitedItem())
 			inst.scheduleLifeTimeTask();
 
