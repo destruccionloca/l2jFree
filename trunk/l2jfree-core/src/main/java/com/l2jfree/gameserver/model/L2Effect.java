@@ -235,6 +235,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			{
 				_effected.addStatFuncs(getStatFuncs());
 				_effected.startAbnormalEffect(_template.abnormalEffect | getTypeBasedAbnormalEffect());
+				_effected.startSpecialEffect(_template.specialEffect);
 			}
 			
 			if (_effected instanceof L2Playable)
@@ -272,6 +273,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 				
 				_effected.removeStatsOwner(L2Effect.this);
 				_effected.stopAbnormalEffect(_template.abnormalEffect | getTypeBasedAbnormalEffect());
+				_effected.stopSpecialEffect(_template.specialEffect);
 			}
 			
 			_startConditionsCorrect = false;

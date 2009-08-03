@@ -394,7 +394,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getVitalityLevel());  // Vitality Level
 		if (Config.PACKET_FINAL)
 		{
-			writeD(0x00); // CT2.3
+			writeD(_activeChar.getSpecialEffect());
 			writeD(0x00); // CT2.3
 			writeD(0x00); // CT2.3
 			writeD(0x00); // CT2.3

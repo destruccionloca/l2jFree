@@ -288,7 +288,7 @@ public class CharInfo extends L2GameServerPacket
 		if (Config.PACKET_FINAL)
 		{
 			// T2.3
-			writeD(0x00);
+			writeD(_activeChar.getSpecialEffect());
 			writeD(0x00);
 			writeD(0x00);
 			writeD(0x00);
