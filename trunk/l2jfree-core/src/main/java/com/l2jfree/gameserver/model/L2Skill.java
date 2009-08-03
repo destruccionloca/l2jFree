@@ -276,7 +276,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	//Stats for transformation skills
 	private final int				_transformId;
 
-	private int						_duration;
+	private final int				_duration;
 
 	private final int				_baseCritRate;				// percent of success for skill critical hit (especially for PDAM & BLOW -
 	// they're not affected by rCrit values or buffs). Default loads -1 for all
@@ -1320,11 +1320,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int getDuration()
 	{
 		return _duration;
-	}
-
-	public final void setDuration(int dur)
-	{
-		_duration = dur;
 	}
 
 	public final static boolean skillLevelExists(int skillId, int level)

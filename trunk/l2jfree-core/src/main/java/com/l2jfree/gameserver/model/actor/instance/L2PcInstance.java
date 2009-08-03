@@ -8104,7 +8104,46 @@ public final class L2PcInstance extends L2Playable
 		}
 		super.setIsCastingNow(value);
 	}
-
+	
+	public void sendReuseMessage(L2Skill skill)
+	{
+		SystemMessage sm = null;
+		
+		TimeStamp timeStamp = getReuseTimeStamps().get(skill.getId());
+		if (timeStamp != null)
+		{
+			int remainingTime = (int)(timeStamp.getRemaining() / 1000);
+			int hours = remainingTime / 3600;
+			int minutes = (remainingTime % 3600) / 60;
+			int seconds = (remainingTime % 60);
+			if (hours > 0)
+			{
+				sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
+				sm.addSkillName(skill);
+				sm.addNumber(hours);
+				sm.addNumber(minutes);
+			}
+			else if (minutes > 0)
+			{
+				sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
+				sm.addSkillName(skill);
+				sm.addNumber(minutes);
+			}
+			else
+			{
+				sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAINING_FOR_REUSE_S1);
+				sm.addSkillName(skill);
+			}
+			sm.addNumber(seconds);
+		}
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
+			sm.addSkillName(skill);
+		}
+		sendPacket(sm);
+	}
+	
 	private boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
 		L2SkillType sklType = skill.getSkillType();
@@ -8272,40 +8311,7 @@ public final class L2PcInstance extends L2Playable
 		// Check if this skill is enabled (ex : reuse time)
 		if (isSkillDisabled(skill.getId()))
 		{
-			SystemMessage sm = null;
-			TimeStamp ts = (_reuseTimeStamps == null) ? null : _reuseTimeStamps.get(skill.getId());
-			if (ts != null)
-			{
-				int remainingTime = (int)(ts.getRemaining() / 1000);
-				int hours = remainingTime / 3600;
-				int minutes = (remainingTime % 3600) / 60;
-				int seconds = (remainingTime % 60);
-				if (hours > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
-					sm.addSkillName(skill);
-					sm.addNumber(hours);
-					sm.addNumber(minutes);
-				}
-				else if (minutes > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
-					sm.addSkillName(skill);
-					sm.addNumber(minutes);
-				}
-				else
-				{
-					sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAINING_FOR_REUSE_S1);
-					sm.addSkillName(skill);
-				}
-				sm.addNumber(seconds);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-				sm.addSkillName(skill);
-			}
-			sendPacket(sm);
+			sendReuseMessage(skill);
 			return false;
 		}
 

@@ -14,16 +14,21 @@
  */
 package com.l2jfree.gameserver.templates.item;
 
+import java.util.ArrayList;
+
+import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.datatables.SkillTable.SkillInfo;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.util.L2Collections;
 
 /**
  * This class is dedicated to the management of EtcItem.
  * 
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:30:10 $
  */
-public final class L2EtcItem  extends L2Item
+public final class L2EtcItem extends L2Item
 {
-	private final String[] _skill;
+	private final SkillInfo[] _skillInfos;
 	private final String _handler;
 	
 	/**
@@ -31,16 +36,54 @@ public final class L2EtcItem  extends L2Item
 	 * 
 	 * @see L2Item constructor
 	 * @param type : L2EtcItemType designating the type of object Etc
-	 * @param set : StatsSet designating the set of couples (key,value) for
-	 *            description of the Etc
+	 * @param set : StatsSet designating the set of couples (key,value) for description of the Etc
 	 */
 	public L2EtcItem(L2EtcItemType type, StatsSet set)
 	{
 		super(type, set);
-		_skill = set.getString("skills_item").split(";");
+		
 		_handler = set.getString("handler").replaceAll("none", "").intern();
+		
+		final ArrayList<SkillInfo> list = L2Collections.newArrayList();
+		try
+		{
+			for (String skillInfo : set.getString("skills_item").split(";"))
+			{
+				if (skillInfo.isEmpty())
+					continue;
+				
+				final String[] skill = skillInfo.split("-");
+				if (skill.length == 2)
+				{
+					final int skillId = Integer.parseInt(skill[0]);
+					final int skillLvl = Integer.parseInt(skill[1]);
+					if (skillId > 0 && skillLvl > 0)
+					{
+						final SkillInfo info = SkillTable.getInstance().getSkillInfo(skillId, skillLvl);
+						
+						if (info != null)
+							list.add(info);
+						else
+							throw new IllegalStateException("Invalid 'skills_item' parameters at database for ID "
+								+ getItemId());
+					}
+					else if (skillId != 0 || skillLvl != 0)
+						throw new IllegalStateException("Invalid 'skills_item' parameters at database for ID "
+							+ getItemId());
+				}
+				else
+					throw new IllegalStateException("Invalid 'skills_item' parameters at database for ID "
+						+ getItemId());
+			}
+			
+			_skillInfos = list.toArray(new SkillInfo[list.size()]);
+		}
+		finally
+		{
+			L2Collections.recycle(list);
+		}
 	}
-
+	
 	/**
 	 * Returns the type of Etc Item
 	 * 
@@ -49,9 +92,9 @@ public final class L2EtcItem  extends L2Item
 	@Override
 	public L2EtcItemType getItemType()
 	{
-		return (L2EtcItemType) super._type;
+		return (L2EtcItemType)super._type;
 	}
-
+	
 	/**
 	 * Returns if the item is consumable
 	 * 
@@ -65,11 +108,12 @@ public final class L2EtcItem  extends L2Item
 	
 	/**
 	 * Returns skills linked to that EtcItem
+	 * 
 	 * @return
 	 */
-	public String[] getSkills()
+	public SkillInfo[] getSkillInfos()
 	{
-		return _skill;
+		return _skillInfos;
 	}
 	
 	public String getHandlerName()
