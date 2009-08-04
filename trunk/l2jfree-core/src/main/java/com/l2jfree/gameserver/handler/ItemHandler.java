@@ -114,26 +114,7 @@ public final class ItemHandler
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TeleportBookmark());
 		
-		_log.info("ItemHandler: Loaded " + _byItemId.size() + " handlers by itemId.");
 		_log.info("ItemHandler: Loaded " + _byHandlerName.size() + " handlers by handlerName.");
-		
-		for (L2Item item : ItemTable.getInstance().getAllTemplates())
-		{
-			if (!(item instanceof L2EtcItem))
-				continue;
-			
-			final L2EtcItem etcItem = (L2EtcItem)item;
-			
-			final IItemHandler handlerByItemId = _byItemId.get(etcItem.getItemId());
-			final IItemHandler handlerByHandlerName = _byHandlerName.get(etcItem.getHandlerName());
-			
-			if (handlerByItemId == handlerByHandlerName)
-				continue;
-			
-			_log.info("ItemHandler: Different handlers for " + etcItem.getName() + "(" + etcItem.getItemId() + ")");
-		}
-		
-		_byItemId.clear();
 		
 		for (L2Item item : ItemTable.getInstance().getAllTemplates())
 		{
@@ -146,14 +127,12 @@ public final class ItemHandler
 			
 			_byItemId.register(item.getItemId(), handlerByHandlerName);
 		}
+		
+		_log.info("ItemHandler: Loaded " + _byItemId.size() + " handlers by itemId.");
 	}
 	
 	public void registerItemHandler(IItemHandler handler)
 	{
-		final int[] itemIds = handler.getItemIds();
-		if (itemIds != null)
-			_byItemId.registerAll(handler, handler.getItemIds());
-		
 		_byHandlerName.register(handler.getClass().getSimpleName().intern(), handler);
 	}
 	

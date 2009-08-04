@@ -1172,7 +1172,7 @@ public class L2Attackable extends L2Npc
 		
 		if (isChampion())
 		{
-			if (ItemTable.isAdenaLikeItem(drop.getItemId()))
+			if (drop != null && ItemTable.isAdenaLikeItem(drop.getItemId()))
 				chance *= Config.CHAMPION_ADENA;
 			else
 				chance *= Config.CHAMPION_REWARDS;
