@@ -47,7 +47,7 @@ public class Recall implements ISkillHandler
 		{
 			L2PcInstance player = (L2PcInstance) activeChar;
 
-			if (!player.canTeleport(player.hasSkill(skill.getId()) ? TeleportMode.RECALL : TeleportMode.SCROLL_OF_ESCAPE))
+			if (!player.canTeleport(player.hasSkill(skill.getId()) ? TeleportMode.RECALL : TeleportMode.SCROLL_OF_ESCAPE, true))
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;

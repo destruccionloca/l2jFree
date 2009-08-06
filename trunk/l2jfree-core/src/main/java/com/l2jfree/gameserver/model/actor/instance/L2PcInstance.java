@@ -14200,7 +14200,12 @@ public final class L2PcInstance extends L2Playable
 	
 	public boolean canTeleport(TeleportMode mode)
 	{
-		if (mode != TeleportMode.RECALL)
+		return canTeleport(mode, false);
+	}
+	
+	public boolean canTeleport(TeleportMode mode, boolean bySkill)
+	{
+		if (mode != TeleportMode.RECALL && !bySkill)
 		{
 			if (isCastingNow() || isMuted() || isAlikeDead() || isMovementDisabled() || isAllSkillsDisabled())
 				return false;
