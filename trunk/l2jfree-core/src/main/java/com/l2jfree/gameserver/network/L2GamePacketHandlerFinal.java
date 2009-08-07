@@ -108,6 +108,28 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x7b:
 						msg = new CharacterRestore();
 						break;
+					case 0xd0:
+						int id2 = -1;
+						if (buf.remaining() >= 2)
+						{
+							id2 = buf.getShort() & 0xffff;
+						}
+						else
+						{
+							if (Config.PACKET_HANDLER_DEBUG)
+								_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
+							break;
+						}
+						
+						switch (id2)
+						{
+							case 0x36:
+								msg = new CharacterPrevState();
+								break;
+							default:
+								printDebug(buf, client, opcode, id2);
+						}
+						break;
 					// to avoid unnecessary warning about invalid opcode (if the client lags a bit, then it starts spamming this packet)
 					case 0x59: // ValidatePosition
 						break;

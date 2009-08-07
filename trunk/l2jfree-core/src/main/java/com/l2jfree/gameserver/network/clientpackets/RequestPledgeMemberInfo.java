@@ -16,40 +16,41 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PledgeReceiveMemberInfo;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:30 $
- */
-public class RequestPledgeMemberInfo extends L2GameClientPacket
+public final class RequestPledgeMemberInfo extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestPledgeMemberInfo";
-
-	@SuppressWarnings("unused")
-	private int _pledgeType;
+	
+	//private int _pledgeType;
 	private String _target;
-
+	
 	@Override
 	protected void readImpl()
 	{
-		_pledgeType  = readD();
+		/*_pledgeType = */readD();
 		_target = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2Clan clan = getClient().getActiveChar().getClan();
-		if (clan != null)
-		{
-			L2ClanMember cm = clan.getClanMember(_target);
-			getClient().getActiveChar().sendPacket(new PledgeReceiveMemberInfo(cm));
-			
-		}
+		final L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
+		
+		final L2Clan clan = activeChar.getClan();
+		if (clan == null)
+			return;
+		
+		final L2ClanMember cm = clan.getClanMember(_target);
+		if (cm == null)
+			return;
+		
+		sendPacket(new PledgeReceiveMemberInfo(cm));
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
