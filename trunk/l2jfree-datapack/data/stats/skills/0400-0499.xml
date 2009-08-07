@@ -1586,7 +1586,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="overHit" val="true"/>
-    <set name="skillType" val="BLOW"/>
+    <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>

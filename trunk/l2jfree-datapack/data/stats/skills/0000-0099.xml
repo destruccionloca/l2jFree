@@ -729,7 +729,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="700"/>
     <set name="staticReuse" val="true"/>
     <set name="coolTime" val="200"/>
     <set name="skillType" val="AGGDAMAGE"/>
@@ -1368,8 +1368,8 @@
     <set name="hpConsume" val="#hpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="1200"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="1500"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
