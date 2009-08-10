@@ -542,6 +542,14 @@ final class DocumentSkill extends DocumentBase
 			if (chanceCond == null)
 				throw new NoSuchElementException(name + " requires proper ChanceCondition parameters!");
 		}
+		else
+		{
+			if (trigSkill != null)
+				throw new NoSuchElementException(name + " can't have TriggeredSkill parameters!");
+			
+			if (chanceCond != null)
+				throw new NoSuchElementException(name + " can't have ChanceCondition parameters!");
+		}
 		
 		EffectTemplate effectTemplate = new EffectTemplate(name, lambda, count, time, abnormal, special, stackType,
 			stackOrder, showIcon, effectPower, effectType, trigSkill, chanceCond);

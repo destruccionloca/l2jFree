@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2jfree.lang.L2Math;
 
 /**
  * Packets received by the game server from clients

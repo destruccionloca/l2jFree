@@ -369,9 +369,8 @@
       81 81 82 83 83 84 85 </table>
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82
       83 83 83 84 84 85 85 85 </table>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="1500"/>
-    <set name="staticReuse" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
@@ -1901,7 +1900,7 @@
     <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
-    <set name="reuseDelay" val="5000"/> <!-- guess -->
+    <set name="reuseDelay" val="20000"/> <!-- guess -->
     <set name="absorbPart" val="0.4"/> <!-- absorbs 40% of damage -->
     <for>
       <effect name="Debuff" time="30" val="0">

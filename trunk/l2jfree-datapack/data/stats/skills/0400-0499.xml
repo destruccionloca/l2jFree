@@ -917,9 +917,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
-      <effect name="Buff" time="300" val="0" chanceType="ON_ATTACKED" activationChance="80">
-        <add order="0x40" stat="vengeancePdam" val="100"/>
-        <add order="0x40" stat="reflectDam" val="100"/>
+      <effect name="Buff" time="300" val="0">
+        <add order="0x40" stat="vengeancePdam" val="40"/>
+        <add order="0x40" stat="reflectDam" val="40"/>
 	  </effect>
     </for>
   </skill>
@@ -1142,6 +1142,7 @@
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
+    <set name="skillRadius" val="150"/>
     <for>
       <effect name="Stun" time="9" val="0"/>
       <effect name="RemoveTarget" val="0" noicon="1"/>
@@ -1447,10 +1448,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <!-- Added missing weapon condition -->
-    <cond msg="A sword or blunt weapon has to be equipped to use this skill">
-      <using kind="Sword,Blunt,Rapier"/>
-    </cond>
   </skill>
   <skill id="469" levels="1" name="Rapid Attack">
     <!-- CT2.2 retail confirmed -->
@@ -1567,9 +1564,6 @@
     <set name="effectRange" val="400"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
-    <cond msg="A sword, blunt, or ancient sword weapon has to be equipped to use this skill">
-      <using kind="Sword,Blunt,Ancient"/>
-    </cond>
   </skill>
   <skill id="477" levels="37" name="Dark Smash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <!-- Done by theREALizzy - Need retail accuracy check. -->

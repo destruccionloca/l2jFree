@@ -446,7 +446,9 @@
     <for>
       <effect name="Buff" time="5" val="0" stackOrder="1" stackType="attack_will">
         <mul order="0x30" stat="rCrit" val="1.1">
-          <using kind="Sword,Rapier,Ancient,Blunt,Fist,Dual Fist,Dual Sword,Big Sword,Dagger,Pole"/>
+          <not>
+            <using kind="Bow, Crossbow"/>
+          </not>
         </mul>
         <!-- TODO: core support for skillPower increase -->
       </effect>
