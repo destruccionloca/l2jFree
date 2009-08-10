@@ -295,7 +295,7 @@ public class RequestBuyItem extends L2GameClientPacket
 
 		if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
 		{
-			if ((taxedPriceTotal < 0) || (taxedPriceTotal >= Integer.MAX_VALUE) || !player.reduceAdena("Buy", taxedPriceTotal, (L2Character)merchant, false))
+			if ((taxedPriceTotal < 0) || !player.reduceAdena("Buy", taxedPriceTotal, (L2Character)merchant, false))
 			{
 				requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				return;
