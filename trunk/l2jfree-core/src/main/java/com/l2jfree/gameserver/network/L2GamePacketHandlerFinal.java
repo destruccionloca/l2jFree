@@ -680,6 +680,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						break;
 					case 0xcc:
 						// Clan Privileges
+						msg = new RequestPledgePower();
 						break;
 					case 0xcd:
 						msg = new RequestMakeMacro();
