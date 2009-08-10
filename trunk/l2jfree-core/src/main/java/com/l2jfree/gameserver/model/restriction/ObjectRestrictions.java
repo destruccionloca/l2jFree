@@ -33,9 +33,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * @author Noctarius
@@ -74,7 +73,7 @@ public final class ObjectRestrictions
 			
 			while (rset.next())
 			{
-				final int objId = rset.getInt("obj_Id");
+				final Integer objId = rset.getInt("obj_Id");
 				final AvailableRestriction type = AvailableRestriction.forName(rset.getString("type"));
 				final int delay = rset.getInt("delay");
 				final String message = rset.getString("message");
@@ -103,7 +102,7 @@ public final class ObjectRestrictions
 			L2DatabaseFactory.close(con);
 		}
 		
-		for (int objectId : _runningActions.keySet())
+		for (Integer objectId : _runningActions.keySet())
 			pauseTasks(objectId);
 		
 		_log.info("ObjectRestrictions: loaded " + count + " restrictions.");
@@ -198,14 +197,20 @@ public final class ObjectRestrictions
 	 * @param objId
 	 * @param restriction
 	 */
-	private void addRestriction(int objId, AvailableRestriction restriction)
+	private void addRestriction(Integer objId, AvailableRestriction restriction)
 	{
 		EnumSet<AvailableRestriction> set = _restrictionList.get(objId);
 		
 		if (set == null)
 			_restrictionList.put(objId, set = EnumSet.noneOf(AvailableRestriction.class));
 		
-		set.add(restriction);
+		if (set.add(restriction))
+		{
+			final L2PcInstance player =  L2World.getInstance().findPlayer(objId);
+			
+			if (player != null)
+				restriction.activatedOn(player);
+		}
 	}
 	
 	/**
@@ -215,13 +220,10 @@ public final class ObjectRestrictions
 	 * @param restriction
 	 * @throws RestrictionBindClassException
 	 */
-	public void addRestriction(L2Object owner, AvailableRestriction restriction)
-		throws RestrictionBindClassException
+	public void addRestriction(L2PcInstance owner, AvailableRestriction restriction)
 	{
 		if (owner == null)
 			return;
-		
-		restriction.checkApplyable(owner);
 		
 		addRestriction(owner.getObjectId(), restriction);
 	}
@@ -232,13 +234,19 @@ public final class ObjectRestrictions
 	 * @param objId
 	 * @param restriction
 	 */
-	public void removeRestriction(int objId, AvailableRestriction restriction)
+	public void removeRestriction(Integer objId, AvailableRestriction restriction)
 	{
 		final EnumSet<AvailableRestriction> set = _restrictionList.get(objId);
 		
 		if (set != null)
 		{
-			set.remove(restriction);
+			if (set.remove(restriction))
+			{
+				final L2PcInstance player = L2World.getInstance().findPlayer(objId);
+				
+				if (player != null)
+					restriction.deactivatedOn(player);
+			}
 		}
 		
 		final List<TimedRestrictionAction> runningActions = _runningActions.get(objId);
@@ -279,37 +287,12 @@ public final class ObjectRestrictions
 	 * @param owner
 	 * @param restriction
 	 */
-	public void removeRestriction(L2Object owner, AvailableRestriction restriction)
+	public void removeRestriction(L2PcInstance owner, AvailableRestriction restriction)
 	{
 		if (owner == null)
 			return;
 		
 		removeRestriction(owner.getObjectId(), restriction);
-	}
-	
-	/**
-	 * Adds a complete bunch of restrictions without timelimit
-	 * 
-	 * @param owner
-	 * @param restrictions
-	 * @throws RestrictionBindClassException
-	 */
-	public void addRestrictions(L2Object owner, AvailableRestriction... restrictions)
-		throws RestrictionBindClassException
-	{
-		if (owner == null)
-			return;
-		
-		for (AvailableRestriction restriction : restrictions)
-			restriction.checkApplyable(owner);
-		
-		EnumSet<AvailableRestriction> set = _restrictionList.get(owner.getObjectId());
-		
-		if (set == null)
-			_restrictionList.put(owner.getObjectId(), set = EnumSet.noneOf(AvailableRestriction.class));
-		
-		for (AvailableRestriction restriction : restrictions)
-			set.add(restriction);
 	}
 	
 	/**
@@ -319,12 +302,12 @@ public final class ObjectRestrictions
 	 * @param restriction
 	 * @return
 	 */
-	public boolean checkRestriction(L2Object owner, AvailableRestriction restriction)
+	public boolean checkRestriction(L2PcInstance owner, AvailableRestriction restriction)
 	{
 		if (owner == null)
 			return false;
 		
-		EnumSet<AvailableRestriction> set = _restrictionList.get(owner.getObjectId());
+		final EnumSet<AvailableRestriction> set = _restrictionList.get(owner.getObjectId());
 		
 		if (set == null)
 			return false;
@@ -339,7 +322,7 @@ public final class ObjectRestrictions
 	 * @param restriction
 	 * @param delay
 	 */
-	public void timedRemoveRestriction(int objId, AvailableRestriction restriction, long delay)
+	public void timedRemoveRestriction(Integer objId, AvailableRestriction restriction, long delay)
 	{
 		timedRemoveRestriction(objId, restriction, delay, null);
 	}
@@ -352,7 +335,7 @@ public final class ObjectRestrictions
 	 * @param delay
 	 * @param message
 	 */
-	public void timedRemoveRestriction(int objId, AvailableRestriction restriction, long delay, String message)
+	public void timedRemoveRestriction(Integer objId, AvailableRestriction restriction, long delay, String message)
 	{
 		new TimedRestrictionAction(objId, restriction, TimedRestrictionType.REMOVE, delay, message);
 	}
@@ -365,8 +348,7 @@ public final class ObjectRestrictions
 	 * @param delay
 	 * @throws RestrictionBindClassException
 	 */
-	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay)
-		throws RestrictionBindClassException
+	public void timedAddRestriction(L2PcInstance owner, AvailableRestriction restriction, long delay)
 	{
 		timedAddRestriction(owner, restriction, delay, null);
 	}
@@ -380,15 +362,12 @@ public final class ObjectRestrictions
 	 * @param message
 	 * @throws RestrictionBindClassException
 	 */
-	public void timedAddRestriction(L2Object owner, AvailableRestriction restriction, long delay,
-		String message) throws RestrictionBindClassException
+	public void timedAddRestriction(L2PcInstance owner, AvailableRestriction restriction, long delay, String message)
 	{
-		restriction.checkApplyable(owner);
-		
 		timedAddRestriction(owner.getObjectId(), restriction, delay, message);
 	}
 	
-	private void timedAddRestriction(int objId, AvailableRestriction restriction, long delay, String message)
+	private void timedAddRestriction(Integer objId, AvailableRestriction restriction, long delay, String message)
 	{
 		new TimedRestrictionAction(objId, restriction, TimedRestrictionType.ADD, delay, message);
 	}
@@ -399,7 +378,7 @@ public final class ObjectRestrictions
 	 * @param objId
 	 * @param action
 	 */
-	private void addTask(int objId, TimedRestrictionAction action)
+	private void addTask(Integer objId, TimedRestrictionAction action)
 	{
 		List<TimedRestrictionAction> list = _runningActions.get(objId);
 		
@@ -410,7 +389,7 @@ public final class ObjectRestrictions
 			list.add(action);
 	}
 	
-	private void removeTask(int objId, TimedRestrictionAction action)
+	private void removeTask(Integer objId, TimedRestrictionAction action)
 	{
 		List<TimedRestrictionAction> list = _runningActions.get(objId);
 		
@@ -424,7 +403,7 @@ public final class ObjectRestrictions
 	 * @param objId
 	 * @param action
 	 */
-	private void addPausedTask(int objId, PausedTimedEvent action)
+	private void addPausedTask(Integer objId, PausedTimedEvent action)
 	{
 		List<PausedTimedEvent> list = _pausedActions.get(objId);
 		
@@ -440,7 +419,7 @@ public final class ObjectRestrictions
 	 * 
 	 * @param objId
 	 */
-	public void pauseTasks(int objId)
+	public void pauseTasks(Integer objId)
 	{
 		final List<TimedRestrictionAction> list = _runningActions.remove(objId);
 		
@@ -456,7 +435,7 @@ public final class ObjectRestrictions
 	 * 
 	 * @param objId
 	 */
-	public void resumeTasks(int objId)
+	public void resumeTasks(Integer objId)
 	{
 		final List<PausedTimedEvent> list = _pausedActions.remove(objId);
 		
@@ -475,7 +454,7 @@ public final class ObjectRestrictions
 	
 	private final class TimedRestrictionAction implements Runnable
 	{
-		private final int _objId;
+		private final Integer _objId;
 		private final AvailableRestriction _restriction;
 		private final TimedRestrictionType _type;
 		private final long _delay;
@@ -483,7 +462,7 @@ public final class ObjectRestrictions
 		private final long _starttime = System.currentTimeMillis();
 		private final ScheduledFuture<?> _task;
 		
-		private TimedRestrictionAction(int objId, AvailableRestriction restriction, TimedRestrictionType type,
+		private TimedRestrictionAction(Integer objId, AvailableRestriction restriction, TimedRestrictionType type,
 			long delay, String message)
 		{
 			_objId = objId;
@@ -513,10 +492,10 @@ public final class ObjectRestrictions
 			
 			if (getMessage() != null)
 			{
-				L2Object owner = L2World.getInstance().findObject(getObjectId());
+				final L2PcInstance owner = L2World.getInstance().findPlayer(getObjectId());
 				
-				if (owner instanceof L2Playable)
-					owner.getActingPlayer().sendMessage(getMessage());
+				if (owner != null)
+					owner.sendMessage(getMessage());
 			}
 		}
 		
@@ -529,7 +508,7 @@ public final class ObjectRestrictions
 			new PausedTimedEvent(this);
 		}
 		
-		private int getObjectId()
+		private Integer getObjectId()
 		{
 			return _objId;
 		}

@@ -16,39 +16,41 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- *
- * @author  Luca Baldi
+ * @author Luca Baldi
  */
-public class EtcStatusUpdate extends L2GameServerPacket
+public final class EtcStatusUpdate extends StaticPacket
 {
 	private static final String _S__F9_ETCSTATUSUPDATE = "[S] f9 EtcStatusUpdate [dddddddd]";
-
-	private final L2PcInstance _activeChar;
-
-	public EtcStatusUpdate(L2PcInstance activeChar)
+	
+	public static final EtcStatusUpdate STATIC_PACKET = new EtcStatusUpdate();
+	
+	private EtcStatusUpdate()
 	{
-		 _activeChar = activeChar;
 	}
-
+	
 	/**
 	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
 	 */
 	@Override
-	protected void writeImpl()
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
-		writeC(0xF9);											//several icons to a separate line (0 = disabled)
-		writeD(_activeChar.getCharges());
-		writeD(_activeChar.getWeightPenalty());
-		writeD(_activeChar.getMessageRefusal() ? 1 : 0);
-		writeD(_activeChar.isInsideZone(L2Zone.FLAG_DANGER) ? 1 : 0);
-		writeD(_activeChar.getExpertisePenalty());
-		writeD(_activeChar.getCharmOfCourage() ? 1 : 0); // 1 = charm of courage (allows resurrection on the same spot upon death on the siege battlefield)
-		writeD(_activeChar.getDeathPenaltyBuffLevel());
-		writeD(_activeChar.getSouls());
+		if (activeChar == null)
+			return;
+		
+		writeC(0xF9); //several icons to a separate line (0 = disabled)
+		writeD(activeChar.getCharges());
+		writeD(activeChar.getWeightPenalty());
+		writeD(activeChar.getMessageRefusal() || activeChar.isChatBanned() ? 1 : 0);
+		writeD(activeChar.isInsideZone(L2Zone.FLAG_DANGER) ? 1 : 0);
+		writeD(activeChar.getExpertisePenalty());
+		writeD(activeChar.getCharmOfCourage() ? 1 : 0); // 1 = charm of courage (allows resurrection on the same spot upon death on the siege battlefield)
+		writeD(activeChar.getDeathPenaltyBuffLevel());
+		writeD(activeChar.getSouls());
 	}
-
+	
 	/**
 	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#getType()
 	 */

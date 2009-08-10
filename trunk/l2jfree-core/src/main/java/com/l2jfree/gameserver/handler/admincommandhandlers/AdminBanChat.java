@@ -14,14 +14,11 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
-
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
-import com.l2jfree.gameserver.model.restriction.RestrictionBindClassException;
 
 /**
  * This class handles following admin commands:
@@ -36,23 +33,20 @@ import com.l2jfree.gameserver.model.restriction.RestrictionBindClassException;
  * 
  * @version $Revision: 1.1.6.3 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminBanChat implements IAdminCommandHandler
+public final class AdminBanChat implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_banchat", "admin_unbanchat" };
-
+	private static final String[] ADMIN_COMMANDS = { "admin_banchat", "admin_unbanchat" };
+	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		String[] cmdParams = command.split(" ");
-		long banLength = -1;
-
-		L2Object targetObject = null;
 		L2PcInstance targetPlayer = null;
-
+		long banLength = -1;
+		
+		final String[] cmdParams = command.split(" ");
 		if (cmdParams.length > 1)
 		{
 			targetPlayer = L2World.getInstance().getPlayer(cmdParams[1]);
-
+			
 			if (cmdParams.length > 2)
 			{
 				try
@@ -66,65 +60,44 @@ public class AdminBanChat implements IAdminCommandHandler
 		}
 		else
 		{
-			if (activeChar.getTarget() != null)
-			{
-				targetObject = activeChar.getTarget();
-
-				if (targetObject != null && targetObject instanceof L2PcInstance)
-					targetPlayer = (L2PcInstance) targetObject;
-			}
+			targetPlayer = activeChar.getTarget(L2PcInstance.class);
 		}
-
+		
 		if (targetPlayer == null)
 		{
 			activeChar.sendMessage("Incorrect parameter or target.");
 			return false;
 		}
-
+		
 		if (command.startsWith("admin_banchat"))
 		{
-			String banLengthStr = "";
-
+			ObjectRestrictions.getInstance().addRestriction(targetPlayer, AvailableRestriction.PlayerChat);
+			
 			if (banLength > -1)
 			{
-				try
-				{
-					ObjectRestrictions.getInstance().addRestriction(targetPlayer, AvailableRestriction.PlayerChat);
-					ObjectRestrictions.getInstance().timedRemoveRestriction(targetPlayer.getObjectId(),
-							AvailableRestriction.PlayerChat, banLength * 60000,
-							targetPlayer.getName() + "'s chat ban has now been lifted.");
-				}
-				catch (RestrictionBindClassException e)
-				{
-					e.getMessage();
-				}
-					
-				banLengthStr = " for " + banLength + " minutes.";
+				ObjectRestrictions.getInstance().timedRemoveRestriction(targetPlayer.getObjectId(),
+					AvailableRestriction.PlayerChat, banLength * 60000);
+				
+				targetPlayer.sendMessage("You have been chat banned by a server admin for " + banLength + " minutes.");
+				activeChar.sendMessage(targetPlayer.getName() + " is now chat banned for " + banLength + " minutes.");
 			}
 			else
 			{
-				try
-				{
-					ObjectRestrictions.getInstance().addRestriction(targetPlayer, AvailableRestriction.PlayerChat);
-				}
-				catch (RestrictionBindClassException e)
-				{
-					e.getMessage();
-				}
+				targetPlayer.sendMessage("You have been chat banned by a server admin forever.");
+				activeChar.sendMessage(targetPlayer.getName() + " is now chat banned forever.");
 			}
-
-			activeChar.sendMessage(targetPlayer.getName() + " is now chat banned" + banLengthStr + ".");
-			targetPlayer.setChatBanned(true);
 		}
 		else if (command.startsWith("admin_unbanchat"))
 		{
 			ObjectRestrictions.getInstance().removeRestriction(targetPlayer, AvailableRestriction.PlayerChat);
-			activeChar.sendMessage(targetPlayer.getName() + "'s chat ban has now been lifted.");
+			
+			targetPlayer.sendMessage("You chat ban has now been lifted by a server admin.");
+			activeChar.sendMessage(targetPlayer.getName() + "'s chat ban has now been lifted by a server admin.");
 		}
-
+		
 		return true;
 	}
-
+	
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

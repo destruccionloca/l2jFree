@@ -14,9 +14,8 @@
  */
 package com.l2jfree.gameserver.model.restriction;
 
-import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * @author Noctarius
@@ -24,39 +23,39 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public enum AvailableRestriction
 {
 	// Restrictions can be applied to players
-	PlayerUnmount(L2PcInstance.class),
-	PlayerCast(L2PcInstance.class),
-	PlayerTeleport(L2PcInstance.class),
-	PlayerScrollTeleport(L2PcInstance.class),
-	PlayerGotoLove(L2PcInstance.class),
-	PlayerSummonFriend(L2PcInstance.class),
-	PlayerChat(L2PcInstance.class),
-	
-	// Restrictions can be applied to monsters
-	MonsterCast(L2MonsterInstance.class),
-	
-	// More restrictions classes can be easily set
-	// by adding new lines and new classes
+	PlayerUnmount,
+	PlayerCast,
+	PlayerTeleport,
+	PlayerScrollTeleport,
+	PlayerGotoLove,
+	PlayerSummonFriend,
+	PlayerChat() {
+		@Override
+		public void activatedOn(L2PcInstance player)
+		{
+			player.sendMessage("You have been chat banned.");
+			player.sendEtcStatusUpdate();
+		}
+		
+		@Override
+		public void deactivatedOn(L2PcInstance player)
+		{
+			player.sendPacket(SystemMessageId.CHATBAN_REMOVED);
+			player.sendEtcStatusUpdate();
+		}
+	},
 	;
 	
-	private final Class<? extends L2Object> _applyTo;
-	
-	private AvailableRestriction(Class<? extends L2Object> applyTo)
+	private AvailableRestriction()
 	{
-		_applyTo = applyTo;
 	}
 	
-	public Class<? extends L2Object> getApplyableTo()
+	public void activatedOn(L2PcInstance player)
 	{
-		return _applyTo;
 	}
 	
-	public void checkApplyable(L2Object owner) throws RestrictionBindClassException
+	public void deactivatedOn(L2PcInstance player)
 	{
-		if (getApplyableTo().isInstance(owner))
-			return;
-		
-		throw new RestrictionBindClassException(owner, this);
 	}
 	
 	public static final AvailableRestriction forName(String name)

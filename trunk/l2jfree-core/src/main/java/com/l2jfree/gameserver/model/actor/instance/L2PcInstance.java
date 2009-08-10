@@ -571,9 +571,6 @@ public final class L2PcInstance extends L2Playable
 	private boolean							_isGm;
 	private int								_accessLevel;
 
-	private boolean							_chatBanned				= false;													// Chat Banned
-	private long							_banchat_timer			= 0;
-	private ScheduledFuture<?>				_BanChatTask;
 	private boolean							_messageRefusal			= false;													// Message refusal mode
 	private boolean							_dietMode				= false;													// Ignore weight penalty
 	private boolean							_tradeRefusal			= false;													// Trade refusal
@@ -6631,8 +6628,6 @@ public final class L2PcInstance extends L2Playable
 				player.setInJail(rset.getInt("in_jail") == 1);
 				player.setJailTimer(rset.getLong("jail_timer"));
 				player.setBanChatTimer(rset.getLong("banchat_timer"));
-				if (player.getBanChatTimer() > 0)
-					player.setChatBanned(true);
 				if (player.isInJail())
 					player.setJailTimer(rset.getLong("jail_timer"));
 				else
@@ -9255,78 +9250,23 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _race[i];
 	}
-
-	public void setChatBanned(boolean isBanned)
+	
+	@Deprecated
+	private void setBanChatTimer(long timer)
 	{
-		_chatBanned = isBanned;
-
-		stopBanChatTask();
-		if (isChatBanned())
-		{
-			sendMessage("You have been chat banned by a server admin.");
-			if (_banchat_timer > 0)
-				_BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(), _banchat_timer);
-		}
-		else
-		{
-			sendMessage("Your chat ban has been lifted.");
-			setBanChatTimer(0);
-		}
-		sendEtcStatusUpdate();
 	}
-
-	public void setChatBannedForAnnounce(boolean isBanned)
+	
+	@Deprecated
+	private long getBanChatTimer()
 	{
-		_chatBanned = isBanned;
-
-		stopBanChatTask();
-		if (isChatBanned())
-		{
-			sendMessage("Server admin making announce now, you can't chat.");
-			_BanChatTask = ThreadPoolManager.getInstance().scheduleGeneral(new SchedChatUnban(), _banchat_timer);
-		}
-		else
-		{
-			sendMessage("Your chat ban has been lifted.");
-			setBanChatTimer(0);
-		}
-		sendEtcStatusUpdate();
+		return 0;
 	}
-
-	public void setBanChatTimer(long timer)
-	{
-		_banchat_timer = timer;
-	}
-
-	public long getBanChatTimer()
-	{
-		if (_BanChatTask != null)
-			return _BanChatTask.getDelay(TimeUnit.MILLISECONDS);
-		return _banchat_timer;
-	}
-
-	public void stopBanChatTask()
-	{
-		if (_BanChatTask != null)
-		{
-			_BanChatTask.cancel(false);
-			_BanChatTask = null;
-		}
-	}
-
-	private class SchedChatUnban implements Runnable
-	{
-		public void run()
-		{
-			setChatBanned(false);
-		}
-	}
-
+	
 	public boolean isChatBanned()
 	{
-		return _chatBanned;
+		return ObjectRestrictions.getInstance().checkRestriction(this, AvailableRestriction.PlayerChat);
 	}
-
+	
 	public boolean getMessageRefusal()
 	{
 		return _messageRefusal;
@@ -14113,7 +14053,7 @@ public final class L2PcInstance extends L2Playable
 	
 	public void sendEtcStatusUpdateImpl()
 	{
-		sendPacket(new EtcStatusUpdate(this));
+		sendPacket(EtcStatusUpdate.STATIC_PACKET);
 	}
 	
 	public void broadcastRelationChanged()
