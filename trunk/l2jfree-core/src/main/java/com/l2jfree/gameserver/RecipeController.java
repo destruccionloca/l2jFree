@@ -913,7 +913,7 @@ public class RecipeController
 			{
 				if (Config.ALLOW_MASTERWORK)
 				{
-					if (rareProdId != -1 && Rnd.get(100) < Config.RATE_MASTERWORK)
+					if (rareProdId > 0 && Rnd.get(100) < Config.RATE_MASTERWORK)
 					{
 						itemId = rareProdId;
 					}
@@ -929,7 +929,7 @@ public class RecipeController
 			}
 			else
 			{
-				if (rareProdId != -1 && Config.ALLOW_MASTERWORK)
+				if (rareProdId > 0 && Config.ALLOW_MASTERWORK)
 				{
 					if (Rnd.get(100) < _recipeList.getRarity())
 					{
