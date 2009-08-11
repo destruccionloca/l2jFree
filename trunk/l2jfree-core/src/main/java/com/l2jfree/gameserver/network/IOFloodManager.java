@@ -18,6 +18,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +43,21 @@ public final class IOFloodManager implements IAcceptFilter
 		FAILED_RUNNING;
 	}
 	
+	private static enum Result
+	{
+		ACCEPTED,
+		WARNED,
+		REJECTED;
+		
+		public static Result max(Result r1, Result r2)
+		{
+			if (r1.ordinal() > r2.ordinal())
+				return r1;
+			
+			return r2;
+		}
+	}
+	
 	private static final class SingletonHolder
 	{
 		private static final IOFloodManager INSTANCE = new IOFloodManager();
@@ -52,27 +68,27 @@ public final class IOFloodManager implements IAcceptFilter
 		return SingletonHolder.INSTANCE;
 	}
 	
-	private final FloodManager _packets;
-	private final FloodManager _errors;
+	private static final FloodManager _packets;
+	private static final FloodManager _errors;
 	
-	private IOFloodManager()
+	static
 	{
 		// TODO: fine tune
 		_packets = new FloodManager(1000, 10);
-		_packets.addFloodFilter(100, 1);
+		_packets.addFloodFilter(100, 120, 1);
 		
 		_errors = new FloodManager(100, 10);
-		_errors.addFloodFilter(10, 1);
+		_errors.addFloodFilter(10, 10, 1);
 		
 		_log.info("IOFloodManager: initialized.");
 	}
 	
-	public synchronized void report(ErrorMode mode, L2GameClient client, L2GameClientPacket packet, Throwable throwable)
+	public static void report(ErrorMode mode, L2GameClient client, L2GameClientPacket packet, Throwable throwable)
 	{
-		final boolean isFlooding = _errors.isFlooding(client.getAccountName(), true);
+		final Result isFlooding = _errors.isFlooding(client.getAccountName(), true);
 		
 		final StringBuilder sb = new StringBuilder();
-		if (isFlooding)
+		if (isFlooding != Result.ACCEPTED)
 		{
 			sb.append("Flooding with ");
 		}
@@ -92,28 +108,37 @@ public final class IOFloodManager implements IAcceptFilter
 		else
 			_log.fatal(sb);
 		
-		if (isFlooding)
-		{
-			// TODO: punish, warn, log, etc
-		}
+		//if (isFlooding != Result.ACCEPTED)
+		//{
+		//	// TODO: punish, warn, log, etc
+		//}
 	}
 	
-	public synchronized boolean canReceivePacketFrom(L2GameClient client, int opcode)
+	public static boolean canReceivePacketFrom(L2GameClient client, int opcode)
 	{
 		final String key = client.getAccountName();
-		final boolean isFlooding = _packets.isFlooding(key, true) || _errors.isFlooding(key, false);
 		
-		if (isFlooding)
+		switch (Result.max(_packets.isFlooding(key, true), _errors.isFlooding(key, false)))
 		{
-			// TODO: punish, warn, log, etc
-			_log.warn("Rejected packet (" + Integer.toHexString(opcode) + ") from " + client);
+			case REJECTED:
+			{
+				// TODO: punish, warn, log, etc
+				_log.warn("Rejected packet (0x" + Integer.toHexString(opcode) + ") from " + client);
+				return false;
+			}
+			case WARNED:
+			{
+				// TODO: punish, warn, log, etc
+				_log.warn("Packet over warn limit (0x" + Integer.toHexString(opcode) + ") from " + client);
+				return true;
+			}
+			default:
+				return true;
 		}
-		
-		return !isFlooding;
 	}
 	
 	@Override
-	public synchronized boolean accept(SocketChannel socketChannel)
+	public boolean accept(SocketChannel socketChannel)
 	{
 		// TODO: we don't know the account yet, so it must be mapped by host address,
 		// BUT a lot of players could have the same, so it's complicated
@@ -123,6 +148,8 @@ public final class IOFloodManager implements IAcceptFilter
 	private static final class FloodManager
 	{
 		private final Map<String, LogEntry> _entries = new HashMap<String, LogEntry>();
+		
+		private final ReentrantLock _lock = new ReentrantLock();
 		
 		private final int _tickLength;
 		private final int _tickAmount;
@@ -135,63 +162,78 @@ public final class IOFloodManager implements IAcceptFilter
 			_tickAmount = tickAmount;
 		}
 		
-		private void addFloodFilter(int entryLimit, int tickLimit)
+		private void addFloodFilter(int warnLimit, int rejectLimit, int tickLimit)
 		{
 			_filters = Arrays.copyOf(_filters, _filters.length + 1);
-			_filters[_filters.length - 1] = new FloodFilter(entryLimit, tickLimit);
+			_filters[_filters.length - 1] = new FloodFilter(warnLimit, rejectLimit, tickLimit);
 		}
 		
 		private static final class FloodFilter
 		{
-			private final int _entryLimit;
+			private final int _warnLimit;
+			private final int _rejectLimit;
 			private final int _tickLimit;
 			
-			private FloodFilter(int entryLimit, int tickLimit)
+			private FloodFilter(int warnLimit, int rejectLimit, int tickLimit)
 			{
-				_entryLimit = entryLimit;
+				_warnLimit = warnLimit;
+				_rejectLimit = rejectLimit;
 				_tickLimit = tickLimit;
 			}
 			
-			private int getEntryLimit()
+			public int getWarnLimit()
 			{
-				return _entryLimit;
+				return _warnLimit;
 			}
 			
-			private int getTickLimit()
+			public int getRejectLimit()
+			{
+				return _rejectLimit;
+			}
+			
+			public int getTickLimit()
 			{
 				return _tickLimit;
 			}
 		}
 		
-		private boolean isFlooding(String key, boolean increment)
+		public Result isFlooding(String key, boolean increment)
 		{
 			if (key == null || key.isEmpty())
-				return false;
+				return Result.ACCEPTED;
 			
-			LogEntry entry = _entries.get(key);
-			
-			if (entry == null)
+			_lock.lock();
+			try
 			{
-				entry = new LogEntry();
+				LogEntry entry = _entries.get(key);
 				
-				_entries.put(key, entry);
+				if (entry == null)
+				{
+					entry = new LogEntry();
+					
+					_entries.put(key, entry);
+				}
+				
+				return entry.isFlooding(increment);
 			}
-			
-			return entry.isFlooding(increment);
+			finally
+			{
+				_lock.unlock();
+			}
 		}
 		
 		private final class LogEntry
 		{
-			private final int[] _ticks = new int[_tickAmount];
+			private final short[] _ticks = new short[_tickAmount];
 			
 			private int _lastTick = getCurrentTick();
 			
-			private int getCurrentTick()
+			public int getCurrentTick()
 			{
 				return (int)(L2System.milliTime() / _tickLength);
 			}
 			
-			private boolean isFlooding(boolean increment)
+			public Result isFlooding(boolean increment)
 			{
 				final int currentTick = getCurrentTick();
 				
@@ -199,7 +241,7 @@ public final class IOFloodManager implements IAcceptFilter
 				{
 					_lastTick = currentTick;
 					
-					Arrays.fill(_ticks, 0);
+					Arrays.fill(_ticks, (short)0);
 				}
 				else
 				{
@@ -230,11 +272,14 @@ public final class IOFloodManager implements IAcceptFilter
 							currentSum += value;
 					}
 					
-					if (previousSum > filter.getEntryLimit() || currentSum > filter.getEntryLimit())
-						return true;
+					if (previousSum > filter.getRejectLimit() || currentSum > filter.getRejectLimit())
+						return Result.REJECTED;
+					
+					if (previousSum > filter.getWarnLimit() || currentSum > filter.getWarnLimit())
+						return Result.WARNED;
 				}
 				
-				return false;
+				return Result.ACCEPTED;
 			}
 		}
 	}

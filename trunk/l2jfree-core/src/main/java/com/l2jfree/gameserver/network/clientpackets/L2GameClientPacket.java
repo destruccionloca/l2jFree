@@ -45,7 +45,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	{
 		if (getAvaliableBytes() < getMinimumLength())
 		{
-			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, null);
+			IOFloodManager.report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, null);
 			return false;
 		}
 		
@@ -56,11 +56,11 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 		catch (BufferUnderflowException e)
 		{
-			IOFloodManager.getInstance().report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, e);
+			IOFloodManager.report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, e);
 		}
 		catch (RuntimeException e)
 		{
-			IOFloodManager.getInstance().report(ErrorMode.FAILED_READING, getClient(), this, e);
+			IOFloodManager.report(ErrorMode.FAILED_READING, getClient(), this, e);
 		}
 		
 		return false;
@@ -92,11 +92,11 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		}
 		catch (InvalidPacketException e)
 		{
-			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+			IOFloodManager.report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 		catch (RuntimeException e)
 		{
-			IOFloodManager.getInstance().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+			IOFloodManager.report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
 		}
 	}
 	

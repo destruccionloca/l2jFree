@@ -841,7 +841,7 @@
     <set name="power" val="#power"/>
   </skill>
   <skill id="5592" levels="1" name="Lightning Barrier">
-    <set name="power" val="80"/>
+    <set name="power" val="20"/> <!-- guessed -->
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="lvlDepend" val="1"/>

@@ -65,7 +65,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 		
 		final int opcode = buf.get() & 0xFF;
 		
-		if (!IOFloodManager.getInstance().canReceivePacketFrom(client, opcode))
+		if (!IOFloodManager.canReceivePacketFrom(client, opcode))
 			return null;
 		
 		ReceivablePacket<L2GameClient> msg = null;
@@ -1030,7 +1030,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 	
 	private void printDebug(ByteBuffer buf, L2GameClient client, int... opcodes)
 	{
-		IOFloodManager.getInstance().report(ErrorMode.INVALID_OPCODE, client, null, null);
+		IOFloodManager.report(ErrorMode.INVALID_OPCODE, client, null, null);
 		
 		if (!Config.PACKET_HANDLER_DEBUG)
 			return;
