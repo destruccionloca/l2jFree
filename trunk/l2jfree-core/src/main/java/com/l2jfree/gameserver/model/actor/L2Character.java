@@ -1819,6 +1819,8 @@ public abstract class L2Character extends L2Object
 		}
 		
 		broadcastPacket(new MagicSkillUse(this, target, skill, hitTime, reuseDelay));
+		// The correct time to send this packet?!!
+		broadcastPacket(new MagicSkillLaunched(this, skill, targets));
 		
 		if (this instanceof L2PcInstance)
 		{
@@ -6019,10 +6021,11 @@ public abstract class L2Character extends L2Object
 			_castInterruptTime = 0;
 			return;
 		}
-		
-		if (!skill.isPotion())
-			broadcastPacket(new MagicSkillLaunched(this, skill, targets.toArray(new L2Character[targets.size()])));
-		
+
+		// If this packet is sent here, client may choose not to accept it
+		//if (!skill.isPotion())
+		//	broadcastPacket(new MagicSkillLaunched(this, skill, targets.toArray(new L2Character[targets.size()])));
+
 		onMagicHitTimer(magicEnv);
 	}
 	
