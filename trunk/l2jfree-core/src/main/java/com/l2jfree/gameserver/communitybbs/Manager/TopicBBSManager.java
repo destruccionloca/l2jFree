@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -104,8 +103,8 @@ public class TopicBBSManager extends BaseBBSManager
 			else
 			{
 				f.vload();
-				Topic t = new Topic(Topic.ConstructorType.CREATE, TopicBBSManager.getInstance().getMaxID(f) + 1, Integer.parseInt(ar2), ar5, Calendar
-						.getInstance().getTimeInMillis(), activeChar.getName(), activeChar.getObjectId(), Topic.MEMO, 0);
+				Topic t = new Topic(Topic.ConstructorType.CREATE, TopicBBSManager.getInstance().getMaxID(f) + 1, Integer.parseInt(ar2), ar5, System
+						.currentTimeMillis(), activeChar.getName(), activeChar.getObjectId(), Topic.MEMO, 0);
 				f.addtopic(t);
 				TopicBBSManager.getInstance().setMaxID(t.getID(), f);
 				Post p = new Post(activeChar.getName(), activeChar.getObjectId(), System.currentTimeMillis(), t.getID(), f.getID(), ar4);

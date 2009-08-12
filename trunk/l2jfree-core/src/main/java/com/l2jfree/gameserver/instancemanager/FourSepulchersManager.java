@@ -188,7 +188,7 @@ public class FourSepulchersManager extends BossLair
 	protected void timeSelector()
 	{
 		timeCalculator();
-		long currentTime = Calendar.getInstance().getTimeInMillis();
+		long currentTime = System.currentTimeMillis();
 		// If current time >= time of entry beginning and if current time < time of entry beginning + time of entry end
 		if(currentTime >= _coolDownTimeEnd && currentTime < _entryTimeEnd) // Entry time check
 		{
@@ -1506,7 +1506,7 @@ public class FourSepulchersManager extends BossLair
 			if (_inAttackTime)
 			{
 				Calendar tmp = Calendar.getInstance();
-				tmp.setTimeInMillis(Calendar.getInstance().getTimeInMillis() - _warmUpTimeEnd);
+				tmp.setTimeInMillis(System.currentTimeMillis() - _warmUpTimeEnd);
 				if(tmp.get(Calendar.MINUTE) + 5 < Config.ALT_FS_TIME_ATTACK)
 				{
 					managerSay((byte) tmp.get(Calendar.MINUTE)); // Byte because minute cannot be more than 59
@@ -1538,7 +1538,7 @@ public class FourSepulchersManager extends BossLair
 			// Counting difference between time when entry time ends and current time
 			// and then launching change time task
 			if (_firstTimeRun)
-				interval = _entryTimeEnd - Calendar.getInstance().getTimeInMillis();
+				interval = _entryTimeEnd - System.currentTimeMillis();
 			else
 				interval = Config.ALT_FS_TIME_ENTRY * 60000; // else use stupid method
 			// Launching saying process...
@@ -1567,7 +1567,7 @@ public class FourSepulchersManager extends BossLair
 			// Counting difference between time when warmup time ends and current time
 			// and then launching change time task
 			if (_firstTimeRun)
-				interval = _warmUpTimeEnd - Calendar.getInstance().getTimeInMillis();
+				interval = _warmUpTimeEnd - System.currentTimeMillis();
 			else
 				interval = Config.ALT_FS_TIME_WARMUP * 60000;
 			_changeAttackTimeTask =
@@ -1599,7 +1599,7 @@ public class FourSepulchersManager extends BossLair
 			spawnMysteriousBox(31924);
 
 			if(!_firstTimeRun)
-				_warmUpTimeEnd=Calendar.getInstance().getTimeInMillis();
+				_warmUpTimeEnd=System.currentTimeMillis();
 
 			long interval = 0;
 			// Say task
@@ -1613,7 +1613,7 @@ public class FourSepulchersManager extends BossLair
 						_log.info(Calendar.getInstance().getTime() + " Atk announce scheduled to " + min + " minute of this hour.");
 						Calendar inter = Calendar.getInstance();
 						inter.set(Calendar.MINUTE, (int) min);
-						ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), inter.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+						ThreadPoolManager.getInstance().scheduleGeneral(new ManagerSay(), inter.getTimeInMillis() - System.currentTimeMillis());
 						break;
 					}
 				}
@@ -1624,7 +1624,7 @@ public class FourSepulchersManager extends BossLair
 			// Counting difference between time when attack time ends and current time
 			// and then launching change time task
 			if (_firstTimeRun)
-				interval = _attackTimeEnd - Calendar.getInstance().getTimeInMillis();
+				interval = _attackTimeEnd - System.currentTimeMillis();
 			else
 				interval = Config.ALT_FS_TIME_ATTACK * 60000;
 			_changeCoolDownTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(), interval);
@@ -1658,7 +1658,7 @@ public class FourSepulchersManager extends BossLair
 			if (_firstTimeRun)
 				_firstTimeRun = false; // Cooldown phase ends event hour, so it will be not first run
 
-			long interval = time.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+			long interval = time.getTimeInMillis() - System.currentTimeMillis();
 			_changeEntryTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(), interval);
 
 			if (_changeCoolDownTimeTask != null)

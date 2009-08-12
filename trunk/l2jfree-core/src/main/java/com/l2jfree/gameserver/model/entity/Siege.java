@@ -1188,7 +1188,7 @@ public class Siege extends AbstractSiege
 	{
 		setNextSiegeDate(); // Set the next set date for 2 weeks from now
 		// Schedule Time registration end
-		getTimeRegistrationOverDate().setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+		getTimeRegistrationOverDate().setTimeInMillis(System.currentTimeMillis());
 		getTimeRegistrationOverDate().add(Calendar.DAY_OF_MONTH, 1);
 		getCastle().setIsTimeRegistrationOver(false);
 

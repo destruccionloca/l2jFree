@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Calendar;
-
 /**
  * format: dSSSdddddddd (dd(d))
  * @author  GodKratos
@@ -25,8 +23,8 @@ public class ExShowDominionRegistry extends L2GameServerPacket
 	private final int _territoryId;
 	private final int _clanReq = 0x00;
 	private final int _mercReq = 0x00;
-	private final int _warTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000);
-	private final int _currentTime = (int) (Calendar.getInstance().getTimeInMillis() / 1000);
+	private final int _warTime = (int) (System.currentTimeMillis() / 1000);
+	private final int _currentTime = (int) (System.currentTimeMillis() / 1000);
 	
 	public ExShowDominionRegistry(int terrId)
 	{

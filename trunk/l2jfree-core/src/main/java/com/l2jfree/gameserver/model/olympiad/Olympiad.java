@@ -220,13 +220,13 @@ public final class Olympiad
 		switch (_period)
 		{
 			case 0:
-				if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
+				if (_olympiadEnd == 0 || _olympiadEnd < System.currentTimeMillis())
 					setNewOlympiadEnd();
 				else
 					scheduleWeeklyChange();
 				break;
 			case 1:
-				if (_validationEnd > Calendar.getInstance().getTimeInMillis())
+				if (_validationEnd > System.currentTimeMillis())
 				{
 					loadNoblesRank();
 					_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValidationEndTask(),
@@ -807,8 +807,8 @@ public final class Olympiad
 	
 	private long getMillisToOlympiadEnd()
 	{
-		// if (_olympiadEnd > Calendar.getInstance().getTimeInMillis())
-		return (_olympiadEnd - Calendar.getInstance().getTimeInMillis());
+		// if (_olympiadEnd > System.currentTimeMillis())
+		return (_olympiadEnd - System.currentTimeMillis());
 		// return 10L;
 	}
 	
@@ -822,8 +822,8 @@ public final class Olympiad
 	
 	protected long getMillisToValidationEnd()
 	{
-		if (_validationEnd > Calendar.getInstance().getTimeInMillis())
-			return (_validationEnd - Calendar.getInstance().getTimeInMillis());
+		if (_validationEnd > System.currentTimeMillis())
+			return (_validationEnd - System.currentTimeMillis());
 		return 10L;
 	}
 	
@@ -860,12 +860,12 @@ public final class Olympiad
 	
 	private long getMillisToCompBegin()
 	{
-		if (_compStart.getTimeInMillis() < Calendar.getInstance().getTimeInMillis()
-			&& _compEnd > Calendar.getInstance().getTimeInMillis())
+		if (_compStart.getTimeInMillis() < System.currentTimeMillis()
+			&& _compEnd > System.currentTimeMillis())
 			return 10L;
 		
-		if (_compStart.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
-			return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		if (_compStart.getTimeInMillis() > System.currentTimeMillis())
+			return (_compStart.getTimeInMillis() - System.currentTimeMillis());
 		
 		return setNewCompBegin();
 	}
@@ -880,20 +880,20 @@ public final class Olympiad
 		
 		_log.info("Olympiad System: New Schedule @ " + _compStart.getTime());
 		
-		return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
+		return (_compStart.getTimeInMillis() - System.currentTimeMillis());
 	}
 	
 	protected long getMillisToCompEnd()
 	{
-		// if (_compEnd > Calendar.getInstance().getTimeInMillis())
-		return (_compEnd - Calendar.getInstance().getTimeInMillis());
+		// if (_compEnd > System.currentTimeMillis())
+		return (_compEnd - System.currentTimeMillis());
 		// return 10L;
 	}
 	
 	private long getMillisToWeekChange()
 	{
-		if (_nextWeeklyChange > Calendar.getInstance().getTimeInMillis())
-			return (_nextWeeklyChange - Calendar.getInstance().getTimeInMillis());
+		if (_nextWeeklyChange > System.currentTimeMillis())
+			return (_nextWeeklyChange - System.currentTimeMillis());
 		return 10L;
 	}
 	

@@ -1315,7 +1315,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					//nothing needs to be replaced
 					player.sendPacket(html);
 				}
-				else if (getCastle().getSiege().getTimeRegistrationOverDate().getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
+				else if (getCastle().getSiege().getTimeRegistrationOverDate().getTimeInMillis() < System.currentTimeMillis())
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/chamberlain/siegetime1.htm");

@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.taskmanager.tasks;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Calendar;
 import java.util.Vector;
 
 import com.l2jfree.Config;
@@ -47,7 +46,7 @@ public class TaskMailCleanUp extends TaskHandler
 			PreparedStatement statement = con.prepareStatement("SELECT letterId FROM characters WHERE (location = ? OR location = ?) AND deleteDate < ?");
 			statement.setString(1, "inbox");
 			statement.setString(2, "sentbox");
-			statement.setLong(3, Calendar.getInstance().getTimeInMillis());
+			statement.setLong(3, System.currentTimeMillis());
 			ResultSet result = statement.executeQuery();
 			while (result.next())
 				deleteLetterList.add(result.getInt(1));

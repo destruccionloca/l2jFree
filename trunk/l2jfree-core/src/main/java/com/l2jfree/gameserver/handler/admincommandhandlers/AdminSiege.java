@@ -176,7 +176,7 @@ public class AdminSiege implements IAdminCommandHandler
 					else if (val.equalsIgnoreCase("min"))
 						newAdminSiegeDate.set(Calendar.MINUTE, Integer.parseInt(st.nextToken()));
 
-					if (newAdminSiegeDate.getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
+					if (newAdminSiegeDate.getTimeInMillis() < System.currentTimeMillis())
 					{
 						activeChar.sendMessage("Unable to change Siege Date");
 					}

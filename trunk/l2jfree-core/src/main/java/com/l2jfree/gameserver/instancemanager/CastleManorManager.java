@@ -194,10 +194,10 @@ public class CastleManorManager
 		boolean isApproved;
 		if (_periodApprove.getTimeInMillis() > _manorRefresh.getTimeInMillis())
 			// Next approve period already scheduled
-			isApproved = (_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis());
+			isApproved = (_manorRefresh.getTimeInMillis() > System.currentTimeMillis());
 		else
-			isApproved = (_periodApprove.getTimeInMillis() < Calendar.getInstance().getTimeInMillis() &&
-					_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis());
+			isApproved = (_periodApprove.getTimeInMillis() < System.currentTimeMillis() &&
+					_manorRefresh.getTimeInMillis() > System.currentTimeMillis());
 
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 		{

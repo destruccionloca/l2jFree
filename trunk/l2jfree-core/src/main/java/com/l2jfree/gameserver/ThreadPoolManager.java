@@ -32,6 +32,7 @@ import com.l2jfree.util.concurrent.ExecuteWrapper;
 import com.l2jfree.util.concurrent.L2RejectedExecutionHandler;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 import com.l2jfree.util.concurrent.ScheduledFutureWrapper;
+import com.l2jfree.util.concurrent.RunnableStatsManager.SortBy;
 
 /**
  * @author -Wooden-, NB4L1
@@ -294,7 +295,7 @@ public final class ThreadPoolManager
 		System.out.println("\t... " + getTaskCount(_longRunningPool) + " long running tasks left.");
 		
 		if (TimeUnit.HOURS.toMillis(12) < (System.currentTimeMillis() - GameServer.getStartedTime().getTimeInMillis()))
-			RunnableStatsManager.dumpClassStats();
+			RunnableStatsManager.dumpClassStats(SortBy.TOTAL);
 	}
 	
 	public void purge()

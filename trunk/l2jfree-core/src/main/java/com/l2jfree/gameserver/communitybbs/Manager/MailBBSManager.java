@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javolution.text.TextBuilder;
@@ -762,7 +761,7 @@ public class MailBBSManager extends BaseBBSManager
 			String[] recipAr = recipients.split(";");
 			message = message.replaceAll("\n", "<br1>");
 			boolean sent = false;
-			long date = Calendar.getInstance().getTimeInMillis();
+			long date = System.currentTimeMillis();
 			int countRecips = 0;
 			int countTodaysLetters = 0;
 

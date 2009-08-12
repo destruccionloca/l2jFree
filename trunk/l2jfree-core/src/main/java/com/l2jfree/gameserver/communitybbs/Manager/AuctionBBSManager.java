@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javolution.text.TextBuilder;
@@ -347,7 +346,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			L2Item item = ItemTable.getInstance().getTemplate(lot.itemId);
 			if (viewOnly.equals("All") || viewOnly.equals(item.getItemType().toString()))
 			{
-				if ((lot.endDate > Calendar.getInstance().getTimeInMillis() && !showEnded) || (lot.endDate < Calendar.getInstance().getTimeInMillis() && showEnded))
+				if ((lot.endDate > System.currentTimeMillis() && !showEnded) || (lot.endDate < System.currentTimeMillis() && showEnded))
 				{
 					if (index < minIndex)
 					{
@@ -446,7 +445,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=100 height=20 align=right>Owner:&nbsp;</td>");
 		html.append("<td FIXWIDTH=360 height=20 align=left>" + getCharName(lot.ownerId) + "</td>");//
 		html.append("<td FIXWIDTH=150 height=20 align=right>Status:&nbsp;</td>");
-		if (lot.endDate > Calendar.getInstance().getTimeInMillis())
+		if (lot.endDate > System.currentTimeMillis())
 			html.append("<td FIXWIDTH=150 height=20 align=left><font color=00FF00>Active</font></td>");//
 		else
 			html.append("<td FIXWIDTH=150 height=20 align=left><font color=FF0000>Ended</font></td>");//
@@ -500,7 +499,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<table border=0 cellspacing=0 cellpadding=2 width=770><tr>");
 		if (lot.ownerId.equals(activeChar.getObjectId()))
 			html.append("<td>You may not place a bid on your own auction lot.</td>");
-		else if (lot.endDate < Calendar.getInstance().getTimeInMillis())
+		else if (lot.endDate < System.currentTimeMillis())
 			html.append("<td>This auction lot has ended.</td>");
 		else
 		{
@@ -563,7 +562,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<br><br><br>");
 		if (lot.ownerId.equals(activeChar.getObjectId()))
 			html.append("You may not place a bid on your own auction lot.");
-		else if (lot.endDate < Calendar.getInstance().getTimeInMillis())
+		else if (lot.endDate < System.currentTimeMillis())
 			html.append("The auction has ended.");
 		else
 		{
@@ -750,7 +749,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<tr>");
 		if (lot.ownerId.equals(activeChar.getObjectId()))
 			html.append("<td>You may not place a bid on your own auction lot.</td>");
-		else if (lot.endDate < Calendar.getInstance().getTimeInMillis())
+		else if (lot.endDate < System.currentTimeMillis())
 			html.append("<td>This auction lot has ended.</td>");
 		else
 		{
@@ -825,7 +824,7 @@ public class AuctionBBSManager extends BaseBBSManager
 				statement.setLong(7, statingBid);
 				statement.setLong(8, increment);
 				statement.setLong(9, buyNow);
-				statement.setLong(10, Calendar.getInstance().getTimeInMillis() + epochHours);
+				statement.setLong(10, System.currentTimeMillis() + epochHours);
 				statement.execute();
 				statement.close();
 
@@ -850,7 +849,7 @@ public class AuctionBBSManager extends BaseBBSManager
 
 		for (LotList lot : getLots())
 		{
-			if (lot.endDate < Calendar.getInstance().getTimeInMillis() && !lot.isProcessed)
+			if (lot.endDate < System.currentTimeMillis() && !lot.isProcessed)
 			{
 				bid = getHighestBidder(lot.lotId);
 				L2Item itemWon = ItemTable.getInstance().getTemplate(lot.itemId);
@@ -954,7 +953,7 @@ public class AuctionBBSManager extends BaseBBSManager
 	{
 		for (LotList lot : getLots())
 		{
-			if ((lot.endDate + Long.valueOf("604800000")) < Calendar.getInstance().getTimeInMillis() && lot.isProcessed)
+			if ((lot.endDate + Long.valueOf("604800000")) < System.currentTimeMillis() && lot.isProcessed)
 			{
 				java.sql.Connection con = null;
 				try
@@ -994,7 +993,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		if (currentBid == 0)
 			currentBid = lot.startingBid;
 
-		if (lot.endDate < Calendar.getInstance().getTimeInMillis())
+		if (lot.endDate < System.currentTimeMillis())
 		{
 			activeChar.sendMessage("This auction lot has already ended and is no longer taking bids.");
 			return false;
@@ -1049,7 +1048,7 @@ public class AuctionBBSManager extends BaseBBSManager
 					statement.setInt(1, lotId);
 					statement.setInt(2, activeChar.getObjectId());
 					statement.setLong(3, bidAmount);
-					statement.setLong(4, Calendar.getInstance().getTimeInMillis());
+					statement.setLong(4, System.currentTimeMillis());
 					statement.execute();
 					statement.close();
 
@@ -1111,8 +1110,8 @@ public class AuctionBBSManager extends BaseBBSManager
 		statement.setString(4, recipient);
 		statement.setString(5, subject);
 		statement.setString(6, message);
-		statement.setLong(7, Calendar.getInstance().getTimeInMillis());
-		statement.setLong(8, Calendar.getInstance().getTimeInMillis() + Long.valueOf("7948804000"));
+		statement.setLong(7, System.currentTimeMillis());
+		statement.setLong(8, System.currentTimeMillis() + Long.valueOf("7948804000"));
 		statement.setString(9, "true");
 		statement.execute();
 		statement.close();
@@ -1125,7 +1124,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("UPDATE auction_lots SET endDate = ? WHERE lotId = ?");
-			statement.setLong(1, Calendar.getInstance().getTimeInMillis());
+			statement.setLong(1, System.currentTimeMillis());
 			statement.setInt(2, lotId);
 			statement.execute();
 			statement.close();
