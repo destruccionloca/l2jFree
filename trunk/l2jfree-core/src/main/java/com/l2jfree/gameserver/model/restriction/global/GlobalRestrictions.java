@@ -205,6 +205,10 @@ public final class GlobalRestrictions
 	 */
 	public static boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
+		// Avoid NPE and wrong usage
+		if (activeChar == null)
+			return true;
+
 		// Cannot mess with observation
 		if (activeChar.inObserverMode()) // normal/olympiad observing
 		{
