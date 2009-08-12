@@ -28,6 +28,20 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  */
 public final class AutomatedTvTRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final AutomatedTvTRestriction INSTANCE = new AutomatedTvTRestriction();
+	}
+	
+	public static AutomatedTvTRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private AutomatedTvTRestriction()
+	{
+	}
+	
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{

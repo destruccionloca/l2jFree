@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.SHRestriction;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -44,6 +45,11 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class SH
 {
+	static
+	{
+		SHRestriction.getInstance().activate(); // TODO: must be checked
+	}
+	
 	private final static Log		_log			= LogFactory.getLog(SH.class);
 	private static String			_eventTitle		= new String();
 	private static String			_eventDesc		= new String();

@@ -27,6 +27,20 @@ import com.l2jfree.gameserver.model.entity.events.VIP;
  */
 public final class VIPRestriction extends AbstractFunEventRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final VIPRestriction INSTANCE = new VIPRestriction();
+	}
+	
+	public static VIPRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private VIPRestriction()
+	{
+	}
+	
 	@Override
 	boolean started()
 	{

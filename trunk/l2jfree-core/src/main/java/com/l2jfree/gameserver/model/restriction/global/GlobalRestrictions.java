@@ -50,6 +50,8 @@ public final class GlobalRestrictions
 		canInviteToParty,
 		canCreateEffect,
 		isInvul,
+		isProtected,
+		canTarget,
 		canRequestRevive,
 		canTeleport,
 		canUseItemHandler,
@@ -178,18 +180,6 @@ public final class GlobalRestrictions
 	
 	static
 	{
-		/**
-		 * Temporary solution until events reworked to fit the new scheme.
-		 */
-		activate(new AutomatedTvTRestriction()); // TODO: must be checked
-		activate(new CTFRestriction());
-		activate(new DMRestriction());
-		activate(new L2EventRestriction());
-		activate(new SHRestriction()); // TODO: must be checked
-		//activate(new TvTiRestriction()); // TODO: must be checked to be able to activate it
-		activate(new TvTRestriction());
-		activate(new VIPRestriction());
-		
 		activate(new CursedWeaponRestriction());
 		activate(new DuelRestriction());
 		activate(new JailRestriction());
@@ -279,51 +269,84 @@ public final class GlobalRestrictions
 		return true;
 	}
 	
-	public static boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill)
+	/**
+	 * Indicates if the character can't harm another, but can hit/cast a skill on it.
+	 */
+	public static boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
 	{
+		if (isProtected(activeChar, target, skill, sendMessage))
+			return true;
+		
+		if (target.isInvul())
+			return true;
+		
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInvul.ordinal()])
+			if (restriction.isInvul(activeChar, target, skill, sendMessage))
+				return true;
+		
+		return false;
+	}
+	
+	/**
+	 * Indicates if the character can't hit/cast a skill on another, but can target it.
+	 */
+	public static boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	{
+		if (!canTarget(activeChar, target, sendMessage))
+			return true;
+		
 		boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
 		
 		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
 		L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
-		if (target.isInvul())
-			return true;
-		
-		if (attacker_ == null || target_ == null || attacker_ == target_)
-			return false;
-		
-		if (attacker_.isGM())
+		if (attacker_ != null && target_ != null && attacker_ != target_)
 		{
-			if (isOffensive && attacker_.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-				return true;
-			else if (!target_.isGM())
-				return false;
-		}
-		
-		if (isOffensive)
-		{
+			if (attacker_.isGM())
+			{
+				if (isOffensive && attacker_.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+					return true;
+				else if (!target_.isGM()) // TODO
+					return false;
+			}
+			
 			if (attacker_.inObserverMode() || target_.inObserverMode())
 			{
-				attacker_.sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
+				if (sendMessage)
+					attacker_.sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
 				return true;
 			}
-			else if (attacker_.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+			else if (attacker_.getLevel() <= Config.ALT_PLAYER_PROTECTION_LEVEL)
 			{
-				attacker_.sendMessage("Your level is too low to participate in a PvP combat.");
+				if (sendMessage)
+					attacker_.sendMessage("Your level is too low to participate in a PvP combat.");
 				return true;
 			}
-			else if (target_.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
+			else if (target_.getLevel() <= Config.ALT_PLAYER_PROTECTION_LEVEL)
 			{
-				attacker_.sendMessage("Target is under newbie protection.");
+				if (sendMessage)
+					attacker_.sendMessage("Target is under newbie protection.");
 				return true;
 			}
 		}
 		
-		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInvul.ordinal()])
-			if (restriction.isInvul(activeChar, target, isOffensive))
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isProtected.ordinal()])
+			if (restriction.isProtected(activeChar, target, skill, sendMessage))
 				return true;
 		
 		return false;
+	}
+	
+	/**
+	 * Indicates if the character can't even target another.
+	 */
+	public static boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canTarget.ordinal()])
+			if (!restriction.canTarget(activeChar, target, sendMessage))
+				return false;
+		
+		return true;
 	}
 	
 	public static boolean canRequestRevive(L2PcInstance activeChar)

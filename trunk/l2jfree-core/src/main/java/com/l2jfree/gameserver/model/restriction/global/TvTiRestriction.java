@@ -26,6 +26,20 @@ import com.l2jfree.gameserver.network.serverpackets.PlaySound;
  */
 public final class TvTiRestriction extends AbstractFunEventRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final TvTiRestriction INSTANCE = new TvTiRestriction();
+	}
+	
+	public static TvTiRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private TvTiRestriction()
+	{
+	}
+	
 	@Override
 	boolean started()
 	{

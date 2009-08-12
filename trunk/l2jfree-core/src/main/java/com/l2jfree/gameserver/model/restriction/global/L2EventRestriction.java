@@ -24,6 +24,20 @@ import com.l2jfree.gameserver.model.entity.L2Event;
  */
 public final class L2EventRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final L2EventRestriction INSTANCE = new L2EventRestriction();
+	}
+	
+	public static L2EventRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private L2EventRestriction()
+	{
+	}
+	
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{

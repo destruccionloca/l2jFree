@@ -50,6 +50,11 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class DM
 {
+	static
+	{
+		DMRestriction.getInstance().activate();
+	}
+	
 	private final static Log _log = LogFactory.getLog(DM.class);
 	public static String _eventName = "",
 						 _eventDesc = "",

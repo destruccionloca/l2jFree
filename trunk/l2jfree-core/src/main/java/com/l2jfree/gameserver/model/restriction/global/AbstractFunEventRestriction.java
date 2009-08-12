@@ -88,18 +88,22 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public final boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	public final boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
 	{
 		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
 		L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
 		if (attacker_ == null || target_ == null || attacker_ == target_)
-			return false;
-		
-		if (isInFunEvent(attacker_) != isInFunEvent(target_) && !allowInterference())
 			return true;
 		
-		return false;
+		if (isInFunEvent(attacker_) != isInFunEvent(target_) && !allowInterference())
+		{
+			if (sendMessage)
+				attacker_.sendMessage("You can't interact because of the fun event!");
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override

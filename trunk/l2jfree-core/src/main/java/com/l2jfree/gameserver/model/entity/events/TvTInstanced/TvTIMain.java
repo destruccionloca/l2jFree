@@ -48,6 +48,11 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class TvTIMain
 {
+	static
+	{
+		//TvTiRestriction.getInstance().activate(); // TODO: must be checked to be able to activate it
+	}
+	
 	private final static Log			_log			= LogFactory.getLog(TvTIMain.class);
 	private static String				_eventTitle		= new String();
 	private static String				_eventDesc		= new String();

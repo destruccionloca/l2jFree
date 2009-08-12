@@ -64,6 +64,11 @@ import com.l2jfree.tools.random.Rnd;
 
 public class CTF
 {
+	static
+	{
+		CTFRestriction.getInstance().activate();
+	}
+	
 	private final static Log	_log	= LogFactory.getLog(CTF.class);
 	private static int			_FlagNPC	= 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
 	public static String		_eventName	= "", _eventDesc = "", _topTeam = "", _joiningLocationName = "";

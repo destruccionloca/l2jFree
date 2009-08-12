@@ -18,8 +18,22 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.SH;
 
-final class SHRestriction extends AbstractRestriction
+public final class SHRestriction extends AbstractRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final SHRestriction INSTANCE = new SHRestriction();
+	}
+	
+	public static SHRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private SHRestriction()
+	{
+	}
+	
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{

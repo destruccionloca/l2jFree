@@ -48,6 +48,11 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class AutomatedTvT
 {
+	static
+	{
+		AutomatedTvTRestriction.getInstance().activate(); // TODO: must be checked
+	}
+	
 	private static final Log _log = LogFactory.getLog(AutomatedTvT.class);
 	private static final String REMOVE_DISCONNECTED_PLAYER = "UPDATE characters SET heading=?,x=?,y=?,z=?,title=? WHERE charId=?";
 	private static final String evtName = "Team versus team";

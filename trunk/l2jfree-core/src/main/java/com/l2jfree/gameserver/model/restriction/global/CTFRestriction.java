@@ -26,6 +26,20 @@ import com.l2jfree.gameserver.model.entity.events.CTF;
  */
 public final class CTFRestriction extends AbstractFunEventRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final CTFRestriction INSTANCE = new CTFRestriction();
+	}
+	
+	public static CTFRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private CTFRestriction()
+	{
+	}
+	
 	@Override
 	boolean started()
 	{

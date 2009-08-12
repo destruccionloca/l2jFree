@@ -48,7 +48,12 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.tools.random.Rnd;
 
-public class VIP {
+public class VIP
+{
+	static
+	{
+		VIPRestriction.getInstance().activate();
+	}
 	
 	private final static Log _log = LogFactory.getLog(VIP.class);
 	public static String	_teamName = "", _joinArea = "", _theVIPName = "";

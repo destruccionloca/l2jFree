@@ -55,6 +55,11 @@ import com.l2jfree.tools.random.Rnd;
 
 public class TvT
 {
+	static
+	{
+		TvTRestriction.getInstance().activate();
+	}
+	
 	private final static Log			_log					= LogFactory.getLog(TvT.class);
 	public static String				_eventName				= "";
 	public static String				_eventDesc				= "";

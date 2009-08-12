@@ -33,6 +33,25 @@ public abstract class AbstractRestriction implements GlobalRestriction
 {
 	static final Log _log = LogFactory.getLog(AbstractRestriction.class);
 	
+	public void activate()
+	{
+		GlobalRestrictions.activate(this);
+	}
+	
+	public void deactivate()
+	{
+		GlobalRestrictions.deactivate(this);
+	}
+	
+	/**
+	 * To avoid accidentally multiple times activated restrictions.
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		return getClass().equals(obj.getClass());
+	}
+	
 	@DisabledRestriction
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
@@ -52,7 +71,19 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@DisabledRestriction
-	public boolean isInvul(L2Character activeChar, L2Character target, boolean isOffensive)
+	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
 	{
 		throw new AbstractMethodError();
 	}

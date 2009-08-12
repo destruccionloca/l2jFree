@@ -26,6 +26,20 @@ import com.l2jfree.gameserver.model.entity.events.DM;
  */
 public final class DMRestriction extends AbstractFunEventRestriction
 {
+	private static final class SingletonHolder
+	{
+		private static final DMRestriction INSTANCE = new DMRestriction();
+	}
+	
+	public static DMRestriction getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private DMRestriction()
+	{
+	}
+	
 	@Override
 	boolean started()
 	{

@@ -49,6 +49,11 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2Event
 {
+	static
+	{
+		L2EventRestriction.getInstance().activate();
+	}
+	
     private final static Log _log = LogFactory.getLog(L2Event.class);
    
     public static String eventName = "";
