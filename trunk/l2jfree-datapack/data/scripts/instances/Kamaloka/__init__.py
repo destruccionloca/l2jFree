@@ -41,7 +41,7 @@ debug = True
 class PyObject:
 	pass
 
-def saveEntry(member) :
+def saveEntry(self,member) :
 	currentTime = System.currentTimeMillis()/1000
 	st = member.getQuestState(qn)
 	if not st :
@@ -239,7 +239,7 @@ class Kamaloka(JQuest):
 		playerList = InstanceManager.getInstance().getInstance(player.getInstanceId()).getPlayers()
 		for member in playerList.toArray():
 			member = L2World.getInstance().findPlayer(member)
-			saveEntry(member)
+			saveEntry(self,member)
 			member.sendPacket(SystemMessage.sendString("You will be moved out of Kamaloka in 5 minutes"))
 		self.startQuestTimer("finishKamaloka",300000,npc,player)
 		return
