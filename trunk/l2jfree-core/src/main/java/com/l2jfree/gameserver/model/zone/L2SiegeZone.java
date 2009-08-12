@@ -72,8 +72,7 @@ public class L2SiegeZone extends SiegeableEntityZone
 			final L2PcInstance activeChar = (L2PcInstance)character;
 			
 			// Set pvp flag
-			if (activeChar.getPvpFlag() == 0)
-				activeChar.startPvPFlag();
+			activeChar.updatePvPStatus();
 			
 			activeChar.stopFameTask();
 			activeChar.setIsInSiege(false);

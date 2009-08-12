@@ -254,6 +254,7 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
@@ -438,9 +439,6 @@ public final class L2PcInstance extends L2Playable
 
 	/** The PK counter of the L2PcInstance (= Number of non PvP Flagged player killed) */
 	private int								_pkKills;
-
-	/** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
-	private byte							_pvpFlag;
 
 	/** The Siege state of the L2PcInstance */
 	private byte							_siegeState				= 0;
@@ -1668,30 +1666,6 @@ public final class L2PcInstance extends L2Playable
 		return _siegeState;
 	}
 
-	/**
-	 * Set the PvP Flag of the L2PcInstance.<BR><BR>
-	 */
-	public void setPvpFlag(int pvpFlag)
-	{
-		_pvpFlag = (byte) pvpFlag;
-	}
-
-	public byte getPvpFlag()
-	{
-		return _pvpFlag;
-	}
-
-	@Override
-	public void updatePvPFlag(int value)
-	{
-		if (getPvpFlag() == value)
-			return;
-		setPvpFlag(value);
-
-		sendPacket(new UserInfo(this));
-		broadcastRelationChanged();
-	}
-	
 	@Override
 	public boolean revalidateZone(boolean force)
 	{
@@ -4692,7 +4666,7 @@ public final class L2PcInstance extends L2Playable
 		// Force Charges
 		_charges = 0; // Empty charges
 
-		setPvpFlag(0); // Clear the pvp flag
+		updatePvPFlag(0); // Clear the pvp flag
 		// Pet shouldn't get unsummoned after masters death.
 		// Unsummon the Pet
 		//if (getPet() != null) getPet().unSummon(this);
@@ -5111,7 +5085,99 @@ public final class L2PcInstance extends L2Playable
 
 		return karmaLost;
 	}
-
+	
+	private static final class PvPFlagManager extends AbstractIterativePeriodicTaskManager<L2PcInstance>
+	{
+		private static final PvPFlagManager _instance = new PvPFlagManager();
+		
+		private static PvPFlagManager getInstance()
+		{
+			return _instance;
+		}
+		
+		private PvPFlagManager()
+		{
+			super(1000);
+		}
+		
+		@Override
+		protected void callTask(L2PcInstance task)
+		{
+			if (System.currentTimeMillis() > task.getPvpFlagLasts())
+			{
+				task.stopPvPFlag();
+			}
+			else if (System.currentTimeMillis() > (task.getPvpFlagLasts() - 20000))
+			{
+				task.updatePvPFlag(2);
+			}
+			else
+			{
+				task.updatePvPFlag(1);
+			}
+		}
+		
+		@Override
+		protected String getCalledMethodName()
+		{
+			return "updatePvPFlag()";
+		}
+	}
+	
+	/** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
+	private byte _pvpFlag;
+	private long _pvpFlagLasts;
+	
+	/**
+	 * Set the PvP Flag of the L2PcInstance.<BR>
+	 * <BR>
+	 */
+	private void setPvpFlag(int pvpFlag)
+	{
+		_pvpFlag = (byte)pvpFlag;
+	}
+	
+	public byte getPvpFlag()
+	{
+		return _pvpFlag;
+	}
+	
+	public void updatePvPFlag(int value)
+	{
+		if (getPvpFlag() == value)
+			return;
+		
+		setPvpFlag((byte)value);
+		
+		if (getPvpFlag() == 0)
+			PvPFlagManager.getInstance().stopTask(this);
+		else
+			PvPFlagManager.getInstance().startTask(this);
+		
+		sendPacket(new UserInfo(this));
+		broadcastRelationChanged();
+	}
+	
+	private void setPvpFlagLasts(long time)
+	{
+		_pvpFlagLasts = time;
+	}
+	
+	private long getPvpFlagLasts()
+	{
+		return _pvpFlagLasts;
+	}
+	
+	private void startPvPFlag()
+	{
+		updatePvPFlag(1);
+	}
+	
+	private void stopPvPFlag()
+	{
+		updatePvPFlag(0);
+	}
+	
 	public void updatePvPStatus()
 	{
 		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started) || _inEventTvTi)

@@ -669,7 +669,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		player.getStatus().setCurrentHp(hpval);
 		player.getStatus().setCurrentMp(mpval);
 		player.getStatus().setCurrentCp(cpval);
-		player.setPvpFlag(pvpflagval);
+		player.updatePvPFlag(pvpflagval);
 		player.setPvpKills(pvpkillsval);
 		player.setPkKills(pkkillsval);
 

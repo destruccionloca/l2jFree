@@ -3021,26 +3021,7 @@ public abstract class L2Character extends L2Object
 			getAI().notifyEvent(_evt, null);
 		}
 	}
-
-	/** Task launching the function stopPvPFlag() */
-	public class PvPFlag implements Runnable
-	{
-		public void run()
-		{
-			if (System.currentTimeMillis() > getPvpFlagLasts())
-			{
-				stopPvPFlag();
-			}
-			else if (System.currentTimeMillis() > (getPvpFlagLasts() - 20000))
-			{
-				updatePvPFlag(2);
-			}
-			else
-			{
-				updatePvPFlag(1);
-			}
-		}
-	} // =========================================================
+	// =========================================================
 
 	// =========================================================
 	// Abnormal Effect - NEED TO REMOVE ONCE L2CHARABNORMALEFFECT IS COMPLETE
@@ -6674,50 +6655,11 @@ public abstract class L2Character extends L2Object
 		// for interrupt -200 ms
 		_castInterruptTime = L2System.milliTime() + durationInMillis - 200;
 	}
-
-	private Future<?>	_PvPRegTask;
-
-	private long		_pvpFlagLasts;
-
+	
 	private boolean		_AIdisabled	= false;
-
+	
 	private boolean		_isMinion = false;
-
-	public void setPvpFlagLasts(long time)
-	{
-		_pvpFlagLasts = time;
-	}
-
-	public long getPvpFlagLasts()
-	{
-		return _pvpFlagLasts;
-	}
-
-	public void startPvPFlag()
-	{
-		updatePvPFlag(1);
-
-		_PvPRegTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new PvPFlag(), 1000, 1000);
-	}
-
-	public void stopPvPFlag()
-	{
-		if (_PvPRegTask != null)
-			_PvPRegTask.cancel(false);
-
-		updatePvPFlag(0);
-
-		_PvPRegTask = null;
-	}
-
-	/**
-	 * @param value
-	 */
-	public void updatePvPFlag(int value)
-	{
-		// Overridden in L2PcInstance
-	}
-
+	
 	/**
 	 * Return a Random Damage in function of the weapon.<BR>
 	 * <BR>
