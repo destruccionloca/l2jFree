@@ -455,12 +455,12 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append(trClose);
 				htmlCode.append(trOpen);
 				{
-					htmlCode.append(tdOpen).append(" Record of Player(s) Online:").append(RecordTable.getInstance().getMaxPlayer()).append(tdClose);
+					htmlCode.append(tdOpen).append(" Record of Player(s) Online:").append(RecordTable.getInstance().getRecord()).append(tdClose);
 				}
 				htmlCode.append(trClose);
 				htmlCode.append(trOpen);
 				{
-					htmlCode.append(tdOpen).append(" On date : ").append(RecordTable.getInstance().getDateMaxPlayer())
+					htmlCode.append(tdOpen).append(" On date : ").append(RecordTable.getInstance().getDate())
 						.append(tdClose);
 				}
 				htmlCode.append(trClose);

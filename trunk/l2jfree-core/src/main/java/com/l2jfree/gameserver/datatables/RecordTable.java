@@ -22,86 +22,96 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.model.L2World;
 
-/**
- * This class ...
- * 
- * @version $Revision$ $Date$
- */
-public class RecordTable
+public final class RecordTable
 {
-	private final static Log	_log				= LogFactory.getLog(RecordTable.class);
-
-	private static RecordTable	_instance;
-
-	private int					_maxPlayer			= 0;
-	private String				_strDateMaxPlayer	= null;
-
-	/**
-	* Not really useful to make an instance of recordtable because data is reloaded each time.
-	* But it's quite easy to use like this.
-	*/
+	private static final Log _log = LogFactory.getLog(RecordTable.class);
+	
+	private static final class SingletonHolder
+	{
+		private static RecordTable INSTANCE = new RecordTable();
+	}
+	
 	public static RecordTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new RecordTable();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
-
+	
+	private int _record;
+	private String _date;
+	
 	private RecordTable()
 	{
-		restoreRecordData();
+		load();
 	}
-
-	/**
-	 * 
-	 */
-	public void restoreRecordData()
+	
+	private void load()
 	{
 		Connection con = null;
 		try
 		{
-			try
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = con
+				.prepareStatement("SELECT maxplayer, date FROM record ORDER BY maxplayer DESC LIMIT 1");
+			ResultSet rset = statement.executeQuery();
+			
+			if (rset.next())
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement("SELECT maxplayer, date FROM record ORDER by maxplayer desc limit 1");
-				ResultSet recorddata = statement.executeQuery();
-
-				fillRecordTable(recorddata);
-				recorddata.close();
-				statement.close();
+				_record = rset.getInt("maxplayer");
+				_date = rset.getString("date");
 			}
-			catch (Exception e)
-			{
-				_log.error("error while creating record table " + e, e);
-			}
-
+			
+			rset.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("", e);
 		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
 		}
 	}
-
-	private void fillRecordTable(ResultSet Recorddata) throws Exception
+	
+	public synchronized void update()
 	{
-		// In fact, there is just one record
-		while (Recorddata.next())
+		final int onlinePlayerCount = L2World.getInstance().getAllPlayersCount();
+		
+		if (_record < onlinePlayerCount)
 		{
-			_maxPlayer = Recorddata.getInt("maxplayer");
-			_strDateMaxPlayer = Recorddata.getString("date");
+			Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				
+				PreparedStatement statement = con.prepareStatement("INSERT INTO record (maxplayer, date) VALUES (?, NOW())");
+				statement.setInt(1, onlinePlayerCount);
+				statement.execute();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.warn("", e);
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
+			
+			load();
 		}
 	}
-
-	public int getMaxPlayer()
+	
+	public int getRecord()
 	{
-		return _maxPlayer;
+		return _record;
 	}
-
-	public String getDateMaxPlayer()
+	
+	public String getDate()
 	{
-		return _strDateMaxPlayer;
+		return _date;
 	}
-
 }

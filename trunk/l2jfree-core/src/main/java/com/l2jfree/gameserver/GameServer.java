@@ -182,7 +182,7 @@ public class GameServer extends Config
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
-		RunnableStatsManager.class.getClass();
+		Class.forName(RunnableStatsManager.class.getName());
 		ThreadPoolManager.getInstance();
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
 			DeadlockDetector.getInstance();
@@ -214,11 +214,11 @@ public class GameServer extends Config
 		SkillTreeTable.getInstance();
 		SkillTable.getInstance();
 		PetSkillsTable.getInstance();
-		NobleSkillTable.class.getClass();
-		HeroSkillTable.class.getClass();
+		Class.forName(NobleSkillTable.class.getName());
+		Class.forName(HeroSkillTable.class.getName());
 		ResidentialSkillTable.getInstance();
 		Util.printSection("Items");
-		ShotTable.class.getClass();
+		Class.forName(ShotTable.class.getName());
 		ItemTable.getInstance();
 		ArmorSetsTable.getInstance();
 		AugmentationData.getInstance();
@@ -267,7 +267,7 @@ public class GameServer extends Config
 		SevenSigns.getInstance();
 		SevenSignsFestival.getInstance();
 		Util.printSection("Entities and zones");
-		CrownManager.class.getClass();
+		Class.forName(CrownManager.class.getName());
 		TownManager.getInstance();
 		ClanHallManager.getInstance();
 		DoorTable.getInstance();
@@ -391,7 +391,7 @@ public class GameServer extends Config
 		Util.printSection("Misc");
 		ObjectRestrictions.getInstance();
 		TaskManager.getInstance();
-		GmListTable.class.getClass();
+		Class.forName(GmListTable.class.getName());
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();

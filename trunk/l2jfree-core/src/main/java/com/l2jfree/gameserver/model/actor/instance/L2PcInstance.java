@@ -69,6 +69,7 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.datatables.RecordTable;
 import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
@@ -273,6 +274,7 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
@@ -6425,7 +6427,7 @@ public final class L2PcInstance extends L2Playable
 			_isOnline = value;
 			
 			// Update the characters table of the database with online status and lastAccess (called when login and logout)
-			updateOnlineStatus();
+			updateOnlineStatusInDb();
 		}
 	}
 
@@ -6433,62 +6435,34 @@ public final class L2PcInstance extends L2Playable
 	{
 		_isIn7sDungeon = isIn7sDungeon;
 	}
-
+	
 	/**
-	 * Update the characters table of the database with online status and lastAccess of this L2PcInstance (called when login and logout).<BR><BR>
+	 * Update the characters table of the database with online status and lastAccess of this L2PcInstance (called when
+	 * login and logout).<BR>
+	 * <BR>
 	 */
-	public void updateOnlineStatus()
+	private void updateOnlineStatusInDb()
 	{
-		Connection con = null;
-
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE charId=?");
-			statement.setInt(1, isOnline());
-			statement.setLong(2, System.currentTimeMillis());
-			statement.setInt(3, getObjectId());
-			statement.execute();
-			statement.close();
-			// Modification for Max Player Record
-			if (isOnline() == 1)
+		RecordTable.getInstance().update();
+		
+		SQLQueue.getInstance().add(new SQLQuery() {
+			public void execute(Connection con)
 			{
-				int nbPlayerIG = 0;
-				int maxPlayer = 0;
-
-				statement = con.prepareStatement("SELECT count(*) AS nb_player FROM characters WHERE online = '1'");
-				ResultSet rset = statement.executeQuery();
-				while (rset.next())
+				try
 				{
-					nbPlayerIG = rset.getInt("nb_player");
-				}
-
-				statement = con.prepareStatement("SELECT MAX(maxplayer) FROM record");
-				rset = statement.executeQuery();
-				while (rset.next())
-				{
-					maxPlayer = rset.getInt("MAX(maxplayer)");
-				}
-
-				if (nbPlayerIG > maxPlayer)
-				{
-					statement = con.prepareStatement("INSERT INTO record(maxplayer,date) VALUES(?,NOW())");
-					statement.setInt(1, nbPlayerIG);
+					PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE charId=?");
+					statement.setInt(1, isOnline());
+					statement.setLong(2, System.currentTimeMillis());
+					statement.setInt(3, getObjectId());
 					statement.execute();
 					statement.close();
 				}
-				statement.close();
+				catch (Exception e)
+				{
+					_log.error("Failed updating character online status.", e);
+				}
 			}
-			// End Modification for Max Player record
-		}
-		catch (Exception e)
-		{
-			_log.error("Failed updating character online status.", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
+		});
 	}
 
 	/**
