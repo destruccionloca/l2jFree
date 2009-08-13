@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.restriction.global;
 
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -51,11 +50,9 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
-		
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return false;
 		

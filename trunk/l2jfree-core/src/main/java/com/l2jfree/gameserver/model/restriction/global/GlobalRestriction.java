@@ -34,11 +34,14 @@ public interface GlobalRestriction
 	
 	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill);
 	
-	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage);
+	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive);
 	
-	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage);
+	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive);
 	
-	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage);
+	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_);
 	
 	public boolean canRequestRevive(L2PcInstance activeChar);
 	

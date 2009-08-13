@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.itemhandlers.Potions;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -93,11 +92,9 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public final boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
+	public final boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_)
 	{
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
-		
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return true;
 		

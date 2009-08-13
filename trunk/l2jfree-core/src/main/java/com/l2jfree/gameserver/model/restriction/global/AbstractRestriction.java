@@ -71,19 +71,22 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@DisabledRestriction
-	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
 		throw new AbstractMethodError();
 	}
 	
 	@DisabledRestriction
-	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
 		throw new AbstractMethodError();
 	}
 	
 	@DisabledRestriction
-	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
+	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_)
 	{
 		throw new AbstractMethodError();
 	}

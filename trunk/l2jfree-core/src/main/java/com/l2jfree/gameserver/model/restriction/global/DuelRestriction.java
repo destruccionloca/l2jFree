@@ -49,7 +49,8 @@ public final class DuelRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
+	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
 		return Duel.isInvul(target, activeChar);
 	}

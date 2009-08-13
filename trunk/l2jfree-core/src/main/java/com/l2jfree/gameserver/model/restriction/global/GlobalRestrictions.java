@@ -199,7 +199,7 @@ public final class GlobalRestrictions
 		// Avoid NPE and wrong usage
 		if (activeChar == null)
 			return true;
-
+		
 		// Cannot mess with observation
 		if (activeChar.inObserverMode()) // normal/olympiad observing
 		{
@@ -274,12 +274,17 @@ public final class GlobalRestrictions
 		if (isProtected(activeChar, target, skill, sendMessage))
 			return true;
 		
+		boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
+		
+		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
 		// L2Character.isInvul() calls this method
 		//if (target.isInvul())
 		//	return true;
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInvul.ordinal()])
-			if (restriction.isInvul(activeChar, target, skill, sendMessage))
+			if (restriction.isInvul(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive))
 				return true;
 		
 		return false;
@@ -340,7 +345,7 @@ public final class GlobalRestrictions
 			return true;
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isProtected.ordinal()])
-			if (restriction.isProtected(activeChar, target, skill, sendMessage))
+			if (restriction.isProtected(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive))
 				return true;
 		
 		return false;
@@ -368,7 +373,7 @@ public final class GlobalRestrictions
 		}
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canTarget.ordinal()])
-			if (!restriction.canTarget(activeChar, target, sendMessage))
+			if (!restriction.canTarget(activeChar, target, sendMessage, attacker_, target_))
 				return false;
 		
 		return true;
