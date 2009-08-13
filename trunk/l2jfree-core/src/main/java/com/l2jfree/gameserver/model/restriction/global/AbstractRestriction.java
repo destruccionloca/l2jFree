@@ -105,7 +105,7 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	
 	@DisabledRestriction
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
-		L2ItemInstance item)
+		L2ItemInstance item, L2PcInstance player)
 	{
 		throw new AbstractMethodError();
 	}
@@ -163,7 +163,7 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@DisabledRestriction
-	public boolean playerKilled(L2Character activeChar, L2PcInstance target)
+	public boolean playerKilled(L2Character activeChar, L2PcInstance target, L2PcInstance killer)
 	{
 		throw new AbstractMethodError();
 	}

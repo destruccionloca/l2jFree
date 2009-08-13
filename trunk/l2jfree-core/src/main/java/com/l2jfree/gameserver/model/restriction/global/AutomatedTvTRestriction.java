@@ -64,15 +64,13 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	}
 	
 	@Override
-	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable playable,
-		L2ItemInstance item)
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+		L2ItemInstance item, L2PcInstance player)
 	{
-		final L2PcInstance activeChar = playable.getActingPlayer();
-		
-		if (activeChar != null && AutomatedTvT.isPlaying(activeChar) && !AutomatedTvT.canUse(itemId))
+		if (player != null && AutomatedTvT.isPlaying(player) && !AutomatedTvT.canUse(itemId))
 		{
-			activeChar.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
 		

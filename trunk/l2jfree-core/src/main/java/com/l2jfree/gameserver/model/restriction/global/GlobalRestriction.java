@@ -48,7 +48,7 @@ public interface GlobalRestriction
 	public boolean canTeleport(L2PcInstance activeChar);
 	
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
-		L2ItemInstance item);
+		L2ItemInstance item, L2PcInstance player);
 	
 	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target);
 	
@@ -70,7 +70,7 @@ public interface GlobalRestriction
 	
 	public void playerDisconnected(L2PcInstance activeChar);
 	
-	public boolean playerKilled(L2Character activeChar, L2PcInstance target);
+	public boolean playerKilled(L2Character activeChar, L2PcInstance target, L2PcInstance killer);
 	
 	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone);
 	

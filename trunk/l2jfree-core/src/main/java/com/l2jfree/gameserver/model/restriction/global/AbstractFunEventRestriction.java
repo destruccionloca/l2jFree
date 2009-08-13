@@ -125,12 +125,10 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	
 	@Override
 	public final boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
-		L2ItemInstance item)
+		L2ItemInstance item, L2PcInstance player)
 	{
 		if (clazz == SummonItems.class)
 		{
-			L2PcInstance player = activeChar.getActingPlayer();
-			
 			if (player != null && isInFunEvent(player) && started() && !allowSummon())
 			{
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -139,8 +137,6 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 		}
 		else if (clazz == Potions.class)
 		{
-			L2PcInstance player = activeChar.getActingPlayer();
-			
 			if (player != null && isInFunEvent(player) && started() && !allowPotions())
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);

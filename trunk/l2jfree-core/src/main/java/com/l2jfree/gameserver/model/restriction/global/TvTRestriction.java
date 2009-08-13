@@ -102,36 +102,34 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
-	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventTvT)
 			return false;
 		
 		if (TvT._teleport || TvT._started)
 		{
-			L2PcInstance pk = activeChar.getActingPlayer();
-			
-			if (pk != null && pk._inEventTvT)
+			if (killer != null && killer._inEventTvT)
 			{
-				if (!(pk._teamNameTvT.equals(target._teamNameTvT)))
+				if (!(killer._teamNameTvT.equals(target._teamNameTvT)))
 				{
 					target._countTvTdies++;
-					pk._countTvTkills++;
+					killer._countTvTkills++;
 					//pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
-					pk.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(), target.getY(), target.getZ()));
-					TvT.setTeamKillsCount(pk._teamNameTvT, TvT.teamKillsCount(pk._teamNameTvT) + 1);
+					killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(), target.getY(), target.getZ()));
+					TvT.setTeamKillsCount(killer._teamNameTvT, TvT.teamKillsCount(killer._teamNameTvT) + 1);
 				}
 				else
 				{
-					pk.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
+					killer.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
 					
 					// Give Penalty for Team-Kill:
 					// 1. Death Penalty + 5
 					// 2. Team will lost 1 Kill
-					if (pk.getDeathPenaltyBuffLevel() < 10)
+					if (killer.getDeathPenaltyBuffLevel() < 10)
 					{
-						pk.setDeathPenaltyBuffLevel(pk.getDeathPenaltyBuffLevel() + 4);
-						pk.increaseDeathPenaltyBuffLevel();
+						killer.setDeathPenaltyBuffLevel(killer.getDeathPenaltyBuffLevel() + 4);
+						killer.increaseDeathPenaltyBuffLevel();
 					}
 					TvT.setTeamKillsCount(target._teamNameTvT, TvT.teamKillsCount(target._teamNameTvT) - 1);
 				}

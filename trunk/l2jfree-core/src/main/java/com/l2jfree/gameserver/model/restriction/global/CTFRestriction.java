@@ -101,7 +101,7 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
-	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventCTF)
 			return false;

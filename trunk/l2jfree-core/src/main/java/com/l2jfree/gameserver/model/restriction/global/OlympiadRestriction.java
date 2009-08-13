@@ -53,12 +53,10 @@ public final class OlympiadRestriction extends AbstractRestriction
 	
 	@Override
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
-		L2ItemInstance item)
+		L2ItemInstance item, L2PcInstance player)
 	{
 		if (clazz == SummonItems.class)
 		{
-			L2PcInstance player = activeChar.getActingPlayer();
-			
 			if (player != null && player.isInOlympiadMode())
 			{
 				player.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
@@ -67,8 +65,6 @@ public final class OlympiadRestriction extends AbstractRestriction
 		}
 		else if (clazz == Potions.class)
 		{
-			L2PcInstance player = activeChar.getActingPlayer();
-			
 			if (player != null && player.isInOlympiadMode())
 			{
 				player.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);

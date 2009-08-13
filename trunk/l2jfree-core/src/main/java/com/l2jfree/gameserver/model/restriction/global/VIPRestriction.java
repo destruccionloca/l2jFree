@@ -91,28 +91,26 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
-	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventVIP)
 			return false;
 		
-		L2PcInstance pk = activeChar.getActingPlayer();
-		
-		if (pk != null)
+		if (killer != null)
 		{
 			if (VIP._started)
 			{
-				if (target._isTheVIP && pk._inEventVIP)
+				if (target._isTheVIP && killer._inEventVIP)
 				{
 					VIP.vipDied();
 				}
-				else if (target._isTheVIP && !pk._inEventVIP)
+				else if (target._isTheVIP && !killer._inEventVIP)
 				{
 					Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
 					target.doRevive();
 					target.teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
 				}
-				else if (target._isTheVIP && pk._isVIP)
+				else if (target._isTheVIP && killer._isVIP)
 				{
 					Announcements.getInstance().announceToAll("VIP Killed by same team player. VIP going back to initial spawn.");
 					target.doRevive();

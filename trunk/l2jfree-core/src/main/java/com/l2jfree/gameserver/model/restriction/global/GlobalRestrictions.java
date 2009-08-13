@@ -245,8 +245,11 @@ public final class GlobalRestrictions
 			return true;
 		
 		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		final L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
-		if (attacker_ != null && attacker_ == target.getActingPlayer())
+		final boolean isOffensive = (skill.isOffensive() || skill.isDebuff());
+		
+		if (attacker_ != null && attacker_ == target_)
 			return true;
 		
 		// doors and siege flags cannot receive any effects
@@ -256,7 +259,7 @@ public final class GlobalRestrictions
 		if (target.isInvul())
 			return false;
 		
-		if (isInvul(activeChar, target, skill, false))
+		if (isInvul(activeChar, target, skill, false, attacker_, target_, isOffensive))
 			return false;
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canCreateEffect.ordinal()])
@@ -271,13 +274,19 @@ public final class GlobalRestrictions
 	 */
 	public static boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
 	{
-		if (isProtected(activeChar, target, skill, sendMessage))
+		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		final L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
+		final boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
+		
+		return isInvul(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive);
+	}
+	
+	private static boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
+	{
+		if (isProtected(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive))
 			return true;
-		
-		boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
-		
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
 		// L2Character.isInvul() calls this method
 		//if (target.isInvul())
@@ -295,13 +304,19 @@ public final class GlobalRestrictions
 	 */
 	public static boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage)
 	{
-		if (!canTarget(activeChar, target, sendMessage))
+		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		final L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
+		final boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
+		
+		return isProtected(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive);
+	}
+	
+	private static boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
+	{
+		if (!canTarget(activeChar, target, sendMessage, attacker_, target_))
 			return true;
-		
-		boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
-		
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
 		if (attacker_ != null && target_ != null && attacker_ != target_)
 		{
@@ -356,9 +371,15 @@ public final class GlobalRestrictions
 	 */
 	public static boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
 	{
-		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
-		L2PcInstance target_ = L2Object.getActingPlayer(target);
+		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		final L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
+		return canTarget(activeChar, target, sendMessage, attacker_, target_);
+	}
+	
+	private static boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage,
+		L2PcInstance attacker_, L2PcInstance target_)
+	{
 		if (attacker_ != null && target_ != null && attacker_ != target_)
 		{
 			if (Config.SIEGE_ONLY_REGISTERED)
@@ -400,8 +421,10 @@ public final class GlobalRestrictions
 	public static boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 		L2ItemInstance item)
 	{
+		final L2PcInstance player = L2Object.getActingPlayer(activeChar);
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canUseItemHandler.ordinal()])
-			if (!restriction.canUseItemHandler(clazz, itemId, activeChar, item))
+			if (!restriction.canUseItemHandler(clazz, itemId, activeChar, item, player))
 				return false;
 		
 		return true;
@@ -473,8 +496,10 @@ public final class GlobalRestrictions
 	
 	public static boolean playerKilled(L2Character activeChar, L2PcInstance target)
 	{
+		final L2PcInstance killer = L2Object.getActingPlayer(activeChar);
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.playerKilled.ordinal()])
-			if (restriction.playerKilled(activeChar, target))
+			if (restriction.playerKilled(activeChar, target, killer))
 				return true;
 		
 		return false;

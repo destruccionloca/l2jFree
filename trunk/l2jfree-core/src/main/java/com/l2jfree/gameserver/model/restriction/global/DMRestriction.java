@@ -95,15 +95,15 @@ public final class DMRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
-	public boolean playerKilled(L2Character activeChar, final L2PcInstance target)
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventDM)
 			return false;
 		
 		if (DM._teleport || DM._started)
 		{
-			if (activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar)._inEventDM)
-				((L2PcInstance)activeChar)._countDMkills++;
+			if (killer != null && killer._inEventDM)
+				killer._countDMkills++;
 			
 			target.sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000
 				+ " seconds!");

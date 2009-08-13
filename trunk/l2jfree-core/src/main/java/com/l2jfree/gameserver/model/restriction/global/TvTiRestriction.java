@@ -96,40 +96,38 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
-	public boolean playerKilled(L2Character killer, final L2PcInstance target)
+	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventTvT)
 			return false;
 		
-		final L2PcInstance tempKiller = killer.getActingPlayer();
-		
-		if (tempKiller == null || !tempKiller._inEventTvTi || !target._inEventTvTi)
+		if (killer == null || !killer._inEventTvTi || !target._inEventTvTi)
 			return false;
 		
-		if (!TvTIMain.checkSameTeam(tempKiller, target))
+		if (!TvTIMain.checkSameTeam(killer, target))
 		{
-			tempKiller._countTvTiKills++;
-			tempKiller.setTitle("Kills: " + tempKiller._countTvTiKills);
-			tempKiller.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(),
+			killer._countTvTiKills++;
+			killer.setTitle("Kills: " + killer._countTvTiKills);
+			killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(),
 				target.getY(), target.getZ()));
-			TvTIMain.addKill(tempKiller);
+			TvTIMain.addKill(killer);
 		}
-		else if (TvTIMain.checkSameTeam(tempKiller, target))
+		else if (TvTIMain.checkSameTeam(killer, target))
 		{
-			tempKiller
+			killer
 				.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
-			tempKiller._countTvTITeamKills++;
+			killer._countTvTITeamKills++;
 			// Give Penalty for Team-Kill:
 			// 1. Death Penalty + 5
 			// 2. Team will lost 1 Kill
-			if (tempKiller.getDeathPenaltyBuffLevel() < 10)
+			if (killer.getDeathPenaltyBuffLevel() < 10)
 			{
-				tempKiller.setDeathPenaltyBuffLevel(tempKiller.getDeathPenaltyBuffLevel() + 4);
-				tempKiller.increaseDeathPenaltyBuffLevel();
+				killer.setDeathPenaltyBuffLevel(killer.getDeathPenaltyBuffLevel() + 4);
+				killer.increaseDeathPenaltyBuffLevel();
 			}
-			TvTIMain.removePoint(tempKiller);
-			if (tempKiller._countTvTITeamKills >= 2)
-				TvTIMain.kickPlayerFromEvent(tempKiller, 1);
+			TvTIMain.removePoint(killer);
+			if (killer._countTvTITeamKills >= 2)
+				TvTIMain.kickPlayerFromEvent(killer, 1);
 		}
 		TvTIMain.respawnPlayer(target);
 		
