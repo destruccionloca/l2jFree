@@ -41,7 +41,9 @@ public class L2SkillChargeDmg extends L2Skill
 		L2PcInstance player = (L2PcInstance) activeChar;
 
 		double modifier = 0.8 + 0.201 * player.getCharges(); // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
-		player.decreaseCharges(getNeededCharges());
+		
+		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
+			player.decreaseCharges(getNeededCharges());
 
 		for (L2Character target : targets)
 		{

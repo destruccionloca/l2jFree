@@ -202,6 +202,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="giveCharges" val="8"/>
     <set name="maxCharges" val="8"/>
     <set name="hitTime" val="900"/>
     <set name="reuseDelay" val="75000"/>
@@ -212,6 +213,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="giveCharges" val="8"/>
     <set name="maxCharges" val="8"/>
     <set name="hitTime" val="900"/>
     <set name="reuseDelay" val="75000"/>
