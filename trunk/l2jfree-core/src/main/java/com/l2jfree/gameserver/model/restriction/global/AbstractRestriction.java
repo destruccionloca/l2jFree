@@ -113,6 +113,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		throw new AbstractMethodError();
 	}
 	
+	@DisabledRestriction
+	public boolean canStandUp(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	// TODO
 	
 	@DisabledRestriction

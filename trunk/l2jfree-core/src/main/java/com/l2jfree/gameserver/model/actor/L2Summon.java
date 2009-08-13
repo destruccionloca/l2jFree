@@ -534,7 +534,7 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public boolean isInvul()
 	{
-		return _isInvul || _isTeleporting || getOwner().getProtection() > 0;
+		return super.isInvul() || getOwner().getProtection() > 0;
 	}
 
 	public abstract int getCurrentFed();

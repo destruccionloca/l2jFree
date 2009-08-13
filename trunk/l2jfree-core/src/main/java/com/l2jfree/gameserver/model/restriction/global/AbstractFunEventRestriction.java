@@ -38,6 +38,11 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	
 	abstract boolean allowInterference();
 	
+	boolean sitForced()
+	{
+		return false;
+	}
+	
 	boolean joinCursed()
 	{
 		return false;
@@ -96,11 +101,14 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return true;
 		
-		if (isInFunEvent(attacker_) != isInFunEvent(target_) && !allowInterference())
+		if (started() && !allowInterference() && !attacker_.isGM())
 		{
-			if (sendMessage)
-				attacker_.sendMessage("You can't interact because of the fun event!");
-			return false;
+			if (isInFunEvent(attacker_) != isInFunEvent(target_))
+			{
+				if (sendMessage)
+					attacker_.sendMessage("You can't interact because of the fun event!");
+				return false;
+			}
 		}
 		
 		return true;
@@ -151,6 +159,18 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	{
 		if (isInFunEvent(activeChar) && isInFunEvent(target) && started())
 			return false;
+		
+		return true;
+	}
+	
+	@Override
+	public boolean canStandUp(L2PcInstance activeChar)
+	{
+		if (sitForced() && isInFunEvent(activeChar))
+		{
+			activeChar.sendMessage("The Admin/GM handle if you sit or stand in this match!");
+			return false;
+		}
 		
 		return true;
 	}

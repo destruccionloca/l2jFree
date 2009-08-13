@@ -154,7 +154,6 @@ import com.l2jfree.gameserver.model.entity.Duel;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
-import com.l2jfree.gameserver.model.entity.L2Event;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.entity.events.CTF;
@@ -2620,13 +2619,10 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void standUp(boolean force)
 	{
-		if (L2Event.active && eventSitForced)
-		{
-			sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
-		}
-		else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP || _isSitForcedTvTi)
-			sendMessage("The Admin/GM handle if you sit or stand in this match!");
-		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!isTryingToSitOrStandup() || force))
+		if (!GlobalRestrictions.canStandUp(this))
+			return;
+		
+		if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!isTryingToSitOrStandup() || force))
 		{
 			_lastSitStandRequest = System.currentTimeMillis();
 			if (_relax)
@@ -3668,54 +3664,13 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
-		if (Config.SIEGE_ONLY_REGISTERED)
-		{
-			if (!canBeTargetedByAtSiege(player))
-			{
-				player.sendMessage("Player interaction disabled during sieges.");
-				player.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-		}
 		
-		if (((_inOlympiadMode && !player._inOlympiadMode) || (!_inOlympiadMode && player._inOlympiadMode) || ((_inOlympiadMode && player._inOlympiadMode) && (_olympiadGameId != player._olympiadGameId))) && !isGM())
+		if (!GlobalRestrictions.canTarget(player, this, true))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
-		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE)
-				|| ((player._inEventTvTi || _inEventTvTi) && !Config.TVTI_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE)) && !isGM())
-		{
-			if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-
-			if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-			else if ((_inEventDM && !player._inEventDM) || (!_inEventDM && player._inEventDM))
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-			else if ((_inEventTvTi && !player._inEventTvTi) || (!_inEventTvTi && player._inEventTvTi))
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-			else if ((_inEventVIP && !player._inEventVIP) || (!_inEventVIP && player._inEventVIP))
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-		}
-
+		
 		// Check if the L2PcInstance is confused
 		if (player.isOutOfControl())
 		{
@@ -6293,7 +6248,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInvul()
 	{
-		return _isInvul || _isTeleporting || _protectEndTime > GameTimeController.getGameTicks();
+		return super.isInvul() || _protectEndTime > GameTimeController.getGameTicks();
 	}
 
 	/**

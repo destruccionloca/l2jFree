@@ -888,64 +888,15 @@ public abstract class L2Character extends L2Object
 				return;
 			}
 			
-			if (((L2PcInstance) this).inObserverMode())
-			{
-				sendPacket(new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-
-			if (target instanceof L2PcInstance)
-			{
-				if (((L2PcInstance) target).isCursedWeaponEquipped() && getLevel() <= 20)
-				{
-					sendMessage("Can't attack a cursed player when under level 21.");
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-				if (((L2PcInstance) this).isCursedWeaponEquipped() && target.getLevel() <= 20)
-				{
-					sendMessage("Can't attack a newbie player using a cursed weapon.");
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-				
-				if (getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
-				{
-					sendMessage("Your level is too low to participate in player vs player combat until level "
-							+ String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-				if (target.getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL)
-				{
-					sendMessage("Player under newbie protection until level " + String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL) + ".");
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-			}
-			
-			// Checking if target has moved to peace zone
-			if (L2Character.isInsidePeaceZone(this, target))
-			{
-				getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-			
 			transformed = ((L2PcInstance) this).isTransformed();
 		}
 		
-		// TODO: this protects against a very small part of possible attacks
-		if (this instanceof L2Playable && Config.ALLOW_OFFLINE_TRADE_PROTECTION)
+		if (GlobalRestrictions.isProtected(this, target, null, true))
 		{
-			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInOfflineMode())
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
-
+		
 		// Get the active weapon instance (always equipped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
 
@@ -1024,15 +975,6 @@ public abstract class L2Character extends L2Object
 				//Check for bolts
 				if (this instanceof L2PcInstance)
 				{
-					// Checking if target has moved to peace zone - only for player-crossbow attacks at the moment
-					// Other melee is checked in movement code and for offensive spells a check is done every time
-					if (L2Character.isInsidePeaceZone(this, target))
-					{
-						getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
-					
 					// Verify if the crossbow can be use
 					if (getEvtReadyToAct().isScheduled())
 					{
@@ -1480,6 +1422,9 @@ public abstract class L2Character extends L2Object
 			if (cha != getAI().getAttackTarget() && !cha.isAutoAttackable(this))
 				continue;
 			
+			if (GlobalRestrictions.isProtected(this, cha, null, false))
+				continue;
+			
 			hitted |= doAttackHitSimple(attack, cha, attackpercent, sAtk);
 			attackpercent /= 1.15;
 			attackCount++;
@@ -1660,7 +1605,7 @@ public abstract class L2Character extends L2Object
 			}
 		}
 		
-		if (target == null)
+		if (target == null || GlobalRestrictions.isProtected(this, target, skill, true))
 		{
 			if (simultaneously)
 				setIsCastingSimultaneouslyNow(false);
@@ -2727,7 +2672,7 @@ public abstract class L2Character extends L2Object
 	
 	public boolean isInvul()
 	{
-		return _isInvul || _isTeleporting;
+		return _isInvul || _isTeleporting || GlobalRestrictions.isInvul(null, this, null, false);
 	}
 	
 	public L2Effect getInvulEffect()
@@ -5530,10 +5475,8 @@ public abstract class L2Character extends L2Object
 	@Override
 	public void onForcedAttack(L2PcInstance player)
 	{
-		if (L2Character.isInsidePeaceZone(player, this))
+		if (GlobalRestrictions.isProtected(player, this, null, true))
 		{
-			// If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
-			player.sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}

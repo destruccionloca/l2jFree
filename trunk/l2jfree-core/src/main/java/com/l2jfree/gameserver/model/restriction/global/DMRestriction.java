@@ -65,6 +65,12 @@ public final class DMRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean sitForced()
+	{
+		return DM._sitForced;
+	}
+	
+	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventDM;

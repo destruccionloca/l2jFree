@@ -49,6 +49,8 @@ public interface GlobalRestriction
 	
 	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target);
 	
+	public boolean canStandUp(L2PcInstance activeChar);
+	
 	// TODO
 	
 	public int isInsideZoneModifier(L2Character activeChar, byte zone);

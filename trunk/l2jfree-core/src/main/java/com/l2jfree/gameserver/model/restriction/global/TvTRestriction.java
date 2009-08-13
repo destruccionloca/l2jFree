@@ -66,6 +66,12 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean sitForced()
+	{
+		return TvT._sitForced;
+	}
+	
+	@Override
 	boolean joinCursed()
 	{
 		return Config.TVT_JOIN_CURSED;

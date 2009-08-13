@@ -65,6 +65,12 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean sitForced()
+	{
+		return CTF._sitForced;
+	}
+	
+	@Override
 	boolean joinCursed()
 	{
 		return Config.CTF_JOIN_CURSED;

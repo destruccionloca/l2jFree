@@ -66,6 +66,12 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean sitForced()
+	{
+		return VIP._sitForced;
+	}
+	
+	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventVIP;

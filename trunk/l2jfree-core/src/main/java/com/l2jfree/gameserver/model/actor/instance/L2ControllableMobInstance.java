@@ -82,8 +82,8 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 
 	@Override
 	public boolean isInvul()
-    {
-		return _isInvul;
+	{
+		return super.isInvul() || _isInvul;
 	}
 
 	public void setInvul(boolean isInvul)

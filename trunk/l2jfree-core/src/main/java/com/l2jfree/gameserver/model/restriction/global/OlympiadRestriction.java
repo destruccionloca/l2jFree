@@ -18,6 +18,8 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.handler.itemhandlers.Potions;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
@@ -73,6 +75,30 @@ public final class OlympiadRestriction extends AbstractRestriction
 				player.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 				return false;
 			}
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
+	{
+		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
+		if (attacker_ == null || target_ == null || attacker_ == target_ || attacker_.isGM())
+			return true;
+		
+		if (attacker_.isInOlympiadMode() != target_.isInOlympiadMode())
+			return false;
+		
+		if (attacker_.isInOlympiadMode() && target_.isInOlympiadMode())
+		{
+			if (attacker_.getOlympiadGameId() != target_.getOlympiadGameId())
+				return false;
+			
+			if (!attacker_.isOlympiadStart() || !target_.isOlympiadStart())
+				return false;
 		}
 		
 		return true;

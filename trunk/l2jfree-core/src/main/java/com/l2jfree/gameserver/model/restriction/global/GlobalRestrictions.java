@@ -56,6 +56,7 @@ public final class GlobalRestrictions
 		canTeleport,
 		canUseItemHandler,
 		canBeInsidePeaceZone,
+		canStandUp,
 		// TODO
 		
 		isInsideZoneModifier,
@@ -255,12 +256,8 @@ public final class GlobalRestrictions
 		if (target.isInvul())
 			return false;
 		
-		if (skill.isOffensive() || skill.isDebuff())
-		{
-			if (attacker_ != null && attacker_.isGM())
-				if (attacker_.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-					return false;
-		}
+		if (isInvul(activeChar, target, skill, false))
+			return false;
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canCreateEffect.ordinal()])
 			if (!restriction.canCreateEffect(activeChar, target, skill))
@@ -277,8 +274,9 @@ public final class GlobalRestrictions
 		if (isProtected(activeChar, target, skill, sendMessage))
 			return true;
 		
-		if (target.isInvul())
-			return true;
+		// L2Character.isInvul() calls this method
+		//if (target.isInvul())
+		//	return true;
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInvul.ordinal()])
 			if (restriction.isInvul(activeChar, target, skill, sendMessage))
@@ -330,6 +328,17 @@ public final class GlobalRestrictions
 			}
 		}
 		
+		// Checking if target has moved to peace zone
+		if (isOffensive && L2Character.isInsidePeaceZone(activeChar, target))
+		{
+			if (sendMessage)
+				activeChar.sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
+			return true;
+		}
+		
+		if (Config.ALLOW_OFFLINE_TRADE_PROTECTION && target_ != null && target_.isInOfflineMode())
+			return true;
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isProtected.ordinal()])
 			if (restriction.isProtected(activeChar, target, skill, sendMessage))
 				return true;
@@ -342,6 +351,22 @@ public final class GlobalRestrictions
 	 */
 	public static boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage)
 	{
+		L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
+		L2PcInstance target_ = L2Object.getActingPlayer(target);
+		
+		if (attacker_ != null && target_ != null && attacker_ != target_)
+		{
+			if (Config.SIEGE_ONLY_REGISTERED)
+			{
+				if (!target_.canBeTargetedByAtSiege(attacker_))
+				{
+					if (sendMessage)
+						attacker_.sendMessage("Player interaction disabled during sieges.");
+					return false;
+				}
+			}
+		}
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canTarget.ordinal()])
 			if (!restriction.canTarget(activeChar, target, sendMessage))
 				return false;
@@ -381,6 +406,15 @@ public final class GlobalRestrictions
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canBeInsidePeaceZone.ordinal()])
 			if (!restriction.canBeInsidePeaceZone(activeChar, target))
+				return false;
+		
+		return true;
+	}
+	
+	public static boolean canStandUp(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canStandUp.ordinal()])
+			if (!restriction.canStandUp(activeChar))
 				return false;
 		
 		return true;

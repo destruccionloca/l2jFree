@@ -60,6 +60,18 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 	}
 	
 	@Override
+	public boolean canStandUp(L2PcInstance activeChar)
+	{
+		if (L2Event.active && activeChar.eventSitForced)
+		{
+			activeChar.sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up...");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (L2Event.connectionLossData.containsKey(activeChar.getName()))

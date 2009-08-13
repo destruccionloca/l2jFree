@@ -77,6 +77,18 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public boolean canStandUp(L2PcInstance activeChar)
+	{
+		if (activeChar._isSitForcedTvTi)
+		{
+			activeChar.sendMessage("The Admin/GM handle if you sit or stand in this match!");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (TvTIMain.isPlayerInList(activeChar))
