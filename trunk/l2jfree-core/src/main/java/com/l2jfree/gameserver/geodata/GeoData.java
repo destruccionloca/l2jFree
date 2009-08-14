@@ -31,22 +31,26 @@ public class GeoData
 {
 	protected static final Log _log = LogFactory.getLog(GeoData.class);
 	
-	private static GeoData _instance;
+	private static final class SingletonHolder
+	{
+		static
+		{
+			_log.info("Geodata Engine: Disabled.");
+		}
+		
+		private static final GeoData INSTANCE = new GeoData();
+	}
+	
+	protected GeoData()
+	{
+	}
 	
 	public static GeoData getInstance()
 	{
-		if (_instance == null)
-		{
-			if (Config.GEODATA > 0)
-				_instance = new GeoEngine();
-			else
-			{
-				_instance = new GeoData();
-				_log.info("Geodata Engine: Disabled.");
-			}
-		}
-		
-		return _instance;
+		if (Config.GEODATA > 0)
+			return GeoEngine.getInstance();
+		else
+			return SingletonHolder.INSTANCE;
 	}
 	
 	// Public Methods

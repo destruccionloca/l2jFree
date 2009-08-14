@@ -48,7 +48,7 @@ public abstract class PathFinding
 	
 	public abstract Node[] readNeighbors(Node n, int idx);
 	
-	public AbstractNodeLoc[] search(Node start, Node end)
+	public final AbstractNodeLoc[] search(Node start, Node end)
 	{
 		// The simplest grid-based pathfinding.
 		// Drawback is not having higher cost for diagonal movement (means funny routes)
@@ -103,7 +103,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public AbstractNodeLoc[] searchByClosest(Node start, Node end)
+	public final AbstractNodeLoc[] searchByClosest(Node start, Node end)
 	{
 		// Note: This is the version for cell-based calculation, harder
 		// on cpu than from block-based pathnode files. However produces better routes.
@@ -194,7 +194,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public AbstractNodeLoc[] searchByClosest2(Node start, Node end)
+	public final AbstractNodeLoc[] searchByClosest2(Node start, Node end)
 	{
 		// Always continues checking from the closest to target non-blocked
 		// node from to_visit list. There's extra length in path if needed
@@ -272,7 +272,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public AbstractNodeLoc[] searchAStar(Node start, Node end)
+	public final AbstractNodeLoc[] searchAStar(Node start, Node end)
 	{
 		// Not operational yet?
 		int start_x = start.getLoc().getX();
@@ -336,7 +336,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public AbstractNodeLoc[] constructPath(Node node)
+	public final AbstractNodeLoc[] constructPath(Node node)
 	{
 		ArrayList<AbstractNodeLoc> tmp = L2Collections.newArrayList();
 		int previousdirectionx = -1000;
@@ -398,7 +398,7 @@ public abstract class PathFinding
 		return L2Arrays.compact(path);
 	}
 	
-	public AbstractNodeLoc[] constructPath2(Node node)
+	public final AbstractNodeLoc[] constructPath2(Node node)
 	{
 		ArrayList<AbstractNodeLoc> tmp = L2Collections.newArrayList();
 		int previousdirectionx = -1000;
@@ -434,7 +434,7 @@ public abstract class PathFinding
 	 * @param geo_pos
 	 * @return pathnode position
 	 */
-	public short getNodePos(int geo_pos)
+	public final short getNodePos(int geo_pos)
 	{
 		return (short)(geo_pos >> 3); //OK?
 	}
@@ -445,22 +445,22 @@ public abstract class PathFinding
 	 * @param geo_pos
 	 * @return pathnode block position (0...255)
 	 */
-	public short getNodeBlock(int node_pos)
+	public final short getNodeBlock(int node_pos)
 	{
 		return (short)(node_pos % 256);
 	}
 	
-	public byte getRegionX(int node_pos)
+	public final byte getRegionX(int node_pos)
 	{
 		return (byte)((node_pos >> 8) + 15);
 	}
 	
-	public byte getRegionY(int node_pos)
+	public final byte getRegionY(int node_pos)
 	{
 		return (byte)((node_pos >> 8) + 10);
 	}
 	
-	public short getRegionOffset(byte rx, byte ry)
+	public final short getRegionOffset(byte rx, byte ry)
 	{
 		return (short)((rx << 5) + ry);
 	}
@@ -471,7 +471,7 @@ public abstract class PathFinding
 	 * @param node_x, rx
 	 * @return
 	 */
-	public int calculateWorldX(short node_x)
+	public final int calculateWorldX(short node_x)
 	{
 		return L2World.MAP_MIN_X + node_x * 128 + 48;
 	}
@@ -482,7 +482,7 @@ public abstract class PathFinding
 	 * @param node_y
 	 * @return
 	 */
-	public int calculateWorldY(short node_y)
+	public final int calculateWorldY(short node_y)
 	{
 		return L2World.MAP_MIN_Y + node_y * 128 + 48;
 	}

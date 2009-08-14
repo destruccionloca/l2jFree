@@ -34,13 +34,13 @@ public abstract class AbstractNodeLoc
 	public abstract int getNodeY();
 	
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
 		return L2System.hash((getX() << 20) + (getY() << 8) + getZ());
 	}
 	
 	@Override
-	public boolean equals(Object obj)
+	public final boolean equals(Object obj)
 	{
 		if (!(obj instanceof AbstractNodeLoc))
 			return false;

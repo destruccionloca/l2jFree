@@ -23,71 +23,71 @@ import javolution.util.FastList;
 /**
  * @author NB4L1
  */
-public final class SingletonList<E> extends SingletonCollection<E> implements List<E>
+public final class SingletonList<E> extends SingletonCollection<E, List<E>> implements List<E>
 {
-	private List<E> _list;
+	@Override
+	protected List<E> emptyCollection()
+	{
+		return L2Collections.emptyList();
+	}
 	
 	@Override
-	protected List<E> get(boolean init)
+	protected List<E> initCollection()
 	{
-		if (_list == null)
-		{
-			if (init)
-				_list = FastList.newInstance();
-			else
-				return L2Collections.emptyList();
-		}
-		
-		return _list;
+		return FastList.newInstance();
 	}
 	
 	public void add(int index, E element)
 	{
-		get(true).add(index, element);
+		init();
+		
+		_collection.add(index, element);
 	}
 	
 	public boolean addAll(int index, Collection<? extends E> c)
 	{
-		return get(true).addAll(index, c);
+		init();
+		
+		return _collection.addAll(index, c);
 	}
 	
 	public E get(int index)
 	{
-		return get(false).get(index);
+		return _collection.get(index);
 	}
 	
 	public int indexOf(Object o)
 	{
-		return get(false).indexOf(o);
+		return _collection.indexOf(o);
 	}
 	
 	public int lastIndexOf(Object o)
 	{
-		return get(false).lastIndexOf(o);
+		return _collection.lastIndexOf(o);
 	}
 	
 	public ListIterator<E> listIterator()
 	{
-		return get(false).listIterator();
+		return _collection.listIterator();
 	}
 	
 	public ListIterator<E> listIterator(int index)
 	{
-		return get(false).listIterator(index);
+		return _collection.listIterator(index);
 	}
 	
 	public E remove(int index)
 	{
-		return get(false).remove(index);
+		return _collection.remove(index);
 	}
 	
 	public E set(int index, E element)
 	{
-		return get(false).set(index, element);
+		return _collection.set(index, element);
 	}
 	
 	public List<E> subList(int fromIndex, int toIndex)
 	{
-		return get(false).subList(fromIndex, toIndex);
+		return _collection.subList(fromIndex, toIndex);
 	}
 }

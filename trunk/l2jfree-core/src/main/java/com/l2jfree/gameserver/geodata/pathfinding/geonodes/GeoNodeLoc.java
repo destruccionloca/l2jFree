@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.L2World;
  *
  * @author -Nemesiss-
  */
-public class GeoNodeLoc extends AbstractNodeLoc
+public final class GeoNodeLoc extends AbstractNodeLoc
 {
 	private final short	_x;
 	private final short	_y;

@@ -23,8 +23,6 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
@@ -38,33 +36,36 @@ import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.util.L2Arrays;
+import com.l2jfree.util.LookupTable;
 
 /**
  *
  * @author -Nemesiss-
  */
-public class GeoPathFinding extends PathFinding
+public final class GeoPathFinding extends PathFinding
 {
 	private static final Log _log = LogFactory.getLog(GeoPathFinding.class);
 	
-	private static GeoPathFinding _instance;
-	private static Map<Short, ByteBuffer> _pathNodes = new HashMap<Short, ByteBuffer>();
-	private static Map<Short, IntBuffer> _pathNodesIndex = new HashMap<Short, IntBuffer>();
-
+	private static final class SingletonHolder
+	{
+		private static final GeoPathFinding INSTANCE = new GeoPathFinding();
+	}
+	
 	public static GeoPathFinding getInstance()
 	{
-		if (_instance == null)
-			_instance = new GeoPathFinding();
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
-
+	
+	private final LookupTable<ByteBuffer> _pathNodes = new LookupTable<ByteBuffer>();
+	private final LookupTable<IntBuffer> _pathNodesIndex = new LookupTable<IntBuffer>();
+	
 	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#PathNodesExist(short)
 	 */
 	@Override
 	public boolean pathNodesExist(short regionoffset)
 	{
-		return _pathNodesIndex.containsKey(regionoffset);
+		return _pathNodesIndex.get(regionoffset) != null;
 	}
 
 	/**
@@ -316,8 +317,8 @@ public class GeoPathFinding extends PathFinding
 		        indexs.put(node++, index);
 				index += layer*10+1;
 			}
-			_pathNodesIndex.put(regionoffset, indexs);
-			_pathNodes.put(regionoffset, nodes);
+			_pathNodesIndex.set(regionoffset, indexs);
+			_pathNodes.set(regionoffset, nodes);
 		} catch (Exception e)
 		{
 			_log.warn("Failed to Load PathNode File: "+fname+"\n", e);

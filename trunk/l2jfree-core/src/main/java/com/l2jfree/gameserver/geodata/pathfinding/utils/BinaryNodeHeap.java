@@ -23,7 +23,7 @@ import com.l2jfree.util.ObjectPool;
 /**
  * @author -Nemesiss-
  */
-public class BinaryNodeHeap
+public final class BinaryNodeHeap
 {
 	private final Node[] _list = new Node[800 + 1];
 	private final L2FastSet<Node> _set = new L2FastSet<Node>();

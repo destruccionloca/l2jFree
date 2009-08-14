@@ -26,10 +26,7 @@ import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.List;
 import java.util.StringTokenizer;
-
-import javolution.util.FastList;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.DoorTable;
@@ -50,18 +47,28 @@ import com.l2jfree.util.LookupTable;
  *
  * @author -Nemesiss-
  */
-public class GeoEngine extends GeoData
+public final class GeoEngine extends GeoData
 {
 	private final static byte _e = 1;
 	private final static byte _w = 2;
 	private final static byte _s = 4;
 	private final static byte _n = 8;
 	
+	private static final class SingletonHolder
+	{
+		private static final GeoEngine INSTANCE = new GeoEngine();
+	}
+	
+	public static GeoEngine getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	private final LookupTable<MappedByteBuffer> _geodata = new LookupTable<MappedByteBuffer>();
 	private final LookupTable<IntBuffer> _geodataIndex = new LookupTable<IntBuffer>();
 	private BufferedOutputStream _geoBugsOut;
 	
-	protected GeoEngine()
+	private GeoEngine()
 	{
 		nInitGeodata();
 	}

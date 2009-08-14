@@ -25,89 +25,102 @@ import javolution.util.FastMap;
  */
 public final class SingletonMap<K, V> implements Map<K, V>
 {
-	private FastMap<K, V> _map;
+	private boolean _initialized = false;
+	private Map<K, V> _map = L2Collections.emptyMap();
+	
 	private boolean _shared = false;
 
-	private Map<K, V> get(boolean init)
+	private void init()
 	{
-		if (_map == null)
+		if (!_initialized)
 		{
-			if (init)
-				_map = new FastMap<K, V>().setShared(_shared);
-			else
-				return L2Collections.emptyMap();
+			synchronized (this)
+			{
+				if (!_initialized)
+				{
+					_map = new FastMap<K, V>().setShared(_shared);
+					_initialized = true;
+				}
+			}
 		}
-		
-		return _map;
 	}
 	
 	public SingletonMap<K, V> setShared()
 	{
 		_shared = true;
 		
-		if (_map != null)
-			_map.setShared(true);
+		synchronized (this)
+		{
+			if (_initialized)
+			{
+				((FastMap<K, V>)_map).setShared(true);
+			}
+		}
 		
 		return this;
 	}
 	
 	public void clear()
 	{
-		get(false).clear();
+		_map.clear();
 	}
 	
 	public boolean containsKey(Object key)
 	{
-		return get(false).containsKey(key);
+		return _map.containsKey(key);
 	}
 	
 	public boolean containsValue(Object value)
 	{
-		return get(false).containsValue(value);
+		return _map.containsValue(value);
 	}
 	
 	public Set<Entry<K, V>> entrySet()
 	{
-		return get(false).entrySet();
+		return _map.entrySet();
 	}
 	
 	public V get(Object key)
 	{
-		return get(false).get(key);
+		return _map.get(key);
 	}
 	
 	public boolean isEmpty()
 	{
-		return get(false).isEmpty();
+		return _map.isEmpty();
 	}
 	
 	public Set<K> keySet()
 	{
-		return get(false).keySet();
+		return _map.keySet();
 	}
 	
 	public V put(K key, V value)
 	{
-		return get(true).put(key, value);
+		init();
+		
+		return _map.put(key, value);
 	}
 	
 	public void putAll(Map<? extends K, ? extends V> m)
 	{
-		get(true).putAll(m);
+		init();
+		
+		_map.putAll(m);
 	}
 	
 	public V remove(Object key)
 	{
-		return get(false).remove(key);
+		return _map.remove(key);
 	}
 	
 	public int size()
 	{
-		return get(false).size();
+		return _map.size();
 	}
 	
 	public Collection<V> values()
 	{
-		return get(false).values();
+		return _map.values();
 	}
 }

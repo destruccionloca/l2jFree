@@ -19,33 +19,34 @@ import java.util.Set;
 /**
  * @author NB4L1
  */
-public final class SingletonSet<E> extends SingletonCollection<E> implements Set<E>
+public final class SingletonSet<E> extends SingletonCollection<E, Set<E>> implements Set<E>
 {
-	private L2FastSet<E> _set;
 	private boolean _shared = false;
 	
 	@Override
-	protected Set<E> get(boolean init)
+	protected Set<E> emptyCollection()
 	{
-		if (_set == null)
-		{
-			if (init)
-				_set = new L2FastSet<E>().setShared(_shared);
-			else
-				return L2Collections.emptySet();
-		}
-		
-		return _set;
+		return L2Collections.emptySet();
+	}
+	
+	@Override
+	protected Set<E> initCollection()
+	{
+		return new L2FastSet<E>().setShared(_shared);
 	}
 	
 	public SingletonSet<E> setShared()
 	{
 		_shared = true;
 		
-		if (_set != null)
-			_set.setShared(true);
+		synchronized (this)
+		{
+			if (_initialized)
+			{
+				((L2FastSet<E>)_collection).setShared(true);
+			}
+		}
 		
 		return this;
 	}
-	
 }

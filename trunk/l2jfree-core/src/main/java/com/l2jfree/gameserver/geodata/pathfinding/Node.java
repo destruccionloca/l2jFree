@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.geodata.pathfinding;
 /**
  * @author -Nemesiss-
  */
-public class Node
+public final class Node
 {
 	private final AbstractNodeLoc _loc;
 	private final int _neighborsIdx;

@@ -23,16 +23,16 @@ import com.l2jfree.gameserver.model.L2World;
 /**
  * @author Sami
  */
-public class CellPathFinding extends PathFinding
+public final class CellPathFinding extends PathFinding
 {
-	private static CellPathFinding _instance;
+	private static final class SingletonHolder
+	{
+		private static final CellPathFinding INSTANCE = new CellPathFinding();
+	}
 	
 	public static CellPathFinding getInstance()
 	{
-		if (_instance == null)
-			_instance = new CellPathFinding();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	/**
