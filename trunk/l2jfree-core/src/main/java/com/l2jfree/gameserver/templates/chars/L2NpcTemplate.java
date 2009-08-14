@@ -153,7 +153,53 @@ public final class L2NpcTemplate extends L2CharTemplate
 		MERCENARIE,
 		UNKNOWN,
 		KAMAEL,
-		NONE
+		NONE;
+		
+		public Stats getOffensiveStat()
+		{
+			switch (this)
+			{
+				case BEAST:
+					return Stats.PATK_MONSTERS;
+				case ANIMAL:
+					return Stats.PATK_ANIMALS;
+				case PLANT:
+					return Stats.PATK_PLANTS;
+				case DRAGON:
+					return Stats.PATK_DRAGONS;
+				case BUG:
+					return Stats.PATK_INSECTS;
+				case GIANT:
+					return Stats.PATK_GIANTS;
+				case MAGICCREATURE:
+					return Stats.PATK_MAGIC;
+				default:
+					return null;
+			}
+		}
+		
+		public Stats getDefensiveStat()
+		{
+			switch (this)
+			{
+				case BEAST:
+					return Stats.PDEF_MONSTERS;
+				case ANIMAL:
+					return Stats.PDEF_ANIMALS;
+				case PLANT:
+					return Stats.PDEF_PLANTS;
+				case DRAGON:
+					return Stats.PDEF_DRAGONS;
+				case BUG:
+					return Stats.PDEF_INSECTS;
+				case GIANT:
+					return Stats.PDEF_GIANTS;
+				case MAGICCREATURE:
+					return Stats.PDEF_MAGIC;
+				default:
+					return null;
+			}
+		}
 	}
 
 	/**

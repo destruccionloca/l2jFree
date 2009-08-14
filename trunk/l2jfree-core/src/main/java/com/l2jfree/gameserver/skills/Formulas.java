@@ -1367,48 +1367,9 @@ public final class Formulas
 	/** Calculate blow damage based on cAtk */
 	public static double calcBlowDamage(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss)
 	{
-		double power = skill.getPower();
-		double damage = attacker.getPAtk(target);
-		damage += calcValakasAttribute(attacker, target, skill);
-		double defence = target.getPDef(attacker);
-		if (ss)
-			damage *= 2.;
-		switch (shld)
-		{
-			case SHIELD_DEFENSE_SUCCEED:
-				defence += target.getShldDef();
-				break;
-			case SHIELD_DEFENSE_PERFECT_BLOCK: // perfect block
-				return 1;
-		}
-
-		if (ss && skill.getSSBoost() > 0)
-			power *= skill.getSSBoost();
-
-		damage = attacker.calcStat(Stats.CRITICAL_DAMAGE, (damage + power), target, skill);
-		damage *= calcElemental(attacker, target, skill);
-		damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 6.5;
-		damage *= target.calcStat(Stats.CRIT_VULN, target.getTemplate().getBaseCritVuln(), target, skill);
-
-		// get the natural vulnerability for the template
-		if (target instanceof L2Npc)
-		{
-			damage *= ((L2Npc) target).getTemplate().getVulnerability(Stats.DAGGER_WPN_VULN);
-		}
-		// get the vulnerability for the instance due to skills (buffs, passives, toggles, etc)
-		damage = target.calcStat(Stats.DAGGER_WPN_VULN, damage, target, null);
-		damage *= 70. / defence;
-		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
-
-		// Dmg bonusses in PvP fight
-		if ((attacker instanceof L2Playable) && (target instanceof L2Playable))
-		{
-			damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
-		}
-
-		return damage < 1 ? 1. : damage;
+		return calcPhysDam(attacker, target, skill, shld, true, false, ss);
 	}
-
+	
 	/**
 	 * Calculated damage caused by ATTACK of attacker on target, called
 	 * separatly for each weapon, if dual-weapon is used.
@@ -1424,17 +1385,23 @@ public final class Formulas
 	 */
 	public static final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean crit, boolean dual, boolean ss)
 	{
-		if (skill == null)
-			return calcPhysDam(attacker, target, -1, shld, crit, dual, ss, 0f, -1, 0, skill);
-		else
-			return calcPhysDam(attacker, target, skill.getPower(attacker), shld, crit, dual, ss, skill.getSSBoost(), skill.getElement(), skill.getElementPower(), skill);
-	}
-
-	public final static double calcPhysDam(L2Character attacker, L2Character target, double skillpower, byte shld, boolean crit, boolean dual, boolean ss, float ssboost, int element, int elementPower, L2Skill skill)
-	{
+		boolean transformed = false;
+		if (attacker instanceof L2PcInstance)
+		{
+			L2PcInstance pcInst = (L2PcInstance) attacker;
+			if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+				return 0;
+			transformed = pcInst.isTransformed();
+		}
+		
 		double damage = attacker.getPAtk(target);
-		double defence = target.getPDef(attacker);
 		damage += calcValakasAttribute(attacker, target, skill);
+		
+		if (ss)
+			damage *= 2;
+		
+		double defence = target.getPDef(attacker);
+		
 		switch (shld)
 		{
 			case SHIELD_DEFENSE_SUCCEED:
@@ -1444,146 +1411,85 @@ public final class Formulas
 			case SHIELD_DEFENSE_PERFECT_BLOCK: // perfect block
 				return 1.;
 		}
-
-		if (ss)
-			damage *= 2;
+		
 		if (skill != null)
 		{
-			if (ssboost <= 0)
-				damage += skillpower;
-			else if (ssboost > 0)
-			{
-				if (ss)
-				{
-					skillpower *= ssboost;
-					damage += skillpower;
-				}
-				else
-					damage += skillpower;
-			}
+			double skillPower = skill.getPower(attacker);
+			float ssBoost = skill.getSSBoost();
+			
+			if (ss && ssBoost > 0)
+				skillPower *= ssBoost;
+			
+			damage += skillPower;
 		}
-
-		boolean transformed = false;
-		if (attacker instanceof L2PcInstance)
-		{
-			L2PcInstance pcInst = (L2PcInstance) attacker;
-			if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-				return 0;
-			transformed = pcInst.isTransformed();
-		}
-
-		/*
-		 * if (shld && !Config.ALT_GAME_SHIELD_BLOCKS) { defence +=
-		 * target.getShldDef(); }
-		 */
-		//if (!(attacker instanceof L2RaidBossInstance) &&
-		/*
-		 * if ((attacker instanceof L2NpcInstance || attacker instanceof
-		 * L2SiegeGuardInstance)) { if (attacker instanceof L2RaidBossInstance)
-		 * damage *= 1; // was 10 changed for temp fix // else // damage *= 2;
-		 * // if (attacker instanceof L2NpcInstance || attacker instanceof
-		 * L2SiegeGuardInstance){ //damage = damage attacker.getSTR()
-		 * attacker.getAccuracy() 0.05 / defence; // damage = damage
-		 * attacker.getSTR() (attacker.getSTR() + attacker.getLevel()) 0.025 /
-		 * defence; // damage += _rnd.nextDouble() damage / 10 ; }
-		 */
-		//		else {
-		//if (skill == null)
+		
 		if (crit)
 		{
 			//Finally retail like formula
 			damage *= 2 * attacker.calcStat(Stats.CRITICAL_DAMAGE, 1, target, skill) * target.calcStat(Stats.CRIT_VULN, target.getTemplate().getBaseCritVuln(), target, skill);
 			//Crit dmg add is almost useless in normal hits...
-			damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill);
+			if (skill != null && skill.getSkillType() == L2SkillType.BLOW)
+				damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill) * 6.5;
+			else
+				damage += attacker.calcStat(Stats.CRITICAL_DAMAGE_ADD, 0, target, skill);
 		}
-
+		
 		damage *= 70. / defence;
-
+		
 		// In C5 summons make 10 % less dmg in PvP.
 		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
 			damage *= 0.9;
-
+		
 		// defence modifier depending of the attacker weapon
 		L2Weapon weapon = attacker.getActiveWeaponItem();
-
-		Stats stat = weapon != null && !transformed ? weapon.getItemType().getStat() : null;
-		if (stat != null)
+		
+		double randomDamageMulti = 0.1;
+		
+		if (weapon != null)
 		{
-			// get the vulnerability due to skills (buffs, passives, toggles, etc)
-			damage = target.calcStat(stat, damage, target, null);
-			if (target instanceof L2Npc)
+			randomDamageMulti = weapon.getRandomDamage() / 100.0;
+			
+			// defence modifier depending of the attacker weapon
+			Stats stat = !transformed ? weapon.getItemType().getStat() : null;
+			if (stat != null)
 			{
-				// get the natural vulnerability for the template
-				damage *= ((L2Npc) target).getTemplate().getVulnerability(stat);
+				// get the vulnerability due to skills (buffs, passives, toggles, etc)
+				damage = target.calcStat(stat, damage, target, null);
+				
+				if (target instanceof L2Npc)
+				{
+					// get the natural vulnerability for the template
+					damage *= ((L2Npc)target).getTemplate().getVulnerability(stat);
+				}
 			}
 		}
-
-		damage += Rnd.nextDouble() * damage / 10;
-		//		damage += _rnd.nextDouble()* attacker.getRandomDamage(target);
-		//		}
+		
+		// +/- 5..20%
+		damage *= 1 + (2 * Rnd.nextDouble() - 1) * randomDamageMulti;
+		
 		if (shld > 0 && Config.ALT_GAME_SHIELD_BLOCKS)
 		{
 			damage -= target.getShldDef();
 			if (damage < 0)
 				damage = 0;
 		}
-
+		
 		if (target instanceof L2Npc)
 		{
-			switch (((L2Npc) target).getTemplate().getRace())
-			{
-				case BEAST:
-					damage *= attacker.getStat().getPAtkMonsters(target);
-					break;
-				case ANIMAL:
-					damage *= attacker.getStat().getPAtkAnimals(target);
-					break;
-				case PLANT:
-					damage *= attacker.getStat().getPAtkPlants(target);
-					break;
-				case DRAGON:
-					damage *= attacker.getStat().getPAtkDragons(target);
-					break;
-				case BUG:
-					damage *= attacker.getStat().getPAtkInsects(target);
-					break;
-				case GIANT:
-					damage *= attacker.getStat().getPAtkGiants(target);
-					break;
-				case MAGICCREATURE:
-					damage *= attacker.getStat().getPAtkMagic(target);
-					break;
-			}
+			Stats stat = ((L2Npc)target).getTemplate().getRace().getOffensiveStat();
+			
+			if (stat != null)
+				damage *= attacker.getStat().getMul(stat, target);
 		}
-
+		
 		if (attacker instanceof L2Npc)
 		{
-			switch (((L2Npc) attacker).getTemplate().getRace())
-			{
-				case BEAST:
-					damage /= target.getStat().getPDefMonsters(attacker);
-					break;
-				case ANIMAL:
-					damage /= target.getStat().getPDefAnimals(attacker);
-					break;
-				case PLANT:
-					damage /= target.getStat().getPDefPlants(attacker);
-					break;
-				case DRAGON:
-					damage /= target.getStat().getPDefDragons(attacker);
-					break;
-				case BUG:
-					damage /= target.getStat().getPDefInsects(attacker);
-					break;
-				case GIANT:
-					damage /= target.getStat().getPDefGiants(attacker);
-					break;
-				case MAGICCREATURE:
-					damage /= target.getStat().getPDefMagic(attacker);
-					break;
-			}
+			Stats stat = ((L2Npc)attacker).getTemplate().getRace().getDefensiveStat();
+			
+			if (stat != null)
+				damage /= target.getStat().getMul(stat, attacker);
 		}
-
+		
 		if (damage > 0 && damage < 1)
 		{
 			damage = 1;
@@ -1592,7 +1498,7 @@ public final class Formulas
 		{
 			damage = 0;
 		}
-
+		
 		// Dmg bonusses in PvP fight
 		if (attacker instanceof L2Playable && target instanceof L2Playable)
 		{
@@ -1601,7 +1507,7 @@ public final class Formulas
 			else
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 		}
-
+		
 		if (attacker instanceof L2PcInstance)
 		{
 			if (((L2PcInstance) attacker).getClassId().isMage())
@@ -1613,9 +1519,9 @@ public final class Formulas
 			damage *= Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
-
+		
 		damage *= calcElemental(attacker, target, skill);
-		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
+		return Math.max(1, GlobalRestrictions.calcDamage(attacker, target, damage, skill));
 	}
 
 	public static final double calcMagicDam(L2CubicInstance attacker, L2Character target, L2Skill skill, boolean mcrit, byte shld)

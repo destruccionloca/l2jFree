@@ -405,48 +405,11 @@ public class CharStat
 		return (int) calcStat(Stats.POWER_ATTACK, _activeChar.getTemplate().getBasePAtk() * bonusAtk, target, null);
 	}
 
-	/** Return the PAtk Modifier against animals. */
-	public final double getPAtkAnimals(L2Character target)
+	public final double getMul(Stats stat, L2Character target)
 	{
-		return calcStat(Stats.PATK_ANIMALS, 1, target, null);
+		return calcStat(stat, 1, target, null);
 	}
-
-	/** Return the PAtk Modifier against dragons. */
-	public final double getPAtkDragons(L2Character target)
-	{
-		return calcStat(Stats.PATK_DRAGONS, 1, target, null);
-	}
-
-	/** Return the PAtk Modifier against insects. */
-	public final double getPAtkInsects(L2Character target)
-	{
-		return calcStat(Stats.PATK_INSECTS, 1, target, null);
-	}
-
-	/** Return the PAtk Modifier against monsters. */
-	public final double getPAtkMonsters(L2Character target)
-	{
-		return calcStat(Stats.PATK_MONSTERS, 1, target, null);
-	}
-
-	/** Return the PAtk Modifier against plants. */
-	public final double getPAtkPlants(L2Character target)
-	{
-		return calcStat(Stats.PATK_PLANTS, 1, target, null);
-	}
-
-	/** Return the PAtk Modifier against giants. */
-	public final double getPAtkGiants(L2Character target)
-	{
-		return calcStat(Stats.PATK_GIANTS, 1, target, null);
-	}
-
-	/** Return the PAtk Modifier against magic creatures. */
-	public final double getPAtkMagic(L2Character target)
-	{
-		return calcStat(Stats.PATK_MAGIC, 1, target, null);
-	}
-
+	
 	/**
 	 * Return the PAtk Speed (base+modifier) of the L2Character in function of
 	 * the Armour Expertise Penalty.
@@ -460,48 +423,6 @@ public class CharStat
 		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null));
 
 		return val;
-	}
-
-	/** Return the PDef Modifier against animals. */
-	public final double getPDefAnimals(L2Character target)
-	{
-		return calcStat(Stats.PDEF_ANIMALS, 1, target, null);
-	}
-
-	/** Return the PDef Modifier against dragons. */
-	public final double getPDefDragons(L2Character target)
-	{
-		return calcStat(Stats.PDEF_DRAGONS, 1, target, null);
-	}
-
-	/** Return the PDef Modifier against insects. */
-	public final double getPDefInsects(L2Character target)
-	{
-		return calcStat(Stats.PDEF_INSECTS, 1, target, null);
-	}
-
-	/** Return the PDef Modifier against monsters. */
-	public final double getPDefMonsters(L2Character target)
-	{
-		return calcStat(Stats.PDEF_MONSTERS, 1, target, null);
-	}
-
-	/** Return the PDef Modifier against plants. */
-	public final double getPDefPlants(L2Character target)
-	{
-		return calcStat(Stats.PDEF_PLANTS, 1, target, null);
-	}
-
-	/** Return the PDef Modifier against giants. */
-	public final double getPDefGiants(L2Character target)
-	{
-		return calcStat(Stats.PDEF_GIANTS, 1, target, null);
-	}
-
-	/** Return the PDef Modifier against magic creatures. */
-	public final double getPDefMagic(L2Character target)
-	{
-		return calcStat(Stats.PDEF_MAGIC, 1, target, null);
 	}
 
 	/** Return the PDef (base+modifier) of the L2Character. */
