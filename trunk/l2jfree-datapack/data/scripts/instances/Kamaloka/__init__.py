@@ -178,7 +178,6 @@ class Kamaloka(JQuest):
 				playerList = InstanceManager.getInstance().getInstance(instanceId).getPlayers()
 				for member in playerList.toArray():
 					member = L2World.getInstance().findPlayer(member)
-					saveEntry(member)
 					exitInstance(member,tele)
 			return
 		elif event == "lvl23" :
