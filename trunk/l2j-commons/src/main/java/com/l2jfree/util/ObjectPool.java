@@ -15,16 +15,44 @@
 package com.l2jfree.util;
 
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
+import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.lang.L2Thread;
 
 /**
  * @author NB4L1
  */
 public abstract class ObjectPool<E>
 {
-	private static final L2Timer TIMER = new L2Timer(ObjectPool.class.getName());
+	private static final WeakHashMap<ObjectPool<?>, Object> POOLS = new WeakHashMap<ObjectPool<?>, Object>();
+	
+	static
+	{
+		new L2Thread(ObjectPool.class.getName()) {
+			@Override
+			protected void runTurn()
+			{
+				try
+				{
+					for (ObjectPool<?> pool : POOLS.keySet())
+						if (pool != null)
+							pool.purge();
+				}
+				catch (ConcurrentModificationException e)
+				{
+					// skip it
+				}
+			}
+			
+			@Override
+			protected void sleepTurn() throws InterruptedException
+			{
+				Thread.sleep(60000);
+			}
+		}.start();
+	}
 	
 	private final ReentrantLock _lock = new ReentrantLock();
 	
@@ -34,13 +62,7 @@ public abstract class ObjectPool<E>
 	
 	protected ObjectPool()
 	{
-		TIMER.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run()
-			{
-				purge();
-			}
-		}, 60000, 60000 + Rnd.get(1000));
+		POOLS.put(this, POOLS);
 	}
 	
 	public int getCurrentSize()
@@ -63,7 +85,7 @@ public abstract class ObjectPool<E>
 	
 	protected long getMaxLifeTime()
 	{
-		return 60000; // 1 min
+		return 120000; // 2 min
 	}
 	
 	public void clear()
