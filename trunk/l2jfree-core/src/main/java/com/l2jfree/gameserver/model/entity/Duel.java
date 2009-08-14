@@ -945,6 +945,9 @@ public class Duel
 	//handled by the final boolean
 	public static boolean isInvul(L2Character targetChar, L2Character attackerChar)
 	{
+		if (targetChar == null || attackerChar == null)
+			return false;
+		
 		final L2PcInstance attacker = L2Object.getActingPlayer(attackerChar);
 		final L2PcInstance target = L2Object.getActingPlayer(targetChar);
 		
