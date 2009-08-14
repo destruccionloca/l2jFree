@@ -48,7 +48,7 @@ public class UpdateBBSManager extends BaseBBSManager
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM changelog");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM changelog order by id desc");
 			ResultSet result = statement.executeQuery();
 			while (result.next())
 			{

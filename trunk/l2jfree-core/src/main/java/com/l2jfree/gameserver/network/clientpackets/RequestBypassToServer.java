@@ -56,7 +56,8 @@ public class RequestBypassToServer extends L2GameClientPacket
 	protected void runImpl() throws InvalidPacketException
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		if (_command.startsWith("admin_"))
 			AdminCommandHandler.getInstance().useAdminCommand(activeChar, _command);
@@ -69,7 +70,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("npc_"))
 		{
 			activeChar.validateBypass(_command);
-			
+
 			int endOfId = _command.indexOf('_', 5);
 			String id;
 			if (endOfId > 0)
@@ -79,21 +80,20 @@ public class RequestBypassToServer extends L2GameClientPacket
 			try
 			{
 				int objectId = Integer.parseInt(id);
-				
+
 				L2Npc npc = activeChar.getTarget(L2Npc.class, objectId);
-				
-				if (npc != null && endOfId > 0
-					&& activeChar.isInsideRadius(npc, L2Npc.INTERACTION_DISTANCE, false, false))
+
+				if (npc != null && endOfId > 0 && activeChar.isInsideRadius(npc, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
 					String realCommand = _command.substring(endOfId + 1);
-					
+
 					if (GlobalRestrictions.onBypassFeedback(npc, activeChar, realCommand))
 					{
 					}
 					else
 						npc.onBypassFeedback(activeChar, realCommand);
 				}
-				
+
 				sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			catch (NumberFormatException nfe)
@@ -103,7 +103,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("summon_"))
 		{
 			activeChar.validateBypass(_command);
-			
+
 			int endOfId = _command.indexOf('_', 8);
 			String id;
 			if (endOfId > 0)
@@ -113,11 +113,10 @@ public class RequestBypassToServer extends L2GameClientPacket
 			try
 			{
 				int objectId = Integer.parseInt(id);
-				
+
 				L2MerchantSummonInstance summon = activeChar.getTarget(L2MerchantSummonInstance.class, objectId);
-				
-				if (summon != null && endOfId > 0
-					&& activeChar.isInsideRadius(summon, L2Npc.INTERACTION_DISTANCE, false, false))
+
+				if (summon != null && endOfId > 0 && activeChar.isInsideRadius(summon, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
 					summon.onBypassFeedback(activeChar, _command.substring(endOfId + 1));
 				}
@@ -156,6 +155,8 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("bbs_"))
 			CommunityBoard.handleCommands(getClient(), _command);
 		else if (_command.startsWith("_bbs"))
+			CommunityBoard.handleCommands(getClient(), _command);
+		else if (_command.startsWith("_maillist_0_1_0_"))
 			CommunityBoard.handleCommands(getClient(), _command);
 		else if (_command.startsWith("Quest "))
 		{
