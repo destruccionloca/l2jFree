@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.tools.geometry.Point3D;
+import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.LookupTable;
 
 /**
@@ -1307,7 +1308,6 @@ public class GeoEngine extends GeoData
 	@Override
 	public Node[] getNeighbors(Node n)
 	{
-		List<Node> Neighbors = new FastList<Node>(4);
 		Node newNode;
 		int x = n.getLoc().getNodeX();
 		int y = n.getLoc().getNodeY();
@@ -1338,6 +1338,10 @@ public class GeoEngine extends GeoData
 				_log.warn("Geo Region - Region Offset: "+region+" dosnt exist!!");
 			return null;
 		}
+		
+		final Node[] Neighbors = new Node[4];
+		int arrayIndex = 0;
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		byte type = geo.get(index);
 		index++;
@@ -1348,19 +1352,19 @@ public class GeoEngine extends GeoData
 			if (parentdirection != 1) {
 				newNode = CellPathFinding.getInstance().readNode(x+1,y,height);
 				//newNode.setCost(0);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != 2) {
 				newNode = CellPathFinding.getInstance().readNode(x,y+1,height);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != -2) {
 				newNode = CellPathFinding.getInstance().readNode(x,y-1,height);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != -1) {
 				newNode = CellPathFinding.getInstance().readNode(x-1,y,height);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 	    }
 	    else if(type == 1)//complex
@@ -1378,22 +1382,22 @@ public class GeoEngine extends GeoData
 			{
 				newNode = CellPathFinding.getInstance().readNode(x+1,y,height);
 				//newNode.setCost(basecost+50);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != 2 && checkNSWE(NSWE,x,y,x,y+1))
 			{
 				newNode = CellPathFinding.getInstance().readNode(x,y+1,height);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != -2 && checkNSWE(NSWE,x,y,x,y-1))
 			{
 				newNode = CellPathFinding.getInstance().readNode(x,y-1,height);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != -1 && checkNSWE(NSWE,x,y,x-1,y))
 			{
 				newNode = CellPathFinding.getInstance().readNode(x-1,y,height);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 	    }
 	    else//multilevel
@@ -1437,26 +1441,26 @@ public class GeoEngine extends GeoData
 			{
 				newNode = CellPathFinding.getInstance().readNode(x+1,y,tempz);
 				//newNode.setCost(basecost+50);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != 2 && checkNSWE(NSWE,x,y,x,y+1))
 			{
 				newNode = CellPathFinding.getInstance().readNode(x,y+1,tempz);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != -2 && checkNSWE(NSWE,x,y,x,y-1))
 			{
 				newNode = CellPathFinding.getInstance().readNode(x,y-1,tempz);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 			if (parentdirection != -1 && checkNSWE(NSWE,x,y,x-1,y))
 			{
 				newNode = CellPathFinding.getInstance().readNode(x-1,y,tempz);
-				Neighbors.add(newNode);
+				Neighbors[arrayIndex++] = newNode;
 			}
 		}
-		Node[] result = new Node[Neighbors.size()];
-		return Neighbors.toArray(result);
+		
+		return L2Arrays.compact(Neighbors);
 	}
 
 	/**
