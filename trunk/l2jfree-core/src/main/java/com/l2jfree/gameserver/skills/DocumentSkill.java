@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -369,7 +370,15 @@ final class DocumentSkill extends DocumentBase
 		if (attrs.getNamedItem("time") != null)
 			time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template)) * skill.getTimeMulti();
 		
-		time = Math.max(1, time);
+		if (time < 0)
+		{
+			if (count == 1)
+				time = (int)TimeUnit.DAYS.toSeconds(10); // 'infinite' - still in integer range, even in msec
+			else
+				throw new IllegalStateException("Invalid count (> 1) for effect with infinite duration!");
+		}
+		else
+			time = Math.max(1, time);
 		
 		boolean self = false;
 		if (attrs.getNamedItem("self") != null)
@@ -477,6 +486,8 @@ final class DocumentSkill extends DocumentBase
 				special = L2Character.SPECIAL_EFFECT_UNKNOWN8;
 			else if (spc.equals("unknown9"))
 				special = L2Character.SPECIAL_EFFECT_UNKNOWN9;
+			else
+				throw new IllegalStateException("Invalid special value: '" + spc + "'!");
 		}
 
 		

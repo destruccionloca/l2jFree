@@ -123,7 +123,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	
 	private synchronized void startEffect()
 	{
-		if (_skill.isPvpSkill() && _effected instanceof L2PcInstance)
+		if (_skill.isPvpSkill() && getShowIcon() && _effected instanceof L2PcInstance)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 			sm.addSkillName(this);
@@ -351,7 +351,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			{
 				if (isActing())
 				{
-					if (shouldSendExitMessage() && _effected instanceof L2PcInstance)
+					if (getShowIcon() && shouldSendExitMessage() && _effected instanceof L2PcInstance)
 					{
 						SystemMessage sm;
 						if (getCount() == 0)
