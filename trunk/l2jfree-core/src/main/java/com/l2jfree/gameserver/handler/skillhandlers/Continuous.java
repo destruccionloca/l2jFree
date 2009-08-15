@@ -175,14 +175,6 @@ public class Continuous implements ICubicSkillHandler
 				sm.addSkillName(skill.getId());
 				((L2PcInstance)activeChar).sendPacket(sm);
 			}
-			// Possibility of a lethal strike
-			Formulas.calcLethalHit(activeChar, target, skill);
-		}
-
-		// Increase Charges
-		if (activeChar instanceof L2PcInstance && skill.getGiveCharges() > 0)
-		{
-			((L2PcInstance)activeChar).increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
 		}
 	}
 

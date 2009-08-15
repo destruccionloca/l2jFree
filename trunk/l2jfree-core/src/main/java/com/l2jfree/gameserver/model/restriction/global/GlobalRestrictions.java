@@ -34,6 +34,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.Stats;
 
 /**
  * @author NB4L1
@@ -462,10 +464,24 @@ public final class GlobalRestrictions
 	
 	public static double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)
 	{
+		// Pvp bonusses for dmg
+		if (activeChar instanceof L2Playable && target instanceof L2Playable)
+		{
+			if (skill == null)
+				damage *= activeChar.calcStat(Stats.PVP_PHYSICAL_DMG, 1, target, skill);
+			else if (skill.isMagic())
+				damage *= activeChar.calcStat(Stats.PVP_MAGICAL_DMG, 1, target, skill);
+			else
+				damage *= activeChar.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, target, skill);
+		}
+		
+		damage *= Formulas.calcElemental(activeChar, target, skill);
+		damage *= Formulas.calcSoulBonus(activeChar, skill);
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.calcDamage.ordinal()])
 			damage = restriction.calcDamage(activeChar, target, damage, skill);
 		
-		return damage;
+		return Math.max(1, damage);
 	}
 	
 	// TODO

@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -1363,12 +1362,6 @@ public final class Formulas
 
 		return 1.5; // If all is true, then modifer will be 50% more
 	}
-
-	/** Calculate blow damage based on cAtk */
-	public static double calcBlowDamage(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss)
-	{
-		return calcPhysDam(attacker, target, skill, shld, true, false, ss);
-	}
 	
 	/**
 	 * Calculated damage caused by ATTACK of attacker on target, called
@@ -1383,7 +1376,7 @@ public final class Formulas
 	 * @param ss if weapon item was charged by soulshot
 	 * @return damage points
 	 */
-	public static final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean crit, boolean dual, boolean ss)
+	public static final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean crit, boolean ss)
 	{
 		boolean transformed = false;
 		if (attacker instanceof L2PcInstance)
@@ -1499,15 +1492,6 @@ public final class Formulas
 			damage = 0;
 		}
 		
-		// Dmg bonusses in PvP fight
-		if (attacker instanceof L2Playable && target instanceof L2Playable)
-		{
-			if (skill == null)
-				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
-			else
-				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
-		}
-		
 		if (attacker instanceof L2PcInstance)
 		{
 			if (((L2PcInstance) attacker).getClassId().isMage())
@@ -1520,8 +1504,7 @@ public final class Formulas
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
 		
-		damage *= calcElemental(attacker, target, skill);
-		return Math.max(1, GlobalRestrictions.calcDamage(attacker, target, damage, skill));
+		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
 	public static final double calcMagicDam(L2CubicInstance attacker, L2Character target, L2Skill skill, boolean mcrit, byte shld)
@@ -1584,8 +1567,8 @@ public final class Formulas
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
 		damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
-		damage *= calcElemental(owner, target, skill);
-		return damage;
+		
+		return GlobalRestrictions.calcDamage(owner, target, damage, skill);
 	}
 
 	public static final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean bss, boolean mcrit)
@@ -1659,14 +1642,7 @@ public final class Formulas
 		else if (mcrit)
 			damage *= Config.ALT_MCRIT_RATE;
 		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
-		// Pvp bonusses for dmg
-		if ((attacker instanceof L2Playable) && (target instanceof L2Playable))
-		{
-			if (skill.isMagic())
-				damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
-			else
-				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
-		}
+		
 		//random magic damage
 		float rnd = Rnd.get(-20, 20) / 100 + 1;
 		damage *= rnd;
@@ -1684,9 +1660,32 @@ public final class Formulas
 			damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
-		damage *= calcElemental(attacker, target, skill);
-
+		
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
+	}
+	
+	public static final double calcSoulBonus(L2Character activeChar, L2Skill skill)
+	{
+		if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
+		{
+			switch (((L2PcInstance) activeChar).getLastSoulConsume())
+			{
+				case 0:
+					return 1.00;
+				case 1:
+					return 1.10;
+				case 2:
+					return 1.12;
+				case 3:
+					return 1.15;
+				case 4:
+					return 1.18;
+				default:
+					return 1.20;
+			}
+		}
+		
+		return 1.0;
 	}
 
 	/** Returns true in case of critical hit */
@@ -1764,7 +1763,7 @@ public final class Formulas
 	}
 
 	/** Calculate value of lethal chance */
-	public static final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
+	private static final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
 	{
 		if (baseLethal <= 0)
 			return 0;
@@ -2507,7 +2506,7 @@ public final class Formulas
 		return calcPower - calcDefen;
 	}
 	
-	private static double calcElemental(L2Character attacker, L2Character target, L2Skill skill)
+	public static double calcElemental(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		if (skill != null)
 		{

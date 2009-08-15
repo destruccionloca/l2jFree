@@ -722,9 +722,6 @@ public class Disablers implements ICubicSkillHandler
 				}
 			}
 			}
-
-			// Possibility of a lethal strike
-			Formulas.calcLethalHit(activeChar, target, skill);
 		}
 	}
 

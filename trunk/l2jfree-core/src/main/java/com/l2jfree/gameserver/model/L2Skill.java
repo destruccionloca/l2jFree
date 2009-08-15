@@ -3597,6 +3597,85 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _effectTemplates != null && _effectTemplates.length > 0;
 	}
 	
+	public final void dealDamage(L2Character activeChar, L2Character target, L2Skill skill, double damage, byte reflect, boolean mcrit, boolean pcrit)
+	{
+		activeChar.sendDamageMessage(target, (int)damage, mcrit, pcrit, false);
+		
+		if (skill.getDmgDirectlyToHP())
+		{
+			double actCp1 = target.getStatus().getCurrentCp();
+			target.getStatus().setCurrentCp(0);
+			target.reduceCurrentHp(damage, activeChar, skill);
+			target.getStatus().setCurrentCp(actCp1);
+			
+			// vengeance reflected damage
+			if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
+			{
+				double actCp2 = activeChar.getStatus().getCurrentCp();
+				activeChar.getStatus().setCurrentCp(0);
+				activeChar.reduceCurrentHp(damage, target, skill);
+				activeChar.getStatus().setCurrentCp(actCp2);
+			}
+		}
+		else
+		{
+			target.reduceCurrentHp(damage, activeChar, skill);
+			
+			// vengeance reflected damage
+			if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
+				activeChar.reduceCurrentHp(damage, target, skill);
+		}
+		
+		// Manage attack or cast break of the target (calculating rate, sending message...)
+		if (!target.isRaid() && Formulas.calcAtkBreak(target, damage))
+		{
+			target.breakAttack();
+			target.breakCast();
+		}
+	}
+	
+	public final void getEffects(L2Character effector, L2Character effected, byte reflect, byte shld, boolean ss, boolean sps, boolean bss)
+	{
+		if (_effectTemplates == null)
+			return;
+		
+		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
+			return;
+		
+		// Activate attacked effects, if any
+		if (Formulas.calcSkillSuccess(effector, effected, this, shld, ss, sps, bss))
+		{
+			if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0)
+				effected = effector;
+			
+			Env env = new Env();
+			env.player = effector;
+			env.target = effected;
+			env.skill = this;
+			env.skillMastery = Formulas.calcSkillMastery(effector, this);
+			
+			for (EffectTemplate et : _effectTemplates)
+				et.getEffect(env);
+			
+			if (effected instanceof L2PcInstance)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+				sm.addSkillName(this);
+				((L2PcInstance)effected).sendPacket(sm);
+			}
+		}
+		else
+		{
+			if (effector instanceof L2PcInstance)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
+				sm.addCharName(effected);
+				sm.addSkillName(this);
+				((L2PcInstance)effector).sendPacket(sm);
+			}
+		}
+	}
+	
 	public final void getEffects(L2Character effector, L2Character effected)
 	{
 		if (_effectTemplates == null)

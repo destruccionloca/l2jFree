@@ -273,6 +273,7 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
@@ -4621,7 +4622,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		// Force Charges
-		_charges = 0; // Empty charges
+		clearCharges(); // Empty charges
 
 		updatePvPFlag(0); // Clear the pvp flag
 		// Pet shouldn't get unsummoned after masters death.
@@ -12560,41 +12561,46 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (count <= 0) // Wrong usage
 			return;
-
-		SystemMessage sm = null;
-		int charges = _charges + count;
+		
 		// Checking charges maximum
-		if (_charges < max)
+		if (_charges >= max)
 		{
-			// Increase charges
-			_charges = Math.min(max, charges);
-			sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-			sm.addNumber(_charges);
-		}
-		else
-		{
-			sm = new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED);
-		}
-		sendPacket(sm);
-		sendEtcStatusUpdate();
-		restartChargeTask();
-	}
-
-	public void decreaseCharges(int count)
-	{
-		if (count < 0) // Wrong usage
+			sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
 			return;
-		if (_charges - count >= 0)
-			_charges -= count;
-		else
-			_charges = 0;
+		}
+		
+		// Increase charges
+		setCharges(Math.min(_charges + count, max));
+		
+		SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+		sm.addNumber(_charges);
+		sendPacket(sm);
+	}
+	
+	public void increaseChargesBySkill(L2Skill skill)
+	{
+		if (skill.getGiveCharges() > 0)
+			increaseCharges(skill.getGiveCharges(), skill.getMaxCharges());
+	}
+	
+	private void setCharges(int charges)
+	{
+		_charges = Math.max(0, charges);
+		
 		sendEtcStatusUpdate();
 		if (_charges == 0)
 			stopChargeTask();
 		else
 			restartChargeTask();
 	}
-
+	
+	public void decreaseCharges(int count)
+	{
+		if (count < 0) // Wrong usage
+			return;
+		setCharges(_charges - count);
+	}
+	
 	public class ChargeTask implements Runnable
 	{
 		public void run()
@@ -12602,17 +12608,15 @@ public final class L2PcInstance extends L2Playable
 			clearCharges();
 		}
 	}
-
+	
 	/**
 	* Clear out all charges from this L2PcInstance
 	*/
 	public void clearCharges()
 	{
-		_charges = 0;
-		stopChargeTask();
-		sendEtcStatusUpdate();
+		setCharges(0);
 	}
-
+	
 	/**
 	* Starts/Restarts the SoulTask to Clear Charges after 10 Mins.
 	*/
@@ -12637,75 +12641,91 @@ public final class L2PcInstance extends L2Playable
 			_chargeTask = null;
 		}
 	}
-
+	
 	/**
 	 * Returns the Number of Souls this L2PcInstance got.
+	 * 
 	 * @return
 	 */
 	public int getSouls()
 	{
 		return _souls;
 	}
-
+	
 	public int getLastSoulConsume()
 	{
 		return _lastSoulConsume;
 	}
-
+	
 	public void resetLastSoulConsume()
 	{
 		_lastSoulConsume = 0;
 	}
-
+	
 	/**
 	 * Absorbs a Soul from a Npc.
+	 * 
 	 * @param skill
 	 * @param target
 	 */
-	public void absorbSoulFromNpc(L2Skill skill, L2Character target)
+	public void absorbSoulFromNpc(L2Skill soulMastery, L2Character target)
 	{
-		if (_souls >= skill.getNumSouls())
+		if (_souls >= soulMastery.getNumSouls())
 		{
 			sendPacket(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
 			return;
 		}
-
+		
 		increaseSouls(1);
-
+		
 		// Npc -> Player absorb animation
 		if (target != null)
 			broadcastPacket(new ExSpawnEmitter(getObjectId(), target.getObjectId()), 500);
 	}
-
+	
 	/**
 	 * Increase Souls
+	 * 
 	 * @param count
 	 */
-	public void increaseSouls(int count) // By skill or mob kill
+	private void increaseSouls(int count) // By skill or mob kill
 	{
 		if (count < 0) // Wrong usage
 			return;
-
-		_souls = Math.min(_souls + count, 45); // Client can't display more
-
+		
+		setSouls(_souls + count);
+		
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_SOUL_HAS_INCREASED_BY_S1_SO_IT_IS_NOW_AT_S2);
 		sm.addNumber(count);
 		sm.addNumber(_souls);
 		sendPacket(sm);
-		sendEtcStatusUpdate();
-
-		restartSoulTask();
 	}
-
+	
+	public void increaseSoulsBySkill(L2Skill skill)
+	{
+		final L2Skill soulmastery = getKnownSkill(L2Skill.SKILL_SOUL_MASTERY);
+		if (soulmastery == null)
+			return;
+		
+		if (_souls >= soulmastery.getNumSouls())
+		{
+			sendPacket(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
+			return;
+		}
+		
+		increaseSouls(Math.min(skill.getNumSouls(), soulmastery.getNumSouls() - getSouls()));
+	}
+	
 	/**
 	 * Decreases existing Souls.
+	 * 
 	 * @param skill
 	 */
 	public void decreaseSouls(L2Skill skill)
 	{
 		if (_souls == 0)
 			return;
-
+		
 		// Calculation part
 		int souls = _souls;
 		if (skill.getSoulConsumeCount() > 0)
@@ -12718,52 +12738,38 @@ public final class L2PcInstance extends L2Playable
 			souls -= consume;
 			_lastSoulConsume = consume; // Store for PDAM/MDAM boosting
 		}
-
-		// Consume part
-		_souls = Math.max(souls, 0); // No negative values allowed
-
-		if (_souls == 0)
-			stopSoulTask();
-		else
-			restartSoulTask();
-
-		sendEtcStatusUpdate();
+		
+		setSouls(souls);
 	}
-
-	public void setSouls(int count) // By GM command
+	
+	public void setSouls(int count)
 	{
-		_souls = count < 0 ? 0 : (count > 45 ? 45 : count);
+		_souls = L2Math.limit(0, count, 45); // Client can't display more
+		
 		if (_souls > 0)
 			restartSoulTask();
-
+		else
+			stopSoulTask();
+		
 		sendEtcStatusUpdate();
 	}
-
+	
 	private class SoulTask implements Runnable
 	{
-		L2PcInstance	_player;
-
-		protected SoulTask(L2PcInstance player)
-		{
-			_player = player;
-		}
-
 		public void run()
 		{
-			_player.clearSouls();
+			clearSouls();
 		}
 	}
-
+	
 	/**
 	 * Clear out all Souls from this L2PcInstance
 	 */
 	public void clearSouls()
 	{
-		_souls = 0;
-		stopSoulTask();
-		sendEtcStatusUpdate();
+		setSouls(0);
 	}
-
+	
 	/**
 	 * Starts/Restarts the SoulTask to Clear Souls after 10 Mins.
 	 */
@@ -12774,9 +12780,9 @@ public final class L2PcInstance extends L2Playable
 			_soulTask.cancel(false);
 			_soulTask = null;
 		}
-		_soulTask = ThreadPoolManager.getInstance().scheduleGeneral(new SoulTask(this), 600000);
+		_soulTask = ThreadPoolManager.getInstance().scheduleGeneral(new SoulTask(), 600000);
 	}
-
+	
 	/**
 	 * Stops the Clearing Task.
 	 */
@@ -12788,7 +12794,7 @@ public final class L2PcInstance extends L2Playable
 			_soulTask = null;
 		}
 	}
-
+	
 	public void startFameTask(long delay, int fameFixRate)
 	{
 		if (getLevel() < 40 || getClassId().level() < 2)

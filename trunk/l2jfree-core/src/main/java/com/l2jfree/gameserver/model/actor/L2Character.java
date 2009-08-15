@@ -1188,7 +1188,7 @@ public abstract class L2Character extends L2Object
 			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
 		}
 
 		// Check if the L2Character is a L2PcInstance
@@ -1257,7 +1257,7 @@ public abstract class L2Character extends L2Object
 			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
 		}
 
 		// Check if the L2Character is a L2PcInstance
@@ -1324,7 +1324,7 @@ public abstract class L2Character extends L2Object
 			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages of hit 1
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, true, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
 			damage1 /= 2;
 		}
 
@@ -1338,7 +1338,7 @@ public abstract class L2Character extends L2Object
 			crit2 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages of hit 2
-			damage2 = (int) Formulas.calcPhysDam(this, target, null, shld2, crit2, true, attack.soulshot);
+			damage2 = (int) Formulas.calcPhysDam(this, target, null, shld2, crit2, attack.soulshot);
 			damage2 /= 2;
 		}
 
@@ -1478,7 +1478,7 @@ public abstract class L2Character extends L2Object
 			crit1 = Formulas.calcCriticalHit(this, target);
 
 			// Calculate physical damages
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
 
 			if (attackpercent != 100)
 				damage1 = (int) (damage1 * attackpercent / 100);
@@ -6825,6 +6825,11 @@ public abstract class L2Character extends L2Object
 	
 	public void sendAvoidMessage(L2Character attacker)
 	{
+	}
+	
+	public final void sendMissedDamageMessage(L2Character target)
+	{
+		sendDamageMessage(target, -1, false, false, true);
 	}
 	
 	public FusionSkill getFusionSkill()

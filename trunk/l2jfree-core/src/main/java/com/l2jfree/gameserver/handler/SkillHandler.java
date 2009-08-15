@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.handler;
 import com.l2jfree.gameserver.handler.skillhandlers.BalanceLife;
 import com.l2jfree.gameserver.handler.skillhandlers.BallistaBomb;
 import com.l2jfree.gameserver.handler.skillhandlers.BeastFeed;
-import com.l2jfree.gameserver.handler.skillhandlers.Blow;
 import com.l2jfree.gameserver.handler.skillhandlers.CPperHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.ChangeFace;
 import com.l2jfree.gameserver.handler.skillhandlers.ClanGate;
@@ -63,6 +62,8 @@ import com.l2jfree.gameserver.handler.skillhandlers.Unlock;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.util.EnumHandlerRegistry;
@@ -82,7 +83,6 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
-		registerSkillHandler(new Blow());
 		registerSkillHandler(new ChangeFace());
 		registerSkillHandler(new ClanGate());
 		registerSkillHandler(new CPperHeal());
@@ -145,10 +145,27 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
+		if (activeChar.isAlikeDead())
+			return;
+		
 		useSkill(skill.getSkillType(), activeChar, skill, targets);
 		
-		if (!activeChar.isAlikeDead())
-			skill.getEffectsSelf(activeChar);
+		for (L2Character target : targets)
+		{
+			Formulas.calcLethalHit(activeChar, target, skill);
+		}
+		
+		// Increase Charges, Souls, Etc
+		if (activeChar instanceof L2PcInstance)
+		{
+			((L2PcInstance)activeChar).increaseChargesBySkill(skill);
+			((L2PcInstance)activeChar).increaseSoulsBySkill(skill);
+		}
+		
+		skill.getEffectsSelf(activeChar);
+		
+		if (skill.isSuicideAttack())
+			activeChar.doDie(activeChar);
 	}
 	
 	public void useCubicSkill(L2CubicInstance cubic, L2Skill skill, L2Character... targets)

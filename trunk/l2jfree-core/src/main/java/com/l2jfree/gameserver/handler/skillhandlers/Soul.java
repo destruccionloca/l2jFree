@@ -14,52 +14,23 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
- * 
  * @author nBd
  */
 public class Soul implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.CHARGESOUL };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.CHARGESOUL };
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
-			return;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
-		L2Skill soulmastery = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, player.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY));
-
-		if (soulmastery != null)
-		{
-			if (player.getSouls() < soulmastery.getNumSouls())
-			{
-				int count = 0;
-
-				if (player.getSouls() + skill.getNumSouls() <= soulmastery.getNumSouls())
-					count = skill.getNumSouls();
-				else
-					count = soulmastery.getNumSouls() - player.getSouls();
-
-				player.increaseSouls(count);
-			}
-			else
-			{
-				player.sendPacket(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
-			}
-		}
+		// Dummy... already handled in SkillHandler.useSkill()
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

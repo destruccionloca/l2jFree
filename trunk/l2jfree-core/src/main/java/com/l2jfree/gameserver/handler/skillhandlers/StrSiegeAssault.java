@@ -15,71 +15,34 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
  * @author _tomciaaa_
- * 
  */
-public class StrSiegeAssault implements ISkillHandler
+public final class StrSiegeAssault implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.STRSIEGEASSAULT };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.STRSIEGEASSAULT };
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
-
-		L2PcInstance player = (L2PcInstance) activeChar;
-
+		
+		L2PcInstance player = (L2PcInstance)activeChar;
+		
 		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) || FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
 		{
-			//TODO: damage calculation below is crap - needs rewrite
-			for (L2Character target : targets)
-			{
-				if (target == null)
-					continue;
-				
-				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
-				{
-					target.stopFakeDeath(true);
-				}
-				else if (target.isDead())
-					continue;
-
-				boolean dual = activeChar.isUsingDualWeapon();
-				byte shld = Formulas.calcShldUse(activeChar, target, skill);
-				boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
-				boolean soul = (weapon != null && weapon.isSoulshotCharged() && weapon.getItemType() != L2WeaponType.DAGGER);
-
-				int damage = (int) Formulas.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
-				
-				if (crit)
-					damage *= 2;
-
-				if (damage > 0)
-				{
-					target.reduceCurrentHp(damage, activeChar, skill);
-					if (soul && weapon != null)
-						weapon.useSoulshotCharge();
-					activeChar.sendDamageMessage(target, damage, false, false, false);
-				}
-				else
-					activeChar.sendMessage(skill.getName() + " failed.");
-			}
+			SkillHandler.getInstance().useSkill(L2SkillType.PDAM, activeChar, skill, targets);
 		}
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
