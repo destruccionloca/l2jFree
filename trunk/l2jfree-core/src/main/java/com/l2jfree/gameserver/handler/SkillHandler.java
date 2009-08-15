@@ -182,6 +182,26 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 			skill.useSkill(cubic.getOwner(), targets);
 	}
 	
+	public boolean checkConditions(L2Character activeChar, L2Skill skill)
+	{
+		final ISkillHandler handler = get(skill.getSkillType());
+		
+		if (handler instanceof ISkillConditionChecker)
+			return ((ISkillConditionChecker)handler).checkConditions(activeChar, skill);
+		
+		return true;
+	}
+	
+	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
+	{
+		final ISkillHandler handler = get(skill.getSkillType());
+		
+		if (handler instanceof ISkillConditionChecker)
+			return ((ISkillConditionChecker)handler).checkConditions(activeChar, skill, target);
+		
+		return true;
+	}
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -26,9 +26,23 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 /**
  * @author _tomciaaa_
  */
-public final class StrSiegeAssault implements ISkillHandler
+public final class StrSiegeAssault extends ISkillConditionChecker
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.STRSIEGEASSAULT };
+	
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill)
+	{
+		if (!(activeChar instanceof L2PcInstance))
+			return false;
+		
+		final L2PcInstance player = (L2PcInstance) activeChar;
+		
+		if (!SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false) && !FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
+			return false;
+		
+		return super.checkConditions(activeChar, skill);
+	}
 	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{

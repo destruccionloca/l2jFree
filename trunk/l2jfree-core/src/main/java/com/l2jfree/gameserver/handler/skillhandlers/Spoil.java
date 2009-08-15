@@ -15,9 +15,10 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.ai.CtrlEvent;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -28,11 +29,24 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 /**
  * @author _drunk_
  */
-public class Spoil implements ISkillHandler
+public class Spoil extends ISkillConditionChecker
 {
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SPOIL };
 
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
+	{
+		if (!(target instanceof L2MonsterInstance) && !(target instanceof L2ChestInstance))
+		{
+			// Send a System Message to the L2PcInstance
+			activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+			return false;
+		}
+		
+		return super.checkConditions(activeChar, skill, target);
+	}
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))

@@ -14,8 +14,9 @@
  */
 package com.l2jfree.gameserver.handler.skillhandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
@@ -26,10 +27,31 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
-public class Recall implements ISkillHandler
+public class Recall extends ISkillConditionChecker
 {
 	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.RECALL, L2SkillType.TELEPORT };
 
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill)
+	{
+		if (activeChar instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance)activeChar;
+			
+			// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
+			if (skill.getSkillType() == L2SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && player.getKarma() > 0)
+			{
+				player.sendMessage("You can't teleport with karma!");
+				return false;
+			}
+			
+			if (!player.canTeleport(player.hasSkill(skill.getId()) ? TeleportMode.RECALL : TeleportMode.SCROLL_OF_ESCAPE, true))
+				return false;
+		}
+		
+		return super.checkConditions(activeChar, skill);
+	}
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		// TODO: REMOVE FROM HERE

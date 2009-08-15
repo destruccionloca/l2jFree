@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -31,10 +31,39 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 /**
  * @author _drunk_
  */
-public class Sweep implements ISkillHandler
+public class Sweep extends ISkillConditionChecker
 {
 	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.SWEEP };
 
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
+	{
+		// Check if the skill is Sweep type and if conditions not apply
+		if (target instanceof L2Attackable)
+		{
+			int spoilerId = ((L2Attackable)target).getIsSpoiledBy();
+			
+			if (((L2Attackable)target).isDead())
+			{
+				if (!((L2Attackable)target).isSpoil())
+				{
+					// Send a System Message to the L2PcInstance
+					activeChar.sendPacket(SystemMessageId.SWEEPER_FAILED_TARGET_NOT_SPOILED);
+					return false;
+				}
+				
+				if (activeChar.getObjectId() != spoilerId && !((L2PcInstance)activeChar).isInLooterParty(spoilerId))
+				{
+					// Send a System Message to the L2PcInstance
+					activeChar.sendPacket(SystemMessageId.SWEEP_NOT_ALLOWED);
+					return false;
+				}
+			}
+		}
+		
+		return super.checkConditions(activeChar, skill, target);
+	}
+	
 	public void useSkill(L2Character activeChar, L2Skill tmpSkill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))

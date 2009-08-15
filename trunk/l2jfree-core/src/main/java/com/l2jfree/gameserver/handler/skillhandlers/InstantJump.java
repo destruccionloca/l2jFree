@@ -15,10 +15,11 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.handler.ISkillConditionChecker;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.FlyToLocation;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -33,13 +34,39 @@ import com.l2jfree.gameserver.util.Util;
  * @author Didldak
  * Some parts taken from EffectWarp, which cannot be used for this case.
  */
-public class InstantJump implements ISkillHandler
+public class InstantJump extends ISkillConditionChecker
 {
 	private static final L2SkillType[] SKILL_IDS =
 	{
 		L2SkillType.INSTANT_JUMP
 	};
-
+	
+	@Override
+	public boolean checkConditions(L2Character activeChar, L2Skill skill)
+	{
+		// You cannot jump while rooted right ;)
+		if (activeChar.isRooted())
+		{
+			if (activeChar instanceof L2PcInstance)
+			{
+				// Sends message that skill cannot be used...
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+				sm.addSkillName(skill);
+				((L2PcInstance)activeChar).sendPacket(sm);
+			}
+			return false;
+		}
+		
+		// And this skill cannot be used in peace zone, not even on NPCs!
+		if (activeChar.isInsideZone(L2Zone.FLAG_PEACE))
+		{
+			activeChar.sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
+			return false;
+		}
+		
+		return super.checkConditions(activeChar, skill);
+	}
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (targets.length == 0 || targets[0] == null)

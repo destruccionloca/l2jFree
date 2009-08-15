@@ -75,6 +75,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.ItemHandler;
+import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
 import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
@@ -8143,10 +8144,8 @@ public final class L2PcInstance extends L2Playable
 
 		// Abnormal effects(ex : Stun, Sleep...) are checked in L2Character useMagic()
 
-		// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
-		if (skill.getSkillType() == L2SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && getKarma() > 0)
+		if (!SkillHandler.getInstance().checkConditions(this, skill))
 		{
-			sendMessage("You can't teleport with karma!");
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
@@ -8173,7 +8172,7 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(SystemMessageId.ONLY_FISHING_SKILLS_NOW);
 			return false;
 		}
-
+		
 		if (inObserverMode())
 		{
 			sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
@@ -8358,15 +8357,6 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 
-		//************************************* Check Player State *******************************************
-
-		if (isFishing() && (sklType != L2SkillType.PUMPING && sklType != L2SkillType.REELING && sklType != L2SkillType.FISHING))
-		{
-			// Only fishing skills are available
-			sendPacket(SystemMessageId.ONLY_FISHING_SKILLS_NOW);
-			return false;
-		}
-
 		//************************************* Check Skill Type *******************************************
 
 		// Check if this is offensive magic skill
@@ -8449,32 +8439,6 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 
-		if (skill.getSkillType() == L2SkillType.INSTANT_JUMP)
-		{
-			// You cannot jump while rooted right ;)
-			if (isRooted())
-			{
-				// Sends message that skill cannot be used...
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addSkillName(skill.getId());
-				sendPacket(sm);
-				
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
-			// And this skill cannot be used in peace zone, not even on NPCs!
-			if (isInsideZone(L2Zone.FLAG_PEACE))
-			{
-				// Sends a sys msg to client
-				sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
-				
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
-		}
-
 		// Check if the skill is defensive
 		if (!skill.isOffensive() && target instanceof L2MonsterInstance && !forceUse && !skill.isNeutral())
 		{
@@ -8510,64 +8474,13 @@ public final class L2PcInstance extends L2Playable
 				}
 			}
 		}
-
-		// Check if the skill is Spoil type and if the target isn't already spoiled
-		if (sklType == L2SkillType.SPOIL)
+		
+		if (!SkillHandler.getInstance().checkConditions(this, skill, L2Object.getActingCharacter(target)))
 		{
-			if (!(target instanceof L2MonsterInstance) && !(target instanceof L2ChestInstance))
-			{
-				// Send a System Message to the L2PcInstance
-				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
 		}
-
-		// Check if the skill is Sweep type and if conditions not apply
-		if (sklType == L2SkillType.SWEEP && target instanceof L2Attackable)
-		{
-			int spoilerId = ((L2Attackable) target).getIsSpoiledBy();
-
-			if (((L2Attackable) target).isDead())
-			{
-				if (!((L2Attackable) target).isSpoil())
-				{
-					// Send a System Message to the L2PcInstance
-					sendPacket(SystemMessageId.SWEEPER_FAILED_TARGET_NOT_SPOILED);
-
-					// Send a Server->Client packet ActionFailed to the L2PcInstance
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return false;
-				}
-
-				if (getObjectId() != spoilerId && !isInLooterParty(spoilerId))
-				{
-					// Send a System Message to the L2PcInstance
-					sendPacket(SystemMessageId.SWEEP_NOT_ALLOWED);
-
-					// Send a Server->Client packet ActionFailed to the L2PcInstance
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return false;
-				}
-			}
-		}
-
-		// Check if the skill is Drain Soul (Soul Crystals) and if the target is a MOB
-		if (sklType == L2SkillType.DRAIN_SOUL)
-		{
-			if (!(target instanceof L2MonsterInstance))
-			{
-				// Send a System Message to the L2PcInstance
-				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-
-				// Send a Server->Client packet ActionFailed to the L2PcInstance
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return false;
-			}
-		}
-
+		
 		// Check if this is a Pvp skill and target isn't a non-flagged/non-karma player
 		switch (sklTargetType)
 		{
@@ -8596,9 +8509,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this, false)))
-			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false, skill, getTarget()))
-			|| (sklType == L2SkillType.SIEGEFLAG && (!SiegeManager.checkIfOkToPlaceFlag(this, false) && !FortSiegeManager.checkIfOkToPlaceFlag(this, false)))
-			|| (sklType == L2SkillType.STRSIEGEASSAULT && (!SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false) && !FortSiegeManager.checkIfOkToUseStriderSiegeAssault(this, false))))
+			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false, skill, getTarget())))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			abortCast();
