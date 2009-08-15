@@ -10,8 +10,8 @@ KISS_OF_EVA = [1073,3141,3252]
 BOX = 32342
 REWARDS = [9692,9693]
 
-def dropItem(npc,itemId,count):
-	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
+def dropItem(npc,itemId,count,player):
+	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ()); 
 
 class evabox(JQuest):
@@ -26,7 +26,7 @@ class evabox(JQuest):
 				found = True
 		if found:
 			dropid = Rnd.get(len(REWARDS))
-			dropItem(npc,REWARDS[dropid],1)
+			dropItem(npc,REWARDS[dropid],1,player)
 		return
 
 QUEST = evabox(-1, "evabox", "ai")

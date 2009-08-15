@@ -22,7 +22,7 @@ class Chimera(JQuest):
 	def onKill (self,npc,player,isPet):
 		item = player.getInventory().getItemByItemId(9672)
 		if item:
-			dropItem(player,npc,reward,QUEST_RATE)
+			dropItem(player,npc,reward,QUEST_RATE,player)
 		return
 	
 QUEST = Chimera(-1, "Chimera", "ai")

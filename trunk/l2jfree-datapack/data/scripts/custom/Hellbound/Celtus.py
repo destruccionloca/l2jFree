@@ -27,7 +27,7 @@ class Celtus(JQuest):
 		item = player.getInventory().getItemByItemId(9672)
 		if item:
 			dropid = Rnd.get(len(rewards))
-			dropItem(npc,player,rewards[dropid],QUEST_RATE)
+			dropItem(npc,player,rewards[dropid],QUEST_RATE,player)
 		return
 		
 QUEST = Celtus(-1, "Celtus", "ai")

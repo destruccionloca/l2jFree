@@ -9,8 +9,8 @@ from com.l2jfree.gameserver.datatables import ItemTable
 
 BOX = 29116
 
-def dropItem(npc,itemId,count):
-	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
+def dropItem(npc,itemId,count,player):
+	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ()); 
 
 class baylorChest(JQuest):
@@ -21,11 +21,11 @@ class baylorChest(JQuest):
 	def onKill (self,npc,player,isPet):
 		chance = Rnd.get(100)
 		if chance <= 1:
-			dropItem(npc,9470,1)
+			dropItem(npc,9470,1,player)
 		elif chance >= 2 and chance <= 32:
-			dropItem(npc,6578,2)
+			dropItem(npc,6578,2,player)
 		else:
-			dropItem(npc,6704,10)
+			dropItem(npc,6704,10,player)
 		return
 
 QUEST = baylorChest(-1, "baylorChest", "ai")

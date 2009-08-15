@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "instances.dtd">
 <instance name="HellboundTown">
-  <activityTime val="60"/>
+  <activityTime val="30"/>
   <timeDelay val="24"/>
   <allowSummon val="false"/>
   <returnteleport x="13725" y="255403" z="-2023"/>

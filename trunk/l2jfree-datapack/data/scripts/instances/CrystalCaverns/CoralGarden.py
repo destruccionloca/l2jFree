@@ -36,8 +36,8 @@ def openDoor(doorId,instanceId):
 		if door.getDoorId() == doorId:
 			door.openMe()
 
-def dropItem(npc,itemId,count):
-	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
+def dropItem(npc,itemId,count,player):
+	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ());
 
 def checkKillProgress(npc,room):
@@ -264,7 +264,7 @@ class CoralGarden(JQuest):
 			elif world.status == 1:
 				npcId = npc.getNpcId()
 				if npcId == TEARS:
-					dropItem(npc,CLEAR_CRYSTAL,1)
+					dropItem(npc,CLEAR_CRYSTAL,1,player)
 		return
 
 QUEST = CoralGarden(-1, qn, "CoralGarden")

@@ -85,8 +85,8 @@ def openDoor(doorId,instanceId):
 		if door.getDoorId() == doorId:
 			door.openMe()
 
-def dropItem(npc,itemId,count):
-	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, None)
+def dropItem(npc,itemId,count,player):
+	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
 	ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ())
 
 def checkCondition(player):
@@ -650,12 +650,12 @@ class EmeraldSteam(JQuest):
 				if npcId == GK1:
 					for mob in world.keyKeepers.npclist: 
 						mob.decayMe()
-					dropItem(npc,9698,1)
+					dropItem(npc,9698,1,player)
 					runEmerald(self,world)
 				elif npcId == GK2:
 					for mob in world.keyKeepers.npclist: 
 						mob.decayMe()
-					dropItem(npc,9699,1)
+					dropItem(npc,9699,1,player)
 					runSteamRoom1(self,world)
 			elif world.status == 1:
 				if checkKillProgress(npc,world.emeraldRoom):
@@ -721,9 +721,9 @@ class EmeraldSteam(JQuest):
 						runDarnel(self,world)
 			if world.status == 7 or world.status == 24:
 				if npcId == DARNEL:
-					dropItem(npc,BLUE_CRYSTAL,1)
+					dropItem(npc,BLUE_CRYSTAL,1,player)
 				elif npcId == KECHI:
-					dropItem(npc,RED_CRYSTAL,1)
+					dropItem(npc,RED_CRYSTAL,1,player)
 		return
 
 QUEST = EmeraldSteam(-1, qn, "EmeraldSteam")
