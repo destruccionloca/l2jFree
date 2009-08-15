@@ -1384,9 +1384,9 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                 doTeleport(player, whereTo);
                 return;
             }
+            else
+                super.onBypassFeedback(player, command);
         }
-        else
-            super.onBypassFeedback(player, command);
     }
 
     /**
