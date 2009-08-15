@@ -78,7 +78,6 @@ def teleportplayer(self,player,teleto):
 		pet.teleToLocation(teleto.x, teleto.y, teleto.z)
 	return
 
-
 def enterInstance(self,player,template,teleto):
 	instanceId = 0
 	if not checkCondition(player):
@@ -109,20 +108,17 @@ def enterInstance(self,player,template,teleto):
 		teleportplayer(self,player,teleto)
 		return instanceId
 	else:
-		item = player.getInventory().getItemByItemId(9851)
-		if item:
-			player.destroyItemByItemId("Quest", 9714, 1, player, True)
-			instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
-			if not self.worlds.has_key(instanceId):
-				world = PyObject()			
-				world.rewarded=[]
-				world.instanceId = instanceId
-				self.worlds[instanceId]=world
-				self.world_ids.append(instanceId)
-				print "HellboundTown: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName()) 
-			# teleports player
-			teleto.instanceId = instanceId
-			teleportplayer(self,player,teleto)
+		instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
+		if not self.worlds.has_key(instanceId):
+			world = PyObject()			
+			world.rewarded=[]
+			world.instanceId = instanceId
+			self.worlds[instanceId]=world
+			self.world_ids.append(instanceId)
+			print "HellboundTown: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName()) 
+		# teleports player
+		teleto.instanceId = instanceId
+		teleportplayer(self,player,teleto)
 		return instanceId
 	return instanceId
 	
@@ -215,9 +211,7 @@ class HellboundTown(JQuest):
 QUEST = HellboundTown(-1, qn, "HBT")
 QUEST.addStartNpc(KANAF)
 QUEST.addStartNpc(PRISONER)
-
 QUEST.addTalkId(KANAF)
 QUEST.addTalkId(PRISONER)
-
 QUEST.addKillId(AMASKARI)
 QUEST.addKillId(KEYMASTER)
