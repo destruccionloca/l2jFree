@@ -72,13 +72,13 @@ public final class L2World
 	}
 	
 	/** all visible objects */
-	private final L2EntityMap<L2Object> _objects = new L2ReadWriteEntityMap<L2Object>();
+	private final L2EntityMap<L2Object> _objects = new L2ReadWriteEntityMap<L2Object>(50000);
 	
 	/** all the players in game */
-	private final Map<String, L2PcInstance> _players = new FastMap<String, L2PcInstance>().setShared(true);
+	private final Map<String, L2PcInstance> _players = new FastMap<String, L2PcInstance>(1000).setShared(true);
 	
 	/** pets and their owner id */
-	private final Map<Integer, L2PetInstance> _pets = new FastMap<Integer, L2PetInstance>().setShared(true);
+	private final Map<Integer, L2PetInstance> _pets = new FastMap<Integer, L2PetInstance>(100).setShared(true);
 	
 	private final L2WorldRegion[][] _worldRegions = new L2WorldRegion[REGIONS_X + 1][REGIONS_Y + 1];
 	

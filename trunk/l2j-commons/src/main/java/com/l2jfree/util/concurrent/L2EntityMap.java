@@ -17,24 +17,52 @@ package com.l2jfree.util.concurrent;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 import javolution.util.FastCollection;
+import javolution.util.FastMap;
 import javolution.util.FastCollection.Record;
 
 import com.l2jfree.lang.L2Entity;
-import com.l2jfree.util.SingletonMap;
+import com.l2jfree.util.L2Collections;
 
 /**
  * @author NB4L1
  */
 public abstract class L2EntityMap<T extends L2Entity<Integer>>
 {
-	private final SingletonMap<Integer, T> _map = new SingletonMap<Integer, T>();
+	private final int _initialSize;
+	
+	private boolean _initialized = false;
+	private Map<Integer, T> _map = L2Collections.emptyMap();
+	
+	private void init()
+	{
+		if (!_initialized)
+		{
+			synchronized (this)
+			{
+				if (!_initialized)
+				{
+					if (_initialSize < 0)
+						_map = new FastMap<Integer, T>().setShared(this instanceof L2SharedEntityMap<?>);
+					else
+						_map = new FastMap<Integer, T>(_initialSize).setShared(this instanceof L2SharedEntityMap<?>);
+					
+					_initialized = true;
+				}
+			}
+		}
+	}
 	
 	protected L2EntityMap()
 	{
-		if (this instanceof L2SharedEntityMap<?>)
-			_map.setShared();
+		this(-1);
+	}
+	
+	protected L2EntityMap(int initialSize)
+	{
+		_initialSize = initialSize;
 	}
 	
 	public int size()
@@ -59,6 +87,8 @@ public abstract class L2EntityMap<T extends L2Entity<Integer>>
 	
 	public void add(T obj)
 	{
+		init();
+		
 		_map.put(obj.getPrimaryKey(), obj);
 	}
 	

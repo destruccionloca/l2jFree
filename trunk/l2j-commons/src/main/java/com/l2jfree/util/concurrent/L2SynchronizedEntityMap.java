@@ -21,6 +21,16 @@ import com.l2jfree.lang.L2Entity;
  */
 public final class L2SynchronizedEntityMap<T extends L2Entity<Integer>> extends L2EntityMap<T>
 {
+	public L2SynchronizedEntityMap()
+	{
+		super();
+	}
+	
+	public L2SynchronizedEntityMap(int initialSize)
+	{
+		super(initialSize);
+	}
+	
 	@Override
 	public synchronized int size()
 	{

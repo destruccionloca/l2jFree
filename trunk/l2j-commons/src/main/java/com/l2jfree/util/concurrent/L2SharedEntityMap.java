@@ -23,6 +23,16 @@ import com.l2jfree.lang.L2Entity;
  */
 public final class L2SharedEntityMap<T extends L2Entity<Integer>> extends L2EntityMap<T> implements Iterable<T>, ForEachExecutor<T>
 {
+	public L2SharedEntityMap()
+	{
+		super();
+	}
+	
+	public L2SharedEntityMap(int initialSize)
+	{
+		super(initialSize);
+	}
+	
 	@Override
 	public Iterator<T> iterator()
 	{

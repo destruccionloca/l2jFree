@@ -27,6 +27,16 @@ public final class L2ReadWriteEntityMap<T extends L2Entity<Integer>> extends L2E
 	private final ReentrantReadWriteLock.ReadLock _read = _lock.readLock();
 	private final ReentrantReadWriteLock.WriteLock _write = _lock.writeLock();
 	
+	public L2ReadWriteEntityMap()
+	{
+		super();
+	}
+	
+	public L2ReadWriteEntityMap(int initialSize)
+	{
+		super(initialSize);
+	}
+	
 	@Override
 	public int size()
 	{
