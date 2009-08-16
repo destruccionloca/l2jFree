@@ -17,14 +17,19 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.TradeListTable;
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TradeList;
+import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.BuyList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -36,7 +41,88 @@ public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merc
 	{
 		super(objectId, template, owner, skill);
 	}
+	
+    @Override
+    public boolean hasAI()
+    {
+    	return false;
+    }
 
+    @Override
+    public L2CharacterAI getAI()
+    {
+    	return null;
+    }
+
+    @Override
+    public void deleteMe(L2PcInstance owner)
+    {
+
+    }
+
+    @Override
+    public void unSummon(L2PcInstance owner)
+    {
+    	if (isVisible())
+    	{
+			stopAllEffects();
+	        L2WorldRegion oldRegion = getWorldRegion();
+		    decayMe();
+		    if (oldRegion != null) oldRegion.removeFromZones(this);
+            getKnownList().removeAllKnownObjects();
+	        setTarget(null);
+	        SQLQueue.getInstance().run();
+    	}
+    }
+
+    @Override
+    public void setFollowStatus(boolean state)
+    {
+    	
+    }
+    
+	@Override
+	public boolean isAutoAttackable(L2Character attacker)
+    {
+		return false;
+    }
+
+    @Override
+    public boolean isInvul()
+    {
+    	return true;
+    }
+
+    @Override
+    public L2Party getParty()
+    {
+    	return null;
+    }
+
+    @Override
+    public boolean isInParty()
+    {
+    	return false;
+    }
+
+    @Override
+    public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
+    {
+
+    }
+
+    @Override
+    public void doCast(L2Skill skill)
+    {
+
+    }
+
+    @Override
+    public boolean isInCombat()
+    {
+    	return false;
+    }
+	
 	@Override
 	public void onAction(L2PcInstance player)
 	{

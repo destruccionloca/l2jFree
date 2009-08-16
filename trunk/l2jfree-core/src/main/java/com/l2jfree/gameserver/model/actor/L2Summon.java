@@ -159,9 +159,6 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public L2CharacterAI getAI()
 	{
-		if (this instanceof L2MerchantSummonInstance)
-			return null;
-
 		L2CharacterAI ai = _ai; // copy handle
 		if (ai == null)
 		{
@@ -375,9 +372,6 @@ public abstract class L2Summon extends L2Playable
 
 	public void deleteMe(L2PcInstance owner)
 	{
-		if (this instanceof L2MerchantSummonInstance)
-			return;
-
 		getAI().stopFollow();
 		owner.sendPacket(new PetDelete(getObjectId(), 2));
 		L2Party party = owner.getParty();
@@ -411,25 +405,21 @@ public abstract class L2Summon extends L2Playable
 	
 	public void unSummon(L2PcInstance owner)
 	{
-		if (isVisible())
+		if (isVisible() && !isDead())
 		{
-			if (!(this instanceof L2MerchantSummonInstance))
-			{
-				getAI().stopFollow();
-				owner.sendPacket(new PetDelete(getObjectId(), 2));
-				L2Party party;
-				if ((party = owner.getParty()) != null)
-				{
-					party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
-				}
-				
-				store();
-				giveAllToOwner();
-				SQLQueue.getInstance().run();
-				owner.setPet(null);
-			}
+			getAI().stopFollow();
+	        owner.sendPacket(new PetDelete(getObjectId(), 2));
+            L2Party party;
+            if ((party = owner.getParty()) != null)
+            {
+                party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
+            }
+            
+	        store();
+	        giveAllToOwner();
+	        owner.setPet(null);
 
-			stopAllEffects();
+	        stopAllEffects();
 
 			L2WorldRegion oldRegion = getWorldRegion();
 			decayMe();
@@ -810,14 +800,6 @@ public abstract class L2Summon extends L2Playable
 		return isConfused() || isAfraid() || isBetrayed();
 	}
 
-	/**
-	 * Servitors' skills automatically change their level based on the servitor's level.
-	 * Until level 70, the servitor gets 1 lv of skill per 10 levels. After that, it is 1
-	 * skill level per 5 servitor levels.  If the resulting skill level doesn't exist use
-	 * the max that does exist!
-	 * 
-	 * @see com.l2jfree.gameserver.model.actor.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)
-	 */
 	@Override
 	public void doCast(L2Skill skill)
 	{
@@ -837,23 +819,6 @@ public abstract class L2Summon extends L2Playable
 
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
-		}
-		else
-		{
-			int petLevel = getLevel();
-			int skillLevel = petLevel / 10;
-			if (petLevel >= 70)
-				skillLevel += (petLevel - 65) / 10;
-
-			// adjust the level for servitors less than lv 10
-			if (skillLevel < 1)
-				skillLevel = 1;
-
-			L2Skill skillToCast = SkillTable.getInstance().getInfo(skill.getId(), skillLevel);
-			if (skillToCast != null)
-				super.doCast(skillToCast);
-			else
-				super.doCast(skill);
 		}
 	}
 

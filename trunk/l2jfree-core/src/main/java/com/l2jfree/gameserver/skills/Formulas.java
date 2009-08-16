@@ -1640,7 +1640,13 @@ public final class Formulas
 			}
 		}
 		else if (mcrit)
-			damage *= Config.ALT_MCRIT_RATE;
+		{
+			if (attacker instanceof L2PcInstance && target instanceof L2PcInstance)
+				damage *= Config.ALT_MCRIT_PVP_RATE;
+			else
+				damage *= Config.ALT_MCRIT_RATE;
+		}
+			
 		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
 		
 		//random magic damage
