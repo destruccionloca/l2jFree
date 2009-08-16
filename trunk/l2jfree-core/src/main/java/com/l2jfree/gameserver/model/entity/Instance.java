@@ -16,12 +16,14 @@ package com.l2jfree.gameserver.model.entity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import javolution.util.FastList;
-import javolution.util.FastSet;
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,6 +49,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * @author evill33t
@@ -61,9 +64,9 @@ public class Instance
 	private int							_tpy;
 	private int							_tpz;
 	private String						_name;
-	private final FastSet<Integer>			_players			= new FastSet<Integer>();
-	private final FastList<L2Npc>				_npcs				= new FastList<L2Npc>();
-	private final FastList<L2DoorInstance>	_doors				= new FastList<L2DoorInstance>();
+	private final Set<Integer> _players = new L2FastSet<Integer>().setShared(true);
+	private final Set<L2Npc> _npcs = new L2FastSet<L2Npc>().setShared(true);
+	private final Map<Integer, L2DoorInstance> _doors = new FastMap<Integer, L2DoorInstance>().setShared(true);
 	private int[]						_spawnLoc;
 	private boolean						_allowSummon		= true;
 	private boolean						_isPvPInstance		= false;
@@ -149,15 +152,12 @@ public class Instance
 
 	public void addPlayer(int objectId)
 	{
-		if (!_players.contains(objectId))
-			_players.add(objectId);
+		_players.add(objectId);
 	}
 
 	public void removePlayer(int objectId)
 	{
-		if (_players.contains(objectId))
-			_players.remove(objectId);
-		if (_players.isEmpty() && _emptyDestroyTime >= 0)
+		if (_players.remove(objectId) && _players.isEmpty() && _emptyDestroyTime >= 0)
 		{
 			_lastLeft = System.currentTimeMillis();
 			setDuration((int) (_instanceEndTime - System.currentTimeMillis() - 1000));
@@ -183,14 +183,14 @@ public class Instance
 		_npcs.add(npc);
 	}
 
-	public void removeNpc(L2Spawn spawn)
+	public void removeNpc(L2Npc npc)
 	{
-		_npcs.remove(spawn);
+		_npcs.remove(npc);
 	}
 
 	public void removeDoor(L2DoorInstance door)
 	{
-		_doors.remove(door);
+		_doors.remove(door.getDoorId());
 	}
 
 	/**
@@ -200,13 +200,10 @@ public class Instance
 	 */
 	public void addDoor(int doorId, boolean open)
 	{
-		for (L2DoorInstance door: _doors)
+		if (_doors.containsKey(doorId))
 		{
-			if (door.getDoorId() == doorId)
-			{
-				_log.warn("Door ID " + doorId + " already exists in instance " + getId());
-				return;
-			}
+			_log.warn("Door ID " + doorId + " already exists in instance " + getId());
+			return;
 		}
 		
 		L2DoorInstance temp = DoorTable.getInstance().getDoor(doorId);
@@ -226,32 +223,27 @@ public class Instance
 		newdoor.getPosition().setXYZInvisible(temp.getX(), temp.getY(), temp.getZ());
 		newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
 
-		_doors.add(newdoor);
+		_doors.put(newdoor.getDoorId(), newdoor);
 	}
 
-	public FastSet<Integer> getPlayers()
+	public Set<Integer> getPlayers()
 	{
 		return _players;
 	}
 
-	public FastList<L2Npc> getNpcs()
+	public Set<L2Npc> getNpcs()
 	{
 		return _npcs;
 	}
 
-	public FastList<L2DoorInstance> getDoors()
+	public Collection<L2DoorInstance> getDoors()
 	{
-		return _doors;
+		return _doors.values();
 	}
 
-	public L2DoorInstance getDoor(int id)
+	public L2DoorInstance getDoor(int doorId)
 	{
-		for (L2DoorInstance temp: getDoors())
-		{
-			if (temp.getDoorId() == id)
-				return temp;
-		}
-		return null;
+		return _doors.get(doorId);
 	}
 
 	/**
@@ -283,13 +275,12 @@ public class Instance
 				mob.deleteMe();
 			}
 		}
-		_doors.clear();
 		_npcs.clear();
 	}
 
 	public void removeDoors()
 	{
-		for (L2DoorInstance door: _doors)
+		for (L2DoorInstance door: _doors.values())
 		{
 			if (door != null)
 				door.decayMe();

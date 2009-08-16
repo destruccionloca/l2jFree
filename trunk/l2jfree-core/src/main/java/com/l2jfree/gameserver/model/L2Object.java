@@ -466,7 +466,7 @@ public abstract class L2Object implements L2Entity<Integer>
 				{
 					inst = InstanceManager.getInstance().getInstance(_instanceId);
 					if (inst != null)
-						inst.removeNpc(((L2Npc)this).getSpawn());
+						inst.removeNpc((L2Npc)this);
 				}
 				if (instanceId > 0)
 				{
