@@ -14241,13 +14241,13 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (!teleportBookmarkCondition(0))
 			return;
-		if (getInventory().getInventoryItemCount(13016, 0) == 0)
+		if (getInventory().getInventoryItemCount(20025, 0) == 0)
 		{
 			sendPacket(new SystemMessage(2359));
 			return;
 		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-		sm.addItemName(13016);
+		sm.addItemName(20025);
 		sendPacket(sm);
 
 		int count = 0;
@@ -14256,7 +14256,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			if (tpbookmark.get(count)._id==Id)
 			{
-				destroyItem("Consume", getInventory().getItemByItemId(13016).getObjectId(), 1, null, false);
+				destroyItem("Consume", getInventory().getItemByItemId(20025).getObjectId(), 1, null, false);
 				teleToLocation(tpbookmark.get(count)._x, tpbookmark.get(count)._y, tpbookmark.get(count)._z);
 				break;
 			}
