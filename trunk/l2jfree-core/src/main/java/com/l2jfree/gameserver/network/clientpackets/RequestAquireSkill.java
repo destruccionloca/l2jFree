@@ -72,7 +72,12 @@ public class RequestAquireSkill extends L2GameClientPacket
 		final L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-
+		if (_level < 1 || _level > 1000 || _id < 1 || _id > 32000)
+		{
+			_log.warn("Recived Wrong Packet Data in Aquired Skill - id:" + _id + " level:" + _level);
+			return;
+		}
+		
 		final L2Npc trainer = player.getLastFolkNPC();
 		if (!(trainer instanceof L2NpcInstance))
 		{
