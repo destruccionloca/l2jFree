@@ -116,12 +116,17 @@ public final class SkillTable
 		
 		for (int i = 0; i < highestLevels.length; i++)
 		{
-			_skillTable[i] = new L2Skill[highestLevels[i] + 1];
+			final int highestLevel = highestLevels[i];
+			
+			if (highestLevel < 1)
+				continue;
+			
+			_skillTable[i] = new L2Skill[highestLevel + 1];
 			
 			if (SKILL_INFOS[i] == null)
-				SKILL_INFOS[i] = new SkillInfo[highestLevels[i] + 1];
+				SKILL_INFOS[i] = new SkillInfo[highestLevel + 1];
 			else
-				SKILL_INFOS[i] = Arrays.copyOf(SKILL_INFOS[i], Math.max(SKILL_INFOS[i].length, highestLevels[i] + 1));
+				SKILL_INFOS[i] = Arrays.copyOf(SKILL_INFOS[i], Math.max(SKILL_INFOS[i].length, highestLevel + 1));
 		}
 		
 		for (L2Skill skill : skills)
@@ -180,20 +185,34 @@ public final class SkillTable
 		return skillId * 1023 + skillLevel;
 	}
 	
-	public L2Skill getInfo(int skillId, int level)
+	public L2Skill getInfo(final int skillId, final int level)
 	{
+		// there is no skill with negative level
+		if (level < 0)
+			return null; // TODO: warn
+		
+		// there is no skill at all with that id
 		if (skillId < 0 || _skillTable.length <= skillId)
-			return null;
+			return null; // TODO: warn
 		
-		L2Skill[] array = _skillTable[skillId];
+		final L2Skill[] array = _skillTable[skillId];
 		
+		// there is no skill at all with that id
 		if (array == null)
-			return null;
+			return null; // TODO: warn
 		
-		if (level < 0 || array.length <= level)
-			return null;
+		// skill maybe exists with the given level
+		if (level < array.length)
+		{
+			final L2Skill skill = array[level];
+			
+			// and yes it do exists
+			if (skill != null)
+				return skill;
+		}
 		
-		return array[level];
+		// if not, then skill with max level
+		return array[_maxLevels[skillId]]; // TODO: warn
 	}
 	
 	public SkillInfo getSkillInfo(int skillId, int level)
