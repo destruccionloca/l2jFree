@@ -154,7 +154,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			player.setActiveEnchantAttrItem(null);
 			return;
 		}
-		else if (powerToAdd == 0)
+		else if (powerToAdd <= 0)
 		{
 			requestFailed(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
 			player.setActiveEnchantAttrItem(null);
