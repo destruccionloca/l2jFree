@@ -7912,13 +7912,17 @@ public final class L2PcInstance extends L2Playable
 		if (getKarma() > 0 || getPvpFlag() > 0)
 			return true;
 
+		// Check if the attacker is a L2Playable
+		if (attacker instanceof L2Playable)
+		{
+			// Is AutoAttackable if both playables are in the same duel and the duel is still going on
+			if (getDuelState() == Duel.DUELSTATE_DUELLING && getDuelId() == attacker.getActingPlayer().getDuelId())
+				return true;
+		}
+		
 		// Check if the attacker is a L2PcInstance
 		if (attacker instanceof L2PcInstance)
 		{
-			// Is AutoAttackable if both players are in the same duel and the duel is still going on
-			if (getDuelState() == Duel.DUELSTATE_DUELLING && getDuelId() == ((L2PcInstance) attacker).getDuelId())
-				return true;
-
 			// Check if the L2PcInstance is in an arena or a siege area
 			if (isInsideZone(L2Zone.FLAG_PVP) && attacker.isInsideZone(L2Zone.FLAG_PVP))
 				return true;
@@ -7966,7 +7970,7 @@ public final class L2PcInstance extends L2Playable
 				return (siege != null && siege.checkIsAttacker(getClan()));
 			}
 		}
-
+		
 		return false;
 	}
 
@@ -8276,7 +8280,7 @@ public final class L2PcInstance extends L2Playable
 		// Are the target and the player in the same duel?
 		if (isInDuel())
 		{
-			if (!(target instanceof L2PcInstance && ((L2PcInstance) target).getDuelId() == getDuelId()))
+			if (!(target instanceof L2Playable && target.getActingPlayer().getDuelId() == getDuelId()))
 			{
 				sendMessage("You cannot do this while duelling.");
 				sendPacket(ActionFailed.STATIC_PACKET);

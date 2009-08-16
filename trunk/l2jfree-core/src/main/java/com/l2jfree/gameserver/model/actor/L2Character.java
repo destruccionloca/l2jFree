@@ -6176,7 +6176,7 @@ public abstract class L2Character extends L2Object
 						newTarget = originalTarget;
 					
 				if (//As far as I remember, you can move away after launching a skill without hitting
-					getAI().getIntention() != AI_INTENTION_MOVE_TO
+					getAI().getIntention() != AI_INTENTION_MOVE_TO && getAI().getNextIntention() == null
 					//And you will not auto-attack a non-flagged player after launching a skill
 					&& newTarget != null && newTarget.isAutoAttackable(this))
 					{
