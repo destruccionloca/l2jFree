@@ -303,6 +303,9 @@ public class Config extends L2Config
 	public static int				KNIGHT_UNIT_COST;
 	public static int				KNIGHT_REINFORCE_COST;
 	public static int				BALLISTA_POINTS;
+	public static int				BLOODALLIANCE_POINTS;
+	public static int				BLOODOATH_POINTS;
+	public static int				KNIGHTSEPAULETTE_POINTS;	
 	public static int				REPUTATION_SCORE_PER_KILL;
 	public static int				JOIN_ACADEMY_MIN_REP_SCORE;
 	public static int				JOIN_ACADEMY_MAX_REP_SCORE;
@@ -367,6 +370,9 @@ public class Config extends L2Config
 			KNIGHT_UNIT_COST			= Integer.parseInt(clansSettings.getProperty("CreateKnightUnitCost", "10000"));
 			KNIGHT_REINFORCE_COST		= Integer.parseInt(clansSettings.getProperty("ReinforceKnightUnitCost", "5000"));
 			BALLISTA_POINTS				= Integer.parseInt(clansSettings.getProperty("KillBallistaPoints", "30"));
+			BLOODALLIANCE_POINTS 		= Integer.parseInt(clansSettings.getProperty("BloodAlliancePoints", "500"));
+			BLOODOATH_POINTS 			= Integer.parseInt(clansSettings.getProperty("BloodOathPoints", "200"));
+			KNIGHTSEPAULETTE_POINTS 	= Integer.parseInt(clansSettings.getProperty("KnightsEpaulettePoints", "20"));
 			REPUTATION_SCORE_PER_KILL	= Integer.parseInt(clansSettings.getProperty("ReputationScorePerKill", "1"));
 			JOIN_ACADEMY_MIN_REP_SCORE	= Integer.parseInt(clansSettings.getProperty("CompleteAcademyMinPoints", "190"));
 			JOIN_ACADEMY_MAX_REP_SCORE	= Integer.parseInt(clansSettings.getProperty("CompleteAcademyMaxPoints", "650"));
