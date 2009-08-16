@@ -202,6 +202,13 @@ public final class GlobalRestrictions
 		if (activeChar == null)
 			return true;
 		
+		// Cannot mess with offline trade
+		if (activeChar.isInOfflineMode()) // trading in offline mode
+		{
+			//no need any message
+			return true;
+		}
+		
 		// Cannot mess with observation
 		if (activeChar.inObserverMode()) // normal/olympiad observing
 		{
