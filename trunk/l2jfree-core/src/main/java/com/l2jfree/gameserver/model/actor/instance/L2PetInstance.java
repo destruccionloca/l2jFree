@@ -309,32 +309,16 @@ public class L2PetInstance extends L2Summon
 			// Check if the pet is attackable (without a forced attack) and isn't dead
 			if (isAutoAttackable(player) && !isOwner)
 			{
-				if (Config.GEO_CHECK_LOS)
+				if (GeoData.getInstance().canSeeTarget(player, this))
 				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
-					{
-						// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
-						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-						player.onActionRequest();
-					}
-				}
-				else
-				{
+					// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 					player.onActionRequest();
 				}
 			}
 			else if (!isInsideRadius(player, 150, false, false))
 			{
-				if (Config.GEO_CHECK_LOS)
-				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
-					{
-						player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-						player.onActionRequest();
-					}
-				}
-				else
+				if (GeoData.getInstance().canSeeTarget(player, this))
 				{
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 					player.onActionRequest();

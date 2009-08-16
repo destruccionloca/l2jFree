@@ -65,7 +65,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		{
 			if (Config.BAN_CLIENT_EMULATORS)
 			{
-				Util.handleIllegalPlayerAction(activeChar,"Bot usage for movement by " + activeChar,IllegalPlayerAction.PUNISH_KICK);
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for movement!", IllegalPlayerAction.PUNISH_KICK);
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -103,7 +103,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 			return;
 		}
 
-		if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
+		if (_moveMovement == 0 && Config.GEODATA == 0) // cursor movement without geodata movement check is disabled
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 		}

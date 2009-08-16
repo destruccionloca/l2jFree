@@ -188,12 +188,9 @@ public class GameServer extends Config
 			DeadlockDetector.getInstance();
 		SQLQueue.getInstance();
 		
-		if (Config.GEODATA > 0)
-		{
-			GeoData.getInstance();
-			if (Config.GEODATA >= 2)
-				PathFinding.getInstance();
-		}
+		GeoData.getInstance();
+		if (Config.GEODATA >= 2)
+			PathFinding.getInstance();
 		
 		StaticObjects.getInstance();
 		GameTimeController.getInstance();

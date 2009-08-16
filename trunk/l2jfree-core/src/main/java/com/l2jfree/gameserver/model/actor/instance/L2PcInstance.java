@@ -3712,15 +3712,7 @@ public final class L2PcInstance extends L2Playable
 					}
 					else
 					{
-						if (Config.GEO_CHECK_LOS)
-						{
-							if (GeoData.getInstance().canSeeTarget(player, this))
-							{
-								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-								player.onActionRequest();
-							}
-						}
-						else
+						if (GeoData.getInstance().canSeeTarget(player, this))
 						{
 							player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 							player.onActionRequest();
@@ -3731,12 +3723,8 @@ public final class L2PcInstance extends L2Playable
 				{
 					// This Action Failed packet avoids player getting stuck when clicking three or more times
 					player.sendPacket(ActionFailed.STATIC_PACKET);
-					if (Config.GEO_CHECK_LOS)
-					{
-						if (GeoData.getInstance().canSeeTarget(player, this))
-							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
-					}
-					else
+					
+					if (GeoData.getInstance().canSeeTarget(player, this))
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 				}
 			}

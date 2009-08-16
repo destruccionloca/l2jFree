@@ -220,15 +220,7 @@ public abstract class L2Summon extends L2Playable
 		{
 			if (isAutoAttackable(player))
 			{
-				if (Config.GEODATA > 0)
-				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
-					{
-						player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-						player.onActionRequest();
-					}
-				}
-				else
+				if (GeoData.getInstance().canSeeTarget(player, this))
 				{
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 					player.onActionRequest();
@@ -238,12 +230,8 @@ public abstract class L2Summon extends L2Playable
 			{
 				// This Action Failed packet avoids player getting stuck when clicking three or more times
 				player.sendPacket(ActionFailed.STATIC_PACKET);
-				if (Config.GEODATA > 0)
-				{
-					if (GeoData.getInstance().canSeeTarget(player, this))
-						player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
-				}
-				else
+				
+				if (GeoData.getInstance().canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 			}
 		}

@@ -228,21 +228,18 @@ public class Config extends L2Config
 	// *******************************************************************************************
 	public static final String	GEO_FILE	= "./config/geodata.properties";
 	// *******************************************************************************************
-	public static int			GEODATA=0;
-    public static boolean		GEODATA_CELLFINDING;
-    public static boolean		FORCE_GEODATA;
-	public static boolean		GEO_CHECK_LOS;									// Enable Line Of Sight check for skills and aggro
-	public static boolean		GEO_MOVE_PC;									// Movement check for playable instances
-	public static boolean		GEO_MOVE_NPC;									// Movement check for NPCs
-
+	public static int			GEODATA;
+	public static boolean		GEODATA_CELLFINDING;
+	public static boolean		FORCE_GEODATA;
+	
 	public static enum CorrectSpawnsZ
 	{
 		TOWN, MONSTER, ALL, NONE
 	}
-
+	
 	public static CorrectSpawnsZ	GEO_CORRECT_Z;			// Enable spawns' z-correction
 	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
-
+	
 	// *******************************************************************************************
 	private static final class GeoConfig extends ConfigLoader
 	{
@@ -255,15 +252,15 @@ public class Config extends L2Config
 		@Override
 		protected void loadImpl(Properties geoSettings) throws Exception
 		{
-            GEODATA										= Integer.parseInt(geoSettings.getProperty("GeoData", "0"));
-            GEODATA_CELLFINDING							= Boolean.parseBoolean(geoSettings.getProperty("CellPathFinding", "False"));
-            FORCE_GEODATA								= Boolean.parseBoolean(geoSettings.getProperty("ForceGeoData", "True"));
-			String correctZ 							= geoSettings.getProperty("GeoCorrectZ", "ALL");
-			GEO_CORRECT_Z 								= CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
-			ACCEPT_GEOEDITOR_CONN 						= Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
+			GEODATA					= Integer.parseInt(geoSettings.getProperty("GeoData", "0"));
+			GEODATA_CELLFINDING		= Boolean.parseBoolean(geoSettings.getProperty("CellPathFinding", "False"));
+			FORCE_GEODATA			= Boolean.parseBoolean(geoSettings.getProperty("ForceGeoData", "True"));
+			String correctZ			= geoSettings.getProperty("GeoCorrectZ", "ALL");
+			GEO_CORRECT_Z			= CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
+			ACCEPT_GEOEDITOR_CONN	= Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
 		}
 	}
-
+	
 	// *******************************************************************************************
 	public static final String	CLANS_FILE	= "./config/clans.properties";
 	// *******************************************************************************************
