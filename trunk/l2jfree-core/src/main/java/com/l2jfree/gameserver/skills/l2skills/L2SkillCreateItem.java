@@ -14,13 +14,9 @@
  */
 package com.l2jfree.gameserver.skills.l2skills;
 
-import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 
@@ -57,35 +53,7 @@ public class L2SkillCreateItem extends L2Skill
 		{
 			int count = _createItemCount + Rnd.nextInt(_randomCount);
 			int rndid = Rnd.nextInt(_createItemId.length);
-			giveItems((L2PcInstance) activeChar, _createItemId[rndid], count);
+			((L2PcInstance)activeChar).addItem("Skill", _createItemId[rndid], count, activeChar, true);
 		}
-	}
-
-	/**
-	 * @param activeChar
-	 * @param itemId
-	 * @param count
-	 */
-	public void giveItems(L2PcInstance activeChar, int itemId, int count)
-	{
-		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
-
-		item.setCount(count);
-		activeChar.getInventory().addItem("Skill", item, activeChar, activeChar);
-
-		if (count > 1)
-		{
-			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-			smsg.addItemName(item);
-			smsg.addNumber(count);
-			activeChar.sendPacket(smsg);
-		}
-		else
-		{
-			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1);
-			smsg.addItemName(item);
-			activeChar.sendPacket(smsg);
-		}
-		activeChar.getInventory().updateInventory(item);
 	}
 }
