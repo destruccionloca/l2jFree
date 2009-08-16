@@ -14,12 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.io.File;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.SevenSigns;
+import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -336,8 +335,7 @@ public class EnterWorld extends L2GameClientPacket
 		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
 		{
 			String Newbie_Path = "data/html/newbie.htm";
-			File mainText = new File(Config.DATAPACK_ROOT, Newbie_Path);
-			if (mainText.exists())
+			if (HtmCache.getInstance().pathExists(Newbie_Path))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Newbie_Path);
@@ -348,8 +346,7 @@ public class EnterWorld extends L2GameClientPacket
 		else if (Config.SHOW_HTML_GM && activeChar.isGM())
 		{
 			String Gm_Path = "data/html/gm.htm";
-			File mainText = new File(Config.DATAPACK_ROOT, Gm_Path); // Return the pathfile of the HTML file
-			if (mainText.exists())
+			if (HtmCache.getInstance().pathExists(Gm_Path))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Gm_Path);
@@ -360,8 +357,7 @@ public class EnterWorld extends L2GameClientPacket
 		else if (Config.SHOW_HTML_WELCOME)
 		{
 			String Welcome_Path = "data/html/welcome.htm";
-			File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path); // Return the pathfile of the HTML file
-			if (mainText.exists())
+			if (HtmCache.getInstance().pathExists(Welcome_Path))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Welcome_Path);
