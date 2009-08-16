@@ -28,7 +28,7 @@ public class L2FortWyvernManagerInstance extends L2WyvernManagerInstance
     }
 
 	@Override
-	protected boolean isOwnerClan(L2PcInstance player)
+	protected final boolean isOwnerClan(L2PcInstance player)
 	{
 		if (player.isGM())
 			return true;

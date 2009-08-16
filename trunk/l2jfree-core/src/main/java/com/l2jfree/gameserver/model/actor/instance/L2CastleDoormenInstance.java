@@ -18,8 +18,6 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2CastleDoormenInstance extends L2DoormenInstance
@@ -30,78 +28,47 @@ public class L2CastleDoormenInstance extends L2DoormenInstance
 	}
 
 	@Override
-	public void onBypassFeedback(L2PcInstance player, String command)
+	protected final void openDoors(L2PcInstance player, String command)
 	{
-		if (command.startsWith("Chat"))
-		{
-			showMessageWindow(player);
-		}
-		else if (command.startsWith("open_doors"))
-		{
-			if (isOwnerClan(player)
-					&& (!getCastle().getSiege().getIsInProgress() || Config.SIEGE_GATE_CONTROL)
-					&& (player.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) == L2Clan.CP_CS_OPEN_DOOR)
-			{
-				StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
-				st.nextToken();
+		StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
+		st.nextToken();
 
-				while (st.hasMoreTokens())
-				{
-					getCastle().openDoor(player, Integer.parseInt(st.nextToken()));
-				}
-			}
-		}
-		else if (command.startsWith("close_doors"))
+		while (st.hasMoreTokens())
 		{
-			if (isOwnerClan(player)
-					&& (player.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) == L2Clan.CP_CS_OPEN_DOOR)
-			{
-				StringTokenizer st = new StringTokenizer(command.substring(11), ", ");
-				st.nextToken();
-
-				while (st.hasMoreTokens())
-				{
-					getCastle().closeDoor(player, Integer.parseInt(st.nextToken()));
-				}
-			}
+			getCastle().openDoor(player, Integer.parseInt(st.nextToken()));
 		}
-		else
-			super.onBypassFeedback(player, command);
 	}
 
 	@Override
-	public void showMessageWindow(L2PcInstance player)
+	protected final void closeDoors(L2PcInstance player, String command)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		StringTokenizer st = new StringTokenizer(command.substring(11), ", ");
+		st.nextToken();
 		
-		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-
-		if (!isOwnerClan(player))
+		while (st.hasMoreTokens())
 		{
-			html.setFile("data/html/doormen/"+ getNpcId() + "-no.htm");
+			getCastle().closeDoor(player, Integer.parseInt(st.nextToken()));
 		}
-		else if (getCastle().getSiege().getIsInProgress())
-		{
-			html.setFile("data/html/doormen/"+ getNpcId() + "-busy.htm");
-		}
-		else
-		{
-			html.setFile("data/html/doormen/"+ getNpcId() + ".htm");
-		}
-
-		html.replace("%objectId%", String.valueOf(getObjectId()));
-		player.sendPacket(html);
 	}
 
-	private final boolean isOwnerClan(L2PcInstance player)
+	@Override
+	protected final boolean isOwnerClan(L2PcInstance player)
 	{
 		if (player.isGM())
 			return true;
 		if (player.getClan() != null && getCastle() != null)
 		{
-			if (player.getClanId() == getCastle().getOwnerId())
+			// player should have privileges to open doors
+			if (player.getClanId() == getCastle().getOwnerId()
+					&& (player.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) == L2Clan.CP_CS_OPEN_DOOR)
 				return true;
 		}
 		return false;
 	}
+	
+	@Override
+	protected final boolean isUnderSiege()
+	{
+		return getCastle().getSiege().getIsInProgress();
+	}	
 }

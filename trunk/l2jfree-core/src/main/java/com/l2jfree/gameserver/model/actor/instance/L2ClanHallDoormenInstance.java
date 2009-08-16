@@ -43,35 +43,9 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (command.startsWith("Chat"))
-		{
-			showMessageWindow(player);
-		}
-		else if (command.startsWith("open_doors"))
+		if (_hasEvolve && command.startsWith("evolve"))
 		{
 			if (isOwnerClan(player))
-			{
-				getClanHall().openCloseDoors(true);
-				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile("data/html/clanHallDoormen/doormen-opened.htm");
-				html.replace("%objectId%", String.valueOf(getObjectId()));
-				player.sendPacket(html);
-			}
-		}
-		else if (command.startsWith("close_doors"))
-		{
-			if (isOwnerClan(player))
-			{
-				getClanHall().openCloseDoors(false);
-				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile("data/html/clanHallDoormen/doormen-closed.htm");
-				html.replace("%objectId%", String.valueOf(getObjectId()));
-				player.sendPacket(html);
-			}
-		}
-		else if (command.startsWith("evolve"))
-		{
-			if (isOwnerClan(player) && _hasEvolve)
 			{
 				StringTokenizer st = new StringTokenizer(command, " ");
 				if (st.countTokens() < 2)
@@ -151,6 +125,26 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 		}
 	}
 
+	@Override
+	protected final void openDoors(L2PcInstance player, String command)
+	{
+		getClanHall().openCloseDoors(true);
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile("data/html/clanHallDoormen/doormen-opened.htm");
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		player.sendPacket(html);
+	}
+
+	@Override
+	protected final void closeDoors(L2PcInstance player, String command)
+	{
+		getClanHall().openCloseDoors(false);
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile("data/html/clanHallDoormen/doormen-closed.htm");
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		player.sendPacket(html);
+	}
+	
 	private final ClanHall getClanHall()
 	{
 		if (!_init)
@@ -169,7 +163,8 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 		return _clanHall;
 	}
 
-	private final boolean isOwnerClan(L2PcInstance player)
+	@Override
+	protected final boolean isOwnerClan(L2PcInstance player)
 	{
 		if (player.isGM())
 			return true;

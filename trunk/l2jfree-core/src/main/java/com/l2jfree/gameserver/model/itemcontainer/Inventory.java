@@ -1362,6 +1362,9 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public L2ItemInstance findArrowForBow(L2Item bow)
 	{
+		if(bow == null)
+			return null;
+		
 		L2ItemInstance arrow = null;
 
 		switch (bow.getCrystalGrade())

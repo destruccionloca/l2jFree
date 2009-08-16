@@ -5413,7 +5413,7 @@ public final class L2PcInstance extends L2Playable
 		_summon = summon;
 		// update attack element value display
 		if ((_summon == null || _summon instanceof L2SummonInstance)
-				&& getAttackElement() != Elementals.NONE)
+				&& getClassId().isSummoner() && getAttackElement() != Elementals.NONE)
 			sendPacket(new UserInfo(this));
 	}
 

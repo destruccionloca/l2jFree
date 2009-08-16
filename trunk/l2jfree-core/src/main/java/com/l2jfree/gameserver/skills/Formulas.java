@@ -2436,17 +2436,15 @@ public final class Formulas
 
 	public static double calculateSkillResurrectRestorePercent(final double baseRestorePercent, int casterWIT)
 	{
-		double restorePercent = baseRestorePercent;
+		if (baseRestorePercent == 0 || baseRestorePercent == 100)
+			return baseRestorePercent;
 		
-		if (restorePercent != 100 && restorePercent != 0)
-		{
-			restorePercent *= WITbonus[casterWIT];
-			
-			if (restorePercent > baseRestorePercent + 20.0)
-				restorePercent = baseRestorePercent + 20.0;
-		}
+		double restorePercent = baseRestorePercent * WITbonus[casterWIT]; 
 		
-		return L2Math.limit(baseRestorePercent, restorePercent, 100);
+		if(restorePercent - baseRestorePercent > 20.0)
+			restorePercent += 20.0;
+		
+		return L2Math.limit(baseRestorePercent, restorePercent, 90);
 	}
 	
 	public static double getINTBonus(L2Character activeChar)

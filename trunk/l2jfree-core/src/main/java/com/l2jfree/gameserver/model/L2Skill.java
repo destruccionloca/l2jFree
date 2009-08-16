@@ -1208,6 +1208,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case FATALCOUNTER:
 			case MAKE_KILLABLE:
 			case MAKE_QUEST_DROPABLE:
+			case AGGREDUCE_CHAR: 
 				return true;
 			default:
 				return false;
