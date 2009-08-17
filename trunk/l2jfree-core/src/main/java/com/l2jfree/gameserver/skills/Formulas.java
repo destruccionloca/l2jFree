@@ -1678,7 +1678,7 @@ public final class Formulas
 	
 	public static final double calcSoulBonus(L2Character activeChar, L2Skill skill)
 	{
-		if (skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
+		if (skill != null && skill.getMaxSoulConsumeCount() > 0 && activeChar instanceof L2PcInstance)
 		{
 			switch (((L2PcInstance) activeChar).getLastSoulConsume())
 			{
