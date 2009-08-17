@@ -1102,8 +1102,8 @@
     <set name="magicLvl" val="60"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/>
-    <set name="reuseDelay" val="3750"/>
-    <set name="skillRadius" val="300"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="skillRadius" val="150"/>
     <set name="skillType" val="PDAM"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="target" val="TARGET_AURA"/>

@@ -141,7 +141,8 @@ public final class SkillTable
 		
 		int length = _skillTable.length;
 		for (L2Skill[] array : _skillTable)
-			length += array.length;
+			if (array != null)
+				length += array.length;
 		
 		_log.info("SkillTable: Occupying arrays for " + length + ".");
 		
