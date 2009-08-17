@@ -69,7 +69,11 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
 
-        if (trade.getPartner() == null || L2World.getInstance().getPlayer(trade.getPartner().getObjectId()) == null)
+        final L2PcInstance partner = trade.getPartner();
+        
+        if (partner == null
+            || L2World.getInstance().getPlayer(partner.getObjectId()) == null
+            || partner.getActiveTradeList() == null)
         {
             // Trade partner not found, cancel trade
             if (trade.getPartner() != null)
@@ -88,9 +92,9 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
         
-        if (trade.isConfirmed() || trade.getPartner().getActiveTradeList().isConfirmed()) 
-        { 
-        	player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED)); 
+        if (trade.isConfirmed() || trade.getPartner().getActiveTradeList().isConfirmed())
+        {
+        	player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED));
         	return;
         }
 

@@ -132,7 +132,6 @@ import com.l2jfree.lang.L2System;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
-import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonSet;
 
 /**
@@ -2151,15 +2150,19 @@ public abstract class L2Character extends L2Object
 		if (getWorldRegion() != null)
 			getWorldRegion().onDie(this);
 
+		// Notify Quest of L2Playable's death
+		L2PcInstance actingPlayer = getActingPlayer();
+		if (actingPlayer != null)
+		{
+			for (QuestState qs : actingPlayer.getNotifyQuestOfDeath())
+			{
+				qs.getQuest().notifyDeath((killer == null ? this : killer), this, qs);
+			}
+		}
+		
 		// Notify L2Character AI
 		getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
-
-		// Notify Quest of character's death
-		for (QuestState qs : getNotifyQuestOfDeath())
-		{
-			qs.getQuest().notifyDeath((killer == null ? this : killer), this, qs);
-		}
-		getNotifyQuestOfDeath().clear();
+		
 		// If character is PhoenixBlessed
 		// or has charm of courage inside siege battlefield (exact operation to be confirmed)
 		// a resurrection popup will show up
@@ -3878,36 +3881,6 @@ public abstract class L2Character extends L2Object
 	/** Future Skill Cast */
 	protected Future<?>					_skillCast;
 	protected Future<?>					_skillCast2;
-
-	/** List of all QuestState instance that needs to be notified of this character's death */
-	private List<QuestState>			_NotifyQuestOfDeathList	= new SingletonList<QuestState>();
-
-	/**
-	 * Add QuestState instance that is to be notified of character's death.<BR>
-	 * <BR>
-	 *
-	 * @param qs
-	 *            The QuestState that subscribe to this event
-	 */
-	public void addNotifyQuestOfDeath(QuestState qs)
-	{
-		if (qs == null || _NotifyQuestOfDeathList.contains(qs))
-			return;
-
-		_NotifyQuestOfDeathList.add(qs);
-	}
-
-	/**
-	 * Return a list of L2Character that attacked.<BR>
-	 * <BR>
-	 */
-	public final List<QuestState> getNotifyQuestOfDeath()
-	{
-		if (_NotifyQuestOfDeathList == null)
-			_NotifyQuestOfDeathList = new SingletonList<QuestState>();
-
-		return _NotifyQuestOfDeathList;
-	}
 
 	/**
 	 * Return True if the L2Character is avoiding a geodata obstacle.<BR>

@@ -178,6 +178,12 @@ public class ZoneManager
 				return temp;
 		return null;
 	}
+	
+	public L2Zone getZoneById(int id)
+	{
+		//TODO: we don't have that id at zones, that the quest engine requires -.-
+		return null;
+	}
 
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder

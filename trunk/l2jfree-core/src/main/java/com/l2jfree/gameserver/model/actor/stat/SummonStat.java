@@ -49,8 +49,8 @@ public class SummonStat extends PlayableStat
 	{
 		final L2PcInstance owner = getActiveChar().getOwner();
 		
-		if (owner == null || !owner.getStat().summonShouldHaveAttackElemental(getActiveChar()) || !owner.getClassId().isSummoner())
-			return Elementals.NONE;
+		if (owner == null || !owner.getStat().summonShouldHaveAttackElemental(getActiveChar()))
+			return super.getAttackElement();
 		
 		return owner.getAttackElement();
 	}
@@ -60,8 +60,8 @@ public class SummonStat extends PlayableStat
 	{
 		final L2PcInstance owner = getActiveChar().getOwner();
 		
-		if (owner == null || !owner.getStat().summonShouldHaveAttackElemental(getActiveChar()) || !owner.getClassId().isSummoner())
-			return 0;
+		if (owner == null || !owner.getStat().summonShouldHaveAttackElemental(getActiveChar()))
+			return super.getAttackElementValue(attribute);
 		
 		// 80% of the original value, this method call returns already 20%
 		return owner.getAttackElementValue(attribute) * 4;

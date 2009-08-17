@@ -18,15 +18,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Stats;
@@ -359,13 +356,6 @@ public class CharStat
 
 	public float getMovementSpeedMultiplier()
 	{
-		if (_activeChar instanceof L2PcInstance && ((L2PcInstance) _activeChar).isMounted())
-		{
-			L2PetData stats = PetDataTable.getInstance().getPetData(((L2PcInstance) _activeChar).getMountNpcId(), ((L2PcInstance) _activeChar).getMountLevel());
-			if (stats != null)
-				return getRunSpeed() * 1f / stats.getPetSpeed();
-		}
-
 		return getRunSpeed() * 1f / _activeChar.getTemplate().getBaseRunSpd();
 	}
 
@@ -453,20 +443,14 @@ public class CharStat
 	{
 		// err we should be adding TO the persons run speed
 		// not making it a constant
-		double baseRunSpd = _activeChar.getTemplate().getBaseRunSpd();
-		if (_activeChar instanceof L2PcInstance)
-		{
-			L2PcInstance player = (L2PcInstance) _activeChar;
-			if (player.isMounted())
-			{
-				L2PetData stats = PetDataTable.getInstance().getPetData(player.getMountNpcId(), player.getMountLevel());
-				if (stats != null)
-					baseRunSpd = stats.getPetSpeed();
-			}
-		}
-		int val = (int) (calcStat(Stats.RUN_SPEED, baseRunSpd, null, null) * Config.RATE_RUN_SPEED);
-
+		int val = (int) (calcStat(Stats.RUN_SPEED, getBaseRunSpd(), null, null) * Config.RATE_RUN_SPEED);
+		
 		return val;
+	}
+	
+	protected int getBaseRunSpd()
+	{
+		return _activeChar.getTemplate().getBaseRunSpd();
 	}
 
 	/** Return the ShieldDef rate (base+modifier) of the L2Character. */
@@ -494,11 +478,6 @@ public class CharStat
 	/** Return the WalkSpeed (base+modifier) of the L2Character. */
 	public int getWalkSpeed()
 	{
-		if (_activeChar instanceof L2PcInstance)
-		{
-			return (getRunSpeed() * 70) / 100;
-		}
-
 		return (int) calcStat(Stats.WALK_SPEED, _activeChar.getTemplate().getBaseWalkSpd(), null, null);
 	}
 

@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
+import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -168,6 +169,7 @@ public class L2Zone implements FuncOwner
 	private Shape[] _exShapes;
 	
 	private final Location[][] _restarts = new Location[RestartType.values().length][];
+	private Quest[][] _questEvents;
 	
 	private int _castleId;
 	private int _clanhallId;
@@ -455,6 +457,15 @@ public class L2Zone implements FuncOwner
 	{
 		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
 		
+		Quest[] quests = getQuestByEvent(Quest.QuestEventType.ON_ENTER_ZONE);
+		if (quests != null)
+		{
+			for (Quest quest : quests)
+			{
+				quest.notifyEnterZone(character, this);
+			}
+		}
+		
 		if (player != null && _onEnterMsg != null)
 			player.sendPacket(_onEnterMsg);
 		
@@ -509,6 +520,15 @@ public class L2Zone implements FuncOwner
 	protected void onExit(L2Character character)
 	{
 		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
+		
+		Quest[] quests = getQuestByEvent(Quest.QuestEventType.ON_ENTER_ZONE);
+		if (quests != null)
+		{
+			for (Quest quest : quests)
+			{
+				quest.notifyExitZone(character, this);
+			}
+		}
 		
 		if (player != null && _onExitMsg != null)
 			player.sendPacket(_onExitMsg);
@@ -920,6 +940,27 @@ public class L2Zone implements FuncOwner
 	public final L2Skill getFuncOwnerSkill()
 	{
 		return null;
+	}
+	
+	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)
+	{
+		if (_questEvents == null)
+			_questEvents = new Quest[Quest.QuestEventType.values().length][];
+		
+		Quest[] questByEvents = _questEvents[EventType.ordinal()];
+		
+		if (!ArrayUtils.contains(questByEvents, q))
+			questByEvents = (Quest[])ArrayUtils.add(questByEvents, q);
+		
+		_questEvents[EventType.ordinal()] = questByEvents;
+	}
+	
+	public Quest[] getQuestByEvent(Quest.QuestEventType EventType)
+	{
+		if (_questEvents == null)
+			return null;
+		
+		return _questEvents[EventType.ordinal()];
 	}
 	
 	// Zone parser

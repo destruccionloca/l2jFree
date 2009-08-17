@@ -56,12 +56,13 @@ public final class Mdam implements ICubicSkillHandler
 			if (GlobalRestrictions.isProtected(activeChar, target, skill, true))
 				continue;
 			
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+			if (target.isAlikeDead())
 			{
-				target.stopFakeDeath(true);
+				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+					target.stopFakeDeath(true);
+				else
+					continue;
 			}
-			else if (target.isAlikeDead())
-				continue;
 			
 			final byte shld = Formulas.calcShldUse(activeChar, target, skill);
 			final boolean mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill));
@@ -86,10 +87,13 @@ public final class Mdam implements ICubicSkillHandler
 			if (target == null)
 				continue;
 			
-			if (target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
-				target.stopFakeDeath(true);
-			else if (target.isAlikeDead())
-				continue;
+			if (target.isAlikeDead())
+			{
+				if (target instanceof L2PcInstance && target.isFakeDeath())
+					target.stopFakeDeath(true);
+				else
+					continue;
+			}
 			
 			boolean mcrit = Formulas.calcMCrit(activeCubic.getMCriticalHit(target, skill));
 			byte shld = Formulas.calcShldUse(activeCubic.getOwner(), target, skill);

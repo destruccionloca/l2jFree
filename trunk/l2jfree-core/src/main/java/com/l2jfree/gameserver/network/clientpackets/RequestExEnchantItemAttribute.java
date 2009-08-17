@@ -320,13 +320,12 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			{
 				if (oldValue == 0)
 					return Elementals.FIRST_WEAPON_BONUS;
-
+				
 				return Elementals.NEXT_WEAPON_BONUS;
 			}
+			else if (item.isArmor())
+				return Elementals.ARMOR_BONUS;
 		}
-		else if (item.isArmor())
-			return Elementals.ARMOR_BONUS;
-
 		// Others not implemented
 		return 0;
 	}

@@ -46,7 +46,9 @@ public class L2DoormenInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("open_doors"))
 		{
-			if (isOwnerClan(player) && !isUnderSiege())
+			// TODO: uncomment after siege teleporters will be done
+			//if (isOwnerClan(player) && !isUnderSiege())
+			if (isOwnerClan(player))
 				openDoors(player, command);
 		}
 		else if (command.startsWith("close_doors"))
@@ -113,7 +115,7 @@ public class L2DoormenInstance extends L2NpcInstance
 		else
 		{
 			html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + ".htm");
-		}		
+		}
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}

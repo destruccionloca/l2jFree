@@ -163,6 +163,6 @@ public final class ObjectPosition
 		_worldRegion = newRegion;
 		
 		if (newRegion != null)
-			newRegion.addVisibleObject(_activeObject, false, null);
+			newRegion.addVisibleObject(_activeObject, false);
 	}
 }

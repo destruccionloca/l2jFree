@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -1562,7 +1563,12 @@ public final class Formulas
 			}
 		}
 		else if (mcrit)
-			damage *= Config.ALT_MCRIT_RATE;
+		{
+			if (target instanceof L2Playable)
+				damage *= Config.ALT_MCRIT_PVP_RATE;
+			else
+				damage *= Config.ALT_MCRIT_RATE;
+		}
 
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
@@ -1641,7 +1647,7 @@ public final class Formulas
 		}
 		else if (mcrit)
 		{
-			if (attacker instanceof L2PcInstance && target instanceof L2PcInstance)
+			if (attacker instanceof L2Playable && target instanceof L2Playable)
 				damage *= Config.ALT_MCRIT_PVP_RATE;
 			else
 				damage *= Config.ALT_MCRIT_RATE;
@@ -2445,7 +2451,7 @@ public final class Formulas
 		if (baseRestorePercent == 0 || baseRestorePercent == 100)
 			return baseRestorePercent;
 		
-		double restorePercent = baseRestorePercent * WITbonus[casterWIT]; 
+		double restorePercent = baseRestorePercent * WITbonus[casterWIT];
 		
 		if(restorePercent - baseRestorePercent > 20.0)
 			restorePercent += 20.0;
@@ -2476,14 +2482,15 @@ public final class Formulas
 		if (skill.getSkillType() == L2SkillType.FISHING || skill.isToggle())
 			return false;
 		
-		if (!(actor instanceof L2PcInstance))
-			return false;
-		
 		double val = actor.getStat().calcStat(Stats.SKILL_MASTERY, 0, null, null);
-		if (((L2PcInstance)actor).isMageClass())
-			val *= getINTBonus(actor);
-		else
-			val *= getSTRBonus(actor);
+		
+		if (actor instanceof L2PcInstance)
+		{
+			if (((L2PcInstance)actor).isMageClass())
+				val *= getINTBonus(actor);
+			else
+				val *= getSTRBonus(actor);
+		}
 		
 		return Rnd.get(100) < val;
 	}

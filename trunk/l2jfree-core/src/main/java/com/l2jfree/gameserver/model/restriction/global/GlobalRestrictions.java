@@ -411,6 +411,9 @@ public final class GlobalRestrictions
 	
 	public static boolean canRequestRevive(L2PcInstance activeChar)
 	{
+		if (activeChar.isPendingRevive())
+			return false;
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canRequestRevive.ordinal()])
 			if (!restriction.canRequestRevive(activeChar))
 				return false;

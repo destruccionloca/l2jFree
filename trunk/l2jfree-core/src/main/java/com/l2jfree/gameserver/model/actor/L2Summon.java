@@ -819,7 +819,10 @@ public abstract class L2Summon extends L2Playable
 
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
+		
+		super.doCast(skill);
 	}
 
 	@Override

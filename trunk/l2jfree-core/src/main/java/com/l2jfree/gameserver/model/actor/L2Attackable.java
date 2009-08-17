@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
+import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.EventDroplist;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -965,7 +966,7 @@ public class L2Attackable extends L2Npc
 
 	public void reduceHate(L2Character target, int amount)
 	{
-		if (getAI() instanceof L2SiegeGuardAI)
+		if (getAI() instanceof L2SiegeGuardAI || getAI() instanceof L2FortSiegeGuardAI)
 		{
 			stopHating(target);
 			setTarget(null);

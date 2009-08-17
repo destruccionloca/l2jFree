@@ -66,12 +66,13 @@ public final class Pdam implements ISkillHandler
 			if (GlobalRestrictions.isProtected(activeChar, target, skill, true))
 				continue;
 			
-			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+			if (target.isAlikeDead())
 			{
-				target.stopFakeDeath(true);
+				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isFakeDeath())
+					target.stopFakeDeath(true);
+				else
+					continue;
 			}
-			else if (target.isAlikeDead())
-				continue;
 			
 			if (isBlow && !Formulas.calcBlow(activeChar, target, skill))
 			{

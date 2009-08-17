@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.actor.stat;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.PetDataTable;
+import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -360,14 +362,27 @@ public class PcStat extends PlayableStat
 	public int getRunSpeed()
 	{
 		int val = super.getRunSpeed();
-
-		val /= _activeChar.getArmourExpertisePenalty();
-
+		
+		val /= getActiveChar().getArmourExpertisePenalty();
+		
 		// Apply max run speed cap.
 		if (val > Config.ALT_MAX_RUN_SPEED && Config.ALT_MAX_RUN_SPEED > 0 && !getActiveChar().isGM())
 			return Config.ALT_MAX_RUN_SPEED;
-
+		
 		return val;
+	}
+	
+	@Override
+	protected int getBaseRunSpd()
+	{
+		if (getActiveChar().isMounted())
+		{
+			L2PetData stats = PetDataTable.getInstance().getPetData(getActiveChar().getMountNpcId(), getActiveChar().getMountLevel());
+			if (stats != null)
+				return stats.getPetSpeed();
+		}
+		
+		return super.getBaseRunSpd();
 	}
 
 	/**
@@ -427,6 +442,25 @@ public class PcStat extends PlayableStat
 	
 	public boolean summonShouldHaveAttackElemental(L2Summon pet)
 	{
-		return pet instanceof L2SummonInstance && !pet.isDead() && getActiveChar().getExpertisePenalty() == 0 && (pet instanceof L2SummonInstance);
+		return getActiveChar().getClassId().isSummoner() && pet instanceof L2SummonInstance && !pet.isDead() && getActiveChar().getExpertisePenalty() == 0;
+	}
+	
+	@Override
+	public float getMovementSpeedMultiplier()
+	{
+		if (getActiveChar().isMounted())
+		{
+			L2PetData stats = PetDataTable.getInstance().getPetData(getActiveChar().getMountNpcId(), getActiveChar().getMountLevel());
+			if (stats != null)
+				return getRunSpeed() * 1f / stats.getPetSpeed();
+		}
+		
+		return super.getMovementSpeedMultiplier();
+	}
+	
+	@Override
+	public int getWalkSpeed()
+	{
+		return (getRunSpeed() * 70) / 100;
 	}
 }

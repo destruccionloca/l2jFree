@@ -241,9 +241,9 @@ public class PetStat extends SummonStat
 	}
 
 	@Override
-	public int getRunSpeed()
+	protected int getBaseRunSpd()
 	{
-		return (int)calcStat(Stats.RUN_SPEED, getActiveChar().getPetData().getPetSpeed(), null, null);
+		return getActiveChar().getPetData().getPetSpeed();
 	}
 
 	@Override

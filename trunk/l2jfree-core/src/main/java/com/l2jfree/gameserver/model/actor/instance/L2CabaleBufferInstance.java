@@ -97,6 +97,9 @@ public class L2CabaleBufferInstance extends L2Npc
              */
             for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             {
+                if (player == null || player.isInvul())
+                    continue;
+                
                 final int playerCabal = SevenSigns.getInstance().getPlayerCabal(player);
 
                 if (playerCabal == winningCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.ORATOR_NPC_ID && !player.isInvul())

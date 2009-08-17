@@ -458,7 +458,7 @@ public final class L2PcInstance extends L2Playable
 	private boolean							_isIn7sDungeon			= false;
 
 	public int 								_bookmarkslot = 0; // The Teleport Bookmark Slot
-	public FastList<TeleportBookmark> 		tpbookmark = new FastList<TeleportBookmark>();
+	public final List<TeleportBookmark> tpbookmark = new SingletonList<TeleportBookmark>();
 
 	private int								_subPledgeType			= 0;
 
@@ -1596,7 +1596,47 @@ public final class L2PcInstance extends L2Playable
 
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
+	/** List of all QuestState instance that needs to be notified of this L2PcInstance's or its pet's death */
+	private final List<QuestState> _NotifyQuestOfDeathList = new SingletonList<QuestState>();
+	
+	/**
+	 * Add QuestState instance that is to be notified of L2PcInstance's death.<BR>
+	 * <BR>
+	 * 
+	 * @param qs The QuestState that subscribe to this event
+	 */
+	public void addNotifyQuestOfDeath(QuestState qs)
+	{
+		if (qs == null || _NotifyQuestOfDeathList.contains(qs))
+			return;
+		
+		_NotifyQuestOfDeathList.add(qs);
+	}
+	
+	/**
+	 * Remove QuestState instance that is to be notified of L2PcInstance's death.<BR>
+	 * <BR>
+	 * 
+	 * @param qs The QuestState that subscribe to this event
+	 */
+	public void removeNotifyQuestOfDeath(QuestState qs)
+	{
+		if (qs == null || !_NotifyQuestOfDeathList.contains(qs))
+			return;
+		
+		_NotifyQuestOfDeathList.remove(qs);
+	}
+	
+	/**
+	 * Return a list of QuestStates which registered for notify of death of this L2PcInstance.<BR>
+	 * <BR>
+	 */
+	public final List<QuestState> getNotifyQuestOfDeath()
+	{
+		return _NotifyQuestOfDeathList;
+	}
+	
 	private ShortCuts getShortCuts()
 	{
 		if (_shortCuts == null)
@@ -14398,7 +14438,7 @@ public final class L2PcInstance extends L2Playable
 
 		int count = 0;
 		int id = 1;
-		FastList<Integer> idlist = new FastList<Integer>();
+		List<Integer> idlist = new ArrayList<Integer>();
 
 		int size = tpbookmark.size();
 
@@ -14418,8 +14458,6 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		TeleportBookmark tpadd = new TeleportBookmark(id,x,y,z,icon,tag,name);
-		if (tpbookmark==null)
-			tpbookmark = new FastList<TeleportBookmark>();
 		tpbookmark.add(tpadd);
 
 		destroyItem("Consume", getInventory().getItemByItemId(20033).getObjectId(), 1, null, false);
@@ -14463,8 +14501,6 @@ public final class L2PcInstance extends L2Playable
 
 	public void restoreTeleportBookmark()
 	{
-		if (tpbookmark==null)
-			tpbookmark = new FastList<TeleportBookmark>();
 		Connection con = null;
 
 		try

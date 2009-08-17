@@ -996,7 +996,7 @@ public class Siege extends AbstractSiege
 		if(clan == null || clan.getLevel() < Config.SIEGE_CLAN_MIN_LEVEL)
 		{
 			if (Config.SIEGE_CLAN_MIN_LEVEL == 4) //default retail
-				player.sendPacket(SystemMessageId.ONLY_CLAN_LEVEL_4_ABOVE_MAY_SIEGE);
+				player.sendPacket(SystemMessageId.ONLY_CLAN_LEVEL_5_ABOVE_MAY_SIEGE);
 			else
 				player.sendMessage("Only clans with Level "+Config.SIEGE_CLAN_MIN_LEVEL+" and higher may register for a castle siege.");
 			return false;

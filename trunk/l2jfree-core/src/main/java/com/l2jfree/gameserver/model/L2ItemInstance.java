@@ -1452,7 +1452,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		}
 
 		setDropTime(System.currentTimeMillis());
-		setDropperObjectId(dropper.getObjectId()); //Set the dropper Id for the knownlist packets in sendInfo
+		setDropperObjectId(dropper != null ? dropper.getObjectId() : 0); //Set the dropper Id for the knownlist packets in sendInfo
 		
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks
