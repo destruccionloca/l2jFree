@@ -2906,6 +2906,15 @@ public class L2Npc extends L2Character
 	}
 	
 	@Override
+	public void sendInfo(L2PcInstance activeChar)
+	{
+		if (Config.TEST_KNOWNLIST && activeChar.isGM())
+			activeChar.sendMessage("Knownlist, added NPC: " + getName());
+		
+		activeChar.sendPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new AbstractNpcInfo.NpcInfo(this));
+	}
+	
+	@Override
 	public void broadcastFullInfoImpl()
 	{
 		broadcastPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new AbstractNpcInfo.NpcInfo(this));

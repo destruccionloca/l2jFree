@@ -36,9 +36,9 @@ public class MonsterKnownList extends AttackableKnownList
 	// =========================================================
 	// Method - Public
 	@Override
-	public boolean addKnownObject(L2Object object, L2Character dropper)
+	public boolean addKnownObject(L2Object object)
 	{
-		if (!super.addKnownObject(object, dropper))
+		if (!super.addKnownObject(object))
 			return false;
 
 		// Set the L2MonsterInstance Intention to AI_INTENTION_ACTIVE if the state was AI_INTENTION_IDLE

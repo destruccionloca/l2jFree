@@ -299,7 +299,7 @@ public final class L2WorldRegion
 	 * L2PcInstance of all player in game in this L2WorldRegion <BR>
 	 * Assert : object.getCurrentWorldRegion() == this
 	 */
-	public void addVisibleObject(L2Object object, boolean addToKnownLists, L2Character dropper)
+	public void addVisibleObject(L2Object object, boolean addToKnownLists)
 	{
 		if (Config.ASSERT)
 			assert object.getWorldRegion() == this;
@@ -324,8 +324,8 @@ public final class L2WorldRegion
 			{
 				for (L2Object element : reg.getVisibleObjects())
 				{
-					element.getKnownList().addKnownObject(object, dropper);
-					object.getKnownList().addKnownObject(element, dropper);
+					element.getKnownList().addKnownObject(object);
+					object.getKnownList().addKnownObject(element);
 				}
 			}
 		}

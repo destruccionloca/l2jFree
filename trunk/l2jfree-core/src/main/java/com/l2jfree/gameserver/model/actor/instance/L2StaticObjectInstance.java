@@ -349,6 +349,12 @@ public class L2StaticObjectInstance extends L2Character
 	}
 	
 	@Override
+	public void sendInfo(L2PcInstance activeChar)
+	{
+		activeChar.sendPacket(new StaticObject(this));
+	}
+	
+	@Override
 	public void broadcastFullInfoImpl()
 	{
 	}

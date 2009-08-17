@@ -196,14 +196,17 @@ import com.l2jfree.gameserver.network.serverpackets.ExDuelUpdateUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
+import com.l2jfree.gameserver.network.serverpackets.ExGetOnAirShip;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
+import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.GMHide;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
+import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -226,7 +229,10 @@ import com.l2jfree.gameserver.network.serverpackets.PrivateStoreListBuy;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreListSell;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreManageListBuy;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreManageListSell;
+import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgBuy;
+import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
 import com.l2jfree.gameserver.network.serverpackets.QuestList;
+import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopSellList;
 import com.l2jfree.gameserver.network.serverpackets.RelationChanged;
 import com.l2jfree.gameserver.network.serverpackets.Ride;
@@ -13970,6 +13976,60 @@ public final class L2PcInstance extends L2Playable
 		if (!getKnownList().getKnownPlayers().isEmpty())
 			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 				RelationChanged.sendRelationChanged(this, player);
+	}
+	
+	@Override
+	public void sendInfo(L2PcInstance activeChar)
+	{
+		if (isInBoat())
+			getPosition().setWorldPosition(getBoat().getPosition());
+		else if (isInAirShip())
+			getPosition().setWorldPosition(getAirShip().getPosition());
+		
+		if (getPoly().isMorphed())
+		{
+			activeChar.sendPacket(new AbstractNpcInfo.PcMorphInfo(this, getPoly().getNpcTemplate()));
+		}
+		else
+		{
+			activeChar.sendPacket(new CharInfo(this));
+			//activeChar.sendPacket(new ExBrExtraUserInfo(this));
+		}
+		
+		if (isInBoat())
+			activeChar.sendPacket(new GetOnVehicle(this, getBoat(), getInBoatPosition().getX(), getInBoatPosition().getY(), getInBoatPosition().getZ()));
+		else if (isInAirShip())
+			activeChar.sendPacket(new ExGetOnAirShip(this, getAirShip()));
+		
+		if (getMountType() == 4)
+		{
+			// TODO: Remove when horse mounts fixed
+			activeChar.sendPacket(new Ride(this, false, 0));
+			activeChar.sendPacket(new Ride(this, true, getMountNpcId()));
+		}
+		switch (getPrivateStoreType())
+		{
+			case L2PcInstance.STORE_PRIVATE_SELL:
+			{
+				activeChar.sendPacket(new PrivateStoreMsgSell(this));
+				break;
+			}
+			case L2PcInstance.STORE_PRIVATE_PACKAGE_SELL:
+			{
+				activeChar.sendPacket(new ExPrivateStoreSetWholeMsg(this));
+				break;
+			}
+			case L2PcInstance.STORE_PRIVATE_BUY:
+			{
+				activeChar.sendPacket(new PrivateStoreMsgBuy(this));
+				break;
+			}
+			case L2PcInstance.STORE_PRIVATE_MANUFACTURE:
+			{
+				activeChar.sendPacket(new RecipeShopMsg(this));
+				break;
+			}
+		}
 	}
 	
 	@Override

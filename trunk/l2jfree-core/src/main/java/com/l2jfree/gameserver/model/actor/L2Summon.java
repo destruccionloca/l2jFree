@@ -18,7 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
@@ -30,6 +29,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetDelete;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
+import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -55,7 +56,6 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
-import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
@@ -864,6 +864,23 @@ public abstract class L2Summon extends L2Playable
 	public boolean isRunning()
 	{
 		return true; // summons always run
+	}
+	
+	@Override
+	public void sendInfo(L2PcInstance activeChar)
+	{
+		// Check if the L2PcInstance is the owner of the Pet
+		if (activeChar == getOwner() && !(this instanceof L2MerchantSummonInstance))
+		{
+			activeChar.sendPacket(new PetInfo(this, 0));
+			
+			if (this instanceof L2PetInstance)
+			{
+				activeChar.sendPacket(new PetItemList((L2PetInstance)this));
+			}
+		}
+		else
+			activeChar.sendPacket(new AbstractNpcInfo.SummonInfo(this, 0));
 	}
 	
 	@Override

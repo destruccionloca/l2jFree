@@ -253,7 +253,7 @@ public abstract class L2Object implements L2Entity<Integer>
 			getPosition().updateWorldRegion();
 		}
 		
-		L2World.getInstance().addVisibleObject(this, null);
+		L2World.getInstance().addVisibleObject(this);
 		
 		if (firstspawn)
 			firstSpawn();
@@ -518,6 +518,14 @@ public abstract class L2Object implements L2Entity<Integer>
 		{
 			TextBuilder.recycle(tb);
 		}
+	}
+	
+	/**
+	 * Sends the Server->Client info packet for the object.<br>
+	 * <br>
+	 */
+	public void sendInfo(L2PcInstance activeChar)
+	{
 	}
 	
 	public L2Character getActingCharacter()

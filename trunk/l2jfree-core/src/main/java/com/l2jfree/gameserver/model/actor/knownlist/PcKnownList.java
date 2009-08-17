@@ -15,38 +15,12 @@
 package com.l2jfree.gameserver.model.actor.knownlist;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.L2Summon;
-import com.l2jfree.gameserver.model.actor.L2Trap;
-import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
-import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
-import com.l2jfree.gameserver.network.serverpackets.CharInfo;
 import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
-import com.l2jfree.gameserver.network.serverpackets.DropItem;
-import com.l2jfree.gameserver.network.serverpackets.ExAirShipInfo;
-import com.l2jfree.gameserver.network.serverpackets.ExGetOnAirShip;
-import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
-import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
-import com.l2jfree.gameserver.network.serverpackets.PetInfo;
-import com.l2jfree.gameserver.network.serverpackets.PetItemList;
-import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgBuy;
-import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
-import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
-import com.l2jfree.gameserver.network.serverpackets.Ride;
-import com.l2jfree.gameserver.network.serverpackets.ServerObjectInfo;
 import com.l2jfree.gameserver.network.serverpackets.SpawnItem;
-import com.l2jfree.gameserver.network.serverpackets.StaticObject;
-import com.l2jfree.gameserver.network.serverpackets.VehicleInfo;
 
 public final class PcKnownList extends PlayableKnownList
 {
@@ -81,14 +55,32 @@ public final class PcKnownList extends PlayableKnownList
 	 * @param object The L2Object to add to _knownObjects and _knownPlayer
 	 */
 	@Override
-	public boolean addKnownObject(L2Object object, L2Character dropper)
+	public boolean addKnownObject(L2Object object)
 	{
-		if (!super.addKnownObject(object, dropper))
+		if (!super.addKnownObject(object))
 			return false;
 		
 		if (object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
 			return false;
 		
+		sendInfoOf(object);
+		
+		return true;
+	}
+	
+	public void refreshInfos()
+	{
+		for (L2Object object : getKnownObjects().values())
+		{
+			if (object instanceof L2PcInstance && ((L2PcInstance)object).inObserverMode())
+				continue;
+			
+			sendInfoOf(object);
+		}
+	}
+	
+	private void sendInfoOf(L2Object object)
+	{
 		if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
 		{
 			//if (object.getPolytype().equals("item"))
@@ -98,119 +90,7 @@ public final class PcKnownList extends PlayableKnownList
 		}
 		else
 		{
-			if (object instanceof L2ItemInstance)
-			{
-				if (dropper != null)
-					getActiveChar().sendPacket(new DropItem((L2ItemInstance)object, dropper.getObjectId()));
-				else
-					getActiveChar().sendPacket(new SpawnItem(object));
-			}
-			else if (object instanceof L2DoorInstance)
-			{
-				getActiveChar().sendPacket(new StaticObject((L2DoorInstance)object));
-			}
-			else if (object instanceof L2BoatInstance)
-			{
-				if (!getActiveChar().isInBoat())
-				{
-					if (object != getActiveChar().getBoat())
-					{
-						getActiveChar().sendPacket(new VehicleInfo((L2BoatInstance)object));
-						((L2BoatInstance)object).sendVehicleDeparture(getActiveChar());
-					}
-				}
-			}
-			else if (object instanceof L2AirShipInstance)
-			{
-				if (object != getActiveChar().getAirShip())
-				{
-					getActiveChar().sendPacket(new ExAirShipInfo((L2AirShipInstance) object));
-				}
-			}
-			else if (object instanceof L2StaticObjectInstance)
-			{
-				getActiveChar().sendPacket(new StaticObject((L2StaticObjectInstance)object));
-			}
-			else if (object instanceof L2Decoy)
-			{
-				getActiveChar().sendPacket(new AbstractNpcInfo.DecoyInfo((L2Decoy)object));
-			}
-			else if (object instanceof L2Trap)
-			{
-				getActiveChar().sendPacket(new AbstractNpcInfo.TrapInfo((L2Trap)object));
-			}
-			else if (object instanceof L2Npc)
-			{
-				if (Config.TEST_KNOWNLIST && getActiveChar().isGM())
-					getActiveChar().sendMessage("Knownlist, added NPC: " + object.getName());
-				
-				if (((L2Npc)object).getRunSpeed() == 0)
-					getActiveChar().sendPacket(new ServerObjectInfo((L2Npc)object));
-				else
-					getActiveChar().sendPacket(new AbstractNpcInfo.NpcInfo((L2Npc)object));
-			}
-			else if (object instanceof L2Summon)
-			{
-				L2Summon summon = (L2Summon)object;
-				
-				// Check if the L2PcInstance is the owner of the Pet
-				if (getActiveChar() == summon.getOwner() && !(summon instanceof L2MerchantSummonInstance))
-				{
-					getActiveChar().sendPacket(new PetInfo(summon, 0));
-					if (summon instanceof L2PetInstance)
-					{
-						getActiveChar().sendPacket(new PetItemList((L2PetInstance)summon));
-					}
-				}
-				else
-					getActiveChar().sendPacket(new AbstractNpcInfo.SummonInfo(summon, 0));
-			}
-			else if (object instanceof L2PcInstance)
-			{
-				L2PcInstance otherPlayer = (L2PcInstance)object;
-				if (otherPlayer.isInBoat())
-					otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition());
-				else if (otherPlayer.isInAirShip())
-					otherPlayer.getPosition().setWorldPosition(otherPlayer.getAirShip().getPosition());
-				
-				if (otherPlayer.getPoly().isMorphed())
-				{
-					getActiveChar().sendPacket(new AbstractNpcInfo.PcMorphInfo(otherPlayer, otherPlayer.getPoly().getNpcTemplate()));
-				}
-				else
-				{
-					getActiveChar().sendPacket(new CharInfo(otherPlayer));
-					//getActiveChar().sendPacket(new ExBrExtraUserInfo(otherPlayer));
-				}
-				
-				if (otherPlayer.isInBoat())
-					getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
-				else if (otherPlayer.isInAirShip())
-					getActiveChar().sendPacket(new ExGetOnAirShip(otherPlayer, otherPlayer.getAirShip()));
-
-				if (otherPlayer.getMountType() == 4)
-				{
-					// TODO: Remove when horse mounts fixed
-					getActiveChar().sendPacket(new Ride(otherPlayer, false, 0));
-					getActiveChar().sendPacket(new Ride(otherPlayer, true, otherPlayer.getMountNpcId()));
-				}
-				if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL)
-				{
-					getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
-				}
-				else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
-				{
-					getActiveChar().sendPacket(new ExPrivateStoreSetWholeMsg(otherPlayer));
-				}
-				else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY)
-				{
-					getActiveChar().sendPacket(new PrivateStoreMsgBuy(otherPlayer));
-				}
-				else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE)
-				{
-					getActiveChar().sendPacket(new RecipeShopMsg(otherPlayer));
-				}
-			}
+			object.sendInfo(getActiveChar());
 			
 			if (object instanceof L2Character)
 			{
@@ -220,8 +100,6 @@ public final class PcKnownList extends PlayableKnownList
 					obj.getAI().describeStateToPlayer(getActiveChar());
 			}
 		}
-		
-		return true;
 	}
 	
 	/**

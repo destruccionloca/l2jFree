@@ -120,7 +120,7 @@ public class ItemsOnGroundManager
 						item.setProtected(true);
 					else
 						item.setProtected(false);
-					L2World.getInstance().addVisibleObject(item, null);
+					L2World.getInstance().addVisibleObject(item);
 					_items.add(item);
 					count++;
 					// Add to ItemsAutoDestroy only items not protected

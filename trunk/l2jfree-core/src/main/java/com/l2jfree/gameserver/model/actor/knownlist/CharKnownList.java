@@ -40,7 +40,7 @@ public class CharKnownList extends ObjectKnownList
 	}
 	
 	@Override
-	public boolean addKnownObject(L2Object object, L2Character dropper)
+	public boolean addKnownObject(L2Object object)
 	{
 		if (object == null || object == getActiveChar())
 			return false;

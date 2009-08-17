@@ -112,6 +112,12 @@ public abstract class L2Decoy extends L2Character
     }
 	
 	@Override
+	public void sendInfo(L2PcInstance activeChar)
+	{
+		activeChar.sendPacket(new AbstractNpcInfo.DecoyInfo(this));
+	}
+	
+	@Override
 	public void broadcastFullInfoImpl()
 	{
 		broadcastPacket(new AbstractNpcInfo.DecoyInfo(this));

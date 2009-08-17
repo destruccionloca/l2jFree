@@ -282,14 +282,14 @@ public final class L2World
 		_pets.values().remove(pet);
 	}
 	
-	public void addVisibleObject(L2Object object, L2Character dropper)
+	public void addVisibleObject(L2Object object)
 	{
 		if (object == null)
 			return;
 		
 		storeObject(object);
 		
-		object.getPosition().getWorldRegion().addVisibleObject(object, true, dropper);
+		object.getPosition().getWorldRegion().addVisibleObject(object, true);
 	}
 	
 	public void removeVisibleObject(L2Object object, L2WorldRegion oldRegion)

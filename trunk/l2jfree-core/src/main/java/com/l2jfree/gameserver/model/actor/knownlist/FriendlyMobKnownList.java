@@ -36,9 +36,9 @@ public class FriendlyMobKnownList extends AttackableKnownList
 	// =========================================================
 	// Method - Public
 	@Override
-	public boolean addKnownObject(L2Object object, L2Character dropper)
+	public boolean addKnownObject(L2Object object)
 	{
-		if (!super.addKnownObject(object, dropper))
+		if (!super.addKnownObject(object))
 			return false;
 
 		if (object instanceof L2PcInstance && getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)

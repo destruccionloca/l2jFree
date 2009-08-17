@@ -722,6 +722,12 @@ public class L2DoorInstance extends L2Character
 	}
 	
 	@Override
+	public void sendInfo(L2PcInstance activeChar)
+	{
+		activeChar.sendPacket(new StaticObject(this));
+	}
+	
+	@Override
 	public void broadcastFullInfoImpl()
 	{
 		broadcastPacket(new StaticObject(this));

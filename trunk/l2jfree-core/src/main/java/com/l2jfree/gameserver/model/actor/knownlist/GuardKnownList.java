@@ -22,7 +22,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -44,9 +43,9 @@ public class GuardKnownList extends AttackableKnownList
 	// =========================================================
 	// Method - Public
 	@Override
-	public boolean addKnownObject(L2Object object, L2Character dropper)
+	public boolean addKnownObject(L2Object object)
 	{
-		if (!super.addKnownObject(object, dropper))
+		if (!super.addKnownObject(object))
 			return false;
 
 		if (object instanceof L2PcInstance)
