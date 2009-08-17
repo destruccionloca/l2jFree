@@ -50,8 +50,7 @@ public final class Pdam implements ISkillHandler
 			
 			modifier = 0.8 + 0.201 * player.getCharges(); // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
 			
-			if (skill.getTargetType() != SkillTargetType.TARGET_AREA
-				&& skill.getTargetType() != SkillTargetType.TARGET_MULTIFACE)
+			if (skill.getTargetType() != SkillTargetType.TARGET_AREA && skill.getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 				player.decreaseCharges(skill.getNeededCharges());
 		}
 		else
@@ -115,10 +114,11 @@ public final class Pdam implements ISkillHandler
 						}
 					}
 				}
-				else if (isCharge)
-				{
-					damage *= modifier;
-				}
+			}
+			
+			if (isCharge)
+			{
+				damage *= modifier;
 			}
 			
 			final byte reflect = Formulas.calcSkillReflect(target, skill);
