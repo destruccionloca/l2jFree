@@ -141,7 +141,7 @@ class HellboundTown(JQuest):
 			self.startQuestTimer("keySpawn2", 300000, None, None)
 			loc = LOCS[Rnd.get(len(LOCS))]
 			self.amaskari.teleToLocation(loc[0],loc[1],loc[2])
-			if event == "keySpawn1"
+			if event == "keySpawn1":
 				self.startQuestTimer("keySpawn2", 300000, None, None)
 			else:
 				self.startQuestTimer("keySpawn1", 300000, None, None)
