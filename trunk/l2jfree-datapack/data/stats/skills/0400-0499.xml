@@ -1031,6 +1031,7 @@
     <for>
       <effect name="Buff" time="10" val="0">
         <add order="0x40" stat="vengeancePdam" val="100"/>
+        <add order="0x40" stat="reflectDam" val="100"/>
       </effect>
     </for>
   </skill>
@@ -1542,6 +1543,7 @@
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5"> <!-- TODO: MpConsumePerLevel amount is guessed -->
         <add order="0x40" stat="vengeancePdam" val="10"/>
+        <add order="0x40" stat="reflectDam" val="10"/>
       </effect>
     </for>
   </skill>

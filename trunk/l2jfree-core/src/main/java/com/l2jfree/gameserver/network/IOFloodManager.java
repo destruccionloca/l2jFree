@@ -116,6 +116,14 @@ public final class IOFloodManager implements IAcceptFilter
 	
 	public static boolean canReceivePacketFrom(L2GameClient client, int opcode)
 	{
+		// thats spammed by the client even without external tools
+		switch (opcode)
+		{
+			case 0x59: // ValidatePosition
+			case 0x0f: // MoveBackwardToLocation
+				return true;
+		}
+		
 		final String key = client.getAccountName();
 		
 		switch (Result.max(_packets.isFlooding(key, true), _errors.isFlooding(key, false)))

@@ -12639,9 +12639,6 @@ public final class L2PcInstance extends L2Playable
 	 */
 	private void increaseSouls(int count) // By skill or mob kill
 	{
-		if (count < 0) // Wrong usage
-			return;
-		
 		setSouls(_souls + count);
 		
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_SOUL_HAS_INCREASED_BY_S1_SO_IT_IS_NOW_AT_S2);
@@ -12652,6 +12649,9 @@ public final class L2PcInstance extends L2Playable
 	
 	public void increaseSoulsBySkill(L2Skill skill)
 	{
+		if (skill.getNumSouls() == 0)
+			return;
+		
 		final L2Skill soulmastery = getKnownSkill(L2Skill.SKILL_SOUL_MASTERY);
 		if (soulmastery == null)
 			return;
