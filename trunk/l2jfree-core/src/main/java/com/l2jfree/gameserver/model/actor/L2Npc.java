@@ -2764,6 +2764,11 @@ public class L2Npc extends L2Character
 	 */
 	public void deleteMe()
 	{
+		abortCast();
+		abortAttack();
+		getStatus().stopHpMpRegeneration();
+		getEffects().stopAllEffects(true);
+		
 		L2WorldRegion oldRegion = getWorldRegion();
 
 		try

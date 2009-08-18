@@ -93,4 +93,10 @@ public class L2MinionInstance extends L2MonsterInstance
 		_master.notifyMinionDied(this);
 		return true;
 	}
+	
+	@Override
+	public void onDecay()
+	{
+		deleteMe();
+	}
 }
