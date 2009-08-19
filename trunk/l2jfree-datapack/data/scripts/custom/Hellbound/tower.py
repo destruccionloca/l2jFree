@@ -15,7 +15,6 @@ from com.l2jfree.gameserver.network.serverpackets import SystemMessage
 from com.l2jfree.gameserver.network import SystemMessageId
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.gameserver.model                  import L2World
-from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.datatables import ItemTable
 
 import time
@@ -27,6 +26,7 @@ debug = False
 
 #NPCs
 KEYHOLE		= 32343
+JERIAN		= 32302
 
 class PyObject:
 	pass
@@ -138,6 +138,19 @@ class HellboundBaseTower(JQuest):
 				return
 			if instanceId == 0:
 				return
+		if npcId == JERIAN :
+			ecounter=0
+			for effect in player.getAllEffects():
+				print 'looping through effect'
+				try:
+					ecounter = effect.getEffectCount()
+					break
+				except:
+					continue
+			if ecounter >= Rnd.get(10,30):
+				player.teleToLocation(-22195, 278232, -15045)
+			else:
+				player.sendPacket(SystemMessage.sendString("You still smell like a human, use more blood!"))			
 		if self.worlds.has_key(npc.getInstanceId()):
 			world = self.worlds[npc.getInstanceId()]
 		return
@@ -163,3 +176,5 @@ class HellboundBaseTower(JQuest):
 QUEST = HellboundBaseTower(-1, qn, "HellboundBaseTower")
 QUEST.addStartNpc(KEYHOLE)
 QUEST.addTalkId(KEYHOLE)
+QUEST.addStartNpc(JERIAN)
+QUEST.addTalkId(JERIAN)
