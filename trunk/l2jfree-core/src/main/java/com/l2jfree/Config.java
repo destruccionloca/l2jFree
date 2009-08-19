@@ -1618,6 +1618,7 @@ public class Config extends L2Config
 	public static int					CASTLE_ZONE_FAME_AQUIRE_POINTS;
 
 	public static boolean				ALT_TAX_CHANGE_DELAYED;
+	public static boolean				ALT_CCH_REPUTATION;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1850,6 +1851,7 @@ public class Config extends L2Config
 			CASTLE_ZONE_FAME_AQUIRE_POINTS	= Integer.parseInt(altSettings.getProperty("CastleZoneFameAquirePoints", "125"));
 
 			ALT_TAX_CHANGE_DELAYED = Boolean.parseBoolean(altSettings.getProperty("CastleTaxChangeDelayed", "true"));
+			ALT_CCH_REPUTATION = Boolean.parseBoolean(altSettings.getProperty("AltClanHallSiegeReputation", "false"));
 		}
 	}
 

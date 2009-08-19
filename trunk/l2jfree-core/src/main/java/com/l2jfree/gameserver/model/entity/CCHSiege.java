@@ -77,6 +77,11 @@ public final class CCHSiege extends AbstractSiege
 		startAutoTask();
 	}
 
+	public final ContestableHideoutGuardManager getGuardManager()
+	{
+		return _guardManager;
+	}
+
 	public void announceToPlayer(String message, boolean inAreaOnly)
 	{
 		// Get all players
@@ -103,9 +108,8 @@ public final class CCHSiege extends AbstractSiege
 	private int calculateRepChange(L2Clan winner, L2Clan loser)
 	{
 		int result = 300;
-		if (winner == null || loser == null)
+		if (!Config.ALT_CCH_REPUTATION || winner == null || loser == null)
 			return result;
-		// TODO: someone should replace with retail system
 		// absolutely custom
 		if (winner.getReputationScore() < loser.getReputationScore())
 			result *= 1.2;

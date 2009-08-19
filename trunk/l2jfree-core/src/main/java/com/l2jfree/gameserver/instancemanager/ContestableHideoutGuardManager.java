@@ -38,21 +38,23 @@ public final class ContestableHideoutGuardManager
 	private static final Log _log = LogFactory.getLog(ContestableHideoutGuardManager.class);
 	private static final String LOAD_SIEGE_GUARDS = "SELECT id,npcId,x,y,z,heading,respawnDelay FROM clanhall_siege_guards WHERE hallId=?";
 	private final ClanHall _hideout;
-	// FIXME: Uncomment the line below instead if you use eclipse to compile,
-	// the default one is just to ensure 100% maven compilation works fine
-	//private final L2Spawn[] _guardSpawn;
 	private L2Spawn[] _guardSpawn = new L2Spawn[0];
 
 	public ContestableHideoutGuardManager(ClanHall hideout)
 	{
 		_hideout = hideout;
+		load();
+	}
+
+	public final void load()
+	{
 		Connection con = null;
 		FastList<L2Spawn> guards = new FastList<L2Spawn>(50);
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_SIEGE_GUARDS);
-			ps.setInt(1, hideout.getId());
+			ps.setInt(1, _hideout.getId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
 			{
@@ -67,18 +69,16 @@ public final class ContestableHideoutGuardManager
 				s.setLocation(0);
 				guards.add(s);
 			}
+			_guardSpawn = guards.toArray(new L2Spawn[guards.size()]);
 		}
 		catch (Exception e)
 		{
-			_guardSpawn = new L2Spawn[0];
-			_log.error("Failed loading " + hideout.getName() + "'s siege guards!", e);
-			return;
+			_log.error("Failed loading " + _hideout.getName() + "'s siege guards!", e);
 		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
 		}
-		_guardSpawn = guards.toArray(new L2Spawn[guards.size()]);
 	}
 
 	public final void spawnSiegeGuards()

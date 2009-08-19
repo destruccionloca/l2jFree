@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.CCHManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.Manager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -46,6 +47,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.Experience;
+import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -389,15 +391,21 @@ public class AdminAdmin implements IAdminCommandHandler
 					QuestManager.getInstance().reloadAllQuests();
 					activeChar.sendMessage("All Quests have been reloaded");
 				}
+				else if (type.startsWith("chsiege"))
+				{
+					for (CCHSiege siege : CCHManager.getInstance().getSieges())
+						siege.getGuardManager().load();
+					activeChar.sendMessage("All clan hall siege guards have been reloaded");
+				}
 				else
 				{
 					activeChar
-							.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers|siege|fortsiege|door>");
+							.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers|siege|fortsiege|chsiege|door>");
 				}
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|siege|fortsiege|door>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|siege|fortsiege|chsiege|door>");
 			}
 		}
 
