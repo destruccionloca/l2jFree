@@ -2802,7 +2802,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
 									{
 										condGood = false;
-										activeChar.sendMessage("You may not resurrect participants in a festival.");
+										player.sendMessage("You may not resurrect participants in a festival.");
 									}
 									if (targetPlayer.isReviveRequested())
 									{

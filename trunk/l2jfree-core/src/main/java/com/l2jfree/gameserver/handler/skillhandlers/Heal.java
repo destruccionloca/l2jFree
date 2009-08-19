@@ -134,13 +134,13 @@ public class Heal implements ISkillHandler
 						SystemMessage sm = new SystemMessage(SystemMessageId.S2_HP_RESTORED_BY_C1);
 						sm.addString(activeChar.getName());
 						sm.addNumber((int) hp);
-						target.sendPacket(sm);
+						target.getActingPlayer().sendPacket(sm);
 					}
 					else
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S1_HP_RESTORED);
 						sm.addNumber((int) hp);
-						target.sendPacket(sm);
+						target.getActingPlayer().sendPacket(sm);
 					}
 				}
 			}

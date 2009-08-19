@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.stat;
 
-import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 

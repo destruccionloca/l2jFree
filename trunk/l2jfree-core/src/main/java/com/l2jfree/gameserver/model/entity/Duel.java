@@ -942,41 +942,42 @@ public class Duel
 		}
 	}
 
-	//handled by the final boolean
+	//handled by the boolean
+	@SuppressWarnings("null")
 	public static boolean isInvul(L2Character targetChar, L2Character attackerChar)
 	{
 		if (targetChar == null || attackerChar == null)
 			return false;
-		
-		final L2PcInstance attacker = L2Object.getActingPlayer(attackerChar);
-		final L2PcInstance target = L2Object.getActingPlayer(targetChar);
-		
+
+		L2PcInstance attacker = L2Object.getActingPlayer(attackerChar);
+		L2PcInstance target = L2Object.getActingPlayer(targetChar);
+
 		if (attacker == null && target == null)
 			return false;
-		
-		final boolean attackerIsInDuel = attacker != null && attacker.isInDuel();
-		final boolean targetIsInDuel = target != null && target.isInDuel();
-		
+
+		boolean attackerIsInDuel = attacker != null && attacker.isInDuel();
+		boolean targetIsInDuel = target != null && target.isInDuel();
+
 		if (!attackerIsInDuel && !targetIsInDuel)
 			return false;
-		
+
 		if (attackerIsInDuel)
 			if (attacker.getDuelState() == Duel.DUELSTATE_DEAD || attacker.getDuelState() == Duel.DUELSTATE_WINNER)
 				return true;
-		
+
 		if (targetIsInDuel)
 			if (target.getDuelState() == Duel.DUELSTATE_DEAD || target.getDuelState() == Duel.DUELSTATE_WINNER)
 				return true;
-		
+
 		if (attackerIsInDuel && targetIsInDuel && attacker.getDuelId() == target.getDuelId())
 			return false;
-		
+
 		if (attackerIsInDuel)
 			attacker.setDuelState(Duel.DUELSTATE_INTERRUPTED);
-		
+
 		if (targetIsInDuel)
 			target.setDuelState(Duel.DUELSTATE_INTERRUPTED);
-		
+
 		return false;
 	}
 }

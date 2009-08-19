@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 

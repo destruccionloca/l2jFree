@@ -42,6 +42,7 @@ import com.l2jfree.lang.L2Math;
  */
 public abstract class L2Playable extends L2Character
 {
+	@SuppressWarnings("hiding")
 	public static final L2Playable[] EMPTY_ARRAY = new L2Playable[0];
 	
 	private boolean	_isNoblesseBlessed	= false;	// For Noblesse Blessing skill, restores buffs after death

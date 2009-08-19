@@ -18,7 +18,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -52,11 +51,11 @@ public class AirShipManager
 	
 	private final void load()
 	{
-		LineNumberReader lnr = null;
+		BufferedReader lnr = null;
 		try
 		{
 			File doorData = new File(Config.DATAPACK_ROOT, "data/airship.csv");
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(doorData)));
+			lnr = new BufferedReader(new FileReader(doorData));
 			
 			String line = null;
 			while ((line = lnr.readLine()) != null)
@@ -67,9 +66,7 @@ public class AirShipManager
 				airShip.spawn();
 				_airShip = airShip;
 				if (_log.isDebugEnabled())
-				{
 					_log.info("AirShip ID : " + airShip.getObjectId());
-				}
 			}
 		}
 		catch (FileNotFoundException e)
@@ -84,7 +81,8 @@ public class AirShipManager
 		{
 			try
 			{
-				lnr.close();
+				if (lnr != null)
+					lnr.close();
 			}
 			catch (Exception e1)
 			{ /* ignore problems */

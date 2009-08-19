@@ -45,11 +45,11 @@ public class Faction
     
 	public Faction(int factionId)
     {
-        _Id = factionId;
-        String _classlist                   = null;
-        String _npclist                   = null;
-        String _titlelist                   = null;
-        int _tside  = 0;
+        _Id					= factionId;
+        String _classlist	= "";
+        String _npclist		= "";
+        String _titlelist	= "";
+        int _tside			= 0;
         
         Connection con = null;
         try
@@ -75,18 +75,18 @@ public class Faction
             }
             statement.close();
             
-            if(_tside<=2)
+            if (_tside <= 2)
                 _side = _tside;
             
-            if(_classlist.length()>0)
+            if (_classlist.length() > 0)
                 for (String id : _classlist.split(","))
                     _list_classes.add(Integer.parseInt(id));
 
-            if(_npclist.length()>0)
+            if (_npclist.length() > 0)
                 for (String id : _npclist.split(","))
                     _list_npcs.add(Integer.parseInt(id));
             
-            if(_titlelist.length()>0)
+            if (_titlelist.length() > 0)
                 for (String id : _titlelist.split(";"))
                     _list_title.put(Integer.valueOf(id.split(",")[0]),id.split(",")[1]);
         }

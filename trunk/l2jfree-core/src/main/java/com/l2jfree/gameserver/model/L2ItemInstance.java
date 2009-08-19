@@ -68,6 +68,7 @@ import com.l2jfree.util.L2Arrays;
  */
 public final class L2ItemInstance extends L2Object implements FuncOwner, ElementalOwner
 {
+	@SuppressWarnings("hiding")
 	public static final L2ItemInstance[] EMPTY_ARRAY = new L2ItemInstance[0];
 	
 	protected static final Log	_log		= LogFactory.getLog(L2ItemInstance.class);

@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -462,11 +461,11 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	{
 		if (!_inUse || !getShowIcon())
 			return;
-		
+
 		if (!isActing())
 			return;
-		
-		// FIXME: why?
+
+		// ShortBuffStatusUpdate sent by handler
 		switch (_skill.getId())
 		{
 			case 2031:
@@ -474,22 +473,22 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			case 2037:
 				return;
 		}
-		
+
 		switch (getEffectType())
 		{
 			case SIGNET_GROUND:
 				return;
 		}
-		
+
 		final ScheduledFuture<?> future = _currentFuture;
 		if (future == null)
 			return;
-		
+
 		long time = getRemainingTaskTime();
-		
+
 		if (time <= 0 || 86400 <= time)
 			time = -1;
-		
+
 		list.addEffect(_skill.getDisplayId(), _skill.getLevel(), (int)time);
 	}
 	

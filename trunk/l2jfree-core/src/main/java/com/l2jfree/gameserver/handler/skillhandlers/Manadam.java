@@ -61,12 +61,12 @@ public class Manadam implements ISkillHandler
 				target = activeChar;
 
 			boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);
-			if (!acted || target.isInvul())
+			if ((!acted || target.isInvul()) && activeChar.getActingPlayer() != null)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 				sm.addCharName(target);
 				sm.addSkillName(skill);
-				activeChar.sendPacket(sm);
+				activeChar.getActingPlayer().sendPacket(sm);
 			}
 			else
 			{
@@ -87,14 +87,14 @@ public class Manadam implements ISkillHandler
 					SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_C1);
 					sm.addCharName(activeChar);
 					sm.addNumber((int) mp);
-					((L2PcInstance)target).sendPacket(sm);
+					((L2PcInstance) target).sendPacket(sm);
 				}
 
 				if (activeChar instanceof L2PcInstance)
 				{
 					SystemMessage sm2 = new SystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1);
 					sm2.addNumber((int) mp);
-					((L2PcInstance)activeChar).sendPacket(sm2);
+					((L2PcInstance) activeChar).sendPacket(sm2);
 				}
 			}
 		}

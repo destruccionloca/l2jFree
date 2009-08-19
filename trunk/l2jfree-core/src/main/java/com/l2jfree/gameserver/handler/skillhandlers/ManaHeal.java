@@ -90,18 +90,21 @@ public class ManaHeal implements ISkillHandler
 
 			target.getStatus().setCurrentMp(mp + target.getStatus().getCurrentMp());
 
-			if (actChar instanceof L2PcInstance && actChar != target)
+			if (target instanceof L2PcInstance)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_RESTORED_BY_C1);
-				sm.addString(actChar.getName());
-				sm.addNumber((int) mp);
-				target.sendPacket(sm);
-			}
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_MP_RESTORED);
-				sm.addNumber((int) mp);
-				target.sendPacket(sm);
+				if (actChar instanceof L2PcInstance && actChar != target)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_RESTORED_BY_C1);
+					sm.addString(actChar.getName());
+					sm.addNumber((int) mp);
+					target.getActingPlayer().sendPacket(sm);
+				}
+				else
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_MP_RESTORED);
+					sm.addNumber((int) mp);
+					target.getActingPlayer().sendPacket(sm);
+				}
 			}
 		}
 	}

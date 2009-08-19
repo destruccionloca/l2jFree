@@ -30,36 +30,38 @@ public final class TriggeredSkill
 		
 		final int triggeredId = set.getInteger("triggeredId");
 		final int triggeredLevel = set.getInteger("triggeredLevel");
-		
+
 		if (triggeredId >= 0 && triggeredLevel >= 0)
 			return new TriggeredSkill(triggeredId, triggeredLevel);
 		else
 			throw new IllegalStateException();
 	}
-	
+
 	public static TriggeredSkill parse(Integer triggeredId, Integer triggeredLevel)
 	{
 		if (triggeredId == null && triggeredLevel == null)
 			return null;
-		
+
 		if (triggeredLevel == null)
 			triggeredLevel = 1;
-		
+		if (triggeredId == null)
+			triggeredId = 0;
+
 		if (triggeredId >= 0 && triggeredLevel >= 0)
 			return new TriggeredSkill(triggeredId, triggeredLevel);
 		else
 			throw new IllegalStateException();
 	}
-	
+
 	private final int _skillId;
 	private final int _skillLvl;
-	
+
 	private TriggeredSkill(int skillId, int skillLvl)
 	{
 		_skillId = skillId;
 		_skillLvl = skillLvl;
 	}
-	
+
 	public L2Skill getTriggeredSkill()
 	{
 		return SkillTable.getInstance().getInfo(_skillId, _skillLvl);

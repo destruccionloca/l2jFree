@@ -34,7 +34,6 @@ public class OpenDoor implements ISkillHandler
 				L2DoorInstance door = (L2DoorInstance) element;
 				door.openMe();
 				door.onOpen();
-				activeChar.sendMessage("Unlock the door!");
 			}
 		}
 	}

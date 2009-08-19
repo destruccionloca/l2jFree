@@ -937,9 +937,8 @@ public class FrintezzaManager extends BossLair
 		frintezza.callSkill(skill, target);
 
 		// send target the message, the skill was launched
-		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-		sm.addSkillName(skill.getId());
-		target.sendPacket(sm);
+		if (target instanceof L2PcInstance)
+			target.getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill.getId()));
 
 		// Add stat funcs to the target
 		target.addStatFunc(getDecreaseRegHpFunc());
@@ -1082,9 +1081,8 @@ public class FrintezzaManager extends BossLair
 				_effected.callSkill(_skill, _effected);
 
 				// send target the message
-				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-				sm.addSkillName(_skill.getId());
-				_effected.sendPacket(sm);
+				if (_effected instanceof L2PcInstance)
+					_effected.getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(_skill.getId()));
 
 				// set the cancel task for this effect
 				ThreadPoolManager.getInstance().scheduleGeneral(new exitStunDanceEffect(_effected), getDebuffPeriod(_skill, _effected));

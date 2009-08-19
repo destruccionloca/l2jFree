@@ -297,6 +297,7 @@ import com.l2jfree.util.SingletonMap;
  */
 public final class L2PcInstance extends L2Playable
 {
+	@SuppressWarnings("hiding")
 	public static final L2PcInstance[] EMPTY_ARRAY = new L2PcInstance[0];
 	
 	// Character Skill SQL String Definitions:
@@ -4006,7 +4007,6 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 */
 	@Override
-	@SuppressWarnings("deprecation")
 	public void sendPacket(L2GameServerPacket packet)
 	{
 		final L2GameClient client = _client;
@@ -4026,11 +4026,10 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public void sendPacket(StaticPacket packet)
 	{
-		sendPacket((L2GameServerPacket)packet);
+		sendPacket((L2GameServerPacket) packet);
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	public void sendMessage(String message)
 	{
 		sendPacket(SystemMessage.sendString(message));

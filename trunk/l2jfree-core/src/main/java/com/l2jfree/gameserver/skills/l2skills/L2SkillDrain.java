@@ -118,21 +118,20 @@ public class L2SkillDrain extends L2Skill
 					if ((Formulas.calcSkillReflect(target, this) & Formulas.SKILL_REFLECT_SUCCEED) > 0)
 					{
 						getEffects(target, activeChar);
-						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-						sm.addSkillName(this);
-						activeChar.sendPacket(sm);
+						if (activeChar instanceof L2PcInstance)
+							activeChar.getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(this));
 					}
 					else
 					{
 						// activate attacked effects, if any
 						if (Formulas.calcSkillSuccess(activeChar, target, this, shld, false, ss, bss))
 							getEffects(activeChar, target);
-						else
+						else if (activeChar.getActingPlayer() != null)
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 							sm.addCharName(target);
 							sm.addSkillName(this);
-							activeChar.sendPacket(sm);
+							activeChar.getActingPlayer().sendPacket(sm);
 						}
 					}
 				}
@@ -141,9 +140,7 @@ public class L2SkillDrain extends L2Skill
 			}
 			// Check to see if we should do the decay right after the cast
 			if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2Npc)
-			{
-				((L2Npc)target).endDecayTask();
-			}
+				((L2Npc) target).endDecayTask();
 		}
 	}
 

@@ -1623,7 +1623,7 @@ public final class Formulas
 					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 					sm.addCharName(target);
 					sm.addSkillName(skill);
-					attacker.sendPacket(sm);
+					((L2PcInstance) attacker).sendPacket(sm);
 
 					damage = 1;
 				}
@@ -1632,17 +1632,9 @@ public final class Formulas
 			if (target instanceof L2PcInstance)
 			{
 				if (skill.getSkillType() == L2SkillType.DRAIN)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_C1_DRAIN);
-					sm.addCharName(attacker);
-					target.sendPacket(sm);
-				}
+					((L2PcInstance) target).sendPacket(new SystemMessage(SystemMessageId.RESISTED_C1_DRAIN).addCharName(attacker));
 				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_C1_MAGIC);
-					sm.addCharName(attacker);
-					target.sendPacket(sm);
-				}
+					((L2PcInstance) target).sendPacket(new SystemMessage(SystemMessageId.RESISTED_C1_MAGIC).addCharName(attacker));
 			}
 		}
 		else if (mcrit)

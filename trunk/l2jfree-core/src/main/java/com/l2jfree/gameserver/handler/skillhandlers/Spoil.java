@@ -82,7 +82,7 @@ public class Spoil extends ISkillConditionChecker
 					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
 					sm.addCharName(target);
 					sm.addSkillName(skill);
-					activeChar.sendPacket(sm);
+					activeChar.getActingPlayer().sendPacket(sm);
 				}
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 			}

@@ -419,9 +419,7 @@ public class Castle extends Siegeable<Siege>
 				{
 					_formerOwner = oldOwner;
 					if (Config.ALT_REMOVE_CASTLE_CIRCLETS)
-					{
 						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
-					}
 				}
 
 				oldOwner.setHasCastle(0); // Unset has castle flag for old owner
@@ -440,6 +438,13 @@ public class Castle extends Siegeable<Siege>
 			Fort fort = FortManager.getInstance().getFortByOwner(clan);
 			if (fort != null)
 				fort.removeOwner(true);
+		}
+
+		if (clan == null)
+		{
+			if (getSiege().getIsInProgress())
+				getSiege().endSiege();
+			return;
 		}
 
 		if (getSiege().getIsInProgress()) // If siege in progress

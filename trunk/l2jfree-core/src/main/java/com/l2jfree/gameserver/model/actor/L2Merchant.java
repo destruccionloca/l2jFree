@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**

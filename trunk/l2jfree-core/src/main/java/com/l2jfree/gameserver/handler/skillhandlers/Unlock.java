@@ -42,7 +42,6 @@ public class Unlock implements ISkillHandler
 				if (!door.isUnlockable() || door.getFort() != null)
 				{
 					activeChar.sendPacket(SystemMessageId.UNABLE_TO_UNLOCK_DOOR);
-					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 
@@ -50,12 +49,9 @@ public class Unlock implements ISkillHandler
 				{
 					door.openMe();
 					door.onOpen();
-					activeChar.sendMessage("Unlock the door!");
 				}
 				else
-				{
 					activeChar.sendPacket(SystemMessageId.FAILED_TO_UNLOCK_DOOR);
-				}
 			}
 			else if (element instanceof L2ChestInstance)
 			{
