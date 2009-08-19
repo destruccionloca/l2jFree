@@ -1018,16 +1018,16 @@
     <table name="#aggroPoints"> 418 495 </table>
     <set name="mpConsume" val="48"/>
     <set name="target" val="TARGET_OWNER_PET"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#pAtkSpd" stackType="attack_time_down">
+      <effect name="Buff" time="120" val="0" stackOrder="#pAtkSpd" stackType="attack_time_down">
         <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       </effect>
     </for>
@@ -1042,16 +1042,16 @@
     <table name="#absorbDam"> 6 7 8 9 </table>
     <set name="mpConsume" val="54"/>
     <set name="target" val="TARGET_OWNER_PET"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" count="1" time="1200" val="0" stackOrder="#absorbDam" stackType="vampRage">
+      <effect name="Buff" time="120" val="0" stackOrder="#absorbDam" stackType="vampRage">
         <add order="0x40" stat="absorbDam" val="#absorbDam"/>
       </effect>
     </for>
@@ -1063,16 +1063,16 @@
     <table name="#aggroPoints"> 331 457 532 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_OWNER_PET"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="4000"/>
-    <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="hp_regen_up">
+      <effect name="Buff" time="120" val="0" stackOrder="#rate" stackType="hp_regen_up">
         <mul order="0x30" stat="regHp" val="#rate"/>
       </effect>
     </for>
@@ -1084,11 +1084,11 @@
     <table name="#aggroPoints"> 418 457 495 532 597 646 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_OWNER_PET"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="4000"/>
-    <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
@@ -1125,15 +1125,15 @@
     <table name="#accCombat"> 2 3 4 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_OWNER_PET"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#accCombat" stackType="hit_up">
+      <effect name="Buff" time="120" val="0" stackOrder="#accCombat" stackType="hit_up">
         <add order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>
@@ -1146,15 +1146,15 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#runSpd" stackType="speed_up">
+      <effect name="Buff" time="120" val="0" stackOrder="#runSpd" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="#runSpd"/>
       </effect>
     </for>
@@ -1167,15 +1167,15 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#mAtkSpd" stackType="casting_time_down">
+      <effect name="Buff" time="120" val="0" stackOrder="#mAtkSpd" stackType="casting_time_down">
         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
       </effect>
     </for>
@@ -1188,15 +1188,15 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#mAtk" stackType="ma_up">
+      <effect name="Buff" time="120" val="0" stackOrder="#mAtk" stackType="ma_up">
         <mul order="0x30" stat="mAtk" val="#mAtk"/>
       </effect>
     </for>
@@ -1207,7 +1207,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_OWNER_PET"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="3500"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
