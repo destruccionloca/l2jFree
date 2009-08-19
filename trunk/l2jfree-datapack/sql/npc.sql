@@ -10041,12 +10041,16 @@ UPDATE `npc` SET `collision_height` = 40.5 WHERE `id` IN (32273,32274,32275,3227
 UPDATE `npc` SET `name` = 'Rignos' WHERE `id` = 32349;
 
 -- Siegeable clan halls
-UPDATE `npc` SET `type` = 'L2CCHBoss' WHERE id IN (35410,35629);
-UPDATE `npc` SET `faction_id` = 'gustav_clan', `faction_range` = 1900 WHERE id = 35410;
-UPDATE `npc` SET `type` = 'L2Doormen', `collision_height` = 16 WHERE id IN (35417,35418);
-UPDATE `npc` SET `type` = 'L2CCHRegistrar' WHERE id IN (35420,35639);
-UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE id IN (35421,35640);
-UPDATE `npc` SET `type` = 'L2Monster' WHERE id BETWEEN 35630 AND 35637;
-UPDATE `npc` SET `faction_id` = 'hellman_clan', `faction_range` = 1900 WHERE id BETWEEN 35629 AND 35631;
-UPDATE `npc` SET `faction_id` = 'hellman_clan', `faction_range` = 1000 WHERE id BETWEEN 35632 AND 35637;
-UPDATE `npc` SET `type` = 'L2ClanHallDoormen' WHERE id BETWEEN 35641 AND 35642;
+UPDATE `npc` SET `type` = 'L2CCHBoss' WHERE `id` IN (35410,35629);
+UPDATE `npc` SET `faction_id` = 'gustav_clan', `faction_range` = 1900 WHERE `id` = 35410;
+UPDATE `npc` SET `type` = 'L2Doormen', `collision_height` = 16 WHERE `id` IN (35417,35418);
+UPDATE `npc` SET `type` = 'L2CCHRegistrar' WHERE `id` IN (35420,35639);
+UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` IN (35421,35640);
+UPDATE `npc` SET `type` = 'L2Monster' WHERE `id` BETWEEN 35630 AND 35637;
+UPDATE `npc` SET `faction_id` = 'hellman_clan', `faction_range` = 1900 WHERE `id` BETWEEN 35629 AND 35631;
+UPDATE `npc` SET `faction_id` = 'hellman_clan', `faction_range` = 1000 WHERE `id` BETWEEN 35632 AND 35637;
+UPDATE `npc` SET `type` = 'L2ClanHallDoormen' WHERE `id` BETWEEN 35641 AND 35642;
+
+-- Control towers (quick fix as rune castle's ones have higher stats)
+UPDATE `npc` SET `pdef` = 837, `mdef` = 674 WHERE `id` BETWEEN 13002 AND 13005;
+UPDATE `npc` SET `type` = 'L2FlameControlTower' WHERE `id` = 13004;

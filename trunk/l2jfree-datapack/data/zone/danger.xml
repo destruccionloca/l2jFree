@@ -310,7 +310,7 @@
   <!-- Retail has only this 8th zone :D -->
   <zone id="29" name="devil_slow_8" type="Danger">
     <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
-    <skill applyEnter="4625,12" removeExit="4625"/> <!-- Swamp -->
+    <skill applyEnter="4625,11" removeExit="4625"/> <!-- Swamp -->
     <shape type="Poly" zMin="-3964" zMax="-3364">
       <point x="55250" y="210873"/>
       <point x="55762" y="211217"/>
