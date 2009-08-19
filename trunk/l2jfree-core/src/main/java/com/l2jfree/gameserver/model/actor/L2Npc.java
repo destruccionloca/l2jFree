@@ -62,11 +62,13 @@ import com.l2jfree.gameserver.model.MobGroupTable;
 import com.l2jfree.gameserver.model.actor.instance.L2AuctioneerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2CCHBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2ControllableMobInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoormenInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FestivalGuideInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TeleporterInstance;
@@ -2944,4 +2946,22 @@ public class L2Npc extends L2Character
 	{
 		return _questDropable;
 	}
+
+	public boolean canBeChampion()
+	{
+		switch (getNpcId())
+		{
+		// Devastated Castle
+		case 35411: case 35412: case 35413: case 35414: case 35415: case 35416:
+		// Fortress of the Dead
+		case 35629: case 35630: case 35631: case 35632: case 35633: case 35634: case 35635:
+		case 35636: case 35637:
+			return false;
+		}
+		if (this instanceof L2CCHBossInstance)
+			return false;
+		return ((this instanceof L2MonsterInstance && !(this instanceof L2Boss)) || (this instanceof L2Boss && Config.CHAMPION_BOSS))
+		&& Config.CHAMPION_FREQUENCY > 0 && !getTemplate().isQuestMonster() && getLevel() >= Config.CHAMPION_MIN_LEVEL
+		&& getLevel() <= Config.CHAMPION_MAX_LEVEL;
+ 	}
 }

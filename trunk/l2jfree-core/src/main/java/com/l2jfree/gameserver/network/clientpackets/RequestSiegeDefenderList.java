@@ -12,32 +12,44 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SiegeDefenderList;
 
 public class RequestSiegeDefenderList extends L2GameClientPacket
-{
+{    
     private static final String _C__a3_RequestSiegeDefenderList = "[C] a3 RequestSiegeDefenderList";
-    
-    private int _castleId;
+
+    private int _siegeableID;
     
     @Override
     protected void readImpl()
     {
-        _castleId = readD();
+    	_siegeableID = readD();
     }
 
     @Override
     protected void runImpl()
     {
-        Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+    	SiegeDefenderList sdl = null;
+        Castle castle = CastleManager.getInstance().getCastleById(_siegeableID);
         if (castle == null)
-            return;
-        SiegeDefenderList sdl = new SiegeDefenderList(castle);
-        sendPacket(sdl);
+        {
+        	ClanHall hideout = ClanHallManager.getInstance().getClanHallById(_siegeableID);
+        	if (hideout != null && hideout.getSiege() != null)
+        		sdl = new SiegeDefenderList(hideout);
+        }
+        else
+        	sdl = new SiegeDefenderList(castle);
+        if (sdl != null)
+        	sendPacket(sdl);
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
     
     

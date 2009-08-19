@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.instancemanager.CCHManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -23,6 +24,7 @@ import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.status.SiegeFlagStatus;
+import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -36,6 +38,7 @@ public final class L2SiegeFlagInstance extends L2Npc
 	private final L2PcInstance _player;
 	private final Siege _siege;
 	private final FortSiege _fortSiege;
+	private final CCHSiege _contSiege;
 	private final boolean _isAdvanced;
 	private long _talkProtectionTime;
 
@@ -49,6 +52,7 @@ public final class L2SiegeFlagInstance extends L2Npc
 		_talkProtectionTime = 0;
 		_siege = SiegeManager.getInstance().getSiege(_player);
 		_fortSiege = FortSiegeManager.getInstance().getSiege(_player);
+		_contSiege = CCHManager.getInstance().getSiege(_player);
 		
 		if (_clan == null)
 		{
@@ -56,28 +60,24 @@ public final class L2SiegeFlagInstance extends L2Npc
 			return;
 		}
 
-		if (_siege == null && _fortSiege == null)
+		if (_siege == null && _fortSiege == null && _contSiege == null)
 		{
 			deleteMe();
 			return;
 		}
 
-		if (_siege != null && _fortSiege == null)
-		{
-			L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
-			if (sc == null)
-				deleteMe();
-			else
-				sc.addFlag(this);
-		}
-		else if (_siege == null && _fortSiege != null)
-		{
-			L2SiegeClan sc = _fortSiege.getAttackerClan(_player.getClan());
-			if (sc == null)
-				deleteMe();
-			else
-				sc.addFlag(this);
-		}
+		L2SiegeClan sc = null;
+		if (_siege != null && _fortSiege == null && _contSiege == null)
+			sc = _siege.getAttackerClan(_player.getClan());
+		else if (_siege == null && _fortSiege != null && _contSiege == null)
+			sc = _fortSiege.getAttackerClan(_player.getClan());
+		else if (_siege == null && _fortSiege == null && _contSiege != null)
+			sc = _contSiege.getAttackerClan(_player.getClan());
+
+		if (sc == null)
+			deleteMe();
+		else
+			sc.addFlag(this);
 	}
 
 	@Override
@@ -98,18 +98,16 @@ public final class L2SiegeFlagInstance extends L2Npc
 		if (!super.doDie(killer))
 			return false;
 
+		L2SiegeClan sc = null;
 		if (_siege != null)
-		{
-			L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
-			if (sc != null)
-				sc.removeFlag(this);
-		}
+			sc = _siege.getAttackerClan(_player.getClan());
 		else if (_fortSiege != null)
-		{
-			L2SiegeClan sc = _fortSiege.getAttackerClan(_player.getClan());
-			if (sc != null)
-				sc.removeFlag(this);
-		}
+			sc = _fortSiege.getAttackerClan(_player.getClan());
+		else if (_contSiege != null)
+			sc = _contSiege.getAttackerClan(_player.getClan());
+
+		if (sc != null)
+			sc.removeFlag(this);
 
 		return true;
 	}

@@ -39,6 +39,7 @@ public class CombatPointHeal implements ISkillHandler
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
+	@SuppressWarnings("deprecation")
 	public void useSkill(L2Character actChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, actChar, skill, targets);
@@ -52,9 +53,7 @@ public class CombatPointHeal implements ISkillHandler
 
 			// From CT2 u will receive exact CP, you can't go over it, if you have full CP and you get CP buff, you will receive 0CP restored message
 			if ((target.getStatus().getCurrentCp() + cp) >= target.getMaxCp())
-			{
 				cp = target.getMaxCp() - target.getStatus().getCurrentCp();
-			}
 
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
 			sm.addNumber((int) cp);

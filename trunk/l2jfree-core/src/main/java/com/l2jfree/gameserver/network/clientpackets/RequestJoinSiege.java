@@ -12,13 +12,16 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class ...
@@ -28,15 +31,15 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestJoinSiege extends L2GameClientPacket
 {
 	private static final String	_C__A4_RequestJoinSiege	= "[C] a4 RequestJoinSiege";
-	
-	private int					_castleId;
+
+	private int					_siegeableID;
 	private int					_isAttacker;
 	private int					_isJoining;
 
 	@Override
 	protected void readImpl()
 	{
-		_castleId = readD();
+		_siegeableID = readD();
 		_isAttacker = readD();
 		_isJoining = readD();
 	}
@@ -45,30 +48,58 @@ public class RequestJoinSiege extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-		if (!activeChar.isClanLeader())
+		if (activeChar == null || !activeChar.isClanLeader())
 			return;
 
-		Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+		ClanHall hideout = null;
+		Castle castle = CastleManager.getInstance().getCastleById(_siegeableID);
 		if (castle == null)
-			return;
+			hideout = ClanHallManager.getInstance().getClanHallById(_siegeableID);
 
-		if (_isJoining == 1)
+		if (_isJoining == 1 && System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
 		{
-			if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
+			requestFailed(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS);
+			return;
+		}
+
+		if (castle != null)
+		{
+			if (castle.getSiege().getIsInProgress())
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
+				requestFailed(SystemMessageId.NOT_SIEGE_REGISTRATION_TIME2);
 				return;
 			}
-			if (_isAttacker == 1)
-				castle.getSiege().registerAttacker(activeChar);
+			if (_isJoining == 1)
+			{
+				if (_isAttacker == 1)
+					castle.getSiege().registerAttacker(activeChar);
+				else
+					castle.getSiege().registerDefender(activeChar);
+			}
 			else
-				castle.getSiege().registerDefender(activeChar);
+				castle.getSiege().removeSiegeClan(activeChar);
+			castle.getSiege().listRegisterClan(activeChar);
 		}
-		else
-			castle.getSiege().removeSiegeClan(activeChar);
-		castle.getSiege().listRegisterClan(activeChar);
+		else if (hideout != null)
+		{
+			if (hideout.getSiege().getIsInProgress())
+			{
+				requestFailed(SystemMessageId.NOT_SIEGE_REGISTRATION_TIME2);
+				return;
+			}
+			if (_isJoining == 1)
+			{
+				if (_isAttacker == 1)
+					hideout.getSiege().registerAttacker(activeChar, false);
+				else
+					sendPacket(SystemMessageId.DEFENDER_SIDE_FULL);
+			}
+			else
+				hideout.getSiege().removeSiegeClan(activeChar);
+			hideout.getSiege().listRegisterClan(activeChar);
+		}
+
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override

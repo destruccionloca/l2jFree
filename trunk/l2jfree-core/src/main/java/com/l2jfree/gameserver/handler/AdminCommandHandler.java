@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCTFEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCache;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCamera;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminContest;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCreateItem;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminDMEngine;
@@ -120,6 +121,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminCache());
 		register(new AdminCamera());
 		register(new AdminChangeAccessLevel());
+		register(new AdminContest());
 		register(new AdminCreateItem());
 		register(new AdminCursedWeapons());
 		register(new AdminDMEngine());

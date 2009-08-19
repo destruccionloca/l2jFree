@@ -81,6 +81,7 @@ import com.l2jfree.gameserver.instancemanager.AuctionManager;
 import com.l2jfree.gameserver.instancemanager.AutoSpawnManager;
 import com.l2jfree.gameserver.instancemanager.BlockListManager;
 import com.l2jfree.gameserver.instancemanager.BoatManager;
+import com.l2jfree.gameserver.instancemanager.CCHManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
@@ -123,6 +124,7 @@ import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Hero;
@@ -152,6 +154,7 @@ import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 public class GameServer extends Config
 {
+	@SuppressWarnings("hiding")
 	private static final Log _log = LogFactory.getLog(GameServer.class);
 	private static final Calendar _serverStarted = Calendar.getInstance();
 	private static SelectorThread<L2GameClient> _selectorThread;
@@ -271,6 +274,7 @@ public class GameServer extends Config
 		CastleManager.getInstance().loadInstances();
 		SiegeManager.getInstance();
 		FortManager.getInstance().loadInstances();
+		CCHManager.getInstance();
 		FortSiegeManager.getInstance();
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
@@ -280,13 +284,11 @@ public class GameServer extends Config
 			AirShipManager.getInstance();
 		// make sure that all the scheduled siege dates are in the Seal Validation period
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
-		{
 			castle.getSiege().correctSiegeDateTime();
-		}
 		for (Fort fort : FortManager.getInstance().getForts())
-		{
 			fort.getSpawnManager().initNpcs();
-		}
+		for (CCHSiege siege : CCHManager.getInstance().getSieges())
+			siege.correctSiegeDateTime();
 		Util.printSection("Quests");
 		QuestManager.getInstance();
 		TransformationManager.getInstance();

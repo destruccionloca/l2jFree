@@ -248,7 +248,7 @@ Control of this needs to be moved back into potions.java so proper message suppo
 	{
 		return (isEffectReplaceable(playable, effectType, item) && isUseable(playable, item, skillid));
 	}
-	
+
 	public boolean usePotion(L2Playable activeChar, int magicId, int level)
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
@@ -263,7 +263,7 @@ Control of this needs to be moved back into potions.java so proper message suppo
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addSkillName(skill);
-				activeChar.sendPacket(sm);
+				activeChar.getActingPlayer().sendPacket(sm);
 				return false;
 			}
 
@@ -273,14 +273,10 @@ Control of this needs to be moved back into potions.java so proper message suppo
 				L2PcInstance player = (L2PcInstance) activeChar;
 				// Only for Heal potions
 				if (magicId == 2031 || magicId == 2032 || magicId == 2037)
-				{
 					player.shortBuffStatusUpdate(magicId, level, 15);
-				}
 				// Summons should be affected by herbs too, self time effect is handled at L2Effect constructor
 				else if (((magicId > 2277 && magicId < 2286) || (magicId >= 2512 && magicId <= 2514)) && (player.getPet() instanceof L2SummonInstance))
-				{
 					player.getPet().doSimultaneousCast(skill);
-				}
 
 				if (!(player.isSitting() && !skill.isPotion()))
 					return true;
@@ -289,7 +285,7 @@ Control of this needs to be moved back into potions.java so proper message suppo
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.PET_USES_S1);
 				sm.addString(skill.getName());
-				((L2PetInstance) (activeChar)).getOwner().sendPacket(sm);
+				((L2PetInstance) activeChar).getOwner().sendPacket(sm);
 				return true;
 			}
 		}

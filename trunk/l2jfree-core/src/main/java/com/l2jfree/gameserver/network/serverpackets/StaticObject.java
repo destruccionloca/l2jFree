@@ -49,8 +49,9 @@ public class StaticObject extends L2GameServerPacket
 	
 	public StaticObject(L2DoorInstance door)
 	{
-		// TODO: needed to be added here doors from conquerable clanhalls
-		this(door, door.getCastle() != null || (door.getFort() != null && !door.getIsCommanderDoor()));
+		this(door, door.getCastle() != null ||
+				(door.getFort() != null && !door.getIsCommanderDoor()) ||
+				(door.getClanHall() != null && door.getClanHall().getSiege() != null));
 	}
 	
 	public StaticObject(L2DoorInstance door, boolean showHp)

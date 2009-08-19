@@ -15,9 +15,11 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.entity.AbstractSiege;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siegeable;
 
@@ -35,6 +37,9 @@ public abstract class SiegeableEntityZone extends L2Zone
 		
 		if (getFortId() > 0)
 			return initFort();
+
+		if (getClanhallId() > 0)
+			return initHideout();
 		
 		throw new IllegalArgumentException("Invalid entity!");
 	}
@@ -57,6 +62,16 @@ public abstract class SiegeableEntityZone extends L2Zone
 			throw new IllegalArgumentException("Invalid fortId: " + getFortId());
 		
 		return fort;
+	}
+	
+	protected ClanHall initHideout() throws Exception
+	{
+		final ClanHall hideout = ClanHallManager.getInstance().getClanHallById(getClanhallId());
+		
+		if (hideout == null)
+			throw new IllegalArgumentException("Invalid clanHallId: " + getFortId());
+		
+		return hideout;
 	}
 	
 	@SuppressWarnings("unchecked")

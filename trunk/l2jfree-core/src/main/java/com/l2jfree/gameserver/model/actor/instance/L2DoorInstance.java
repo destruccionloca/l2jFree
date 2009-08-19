@@ -358,8 +358,10 @@ public class L2DoorInstance extends L2Character
 	{
 		if (getCastle() != null && getCastle().getSiege().getIsInProgress())
 			return true;
-		if (getFort() != null && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor())
+		else if (getFort() != null && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor())
 			return true;
+		else if (getClanHall() != null && getClanHall().getSiege() != null)
+			return getClanHall().getSiege().getIsInProgress();
 		return false;
     }
 
@@ -376,6 +378,7 @@ public class L2DoorInstance extends L2Character
 		// Attackable only during siege by everyone (not owner)
 		boolean isCastle = (getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress());
 		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor());
+		boolean isHideout = (getClanHall() != null && getClanHall().getSiege() != null && getClanHall().getSiege().getIsInProgress());
 
 		if (isFort)
 		{
@@ -408,7 +411,7 @@ public class L2DoorInstance extends L2Character
 			}
 		}
 
-		return (isCastle || isFort);
+		return (isCastle || isFort || isHideout);
 	}
 
 	public boolean isAttackable(L2Character attacker)

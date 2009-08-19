@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TradeOtherAdd;
 import com.l2jfree.gameserver.network.serverpackets.TradeOwnAdd;
 
@@ -51,7 +50,7 @@ public class AddTradeItem extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        final L2PcInstance player = getClient().getActiveChar();
+        L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
         if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
@@ -61,7 +60,7 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
 
-        final TradeList trade = player.getActiveTradeList();
+        TradeList trade = player.getActiveTradeList();
         if (trade == null)
         {
             _log.warn("Character: " + player.getName() + " requested item:" + _objectId + " add without active tradelist:" + _tradeId);
@@ -69,8 +68,7 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
 
-        final L2PcInstance partner = trade.getPartner();
-        
+        L2PcInstance partner = trade.getPartner();
         if (partner == null
             || L2World.getInstance().getPlayer(partner.getObjectId()) == null
             || partner.getActiveTradeList() == null)
@@ -91,10 +89,10 @@ public class AddTradeItem extends L2GameClientPacket
         	player.cancelActiveTrade();
             return;
         }
-        
+
         if (trade.isConfirmed() || trade.getPartner().getActiveTradeList().isConfirmed())
         {
-        	player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED));
+        	requestFailed(SystemMessageId.CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED);
         	return;
         }
 

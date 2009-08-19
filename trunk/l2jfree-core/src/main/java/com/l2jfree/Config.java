@@ -2099,6 +2099,7 @@ public class Config extends L2Config
 
 	public static boolean			SIEGE_ONLY_REGISTERED;
 	public static boolean			SIEGE_GATE_CONTROL;
+	public static boolean           USE_MISSING_CCH_MESSAGES;
 
 	public static final Set<String> CL_SET_SIEGE_TIME_LIST = new L2FastSet<String>();
 	public static final Set<Integer> SIEGE_HOUR_LIST_MORNING = new L2FastSet<Integer>();
@@ -2126,7 +2127,8 @@ public class Config extends L2Config
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
 
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
-			SIEGE_GATE_CONTROL = Boolean.parseBoolean(siegeSettings.getProperty("AllowGateControl", "true"));
+			SIEGE_GATE_CONTROL = Boolean.parseBoolean(siegeSettings.getProperty("AllowGateControl", "false"));
+			USE_MISSING_CCH_MESSAGES = Boolean.parseBoolean(siegeSettings.getProperty("ClanHallSiegeSysMsgs", "false"));
 
 			CL_SET_SIEGE_TIME_LIST.clear();
 			SIEGE_HOUR_LIST_MORNING.clear();

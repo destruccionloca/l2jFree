@@ -44,11 +44,8 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * 
  * @author Vital
- * 
  */
-
 public class AuctionBBSManager extends BaseBBSManager
 {
 	private final static Log			_log		= LogFactory.getLog(AuctionBBSManager.class);
@@ -522,7 +519,8 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("", e);
+			_log.warn("Cannot show auction bid page!", e);
+			return;
 		}
 		L2Item item = ItemTable.getInstance().getTemplate(lot.itemId);
 		int currentBid = getHighestBid(lotId);
@@ -709,7 +707,8 @@ public class AuctionBBSManager extends BaseBBSManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("", e);
+			_log.warn("Cannot show auction BuyNow page!", e);
+			return;
 		}
 		L2Item item = ItemTable.getInstance().getTemplate(lot.itemId);
 		int currentBid = getHighestBid(lotId);

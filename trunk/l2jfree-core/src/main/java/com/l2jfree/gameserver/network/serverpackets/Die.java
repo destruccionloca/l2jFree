@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.instancemanager.CCHManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -95,6 +96,13 @@ public class Die extends L2GameServerPacket
 					if (sc != null && sc.getNumFlags() > 0)
 						_showFlag = 1;
 				}
+				as = CCHManager.getInstance().getSiege(player);
+			 	if (as != null && as.getIsInProgress())
+			 	{
+			 		sc = as.getAttackerClan(clan);
+			 		if (sc != null && sc.getNumFlags() > 0)
+			 			_showFlag = 1;
+			 	}
 			}
 			else
 			{

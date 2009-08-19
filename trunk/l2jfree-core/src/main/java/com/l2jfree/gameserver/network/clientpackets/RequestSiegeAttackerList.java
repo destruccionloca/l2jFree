@@ -12,10 +12,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 
 /**
@@ -26,23 +30,32 @@ import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 public class RequestSiegeAttackerList extends L2GameClientPacket
 {
     private static final String _C__A2_RequestSiegeAttackerList = "[C] a2 RequestSiegeAttackerList";
-    
-    private int _castleId;
+    //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
+
+    private int _siegeableID;
     
     @Override
     protected void readImpl()
     {
-        _castleId = readD();
+    	_siegeableID = readD();
     }
 
     @Override
     protected void runImpl()
     {
-        Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+    	SiegeAttackerList sal = null;
+        Castle castle = CastleManager.getInstance().getCastleById(_siegeableID);
         if (castle == null)
-            return;
-        SiegeAttackerList sal = new SiegeAttackerList(castle);
-        sendPacket(sal);
+        {
+        	ClanHall hideout = ClanHallManager.getInstance().getClanHallById(_siegeableID);
+        	if (hideout != null && hideout.getSiege() != null)
+        		sal = new SiegeAttackerList(hideout);
+        }
+        else
+        	sal = new SiegeAttackerList(castle);
+        if (sal != null)
+        	sendPacket(sal);
+        sendPacket(ActionFailed.STATIC_PACKET);
     }
     
     @Override

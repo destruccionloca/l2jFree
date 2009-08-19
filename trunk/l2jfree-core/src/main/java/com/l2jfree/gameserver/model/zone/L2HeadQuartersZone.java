@@ -19,7 +19,10 @@ public class L2HeadQuartersZone extends SiegeableEntityZone
 	@Override
 	protected void register() throws Exception
 	{
-		_entity = initCastle();
+		if (getClanhallId() > 0)
+			_entity = initHideout();
+		else
+			_entity = initCastle();
 		_entity.registerHeadquartersZone(this);
 	}
 }

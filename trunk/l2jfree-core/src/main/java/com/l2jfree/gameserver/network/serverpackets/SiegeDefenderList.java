@@ -14,10 +14,16 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+//import java.util.Calendar; //signed time related
+//import java.util.logging.Logger;
+
+import java.util.Set;
+
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
 /**
  * Populates the Siege Defender List in the SiegeInfo Window<BR>
  * <BR>
@@ -37,7 +43,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
  * S = ClanLeaderName<BR>
  * d = ClanCrestID<BR>
  * d = signed time (seconds)<BR>
- * d = Type -> Owner = 0x01 || Waiting = 0x02 || Accepted = 0x03<BR>
+ * d = Type -> Owner = 0x01 || Waiting = 0x02 || Accepted = 0x03<BR> 
  * d = AllyID<BR>
  * S = AllyName<BR>
  * S = AllyLeaderName<BR>
@@ -48,78 +54,96 @@ import com.l2jfree.gameserver.model.entity.Castle;
 public class SiegeDefenderList extends L2GameServerPacket
 {
 	private static final String _S__CA_SiegeDefenderList = "[S] cb SiegeDefenderList";
-	private final Castle _castle;
+	//private static Logger _log = Logger.getLogger(SiegeDefenderList.class.getName());
+	private final int _siegeableID;
+	private final Set<L2SiegeClan> _defenders;
+	private final Set<L2SiegeClan> _waiting;
 
 	public SiegeDefenderList(Castle castle)
 	{
-		_castle = castle;
+		_siegeableID = castle.getCastleId();
+		_defenders = castle.getSiege().getDefenderClans();
+		_waiting = castle.getSiege().getDefenderWaitingClans();
+	}
+
+	public SiegeDefenderList(ClanHall hideout)
+	{
+		_siegeableID = hideout.getId();
+		_defenders = null;
+		_waiting = null;
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xcb);
-		writeD(_castle.getCastleId());
+		writeD(_siegeableID);
 		writeD(0x00);  //0
 		writeD(0x01);  //1
 		writeD(0x00);  //0
-		int size = _castle.getSiege().getDefenderClans().size() + _castle.getSiege().getDefenderWaitingClans().size();
+		int size = 0;
+		if (_defenders != null)
+			size += _defenders.size();
+		if (_waiting != null)
+			size += _waiting.size();
+		writeD(size);
+		writeD(size);
 		if (size > 0)
 		{
 			L2Clan clan;
 
-			writeD(size);
-			writeD(size);
 			// Listing the Lord and the approved clans
-			for (L2SiegeClan siegeclan : _castle.getSiege().getDefenderClans())
+			if (_defenders != null)
 			{
-				clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-				if (clan == null) continue;
-
-				writeD(clan.getClanId());
-				writeS(clan.getName());
-				writeS(clan.getLeaderName());
-				writeD(clan.getCrestId());
-				writeD(0x00); //signed time (seconds) (not storated by L2J)
-				switch(siegeclan.getType())
+				for (L2SiegeClan siegeclan : _defenders)
 				{
-					case OWNER:
-						writeD(0x01); //owner
+					clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+					if (clan == null) continue;
+
+					writeD(clan.getClanId());
+					writeS(clan.getName());
+					writeS(clan.getLeaderName());
+					writeD(clan.getCrestId());
+					writeD(0x00); //signed time (seconds) (not storated by L2J)
+					switch(siegeclan.getType())
+					{
+						case OWNER:
+							writeD(0x01); //owner
+							break;
+						case DEFENDER_PENDING:
+							writeD(0x02);
+							_log.warn("A clan contained in approved defender list is NOT approved!");
+							break;
+						case DEFENDER:
+							writeD(0x03);
+							break;
+						default:
+							writeD(0x00);
 						break;
-					case DEFENDER_PENDING:
-						writeD(0x02); //approved
-						break;
-					case DEFENDER:
-						writeD(0x03); // waiting approved
-						break;
-					default:
-						writeD(0x00);
-					break;
+					}
+					writeD(clan.getAllyId());
+					writeS(clan.getAllyName());
+					writeS(""); //AllyLeaderName
+					writeD(clan.getAllyCrestId());
 				}
-				writeD(clan.getAllyId());
-				writeS(clan.getAllyName());
-				writeS(""); //AllyLeaderName
-				writeD(clan.getAllyCrestId());
 			}
-			for (L2SiegeClan siegeclan : _castle.getSiege().getDefenderWaitingClans())
+			if (_waiting != null)
 			{
-				clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-				writeD(clan.getClanId());
-				writeS(clan.getName());
-				writeS(clan.getLeaderName());
-				writeD(clan.getCrestId());
-				writeD(0x00); //signed time (seconds) (not storated by L2J)
-				writeD(0x02); //waiting approval
-				writeD(clan.getAllyId());
-				writeS(clan.getAllyName());
-				writeS(""); //AllyLeaderName
-				writeD(clan.getAllyCrestId());
+				for (L2SiegeClan siegeclan : _waiting)
+				{
+					clan = ClanTable.getInstance().getClan(siegeclan.getClanId());  
+					writeD(clan.getClanId());
+					writeS(clan.getName());
+					writeS(clan.getLeaderName());
+					writeD(clan.getCrestId());
+					writeD(0x00); //signed time (seconds) (not storated by L2J)
+					writeD(0x02); //waiting approval
+					writeD(clan.getAllyId());
+					writeS(clan.getAllyName());
+					writeS(""); //AllyLeaderName
+					writeD(clan.getAllyCrestId());
+				}
 			}
-		}
-		else
-		{
-			writeD(0x00);
-			writeD(0x00);
 		}
 	}
 

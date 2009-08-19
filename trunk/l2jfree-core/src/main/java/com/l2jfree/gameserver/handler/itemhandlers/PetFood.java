@@ -35,9 +35,8 @@ public class PetFood implements IItemHandler
 	{
 		2515, 4038, 5168, 5169, 6316, 7582, 9668, 10425
 	};
-	
+
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.instance.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	public void useItem(L2Playable playable, L2ItemInstance item)
@@ -75,27 +74,24 @@ public class PetFood implements IItemHandler
 	public boolean useFood(L2Playable activeChar, int magicId, L2ItemInstance item)
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, 1);
-		
 		if (skill != null)
 		{
 			if (activeChar instanceof L2PetInstance)
 			{
-				if (((L2PetInstance)activeChar).destroyItem("Consume", item.getObjectId(), 1, null, false))
+				L2PetInstance pet = (L2PetInstance) activeChar;
+				if (pet.destroyItem("Consume", item.getObjectId(), 1, null, false))
 				{
-					activeChar.broadcastPacket(new MagicSkillUse(activeChar, activeChar, magicId, 1, 0, 0));
-					((L2PetInstance)activeChar).setCurrentFed(((L2PetInstance)activeChar).getCurrentFed() + skill.getFeed());
-					((L2PetInstance)activeChar).broadcastStatusUpdate();
-					if (((L2PetInstance)activeChar).getCurrentFed() < (0.55 * ((L2PetInstance)activeChar).getPetData().getPetMaxFeed()))
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
-						((L2PetInstance)activeChar).getOwner().sendPacket(sm);
-					}
+					pet.broadcastPacket(new MagicSkillUse(pet, pet, magicId, 1, 0, 0));
+					pet.setCurrentFed(pet.getCurrentFed() + skill.getFeed());
+					pet.broadcastStatusUpdate();
+					if (pet.getCurrentFed() < (0.55 * pet.getPetData().getPetMaxFeed()))
+						pet.getOwner().sendPacket(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
 					return true;
 				}
 			}
 			else if (activeChar instanceof L2PcInstance)
 			{
-				L2PcInstance player = ((L2PcInstance)activeChar);
+				L2PcInstance player = (L2PcInstance) activeChar;
 				int itemId = item.getItemId();
 				if (player.isMounted())
 				{
@@ -105,14 +101,14 @@ public class PetFood implements IItemHandler
 					{
 						if (player.destroyItem("Consume", item.getObjectId(), 1, null, false))
 						{
-							player.broadcastPacket(new MagicSkillUse(activeChar, activeChar, magicId, 1, 0, 0));
+							player.broadcastPacket(new MagicSkillUse(player, player, magicId, 1, 0, 0));
 							player.setCurrentFeed(player.getCurrentFeed() + skill.getFeed());
 						}
 						return true;
 					}
 					else
 					{
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
+						player.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
 						return false;
 					}
 				}
@@ -123,9 +119,8 @@ public class PetFood implements IItemHandler
 		}
 		return false;
 	}
-	
+
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#getItemIds()
 	 */
 	public int[] getItemIds()

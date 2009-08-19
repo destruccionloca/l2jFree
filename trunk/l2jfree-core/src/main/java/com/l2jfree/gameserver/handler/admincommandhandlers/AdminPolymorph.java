@@ -133,6 +133,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
+	@SuppressWarnings("deprecation")
 	private void doPolymorph(L2PcInstance activeChar, L2Object obj, String id, String type)
 	{
 		if (obj != null)

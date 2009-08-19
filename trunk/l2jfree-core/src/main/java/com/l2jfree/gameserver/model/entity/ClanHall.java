@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -37,23 +38,27 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class ClanHall extends Entity
+public class ClanHall extends Siegeable<CCHSiege>
 {
-	private final int								_clanHallId;
+	private int								_clanHallId;
 	private List<L2DoorInstance>			_doors;
-	private final List<String>					_doorDefault;
-	private final String							_name;
-	private int								_ownerId;
+	private List<String>					_doorDefault;
 	private L2Clan							_ownerClan;
-	private final int								_lease;
-	private final String							_desc;
-	private final String							_location;
+	private int								_lease;
+	private String							_desc;
+	private String							_location;
 	protected long							_paidUntil;
-	private final int								_grade;
+	private int								_grade;
 	protected final int						_chRate						= 604800000;
 	protected boolean						_isFree						= true;
-	private final Map<Integer, ClanHallFunction>	_functions;
+	private Map<Integer, ClanHallFunction>	_functions;
 	protected boolean						_paid;
+
+	// Only for contestable clan halls
+	private CCHSiege						_siege;
+	private Calendar						_siegeDate;
+	private boolean							_isTimeRegistrationOver		= true;
+	private Calendar						_siegeTimeRegistrationEndDate;
 
 	/** Clan Hall Functions */
 	public static final int					FUNC_TELEPORT				= 1;
@@ -67,11 +72,11 @@ public class ClanHall extends Entity
 
 	public class ClanHallFunction
 	{
-		private final int			_type;
+		private int			_type;
 		private int			_lvl;
 		protected int		_fee;
 		protected int		_tempFee;
-		private final long		_rate;
+		private long		_rate;
 		private long		_endDate;
 		protected boolean	_inDebt;
 		public boolean		_cwh;		// first activating clanhall function is payed from player inventory, any others from clan warehouse
@@ -228,6 +233,7 @@ public class ClanHall extends Entity
 
 	public ClanHall(int clanHallId, String name, int ownerId, int lease, String desc, String location, long paidUntil, int Grade, boolean paid)
 	{
+		super(clanHallId);
 		_clanHallId = clanHallId;
 		_name = name;
 		_ownerId = ownerId;
@@ -239,7 +245,7 @@ public class ClanHall extends Entity
 		_paidUntil = paidUntil;
 		_grade = Grade;
 		_paid = paid;
-		_doorDefault = new FastList<String>();
+		//_doorDefault = new FastList<String>();
 		_functions = new FastMap<Integer, ClanHallFunction>();
 		if (ownerId != 0)
 		{
@@ -247,6 +253,7 @@ public class ClanHall extends Entity
 			initializeTask(false);
 			loadFunctions();
 		}
+		loadSiegeData();
 	}
 
 	/** Return if clanHall is paid or not */
@@ -259,18 +266,6 @@ public class ClanHall extends Entity
 	public final int getId()
 	{
 		return _clanHallId;
-	}
-
-	/** Return name */
-	public final String getName()
-	{
-		return _name;
-	}
-
-	/** Return OwnerId */
-	public final int getOwnerId()
-	{
-		return _ownerId;
 	}
 
 	/** Return lease*/
@@ -336,7 +331,12 @@ public class ClanHall extends Entity
 	public void free()
 	{
 		_ownerId = 0;
-		_ownerClan = null;
+		if (_ownerClan != null)
+		{
+			_ownerClan.setHasHideout(0);
+			_ownerClan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_ownerClan));
+			_ownerClan = null;
+		}
 		_isFree = true;
 		for (Map.Entry<Integer, ClanHallFunction> fc : _functions.entrySet())
 			removeFunction(fc.getKey());
@@ -348,16 +348,30 @@ public class ClanHall extends Entity
 	/** Set owner if clan hall is free */
 	public void setOwner(L2Clan clan)
 	{
-		// Verify that this ClanHall is Free and Clan isn't null
-		if (_ownerId > 0 || clan == null)
+		// An owner exists - must not mess with auction, as GM commands call a different method
+		if (!isSiegeable() && _ownerId > 0)
+			return;
+
+		// An owner might exist, but we wont mess anything
+		if (isSiegeable())
+			free();
+		// New owner doesn't exist. Stop here.
+		if (clan == null)
 			return;
 
 		_ownerId = clan.getClanId();
-		_ownerClan = null;
+		_ownerClan = clan;
 		_isFree = false;
-		_paidUntil = System.currentTimeMillis();
+		if (isSiegeable())
+		{
+			_paidUntil = Long.MAX_VALUE;
+			_paid = true;
+			clan.setHasHideout(getId());
+		}
+		else
+			_paidUntil = System.currentTimeMillis();
 		initializeTask(true);
-		// Annonce to Online member new ClanHall
+		// Announce to Online member new ClanHall
 		clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 		updateDb();
 	}
@@ -377,6 +391,7 @@ public class ClanHall extends Entity
 			if (door.getStatus().getCurrentHp() <= 0)
 			{
 				door.decayMe(); // Kill current if not killed already
+				// This doesn't even work
 				door = DoorTable.parseLine(_doorDefault.get(i));
 				DoorTable.getInstance().putDoor(door); //Read the new door to the DoorTable By Erb
 				if (isDoorWeak)
@@ -656,5 +671,79 @@ public class ClanHall extends Entity
 			_ownerClan = ClanTable.getInstance().getClan(getOwnerId());
 
 		return _ownerClan;
+	}
+
+	private final boolean isSiegeable()
+	{
+		switch (getId())
+		{
+		case 21: case 34: case 35: case 62: case 63: case 64:
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	@Override
+	public final CCHSiege getSiege()
+	{
+		if (isSiegeable() && _siege == null)
+			_siege = new CCHSiege(this);
+		return _siege;
+	}
+
+	public final Calendar getSiegeDate()
+	{
+		return _siegeDate;
+	}
+
+	public boolean getIsTimeRegistrationOver()
+	{
+		return _isTimeRegistrationOver;
+	}
+
+	public void setIsTimeRegistrationOver(boolean val)
+	{
+		_isTimeRegistrationOver = val;
+	}
+
+	public Calendar getTimeRegistrationOverDate()
+	{
+		if (_siegeTimeRegistrationEndDate == null)
+			_siegeTimeRegistrationEndDate = Calendar.getInstance();
+		return _siegeTimeRegistrationEndDate;
+ 	}
+
+	private final void loadSiegeData()
+	{
+		if (!isSiegeable())
+			return;
+
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement("SELECT siegeDate,regTimeEnd,regTimeOver FROM clanhall_sieges WHERE hallId=?");
+			ps.setInt(1, getId());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next())
+			{
+				_siegeDate = Calendar.getInstance();
+				_siegeDate.setTimeInMillis(rs.getLong("siegeDate"));
+				_siegeTimeRegistrationEndDate = Calendar.getInstance();
+				_siegeTimeRegistrationEndDate.setTimeInMillis(rs.getLong("regTimeEnd"));
+				_isTimeRegistrationOver = rs.getBoolean("regTimeOver");
+			}
+			else
+				_log.warn("Missing contest schedule data for " + getName());
+		}
+		catch (Exception e)
+		{
+			_log.error("Failed loading contest data!", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 }

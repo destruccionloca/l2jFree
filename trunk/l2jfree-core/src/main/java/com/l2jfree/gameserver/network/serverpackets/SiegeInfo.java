@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
@@ -42,11 +43,30 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public class SiegeInfo extends L2GameServerPacket
 {
 	private static final String	_S__C9_SIEGEINFO	= "[S] c9 SiegeInfo";
-	private final Castle				_castle;
+	private static final String DEFAULT_OWNER = "NPC";
+	private static final String DEFAULT_CLAN_ALLY = "";
+	private final int _siegeableID;
+	private final L2Clan _owner;
+	private final int _siegeTime;
 
 	public SiegeInfo(Castle castle)
 	{
-		_castle = castle;
+		_siegeableID = castle.getCastleId();
+		_owner = ClanTable.getInstance().getClan(castle.getOwnerId());
+		_siegeTime = (int) (castle.getSiege().getSiegeDate().getTimeInMillis() / 1000);
+	}
+
+	public SiegeInfo(ClanHall hideout)
+	{
+		_siegeableID = hideout.getId();
+		_owner = hideout.getOwnerClan();
+		if (hideout.getSiege() == null)
+		{
+			_siegeTime = 0;
+			_log.fatal("Requested siege info for non-contestable hideout!");
+		}
+		else
+			_siegeTime = (int) (hideout.getSiege().getSiegeDate().getTimeInMillis() / 1000);
 	}
 
 	@Override
@@ -55,33 +75,31 @@ public class SiegeInfo extends L2GameServerPacket
 		if (activeChar == null)
 			return;
 		writeC(0xc9);
-		writeD(_castle.getCastleId());
-		writeD(((_castle.getOwnerId() == activeChar.getClanId()) && (activeChar.isClanLeader())) ? 0x01 : 0x00);
-		writeD(_castle.getOwnerId());
-		if (_castle.getOwnerId() > 0)
+		writeD(_siegeableID);
+		if (_owner != null)
 		{
-			L2Clan owner = ClanTable.getInstance().getClan(_castle.getOwnerId());
-			if (owner != null)
-			{
-				writeS(owner.getName()); // Clan Name
-				writeS(owner.getLeaderName()); // Clan Leader Name
-				writeD(owner.getAllyId()); // Ally ID
-				writeS(owner.getAllyName()); // Ally Name
-			}
+			if (_owner.getClanId() == activeChar.getClanId() && activeChar.isClanLeader())
+				writeD(0x01);
 			else
-				_log.warn("Null owner for castle: " + _castle.getName());
+				writeD(0x00);
+			writeD(_owner.getClanId());
+			writeS(_owner.getName()); // Clan Name
+			writeS(_owner.getLeaderName()); // Clan Leader Name
+			writeD(_owner.getAllyId()); // Ally ID
+			writeS(_owner.getAllyName()); // Ally Name
 		}
 		else
 		{
-			writeS("NPC"); // Clan Name
-			writeS(""); // Clan Leader Name
-			writeD(0); // Ally ID
-			writeS(""); // Ally Name
+			writeD(0x00);
+			writeD(0x00);
+			writeS(DEFAULT_OWNER);
+			writeS(DEFAULT_CLAN_ALLY);
+			writeD(0x00);
+			writeS(DEFAULT_CLAN_ALLY);
 		}
-
 		writeD((int) (System.currentTimeMillis() / 1000));
-		writeD((int) (_castle.getSiege().getSiegeDate().getTimeInMillis() / 1000));
-		writeD(0x00); //number of choices?
+		writeD(_siegeTime);
+		writeD(0x00);
 	}
 
 	/* (non-Javadoc)

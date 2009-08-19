@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -78,6 +79,14 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 					html.setFile("data/html/clanHallDoormen/evolve-no.htm");
 				player.sendPacket(html);
 			}
+		}
+		else if (!Config.SIEGE_GATE_CONTROL && getClanHall().getSiege() != null &&
+				getClanHall().getSiege().getIsInProgress() && command.startsWith("open_doors"))
+		{
+			NpcHtmlMessage infoHtml = new NpcHtmlMessage(getObjectId());
+			infoHtml.setFile("data/html/siege/siegewar.htm");
+			player.sendPacket(infoHtml);
+			return;
 		}
 		else
 			super.onBypassFeedback(player, command);

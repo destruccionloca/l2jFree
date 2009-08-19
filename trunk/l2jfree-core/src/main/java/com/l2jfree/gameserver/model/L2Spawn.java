@@ -25,10 +25,8 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
-import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
@@ -569,9 +567,7 @@ public class L2Spawn
 		mob.stopAllEffects();
 
 		// setting up champion mobs
-		if (((mob instanceof L2MonsterInstance && !(mob instanceof L2Boss)) || (mob instanceof L2Boss && Config.CHAMPION_BOSS))
-				&& Config.CHAMPION_FREQUENCY > 0 && !mob.getTemplate().isQuestMonster() && mob.getLevel() >= Config.CHAMPION_MIN_LEVEL
-				&& mob.getLevel() <= Config.CHAMPION_MAX_LEVEL)
+		if (mob.canBeChampion())
 		{
 			if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY)
 			{

@@ -217,6 +217,7 @@ public class SkillTreeTable
 			_fishingSkillTrees = new FastList<L2SkillLearn>();
 			_expandDwarfCraftSkillTrees = new FastList<L2SkillLearn>();
 
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, sp, min_level, costid, cost, isfordwarf FROM fishing_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree2 = statement.executeQuery();
 
@@ -260,6 +261,7 @@ public class SkillTreeTable
 		{
 			_enchantSkillTrees = new FastMap<Integer, L2EnchantSkillLearn>();
 
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
 					.prepareStatement("SELECT skill_id, level, base_lvl, sp, min_skill_lvl, exp, success_rate76, success_rate77, success_rate78, success_rate79, success_rate80, success_rate81, success_rate82, success_rate83, success_rate84, success_rate85 FROM enchant_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree3 = statement.executeQuery();
@@ -313,6 +315,7 @@ public class SkillTreeTable
 		{
 			_pledgeSkillTrees = new FastList<L2PledgeSkillLearn>();
 
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, clan_lvl, repCost, itemId, itemCount FROM pledge_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree4 = statement.executeQuery();
 
@@ -351,6 +354,7 @@ public class SkillTreeTable
 		{
 			_TransformSkillTrees = new FastList<L2TransformSkillLearn>();
 
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT race_id, skill_id, item_id, level, name, sp, min_level FROM transform_skill_trees ORDER BY race_id, skill_id, level");
 			ResultSet skilltree5 = statement.executeQuery();
 

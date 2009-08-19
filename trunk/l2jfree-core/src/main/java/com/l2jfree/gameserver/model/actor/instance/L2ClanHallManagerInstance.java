@@ -53,6 +53,10 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 	public L2ClanHallManagerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
+		switch (getNpcId())
+		{
+		// TODO: if auto-assign doesn't work
+		}
 	}
 
 	@Override
@@ -1452,14 +1456,19 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 
     protected int validateCondition(L2PcInstance player)
     {
-        if (getClanHall() == null) return COND_ALL_FALSE;
-        if (player.isGM()) return COND_OWNER;
-        if (player.getClan() != null)
+    	ClanHall hall = getClanHall();
+        if (hall == null)
+        	return COND_ALL_FALSE;
+        else if (player.isGM())
+        	return COND_OWNER;
+        else if (hall.getSiege() != null && hall.getSiege().getIsInProgress())
+        	return COND_ALL_FALSE;
+        else if (player.getClan() != null)
         {
-            if (getClanHall().getOwnerId() == player.getClanId())
+            if (hall.getOwnerId() == player.getClanId())
                 return COND_OWNER;
-
-            return COND_OWNER_FALSE;
+            else
+            	return COND_OWNER_FALSE;
         }
         return COND_ALL_FALSE;
     }

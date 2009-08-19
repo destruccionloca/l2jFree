@@ -68,6 +68,8 @@ public class CrestCache
 		File dir = new File(Config.DATAPACK_ROOT, "data/crests/");
 		
 		File[] files = dir.listFiles(filter);
+		if (files == null)
+			files = new File[0];
 		byte[] content;
 		
 		_loadedFiles = 0;
@@ -127,6 +129,9 @@ public class CrestCache
 		File dir = new File(Config.DATAPACK_ROOT, "data/crests/");
 		
 		File[] files = dir.listFiles(new OldPledgeFilter());
+
+		if (files == null)
+			files = new File[0];
 		
 		for (File file : files)
 		{

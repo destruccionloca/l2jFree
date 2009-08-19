@@ -14,10 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.CCHManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
@@ -68,6 +69,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			Location loc = null;
 			Siege siege = null;
 			FortSiege fsiege = null;
+			CCHSiege csiege = null;
 
 			if (activeChar.isInJail())
 				_requestedPointType = 27;
@@ -82,10 +84,13 @@ public class RequestRestartPoint extends L2GameClientPacket
 					_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Clanhall and he doesn't have Clanhall!");
 					return;
 				}
-				loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.ClanHall);
+				ClanHall hideout = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()); 
+				if (hideout == null || (hideout.getSiege() != null && hideout.getSiege().getIsInProgress())) 
+					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town); 
+				else 
+					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.ClanHall); 
 
-				if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null
-						&& ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
+				if (hideout != null && hideout.getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
 				{
 					activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP)
 							.getLvl());
@@ -155,11 +160,14 @@ public class RequestRestartPoint extends L2GameClientPacket
 				L2SiegeClan siegeClan = null;
 				siege = SiegeManager.getInstance().getSiege(activeChar);
 				fsiege = FortSiegeManager.getInstance().getSiege(activeChar);
+				csiege = CCHManager.getInstance().getSiege(activeChar);
 				
-				if (fsiege == null && siege != null && siege.getIsInProgress())
+				if (fsiege == null && csiege == null && siege != null && siege.getIsInProgress())
 					siegeClan = siege.getAttackerClan(activeChar.getClan());
-				else if (siege == null && fsiege != null && fsiege.getIsInProgress())
+				else if (siege == null && csiege == null && fsiege != null && fsiege.getIsInProgress())
 					siegeClan = fsiege.getAttackerClan(activeChar.getClan());
+				else if (siege == null && fsiege == null && csiege != null && csiege.getIsInProgress())
+					siegeClan = csiege.getAttackerClan(activeChar.getClan());
 
 				if (siegeClan == null || siegeClan.getFlag().size() == 0)
 				{
