@@ -167,4 +167,29 @@ public final class PcKnownList extends PlayableKnownList
 		
 		return 1700; // Siege, TOI, city
 	}
+	
+	@Override
+	public final boolean tryRemoveObject(L2Object obj)
+	{
+		final L2PcInstance pc = getActiveChar();
+		
+		if (obj instanceof L2BoatInstance)
+		{
+			if (((L2BoatInstance)obj).getVehicleDeparture() == null)
+				return false;
+			
+			if (pc.isInBoat() && pc.getBoat() == obj)
+				return false;
+		}
+		else if (obj instanceof L2AirShipInstance)
+		{
+			if (((L2AirShipInstance)obj).getAirShipInfo() == null)
+				return false;
+			
+			if (pc.isInAirShip() && pc.getAirShip() == obj)
+				return false;
+		}
+		
+		return super.tryRemoveObject(obj);
+	}
 }

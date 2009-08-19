@@ -49,8 +49,9 @@ public abstract class ObjectKnownList
 		}
 		
 		@Override
-		public void tryRemoveObject(L2Object obj)
+		public boolean tryRemoveObject(L2Object obj)
 		{
+			return false;
 		}
 		
 		@Override
@@ -80,5 +81,5 @@ public abstract class ObjectKnownList
 	
 	public abstract void tryRemoveObjects();
 	
-	public abstract void tryRemoveObject(L2Object obj);
+	public abstract boolean tryRemoveObject(L2Object obj);
 }

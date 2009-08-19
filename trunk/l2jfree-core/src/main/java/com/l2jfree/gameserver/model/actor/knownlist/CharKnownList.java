@@ -161,10 +161,7 @@ public class CharKnownList extends ObjectKnownList
 			{
 				public boolean accept(L2Character obj)
 				{
-					if (!Util.checkIfInRange(radius, getActiveChar(), obj, true))
-						return false;
-					
-					return obj instanceof L2Playable || obj instanceof L2Npc;
+					return Util.checkIfInRange(radius, getActiveChar(), obj, true);
 				}
 			});
 	}
@@ -230,23 +227,12 @@ public class CharKnownList extends ObjectKnownList
 	}
 	
 	@Override
-	public final void tryRemoveObject(L2Object obj)
+	public boolean tryRemoveObject(L2Object obj)
 	{
 		if (obj.isVisible() && Util.checkIfInShortRadius(getDistanceToForgetObject(obj), getActiveChar(), obj, true))
-			return;
+			return false;
 		
-		if (obj instanceof L2BoatInstance && getActiveChar() instanceof L2PcInstance)
-		{
-			if (((L2BoatInstance)obj).getVehicleDeparture() == null)
-				return;
-			
-			L2PcInstance pc = (L2PcInstance)getActiveChar();
-			
-			if (pc.isInBoat() && pc.getBoat() == obj)
-				return;
-		}
-		
-		removeKnownObject(obj);
+		return removeKnownObject(obj);
 	}
 	
 	private long _lastUpdate;

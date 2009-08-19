@@ -100,9 +100,6 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		{
 			cha.getKnownList().updateKnownObjects();
 			
-			if (cha instanceof L2BoatInstance)
-				((L2BoatInstance)cha).evtArrived();
-			
 			if (cha.hasAI())
 				cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
 		}
