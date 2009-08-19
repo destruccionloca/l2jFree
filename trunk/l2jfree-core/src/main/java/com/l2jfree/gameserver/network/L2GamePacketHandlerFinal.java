@@ -126,6 +126,9 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x36:
 								msg = new CharacterPrevState();
 								break;
+							case 0x3d: // client definitely sends it right now, enable if supposed to be
+								//msg = new RequestAllFortressInfo();
+								break;
 							default:
 								printDebug(buf, client, opcode, id2);
 						}

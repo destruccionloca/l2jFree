@@ -104,9 +104,9 @@ public final class IOFloodManager implements IAcceptFilter
 		sb.append(CoreInfo.getVersionInfo());
 		
 		if (throwable != null)
-			_log.fatal(sb, throwable);
+			_log.info(sb, throwable);
 		else
-			_log.fatal(sb);
+			_log.info(sb);
 		
 		//if (isFlooding != Result.ACCEPTED)
 		//{

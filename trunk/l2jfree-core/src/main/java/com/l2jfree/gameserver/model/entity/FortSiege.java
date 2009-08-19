@@ -318,10 +318,11 @@ public class FortSiege extends AbstractSiege
 	 */
 	public void announceToPlayer(SystemMessage sm, int val, boolean useFortId)
 	{
-		if (!useFortId && val > 0)
-			sm.addNumber(val);
-		else
+		if (useFortId)
 			sm.addFortId(val);
+		else if (val > 0)
+			sm.addNumber(val);
+		
 		// announce messages only for participants
 		L2Clan clan;
 		for (L2SiegeClan siegeclan : getAttackerClans())
