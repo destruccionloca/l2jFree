@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.position.ObjectPosition;
 import com.l2jfree.lang.L2Math;
 import com.l2jfree.lang.L2Thread;
 import com.l2jfree.tools.util.CustomFileNameFilter;
@@ -118,8 +119,10 @@ public final class Util
 	/** Return degree value of object 2 to the horizontal line with object 1 being the origin */
 	public final static double calculateAngleFrom(L2Object obj1, L2Object obj2)
 	{
-		return calculateAngleFrom(obj1.getPosition().getX(), obj1.getPosition().getY(), obj2.getPosition().getX(), obj2
-			.getPosition().getY());
+		final ObjectPosition pos1 = obj1.getPosition();
+		final ObjectPosition pos2 = obj2.getPosition();
+		
+		return calculateAngleFrom(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
 	}
 	
 	/** Return degree value of object 2 to the horizontal line with object 1 being the origin */
@@ -144,8 +147,10 @@ public final class Util
 	
 	public final static int calculateHeadingFrom(L2Object obj1, L2Object obj2)
 	{
-		return calculateHeadingFrom(obj1.getPosition().getX(), obj1.getPosition().getY(), obj2.getPosition().getX(),
-			obj2.getPosition().getY());
+		final ObjectPosition pos1 = obj1.getPosition();
+		final ObjectPosition pos2 = obj2.getPosition();
+		
+		return calculateHeadingFrom(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY());
 	}
 	
 	public final static int calculateHeadingFrom(int obj1X, int obj1Y, int obj2X, int obj2Y)
@@ -246,8 +251,10 @@ public final class Util
 		if (obj1 == null || obj2 == null)
 			return Double.MAX_VALUE;
 		
-		return calculateDistance(obj1.getPosition().getX(), obj1.getPosition().getY(), obj1.getPosition().getZ(), obj2
-			.getPosition().getX(), obj2.getPosition().getY(), obj2.getPosition().getZ(), includeZAxis);
+		final ObjectPosition pos1 = obj1.getPosition();
+		final ObjectPosition pos2 = obj2.getPosition();
+		
+		return calculateDistance(pos1.getX(), pos1.getY(), pos1.getZ(), pos2.getX(), pos2.getY(), pos2.getZ(), includeZAxis);
 	}
 	
 	/**
@@ -323,12 +330,13 @@ public final class Util
 		if (obj2 instanceof L2Character)
 			range += ((L2Character)obj2).getTemplate().getCollisionRadius();
 		
+		final ObjectPosition pos1 = obj1.getPosition();
+		final ObjectPosition pos2 = obj2.getPosition();
+		
 		if (includeZAxis)
-			return L2Math.isDistanceLessThan(obj1.getPosition().getX(), obj1.getPosition().getY(), obj1.getPosition()
-				.getZ(), obj2.getPosition().getX(), obj2.getPosition().getY(), obj2.getPosition().getZ(), range);
+			return L2Math.isDistanceLessThan(pos1.getX(), pos1.getY(), pos1.getZ(), pos2.getX(), pos2.getY(), pos2.getZ(), range);
 		else
-			return L2Math.isDistanceLessThan(obj1.getPosition().getX(), obj1.getPosition().getY(), obj2.getPosition()
-				.getX(), obj2.getPosition().getY(), range);
+			return L2Math.isDistanceLessThan(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY(), range);
 	}
 	
 	/*
@@ -344,13 +352,14 @@ public final class Util
 		
 		if (radius == -1)
 			return true; // not limited
-			
+		
+		final ObjectPosition pos1 = obj1.getPosition();
+		final ObjectPosition pos2 = obj2.getPosition();
+		
 		if (includeZAxis)
-			return L2Math.isDistanceLessThan(obj1.getPosition().getX(), obj1.getPosition().getY(), obj1.getPosition()
-				.getZ(), obj2.getPosition().getX(), obj2.getPosition().getY(), obj2.getPosition().getZ(), radius);
+			return L2Math.isDistanceLessThan(pos1.getX(), pos1.getY(), pos1.getZ(), pos2.getX(), pos2.getY(), pos2.getZ(), radius);
 		else
-			return L2Math.isDistanceLessThan(obj1.getPosition().getX(), obj1.getPosition().getY(), obj2.getPosition()
-				.getX(), obj2.getPosition().getY(), radius);
+			return L2Math.isDistanceLessThan(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY(), radius);
 	}
 	
 	/**
