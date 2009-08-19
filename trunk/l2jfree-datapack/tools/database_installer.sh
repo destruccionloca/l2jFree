@@ -213,6 +213,8 @@ full_install()
 	$MYG < ../sql/clan_wars.sql &> /dev/null
 	$MYG < ../sql/clanhall.sql &> /dev/null
 	$MYG < ../sql/clanhall_functions.sql &> /dev/null
+	$MYG < ../sql/clanhall_sieges.sql &> /dev/null
+	$MYG < ../sql/clanhall_siege_guards.sql &> /dev/null
 	$MYG < ../sql/class_list.sql &> /dev/null
 	$MYG < ../sql/cursed_weapons.sql &> /dev/null
 	$MYG < ../sql/droplist.sql &> /dev/null
@@ -329,6 +331,7 @@ update_db()
 			$MYG < ../sql/castle_siege_guards.sql &> /dev/null
 			$MYG < ../sql/char_creation_items.sql &> /dev/null
 			$MYG < ../sql/char_templates.sql &> /dev/null
+			$MYG < ../sql/clanhall_siege_guards.sql &> /dev/null
 			$MYG < ../sql/class_list.sql &> /dev/null
 			$MYG < ../sql/droplist.sql &> /dev/null
 			$MYG < ../sql/enchant_skill_trees.sql &> /dev/null

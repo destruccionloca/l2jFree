@@ -40708,3 +40708,6 @@ INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `l
 (NULL, '', 1, 32478, 20546, 144771, -3082, 0, 0, 33635, 60, 0, 0),
 (NULL, '', 1, 32478, 146147, -57897, -2983, 0, 0, 52507, 60, 0, 0),
 (NULL, '', 1, 32478, 43568, -48965, -792, 0, 0, 1154, 60, 0, 0);
+
+-- Devastated castle guards
+DELETE FROM spawnlist WHERE location LIKE "aden05agit%";

@@ -46,6 +46,8 @@ DROP TABLE IF EXISTS
 	clan_wars,
 	clanhall,
 	clanhall_functions,
+	clanhall_sieges,
+	clanhall_siege_guards,
 	class_list,
 	couples,
 	ctf,
