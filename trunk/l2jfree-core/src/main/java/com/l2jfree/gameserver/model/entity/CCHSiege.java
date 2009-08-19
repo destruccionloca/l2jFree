@@ -578,7 +578,7 @@ public final class CCHSiege extends AbstractSiege
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("UPDATE clanhall_siege SET siegeDate=?,regTimeEnd=?,regTimeOver=? WHERE hallId=?");
+			PreparedStatement statement = con.prepareStatement("UPDATE clanhall_sieges SET siegeDate=?,regTimeEnd=?,regTimeOver=? WHERE hallId=?");
 			statement.setLong(1, getSiegeDate().getTimeInMillis());
 			statement.setLong(2, getTimeRegistrationOverDate().getTimeInMillis());
 			statement.setString(3, String.valueOf(getIsTimeRegistrationOver()));
