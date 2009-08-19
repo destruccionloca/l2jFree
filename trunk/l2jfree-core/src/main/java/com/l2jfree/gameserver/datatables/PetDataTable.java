@@ -336,9 +336,9 @@ public class PetDataTable
 		
 		WYVERN(WYVERN_ID, 5249, new int[] {6316}, true),
 
-		GREAT_WOLF(GREAT_WOLF_ID, 10163, new int[] {9668}, true),
+		GREAT_WOLF(GREAT_WOLF_ID, 9882, new int[] {9668}, false),
 		WGREAT_WOLF(WGREAT_WOLF_ID, 10307, new int[] {9668}, true),
-		BLACK_WOLF(BLACK_WOLF_ID, 9882, new int[] {9668}, true),
+		BLACK_WOLF(BLACK_WOLF_ID, 10163, new int[] {9668}, false),
 		FENRIR_WOLF(FENRIR_WOLF_ID, 10426, new int[] {9668}, true),
 		WFENRIR_WOLF(WFENRIR_WOLF_ID, 10611, new int[] {9668}, true),
 		
