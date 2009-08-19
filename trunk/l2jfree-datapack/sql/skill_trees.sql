@@ -2226,7 +2226,6 @@ INSERT INTO `skill_trees` VALUES
 (8,12,13,'Switch',920000,72),
 (8,30,34,'Backstab',460000,72),
 (8,30,35,'Backstab',460000,72),
-(8,821,1,'Shadow Step',0,72),
 (8,30,36,'Backstab',1000000,74),
 (8,30,37,'Backstab',1000000,74),
 (8,12,14,'Switch',2000000,74),
@@ -5887,7 +5886,6 @@ INSERT INTO `skill_trees` VALUES
 (23,30,35,'Backstab',500000,72),
 (23,15,49,'Charm',500000,72),
 (23,15,50,'Charm',500000,72),
-(23,821,1,'Shadow Step',0,72),
 (23,15,51,'Charm',930000,74),
 (23,15,52,'Charm',930000,74),
 (23,30,36,'Backstab',930000,74),
@@ -9056,7 +9054,6 @@ INSERT INTO `skill_trees` VALUES
 (36,70,51,'Drain Health',350000,72),
 (36,30,34,'Backstab',350000,72),
 (36,30,35,'Backstab',350000,72),
-(36,821,1,'Shadow Step',0,72),
 (36,193,7,'Critical Power',1180000,74),
 (36,30,36,'Backstab',680000,74),
 (36,30,37,'Backstab',680000,74),
@@ -16272,4 +16269,5 @@ INSERT INTO `skill_trees` VALUES
 -- L2J-Free Add-ons
 --
 
-UPDATE `skill_trees` SET `sp` = 95000 WHERE `class_id` = 41 AND `skill_id` = 213 AND `level` = 5;
+-- Enuma Elish SP Fix
+UPDATE `skill_trees` SET `sp` = 32000000 WHERE `class_id` = 131 AND `skill_id` = 526 AND `level` = 1;
