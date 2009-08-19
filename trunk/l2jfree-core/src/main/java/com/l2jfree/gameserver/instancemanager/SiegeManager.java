@@ -59,6 +59,8 @@ public class SiegeManager
 	private FastMap<Integer, FastList<SiegeSpawn>>	_artefactSpawnList;
 
 	private FastMap<Integer, FastList<SiegeSpawn>>	_controlTowerSpawnList;
+	private FastMap<Integer, SiegeSpawn>			_flameTowerSpawnListE;
+	private FastMap<Integer, SiegeSpawn>			_flameTowerSpawnListW;
 
 	private SiegeManager()
 	{
@@ -271,19 +273,54 @@ public class SiegeManager
 			// Siege spawns settings
 			_controlTowerSpawnList = new FastMap<Integer, FastList<SiegeSpawn>>();
 			_artefactSpawnList = new FastMap<Integer, FastList<SiegeSpawn>>();
+			_flameTowerSpawnListE = new FastMap<Integer, SiegeSpawn>();
+			_flameTowerSpawnListW = new FastMap<Integer, SiegeSpawn>();
 
 			for (Castle castle : CastleManager.getInstance().getCastles().values())
 			{
+				String _spawnParams = siegeSettings.getProperty(castle.getName() + "FlameTower1", "");
+				StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
+				try
+				{
+					int x = Integer.parseInt(st.nextToken());
+					int y = Integer.parseInt(st.nextToken());
+					int z = Integer.parseInt(st.nextToken());
+					int npc_id = Integer.parseInt(st.nextToken());
+					int hp = Integer.parseInt(st.nextToken());
+
+					_flameTowerSpawnListE.put(castle.getCastleId(), new SiegeSpawn(castle.getCastleId(), x, y, z, 0, npc_id, hp));
+				}
+				catch (Exception e)
+				{
+					_log.error("Error while loading flame control tower 1 for " + castle.getName() + " castle.", e);
+				}
+				_spawnParams = siegeSettings.getProperty(castle.getName() + "FlameTower2", "");
+				st = new StringTokenizer(_spawnParams.trim(), ",");
+				try
+				{
+					int x = Integer.parseInt(st.nextToken());
+					int y = Integer.parseInt(st.nextToken());
+					int z = Integer.parseInt(st.nextToken());
+					int npc_id = Integer.parseInt(st.nextToken());
+					int hp = Integer.parseInt(st.nextToken());
+
+					_flameTowerSpawnListW.put(castle.getCastleId(), new SiegeSpawn(castle.getCastleId(), x, y, z, 0, npc_id, hp));
+				}
+				catch (Exception e)
+				{
+					_log.error("Error while loading flame control tower 2 for " + castle.getName() + " castle.", e);
+				}
+
 				FastList<SiegeSpawn> _controlTowersSpawns = new FastList<SiegeSpawn>();
 
 				for (int i = 1; i < 0xFF; i++)
 				{
-					String _spawnParams = siegeSettings.getProperty(castle.getName() + "ControlTower" + Integer.toString(i), "");
+					_spawnParams = siegeSettings.getProperty(castle.getName() + "ControlTower" + Integer.toString(i), "");
 
 					if (_spawnParams.length() == 0)
 						break;
 
-					StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
+					st = new StringTokenizer(_spawnParams.trim(), ",");
 					try
 					{
 						int x = Integer.parseInt(st.nextToken());
@@ -304,12 +341,12 @@ public class SiegeManager
 
 				for (int i = 1; i < 0xFF; i++)
 				{
-					String _spawnParams = siegeSettings.getProperty(castle.getName() + "Artefact" + Integer.toString(i), "");
+					_spawnParams = siegeSettings.getProperty(castle.getName() + "Artefact" + Integer.toString(i), "");
 
 					if (_spawnParams.length() == 0)
 						break;
 
-					StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
+					st = new StringTokenizer(_spawnParams.trim(), ",");
 					try
 					{
 						int x = Integer.parseInt(st.nextToken());
@@ -332,6 +369,8 @@ public class SiegeManager
 				_log.info("SiegeManager: loaded controltowers[" + Integer.toString(_controlTowersSpawns.size()) + "] artifacts["
 						+ Integer.toString(_artefactSpawns.size()) + "] castle[" + castle.getName() + "]");
 			}
+			_log.info("SiegeManager: loaded " + Integer.toString(_flameTowerSpawnListE.size() + _flameTowerSpawnListW.size()) +
+					" flame control towers. [2 per castle]");
 		}
 		catch (Exception e)
 		{
@@ -367,6 +406,14 @@ public class SiegeManager
 		if (_controlTowerSpawnList.containsKey(_castleId))
 			return _controlTowerSpawnList.get(_castleId);
 		return null;
+	}
+
+	public final SiegeSpawn getFlameControlTowerSpawn(int castleId, boolean east)
+	{
+		if (east)
+			return _flameTowerSpawnListE.get(castleId);
+		else
+			return _flameTowerSpawnListW.get(castleId);
 	}
 
 	public final Siege getSiege(L2Object activeObject)

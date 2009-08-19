@@ -2574,8 +2574,6 @@ public class Config extends L2Config
 	public static int			CS_SUPPORT2_FEE;
 	public static int			CS_SUPPORT3_FEE;
 	public static int			CS_SUPPORT4_FEE;
-	public static int			CS_TRAP_POWER_SLOW;
-	public static int			CS_TRAP_POWER_DAMAGE;
 	public static int			CS_TRAP1_FEE;
 	public static int			CS_TRAP2_FEE;
 	public static int			CS_TRAP3_FEE;
@@ -2630,8 +2628,6 @@ public class Config extends L2Config
 			CS_EXPREG2_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl2", "15000"));
 			CS_EXPREG3_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl3", "21000"));
 			CS_EXPREG4_FEE = Integer.parseInt(castleSettings.getProperty("CastleExpRegenerationFeeLvl4", "30000"));
-			CS_TRAP_POWER_SLOW = Integer.parseInt(castleSettings.getProperty("CastleTrapSlow", "4"));
-			CS_TRAP_POWER_DAMAGE = Integer.parseInt(castleSettings.getProperty("CastleTrapDamage", "12"));
 			CS_TRAP1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl1", "3000000"));
 			CS_TRAP2_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl2", "6000000"));
 			CS_TRAP3_FEE = Integer.parseInt(castleSettings.getProperty("CastleTrapFeeLvl3", "9000000"));

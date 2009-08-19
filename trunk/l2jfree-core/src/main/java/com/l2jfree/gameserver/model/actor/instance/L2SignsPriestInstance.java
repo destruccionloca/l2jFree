@@ -42,7 +42,6 @@ public class L2SignsPriestInstance extends L2Npc
         super(objectId, template);
     }
 
-    @SuppressWarnings("fallthrough") // for a reason
 	@Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {

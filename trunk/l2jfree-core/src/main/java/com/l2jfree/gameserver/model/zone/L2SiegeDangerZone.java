@@ -21,8 +21,11 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author Savormix
@@ -30,15 +33,27 @@ import com.l2jfree.gameserver.model.entity.Siege;
  */
 public class L2SiegeDangerZone extends L2DamageZone
 {
-	private static final int[] ZONE_EFFECTS = { 4150, 4625 };
+	private static final int SPEED_SKILL = 4625;
 	private Siege _siege;
+
+	@Override
+	protected void checkForDamage(L2Character character)
+	{
+		super.checkForDamage(character);
+
+		if (getHPDamagePerSecond() > 0 && character instanceof L2PcInstance)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DAMAGE_FROM_FIRE_MAGIC);
+			sm.addNumber(getHPDamagePerSecond());
+			((L2PcInstance) character).sendPacket(sm);
+		}
+	}
 
 	@Override
 	protected boolean checkDynamicConditions(L2Character character)
 	{
 		if (_siege == null || !_siege.getIsInProgress() || !(character instanceof L2Playable)
-				|| !_siege.getAreTrapsOn())
-				//|| _siege.checkIsDefender(((L2Playable) character).getActingPlayer().getClan()))
+				|| !isActive())
 			return false;
 
 		return super.checkDynamicConditions(character);
@@ -52,31 +67,29 @@ public class L2SiegeDangerZone extends L2DamageZone
 		c.loadDangerZone(this);
 	}
 
-	public void upgrade(int... level)
+	/** Activates this zone. */
+	public void activate()
 	{
-		L2Skill s;
-		for (int i = 0; i < 2; i++)
+		L2Skill s = SkillTable.getInstance().getInfo(SPEED_SKILL, 12);
+		if (s != null)
 		{
-			if (level[0] > 0 || level[1] > 0)
-			{
-				s = SkillTable.getInstance().getInfo(ZONE_EFFECTS[i], level[i]);
-				if (s != null) {
-					_applyEnter = (L2Skill[])ArrayUtils.add(_applyEnter, s);
-					_removeExit = ArrayUtils.add(_removeExit, ZONE_EFFECTS[i]);
-				}
-				else
-					_log.warn("Upgrading siege danger zone: no such skill level - " + level);
-			}
-			else {
-				_applyEnter = null;
-				for (L2Character c : getCharactersInside())
-					removeFromZone(c);
-				_removeExit = null;
-			}
+			_applyEnter = (L2Skill[]) ArrayUtils.add(_applyEnter, s);
+			_removeExit = ArrayUtils.add(_removeExit, SPEED_SKILL);
 		}
+		else
+			_log.warn("Missing siege danger zone skill! " + SPEED_SKILL + " Lv 12");
 	}
 
-	public boolean isUpgraded()
+	/** Deactivates this zone. */
+	public void deactivate()
+	{
+		_applyEnter = null;
+		for (L2Character c : getCharactersInside())
+			removeFromZone(c);
+		_removeExit = null;
+	}
+
+	public boolean isActive()
 	{
 		try { return _applyEnter[0].getLevel() > 0; }
 		catch (NullPointerException npe) { return false; }

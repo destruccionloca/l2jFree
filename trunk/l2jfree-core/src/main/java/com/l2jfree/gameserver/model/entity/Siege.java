@@ -46,6 +46,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2FlameControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2SiegeDangerZone;
@@ -246,6 +247,7 @@ public class Siege extends AbstractSiege
 	
 	// Castle setting
 	private final Set<L2ControlTowerInstance> _controlTowers = new L2FastSet<L2ControlTowerInstance>().setShared(true);
+	private final Set<L2FlameControlTowerInstance> _flameTowers = new L2FastSet<L2FlameControlTowerInstance>().setShared(true);
 	
 	private final Castle _castle;
 	private boolean _isInProgress = false;
@@ -760,13 +762,20 @@ public class Siege extends AbstractSiege
 		return players;
 	}
 
-	/** Control Tower was skilled
-	 * @param ct */
+	/**
+	 * Control Tower was killed
+	 * @param ct
+	 */
 	public void killedCT(L2Npc ct)
 	{
 		_controlTowerCount--;
 		if (_controlTowerCount < 0)
 			_controlTowerCount = 0;
+	}
+
+	public void killedFlameCT(boolean side)
+	{
+		deactivateZones(side);
 	}
 
 	/** Remove the flag that was killed */
@@ -1154,11 +1163,14 @@ public class Siege extends AbstractSiege
 	{
 		// Remove all instance of control tower for this castle
 		for (L2ControlTowerInstance ct : _controlTowers)
-		{
-			if (ct != null) ct.decayMe();
-		}
+			if (ct != null)
+				ct.decayMe();
+		for (L2FlameControlTowerInstance fct : _flameTowers)
+			if (fct != null)
+				fct.decayMe();
 
 		_controlTowers.clear();
+		_flameTowers.clear();
 	}
 
 	/** Remove all flags. */
@@ -1312,17 +1324,29 @@ public class Siege extends AbstractSiege
 	/** Spawn control tower. */
 	private void spawnControlTower(int Id)
 	{
-		for (SiegeSpawn _sp: SiegeManager.getInstance().getControlTowerSpawnList(Id))
+		SiegeSpawn ss = SiegeManager.getInstance().getFlameControlTowerSpawn(Id, true);
+		L2NpcTemplate template = NpcTable.getInstance().getTemplate(ss.getNpcId());
+		template.setBaseHpMax(ss.getHp());
+		L2FlameControlTowerInstance ft = new L2FlameControlTowerInstance(IdFactory.getInstance().getNextId(), template, true);
+		ft.getStatus().setCurrentHpMp(ss.getHp(), ft.getMaxMp());
+		ft.spawnMe(ss.getLocation().getX(), ss.getLocation().getY(), ss.getLocation().getZ() + 20);
+		_flameTowers.add(ft);
+		ss = SiegeManager.getInstance().getFlameControlTowerSpawn(Id, false);
+		template = NpcTable.getInstance().getTemplate(ss.getNpcId());
+		template.setBaseHpMax(ss.getHp());
+		ft = new L2FlameControlTowerInstance(IdFactory.getInstance().getNextId(), template, false);
+		ft.getStatus().setCurrentHpMp(ss.getHp(), ft.getMaxMp());
+		ft.spawnMe(ss.getLocation().getX(), ss.getLocation().getY(), ss.getLocation().getZ() + 20);
+		_flameTowers.add(ft);
+
+		for (SiegeSpawn _sp : SiegeManager.getInstance().getControlTowerSpawnList(Id))
 		{
-			L2ControlTowerInstance ct;
-			
-			L2NpcTemplate template = NpcTable.getInstance().getTemplate(_sp.getNpcId());
-			 
+			template = NpcTable.getInstance().getTemplate(_sp.getNpcId());
 			template.setBaseHpMax(_sp.getHp());
-			
-			ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
+
+			L2ControlTowerInstance ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
 			ct.getStatus().setCurrentHpMp(_sp.getHp(), ct.getMaxMp());
-			ct.spawnMe(_sp.getLocation().getX(),_sp.getLocation().getY(),_sp.getLocation().getZ() + 20);
+			ct.spawnMe(_sp.getLocation().getX(), _sp.getLocation().getY(), _sp.getLocation().getZ() + 20);
 
 			_controlTowerCount++;
 			_controlTowerMaxCount++;
@@ -1509,13 +1533,6 @@ public class Siege extends AbstractSiege
 		return _controlTowerCount;
 	}
 
-	/** @return if the <B>Flame Control Tower</B>(s) are alive */
-	public boolean getAreTrapsOn()
-	{
-		//until Flame Control Tower coordinates are known
-		return true;
-	}
-
 	/**
 	 * Returns all zones in the given castle side
 	 * @param side Inner/Eastern = true, Outer/Western = false
@@ -1557,12 +1574,12 @@ public class Siege extends AbstractSiege
 		{
 			int level = 0;
 			for (L2SiegeDangerZone finalElement : list)
-				if (finalElement.isUpgraded())
+				if (finalElement.isActive())
 					level++;
 			return level;
 		}
 		else
-			return (list[0].isUpgraded() ? 1 : 0);
+			return (list[0].isActive() ? 1 : 0);
 	}
 
 	/**
@@ -1588,19 +1605,22 @@ public class Siege extends AbstractSiege
 		L2SiegeDangerZone[] list = getDangerZones(east);
 		if (list != null)
 			for (int i = oldLevel; i < newLevel; i++)
-				list[i].upgrade(Config.CS_TRAP_POWER_DAMAGE, Config.CS_TRAP_POWER_SLOW);
+				list[i].activate();
+	}
+
+	private void deactivateZones(boolean side)
+	{
+		L2SiegeDangerZone[] list;
+		if ((list = getDangerZones(side)) != null)
+			for (L2SiegeDangerZone sdz : list)
+				sdz.deactivate();
 	}
 
 	/** Downgrades all managed zones and deletes their upgrade data from the database */
 	public void deactivateZones()
 	{
-		L2SiegeDangerZone[] list;
-		if ((list = getDangerZones(true)) != null)
-			for (L2SiegeDangerZone sdz : list)
-				sdz.upgrade(0, 0);
-		if ((list = getDangerZones(false)) != null)
-			for (L2SiegeDangerZone sdz : list)
-				sdz.upgrade(0, 0);
+		deactivateZones(true);
+		deactivateZones(false);
 		_castle.resetDangerZones();
 	}
 

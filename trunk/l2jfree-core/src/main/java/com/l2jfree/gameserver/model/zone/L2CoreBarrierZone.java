@@ -36,7 +36,7 @@ public class L2CoreBarrierZone extends L2DamageZone
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DAMAGE_BY_CORE_BARRIER);
 			sm.addNumber(getHPDamagePerSecond());
-			((L2PcInstance)character).sendPacket(sm);
+			((L2PcInstance) character).sendPacket(sm);
 		}
 	}
 }

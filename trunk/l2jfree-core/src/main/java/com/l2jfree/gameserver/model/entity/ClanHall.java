@@ -677,7 +677,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 	{
 		switch (getId())
 		{
-		case 21: case 34: case 35: case 62: case 63: case 64:
+		case 34: case 64:
 			return true;
 		default:
 			return false;

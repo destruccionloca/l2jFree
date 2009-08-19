@@ -14,26 +14,22 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.List;
-
-import javolution.util.FastList;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2ControlTowerInstance extends L2Npc
+public class L2FlameControlTowerInstance extends L2Npc
 {
-    private List<L2Spawn> _guards;
+    private final boolean _east;
 
-	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
+	public L2FlameControlTowerInstance(int objectId, L2NpcTemplate template, boolean east)
 	{
 		super(objectId, template);
+		_east = east;
 	}
 
     @Override
@@ -109,30 +105,8 @@ public class L2ControlTowerInstance extends L2Npc
     public final void decayMe()
     {
         if (getCastle().getSiege().getIsInProgress())
-        {
-            getCastle().getSiege().killedCT(this);
-
-            if (getGuards() != null && !getGuards().isEmpty())
-            {
-                for (L2Spawn spawn: getGuards())
-                {
-                    if (spawn == null) continue;
-                    spawn.stopRespawn();
-                }
-            }
-        }
+            getCastle().getSiege().killedFlameCT(_east);
         super.decayMe();
         // TODO: now spawn another NPC (id + 1) which represents dead tower
-    }
-
-    public void registerGuard(L2Spawn guard)
-    {
-        getGuards().add(guard);
-    }
-
-    public final List<L2Spawn> getGuards()
-    {
-        if (_guards == null) _guards = new FastList<L2Spawn>();
-        return _guards;
     }
 }
