@@ -20,33 +20,14 @@ from com.l2jfree.gameserver.datatables import ItemTable
 
 import time
 
-qn = "HellboundTown"
+qn = "HellboundBaseTower"
 QUEST_RATE = 1
 
 debug = False
 
 #NPCs
-KANAF       = 32346
-PRISONER	= 32358
 KEYHOLE		= 32343
 
-#Mobs
-AMASKARI	= 22449
-KEYMASTER 	= 22361
-
-AMASKARI_TEXT = [
-'Slimebags death awaits you!','Little humans, what a suprise','First i kill you then the natives you tried to free','Lord Beleth will not be pleased','Not you again...'
-]
-
-LOCS = [
-	 [14479,250398,-1940]
-	 ,[15717,252399,-2013]
-	 ,[19800,256230,-2091]
-	 ,[17214,252770,-2015]
-	 ,[21967,254035,-2010]
-]
-
-		  
 class PyObject:
 	pass
 
@@ -61,11 +42,11 @@ def openDoor(doorId,instanceId):
 
 def checkCondition(player):
 	if not player.getLevel() >= 78:
-		player.sendPacket(SystemMessage.sendString("You must be level 78 or higher to enter this town."))
+		player.sendPacket(SystemMessage.sendString("You must be level 78 or higher to enter the tower."))
 		return False
 	party = player.getParty()
 	if not party:
-		player.sendPacket(SystemMessage.sendString("To attempt to enter the town by yourself would be suicide! You must enter with the rest of your party members."))	
+		player.sendPacket(SystemMessage.sendString("To attempt to enter the tower by yourself would be suicide! You must enter with the rest of your party members."))	
 		return False
 	return True
 
@@ -78,7 +59,8 @@ def teleportplayer(self,player,teleto):
 		pet.teleToLocation(teleto.x, teleto.y, teleto.z)
 	return
 
-def enterInstance(self,player,template,teleto,quest):
+
+def enterInstance(self,player,template,teleto):
 	instanceId = 0
 	if not checkCondition(player):
 		return instanceId
@@ -93,7 +75,7 @@ def enterInstance(self,player,template,teleto,quest):
 		members = []
 	#check for exising instances of party members or channel members
 	for member in members :
-		if member.getInstanceId()!= 0 :
+		if member.getInstanceId()!= 0 and member.getInstanceId() != player.getInstanceId():
 			instanceId = member.getInstanceId()
 	#exising instance	#exising instance
 	if instanceId != 0:
@@ -108,24 +90,22 @@ def enterInstance(self,player,template,teleto,quest):
 		teleportplayer(self,player,teleto)
 		return instanceId
 	else:
-		instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
-		if not self.worlds.has_key(instanceId):
-			world = PyObject()			
-			world.rewarded=[]
-			world.instanceId = instanceId
-			self.worlds[instanceId]=world
-			self.world_ids.append(instanceId)
-			print "HellboundTown: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName()) 
-			newNpc = self.addSpawn(AMASKARI,19496,253125,-2030,0,False,0,False, instanceId)
-			quest.amaskari = newNpc
-			loc = LOCS[Rnd.get(len(LOCS))]
-			newNpc = self.addSpawn(KEYMASTER,loc[0],loc[1],loc[2],0,False,0,False, instanceId)
-			quest.keymaster = newNpc
-			quest.startQuestTimer("keySpawn1", 300000, None, None)
-			quest.keymasterattacked = False
-		# teleports player
-		teleto.instanceId = instanceId
-		teleportplayer(self,player,teleto)
+		item = player.getInventory().getItemByItemId(9714)
+		if item:
+			player.destroyItemByItemId("Quest", 9714, 1, player, True)
+			instanceId = InstanceManager.getInstance().createDynamicInstance(template)	
+			if not self.worlds.has_key(instanceId):
+				world = PyObject()			
+				world.rewarded=[]
+				world.instanceId = instanceId
+				self.worlds[instanceId]=world
+				self.world_ids.append(instanceId)
+				print "HellboundBaseTower: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName()) 
+			# teleports player
+			teleto.instanceId = instanceId
+			teleportplayer(self,player,teleto)
+		else:
+			player.sendPacket(SystemMessage.sendString("You need the key of the Keymaster to enter!."))	
 		return instanceId
 	return instanceId
 	
@@ -137,45 +117,23 @@ def exitInstance(player,tele):
 		pet.setInstanceId(0)
 		pet.teleToLocation(tele.x, tele.y, tele.z)
 						
-class HellboundTown(JQuest):
+class HellboundBaseTower(JQuest):
 	def __init__(self,id,name,descr):
 		JQuest.__init__(self,id,name,descr)
 		self.worlds = {}
 		self.world_ids = []
 
 	def onAdvEvent (self,event,npc,player) :
-		if event == "keySpawn1" or event == "keySpawn2":
-			self.startQuestTimer("keySpawn2", 300000, None, None)
-			loc = LOCS[Rnd.get(len(LOCS))]
-			self.keymaster.teleToLocation(loc[0],loc[1],loc[2])
-			if event == "keySpawn1":
-				self.startQuestTimer("keySpawn2", 300000, None, None)
-			else:
-				self.startQuestTimer("keySpawn1", 300000, None, None)
-			return
-		if event == "freeprisoner":
-			objId = npc.getObjectId()
-			npc.broadcastPacket(NpcSay(objId, 0, npc.getNpcId(), "Thank you, i hope Amaskari wont notice!"))
-			time.sleep(3)
-			npc.decayMe()
-			player.increaseTrustLevel(500*QUEST_RATE)
-			chance = Rnd.get(100)
-			if chance <= 30:
-				self.amaskari.teleToLocation(player.getX(),player.getY(),player.getZ())
-				self.amaskari.setTarget(player)
-				objId = self.amaskari.getObjectId()
-				self.amaskari.broadcastPacket(NpcSay(objId, 0, self.amaskari.getNpcId(), AMASKARI_TEXT[Rnd.get(len(AMASKARI_TEXT))]))
-			return
 		return
 
 	def onTalk (self,npc,player):
 		npcId = npc.getNpcId()
-		if npcId == KANAF :
+		if npcId == KEYHOLE :
 			tele = PyObject()
-			tele.x = 13881
-			tele.y = 255491
-			tele.z = -2025
-			instanceId = enterInstance(self, player, "HBTown.xml", tele, self)
+			tele.x = 16255
+			tele.y = 282445
+			tele.z = -9704
+			instanceId = enterInstance(self, player, "BaseTower.xml", tele)
 			if not instanceId:
 				return
 			if instanceId == 0:
@@ -186,26 +144,12 @@ class HellboundTown(JQuest):
    
 	def onKill(self,npc,player,isPet):
 		npcId = npc.getNpcId()
-		objId = npc.getObjectId()
-		if npcId == KEYMASTER:
-			chance = Rnd.get(100)
-			if chance <= 75:
-				npc.broadcastPacket(NpcSay(objId, 0, npc.getNpcId(), "Oh no my key............."))
-				dropItem(npc,9714,1,player)
-			else:
-				npc.broadcastPacket(NpcSay(objId, 0, npc.getNpcId(), "You will never get my key!"))
 		if self.worlds.has_key(npc.getInstanceId()):
 			world = self.worlds[npc.getInstanceId()]
 		return
 		
 	def onAttack(self,npc,player,damage,isPet, skill):
 		npcId = npc.getNpcId()
-		if npcId == KEYMASTER and not self.keymasterattacked:
-			self.keymasterattacked = True
-			self.amaskari.teleToLocation(player.getX(),player.getY(),player.getZ())
-			self.amaskari.setTarget(player)
-			objId = self.amaskari.getObjectId()
-			self.amaskari.broadcastPacket(NpcSay(objId, 0, self.amaskari.getNpcId(), AMASKARI_TEXT[Rnd.get(len(AMASKARI_TEXT))]))
 		if self.worlds.has_key(npc.getInstanceId()):
 			world = self.worlds[npc.getInstanceId()]
 		return
@@ -216,11 +160,6 @@ class HellboundTown(JQuest):
 			world = self.worlds[npc.getInstanceId()]
 		return ""
 
-QUEST = HellboundTown(-1, qn, "HBT")
-QUEST.addStartNpc(KANAF)
-QUEST.addStartNpc(PRISONER)
-QUEST.addTalkId(KANAF)
-QUEST.addTalkId(PRISONER)
-QUEST.addAttackId(KEYMASTER)
-QUEST.addKillId(AMASKARI)
-QUEST.addKillId(KEYMASTER)
+QUEST = HellboundBaseTower(-1, qn, "HellboundBaseTower")
+QUEST.addStartNpc(KEYHOLE)
+QUEST.addTalkId(KEYHOLE)
