@@ -38,7 +38,10 @@ public final class ContestableHideoutGuardManager
 	private static final Log _log = LogFactory.getLog(ContestableHideoutGuardManager.class);
 	private static final String LOAD_SIEGE_GUARDS = "SELECT id,npcId,x,y,z,heading,respawnDelay FROM clanhall_siege_guards WHERE hallId=?";
 	private final ClanHall _hideout;
-	private final L2Spawn[] _guardSpawn;
+	// FIXME: Uncomment the line below instead if you use eclipse to compile,
+	// the default one is just to ensure 100% maven compilation works fine
+	//private final L2Spawn[] _guardSpawn;
+	private L2Spawn[] _guardSpawn = new L2Spawn[0];
 
 	public ContestableHideoutGuardManager(ClanHall hideout)
 	{
