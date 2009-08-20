@@ -90,6 +90,8 @@ public class AdminEnchant implements IAdminCommandHandler
 				armorType = Inventory.PAPERDOLL_NECK;
 			else if (command.startsWith("admin_setun"))
 				armorType = Inventory.PAPERDOLL_UNDER;
+			else if (command.startsWith("admin_setba"))
+				armorType = Inventory.PAPERDOLL_BACK;
 			else if (command.startsWith("admin_setbe"))
 				armorType = Inventory.PAPERDOLL_BELT;
 
