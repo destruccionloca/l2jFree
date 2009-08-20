@@ -174,6 +174,7 @@ public class AdminFortSiege implements IAdminCommandHandler
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/fort.htm");
 		adminReply.replace("%fortName%", fort.getName());
+		adminReply.replace("%fortId%", fort.getFortId());
 		activeChar.sendPacket(adminReply);
 	}
 
