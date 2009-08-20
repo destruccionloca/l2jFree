@@ -176,7 +176,7 @@ class Quest (JQuest) :
              AutoChat(npc,"That sign!")
        return
 
-QUEST     = Quest(24,qn,"Inhabitants of the Forest of the Dead")
+QUEST     = Quest(24,qn,"Inhabitants Of The Forest Of The Dead")
 
 QUEST.addStartNpc(Dorian)
 
