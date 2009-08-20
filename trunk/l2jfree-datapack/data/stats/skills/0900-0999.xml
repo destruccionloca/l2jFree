@@ -286,6 +286,7 @@
   </skill>
   <skill id="924" levels="1" name="Seven Arrow">
     <!-- Done by DJ MELERIX -->
+    <!-- TODO: Needs Core-Side Support for "consecutive arrows" -->
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="hitTime" val="15000"/>
