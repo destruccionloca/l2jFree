@@ -1358,7 +1358,7 @@
     <table name="#aggroPoints">418 495 532</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
@@ -1396,7 +1396,7 @@
     <table name="#aggroPoints">379 457 532</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
@@ -1584,7 +1584,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
@@ -1720,7 +1720,7 @@
     <table name="#aggroPoints">379 457 532</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
@@ -1765,7 +1765,7 @@
     <table name="#aggroPoints">418 495</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
@@ -2323,7 +2323,7 @@
     <table name="#aggroPoints">549 597</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2500"/>
