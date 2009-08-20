@@ -155,6 +155,7 @@ public class AdminSkill implements IAdminCommandHandler
 				if (activeChar != player)
 					player.sendMessage("Admin removed all skills from you.");
 				player.sendSkillList();
+				player.broadcastUserInfo();
 			}
 		}
 		else if (command.equals("admin_ench_skills"))
