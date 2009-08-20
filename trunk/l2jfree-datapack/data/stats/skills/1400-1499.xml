@@ -1154,7 +1154,7 @@
       <target active_effect_id="1339"/>
     </cond>
     <for>
-      <!-- effect name="Negate" val="0" effectType="NEGATE"/ TODO: Needs Core-Side Support -->
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="1452" levels="1" name="Count of Fire">
@@ -1198,7 +1198,7 @@
       <target active_effect_id="1340"/>
     </cond>
     <for>
-      <!-- effect name="Negate" val="0" effectType="NEGATE"/ TODO: Needs Core-Side Support -->
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="1454" levels="1" name="Diamond Dust">
@@ -1260,7 +1260,7 @@
       <target active_effect_id="1341"/>
     </cond>
     <for>
-      <!-- effect name="Negate" val="0" effectType="NEGATE"/ TODO: Needs Core-Side Support -->
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="1457" levels="1" name="Empowering Echo">
@@ -1815,7 +1815,7 @@
       <target active_effect_id="1487"/>
     </cond>
     <for>
-      <!-- effect name="Negate" val="0" effectType="NEGATE"/ TODO: Needs Core-Side Support -->
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
     </for>
   </skill>
   <skill id="1489" levels="1" name="Summoner Ability - Resist Attribute">
