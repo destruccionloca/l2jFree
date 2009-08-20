@@ -9570,3 +9570,6 @@ UPDATE `etcitem` SET `skills_item` = '2075-1' WHERE `item_id` = 4678;
 UPDATE `etcitem` SET `skills_item` = '2076-1' WHERE `item_id` = 4679;
 UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (4677,4678,4679);
 UPDATE `etcitem` SET `skills_item` = '2499-2' WHERE `item_id` = 10412;
+
+-- Emergency Dressing skills
+UPDATE `etcitem` SET `skills_item` = '2045-1' WHERE `item_id` = 1834;
