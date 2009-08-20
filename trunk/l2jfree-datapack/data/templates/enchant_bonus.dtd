@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- WARNING: the file is NOT used -->
+<!-- So I cannot tell if these will suffice -->
+
+<!-- Root -->
+<!ELEMENT list (enchantHP)+>
+
+<!-- enchantHP -->
+<!ATTLIST enchantHP grade CDATA #REQUIRED>
+<!ATTLIST enchantHP fullArmor (true|false) #REQUIRED>
+<!ATTLIST enchantHP values CDATA #REQUIRED>
+<!ELEMENT enchantHP EMPTY>

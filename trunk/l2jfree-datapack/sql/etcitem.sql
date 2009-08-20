@@ -9566,7 +9566,7 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2073-2' WHERE `i
 -- Soul crystals lvl 14+
 UPDATE `etcitem` SET `item_type` = 'scroll', `material` = 'crystal' WHERE `item_id` IN (9570,9571,9572,10480,10481,10482,13071,13072,13073);
 UPDATE `etcitem` SET `skills_item` = '2074-1' WHERE `item_id` = 4677;
-UPDATE `etcitem` SET `skills_item` = '2075-1' WHERE `item_id` = 4768;
+UPDATE `etcitem` SET `skills_item` = '2075-1' WHERE `item_id` = 4678;
 UPDATE `etcitem` SET `skills_item` = '2076-1' WHERE `item_id` = 4679;
 UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (4677,4678,4679);
 UPDATE `etcitem` SET `skills_item` = '2499-2' WHERE `item_id` = 10412;
