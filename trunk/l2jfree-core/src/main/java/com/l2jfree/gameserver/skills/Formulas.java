@@ -2043,6 +2043,11 @@ public final class Formulas
 		if (skill != null && skill.ignoreShld())
 			return SHIELD_DEFENSE_FAILED;
 
+		// if shield not exists
+		Inventory inv = target.getInventory();
+		if (inv != null && inv.getPaperdollItem(Inventory.PAPERDOLL_LHAND) == null)
+			return SHIELD_DEFENSE_FAILED;
+
 		if (!attacker.isInFrontOf(target, target.calcStat(Stats.SHIELD_ANGLE, 120, target, skill) / 2))
 			return SHIELD_DEFENSE_FAILED;
 

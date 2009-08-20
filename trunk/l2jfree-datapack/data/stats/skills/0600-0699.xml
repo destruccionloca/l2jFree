@@ -28,7 +28,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <add order="0x40" stat="rShld" val="54.7"/>
+      <add order="0x40" stat="rShld" val="54.7">
+        <using kind="Shield"/> <!-- add modifies even 0 value, not like mul, so it requires a condition -->
+      </add>
     </for>
   </skill>
   <skill id="603" levels="1" name="Residence Shield Defense">
@@ -38,7 +40,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <add order="0x40" stat="sDef" val="225"/>
+      <add order="0x40" stat="sDef" val="225">
+        <using kind="Shield"/> <!-- add modifies even 0 value, not like mul, so it requires a condition -->
+      </add>
     </for>
   </skill>
   <skill id="604" levels="1" name="Residence Resist Typhoon">

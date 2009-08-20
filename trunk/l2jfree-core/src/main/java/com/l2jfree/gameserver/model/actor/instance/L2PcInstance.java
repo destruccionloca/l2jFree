@@ -7448,6 +7448,10 @@ public final class L2PcInstance extends L2Playable
 			// Exclude clan skills
 			if (getClan() != null && (skillid >= 370 && skillid <= 391))
 				continue skill_loop;
+			// Exclude residential skills
+			if (getClan() != null && (getClan().getHasCastle() > 0 || getClan().getHasFort() > 0))
+				if (590 <= skillid && skillid <= 610)
+					continue skill_loop;
 			// Exclude seal of ruler / build siege hq
 			if (getClan() != null && getClan().getLeaderId() == getObjectId() && (skillid == 246 || skillid == 247))
 				continue skill_loop;
