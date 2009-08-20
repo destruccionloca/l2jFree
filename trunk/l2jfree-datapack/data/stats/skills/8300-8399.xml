@@ -119,11 +119,13 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="8309" levels="1" name="Red Talisman - Territory Convoy">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="8310" levels="1" name="Arcana Sigil">
     <!-- Done by DJ MELERIX -->
@@ -159,6 +161,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="8315" levels="1" name="Santa Claus' Blessed Weapon">
     <set name="target" val="TARGET_NONE"/>
@@ -206,9 +209,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8324" levels="1" name="Warrior's Shirt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_NONE"/>
   </skill>
   <skill id="8325" levels="1" name="Wild Rose Pig Candy">
     <set name="target" val="TARGET_NONE"/>
@@ -224,5 +227,6 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="3000"/>
   </skill>
 </list>

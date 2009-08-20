@@ -849,9 +849,9 @@
   <skill id="7077" levels="1" name="Test - Delay Debuff - Call">
     <!-- Currently stunned. -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="false"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="false"/>
   </skill>
   <skill id="7078" levels="1" name="Test - Blink">
     <!-- Stuns -->
@@ -869,23 +869,23 @@
     <set name="mpInitialConsume" val="20"/>
     <set name="mpConsume" val="80"/>
     <set name="target" val="TARGET_PARTY"/>
-    <set name="skillRadius" val="1000"/>
-    <set name="hitTime" val="2500"/>
-    <set name="coolTime" val="1666"/>
-    <set name="isMagic" val="false"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="coolTime" val="1666"/>
+    <set name="isMagic" val="false"/>
   </skill>
   <skill id="7080" levels="1" name="Test - General Attack Prohibited">
     <!-- Cannot perform general attack. -->
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
     <set name="coolTime" val="1666"/>
     <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
   </skill>
@@ -907,37 +907,37 @@
     <set name="mpInitialConsume" val="20"/>
     <set name="mpConsume" val="80"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="5000"/>
     <set name="coolTime" val="3332"/>
     <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
   </skill>
   <skill id="7083" levels="1" name="Test - Trap Skill">
     <!-- Trap Range Skill -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="true"/>
   </skill>
   <skill id="7084" levels="1" name="Test - Trap Skill">
     <!-- Trap Range Skill -->
     <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="true"/>
   </skill>
   <skill id="7085" levels="1" name="Self-Destruct Explosion">
     <set name="mpInitialConsume" val="19"/>
     <set name="mpConsume" val="76"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="666"/>
-    <set name="isMagic" val="true"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="isMagic" val="true"/>
   </skill>
   <skill id="7086" levels="1" name="Last Stand_test">
     <set name="target" val="TARGET_SELF"/>

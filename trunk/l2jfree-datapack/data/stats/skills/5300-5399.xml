@@ -294,7 +294,7 @@
     <set name="skillType" val="MDAM"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="3000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
@@ -454,7 +454,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5351" levels="9" name="NPC(party) - Physical Single Long Range Attack - Earth">
     <set name="element" val="3"/> <!-- Earth -->
@@ -510,7 +510,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5359" levels="9" name="NPC(party) - Physical Single Long Range Attack - Dark">
     <table name="#mpConsume"> 13 20 28 38 50 61 71 76 80 83 84 85 </table>
@@ -523,7 +523,7 @@
     <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="hitTime" val="4500"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="80"/>
@@ -578,6 +578,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="830"/>
   </skill>
   <skill id="5364" levels="9" name="Bleed">
     <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
@@ -748,7 +749,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="5000"/>
+    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="5386" levels="9" name="NPC(party) -Magic Single Long Range DD - Holy">
     <table name="#mpConsume"> 35 45 55 65 69 73 75 77 78 </table>
