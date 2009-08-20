@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "armors.dtd">
+<!DOCTYPE list SYSTEM "../../templates/armors.dtd">
 <list>
   <item id="13137" name="Vesper Helmet">
     <for>

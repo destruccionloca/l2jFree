@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "weapons.dtd">
+<!DOCTYPE list SYSTEM "../../templates/weapons.dtd">
 <list>
   <item id="9300" name="Sharpshooter">
     <for>

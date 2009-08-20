@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "mapregion.dtd">
+<!DOCTYPE list SYSTEM "../templates/mapregion.dtd">
 <mapregion>
   <restartpoints>
     <restartpoint restartId="0" name="talking_island_town" bbs="1" locname="910">

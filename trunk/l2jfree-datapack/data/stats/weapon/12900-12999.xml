@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "../../templates/weapons.dtd">
 <list>
   <item id="12900" name="Demon Splinter - Thunder {PvP} - Critical Stun">
     <for>
