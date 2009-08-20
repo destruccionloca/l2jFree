@@ -177,7 +177,7 @@ public final class PcKnownList extends PlayableKnownList
 		
 		if (obj instanceof L2BoatInstance)
 		{
-			if (((L2BoatInstance)obj).getVehicleDeparture() == null)
+			if (((L2BoatInstance) obj).getVehicleDeparture() == null)
 				return false;
 			
 			if (pc.isInBoat() && pc.getBoat() == obj)
@@ -185,7 +185,7 @@ public final class PcKnownList extends PlayableKnownList
 		}
 		else if (obj instanceof L2AirShipInstance)
 		{
-			if (((L2AirShipInstance)obj).getAirShipInfo() == null)
+			if (((L2AirShipInstance) obj).getAirShipInfo() == null)
 				return false;
 			
 			if (pc.isInAirShip() && pc.getAirShip() == obj)

@@ -41,7 +41,7 @@ public class SoulCrystals implements IItemHandler
 	protected static Log		_log		= LogFactory.getLog(SoulCrystals.class);
 
 	// First line is for Red Soul Crystals, second is Green and third is Blue Soul Crystals,
-	// ordered by ascending level, from 0 to 13...
+	// ordered by ascending level, from 0 to 16...
 	private static final int[]	ITEM_IDS	=
 											{
 			4629,
@@ -88,7 +88,16 @@ public class SoulCrystals implements IItemHandler
 			5579,
 			5582,
 			5914,
-			9571							};
+			9570,
+			9571,
+			9572,
+			10480,
+			10481,
+			10482,
+			13071,
+			13072,
+			13073
+											};
 
 	// Our main method, where everything goes on
 	public void useItem(L2Playable playable, L2ItemInstance item)
