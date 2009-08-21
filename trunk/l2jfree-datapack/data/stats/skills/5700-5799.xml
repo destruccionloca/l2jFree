@@ -361,9 +361,12 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5763" levels="1" name="Wink">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5764" levels="1" name="Terror of the Pumpkin Ghost">
@@ -459,9 +462,16 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5780" levels="9" name="Agathion Collection">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16061"/>
+    </cond>
     <set name="hitTime" val="6000"/>
   </skill>
   <skill id="5781" levels="1" name="Presentation - Lindvior Approach">

@@ -273,9 +273,13 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5949" levels="1" name="Large Firework">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="1500"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="5950" levels="1" name="Birthday Cake">
     <set name="target" val="TARGET_NONE"/>
@@ -307,33 +311,68 @@
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5955" levels="1" name="Agathion Cute Trick - Joy">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16056"/>
+    </cond>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5956" levels="1" name="Agathion Cute Trick - Anger">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16058"/>
+    </cond>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5957" levels="1" name="Agathion Cute Trick - Sorrow">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16057"/>
+    </cond>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5958" levels="1" name="Agathion Cute Trick - Boy Teddy Bear">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16059"/>
+    </cond>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5959" levels="1" name="Agathion Cute Trick - Girl Teddy Bear">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16060"/>
+    </cond>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="5960" levels="1" name="Stronghold Reactivate">
@@ -365,9 +404,13 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5965" levels="1" name="Firework">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="1500"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="5966" levels="1" name="Large Firework">
     <set name="target" val="TARGET_NONE"/>

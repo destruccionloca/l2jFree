@@ -108,9 +108,16 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="6124" levels="1" name="Agathion Cute Trick - Saerom">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="16063"/>
+    </cond>
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="6125" levels="1" name="Paralysis">

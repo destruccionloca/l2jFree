@@ -372,10 +372,19 @@
   </skill>
   <skill id="23034" levels="1" name="One-eyed Bat Drove Agathion Special Skill - Ability of Resist Unholy">
     <!-- Increases resistance to darkness type attacks by 30% for 5 minutes. Reuse Delay 1 hours -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="3000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="reuseDelay" val="3600000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isMagic" val="true"/>
+    <for>
+      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="DarkAtr">
+        <add order="0x40" stat="darkRes" val="30"/>
+      </effect>
+    </for>
     <cond msgId="2292">
       <player agathionId="1513"/>
     </cond>
@@ -544,52 +553,100 @@
     </cond>
   </skill>
   <skill id="23049" levels="1" name="Red Sumo Wrestler Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1519"/>
+    </cond>
   </skill>
   <skill id="23050" levels="1" name="Blue Sumo Wrestler Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1520"/>
+    </cond>
   </skill>
   <skill id="23051" levels="1" name="Great Sumo Match Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1521"/>
+    </cond>
   </skill>
   <skill id="23052" levels="1" name="Button-Eyed Bear Doll Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1522"/>
+    </cond>
   </skill>
   <skill id="23053" levels="1" name="God of Fortune Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1523"/>
+    </cond>
   </skill>
   <skill id="23054" levels="1" name="Dryad Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1524"/>
+    </cond>
   </skill>
   <skill id="23055" levels="1" name="Wonboso Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1525"/>
+    </cond>
   </skill>
   <skill id="23056" levels="1" name="Daewoonso Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1526"/>
+    </cond>
   </skill>
   <skill id="23057" levels="1" name="Red Sumo Wrestler Agathion Special Skill - Death Whisper Ability">
     <!-- Increases Critical attack power by 35% for 5 minutes. Reuse Delay 1 hours -->
