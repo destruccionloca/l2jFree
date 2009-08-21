@@ -50,7 +50,7 @@ import com.l2jfree.gameserver.templates.item.L2Weapon;
  *
  * @author  DrHouse
  */
-public class L2AirShipInstance extends L2Character
+public final class L2AirShipInstance extends L2Character
 {
 	public float boatSpeed;
 	protected final FastList<L2PcInstance> _passengers = new FastList<L2PcInstance>();
@@ -180,8 +180,6 @@ public class L2AirShipInstance extends L2Character
 	protected int _cycle = 0;
 	protected int _runstate = 0;
 	protected ExMoveToLocationAirShip _easi = null;
-	
-	private Map<Integer, L2PcInstance> _inAirShip;
 	
 	public L2AirShipInstance(int objectId, L2CharTemplate template)
 	{
@@ -434,34 +432,28 @@ public class L2AirShipInstance extends L2Character
 	
 	public void updatePeopleInTheAirShip(int x, int y, int z)
 	{
-		
-		if (_inAirShip != null)
+		if ((lastx == -1) || (lasty == -1))
 		{
-			if ((lastx == -1) || (lasty == -1))
+			lastx = x;
+			lasty = y;
+		}
+		else if ((x - lastx) * (x - lastx) + (y - lasty) * (y - lasty) > 2250000) // 1500 * 1500 =  2250000
+		{
+			lastx = x;
+			lasty = y;
+		}
+		for (L2PcInstance player : _passengers)
+		{
+			if (player != null && player.isInAirShip())
 			{
-				lastx = x;
-				lasty = y;
-			}
-			else if ((x - lastx) * (x - lastx) + (y - lasty) * (y - lasty) > 2250000) // 1500 * 1500 =  2250000
-			{
-				lastx = x;
-				lasty = y;
-			}
-			for (int i = 0; i < _inAirShip.size(); i++)
-			{
-				L2PcInstance player = _inAirShip.get(i);
-				if (player != null && player.isInAirShip())
+				if (player.getAirShip() == this)
 				{
-					if (player.getAirShip() == this)
-					{
-						// player.getKnownList().addKnownObject(this);
-						player.getPosition().setXYZ(x, y, z);
-						player.revalidateZone(false);
-					}
+					// player.getKnownList().addKnownObject(this);
+					player.getPosition().setXYZ(x, y, z);
+					player.revalidateZone(false);
 				}
 			}
 		}
-		
 	}
 	/**
 	 * @param i
