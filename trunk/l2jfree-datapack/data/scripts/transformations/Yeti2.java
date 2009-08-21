@@ -21,35 +21,35 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * Description: <br>
  * This will handle the transformation, giving the skills, and removing them, when the player logs out and is transformed these skills
- * do not save.
+ * do not save. 
  * When the player logs back in, there will be a call from the enterworld packet that will add all their skills.
  * The enterworld packet will transform a player.
- *
+ * 
  * @author Psychokiller1888
  *
  */
-public class DawnGuard extends L2DefaultTransformation
+public class Yeti2 extends L2DefaultTransformation
 {
-	public DawnGuard()
+	public Yeti2()
 	{
 		// id, colRadius, colHeight
-		super(113, 13.0, 24.0);
+		super(323, 8.0, 24.0);
 	}
 
-	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player,8248, 1); // Transfrom Dispel
+		// Transfrom Dispel
+		addSkill(player,619, 1);
 	}
 
-	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player,8248); // Transfrom Dispel
+		// Transfrom Dispel
+		removeSkill(player,619);
 	}
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new DawnGuard());
+		TransformationManager.getInstance().registerTransformation(new Yeti2());
 	}
 }

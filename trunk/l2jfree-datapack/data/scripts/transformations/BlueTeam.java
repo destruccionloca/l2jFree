@@ -28,12 +28,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * @author Psychokiller1888
  *
  */
-public class KamaelGuardMercenary extends L2DefaultTransformation
+public class BlueTeam extends L2DefaultTransformation
 {
-	public KamaelGuardMercenary()
+	public BlueTeam()
 	{
 		// id, colRadius, colHeight
-		super(19, 12.0, 22.0);
+		super(122, 12.0, 28.0);
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class KamaelGuardMercenary extends L2DefaultTransformation
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new KamaelGuardMercenary());
+		TransformationManager.getInstance().registerTransformation(new BlueTeam());
 	}
 }

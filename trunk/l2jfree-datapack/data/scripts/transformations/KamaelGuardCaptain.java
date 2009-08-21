@@ -28,30 +28,28 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * @author Psychokiller1888
  *
  */
-public class HalloweenPumpkin extends L2DefaultTransformation
+public class KamaelGuardCaptain extends L2DefaultTransformation
 {
-	public HalloweenPumpkin()
+	public KamaelGuardCaptain()
 	{
 		// id, colRadius, colHeight
-		super(108, 15.5, 29.0);
+		super(19, 12.0, 22.0);
 	}
 
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player,619, 1); // Transfrom Dispel
-		addSkill(player,5437, 2); // Dissonance
+		addSkill(player,8248, 1); // Transfrom Dispel
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player,619); // Transfrom Dispel
-		removeSkill(player,5437); // Dissonance
+		removeSkill(player,8248); // Transfrom Dispel
 	}
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new HalloweenPumpkin());
+		TransformationManager.getInstance().registerTransformation(new KamaelGuardCaptain());
 	}
 }

@@ -966,7 +966,7 @@
     </for>
   </skill>
   <skill id="767" levels="1" name="Expose Weak Point">
-    <set name="activationChance" val="30"/> <!-- guessed -->
+    <set name="activationChance" val="5"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="magicLvl" val="81"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -974,9 +974,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="5565"/>
     <set name="triggeredLevel" val="1"/>
-    <for>
-      <add order="0x40" stat="rCrit" val="180"/>
-    </for>
   </skill>
   <skill id="768" levels="1" name="Exciting Adventure">
     <!-- by Sephiroth -->

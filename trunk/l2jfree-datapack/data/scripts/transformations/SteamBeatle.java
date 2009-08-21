@@ -18,9 +18,9 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class SteamSledgeManed extends L2DefaultTransformation
+public class SteamBeatle extends L2DefaultTransformation
 {
-	public SteamSledgeManed()
+	public SteamBeatle()
 	{
 		// id, colRadius, colHeight
 		super(110, 10.0, 24.0);
@@ -38,6 +38,6 @@ public class SteamSledgeManed extends L2DefaultTransformation
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new SteamSledgeManed());
+		TransformationManager.getInstance().registerTransformation(new SteamBeatle());
 	}
 }

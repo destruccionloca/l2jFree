@@ -28,12 +28,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * @author Psychokiller1888
  *
  */
-public class FortCaptain extends L2DefaultTransformation
+public class RedTeam extends L2DefaultTransformation
 {
-	public FortCaptain()
+	public RedTeam()
 	{
 		// id, colRadius, colHeight
-		super(21, 13.0, 27.0);
+		super(121, 12.0, 28.0);
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class FortCaptain extends L2DefaultTransformation
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new FortCaptain());
+		TransformationManager.getInstance().registerTransformation(new RedTeam());
 	}
 }

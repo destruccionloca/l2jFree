@@ -28,12 +28,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * @author Psychokiller1888
  *
  */
-public class BlueClown extends L2DefaultTransformation
+public class GuardOfDawn extends L2DefaultTransformation
 {
-	public BlueClown()
+	public GuardOfDawn()
 	{
 		// id, colRadius, colHeight
-		super(122, 12.0, 28.0);
+		super(113, 13.0, 24.0);
 	}
 
 	@Override
@@ -50,6 +50,6 @@ public class BlueClown extends L2DefaultTransformation
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new BlueClown());
+		TransformationManager.getInstance().registerTransformation(new GuardOfDawn());
 	}
 }
