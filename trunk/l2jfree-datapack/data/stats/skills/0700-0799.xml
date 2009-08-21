@@ -1091,17 +1091,17 @@
     <set name="hitTime" val="1000"/>
     <set name="isDebuff" val="true"/>
     <set name="magicLvl" val="83"/>
-    <set name="mpConsume" val="69"/>
+    <set name="mpConsume" val="70"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/> <!-- Guessing -->
+    <set name="power" val="40"/> <!-- Guessing -->
     <set name="reuseDelay" val="50000"/>
     <set name="coolTime" val="666"/>
     <set name="isMagic" val="false"/>
-    <set name="skillRadius" val="300"/>
+    <set name="skillRadius" val="100"/>
     <set name="skillType" val="FEAR"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
-      <effect count="8" name="Fear" time="2" val="0">
+      <effect count="4" name="Fear" time="2" val="0">
         <mul order="0x30" stat="runSpd" val="0.67"/>
       </effect>
     </for>
