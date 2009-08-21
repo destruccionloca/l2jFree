@@ -632,7 +632,6 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#dmg"> 895 978 1059</table>
     <table name="#mpConsume"> 150 156 160 </table>
-    <table name="#lethal2">33 37 41</table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="150"/>
@@ -640,7 +639,6 @@
     <set name="overHit" val="true"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="lethal2" val="#lethal2"/>
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="60000"/>
     <for>
