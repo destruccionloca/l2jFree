@@ -9,8 +9,8 @@ CREATE TABLE `armor` (
   `material` VARCHAR(15) NOT NULL DEFAULT 'wood',
   `crystal_type` VARCHAR(4) NOT NULL DEFAULT 'none',
   `avoid_modify` TINYINT(1) NOT NULL DEFAULT 0,
-  `duration` SMALLINT(3) NOT NULL DEFAULT -1,           -- duration for shadow items
-  `time` MEDIUMINT(6) NOT NULL DEFAULT -1,              -- duration for time limited items
+  `duration` SMALLINT(3) NOT NULL DEFAULT -1,           -- duration in minutes for shadow items
+  `time` MEDIUMINT(6) NOT NULL DEFAULT -1,              -- duration in minutes for time limited items
   `p_def` SMALLINT(3) NOT NULL DEFAULT 0,
   `m_def` TINYINT(2) NOT NULL DEFAULT 0,
   `mp_bonus` SMALLINT(3) NOT NULL DEFAULT 0,
@@ -2252,8 +2252,8 @@ INSERT INTO `armor` VALUES
 (13543,'Agathion Summon Bracelet - Collection','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8251-1;5780-1;3267-1'),
 (13544,'Agathion Summon Bracelet - Boy Teddy Bear','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8259-1;5958-1;3267-1'),
 (13545,'Agathion Summon Bracelet - Girl Teddy Bear','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8260-1;5959-1;3267-1'),
-(13546,'Steam Sledge Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','true','','8161-1'),
-(13547,'Tawny-Maned Lion Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','true','false','','8262-1'),
+(13546,'Steam Sledge Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','','8261-1'),
+(13547,'Tawny-Maned Lion Mounting Bracelet','lbracelet','false','none',150,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','true','false','','8262-1'),
 (13687,'Knight\'s Cloak','back','false','heavy',220,'wood','s84',0,-1,-1,20,0,0,0,0,'false','false','true','false','',''),
 (13688,'Knight\'s Cloak - Light Armor exclusive','back','false','light',220,'wood','s84',0,-1,-1,20,0,0,0,0,'false','false','true','false','',''),
 (13689,'Knight\'s Cloak - Robe exclusive','back','false','magic',220,'wood','s84',0,-1,-1,20,0,0,0,0,'false','false','true','false','',''),

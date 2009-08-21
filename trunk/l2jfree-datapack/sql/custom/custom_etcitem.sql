@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS `custom_etcitem` (
   `consume_type` VARCHAR(9) NOT NULL DEFAULT 'normal',
   `material` VARCHAR(15) NOT NULL DEFAULT 'wood',
   `crystal_type` VARCHAR(4) NOT NULL DEFAULT 'none',
-  `duration` SMALLINT(3) NOT NULL DEFAULT -1,           -- duration for shadow items
-  `time` MEDIUMINT(6) NOT NULL DEFAULT -1,              -- duration for time limited items
+  `duration` SMALLINT(3) NOT NULL DEFAULT -1,           -- duration in minutes for shadow items
+  `time` MEDIUMINT(6) NOT NULL DEFAULT -1,              -- duration in minutes for time limited items
   `price` INT UNSIGNED NOT NULL DEFAULT 0,
   `crystal_count` SMALLINT(4) UNSIGNED NOT NULL DEFAULT 0,
   `sellable` VARCHAR(5) NOT NULL DEFAULT 'false',
