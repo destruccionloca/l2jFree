@@ -44,11 +44,11 @@ public abstract class PathFinding
 	
 	public abstract boolean pathNodesExist(short regionoffset);
 	
-	public abstract AbstractNodeLoc[] findPath(int x, int y, int z, int tx, int ty, int tz);
+	public abstract Node[] findPath(int x, int y, int z, int tx, int ty, int tz);
 	
 	public abstract Node[] readNeighbors(Node n, int idx);
 	
-	public final AbstractNodeLoc[] search(Node start, Node end)
+	public final Node[] search(Node start, Node end)
 	{
 		// The simplest grid-based pathfinding.
 		// Drawback is not having higher cost for diagonal movement (means funny routes)
@@ -103,7 +103,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final AbstractNodeLoc[] searchByClosest(Node start, Node end)
+	public final Node[] searchByClosest(Node start, Node end)
 	{
 		// Note: This is the version for cell-based calculation, harder
 		// on cpu than from block-based pathnode files. However produces better routes.
@@ -125,9 +125,9 @@ public abstract class PathFinding
 		known.add(start);
 		try
 		{
-			int targetx = end.getLoc().getNodeX();
-			int targety = end.getLoc().getNodeY();
-			int targetz = end.getLoc().getZ();
+			int targetx = end.getNodeX();
+			int targety = end.getNodeY();
+			int targetz = end.getZ();
 			
 			int dx, dy, dz;
 			boolean added;
@@ -163,9 +163,9 @@ public abstract class PathFinding
 						
 						added = false;
 						n.setParent(node);
-						dx = targetx - n.getLoc().getNodeX();
-						dy = targety - n.getLoc().getNodeY();
-						dz = targetz - n.getLoc().getZ();
+						dx = targetx - n.getNodeX();
+						dy = targety - n.getNodeY();
+						dz = targetz - n.getZ();
 						n.setCost(dx * dx + dy * dy + dz / 2 * dz/*+n.getCost()*/);
 						for (int index = 0; index < to_visit.size(); index++)
 						{
@@ -194,7 +194,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final AbstractNodeLoc[] searchByClosest2(Node start, Node end)
+	public final Node[] searchByClosest2(Node start, Node end)
 	{
 		// Always continues checking from the closest to target non-blocked
 		// node from to_visit list. There's extra length in path if needed
@@ -212,8 +212,8 @@ public abstract class PathFinding
 		to_visit.add(start);
 		try
 		{
-			int targetx = end.getLoc().getNodeX();
-			int targety = end.getLoc().getNodeY();
+			int targetx = end.getNodeX();
+			int targety = end.getNodeY();
 			int dx, dy;
 			boolean added;
 			int i = 0;
@@ -243,8 +243,8 @@ public abstract class PathFinding
 						{
 							added = false;
 							n.setParent(node);
-							dx = targetx - n.getLoc().getNodeX();
-							dy = targety - n.getLoc().getNodeY();
+							dx = targetx - n.getNodeX();
+							dy = targety - n.getNodeY();
 							n.setCost(dx * dx + dy * dy);
 							for (int index = 0; index < to_visit.size(); index++)
 							{
@@ -272,13 +272,13 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final AbstractNodeLoc[] searchAStar(Node start, Node end)
+	public final Node[] searchAStar(Node start, Node end)
 	{
 		// Not operational yet?
-		int start_x = start.getLoc().getX();
-		int start_y = start.getLoc().getY();
-		int end_x = end.getLoc().getX();
-		int end_y = end.getLoc().getY();
+		int start_x = start.getX();
+		int start_y = start.getY();
+		int end_x = end.getX();
+		int end_y = end.getY();
 		//List of Visited Nodes
 		L2FastSet<Node> visited = L2Collections.newL2FastSet();//TODO! Add limit to cfg
 		
@@ -318,9 +318,9 @@ public abstract class PathFinding
 						{
 							i++;
 							n.setParent(node);
-							n.setCost(Math.abs(start_x - n.getLoc().getNodeX())
-								+ Math.abs(start_y - n.getLoc().getNodeY()) + Math.abs(end_x - n.getLoc().getNodeX())
-								+ Math.abs(end_y - n.getLoc().getNodeY()));
+							n.setCost(Math.abs(start_x - n.getNodeX())
+								+ Math.abs(start_y - n.getNodeY()) + Math.abs(end_x - n.getNodeX())
+								+ Math.abs(end_y - n.getNodeY()));
 							to_visit.add(n);
 						}
 					}
@@ -336,9 +336,9 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final AbstractNodeLoc[] constructPath(Node node)
+	public final Node[] constructPath(Node node)
 	{
-		ArrayList<AbstractNodeLoc> tmp = L2Collections.newArrayList();
+		ArrayList<Node> tmp = L2Collections.newArrayList();
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -347,27 +347,27 @@ public abstract class PathFinding
 		{
 			// only add a new route point if moving direction changes
 			if (node.getParent().getParent() != null // to check and clean diagonal movement
-				&& Math.abs(node.getLoc().getNodeX() - node.getParent().getParent().getLoc().getNodeX()) == 1
-				&& Math.abs(node.getLoc().getNodeY() - node.getParent().getParent().getLoc().getNodeY()) == 1)
+				&& Math.abs(node.getNodeX() - node.getParent().getParent().getNodeX()) == 1
+				&& Math.abs(node.getNodeY() - node.getParent().getParent().getNodeY()) == 1)
 			{
-				directionx = node.getLoc().getNodeX() - node.getParent().getParent().getLoc().getNodeX();
-				directiony = node.getLoc().getNodeY() - node.getParent().getParent().getLoc().getNodeY();
+				directionx = node.getNodeX() - node.getParent().getParent().getNodeX();
+				directiony = node.getNodeY() - node.getParent().getParent().getNodeY();
 			}
 			else
 			{
-				directionx = node.getLoc().getNodeX() - node.getParent().getLoc().getNodeX();
-				directiony = node.getLoc().getNodeY() - node.getParent().getLoc().getNodeY();
+				directionx = node.getNodeX() - node.getParent().getNodeX();
+				directiony = node.getNodeY() - node.getParent().getNodeY();
 			}
 			if (directionx != previousdirectionx || directiony != previousdirectiony)
 			{
 				previousdirectionx = directionx;
 				previousdirectiony = directiony;
-				tmp.add(node.getLoc());
+				tmp.add(node);
 			}
 			node = node.getParent();
 		}
 		
-		AbstractNodeLoc[] path = tmp.toArray(new AbstractNodeLoc[tmp.size()]);
+		Node[] path = tmp.toArray(new Node[tmp.size()]);
 		
 		L2Collections.recycle(tmp);
 		
@@ -380,8 +380,8 @@ public abstract class PathFinding
 			for (int index = 0; index < path.length - 3; index = index + 3)
 			{
 				//System.out.println("Attempt filter");
-				AbstractNodeLoc n1 = path[index];
-				AbstractNodeLoc n2 = path[index + 3];
+				Node n1 = path[index];
+				Node n2 = path[index + 3];
 				
 				if (GeoData.getInstance().canMoveFromToTarget(n1.getX(), n1.getY(), n1.getZ(), n2.getX(), n2.getY(),
 					n2.getZ()))
@@ -398,9 +398,9 @@ public abstract class PathFinding
 		return L2Arrays.compact(path);
 	}
 	
-	public final AbstractNodeLoc[] constructPath2(Node node)
+	public final Node[] constructPath2(Node node)
 	{
-		ArrayList<AbstractNodeLoc> tmp = L2Collections.newArrayList();
+		ArrayList<Node> tmp = L2Collections.newArrayList();
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -408,18 +408,18 @@ public abstract class PathFinding
 		while (node.getParent() != null)
 		{
 			// only add a new route point if moving direction changes
-			directionx = node.getLoc().getNodeX() - node.getParent().getLoc().getNodeX();
-			directiony = node.getLoc().getNodeY() - node.getParent().getLoc().getNodeY();
+			directionx = node.getNodeX() - node.getParent().getNodeX();
+			directiony = node.getNodeY() - node.getParent().getNodeY();
 			if (directionx != previousdirectionx || directiony != previousdirectiony)
 			{
 				previousdirectionx = directionx;
 				previousdirectiony = directiony;
-				tmp.add(node.getLoc());
+				tmp.add(node);
 			}
 			node = node.getParent();
 		}
 		
-		AbstractNodeLoc[] path = tmp.toArray(new AbstractNodeLoc[tmp.size()]);
+		Node[] path = tmp.toArray(new Node[tmp.size()]);
 		
 		L2Collections.recycle(tmp);
 		

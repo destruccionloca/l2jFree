@@ -1316,17 +1316,17 @@ public final class GeoEngine extends GeoData
 	public Node[] getNeighbors(Node n)
 	{
 		Node newNode;
-		int x = n.getLoc().getNodeX();
-		int y = n.getLoc().getNodeY();
+		int x = n.getNodeX();
+		int y = n.getNodeY();
 		int parentdirection = 0;
 		if (n.getParent() != null) // check for not adding parent again
 		{
-			if (n.getParent().getLoc().getNodeX() > x) parentdirection = 1;
-			if (n.getParent().getLoc().getNodeX() < x) parentdirection = -1;
-			if (n.getParent().getLoc().getNodeY() > y) parentdirection = 2;
-			if (n.getParent().getLoc().getNodeY() < y) parentdirection = -2;
+			if (n.getParent().getNodeX() > x) parentdirection = 1;
+			if (n.getParent().getNodeX() < x) parentdirection = -1;
+			if (n.getParent().getNodeY() > y) parentdirection = 2;
+			if (n.getParent().getNodeY() < y) parentdirection = -2;
 		}
-		short z = n.getLoc().getZ();
+		short z = n.getZ();
 		short region = getRegionOffset(x,y);
 	    int blockX = getBlock(x);
 		int blockY = getBlock(y);
@@ -1355,7 +1355,7 @@ public final class GeoEngine extends GeoData
 	    if(type == 0)//flat
 	    {
 			short height = geo.getShort(index);
-			n.getLoc().setZ(height);
+			n.setZ(height);
 			if (parentdirection != 1) {
 				newNode = CellPathFinding.getInstance().readNode(x+1,y,height);
 				//newNode.setCost(0);
@@ -1383,7 +1383,7 @@ public final class GeoEngine extends GeoData
 			NSWE = (short)(height&0x0F);
 			height = (short)(height&0x0fff0);
 			height = (short)(height >> 1); //height / 2
-			n.getLoc().setZ(height);
+			n.setZ(height);
 			if (NSWE != 15 && parentdirection != 0) return null; // no node with a block will be used
 			if (parentdirection != 1 && checkNSWE(NSWE,x,y,x+1,y))
 			{
@@ -1442,7 +1442,7 @@ public final class GeoEngine extends GeoData
 	            layers--;
 	            index += 2;
 	        }
-	        n.getLoc().setZ(tempz);
+	        n.setZ(tempz);
 	        if (NSWE != 15 && parentdirection != 0) return null; // no node with a block will be used
 	        if (parentdirection != 1 && checkNSWE(NSWE,x,y,x+1,y))
 			{

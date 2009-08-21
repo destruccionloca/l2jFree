@@ -27,7 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
+import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -264,7 +264,7 @@ public final class DoorTable
 		return _doorArray;
 	}
 	
-	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
+	public boolean checkIfDoorsBetween(Node start, Node end)
 	{
 		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ());
 	}

@@ -40,7 +40,7 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
+import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.FactionManager;
@@ -3841,7 +3841,7 @@ public abstract class L2Character extends L2Object
 
 		public boolean			disregardingGeodata;
 		public int				onGeodataPathIndex;
-		public AbstractNodeLoc[]	geoPath;
+		public Node[]			geoPath;
 		public int				geoPathAccurateTx;
 		public int				geoPathAccurateTy;
 		public int				geoPathGtx;

@@ -14,75 +14,79 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding;
 
+import com.l2jfree.lang.L2System;
+
 /**
  * @author -Nemesiss-
  */
-public final class Node
+public abstract class Node
 {
-	private final AbstractNodeLoc _loc;
 	private final int _neighborsIdx;
 	private Node[] _neighbors;
 	private Node _parent;
 	private short _cost;
 	
-	public Node(AbstractNodeLoc loc, int neighborsIdx)
+	protected Node(int neighborsIdx)
 	{
-		_loc = loc;
 		_neighborsIdx = neighborsIdx;
 	}
 	
-	public void setParent(Node p)
+	public final void setParent(Node p)
 	{
 		_parent = p;
 	}
 	
-	public void setCost(int cost)
+	public final void setCost(int cost)
 	{
 		_cost = (short)cost;
 	}
 	
-	public void attachNeighbors()
+	public final void attachNeighbors()
 	{
-		if (_loc == null)
-			_neighbors = null;
-		else
-			_neighbors = PathFinding.getInstance().readNeighbors(this, _neighborsIdx);
+		_neighbors = PathFinding.getInstance().readNeighbors(this, _neighborsIdx);
 	}
 	
-	public Node[] getNeighbors()
+	public final Node[] getNeighbors()
 	{
 		return _neighbors;
 	}
 	
-	public Node getParent()
+	public final Node getParent()
 	{
 		return _parent;
 	}
 	
-	public AbstractNodeLoc getLoc()
-	{
-		return _loc;
-	}
-	
-	public short getCost()
+	public final short getCost()
 	{
 		return _cost;
 	}
 	
+	public abstract int getX();
+	
+	public abstract int getY();
+	
+	public abstract short getZ();
+	
+	public abstract void setZ(short z);
+	
+	public abstract int getNodeX();
+	
+	public abstract int getNodeY();
+	
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
-		return getLoc().hashCode();
+		return L2System.hash((getNodeX() << 20) + (getNodeY() << 8) + getZ());
 	}
 	
 	@Override
-	public boolean equals(Object obj)
+	public final boolean equals(Object obj)
 	{
 		if (!(obj instanceof Node))
 			return false;
 		
 		Node n = (Node)obj;
 		
-		return getLoc().equals(n.getLoc());
+		return getNodeX() == n.getNodeX() && getNodeY() == n.getNodeY() && getZ() == n.getZ();
 	}
 }

@@ -30,7 +30,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.GeoData;
-import com.l2jfree.gameserver.geodata.pathfinding.AbstractNodeLoc;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.model.L2World;
@@ -72,7 +71,7 @@ public final class GeoPathFinding extends PathFinding
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
 	 */
 	@Override
-	public AbstractNodeLoc[] findPath(int x, int y, int z, int tx, int ty, int tz)
+	public Node[] findPath(int x, int y, int z, int tx, int ty, int tz)
 	{
 		int gx = (x - L2World.MAP_MIN_X) >> 4;
 		int gy = (y - L2World.MAP_MIN_Y) >> 4;
@@ -85,19 +84,19 @@ public final class GeoPathFinding extends PathFinding
 		Node end = readNode(gtx,gty,gtz);
 		if (start == null || end == null)
 			return null;
-		if (Math.abs(start.getLoc().getZ() - z) > 55) return null; // not correct layer
-		if (Math.abs(end.getLoc().getZ() - tz) > 55) return null; // not correct layer
+		if (Math.abs(start.getZ() - z) > 55) return null; // not correct layer
+		if (Math.abs(end.getZ() - tz) > 55) return null; // not correct layer
 		if (start == end)
 			return null;
 		
     	// TODO: Find closest path node we CAN access. Now only checks if we can not reach the closest
-		Location temp = GeoData.getInstance().moveCheck(x, y, z, start.getLoc().getX(), start.getLoc().getY(), start.getLoc().getZ());
-		if ((temp.getX() != start.getLoc().getX()) || (temp.getY() != start.getLoc().getY()))
+		Location temp = GeoData.getInstance().moveCheck(x, y, z, start.getX(), start.getY(), start.getZ());
+		if ((temp.getX() != start.getX()) || (temp.getY() != start.getY()))
 			return null; //   cannot reach closest...
 		
 		// TODO: Find closest path node around target, now only checks if final location can be reached
-		temp = GeoData.getInstance().moveCheck(tx, ty, tz, end.getLoc().getX(), end.getLoc().getY(), end.getLoc().getZ());
-		if ((temp.getX() != end.getLoc().getX()) || (temp.getY() != end.getLoc().getY()))
+		temp = GeoData.getInstance().moveCheck(tx, ty, tz, end.getX(), end.getY(), end.getZ());
+		if ((temp.getX() != end.getX()) || (temp.getY() != end.getY()))
 			return null; //   cannot reach closest...
 
 		//return searchAStar(start, end);
@@ -110,9 +109,9 @@ public final class GeoPathFinding extends PathFinding
 	@Override
 	public Node[] readNeighbors(Node n, int idx)
 	{
-		int node_x = n.getLoc().getNodeX();
-		int node_y = n.getLoc().getNodeY();
-		//short node_z = n.getLoc().getZ();
+		int node_x = n.getNodeX();
+		int node_y = n.getNodeY();
+		//short node_z = n.getZ();
 			
 		short regoffset = getRegionOffset(getRegionX(node_x),getRegionY(node_y));
 		ByteBuffer pn = _pathNodes.get(regoffset);
@@ -218,7 +217,7 @@ public final class GeoPathFinding extends PathFinding
 		}
 		short node_z = pn.getShort(idx);
 		idx += 2;
-		return new Node(new GeoNodeLoc(node_x,node_y,node_z), idx);
+		return new GeoNode(node_x, node_y, node_z, idx);
 	}
 
 	private Node readNode(int gx, int gy, short z)
@@ -246,7 +245,7 @@ public final class GeoPathFinding extends PathFinding
 			idx += 10; //short + 8 byte
 			nodes--;
 		}
-		return new Node(new GeoNodeLoc(node_x,node_y,last_z), idx2);
+		return new GeoNode(node_x, node_y, last_z, idx2);
 	}
 
 	private GeoPathFinding()
