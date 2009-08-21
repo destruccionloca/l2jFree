@@ -856,14 +856,15 @@
   </skill>
   <skill id="761" levels="1" name="Seed of Revenge">
     <set name="mpInitialConsume" val="7"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
     <set name="coolTime" val="1666"/>
     <set name="reuseDelay" val="95000"/>
     <set name="isMagic" val="true"/>
-    <set name="skillType" val="BUFF"/>
     <for>
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5561" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
@@ -899,6 +900,7 @@
   </skill>
   <skill id="763" levels="1" name="Hell Scream">
     <set name="power" val="80"/> <!-- Guess -->
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="87"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="100"/>
@@ -923,6 +925,7 @@
     <set name="hitTime" val="2500"/>
     <set name="skillType" val="BUFF"/>
     <set name="isSong" val="true"/>
+    <set name="magicLvl" val="76"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="666"/>
     <for>
@@ -941,6 +944,7 @@
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="BUFF"/>
     <set name="isDance" val="true"/>
+    <set name="magicLvl" val="76"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="666"/>
     <for>
@@ -962,19 +966,21 @@
     </for>
   </skill>
   <skill id="767" levels="1" name="Expose Weak Point">
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
+    <set name="activationChance" val="30"/> <!-- guessed -->
+    <set name="chanceType" val="ON_ATTACKED"/>
+    <set name="magicLvl" val="81"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="triggeredId" val="5565"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="chanceType" val="ON_ATTACKED"/>
-    <set name="activationChance" val="30"/> <!-- guessed -->
     <for>
       <add order="0x40" stat="rCrit" val="180"/>
     </for>
   </skill>
   <skill id="768" levels="1" name="Exciting Adventure">
     <!-- by Sephiroth -->
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -993,6 +999,7 @@
   </skill>
   <skill id="769" levels="1" name="Wind Riding">
     <!-- by Sephiroth -->
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1011,6 +1018,7 @@
   </skill>
   <skill id="770" levels="1" name="Ghost Walking">
     <!-- by Sephiroth -->
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1031,6 +1039,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="hitTime" val="3500"/>
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="160"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
@@ -1047,6 +1056,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="4000"/>
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="160"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
@@ -1065,6 +1075,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="hitTime" val="3000"/>
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="160"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
@@ -1076,18 +1087,19 @@
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
   </skill>
   <skill id="774" levels="1" name="Dread Pool">
-    <set name="power" val="80"/> <!-- Guessing -->
     <set name="mpInitialConsume" val="17"/>
-    <set name="mpConsume" val="69"/>
-    <set name="target" val="TARGET_AURA"/>
-    <set name="skillRadius" val="300"/>
-    <set name="reuseDelay" val="50000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="isDebuff" val="true"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="FEAR"/>
+    <set name="magicLvl" val="83"/>
+    <set name="mpConsume" val="69"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="80"/> <!-- Guessing -->
+    <set name="reuseDelay" val="50000"/>
+    <set name="coolTime" val="666"/>
+    <set name="isMagic" val="false"/>
+    <set name="skillRadius" val="300"/>
+    <set name="skillType" val="FEAR"/>
+    <set name="target" val="TARGET_AURA"/>
     <for>
       <effect count="8" name="Fear" time="2" val="0">
         <mul order="0x30" stat="runSpd" val="0.67"/>
@@ -1159,6 +1171,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
     <set name="reuseDelay" val="3600000"/>
@@ -1271,12 +1284,13 @@
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="2500"/>
-    <set name="coolTime" val="1666"/>
-    <set name="reuseDelay" val="15000"/>
-    <set name="isMagic" val="true"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="coolTime" val="1666"/>
+    <set name="isMagic" val="true"/>
     <for>
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5562" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
@@ -1321,6 +1335,7 @@
     <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
     <set name="coolTime" val="1666"/>
@@ -1359,12 +1374,13 @@
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="reuseDelay" val="95000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
+    <set name="reuseDelay" val="95000"/>
     <set name="coolTime" val="1666"/>
     <set name="isMagic" val="true"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5564" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
@@ -1404,6 +1420,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="hitTime" val="3500"/>
+    <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="120"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>

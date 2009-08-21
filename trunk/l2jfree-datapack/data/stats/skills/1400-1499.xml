@@ -1852,6 +1852,7 @@
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
@@ -1866,6 +1867,7 @@
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
@@ -1880,6 +1882,7 @@
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
     <set name="isMagic" val="true"/>
@@ -1900,6 +1903,7 @@
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="skillType" val="DRAIN"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="20000"/> <!-- guess -->

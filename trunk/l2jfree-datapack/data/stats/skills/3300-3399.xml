@@ -440,7 +440,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="101"/>
-    <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->

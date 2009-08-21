@@ -107,13 +107,14 @@
     <set name="mpConsume" val="174"/>
     <set name="hpConsume" val="4000"/>
     <set name="target" val="TARGET_PARTY"/>
-    <set name="skillRadius" val="1000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="3600000"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="coolTime" val="2666"/>
     <for>
       <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
     </for>
@@ -128,6 +129,7 @@
     <set name="mpConsume" val="58"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="RECOVER"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
@@ -140,6 +142,7 @@
     <set name="mpConsume" val="37"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
+    <set name="magicLvl" val="83"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="1800"/>
@@ -177,7 +180,7 @@
     <!-- Done by L2CDP -->
     <set name="mpInitialConsume" val="11"/>
     <set name="mpConsume" val="44"/>
-    <set name="magicLvl" val="81"/>
+    <set name="magicLvl" val="83"/>
     <set name="power" val="80"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
@@ -341,6 +344,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="70"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -362,6 +366,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="72"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="655"/>
     <for>
@@ -381,6 +386,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="74"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="655"/>
     <for>
@@ -401,8 +407,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="316"/>
     <for>
-    	<effect name="Transformation" time="18400" val="0"/>
-	</for>    	
+      <effect name="Transformation" time="18400" val="0"/>
+    </for>    	
   </skill>
   <skill id="1521" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31"/>
@@ -413,8 +419,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="317"/>
     <for>
-    	<effect name="Transformation" time="18400" val="0"/>
-	</for>    	
+      <effect name="Transformation" time="18400" val="0"/>
+    </for>    	
   </skill>
   <skill id="1522" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31"/>
@@ -425,8 +431,8 @@
     <set name="reuseDelay" val="30000"/>
     <set name="transformId" val="318"/>
     <for>
-    	<effect name="Transformation" time="18400" val="0"/>
-	</for>    	
+      <effect name="Transformation" time="18400" val="0"/>
+    </for>    	
   </skill>
   <skill id="1523" levels="42" name="Divine Punishment">
     <!-- Inquisitor Stance Skill -->
@@ -675,6 +681,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="72"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -696,6 +703,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="70"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -717,6 +725,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="74"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="655"/>
     <for>
@@ -736,6 +745,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="72"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="655"/>
     <for>
