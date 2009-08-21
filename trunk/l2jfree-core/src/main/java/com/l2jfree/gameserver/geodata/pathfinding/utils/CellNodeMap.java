@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding.utils;
 
-import javolution.util.FastMap;
-
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.ObjectPool;
@@ -25,7 +23,7 @@ import com.l2jfree.util.ObjectPool;
  */
 public final class CellNodeMap
 {
-	private final FastMap<Integer, L2FastSet<Node>> _cellIndex = new FastMap<Integer, L2FastSet<Node>>();
+	private final L2FastSet<Node> _cellIndex = new L2FastSet<Node>();
 	
 	private CellNodeMap()
 	{
@@ -33,21 +31,12 @@ public final class CellNodeMap
 	
 	public void add(Node n)
 	{
-		L2FastSet<Node> set = _cellIndex.get(n.getLoc().getY());
-		
-		if (set == null)
-			_cellIndex.put(n.getLoc().getY(), set = SET_POOL.get());
-		
-		set.add(n);
+		_cellIndex.add(n);
 	}
 	
 	public boolean contains(Node n)
 	{
-		L2FastSet<Node> set = _cellIndex.get(n.getLoc().getY());
-		if (set == null)
-			return false;
-		
-		return set.contains(n);
+		return _cellIndex.contains(n);
 	}
 	
 	public static CellNodeMap newInstance()
@@ -64,11 +53,6 @@ public final class CellNodeMap
 		@Override
 		protected void reset(CellNodeMap map)
 		{
-			for (FastMap.Entry<Integer, L2FastSet<Node>> e = map._cellIndex.head(), end = map._cellIndex.tail(); (e = e.getNext()) != end;)
-			{
-				SET_POOL.store(e.getValue());
-			}
-			
 			map._cellIndex.clear();
 		}
 		
@@ -76,20 +60,6 @@ public final class CellNodeMap
 		protected CellNodeMap create()
 		{
 			return new CellNodeMap();
-		}
-	};
-	
-	private static final ObjectPool<L2FastSet<Node>> SET_POOL = new ObjectPool<L2FastSet<Node>>() {
-		@Override
-		protected void reset(L2FastSet<Node> set)
-		{
-			set.clear();
-		}
-		
-		@Override
-		protected L2FastSet<Node> create()
-		{
-			return new L2FastSet<Node>(4096);
 		}
 	};
 }
