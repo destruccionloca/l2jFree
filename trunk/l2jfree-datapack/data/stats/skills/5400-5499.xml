@@ -451,7 +451,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0">
+      <effect name="Debuff" time="30" val="0">
         <mul order="0x30" stat="runSpd" val="0.5"/>
         <mul order="0x30" stat="pAtkSpd" val="0.76"/>
         <mul order="0x30" stat="mAtkSpd" val="0.76"/>
@@ -467,7 +467,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0" noicon="1">
+      <effect name="Debuff" time="30" val="0" noicon="1">
         <mul order="0x30" stat="critVuln" val="1.30"/>
       </effect>
     </for>
@@ -481,7 +481,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0" noicon="1">
+      <effect name="Debuff" time="30" val="0" noicon="1">
         <mul order="0x30" stat="gainMp" val="#mp"/>
       </effect>
     </for>

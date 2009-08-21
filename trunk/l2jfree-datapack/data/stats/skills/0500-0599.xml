@@ -564,7 +564,7 @@
       </effect>
     </for>
     <enchant1for>
-      <effect count="1" name="ImmobileBuff" time="120" val="0">
+      <effect name="ImmobileBuff" time="120" val="0">
         <add order="0x40" stat="pAtk" val="#ench1pAtk">
           <using kind="Crossbow"/>
         </add>
@@ -1722,7 +1722,7 @@
     <!--  <set name="nextAction" val="attack"/> -->
     <!-- To prevent character stop from attacking -->
     <for>
-      <effect name="Buff" time="15" count="1" val="0" stackOrder="#accCombat" stackType="accuracyDown">
+      <effect name="Buff" time="15" val="0" stackOrder="#accCombat" stackType="accuracyDown">
         <sub order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>

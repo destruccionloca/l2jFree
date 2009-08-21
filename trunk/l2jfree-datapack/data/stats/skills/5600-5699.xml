@@ -13,7 +13,7 @@
       <set name="effectRange" val="1200"/>
       <set name="skillRadius" val="1000"/>
       <for>
-      <effect count="1" name="Debuff" time="30" val="0">
+      <effect name="Debuff" time="30" val="0">
       <add order="0x40" stat="transDam" val="100"/>
       </effect>
       </for>
