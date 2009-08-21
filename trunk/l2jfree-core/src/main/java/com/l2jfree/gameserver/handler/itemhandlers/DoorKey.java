@@ -70,6 +70,14 @@ public class DoorKey implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+        // Temp hack for secret doors, not to let players be too close to it when opening it 
+		if (itemId == 9694 && !(activeChar.isOutsideRadius(door.getX(), door.getY(), 130)))
+		{
+			activeChar.sendMessage("Too near...");
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+
 		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You are currently engaged in combat.");
@@ -93,6 +101,7 @@ public class DoorKey implements IItemHandler
 				return;
 
 			door.openMe();
+			activeChar.setOpenedSecretDoor(door.getDoorId());
 			break;
 		}
 		}

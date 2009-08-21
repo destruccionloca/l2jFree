@@ -5056,6 +5056,14 @@ public abstract class L2Character extends L2Object
 		return (dx * dx + dy * dy) <= radius * radius;
 	}
 
+	public final boolean isOutsideRadius(int x, int y, int radius)
+	{
+		double dx = x - getX();
+		double dy = y - getY();
+
+		return (dx * dx + dy * dy) >= radius * radius;
+	}
+
 	/**
 	 * Return the Weapon Expertise Penalty of the L2Character.<BR>
 	 * <BR>

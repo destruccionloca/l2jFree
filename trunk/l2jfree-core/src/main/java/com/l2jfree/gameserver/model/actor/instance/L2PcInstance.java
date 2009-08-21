@@ -61,6 +61,7 @@ import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.datatables.DoorTable; 
 import com.l2jfree.gameserver.datatables.FishTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
@@ -845,7 +846,13 @@ public final class L2PcInstance extends L2Playable
 
 	// Id of the afro hair cut
 	private int								_afroId					= 0;
-	
+
+	// Secret doors in Emerald
+	private int								_openedSecretDoor		 = 0;
+	private int								_positionWhenSecretDoorX = 0;
+	private int								_positionWhenSecretDoorY = 0;
+	private int								_positionWhenSecretDoorZ = 0;
+
 	private class VitalityTask implements Runnable
 	{
 		private L2PcInstance	_player	= null;
@@ -14565,7 +14572,35 @@ public final class L2PcInstance extends L2Playable
 	{
 		return getKarma() > 0 || isCursedWeaponEquipped();
 	}
-	
+
+	public void setOpenedSecretDoor(int doorId)
+	{
+		_openedSecretDoor = doorId;
+		_positionWhenSecretDoorX = getX();
+		_positionWhenSecretDoorY = getY();
+		_positionWhenSecretDoorZ = getZ();
+
+		ThreadPoolManager.getInstance().scheduleGeneral(new checkPositionForSecretDoor(), 1000);
+	}
+		 
+	class checkPositionForSecretDoor implements Runnable
+	{
+		public void run()
+		{
+			if (getX() != _positionWhenSecretDoorX || getY() != _positionWhenSecretDoorY || getZ() != _positionWhenSecretDoorZ)
+			{
+				DoorTable.getInstance().getDoor(_openedSecretDoor).closeMe();
+
+				_openedSecretDoor = 0;
+				_positionWhenSecretDoorX = 0;
+				_positionWhenSecretDoorY = 0;
+				_positionWhenSecretDoorZ = 0;
+			}
+			else
+				ThreadPoolManager.getInstance().scheduleGeneral(new checkPositionForSecretDoor(), 500);
+		}
+	}
+
 	private final long[] _floodProtectors = new long[FloodProtector.Protected.VALUES_LENGTH];
 	
 	public long[] getFloodProtectors()

@@ -1,6 +1,5 @@
 # Script by Psychokiller1888
 # Still missing:
-# - Doors behavior in Emerald. They should close themselves as soon as the one who opened them moves
 # - Contaminated crystal should not be taken at entrance, but exchange by the oracle in case the "boss" dies.
 # - Meeting with Baylor is custom and not complete. Please understand that it's hard to get real info about CC
 # - Mob stats and droplists, AI for the final mobs + z-axis corrections on them
