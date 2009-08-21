@@ -18,26 +18,29 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2DefaultTransformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class Venom extends L2DefaultTransformation
+
+public class KnightofDawn extends L2DefaultTransformation
 {
-	public Venom()
+	public KnightofDawn()
 	{
 		// id, colRadius, colHeight
-		super(307, 11.0, 25.0);
+		super(20, 12.0, 25.0);
 	}
 
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player,8248, 1); // Transfrom Dispel
 	}
 
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player,8248); // Transfrom Dispel
 	}
 
 	public static void main(String[] args)
 	{
-		TransformationManager.getInstance().registerTransformation(new Venom());
+		TransformationManager.getInstance().registerTransformation(new KnightofDawn());
 	}
 }
