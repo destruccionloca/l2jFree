@@ -1060,7 +1060,7 @@
     <set name="power" val="4312"/>
     <set name="reuseDelay" val="60000"/> <!-- Guessing -->
     <set name="skillType" val="PDAM"/>
-    <set name="skillRadius" val="200"/> <!-- Guessing -->
+    <set name="skillRadius" val="100"/>
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
