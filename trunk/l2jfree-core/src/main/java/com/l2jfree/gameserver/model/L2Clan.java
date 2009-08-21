@@ -1601,11 +1601,12 @@ public class L2Clan
 
 	public SubPledge createSubPledge(L2PcInstance player, int subPledgeType, int leaderId, String subPledgeName)
 	{
+		final int originalSubPledgeType = subPledgeType;
 		SubPledge subPledge = null;
 		subPledgeType = getAvailablePledgeTypes(subPledgeType);
 		if (subPledgeType == 0)
 		{
-			if (subPledgeType == L2Clan.SUBUNIT_ACADEMY)
+			if (originalSubPledgeType == L2Clan.SUBUNIT_ACADEMY)
 				player.sendPacket(new SystemMessage(SystemMessageId.CLAN_HAS_ALREADY_ESTABLISHED_A_CLAN_ACADEMY));
 			else
 				player.sendMessage("You can't create any more sub-units of this type");
