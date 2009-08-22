@@ -31089,3 +31089,6 @@ INSERT INTO droplist VALUES
 
 -- Removing Blue Coral Keys drop, as they are included in the gatekeepers scripts (Fix by Psycho moved to our customs for easier sync)
 DELETE FROM `droplist` WHERE mobId = 22275 AND itemId = 9698;
+
+-- Knight's epaulettes are dropped via script, to be removed if decided to drop from droplist.
+DELETE FROM `droplist` WHERE `itemId` = 9912;
