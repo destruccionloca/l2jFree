@@ -35,15 +35,6 @@ public final class CellPathFinding extends PathFinding
 	}
 	
 	/**
-	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#PathNodesExist(short)
-	 */
-	@Override
-	public boolean pathNodesExist(short regionoffset)
-	{
-		return false;
-	}
-	
-	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
 	 */
 	@Override

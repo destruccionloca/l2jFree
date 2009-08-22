@@ -42,8 +42,6 @@ public abstract class PathFinding
 			return CellPathFinding.getInstance(); // Cell pathfinding, calculated directly from geodata files
 	}
 	
-	public abstract boolean pathNodesExist(short regionoffset);
-	
 	public abstract Node[] findPath(int x, int y, int z, int tx, int ty, int tz);
 	
 	public abstract Node[] readNeighbors(Node n, int idx);
@@ -339,6 +337,7 @@ public abstract class PathFinding
 	public final Node[] constructPath(Node node)
 	{
 		ArrayList<Node> tmp = L2Collections.newArrayList();
+		/*
 		int previousdirectionx = -1000;
 		int previousdirectiony = -1000;
 		int directionx;
@@ -365,6 +364,13 @@ public abstract class PathFinding
 				tmp.add(node);
 			}
 			node = node.getParent();
+		}*/
+		
+		while (node.getParent() != null)
+		{
+			tmp.add(node);
+			
+			node = node.getParent();
 		}
 		
 		Node[] path = tmp.toArray(new Node[tmp.size()]);
@@ -374,6 +380,7 @@ public abstract class PathFinding
 		ArrayUtils.reverse(path);
 		
 		// then LOS based filtering to reduce the number of route points
+		/*
 		if (path.length > 4)
 		{
 			//System.out.println("pathsize:"+path.size());
@@ -393,6 +400,39 @@ public abstract class PathFinding
 			}
 			
 			//System.out.println("pathsize:"+path.size());
+		}
+		*/
+		
+		for (int lastValid = 0; lastValid < path.length;)
+		{
+			final Node begin = path[lastValid];
+			
+			int low = lastValid;
+			int high = path.length - 1;
+			
+			while (low < high)
+			{
+				int mid = ((low + high) >> 1) + 1;
+				final Node midNode = path[mid];
+				
+				if (GeoData.getInstance().canMoveFromToTarget(
+						begin.getX(), begin.getY(), begin.getZ(),
+						midNode.getX(), midNode.getY(), midNode.getZ()))
+				{
+					low = mid;
+				}
+				else
+				{
+					high = mid - 1;
+				}
+			}
+			
+			final int nextValid = low;
+			
+			for (int i = lastValid + 1; i < nextValid; i++)
+				path[i] = null;
+			
+			lastValid = nextValid;
 		}
 		
 		return L2Arrays.compact(path);

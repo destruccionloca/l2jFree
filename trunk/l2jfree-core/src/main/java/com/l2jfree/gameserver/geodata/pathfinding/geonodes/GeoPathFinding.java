@@ -58,11 +58,7 @@ public final class GeoPathFinding extends PathFinding
 	private final LookupTable<ByteBuffer> _pathNodes = new LookupTable<ByteBuffer>();
 	private final LookupTable<IntBuffer> _pathNodesIndex = new LookupTable<IntBuffer>();
 	
-	/**
-	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#PathNodesExist(short)
-	 */
-	@Override
-	public boolean pathNodesExist(short regionoffset)
+	private boolean pathNodesExist(short regionoffset)
 	{
 		return _pathNodesIndex.get(regionoffset) != null;
 	}
@@ -86,7 +82,7 @@ public final class GeoPathFinding extends PathFinding
 			return null;
 		if (Math.abs(start.getZ() - z) > 55) return null; // not correct layer
 		if (Math.abs(end.getZ() - tz) > 55) return null; // not correct layer
-		if (start == end)
+		if (start.equals(end))
 			return null;
 		
     	// TODO: Find closest path node we CAN access. Now only checks if we can not reach the closest
