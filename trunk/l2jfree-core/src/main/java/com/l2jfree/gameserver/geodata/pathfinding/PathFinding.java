@@ -427,7 +427,7 @@ public abstract class PathFinding
 				{
 					low = mid;
 				}
-				else if (deltaNodeX == delta || deltaNodeY == delta))
+				else if (deltaNodeX == delta || deltaNodeY == delta)
 				{
 					low = mid;
 				}
