@@ -23,7 +23,7 @@ import com.l2jfree.util.ObjectPool;
  */
 public final class CellNodeMap
 {
-	private final L2FastSet<Node> _cellIndex = new L2FastSet<Node>();
+	private final L2FastSet<Node> _cellIndex = new L2FastSet<Node>(4096);
 	
 	private CellNodeMap()
 	{

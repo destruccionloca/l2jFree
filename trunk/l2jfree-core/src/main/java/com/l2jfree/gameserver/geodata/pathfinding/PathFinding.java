@@ -403,21 +403,37 @@ public abstract class PathFinding
 		}
 		*/
 		
-		for (int lastValid = 0; lastValid < path.length;)
+		for (int lastValid = 0; lastValid < path.length - 1;)
 		{
-			final Node begin = path[lastValid];
+			final Node lastValidNode = path[lastValid];
 			
 			int low = lastValid;
 			int high = path.length - 1;
 			
 			while (low < high)
 			{
-				int mid = ((low + high) >> 1) + 1;
+				final int mid = ((low + high) >> 1) + 1;
 				final Node midNode = path[mid];
 				
-				if (GeoData.getInstance().canMoveFromToTarget(
-						begin.getX(), begin.getY(), begin.getZ(),
-						midNode.getX(), midNode.getY(), midNode.getZ()))
+				final int delta = mid - lastValid;
+				final int deltaNodeX = Math.abs(midNode.getNodeX() - lastValidNode.getNodeX());
+				final int deltaNodeY = Math.abs(midNode.getNodeY() - lastValidNode.getNodeY());
+				
+				if (delta <= 1)
+				{
+					low = mid;
+				}
+				else if (delta % 2 == 0 && deltaNodeX == delta / 2 && deltaNodeY == delta / 2)
+				{
+					low = mid;
+				}
+				else if (deltaNodeX == delta || deltaNodeY == delta))
+				{
+					low = mid;
+				}
+				else if (GeoData.getInstance().canMoveFromToTarget(
+					lastValidNode.getX(), lastValidNode.getY(), lastValidNode.getZ(),
+					midNode.getX(), midNode.getY(), midNode.getZ()))
 				{
 					low = mid;
 				}
