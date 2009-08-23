@@ -35,10 +35,9 @@ import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.LookupTable;
@@ -124,17 +123,16 @@ public final class GeoEngine extends GeoData
     	// If this is going to be improved, use e.g.
     	// ((L2Character)cha).getTemplate().collisionHeight
     	int z = cha.getZ()+45;
-    	if (cha instanceof L2SiegeGuardInstance || cha instanceof L2FortSiegeGuardInstance)
+    	if (cha instanceof L2SiegeGuard)
     		z += 30; // well they don't move closer to balcony fence at the moment :(
     	int z2 = target.getZ()+45;
-    	if (!(target instanceof L2DoorInstance)
-    			&& DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2))
-    		return false;
     	if (target instanceof L2DoorInstance)
     		return true; // door coordinates are hinge coords..
-    	if (target instanceof L2SiegeGuardInstance || target instanceof L2FortSiegeGuardInstance)
+    	if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2))
+    		return false;
+    	if (target instanceof L2SiegeGuard)
     		z2 += 30; // well they don't move closer to balcony fence at the moment :(
-    	if (cha.getZ() >= target.getZ())
+    	if (z >= z2)
     		return canSeeTarget(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2);
     	else
     		return canSeeTarget(target.getX(),target.getY(),z2, cha.getX(),cha.getY(),z);
@@ -152,7 +150,7 @@ public final class GeoEngine extends GeoData
     		return true; // door coordinates are hinge coords..
     	}
 
-    	if(gm.getZ() >= target.getZ())
+    	if(z >= z2)
     		return canSeeDebug(gm,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,z,(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,z2);
     	else
     		return canSeeDebug(gm,(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,z2,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,z);

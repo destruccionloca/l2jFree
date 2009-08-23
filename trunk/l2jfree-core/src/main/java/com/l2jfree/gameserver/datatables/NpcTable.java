@@ -533,10 +533,16 @@ public final class NpcTable
 		{
 			// save a copy of the old data
 			L2NpcTemplate old = getTemplate(id);
-			FastMap<Integer, L2Skill> skills = new FastMap<Integer, L2Skill>();
+			FastMap<Integer, L2Skill> skills = null;
 
+			// L2NpcTemplate.getSkillS() is unmodifiable, so the entrySet() of it can't be used
 			if (old != null && old.getSkills() != null)
-				skills.putAll(old.getSkills());
+			{
+				skills = new FastMap<Integer, L2Skill>(old.getSkills().size());
+				
+				for (Integer key : old.getSkills().keySet())
+					skills.put(key, old.getSkills().get(key));
+			}
 
 			L2DropCategory[] categories = new L2DropCategory[0];
 
@@ -671,8 +677,9 @@ public final class NpcTable
 			// restore additional data from saved copy
 			L2NpcTemplate created = getTemplate(id);
 
-			for (L2Skill skill : skills.values())
-				created.addSkill(skill);
+			if (skills != null)
+				for (L2Skill skill : skills.values())
+					created.addSkill(skill);
 
 			for (ClassId classId : classIds)
 				created.addTeachInfo(classId);
