@@ -723,11 +723,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _maxNegatedEffects;
 	}
 
-	public final int getMagicLvl()
-	{
-		return _magicLevel;
-	}
-
 	public final int getEffectAbnormalLvl()
 	{
 		return _effectAbnormalLvl;

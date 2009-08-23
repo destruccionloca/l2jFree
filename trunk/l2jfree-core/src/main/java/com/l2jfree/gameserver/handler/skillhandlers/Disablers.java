@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -36,13 +38,11 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
-import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.effects.EffectBuff;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -681,19 +681,11 @@ public class Disablers implements ICubicSkillHandler
 
 						if (stat == "buff" || stat == "heal_percent")
 						{
-							int lvlmodifier = 52 + skill.getMagicLevel() * 2;
-							if (skill.getMagicLevel() == 12)
-								lvlmodifier = (Experience.MAX_LEVEL - 1);
-							int landrate = 90;
-							if ((target.getLevel() - lvlmodifier) > 0)
-								landrate = 90 - 4 * (target.getLevel() - lvlmodifier);
-
-							landrate = (int) activeChar.calcStat(Stats.CANCEL_VULN, landrate, target, null);
-
-							if (Rnd.get(100) < landrate)
+							if (Formulas.calcSkillSuccess(90.0, activeChar, target, skill, shld, ss, sps, bss))
+							{
 								removedBuffs += negateEffect(target, L2SkillType.BUFF, -1, skill.getMaxNegatedEffects());
+							}
 						}
-
 						else if (stat == "debuff" && removedBuffs < skill.getMaxNegatedEffects())
 							removedBuffs += negateEffect(target,L2SkillType.DEBUFF,-1, skill.getMaxNegatedEffects());
 						else if (stat == "weakness" && removedBuffs < skill.getMaxNegatedEffects())
@@ -903,27 +895,21 @@ public class Disablers implements ICubicSkillHandler
 
 	private L2Effect[] sortEffects(L2Effect[] initial)
 	{
-		//this is just classic insert sort
-		//If u can find better sort for max 20-30 units, rewrite this... :)
-		int min, index = 0;
-		L2Effect pom;
-		for (int i = 0; i < initial.length; i++)
-		{
-			min = initial[i].getSkill().getMagicLevel();
-			for (int j = i; j < initial.length; j++)
-			{
-				if (initial[j].getSkill().getMagicLevel() <= min)
-				{
-					min = initial[j].getSkill().getMagicLevel();
-					index = j;
-				}
-			}
-			pom = initial[i];
-			initial[i] = initial[index];
-			initial[index] = pom;
-		}
+		Arrays.sort(initial, EFFECT_MAGIC_LEVEL_COMPARATOR);
+		
 		return initial;
 	}
+
+	private static final Comparator<L2Effect> EFFECT_MAGIC_LEVEL_COMPARATOR = new Comparator<L2Effect>() {
+		@Override
+		public int compare(L2Effect e1, L2Effect e2)
+		{
+			int magicLvl1 = e1.getSkill().getMagicLevel();
+			int magicLvl2 = e2.getSkill().getMagicLevel();
+			
+			return (magicLvl1 < magicLvl2 ? -1 : (magicLvl1 == magicLvl2 ? 0 : 1));
+		}
+	};
 
 	public L2SkillType[] getSkillIds()
 	{

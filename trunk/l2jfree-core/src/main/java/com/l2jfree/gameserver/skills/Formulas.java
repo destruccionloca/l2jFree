@@ -1527,7 +1527,7 @@ public final class Formulas
 		// Failure calculation
 		if (Config.ALT_GAME_MAGICFAILURES && !calcMagicSuccess(owner, target, skill))
 		{
-			if (calcMagicSuccess(owner, target, skill) && (target.getLevel() - skill.getMagicLevel()) <= 9)
+			if (calcMagicSuccess(owner, target, skill) && getMagicLevelDifference(attacker.getOwner(), target, skill) >= -9)
 			{
 				if (skill.getSkillType() == L2SkillType.DRAIN)
 					owner.sendPacket(new SystemMessage(SystemMessageId.DRAIN_HALF_SUCCESFUL));
@@ -1753,53 +1753,63 @@ public final class Formulas
 
 		chance += getHeightModifier(attacker, target, 5);
 
-		chance += 2 * (getAverageMagicLevel(attacker, skill) - target.getLevel());
+		chance += 2 * getMagicLevelDifference(attacker, target, skill);
 
 		return Rnd.calcChance(chance, 100);
 	}
 
-	private static double getAverageMagicLevel(L2Character attacker, L2Skill skill)
+	/**
+	 * 
+	 * @param attacker
+	 * @param target
+	 * @param skill
+	 * @return magic level influenced, balanced (attacker level - target level)
+	 */
+	public static int getMagicLevelDifference(L2Character attacker, L2Character target, L2Skill skill)
 	{
+		int attackerLvlmod = attacker.getLevel();
+		int targetLvlmod = target.getLevel();
+		
+		if (attackerLvlmod > 75)
+			attackerLvlmod = 75 + (attackerLvlmod - 75) / 2;
+		if (targetLvlmod > 75)
+			targetLvlmod = 75 + (targetLvlmod - 75) / 2;
+		
 		if (skill.getMagicLevel() > 0)
-			return 0.5 * (skill.getMagicLevel() + attacker.getLevel());
+			return (skill.getMagicLevel() + attackerLvlmod) / 2 - targetLvlmod;
 		else
-			return attacker.getLevel();
+			return attackerLvlmod - targetLvlmod;
 	}
 
 	/** Calculate value of lethal chance */
-	private static final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, int magiclvl)
+	private static final double calcLethal(L2Character activeChar, L2Character target, int baseLethal, L2Skill skill)
 	{
 		if (baseLethal <= 0)
 			return 0;
 		
-		double chance = 0;
-		if (magiclvl > 0)
-		{
-			int delta = ((magiclvl + activeChar.getLevel()) / 2) - 1 - target.getLevel();
-
-			// delta [-3,infinite)
-			if (delta >= -3)
-			{
-				chance = (baseLethal * ((double) activeChar.getLevel() / target.getLevel()));
-			}
-			// delta [-9, -3[
-			else if (delta < -3 && delta >= -9)
-			{
-				//               baseLethal
-				// chance = -1 * -----------
-				//               (delta / 3)
-				chance = (-3) * (baseLethal / (delta));
-			}
-			//delta [-infinite,-9[
-			else
-			{
-				chance = baseLethal / 15;
-			}
-		}
-		else
+		final double chance;
+		final int delta = getMagicLevelDifference(activeChar, target, skill);
+		
+		
+		// delta [-3,infinite)
+		if (delta >= -3)
 		{
 			chance = (baseLethal * ((double) activeChar.getLevel() / target.getLevel()));
 		}
+		// delta [-9, -3[
+		else if (delta < -3 && delta >= -9)
+		{
+			//               baseLethal
+			// chance = -1 * -----------
+			//               (delta / 3)
+			chance = (-3) * (baseLethal / (delta));
+		}
+		//delta [-infinite,-9[
+		else
+		{
+			chance = baseLethal / 15;
+		}
+		
 		return 10 * activeChar.calcStat(Stats.LETHAL_RATE, chance, target, null);
 	}
 
@@ -1814,7 +1824,7 @@ public final class Formulas
 		final int chance = Rnd.get(1000);
 		
 		// 2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
-		if (chance < calcLethal(activeChar, target, skill.getLethalChance2(), skill.getMagicLevel()))
+		if (chance < calcLethal(activeChar, target, skill.getLethalChance2(), skill))
 		{
 			if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
 			{
@@ -1830,7 +1840,7 @@ public final class Formulas
 			activeChar.sendPacket(SystemMessageId.LETHAL_STRIKE);
 			return true;
 		}
-		else if (chance < calcLethal(activeChar, target, skill.getLethalChance1(), skill.getMagicLevel()))
+		else if (chance < calcLethal(activeChar, target, skill.getLethalChance1(), skill))
 		{
 			if (target instanceof L2PcInstance) // Set CP to 1
 			{
@@ -2159,6 +2169,7 @@ public final class Formulas
 				multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, null);
 				break;
 			case CANCEL:
+			case NEGATE:
 				multiplier = target.calcStat(Stats.CANCEL_VULN, multiplier, target, null);
 				break;
 			case BUFF:
@@ -2209,6 +2220,7 @@ public final class Formulas
 				multiplier = attacker.calcStat(Stats.DEBUFF_PROF, multiplier, target, null);
 				break;
 			case CANCEL:
+			case NEGATE:
 				multiplier = attacker.calcStat(Stats.CANCEL_PROF, multiplier, target, null);
 				break;
 		}
@@ -2248,15 +2260,21 @@ public final class Formulas
 	
 	public static boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
 	{
+		final double baseChance = skill.getEffectPower();
+		
+		return calcSkillSuccess(baseChance, attacker, target, skill, shld, ss, sps, bss);
+	}
+	
+	public static boolean calcSkillSuccess(final double baseChance, L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
+	{
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;
 		
-		final L2SkillType type = skill.getEffectType();
-		final double value = skill.getEffectPower();
-		final int lvlDepend = skill.getLevelDepend();
-		
 		if (skill.ignoreResists())
-			return Rnd.get(100) < value;
+			return Rnd.get(100) < baseChance;
+		
+		final L2SkillType type = skill.getEffectType();
+		final int lvlDepend = skill.getLevelDepend();
 		
 		final double statmodifier = calcSkillStatModifier(type, target);
 		final double resmodifier = calcSkillVulnerability(attacker, target, skill, type);
@@ -2265,7 +2283,7 @@ public final class Formulas
 		final double lvlModifier = getLevelModifier(lvlDepend, attacker, target, skill);
 		
 		// Calculate BaseRate.
-		double rate = value * statmodifier;
+		double rate = baseChance * statmodifier;
 		
 		// Add Matk/Mdef Bonus
 		if (skill.isMagic())
@@ -2340,52 +2358,44 @@ public final class Formulas
 		return Rnd.get(100) < rate;
 	}
 	
-	
 	private static double getLevelModifier(int lvlDepend, L2Character attacker, L2Character target, L2Skill skill)
 	{
 		if (lvlDepend <= 0)
 			return 1;
 		
-		int attackerLvlmod = attacker.getLevel();
-		int targetLvlmod = target.getLevel();
+		// this totally screwed PvP over lvl80, lets take an example:
+		// lvl85 target, lvl85 attacker, lvl75 skill (since most of the debuffs are lower...)
+		// delta resulted in -12..-14... -> chance was multiplied with 0.3...0.4 -> almost never land
+		//
+		//int attackerLvlmod = attacker.getLevel();
+		//int targetLvlmod = target.getLevel();
+		//if (attackerLvlmod >= 70)
+		//	attackerLvlmod = ((attackerLvlmod - 69) * 2) + 70;
+		//if (targetLvlmod >= 70)
+		//	targetLvlmod = ((targetLvlmod - 69) * 2) + 70;
 		
-		if (attackerLvlmod >= 70)
-			attackerLvlmod = ((attackerLvlmod - 69) * 2) + 70;
-		if (targetLvlmod >= 70)
-			targetLvlmod = ((targetLvlmod - 69) * 2) + 70;
+		double delta = getMagicLevelDifference(attacker, target, skill);
 		
-		final double delta;
-		if (skill.getMagicLevel() == 0)
-			delta = attackerLvlmod - targetLvlmod;
-		else
-			delta = ((skill.getMagicLevel() + attackerLvlmod) / 2) - targetLvlmod;
+		// just a guess, but lvlDepend wasn't used at all, so somehow it must be added
+		delta *= 1 + 0.1 * lvlDepend;
 		
-		//double delta = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : 0)+attacker.getLevel() )/2 - target.getLevel();
-		double deltamod;
-		
-		if (delta + 3 < 0)
+		if (delta <= -19)
 		{
-			if (delta <= -20)
-				deltamod = 0.05;
-			else
-			{
-				deltamod = 1 - ((-1) * (delta / 20));
-				if (deltamod >= 1)
-					deltamod = 0.05;
-			}
+			return 0.05;
 		}
-		else
-			deltamod = 1 + ((delta + 3) / 75); //(double) attacker.getLevel()/target.getLevel();
-			
-		if (deltamod < 0)
-			deltamod *= -1;
-		
-		return deltamod;
+		else if (/*-19 < delta && */delta < -3)
+		{
+			return 1 + delta / 20;
+		}
+		else/* if (-3 <= delta)*/
+		{
+			return 1 + delta / 75;
+		}
 	}
 
 	public static boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
 	{
-		double lvlDifference = (target.getLevel() - (skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()));
+		double lvlDifference = -1 * getMagicLevelDifference(attacker, target, skill);
 		int rate = Math.round((float) (Math.pow(1.3, lvlDifference) * 100));
 
 		return (Rnd.get(10000) > rate);
