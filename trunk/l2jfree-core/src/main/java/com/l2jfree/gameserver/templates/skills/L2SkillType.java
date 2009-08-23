@@ -19,12 +19,12 @@ import java.lang.reflect.Constructor;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChangeWeapon;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeNegate;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillPdam;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillRecover;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.templates.StatsSet;
 
 public enum L2SkillType
 {
-	PDAM,
+	PDAM(L2SkillPdam.class),
 	MDAM,
 	CPDAM,
 	AGGDAMAGE,
@@ -73,8 +73,8 @@ public enum L2SkillType
 	AGGREDUCE_CHAR,
 	CONFUSE_MOB_ONLY,
 	DEATHLINK(MDAM),
-	BLOW(PDAM),
-	FATALCOUNTER(PDAM),
+	BLOW(L2SkillPdam.class, PDAM),
+	FATALCOUNTER(L2SkillPdam.class, PDAM),
 	DETECT_WEAKNESS,
 	ENCHANT_ARMOR, // should be deprecated
 	ENCHANT_WEAPON, // should be deprecated
@@ -137,7 +137,7 @@ public enum L2SkillType
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
-	CHARGEDAM(L2SkillChargeDmg.class, PDAM),
+	CHARGEDAM(L2SkillPdam.class, PDAM),
 	CHARGE_NEGATE(L2SkillChargeNegate.class), // should be merged into NEGATE
 	CREATE_ITEM(L2SkillCreateItem.class),
 	DECOY(L2SkillDecoy.class),

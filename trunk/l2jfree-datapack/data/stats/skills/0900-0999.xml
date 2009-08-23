@@ -286,7 +286,6 @@
   </skill>
   <skill id="924" levels="1" name="Seven Arrow">
     <!-- Done by DJ MELERIX -->
-    <!-- TODO: Needs Core-Side Support for "consecutive arrows" -->
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="hitTime" val="15000"/>
@@ -298,6 +297,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
+    <set name="numberOfHits" val="7"/> <!-- Support for "consecutive arrows" -->
   </skill>
   <skill id="925" levels="1" name="Sigil Mastery">
     <!-- Done by DJ MELERIX -->

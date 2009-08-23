@@ -1121,6 +1121,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3000"/>
+    <set name="numberOfHits" val="2"/> <!-- Support for "Shoots 2 arrows continuously" -->
   </skill>
   <skill id="688" levels="1" name="Divine Rogue Bleed Attack">
     <!--

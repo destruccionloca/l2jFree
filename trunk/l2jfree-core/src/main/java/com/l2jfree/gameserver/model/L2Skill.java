@@ -78,7 +78,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 {
 	public static final L2Skill[]	EMPTY_ARRAY					= new L2Skill[0];
 
-	protected static Log			_log						= LogFactory.getLog(L2Skill.class);
+	protected static final Log		_log						= LogFactory.getLog(L2Skill.class);
 
 	public static final int			SKILL_CUBIC_MASTERY			= 143;
 	public static final int			SKILL_LUCKY					= 194;
@@ -300,14 +300,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private final int				_aggroPoints;
 
-	protected Condition				_preCondition;
-	protected FuncTemplate[]		_funcTemplates;
-	protected EffectTemplate[]		_effectTemplates;
-	protected EffectTemplate[]		_effectTemplatesSelf;
-
-	//Attached skills for Special Abilities
-	protected L2Skill[]				_skillsOnCast;
-	protected int[]					_skillsOnCastId, _skillsOnCastLvl;
+	private Condition				_preCondition;
+	private FuncTemplate[]			_funcTemplates;
+	private EffectTemplate[]		_effectTemplates;
+	private EffectTemplate[]		_effectTemplatesSelf;
 
 	// Flying support
 	private final FlyType			_flyType;
@@ -887,12 +883,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _id;
 	}
 
-	public int getDisplayId()
+	public final int getDisplayId()
 	{
 		return _displayId;
 	}
 
-	public int getMinPledgeClass()
+	public final int getMinPledgeClass()
 	{
 		return _minPledgeClass;
 	}
@@ -1537,7 +1533,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return false;
 	}
 
-	public boolean checkCondition(L2Character activeChar, L2Object target)
+	public final boolean checkCondition(L2Character activeChar, L2Object target)
 	{
 		if (activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar).isGM() && !Config.GM_SKILL_RESTRICTION)
 			return true;
@@ -3480,7 +3476,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return targetList.moveToArray(new L2Character[targetList.size()]);
 	}
 
-	protected int getNewHeadingToTarget(L2Character caster, L2Character target)
+	private int getNewHeadingToTarget(L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)
 			return 0;
@@ -3505,7 +3501,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	}
 
-	public boolean isBehindFromCaster(int heading, L2Character caster, L2Character target)
+	public final boolean isBehindFromCaster(int heading, L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)
 			return true;
@@ -3588,7 +3584,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _statFuncs;
 	}
 	
-	public boolean hasEffects()
+	public final boolean hasEffects()
 	{
 		return _effectTemplates != null && _effectTemplates.length > 0;
 	}
@@ -3784,12 +3780,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		return _name + "[id=" + _id + ",lvl=" + _level + "]";
 	}
 
-	public String generateUniqueStackType()
+	public final String generateUniqueStackType()
 	{
 		int count = _effectTemplates == null ? 0 : _effectTemplates.length;
 		count += _effectTemplatesSelf == null ? 0 : _effectTemplatesSelf.length;
@@ -3797,13 +3793,13 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _id + "-" + count;
 	}
 
-	public float generateStackOrder()
+	public final float generateStackOrder()
 	{
 		return getLevel();
 	}
 
 	@Override
-	public String getFuncOwnerName()
+	public final String getFuncOwnerName()
 	{
 		return getName();
 	}
@@ -3857,7 +3853,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	@Override
-	public boolean equals(Object obj)
+	public final boolean equals(Object obj)
 	{
 		if (!(obj instanceof L2Skill))
 			return false;
@@ -3868,7 +3864,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	@Override
-	public int hashCode()
+	public final int hashCode()
 	{
 		return L2System.hash(SkillTable.getSkillUID(this));
 	}
@@ -3878,42 +3874,42 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _elementPower;
 	}
 
-	public String getAttributeName()
+	public final String getAttributeName()
 	{
 		return _attribute;
 	}
 
-	public boolean ignoreShield()
+	public final boolean ignoreShield()
 	{
 		return _ignoreShield;
 	}
 
-	public int[] getTeleportCoords()
+	public final int[] getTeleportCoords()
 	{
 		return _teleportCoords;
 	}
 
-	public String getRecallType()
+	public final String getRecallType()
 	{
 		return _recallType;
 	}
 
-	public boolean canBeReflected()
+	public final boolean canBeReflected()
 	{
 		return _canBeReflected;
 	}
 
-	public int getHairColorId()
+	public final int getHairColorId()
 	{
 		return _hairColorId;
 	}
 
-	public int getHairStyleId()
+	public final int getHairStyleId()
 	{
 		return _hairStyleId;
 	}
 
-	public int getFaceId()
+	public final int getFaceId()
 	{
 		return _faceId;
 	}
@@ -3923,7 +3919,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * 
 	 * @return new skill id to learn (if not defined, default 0)
 	 */
-	public int getNewSkillId()
+	public final int getNewSkillId()
 	{
 		return _learnSkillId;
 	}
@@ -3933,23 +3929,23 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * 
 	 * @return skill lvl to learn (if not defined, default 1)
 	 */
-	public int getNewSkillLvl()
+	public final int getNewSkillLvl()
 	{
 		return _learnSkillLvl;
 	}
 
-	public int getAfterEffectId()
+	public final int getAfterEffectId()
 	{
 		return _afterEffectId;
 	}
 
-	public int getAfterEffectLvl()
+	public final int getAfterEffectLvl()
 	{
 		return _afterEffectLvl;
 	}
 
 	@Override
-	public L2Skill getChanceTriggeredSkill(L2Character activeChar)
+	public final L2Skill getChanceTriggeredSkill(L2Character activeChar)
 	{
 		if (!getWeaponDependancy(activeChar, false))
 			return null;
@@ -3961,7 +3957,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	@Override
-	public ChanceCondition getChanceCondition()
+	public final ChanceCondition getChanceCondition()
 	{
 		return _chanceCondition;
 	}

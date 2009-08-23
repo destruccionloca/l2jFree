@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillPdam;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public final class Pdam implements ISkillHandler
@@ -32,8 +33,12 @@ public final class Pdam implements ISkillHandler
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.PDAM, L2SkillType.FATALCOUNTER, L2SkillType.BLOW,
 		L2SkillType.CHARGEDAM };
 	
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
+		// support for Double Shot, etc
+		final L2SkillPdam skill = (L2SkillPdam)skill0;
+		final int numberOfHits = skill.getNumberOfHits();
+		
 		if (activeChar.isAlikeDead())
 			return;
 		
@@ -73,58 +78,65 @@ public final class Pdam implements ISkillHandler
 					continue;
 			}
 			
-			if (isBlow && !Formulas.calcBlow(activeChar, target, skill))
+			// support for Double Shot, etc
+			for (int i = 0; i < numberOfHits; i++)
 			{
-				activeChar.sendMissedDamageMessage(target);
-				continue;
-			}
-			
-			// Check firstly if target dodges skill
-			if (Formulas.calcPhysicalSkillEvasion(target, skill))
-			{
-				activeChar.sendMissedDamageMessage(target);
-				continue;
-			}
-			
-			final byte shld = Formulas.calcShldUse(activeChar, target, skill);
-			double damage = Formulas.calcPhysDam(activeChar, target, skill, shld, isBlow, soul);
-			
-			// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
-			final boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
-			if (crit)
-			{
-				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
-				
-				if (isBlow)
+				if (isBlow && !Formulas.calcBlow(activeChar, target, skill))
 				{
-					// Vicious Stance is special after C5, and only for BLOW skills
-					// Adds directly to damage
-					final L2Effect vicious = activeChar.getFirstEffect(312);
-					if (vicious != null)
+					activeChar.sendMissedDamageMessage(target);
+					continue;
+				}
+				
+				// Check firstly if target dodges skill
+				if (Formulas.calcPhysicalSkillEvasion(target, skill))
+				{
+					activeChar.sendMissedDamageMessage(target);
+					continue;
+				}
+				
+				final byte shld = Formulas.calcShldUse(activeChar, target, skill);
+				double damage = Formulas.calcPhysDam(activeChar, target, skill, shld, isBlow, soul);
+				
+				// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
+				final boolean crit = Formulas.calcSkillCrit(activeChar, target, skill);
+				if (crit)
+				{
+					damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
+					
+					if (isBlow)
 					{
-						for (Func func : vicious.getStatFuncs())
+						// Vicious Stance is special after C5, and only for BLOW skills
+						// Adds directly to damage
+						final L2Effect vicious = activeChar.getFirstEffect(312);
+						if (vicious != null)
 						{
-							Env env = new Env();
-							env.player = activeChar;
-							env.target = target;
-							env.skill = skill;
-							env.value = damage;
-							func.calcIfAllowed(env);
-							damage = (int)env.value;
+							for (Func func : vicious.getStatFuncs())
+							{
+								Env env = new Env();
+								env.player = activeChar;
+								env.target = target;
+								env.skill = skill;
+								env.value = damage;
+								func.calcIfAllowed(env);
+								damage = (int)env.value;
+							}
 						}
 					}
 				}
+				
+				if (isCharge)
+				{
+					damage *= modifier;
+				}
+				
+				// support for Double Shot, etc
+				damage /= numberOfHits;
+				
+				final byte reflect = Formulas.calcSkillReflect(target, skill);
+				
+				skill.dealDamage(activeChar, target, skill, damage, reflect, false, crit || isBlow);
+				skill.getEffects(activeChar, target, reflect, shld, false, false, soul);
 			}
-			
-			if (isCharge)
-			{
-				damage *= modifier;
-			}
-			
-			final byte reflect = Formulas.calcSkillReflect(target, skill);
-			
-			skill.dealDamage(activeChar, target, skill, damage, reflect, false, crit || isBlow);
-			skill.getEffects(activeChar, target, reflect, shld, false, false, soul);
 		}
 		
 		if (soul && weapon != null)
