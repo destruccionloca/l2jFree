@@ -189,7 +189,7 @@ public class RequestWearItem extends L2GameClientPacket
             totalPrice += Config.WEAR_PRICE;
             if (totalPrice > PcInventory.MAX_ADENA)
             {
-                Util.handleIllegalPlayerAction(_activeChar,"Warning!! Character "+_activeChar.getName()+" of account "+_activeChar.getAccountName()+" tried to purchase over "+PcInventory.MAX_ADENA+" adena worth of goods.", Config.DEFAULT_PUNISH);
+                requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
                 return;
             }
 		}

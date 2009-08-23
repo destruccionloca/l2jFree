@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowCropInfo;
@@ -259,7 +260,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					catch (NoSuchElementException e)
 					{
 					}
-					if (amount > 0 && getCastle().getTreasury() + amount < Integer.MAX_VALUE)
+					if (amount > 0 && getCastle().getTreasury() + amount < PcInventory.MAX_ADENA)
 					{
 						if (player.reduceAdena("Castle", amount, this, true))
 							getCastle().addToTreasuryNoTax(amount);

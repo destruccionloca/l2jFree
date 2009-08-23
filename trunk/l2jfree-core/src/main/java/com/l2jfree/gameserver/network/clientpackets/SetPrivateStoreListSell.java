@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreManageListSell;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.util.Util;
 
 /**
  * This class ...
@@ -127,22 +126,14 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		{
 			if (!i.addToTradeList(tradeList))
 			{
-				Util.handleIllegalPlayerAction(player, "Warning!! Character "
-						+ player.getName() + " of account "
-						+ player.getAccountName() + " tried to set price more than "
-						+ MAX_ADENA + " adena in Private Store - Sell.",
-						Config.DEFAULT_PUNISH);
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 				return;
 			}
 
 			totalCost += i.getPrice();
 			if (totalCost > MAX_ADENA)
 			{
-				Util.handleIllegalPlayerAction(player, "Warning!! Character "
-						+ player.getName() + " of account "
-						+ player.getAccountName() + " tried to set total price more than "
-						+ MAX_ADENA + " adena in Private Store - Sell.",
-						Config.DEFAULT_PUNISH);
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 				return;
 			}
 		}

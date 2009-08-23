@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
-import com.l2jfree.gameserver.util.Util;
 
 /**
  * Format: cdd[dd] c // id (0xC4)
@@ -118,11 +117,7 @@ public class RequestBuySeed extends L2GameClientPacket
 
 			if (totalPrice > MAX_ADENA)
 			{
-				Util.handleIllegalPlayerAction(player, "Warning!! Character "
-						+ player.getName() + " of account "
-						+ player.getAccountName() + " tried to purchase over "
-						+ MAX_ADENA + " adena worth of goods.",
-						Config.DEFAULT_PUNISH);
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 				return;
 			}
 

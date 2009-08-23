@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.util.Util;
 
 /**
  * This class ... cd(dd)
@@ -100,11 +99,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		{
 			if (!i.addToList(createList))
 			{
-				Util.handleIllegalPlayerAction(player, "Warning!! Character "
-						+ player.getName() + " of account "
-						+ player.getAccountName() + " tried to set price more than "
-						+ MAX_ADENA + " adena in Private Manufacture.",
-						Config.DEFAULT_PUNISH);
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 				return;
 			}
 		}

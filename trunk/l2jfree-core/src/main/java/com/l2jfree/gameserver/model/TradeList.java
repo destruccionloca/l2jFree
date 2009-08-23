@@ -352,7 +352,7 @@ public class TradeList
 		}
 		if ((PcInventory.MAX_ADENA / count) < price)
 		{
-			_log.warn(_owner.getName() + ": Attempt to overflow adena !");
+			_owner.sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 			return null;
 		}
 

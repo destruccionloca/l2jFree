@@ -140,8 +140,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			}
 			if ((MAX_ADENA / i.getCount()) < i.getPrice())
 			{
-				String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
-				Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 				return;
 			}
 			if (i.getPrice() != sellersItem.getPrice())
@@ -156,8 +155,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 		// FIXME: this check should be (and most probably is) done in the TradeList mechanics
 		if (priceTotal < 0 || priceTotal > MAX_ADENA)
 		{
-			String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
-			Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
+			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
 			return;
 		}
 

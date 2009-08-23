@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2CastleChamberlainInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
-import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Format: (ch) dd [dddc]
@@ -121,11 +121,7 @@ public class RequestSetCrop extends L2GameClientPacket
 			CropProcure s = i.getCrop();
 			if (s == null)
 			{
-				Util.handleIllegalPlayerAction(player, "Warning!! Character "
-						+ player.getName() + " of account "
-						+ player.getAccountName()
-						+ " tried to overflow while setting manor.",
-						Config.DEFAULT_PUNISH);
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 			crops.add(s);

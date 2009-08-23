@@ -18,12 +18,10 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -35,8 +33,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class L2TradeList
 {
-	private final static Log _log = LogFactory.getLog(L2TradeList.class);
-
 	private final FastList<L2ItemInstance> _items;
 	private final int _listId;
 	private boolean _confirmed;
@@ -399,9 +395,9 @@ public class L2TradeList
 				{
 					amount = buyerItem.getCount();
 				}
-				if (buyerItem.getCount() > Integer.MAX_VALUE / buyerItem.getOwnersPrice())
+				if (buyerItem.getCount() > PcInventory.MAX_ADENA / buyerItem.getOwnersPrice())
 				{
-					_log.warn("Integer Overflow on Cost. Possible Exploit attempt between "+buyer.getName()+" and "+seller.getName()+".");
+					//_log.warn("Integer Overflow on Cost. Possible Exploit attempt between "+buyer.getName()+" and "+seller.getName()+".");
 					return;
 				}
 				//int cost = amount * buyerItem.getOwnersPrice();
