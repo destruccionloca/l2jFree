@@ -61,7 +61,7 @@ import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.datatables.DoorTable; 
+import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.FishTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
@@ -4014,6 +4014,7 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 */
 	@Override
+	@SuppressWarnings("deprecation")
 	public void sendPacket(L2GameServerPacket packet)
 	{
 		final L2GameClient client = _client;
@@ -4037,6 +4038,7 @@ public final class L2PcInstance extends L2Playable
 	}
 	
 	@Override
+	@SuppressWarnings("deprecation")
 	public void sendMessage(String message)
 	{
 		sendPacket(SystemMessage.sendString(message));

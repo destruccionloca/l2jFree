@@ -1609,7 +1609,7 @@ public final class Formulas
 		{
 			if (attacker instanceof L2PcInstance)
 			{
-				if (calcMagicSuccess(attacker, target, skill) && (target.getLevel() - attacker.getLevel()) <= 9)
+				if (calcMagicSuccess(attacker, target, skill) && getMagicLevelDifference(attacker, target, skill) >= -9)
 				{
 					if (skill.getSkillType() == L2SkillType.DRAIN)
 						attacker.sendPacket(SystemMessageId.DRAIN_HALF_SUCCESFUL);

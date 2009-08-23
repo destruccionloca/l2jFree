@@ -19,8 +19,6 @@ import java.util.Map;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.L2Collections;
