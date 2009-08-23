@@ -1533,7 +1533,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return false;
 	}
 
-	public final boolean checkCondition(L2Character activeChar, L2Object target)
+	public boolean checkCondition(L2Character activeChar, L2Object target)
 	{
 		if (activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar).isGM() && !Config.GM_SKILL_RESTRICTION)
 			return true;
@@ -3587,6 +3587,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final boolean hasEffects()
 	{
 		return _effectTemplates != null && _effectTemplates.length > 0;
+	}
+	
+	public final boolean hasSelfEffects()
+	{
+		return _effectTemplatesSelf != null && _effectTemplatesSelf.length > 0;
 	}
 	
 	public final void dealDamage(L2Character activeChar, L2Character target, L2Skill skill, double damage, byte reflect, boolean mcrit, boolean pcrit)

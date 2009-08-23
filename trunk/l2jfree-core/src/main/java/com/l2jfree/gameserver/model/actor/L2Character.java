@@ -112,7 +112,6 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeDmg;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.MovementController;
@@ -1751,7 +1750,7 @@ public abstract class L2Character extends L2Object
 				}
 				
 				// Consume Charges if necessary ... L2SkillChargeDmg does the consume by itself.
-				if (skill.getNeededCharges() > 0 && !(skill instanceof L2SkillChargeDmg))
+				if (skill.getNeededCharges() > 0 && skill.getSkillType() != L2SkillType.CHARGEDAM)
 				{
 					player.decreaseCharges(skill.getNeededCharges());
 				}
@@ -6084,7 +6083,7 @@ public abstract class L2Character extends L2Object
 				}
 				
 				// Consume Charges if necessary ... L2SkillChargeDmg does the consume by itself.
-				if (skill.getNeededCharges() > 0 && !(skill instanceof L2SkillChargeDmg))
+				if (skill.getNeededCharges() > 0 && skill.getSkillType() != L2SkillType.CHARGEDAM)
 				{
 					player.decreaseCharges(skill.getNeededCharges());
 				}

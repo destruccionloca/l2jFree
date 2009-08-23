@@ -319,7 +319,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	
 	public final boolean isSelfEffect()
 	{
-		return _skill._effectTemplatesSelf != null;
+		return _skill.hasSelfEffects();
 	}
 	
 	public final boolean isHerbEffect()
