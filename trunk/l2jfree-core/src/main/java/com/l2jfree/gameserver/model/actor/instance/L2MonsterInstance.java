@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
@@ -146,27 +145,19 @@ public class L2MonsterInstance extends L2Attackable
 		{
 			for (L2MinionInstance minion : _minionList.getSpawnedMinions())
 			{
+				if (minion == null || minion.isDead() || minion.isInCombat() || minion.isMovementDisabled())
+					continue;
+				
 				// Get actual coords of the minion and check to see if it's too far away from this L2MonsterInstance
 				if (!isInsideRadius(minion, 200, false, false))
 				{
-					// Get the coords of the master to use as a base to move the minion to
-					int masterX = getX();
-					int masterY = getY();
-					int masterZ = getZ();
-
 					// Calculate a new random coord for the minion based on the master's coord
-					int minionX = masterX + (Rnd.nextInt(401) - 200);
-					int minionY = masterY + (Rnd.nextInt(401) - 200);
-					int minionZ = masterZ;
-					while (((minionX != (masterX + 30)) && (minionX != (masterX - 30))) || ((minionY != (masterY + 30)) && (minionY != (masterY - 30))))
-					{
-						minionX = masterX + (Rnd.nextInt(401) - 200);
-						minionY = masterY + (Rnd.nextInt(401) - 200);
-					}
-
+					int minionX = getX() + Rnd.get(-200, 200);
+					int minionY = getY() + Rnd.get(-200, 200);
+					int minionZ = getZ();
+					
 					// Move the minion to the new coords
-					if (minion != null && !minion.isInCombat() && !minion.isDead() && !minion.isMovementDisabled())
-						minion.moveToLocation(minionX, minionY, minionZ, 0);
+					minion.moveToLocation(minionX, minionY, minionZ, 0);
 				}
 			}
 		}
@@ -176,23 +167,16 @@ public class L2MonsterInstance extends L2Attackable
 	{
 		if (_minionList.hasMinions())
 		{
-			List<L2MinionInstance> spawnedMinions = _minionList.getSpawnedMinions();
-			if (spawnedMinions != null && !spawnedMinions.isEmpty())
+			for (L2MinionInstance minion : _minionList.getSpawnedMinions())
 			{
-				Iterator<L2MinionInstance> itr = spawnedMinions.iterator();
-				L2MinionInstance minion;
-				while (itr.hasNext())
-				{
-					minion = itr.next();
-					// Trigger the aggro condition of the minion
-					if (minion != null && !minion.isDead())
-					{
-						if (isRaidBoss()&&!isRaidMinion())
-							minion.addDamage(attacker, 100, null);
-						else
-							minion.addDamage(attacker, 1, null);
-					}
-				}
+				if (minion == null || minion.isDead())
+					continue;
+				
+				// Trigger the aggro condition of the minion
+				if (isRaidBoss() && !isRaidMinion())
+					minion.addDamage(attacker, 100, null);
+				else
+					minion.addDamage(attacker, 1, null);
 			}
 		}
 	}
