@@ -73,8 +73,8 @@ public enum L2SkillType
 	AGGREDUCE_CHAR,
 	CONFUSE_MOB_ONLY,
 	DEATHLINK(MDAM),
-	BLOW(L2SkillPdam.class, PDAM),
-	FATALCOUNTER(L2SkillPdam.class, PDAM),
+	BLOW(PDAM),
+	FATALCOUNTER(PDAM),
 	DETECT_WEAKNESS,
 	ENCHANT_ARMOR, // should be deprecated
 	ENCHANT_WEAPON, // should be deprecated
@@ -137,7 +137,7 @@ public enum L2SkillType
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
-	CHARGEDAM(L2SkillPdam.class, PDAM),
+	CHARGEDAM(PDAM),
 	CHARGE_NEGATE(L2SkillChargeNegate.class), // should be merged into NEGATE
 	CREATE_ITEM(L2SkillCreateItem.class),
 	DECOY(L2SkillDecoy.class),
@@ -155,19 +155,21 @@ public enum L2SkillType
 	// Unimplemented
 	NOTDONE,
 	TELEPORT,
-	CHANGE_APPEARANCE, OPEN_DOOR;
+	CHANGE_APPEARANCE,
+	OPEN_DOOR;
 	
+	private final Class<? extends L2Skill> _clazz;
 	private final Constructor<? extends L2Skill> _constructor;
 	private final L2SkillType _parent;
 	
 	private L2SkillType()
 	{
-		this(L2Skill.class, null);
+		this(null, null);
 	}
 	
 	private L2SkillType(L2SkillType parent)
 	{
-		this(L2Skill.class, parent);
+		this(null, parent);
 	}
 	
 	private L2SkillType(Class<? extends L2Skill> clazz)
@@ -177,16 +179,44 @@ public enum L2SkillType
 	
 	private L2SkillType(Class<? extends L2Skill> clazz, L2SkillType parent)
 	{
-		try
-		{
-			_constructor = clazz.getConstructor(StatsSet.class);
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
-		
 		_parent = parent;
+		
+		if (_parent == null)
+		{
+			_clazz = (clazz == null ? L2Skill.class : clazz);
+			try
+			{
+				_constructor = _clazz.getConstructor(StatsSet.class);
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		else
+		{
+			if (clazz == null)
+			{
+				_clazz = _parent._clazz;
+				_constructor = _parent._constructor;
+			}
+			else
+			{
+				if (_parent._clazz.isAssignableFrom(clazz))
+					_clazz = clazz;
+				else
+					throw new IllegalStateException();
+				
+				try
+				{
+					_constructor = _clazz.getConstructor(StatsSet.class);
+				}
+				catch (Exception e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
+		}
 	}
 	
 	public L2Skill makeSkill(StatsSet set) throws Exception
