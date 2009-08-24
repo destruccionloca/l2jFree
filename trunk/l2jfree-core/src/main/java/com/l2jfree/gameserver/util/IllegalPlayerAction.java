@@ -59,7 +59,6 @@ public final class IllegalPlayerAction implements Runnable
 		}
 	}
 
-	@SuppressWarnings("fallthrough")
 	public void run()
 	{
 		_logAudit.info("AUDIT:" + _message + "," + _actor + " " + _punishment);
@@ -73,6 +72,7 @@ public final class IllegalPlayerAction implements Runnable
 			
 		case PUNISH_KICKBAN:
 			_actor.setAccountAccesslevel(-100);
+			//$FALL-THROUGH$
 		case PUNISH_KICK:
 			new Disconnection(_actor).defaultSequence(false);
 			break;

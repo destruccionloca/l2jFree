@@ -43,6 +43,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		GlobalRestrictions.deactivate(this);
 	}
 	
+	@Override
+	public int hashCode()
+	{
+		return getClass().hashCode();
+	}
+	
 	/**
 	 * To avoid accidentally multiple times activated restrictions.
 	 */

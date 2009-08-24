@@ -541,7 +541,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		}
 	}
 
-	@SuppressWarnings("fallthrough")
 	private OffensiveState getOffensiveState(StatsSet set)
 	{
 		final OffensiveState defaultState = getDefaultOffensiveState();
@@ -583,6 +582,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case 0:
 				if (!denied.contains(defaultState))
 					return defaultState;
+				//$FALL-THROUGH$
 			default:
 				throw new IllegalStateException("Requested 'neutral'/'offensive' value rules out default for " + this);
 		}

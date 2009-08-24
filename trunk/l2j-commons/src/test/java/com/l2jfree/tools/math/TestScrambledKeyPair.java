@@ -28,6 +28,7 @@ public class TestScrambledKeyPair extends TestCase {
 			_keyGen = KeyPairGenerator.getInstance("RSA");
 		} catch (NoSuchAlgorithmException e) {
 			fail(e.getMessage());
+			return;
 		}
 		KeyPair kp = _keyGen.generateKeyPair();
 		ScrambledKeyPair skp1 = new ScrambledKeyPair(kp);

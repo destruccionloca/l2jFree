@@ -35,6 +35,7 @@ import java.io.InputStreamReader;
  * @author rob@iharder.net
  * @version 2.0
  */
+@SuppressWarnings("null")
 public class Base64 {
 
 	/* ******** P U B L I C F I E L D S ******** */

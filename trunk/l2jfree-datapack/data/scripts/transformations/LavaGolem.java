@@ -36,12 +36,14 @@ public class LavaGolem extends L2DefaultTransformation
 		super(322, 8.0, 24.0);
 	}
 
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		// Transfrom Dispel
 		addSkill(player,619, 1);
 	}
 
+	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		// Transfrom Dispel
