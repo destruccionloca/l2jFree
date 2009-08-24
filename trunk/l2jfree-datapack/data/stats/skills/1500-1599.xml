@@ -289,7 +289,7 @@
       <target active_effect_id="1512"/>
     </cond>
     <for>
-      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE" effectPower="80"/>
     </for>
   </skill>
   <skill id="1514" levels="1" name="Soul Barrier">
