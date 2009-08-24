@@ -39,11 +39,13 @@ public class L2LoginServer extends Config
 	/** Version sent if {@link Config#PROTOCOL_LEGACY} is false */
 	public static final int PROTOCOL_L2J = 258;
 	/** Version sent if {@link Config#PROTOCOL_LEGACY} is true */
+	@SuppressWarnings("hiding")
 	public static final int PROTOCOL_LEGACY = 259;
 	/** Current network protocol version */
 	public static final int PROTOCOL_CURRENT = 1;
 
 	private static L2LoginServer			_instance;
+	@SuppressWarnings("hiding")
 	private static Log						_log			= LogFactory.getLog(L2LoginServer.class);
 	/**the gameserver listener store all gameserver connected to the client*/
 	private GameServerListener				_gameServerListener;

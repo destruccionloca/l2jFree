@@ -38,6 +38,7 @@ import com.l2jfree.loginserver.services.exception.AccountModificationException;
  */
 public final class AccountManager extends Config
 {
+	@SuppressWarnings("hiding")
 	private static final Log _log = LogFactory.getLog(AccountManager.class);
 	private static final String[] CMD = {
 		"register", "change", "setlevel", "cancel", "list", "quit"

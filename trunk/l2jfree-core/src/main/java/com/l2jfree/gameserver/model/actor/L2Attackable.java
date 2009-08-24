@@ -563,6 +563,7 @@ public class L2Attackable extends L2Npc
 	 * 
 	 * @param lastAttacker The L2Character that has killed the L2Attackable
 	 */
+	@SuppressWarnings("null")
 	@Override
 	protected void calculateRewards(L2Character lastAttacker)
 	{
