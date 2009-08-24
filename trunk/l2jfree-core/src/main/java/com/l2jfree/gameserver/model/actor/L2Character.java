@@ -1579,6 +1579,7 @@ public abstract class L2Character extends L2Object
 							case TARGET_SUMMON:
 							case TARGET_PARTY:
 							case TARGET_CLAN:
+							case TARGET_PARTY_CLAN:
 							case TARGET_ALLY:
 							case TARGET_ENEMY_ALLY:
 							{

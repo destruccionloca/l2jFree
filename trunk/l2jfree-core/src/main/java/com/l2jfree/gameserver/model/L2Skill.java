@@ -104,6 +104,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		TARGET_PET,
 		TARGET_SUMMON,
 		TARGET_PARTY,
+		TARGET_PARTY_CLAN,
 		TARGET_ALLY,
 		TARGET_CLAN,
 		TARGET_AREA,
@@ -2416,20 +2417,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 							if (player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
 								continue;
 
-							//check if allow interference is allowed if player is not on event but target is on event
-							if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (VIP._started && !Config.VIP_ALLOW_INTERFERENCE))
-									&& !player.isGM())
-							{
-								if ((partyMember._inEventTvT && !player._inEventTvT) || (!partyMember._inEventTvT && player._inEventTvT))
-									continue;
-								if ((partyMember._inEventCTF && !player._inEventCTF) || (!partyMember._inEventCTF && player._inEventCTF))
-									continue;
-								if ((partyMember._inEventDM && !player._inEventDM) || (!partyMember._inEventDM && player._inEventDM))
-									continue;
-								else if ((partyMember._inEventVIP && !player._inEventVIP) || (!partyMember._inEventVIP && player._inEventVIP))
-									continue;
-							}
-
+							if(!eventCheck(player,partyMember))
+								continue;
+							
 							if (!partyMember.isDead() && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
 							{
 								targetList.add(partyMember);
@@ -2492,6 +2482,71 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 					return null;
 				}
+	            case TARGET_PARTY_CLAN:
+	            {
+					if (onlyFirst)
+	                    return new L2Character[]{activeChar};
+
+					final L2PcInstance player = activeChar.getActingPlayer();
+
+	                if (player == null)
+	                	return null;
+
+	                targetList.add(player);
+
+	                final int radius = getSkillRadius();
+	                final boolean hasClan = player.getClan() != null;
+	                final boolean hasParty = player.isInParty();
+
+	                if (addSummon(activeChar, player, radius, false))
+	                	targetList.add(player.getPet());
+					
+	                // if player in olympiad mode or not in clan and not in party
+	                if (player.isInOlympiadMode() || !(hasClan || hasParty))
+	                	return new L2Character[] { player };
+
+					for (L2PcInstance obj : activeChar.getKnownList().getKnownPlayersInRadius(radius))
+					{
+						if (obj == null)
+							continue;
+						if (player == null)
+							return null;
+						
+						if (player.isInDuel())
+						{
+							if (player.getDuelId() != obj.getDuelId())
+								continue;
+
+							if (hasParty && obj.isInParty() && player.getParty().getPartyLeaderOID() != obj.getParty().getPartyLeaderOID())
+								continue;
+						}
+
+						if (!((hasClan && obj.getClanId() == player.getClanId())
+								|| (hasParty && obj.isInParty() && player.getParty().getPartyLeaderOID() == obj.getParty().getPartyLeaderOID())))
+							continue;
+
+						// Don't add this target if this is a Pc->Pc pvp
+						// casting and pvp condition not met
+						if (!player.checkPvpSkill(obj, this))
+							continue;
+						
+						if(!eventCheck(player,obj))
+							continue;
+
+						if (!onlyFirst && addSummon(activeChar, obj, radius, false))
+							targetList.add(obj.getPet());
+
+						if (!addCharacter(activeChar, obj, radius, false))
+							continue;
+
+						if (onlyFirst)
+							return new L2Character[] { obj };
+						
+						targetList.add(obj);
+					}
+
+					return targetList.moveToArray(new L2Character[targetList.size()]);
+	            }
 				case TARGET_CORPSE_ALLY:
 				case TARGET_ALLY:
 				{
@@ -2543,16 +2598,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								if (player.isInDuel() && (player.getDuelId() != newTarget.getDuelId() || (player.getParty() != null && player.getParty() != newTarget.getParty())))
 									continue;
 
-								//check if allow interference is allowed if player is not on event but target is on event
-								if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
-								{
-									if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))
-										continue;
-									if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
-										continue;
-									else if ((newTarget._inEventDM && !player._inEventDM) || (!newTarget._inEventDM && player._inEventDM))
-										continue;
-								}
+								if(!eventCheck(player,newTarget))
+									continue;
 
 								L2Summon pet = newTarget.getPet();
 								if (pet != null && Util.checkIfInRange(radius, activeChar, pet, true) && !onlyFirst
@@ -2678,16 +2725,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 								if (player.isInDuel() && (player.getDuelId() != newTarget.getDuelId() || (player.getParty() == null && player.getParty() != newTarget.getParty())))
 									continue;
 
-								//check if allow interference is allowed if player is not on event but target is on event
-								if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
-								{
-									if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))
-										continue;
-									if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
-										continue;
-									else if ((newTarget._inEventDM && !player._inEventDM) || (!newTarget._inEventDM && player._inEventDM))
-										continue;
-								}
+								if(!eventCheck(player,newTarget))
+									continue;
 
 								L2Summon pet = newTarget.getPet();
 								if (pet != null && Util.checkIfInRange(radius, activeChar, pet, true) && !onlyFirst
@@ -3476,6 +3515,43 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return targetList.moveToArray(new L2Character[targetList.size()]);
 	}
 
+    public static final boolean addSummon(L2Character caster, L2PcInstance owner, int radius, boolean isDead)
+    {
+        final L2Summon summon = owner.getPet();
+
+        if (summon == null)
+        	return false;
+
+        return addCharacter(caster, summon, radius, isDead);
+    }
+
+    public static final boolean addCharacter(L2Character caster, L2Character target, int radius, boolean isDead)
+    {
+    	if (isDead != target.isDead())
+    		return false;
+
+    	if (radius > 0 && !Util.checkIfInRange(radius, caster, target, true))
+			return false;
+
+    	return true;
+
+    }
+    
+    public static final boolean eventCheck(L2PcInstance player,L2PcInstance newTarget)
+    {
+		//check if allow interference is allowed if player is not on event but target is on event
+		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
+		{
+			if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))
+				return false;
+			if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
+				return false;
+			else if ((newTarget._inEventDM && !player._inEventDM) || (!newTarget._inEventDM && player._inEventDM))
+				return false;
+		}
+		return true;
+    }
+    
 	private int getNewHeadingToTarget(L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)
