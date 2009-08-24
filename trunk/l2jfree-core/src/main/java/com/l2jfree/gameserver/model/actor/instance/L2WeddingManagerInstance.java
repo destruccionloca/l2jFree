@@ -156,15 +156,15 @@ public class L2WeddingManagerInstance extends L2Npc
             ptarget.broadcastPacket(MSU);
             
             // Fireworks
-            L2Skill skill = SkillTable.getInstance().getInfo(2025,1);
+            L2Skill skill = SkillTable.getInstance().getInfo(5966,1);
             if (skill != null)
             {
-                MSU = new MagicSkillUse(player, player, 2025, 1, 1, 0);
+                MSU = new MagicSkillUse(player, player, 5966, 1, 1, 0);
                 player.sendPacket(MSU);
                 player.broadcastPacket(MSU);
                 player.useMagic(skill, false, false);
 
-                MSU = new MagicSkillUse(ptarget, ptarget, 2025, 1, 1, 0);
+                MSU = new MagicSkillUse(ptarget, ptarget, 5966, 1, 1, 0);
                 ptarget.sendPacket(MSU);
                 ptarget.broadcastPacket(MSU);
                 ptarget.useMagic(skill, false, false);

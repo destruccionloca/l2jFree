@@ -413,9 +413,13 @@
     <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="5966" levels="1" name="Large Firework">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="1500"/>
+    <set name="staticReuse" val="true"/>
+    <set name="hitTime" val="500"/>
+    <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="5967" levels="2" name="Hate Aura">
     <set name="target" val="TARGET_NONE"/>
