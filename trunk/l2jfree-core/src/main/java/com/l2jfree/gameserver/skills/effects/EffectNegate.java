@@ -34,7 +34,7 @@ public final class EffectNegate extends L2Effect
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.MUTE;
+		return L2EffectType.NEGATE;
 	}
 	
 	@Override
