@@ -4014,7 +4014,6 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 */
 	@Override
-	@SuppressWarnings("deprecation")
 	public void sendPacket(L2GameServerPacket packet)
 	{
 		final L2GameClient client = _client;
@@ -4038,7 +4037,6 @@ public final class L2PcInstance extends L2Playable
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	public void sendMessage(String message)
 	{
 		sendPacket(SystemMessage.sendString(message));
@@ -4918,7 +4916,8 @@ public final class L2PcInstance extends L2Playable
 				targetPlayer.isInsideZone(L2Zone.FLAG_PVP) // Target player is inside pvp zone
 				))
 		{
-			increasePvpKills();
+			if (target instanceof L2PcInstance)
+				increasePvpKills();
 			// Give faction pvp points
 			if (Config.FACTION_ENABLED && targetPlayer.getSide() != getSide() && targetPlayer.getSide() != 0 && getSide() != 0 && Config.FACTION_KILL_REWARD)
 				increaseFactionKillPoints(targetPlayer.getLevel(), false);
@@ -4938,7 +4937,7 @@ public final class L2PcInstance extends L2Playable
 			// Check about wars
 			boolean clanWarKill = (targetPlayer.getClan() != null && getClan() != null && !isAcademyMember() && !(targetPlayer.isAcademyMember())
 					&& _clan.isAtWarWith(targetPlayer.getClanId()) && targetPlayer.getClan().isAtWarWith(_clan.getClanId()));
-			if (clanWarKill)
+			if (clanWarKill && target instanceof L2PcInstance)
 			{
 				// 'Both way war' -> 'PvP Kill'
 				increasePvpKills();
@@ -4948,14 +4947,14 @@ public final class L2PcInstance extends L2Playable
 			// 'No war' or 'One way war' -> 'Normal PK'
 			if (targetPlayer.getKarma() > 0) // Target player has karma
 			{
-				if (Config.KARMA_AWARD_PK_KILL)
+				if (Config.KARMA_AWARD_PK_KILL && target instanceof L2PcInstance)
 				{
 					increasePvpKills();
 				}
 			}
 			else if (targetPlayer.getPvpFlag() == 0) // Target player doesn't have karma
 			{
-				increasePkKillsAndKarma(targetPlayer.getLevel());
+				increasePkKillsAndKarma(targetPlayer.getLevel(), target instanceof L2PcInstance);
 				// Unequip adventurer items
 				if (getInventory().getPaperdollItemId(7) >= 7816 && getInventory().getPaperdollItemId(7) <= 7831)
 				{
@@ -4969,7 +4968,7 @@ public final class L2PcInstance extends L2Playable
 						sendPacket(iu);
 					}
 					refreshExpertisePenalty();
-					sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE));
+					sendPacket(SystemMessageId.YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE);
 				}
 			}
 		}
@@ -5010,7 +5009,7 @@ public final class L2PcInstance extends L2Playable
 	 * 
 	 * @param targLVL : level of the killed player
 	 */
-	public void increasePkKillsAndKarma(int targLVL)
+	public void increasePkKillsAndKarma(int targLVL, boolean incPK)
 	{
 		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
 			return;
@@ -5055,7 +5054,8 @@ public final class L2PcInstance extends L2Playable
 			newKarma = Integer.MAX_VALUE - getKarma();
 
 		// Add karma to attacker and increase its PK counter
-		setPkKills(getPkKills() + 1);
+		if (incPK)
+			setPkKills(getPkKills() + 1);
 		setKarma(getKarma() + newKarma);
 
 		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter

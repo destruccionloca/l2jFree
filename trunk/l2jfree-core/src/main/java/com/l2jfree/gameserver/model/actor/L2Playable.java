@@ -95,9 +95,7 @@ public abstract class L2Playable extends L2Character
 			return false;
 
 		if (killer != null && killer.getActingPlayer() != null)
-		{
 			killer.getActingPlayer().onKillUpdatePvPKarma(this);
-		}
 
 		return true;
 	}
