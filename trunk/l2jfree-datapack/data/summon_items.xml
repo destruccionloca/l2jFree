@@ -123,6 +123,86 @@
     <npcId val="16035"/>
     <summonType val="1"/>
   </item>
+  <!-- White Weasel -->
+  <item id="13017">
+    <npcid val="16045" />
+    <summonType val="1" />
+  </item>
+  <!-- Fairy Princess -->
+  <item id="13018">
+    <npcid val="16046" />
+    <summonType val="1" />
+  </item>
+  <!-- Wild Beast Fighter -->
+  <item id="13019">
+    <npcid val="16044" />
+    <summonType val="1" />
+  </item>
+  <!-- Fox Shaman -->
+  <item id="13020">
+    <npcid val="16043" />
+    <summonType val="1" />
+  </item>
+  <!-- White Weasel -->
+  <item id="13303">
+    <npcid val="16045" />
+    <summonType val="1" />
+  </item>
+  <!-- Fairy Princess -->
+  <item id="13304">
+    <npcid val="16046" />
+    <summonType val="1" />
+  </item>
+  <!-- Wild Beast Fighter -->
+  <item id="13305">
+    <npcid val="16044" />
+    <summonType val="1" />
+  </item>
+  <!-- Fox Shaman -->
+  <item id="13306">
+    <npcid val="16043" />
+    <summonType val="1" />
+  </item>
+  <!-- Toy Knight -->
+  <item id="13548">
+    <npcid val="16052" />
+    <summonType val="1" />
+  </item>
+  <!-- Soul Monk -->
+  <item id="13549">
+    <npcid val="16051" />
+    <summonType val="1" />
+  </item>
+  <!-- Owl Monk -->
+  <item id="13550">
+    <npcid val="16050" />
+    <summonType val="1" />
+  </item>
+  <!-- Turtle Ascetic -->
+  <item id="13551">
+    <npcid val="16053" />
+    <summonType val="1" />
+  </item>
+  <!-- Toy Knight -->
+  <item id="14061">
+    <npcid val="16052" />
+    <summonType val="1" />
+  </item>
+  <!-- Soul Monk -->
+  <item id="14062">
+    <npcid val="16051" />
+    <summonType val="1" />
+  </item>
+  <!-- Owl Monk -->
+  <item id="14063">
+    <npcid val="16050" />
+    <summonType val="1" />
+  </item>
+  <!-- Turtle Ascetic -->
+  <item id="14064">
+    <npcid val="16053" />
+    <summonType val="1" />
+  </item>
   <!-- Custom! -->
   <!-- Wyvern -->
   <item id="5249">
