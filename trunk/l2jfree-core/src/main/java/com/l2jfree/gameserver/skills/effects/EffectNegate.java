@@ -54,8 +54,8 @@ public final class EffectNegate extends L2Effect
 	}
 	
 	@Override
-	protected void onExit()
+	public boolean onActionTime()
 	{
-		getEffected().stopMuted(false);
+		return false;
 	}
 }
