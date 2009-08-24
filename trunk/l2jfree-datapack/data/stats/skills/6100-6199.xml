@@ -118,7 +118,6 @@
     <cond msgId="2292">
       <player agathionId="16063"/>
     </cond>
-    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="6125" levels="1" name="Paralysis">
     <set name="target" val="TARGET_NONE"/>

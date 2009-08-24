@@ -934,7 +934,6 @@
     <set name="staticHitTime" val="true"/> 
     <set name="operateType" val="OP_ACTIVE"/> 
     <set name="npcId" val="16062"/>
-    <set name="hitTime" val="3000"/>
   </skill>
   <skill id="8276" levels="1" name="Shield Branding">
     <set name="target" val="TARGET_NONE"/>

@@ -1129,7 +1129,6 @@
     <set name="hitTime" val="1200"/>
     <set name="magicLvl" val="83"/>
     <set name="mpConsume" val="37"/>
-    <set name="numCharges" val="2"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
     <set name="power" val="2516"/>
