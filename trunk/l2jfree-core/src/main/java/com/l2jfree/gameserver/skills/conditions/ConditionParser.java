@@ -389,11 +389,6 @@ public abstract class ConditionParser
 			boolean val = Boolean.valueOf(nodeValue);
 			return new ConditionPlayerSubclass(val);
 		}
-		else if ("abnormal".equalsIgnoreCase(nodeName))
-		{
-			int abnormalId = Integer.decode(nodeValue);
-			return new ConditionTargetAbnormal(abnormalId);
-		}
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}
 
@@ -531,6 +526,11 @@ public abstract class ConditionParser
 		{
 			int[] doorIds = Util.toIntArray(nodeValue.trim(), " ");
 			return new ConditionTargetDoorId(doorIds);
+		}
+		else if ("abnormal".equalsIgnoreCase(nodeName))
+		{
+			int abnormalId = Integer.decode(nodeValue);
+			return new ConditionTargetAbnormal(abnormalId);
 		}
 
 		throw new IllegalStateException("Invalid attribute at <target>: " + nodeName + "='" + nodeValue + "'");
