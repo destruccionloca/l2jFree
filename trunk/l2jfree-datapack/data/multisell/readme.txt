@@ -9,6 +9,7 @@ of this directory a little bit.
 
 101.xml  -> Tickets for pet collars Exchange
 102.xml  -> Noblesse Gate Pass for items
+103.xml  -> Olympiad tokens for items
 382.xml  -> Quest 382: Head Blacksmith Vergara
 426.xml  -> Quest 426: Fishing Shots
 500.xml  -> Seven Signs - Purchase consumable items
