@@ -216,7 +216,7 @@ public class Config extends L2Config
 			NEW_LOGIN_PROTOCOL = Boolean.parseBoolean(serverSettings.getProperty("NewLoginServerHandler", "True"));
 			L2JFREE_LOGIN = Boolean.parseBoolean(serverSettings.getProperty("L2jfreeLogin", "True"));
 
-			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "WARNING"));
+			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "OFF"));
 		}
 		catch (Exception e)
 		{

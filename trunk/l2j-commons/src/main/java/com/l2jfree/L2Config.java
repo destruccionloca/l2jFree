@@ -37,7 +37,7 @@ public abstract class L2Config
 	public static final String LOG_FILE = "./config/logging.properties";
 	public static final String TELNET_FILE = "./config/telnet.properties";
 	
-	public static Level EXTENDED_LOG_LEVEL = Level.WARNING;
+	public static Level EXTENDED_LOG_LEVEL = Level.OFF;
 	
 	protected static final Log _log;
 	
