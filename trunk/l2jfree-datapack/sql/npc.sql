@@ -10054,3 +10054,7 @@ UPDATE `npc` SET `type` = 'L2ClanHallDoormen' WHERE `id` BETWEEN 35641 AND 35642
 -- Control towers (quick fix as rune castle's ones have higher stats)
 UPDATE `npc` SET `pdef` = 837, `mdef` = 674 WHERE `id` BETWEEN 13002 AND 13005;
 UPDATE `npc` SET `type` = 'L2FlameControlTower' WHERE `id` = 13004;
+
+# Soul Cry level 14-15-16 
+UPDATE `npc` SET `absorb_level` = '16', `absorb_type` = 'PARTY_ONE_RANDOM' WHERE `id` IN (29046,29047,32123,29068,29067,29066); 
+UPDATE `npc` SET `absorb_level` = '16', `absorb_type` = 'FULL_PARTY' WHERE `id` IN (29175,29163,29118,29150); 
