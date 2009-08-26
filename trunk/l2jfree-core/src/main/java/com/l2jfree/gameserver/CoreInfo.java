@@ -38,7 +38,7 @@ public final class CoreInfo
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		System.out.println(" ___       ___");
+		System.out.println(" ___       ___           ___");
 		System.out.println("/\\_ \\    /'___`\\   __  /'___\\");
 		System.out.println("\\//\\ \\  /\\_\\ /\\ \\ /\\_\\/\\ \\__/  _ __    __     __");
 		System.out.println("  \\ \\ \\ \\/_/// /__\\/\\ \\ \\ ,__\\/\\`'__\\/'__`\\ /'__`\\");
