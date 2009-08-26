@@ -10057,4 +10057,8 @@ UPDATE `npc` SET `type` = 'L2FlameControlTower' WHERE `id` = 13004;
 
 # Soul Cry level 14-15-16 
 UPDATE `npc` SET `absorb_level` = '16', `absorb_type` = 'PARTY_ONE_RANDOM' WHERE `id` IN (29046,29047,32123,29068,29067,29066); 
-UPDATE `npc` SET `absorb_level` = '16', `absorb_type` = 'FULL_PARTY' WHERE `id` IN (29175,29163,29118,29150); 
+UPDATE `npc` SET `absorb_level` = '16', `absorb_type` = 'FULL_PARTY' WHERE `id` IN (29175,29163,29118,29150);
+
+# Eva's gift Boxes
+UPDATE `npc` SET `type` = 'L2Monster' WHERE `idTemplate` = 32342 LIMIT 1;
+ 
