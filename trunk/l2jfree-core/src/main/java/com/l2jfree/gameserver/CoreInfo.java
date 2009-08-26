@@ -70,7 +70,7 @@ public final class CoreInfo
 			"l2j-commons  :    " + getFullVersionInfo(commonsVersion),
 			"l2j-mmocore  :    " + getFullVersionInfo(mmocoreVersion) };
 	}
-	
+
 	private static String getVersionInfo(Version version)
 	{
 		return String.format("%-6s [ %4s ]", version.getVersionNumber(), version.getRevisionNumber());
