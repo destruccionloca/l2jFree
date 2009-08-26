@@ -43,10 +43,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Siege;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
-import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -2509,8 +2505,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					{
 						if (obj == null)
 							continue;
-						if (player == null)
-							return null;
 						
 						if (player.isInDuel())
 						{
@@ -3537,21 +3531,14 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
     }
     
-    public static final boolean eventCheck(L2PcInstance player,L2PcInstance newTarget)
-    {
-		//check if allow interference is allowed if player is not on event but target is on event
-		if (((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE)) && !player.isGM())
-		{
-			if ((newTarget._inEventTvT && !player._inEventTvT) || (!newTarget._inEventTvT && player._inEventTvT))
-				return false;
-			if ((newTarget._inEventCTF && !player._inEventCTF) || (!newTarget._inEventCTF && player._inEventCTF))
-				return false;
-			else if ((newTarget._inEventDM && !player._inEventDM) || (!newTarget._inEventDM && player._inEventDM))
-				return false;
-		}
+	private boolean eventCheck(L2PcInstance player, L2PcInstance newTarget)
+	{
+		if (GlobalRestrictions.isProtected(player, newTarget, this, false))
+			return false;
+		
 		return true;
-    }
-    
+	}
+	
 	private int getNewHeadingToTarget(L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)

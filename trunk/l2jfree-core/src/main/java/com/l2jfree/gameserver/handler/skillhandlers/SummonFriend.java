@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
@@ -141,8 +142,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 		
-		if (summonerChar._inEventCTF || summonerChar._inEventTvT || summonerChar._inEventDM || summonerChar._inEventVIP
-				|| targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventDM || targetChar._inEventVIP)
+		if (GlobalRestrictions.isRestricted(summonerChar, null) || GlobalRestrictions.isRestricted(targetChar, null))
 		{
 			summonerChar.sendMessage("You cannot summon your friend due to events restrictions.");
 			targetChar.sendMessage("You cannot be summoned due to events restriction.");

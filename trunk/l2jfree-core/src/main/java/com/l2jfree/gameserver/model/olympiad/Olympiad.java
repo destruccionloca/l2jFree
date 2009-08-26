@@ -954,7 +954,8 @@ public final class Olympiad
 				SystemMessageId.WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME));
 			return;
 		}
-		if (spectator._inEventCTF || spectator._inEventTvT || spectator._inEventVIP || spectator._inEventDM)
+		
+		if (GlobalRestrictions.isRestricted(spectator, OlympiadRestriction.class))
 		{
 			spectator.sendMessage("You can not observe games while registered for event.");
 			return;

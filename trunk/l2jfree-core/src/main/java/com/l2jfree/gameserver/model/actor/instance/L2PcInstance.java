@@ -8305,7 +8305,7 @@ public final class L2PcInstance extends L2Playable
 		case TARGET_PARTY:
 		case TARGET_ALLY:
 		case TARGET_CLAN:
-		case TARGET_PARTY_CLAN:			
+		case TARGET_PARTY_CLAN:
 		case TARGET_GROUND:
 		case TARGET_SELF:
 			target = this;
@@ -8449,7 +8449,7 @@ public final class L2PcInstance extends L2Playable
 				case TARGET_FRONT_AURA:
 				case TARGET_BEHIND_AURA:
 				case TARGET_CLAN:
-				case TARGET_PARTY_CLAN:					
+				case TARGET_PARTY_CLAN:
 				case TARGET_ALLY:
 				case TARGET_PARTY:
 				case TARGET_SELF:
@@ -8503,7 +8503,7 @@ public final class L2PcInstance extends L2Playable
 			case TARGET_FRONT_AURA:
 			case TARGET_BEHIND_AURA:
 			case TARGET_CLAN:
-			case TARGET_PARTY_CLAN:				
+			case TARGET_PARTY_CLAN:
 			case TARGET_SELF:
 			case TARGET_PARTY:
 			case TARGET_ALLY:
@@ -8541,7 +8541,7 @@ public final class L2PcInstance extends L2Playable
 		case TARGET_PARTY:
 		case TARGET_ALLY: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
 		case TARGET_CLAN: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
-		case TARGET_PARTY_CLAN:// For such skills, checkPvpSkill() is called from L2Skill.getTargetList()			
+		case TARGET_PARTY_CLAN:// For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
 		case TARGET_AURA:
 		case TARGET_FRONT_AURA:
 		case TARGET_BEHIND_AURA:
@@ -8629,9 +8629,14 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean checkPvpSkill(L2Object obj, L2Skill skill,boolean srcIsSummon)
 	{
-		if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started) || _inEventTvTi)
-			return true;
-
+		if (obj instanceof L2Character)
+			if (GlobalRestrictions.isProtected(this, (L2Character)obj, skill, false))
+				return false;
+		
+		if (obj instanceof L2PcInstance)
+			if (!GlobalRestrictions.canBeInsidePeaceZone(this, (L2PcInstance)obj))
+				return true;
+		
 		// Check for PC->PC Pvp status
 		if (obj != this && // Target is not self and
 				obj instanceof L2PcInstance && // Target is L2PcInstance and
@@ -8641,8 +8646,7 @@ public final class L2PcInstance extends L2Playable
 		)
 		{
 			L2PcInstance target = (L2PcInstance) obj;
-			if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(target))
-				return true;
+			
 			if (skill.isPvpSkill()) // Pvp skill
 			{
 				if (getClan() != null && target.getClan() != null)

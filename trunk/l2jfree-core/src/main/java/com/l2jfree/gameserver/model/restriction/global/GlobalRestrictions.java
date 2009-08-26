@@ -389,6 +389,16 @@ public final class GlobalRestrictions
 	private static boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage,
 		L2PcInstance attacker_, L2PcInstance target_)
 	{
+		// if GM is invisible, exclude him from the normal gameplay
+		if (target_ != null && target_.isGM() && target_.getAppearance().isInvisible())
+		{
+			// if the "attacker" isn't playable, or not GM
+			if (attacker_ == null || !attacker_.isGM())
+			{
+				return false;
+			}
+		}
+		
 		if (attacker_ != null && target_ != null && attacker_ != target_)
 		{
 			if (Config.SIEGE_ONLY_REGISTERED)

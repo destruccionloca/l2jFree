@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
@@ -304,7 +305,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					allowAddition = false;
 				}
 
-				if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
+				if (GlobalRestrictions.isRestricted(player, null))
 				{
 					player.sendMessage("You may not add a new sub class while being registered on event.");
 					return;
@@ -394,7 +395,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				 *
 				 * Note: paramOne = classIndex
 				 */
-				if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
+				if (GlobalRestrictions.isRestricted(player, null))
 				{
 					player.sendMessage("You are registered at event right now.");
 					return;
