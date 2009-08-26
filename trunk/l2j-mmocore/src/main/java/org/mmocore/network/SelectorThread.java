@@ -787,33 +787,40 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		
 		if (DIRECT_WRITE_BUFFER.remaining() > 1 && !con.hasPendingWriteBuffer())
 		{
-			synchronized (con)
+			for (int i = 0; i < MAX_SEND_PER_PASS; i++)
 			{
-				final FastList<SendablePacket<T>> sendQueue = con.getSendQueue2();
+				SendablePacket<T> sp = null;
 				
-				for (int i = 0; !sendQueue.isEmpty() && i < MAX_SEND_PER_PASS; i++)
+				synchronized (con)
 				{
-					// put into WriteBuffer
-					putPacketIntoWriteBuffer(con, sendQueue.removeFirst());
+					final FastList<SendablePacket<T>> sendQueue = con.getSendQueue2();
 					
-					WRITE_BUFFER.flip();
-					//System.err.println("WB SIZE: "+WRITE_BUFFER.limit());
-					if (DIRECT_WRITE_BUFFER.remaining() >= WRITE_BUFFER.limit())
-					{
-						/*if (i == 0)
-						{
-						    // mark begining of new data from previous pending data
-						    con.setWriterMark(DIRECT_WRITE_BUFFER.position());
-						}*/
-						DIRECT_WRITE_BUFFER.put(WRITE_BUFFER);
-					}
-					else
-					{
-						// there is no more space in the direct buffer
-						//con.addWriteBuffer(getPooledBuffer().put(WRITE_BUFFER));
-						con.createWriteBuffer(WRITE_BUFFER);
+					if (sendQueue.isEmpty())
 						break;
-					}
+					
+					sp = sendQueue.removeFirst();
+				}
+				
+				// put into WriteBuffer
+				putPacketIntoWriteBuffer(con, sp);
+				
+				WRITE_BUFFER.flip();
+				//System.err.println("WB SIZE: "+WRITE_BUFFER.limit());
+				if (DIRECT_WRITE_BUFFER.remaining() >= WRITE_BUFFER.limit())
+				{
+					/*if (i == 0)
+					{
+					    // mark begining of new data from previous pending data
+					    con.setWriterMark(DIRECT_WRITE_BUFFER.position());
+					}*/
+					DIRECT_WRITE_BUFFER.put(WRITE_BUFFER);
+				}
+				else
+				{
+					// there is no more space in the direct buffer
+					//con.addWriteBuffer(getPooledBuffer().put(WRITE_BUFFER));
+					con.createWriteBuffer(WRITE_BUFFER);
+					break;
 				}
 			}
 		}
