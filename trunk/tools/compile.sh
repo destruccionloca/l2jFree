@@ -1,6 +1,8 @@
 #!/bin/bash
 
 ##############################################
+MAVEN_OPTS="-Xms64m -Xmx256m"
+
 # Configure this, if you don't have 'mvn' as an environment variable!
 MAVEN="mvn"
 ##############################################
@@ -22,5 +24,6 @@ cd ..
 cd l2jfree-datapack
 $MAVEN clean:clean compile -Dmaven.test.skip=true
 cd ..
+cd tools
 echo ""
-echo "Done."
+echo "Sources compiled, and dependencies installed to the local repository."

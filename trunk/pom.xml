@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>l2jfree</groupId>
   <artifactId>l2jfree</artifactId>
@@ -10,32 +13,22 @@
     <connection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</connection> <!-- we aren't using it anyway -->
     <developerConnection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</developerConnection> <!-- we aren't using it anyway -->
   </scm>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>Maven Snapshots</id>
-      <url>http://snapshots.maven.codehaus.org/maven2/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>l2jfree.internal</id>
-      <url>http://www.l2jfree.com:8080/archiva/repository/internal/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>old l2jfree</id>
-      <url>http://www.l2jfree.com/maven/</url>
-    </pluginRepository>
-  </pluginRepositories>
   <repositories>
-    <repository>
-      <id>l2jfree.internal</id>
-      <url>http://www.l2jfree.com:8080/archiva/repository/internal/</url>
-    </repository>
-    <repository>
-      <id>old l2jfree</id>
-      <url>http://www.l2jfree.com/maven/</url>
-    </repository>
     <repository>
       <id>maven 2 (default)</id>
       <url>http://repo1.maven.org/maven2</url>
+    </repository>
+    <repository>
+      <id>sun</id>
+      <url>http://download.java.net/maven/2</url>
+    </repository>
+    <repository>
+      <id>l2jfree.internal</id>
+      <url>http://www.l2jfree.com:8080/archiva/repository/internal/</url>
+    </repository>
+    <repository>
+      <id>old l2jfree</id>
+      <url>http://www.l2jfree.com/maven/</url>
     </repository>
     <repository>
       <id>Maven Snapshots</id>
@@ -57,10 +50,6 @@
     <repository>
       <id>jboss</id>
       <url>http://repository.jboss.org/maven2</url>
-    </repository>
-    <repository>
-      <id>sun</id>
-      <url>http://download.java.net/maven/2</url>
     </repository>
   </repositories>
   <build>
