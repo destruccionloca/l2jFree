@@ -632,7 +632,7 @@
     <set name="itemConsumeId" val="9849"/>
     <set name="itemConsumeCount" val="1"/>
     <for>
-      <effect name="Counter" time="60" val="0"/>
+      <effect name="Counter" time="600" val="0"/>
     </for>
   </skill>
   <skill id="2358" levels="1" name="Holy Water">
