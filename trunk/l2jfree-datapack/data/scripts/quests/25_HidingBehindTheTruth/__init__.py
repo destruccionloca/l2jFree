@@ -135,7 +135,7 @@ class Quest (JQuest) :
             htmltext = "<html><body>This quest has already been completed.</body></html>"
         elif id == State.CREATED:
             if npcId == Benedict:
-                st2 = st.getPlayer().getQuestState("24_InhabitantsOfTheForrestOfTheDead")
+                st2 = st.getPlayer().getQuestState("24_InhabitantsOfTheForestOfTheDead")
                 if st2 and st2.getState() == State.COMPLETED and player.getLevel() >= 66 :
                     htmltext = "31349-01.htm"
                 else :
