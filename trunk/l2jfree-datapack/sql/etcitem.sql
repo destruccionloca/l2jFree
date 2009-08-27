@@ -9573,3 +9573,6 @@ UPDATE `etcitem` SET `skills_item` = '2499-2' WHERE `item_id` = 10412;
 
 -- Emergency Dressing skills
 UPDATE `etcitem` SET `skills_item` = '2045-1' WHERE `item_id` = 1834;
+
+# Seed of Evil
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false' WHERE `item_id` IN (9593,9594,9595,9596,9597,9598);
