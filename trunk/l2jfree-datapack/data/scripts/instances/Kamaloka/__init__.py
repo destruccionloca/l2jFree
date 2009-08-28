@@ -1,12 +1,13 @@
-#Kamaloka Script by Psychokiller1888
+# Kamaloka Script by Psychokiller1888
+# Psycho / L2jFree
 
 import sys
 from java.lang                                     import System
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
-from com.l2jfree.gameserver.model.entity           import Instance
+from com.l2jfree.gameserver.model                  import L2World
 from com.l2jfree.gameserver.model.actor            import L2Character
 from com.l2jfree.gameserver.model.actor            import L2Summon
-from com.l2jfree.gameserver.model                  import L2World
+from com.l2jfree.gameserver.model.entity           import Instance
 from com.l2jfree.gameserver.model.quest            import State
 from com.l2jfree.gameserver.model.quest            import QuestState
 from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest
@@ -34,9 +35,22 @@ MAX_DISTANCE = 500
 
 GUARDS = [BATHIS,LUCAS,GOSTA,MOUEN,VISHOTSKY,MATHIAS]
 BOSSES = [18554,18555,18558,18559,18562,18564,18566,18568,18571,18573,18577]
-#Kamaloka Levels   23          26          33          36          43          46          53          56          63          66          73
 
-debug = True
+#KAMALOKA = [FILE, Reuse Delay, Boss, LvlMin, LvlMax, X, Y, Z]
+KAMALOKA = {
+23: ["Kamaloka-23.xml",86400,18554,18,28,-57109,-219871,-8117],
+26: ["Kamaloka-26.xml",86400,18555,21,31,-55556,-206144,-8117],
+33: ["Kamaloka-33.xml",86400,18558,28,38,-55492,-206143,-8117],
+36: ["Kamaloka-36.xml",86400,18559,31,41,-41257,-213143,-8117],
+43: ["Kamaloka-43.xml",86400,18562,38,48,-49802,-206141,-8117],
+46: ["Kamaloka-46.xml",86400,18564,41,51,-41184,-213144,-8117],
+53: ["Kamaloka-53.xml",86400,18566,48,58,-41201,-219859,-8117],
+56: ["Kamaloka-56.xml",86400,18568,51,61,-57102,-206143,-8117],
+63: ["Kamaloka-63.xml",86400,18571,58,68,-57116,-219857,-8117],
+66: ["Kamaloka-66.xml",86400,18573,61,71,-41228,-219860,-8117],
+73: ["Kamaloka-73.xml",86400,18577,68,78,-55823,-212935,-8071]
+}
+
 
 class PyObject:
 	pass
@@ -48,21 +62,6 @@ def saveEntry(self,member) :
 		st = self.newQuestState(member)
 	st.set("LastEntry",str(currentTime))
 	return
-
-def getBackTeleport(npcId) :
-	if npcId == 18554 or npcId == 18555:
-		tpBack = [-13870,123767,-3117]
-	elif npcId == 18558 or npcId == 18559:
-		tpBack = [18149,146024,-3100]
-	elif npcId == 18562 or npcId == 18564:
-		tpBack = [108449,221607,-3598]
-	elif npcId == 18566 or npcId == 18568:
-		tpBack = [80985,56373,-1560]
-	elif npcId == 18571 or npcId == 18573:
-		tpBack = [85945,-142176,-1341]
-	elif npcId == 18577:
-		tpBack = [42673,-47988,-797]
-	return tpBack
 
 def checkDistance(player) :
 	isTooFar = False
@@ -86,7 +85,7 @@ def checkCondition(player,reuse,minLevel,maxLevel):
 	if not party:
 		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))
 		return False
-	#check size of the party, max 6 for entering Kamaloka
+	# Check size of the party, max 6 for entering Kamaloka
 	if party and party.getMemberCount() > 6:
 		player.sendPacket(SystemMessage.sendString("Instance for max 6 players in party."))
 		return False
@@ -125,7 +124,7 @@ def enterInstance(self,player,teleto,KamaInfo):
 	if not checkCondition(player,reuse,minLevel,maxLevel):
 		return 0
 	party = player.getParty()
-	# Check for exising instances of party members
+	# Check for existing instances of party members
 	for partyMember in party.getPartyMembers().toArray():
 		if partyMember.getInstanceId() != 0:
 			instanceId = partyMember.getInstanceId()
@@ -146,15 +145,6 @@ def enterInstance(self,player,teleto,KamaInfo):
 		teleportplayer(self,partyMember,teleto)
 	return instanceId
 
-def exitInstance(player,tele):
-	if player.getInstanceId > 0:
-		player.setInstanceId(0)
-	player.teleToLocation(tele.x, tele.y, tele.z)
-	pet = player.getPet()
-	if pet != None :
-		pet.setInstanceId(0)
-		pet.teleToLocation(tele.x, tele.y, tele.z)
-
 class Kamaloka(JQuest):
 	def __init__(self,id,name,descr):
 		JQuest.__init__(self,id,name,descr)
@@ -165,44 +155,8 @@ class Kamaloka(JQuest):
 		st = player.getQuestState(qn)
 		if not st:
 			st = self.newQuestState(player)
-		htmltext = event
-		if event == "finishKamaloka" :
-			npcId = npc.getNpcId()
-			tpBack = getBackTeleport(npcId)
-			tele = PyObject()
-			tele.x = tpBack[0]
-			tele.y = tpBack[1]
-			tele.z = tpBack[2]
-			instanceId = player.getInstanceId()
-			if instanceId > 0:
-				playerList = InstanceManager.getInstance().getInstance(instanceId).getPlayers()
-				for member in playerList.toArray():
-					member = L2World.getInstance().findPlayer(member)
-					exitInstance(member,tele)
-			return
-		elif event == "lvl23" :
-			#KamaInfo = [FILE, Reuse Delay, Boss, LvlMin, LvlMax, X, Y, Z
-			KamaInfo = ["Kamaloka-23.xml",86400,18554,18,28,-57109,-219871,-8117]
-		elif event == "lvl26" :
-			KamaInfo = ["Kamaloka-26.xml",86400,18555,21,31,-55556,-206144,-8117]
-		elif event == "lvl33" :
-			KamaInfo = ["Kamaloka-33.xml",86400,18558,28,38,-55492,-206143,-8117]
-		elif event == "lvl36" :
-			KamaInfo = ["Kamaloka-36.xml",86400,18559,31,41,-41257,-213143,-8117]
-		elif event == "lvl43" :
-			KamaInfo = ["Kamaloka-43.xml",86400,18562,38,48,-49802,-206141,-8117]
-		elif event == "lvl46" :
-			KamaInfo = ["Kamaloka-46.xml",86400,18564,41,51,-41184,-213144,-8117]
-		elif event == "lvl53" :
-			KamaInfo = ["Kamaloka-53.xml",86400,18566,48,58,-41201,-219859,-8117]
-		elif event == "lvl56" :
-			KamaInfo = ["Kamaloka-56.xml",86400,18568,51,61,-57102,-206143,-8117]
-		elif event == "lvl63" :
-			KamaInfo = ["Kamaloka-63.xml",86400,18571,58,68,-57116,-219857,-8117]
-		elif event == "lvl66" :
-			KamaInfo = ["Kamaloka-66.xml",86400,18573,61,71,-41228,-219860,-8117]
-		elif event == "lvl73" :
-			KamaInfo = ["Kamaloka-73.xml",86400,18577,68,78,-55823,-212935,-8071]
+		level = event[3:]
+		KamaInfo = KAMALOKA[int(level)]
 		tele = PyObject()
 		tele.x = KamaInfo[5]
 		tele.y = KamaInfo[6]
@@ -240,7 +194,8 @@ class Kamaloka(JQuest):
 			member = L2World.getInstance().findPlayer(member)
 			saveEntry(self,member)
 			member.sendPacket(SystemMessage.sendString("You will be moved out of Kamaloka in 5 minutes"))
-		self.startQuestTimer("finishKamaloka",300000,npc,player)
+		instance = InstanceManager.getInstance().getInstance(npc.getInstanceId())
+		instance.setDuration(300000)
 		return
 
 QUEST = Kamaloka(-1, qn, "instances")
