@@ -26,11 +26,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
-      <add order="0x40" stat="rShld" val="54.7">
-        <using kind="Shield"/> <!-- add modifies even 0 value, not like mul, so it requires a condition -->
-      </add>
+      <add order="0x40" stat="rShld" val="54.7"/>
     </for>
   </skill>
   <skill id="603" levels="1" name="Residence Shield Defense">
@@ -38,11 +36,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
-      <add order="0x40" stat="sDef" val="225">
-        <using kind="Shield"/> <!-- add modifies even 0 value, not like mul, so it requires a condition -->
-      </add>
+      <add order="0x40" stat="sDef" val="225"/>
     </for>
   </skill>
   <skill id="604" levels="1" name="Residence Resist Typhoon">
@@ -551,10 +547,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtkRange" val="50">
-        <using kind="Bow"/>
-      </add>
+      <add order="0x40" stat="pAtkRange" val="50"/>
     </for>
   </skill>
   <skill id="646" levels="1" name="Wizard Ability - Mana Gain">

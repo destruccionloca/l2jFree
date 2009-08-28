@@ -25,25 +25,15 @@
     <set name="chanceType" val="ON_CRIT"/>
     <set name="weaponsAllowed" val="16392"/> <!-- Blunt/Big Blunt -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Blunt,Big Blunt"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="129.3">
-        <using kind="Blunt,Big Blunt"/>
-      </add>
-      <add order="0x40" stat="runSpd" val="#ench1runSpd">
-        <using kind="Blunt,Big Blunt"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="129.3"/>
+      <add order="0x40" stat="runSpd" val="#ench1runSpd"/>
     </enchant1for>
     <enchant2for>
-      <add order="0x40" stat="pAtk" val="129.3">
-        <using kind="Blunt,Big Blunt"/>
-      </add>
-      <add order="0x40" stat="cAtkAdd" val="#ench2cAtk">
-        <using kind="Blunt,Big Blunt"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="129.3"/>
+      <add order="0x40" stat="cAtkAdd" val="#ench2cAtk"/>
     </enchant2for>
   </skill>
   <skill id="208" levels="52" name="Bow Mastery" enchantLevels1="30">
@@ -55,15 +45,12 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Bow"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Bow"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
     </enchant1for>
   </skill>
   <skill id="209" levels="45" name="Dagger Mastery" enchantLevels1="30">
@@ -85,14 +72,10 @@
     <set name="chanceType" val="ON_CRIT"/>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Dagger,Dual Dagger"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Dagger,Dual Dagger"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
     </enchant1for>
   </skill>
   <skill id="210" levels="45" name="Fist Weapon Mastery" enchantLevels1="30">
@@ -104,15 +87,12 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Dual Fist"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Dual Fist"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
     </enchant1for>
   </skill>
   <skill id="211" levels="10" name="Boost HP" enchantLevels1="30" enchantLevels2="30">
@@ -193,21 +173,14 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="64"/> <!-- Pole -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Pole"/>
-      </add>
-      <add order="0x40" stat="atkCountMax" val="#atkCountMax">
-        <using kind="Pole"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
+      <add order="0x40" stat="atkCountMax" val="#atkCountMax"/>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Pole"/>
-      </add>
-      <add order="0x40" stat="atkCountMax" val="10">
-        <using kind="Pole"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
+      <add order="0x40" stat="atkCountMax" val="10"/>
     </enchant1for>
   </skill>
   <skill id="217" levels="45" name="Sword/Blunt Weapon Mastery" enchantLevels1="30">
@@ -2185,12 +2158,8 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
-        <add order="0x40" stat="accCombat" val="6">
-          <using kind="Dual Fist"/>
-        </add>
-        <mul order="0x30" stat="pAtkSpd" val="1.2">
-          <using kind="Dual Fist"/>
-        </mul>
+        <add order="0x40" stat="accCombat" val="6"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/>
       </effect>
     </for>
   </skill>
@@ -2437,9 +2406,7 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <for>
       <effect name="Buff" time="60" val="0" stackOrder="1" stackType="possession">
-        <add order="0x40" stat="accCombat" val="6">
-          <using kind="Dual Fist"/>
-        </add>
+        <add order="0x40" stat="accCombat" val="6"/>
         <mul order="0x30" stat="pAtk" val="1.1">
           <player hp="60"/>
         </mul>
@@ -2513,17 +2480,12 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
+    <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <for>
       <effect name="Buff" time="60" val="0" stackOrder="1" stackType="duelist_spirit">
-        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd">
-          <using kind="Dual Sword"/>
-        </mul>
-        <mul order="0x30" stat="pvpPhysDmg" val="#pvp">
-          <using kind="Dual Sword"/>
-        </mul>
-        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvp">
-          <using kind="Dual Sword"/>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+        <mul order="0x30" stat="pvpPhysDmg" val="#pvp"/>
+        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#pvp"/>
       </effect>
     </for>
   </skill>
@@ -2539,15 +2501,9 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
-        <mul order="0x30" stat="pAtkSpd" val="1.3">
-          <using kind="Dual Fist"/>
-        </mul>
-        <mul order="0x30" stat="runSpd" val="1.3">
-          <using kind="Dual Fist"/>
-        </mul>
-        <add order="0x40" stat="rEvas" val="12">
-          <using kind="Dual Fist"/>
-        </add>
+        <mul order="0x30" stat="pAtkSpd" val="1.3"/>
+        <mul order="0x30" stat="runSpd" val="1.3"/>
+        <add order="0x40" stat="rEvas" val="12"/>
       </effect>
     </for>
   </skill>

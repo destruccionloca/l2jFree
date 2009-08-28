@@ -276,18 +276,10 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
-        <mul order="0x30" stat="pAtk" val="1.3">
-          <using kind="Dual Fist"/>
-        </mul>
-        <mul order="0x30" stat="pDef" val="1.3">
-          <using kind="Dual Fist"/>
-        </mul>
-        <mul order="0x30" stat="mDef" val="1.3">
-          <using kind="Dual Fist"/>
-        </mul>
-        <mul order="0x30" stat="cAtk" val="1.1">
-          <using kind="Dual Fist"/>
-        </mul>
+        <mul order="0x30" stat="pAtk" val="1.3"/>
+        <mul order="0x30" stat="pDef" val="1.3"/>
+        <mul order="0x30" stat="mDef" val="1.3"/>
+        <mul order="0x30" stat="cAtk" val="1.1"/>
       </effect>
     </for>
   </skill>
@@ -411,10 +403,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtkRange" val="#dist">
-        <using kind="Bow"/>
-      </add>
+      <add order="0x40" stat="pAtkRange" val="#dist"/>
     </for>
   </skill>
   <skill id="115" levels="17" name="Power Break" enchantLevels1="30" enchantLevels2="30">
@@ -716,24 +707,17 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
+	<set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="#accCombat" stackType="HawkEye">
-        <add order="0x40" stat="accCombat" val="#accCombat">
-          <using kind="Bow"/>
-        </add>
-        <mul order="0x30" stat="pDef" val="0.9">
-          <using kind="Bow"/>
-        </mul>
+        <add order="0x40" stat="accCombat" val="#accCombat"/>
+        <mul order="0x30" stat="pDef" val="0.9"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" val="0" stackOrder="10" stackType="HawkEye">
-        <add order="0x40" stat="accCombat" val="10">
-          <using kind="Bow"/>
-        </add>
-        <mul order="0x30" stat="pDef" val="0.9">
-          <using kind="Bow"/>
-        </mul>
+        <add order="0x40" stat="accCombat" val="10"/>
+        <mul order="0x30" stat="pDef" val="0.9"/>
       </effect>
     </enchant1for>
   </skill>
@@ -832,15 +816,12 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Dual Sword"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
     <enchant1for>
-      <add order="0x40" stat="pAtk" val="#ench1pAtk">
-        <using kind="Dual Sword"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
     </enchant1for>
   </skill>
   <skill id="146" levels="45" name="Anti Magic" enchantLevels1="30">
@@ -915,12 +896,12 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <mul order="0x30" stat="rShld" val="#rShld"/>
       <mul order="0x30" stat="sDef" val="#sDef"/>
       <mul order="0x30" stat="pDef" val="#Pdef">
         <and>
-          <using kind="Shield"/>
           <using kind="Heavy"/>
           <not>
             <using kind="Light,Magic"/>

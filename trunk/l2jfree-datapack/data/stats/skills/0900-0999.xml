@@ -272,16 +272,14 @@
   </skill>
   <skill id="923" levels="1" name="Dual Dagger Mastery">
     <!-- Done by DJ MELERIX -->
+    <!-- Client description says blowRate. -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+	<set name="weaponsAllowed" val="262144"/> <!-- Dual Daggers -->
     <for>
-      <add order="0x40" stat="pAtk" val="87.5">
-        <using kind="Dual Dagger"/>
-      </add>
-      <mul order="0x30" stat="lethalRate" val="1.05">
-        <using kind="Dual Dagger"/>
-      </mul>
+      <add order="0x40" stat="pAtk" val="87.5"/>
+      <mul order="0x30" stat="blowRate" val="1.05"/>
     </for>
   </skill>
   <skill id="924" levels="1" name="Seven Arrow">

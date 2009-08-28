@@ -311,6 +311,7 @@
     </for>
   </skill>
   <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30">
+    <!-- Client description do not contains blowRate. -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82
       83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
@@ -356,11 +357,11 @@
     <for>
       <effect self="1" name="Buff" time="15" val="0">
         <mul order="0x30" stat="rCrit" val="#rate"/>
-        <mul order="0x30" stat="blowRate" val="#rate"/>
       </effect>
     </for>
   </skill>
   <skill id="410" levels="3" name="Mortal Strike">
+    <!-- Client description do not contains blowRate. -->
     <table name="#mpConsume">27 31 34</table>
     <table name="#rate">1.1 1.15 1.2</table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -373,7 +374,6 @@
     <for>
       <effect name="Buff" time="120" val="0">
         <mul order="0x30" stat="rCrit" val="#rate"/>
-        <mul order="0x30" stat="blowRate" val="#rate"/>
       </effect>
     </for>
   </skill>
@@ -430,15 +430,9 @@
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect name="Buff" time="120" val="0">
-        <add order="0x40" stat="pAtk" val="#pAtk">
-          <using kind="Bow"/>
-        </add>
-        <mul order="0x30" stat="pAtkSpd" val="1.2">
-          <using kind="Bow"/>
-        </mul>
-        <mul order="0x30" stat="pAtkRange" val="0.5">
-          <using kind="Bow"/>
-        </mul>
+        <add order="0x40" stat="pAtk" val="#pAtk"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/>
+        <mul order="0x30" stat="pAtkRange" val="0.5"/>
       </effect>
     </for>
   </skill>
@@ -455,18 +449,10 @@
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect name="Buff" time="120" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="0.8">
-          <using kind="Bow"/>
-        </mul>
-        <add order="0x40" stat="pAtk" val="#pAtk">
-          <using kind="Bow"/>
-        </add>
-        <add order="0x40" stat="accCombat" val="#accCombat">
-          <using kind="Bow"/>
-        </add>
-        <mul order="0x30" stat="cAtk" val="1.2">
-          <using kind="Bow"/>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="0.8"/>
+        <add order="0x40" stat="pAtk" val="#pAtk"/>
+        <add order="0x40" stat="accCombat" val="#accCombat"/>
+        <mul order="0x30" stat="cAtk" val="1.2"/>
       </effect>
     </for>
   </skill>
@@ -609,9 +595,7 @@
     <set name="hitTime" val="2000"/>
     <for>
       <effect name="Buff" time="120" val="0">
-        <add order="0x40" stat="atkCountMax" val="#atkCountMax">
-          <using kind="Pole"/>
-        </add>
+        <add order="0x40" stat="atkCountMax" val="#atkCountMax"/>
       </effect>
     </for>
   </skill>
@@ -625,9 +609,7 @@
     <set name="operateType" val="OP_TOGGLE"/>
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.2">
-        <add order="0x40" stat="accCombat" val="#accCombat">
-          <using kind="Pole"/>
-        </add>
+        <add order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>
   </skill>
@@ -675,15 +657,9 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
-        <add order="0x40" stat="accCombat" val="6">
-          <using kind="Dual Fist"/>
-        </add>
-        <add order="0x40" stat="rCrit" val="100">
-          <using kind="Dual Fist"/>
-        </add>
-        <mul order="0x30" stat="cAtk" val="1.3">
-          <using kind="Dual Fist"/>
-        </mul>
+        <add order="0x40" stat="accCombat" val="6"/>
+        <add order="0x40" stat="rCrit" val="100"/>
+        <mul order="0x30" stat="cAtk" val="1.3"/>
       </effect>
     </for>
   </skill>
@@ -764,36 +740,22 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtk" val="200">
-        <using kind="Bow"/>
-      </add>
-      <add order="0x40" stat="pAtkRange" val="50">
-        <using kind="Bow"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="200"/>
+      <add order="0x40" stat="pAtkRange" val="50"/>
     </for>
   </skill>
   <skill id="432" levels="1" name="Assassination">
     <!-- Done by BoDiE - Credits to Sandro -->
+    <!-- Client description do not contains blowRate. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+	<set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <for>
-      <add order="0x40" stat="pAtk" val="70">
-        <using kind="Dagger"/>
-      </add>
-      <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from front -->
-        <player front="true"/>
-      </mul>
-      <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from side -->
-        <and>
-          <player front="false"/>
-          <player behind="false"/>
-        </and>
-      </mul>
-      <mul order="0x30" stat="blowRate" val="1.3"> <!-- Blow land rate +30% from back -->
-        <player behind="true"/>
-      </mul>
+      <add order="0x40" stat="pAtk" val="70"/>
+      <mul order="0x30" stat="rCrit" val="1.03"/>
     </for>
   </skill>
   <skill id="433" levels="1" name="Arcane Roar">
@@ -1509,10 +1471,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+	<set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Ancient"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
   </skill>
   <skill id="473" levels="45" name="Crossbow Mastery">
@@ -1522,10 +1483,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+	<set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Crossbow"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
   </skill>
   <skill id="474" levels="45" name="Rapier Mastery">
@@ -1535,10 +1495,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="weaponsAllowed" val="131072"/> <!-- Rapier -->
     <for>
-      <add order="0x40" stat="pAtk" val="#pAtk">
-        <using kind="Rapier"/>
-      </add>
+      <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
   </skill>
   <skill id="475" levels="1" name="Strike Back">
@@ -1606,9 +1565,6 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
     <enchant3 name="element" val="5"/>
-    <cond msg="An ancient sword weapon has to be equipped to use this skill">
-      <using kind="Ancient"/>
-    </cond>
   </skill>
   <skill id="478" levels="15" name="Double Thrust">
     <!-- CT2.2 retail confirmed -->
@@ -1754,14 +1710,12 @@
   </skill>
   <skill id="486" levels="2" name="Increase Range">
     <table name="#pAtkRange">200 400</table>
-    <set name="weaponsAllowed" val="65536"/>
+    <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="pAtkRange" val="#pAtkRange">
-        <using kind="Crossbow"/>
-      </add>
+      <add order="0x40" stat="pAtkRange" val="#pAtkRange"/>
     </for>
   </skill>
   <skill id="487" levels="15" name="Penetrating Shot">
@@ -1820,22 +1774,19 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="3000"/>
     <set name="aggroPoints" val="#aggroPoints"/>
+	<set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd">
-          <using kind="Crossbow"/>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="1.12">
-          <using kind="crossbow"/>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="1.12"/>
       </effect>
     </enchant1for>
   </skill>
