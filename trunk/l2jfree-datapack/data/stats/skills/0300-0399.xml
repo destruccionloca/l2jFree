@@ -1167,7 +1167,7 @@
     <set name="magicLvl" val="77"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="lvlDepend" val="1"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="mpConsume" val="35"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MUTE"/>
