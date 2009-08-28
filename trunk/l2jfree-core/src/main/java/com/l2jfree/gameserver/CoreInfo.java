@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver;
 
+import java.util.Date;
+
 import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.L2Config;
@@ -78,6 +80,6 @@ public final class CoreInfo
 	
 	private static String getFullVersionInfo(Version version)
 	{
-		return getVersionInfo(version) + " - " + version.getBuildJdk();
+		return getVersionInfo(version) + " - " + version.getBuildJdk() + " - " + new Date(version.getBuildTime());
 	}
 }

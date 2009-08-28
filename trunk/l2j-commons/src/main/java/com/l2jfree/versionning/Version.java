@@ -28,6 +28,7 @@ public class Version {
 	private String _revisionNumber = "exported";
 	private String _versionNumber = "-1";
 	private String _buildJdk = "";
+	private long _buildTime = -1;
 
 	private static final Log _log = LogFactory.getLog(Version.class);
 
@@ -49,6 +50,8 @@ public class Version {
 			JarFile jarFile = new JarFile(jarName);
 
 			Attributes attrs = jarFile.getManifest().getMainAttributes();
+
+			setBuildTime(attrs);
 
 			setBuildJdk(attrs);
 
@@ -107,6 +110,18 @@ public class Version {
 		}
 	}
 
+	/**
+	 * @param attrs
+	 */
+	private void setBuildTime(Attributes attrs) {
+		String buildTime = attrs.getValue("Implementation-Time");
+		if (buildTime != null) {
+			_buildTime = Long.parseLong(buildTime);
+		} else {
+			_buildTime = -1;
+		}
+	}
+
 	public String getRevisionNumber() {
 		return _revisionNumber;
 	}
@@ -119,4 +134,7 @@ public class Version {
 		return _buildJdk;
 	}
 
+	public long getBuildTime() {
+		return _buildTime;
+	}
 }

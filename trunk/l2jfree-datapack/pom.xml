@@ -106,6 +106,7 @@
             </manifest>
             <manifestEntries>
               <Implementation-Build>${buildNumber}</Implementation-Build>
+              <Implementation-Time>${timestamp}</Implementation-Time>
             </manifestEntries>
           </archive>
         </configuration>
