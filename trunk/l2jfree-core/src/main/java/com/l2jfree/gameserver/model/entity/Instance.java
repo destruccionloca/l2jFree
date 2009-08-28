@@ -136,7 +136,7 @@ public class Instance
 
 	/**
 	 * Set the instance duration task
-	 * @param duration in minutes
+	 * @param duration in milliseconds
 	 */
 	public void setDuration(int duration)
 	{
