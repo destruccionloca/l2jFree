@@ -19,7 +19,7 @@
     <table name="#ench1Power"> 2581 2604 2627 2650 2673 2696 2719 2743 2766 2789 2812 2835 2858 2881
       2904 2927 2950 2973 2996 3019 3042 3065 3088 3111 3134 3157 3180 3204 3227 3250 </table>
     <table name="#enchElementPower"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
-      25 26 27 28 29 30 </table> 
+      25 26 27 28 29 30 </table>
     <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61
       62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
@@ -810,13 +810,13 @@
     <set name="overHit" val="true"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
-    <enchant3 name="elementPower" val="#enchElementPower"/> 
-    <enchant3 name="element" val="0"/> 
-    <enchant4 name="elementPower" val="#enchElementPower"/> 
-    <enchant4 name="element" val="1"/> 
-    <enchant5 name="elementPower" val="#enchElementPower"/> 
-    <enchant5 name="element" val="2"/> 
-    <enchant6 name="elementPower" val="#enchElementPower"/> 
+    <enchant3 name="elementPower" val="#enchElementPower"/>
+    <enchant3 name="element" val="0"/>
+    <enchant4 name="elementPower" val="#enchElementPower"/>
+    <enchant4 name="element" val="1"/>
+    <enchant5 name="elementPower" val="#enchElementPower"/>
+    <enchant5 name="element" val="2"/>
+    <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/>
   </skill>
   <skill id="33" levels="8" name="Summon Phantom Cubic">

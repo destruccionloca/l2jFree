@@ -752,7 +752,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-	<set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
+    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <for>
       <add order="0x40" stat="pAtk" val="70"/>
       <mul order="0x30" stat="rCrit" val="1.03"/>
@@ -873,17 +873,19 @@
   </skill>
   <skill id="439" levels="1" name="Shield of Revenge">
     <!-- Description(s): Temporarily reflects damage from melee attack skills back to the enemy. -->
+    <!-- For 5 minutes, returns damage from close range physical attacks and skills back to the opponent at a fixed rate. -->
     <set name="hitTime" val="2500"/>
     <set name="mpConsume" val="78"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="150000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <effect name="Buff" time="300" val="0">
         <add order="0x40" stat="vengeancePdam" val="40"/>
         <add order="0x40" stat="reflectDam" val="40"/>
-	  </effect>
+      </effect>
     </for>
   </skill>
   <skill id="440" levels="1" name="Braveheart">
@@ -1471,7 +1473,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-	<set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
+    <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <for>
       <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
@@ -1483,7 +1485,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-	<set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
+    <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <for>
       <add order="0x40" stat="pAtk" val="#pAtk"/>
     </for>
@@ -1774,7 +1776,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="3000"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-	<set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
+    <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>

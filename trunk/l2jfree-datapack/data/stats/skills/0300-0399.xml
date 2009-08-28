@@ -550,15 +550,13 @@
     </for>
   </skill>
   <skill id="318" levels="1" name="Aegis Stance" enchantLevels1="30">
-    <!-- done by NB4L1 -->
     <table name="#ench1sDef"> 0.61 0.62 0.62 0.63 0.64 0.64 0.65 0.66 0.66 0.67 0.68 0.68 0.69
       0.7 0.7 0.71 0.72 0.72 0.73 0.74 0.74 0.75 0.76 0.76 0.77 0.78 0.78 0.79 0.8 0.8 </table>
     <set name="mpInitialConsume" val="9"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
-    <set name="weaponsAllowed" val="2"/>
-    <!-- Proper weapon restriction would be nice ;) -> Added wA=2 (Shield) -->
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
         <mul order="0x30" stat="sDef" val="0.6"/>
@@ -679,6 +677,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <enchant2 name="mpInitialConsume" val="#ench2MpConsume"/>
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.4">
@@ -1149,7 +1148,7 @@
     <set name="magicLvl" val="77"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="lvlDepend" val="2"/>
-    <set name="power" val="80"/> <!-- Base Land Rate --> 
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="mpConsume" val="18"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="STUN"/>
@@ -1168,7 +1167,7 @@
     <set name="magicLvl" val="77"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="lvlDepend" val="1"/>
-    <set name="power" val="80"/> <!-- Base Land Rate --> 
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="mpConsume" val="35"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MUTE"/>
@@ -1686,6 +1685,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <set name="minPledgeClass" val="6"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <mul order="0x30" stat="rShld" val="#rShld"/>
     </for>
@@ -1700,6 +1700,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="isMagic" val="true"/>
     <set name="minPledgeClass" val="5"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <mul order="0x30" stat="sDef" val="#sDef"/>
     </for>

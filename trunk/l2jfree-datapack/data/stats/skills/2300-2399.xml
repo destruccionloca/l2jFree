@@ -480,7 +480,7 @@
   </skill>
   <skill id="2341" levels="1" name="Caravan's Secret Medicine">
     <set name="itemConsumeId" val="9702"/>
-    <set name="itemConsumeCount" val="1"/>  
+    <set name="itemConsumeCount" val="1"/>
     <set name="hitTime" val="100"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

@@ -2314,6 +2314,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="1">

@@ -6,7 +6,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="accCombat" val="4"/>
     </for>
@@ -16,7 +15,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="rEvas" val="4"/>
     </for>
@@ -28,7 +26,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
-      <add order="0x40" stat="rShld" val="54.7"/>
+      <mul order="0x30" stat="rShld" val="1.547"/>
     </for>
   </skill>
   <skill id="603" levels="1" name="Residence Shield Defense">
@@ -46,7 +44,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="windRes" val="10"/>
       <add order="0x40" stat="waterRes" val="10"/>
@@ -57,7 +54,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="fireRes" val="10"/>
       <add order="0x40" stat="earthRes" val="10"/>
@@ -68,7 +64,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <mul order="0x30" stat="stunVuln" val="0.9"/>
     </for>
@@ -78,7 +73,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <mul order="0x30" stat="rootVuln" val="0.9"/>
     </for>
@@ -88,7 +82,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <mul order="0x30" stat="sleepVuln" val="0.9"/>
     </for>
@@ -98,7 +91,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <set name="minPledgeClass" val="7"/>
     <for>
       <add order="0x40" stat="runSpd" val="6"/>
@@ -109,7 +101,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <mul order="0x30" stat="lostExp" val="0.7"/>
     </for>
@@ -121,7 +112,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="pAtk" val="17.3"/>
       <add order="0x40" stat="rCrit" val="#rCrit"/>
@@ -131,11 +121,10 @@
   <skill id="612" levels="3" name="Water Squad">
     <!-- by Sephiroth -->
     <table name="#mDef"> 0 17.6 17.6 </table>
-    <table name="#sDef"> 1 1 1.6 </table>
+    <table name="#sDef"> 1 1 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="pDef" val="27.3"/>
       <add order="0x40" stat="mDef" val="#mDef"/>
@@ -149,7 +138,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="accCombat" val="2"/>
       <add order="0x40" stat="rEvas" val="#rEvas"/>
@@ -162,7 +150,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="mDef" val="#mDef"/>
     </for>
@@ -174,7 +161,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="regHp" val="20"/>
       <mul order="0x30" stat="maxMp" val="#maxMp"/>
@@ -185,14 +171,13 @@
   <skill id="616" levels="3" name="Dark Squad">
     <!-- by Sephiroth -->
     <table name="#mAtk"> 7.17 19.32 19.32 </table>
-    <table name="#cAtk"> 1 1 1.01 </table>
+    <table name="#mCritRate"> 1 1 1.01 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
     <for>
       <add order="0x40" stat="mAtk" val="#mAtk"/>
-      <mul order="0x30" stat="cAtk" val="#cAtk"/>
+      <mul order="0x30" stat="mCritRate" val="#mCritRate"/>
     </for>
   </skill>
   <skill id="617" levels="1" name="Transform Onyx Beast">
@@ -1116,7 +1101,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3000"/>
-    <!-- <set name="numberOfHits" val="2"/> --> <!-- Support for "Shoots 2 arrows continuously" -->  
+    <!-- <set name="numberOfHits" val="2"/> --> <!-- Support for "Shoots 2 arrows continuously" -->
   </skill>
   <skill id="688" levels="1" name="Divine Rogue Bleed Attack">
     <!--

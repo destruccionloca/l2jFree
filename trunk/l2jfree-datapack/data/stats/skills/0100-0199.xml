@@ -707,7 +707,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-	<set name="weaponsAllowed" val="32"/> <!-- Bow -->
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="#accCombat" stackType="HawkEye">
         <add order="0x40" stat="accCombat" val="#accCombat"/>

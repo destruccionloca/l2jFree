@@ -129,7 +129,7 @@
     <for>
       <effect name="Buff" time="1200" val="0">
         <mul order="0x30" stat="magicDamVul" val="0.5"/>
-	<!-- TEMP FIX: Changed from 0 to 0.5 due to formulas are not retail like -->
+        <!-- TEMP FIX: Changed from 0 to 0.5 due to formulas are not retail like -->
       </effect>
     </for>
   </skill>
@@ -185,6 +185,7 @@
     <set name="reuseDelay" val="45000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <effect name="Buff" time="8" val="0">
         <add order="0x40" stat="vengeanceMdam" val="100"/>
@@ -276,7 +277,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-	<set name="weaponsAllowed" val="262144"/> <!-- Dual Daggers -->
+    <set name="weaponsAllowed" val="262144"/> <!-- Dual Daggers -->
     <for>
       <add order="0x40" stat="pAtk" val="87.5"/>
       <mul order="0x30" stat="blowRate" val="1.05"/>
@@ -523,6 +524,7 @@
   </skill>
   <skill id="948" levels="1" name="Eye for Eye">
     <!-- Done by DJ MELERIX -->
+    <!-- For 10 seconds, returns damage from close range physical attacks and skills back to the opponent. -->
     <set name="hitTime" val="500"/>
     <set name="mpConsume" val="29"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -532,6 +534,7 @@
     <for>
       <effect name="Buff" time="10" val="0">
         <add order="0x40" stat="vengeancePdam" val="100"/>
+        <add order="0x40" stat="reflectDam" val="100"/>
       </effect>
     </for>
   </skill>

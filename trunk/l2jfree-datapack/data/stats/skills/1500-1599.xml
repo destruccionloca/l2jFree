@@ -410,7 +410,7 @@
       <effect name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pvpMagicalDmg" val="0.4"/>
       </effect>
-    </for>    	
+    </for>
   </skill>
   <skill id="1521" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31"/>
@@ -424,7 +424,7 @@
       <effect name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pvpMagicalDmg" val="0.4"/>
       </effect>
-    </for>    	
+    </for>
   </skill>
   <skill id="1522" levels="1" name="Inquisitor">
     <set name="mpConsume" val="31"/>
@@ -438,7 +438,7 @@
       <effect name="Transformation" time="18400" val="0">
         <mul order="0x30" stat="pvpMagicalDmg" val="0.4"/>
       </effect>
-    </for>    	
+    </for>
   </skill>
   <skill id="1523" levels="42" name="Divine Punishment">
     <!-- Inquisitor Stance Skill -->

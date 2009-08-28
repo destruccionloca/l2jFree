@@ -80,7 +80,7 @@
     <set name="transformId" val="312"/>
     <for>
       <effect name="Transformation" time="18400" val="0"/>
-    </for>		
+    </for>
   </skill>
   <skill id="811" levels="1" name="Vanguard">
     <set name="mpConsume" val="31"/>
