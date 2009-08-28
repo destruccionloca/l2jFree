@@ -23,20 +23,10 @@ MOUEN     = 30196 #Oren
 VISHOTSKY = 31981 #Schuttgart
 MATHIAS   = 31340 #Rune
 
-#Teleporters
-TPGLUDIO     = 50022
-TPDION       = 50022
-TPHEINE      = 50023
-TPOREN       = 50024
-TPSCHUTTGART = 50025
-TPRUNE       = 50026
-
 MAX_DISTANCE = 500
 
 GUARDS = [BATHIS,LUCAS,GOSTA,MOUEN,VISHOTSKY,MATHIAS]
 BOSSES = [18554,18555,18558,18559,18562,18564,18566,18568,18571,18573,18577]
-#Kamaloka Levels   23          26          33          36          43          46          53          56          63          66          73
-
 
 #KAMALOKA = [FILE, Reuse Delay, Boss, LvlMin, LvlMax, X, Y, Z]
 KAMALOKA = {
