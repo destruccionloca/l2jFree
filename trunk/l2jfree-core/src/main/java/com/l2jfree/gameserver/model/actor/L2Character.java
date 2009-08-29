@@ -5645,7 +5645,15 @@ public abstract class L2Character extends L2Object
 			return null;
 		
 		if (!(_skills instanceof FastMap<?, ?>)) // map returned by L2NpcTemplate.getSkills()
-			_skills = new FastMap<Integer, L2Skill>(_skills).setShared(true);
+		{
+			// L2NpcTemplate.getSkillS() is unmodifiable, so the entrySet() of it can't be used
+			FastMap<Integer, L2Skill> skills = new FastMap<Integer, L2Skill>(_skills.size()).setShared(true);
+			
+			for (Integer key : _skills.keySet())
+				skills.put(key, _skills.get(key));
+			
+			_skills = skills;
+		}
 		
 		// Replace oldSkill by newSkill or Add the newSkill
 		final L2Skill oldSkill = _skills.put(newSkill.getId(), newSkill);

@@ -18,44 +18,43 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
- * @author  Crion
+ * @author Crion
  */
 public class ShapePoly extends Shape
 {
 	private int[] _x;
 	private int[] _y;
-
+	
 	private int _xMin = Integer.MAX_VALUE, _xMax = Integer.MIN_VALUE;
 	private int _yMin = _xMin, _yMax = _xMax;
-
+	
 	@Override
 	public boolean contains(int x, int y)
 	{
 		boolean inside = false;
-		for (int i = 0, j = _x.length-1; i < _x.length; j = i++)
+		for (int i = 0, j = _x.length - 1; i < _x.length; j = i++)
 		{
-			if ( (((_y[i] <= y) && (y < _y[j])) || ((_y[j] <= y) && (y < _y[i]))) && (x < (_x[j] - _x[i]) * (y - _y[i]) / (_y[j] - _y[i]) + _x[i]) )
+			if ((((_y[i] <= y) && (y < _y[j])) || ((_y[j] <= y) && (y < _y[i]))) && (x < (double)(_x[j] - _x[i]) * (y - _y[i]) / (_y[j] - _y[i]) + _x[i]))
 			{
 				inside = !inside;
 			}
 		}
 		return inside;
 	}
-
+	
 	@Override
 	public int getMiddleX()
 	{
 		return (_xMin + _xMax) / 2;
 	}
-
+	
 	@Override
 	public int getMiddleY()
 	{
 		return (_yMin + _yMax) / 2;
 	}
-
+	
 	@Override
 	public boolean intersectsRectangle(int ax1, int ax2, int ay1, int ay2)
 	{
@@ -75,8 +74,8 @@ public class ShapePoly extends Shape
 		{
 			tX = _x[i];
 			tY = _y[i];
-			uX = _x[(i+1) % _x.length];
-			uY = _y[(i+1) % _x.length];
+			uX = _x[(i + 1) % _x.length];
+			uY = _y[(i + 1) % _x.length];
 			
 			// Check if this line intersects any of the four sites of the rectangle
 			if (lineSegmentsIntersect(tX, tY, uX, uY, ax1, ay1, ax1, ay2)) return true;
@@ -100,16 +99,16 @@ public class ShapePoly extends Shape
 		
 		return Math.sqrt(shortestDist);
 	}
-
+	
 	@Override
 	protected Shape prepare(int zoneId)
 	{
 		if (_points.size() < 3)
 		{
-			_log.error("Invalid point amount in zone"+zoneId+", must be >2");
+			_log.error("Invalid point amount in zone" + zoneId + ", must be >2");
 			return null;
 		}
-
+		
 		int size = _points.size();
 		_x = new int[size];
 		_y = new int[size];
@@ -126,7 +125,7 @@ public class ShapePoly extends Shape
 		}
 		return this;
 	}
-
+	
 	@Override
 	public Location getRandomLocation()
 	{
@@ -137,7 +136,7 @@ public class ShapePoly extends Shape
 			y = Rnd.get(_yMin, _yMax);
 		}
 		while (!contains(x, y));
-
+		
 		return new Location(x, y, _zMin);
 	}
 }
