@@ -461,10 +461,10 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	{
 		if (!_inUse || !getShowIcon())
 			return;
-
+		
 		if (!isActing())
 			return;
-
+		
 		// ShortBuffStatusUpdate sent by handler
 		switch (_skill.getId())
 		{
@@ -473,23 +473,32 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			case 2037:
 				return;
 		}
-
+		
 		switch (getEffectType())
 		{
 			case SIGNET_GROUND:
 				return;
 		}
-
+		
 		final ScheduledFuture<?> future = _currentFuture;
 		if (future == null)
 			return;
-
+		
 		long time = getRemainingTaskTime();
-
+		
 		if (time <= 0 || 86400 <= time)
 			time = -1;
-
-		list.addEffect(_skill.getDisplayId(), _skill.getLevel(), (int)time);
+		
+		_packetTime = (int)time;
+		
+		list.addEffect(this);
+	}
+	
+	private int _packetTime;
+	
+	public final int getPacketTime()
+	{
+		return _packetTime;
 	}
 	
 	public final int getId()

@@ -15,9 +15,10 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 
 /**
@@ -39,47 +40,38 @@ public abstract class EffectInfoPacket extends L2GameServerPacket
 	
 	protected final int size()
 	{
-		return _list._effects.size();
+		return _list.size();
 	}
 	
 	protected final void writeEffectInfos()
 	{
-		for (Effect e : _list._effects)
+		for (int i = 0, size = _list.size(); i < size; i++)
 		{
-			writeD(e._id);
-			writeH(e._level);
-			writeD(e._duration);
+			final L2Effect e = _list.get(i);
+			
+			final L2Skill skill = e.getSkill();
+			
+			writeD(skill.getDisplayId());
+			writeH(skill.getLevel());
+			writeD(e.getPacketTime());
 		}
 	}
 	
-	private static final class Effect
+	public static final class EffectInfoPacketList extends ArrayList<L2Effect>
 	{
-		private final int _id;
-		private final int _level;
-		private final int _duration;
-		
-		private Effect(int id, int level, int duration)
-		{
-			_id = id;
-			_level = level;
-			_duration = duration;
-		}
-	}
-	
-	public static final class EffectInfoPacketList
-	{
-		private final List<Effect> _effects = new ArrayList<Effect>(Config.ALT_BUFFS_MAX_AMOUNT + 5);
 		private final L2Playable _playable;
 		
 		public EffectInfoPacketList(L2Playable playable)
 		{
+			super(Config.ALT_BUFFS_MAX_AMOUNT + 5);
+			
 			_playable = playable;
 			_playable.getEffects().addPacket(EffectInfoPacketList.this);
 		}
 		
-		public final void addEffect(int id, int level, int duration)
+		public final void addEffect(L2Effect e)
 		{
-			_effects.add(new Effect(id, level, duration));
+			add(e);
 		}
 	}
 }
