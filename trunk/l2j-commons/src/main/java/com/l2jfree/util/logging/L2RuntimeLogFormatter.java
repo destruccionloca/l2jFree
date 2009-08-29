@@ -48,8 +48,13 @@ public abstract class L2RuntimeLogFormatter extends L2LogFormatter
 	{
 		Throwable throwable = record.getThrown();
 		
-		if (throwable == null && record.getLevel().intValue() >= L2Config.EXTENDED_LOG_LEVEL.intValue())
-			throwable = new ExtendedLog();
+		if (throwable == null)
+		{
+			if (record.getLevel().intValue() >= L2Config.EXTENDED_LOG_LEVEL.intValue())
+				throwable = new ExtendedLog();
+			else if (record.getMessage() != null && record.getMessage().contains("Unevenly distributed hash code - Degraded Preformance"))
+				throwable = new ExtendedLog();
+		}
 		
 		if (throwable != null)
 		{
