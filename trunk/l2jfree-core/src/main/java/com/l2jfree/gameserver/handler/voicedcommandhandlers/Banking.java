@@ -51,7 +51,10 @@ public class Banking implements IVoicedCommandHandler
 				InventoryUpdate iu = new InventoryUpdate();
 				activeChar.getInventory().reduceAdena("Goldbar", Config.BANKING_SYSTEM_ADENA, activeChar, null);
 				activeChar.getInventory().addItem("Goldbar", 3470, Config.BANKING_SYSTEM_GOLDBARS, activeChar, null);
-				activeChar.getInventory().updateDatabase();
+				
+				// No need to update every item in the inventory
+				//activeChar.getInventory().updateDatabase();
+				
 				activeChar.sendPacket(iu);
 				activeChar.sendMessage("Thank you, you now have " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar(s), and " + Config.BANKING_SYSTEM_ADENA + " less adena.");
 			}
@@ -67,7 +70,10 @@ public class Banking implements IVoicedCommandHandler
 				InventoryUpdate iu = new InventoryUpdate();
 				activeChar.getInventory().destroyItemByItemId("Adena", 3470, Config.BANKING_SYSTEM_GOLDBARS, activeChar, null);
 				activeChar.getInventory().addAdena("Adena", Config.BANKING_SYSTEM_ADENA, activeChar, null);
-				activeChar.getInventory().updateDatabase();
+				
+				// No need to update every item in the inventory
+				//activeChar.getInventory().updateDatabase();
+				
 				activeChar.sendPacket(iu);
 				activeChar.sendMessage("Thank you, you now have " + Config.BANKING_SYSTEM_ADENA + " Adena, and " + Config.BANKING_SYSTEM_GOLDBARS + " less Goldbar(s).");
 			}

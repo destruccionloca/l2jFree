@@ -140,7 +140,9 @@ public class CoupleManager
 				if (player1.isOnline() == 1 && item != null)
 				{
 					player1.destroyItem("Removing Cupids Bow", item, player1, true);
-					player1.getInventory().updateDatabase();
+					
+					// No need to update every item in the inventory
+					//player1.getInventory().updateDatabase();
 				}
 				if (player1.isOnline() == 0 && item != null)
 				{
@@ -175,7 +177,9 @@ public class CoupleManager
 				if (player2.isOnline() == 1 && item != null)
 				{
 					player2.destroyItem("Removing Cupids Bow", item, player2, true);
-					player2.getInventory().updateDatabase();
+					
+					// No need to update every item in the inventory
+					//player2.getInventory().updateDatabase();
 				}
 				if (player2.isOnline() == 0 && item != null)
 				{

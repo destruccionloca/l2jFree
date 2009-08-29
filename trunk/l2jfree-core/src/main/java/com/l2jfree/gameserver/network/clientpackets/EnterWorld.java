@@ -239,9 +239,13 @@ public class EnterWorld extends L2GameClientPacket
 				if (item != null)
 				{
 					activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
-					activeChar.getInventory().updateDatabase();
+					
+					// No need to update every item in the inventory
+					//activeChar.getInventory().updateDatabase();
+					
 					// Log it
-					_log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
+					if (_log.isDebugEnabled())
+						_log.debug("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
 				}
 			}
 		}

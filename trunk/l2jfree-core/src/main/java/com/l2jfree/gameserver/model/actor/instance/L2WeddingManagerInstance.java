@@ -141,9 +141,15 @@ public class L2WeddingManagerInstance extends L2Npc
             {
             	// give cupid's bows to couple's
             	player.addItem("Cupids Bow", 9140, 1, player, true, true); // give cupids bow
-            	player.getInventory().updateDatabase(); // update database
+            	
+            	// No need to update every item in the inventory
+            	//player.getInventory().updateDatabase(); // update database
+            	
             	ptarget.addItem("Cupids Bow", 9140, 1, ptarget, true, true); // give cupids bow
-            	ptarget.getInventory().updateDatabase(); // update database
+            	
+            	// No need to update every item in the inventory
+            	//ptarget.getInventory().updateDatabase(); // update database
+            	
                 // Refresh client side skill lists
                 player.sendSkillList();
                 ptarget.sendSkillList();

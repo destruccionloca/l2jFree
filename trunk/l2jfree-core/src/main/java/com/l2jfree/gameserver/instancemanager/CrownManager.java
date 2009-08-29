@@ -104,7 +104,9 @@ public final class CrownManager
 					activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				else if (item.isEquipped())
 					activeChar.getInventory().unEquipItemInSlot(Inventory.PAPERDOLL_HAIR2);
-				activeChar.getInventory().updateDatabase();
+				
+				// No need to update every item in the inventory
+				//activeChar.getInventory().updateDatabase();
 			}
 		}
 	}
