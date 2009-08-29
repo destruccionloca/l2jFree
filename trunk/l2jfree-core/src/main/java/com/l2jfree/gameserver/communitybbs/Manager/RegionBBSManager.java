@@ -525,7 +525,7 @@ public class RegionBBSManager extends BaseBBSManager
 
 			final TextBuilder htmlCode = TextBuilder.newInstance();
 			htmlCode.append("<html><body><br>");
-			htmlCode.append("<table>");
+			htmlCode.append("<table width=600>");
 			{
 				htmlCode.append(trOpen);
 				{
@@ -540,7 +540,7 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append(trClose);
 			}
 			htmlCode.append("</table>");
-			htmlCode.append("<table>");
+			htmlCode.append("<table width=400>");
 			{
 				htmlCode.append(trOpen);
 				{
@@ -562,16 +562,16 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append(trClose);
 				htmlCode.append(trOpen);
 				{
-					htmlCode.append(tdOpen).append("Drop Rate: ").append(Config.RATE_DROP_ITEMS).append(tdClose);
+					htmlCode.append(tdOpen).append("Drop Rate: x").append(Config.RATE_DROP_ITEMS).append(tdClose);
 					htmlCode.append(colSpacer);
-					htmlCode.append(tdOpen).append("Spoil Rate: ").append(Config.RATE_DROP_SPOIL).append(tdClose);
+					htmlCode.append(tdOpen).append("Spoil Rate: x").append(Config.RATE_DROP_SPOIL).append(tdClose);
 					htmlCode.append(colSpacer);
-					htmlCode.append(tdOpen).append("Adena Rate: ").append(Config.RATE_DROP_ADENA).append(tdClose);
+					htmlCode.append(tdOpen).append("Adena Rate: x").append(Config.RATE_DROP_ADENA).append(tdClose);
 				}
 				htmlCode.append(trClose);
 			}
 			htmlCode.append("</table>");
-			htmlCode.append("<table>");
+			htmlCode.append("<table width=600>");
 			{
 				htmlCode.append(trOpen);
 				{
@@ -580,26 +580,49 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append(trClose);
 				htmlCode.append(trOpen);
 				{
-					htmlCode.append(tdOpen).append(" Record of Player(s) Online:").append(RecordTable.getInstance().getRecord()).append(tdClose);
-				}
-				htmlCode.append(trClose);
-				htmlCode.append(trOpen);
-				{
-					htmlCode.append(tdOpen).append(" On date : ").append(RecordTable.getInstance().getDate())
-						.append(tdClose);
+					htmlCode.append(tdOpen);
+					{
+						htmlCode.append("Record of Player(s) Online: ");
+						htmlCode.append("<font color=\"LEVEL\">");
+						{
+							htmlCode.append(RecordTable.getInstance().getRecord());
+						}
+						htmlCode.append("</font>");
+						htmlCode.append(" - on Date: ");
+						htmlCode.append("<font color=\"LEVEL\">");
+						{
+							htmlCode.append(RecordTable.getInstance().getDate());
+						}
+						htmlCode.append("</font>");
+					}
+					htmlCode.append(tdClose);
 				}
 				htmlCode.append(trClose);
 				if (CommunityPageType.GM == CommunityPageType.this)
 				{
 					htmlCode.append(trOpen);
 					{
-						htmlCode.append(tdOpen).append(L2World.getInstance().getAllVisibleObjectsCount()).append(" Object count").append(tdClose);
+						htmlCode.append(tdOpen);
+						{
+							htmlCode.append("L2World.getAllVisibleObjectsCount(): ");
+							htmlCode.append(L2World.getInstance().getAllVisibleObjectsCount());
+						}
+						htmlCode.append(tdClose);
 					}
 					htmlCode.append(trClose);
 				}
 				htmlCode.append(trOpen);
 				{
-					htmlCode.append(tdOpen).append(_players.size()).append(" Player(s) Online").append(tdClose);
+					htmlCode.append(tdOpen);
+					{
+						htmlCode.append("<font color=\"LEVEL\">");
+						{
+							htmlCode.append(_players.size());
+						}
+						htmlCode.append("</font>");
+						htmlCode.append(" Player(s) Online");
+					}
+					htmlCode.append(tdClose);
 				}
 				htmlCode.append(trClose);
 				if (Config.BBS_SHOW_PLAYERLIST && Config.SHOW_LEGEND)
@@ -625,8 +648,8 @@ public class RegionBBSManager extends BaseBBSManager
 
 			if (Config.BBS_SHOW_PLAYERLIST)
 			{
-				htmlCode.append("<table border=0>");
-				htmlCode.append("<tr><td><table border=0>");
+				htmlCode.append("<table width=600 border=0>");
+				htmlCode.append("<tr><td><table width=600 border=0>");
 
 				int cell = 0;
 				for (L2PcInstance player : onlinePlayers)
