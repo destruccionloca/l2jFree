@@ -57,6 +57,7 @@ import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.cache.WarehouseCacheManager;
 import com.l2jfree.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
@@ -1936,6 +1937,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		_karma = karma;
 		broadcastKarma();
+		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.KARMA_OWNER);
 	}
 
 	/**
@@ -11533,7 +11535,7 @@ public final class L2PcInstance extends L2Playable
 			_log.fatal( "deleteMe()", e);
 		}
 		
-		RegionBBSManager.changeCommunityBoard();
+		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.NONE);
 		
 		//getClearableReference().clear();
 		LeakTaskManager.getInstance().add(this);
@@ -12307,6 +12309,8 @@ public final class L2PcInstance extends L2Playable
 
 		// Store in database
 		storeCharBase();
+		
+		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.IN_JAIL);
 	}
 
 	public long getJailTimer()
@@ -12406,6 +12410,8 @@ public final class L2PcInstance extends L2Playable
 	public void setCursedWeaponEquippedId(int value)
 	{
 		_cursedWeaponEquippedId = value;
+		
+		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.CURSED_WEAPON_OWNER);
 	}
 
 	public int getCursedWeaponEquippedId()
@@ -14571,6 +14577,8 @@ public final class L2PcInstance extends L2Playable
 		sendMessage("Offline mode enabled.");
 		
 		new Disconnection(this).store().close(false);
+		
+		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.OFFLINE);
 		return true;
 	}
 	

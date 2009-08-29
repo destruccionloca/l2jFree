@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
@@ -119,20 +120,19 @@ public class AdminEffects implements IAdminCommandHandler
 				activeChar.getAppearance().setVisible();
 				activeChar.broadcastUserInfo();
 			}
-			RegionBBSManager.changeCommunityBoard();
+			RegionBBSManager.changeCommunityBoard(activeChar, PlayerStateOnCommunity.NONE);
 		}
 		else if (command.startsWith("admin_invis"))
 		{
 			activeChar.getAppearance().setInvisible();
 			activeChar.updateInvisibilityStatus();
-			RegionBBSManager.changeCommunityBoard();
+			RegionBBSManager.changeCommunityBoard(activeChar, PlayerStateOnCommunity.NONE);
 		}
-
 		else if (command.startsWith("admin_vis"))
 		{
 			activeChar.getAppearance().setVisible();
 			activeChar.broadcastUserInfo();
-			RegionBBSManager.changeCommunityBoard();
+			RegionBBSManager.changeCommunityBoard(activeChar, PlayerStateOnCommunity.NONE);
 		}
 		else if (command.startsWith("admin_earthquake"))
 		{

@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
@@ -373,7 +374,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						player.getClan().broadcastClanStatus();
 					}
 
-					RegionBBSManager.changeCommunityBoard();
+					RegionBBSManager.changeCommunityBoard(player, PlayerStateOnCommunity.NONE);
 				}
 				else if (target instanceof L2Npc)
 				{

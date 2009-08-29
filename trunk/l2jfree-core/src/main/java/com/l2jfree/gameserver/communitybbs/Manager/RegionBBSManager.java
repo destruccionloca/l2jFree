@@ -285,19 +285,160 @@ public class RegionBBSManager extends BaseBBSManager
 	private RegionBBSManager()
 	{
 	}
-
-	public static synchronized void changeCommunityBoard()
+	
+	public static void changeCommunityBoard(L2PcInstance player, PlayerStateOnCommunity maxInfluencedState)
 	{
-		CommunityPageType.PLAYER.clear();
-		CommunityPageType.GM.clear();
+		if (!maxInfluencedState.showState())
+			return;
+		
+		CommunityPageType.PLAYER.changeCommunityBoard(player, maxInfluencedState);
+		CommunityPageType.GM.changeCommunityBoard(player, maxInfluencedState);
 	}
-
+	
 	private static final SimpleDateFormat format = new SimpleDateFormat("H:mm");
 	private static final String tdClose = "</td>";
 	private static final String tdOpen = "<td align=left valign=top>";
 	private static final String trClose = "</tr>";
 	private static final String trOpen = "<tr>";
 	private static final String colSpacer = "<td FIXWIDTH=15></td>";
+	
+	public static enum PlayerStateOnCommunity
+	{
+		NONE {
+			@Override
+			protected boolean showState()
+			{
+				return true;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				if (player == null)
+					return true;
+				
+				if (player.isGM() && player.getAppearance().isInvisible())
+					if (CommunityPageType.PLAYER == type)
+						return true;
+				
+				return false;
+			}
+		},
+		GM {
+			@Override
+			protected boolean showState()
+			{
+				return true;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return player.isGM();
+			}
+		},
+		IN_JAIL {
+			@Override
+			protected boolean showState()
+			{
+				return Config.SHOW_JAILED_PLAYERS;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return player.isInJail();
+			}
+		},
+		CURSED_WEAPON_OWNER {
+			@Override
+			protected boolean showState()
+			{
+				return Config.SHOW_CURSED_WEAPON_OWNER;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return player.isCursedWeaponEquipped();
+			}
+		},
+		KARMA_OWNER {
+			@Override
+			protected boolean showState()
+			{
+				return Config.SHOW_KARMA_PLAYERS;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return player.getKarma() > 0;
+			}
+		},
+		LEADER {
+			@Override
+			protected boolean showState()
+			{
+				return Config.SHOW_CLAN_LEADER;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return player.isClanLeader() && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL;
+			}
+		},
+		OFFLINE {
+			@Override
+			protected boolean showState()
+			{
+				return true;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return player.isInOfflineMode();
+			}
+		},
+		NORMAL {
+			@Override
+			protected boolean showState()
+			{
+				return true;
+			}
+			
+			@Override
+			protected boolean isInState(L2PcInstance player, CommunityPageType type)
+			{
+				return true;
+			}
+		};
+		
+		/**
+		 * @return is the state currently active or not
+		 */
+		protected abstract boolean showState();
+		
+		/**
+		 * @param player
+		 * @param type
+		 * @return is the player in the state or not
+		 */
+		protected abstract boolean isInState(L2PcInstance player, CommunityPageType type);
+		
+		public static PlayerStateOnCommunity getPlayerState(L2PcInstance player, CommunityPageType type)
+		{
+			for (PlayerStateOnCommunity state : VALUES)
+				if (state.showState() && state.isInState(player, type))
+					return state;
+			
+			throw new InternalError("Shouldn't happen!");
+		}
+		
+		private static final PlayerStateOnCommunity[] VALUES = PlayerStateOnCommunity.values();
+	}
 	
 	private static enum CommunityPageType
 	{
@@ -311,7 +452,18 @@ public class RegionBBSManager extends BaseBBSManager
 
 		private final List<L2PcInstance> _players = new ArrayList<L2PcInstance>();
 		private final Map<Integer, String> _communityPages = new FastMap<Integer, String>();
-
+		
+		public void changeCommunityBoard(L2PcInstance player, PlayerStateOnCommunity maxInfluencedState)
+		{
+			if (getPlayerState(player).ordinal() >= maxInfluencedState.ordinal())
+				clear();
+		}
+		
+		private PlayerStateOnCommunity getPlayerState(L2PcInstance player)
+		{
+			return PlayerStateOnCommunity.getPlayerState(player, this);
+		}
+		
 		private synchronized void clear()
 		{
 			_players.clear();
@@ -337,36 +489,9 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 
 				Collections.sort(_players, new Comparator<L2PcInstance>() {
-					private Integer getOrder(L2PcInstance player)
-					{
-						if (player.isGM())
-							return 1;
-
-						if (Config.SHOW_JAILED_PLAYERS)
-							if (player.isInJail())
-								return 2;
-
-						if (Config.SHOW_CURSED_WEAPON_OWNER)
-							if (player.isCursedWeaponEquipped())
-								return 3;
-
-						if (Config.SHOW_KARMA_PLAYERS)
-							if (player.getKarma() > 0)
-								return 4;
-
-						if (Config.SHOW_CLAN_LEADER)
-							if (player.isClanLeader() && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
-								return 5;
-
-						if (player.isInOfflineMode())
-							return 6;
-
-						return 10;
-					}
-
 					public int compare(L2PcInstance p1, L2PcInstance p2)
 					{
-						final int value = getOrder(p1).compareTo(getOrder(p2));
+						final int value = getPlayerState(p1).compareTo(getPlayerState(p2));
 
 						if (value != 0)
 							return value;
@@ -477,12 +602,20 @@ public class RegionBBSManager extends BaseBBSManager
 					htmlCode.append(tdOpen).append(_players.size()).append(" Player(s) Online").append(tdClose);
 				}
 				htmlCode.append(trClose);
-				if (Config.SHOW_LEGEND)
+				if (Config.BBS_SHOW_PLAYERLIST && Config.SHOW_LEGEND)
 				{
 					htmlCode.append(trOpen);
 					{
 						htmlCode.append(tdOpen);
-						htmlCode.append("<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>");
+						htmlCode.append("<font color=\"LEVEL\">GM</font>");
+						if (PlayerStateOnCommunity.IN_JAIL.showState())
+							htmlCode.append(" - <font color=\"999999\">Jailed</font>");
+						if (PlayerStateOnCommunity.CURSED_WEAPON_OWNER.showState())
+							htmlCode.append(" - <font color=\"FF0000\">Cursedweapon</font>");
+						if (PlayerStateOnCommunity.KARMA_OWNER.showState())
+							htmlCode.append(" - <font color=\"FF00FF\">Karma</font>");
+						if (PlayerStateOnCommunity.LEADER.showState())
+							htmlCode.append(" - <font color=\"00FF00\">Clan Leader</font>");
 						htmlCode.append(tdClose);
 					}
 					htmlCode.append(trClose);
@@ -508,20 +641,33 @@ public class RegionBBSManager extends BaseBBSManager
 
 					htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;").append(player.getName()).append("\">");
 
-					if (player.isGM())
-						htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
-					else if (player.isInJail() && Config.SHOW_JAILED_PLAYERS)
-						htmlCode.append("<font color=\"999999\">").append(player.getName()).append("</font>");
-					else if (player.isCursedWeaponEquipped() && Config.SHOW_CURSED_WEAPON_OWNER)
-						htmlCode.append("<font color=\"FF0000\">").append(player.getName()).append("</font>");
-					else if (player.getKarma() > 0 && Config.SHOW_KARMA_PLAYERS)
-						htmlCode.append("<font color=\"FF00FF\">").append(player.getName()).append("</font>");
-					else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
-						htmlCode.append("<font color=\"00FF00\">").append(player.getName()).append("</font>");
-					else if (player.isInOfflineMode())
-						htmlCode.append(player.getName()).append(" (Offline Mode)");
-					else
-						htmlCode.append(player.getName());
+					switch (getPlayerState(player))
+					{
+						case NONE:
+							break;
+						case GM:
+							htmlCode.append("<font color=\"LEVEL\">").append(player.getName()).append("</font>");
+							break;
+						case IN_JAIL:
+							htmlCode.append("<font color=\"999999\">").append(player.getName()).append("</font>");
+							break;
+						case CURSED_WEAPON_OWNER:
+							htmlCode.append("<font color=\"FF0000\">").append(player.getName()).append("</font>");
+							break;
+						case KARMA_OWNER:
+							htmlCode.append("<font color=\"FF00FF\">").append(player.getName()).append("</font>");
+							break;
+						case LEADER:
+							htmlCode.append("<font color=\"00FF00\">").append(player.getName()).append("</font>");
+							break;
+						case OFFLINE:
+							htmlCode.append(player.getName()).append(" (offline)");
+							break;
+						case NORMAL:
+						default:
+							htmlCode.append(player.getName());
+							break;
+					}
 
 					htmlCode.append("</a></td>");
 
@@ -545,7 +691,7 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append("</table>");
 			}
 
-			if (_players.size() > Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
+			if (Config.BBS_SHOW_PLAYERLIST && _players.size() > Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
 			{
 				htmlCode.append("<table border=0 width=600>");
 

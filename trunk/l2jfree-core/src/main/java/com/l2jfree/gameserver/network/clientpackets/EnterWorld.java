@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
+import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
@@ -446,7 +447,7 @@ public class EnterWorld extends L2GameClientPacket
 			//activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone"); - custom
 		}
 
-		RegionBBSManager.changeCommunityBoard();
+		RegionBBSManager.changeCommunityBoard(activeChar, PlayerStateOnCommunity.NONE);
 
 		if (Config.GAMEGUARD_ENFORCE)
 			activeChar.sendPacket(GameGuardQuery.STATIC_PACKET);
