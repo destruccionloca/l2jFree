@@ -98,10 +98,10 @@ public final class GeoEngine extends GeoData
     	return "bx: "+getBlock(gx)+" by: "+getBlock(gy)+" cx: "+getCell(gx)+" cy: "+getCell(gy)+"  region offset: "+getRegionOffset(gx,gy);
     }
 
-    @Override
-    public boolean canSeeTarget(L2Object cha, Point3D target)
-    {
-    	if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ()))
+	@Override
+	public boolean canSeeTarget(L2Object cha, Point3D target)
+	{
+		if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(), cha.getY(), cha.getZ(), target.getX(), target.getY(), target.getZ(), cha.getInstanceId()))
     		return false;
     	if(cha.getZ() >= target.getZ())
     		return canSeeTarget(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ());
@@ -128,7 +128,7 @@ public final class GeoEngine extends GeoData
     	int z2 = target.getZ()+45;
     	if (target instanceof L2DoorInstance)
     		return true; // door coordinates are hinge coords..
-    	if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2))
+    	if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(), cha.getY(), z, target.getX(), target.getY(), z2, cha.getInstanceId()))
     		return false;
     	if (target instanceof L2SiegeGuard)
     		z2 += 30; // well they don't move closer to balcony fence at the moment :(
@@ -161,19 +161,20 @@ public final class GeoEngine extends GeoData
     {
         return nGetNSWE((x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z);
     }
-    @Override
-    public boolean canMoveFromToTarget(int x, int y, int z, int tx, int ty, int tz)
-    {
-    	Location destiny = moveCheck(x,y,z,tx,ty,tz);
-    	return (destiny.getX() == tx && destiny.getY() == ty && destiny.getZ() == tz);
-    }
-
-    @Override
-    public Location moveCheck(int x, int y, int z, int tx, int ty, int tz)
-    {
-    	Location startpoint = new Location(x,y,z);
-    	if (DoorTable.getInstance().checkIfDoorsBetween(x,y,z,tx,ty,tz))
-    		return startpoint;
+    
+	@Override
+	public boolean canMoveFromToTarget(int x, int y, int z, int tx, int ty, int tz, int instanceId)
+	{
+		Location destiny = moveCheck(x, y, z, tx, ty, tz, instanceId);
+		return (destiny.getX() == tx && destiny.getY() == ty && destiny.getZ() == tz);
+	}
+	
+	@Override
+	public Location moveCheck(int x, int y, int z, int tx, int ty, int tz, int instanceId)
+	{
+		Location startpoint = new Location(x, y, z);
+		if (DoorTable.getInstance().checkIfDoorsBetween(x, y, z, tx, ty, tz, instanceId))
+			return startpoint;
 
     	Location destiny = new Location(tx,ty,tz);
         return moveCheck(startpoint, destiny,(x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);

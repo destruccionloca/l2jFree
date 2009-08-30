@@ -42,7 +42,7 @@ public abstract class PathFinding
 			return CellPathFinding.getInstance(); // Cell pathfinding, calculated directly from geodata files
 	}
 	
-	public abstract Node[] findPath(int x, int y, int z, int tx, int ty, int tz);
+	public abstract Node[] findPath(int x, int y, int z, int tx, int ty, int tz, int instanceId);
 	
 	public abstract Node[] readNeighbors(Node n, int idx);
 	
@@ -433,7 +433,7 @@ public abstract class PathFinding
 				}
 				else if (GeoData.getInstance().canMoveFromToTarget(
 					lastValidNode.getX(), lastValidNode.getY(), lastValidNode.getZ(),
-					midNode.getX(), midNode.getY(), midNode.getZ()))
+					midNode.getX(), midNode.getY(), midNode.getZ(), 0))
 				{
 					low = mid;
 				}

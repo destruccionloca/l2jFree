@@ -1436,7 +1436,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 
 		if (Config.GEODATA > 0 && dropper != null)
 		{
-			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
+			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z, dropper.getInstanceId());
 			x = dropDest.getX();
 			y = dropDest.getY();
 			z = dropDest.getZ();

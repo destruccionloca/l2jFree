@@ -30,6 +30,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
@@ -264,17 +265,23 @@ public final class DoorTable
 		return _doorArray;
 	}
 	
-	public boolean checkIfDoorsBetween(Node start, Node end)
+	public boolean checkIfDoorsBetween(Node start, Node end, int instanceId)
 	{
-		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ());
+		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ(), instanceId);
 	}
 	
-	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
+	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
 		L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
 		
+		final L2DoorInstance[] allDoors;
+		if (instanceId > 0)
+			allDoors = InstanceManager.getInstance().getInstance(instanceId).getDoors();
+		else
+			allDoors = getDoors();
+		
 		// there are quite many doors, maybe they should be splitted
-		for (L2DoorInstance doorInst : getDoors())
+		for (L2DoorInstance doorInst : allDoors)
 		{
 			if (doorInst.getMapRegion() != region)
 				continue;

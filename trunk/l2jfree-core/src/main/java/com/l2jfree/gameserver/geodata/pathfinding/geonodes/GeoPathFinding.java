@@ -67,7 +67,7 @@ public final class GeoPathFinding extends PathFinding
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
 	 */
 	@Override
-	public Node[] findPath(int x, int y, int z, int tx, int ty, int tz)
+	public Node[] findPath(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
 		int gx = (x - L2World.MAP_MIN_X) >> 4;
 		int gy = (y - L2World.MAP_MIN_Y) >> 4;
@@ -86,12 +86,12 @@ public final class GeoPathFinding extends PathFinding
 			return null;
 		
     	// TODO: Find closest path node we CAN access. Now only checks if we can not reach the closest
-		Location temp = GeoData.getInstance().moveCheck(x, y, z, start.getX(), start.getY(), start.getZ());
+		Location temp = GeoData.getInstance().moveCheck(x, y, z, start.getX(), start.getY(), start.getZ(), instanceId);
 		if ((temp.getX() != start.getX()) || (temp.getY() != start.getY()))
 			return null; //   cannot reach closest...
 		
 		// TODO: Find closest path node around target, now only checks if final location can be reached
-		temp = GeoData.getInstance().moveCheck(tx, ty, tz, end.getX(), end.getY(), end.getZ());
+		temp = GeoData.getInstance().moveCheck(tx, ty, tz, end.getX(), end.getY(), end.getZ(), instanceId);
 		if ((temp.getX() != end.getX()) || (temp.getY() != end.getY()))
 			return null; //   cannot reach closest...
 

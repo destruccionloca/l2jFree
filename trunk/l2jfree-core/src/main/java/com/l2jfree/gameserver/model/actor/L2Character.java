@@ -4655,7 +4655,7 @@ public abstract class L2Character extends L2Object
 						onDecay(); // preventation when summon get out of world coords, player will not loose it, unsummon handled from pcinstance
 					return;
 				}
-				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
+				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z, getInstanceId());
 				// location different if destination wasn't reached (or just z coord is different)
 				x = destiny.getX();
 				y = destiny.getY();
@@ -4673,7 +4673,7 @@ public abstract class L2Character extends L2Object
 				if(this instanceof L2Playable || isInCombat() || this instanceof L2MinionInstance)
 				{
 		
-					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ);
+					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, getInstanceId());
                 	if (m.geoPath == null || m.geoPath.length < 2) // No path found
                 	{
                 		// * Even though there's no path found (remember geonodes aren't perfect),
@@ -4713,7 +4713,7 @@ public abstract class L2Character extends L2Object
                 		z = m.geoPath[m.onGeodataPathIndex].getZ();
                 		
                 		// check for doors in the route
-                		if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z))
+                		if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z, getInstanceId()))
             			{
             				m.geoPath = null;
             				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -4721,7 +4721,7 @@ public abstract class L2Character extends L2Object
             			}
                 		for (int i = 0; i < m.geoPath.length-1; i++)
                 		{
-                			if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath[i], m.geoPath[i+1]))
+                			if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath[i], m.geoPath[i+1], getInstanceId()))
                 			{
                 				m.geoPath = null;
                 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

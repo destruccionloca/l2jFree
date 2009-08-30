@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.entity;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
@@ -67,6 +66,7 @@ public class Instance
 	private final Set<Integer> _players = new L2FastSet<Integer>().setShared(true);
 	private final Set<L2Npc> _npcs = new L2FastSet<L2Npc>().setShared(true);
 	private final Map<Integer, L2DoorInstance> _doors = new FastMap<Integer, L2DoorInstance>().setShared(true);
+	private L2DoorInstance[] _doorArray;
 	private int[]						_spawnLoc;
 	private boolean						_allowSummon		= true;
 	private boolean						_isPvPInstance		= false;
@@ -191,6 +191,7 @@ public class Instance
 	public void removeDoor(L2DoorInstance door)
 	{
 		_doors.remove(door.getDoorId());
+		_doorArray = null;
 	}
 
 	/**
@@ -224,6 +225,7 @@ public class Instance
 		newdoor.spawnMe(newdoor.getX(), newdoor.getY(), newdoor.getZ());
 
 		_doors.put(newdoor.getDoorId(), newdoor);
+		_doorArray = null;
 	}
 
 	public Set<Integer> getPlayers()
@@ -236,9 +238,12 @@ public class Instance
 		return _npcs;
 	}
 
-	public Collection<L2DoorInstance> getDoors()
+	public L2DoorInstance[] getDoors()
 	{
-		return _doors.values();
+		if (_doorArray == null)
+			_doorArray = _doors.values().toArray(new L2DoorInstance[_doors.size()]);
+		
+		return _doorArray;
 	}
 
 	public L2DoorInstance getDoor(int doorId)
@@ -286,6 +291,7 @@ public class Instance
 				door.decayMe();
 		}
 		_doors.clear();
+		_doorArray = null;
 	}
 
 	public void loadInstanceTemplate(String filename)

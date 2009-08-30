@@ -38,7 +38,7 @@ public final class CellPathFinding extends PathFinding
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
 	 */
 	@Override
-	public Node[] findPath(int x, int y, int z, int tx, int ty, int tz)
+	public Node[] findPath(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
 		int gx = (x - L2World.MAP_MIN_X) >> 4;
 		int gy = (y - L2World.MAP_MIN_Y) >> 4;
