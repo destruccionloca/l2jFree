@@ -916,7 +916,7 @@
   </zone>
   <zone id="37" name="Kamael Village" type="Town">
     <!--<settings pvp="Peace"/> Overridden -->
-    <entity townId="19" castleId="5"/>
+    <entity townId="20" castleId="5"/>
     <shape type="Poly" zMin="250" zMax="2250">
       <point x="-121743" y="44424"/>
       <point x="-121032" y="43295"/>
@@ -954,7 +954,7 @@
   </zone>
   <zone id="38" name="Fantasy Isle" type="Town">
     <!--<settings pvp="Peace"/> Overridden -->
-    <entity townId="20" castleId="5"/>
+    <entity townId="21" castleId="5"/>
     <shape type="Rect" zMin="-4324" zMax="3097">
       <point x="-88871" y="-43491"/>
       <point x="-43060" y="-77664"/>
@@ -962,7 +962,7 @@
   </zone>
   <zone id="39" name="Keucereus" type="Town">
     <!--<settings pvp="Peace"/> Overridden -->
-    <entity townId="21"/>
+    <entity townId="32"/>
     <shape type="Rect" zMin="1080" zMax="3210">
       <point x="-187342" y="238059"/>
       <point x="-181849" y="247548"/>

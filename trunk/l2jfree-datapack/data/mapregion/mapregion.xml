@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../templates/mapregion.dtd">
 <mapregion>
+  <!-- TODO: find proper 'bbs' for newer restarts, as '101' is just a placeholder -->
+  <!-- TODO: add more restart points to newer restarts (for example: 36, 37, 132) -->
+  <!-- TODO: get proper chaotic restart points for newer restarts  (for example: 36, 37, 132) -->
   <restartpoints>
-    <restartpoint restartId="0" name="talking_island_town" bbs="1" locname="910">
+    <restartpoint restartId="0" name="talking_island_town" bbs="1" locname="910"> <!-- L2J: 0 = "Talking Island Village" -->
       <normal X="-83990" Y="243336" Z="-3700"/>
       <normal X="-83964" Y="242680" Z="-3700"/>
       <normal X="-84512" Y="242679" Z="-3700"/>
@@ -38,7 +41,7 @@
       <chaotic X="-83328" Y="238304" Z="-3700"/>
       <chaotic X="-91296" Y="236272" Z="-3690"/>
     </restartpoint>
-    <restartpoint restartId="1" name="gludin_town" bbs="2" locname="911">
+    <restartpoint restartId="1" name="gludin_town" bbs="2" locname="911"> <!-- L2J: 6 = "Gludin Village" -->
       <normal X="-83520" Y="150560" Z="-3000"/>
       <normal X="-82464" Y="150848" Z="-3000"/>
       <normal X="-84064" Y="150864" Z="-3000"/>
@@ -74,7 +77,7 @@
       <chaotic X="-75440" Y="162672" Z="-3350"/>
       <chaotic X="-81760" Y="161248" Z="-3200"/>
     </restartpoint>
-    <restartpoint restartId="2" name="gludio_castle_town" bbs="2" locname="912">
+    <restartpoint restartId="2" name="gludio_castle_town" bbs="2" locname="912"> <!-- L2J: 5 = "Town of Gludio" -->
       <normal X="-14288" Y="122752" Z="-3000"/>
       <normal X="-14592" Y="123232" Z="-3000"/>
       <normal X="-14704" Y="122032" Z="-3000"/>
@@ -108,7 +111,7 @@
       <chaotic X="-20176" Y="124512" Z="-3350"/>
       <chaotic X="-19040" Y="121632" Z="-3200"/>
     </restartpoint>
-    <restartpoint restartId="3" name="DMZ" bbs="7" locname="913">
+    <restartpoint restartId="3" name="DMZ" bbs="7" locname="913"> <!-- L2J: 22 = "Neutral Zone" -->
       <normal X="-14288" Y="122752" Z="-3000"/>
       <normal X="-14592" Y="123232" Z="-3000"/>
       <normal X="-14704" Y="122032" Z="-3000"/>
@@ -142,7 +145,7 @@
       <chaotic X="-20176" Y="124512" Z="-3350"/>
       <chaotic X="-19040" Y="121632" Z="-3200"/>
     </restartpoint>
-    <restartpoint restartId="4" name="elf_town" bbs="4" locname="914">
+    <restartpoint restartId="4" name="elf_town" bbs="4" locname="914"> <!-- L2J: 1 = "Elven Village" -->
       <normal X="45487" Y="49767" Z="-2950"/>
       <normal X="45080" Y="49614" Z="-2950"/>
       <normal X="45284" Y="49309" Z="-2950"/>
@@ -177,7 +180,7 @@
       <chaotic X="49808" Y="56240" Z="-3430"/>
       <bannedrace race="Darkelf" restartId="5"/>
     </restartpoint>
-    <restartpoint restartId="5" name="darkelf_town" bbs="3" locname="915">
+    <restartpoint restartId="5" name="darkelf_town" bbs="3" locname="915"> <!-- L2J: 2 = "Dark Elven Village" -->
       <normal X="11632" Y="16812" Z="-4500"/>
       <normal X="11217" Y="16837" Z="-4500"/>
       <normal X="11498" Y="16979" Z="-4500"/>
@@ -212,7 +215,7 @@
       <chaotic X="-11984" Y="21232" Z="-3600"/>
       <bannedrace race="Elf" restartId="4"/>
     </restartpoint>
-    <restartpoint restartId="6" name="dion_castle_town" bbs="5" locname="916">
+    <restartpoint restartId="6" name="dion_castle_town" bbs="5" locname="916"> <!-- L2J: 7 = "Town of Dion" -->
       <normal X="19025" Y="145245" Z="-3107"/>
       <normal X="18576" Y="145136" Z="-3104"/>
       <normal X="18717" Y="145711" Z="-3097"/>
@@ -237,7 +240,7 @@
       <chaotic X="18054" Y="170263" Z="-3400"/>
       <chaotic X="17931" Y="170381" Z="-3400"/>
     </restartpoint>
-    <restartpoint restartId="7" name="floran_town" bbs="5" locname="917">
+    <restartpoint restartId="7" name="floran_town" bbs="5" locname="917"> <!-- L2J: 17 = "Floran Village" -->
       <normal X="19025" Y="145245" Z="-3107"/>
       <normal X="18576" Y="145136" Z="-3104"/>
       <normal X="18717" Y="145711" Z="-3097"/>
@@ -262,7 +265,7 @@
       <chaotic X="18054" Y="170263" Z="-3451"/>
       <chaotic X="17931" Y="170381" Z="-3451"/>
     </restartpoint>
-    <restartpoint restartId="8" name="giran_castle_town" bbs="6" locname="918">
+    <restartpoint restartId="8" name="giran_castle_town" bbs="6" locname="918"> <!-- L2J: 8 = "Town of Giran" -->
       <normal X="82480" Y="149087" Z="-3350"/>
       <normal X="81440" Y="149119" Z="-3350"/>
       <normal X="81376" Y="148095" Z="-3350"/>
@@ -290,7 +293,7 @@
       <chaotic X="79832" Y="154009" Z="-3500"/>
       <chaotic X="75501" Y="147178" Z="-3530"/>
     </restartpoint>
-    <restartpoint restartId="9" name="giran_habor" bbs="6" locname="919">
+    <restartpoint restartId="9" name="giran_habor" bbs="6" locname="919"> <!-- L2J: 12 = "Giran Harbor" -->
       <normal X="46763" Y="187041" Z="-3451"/>
       <normal X="46471" Y="186666" Z="-3451"/>
       <normal X="47290" Y="186842" Z="-3451"/>
@@ -316,7 +319,7 @@
       <chaotic X="49033" Y="184647" Z="-3451"/>
       <chaotic X="49372" Y="185076" Z="-3451"/>
     </restartpoint>
-    <restartpoint restartId="10" name="orc_town" bbs="8" locname="920">
+    <restartpoint restartId="10" name="orc_town" bbs="8" locname="920"> <!-- L2J: 3 = "Orc Village" -->
       <normal X="-44316" Y="-113136" Z="-80"/>
       <normal X="-44296" Y="-114048" Z="-80"/>
       <normal X="-44704" Y="-112896" Z="-80"/>
@@ -346,7 +349,7 @@
       <chaotic X="-39136" Y="-112688" Z="-1844"/>
       <chaotic X="-37888" Y="-112608" Z="-1772"/>
     </restartpoint>
-    <restartpoint restartId="11" name="dwarf_town" bbs="9" locname="921">
+    <restartpoint restartId="11" name="dwarf_town" bbs="9" locname="921"> <!-- L2J: 4 = "Dwarven Village" -->
       <normal X="116176" Y="-182448" Z="-1400"/>
       <normal X="116476" Y="-182904" Z="-1500"/>
       <normal X="115248" Y="-178816" Z="-850"/>
@@ -373,7 +376,7 @@
       <chaotic X="119264" Y="-188736" Z="-3203"/>
       <chaotic X="118656" Y="-187760" Z="-2828"/>
     </restartpoint>
-    <restartpoint restartId="12" name="oren_castle_town" bbs="10" locname="922">
+    <restartpoint restartId="12" name="oren_castle_town" bbs="10" locname="922"> <!-- L2J: 9 = "Town of Oren" -->
       <normal X="80304" Y="56241" Z="-1500"/>
       <normal X="80594" Y="55837" Z="-1500"/>
       <normal X="79933" Y="55752" Z="-1500"/>
@@ -409,7 +412,7 @@
       <chaotic X="70139" Y="55885" Z="-3550"/>
       <chaotic X="80236" Y="45675" Z="-3150"/>
     </restartpoint>
-    <restartpoint restartId="13" name="hunter_town" bbs="11" locname="923">
+    <restartpoint restartId="13" name="hunter_town" bbs="11" locname="923"> <!-- L2J: 11 = "Hunters Village" -->
       <normal X="116127" Y="76015" Z="-2729"/>
       <normal X="115683" Y="77610" Z="-2650"/>
       <normal X="117304" Y="76318" Z="-2670"/>
@@ -436,7 +439,7 @@
       <chaotic X="104257" Y="82194" Z="-2581"/>
       <chaotic X="104474" Y="81109" Z="-2651"/>
     </restartpoint>
-    <restartpoint restartId="14" name="aden_town" bbs="13" locname="924">
+    <restartpoint restartId="14" name="aden_town" bbs="13" locname="924"> <!-- L2J: 10 = "Town of Aden" -->
       <normal X="146494" Y="30584" Z="-2420"/>
       <normal X="146038" Y="30519" Z="-2420"/>
       <normal X="148112" Y="30439" Z="-2420"/>
@@ -465,7 +468,7 @@
       <chaotic X="137708" Y="15640" Z="-3800"/>
       <chaotic X="136629" Y="28127" Z="-3258"/>
     </restartpoint>
-    <restartpoint restartId="15" name="colosseum" bbs="13" locname="925">
+    <restartpoint restartId="15" name="colosseum" bbs="13" locname="925"> <!-- L2J: 23 = "Coliseum" -->
       <normal X="147420" Y="46378" Z="-3350"/>
       <normal X="147696" Y="46416" Z="-3350"/>
       <normal X="147248" Y="47048" Z="-3350"/>
@@ -515,7 +518,7 @@
       <chaotic X="151536" Y="46482" Z="-3350"/>
       <chaotic X="151296" Y="46480" Z="-3350"/>
     </restartpoint>
-    <restartpoint restartId="16" name="heiness_town" bbs="12" locname="926">
+    <restartpoint restartId="16" name="heiness_town" bbs="12" locname="926"> <!-- L2J: 13 = "Heine" -->
       <normal X="107568" Y="218256" Z="-3624"/>
       <normal X="107920" Y="218240" Z="-3624"/>
       <normal X="107808" Y="217856" Z="-3624"/>
@@ -685,7 +688,7 @@
       <chaotic X="119264" Y="-188736" Z="-3203"/>
       <chaotic X="118656" Y="-187760" Z="-2828"/>
     </restartpoint>
-    <restartpoint restartId="23" name="gm_room" bbs="8" locname="1222">
+    <restartpoint restartId="23" name="gm_room" bbs="8" locname="1222"> <!-- L2J: 24 = "GM Consultation service" -->
       <normal X="-114598" Y="-249431" Z="-2984"/>
       <normal X="-114527" Y="-249452" Z="-2984"/>
       <normal X="-114567" Y="-249517" Z="-2984"/>
@@ -873,7 +876,7 @@
       <chaotic X="11820" Y="183806" Z="-3560"/>
       <chaotic X="11811" Y="183209" Z="-3560"/>
     </restartpoint>
-    <restartpoint restartId="30" name="rune_town" bbs="14" locname="1537">
+    <restartpoint restartId="30" name="rune_town" bbs="14" locname="1537"> <!-- L2J: 14 = "Rune Township" -->
       <normal X="38096" Y="-46976" Z="899"/>
       <normal X="38608" Y="-47168" Z="899"/>
       <normal X="38752" Y="-47792" Z="899"/>
@@ -903,7 +906,7 @@
       <chaotic X="42496" Y="-58192" Z="-3264"/>
       <chaotic X="40784" Y="-59888" Z="-2600"/>
     </restartpoint>
-    <restartpoint restartId="31" name="godard_town" bbs="15" locname="1538">
+    <restartpoint restartId="31" name="godard_town" bbs="15" locname="1538"> <!-- L2J: 15 = "Town of Goddard" -->
       <normal X="148560" Y="-55904" Z="-2779"/>
       <normal X="150704" Y="-55744" Z="-2979"/>
       <normal X="150400" Y="-56752" Z="-2979"/>
@@ -943,7 +946,7 @@
       <chaotic X="149680" Y="-59600" Z="-3440"/>
       <chaotic X="149360" Y="-60576" Z="-3520"/>
     </restartpoint>
-    <restartpoint restartId="32" name="rift_bitween_worlds" bbs="17" locname="1643">
+    <restartpoint restartId="32" name="rift_bitween_worlds" bbs="17" locname="1643"> <!-- L2J: 25 = "Dimensional Gap" -->
       <normal X="-114444" Y="-178322" Z="-6752"/>
       <normal X="-114470" Y="-178883" Z="-6752"/>
       <normal X="-114449" Y="-179708" Z="-6752"/>
@@ -968,7 +971,7 @@
       <chaotic X="-115155" Y="-179354" Z="-6752"/>
       <chaotic X="-115169" Y="-178312" Z="-6752"/>
     </restartpoint>
-    <restartpoint restartId="33" name="the_royal_family's_catacomb" bbs="15" locname="1659">
+    <restartpoint restartId="33" name="the_royal_family's_catacomb" bbs="15" locname="1659"> <!-- L2J: 26 = "Cemetery of the Empire" -->
       <normal X="181544" Y="-80897" Z="-2728"/>
       <normal X="181415" Y="-80791" Z="-2728"/>
       <normal X="181383" Y="-80984" Z="-2728"/>
@@ -998,7 +1001,7 @@
       <chaotic X="181722" Y="-80785" Z="-2728"/>
       <chaotic X="181491" Y="-80868" Z="-2728"/>
     </restartpoint>
-    <restartpoint restartId="34" name="schuttgart_town" bbs="16" locname="1714">
+    <restartpoint restartId="34" name="schuttgart_town" bbs="16" locname="1714"> <!-- L2J: 16 = "Town of Shuttgart" -->
       <!--
         Schuttgart Spawn	1	84720	-141936	-1536	-1436
         Schuttgart Spawn	2	85056	-141328	-1536	-1436
@@ -1033,7 +1036,7 @@
       <chaotic X="86602" Y="-137510" Z="-2276"/>
       <chaotic X="88923" Y="-138968" Z="-2275"/>
     </restartpoint>
-    <restartpoint restartId="35" name="primeval_isle" bbs="18" locname="1924">
+    <restartpoint restartId="35" name="primeval_isle" bbs="18" locname="1924"> <!-- L2J: 18 = "Primeval Isle" -->
       <normal X="10825" Y="-24156" Z="-3645"/>
       <normal X="9404" Y="-23758" Z="-3734"/>
       <normal X="9839" Y="-23385" Z="-3725"/>
@@ -1045,16 +1048,46 @@
       <chaotic X="40192" Y="-57600" Z="-2343"/>
       <chaotic X="38400" Y="-56832" Z="-992"/>
     </restartpoint>
-    <restartpoint restartId="36" name="isle_of_souls" bbs="19" locname="2189">
-      <!-- TODO: some more restart points would be nice -->
+    <restartpoint restartId="36" name="isle_of_souls" bbs="19" locname="2189"> <!-- L2J: 19 = "Kamael Village" -->
       <normal X="-116702" Y="45943" Z="368"/>
       <normal X="-118092" Y="46955" Z="360"/>
       <chaotic X="-122827" Y="43303" Z="883"/>
+      <chaotic X="-121425" Y="59778" Z="-2264"/>
     </restartpoint>
-    <restartpoint restartId="37" name="fantasy_isle" bbs="20" locname="2259">
-      <!-- TODO -->
+    <restartpoint restartId="37" name="fantasy_isle" bbs="20" locname="2259"> <!-- L2J: 21 = "Fantasy Island" -->
       <normal X="-58272" Y="-55431" Z="-2012"/>
       <chaotic X="-58752" Y="-56898" Z="-2032"/>
+    </restartpoint>
+    <restartpoint restartId="120" name="South of Wastelands Camp" bbs="" locname="2190"> <!-- L2J: 20 = "South of Wastelands Camp" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="127" name="inside the Steel Citadel" bbs="101" locname="2293"> <!-- L2J: 27 = "inside the Steel Citadel" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="128" name="Steel Citadel Resistance" bbs="101" locname="2301"> <!-- L2J: 28 = "Steel Citadel Resistance" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="129" name="Inside Kamaloka" bbs="101" locname="2321"> <!-- L2J: 29 = "Inside Kamaloka" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="130" name="Inside Nia Kamaloka" bbs="101" locname="2322"> <!-- L2J: 30 = "Inside Nia Kamaloka" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="131" name="Inside Rim Kamaloka" bbs="101" locname="2323"> <!-- L2J: 31 = "Inside Rim Kamaloka" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="132" name="near the Keucereus clan association location" bbs="101" locname="2710"> <!-- L2J: 32 = "near the Keucereus clan association location" -->
+      <normal X="-184284" Y="242723" Z="1577"/>
+      <chaotic X="-184284" Y="242723" Z="1577"/> <!-- FIXME -->
+    </restartpoint>
+    <restartpoint restartId="133" name="inside the Seed of Infinity" bbs="101" locname="2711"> <!-- L2J: 33 = "inside the Seed of Infinity" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="134" name="outside the Seed of Infinity" bbs="101" locname="2712"> <!-- L2J: 34 = "outside the Seed of Infinity" -->
+      <!-- unused placeholder -->
+    </restartpoint>
+    <restartpoint restartId="135" name="inside Aerial Cleft" bbs="101" locname="2716"> <!-- L2J: 35 = "inside Aerial Cleft" -->
+      <!-- unused placeholder -->
     </restartpoint>
   </restartpoints>
   <regions>
@@ -1832,11 +1865,25 @@
       <map X="17" Y="18"/>
       <map X="17" Y="19"/>
     </restartarea>
-    <restartarea restartId="37"> <!-- Fantasy Isle -->
+    <restartarea restartId="37">
       <map X="17" Y="15"/>
       <map X="18" Y="15"/>
       <map X="17" Y="16"/>
       <map X="18" Y="16"/>
+    </restartarea>
+    <restartarea restartId="132">
+      <map X="11" Y="23"/>
+      <map X="11" Y="24"/>
+      <map X="11" Y="25"/>
+      <map X="12" Y="23"/>
+      <map X="12" Y="24"/>
+      <map X="12" Y="25"/>
+      <map X="13" Y="23"/>
+      <map X="13" Y="24"/>
+      <map X="13" Y="25"/>
+      <map X="14" Y="23"/>
+      <map X="14" Y="24"/>
+      <map X="14" Y="25"/>
     </restartarea>
   </restartareas>
 </mapregion>
