@@ -18,6 +18,7 @@ import java.util.Arrays;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
+import com.l2jfree.gameserver.model.zone.form.Shape;
 
 /**
  * @author NB4L1
@@ -53,4 +54,11 @@ public abstract class L2MapRegion
 	}
 	
 	public abstract boolean checkIfInRegion(int x, int y, int z);
+	
+	public final boolean intersectsRectangle(int ax1, int ax2, int ay1, int ay2)
+	{
+		return getShape().intersectsRectangle(ax1, ax2, ay1, ay2);
+	}
+	
+	protected abstract Shape getShape();
 }

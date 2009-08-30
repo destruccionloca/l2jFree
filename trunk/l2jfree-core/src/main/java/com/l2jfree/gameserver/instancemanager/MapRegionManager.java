@@ -32,6 +32,8 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -50,6 +52,8 @@ import com.l2jfree.gameserver.model.mapregion.L2SpecialMapRegion;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.util.L2Collections;
+import com.l2jfree.util.LookupTable;
 
 /**
  * @author Noctarius
@@ -58,10 +62,7 @@ public final class MapRegionManager
 {
 	private static final Log _log = LogFactory.getLog(MapRegionManager.class);
 	
-	private final Map<Integer, L2MapRegionRestart> _mapRegionRestart = new FastMap<Integer, L2MapRegionRestart>();
-	
-	private L2SpecialMapRegion[] _specialMapRegions = new L2SpecialMapRegion[0];
-	private L2MapArea[] _mapAreas = new L2MapArea[0];
+	private final LookupTable<L2MapRegionRestart> _mapRegionRestart = new LookupTable<L2MapRegionRestart>();
 	
 	public static MapRegionManager getInstance()
 	{
@@ -108,6 +109,15 @@ public final class MapRegionManager
 	
 	public void reload()
 	{
+		// Get the world regions
+		for (L2WorldRegion[] finalWorldRegion : L2World.getInstance().getAllWorldRegions())
+		{
+			for (L2WorldRegion finalElement : finalWorldRegion)
+			{
+				finalElement.clearMapRegions();
+			}
+		}
+		
 		load();
 	}
 	
@@ -178,23 +188,42 @@ public final class MapRegionManager
 			}
 		}
 		
-		_specialMapRegions = specialMapRegions.toArray(new L2SpecialMapRegion[specialMapRegions.size()]);
-		_mapAreas = mapAreas.toArray(new L2MapArea[mapAreas.size()]);
+		final L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
 		
-		_mapRegionRestart.clear();
-		_mapRegionRestart.putAll(restarts);
+		for (L2MapRegion mapregion : L2Collections.concatenatedIterable(specialMapRegions, mapAreas))
+		{
+			// Register the mapregions to any intersecting world region
+			for (int x = 0; x < worldRegions.length; x++)
+			{
+				for (int y = 0; y < worldRegions[x].length; y++)
+				{
+					int ax = (x - L2World.OFFSET_X) << L2World.SHIFT_BY;
+					int bx = ((x + 1) - L2World.OFFSET_X) << L2World.SHIFT_BY;
+					int ay = (y - L2World.OFFSET_Y) << L2World.SHIFT_BY;
+					int by = ((y + 1) - L2World.OFFSET_Y) << L2World.SHIFT_BY;
+					
+					if (mapregion.intersectsRectangle(ax, bx, ay, by))
+						worldRegions[x][y].addMapRegion(mapregion);
+				}
+			}
+		}
+		
+		_mapRegionRestart.clear(false);
+		
+		for (Map.Entry<Integer, L2MapRegionRestart> entry : restarts.entrySet())
+			_mapRegionRestart.set(entry.getKey(), entry.getValue());
 		
 		int redirectCount = 0;
 		
-		for (L2MapRegionRestart restart : _mapRegionRestart.values())
+		for (L2MapRegionRestart restart : _mapRegionRestart)
 		{
 			if (restart.getBannedRace() != null)
 				redirectCount++;
 		}
 		
 		_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
-		_log.info("MapRegionManager: Loaded " + restartAreas.size() + " restartareas with " + _mapAreas.length + " arearegion(s).");
-		_log.info("MapRegionManager: Loaded " + _specialMapRegions.length + " zoneregion(s).");
+		_log.info("MapRegionManager: Loaded " + restartAreas.size() + " restartareas with " + mapAreas.size() + " arearegion(s).");
+		_log.info("MapRegionManager: Loaded " + specialMapRegions.size() + " zoneregion(s).");
 		_log.info("MapRegionManager: Loaded " + redirectCount + " race depending redirects.");
 	}
 	
@@ -241,15 +270,7 @@ public final class MapRegionManager
 	
 	public L2MapRegion getRegion(int x, int y, int z)
 	{
-		for (L2SpecialMapRegion region : _specialMapRegions)
-			if (region.checkIfInRegion(x, y, z))
-				return region;
-		
-		for (L2MapArea region : _mapAreas)
-			if (region.checkIfInRegion(x, y, z))
-				return region;
-		
-		return null;
+		return L2World.getInstance().getRegion(x, y).getMapRegion(x, y, z);
 	}
 	
 	public L2MapRegion getRegion(int x, int y)

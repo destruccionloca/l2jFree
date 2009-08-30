@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model;
 import java.util.Arrays;
 import java.util.concurrent.ScheduledFuture;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,6 +29,9 @@ import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.mapregion.L2MapArea;
+import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
+import com.l2jfree.gameserver.model.mapregion.L2SpecialMapRegion;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.util.concurrent.L2EntityMap;
 import com.l2jfree.util.concurrent.L2ReadWriteEntityMap;
@@ -49,6 +53,8 @@ public final class L2WorldRegion
 	
 	private L2WorldRegion[] _surroundingRegions = new L2WorldRegion[0];
 	private L2Zone[] _zones = new L2Zone[0];
+	private L2SpecialMapRegion[] _specialMapRegions = new L2SpecialMapRegion[0];
+	private L2MapArea[] _mapAreas = new L2MapArea[0];
 	
 	private volatile boolean _active = Config.GRIDS_ALWAYS_ON;
 	private ScheduledFuture<?> _neighborsTask;
@@ -102,6 +108,16 @@ public final class L2WorldRegion
 		return false;
 	}
 	
+	public L2Zone getZone(L2Zone.ZoneType zt, int x, int y)
+	{
+		for (L2Zone z : _zones)
+			if (z.getType() == zt)
+				if (z.isInsideZone(x, y))
+					return z;
+		
+		return null;
+	}
+	
 	public void onDie(L2Character character)
 	{
 		for (L2Zone z : _zones)
@@ -147,6 +163,33 @@ public final class L2WorldRegion
 		}
 		
 		return true;
+	}
+	
+	public void addMapRegion(L2MapRegion mapregion)
+	{
+		if (mapregion instanceof L2SpecialMapRegion)
+			_specialMapRegions = (L2SpecialMapRegion[])ArrayUtils.add(_specialMapRegions, mapregion);
+		else
+			_mapAreas = (L2MapArea[])ArrayUtils.add(_mapAreas, mapregion);
+	}
+	
+	public void clearMapRegions()
+	{
+		_specialMapRegions = new L2SpecialMapRegion[0];
+		_mapAreas = new L2MapArea[0];
+	}
+	
+	public L2MapRegion getMapRegion(int x, int y, int z)
+	{
+		for (L2SpecialMapRegion region : _specialMapRegions)
+			if (region.checkIfInRegion(x, y, z))
+				return region;
+		
+		for (L2MapArea region : _mapAreas)
+			if (region.checkIfInRegion(x, y, z))
+				return region;
+		
+		return null;
 	}
 	
 	private final class NeighborsTask implements Runnable

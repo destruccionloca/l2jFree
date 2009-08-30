@@ -29,6 +29,16 @@ public class ShapePoly extends Shape
 	private int _xMin = Integer.MAX_VALUE, _xMax = Integer.MIN_VALUE;
 	private int _yMin = _xMin, _yMax = _xMax;
 	
+	public ShapePoly()
+	{
+	}
+	
+	public ShapePoly(int[] x, int[] y)
+	{
+		_x = x;
+		_y = y;
+	}
+	
 	@Override
 	public boolean contains(int x, int y)
 	{

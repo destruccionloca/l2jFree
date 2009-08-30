@@ -25,7 +25,20 @@ public class ShapeRect extends Shape
 {
 	private int _xMin, _xMax;
 	private int _yMin, _yMax;
-
+	
+	public ShapeRect()
+	{
+	}
+	
+	public ShapeRect(int xMin, int xMax, int yMin, int yMax)
+	{
+		_xMin = xMin;
+		_xMax = xMax;
+		
+		_yMin = yMin;
+		_yMax = yMax;
+	}
+	
 	@Override
 	public boolean contains(int x, int y)
 	{

@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.model.mapregion;
 
+import com.l2jfree.gameserver.model.zone.form.Shape;
+import com.l2jfree.gameserver.model.zone.form.ShapeRect;
+
 /**
  * @author Noctarius
  */
@@ -27,6 +30,8 @@ public final class L2MapArea extends L2MapRegion
 	private final int _yMin;
 	private final int _yMax;
 	
+	private final ShapeRect _shape;
+	
 	public L2MapArea(int restartId, int x, int y)
 	{
 		super(restartId);
@@ -36,11 +41,19 @@ public final class L2MapArea extends L2MapRegion
 		
 		_yMin = (y - 10) * AREA_WIDTH - 262144;
 		_yMax = _yMin + AREA_WIDTH;
+		
+		_shape = new ShapeRect(_xMin, _xMax, _yMin, _yMax);
 	}
 	
 	@Override
 	public boolean checkIfInRegion(int x, int y, int z)
 	{
 		return _xMin <= x && x <= _xMax && _yMin <= y && y <= _yMax;
+	}
+	
+	@Override
+	protected Shape getShape()
+	{
+		return _shape;
 	}
 }

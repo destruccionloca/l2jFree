@@ -15,10 +15,10 @@
 package com.l2jfree.gameserver.instancemanager;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,17 +32,18 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.model.zone.L2Zone.ZoneType;
 import com.l2jfree.gameserver.util.Util;
 
-public class ZoneManager
+@SuppressWarnings("unchecked")
+public final class ZoneManager
 {
-	protected static Log						_log	= LogFactory.getLog(ZoneManager.class);
-
-	private FastMap<ZoneType, FastMap<String, L2Zone>> _zones;
-
-	public static final ZoneManager getInstance()
+	private static final Log _log = LogFactory.getLog(ZoneManager.class);
+	
+	public static ZoneManager getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-
+	
+	private final Map<String, L2Zone>[] _zones = new Map[ZoneType.values().length];
+	
 	private ZoneManager()
 	{
 		load();
@@ -62,15 +63,15 @@ public class ZoneManager
 		//remove registered siege danger zones
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 			c.getSiege().onZoneReload();
-
+		
 		// Load the zones
 		load();
 	}
-
+	
 	private void load()
 	{
 		Document doc = null;
-
+		
 		for (File f : Util.getDatapackFiles("zone", ".xml"))
 		{
 			int count = 0;
@@ -98,11 +99,11 @@ public class ZoneManager
 			_log.info("ZoneManager: " + f.getName() + " loaded with " + count + " zones");
 		}
 	}
-
+	
 	protected int parseDocument(Document doc)
 	{
 		int zoneCount = 0;
-
+		
 		// Get the world regions
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
@@ -129,7 +130,7 @@ public class ZoneManager
 								bx = ((x + 1) - L2World.OFFSET_X) << L2World.SHIFT_BY;
 								ay = (y - L2World.OFFSET_Y) << L2World.SHIFT_BY;
 								by = ((y + 1) - L2World.OFFSET_Y) << L2World.SHIFT_BY;
-
+								
 								if (zone.intersectsRectangle(ax, bx, ay, by))
 								{
 									worldRegions[x][y].addZone(zone);
@@ -143,40 +144,31 @@ public class ZoneManager
 		}
 		return zoneCount;
 	}
-
-	public static short getMapRegion(int x, int y)
+	
+	public Map<String, L2Zone>[] getZones()
 	{
-		int rx = ((x - L2World.MAP_MIN_X) >> 15) + 16;
-		int ry = ((y - L2World.MAP_MIN_Y) >> 15) + 10;
-		return (short) ((rx << 8) + ry);
-	}
-
-	public FastMap<L2Zone.ZoneType, FastMap<String, L2Zone>> getZoneMap()
-	{
-		if (_zones == null)
-			_zones = new FastMap<L2Zone.ZoneType, FastMap<String, L2Zone>>();
 		return _zones;
 	}
-
-	public FastMap<String, L2Zone> getZones(L2Zone.ZoneType type)
+	
+	public Map<String, L2Zone> getZones(L2Zone.ZoneType type)
 	{
-		if (!getZoneMap().containsKey(type))
-			getZoneMap().put(type, new FastMap<String, L2Zone>());
-
-		return getZoneMap().get(type);
+		if (_zones[type.ordinal()] == null)
+			_zones[type.ordinal()] = new HashMap<String, L2Zone>();
+		
+		return _zones[type.ordinal()];
 	}
-
+	
 	public L2Zone getZone(L2Zone.ZoneType type, String name)
 	{
-		return getZones(type).get(name);
+		if (_zones[type.ordinal()] == null)
+			return null;
+		
+		return _zones[type.ordinal()].get(name);
 	}
-
+	
 	public final L2Zone isInsideZone(L2Zone.ZoneType zt, int x, int y)
 	{
-		for (L2Zone temp : getZones(zt).values())
-			if (temp.isInsideZone(x, y))
-				return temp;
-		return null;
+		return L2World.getInstance().getRegion(x, y).getZone(zt, x, y);
 	}
 	
 	public L2Zone getZoneById(int id)
@@ -184,7 +176,7 @@ public class ZoneManager
 		//TODO: we don't have that id at zones, that the quest engine requires -.-
 		return null;
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

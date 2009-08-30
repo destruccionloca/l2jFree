@@ -18,6 +18,8 @@ import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.world.L2Polygon;
+import com.l2jfree.gameserver.model.zone.form.Shape;
+import com.l2jfree.gameserver.model.zone.form.ShapePoly;
 
 /**
  * @author Noctarius
@@ -28,6 +30,8 @@ public final class L2SpecialMapRegion extends L2MapRegion
 	
 	private final int _zMin;
 	private final int _zMax;
+	
+	private final ShapePoly _shape;
 	
 	public L2SpecialMapRegion(Node node)
 	{
@@ -56,6 +60,8 @@ public final class L2SpecialMapRegion extends L2MapRegion
 		
 		// add first point at the end of the polygon again for crossing
 		_polygon.addPoint(_polygon.getXPoints()[0], _polygon.getYPoints()[0]);
+		
+		_shape = new ShapePoly(_polygon.getXPoints(), _polygon.getYPoints());
 	}
 	
 	@Override
@@ -66,5 +72,11 @@ public final class L2SpecialMapRegion extends L2MapRegion
 				return false;
 		
 		return _polygon.contains(x, y);
+	}
+	
+	@Override
+	protected Shape getShape()
+	{
+		return _shape;
 	}
 }
