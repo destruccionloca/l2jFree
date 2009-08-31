@@ -86,10 +86,7 @@ public class Say2 extends L2GameClientPacket
 			{
 				if (!activeChar.isGM())
 				{
-					if (Config.BAN_CLIENT_EMULATORS)
-						Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with wrong type by " + activeChar);
-					else
-						sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 			}
