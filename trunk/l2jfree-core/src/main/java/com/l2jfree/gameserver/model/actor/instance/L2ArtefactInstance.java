@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.status.ArtefactStatus;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -94,11 +95,14 @@ public final class L2ArtefactInstance extends L2Npc
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new ArtefactStatus(this);
+	}
+	
+	@Override
 	public ArtefactStatus getStatus()
 	{
-		if (_status == null)
-			_status = new ArtefactStatus(this);
-		
 		return (ArtefactStatus)_status;
 	}
 }

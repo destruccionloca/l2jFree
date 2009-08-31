@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -34,13 +35,16 @@ public class L2FortSiegeGuardInstance extends L2SiegeGuard
 		super(objectId, template);
 		getKnownList(); // Inits the knownlist
 	}
-
+	
+	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new FortSiegeGuardKnownList(this);
+	}
+	
 	@Override
 	public FortSiegeGuardKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new FortSiegeGuardKnownList(this);
-		
 		return (FortSiegeGuardKnownList)_knownList;
 	}
 

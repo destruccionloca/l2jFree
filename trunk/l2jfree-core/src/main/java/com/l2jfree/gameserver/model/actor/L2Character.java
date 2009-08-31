@@ -195,8 +195,8 @@ public abstract class L2Character extends L2Object
 	protected boolean				_isMarked							= false;
 	private final int[]					lastPosition						=
 																		{ 0, 0, 0 };
-	protected CharStat				_stat;
-	protected CharStatus			_status;
+	protected final CharStat		_stat;
+	protected final CharStatus		_status;
 	private L2CharTemplate			_template;																				// The link on the L2CharTemplate
 	protected boolean				_showSummonAnimation				= false;
 	// object containing generic and
@@ -226,7 +226,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Objects known by this object
 	 */
-	protected CharKnownList _knownList;
+	protected final CharKnownList _knownList;
 	
 	// =========================================================
 	// Constructor
@@ -262,7 +262,11 @@ public abstract class L2Character extends L2Object
 	public L2Character(int objectId, L2CharTemplate template)
 	{
 		super(objectId);
-		getKnownList();
+		_stat = initStat();
+		_status = initStatus();
+		_knownList = initKnownList();
+		_effects = initEffects();
+		_shots = initShots();
 		
 		// Set its template to the new L2Character
 		_template = template;
@@ -2709,28 +2713,34 @@ public abstract class L2Character extends L2Object
 		_isFlying = mode;
 	}
 
+	protected CharKnownList initKnownList()
+	{
+		return new CharKnownList(this);
+	}
+	
 	@Override
 	public CharKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new CharKnownList(this);
-		
 		return _knownList;
 	}
-
+	
+	protected CharStat initStat()
+	{
+		return new CharStat(this);
+	}
+	
 	public CharStat getStat()
 	{
-		if (_stat == null)
-			_stat = new CharStat(this);
-
 		return _stat;
 	}
-
+	
+	protected CharStatus initStatus()
+	{
+		return new CharStatus(this);
+	}
+	
 	public CharStatus getStatus()
 	{
-		if (_status == null)
-			_status = new CharStatus(this);
-
 		return _status;
 	}
 
@@ -2988,13 +2998,15 @@ public abstract class L2Character extends L2Object
 	/** Map 32 bits (0x0000) containing all abnormal effect in progress */
 	private int				_abnormalEffects;
 
-	private CharEffects _effects;
+	private final CharEffects _effects;
+	
+	protected final CharEffects initEffects()
+	{
+		return new CharEffects(this);
+	}
 	
 	public final CharEffects getEffects()
 	{
-		if (_effects == null)
-			_effects = new CharEffects(this);
-		
 		return _effects;
 	}
 	
@@ -6990,11 +7002,16 @@ public abstract class L2Character extends L2Object
 		return this;
 	}
 	
-	protected CharShots _shots;
+	protected final CharShots _shots;
+	
+	protected CharShots initShots()
+	{
+		return CharShots.getEmptyInstance();
+	}
 	
 	public CharShots getShots()
 	{
-		return CharShots.getEmptyInstance();
+		return _shots;
 	}
 	
 	public final void rechargeShot()

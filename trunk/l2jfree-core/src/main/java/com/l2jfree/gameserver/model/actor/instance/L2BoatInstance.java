@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.knownlist.BoatKnownList;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -268,13 +269,16 @@ public class L2BoatInstance extends L2Character
 		setAI(new L2CharacterAI(new AIAccessor()));
 		_name = name;
 	}
-
+	
+	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new BoatKnownList(this);
+	}
+	
 	@Override
 	public BoatKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new BoatKnownList(this);
-
 		return (BoatKnownList)_knownList;
 	}
 

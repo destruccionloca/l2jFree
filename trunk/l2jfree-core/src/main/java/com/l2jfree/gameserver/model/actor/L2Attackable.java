@@ -47,7 +47,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.status.AttackableStatus;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -411,11 +413,14 @@ public class L2Attackable extends L2Npc
 	}
 
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new AttackableKnownList(this);
+	}
+
+	@Override
 	public AttackableKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new AttackableKnownList(this);
-
 		return (AttackableKnownList) _knownList;
 	}
 
@@ -455,11 +460,14 @@ public class L2Attackable extends L2Npc
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new AttackableStatus(this);
+	}
+	
+	@Override
 	public AttackableStatus getStatus()
 	{
-		if (_status == null)
-			_status = new AttackableStatus(this);
-		
 		return (AttackableStatus)_status;
 	}
 	

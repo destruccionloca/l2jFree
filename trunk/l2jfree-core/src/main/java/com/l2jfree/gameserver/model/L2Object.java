@@ -56,11 +56,11 @@ public abstract class L2Object implements L2Entity<Integer>
 	/**
 	 * Appearance and type of object
 	 */
-	private ObjectPoly _poly;
+	private final ObjectPoly _poly;
 	/**
 	 * Position of object
 	 */
-	private ObjectPosition _position;
+	private final ObjectPosition _position;
 	
 	// Objects can only see objects in same instancezone, instance 0 is normal world -1 the all seeing world
 	private int _instanceId = 0;
@@ -74,6 +74,8 @@ public abstract class L2Object implements L2Entity<Integer>
 	{
 		_objectId = L2Integer.valueOf(objectId);
 		_name = "";
+		_poly = initPoly();
+		_position = initPosition();
 	}
 	
 	/**
@@ -389,15 +391,22 @@ public abstract class L2Object implements L2Entity<Integer>
 		return _objectId;
 	}
 	
+	protected final ObjectPoly initPoly()
+	{
+		return new ObjectPoly();
+	}
+	
 	/**
 	 * @return the appearance
 	 */
 	public final ObjectPoly getPoly()
 	{
-		if (_poly == null)
-			_poly = new ObjectPoly();
-		
 		return _poly;
+	}
+	
+	protected final ObjectPosition initPosition()
+	{
+		return new ObjectPosition(this);
 	}
 	
 	/**
@@ -405,9 +414,6 @@ public abstract class L2Object implements L2Entity<Integer>
 	 */
 	public final ObjectPosition getPosition()
 	{
-		if (_position == null)
-			_position = new ObjectPosition(this);
-		
 		return _position;
 	}
 	

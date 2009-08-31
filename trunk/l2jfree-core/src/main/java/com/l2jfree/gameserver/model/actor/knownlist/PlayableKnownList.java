@@ -16,14 +16,14 @@ package com.l2jfree.gameserver.model.actor.knownlist;
 
 import com.l2jfree.gameserver.model.actor.L2Playable;
 
-public class PlayableKnownList extends CharKnownList
+public abstract class PlayableKnownList extends CharKnownList
 {
 	// =========================================================
 	// Data Field
 	
 	// =========================================================
 	// Constructor
-	public PlayableKnownList(L2Playable activeChar)
+	protected PlayableKnownList(L2Playable activeChar)
 	{
 		super(activeChar);
 	}

@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
-import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -71,22 +70,10 @@ public abstract class L2Playable extends L2Character
 	}
 
 	@Override
-	public PlayableKnownList getKnownList()
-	{
-		if (_knownList == null)
-			_knownList = new PlayableKnownList(this);
-		
-		return (PlayableKnownList)_knownList;
-	}
-
+	public abstract PlayableKnownList getKnownList();
+	
 	@Override
-	public PlayableStat getStat()
-	{
-		if (_stat == null)
-			_stat = new PlayableStat(this);
-		
-		return (PcStat)_stat;
-	}
+	public abstract PlayableStat getStat();
 	
 	@Override
 	public boolean doDie(L2Character killer)

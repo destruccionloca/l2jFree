@@ -20,6 +20,7 @@ import java.util.concurrent.ScheduledFuture;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.MonsterKnownList;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.MinionList;
@@ -65,14 +66,17 @@ public class L2MonsterInstance extends L2Attackable
 			setIsInvul(true);
 		}
 	}
-
+	
+	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new MonsterKnownList(this);
+	}
+	
 	@Override
 	public final MonsterKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new MonsterKnownList(this);
-
-		return (MonsterKnownList) _knownList;
+		return (MonsterKnownList)_knownList;
 	}
 
 	/**

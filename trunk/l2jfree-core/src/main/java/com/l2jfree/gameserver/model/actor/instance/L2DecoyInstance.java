@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Decoy;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.DecoyKnownList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -66,11 +67,14 @@ public class L2DecoyInstance extends L2Decoy
     }
     
     @Override
+    protected CharKnownList initKnownList()
+    {
+        return new DecoyKnownList(this);
+    }
+    
+    @Override
     public DecoyKnownList getKnownList()
     {
-        if (_knownList == null)
-            _knownList = new DecoyKnownList(this);
-        
         return (DecoyKnownList)_knownList;
     }
     

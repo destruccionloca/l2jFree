@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2ControllableMobAI;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.ControllableMobStatus;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -92,11 +93,14 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new ControllableMobStatus(this);
+	}
+	
+	@Override
 	public ControllableMobStatus getStatus()
 	{
-		if (_status == null)
-			_status = new ControllableMobStatus(this);
-		
 		return (ControllableMobStatus)_status;
 	}
 	

@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -313,11 +314,14 @@ public class L2SummonInstance extends L2Summon
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new SummonStatus(this);
+	}
+	
+	@Override
 	public final SummonStatus getStatus()
 	{
-		if (_status == null)
-			_status = new SummonStatus(this);
-		
 		return (SummonStatus)_status;
 	}
 	

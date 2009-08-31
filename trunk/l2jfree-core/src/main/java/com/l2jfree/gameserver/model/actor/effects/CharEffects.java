@@ -35,7 +35,7 @@ import com.l2jfree.util.ObjectPool;
 /**
  * @author NB4L1
  */
-public class CharEffects
+public final class CharEffects
 {
 	private static final Log _log = LogFactory.getLog(CharEffects.class);
 	

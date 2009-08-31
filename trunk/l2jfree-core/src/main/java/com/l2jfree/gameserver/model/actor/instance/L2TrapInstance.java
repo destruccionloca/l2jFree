@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Trap;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.TrapKnownList;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -85,11 +86,14 @@ public final class L2TrapInstance extends L2Trap implements Runnable
 	}
 	
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new TrapKnownList(this);
+	}
+	
+	@Override
 	public TrapKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new TrapKnownList(this);
-		
 		return (TrapKnownList)_knownList;
 	}
 	

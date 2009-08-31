@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.SiegeFlagStatus;
 import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.FortSiege;
@@ -166,11 +167,14 @@ public final class L2SiegeFlagInstance extends L2Npc
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new SiegeFlagStatus(this);
+	}
+	
+	@Override
 	public SiegeFlagStatus getStatus()
 	{
-		if (_status == null)
-			_status = new SiegeFlagStatus(this);
-		
 		return (SiegeFlagStatus)_status;
 	}
 	

@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2NpcWalkerAI;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.NpcWalkerStatus;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -102,11 +103,14 @@ public class L2NpcWalkerInstance extends L2Npc
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new NpcWalkerStatus(this);
+	}
+	
+	@Override
 	public final NpcWalkerStatus getStatus()
 	{
-		if (_status == null)
-			_status = new NpcWalkerStatus(this);
-		
 		return (NpcWalkerStatus)_status;
 	}
 }

@@ -38,7 +38,9 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.PetStat;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.PetStatus;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
@@ -252,11 +254,14 @@ public class L2PetInstance extends L2Summon
 	}
 	
 	@Override
+	protected CharStat initStat()
+	{
+		return new PetStat(this);
+	}
+	
+	@Override
 	public PetStat getStat()
 	{
-		if (_stat == null)
-			_stat = new PetStat(this);
-		
 		return (PetStat)_stat;
 	}
 	
@@ -1197,11 +1202,14 @@ public class L2PetInstance extends L2Summon
 	}
 	
 	@Override
+	protected CharStatus initStatus()
+	{
+		return new PetStatus(this);
+	}
+	
+	@Override
 	public final PetStatus getStatus()
 	{
-		if (_status == null)
-			_status = new PetStatus(this);
-		
 		return (PetStatus)_status;
 	}
 	

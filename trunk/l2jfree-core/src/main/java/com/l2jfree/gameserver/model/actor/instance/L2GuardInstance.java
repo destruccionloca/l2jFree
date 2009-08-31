@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Guard;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.GuardKnownList;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -101,11 +102,14 @@ public final class L2GuardInstance extends L2Guard
 	}
 	
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new GuardKnownList(this);
+	}
+	
+	@Override
 	public final GuardKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new GuardKnownList(this);
-		
 		return (GuardKnownList)_knownList;
 	}
 	

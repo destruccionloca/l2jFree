@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.RaceManagerKnownList;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -115,11 +116,14 @@ public class L2RaceManagerInstance extends L2Npc
     }
 
     @Override
+    protected CharKnownList initKnownList()
+    {
+        return new RaceManagerKnownList(this);
+    }
+    
+    @Override
     public RaceManagerKnownList getKnownList()
     {
-        if (_knownList == null)
-            _knownList = new RaceManagerKnownList(this);
-        
         return (RaceManagerKnownList)_knownList;
     }
     

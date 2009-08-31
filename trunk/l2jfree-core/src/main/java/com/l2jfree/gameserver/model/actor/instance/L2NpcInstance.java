@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.FolkStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -40,12 +41,16 @@ public class L2NpcInstance extends L2Npc
 	{
 		super(objectId, template);
 	}
-
+	
+	@Override
+	protected CharStatus initStatus()
+	{
+		return new FolkStatus(this);
+	}
+	
 	@Override
 	public FolkStatus getStatus()
 	{
-		if (_status == null)
-			_status = new FolkStatus(this);
 		return (FolkStatus) _status;
 	}
 

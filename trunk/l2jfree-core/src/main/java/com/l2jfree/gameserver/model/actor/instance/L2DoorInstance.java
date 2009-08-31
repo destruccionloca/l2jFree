@@ -35,7 +35,9 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.DoorKnownList;
+import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.DoorStat;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
@@ -199,21 +201,27 @@ public class L2DoorInstance extends L2Character
 	}
 
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new DoorKnownList(this);
+	}
+	
+	@Override
 	public final DoorKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new DoorKnownList(this);
-
-		return (DoorKnownList) _knownList;
+		return (DoorKnownList)_knownList;
 	}
-
+	
+	@Override
+	protected CharStat initStat()
+	{
+		return new DoorStat(this);
+	}
+	
 	@Override
 	public DoorStat getStat()
 	{
-		if (_stat == null)
-			_stat = new DoorStat(this);
-
-		return (DoorStat) _stat;
+		return (DoorStat)_stat;
 	}
 
 	public final boolean isUnlockable()

@@ -26,7 +26,9 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.StaticObjectKnownList;
+import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.StaticObjStat;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -118,20 +120,26 @@ public class L2StaticObjectInstance extends L2Character
 	}
 	
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new StaticObjectKnownList(this);
+	}
+	
+	@Override
 	public final StaticObjectKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new StaticObjectKnownList(this);
-		
 		return (StaticObjectKnownList)_knownList;
+	}
+	
+	@Override
+	protected CharStat initStat()
+	{
+		return new StaticObjStat(this);
 	}
 	
 	@Override
 	public final StaticObjStat getStat()
 	{
-		if (_stat == null)
-			_stat = new StaticObjStat(this);
-		
 		return (StaticObjStat)_stat;
 	}
 	

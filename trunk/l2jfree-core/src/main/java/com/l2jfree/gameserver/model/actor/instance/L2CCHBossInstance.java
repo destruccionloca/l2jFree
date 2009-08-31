@@ -19,8 +19,8 @@ import javolution.util.FastMap;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.status.AttackableStatus;
 import com.l2jfree.gameserver.model.actor.status.CCHLeaderStatus;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -43,7 +43,7 @@ public final class L2CCHBossInstance extends L2MonsterInstance
 	public L2CCHBossInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-		this.getStatus();
+		getStatus();
 		_damage = new FastMap<Integer, Integer>().setShared(true);
 		switch (getNpcId())
 		{
@@ -52,15 +52,19 @@ public final class L2CCHBossInstance extends L2MonsterInstance
 		default: _hideoutIndex = -1;
 		}
 	}
-
+	
 	@Override
-	public AttackableStatus getStatus()
+	protected CharStatus initStatus()
 	{
-		if (_status == null)
-			_status = new CCHLeaderStatus(this);
-		return super.getStatus();
+		return new CCHLeaderStatus(this);
 	}
-
+	
+	@Override
+	public CCHLeaderStatus getStatus()
+	{
+		return (CCHLeaderStatus)_status;
+	}
+	
 	@Override
 	public final boolean doDie(L2Character killer)
 	{

@@ -73,9 +73,13 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TeleporterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2WarehouseInstance;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.NpcKnownList;
+import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.shot.NpcShots;
+import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.NpcStat;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.NpcStatus;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
@@ -325,30 +329,39 @@ public class L2Npc extends L2Character
 	}
 
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new NpcKnownList(this);
+	}
+	
+	@Override
 	public NpcKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new NpcKnownList(this);
-
-		return (NpcKnownList) _knownList;
+		return (NpcKnownList)_knownList;
 	}
-
+	
+	@Override
+	protected CharStat initStat()
+	{
+		return new NpcStat(this);
+	}
+	
 	@Override
 	public NpcStat getStat()
 	{
-		if (_stat == null)
-			_stat = new NpcStat(this);
-
-		return (NpcStat) _stat;
+		return (NpcStat)_stat;
 	}
-
+	
+	@Override
+	protected CharStatus initStatus()
+	{
+		return new NpcStatus(this);
+	}
+	
 	@Override
 	public NpcStatus getStatus()
 	{
-		if (_status == null)
-			_status = new NpcStatus(this);
-
-		return (NpcStatus) _status;
+		return (NpcStatus)_status;
 	}
 
 	/** Return the L2NpcTemplate of the L2Npc. */
@@ -2893,11 +2906,14 @@ public class L2Npc extends L2Character
 	}
 	
 	@Override
-	public NpcShots getShots()
+	protected final CharShots initShots()
 	{
-		if (_shots == null)
-			_shots = new NpcShots(this);
-		
+		return new NpcShots(this);
+	}
+	
+	@Override
+	public final NpcShots getShots()
+	{
 		return (NpcShots)_shots;
 	}
 	

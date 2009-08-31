@@ -140,11 +140,15 @@ import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
+import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.shot.PcShots;
+import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.ClassLevel;
@@ -1110,32 +1114,41 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new PcKnownList(this);
+	}
+	
+	@Override
 	public final PcKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new PcKnownList(this);
-
 		return (PcKnownList)_knownList;
 	}
-
+	
+	@Override
+	protected CharStat initStat()
+	{
+		return new PcStat(this);
+	}
+	
 	@Override
 	public final PcStat getStat()
 	{
-		if (_stat == null)
-			_stat = new PcStat(this);
-
 		return (PcStat)_stat;
 	}
-
+	
+	@Override
+	protected CharStatus initStatus()
+	{
+		return new PcStatus(this);
+	}
+	
 	@Override
 	public final PcStatus getStatus()
 	{
-		if (_status == null)
-			_status = new PcStatus(this);
-
 		return (PcStatus)_status;
 	}
-
+	
 	public final PcAppearance getAppearance()
 	{
 		return _appearance;
@@ -2535,7 +2548,7 @@ public final class L2PcInstance extends L2Playable
 	/** Set the SP amount of the L2PcInstance. */
 	public void setSp(int sp)
 	{
-		super.getStat().setSp(sp);
+		getStat().setSp(sp);
 	}
 
 	/**
@@ -14148,11 +14161,14 @@ public final class L2PcInstance extends L2Playable
 	}
 	
 	@Override
+	protected CharShots initShots()
+	{
+		return new PcShots(this);
+	}
+	
+	@Override
 	public PcShots getShots()
 	{
-		if (_shots == null)
-			_shots = new PcShots(this);
-		
 		return (PcShots)_shots;
 	}
 

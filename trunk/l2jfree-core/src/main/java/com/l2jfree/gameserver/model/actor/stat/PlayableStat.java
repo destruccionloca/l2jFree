@@ -19,14 +19,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 
-public class PlayableStat extends CharStat
+public abstract class PlayableStat extends CharStat
 {
 	// =========================================================
 	// Data Field
 	
 	// =========================================================
 	// Constructor
-	public PlayableStat(L2Playable activeChar)
+	protected PlayableStat(L2Playable activeChar)
 	{
 		super(activeChar);
 	}

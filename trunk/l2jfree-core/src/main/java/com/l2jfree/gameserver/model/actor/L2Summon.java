@@ -31,9 +31,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.SummonKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
+import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.shot.SummonShots;
+import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
@@ -139,21 +142,27 @@ public abstract class L2Summon extends L2Playable
 	}
 
 	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new SummonKnownList(this);
+	}
+	
+	@Override
 	public final SummonKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new SummonKnownList(this);
-
-		return (SummonKnownList) _knownList;
+		return (SummonKnownList)_knownList;
 	}
-
+	
+	@Override
+	protected CharStat initStat()
+	{
+		return new SummonStat(this);
+	}
+	
 	@Override
 	public SummonStat getStat()
 	{
-		if (_stat == null)
-			_stat = new SummonStat(this);
-
-		return (SummonStat) _stat;
+		return (SummonStat)_stat;
 	}
 	
 	@Override
@@ -908,11 +917,14 @@ public abstract class L2Summon extends L2Playable
 	}
 	
 	@Override
-	public SummonShots getShots()
+	protected final CharShots initShots()
 	{
-		if (_shots == null)
-			_shots = new SummonShots(this);
-		
+		return new SummonShots(this);
+	}
+	
+	@Override
+	public final SummonShots getShots()
+	{
 		return (SummonShots)_shots;
 	}
 }

@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
+import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.SiegeGuardKnownList;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
@@ -46,13 +47,16 @@ public class L2SiegeGuardInstance extends L2SiegeGuard
 		super(objectId, template);
 		getKnownList(); // Inits the knownlist
 	}
-
+	
+	@Override
+	protected CharKnownList initKnownList()
+	{
+		return new SiegeGuardKnownList(this);
+	}
+	
 	@Override
 	public SiegeGuardKnownList getKnownList()
 	{
-		if (_knownList == null)
-			_knownList = new SiegeGuardKnownList(this);
-		
 		return (SiegeGuardKnownList)_knownList;
 	}
 

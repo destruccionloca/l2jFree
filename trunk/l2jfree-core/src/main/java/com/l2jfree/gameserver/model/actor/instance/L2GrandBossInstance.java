@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.GrandBossStatus;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -77,13 +78,16 @@ public class L2GrandBossInstance extends L2Boss
 		GrandBossSpawnManager.getInstance().updateStatus(this, true);
 		return true;
 	}
-
+	
+	@Override
+	protected CharStatus initStatus()
+	{
+		return new GrandBossStatus(this);
+	}
+	
 	@Override
 	public GrandBossStatus getStatus()
 	{
-		if (_status == null)
-			_status = new GrandBossStatus(this);
-		
 		return (GrandBossStatus) _status;
 	}
 	
