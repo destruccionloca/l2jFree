@@ -255,8 +255,6 @@ public class PetStat extends SummonStat
 	@Override
 	public float getMovementSpeedMultiplier()
 	{
-		if (getActiveChar() == null)
-			return 1;
 		float val = getRunSpeed() * 1f / getActiveChar().getPetData().getPetSpeed();
 		if (!getActiveChar().isRunning())
 			val = val/2;

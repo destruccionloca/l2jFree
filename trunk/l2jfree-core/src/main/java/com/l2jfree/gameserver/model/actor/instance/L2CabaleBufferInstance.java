@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -153,7 +152,7 @@ public class L2CabaleBufferInstance extends L2Npc
             if (player.getLevel() > 40)
                 skillLevel = 2;
 
-            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false))
+            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getKnownList().getDistanceToWatchObject(player), false, false))
                 return false;
 
             L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
@@ -193,11 +192,5 @@ public class L2CabaleBufferInstance extends L2Npc
         }
 
         super.deleteMe();
-    }
-
-    @Override
-    public int getDistanceToWatchObject(L2Object object)
-    {
-        return 900;
     }
 }

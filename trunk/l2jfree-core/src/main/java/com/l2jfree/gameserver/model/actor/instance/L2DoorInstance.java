@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Clan;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -425,34 +424,6 @@ public class L2DoorInstance extends L2Character
 	public boolean isAttackable(L2Character attacker)
 	{
 		return isAutoAttackable(attacker);
-	}
-
-	public int getDistanceToWatchObject(L2Object object)
-	{
-		if (!(object instanceof L2PcInstance))
-			return 0;
-		return 2000;
-	}
-
-	/**
-	 * Return the distance after which the object must be remove from
-	 * _knownObject according to the type of the object.<BR>
-	 * <BR>
-	 * 
-	 * <B><U> Values </U> :</B><BR>
-	 * <BR>
-	 * <li> object is a L2PcInstance : 4000</li>
-	 * <li> object is not a L2PcInstance : 0 </li>
-	 * <BR>
-	 * <BR>
-	 * 
-	 */
-	public int getDistanceToForgetObject(L2Object object)
-	{
-		if (!(object instanceof L2PcInstance))
-			return 0;
-
-		return 4000;
 	}
 
 	@Override

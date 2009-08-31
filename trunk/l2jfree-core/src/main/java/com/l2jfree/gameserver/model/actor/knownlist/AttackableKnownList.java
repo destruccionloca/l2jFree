@@ -14,10 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.knownlist;
 
-import java.util.Collection;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -51,13 +48,10 @@ public class AttackableKnownList extends NpcKnownList
 			getActiveChar().getAggroList().remove(object);
 		
 		// Set the L2Attackable Intention to AI_INTENTION_IDLE
-		Collection<L2PcInstance> known = getKnownPlayers().values();
-		
 		//FIXME: This is a temporary solution
-		L2CharacterAI ai = getActiveChar().getAI();
-		if (ai != null && (known == null || known.isEmpty()))
+		if (getActiveChar().hasAI() && object instanceof L2PcInstance && getKnownPlayers().isEmpty())
 		{
-			ai.setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 
 		return true;

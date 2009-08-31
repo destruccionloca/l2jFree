@@ -28,8 +28,8 @@ public class CharKnownList extends ObjectKnownList
 {
 	protected final L2Character _activeChar;
 	
-	private Map<Integer, L2Object> _knownObjects;
-	private Map<Integer, L2PcInstance> _knownPlayers;
+	private final Map<Integer, L2Object> _knownObjects = new SingletonMap<Integer, L2Object>().setShared();
+	private final Map<Integer, L2PcInstance> _knownPlayers = new SingletonMap<Integer, L2PcInstance>().setShared();
 	
 	public CharKnownList(L2Character activeChar)
 	{
@@ -165,16 +165,11 @@ public class CharKnownList extends ObjectKnownList
 	
 	public final Map<Integer, L2Object> getKnownObjects()
 	{
-		if (_knownObjects == null)
-			_knownObjects = new SingletonMap<Integer, L2Object>().setShared();
-		
 		return _knownObjects;
 	}
 	
 	public final Map<Integer, L2PcInstance> getKnownPlayers()
 	{
-		if (_knownPlayers == null)
-			_knownPlayers = new SingletonMap<Integer, L2PcInstance>().setShared();
 		return _knownPlayers;
 	}
 	

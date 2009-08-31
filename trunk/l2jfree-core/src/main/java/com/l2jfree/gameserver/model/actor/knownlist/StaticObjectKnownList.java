@@ -15,9 +15,8 @@
 package com.l2jfree.gameserver.model.actor.knownlist;
 
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
+import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 
 public class StaticObjectKnownList extends CharKnownList
@@ -49,7 +48,7 @@ public class StaticObjectKnownList extends CharKnownList
 	@Override
 	public int getDistanceToForgetObject(L2Object object)
 	{
-		if (object instanceof L2SiegeGuardInstance || object instanceof L2FortSiegeGuardInstance)
+		if (object instanceof L2SiegeGuard)
 			return 800;
 		if (!(object instanceof L2PcInstance))
 			return 0;
@@ -59,7 +58,7 @@ public class StaticObjectKnownList extends CharKnownList
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (object instanceof L2SiegeGuardInstance || object instanceof L2FortSiegeGuardInstance)
+		if (object instanceof L2SiegeGuard)
 			return 600;
 		if (!(object instanceof L2PcInstance))
 			return 0;

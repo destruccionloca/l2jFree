@@ -53,7 +53,6 @@ import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
@@ -69,7 +68,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2FestivalGuideInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TeleporterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2WarehouseInstance;
@@ -437,55 +435,6 @@ public class L2Npc extends L2Character
 	public boolean isUndead()
 	{
 		return getTemplate().isUndead();
-	}
-
-	/**
-	 * Return the distance under which the object must be add to _knownObject in function of the object type.<BR><BR>
-	 *
-	 * <B><U> Values </U> :</B><BR><BR>
-	 * <li> object is a L2NpcInstance : 0 (don't remember it) </li>
-	 * <li> object is a L2Character : 0 (don't remember it) </li>
-	 * <li> object is a L2Playable : 1500 </li>
-	 * <li> others : 500 </li><BR><BR>
-	 *
-	 * <B><U> Overridden in </U> :</B><BR><BR>
-	 * <li> L2Attackable</li><BR><BR>
-	 *
-	 * @param object The Object to add to _knownObject
-	 *
-	 */
-	public int getDistanceToWatchObject(L2Object object)
-	{
-		if (object instanceof L2FestivalGuideInstance)
-			return 10000;
-
-		if (object instanceof L2NpcInstance || !(object instanceof L2Character))
-			return 0;
-
-		if (object instanceof L2Playable)
-			return 1500;
-
-		return 500;
-	}
-
-	/**
-	 * Return the distance after which the object must be remove from _knownObject in function of the object type.<BR><BR>
-	 *
-	 * <B><U> Values </U> :</B><BR><BR>
-	 * <li> object is not a L2Character : 0 (don't remember it) </li>
-	 * <li> object is a L2NpcInstance : 0 (don't remember it)</li>
-	 * <li> object is a L2Playable : 3000 </li>
-	 * <li> others : 1000 </li><BR><BR>
-	 *
-	 * <B><U> Overridden in </U> :</B><BR><BR>
-	 * <li> L2Attackable</li><BR><BR>
-	 *
-	 * @param object The Object to remove from _knownObject
-	 *
-	 */
-	public int getDistanceToForgetObject(L2Object object)
-	{
-		return 2 * getDistanceToWatchObject(object);
 	}
 
 	/**

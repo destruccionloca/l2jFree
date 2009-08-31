@@ -18,7 +18,6 @@ import java.util.concurrent.ScheduledFuture;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -79,11 +78,5 @@ public class L2XmassTreeInstance extends L2Npc
 		if (_aiTask != null)
 			_aiTask.cancel(true);
 		super.deleteMe();
-	}
-
-	@Override
-	public int getDistanceToWatchObject(L2Object object)
-	{
-		return 900;
 	}
 }

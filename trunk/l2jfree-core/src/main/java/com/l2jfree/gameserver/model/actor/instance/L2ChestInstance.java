@@ -143,7 +143,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 
 		if (player.isDead()
 			|| !player.isVisible()
-			|| !player.isInsideRadius(this, getDistanceToWatchObject(player), false, false))
+			|| !player.isInsideRadius(this, getKnownList().getDistanceToWatchObject(player), false, false))
 			return false;
 
 		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
