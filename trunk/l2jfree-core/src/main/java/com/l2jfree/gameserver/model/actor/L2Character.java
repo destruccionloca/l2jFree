@@ -262,14 +262,15 @@ public abstract class L2Character extends L2Object
 	public L2Character(int objectId, L2CharTemplate template)
 	{
 		super(objectId);
+		
+		// Set its template to the new L2Character
+		_template = template;
+		
 		_stat = initStat();
 		_status = initStatus();
 		_knownList = initKnownList();
 		_effects = initEffects();
 		_shots = initShots();
-		
-		// Set its template to the new L2Character
-		_template = template;
 		
 		if (this instanceof L2DoorInstance)
 			_calculators = Formulas.getStdDoorCalculators();

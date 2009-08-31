@@ -8648,10 +8648,6 @@ public final class L2PcInstance extends L2Playable
 			if (GlobalRestrictions.isProtected(this, (L2Character)obj, skill, false))
 				return false;
 		
-		if (obj instanceof L2PcInstance)
-			if (!GlobalRestrictions.canBeInsidePeaceZone(this, (L2PcInstance)obj))
-				return true;
-		
 		// Check for PC->PC Pvp status
 		if (obj != this && // Target is not self and
 				obj instanceof L2PcInstance && // Target is L2PcInstance and

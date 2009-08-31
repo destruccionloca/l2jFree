@@ -1058,7 +1058,7 @@
       <normal X="-58272" Y="-55431" Z="-2012"/>
       <chaotic X="-58752" Y="-56898" Z="-2032"/>
     </restartpoint>
-    <restartpoint restartId="120" name="South of Wastelands Camp" bbs="" locname="2190"> <!-- L2J: 20 = "South of Wastelands Camp" -->
+    <restartpoint restartId="120" name="South of Wastelands Camp" bbs="-1" locname="2190"> <!-- L2J: 20 = "South of Wastelands Camp" -->
       <!-- unused placeholder -->
     </restartpoint>
     <restartpoint restartId="127" name="inside the Steel Citadel" bbs="101" locname="2293"> <!-- L2J: 27 = "inside the Steel Citadel" -->
