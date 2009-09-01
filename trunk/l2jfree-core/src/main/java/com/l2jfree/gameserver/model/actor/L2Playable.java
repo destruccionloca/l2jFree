@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
-import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -312,21 +311,7 @@ public abstract class L2Playable extends L2Character
 					cha.setTarget(null);
 				
 				if (cha.hasAI())
-				{
-					L2CharacterAI ai = cha.getAI();
-					
-					if (ai.getTarget() == this)
-						ai.setTarget(null);
-					
-					if (ai.getCastTarget() == this)
-						ai.setCastTarget(null);
-					
-					if (ai.getAttackTarget() == this)
-						ai.setAttackTarget(null);
-					
-					if (ai.getFollowTarget() == this)
-						ai.setFollowTarget(null);
-				}
+					cha.getAI().removeReferencesOf(this);
 				
 				if (obj instanceof L2Attackable)
 				{

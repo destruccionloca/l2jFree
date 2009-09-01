@@ -1592,4 +1592,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 		_globalAggro = value;
 	}
+	
+	@Override
+	public void removeReferencesOf(L2Playable playable)
+	{
+		super.removeReferencesOf(playable);
+		
+		if (_mostHatedAnalysis.character == playable)
+			_mostHatedAnalysis.update(getActor(), null);
+		
+		if (_secondMostHatedAnalysis.character == playable)
+			_secondMostHatedAnalysis.update(getActor(), null);
+	}
 }

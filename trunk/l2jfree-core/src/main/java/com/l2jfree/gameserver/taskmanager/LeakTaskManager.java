@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.taskmanager;
 
 import java.text.DecimalFormat;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastList;
@@ -26,12 +27,16 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.FactionAggressionNotificationQueue;
+import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
 import com.l2jfree.lang.L2Thread;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * @author NB4L1
@@ -40,7 +45,7 @@ public final class LeakTaskManager
 {
 	private static final Log _log = LogFactory.getLog(LeakTaskManager.class);
 	
-	private static final long MINIMUM_DELAY_BETWEEN_CLEANUPS = TimeUnit.MINUTES.toMillis(10);
+	private static final long MINIMUM_DELAY_BETWEEN_CLEANUPS = TimeUnit.MINUTES.toMillis(30);
 	private static final long MINIMUM_DELAY_BETWEEN_MEMORY_DUMPS = TimeUnit.HOURS.toMillis(4);
 
 	public static LeakTaskManager getInstance()
@@ -126,7 +131,32 @@ public final class LeakTaskManager
 	
 	private synchronized void cleanup()
 	{
-		L2Object[] objects = L2World.getInstance().getAllVisibleObjects();
+		final L2Object[] tmp = L2World.getInstance().getAllVisibleObjects();
+		
+		final Set<L2Object> set = new L2FastSet<L2Object>(tmp.length);
+		
+		for (L2Object obj : tmp)
+		{
+			if (obj == null)
+				continue;
+			
+			set.add(obj);
+		}
+		
+		for (L2Spawn spawn : SpawnTable.getInstance().getAllTemplates().values())
+		{
+			if (spawn == null)
+				continue;
+			
+			final L2Npc npc = spawn.getLastSpawn();
+			
+			if (npc == null)
+				continue;
+			
+			set.add(npc);
+		}
+		
+		final L2Object[] objects = set.toArray(new L2Object[set.size()]);
 		
 		_log.info("LeakTaskManager: " + _players.size() + " player(s) are waiting for cleanup.");
 		for (ImmutableReference<L2PcInstance> ref : _players.keySet())

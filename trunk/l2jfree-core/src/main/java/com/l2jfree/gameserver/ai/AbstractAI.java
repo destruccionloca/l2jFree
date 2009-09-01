@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -922,4 +923,18 @@ public abstract class AbstractAI implements Ctrl
 		_target = target;
 	}
 	
+	public void removeReferencesOf(L2Playable playable)
+	{
+		if (getTarget() == playable)
+			setTarget(null);
+		
+		if (getCastTarget() == playable)
+			setCastTarget(null);
+		
+		if (getAttackTarget() == playable)
+			setAttackTarget(null);
+		
+		if (getFollowTarget() == playable)
+			setFollowTarget(null);
+	}
 }
