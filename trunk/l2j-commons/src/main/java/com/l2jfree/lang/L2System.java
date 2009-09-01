@@ -21,73 +21,31 @@ import java.util.concurrent.TimeUnit;
  */
 public final class L2System
 {
-	
 	private L2System()
 	{
 	}
 	
-	private interface MilliTime
-	{
-		long milliTime();
-	}
-	
-	private static final MilliTime systemCurrentTimeMillisBased = new MilliTime() {
-		private final long ZERO = System.currentTimeMillis();
-		
-		@Override
-		public long milliTime()
-		{
-			return System.currentTimeMillis() - ZERO;
-		}
-	};
-	
-	private static final MilliTime systemNanoTimeBased = new MilliTime() {
-		private final long ZERO = System.nanoTime();
-		
-		@Override
-		public long milliTime()
-		{
-			return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
-		}
-	};
-	
-	/**
-	 * Ugly as hell, but unfortunately nanoTime is influenced by the cpu clock speed, so if it's changed, it shouldn't
-	 * be used at all.
-	 */
-	static
-	{
-		new Thread() {
-			@Override
-			public void run()
-			{
-				long begin1 = systemCurrentTimeMillisBased.milliTime();
-				long begin2 = systemNanoTimeBased.milliTime();
-				
-				try
-				{
-					Thread.sleep(10000);
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-				
-				double diff1 = systemCurrentTimeMillisBased.milliTime() - begin1;
-				double diff2 = systemNanoTimeBased.milliTime() - begin2;
-				
-				if (Math.abs((diff1 / diff2) - 1.0) < 0.005)
-					milliTime = systemNanoTimeBased;
-			}
-		}.start();
-	}
-	
-	private static MilliTime milliTime = systemCurrentTimeMillisBased;
+	private static final long ZERO = System.currentTimeMillis();
 	
 	public static long milliTime()
 	{
-		return milliTime.milliTime();
+		return System.currentTimeMillis() - ZERO;
 	}
+	
+	/**
+	 * If you are TOTALLY sure, that your server has got constant cpu clock speed,<br>
+	 * then you can use the more accurate nano based time measurement.<br>
+	 * <br>
+	 * In case just remove the comment from below, and add around the method above.
+	 */
+	/*
+	private static final long ZERO = System.nanoTime();
+	
+	public static long milliTime()
+	{
+		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
+	}
+	*/
 	
 	/**
 	 * Copy of HashMap.hash().
