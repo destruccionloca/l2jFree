@@ -44,6 +44,7 @@ public final class RunnableStatsManager
 	private static final class ClassStat
 	{
 		private final String _className;
+		private final MethodStat _runnableStat;
 		
 		private String[] _methodNames = new String[0];
 		private MethodStat[] _methodStats = new MethodStat[0];
@@ -51,11 +52,25 @@ public final class RunnableStatsManager
 		private ClassStat(Class<?> clazz)
 		{
 			_className = clazz.getName().replace("com.l2jfree.gameserver.", "");
+			_runnableStat = new MethodStat(_className, "run()");
+			
+			_methodNames = new String[] { "run()" };
+			_methodStats = new MethodStat[] { _runnableStat };
+			
 			_classStats.put(clazz, this);
+		}
+		
+		private MethodStat getRunnableStat()
+		{
+			return _runnableStat;
 		}
 		
 		private MethodStat getMethodStat(String methodName, boolean synchronizedAlready)
 		{
+			// method names will be interned automatically because of compiling, so this gonna work
+			if (methodName == "run()")
+				return _runnableStat;
+			
 			for (int i = 0; i < _methodNames.length; i++)
 				if (_methodNames[i].equals(methodName))
 					return _methodStats[i];
@@ -134,7 +149,7 @@ public final class RunnableStatsManager
 	
 	public static void handleStats(Class<? extends Runnable> clazz, long runTime)
 	{
-		handleStats(clazz, "run()", runTime);
+		getClassStat(clazz, false).getRunnableStat().handleStats(runTime);
 	}
 	
 	public static void handleStats(Class<?> clazz, String methodName, long runTime)
