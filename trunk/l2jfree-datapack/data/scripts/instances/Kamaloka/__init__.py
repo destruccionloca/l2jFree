@@ -15,6 +15,8 @@ from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
 
 qn = "Kamaloka"
 
+debug = False
+
 #NPC
 BATHIS    = 30332 #Gludio
 LUCAS     = 30071 #Dion
@@ -185,7 +187,7 @@ def checkCondition(player,KamaInfo):
 	if not party:
 		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))
 		return False
-	# Check size of the party, max 6 for entering Kamaloka
+	# Check size of the party, max 6 for entering Kamaloka Hall of Abyss, 9 for Labyrinth
 	if party and party.getMemberCount() > KamaInfo[5]:
 		player.sendPacket(SystemMessage.sendString("Instance for max "+str(KamaInfo[5])+" players in party."))
 		return False
@@ -237,7 +239,8 @@ def enterInstance(self,player,KamaInfo,level):
 		if level in [29,39,49,59,69,78,81]:
 			world.level = level
 			startFirstRoom(self,world)
-		print "Kamaloka: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
+		if debug:
+			print "Kamaloka: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
 	# Teleport players
 	for partyMember in party.getPartyMembers().toArray():
 		partyMember.stopAllEffects()
