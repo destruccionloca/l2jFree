@@ -1363,7 +1363,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="baseCritRate" val="15"/>
     <for>
-      <effect name="Stun" time="8" val="0" effectPower="60" effectType="STUN" stackOrder="2" stackType="Stun">
+      <effect name="Stun" time="8" val="0" effectPower="40" effectType="STUN" stackOrder="2" stackType="Stun">
         <mul order="0x30" stat="pDef" val="0.7"/>
         <mul order="0x30" stat="mDef" val="0.7"/>
       </effect>
