@@ -69,18 +69,14 @@ public class RequestDropItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		// Flood protect drop to avoid packet lag, do not add any messages here
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.DROPITEM))
-		{
-			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
-		}
 		else if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 		else if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)

@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -58,7 +57,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 
 		if (Shutdown.isActionDisabled(DisableType.CREATEITEM))
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 		else if (_count < 1)
@@ -195,7 +194,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		activeChar.broadcastUserInfo();
 		activeChar.setInCrystallize(false);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

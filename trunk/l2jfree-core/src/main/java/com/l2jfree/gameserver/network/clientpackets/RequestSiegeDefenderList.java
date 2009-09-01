@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SiegeDefenderList;
 
 public class RequestSiegeDefenderList extends L2GameClientPacket
@@ -26,7 +25,7 @@ public class RequestSiegeDefenderList extends L2GameClientPacket
     private static final String _C__a3_RequestSiegeDefenderList = "[C] a3 RequestSiegeDefenderList";
 
     private int _siegeableID;
-    
+
     @Override
     protected void readImpl()
     {
@@ -46,12 +45,13 @@ public class RequestSiegeDefenderList extends L2GameClientPacket
         }
         else
         	sdl = new SiegeDefenderList(castle);
+
         if (sdl != null)
         	sendPacket(sdl);
-        sendPacket(ActionFailed.STATIC_PACKET);
+
+        sendAF();
     }
-    
-    
+
     @Override
     public String getType()
     {

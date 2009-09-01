@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SendTradeRequest;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
@@ -48,20 +47,17 @@ public class TradeRequest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-			player.sendMessage("Unsufficient privileges.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+        	requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
 		}
 
@@ -80,65 +76,70 @@ public class TradeRequest extends L2GameClientPacket
 
 		if (!(obj instanceof L2PcInstance) || obj.getObjectId() == player.getObjectId())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
 		}
 
-		L2PcInstance partner = (L2PcInstance)obj;
+		L2PcInstance partner = (L2PcInstance) obj;
 
 		if (partner.isInOlympiadMode() || player.isInOlympiadMode())
 		{
-			player.sendMessage("You or your target can't request trade in Olympiad mode");
+			requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
 			return;
 		}
 
 		if (BlockList.isBlocked(partner, player))
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_ADDED_YOU_TO_IGNORE_LIST);
-			sm.addCharName(partner);
-			player.sendPacket(sm);
+			requestFailed(new SystemMessage(SystemMessageId.C1_HAS_ADDED_YOU_TO_IGNORE_LIST).addCharName(partner));
 			return;
 		}
 
 		if (player.getDistanceSq(partner) > 22500) // 150
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.TARGET_TOO_FAR);
-			player.sendPacket(sm);
+			requestFailed(SystemMessageId.TARGET_TOO_FAR);
 			return;
 		}
 
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && (player.getKarma() > 0 || partner.getKarma() > 0))
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE)
 		{
-			player.sendMessage("Chaotic players can't use Trade.");
-			return;
+			if (player.getKarma() > 0)
+			{
+				requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
+				return;
+			}
+			else if (partner.getKarma() > 0)
+			{
+				requestFailed(SystemMessageId.CANT_TRADE_WITH_TARGET);
+				return;
+			}
 		}
 
 		if (player.getPrivateStoreType() != 0 || partner.getPrivateStoreType() != 0)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
+			requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
 			return;
 		}
 
 		if (player.isProcessingTransaction())
 		{
-			if (_log.isDebugEnabled()) _log.debug("already trading with someone");
-			player.sendPacket(new SystemMessage(SystemMessageId.ALREADY_TRADING));
+			if (_log.isDebugEnabled())
+				_log.debug("already trading with someone");
+			requestFailed(SystemMessageId.ALREADY_TRADING);
 			return;
 		}
 
 		if (partner.isProcessingRequest() || partner.isProcessingTransaction())
 		{
-			if (_log.isDebugEnabled()) _log.debug("transaction already in progress.");
-			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER);
-			sm.addString(partner.getName());
-			player.sendPacket(sm);
+			if (_log.isDebugEnabled())
+				_log.debug("transaction already in progress.");
+			requestFailed(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addString(partner.getName()));
 			return;
 		}
 
 		if (partner.getTradeRefusal())
 		{
-			player.sendMessage("Target is in trade refusal mode.");
+			requestFailed(SystemMessageId.CANT_TRADE_WITH_TARGET);
 			return;
 		}
 
@@ -147,6 +148,8 @@ public class TradeRequest extends L2GameClientPacket
 		SystemMessage sm = new SystemMessage(SystemMessageId.REQUEST_C1_FOR_TRADE);
 		sm.addString(partner.getName());
 		player.sendPacket(sm);
+
+		sendAF();
 	}
 
 	@Override

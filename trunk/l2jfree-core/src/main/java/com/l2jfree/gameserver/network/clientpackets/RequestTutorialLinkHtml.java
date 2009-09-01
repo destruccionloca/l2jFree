@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 public class RequestTutorialLinkHtml extends L2GameClientPacket
 {
     private static final String _C__7B_REQUESTTUTORIALLINKHTML = "[C] 7B equestTutorialLinkHtml";
+
     private String _link;
 
     @Override
@@ -36,25 +37,20 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
     {
         _link = readS(); // link
     }
-    
-    /**
-     * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
+
     @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        if(player == null)
-            return;
+        if (player == null) return;
 
         QuestState qs = player.getQuestState("255_Tutorial");
-        if(qs != null)
+        if (qs != null)
             qs.getQuest().notifyEvent(_link, null, player);
+
+        sendAF();
     }
 
-    /**
-     * @see com.l2jfree.gameserver.network.BasePacket#getType()
-     */
     @Override
     public String getType()
     {

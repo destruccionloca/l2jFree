@@ -38,15 +38,15 @@ public class SetPrivateStoreMsgSell extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getSellList() == null) return;
+		if (player == null || player.getSellList() == null)
+			return;
 		
 		player.getSellList().setTitle(_storeMsg);
 		sendPacket(new PrivateStoreMsgSell(player));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

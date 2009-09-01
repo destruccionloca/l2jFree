@@ -23,11 +23,9 @@ import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreManageListSell;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -76,44 +74,41 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
 		if (_items == null)
 		{
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			player.broadcastUserInfo();
+			sendAF();
 			return;
 		}
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-			player.sendMessage("Unsufficient privileges.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
 		}
 
 		// Check maximum number of allowed slots for pvt shops
 		if (_items.length > player.getPrivateSellStoreLimit())
 		{
-			player.sendPacket(new PrivateStoreManageListSell(player, _packageSale));
-			player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+			sendPacket(new PrivateStoreManageListSell(player, _packageSale));
+			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 			return;
 		}
 
 		// Prevents player to start selling inside a nostore zone. By heX1r0
 		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
 		{
-			player.sendPacket(new PrivateStoreManageListSell(player, _packageSale));
-			sendPacket(SystemMessageId.NO_PRIVATE_STORE_HERE);
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(new PrivateStoreManageListSell(player, _packageSale));
+			requestFailed(SystemMessageId.NO_PRIVATE_STORE_HERE);
 			return;
 		}
 
@@ -139,16 +134,20 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		}
 
 		player.sitDown();
+
 		if (_packageSale)
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_PACKAGE_SELL);
 		else
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_SELL);
 
 		player.broadcastUserInfo();
+
 		if (_packageSale)
 			player.broadcastPacket(new ExPrivateStoreSetWholeMsg(player));
 		else
 			player.broadcastPacket(new PrivateStoreMsgSell(player));
+
+		sendAF();
 	}
 
 	private class Item

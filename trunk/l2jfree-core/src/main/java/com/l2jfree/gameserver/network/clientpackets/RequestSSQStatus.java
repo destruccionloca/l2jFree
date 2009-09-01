@@ -29,9 +29,9 @@ import com.l2jfree.gameserver.network.serverpackets.SSQStatus;
 public class RequestSSQStatus extends L2GameClientPacket
 {
     private static final String _C__C7_RequestSSQStatus = "[C] C7 RequestSSQStatus";
-    
+
     private int _page;
-    
+
     @Override
     protected void readImpl()
     {
@@ -42,19 +42,20 @@ public class RequestSSQStatus extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null)
-            return;
-        
-        if ((SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod()) && _page == 4)
-            return;
+        if (activeChar == null) return;
 
-        SSQStatus ssqs = new SSQStatus(activeChar, _page);
-        activeChar.sendPacket(ssqs);
+        if ((SevenSigns.getInstance().isSealValidationPeriod() ||
+        		SevenSigns.getInstance().isCompResultsPeriod())
+        		&& _page == 4)
+        {
+        	sendAF();
+            return;
+        }
+
+        sendPacket(new SSQStatus(activeChar, _page));
+        sendAF();
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {

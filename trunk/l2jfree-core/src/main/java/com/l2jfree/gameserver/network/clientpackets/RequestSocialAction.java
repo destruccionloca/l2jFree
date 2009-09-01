@@ -14,13 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
@@ -52,40 +50,41 @@ public class RequestSocialAction extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
-		// You cannot do anything else while fishing
-		if (activeChar.isFishing())
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
-			activeChar.sendPacket(sm);
-			sm = null;
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.SOCIAL))
 			return;
-		}
 
 		// check if its the actionId is allowed
-		if (_actionId < 2 || _actionId > 14)
+		else if (_actionId < 2 || _actionId > 14)
 		{
-			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character "+activeChar.getName()+" of account "+activeChar.getAccountName()+" requested an internal Social Action.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " requested an internal Social Action.", Config.DEFAULT_PUNISH);
+			sendAF();
 			return;
 		}
 
-		if (	activeChar.getPrivateStoreType() == 0 &&
-				activeChar.getActiveRequester() == null &&
-				!activeChar.isAlikeDead() &&
-				!activeChar.isCastingNow() && !activeChar.isCastingSimultaneouslyNow() &&
-				(!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) &&
-				activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE
-				&& FloodProtector.tryPerformAction(activeChar, Protected.SOCIAL))
+		// You cannot do anything else while fishing
+		else if (activeChar.isFishing())
 		{
-			activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), _actionId));
+			requestFailed(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
+			return;
 		}
+
+		else if (activeChar.isSitting() || activeChar.getActiveRequester() != null ||
+				activeChar.isAlikeDead() || activeChar.isCastingNow() ||
+				activeChar.isCastingSimultaneouslyNow() ||
+				activeChar.getAI().getIntention() != CtrlIntention.AI_INTENTION_IDLE ||
+				(activeChar.isAllSkillsDisabled() && !activeChar.isInDuel()))
+		{
+			sendAF();
+			return;
+		}
+
+		activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), _actionId));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

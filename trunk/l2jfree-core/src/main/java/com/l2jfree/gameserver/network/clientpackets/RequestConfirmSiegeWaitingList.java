@@ -68,7 +68,7 @@ public class RequestConfirmSiegeWaitingList extends L2GameClientPacket{
         // Check if leader of the clan who owns the castle?
         else if (castle.getOwnerId() != activeChar.getClanId())
         {
-        	sendPacket(ActionFailed.STATIC_PACKET);
+        	sendAF();
         	return;
         }
         else if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE ||
@@ -104,7 +104,7 @@ public class RequestConfirmSiegeWaitingList extends L2GameClientPacket{
 
         //Update the defender list
         sendPacket(new SiegeDefenderList(castle));
-        sendPacket(ActionFailed.STATIC_PACKET);
+        sendAF();
     }
 
     @Override

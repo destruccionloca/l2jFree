@@ -14,10 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.handler.UserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * This class ...
@@ -46,24 +46,17 @@ public class RequestUserCommand extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        if (player == null)
-            return;
+        if (player == null) return;
 
         IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
-        
         if (handler == null)
-        {
-            player.sendMessage("User command ID "+_command+" is not implemented yet.");
-        }
+            sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
         else
-        {
-            handler.useUserCommand(_command, getClient().getActiveChar());
-        }
+            handler.useUserCommand(_command, player);
+
+        sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

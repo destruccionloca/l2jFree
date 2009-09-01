@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class represents a packet that is sent by the client when a player drags
@@ -46,8 +45,7 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
 		if (!(player.getPet() instanceof L2PetInstance))
 		{
@@ -56,7 +54,7 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 		}
 		else if (player.getActiveEnchantItem() != null)
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.TRY_AGAIN_LATER);
 			return;
 		}
 
@@ -65,7 +63,7 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 		if (_amount > 0 && pet.transferItem("Transfer", _objectId, _amount, player.getInventory(), player, pet) == null)
 			_log.warn("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

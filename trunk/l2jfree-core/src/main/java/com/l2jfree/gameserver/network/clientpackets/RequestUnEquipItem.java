@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -32,7 +31,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 
 	// cd
 	private int _slot;
-	
+
 	/**
 	 * packet type id 0x11
 	 * format:		cd
@@ -47,46 +46,42 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null) return;
+
 		if (_log.isDebugEnabled())
 			_log.debug("request unequip slot " + _slot);
 
-		L2PcInstance activeChar = getClient().getActiveChar();
-
-		if (activeChar == null)
-			return;
 		if (activeChar._haveFlagCTF)
 		{
 			activeChar.sendMessage("You can't unequip a CTF flag.");
+			sendAF();
 			return;
 		}
 
 		L2ItemInstance item = activeChar.getInventory().getPaperdollItemByL2ItemId(_slot);
-		if (item == null || item.isWear())
+		if (item == null || item.isWear() || // Wear-items are not to be unequipped
+				item.getItemId() == 9819 || // Fortress siege combat flags can't be unequipped
+				// Prevent player from unequipping items in special conditions
+				activeChar.isStunned() || activeChar.isSleeping() || 
+				activeChar.isParalyzed() || activeChar.isAlikeDead())
 		{
-			// Wear-items are not to be unequipped
+			sendAF();
 			return;
 		}
 
 		// Prevent of unequiping a cursed weapon
-		if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquipped())
+		else if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquipped())
 		{
+			sendAF();
 			return;
 		}
 
-		// Fortress siege combat flags can't be unequipped
-		if (item.getItemId() == 9819)
-			return;
-
-		// Prevent player from unequipping items in special conditions
-		if (activeChar.isStunned() || activeChar.isSleeping()
-				|| activeChar.isParalyzed() || activeChar.isAlikeDead())
+		else if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
 		{
-			activeChar.sendMessage("Your status does not allow you to do that.");
+			requestFailed(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC);
 			return;
 		}
-
-		if (activeChar.isCastingNow() || activeChar.isCastingSimultaneouslyNow())
-			return;
 
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
 
@@ -112,13 +107,12 @@ public class RequestUnEquipItem extends L2GameClientPacket
 				sm = new SystemMessage(SystemMessageId.S1_DISARMED);
 				sm.addItemName(unequiped[0]);
 			}
-			activeChar.sendPacket(sm);
+			sendPacket(sm);
 		}
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

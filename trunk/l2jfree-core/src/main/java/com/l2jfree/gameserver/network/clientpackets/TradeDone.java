@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
@@ -22,8 +21,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -35,7 +32,7 @@ public class TradeDone extends L2GameClientPacket
 	private static final String _C__17_TRADEDONE = "[C] 17 TradeDone";
 
 	private int _response;
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -47,55 +44,57 @@ public class TradeDone extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
-		
+
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.cancelActiveTrade();
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
-		
+
 		TradeList trade = player.getActiveTradeList();
 		if (trade == null)
 		{
 			if(_log.isDebugEnabled())
-				_log.warn("player.getTradeList == null in "+getType()+" for player "+player.getName());
+				_log.warn("player.getTradeList == null in " + getType() + " for player " + player.getName());
+			requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
 			return;
 		}
 		if (trade.isLocked()) return;
 
 		if (_response == 1)
 		{
-			if (trade.getPartner() == null || L2World.getInstance().getPlayer(trade.getPartner().getObjectId()) == null)
+			if (trade.getPartner() == null ||
+					L2World.getInstance().getPlayer(trade.getPartner().getObjectId()) == null)
 			{
 				// Trade partner not found, cancel trade
 				player.cancelActiveTrade();
-				SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-				player.sendPacket(msg);
-				msg = null;
+				requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 				return;
 			}
 
-			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
+			if (trade.getOwner().getActiveEnchantItem() != null ||
+					trade.getPartner().getActiveEnchantItem() != null)
+			{
+				requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
 				return;
+			}
 
 			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
 				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
-				player.sendMessage("Unsufficient privileges.");
 				player.cancelActiveTrade();
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 				return;
 			}
 			trade.confirm();
 		}
-		else player.cancelActiveTrade();
+		else
+			player.cancelActiveTrade();
+
+		sendAF();
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+
 	@Override
 	public String getType()
 	{

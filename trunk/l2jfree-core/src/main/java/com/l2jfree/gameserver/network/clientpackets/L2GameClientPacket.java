@@ -130,6 +130,11 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	protected final void requestFailed(L2GameServerPacket gsp)
 	{
 		sendPacket(gsp);
+		sendAF();
+	}
+
+	protected final void sendAF()
+	{
 		sendPacket(STATIC_PACKET);
 	}
 	

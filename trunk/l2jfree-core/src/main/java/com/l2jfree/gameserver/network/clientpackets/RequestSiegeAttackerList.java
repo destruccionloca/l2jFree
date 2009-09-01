@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 
 /**
@@ -29,10 +28,9 @@ import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 public class RequestSiegeAttackerList extends L2GameClientPacket
 {
     private static final String _C__A2_RequestSiegeAttackerList = "[C] a2 RequestSiegeAttackerList";
-    //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 
     private int _siegeableID;
-    
+
     @Override
     protected void readImpl()
     {
@@ -54,9 +52,10 @@ public class RequestSiegeAttackerList extends L2GameClientPacket
         	sal = new SiegeAttackerList(castle);
         if (sal != null)
         	sendPacket(sal);
-        sendPacket(ActionFailed.STATIC_PACKET);
+
+        sendAF();
     }
-    
+
     @Override
     public String getType()
     {

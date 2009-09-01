@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Format (ch) dd
@@ -23,10 +24,10 @@ package com.l2jfree.gameserver.network.clientpackets;
 public class RequestWithdrawPartyRoom extends L2GameClientPacket
 {
 	private static final String _C__D0_02_REQUESTWITHDRAWPARTYROOM = "[C] D0:02 RequestWithdrawPartyRoom";
-	
+
 	private int _data1;
 	private int _data2;
-	
+
     @Override
     protected void readImpl()
     {
@@ -34,19 +35,14 @@ public class RequestWithdrawPartyRoom extends L2GameClientPacket
         _data2 = readD();
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
 		_log.info("This packet is not well known : RequestWithdrawPartyRoom");
 		_log.info("Data received: d:"+_data1+" d:"+_data2);
+		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

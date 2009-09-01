@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -53,7 +52,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 				(activeChar.isGM() || activeChar.isNoble()))
 		{
 			setTitle(activeChar);
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		else if (activeChar.getClan() == null)
@@ -98,7 +97,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 
 		setTitle(target);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	private final void setTitle(L2PcInstance target)

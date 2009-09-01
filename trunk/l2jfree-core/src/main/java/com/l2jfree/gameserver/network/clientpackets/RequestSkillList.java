@@ -24,13 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestSkillList extends L2GameClientPacket
 {
 	private static final String _C__3F_REQUESTSKILLLIST = "[C] 3F RequestSkillList";
-	
-	@SuppressWarnings("unused")
-	private int _unk1;
-	@SuppressWarnings("unused")
-	private int _unk2;
-	@SuppressWarnings("unused")
-	private int _unk3;
 
 	/**
 	 * packet type id 0x3f
@@ -47,16 +40,13 @@ public class RequestSkillList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance cha = getClient().getActiveChar();
-
-		if (cha == null)
-			return;
+		if (cha == null) return;
 
 		cha.sendSkillList();
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

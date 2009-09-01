@@ -19,17 +19,13 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
 
 public class RequestStartPledgeWar extends L2GameClientPacket
 {
     private static final String _C__4D_REQUESTSTARTPLEDGEWAR = "[C] 4D RequestStartPledgewar";
     
-    String _pledgeName;
-    L2Clan _clan;
-    L2PcInstance player;
+    private String _pledgeName;
 
     @Override
     protected void readImpl()
@@ -40,62 +36,57 @@ public class RequestStartPledgeWar extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        player = getClient().getActiveChar();
+        L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
-        _clan = getClient().getActiveChar().getClan();
-        if (_clan == null) return;
-
-        if (_clan.getLevel() < 3 || _clan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
-        {
-            SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
-            player.sendPacket(sm);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            sm = null;
-            return;
-        }
-        else if (!player.isClanLeader())
-        {
-            player.sendMessage("You can't declare war. You are not clan leader.");
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            return;
-        }
-
-        L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
+        L2Clan clan = player.getClan();
         if (clan == null)
+	    {
+	    	requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+	        return;
+	    }
+        else if (!player.isClanLeader() &&
+        		(player.getClanPrivileges() & L2Clan.CP_CL_PLEDGE_WAR) != L2Clan.CP_CL_PLEDGE_WAR)
         {
-        	SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_CANNOT_DECLARED_CLAN_NOT_EXIST);
-            player.sendPacket(sm);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+        	requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
             return;
         }
-        else if (_clan.getAllyId() == clan.getAllyId() && _clan.getAllyId() != 0)
-        {
-            SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_AGAINST_A_ALLIED_CLAN_NOT_WORK);
-            player.sendPacket(sm);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            sm = null;
-            return;
-        }
-        //else if(clan.getLevel() < 3)
         else if (clan.getLevel() < 3 || clan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
-            player.sendPacket(sm);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            sm = null;
+            requestFailed(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
             return;
         }
-        else if (_clan.isAtWarWith(clan.getClanId()))
+
+        L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
+        if (warClan == null)
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.ALREADY_AT_WAR_WITH_S1_WAIT_5_DAYS); //msg id 628
-            sm.addString(clan.getName());
-            player.sendPacket(sm);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
-            sm = null;
+        	requestFailed(SystemMessageId.CLAN_WAR_CANNOT_DECLARED_CLAN_NOT_EXIST);
             return;
         }
-        
+        else if (clan.getAllyId() != 0 && clan.getAllyId() == warClan.getAllyId())
+        {
+        	requestFailed(SystemMessageId.CLAN_WAR_AGAINST_A_ALLIED_CLAN_NOT_WORK);
+            return;
+        }
+        else if (warClan.getLevel() < 3 ||
+        		warClan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
+        {
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS);
+        	sm.addString(warClan.getName());
+        	requestFailed(sm);
+            return;
+        }
+        else if (warClan.getDissolvingExpiryTime() > 0)
+        {
+        	requestFailed(SystemMessageId.NO_CLAN_WAR_AGAINST_DISSOLVING_CLAN);
+        	return;
+        }
+        else if (clan.isAtWarWith(warClan.getClanId()))
+        {
+        	sendAF();
+            return;
+        }
+
         //_log.warn("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: " + _clan.getName());
 
         //        L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());
@@ -130,6 +121,8 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         //        player.setTransactionRequester(leader);
         //        leader.sendPacket(new StartPledgeWar(_clan.getName(),player.getName()));
         ClanTable.getInstance().storeclanswars(player.getClanId(), clan.getClanId());
+
+        sendAF();
     }
 
     @Override

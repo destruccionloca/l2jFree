@@ -50,18 +50,19 @@ public class RequestShortCutReg extends L2GameClientPacket
 
         _slot = slot % 12;
         _page = slot / 12;
-
     }
 
     @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		if (_page > 10 || _page < 0)
+		{
+			sendAF();
 			return;
+		}
 
 		switch (_type)
 		{
@@ -78,11 +79,10 @@ public class RequestShortCutReg extends L2GameClientPacket
 				break;
 			}
 		}
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

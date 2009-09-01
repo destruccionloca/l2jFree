@@ -65,7 +65,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		// Restrict enchant during restart/shutdown (because of an existing exploit)
 		if (Shutdown.isActionDisabled(DisableType.ENCHANT))
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 		else if (player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)

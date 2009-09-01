@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.TradeDone;
 
@@ -50,7 +49,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 
         if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
-        	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+        	requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
             return;
         }
 
@@ -94,7 +93,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 		player.setActiveRequester(null);
 		partner.onTransactionResponse();
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

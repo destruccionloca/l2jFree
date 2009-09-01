@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 /**
  * Format chS
  * c (id) 0xD0
@@ -25,30 +27,21 @@ package com.l2jfree.gameserver.network.clientpackets;
 public class RequestWriteHeroWords extends L2GameClientPacket
 {
 	private static final String _C__FE_0C_REQUESTWRITEHEROWORDS = "[C] D0:0C RequestWriteHeroWords";
-	@SuppressWarnings("unused")
-	private String _heroWords;
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
+	//private String _heroWords;
+
     @Override
     protected void readImpl()
     {
-        _heroWords = readS();
+        /*_heroWords = */readS();
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
+		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

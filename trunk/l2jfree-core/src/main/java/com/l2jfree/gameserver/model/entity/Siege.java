@@ -280,6 +280,8 @@ public class Siege extends AbstractSiege
 			sm.addString(getCastle().getName());
 			announceToPlayer(sm, false);
 
+			announceToParticipants(SystemMessageId.TEMPORARY_ALLIANCE_DISSOLVED.getSystemMessage());
+
 			if (getCastle().getOwnerId() <= 0)
 			{
 				sm = new SystemMessage(SystemMessageId.SIEGE_S1_DRAW);
@@ -427,6 +429,8 @@ public class Siege extends AbstractSiege
 				_controlTowerMaxCount = 0;
 				spawnControlTower(getCastle().getCastleId());
 				updatePlayerSiegeStateFlags(false);
+
+				announceToParticipants(SystemMessageId.TEMPORARY_ALLIANCE.getSystemMessage());
 			}
 		}
 	}

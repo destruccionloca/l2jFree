@@ -40,15 +40,15 @@ import com.l2jfree.gameserver.util.Util;
 public class Say2 extends L2GameClientPacket
 {
 	private static final String _C__38_SAY2 = "[C] 38 Say2";
-	
+
 	private static final Log _logChat = LogFactory.getLog("chat");
-	
+
 	private String _text;
 	private SystemChatChannelId _type;
 	private String _target;
-	
+
 	private static final String[] LINKED_ITEM = { "Type=", "ID=", "Color=", "Underline=", "Title=" };
-	
+
 	/**
 	 * packet type id 0x38 format: cSd (S)
 	 */
@@ -59,14 +59,14 @@ public class Say2 extends L2GameClientPacket
 		_type = SystemChatChannelId.getChatType(readD());
 		_target = _type == SystemChatChannelId.Chat_Tell ? readS() : null;
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
-		final L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		
+
 		// If no or wrong channel is used - punish/return
 		switch (_type)
 		{
@@ -91,7 +91,7 @@ public class Say2 extends L2GameClientPacket
 				}
 			}
 		}
-		
+
 		switch (_type)
 		{
 			case Chat_User_Pet:
@@ -107,7 +107,7 @@ public class Say2 extends L2GameClientPacket
 				}
 			}
 		}
-		
+
 		if (activeChar.isCursedWeaponEquipped())
 		{
 			switch (_type)
@@ -118,7 +118,7 @@ public class Say2 extends L2GameClientPacket
 					return;
 			}
 		}
-		
+
 		switch (_type)
 		{
 			case Chat_User_Pet:
@@ -134,11 +134,11 @@ public class Say2 extends L2GameClientPacket
 				}
 			}
 		}
-		
+
 		// If Petition and GM use GM_Petition Channel
 		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM())
 			_type = SystemChatChannelId.Chat_GM_Pet;
-		
+
 		switch (_type)
 		{
 			case Chat_Normal:
@@ -152,7 +152,7 @@ public class Say2 extends L2GameClientPacket
 				}
 			}
 		}
-		
+
 		//Under no circumstances the official client will send a 400 character message
 		//If there are no linked items in the message, you can only input 105 characters
 		if (_text.length() > 400 || (_text.length() > 105 && !containsLinkedItems()))
@@ -164,11 +164,11 @@ public class Say2 extends L2GameClientPacket
 			//prevent crashing official clients
 			return;
 		}
-		
-		final int oldLength = _text.length();
-		
+
+		int oldLength = _text.length();
+
 		_text = _text.replaceAll("\\\\n", "");
-		
+
 		if (oldLength != _text.length())
 		{
 			if (Config.BAN_CLIENT_EMULATORS)
@@ -178,34 +178,34 @@ public class Say2 extends L2GameClientPacket
 			//prevent crashing official clients
 			return;
 		}
-		
+
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
 			for (String pattern : Config.FILTER_LIST)
 				_text = _text.replaceAll("(?i)" + pattern, "-_-");
-		
+
 		if (_text.startsWith("."))
 		{
 			String[] _commandParams = _text.split(" ");
-			
+
 			String command = _commandParams[0].substring(1);
 			String params = "";
-			
+
 			// if entered "command text"
 			if (_commandParams.length > 1)
 				params = _text.substring(1 + command.length()).trim(); // get all text
 			else if (activeChar.getTarget() != null)
 				params = activeChar.getTarget().getName();
-			
+
 			IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 			if (vch != null)
 			{
 				vch.useVoicedCommand(command, activeChar, params);
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendAF();
 				return;
 			}
 		}
-		
+
 		// Some custom implementation to show how to add channels
 		// (for me Chat_System is used for emotes - further informations
 		// in ChatSystem.java)
@@ -227,20 +227,20 @@ public class Say2 extends L2GameClientPacket
 			else
 				_logChat.info(_type.getName() + "[" + activeChar.getName() + "] " + _text);
 		}
-		
+
 		IChatHandler ich = ChatHandler.getInstance().getChatHandler(_type);
 		if (ich != null)
 			ich.useChatHandler(activeChar, _target, _type, _text);
-		
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
-	
+
 	@Override
 	public String getType()
 	{
 		return _C__38_SAY2;
 	}
-	
+
 	private boolean containsLinkedItems()
 	{
 		for (int i = 0; i < LINKED_ITEM.length; i++)

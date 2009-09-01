@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AskJoinParty;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
@@ -50,8 +49,7 @@ public class RequestJoinParty extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance requestor = getClient().getActiveChar();
-		if (requestor == null)
-			return;
+		if (requestor == null) return;
 
 		L2PcInstance target = L2World.getInstance().getPlayer(_name);
 		if (target == null || (target.getAppearance().isInvisible() && !requestor.isGM()))
@@ -71,7 +69,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		}
 		else if (target.isInParty())
 		{
-			requestFailed(new SystemMessage(SystemMessageId.C1_IS_ALREADY_IN_PARTY).addString(target.getName()));
+			requestFailed(new SystemMessage(SystemMessageId.C1_IS_ALREADY_IN_PARTY).addCharName(target));
 			return;
 		}
 		else if (target.isInOfflineMode())
@@ -81,7 +79,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		}
 		else if (!GlobalRestrictions.canInviteToParty(requestor, target))
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 		
@@ -142,11 +140,11 @@ public class RequestJoinParty extends L2GameClientPacket
 			{
 				if (_log.isDebugEnabled())
 					_log.warn(target.getName() + " already has a party invitation");
-				requestFailed(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addString(target.getName()));
+				requestFailed(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addCharName(target));
 				return;
 			}
 		}
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

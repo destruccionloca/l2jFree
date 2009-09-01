@@ -25,9 +25,9 @@ import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgBuy;
 public class SetPrivateStoreMsgBuy extends L2GameClientPacket
 {
 	private static final String _C__94_SETPRIVATESTOREMSGBUY = "[C] 94 SetPrivateStoreMsgBuy";
-	
+
 	private String _storeMsg;
-	
+
     @Override
     protected void readImpl()
     {
@@ -38,15 +38,15 @@ public class SetPrivateStoreMsgBuy extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getBuyList() == null) return;
-		
+		if (player == null || player.getBuyList() == null)
+			return;
+
 		player.getBuyList().setTitle(_storeMsg);
 		player.sendPacket(new PrivateStoreMsgBuy(player));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -26,8 +26,8 @@ public class RequestShowBoard extends L2GameClientPacket
 {
 	private static final String _C__57_REQUESTSHOWBOARD = "[C] 57 RequestShowBoard";
 
-	@SuppressWarnings("unused")
-    private int _unknown;
+    //private int _unknown;
+
 	/**
 	 * packet type id 0x57
 	 * 
@@ -37,12 +37,11 @@ public class RequestShowBoard extends L2GameClientPacket
 	 * 01 00 00 00		// unknown (always 1?)
 	 * 
 	 * format:		cd
-	 * @param decrypt
 	 */
     @Override
     protected void readImpl()
     {
-        _unknown = readD();
+        /*_unknown = */readD();
     }
 
     @Override
@@ -51,9 +50,6 @@ public class RequestShowBoard extends L2GameClientPacket
 		CommunityBoard.handleCommands(getClient(), Config.BBS_DEFAULT);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

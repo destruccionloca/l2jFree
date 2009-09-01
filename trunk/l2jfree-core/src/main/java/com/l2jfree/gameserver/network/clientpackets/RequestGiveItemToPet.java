@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class is sent by the client when the player drags an item out of his to
@@ -47,8 +46,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
 		if (!(player.getPet() instanceof L2PetInstance))
 		{
@@ -57,12 +55,12 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		}
 		else if (player.getActiveEnchantItem() != null)
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.TRY_AGAIN_LATER);
 			return;
 		}
 		else if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 		else if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
@@ -73,7 +71,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		// Alt game - Karma punishment
 		else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && player.getKarma() > 0)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -127,7 +125,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 		if (player.transferItem("Transfer", _objectId, _amount, pet.getInventory(), pet) == null)
 			_log.warn("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

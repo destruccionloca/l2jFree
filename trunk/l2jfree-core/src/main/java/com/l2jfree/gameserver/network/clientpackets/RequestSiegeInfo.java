@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 /**
  * Format: (c)
  * (no data, trigger)
@@ -22,6 +24,8 @@ package com.l2jfree.gameserver.network.clientpackets;
  */
 public class RequestSiegeInfo extends L2GameClientPacket
 {
+	private static final String _C__47_REQUESTSIEGEINFO = "[C] 0x47 RequestSiegeInfo";
+
     @Override
     protected void readImpl()
     {
@@ -32,12 +36,12 @@ public class RequestSiegeInfo extends L2GameClientPacket
     protected void runImpl()
     {
         // TODO this
+    	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }
 
     @Override
     public String getType()
     {
-        return "[C] 0x47 RequestSiegeInfo";
+        return _C__47_REQUESTSIEGEINFO;
     }
-
 }

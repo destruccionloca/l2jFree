@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.StartRotation;
 
 /**
@@ -27,6 +28,7 @@ public class StartRotating extends L2GameClientPacket
 
 	private int _degree;
 	private int _side;
+
 	/**
 	 * packet type id 0x4a
 	 * 
@@ -49,15 +51,14 @@ public class StartRotating extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-		if (getClient().getActiveChar() == null)
-		    return;
-		StartRotation br = new StartRotation(getClient().getActiveChar().getObjectId(), _degree, _side, 0);
-		getClient().getActiveChar().broadcastPacket(br);
+    	L2PcInstance player = getActiveChar();
+		if (player == null) return;
+
+		player.broadcastPacket(new StartRotation(player.getObjectId(), _degree, _side, 0));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

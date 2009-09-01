@@ -1591,6 +1591,14 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
 				player.sendPacket(html);
 			}
+			else if (actualCommand.equals("terra_war"))
+			{
+				if (siegeBlocksFunction(player))
+					return;
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
+				player.sendPacket(html);
+			}
 			else
 				super.onBypassFeedback(player, command);
 		}
@@ -1603,7 +1611,13 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 
 		int condition = validateCondition(player);
 		if (condition == COND_OWNER) // Clan owns castle
-			filename = "data/html/chamberlain/chamberlain.htm"; // Owner message window
+		{
+			// Owner message window
+			if (getCastle().getCastleId() == 8)
+				filename = "data/html/chamberlain/chamberlain-rune.htm";
+			else
+				filename = "data/html/chamberlain/chamberlain.htm";
+		}
 
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 
 /**
  * Format chS
@@ -26,26 +28,21 @@ package com.l2jfree.gameserver.network.clientpackets;
 public final class SuperCmdCharacterInfo extends L2GameClientPacket
 {
 	private static final String _C__39_00_SUPERCMDCHARACTERINFO = "[C] 39:00 SuperCmdCharacterInfo";
-	@SuppressWarnings("unused")
-	private String _characterName;
+
+	//private String _characterName;
 
     @Override
     protected void readImpl()
     {
-        _characterName = readS();
+        /*_characterName = */readS();
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
+		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

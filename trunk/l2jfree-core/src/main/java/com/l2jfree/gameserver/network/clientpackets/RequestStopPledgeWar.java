@@ -17,43 +17,45 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestStopPledgeWar extends L2GameClientPacket
 {
 	private static final String _C__4F_REQUESTSTOPPLEDGEWAR = "[C] 4F RequestStopPledgeWar";
-	
-	String _pledgeName;
+
+	private String _pledgeName;
 
     @Override
     protected void readImpl()
     {
         _pledgeName = readS();
     }
-    
+
     @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
-		L2Clan playerClan = player.getClan();
-		if (playerClan == null) return;
-
-		L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
-
+		L2Clan clan = player.getClan();
 		if (clan == null)
-		{
-			player.sendMessage("No such clan.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
+	    {
+	    	requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+	        return;
+	    }
 
-		if (!playerClan.isAtWarWith(clan.getClanId()))
-		{
-			player.sendMessage("You aren't at war with this clan.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
+		L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
+		if (warClan == null)
+        {
+            requestFailed(SystemMessageId.CLAN_DOESNT_EXISTS);
+            return;
+        }
+
+		if (!clan.isAtWarWith(warClan.getClanId()))
+        {
+            requestFailed(new SystemMessage(SystemMessageId.NO_CLAN_WAR_AGAINST_CLAN_S1).addString(warClan.getName()));
+            return;
+        }
 
 		//_log.info("RequestStopPledgeWar: By leader: " + playerClan.getLeaderName() + " of clan: "
 		//	+ playerClan.getName() + " to clan: " + _pledgeName);
@@ -74,7 +76,9 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 		//            return;
 		//        }
 
-		ClanTable.getInstance().deleteclanswars(playerClan.getClanId(), clan.getClanId());
+		ClanTable.getInstance().deleteclanswars(clan.getClanId(), warClan.getClanId());
+
+        sendAF();
 		//        player.onTransactionRequest(leader);
 		//        leader.sendPacket(new StopPledgeWar(_clan.getName(),player.getName()));
 	}

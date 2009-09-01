@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 
 /**
@@ -21,6 +22,8 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
  */
 public class RequestSkillCoolTime extends L2GameClientPacket
 {
+	private static final String _C__A6_REQUESTSKILLCOOLTIME = "[C] 0xa6 RequestSkillCoolTime";
+
     @Override
 	protected void readImpl()
     {
@@ -30,14 +33,17 @@ public class RequestSkillCoolTime extends L2GameClientPacket
     @Override
 	protected void runImpl()
     {
-        // like this?
-        if(getClient().getActiveChar() != null)
-            getClient().sendPacket(new SkillCoolTime(getClient().getActiveChar()));
+    	L2PcInstance player = getActiveChar();
+    	if (player == null) return;
+
+    	sendPacket(new SkillCoolTime(player));
+
+    	sendAF();
     }
 
     @Override
 	public String getType()
     {
-        return "[C] 0xa6 RequestSkillCoolTime";
+    	return _C__A6_REQUESTSKILLCOOLTIME;
     }
 }
