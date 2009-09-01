@@ -51,19 +51,29 @@ public class Hero
 {
 	private final static Log				_log			= LogFactory.getLog(Hero.class);
 
-	private static final String				GET_HEROES		= "SELECT * FROM heroes WHERE played = 1";
-	private static final String				GET_ALL_HEROES	= "SELECT * FROM heroes";
-	private static final String				UPDATE_ALL		= "UPDATE heroes SET played = 0";
-	private static final String				INSERT_HERO		= "INSERT INTO heroes VALUES (?,?,?,?,?)";
-	private static final String				UPDATE_HERO		= "UPDATE heroes SET count = ?, played = ?" + " WHERE charId = ?";
-	private static final String				GET_CLAN_ALLY	= "SELECT characters.clanid AS clanid, coalesce(clan_data.ally_Id, 0) AS allyId FROM characters LEFT JOIN clan_data ON clan_data.clan_id = characters.clanid "
-																	+ " WHERE characters.charId = ?";
-	private static final String				GET_CLAN_NAME	= "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
-	private static final String				DELETE_ITEMS	= "DELETE FROM items WHERE item_id IN "
-																	+ "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621, 9388, 9389, 9390) "
-																	+ "AND owner_id NOT IN (SELECT charId FROM characters WHERE accesslevel > 0)";
-	private static final String				DELETE_SKILLS	= "DELETE FROM character_skills WHERE skill_id IN " + "(395, 396, 1374, 1375, 1376) "
-																	+ "AND charId NOT IN (SELECT charId FROM characters WHERE accesslevel > 0)";
+	private static final String GET_HEROES = "SELECT heroes.charId, "
+			+ "characters.char_name, heroes.class_id, heroes.count, heroes.played "
+			+ "FROM heroes, characters WHERE characters.charId = heroes.charId "
+			+ "AND heroes.played = 1";
+	private static final String GET_ALL_HEROES = "SELECT heroes.charId, "
+			+ "characters.char_name, heroes.class_id, heroes.count, heroes.played "
+			+ "FROM heroes, characters WHERE characters.charId = heroes.charId";
+	private static final String UPDATE_ALL = "UPDATE heroes SET played = 0";
+	private static final String INSERT_HERO = "INSERT INTO heroes VALUES (?,?,?,?)";
+	private static final String UPDATE_HERO = "UPDATE heroes SET count = ?, "
+			+ "played = ?" + " WHERE charId = ?";
+	private static final String GET_CLAN_ALLY = "SELECT characters.clanid "
+			+ "AS clanid, coalesce(clan_data.ally_Id, 0) AS allyId FROM characters "
+			+ "LEFT JOIN clan_data ON clan_data.clan_id = characters.clanid "
+			+ "WHERE characters.charId = ?";
+	private static final String GET_CLAN_NAME = "SELECT clan_name FROM clan_data "
+			+ "WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
+	// delete hero items
+	private static final String DELETE_ITEMS = "DELETE FROM items WHERE item_id IN "
+			+ "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621, 9388, 9389, 9390) "
+			+ "AND owner_id NOT IN (SELECT charId FROM characters WHERE accesslevel > 0)";
+	private static final String DELETE_SKILLS = "DELETE FROM character_skills WHERE skill_id IN " + "(395, 396, 1374, 1375, 1376) "
+			+ "AND charId NOT IN (SELECT charId FROM characters WHERE accesslevel > 0)";
 
 	private static Map<Integer, StatsSet>	_heroes;
 	private static Map<Integer, StatsSet>	_completeHeroes;
@@ -159,9 +169,7 @@ public class Hero
 		}
 		catch (SQLException e)
 		{
-			_log.warn("HeroSystem: Couldnt load Heroes");
-			if (_log.isDebugEnabled())
-				_log.debug("", e);
+			_log.warn("HeroSystem: Couldnt load Heroes", e);
 		}
 		finally
 		{
@@ -364,9 +372,7 @@ public class Hero
 				}
 				catch (Exception e)
 				{
-					_log.warn("HeroSystem: Couldnt get Clanname of " + name);
-					if (_log.isDebugEnabled())
-						_log.debug("", e);
+					_log.warn("HeroSystem: Couldnt get Clanname of " + name, e);
 				}
 				finally
 				{
@@ -392,9 +398,7 @@ public class Hero
 				}
 				catch (SQLException e)
 				{
-					_log.warn("HeroSystem: Couldnt update all Heroes");
-					if (_log.isDebugEnabled())
-						_log.debug("", e);
+					_log.warn("HeroSystem: Couldnt update all Heroes", e);
 				}
 			}
 			else
@@ -411,13 +415,11 @@ public class Hero
 						{
 							statement = con.prepareStatement(INSERT_HERO);
 							statement.setInt(1, heroId);
-							statement.setString(2, hero.getString(Olympiad.CHAR_NAME));
-							statement.setInt(3, hero.getInteger(Olympiad.CLASS_ID));
-							statement.setInt(4, hero.getInteger(COUNT));
-							statement.setInt(5, hero.getInteger(PLAYED));
+							statement.setInt(2, hero.getInteger(Olympiad.CLASS_ID));
+							statement.setInt(3, hero.getInteger(COUNT));
+							statement.setInt(4, hero.getInteger(PLAYED));
 							statement.execute();
 							statement.close();
-
 							
 							PreparedStatement statement2 = con.prepareStatement(GET_CLAN_ALLY);
 							statement2.setInt(1, heroId);
@@ -435,9 +437,7 @@ public class Hero
 						}
 						catch (SQLException e)
 						{
-							_log.warn("HeroSystem: Couldnt insert Heroes");
-							if (_log.isDebugEnabled())
-								_log.debug("", e);
+							_log.warn("HeroSystem: Couldnt insert Heroes", e);
 						}
 					}
 					else
@@ -453,9 +453,7 @@ public class Hero
 						}
 						catch (SQLException e)
 						{
-							_log.warn("HeroSystem: Couldnt update Heroes");
-							if (_log.isDebugEnabled())
-								_log.debug("", e);
+							_log.warn("HeroSystem: Couldnt update Heroes", e);
 						}
 					}
 				}
