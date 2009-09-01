@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "instances.dtd">
+<instance name="Kamaloka-39">
+  <activityTime val="45"/>
+  <timeDelay val="24"/>
+  <allowSummon val="false"/>
+  <returnteleport x="18149" y="146024" z="-3100"/>
+</instance>
