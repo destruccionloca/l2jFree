@@ -3789,6 +3789,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			et.getEffect(env);
 	}
 	
+	public final EffectTemplate[] getEffectTemplates()
+	{
+		return _effectTemplates;
+	}
+	
 	public final void attach(FuncTemplate f)
 	{
 		if (_funcTemplates == null)

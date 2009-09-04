@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2BabyPetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -514,7 +515,9 @@ public class RequestActionUse extends L2GameClientPacket
 			useSkill(5752);
 			break;
 		case 1070:
-			useSkill(5771);
+			// Buff control
+			if (pet != null && pet instanceof L2BabyPetInstance)
+				((L2BabyPetInstance)pet).toggleBuffControl();
 			break;
 		case 1071:
 			useSkill(5761);
@@ -703,4 +706,5 @@ public class RequestActionUse extends L2GameClientPacket
 	{
 		return _C__45_REQUESTACTIONUSE;
 	}
+	
 }

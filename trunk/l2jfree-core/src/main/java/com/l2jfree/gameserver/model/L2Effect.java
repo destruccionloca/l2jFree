@@ -556,4 +556,5 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		
 		return getSkill().isStayAfterDeath();
 	}
+
 }
