@@ -2267,6 +2267,25 @@ public final class Formulas
 	
 	public static boolean calcSkillSuccess(final double baseChance, L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
 	{
+		// These skills should not work on RaidBoss
+		final L2SkillType skillType = skill.getEffectType();
+		if (target.isRaid())
+		{
+			switch (skillType)
+			{
+				case CONFUSION:
+				case ROOT:
+				case STUN:
+				case MUTE:
+				case FEAR:
+				case PARALYZE:
+				case SLEEP:
+				case AGGDEBUFF:
+				case AGGREDUCE_CHAR:
+					return false;
+			}
+		}
+
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;
 		
