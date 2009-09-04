@@ -313,6 +313,23 @@ public abstract class L2Item implements FuncOwner
 	}
 
 	/**
+	 * Returns the grade of the item.<BR><BR>
+	 * For grades S80 and S84 return S
+	 * @return int
+	 */
+	public final int getItemGradeSPlus()
+	{
+	        switch (getItemGrade())
+	        {
+	                case CRYSTAL_S80:
+	                case CRYSTAL_S84:
+	                        return CRYSTAL_S;
+	            default:
+	                        return getItemGrade();
+	        }
+	}
+	
+	/**
 	 * Returns the quantity of crystals for crystallization
 	 * @return int
 	 */
