@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TransformManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2VillageMasterInstance;
+import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
@@ -341,6 +342,76 @@ public class RequestAquireSkill extends L2GameClientPacket
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
+			case 4:
+			{
+				_requiredSp = 0;
+				Quest[] qlst = trainer.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_LEARN);
+				if ((qlst != null) && qlst.length == 1)
+				{
+					if (!qlst[0].notifyAcquireSkill(trainer, player, skill))
+					{
+						qlst[0].notifyAcquireSkillList(trainer, player);
+						return;
+					}
+				}
+				else
+				{
+					return;
+				}
+				break;
+			}
+			case 6:
+			{
+				int costid = 0;
+				int costcount = 0;
+				// Skill Learn bug Fix
+
+				L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableSpecialSkills(player);
+
+				for (L2SkillLearn s : skillsc)
+				{
+					L2Skill sk = SkillTable.getInstance().getInfo(s.getId(),s.getLevel());
+
+					if (sk == null || sk != skill)
+						continue;
+
+					counts++;
+					costid = s.getIdCost();
+					costcount = s.getCostCount();
+					_requiredSp = s.getSpCost();
+				}
+
+				if (counts == 0)
+				{
+					player.sendMessage("You are trying to learn skill that u can't..");
+					Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+					return;
+				}
+
+				if (player.getSp() >= _requiredSp)
+				{
+					if (!player.destroyItemByItemId("Consume", costid, costcount, trainer, false))
+					{
+						// Haven't spellbook
+						player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL));
+						return;
+					}
+
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+					sm.addItemName(costid);
+					sm.addItemNumber(costcount);
+					sendPacket(sm);
+					sm = null;
+				}
+				else
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_SP_TO_LEARN_SKILL);
+					player.sendPacket(sm);
+					sm = null;
+					return;
+				}
+				break;
+			}			
 			default:
 			{
 				_log.warn("Recived Wrong Packet Data in Aquired Skill - unk1:" + _skillType);
@@ -383,7 +454,12 @@ public class RequestAquireSkill extends L2GameClientPacket
 		}
 
 		player.sendSkillList();
-		if (trainer instanceof L2FishermanInstance)
+		if (_skillType == 4)
+		{
+			Quest[] qlst = trainer.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_LEARN);
+			qlst[0].notifyAcquireSkillList(trainer, player);
+		}		
+		else if (trainer instanceof L2FishermanInstance)
 			((L2FishermanInstance)trainer).showSkillList(player);
 		else if (trainer instanceof L2TransformManagerInstance)
 			((L2TransformManagerInstance) trainer).showTransformSkillList(player);

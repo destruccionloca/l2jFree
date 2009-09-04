@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TransformManagerInstance;
+import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -183,6 +184,43 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			sendPacket(asi);
 			asi = null;
 		}
+		else if (_skillType == 4)
+		{
+			Quest[] qlst = trainer.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_LEARN);
+			if ((qlst != null) && qlst.length == 1)
+			{
+				if (!qlst[0].notifyAcquireSkillInfo(trainer, activeChar, skill))
+				{
+					qlst[0].notifyAcquireSkillList(trainer, activeChar);
+					return;
+				}
+			}
+			else
+			{
+				return;
+			}
+		}
+		else if (_skillType == 6)
+        {
+			int costid = 0;
+			int costcount = 0;
+			L2SkillLearn[] skillsc = SkillTreeTable.getInstance().getAvailableSpecialSkills(activeChar);
+			for (L2SkillLearn s : skillsc)
+			{
+				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+
+				if (sk == null || sk != skill)
+                    continue;
+
+				canteach = true;
+				costid = s.getIdCost();
+				costcount = s.getCostCount();
+			}
+
+			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), 0, 6);
+			asi.addRequirement(5, costid, costcount, 0);
+			sendPacket(asi);
+        }		
 		else // Common Skills
 		{
 			int costid = 0;

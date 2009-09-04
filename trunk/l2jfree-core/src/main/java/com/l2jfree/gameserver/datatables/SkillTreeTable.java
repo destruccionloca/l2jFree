@@ -67,7 +67,8 @@ public class SkillTreeTable
 	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;																		//pledge skill list
 	private FastMap<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;																	//enchant skill list
 	private FastList<L2TransformSkillLearn>					_TransformSkillTrees;																	// Transform Skills (Test)
-
+	private FastList<L2SkillLearn> _specialSkillTrees;
+	
 	public static SkillTreeTable getInstance()
 	{
 		return SingletonHolder._instance;
@@ -387,6 +388,43 @@ public class SkillTreeTable
 		{
 			_log.fatal("Error while creating Transformation skill table ", e);
 		}
+		
+		int count7 = 0;
+		try
+		{
+			_specialSkillTrees = new FastList<L2SkillLearn>();
+
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("SELECT skill_id, level, name, costid, cost FROM special_skill_trees ORDER BY skill_id, level");
+			ResultSet skilltree6 = statement.executeQuery();
+
+			int prevSkillId = -1;
+
+			while (skilltree6.next())
+			{
+				int id = skilltree6.getInt("skill_id");
+				int lvl = skilltree6.getInt("level");
+				String name = skilltree6.getString("name");
+				int costId = skilltree6.getInt("costid");
+				int costCount = skilltree6.getInt("cost");
+
+				if (prevSkillId != id)
+					prevSkillId = id;
+
+				L2SkillLearn skill = new L2SkillLearn(id, lvl, 0, name, 0, costId, costCount);
+
+				_specialSkillTrees.add(skill);
+			}
+
+			skilltree6.close();
+			statement.close();
+
+			count7 = _specialSkillTrees.size();
+		}	
+		catch (Exception e)
+		{
+			_log.fatal("Error while creating SpecialSkillTree skill table ", e);
+		}		
 		finally
 		{
 			L2DatabaseFactory.close(con);
@@ -397,6 +435,7 @@ public class SkillTreeTable
 		_log.info("EnchantSkillTreeTable:   Loaded " + count4 + " enchant skills.");
 		_log.info("PledgeSkillTreeTable:    Loaded " + count5 + " pledge skills.");
 		_log.info("TransformSkillTreeTable: Loaded " + count6 + " transform skills.");
+		_log.info("SpecialSkillTreeTable:   Loaded " + count7 + " special skills");
 	}
 
 	private Map<Integer, L2SkillLearn>[] getSkillTrees()
@@ -513,6 +552,49 @@ public class SkillTreeTable
 		return skillsAdded + " (" + newSkillsAdded + " new) skill(s)";
 	}
 
+	public L2SkillLearn[] getAvailableSpecialSkills(L2PcInstance cha)
+	{
+		List<L2SkillLearn> result = new FastList<L2SkillLearn>();
+		List<L2SkillLearn> skills = new FastList<L2SkillLearn>();
+
+		skills.addAll(_specialSkillTrees);
+
+		if (skills == null)
+		{
+			// the skilltree for this class is undefined, so we give an empty list
+			_log.warn("Skilltree for special is not defined !");
+			return new L2SkillLearn[0];
+		}
+
+		L2Skill[] oldSkills = cha.getAllSkills();
+
+		for (L2SkillLearn temp : skills)
+		{
+			boolean knownSkill = false;
+
+			for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+			{
+				if (oldSkills[j].getId() == temp.getId())
+				{
+					knownSkill = true;
+
+					if (oldSkills[j].getLevel() == temp.getLevel() - 1)
+					{
+						// this is the next level of a skill that we know
+						result.add(temp);
+					}
+				}
+			}
+
+			if (!knownSkill && temp.getLevel() == 1)
+			{
+				// this is a new skill
+				result.add(temp);
+			}
+		}
+		return result.toArray(new L2SkillLearn[result.size()]);
+	}
+	
 	public L2SkillLearn[] getAvailableFishingSkills(L2PcInstance cha)
 	{
 		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();

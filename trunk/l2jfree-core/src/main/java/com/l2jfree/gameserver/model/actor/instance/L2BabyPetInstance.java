@@ -58,6 +58,8 @@ public final class L2BabyPetInstance extends L2PetInstance
 	@Override
 	public void onSpawn()
 	{
+		super.onSpawn();
+		
 		L2Skill skill;
 		for (int id : PetSkillsTable.getInstance().getAvailableSkills(this))
 		{
@@ -209,7 +211,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 					&& !_baby.isBetrayed()
 					&& !_baby.isMuted()
 					&& _baby.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST
-					&& _buffControlTimestamp > System.currentTimeMillis())
+					&& _buffControlTimestamp < System.currentTimeMillis()) 
 			{
 				L2Skill skill = null;
 

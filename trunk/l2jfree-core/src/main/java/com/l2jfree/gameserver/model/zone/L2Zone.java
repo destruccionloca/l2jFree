@@ -77,7 +77,8 @@ public class L2Zone implements FuncOwner
 		SiegeDanger,
 		Stadium,
 		Town,
-		Water;
+		Water,
+		Script;
 		
 		private String getZoneClassName()
 		{
@@ -151,8 +152,8 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_NOHEAL = 17;
 	public static final byte FLAG_LANDING = 18;
 	public static final byte FLAG_TOWN = 19;
-
-	public static final byte FLAG_SIZE = 20;
+	public static final byte FLAG_SCRIPT = 20;
+	public static final byte FLAG_SIZE = 21;
 	
 	/**
 	 * Move speed multiplier applied when character is in water (swimming).<BR>

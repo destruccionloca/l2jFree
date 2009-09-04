@@ -1111,7 +1111,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	private final Race getVillageMasterRace()
+	public final Race getVillageMasterRace()
 	{
 		String npcClass = getTemplate().getJClass().toLowerCase();
 
@@ -1133,7 +1133,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		return Race.Kamael;
 	}
 
-	private final ClassType getVillageMasterTeachType()
+	public final ClassType getVillageMasterTeachType()
 	{
 		String npcClass = getTemplate().getJClass().toLowerCase();
 
