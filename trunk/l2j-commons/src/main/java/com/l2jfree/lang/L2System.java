@@ -14,8 +14,6 @@
  */
 package com.l2jfree.lang;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author NB4L1
  */
