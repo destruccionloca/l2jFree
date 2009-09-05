@@ -44,8 +44,9 @@ public final class TriggeredSkill
 
 		if (triggeredLevel == null)
 			triggeredLevel = 1;
-		if (triggeredId == null)
-			triggeredId = 0;
+		// it wasn't here for reason to have fail-fast behaviour
+		//if (triggeredId == null)
+		//	triggeredId = 0;
 
 		if (triggeredId >= 0 && triggeredLevel >= 0)
 			return new TriggeredSkill(triggeredId, triggeredLevel);

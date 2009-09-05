@@ -61,12 +61,15 @@ public class Manadam implements ISkillHandler
 				target = activeChar;
 
 			boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);
-			if ((!acted || target.isInvul()) && activeChar.getActingPlayer() != null)
+			if (!acted || target.isInvul())
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-				sm.addCharName(target);
-				sm.addSkillName(skill);
-				activeChar.getActingPlayer().sendPacket(sm);
+				if (activeChar instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
+					sm.addCharName(target);
+					sm.addSkillName(skill);
+					((L2PcInstance)activeChar).sendPacket(sm);
+				}
 			}
 			else
 			{

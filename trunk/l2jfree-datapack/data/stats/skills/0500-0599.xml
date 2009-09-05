@@ -241,6 +241,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="baseCritRate" val="15"/>
+    <!-- set name="numberOfHits" val="2"/ --> <!-- Guess -->
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
