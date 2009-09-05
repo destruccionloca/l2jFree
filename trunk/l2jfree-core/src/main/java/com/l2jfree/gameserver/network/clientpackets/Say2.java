@@ -82,18 +82,20 @@ public class Say2 extends L2GameClientPacket
 					sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			case Chat_GM_Pet:
-			{
-				if (!activeChar.isGM())
-				{
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-			}
+			// seems client sends this if typing '*'
+			//case Chat_GM_Pet:
+			//{
+			//	if (!activeChar.isGM())
+			//	{
+			//		sendPacket(ActionFailed.STATIC_PACKET);
+			//		return;
+			//	}
+			//}
 		}
 
 		switch (_type)
 		{
+			case Chat_GM_Pet:
 			case Chat_User_Pet:
 			case Chat_Tell:
 				break;
@@ -121,6 +123,7 @@ public class Say2 extends L2GameClientPacket
 
 		switch (_type)
 		{
+			case Chat_GM_Pet:
 			case Chat_User_Pet:
 			case Chat_Normal:
 				break;
@@ -170,14 +173,7 @@ public class Say2 extends L2GameClientPacket
 		_text = _text.replaceAll("\\\\n", "");
 
 		if (oldLength != _text.length())
-		{
-			if (Config.BAN_CLIENT_EMULATORS)
-				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting in multiple lines by " + activeChar);
-			else
-				requestFailed(SystemMessageId.DONT_SPAM);
-			//prevent crashing official clients
-			return;
-		}
+			player.sendPacket(SystemMessageId.DONT_SPAM);
 
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
