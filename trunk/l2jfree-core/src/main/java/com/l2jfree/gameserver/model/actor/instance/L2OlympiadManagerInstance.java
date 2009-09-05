@@ -64,6 +64,7 @@ public class L2OlympiadManagerInstance extends L2Npc
 			if (!player.isNoble() || player.getClassId().level() < 3)
 				return;
 
+			int passes;
 			int val = Integer.parseInt(command.substring(14));
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 
@@ -112,19 +113,12 @@ public class L2OlympiadManagerInstance extends L2Npc
 					Olympiad.getInstance().registerNoble(player, true);
 					break;
 				case 6:
-					int passes = Olympiad.getInstance().getNoblessePasses(player);
+					passes = Olympiad.getInstance().getNoblessePasses(player, false);
 					if (passes > 0)
 					{
-						L2ItemInstance item = player.getInventory().addItem("Olympiad", GATE_PASS, passes, player, this);
-
-						InventoryUpdate iu = new InventoryUpdate();
-						iu.addModifiedItem(item);
-						player.sendPacket(iu);
-
-						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-						sm.addItemNumber(passes);
-						sm.addItemName(item);
-						player.sendPacket(sm);
+						html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_settle.htm");
+						html.replace("%objectId%", String.valueOf(getObjectId()));
+						player.sendPacket(html);
 					}
 					else
 					{
@@ -136,15 +130,31 @@ public class L2OlympiadManagerInstance extends L2Npc
 				case 7:
 					L2Multisell.getInstance().separateAndSend(102, player, getNpcId(), false, getCastle().getTaxRate());
 					break;
-				case 9:
-					L2Multisell.getInstance().separateAndSend(103, player, getNpcId(), false, getCastle().getTaxRate());
-					break;
 				case 8:
 					int point = Olympiad.getInstance().getNoblePoints(player.getObjectId());
 					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_points2.htm");
 					html.replace("%points%", String.valueOf(point));
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
+					break;
+				case 9:
+					L2Multisell.getInstance().separateAndSend(103, player, getNpcId(), false, getCastle().getTaxRate());
+					break;
+				case 10:
+					passes = Olympiad.getInstance().getNoblessePasses(player, true);
+					if (passes > 0)
+					{
+						L2ItemInstance item = player.getInventory().addItem("Olympiad", GATE_PASS, passes, player, this);
+
+						InventoryUpdate iu = new InventoryUpdate();
+						iu.addModifiedItem(item);
+						player.sendPacket(iu);
+
+						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1);
+						sm.addItemNumber(passes);
+						sm.addItemName(item);
+						player.sendPacket(sm);
+					}
 					break;
 				default:
 					_log.warn("Olympiad System: Couldnt send packet for request " + val);
