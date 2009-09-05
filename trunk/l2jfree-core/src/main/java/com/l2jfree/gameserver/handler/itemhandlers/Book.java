@@ -65,7 +65,14 @@ public class Book implements IItemHandler
 			7110,
 			7111,
 			7112,
-			8059							};
+			8059,
+			13130,
+			13131,
+			13132,
+			13133,
+			13134,
+			13135,
+			13136								};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
