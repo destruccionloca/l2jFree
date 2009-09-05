@@ -173,7 +173,7 @@ public class Say2 extends L2GameClientPacket
 		_text = _text.replaceAll("\\\\n", "");
 
 		if (oldLength != _text.length())
-			player.sendPacket(SystemMessageId.DONT_SPAM);
+			activeChar.sendPacket(SystemMessageId.DONT_SPAM);
 
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
