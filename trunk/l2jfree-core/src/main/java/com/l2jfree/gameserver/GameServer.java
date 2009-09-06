@@ -39,6 +39,7 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.datatables.EnchantHPBonusData;
 import com.l2jfree.gameserver.datatables.EventDroplist;
 import com.l2jfree.gameserver.datatables.ExtractableItemsData;
 import com.l2jfree.gameserver.datatables.ExtractableSkillsData;
@@ -226,6 +227,7 @@ public class GameServer extends Config
 		SummonItemsData.getInstance();
 		ExtractableItemsData.getInstance();
 		ExtractableSkillsData.getInstance();
+		EnchantHPBonusData.getInstance();
 		if (Config.ALLOW_FISHING)
 		{
 			FishTable.getInstance();

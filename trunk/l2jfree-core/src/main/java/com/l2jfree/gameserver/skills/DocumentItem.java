@@ -114,6 +114,8 @@ final class DocumentItem extends DocumentBase
 	{
 		if ("enchant".equalsIgnoreCase(n.getNodeName()))
 			attachFunc(n, template, "Enchant");
+		else if ("enchanthp".equalsIgnoreCase(n.getNodeName()))
+			attachFunc(n, template, "EnchantHp");
 		else
 			super.parseTemplateNode(n, template);
 	}

@@ -420,11 +420,11 @@ public class SkillTreeTable
 			statement.close();
 
 			count7 = _specialSkillTrees.size();
-		}	
+		}
 		catch (Exception e)
 		{
 			_log.fatal("Error while creating SpecialSkillTree skill table ", e);
-		}		
+		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
@@ -554,30 +554,20 @@ public class SkillTreeTable
 
 	public L2SkillLearn[] getAvailableSpecialSkills(L2PcInstance cha)
 	{
-		List<L2SkillLearn> result = new FastList<L2SkillLearn>();
-		List<L2SkillLearn> skills = new FastList<L2SkillLearn>();
-
-		skills.addAll(_specialSkillTrees);
-
-		if (skills == null)
-		{
-			// the skilltree for this class is undefined, so we give an empty list
-			_log.warn("Skilltree for special is not defined !");
-			return new L2SkillLearn[0];
-		}
-
+		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
+		
 		L2Skill[] oldSkills = cha.getAllSkills();
-
-		for (L2SkillLearn temp : skills)
+		
+		for (L2SkillLearn temp : _specialSkillTrees)
 		{
 			boolean knownSkill = false;
-
+			
 			for (int j = 0; j < oldSkills.length && !knownSkill; j++)
 			{
 				if (oldSkills[j].getId() == temp.getId())
 				{
 					knownSkill = true;
-
+					
 					if (oldSkills[j].getLevel() == temp.getLevel() - 1)
 					{
 						// this is the next level of a skill that we know
@@ -585,14 +575,15 @@ public class SkillTreeTable
 					}
 				}
 			}
-
+			
 			if (!knownSkill && temp.getLevel() == 1)
 			{
 				// this is a new skill
 				result.add(temp);
 			}
 		}
-		return result.toArray(new L2SkillLearn[result.size()]);
+		
+		return result.moveToArray(new L2SkillLearn[result.size()]);
 	}
 	
 	public L2SkillLearn[] getAvailableFishingSkills(L2PcInstance cha)
