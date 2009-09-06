@@ -98,7 +98,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 				}
 			}
 		}
-		startCastTask();		
+		startCastTask();
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	 	{
 			_castTask.cancel(false);
 			_castTask = null;
-	 	}	
+	 	}
 	}
 
 	protected void castSkill(L2Skill skill)
@@ -211,7 +211,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 					&& !_baby.isBetrayed()
 					&& !_baby.isMuted()
 					&& _baby.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST
-					&& _buffControlTimestamp < System.currentTimeMillis()) 
+					&& _buffControlTimestamp < System.currentTimeMillis())
 			{
 				L2Skill skill = null;
 
@@ -311,7 +311,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 						&& Rnd.get(100) <= 60)
 				{
 					skill = SkillTable.getInstance().getInfo(_recharge, PetSkillsTable.getInstance().getAvailableLevel(_baby, _recharge));
-					if (skill != null && _baby.getCurrentMp() >= skill.getMpConsume());
+					if (skill != null && _baby.getCurrentMp() >= skill.getMpConsume())
 					{
 						castSkill(skill);
 						return;
