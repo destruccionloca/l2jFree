@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
+import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
@@ -439,6 +440,9 @@ public abstract class L2Summon extends L2Playable
 			setTarget(null);
 			
 			LeakTaskManager.getInstance().add(this);
+			
+			// to flush item updates to db
+			SQLQueue.getInstance().run();
 		}
 	}
 	
