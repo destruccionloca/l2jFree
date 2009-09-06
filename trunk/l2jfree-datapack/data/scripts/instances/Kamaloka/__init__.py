@@ -201,7 +201,7 @@ def checkCondition(player,KamaInfo):
 			LastEntry = st.getInt("LastEntry")
 			if currentTime < LastEntry + KamaInfo[1]:
 				player.sendPacket(SystemMessage.sendString(player.getName()+" may not re-enter yet."))
-				partyMember.sendPacket(SystemMessage.sendString(player.getName()+" may not re-enter yet."))
+				partyMember.sendPacket(SystemMessage.sendString(partyMember.getName()+" may not re-enter yet."))
 				return False
 	return True
 
