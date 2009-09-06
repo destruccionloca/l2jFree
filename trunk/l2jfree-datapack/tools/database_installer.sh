@@ -189,6 +189,7 @@ full_install()
 	$MYG < ../sql/castle_manor_production.sql &> /dev/null
 	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
 	$MYG < ../sql/castle_zoneupgrade.sql &> /dev/null
+	$MYG < ../sql/certification_skill_trees.sql &> /dev/null
 	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/char_templates.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
@@ -203,6 +204,7 @@ full_install()
 	$MYG < ../sql/character_skills.sql &> /dev/null
 	$MYG < ../sql/character_skills_save.sql &> /dev/null
 	$MYG < ../sql/character_subclasses.sql &> /dev/null
+	$MYG < ../sql/character_subclass_certification.sql &> /dev/null
 	$MYG < ../sql/character_tpbookmark.sql &> /dev/null
 	$MYG < ../sql/characters.sql &> /dev/null
 	$MYG < ../sql/clan_data.sql &> /dev/null
@@ -329,6 +331,7 @@ update_db()
 			$MYG < ../sql/castle_door.sql &> /dev/null
 			$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
 			$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+			$MYG < ../sql/certification_skill_trees.sql &> /dev/null
 			$MYG < ../sql/char_creation_items.sql &> /dev/null
 			$MYG < ../sql/char_templates.sql &> /dev/null
 			$MYG < ../sql/clanhall_siege_guards.sql &> /dev/null
