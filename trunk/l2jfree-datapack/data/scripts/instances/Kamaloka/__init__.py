@@ -185,7 +185,7 @@ def checkCondition(player,KamaInfo):
 	currentTime = System.currentTimeMillis()/1000
 	party = player.getParty()
 	if not party:
-		player.sendPacket(SystemMessage.sendString("You must be in a party with at least one other person."))
+		player.sendPacket(SystemMessage.sendString("You are not currently in a party, so you cannot enter."))
 		return False
 	# Check size of the party, max 6 for entering Kamaloka Hall of Abyss, 9 for Labyrinth
 	if party and party.getMemberCount() > KamaInfo[5]:
@@ -200,8 +200,8 @@ def checkCondition(player,KamaInfo):
 		if st:
 			LastEntry = st.getInt("LastEntry")
 			if currentTime < LastEntry + KamaInfo[1]:
-				player.sendPacket(SystemMessage.sendString("One of your party member still has to wait for re-access Kamaloka"))
-				partyMember.sendPacket(SystemMessage.sendString("You have to wait at least "+str(KamaInfo[1] / 3600)+" hours between each time you enter Kamaloka"))
+				player.sendPacket(SystemMessage.sendString(player.getName()+" may not re-enter yet."))
+				partyMember.sendPacket(SystemMessage.sendString(player.getName()+" may not re-enter yet."))
 				return False
 	return True
 
