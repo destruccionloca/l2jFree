@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -41,50 +41,50 @@ import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 public final class DoorTable
 {
 	private static final Log _log = LogFactory.getLog(DoorTable.class);
-	
+
 	public static DoorTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private final Map<Integer, L2DoorInstance> _doors = new FastMap<Integer, L2DoorInstance>();
-	
+
 	private DoorTable()
 	{
 		reloadAll();
 	}
-	
+
 	public void reloadAll()
 	{
 		_doorArray = null;
 		_doors.clear();
-		
+
 		BufferedReader br = null;
 		try
 		{
 			br = new BufferedReader(new FileReader(new File(Config.DATAPACK_ROOT, "data/door.csv")));
-			
+
 			for (String line; (line = br.readLine()) != null;)
 			{
 				if (line.trim().length() == 0 || line.startsWith("#"))
 					continue;
-				
+
 				final L2DoorInstance door = parseLine(line);
 				if (door == null)
 					continue;
-				
+
 				putDoor(door);
-				
+
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
-				
+
 				// Garden of Eva (every 7 minutes)
 				if (door.getDoorName().startsWith("goe"))
 					door.setAutoActionDelay(420000);
-				
+
 				// Tower of Insolence (every 5 minutes)
 				else if (door.getDoorName().startsWith("aden_tower"))
 					door.setAutoActionDelay(300000);
-				
+
 				/* TODO: check which are automatic
 				// devils (every 5 minutes)
 				else if (door.getDoorName().startsWith("pirate_isle"))
@@ -103,7 +103,7 @@ public final class DoorTable
 					door.setAutoActionDelay(900000);
 				*/
 			}
-			
+
 			_log.info("DoorTable: Loaded " + _doors.size() + " Door Templates.");
 		}
 		catch (Exception e)
@@ -115,7 +115,7 @@ public final class DoorTable
 			IOUtils.closeQuietly(br);
 		}
 	}
-	
+
 	public void registerToClanHalls()
 	{
 		for (L2DoorInstance door : getDoors())
@@ -128,7 +128,7 @@ public final class DoorTable
 			}
 		}
 	}
-	
+
 	public void setCommanderDoors()
 	{
 		for (L2DoorInstance door : getDoors())
@@ -140,14 +140,14 @@ public final class DoorTable
 			}
 		}
 	}
-	
+
 	public static L2DoorInstance parseLine(String line)
 	{
 		L2DoorInstance door = null;
 		try
 		{
 			StringTokenizer st = new StringTokenizer(line, ";");
-			
+
 			String name = st.nextToken();
 			int id = Integer.parseInt(st.nextToken());
 			int x = Integer.parseInt(st.nextToken());
@@ -168,36 +168,36 @@ public final class DoorTable
 			boolean startOpen = false;
 			if (st.hasMoreTokens())
 				startOpen = Boolean.parseBoolean(st.nextToken());
-			
+
 			if (rangeXMin > rangeXMax)
-				_log.fatal("Error in door data rangeX, ID:" + id);
+				_log.fatal("Error in door data, XMin > XMax, ID:" + id);
 			if (rangeYMin > rangeYMax)
-				_log.fatal("Error in door data rangeY, ID:" + id);
+				_log.fatal("Error in door data, YMin > YMax, ID:" + id);
 			if (rangeZMin > rangeZMax)
-				_log.fatal("Error in door data rangeZ, ID:" + id);
-			
+				_log.fatal("Error in door data, ZMin > ZMax, ID:" + id);
+
 			int collisionRadius = 0; // (max) radius for movement checks
 			if (rangeXMax - rangeXMin > rangeYMax - rangeYMin)
 				collisionRadius = rangeYMax - rangeYMin;
-			
+
 			StatsSet npcDat = new StatsSet();
 			npcDat.set("npcId", id);
 			npcDat.set("level", 0);
 			npcDat.set("jClass", "door");
-			
+
 			npcDat.set("baseSTR", 0);
 			npcDat.set("baseCON", 0);
 			npcDat.set("baseDEX", 0);
 			npcDat.set("baseINT", 0);
 			npcDat.set("baseWIT", 0);
 			npcDat.set("baseMEN", 0);
-			
+
 			npcDat.set("baseShldDef", 0);
 			npcDat.set("baseShldRate", 0);
 			npcDat.set("baseAccCombat", 38);
 			npcDat.set("baseEvasRate", 38);
 			npcDat.set("baseCritRate", 38);
-			
+
 			//npcDat.set("name", "");
 			npcDat.set("collision_radius", collisionRadius);
 			npcDat.set("collision_height", rangeZMax - rangeZMin & 0xfff0);
@@ -226,7 +226,7 @@ public final class DoorTable
 			npcDat.set("baseMpReg", 3.e-3f);
 			npcDat.set("basePDef", pdef);
 			npcDat.set("baseMDef", mdef);
-			
+
 			L2CharTemplate template = new L2CharTemplate(npcDat);
 			door = new L2DoorInstance(IdFactory.getInstance().getNextId(), template, id, name, unlockable);
 			door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
@@ -235,67 +235,69 @@ public final class DoorTable
 			door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 			door.setOpen(startOpen);
 			door.getPosition().setXYZInvisible(x, y, z);
+
+			door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y));
 		}
 		catch (Exception e)
 		{
 			_log.error("Error in door data at line: " + line, e);
 		}
-		
+
 		return door;
 	}
-	
+
 	public L2DoorInstance getDoor(Integer id)
 	{
 		return _doors.get(id);
 	}
-	
+
 	public void putDoor(L2DoorInstance door)
 	{
 		_doorArray = null;
 		_doors.put(door.getDoorId(), door);
 	}
-	
+
 	private L2DoorInstance[] _doorArray;
-	
+
 	public L2DoorInstance[] getDoors()
 	{
 		if (_doorArray == null)
 			_doorArray = _doors.values().toArray(new L2DoorInstance[_doors.size()]);
-		
+
 		return _doorArray;
 	}
-	
+
 	public boolean checkIfDoorsBetween(Node start, Node end, int instanceId)
 	{
 		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ(), instanceId);
 	}
-	
+
 	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
 		L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
-		
+
 		final L2DoorInstance[] allDoors;
 		if (instanceId > 0)
 			allDoors = InstanceManager.getInstance().getInstance(instanceId).getDoors();
 		else
 			allDoors = getDoors();
-		
+
 		// there are quite many doors, maybe they should be splitted
 		for (L2DoorInstance doorInst : allDoors)
 		{
 			if (doorInst.getMapRegion() != region)
 				continue;
-			
+
 			if (doorInst.getXMax() == 0)
 				continue;
-			
+
 			// line segment goes through box
 			// first basic checks to stop most calculations short
 			// phase 1, x
-			if (x <= doorInst.getXMax() && tx >= doorInst.getXMin() || tx <= doorInst.getXMax() && x >= doorInst.getXMin())
+			if ((x <= doorInst.getXMax() && tx >= doorInst.getXMin()) || (tx <= doorInst.getXMax() && x >= doorInst.getXMin()))
 			{
 				//phase 2, y
-				if (y <= doorInst.getYMax() && ty >= doorInst.getYMin() || ty <= doorInst.getYMax() && y >= doorInst.getYMin())
+				if ((y <= doorInst.getYMax() && ty >= doorInst.getYMin()) || (ty <= doorInst.getYMax() && y >= doorInst.getYMin()))
 				{
 					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
 					// in some cases the direct line check (only) in the beginning isn't sufficient,
@@ -308,26 +310,26 @@ public final class DoorTable
 						int px2 = doorInst.getXMax();
 						int py2 = doorInst.getYMax();
 						int pz2 = doorInst.getZMax();
-						
+
 						int l = tx - x;
 						int m = ty - y;
 						int n = tz - z;
-						
+
 						int dk;
-						
+
 						if ((dk = (doorInst.getA() * l + doorInst.getB() * m + doorInst.getC() * n)) == 0) continue; // Parallel
-						
+
 						float p = (float)(doorInst.getA() * x + doorInst.getB() * y + doorInst.getC() * z + doorInst.getD()) / (float)dk;
-						
+
 						int fx = (int)(x - l * p);
 						int fy = (int)(y - m * p);
 						int fz = (int)(z - n * p);
-						
+
 						if ((Math.min(x, tx) <= fx && fx <= Math.max(x, tx))
 							&& (Math.min(y, ty) <= fy && fy <= Math.max(y, ty))
 							&& (Math.min(z, tz) <= fz && fz <= Math.max(z, tz)))
 						{
-							
+
 							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1))
 								&& ((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1))
 								&& ((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
