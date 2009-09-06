@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
@@ -89,12 +90,39 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 
 		if (_skillType == 0)
 		{
-			if (trainer instanceof L2TransformManagerInstance)
+			if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id))
 			{
 				int itemId = 0;
 				L2TransformSkillLearn[] skillst = SkillTreeTable.getInstance().getAvailableTransformSkills(activeChar);
 
 				for (L2TransformSkillLearn s : skillst)
+				{
+					if (s.getId() == _id && s.getLevel() == _level)
+					{
+						canteach = true;
+						itemId = s.getItemId();
+						break;
+					}
+				}
+
+				if (!canteach)
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return; // cheater
+				}
+
+				int requiredSp = 0;
+				AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
+				asi.addRequirement(1, itemId, 1, 0);
+				sendPacket(asi);
+				return;
+			}
+			else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id))
+			{
+				int itemId = 0;
+				L2CertificationSkillsLearn[] skillss = SkillTreeTable.getInstance().getAvailableCertificationSkills(activeChar);
+
+				for (L2CertificationSkillsLearn s : skillss)
 				{
 					if (s.getId() == _id && s.getLevel() == _level)
 					{
@@ -248,6 +276,45 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			asi = null;
 		}
 		sendPacket(ActionFailed.STATIC_PACKET);
+	}
+
+	private boolean isCertificationSkill(int id)
+	{
+		switch (id)
+		{
+			case 631:
+			case 632:
+			case 633:
+			case 634:
+			case 637:
+			case 638:
+			case 639:
+			case 640:
+			case 641:
+			case 642:
+			case 643:
+			case 644:
+			case 645:
+			case 646:
+			case 647:
+			case 648:
+			case 650:
+			case 651:
+			case 652:
+			case 653:
+			case 654:
+			case 655:
+			case 801:
+			case 802:
+			case 803:
+			case 804:
+			case 1489:
+			case 1490:
+			case 1491:
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	@Override

@@ -342,10 +342,16 @@ public final class L2PcInstance extends L2Playable
 	private static final String	UPDATE_CHAR_TRANSFORM			= "UPDATE characters SET transform_id=? WHERE charId=?";
 
 	// Character Teleport Bookmark:
-	private static final String INSERT_TP_BOOKMARK = "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
-	private static final String UPDATE_TP_BOOKMARK = "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
-	private static final String RESTORE_TP_BOOKMARK = "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
-	private static final String DELETE_TP_BOOKMARK = "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
+	private static final String INSERT_TP_BOOKMARK 				= "INSERT INTO character_tpbookmark (charId,Id,x,y,z,icon,tag,name) values (?,?,?,?,?,?,?,?)";
+	private static final String UPDATE_TP_BOOKMARK 				= "UPDATE character_tpbookmark SET icon=?,tag=?,name=? where charId=? AND Id=?";
+	private static final String RESTORE_TP_BOOKMARK 			= "SELECT Id,x,y,z,icon,tag,name FROM character_tpbookmark WHERE charId=?";
+	private static final String DELETE_TP_BOOKMARK 				= "DELETE FROM character_tpbookmark WHERE charId=? AND Id=?";
+
+	// Subclass certification
+	public static final String  STORE_CHAR_CERTIFICATION		= "INSERT INTO character_subclass_certification (charId,class_index,certif_level) VALUES (?,?,?)";
+	public static final String  UPDATE_CHAR_CERTIFICATION		= "UPDATE character_subclass_certification SET certif_level=? WHERE charId=? AND class_index=?";
+	private static final String	DELETE_CHAR_CERTIFICATION		= "DELETE FROM character_subclass_certification WHERE charId=?";
+	private static final String	GET_CHAR_CERTIFICATION			= "SELECT certif_level FROM character_subclass_certification WHERE charId=? AND class_index=?";
 
 	public static final int		REQUEST_TIMEOUT					= 15;
 
@@ -14630,6 +14636,141 @@ public final class L2PcInstance extends L2Playable
 			else
 				ThreadPoolManager.getInstance().scheduleGeneral(new checkPositionForSecretDoor(), 500);
 		}
+	}
+
+	public int getCertificationLevel(int classIndex)
+	{
+		Connection con = null;
+		int certificationLevel = -1;
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(GET_CHAR_CERTIFICATION);
+
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, classIndex);
+
+			ResultSet rset = statement.executeQuery();
+			while (rset.next())
+			{
+				certificationLevel = rset.getInt("certif_level");
+			}
+			rset.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not get subclass certification level: ", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		return certificationLevel;
+	}
+
+	public void storeCertificationLevel(int classIndex)
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(STORE_CHAR_CERTIFICATION);
+
+			statement.setInt(1, getObjectId());
+			statement.setInt(2, classIndex);
+			statement.setInt(3, 0);
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not store character subclass certification: ", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	public void updateCertificationLevel(int classIndex, int level)
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(UPDATE_CHAR_CERTIFICATION);
+
+			statement.setInt(1, level);
+			statement.setInt(2, getObjectId());
+			statement.setInt(3, classIndex);
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not update character subclass certification: ", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	public void deleteSubclassCertifications()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(DELETE_CHAR_CERTIFICATION);
+
+			statement.setInt(1, getObjectId());
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not delete character subclass certifications: ", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	public int getSubClassType()
+	{
+		/*
+		 * 1: Warrior
+		 * 2: Rogue
+		 * 3: Knight
+		 * 4: Summoner
+		 * 5: Wizard
+		 * 6: Healer
+		 * 7: Enchanter
+		 */
+		
+		int classId = getActiveClass();
+		int subClassType = 0;
+
+		if (classId == 3 || classId == 2 || classId == 46 || classId == 48 || classId == 55 || classId == 57 || classId == 127 || classId == 128 || classId == 129 || classId == 89 || classId == 88 || classId == 113 || classId == 114 || classId == 117 || classId == 118 || classId == 131 || classId == 132 || classId == 133)
+			subClassType = 1;
+		else if (classId == 9 || classId == 24 || classId == 37 || classId == 130 || classId == 8 || classId == 23 || classId == 36 || classId == 92 || classId == 102 || classId == 109 || classId == 134 || classId == 93 || classId == 101 || classId == 108)
+			subClassType = 2;
+		else if (classId == 5 || classId == 6 || classId == 20 || classId == 33 || classId == 90 || classId == 91 || classId == 99 || classId == 106)
+			subClassType = 3;
+		else if (classId == 14 || classId == 28 || classId == 41 || classId == 96 || classId == 104 || classId == 111)
+			subClassType = 4;
+		else if (classId == 12 || classId == 13 || classId == 27 || classId == 40 || classId == 94 || classId == 95 || classId == 103 || classId == 110)
+			subClassType = 5;
+		else if (classId == 16 || classId == 30 || classId == 43 || classId == 97 || classId == 105 || classId == 112)
+			subClassType = 6;
+		else if (classId == 17 || classId == 21 || classId == 34 || classId == 52 || classId == 51 || classId == 135 || classId == 98 || classId == 100 || classId == 107 || classId == 116 || classId == 115 || classId == 136)
+			subClassType = 7;
+		
+		return subClassType;
 	}
 
 	private final long[] _floodProtectors = new long[FloodProtector.Protected.VALUES_LENGTH];

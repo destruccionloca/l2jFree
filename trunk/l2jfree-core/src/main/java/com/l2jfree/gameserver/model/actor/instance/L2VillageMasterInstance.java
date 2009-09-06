@@ -489,6 +489,149 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 			player.sendPacket(html);
 		}
+		else if (actualCommand.equalsIgnoreCase("SubCertification"))
+		{
+			int cmdChoice = Integer.parseInt(command.substring(17, 19).trim());
+
+			if (player.isSubClassActive())
+			{
+				QuestState qs = player.getQuestState("136_MoreThanMeetsTheEye");
+				if (qs == null || !qs.isCompleted())
+				{
+					player.sendMessage("You must have completed the More than meets the eye quest for receiving certifications.");
+					return;
+				}
+
+				if (player.getInventoryLimit() * 0.8 <= player.getInventory().getSize())
+				{
+					player.sendPacket(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT);
+					return;
+				}
+
+				int classIndex = player.getClassIndex();
+				int subClassType = player.getSubClassType();
+				int certificationLevel = player.getCertificationLevel(classIndex);
+
+				if (certificationLevel == -1)
+				{
+					player.storeCertificationLevel(classIndex);
+					certificationLevel = 0;
+				}
+				
+				switch (cmdChoice)
+				{
+				case 65:
+					if (player.getLevel() >= 65 && certificationLevel == 0)
+					{
+						player.addItem("Certificate - Emergent Ability", 10280, 1, player, true, true);
+						player.getInventory().updateDatabase();
+						player.updateCertificationLevel(classIndex, 1);
+					}
+					else
+					{
+						player.sendMessage("Sorry, you either already certified or did not certify previous levels or are not on the recquired level to do this.");
+					}
+					break;
+				case 70:
+					if (player.getLevel() >= 70 && certificationLevel == 1)
+					{
+						player.addItem("Certificate - Emergent Ability", 10280, 1, player, true, true);
+						player.getInventory().updateDatabase();
+						player.updateCertificationLevel(classIndex, 2);
+					}
+					else
+					{
+						player.sendMessage("Sorry, you either already certified or did not certify previous levels or are not on the recquired level to do this.");
+					}
+					break;
+				case 75:
+					if (player.getLevel() >= 75 && certificationLevel == 2)
+					{
+						int certifType = Integer.parseInt(command.substring(20, 21).trim());
+	
+						switch (certifType)
+						{
+						case 1:
+							switch (subClassType)
+							{
+							case 1:
+								player.addItem("Certificate - Warrior Ability", 10281, 1, player, true, true);
+								break;
+							case 2:
+								player.addItem("Certificate - Rogue Ability", 10283, 1, player, true, true);
+								break;
+							case 3:
+								player.addItem("Certificate - Knight Ability", 10282, 1, player, true, true);
+								break;
+							case 4:
+								player.addItem("Certificate - Summoner Ability", 10286, 1, player, true, true);
+								break;
+							case 5:
+								player.addItem("Certificate - Wizard Ability", 10284, 1, player, true, true);
+								break;
+							case 6:
+								player.addItem("Certificate - Healer Ability", 10285, 1, player, true, true);
+								break;
+							case 7:
+								player.addItem("Certificate - Enchanter Ability", 10287, 1, player, true, true);
+								break;
+							}
+							break;
+						case 2:
+							player.addItem("Certificate - Master Ability", 10612, 1, player, true, true);
+							break;
+						}
+						player.getInventory().updateDatabase();
+						player.updateCertificationLevel(classIndex, 3);
+					}
+					else
+					{
+						player.sendMessage("Sorry, you either already certified or did not certify previous levels or are not on the recquired level to do this.");
+					}
+					break;
+				case 80:
+					if (player.getLevel() >= 80 && certificationLevel == 3)
+					{
+						switch (subClassType)
+						{
+						case 1:
+							player.addItem("Transform Sealbook - Divine Warrior", 10289, 1, player, true, true);
+							break;
+						case 2:
+							player.addItem("Transform Sealbook - Divine Rogue", 10290, 1, player, true, true);
+							break;
+						case 3:
+							player.addItem("Transform Sealbook - Divine Knight", 10288, 1, player, true, true);
+							break;
+						case 4:
+							player.addItem("Transform Sealbook - Divine Summoner", 10294, 1, player, true, true);
+							break;
+						case 5:
+							player.addItem("Transform Sealbook - Divine Wizard", 10292, 1, player, true, true);
+							break;
+						case 6:
+							player.addItem("Transform Sealbook - Divine Healer", 10291, 1, player, true, true);
+							break;
+						case 7:
+							player.addItem("Transform Sealbook - Divine Enchanter", 10293, 1, player, true, true);
+							break;
+						}
+						player.getInventory().updateDatabase();
+						player.updateCertificationLevel(classIndex, 4);
+					}
+					else
+					{
+						player.sendMessage("Sorry, you either already certified or did not certify previous levels or are not on the recquired level to do this.");
+					}
+					break;
+				}
+			}
+			else
+			{
+				showChatWindow(player,"data/html/villagemaster/SubClassCertificationFailed.htm");
+				return;
+			}
+		}
 		else
 		{
 			// This class dont know any other commands, let forward

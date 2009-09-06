@@ -16,9 +16,11 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -59,6 +61,107 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		{
 			player.setSkillLearningClassId(player.getClassId());
 			showTransformSkillList(player);
+		}
+		else if (command.startsWith("CertificationSkills"))
+		{
+			if (!player.isSubClassActive())
+			{
+				QuestState qs = player.getQuestState("136_MoreThanMeetsTheEye");
+				if (qs == null || !qs.isCompleted())
+				{
+					player.sendMessage("You must have completed the More than meets the eye quest for receiving these special skills.");
+					return;
+				}
+				
+				player.setSkillLearningClassId(player.getClassId());
+				showCertificationSkillsList(player);
+			}
+			else
+			{
+				showChatWindow(player,"data/html/default/32323-10.htm");
+				return;
+			}
+		}
+		else if (command.startsWith("DeleteCertifications"))
+		{
+			if (!player.isSubClassActive())
+			{	
+				int subclassItemIds[] = {10280,10281,10282,10283,10284,10285,10286,10287,10288,10289,10290,10291,10292,10293,10294,10612};
+				
+				if (player.reduceAdena("Subclass Certification Removal", 10000000, player, true))
+				{
+					L2ItemInstance item;
+					int skillId;
+
+					for (L2Skill skill : player.getAllSkills())
+					{
+						skillId = skill.getId();
+						switch (skillId)
+						{
+						case 631:
+						case 632:
+						case 633:
+						case 634:
+						case 637:
+						case 638:
+						case 639:
+						case 640:
+						case 641:
+						case 642:
+						case 643:
+						case 644:
+						case 645:
+						case 646:
+						case 647:
+						case 648:
+						case 650:
+						case 651:
+						case 652:
+						case 653:
+						case 654:
+						case 655:
+						case 656:
+						case 657:
+						case 658:
+						case 659:
+						case 660:
+						case 661:
+						case 662:
+						case 801:
+						case 802:
+						case 803:
+						case 804:
+						case 1489:
+						case 1490:
+						case 1491:
+							player.removeSkill(skill);
+							break;
+						}
+					}
+					for (int itemId : subclassItemIds)
+					{
+						item = player.getInventory().getItemByItemId(itemId);
+						if (item != null)
+							player.destroyItemByItemId("Subclass Certification Removal", itemId, item.getCount(), player, true);
+					}
+					player.deleteSubclassCertifications();
+
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setHtml("<html><body>Ok, your certifications have been removed!</body></html>");
+					player.sendPacket(html);
+				}
+				else
+				{
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setHtml("<html><body>Subclass certification removal costs 10'000'000 Adena.</body></html>");
+					player.sendPacket(html);
+				}
+			}
+			else
+			{
+				showChatWindow(player,"data/html/default/32323-13.htm");
+				return;
+			}
 		}
 		else if (command.startsWith("BuyTransform"))
 		{
@@ -113,6 +216,40 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 				html.setHtml("<html><body>You've learned all skills.<br></body></html>");
 				player.sendPacket(html);
 			}
+		}
+		else
+		{
+			player.sendPacket(asl);
+		}
+
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
+
+	public void showCertificationSkillsList(L2PcInstance player)
+	{        
+		if (player.isTransformed())
+			return;
+
+		L2CertificationSkillsLearn[] skills = SkillTreeTable.getInstance().getAvailableCertificationSkills(player);
+		AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Usual);
+		int counts = 0;
+
+		for (L2CertificationSkillsLearn s: skills)
+		{
+			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+			if (sk == null)
+				continue;
+
+			counts++;
+
+			asl.addSkill(s.getId(), s.getLevel(), 1, 0, 0);
+		}
+
+		if (counts == 0)
+		{
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setHtml("<html><body>You've learned all skills.<br></body></html>");
+			player.sendPacket(html);
 		}
 		else
 		{

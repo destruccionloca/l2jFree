@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
@@ -115,7 +116,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		{
 			case 0:
 			{
-				if (trainer instanceof L2TransformManagerInstance) // transform skills
+				if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id)) // Transformation skills
 				{
 					int costid = 0;
 					// Skill Learn bug Fix
@@ -160,6 +161,45 @@ public class RequestAquireSkill extends L2GameClientPacket
 						requestFailed(SystemMessageId.NOT_ENOUGH_SP_TO_LEARN_SKILL);
 						return;
 					}
+					break;
+				}
+				else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id)) // Certification skills
+				{
+					int costid = 0;
+					L2CertificationSkillsLearn[] skillss = SkillTreeTable.getInstance().getAvailableCertificationSkills(player);
+
+					for (L2CertificationSkillsLearn s : skillss)
+					{
+						L2Skill sk = SkillTable.getInstance().getInfo(s.getId(),s.getLevel());
+
+						if (sk == null || sk != skill)
+							continue;
+
+						counts++;
+						costid = s.getItemId();
+						_requiredSp = 0;
+					}
+
+					if (counts == 0)
+					{
+						sendPacket(ActionFailed.STATIC_PACKET);
+						Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+						return;
+					}
+
+					if (!player.destroyItemByItemId("Consume", costid, 1, trainer, false))
+					{
+						// Does not have either Emergent Ability or Master Ability or Class specific Ability certificate
+						requestFailed(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL);
+						return;
+					}
+
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+					sm.addItemNumber(1);
+					sm.addItemName(costid);
+					sendPacket(sm);
+					sm = null;
+
 					break;
 				}
 				// normal skills
@@ -461,14 +501,55 @@ public class RequestAquireSkill extends L2GameClientPacket
 		}		
 		else if (trainer instanceof L2FishermanInstance)
 			((L2FishermanInstance)trainer).showSkillList(player);
-		else if (trainer instanceof L2TransformManagerInstance)
+		else if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id))
 			((L2TransformManagerInstance) trainer).showTransformSkillList(player);
+		else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id))
+			((L2TransformManagerInstance) trainer).showCertificationSkillsList(player);
 		else
 			((L2NpcInstance)trainer).showSkillList(player, player.getSkillLearningClassId());
 
 		if (_id >= 1368 && _id <= 1372) //if skill is expand - send packet :)
 			sendPacket(new ExStorageMaxCount(player));
 		sendPacket(ActionFailed.STATIC_PACKET);
+	}
+
+	private boolean isCertificationSkill(int id)
+	{
+		switch (id)
+		{
+			case 631:
+			case 632:
+			case 633:
+			case 634:
+			case 637:
+			case 638:
+			case 639:
+			case 640:
+			case 641:
+			case 642:
+			case 643:
+			case 644:
+			case 645:
+			case 646:
+			case 647:
+			case 648:
+			case 650:
+			case 651:
+			case 652:
+			case 653:
+			case 654:
+			case 655:
+			case 801:
+			case 802:
+			case 803:
+			case 804:
+			case 1489:
+			case 1490:
+			case 1491:
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	@Override

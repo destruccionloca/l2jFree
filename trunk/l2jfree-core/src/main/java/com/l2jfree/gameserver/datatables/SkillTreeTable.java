@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
@@ -62,12 +63,13 @@ public class SkillTreeTable
 	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class);
 
 	private final Map<Integer, L2SkillLearn>[] _skillTrees = new Map[ClassId.values().length];
-	private FastList<L2SkillLearn>							_fishingSkillTrees;																	//all common skills (teached by Fisherman)
-	private FastList<L2SkillLearn>							_expandDwarfCraftSkillTrees;															//list of special skill for dwarf (expand dwarf craft) learned by class teacher
-	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;																		//pledge skill list
-	private FastMap<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;																	//enchant skill list
-	private FastList<L2TransformSkillLearn>					_TransformSkillTrees;																	// Transform Skills (Test)
-	private FastList<L2SkillLearn> _specialSkillTrees;
+	private FastList<L2SkillLearn>							_fishingSkillTrees;				//all common skills (teached by Fisherman)
+	private FastList<L2SkillLearn>							_expandDwarfCraftSkillTrees;	//list of special skill for dwarf (expand dwarf craft) learned by class teacher
+	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;				//pledge skill list
+	private FastMap<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;				//enchant skill list
+	private FastList<L2TransformSkillLearn>					_TransformSkillTrees;			// Transform Skills (Test)
+	private FastList<L2SkillLearn> 							_specialSkillTrees;
+	private FastList<L2CertificationSkillsLearn>			_CertificationSkillsTrees; 		// Special Ability Skills (Hellbound)
 	
 	public static SkillTreeTable getInstance()
 	{
@@ -207,7 +209,7 @@ public class SkillTreeTable
 			_log.fatal("Error while creating skill tree (Class ID " + classId + "):", e);
 		}
 
-		_log.info("SkillTreeTable: Loaded " + count + " skills.");
+		_log.info("SkillTreeTable:               Loaded " + count + " skills.");
 
 		//Skill tree for fishing skill (from Fisherman)
 		int count2 = 0;
@@ -425,17 +427,54 @@ public class SkillTreeTable
 		{
 			_log.fatal("Error while creating SpecialSkillTree skill table ", e);
 		}
+		int count8 = 0;
+		try
+		{
+			_CertificationSkillsTrees = new FastList<L2CertificationSkillsLearn>();
+
+			PreparedStatement statement = con
+					.prepareStatement("SELECT skill_id, item_id, level, name FROM certification_skill_trees ORDER BY skill_id, level");
+			ResultSet skilltree6 = statement.executeQuery();
+
+			int prevSkillId = -1;
+
+			while (skilltree6.next())
+			{
+				int skill_id = skilltree6.getInt("skill_id");
+				int item_id = skilltree6.getInt("item_id");
+				int level = skilltree6.getInt("level");
+				String name = skilltree6.getString("name");
+
+				if (prevSkillId != skill_id)
+					prevSkillId = skill_id;
+
+				L2CertificationSkillsLearn skill = new L2CertificationSkillsLearn(skill_id, item_id, level, name);
+
+				_CertificationSkillsTrees.add(skill);
+			}
+
+			skilltree6.close();
+			statement.close();
+
+			count8 = _CertificationSkillsTrees.size();
+		}
+		catch (Exception e)
+		{
+			_log.fatal("Error while creating Certification skill table ", e);
+		}
+
 		finally
 		{
 			L2DatabaseFactory.close(con);
 		}
 
-		_log.info("FishingSkillTreeTable:   Loaded " + count2 + " general skills.");
-		_log.info("DwarvenSkillTreeTable:   Loaded " + count3 + " dwarven skills.");
-		_log.info("EnchantSkillTreeTable:   Loaded " + count4 + " enchant skills.");
-		_log.info("PledgeSkillTreeTable:    Loaded " + count5 + " pledge skills.");
-		_log.info("TransformSkillTreeTable: Loaded " + count6 + " transform skills.");
-		_log.info("SpecialSkillTreeTable:   Loaded " + count7 + " special skills");
+		_log.info("FishingSkillTreeTable:        Loaded " + count2 + " general skills.");
+		_log.info("DwarvenSkillTreeTable:        Loaded " + count3 + " dwarven skills.");
+		_log.info("EnchantSkillTreeTable:        Loaded " + count4 + " enchant skills.");
+		_log.info("PledgeSkillTreeTable:         Loaded " + count5 + " pledge skills.");
+		_log.info("TransformSkillTreeTable:      Loaded " + count6 + " transform skills.");
+		_log.info("SpecialSkillTreeTable:        Loaded " + count7 + " special skills");
+		_log.info("CertificationSkillsTreeTable: Loaded " + count8 + " certification skills.");
 	}
 
 	private Map<Integer, L2SkillLearn>[] getSkillTrees()
@@ -735,6 +774,49 @@ public class SkillTreeTable
 		}
 
 		return result.moveToArray(new L2TransformSkillLearn[result.size()]);
+	}
+
+	public L2CertificationSkillsLearn[] getAvailableCertificationSkills(L2PcInstance cha)
+	{
+		LinkedBunch<L2CertificationSkillsLearn> result = new LinkedBunch<L2CertificationSkillsLearn>();
+		List<L2CertificationSkillsLearn> skills = _CertificationSkillsTrees;
+
+		if (skills == null)
+		{
+			// the skilltree for this class is undefined, so we give an empty list
+
+			_log.warn("No certification skills defined!");
+			return new L2CertificationSkillsLearn[0];
+		}
+	
+		L2Skill[] oldSkills = cha.getAllSkills();
+		
+		for (L2CertificationSkillsLearn temp : skills)
+		{
+			boolean knownSkill = false;
+
+			for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+			{
+				if (oldSkills[j].getId() == temp.getId() && cha.getInventory().getItemByItemId(temp.getItemId()) != null)
+				{
+					knownSkill = true;
+
+					if (oldSkills[j].getLevel() == temp.getLevel() - 1)
+					{
+						// this is the next level of a skill that we know
+						result.add(temp);
+					}
+				}
+			}
+
+			if (!knownSkill && temp.getLevel() == 1 && cha.getInventory().getItemByItemId(temp.getItemId()) != null)
+			{
+				// this is a new skill
+				result.add(temp);
+			}
+		}
+
+		return result.moveToArray(new L2CertificationSkillsLearn[result.size()]);
 	}
 
 	/**
