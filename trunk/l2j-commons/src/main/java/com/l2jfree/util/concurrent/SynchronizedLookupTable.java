@@ -30,6 +30,12 @@ public class SynchronizedLookupTable<T> extends LookupTable<T>
 	}
 	
 	@Override
+	public synchronized boolean isEmpty()
+	{
+		return super.isEmpty();
+	}
+	
+	@Override
 	public synchronized void clear(boolean force)
 	{
 		super.clear(force);

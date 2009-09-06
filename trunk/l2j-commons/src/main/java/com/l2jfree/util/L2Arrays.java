@@ -112,6 +112,49 @@ public final class L2Arrays
 		return result;
 	}
 	
+	public static <T> Iterable<T> iterable(Object[] array)
+	{
+		return new NullFreeArrayIterable<T>(array);
+	}
+	
+	public static <T> Iterable<T> iterable(Object[] array, boolean allowNull)
+	{
+		if (allowNull)
+			return new ArrayIterable<T>(array);
+		else
+			return new NullFreeArrayIterable<T>(array);
+	}
+	
+	private static class ArrayIterable<T> implements Iterable<T>
+	{
+		protected final Object[] _array;
+		
+		private ArrayIterable(Object[] array)
+		{
+			_array = array;
+		}
+		
+		@Override
+		public Iterator<T> iterator()
+		{
+			return new ArrayIterator<T>(_array);
+		}
+	}
+	
+	private static final class NullFreeArrayIterable<T> extends ArrayIterable<T>
+	{
+		private NullFreeArrayIterable(Object[] array)
+		{
+			super(array);
+		}
+		
+		@Override
+		public Iterator<T> iterator()
+		{
+			return new NullFreeArrayIterator<T>(_array);
+		}
+	}
+	
 	public static <T> Iterator<T> iterator(Object[] array)
 	{
 		return new NullFreeArrayIterator<T>(array);

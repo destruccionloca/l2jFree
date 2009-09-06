@@ -36,6 +36,11 @@ public class LookupTable<T> implements Iterable<T>
 		return _size;
 	}
 	
+	public boolean isEmpty()
+	{
+		return _size == 0;
+	}
+	
 	public void clear(boolean force)
 	{
 		if (force)
