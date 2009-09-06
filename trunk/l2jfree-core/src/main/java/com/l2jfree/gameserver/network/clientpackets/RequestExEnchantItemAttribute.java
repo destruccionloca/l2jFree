@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -177,12 +177,16 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			SystemMessage sm;
 			if (item.getEnchantLevel() == 0)
 			{
-				sm = new SystemMessage(SystemMessageId.ELEMENTAL_POWER_S2_SUCCESSFULLY_ADDED_TO_S1).addItemName(item).addNumber(powerToAdd);
+				sm = new SystemMessage(SystemMessageId.ELEMENTAL_POWER_S2_SUCCESSFULLY_ADDED_TO_S1);
+				sm.addItemName(item);
+				sm.addString(Elementals.getElementName(elementToAdd));
 			}
 			else
 			{
-				sm = new SystemMessage(SystemMessageId.ELEMENTAL_POWER_S3_SUCCESSFULLY_ADDED_TO_S1_S2).addNumber(item.getEnchantLevel());
-				sm.addItemName(item).addNumber(powerToAdd);
+				sm = new SystemMessage(SystemMessageId.ELEMENTAL_POWER_S3_SUCCESSFULLY_ADDED_TO_S1_S2);
+				sm.addNumber(item.getEnchantLevel());
+				sm.addItemName(item);
+				sm.addString(Elementals.getElementName(elementToAdd));
 			}
 			sendPacket(sm);
 			item.setElementAttr(elementToAdd, newPower);
@@ -324,7 +328,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			{
 				if (oldValue == 0)
 					return Elementals.FIRST_WEAPON_BONUS;
-				
+
 				return Elementals.NEXT_WEAPON_BONUS;
 			}
 			else if (item.isArmor())

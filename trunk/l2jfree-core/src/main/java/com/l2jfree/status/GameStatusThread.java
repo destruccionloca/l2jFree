@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -314,7 +314,7 @@ public final class GameStatusThread extends Thread
 					_print.println("halt				- halts server.");
 					_print.println("give <player> <itemid> <amount>");
 					_print.println("enchant <player> <itemType> <enchant> (itemType: 1 - Helmet, 2 - Chest, 3 - Gloves, 4 - Feet, "
-							+ "5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, " + "12- Necklace, 13 - Underwear, 14 - Back, 0 - No Enchant)");
+							+ "5 - Legs, 6 - Right Hand, 7 - Left Hand, 8 - Left Ear, 9 - Right Ear , 10 - Left Finger, 11 - Right Finger, " + "12- Necklace, 13 - Underwear, 14 - Back, 15 - Belt, 0 - No Enchant)");
 					_print.println("extreload <name>	- reload and initializes the named extension or all if used without argument");
 					_print.println("extinit <name>		- initilizes the named extension or all if used without argument");
 					_print.println("extunload <name>	- unload the named extension or all if used without argument");
@@ -761,6 +761,8 @@ public final class GameStatusThread extends Thread
 							case 14:
 								itemType = Inventory.PAPERDOLL_BACK;
 								break;
+							case 15:
+								itemType = Inventory.PAPERDOLL_BELT;
 							default:
 								itemType = 0;
 						}
@@ -1285,7 +1287,7 @@ public final class GameStatusThread extends Thread
 		statement.execute();
 		statement.close();
 	}
-	
+
 	static
 	{
 		ListeningLog.addListener(new LogListener() {
@@ -1295,7 +1297,7 @@ public final class GameStatusThread extends Thread
 				if (Thread.currentThread() instanceof GameStatusThread)
 				{
 					final GameStatusThread gst = (GameStatusThread)Thread.currentThread();
-					
+
 					gst._print.println(s);
 					gst._print.flush();
 				}

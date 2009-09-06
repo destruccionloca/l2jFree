@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,19 +47,19 @@ import com.l2jfree.util.LookupTable;
 public final class NpcTable
 {
 	private static final Log _log = LogFactory.getLog(NpcTable.class);
-	
+
 	public static NpcTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private final LookupTable<L2NpcTemplate> _npcs = new LookupTable<L2NpcTemplate>();
-	
+
 	private NpcTable()
 	{
 		restoreNpcData();
 	}
-	
+
 	private void restoreNpcData()
 	{
 		Connection con = null;
@@ -539,7 +539,7 @@ public final class NpcTable
 			if (old != null && old.getSkills() != null)
 			{
 				skills = new FastMap<Integer, L2Skill>(old.getSkills().size());
-				
+
 				for (Integer key : old.getSkills().keySet())
 					skills.put(key, old.getSkills().get(key));
 			}
@@ -844,7 +844,7 @@ public final class NpcTable
 	{
 		return null;
 	}
-	
+
 	public List<L2NpcTemplate> getMobsByDrop(int itemid)
 	{
 		List<L2NpcTemplate> returnVal = new FastList<L2NpcTemplate>();

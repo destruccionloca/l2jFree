@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,12 +43,12 @@ public class AirShipManager
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private AirShipManager()
 	{
 		load();
 	}
-	
+
 	private final void load()
 	{
 		BufferedReader lnr = null;
@@ -56,7 +56,7 @@ public class AirShipManager
 		{
 			File doorData = new File(Config.DATAPACK_ROOT, "data/airship.csv");
 			lnr = new BufferedReader(new FileReader(doorData));
-			
+
 			String line = null;
 			while ((line = lnr.readLine()) != null)
 			{
@@ -89,7 +89,7 @@ public class AirShipManager
 			}
 		}
 	}
-	
+
 	/**
 	 * @param line
 	 * @return
@@ -98,36 +98,36 @@ public class AirShipManager
 	{
 		L2AirShipInstance airShip;
 		StringTokenizer st = new StringTokenizer(line, ";");
-		
+
 		int xspawn = Integer.parseInt(st.nextToken());
 		int yspawn = Integer.parseInt(st.nextToken());
 		int zspawn = Integer.parseInt(st.nextToken());
 		int heading = Integer.parseInt(st.nextToken());
-		
+
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", 9);
 		npcDat.set("level", 0);
 		npcDat.set("jClass", "boat");
-		
+
 		npcDat.set("baseSTR", 0);
 		npcDat.set("baseCON", 0);
 		npcDat.set("baseDEX", 0);
 		npcDat.set("baseINT", 0);
 		npcDat.set("baseWIT", 0);
 		npcDat.set("baseMEN", 0);
-		
+
 		npcDat.set("baseShldDef", 0);
 		npcDat.set("baseShldRate", 0);
 		npcDat.set("baseAccCombat", 38);
 		npcDat.set("baseEvasRate", 38);
 		npcDat.set("baseCritRate", 38);
-		
+
 		// npcDat.set("name", "");
 		npcDat.set("collision_radius", 0);
 		npcDat.set("collision_height", 0);
 		npcDat.set("fcollision_radius", 0);
 		npcDat.set("fcollision_height", 0);
-		
+
 		npcDat.set("sex", "male");
 		npcDat.set("type", "");
 		npcDat.set("baseAtkRange", 0);
@@ -162,12 +162,12 @@ public class AirShipManager
 		airShip.setTrajet4(4);
 		return airShip;
 	}
-	
+
 	public L2AirShipInstance getAirShip()
 	{
 		return _airShip;
 	}
-	
+
 	public void registerATC(L2AirShipControllerInstance atc)
 	{
 		_atcs.add(atc);
