@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -312,8 +312,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_afroId;
 	private final boolean			_isHerbEffect;
 
-	private final int				_learnSkillId;
-	private final int				_learnSkillLvl;
+	private final int[]				_learnSkillId;
+	private final int[]				_learnSkillLvl;
 
 	private final boolean			_ignoreShield;
 	private final boolean			_isSuicideAttack;
@@ -367,7 +367,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			String[] valuesSplit = coords.split(",");
 			_teleportCoords = new int[valuesSplit.length];
 			for (int i = 0; i < valuesSplit.length; i++)
-				_teleportCoords[i] = Integer.valueOf(valuesSplit[i]);
+				_teleportCoords[i] = Integer.parseInt(valuesSplit[i]);
 		}
 		else
 			_teleportCoords = null;
@@ -482,8 +482,25 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
 
-		_learnSkillId = set.getInteger("learnSkillId", 0);
-		_learnSkillLvl = set.getInteger("learnSkillLvl", 1);
+		String[] ar = set.getString("learnSkillId", "0").split(",");
+		int[] ar2 = new int[ar.length];
+
+		for (int i = 0; i < ar.length; i++)
+			ar2[i] = Integer.parseInt(ar[i]);
+
+		_learnSkillId = ar2;
+
+		ar = set.getString("learnSkillLvl", "1").split(",");
+		ar2 = new int[_learnSkillId.length];
+
+		for (int i = 0; i < _learnSkillId.length; i++)
+			ar2[i] = 1;
+
+		for (int i = 0; i < ar.length; i++)
+			ar2[i] = Integer.parseInt(ar[i]);
+
+		_learnSkillLvl = ar2;
+
 		_recallType = set.getString("recallType", "");
 	}
 
@@ -750,10 +767,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			for (EffectTemplate et : _effectTemplates)
 				if (et.effectPower > 0)
 					return et.effectPower;
-		
+
 		if (_effectPower > 0)
 			return _effectPower;
-		
+
 		// to let damage dealing skills having proper resist even without specified effectPower
 		switch (_skillType.getRoot())
 		{
@@ -766,7 +783,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				return (_power <= 0 || 100 < _power) ? 20 : _power;
 		}
 	}
-	
+
 	/**
 	 * Return true if skill should ignore all resistances
 	 */
@@ -803,10 +820,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			for (EffectTemplate et : _effectTemplates)
 				if (et.effectType != null)
 					return et.effectType;
-		
+
 		if (_effectType != null)
 			return _effectType;
-		
+
 		// to let damage dealing skills having proper resist even without specified effectType
 		switch (_skillType.getRoot())
 		{
@@ -818,7 +835,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				return _skillType;
 		}
 	}
-	
+
 	/**
 	 * @return Returns the timeMulti.
 	 */
@@ -1581,7 +1598,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 * <li>AREA</li> <li>MULTIFACE</li> <li>PARTY, CLAN</li> <li>CORPSE_PLAYER,
 	 * CORPSE_MOB, CORPSE_CLAN</li> <li>UNLOCKABLE</li> <li>ITEM</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param activeChar The L2Character who use the skill
 	 */
 	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst, L2Character target)
@@ -2415,7 +2432,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 							if(!eventCheck(player,partyMember))
 								continue;
-							
+
 							if (!partyMember.isDead() && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
 							{
 								targetList.add(partyMember);
@@ -2496,7 +2513,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	                if (addSummon(activeChar, player, radius, false))
 	                	targetList.add(player.getPet());
-					
+
 	                // if player in olympiad mode or not in clan and not in party
 	                if (player.isInOlympiadMode() || !(hasClan || hasParty))
 	                	return new L2Character[] { player };
@@ -2505,7 +2522,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					{
 						if (obj == null)
 							continue;
-						
+
 						if (player.isInDuel())
 						{
 							if (player.getDuelId() != obj.getDuelId())
@@ -2523,7 +2540,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 						// casting and pvp condition not met
 						if (!player.checkPvpSkill(obj, this))
 							continue;
-						
+
 						if(!eventCheck(player,obj))
 							continue;
 
@@ -2535,7 +2552,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 						if (onlyFirst)
 							return new L2Character[] { obj };
-						
+
 						targetList.add(obj);
 					}
 
@@ -3530,15 +3547,15 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
     	return true;
 
     }
-    
+
 	private boolean eventCheck(L2PcInstance player, L2PcInstance newTarget)
 	{
 		if (GlobalRestrictions.isProtected(player, newTarget, this, false))
 			return false;
-		
+
 		return true;
 	}
-	
+
 	private int getNewHeadingToTarget(L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)
@@ -3621,12 +3638,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	private Func[] _statFuncs;
-	
+
 	public final Func[] getStatFuncs(L2Character player)
 	{
 		if (!(player instanceof L2Playable) && !(player instanceof L2Attackable))
 			return Func.EMPTY_ARRAY;
-		
+
 		if (_statFuncs == null)
 		{
 			if (_funcTemplates == null)
@@ -3636,38 +3653,38 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			else
 			{
 				final Func[] funcs = new Func[_funcTemplates.length];
-				
+
 				for (int i = 0; i < _funcTemplates.length; i++)
 					funcs[i] = _funcTemplates[i].getFunc(this);
-				
+
 				_statFuncs = L2Arrays.compact(funcs);
 			}
 		}
-		
+
 		return _statFuncs;
 	}
-	
+
 	public final boolean hasEffects()
 	{
 		return _effectTemplates != null && _effectTemplates.length > 0;
 	}
-	
+
 	public final boolean hasSelfEffects()
 	{
 		return _effectTemplatesSelf != null && _effectTemplatesSelf.length > 0;
 	}
-	
+
 	public final void dealDamage(L2Character activeChar, L2Character target, L2Skill skill, double damage, byte reflect, boolean mcrit, boolean pcrit)
 	{
 		activeChar.sendDamageMessage(target, (int)damage, mcrit, pcrit, false);
-		
+
 		if (skill.getDmgDirectlyToHP())
 		{
 			double actCp1 = target.getStatus().getCurrentCp();
 			target.getStatus().setCurrentCp(0);
 			target.reduceCurrentHp(damage, activeChar, skill);
 			target.getStatus().setCurrentCp(actCp1);
-			
+
 			// vengeance reflected damage
 			if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
 			{
@@ -3680,12 +3697,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		else
 		{
 			target.reduceCurrentHp(damage, activeChar, skill);
-			
+
 			// vengeance reflected damage
 			if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
 				activeChar.reduceCurrentHp(damage, target, skill);
 		}
-		
+
 		// Manage attack or cast break of the target (calculating rate, sending message...)
 		if (!target.isRaid() && Formulas.calcAtkBreak(target, damage))
 		{
@@ -3693,30 +3710,30 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			target.breakCast();
 		}
 	}
-	
+
 	public final void getEffects(L2Character effector, L2Character effected, byte reflect, byte shld, boolean ss, boolean sps, boolean bss)
 	{
 		if (_effectTemplates == null)
 			return;
-		
+
 		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
 			return;
-		
+
 		// Activate attacked effects, if any
 		if (Formulas.calcSkillSuccess(effector, effected, this, shld, ss, sps, bss))
 		{
 			if ((reflect & Formulas.SKILL_REFLECT_SUCCEED) != 0)
 				effected = effector;
-			
+
 			Env env = new Env();
 			env.player = effector;
 			env.target = effected;
 			env.skill = this;
 			env.skillMastery = Formulas.calcSkillMastery(effector, this);
-			
+
 			for (EffectTemplate et : _effectTemplates)
 				et.getEffect(env);
-			
+
 			if (effected instanceof L2PcInstance)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -3735,65 +3752,65 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			}
 		}
 	}
-	
+
 	public final void getEffects(L2Character effector, L2Character effected)
 	{
 		if (_effectTemplates == null)
 			return;
-		
+
 		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
 			return;
-		
+
 		Env env = new Env();
 		env.player = effector;
 		env.target = effected;
 		env.skill = this;
 		env.skillMastery = Formulas.calcSkillMastery(effector, this);
-		
+
 		for (EffectTemplate et : _effectTemplates)
 			et.getEffect(env);
 	}
-	
+
 	public final void getEffects(L2CubicInstance effector, L2Character effected)
 	{
 		if (_effectTemplates == null)
 			return;
-		
+
 		if (!GlobalRestrictions.canCreateEffect(effector.getOwner(), effected, this))
 			return;
-		
+
 		Env env = new Env();
 		env.player = effector.getOwner();
 		//env.cubic = effector;
 		env.target = effected;
 		env.skill = this;
-		
+
 		for (EffectTemplate et : _effectTemplates)
 			et.getEffect(env);
 	}
-	
+
 	public final void getEffectsSelf(L2Character effector)
 	{
 		if (_effectTemplatesSelf == null)
 			return;
-		
+
 		if (!GlobalRestrictions.canCreateEffect(effector, effector, this))
 			return;
-		
+
 		Env env = new Env();
 		env.player = effector;
 		env.target = effector;
 		env.skill = this;
-		
+
 		for (EffectTemplate et : _effectTemplatesSelf)
 			et.getEffect(env);
 	}
-	
+
 	public final EffectTemplate[] getEffectTemplates()
 	{
 		return _effectTemplates;
 	}
-	
+
 	public final void attach(FuncTemplate f)
 	{
 		if (_funcTemplates == null)
@@ -3885,7 +3902,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	/**
 	 * used for tracking item id in case that item consume cannot be used
-	 * 
+	 *
 	 * @return reference item id
 	 */
 	public final int getReferenceItemId()
@@ -3989,20 +4006,20 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	/**
 	 * used for learning skills through skills
-	 * 
+	 *
 	 * @return new skill id to learn (if not defined, default 0)
 	 */
-	public final int getNewSkillId()
+	public int[] getNewSkillId()
 	{
 		return _learnSkillId;
 	}
 
 	/**
 	 * used for learning skills through skills
-	 * 
+	 *
 	 * @return skill lvl to learn (if not defined, default 1)
 	 */
-	public final int getNewSkillLvl()
+	public int[] getNewSkillLvl()
 	{
 		return _learnSkillLvl;
 	}
