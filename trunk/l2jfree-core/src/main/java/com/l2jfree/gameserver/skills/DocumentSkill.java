@@ -491,11 +491,11 @@ final class DocumentSkill extends DocumentBase
 		}
 
 		
-		final String stackType;
+		final String[] stackTypes;
 		if (attrs.getNamedItem("stackType") != null)
-			stackType = attrs.getNamedItem("stackType").getNodeValue();
+			stackTypes = attrs.getNamedItem("stackType").getNodeValue().split(";");
 		else
-			stackType = skill.generateUniqueStackType();
+			stackTypes = new String[] { skill.generateUniqueStackType() };
 		
 		float stackOrder;
 		if (attrs.getNamedItem("stackOrder") != null)
@@ -562,7 +562,7 @@ final class DocumentSkill extends DocumentBase
 				throw new NoSuchElementException(name + " can't have ChanceCondition parameters!");
 		}
 		
-		EffectTemplate effectTemplate = new EffectTemplate(name, lambda, count, time, abnormal, special, stackType,
+		EffectTemplate effectTemplate = new EffectTemplate(name, lambda, count, time, abnormal, special, stackTypes,
 			stackOrder, showIcon, effectPower, effectType, trigSkill, chanceCond);
 		
 		parseTemplate(n, effectTemplate);

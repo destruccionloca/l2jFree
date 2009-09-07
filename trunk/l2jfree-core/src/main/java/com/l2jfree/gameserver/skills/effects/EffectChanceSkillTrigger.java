@@ -44,7 +44,7 @@ public final class EffectChanceSkillTrigger extends L2Effect implements IChanceS
 		// Removing every other effect with the same stack type (for improving buffs)
 		for (L2Effect e : getEffected().getAllEffects())
 			if (e != null && e != this && e instanceof EffectChanceSkillTrigger)
-				if (e.getStackType().equals(getStackType()))
+				if (e.stackTypesEqual(this))
 					e.exit();
 		
 		return true;

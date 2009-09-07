@@ -763,6 +763,7 @@ public final class GameStatusThread extends Thread
 								break;
 							case 15:
 								itemType = Inventory.PAPERDOLL_BELT;
+								break;
 							default:
 								itemType = 0;
 						}

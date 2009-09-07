@@ -15,18 +15,15 @@
 package com.l2jfree.gameserver.datatables;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -65,17 +62,10 @@ public final class EnchantHPBonusData
 		{
 			doc = factory.newDocumentBuilder().parse(file);
 		}
-		catch (SAXException e)
+		catch (Exception e)
 		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (ParserConfigurationException e)
-		{
-			e.printStackTrace();
+			_log.warn("", e);
+			return;
 		}
 		
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())

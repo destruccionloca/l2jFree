@@ -59,6 +59,8 @@ public abstract class EffectInfoPacket extends L2GameServerPacket
 	
 	public static final class EffectInfoPacketList extends ArrayList<L2Effect>
 	{
+		private static final long serialVersionUID = 84397230897018086L;
+		
 		private final L2Playable _playable;
 		
 		public EffectInfoPacketList(L2Playable playable)

@@ -31,13 +31,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
-import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
@@ -432,6 +432,7 @@ public class SkillTreeTable
 		{
 			_CertificationSkillsTrees = new FastList<L2CertificationSkillsLearn>();
 
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
 					.prepareStatement("SELECT skill_id, item_id, level, name FROM certification_skill_trees ORDER BY skill_id, level");
 			ResultSet skilltree6 = statement.executeQuery();
@@ -462,7 +463,6 @@ public class SkillTreeTable
 		{
 			_log.fatal("Error while creating Certification skill table ", e);
 		}
-
 		finally
 		{
 			L2DatabaseFactory.close(con);

@@ -37,6 +37,7 @@ public final class TriggeredSkill
 			throw new IllegalStateException();
 	}
 
+	@SuppressWarnings("null")
 	public static TriggeredSkill parse(Integer triggeredId, Integer triggeredLevel)
 	{
 		if (triggeredId == null && triggeredLevel == null)

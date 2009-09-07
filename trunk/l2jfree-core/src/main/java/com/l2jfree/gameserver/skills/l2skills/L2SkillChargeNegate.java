@@ -50,7 +50,7 @@ public class L2SkillChargeNegate extends L2Skill
 				if (e.getEffectType() == L2EffectType.ROOT)
 					e.exit();
 				
-				if (getLevel() > 1 && e.getStackType().equalsIgnoreCase("RunSpeedDown"))
+				if (getLevel() > 1 && e.stackTypesEqual("RunSpeedDown"))
 					e.exit();
 			}
 		}

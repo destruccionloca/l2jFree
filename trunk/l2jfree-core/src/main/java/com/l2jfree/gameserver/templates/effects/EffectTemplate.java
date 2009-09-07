@@ -43,7 +43,7 @@ public final class EffectTemplate
 	public final int period;
 	public final int abnormalEffect;
 	public final int specialEffect;
-	public final String stackType;
+	public final String[] stackTypes;
 	public final float stackOrder;
 	public final boolean showIcon;
 	public final double effectPower; // to handle chance
@@ -55,7 +55,7 @@ public final class EffectTemplate
 	public FuncTemplate[] funcTemplates;
 	
 	public EffectTemplate(String pName, double pLambda, int pCount, int pPeriod, int pAbnormalEffect,
-		int pSpecialEffect, String pStackType, float pStackOrder, boolean pShowIcon, double ePower, L2SkillType eType,
+		int pSpecialEffect, String[] pStackTypes, float pStackOrder, boolean pShowIcon, double ePower, L2SkillType eType,
 		TriggeredSkill trigSkill, ChanceCondition chanceCond)
 	{
 		name = pName;
@@ -64,7 +64,10 @@ public final class EffectTemplate
 		period = pPeriod;
 		abnormalEffect = pAbnormalEffect;
 		specialEffect = pSpecialEffect;
-		stackType = pStackType.intern();
+		stackTypes = pStackTypes;
+		for (int i = 0; i < stackTypes.length; i++)
+			stackTypes[i] = stackTypes[i].intern();
+		
 		stackOrder = pStackOrder;
 		showIcon = pShowIcon;
 		effectPower = ePower;

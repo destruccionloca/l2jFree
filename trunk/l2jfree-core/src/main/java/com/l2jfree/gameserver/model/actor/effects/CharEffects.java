@@ -21,6 +21,7 @@ import java.util.Map;
 import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -127,12 +128,15 @@ public final class CharEffects
 		_effects.add(index, newEffect);
 		_toArray = null;
 		
-		StackQueue stackQueue = _stackedEffects.get(newEffect.getStackType());
-		
-		if (stackQueue == null)
-			stackQueue = StackQueue.newInstance(this, newEffect.getStackType());
-		
-		stackQueue.add(newEffect);
+		for (String stackType : newEffect.getStackTypes())
+		{
+			StackQueue stackQueue = _stackedEffects.get(stackType);
+			
+			if (stackQueue == null)
+				stackQueue = StackQueue.newInstance(this, stackType);
+			
+			stackQueue.add(newEffect);
+		}
 		
 		if (isActiveDance(newEffect, true, true))
 		{
@@ -144,7 +148,8 @@ public final class CharEffects
 					
 					if (isActiveDance(e, true, true))
 					{
-						_stackedEffects.get(e.getStackType()).stopAllEffects();
+						for (String stackType : e.getStackTypes())
+							_stackedEffects.get(stackType).stopAllEffects();
 						return;
 					}
 				}
@@ -160,7 +165,8 @@ public final class CharEffects
 					
 					if (isActiveBuff(e))
 					{
-						_stackedEffects.get(e.getStackType()).stopAllEffects();
+						for (String stackType : e.getStackTypes())
+							_stackedEffects.get(stackType).stopAllEffects();
 						return;
 					}
 				}
@@ -185,7 +191,8 @@ public final class CharEffects
 		if (index < 0)
 			return false;
 		
-		_stackedEffects.get(effect.getStackType()).remove(effect);
+		for (String stackType : effect.getStackTypes())
+			_stackedEffects.get(stackType).remove(effect);
 		_effects.remove(index);
 		_toArray = null;
 		
@@ -276,14 +283,14 @@ public final class CharEffects
 	/**
 	 * For debugging purpose...
 	 */
-	public void printStackTrace(String stackType, L2Effect effect)
+	public void printStackTrace(String[] stackTypes, L2Effect effect)
 	{
 		TextBuilder tb = TextBuilder.newInstance();
 		
 		tb.append(_owner);
 		
-		if (stackType != null)
-			tb.append(" -> ").append(stackType);
+		if (stackTypes != null)
+			tb.append(" -> ").append(StringUtils.join(stackTypes, ";"));
 		
 		if (effect != null)
 			tb.append(" -> ").append(effect.getSkill().toString());
@@ -451,7 +458,10 @@ public final class CharEffects
 		if (stopEffectsThatLastThroughDeathToo)
 		{
 			while (!_effects.isEmpty())
-				_stackedEffects.get(_effects.get(_effects.size() - 1).getStackType()).stopAllEffects();
+			{
+				for (String stackType : _effects.get(_effects.size() - 1).getStackTypes())
+					_stackedEffects.get(stackType).stopAllEffects();
+			}
 		}
 		else
 		{
@@ -485,10 +495,13 @@ public final class CharEffects
 			if (!isActiveBuff(e))
 				continue;
 			
-			StackQueue queue = _stackedEffects.get(e.getStackType());
-			
-			if (queue != null)
-				queue.stopAllEffects();
+			for (String stackType : e.getStackTypes())
+			{
+				StackQueue queue = _stackedEffects.get(stackType);
+				
+				if (queue != null)
+					queue.stopAllEffects();
+			}
 			
 			e.exit(); // just to be sure
 		}

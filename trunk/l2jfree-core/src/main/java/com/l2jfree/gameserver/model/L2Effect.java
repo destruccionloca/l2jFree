@@ -142,7 +142,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			_currentFuture.cancel(false);
 		
 		if (_period <= 0 && _count > 1)
-			_effected.getEffects().printStackTrace(getStackType(), this);
+			_effected.getEffects().printStackTrace(getStackTypes(), this);
 		
 		if (_count > 1)
 			_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initialDelay * 1000, _period * 1000);
@@ -219,8 +219,8 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			// Asynchronous FIFO execution to avoid deadlocks and concurrency
 			EFFECT_QUEUE.execute(_inUse ? ON_START : ON_EXIT);
 		}
-		else
-			_effected.getEffects().printStackTrace(getStackType(), this);
+		//else
+		//	_effected.getEffects().printStackTrace(getStackTypes(), this);
 	}
 	
 	private static final FIFORunnableQueue<Runnable> EFFECT_QUEUE = new FIFORunnableQueue<Runnable>() {};
@@ -292,9 +292,28 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		_isActing = isActing;
 	}
 	
-	public final String getStackType()
+	public final String[] getStackTypes()
 	{
-		return _template.stackType;
+		return _template.stackTypes;
+	}
+	
+	public final boolean stackTypesEqual(L2Effect e)
+	{
+		for (String stackType1 : getStackTypes())
+			for (String stackType2 : e.getStackTypes())
+				if (stackType1.equalsIgnoreCase(stackType2))
+					return true;
+		
+		return false;
+	}
+	
+	public final boolean stackTypesEqual(String stackType2)
+	{
+		for (String stackType1 : getStackTypes())
+			if (stackType1.equalsIgnoreCase(stackType2))
+				return true;
+		
+		return false;
 	}
 	
 	public final float getStackOrder()

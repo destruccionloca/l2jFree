@@ -14,11 +14,12 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import javolution.util.FastList;
+import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -41,7 +42,7 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class L2BabyPetInstance extends L2PetInstance
 {
-	protected FastList<Integer> _buffs = null;
+	protected int[] _buffs;
 	protected int _majorHeal = 0;
 	protected int _minorHeal = 0;
 	protected int _recharge = 0;
@@ -88,9 +89,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 						}
 						break;
 					case BUFF:
-						if (_buffs == null)
-							_buffs = new FastList<Integer>();
-						_buffs.add(id);
+						_buffs = ArrayUtils.add(_buffs, id);
 						break;
 					case MANAHEAL:
 					case MANARECHARGE:
@@ -130,9 +129,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	public void onDecay()
 	{
 		super.onDecay();
-
-		if (_buffs != null)
-			_buffs.clear();
+		_buffs = null;
 	}
 
 	public final void toggleBuffControl()
@@ -149,7 +146,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	private final void startCastTask()
 	{
 		if (_majorHeal > 0 || _buffs != null || _recharge > 0)
-			_castTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new CastTask(this), 3000, 1000);
+			_castTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new CastTask(), 3000, 1000);
 	}
 
 	private final void stopCastTask()
@@ -191,16 +188,11 @@ public final class L2BabyPetInstance extends L2PetInstance
 
 	private class CastTask implements Runnable
 	{
-		private final L2BabyPetInstance _baby;
-		private List<L2Skill> _currentBuffs = new FastList<L2Skill>();
-
-		public CastTask(L2BabyPetInstance baby)
- 		{
-			_baby = baby;
- 		}
-
+		private final List<L2Skill> _currentBuffs = new ArrayList<L2Skill>();
+		
 		public void run()
 		{
+			final L2BabyPetInstance _baby = L2BabyPetInstance.this;
 			L2PcInstance owner = _baby.getOwner();
 
 			// if the owner is dead, merely wait for the owner to be resurrected
@@ -239,7 +231,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 				}
 
 				// searching for usable buffs
-				if (_buffs != null && !_buffs.isEmpty())
+				if (_buffs != null)
 				{
 					for (int id : _buffs)
 					{
@@ -286,8 +278,8 @@ public final class L2BabyPetInstance extends L2PetInstance
 							{
 								// effect with same stacktype and greater stackorder
 								if (skill.hasEffects()
-										&& !"none".equals(skill.getEffectTemplates()[0].stackType)
-										&& e.getStackType().equals(skill.getEffectTemplates()[0].stackType)
+										&& !"none".equals(skill.getEffectTemplates()[0].stackTypes[0])
+										&& e.getStackTypes()[0].equals(skill.getEffectTemplates()[0].stackTypes[0])
 										&& e.getStackOrder() >= skill.getEffectTemplates()[0].stackOrder)
 									iter.remove();
 							}
