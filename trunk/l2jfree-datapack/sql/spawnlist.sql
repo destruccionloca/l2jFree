@@ -40713,5 +40713,5 @@ INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `l
 DELETE FROM spawnlist WHERE location LIKE "aden05agit%";
 
 -- Adler for Pailaka Song of Ice And Fire
-INSERT INTO `custom_spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
-('', '', 1, 32497, -80563, 151274, -3046, 0, 0, 20808, 60, 0, 0);
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
+(NULL, '', 1, 32497, -80563, 151274, -3046, 0, 0, 20808, 60, 0, 0);
