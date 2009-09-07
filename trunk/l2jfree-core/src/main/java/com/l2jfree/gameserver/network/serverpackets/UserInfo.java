@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -60,7 +60,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * but it actually reads
  * dddddSdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddffffddddSdddddcccddh (h) c dc *dddddddd* hhdh ddddc dcc cddd d
  * 																					*...*: here i am not sure at least it looks like it reads that much data (32 bytes), not sure about the format inside because it is not read thanks to the ususal parsing function
- * 
+ *
  * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh [h] c dc d hhdh ddddc c dcc cddd d c dd d d
  * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh
 
@@ -103,13 +103,13 @@ public class UserInfo extends L2GameServerPacket
 			_activeChar.sendPacket(new ExVitalityPointInfo((int) _activeChar.getVitalityPoints()));
 		}
 	}
-	
+
 	@Override
 	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
 	{
 		return _activeChar == activeChar;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -240,10 +240,10 @@ public class UserInfo extends L2GameServerPacket
 		if (Config.PACKET_FINAL)
 		{
 			writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_BELT)); // CT2.3
-			writeD(0x00); // CT2.3
+			writeD(_activeChar.getInventory().getMaxTalismanCount()); // CT2.3
 			writeD(0x01); // CT2.3
 		}
-		
+
 		writeD(_activeChar.getPAtk(null));
 		writeD(_activeChar.getPAtkSpd());
 		writeD(_activeChar.getPDef(null));
@@ -387,7 +387,7 @@ public class UserInfo extends L2GameServerPacket
 		writePlayerElementAttribute(_activeChar);
 
 		writeD(_activeChar.getAgathionId());
-		
+
 		// T2
 		writeD(_activeChar.getFame());  // Fame
 		writeD(0x00); // Unknown

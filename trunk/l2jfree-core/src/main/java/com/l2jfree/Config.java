@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,7 +57,7 @@ public class Config extends L2Config
 	static
 	{
 		System.setProperty("python.home", ".");
-		
+
 		registerConfig(new AltConfig());
 		registerConfig(new AutoEventConfig());
 		registerConfig(new BossConfig());
@@ -85,7 +85,7 @@ public class Config extends L2Config
 		registerConfig(new WeddingConfig());
 		registerConfig(new CustomConfig());
 	}
-	
+
 	// *******************************************************************************************
 	public static final String	CONFIGURATION_FILE					= "./config/server.properties";
 	// *******************************************************************************************
@@ -231,15 +231,15 @@ public class Config extends L2Config
 	public static int			GEODATA;
 	public static boolean		GEODATA_CELLFINDING;
 	public static boolean		FORCE_GEODATA;
-	
+
 	public static enum CorrectSpawnsZ
 	{
 		TOWN, MONSTER, ALL, NONE
 	}
-	
+
 	public static CorrectSpawnsZ	GEO_CORRECT_Z;			// Enable spawns' z-correction
 	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
-	
+
 	// *******************************************************************************************
 	private static final class GeoConfig extends ConfigLoader
 	{
@@ -248,7 +248,7 @@ public class Config extends L2Config
 		{
 			return "geodata";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties geoSettings) throws Exception
 		{
@@ -260,7 +260,7 @@ public class Config extends L2Config
 			ACCEPT_GEOEDITOR_CONN	= Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
 		}
 	}
-	
+
 	// *******************************************************************************************
 	public static final String	CLANS_FILE	= "./config/clans.properties";
 	// *******************************************************************************************
@@ -305,7 +305,7 @@ public class Config extends L2Config
 	public static int				BALLISTA_POINTS;
 	public static int				BLOODALLIANCE_POINTS;
 	public static int				BLOODOATH_POINTS;
-	public static int				KNIGHTSEPAULETTE_POINTS;	
+	public static int				KNIGHTSEPAULETTE_POINTS;
 	public static int				REPUTATION_SCORE_PER_KILL;
 	public static int				JOIN_ACADEMY_MIN_REP_SCORE;
 	public static int				JOIN_ACADEMY_MAX_REP_SCORE;
@@ -335,7 +335,7 @@ public class Config extends L2Config
 		{
 			return "clans";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties clansSettings) throws Exception
 		{
@@ -427,7 +427,7 @@ public class Config extends L2Config
 		{
 			return "champions";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties championsSettings) throws Exception
 		{
@@ -475,7 +475,7 @@ public class Config extends L2Config
 		{
 			return "lottery";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties lotterySettings) throws Exception
 		{
@@ -510,7 +510,7 @@ public class Config extends L2Config
 		{
 			return "wedding";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties weddingSettings) throws Exception
 		{
@@ -582,7 +582,7 @@ public class Config extends L2Config
 		{
 			return "rates";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties ratesSettings) throws Exception
 		{
@@ -634,29 +634,29 @@ public class Config extends L2Config
 
 			// Initializing table
 			PLAYER_XP_PERCENT_LOST = new double[Byte.MAX_VALUE+1];
-			
+
 			// Default value
 			for (int i = 0; i <= Byte.MAX_VALUE; i++)
 				PLAYER_XP_PERCENT_LOST[i] = 1.;
-			
+
 			// Now loading into table parsed values
 			try
 			{
 				String[] values = ratesSettings.getProperty("PlayerXPPercentLost", "0,39-7.0;40,75-4.0;76,76-2.5;77,77-2.0;78,78-1.5").split(";");
-				
+
 				for (String s : values)
 				{
 					int min;
 					int max;
 					double val;
-					
+
 					String[] vals = s.split("-");
 					String[] mM = vals[0].split(",");
-					
+
 					min = Integer.parseInt(mM[0]);
 					max = Integer.parseInt(mM[1]);
 					val = Double.parseDouble(vals[1]);
-					
+
 					for (int i = min; i <= max; i++)
 						PLAYER_XP_PERCENT_LOST[i] = val;
 				}
@@ -715,7 +715,7 @@ public class Config extends L2Config
 		{
 			return "enchant";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties enchantSettings) throws Exception
 		{
@@ -761,7 +761,7 @@ public class Config extends L2Config
 			AUGMENTATION_TOP_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationTopSkillChance", "60"));
 			AUGMENTATION_TOP_GLOW_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationTopGlowChance", "100"));
 			AUGMENTATION_BASESTAT_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationBaseStatChance", "1"));
-			
+
 		}
 	}
 
@@ -797,7 +797,7 @@ public class Config extends L2Config
 		{
 			return "pvp";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties pvpSettings) throws Exception
 		{
@@ -957,7 +957,7 @@ public class Config extends L2Config
 		{
 			return "other";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties otherSettings) throws Exception
 		{
@@ -1199,7 +1199,7 @@ public class Config extends L2Config
 
 	public static boolean			SERVER_LIST_CLOCK;											// Displays a clock next to the server name ?
 	public static boolean			SERVER_LIST_TESTSERVER;										// Display test server in the list of servers ?
-	
+
 	public static int				AUCTION_SPECIAL_CURRENCY;
 	public static String			AUCTION_SPECIAL_CURRENCY_ICON;
 	public static String			AUCTION_EXCLUDED_ITEMS;
@@ -1211,7 +1211,7 @@ public class Config extends L2Config
 	public static boolean			ALLOW_OFFLINE_TRADE_COLOR_NAME;
 	public static int				OFFLINE_TRADE_COLOR_NAME;
 	public static boolean			ALLOW_OFFLINE_TRADE_PROTECTION;
-	
+
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1220,13 +1220,13 @@ public class Config extends L2Config
 		{
 			return "options";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties optionsSettings) throws Exception
 		{
 			SERVER_LIST_BRACKET = Boolean.parseBoolean(optionsSettings.getProperty("ServerListBrackets", "false"));
 			SERVER_LIST_CLOCK = Boolean.parseBoolean(optionsSettings.getProperty("ServerListClock", "false"));
-			
+
 			ASSERT = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
 			DEVELOPER = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
 			SERVER_BIT_4 = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
@@ -1338,7 +1338,7 @@ public class Config extends L2Config
 
 			final int baseThreadPoolSize = Integer.parseInt(optionsSettings.getProperty("BaseThreadPoolSize", "2"));
 			final int extraThreadPerCore = Integer.parseInt(optionsSettings.getProperty("ExtraThreadPerCore", "4"));
-			
+
 			THREAD_POOL_SIZE = baseThreadPoolSize + Runtime.getRuntime().availableProcessors() * extraThreadPerCore;
 
 			DELETE_DAYS = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
@@ -1373,7 +1373,7 @@ public class Config extends L2Config
 			// ---------------------------------------------------
 
 			CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(optionsSettings.getProperty("CheckSkillsOnEnter", "false"));
-			
+
 			ALLOWED_SKILLS = optionsSettings
 					.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
 			ALLOWED_SKILLS_LIST.clear();
@@ -1390,7 +1390,7 @@ public class Config extends L2Config
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));
 			ALLOW_CRITICAL_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowCriticalCraft", "False"));
 			BAN_CLIENT_EMULATORS = Boolean.parseBoolean(optionsSettings.getProperty("AutoBanClientEmulators", "True"));
-			
+
 			AUCTION_SPECIAL_CURRENCY = Integer.parseInt(optionsSettings.getProperty("AuctionSpecialCurrency", "8575"));
 			AUCTION_SPECIAL_CURRENCY_ICON = optionsSettings.getProperty("AuctionSpecialCurrencyIcon", "etc_box_of_adventure_3_i00");
 			AUCTION_EXCLUDED_ITEMS = optionsSettings.getProperty("AuctionExcludedItems", "57,5575");
@@ -1543,6 +1543,7 @@ public class Config extends L2Config
 	public static boolean				ALT_AUTO_LEARN_SKILLS;														// Config for Auto Learn Skills
 	public static boolean				ALT_AUTO_LEARN_DIVINE_INSPIRATION;											// Alternative auto skill learning for divine inspiration (+4 max buff count)
 	public static boolean				ALT_GRADE_PENALTY;															// Disable Grade penalty
+	public static boolean 				ALT_FAME_FOR_DEAD_PLAYERS;
 	public static boolean				ALT_IS_CRAFTING_ENABLED;													// Crafting Enabled?
 	//public static boolean				ALT_FAIL_FAKEDEATH;														// Config for Fake Death Fail Feature
 	public static boolean				ALT_FLYING_WYVERN_IN_SIEGE;												// Config for Wyvern enable flying in siege **/
@@ -1630,7 +1631,7 @@ public class Config extends L2Config
 		{
 			return "altsettings";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties altSettings) throws Exception
 		{
@@ -1686,6 +1687,7 @@ public class Config extends L2Config
 			ALT_CHANCE_BREAK = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
 			ALT_CHANCE_LEVEL = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
 			ALT_IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
+			ALT_FAME_FOR_DEAD_PLAYERS = Boolean.parseBoolean(altSettings.getProperty("FameForDeadPlayers", "true"));
 			//ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
 			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
 			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "false"));
@@ -1938,7 +1940,7 @@ public class Config extends L2Config
 		{
 			return "GMAccess";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties gmSettings) throws Exception
 		{
@@ -2020,17 +2022,17 @@ public class Config extends L2Config
 //			HIDE_GM_STATUS = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false"));
 			GM_STARTUP_INVISIBLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));
 			GM_STARTUP_SILENCE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupSilence", "True"));
-			
+
 			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GMItemRestriction", "True"));
 			GM_SKILL_RESTRICTION = Boolean.parseBoolean(gmSettings.getProperty("GMSkillRestriction", "True"));
 			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
-			
+
 		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));
-		    
+
 		    GM_EVERYBODY_HAS_ADMIN_RIGHTS = Boolean.parseBoolean(gmSettings.getProperty("EverybodyHasAdminRights", "false"));
 		}
 	}
-	
+
 	// *******************************************************************************************
 	public static final String	DATETIME_FILE	= "./config/datetime.properties";
 	// *******************************************************************************************
@@ -2039,7 +2041,7 @@ public class Config extends L2Config
 	public static int			DATETIME_SUNSET;
 	public static int			DATETIME_MULTI;
 	public static int			DATETIME_MOVE_DELAY;
-	
+
 	// *******************************************************************************************
 	public static void loadDateTimeConfig()
 	{
@@ -2047,7 +2049,7 @@ public class Config extends L2Config
 		try
 		{
 			Properties datetimeSettings = new L2Properties(DATETIME_FILE);
-			
+
 			DATETIME_SAVECAL = Boolean.parseBoolean(datetimeSettings.getProperty("SaveDate", "false"));
 			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunSet", "24"));
 			DATETIME_SUNRISE = Integer.parseInt(datetimeSettings.getProperty("SunRise", "6"));
@@ -2060,7 +2062,7 @@ public class Config extends L2Config
 			throw new Error("Failed to Load " + DATETIME_FILE + " File.");
 		}
 	}
-	
+
 	// *******************************************************************************************
 	public static boolean		IS_TELNET_ENABLED;							// Is telnet enabled ?
 	public static boolean		ALT_TELNET;								// Use alternative telnet ?
@@ -2114,7 +2116,7 @@ public class Config extends L2Config
 		{
 			return "siege";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties siegeSettings) throws Exception
 		{
@@ -2217,7 +2219,7 @@ public class Config extends L2Config
 		{
 			return "fortsiege";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties fortSiegeSettings) throws Exception
 		{
@@ -2340,7 +2342,7 @@ public class Config extends L2Config
 		{
 			return "command-privileges";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties commandPrivileges) throws Exception
 		{
@@ -2398,7 +2400,7 @@ public class Config extends L2Config
 		{
 			return "sevensigns";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties SevenSettings) throws Exception
 		{
@@ -2489,7 +2491,7 @@ public class Config extends L2Config
 		{
 			return "clanhall";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties clanhallSettings) throws Exception
 		{
@@ -2600,7 +2602,7 @@ public class Config extends L2Config
 		{
 			return "castle";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties castleSettings) throws Exception
 		{
@@ -2715,7 +2717,7 @@ public class Config extends L2Config
 	public static int			TVTI_JOIN_NPC_SKILL;
 	public static long			TVTI_REVIVE_DELAY;
 	public static long			TVTI_JOIN_NPC_DO_SKILL_AGAIN;
-	
+
 	// *******************************************************************************************
 	// *******************************************************************************************
 	private static final class FunEnginesConfig extends ConfigLoader
@@ -2725,7 +2727,7 @@ public class Config extends L2Config
 		{
 			return "fun_engines";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties funEnginesSettings) throws Exception
 		{
@@ -2766,7 +2768,7 @@ public class Config extends L2Config
 			DM_REVIVE_DELAY = Long.parseLong(funEnginesSettings.getProperty("DMReviveDelay", "20000"));
 			if (DM_REVIVE_DELAY < 1000)
 				DM_REVIVE_DELAY = 1000; //can't be set less then 1 second
-			
+
 			VIP_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("VIPAllowInterference", "false"));
 			VIP_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("VIPAllowPotions", "false"));
 			VIP_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("VIPOnStartRemoveAllEffects", "true"));
@@ -2791,7 +2793,7 @@ public class Config extends L2Config
 			FISHERMAN_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("FishermanInterval", "60"));
 			FISHERMAN_REWARD_ID = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardId", "57"));
 			FISHERMAN_REWARD_COUNT = Integer.parseInt(funEnginesSettings.getProperty("FishermanRewardCount", "100"));
-			
+
 			TVTI_INSTANCE_XML = funEnginesSettings.getProperty("TvTIInstanceXML", "TvTI.xml");
 			TVTI_ALLOW_TIE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTIAllowTie", "false"));
 			TVTI_CHECK_WEIGHT_AND_INVENTORY = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTICheckWeightAndInventory", "true"));
@@ -2850,7 +2852,7 @@ public class Config extends L2Config
 		{
 			return "irc";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties ircSettings) throws Exception
 		{
@@ -2975,7 +2977,7 @@ public class Config extends L2Config
 		{
 			return "boss";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties bossSettings) throws Exception
 		{
@@ -3215,13 +3217,13 @@ public class Config extends L2Config
 		{
 			return SAY_FILTER_FILE;
 		}
-		
+
 		@Override
 		protected String getName()
 		{
 			return "sayfilter";
 		}
-		
+
 		@Override
 		protected void loadReader(BufferedReader reader) throws Exception
 		{
@@ -3233,13 +3235,13 @@ public class Config extends L2Config
 					for (String line; (line = reader.readLine()) != null;)
 					{
 						line = line.trim();
-						
+
 						if (line.length() == 0 || line.startsWith("#"))
 							continue;
-						
+
 						FILTER_LIST = (String[])ArrayUtils.add(FILTER_LIST, line);
 					}
-					
+
 					_log.info("Say Filter: Loaded " + FILTER_LIST.length + " words");
 				}
 			}
@@ -3266,7 +3268,7 @@ public class Config extends L2Config
 		{
 			return "elayne";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties elayneSettings) throws Exception
 		{
@@ -3303,7 +3305,7 @@ public class Config extends L2Config
 		{
 			return "vitality";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties vitalitySettings) throws Exception
 		{
@@ -3512,7 +3514,7 @@ public class Config extends L2Config
 		{
 			return "custom";
 		}
-		
+
 		@Override
 		protected void loadImpl(Properties customSettings) throws Exception
 		{
@@ -3624,9 +3626,9 @@ public class Config extends L2Config
 		loadIdFactoryConfig();
 		loadDateTimeConfig();
 		initDBProperties();
-		
+
 		L2Config.loadConfigs();
-		
+
 		registerConfig(new AllConfig());
 	}
 
@@ -3637,15 +3639,15 @@ public class Config extends L2Config
 		{
 			return "all";
 		}
-		
+
 		private boolean _reloading = false;
-		
+
 		@Override
 		protected void load() throws Exception
 		{
 			if (_reloading)
 				return;
-			
+
 			_reloading = true;
 			try
 			{
@@ -3657,10 +3659,10 @@ public class Config extends L2Config
 			}
 		}
 	}
-	
+
 	/**
 	 * Set a new value to a game parameter from the admin console.
-	 * 
+	 *
 	 * @param pName (String) : name of the parameter to change
 	 * @param pValue (String) : new value of the parameter
 	 * @return boolean : true if modification has been made

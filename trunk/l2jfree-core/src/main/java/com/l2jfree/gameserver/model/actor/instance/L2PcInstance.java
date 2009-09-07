@@ -12814,7 +12814,7 @@ public final class L2PcInstance extends L2Playable
 
 		public void run()
 		{
-			if (isDead())
+			if (isDead()  && !Config.ALT_FAME_FOR_DEAD_PLAYERS)
 				return;
 
 			setFame(getFame() + _value);
