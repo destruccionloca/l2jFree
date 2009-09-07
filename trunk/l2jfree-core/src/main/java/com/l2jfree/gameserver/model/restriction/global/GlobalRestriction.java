@@ -56,7 +56,7 @@ public interface GlobalRestriction
 	
 	// TODO
 	
-	public int isInsideZoneModifier(L2Character activeChar, byte zone);
+	public Boolean isInsideZone(L2Character activeChar, byte zone);
 	
 	public double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill);
 	

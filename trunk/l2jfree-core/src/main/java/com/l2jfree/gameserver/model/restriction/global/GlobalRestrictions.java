@@ -61,7 +61,7 @@ public final class GlobalRestrictions
 		canStandUp,
 		// TODO
 		
-		isInsideZoneModifier,
+		isInsideZone,
 		calcDamage,
 		// TODO
 		
@@ -472,14 +472,25 @@ public final class GlobalRestrictions
 	
 	// TODO
 	
-	public static int isInsideZoneModifier(L2Character activeChar, byte zone)
+	/**
+	 * @return tri-state value:
+	 *         <ul>
+	 *         <li>{@link Boolean#TRUE} if inside,</li>
+	 *         <li>{@link Boolean#FALSE} if not,</li>
+	 *         <li><code>null</code> if not influenced</li>
+	 *         </ul>
+	 */
+	public static Boolean isInsideZone(L2Character activeChar, byte zone)
 	{
-		int result = 0;
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInsideZone.ordinal()])
+		{
+			final Boolean value = restriction.isInsideZone(activeChar, zone);
+			
+			if (value != null)
+				return value;
+		}
 		
-		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInsideZoneModifier.ordinal()])
-			result += restriction.isInsideZoneModifier(activeChar, zone);
-		
-		return result;
+		return null;
 	}
 	
 	public static double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)

@@ -131,7 +131,7 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	// TODO
 	
 	@DisabledRestriction
-	public int isInsideZoneModifier(L2Character activeChar, byte zone)
+	public Boolean isInsideZone(L2Character activeChar, byte zone)
 	{
 		throw new AbstractMethodError();
 	}

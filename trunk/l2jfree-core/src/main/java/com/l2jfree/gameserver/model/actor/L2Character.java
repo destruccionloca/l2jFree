@@ -318,8 +318,13 @@ public abstract class L2Character extends L2Object
 					return false;
 			}
 		}
-
-		return _currentZones[zone] + GlobalRestrictions.isInsideZoneModifier(this, zone) > 0;
+		
+		final Boolean value = GlobalRestrictions.isInsideZone(this, zone);
+		
+		if (value != null)
+			return value.booleanValue();
+		
+		return _currentZones[zone] > 0;
 	}
 
 	public final void setInsideZone(byte zone, boolean state)
