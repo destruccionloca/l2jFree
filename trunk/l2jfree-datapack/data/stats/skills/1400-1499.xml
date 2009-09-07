@@ -1962,10 +1962,8 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="655"/>
     <for>
-      <effect name="Buff" time="2400" val="0" stackOrder="99" stackType="pa_up">
+      <effect name="Buff" time="2400" val="0" stackOrder="99" stackType="pa_up;pd_up">
         <mul order="0x30" stat="pAtk" val="1.15"/>
-      </effect>
-      <effect name="Buff" time="2400" val="0" stackOrder="99" stackType="pd_up" noicon="1">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
