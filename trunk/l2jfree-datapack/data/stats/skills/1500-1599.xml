@@ -805,9 +805,9 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <!--
     <set name="triggeredId" val="6060"/>
     <set name="triggeredLevel" val="1"/>
-    <!--
     <set name="activationChance" val="25"/>
     <set name="chanceType" val="ON_HIT"/>
     <cond>

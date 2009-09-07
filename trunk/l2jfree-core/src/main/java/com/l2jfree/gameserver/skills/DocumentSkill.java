@@ -355,7 +355,7 @@ final class DocumentSkill extends DocumentBase
 		final L2Skill skill = (L2Skill)template;
 		final NamedNodeMap attrs = n.getAttributes();
 		
-		final ValidatingStatsSet set = new ValidatingStatsSet().setDescription(skill.toString() + "'s effect:");
+		final ValidatingStatsSet set = new ValidatingStatsSet().setDescription(skill.toString() + "'s effect");
 		
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
