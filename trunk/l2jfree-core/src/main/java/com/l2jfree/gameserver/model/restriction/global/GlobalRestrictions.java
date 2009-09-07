@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.restriction.global;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -26,6 +27,7 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -63,6 +65,7 @@ public final class GlobalRestrictions
 		
 		isInsideZone,
 		calcDamage,
+		getTargetList,
 		// TODO
 		
 		levelChanged,
@@ -513,6 +516,19 @@ public final class GlobalRestrictions
 			damage = restriction.calcDamage(activeChar, target, damage, skill);
 		
 		return Math.max(1, damage);
+	}
+	
+	public static List<L2Character> getTargetList(SkillTargetType type, L2Character activeChar, L2Skill skill, L2Character target)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.getTargetList.ordinal()])
+		{
+			final List<L2Character> value = restriction.getTargetList(type, activeChar, skill, target);
+			
+			if (value != null)
+				return value;
+		}
+		
+		return null;
 	}
 	
 	// TODO

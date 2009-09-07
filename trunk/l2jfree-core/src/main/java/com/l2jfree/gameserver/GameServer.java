@@ -74,6 +74,7 @@ import com.l2jfree.gameserver.handler.ChatHandler;
 import com.l2jfree.gameserver.handler.IrcCommandHandler;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
+import com.l2jfree.gameserver.handler.SkillTargetHandler;
 import com.l2jfree.gameserver.handler.UserCommandHandler;
 import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.idfactory.IdFactory;
@@ -388,6 +389,7 @@ public class GameServer extends Config
 		UserCommandHandler.getInstance();
 		VoicedCommandHandler.getInstance();
 		ChatHandler.getInstance();
+		SkillTargetHandler.getInstance();
 		
 		Util.printSection("Misc");
 		ObjectRestrictions.getInstance();

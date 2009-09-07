@@ -14,10 +14,13 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import java.util.List;
+
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -59,6 +62,8 @@ public interface GlobalRestriction
 	public Boolean isInsideZone(L2Character activeChar, byte zone);
 	
 	public double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill);
+	
+	public List<L2Character> getTargetList(SkillTargetType type, L2Character activeChar, L2Skill skill, L2Character target);
 	
 	// TODO
 	

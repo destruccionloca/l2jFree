@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.restriction.global;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,6 +23,7 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -138,6 +141,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	
 	@DisabledRestriction
 	public double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public List<L2Character> getTargetList(SkillTargetType type, L2Character activeChar, L2Skill skill, L2Character target)
 	{
 		throw new AbstractMethodError();
 	}

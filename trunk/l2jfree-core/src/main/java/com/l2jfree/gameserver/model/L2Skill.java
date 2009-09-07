@@ -25,6 +25,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
+import com.l2jfree.gameserver.handler.SkillTargetHandler;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -1603,6 +1604,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 */
 	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst, L2Character target)
 	{
+		final List<L2Character> targets = SkillTargetHandler.getInstance().getTargetList(activeChar, this, target);
+		
+		if (targets != null)
+			return targets.toArray(new L2Character[targets.size()]);
+		
 		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
 		try
 		{
