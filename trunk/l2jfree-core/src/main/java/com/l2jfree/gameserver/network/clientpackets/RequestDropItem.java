@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class represents a packet that is sent when a player is dropping an item
- * 
+ *
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/02 21:25:21 $
  */
 public class RequestDropItem extends L2GameClientPacket
@@ -47,12 +47,12 @@ public class RequestDropItem extends L2GameClientPacket
 
 	/**
 	 * packet type id 0x12
-	 * 
+	 *
 	 * sample
-	 * 
+	 *
 	 * 12 09 00 00 40 // object id 01 00 00 00 // count ?? fd e7 fe ff // x e5
 	 * eb 03 00 // y bb f3 ff ff // z
-	 * 
+	 *
 	 * format: cdd ddd
 	 */
 	@Override
@@ -69,7 +69,8 @@ public class RequestDropItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null || activeChar.isDead())
+			return;
 
 		// Flood protect drop to avoid packet lag, do not add any messages here
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.DROPITEM))

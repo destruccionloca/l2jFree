@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -84,7 +84,7 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
  * <p>
  * packet format rev656 cbdddd
  * <p>
- * 
+ *
  * @version $Revision: 1.16.2.1.2.7 $ $Date: 2005/03/29 23:15:33 $
  */
 public class EnterWorld extends L2GameClientPacket
@@ -139,7 +139,6 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(new UserInfo(activeChar));
 		sendPacket(new ItemList(activeChar, false));
 		activeChar.getMacroses().sendUpdate();
-		sendPacket(ClientSetTime.STATIC_PACKET);
 		sendPacket(new ShortCutInit(activeChar));
 		activeChar.sendSkillList();
 		sendPacket(SystemMessageId.WELCOME_TO_LINEAGE);
@@ -166,14 +165,14 @@ public class EnterWorld extends L2GameClientPacket
 			{
 				if (Config.GM_STARTUP_INVISIBLE)
 					AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invisible");
-				
+
 				if (Config.GM_STARTUP_SILENCE)
 					AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_silence");
 			}
-			
+
 			if (Config.GM_STARTUP_INVULNERABLE)
 				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invul");
-			
+
 			if (Config.GM_NAME_COLOR_ENABLED)
 			{
 				if (activeChar.getAccessLevel() >= 100)
@@ -240,10 +239,10 @@ public class EnterWorld extends L2GameClientPacket
 				if (item != null)
 				{
 					activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
-					
+
 					// No need to update every item in the inventory
 					//activeChar.getInventory().updateDatabase();
-					
+
 					// Log it
 					if (_log.isDebugEnabled())
 						_log.debug("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
@@ -414,7 +413,7 @@ public class EnterWorld extends L2GameClientPacket
 			if (clanHall != null && !clanHall.getPaid())
 				sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
 		}
-	
+
 		//Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
 		activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
 
@@ -456,7 +455,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.regiveTemporarySkills();
 			// Send Action list
-			
+
 		}
 		ExBasicActionList.sendTo(activeChar);
 
@@ -578,7 +577,7 @@ public class EnterWorld extends L2GameClientPacket
 
 	/**
 	 * CT1 doesn't update shortcuts so we need to re-register them to the client
-	 * 
+	 *
 	 * @param activeChar
 	 */
 	private void updateShortCuts(L2PcInstance activeChar)

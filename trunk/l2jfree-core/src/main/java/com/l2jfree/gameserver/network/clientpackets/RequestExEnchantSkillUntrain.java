@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,7 +58,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		
+
 		L2Npc trainer = player.getLastFolkNPC();
 		if (!(trainer instanceof L2NpcInstance))
 			return;
@@ -103,14 +103,14 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		*/
 
 		int reqItemId = SkillTreeTable.UNTRAIN_ENCHANT_BOOK;
-	   
+
 		L2EnchantSkillLearn s = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
 		if (s == null)
 		{
 			requestFailed(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 			return;
 		}
-		
+
 		int currentLevel = player.getSkillLevel(_skillId);
 		if (currentLevel - 1 != _skillLvl && (currentLevel % 100 != 1 || _skillLvl != s.getBaseLevel()))
 		{
@@ -180,7 +180,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		{
 			if (sc.getId() == _skillId && sc.getType() == L2ShortCut.TYPE_SKILL)
 			{
-				L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _skillLvl, 1);
+				L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), player.getSkillLevel(_skillId), 1);
 				player.sendPacket(new ShortCutRegister(newsc));
 				player.registerShortCut(newsc);
 			}
