@@ -17,15 +17,12 @@ package com.l2jfree.gameserver.skills;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-import java.util.concurrent.TimeUnit;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.templates.ValidatingStatsSet;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -358,218 +355,24 @@ final class DocumentSkill extends DocumentBase
 		final L2Skill skill = (L2Skill)template;
 		final NamedNodeMap attrs = n.getAttributes();
 		
-		final String name = attrs.getNamedItem("name").getNodeValue();
+		final ValidatingStatsSet set = new ValidatingStatsSet().setDescription(skill.toString() + "'s effect:");
 		
-		int count = 1;
-		if (attrs.getNamedItem("count") != null)
-			count = Integer.decode(getValue(attrs.getNamedItem("count").getNodeValue(), template));
-		
-		count = Math.max(1, count);
-		
-		int time = 1;
-		if (attrs.getNamedItem("time") != null)
-			time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template)) * skill.getTimeMulti();
-		
-		if (time < 0)
+		for (int i = 0; i < attrs.getLength(); i++)
 		{
-			if (count == 1)
-				time = (int)TimeUnit.DAYS.toSeconds(10); // 'infinite' - still in integer range, even in msec
-			else
-				throw new IllegalStateException("Invalid count (> 1) for effect with infinite duration!");
-		}
-		else
-			time = Math.max(1, time);
-		
-		boolean self = false;
-		if (attrs.getNamedItem("self") != null)
-			self = (Integer.decode(getValue(attrs.getNamedItem("self").getNodeValue(), template)) == 1);
-		
-		boolean showIcon = true;
-		if (attrs.getNamedItem("noicon") != null)
-			showIcon = !(Integer.decode(getValue(attrs.getNamedItem("noicon").getNodeValue(), template)) == 1);
-		
-		final double lambda = getLambda(n, template);
-		
-		int abnormal = 0;
-		if (attrs.getNamedItem("abnormal") != null)
-		{
-			String abn = attrs.getNamedItem("abnormal").getNodeValue().toLowerCase();
+			final Node node = attrs.item(i);
 			
-			if (abn.equals("bleed") || abn.equals("bleeding"))
-				abnormal = L2Character.ABNORMAL_EFFECT_BLEEDING;
-			else if (abn.equals("poison"))
-				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
-			else if (abn.equals("redcircle"))
-				abnormal = L2Character.ABNORMAL_EFFECT_REDCIRCLE;
-			else if (abn.equals("ice"))
-				abnormal = L2Character.ABNORMAL_EFFECT_ICE;
-			else if (abn.equals("wind"))
-				abnormal = L2Character.ABNORMAL_EFFECT_WIND;
-			else if (abn.equals("fear"))
-				abnormal = L2Character.ABNORMAL_EFFECT_FEAR;
-			else if (abn.equals("stun"))
-				abnormal = L2Character.ABNORMAL_EFFECT_STUN;
-			else if (abn.equals("sleep"))
-				abnormal = L2Character.ABNORMAL_EFFECT_SLEEP;
-			else if (abn.equals("mute"))
-				abnormal = L2Character.ABNORMAL_EFFECT_MUTED;
-			else if (abn.equals("root"))
-				abnormal = L2Character.ABNORMAL_EFFECT_ROOT;
-			else if (abn.equals("hold1"))
-				abnormal = L2Character.ABNORMAL_EFFECT_HOLD_1;
-			else if (abn.equals("hold2"))
-				abnormal = L2Character.ABNORMAL_EFFECT_HOLD_2;
-			else if (abn.equals("unknown13"))
-				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_13;
-			else if (abn.equals("bighead"))
-				abnormal = L2Character.ABNORMAL_EFFECT_BIG_HEAD;
-			else if (abn.equals("flame"))
-				abnormal = L2Character.ABNORMAL_EFFECT_FLAME;
-			else if (abn.equals("unknown16"))
-				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_16;
-			else if (abn.equals("grow"))
-				abnormal = L2Character.ABNORMAL_EFFECT_GROW;
-			else if (abn.equals("floatroot"))
-				abnormal = L2Character.ABNORMAL_EFFECT_FLOATING_ROOT;
-			else if (abn.equals("dancestun"))
-				abnormal = L2Character.ABNORMAL_EFFECT_DANCE_STUNNED;
-			else if (abn.equals("firerootstun"))
-				abnormal = L2Character.ABNORMAL_EFFECT_FIREROOT_STUN;
-			else if (abn.equals("stealth"))
-				abnormal = L2Character.ABNORMAL_EFFECT_STEALTH;
-			else if (abn.equals("imprison1"))
-				abnormal = L2Character.ABNORMAL_EFFECT_IMPRISIONING_1;
-			else if (abn.equals("imprison2"))
-				abnormal = L2Character.ABNORMAL_EFFECT_IMPRISIONING_2;
-			else if (abn.equals("magiccircle"))
-				abnormal = L2Character.ABNORMAL_EFFECT_MAGIC_CIRCLE;
-			else if (abn.equals("ice2"))
-				abnormal = L2Character.ABNORMAL_EFFECT_ICE2;
-			else if (abn.equals("earthquake"))
-				abnormal = L2Character.ABNORMAL_EFFECT_EARTHQUAKE;
-			else if (abn.equals("unknown27"))
-				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_27;
-			else if (abn.equals("invulnerable"))
-				abnormal = L2Character.ABNORMAL_EFFECT_INVULNERABLE;
-			else if (abn.equals("vitality"))
-				abnormal = L2Character.ABNORMAL_EFFECT_VITALITY;
-			else if (abn.equals("unknown30"))
-				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_30;
-			else if (abn.equals("deathmark"))
-				abnormal = L2Character.ABNORMAL_EFFECT_DEATH_MARK;
-			else if (abn.equals("unknown32"))
-				abnormal = L2Character.ABNORMAL_EFFECT_UNKNOWN_32;
-			else
-				throw new IllegalStateException("Invalid abnormal value: '" + abn + "'!");
-		}
-
-		int special = 0;
-		if (attrs.getNamedItem("special") != null)
-		{
-			String spc = attrs.getNamedItem("special").getNodeValue().toLowerCase();
-
-			if (spc.equals("invulnerable"))
-				special = L2Character.SPECIAL_EFFECT_INVULNERABLE;
-			else if (spc.equals("redglow"))
-				special = L2Character.SPECIAL_EFFECT_RED_GLOW;
-			else if (spc.equals("redglow2"))
-				special = L2Character.SPECIAL_EFFECT_RED_GLOW2;
-			else if (spc.equals("baguettesword"))
-				special = L2Character.SPECIAL_EFFECT_BAGUETTE_SWORD;
-			else if (spc.equals("yellowafro"))
-				special = L2Character.SPECIAL_EFFECT_YELLOW_AFFRO;
-			else if (spc.equals("pinkafro"))
-				special = L2Character.SPECIAL_EFFECT_PINK_AFFRO;
-			else if (spc.equals("blackafro"))
-				special = L2Character.SPECIAL_EFFECT_BLACK_AFFRO;
-			else if (spc.equals("unknown8"))
-				special = L2Character.SPECIAL_EFFECT_UNKNOWN8;
-			else if (spc.equals("unknown9"))
-				special = L2Character.SPECIAL_EFFECT_UNKNOWN9;
-			else
-				throw new IllegalStateException("Invalid special value: '" + spc + "'!");
-		}
-
-		
-		final String[] stackTypes;
-		if (attrs.getNamedItem("stackType") != null)
-			stackTypes = attrs.getNamedItem("stackType").getNodeValue().split(";");
-		else
-			stackTypes = new String[] { skill.generateUniqueStackType() };
-		
-		float stackOrder;
-		if (attrs.getNamedItem("stackOrder") != null)
-			stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
-		else
-			stackOrder = skill.generateStackOrder();
-		
-		double effectPower = -1;
-		if (attrs.getNamedItem("effectPower") != null)
-			effectPower = Double.parseDouble(getValue(attrs.getNamedItem("effectPower").getNodeValue(), template));
-		
-		L2SkillType effectType = null;
-		if (attrs.getNamedItem("effectType") != null)
-		{
-			String typeName = getValue(attrs.getNamedItem("effectType").getNodeValue(), template);
-			
-			try
-			{
-				effectType = Enum.valueOf(L2SkillType.class, typeName);
-			}
-			catch (RuntimeException e)
-			{
-				throw new IllegalArgumentException("Not skilltype found for: " + typeName, e);
-			}
+			set.set(node.getNodeName(), getValue(node.getNodeValue(), template));
 		}
 		
-		if ((effectPower == -1) != (effectType == null))
-			throw new IllegalArgumentException("Missing effectType/effectPower for effect: " + name);
-		
-		Integer trigId = null;
-		if (attrs.getNamedItem("triggeredId") != null)
-			trigId = Integer.parseInt(getValue(attrs.getNamedItem("triggeredId").getNodeValue(), template));
-		
-		Integer trigLvl = null;
-		if (attrs.getNamedItem("triggeredLevel") != null)
-			trigLvl = Integer.parseInt(getValue(attrs.getNamedItem("triggeredLevel").getNodeValue(), template));
-		
-		String chanceType = null;
-		if (attrs.getNamedItem("chanceType") != null)
-			chanceType = getValue(attrs.getNamedItem("chanceType").getNodeValue(), template);
-		
-		Integer activationChance = null;
-		if (attrs.getNamedItem("activationChance") != null)
-			activationChance = Integer.parseInt(getValue(attrs.getNamedItem("activationChance").getNodeValue(),
-				template));
-		
-		final TriggeredSkill trigSkill = TriggeredSkill.parse(trigId, trigLvl);
-		final ChanceCondition chanceCond = ChanceCondition.parse(chanceType, activationChance);
-		
-		if ("ChanceSkillTrigger".equals(name))
-		{
-			if (trigSkill == null)
-				throw new NoSuchElementException(name + " requires proper TriggeredSkill parameters!");
-			
-			if (chanceCond == null)
-				throw new NoSuchElementException(name + " requires proper ChanceCondition parameters!");
-		}
-		else
-		{
-			if (trigSkill != null)
-				throw new NoSuchElementException(name + " can't have TriggeredSkill parameters!");
-			
-			if (chanceCond != null)
-				throw new NoSuchElementException(name + " can't have ChanceCondition parameters!");
-		}
-		
-		EffectTemplate effectTemplate = new EffectTemplate(name, lambda, count, time, abnormal, special, stackTypes,
-			stackOrder, showIcon, effectPower, effectType, trigSkill, chanceCond);
+		final EffectTemplate effectTemplate = new EffectTemplate(set, skill);
 		
 		parseTemplate(n, effectTemplate);
 		
-		if (!self)
+		if (set.getInteger("self", 0) == 0)
 			skill.attach(effectTemplate);
 		else
 			skill.attachSelf(effectTemplate);
+		
+		set.clear();
 	}
 }

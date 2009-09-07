@@ -16,15 +16,22 @@ package com.l2jfree.gameserver.templates.effects;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
+import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
@@ -33,6 +40,56 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 public final class EffectTemplate
 {
 	private static final Log _log = LogFactory.getLog(EffectTemplate.class);
+	
+	private static final Map<String, Integer> ABNORMAL_EFFECTS = new HashMap<String, Integer>();
+	private static final Map<String, Integer> SPECIAL_EFFECTS = new HashMap<String, Integer>();
+	
+	static
+	{
+		ABNORMAL_EFFECTS.put("bleed", L2Character.ABNORMAL_EFFECT_BLEEDING);
+		ABNORMAL_EFFECTS.put("bleeding", L2Character.ABNORMAL_EFFECT_BLEEDING);
+		ABNORMAL_EFFECTS.put("poison", L2Character.ABNORMAL_EFFECT_POISON);
+		ABNORMAL_EFFECTS.put("redcircle", L2Character.ABNORMAL_EFFECT_REDCIRCLE);
+		ABNORMAL_EFFECTS.put("ice", L2Character.ABNORMAL_EFFECT_ICE);
+		ABNORMAL_EFFECTS.put("wind", L2Character.ABNORMAL_EFFECT_WIND);
+		ABNORMAL_EFFECTS.put("fear", L2Character.ABNORMAL_EFFECT_FEAR);
+		ABNORMAL_EFFECTS.put("stun", L2Character.ABNORMAL_EFFECT_STUN);
+		ABNORMAL_EFFECTS.put("sleep", L2Character.ABNORMAL_EFFECT_SLEEP);
+		ABNORMAL_EFFECTS.put("mute", L2Character.ABNORMAL_EFFECT_MUTED);
+		ABNORMAL_EFFECTS.put("root", L2Character.ABNORMAL_EFFECT_ROOT);
+		ABNORMAL_EFFECTS.put("hold1", L2Character.ABNORMAL_EFFECT_HOLD_1);
+		ABNORMAL_EFFECTS.put("hold2", L2Character.ABNORMAL_EFFECT_HOLD_2);
+		ABNORMAL_EFFECTS.put("unknown13", L2Character.ABNORMAL_EFFECT_UNKNOWN_13);
+		ABNORMAL_EFFECTS.put("bighead", L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+		ABNORMAL_EFFECTS.put("flame", L2Character.ABNORMAL_EFFECT_FLAME);
+		ABNORMAL_EFFECTS.put("unknown16", L2Character.ABNORMAL_EFFECT_UNKNOWN_16);
+		ABNORMAL_EFFECTS.put("grow", L2Character.ABNORMAL_EFFECT_GROW);
+		ABNORMAL_EFFECTS.put("floatroot", L2Character.ABNORMAL_EFFECT_FLOATING_ROOT);
+		ABNORMAL_EFFECTS.put("dancestun", L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
+		ABNORMAL_EFFECTS.put("firerootstun", L2Character.ABNORMAL_EFFECT_FIREROOT_STUN);
+		ABNORMAL_EFFECTS.put("stealth", L2Character.ABNORMAL_EFFECT_STEALTH);
+		ABNORMAL_EFFECTS.put("imprison1", L2Character.ABNORMAL_EFFECT_IMPRISIONING_1);
+		ABNORMAL_EFFECTS.put("imprison2", L2Character.ABNORMAL_EFFECT_IMPRISIONING_2);
+		ABNORMAL_EFFECTS.put("magiccircle", L2Character.ABNORMAL_EFFECT_MAGIC_CIRCLE);
+		ABNORMAL_EFFECTS.put("ice2", L2Character.ABNORMAL_EFFECT_ICE2);
+		ABNORMAL_EFFECTS.put("earthquake", L2Character.ABNORMAL_EFFECT_EARTHQUAKE);
+		ABNORMAL_EFFECTS.put("unknown27", L2Character.ABNORMAL_EFFECT_UNKNOWN_27);
+		ABNORMAL_EFFECTS.put("invulnerable", L2Character.ABNORMAL_EFFECT_INVULNERABLE);
+		ABNORMAL_EFFECTS.put("vitality", L2Character.ABNORMAL_EFFECT_VITALITY);
+		ABNORMAL_EFFECTS.put("unknown30", L2Character.ABNORMAL_EFFECT_UNKNOWN_30);
+		ABNORMAL_EFFECTS.put("deathmark", L2Character.ABNORMAL_EFFECT_DEATH_MARK);
+		ABNORMAL_EFFECTS.put("unknown32", L2Character.ABNORMAL_EFFECT_UNKNOWN_32);
+		
+		SPECIAL_EFFECTS.put("invulnerable", L2Character.SPECIAL_EFFECT_INVULNERABLE);
+		SPECIAL_EFFECTS.put("redglow", L2Character.SPECIAL_EFFECT_RED_GLOW);
+		SPECIAL_EFFECTS.put("redglow2", L2Character.SPECIAL_EFFECT_RED_GLOW2);
+		SPECIAL_EFFECTS.put("baguettesword", L2Character.SPECIAL_EFFECT_BAGUETTE_SWORD);
+		SPECIAL_EFFECTS.put("yellowafro", L2Character.SPECIAL_EFFECT_YELLOW_AFFRO);
+		SPECIAL_EFFECTS.put("pinkafro", L2Character.SPECIAL_EFFECT_PINK_AFFRO);
+		SPECIAL_EFFECTS.put("blackafro", L2Character.SPECIAL_EFFECT_BLACK_AFFRO);
+		SPECIAL_EFFECTS.put("unknown8", L2Character.SPECIAL_EFFECT_UNKNOWN8);
+		SPECIAL_EFFECTS.put("unknown9", L2Character.SPECIAL_EFFECT_UNKNOWN9);
+	}
 	
 	private final Constructor<?> _constructor;
 	private final Constructor<?> _stolenConstructor;
@@ -47,33 +104,105 @@ public final class EffectTemplate
 	public final float stackOrder;
 	public final boolean showIcon;
 	public final double effectPower; // to handle chance
-	public final L2SkillType effectType; // to handle resistences etc...
+	public final L2SkillType effectType; // to handle resistances etc...
 	
 	public final TriggeredSkill triggeredSkill;
 	public final ChanceCondition chanceCondition;
 	
 	public FuncTemplate[] funcTemplates;
 	
-	public EffectTemplate(String pName, double pLambda, int pCount, int pPeriod, int pAbnormalEffect,
-		int pSpecialEffect, String[] pStackTypes, float pStackOrder, boolean pShowIcon, double ePower, L2SkillType eType,
-		TriggeredSkill trigSkill, ChanceCondition chanceCond)
+	public EffectTemplate(StatsSet set, L2Skill skill)
 	{
-		name = pName;
-		lambda = pLambda;
-		count = pCount;
-		period = pPeriod;
-		abnormalEffect = pAbnormalEffect;
-		specialEffect = pSpecialEffect;
-		stackTypes = pStackTypes;
+		name = set.getString("name");
+		lambda = set.getDouble("val", 0);
+		count = Math.max(1, set.getInteger("count", 1));
+		
+		int time = set.getInteger("time", 1) * skill.getTimeMulti();
+		
+		if (time < 0)
+		{
+			if (count == 1)
+				period = (int)TimeUnit.DAYS.toSeconds(10); // 'infinite' - still in integer range, even in msec
+			else
+				throw new IllegalStateException("Invalid count (> 1) for effect with infinite duration!");
+		}
+		else
+			period = Math.max(1, time);
+		
+		if (set.contains("abnormal"))
+		{
+			final String abnormal = set.getString("abnormal").toLowerCase();
+			
+			if (!ABNORMAL_EFFECTS.containsKey(abnormal))
+				throw new IllegalStateException("Invalid abnormal value: '" + abnormal + "'!");
+			
+			abnormalEffect = ABNORMAL_EFFECTS.get(abnormal);
+		}
+		else
+			abnormalEffect = 0;
+		
+		if (set.contains("special"))
+		{
+			final String special = set.getString("special").toLowerCase();
+			
+			if (!SPECIAL_EFFECTS.containsKey(special))
+				throw new IllegalStateException("Invalid special value: '" + special + "'!");
+			
+			specialEffect = SPECIAL_EFFECTS.get(special);
+		}
+		else
+			specialEffect = 0;
+		
+		stackTypes = set.getString("stackType", skill.generateUniqueStackType()).split(";");
+		stackOrder = set.getFloat("stackOrder", skill.generateStackOrder());
+		
 		for (int i = 0; i < stackTypes.length; i++)
 			stackTypes[i] = stackTypes[i].intern();
 		
-		stackOrder = pStackOrder;
-		showIcon = pShowIcon;
-		effectPower = ePower;
-		effectType = eType;
-		triggeredSkill = trigSkill;
-		chanceCondition = chanceCond;
+		showIcon = set.getInteger("noicon", 0) == 0;
+		
+		effectPower = set.getDouble("effectPower", -1);
+		effectType = set.getEnum("effectType", L2SkillType.class, null);
+		
+		if ((effectPower == -1) != (effectType == null))
+			throw new IllegalArgumentException("Missing effectType/effectPower for effect: " + name);
+		
+		
+		Integer trigId = null;
+		if (set.contains("triggeredId"))
+			trigId = set.getInteger("triggeredId");
+		
+		Integer trigLvl = null;
+		if (set.contains("triggeredLevel"))
+			trigLvl = set.getInteger("triggeredLevel");
+		
+		String chanceType = null;
+		if (set.contains("chanceType"))
+			chanceType = set.getString("chanceType");
+		
+		Integer activationChance = null;
+		if (set.contains("activationChance"))
+			activationChance = set.getInteger("activationChance");
+		
+		triggeredSkill = TriggeredSkill.parse(trigId, trigLvl);
+		chanceCondition = ChanceCondition.parse(chanceType, activationChance);
+		
+		if ("ChanceSkillTrigger".equals(name))
+		{
+			if (triggeredSkill == null)
+				throw new NoSuchElementException(name + " requires proper TriggeredSkill parameters!");
+			
+			if (chanceCondition == null)
+				throw new NoSuchElementException(name + " requires proper ChanceCondition parameters!");
+		}
+		else
+		{
+			if (triggeredSkill != null)
+				throw new NoSuchElementException(name + " can't have TriggeredSkill parameters!");
+			
+			if (chanceCondition != null)
+				throw new NoSuchElementException(name + " can't have ChanceCondition parameters!");
+		}
 		
 		try
 		{
