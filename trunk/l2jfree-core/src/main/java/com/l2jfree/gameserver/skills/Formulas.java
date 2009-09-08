@@ -2267,17 +2267,25 @@ public final class Formulas
 	
 	public static boolean calcSkillSuccess(final double baseChance, L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
 	{
+		if (target.getEffects().hasEffect(skill)) // debuffs should fail if already applied
+			return false;
+		
+		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
+			return false;
+		
+		final L2SkillType type = skill.getEffectType();
+		
 		// These skills should not work on RaidBoss
-		final L2SkillType skillType = skill.getEffectType();
 		if (target.isRaid())
 		{
-			switch (skillType)
+			switch (type)
 			{
 				case CONFUSION:
 				case ROOT:
 				case STUN:
 				case MUTE:
 				case FEAR:
+				case DEBUFF:
 				case PARALYZE:
 				case SLEEP:
 				case AGGDEBUFF:
@@ -2285,21 +2293,15 @@ public final class Formulas
 					return false;
 			}
 		}
-
-		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
-			return false;
 		
 		if (skill.ignoreResists())
 			return Rnd.get(100) < baseChance;
-		
-		final L2SkillType type = skill.getEffectType();
-		final int lvlDepend = skill.getLevelDepend();
 		
 		final double statmodifier = calcSkillStatModifier(type, target);
 		final double resmodifier = calcSkillVulnerability(attacker, target, skill, type);
 		final double profmodifier = calcSkillTypeProficiency(attacker, target, type);
 		final double ssmodifier = (bss ? 150 : (sps || ss ? 125 : 100));
-		final double lvlModifier = getLevelModifier(lvlDepend, attacker, target, skill);
+		final double lvlModifier = getLevelModifier(skill.getLevelDepend(), attacker, target, skill);
 		
 		// Calculate BaseRate.
 		double rate = baseChance * statmodifier;
@@ -2329,14 +2331,19 @@ public final class Formulas
 	
 	public static boolean calcCubicSkillSuccess(L2CubicInstance attacker, L2Character target, L2Skill skill, byte shld)
 	{
+		// if target reflect this skill then the effect will fail
+		if (calcSkillReflect(target, skill) != SKILL_REFLECT_FAILED)
+			return false;
+		
+		if (target.getEffects().hasEffect(skill)) // debuffs should fail if already applied
+			return false;
+		
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;
 		
 		final L2SkillType type = skill.getEffectType();
-		final double value = skill.getEffectPower();
-		final int lvlDepend = skill.getLevelDepend();
 		
-		// these skills should not work on RaidBoss
+		// These skills should not work on RaidBoss
 		if (target.isRaid())
 		{
 			switch (type)
@@ -2350,22 +2357,21 @@ public final class Formulas
 				case PARALYZE:
 				case SLEEP:
 				case AGGDEBUFF:
+				case AGGREDUCE_CHAR:
 					return false;
 			}
 		}
 		
-		// if target reflect this skill then the effect will fail
-		if (calcSkillReflect(target, skill) != SKILL_REFLECT_FAILED)
-			return false;
+		final double baseChance = skill.getEffectPower();
 		
 		if (skill.ignoreResists())
-			return Rnd.get(100) < value;
+			return Rnd.get(100) < baseChance;
 		
 		final double statmodifier = calcSkillStatModifier(type, target);
 		final double resmodifier = calcSkillVulnerability(attacker.getOwner(), target, skill, type);
-		final double lvlModifier = getLevelModifier(lvlDepend, attacker.getOwner(), target, skill);
+		final double lvlModifier = getLevelModifier(skill.getLevelDepend(), attacker.getOwner(), target, skill);
 		
-		double rate = value * statmodifier * resmodifier;
+		double rate = baseChance * statmodifier * resmodifier;
 		
 		if (skill.isMagic())
 			rate += Math.pow((double)attacker.getMAtk() / (target.getMDef(attacker.getOwner(), skill) + (shld == 1 ? target.getShldDef() : 0)), 0.1) * 100 - 100;
