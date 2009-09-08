@@ -1,17 +1,17 @@
 # author: evill33t
-from com.l2jfree.gameserver.network.serverpackets import NpcSay
-from com.l2jfree.tools.random import Rnd
-from com.l2jfree.gameserver.model.itemcontainer import PcInventory
-from com.l2jfree.gameserver.model import L2ItemInstance
-from com.l2jfree.gameserver.network.serverpackets import InventoryUpdate
-from com.l2jfree.gameserver.model import L2World
-from com.l2jfree.gameserver.datatables import ItemTable
-from com.l2jfree.gameserver.instancemanager import InstanceManager
-from com.l2jfree.gameserver.model.entity import Instance
-from com.l2jfree.gameserver.model.actor import L2Summon
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest  import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets       import NpcSay
+from com.l2jfree.tools.random                           import Rnd
+from com.l2jfree.gameserver.model.itemcontainer         import PcInventory
+from com.l2jfree.gameserver.model                       import L2ItemInstance
+from com.l2jfree.gameserver.network.serverpackets       import InventoryUpdate
+from com.l2jfree.gameserver.model                       import L2World
+from com.l2jfree.gameserver.datatables                  import ItemTable
+from com.l2jfree.gameserver.instancemanager             import InstanceManager
+from com.l2jfree.gameserver.model.entity                import Instance
+from com.l2jfree.gameserver.model.actor                 import L2Summon
+from com.l2jfree.gameserver.model.quest                 import State
+from com.l2jfree.gameserver.model.quest                 import QuestState
+from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
 
 class PyObject:
     pass
@@ -26,13 +26,13 @@ class TeleTo:
 class BasicInstance(JQuest):
     MEMBERS_IN_OTHER_INSTANCE = "Your Party Members are in another Instance."
 
-    # creates the "master" quest and a list that holds the running instances
+    # Creates the "master" quest and a list that holds the running instances
     def __init__(self,id,name,descr):
         JQuest.__init__(self,id,name,descr)
         self.worlds = {}
         self.world_ids = []
 
-    # very basic instance setup
+    # Very basic instance setup
     def setupWorld(self,instanceId):
         world = PyObject()
         world.instanceId = instanceId
@@ -93,23 +93,23 @@ class BasicInstance(JQuest):
         ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
         ditem.dropMe(npc, npc.getX(), npc.getY(), npc.getZ())
 
-    # opens a door inside the instance
+    # Opens a door inside the instance
     def openDoor(self,doorId,world):
         for door in InstanceManager.getInstance().getInstance(world.instanceId).getDoors():
             if door.getDoorId() == doorId:
                 door.openMe()
 
-    # closes a door inside the instance
+    # Closes a door inside the instance
     def closeDoor(self,doorId,world):
         for door in InstanceManager.getInstance().getInstance(world.instanceId).getDoors():
             if door.getDoorId() == doorId:
                 door.closeMe()
 
-    # returns all players inside the instance
+    # Returns all players inside the instance
     def getAllPlayers(self,world):
         return InstanceManager.getInstance().getInstance(world.instanceId).getPlayers()
 
-    # broadcast npc say, hint: if you wanna make npcs shout that are not near
+    # Broadcast npc say, hint: if you wanna make npcs shout that are not near
     # the players use the player or a near npc as broadcaster
     def npcTalk(self,npc,text,chan=0,broadcaster=npc):
         if isinstance(text,[]):
@@ -117,14 +117,14 @@ class BasicInstance(JQuest):
         else:
             broadcaster.broadcastPacket(NpcSay(npc.getObjId, chan, npc.getNpcId(), text))
 
-    # adds a new spawn
+    # Adds a new spawn
     def newSpawn(self,npcId,x,y,z,world,respawn=0,heading=0):
         npc = self.addSpawn(npcId,x, y, z, heading,False,0,False, world.instanceId)
         if respawn>0:
             npc.getSpawn().setRespawnDelay(respawn)
         return npc
 
-    # dummy, overwrite it in actual implementations
+    # Dummy, overwrite it in actual implementations
     def checkCondition(self,player):
         return True
 
@@ -133,11 +133,11 @@ class BasicInstance(JQuest):
         if not self.checkCondition(player):
             return instanceId
         members = getMembers(player)
-        #check for exising instances of party members or channel members
+        # Check for existing instances of party members or channel members
         for member in members :
             if member.getInstanceId()!= 0 and member.getInstanceId() != player.getInstanceId():
                 instanceId = member.getInstanceId()
-        #exising instance
+        # Existing instance
         if instanceId != 0:
             foundworld = False
             for worldid in self.world_ids:
@@ -157,26 +157,26 @@ class BasicInstance(JQuest):
                 self.worlds[instanceId]=world
                 self.world_ids.append(instanceId)
                 self._log.info(self.name + " started, Template: " + template + " InstanceId: " +str(instanceId) + " created by: " + str(player.getName()))
-            # teleports player
+            # Teleports player
             teleto.instanceId = instanceId
             self.teleportPlayer(player,teleto)
             return instanceId
         return instanceId
 
-    # roll the dice
+    # Roll the dice
     def calculateChance(self,chance):
         dice = chance = Rnd.get(100)
         if dice >= chance:
             return False
         return True
 
-    # teleports a npc to player location and sets optional aggro
+    # Teleports a npc to player location and sets optional aggro
     def teleportMobToPlayer(self,npc,player,aggro=0):
         npc.teleToLocation(player.getX(),player.getY(),player.getZ())
         if aggro>0:
             npc.addDamageHate(player,0,aggro)
 
-    # makes a npc decay delay
+    # Makes a npc decay delay
     def decayDelayed(self,npc,player,delay=5000):
         self.startQuestTimer("decayNpc", delay, npc, player)
 
@@ -221,7 +221,7 @@ class BasicInstance(JQuest):
         player.sendPacket(sm)
         return item
 
-    # quest events
+    # Quest events
     def onAdvEvent(self,event,npc,player):
         world = self.getWorld(npc) and self.getWorld(npc) or self.getWorld(player)
         if event == "teleportNext":
