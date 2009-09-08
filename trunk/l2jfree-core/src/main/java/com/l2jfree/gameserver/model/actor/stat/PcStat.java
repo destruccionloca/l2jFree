@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -122,7 +122,7 @@ public class PcStat extends PlayableStat
 
 		if (!super.addExpAndSp(addToExp, addToSp))
 			return false;
-		
+
 		if (addToExp == 0 && addToSp > 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.ACQUIRED_S1_SP);
@@ -142,7 +142,7 @@ public class PcStat extends PlayableStat
 			sm.addNumber(addToSp);
 			activeChar.sendPacket(sm);
 		}
-		
+
 		return true;
 	}
 
@@ -179,7 +179,7 @@ public class PcStat extends PlayableStat
 			getActiveChar().getStatus().setCurrentCp(getMaxCp());
 			getActiveChar().broadcastPacket(new SocialAction(getActiveChar().getObjectId(), SocialAction.LEVEL_UP));
 			getActiveChar().sendPacket(SystemMessageId.YOU_INCREASED_YOUR_LEVEL);
-			
+
 			GlobalRestrictions.levelChanged(getActiveChar());
 		}
 
@@ -192,8 +192,8 @@ public class PcStat extends PlayableStat
 		if (getActiveChar().isInParty())
 			getActiveChar().getParty().recalculatePartyLevel(); // Recalculate the party level
 
-		if (getActiveChar().isTransformed())
-			getActiveChar().getTransformation().onLevelUp(getActiveChar());
+		if (getActiveChar().isTransformed() || getActiveChar().isInStance())
+			getActiveChar().getTransformation().onLevelUp();
 
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.LEVEL, getLevel());
@@ -362,16 +362,16 @@ public class PcStat extends PlayableStat
 	public int getRunSpeed()
 	{
 		int val = super.getRunSpeed();
-		
+
 		val /= getActiveChar().getArmourExpertisePenalty();
-		
+
 		// Apply max run speed cap.
 		if (val > Config.ALT_MAX_RUN_SPEED && Config.ALT_MAX_RUN_SPEED > 0 && !getActiveChar().isGM())
 			return Config.ALT_MAX_RUN_SPEED;
-		
+
 		return val;
 	}
-	
+
 	@Override
 	protected int getBaseRunSpd()
 	{
@@ -381,7 +381,7 @@ public class PcStat extends PlayableStat
 			if (stats != null)
 				return stats.getPetSpeed();
 		}
-		
+
 		return super.getBaseRunSpd();
 	}
 
@@ -432,19 +432,19 @@ public class PcStat extends PlayableStat
 	public int getAttackElementValue(byte attribute)
 	{
 		int value = super.getAttackElementValue(attribute);
-		
+
 		// 20% if summon exist
 		if (summonShouldHaveAttackElemental(getActiveChar().getPet()))
 			return value / 5;
-		
+
 		return value;
 	}
-	
+
 	public boolean summonShouldHaveAttackElemental(L2Summon pet)
 	{
 		return getActiveChar().getClassId().isSummoner() && pet instanceof L2SummonInstance && !pet.isDead() && getActiveChar().getExpertisePenalty() == 0;
 	}
-	
+
 	@Override
 	public float getMovementSpeedMultiplier()
 	{
@@ -454,10 +454,10 @@ public class PcStat extends PlayableStat
 			if (stats != null)
 				return getRunSpeed() * 1f / stats.getPetSpeed();
 		}
-		
+
 		return super.getMovementSpeedMultiplier();
 	}
-	
+
 	@Override
 	public int getWalkSpeed()
 	{

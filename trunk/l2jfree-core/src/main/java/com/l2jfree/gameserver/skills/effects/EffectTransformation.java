@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,44 +30,44 @@ public final class EffectTransformation extends L2Effect
 	{
 		super(env, template);
 	}
-	
+
 	// Special constructor to steal this effect
 	public EffectTransformation(Env env, L2Effect effect)
 	{
 		super(env, effect);
 	}
-	
+
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.TRANSFORMATION;
 	}
-	
+
 	@Override
 	protected boolean onStart()
 	{
 		if (getEffected().isAlikeDead())
 			return false;
-		
+
 		if (!(getEffected() instanceof L2PcInstance))
 			return false;
-		
+
 		L2PcInstance trg = (L2PcInstance)getEffected();
-		
+
 		// No transformation if dead or cursed by cursed weapon
 		if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
 			return false;
-		
+
 		int transformId = getSkill().getTransformId();
-		
-		if (!trg.isTransformed())
+
+		if (!trg.isTransformed() && !trg.isInStance())
 		{
 			TransformationManager.getInstance().transformPlayer(transformId, trg);
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected void onExit()
 	{

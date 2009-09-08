@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -281,7 +281,7 @@ public class CursedWeapon
 		if (_transformId == 0)
 			return;
 
-		if (_player.isTransformed())
+		if (_player.isTransformed() || _player.isInStance())
 		{
 			_player.stopTransformation(true);
 
@@ -340,9 +340,9 @@ public class CursedWeapon
 	public void removeSkillAndAppearance()
 	{
 		_player.untransform();
-		
+
 		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
-		
+
 		if (_player.transformId() > 0)
 		{
 			TransformationManager.getInstance().transformPlayer(_player.transformId(), _player);
@@ -386,7 +386,7 @@ public class CursedWeapon
 			// TODO: msg
 			return false;
 		}
-		
+
 		// if the player is mounted, attempt to unmount first.  Only allow picking up
 		// the zariche if unmounting is successful.
 		if (player.isMounted())
@@ -398,7 +398,7 @@ public class CursedWeapon
 				return false;
 			}
 		}
-		
+
 		_isActivated = true;
 
 		// Player holding it data

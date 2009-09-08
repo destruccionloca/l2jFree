@@ -4694,7 +4694,7 @@ public final class L2PcInstance extends L2Playable
 		//if (getPet() != null) getPet().unSummon(this);
 
 		// Untransforms character.
-		if (!isFlyingMounted() && isTransformed())
+		if (!isFlyingMounted() && _transformation != null)
 			untransform();
 
 		// Unsummon Cubics
@@ -8073,6 +8073,9 @@ public final class L2PcInstance extends L2Playable
 		if (isTransformed() && !containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform() && !skill.isPotion())
 			return false;
 
+		if ((isTransformed() || isInStance())  && !containsAllowedTransformSkill(skill.getId()) && !skill.isPotion())
+			return false;
+
 		return true;
 	}
 
@@ -9714,7 +9717,7 @@ public final class L2PcInstance extends L2Playable
 				}
 
 				// Hide skills when transformed if they are not passive
-				if (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform() && isTransformed())
+				if (_transformation != null && (!this.containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()))
 				{
 					array[i] = null;
 					continue;
@@ -10199,7 +10202,7 @@ public final class L2PcInstance extends L2Playable
 	public boolean setActiveClass(int classIndex)
 	{
 		//  Cannot switch or change subclasses while transformed
-		if (isTransformed())
+		if (_transformation != null)
 			return false;
 
 		// Remove active item skills before saving char to database
@@ -13175,12 +13178,17 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean isTransformed()
 	{
-		return _transformation != null;
-	}
+        return _transformation != null && !_transformation.isStance();
+    }
+
+    public boolean isInStance()
+    {
+    	return _transformation != null && _transformation.isStance();
+    }
 
 	public void transform(L2Transformation transformation)
 	{
-		if (isTransformed())
+		if (_transformation != null)
 		{
 			// You already polymorphed and cannot polymorph again.
 			sendPacket(SystemMessageId.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
@@ -13211,7 +13219,7 @@ public final class L2PcInstance extends L2Playable
 
 	public void untransform()
 	{
-		if (isTransformed())
+		if (_transformation != null)
 		{
 			_transformAllowedSkills.clear();
 			_transformation.onUntransform(this);
