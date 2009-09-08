@@ -72,17 +72,23 @@ public class AdminPolymorph implements IAdminCommandHandler
 			{
 				if (obj instanceof L2PcInstance)
 				{
-					L2PcInstance cha = (L2PcInstance) obj;
+					final L2PcInstance cha = (L2PcInstance) obj;
 					try
 					{
-						int id = Integer.parseInt(parts[1]);
+						final int id = Integer.parseInt(parts[1]);
 						if (id == 0)
 						{
 							cha.untransform();
 						}
-						else if (!TransformationManager.getInstance().transformPlayer(id, cha))
+						else
 						{
-							activeChar.sendMessage("Unknown transformation id: " + id);
+							if (cha.isTransformed() || cha.isInStance())
+								cha.stopTransformation(true);
+							
+							if (!TransformationManager.getInstance().transformPlayer(id, cha))
+							{
+								activeChar.sendMessage("Unknown transformation id: " + id);
+							}
 						}
 					}
 					catch (NumberFormatException e)

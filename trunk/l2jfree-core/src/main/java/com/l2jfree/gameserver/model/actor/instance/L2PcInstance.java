@@ -8075,13 +8075,18 @@ public final class L2PcInstance extends L2Playable
 		if (skill.isPassive() || skill.isChance())
 			return false;
 
-		if (isTransformed() && !containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform() && !skill.isPotion())
-			return false;
-
-		if ((isTransformed() || isInStance())  && !containsAllowedTransformSkill(skill.getId()) && !skill.isPotion())
+		if (isTransformationDisabledSkill(skill) && !skill.isPotion())
 			return false;
 
 		return true;
+	}
+
+	private boolean isTransformationDisabledSkill(L2Skill skill)
+	{
+		if (_transformation != null && !containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform())
+			return true;
+		
+		return false;
 	}
 
 	/**
@@ -9680,7 +9685,7 @@ public final class L2PcInstance extends L2Playable
 			if (s.getSkillType() == L2SkillType.NOTDONE)
 				return 10;
 
-			if (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform() && isTransformed())
+			if (isTransformationDisabledSkill(s))
 				return 9;
 
 			if (s.getId() > 9000 && s.getId() < 9007)
@@ -9722,7 +9727,7 @@ public final class L2PcInstance extends L2Playable
 				}
 
 				// Hide skills when transformed if they are not passive
-				if (_transformation != null && (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()))
+				if (isTransformationDisabledSkill(s))
 				{
 					array[i] = null;
 					continue;
