@@ -751,8 +751,11 @@ public final class L2PcInstance extends L2Playable
 	/** ally with ketra or varka related vars*/
 	private int								_alliedVarkaKetra		= 0;
 
-	/** The list of sub-classes this character has. */
+	/**
+	 * IMO we don't need it, as we have FIFO packet execution.
+	 */
 	private final ReentrantLock _subclassLock = new ReentrantLock();
+	/** The list of sub-classes this character has. */
 	private Map<Integer, SubClass>			_subClasses;
 	protected int							_baseClass;
 	protected int							_activeClass;
@@ -9719,7 +9722,7 @@ public final class L2PcInstance extends L2Playable
 				}
 
 				// Hide skills when transformed if they are not passive
-				if (_transformation != null && (!this.containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()))
+				if (_transformation != null && (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()))
 				{
 					array[i] = null;
 					continue;
@@ -10012,44 +10015,28 @@ public final class L2PcInstance extends L2Playable
             newClass.setClassIndex(classIndex);
 
             Connection con = null;
-            PreparedStatement statement = null;
-
             try
             {
                 // Store the basic info about this new sub-class.
                 con = L2DatabaseFactory.getInstance().getConnection();
-                statement = con.prepareStatement(ADD_CHAR_SUBCLASS);
-
+                PreparedStatement statement = con.prepareStatement(ADD_CHAR_SUBCLASS);
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, newClass.getClassId());
                 statement.setLong(3, newClass.getExp());
                 statement.setInt(4, newClass.getSp());
                 statement.setInt(5, newClass.getLevel());
                 statement.setInt(6, newClass.getClassIndex()); // <-- Added
-
                 statement.execute();
+                statement.close();
             }
             catch (Exception e)
             {
-                _log.warn("WARNING: Could not add character sub class for " + getName() + ": " + e);
+                _log.warn("Could not add character sub class for " + getName() + ": ", e);
                 return false;
             }
             finally
             {
-            	try
-            	{
-            		statement.close();
-            	}
-            	catch (Exception e)
-            	{
-            	}
-                try
-                {
-                	con.close();
-                }
-                catch (Exception e)
-                {
-                }
+            	L2DatabaseFactory.close(con);
             }
 
             // Commit after database INSERT incase exception is thrown.
@@ -10073,7 +10060,7 @@ public final class L2PcInstance extends L2Playable
     				L2Skill prevSkill = prevSkillList.get(skillInfo.getId());
     				L2Skill newSkill = SkillTable.getInstance().getInfo(skillInfo.getId(), skillInfo.getLevel());
 
-    				if (prevSkill != null && (prevSkill.getLevel() > newSkill.getLevel()))
+    				if (prevSkill != null && (prevSkill.getLevel() >= newSkill.getLevel()))
     					continue;
 
     				prevSkillList.put(newSkill.getId(), newSkill);
@@ -10114,14 +10101,12 @@ public final class L2PcInstance extends L2Playable
     	    	_log.info(getName() + " has requested to modify sub class index " + classIndex + " from class ID " + oldClassId + " to " + newClassId + ".");
 
         	Connection con = null;
-            PreparedStatement statement = null;
-
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection();
 
                 // Remove all henna info stored for this sub-class.
-                statement = con.prepareStatement(DELETE_CHAR_HENNAS);
+                PreparedStatement statement = con.prepareStatement(DELETE_CHAR_HENNAS);
                 statement.setInt(1, getObjectId());
                 statement.setInt(2, classIndex);
                 statement.execute();
@@ -10157,28 +10142,14 @@ public final class L2PcInstance extends L2Playable
             }
             catch (Exception e)
             {
-            	_log.warn("Could not modify sub class for " + getName() + " to class index " + classIndex + ": " + e);
-
+            	_log.warn("Could not modify sub class for " + getName() + " to class index " + classIndex + ": ", e);
             	// This must be done in order to maintain data consistency.
                 getSubClasses().remove(classIndex);
             	return false;
             }
             finally
             {
-            	try
-            	{
-            		statement.close();
-            	}
-            	catch (Exception e)
-            	{
-            	}
-                try
-                {
-                	con.close();
-                }
-                catch (Exception e)
-                {
-                }
+                L2DatabaseFactory.close(con);
             }
 
             getSubClasses().remove(classIndex);
@@ -10262,8 +10233,7 @@ public final class L2PcInstance extends L2Playable
                 return false;
 
             // Remove active item skills before saving char to database
-            // because next time when choosing this class, weared items can
-            // be different
+            // because next time when choosing this class, weared items can be different
 
             for (L2ItemInstance temp : getInventory().getAugmentedItems())
                 if (temp != null && temp.isEquipped())
@@ -10303,8 +10273,7 @@ public final class L2PcInstance extends L2Playable
             _reuseTimeStamps.clear();
 
             // clear charges
-            this.setCharges(0);
-            stopChargeTask();
+            clearCharges();
 
             if (classIndex == 0)
             {
@@ -10318,7 +10287,7 @@ public final class L2PcInstance extends L2Playable
                 }
                 catch (Exception e)
                 {
-                    _log.info("Could not switch " + getName() + "'s sub class to class index " + classIndex + ": " + e);
+                    _log.info("Could not switch " + getName() + "'s sub class to class index " + classIndex + ": ", e);
                     return false;
                 }
             }
@@ -10403,7 +10372,7 @@ public final class L2PcInstance extends L2Playable
             restoreEffects();
             updateEffectIcons();
 
-            //if player has quest 422: Repent Your Sins, remove it
+            // If player has quest "422: Repent Your Sins", remove it
             QuestState st = getQuestState("422_RepentYourSins");
             if (st != null)
             {
@@ -10415,6 +10384,8 @@ public final class L2PcInstance extends L2Playable
 
             restoreHenna();
             sendPacket(new HennaInfo(this));
+            
+            checkItemRestriction();
 
             if (getCurrentHp() > getMaxHp())
             	getStatus().setCurrentHp(getMaxHp());
@@ -10422,7 +10393,10 @@ public final class L2PcInstance extends L2Playable
             	getStatus().setCurrentMp(getMaxMp());
             if (getCurrentCp() > getMaxCp())
             	getStatus().setCurrentCp(getMaxCp());
-
+            
+            getInventory().restoreEquipedItemsPassiveSkill();
+            getInventory().restoreArmorSetPassiveSkill();
+            
             refreshOverloaded();
     		refreshExpertisePenalty();
             broadcastUserInfo();
@@ -11480,14 +11454,14 @@ public final class L2PcInstance extends L2Playable
 		{
 			try
 			{
-				leaveParty();
 				// If player is festival participant and it is in progress
 				// notify party members that the player is not longer a participant.
 				if (isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized())
 				{
-					if (getParty() != null)
-						getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
+					getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
 				}
+				
+				leaveParty();
 			}
 			catch (Exception e)
 			{
@@ -11671,7 +11645,8 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 
-		if (isFestivalParticipant())
+		// Prevent player from restarting if they are a festival participant
+		if (isFestivalParticipant() /* && SevenSignsFestival.getInstance().isFestivalInitialized()*/)
 		{
 			sendMessage("You can't logout while you are a participant in a festival.");
 			return false;
@@ -11692,22 +11667,6 @@ public final class L2PcInstance extends L2Playable
 		{
 			sendMessage("You can't logout while enchanting.");
 			return false;
-		}
-
-		if (getPrivateStoreType() != 0)
-		{
-			sendMessage("Cannot restart while trading");
-			return false;
-		}
-
-		// Prevent player from restarting if they are a festival participant
-		if (isFestivalParticipant())
-		{
-			if (SevenSignsFestival.getInstance().isFestivalInitialized())
-			{
-				sendMessage("You cannot restart while you are a participant in a festival.");
-				return false;
-			}
 		}
 
 		if (isLocked())
