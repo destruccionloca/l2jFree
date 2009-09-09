@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellEntry;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellIngredient;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellListContainer;
+import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * This class ...
@@ -57,7 +58,7 @@ public final class MultiSellList extends L2GameServerPacket
 			for (MultiSellEntry ent : _list.getEntries())
 			{
 				writeD(ent.getEntryId());
-				writeC(1);
+				writeC(ent.stackable());
 				writeH(0x00); // C6
 				writeD(0x00); // C6
 				if (Config.PACKET_FINAL)
@@ -89,13 +90,26 @@ public final class MultiSellList extends L2GameServerPacket
 
 				for (MultiSellIngredient i : ent.getProducts())
 				{
-					writeD(i.getItemId());
-					writeD(ItemTable.getInstance().getTemplate(i.getItemId()).getBodyPart());
-					writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
+					final int itemId = i.getItemId();
+					final L2Item template = ItemTable.getInstance().getTemplate(itemId);
+					
+					if (template == null)
+					{
+						writeD(itemId);
+						writeD(0x00);
+						writeH(65535);
+					}
+					else
+					{
+						writeD(template.getItemDisplayId());
+						writeD(template.getBodyPart());
+						writeH(template.getType2());
+					}
+					
 					writeCompQ(i.getItemCount());
 					writeH(i.getEnchantmentLevel()); //enchtant lvl
-					writeD(0x00); // C6
-					writeD(0x00); // C6
+					writeD(i.getAugmentationId()); // C6
+					writeD(i.getManaLeft()); // C6
 					if (Config.PACKET_FINAL)
 					{
 						writeH(65534); // T1
@@ -122,16 +136,24 @@ public final class MultiSellList extends L2GameServerPacket
 
 				for (MultiSellIngredient i : ent.getIngredients())
 				{
-					int items = i.getItemId();
-					int typeE = 65535;
-					if (items != -200 && items != -300)
-						typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
-					writeD(items); //ID
-					writeH(typeE);
+					final int itemId = i.getItemId();
+					final L2Item template = ItemTable.getInstance().getTemplate(itemId);
+					
+					if (template == null)
+					{
+						writeD(itemId); //ID
+						writeH(65535);
+					}
+					else
+					{
+						writeD(template.getItemDisplayId()); //ID
+						writeH(template.getType2());
+					}
+					
 					writeCompQ(i.getItemCount()); //Count
 					writeH(i.getEnchantmentLevel()); //Enchant Level
-					writeD(0x00); // C6
-					writeD(0x00); // C6
+					writeD(i.getAugmentationId()); // C6
+					writeD(i.getManaLeft()); // C6
 					if (Config.PACKET_FINAL)
 					{
 						writeH(65534); // T1
