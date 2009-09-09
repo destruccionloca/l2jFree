@@ -395,8 +395,8 @@ public final class GlobalRestrictions
 		// if GM is invisible, exclude him from the normal gameplay
 		if (target_ != null && target_.isGM() && target_.getAppearance().isInvisible())
 		{
-			// if the "attacker" isn't playable, or not GM
-			if (attacker_ == null || !attacker_.isGM())
+			// if there is an attacker, but it isn't playable, or not GM
+			if (activeChar != null && (attacker_ == null || !attacker_.isGM()))
 			{
 				return false;
 			}
