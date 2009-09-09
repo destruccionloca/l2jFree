@@ -215,22 +215,24 @@ public class RequestRestartPoint extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		if (activeChar.isFakeDeath())
 		{
 			activeChar.stopFakeDeath(true);
+			sendAF();
 			return;
 		}
 		else if (!activeChar.isDead())
 		{
-			_log.warn("Living player [" + activeChar.getName() + "] called RestartPointPacket! Ban this player!");
+			sendAF();
 			return;
 		}
 		else if (AutomatedTvT.isPlaying(activeChar) && !Config.AUTO_TVT_REVIVE_SELF)
+		{
+			sendAF();
 			return;
+		}
 
 		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 		if (castle != null && castle.getSiege().getIsInProgress())
@@ -241,17 +243,17 @@ public class RequestRestartPoint extends L2GameClientPacket
 				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
 				if (castle.getSiege().getAttackerRespawnDelay() > 0)
 					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay()/1000 + " seconds");
+				sendAF();
 				return;
 			}
 		}
 
 		// run immediately (no need to schedule)
 		new DeathTask(activeChar).run();
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

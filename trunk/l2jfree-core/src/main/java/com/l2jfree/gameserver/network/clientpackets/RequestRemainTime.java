@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 public class RequestRemainTime extends L2GameClientPacket
 {
     @Override
@@ -26,6 +28,7 @@ public class RequestRemainTime extends L2GameClientPacket
 	protected void runImpl()
     {
 		// TODO: /remaintime command (send remaining time for summons?)
+    	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
     }
 
     @Override

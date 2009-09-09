@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 
 public class RequestRecipeShopMakeItem extends L2GameClientPacket
@@ -28,8 +27,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 
 	private int _id;
 	private int _recipeId;
-	@SuppressWarnings("unused")
-	private long _unknown;
+	//private long _unknown;
 
 	/**
 	 * packet type id 0xac
@@ -41,15 +39,14 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	{
 		_id = readD();
 		_recipeId = readD();
-		_unknown = readCompQ();
+		/*_unknown = */readCompQ();
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		L2Object object = null;
 
@@ -59,45 +56,48 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 
 		// Get object from world
 		if (object == null)
-		{
 			object = L2World.getInstance().getPlayer(_id);
-			//_log.warn("Player "+activeChar.getName()+" requested private manufacture from outside of his knownlist.");
-		}
 
 		if (!(object instanceof L2PcInstance))
+		{
+			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
+		}
 
 		L2PcInstance manufacturer = (L2PcInstance) object;
-		
+
 		if (activeChar.getPrivateStoreType() != 0)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
+			requestFailed(SystemMessageId.PRIVATE_STORE_UNDER_WAY);
 			return;
 		}
 		if (manufacturer.getPrivateStoreType() != 5)
 		{
 			//activeChar.sendMessage("Cannot make items while trading");
+			sendAF();
 			return;
 		}
-		
+
 		if (activeChar.isInCraftMode() || manufacturer.isInCraftMode())
 		{
-			activeChar.sendMessage("Currently in Craft Mode");
+			//activeChar.sendMessage("Currently in Craft Mode");
+			sendAF();
 			return;
 		}
 		if (manufacturer.isInDuel() || activeChar.isInDuel())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
+			requestFailed(SystemMessageId.CANT_CRAFT_DURING_COMBAT);
 			return;
 		}
 
 		if (Util.checkIfInRange(150, activeChar, manufacturer, true))
 			RecipeController.getInstance().requestManufactureItem(manufacturer, _recipeId, activeChar);
+		else
+			sendPacket(SystemMessageId.TARGET_TOO_FAR);
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

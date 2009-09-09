@@ -34,31 +34,30 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
     {
         _recipeId = readD();
     }
-            
+
     @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar != null)
+        if (activeChar == null) return;
+        L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId);
+        if (rp == null)
         {
-            L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId);
-            if (rp == null)
-                return;
-            activeChar.unregisterRecipeList(_recipeId);
-
-            RecipeBookItemList response = new RecipeBookItemList(rp.isDwarvenRecipe(),activeChar.getMaxMp());
-            if (rp.isDwarvenRecipe())
-                response.addRecipes(activeChar.getDwarvenRecipeBook());
-            else
-                response.addRecipes(activeChar.getCommonRecipeBook());
-
-            activeChar.sendPacket(response);
+        	sendAF();
+        	return;
         }
+        activeChar.unregisterRecipeList(_recipeId);
+        RecipeBookItemList response = new RecipeBookItemList(rp.isDwarvenRecipe(), activeChar.getMaxMp());
+        if (rp.isDwarvenRecipe())
+            response.addRecipes(activeChar.getDwarvenRecipeBook());
+        else
+            response.addRecipes(activeChar.getCommonRecipeBook());
+
+        sendPacket(response);
+
+        sendAF();
     }
-    
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
+
     @Override
     public String getType()
     {

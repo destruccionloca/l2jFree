@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetManagerInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
@@ -41,7 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 public class RequestSellItem extends L2GameClientPacket
 {
 	private static final String _C__1E_REQUESTSELLITEM = "[C] 1E RequestSellItem";
-	
+
 	private static final int BATCH_LENGTH = 12; // length of the one item
 	private static final int BATCH_LENGTH_FINAL = 16;
 
@@ -104,53 +103,51 @@ public class RequestSellItem extends L2GameClientPacket
 	protected void processSell()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
-		if(_items == null)
+		if (_items == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
 			player.cancelActiveTrade();
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 
-		final L2Merchant merchant = player.getTarget(L2Merchant.class);
-		final String htmlFolder;
+		L2Merchant merchant = player.getTarget(L2Merchant.class);
+		String htmlFolder;
 		if (merchant instanceof L2FishermanInstance)
 			htmlFolder = "fisherman";
 		else if (merchant instanceof L2PetManagerInstance)
 			htmlFolder = "petmanager";
 		else
 			htmlFolder = "merchant";
-		
+
 		if (!canShop(player, merchant))
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
-		
+
 		if (merchant != null && _listId > 1000000) // lease
 		{
 			if (merchant.getTemplate().getNpcId() != _listId-1000000)
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				sendAF();
 				return;
 			}
 		}
-		
+
 		long totalPrice = 0;
 		// Proceed the sell
 		for (Item i : _items)
 		{
 			L2ItemInstance item = player.checkItemManipulation(i.getObjectId(), i.getCount(), "sell");
-			if (item == null || (!item.isSellable()))
+			if (item == null || !item.isSellable())
 				continue;
 
 			long price = item.getReferencePrice() / 2;
@@ -180,27 +177,29 @@ public class RequestSellItem extends L2GameClientPacket
 		// Update current load as well
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-		player.sendPacket(su);
-		player.sendPacket(new ItemList(player, true));
+		sendPacket(su);
+		sendPacket(new ItemList(player, true));
+
+		sendAF();
 	}
-	
+
 	private boolean canShop(L2PcInstance player, L2Merchant target)
 	{
 		if (player.isGM())
 			return true;
-		
+
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
 			return false;
-		
+
 		if (target == null)
 			return false;
-		
-		if (!player.isInsideRadius((L2Character)target, INTERACTION_DISTANCE, false, false))
+
+		if (!player.isInsideRadius((L2Character) target, INTERACTION_DISTANCE, false, false))
 		{
-			sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
+			player.sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -233,9 +232,6 @@ public class RequestSellItem extends L2GameClientPacket
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

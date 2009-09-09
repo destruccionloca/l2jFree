@@ -14,10 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.RecipeController;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestRecipeBookOpen extends L2GameClientPacket
 {
@@ -39,21 +38,20 @@ public class RequestRecipeBookOpen extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (getClient().getActiveChar() == null)
-			return;
+		L2PcInstance player = getActiveChar();
+		if (player == null) return;
 
-		if (getClient().getActiveChar().getPrivateStoreType() != 0)
+		if (player.getPrivateStoreType() != 0)
 		{
-			getClient().getActiveChar().sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
+			requestFailed(SystemMessageId.PRIVATE_STORE_UNDER_WAY);
 			return;
 		}
 
-		RecipeController.getInstance().requestBookOpen(getClient().getActiveChar(), _isDwarvenCraft);
+		RecipeController.getInstance().requestBookOpen(player, _isDwarvenCraft);
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -30,39 +30,36 @@ public final class RequestRefineCancel extends L2GameClientPacket
 {
 	private static final String _C__D0_2E_REQUESTREFINECANCEL = "[C] D0:2E RequestRefineCancel";
 	private int _targetItemObjId;
-	
+
 	@Override
 	protected void readImpl()
 	{
 		_targetItemObjId = readD();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
+
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		if (targetItem == null)
 		{
-			activeChar.sendPacket(new ExVariationCancelResult(0));
+			requestFailed(new ExVariationCancelResult(0));
 			return;
 		}
 
 		// cannot remove augmentation from a not augmented item
 		if (!targetItem.isAugmented())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
-			activeChar.sendPacket(new ExVariationCancelResult(0));
+			sendPacket(new ExVariationCancelResult(0));
+			requestFailed(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM);
 			return;
 		}
-		
+
 		// get the price
-		int price=0;
+		int price = 0;
 		switch (targetItem.getItem().getCrystalGrade())
 		{
 			case L2Item.CRYSTAL_C:
@@ -92,36 +89,40 @@ public final class RequestRefineCancel extends L2GameClientPacket
 				break;
 			// any other item type is not augmentable
 			default:
-				activeChar.sendPacket(new ExVariationCancelResult(0));
+				requestFailed(new ExVariationCancelResult(0));
 				return;
 		}
-		
+
 		// try to reduce the players adena
-		if (!activeChar.reduceAdena("RequestRefineCancel", price, null, true)) return;
-		
+		if (!activeChar.reduceAdena("RequestRefineCancel", price, null, true))
+		{
+			sendAF();
+			return;
+		}
+
 		// unequip item
-		if (targetItem.isEquipped()) activeChar.disarmWeapons(false);
-		
+		if (targetItem.isEquipped())
+			activeChar.disarmWeapons(false);
+
 		// remove the augmentation
 		targetItem.removeAugmentation();
-		
+
 		// send ExVariationCancelResult
-		activeChar.sendPacket(new ExVariationCancelResult(1));
-		
+		sendPacket(new ExVariationCancelResult(1));
+
 		// send inventory update
 		InventoryUpdate iu = new InventoryUpdate();
 		iu.addModifiedItem(targetItem);
-		activeChar.sendPacket(iu);
-		
+		sendPacket(iu);
+
 		// send system message
 		SystemMessage sm = new SystemMessage(SystemMessageId.AUGMENTATION_HAS_BEEN_SUCCESSFULLY_REMOVED_FROM_YOUR_S1);
 		sm.addString(targetItem.getItemName());
-		activeChar.sendPacket(sm);
+		sendPacket(sm);
+
+		sendAF();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -27,14 +26,14 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestReplyStopPledgeWar extends L2GameClientPacket
 {
     private static final String _C__50_REQUESTREPLYSTOPPLEDGEWAR = "[C] 50 RequestReplyStopPledgeWar";
-    
+
     private int _answer;
-            
+
     @Override
     protected void readImpl()
     {
-        @SuppressWarnings("unused") String _reqName = readS();
-        _answer  = readD();
+        readS();
+        _answer = readD();
     }
 
 
@@ -42,28 +41,30 @@ public class RequestReplyStopPledgeWar extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null)
-            return;
+        if (activeChar == null) return;
+
         L2PcInstance requestor = activeChar.getActiveRequester();
-        if(requestor == null)
+        if (requestor == null)
+        {
+        	sendAF();
         	return;
-        
+        }
+
         if (_answer == 1)
         {
             ClanTable.getInstance().deleteclanswars(requestor.getClanId(), activeChar.getClanId());
         }
         else
         {
-            requestor.sendPacket(new SystemMessage(SystemMessageId.REQUEST_TO_END_WAR_HAS_BEEN_DENIED));
+            requestor.sendPacket(SystemMessageId.REQUEST_TO_END_WAR_HAS_BEEN_DENIED);
         }
-        
+
         activeChar.setActiveRequester(null);
         requestor.onTransactionResponse();
+
+        sendAF();
     }
-    
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
+
     @Override
     public String getType()
     {

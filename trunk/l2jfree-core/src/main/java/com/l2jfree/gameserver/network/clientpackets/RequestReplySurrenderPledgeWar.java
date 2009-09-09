@@ -20,26 +20,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
 {
     private static final String _C__52_REQUESTREPLYSURRENDERPLEDGEWAR = "[C] 52 RequestReplySurrenderPledgeWar";
-    
+
     int _answer;
-    
+
     @Override
     protected void readImpl()
     {
-        @SuppressWarnings("unused") String _reqName = readS();
-        _answer  = readD();
+    	readS();
+        _answer = readD();
     }
 
     @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null)
-            return;
+        if (activeChar == null) return;
+
         L2PcInstance requestor = activeChar.getActiveRequester();
         if (requestor == null)
+        {
+        	sendAF();
             return;
-        
+        }
+
+        //TODO: is this incomplete?
         if (_answer == 1)
         {
             requestor.deathPenalty(false, false, false);
@@ -48,8 +52,10 @@ public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
         else
         {
         }
-        
+
         activeChar.onTransactionRequest(null);
+
+        sendAF();
     }
 
     @Override

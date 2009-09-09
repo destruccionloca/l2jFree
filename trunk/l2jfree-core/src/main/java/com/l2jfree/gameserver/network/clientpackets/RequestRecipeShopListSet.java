@@ -22,9 +22,7 @@ import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ... cd(dd)
@@ -34,7 +32,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestRecipeShopListSet extends L2GameClientPacket
 {
 	private static final String	_C__B2_RequestRecipeShopListSet	= "[C] b2 RequestRecipeShopListSet";
-	
+
 	private static final int BATCH_LENGTH = 8; // length of the one item
 	private static final int BATCH_LENGTH_FINAL = 12;
 
@@ -69,27 +67,26 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
+		if (player == null) return;
 
 		if (_items == null)
 		{
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			player.broadcastUserInfo();
+			sendAF();
 			return;
 		}
 
 		if (player.isInDuel())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
+			requestFailed(SystemMessageId.CANT_CRAFT_DURING_COMBAT);
 			return;
 		}
 
 		// Prevents player to start a craft shop inside a nostore zone. By heX1r0
 		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE));
-			sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE);
 			return;
 		}
 
@@ -110,8 +107,10 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_MANUFACTURE);
 		player.sitDown();
 		player.broadcastUserInfo();
-		player.sendPacket(new RecipeShopMsg(player));
+		sendPacket(new RecipeShopMsg(player));
 		player.broadcastPacket(new RecipeShopMsg(player));
+
+		sendAF();
 	}
 
 	private class Recipe

@@ -18,14 +18,13 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.network.serverpackets.RestartResponse;
 
 public final class RequestRestart extends L2GameClientPacket
 {
 	private static final String _C__46_REQUESTRESTART = "[C] 46 RequestRestart";
-	
+
 	/**
 	 * packet type id 0x46 format: c
 	 */
@@ -33,36 +32,36 @@ public final class RequestRestart extends L2GameClientPacket
 	protected void readImpl()
 	{
 	}
-	
+
 	@Override
 	protected void runImpl()
 	{
-		final L2GameClient client = getClient();
-		final L2PcInstance activeChar = client.getActiveChar();
-		
-		if (activeChar == null)
-			return;
-		
+		L2GameClient client = getClient();
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null) return;
+
 		if (!activeChar.canLogout())
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
-		
+
 		new Disconnection(client, activeChar).store().deleteMe();
-		
+
 		// return the client to the authed status
 		client.setState(GameClientState.AUTHED);
-		
+
 		sendPacket(new RestartResponse());
-		
+
 		// send char list
 		CharSelectionInfo cl =
 			new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
+
+		sendAF();
 	}
-	
+
 	@Override
 	public String getType()
 	{

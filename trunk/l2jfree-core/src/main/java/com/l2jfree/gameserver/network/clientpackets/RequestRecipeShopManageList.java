@@ -18,9 +18,7 @@ import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -30,7 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestRecipeShopManageList extends L2GameClientPacket
 {
 	private static final String _C__B0_RequestRecipeShopManageList = "[C] b0 RequestRecipeShopManageList";
-	
+
 	@Override
 	protected void readImpl()
 	{
@@ -41,24 +39,22 @@ public class RequestRecipeShopManageList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
-		
+		if (player == null) return;
+
 		// Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
 		if (player.isAlikeDead())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
 		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE));
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE);
 			return;
 		}
 
-		if(player.getPrivateStoreType() != 0)
+		if (player.getPrivateStoreType() != 0)
 		{
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			player.broadcastUserInfo();
@@ -67,54 +63,13 @@ public class RequestRecipeShopManageList extends L2GameClientPacket
 		}
 
 		if (player.getCreateList() == null)
-		{
 			player.setCreateList(new L2ManufactureList());
-		}
 
-		player.sendPacket(new RecipeShopManageList(player, true));
-		
-		/*
-		int privatetype=player.getPrivateStoreType();
-		if (privatetype == 0)
-		{
-			if (player.getWaitType() !=1)
-			{
-				player.setWaitType(1);
-				player.sendPacket(new ChangeWaitType (player,1));
-				player.broadcastPacket(new ChangeWaitType (player,1));
-			}
-			
-			if (player.getTradeList() == null)
-			{
-				player.setTradeList(new L2TradeList(0));
-			}
-			if (player.getSellList() == null)
-			{
-				player.setSellList(new ArrayList());
-			}
-			player.getTradeList().updateSellList(player,player.getSellList());
-			player.setPrivateStoreType(2);
-			player.sendPacket(new PrivateSellListSell(client.getActiveChar()));
-			player.sendPacket(new UserInfo(player));
-		}
-		
-		if (privatetype == 1)
-		{
-			player.setPrivateStoreType(2);
-			player.sendPacket(new PrivateSellListSell(client.getActiveChar()));
-			player.sendPacket(new ChangeWaitType (player,1));
-			player.broadcastPacket(new ChangeWaitType (player,1));
-			
-			
-		}*/
-		
-		
-		
+		sendPacket(new RecipeShopManageList(player, true));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

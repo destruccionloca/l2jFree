@@ -14,8 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopSellList;
 
 /**
@@ -26,7 +27,7 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeShopSellList;
 public class RequestRecipeShopManagePrev extends L2GameClientPacket
 {
 	private static final String _C__B7_RequestRecipeShopPrev = "[C] b7 RequestRecipeShopPrev";
-	
+
     @Override
     protected void readImpl()
     {
@@ -37,25 +38,33 @@ public class RequestRecipeShopManagePrev extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getTarget() == null)
-		    return;
-        
-        // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
+		if (player == null) return;
+
+        // Player shouldn't be able to view stores if he/she is alike dead (dead or fake death)
         if (player.isAlikeDead())
         {
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+            sendAF();
             return;
         }
-	
-	    if (!(player.getTarget() instanceof L2PcInstance))
+
+        L2Object target = player.getTarget();
+
+        if (target == null)
+		{
+			requestFailed(SystemMessageId.TARGET_CANT_FOUND);
+			return;
+		}
+		else if (!(target instanceof L2PcInstance))
+		{
+			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
 	        return;
-	    L2PcInstance target = (L2PcInstance)player.getTarget();
-		player.sendPacket(new RecipeShopSellList(player,target));
+		}
+
+		sendPacket(new RecipeShopSellList(player, (L2PcInstance) target));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

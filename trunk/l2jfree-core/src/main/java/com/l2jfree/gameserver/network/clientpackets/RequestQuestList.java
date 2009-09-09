@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.QuestList;
 
 /**
@@ -24,7 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.QuestList;
 public class RequestQuestList extends L2GameClientPacket
 {
     private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
-    
+
     /**
      * packet type id 0x63<p>
      * format:      c<p>
@@ -39,13 +40,14 @@ public class RequestQuestList extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        if (getClient().getActiveChar() != null)
-            sendPacket(new QuestList(getClient().getActiveChar()));
+    	L2PcInstance player = getActiveChar();
+    	if (player == null) return;
+
+    	sendPacket(new QuestList(player));
+
+    	sendAF();
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {

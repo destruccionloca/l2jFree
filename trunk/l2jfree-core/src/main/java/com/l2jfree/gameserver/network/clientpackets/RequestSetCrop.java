@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  * @author l3x
  * 
  */
-
 public class RequestSetCrop extends L2GameClientPacket
 {
 	private static final String	_C__D0_0B_REQUESTSETCROP	= "[C] D0:0B RequestSetCrop";
@@ -53,8 +52,6 @@ public class RequestSetCrop extends L2GameClientPacket
 
 	private Crop[]				_items = null;
 
-	/**
-	 */
 	@Override
 	protected void readImpl()
 	{
@@ -86,20 +83,29 @@ public class RequestSetCrop extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_items == null)
-			return;
-
 		L2PcInstance player = getClient().getActiveChar();
-		// check player privileges
-		if (player == null
-				|| player.getClan() == null
-				|| (player.getClanPrivileges() & L2Clan.CP_CS_MANOR_ADMIN) == 0)
+		if (player == null) return;
+
+		if (_items == null || player.getClan() == null)
+		{
+			sendAF();
 			return;
+		}
+
+		// check player privileges
+		if ((player.getClanPrivileges() & L2Clan.CP_CS_MANOR_ADMIN) == 0)
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			return;
+		}
 
 		// check castle owner
 		Castle currentCastle = CastleManager.getInstance().getCastleById(_manorId);
 		if (currentCastle.getOwnerId() != player.getClanId())
+		{
+			sendAF();
 			return;
+		}
 
 		L2Object manager = player.getTarget();
 
@@ -107,13 +113,22 @@ public class RequestSetCrop extends L2GameClientPacket
 			manager = player.getLastFolkNPC();
 
 		if (!(manager instanceof L2CastleChamberlainInstance))
+		{
+			sendAF();
 			return;
+		}
 
-		if (((L2CastleChamberlainInstance)manager).getCastle() != currentCastle)
+		if (((L2CastleChamberlainInstance) manager).getCastle() != currentCastle)
+		{
+			sendAF();
 			return;
+		}
 
 		if (!player.isInsideRadius(manager, INTERACTION_DISTANCE, true, false))
+		{
+			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
+		}
 
 		List<CropProcure> crops = new ArrayList<CropProcure>(_items.length);
 		for (Crop i : _items)
@@ -130,6 +145,8 @@ public class RequestSetCrop extends L2GameClientPacket
 		currentCastle.setCropProcure(crops, CastleManorManager.PERIOD_NEXT);
 		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
 			currentCastle.saveCropData(CastleManorManager.PERIOD_NEXT);
+
+		sendAF();
 	}
 
 	@Override

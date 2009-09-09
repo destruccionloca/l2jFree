@@ -27,21 +27,18 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 public final class RequestSaveInventoryOrder extends L2GameClientPacket
 {
 	private InventoryOrder[] _order;
-	
+
 	/** client limit */
 	private static final int LIMIT = 125;
-	
-	/**
-	 * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-	 */
+
 	@Override
 	protected void readImpl()
 	{
 		int size = readD();
 		final int limit = Math.min(size, LIMIT);
-		
+
 		_order = new InventoryOrder[limit];
-		
+
 		for (int i = 0; i < limit; i++)
 		{
 			int objectId = readD();
@@ -49,34 +46,28 @@ public final class RequestSaveInventoryOrder extends L2GameClientPacket
 			_order[i] = new InventoryOrder(objectId, order);
 		}
 	}
-	
-	/**
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
+
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
-			return;
-		
+		if (player == null) return;
+
 		Inventory inventory = player.getInventory();
 		for (InventoryOrder order : _order)
 		{
 			L2ItemInstance item = inventory.getItemByObjectId(order.objectID);
 			if (item != null && item.getLocation() == ItemLocation.INVENTORY)
-			{
 				item.setLocation(ItemLocation.INVENTORY, order.order);
-			}
 		}
 	}
-	
+
 	@Override
 	public String getType()
 	{
 		return "[C] D0:49 RequestSaveInventoryOrder";
 	}
-	
+
 	private static final class InventoryOrder
 	{
 		final int order;

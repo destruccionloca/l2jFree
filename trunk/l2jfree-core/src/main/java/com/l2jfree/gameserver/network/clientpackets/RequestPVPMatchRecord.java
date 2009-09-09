@@ -14,36 +14,29 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 /**
  *
  * @author  KenM
  */
 public class RequestPVPMatchRecord extends L2GameClientPacket
 {
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return "[C] D0:4C RequestPVPMatchRecord";
-    }
-
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-     */
     @Override
     protected void readImpl()
     {
         // trigger, no data
     }
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
-        
+        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+    }
+
+    @Override
+    public String getType()
+    {
+        return "[C] D0:4C RequestPVPMatchRecord";
     }
 }

@@ -14,33 +14,26 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.SystemMessageId;
+
 public class RequestSaveKeyMapping extends L2GameClientPacket
 {
-
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return "[C] D0:22 RequestSaveKeyMapping";
-    }
-
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#readImpl()
-     */
     @Override
     protected void readImpl()
     {
         // trigger (no data)
     }
 
-    /**
-     * @see com.l2jfree.gameserver.clientpackets.L2GameClientPacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
         // TODO
+    	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+    }
+
+    @Override
+    public String getType()
+    {
+        return "[C] D0:22 RequestSaveKeyMapping";
     }
 }

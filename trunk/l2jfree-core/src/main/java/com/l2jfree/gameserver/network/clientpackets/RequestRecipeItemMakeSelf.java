@@ -19,9 +19,6 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-
 
 /**
  * @author Administrator
@@ -31,6 +28,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
 
 	private int _id;
+
 	/**
 	 * packet type id 0xac
 	 * format:		cd
@@ -46,34 +44,30 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		if (Shutdown.isActionDisabled(DisableType.CREATEITEM))
 		{
-			activeChar.sendMessage("Item creation is not allowed during restart/shutdown.");
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
-
-		if (activeChar.getPrivateStoreType() != 0)
+		else if (activeChar.getPrivateStoreType() != 0)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.PRIVATE_STORE_UNDER_WAY));
+			requestFailed(SystemMessageId.PRIVATE_STORE_UNDER_WAY);
 			return;
 		}
-
-		if (activeChar.isInCraftMode())
+		else if (activeChar.isInCraftMode())
 		{
-			activeChar.sendMessage("Currently in Craft Mode");
+			//activeChar.sendMessage("Currently in Craft Mode");
+			sendAF();
 			return;
 		}
 
 		RecipeController.getInstance().requestMakeItem(activeChar, _id);
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

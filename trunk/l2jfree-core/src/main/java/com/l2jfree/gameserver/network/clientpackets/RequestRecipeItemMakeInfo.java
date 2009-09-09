@@ -17,14 +17,12 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.RecipeItemMakeInfo;
 
-/**
- */
 public class RequestRecipeItemMakeInfo extends L2GameClientPacket
 {
     private static final String _C__AE_REQUESTRECIPEITEMMAKEINFO = "[C] AE RequestRecipeItemMakeInfo";
-    
+
 	private int _id;
-	private L2PcInstance _activeChar;
+
 	/**
 	 * packet type id 0xac
 	 * format:		cd
@@ -34,19 +32,19 @@ public class RequestRecipeItemMakeInfo extends L2GameClientPacket
     protected void readImpl()
     {
         _id = readD();
-        _activeChar = getClient().getActiveChar();
     }
 
     @Override
     protected void runImpl()
 	{
-		RecipeItemMakeInfo response = new RecipeItemMakeInfo(_id, _activeChar);
-		sendPacket(response);
+    	L2PcInstance player = getActiveChar();
+    	if (player == null) return;
+
+		sendPacket(new RecipeItemMakeInfo(_id, player));
+
+		sendAF();
 	}
-	
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
+
     @Override
     public String getType()
     {

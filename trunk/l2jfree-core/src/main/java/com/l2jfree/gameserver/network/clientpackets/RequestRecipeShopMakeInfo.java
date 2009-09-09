@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopItemInfo;
 
 /**
@@ -42,8 +43,7 @@ public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
+		if (activeChar == null) return;
 
 		L2Object obj = null;
 
@@ -53,15 +53,17 @@ public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 
 		// Get object from world
 		if (obj == null)
-		{
 			obj = L2World.getInstance().getPlayer(_objectId);
-			//_log.warn("Player "+activeChar.getName()+" requested recipe info from player from outside of his knownlist.");
-		}
 
 		if (!(obj instanceof L2PcInstance))
+		{
+			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
+		}
 
-		activeChar.sendPacket(new RecipeShopItemInfo((L2PcInstance) obj, _recipeId));
+		sendPacket(new RecipeShopItemInfo((L2PcInstance) obj, _recipeId));
+
+		sendAF();
 	}
 
 	@Override

@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -30,8 +29,8 @@ public class RequestQuestAbort extends L2GameClientPacket
 {
     private static final String _C__64_REQUESTQUESTABORT = "[C] 64 RequestQuestAbort";
 
-    
     private int _questId;
+
     /**
      * packet type id 0x64<p>
      */
@@ -45,9 +44,8 @@ public class RequestQuestAbort extends L2GameClientPacket
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null)
-            return;
-        
+        if (activeChar == null) return;
+
         Quest qe = QuestManager.getInstance().getQuest(_questId);
         if (qe != null)
         {
@@ -65,13 +63,12 @@ public class RequestQuestAbort extends L2GameClientPacket
         }
         else
         {
-            if (_log.isDebugEnabled()) _log.warn("Quest (id='"+_questId+"') not found.");
+            if (_log.isDebugEnabled()) _log.warn("Quest (id='" + _questId + "') not found.");
         }
+
+        sendAF();
     }
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {

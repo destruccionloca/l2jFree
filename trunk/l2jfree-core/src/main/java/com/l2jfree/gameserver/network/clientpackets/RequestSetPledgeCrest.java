@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -34,11 +33,10 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 public class RequestSetPledgeCrest extends L2GameClientPacket
 {
 	private static final String _C__53_REQUESTSETPLEDGECREST = "[C] 53 RequestSetPledgeCrest";
-	
+
 	private int _length;
 	private byte[] _data;
-	
-    
+
     @Override
     protected void readImpl()
     {
@@ -54,69 +52,62 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
-		if (activeChar == null)
-		    return;
-		
+		if (activeChar == null) return;
+
 		L2Clan clan = activeChar.getClan();
 		if (clan == null)
-		    return;
-
-		if (clan.getDissolvingExpiryTime() > System.currentTimeMillis())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS));
+			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+		    return;
+		}
+		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) != L2Clan.CP_CL_REGISTER_CREST)
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+		    return;
+		}
+		else if (clan.getLevel() < 3)
+		{
+			requestFailed(SystemMessageId.CLAN_LVL_3_NEEDED_TO_SET_CREST);
+			return;
+		}
+		else if (clan.getDissolvingExpiryTime() > 0)
+		{
+			requestFailed(SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS);
         	return;
 		}
 
-		if (_length < 0)
+		if (_length < 0 || _length > 256)
 		{
-			activeChar.sendMessage("File transfer error.");
+			requestFailed(SystemMessageId.INVALID_INSIGNIA_FORMAT);
 			return;
 		}
-		if (_length > 256)
-		{
-			activeChar.sendMessage("The clan crest file size was too big (max 256 bytes).");
-			return;
-		}
+
+		CrestCache crestCache = CrestCache.getInstance();
 
 		if (_length == 0 || _data.length == 0)
 		{
-			CrestCache.getInstance().removePledgeCrest(clan.getCrestId());
-			
+			crestCache.removePledgeCrest(clan.getCrestId());
             clan.setHasCrest(false);
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED));
-            
+            sendPacket(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED);
+
             for (L2PcInstance member : clan.getOnlineMembers(0))
                 member.broadcastUserInfo();
-            
-            return;
 		}
-
-		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) == L2Clan.CP_CL_REGISTER_CREST)
+		else
 		{
-			if (clan.getLevel() < 3)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_SET_CREST));
-				return;
-			}
-			
-            CrestCache crestCache = CrestCache.getInstance();
-            
-            int newId = IdFactory.getInstance().getNextId();
-            
-            if(clan.hasCrest())
+			int newId = IdFactory.getInstance().getNextId();
+			if (!crestCache.savePledgeCrest(newId, _data))
             {
-            	crestCache.removePledgeCrest(newId);
-            }
-            
-            if (!crestCache.savePledgeCrest(newId,_data))
-            {
-                _log.info( "Error loading crest of clan:" + clan.getName());
+				//all lies, the problem is server-side :D
+            	requestFailed(SystemMessageId.INVALID_INSIGNIA_COLOR);
+                _log.warn("Error saving crest of clan:" + clan.getName());
                 return;
             }
 
-            Connection con = null;
-            
+			if (clan.hasCrest())
+				crestCache.removeOldPledgeCrest(clan.getCrestId());
+
+			Connection con = null;
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -134,19 +125,17 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
             {
                 L2DatabaseFactory.close(con);
             }
-            
+
             clan.setCrestId(newId);
             clan.setHasCrest(true);
-            
+
             for (L2PcInstance member : clan.getOnlineMembers(0))
                 member.broadcastUserInfo();
-            
 		}
+
+        sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
