@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.view.CharLikeView;
+import com.l2jfree.gameserver.model.actor.view.TrapView;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
@@ -40,7 +42,19 @@ public class L2Trap extends L2Character
 		_owner = owner;
 		getPosition().setXYZInvisible(owner.getX(), owner.getY(), owner.getZ());
 	}
-
+	
+	@Override
+	protected CharLikeView initView()
+	{
+		return new TrapView(this);
+	}
+	
+	@Override
+	public TrapView getView()
+	{
+		return (TrapView)_view;
+	}
+	
 	/**
 	 *
 	 * @see com.l2jfree.gameserver.model.actor.L2Character#onSpawn()

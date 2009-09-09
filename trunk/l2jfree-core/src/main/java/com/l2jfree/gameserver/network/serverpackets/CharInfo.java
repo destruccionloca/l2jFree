@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.view.PcLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -31,10 +32,7 @@ public class CharInfo extends L2GameServerPacket
 	private final L2PcInstance		_activeChar;
 	private final PcAppearance		_appearance;
 	private final Inventory			_inv;
-	private final int					_x, _y, _z, _heading;
 	private final int					_mAtkSpd, _pAtkSpd;
-	private final int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd;
-	private int _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
 	private final float				_moveMultiplier, _attackSpeedMultiplier;
 	private int					_cursedWeaponLevel = 0;
 	private double				_collisionHeight, _collisionRadius;
@@ -45,21 +43,15 @@ public class CharInfo extends L2GameServerPacket
 	 */
 	public CharInfo(L2PcInstance cha)
 	{
+		cha.getView().refresh();
+		
 		_activeChar = cha;
 		_appearance = cha.getAppearance();
 		_inv = _activeChar.getInventory();
-		_x = _activeChar.getX();
-		_y = _activeChar.getY();
-		_z = _activeChar.getZ();
-		_heading = _activeChar.getHeading();
 		_mAtkSpd = _activeChar.getMAtkSpd();
 		_pAtkSpd = _activeChar.getPAtkSpd();
 		_moveMultiplier = _activeChar.getStat().getMovementSpeedMultiplier();
 		_attackSpeedMultiplier = _activeChar.getStat().getAttackSpeedMultiplier();
-		_runSpd = (int) (_activeChar.getRunSpeed() / _moveMultiplier);
-		_walkSpd = (int) (_activeChar.getStat().getWalkSpeed() / _moveMultiplier);
-		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
-		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 		if (cha.isCursedWeaponEquipped())
 			_cursedWeaponLevel = CursedWeaponsManager.getInstance().getLevel(cha.getCursedWeaponEquippedId());
 		
@@ -97,12 +89,14 @@ public class CharInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
+		final PcLikeView view = _activeChar.getView();
+		
 		writeC(0x31);
-		writeD(_x);
-		writeD(_y);
-		writeD(_z);
+		writeD(view.getX());
+		writeD(view.getY());
+		writeD(view.getZ());
 		writeD(0x00);
-		writeD(_activeChar.getObjectId());
+		writeD(view.getObjectId());
 		writeS(_appearance.getVisibleName());
 		writeD(_activeChar.getRace().ordinal());
 		writeD(_appearance.getSex() ? 1 : 0);
@@ -179,14 +173,14 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
 
-		writeD(_runSpd); // TODO: the order of the speeds should be confirmed
-		writeD(_walkSpd);
-		writeD(_swimRunSpd);
-		writeD(_swimWalkSpd);
-		writeD(_flRunSpd);
-		writeD(_flWalkSpd);
-		writeD(_flyRunSpd);
-		writeD(_flyWalkSpd);
+		writeD(view.getRunSpd()); // TODO: the order of the speeds should be confirmed
+		writeD(view.getWalkSpd());
+		writeD(view.getSwimRunSpd());
+		writeD(view.getSwimWalkSpd());
+		writeD(view.getFlRunSpd());
+		writeD(view.getFlWalkSpd());
+		writeD(view.getFlyRunSpd());
+		writeD(view.getFlyWalkSpd());
 		writeF(_moveMultiplier); // _cha.getProperMultiplier()
 		writeF(_attackSpeedMultiplier); // _cha.getAttackSpeedMultiplier()
 
@@ -266,7 +260,7 @@ public class CharInfo extends L2GameServerPacket
 
 		writeD(_appearance.getNameColor());
 
-		writeD(_heading);
+		writeD(view.getHeading());
 
 		writeD(_activeChar.getPledgeClass());
 		writeD(_activeChar.getSubPledgeType());

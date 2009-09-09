@@ -15,6 +15,8 @@
 package com.l2jfree.gameserver.model.actor;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.view.CharLikeView;
+import com.l2jfree.gameserver.model.actor.view.DecoyView;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
@@ -33,6 +35,18 @@ public abstract class L2Decoy extends L2Character
         _owner = owner;
         getPosition().setXYZInvisible(owner.getX(), owner.getY(), owner.getZ());
     }
+    
+	@Override
+	protected CharLikeView initView()
+	{
+		return new DecoyView(this);
+	}
+	
+	@Override
+	public DecoyView getView()
+	{
+		return (DecoyView)_view;
+	}
     
     @Override
     public void onSpawn()

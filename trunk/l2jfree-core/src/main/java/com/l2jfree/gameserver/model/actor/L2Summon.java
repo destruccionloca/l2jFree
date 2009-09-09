@@ -38,6 +38,8 @@ import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.shot.SummonShots;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.SummonStat;
+import com.l2jfree.gameserver.model.actor.view.CharLikeView;
+import com.l2jfree.gameserver.model.actor.view.SummonView;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
@@ -152,6 +154,18 @@ public abstract class L2Summon extends L2Playable
 	public final SummonKnownList getKnownList()
 	{
 		return (SummonKnownList)_knownList;
+	}
+	
+	@Override
+	protected CharLikeView initView()
+	{
+		return new SummonView(this);
+	}
+	
+	@Override
+	public SummonView getView()
+	{
+		return (SummonView)_view;
 	}
 	
 	@Override

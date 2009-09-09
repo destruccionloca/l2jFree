@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.view.PcLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -71,8 +72,7 @@ public class UserInfo extends L2GameServerPacket
 	private static final String	_S__04_USERINFO	= "[S] 04 UserInfo";
 	private final L2PcInstance		_activeChar;
 	private final PcAppearance		_appearance;
-	private final int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd;
-	private int _flyRunSpd, _flyWalkSpd, _relation;
+	private int _relation;
 	private final float				_moveMultiplier;
 
 	/**
@@ -80,13 +80,11 @@ public class UserInfo extends L2GameServerPacket
 	 */
 	public UserInfo(L2PcInstance cha)
 	{
+		cha.getView().refresh();
+		
 		_activeChar = cha;
 		_appearance = cha.getAppearance();
 		_moveMultiplier = _activeChar.getStat().getMovementSpeedMultiplier();
-		_runSpd = (int) (_activeChar.getRunSpeed() / _moveMultiplier);
-		_walkSpd = (int) (_activeChar.getStat().getWalkSpeed() / _moveMultiplier);
-		_swimRunSpd = _flyRunSpd = _runSpd;
-		_swimWalkSpd = _flyWalkSpd = _walkSpd;
 		_relation = _activeChar.isClanLeader() ? 0x40 : 0;
 		if (_activeChar.getSiegeState() == 1)
 			_relation |= 0x180;
@@ -113,14 +111,16 @@ public class UserInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
+		final PcLikeView view = _activeChar.getView();
+		
 		writeC(0x32);
 
-		writeD(_activeChar.getX());
-		writeD(_activeChar.getY());
-		writeD(_activeChar.getZ());
+		writeD(view.getX());
+		writeD(view.getY());
+		writeD(view.getZ());
 		// heading from CT2.3 no longer used inside userinfo, here is now vehicle id (boat,airship)
 		writeD((_activeChar.isInAirShip() && Config.PACKET_FINAL) ? _activeChar.getAirShip().getObjectId() : 0x00);
-		writeD(_activeChar.getObjectId());
+		writeD(view.getObjectId());
 		writeS(_appearance.getVisibleName());
 		writeD(_activeChar.getRace().ordinal());
 		writeD(_appearance.getSex() ? 1 : 0);
@@ -257,14 +257,14 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
 
-		writeD(_runSpd);
-		writeD(_walkSpd);
-		writeD(_swimRunSpd);
-		writeD(_swimWalkSpd);
+		writeD(view.getRunSpd());
+		writeD(view.getWalkSpd());
+		writeD(view.getSwimRunSpd());
+		writeD(view.getSwimWalkSpd());
 		writeD(0);
 		writeD(0);
-		writeD(_activeChar.isFlying() ? _flyRunSpd : 0); // fly speed
-		writeD(_activeChar.isFlying() ? _flyWalkSpd : 0); // fly speed
+		writeD(_activeChar.isFlying() ? view.getFlyRunSpd() : 0); // fly speed
+		writeD(_activeChar.isFlying() ? view.getFlyWalkSpd() : 0); // fly speed
 
 		writeF(_moveMultiplier);
 		writeF(_activeChar.getStat().getAttackSpeedMultiplier());

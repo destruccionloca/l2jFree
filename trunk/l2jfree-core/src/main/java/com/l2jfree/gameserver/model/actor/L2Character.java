@@ -76,6 +76,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
+import com.l2jfree.gameserver.model.actor.view.CharLikeView;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
@@ -195,6 +196,7 @@ public abstract class L2Character extends L2Object
 	protected boolean				_isMarked							= false;
 	private final int[]					lastPosition						=
 																		{ 0, 0, 0 };
+	protected final CharLikeView	_view;
 	protected final CharStat		_stat;
 	protected final CharStatus		_status;
 	private L2CharTemplate			_template;																				// The link on the L2CharTemplate
@@ -266,6 +268,7 @@ public abstract class L2Character extends L2Object
 		// Set its template to the new L2Character
 		_template = template;
 
+		_view = initView();
 		_stat = initStat();
 		_status = initStatus();
 		_knownList = initKnownList();
@@ -2729,7 +2732,17 @@ public abstract class L2Character extends L2Object
 	{
 		return _knownList;
 	}
-
+	
+	protected CharLikeView initView()
+	{
+		return null;
+	}
+	
+	public CharLikeView getView()
+	{
+		return _view;
+	}
+	
 	protected CharStat initStat()
 	{
 		return new CharStat(this);

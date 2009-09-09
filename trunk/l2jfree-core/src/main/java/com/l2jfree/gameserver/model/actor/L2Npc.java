@@ -79,6 +79,8 @@ import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.NpcStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.NpcStatus;
+import com.l2jfree.gameserver.model.actor.view.CharLikeView;
+import com.l2jfree.gameserver.model.actor.view.NpcView;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Town;
@@ -336,6 +338,18 @@ public class L2Npc extends L2Character
 	public NpcKnownList getKnownList()
 	{
 		return (NpcKnownList)_knownList;
+	}
+	
+	@Override
+	protected CharLikeView initView()
+	{
+		return new NpcView(this);
+	}
+	
+	@Override
+	public NpcView getView()
+	{
+		return (NpcView)_view;
 	}
 	
 	@Override

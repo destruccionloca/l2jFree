@@ -151,6 +151,8 @@ import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
+import com.l2jfree.gameserver.model.actor.view.CharLikeView;
+import com.l2jfree.gameserver.model.actor.view.PcView;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.ClassLevel;
 import com.l2jfree.gameserver.model.base.Experience;
@@ -1136,6 +1138,18 @@ public final class L2PcInstance extends L2Playable
 		return (PcKnownList)_knownList;
 	}
 
+	@Override
+	protected CharLikeView initView()
+	{
+		return new PcView(this);
+	}
+	
+	@Override
+	public PcView getView()
+	{
+		return (PcView)_view;
+	}
+	
 	@Override
 	protected CharStat initStat()
 	{
