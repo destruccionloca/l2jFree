@@ -106,22 +106,62 @@ public abstract class L2Transformation
 	}
 	
 	// Scriptable Events
-	public abstract void onTransform(L2PcInstance player);
+	public void onTransform(L2PcInstance player)
+	{
+		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+			return;
+		
+		// give transformation skills
+		transformedSkills(player);
+		
+		// Transfrom Dispel
+		addSkill(player, 619, 1);
+		// Decrease Bow/Crossbow Attack Speed
+		addSkill(player, 5491, 1);
+	}
 	
-	public abstract void onUntransform(L2PcInstance player);
+	protected abstract void transformedSkills(L2PcInstance player);
 	
-	protected void addSkill(L2PcInstance player, int skillId, int skillLevel)
+	public void onUntransform(L2PcInstance player)
+	{
+		// remove transformation skills
+		removeSkills(player);
+		
+		// Transfrom Dispel
+		removeSkill(player, 619);
+		// Decrease Bow/Crossbow Attack Speed
+		removeSkill(player, 5491);
+	}
+	
+	protected abstract void removeSkills(L2PcInstance player);
+	
+	protected final void addSkill(L2PcInstance player, int skillId, int skillLevel)
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 		if (skill == null)
 			_log.warn("Transformed skill " + skillId + " " + skillLevel + " not found!");
 		else
+		{
 			player.addSkill(skill, false);
+			player.addTransformAllowedSkill(skillId);
+		}
 	}
 	
-	protected void removeSkill(L2PcInstance player, int skillId)
+	protected final void addSkills(L2PcInstance player, int... skillIds)
+	{
+		for (int skillId : skillIds)
+			addSkill(player, skillId, 1);
+	}
+	
+	protected final void removeSkill(L2PcInstance player, int skillId)
 	{
 		player.removeSkill(skillId);
+	}
+	
+	protected final void removeSkills(L2PcInstance player, int... skillIds)
+	{
+		for (int skillId : skillIds)
+			removeSkill(player, skillId);
 	}
 	
 	// Override if necessary

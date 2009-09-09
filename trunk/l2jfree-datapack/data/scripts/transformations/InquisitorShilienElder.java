@@ -15,17 +15,17 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class InquisitorShilienElder extends L2DefaultTransformation
+public class InquisitorShilienElder extends L2Transformation
 {
 	public InquisitorShilienElder()
 	{
 		// id, colRadius, colHeight
 		super(318, 8.0, 25.0);
 	}
-
+	
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
@@ -34,7 +34,7 @@ public class InquisitorShilienElder extends L2DefaultTransformation
 		
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
-
+		
 		// Switch Stance
 		addSkill(player, 838, 1);
 		// Decrease Bow/Crossbow Attack Speed
@@ -55,7 +55,7 @@ public class InquisitorShilienElder extends L2DefaultTransformation
 		// remove transformation skills
 		removeSkills(player);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -68,9 +68,9 @@ public class InquisitorShilienElder extends L2DefaultTransformation
 			addSkill(player, 1528, level); // Divine Flash
 			addSkill(player, 1043, 1); // Holy Weapon
 		}
-		player.addTransformAllowedSkill(new int[]{1430,1303,1059});
+		player.addTransformAllowedSkill(new int[] { 1430, 1303, 1059 });
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -80,7 +80,7 @@ public class InquisitorShilienElder extends L2DefaultTransformation
 		removeSkill(player, 1528); // Divine Flash
 		removeSkill(player, 1043); // Holy Weapon
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new InquisitorShilienElder());

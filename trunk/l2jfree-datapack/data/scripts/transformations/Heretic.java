@@ -15,27 +15,20 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Description: <br>
- * This will handle the transformation, giving the skills, and removing them, when the player logs out and is transformed these skills
- * do not save.
- * When the player logs back in, there will be a call from the enterworld packet that will add all their skills.
- * The enterworld packet will transform a player.
- *
  * @author Ahmed
- *
  */
-public class Heretic extends L2DefaultTransformation
+public class Heretic extends L2Transformation
 {
 	public Heretic()
 	{
 		// id, colRadius, colHeight
 		super(3, 13.0, 19.0);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -53,7 +46,7 @@ public class Heretic extends L2DefaultTransformation
 		addSkill(player, 740, level); // Heretic Resurrection
 		addSkill(player, 741, level); // Heretic Heal Side Effect
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -62,7 +55,7 @@ public class Heretic extends L2DefaultTransformation
 		removeSkill(player, 740); // Heretic Resurrection
 		removeSkill(player, 741); // Heretic Heal Side Effect
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new Heretic());

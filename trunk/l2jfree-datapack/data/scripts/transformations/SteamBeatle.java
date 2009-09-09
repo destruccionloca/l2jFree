@@ -15,27 +15,27 @@
 package transformations;
 
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
-import com.l2jfree.gameserver.model.L2DefaultTransformation;
+import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class SteamBeatle extends L2DefaultTransformation
+public class SteamBeatle extends L2Transformation
 {
 	public SteamBeatle()
 	{
 		// id, colRadius, colHeight
 		super(110, 10.0, 24.0);
 	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new SteamBeatle());
