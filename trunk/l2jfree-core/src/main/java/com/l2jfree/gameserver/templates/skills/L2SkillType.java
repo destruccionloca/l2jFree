@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -127,13 +127,14 @@ public enum L2SkillType
 	REMOVE_TRAP,
 	SHIFT_TARGET,
 	INSTANT_JUMP,
+	DETECTION,
 	BALLISTA,
 	EXTRACTABLE,
 	LEARN_SKILL,
 	CLAN_GATE,
 	UNDEAD_DEFENSE,
 	CANCEL_STATS,
-	
+
 	AGATHION(L2SkillAgathion.class),
 	MOUNT(L2SkillMount.class),
 	CHANGEWEAPON(L2SkillChangeWeapon.class),
@@ -157,30 +158,30 @@ public enum L2SkillType
 	TELEPORT,
 	CHANGE_APPEARANCE,
 	OPEN_DOOR;
-	
+
 	private final Class<? extends L2Skill> _clazz;
 	private final Constructor<? extends L2Skill> _constructor;
 	private final L2SkillType _parent;
-	
+
 	private L2SkillType()
 	{
 		this(null, null);
 	}
-	
+
 	private L2SkillType(L2SkillType parent)
 	{
 		this(null, parent);
 	}
-	
+
 	private L2SkillType(Class<? extends L2Skill> clazz)
 	{
 		this(clazz, null);
 	}
-	
+
 	private L2SkillType(Class<? extends L2Skill> clazz, L2SkillType parent)
 	{
 		_parent = parent;
-		
+
 		if (_parent == null)
 		{
 			_clazz = (clazz == null ? L2Skill.class : clazz);
@@ -206,7 +207,7 @@ public enum L2SkillType
 					_clazz = clazz;
 				else
 					throw new IllegalStateException();
-				
+
 				try
 				{
 					_constructor = _clazz.getConstructor(StatsSet.class);
@@ -218,17 +219,17 @@ public enum L2SkillType
 			}
 		}
 	}
-	
+
 	public L2Skill makeSkill(StatsSet set) throws Exception
 	{
 		return _constructor.newInstance(set);
 	}
-	
+
 	public L2SkillType getRoot()
 	{
 		if (_parent == null)
 			return this;
-		
+
 		return _parent.getRoot();
 	}
 }

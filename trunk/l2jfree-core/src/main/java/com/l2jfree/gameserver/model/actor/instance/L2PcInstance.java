@@ -404,6 +404,10 @@ public final class L2PcInstance extends L2Playable
 		@Override
 		public void doAttack(L2Character target)
 		{
+			L2Effect eInvisible = getFirstEffect(L2EffectType.HIDE);
+			if (eInvisible != null)
+				eInvisible.exit();
+
 			super.doAttack(target);
 
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
@@ -414,6 +418,10 @@ public final class L2PcInstance extends L2Playable
 		@Override
 		public void doCast(L2Skill skill)
 		{
+			L2Effect eInvisible = getFirstEffect(L2EffectType.HIDE);
+			if (eInvisible != null)
+				eInvisible.exit();
+
 			super.doCast(skill);
 
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
@@ -1143,13 +1151,13 @@ public final class L2PcInstance extends L2Playable
 	{
 		return new PcView(this);
 	}
-	
+
 	@Override
 	public PcView getView()
 	{
 		return (PcView)_view;
 	}
-	
+
 	@Override
 	protected CharStat initStat()
 	{
@@ -8099,7 +8107,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (_transformation != null && !containsAllowedTransformSkill(skill.getId()) && !skill.allowOnTransform())
 			return true;
-		
+
 		return false;
 	}
 
@@ -10403,7 +10411,7 @@ public final class L2PcInstance extends L2Playable
 
             restoreHenna();
             sendPacket(new HennaInfo(this));
-            
+
             checkItemRestriction();
 
             if (getCurrentHp() > getMaxHp())
@@ -10412,10 +10420,10 @@ public final class L2PcInstance extends L2Playable
             	getStatus().setCurrentMp(getMaxMp());
             if (getCurrentCp() > getMaxCp())
             	getStatus().setCurrentCp(getMaxCp());
-            
+
             getInventory().restoreEquipedItemsPassiveSkill();
             getInventory().restoreArmorSetPassiveSkill();
-            
+
             refreshOverloaded();
     		refreshExpertisePenalty();
             broadcastUserInfo();
@@ -11479,7 +11487,7 @@ public final class L2PcInstance extends L2Playable
 				{
 					getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
 				}
-				
+
 				leaveParty();
 			}
 			catch (Exception e)
