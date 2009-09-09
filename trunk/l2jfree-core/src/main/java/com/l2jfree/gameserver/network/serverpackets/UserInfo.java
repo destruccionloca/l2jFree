@@ -382,7 +382,7 @@ public class UserInfo extends L2GameServerPacket
 		else
 			writeD(0x00);
 
-		writeD(_activeChar.getTransformationId());
+		writeD(_activeChar.getTransformation() != null ? _activeChar.getTransformation().getGraphicalId() : 0);
 
 		writePlayerElementAttribute(_activeChar);
 
