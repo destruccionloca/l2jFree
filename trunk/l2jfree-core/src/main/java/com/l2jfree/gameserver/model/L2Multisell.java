@@ -16,7 +16,9 @@ package com.l2jfree.gameserver.model;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -32,8 +34,6 @@ import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.util.LookupTable;
-import com.l2jfree.util.concurrent.SynchronizedLookupTable;
 
 /**
  * Multisell list manager
@@ -47,7 +47,7 @@ public final class L2Multisell
 		return SingletonHolder._instance;
 	}
 	
-	private final LookupTable<MultiSellListContainer> _entries = new SynchronizedLookupTable<MultiSellListContainer>();
+	private final Map<Integer, MultiSellListContainer> _entries = new HashMap<Integer, MultiSellListContainer>();
 	
 	private L2Multisell()
 	{
@@ -56,19 +56,16 @@ public final class L2Multisell
 	
 	public void reload()
 	{
-		_entries.clear(false);
+		_entries.clear();
 		parse();
 	}
 	
 	public MultiSellListContainer getList(int id)
 	{
-		synchronized (_entries)
-		{
-			final MultiSellListContainer list = _entries.get(id);
-			
-			if (list != null)
-				return list;
-		}
+		final MultiSellListContainer list = _entries.get(id);
+		
+		if (list != null)
+			return list;
 		
 		_log.warn("[L2Multisell] can't find list with id: " + id);
 		return null;
@@ -680,7 +677,7 @@ public final class L2Multisell
 			{
 				MultiSellListContainer list = parseDocument(doc);
 				list.setListId(id);
-				_entries.set(id, list);
+				_entries.put(id, list);
 			}
 			catch (Exception e)
 			{
