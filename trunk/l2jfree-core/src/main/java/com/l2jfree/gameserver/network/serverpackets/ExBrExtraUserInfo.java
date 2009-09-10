@@ -26,7 +26,7 @@ public class ExBrExtraUserInfo extends L2GameServerPacket
 	private final int _charObjId;
 	private final int _val;
 
-	public ExBrExtraUserInfo(L2PcInstance player)
+	protected ExBrExtraUserInfo(L2PcInstance player)
 	{
 		_charObjId = player.getObjectId();
 		_val = player.getAfroHaircutId();
