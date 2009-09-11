@@ -29,6 +29,9 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 			@Override
 			protected void sendPacket(L2Character cha)
 			{
+				if (cha.isDying())
+					return;
+				
 				cha.broadcastFullInfoImpl();
 			}
 		},

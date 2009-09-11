@@ -174,6 +174,7 @@ public abstract class L2Character extends L2Object
 	private boolean					_isPhysicalMuted					= false;											// Cannot use physical attack
 	private boolean					_isPhysicalAttackMuted				= false;											// Cannot use attack
 	private boolean					_isDead								= false;
+	private byte					_isDying							= DEATH_ANIMATION_NONE;
 	private boolean					_isImmobilized						= false;
 	private boolean					_isParalyzed						= false;											// cannot do anything
 
@@ -2411,6 +2412,49 @@ public abstract class L2Character extends L2Object
 	{
 		_isConfused = value;
 		updateAbnormalEffect();
+	}
+	
+	private static final byte DEATH_ANIMATION_NONE = 0;
+	private static final byte DEATH_ANIMATION_RUNNING = 1;
+	private static final byte DEATH_ANIMATION_RUNNING_AND_BROADCAST_NEEDED = 2;
+	
+	/**
+	 * Starts the protection to make sure that the death animation finishes normally.
+	 */
+	public final void startDying()
+	{
+		_isDying = DEATH_ANIMATION_RUNNING;
+		
+		// broadcast status now just to be sure
+		broadcastFullInfoImpl();
+		
+		ThreadPoolManager.getInstance().schedule(new Runnable() {
+			@Override
+			public void run()
+			{
+				final byte isDying = _isDying;
+				
+				_isDying = DEATH_ANIMATION_NONE;
+				
+				if (isDying == DEATH_ANIMATION_RUNNING_AND_BROADCAST_NEEDED)
+					broadcastFullInfo();
+			}
+		}, 2000);
+	}
+	
+	/**
+	 * @return indicates that the {@link PacketBroadcaster} should broadcast full info about the character, or not
+	 *         because of the death animation
+	 */
+	public final boolean isDying()
+	{
+		// normal state
+		if (_isDying == DEATH_ANIMATION_NONE)
+			return false;
+		
+		// death animation is in progress
+		_isDying = DEATH_ANIMATION_RUNNING_AND_BROADCAST_NEEDED;
+		return true;
 	}
 
 	public final boolean isDead()
