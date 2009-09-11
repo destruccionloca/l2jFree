@@ -148,8 +148,7 @@ public final class CharEffects
 					
 					if (isActiveDance(e, true, true))
 					{
-						for (String stackType : e.getStackTypes())
-							_stackedEffects.get(stackType).stopAllEffects();
+						stopStackedEffects(e);
 						return;
 					}
 				}
@@ -165,8 +164,7 @@ public final class CharEffects
 					
 					if (isActiveBuff(e))
 					{
-						for (String stackType : e.getStackTypes())
-							_stackedEffects.get(stackType).stopAllEffects();
+						stopStackedEffects(e);
 						return;
 					}
 				}
@@ -192,7 +190,12 @@ public final class CharEffects
 			return false;
 		
 		for (String stackType : effect.getStackTypes())
-			_stackedEffects.get(stackType).remove(effect);
+		{
+			StackQueue queue = _stackedEffects.get(stackType);
+			
+			if (queue != null)
+				queue.remove(effect);
+		}
 		_effects.remove(index);
 		_toArray = null;
 		
@@ -459,8 +462,7 @@ public final class CharEffects
 		{
 			while (!_effects.isEmpty())
 			{
-				for (String stackType : _effects.get(_effects.size() - 1).getStackTypes())
-					_stackedEffects.get(stackType).stopAllEffects();
+				stopStackedEffects(_effects.get(_effects.size() - 1));
 			}
 		}
 		else
@@ -495,15 +497,20 @@ public final class CharEffects
 			if (!isActiveBuff(e))
 				continue;
 			
-			for (String stackType : e.getStackTypes())
-			{
-				StackQueue queue = _stackedEffects.get(stackType);
-				
-				if (queue != null)
-					queue.stopAllEffects();
-			}
+			stopStackedEffects(e);
 			
 			e.exit(); // just to be sure
+		}
+	}
+	
+	private static void stopStackedEffects(L2Effect e)
+	{
+		for (String stackType : e.getStackTypes())
+		{
+			StackQueue queue = _stackedEffects.get(stackType);
+			
+			if (queue != null)
+				queue.stopAllEffects();
 		}
 	}
 }
