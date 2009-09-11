@@ -52,7 +52,7 @@ public final class AutomatedTvT
 	{
 		AutomatedTvTRestriction.getInstance().activate(); // TODO: must be checked
 	}
-	
+
 	private static final Log _log = LogFactory.getLog(AutomatedTvT.class);
 	private static final String REMOVE_DISCONNECTED_PLAYER = "UPDATE characters SET heading=?,x=?,y=?,z=?,title=? WHERE charId=?";
 	private static final String evtName = "Team versus team";
@@ -216,13 +216,17 @@ public final class AutomatedTvT
 
 		registered.clear();
 
+		if (participants.isEmpty())
+		{
+			endEarly();
+			return;
+		}
+
 		L2PcInstance player;
 		for (FastList.Node<L2PcInstance> n = participants.head(), end = participants.tail(); (n = n.getNext()) != end;)
 		{
 			player = n.getValue();
-			if (player == null)
-				continue;
-			else if (!canJoin(player))
+			if (!canJoin(player))
 			{
 				player.sendMessage("You no longer meet the requirements to join " + evtName);
 				participants.remove(player);
@@ -231,10 +235,7 @@ public final class AutomatedTvT
 
 		if (participants.size() < Config.AUTO_TVT_PARTICIPANTS_MIN)
 		{
-			Announcements.getInstance().announceToAll(evtName + " will not start, not enough players!");
-			participants.clear();
-			status = STATUS_NOT_IN_PROGRESS;
-			tpm.scheduleGeneral(task, Config.AUTO_TVT_DELAY_BETWEEN_EVENTS);
+			endEarly();
 			return;
 		}
 
@@ -257,7 +258,6 @@ public final class AutomatedTvT
 		for (FastList.Node<L2PcInstance> n = participants.head(), end = participants.tail(); (n = n.getNext()) != end;)
 		{
 			player = n.getValue();
-			if (player == null) continue;
 			eventPlayers.put(player.getObjectId(), new Participant(currTeam, player));
 			player.getAppearance().setNameColor((eventTeams[currTeam].getColorRed() & 0xFF) +
 					(eventTeams[currTeam].getColorGreen() << 8) +
@@ -743,6 +743,14 @@ public final class AutomatedTvT
 					Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
 		else
 			player.teleToLocation(p.getLoc(), true);
+	}
+
+	private final void endEarly()
+	{
+		Announcements.getInstance().announceToAll(evtName + " will not start, not enough players!");
+		participants.clear();
+		status = STATUS_NOT_IN_PROGRESS;
+		tpm.scheduleGeneral(task, Config.AUTO_TVT_DELAY_BETWEEN_EVENTS);
 	}
 
 	private class Participant
