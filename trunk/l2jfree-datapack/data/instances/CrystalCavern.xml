@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "instances.dtd">
-<instance name="EmeraldSteam">
+<instance name="CrystalCavern">
   <activityTime val="120"/>
   <allowSummon val="false"/>
   <returnteleport x="42673" y="-47988" z="-797"/>
@@ -30,5 +30,7 @@
     <door doorId="24220023"/>
     <door doorId="24220024"/>
     <door doorId="24220061"/>
+    <door doorId="24220026"/>
+    <door doorId="24220025"/>
   </doorlist>
 </instance>
