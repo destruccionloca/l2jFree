@@ -503,7 +503,7 @@ public final class CharEffects
 		}
 	}
 	
-	private static void stopStackedEffects(L2Effect e)
+	private void stopStackedEffects(L2Effect e)
 	{
 		for (String stackType : e.getStackTypes())
 		{
