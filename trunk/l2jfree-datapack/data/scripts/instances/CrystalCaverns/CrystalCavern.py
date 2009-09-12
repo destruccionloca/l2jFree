@@ -1,7 +1,7 @@
 # Script by Psycho(killer1888) / L2jFree
 # Still missing:
 # - Doors behavior in Emerald. They should close themselves as soon as the one who opened them moves - SOLVED
-# - Contaminated crystal should not be taken at entrance, but exchange by the oracle in case the "boss" dies.
+# - Contaminated crystal should not be taken at entrance, but exchange by the oracle in case the "boss" dies. - SOLVED
 # - Meeting with Baylor is custom and not complete. Please understand that it's hard to get real info about CC
 # - Mob stats and droplists, AI for the final mobs + z-axis corrections on them
 # - Traps in Steam Corridor
@@ -9,18 +9,22 @@
 # - Surely much more, but at least it's completly working! Enjoy retail like S80 crafting possibilities!
 # @devs: Please edit this list if bugs found or points solved
 
-from java.lang                                     import System
-from com.l2jfree.gameserver.instancemanager        import InstanceManager
-from com.l2jfree.gameserver.model.actor            import L2Summon
-from com.l2jfree.gameserver.model.entity           import Instance
-from com.l2jfree.gameserver.model.quest            import State
-from com.l2jfree.gameserver.model.quest            import QuestState
-from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest
-from com.l2jfree.gameserver.network.serverpackets  import CreatureSay
-from com.l2jfree.gameserver.network.serverpackets  import MagicSkillUse
-from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
-from com.l2jfree.tools.random                      import Rnd
-from com.l2jfree.gameserver.datatables             import ItemTable
+from java.lang                                          import System
+from com.l2jfree.gameserver.datatables                  import ItemTable
+from com.l2jfree.gameserver.instancemanager             import InstanceManager
+from com.l2jfree.gameserver.instancemanager.grandbosses import BaylorManager
+from com.l2jfree.gameserver.model.actor                 import L2Summon
+from com.l2jfree.gameserver.model.entity                import Instance
+from com.l2jfree.gameserver.model.quest                 import State
+from com.l2jfree.gameserver.model.quest                 import QuestState
+from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets       import CreatureSay
+from com.l2jfree.gameserver.network.serverpackets       import InventoryUpdate
+from com.l2jfree.gameserver.network.serverpackets       import MagicSkillUse
+from com.l2jfree.gameserver.network.serverpackets       import SystemMessage
+from com.l2jfree.gameserver.network                     import SystemMessageId
+from com.l2jfree.tools.random                           import Rnd
+
 
 qn = "CrystalCavern"
 
@@ -33,6 +37,7 @@ RED_CRYSTAL   = 9696
 CLEAR_CRYSTAL = 9697
 
 #NPCs
+TELEPORTER    = 32279
 ORACLE_GUIDE  = 32281
 ORACLE_GUIDE2 = 32278
 ORACLE_GUIDE3 = 32280
@@ -137,7 +142,7 @@ def checkCondition(player):
 
 def teleportplayer(self,player,teleto,entry):
     if entry:
-        player.destroyItemByItemId("Quest", CRYSTAL, 1, player, True)
+        player.destroyItemByItemId("Crystal Cavern", CRYSTAL, 1, player, True)
         player.setInstanceId(teleto.instanceId)
     player.teleToLocation(teleto.x, teleto.y, teleto.z)
     pet = player.getPet()
@@ -195,7 +200,7 @@ def enterInstance(self,player,template,teleto):
             teleportplayer(self,partyMember,teleto,True)
     return instanceId
 
-def exitInstance(player,tele):
+def exitInstance(player,teleto):
     player.setInstanceId(0)
     player.teleToLocation(teleto.x, teleto.y, teleto.z)
     pet = player.getPet()
@@ -214,102 +219,102 @@ def checkKillProgress(npc,room):
 
 def runCoralGarden(self,world):
     world.status = 30
-    world.crystalCavern = PyObject()
-    world.crystalCavern = {}
+    world.CoralGarden = PyObject()
+    world.CoralGarden.npclist = {}
     newNpc = self.addSpawn(22314, 141740, 150330, -11817, 6633, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 141233, 149960, -11817, 49187, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 141866, 150723, -11817, 13147, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 142276, 151105, -11817, 7823, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 142102, 151640, -11817, 20226, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 142093, 152269, -11817, 3445, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 141569, 152994, -11817, 22617, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 141083, 153210, -11817, 28405, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 140469, 152415, -11817, 41700, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 140180, 151635, -11817, 45729, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 140490, 151126, -11817, 54857, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 140930, 150269, -11817, 17591, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 141203, 150210, -11817, 64400, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 141360, 150357, -11817, 9093, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 142255, 151694, -11817, 14655, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 141920, 151124, -11817, 8191, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 141911, 152734, -11817, 21600, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 141032, 152929, -11817, 32791, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 140317, 151837, -11817, 43864, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 140183, 151939, -11817, 25981, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22316, 140944, 152724, -11817, 12529, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22316, 141301, 154428, -11817, 17207, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22316, 142499, 154437, -11817, 65478, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 142664, 154612, -11817, 8498, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 142711, 154137, -11817, 28756, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 142705, 154378, -11817, 26017, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 141605, 154490, -11817, 31128, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 141115, 154674, -11817, 28781, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 141053, 154431, -11817, 46546, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 141423, 154130, -11817, 60888, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 142249, 154395, -11817, 64346, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 141530, 152803, -11817, 53953, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 142020, 152272, -11817, 55995, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 142134, 151667, -11817, 52687, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 141958, 151021, -11817, 42965, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 140979, 150233, -11817, 38924, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 140509, 150983, -11817, 23466, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 140151, 151410, -11817, 23661, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22317, 140446, 152370, -11817, 13192, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 140249, 152133, -11817, 41391, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 140664, 152655, -11817, 8720, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 141610, 152988, -11817, 57460, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22314, 141189, 154197, -11817, 16792, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 142315, 154368, -11817, 30260, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22315, 142577, 154774, -11817, 45981, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22313, 141338, 153089, -11817, 26387, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22316, 140800, 150707, -11817, 55884, False,0,False, world.instanceId)
-    world.crystalCavern[newNpc]=False
+    world.CoralGarden.npclist[newNpc]=False
     if debug: print "Coral: hall spawned in instance " + str(world.instanceId)
 
 def runGolems(self,world):
@@ -717,6 +722,7 @@ class CrystalCavern(JQuest):
         JQuest.__init__(self,id,name,descr)
         self.worlds = {}
         self.world_ids = []
+        self.BossKilled = 0
 
     def onAdvEvent (self,event,npc,player):
         st = player.getQuestState(qn)
@@ -740,14 +746,42 @@ class CrystalCavern(JQuest):
                 party = player.getParty()
                 for partyMember in party.getPartyMembers().toArray():
                     saveEntry(self,partyMember)
+        elif npcId == TELEPORTER:
+                if self.BossKilled == TEARS:
+                    CRYSTAL_TO_GIVE = CLEAR_CRYSTAL
+                elif self.BossKilled == KECHI:
+                    CRYSTAL_TO_GIVE = RED_CRYSTAL
+                else:
+                    CRYSTAL_TO_GIVE = BLUE_CRYSTAL
+                item = player.getInventory().addItem("Crystal Cavern", CRYSTAL_TO_GIVE, 1, player, None)
+                iu = InventoryUpdate()
+                iu.addItem(item)
+                player.sendPacket(iu);
+                sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
+                sm.addItemName(item)
+                sm.addNumber(1)
+                player.sendPacket(sm)
+                if event == "out":
+                    tele = PyObject()
+                    tele.x = 149361
+                    tele.y = 172327
+                    tele.z = -945
+                    exitInstance(player,tele)
+                elif event == "meet":
+                    tele = PyObject()
+                    tele.x = 153586
+                    tele.y = 145934
+                    tele.z = -12589
+                    teleportplayer(self,player,tele,False)
         return
 
     def onTalk (self,npc,player):
         npcId = npc.getNpcId()
         if npcId == ORACLE_GUIDE:
             htmltext = "<html><body>[You feel a chill and hear a voice...]<br>Oracle Guide:<br><a action=\"bypass -h Quest CrystalCavern coral\">Enter Coral Garden.</a><br><a action=\"bypass -h Quest CrystalCavern emerald\">Enter Emerald Square/Steam Corridor</a></body></html>"
-            return htmltext
-        return
+        elif npcId == TELEPORTER:
+            htmltext = "<html><body>Oracle Guide:<br>Good job! You made it through!<br><br><a action=\"bypass -h Quest CrystalCavern meet\">Meet Baylor</a><br><br><a action=\"bypass -h Quest CrystalCavern out\">I want out!!</a></body></html>"
+        return htmltext
 
     def onFirstTalk(self,npc,player):
         world = self.worlds[npc.getInstanceId()]
@@ -875,12 +909,12 @@ class CrystalCavern(JQuest):
                     self.addSpawn(ORACLE_GUIDE2, 152243, 150152, -12141, 0, False, 0, False, world.instanceId)
                     runKechi(self,world)
             elif world.status == 30:
-                if checkKillProgress(npc,world.crystalCavern):
+                if checkKillProgress(npc,world.CoralGarden):
                     runGolems(self,world)
             elif world.status == 31:
                 npcId = npc.getNpcId()
                 if npcId == TEARS:
-                    dropItem(npc,CLEAR_CRYSTAL,1,player)
+                    self.BossKilled = TEARS
             if world.status >= 1 and world.status <= 6:
                 if npcId in [DOLPH,TEROD,WEYLIN,GUARDIAN,GUARDIAN2]:
                     world.bosses = world.bosses - 1
@@ -888,14 +922,15 @@ class CrystalCavern(JQuest):
                         runDarnel(self,world)
             if world.status == 7 or world.status == 24:
                 if npcId == DARNEL:
-                    dropItem(npc,BLUE_CRYSTAL,1,player)
+                    self.BossKilled = DARNEL
                 elif npcId == KECHI:
-                    dropItem(npc,RED_CRYSTAL,1,player)
+                    self.BossKilled = KECHI
         return
 
 QUEST = CrystalCavern(-1, qn, "CrystalCavern")
 QUEST.addStartNpc(ORACLE_GUIDE)
 QUEST.addTalkId(ORACLE_GUIDE)
+QUEST.addTalkId(TELEPORTER)
 QUEST.addKillId(GK1)
 QUEST.addKillId(GK2)
 QUEST.addKillId(TEROD)
