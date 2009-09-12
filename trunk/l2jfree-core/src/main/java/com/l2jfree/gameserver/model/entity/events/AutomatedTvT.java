@@ -226,6 +226,7 @@ public final class AutomatedTvT
 		for (FastList.Node<L2PcInstance> n = participants.head(), end = participants.tail(); (n = n.getNext()) != end;)
 		{
 			player = n.getValue();
+			if (player == null) continue;
 			if (!canJoin(player))
 			{
 				player.sendMessage("You no longer meet the requirements to join " + evtName);
@@ -258,6 +259,7 @@ public final class AutomatedTvT
 		for (FastList.Node<L2PcInstance> n = participants.head(), end = participants.tail(); (n = n.getNext()) != end;)
 		{
 			player = n.getValue();
+			if (player == null) continue;
 			eventPlayers.put(player.getObjectId(), new Participant(currTeam, player));
 			player.getAppearance().setNameColor((eventTeams[currTeam].getColorRed() & 0xFF) +
 					(eventTeams[currTeam].getColorGreen() << 8) +
