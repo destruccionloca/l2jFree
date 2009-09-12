@@ -94,6 +94,7 @@ import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.AntharasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaylorManager;
@@ -11315,6 +11316,8 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void deleteMe()
 	{
+		final HashSet<L2Zone> before = getZonesPlayerIn();
+		
 		if (getOnlineState() == ONLINE_STATE_DELETED)
 			return;
 
@@ -11633,6 +11636,26 @@ public final class L2PcInstance extends L2Playable
 		LeakTaskManager.getInstance().add(this);
 
 		SQLQueue.getInstance().run();
+		
+		final HashSet<L2Zone> after = getZonesPlayerIn();
+		
+		if (!after.isEmpty())
+		{
+			_log.warn("Leaking zones before L2PcInstance.deleteMe(): " + before.toString());
+			_log.warn("Leaking zones after L2PcInstance.deleteMe(): " + after.toString());
+		}
+	}
+	
+	private HashSet<L2Zone> getZonesPlayerIn()
+	{
+		final HashSet<L2Zone> set = new HashSet<L2Zone>();
+		
+		for (Map<String, L2Zone> zones : ZoneManager.getInstance().getZones())
+			for (L2Zone zone : zones.values())
+				if (zone.getCharactersInside().contains(zone))
+					set.add(zone);
+		
+		return set;
 	}
 
 	public boolean canLogout()

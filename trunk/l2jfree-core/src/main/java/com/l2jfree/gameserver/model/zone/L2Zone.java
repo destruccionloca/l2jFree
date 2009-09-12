@@ -382,6 +382,15 @@ public class L2Zone implements FuncOwner
 	
 	private State getExpectedState(L2Character character)
 	{
+		if (character instanceof L2PcInstance)
+		{
+			if (((L2PcInstance)character).getOnlineState()  == L2PcInstance.ONLINE_STATE_DELETED)
+			{
+				_log.warn("", new IllegalStateException());
+				return State.OUTSIDE;
+			}
+		}
+		
 		if (!isInsideZone(character))
 			return State.OUTSIDE;
 		
