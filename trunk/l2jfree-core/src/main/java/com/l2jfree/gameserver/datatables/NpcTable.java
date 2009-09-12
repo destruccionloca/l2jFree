@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -47,19 +47,19 @@ import com.l2jfree.util.LookupTable;
 public final class NpcTable
 {
 	private static final Log _log = LogFactory.getLog(NpcTable.class);
-
+	
 	public static NpcTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-
+	
 	private final LookupTable<L2NpcTemplate> _npcs = new LookupTable<L2NpcTemplate>();
-
+	
 	private NpcTable()
 	{
 		restoreNpcData();
 	}
-
+	
 	private void restoreNpcData()
 	{
 		Connection con = null;
@@ -68,58 +68,8 @@ public final class NpcTable
 			con = L2DatabaseFactory.getInstance().getConnection();
 			try
 			{
-				PreparedStatement statement;
-				statement = con.prepareStatement("SELECT "
-						+ L2DatabaseFactory.getInstance().safetyString(
-						"id",
-						"idTemplate",
-						"name",
-						"serverSideName",
-						"title",
-						"serverSideTitle",
-						"class",
-						"collision_radius",
-						"collision_height",
-						"level",
-						"sex",
-						"type",
-						"attackrange",
-						"hp",
-						"mp",
-						"hpreg",
-						"mpreg",
-						"str",
-						"con",
-						"dex",
-						"int",
-						"wit",
-						"men",
-						"exp",
-						"sp",
-						"patk",
-						"pdef",
-						"matk",
-						"mdef",
-						"atkspd",
-						"aggro",
-						"matkspd",
-						"rhand",
-						"lhand",
-						"armor",
-						"walkspd",
-						"runspd",
-						"faction_id",
-						"faction_range",
-						"isUndead",
-						"absorb_level",
-						"absorb_type",
-						"ss",
-						"bss",
-						"ss_rate",
-						"AI",
-						"drop_herbs") + " FROM npc");
+				PreparedStatement statement = con.prepareStatement("SELECT * FROM npc");
 				ResultSet npcdata = statement.executeQuery();
-
 				fillNpcTable(npcdata);
 				npcdata.close();
 				statement.close();
@@ -129,59 +79,10 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error creating NPC table: ", e);
 			}
-
+			
 			try
 			{
-				PreparedStatement statement;
-				statement = con.prepareStatement("SELECT "
-						+ L2DatabaseFactory.getInstance().safetyString(
-						"id",
-						"idTemplate",
-						"name",
-						"serverSideName",
-						"title",
-						"serverSideTitle",
-						"class",
-						"collision_radius",
-						"collision_height",
-						"level",
-						"sex",
-						"type",
-						"attackrange",
-						"hp",
-						"mp",
-						"hpreg",
-						"mpreg",
-						"str",
-						"con",
-						"dex",
-						"int",
-						"wit",
-						"men",
-						"exp",
-						"sp",
-						"patk",
-						"pdef",
-						"matk",
-						"mdef",
-						"atkspd",
-						"aggro",
-						"matkspd",
-						"rhand",
-						"lhand",
-						"armor",
-						"walkspd",
-						"runspd",
-						"faction_id",
-						"faction_range",
-						"isUndead",
-						"absorb_level",
-						"absorb_type",
-						"ss",
-						"bss",
-						"ss_rate",
-						"AI",
-						"drop_herbs") + " FROM custom_npc");
+				PreparedStatement statement = con.prepareStatement("SELECT * FROM custom_npc");
 				ResultSet npcdata = statement.executeQuery();
 				int npc_count = _npcs.size();
 				fillNpcTable(npcdata);
@@ -194,39 +95,43 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error creating custom NPC table: ", e);
 			}
-
+			
 			try
 			{
 				PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM npcskills");
 				ResultSet npcskills = statement.executeQuery();
-				L2NpcTemplate npcDat = null;
-				L2Skill npcSkill = null;
-
+				
 				while (npcskills.next())
 				{
 					int mobId = npcskills.getInt("npcid");
-					npcDat = _npcs.get(mobId);
-
+					L2NpcTemplate npcDat = _npcs.get(mobId);
+					
 					if (npcDat == null)
+					{
+						_log.warn("NpcTable: Missing template for npcskills for npc id: " + mobId);
 						continue;
-
+					}
+					
 					int skillId = npcskills.getInt("skillid");
 					int level = npcskills.getInt("level");
-
+					
 					if (skillId == 4416)
 					{
 						npcDat.setRace(level);
 						continue;
 					}
-
-					npcSkill = SkillTable.getInstance().getInfo(skillId, level);
-
+					
+					L2Skill npcSkill = SkillTable.getInstance().getInfo(skillId, level);
+					
 					if (npcSkill == null)
+					{
+						_log.warn("NpcTable: Missing skill for npcskills for skill id-lvl: " + skillId + " " + level);
 						continue;
-
+					}
+					
 					npcDat.addSkill(npcSkill);
 				}
-
+				
 				npcskills.close();
 				statement.close();
 			}
@@ -234,39 +139,43 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error reading NPC skills table: ", e);
 			}
-
+			
 			try
 			{
 				PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM custom_npcskills");
 				ResultSet npcskills = statement.executeQuery();
-				L2NpcTemplate npcDat = null;
-				L2Skill npcSkill = null;
-
+				
 				while (npcskills.next())
 				{
 					int mobId = npcskills.getInt("npcid");
-					npcDat = _npcs.get(mobId);
-
+					L2NpcTemplate npcDat = _npcs.get(mobId);
+					
 					if (npcDat == null)
+					{
+						_log.warn("NpcTable: Missing template for custom_npcskills for npc id: " + mobId);
 						continue;
-
+					}
+					
 					int skillId = npcskills.getInt("skillid");
 					int level = npcskills.getInt("level");
-
+					
 					if (skillId == 4416)
 					{
 						npcDat.setRace(level);
 						continue;
 					}
-
-					npcSkill = SkillTable.getInstance().getInfo(skillId, level);
-
+					
+					L2Skill npcSkill = SkillTable.getInstance().getInfo(skillId, level);
+					
 					if (npcSkill == null)
+					{
+						_log.warn("NpcTable: Missing skill for custom_npcskills for skill id-lvl: " + skillId + " " + level);
 						continue;
-
+					}
+					
 					npcDat.addSkill(npcSkill);
 				}
-
+				
 				npcskills.close();
 				statement.close();
 			}
@@ -274,35 +183,33 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error reading custom NPC skills table: ", e);
 			}
-
+			
 			try
 			{
-				PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("mobId", "itemId", "min", "max", "category", "chance") + " FROM droplist ORDER BY mobId, chance DESC");
+				PreparedStatement statement2 = con.prepareStatement("SELECT * FROM droplist ORDER BY mobId, chance DESC");
 				ResultSet dropData = statement2.executeQuery();
-				L2DropData dropDat = null;
-				L2NpcTemplate npcDat = null;
-
+				
 				while (dropData.next())
 				{
 					int mobId = dropData.getInt("mobId");
-					npcDat = _npcs.get(mobId);
+					L2NpcTemplate npcDat = _npcs.get(mobId);
 					if (npcDat == null)
 					{
 						_log.fatal("NPCTable: Drop data for undefined NPC. npcId: " + mobId);
 						continue;
 					}
-					dropDat = new L2DropData();
-
+					L2DropData dropDat = new L2DropData();
+					
 					dropDat.setItemId(dropData.getInt("itemId"));
 					dropDat.setMinDrop(dropData.getInt("min"));
 					dropDat.setMaxDrop(dropData.getInt("max"));
 					dropDat.setChance(dropData.getInt("chance"));
-
+					
 					int category = dropData.getInt("category");
-
+					
 					npcDat.addDropData(dropDat, category);
 				}
-
+				
 				dropData.close();
 				statement2.close();
 			}
@@ -310,35 +217,33 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error reading NPC drop data: ", e);
 			}
-
+			
 			try
 			{
-				PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("mobId", "itemId", "min", "max", "category", "chance") + " FROM custom_droplist ORDER BY mobId, chance DESC");
+				PreparedStatement statement2 = con.prepareStatement("SELECT * FROM custom_droplist ORDER BY mobId, chance DESC");
 				ResultSet dropData = statement2.executeQuery();
-				L2DropData dropDat = null;
-				L2NpcTemplate npcDat = null;
-
+				
 				while (dropData.next())
 				{
 					int mobId = dropData.getInt("mobId");
-					npcDat = _npcs.get(mobId);
+					L2NpcTemplate npcDat = _npcs.get(mobId);
 					if (npcDat == null)
 					{
 						_log.fatal("NPCTable: Custom drop data for undefined NPC. npcId: " + mobId);
 						continue;
 					}
-					dropDat = new L2DropData();
-
+					L2DropData dropDat = new L2DropData();
+					
 					dropDat.setItemId(dropData.getInt("itemId"));
 					dropDat.setMinDrop(dropData.getInt("min"));
 					dropDat.setMaxDrop(dropData.getInt("max"));
 					dropDat.setChance(dropData.getInt("chance"));
-
+					
 					int category = dropData.getInt("category");
-
+					
 					npcDat.addDropData(dropDat, category);
 				}
-
+				
 				dropData.close();
 				statement2.close();
 			}
@@ -346,12 +251,12 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error reading custom NPC drop data: ", e);
 			}
-
+			
 			try
 			{
-				PreparedStatement statement3 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("npc_id", "class_id") + " FROM skill_learn");
+				PreparedStatement statement3 = con.prepareStatement("SELECT * FROM skill_learn");
 				ResultSet learndata = statement3.executeQuery();
-
+				
 				while (learndata.next())
 				{
 					int npcId = learndata.getInt("npc_id");
@@ -366,7 +271,7 @@ public final class NpcTable
 
 					npc.addTeachInfo(ClassId.values()[classId]);
 				}
-
+				
 				learndata.close();
 				statement3.close();
 			}
@@ -374,32 +279,30 @@ public final class NpcTable
 			{
 				_log.fatal("NPCTable: Error reading NPC trainer data: ", e);
 			}
-
+			
 			try
 			{
-				PreparedStatement statement4 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("boss_id", "minion_id", "amount_min", "amount_max") + " FROM minions");
+				PreparedStatement statement4 = con.prepareStatement("SELECT * FROM minions");
 				ResultSet minionData = statement4.executeQuery();
-				L2MinionData minionDat = null;
-				L2NpcTemplate npcDat = null;
 				int cnt = 0;
-
+				
 				while (minionData.next())
 				{
 					int raidId = minionData.getInt("boss_id");
-					npcDat = _npcs.get(raidId);
+					L2NpcTemplate npcDat = _npcs.get(raidId);
 					if (npcDat == null)
 					{
-						_log.warn("Minion references undefined boss NPC. Boss NpcId: "+raidId);
+						_log.warn("Minion references undefined boss NPC. Boss NpcId: " + raidId);
 						continue;
 					}
-					minionDat = new L2MinionData();
+					L2MinionData minionDat = new L2MinionData();
 					minionDat.setMinionId(minionData.getInt("minion_id"));
 					minionDat.setAmountMin(minionData.getInt("amount_min"));
 					minionDat.setAmountMax(minionData.getInt("amount_max"));
 					npcDat.addRaidData(minionDat);
 					cnt++;
 				}
-
+				
 				minionData.close();
 				statement4.close();
 				_log.info("NpcTable: Loaded " + cnt + " Minions.");
@@ -418,7 +321,7 @@ public final class NpcTable
 			L2DatabaseFactory.close(con);
 		}
 	}
-
+	
 	private boolean fillNpcTable(ResultSet NpcData) throws Exception
 	{
 		boolean loaded = false;
@@ -426,20 +329,20 @@ public final class NpcTable
 		{
 			StatsSet npcDat = new StatsSet();
 			int id = NpcData.getInt("id");
-
+			
 			if (Config.ASSERT)
 				assert id < 1000000;
-
+			
 			npcDat.set("npcId", id);
 			npcDat.set("idTemplate", NpcData.getInt("idTemplate"));
 			int level = NpcData.getInt("level");
 			npcDat.set("level", level);
 			npcDat.set("jClass", NpcData.getString("class"));
-
+			
 			npcDat.set("baseShldDef", 0);
 			npcDat.set("baseShldRate", 0);
 			npcDat.set("baseCritRate", 38);
-
+			
 			npcDat.set("name", NpcData.getString("name"));
 			npcDat.set("serverSideName", NpcData.getBoolean("serverSideName"));
 			npcDat.set("title", NpcData.getString("title"));
@@ -464,7 +367,7 @@ public final class NpcTable
 			npcDat.set("armor", NpcData.getInt("armor"));
 			npcDat.set("baseWalkSpd", NpcData.getInt("walkspd"));
 			npcDat.set("baseRunSpd", NpcData.getInt("runspd"));
-
+			
 			// constants, until we have stats in DB
 			npcDat.set("baseSTR", NpcData.getInt("str"));
 			npcDat.set("baseCON", NpcData.getInt("con"));
@@ -482,22 +385,22 @@ public final class NpcTable
 			npcDat.set("basePDef", NpcData.getInt("pdef"));
 			npcDat.set("baseMAtk", NpcData.getInt("matk"));
 			npcDat.set("baseMDef", NpcData.getInt("mdef"));
-
+			
 			npcDat.set("factionId", NpcData.getString("faction_id"));
 			npcDat.set("factionRange", NpcData.getInt("faction_range"));
-
+			
 			npcDat.set("isUndead", NpcData.getString("isUndead"));
-
+			
 			npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 			npcDat.set("absorb_type", NpcData.getString("absorb_type"));
-
+			
 			npcDat.set("ss", NpcData.getInt("ss"));
 			npcDat.set("bss", NpcData.getInt("bss"));
 			npcDat.set("ssRate", NpcData.getInt("ss_rate"));
-
+			
 			npcDat.set("AI", NpcData.getString("AI"));
 			npcDat.set("drop_herbs", Boolean.valueOf(NpcData.getString("drop_herbs")));
-
+			
 			if (Config.FACTION_ENABLED)
 			{
 				Faction faction;
@@ -511,20 +414,20 @@ public final class NpcTable
 					}
 				}
 			}
-
+			
 			L2NpcTemplate template = new L2NpcTemplate(npcDat);
 			template.addVulnerability(Stats.BOW_WPN_VULN, 1);
 			template.addVulnerability(Stats.CROSSBOW_WPN_VULN, 1);
 			template.addVulnerability(Stats.BLUNT_WPN_VULN, 1);
 			template.addVulnerability(Stats.DAGGER_WPN_VULN, 1);
-
+			
 			_npcs.set(id, template);
-
+			
 			loaded = true;
 		}
 		return loaded;
 	}
-
+	
 	public boolean reloadNpc(int id)
 	{
 		Connection con = null;
@@ -561,55 +464,7 @@ public final class NpcTable
 
 			// reload the NPC base data
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement st = con.prepareStatement("SELECT "
-					+ L2DatabaseFactory.getInstance().safetyString(
-                    "id",
-                    "idTemplate",
-                    "name",
-                    "serverSideName",
-                    "title",
-                    "serverSideTitle",
-                    "class",
-                    "collision_radius",
-                    "collision_height",
-                    "level",
-                    "sex",
-                    "type",
-                    "attackrange",
-                    "hp",
-                    "mp",
-                    "hpreg",
-                    "mpreg",
-                    "str",
-                    "con",
-                    "dex",
-                    "int",
-                    "wit",
-                    "men",
-                    "exp",
-                    "sp",
-                    "patk",
-                    "pdef",
-                    "matk",
-                    "mdef",
-                    "atkspd",
-                    "aggro",
-                    "matkspd",
-                    "rhand",
-                    "lhand",
-                    "armor",
-                    "walkspd",
-                    "runspd",
-                    "faction_id",
-                    "faction_range",
-                    "isUndead",
-                    "absorb_level",
-                    "absorb_type",
-                    "ss",
-                    "bss",
-                    "ss_rate",
-                    "AI",
-                    "drop_herbs") + " FROM npc WHERE id=?");
+			PreparedStatement st = con.prepareStatement("SELECT * FROM npc WHERE id=?");
 			st.setInt(1, id);
 			ResultSet rs = st.executeQuery();
 			loaded = fillNpcTable(rs);
@@ -618,55 +473,7 @@ public final class NpcTable
 
 			if (!loaded)
 			{
-				st = con.prepareStatement("SELECT "
-						+ L2DatabaseFactory.getInstance().safetyString(
-                        "id",
-                        "idTemplate",
-                        "name",
-                        "serverSideName",
-                        "title",
-                        "serverSideTitle",
-                        "class",
-                        "collision_radius",
-                        "collision_height",
-                        "level",
-                        "sex",
-                        "type",
-                        "attackrange",
-                        "hp",
-                        "mp",
-                        "hpreg",
-                        "mpreg",
-                        "str",
-                        "con",
-                        "dex",
-                        "int",
-                        "wit",
-                        "men",
-                        "exp",
-                        "sp",
-                        "patk",
-                        "pdef",
-                        "matk",
-                        "mdef",
-                        "atkspd",
-                        "aggro",
-                        "matkspd",
-                        "rhand",
-                        "lhand",
-                        "armor",
-                        "walkspd",
-                        "runspd",
-                        "faction_id",
-                        "faction_range",
-                        "isUndead",
-                        "absorb_level",
-                        "absorb_type",
-                        "ss",
-                        "bss",
-                        "ss_rate",
-                        "AI",
-                        "drop_herbs") + " FROM custom_npc WHERE id=?");
+				st = con.prepareStatement("SELECT * FROM custom_npc WHERE id=?");
 				st.setInt(1, id);
 				rs = st.executeQuery();
 				loaded = fillNpcTable(rs);

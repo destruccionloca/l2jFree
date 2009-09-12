@@ -131,22 +131,6 @@ public final class L2DatabaseFactory
 		_source.close();
 	}
 	
-	public String prepQuerySelect(String[] fields, String tableName, String whereClause, boolean returnOnlyTopRecord)
-	{
-		String msSqlTop1 = "";
-		String mySqlTop1 = "";
-		if (returnOnlyTopRecord)
-		{
-			if (getProviderType() == ProviderType.MsSql)
-				msSqlTop1 = " Top 1 ";
-			if (getProviderType() == ProviderType.MySql)
-				mySqlTop1 = " Limit 1 ";
-		}
-		
-		return "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause
-			+ mySqlTop1;
-	}
-	
 	public String safetyString(String... whatToCheck)
 	{
 		// NOTE: Use brace as a safty percaution just incase name is a reserved word

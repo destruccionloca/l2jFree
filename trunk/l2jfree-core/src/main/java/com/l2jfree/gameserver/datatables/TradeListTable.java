@@ -79,14 +79,14 @@ public class TradeListTable
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement1 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("shop_id", "npc_id") + " FROM " + (custom ? "custom_merchant_shopids" : "merchant_shopids"));
+			PreparedStatement statement1 = con.prepareStatement("SELECT * FROM " + (custom ? "custom_merchant_shopids" : "merchant_shopids"));
 			ResultSet rset1 = statement1.executeQuery();
 			while (rset1.next())
 			{
-				PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("item_id", "price", "shop_id", "order", "count", "time", "currentCount") + " FROM "
+				PreparedStatement statement = con.prepareStatement("SELECT * FROM "
 						+ (custom ? "custom_merchant_buylists" : "merchant_buylists") + " WHERE shop_id=? ORDER BY "
 						+ L2DatabaseFactory.getInstance().safetyString("order") + " ASC");
-				statement.setString(1, String.valueOf(rset1.getInt("shop_id")));
+				statement.setInt(1, rset1.getInt("shop_id"));
 				ResultSet rset = statement.executeQuery();
 
 				L2TradeList buylist = new L2TradeList(rset1.getInt("shop_id"));

@@ -1690,17 +1690,16 @@ public class AdminEditNpc implements IAdminCommandHandler
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			L2DropData dropData = null;
 
 			npcData.clearAllDropData();
 
-			PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString("mobId", "itemId", "min", "max", "category", "chance") + " FROM droplist WHERE mobId=?");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM droplist WHERE mobId=?");
 			statement.setInt(1, npcId);
 			ResultSet dropDataList = statement.executeQuery();
 
 			while (dropDataList.next())
 			{
-				dropData = new L2DropData();
+				L2DropData dropData = new L2DropData();
 
 				dropData.setItemId(dropDataList.getInt("itemId"));
 				dropData.setMinDrop(dropDataList.getInt("min"));
