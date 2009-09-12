@@ -370,6 +370,9 @@ public abstract class L2Summon extends L2Playable
 	@Override
 	public final void broadcastStatusUpdateImpl()
 	{
+		// TODO: review
+		super.broadcastStatusUpdateImpl();
+		
 		getOwner().sendPacket(new PetStatusUpdate(this));
 		
 		final L2Party party = getParty();
