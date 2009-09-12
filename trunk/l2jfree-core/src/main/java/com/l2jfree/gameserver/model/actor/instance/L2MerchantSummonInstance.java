@@ -42,18 +42,18 @@ public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merc
 		super(objectId, template, owner, skill);
 	}
 	
-    @Override
-    public boolean hasAI()
-    {
-    	return false;
-    }
-
-    @Override
-    public L2CharacterAI getAI()
-    {
-    	return null;
-    }
-
+	@Override
+	public boolean hasAI()
+	{
+		return false;
+	}
+	
+	@Override
+	public L2CharacterAI getAI()
+	{
+		return null;
+	}
+	
     @Override
     public void deleteMe(L2PcInstance owner)
     {

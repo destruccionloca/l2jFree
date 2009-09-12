@@ -47,23 +47,13 @@ public class L2FortSiegeGuardInstance extends L2SiegeGuard
 	{
 		return (FortSiegeGuardKnownList)_knownList;
 	}
-
+	
 	@Override
-	public L2CharacterAI getAI()
+	protected L2CharacterAI initAI()
 	{
-		 L2CharacterAI ai = _ai; // Copy handle
-		 if (ai == null)
-		 {
-			 synchronized(this)
-			 {
-				 if (_ai == null)
-					_ai = new L2FortSiegeGuardAI(new AIAccessor());
-				 return _ai;
-			 }
-		 }
-		 return ai;
+		return new L2FortSiegeGuardAI(new AIAccessor());
 	}
-
+	
 	/**
 	 * Return True if a siege is in progress and the L2Character attacker isn't
 	 * a Defender.<BR>

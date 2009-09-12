@@ -186,7 +186,7 @@ public final class L2AirShipInstance extends L2Character
 	{
 		super(objectId, template);
 		getKnownList();
-		setAI(new L2CharacterAI(new AIAccessor()));
+		getAI();
 	}
 	
 	@Override
@@ -599,16 +599,23 @@ public final class L2AirShipInstance extends L2Character
 		return false;
 	}
 	@Override
-	public void setAI(L2CharacterAI newAI)
+	protected boolean canReplaceAI()
 	{
-		if (_ai == null)
-			_ai = newAI;
+		return false;
 	}
+	
+	@Override
+	protected L2CharacterAI initAI()
+	{
+		return new L2CharacterAI(new AIAccessor());
+	}
+	
 	public class AIAccessor extends L2Character.AIAccessor
 	{
-		@Override
+		/*@Override
 		public void detachAI()
-		{}
+		{
+		}*/
 	}
 
     public int getSpeed1()

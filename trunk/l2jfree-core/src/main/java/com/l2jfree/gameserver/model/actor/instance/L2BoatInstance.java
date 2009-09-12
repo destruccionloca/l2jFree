@@ -266,7 +266,7 @@ public class L2BoatInstance extends L2Character
 	{
 		super(objectId, template);
 		getKnownList();
-		setAI(new L2CharacterAI(new AIAccessor()));
+		getAI();
 		_name = name;
 	}
 	
@@ -819,21 +819,26 @@ public class L2BoatInstance extends L2Character
 	 * Allow setup of the boat AI only once
 	 */
 	@Override
-	public void setAI(L2CharacterAI newAI)
+	protected boolean canReplaceAI()
 	{
-		if (_ai == null)
-			_ai = newAI;
+		return false;
 	}
-
+	
+	@Override
+	protected L2CharacterAI initAI()
+	{
+		return new L2CharacterAI(new AIAccessor());
+	}
+	
 	/*
 	 * boat AI can't be detached
 	 */
 	public class AIAccessor extends L2Character.AIAccessor
 	{
-		@Override
+		/*@Override
 		public void detachAI()
 		{
-		}
+		}*/
 	}
 
 	/**

@@ -95,6 +95,12 @@ public class L2StaticObjectInstance extends L2Character
 	}
 	
 	@Override
+	public boolean hasAI()
+	{
+		return false;
+	}
+	
+	@Override
 	public L2CharacterAI getAI()
 	{
 		return null;

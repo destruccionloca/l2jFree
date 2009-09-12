@@ -1123,7 +1123,7 @@ public final class L2PcInstance extends L2Playable
 		_appearance = app;
 
 		// Create an AI
-		_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+		getAI();
 
 		// Retrieve from the database all items of this L2PcInstance and add them to _inventory
 		getInventory().restore();
@@ -1208,23 +1208,10 @@ public final class L2PcInstance extends L2Playable
 		super.setTemplate(CharTemplateTable.getInstance().getTemplate(newclass));
 	}
 
-	/**
-	 * Return the AI of the L2PcInstance (create it if necessary).<BR><BR>
-	 */
 	@Override
-	public L2CharacterAI getAI()
+	protected L2CharacterAI initAI()
 	{
-		L2CharacterAI ai = _ai; // Copy handle
-		if (ai == null)
-		{
-			synchronized(this)
-			{
-				if (_ai == null)
-					_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
-				return _ai;
-			}
-		}
-		return ai;
+		return new L2PlayerAI(new L2PcInstance.AIAccessor());
 	}
 
 	/** Return the Level of the L2PcInstance. */

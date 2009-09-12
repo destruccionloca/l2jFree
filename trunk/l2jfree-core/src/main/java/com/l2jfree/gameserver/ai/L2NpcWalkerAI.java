@@ -62,7 +62,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	/**
 	 * home points for xyz
 	 */
-	private int _homeX, _homeY, _homeZ;
+	//private int _homeX, _homeY, _homeZ;
 	
 	/**
 	 * route of the current npc
@@ -210,7 +210,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		return (L2NpcWalkerInstance)_actor;
 	}
 	
-	public int getHomeX()
+	/*public int getHomeX()
 	{
 		return _homeX;
 	}
@@ -238,7 +238,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	public void setHomeZ(int homeZ)
 	{
 		_homeZ = homeZ;
-	}
+	}*/
 	
 	public boolean isWalkingToNextPoint()
 	{

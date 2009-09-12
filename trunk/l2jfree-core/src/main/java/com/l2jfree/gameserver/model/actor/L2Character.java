@@ -35,7 +35,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -2282,31 +2281,48 @@ public abstract class L2Character extends L2Object
 	 */
 	public L2CharacterAI getAI()
 	{
-		L2CharacterAI ai = _ai; // copy handle
-		if (ai == null)
+		if (_ai == null)
 		{
 			synchronized (this)
 			{
-				_ai = new L2CharacterAI(new AIAccessor());
-				return _ai;
+				if (_ai == null)
+					_ai = initAI();
 			}
 		}
-
-		return ai;
+		
+		return _ai;
 	}
-
-	public void setAI(L2CharacterAI newAI)
+	
+	protected L2CharacterAI initAI()
 	{
-		L2CharacterAI oldAI = getAI();
-		if (oldAI != null && oldAI != newAI && oldAI instanceof L2AttackableAI)
+		return new L2CharacterAI(new AIAccessor());
+	}
+	
+	public final void setAI(L2CharacterAI newAI)
+	{
+		if (!canReplaceAI())
+			return;
+		
+		final L2CharacterAI oldAI = _ai;
+		
+		if (oldAI == newAI)
+			return;
+		
+		if (oldAI != null)
 			oldAI.stopAITask();
+		
 		_ai = newAI;
 	}
-
+	
 	/** Return True if the L2Character has a L2CharacterAI. */
 	public boolean hasAI()
 	{
 		return _ai != null;
+	}
+	
+	protected boolean canReplaceAI()
+	{
+		return true;
 	}
 
 	/** Return True if the L2Character is RaidBoss or his minion. */
@@ -3880,8 +3896,11 @@ public abstract class L2Character extends L2Object
 		 * Cancel the AI.<BR>
 		 * <BR>
 		 */
-		public void detachAI()
+		public final void detachAI()
 		{
+			if (!canReplaceAI())
+				return;
+			
 			_ai = null;
 		}
 	}
@@ -3954,7 +3973,7 @@ public abstract class L2Character extends L2Object
 		NPC_STD_CALCULATOR = Formulas.getStdNPCCalculators();
 	}
 
-	protected L2CharacterAI				_ai;
+	private L2CharacterAI				_ai;
 
 	/** Future Skill Cast */
 	protected Future<?>					_skillCast;

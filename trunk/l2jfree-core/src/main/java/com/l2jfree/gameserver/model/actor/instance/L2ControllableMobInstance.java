@@ -24,71 +24,58 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author littlecrow
- *
  */
 public class L2ControllableMobInstance extends L2MonsterInstance
 {
 	private boolean _isInvul;
-	private L2ControllableMobAI _aiBackup;	// To save ai, avoiding beeing detached
-
+	
 	protected class ControllableAIAcessor extends AIAccessor
-    {
-		@Override
+	{
+		/*@Override
 		public void detachAI()
-        {
+		{
 			// Do nothing, AI of controllable mobs can't be detached automatically
-		}
+		}*/
 	}
-
+	
 	@Override
 	public boolean isAggressive()
-    {
+	{
 		return true;
 	}
-
+	
 	@Override
 	public int getAggroRange()
-    {
+	{
 		// Force mobs to be aggro
 		return 500;
 	}
-
+	
 	public L2ControllableMobInstance(int objectId, L2NpcTemplate template)
-    {
+	{
 		super(objectId, template);
 	}
-
+	
 	@Override
-	public L2CharacterAI getAI()
+	protected boolean canReplaceAI()
 	{
-		L2CharacterAI ai = _ai; // Copy handle
-		if (ai == null)
-		{
-			synchronized(this)
-			{
-				if (_aiBackup == null)
-				{
-					_ai = new L2ControllableMobAI(new ControllableAIAcessor());
-					_aiBackup = (L2ControllableMobAI)_ai;
-				}
-				else
-				{
-					_ai = _aiBackup;
-				}
-				return _ai;
-			}
-		}
-		return ai;
+		return false;
 	}
-
+	
+	@Override
+	protected L2CharacterAI initAI()
+	{
+		return new L2ControllableMobAI(new ControllableAIAcessor());
+	}
+	
 	@Override
 	public boolean isInvul()
 	{
 		return super.isInvul() || _isInvul;
 	}
-
+	
 	public void setInvul(boolean isInvul)
-    {
+	{
 		_isInvul = isInvul;
 	}
 	
@@ -109,30 +96,29 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	{
 		if (!super.doDie(killer))
 			return false;
-
+		
 		removeAI();
 		return true;
 	}
-
+	
 	@Override
 	public void deleteMe()
-    {
+	{
 		removeAI();
 		super.deleteMe();
 	}
-
+	
 	/**
 	 * Definitively remove AI
 	 */
 	protected void removeAI()
-    {
+	{
 		synchronized (this)
-        {
-			if (_aiBackup != null)
-            {
-				_aiBackup.setIntention(CtrlIntention.AI_INTENTION_IDLE);
-				_aiBackup = null;
-				_ai = null;
+		{
+			if (hasAI())
+			{
+				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				getAI().stopAITask();
 			}
 		}
 	}
