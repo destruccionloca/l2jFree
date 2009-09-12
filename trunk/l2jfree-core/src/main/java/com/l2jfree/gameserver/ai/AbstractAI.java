@@ -861,9 +861,6 @@ public abstract class AbstractAI implements Ctrl
 	 */
 	protected void clientNotifyDead()
 	{
-		// starts the protection to make sure that the death animation finishes normally
-		_actor.startDying();
-		
 		// Send a Server->Client packet Die to the actor and all L2PcInstance in its _knownPlayers
 		Die msg = new Die(_actor);
 		_actor.broadcastPacket(msg);

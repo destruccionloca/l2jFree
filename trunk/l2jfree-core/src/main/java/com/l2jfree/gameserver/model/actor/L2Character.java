@@ -2097,6 +2097,9 @@ public abstract class L2Character extends L2Object
 	 */
 	public boolean doDie(L2Character killer)
 	{
+		// starts the protection to make sure that the death animation finishes normally
+		startDying();
+		
 		// killing is only possible one time
 		synchronized (this)
 		{
