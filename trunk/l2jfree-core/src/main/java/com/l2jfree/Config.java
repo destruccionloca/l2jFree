@@ -40,7 +40,6 @@ import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameServer.StartupHook;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.util.Util;
@@ -3383,7 +3382,7 @@ public class Config extends L2Config
 		protected void loadImpl(final Properties properties) throws Exception
 		{
 			AUTO_TVT_ENABLED = Boolean.parseBoolean(properties.getProperty("EnableAutoTvT", "false"));
-			VoicedCommandHandler.reload();
+			
 			if (AUTO_TVT_ENABLED)
 				AutomatedTvT.startIfNecessary();
 			StringTokenizer coords;

@@ -83,5 +83,7 @@ public interface GlobalRestriction
 	
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar);
 	
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target);
+	
 	// TODO
 }

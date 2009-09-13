@@ -14,68 +14,82 @@
  */
 package com.l2jfree.gameserver.handler;
 
-import com.l2jfree.Config;
+import java.util.StringTokenizer;
+
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Auction;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Banking;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
-import com.l2jfree.gameserver.handler.voicedcommandhandlers.JoinEvent;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Mail;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Offline;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.util.HandlerRegistry;
 
 public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedCommandHandler>
 {
-	private static VoicedCommandHandler	_instance;
-
+	private static final class SingletonHolder
+	{
+		private static final VoicedCommandHandler INSTANCE = new VoicedCommandHandler();
+	}
+	
 	public static VoicedCommandHandler getInstance()
 	{
-		if (_instance == null)
-			_instance = new VoicedCommandHandler();
-
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
-
-	/**
-	 * Reloads the voiced command list. Does nothing if it hasn't been loaded
-	 * yet
-	 */
-	public static void reload()
-	{
-		if (_instance != null)
-			_instance = new VoicedCommandHandler();
-	}
-
+	
 	private VoicedCommandHandler()
 	{
-		if (Config.BANKING_SYSTEM_ENABLED)
-			registerVoicedCommandHandler(new Banking());
-		if (Config.ALLOW_OFFLINE_TRADE)
-			registerVoicedCommandHandler(new Offline());
-		if (Config.ALLOW_WEDDING)
-			registerVoicedCommandHandler(new Wedding());
+		registerVoicedCommandHandler(new Banking());
+		registerVoicedCommandHandler(new Offline());
+		registerVoicedCommandHandler(new Wedding());
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
-		if (Config.AUTO_TVT_ENABLED)
-			registerVoicedCommandHandler(new JoinEvent());
 		registerVoicedCommandHandler(new VersionInfo());
 		registerVoicedCommandHandler(new Mail());
 		registerVoicedCommandHandler(new Auction());
+		
 		_log.info("VoicedCommandHandler: Loaded " + size() + " handlers.");
 	}
-
+	
+	@Override
+	protected String standardizeKey(String key)
+	{
+		return key.trim().toLowerCase();
+	}
+	
 	private void registerVoicedCommandHandler(IVoicedCommandHandler handler)
 	{
 		registerAll(handler, handler.getVoicedCommandList());
 	}
-
-	public IVoicedCommandHandler getVoicedCommandHandler(String voicedCommand)
+	
+	public boolean useVoicedCommand(String text, L2PcInstance activeChar)
 	{
-		if (voicedCommand.indexOf(" ") != -1)
-			voicedCommand = voicedCommand.substring(0, voicedCommand.indexOf(" "));
-
-		return get(voicedCommand);
+		if (!text.startsWith("."))
+			return false;
+		
+		final StringTokenizer st = new StringTokenizer(text);
+		
+		final String command = st.nextToken(" .").toLowerCase(); // until the first space without the starting dot
+		final String params;
+		
+		if (st.hasMoreTokens())
+			params = st.nextToken("").trim(); // the rest
+		else if (activeChar.getTarget() != null)
+			params = activeChar.getTarget().getName();
+		else
+			params = "";
+		
+		if (GlobalRestrictions.useVoicedCommand(command, activeChar, params))
+			return true;
+		
+		final IVoicedCommandHandler handler = get(command);
+		
+		if (handler != null)
+			return handler.useVoicedCommand(command, activeChar, params);
+		
+		return false;
 	}
 }

@@ -40,9 +40,13 @@ public class Banking implements IVoicedCommandHandler
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
+		if (!Config.BANKING_SYSTEM_ENABLED)
+			return false;
+		
 		if (command.equalsIgnoreCase("bank"))
 		{
 			activeChar.sendMessage(".deposit (" + Config.BANKING_SYSTEM_ADENA + " Adena = " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar) / .withdraw (" + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar = " + Config.BANKING_SYSTEM_ADENA + " Adena)");
+			return true;
 		}
 		else if (command.equalsIgnoreCase("deposit"))
 		{
@@ -62,6 +66,7 @@ public class Banking implements IVoicedCommandHandler
 			{
 				activeChar.sendMessage("You do not have enough Adena to convert to Goldbar(s), you need " + Config.BANKING_SYSTEM_ADENA + " Adena.");
 			}
+			return true;
 		}
 		else if (command.equalsIgnoreCase("withdraw"))
 		{
@@ -81,8 +86,10 @@ public class Banking implements IVoicedCommandHandler
 			{
 				activeChar.sendMessage("You do not have any Goldbars to turn into " + Config.BANKING_SYSTEM_ADENA + " Adena.");
 			}
+			return true;
 		}
-		return true;
+		
+		return false;
 	}
 	
 	/**

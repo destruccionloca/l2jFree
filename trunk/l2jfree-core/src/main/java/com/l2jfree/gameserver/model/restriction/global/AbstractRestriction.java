@@ -201,5 +201,11 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		throw new AbstractMethodError();
 	}
 	
+	@DisabledRestriction
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	// TODO
 }

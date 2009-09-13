@@ -76,6 +76,7 @@ public final class GlobalRestrictions
 		isInsideZoneStateChanged,
 		onBypassFeedback,
 		onAction,
+		useVoicedCommand,
 		// TODO
 		;
 		
@@ -598,6 +599,15 @@ public final class GlobalRestrictions
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.onAction.ordinal()])
 			if (restriction.onAction(npc, activeChar))
+				return true;
+		
+		return false;
+	}
+	
+	public static boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.useVoicedCommand.ordinal()])
+			if (restriction.useVoicedCommand(command, activeChar, target))
 				return true;
 		
 		return false;

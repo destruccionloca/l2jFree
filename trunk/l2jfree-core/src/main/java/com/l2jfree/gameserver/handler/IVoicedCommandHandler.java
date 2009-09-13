@@ -19,26 +19,24 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- *
- * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:30:09 $
- */
 public interface IVoicedCommandHandler
 {
-	public static Log	_log	= LogFactory.getLog(IVoicedCommandHandler.class);
-
+	public static final Log _log = LogFactory.getLog(IVoicedCommandHandler.class);
+	
 	/**
 	 * this is the worker method that is called when someone uses an .user command.
-	 * @param activeChar
+	 * 
 	 * @param command
-	 * @return command success
+	 * @param activeChar
+	 * @param target
+	 * @return <code>true</code> if handler was triggered by the call, <code>false</code> otherwise
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target);
-
+	
 	/**
-	 * this method is called at initialization to register all the item ids automatically
-	 * @return all known itemIds
+	 * this method is called at initialization to register all the handlers automatically
+	 * 
+	 * @return the commands associated with the handler
 	 */
 	public String[] getVoicedCommandList();
 }

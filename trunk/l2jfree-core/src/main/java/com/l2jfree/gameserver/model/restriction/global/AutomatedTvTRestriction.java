@@ -97,4 +97,24 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	{
 		AutomatedTvT.getInstance().onDisconnection(activeChar);
 	}
+	
+	@Override
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
+	{
+		if (!Config.AUTO_TVT_ENABLED)
+			return false;
+		
+		if (command.equals("jointvt"))
+		{
+			AutomatedTvT.getInstance().registerPlayer(activeChar);
+			return true;
+		}
+		else if (Config.AUTO_TVT_REGISTER_CANCEL && command.equals("leavetvt"))
+		{
+			AutomatedTvT.getInstance().cancelRegistration(activeChar);
+			return true;
+		}
+		
+		return false;
+	}
 }

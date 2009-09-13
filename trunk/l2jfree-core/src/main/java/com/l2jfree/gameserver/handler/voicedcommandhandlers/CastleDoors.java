@@ -35,9 +35,8 @@ public class CastleDoors implements IVoicedCommandHandler
 			{
 				L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
 				Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
-				if (door == null || castle == null)
-					return false;
-				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
+				
+				if (door != null && castle != null && castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
 				{
 					if (Config.SIEGE_GATE_CONTROL || !castle.getSiege().getIsInProgress())
 						door.openMe();
@@ -45,8 +44,8 @@ public class CastleDoors implements IVoicedCommandHandler
 						activeChar.sendPacket(SystemMessageId.GATES_NOT_OPENED_CLOSED_DURING_SIEGE);
 				}
 			}
-			else
-				return false;
+			
+			return true;
 		}
 		else if (command.startsWith("close") && target.equals("doors") && (activeChar.isClanLeader()))
 		{
@@ -54,9 +53,8 @@ public class CastleDoors implements IVoicedCommandHandler
 			{
 				L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
 				Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
-				if (door == null || castle == null)
-					return false;
-				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
+				
+				if (door != null && castle != null && castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
 				{
 					if (Config.SIEGE_GATE_CONTROL || !castle.getSiege().getIsInProgress())
 						door.closeMe();
@@ -64,10 +62,11 @@ public class CastleDoors implements IVoicedCommandHandler
 						activeChar.sendPacket(SystemMessageId.GATES_NOT_OPENED_CLOSED_DURING_SIEGE);
 				}
 			}
-			else
-				return false;
+			
+			return true;
 		}
-		return true;
+		
+		return false;
 	}
 
 	public String[] getVoicedCommandList()

@@ -20,7 +20,6 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.ChatHandler;
 import com.l2jfree.gameserver.handler.IChatHandler;
-import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.handler.VoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
@@ -180,26 +179,10 @@ public class Say2 extends L2GameClientPacket
 			for (String pattern : Config.FILTER_LIST)
 				_text = _text.replaceAll("(?i)" + pattern, "-_-");
 
-		if (_text.startsWith("."))
+		if (VoicedCommandHandler.getInstance().useVoicedCommand(_text, activeChar))
 		{
-			String[] _commandParams = _text.split(" ");
-
-			String command = _commandParams[0].substring(1);
-			String params = "";
-
-			// if entered "command text"
-			if (_commandParams.length > 1)
-				params = _text.substring(1 + command.length()).trim(); // get all text
-			else if (activeChar.getTarget() != null)
-				params = activeChar.getTarget().getName();
-
-			IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-			if (vch != null)
-			{
-				vch.useVoicedCommand(command, activeChar, params);
-				sendAF();
-				return;
-			}
+			sendAF();
+			return;
 		}
 
 		// Some custom implementation to show how to add channels
