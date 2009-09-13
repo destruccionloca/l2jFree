@@ -251,7 +251,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			{
 				if (item.isWeapon())
 					return Elementals.WEAPON_VALUES[3];
-				return Elementals.ARMOR_VALUES[6];
+				return Elementals.ARMOR_VALUES[3];
 			}
 		}
 		for (int id : Elementals.CRYSTALS)
