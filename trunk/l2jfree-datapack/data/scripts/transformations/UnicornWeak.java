@@ -26,7 +26,7 @@ public class UnicornWeak extends L2Transformation
 	public UnicornWeak()
 	{
 		// id, colRadius, colHeight
-		super(206, 8.0, 25.5);
+		super(206, 8, 25.5);
 	}
 	
 	@Override

@@ -528,7 +528,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="5564" levels="3" name="Pain of Shillien">
+  <skill id="5564" levels="3" name="Pain of Shilen">
     <table name="#stack">2 3 4</table>
     <table name="#cAtk">1.05 1.1 1.15</table>
     <table name="#abs">1 1 8</table>

@@ -26,7 +26,7 @@ public class Gordon extends L2Transformation
 	public Gordon()
 	{
 		// id, colRadius, colHeight
-		super(308, 43.0, 46.6);
+		super(308, 43, 46.6);
 	}
 	
 	@Override

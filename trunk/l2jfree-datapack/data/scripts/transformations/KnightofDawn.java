@@ -23,7 +23,7 @@ public class KnightofDawn extends L2Transformation
 	public KnightofDawn()
 	{
 		// id, colRadius, colHeight
-		super(20, 12.0, 25.0);
+		super(20, 12, 25);
 	}
 	
 	@Override

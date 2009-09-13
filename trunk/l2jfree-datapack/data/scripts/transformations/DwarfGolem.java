@@ -26,17 +26,25 @@ public class DwarfGolem extends L2Transformation
 	public DwarfGolem()
 	{
 		// id, colRadius, colHeight
-		super(259, 35.0, 46.0);
+		super(259, 35, 46);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 806, 1); // Magic Obstacle
+		addSkill(player, 807, 1); // Over-hit
+		addSkill(player, 808, 1); // Golem Punch
+		addSkill(player, 809, 1); // Golem Tornado Swing
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 806); // Magic Obstacle
+		removeSkill(player, 807); // Over-hit
+		removeSkill(player, 808); // Golem Punch
+		removeSkill(player, 809); // Golem Tornado Swing
 	}
 	
 	public static void main(String[] args)

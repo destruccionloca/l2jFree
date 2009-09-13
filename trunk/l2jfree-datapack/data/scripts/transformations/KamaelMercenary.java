@@ -26,7 +26,7 @@ public class KamaelMercenary extends L2Transformation
 	public KamaelMercenary()
 	{
 		// id, colRadius, colHeight
-		super(15, 12.0, 25.0);
+		super(15, 12, 25);
 	}
 	
 	@Override

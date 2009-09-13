@@ -26,14 +26,14 @@ public class LilimKnightWeak extends L2Transformation
 	public LilimKnightWeak()
 	{
 		// id, colRadius, colHeight
-		super(209, 8.0, 24.4);
+		super(209, 8, 24.4);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 568, 2); // Attack Buster
-		//addSkill(player, 569, 2); // Attack Storm - Too few charges reachable to use this skill
+		addSkill(player, 569, 2); // Attack Storm
 		addSkill(player, 570, 2); // Attack Rage
 		addSkill(player, 571, 2); // Poison Dust
 		
@@ -44,7 +44,7 @@ public class LilimKnightWeak extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 568); // Attack Buster
-		//removeSkill(player, 569); // Attack Storm - Too few charges reachable to use this skill
+		removeSkill(player, 569); // Attack Storm
 		removeSkill(player, 570); // Attack Rage
 		removeSkill(player, 571); // Poison Dust
 		

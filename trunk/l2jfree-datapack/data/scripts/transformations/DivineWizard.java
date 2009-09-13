@@ -26,33 +26,29 @@ public class DivineWizard extends L2Transformation
 	public DivineWizard()
 	{
 		// id, colRadius, colHeight
-		super(256, 12.0, 24.0);
+		super(256, 12, 24);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		addSkill(player, 692, 1); // Divine Wizard Holy Flare
 		addSkill(player, 693, 1); // Divine Wizard Holy Strike
 		addSkill(player, 694, 1); // Divine Wizard Holy Curtain
 		addSkill(player, 695, 1); // Divine Wizard Holy Cloud
 		addSkill(player, 696, 1); // Divine Wizard Surrender to Holy
 		addSkill(player, 697, 1); // Sacrifice Wizard
-		*/
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		removeSkill(player, 692); // Divine Wizard Holy Flare
 		removeSkill(player, 693); // Divine Wizard Holy Strike
 		removeSkill(player, 694); // Divine Wizard Holy Curtain
 		removeSkill(player, 695); // Divine Wizard Holy Cloud
 		removeSkill(player, 696); // Divine Wizard Surrender to Holy
 		removeSkill(player, 697); // Sacrifice Wizard
-		*/
 	}
 	
 	public static void main(String[] args)

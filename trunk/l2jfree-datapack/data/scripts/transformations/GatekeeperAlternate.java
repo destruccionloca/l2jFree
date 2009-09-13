@@ -26,7 +26,7 @@ public class GatekeeperAlternate extends L2Transformation
 	public GatekeeperAlternate()
 	{
 		// id, colRadius, colHeight
-		super(319, 8.0, 24.0);
+		super(319, 8, 24);
 	}
 	
 	@Override

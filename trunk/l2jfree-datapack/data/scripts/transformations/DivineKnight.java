@@ -26,13 +26,12 @@ public class DivineKnight extends L2Transformation
 	public DivineKnight()
 	{
 		// id, colRadius, colHeight
-		super(252, 12.0, 30.0);
+		super(252, 12, 30);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		addSkill(player, 680, 1); // Divine Knight Hate
 		addSkill(player, 681, 1); // Divine Knight Hate Aura
 		addSkill(player, 682, 1); // Divine Knight Stun Attack
@@ -41,13 +40,11 @@ public class DivineKnight extends L2Transformation
 		addSkill(player, 685, 1); // Sacrifice Knight
 		addSkill(player, 795, 1); // Divine Knight Brandish
 		addSkill(player, 796, 1); // Divine Knight Explosion
-		*/
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		removeSkill(player, 680); // Divine Knight Hate
 		removeSkill(player, 681); // Divine Knight Hate Aura
 		removeSkill(player, 682); // Divine Knight Stun Attack
@@ -56,7 +53,6 @@ public class DivineKnight extends L2Transformation
 		removeSkill(player, 685); // Sacrifice Knight
 		removeSkill(player, 795); // Divine Knight Brandish
 		removeSkill(player, 796); // Divine Knight Explosion
-		*/
 	}
 	
 	public static void main(String[] args)

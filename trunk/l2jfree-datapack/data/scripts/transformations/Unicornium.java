@@ -26,18 +26,28 @@ public class Unicornium extends L2Transformation
 	public Unicornium()
 	{
 		// id, colRadius, colHeight
-		super(219, 16.0, 24.0);
+		super(219, 16, 24);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 906, 4); // Lance Step
+		addSkill(player, 907, 4); // Aqua Blast
+		addSkill(player, 908, 4); // Spin Slash
+		addSkill(player, 909, 4); // Ice Focus
+		addSkill(player, 910, 4); // Water Jet
 		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 906); // Lance Step
+		removeSkill(player, 907); // Aqua Blast
+		removeSkill(player, 908); // Spin Slash
+		removeSkill(player, 909); // Ice Focus
+		removeSkill(player, 910); // Water Jet
 		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	

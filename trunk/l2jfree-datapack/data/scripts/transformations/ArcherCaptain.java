@@ -26,7 +26,7 @@ public class ArcherCaptain extends L2Transformation
 	public ArcherCaptain()
 	{
 		// id, colRadius, colHeight
-		super(17, 13.0, 24.0);
+		super(17, 13, 24);
 	}
 	
 	@Override

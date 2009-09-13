@@ -23,7 +23,7 @@ public class OrcMercenary extends L2Transformation
 	public OrcMercenary()
 	{
 		// id, colRadius, colHeight
-		super(13, 14.0, 27.0);
+		super(13, 14, 27);
 	}
 	
 	@Override

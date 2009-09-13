@@ -26,7 +26,7 @@ public class SaberToothTiger extends L2Transformation
 	public SaberToothTiger()
 	{
 		// id, colRadius, colHeight
-		super(5, 34.0, 28.0);
+		super(5, 34, 28);
 	}
 	
 	@Override
@@ -41,17 +41,17 @@ public class SaberToothTiger extends L2Transformation
 		{
 			level = 2;
 		}
-		addSkill(player, 748, 1);
-		addSkill(player, 746, level);
-		addSkill(player, 747, level);
+		addSkill(player, 748, 1); // Saber Tooth Tiger Sprint
+		addSkill(player, 746, level); // Saber Tooth Tiger Bite
+		addSkill(player, 747, level); // Saber Tooth Tiger Fear
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 748);
-		removeSkill(player, 746);
-		removeSkill(player, 747);
+		removeSkill(player, 748); // Saber Tooth Tiger Sprint
+		removeSkill(player, 746); // Saber Tooth Tiger Bite
+		removeSkill(player, 747); // Saber Tooth Tiger Fear
 	}
 	
 	public static void main(String[] args)

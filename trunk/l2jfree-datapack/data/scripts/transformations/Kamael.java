@@ -26,7 +26,7 @@ public class Kamael extends L2Transformation
 	public Kamael()
 	{
 		// id, colRadius, colHeight
-		super(251, 9.0, 30.0);
+		super(251, 9, 30);
 	}
 	
 	@Override

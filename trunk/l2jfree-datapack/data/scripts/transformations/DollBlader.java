@@ -26,7 +26,7 @@ public class DollBlader extends L2Transformation
 	public DollBlader()
 	{
 		// id, colRadius, colHeight
-		super(7, 6.0, 12.0);
+		super(7, 6, 12);
 	}
 	
 	@Override

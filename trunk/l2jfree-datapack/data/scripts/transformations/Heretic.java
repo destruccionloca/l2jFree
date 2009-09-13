@@ -26,7 +26,7 @@ public class Heretic extends L2Transformation
 	public Heretic()
 	{
 		// id, colRadius, colHeight
-		super(3, 13.0, 19.0);
+		super(3, 13, 19);
 	}
 	
 	@Override

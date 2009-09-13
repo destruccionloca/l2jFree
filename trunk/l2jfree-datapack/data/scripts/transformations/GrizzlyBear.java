@@ -26,21 +26,19 @@ public class GrizzlyBear extends L2Transformation
 	public GrizzlyBear()
 	{
 		// id, colRadius, colHeight
-		super(320, 8.0, 24.0);
+		super(320, 8, 24);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Transfrom Dispel
-		addSkill(player, 619, 1);
+		addSkill(player, 619, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		// Transfrom Dispel
-		removeSkill(player, 619);
+		removeSkill(player, 619); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)

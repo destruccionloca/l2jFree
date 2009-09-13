@@ -26,7 +26,7 @@ public class Zaken extends L2Transformation
 	public Zaken()
 	{
 		// id, colRadius, colHeight
-		super(305, 16.0, 32.0);
+		super(305, 16, 32);
 	}
 	
 	@Override

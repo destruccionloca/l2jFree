@@ -26,18 +26,20 @@ public class BlueTeam extends L2Transformation
 	public BlueTeam()
 	{
 		// id, colRadius, colHeight
-		super(122, 12.0, 28.0);
+		super(122, 12, 28);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 5852, 1); // Flip Block
 		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 5852); // Flip Block
 		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	

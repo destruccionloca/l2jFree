@@ -27,7 +27,7 @@ public class FlyingFinalForm extends L2Transformation
 	public FlyingFinalForm()
 	{
 		// id, colRadius, colHeight
-		super(260, 9.0, 38.0);
+		super(260, 9, 38);
 	}
 	
 	@Override

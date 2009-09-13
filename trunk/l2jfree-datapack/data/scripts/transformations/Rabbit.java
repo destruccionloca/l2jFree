@@ -26,17 +26,23 @@ public class Rabbit extends L2Transformation
 	public Rabbit()
 	{
 		// id, colRadius, colHeight
-		super(105, 5.0, 4.5);
+		super(105, 5, 4.5);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 629, 1); // Rabbit Magic Eye
+		addSkill(player, 630, 1); // Rabbit Tornado
+		addSkill(player, 619, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 629); // Rabbit Magic Eye
+		removeSkill(player, 630); // Rabbit Tornado
+		removeSkill(player, 619); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)

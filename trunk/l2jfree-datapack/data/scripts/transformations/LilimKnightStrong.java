@@ -26,7 +26,7 @@ public class LilimKnightStrong extends L2Transformation
 	public LilimKnightStrong()
 	{
 		// id, colRadius, colHeight
-		super(207, 8.0, 24.4);
+		super(207, 8, 24.4);
 	}
 	
 	@Override

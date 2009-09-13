@@ -26,7 +26,7 @@ public class Anakim extends L2Transformation
 	public Anakim()
 	{
 		// id, colRadius, colHeight
-		super(306, 15.5, 29.0);
+		super(306, 15.5, 29);
 	}
 	
 	@Override

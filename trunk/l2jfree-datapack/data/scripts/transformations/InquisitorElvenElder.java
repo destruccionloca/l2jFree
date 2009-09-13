@@ -23,7 +23,7 @@ public class InquisitorElvenElder extends L2Transformation
 	public InquisitorElvenElder()
 	{
 		// id, colRadius, colHeight
-		super(317, 7.0, 24.0);
+		super(317, 7, 24);
 	}
 	
 	@Override
@@ -35,10 +35,8 @@ public class InquisitorElvenElder extends L2Transformation
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
 		
-		// Switch Stance
-		addSkill(player, 838, 1);
-		// Decrease Bow/Crossbow Attack Speed
-		addSkill(player, 5491, 1);
+		addSkill(player, 838, 1); // Switch Stance
+		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
 		
 		// give transformation skills
 		transformedSkills(player);
@@ -47,10 +45,8 @@ public class InquisitorElvenElder extends L2Transformation
 	@Override
 	public void onUntransform(L2PcInstance player)
 	{
-		// Switch Stance
-		removeSkill(player, 838);
-		// Decrease Bow/Crossbow Attack Speed
-		removeSkill(player, 5491);
+		removeSkill(player, 838); // Switch Stance
+		removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
 		
 		// remove transformation skills
 		removeSkills(player);

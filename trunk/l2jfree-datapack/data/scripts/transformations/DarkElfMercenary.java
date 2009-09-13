@@ -26,7 +26,7 @@ public class DarkElfMercenary extends L2Transformation
 	public DarkElfMercenary()
 	{
 		// id, colRadius, colHeight
-		super(12, 13.0, 25.0);
+		super(12, 13, 25);
 	}
 	
 	@Override

@@ -26,7 +26,7 @@ public class GrailApostleNormal extends L2Transformation
 	public GrailApostleNormal()
 	{
 		// id, colRadius, colHeight
-		super(202, 8.0, 30.0);
+		super(202, 8, 30);
 	}
 	
 	@Override

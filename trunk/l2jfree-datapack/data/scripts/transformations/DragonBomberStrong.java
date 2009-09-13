@@ -26,7 +26,7 @@ public class DragonBomberStrong extends L2Transformation
 	public DragonBomberStrong()
 	{
 		// id, colRadius, colHeight
-		super(216, 8.0, 22.0);
+		super(216, 8, 22);
 	}
 	
 	@Override

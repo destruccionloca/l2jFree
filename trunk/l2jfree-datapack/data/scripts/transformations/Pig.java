@@ -26,7 +26,7 @@ public class Pig extends L2Transformation
 	public Pig()
 	{
 		// id, colRadius, colHeight
-		super(104, 15.0, 18.3);
+		super(104, 15, 18.3);
 	}
 	
 	@Override

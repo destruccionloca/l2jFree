@@ -26,7 +26,7 @@ public class InfernoDrakeNormal extends L2Transformation
 	public InfernoDrakeNormal()
 	{
 		// id, colRadius, colHeight
-		super(214, 8.0, 22.0);
+		super(214, 8, 22);
 	}
 	
 	@Override

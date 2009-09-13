@@ -26,7 +26,7 @@ public class PumpkinGhost extends L2Transformation
 	public PumpkinGhost()
 	{
 		// id, colRadius, colHeight
-		super(108, 15.5, 29.0);
+		super(108, 15.5, 29);
 	}
 	
 	@Override

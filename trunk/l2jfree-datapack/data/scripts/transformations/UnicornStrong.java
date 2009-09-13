@@ -26,7 +26,7 @@ public class UnicornStrong extends L2Transformation
 	public UnicornStrong()
 	{
 		// id, colRadius, colHeight
-		super(204, 8.0, 25.5);
+		super(204, 8, 25.5);
 	}
 	
 	@Override

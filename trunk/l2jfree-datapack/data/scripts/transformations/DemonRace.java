@@ -23,18 +23,28 @@ public class DemonRace extends L2Transformation
 	public DemonRace()
 	{
 		// id, colRadius, colHeight
-		super(220, 16.0, 29.0);
+		super(220, 16, 29);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 901, 4); // Dark Strike
+		addSkill(player, 902, 4); // Bursting Flame
+		addSkill(player, 903, 4); // Stratum Explosion
+		addSkill(player, 904, 4); // Corpse Burst
+		addSkill(player, 905, 4); // Dark Detonation
 		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 901); // Dark Strike
+		removeSkill(player, 902); // Bursting Flame
+		removeSkill(player, 903); // Stratum Explosion
+		removeSkill(player, 904); // Corpse Burst
+		removeSkill(player, 905); // Dark Detonation
 		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	

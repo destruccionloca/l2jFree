@@ -26,7 +26,7 @@ public class OnyxBeast extends L2Transformation
 	public OnyxBeast()
 	{
 		// id, colRadius, colHeight
-		super(1, 14.0, 15.0);
+		super(1, 14, 15);
 	}
 	
 	@Override

@@ -26,31 +26,29 @@ public class DivineHealer extends L2Transformation
 	public DivineHealer()
 	{
 		// id, colRadius, colHeight
-		super(255, 12.0, 24.0);
+		super(255, 12, 24);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		addSkill(player, 698, 1); // Divine Healer Major Heal
 		addSkill(player, 699, 1); // Divine Healer Battle Heal
 		addSkill(player, 700, 1); // Divine Healer Group Heal
-		addSkill(player, 701, 1); // Divine Healer Resurrection*/
-		addSkill(player, 702, 1); // Divine Healer Clans
-		//addSkill(player, 703, 1); // Sacrifice Healer
+		addSkill(player, 701, 1); // Divine Healer Resurrection
+		addSkill(player, 702, 1); // Divine Healer Cleanse
+		addSkill(player, 703, 1); // Sacrifice Healer
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		removeSkill(player, 698); // Divine Healer Major Heal
 		removeSkill(player, 699); // Divine Healer Battle Heal
 		removeSkill(player, 700); // Divine Healer Group Heal
-		removeSkill(player, 701); // Divine Healer Resurrection*/
-		removeSkill(player, 702); // Divine Healer Clans
-		//removeSkill(player, 703); // Sacrifice Healer
+		removeSkill(player, 701); // Divine Healer Resurrection
+		removeSkill(player, 702); // Divine Healer Cleanse
+		removeSkill(player, 703); // Sacrifice Healer
 	}
 	
 	public static void main(String[] args)

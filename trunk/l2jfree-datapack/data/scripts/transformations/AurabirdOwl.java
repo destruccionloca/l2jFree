@@ -27,7 +27,7 @@ public class AurabirdOwl extends L2Transformation
 	public AurabirdOwl()
 	{
 		// id, colRadius, colHeight
-		super(9, 40.0, 19.0);
+		super(9, 40, 19);
 	}
 	
 	@Override

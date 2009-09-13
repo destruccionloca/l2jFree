@@ -26,7 +26,7 @@ public class OlMahum extends L2Transformation
 	public OlMahum()
 	{
 		// id, colRadius, colHeight
-		super(6, 23.0, 61.0);
+		super(6, 23, 61);
 	}
 	
 	@Override
@@ -41,17 +41,17 @@ public class OlMahum extends L2Transformation
 		{
 			level = 2;
 		}
-		addSkill(player, 749, 1);
-		addSkill(player, 750, level);
-		addSkill(player, 751, level);
+		addSkill(player, 749, level); //Oel Mahum Stun Attack
+		addSkill(player, 750, 1); // Oel Mahum Ultimate Defense
+		addSkill(player, 751, level); // Oel Mahum Arm Flourish
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 749);
-		removeSkill(player, 750);
-		removeSkill(player, 751);
+		removeSkill(player, 749); //Oel Mahum Stun Attack
+		removeSkill(player, 750); // Oel Mahum Ultimate Defense
+		removeSkill(player, 751); // Oel Mahum Arm Flourish
 	}
 	
 	public static void main(String[] args)

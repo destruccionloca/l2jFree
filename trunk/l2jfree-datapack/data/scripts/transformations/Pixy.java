@@ -26,7 +26,7 @@ public class Pixy extends L2Transformation
 	public Pixy()
 	{
 		// id, colRadius, colHeight
-		super(304, 5.0, 25.0);
+		super(304, 5, 25);
 	}
 	
 	@Override

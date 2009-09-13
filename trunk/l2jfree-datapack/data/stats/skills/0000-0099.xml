@@ -266,7 +266,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="200"/>
     <!-- charge values -->
-    <!-- Can be charged up to level 7 -->
+    <!-- Can be charged up to level 8 -->
     <set name="giveCharges" val="1"/>
     <set name="maxCharges" val="#maxCharges"/>
   </skill>

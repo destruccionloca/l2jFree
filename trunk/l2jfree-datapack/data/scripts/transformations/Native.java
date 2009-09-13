@@ -26,7 +26,7 @@ public class Native extends L2Transformation
 	public Native()
 	{
 		// id, colRadius, colHeight
-		super(101, 8.0, 23.5);
+		super(101, 8, 23.5);
 	}
 	
 	@Override

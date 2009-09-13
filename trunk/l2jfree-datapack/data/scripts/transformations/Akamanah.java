@@ -26,7 +26,7 @@ public class Akamanah extends L2Transformation
 	public Akamanah()
 	{
 		// id, colRadius, colHeight
-		super(302, 10.0, 32.73);
+		super(302, 10, 32.73);
 	}
 	
 	@Override

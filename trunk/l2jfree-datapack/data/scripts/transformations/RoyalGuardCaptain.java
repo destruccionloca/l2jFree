@@ -26,7 +26,7 @@ public class RoyalGuardCaptain extends L2Transformation
 	public RoyalGuardCaptain()
 	{
 		// id, colRadius, colHeight
-		super(16, 12.0, 24.0);
+		super(16, 12, 24);
 	}
 	
 	@Override

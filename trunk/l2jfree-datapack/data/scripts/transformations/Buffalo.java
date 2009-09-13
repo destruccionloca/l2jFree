@@ -26,7 +26,7 @@ public class Buffalo extends L2Transformation
 	public Buffalo()
 	{
 		// id, colRadius, colHeight
-		super(103, 22.0, 31.0);
+		super(103, 22, 31);
 	}
 	
 	@Override

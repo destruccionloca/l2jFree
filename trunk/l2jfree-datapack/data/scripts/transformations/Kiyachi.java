@@ -26,7 +26,7 @@ public class Kiyachi extends L2Transformation
 	public Kiyachi()
 	{
 		// id, colRadius, colHeight
-		super(310, 12.0, 29.0);
+		super(310, 12, 29);
 	}
 	
 	@Override

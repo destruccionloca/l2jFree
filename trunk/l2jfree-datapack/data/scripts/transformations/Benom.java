@@ -26,7 +26,7 @@ public class Benom extends L2Transformation
 	public Benom()
 	{
 		// id, colRadius, colHeight
-		super(307, 10.0, 57.5);
+		super(307, 10, 57);
 	}
 	
 	@Override

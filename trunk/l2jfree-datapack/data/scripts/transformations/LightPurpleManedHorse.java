@@ -23,7 +23,7 @@ public class LightPurpleManedHorse extends L2Transformation
 	public LightPurpleManedHorse()
 	{
 		// id, colRadius, colHeight
-		super(106, 12.0, 32.0);
+		super(106, 12, 32);
 	}
 	
 	@Override

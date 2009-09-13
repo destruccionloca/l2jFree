@@ -26,7 +26,7 @@ public class Ranku extends L2Transformation
 	public Ranku()
 	{
 		// id, colRadius, colHeight
-		super(309, 13.0, 29.0);
+		super(309, 13, 29);
 	}
 	
 	@Override

@@ -26,31 +26,27 @@ public class DivineSummoner extends L2Transformation
 	public DivineSummoner()
 	{
 		// id, colRadius, colHeight
-		super(258, 12.0, 24.0);
+		super(258, 12, 24);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		addSkill(player, 710, 1); // Divine Summoner Summon Divine Beast
 		addSkill(player, 711, 1); // Divine Summoner Transfer Pain
 		addSkill(player, 712, 1); // Divine Summoner Final Servitor
 		addSkill(player, 713, 1); // Divine Summoner Servitor Hill
 		addSkill(player, 714, 1); // Sacrifice Summoner
-		*/
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		/* Commented till we get proper values for these skills
 		removeSkill(player, 710); // Divine Summoner Summon Divine Beast
 		removeSkill(player, 711); // Divine Summoner Transfer Pain
 		removeSkill(player, 712); // Divine Summoner Final Servitor
 		removeSkill(player, 713); // Divine Summoner Servitor Hill
 		removeSkill(player, 714); // Sacrifice Summoner
-		*/
 	}
 	
 	public static void main(String[] args)

@@ -26,7 +26,7 @@ public class LilimKnightNormal extends L2Transformation
 	public LilimKnightNormal()
 	{
 		// id, colRadius, colHeight
-		super(208, 8.0, 24.4);
+		super(208, 8, 24.4);
 	}
 	
 	@Override

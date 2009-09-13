@@ -26,18 +26,28 @@ public class MyoRace extends L2Transformation
 	public MyoRace()
 	{
 		// id, colRadius, colHeight
-		super(221, 16.0, 32.0);
+		super(221, 16, 32);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 896, 4); // Rolling Step
+		addSkill(player, 897, 4); // Double Blast
+		addSkill(player, 898, 4); // Tornado Slash
+		addSkill(player, 899, 4); // Cat Roar
+		addSkill(player, 900, 4); // Energy Blast
 		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 896); // Rolling Step
+		removeSkill(player, 897); // Double Blast
+		removeSkill(player, 898); // Tornado Slash
+		removeSkill(player, 899); // Cat Roar
+		removeSkill(player, 900); // Energy Blast
 		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	

@@ -26,7 +26,7 @@ public class Zariche extends L2Transformation
 	public Zariche()
 	{
 		// id, colRadius, colHeight
-		super(301, 9.0, 31.0);
+		super(301, 9, 31);
 	}
 	
 	@Override

@@ -26,18 +26,24 @@ public class ScareCrow extends L2Transformation
 	public ScareCrow()
 	{
 		// id, colRadius, colHeight
-		super(115, 15.0, 30.0);
+		super(115, 15, 30);
 	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 940, 1); // Fake Attack
+		addSkill(player, 942, 1); // Special Motion
+		addSkill(player, 5437, 2); // Dissonance
 		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 940); // Fake Attack
+		removeSkill(player, 942); // Special Motion
+		removeSkill(player, 5437); // Dissonance
 		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	

@@ -26,7 +26,7 @@ public class YoungChild extends L2Transformation
 	public YoungChild()
 	{
 		// id, colRadius, colHeight
-		super(112, 10.0, 12.0);
+		super(112, 10, 12);
 	}
 	
 	@Override

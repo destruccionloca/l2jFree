@@ -26,7 +26,7 @@ public class ValeMaster extends L2Transformation
 	public ValeMaster()
 	{
 		// id, colRadius, colHeight
-		super(4, 12.0, 40.0);
+		super(4, 12, 40);
 	}
 	
 	@Override
@@ -41,18 +41,18 @@ public class ValeMaster extends L2Transformation
 		{
 			level = 2;
 		}
-		addSkill(player, 742, level);
-		addSkill(player, 743, level);
-		addSkill(player, 744, level);
+		addSkill(player, 742, level); // Vale Master Bursting Flame
+		addSkill(player, 743, level); // Vale Master Dark Explosion
+		addSkill(player, 744, level); // Vale Master Dark Flare
 		addSkill(player, 745, level); // Vale Master Dark Curse
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 742);
-		removeSkill(player, 743);
-		removeSkill(player, 744);
+		removeSkill(player, 742); // Vale Master Bursting Flame
+		removeSkill(player, 743); // Vale Master Dark Explosion
+		removeSkill(player, 744); // Vale Master Dark Flare
 		removeSkill(player, 745); // Vale Master Dark Curse
 	}
 	
