@@ -713,10 +713,11 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="23067" levels="1" name="Pomona Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23068" levels="1" name="Pomona Agathion Special Skill - Mental Shield Ability">
     <!-- Increases resistance to hold/sleep/abnormal mental attacks by 50 for 10 minutes. Reuse Delay 1 hours -->
