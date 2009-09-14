@@ -23,7 +23,7 @@ public class SteamBeatle extends L2Transformation
 	public SteamBeatle()
 	{
 		// id, colRadius, colHeight
-		super(110, 10, 24);
+		super(110, 40, 27.5);
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class SteamBeatle extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new SteamBeatle());
