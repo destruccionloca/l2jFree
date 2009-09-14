@@ -10,9 +10,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6601" name="Saint Spear - Haste">
@@ -35,9 +32,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6603" name="Demon Splinter - Health">
@@ -60,9 +54,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6605" name="Heavens Divider - Haste">
@@ -85,9 +76,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6607" name="Heavens Divider - Focus">
@@ -99,9 +87,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6608" name="Arcana Mace - Acumen">
@@ -124,11 +109,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: MP Regeneration -->
-      <add val="0.54" order="0x40" stat="regMp"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6610" name="Arcana Mace - Mana Up">
@@ -154,10 +134,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6612" name="Infinity Cleaver">
@@ -172,10 +148,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6613" name="Infinity Axe">
@@ -190,10 +162,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6614" name="Infinity Rod">
@@ -208,11 +176,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Missing 3% chance to full heal target's HP when "good" magic is cast -->
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6615" name="Infinity Crusher">
@@ -227,10 +190,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6616" name="Infinity Scepter">
@@ -245,11 +204,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Missing 3% chance to full heal target's HP when "good" magic is cast -->
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6617" name="Infinity Stinger">
@@ -264,10 +218,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6618" name="Infinity Fang">
@@ -282,10 +232,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6619" name="Infinity Bow">
@@ -300,10 +246,6 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
       <set val="1" order="0x08" stat="MpConsume">
         <and>
           <game chance="26"/>
@@ -324,10 +266,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6621" name="Infinity Spear">
@@ -342,11 +280,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Missing 10% chance to cancel each buff from target on a critical hit (for comparison, Cancel is 25% but Cancel also relies on M.Atk. vs. M.Def. while this weapon does not) -->
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6678" name="Sealed Imperial Crusader Shield">

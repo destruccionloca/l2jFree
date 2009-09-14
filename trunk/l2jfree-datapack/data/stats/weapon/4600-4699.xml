@@ -120,8 +120,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="194" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="4691" name="Spirit Sword - Critical Poison">
@@ -210,8 +208,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="213" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="4699" name="Sword of Delusion - Focus">

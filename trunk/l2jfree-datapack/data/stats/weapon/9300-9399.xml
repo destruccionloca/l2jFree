@@ -29,10 +29,10 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!--SA: Miser-->
-      <set val="9" order="0x08" stat="soulShotCount">
+      <!-- SA: Miser --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <set order="0x08" stat="soulShotCount" val="5">
         <and>
-          <game chance="30"/>
+          <game chance="37"/>
         </and>
       </set>
     </for>
@@ -45,13 +45,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <set val="1" order="0x08" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </set>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="9304" name="Military Fleuret">
@@ -125,8 +120,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="247" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="9311" name="Innominate Victory - Focus">
@@ -178,10 +171,10 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!--SA: Miser-->
-      <set val="2" order="0x08" stat="soulShotCount">
+      <!-- SA: Miser --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <set order="0x08" stat="soulShotCount" val="1">
         <and>
-          <game chance="30"/>
+          <game chance="19"/>
         </and>
       </set>
     </for>
@@ -214,8 +207,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="262" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="9319" name="Colichemarde - Haste">
@@ -300,7 +291,7 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery -->
+      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.87" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -312,13 +303,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <set val="2" order="0x08" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </set>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="9328" name="White Lightning">
@@ -339,9 +325,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9330" name="White Lightning - Haste">
@@ -362,9 +345,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9332" name="Divine Pain">
@@ -398,8 +378,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="297" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="9335" name="Divine Pain - Focus">
@@ -411,8 +389,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9336" name="Doomchanter">
@@ -443,9 +419,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9339" name="Doomchanter - Mana Up">
@@ -476,11 +449,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="326" order="0x40" stat="cAtkAdd"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9342" name="Lacerator - Health">
@@ -501,9 +469,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9344" name="Undertaker">
@@ -548,9 +513,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9348" name="Reaper">
@@ -571,16 +533,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <set val="2" order="0x08" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </set>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="9350" name="Reaper - Quick Recovery">
@@ -591,11 +545,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery -->
+      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.85" order="0x30" stat="bowReuse"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9351" name="Reaper - Critical Poison">
@@ -606,9 +557,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9352" name="Eclair Bijou">
@@ -671,9 +619,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9358" name="Durendal - Haste">
@@ -716,16 +661,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <sub val="1" order="0x40" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </sub>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="9362" name="Screaming Vengeance - Focus">
@@ -736,9 +673,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9363" name="Screaming Vengeance - Quick Recovery">
@@ -749,11 +683,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery -->
+      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.87" order="0x30" stat="bowReuse"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9364" name="Laevateinn">
@@ -794,9 +725,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9368" name="Gram">
@@ -841,9 +769,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9372" name="Sarnga">
@@ -864,16 +789,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <set val="1" order="0x08" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </set>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="9374" name="Sarnga - Focus">
@@ -894,9 +811,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9376" name="Dynasty Rapier">
@@ -1001,16 +915,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <mul val="0.88" order="0x40" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </mul>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="9386" name="Dynasty Crossbow - Guidance">
@@ -1021,9 +927,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9387" name="Dynasty Crossbow - Focus">
@@ -1047,11 +950,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <!-- Done by DrunkenDave -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9389" name="Infinity Sword">
@@ -1066,11 +964,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <!-- Done by DrunkenDave -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9390" name="Infinity Shooter">
@@ -1084,11 +977,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <!-- Done by DrunkenDave -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpPhysSkillsDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
 </list>

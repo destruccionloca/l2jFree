@@ -87,8 +87,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="297" order="0x40" stat="cAtkAdd"/>
     </for>
   </item>
   <item id="8110" name="Infernal Master - Focus">
@@ -122,9 +120,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Magic Power -->
-      <add val="75" order="0x40" stat="mAtk"/>
-      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </item>
   <item id="8113" name="Mysterious Sword - Magic Weakness">
@@ -147,8 +142,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Empower -->
-      <add val="26" order="0x40" stat="mAtk"/>
     </for>
   </item>
   <item id="8115" name="Ecliptic Sword - Magic Power">
@@ -160,9 +153,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Magic Power -->
-      <add val="112" order="0x40" stat="mAtk"/>
-      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </item>
   <item id="8116" name="Ecliptic Sword - Magic Silence">
@@ -196,9 +186,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Magic Power -->
-      <add val="139" order="0x40" stat="mAtk"/>
-      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </item>
   <item id="8119" name="Wizard's Tear - Conversion">
@@ -232,9 +219,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Anger -->
-      <add val="26" order="0x40" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
     </for>
   </item>
   <item id="8122" name="Dwarven Hammer - Critical Bleed">
@@ -334,9 +318,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Anger -->
-      <add val="28" order="0x40" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
     </for>
   </item>
   <item id="8131" name="Ice Storm Hammer - Critical Bleed">
@@ -403,9 +384,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Anger -->
-      <mul val="1.11" order="0x30" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
     </for>
   </item>
   <item id="8137" name="Doom Crusher - Rsk. Haste">
@@ -417,12 +395,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Rsk. Haste -->
-      <mul order="0x30" stat="pAtkSpd" val="1.11">
-        <and>
-          <player hp="60"/>
-        </and>
-      </mul>
     </for>
   </item>
   <item id="8138" name="Ecliptic Axe - Conversion">
@@ -445,9 +417,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Magic Power -->
-      <add val="112" order="0x40" stat="mAtk"/>
-      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </item>
   <item id="8140" name="Ecliptic Axe - Magic Hold">
@@ -580,9 +549,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Magic Power -->
-      <add val="167" order="0x40" stat="mAtk"/>
-      <mul val="1.15" order="0x30" stat="MpConsume"/>
     </for>
   </item>
   <item id="8152" name="Flaming Dragon Skull - Magic Silence">

@@ -109,16 +109,13 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <set val="1" order="0x08" stat="MpConsume">
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <set order="0x08" stat="MpConsume" val="1">
         <and>
           <game chance="26"/>
           <player skill="false"/>
         </and>
       </set>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10444" name="Icarus Spitter - Guidance">
@@ -129,11 +126,6 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Guidance -->
-      <add val="5.32" order="0x40" stat="accCombat"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10445" name="Icarus Spitter - Focus">
@@ -164,11 +156,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Evasion -->
-      <add val="5" order="0x40" stat="rEvas"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10448" name="Icarus Disperser - Critical Damage">
@@ -179,11 +166,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="559" order="0x40" stat="cAtkAdd"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10449" name="Icarus Trident - Anger">
@@ -204,9 +186,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10451" name="Icarus Trident - Light">
@@ -227,12 +206,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Anger -->
-      <add val="78" order="0x40" stat="pAtk"/>
-      <mul val="0.85" order="0x30" stat="maxHp"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10453" name="Icarus Hammer - Health">
@@ -253,15 +226,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Rsk. Focus -->
-      <add order="0x40" stat="rCrit" val="164">
-        <and>
-          <player hp="60"/>
-        </and>
-      </add>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10455" name="Icarus Hall - Mana Up">
@@ -306,15 +270,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Rsk. Evasion -->
-      <add order="0x40" stat="rEvas" val="6.8">
-        <and>
-          <player hp="60"/>
-        </and>
-      </add>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10459" name="Icarus Hand - Focus">
@@ -347,11 +302,6 @@
       <set val="406" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Focus -->
-      <add val="111" order="0x40" stat="rCrit"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10462" name="Icarus Stinger - Health">
@@ -383,11 +333,6 @@
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Focus -->
-      <add val="111" order="0x40" stat="rCrit"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10465" name="Icarus Wingblade - Health">
@@ -420,16 +365,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <sub val="1" order="0x40" stat="MpConsume">
-        <and>
-          <game chance="12"/>
-          <player skill="false"/>
-        </and>
-      </sub>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
   <item id="10468" name="Icarus Shooter - Guidance">
@@ -440,11 +377,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Guidance -->
-      <add val="5.32" order="0x40" stat="accCombat"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10469" name="Icarus Shooter - Focus">
@@ -455,11 +387,6 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Focus -->
-      <add val="116" order="0x40" stat="rCrit"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="10474" name="Shadow Item - Apprentice's Staff">

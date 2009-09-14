@@ -120,9 +120,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6584" name="Basalt Battlehammer - HP Drain">
@@ -134,9 +131,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6585" name="Basalt Battlehammer - Health">
@@ -159,9 +153,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6587" name="Imperial Staff - Empower">
@@ -173,9 +164,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6588" name="Imperial Staff - MP Regeneration">
@@ -187,9 +175,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6589" name="Imperial Staff - Magic Hold">
@@ -201,9 +186,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6590" name="Angel Slayer - Critical Damage">
@@ -215,11 +197,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="265" order="0x40" stat="cAtkAdd"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6591" name="Angel Slayer - HP Drain">
@@ -231,9 +208,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6592" name="Angel Slayer - Haste">
@@ -248,6 +222,7 @@
     </for>
   </item>
   <item id="6593" name="Shining Bow - Cheap Shot">
+  <!-- Missing proper description data in client. -->
     <for>
       <set val="581" order="0x08" stat="pAtk"/>
       <set val="132" order="0x08" stat="mAtk"/>
@@ -256,16 +231,17 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <set val="1" order="0x08" stat="MpConsume">
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <set order="0x08" stat="MpConsume" val="1"> <!-- Guessing -->
         <and>
-          <game chance="26"/>
+          <game chance="50"/>
           <player skill="false"/>
         </and>
       </set>
     </for>
   </item>
   <item id="6594" name="Shining Bow - Focus">
-    <!-- use passiv skill 3567 lvl 1 its custom^^ -->
+  <!-- Missing proper description data in client. -->
     <for>
       <set val="581" order="0x08" stat="pAtk"/>
       <set val="132" order="0x08" stat="mAtk"/>
@@ -277,6 +253,7 @@
     </for>
   </item>
   <item id="6595" name="Shining Bow - Critical Slow">
+  <!-- Missing proper description data in client. -->
     <for>
       <set val="581" order="0x08" stat="pAtk"/>
       <set val="132" order="0x08" stat="mAtk"/>
@@ -296,9 +273,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6597" name="Dragon Hunter Axe - Health">
@@ -321,9 +295,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="6599" name="Saint Spear - Health">

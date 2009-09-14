@@ -147,9 +147,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9858" name="Dynasty Blade - Health">
@@ -210,16 +207,13 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot -->
-      <set val="1" order="0x08" stat="MpConsume">
+      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <set order="0x08" stat="MpConsume" val="1">
         <and>
           <game chance="26"/>
           <player skill="false"/>
         </and>
       </set>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9864" name="Dynasty Bow - Guidance">
@@ -230,9 +224,6 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9865" name="Dynasty Bow - Focus">
@@ -263,9 +254,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9868" name="Dynasty Knife - Critical Damage">
@@ -276,11 +264,6 @@
       <set val="433" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Critical Damage -->
-      <add val="559" order="0x40" stat="cAtkAdd"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9869" name="Dynasty Halberd - Anger">
@@ -301,9 +284,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9871" name="Dynasty Halberd - Light">
@@ -325,9 +305,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9873" name="Dynasty Cudgel - Health">
@@ -350,9 +327,6 @@
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9875" name="Dynasty Mace - Mana Up">
@@ -397,9 +371,6 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- Enhances damage to target during PvP -->
-      <mul val="1.05" order="0x30" stat="pvpPhysDmg"/>
-      <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
     </for>
   </item>
   <item id="9879" name="Dynasty Bagh-Nakh - Focus">

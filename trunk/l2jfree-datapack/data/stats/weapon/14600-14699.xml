@@ -111,7 +111,7 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
-  <item id="14632" name="Santa Claus' Éclair Bijou">
+  <item id="14632" name="Santa Claus' Eclair Bijou">
     <for>
       <set val="46" order="0x08" stat="pAtk"/>
       <set val="38" order="0x08" stat="mAtk"/>
