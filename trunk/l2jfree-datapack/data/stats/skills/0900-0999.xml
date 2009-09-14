@@ -377,10 +377,15 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="922" levels="1" name="Hide">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="reuseDelay" val="180000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect count="1" name="Hide" time="30" val="0">
+        <mul order="0x30" stat="runSpd" val="0.7"/>
+      </effect>
+    </for>
   </skill>
   <skill id="923" levels="1" name="Dual Dagger Mastery">
     <!-- Done by DJ MELERIX -->
