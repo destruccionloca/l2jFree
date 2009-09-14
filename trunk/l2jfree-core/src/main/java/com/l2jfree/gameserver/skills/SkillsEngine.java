@@ -113,8 +113,19 @@ public final class SkillsEngine
 			xmlItem.add(item.getItemId());
 		
 		for (Item item : itemData.values())
+		{
 			if (!xmlItem.contains(item.id))
-				list.add(new L2EtcItem((L2EtcItemType)item.type, item.set));
+			{
+				try
+				{
+					list.add(new L2EtcItem((L2EtcItemType)item.type, item.set));
+				}
+				catch (RuntimeException e)
+				{
+					_log.warn("Error while parsing item id " + item.id, e);
+				}
+			}
+		}
 		
 		return list;
 	}
