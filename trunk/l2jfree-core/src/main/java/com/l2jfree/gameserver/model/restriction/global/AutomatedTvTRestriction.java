@@ -20,11 +20,13 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * @author NB4L1
+ * @author savormix
  */
 public final class AutomatedTvTRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
 {
@@ -32,37 +34,51 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	{
 		private static final AutomatedTvTRestriction INSTANCE = new AutomatedTvTRestriction();
 	}
-	
+
 	public static AutomatedTvTRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private AutomatedTvTRestriction()
 	{
 	}
-	
+
 	@Override
-	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
+	public boolean isRestricted(L2PcInstance player, Class<? extends GlobalRestriction> callingRestriction)
 	{
-		if (AutomatedTvT.isReged(activeChar) || AutomatedTvT.isPlaying(activeChar))
-		{
-			activeChar.sendMessage("You are participating in a fun event!");
-			return true;
-		}
-		
-		return false;
+		// NEVER add own fun event check here
+		// for example, can &= !AutomatedTvT.isReged(player);
+
+		// Level restrictions
+		boolean can = player.getLevel() <= Config.AUTO_TVT_LEVEL_MAX;
+		can &= player.getLevel() >= Config.AUTO_TVT_LEVEL_MIN;
+		// Cannot mess with observation
+		can &= !player.inObserverMode();
+		// Cannot mess with Olympiad
+		can &= !(player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player) ||
+				player.getOlympiadGameId() != -1);
+		// Cannot mess with raids or sieges
+		can &= !player.isInsideZone(L2Zone.FLAG_NOESCAPE);
+		can &= !(player.getMountType() == 2 && player.isInsideZone(L2Zone.FLAG_NOWYVERN));
+		// Hero restriction
+		if (!Config.AUTO_TVT_REGISTER_HERO)
+			can &= !player.isHero();
+		// Cursed weapon owner restriction
+		if (!Config.AUTO_TVT_REGISTER_CURSED)
+			can &= !player.isCursedWeaponEquipped();
+		return can;
 	}
-	
+
 	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		if (!Config.AUTO_TVT_REVIVE_SELF && AutomatedTvT.isPlaying(activeChar))
 			return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 		L2ItemInstance item, L2PcInstance player)
@@ -70,40 +86,39 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 		if (player != null && AutomatedTvT.isPlaying(player) && !AutomatedTvT.canUse(itemId))
 		{
 			player.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (AutomatedTvT.isPlaying(activeChar) && AutomatedTvT.isPlaying(target))
 			return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().addDisconnected(activeChar);
 	}
-	
+
 	@Override
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().onDisconnection(activeChar);
 	}
-	
+
 	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (!Config.AUTO_TVT_ENABLED)
 			return false;
-		
+
 		if (command.equals("jointvt"))
 		{
 			AutomatedTvT.getInstance().registerPlayer(activeChar);
@@ -114,7 +129,7 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 			AutomatedTvT.getInstance().cancelRegistration(activeChar);
 			return true;
 		}
-		
+
 		return false;
 	}
 }
