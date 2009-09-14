@@ -1293,12 +1293,12 @@
     <set name="coolTime" val="1666"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5562" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
+      <effect name="ChanceSkillTrigger" time="60" triggeredId="5562" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="785" levels="1" name="Flame Icon">
-    <set name="hpConsume" val="1253"/>
     <set name="hitTime" val="1800"/>
+    <set name="hpConsume" val="1253"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="coolTime" val="1200"/>
     <set name="reuseDelay" val="15000"/>
@@ -1334,16 +1334,16 @@
   <skill id="786" levels="1" name="Eva's Will">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="83"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="coolTime" val="1666"/>
     <set name="reuseDelay" val="95000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5563" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
+      <effect name="ChanceSkillTrigger" time="60" triggeredId="5563" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="787" levels="1" name="Touch of Eva">
@@ -1374,16 +1374,16 @@
   <skill id="788" levels="1" name="Pain of Shilen">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="83"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="2500"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="95000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="coolTime" val="1666"/>
     <set name="isMagic" val="true"/>
     <for>
-      <effect name="ChanceSkillTrigger" time="60" val="0" triggeredId="5564" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
+      <effect name="ChanceSkillTrigger" time="60" triggeredId="5564" triggeredLevel="1" chanceType="ON_ATTACKED" activationChance="10" stackOrder="1" stackType="inc_buff"/>
     </for>
   </skill>
   <skill id="789" levels="1" name="Spirit of Shilen">
