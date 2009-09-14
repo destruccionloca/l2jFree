@@ -22,36 +22,36 @@ public class VanguardShilienKnight extends L2Transformation
 {
 	public VanguardShilienKnight()
 	{
-		// id, colRadius, colHeight
-		super(315, 6, 23);
+		// id
+		super(315);
 	}
-	
+
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
 			return;
-		
+
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
-		
+
 		addSkill(player, 838, 1); // Switch Stance
 		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
-		
+
 		// give transformation skills
 		transformedSkills(player);
 	}
-	
+
 	@Override
 	public void onUntransform(L2PcInstance player)
 	{
 		removeSkill(player, 838); // Switch Stance
 		removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
-		
+
 		// remove transformation skills
 		removeSkills(player);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -64,7 +64,7 @@ public class VanguardShilienKnight extends L2Transformation
 		}
 		player.addTransformAllowedSkill(new int[] { 28, 18, 22, 33, 401, 278, 289, 279 });
 	}
-	
+
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -72,7 +72,7 @@ public class VanguardShilienKnight extends L2Transformation
 		removeSkill(player, 815); // Blade Hurricane
 		removeSkill(player, 817); // Double Strike
 	}
-	
+
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new VanguardShilienKnight());
