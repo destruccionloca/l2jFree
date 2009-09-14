@@ -7,7 +7,6 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8301" levels="1" name="Vesper Heavy Armor Set for Adults">
-    <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -25,7 +24,6 @@
     </for>
   </skill>
   <skill id="8302" levels="1" name="Vesper Noble Heavy Armor Set for Adults">
-    <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -43,7 +41,6 @@
     </for>
   </skill>
   <skill id="8303" levels="1" name="Vesper Light Armor Set for Adults">
-    <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -61,7 +58,6 @@
     </for>
   </skill>
   <skill id="8304" levels="1" name="Vesper Noble Light Armor Set for Adults">
-    <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -79,7 +75,6 @@
     </for>
   </skill>
   <skill id="8305" levels="1" name="Vesper Robe Set for Adults">
-    <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -98,7 +93,6 @@
     </for>
   </skill>
   <skill id="8306" levels="1" name="Vesper Noble Robe Set for Adults">
-    <!-- Done by DJ MELERIX -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -134,7 +128,6 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="8310" levels="1" name="Arcana Sigil">
-    <!-- Done by DJ MELERIX -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -144,7 +137,6 @@
     </for>
   </skill>
   <skill id="8311" levels="1" name="Dynasty Sigil">
-    <!-- Done by DJ MELERIX -->
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
