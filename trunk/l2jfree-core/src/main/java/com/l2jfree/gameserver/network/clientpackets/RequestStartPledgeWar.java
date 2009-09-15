@@ -120,7 +120,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         //        leader.setTransactionRequester(player);
         //        player.setTransactionRequester(leader);
         //        leader.sendPacket(new StartPledgeWar(_clan.getName(),player.getName()));
-        ClanTable.getInstance().storeclanswars(player.getClanId(), clan.getClanId());
+        ClanTable.getInstance().storeclanswars(clan.getClanId(), warClan.getClanId());
 
         sendAF();
     }

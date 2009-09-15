@@ -4050,7 +4050,6 @@ public final class L2PcInstance extends L2Playable
 	 * <BR>
 	 */
 	@Override
-	@SuppressWarnings("deprecation")
 	public void sendPacket(L2GameServerPacket packet)
 	{
 		final L2GameClient client = _client;
@@ -4074,7 +4073,6 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public void sendMessage(String message)
 	{
 		sendPacket(SystemMessage.sendString(message));
@@ -8023,7 +8021,7 @@ public final class L2PcInstance extends L2Playable
 				return true;
 
 			// Check if the L2PcInstance holds a cursed weapon
-			if (((L2PcInstance)attacker).isCursedWeaponEquipped())
+			if (((L2PcInstance) attacker).isCursedWeaponEquipped())
 				return true;
 
 			if (getClan() != null)
