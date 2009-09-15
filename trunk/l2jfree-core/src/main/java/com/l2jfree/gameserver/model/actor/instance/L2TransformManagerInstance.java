@@ -143,6 +143,10 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 						item = player.getInventory().getItemByItemId(itemId);
 						if (item != null)
 							player.destroyItemByItemId("Subclass Certification Removal", itemId, item.getCount(), player, true);
+
+						item = player.getWarehouse().getItemByItemId(itemId);
+						if (item != null)
+							player.getWarehouse().destroyItemByItemId("Subclass Certification Removal", itemId, item.getCount(), player, null);
 					}
 					player.deleteSubclassCertifications();
 
