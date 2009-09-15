@@ -8372,7 +8372,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		// Skills can be used on walls and doors only during siege
-		if(target instanceof L2DoorInstance)
+		if (target instanceof L2DoorInstance)
 		{
 			L2DoorInstance door = (L2DoorInstance) target;
 			boolean isCastleDoor = (door.getCastle() != null && door.getCastle().getSiege().getIsInProgress());
@@ -8662,7 +8662,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean checkPvpSkill(L2Object obj, L2Skill skill)
 	{
-		return checkPvpSkill(obj,skill,false);
+		return checkPvpSkill(obj, skill, false);
 	}
 	/**
 	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
@@ -8671,10 +8671,10 @@ public final class L2PcInstance extends L2Playable
 	 * @param srcIsSummon is L2Summon - caster?
 	 * @return False if the skill is a pvpSkill and target is not a valid pvp target
 	 */
-	public boolean checkPvpSkill(L2Object obj, L2Skill skill,boolean srcIsSummon)
+	public boolean checkPvpSkill(L2Object obj, L2Skill skill, boolean srcIsSummon)
 	{
 		if (obj instanceof L2Character)
-			if (GlobalRestrictions.isProtected(this, (L2Character)obj, skill, false))
+			if (GlobalRestrictions.isProtected(this, (L2Character) obj, skill, false))
 				return false;
 
 		// Check for PC->PC Pvp status
@@ -8689,6 +8689,8 @@ public final class L2PcInstance extends L2Playable
 
 			if (skill.isPvpSkill()) // Pvp skill
 			{
+				if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(target))
+					return true;
 				if (getClan() != null && target.getClan() != null)
 				{
 					if (getClan().isAtWarWith(target.getClan().getClanId())
@@ -8703,7 +8705,7 @@ public final class L2PcInstance extends L2Playable
 			else if ((getCurrentSkill() != null && !getCurrentSkill().isCtrlPressed() && skill.isOffensive() && !srcIsSummon)
 					|| (getCurrentPetSkill() != null && !getCurrentPetSkill().isCtrlPressed() && skill.isOffensive() && srcIsSummon))
 			{
-				if(getClan() != null && target.getClan() != null)
+				if (getClan() != null && target.getClan() != null)
 				{
 					if(getClan().isAtWarWith(target.getClan().getClanId()) && target.getClan().isAtWarWith(getClan().getClanId()))
 						return true; // In clan war player can attack whites even without ctrl

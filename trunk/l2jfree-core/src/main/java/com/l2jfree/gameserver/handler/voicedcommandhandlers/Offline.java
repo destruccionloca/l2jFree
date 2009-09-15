@@ -22,39 +22,40 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 public class Offline implements IVoicedCommandHandler
 {
 	private static final String[] VOICED_COMMANDS = { "offline" };
-	
+
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (!Config.ALLOW_OFFLINE_TRADE)
 			return false;
-		
+
 		switch (activeChar.getPrivateStoreType())
 		{
-			case L2PcInstance.STORE_PRIVATE_MANUFACTURE:
+		case L2PcInstance.STORE_PRIVATE_MANUFACTURE:
+		{
+			if (!Config.ALLOW_OFFLINE_TRADE_CRAFT)
+				break;
+		}
+		//$FALL-THROUGH$
+		case L2PcInstance.STORE_PRIVATE_SELL:
+		case L2PcInstance.STORE_PRIVATE_BUY:
+		{
+			if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
 			{
-				if (!Config.ALLOW_OFFLINE_TRADE_CRAFT)
-					break;
+				activeChar.enterOfflineMode();
+				return true;
 			}
-			case L2PcInstance.STORE_PRIVATE_SELL:
-			case L2PcInstance.STORE_PRIVATE_BUY:
+			else
 			{
-				if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
-				{
-					activeChar.enterOfflineMode();
-					return true;
-				}
-				else
-				{
-					activeChar.sendMessage("You must be in a peace zone to use offline mode!");
-					return true;
-				}
+				activeChar.sendMessage("You must be in a peace zone to use offline mode!");
+				return true;
 			}
 		}
-		
+		}
+
 		activeChar.sendMessage("You must be in trade mode to use offline mode!");
 		return true;
 	}
-	
+
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;
