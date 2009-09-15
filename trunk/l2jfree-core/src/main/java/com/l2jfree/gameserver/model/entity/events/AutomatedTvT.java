@@ -223,7 +223,7 @@ public final class AutomatedTvT
 		for (L2PcInstance player : reged)
 		{
 			if (player == null) continue;
-			if (!canJoin(player, true))
+			if (!canJoin(player))
 			{
 				player.sendMessage("You no longer meet the requirements to join " + evtName);
 				participants.remove(player);
@@ -480,10 +480,10 @@ public final class AutomatedTvT
 		return eventPlayers.get(oID) != null;
 	}
 
-	private final boolean canJoin(L2PcInstance player, boolean alreadyRegistered)
+	private final boolean canJoin(L2PcInstance player)
 	{
 		// Cannot mess with observation, Olympiad, raids, sieges or other events
-		if (!alreadyRegistered && GlobalRestrictions.isRestricted(player, AutomatedTvTRestriction.class))
+		if (GlobalRestrictions.isRestricted(player, AutomatedTvTRestriction.class))
 			return false;
 		
 		// Level restrictions
@@ -507,7 +507,7 @@ public final class AutomatedTvT
 			player.sendPacket(SystemMessageId.REGISTRATION_PERIOD_OVER);
 		else if (!participants.contains(player))
 		{
-			if (!canJoin(player, false))
+			if (!canJoin(player))
 			{
 				player.sendMessage("You do not meet the requirements to join " + evtName);
 				return;

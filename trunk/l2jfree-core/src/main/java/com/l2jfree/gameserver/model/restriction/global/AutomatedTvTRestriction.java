@@ -45,6 +45,9 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
+		if (callingRestriction == getClass())
+			return false;
+		
 		if (AutomatedTvT.isReged(activeChar) || AutomatedTvT.isPlaying(activeChar))
 		{
 			activeChar.sendMessage("You are participating in a fun event!");
