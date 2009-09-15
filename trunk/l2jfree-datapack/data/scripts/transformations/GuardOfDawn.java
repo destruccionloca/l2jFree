@@ -26,7 +26,7 @@ public class GuardOfDawn extends L2Transformation
 	public GuardOfDawn()
 	{
 		// id, colRadius, colHeight
-		super(113, 13, 24);
+		super(113, 8, 23.5);
 	}
 	
 	@Override

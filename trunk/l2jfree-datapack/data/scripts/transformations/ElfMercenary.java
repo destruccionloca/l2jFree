@@ -26,7 +26,7 @@ public class ElfMercenary extends L2Transformation
 	public ElfMercenary()
 	{
 		// id, colRadius, colHeight
-		super(11, 13, 23);
+		super(11, 8, 23.5);
 	}
 	
 	@Override

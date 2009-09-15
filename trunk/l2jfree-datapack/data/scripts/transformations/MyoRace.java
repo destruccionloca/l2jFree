@@ -26,7 +26,7 @@ public class MyoRace extends L2Transformation
 	public MyoRace()
 	{
 		// id, colRadius, colHeight
-		super(221, 16, 32);
+		super(219, 10, 23);
 	}
 	
 	@Override

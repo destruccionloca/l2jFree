@@ -26,9 +26,9 @@ public class Zariche extends L2Transformation
 	public Zariche()
 	{
 		// id, colRadius, colHeight
-		super(301, 9, 31);
+		super(301, 12, 31.58);
 	}
-	
+
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
@@ -36,7 +36,7 @@ public class Zariche extends L2Transformation
 		player.getAppearance().setVisibleName("Zariche");
 		player.getAppearance().setVisibleTitle("");
 	}
-	
+
 	@Override
 	public void onUntransform(L2PcInstance player)
 	{

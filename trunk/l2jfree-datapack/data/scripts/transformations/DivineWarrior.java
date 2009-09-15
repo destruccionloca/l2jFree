@@ -26,7 +26,7 @@ public class DivineWarrior extends L2Transformation
 	public DivineWarrior()
 	{
 		// id, colRadius, colHeight
-		super(253, 12, 30);
+		super(253, 14.5, 29);
 	}
 	
 	@Override

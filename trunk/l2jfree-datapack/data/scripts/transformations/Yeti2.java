@@ -26,7 +26,7 @@ public class Yeti2 extends L2Transformation
 	public Yeti2()
 	{
 		// id, colRadius, colHeight
-		super(323, 8, 24);
+		super(323, 18, 32);
 	}
 	
 	@Override

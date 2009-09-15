@@ -26,7 +26,7 @@ public class Unicornium extends L2Transformation
 	public Unicornium()
 	{
 		// id, colRadius, colHeight
-		super(219, 16, 24);
+		super(220, 8, 30);
 	}
 	
 	@Override

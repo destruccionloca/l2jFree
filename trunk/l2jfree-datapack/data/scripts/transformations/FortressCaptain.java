@@ -26,7 +26,7 @@ public class FortressCaptain extends L2Transformation
 	public FortressCaptain()
 	{
 		// id, colRadius, colHeight
-		super(21, 13, 27);
+		super(21, 14, 27);
 	}
 	
 	@Override

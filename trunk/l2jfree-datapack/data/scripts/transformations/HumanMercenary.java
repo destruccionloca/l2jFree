@@ -26,7 +26,7 @@ public class HumanMercenary extends L2Transformation
 	public HumanMercenary()
 	{
 		// id, colRadius, colHeight
-		super(10, 12, 24);
+		super(10, 8, 24);
 	}
 	
 	@Override

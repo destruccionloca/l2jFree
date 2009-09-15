@@ -26,7 +26,7 @@ public class Timitran extends L2Transformation
 	public Timitran()
 	{
 		// id, colRadius, colHeight
-		super(321, 8, 24);
+		super(321, 23, 90);
 	}
 	
 	@Override

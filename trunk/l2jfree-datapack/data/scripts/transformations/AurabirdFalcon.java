@@ -27,16 +27,16 @@ public class AurabirdFalcon extends L2Transformation
 	public AurabirdFalcon()
 	{
 		// id, colRadius, colHeight
-		super(8, 38, 14);
+		super(8, 38, 14.25);
 	}
-	
+
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		// FIXME: super();
 		player.setIsFlyingMounted(true);
 	}
-	
+
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{

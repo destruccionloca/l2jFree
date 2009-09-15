@@ -26,7 +26,7 @@ public class InfernoDrakeWeak extends L2Transformation
 	public InfernoDrakeWeak()
 	{
 		// id, colRadius, colHeight
-		super(215, 8, 22);
+		super(215, 15, 24);
 	}
 	
 	@Override

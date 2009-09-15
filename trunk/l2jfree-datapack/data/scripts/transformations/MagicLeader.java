@@ -26,7 +26,7 @@ public class MagicLeader extends L2Transformation
 	public MagicLeader()
 	{
 		// id, colRadius, colHeight
-		super(18, 12, 24);
+		super(18, 9, 23.5);
 	}
 	
 	@Override

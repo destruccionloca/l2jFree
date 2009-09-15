@@ -26,7 +26,7 @@ public class GolemGuardianNormal extends L2Transformation
 	public GolemGuardianNormal()
 	{
 		// id, colRadius, colHeight
-		super(211, 8, 23.5);
+		super(211, 13, 25);
 	}
 	
 	@Override

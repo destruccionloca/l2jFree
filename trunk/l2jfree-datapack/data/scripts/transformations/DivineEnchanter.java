@@ -26,7 +26,7 @@ public class DivineEnchanter extends L2Transformation
 	public DivineEnchanter()
 	{
 		// id, colRadius, colHeight
-		super(257, 12, 24);
+		super(257, 8, 18.25);
 	}
 	
 	@Override

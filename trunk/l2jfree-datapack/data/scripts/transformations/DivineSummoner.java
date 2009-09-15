@@ -26,7 +26,7 @@ public class DivineSummoner extends L2Transformation
 	public DivineSummoner()
 	{
 		// id, colRadius, colHeight
-		super(258, 12, 24);
+		super(258, 10, 25);
 	}
 	
 	@Override

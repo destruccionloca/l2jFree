@@ -23,7 +23,7 @@ public class TawnyManedLion extends L2Transformation
 	public TawnyManedLion()
 	{
 		// id, colRadius, colHeight
-		super(109, 10, 24);
+		super(109, 25, 22.5);
 	}
 	
 	@Override

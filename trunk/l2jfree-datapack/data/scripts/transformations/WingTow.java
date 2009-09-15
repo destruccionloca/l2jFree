@@ -26,7 +26,7 @@ public class WingTow extends L2Transformation
 	public WingTow()
 	{
 		// id, colRadius, colHeight
-		super(120, 8, 8);
+		super(120, 4.4, 8.25);
 	}
 	
 	@Override

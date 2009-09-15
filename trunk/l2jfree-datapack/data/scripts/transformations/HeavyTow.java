@@ -26,7 +26,7 @@ public class HeavyTow extends L2Transformation
 	public HeavyTow()
 	{
 		// id, colRadius, colHeight
-		super(119, 9, 9);
+		super(119, 4.4, 8.25);
 	}
 	
 	@Override

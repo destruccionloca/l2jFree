@@ -26,7 +26,7 @@ public class DivineHealer extends L2Transformation
 	public DivineHealer()
 	{
 		// id, colRadius, colHeight
-		super(255, 12, 24);
+		super(255, 10, 25);
 	}
 	
 	@Override

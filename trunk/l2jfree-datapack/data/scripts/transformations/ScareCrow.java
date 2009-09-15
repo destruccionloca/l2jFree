@@ -26,7 +26,7 @@ public class ScareCrow extends L2Transformation
 	public ScareCrow()
 	{
 		// id, colRadius, colHeight
-		super(115, 15, 30);
+		super(115, 13, 30);
 	}
 	
 	@Override

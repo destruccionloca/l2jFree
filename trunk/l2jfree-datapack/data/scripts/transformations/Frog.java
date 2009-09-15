@@ -26,7 +26,7 @@ public class Frog extends L2Transformation
 	public Frog()
 	{
 		// id, colRadius, colHeight
-		super(111, 22, 8);
+		super(111, 20, 9);
 	}
 	
 	@Override

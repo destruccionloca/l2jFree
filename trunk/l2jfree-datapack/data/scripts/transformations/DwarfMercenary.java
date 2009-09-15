@@ -26,7 +26,7 @@ public class DwarfMercenary extends L2Transformation
 	public DwarfMercenary()
 	{
 		// id, colRadius, colHeight
-		super(14, 13, 24);
+		super(14, 8, 19);
 	}
 	
 	@Override

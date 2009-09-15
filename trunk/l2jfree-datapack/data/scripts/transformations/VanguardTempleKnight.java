@@ -22,19 +22,19 @@ public class VanguardTempleKnight extends L2Transformation
 {
 	public VanguardTempleKnight()
 	{
-		// id, colRadius, colHeight
-		super(314, 7, 24);
+		// id
+		super(314);
 	}
-	
+
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
 			return;
-		
+
 		// Update transformation ID into database and player instance variables.
 		player.transformInsertInfo();
-		
+
 		addSkill(player, 838, 1); // Switch Stance
 		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
 		

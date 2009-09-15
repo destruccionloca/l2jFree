@@ -26,7 +26,7 @@ public class DoomWraith extends L2Transformation
 	public DoomWraith()
 	{
 		// id, colRadius, colHeight
-		super(2, 8, 22);
+		super(2, 13, 25);
 	}
 	
 	@Override

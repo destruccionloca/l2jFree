@@ -26,7 +26,7 @@ public class GrizzlyBear extends L2Transformation
 	public GrizzlyBear()
 	{
 		// id, colRadius, colHeight
-		super(320, 8, 24);
+		super(320, 21, 40);
 	}
 	
 	@Override

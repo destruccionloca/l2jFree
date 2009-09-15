@@ -26,7 +26,7 @@ public class DivineWizard extends L2Transformation
 	public DivineWizard()
 	{
 		// id, colRadius, colHeight
-		super(256, 12, 24);
+		super(256, 10, 26);
 	}
 	
 	@Override

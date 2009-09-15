@@ -26,7 +26,7 @@ public class SnowKing extends L2Transformation
 	public SnowKing()
 	{
 		// id, colRadius, colHeight
-		super(114, 27, 31);
+		super(114, 28, 30);
 	}
 	
 	@Override

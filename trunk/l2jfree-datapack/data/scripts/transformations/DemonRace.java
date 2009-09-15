@@ -23,7 +23,7 @@ public class DemonRace extends L2Transformation
 	public DemonRace()
 	{
 		// id, colRadius, colHeight
-		super(220, 16, 29);
+		super(221, 11, 27);
 	}
 	
 	@Override

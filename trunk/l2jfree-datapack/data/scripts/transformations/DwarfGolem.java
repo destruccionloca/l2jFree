@@ -26,7 +26,7 @@ public class DwarfGolem extends L2Transformation
 	public DwarfGolem()
 	{
 		// id, colRadius, colHeight
-		super(259, 35, 46);
+		super(259, 31, 51.8);
 	}
 	
 	@Override
