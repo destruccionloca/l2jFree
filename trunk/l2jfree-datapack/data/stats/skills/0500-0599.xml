@@ -668,7 +668,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
-      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5425" chanceType="ON_ATTACKED" activationChance="30"/>
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5425" chanceType="ON_ATTACKED" activationChance="15"/>
     </for>
   </skill>
   <skill id="528" levels="1" name="Shield of Faith">
