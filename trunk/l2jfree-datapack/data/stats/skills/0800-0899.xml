@@ -1039,6 +1039,7 @@
     </for>  
   </skill>
   <skill id="885" levels="1" name="Air Blink">
+    <!-- Aurabird Falcon & Owl -->
     <set name="coolTime" val="200"/>
     <set name="flyCourse" val="0"/> <!-- Teleport to Back -->
     <set name="flyRadius" val="500"/>
