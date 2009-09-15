@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.global.AutomatedTvTRestriction;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -47,8 +48,13 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class AutomatedTvT
 {
+	static
+	{
+		AutomatedTvTRestriction.getInstance().activate(); // TODO: must be checked
+	}
+	
 	private static final Log _log = LogFactory.getLog(AutomatedTvT.class);
-	private static final AutomatedTvTRestriction EVAL = AutomatedTvTRestriction.getInstance();
+	
 	private static final String REMOVE_DISCONNECTED_PLAYER = "UPDATE characters SET heading=?,x=?,y=?,z=?,title=? WHERE charId=?";
 	private static final String evtName = "Team versus team";
 
@@ -62,11 +68,6 @@ public final class AutomatedTvT
 	private static final int STATUS_COMBAT			= 3;
 	//players are frozen, rewarded and teled back to where they were
 	private static final int STATUS_REWARDS			= 4;
-
-	static
-	{
-		EVAL.activate();
-	}
 
 	private static AutomatedTvT instance = null;
 
@@ -222,7 +223,7 @@ public final class AutomatedTvT
 		for (L2PcInstance player : reged)
 		{
 			if (player == null) continue;
-			if (EVAL.isRestricted(player, EVAL.getClass()))
+			if (!canJoin(player, true))
 			{
 				player.sendMessage("You no longer meet the requirements to join " + evtName);
 				participants.remove(player);
@@ -479,6 +480,24 @@ public final class AutomatedTvT
 		return eventPlayers.get(oID) != null;
 	}
 
+	private final boolean canJoin(L2PcInstance player, boolean alreadyRegistered)
+	{
+		// Cannot mess with observation, Olympiad, raids, sieges or other events
+		if (!alreadyRegistered && GlobalRestrictions.isRestricted(player, AutomatedTvTRestriction.class))
+			return false;
+		
+		// Level restrictions
+		boolean can = player.getLevel() <= Config.AUTO_TVT_LEVEL_MAX;
+		can &= player.getLevel() >= Config.AUTO_TVT_LEVEL_MIN;
+		// Hero restriction
+		if (!Config.AUTO_TVT_REGISTER_HERO)
+			can &= !player.isHero();
+		// Cursed weapon owner restriction
+		if (!Config.AUTO_TVT_REGISTER_CURSED)
+			can &= !player.isCursedWeaponEquipped();
+		return can;
+	}
+
 	public final void registerPlayer(L2PcInstance player)
 	{
 		if (!active) return;
@@ -488,7 +507,7 @@ public final class AutomatedTvT
 			player.sendPacket(SystemMessageId.REGISTRATION_PERIOD_OVER);
 		else if (!participants.contains(player))
 		{
-			if (EVAL.isRestricted(player, EVAL.getClass()))
+			if (!canJoin(player, false))
 			{
 				player.sendMessage("You do not meet the requirements to join " + evtName);
 				return;
