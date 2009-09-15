@@ -9,7 +9,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6835" name="Circlet of Dion">
@@ -20,7 +20,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6836" name="Circlet of Goddard">
@@ -31,7 +31,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6837" name="Circlet of Oren">
@@ -42,7 +42,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6838" name="Circlet of Gludio">
@@ -53,7 +53,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6839" name="Circlet of Giran">
@@ -64,7 +64,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6840" name="Circlet of Aden">
@@ -75,7 +75,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6841" name="The Lord's Crown">
@@ -86,7 +86,7 @@
       </and>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6842" name="Wings of Destiny Circlet">
@@ -94,12 +94,12 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6843" name="Cat Ear">
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6844" name="Lady's Hair Pin">
@@ -107,17 +107,17 @@
       <player sex="1"/>
     </cond>
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6845" name="Pirate's Eye Patch">
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
   <item id="6846" name="Monocle">
     <for>
-      <add val="0" order="0x10" stat="pDef"/>
+      <add order="0x10" stat="pDef" val="0"/>
     </for>
   </item>
 </list>
