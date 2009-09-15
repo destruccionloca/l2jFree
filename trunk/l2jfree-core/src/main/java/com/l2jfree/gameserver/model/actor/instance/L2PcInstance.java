@@ -4641,12 +4641,6 @@ public final class L2PcInstance extends L2Playable
 				}
 			}
 
-			if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(pk))
-			{
-				srcInPvP = true;
-				AutomatedTvT.getInstance().onKill(pk, this);
-			}
-
 			if (!srcInPvP)
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
@@ -7986,10 +7980,6 @@ public final class L2PcInstance extends L2Playable
 		if (isCursedWeaponEquipped())
 			return true;
 
-		if (AutomatedTvT.isPlaying(this) &&
-				AutomatedTvT.isPlaying((L2PcInstance) attacker))
-			return true;
-
 		// Check if the attacker is in olympia and olympia start
 		if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isInOlympiadMode())
 		{
@@ -8689,8 +8679,6 @@ public final class L2PcInstance extends L2Playable
 
 			if (skill.isPvpSkill()) // Pvp skill
 			{
-				if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(target))
-					return true;
 				if (getClan() != null && target.getClan() != null)
 				{
 					if (getClan().isAtWarWith(target.getClan().getClanId())

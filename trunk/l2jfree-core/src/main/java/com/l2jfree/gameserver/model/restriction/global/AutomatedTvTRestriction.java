@@ -89,6 +89,27 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	}
 	
 	@Override
+	public Boolean isInsideZone(L2Character activeChar, byte zone)
+	{
+		if (activeChar instanceof L2Playable && AutomatedTvT.isPlaying(activeChar.getActingPlayer()))
+		{
+			switch (zone)
+			{
+				case L2Zone.FLAG_PEACE:
+				{
+					return Boolean.FALSE;
+				}
+				case L2Zone.FLAG_PVP:
+				{
+					return Boolean.TRUE;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().addDisconnected(activeChar);
@@ -98,6 +119,12 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().onDisconnection(activeChar);
+	}
+	
+	public boolean playerKilled(L2Character activeChar, L2PcInstance target, L2PcInstance killer)
+	{
+		if (AutomatedTvT.isPlaying(killer) && AutomatedTvT.isPlaying(target))
+			AutomatedTvT.getInstance().onKill(killer, target);
 	}
 	
 	@Override

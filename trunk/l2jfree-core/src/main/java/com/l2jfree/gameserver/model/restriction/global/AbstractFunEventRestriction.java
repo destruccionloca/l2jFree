@@ -157,6 +157,27 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	}
 	
 	@Override
+	public final Boolean isInsideZone(L2Character activeChar, byte zone)
+	{
+		if (activeChar instanceof L2Playable && isInFunEvent(activeChar.getActingPlayer()) && started())
+		{
+			switch (zone)
+			{
+				case L2Zone.FLAG_PEACE:
+				{
+					return Boolean.FALSE;
+				}
+				case L2Zone.FLAG_PVP:
+				{
+					return Boolean.TRUE;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
 	public boolean canStandUp(L2PcInstance activeChar)
 	{
 		if (sitForced() && isInFunEvent(activeChar))
