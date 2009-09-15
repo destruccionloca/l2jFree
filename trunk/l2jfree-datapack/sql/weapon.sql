@@ -3396,8 +3396,8 @@ UPDATE `weapon` SET time = "21600" WHERE (name LIKE '%15 Day%') or (name LIKE '%
 UPDATE `weapon` SET time = "43200" WHERE (name LIKE '%30 Day%') or (name LIKE '%30-Day%');
 
 -- Ensures that all rapiers have the rapier skill, then sets the Infinity Rapier one to 0 (since it's called via the Infinity SA)
-UPDATE `weapon` SET enchant4_skill_id = "3426", enchant4_skill_lvl = "1" WHERE weaponType = "rapier";
-UPDATE `weapon` SET enchant4_skill_id = "0", enchant4_skill_lvl = "0" WHERE item_id = "9388";
+UPDATE `weapon` SET enchant4_skill = "3426-1" WHERE weaponType = "rapier";
+UPDATE `weapon` SET enchant4_skill = "" WHERE item_id = "9388";
 
 -- Weapons that are limited should not be able to be changed as far as I know. I do not know if changing a weapon will reset the timer on it. Until tested, this entry should remain. Just to be safe. ;)
 UPDATE `weapon` SET change_weaponId = "0" WHERE (duration > 0) or (time > 0);
