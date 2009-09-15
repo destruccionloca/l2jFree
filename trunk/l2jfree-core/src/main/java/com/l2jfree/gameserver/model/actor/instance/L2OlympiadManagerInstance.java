@@ -170,16 +170,16 @@ public class L2OlympiadManagerInstance extends L2Npc
 
 			// Oly buff whitelist prevents bypass exploiters -.-
 			HashMap<Integer, Integer> buffList = new HashMap<Integer, Integer>();
-			buffList.put(1086, 2); // Haste Lv2
-			buffList.put(1204, 2); // Wind Walk Lv2
-			buffList.put(1059, 3); // Empower Lv3
-			buffList.put(1085, 3); // Acumen Lv3
-			buffList.put(1078, 6); // Concentration Lv6
-			buffList.put(1068, 3); // Might Lv3
-			buffList.put(1240, 3); // Guidance Lv3
-			buffList.put(1077, 3); // Focus Lv3
-			buffList.put(1242, 3); // Death Whisper Lv3
-			buffList.put(1062, 2); // Berserk Spirit Lv2
+			buffList.put(4357, 2); // Haste Lv2
+			buffList.put(4342, 2); // Wind Walk Lv2
+			buffList.put(4356, 3); // Empower Lv3
+			buffList.put(4355, 3); // Acumen Lv3
+			buffList.put(4351, 6); // Concentration Lv6
+			buffList.put(4345, 3); // Might Lv3
+			buffList.put(4358, 3); // Guidance Lv3
+			buffList.put(4359, 3); // Focus Lv3
+			buffList.put(4360, 3); // Death Whisper Lv3
+			buffList.put(4352, 2); // Berserk Spirit Lv2
 
 			// Lets check on our oly buff whitelist
 			if (!buffList.containsKey(skillId))
