@@ -11636,9 +11636,10 @@ public final class L2PcInstance extends L2Playable
 		final HashSet<L2Zone> set = new HashSet<L2Zone>();
 		
 		for (Map<String, L2Zone> zones : ZoneManager.getInstance().getZones())
-			for (L2Zone zone : zones.values())
-				if (zone.getCharactersInside().contains(zone))
-					set.add(zone);
+			if (zones != null)
+				for (L2Zone zone : zones.values())
+					if (zone.getCharactersInside().contains(zone))
+						set.add(zone);
 		
 		return set;
 	}
