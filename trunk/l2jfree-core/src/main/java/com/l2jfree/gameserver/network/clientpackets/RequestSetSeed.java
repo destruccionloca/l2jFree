@@ -47,23 +47,21 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class RequestSetSeed extends L2GameClientPacket
 {
-	private static final String _C__D0_0A_REQUESTSETSEED = "[C] D0:0A RequestSetSeed";
+	private static final String	_C__D0_0A_REQUESTSETSEED	= "[C] D0:0A RequestSetSeed";
 
-	private static final int BATCH_LENGTH = 12; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 20;
+	private static final int	BATCH_LENGTH				= 12;							// length of the one item
+	private static final int	BATCH_LENGTH_FINAL			= 20;
 
-	private int _manorId;
+	private int					_manorId;
 
-	private Seed _items[] = null;
+	private Seed				_items[]					= null;
 
 	@Override
 	protected void readImpl()
 	{
 		_manorId = readD();
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -87,7 +85,8 @@ public class RequestSetSeed extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (_items == null || player.getClan() == null)
 		{
@@ -114,7 +113,7 @@ public class RequestSetSeed extends L2GameClientPacket
 
 		if (!(manager instanceof L2CastleChamberlainInstance))
 			manager = player.getLastFolkNPC();
-		
+
 		if (!(manager instanceof L2CastleChamberlainInstance))
 		{
 			sendAF();
@@ -154,9 +153,9 @@ public class RequestSetSeed extends L2GameClientPacket
 
 	private class Seed
 	{
-		private final int _itemId;
-		private final long _sales;
-		private final long _price;
+		private final int	_itemId;
+		private final long	_sales;
+		private final long	_price;
 
 		public Seed(int id, long s, long p)
 		{

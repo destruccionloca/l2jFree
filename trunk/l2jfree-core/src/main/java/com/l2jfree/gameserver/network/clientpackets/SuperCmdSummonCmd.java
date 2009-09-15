@@ -25,18 +25,18 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class SuperCmdSummonCmd extends L2GameClientPacket
 {
-	private static final String _C__39_01_SUPERCMDSUMMONCMD = "[C] 39:01 SuperCmdSummonCmd";
+	private static final String	_C__39_01_SUPERCMDSUMMONCMD	= "[C] 39:01 SuperCmdSummonCmd";
 
 	//private String _summonName;
 
-    @Override
-    protected void readImpl()
-    {
-        /* _summonName = */readS();
-    }
+	@Override
+	protected void readImpl()
+	{
+		/* _summonName = */readS();
+	}
 
 	@Override
-    protected void runImpl()
+	protected void runImpl()
 	{
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}

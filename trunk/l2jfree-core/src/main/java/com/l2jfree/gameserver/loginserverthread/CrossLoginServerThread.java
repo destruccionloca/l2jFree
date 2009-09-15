@@ -53,11 +53,11 @@ import com.l2jfree.tools.util.HexUtil;
  */
 public final class CrossLoginServerThread extends LoginServerThread
 {
-	public static final int PROTOCOL_L2J = 258;
-	public static final int PROTOCOL_LEGACY = 259;
-	public static final int PROTOCOL_CURRENT = 1;
+	public static final int	PROTOCOL_L2J		= 258;
+	public static final int	PROTOCOL_LEGACY		= 259;
+	public static final int	PROTOCOL_CURRENT	= 1;
 
-	private int _protocol;
+	private int				_protocol;
 
 	public CrossLoginServerThread()
 	{
@@ -132,122 +132,124 @@ public final class CrossLoginServerThread extends LoginServerThread
 					int packetType = decrypt[0] & 0xff;
 					switch (packetType)
 					{
-						case 00:
-							InitLS init = new InitLS(decrypt);
+					case 00:
+						InitLS init = new InitLS(decrypt);
+						if (_log.isDebugEnabled())
+							_log.debug("Init received");
+						if (init.getRevision() != PROTOCOL_L2J && init.getRevision() != PROTOCOL_LEGACY)
+						{
+							// WTF? Some retard thinks he is God?
+							_log.warn("The specified login server does not support L2J!");
+							break;
+						}
+						else if (init.getTrueRevision() == PROTOCOL_CURRENT)
+						{
+							// Fully compatible login
+							_protocol = PROTOCOL_CURRENT;
+							sendPacket(new CompatibleProtocol());
+						}
+						else
+							// Default compatibility login
+							_protocol = init.getRevision();
+						try
+						{
+							KeyFactory kfac = KeyFactory.getInstance("RSA");
+							BigInteger modulus = new BigInteger(init.getRSAKey());
+							RSAPublicKeySpec kspec1 = new RSAPublicKeySpec(modulus, RSAKeyGenParameterSpec.F4);
+							_publicKey = (RSAPublicKey) kfac.generatePublic(kspec1);
 							if (_log.isDebugEnabled())
-								_log.debug("Init received");
-							if (init.getRevision() != PROTOCOL_L2J && init.getRevision() != PROTOCOL_LEGACY)
+								_log.debug("RSA key set up");
+						}
+
+						catch (GeneralSecurityException e)
+						{
+							_log.warn("Troubles while init the public key send by login");
+							break;
+						}
+						// send the blowfish key through the rsa encryption
+						BlowFishKey bfk = new BlowFishKey(_protocol, _blowfishKey, _publicKey);
+						sendPacket(bfk);
+						if (_log.isDebugEnabled())
+							_log.info("Sent new blowfish key");
+						// now, only accept paket with the new encryption
+						_blowfish = new NewCrypt(_blowfishKey);
+						if (_log.isDebugEnabled())
+							_log.info("Changed blowfish key");
+						AuthRequest ar = new AuthRequest(_protocol, _requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort,
+								_reserveHost, _maxPlayer);
+						sendPacket(ar);
+						if (_log.isDebugEnabled())
+							_log.debug("Sent AuthRequest to login");
+						break;
+					case 01:
+						LoginServerFail lsf = new LoginServerFail(decrypt);
+						_log.info("Damn! Registration Failed: " + lsf.getReasonString());
+						// login will close the connection here
+						break;
+					case 02:
+						AuthResponse aresp = new AuthResponse(CrossLoginServerThread.PROTOCOL_LEGACY, decrypt);
+						_serverID = aresp.getServerId();
+						_serverName = aresp.getServerName();
+						Config.saveHexid(_serverID, hexToString(_hexID));
+						_log.info("Registered on login as Server " + _serverID + " : " + _serverName);
+						ServerStatus st = new ServerStatus(_protocol);
+						st.addAttribute(ServerStatus.SERVER_LIST_PVP, Config.SERVER_PVP);
+						//max players already sent with auth
+						st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY);
+						_status = (Config.SERVER_GMONLY ? 1 : 0);
+						st.addAttribute(ServerStatus.SERVER_LIST_UNK, Config.SERVER_BIT_1);
+						st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
+						st.addAttribute(ServerStatus.SERVER_LIST_HIDE_NAME, Config.SERVER_BIT_3);
+						st.addAttribute(ServerStatus.TEST_SERVER, Config.SERVER_BIT_4);
+						st.addAttribute(ServerStatus.SERVER_LIST_BRACKETS, Config.SERVER_LIST_BRACKET);
+						st.addAttribute(ServerStatus.SERVER_AGE_LIMITATION, Config.SERVER_AGE_LIM);
+						sendPacket(st);
+						if (L2World.getInstance().getAllPlayersCount() > 0)
+						{
+							FastList<String> playerList = new FastList<String>();
+							for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+								playerList.add(player.getAccountName());
+							sendPacket(new PlayerInGame(_protocol, playerList.toArray(new String[playerList.size()])));
+						}
+						break;
+					case 03:
+						PlayerAuthResponse par = new PlayerAuthResponse(_protocol, decrypt);
+						String account = par.getAccount();
+						WaitingClient wcToRemove = null;
+						synchronized (_waitingClients)
+						{
+							for (WaitingClient wc : _waitingClients)
+								if (wc.account.equals(account))
+									wcToRemove = wc;
+						}
+						if (wcToRemove != null)
+						{
+							if (par.isAuthed())
 							{
-								// WTF? Some retard thinks he is God?
-								_log.warn("The specified login server does not support L2J!");
-								break;
-							}
-							else if (init.getTrueRevision() == PROTOCOL_CURRENT)
-							{
-								// Fully compatible login
-								_protocol = PROTOCOL_CURRENT;
-								sendPacket(new CompatibleProtocol());
+								if (_log.isDebugEnabled())
+									_log.debug("Login accepted player " + wcToRemove.account + " waited("
+											+ (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
+								sendPacket(new PlayerInGame(_protocol, par.getAccount()));
+								wcToRemove.gameClient.setState(GameClientState.AUTHED);
+								wcToRemove.gameClient.setSessionId(wcToRemove.session);
+								CharSelectionInfo cl = new CharSelectionInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
+								wcToRemove.gameClient.sendPacket(cl);
+								wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
+								wcToRemove.gameClient.setHostAddress(par.getHost());
 							}
 							else
-								// Default compatibility login
-								_protocol = init.getRevision();
-							try
 							{
-								KeyFactory kfac = KeyFactory.getInstance("RSA");
-								BigInteger modulus = new BigInteger(init.getRSAKey());
-								RSAPublicKeySpec kspec1 = new RSAPublicKeySpec(modulus, RSAKeyGenParameterSpec.F4);
-								_publicKey = (RSAPublicKey) kfac.generatePublic(kspec1);
-								if (_log.isDebugEnabled())
-									_log.debug("RSA key set up");
+								_log.warn("session key is not correct. closing connection");
+								wcToRemove.gameClient.sendPacket(new LoginFail(1));
+								wcToRemove.gameClient.closeNow();
 							}
-
-							catch (GeneralSecurityException e)
-							{
-								_log.warn("Troubles while init the public key send by login");
-								break;
-							}
-							// send the blowfish key through the rsa encryption
-							BlowFishKey bfk = new BlowFishKey(_protocol, _blowfishKey, _publicKey);
-							sendPacket(bfk);
-							if (_log.isDebugEnabled())
-								_log.info("Sent new blowfish key");
-							// now, only accept paket with the new encryption
-							_blowfish = new NewCrypt(_blowfishKey);
-							if (_log.isDebugEnabled())
-								_log.info("Changed blowfish key");
-							AuthRequest ar = new AuthRequest(_protocol, _requestID, _acceptAlternate, _hexID, _gameExternalHost, _gameInternalHost, _gamePort, _reserveHost, _maxPlayer);
-							sendPacket(ar);
-							if (_log.isDebugEnabled())
-								_log.debug("Sent AuthRequest to login");
-							break;
-						case 01:
-							LoginServerFail lsf = new LoginServerFail(decrypt);
-							_log.info("Damn! Registration Failed: " + lsf.getReasonString());
-							// login will close the connection here
-							break;
-						case 02:
-							AuthResponse aresp = new AuthResponse(CrossLoginServerThread.PROTOCOL_LEGACY, decrypt);
-							_serverID = aresp.getServerId();
-							_serverName = aresp.getServerName();
-							Config.saveHexid(_serverID, hexToString(_hexID));
-							_log.info("Registered on login as Server " + _serverID + " : " + _serverName);
-							ServerStatus st = new ServerStatus(_protocol);
-							st.addAttribute(ServerStatus.SERVER_LIST_PVP, Config.SERVER_PVP);
-							//max players already sent with auth
-							st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY);
-							_status = (Config.SERVER_GMONLY ? 1 : 0);
-							st.addAttribute(ServerStatus.SERVER_LIST_UNK, Config.SERVER_BIT_1);
-							st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
-							st.addAttribute(ServerStatus.SERVER_LIST_HIDE_NAME, Config.SERVER_BIT_3);
-							st.addAttribute(ServerStatus.TEST_SERVER, Config.SERVER_BIT_4);
-							st.addAttribute(ServerStatus.SERVER_LIST_BRACKETS, Config.SERVER_LIST_BRACKET);
-							st.addAttribute(ServerStatus.SERVER_AGE_LIMITATION, Config.SERVER_AGE_LIM);
-							sendPacket(st);
-							if (L2World.getInstance().getAllPlayersCount() > 0)
-							{
-								FastList<String> playerList = new FastList<String>();
-								for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-									playerList.add(player.getAccountName());
-								sendPacket(new PlayerInGame(_protocol, playerList.toArray(new String[playerList.size()])));
-							}
-							break;
-						case 03:
-							PlayerAuthResponse par = new PlayerAuthResponse(_protocol, decrypt);
-							String account = par.getAccount();
-							WaitingClient wcToRemove = null;
-							synchronized (_waitingClients)
-							{
-								for (WaitingClient wc : _waitingClients)
-									if (wc.account.equals(account))
-										wcToRemove = wc;
-							}
-							if (wcToRemove != null)
-							{
-								if (par.isAuthed())
-								{
-									if (_log.isDebugEnabled())
-										_log.debug("Login accepted player " + wcToRemove.account + " waited(" + (GameTimeController.getGameTicks() - wcToRemove.timestamp) + "ms)");
-									sendPacket(new PlayerInGame(_protocol, par.getAccount()));
-									wcToRemove.gameClient.setState(GameClientState.AUTHED);
-									wcToRemove.gameClient.setSessionId(wcToRemove.session);
-									CharSelectionInfo cl = new CharSelectionInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
-									wcToRemove.gameClient.sendPacket(cl);
-									wcToRemove.gameClient.setCharSelection(cl.getCharInfo());
-									wcToRemove.gameClient.setHostAddress(par.getHost());
-								}
-								else
-								{
-									_log.warn("session key is not correct. closing connection");
-									wcToRemove.gameClient.sendPacket(new LoginFail(1));
-									wcToRemove.gameClient.closeNow();
-								}
-								_waitingClients.remove(wcToRemove);
-							}
-							break;
-						case 04:
-							KickPlayer kp = new KickPlayer(_protocol, decrypt);
-							doKickPlayer(kp.getAccount());
-							break;
+							_waitingClients.remove(wcToRemove);
+						}
+						break;
+					case 04:
+						KickPlayer kp = new KickPlayer(_protocol, decrypt);
+						doKickPlayer(kp.getAccount());
+						break;
 					}
 				}
 			}

@@ -78,7 +78,8 @@ public final class UseItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		// Flood protect UseItem
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.USEITEM))
@@ -159,27 +160,27 @@ public final class UseItem extends L2GameClientPacket
 		{
 			switch (itemId)
 			{
-				case 736:
-				case 1538:
-				case 1829:
-				case 1830:
-				case 3958:
-				case 5858:
-				case 5859:
-				case 6663:
-				case 6664:
-				case 7554:
-				case 7555:
-				case 7556:
-				case 7557:
-				case 7558:
-				case 7559:
-				case 7618:
-				case 7619:
-				case 10129:
-				case 10130:
-					sendAF();
-					return;
+			case 736:
+			case 1538:
+			case 1829:
+			case 1830:
+			case 3958:
+			case 5858:
+			case 5859:
+			case 6663:
+			case 6664:
+			case 7554:
+			case 7555:
+			case 7556:
+			case 7557:
+			case 7558:
+			case 7559:
+			case 7618:
+			case 7619:
+			case 10129:
+			case 10130:
+				sendAF();
+				return;
 			}
 			if (itemId >= 7117 && itemId <= 7135)
 			{
@@ -288,17 +289,14 @@ public final class UseItem extends L2GameClientPacket
 				{
 					if (activeChar.isKamaelic())
 					{
-						if (item.getItemType() == L2ArmorType.HEAVY ||
-								item.getItemType() == L2ArmorType.MAGIC ||
-								item.getItemType() == L2WeaponType.NONE)
+						if (item.getItemType() == L2ArmorType.HEAVY || item.getItemType() == L2ArmorType.MAGIC || item.getItemType() == L2WeaponType.NONE)
 						{
 							requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
 							return;
 						}
 					}
-					else if (item.getItemType() == L2WeaponType.CROSSBOW ||
-								item.getItemType() == L2WeaponType.RAPIER ||
-								item.getItemType() == L2WeaponType.ANCIENT_SWORD)
+					else if (item.getItemType() == L2WeaponType.CROSSBOW || item.getItemType() == L2WeaponType.RAPIER
+							|| item.getItemType() == L2WeaponType.ANCIENT_SWORD)
 					{
 						requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
 						return;
@@ -315,8 +313,7 @@ public final class UseItem extends L2GameClientPacket
 			case L2Item.SLOT_LEGS:
 			{
 				if (activeChar.getRace() == Race.Kamael
-						&& (item.getItem().getItemType() == L2ArmorType.HEAVY ||
-								item.getItem().getItemType() == L2ArmorType.MAGIC))
+						&& (item.getItem().getItemType() == L2ArmorType.HEAVY || item.getItem().getItemType() == L2ArmorType.MAGIC))
 				{
 					requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
 					return;

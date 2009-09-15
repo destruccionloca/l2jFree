@@ -53,23 +53,23 @@ public final class AutomatedTvT
 		AutomatedTvTRestriction.getInstance().activate(); // TODO: must be checked
 	}
 
-	private static final Log _log = LogFactory.getLog(AutomatedTvT.class);
+	private static final Log	_log						= LogFactory.getLog(AutomatedTvT.class);
 
-	private static final String REMOVE_DISCONNECTED_PLAYER = "UPDATE characters SET heading=?,x=?,y=?,z=?,title=? WHERE charId=?";
-	private static final String evtName = "Team versus team";
+	private static final String	REMOVE_DISCONNECTED_PLAYER	= "UPDATE characters SET heading=?,x=?,y=?,z=?,title=? WHERE charId=?";
+	private static final String	evtName						= "Team versus team";
 
 	//when the event has ended and not yet started
-	private static final int STATUS_NOT_IN_PROGRESS	= 0;
+	private static final int	STATUS_NOT_IN_PROGRESS		= 0;
 	//registration in progress
-	private static final int STATUS_REGISTRATION	= 1;
+	private static final int	STATUS_REGISTRATION			= 1;
 	//registration ended, players frozen & teled to the place, waiting for them to appear
-	private static final int STATUS_PREPARATION		= 2;
+	private static final int	STATUS_PREPARATION			= 2;
 	//players are allowed to fight
-	private static final int STATUS_COMBAT			= 3;
+	private static final int	STATUS_COMBAT				= 3;
 	//players are frozen, rewarded and teled back to where they were
-	private static final int STATUS_REWARDS			= 4;
+	private static final int	STATUS_REWARDS				= 4;
 
-	private static AutomatedTvT instance = null;
+	private static AutomatedTvT	instance					= null;
 
 	public static final AutomatedTvT getInstance()
 	{
@@ -94,22 +94,22 @@ public final class AutomatedTvT
 		}
 	}
 
-	private final ThreadPoolManager tpm;
+	private final ThreadPoolManager				tpm;
 
-	private final AutoEventTask task;
-	private final AutoReviveTask taskDuring;
-	private ScheduledFuture<?> reviver;
-	private ScheduledFuture<?> event;
+	private final AutoEventTask					task;
+	private final AutoReviveTask				taskDuring;
+	private ScheduledFuture<?>					reviver;
+	private ScheduledFuture<?>					event;
 
-	private final FastList<Integer> registered;
-	private final FastList<L2PcInstance> participants;
-	private final FastMap<Integer, Participant> eventPlayers;
-	private Team[] eventTeams;
-	private int[] teamMembers;
+	private final FastList<Integer>				registered;
+	private final FastList<L2PcInstance>		participants;
+	private final FastMap<Integer, Participant>	eventPlayers;
+	private Team[]								eventTeams;
+	private int[]								teamMembers;
 
-	private volatile int status;
-	private volatile boolean active;
-	private int announced;
+	private volatile int						status;
+	private volatile boolean					active;
+	private int									announced;
 
 	private AutomatedTvT()
 	{
@@ -222,7 +222,8 @@ public final class AutomatedTvT
 		L2PcInstance[] reged = participants.toArray(new L2PcInstance[participants.size()]);
 		for (L2PcInstance player : reged)
 		{
-			if (player == null) continue;
+			if (player == null)
+				continue;
 			if (!canJoin(player))
 			{
 				player.sendMessage("You no longer meet the requirements to join " + evtName);
@@ -258,11 +259,11 @@ public final class AutomatedTvT
 		reged = participants.toArray(new L2PcInstance[participants.size()]);
 		for (L2PcInstance player : reged)
 		{
-			if (player == null) continue;
+			if (player == null)
+				continue;
 			eventPlayers.put(player.getObjectId(), new Participant(currTeam, player));
-			player.getAppearance().setNameColor((eventTeams[currTeam].getColorRed() & 0xFF) +
-					(eventTeams[currTeam].getColorGreen() << 8) +
-					(eventTeams[currTeam].getColorBlue() << 16));
+			player.getAppearance().setNameColor(
+					(eventTeams[currTeam].getColorRed() & 0xFF) + (eventTeams[currTeam].getColorGreen() << 8) + (eventTeams[currTeam].getColorBlue() << 16));
 			player.setIsPetrified(true);
 			player.sendPacket(time);
 			checkEquipment(player);
@@ -285,8 +286,7 @@ public final class AutomatedTvT
 				player.untransform();
 			if (player.isDead())
 				player.setIsPendingRevive(true);
-			player.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][0],
-					Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][1],
+			player.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][0], Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][1],
 					Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][2]);
 			if (Config.AUTO_TVT_START_RECOVER)
 			{
@@ -335,10 +335,8 @@ public final class AutomatedTvT
 		int winnerTeam = getWinnerTeam();
 		if (winnerTeam != -1)
 		{
-			Announcements.getInstance().announceToAll(evtName + ": Team " +
-					(winnerTeam + 1) + " wins!");
-			Announcements.getInstance().announceToAll(evtName + ": Cumulative score: " +
-					eventTeams[winnerTeam].getPoints());
+			Announcements.getInstance().announceToAll(evtName + ": Team " + (winnerTeam + 1) + " wins!");
+			Announcements.getInstance().announceToAll(evtName + ": Cumulative score: " + eventTeams[winnerTeam].getPoints());
 		}
 		else
 			Announcements.getInstance().announceToAll(evtName + ": There is no winner team.");
@@ -364,22 +362,20 @@ public final class AutomatedTvT
 		switch (status)
 		{
 		case STATUS_REGISTRATION:
-			if (Config.AUTO_TVT_REGISTER_AFTER_RELOG &&
-					registered.remove(participant.getObjectId()))
+			if (Config.AUTO_TVT_REGISTER_AFTER_RELOG && registered.remove(participant.getObjectId()))
 				registerPlayer(participant);
 			break;
 		case STATUS_COMBAT:
 			Participant p = eventPlayers.get(participant.getObjectId());
-			if (p == null) break;
+			if (p == null)
+				break;
 			p.setPlayer(participant);
 			checkEquipment(participant);
 			updatePlayerTitle(p);
 			int team = p.getTeam();
-			participant.getAppearance().setNameColor((eventTeams[team].getColorRed() & 0xFF) +
-					(eventTeams[team].getColorGreen() << 8) +
-					(eventTeams[team].getColorBlue() << 16));
-			participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0],
-					Config.AUTO_TVT_TEAM_LOCATIONS[team][1],
+			participant.getAppearance().setNameColor(
+					(eventTeams[team].getColorRed() & 0xFF) + (eventTeams[team].getColorGreen() << 8) + (eventTeams[team].getColorBlue() << 16));
+			participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0], Config.AUTO_TVT_TEAM_LOCATIONS[team][1],
 					Config.AUTO_TVT_TEAM_LOCATIONS[team][2]);
 			break;
 		}
@@ -426,8 +422,7 @@ public final class AutomatedTvT
 	{
 		for (int i = 0; i < Config.AUTO_TVT_REWARD_IDS.length; i++)
 		{
-			player.addItem("TvT Reward", Config.AUTO_TVT_REWARD_IDS[i],
-					Config.AUTO_TVT_REWARD_COUNT[i], null, false, true);
+			player.addItem("TvT Reward", Config.AUTO_TVT_REWARD_IDS[i], Config.AUTO_TVT_REWARD_COUNT[i], null, false, true);
 			player.sendPacket(new SystemMessage(SystemMessageId.CONGRATULATIONS_RECEIVED_S1).addItemName(Config.AUTO_TVT_REWARD_IDS[i]));
 		}
 	}
@@ -500,10 +495,10 @@ public final class AutomatedTvT
 
 	public final void registerPlayer(L2PcInstance player)
 	{
-		if (!active) return;
+		if (!active)
+			return;
 
-		if (status != STATUS_REGISTRATION ||
-				participants.size() >= Config.AUTO_TVT_PARTICIPANTS_MAX)
+		if (status != STATUS_REGISTRATION || participants.size() >= Config.AUTO_TVT_PARTICIPANTS_MAX)
 			player.sendPacket(SystemMessageId.REGISTRATION_PERIOD_OVER);
 		else if (!participants.contains(player))
 		{
@@ -524,7 +519,8 @@ public final class AutomatedTvT
 
 	public final void cancelRegistration(L2PcInstance player)
 	{
-		if (!active) return;
+		if (!active)
+			return;
 
 		if (status != STATUS_REGISTRATION)
 			player.sendPacket(SystemMessageId.REGISTRATION_PERIOD_OVER);
@@ -550,8 +546,7 @@ public final class AutomatedTvT
 			eventTeams[kp.getTeam()].addPoint();
 			if (kp.isGodlike() && Config.AUTO_TVT_GODLIKE_ANNOUNCE)
 			{
-				CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Shout,
-						evtName, killer.getName() + ": God-like!");
+				CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Shout, evtName, killer.getName() + ": God-like!");
 				for (Participant p : eventPlayers.values())
 					if (p.getPlayer() != null)
 						p.getPlayer().sendPacket(cs);
@@ -566,7 +561,8 @@ public final class AutomatedTvT
 			{
 				for (L2Skill s : Config.AUTO_TVT_TK_PUNISH_EFFECTS)
 				{
-					if (s == null) continue;
+					if (s == null)
+						continue;
 					if (killer.getFirstEffect(s) != null)
 						killer.getFirstEffect(s).exit();
 					s.getEffects(killer, killer);
@@ -581,9 +577,7 @@ public final class AutomatedTvT
 	public final void revive(L2PcInstance participant, int team)
 	{
 		participant.setIsPendingRevive(true);
-		participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0],
-				Config.AUTO_TVT_TEAM_LOCATIONS[team][1],
-				Config.AUTO_TVT_TEAM_LOCATIONS[team][2]);
+		participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0], Config.AUTO_TVT_TEAM_LOCATIONS[team][1], Config.AUTO_TVT_TEAM_LOCATIONS[team][2]);
 	}
 
 	public final void recover(L2PcInstance revived)
@@ -598,7 +592,8 @@ public final class AutomatedTvT
 	private final void updatePlayerTitle(Participant p)
 	{
 		L2PcInstance player = p.getPlayer();
-		if (player == null) return;
+		if (player == null)
+			return;
 		if (p.isGodlike())
 			player.setTitle(Config.AUTO_TVT_GODLIKE_TITLE);
 		else
@@ -693,8 +688,10 @@ public final class AutomatedTvT
 		}
 	}
 
-	private final int[] correctColor(Team[] teams, int rn, int gn, int bn, int current) {
-		int[] result = { rn, gn, bn };
+	private final int[] correctColor(Team[] teams, int rn, int gn, int bn, int current)
+	{
+		int[] result =
+		{ rn, gn, bn };
 		// Possible to do fast enough even if there are 32+ teams,
 		// But I don't think this "blind shot" idea is suited for that
 		if (Config.AUTO_TVT_TEAM_LOCATIONS.length > 32 || current == 0)
@@ -705,9 +702,8 @@ public final class AutomatedTvT
 		{
 			for (int i = 0; i < current; i++)
 			{
-				totalDiff = (Math.abs(result[0] - teams[i].getColorRed()) +
-						Math.abs(result[1] - teams[i].getColorGreen()) +
-						Math.abs(result[2] - teams[i].getColorBlue()));
+				totalDiff = (Math.abs(result[0] - teams[i].getColorRed()) + Math.abs(result[1] - teams[i].getColorGreen()) + Math.abs(result[2]
+						- teams[i].getColorBlue()));
 				if (totalDiff < noticeable)
 				{
 					result[0] = Rnd.get(256);
@@ -739,23 +735,21 @@ public final class AutomatedTvT
 		else
 			player.setIsPendingRevive(true);
 		if (Config.AUTO_TVT_OVERRIDE_TELE_BACK)
-			player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK[0],
-					Config.AUTO_TVT_DEFAULT_TELE_BACK[1],
-					Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
+			player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK[0], Config.AUTO_TVT_DEFAULT_TELE_BACK[1], Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
 		else
 			player.teleToLocation(p.getLoc(), true);
 	}
 
 	private class Participant
 	{
-		private final int team;
-		private final int objectID;
-		private final Location loc;
-		private final String title;
-		private final int nameColor;
-		private volatile L2PcInstance player;
-		private int points;
-		private int killsNoDeath;
+		private final int				team;
+		private final int				objectID;
+		private final Location			loc;
+		private final String			title;
+		private final int				nameColor;
+		private volatile L2PcInstance	player;
+		private int						points;
+		private int						killsNoDeath;
 
 		private Participant(int team, L2PcInstance player)
 		{
@@ -832,18 +826,17 @@ public final class AutomatedTvT
 
 		public final boolean isGodlike()
 		{
-			return (Config.AUTO_TVT_GODLIKE_SYSTEM
-					&& killsNoDeath >= Config.AUTO_TVT_GODLIKE_MIN_KILLS);
+			return (Config.AUTO_TVT_GODLIKE_SYSTEM && killsNoDeath >= Config.AUTO_TVT_GODLIKE_MIN_KILLS);
 		}
 	}
 
 	private class Team
 	{
 		// Array index serves better than ID
-		private final int r;
-		private final int g;
-		private final int b;
-		private int points;
+		private final int	r;
+		private final int	g;
+		private final int	b;
+		private int			points;
 
 		private Team(int[] rgb)
 		{
@@ -855,7 +848,8 @@ public final class AutomatedTvT
 
 		private Team(int color)
 		{
-			this(new int[] { (color >> 16) & 0xFF, (color >> 8) & 0xFF, (color >> 0) & 0xFF });
+			this(new int[]
+			{ (color >> 16) & 0xFF, (color >> 8) & 0xFF, (color >> 0) & 0xFF });
 		}
 
 		public final int getPoints()

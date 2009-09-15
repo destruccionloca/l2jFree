@@ -28,54 +28,54 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final TvTiRestriction INSTANCE = new TvTiRestriction();
+		private static final TvTiRestriction	INSTANCE	= new TvTiRestriction();
 	}
-	
+
 	public static TvTiRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private TvTiRestriction()
 	{
 	}
-	
+
 	@Override
 	boolean started()
 	{
 		return true;
 	}
-	
+
 	@Override
 	boolean allowSummon()
 	{
 		return Config.TVTI_ALLOW_SUMMON;
 	}
-	
+
 	@Override
 	boolean allowPotions()
 	{
 		return Config.TVTI_ALLOW_POTIONS;
 	}
-	
+
 	@Override
 	boolean allowInterference()
 	{
 		return Config.TVTI_ALLOW_INTERFERENCE;
 	}
-	
+
 	@Override
 	boolean joinCursed()
 	{
 		return Config.TVTI_JOIN_CURSED;
 	}
-	
+
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventTvTi;
 	}
-	
+
 	@Override
 	public boolean canStandUp(L2PcInstance activeChar)
 	{
@@ -84,38 +84,36 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 			activeChar.sendMessage("The Admin/GM handle if you sit or stand in this match!");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (TvTIMain.isPlayerInList(activeChar))
 			TvTIMain.addDisconnectedPlayer(activeChar);
 	}
-	
+
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventTvT)
 			return false;
-		
+
 		if (killer == null || !killer._inEventTvTi || !target._inEventTvTi)
 			return false;
-		
+
 		if (!TvTIMain.checkSameTeam(killer, target))
 		{
 			killer._countTvTiKills++;
 			killer.setTitle("Kills: " + killer._countTvTiKills);
-			killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(),
-				target.getY(), target.getZ()));
+			killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(), target.getY(), target.getZ()));
 			TvTIMain.addKill(killer);
 		}
 		else if (TvTIMain.checkSameTeam(killer, target))
 		{
-			killer
-				.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
+			killer.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
 			killer._countTvTITeamKills++;
 			// Give Penalty for Team-Kill:
 			// 1. Death Penalty + 5
@@ -130,10 +128,10 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 				TvTIMain.kickPlayerFromEvent(killer, 1);
 		}
 		TvTIMain.respawnPlayer(target);
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
@@ -145,7 +143,7 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 		else if (command.startsWith("tvti_player_join "))
 		{
 			int instanceId = Integer.parseInt(command.substring(17));
-			
+
 			TvTIMain.addPlayer(activeChar, instanceId);
 			return true;
 		}
@@ -154,10 +152,10 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 			TvTIMain.removePlayer(activeChar);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -166,7 +164,7 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 			TvTIMain.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-		
+
 		return false;
 	}
 }

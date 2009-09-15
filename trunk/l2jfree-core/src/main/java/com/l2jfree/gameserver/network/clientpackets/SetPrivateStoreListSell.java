@@ -36,26 +36,24 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 {
 	private static final String	_C__74_SETPRIVATESTORELISTSELL	= "[C] 74 SetPrivateStoreListSell";
 
-	private static final int BATCH_LENGTH = 12; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 20;
+	private static final int	BATCH_LENGTH					= 12;								// length of the one item
+	private static final int	BATCH_LENGTH_FINAL				= 20;
 
 	private boolean				_packageSale;
-	private Item[]				_items = null;
+	private Item[]				_items							= null;
 
 	@Override
 	protected void readImpl()
 	{
 		_packageSale = (readD() == 1);
 		int count = readD();
-		if (count < 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count < 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
 
 		_items = new Item[count];
-		for (int i = 0; i < count ; i++)
+		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
 			long cnt = readCompQ();
@@ -74,7 +72,8 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (_items == null)
 		{
@@ -121,14 +120,14 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		{
 			if (!i.addToTradeList(tradeList))
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 
 			totalCost += i.getPrice();
 			if (totalCost > MAX_ADENA)
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 		}
@@ -152,10 +151,10 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 
 	private class Item
 	{
-		private final int _itemId;
-		private final long _count;
-		private final long _price;
-		
+		private final int	_itemId;
+		private final long	_count;
+		private final long	_price;
+
 		public Item(int id, long num, long pri)
 		{
 			_itemId = id;

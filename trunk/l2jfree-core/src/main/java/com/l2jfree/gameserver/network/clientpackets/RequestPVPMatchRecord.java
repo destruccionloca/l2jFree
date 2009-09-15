@@ -22,21 +22,21 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class RequestPVPMatchRecord extends L2GameClientPacket
 {
-    @Override
-    protected void readImpl()
-    {
-        // trigger, no data
-    }
+	@Override
+	protected void readImpl()
+	{
+		// trigger, no data
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-    }
+	@Override
+	protected void runImpl()
+	{
+		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
 
-    @Override
-    public String getType()
-    {
-        return "[C] D0:4C RequestPVPMatchRecord";
-    }
+	@Override
+	public String getType()
+	{
+		return "[C] D0:4C RequestPVPMatchRecord";
+	}
 }

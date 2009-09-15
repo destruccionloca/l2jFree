@@ -34,27 +34,27 @@ public final class DuelRestriction extends AbstractRestriction
 			activeChar.sendMessage("You are participating in a duel!");
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	@DisabledRestriction
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (activeChar.isInDuel() || target.isInDuel())
 			return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
-	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
-		L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
+	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_,
+			boolean isOffensive)
 	{
 		return Duel.isInvul(target, activeChar);
 	}
-	
+
 	@Override
 	public boolean canTeleport(L2PcInstance activeChar)
 	{
@@ -64,10 +64,10 @@ public final class DuelRestriction extends AbstractRestriction
 			activeChar.sendMessage("You can't teleport during a duel.");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void effectCreated(L2Effect effect)
 	{
@@ -75,10 +75,10 @@ public final class DuelRestriction extends AbstractRestriction
 		// so the debuff can be removed after the duel
 		// (player & target must be in the same duel)
 		L2PcInstance effectedPlayer = effect.getEffected().getActingPlayer();
-		
+
 		if (effectedPlayer == null || !effectedPlayer.isInDuel() || !effect.getSkill().isOffensive())
 			return;
-		
+
 		DuelManager.getInstance().onBuff(effectedPlayer, effect);
 	}
 }

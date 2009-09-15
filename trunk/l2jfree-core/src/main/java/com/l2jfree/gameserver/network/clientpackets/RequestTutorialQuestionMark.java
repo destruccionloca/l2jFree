@@ -24,31 +24,32 @@ import com.l2jfree.gameserver.model.quest.QuestState;
  */
 public class RequestTutorialQuestionMark extends L2GameClientPacket
 {
-    private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
-    private int _id;
+	private static final String	_C__7D_REQUESTTUTORIALQUESTIONMARK	= "[C] 7D RequestTutorialQuestionMark";
+	private int					_id;
 
-    @Override
-    protected void readImpl()
-    {
-        _id = readD(); // id
-    }
+	@Override
+	protected void readImpl()
+	{
+		_id = readD(); // id
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
 
-        QuestState qs = player.getQuestState("255_Tutorial");
-        if (qs != null)
-            qs.getQuest().notifyEvent("QM" + _id + "", null, player);
+		QuestState qs = player.getQuestState("255_Tutorial");
+		if (qs != null)
+			qs.getQuest().notifyEvent("QM" + _id + "", null, player);
 
-        sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__7D_REQUESTTUTORIALQUESTIONMARK;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__7D_REQUESTTUTORIALQUESTIONMARK;
+	}
 }

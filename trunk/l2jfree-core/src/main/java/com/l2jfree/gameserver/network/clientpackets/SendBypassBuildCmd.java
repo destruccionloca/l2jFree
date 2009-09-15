@@ -19,9 +19,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class SendBypassBuildCmd extends L2GameClientPacket
 {
-	private static final String _C__5B_SENDBYPASSBUILDCMD = "[C] 5b SendBypassBuildCmd";
+	private static final String	_C__5B_SENDBYPASSBUILDCMD	= "[C] 5b SendBypassBuildCmd";
 
-	private String _command;
+	private String				_command;
 
 	@Override
 	protected void readImpl()

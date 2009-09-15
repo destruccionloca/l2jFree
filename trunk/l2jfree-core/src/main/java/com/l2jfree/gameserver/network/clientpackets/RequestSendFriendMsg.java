@@ -36,43 +36,44 @@ import com.l2jfree.gameserver.network.serverpackets.L2FriendSay;
  */
 public class RequestSendFriendMsg extends L2GameClientPacket
 {
-    private static final String _C__CC_REQUESTSENDMSG = "[C] CC RequestSendMsg";
-	private static Log _logChat = LogFactory.getLog("chat");
+	private static final String	_C__CC_REQUESTSENDMSG	= "[C] CC RequestSendMsg";
+	private static Log			_logChat				= LogFactory.getLog("chat");
 
-    private String _message;
-    private String _receiver;
+	private String				_message;
+	private String				_receiver;
 
-    @Override
-    protected void readImpl()
-    {
-        _message = readS();
-        _receiver = readS();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_message = readS();
+		_receiver = readS();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-    	L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        L2PcInstance targetPlayer = L2World.getInstance().getPlayer(_receiver);
-        if (targetPlayer == null)
-        {
-        	requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-        	return;
-        }
+		L2PcInstance targetPlayer = L2World.getInstance().getPlayer(_receiver);
+		if (targetPlayer == null)
+		{
+			requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+			return;
+		}
 
 		if (Config.LOG_CHAT)
-			_logChat.info("PRIV_MSG" + "[" + activeChar.getName() + " to "+ _receiver +"]" + _message);
+			_logChat.info("PRIV_MSG" + "[" + activeChar.getName() + " to " + _receiver + "]" + _message);
 
-        targetPlayer.sendPacket(new L2FriendSay(activeChar.getName(), _receiver, _message));
+		targetPlayer.sendPacket(new L2FriendSay(activeChar.getName(), _receiver, _message));
 
-        sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__CC_REQUESTSENDMSG;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__CC_REQUESTSENDMSG;
+	}
 }

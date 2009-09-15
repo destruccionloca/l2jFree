@@ -33,24 +33,22 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 {
 	private static final String	_C__B2_RequestRecipeShopListSet	= "[C] b2 RequestRecipeShopListSet";
 
-	private static final int BATCH_LENGTH = 8; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 12;
+	private static final int	BATCH_LENGTH					= 8;									// length of the one item
+	private static final int	BATCH_LENGTH_FINAL				= 12;
 
-	private Recipe[] _items = null;
+	private Recipe[]			_items							= null;
 
 	@Override
 	protected void readImpl()
 	{
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
 
 		_items = new Recipe[count];
-		for (int i = 0; i < count ; i++)
+		for (int i = 0; i < count; i++)
 		{
 			int id = readD();
 			long cost = readCompQ();
@@ -67,7 +65,8 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (_items == null)
 		{
@@ -96,7 +95,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		{
 			if (!i.addToList(createList))
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 		}
@@ -115,9 +114,9 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 
 	private class Recipe
 	{
-		private final int _recipeId;
-		private final long _cost;
-		
+		private final int	_recipeId;
+		private final long	_cost;
+
 		public Recipe(int id, long c)
 		{
 			_recipeId = id;

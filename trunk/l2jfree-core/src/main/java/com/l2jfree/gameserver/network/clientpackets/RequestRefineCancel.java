@@ -28,8 +28,8 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  */
 public final class RequestRefineCancel extends L2GameClientPacket
 {
-	private static final String _C__D0_2E_REQUESTREFINECANCEL = "[C] D0:2E RequestRefineCancel";
-	private int _targetItemObjId;
+	private static final String	_C__D0_2E_REQUESTREFINECANCEL	= "[C] D0:2E RequestRefineCancel";
+	private int					_targetItemObjId;
 
 	@Override
 	protected void readImpl()
@@ -41,7 +41,8 @@ public final class RequestRefineCancel extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		if (targetItem == null)
@@ -62,35 +63,35 @@ public final class RequestRefineCancel extends L2GameClientPacket
 		int price = 0;
 		switch (targetItem.getItem().getCrystalGrade())
 		{
-			case L2Item.CRYSTAL_C:
-				if (targetItem.getCrystalCount() < 1720)
-					price = 95000;
-				else if (targetItem.getCrystalCount() < 2452)
-					price = 150000;
-				else
-					price = 210000;
-				break;
-			case L2Item.CRYSTAL_B:
-				if (targetItem.getCrystalCount() < 1746)
-					price = 240000;
-				else
-					price = 270000;
-				break;
-			case L2Item.CRYSTAL_A:
-				if (targetItem.getCrystalCount() < 2160)
-					price = 330000;
-				else if (targetItem.getCrystalCount() < 2824)
-					price = 390000;
-				else
-					price = 420000;
-				break;
-			case L2Item.CRYSTAL_S:
-				price = 480000;
-				break;
-			// any other item type is not augmentable
-			default:
-				requestFailed(new ExVariationCancelResult(0));
-				return;
+		case L2Item.CRYSTAL_C:
+			if (targetItem.getCrystalCount() < 1720)
+				price = 95000;
+			else if (targetItem.getCrystalCount() < 2452)
+				price = 150000;
+			else
+				price = 210000;
+			break;
+		case L2Item.CRYSTAL_B:
+			if (targetItem.getCrystalCount() < 1746)
+				price = 240000;
+			else
+				price = 270000;
+			break;
+		case L2Item.CRYSTAL_A:
+			if (targetItem.getCrystalCount() < 2160)
+				price = 330000;
+			else if (targetItem.getCrystalCount() < 2824)
+				price = 390000;
+			else
+				price = 420000;
+			break;
+		case L2Item.CRYSTAL_S:
+			price = 480000;
+			break;
+		// any other item type is not augmentable
+		default:
+			requestFailed(new ExVariationCancelResult(0));
+			return;
 		}
 
 		// try to reduce the players adena

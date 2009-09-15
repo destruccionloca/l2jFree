@@ -52,17 +52,15 @@ public final class RequestRefine extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		L2ItemInstance refinerItem = activeChar.getInventory().getItemByObjectId(_refinerItemObjId);
 		L2ItemInstance gemstoneItem = activeChar.getInventory().getItemByObjectId(_gemstoneItemObjId);
 
-		if (targetItem == null || refinerItem == null || gemstoneItem == null ||
-				targetItem.getOwnerId() != activeChar.getObjectId() ||
-				refinerItem.getOwnerId() != activeChar.getObjectId() ||
-				gemstoneItem.getOwnerId() != activeChar.getObjectId() ||
-				activeChar.getLevel() < 46) // must be lvl 46
+		if (targetItem == null || refinerItem == null || gemstoneItem == null || targetItem.getOwnerId() != activeChar.getObjectId()
+				|| refinerItem.getOwnerId() != activeChar.getObjectId() || gemstoneItem.getOwnerId() != activeChar.getObjectId() || activeChar.getLevel() < 46) // must be lvl 46
 		{
 			sendPacket(new ExVariationResult(0, 0, 0));
 			requestFailed(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
@@ -80,7 +78,8 @@ public final class RequestRefine extends L2GameClientPacket
 			sendPacket(new ExVariationResult(stat12, stat34, 1));
 			sendPacket(SystemMessageId.THE_ITEM_WAS_SUCCESSFULLY_AUGMENTED);
 		}
-		else // failure information sysmsg is already sent
+		else
+			// failure information sysmsg is already sent
 			sendPacket(new ExVariationResult(0, 0, 0));
 
 		sendAF();
@@ -88,11 +87,7 @@ public final class RequestRefine extends L2GameClientPacket
 
 	private boolean tryAugmentItem(L2ItemInstance targetItem, L2ItemInstance refinerItem, L2ItemInstance gemstoneItem)
 	{
-		if (targetItem.isAugmented()
-				|| targetItem.isWear()
-				|| targetItem.isTimeLimitedItem()
-				|| targetItem.isCommonItem()
-				|| targetItem.isShadowItem()
+		if (targetItem.isAugmented() || targetItem.isWear() || targetItem.isTimeLimitedItem() || targetItem.isCommonItem() || targetItem.isShadowItem()
 				|| targetItem.getItem().getItemType() == L2WeaponType.ROD)
 			return false;
 
@@ -160,8 +155,7 @@ public final class RequestRefine extends L2GameClientPacket
 		}
 
 		// must be a weapon, must be > d grade
-		if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON ||
-				!targetItem.isDestroyable())
+		if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !targetItem.isDestroyable())
 		{
 			sendPacket(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return false;

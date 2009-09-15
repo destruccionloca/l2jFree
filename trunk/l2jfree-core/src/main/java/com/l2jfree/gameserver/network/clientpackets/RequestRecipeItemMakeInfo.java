@@ -19,35 +19,36 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeItemMakeInfo;
 
 public class RequestRecipeItemMakeInfo extends L2GameClientPacket
 {
-    private static final String _C__AE_REQUESTRECIPEITEMMAKEINFO = "[C] AE RequestRecipeItemMakeInfo";
+	private static final String	_C__AE_REQUESTRECIPEITEMMAKEINFO	= "[C] AE RequestRecipeItemMakeInfo";
 
-	private int _id;
+	private int					_id;
 
 	/**
 	 * packet type id 0xac
 	 * format:		cd
 	 * @param decrypt
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _id = readD();
-    }
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-    	L2PcInstance player = getActiveChar();
-    	if (player == null) return;
+		_id = readD();
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
 
 		sendPacket(new RecipeItemMakeInfo(_id, player));
 
 		sendAF();
 	}
 
-    @Override
-    public String getType()
-    {
-        return _C__AE_REQUESTRECIPEITEMMAKEINFO;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__AE_REQUESTRECIPEITEMMAKEINFO;
+	}
 }

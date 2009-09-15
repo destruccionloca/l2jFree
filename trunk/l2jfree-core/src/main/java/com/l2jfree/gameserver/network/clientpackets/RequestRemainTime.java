@@ -18,22 +18,22 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class RequestRemainTime extends L2GameClientPacket
 {
-    @Override
+	@Override
 	protected void readImpl()
-    {
-        // Trigger packet
-    }
+	{
+		// Trigger packet
+	}
 
-    @Override
+	@Override
 	protected void runImpl()
-    {
+	{
 		// TODO: /remaintime command (send remaining time for summons?)
-    	requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-    }
+		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
 
-    @Override
+	@Override
 	public String getType()
-    {
-        return "[C] 0xb2 RequestRemainTime";
-    }
+	{
+		return "[C] 0xb2 RequestRemainTime";
+	}
 }

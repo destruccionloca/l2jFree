@@ -28,24 +28,25 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class RequestWithdrawalPledge extends L2GameClientPacket
 {
-	private static final String _C__26_REQUESTWITHDRAWALPLEDGE = "[C] 26 RequestWithdrawalPledge";
+	private static final String	_C__26_REQUESTWITHDRAWALPLEDGE	= "[C] 26 RequestWithdrawalPledge";
 
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 		if (activeChar.getClan() == null)
-        {
+		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-            return;
-        }
+			return;
+		}
 		else if (activeChar.isClanLeader())
 		{
 			requestFailed(SystemMessageId.CLAN_LEADER_CANNOT_WITHDRAW);
@@ -63,10 +64,10 @@ public class RequestWithdrawalPledge extends L2GameClientPacket
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_WITHDRAWN_FROM_THE_CLAN);
 		sm.addString(activeChar.getName());
-    	clan.broadcastToOnlineMembers(sm);
+		clan.broadcastToOnlineMembers(sm);
 
-    	// Remove the Player From the Member list
-        clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(activeChar.getName()));
+		// Remove the Player From the Member list
+		clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(activeChar.getName()));
 
 		sendPacket(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_CLAN);
 		sendPacket(SystemMessageId.YOU_MUST_WAIT_BEFORE_JOINING_ANOTHER_CLAN);

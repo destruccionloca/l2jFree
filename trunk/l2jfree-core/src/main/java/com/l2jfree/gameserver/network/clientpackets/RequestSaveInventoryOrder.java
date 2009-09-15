@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
  */
 public final class RequestSaveInventoryOrder extends L2GameClientPacket
 {
-	private InventoryOrder[] _order;
+	private InventoryOrder[]	_order;
 
 	/** client limit */
-	private static final int LIMIT = 125;
+	private static final int	LIMIT	= 125;
 
 	@Override
 	protected void readImpl()
@@ -51,7 +51,8 @@ public final class RequestSaveInventoryOrder extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		Inventory inventory = player.getInventory();
 		for (InventoryOrder order : _order)
@@ -70,9 +71,9 @@ public final class RequestSaveInventoryOrder extends L2GameClientPacket
 
 	private static final class InventoryOrder
 	{
-		final int order;
-		final int objectID;
-		
+		final int	order;
+		final int	objectID;
+
 		private InventoryOrder(int id, int ord)
 		{
 			objectID = id;

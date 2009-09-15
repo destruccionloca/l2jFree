@@ -56,7 +56,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 	private class DeathTask implements Runnable
 	{
-		private final L2PcInstance activeChar;
+		private final L2PcInstance	activeChar;
 
 		public DeathTask(L2PcInstance _activeChar)
 		{
@@ -81,14 +81,14 @@ public class RequestRestartPoint extends L2GameClientPacket
 			case 1: // to clanhall
 				if (activeChar.getClan() == null || activeChar.getClan().getHasHideout() == 0)
 				{
-					_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Clanhall and he doesn't have Clanhall!");
+					_log.warn("Player [" + activeChar.getName() + "] called RestartPointPacket - To Clanhall and he doesn't have Clanhall!");
 					return;
 				}
-				ClanHall hideout = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()); 
-				if (hideout == null || (hideout.getSiege() != null && hideout.getSiege().getIsInProgress())) 
-					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town); 
-				else 
-					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.ClanHall); 
+				ClanHall hideout = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
+				if (hideout == null || (hideout.getSiege() != null && hideout.getSiege().getIsInProgress()))
+					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+				else
+					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.ClanHall);
 
 				if (hideout != null && hideout.getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
 				{
@@ -109,7 +109,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
 					else
 					{
-						_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Castle and he doesn't have Castle!");
+						_log.warn("Player [" + activeChar.getName() + "] called RestartPointPacket - To Castle and he doesn't have Castle!");
 						return;
 					}
 				}
@@ -138,7 +138,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 					}
 					else
 					{
-						_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Fortress and he doesn't have Fortress!");
+						_log.warn("Player [" + activeChar.getName() + "] called RestartPointPacket - To Fortress and he doesn't have Fortress!");
 						return;
 					}
 				}
@@ -161,7 +161,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 				siege = SiegeManager.getInstance().getSiege(activeChar);
 				fsiege = FortSiegeManager.getInstance().getSiege(activeChar);
 				csiege = CCHManager.getInstance().getSiege(activeChar);
-				
+
 				if (fsiege == null && csiege == null && siege != null && siege.getIsInProgress())
 					siegeClan = siege.getAttackerClan(activeChar.getClan());
 				else if (siege == null && csiege == null && fsiege != null && fsiege.getIsInProgress())
@@ -171,7 +171,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 				if (siegeClan == null || siegeClan.getFlag().size() == 0)
 				{
-					_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - To Siege HQ and he doesn't have Siege HQ!");
+					_log.warn("Player [" + activeChar.getName() + "] called RestartPointPacket - To Siege HQ and he doesn't have Siege HQ!");
 					return;
 				}
 				loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.SiegeFlag);
@@ -180,7 +180,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			case 5: // Fixed or Player is a festival participant
 				if (!activeChar.isGM() && !activeChar.isFestivalParticipant())
 				{
-					_log.warn("Player ["+activeChar.getName()+"] called RestartPointPacket - Fixed and he isn't GM/festival participant!");
+					_log.warn("Player [" + activeChar.getName() + "] called RestartPointPacket - Fixed and he isn't GM/festival participant!");
 					return;
 				}
 				if (activeChar.isGM())
@@ -192,7 +192,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 				if (!activeChar.isInJail())
 					return;
 				loc = new Location(-114356, -249645, -2984);
-				
+
 				break;
 
 			default: // 0
@@ -200,7 +200,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 					loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
 				else
 					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
-			
+
 				break;
 			}
 			// Teleport and revive
@@ -215,7 +215,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		if (activeChar.isFakeDeath())
 		{
@@ -242,7 +243,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 				// Schedule respawn delay for attacker
 				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
 				if (castle.getSiege().getAttackerRespawnDelay() > 0)
-					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay()/1000 + " seconds");
+					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay() / 1000 + " seconds");
 				sendAF();
 				return;
 			}

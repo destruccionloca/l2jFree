@@ -56,16 +56,16 @@ import com.l2jfree.util.L2FastSet;
  */
 public final class CCHSiege extends AbstractSiege
 {
-	private final static Log _log = LogFactory.getLog(CCHSiege.class);
+	private final static Log						_log	= LogFactory.getLog(CCHSiege.class);
 
-	private final ClanHall _hideout;
-	private final ContestableHideoutGuardManager _guardManager;
-	private final Set<L2SiegeClan> _attackerClans;
+	private final ClanHall							_hideout;
+	private final ContestableHideoutGuardManager	_guardManager;
+	private final Set<L2SiegeClan>					_attackerClans;
 
-	private boolean _isInProgress;
-	private boolean _isRegistrationOver;
-	private Calendar _siegeEndDate;
-	private int _oldOwner; // 0 - NPC, > 0 - clan
+	private boolean									_isInProgress;
+	private boolean									_isRegistrationOver;
+	private Calendar								_siegeEndDate;
+	private int										_oldOwner;										// 0 - NPC, > 0 - clan
 
 	public CCHSiege(ClanHall hideout)
 	{
@@ -86,16 +86,14 @@ public final class CCHSiege extends AbstractSiege
 	{
 		// Get all players
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			if (!inAreaOnly ||
-					(inAreaOnly && checkIfInZone(player.getX(), player.getY(), player.getZ())))
+			if (!inAreaOnly || (inAreaOnly && checkIfInZone(player.getX(), player.getY(), player.getZ())))
 				player.sendMessage(message);
 	}
 
 	public void announceToPlayer(SystemMessage sm, boolean inAreaOnly)
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			if (!inAreaOnly ||
-					(inAreaOnly && checkIfInZone(player.getX(), player.getY(), player.getZ())))
+			if (!inAreaOnly || (inAreaOnly && checkIfInZone(player.getX(), player.getY(), player.getZ())))
 				player.sendPacket(sm);
 	}
 
@@ -249,8 +247,7 @@ public final class CCHSiege extends AbstractSiege
 	/** Return true if object is inside the zone */
 	public boolean checkIfInZone(int x, int y, int z)
 	{
-		return (getIsInProgress() &&
-					(_hideout.checkIfInZone(x, y, z) || getZone().isInsideZone(x, y)));
+		return (getIsInProgress() && (_hideout.checkIfInZone(x, y, z) || getZone().isInsideZone(x, y)));
 	}
 
 	public void clearSiegeClan()
@@ -305,7 +302,8 @@ public final class CCHSiege extends AbstractSiege
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			// quick check from player states, which don't include siege number however
-			if (!player.isInsideZone(L2Zone.FLAG_SIEGE)) continue;
+			if (!player.isInsideZone(L2Zone.FLAG_SIEGE))
+				continue;
 			if (checkIfInZone(player.getX(), player.getY(), player.getZ()))
 				players.add(player);
 		}
@@ -320,7 +318,8 @@ public final class CCHSiege extends AbstractSiege
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			// quick check from player states, which don't include siege number however
-			if (!player.isInsideZone(L2Zone.FLAG_SIEGE) || player.getSiegeState() != 0) continue;
+			if (!player.isInsideZone(L2Zone.FLAG_SIEGE) || player.getSiegeState() != 0)
+				continue;
 			if (checkIfInZone(player.getX(), player.getY(), player.getZ()))
 				players.add(player);
 		}
@@ -332,7 +331,7 @@ public final class CCHSiege extends AbstractSiege
 	{
 		if (flag == null)
 			return;
-		for (L2SiegeClan clan: _attackerClans)
+		for (L2SiegeClan clan : _attackerClans)
 			if (clan.removeFlag(flag))
 				return;
 	}
@@ -350,7 +349,8 @@ public final class CCHSiege extends AbstractSiege
 
 	private void removeSiegeClan(int clanId)
 	{
-		if (clanId <= 0) return;
+		if (clanId <= 0)
+			return;
 
 		Connection con = null;
 		try
@@ -380,9 +380,8 @@ public final class CCHSiege extends AbstractSiege
 	 */
 	public void removeSiegeClan(L2Clan clan)
 	{
-		if (clan == null || clan.getHasHideout() == _hideout.getId()
-			|| !CCHManager.getInstance().checkIsRegistered(clan, _hideout.getId()))
-				return;
+		if (clan == null || clan.getHasHideout() == _hideout.getId() || !CCHManager.getInstance().checkIsRegistered(clan, _hideout.getId()))
+			return;
 		removeSiegeClan(clan.getClanId());
 	}
 
@@ -415,19 +414,20 @@ public final class CCHSiege extends AbstractSiege
 		FastList<L2PcInstance> players;
 		switch (teleportWho)
 		{
-			case Attacker:
-				players = getAttackersInZone();
-				break;
-			case Spectator:
-				players = getSpectatorsInZone();
-				break;
-			default:
-				players = getPlayersInZone();
+		case Attacker:
+			players = getAttackersInZone();
+			break;
+		case Spectator:
+			players = getSpectatorsInZone();
+			break;
+		default:
+			players = getPlayersInZone();
 		}
 
 		for (L2PcInstance player : players)
 		{
-			if (player.isGM() || player.isInJail()) continue;
+			if (player.isGM() || player.isInJail())
+				continue;
 			player.teleToLocation(teleportWhere);
 		}
 	}
@@ -445,7 +445,7 @@ public final class CCHSiege extends AbstractSiege
 			if (Config.SIEGE_CLAN_MIN_LEVEL == 5) //default retail
 				player.sendPacket(SystemMessageId.ONLY_CLAN_LEVEL_5_ABOVE_MAY_SIEGE);
 			else
-				player.sendMessage("Only clans with Level "+Config.SIEGE_CLAN_MIN_LEVEL+" and higher may register for a castle siege.");
+				player.sendMessage("Only clans with Level " + Config.SIEGE_CLAN_MIN_LEVEL + " and higher may register for a castle siege.");
 			return false;
 		}
 		else if (_isRegistrationOver)
@@ -492,17 +492,22 @@ public final class CCHSiege extends AbstractSiege
 		{
 			if (siege.getSiegeDate().get(Calendar.DAY_OF_WEEK) == getSiegeDate().get(Calendar.DAY_OF_WEEK))
 			{
-				if (siege.checkIsAttacker(clan)) return true;
-				if (siege.checkIsDefender(clan)) return true;
-				if (siege.checkIsDefenderWaiting(clan)) return true;
+				if (siege.checkIsAttacker(clan))
+					return true;
+				if (siege.checkIsDefender(clan))
+					return true;
+				if (siege.checkIsDefenderWaiting(clan))
+					return true;
 			}
 		}
 		for (CCHSiege siege : CCHManager.getInstance().getSieges())
 		{
 			if (siege.getSiegeDate().get(Calendar.DAY_OF_WEEK) == getSiegeDate().get(Calendar.DAY_OF_WEEK))
 			{
-				if (siege.checkIsAttacker(clan)) return true;
-				if (siege.checkIsDefender(clan)) return true;
+				if (siege.checkIsAttacker(clan))
+					return true;
+				if (siege.checkIsDefender(clan))
+					return true;
 			}
 		}
 		return false;
@@ -588,7 +593,7 @@ public final class CCHSiege extends AbstractSiege
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: saveSiegeDate(): " + e.getMessage(),e);
+			_log.error("Exception: saveSiegeDate(): " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -642,8 +647,7 @@ public final class CCHSiege extends AbstractSiege
 	{
 		while (getSiegeDate().getTimeInMillis() < System.currentTimeMillis())
 		{
-			if (getSiegeDate().get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY &&
-					getSiegeDate().get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
+			if (getSiegeDate().get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && getSiegeDate().get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY)
 				getSiegeDate().set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
 			// set the next siege day to the next weekend
 			getSiegeDate().add(Calendar.DAY_OF_MONTH, 7);
@@ -663,9 +667,9 @@ public final class CCHSiege extends AbstractSiege
 
 	public L2Npc getClosestFlag(L2Object obj)
 	{
-		if (obj instanceof L2PcInstance && ((L2PcInstance)obj).getClan() != null)
+		if (obj instanceof L2PcInstance && ((L2PcInstance) obj).getClan() != null)
 		{
-			L2SiegeClan sc = getAttackerClan(((L2PcInstance)obj).getClan());
+			L2SiegeClan sc = getAttackerClan(((L2PcInstance) obj).getClan());
 			if (sc != null)
 				return sc.getClosestFlag(obj);
 		}
@@ -769,120 +773,127 @@ public final class CCHSiege extends AbstractSiege
 
 	// ===============================================================
 	// Schedule task
-	
-	private final ExclusiveTask _endSiegeTask = new ExclusiveTask() {
-		@Override
-		protected void onElapsed()
-		{
-			if (!getIsInProgress())
-			{
-				cancel();
-				return;
-			}
-			
-			final long timeRemaining = _siegeEndDate.getTimeInMillis() - System.currentTimeMillis();
-			
-			if (timeRemaining <= 0)
-			{
-				endSiege(null);
-				cancel();
-				return;
-			}
-			
-			if (3600000 > timeRemaining)
-			{
-				if (timeRemaining > 120000)
-					announceToPlayer(new SystemMessage(SystemMessageId.S1_MINUTES_REMAINING).addNumber(Math.round(timeRemaining / 60000)), true);
-				else
-					announceToPlayer(new SystemMessage(SystemMessageId.S1_SECONDS_REMAINING).addNumber(Math.round(timeRemaining / 1000)), true);
-			}
-			
-			int divider;
-			
-			if (timeRemaining > 3600000)
-				divider = 3600000; // 1 hour
-				
-			else if (timeRemaining > 600000)
-				divider = 600000; // 10 min
-				
-			else if (timeRemaining > 60000)
-				divider = 60000; // 1 min
-				
-			else if (timeRemaining > 10000)
-				divider = 10000; // 10 sec
-				
-			else
-				divider = 1000; // 1 sec
-				
-			schedule(timeRemaining % divider);
-		}
-	};
-	
-	private final ExclusiveTask _startSiegeTask = new ExclusiveTask() {
-		@Override
-		protected void onElapsed()
-		{
-			if (getIsInProgress())
-			{
-				cancel();
-				return;
-			}
-			
-			if (!getIsTimeRegistrationOver())
-			{
-				long regTimeRemaining = getTimeRegistrationOverDate().getTimeInMillis() - System.currentTimeMillis();
-				
-				if (regTimeRemaining > 0)
-				{
-					schedule(regTimeRemaining);
-					return;
-				}
-				
-				endTimeRegistration(true);
-			}
-			
-			final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
-			
-			if (timeRemaining <= 0)
-			{
-				startSiege();
-				cancel();
-				return;
-			}
-			
-			if (7200000 > timeRemaining)
-			{
-				if (!_isRegistrationOver)
-				{
-					_isRegistrationOver = true;
-					announceToPlayer(SystemMessageId.CLANHALL_WAR_REGISTRATION_PERIOD_ENDED.getSystemMessage(), true);
-				}
-				
-				if (timeRemaining > 120000)
-					announceToParticipants(new SystemMessage(SystemMessageId.CONTEST_BEGIN_IN_S1_MINUTES).addNumber((int) Math.round(timeRemaining / 60000.0)));
-			}
-			
-			int divider;
-			
-			if (timeRemaining > 86400000)
-				divider = 86400000; // 1 day
-				
-			else if (timeRemaining > 3600000)
-				divider = 3600000; // 1 hour
-				
-			else if (timeRemaining > 600000)
-				divider = 600000; // 10 min
-				
-			else if (timeRemaining > 60000)
-				divider = 60000; // 1 min
-				
-			else if (timeRemaining > 10000)
-				divider = 10000; // 10 sec
-				
-			else
-				divider = 1000; // 1 sec
-				
-			schedule(timeRemaining % divider);
-		}
-	};
+
+	private final ExclusiveTask	_endSiegeTask	= new ExclusiveTask()
+												{
+													@Override
+													protected void onElapsed()
+													{
+														if (!getIsInProgress())
+														{
+															cancel();
+															return;
+														}
+
+														final long timeRemaining = _siegeEndDate.getTimeInMillis() - System.currentTimeMillis();
+
+														if (timeRemaining <= 0)
+														{
+															endSiege(null);
+															cancel();
+															return;
+														}
+
+														if (3600000 > timeRemaining)
+														{
+															if (timeRemaining > 120000)
+																announceToPlayer(new SystemMessage(SystemMessageId.S1_MINUTES_REMAINING).addNumber(Math
+																		.round(timeRemaining / 60000)), true);
+															else
+																announceToPlayer(new SystemMessage(SystemMessageId.S1_SECONDS_REMAINING).addNumber(Math
+																		.round(timeRemaining / 1000)), true);
+														}
+
+														int divider;
+
+														if (timeRemaining > 3600000)
+															divider = 3600000; // 1 hour
+
+														else if (timeRemaining > 600000)
+															divider = 600000; // 10 min
+
+														else if (timeRemaining > 60000)
+															divider = 60000; // 1 min
+
+														else if (timeRemaining > 10000)
+															divider = 10000; // 10 sec
+
+														else
+															divider = 1000; // 1 sec
+
+														schedule(timeRemaining % divider);
+													}
+												};
+
+	private final ExclusiveTask	_startSiegeTask	= new ExclusiveTask()
+												{
+													@Override
+													protected void onElapsed()
+													{
+														if (getIsInProgress())
+														{
+															cancel();
+															return;
+														}
+
+														if (!getIsTimeRegistrationOver())
+														{
+															long regTimeRemaining = getTimeRegistrationOverDate().getTimeInMillis()
+																	- System.currentTimeMillis();
+
+															if (regTimeRemaining > 0)
+															{
+																schedule(regTimeRemaining);
+																return;
+															}
+
+															endTimeRegistration(true);
+														}
+
+														final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
+
+														if (timeRemaining <= 0)
+														{
+															startSiege();
+															cancel();
+															return;
+														}
+
+														if (7200000 > timeRemaining)
+														{
+															if (!_isRegistrationOver)
+															{
+																_isRegistrationOver = true;
+																announceToPlayer(SystemMessageId.CLANHALL_WAR_REGISTRATION_PERIOD_ENDED.getSystemMessage(),
+																		true);
+															}
+
+															if (timeRemaining > 120000)
+																announceToParticipants(new SystemMessage(SystemMessageId.CONTEST_BEGIN_IN_S1_MINUTES)
+																		.addNumber((int) Math.round(timeRemaining / 60000.0)));
+														}
+
+														int divider;
+
+														if (timeRemaining > 86400000)
+															divider = 86400000; // 1 day
+
+														else if (timeRemaining > 3600000)
+															divider = 3600000; // 1 hour
+
+														else if (timeRemaining > 600000)
+															divider = 600000; // 10 min
+
+														else if (timeRemaining > 60000)
+															divider = 60000; // 1 min
+
+														else if (timeRemaining > 10000)
+															divider = 10000; // 10 sec
+
+														else
+															divider = 1000; // 1 sec
+
+														schedule(timeRemaining % divider);
+													}
+												};
 }

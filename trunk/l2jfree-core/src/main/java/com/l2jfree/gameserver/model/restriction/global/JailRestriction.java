@@ -30,10 +30,10 @@ final class JailRestriction extends AbstractRestriction
 			activeChar.sendMessage("You are in jail!");
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
@@ -42,10 +42,10 @@ final class JailRestriction extends AbstractRestriction
 			activeChar.sendMessage("Player is in jail!");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean canTeleport(L2PcInstance activeChar)
 	{
@@ -55,10 +55,10 @@ final class JailRestriction extends AbstractRestriction
 			activeChar.sendMessage("You can't teleport in jail.");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	private boolean isInJail(L2PcInstance player)
 	{
 		return player.isInJail() || player.isInsideZone(L2Zone.FLAG_JAIL);

@@ -39,8 +39,8 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public final class CCHManager
 {
-	private static final Log _log = LogFactory.getLog(CCHManager.class);
-	private static CCHManager _instance;
+	private static final Log	_log	= LogFactory.getLog(CCHManager.class);
+	private static CCHManager	_instance;
 
 	public static final CCHManager getInstance()
 	{
@@ -72,8 +72,7 @@ public final class CCHManager
 
 		if (siege == null || !siege.getIsInProgress())
 			sm = SystemMessageId.ONLY_DURING_SIEGE;
-		else if (clan == null || clan.getLeaderId() != player.getObjectId() ||
-				siege.getAttackerClan(clan) == null)
+		else if (clan == null || clan.getLeaderId() != player.getObjectId() || siege.getAttackerClan(clan) == null)
 			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
 		else if (hideout == null || !hideout.checkIfInZoneHeadQuarters(player))
 			sm = SystemMessageId.ONLY_DURING_SIEGE;
@@ -170,7 +169,8 @@ public final class CCHManager
 		for (ClanHall hideout : ClanHallManager.getInstance().getAllClanHalls().values())
 		{
 			CCHSiege cs = hideout.getSiege();
-			if (cs == null) continue;
+			if (cs == null)
+				continue;
 			if (cs.checkIfInZone(x, y, z))
 				return cs;
 		}

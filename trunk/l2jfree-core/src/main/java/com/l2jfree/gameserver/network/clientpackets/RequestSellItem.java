@@ -39,13 +39,13 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
  */
 public class RequestSellItem extends L2GameClientPacket
 {
-	private static final String _C__1E_REQUESTSELLITEM = "[C] 1E RequestSellItem";
+	private static final String	_C__1E_REQUESTSELLITEM	= "[C] 1E RequestSellItem";
 
-	private static final int BATCH_LENGTH = 12; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 16;
+	private static final int	BATCH_LENGTH			= 12;						// length of the one item
+	private static final int	BATCH_LENGTH_FINAL		= 16;
 
-	private int _listId;
-	private Item[] _items = null;
+	private int					_listId;
+	private Item[]				_items					= null;
 
 	/**
 	 * packet type id 0x1e
@@ -72,9 +72,7 @@ public class RequestSellItem extends L2GameClientPacket
 	{
 		_listId = readD();
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -103,7 +101,8 @@ public class RequestSellItem extends L2GameClientPacket
 	protected void processSell()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (_items == null)
 		{
@@ -135,7 +134,7 @@ public class RequestSellItem extends L2GameClientPacket
 
 		if (merchant != null && _listId > 1000000) // lease
 		{
-			if (merchant.getTemplate().getNpcId() != _listId-1000000)
+			if (merchant.getTemplate().getNpcId() != _listId - 1000000)
 			{
 				sendAF();
 				return;
@@ -154,18 +153,18 @@ public class RequestSellItem extends L2GameClientPacket
 			totalPrice += price * i.getCount();
 			if ((MAX_ADENA / i.getCount()) < price || totalPrice > MAX_ADENA)
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 
 			item = player.getInventory().destroyItem("Sell", i.getObjectId(), i.getCount(), player, null);
 		}
-		player.addAdena("Sell", totalPrice, (L2Character)merchant, false);
+		player.addAdena("Sell", totalPrice, (L2Character) merchant, false);
 
 		if (merchant != null)
 		{
-			String html = HtmCache.getInstance().getHtm("data/html/"+ htmlFolder +"/" + merchant.getNpcId() + "-sold.htm");
-	
+			String html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.getNpcId() + "-sold.htm");
+
 			if (html != null)
 			{
 				NpcHtmlMessage soldMsg = new NpcHtmlMessage(merchant.getObjectId());
@@ -205,14 +204,14 @@ public class RequestSellItem extends L2GameClientPacket
 
 	private class Item
 	{
-		private final int _objectId;
-//		private final int _itemId;
-		private final long _count;
+		private final int	_objectId;
+		//		private final int _itemId;
+		private final long	_count;
 
 		public Item(int objId, int id, long num)
 		{
 			_objectId = objId;
-//			_itemId = id;
+			//			_itemId = id;
 			_count = num;
 		}
 
@@ -221,10 +220,10 @@ public class RequestSellItem extends L2GameClientPacket
 			return _objectId;
 		}
 
-//		public int getItemId()
-//		{
-//			return _itemId;
-//		}
+		//		public int getItemId()
+		//		{
+		//			return _itemId;
+		//		}
 
 		public long getCount()
 		{

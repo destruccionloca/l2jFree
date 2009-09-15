@@ -38,19 +38,19 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
  */
 public final class RecommendationManager
 {
-	private static final String ADD_RECOMMENDATION_INFO = "INSERT INTO character_recommend_data (charId,lastUpdate) VALUES (?,?)";
-	private static final String UPDATE_RECOMMENDATION_INFO = "UPDATE character_recommend_data SET evaluationAble = ?,evaluationPoints = ?,lastUpdate=? WHERE charId=?";
-	private static final String REMOVE_RECOMMENDATION_INFO = "DELETE FROM character_recommend_data WHERE charId = ?";
-	private static final String RESTORE_RECOMMENDATION_INFO = "SELECT evaluationAble,evaluationPoints,lastUpdate FROM character_recommend_data WHERE charId=?";
-	private static final String ADD_RECOMMENDATION_RESTRICTION = "INSERT INTO character_recommends VALUES (?,?)";
-	private static final String REMOVE_RECOMMENDATION_RESTRICTIONS = "TRUNCATE TABLE character_recommends";
-	private static final String REMOVE_RECOMMENDATION_RESTRICTIONS_PLAYER = "DELETE FROM character_recommends WHERE charId=? OR target_id=?";
-	private static final String RESTORE_RECOMMENDATION_RESTRICTIONS = "SELECT target_id FROM character_recommends WHERE charId=?";
+	private static final String	ADD_RECOMMENDATION_INFO						= "INSERT INTO character_recommend_data (charId,lastUpdate) VALUES (?,?)";
+	private static final String	UPDATE_RECOMMENDATION_INFO					= "UPDATE character_recommend_data SET evaluationAble = ?,evaluationPoints = ?,lastUpdate=? WHERE charId=?";
+	private static final String	REMOVE_RECOMMENDATION_INFO					= "DELETE FROM character_recommend_data WHERE charId = ?";
+	private static final String	RESTORE_RECOMMENDATION_INFO					= "SELECT evaluationAble,evaluationPoints,lastUpdate FROM character_recommend_data WHERE charId=?";
+	private static final String	ADD_RECOMMENDATION_RESTRICTION				= "INSERT INTO character_recommends VALUES (?,?)";
+	private static final String	REMOVE_RECOMMENDATION_RESTRICTIONS			= "TRUNCATE TABLE character_recommends";
+	private static final String	REMOVE_RECOMMENDATION_RESTRICTIONS_PLAYER	= "DELETE FROM character_recommends WHERE charId=? OR target_id=?";
+	private static final String	RESTORE_RECOMMENDATION_RESTRICTIONS			= "SELECT target_id FROM character_recommends WHERE charId=?";
 
-	private static final Log _log = LogFactory.getLog(RecommendationManager.class);
-	private static final long DAY = 24 * 3600 * 1000;
+	private static final Log	_log										= LogFactory.getLog(RecommendationManager.class);
+	private static final long	DAY											= 24 * 3600 * 1000;
 
-	private long nextUpdate;
+	private long				nextUpdate;
 
 	/** @return the only instance of this manager */
 	public static RecommendationManager getInstance()
@@ -282,7 +282,7 @@ public final class RecommendationManager
 		}
 		catch (SQLException e)
 		{
-			_log.error("Failed updating player's (" + player.getName() +  ") recommendations!", e);
+			_log.error("Failed updating player's (" + player.getName() + ") recommendations!", e);
 		}
 		finally
 		{
@@ -374,6 +374,6 @@ public final class RecommendationManager
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
-		protected static final RecommendationManager _instance = new RecommendationManager();
+		protected static final RecommendationManager	_instance	= new RecommendationManager();
 	}
 }

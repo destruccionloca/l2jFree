@@ -22,28 +22,29 @@ import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
  */
 public class RequestSkillCoolTime extends L2GameClientPacket
 {
-	private static final String _C__A6_REQUESTSKILLCOOLTIME = "[C] 0xa6 RequestSkillCoolTime";
+	private static final String	_C__A6_REQUESTSKILLCOOLTIME	= "[C] 0xa6 RequestSkillCoolTime";
 
-    @Override
+	@Override
 	protected void readImpl()
-    {
-        // Trigger
-    }
+	{
+		// Trigger
+	}
 
-    @Override
+	@Override
 	protected void runImpl()
-    {
-    	L2PcInstance player = getActiveChar();
-    	if (player == null) return;
+	{
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
 
-    	sendPacket(new SkillCoolTime(player));
+		sendPacket(new SkillCoolTime(player));
 
-    	sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
+	@Override
 	public String getType()
-    {
-    	return _C__A6_REQUESTSKILLCOOLTIME;
-    }
+	{
+		return _C__A6_REQUESTSKILLCOOLTIME;
+	}
 }

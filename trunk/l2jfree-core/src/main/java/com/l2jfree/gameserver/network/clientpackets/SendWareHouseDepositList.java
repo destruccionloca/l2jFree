@@ -39,20 +39,18 @@ import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
  */
 public class SendWareHouseDepositList extends L2GameClientPacket
 {
-	private static final String _C__31_SENDWAREHOUSEDEPOSITLIST = "[C] 31 SendWareHouseDepositList";
+	private static final String	_C__31_SENDWAREHOUSEDEPOSITLIST	= "[C] 31 SendWareHouseDepositList";
 
-	private static final int BATCH_LENGTH = 8; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 12;
+	private static final int	BATCH_LENGTH					= 8;									// length of the one item
+	private static final int	BATCH_LENGTH_FINAL				= 12;
 
-	private WarehouseItem _items[] = null;
+	private WarehouseItem		_items[]						= null;
 
 	@Override
 	protected void readImpl()
 	{
 		final int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -61,7 +59,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int objId = readD();
-			long cnt  = readCompQ();
+			long cnt = readCompQ();
 
 			if (objId < 1 || cnt < 0)
 			{
@@ -76,7 +74,8 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 		if (_items == null)
 		{
 			sendAF();
@@ -99,17 +98,14 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		boolean isPrivate = warehouse instanceof PcWarehouse;
 
 		L2Npc manager = player.getLastFolkNPC();
-		if ((manager == null
-				|| !manager.isWarehouse()
-				|| !manager.canInteract(player)) && !player.isGM())
+		if ((manager == null || !manager.isWarehouse() || !manager.canInteract(player)) && !player.isGM())
 		{
 			requestFailed(SystemMessageId.WAREHOUSE_TOO_FAR);
 			return;
 		}
 
-		if (!isPrivate && Config.GM_DISABLE_TRANSACTION &&
-				player.getAccessLevel() >= Config.GM_TRANSACTION_MIN &&
-				player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (!isPrivate && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
+				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
@@ -140,7 +136,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			if (item == null)
 			{
 				requestFailed(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (validity check)");
+				_log.warn("Error depositing a warehouse object for char " + player.getName() + " (validity check)");
 				return;
 			}
 
@@ -179,7 +175,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			if (oldItem == null)
 			{
 				requestFailed(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (olditem == null)");
+				_log.warn("Error depositing a warehouse object for char " + player.getName() + " (olditem == null)");
 				return;
 			}
 
@@ -195,7 +191,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			{
 				// continue instead of return
 				//requestFailed(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
-				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (newitem == null)");
+				_log.warn("Error depositing a warehouse object for char " + player.getName() + " (newitem == null)");
 				continue;
 			}
 
@@ -224,8 +220,8 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 
 	private class WarehouseItem
 	{
-		private final int _objectId;
-		private final long _count;
+		private final int	_objectId;
+		private final long	_count;
 
 		public WarehouseItem(int id, long num)
 		{

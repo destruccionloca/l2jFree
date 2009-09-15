@@ -26,18 +26,18 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 {
 	private static final class SingletonHolder
 	{
-		private static final L2EventRestriction INSTANCE = new L2EventRestriction();
+		private static final L2EventRestriction	INSTANCE	= new L2EventRestriction();
 	}
-	
+
 	public static L2EventRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private L2EventRestriction()
 	{
 	}
-	
+
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
@@ -46,19 +46,19 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 			activeChar.sendMessage("You are in an event!");
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		if (activeChar.atEvent)
 			return false;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean canStandUp(L2PcInstance activeChar)
 	{
@@ -67,10 +67,10 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 			activeChar.sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up...");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
@@ -82,7 +82,7 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 				L2Event.restoreAndTeleChar(activeChar);
 		}
 	}
-	
+
 	@Override
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
@@ -90,12 +90,11 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 		// in an event in order to restore it in the next login
 		if (activeChar.atEvent)
 		{
-			L2Event.connectionLossData.put(activeChar.getName(), new EventData(activeChar.eventX, activeChar.eventY,
-				activeChar.eventZ, activeChar.eventKarma, activeChar.eventPvpKills, activeChar.eventPkKills,
-				activeChar.eventTitle, activeChar.kills, activeChar.eventSitForced));
+			L2Event.connectionLossData.put(activeChar.getName(), new EventData(activeChar.eventX, activeChar.eventY, activeChar.eventZ, activeChar.eventKarma,
+					activeChar.eventPvpKills, activeChar.eventPkKills, activeChar.eventTitle, activeChar.kills, activeChar.eventSitForced));
 		}
 	}
-	
+
 	@Override
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
@@ -104,10 +103,10 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 			L2Event.inscribePlayer(activeChar);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -116,7 +115,7 @@ public final class L2EventRestriction extends AbstractRestriction// extends Abst
 			L2Event.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-		
+
 		return false;
 	}
 }

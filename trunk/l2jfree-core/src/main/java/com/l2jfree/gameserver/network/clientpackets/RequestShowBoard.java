@@ -24,9 +24,9 @@ import com.l2jfree.gameserver.communitybbs.CommunityBoard;
  */
 public class RequestShowBoard extends L2GameClientPacket
 {
-	private static final String _C__57_REQUESTSHOWBOARD = "[C] 57 RequestShowBoard";
+	private static final String	_C__57_REQUESTSHOWBOARD	= "[C] 57 RequestShowBoard";
 
-    //private int _unknown;
+	//private int _unknown;
 
 	/**
 	 * packet type id 0x57
@@ -38,14 +38,14 @@ public class RequestShowBoard extends L2GameClientPacket
 	 * 
 	 * format:		cd
 	 */
-    @Override
-    protected void readImpl()
-    {
-        /*_unknown = */readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		/*_unknown = */readD();
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		CommunityBoard.handleCommands(getClient(), Config.BBS_DEFAULT);
 	}

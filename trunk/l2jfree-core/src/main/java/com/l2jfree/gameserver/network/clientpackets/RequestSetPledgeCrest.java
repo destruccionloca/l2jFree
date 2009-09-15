@@ -32,38 +32,39 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class RequestSetPledgeCrest extends L2GameClientPacket
 {
-	private static final String _C__53_REQUESTSETPLEDGECREST = "[C] 53 RequestSetPledgeCrest";
+	private static final String	_C__53_REQUESTSETPLEDGECREST	= "[C] 53 RequestSetPledgeCrest";
 
-	private int _length;
-	private byte[] _data;
+	private int					_length;
+	private byte[]				_data;
 
-    @Override
-    protected void readImpl()
-    {
-        _length  = readD();
-        if (_length < 0 || _length > 256)
-            return;
+	@Override
+	protected void readImpl()
+	{
+		_length = readD();
+		if (_length < 0 || _length > 256)
+			return;
 
-        _data = new byte[_length];
-        readB(_data);
-    }
+		_data = new byte[_length];
+		readB(_data);
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2Clan clan = activeChar.getClan();
 		if (clan == null)
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-		    return;
+			return;
 		}
 		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) != L2Clan.CP_CL_REGISTER_CREST)
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
-		    return;
+			return;
 		}
 		else if (clan.getLevel() < 3)
 		{
@@ -73,7 +74,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 		else if (clan.getDissolvingExpiryTime() > 0)
 		{
 			requestFailed(SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS);
-        	return;
+			return;
 		}
 
 		if (_length < 0 || _length > 256)
@@ -87,53 +88,53 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 		if (_length == 0 || _data.length == 0)
 		{
 			crestCache.removePledgeCrest(clan.getCrestId());
-            clan.setHasCrest(false);
-            sendPacket(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED);
+			clan.setHasCrest(false);
+			sendPacket(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED);
 
-            for (L2PcInstance member : clan.getOnlineMembers(0))
-                member.broadcastUserInfo();
+			for (L2PcInstance member : clan.getOnlineMembers(0))
+				member.broadcastUserInfo();
 		}
 		else
 		{
 			int newId = IdFactory.getInstance().getNextId();
 			if (!crestCache.savePledgeCrest(newId, _data))
-            {
+			{
 				//all lies, the problem is server-side :D
-            	requestFailed(SystemMessageId.INVALID_INSIGNIA_COLOR);
-                _log.warn("Error saving crest of clan:" + clan.getName());
-                return;
-            }
+				requestFailed(SystemMessageId.INVALID_INSIGNIA_COLOR);
+				_log.warn("Error saving crest of clan:" + clan.getName());
+				return;
+			}
 
 			if (clan.hasCrest())
 				crestCache.removeOldPledgeCrest(clan.getCrestId());
 
 			Connection con = null;
-            try
-            {
-                con = L2DatabaseFactory.getInstance().getConnection(con);
-                PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?");
-                statement.setInt(1, newId);
-                statement.setInt(2, clan.getClanId());
-                statement.executeUpdate();
-                statement.close();
-            }
-            catch (SQLException e)
-            {
-                _log.warn("could not update the crest id:", e);
-            }
-            finally
-            {
-                L2DatabaseFactory.close(con);
-            }
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET crest_id = ? WHERE clan_id = ?");
+				statement.setInt(1, newId);
+				statement.setInt(2, clan.getClanId());
+				statement.executeUpdate();
+				statement.close();
+			}
+			catch (SQLException e)
+			{
+				_log.warn("could not update the crest id:", e);
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
 
-            clan.setCrestId(newId);
-            clan.setHasCrest(true);
+			clan.setCrestId(newId);
+			clan.setHasCrest(true);
 
-            for (L2PcInstance member : clan.getOnlineMembers(0))
-                member.broadcastUserInfo();
+			for (L2PcInstance member : clan.getOnlineMembers(0))
+				member.broadcastUserInfo();
 		}
 
-        sendAF();
+		sendAF();
 	}
 
 	@Override

@@ -22,62 +22,63 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestSurrenderPersonally extends L2GameClientPacket
 {
-    private static final String _C__69_REQUESTSURRENDERPERSONALLY = "[C] 69 RequestSurrenderPersonally";
+	private static final String	_C__69_REQUESTSURRENDERPERSONALLY	= "[C] 69 RequestSurrenderPersonally";
 
-    private String _pledgeName;
+	private String				_pledgeName;
 
-    @Override
-    protected void readImpl()
-    {
-        _pledgeName  = readS();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_pledgeName = readS();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
-        
-        _log.info("RequestSurrenderPersonally by " + activeChar.getName() + " with " + _pledgeName);
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        L2Clan clan = activeChar.getClan();
-        if (clan == null)
-	    {
-	    	requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-	        return;
-	    }
+		_log.info("RequestSurrenderPersonally by " + activeChar.getName() + " with " + _pledgeName);
 
-        L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
-        if (warClan == null)
-        {
-            requestFailed(SystemMessageId.CLAN_DOESNT_EXISTS);
-            return;
-        }
+		L2Clan clan = activeChar.getClan();
+		if (clan == null)
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+			return;
+		}
 
-        if (!clan.isAtWarWith(warClan.getClanId()))
-        {
-            requestFailed(SystemMessageId.NOT_INVOLVED_IN_WAR);
-            return;
-        }
-        else if (activeChar.getWantsPeace() == 1)
-        {
-        	requestFailed(SystemMessageId.YOU_ARE_WORKING_WITH_ANOTHER_CLAN);
-            return;
-        }
+		L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
+		if (warClan == null)
+		{
+			requestFailed(SystemMessageId.CLAN_DOESNT_EXISTS);
+			return;
+		}
 
-        activeChar.setWantsPeace(1);
-        activeChar.deathPenalty(false, false, false);
-        SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_PERSONALLY_SURRENDERED_TO_THE_S1_CLAN);
-        msg.addString(_pledgeName);
-        sendPacket(msg);
-        ClanTable.getInstance().checkSurrender(clan, warClan);
+		if (!clan.isAtWarWith(warClan.getClanId()))
+		{
+			requestFailed(SystemMessageId.NOT_INVOLVED_IN_WAR);
+			return;
+		}
+		else if (activeChar.getWantsPeace() == 1)
+		{
+			requestFailed(SystemMessageId.YOU_ARE_WORKING_WITH_ANOTHER_CLAN);
+			return;
+		}
 
-        sendAF();
-    }
+		activeChar.setWantsPeace(1);
+		activeChar.deathPenalty(false, false, false);
+		SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_PERSONALLY_SURRENDERED_TO_THE_S1_CLAN);
+		msg.addString(_pledgeName);
+		sendPacket(msg);
+		ClanTable.getInstance().checkSurrender(clan, warClan);
 
-    @Override
-    public String getType()
-    {
-        return _C__69_REQUESTSURRENDERPERSONALLY;
-    }
+		sendAF();
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__69_REQUESTSURRENDERPERSONALLY;
+	}
 }

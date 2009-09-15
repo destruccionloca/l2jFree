@@ -29,73 +29,73 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final VIPRestriction INSTANCE = new VIPRestriction();
+		private static final VIPRestriction	INSTANCE	= new VIPRestriction();
 	}
-	
+
 	public static VIPRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private VIPRestriction()
 	{
 	}
-	
+
 	@Override
 	boolean started()
 	{
 		return VIP._started;
 	}
-	
+
 	@Override
 	boolean allowSummon()
 	{
 		return true;
 	}
-	
+
 	@Override
 	boolean allowPotions()
 	{
 		return Config.VIP_ALLOW_POTIONS;
 	}
-	
+
 	@Override
 	boolean allowInterference()
 	{
 		return Config.VIP_ALLOW_INTERFERENCE;
 	}
-	
+
 	@Override
 	boolean sitForced()
 	{
 		return VIP._sitForced;
 	}
-	
+
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventVIP;
 	}
-	
+
 	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		return true;
 	}
-	
+
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (VIP._savePlayers.contains(activeChar.getName()))
 			VIP.addDisconnectedPlayer(activeChar);
 	}
-	
+
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventVIP)
 			return false;
-		
+
 		if (killer != null)
 		{
 			if (VIP._started)
@@ -119,7 +119,8 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 				else
 				{
 					target.sendMessage("You will be revived and teleported to team spot in 20 seconds!");
-					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+					{
 						public void run()
 						{
 							target.doRevive();
@@ -131,13 +132,13 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 					}, 20000);
 				}
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
@@ -156,10 +157,10 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 			VIP.vipWin(activeChar);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -173,7 +174,7 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 			VIP.showEndHTML(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-		
+
 		return false;
 	}
 }

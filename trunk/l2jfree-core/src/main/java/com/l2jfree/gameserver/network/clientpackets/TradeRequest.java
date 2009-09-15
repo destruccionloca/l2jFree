@@ -33,9 +33,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class TradeRequest extends L2GameClientPacket
 {
-	private static final String TRADEREQUEST__C__15 = "[C] 15 TradeRequest";
+	private static final String	TRADEREQUEST__C__15	= "[C] 15 TradeRequest";
 
-	private int _objectId;
+	private int					_objectId;
 
 	@Override
 	protected void readImpl()
@@ -47,7 +47,8 @@ public class TradeRequest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
@@ -57,7 +58,7 @@ public class TradeRequest extends L2GameClientPacket
 
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-        	requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
+			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
 		}
 

@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 /**
  * @author NB4L1
  */
-public final class AutomatedTvTRestriction extends AbstractRestriction// extends AbstractFunEventRestriction
+public final class AutomatedTvTRestriction extends AbstractRestriction
 {
 	private static final class SingletonHolder
 	{
@@ -51,7 +51,7 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 
 		if (AutomatedTvT.isReged(activeChar) || AutomatedTvT.isPlaying(activeChar))
 		{
-			activeChar.sendMessage("You are participating in a fun event!");
+			activeChar.sendMessage("Already participating in a fun event!");
 			return true;
 		}
 
@@ -95,20 +95,20 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 		{
 			switch (zone)
 			{
-				case L2Zone.FLAG_PEACE:
-				{
-					return Boolean.FALSE;
-				}
-				case L2Zone.FLAG_PVP:
-				{
-					return Boolean.TRUE;
-				}
+			case L2Zone.FLAG_PEACE:
+			{
+				return Boolean.FALSE;
+			}
+			case L2Zone.FLAG_PVP:
+			{
+				return Boolean.TRUE;
+			}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
@@ -132,7 +132,7 @@ public final class AutomatedTvTRestriction extends AbstractRestriction// extends
 		else
 			return false;
 	}
-	
+
 	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{

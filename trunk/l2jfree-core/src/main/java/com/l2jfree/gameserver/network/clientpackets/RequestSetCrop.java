@@ -45,21 +45,19 @@ public class RequestSetCrop extends L2GameClientPacket
 {
 	private static final String	_C__D0_0B_REQUESTSETCROP	= "[C] D0:0B RequestSetCrop";
 
-	private static final int BATCH_LENGTH = 13; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 21; // length of the one item
+	private static final int	BATCH_LENGTH				= 13;							// length of the one item
+	private static final int	BATCH_LENGTH_FINAL			= 21;							// length of the one item
 
 	private int					_manorId;
 
-	private Crop[]				_items = null;
+	private Crop[]				_items						= null;
 
 	@Override
 	protected void readImpl()
 	{
 		_manorId = readD();
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -84,7 +82,8 @@ public class RequestSetCrop extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (_items == null || player.getClan() == null)
 		{
@@ -157,10 +156,10 @@ public class RequestSetCrop extends L2GameClientPacket
 
 	private class Crop
 	{
-		private final int _itemId;
-		private final long _sales;
-		private final long _price;
-		private final int _type;
+		private final int	_itemId;
+		private final long	_sales;
+		private final long	_price;
+		private final int	_type;
 
 		public Crop(int id, long s, long p, int t)
 		{

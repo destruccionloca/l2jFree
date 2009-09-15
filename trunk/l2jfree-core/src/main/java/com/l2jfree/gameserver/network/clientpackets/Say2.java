@@ -38,15 +38,16 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class Say2 extends L2GameClientPacket
 {
-	private static final String _C__38_SAY2 = "[C] 38 Say2";
+	private static final String		_C__38_SAY2	= "[C] 38 Say2";
 
-	private static final Log _logChat = LogFactory.getLog("chat");
+	private static final Log		_logChat	= LogFactory.getLog("chat");
 
-	private String _text;
-	private SystemChatChannelId _type;
-	private String _target;
+	private String					_text;
+	private SystemChatChannelId		_type;
+	private String					_target;
 
-	private static final String[] LINKED_ITEM = { "Type=", "ID=", "Color=", "Underline=", "Title=" };
+	private static final String[]	LINKED_ITEM	=
+												{ "Type=", "ID=", "Color=", "Underline=", "Title=" };
 
 	/**
 	 * packet type id 0x38 format: cSd (S)
@@ -69,18 +70,18 @@ public class Say2 extends L2GameClientPacket
 		// If no or wrong channel is used - punish/return
 		switch (_type)
 		{
-			case Chat_None:
-			case Chat_Announce:
-			case Chat_Critical_Announce:
-			case Chat_System:
-			case Chat_Custom:
-			{
-				if (Config.BAN_CLIENT_EMULATORS)
-					Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with wrong type by " + activeChar);
-				else
-					sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
+		case Chat_None:
+		case Chat_Announce:
+		case Chat_Critical_Announce:
+		case Chat_System:
+		case Chat_Custom:
+		{
+			if (Config.BAN_CLIENT_EMULATORS)
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with wrong type by " + activeChar);
+			else
+				sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 			// seems client sends this if typing '*'
 			//case Chat_GM_Pet:
 			//{
@@ -94,47 +95,47 @@ public class Say2 extends L2GameClientPacket
 
 		switch (_type)
 		{
-			case Chat_GM_Pet:
-			case Chat_User_Pet:
-			case Chat_Tell:
-				break;
-			default:
+		case Chat_GM_Pet:
+		case Chat_User_Pet:
+		case Chat_Tell:
+			break;
+		default:
+		{
+			// If player is chat banned
+			if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat))
 			{
-				// If player is chat banned
-				if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat))
-				{
-					requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
-					return;
-				}
+				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
+				return;
 			}
+		}
 		}
 
 		if (activeChar.isCursedWeaponEquipped())
 		{
 			switch (_type)
 			{
-				case Chat_Shout:
-				case Chat_Market:
-					requestFailed(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
-					return;
+			case Chat_Shout:
+			case Chat_Market:
+				requestFailed(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
+				return;
 			}
 		}
 
 		switch (_type)
 		{
-			case Chat_GM_Pet:
-			case Chat_User_Pet:
-			case Chat_Normal:
-				break;
-			default:
+		case Chat_GM_Pet:
+		case Chat_User_Pet:
+		case Chat_Normal:
+			break;
+		default:
+		{
+			// If player is jailed
+			if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
 			{
-				// If player is jailed
-				if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
-				{
-					requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
-					return;
-				}
+				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
+				return;
 			}
+		}
 		}
 
 		// If Petition and GM use GM_Petition Channel
@@ -143,16 +144,16 @@ public class Say2 extends L2GameClientPacket
 
 		switch (_type)
 		{
-			case Chat_Normal:
-			case Chat_Shout:
-			case Chat_Market:
+		case Chat_Normal:
+		case Chat_Shout:
+		case Chat_Market:
+		{
+			if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible())
 			{
-				if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible())
-				{
-					requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
-					return;
-				}
+				requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
+				return;
 			}
+		}
 		}
 
 		//Under no circumstances the official client will send a 400 character message
@@ -197,7 +198,7 @@ public class Say2 extends L2GameClientPacket
 		//	_text = _text.substring(1);
 		//	_text = "*" + _text + "*";
 		//}
-		
+
 		// Log chat to file
 		if (Config.LOG_CHAT)
 		{

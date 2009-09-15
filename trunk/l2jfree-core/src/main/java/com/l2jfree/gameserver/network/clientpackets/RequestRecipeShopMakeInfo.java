@@ -27,10 +27,10 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeShopItemInfo;
  */
 public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 {
-	private static final String _C__B5_RequestRecipeShopMakeInfo = "[C] b5 RequestRecipeShopMakeInfo";
+	private static final String	_C__B5_RequestRecipeShopMakeInfo	= "[C] b5 RequestRecipeShopMakeInfo";
 
-	private int _objectId;
-	private int _recipeId;
+	private int					_objectId;
+	private int					_recipeId;
 
 	@Override
 	protected void readImpl()
@@ -43,7 +43,8 @@ public class RequestRecipeShopMakeInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2Object obj = null;
 

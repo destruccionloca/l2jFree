@@ -26,18 +26,18 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class RequestWriteHeroWords extends L2GameClientPacket
 {
-	private static final String _C__FE_0C_REQUESTWRITEHEROWORDS = "[C] D0:0C RequestWriteHeroWords";
+	private static final String	_C__FE_0C_REQUESTWRITEHEROWORDS	= "[C] D0:0C RequestWriteHeroWords";
 
 	//private String _heroWords;
 
-    @Override
-    protected void readImpl()
-    {
-        /*_heroWords = */readS();
-    }
+	@Override
+	protected void readImpl()
+	{
+		/*_heroWords = */readS();
+	}
 
 	@Override
-    protected void runImpl()
+	protected void runImpl()
 	{
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}

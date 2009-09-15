@@ -30,10 +30,10 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  */
 public class RequestSocialAction extends L2GameClientPacket
 {
-	private static final String _C__1B_REQUESTSOCIALACTION = "[C] 1B RequestSocialAction";
+	private static final String	_C__1B_REQUESTSOCIALACTION	= "[C] 1B RequestSocialAction";
 
 	// format  cd
-	private int _actionId;
+	private int					_actionId;
 
 	/**
 	 * packet type id 0x1b
@@ -43,14 +43,15 @@ public class RequestSocialAction extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		_actionId  = readD();
+		_actionId = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.SOCIAL))
 			return;
@@ -58,7 +59,8 @@ public class RequestSocialAction extends L2GameClientPacket
 		// check if its the actionId is allowed
 		else if (_actionId < 2 || _actionId > 14)
 		{
-			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " requested an internal Social Action.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName()
+					+ " requested an internal Social Action.", Config.DEFAULT_PUNISH);
 			sendAF();
 			return;
 		}
@@ -70,11 +72,9 @@ public class RequestSocialAction extends L2GameClientPacket
 			return;
 		}
 
-		else if (activeChar.isSitting() || activeChar.getActiveRequester() != null ||
-				activeChar.isAlikeDead() || activeChar.isCastingNow() ||
-				activeChar.isCastingSimultaneouslyNow() ||
-				activeChar.getAI().getIntention() != CtrlIntention.AI_INTENTION_IDLE ||
-				(activeChar.isAllSkillsDisabled() && !activeChar.isInDuel()))
+		else if (activeChar.isSitting() || activeChar.getActiveRequester() != null || activeChar.isAlikeDead() || activeChar.isCastingNow()
+				|| activeChar.isCastingSimultaneouslyNow() || activeChar.getAI().getIntention() != CtrlIntention.AI_INTENTION_IDLE
+				|| (activeChar.isAllSkillsDisabled() && !activeChar.isInDuel()))
 		{
 			sendAF();
 			return;

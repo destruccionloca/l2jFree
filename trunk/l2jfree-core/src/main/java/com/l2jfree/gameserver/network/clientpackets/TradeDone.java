@@ -29,9 +29,9 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class TradeDone extends L2GameClientPacket
 {
-	private static final String _C__17_TRADEDONE = "[C] 17 TradeDone";
+	private static final String	_C__17_TRADEDONE	= "[C] 17 TradeDone";
 
-	private int _response;
+	private int					_response;
 
 	@Override
 	protected void readImpl()
@@ -43,7 +43,8 @@ public class TradeDone extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
@@ -55,17 +56,17 @@ public class TradeDone extends L2GameClientPacket
 		TradeList trade = player.getActiveTradeList();
 		if (trade == null)
 		{
-			if(_log.isDebugEnabled())
+			if (_log.isDebugEnabled())
 				_log.warn("player.getTradeList == null in " + getType() + " for player " + player.getName());
 			requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
 			return;
 		}
-		if (trade.isLocked()) return;
+		if (trade.isLocked())
+			return;
 
 		if (_response == 1)
 		{
-			if (trade.getPartner() == null ||
-					L2World.getInstance().getPlayer(trade.getPartner().getObjectId()) == null)
+			if (trade.getPartner() == null || L2World.getInstance().getPlayer(trade.getPartner().getObjectId()) == null)
 			{
 				// Trade partner not found, cancel trade
 				player.cancelActiveTrade();
@@ -73,15 +74,13 @@ public class TradeDone extends L2GameClientPacket
 				return;
 			}
 
-			if (trade.getOwner().getActiveEnchantItem() != null ||
-					trade.getPartner().getActiveEnchantItem() != null)
+			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
 			{
 				requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
 				return;
 			}
 
-			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
 				player.cancelActiveTrade();
 				requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);

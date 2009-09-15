@@ -28,87 +28,87 @@ public final class DMRestriction extends AbstractFunEventRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final DMRestriction INSTANCE = new DMRestriction();
+		private static final DMRestriction	INSTANCE	= new DMRestriction();
 	}
-	
+
 	public static DMRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private DMRestriction()
 	{
 	}
-	
+
 	@Override
 	boolean started()
 	{
 		return DM._started;
 	}
-	
+
 	@Override
 	boolean allowSummon()
 	{
 		return Config.DM_ALLOW_SUMMON;
 	}
-	
+
 	@Override
 	boolean allowPotions()
 	{
 		return Config.DM_ALLOW_POTIONS;
 	}
-	
+
 	@Override
 	boolean allowInterference()
 	{
 		return Config.DM_ALLOW_INTERFERENCE;
 	}
-	
+
 	@Override
 	boolean sitForced()
 	{
 		return DM._sitForced;
 	}
-	
+
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventDM;
 	}
-	
+
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		if (activeChar._inEventDM && DM._maxlvl == activeChar.getLevel() && !DM._started)
 		{
 			DM.removePlayer(activeChar);
-			
+
 			activeChar.sendMessage("Your event sign up was canceled.");
 		}
 	}
-	
+
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
 	}
-	
+
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventDM)
 			return false;
-		
+
 		if (DM._teleport || DM._started)
 		{
 			if (killer != null && killer._inEventDM)
 				killer._countDMkills++;
-			
-			target.sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000
-				+ " seconds!");
-			
-			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+
+			target.sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000 + " seconds!");
+
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
 				public void run()
 				{
 					target.teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
@@ -116,10 +116,10 @@ public final class DMRestriction extends AbstractFunEventRestriction
 				}
 			}, Config.DM_REVIVE_DELAY);
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
@@ -139,10 +139,10 @@ public final class DMRestriction extends AbstractFunEventRestriction
 				activeChar.sendMessage("The event is already started. You can not leave now!");
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -151,7 +151,7 @@ public final class DMRestriction extends AbstractFunEventRestriction
 			DM.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-		
+
 		return false;
 	}
 }

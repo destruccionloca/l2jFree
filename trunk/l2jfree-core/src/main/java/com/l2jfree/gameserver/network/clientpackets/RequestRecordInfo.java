@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public final class RequestRecordInfo extends L2GameClientPacket
 {
-	private static final String _0__CF_REQUEST_RECORD_INFO = "[0] CF RequestRecordInfo";
+	private static final String	_0__CF_REQUEST_RECORD_INFO	= "[0] CF RequestRecordInfo";
 
 	@Override
 	protected void readImpl()
@@ -31,7 +31,8 @@ public final class RequestRecordInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		sendPacket(new UserInfo(activeChar));
 		//sendAF(); idk if this is needed

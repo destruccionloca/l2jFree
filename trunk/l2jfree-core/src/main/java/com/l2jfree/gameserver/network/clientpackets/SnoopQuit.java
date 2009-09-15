@@ -22,9 +22,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class SnoopQuit extends L2GameClientPacket
 {
-	private static final String _C__AB_SNOOPQUIT = "[C] AB SnoopQuit";
+	private static final String	_C__AB_SNOOPQUIT	= "[C] AB SnoopQuit";
 
-	private int _snoopID;
+	private int					_snoopID;
 
 	@Override
 	protected void readImpl()
@@ -36,9 +36,11 @@ public class SnoopQuit extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 		L2PcInstance target = L2World.getInstance().getPlayer(_snoopID);
-		if (target == null) return;
+		if (target == null)
+			return;
 
 		player.removeSnooped(target);
 		target.removeSnooper(player);

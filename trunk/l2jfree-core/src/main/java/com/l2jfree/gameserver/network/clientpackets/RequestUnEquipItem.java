@@ -27,10 +27,10 @@ import com.l2jfree.gameserver.templates.item.L2Item;
  */
 public class RequestUnEquipItem extends L2GameClientPacket
 {
-	private static final String _C__11_REQUESTUNEQUIPITEM = "[C] 11 RequestUnequipItem";
+	private static final String	_C__11_REQUESTUNEQUIPITEM	= "[C] 11 RequestUnequipItem";
 
 	// cd
-	private int _slot;
+	private int					_slot;
 
 	/**
 	 * packet type id 0x11
@@ -47,7 +47,8 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		if (_log.isDebugEnabled())
 			_log.debug("request unequip slot " + _slot);
@@ -63,8 +64,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		if (item == null || item.isWear() || // Wear-items are not to be unequipped
 				item.getItemId() == 9819 || // Fortress siege combat flags can't be unequipped
 				// Prevent player from unequipping items in special conditions
-				activeChar.isStunned() || activeChar.isSleeping() || 
-				activeChar.isParalyzed() || activeChar.isAlikeDead())
+				activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed() || activeChar.isAlikeDead())
 		{
 			sendAF();
 			return;

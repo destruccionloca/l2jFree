@@ -24,33 +24,34 @@ import com.l2jfree.gameserver.network.serverpackets.QuestList;
  */
 public class RequestQuestList extends L2GameClientPacket
 {
-    private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
+	private static final String	_C__63_REQUESTQUESTLIST	= "[C] 63 RequestQuestList";
 
-    /**
-     * packet type id 0x63<p>
-     * format:      c<p>
-     * @param decrypt
-     */
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
+	/**
+	 * packet type id 0x63<p>
+	 * format:      c<p>
+	 * @param decrypt
+	 */
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
-    @Override
-    protected void runImpl()
-    {
-    	L2PcInstance player = getActiveChar();
-    	if (player == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
 
-    	sendPacket(new QuestList(player));
+		sendPacket(new QuestList(player));
 
-    	sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__63_REQUESTQUESTLIST;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__63_REQUESTQUESTLIST;
+	}
 }

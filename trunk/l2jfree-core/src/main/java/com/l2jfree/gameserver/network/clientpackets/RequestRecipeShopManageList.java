@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeShopManageList;
  */
 public class RequestRecipeShopManageList extends L2GameClientPacket
 {
-	private static final String _C__B0_RequestRecipeShopManageList = "[C] b0 RequestRecipeShopManageList";
+	private static final String	_C__B0_RequestRecipeShopManageList	= "[C] b0 RequestRecipeShopManageList";
 
 	@Override
 	protected void readImpl()
@@ -39,7 +39,8 @@ public class RequestRecipeShopManageList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		// Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
 		if (player.isAlikeDead())

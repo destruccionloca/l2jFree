@@ -33,95 +33,95 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class RequestSetAllyCrest extends L2GameClientPacket
 {
-    private static final String _C__87_REQUESTSETALLYCREST = "[C] 87 RequestSetAllyCrest";
+	private static final String	_C__87_REQUESTSETALLYCREST	= "[C] 87 RequestSetAllyCrest";
 
-    private int _length;
+	private int					_length;
 
-    private byte[] _data;
+	private byte[]				_data;
 
-    @Override
-    protected void readImpl()
-    {
-        _length  = readD();
-        if (_length < 0 || _length > 192)
-            return;
+	@Override
+	protected void readImpl()
+	{
+		_length = readD();
+		if (_length < 0 || _length > 192)
+			return;
 
-        _data = new byte[_length];
-        readB(_data);
-    }
+		_data = new byte[_length];
+		readB(_data);
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        L2Clan clan = ClanTable.getInstance().getClan(activeChar.getAllyId());
+		L2Clan clan = ClanTable.getInstance().getClan(activeChar.getAllyId());
 
-		if (clan == null || !activeChar.isClanLeader() ||
-				activeChar.getClanId() != clan.getClanId())
+		if (clan == null || !activeChar.isClanLeader() || activeChar.getClanId() != clan.getClanId())
 		{
 			requestFailed(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 			return;
 		}
 
-        if (_length < 0 || _length > 192)
-        {
-        	requestFailed(SystemMessageId.INVALID_INSIGNIA_FORMAT);
+		if (_length < 0 || _length > 192)
+		{
+			requestFailed(SystemMessageId.INVALID_INSIGNIA_FORMAT);
 			return;
-        }
+		}
 
-        CrestCache crestCache = CrestCache.getInstance();
+		CrestCache crestCache = CrestCache.getInstance();
 
-        int newId = IdFactory.getInstance().getNextId();
+		int newId = IdFactory.getInstance().getNextId();
 
-        if (!crestCache.saveAllyCrest(newId, _data))
-        {
-        	//all lies, the problem is server-side :D
-        	requestFailed(SystemMessageId.INVALID_INSIGNIA_COLOR);
-        	_log.info("Error saving alliance crest: " + clan.getAllyName());
-        	return;
-        }
+		if (!crestCache.saveAllyCrest(newId, _data))
+		{
+			//all lies, the problem is server-side :D
+			requestFailed(SystemMessageId.INVALID_INSIGNIA_COLOR);
+			_log.info("Error saving alliance crest: " + clan.getAllyName());
+			return;
+		}
 
-        if (clan.getAllyCrestId() != 0)
-        	crestCache.removeAllyCrest(clan.getAllyCrestId());
+		if (clan.getAllyCrestId() != 0)
+			crestCache.removeAllyCrest(clan.getAllyCrestId());
 
-        Connection con = null;
+		Connection con = null;
 
-        try
-        {
-        	con = L2DatabaseFactory.getInstance().getConnection(con);
-        	PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET ally_crest_id = ? WHERE ally_id = ?");
-        	statement.setInt(1, newId);
-        	statement.setInt(2, clan.getAllyId());
-        	statement.executeUpdate();
-        	statement.close();
-        }
-        catch (SQLException e)
-        {
-        	_log.warn("could not update the ally crest id:", e);
-        }
-        finally
-        {
-        	L2DatabaseFactory.close(con);
-        }
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET ally_crest_id = ? WHERE ally_id = ?");
+			statement.setInt(1, newId);
+			statement.setInt(2, clan.getAllyId());
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warn("could not update the ally crest id:", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 
-        for (L2Clan c : ClanTable.getInstance().getClans())
-        {
-        	if (c.getAllyId() == activeChar.getAllyId())
-        	{
-        		c.setAllyCrestId(newId);
-        		for (L2PcInstance member : c.getOnlineMembers(0))
-        			member.broadcastUserInfo();
-        	}
-        }
+		for (L2Clan c : ClanTable.getInstance().getClans())
+		{
+			if (c.getAllyId() == activeChar.getAllyId())
+			{
+				c.setAllyCrestId(newId);
+				for (L2PcInstance member : c.getOnlineMembers(0))
+					member.broadcastUserInfo();
+			}
+		}
 
-        sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__87_REQUESTSETALLYCREST;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__87_REQUESTSETALLYCREST;
+	}
 }

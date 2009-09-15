@@ -27,51 +27,54 @@ import com.l2jfree.gameserver.network.serverpackets.QuestList;
  */
 public class RequestQuestAbort extends L2GameClientPacket
 {
-    private static final String _C__64_REQUESTQUESTABORT = "[C] 64 RequestQuestAbort";
+	private static final String	_C__64_REQUESTQUESTABORT	= "[C] 64 RequestQuestAbort";
 
-    private int _questId;
+	private int					_questId;
 
-    /**
-     * packet type id 0x64<p>
-     */
-    @Override
-    protected void readImpl()
-    {
-        _questId = readD();
-    }
-    
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	/**
+	 * packet type id 0x64<p>
+	 */
+	@Override
+	protected void readImpl()
+	{
+		_questId = readD();
+	}
 
-        Quest qe = QuestManager.getInstance().getQuest(_questId);
-        if (qe != null)
-        {
-            QuestState qs = activeChar.getQuestState(qe.getName());
-            if(qs != null)
-            {
-                qs.exitQuest(true);
-                activeChar.sendMessage("Quest aborted.");
-                activeChar.sendPacket(new QuestList(activeChar));
-            }
-            else
-            {
-                if (_log.isDebugEnabled()) _log.info("Player '"+activeChar.getName()+"' try to abort quest "+qe.getName()+" but he didn't have it started.");
-            }
-        }
-        else
-        {
-            if (_log.isDebugEnabled()) _log.warn("Quest (id='" + _questId + "') not found.");
-        }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        sendAF();
-    }
+		Quest qe = QuestManager.getInstance().getQuest(_questId);
+		if (qe != null)
+		{
+			QuestState qs = activeChar.getQuestState(qe.getName());
+			if (qs != null)
+			{
+				qs.exitQuest(true);
+				activeChar.sendMessage("Quest aborted.");
+				activeChar.sendPacket(new QuestList(activeChar));
+			}
+			else
+			{
+				if (_log.isDebugEnabled())
+					_log.info("Player '" + activeChar.getName() + "' try to abort quest " + qe.getName() + " but he didn't have it started.");
+			}
+		}
+		else
+		{
+			if (_log.isDebugEnabled())
+				_log.warn("Quest (id='" + _questId + "') not found.");
+		}
 
-    @Override
-    public String getType()
-    {
-        return _C__64_REQUESTQUESTABORT;
-    }
+		sendAF();
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__64_REQUESTQUESTABORT;
+	}
 }

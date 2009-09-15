@@ -29,15 +29,19 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public final class L2CCHRegistrarInstance extends L2NpcInstance
 {
-	private int _hideoutIndex = -2;
+	private int	_hideoutIndex	= -2;
 
 	public L2CCHRegistrarInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 		switch (getNpcId())
 		{
-		case 35420: _hideoutIndex = 34; break;
-		case 35639: _hideoutIndex = 64; break;
+		case 35420:
+			_hideoutIndex = 34;
+			break;
+		case 35639:
+			_hideoutIndex = 64;
+			break;
 		}
 	}
 
@@ -52,7 +56,8 @@ public final class L2CCHRegistrarInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
+		if (!canTarget(player))
+			return;
 
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
@@ -91,8 +96,8 @@ public final class L2CCHRegistrarInstance extends L2NpcInstance
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/siege/" + getTemplate().getNpcId() + "-busy.htm");
-			html.replace("%castlename%",getCastle().getName());
-			html.replace("%objectId%",String.valueOf(getObjectId()));
+			html.replace("%castlename%", getCastle().getName());
+			html.replace("%objectId%", String.valueOf(getObjectId()));
 			player.sendPacket(html);
 		}
 	}
@@ -101,6 +106,6 @@ public final class L2CCHRegistrarInstance extends L2NpcInstance
 	{
 		if (getHideout() == null)
 			return false;
-        return !getHideout().getSiege().getIsInProgress();
-    }
+		return !getHideout().getSiege().getIsInProgress();
+	}
 }

@@ -28,37 +28,36 @@ import com.l2jfree.gameserver.network.serverpackets.SSQStatus;
  */
 public class RequestSSQStatus extends L2GameClientPacket
 {
-    private static final String _C__C7_RequestSSQStatus = "[C] C7 RequestSSQStatus";
+	private static final String	_C__C7_RequestSSQStatus	= "[C] C7 RequestSSQStatus";
 
-    private int _page;
+	private int					_page;
 
-    @Override
-    protected void readImpl()
-    {
-        _page = readC();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_page = readC();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        if ((SevenSigns.getInstance().isSealValidationPeriod() ||
-        		SevenSigns.getInstance().isCompResultsPeriod())
-        		&& _page == 4)
-        {
-        	sendAF();
-            return;
-        }
+		if ((SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod()) && _page == 4)
+		{
+			sendAF();
+			return;
+		}
 
-        sendPacket(new SSQStatus(activeChar, _page));
-        sendAF();
-    }
+		sendPacket(new SSQStatus(activeChar, _page));
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__C7_RequestSSQStatus;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__C7_RequestSSQStatus;
+	}
 }

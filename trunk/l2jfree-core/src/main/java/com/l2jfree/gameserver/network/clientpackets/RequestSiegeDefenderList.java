@@ -21,40 +21,40 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.network.serverpackets.SiegeDefenderList;
 
 public class RequestSiegeDefenderList extends L2GameClientPacket
-{    
-    private static final String _C__a3_RequestSiegeDefenderList = "[C] a3 RequestSiegeDefenderList";
+{
+	private static final String	_C__a3_RequestSiegeDefenderList	= "[C] a3 RequestSiegeDefenderList";
 
-    private int _siegeableID;
+	private int					_siegeableID;
 
-    @Override
-    protected void readImpl()
-    {
-    	_siegeableID = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_siegeableID = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-    	SiegeDefenderList sdl = null;
-        Castle castle = CastleManager.getInstance().getCastleById(_siegeableID);
-        if (castle == null)
-        {
-        	ClanHall hideout = ClanHallManager.getInstance().getClanHallById(_siegeableID);
-        	if (hideout != null && hideout.getSiege() != null)
-        		sdl = new SiegeDefenderList(hideout);
-        }
-        else
-        	sdl = new SiegeDefenderList(castle);
+	@Override
+	protected void runImpl()
+	{
+		SiegeDefenderList sdl = null;
+		Castle castle = CastleManager.getInstance().getCastleById(_siegeableID);
+		if (castle == null)
+		{
+			ClanHall hideout = ClanHallManager.getInstance().getClanHallById(_siegeableID);
+			if (hideout != null && hideout.getSiege() != null)
+				sdl = new SiegeDefenderList(hideout);
+		}
+		else
+			sdl = new SiegeDefenderList(castle);
 
-        if (sdl != null)
-        	sendPacket(sdl);
+		if (sdl != null)
+			sendPacket(sdl);
 
-        sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__a3_RequestSiegeDefenderList;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__a3_RequestSiegeDefenderList;
+	}
 }

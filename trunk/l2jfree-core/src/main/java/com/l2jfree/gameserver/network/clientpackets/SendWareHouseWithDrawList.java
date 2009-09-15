@@ -39,18 +39,16 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 {
 	private static final String	_C__32_SENDWAREHOUSEWITHDRAWLIST	= "[C] 32 SendWareHouseWithDrawList";
 
-	private static final int	BATCH_LENGTH = 8; // length of the one item
-	private static final int	BATCH_LENGTH_FINAL = 12;
+	private static final int	BATCH_LENGTH						= 8;									// length of the one item
+	private static final int	BATCH_LENGTH_FINAL					= 12;
 
-	private WarehouseItem		_items[] = null;
+	private WarehouseItem		_items[]							= null;
 
 	@Override
 	protected void readImpl()
 	{
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -59,7 +57,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int objId = readD();
-			long cnt  = readCompQ();
+			long cnt = readCompQ();
 			if (objId < 1 || cnt < 0)
 			{
 				_items = null;
@@ -73,7 +71,8 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
 		if (_items == null)
 		{
@@ -95,17 +94,14 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		}
 
 		L2Npc manager = player.getLastFolkNPC();
-		if ((manager == null
-				|| !manager.isWarehouse()
-				|| !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if ((manager == null || !manager.isWarehouse() || !player.isInsideRadius(manager, L2Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 		{
 			requestFailed(SystemMessageId.WAREHOUSE_TOO_FAR);
 			return;
 		}
 
-		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION &&
-				player.getAccessLevel() >= Config.GM_TRANSACTION_MIN &&
-				player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
+				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
@@ -120,8 +116,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 
 		if (Config.ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH)
 		{
-			if (warehouse instanceof ClanWarehouse &&
-					!((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
+			if (warehouse instanceof ClanWarehouse && !((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
 			{
 				requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 				return;
@@ -146,7 +141,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 						+ player.getName() + " of account "
 						+ player.getAccountName() + " tried to withdraw non-existent item from warehouse.",
 						Config.DEFAULT_PUNISH);
-			*/
+				*/
 				requestFailed(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH);
 				return;
 			}
@@ -216,8 +211,8 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 
 	private class WarehouseItem
 	{
-		private final int _objectId;
-		private final long _count;
+		private final int	_objectId;
+		private final long	_count;
 
 		public WarehouseItem(int id, long num)
 		{

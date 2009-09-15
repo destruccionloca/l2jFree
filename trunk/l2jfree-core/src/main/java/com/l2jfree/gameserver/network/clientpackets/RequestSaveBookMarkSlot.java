@@ -22,10 +22,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class RequestSaveBookMarkSlot extends L2GameClientPacket
 {
-	private static final String _C__51_REQUESTSAVEBOOKMARKSLOT = "[C] 51 RequestSaveBookMarkSlot";
+	private static final String	_C__51_REQUESTSAVEBOOKMARKSLOT	= "[C] 51 RequestSaveBookMarkSlot";
 
-	private int icon;
-	private String name,tag;
+	private int					icon;
+	private String				name, tag;
 
 	@Override
 	protected void readImpl()
@@ -40,7 +40,8 @@ public final class RequestSaveBookMarkSlot extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		activeChar.teleportBookmarkAdd(activeChar.getX(), activeChar.getY(), activeChar.getZ(), icon, tag, name);
 

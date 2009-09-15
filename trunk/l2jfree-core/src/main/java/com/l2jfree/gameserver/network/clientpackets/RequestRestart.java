@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.RestartResponse;
 
 public final class RequestRestart extends L2GameClientPacket
 {
-	private static final String _C__46_REQUESTRESTART = "[C] 46 RequestRestart";
+	private static final String	_C__46_REQUESTRESTART	= "[C] 46 RequestRestart";
 
 	/**
 	 * packet type id 0x46 format: c
@@ -38,7 +38,8 @@ public final class RequestRestart extends L2GameClientPacket
 	{
 		L2GameClient client = getClient();
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		if (!activeChar.canLogout())
 		{
@@ -54,8 +55,7 @@ public final class RequestRestart extends L2GameClientPacket
 		sendPacket(new RestartResponse());
 
 		// send char list
-		CharSelectionInfo cl =
-			new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
+		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
 

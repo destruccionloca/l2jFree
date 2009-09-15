@@ -26,30 +26,31 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeShopSellList;
  */
 public class RequestRecipeShopManagePrev extends L2GameClientPacket
 {
-	private static final String _C__B7_RequestRecipeShopPrev = "[C] b7 RequestRecipeShopPrev";
+	private static final String	_C__B7_RequestRecipeShopPrev	= "[C] b7 RequestRecipeShopPrev";
 
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 
-        // Player shouldn't be able to view stores if he/she is alike dead (dead or fake death)
-        if (player.isAlikeDead())
-        {
-            sendAF();
-            return;
-        }
+		// Player shouldn't be able to view stores if he/she is alike dead (dead or fake death)
+		if (player.isAlikeDead())
+		{
+			sendAF();
+			return;
+		}
 
-        L2Object target = player.getTarget();
+		L2Object target = player.getTarget();
 
-        if (target == null)
+		if (target == null)
 		{
 			requestFailed(SystemMessageId.TARGET_CANT_FOUND);
 			return;
@@ -57,7 +58,7 @@ public class RequestRecipeShopManagePrev extends L2GameClientPacket
 		else if (!(target instanceof L2PcInstance))
 		{
 			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
-	        return;
+			return;
 		}
 
 		sendPacket(new RecipeShopSellList(player, (L2PcInstance) target));

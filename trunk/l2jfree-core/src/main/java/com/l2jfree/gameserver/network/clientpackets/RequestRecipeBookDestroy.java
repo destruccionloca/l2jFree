@@ -21,46 +21,47 @@ import com.l2jfree.gameserver.network.serverpackets.RecipeBookItemList;
 
 public class RequestRecipeBookDestroy extends L2GameClientPacket
 {
-    private static final String _C__AC_REQUESTRECIPEBOOKDESTROY = "[C] AD RequestRecipeBookDestroy";
+	private static final String	_C__AC_REQUESTRECIPEBOOKDESTROY	= "[C] AD RequestRecipeBookDestroy";
 
-    private int _recipeId;
+	private int					_recipeId;
 
-    /**
-    * Unknown Packet:ad
-    * 0000: ad 02 00 00 00
-    */
-    @Override
-    protected void readImpl()
-    {
-        _recipeId = readD();
-    }
+	/**
+	* Unknown Packet:ad
+	* 0000: ad 02 00 00 00
+	*/
+	@Override
+	protected void readImpl()
+	{
+		_recipeId = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
-        L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId);
-        if (rp == null)
-        {
-        	sendAF();
-        	return;
-        }
-        activeChar.unregisterRecipeList(_recipeId);
-        RecipeBookItemList response = new RecipeBookItemList(rp.isDwarvenRecipe(), activeChar.getMaxMp());
-        if (rp.isDwarvenRecipe())
-            response.addRecipes(activeChar.getDwarvenRecipeBook());
-        else
-            response.addRecipes(activeChar.getCommonRecipeBook());
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		L2RecipeList rp = RecipeController.getInstance().getRecipeList(_recipeId);
+		if (rp == null)
+		{
+			sendAF();
+			return;
+		}
+		activeChar.unregisterRecipeList(_recipeId);
+		RecipeBookItemList response = new RecipeBookItemList(rp.isDwarvenRecipe(), activeChar.getMaxMp());
+		if (rp.isDwarvenRecipe())
+			response.addRecipes(activeChar.getDwarvenRecipeBook());
+		else
+			response.addRecipes(activeChar.getCommonRecipeBook());
 
-        sendPacket(response);
+		sendPacket(response);
 
-        sendAF();
-    }
+		sendAF();
+	}
 
-    @Override
-    public String getType()
-    {
-        return _C__AC_REQUESTRECIPEBOOKDESTROY;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__AC_REQUESTRECIPEBOOKDESTROY;
+	}
 }
