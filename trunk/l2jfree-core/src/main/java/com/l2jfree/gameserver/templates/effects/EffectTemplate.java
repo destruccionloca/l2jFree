@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.templates.effects;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
@@ -98,11 +99,11 @@ public final class EffectTemplate
 	public final double lambda;
 	public final int count;
 	public final int period;
-	public final int abnormalEffect;
-	public final int specialEffect;
-	public final String[] stackTypes;
-	public final float stackOrder;
-	public final boolean showIcon;
+	public int abnormalEffect;
+	public int specialEffect;
+	public String[] stackTypes;
+	public float stackOrder;
+	public boolean showIcon;
 	public final double effectPower; // to handle chance
 	public final L2SkillType effectType; // to handle resistances etc...
 	
@@ -166,7 +167,6 @@ public final class EffectTemplate
 		
 		if ((effectPower == -1) != (effectType == null))
 			throw new IllegalArgumentException("Missing effectType/effectPower for effect: " + name);
-		
 		
 		Integer trigId = null;
 		if (set.contains("triggeredId"))
@@ -263,5 +263,55 @@ public final class EffectTemplate
 			funcTemplates = Arrays.copyOf(funcTemplates, funcTemplates.length + 1);
 		
 		funcTemplates[funcTemplates.length - 1] = f;
+	}
+	
+	/**
+	 * Support for improved buffs, in case it gets overwritten in DP
+	 * 
+	 * @param skill
+	 * @param template
+	 * @return
+	 */
+	public boolean merge(L2Skill skill, EffectTemplate template)
+	{
+		if (!name.equals(template.name))
+			return false;
+		
+		if (lambda != 0 || template.lambda != 0)
+			return false;
+		
+		if (count != template.count || period != template.period)
+			return false;
+		
+		if (effectPower != template.effectPower || effectType != template.effectType)
+			return false;
+		
+		if (triggeredSkill != null || template.triggeredSkill != null)
+			return false;
+		
+		if (chanceCondition != null || template.chanceCondition != null)
+			return false;
+		
+		abnormalEffect |= template.abnormalEffect;
+		specialEffect |= template.specialEffect;
+		
+		final HashSet<String> tmp = new HashSet<String>();
+		
+		for (String s : stackTypes)
+			tmp.add(s);
+		
+		for (String s : template.stackTypes)
+			tmp.add(s);
+		
+		stackTypes = tmp.toArray(new String[tmp.size()]);
+		stackOrder = 99;
+		
+		showIcon = showIcon || template.showIcon;
+		
+		for (FuncTemplate f : template.funcTemplates)
+			attach(f);
+		
+		_log.info("Effect templates merged for " + skill);
+		return true;
 	}
 }

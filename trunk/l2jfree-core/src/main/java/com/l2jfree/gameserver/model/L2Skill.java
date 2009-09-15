@@ -3841,6 +3841,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		}
 		else
 		{
+			// support for improved buffs, in case it gets overwritten in DP
+			for (EffectTemplate template : _effectTemplates)
+				if (template.merge(this, effect))
+					return;
+			
 			int len = _effectTemplates.length;
 			EffectTemplate[] tmp = new EffectTemplate[len + 1];
 			System.arraycopy(_effectTemplates, 0, tmp, 0, len);
@@ -3857,6 +3862,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		}
 		else
 		{
+			// support for improved buffs, in case it gets overwritten in DP
+			for (EffectTemplate template : _effectTemplatesSelf)
+				if (template.merge(this, effect))
+					return;
+			
 			int len = _effectTemplatesSelf.length;
 			EffectTemplate[] tmp = new EffectTemplate[len + 1];
 			System.arraycopy(_effectTemplatesSelf, 0, tmp, 0, len);
