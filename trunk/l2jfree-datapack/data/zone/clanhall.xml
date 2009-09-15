@@ -253,7 +253,7 @@
   <zone id="23" name="Aden Silver Manor Hall" type="Clanhall">
     <entity castleId="5" clanhallId="39"/>
     <restart_owner x="150748" y="26540" z="-2280"/>
-    <shape type="Rect" zMin="-2280" zMax="-2080">
+    <shape type="Rect" zMin="-2300" zMax="-2080">
       <point x="150460" y="26108"/>
       <point x="151036" y="26972"/>
     </shape>
