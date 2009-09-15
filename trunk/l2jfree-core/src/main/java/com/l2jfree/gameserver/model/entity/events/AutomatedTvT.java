@@ -336,7 +336,7 @@ public final class AutomatedTvT
 		if (winnerTeam != -1)
 		{
 			Announcements.getInstance().announceToAll(evtName + ": Team " +
-					(winnerTeam + 1) + "wins!");
+					(winnerTeam + 1) + " wins!");
 			Announcements.getInstance().announceToAll(evtName + ": Cumulative score: " +
 					eventTeams[winnerTeam].getPoints());
 		}

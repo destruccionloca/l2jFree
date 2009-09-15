@@ -8643,7 +8643,6 @@ public final class L2PcInstance extends L2Playable
 		return false;
 	}
 
-
 	/**
 	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
 	 * @param obj L2Object instance containing the target
@@ -8654,6 +8653,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		return checkPvpSkill(obj, skill, false);
 	}
+
 	/**
 	 * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition
 	 * @param obj L2Object instance containing the target
@@ -9085,6 +9085,7 @@ public final class L2PcInstance extends L2Playable
 		if (getAI() != null)
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
+		teleToLocation(_obsX, _obsY, _obsZ);
 		sendPacket(new ObservationReturn(this));
 		_observerMode = false;
 		broadcastUserInfo();
