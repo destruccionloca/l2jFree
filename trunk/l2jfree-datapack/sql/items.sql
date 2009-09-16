@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `custom_type1` INT DEFAULT 0,
   `custom_type2` INT DEFAULT 0,
   `mana_left` SMALLINT NOT NULL DEFAULT -1,    -- duration for shadow items
-  `time` MEDIUMINT(6) NOT NULL DEFAULT -1,     -- duration for time limited items
+  `time` DECIMAL(13) NOT NULL DEFAULT 0,       -- duration for time limited items
   PRIMARY KEY (`object_id`),
   KEY `key_owner_id` (`owner_id`),
   KEY `key_loc` (`loc`),
