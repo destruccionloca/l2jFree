@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `record` ( 
-  `maxplayer` INT(5) NOT NULL DEFAULT 0, 
+  `maxplayer` SMALLINT NOT NULL, 
   `date` DATE NOT NULL 
 ) DEFAULT CHARSET=utf8;
 

@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS `castle_siege_guards`;
 CREATE TABLE `castle_siege_guards` (
-  `castleId` INT NOT NULL DEFAULT 0,
+  `castleId` TINYINT(1) UNSIGNED NOT NULL,
   `id` int(11) NOT NULL auto_increment,
   `npcId` INT NOT NULL DEFAULT 0,
   `x` INT NOT NULL DEFAULT 0,
   `y` INT NOT NULL DEFAULT 0,
   `z` INT NOT NULL DEFAULT 0,
-  `heading` INT NOT NULL DEFAULT 0,
-  `respawnDelay` INT NOT NULL DEFAULT 0,
-  `isHired` INT NOT NULL DEFAULT 1,
+  `heading` SMALLINT UNSIGNED NOT NULL,
+  `respawnDelay` INT UNSIGNED NOT NULL DEFAULT 0,
+  `isHired` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `id` (`castleId`)
 ) DEFAULT CHARSET=utf8;

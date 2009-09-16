@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `castle_manor_production`;
 CREATE TABLE `castle_manor_production` (
-  `castle_id` INT NOT NULL DEFAULT 0,
+  `castle_id` TINYINT(1) UNSIGNED NOT NULL,
   `seed_id` int(11) NOT NULL DEFAULT 0,
   `can_produce` int(11) NOT NULL DEFAULT 0,
   `start_produce` int(11) NOT NULL DEFAULT 0,

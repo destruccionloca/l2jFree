@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS `castle_functions` (
-  `castle_id` int(2) NOT NULL DEFAULT 0,
-  `type` int(1) NOT NULL DEFAULT 0,
-  `lvl` int(3) NOT NULL DEFAULT 0,
-  `lease` int(10) NOT NULL DEFAULT 0,
-  `rate` decimal(20,0) NOT NULL DEFAULT 0,
-  `endTime` decimal(20,0) NOT NULL DEFAULT 0,
+  `castle_id` TINYINT(1) UNSIGNED NOT NULL,
+  `type` TINYINT(1) NOT NULL,
+  `lvl` TINYINT(1) UNSIGNED NOT NULL,
+  `lease` INT NOT NULL,
+  `rate` BIGINT NOT NULL,
+  `endTime` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`castle_id`,`type`)
 ) DEFAULT CHARSET=utf8;
