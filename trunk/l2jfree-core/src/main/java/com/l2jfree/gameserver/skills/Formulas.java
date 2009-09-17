@@ -1770,10 +1770,11 @@ public final class Formulas
 		int attackerLvlmod = attacker.getLevel();
 		int targetLvlmod = target.getLevel();
 		
-		if (attackerLvlmod > 75)
-			attackerLvlmod = 75 + (attackerLvlmod - 75) / 2;
-		if (targetLvlmod > 75)
-			targetLvlmod = 75 + (targetLvlmod - 75) / 2;
+		// this was definitely overdrawn too
+		//if (attackerLvlmod > 75)
+		//	attackerLvlmod = 75 + (attackerLvlmod - 75) / 2;
+		//if (targetLvlmod > 75)
+		//	targetLvlmod = 75 + (targetLvlmod - 75) / 2;
 		
 		if (skill.getMagicLevel() > 0)
 			return (skill.getMagicLevel() + attackerLvlmod) / 2 - targetLvlmod;
