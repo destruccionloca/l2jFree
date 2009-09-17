@@ -15,15 +15,18 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.EnchantResult;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
@@ -181,6 +184,13 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 			}
 
 			SystemMessage sm;
+
+			if (scroll.getItemId() == 13540)
+				if (item.getEnchantLevel() < 3)
+					chance = 100;
+				else
+					chance = 65;
+
 			if (Rnd.get(100) < chance)
 			{
 				// success
@@ -188,6 +198,19 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 				item.setLastChange(L2ItemInstance.MODIFIED);
 				item.updateDatabase();
 				activeChar.sendPacket(new EnchantResult(0, 0, 0));
+
+				// Master of Enchanting event
+				if (scroll.getItemId() == 13540 && item.getEnchantLevel() > 3)
+				{
+					L2Skill skill = SkillTable.getInstance().getInfo(5965,1);
+					if (skill != null)
+					{
+						MagicSkillUse MSU = new MagicSkillUse(activeChar, activeChar, 5965, 1, 1, 0);
+						activeChar.sendPacket(MSU);
+						activeChar.broadcastPacket(MSU);
+						activeChar.useMagic(skill, false, false);
+					}
+				}
 			}
 			else
 			{

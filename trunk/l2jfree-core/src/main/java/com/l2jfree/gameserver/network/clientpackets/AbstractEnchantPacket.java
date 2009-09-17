@@ -72,8 +72,9 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 			{
 				// weapon scrolls can enchant only weapons
 				case L2Item.TYPE2_WEAPON:
-					if (!_isWeapon
-							|| (Config.ENCHANT_MAX_WEAPON > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_WEAPON))
+					if (!_isWeapon)
+						return false;
+					if ((Config.ENCHANT_MAX_WEAPON > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_WEAPON) && enchantItem.getItemId() != 13539)
 						return false;
 					break;
 					// armor scrolls can enchant only accessory and armors
