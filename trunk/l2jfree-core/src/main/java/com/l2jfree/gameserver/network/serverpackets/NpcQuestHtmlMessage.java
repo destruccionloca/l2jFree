@@ -173,6 +173,8 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 
 	public void replace(String pattern, String value)
 	{
+		value = NpcHtmlMessage.quoteReplacement(value);
+		
 		for (int index = 0; (index = _builder.indexOf(pattern, index)) != -1; index += value.length())
 			_builder.replace(index, index + pattern.length(), value);
 	}
@@ -198,7 +200,7 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0x8d);
 		writeD(_npcObjId);
-		writeS(_builder.toString());
+		writeS(_builder);
 		writeD(_questId);
 	}
 

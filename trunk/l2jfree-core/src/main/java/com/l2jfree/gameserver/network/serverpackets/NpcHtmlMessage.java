@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.regex.Matcher;
+
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
@@ -63,6 +65,8 @@ public final class NpcHtmlMessage extends AbstractNpcHtmlMessage
 	
 	public void replace(String pattern, String value)
 	{
+		value = NpcHtmlMessage.quoteReplacement(value);
+		
 		for (int index = 0; (index = _builder.indexOf(pattern, index)) != -1; index += value.length())
 			_builder.replace(index, index + pattern.length(), value);
 	}
@@ -80,6 +84,37 @@ public final class NpcHtmlMessage extends AbstractNpcHtmlMessage
 	public void replace(String pattern, Object value)
 	{
 		replace(pattern, String.valueOf(value));
+	}
+	
+	/**
+	 * Inverse of {@link Matcher#quoteReplacement(String)}.
+	 * 
+	 * @param s
+	 * @return
+	 */
+	static String quoteReplacement(String s)
+	{
+		if (s.indexOf('\\') == -1)
+			return s;
+		
+		final StringBuilder sb = new StringBuilder(s.length());
+		
+		for (int i = 0; i < s.length(); i++)
+		{
+			final char c = s.charAt(i);
+			
+			if (c == '\\' && i + 1 < s.length())
+			{
+				sb.append(s.charAt(i + 1));
+				i++;
+			}
+			else
+			{
+				sb.append(c);
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	@Override
