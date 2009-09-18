@@ -844,7 +844,7 @@
   <!-- Retail zone - done by Savormix -->
   <zone id="30" name="Primeval Isle Wharf" type="Town">
     <entity townId="18" castleId="8"/>
-    <shape type="Poly" zMin="-3000" zMax="2424">
+    <shape type="Poly" zMin="-4000" zMax="2424">
       <point x="12246" y="-27002"/>
       <point x="12488" y="-24046"/>
       <point x="12379" y="-23444"/>
