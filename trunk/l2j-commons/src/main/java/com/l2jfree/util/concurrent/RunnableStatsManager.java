@@ -258,7 +258,8 @@ public final class RunnableStatsManager
 		{
 			for (ClassStat classStat : _classStats.values())
 				for (MethodStat methodStat : classStat._methodStats)
-					methodStats.add(methodStat);
+					if (methodStat._count > 0)
+						methodStats.add(methodStat);
 		}
 		
 		if (sortBy != null)
