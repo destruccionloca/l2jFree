@@ -223,16 +223,16 @@ class Quest (JQuest) :
                     st.takeItems(ADENA, 1000 * RATE)
                     st.giveItems(STAFF, 1)
             elif event == "32599-03.htm":
-                lastUsed = check(self,player)
-                if lastUsed == 0:
-                    if st.getQuestItemsCount(ADENA) < 6000 * RATE:
-                        htmltext = "32599-02.htm"
-                    else:
+                if st.getQuestItemsCount(ADENA) < 6000 * RATE:
+                    htmltext = "32599-02.htm"
+                else:
+                    lastUsed = check(self,player)
+                    if lastUsed == 0:
                         st.takeItems(ADENA, 6000 * RATE)
                         st.giveItems(SCROLL, 24)
-                else:
-                    remainingTime = (lastUsed + 21600) - (System.currentTimeMillis() / 1000)
-                    player.sendPacket(SystemMessage.sendString("Remaining time: "+str(remainingTime)+" seconds"))
+                    else:
+                        remainingTime = (lastUsed + 21600) - (System.currentTimeMillis() / 1000)
+                        player.sendPacket(SystemMessage.sendString("Remaining time: "+str(remainingTime)+" seconds"))
             elif event == "32599-05.htm":
                 if st.getQuestItemsCount(ADENA) < 77777 * RATE:
                     htmltext = "32599-02.htm"
