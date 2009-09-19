@@ -67,7 +67,7 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 	
 	public boolean useVoicedCommand(String text, L2PcInstance activeChar)
 	{
-		if (!text.startsWith("."))
+		if (!text.startsWith(".") || text.length() < 2)
 			return false;
 		
 		final StringTokenizer st = new StringTokenizer(text);
