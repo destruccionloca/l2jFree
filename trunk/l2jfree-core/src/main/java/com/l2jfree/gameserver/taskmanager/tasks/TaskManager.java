@@ -35,14 +35,14 @@ import com.l2jfree.util.HandlerRegistry;
  */
 public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 {
-	private static TaskManager _instance;
+	private static final class SingletonHolder
+	{
+		private static final TaskManager INSTANCE = new TaskManager();
+	}
 	
 	public static TaskManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new TaskManager();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	final class ExecutedTask implements Runnable

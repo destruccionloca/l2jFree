@@ -19,8 +19,16 @@ import com.l2jfree.gameserver.model.L2World;
 
 public class OnlinePlayers
 {
-	private static OnlinePlayers	_instance;
-
+	private static final class SingletonHolder
+	{
+		private static final OnlinePlayers INSTANCE = new OnlinePlayers();
+	}
+	
+	public static OnlinePlayers getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	class AnnounceOnline implements Runnable
 	{
 		public void run()
@@ -32,14 +40,7 @@ public class OnlinePlayers
 			ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceOnline(), Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL);
 		}
 	}
-
-	public static OnlinePlayers getInstance()
-	{
-		if (_instance == null)
-			_instance = new OnlinePlayers();
-		return _instance;
-	}
-
+	
 	private OnlinePlayers()
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceOnline(), Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL);

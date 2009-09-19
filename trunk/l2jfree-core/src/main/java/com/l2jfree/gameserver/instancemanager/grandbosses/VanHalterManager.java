@@ -57,7 +57,15 @@ import com.l2jfree.tools.random.Rnd;
 
 public class VanHalterManager extends BossLair
 {
-	private static VanHalterManager			_instance;
+	private static final class SingletonHolder
+	{
+		private static final VanHalterManager INSTANCE = new VanHalterManager();
+	}
+	
+	public static VanHalterManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
 
 	// List of intruders.
 	protected Map<Integer, List<L2PcInstance>>	_bleedingPlayers		= new FastMap<Integer, List<L2PcInstance>>();
@@ -106,13 +114,6 @@ public class VanHalterManager extends BossLair
 	boolean									_isSacrificeSpawned			= false;
 	boolean									_isCaptainSpawned			= false;
 	boolean									_isHelperCalled				= false;
-
-	public static VanHalterManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new VanHalterManager();
-		return _instance;
-	}
 
 	public VanHalterManager()
 	{

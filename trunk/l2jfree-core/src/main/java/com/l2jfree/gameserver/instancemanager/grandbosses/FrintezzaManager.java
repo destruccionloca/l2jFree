@@ -64,7 +64,15 @@ import com.l2jfree.tools.random.Rnd;
 
 public class FrintezzaManager extends BossLair
 {
-	private static FrintezzaManager	_instance;
+	private static final class SingletonHolder
+	{
+		private static final FrintezzaManager INSTANCE = new FrintezzaManager();
+	}
+	
+	public static FrintezzaManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
 
 	// Must be done this way :( Each of the 11 mobs is an individual with different tasks and values
 	// So there is no point to place them in an array
@@ -113,17 +121,6 @@ public class FrintezzaManager extends BossLair
 	{
 		_questName = "frintezza";
 		_state = new GrandBossState(29045);
-	}
-
-	/**
-	 * returns an instance of <b>this</b> InstanceManager.
-	 */
-	public static FrintezzaManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new FrintezzaManager();
-
-		return _instance;
 	}
 
 	/**

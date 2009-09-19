@@ -83,7 +83,7 @@ public class L2LoginServer extends Config
 
 		// o Initialize LoginManager
 		// -------------------------
-		LoginManager.load();
+		LoginManager.getInstance();
 
 		// o Initialize GameServer Manager
 		// ------------------------------

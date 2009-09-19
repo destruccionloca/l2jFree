@@ -24,24 +24,23 @@ import javolution.util.FastMap;
 
 public class IrcCommandHandler
 {
-	private static IrcCommandHandler		_instance;
-
-	private final Map<String, IIrcCommandHandler>	_datatable;
-
+	private static final class SingletonHolder
+	{
+		private static final IrcCommandHandler INSTANCE = new IrcCommandHandler();
+	}
+	
 	public static IrcCommandHandler getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new IrcCommandHandler();
-		}
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
-
+	
+	private final Map<String, IIrcCommandHandler> _datatable;
+	
 	private IrcCommandHandler()
 	{
 		_datatable = new FastMap<String, IIrcCommandHandler>();
 	}
-
+	
 	public void registerIrcCommandHandler(IIrcCommandHandler handler)
 	{
 		String[] ids = handler.getIrcCommandList();

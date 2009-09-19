@@ -40,7 +40,16 @@ import com.l2jfree.tools.network.SubNet;
  */
 public class BanManager
 {
-	private static BanManager			_instance	= null;
+	private static final class SingletonHolder
+	{
+		private static final BanManager INSTANCE = new BanManager();
+	}
+	
+	public static BanManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	private static final Log			_log		= LogFactory.getLog(BanManager.class);
 	/** Banned ips */
 	private final FastMap<SubNet, BanInfo>	_bannedIps	= new FastMap<SubNet, BanInfo>().setShared(true);
@@ -48,21 +57,6 @@ public class BanManager
 
 	public static String				BAN_LIST	= "config/banned_ip.cfg";
 	private static final String			ENCODING	= "UTF-8";
-
-	/**
-	 * return singleton for banmanager
-	 * @return BanManager instance
-	 */
-	public static BanManager getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new BanManager();
-			return _instance;
-		}
-		else
-			return _instance;
-	}
 
 	private BanManager()
 	{

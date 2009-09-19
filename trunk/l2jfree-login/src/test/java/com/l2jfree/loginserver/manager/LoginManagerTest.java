@@ -46,10 +46,6 @@ public class LoginManagerTest extends TestCase
 		context = new ClassPathXmlApplicationContext("classpath*:/**/**/applicationContext-TestMock.xml");
 		L2Registry.setApplicationContext(context);
 
-		if (LoginManager.getInstance() == null)
-		{
-			LoginManager.load();
-		}
 		loginManager = LoginManager.getInstance();
 	}
 

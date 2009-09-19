@@ -48,7 +48,16 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class AntharasManager extends BossLair
 {
-	private static AntharasManager	_instance;
+	private static final class SingletonHolder
+	{
+		private static final AntharasManager INSTANCE = new AntharasManager();
+	}
+	
+	public static AntharasManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	public int						_instanceId					= 0;
 	// Location of teleport cube.
 	private final int				_teleportCubeId				= 31859;
@@ -81,14 +90,7 @@ public class AntharasManager extends BossLair
 		_questName = "antharas";
 		_state = new GrandBossState(29019);
 	}
-
-	public static AntharasManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new AntharasManager();
-		return _instance;
-	}
-
+	
 	// Initialize
 	@Override
 	public void init()

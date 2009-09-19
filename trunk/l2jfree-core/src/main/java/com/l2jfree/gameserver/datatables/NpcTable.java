@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -312,7 +311,7 @@ public final class NpcTable
 				_log.fatal("Error loading minion data: ", e);
 			}
 		}
-		catch (SQLException e)
+		catch (Exception e)
 		{
 			_log.warn("", e);
 		}

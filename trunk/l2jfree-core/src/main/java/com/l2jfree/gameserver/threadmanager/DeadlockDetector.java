@@ -34,14 +34,14 @@ public final class DeadlockDetector extends L2Thread
 {
 	private static final Log _log = LogFactory.getLog(DeadlockDetector.class);
 	
-	private static DeadlockDetector _instance;
+	private static final class SingletonHolder
+	{
+		private static final DeadlockDetector INSTANCE = new DeadlockDetector();
+	}
 	
 	public static DeadlockDetector getInstance()
 	{
-		if (_instance == null)
-			_instance = new DeadlockDetector();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private final Set<Long> _logged = new FastSet<Long>();

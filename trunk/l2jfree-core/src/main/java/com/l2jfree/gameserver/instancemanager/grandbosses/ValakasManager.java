@@ -46,7 +46,15 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class ValakasManager extends BossLair
 {
-	private static ValakasManager	_instance;
+	private static final class SingletonHolder
+	{
+		private static final ValakasManager INSTANCE = new ValakasManager();
+	}
+	
+	public static ValakasManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
 
 	public int						_instanceId					= 0;
 
@@ -93,13 +101,6 @@ public class ValakasManager extends BossLair
 	{
 		_questName = "valakas";
 		_state = new GrandBossState(29028);
-	}
-
-	public static ValakasManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new ValakasManager();
-		return _instance;
 	}
 
 	// Initialize

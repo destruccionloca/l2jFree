@@ -39,14 +39,16 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public final class CCHManager
 {
-	private static final Log	_log	= LogFactory.getLog(CCHManager.class);
-	private static CCHManager	_instance;
-
-	public static final CCHManager getInstance()
+	private static final Log _log = LogFactory.getLog(CCHManager.class);
+	
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
-			_instance = new CCHManager();
-		return _instance;
+		private static final CCHManager INSTANCE = new CCHManager();
+	}
+	
+	public static CCHManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
 	}
 
 	/** Return true if object is inside zone */

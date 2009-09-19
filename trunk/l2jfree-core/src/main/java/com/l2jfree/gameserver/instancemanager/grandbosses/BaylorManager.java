@@ -45,7 +45,15 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class BaylorManager extends BossLair
 {
-	private static BaylorManager	_instance;
+	private static final class SingletonHolder
+	{
+		private static final BaylorManager INSTANCE = new BaylorManager();
+	}
+	
+	public static BaylorManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
 
 	// Teleport cube location.
 	private final int				_baylorCubeLocation[][]		= {
@@ -102,13 +110,6 @@ public class BaylorManager extends BossLair
 
 	// State of baylor's lair.
 	protected boolean				_isAlreadyEnteredOtherParty	= false;
-
-	public static BaylorManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new BaylorManager();
-		return _instance;
-	}
 
 	public BaylorManager()
 	{

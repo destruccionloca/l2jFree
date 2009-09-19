@@ -46,29 +46,32 @@ public abstract class LoginServerThread extends Thread
 {
 	protected static final Log _log = LogFactory.getLog(LoginServerThread.class);
 	
-	private static LoginServerThread _instance;
-	
-	public static LoginServerThread getInstance()
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
+		private static final LoginServerThread INSTANCE;
+		
+		static
 		{
 			if (!Config.NEW_LOGIN_PROTOCOL)
 			{
 				if (Config.L2JFREE_LOGIN)
-					_instance = new LoginServerThreadL2jfree();
+					INSTANCE = new LoginServerThreadL2jfree();
 				else
-					_instance = new LoginServerThreadL2j();
+					INSTANCE = new LoginServerThreadL2j();
 			}
 			else
-				_instance = new CrossLoginServerThread();
+				INSTANCE = new CrossLoginServerThread();
 		}
-		
-		return _instance;
+	}
+	
+	public static LoginServerThread getInstance()
+	{
+		return SingletonHolder.INSTANCE;
 	}
 	
 	public void stopInstance()
 	{
-		_instance.interrupt();
+		SingletonHolder.INSTANCE.interrupt();
 		//_instance = null;
 	}
 	

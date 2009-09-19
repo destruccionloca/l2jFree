@@ -47,19 +47,19 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class FortSiegeManager
 {
-	protected static final Log		_log	= LogFactory.getLog(FortSiegeManager.class);
-
+	protected static final Log _log = LogFactory.getLog(FortSiegeManager.class);
+	
 	// =========================================================
-	private static FortSiegeManager	_instance;
-
-	public static final FortSiegeManager getInstance()
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
-			_instance = new FortSiegeManager();
-		
-		return _instance;
+		private static final FortSiegeManager INSTANCE = new FortSiegeManager();
 	}
-
+	
+	public static FortSiegeManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	// Fort Siege settings
 	private FastMap<Integer, FastList<SiegeSpawn>>	_commanderSpawnList;
 	private FastMap<Integer, FastList<CombatFlag>>	_flagList;

@@ -44,7 +44,15 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class SailrenManager extends BossLair
 {
-	private static SailrenManager	_instance;
+	private static final class SingletonHolder
+	{
+		private static final SailrenManager INSTANCE = new SailrenManager();
+	}
+	
+	public static SailrenManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
 
 	// Teleport cube location.
 	private final int				_sailrenCubeLocation[][]	=
@@ -75,13 +83,6 @@ public class SailrenManager extends BossLair
 
 	// State of Sailren's lair.
 	protected boolean				_isAlreadyEnteredOtherParty	= false;
-
-	public static SailrenManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new SailrenManager();
-		return _instance;
-	}
 
 	public SailrenManager()
 	{

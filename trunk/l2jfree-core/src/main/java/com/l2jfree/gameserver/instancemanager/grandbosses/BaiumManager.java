@@ -49,7 +49,16 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class BaiumManager extends BossLair
 {
-	private static BaiumManager		_instance;
+	private static final class SingletonHolder
+	{
+		private static final BaiumManager INSTANCE = new BaiumManager();
+	}
+	
+	public static BaiumManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	public int						_instanceId				= 0;
 
 	public final static int			BAIUM_NPC				= 29025;
@@ -111,13 +120,6 @@ public class BaiumManager extends BossLair
 	{
 		_questName = "baium";
 		_state = new GrandBossState(BAIUM);
-	}
-
-	public static BaiumManager getInstance()
-	{
-		if (_instance == null)
-			_instance = new BaiumManager();
-		return _instance;
 	}
 
 	// Initialize

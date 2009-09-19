@@ -36,9 +36,17 @@ import com.l2jfree.gameserver.model.L2Skill;
 public class ResidentialSkillTable
 {
 	private static final Log _log = LogFactory.getLog(ResidentialSkillTable.class);
-
-	private static ResidentialSkillTable _instance = null;
-
+	
+	private static final class SingletonHolder
+	{
+		private static final ResidentialSkillTable INSTANCE = new ResidentialSkillTable();
+	}
+	
+	public static ResidentialSkillTable getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	private final FastMap<Integer, L2Skill[]> _list = new FastMap<Integer, L2Skill[]>();
 
 	private ResidentialSkillTable()
@@ -109,12 +117,5 @@ public class ResidentialSkillTable
 	public L2Skill[] getSkills(int entityId)
 	{
 		return _list.get(entityId);
-	}
-
-	public static ResidentialSkillTable getInstance()
-	{
-		if (_instance == null)
-			_instance = new ResidentialSkillTable();
-		return _instance;
 	}
 }

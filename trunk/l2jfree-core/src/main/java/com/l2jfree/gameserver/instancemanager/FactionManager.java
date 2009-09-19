@@ -33,15 +33,16 @@ import com.l2jfree.gameserver.model.entity.faction.Faction;
  */
 public class FactionManager
 {
-	private static final Log		_log	= LogFactory.getLog(FactionManager.class);
-	private static FactionManager	_instance;
-
-	public static final FactionManager getInstance()
+	private static final Log _log = LogFactory.getLog(FactionManager.class);
+	
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
-			_instance = new FactionManager();
-		
-		return _instance;
+		private static final FactionManager INSTANCE = new FactionManager();
+	}
+	
+	public static FactionManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
 	}
 	
 	private FactionManager()

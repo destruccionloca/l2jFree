@@ -32,17 +32,18 @@ import com.l2jfree.gameserver.model.entity.faction.FactionQuest;
  */
 public class FactionQuestManager
 {
-	protected static Log				_log	= LogFactory.getLog(FactionQuestManager.class);
-	private static FactionQuestManager	_instance;
-
-	public static final FactionQuestManager getInstance()
+	private static final Log _log = LogFactory.getLog(FactionQuestManager.class);
+	
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
-			_instance = new FactionQuestManager();
-		
-		return _instance;
+		private static final FactionQuestManager INSTANCE = new FactionQuestManager();
 	}
-
+	
+	public static FactionQuestManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
 	// =========================================================
 	// Data Field
 	private FastList<FactionQuest>	_quests;

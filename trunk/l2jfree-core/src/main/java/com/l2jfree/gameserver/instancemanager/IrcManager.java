@@ -26,37 +26,32 @@ import com.l2jfree.gameserver.network.L2IrcClient;
  */
 public class IrcManager
 {
-	private static final Log	_log		= LogFactory.getLog(IrcManager.class);
-	private static IrcManager	_instance;
-	private static L2IrcClient	_IrcConnection;
-	private static boolean		initilized	= false;
-
+	private static final Log _log = LogFactory.getLog(IrcManager.class);
+	
+	private static final class SingletonHolder
+	{
+		private static final IrcManager INSTANCE = new IrcManager();
+	}
+	
 	public static IrcManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new IrcManager();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
+	
+	private L2IrcClient _IrcConnection;
 	
 	private IrcManager()
 	{
 		_log.info("Initializing IrcManager");
 		load();
 	}
-
-	public static boolean isInitialized()
-	{
-		return initilized;
-	}
-
+	
 	public void reload()
 	{
 		if (_IrcConnection != null)
 		{
 			_IrcConnection.disconnect();
 			_IrcConnection = null;
-			initilized = false;
 		}
 
 		try
@@ -68,8 +63,6 @@ public class IrcManager
 		{
 			e.printStackTrace();
 		}
-
-		initilized = true;
 	}
 
 	public L2IrcClient getConnection()
@@ -95,7 +88,5 @@ public class IrcManager
 		{
 			_log.warn("", e);
 		}
-
-		initilized = true;
 	}
 }

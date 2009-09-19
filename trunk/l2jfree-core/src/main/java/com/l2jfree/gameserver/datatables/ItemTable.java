@@ -183,19 +183,19 @@ public final class ItemTable
 			+ " sellable,  dropable, destroyable, tradeable, skills_item, enchant4_skill,"
 			+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
 	
-	private static ItemTable _instance;
+	private static final class SingletonHolder
+	{
+		private static ItemTable INSTANCE = new ItemTable();
+	}
 	
 	public static ItemTable getInstance()
 	{
-		if (_instance == null)
-			_instance = new ItemTable();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
 	
 	public static void reload()
 	{
-		_instance = new ItemTable();
+		SingletonHolder.INSTANCE = new ItemTable();
 	}
 	
 	private final L2Item[] _allTemplates;

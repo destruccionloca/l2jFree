@@ -26,20 +26,23 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GeoEditorListener extends Thread
 {
-	private static GeoEditorListener	_instance;
-	private static final int			PORT	= 9011;
-	private static Log					_log	= LogFactory.getLog(GeoEditorListener.class);
-	private ServerSocket				_serverSocket;
-	private static GeoEditorThread		_geoEditor;
-
+	private static final Log _log = LogFactory.getLog(GeoEditorListener.class);
+	
+	private static final int PORT = 9011;
+	
+	private static final class SingletonHolder
+	{
+		private static final GeoEditorListener INSTANCE = new GeoEditorListener();
+	}
+	
 	public static GeoEditorListener getInstance()
 	{
-		if (_instance == null)
-			_instance = new GeoEditorListener();
-		
-		return _instance;
+		return SingletonHolder.INSTANCE;
 	}
-
+	
+	private ServerSocket _serverSocket;
+	private GeoEditorThread _geoEditor;
+	
 	private GeoEditorListener()
 	{
 		try

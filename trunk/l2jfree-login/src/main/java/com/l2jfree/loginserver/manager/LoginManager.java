@@ -73,7 +73,15 @@ public class LoginManager
 	private static final Log						_logLoginTries		= LogFactory.getLog("login.try");
 	private static final Log						_logLoginFailed		= LogFactory.getLog("login.failed");
 
-	private static LoginManager						_instance;
+	private static final class SingletonHolder
+	{
+		private static final LoginManager INSTANCE = new LoginManager();
+	}
+	
+	public static LoginManager getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
 
 	/** Authed Clients on LoginServer*/
 	protected Map<String, L2LoginClient>			_loginServerClients	= new FastMap<String, L2LoginClient>().setShared(true);
@@ -95,22 +103,6 @@ public class LoginManager
 	public static enum AuthLoginResult
 	{
 		INVALID_PASSWORD, ACCOUNT_BANNED, ALREADY_ON_LS, ALREADY_ON_GS, AUTH_SUCCESS, SYSTEM_ERROR
-	}
-
-	/**
-	 * Load the LoginManager
-	 * @throws GeneralSecurityException
-	 */
-	public static void load()
-	{
-		if (_instance == null)
-		{
-			_instance = new LoginManager();
-		}
-		else
-		{
-			throw new IllegalStateException("LoginManager can only be loaded a single time.");
-		}
 	}
 
 	/**
@@ -202,14 +194,6 @@ public class LoginManager
 	public byte[] getBlowfishKey()
 	{
 		return _blowfishKeys[(int) (Math.random() * BLOWFISH_KEYS)];
-	}
-
-	/**
-	 * @return LoginManager singleton
-	 */
-	public static LoginManager getInstance()
-	{
-		return _instance;
 	}
 
 	/**
