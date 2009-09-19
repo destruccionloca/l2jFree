@@ -16,10 +16,16 @@ package com.l2jfree;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.sql.ConnectionWrapper;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public final class L2DatabaseFactory
@@ -32,14 +38,14 @@ public final class L2DatabaseFactory
 		MsSql
 	}
 	
-	private static L2DatabaseFactory _instance;
-	
-	public static L2DatabaseFactory getInstance() throws SQLException
+	private static final class SingletonHolder
 	{
-		if (_instance == null)
-			_instance = new L2DatabaseFactory();
-		
-		return _instance;
+		private static final L2DatabaseFactory INSTANCE = new L2DatabaseFactory();
+	}
+	
+	public static L2DatabaseFactory getInstance()
+	{
+		return SingletonHolder.INSTANCE;
 	}
 	
 	public static void close(Connection con)
@@ -60,13 +66,13 @@ public final class L2DatabaseFactory
 	private final ProviderType _providerType;
 	private final ComboPooledDataSource _source;
 	
-	private L2DatabaseFactory() throws SQLException
+	private L2DatabaseFactory()
 	{
 		try
 		{
-			if (Config.DATABASE_MAX_CONNECTIONS < 2)
+			if (Config.DATABASE_MAX_CONNECTIONS < 10)
 			{
-				Config.DATABASE_MAX_CONNECTIONS = 2;
+				Config.DATABASE_MAX_CONNECTIONS = 10;
 				_log.warn("at least " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
 			}
 			
@@ -75,7 +81,7 @@ public final class L2DatabaseFactory
 			
 			_source.setInitialPoolSize(10);
 			_source.setMinPoolSize(10);
-			_source.setMaxPoolSize(Math.max(10, Config.DATABASE_MAX_CONNECTIONS));
+			_source.setMaxPoolSize(Config.DATABASE_MAX_CONNECTIONS);
 			
 			_source.setAcquireRetryAttempts(0); // try to obtain connections indefinitely (0 = never quit)
 			_source.setAcquireRetryDelay(500); // 500 miliseconds wait before try to acquire connection again
@@ -122,7 +128,7 @@ public final class L2DatabaseFactory
 		}
 		catch (Exception e)
 		{
-			throw new SQLException("L2DatabaseFactory: Failed to init database connections: " + e, e);
+			throw new Error("L2DatabaseFactory: Failed to init database connections: " + e, e);
 		}
 	}
 	
@@ -165,6 +171,7 @@ public final class L2DatabaseFactory
 			try
 			{
 				con = _source.getConnection();
+				//con = new L2DatabaseFactoryConnectionWrapper(_source.getConnection());
 			}
 			catch (SQLException e)
 			{
@@ -188,5 +195,67 @@ public final class L2DatabaseFactory
 	public ProviderType getProviderType()
 	{
 		return _providerType;
+	}
+	
+	@SuppressWarnings("unused")
+	private static final class L2DatabaseFactoryConnectionWrapper extends ConnectionWrapper
+	{
+		private static final Map<StackTraceElement, Integer> CALLS = new FastMap<StackTraceElement, Integer>();
+		
+		private static final ThreadLocal<List<Connection>> CONNECTIONS = new ThreadLocal<List<Connection>>() {
+			@Override
+			protected List<Connection> initialValue()
+			{
+				return new ArrayList<Connection>();
+			}
+		};
+		
+		public L2DatabaseFactoryConnectionWrapper(Connection connection)
+		{
+			super(connection);
+			
+			final List<Connection> list = CONNECTIONS.get();
+			
+			list.add(this);
+			
+			final int size = list.size();
+			
+			if (size > 1)
+			{
+				synchronized (L2DatabaseFactoryConnectionWrapper.class)
+				{
+					final StackTraceElement caller = getCaller();
+					
+					final Integer prevValue = CALLS.get(caller);
+					
+					CALLS.put(caller, Math.max(size, prevValue == null ? 0 : prevValue.intValue()));
+				}
+			}
+		}
+		
+		@Override
+		public void close() throws SQLException
+		{
+			super.close();
+			
+			final List<Connection> list = CONNECTIONS.get();
+			
+			list.remove(this);
+		}
+		
+		private static StackTraceElement getCaller()
+		{
+			final StackTraceElement stack[] = new Throwable().getStackTrace();
+			
+			for (StackTraceElement ste : stack)
+			{
+				if (ste.getClassName().contains("L2DatabaseFactory"))
+					continue;
+				
+				return ste;
+			}
+			
+			throw new InternalError();
+		}
 	}
 }
