@@ -205,7 +205,7 @@
   </zone>
 
   <zone id="18" name="Bandits Stronghold" type="Clanhall">
-    <entity castleId="5" clanhallId="35"/>
+    <entity castleId="-1" clanhallId="35"/> <!-- castleId is a guess -->
     <restart_owner x="80339" y="-15442" z="-1804"/>
     <shape type="Poly" zMin="-2920" zMax="80">
       <point x="79028" y="-17588"/>
@@ -216,7 +216,7 @@
     </shape>
   </zone>
   <zone id="19" name="Bandits Stronghold" type="Siege">
-    <entity castleId="5" clanhallId="35"/>
+    <entity castleId="-1" clanhallId="35"/> <!-- castleId is a guess -->
     <shape type="Poly" zMin="-2920" zMax="80">
       <point x="79028" y="-17588"/>
       <point x="84640" y="-19528"/>

@@ -29,15 +29,23 @@ public abstract class SiegeableEntityZone extends L2Zone
 	
 	protected Siegeable<? extends AbstractSiege> initSiegeableEntity() throws Exception
 	{
-		if (getCastleId() > 0 && getFortId() > 0)
-			throw new IllegalArgumentException("Invalid castleId: " + getCastleId() + " and fortId: " + getFortId());
+		int givenIdCount = 0;
+		if (getCastleId() > 0)
+			givenIdCount++;
+		if (getFortId() > 0)
+			givenIdCount++;
+		if (getClanhallId() > 0)
+			givenIdCount++;
+		
+		if (givenIdCount > 1)
+			throw new IllegalArgumentException("Invalid castleId: " + getCastleId() + ", fortId: " + getFortId() + " and clanhallId: " + getClanhallId());
 		
 		if (getCastleId() > 0)
 			return initCastle();
 		
 		if (getFortId() > 0)
 			return initFort();
-
+		
 		if (getClanhallId() > 0)
 			return initHideout();
 		
