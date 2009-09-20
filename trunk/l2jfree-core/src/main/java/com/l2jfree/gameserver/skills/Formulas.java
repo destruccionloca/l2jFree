@@ -2268,8 +2268,9 @@ public final class Formulas
 	
 	public static boolean calcSkillSuccess(final double baseChance, L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
 	{
-		if (target.getEffects().hasEffect(skill)) // debuffs should fail if already applied
-			return false;
+		if (skill.hasEffects()) // debuffs should fail if already applied
+			if (target.getEffects().hasEffect(skill.getEffectTemplates()[0].stackTypes))
+				return false;
 		
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;
@@ -2336,8 +2337,9 @@ public final class Formulas
 		if (calcSkillReflect(target, skill) != SKILL_REFLECT_FAILED)
 			return false;
 		
-		if (target.getEffects().hasEffect(skill)) // debuffs should fail if already applied
-			return false;
+		if (skill.hasEffects()) // debuffs should fail if already applied
+			if (target.getEffects().hasEffect(skill.getEffectTemplates()[0].stackTypes))
+				return false;
 		
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;

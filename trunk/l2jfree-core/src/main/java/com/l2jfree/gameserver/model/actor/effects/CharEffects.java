@@ -103,7 +103,7 @@ public final class CharEffects
 		if (queue == null)
 			return L2Effect.EMPTY_ARRAY;
 		
-		return queue._queue.toArray(new L2Effect[queue._queue.size()]);
+		return queue.getAllEffects();
 	}
 	
 	public synchronized void addEffect(L2Effect newEffect)
@@ -238,6 +238,11 @@ public final class CharEffects
 		private CharEffects _effects;
 		private String _stackType;
 		
+		private synchronized L2Effect[] getAllEffects()
+		{
+			return _queue.toArray(new L2Effect[_queue.size()]);
+		}
+		
 		private synchronized void add(final L2Effect effect)
 		{
 			int index;
@@ -274,6 +279,14 @@ public final class CharEffects
 			
 			if (_queue.isEmpty())
 				StackQueue.recycle(this);
+		}
+		
+		private synchronized L2Effect getFirstEffect()
+		{
+			if (_queue.isEmpty())
+				return null;
+			
+			return _queue.get(0);
 		}
 		
 		private synchronized void stopAllEffects()
@@ -512,5 +525,84 @@ public final class CharEffects
 			if (queue != null)
 				queue.stopAllEffects();
 		}
+	}
+	
+	public synchronized L2Effect getFirstEffect(String stackType)
+	{
+		return getFirstEffect(stackType, true);
+	}
+	
+	public synchronized L2Effect getFirstEffect(String[] stackTypes)
+	{
+		return getFirstEffect(stackTypes, true);
+	}
+	
+	public synchronized boolean hasEffect(String stackType)
+	{
+		return getFirstEffect(stackType, false) != null;
+	}
+	
+	public synchronized boolean hasEffect(String[] stackTypes)
+	{
+		return getFirstEffect(stackTypes, false) != null;
+	}
+	
+	public synchronized void stopEffects(String stackType)
+	{
+		if (isEmpty())
+			return;
+		
+		final StackQueue queue = _stackedEffects.get(stackType);
+		
+		if (queue != null)
+			queue.stopAllEffects();
+	}
+	
+	public synchronized void stopEffects(String[] stackTypes)
+	{
+		if (isEmpty())
+			return;
+		
+		for (String stackType : stackTypes)
+		{
+			final StackQueue queue = _stackedEffects.get(stackType);
+			
+			if (queue != null)
+				queue.stopAllEffects();
+		}
+	}
+	
+	private L2Effect getFirstEffect(String stackType, boolean searchForInUse)
+	{
+		if (isEmpty())
+			return null;
+		
+		final StackQueue queue = _stackedEffects.get(stackType);
+		
+		if (queue == null)
+			return null;
+		
+		return queue.getFirstEffect();
+	}
+	
+	private L2Effect getFirstEffect(String[] stackTypes, boolean searchForInUse)
+	{
+		if (isEmpty())
+			return null;
+		
+		for (String stackType : stackTypes)
+		{
+			final StackQueue queue = _stackedEffects.get(stackType);
+			
+			if (queue == null)
+				continue;
+			
+			final L2Effect e = queue.getFirstEffect();
+			
+			if (e != null)
+				return e;
+		}
+		
+		return null;
 	}
 }
