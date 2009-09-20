@@ -579,6 +579,7 @@ public abstract class L2Summon extends L2Playable
 	 * @param dontMove used to prevent movement, if not in range
 	 * 
 	 */
+	@Override
 	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
 		if (skill == null || isDead())

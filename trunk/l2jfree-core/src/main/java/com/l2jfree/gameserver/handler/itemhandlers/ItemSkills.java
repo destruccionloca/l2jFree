@@ -111,8 +111,10 @@ public final class ItemSkills implements IItemHandler
 				}
 				else
 				{
-					playable.stopMove(null);
-					playable.doCast(itemSkill);
+					// seems a more logical way to call skills, as it contains more checks, like isCastingNow()
+					playable.useMagic(itemSkill, false, false);
+					//playable.stopMove(null);
+					//playable.doCast(itemSkill);
 				}
 				
 				if (itemSkill.getReuseDelay() > 0)

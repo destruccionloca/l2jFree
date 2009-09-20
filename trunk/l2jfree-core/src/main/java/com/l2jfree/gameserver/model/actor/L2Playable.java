@@ -484,4 +484,6 @@ public abstract class L2Playable extends L2Character
 	{
 		return super.removeSkill(skill);
 	}
+	
+	public abstract void useMagic(L2Skill skill, boolean forceUse, boolean dontMove);
 }

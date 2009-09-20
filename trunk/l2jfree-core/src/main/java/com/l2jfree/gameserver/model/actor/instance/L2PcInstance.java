@@ -8109,6 +8109,7 @@ public final class L2PcInstance extends L2Playable
 	 * @param dontMove used to prevent movement, if not in range
 	 *
 	 */
+	@Override
 	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
 		if (!canUseMagic(skill))
