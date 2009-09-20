@@ -6293,11 +6293,11 @@ public abstract class L2Character extends L2Object
 		notifyQuestEventSkillFinished(magicEnv);
 
 		/*
-		 * If character is a player, then wipe their current cast state and check if a skill is queued.
-		 *
-		 * If there is a queued skill, launch it and wipe the queue.
+		 * If this skill casting wasn't a simultaneous one,
+		 * - and the character is a player, then  wipe their current cast state and check if a skill is queued.
+		 * - and there is a queued skill, then launch it and wipe the queue.
 		 */
-		if (this instanceof L2PcInstance)
+		if (this instanceof L2PcInstance && !simultaneously)
 		{
 			L2PcInstance currPlayer = (L2PcInstance)this;
 			SkillDat queuedSkill = currPlayer.getQueuedSkill();
