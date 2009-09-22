@@ -159,45 +159,31 @@ def enterInstance(self,player,template,teleto):
     # Check for existing instances of party members
     for partyMember in party.getPartyMembers().toArray():
         if partyMember.getInstanceId()!=0:
-            instanceId = partyMember.getInstanceId()
             if debug: print "Crystal Cavern: found party member in instance:"+str(instanceId)
-    # Existing instance
-    if instanceId != 0:
-        foundworld = False
-        for worldid in self.world_ids:
-            if worldid == instanceId:
-                foundworld = True
-        if not foundworld:
-            player.sendPacket(SystemMessage.sendString("Your Party Members are in another Instance."))
             return 0
-        teleto.instanceId = instanceId
-        teleportplayer(self,player,teleto,True)
-        return instanceId
-    # New instance
-    else:
-        instanceId = InstanceManager.getInstance().createDynamicInstance(template)
-        if not self.worlds.has_key(instanceId):
-            world = PyObject()
-            world.instanceId = instanceId
-            world.bosses = 5
-            self.worlds[instanceId]=world
-            self.world_ids.append(instanceId)
-            print "Crystal Cavern Instance: " +str(instanceId) + " created by player: " + str(player.getName())
-            # Close all doors
-            for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
-                door.closeMe()
-            # Start the first room
-            if teleto.instance == "emerald":
-                openDoor(DOOR1,instanceId)
-                openDoor(DOOR2,instanceId)
-                runEmeraldAndSteamFirstRoom(self,world)
-            else:
-                openDoor(CORALGARDENGATEWAY,instanceId)
-                runCoralGarden(self,world)
-        # Teleports player
-        teleto.instanceId = instanceId
-        for partyMember in party.getPartyMembers().toArray():
-            teleportplayer(self,partyMember,teleto,True)
+    instanceId = InstanceManager.getInstance().createDynamicInstance(template)
+    if not self.worlds.has_key(instanceId):
+        world = PyObject()
+        world.instanceId = instanceId
+        world.bosses = 5
+        self.worlds[instanceId]=world
+        self.world_ids.append(instanceId)
+        print "Crystal Cavern Instance: " +str(instanceId) + " created by player: " + str(player.getName())
+        # Close all doors
+        for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
+            door.closeMe()
+        # Start the first room
+        if teleto.instance == "emerald":
+            openDoor(DOOR1,instanceId)
+            openDoor(DOOR2,instanceId)
+            runEmeraldAndSteamFirstRoom(self,world)
+        else:
+            openDoor(CORALGARDENGATEWAY,instanceId)
+            runCoralGarden(self,world)
+    # Teleports player
+    teleto.instanceId = instanceId
+    for partyMember in party.getPartyMembers().toArray():
+        teleportplayer(self,partyMember,teleto,True)
     return instanceId
 
 def exitInstance(player,teleto):
