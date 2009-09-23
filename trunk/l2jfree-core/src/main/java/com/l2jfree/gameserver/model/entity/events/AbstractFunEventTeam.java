@@ -21,19 +21,39 @@ import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.AbstractFunEvent.FunEventState;
+import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.L2FastSet;
 
 /**
  * @author NB4L1
  */
-public abstract class AbstractFunEventTeam
+public abstract class AbstractFunEventTeam<Info extends AbstractFunEventTeam<Info>.PlayerInfo>
 {
+	/**
+	 * Used to store extra informations that could be useful later.<br>
+	 * For example original coords, karma, etc to restore it, when the event ends.
+	 */
+	protected abstract class PlayerInfo
+	{
+		private final L2PcInstance _player;
+		
+		protected PlayerInfo(L2PcInstance player)
+		{
+			_player = player;
+		}
+		
+		protected final L2PcInstance getPlayer()
+		{
+			return _player;
+		}
+	}
+	
 	private final String _name;
 	
 	/**
 	 * used to store current online players in this team
 	 */
-	private final Map<Integer, L2PcInstance> _players = new FastMap<Integer, L2PcInstance>().setShared(true);
+	private final Map<Integer, Info> _players = new FastMap<Integer, Info>().setShared(true);
 	
 	/**
 	 * used to store disconnected/offline players' objectId in case they reconnect
@@ -57,11 +77,25 @@ public abstract class AbstractFunEventTeam
 	}
 	
 	/**
-	 * @return map of currently online participants
+	 * @return map of currently online participants with associated infos
 	 */
-	public final Map<Integer, L2PcInstance> getPlayers()
+	public final Map<Integer, Info> getPlayerInfos()
 	{
 		return _players;
+	}
+	
+	/**
+	 * @return currently online participants
+	 */
+	public final Iterable<L2PcInstance> getPlayers()
+	{
+		return L2Collections.convertingIterable(_players.values(), new L2Collections.Converter<Info, L2PcInstance>() {
+			@Override
+			public L2PcInstance convert(Info info)
+			{
+				return info.getPlayer();
+			}
+		});
 	}
 	
 	/**
@@ -70,8 +104,14 @@ public abstract class AbstractFunEventTeam
 	 */
 	public synchronized boolean addPlayer(L2PcInstance player)
 	{
-		return _players.put(player.getObjectId(), player) == null;
+		if (_players.containsKey(player.getObjectId()))
+			return false;
+		
+		_players.put(player.getObjectId(), wrap(player));
+		return true;
 	}
+	
+	protected abstract Info wrap(L2PcInstance player);
 	
 	/**
 	 * @param player the character, who just logged in

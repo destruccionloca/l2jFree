@@ -21,9 +21,10 @@ import javolution.util.FastMap;
 /**
  * @author NB4L1
  */
-public abstract class AbstractTeamBasedFunEvent<T extends AbstractFunEventTeam> extends AbstractFunEvent
+public abstract class AbstractTeamBasedFunEvent<Team extends AbstractFunEventTeam<Info>, Info extends AbstractFunEventTeam<Info>.PlayerInfo>
+	extends AbstractFunEvent
 {
-	private final Map<String, T> _teams = new FastMap<String, T>().setShared(true);
+	private final Map<String, Team> _teams = new FastMap<String, Team>().setShared(true);
 	
 	protected AbstractTeamBasedFunEvent()
 	{
@@ -32,17 +33,22 @@ public abstract class AbstractTeamBasedFunEvent<T extends AbstractFunEventTeam> 
 	/**
 	 * @return current teams
 	 */
-	public Map<String, T> getTeams()
+	public Map<String, Team> getTeams()
 	{
 		return _teams;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.l2jfree.gameserver.model.entity.events.AbstractFunEvent#setState(com.l2jfree.gameserver.model.entity.events.AbstractFunEvent.FunEventState, com.l2jfree.gameserver.model.entity.events.AbstractFunEvent.FunEventState)
+	 */
 	@Override
-	protected synchronized void setState(FunEventState expectedPrevState, FunEventState nextState) throws IllegalStateException
+	protected synchronized void setState(FunEventState expectedPrevState, FunEventState nextState)
+		throws IllegalStateException
 	{
 		super.setState(expectedPrevState, nextState);
 		
-		for (T team : _teams.values())
+		for (Team team : _teams.values())
 			team.setState(expectedPrevState, nextState);
 	}
 }
