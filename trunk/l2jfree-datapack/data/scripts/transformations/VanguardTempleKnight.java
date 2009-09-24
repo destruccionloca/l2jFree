@@ -25,32 +25,6 @@ public class VanguardTempleKnight extends L2Transformation
 		// id
 		super(314);
 	}
-
-	@Override
-	public void onTransform(L2PcInstance player)
-	{
-		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
-			return;
-
-		// Update transformation ID into database and player instance variables.
-		player.transformInsertInfo();
-
-		addSkill(player, 838, 1); // Switch Stance
-		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
-		
-		// give transformation skills
-		transformedSkills(player);
-	}
-	
-	@Override
-	public void onUntransform(L2PcInstance player)
-	{
-		removeSkill(player, 838); // Switch Stance
-		removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
-		
-		// remove transformation skills
-		removeSkills(player);
-	}
 	
 	@Override
 	public void transformedSkills(L2PcInstance player)
@@ -62,6 +36,7 @@ public class VanguardTempleKnight extends L2Transformation
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Power Divide
 		}
+		
 		player.addTransformAllowedSkill(new int[] { 28, 18, 10, 67, 449, 400, 197 });
 	}
 	

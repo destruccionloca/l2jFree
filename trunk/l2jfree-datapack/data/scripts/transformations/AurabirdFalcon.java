@@ -14,14 +14,10 @@
  */
 package transformations;
 
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * FIXME: move missing methods from L2Jserver!
- * 
- * @author Kerberos, Respawner
- */
 public class AurabirdFalcon extends L2Transformation
 {
 	public AurabirdFalcon()
@@ -29,61 +25,53 @@ public class AurabirdFalcon extends L2Transformation
 		// id, colRadius, colHeight
 		super(8, 38, 14.25);
 	}
-
-	@Override
-	public void onTransform(L2PcInstance player)
-	{
-		// FIXME: super();
-		player.setIsFlyingMounted(true);
-	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		// FIXME: super();
-		
+		// Air Blink
 		if (player.getLevel() >= 75)
 			addSkill(player, 885, 1);
+		
+		// Exhilarate
+		if (player.getLevel() >= 83)
+			addSkill(player, 894, 1);
 		
 		int level = player.getLevel() - 74;
 		if (level > 0)
 		{
-			addSkill(player, 884, level);
-			addSkill(player, 886, level);
-			addSkill(player, 888, level);
-			addSkill(player, 891, level);
-			addSkill(player, 911, level);
+			addSkill(player, 884, level); // Air Assault
+			addSkill(player, 886, level); // Air Shock Bomb
+			addSkill(player, 888, level); // Energy Storm
+			addSkill(player, 890, level); // Prodigious Flare
+			addSkill(player, 891, level); // Energy Shot
+			addSkill(player, 911, level); // Energy Burst
 		}
+		
+		player.addTransformAllowedSkill(new int[] { 932 });
+		
+		player.setIsFlyingMounted(true);
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		/* FIXME
-		removeSkill(player, 885, 1);
-
-		int level = player.getLevel() - 74;
-		if (level > 0)
-		{
-			removeSkill(player, 884, level);
-			removeSkill(player, 886, level);
-			removeSkill(player, 888, level);
-			removeSkill(player, 891, level);
-			removeSkill(player, 911, level);
-		}
-		*/
-	}
-	
-	@Override
-	public void onUntransform(L2PcInstance player)
-	{
-		// FIXME: super();
+		removeSkill(player, 885); // Air Blink
+		
+		removeSkill(player, 894); // Exhilarate
+		
+		removeSkill(player, 884); // Air Assault
+		removeSkill(player, 886); // Air Shock Bomb
+		removeSkill(player, 888); // Energy Storm
+		removeSkill(player, 890); // Prodigious Flare
+		removeSkill(player, 891); // Energy Shot
+		removeSkill(player, 911); // Energy Burst
+		
 		player.setIsFlyingMounted(false);
 	}
 	
 	public static void main(String[] args)
 	{
-		// FIXME: remove when fixed
-		// TransformationManager.getInstance().registerTransformation(new AurabirdFalcon());
+		TransformationManager.getInstance().registerTransformation(new AurabirdFalcon());
 	}
 }

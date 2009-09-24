@@ -14,14 +14,10 @@
  */
 package transformations;
 
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * FIXME: move missing methods from L2Jserver!
- * 
- * @author Kerberos, Respawner
- */
 public class AurabirdOwl extends L2Transformation
 {
 	public AurabirdOwl()
@@ -31,35 +27,51 @@ public class AurabirdOwl extends L2Transformation
 	}
 	
 	@Override
-	public void onTransform(L2PcInstance player)
-	{
-		// FIXME: super();
-		player.setIsFlyingMounted(true);
-	}
-	
-	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		// FIXME: super();
-		addSkills(player, 884, 885, 886, 887, 889, 892, 893, 895, 911, 932);
+		// Air Blink
+		if (player.getLevel() >= 75)
+			addSkill(player, 885, 1);
+		
+		// Exhilarate
+		if (player.getLevel() >= 83)
+			addSkill(player, 895, 1);
+		
+		int level = player.getLevel() - 74;
+		if (level > 0)
+		{
+			addSkill(player, 884, level); // Air Assault
+			addSkill(player, 887, level); // Sky Clutch
+			addSkill(player, 889, level); // Energy Storm
+			addSkill(player, 892, level); // Energy Shot
+			addSkill(player, 893, level); // Concentrated Energy Shot
+			addSkill(player, 911, level); // Energy Burst
+		}
+		
+		player.addTransformAllowedSkill(new int[] { 932 });
+		
+		player.setIsFlyingMounted(true);
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkills(player, 884, 885, 886, 887, 889, 892, 893, 895, 911, 932);
-	}
-	
-	@Override
-	public void onUntransform(L2PcInstance player)
-	{
-		// FIXME: super();
+		removeSkill(player, 885); // Air Blink
+		
+		removeSkill(player, 895); // Exhilarate
+		
+		removeSkill(player, 884); // Air Assault
+		removeSkill(player, 887); // Sky Clutch
+		removeSkill(player, 889); // Energy Storm
+		removeSkill(player, 892); // Energy Shot
+		removeSkill(player, 893); // Concentrated Energy Shot
+		removeSkill(player, 911); // Energy Burst
+		
 		player.setIsFlyingMounted(false);
 	}
 	
 	public static void main(String[] args)
 	{
-		// FIXME: remove when fixed
-		// TransformationManager.getInstance().registerTransformation(new AurabirdOwl());
+		TransformationManager.getInstance().registerTransformation(new AurabirdOwl());
 	}
 }

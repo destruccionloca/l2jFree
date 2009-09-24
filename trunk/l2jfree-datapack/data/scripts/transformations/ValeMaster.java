@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Ahmed
- */
 public class ValeMaster extends L2Transformation
 {
 	public ValeMaster()
@@ -32,7 +29,7 @@ public class ValeMaster extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		int level = 1;
+		int level = -1;
 		if (player.getLevel() >= 76)
 		{
 			level = 3;
@@ -41,10 +38,15 @@ public class ValeMaster extends L2Transformation
 		{
 			level = 2;
 		}
+		else if (player.getLevel() >= 70)
+		{
+			level = 1;
+		}
+		
 		addSkill(player, 742, level); // Vale Master Bursting Flame
 		addSkill(player, 743, level); // Vale Master Dark Explosion
 		addSkill(player, 744, level); // Vale Master Dark Flare
-		addSkill(player, 745, level); // Vale Master Dark Curse
+		addSkill(player, 745, level); // Vale Master Dark Cure
 	}
 	
 	@Override
@@ -53,7 +55,7 @@ public class ValeMaster extends L2Transformation
 		removeSkill(player, 742); // Vale Master Bursting Flame
 		removeSkill(player, 743); // Vale Master Dark Explosion
 		removeSkill(player, 744); // Vale Master Dark Flare
-		removeSkill(player, 745); // Vale Master Dark Curse
+		removeSkill(player, 745); // Vale Master Dark Cure
 	}
 	
 	public static void main(String[] args)

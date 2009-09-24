@@ -14,14 +14,10 @@
  */
 package transformations;
 
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * FIXME: move missing methods from L2Jserver!
- * 
- * @author Kerberos, Respawner
- */
 public class FlyingFinalForm extends L2Transformation
 {
 	public FlyingFinalForm()
@@ -31,35 +27,39 @@ public class FlyingFinalForm extends L2Transformation
 	}
 	
 	@Override
-	public void onTransform(L2PcInstance player)
-	{
-		// FIXME: super();
-		player.setIsFlyingMounted(true);
-	}
-	
-	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		// FIXME: super();
-		// FIXME: addSkills(932, 950, 951, 953, 1544, 1545);
+		addSkill(player, 953, 1); // Life to Soul
+		addSkill(player, 1545, 1); // Soul Sucking
+		
+		int level = player.getLevel() - 78;
+		if (level > 0)
+		{
+			addSkill(player, 950, level); // Nail Attack
+			addSkill(player, 951, level); // Wing Assault
+			addSkill(player, 1544, level); // Death Beam
+		}
+		
+		player.addTransformAllowedSkill(new int[] { 932 });
+		
+		player.setIsFlyingMounted(true);
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		// FIXME: removeSkills(932, 950, 951, 953, 1544, 1545);
-	}
-	
-	@Override
-	public void onUntransform(L2PcInstance player)
-	{
-		// FIXME: super();
+		removeSkill(player, 953); // Life to Soul
+		removeSkill(player, 1545);// Soul Sucking
+		
+		removeSkill(player, 950); // Nail Attack
+		removeSkill(player, 951); // Wing Assault
+		removeSkill(player, 1544); // Death Beam
+		
 		player.setIsFlyingMounted(false);
 	}
 	
 	public static void main(String[] args)
 	{
-		// FIXME: remove when fixed
-		// TransformationManager.getInstance().registerTransformation(new FlyingFinalForm());
+		TransformationManager.getInstance().registerTransformation(new FlyingFinalForm());
 	}
 }

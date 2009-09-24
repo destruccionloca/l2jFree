@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Ahmed
- */
 public class DivineHealer extends L2Transformation
 {
 	public DivineHealer()
@@ -38,6 +35,8 @@ public class DivineHealer extends L2Transformation
 		addSkill(player, 701, 1); // Divine Healer Resurrection
 		addSkill(player, 702, 1); // Divine Healer Cleanse
 		addSkill(player, 703, 1); // Sacrifice Healer
+		
+		player.addTransformAllowedSkill(new int[] { 648, 803, 1490 });
 	}
 	
 	@Override

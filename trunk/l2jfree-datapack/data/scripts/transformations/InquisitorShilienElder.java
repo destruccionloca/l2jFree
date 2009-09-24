@@ -25,33 +25,7 @@ public class InquisitorShilienElder extends L2Transformation
 		// id
 		super(318);
 	}
-
-	@Override
-	public void onTransform(L2PcInstance player)
-	{
-		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
-			return;
-
-		// Update transformation ID into database and player instance variables.
-		player.transformInsertInfo();
-
-		addSkill(player, 838, 1); // Switch Stance
-		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
-
-		// give transformation skills
-		transformedSkills(player);
-	}
-
-	@Override
-	public void onUntransform(L2PcInstance player)
-	{
-		removeSkill(player, 838); // Switch Stance
-		removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
-
-		// remove transformation skills
-		removeSkills(player);
-	}
-
+	
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
@@ -64,9 +38,10 @@ public class InquisitorShilienElder extends L2Transformation
 			addSkill(player, 1528, level); // Divine Flash
 			addSkill(player, 1043, 1); // Holy Weapon
 		}
+		
 		player.addTransformAllowedSkill(new int[] { 1430, 1303, 1059 });
 	}
-
+	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
@@ -76,7 +51,7 @@ public class InquisitorShilienElder extends L2Transformation
 		removeSkill(player, 1528); // Divine Flash
 		removeSkill(player, 1043); // Holy Weapon
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new InquisitorShilienElder());
