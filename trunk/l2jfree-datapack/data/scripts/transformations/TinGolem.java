@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class TinGolem extends L2Transformation
 {
 	public TinGolem()
@@ -34,8 +31,6 @@ public class TinGolem extends L2Transformation
 	{
 		addSkill(player, 940, 1); // Fake Attack
 		addSkill(player, 941, 1); // Special Motion
-		addSkill(player, 5437, 2); // Dissonance
-		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
@@ -43,8 +38,6 @@ public class TinGolem extends L2Transformation
 	{
 		removeSkill(player, 940); // Fake Attack
 		removeSkill(player, 941); // Special Motion
-		removeSkill(player, 5437); // Dissonance
-		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)

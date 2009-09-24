@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author KenM
- */
 public class Zariche extends L2Transformation
 {
 	public Zariche()
@@ -28,21 +25,16 @@ public class Zariche extends L2Transformation
 		// id, colRadius, colHeight
 		super(301, 12, 31.58);
 	}
-
+	
 	@Override
 	public void onTransform(L2PcInstance player)
 	{
 		// Set charachter name to transformed name
 		player.getAppearance().setVisibleName("Zariche");
 		player.getAppearance().setVisibleTitle("");
-	}
-
-	@Override
-	public void onUntransform(L2PcInstance player)
-	{
-		// set character back to true name.
-		player.getAppearance().setVisibleName(null);
-		player.getAppearance().setVisibleTitle(null);
+		
+		// give transformation skills
+		transformedSkills(player);
 	}
 	
 	@Override
@@ -50,6 +42,17 @@ public class Zariche extends L2Transformation
 	{
 		addSkill(player, 3630, 1); // Void Burst
 		addSkill(player, 3631, 1); // Void Flow
+	}
+	
+	@Override
+	public void onUntransform(L2PcInstance player)
+	{
+		// set character back to true name.
+		player.getAppearance().setVisibleName(null);
+		player.getAppearance().setVisibleTitle(null);
+		
+		// remove transformation skills
+		removeSkills(player);
 	}
 	
 	@Override

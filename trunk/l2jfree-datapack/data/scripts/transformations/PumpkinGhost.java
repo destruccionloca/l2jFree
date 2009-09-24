@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class PumpkinGhost extends L2Transformation
 {
 	public PumpkinGhost()
@@ -32,15 +29,11 @@ public class PumpkinGhost extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 619, 1); // Transfrom Dispel
-		addSkill(player, 5437, 2); // Dissonance
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 619); // Transfrom Dispel
-		removeSkill(player, 5437); // Dissonance
 	}
 	
 	public static void main(String[] args)

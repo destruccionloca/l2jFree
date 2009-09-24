@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class Timitran extends L2Transformation
 {
 	public Timitran()
@@ -32,15 +29,11 @@ public class Timitran extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		// Transfrom Dispel
-		addSkill(player, 619, 1);
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		// Transfrom Dispel
-		removeSkill(player, 619);
 	}
 	
 	public static void main(String[] args)

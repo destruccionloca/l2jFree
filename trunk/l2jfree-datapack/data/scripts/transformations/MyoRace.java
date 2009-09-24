@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class MyoRace extends L2Transformation
 {
 	public MyoRace()
@@ -37,7 +34,6 @@ public class MyoRace extends L2Transformation
 		addSkill(player, 898, 4); // Tornado Slash
 		addSkill(player, 899, 4); // Cat Roar
 		addSkill(player, 900, 4); // Energy Blast
-		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
@@ -48,7 +44,6 @@ public class MyoRace extends L2Transformation
 		removeSkill(player, 898); // Tornado Slash
 		removeSkill(player, 899); // Cat Roar
 		removeSkill(player, 900); // Energy Blast
-		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)
