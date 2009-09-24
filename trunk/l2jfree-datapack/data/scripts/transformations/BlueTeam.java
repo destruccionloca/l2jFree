@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class BlueTeam extends L2Transformation
 {
 	public BlueTeam()
@@ -33,14 +30,12 @@ public class BlueTeam extends L2Transformation
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 5852, 1); // Flip Block
-		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 5852); // Flip Block
-		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)
