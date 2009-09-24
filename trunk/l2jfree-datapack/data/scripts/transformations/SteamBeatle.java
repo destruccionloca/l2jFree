@@ -35,7 +35,7 @@ public class SteamBeatle extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 	}
-
+	
 	public static void main(String[] args)
 	{
 		TransformationManager.getInstance().registerTransformation(new SteamBeatle());

@@ -34,7 +34,6 @@ public class DemonRace extends L2Transformation
 		addSkill(player, 903, 4); // Stratum Explosion
 		addSkill(player, 904, 4); // Corpse Burst
 		addSkill(player, 905, 4); // Dark Detonation
-		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
@@ -45,7 +44,6 @@ public class DemonRace extends L2Transformation
 		removeSkill(player, 903); // Stratum Explosion
 		removeSkill(player, 904); // Corpse Burst
 		removeSkill(player, 905); // Dark Detonation
-		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)

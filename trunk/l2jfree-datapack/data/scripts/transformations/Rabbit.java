@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author durgus
- */
 public class Rabbit extends L2Transformation
 {
 	public Rabbit()
@@ -34,7 +31,6 @@ public class Rabbit extends L2Transformation
 	{
 		addSkill(player, 629, 1); // Rabbit Magic Eye
 		addSkill(player, 630, 1); // Rabbit Tornado
-		addSkill(player, 619, 1); // Transfrom Dispel
 	}
 	
 	@Override
@@ -42,7 +38,6 @@ public class Rabbit extends L2Transformation
 	{
 		removeSkill(player, 629); // Rabbit Magic Eye
 		removeSkill(player, 630); // Rabbit Tornado
-		removeSkill(player, 619); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)

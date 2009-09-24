@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Ahmed
- */
 public class Benom extends L2Transformation
 {
 	public Benom()
@@ -32,17 +29,17 @@ public class Benom extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 725, 2); // Venom Power Smash
-		addSkill(player, 726, 2); // Venom Sonic Storm
-		addSkill(player, 727, 1); // Venom Disillusion
+		addSkill(player, 725, 2/*1*/); // Benom Power Smash
+		addSkill(player, 726, 2/*1*/); // Benom Sonic Storm
+		addSkill(player, 727, 1); // Benom Disillusion
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 725); // Venom Power Smash
-		removeSkill(player, 726); // Venom Sonic Storm
-		removeSkill(player, 727); // Venom Disillusion
+		removeSkill(player, 725); // Benom Power Smash
+		removeSkill(player, 726); // Benom Sonic Storm
+		removeSkill(player, 727); // Benom Disillusion
 	}
 	
 	public static void main(String[] args)

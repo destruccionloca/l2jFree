@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Ahmed
- */
 public class SaberToothTiger extends L2Transformation
 {
 	public SaberToothTiger()
@@ -32,7 +29,7 @@ public class SaberToothTiger extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		int level = 1;
+		int level = -1;
 		if (player.getLevel() >= 76)
 		{
 			level = 3;
@@ -41,17 +38,22 @@ public class SaberToothTiger extends L2Transformation
 		{
 			level = 2;
 		}
-		addSkill(player, 748, 1); // Saber Tooth Tiger Sprint
+		else if (player.getLevel() >= 70)
+		{
+			level = 1;
+		}
+		
 		addSkill(player, 746, level); // Saber Tooth Tiger Bite
 		addSkill(player, 747, level); // Saber Tooth Tiger Fear
+		addSkill(player, 748, 1); // Saber Tooth Tiger Sprint
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 748); // Saber Tooth Tiger Sprint
 		removeSkill(player, 746); // Saber Tooth Tiger Bite
 		removeSkill(player, 747); // Saber Tooth Tiger Fear
+		removeSkill(player, 748); // Saber Tooth Tiger Sprint
 	}
 	
 	public static void main(String[] args)

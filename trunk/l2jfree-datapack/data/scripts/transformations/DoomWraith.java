@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author durgus
- */
 public class DoomWraith extends L2Transformation
 {
 	public DoomWraith()
@@ -33,8 +30,8 @@ public class DoomWraith extends L2Transformation
 	public void transformedSkills(L2PcInstance player)
 	{
 		addSkill(player, 586, 2); // Rolling Attack
+		addSkill(player, 587, 2); // Earth Storm
 		addSkill(player, 588, 2); // Curse of Darkness
-		addSkill(player, 587, 2); // Dig Attack
 		addSkill(player, 589, 2); // Darkness Energy Drain
 	}
 	
@@ -42,8 +39,8 @@ public class DoomWraith extends L2Transformation
 	public void removeSkills(L2PcInstance player)
 	{
 		removeSkill(player, 586); // Rolling Attack
+		removeSkill(player, 587); // Earth Storm
 		removeSkill(player, 588); // Curse of Darkness
-		removeSkill(player, 587); // Dig Attack
 		removeSkill(player, 589); // Darkness Energy Drain
 	}
 	

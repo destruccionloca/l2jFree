@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Ahmed
- */
 public class Anakim extends L2Transformation
 {
 	public Anakim()
@@ -36,7 +33,7 @@ public class Anakim extends L2Transformation
 		addSkill(player, 721, 2); // Anakim Energy Attack
 		addSkill(player, 722, 2); // Anakim Holy Beam
 		addSkill(player, 723, 1); // Anakim Sunshine
-		addSkill(player, 724, 1); // Anakim Clans
+		addSkill(player, 724, 1); // Anakim Cleanse
 	}
 	
 	@Override
@@ -46,7 +43,7 @@ public class Anakim extends L2Transformation
 		removeSkill(player, 721); // Anakim Energy Attack
 		removeSkill(player, 722); // Anakim Holy Beam
 		removeSkill(player, 723); // Anakim Sunshine
-		removeSkill(player, 724); // Anakim Clans
+		removeSkill(player, 724); // Anakim Cleanse
 	}
 	
 	public static void main(String[] args)
