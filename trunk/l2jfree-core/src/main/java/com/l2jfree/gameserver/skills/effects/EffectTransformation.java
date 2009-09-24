@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.skills.effects;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -30,44 +31,41 @@ public final class EffectTransformation extends L2Effect
 	{
 		super(env, template);
 	}
-
+	
 	// Special constructor to steal this effect
 	public EffectTransformation(Env env, L2Effect effect)
 	{
 		super(env, effect);
 	}
-
+	
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.TRANSFORMATION;
 	}
-
+	
 	@Override
 	protected boolean onStart()
 	{
-		if (getEffected().isAlikeDead())
-			return false;
-
 		if (!(getEffected() instanceof L2PcInstance))
 			return false;
-
+		
 		L2PcInstance trg = (L2PcInstance)getEffected();
-
+		
 		// No transformation if dead or cursed by cursed weapon
 		if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
 			return false;
-
-		int transformId = getSkill().getTransformId();
-
-		if (!trg.isTransformed() && !trg.isInStance())
+		
+		if (trg.getTransformation() != null)
 		{
-			TransformationManager.getInstance().transformPlayer(transformId, trg);
-			return true;
+			trg.sendPacket(SystemMessageId.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
+			return false;
 		}
-		return false;
+		
+		TransformationManager.getInstance().transformPlayer(getSkill().getTransformId(), trg);
+		return true;
 	}
-
+	
 	@Override
 	protected void onExit()
 	{

@@ -90,7 +90,7 @@ public abstract class L2Transformation
 	 */
 	public final double getCollisionRadius(L2PcInstance player)
 	{
-		if (getId() >= 312 && getId() <= 318 || isStance())
+		if (isStance())
 			return player.getBaseTemplate().getCollisionRadius();
 		return _collisionRadius;
 	}
@@ -100,7 +100,7 @@ public abstract class L2Transformation
 	 */
 	public final double getCollisionHeight(L2PcInstance player)
 	{
-		if (getId() >= 312 && getId() <= 318 || isStance())
+		if (isStance())
 			return player.getBaseTemplate().getCollisionHeight();
 		return _collisionHeight;
 	}
@@ -111,13 +111,67 @@ public abstract class L2Transformation
 		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
 			return;
 		
+		if (isStance())
+		{
+			// Update transformation ID into database and player instance variables.
+			player.transformInsertInfo();
+		}
+		
 		// give transformation skills
 		transformedSkills(player);
 		
-		// Transfrom Dispel
-		addSkill(player, 619, 1);
-		// Decrease Bow/Crossbow Attack Speed
-		addSkill(player, 5491, 1);
+		// transformation dispelling skills
+		switch (getId())
+		{
+			case 301: // Zariche
+			case 302: // Akamanah
+				// can't be dispelled
+				break;
+			
+			case 107: // GatekeeperAlternate
+			case 319: // Gatekeeper
+				addSkill(player, 8248, 1); // Cancel Gatekeeper Transformation
+				break;
+			
+			case 106: // LightPurpleManedHorse
+			case 109: // TawnyManedLion
+			case 110: // SteamBeatle
+				addSkill(player, 839, 1); // Dismount
+				break;
+			
+			default:
+				if (isStance())
+					addSkill(player, 838, 1); // Switch Stance
+				else
+					addSkill(player, 619, 1); // Transform Dispel
+				break;
+		}
+		
+		// negative passive skills
+		switch (getId())
+		{
+			case 301: // Zariche
+			case 302: // Akamanah
+				// doesn't have
+				break;
+			
+			case 8: // AurabirdFalcon
+			case 9: // AurabirdOwl
+			case 260: // FlyingFinalForm
+				// doesn't have
+				break;
+			
+			case 108: // PumpkinGhost
+			case 114: // SnowKing
+			case 115: // ScareCrow
+			case 116: // TinGolem
+				addSkill(player, 5437, 2); // Dissonance
+				break;
+			
+			default:
+				addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
+				break;
+		}
 	}
 	
 	protected abstract void transformedSkills(L2PcInstance player);
@@ -127,16 +181,67 @@ public abstract class L2Transformation
 		// remove transformation skills
 		removeSkills(player);
 		
-		// Transfrom Dispel
-		removeSkill(player, 619);
-		// Decrease Bow/Crossbow Attack Speed
-		removeSkill(player, 5491);
+		// transformation dispelling skills
+		switch (getId())
+		{
+			case TRANSFORM_ZARICHE: // Zariche
+			case TRANSFORM_AKAMANAH: // Akamanah
+				// can't be dispelled
+				break;
+			
+			case 107: // GatekeeperAlternate
+			case 319: // Gatekeeper
+				removeSkill(player, 8248); // Cancel Gatekeeper Transformation
+				break;
+			
+			case 106: // LightPurpleManedHorse
+			case 109: // TawnyManedLion
+			case 110: // SteamBeatle
+				removeSkill(player, 839); // Dismount
+				break;
+			
+			default:
+				if (isStance())
+					removeSkill(player, 838); // Switch Stance
+				else
+					removeSkill(player, 619); // Transform Dispel
+				break;
+		}
+		
+		// negative passive skills
+		switch (getId())
+		{
+			case TRANSFORM_ZARICHE: // Zariche
+			case TRANSFORM_AKAMANAH: // Akamanah
+				// doesn't have
+				break;
+			
+			case 8: // AurabirdFalcon
+			case 9: // AurabirdOwl
+			case 260: // FlyingFinalForm
+				// doesn't have
+				break;
+			
+			case 108: // PumpkinGhost
+			case 114: // SnowKing
+			case 115: // ScareCrow
+			case 116: // TinGolem
+				removeSkill(player, 5437); // Dissonance
+				break;
+			
+			default:
+				removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
+				break;
+		}
 	}
 	
 	protected abstract void removeSkills(L2PcInstance player);
 	
 	protected final void addSkill(L2PcInstance player, int skillId, int skillLevel)
 	{
+		if (skillLevel == -1)
+			return;
+		
 		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 		if (skill == null)
 			_log.warn("Transformed skill " + skillId + " " + skillLevel + " not found!");

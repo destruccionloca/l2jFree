@@ -25,7 +25,7 @@ public class PcAppearance
 	private byte _hairColor;
 	private byte _hairStyle;
 	private boolean _sex; // Female true(1)
-	private boolean _displayName;
+	private boolean _displayName = true;
 	/** true if the player is invisible */
 	private boolean _invisible = false;
 	private boolean _ghostmode = false;
