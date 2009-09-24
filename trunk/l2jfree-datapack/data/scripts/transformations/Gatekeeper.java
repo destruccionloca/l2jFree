@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class Gatekeeper extends L2Transformation
 {
 	public Gatekeeper()
@@ -32,19 +29,15 @@ public class Gatekeeper extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
-		addSkill(player, 8248, 1); // Transfrom Dispel
-		addSkill(player, 5655, 1); // Transform Alternative Gatekeeper
-		addSkill(player, 5656, 85); // Gatekeeper Aura Flare
-		addSkill(player, 5657, 85); // Gatekeeper Prominence
-		addSkill(player, 5658, 85); // Gatekeeper Flame Strike
+		addSkill(player, 5656, player.getLevel()); // Gatekeeper Aura Flare
+		addSkill(player, 5657, player.getLevel()); // Gatekeeper Prominence
+		addSkill(player, 5658, player.getLevel()); // Gatekeeper Flame Strike
 		addSkill(player, 5659, 2); // Gatekeeper Berserker Spirit
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
-		removeSkill(player, 8248); // Transfrom Dispel
-		removeSkill(player, 5655); // Transform Alternative Gatekeeper
 		removeSkill(player, 5656); // Gatekeeper Aura Flare
 		removeSkill(player, 5657); // Gatekeeper Prominence
 		removeSkill(player, 5658); // Gatekeeper Flame Strike

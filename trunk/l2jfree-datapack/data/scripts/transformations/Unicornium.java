@@ -18,9 +18,6 @@ import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * @author Psychokiller1888
- */
 public class Unicornium extends L2Transformation
 {
 	public Unicornium()
@@ -37,7 +34,6 @@ public class Unicornium extends L2Transformation
 		addSkill(player, 908, 4); // Spin Slash
 		addSkill(player, 909, 4); // Ice Focus
 		addSkill(player, 910, 4); // Water Jet
-		addSkill(player, 8248, 1); // Transfrom Dispel
 	}
 	
 	@Override
@@ -48,7 +44,6 @@ public class Unicornium extends L2Transformation
 		removeSkill(player, 908); // Spin Slash
 		removeSkill(player, 909); // Ice Focus
 		removeSkill(player, 910); // Water Jet
-		removeSkill(player, 8248); // Transfrom Dispel
 	}
 	
 	public static void main(String[] args)
