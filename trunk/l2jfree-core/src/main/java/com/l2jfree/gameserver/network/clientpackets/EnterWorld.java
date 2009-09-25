@@ -631,17 +631,22 @@ public class EnterWorld extends L2GameClientPacket
 
 		private void flush()
 		{
-			if (active)
+			if (active || !valid())
 				return;
 
 			active = true;
 			ThreadPoolManager.getInstance().scheduleGeneral(this, 0);
 		}
 
+		private final boolean valid()
+		{
+			return getActiveChar() != null && packets != null && !packets.isEmpty();
+		}
+
 		@Override
 		public void run()
 		{
-			if (getActiveChar() == null || packets == null || packets.isEmpty())
+			if (!valid())
 			{
 				active = false;
 				return;
@@ -649,9 +654,17 @@ public class EnterWorld extends L2GameClientPacket
 			int pn = packets.size();
 			if (pn > Config.ENTERWORLD_PPT)
 				pn = Config.ENTERWORLD_PPT;
-			for (int i = 0; i < pn; i++)
+			for (int i = 0; i < pn; i++) {
+				try {
 				sendPacket(packets.removeFirst());
-			ThreadPoolManager.getInstance().scheduleGeneral(this, Config.ENTERWORLD_TICK);
+				} catch (Exception e) {
+					_log.error("GDQ noob error (report in forum!) i=" + i + ", pn=" + pn + ", active=" + active, e);
+				}
+			}
+			if (packets.isEmpty())
+				active = false;
+			else
+				ThreadPoolManager.getInstance().scheduleGeneral(this, Config.ENTERWORLD_TICK);
 		}
 	}
 }
