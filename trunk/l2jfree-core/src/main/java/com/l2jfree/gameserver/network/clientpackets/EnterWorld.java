@@ -93,7 +93,7 @@ public class EnterWorld extends L2GameClientPacket
 {
 	private static final String	_C__03_ENTERWORLD	= "[C] 03 EnterWorld";
 
-	private GameDataQueue gdq = null;
+	private GameDataQueue		gdq					= null;
 
 	@Override
 	protected void readImpl()
@@ -453,10 +453,10 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 		if (!activeChar.isGM()
-			// inside siege zone
-			&& activeChar.isInsideZone(L2Zone.FLAG_SIEGE)
-			// but non-participant or attacker
-			&& (!activeChar.isInSiege() || activeChar.getSiegeState() < 2))
+		// inside siege zone
+				&& activeChar.isInsideZone(L2Zone.FLAG_SIEGE)
+				// but non-participant or attacker
+				&& (!activeChar.isInSiege() || activeChar.getSiegeState() < 2))
 		{
 			// Attacker or spectator logging in to a siege zone. Actually should be checked for inside castle only?
 			activeChar.teleToLocation(TeleportWhereType.Town);
@@ -602,11 +602,13 @@ public class EnterWorld extends L2GameClientPacket
 		return _C__03_ENTERWORLD;
 	}
 
-	public class GameDataQueue implements Runnable {
-		private final FastList<L2GameServerPacket> packets;
-		private volatile boolean active;
+	public class GameDataQueue implements Runnable
+	{
+		private final FastList<L2GameServerPacket>	packets;
+		private volatile boolean					active;
 
-		private GameDataQueue() {
+		private GameDataQueue()
+		{
 			if (Config.ENTERWORLD_QUEUING)
 				packets = new FastList<L2GameServerPacket>();
 			else
@@ -614,18 +616,21 @@ public class EnterWorld extends L2GameClientPacket
 			active = false;
 		}
 
-		public final void add(L2GameServerPacket packet) {
+		public final void add(L2GameServerPacket packet)
+		{
 			if (packets != null)
 				packets.add(packet);
 			else
 				sendPacket(packet);
 		}
 
-		public final void add(SystemMessageId msg) {
+		public final void add(SystemMessageId msg)
+		{
 			add(msg.getSystemMessage());
 		}
 
-		private void flush() {
+		private void flush()
+		{
 			if (active)
 				return;
 
@@ -634,7 +639,8 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		@Override
-		public void run() {
+		public void run()
+		{
 			if (getActiveChar() == null || packets == null || packets.isEmpty())
 			{
 				active = false;
