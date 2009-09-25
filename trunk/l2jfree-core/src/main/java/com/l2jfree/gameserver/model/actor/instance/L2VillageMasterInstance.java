@@ -462,7 +462,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 					// check player skills
 					if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-						player.checkAllowedSkills();
+						player.checkAllowedSkills(null);
 				}
 				else
 				{

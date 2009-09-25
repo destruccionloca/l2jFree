@@ -24,12 +24,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class PrivateStoreListSell extends L2GameServerPacket
 {
-	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
-	private final int _objId;
-	private final long _playerAdena;
-	private final boolean _packageSale;
-	private final TradeList.TradeItem[] _items;
-	
+	private static final String			_S__B4_PRIVATESTORELISTSELL	= "[S] 9b PrivateStoreListSell";
+	private final int					_objId;
+	private final long					_playerAdena;
+	private final boolean				_packageSale;
+	private final TradeList.TradeItem[]	_items;
+
 	// player's private shop
 	public PrivateStoreListSell(L2PcInstance player, L2PcInstance storePlayer)
 	{
@@ -38,7 +38,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		_items = storePlayer.getSellList().getItems();
 		_packageSale = storePlayer.getSellList().isPackaged();
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -46,7 +46,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
 		writeCompQ(_playerAdena);
-		
+
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
 		{
@@ -60,11 +60,11 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getBodyPart());
 			writeCompQ(item.getPrice()); //your price
 			writeCompQ(item.getItem().getReferencePrice()); //store price
-			
+
 			writeElementalInfo(item); //8x h or d
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */

@@ -20,6 +20,8 @@ import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.clientpackets.EnterWorld.GameDataQueue;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.versionning.Version;
 
 /**
@@ -58,6 +60,15 @@ public final class CoreInfo
 		activeChar.sendMessage("|         |   ___|   |     |     __|    ) _|     __|     __|");
 		activeChar.sendMessage("|_____|_____|_____|__|    |__|__|_____|_____|");
 		activeChar.sendMessage("l2jfree " + getVersionInfo() + ", gpl 3 license");
+	}
+	
+	public static final void versionInfo(GameDataQueue gdq)
+	{
+		gdq.add(SystemMessage.sendString(":__.     :_____:_____:_____:_____:_____:_____:"));
+		gdq.add(SystemMessage.sendString("|    |__|___   |__.     |     __|        |     __|     __|"));
+		gdq.add(SystemMessage.sendString("|         |   ___|   |     |     __|    ) _|     __|     __|"));
+		gdq.add(SystemMessage.sendString("|_____|_____|_____|__|    |__|__|_____|_____|"));
+		gdq.add(SystemMessage.sendString("l2jfree " + getVersionInfo() + ", gpl 3 license"));
 	}
 	
 	public static String getVersionInfo()

@@ -1211,6 +1211,10 @@ public class Config extends L2Config
 	public static int				OFFLINE_TRADE_COLOR_NAME;
 	public static boolean			ALLOW_OFFLINE_TRADE_PROTECTION;
 
+	public static boolean			ENTERWORLD_QUEUING;
+	public static int				ENTERWORLD_TICK;
+	public static int				ENTERWORLD_PPT;
+
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1410,6 +1414,10 @@ public class Config extends L2Config
 		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeColorName", "true"));
 		    OFFLINE_TRADE_COLOR_NAME = Integer.parseInt(optionsSettings.getProperty("OfflineTradeColorName", "999999"));
 		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeProtection", "true"));
+
+		    ENTERWORLD_QUEUING = Boolean.parseBoolean(optionsSettings.getProperty("DiscreteStarterPackets", "false"));
+		    ENTERWORLD_TICK = Integer.parseInt(optionsSettings.getProperty("StarterPacketTick", "100"));
+		    ENTERWORLD_PPT = Integer.parseInt(optionsSettings.getProperty("StarterPacketsPerTick", "8"));
 		}
 	}
 

@@ -23,11 +23,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class RequestPrivateStoreManageBuy extends L2GameClientPacket
 {
-	private static final String _C__90_REQUESTPRIVATESTOREMANAGEBUY = "[C] 90 RequestPrivateStoreManageBuy";
-	
+	private static final String	_C__90_REQUESTPRIVATESTOREMANAGEBUY	= "[C] 90 RequestPrivateStoreManageBuy";
+
 	@Override
 	protected void readImpl()
 	{
+		//trigger
 	}
 
 	@Override
@@ -35,14 +36,11 @@ public class RequestPrivateStoreManageBuy extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player != null)
-		{
 			player.tryOpenPrivateBuyStore();
-		}
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

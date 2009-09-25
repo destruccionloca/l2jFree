@@ -133,10 +133,10 @@ public class Castle extends Siegeable<Siege>
 			if (getOwnerId() <= 0)
 				return;
 			long currentTime = System.currentTimeMillis();
-			if(_endDate>currentTime)
-				ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(cwh),  _endDate-currentTime);
+			if (_endDate > currentTime)
+				ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(cwh), _endDate - currentTime);
 			else
-				ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(cwh),  0);
+				ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(cwh), 0);
 		}
 
 		private class FunctionTask implements Runnable

@@ -26,8 +26,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
@@ -38,20 +36,18 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 {
 	private static final String	_C__96_REQUESTPRIVATESTORESELL	= "[C] 96 RequestPrivateStoreSell";
 
-	private static final int BATCH_LENGTH = 20; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 28;
+	private static final int	BATCH_LENGTH					= 20;								// length of the one item
+	private static final int	BATCH_LENGTH_FINAL				= 28;
 
 	private int					_storePlayerId;
-	private ItemRequest[]		_items = null;
+	private ItemRequest[]		_items							= null;
 
 	@Override
 	protected void readImpl()
 	{
 		_storePlayerId = readD();
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -84,14 +80,13 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 
 		if (_items == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 
@@ -103,30 +98,38 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 
 		// Get object from world
 		if (object == null)
-		{
 			object = L2World.getInstance().getPlayer(_storePlayerId);
-			//_log.warn("Player "+player.getName()+" requested private shop from outside of his knownlist.");
-		}
 
 		if (!(object instanceof L2PcInstance))
+		{
+			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
+		}
 
 		L2PcInstance storePlayer = (L2PcInstance) object;
 
 		if (!player.isInsideRadius(storePlayer, INTERACTION_DISTANCE, true, false))
+		{
+			sendAF();
 			return;
+		}
 
 		if (storePlayer.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_BUY)
+		{
+			sendAF();
 			return;
+		}
 
 		TradeList storeList = storePlayer.getBuyList();
 		if (storeList == null)
+		{
+			sendAF();
 			return;
+		}
 
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-			player.sendMessage("Unsufficient privileges.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
 		}
 
@@ -135,33 +138,38 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			if ((MAX_ADENA / i.getCount()) < i.getPrice())
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 			priceTotal += i.getCount() * i.getPrice();
 			if (MAX_ADENA < priceTotal || priceTotal < 0)
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 		}
+
 		if (storePlayer.getAdena() < priceTotal)
 		{
-			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
 			return;
 		}
 
 		if (!storeList.privateStoreSell(player, _items))
+		{
+			sendAF();
 			return;
+		}
 
 		if (storeList.getItemCount() == 0)
 		{
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
 		}
+
+		sendAF();
 	}
 
 	@Override

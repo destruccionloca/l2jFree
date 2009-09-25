@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.EnterWorld.GameDataQueue;
 import com.l2jfree.gameserver.network.serverpackets.SSQInfo;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -1066,27 +1067,30 @@ public class SevenSigns
 	 * 
 	 * @param player
 	 */
-	public void sendCurrentPeriodMsg(L2PcInstance player)
+	public void sendCurrentPeriodMsg(L2PcInstance player, GameDataQueue gdq)
 	{
-		SystemMessage sm = null;
+		SystemMessageId msg = null;
 
 		switch (getCurrentPeriod())
 		{
 		case PERIOD_COMP_RECRUITING:
-			sm = new SystemMessage(SystemMessageId.PREPARATIONS_PERIOD_BEGUN);
+			msg = SystemMessageId.PREPARATIONS_PERIOD_BEGUN;
 			break;
 		case PERIOD_COMPETITION:
-			sm = new SystemMessage(SystemMessageId.COMPETITION_PERIOD_BEGUN);
+			msg = SystemMessageId.COMPETITION_PERIOD_BEGUN;
 			break;
 		case PERIOD_COMP_RESULTS:
-			sm = new SystemMessage(SystemMessageId.RESULTS_PERIOD_BEGUN);
+			msg = SystemMessageId.RESULTS_PERIOD_BEGUN;
 			break;
 		case PERIOD_SEAL_VALIDATION:
-			sm = new SystemMessage(SystemMessageId.VALIDATION_PERIOD_BEGUN);
+			msg = SystemMessageId.VALIDATION_PERIOD_BEGUN;
 			break;
 		}
 
-		player.sendPacket(sm);
+		if (gdq != null)
+			gdq.add(msg);
+		else
+			player.sendPacket(msg);
 	}
 
 	/**

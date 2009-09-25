@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.TradeList.TradeItem;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -37,28 +36,26 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class RequestPrivateStoreBuy extends L2GameClientPacket
 {
-	private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
+	private static final String	_C__79_REQUESTPRIVATESTOREBUY	= "[C] 79 RequestPrivateStoreBuy";
 
-	private static final int BATCH_LENGTH = 12; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 20;
+	private static final int	BATCH_LENGTH					= 12;								// length of the one item
+	private static final int	BATCH_LENGTH_FINAL				= 20;
 
-	private int _storePlayerId;
-	private ItemRequest[] _items = null;
+	private int					_storePlayerId;
+	private ItemRequest[]		_items							= null;
 
 	@Override
 	protected void readImpl()
 	{
 		_storePlayerId = readD();
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 		{
 			return;
 		}
 		_items = new ItemRequest[count];
 
-		for (int i = 0; i < count ; i++)
+		for (int i = 0; i < count; i++)
 		{
 			int objectId = readD();
 			long cnt = readCompQ();
@@ -77,19 +74,18 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.isCursedWeaponEquipped())
+		if (player == null)
 			return;
 
 		if (_items == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
 		if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
 		{
-			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 
@@ -101,30 +97,38 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 
 		// Get object from world
 		if (object == null)
-		{
 			object = L2World.getInstance().getPlayer(_storePlayerId);
-			// _log.warn("Player "+player.getName()+" requested private shop from outside of his knownlist.");
-		}
 
 		if (!(object instanceof L2PcInstance))
+		{
+			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
 			return;
+		}
 
 		L2PcInstance storePlayer = (L2PcInstance) object;
 
 		if (!player.isInsideRadius(storePlayer, INTERACTION_DISTANCE, true, false))
+		{
+			sendAF();
 			return;
+		}
 
 		if (!(storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL || storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL))
+		{
+			sendAF();
 			return;
+		}
 
 		TradeList storeList = storePlayer.getSellList();
 		if (storeList == null)
+		{
+			sendAF();
 			return;
+		}
 
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
-			player.sendMessage("Unsufficient privileges.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;
 		}
 
@@ -134,19 +138,21 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			TradeItem sellersItem = storeList.getItem(i.getObjectId());
 			if (sellersItem == null)
 			{
-				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName() + " tried to buy an item not sold in a private store (buy), ban this player!";
+				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName()
+						+ " tried to buy an item not sold in a private store (buy), ban this player!";
 				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
 				return;
 			}
 			if ((MAX_ADENA / i.getCount()) < i.getPrice())
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 			if (i.getPrice() != sellersItem.getPrice())
 			{
-				String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried to change the seller's price in a private store (buy), ban this player!";
-				Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);
+				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName()
+						+ " tried to change the seller's price in a private store (buy), ban this player!";
+				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
 				return;
 			}
 			priceTotal += i.getPrice() * i.getCount();
@@ -155,14 +161,13 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 		// FIXME: this check should be (and most probably is) done in the TradeList mechanics
 		if (priceTotal < 0 || priceTotal > MAX_ADENA)
 		{
-			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 			return;
 		}
 
 		if (player.getAdena() < priceTotal)
 		{
-			sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return;
 		}
 
@@ -170,7 +175,8 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 		{
 			if (storeList.getItemCount() > _items.length)
 			{
-				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName() + " tried to buy less items then sold by package-sell, ban this player for bot-usage!";
+				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName()
+						+ " tried to buy less items then sold by package-sell, ban this player for bot-usage!";
 				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
 				return;
 			}
@@ -178,7 +184,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 
 		if (!storeList.privateStoreBuy(player, _items, priceTotal))
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -187,11 +193,13 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
 		}
-    }
 
-    @Override
-    public String getType()
-    {
-        return _C__79_REQUESTPRIVATESTOREBUY;
-    }
+		sendAF();
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__79_REQUESTPRIVATESTOREBUY;
+	}
 }

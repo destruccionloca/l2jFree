@@ -354,6 +354,7 @@ public final class AutomatedTvT
 				reward(player);
 			removeFromEvent(player, p);
 		}
+		eventPlayers.clear();
 		tpm.scheduleGeneral(task, Config.AUTO_TVT_PERIOD_LENGHT_REWARDS);
 	}
 

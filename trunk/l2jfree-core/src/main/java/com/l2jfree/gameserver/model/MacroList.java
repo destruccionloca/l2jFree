@@ -30,6 +30,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2Macro.L2MacroCmd;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.clientpackets.EnterWorld.GameDataQueue;
 import com.l2jfree.gameserver.network.serverpackets.SendMacroList;
 
 /**
@@ -107,20 +108,28 @@ public class MacroList
 		sendUpdate();
 	}
 
-	public void sendUpdate()
+	public void sendUpdate() {
+		sendUpdate(null);
+	}
+
+	public void sendUpdate(GameDataQueue gdq)
 	{
 		_revision++;
 		L2Macro[] all = getAllMacroses();
 		if (all.length == 0)
 		{
-			_owner.sendPacket(new SendMacroList(_revision, all.length, null));
+			if (gdq != null)
+				gdq.add(new SendMacroList(_revision, all.length, null));
+			else
+				_owner.sendPacket(new SendMacroList(_revision, all.length, null));
 		}
 		else
 		{
 			for (L2Macro m : all)
-			{
-				_owner.sendPacket(new SendMacroList(_revision, all.length, m));
-			}
+				if (gdq != null)
+					gdq.add(new SendMacroList(_revision, all.length, m));
+				else
+					_owner.sendPacket(new SendMacroList(_revision, all.length, m));
 		}
 	}
 
