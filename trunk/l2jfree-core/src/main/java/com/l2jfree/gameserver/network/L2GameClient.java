@@ -21,6 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javolution.text.TextBuilder;
+import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -501,12 +502,90 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		return _packetQueue;
 	}
 
-	/**
-	 * {@link RunnableStatsManager} used here mostly for counting, since
-	 * constructors - usually the longest parts - are excluded.
-	 */
+	private final class ServerPacketQueue extends FastList<SendablePacket<L2GameClient>> implements Runnable
+	{
+		private static final long serialVersionUID = 6715576112277597425L;
+		
+		public ServerPacketQueue()
+		{
+			ThreadPoolManager.getInstance().schedule(this, Config.ENTERWORLD_TICK);
+		}
+		
+		public void run()
+		{
+			synchronized (L2GameClient.this)
+			{
+				if (_serverPacketQueue != this)
+					return;
+				
+				if (isEmpty())
+				{
+					_serverPacketQueue = null;
+					return;
+				}
+				
+				int pn = size();
+				if (pn > Config.ENTERWORLD_PPT)
+					pn = Config.ENTERWORLD_PPT;
+				
+				for (int i = 0; i < pn; i++)
+				{
+					try
+					{
+						sendPacketImpl(removeFirst());
+					}
+					catch (Exception e)
+					{
+						_log.error("GDQ noob error (report in forum!) i=" + i + ", pn=" + pn, e);
+					}
+				}
+				
+				ThreadPoolManager.getInstance().schedule(this, Config.ENTERWORLD_TICK);
+			}
+		}
+	}
+	
+	private ServerPacketQueue _serverPacketQueue;
+	
 	@Override
 	public void sendPacket(SendablePacket<L2GameClient> sp)
+	{
+		if (_serverPacketQueue != null)
+		{
+			synchronized (this)
+			{
+				if (_serverPacketQueue != null)
+				{
+					_serverPacketQueue.add(sp);
+					return;
+				}
+			}
+		}
+		
+		sendPacketImpl(sp);
+	}
+	
+	public void initServerPacketQueue()
+	{
+		if (!Config.ENTERWORLD_QUEUING)
+			return;
+		
+		if (_serverPacketQueue == null)
+		{
+			synchronized (this)
+			{
+				if (_serverPacketQueue == null)
+				{
+					_serverPacketQueue = new ServerPacketQueue();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * {@link RunnableStatsManager} used here mostly for counting, since constructors - usually the longest parts - are excluded.
+	 */
+	private void sendPacketImpl(SendablePacket<L2GameClient> sp)
 	{
 		final long begin = System.nanoTime();
 		
@@ -531,7 +610,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			RunnableStatsManager.handleStats(sp.getClass(), "runImpl()", System.nanoTime() - begin);
 		}
 	}
-
+	
 	void close(boolean toLoginScreen)
 	{
 		super.close(toLoginScreen ? ServerClose.STATIC_PACKET : LeaveWorld.STATIC_PACKET);
