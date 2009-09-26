@@ -194,7 +194,6 @@ import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.clientpackets.EnterWorld.GameDataQueue;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CameraMode;
@@ -2062,11 +2061,6 @@ public final class L2PcInstance extends L2Playable
 
 	public void academyCheck(int Id)
 	{
-		academyCheck(Id, null);
-	}
-
-	public void academyCheck(int Id, GameDataQueue gdq)
-	{
 		if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
 		{
 			if (getLvlJoinedAcademy() <= 16)
@@ -2084,7 +2078,7 @@ public final class L2PcInstance extends L2Playable
 			_clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()));
 
 			_clan.removeClanMember(getObjectId(), 0);
-			gdq.add(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED);
+			sendPacket(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED);
 			// Receive graduation gift
 			getInventory().addItem("Gift", 8181, 1, this, null); // Give academy circlet
 		}
@@ -7463,7 +7457,7 @@ public final class L2PcInstance extends L2Playable
 	/**
 	 * check player skills and remove unlegit ones (excludes hero, noblesse and cursed weapon skills)
 	 */
-	public void checkAllowedSkills(GameDataQueue gdq)
+	public void checkAllowedSkills()
 	{
 		if (isGM())
 			return;
@@ -7522,10 +7516,7 @@ public final class L2PcInstance extends L2Playable
 			// Remove skill from ingame, but not from the database to avoid accidentally removal of skills
 			// if something failed loading and do a lil log message
 			removeSkill(skill, false);
-			if (gdq != null)
-				gdq.add(SystemMessage.sendString("Skill " + skill.getName() + " removed and GM informed!"));
-			else
-				sendMessage("Skill " + skill.getName() + " removed and GM informed!");
+			sendMessage("Skill " + skill.getName() + " removed and GM informed!");
 			_log.fatal("Cheater?! " + skill + " removed from " + getName() + " (" + getAccountName() + ")");
 		}
 	}
@@ -9775,15 +9766,7 @@ public final class L2PcInstance extends L2Playable
 
 	public void sendSkillList()
 	{
-		sendSkillList(null);
-	}
-
-	public void sendSkillList(GameDataQueue gdq)
-	{
-		if (gdq != null)
-			gdq.add(new SkillList(this));
-		else
-			sendPacket(new SkillList(this));
+		sendPacket(new SkillList(this));
 	}
 
 	public void setTransformAllowedSkills(int[] ids)
@@ -10545,7 +10528,7 @@ public final class L2PcInstance extends L2Playable
         return _taskWater != null;
     }
 
-	public void onPlayerEnter(GameDataQueue gdq)
+	public void onPlayerEnter()
 	{
 		startWarnUserTakeBreak();
 		startAutoSaveTask();
@@ -10557,7 +10540,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				teleToLocation(TeleportWhereType.Town);
 				setIsIn7sDungeon(false);
-				gdq.add(SystemMessage.sendString("You have been teleported to the nearest town due to the beginning of the Seal Validation period."));
+				sendPacket(SystemMessage.sendString("You have been teleported to the nearest town due to the beginning of the Seal Validation period."));
 			}
 		}
 		else
@@ -10566,7 +10549,7 @@ public final class L2PcInstance extends L2Playable
 			{
 				teleToLocation(TeleportWhereType.Town);
 				setIsIn7sDungeon(false);
-				gdq.add(SystemMessage.sendString("You have been teleported to the nearest town because you have not signed for any cabal."));
+				sendPacket(SystemMessage.sendString("You have been teleported to the nearest town because you have not signed for any cabal."));
 			}
 		}
 
@@ -10574,11 +10557,11 @@ public final class L2PcInstance extends L2Playable
 		updateJailState();
 
 		if (_isInvul) // isInvul() is always true on login if login protection is activated...
-			gdq.add(SystemMessage.sendString("Entering world in Invulnerable mode."));
+			sendPacket(SystemMessage.sendString("Entering world in Invulnerable mode."));
 		if (getAppearance().isInvisible())
-			gdq.add(SystemMessage.sendString("Entering world in Invisible mode."));
+			sendPacket(SystemMessage.sendString("Entering world in Invisible mode."));
 		if (getMessageRefusal())
-			gdq.add(SystemMessage.sendString("Entering world in Message Refusal mode."));
+			sendPacket(SystemMessage.sendString("Entering world in Message Refusal mode."));
 
 		revalidateZone(true);
 

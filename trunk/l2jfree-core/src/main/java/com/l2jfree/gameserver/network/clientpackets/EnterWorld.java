@@ -14,13 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import javolution.util.FastList;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Announcements;
 import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
@@ -65,7 +62,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
-import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
@@ -93,8 +89,6 @@ public class EnterWorld extends L2GameClientPacket
 {
 	private static final String	_C__03_ENTERWORLD	= "[C] 03 EnterWorld";
 
-	private GameDataQueue		gdq					= null;
-
 	@Override
 	protected void readImpl()
 	{
@@ -112,10 +106,8 @@ public class EnterWorld extends L2GameClientPacket
 			return;
 		}
 
-		// sad that sendPacket is declared as final, so forget about any
-		// compatibility with l2j; also do NOT use sendPacket() in this void!!!
-		gdq = new GameDataQueue();
-
+		getClient().initServerPacketQueue();
+		
 		if (Config.GM_EVERYBODY_HAS_ADMIN_RIGHTS && !(activeChar.isGM()))
 			activeChar.setAccessLevel(200);
 
@@ -139,23 +131,23 @@ public class EnterWorld extends L2GameClientPacket
 
 		activeChar.getKnownList().updateKnownObjects();
 
-		gdq.add(new SSQInfo());
-		gdq.add(new UserInfo(activeChar));
-		gdq.add(new ItemList(activeChar, false));
-		activeChar.getMacroses().sendUpdate(gdq);
-		gdq.add(new ShortCutInit(activeChar));
-		activeChar.sendSkillList(gdq);
-		gdq.add(SystemMessageId.WELCOME_TO_LINEAGE);
+		sendPacket(new SSQInfo());
+		sendPacket(new UserInfo(activeChar));
+		sendPacket(new ItemList(activeChar, false));
+		activeChar.getMacroses().sendUpdate();
+		sendPacket(new ShortCutInit(activeChar));
+		activeChar.sendSkillList();
+		sendPacket(SystemMessageId.WELCOME_TO_LINEAGE);
 		if (Config.SERVER_AGE_LIM >= 18 || Config.SERVER_PVP)
-			gdq.add(SystemMessageId.ENTERED_ADULTS_ONLY_SERVER);
+			sendPacket(SystemMessageId.ENTERED_ADULTS_ONLY_SERVER);
 		else if (Config.SERVER_AGE_LIM >= 15)
-			gdq.add(SystemMessageId.ENTERED_COMMON_SERVER);
+			sendPacket(SystemMessageId.ENTERED_COMMON_SERVER);
 		else
-			gdq.add(SystemMessageId.ENTERED_JUVENILES_SERVER);
-		gdq.add(new HennaInfo(activeChar));
+			sendPacket(SystemMessageId.ENTERED_JUVENILES_SERVER);
+		sendPacket(new HennaInfo(activeChar));
 
-		Announcements.getInstance().showAnnouncements(activeChar, gdq);
-		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar, gdq);
+		Announcements.getInstance().showAnnouncements(activeChar);
+		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
 
 		if (activeChar.isGM())
 		{
@@ -210,12 +202,12 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		// send user info again .. just like the real client
-		gdq.add(new UserInfo(activeChar));
+		sendPacket(new UserInfo(activeChar));
 
 		if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
 		{
-			gdq.add(new PledgeShowMemberListAll(activeChar.getClan()));
-			gdq.add(new PledgeStatusChanged(activeChar.getClan()));
+			sendPacket(new PledgeShowMemberListAll(activeChar.getClan()));
+			sendPacket(new PledgeStatusChanged(activeChar.getClan()));
 
 			// Residential skills support
 			activeChar.enableResidentialSkills(true);
@@ -225,10 +217,7 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.setIsDead(true);
 		if (activeChar.isAlikeDead()) // dead or fake dead
 			// no broadcast needed since the player will already spawn dead to others
-			gdq.add(new Die(activeChar));
-
-		// Init packet sending
-		gdq.flush();
+			sendPacket(new Die(activeChar));
 
 		// engage and notify Partner
 		if (Config.ALLOW_WEDDING)
@@ -256,7 +245,7 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		activeChar.updateEffectIcons();
-		gdq.add(new SkillCoolTime(activeChar));
+		sendPacket(new SkillCoolTime(activeChar));
 
 		Quest.playerEnter(activeChar);
 		loadTutorial(activeChar);
@@ -281,11 +270,11 @@ public class EnterWorld extends L2GameClientPacket
 					continue;
 				response.addSkill(s.getId(), s.getLevel());
 			}
-			gdq.add(response);
+			sendPacket(response);
 		}
 
-		gdq.add(new ExStorageMaxCount(activeChar));
-		gdq.add(new QuestList(activeChar));
+		sendPacket(new ExStorageMaxCount(activeChar));
+		sendPacket(new QuestList(activeChar));
 
 		activeChar.broadcastUserInfo();
 
@@ -303,7 +292,7 @@ public class EnterWorld extends L2GameClientPacket
 			DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
 
 		// Wherever these should be?
-		gdq.add(new ShortCutInit(activeChar));
+		sendPacket(new ShortCutInit(activeChar));
 
 		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
 			activeChar.setHero(true);
@@ -352,10 +341,10 @@ public class EnterWorld extends L2GameClientPacket
 
 		activeChar.queryGameGuard();
 
-		gdq.add(new FriendList(activeChar));
+		sendPacket(new FriendList(activeChar));
 
 		if (Config.SHOW_LICENSE)
-			CoreInfo.versionInfo(gdq);
+			CoreInfo.versionInfo(activeChar);
 
 		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
 		{
@@ -365,7 +354,7 @@ public class EnterWorld extends L2GameClientPacket
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Newbie_Path);
 				html.replace("%name%", activeChar.getName()); // replaces %name%, so you can say like "welcome to the server %name%"
-				gdq.add(html);
+				sendPacket(html);
 			}
 		}
 		else if (Config.SHOW_HTML_GM && activeChar.isGM())
@@ -376,7 +365,7 @@ public class EnterWorld extends L2GameClientPacket
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Gm_Path);
 				html.replace("%name%", activeChar.getName()); // replaces %name%, so you can say like "welcome to the server %name%"
-				gdq.add(html);
+				sendPacket(html);
 			}
 		}
 		else if (Config.SHOW_HTML_WELCOME)
@@ -387,7 +376,7 @@ public class EnterWorld extends L2GameClientPacket
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Welcome_Path);
 				html.replace("%name%", activeChar.getName()); // replaces %name%, so you can say like "welcome to the server %name%"
-				gdq.add(html);
+				sendPacket(html);
 			}
 		}
 
@@ -396,7 +385,7 @@ public class EnterWorld extends L2GameClientPacket
 
 		// check player skills
 		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-			activeChar.checkAllowedSkills(gdq);
+			activeChar.checkAllowedSkills();
 
 		// check for academy
 		activeChar.academyCheck(activeChar.getClassId().getId());
@@ -411,22 +400,22 @@ public class EnterWorld extends L2GameClientPacket
 				sm.addString("Player online: " + L2World.getInstance().getAllPlayers().size());
 			else
 				sm.addString("Players online: " + L2World.getInstance().getAllPlayers().size());
-			gdq.add(sm);
+			sendPacket(sm);
 		}
 
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 
-		activeChar.onPlayerEnter(gdq);
+		activeChar.onPlayerEnter();
 
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
-			gdq.add(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
+			sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
 
 		if (activeChar.getClan() != null)
 		{
 			// Add message if clanHall not paid. Possibly this is custom...
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
 			if (clanHall != null && !clanHall.getPaid())
-				gdq.add(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
+				sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
 		}
 
 		//Sets the appropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
@@ -434,7 +423,7 @@ public class EnterWorld extends L2GameClientPacket
 
 		L2ShortCut[] allShortCuts = activeChar.getAllShortCuts();
 		for (L2ShortCut sc : allShortCuts)
-			gdq.add(new ShortCutRegister(sc));
+			sendPacket(new ShortCutRegister(sc));
 
 		// remove combat flag before teleporting
 		L2ItemInstance flag = activeChar.getInventory().getItemByItemId(9819);
@@ -469,10 +458,7 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.regiveTemporarySkills();
 
 		// Send Teleport Bookmark List
-		gdq.add(new ExGetBookMarkInfoPacket(activeChar));
-
-		// Flush any left-over packets
-		gdq.flush();
+		sendPacket(new ExGetBookMarkInfoPacket(activeChar));
 
 		ExBasicActionList.sendTo(activeChar);
 
@@ -553,7 +539,7 @@ public class EnterWorld extends L2GameClientPacket
 				msg = null;
 				clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
 				if (clan.isNoticeEnabled() && !clan.getNotice().isEmpty())
-					gdq.add(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">"
+					sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">"
 							+ activeChar.getClan().getName() + "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>"
 							+ "<img src=\"L2UI.SquareWhite\" width=270 height=1><br>" + activeChar.getClan().getNotice() + "</body></html>"));
 			}
@@ -600,71 +586,5 @@ public class EnterWorld extends L2GameClientPacket
 	public String getType()
 	{
 		return _C__03_ENTERWORLD;
-	}
-
-	public class GameDataQueue implements Runnable
-	{
-		private final FastList<L2GameServerPacket>	packets;
-		private volatile boolean					active;
-
-		private GameDataQueue()
-		{
-			if (Config.ENTERWORLD_QUEUING)
-				packets = new FastList<L2GameServerPacket>();
-			else
-				packets = null;
-			active = false;
-		}
-
-		public final void add(L2GameServerPacket packet)
-		{
-			if (packets != null)
-				packets.add(packet);
-			else
-				sendPacket(packet);
-		}
-
-		public final void add(SystemMessageId msg)
-		{
-			add(msg.getSystemMessage());
-		}
-
-		private void flush()
-		{
-			if (active || !valid())
-				return;
-
-			active = true;
-			ThreadPoolManager.getInstance().scheduleGeneral(this, 0);
-		}
-
-		private final boolean valid()
-		{
-			return getActiveChar() != null && packets != null && !packets.isEmpty();
-		}
-
-		@Override
-		public void run()
-		{
-			if (!valid())
-			{
-				active = false;
-				return;
-			}
-			int pn = packets.size();
-			if (pn > Config.ENTERWORLD_PPT)
-				pn = Config.ENTERWORLD_PPT;
-			for (int i = 0; i < pn; i++) {
-				try {
-				sendPacket(packets.removeFirst());
-				} catch (Exception e) {
-					_log.error("GDQ noob error (report in forum!) i=" + i + ", pn=" + pn + ", active=" + active, e);
-				}
-			}
-			if (packets.isEmpty())
-				active = false;
-			else
-				ThreadPoolManager.getInstance().scheduleGeneral(this, Config.ENTERWORLD_TICK);
-		}
 	}
 }

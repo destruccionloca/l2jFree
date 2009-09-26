@@ -37,7 +37,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.clientpackets.EnterWorld.GameDataQueue;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -83,18 +82,10 @@ public class Announcements
 
 	public void showAnnouncements(L2PcInstance activeChar)
 	{
-		showAnnouncements(activeChar, null);
-	}
-
-	public void showAnnouncements(L2PcInstance activeChar, GameDataQueue gdq)
-	{
 		for (int i = 0; i < _announcements.size(); i++)
 		{
 			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce, activeChar.getName(), _announcements.get(i).replace("%name%", activeChar.getName()));
-			if (gdq != null)
-				gdq.add(cs);
-			else
-				activeChar.sendPacket(cs);
+			activeChar.sendPacket(cs);
 		}
 
 		for (int i = 0; i < _eventAnnouncements.size(); i++)
@@ -110,10 +101,7 @@ public class Announcements
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 				for (String element : msg)
 					sm.addString(element);
-				if (gdq != null)
-					gdq.add(sm);
-				else
-					activeChar.sendPacket(sm);
+				activeChar.sendPacket(sm);
 			}
 		}
 	}

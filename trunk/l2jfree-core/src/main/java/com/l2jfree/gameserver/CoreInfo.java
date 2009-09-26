@@ -20,7 +20,6 @@ import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.clientpackets.EnterWorld.GameDataQueue;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.versionning.Version;
 
@@ -65,12 +64,6 @@ public final class CoreInfo
 	{
 		for (SystemMessage msg : info)
 			activeChar.sendPacket(msg);
-	}
-
-	public static final void versionInfo(GameDataQueue gdq)
-	{
-		for (SystemMessage msg : info)
-			gdq.add(msg);
 	}
 
 	public static String getVersionInfo()
