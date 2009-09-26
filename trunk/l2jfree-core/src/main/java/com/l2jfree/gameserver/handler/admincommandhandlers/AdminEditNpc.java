@@ -121,7 +121,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 
 				try
 				{
-					pageId = Integer.valueOf(commandSplit[2]);
+					pageId = Integer.parseInt(commandSplit[2]);
 				}
 				catch (Exception e)
 				{
@@ -505,7 +505,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			long price = Long.parseLong(args[3]);
 			int order = findOrderTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
 
-			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
+			tradeList.replaceItem(itemID, Long.parseLong(args[3]));
 			updateTradeList(itemID, price, tradeListID, order);
 
 			activeChar.sendMessage("Updated price for " + item.getName() + " in Trade List " + tradeListID);
@@ -596,7 +596,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			int order = tradeList.getItems().size() + 1; // last item order + 1
 			int itemID = Integer.parseInt(args[2]);
-			int price = Integer.parseInt(args[3]);
+			long price = Long.parseLong(args[3]);
 
 			L2ItemInstance newItem = ItemTable.getInstance().createDummyItem(itemID);
 			newItem.setPriceToSell(price);
@@ -650,7 +650,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			long price = Long.parseLong(args[3]);
 			int order = findOrderCustomTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
 
-			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
+			tradeList.replaceItem(itemID, Long.parseLong(args[3]));
 			updateCustomTradeList(itemID, price, tradeListID, order);
 
 			activeChar.sendMessage("Updated price for " + item.getName() + " in Trade List " + tradeListID);
@@ -968,8 +968,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values (" + itemID + "," + price
-					+ "," + tradeListID + "," + order + ")");
+			PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists (`item_id`,`price`,`shop_id`,`order`) VALUES (?,?,?,?)");
+			stmt.setInt(1, itemID);
+			stmt.setLong(2, price);
+			stmt.setInt(3, tradeListID);
+			stmt.setInt(4, order);
 			stmt.execute();
 			stmt.close();
 		}
@@ -995,8 +998,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='" + price + "' WHERE `shop_id`='" + tradeListID
-					+ "' AND `order`='" + order + "'");
+			PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price` = ? WHERE `shop_id` = ? AND `order` = ?");
+			stmt.setLong(1, price);
+			stmt.setInt(2, tradeListID);
+			stmt.setInt(3, order);
 			stmt.execute();
 			stmt.close();
 		}
@@ -1016,7 +1021,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='" + tradeListID + "' AND `order`='" + order + "'");
+			PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id` = ? AND `order` = ?");
+			stmt.setInt(1, tradeListID);
+			stmt.setInt(2, order);
 			stmt.execute();
 			stmt.close();
 		}
@@ -1037,8 +1044,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM merchant_buylists WHERE `shop_id`='" + tradeListID + "' AND `item_id` ='" + itemID
-					+ "' AND `price` = '" + price + "'");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM merchant_buylists WHERE `shop_id` = ? AND `item_id` = ? AND `price` = ?");
+			stmt.setInt(1, tradeListID);
+			stmt.setInt(2, itemID);
+			stmt.setLong(3, price);
 			ResultSet rs = stmt.executeQuery();
 			rs.first();
 
@@ -1393,7 +1402,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			}
 			else if (statToSet.equals("absorbType"))
 			{
-				int intValue = Integer.valueOf(value);
+				int intValue = Integer.parseInt(value);
 				newNpcData.set("absorb_type", intValue == 0 ? "LAST_HIT" : intValue == 1 ? "FULL_PARTY" : "PARTY_ONE_RANDOM");
 			}
 		}
@@ -1467,8 +1476,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			PreparedStatement statement = con.prepareStatement("SELECT mobId, itemId, min, max, category, chance FROM droplist WHERE mobId=" + npcId
-					+ " AND itemId=" + itemId + " AND category=" + category);
+			PreparedStatement statement = con.prepareStatement("SELECT mobId, itemId, min, max, category, chance FROM droplist WHERE mobId = ? AND itemId = ? AND category = ?");
+			statement.setInt(1, npcId);
+			statement.setInt(2, itemId);
+			statement.setInt(3, category);
 			ResultSet dropData = statement.executeQuery();
 
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);

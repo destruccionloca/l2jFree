@@ -62,12 +62,10 @@ public class AdminBuffs implements IAdminCommandHandler
 					return true;
 				}
 
-				activeChar.sendMessage("The player " + playername
-				        + " is not online");
+				activeChar.sendMessage("The player " + playername + " is not online");
 				return false;
 			}
-			else if ((activeChar.getTarget() != null)
-			        && (activeChar.getTarget() instanceof L2PcInstance))
+			else if ((activeChar.getTarget() != null) && (activeChar.getTarget() instanceof L2PcInstance))
 			{
 				showBuffs((L2PcInstance) activeChar.getTarget(), activeChar);
 				return true;
@@ -91,8 +89,7 @@ public class AdminBuffs implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Failed removing effect: "
-				        + e.getMessage());
+				activeChar.sendMessage("Failed removing effect: " + e.getMessage());
 				activeChar.sendMessage("Usage: //stopbuff <playername> [skillId]");
 				return false;
 			}
@@ -121,13 +118,11 @@ public class AdminBuffs implements IAdminCommandHandler
 				
 				for (L2Character knownChar : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 				{
-					if ((knownChar instanceof L2PcInstance)
-					        && !(knownChar.equals(activeChar)))
+					if ((knownChar instanceof L2PcInstance) && !(knownChar.equals(activeChar)))
 						knownChar.stopAllEffects();
 				}
 				
-				activeChar.sendMessage("All effects canceled within raidus "
-				        + radius);
+				activeChar.sendMessage("All effects canceled within raidus " + radius);
 				return true;
 			}
 			catch (NumberFormatException e)
@@ -203,9 +198,7 @@ public class AdminBuffs implements IAdminCommandHandler
 				if ((e != null) && (e.getSkill().getId() == SkillId))
 				{
 					e.exit();
-					remover.sendMessage("Removed " + e.getSkill().getName()
-					        + " level " + e.getSkill().getLevel() + " from "
-					        + playername);
+					remover.sendMessage("Removed " + e.getSkill().getName() + " level " + e.getSkill().getLevel() + " from " + playername);
 				}
 			}
 			showBuffs(player, remover);
@@ -231,9 +224,7 @@ public class AdminBuffs implements IAdminCommandHandler
 		}
 		else
 		{
-			remover.sendMessage("Can not remove effects from " + playername
-			        + ". Player appears offline.");
-			showBuffs(player, remover);
+			remover.sendMessage("The player " + playername + " is not online");
 		}
 	}
 	

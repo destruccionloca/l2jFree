@@ -44,7 +44,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.Util;
 
 public class SiegeManager
@@ -182,14 +181,14 @@ public class SiegeManager
 		return false;
 	}
 
-	public boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle, boolean isCheckOnly)
+	public boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle)
 	{
 		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-
+		
 		SystemMessageId sm = null;
-		L2PcInstance player = (L2PcInstance) activeChar;
-
+		L2PcInstance player = (L2PcInstance)activeChar;
+		
 		if (castle == null || castle.getCastleId() <= 0 || castle.getSiege().getAttackerClan(player.getClan()) == null)
 			sm = SystemMessageId.YOU_ARE_NOT_IN_SIEGE;
 		else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
@@ -200,14 +199,11 @@ public class SiegeManager
 			sm = SystemMessageId.TARGET_TOO_FAR;
 		else
 		{
-			if (!isCheckOnly)
-				castle.getSiege().announceToOpponent(new SystemMessage(SystemMessageId.OPPONENT_STARTED_ENGRAVING), player.getClan());
+			castle.getSiege().announceToPlayer(SystemMessageId.OPPONENT_STARTED_ENGRAVING.getSystemMessage(), false);
 			return true;
 		}
-
-		if (!isCheckOnly)
-			player.sendPacket(sm);
-
+		
+		player.sendPacket(sm);
 		return false;
 	}
 

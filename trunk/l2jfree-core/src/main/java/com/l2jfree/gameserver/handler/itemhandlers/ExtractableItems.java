@@ -84,21 +84,19 @@ public class ExtractableItems implements IItemHandler
 		if (createItemID[0] <= 0 || createItemID.length == 0 )
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
-			return;
 		}
-		
 		else
 		{
 			for (int i = 0; i < createItemID.length; i++)
 			{
 				if (createItemID[i] <= 0)
-					return;
+					continue;
 
 				if (ItemTable.getInstance().getTemplate(createItemID[i]) == null)
 				{
 					_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
-					return;
+					continue;
 				}
 
 				if (ItemTable.getInstance().getTemplate(createItemID[i]).isStackable())

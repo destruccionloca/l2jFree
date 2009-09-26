@@ -138,6 +138,7 @@ public class SoulCrystals implements IItemHandler
 
 	}
 
+	// TODO: this should be inside skill handler
 	static class CrystalFinalizer implements Runnable
 	{
 		private final L2PcInstance	_activeChar;

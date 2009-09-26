@@ -48,7 +48,7 @@ public final class BeastSpiritShot implements IItemHandler
 				return;
 			}
 
-			if (item.getItemId() == 6647)
+			if (item.getItemId() == 6647 || item.getItemId() == 20334)
 				activePet.getShots().chargeBlessedSpiritshot(item);
 			else
 				activePet.getShots().chargeSpiritshot(item);

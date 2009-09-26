@@ -58,8 +58,8 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON) ||
-				AutomatedTvT.isPlaying(summonerChar))
+		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON) || summonerChar.isFlyingMounted()
+				|| AutomatedTvT.isPlaying(summonerChar))
 		{
 			summonerChar.sendPacket(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
 			return false;
@@ -119,7 +119,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (targetChar.isFestivalParticipant())
+		if (targetChar.isFestivalParticipant() || targetChar.isFlyingMounted())
 		{
 			summonerChar.sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
 			return false;
@@ -204,6 +204,7 @@ public class SummonFriend implements ISkillHandler
 		}
 		// Set correct instance id
 		targetChar.setInstanceId(summonerChar.getInstanceId());
+		targetChar.setIsIn7sDungeon(summonerChar.isIn7sDungeon());
 		targetChar.teleToLocation(summonerChar.getX(), summonerChar.getY(), summonerChar.getZ(), true);
 	}
 

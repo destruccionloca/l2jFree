@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.datatables.SkillTable.SkillInfo;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
@@ -335,8 +335,15 @@ public class Seed implements IItemHandler
 		{
 			//FIXME: get right skill level
 			target.setSeeded(seedId, activeChar);
-			L2Skill skill = SkillTable.getInstance().getInfo(2097, 3); // Sowing skill
-			activeChar.useMagic(skill, false, false);
+			
+			for (SkillInfo skillInfo : item.getEtcItem().getSkillInfos())
+			{
+				L2Skill itemSkill = skillInfo.getSkill();
+				if (itemSkill == null)
+					continue;
+				
+				activeChar.useMagic(itemSkill, false, false); // Sowing skill
+			}
 		}
 		else
 		{

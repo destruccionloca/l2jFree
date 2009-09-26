@@ -43,7 +43,7 @@ public class TakeCastle implements ISkillHandler
 			return;
 
 		Castle castle = CastleManager.getInstance().getCastle(player);
-		if (castle == null || !SiegeManager.getInstance().checkIfOkToCastSealOfRule(player, castle, true))
+		if (castle == null || !SiegeManager.getInstance().checkIfOkToCastSealOfRule(player, castle))
 			return;
 
 		if (targets.length > 0 && targets[0] instanceof L2ArtefactInstance)
@@ -61,8 +61,8 @@ public class TakeCastle implements ISkillHandler
 	 * @param activeChar The L2Character of the character placing the flag
 	 * 
 	 */
-	public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, boolean isCheckOnly)
+	public static boolean checkIfOkToCastSealOfRule(L2Character activeChar)
 	{
-		return SiegeManager.getInstance().checkIfOkToCastSealOfRule(activeChar, CastleManager.getInstance().getCastle(activeChar), isCheckOnly);
+		return SiegeManager.getInstance().checkIfOkToCastSealOfRule(activeChar, CastleManager.getInstance().getCastle(activeChar));
 	}
 }

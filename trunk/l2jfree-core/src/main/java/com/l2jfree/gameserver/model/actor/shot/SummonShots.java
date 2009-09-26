@@ -18,9 +18,7 @@ import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2BabyPetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 
@@ -45,16 +43,12 @@ public final class SummonShots extends CharShots
 	@Override
 	protected ShotState getShotState()
 	{
-		if (getActiveChar() instanceof L2PetInstance && !(getActiveChar() instanceof L2BabyPetInstance))
-		{
-			L2ItemInstance weaponInst = getActiveChar().getActiveWeaponInstance();
-			
-			if (weaponInst != null)
-				return weaponInst.getShotState();
-			
-			return ShotState.getEmptyInstance();
-		}
+		final L2ItemInstance weaponInst = getActiveChar().getActiveWeaponInstance();
 		
+		if (weaponInst != null)
+			return weaponInst.getShotState();
+		
+		// pet shots should be used even if pet is without weapon
 		if (_shotState == null)
 			_shotState = new ShotState();
 		
@@ -133,9 +127,9 @@ public final class SummonShots extends CharShots
 		}
 		*/
 		
-		int shotConsumption = 1;
+		int shotConsumption = 1; // TODO: this should be readed from npc.sql(summons)/pets_stats.sql tables
 		
-		if (activePet instanceof L2PetInstance && !(activePet instanceof L2BabyPetInstance))
+		if (activePet.getActiveWeaponItem() != null)
 		{
 			if (type == ShotType.SOUL)
 				shotConsumption = activePet.getActiveWeaponItem().getSoulShotCount();
@@ -167,11 +161,11 @@ public final class SummonShots extends CharShots
 		activeOwner.sendPacket(SystemMessageId.PET_USE_THE_POWER_OF_SPIRIT);
 		
 		if (type == ShotType.SOUL)
-			activeOwner.broadcastPacket(new MagicSkillUse(activePet, 2033, 1, 0, 0));
+			activeOwner.broadcastPacket(new MagicSkillUse(activePet, item.getItemId() == 6645 ? 2033 : 22036, 1, 0, 0));
 		else if (type == ShotType.SPIRIT)
-			activeOwner.broadcastPacket(new MagicSkillUse(activePet, 2008, 1, 0, 0));
+			activeOwner.broadcastPacket(new MagicSkillUse(activePet, item.getItemId() == 6646 ? 2008 : 22037, 1, 0, 0));
 		else if (type == ShotType.BLESSED_SPIRIT)
-			activeOwner.broadcastPacket(new MagicSkillUse(activePet, 2009, 1, 0, 0));
+			activeOwner.broadcastPacket(new MagicSkillUse(activePet, item.getItemId() == 6647 ? 2009 : 22038, 1, 0, 0));
 		
 		return true;
 	}

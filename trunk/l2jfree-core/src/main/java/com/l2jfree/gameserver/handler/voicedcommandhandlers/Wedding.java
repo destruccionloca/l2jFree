@@ -246,6 +246,11 @@ public class Wedding implements IVoicedCommandHandler
 			activeChar.sendMessage("You are currently holding a cursed weapon.");
 			return null;
 		}
+		else if (activeChar.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM) || activeChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
+		{
+			activeChar.sendMessage("You are in a unsuitable area for teleporting.");
+			return null;
+		}
 		else if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerGotoLove))
 		{
 			activeChar.sendMessage("You cannot find your love due to a restriction.");
@@ -331,7 +336,7 @@ public class Wedding implements IVoicedCommandHandler
 
 		int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL * 1000;
 
-		activeChar.sendMessage("After " + teleportTimer / 60000 + " min. you will be teleported to your fiance.");
+		activeChar.sendMessage("After " + teleportTimer / 60000 + " min. you will be teleported to your partner.");
 		activeChar.getInventory().reduceAdena("Wedding", Config.WEDDING_TELEPORT_PRICE, activeChar, null);
 
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

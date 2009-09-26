@@ -147,7 +147,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Use: //earthquake <intensity> <duration>");
+				activeChar.sendMessage("Usage: //earthquake <intensity> <duration>");
 			}
 		}
 		else if (command.startsWith("admin_atmosphere"))
@@ -160,18 +160,22 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (Exception ex)
 			{
+				activeChar.sendMessage("Usage: //atmosphere <signsky dawn|dusk>|<sky day|night|red>");
 			}
 		}
 		else if (command.equals("admin_play_sounds"))
+		{
 			AdminHelpPage.showHelpPage(activeChar, "songs/songs.htm");
+		}
 		else if (command.startsWith("admin_play_sounds"))
 		{
 			try
 			{
-				AdminHelpPage.showHelpPage(activeChar, "songs/songs" + command.substring(17) + ".htm");
+				AdminHelpPage.showHelpPage(activeChar, "songs/songs" + command.substring(18) + ".htm");
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
+				activeChar.sendMessage("Usage: //play_sounds <pagenumber>");
 			}
 		}
 		else if (command.startsWith("admin_play_sound"))
@@ -182,9 +186,44 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
+				activeChar.sendMessage("Usage: //play_sound <soundname>");
 			}
 		}
-		else if (command.startsWith("admin_para") || command.startsWith("admin_para_menu"))
+		else if (command.startsWith("admin_para_all"))
+		{
+			try
+			{
+				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
+				{
+					if (!player.isGM())
+					{
+						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+						player.startParalyze();
+						StopMove sm = new StopMove(player);
+						player.sendPacket(sm);
+						player.broadcastPacket(sm);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		else if (command.startsWith("admin_unpara_all"))
+		{
+			try
+			{
+				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
+				{
+					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+					player.stopParalyze(false);
+				}
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		else if (command.startsWith("admin_para")) // || command.startsWith("admin_para_menu"))
 		{
 			String type = "1";
 			if (st.hasMoreTokens())
@@ -222,43 +261,9 @@ public class AdminEffects implements IAdminCommandHandler
 				L2Character player = null;
 				if (target instanceof L2Character)
 				{
-					player = (L2Character) target;
+					player = (L2Character)target;
 					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-					player.stopParalyze(false);
-				}
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		else if (command.startsWith("admin_para_all"))
-		{
-			try
-			{
-				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-				{
-					if (!player.isGM())
-					{
-						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
-						player.startParalyze();
-						StopMove sm = new StopMove(player);
-						player.sendPacket(sm);
-						player.broadcastPacket(sm);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-			}
-		}
-		else if (command.startsWith("admin_unpara_all"))
-		{
-			try
-			{
-				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-				{
-					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 					player.stopParalyze(false);
 				}
 			}
@@ -308,7 +313,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Use //gmspeed <value> (0=off...4=max).");
+				activeChar.sendMessage("Usage: //gmspeed <value> (0=off...4=max)");
 			}
 			finally
 			{
@@ -332,6 +337,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
+				activeChar.sendMessage("Usage: //polyself <npcId>");
 			}
 		}
 		else if (command.startsWith("admin_unpolyself"))
@@ -344,7 +350,7 @@ public class AdminEffects implements IAdminCommandHandler
 				activeChar.broadcastUserInfo(); // Should be done automatically?
 			}
 		}
-		else if (command.equals("admin_clear_teams"))
+		else if (command.equals("admin_clearteams"))
 		{
 			try
 			{
@@ -368,7 +374,7 @@ public class AdminEffects implements IAdminCommandHandler
 				{
 					if (activeChar.isInsideRadius(player, 400, false, true))
 					{
-						player.setTeam(0);
+						player.setTeam(teamVal);
 						if (teamVal != 0)
 						{
 							player.sendMessage("You have joined team " + teamVal);
@@ -379,24 +385,32 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
+				activeChar.sendMessage("Usage: //setteam_close <teamId>");
 			}
 		}
 		else if (command.startsWith("admin_setteam"))
 		{
-			String val = command.substring(14);
-			int teamVal = Integer.parseInt(val);
-			L2Object target = activeChar.getTarget();
-			L2PcInstance player = null;
-			if (target instanceof L2PcInstance)
-				player = (L2PcInstance) target;
-			else
-				return false;
-			player.setTeam(teamVal);
-			if (teamVal != 0)
+			try
 			{
-				player.sendMessage("You have joined team " + teamVal);
+				String val = st.nextToken();
+				int teamVal = Integer.parseInt(val);
+				L2Object target = activeChar.getTarget();
+				L2PcInstance player = null;
+				if (target instanceof L2PcInstance)
+					player = (L2PcInstance) target;
+				else
+					return false;
+				player.setTeam(teamVal);
+				if (teamVal != 0)
+				{
+					player.sendMessage("You have joined team " + teamVal);
+				}
+				player.broadcastUserInfo();
 			}
-			player.broadcastUserInfo();
+			catch (Exception e)
+			{
+				activeChar.sendMessage("Usage: //setteam <teamId>");
+			}
 		}
 		else if (command.startsWith("admin_give_souls"))
 		{
@@ -750,6 +764,8 @@ public class AdminEffects implements IAdminCommandHandler
 		String filename = "effects_menu";
 		if (command.contains("abnormal"))
 			filename = "abnormal";
+		else if (command.contains("special"))
+			filename = "special";
 		else if (command.contains("social"))
 			filename = "social";
 		AdminHelpPage.showHelpPage(activeChar, filename + ".htm");

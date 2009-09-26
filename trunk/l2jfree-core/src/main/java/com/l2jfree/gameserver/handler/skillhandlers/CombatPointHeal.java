@@ -34,7 +34,7 @@ public class CombatPointHeal implements ISkillHandler
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
 	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.COMBATPOINTHEAL };
+													{ L2SkillType.COMBATPOINTHEAL, L2SkillType.CPHEAL_PERCENT };
 
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
@@ -51,8 +51,10 @@ public class CombatPointHeal implements ISkillHandler
 			
 			double cp = skill.getPower();
 
+			if (skill.getSkillType() == L2SkillType.CPHEAL_PERCENT)
+				cp = target.getMaxCp() * cp / 100;
 			// From CT2 u will receive exact CP, you can't go over it, if you have full CP and you get CP buff, you will receive 0CP restored message
-			if ((target.getStatus().getCurrentCp() + cp) >= target.getMaxCp())
+			else if ((target.getStatus().getCurrentCp() + cp) >= target.getMaxCp())
 				cp = target.getMaxCp() - target.getStatus().getCurrentCp();
 
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);

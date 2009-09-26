@@ -18,6 +18,8 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 /**
@@ -25,31 +27,27 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
  */
 public class TransformDispel implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.TRANSFORMDISPEL };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.TRANSFORMDISPEL };
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (activeChar.isAlikeDead())
+		if (!(activeChar instanceof L2PcInstance))
 			return;
-
-		for (L2Character element : targets)
+		
+		final L2PcInstance pc = (L2PcInstance)activeChar;
+		
+		if (pc.isAlikeDead() || pc.isCursedWeaponEquipped())
+			return;
+		
+		if (pc.isTransformed() || pc.isInStance())
 		{
-			if (!(element instanceof L2PcInstance))
-				continue;
-
-			L2PcInstance target = (L2PcInstance) element;
-
-			if (target.isAlikeDead() || target.isCursedWeaponEquipped())
-				continue;
-
-			if (target.isTransformed())
-			{
-				activeChar.stopTransformation(true);
-			}
+			if (pc.isFlyingMounted() && !pc.isInsideZone(L2Zone.FLAG_LANDING))
+				pc.sendPacket(SystemMessageId.BOARD_OR_CANCEL_NOT_POSSIBLE_HERE);
+			else
+				pc.stopTransformation(true);
 		}
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

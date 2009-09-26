@@ -62,8 +62,6 @@ public class Continuous implements ICubicSkillHandler
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		boolean acted = true;
-
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
@@ -91,7 +89,13 @@ public class Continuous implements ICubicSkillHandler
 		{
 			if (target == null)
 				continue;
-
+			
+			boolean acted = true;
+			boolean ss = false;
+			boolean sps = false;
+			boolean bss = false;
+			byte shld = 0;
+			
 			if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 				target = activeChar;
 
@@ -109,14 +113,13 @@ public class Continuous implements ICubicSkillHandler
 					else if (player != null && player.isCursedWeaponEquipped())
 						continue;
 				}
+				// TODO: boolean isn't good idea, could cause bugs
+				else if (skill.getId() == 2168 && activeChar instanceof L2PcInstance)
+					((L2PcInstance) activeChar).setCharmOfLuck(true);
 			}
 
 			if (skill.isOffensive() || skill.isDebuff())
 			{
-				boolean ss = false;
-				boolean sps = false;
-				boolean bss = false;
-				
 				if (skill.useSpiritShot())
 				{
 					if (activeChar.isBlessedSpiritshotCharged())
@@ -130,13 +133,13 @@ public class Continuous implements ICubicSkillHandler
 						activeChar.useSpiritshotCharge();
 					}
 				}
-				else if (activeChar.isSoulshotCharged())
+				else if (/*skill.useSoulShot() &&*/activeChar.isSoulshotCharged())
 				{
 					ss = true;
 					activeChar.useSoulshotCharge();
 				}
 				
-				byte shld = Formulas.calcShldUse(activeChar, target, skill);
+				shld = Formulas.calcShldUse(activeChar, target, skill);
 				acted = Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss);
 			}
 

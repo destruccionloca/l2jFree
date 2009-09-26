@@ -51,7 +51,7 @@ public class SummonItems implements IItemHandler
 		if (!(playable instanceof L2PcInstance))
 			return;
 
-		L2PcInstance activeChar = (L2PcInstance) playable;
+		final L2PcInstance activeChar = (L2PcInstance) playable;
 
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.ITEMPETSUMMON))
 			return;
@@ -68,7 +68,7 @@ public class SummonItems implements IItemHandler
 		if (activeChar.isAllSkillsDisabled() || activeChar.isCastingNow())
 			return;
 
-		L2SummonItem sitem = SummonItemsData.getInstance().getSummonItem(item.getItemId());
+		final L2SummonItem sitem = SummonItemsData.getInstance().getSummonItem(item.getItemId());
 
 		if ((activeChar.getPet() != null || activeChar.isMounted()) && sitem.isPetSummon())
 		{
@@ -88,12 +88,12 @@ public class SummonItems implements IItemHandler
 			return;
 		}
 
-		int npcID = sitem.getNpcId();
+		final int npcID = sitem.getNpcId();
 
 		if (npcID == 0)
 			return;
 
-		L2NpcTemplate npcTemplate = NpcTable.getInstance().getTemplate(npcID);
+		final L2NpcTemplate npcTemplate = NpcTable.getInstance().getTemplate(npcID);
 
 		if (npcTemplate == null)
 			return;
@@ -128,7 +128,7 @@ public class SummonItems implements IItemHandler
 		switch (sitem.getType())
 		{
 		case 0: // Static Summons (like christmas tree)
-			L2Spawn spawn = new L2Spawn(npcTemplate);
+			final L2Spawn spawn = new L2Spawn(npcTemplate);
 
 			spawn.setId(IdFactory.getInstance().getNextId());
 			spawn.setLocx(activeChar.getX());
@@ -179,6 +179,7 @@ public class SummonItems implements IItemHandler
 		}
 	}
 
+	// TODO: this should be inside skill handler
 	static class PetSummonFinalizer implements Runnable
 	{
 		private final L2PcInstance	_activeChar;
@@ -196,7 +197,13 @@ public class SummonItems implements IItemHandler
 		{
 			_activeChar.sendPacket(new MagicSkillLaunched(_activeChar, 2046, 1));
 			_activeChar.setIsCastingNow(false);
-			L2PetInstance petSummon = L2PetInstance.spawnPet(_npcTemplate, _activeChar, _item);
+			
+			// check for summon item validity
+			if (_item == null || _item.getOwnerId() != _activeChar.getObjectId()
+					|| _item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY)
+				return;
+			
+			final L2PetInstance petSummon = L2PetInstance.spawnPet(_npcTemplate, _activeChar, _item);
 
 			if (petSummon == null)
 				return;
@@ -230,13 +237,13 @@ public class SummonItems implements IItemHandler
 
 			petSummon.setFollowStatus(true);
 			petSummon.setShowSummonAnimation(false); // shouldn't be this always true?
-			int weaponId = petSummon.getWeapon();
-			int armorId = petSummon.getArmor();
-			int jewelId = petSummon.getJewel();
+			final int weaponId = petSummon.getWeapon();
+			final int armorId = petSummon.getArmor();
+			final int jewelId = petSummon.getJewel();
 			if (weaponId > 0 && petSummon.getOwner().getInventory().getItemByItemId(weaponId)!= null)
 			{
-				L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(weaponId);
-				L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
+				final L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(weaponId);
+				final L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
 				if (newItem == null)
 				{
 					_log.warn("Invalid item transfer request: " + petSummon.getName() + "(pet) --> " + petSummon.getOwner().getName());
@@ -249,8 +256,8 @@ public class SummonItems implements IItemHandler
 				petSummon.setWeapon(0);
 			if (armorId > 0 && petSummon.getOwner().getInventory().getItemByItemId(armorId)!= null)
 			{
-				L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(armorId);
-				L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
+				final L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(armorId);
+				final L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
 				if (newItem == null)
 				{
 					_log.warn("Invalid item transfer request: " + petSummon.getName() + "(pet) --> " + petSummon.getOwner().getName());
@@ -263,8 +270,8 @@ public class SummonItems implements IItemHandler
 				petSummon.setArmor(0);
 			if (jewelId > 0 && petSummon.getOwner().getInventory().getItemByItemId(jewelId)!= null)
 			{
-				L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(jewelId);
-				L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
+				final L2ItemInstance item = petSummon.getOwner().getInventory().getItemByItemId(jewelId);
+				final L2ItemInstance newItem = petSummon.getOwner().transferItem("Transfer", item.getObjectId(), 1, petSummon.getInventory(), petSummon);
 				if (newItem == null)
 				{
 					_log.warn("Invalid item transfer request: " + petSummon.getName() + "(pet) --> " + petSummon.getOwner().getName());

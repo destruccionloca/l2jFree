@@ -56,6 +56,9 @@ public final class FloodProtector
 	
 	public static boolean tryPerformAction(L2PcInstance player, Protected action)
 	{
+		if (player.isGM())
+			return true;
+		
 		long[] value = player.getFloodProtectors();
 		
 		synchronized (value)

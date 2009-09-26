@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -80,6 +79,12 @@ public class Potions implements IItemHandler
 		if (playable.isAllSkillsDisabled())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		if (activeChar.isInOlympiadMode())
+		{
+			activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 			return;
 		}
 
@@ -266,17 +271,24 @@ Control of this needs to be moved back into potions.java so proper message suppo
 				activeChar.getActingPlayer().sendPacket(sm);
 				return false;
 			}
-
-			activeChar.doSimultaneousCast(skill);
+			
+			if (skill.isPotion())
+			{
+				activeChar.doSimultaneousCast(skill);
+			}
+			else
+			{
+				// seems a more logical way to call skills, as it contains more checks, like isCastingNow()
+				activeChar.useMagic(skill, false, false);
+				//activeChar.doCast(skill);
+			}
+			
 			if (activeChar instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) activeChar;
 				// Only for Heal potions
 				if (magicId == 2031 || magicId == 2032 || magicId == 2037)
 					player.shortBuffStatusUpdate(magicId, level, 15);
-				// Summons should be affected by herbs too, self time effect is handled at L2Effect constructor
-				else if (((magicId > 2277 && magicId < 2286) || (magicId >= 2512 && magicId <= 2514)) && (player.getPet() instanceof L2SummonInstance))
-					player.getPet().doSimultaneousCast(skill);
 
 				if (!(player.isSitting() && !skill.isPotion()))
 					return true;

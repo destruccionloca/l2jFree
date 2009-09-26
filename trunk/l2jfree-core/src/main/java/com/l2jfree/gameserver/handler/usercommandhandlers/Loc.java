@@ -64,6 +64,7 @@ public class Loc implements IUserCommandHandler
 
 		if (restart != null)
 		{
+			// TODO: review this if it works properly or not
 			if (restart.getLocName() < 1222)
 			{
 				if (restart.getLocName() != 943)

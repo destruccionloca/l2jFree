@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
@@ -82,7 +83,7 @@ public class PetFood implements IItemHandler
 				if (pet.destroyItem("Consume", item.getObjectId(), 1, null, false))
 				{
 					pet.broadcastPacket(new MagicSkillUse(pet, pet, magicId, 1, 0, 0));
-					pet.setCurrentFed(pet.getCurrentFed() + skill.getFeed());
+					pet.setCurrentFed((int)(pet.getCurrentFed() + (skill.getFeed() * Config.PET_FOOD_RATE)));
 					pet.broadcastStatusUpdate();
 					if (pet.getCurrentFed() < (0.55 * pet.getPetData().getPetMaxFeed()))
 						pet.getOwner().sendPacket(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);

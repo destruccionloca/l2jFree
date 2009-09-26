@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.actor.shot;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import com.l2jfree.gameserver.datatables.ShotTable;
@@ -25,6 +27,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExAutoSoulShot;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.util.SingletonSet;
@@ -34,24 +37,89 @@ import com.l2jfree.util.SingletonSet;
  */
 public final class PcShots extends CharShots
 {
-	private static final int[][] SKILL_IDS;
-	private static final int[][] SHOT_IDS;
+	private static final Map<Integer, ShotInfo> SHOTS = new HashMap<Integer, ShotInfo>();
+	
+	private static final class ShotInfo
+	{
+		private final int _itemId;
+		private final int _skillId;
+		private final int _crystalType;
+		
+		public ShotInfo(int itemId, int skillId, int crystalType)
+		{
+			_itemId = itemId;
+			_skillId = skillId;
+			_crystalType = crystalType;
+			
+			SHOTS.put(getItemId(), this);
+		}
+		
+		public int getItemId()
+		{
+			return _itemId;
+		}
+		
+		public int getSkillId()
+		{
+			return _skillId;
+		}
+		
+		public int getCrystalType()
+		{
+			return _crystalType;
+		}
+	}
 	
 	static
 	{
-		SKILL_IDS = new int[ShotType.values().length][];
+		new ShotInfo(1463, 2150, L2Item.CRYSTAL_D); // Soulshot: D-grade
+		new ShotInfo(1464, 2151, L2Item.CRYSTAL_C); // Soulshot: C-grade
+		new ShotInfo(1465, 2152, L2Item.CRYSTAL_B); // Soulshot: B-grade
+		new ShotInfo(1466, 2153, L2Item.CRYSTAL_A); // Soulshot: A-grade
+		new ShotInfo(1467, 2154, L2Item.CRYSTAL_S); // Soulshot: S-grade
+		new ShotInfo(1835, 2039, L2Item.CRYSTAL_NONE); // Soulshot: No Grade
 		
-		SKILL_IDS[ShotType.SOUL.ordinal()] = new int[] { 2039, 2150, 2151, 2152, 2153, 2154, 2154 };
-		SKILL_IDS[ShotType.SPIRIT.ordinal()] = new int[] { 2061, 2155, 2156, 2157, 2158, 2159, 2159 };
-		SKILL_IDS[ShotType.BLESSED_SPIRIT.ordinal()] = new int[] { 2061, 2160, 2161, 2162, 2163, 2164, 2164 };
-		SKILL_IDS[ShotType.FISH.ordinal()] = new int[] { 2181, 2182, 2183, 2184, 2185, 2186, 2186 };
+		new ShotInfo(2509, 2061, L2Item.CRYSTAL_NONE); // Spiritshot: No Grade
+		new ShotInfo(2510, 2155, L2Item.CRYSTAL_D); // Spiritshot: D-grade
+		new ShotInfo(2511, 2156, L2Item.CRYSTAL_C); // Spiritshot: C-grade
+		new ShotInfo(2512, 2157, L2Item.CRYSTAL_B); // Spiritshot: B-grade
+		new ShotInfo(2513, 2158, L2Item.CRYSTAL_A); // Spiritshot: A-grade
+		new ShotInfo(2514, 2159, L2Item.CRYSTAL_S); // Spiritshot: S-grade
 		
-		SHOT_IDS = new int[ShotType.values().length][];
+		new ShotInfo(3947, 2061, L2Item.CRYSTAL_NONE); // Blessed Spiritshot: No Grade
+		new ShotInfo(3948, 2160, L2Item.CRYSTAL_D); // Blessed Spiritshot: D-grade
+		new ShotInfo(3949, 2161, L2Item.CRYSTAL_C); // Blessed Spiritshot: C-grade
+		new ShotInfo(3950, 2162, L2Item.CRYSTAL_B); // Blessed Spiritshot: B-grade
+		new ShotInfo(3951, 2163, L2Item.CRYSTAL_A); // Blessed Spiritshot: A-grade
+		new ShotInfo(3952, 2164, L2Item.CRYSTAL_S); // Blessed Spiritshot: S-grade
 		
-		SHOT_IDS[ShotType.SOUL.ordinal()] = new int[] { 1835, 1463, 1464, 1465, 1466, 1467, 1467 };
-		SHOT_IDS[ShotType.SPIRIT.ordinal()] = new int[] { 2509, 2510, 2511, 2512, 2513, 2514, 2514 };
-		SHOT_IDS[ShotType.BLESSED_SPIRIT.ordinal()] = new int[] { 3947, 3948, 3949, 3950, 3951, 3952, 3952 };
-		SHOT_IDS[ShotType.FISH.ordinal()] = new int[] { 6535, 6536, 6537, 6538, 6539, 6540, 6540 };
+		new ShotInfo(5789, 2039, L2Item.CRYSTAL_NONE); // Soulshot: No Grade for Beginners
+		new ShotInfo(5790, 2061, L2Item.CRYSTAL_NONE); // Spiritshot: No Grade for Beginners
+		
+		new ShotInfo(6535, 2181, L2Item.CRYSTAL_NONE); // Fishing Shot: No Grade
+		new ShotInfo(6536, 2182, L2Item.CRYSTAL_D); // Fishing Shot: D-grade
+		new ShotInfo(6537, 2183, L2Item.CRYSTAL_C); // Fishing Shot: C-grade
+		new ShotInfo(6538, 2184, L2Item.CRYSTAL_B); // Fishing Shot: B-grade
+		new ShotInfo(6539, 2185, L2Item.CRYSTAL_A); // Fishing Shot: A-grade
+		new ShotInfo(6540, 2186, L2Item.CRYSTAL_S); // Fishing Shot: S-grade
+		
+		new ShotInfo(22072, 26050, L2Item.CRYSTAL_D); // Blessed Spiritshot - D-grade
+		new ShotInfo(22073, 26051, L2Item.CRYSTAL_C); // Blessed Spiritshot - C-grade
+		new ShotInfo(22074, 26052, L2Item.CRYSTAL_B); // Blessed Spiritshot - B-grade
+		new ShotInfo(22075, 26053, L2Item.CRYSTAL_A); // Blessed Spiritshot - A-grade
+		new ShotInfo(22076, 26054, L2Item.CRYSTAL_S); // Blessed Spiritshot - S-grade
+		
+		new ShotInfo(22077, 26055, L2Item.CRYSTAL_D); // Spiritshot - D-grade
+		new ShotInfo(22078, 26056, L2Item.CRYSTAL_C); // Spiritshot - C-grade
+		new ShotInfo(22079, 26057, L2Item.CRYSTAL_B); // Spiritshot - B-grade
+		new ShotInfo(22080, 26058, L2Item.CRYSTAL_A); // Spiritshot - A-grade
+		new ShotInfo(22081, 26059, L2Item.CRYSTAL_S); // Spiritshot - S-grade
+		
+		new ShotInfo(22082, 26060, L2Item.CRYSTAL_D); // Soulshot - D-grade
+		new ShotInfo(22083, 26061, L2Item.CRYSTAL_C); // Soulshot - C-grade
+		new ShotInfo(22084, 26062, L2Item.CRYSTAL_B); // Soulshot - B-grade
+		new ShotInfo(22085, 26063, L2Item.CRYSTAL_A); // Soulshot - A-grade
+		new ShotInfo(22086, 26064, L2Item.CRYSTAL_S); // Soulshot - S-grade
 	}
 	
 	private final Set<Integer> _activeSoulShots = new SingletonSet<Integer>().setShared();
@@ -209,18 +277,9 @@ public final class PcShots extends CharShots
 			return false;
 		}
 		
-		int grade = weapon.getCrystalGrade();
-		int shotId = item.getItemId();
+		final ShotInfo shotInfo = SHOTS.get(item.getItemId());
 		
-		// Beginner's Soulshot
-		if (shotId == 5789)
-			shotId = 1835;
-		
-		// Beginner's Spiritshot
-		if (shotId == 5790)
-			shotId = 2509;
-		
-		if (SHOT_IDS[type.ordinal()][grade] != shotId)
+		if (shotInfo == null || shotInfo.getCrystalType() != weapon.getCrystalGrade())
 		{
 			if (!hasAutoSoulShot(item.getItemId()))
 			{
@@ -251,7 +310,7 @@ public final class PcShots extends CharShots
 		else if (type != ShotType.FISH)
 			activeChar.sendPacket(SystemMessageId.ENABLED_SPIRITSHOT);
 		
-		activeChar.broadcastPacket(new MagicSkillUse(activeChar, SKILL_IDS[type.ordinal()][grade], 1, 0, 0));
+		activeChar.broadcastPacket(new MagicSkillUse(activeChar, shotInfo.getSkillId(), 1, 0, 0));
 		return true;
 	}
 }

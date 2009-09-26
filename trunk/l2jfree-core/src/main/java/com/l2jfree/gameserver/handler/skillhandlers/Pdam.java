@@ -135,7 +135,7 @@ public final class Pdam implements ISkillHandler
 				final byte reflect = Formulas.calcSkillReflect(target, skill);
 				
 				skill.dealDamage(activeChar, target, skill, damage, reflect, false, crit || isBlow);
-				skill.getEffects(activeChar, target, reflect, shld, false, false, soul);
+				skill.getEffects(activeChar, target, reflect, shld, false, false, true);
 			}
 		}
 		

@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -110,6 +111,14 @@ public class Heal implements ISkillHandler
 					// Extra bonus (since CT1.5)
 					hp += target.calcStat(Stats.HEAL_STATIC_BONUS, 0, null, null);
 				}
+			}
+			
+			// Heal critic, since CT2.3 Gracia Final
+			if (skill.getSkillType() == L2SkillType.HEAL && !skill.isPotion()
+					&& Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill)))
+			{
+				hp *= 3;
+				activeChar.sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
 			}
 
 			// From CT2 you will receive exact HP, you can't go over it, if you have full HP and you get HP buff, you will receive 0HP restored message

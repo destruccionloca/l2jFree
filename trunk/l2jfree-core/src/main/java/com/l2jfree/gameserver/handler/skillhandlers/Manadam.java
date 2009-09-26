@@ -74,7 +74,13 @@ public class Manadam implements ISkillHandler
 			else
 			{
 				double damage = Formulas.calcManaDam(activeChar, target, skill, ss, bss);
-
+				
+				if (Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill)))
+				{
+					damage *= 3.;
+					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
+				}
+				
 				double mp = (damage > target.getStatus().getCurrentMp() ? target.getStatus().getCurrentMp() : damage);
 				target.reduceCurrentMp(mp);
 				if (damage > 0)

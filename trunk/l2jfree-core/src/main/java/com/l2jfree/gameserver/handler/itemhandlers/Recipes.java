@@ -45,6 +45,8 @@ public class Recipes implements IItemHandler
 			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2RecipeList rp = RecipeController.getInstance().getRecipeByItemId(item.getItemId());
+		if (rp == null)
+			return;
 		if (activeChar.hasRecipeList(rp.getId()))
 		{
 			activeChar.sendPacket(SystemMessageId.RECIPE_ALREADY_REGISTERED);
@@ -72,6 +74,7 @@ public class Recipes implements IItemHandler
 						activeChar.registerDwarvenRecipeList(rp, true);
 						activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 						activeChar.sendMessage("Added recipe \"" + item.getItemName() + "\" to dwarven recipe book.");
+						//activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_ADDED).addItemName(item));
 					}
 				}
 				else
@@ -100,6 +103,7 @@ public class Recipes implements IItemHandler
 						activeChar.registerCommonRecipeList(rp, true);
 						activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 						activeChar.sendMessage("Added recipe \"" + item.getItemName() + "\" to common recipe book.");
+						//activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_ADDED).addItemName(item));
 					}
 				}
 				else

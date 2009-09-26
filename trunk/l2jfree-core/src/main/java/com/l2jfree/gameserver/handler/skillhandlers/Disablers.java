@@ -112,7 +112,7 @@ public class Disablers implements ICubicSkillHandler
 				activeChar.useSpiritshotCharge();
 			}
 		}
-		else
+		else //if (skill.useSoulShot())
 		{
 			ss = true;
 		}
@@ -529,6 +529,7 @@ public class Disablers implements ICubicSkillHandler
 				break;
 			}
 			case CANCEL:
+			case CANCEL_STATS: // almost same as CANCEL
 			{
 				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
@@ -539,7 +540,7 @@ public class Disablers implements ICubicSkillHandler
 
 					double max = skill.getMaxNegatedEffects();
 					if (max == 0)
-						max = 24; //this is for RBcancells and stuff...
+						max = Integer.MAX_VALUE; //this is for RBcancells and stuff...
 
 					if (effects.length >= max)
 						effects = sortEffects(effects.clone());
@@ -548,6 +549,14 @@ public class Disablers implements ICubicSkillHandler
 
 					for (L2Effect e : effects)
 					{
+						// do not delete signet effects!
+						switch (e.getEffectType())
+						{
+							case SIGNET_GROUND:
+							case SIGNET_EFFECT:
+								continue;
+						}
+						
 						// do not delete signet effects!
 						switch (e.getSkill().getId())
 						{
@@ -585,13 +594,31 @@ public class Disablers implements ICubicSkillHandler
 									rate = 0.95;
 								if (Rnd.get(1000) < (rate * 1000))
 								{
-									e.exit();
-									count++;
+									if (type == L2SkillType.CANCEL)
+									{
+										e.exit();
+										count++;
+									}
+									else if (type == L2SkillType.CANCEL_STATS)
+									{
+										for (L2SkillType skillType : skill.getNegateStats())
+										{
+											if (skillType == e.getSkill().getEffectType())
+											{
+												e.exit();
+												count++;
+												break;
+											}
+										}
+									}
 								}
 						}
 						if (count > max)
 							break;
 					}
+					
+					// apply effects - for example Touch of Death
+					skill.getEffects(activeChar, target);
 				}
 				else
 				{
@@ -610,107 +637,46 @@ public class Disablers implements ICubicSkillHandler
 				if (Formulas.calcSkillReflect(target, skill) == Formulas.SKILL_REFLECT_SUCCEED)
 					target = activeChar;
 				
-				for(int id : skill.getNegateId())
+				if (skill.getNegateId().length > 0)
 				{
-					if (id > 0)
+					for (int id : skill.getNegateId())
 					{
 						//if someone is dumb enough to set a skill to negate an ENVIRONMENT skill,
 						//it will be applied again in less than 3 seconds. No check here.
 						target.getEffects().stopEffects(id);
 					}
-					// Fishing potion
-					else if (skill.getId() == 2275)
-					{
-						negateEffect(target, L2SkillType.BUFF, skill.getNegateLvl(), id, -1);
-						break;
-					}
 				}
-				
-				// Touch of Death
-				if (skill.getId() == 342 && target != activeChar)//can't cancel your self
-				{
-					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
-					{
-						L2Effect[] effects = target.getAllEffects();
-						int maxfive = skill.getMaxNegatedEffects();
-						for (L2Effect e : effects)
-						{
-							if (e.getEffectType() == L2EffectType.ENVIRONMENT)
-								continue;
-							if (e.getSkill().getSkillType() == L2SkillType.BUFF || e.getSkill().getSkillType() == L2SkillType.CONT)
-							{
-								int skillrate = 100;
-								int level = e.getLevel();
-								if (level > 0)
-									skillrate = 200 / (1 + level);
-								if (skillrate > 95)
-									skillrate = 95;
-								else if (skillrate < 5)
-									skillrate = 5;
-								if (Rnd.get(100) < skillrate)
-								{
-									e.exit();
-									maxfive--;
-								}
-							}
-							if (maxfive == 0)
-								break;
-						}
-						skill.getEffects(activeChar, target);
-					}
-					else if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
-					break;
-				}
-
-				// Purify
-				// All others negate type skills
+				// all others negate type skills
 				else
 				{
 					int removedBuffs = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
-
-					for (String stat : skill.getNegateStats())
+					
+					for (L2SkillType skillType : skill.getNegateStats())
 					{
 						if (removedBuffs > skill.getMaxNegatedEffects())
 							break;
-
-						if (stat == "buff" || stat == "heal_percent")
+						
+						switch(skillType)
 						{
-							if (Formulas.calcSkillSuccess(90.0, activeChar, target, skill, shld, ss, sps, bss))
-							{
-								removedBuffs += negateEffect(target, L2SkillType.BUFF, -1, skill.getMaxNegatedEffects());
-							}
-						}
-						else if (stat == "debuff" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.DEBUFF,-1, skill.getMaxNegatedEffects());
-						else if (stat == "weakness" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.WEAKNESS,-1, skill.getMaxNegatedEffects());
-						else if (stat == "stun" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.STUN,-1, skill.getMaxNegatedEffects());
-						if (stat == "sleep" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.SLEEP,-1, skill.getMaxNegatedEffects());
-						else if (stat == "confusion" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.CONFUSION,-1, skill.getMaxNegatedEffects());
-						else if (stat == "mute" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.MUTE,-1, skill.getMaxNegatedEffects());
-						else if (stat == "fear" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.FEAR,-1, skill.getMaxNegatedEffects());
-						else if (stat == "poison" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target, L2SkillType.POISON, skill.getNegateLvl(), skill.getMaxNegatedEffects());
-						else if (stat == "bleed" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.BLEED, skill.getNegateLvl(), skill.getMaxNegatedEffects());
-						else if (stat == "paralyze" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.PARALYZE,-1, skill.getMaxNegatedEffects());
-						else if (stat == "root" && removedBuffs < skill.getMaxNegatedEffects())
-							removedBuffs += negateEffect(target,L2SkillType.ROOT,-1, skill.getMaxNegatedEffects());
-						else if (stat == "heal" && removedBuffs < skill.getMaxNegatedEffects())
-							SkillHandler.getInstance().useSkill(L2SkillType.HEAL, activeChar, skill, target);
-					}
+							case BUFF:
+								if (Formulas.calcSkillSuccess(90.0, activeChar, target, skill, shld, ss, sps, bss))
+								{
+									removedBuffs += negateEffect(target, L2SkillType.BUFF, -1, skill.getMaxNegatedEffects());
+								}
+								break;
+							case HEAL:
+								SkillHandler.getInstance().useSkill(L2SkillType.HEAL, activeChar, skill, target);
+								break;
+							default:
+								removedBuffs += negateEffect(target, skillType, -1, skill.getMaxNegatedEffects());
+								break;
+						}//end switch
+					}//end for
+				}//end else
+				
+				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
+				{
+					skill.getEffects(activeChar, target);
 				}
 			}
 			}

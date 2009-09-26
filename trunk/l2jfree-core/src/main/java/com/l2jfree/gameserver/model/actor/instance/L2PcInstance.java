@@ -8607,7 +8607,7 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 
-		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this, false)))
+		if ((sklTargetType == SkillTargetType.TARGET_HOLY && (!TakeCastle.checkIfOkToCastSealOfRule(this)))
 			|| (sklTargetType == SkillTargetType.TARGET_FLAGPOLE && !TakeFort.checkIfOkToCastFlagDisplay(this, false, skill, getTarget())))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -12405,6 +12405,8 @@ public final class L2PcInstance extends L2Playable
 				htmlMsg.setHtml("<html><body>You have been put in jail by an admin.</body></html>");
 			sendPacket(htmlMsg);
 
+			if (isFlyingMounted())
+				untransform();
 			setInstanceId(0);
 			teleToLocation(-114356, -249645, -2984, false); // Jail
 		}

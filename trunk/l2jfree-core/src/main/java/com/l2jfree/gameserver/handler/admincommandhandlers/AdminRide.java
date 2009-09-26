@@ -15,7 +15,9 @@
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * @author
@@ -58,9 +60,13 @@ public class AdminRide implements IAdminCommandHandler
 			{
 				petRideId = 16041;
 			}
-			else if (command.startsWith("admin_ride_horse"))
+			else if (command.startsWith("admin_ride_horse")) // handled using transformation
 			{
-				petRideId = 13130;
+				if (activeChar.isTransformed() || activeChar.isInStance())
+					activeChar.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_TRANSFORMED);
+				else
+					 TransformationManager.getInstance().transformPlayer(106, activeChar);
+				return true;
 			}
 			else
 			{

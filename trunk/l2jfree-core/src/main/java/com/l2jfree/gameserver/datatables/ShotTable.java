@@ -60,6 +60,12 @@ public final class ShotTable
 			case 3951: // a
 			case 3952: // s
 				return true;
+			case 22072: // d
+			case 22073: // c
+			case 22074: // b
+			case 22075: // a
+			case 22076: // s
+				return true;
 			case 2509: // ng
 			case 2510: // d
 			case 2511: // c
@@ -67,6 +73,12 @@ public final class ShotTable
 			case 2513: // a
 			case 2514: // s
 			case 5790: // beginner
+				return true;
+			case 22077: // d
+			case 22078: // c
+			case 22079: // b
+			case 22080: // a
+			case 22081: // s
 				return true;
 		}
 		return false;
@@ -78,6 +90,9 @@ public final class ShotTable
 		{
 			case 6646: // sps
 			case 6647: // bsps
+				return true;
+			case 20333: // sps
+			case 20334: // bsps
 				return true;
 		}
 		return false;
@@ -96,6 +111,12 @@ public final class ShotTable
 			case 1467: // s
 			case 5789: // beginner
 				return true;
+			case 22082: // d
+			case 22083: // c
+			case 22084: // b
+			case 22085: // a
+			case 22086: // s
+				return true;
 		}
 		return false;
 	}
@@ -105,6 +126,8 @@ public final class ShotTable
 		switch (id)
 		{
 			case 6645: // ss
+				return true;
+			case 20332: // ss
 				return true;
 		}
 		return false;

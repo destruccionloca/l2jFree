@@ -14,7 +14,12 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -84,6 +89,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			"admin_find_character", //find a player by his name or a part of it (case-insensitive)
 			"admin_find_ip", // find all the player connections from a given IPv4 number
 			"admin_find_account", //list all the characters from an account (useful for GMs w/o DB access)
+			"admin_find_dualbox", //list all the IPs with more than 1 char logged in (dualbox)
 			"admin_save_modifications", //consider it deprecated...
 			"admin_rec", // gives recommendation points
 			"admin_settitle", // changes char title
@@ -197,7 +203,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			try
 			{
-				String val = command.substring(15);
+				String val = command.substring(14);
 				int fame = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				if (target instanceof L2PcInstance)
@@ -483,6 +489,24 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Sorry, but " + player.getName() + " must not be in a clan. Player must leave clan before the wait limit can be reset.");
 			}
+		}
+		else if (command.startsWith("admin_find_dualbox"))
+		{
+			int multibox = 2;
+			try
+			{
+				String val = command.substring(19);
+				multibox = Integer.parseInt(val);
+				if (multibox < 1)
+				{
+					activeChar.sendMessage("Usage: //find_dualbox [number > 0]");
+					return false;
+				}
+			}
+			catch (Exception e)
+			{
+			}
+			findDualbox(activeChar, multibox);
 		}
 
 		return true;
@@ -838,5 +862,67 @@ public class AdminEditChar implements IAdminCommandHandler
 		}
 		else
 			throw new IllegalArgumentException("Malformed character name");
+	}
+	
+	/**
+	 * @param activeChar
+	 * @throws IllegalArgumentException
+	 */
+	private void findDualbox(L2PcInstance activeChar, int multibox) throws IllegalArgumentException
+	{
+		Collection<L2PcInstance> allPlayers = L2World.getInstance().getAllPlayers();
+		L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
+		
+		Map<String, List<L2PcInstance>> ipMap = new HashMap<String, List<L2PcInstance>>();
+		
+		String ip = "0.0.0.0";
+		L2GameClient client;
+		
+		final Map<String, Integer> dualboxIPs = new HashMap<String, Integer>();
+		
+		for (L2PcInstance player : players)
+		{
+			client = player.getClient();
+			if (player.isInOfflineMode())
+				continue;
+			else
+			{
+				ip = client.getHostAddress();
+				if (ipMap.get(ip) == null)
+					ipMap.put(ip, new ArrayList<L2PcInstance>());
+				ipMap.get(ip).add(player);
+				
+				if (ipMap.get(ip).size() >= multibox)
+				{
+					Integer count = dualboxIPs.get(ip);
+					if (count == null)
+						dualboxIPs.put(ip, multibox);
+					else
+						dualboxIPs.put(ip, count + 1);
+				}
+			}
+		}
+		
+		List<String> keys = new ArrayList<String>(dualboxIPs.keySet());
+		Collections.sort(keys, new Comparator<String>() {
+			public int compare(String left, String right)
+			{
+				return dualboxIPs.get(left).compareTo(dualboxIPs.get(right));
+			}
+		});
+		Collections.reverse(keys);
+		
+		final StringBuilder results = new StringBuilder();
+		for (String dualboxIP : keys)
+		{
+			results.append("<a action=\"bypass -h admin_find_ip ").append(dualboxIP).append("\">").append(dualboxIP)
+					.append(" (").append(dualboxIPs.get(dualboxIP)).append(")</a><br1>");
+		}
+		
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		adminReply.setFile("data/html/admin/dualbox.htm");
+		adminReply.replace("%multibox%", String.valueOf(multibox));
+		adminReply.replace("%results%", results.toString());
+		activeChar.sendPacket(adminReply);
 	}
 }

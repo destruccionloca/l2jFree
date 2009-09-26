@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.serverpackets.SSQStatus;
 
 /**
@@ -38,8 +37,6 @@ public class SevenSignsRecord implements IItemHandler
 
 		if (playable instanceof L2PcInstance)
 			activeChar = (L2PcInstance) playable;
-		else if (playable instanceof L2PetInstance)
-			activeChar = ((L2PetInstance) playable).getOwner();
 		else
 			return;
 

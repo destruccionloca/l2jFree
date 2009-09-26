@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExChooseInventoryAttributeItem;
 
 public class EnchantAttr implements IItemHandler
@@ -69,7 +68,7 @@ public class EnchantAttr implements IItemHandler
 			return;
 		}
 
-		activeChar.sendPacket(SystemMessageId.SELECT_ITEM_TO_ADD_ELEMENTAL_POWER);
+		//activeChar.sendPacket(SystemMessageId.SELECT_ITEM_TO_ADD_ELEMENTAL_POWER);
 		activeChar.setActiveEnchantAttrItem(item);
 		activeChar.sendPacket(new ExChooseInventoryAttributeItem(item.getItemId()));
 	}

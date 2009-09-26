@@ -54,11 +54,8 @@ public class ChatWhisper implements IChatHandler
 			{
 				if (receiver.isInOfflineMode())
 				{
-					receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType, activeChar.getName(), text));
-					activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  chatType, "->" + receiver.getName(), text));
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1);
-					sm.addString(target + " is in offline mode!");
-					activeChar.sendPacket(sm);
+					activeChar.sendMessage(receiver.getName() + " is in offline mode!");
+					return;
 				}
 				if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
 				{
