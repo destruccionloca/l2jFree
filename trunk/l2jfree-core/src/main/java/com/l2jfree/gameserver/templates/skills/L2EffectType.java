@@ -76,5 +76,6 @@ public enum L2EffectType
 	CHANCE_SKILL_TRIGGER,
 	COUNTER,
 	NEGATE,
-	HIDE
+	HIDE,
+	THROW_UP
 }
