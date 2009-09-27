@@ -11628,7 +11628,7 @@ public final class L2PcInstance extends L2Playable
 		for (Map<String, L2Zone> zones : ZoneManager.getInstance().getZones())
 			if (zones != null)
 				for (L2Zone zone : zones.values())
-					if (zone.getCharactersInside().contains(zone))
+					if (zone.getCharactersInside().contains(this))
 						set.add(zone);
 		
 		return set;
