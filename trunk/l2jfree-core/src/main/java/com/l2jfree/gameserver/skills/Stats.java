@@ -52,6 +52,9 @@ public enum Stats
 	PVP_PHYSICAL_DMG("pvpPhysDmg"),
 	PVP_MAGICAL_DMG("pvpMagicalDmg"),
 	PVP_PHYS_SKILL_DMG("pvpPhysSkillsDmg"),
+	PVP_PHYSICAL_DEF("pvpPhysDef"),
+	PVP_MAGICAL_DEF("pvpMagicalDef"),
+	PVP_PHYS_SKILL_DEF("pvpPhysSkillsDef"),
 	// Atk & Def rates
 	EVASION_RATE("rEvas"),
 	P_SKILL_EVASION("pSkillEvas"),
@@ -210,6 +213,8 @@ public enum Stats
 	SOULSHOT_COUNT("soulShotCount"),
 	
 	TALISMAN_SLOTS("talisman"),
+	//CLOAK_SLOT("cloak"),
+	VITALITY_CONSUME_RATE("vitalityConsumeRate"),
 	;
 	
 	private final String _value;
@@ -249,7 +254,7 @@ public enum Stats
 			case HOLY_RES:
 			case DARK_RES:
 			case VALAKAS_RES:
-			// offensive
+				// offensive
 			case FIRE_POWER:
 			case WATER_POWER:
 			case WIND_POWER:
@@ -283,7 +288,7 @@ public enum Stats
 			case CRIT_VULN:
 			case MAGIC_DAMAGE_VULN:
 			case BUFF_VULN:
-			// offensive
+				// offensive
 			case BLEED_PROF:
 			case POISON_PROF:
 			case STUN_PROF:
@@ -294,7 +299,7 @@ public enum Stats
 			case CANCEL_PROF:
 			case DERANGEMENT_PROF:
 			case DEBUFF_PROF:
-			// defensive
+				// defensive
 			case SWORD_WPN_VULN:
 			case BLUNT_WPN_VULN:
 			case DAGGER_WPN_VULN:
