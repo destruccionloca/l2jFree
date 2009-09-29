@@ -44,7 +44,7 @@ public final class ChangeFace implements ISkillHandler
 		player.store();
 		
 		// Broadcast the changes to the char and all those nearby.
-		player.broadcastPacket(new UserInfo(player));
+		player.broadcastFullInfo();
 	}
 	
 	@Override
