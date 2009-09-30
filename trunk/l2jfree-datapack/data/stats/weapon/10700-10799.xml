@@ -101,7 +101,7 @@
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
       <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
-      <mul val="0.83" order="0x30" stat="atkReuse"/>
+      <mul val="0.83" order="0x30" stat="bowReuse"/>
     </for>
   </item>
   <item id="10709" name="Tallum Blade*Damascus {PvP}">
