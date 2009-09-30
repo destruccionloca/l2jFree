@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.SummonStatus;
 import com.l2jfree.gameserver.network.serverpackets.SetSummonRemainTime;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2SummonInstance extends L2Summon
@@ -47,7 +48,7 @@ public class L2SummonInstance extends L2Summon
 	private Future<?>			_summonConsumeTask;
 	private static int			_lifeTime					= SUMMON_LIFETIME_INTERVAL; // summon life time for life scale bar
 
-	public L2SummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
+	public L2SummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2SkillSummon skill)
 	{
 		super(objectId, template, owner);
 		setShowSummonAnimation(true);

@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillClanGate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class ClanGate implements ISkillHandler
@@ -41,8 +42,9 @@ public class ClanGate implements ISkillHandler
 	 * @see com.l2jfree.gameserver.handler.ISkillHandler#useSkill(com.l2jfree.gameserver.model.actor.L2Character, com.l2jfree.gameserver.model.L2Skill, com.l2jfree.gameserver.model.actor.L2Character[])
 	 */
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
+		L2SkillClanGate skill = (L2SkillClanGate)skill0;
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;

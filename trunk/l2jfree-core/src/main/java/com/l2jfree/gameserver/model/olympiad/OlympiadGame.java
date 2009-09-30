@@ -268,7 +268,7 @@ public class OlympiadGame
 
 					for (L2Skill skill : player.getAllSkills())
 					{
-						if (skill.isCubic() && skill instanceof L2SkillSummon)
+						if (skill instanceof L2SkillSummon && ((L2SkillSummon) skill).isCubic())
 						{
 							int npcId = ((L2SkillSummon) skill).getNpcId();
 							if (npcId != 0)

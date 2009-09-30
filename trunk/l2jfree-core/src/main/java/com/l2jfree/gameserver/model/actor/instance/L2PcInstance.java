@@ -271,6 +271,7 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
 import com.l2jfree.gameserver.skills.funcs.Func;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
@@ -8828,6 +8829,12 @@ public final class L2PcInstance extends L2Playable
 			_log.info("L2PcInstance(" + getName() + "): addCubic(" + id + "|" + level + "|" + matk + ")");
 		L2CubicInstance cubic = new L2CubicInstance(this, id, level, (int) matk, activationtime, activationchance, totalLifeTime);
 		_cubics.put(id, cubic);
+	}
+	
+	public void addCubic(L2SkillSummon skill)
+	{
+		addCubic(skill.getNpcId(), skill.getLevel(), skill.getPower(), skill.getActivationTime(), skill
+				.getActivationChance(), skill.getTotalLifeTime());
 	}
 
 	/**

@@ -163,6 +163,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminRepairChar());
 		register(new AdminRes());
 		register(new AdminRide());
+		register(new AdminSHEngine());
 		register(new AdminSendHome());
 		register(new AdminShop());
 		register(new AdminShutdown());
@@ -176,7 +177,6 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminTeleport());
 		register(new AdminTest());
 		register(new AdminTvTEngine());
-		register(new AdminSHEngine());
 		register(new AdminTvTiEngine());
 		register(new AdminUnblockIp());
 		register(new AdminVIPEngine());

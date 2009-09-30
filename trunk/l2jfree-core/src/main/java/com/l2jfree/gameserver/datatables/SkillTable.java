@@ -26,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.SkillsEngine;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillLearnSkill;
 import com.l2jfree.lang.L2Integer;
 
 public final class SkillTable
@@ -167,8 +168,13 @@ public final class SkillTable
 			}
 		}
 
-		for (L2Skill skill : skills)
+		for (L2Skill skill0 : skills)
 		{
+			if (!(skill0 instanceof L2SkillLearnSkill))
+				continue;
+			
+			L2SkillLearnSkill skill = (L2SkillLearnSkill)skill0;
+			
 			for(int i=0;i < skill.getNewSkillId().length;i++)
 			{
 				final L2Skill learnedSkill = getInfo(skill.getNewSkillId()[i], skill.getNewSkillLvl()[i]);

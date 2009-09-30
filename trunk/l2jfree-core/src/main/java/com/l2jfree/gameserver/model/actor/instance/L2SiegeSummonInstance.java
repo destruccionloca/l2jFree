@@ -15,14 +15,14 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  
 public class L2SiegeSummonInstance extends L2SummonInstance
 {
-	public L2SiegeSummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
+	public L2SiegeSummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2SkillSummon skill)
 	{
 		super(objectId, template, owner, skill);
 	}

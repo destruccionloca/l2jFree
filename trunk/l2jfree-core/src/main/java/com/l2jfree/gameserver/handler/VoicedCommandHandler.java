@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.handler.voicedcommandhandlers.CastleDoors;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Hellbound;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Mail;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Offline;
+import com.l2jfree.gameserver.handler.voicedcommandhandlers.Report;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.VersionInfo;
 import com.l2jfree.gameserver.handler.voicedcommandhandlers.Wedding;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -42,14 +43,15 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 	
 	private VoicedCommandHandler()
 	{
+		registerVoicedCommandHandler(new Auction());
 		registerVoicedCommandHandler(new Banking());
-		registerVoicedCommandHandler(new Offline());
-		registerVoicedCommandHandler(new Wedding());
 		registerVoicedCommandHandler(new CastleDoors());
 		registerVoicedCommandHandler(new Hellbound());
-		registerVoicedCommandHandler(new VersionInfo());
 		registerVoicedCommandHandler(new Mail());
-		registerVoicedCommandHandler(new Auction());
+		registerVoicedCommandHandler(new Offline());
+		registerVoicedCommandHandler(new Report());
+		registerVoicedCommandHandler(new VersionInfo());
+		registerVoicedCommandHandler(new Wedding());
 		
 		_log.info("VoicedCommandHandler: Loaded " + size() + " handlers.");
 	}

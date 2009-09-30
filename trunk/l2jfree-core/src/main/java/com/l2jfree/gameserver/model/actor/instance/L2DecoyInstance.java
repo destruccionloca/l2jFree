@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.DecoyKnownList;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -33,7 +34,7 @@ public class L2DecoyInstance extends L2Decoy
     private Future<?> _DecoyLifeTask;
     private Future<?> _HateSpam;
     
-    public L2DecoyInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
+    public L2DecoyInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2SkillDecoy skill)
     {
         super(objectId, template, owner);
         if (skill != null)

@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -53,8 +54,10 @@ public class SiegeFlag extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill);
 	}
 	
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
+		L2SkillSiegeFlag skill = (L2SkillSiegeFlag)skill0;
+		
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 

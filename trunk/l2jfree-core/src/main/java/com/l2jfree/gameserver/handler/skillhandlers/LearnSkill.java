@@ -19,26 +19,28 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillLearnSkill;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class LearnSkill implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.LEARN_SKILL };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.LEARN_SKILL };
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
 	}
-
+	
 	@Override
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
+		L2SkillLearnSkill skill = (L2SkillLearnSkill)skill0;
+		
 		if (!(activeChar instanceof L2PcInstance))
 			return;
-
-		final L2PcInstance player = ((L2PcInstance) activeChar);
-
+		
+		final L2PcInstance player = ((L2PcInstance)activeChar);
+		
 		for (int i = 0; i < skill.getNewSkillId().length; i++)
 		{
 			if (player.getSkillLevel(skill.getNewSkillId()[i]) < 0 && skill.getNewSkillId()[i] != 0)

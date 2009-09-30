@@ -18,18 +18,23 @@ import java.lang.reflect.Constructor;
 
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillAppearance;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChangeWeapon;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeNegate;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillClanGate;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillLearnSkill;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillPdam;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillRecover;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSweep;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillTeleport;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillTrap;
 import com.l2jfree.gameserver.templates.StatsSet;
 
@@ -38,6 +43,7 @@ public enum L2SkillType
 	PDAM(L2SkillPdam.class),
 	MDAM,
 	CPDAM,
+	CPDAMPERCENT,
 	AGGDAMAGE,
 	DOT,
 	HOT,
@@ -65,6 +71,7 @@ public enum L2SkillType
 	PASSIVE,
 	UNLOCK,
 	GIVE_SP,
+	GIVE_VITALITY,
 	NEGATE,
 	CANCEL,
 	CANCEL_DEBUFF,
@@ -87,7 +94,7 @@ public enum L2SkillType
 	MAKE_QUEST_DROPABLE,
 	MDOT,
 	MUTE,
-	RECALL,
+	RECALL(L2SkillTeleport.class),
 	REFLECT, // should be depreacted
 	SUMMON_FRIEND,
 	SOULSHOT, // should be deprecated
@@ -97,7 +104,7 @@ public enum L2SkillType
 	DISARM,
 	STEAL_BUFF,
 	FAKE_DEATH,
-	SIEGEFLAG,
+	SIEGEFLAG(L2SkillSiegeFlag.class),
 	TAKECASTLE,
 	TAKEFORT,
 	BEAST_FEED, // should be deprecated
@@ -130,8 +137,8 @@ public enum L2SkillType
 	DETECTION,
 	BALLISTA,
 	EXTRACTABLE,
-	LEARN_SKILL,
-	CLAN_GATE,
+	LEARN_SKILL(L2SkillLearnSkill.class),
+	CLAN_GATE(L2SkillClanGate.class),
 	UNDEAD_DEFENSE,
 	CANCEL_STATS,
 
@@ -155,9 +162,10 @@ public enum L2SkillType
 	COREDONE,
 	// Unimplemented
 	NOTDONE,
-	TELEPORT,
-	CHANGE_APPEARANCE,
-	OPEN_DOOR;
+	TELEPORT(L2SkillTeleport.class),
+	CHANGE_APPEARANCE(L2SkillAppearance.class),
+	OPEN_DOOR,
+	;
 
 	private final Class<? extends L2Skill> _clazz;
 	private final Constructor<? extends L2Skill> _constructor;

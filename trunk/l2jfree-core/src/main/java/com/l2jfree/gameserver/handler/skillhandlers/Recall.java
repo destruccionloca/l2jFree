@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillTeleport;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.tools.random.Rnd;
 
@@ -52,8 +53,10 @@ public class Recall extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill);
 	}
 	
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
+		L2SkillTeleport skill = (L2SkillTeleport)skill0;
+		
 		// TODO: REMOVE FROM HERE
 		// <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport -->
 		if (skill.getId() == 4216 || skill.getId() == 4217 || skill.getId() == 4222)

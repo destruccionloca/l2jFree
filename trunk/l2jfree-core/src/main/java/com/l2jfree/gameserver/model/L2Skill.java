@@ -170,34 +170,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final int				_mpInitialConsume;
 	private final int				_hpConsume;
 	private final int				_cpConsume;
-	private final int[]				_teleportCoords;
-	private final String			_recallType;
-	private final int				_hairColorId;
-	private final int				_faceId;
-	private final int				_hairStyleId;
 
 	private final int				_itemConsume;
 	private final int				_itemConsumeId;
-	// item consume count over time
-	private final int				_itemConsumeOT;
-	// item consume id over time
-	private final int				_itemConsumeIdOT;
-	// how many times to consume an item
-	private final int				_itemConsumeSteps;
 
 	private final int				_targetConsume;
 	private final int				_targetConsumeId;
-
-	// for summon spells:
-	// a) What is the total lifetime of summons (in millisecs)
-	private final int				_summonTotalLifeTime;
-	// b) how much lifetime is lost per second of idleness (non-fighting)
-	private final int				_summonTimeLostIdle;
-	// c) how much time is lost per second of activity (fighting)
-	private final int				_summonTimeLostActive;
-	// item consume time in milliseconds
-	private final int				_itemConsumeTime;
-	private final boolean			_isCubic;
 
 	private final int				_feed;
 
@@ -290,7 +268,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private final int				_timeMulti;
 
-	private final boolean			_isAdvanced;				// Used by siege flag summon skills
 	private final String			_attribute;
 
 	private final int				_minPledgeClass;
@@ -311,9 +288,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private final int				_afroId;
 	private final boolean			_isHerbEffect;
-
-	private final int[]				_learnSkillId;
-	private final int[]				_learnSkillLvl;
 
 	private final boolean			_ignoreShield;
 	private final boolean			_isSuicideAttack;
@@ -346,31 +320,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_cpConsume = set.getInteger("cpConsume", 0);
 		_itemConsume = set.getInteger("itemConsumeCount", 0);
 		_itemConsumeId = set.getInteger("itemConsumeId", 0);
-		_itemConsumeOT = set.getInteger("itemConsumeCountOT", 0);
-		_itemConsumeIdOT = set.getInteger("itemConsumeIdOT", 0);
-		_itemConsumeTime = set.getInteger("itemConsumeTime", 0);
-		_itemConsumeSteps = set.getInteger("itemConsumeSteps", 0);
 		_targetConsume = set.getInteger("targetConsumeCount", 0);
 		_targetConsumeId = set.getInteger("targetConsumeId", 0);
-		_summonTotalLifeTime = set.getInteger("summonTotalLifeTime", 1200000); // 20 minutes default
-		_summonTimeLostIdle = set.getInteger("summonTimeLostIdle", 0);
-		_summonTimeLostActive = set.getInteger("summonTimeLostActive", 0);
-		_isCubic = set.getBool("isCubic", false);
 		_afterEffectId = set.getInteger("afterEffectId", 0);
 		_afterEffectLvl = set.getInteger("afterEffectLvl", 1);
-		_hairColorId = set.getInteger("hairColorId", -1);
-		_faceId = set.getInteger("faceId", -1);
-		_hairStyleId = set.getInteger("hairStyleId", -1);
-		String coords = set.getString("teleCoords", null);
-		if (coords != null)
-		{
-			String[] valuesSplit = coords.split(",");
-			_teleportCoords = new int[valuesSplit.length];
-			for (int i = 0; i < valuesSplit.length; i++)
-				_teleportCoords[i] = Integer.parseInt(valuesSplit[i]);
-		}
-		else
-			_teleportCoords = null;
 
 		_isHerbEffect = _name.contains("Herb");
 
@@ -446,7 +399,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_levelDepend = set.getInteger("lvlDepend", 1);
 		_ignoreResists = set.getBool("ignoreResists", false);
 
-		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
 		_isDebuff = set.getBool("isDebuff", false);
 		_feed = set.getInteger("feed", 0); // Used for pet food
 
@@ -504,27 +456,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
-
-		String[] ar = set.getString("learnSkillId", "0").split(",");
-		int[] ar2 = new int[ar.length];
-
-		for (int i = 0; i < ar.length; i++)
-			ar2[i] = Integer.parseInt(ar[i]);
-
-		_learnSkillId = ar2;
-
-		ar = set.getString("learnSkillLvl", "1").split(",");
-		ar2 = new int[_learnSkillId.length];
-
-		for (int i = 0; i < _learnSkillId.length; i++)
-			ar2[i] = 1;
-
-		for (int i = 0; i < ar.length; i++)
-			ar2[i] = Integer.parseInt(ar[i]);
-
-		_learnSkillLvl = ar2;
-
-		_recallType = set.getString("recallType", "");
 	}
 
 	private boolean isPurePassiveSkill()
@@ -963,67 +894,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	/**
-	 * @return Returns the itemConsume count over time.
-	 */
-	public final int getItemConsumeOT()
-	{
-		return _itemConsumeOT;
-	}
-
-	/**
-	 * @return Returns the itemConsumeId over time.
-	 */
-	public final int getItemConsumeIdOT()
-	{
-		return _itemConsumeIdOT;
-	}
-
-	/**
-	 * @return Returns the itemConsume count over time.
-	 */
-	public final int getItemConsumeSteps()
-	{
-		return _itemConsumeSteps;
-	}
-
-	/**
-	 * @return Returns the itemConsume count over time.
-	 */
-	public final int getTotalLifeTime()
-	{
-		return _summonTotalLifeTime;
-	}
-
-	/**
-	 * @return Returns the itemConsume count over time.
-	 */
-	public final int getTimeLostIdle()
-	{
-		return _summonTimeLostIdle;
-	}
-
-	/**
-	 * @return Returns the itemConsumeId over time.
-	 */
-	public final int getTimeLostActive()
-	{
-		return _summonTimeLostActive;
-	}
-
-	public final boolean isCubic()
-	{
-		return _isCubic;
-	}
-
-	/**
-	 * @return Returns the itemConsume time in milliseconds.
-	 */
-	public final int getItemConsumeTime()
-	{
-		return _itemConsumeTime;
-	}
-
-	/**
 	 * @return Returns the level.
 	 */
 	public final int getLevel()
@@ -1153,11 +1023,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int getNextDanceMpCost()
 	{
 		return _nextDanceCost;
-	}
-
-	public final boolean isAdvanced()
-	{
-		return _isAdvanced;
 	}
 
 	/**
@@ -4012,54 +3877,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _ignoreShield;
 	}
 
-	public final int[] getTeleportCoords()
-	{
-		return _teleportCoords;
-	}
-
-	public final String getRecallType()
-	{
-		return _recallType;
-	}
-
 	public final boolean canBeReflected()
 	{
 		return _canBeReflected;
-	}
-
-	public final int getHairColorId()
-	{
-		return _hairColorId;
-	}
-
-	public final int getHairStyleId()
-	{
-		return _hairStyleId;
-	}
-
-	public final int getFaceId()
-	{
-		return _faceId;
-	}
-
-	/**
-	 * used for learning skills through skills
-	 *
-	 * @return new skill id to learn (if not defined, default 0)
-	 */
-	public int[] getNewSkillId()
-	{
-		return _learnSkillId;
-	}
-
-	/**
-	 * used for learning skills through skills
-	 *
-	 * @return skill lvl to learn (if not defined, default 1)
-	 */
-	public int[] getNewSkillLvl()
-	{
-		return _learnSkillLvl;
 	}
 
 	public final int getAfterEffectId()
