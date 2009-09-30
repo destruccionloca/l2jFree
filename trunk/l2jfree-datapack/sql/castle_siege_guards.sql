@@ -6,7 +6,7 @@ CREATE TABLE `castle_siege_guards` (
   `x` INT NOT NULL DEFAULT 0,
   `y` INT NOT NULL DEFAULT 0,
   `z` INT NOT NULL DEFAULT 0,
-  `heading` SMALLINT UNSIGNED NOT NULL,
+  `heading` INT NOT NULL,
   `respawnDelay` INT UNSIGNED NOT NULL DEFAULT 0,
   `isHired` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
