@@ -80,7 +80,7 @@
     <set name="skillRadius" val="#skillRadius"/>
     <set name="castRange" val="1200"/>
     <set name="skill_landing_percent" val="#skill_landing_percent"/>
-    <set name="negateStats" val="Buff"/>
+    <set name="negateStats" val="BUFF"/>
     <!--  <set name="negatePower" val="#rampage"/>  -->
     <for>
       <effect count="5" name="DamOverTime" time="#time" val="#Plague"/>

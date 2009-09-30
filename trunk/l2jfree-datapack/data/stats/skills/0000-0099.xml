@@ -525,7 +525,7 @@
     <set name="effectPower" val="100"/>
     <enchant1 name="power" val="#ench1Power"/>
     <for>
-      <effect name="TargetMe" time="3" val="0" power="100"/>
+      <effect name="TargetMe" time="3" val="0"/>
     </for>
   </skill>
   <skill id="19" levels="37" name="Double Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30">
@@ -741,10 +741,10 @@
     <set name="effectPower" val="100"/>
     <enchant1 name="power" val="#ench1Power"/>
     <for>
-      <effect name="TargetMe" time="3" val="0" power="100"/>
+      <effect name="TargetMe" time="3" val="0"/>
     </for>
     <enchant3for>
-      <effect name="TargetMe" time="3" val="0" power="100" noicon="1"/>
+      <effect name="TargetMe" time="3" val="0" noicon="1"/>
       <effect name="Debuff" time="30" val="0">
         <mul order="0x30" stat="pAtk" val="#ench3-pAtk"/>
       </effect>

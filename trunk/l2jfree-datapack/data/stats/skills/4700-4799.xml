@@ -132,7 +132,7 @@
         <mul order="0x30" stat="mDef" val="#mDef"/>
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
-      <effect name="TargetMe" time="3" val="0" power="100" noicon="1"/>
+      <effect name="TargetMe" time="3" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="4706" levels="13" name="Mass Curse of Shade">
@@ -160,7 +160,7 @@
         <mul order="0x30" stat="mDef" val="#mDef"/>
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
-      <effect name="TargetMe" val="0" time="3" power="100" noicon="1"/>
+      <effect name="TargetMe" val="0" time="3" noicon="1"/>
     </for>
   </skill>
   <skill id="4707" levels="13" name="Shade Sacrifice">

@@ -160,6 +160,9 @@ public final class EffectTemplate
 		for (int i = 0; i < stackTypes.length; i++)
 			stackTypes[i] = stackTypes[i].intern();
 		
+		if (stackTypes.length > 1 && stackOrder != 99)
+			throw new IllegalStateException("'stackOrder' should be 99 for merged effects!");
+		
 		showIcon = set.getInteger("noicon", 0) == 0;
 		
 		effectPower = set.getDouble("effectPower", -1);

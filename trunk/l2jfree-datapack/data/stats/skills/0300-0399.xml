@@ -1065,8 +1065,9 @@
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1800"/>
     <set name="baseCritRate" val="15"/>
+    <set name="effectPower" val="80"/>
     <for>
-      <effect name="RemoveTarget" val="0" power="80"/>
+      <effect name="RemoveTarget" val="0"/>
     </for>
   </skill>
   <skill id="348" levels="1" name="Spoil Crush">
@@ -1293,7 +1294,7 @@
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="magicLvl" val="77"/>
     <set name="mpConsume" val="35"/>
-    <set name="power" val="60"/>
+    <set name="power" val="40"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="AGGREDUCE_CHAR"/>
     <set name="lvlDepend" val="1"/>
@@ -1303,10 +1304,12 @@
     <set name="effectRange" val="400"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
+    <set name="effectType" val="STUN"/>
+    <set name="effectPower" val="40"/>
     <for>
-      <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" power="60"/>
-      <effect name="Bluff" time="3" noicon="1" val="0" power="60"/>
-      <effect name="RemoveTarget" noicon="1" val="0" power="60"/>
+      <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+      <effect name="Bluff" time="3" noicon="1" val="0"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
   </skill>
   <skill id="359" levels="1" name="Eye of Hunter">
@@ -1503,7 +1506,7 @@
         <add order="0x40" stat="mDef" val="4050"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
-      <effect name="TargetMe" time="3" val="0" power="100"/>
+      <effect name="TargetMe" time="3" val="0"/>
     </for>
   </skill>
   <skill id="369" levels="1" name="Evade Shot">

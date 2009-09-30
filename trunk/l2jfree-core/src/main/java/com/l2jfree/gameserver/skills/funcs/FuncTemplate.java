@@ -108,7 +108,7 @@ public final class FuncTemplate
 			if (clazz != FuncMul.class && clazz != FuncDiv.class)
 				throwException(pFunc, pStat, pOrder, pLambda);
 			
-			if (pLambda >= 2 || pLambda < 0)
+			if (pLambda > 2 || pLambda < 0)
 				throwException(pFunc, pStat, pOrder, pLambda);
 		}
 		

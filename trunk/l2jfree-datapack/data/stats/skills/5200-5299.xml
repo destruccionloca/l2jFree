@@ -749,7 +749,7 @@
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="TargetMe" time="3" val="0" power="100"/>
+      <effect name="TargetMe" time="3" val="0"/>
     </for>
   </skill>
   <skill id="5273" levels="9" name="NPC(party) - Physical Single Close Range Attack">

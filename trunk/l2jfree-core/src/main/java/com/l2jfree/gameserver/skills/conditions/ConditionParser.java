@@ -34,15 +34,14 @@ import com.l2jfree.gameserver.util.Util;
  */
 public abstract class ConditionParser
 {
-	private static final ConditionParser	_instance	= new ConditionParser()
-														{
-															@Override
-															protected String getNodeValue(String nodeValue, Object template)
-															{
-																return nodeValue;
-															}
-														};
-
+	private static final ConditionParser _instance = new ConditionParser() {
+		@Override
+		protected String getNodeValue(String nodeValue, Object template)
+		{
+			return nodeValue;
+		}
+	};
+	
 	public static ConditionParser getDefaultInstance()
 	{
 		return _instance;
@@ -648,6 +647,11 @@ public abstract class ConditionParser
 		{
 			int val = Integer.decode(nodeValue);
 			return new ConditionGameChance(val);
+		}
+		else if ("skill".equalsIgnoreCase(nodeName))
+		{
+			boolean val = Boolean.parseBoolean(nodeValue);
+			return new ConditionWithSkill(val);
 		}
 
 		throw new IllegalStateException("Invalid attribute at <game>: " + nodeName + "='" + nodeValue + "'");

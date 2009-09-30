@@ -1179,7 +1179,7 @@
     <set name="target" val="TARGET_AURA"/>
     <for>
       <effect name="Petrify" time="10" val="0" stackOrder="10" stackType="turn_stone"/>
-      <effect name="TargetMe" time="3" val="0" power="100" noicon="1"/>
+      <effect name="TargetMe" time="3" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="4384" levels="1" name="Scapegoat's Grace">

@@ -103,7 +103,7 @@
     <set name="effectPower" val="100"/>
     <set name="activationChance" val="#activationChance"/>
     <for>
-      <effect name="TargetMe" time="3" val="0" power="100"/>
+      <effect name="TargetMe" time="3" val="0"/>
     </for>
   </skill>
   <skill id="3109" levels="10" name="Item Skill: Aggression Down">
