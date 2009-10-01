@@ -18,6 +18,7 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1391,17 +1392,15 @@ public abstract class L2Character extends L2Object
 
 		// ===========================================================
 
-		boolean hitted = false;
-		double attackpercent = 100;
-		int attackCount = 0;
+		final ArrayList<HitTask> hitTasks = new ArrayList<HitTask>();
+		double attackMulti = 1.0;
 
-		hitted |= doAttackHitSimple(attack, target, attackpercent, sAtk);
-		attackpercent /= 1.15;
-		attackCount++;
+		hitTasks.add(doAttackHitSimple(attack, target, attackMulti));
+		attackMulti *= Config.ALT_POLEARM_DAMAGE_MULTI;
 
 		for (L2Object obj : getKnownList().getKnownObjects().values())
 		{
-			if (attackCount >= attackCountMax)
+			if (hitTasks.size() >= attackCountMax)
 				break;
 
 			if (obj == target)
@@ -1437,15 +1436,21 @@ public abstract class L2Character extends L2Object
 			if (GlobalRestrictions.isProtected(this, cha, null, false))
 				continue;
 
-			hitted |= doAttackHitSimple(attack, cha, attackpercent, sAtk);
-			attackpercent /= 1.15;
-			attackCount++;
+			hitTasks.add(doAttackHitSimple(attack, cha, attackMulti));
+			attackMulti *= Config.ALT_POLEARM_DAMAGE_MULTI;
 		}
-
+		
+		// Create a new hit task with Medium priority
+		ThreadPoolManager.getInstance().schedule(new PolearmHitTask(hitTasks), sAtk);
+		
 		// Return true if one hit isn't missed
-		return hitted;
+		for (int i = 0; i < hitTasks.size(); i++)
+			if (!hitTasks.get(i)._miss)
+				return true;
+		
+		return false;
 	}
-
+	
 	/**
 	 * Launch a simple attack.<BR>
 	 * <BR>
@@ -1468,10 +1473,16 @@ public abstract class L2Character extends L2Object
 	 */
 	private boolean doAttackHitSimple(Attack attack, L2Character target, int sAtk)
 	{
-		return doAttackHitSimple(attack, target, 100, sAtk);
+		HitTask hitTask = doAttackHitSimple(attack, target, 1.0);
+		
+		// Create a new hit task with Medium priority
+		ThreadPoolManager.getInstance().scheduleAi(hitTask, sAtk);
+		
+		// Return true if hit isn't missed
+		return !hitTask._miss;
 	}
 
-	private boolean doAttackHitSimple(Attack attack, L2Character target, double attackpercent, int sAtk)
+	private HitTask doAttackHitSimple(Attack attack, L2Character target, double attackMulti)
 	{
 		int damage1 = 0;
 		byte shld1 = 0;
@@ -1491,19 +1502,14 @@ public abstract class L2Character extends L2Object
 
 			// Calculate physical damages
 			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
-
-			if (attackpercent != 100)
-				damage1 = (int) (damage1 * attackpercent / 100);
+			damage1 *= attackMulti;
 		}
-
-		// Create a new hit task with Medium priority
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk);
 
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
 
-		// Return true if hit isn't missed
-		return !miss1;
+		// Create a new hit task
+		return new HitTask(target, damage1, crit1, miss1);
 	}
 
 	/**
@@ -2926,14 +2932,39 @@ public abstract class L2Character extends L2Object
 
 		public void run()
 		{
-			synchronized (_hitTimerLock)
+			onHitTimer(_hitTarget, _damage, _crit, _miss, 1.0);
+		}
+		
+		public void hitByPole(double vampiricMulti)
+		{
+			onHitTimer(_hitTarget, _damage, _crit, _miss, vampiricMulti);
+		}
+	}
+	
+	private static final class PolearmHitTask implements Runnable
+	{
+		private final ArrayList<HitTask> _hitTasks;
+		
+		public PolearmHitTask(ArrayList<HitTask> hitTasks)
+		{
+			_hitTasks = hitTasks;
+		}
+		
+		@Override
+		public void run()
+		{
+			double vampiricMulti = 1.0;
+			
+			for (int i = 0; i < _hitTasks.size(); i++)
 			{
-				onHitTimer(_hitTarget, _damage, _crit, _miss);
+				final HitTask hitTask = _hitTasks.get(i);
+				
+				hitTask.hitByPole(vampiricMulti);
+				
+				vampiricMulti *= Config.ALT_POLEARM_VAMPIRIC_MULTI;
 			}
 		}
 	}
-
-	private final Object _hitTimerLock = new Object();
 
 	private static final class MagicEnv
 	{
@@ -5287,7 +5318,7 @@ public abstract class L2Character extends L2Object
 	 * @param shld
 	 *            True if shield is efficient
 	 */
-	protected void onHitTimer(L2Character target, int damage, boolean crit, boolean miss)
+	protected void onHitTimer(L2Character target, int damage, boolean crit, boolean miss, double vampiricMulti)
 	{
 		// If the attacker/target is dead or use fake death, notify the AI with EVT_CANCEL
 		// and send a Server->Client packet ActionFailed (if attacker is a L2PcInstance)
@@ -5402,7 +5433,7 @@ public abstract class L2Character extends L2Object
 				if (!isRangeWeapon) // Do not absorb if weapon is of type bow
 				{
 					// Absorb HP from the damage inflicted
-					double absorbPercent = getStat().calcStat(Stats.ABSORB_DAMAGE_PERCENT, 0, null, null);
+					double absorbPercent = getStat().calcStat(Stats.ABSORB_DAMAGE_PERCENT, 0, null, null) * vampiricMulti;
 
 					if (absorbPercent > 0)
 					{
@@ -5419,7 +5450,7 @@ public abstract class L2Character extends L2Object
 					}
 
 					// Absorb MP from the damage inflicted
-					absorbPercent = getStat().calcStat(Stats.ABSORB_MANA_DAMAGE_PERCENT, 0, null, null);
+					absorbPercent = getStat().calcStat(Stats.ABSORB_MANA_DAMAGE_PERCENT, 0, null, null) * vampiricMulti;
 					if (absorbPercent > 0)
 					{
 						int maxCanAbsorb = (int) (getMaxMp() - getCurrentMp());
@@ -5434,7 +5465,7 @@ public abstract class L2Character extends L2Object
 
 					/*
 					// Absorb CP from the damage inflicted
-					double absorbCPPercent = getStat().calcStat(Stats.ABSORB_CP_PERCENT, 0, null, null);
+					double absorbCPPercent = getStat().calcStat(Stats.ABSORB_CP_PERCENT, 0, null, null) * vampiricMulti;
 
 					if (absorbCPPercent > 0)
 					{

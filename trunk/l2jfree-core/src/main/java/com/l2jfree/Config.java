@@ -1448,6 +1448,10 @@ public class Config extends L2Config
 	public static int					ALT_MAX_RUN_SPEED;															// Runspeed limit
 	public static float					ALT_MCRIT_RATE;
 	public static float					ALT_MCRIT_PVP_RATE;
+	
+	public static double				ALT_POLEARM_DAMAGE_MULTI;
+	public static double				ALT_POLEARM_VAMPIRIC_MULTI;
+	
 	public static boolean				ALT_GAME_SKILL_LEARN;														// Alternative game skill learning
 	public static boolean				ALT_GAME_CANCEL_BOW;														// Cancel attack bow by hit
 	public static boolean				ALT_GAME_CANCEL_CAST;														// Cancel cast by hit
@@ -1758,6 +1762,9 @@ public class Config extends L2Config
 			ALT_MAX_RUN_SPEED = Integer.parseInt(altSettings.getProperty("MaxRunSpeed", "250"));
 			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate", "3.0"));
 			ALT_MCRIT_PVP_RATE = Float.parseFloat(altSettings.getProperty("AltMCritPvpRate", "2.5"));
+
+			ALT_POLEARM_DAMAGE_MULTI = Double.parseDouble(altSettings.getProperty("AltPolearmDamageMulti", "1.0"));
+			ALT_POLEARM_VAMPIRIC_MULTI = Double.parseDouble(altSettings.getProperty("AltPolearmVampiricMulti", "0.5"));
 
 			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
 			ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
