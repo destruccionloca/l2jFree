@@ -402,6 +402,7 @@ public abstract class L2Summon extends L2Playable
 		}
 
 		stopAllEffects();
+		getStatus().stopHpMpRegeneration();
 
 		L2WorldRegion oldRegion = getWorldRegion();
 		decayMe();
@@ -413,6 +414,9 @@ public abstract class L2Summon extends L2Playable
 		setTarget(null);
 		
 		LeakTaskManager.getInstance().add(this);
+		
+		// to flush item updates to db
+		SQLQueue.getInstance().run();
 	}
 
 	public final void unSummon()
@@ -437,6 +441,7 @@ public abstract class L2Summon extends L2Playable
 	        owner.setPet(null);
 
 	        stopAllEffects();
+			getStatus().stopHpMpRegeneration();
 
 			L2WorldRegion oldRegion = getWorldRegion();
 			decayMe();
