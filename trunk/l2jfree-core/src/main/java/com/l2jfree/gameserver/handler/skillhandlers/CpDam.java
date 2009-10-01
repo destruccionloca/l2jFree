@@ -21,20 +21,13 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/*
- * Just a quick draft to support Wrath skill. Missing angle based calculation etc.
- */
-
 public class CpDam implements ISkillHandler
 {
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.CPDAM };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.CPDAM, L2SkillType.CPDAMPERCENT };
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		if (activeChar.isAlikeDead())
-			return;
-
+		/*
 		boolean ss = false;
 		boolean sps = false;
 		boolean bss = false;
@@ -52,12 +45,16 @@ public class CpDam implements ISkillHandler
 				activeChar.useSpiritshotCharge();
 			}
 		}
-		else if (activeChar.isSoulshotCharged())
+		else if (skill.useSoulShot())
 		{
-			ss = true;
-			activeChar.useSoulshotCharge();
+			if (activeChar.isSoulshotCharged())
+			{
+				ss = true;
+				activeChar.useSoulshotCharge();
+			}
 		}
-
+		*/
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)
@@ -71,23 +68,34 @@ public class CpDam implements ISkillHandler
 					continue;
 			}
 			
+			// With the current skills this makes no sense for me...
+			/*
 			byte shld = Formulas.calcShldUse(activeChar, target, skill);
 			if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				return;
-			int damage = (int)skill.getPower();
-
+			*/
+			
+			final int damage;
+			
+			if (skill.getSkillType() == L2SkillType.CPDAMPERCENT)
+				damage = (int)(target.getCurrentCp() * skill.getPower() / 100);
+			else
+				damage = (int)skill.getPower();
+			
 			// Manage attack or cast break of the target (calculating rate, sending message...)
 			if (Formulas.calcAtkBreak(target, damage))
 			{
 				target.breakAttack();
 				target.breakCast();
 			}
+			
 			skill.getEffects(activeChar, target);
+			
 			activeChar.sendDamageMessage(target, damage, false, false, false);
 			target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() - damage);
 		}
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

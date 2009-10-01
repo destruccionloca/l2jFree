@@ -18,52 +18,43 @@ import com.l2jfree.gameserver.handler.ISkillHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.2.2.1 $ $Date: 2005/03/02 15:38:36 $
- */
-
 public class CombatPointHeal implements ISkillHandler
 {
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
-	 */
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.COMBATPOINTHEAL, L2SkillType.CPHEAL_PERCENT };
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
-	 */
-	@SuppressWarnings("deprecation")
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.COMBATPOINTHEAL, L2SkillType.CPHEAL_PERCENT };
+	
 	public void useSkill(L2Character actChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, actChar, skill, targets);
-
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)
 				continue;
 			
 			double cp = skill.getPower();
-
+			
 			if (skill.getSkillType() == L2SkillType.CPHEAL_PERCENT)
 				cp = target.getMaxCp() * cp / 100;
+			
 			// From CT2 u will receive exact CP, you can't go over it, if you have full CP and you get CP buff, you will receive 0CP restored message
-			else if ((target.getStatus().getCurrentCp() + cp) >= target.getMaxCp())
-				cp = target.getMaxCp() - target.getStatus().getCurrentCp();
-
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
-			sm.addNumber((int) cp);
-			target.sendPacket(sm);
+			cp = Math.min(cp, target.getMaxCp() - target.getStatus().getCurrentCp());
+			
+			if (target instanceof L2PcInstance)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
+				sm.addNumber((int)cp);
+				((L2PcInstance)target).sendPacket(sm);
+			}
+			
 			target.getStatus().setCurrentCp(cp + target.getStatus().getCurrentCp());
 		}
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

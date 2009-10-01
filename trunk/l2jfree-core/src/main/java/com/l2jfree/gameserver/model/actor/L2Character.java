@@ -5832,19 +5832,23 @@ public abstract class L2Character extends L2Object
 		{
 			skillRemoved(oldSkill);
 
-			// Stop casting if this skill is used right now
-			if (isCastingNow() && this instanceof L2PcInstance)
+			// does not abort casting of the transformation dispell
+			if (oldSkill.getSkillType() != L2SkillType.TRANSFORMDISPEL)
 			{
-				SkillDat currentSkill = ((L2PcInstance)this).getCurrentSkill();
-				if (currentSkill != null && currentSkill.getSkillId() == oldSkill.getId())
-					abortCast();
-			}
-
-			if (isCastingSimultaneouslyNow())
-			{
-				L2Skill lastSimultaneousSkillCast = getLastSimultaneousSkillCast();
-				if (lastSimultaneousSkillCast != null && lastSimultaneousSkillCast.getId() == oldSkill.getId())
-					abortCast();
+				// Stop casting if this skill is used right now
+				if (isCastingNow() && this instanceof L2PcInstance)
+				{
+					SkillDat currentSkill = ((L2PcInstance)this).getCurrentSkill();
+					if (currentSkill != null && currentSkill.getSkillId() == oldSkill.getId())
+						abortCast();
+				}
+	
+				if (isCastingSimultaneouslyNow())
+				{
+					L2Skill lastSimultaneousSkillCast = getLastSimultaneousSkillCast();
+					if (lastSimultaneousSkillCast != null && lastSimultaneousSkillCast.getId() == oldSkill.getId())
+						abortCast();
+				}
 			}
 
 			// for now, to support transformations, we have to let their
