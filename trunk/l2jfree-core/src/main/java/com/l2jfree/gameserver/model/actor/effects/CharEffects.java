@@ -507,7 +507,13 @@ public final class CharEffects
 			if (e.getId() != skillId || e.getLevel() != skillLvl)
 				continue;
 			
-			if (!isActiveBuff(e))
+			if (!isActiveBuff(e) && (!Config.DANCE_CANCEL_BUFF || !isActiveDance(e, true, true)))
+				continue;
+			
+			if (e.getEffectType() == L2EffectType.TRANSFORMATION)
+				continue;
+			
+			if (!e.getSkill().canBeDispeled())
 				continue;
 			
 			stopStackedEffects(e);

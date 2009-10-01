@@ -1439,6 +1439,7 @@ public class Config extends L2Config
 	public static double				ALT_WEIGHT_LIMIT;															// Alternative game weight limit multiplier - default 1
 	public static int					ALT_BUFFS_MAX_AMOUNT;														// Alternative number of cumulated buff
 	public static int					ALT_DANCES_SONGS_MAX_AMOUNT;												// Alternative number of cumulated dances/songs
+	public static boolean				DANCE_CANCEL_BUFF;
 	public static int					ALT_MINIMUM_FALL_HEIGHT;													// Minimum Height(Z) that a character needs to fall, in
 	// order for it to be considered a fall.
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;										// Disable Raidboss Petrification
@@ -1658,6 +1659,7 @@ public class Config extends L2Config
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(altSettings.getProperty("AltMinimumFallHeight", "400"));
 			ALT_BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxBuffAmount", "20"));
 			ALT_DANCES_SONGS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxDanceSongAmount", "12"));
+			DANCE_CANCEL_BUFF = Boolean.parseBoolean(altSettings.getProperty("DanceCancelBuff", "false"));
 			ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
 			ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow")
 					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");

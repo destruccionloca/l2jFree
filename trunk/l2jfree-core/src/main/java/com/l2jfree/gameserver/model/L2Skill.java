@@ -221,7 +221,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final float				_effectLvl;				// normal effect level
 	private final int				_skill_landing_percent;
 
-	private final boolean			_ispotion;
+	private final boolean			_isPotion;
 	private final byte				_element;
 	private final int				_elementPower;
 	private final int				_activateRate;
@@ -292,6 +292,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_ignoreShield;
 	private final boolean			_isSuicideAttack;
 	private final boolean			_canBeReflected;
+	private final boolean			_canBeDispeled;
 	private final int				_afterEffectId;
 	private final int				_afterEffectLvl;
 
@@ -311,7 +312,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_magic = set.getBool("isMagic", isSkillTypeMagic());
 		_itemSkill = set.getBool("isItem", 3080 <= getId() && getId() <= 3259);
 		_physic = set.getBool("isPhysic", false);
-		_ispotion = set.getBool("isPotion", false);
+		_isPotion = set.getBool("isPotion", false);
 		_staticReuse = set.getBool("staticReuse", false);
 		_staticHitTime = set.getBool("staticHitTime", false);
 		_mpConsume = set.getInteger("mpConsume", 0);
@@ -351,8 +352,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				}
 				catch (Exception e)
 				{
-					throw new IllegalArgumentException("SkillId: " + _id + "Enum value of type "
-							+ L2SkillType.class.getName() + "required, but found: " + stats[i]);
+					throw new IllegalArgumentException("SkillId: " + _id + " Enum value of type "
+							+ L2SkillType.class.getName() + " required, but found: " + stats[i]);
 				}
 				
 				array[i] = type;
@@ -454,6 +455,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_flyRadius = set.getInteger("flyRadius", 200);
 		_flyCourse = set.getFloat("flyCourse", 0);
 		_canBeReflected = set.getBool("canBeReflected", true);
+		_canBeDispeled = set.getBool("canBeDispeled", true);
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
 	}
@@ -566,7 +568,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean isPotion()
 	{
-		return _ispotion;
+		return _isPotion;
 	}
 
 	public final int getArmorsAllowed()
@@ -1247,6 +1249,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case MDAM:
 			case CPDAM:
 			case DOT:
+			case CPDAMPERCENT:
 			case BLEED:
 			case POISON:
 			case AGGDAMAGE:
@@ -3821,9 +3824,14 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _afroId;
 	}
 
+	public final boolean is7Signs()
+	{
+		return (4360 < getId() && getId() < 4367);
+	}
+	
 	public final boolean isBuff()
 	{
-		if (4360 < getId() && getId() < 4367) // 7s buffs
+		if (is7Signs()) // 7s buffs
 			return false;
 
 		// TODO: this is a so ugly hax
@@ -3882,6 +3890,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _canBeReflected;
 	}
 
+	public boolean canBeDispeled()
+	{
+		return _canBeDispeled;
+	}
+
 	public final int getAfterEffectId()
 	{
 		return _afterEffectId;
@@ -3890,6 +3903,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int getAfterEffectLvl()
 	{
 		return _afterEffectLvl;
+	}
+
+	public final L2Skill getAfterEffectSkill()
+	{
+		return SkillTable.getInstance().getInfo(getAfterEffectId(), getAfterEffectLvl());
 	}
 
 	@Override

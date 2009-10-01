@@ -27,6 +27,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
@@ -384,6 +386,16 @@ public abstract class L2Effect implements FuncOwner, Runnable
 					}
 
 					_currentFuture.cancel(false);
+
+					final L2Skill skill = _skill.getAfterEffectSkill();
+					
+					if (skill != null)
+					{
+						_effected.broadcastPacket(new MagicSkillUse(_effected, _effected,  skill, 0, 0));
+						_effected.broadcastPacket(new MagicSkillLaunched(_effected, skill, _effected));
+						
+						skill.getEffects(_effected, _effected);
+					}
 
 					setActing(false);
 				}

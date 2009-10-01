@@ -45,6 +45,11 @@ public final class MagicSkillLaunched extends L2GameServerPacket
 		this(cha, skillId, skillLevel, cha.getTarget());
 	}
 	
+	public MagicSkillLaunched(L2Character cha, L2Skill skill)
+	{
+		this(cha, skill.getDisplayId(), skill.getLevel(), cha.getTarget());
+	}
+	
 	@Override
 	protected void writeImpl()
 	{
