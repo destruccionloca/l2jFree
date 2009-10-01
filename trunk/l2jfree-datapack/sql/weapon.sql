@@ -3548,3 +3548,24 @@ UPDATE `weapon` SET `change_weaponId` = 11148 WHERE `item_id` = 11160;
 
 -- Sword of Ice and Fire
 UPDATE `weapon` SET `skills_item` = '8238-1' WHERE `item_id` = 13036;
+
+-- Weapon update by Spire
+# Update Weapon Weights
+UPDATE `weapon` SET `crystal_count` = '0' WHERE `item_id` = 6919;
+UPDATE `weapon` SET `crystal_count` = '1346' WHERE `item_id` = 10981;
+
+# Shield def on Sealed IC Shield
+UPDATE `weapon` SET `shield_def` = '290' WHERE `item_id` = 12302;
+
+# Weight updates
+UPDATE `weapon` SET `weight` = '640' WHERE `item_id` = 104;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 105;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 106;
+UPDATE `weapon` SET `weight` = '560' WHERE `item_id` = 108;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 109;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 111;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 338;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 345;
+UPDATE `weapon` SET `weight` = '320' WHERE `item_id` = 2915;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 7014;
+UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 8210;
