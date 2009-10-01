@@ -244,14 +244,30 @@
     </cond>
   </skill>
   <skill id="2631" levels="1" name="Scroll of Transformation - Frog">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13800"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="transformId" val="111"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2632" levels="1" name="Scroll of Transformation - Young Child">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13801"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="transformId" val="112"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2633" levels="1" name="Elmore-Aden's Holy Water">
     <set name="target" val="TARGET_NONE"/>
@@ -689,181 +705,421 @@
     </cond>
   </skill>
   <skill id="2670" levels="1" name="Scroll of Transformation - Red">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13794"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="transformId" val="121"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2671" levels="1" name="Scroll of Transformation - Blue">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13795"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="transformId" val="122"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2672" levels="1" name="Gludio Human Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13569"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="10"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2673" levels="1" name="Gludio Elf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13570"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="11"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2674" levels="1" name="Gludio Dark Elf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13571"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="12"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2675" levels="1" name="Gludio Orc Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13572"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="13"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2676" levels="1" name="Gludio Dwarf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13573"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="14"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2677" levels="1" name="Gludio Kamael Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13574"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="15"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2678" levels="1" name="Gludio Royal Guard Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13575"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="16"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2679" levels="1" name="Gludio Archer Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13576"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="17"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2680" levels="1" name="Gludio Magic Leader">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13577"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="18"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2681" levels="1" name="Gludio Kamael Guard Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13578"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="19"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2682" levels="1" name="Gludio Knight of Dawn">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13579"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="20"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2683" levels="1" name="Gludio Fortress Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13580"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="21"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2684" levels="1" name="Dion Human Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13581"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="10"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2685" levels="1" name="Dion Elf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13582"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="11"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2686" levels="1" name="Dion Dark Elf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13583"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="12"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2687" levels="1" name="Dion Orc Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13584"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="13"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2688" levels="1" name="Dion Dwarf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13585"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="14"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2689" levels="1" name="Dion Kamael Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13586"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="15"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2690" levels="1" name="Dion Royal Guard Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13587"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="16"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2691" levels="1" name="Dion Archer Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13588"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="17"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2692" levels="1" name="Dion Magic Leader">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13589"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="18"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2693" levels="1" name="Dion Kamael Guard Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13590"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="19"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2694" levels="1" name="Dion Knight of Dawn">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13591"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="20"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2695" levels="1" name="Dion Fortress Captain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13592"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="21"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2696" levels="1" name="Giran Human Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13593"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="10"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2697" levels="1" name="Giran Elf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13594"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="11"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2698" levels="1" name="Giran Dark Elf Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13595"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="12"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
   <skill id="2699" levels="1" name="Giran Orc Mercenary">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="itemConsumeId" val="13596"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="hitTime" val="2500"/> 
+    <set name="transformId" val="13"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect count="1" name="Transformation" time="1800" val="0"/>
+    </for>
   </skill>
 </list>
