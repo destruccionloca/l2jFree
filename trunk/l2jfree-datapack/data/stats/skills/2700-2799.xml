@@ -618,7 +618,7 @@
     </for>
   </skill>
   <skill id="2744" levels="1" name="Goddard Human Mercenary">
-    <set name="itemConsumeId" val="13641/>
+    <set name="itemConsumeId" val="13641"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
