@@ -632,7 +632,7 @@
     </for>
   </skill>
   <skill id="2745" levels="1" name="Goddard Elf Mercenary">
-    <set name="itemConsumeId" val="13642/>
+    <set name="itemConsumeId" val="13642"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -646,7 +646,7 @@
     </for>
   </skill>
   <skill id="2746" levels="1" name="Goddard Dark Elf Mercenary">
-    <set name="itemConsumeId" val="13643/>
+    <set name="itemConsumeId" val="13643"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -660,7 +660,7 @@
     </for>
   </skill>
   <skill id="2747" levels="1" name="Goddard Orc Mercenary">
-    <set name="itemConsumeId" val="13644/>
+    <set name="itemConsumeId" val="13644"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -674,7 +674,7 @@
     </for>
   </skill>
   <skill id="2748" levels="1" name="Goddard Dwarf Mercenary">
-    <set name="itemConsumeId" val="13645/>
+    <set name="itemConsumeId" val="13645"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -688,7 +688,7 @@
     </for>
   </skill>
   <skill id="2749" levels="1" name="Goddard Kamael Mercenary">
-    <set name="itemConsumeId" val="13646/>
+    <set name="itemConsumeId" val="13646"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -702,7 +702,7 @@
     </for>
   </skill>
   <skill id="2750" levels="1" name="Goddard Royal Guard Captain">
-    <set name="itemConsumeId" val="13647/>
+    <set name="itemConsumeId" val="13647"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -716,7 +716,7 @@
     </for>
   </skill>
   <skill id="2751" levels="1" name="Goddard Archer Captain">
-    <set name="itemConsumeId" val="13648/>
+    <set name="itemConsumeId" val="13648"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -730,7 +730,7 @@
     </for>
   </skill>
   <skill id="2752" levels="1" name="Goddard Magic Leader">
-    <set name="itemConsumeId" val="13649/>
+    <set name="itemConsumeId" val="13649"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -744,7 +744,7 @@
     </for>
   </skill>
   <skill id="2753" levels="1" name="Goddard Kamael Guard Captain">
-    <set name="itemConsumeId" val="13650/>
+    <set name="itemConsumeId" val="13650"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -758,7 +758,7 @@
     </for>
   </skill>
   <skill id="2754" levels="1" name="Goddard Knight of Dawn">
-    <set name="itemConsumeId" val="13651/>
+    <set name="itemConsumeId" val="13651"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -772,7 +772,7 @@
     </for>
   </skill>
   <skill id="2755" levels="1" name="Goddard Fortress Captain">
-    <set name="itemConsumeId" val="13652/>
+    <set name="itemConsumeId" val="13652"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -786,7 +786,7 @@
     </for>
   </skill>
   <skill id="2756" levels="1" name="Rune Human Mercenary">
-    <set name="itemConsumeId" val="13653/>
+    <set name="itemConsumeId" val="13653"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -800,7 +800,7 @@
     </for>
   </skill>
   <skill id="2757" levels="1" name="Rune Elf Mercenary">
-    <set name="itemConsumeId" val="13654/>
+    <set name="itemConsumeId" val="13654"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -814,7 +814,7 @@
     </for>
   </skill>
   <skill id="2758" levels="1" name="Rune Dark Elf Mercenary">
-    <set name="itemConsumeId" val="13655/>
+    <set name="itemConsumeId" val="13655"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -828,7 +828,7 @@
     </for>
   </skill>
   <skill id="2759" levels="1" name="Rune Orc Mercenary">
-    <set name="itemConsumeId" val="13656/>
+    <set name="itemConsumeId" val="13656"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -842,7 +842,7 @@
     </for>
   </skill>
   <skill id="2760" levels="1" name="Rune Dwarf Mercenary">
-    <set name="itemConsumeId" val="13657/>
+    <set name="itemConsumeId" val="13657"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -856,7 +856,7 @@
     </for>
   </skill>
   <skill id="2761" levels="1" name="Rune Kamael Mercenary">
-    <set name="itemConsumeId" val="13658/>
+    <set name="itemConsumeId" val="13658"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -870,7 +870,7 @@
     </for>
   </skill>
   <skill id="2762" levels="1" name="Rune Royal Guard Captain">
-    <set name="itemConsumeId" val="13659/>
+    <set name="itemConsumeId" val="13659"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -884,7 +884,7 @@
     </for>
   </skill>
   <skill id="2763" levels="1" name="Rune Archer Captain">
-    <set name="itemConsumeId" val="13660/>
+    <set name="itemConsumeId" val="13660"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -898,7 +898,7 @@
     </for>
   </skill>
   <skill id="2764" levels="1" name="Rune Magic Leader">
-    <set name="itemConsumeId" val="13661/>
+    <set name="itemConsumeId" val="13661"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -912,7 +912,7 @@
     </for>
   </skill>
   <skill id="2765" levels="1" name="Rune Kamael Guard Captain">
-    <set name="itemConsumeId" val="13662/>
+    <set name="itemConsumeId" val="13662"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -926,7 +926,7 @@
     </for>
   </skill>
   <skill id="2766" levels="1" name="Rune Knight of Dawn">
-    <set name="itemConsumeId" val="13663/>
+    <set name="itemConsumeId" val="13663"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -940,7 +940,7 @@
     </for>
   </skill>
   <skill id="2767" levels="1" name="Rune Fortress Captain">
-    <set name="itemConsumeId" val="13664/>
+    <set name="itemConsumeId" val="13664"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -954,7 +954,7 @@
     </for>
   </skill>
   <skill id="2768" levels="1" name="Schuttgart Human Mercenary">
-    <set name="itemConsumeId" val="13665/>
+    <set name="itemConsumeId" val="13665"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -968,7 +968,7 @@
     </for>
   </skill>
   <skill id="2769" levels="1" name="Schuttgart Elf Mercenary">
-    <set name="itemConsumeId" val="13666/>
+    <set name="itemConsumeId" val="13666"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -982,7 +982,7 @@
     </for>
   </skill>
   <skill id="2770" levels="1" name="Schuttgart Dark Elf Mercenary">
-    <set name="itemConsumeId" val="13667/>
+    <set name="itemConsumeId" val="13667"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -996,7 +996,7 @@
     </for>
   </skill>
   <skill id="2771" levels="1" name="Schuttgart Orc Mercenary">
-    <set name="itemConsumeId" val="13668/>
+    <set name="itemConsumeId" val="13668"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1010,7 +1010,7 @@
     </for>
   </skill>
   <skill id="2772" levels="1" name="Schuttgart Dwarf Mercenary">
-    <set name="itemConsumeId" val="13669/>
+    <set name="itemConsumeId" val="13669"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1024,7 +1024,7 @@
     </for>
   </skill>
   <skill id="2773" levels="1" name="Schuttgart Kamael Mercenary">
-    <set name="itemConsumeId" val="13670/>
+    <set name="itemConsumeId" val="13670"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1038,7 +1038,7 @@
     </for>
   </skill>
   <skill id="2774" levels="1" name="Schuttgart Royal Guard Captain">
-    <set name="itemConsumeId" val="13671/>
+    <set name="itemConsumeId" val="13671"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1052,7 +1052,7 @@
     </for>
   </skill>
   <skill id="2775" levels="1" name="Schuttgart Archer Captain">
-    <set name="itemConsumeId" val="13672/>
+    <set name="itemConsumeId" val="13672"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1066,7 +1066,7 @@
     </for>
   </skill>
   <skill id="2776" levels="1" name="Schuttgart Magic Leader">
-    <set name="itemConsumeId" val="13673/>
+    <set name="itemConsumeId" val="13673"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1080,7 +1080,7 @@
     </for>
   </skill>
   <skill id="2777" levels="1" name="Schuttgart Kamael Guard Captain">
-    <set name="itemConsumeId" val="13674/>
+    <set name="itemConsumeId" val="13674"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1094,7 +1094,7 @@
     </for>
   </skill>
   <skill id="2778" levels="1" name="Schuttgart Knight of Dawn">
-    <set name="itemConsumeId" val="13675/>
+    <set name="itemConsumeId" val="13675"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1108,7 +1108,7 @@
     </for>
   </skill>
   <skill id="2779" levels="1" name="Schuttgart Fortress Captain">
-    <set name="itemConsumeId" val="13676/>
+    <set name="itemConsumeId" val="13676"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
