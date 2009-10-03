@@ -1,4 +1,4 @@
-VERSION=1.3.0
+# VERSION=1.3.0
 
 # CLASSPATH=${CLASSPATH}:./lib/l2j-mmocore-${VERSION}.jar
 
@@ -26,7 +26,7 @@ VERSION=1.3.0
 
 # main jar
 # CLASSPATH=${CLASSPATH}:./lib/l2j-commons-${VERSION}.jar
-CLASSPATH=${CLASSPATH}:l2jfree-core-${VERSION}.jar
+# CLASSPATH=${CLASSPATH}:l2jfree-core-${VERSION}.jar
 CLASSPATH=${CLASSPATH}:./lib/
 
 # CLASSPATH=${CLASSPATH}:./lib/core-3.3.0.jar

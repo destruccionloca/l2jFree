@@ -1,4 +1,4 @@
-SET VERSION=1.3.0
+REM SET VERSION=1.3.0
 
 REM SET CLASSPATH=%CLASSPATH%;./lib/l2j-mmocore-%VERSION%.jar
 
@@ -28,7 +28,7 @@ REM SET CLASSPATH=%CLASSPATH%;./lib/javolution-5.3.1.jar
 
 REM main jar
 REM SET CLASSPATH=%CLASSPATH%;./lib/l2j-commons-%VERSION%.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-core-%VERSION%.jar
+REM SET CLASSPATH=%CLASSPATH%;l2jfree-core-%VERSION%.jar
 SET CLASSPATH=%CLASSPATH%;./lib/
 
 REM For SQL use

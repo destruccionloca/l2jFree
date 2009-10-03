@@ -1,4 +1,4 @@
-VERSION=1.3.0
+# VERSION=1.3.0
 
 # Hibernate and associated jars
 # CLASSPATH=${CLASSPATH}:./lib/antlr-2.7.6.jar
@@ -33,7 +33,7 @@ VERSION=1.3.0
 
 # main jar
 # CLASSPATH=${CLASSPATH}:./lib/l2j-commons-${VERSION}.jar
-CLASSPATH=${CLASSPATH}:l2jfree-login-${VERSION}.jar
+# CLASSPATH=${CLASSPATH}:l2jfree-login-${VERSION}.jar
 CLASSPATH=${CLASSPATH}:./lib/
 
 # spring 

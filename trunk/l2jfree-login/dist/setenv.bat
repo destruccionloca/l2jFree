@@ -1,4 +1,4 @@
-SET VERSION=1.3.0
+REM SET VERSION=1.3.0
 
 REM Hibernate and associated jars
 REM SET CLASSPATH=%CLASSPATH%;./lib/antlr-2.7.6.jar
@@ -33,7 +33,7 @@ REM SET CLASSPATH=%CLASSPATH%;./lib/javolution-5.3.1.jar
 
 REM main jar
 REM SET CLASSPATH=%CLASSPATH%;./lib/l2j-commons-%VERSION%.jar
-SET CLASSPATH=%CLASSPATH%;l2jfree-login-%VERSION%.jar
+REM SET CLASSPATH=%CLASSPATH%;l2jfree-login-%VERSION%.jar
 SET CLASSPATH=%CLASSPATH%;./lib/
 
 REM spring 

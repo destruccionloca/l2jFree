@@ -57,10 +57,28 @@ public abstract class L2Config
 		
 		final Map<String, List<String>> libs = new HashMap<String, List<String>>();
 		
+		final List<File> files = new ArrayList<File>();
+		
+		for (String classPath : System.getProperty("java.class.path").split(File.pathSeparator))
+		{
+			final File classPathFile = new File(classPath);
+			
+			if (classPathFile.isDirectory())
+			{
+				for (File f : classPathFile.listFiles())
+					files.add(f);
+			}
+			else
+				files.add(classPathFile);
+		}
+		
 		boolean shouldExit = false;
 		
-		for (File f : new File("lib").listFiles())
+		for (File f : files)
 		{
+			if (!f.getName().endsWith("jar"))
+				continue;
+			
 			final StringBuilder sb = new StringBuilder();
 			
 			final StringTokenizer st = new StringTokenizer(f.getName(), "-");
