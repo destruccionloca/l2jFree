@@ -44,5 +44,6 @@ REM For SQL use
 REM SET CLASSPATH=%CLASSPATH%;./lib/mysql-connector-java-5.1.6.jar
 
 REM for configuration
-SET CLASSPATH=%CLASSPATH%;./config/*
+SET CLASSPATH=%CLASSPATH%;./config/
 SET CLASSPATH=%CLASSPATH%;./*
+SET CLASSPATH=%CLASSPATH%;.

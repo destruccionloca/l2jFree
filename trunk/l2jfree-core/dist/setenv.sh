@@ -41,7 +41,8 @@ CLASSPATH=${CLASSPATH}:./lib/*
 # CLASSPATH=${CLASSPATH}:./lib/trove-2.1.1.jar
 
 # for configuration
-CLASSPATH=${CLASSPATH}:./config/*
+CLASSPATH=${CLASSPATH}:./config/
 CLASSPATH=${CLASSPATH}:./*
+CLASSPATH=${CLASSPATH}:.
 
 export CLASSPATH
