@@ -15,9 +15,15 @@
 package com.l2jfree;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 
@@ -46,6 +52,61 @@ public abstract class L2Config
 		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
 		{
 			System.out.print("L2Jfree servers should not run under root-account ... exited.");
+			System.exit(-1);
+		}
+		
+		final Map<String, List<String>> libs = new HashMap<String, List<String>>();
+		
+		boolean shouldExit = false;
+		
+		for (File f : new File("lib").listFiles())
+		{
+			final StringBuilder sb = new StringBuilder();
+			
+			final StringTokenizer st = new StringTokenizer(f.getName(), "-");
+			
+			tokenizer: while (st.hasMoreTokens())
+			{
+				final String token = st.nextToken();
+				
+				boolean numberOnly = true;
+				
+				for (int i = 0; i < token.length(); i++)
+				{
+					char c = token.charAt(i);
+					
+					if (numberOnly && c == '.')
+						break tokenizer;
+					
+					numberOnly &= Character.isDigit(c);
+				}
+				
+				if (sb.length() != 0)
+					sb.append("-");
+				
+				sb.append(token);
+			}
+			
+			List<String> list = libs.get(sb.toString());
+			
+			if (list == null)
+				libs.put(sb.toString(), list = new ArrayList<String>());
+			else
+				shouldExit = true;
+			
+			list.add(f.getName());
+		}
+		
+		if (shouldExit)
+		{
+			System.out.println("Server should not run with classpath conflicts! "
+					+ "(rename/remove possible conflicting classpath entries)");
+			
+			for (Map.Entry<String, List<String>> entry : libs.entrySet())
+				if (entry.getValue().size() > 1)
+					for (String name : entry.getValue())
+						System.out.println("\t'" + name + "'");
+			
 			System.exit(-1);
 		}
 		
