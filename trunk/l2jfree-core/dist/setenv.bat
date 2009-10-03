@@ -29,7 +29,7 @@ REM SET CLASSPATH=%CLASSPATH%;./lib/javolution-5.3.1.jar
 REM main jar
 REM SET CLASSPATH=%CLASSPATH%;./lib/l2j-commons-%VERSION%.jar
 REM SET CLASSPATH=%CLASSPATH%;l2jfree-core-%VERSION%.jar
-SET CLASSPATH=%CLASSPATH%;./lib/
+SET CLASSPATH=%CLASSPATH%;./lib/*
 
 REM For SQL use
 REM SET CLASSPATH=%CLASSPATH%;./lib/mysql-connector-java-5.1.6.jar
@@ -40,5 +40,5 @@ REM SET CLASSPATH=%CLASSPATH%;./lib/irclib-1.10.jar
 REM SET CLASSPATH=%CLASSPATH%;./lib/trove-2.1.1.jar
 
 REM for configuration
-SET CLASSPATH=%CLASSPATH%;./config/
-SET CLASSPATH=%CLASSPATH%;.
+SET CLASSPATH=%CLASSPATH%;./config/*
+SET CLASSPATH=%CLASSPATH%;./*

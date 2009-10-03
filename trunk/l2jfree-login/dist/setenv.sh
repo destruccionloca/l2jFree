@@ -34,7 +34,7 @@
 # main jar
 # CLASSPATH=${CLASSPATH}:./lib/l2j-commons-${VERSION}.jar
 # CLASSPATH=${CLASSPATH}:l2jfree-login-${VERSION}.jar
-CLASSPATH=${CLASSPATH}:./lib/
+CLASSPATH=${CLASSPATH}:./lib/*
 
 # spring 
 # CLASSPATH=${CLASSPATH}:./lib/spring-2.0.2.jar
@@ -44,7 +44,7 @@ CLASSPATH=${CLASSPATH}:./lib/
 # CLASSPATH=${CLASSPATH}:./lib/mysql-connector-java-5.1.6.jar
 
 # for configuration
-CLASSPATH=${CLASSPATH}:./config/
-CLASSPATH=${CLASSPATH}:.
+CLASSPATH=${CLASSPATH}:./config/*
+CLASSPATH=${CLASSPATH}:./*
 
 export CLASSPATH

@@ -20,9 +20,11 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -57,7 +59,7 @@ public abstract class L2Config
 		
 		final Map<String, List<String>> libs = new HashMap<String, List<String>>();
 		
-		final List<File> files = new ArrayList<File>();
+		final Set<File> files = new HashSet<File>();
 		
 		for (String classPath : System.getProperty("java.class.path").split(File.pathSeparator))
 		{

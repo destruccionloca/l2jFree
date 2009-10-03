@@ -27,7 +27,7 @@
 # main jar
 # CLASSPATH=${CLASSPATH}:./lib/l2j-commons-${VERSION}.jar
 # CLASSPATH=${CLASSPATH}:l2jfree-core-${VERSION}.jar
-CLASSPATH=${CLASSPATH}:./lib/
+CLASSPATH=${CLASSPATH}:./lib/*
 
 # CLASSPATH=${CLASSPATH}:./lib/core-3.3.0.jar
 # CLASSPATH=${CLASSPATH}:./lib/java-engine-1.0.2.jar
@@ -41,7 +41,7 @@ CLASSPATH=${CLASSPATH}:./lib/
 # CLASSPATH=${CLASSPATH}:./lib/trove-2.1.1.jar
 
 # for configuration
-CLASSPATH=${CLASSPATH}:./config/
-CLASSPATH=${CLASSPATH}:.
+CLASSPATH=${CLASSPATH}:./config/*
+CLASSPATH=${CLASSPATH}:./*
 
 export CLASSPATH
