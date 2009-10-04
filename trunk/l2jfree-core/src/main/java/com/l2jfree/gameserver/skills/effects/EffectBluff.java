@@ -59,7 +59,7 @@ public final class EffectBluff extends L2Effect
 		getEffected().abortCast();
 		
 		getEffected().broadcastPacket(
-			new StartRotation(getEffected().getObjectId(), getEffected().getHeading(), 1, 65535));
+				new StartRotation(getEffected().getObjectId(), getEffected().getHeading(), 1, 65535));
 		getEffected().broadcastPacket(new StopRotation(getEffected().getObjectId(), getEffector().getHeading(), 65535));
 		getEffected().setHeading(getEffector().getHeading());
 		getEffected().startStunning();

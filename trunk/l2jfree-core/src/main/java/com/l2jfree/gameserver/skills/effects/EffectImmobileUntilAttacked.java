@@ -48,7 +48,7 @@ public final class EffectImmobileUntilAttacked extends L2Effect
 	protected void onExit()
 	{
 		getEffected().stopImmobileUntilAttacked(false);
-		for(int id:getSkill().getNegateId())
+		for (int id : getSkill().getNegateId())
 		{
 			getEffected().stopSkillEffects(id);
 		}

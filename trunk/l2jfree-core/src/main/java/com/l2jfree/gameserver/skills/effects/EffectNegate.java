@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
- * 
  * @author Gnat
  */
 public final class EffectNegate extends L2Effect
@@ -51,11 +50,5 @@ public final class EffectNegate extends L2Effect
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

@@ -379,76 +379,71 @@ public final class L2PcInstance extends L2Playable
 			SkillTreeTable.getInstance().getExpertiseLevel(7)  //S84
 																};
 
-	private static final int[]	COMMON_CRAFT_LEVELS				=
-																{ 5, 20, 28, 36, 43, 49, 55, 62 };
-
+	private static final int[] COMMON_CRAFT_LEVELS = { 5, 20, 28, 36, 43, 49, 55, 62 };
+	
 	public class AIAccessor extends L2Character.AIAccessor
 	{
 		protected AIAccessor()
 		{
 		}
-
+		
 		public L2PcInstance getPlayer()
 		{
 			return L2PcInstance.this;
 		}
-
+		
 		public void doPickupItem(L2Object object)
 		{
 			L2PcInstance.this.doPickupItem(object);
 		}
-
+		
 		public void doInteract(L2Character target)
 		{
 			L2PcInstance.this.doInteract(target);
 		}
-
+		
 		@Override
 		public void doAttack(L2Character target)
 		{
-			L2Effect eInvisible = getFirstEffect(L2EffectType.HIDE);
-			if (eInvisible != null)
-				eInvisible.exit();
-
+			getEffects().stopEffects(L2EffectType.HIDE);
+			
 			super.doAttack(target);
-
+			
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
-			getPlayer().setRecentFakeDeath(false);
-			getPlayer().stopEffects(L2EffectType.SILENT_MOVE);
+			setRecentFakeDeath(false);
+			
+			if (isSilentMoving())
+				getEffects().stopEffects(L2EffectType.SILENT_MOVE);
 		}
-
+		
 		@Override
 		public void doCast(L2Skill skill)
 		{
-			L2Effect eInvisible = getFirstEffect(L2EffectType.HIDE);
-			if (eInvisible != null)
-				eInvisible.exit();
-
+			getEffects().stopEffects(L2EffectType.HIDE);
+			
 			super.doCast(skill);
-
+			
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
-			getPlayer().setRecentFakeDeath(false);
+			setRecentFakeDeath(false);
 			if (skill == null)
 				return;
 			if (!skill.isOffensive())
 				return;
-
-			if (getPlayer().isSilentMoving())
-			{
-				getPlayer().stopEffects(L2EffectType.SILENT_MOVE);
-			}
-
+			
+			if (isSilentMoving())
+				getEffects().stopEffects(L2EffectType.SILENT_MOVE);
+			
 			switch (skill.getTargetType())
 			{
-			case TARGET_GROUND:
-				return;
-			default:
-			{
-				for (L2CubicInstance cubic : getCubics().values())
-					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-						cubic.doAction();
-			}
-				break;
+				case TARGET_GROUND:
+					return;
+				default:
+				{
+					for (L2CubicInstance cubic : getCubics().values())
+						if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+							cubic.doAction();
+				}
+					break;
 			}
 		}
 	}

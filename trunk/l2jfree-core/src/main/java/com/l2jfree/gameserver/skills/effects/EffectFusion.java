@@ -54,7 +54,7 @@ public final class EffectFusion extends L2Effect
 	{
 		_effect--;
 		if (_effect < 1)
-		exit();
+			exit();
 		else
 			updateBuff();
 	}

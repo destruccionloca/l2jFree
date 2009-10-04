@@ -81,7 +81,7 @@ public final class EffectRelax extends L2Effect
 			{
 				if (effectedPlayer != null)
 					getEffected().sendPacket(SystemMessageId.SKILL_DEACTIVATED_HP_FULL);
-
+				
 				retval = false;
 			}
 		}

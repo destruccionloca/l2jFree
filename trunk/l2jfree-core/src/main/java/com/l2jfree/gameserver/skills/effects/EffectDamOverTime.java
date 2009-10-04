@@ -40,7 +40,7 @@ public class EffectDamOverTime extends L2Effect
 	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override
-	public boolean onActionTime()
+	protected boolean onActionTime()
 	{
 		if (getEffected().isDead())
 			return false;

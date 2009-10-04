@@ -57,7 +57,7 @@ public final class EffectEnemyCharge extends L2Effect
 		if (distance > 2000)
 		{
 			_log.info("EffectEnemyCharge was going to use invalid coordinates for characters, getEffector: " + curX
-				+ "," + curY + " and getEffected: " + getEffected().getX() + "," + getEffected().getY());
+					+ "," + curY + " and getEffected: " + getEffected().getX() + "," + getEffected().getY());
 			return false;
 		}
 		int offset = Math.max((int)distance - getSkill().getFlyRadius(), 30);
@@ -87,18 +87,18 @@ public final class EffectEnemyCharge extends L2Effect
 		if (Config.GEODATA > 0)
 		{
 			Location destiny = GeoData.getInstance().moveCheck(getEffector().getX(), getEffector().getY(),
-				getEffector().getZ(), _x, _y, _z, getEffector().getInstanceId());
+					getEffector().getZ(), _x, _y, _z, getEffector().getInstanceId());
 			_x = destiny.getX();
 			_y = destiny.getY();
 		}
 		getEffector().broadcastPacket(new FlyToLocation(getEffector(), _x, _y, _z, FlyType.CHARGE));
 		//getEffector().abortAttack();
 		//getEffector().abortCast();
-
+		
 		// maybe is need force set X,Y,Z
 		getEffector().getPosition().setXYZ(_x, _y, _z);
 		getEffector().broadcastPacket(new ValidateLocation(getEffector()));
-
+		
 		return true;
 	}
 }

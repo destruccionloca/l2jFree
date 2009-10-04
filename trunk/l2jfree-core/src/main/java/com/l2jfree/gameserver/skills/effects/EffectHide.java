@@ -23,45 +23,33 @@ import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.util.Broadcast;
 
-
 /**
- *
- *
  * @author ZaKaX - nBd
  */
 public class EffectHide extends L2Effect
 {
-
 	public EffectHide(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
 	public EffectHide(Env env, L2Effect effect)
 	{
 		super(env, effect);
 	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Effect#getEffectType()
-	 */
+	
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.HIDE;
 	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Effect#onStart()
-	 */
+	
 	@Override
-	public boolean onStart()
+	protected boolean onStart()
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
-			L2PcInstance activeChar = ((L2PcInstance) getEffected());
+			L2PcInstance activeChar = ((L2PcInstance)getEffected());
 			activeChar.getAppearance().setInvisible();
 			activeChar.broadcastUserInfo();
 			activeChar.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_STEALTH);
@@ -69,30 +57,16 @@ public class EffectHide extends L2Effect
 		}
 		return true;
 	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Effect#onExit()
-	 */
+	
 	@Override
-	public void onExit()
+	protected void onExit()
 	{
 		if (getEffected() instanceof L2PcInstance)
 		{
-			L2PcInstance activeChar = ((L2PcInstance) getEffected());
+			L2PcInstance activeChar = ((L2PcInstance)getEffected());
 			activeChar.getAppearance().setVisible();
 			activeChar.broadcastUserInfo();
 			activeChar.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_STEALTH);
 		}
-	}
-
-	/**
-	 *
-	 * @see com.l2jfree.gameserver.model.L2Effect#onActionTime()
-	 */
-	@Override
-	public boolean onActionTime()
-	{
-		return false;
 	}
 }

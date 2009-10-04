@@ -49,7 +49,7 @@ public final class EffectAbsorbDamOverTime extends L2Effect
 		}
 		
 		boolean awake = !(getEffected() instanceof L2Attackable)
-			&& !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
+				&& !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
 		
 		getEffected().reduceCurrentHp(damage, getEffector(), awake, true, false, getSkill());
 		
