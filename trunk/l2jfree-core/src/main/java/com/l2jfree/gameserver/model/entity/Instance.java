@@ -145,6 +145,16 @@ public class Instance
 		_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration), 500);
 	}
 
+	/**
+	 * Set time before empty instance will be removed
+	 * 
+	 * @param time in milliseconds
+	 */
+	public void setEmptyDestroyTime(long time)
+	{
+		_emptyDestroyTime = time;
+	}
+
 	public boolean containsPlayer(int objectId)
 	{
 		return _players.contains(objectId);
@@ -276,7 +286,8 @@ public class Instance
 		{
 			if (mob != null)
 			{
-				mob.getSpawn().stopRespawn();
+				if (mob.getSpawn() != null)
+					mob.getSpawn().stopRespawn();
 				mob.deleteMe();
 			}
 		}

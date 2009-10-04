@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.templates.item;
 import javolution.util.FastList;
 
 import com.l2jfree.gameserver.handler.SkillHandler;
-import com.l2jfree.gameserver.model.ChanceSkillList;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -378,9 +377,6 @@ public final class L2Weapon extends L2Equip
 			return;
 		
 		if (target.isDead())
-			return;
-		
-		if (!ChanceSkillList.canTriggerByCast(caster, target, trigger))
 			return;
 		
 		for (int i = 0; i < _onCastSkills.length; i++)

@@ -117,9 +117,6 @@ public final class ChanceSkillList
 		int event;
 		if (ownerWasHit)
 		{
-			if (!ChanceSkillList.canTriggerByCast(evtInitiator, _owner, trigger))
-				return;
-			
 			event = ChanceCondition.EVT_HIT_BY_SKILL;
 			if (trigger.isOffensive())
 			{
@@ -133,9 +130,6 @@ public final class ChanceSkillList
 		}
 		else
 		{
-			if (!ChanceSkillList.canTriggerByCast(_owner, evtInitiator, trigger))
-				return;
-			
 			event = ChanceCondition.EVT_CAST;
 			event |= trigger.isMagic() ? ChanceCondition.EVT_MAGIC : ChanceCondition.EVT_PHYSICAL;
 			event |= trigger.isOffensive() ? ChanceCondition.EVT_MAGIC_OFFENSIVE : ChanceCondition.EVT_MAGIC_GOOD;
@@ -146,6 +140,15 @@ public final class ChanceSkillList
 	
 	public static boolean canTriggerByCast(L2Character caster, L2Character target, L2Skill trigger)
 	{
+		// crafting does not trigger any chance skills
+		// possibly should be unhardcoded
+		switch (trigger.getSkillType())
+		{
+			case COMMON_CRAFT:
+			case DWARVEN_CRAFT:
+				return false;
+		}
+		
 		if (trigger.isToggle() || trigger.isPotion())
 			return false; // No buffing with toggle skills or potions
 			

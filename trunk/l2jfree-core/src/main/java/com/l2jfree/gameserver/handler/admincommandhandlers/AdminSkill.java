@@ -208,6 +208,11 @@ public class AdminSkill implements IAdminCommandHandler
 		
 		activeChar.sendMessage("You gave " + info + " to " + player.getName());
 		
+		if (player.isGM() && !player.hasSkill(7029))
+		{
+			player.addSkill(7029, 4);
+		}
+		
 		player.sendSkillList();
 	}
 	

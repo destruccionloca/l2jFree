@@ -939,34 +939,16 @@ public abstract class L2Character extends L2Object
 		{
 			if (weaponItem.getItemType() == L2WeaponType.BOW)
 			{
-				//Check for arrows and MP
+				// Verify if the bow can be use
+				if (getEvtReadyToAct().isScheduled())
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+				
+				// Check for arrows and MP
 				if (this instanceof L2PcInstance)
 				{
-					// Verify if the bow can be use
-					if (!getEvtReadyToAct().isScheduled())
-					{
-						// Verify if L2PcInstance owns enough MP
-						int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
-						int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
-						mpConsume = (int)calcStat(Stats.BOW_MP_CONSUME_RATE, mpConsume, null, null);
-
-						if (getStatus().getCurrentMp() < mpConsume)
-						{
-							// If L2PcInstance doesn't have enough MP, stop the attack
-							ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
-							sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
-							sendPacket(ActionFailed.STATIC_PACKET);
-							return;
-						}
-						// If L2PcInstance have enough MP, the bow consumes it
-						if (mpConsume > 0)
-							getStatus().reduceMp(mpConsume);
-					}
-					else
-					{
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
 					// Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
 					if (!checkAndEquipArrows())
 					{
@@ -976,26 +958,39 @@ public abstract class L2Character extends L2Object
 						sendPacket(SystemMessageId.NOT_ENOUGH_ARROWS);
 						return;
 					}
-				}
-				else if (this instanceof L2Npc)
-				{
-					if (getEvtReadyToAct().isScheduled())
+					
+					// Verify if L2PcInstance owns enough MP
+					int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
+					int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
+					mpConsume = (int)calcStat(Stats.BOW_MP_CONSUME_RATE, mpConsume, null, null);
+					
+					if (getStatus().getCurrentMp() < mpConsume)
+					{
+						// If L2PcInstance doesn't have enough MP, stop the attack
+						getEvtReadyToAct().schedule(1000);
+						sendPacket(ActionFailed.STATIC_PACKET);
+						sendPacket(SystemMessageId.NOT_ENOUGH_MP);
 						return;
+					}
+					
+					// If L2PcInstance have enough MP, the bow consumes it
+					if (mpConsume > 0)
+						getStatus().reduceMp(mpConsume);
 				}
 			}
 			else if (weaponItem.getItemType() == L2WeaponType.CROSSBOW)
 			{
-				//Check for bolts
+				// Verify if the crossbow can be use
+				if (getEvtReadyToAct().isScheduled())
+				{
+					// Cancel the action because the crossbow can't be re-use at this moment
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+				
+				// Check for bolts
 				if (this instanceof L2PcInstance)
 				{
-					// Verify if the crossbow can be use
-					if (getEvtReadyToAct().isScheduled())
-					{
-						// Cancel the action because the crossbow can't be re-use at this moment
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
-
 					// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
 					if (!checkAndEquipBolts())
 					{
@@ -1005,11 +1000,6 @@ public abstract class L2Character extends L2Object
 						sendPacket(SystemMessageId.NOT_ENOUGH_BOLTS);
 						return;
 					}
-				}
-				else if (this instanceof L2Npc)
-				{
-					if (getEvtReadyToAct().isScheduled())
-						return;
 				}
 			}
 		}
@@ -2129,7 +2119,8 @@ public abstract class L2Character extends L2Object
 		// if the Character isn't affected by Soul of The Phoenix or Salvation
 		if (this instanceof L2Playable)
 		{
-			L2Playable pl = (L2Playable) this;
+			final L2Playable pl = (L2Playable)this;
+			
 			if (pl.isPhoenixBlessed())
 			{
 				if (pl.getCharmOfLuck()) //remove Lucky Charm if player has SoulOfThePhoenix/Salvation buff
@@ -2143,17 +2134,6 @@ public abstract class L2Character extends L2Object
 				pl.stopNoblesseBlessing(true);
 				if (pl.getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
 					pl.stopCharmOfLuck(true);
-
-				if (this instanceof L2PcInstance && !((L2PcInstance) this).isFlyingMounted())
-				{
-					// Delete transformation effects, even if you have noblesse blessing
-					L2Effect[] effects = getAllEffects();
-					for (L2Effect e : effects)
-					{
-						if (e != null && e.getSkill().getTransformId() > 0)
-							e.exit();
-					}
-				}
 			}
 			else
 				stopAllEffectsExceptThoseThatLastThroughDeath();
@@ -5404,16 +5384,22 @@ public abstract class L2Character extends L2Object
 				int reflectedDamage = 0;
 				if (!isRangeWeapon && !target.isInvul()) // Do not reflect if weapon is of type bow/crossbow or target is invulnerable
 				{
-					// Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
-					double reflectPercent = target.getStat().calcStat(Stats.REFLECT_DAMAGE_PERCENT, 0, null, null);
-
-					if (reflectPercent > 0)
+					// quick fix for no drop from raid if boss attack high-level char with damage reflection
+					if (!isRaid()
+							|| target.getActingPlayer() == null
+							|| target.getActingPlayer().getLevel() <= getLevel() + 8)
 					{
-						reflectedDamage = (int) (reflectPercent / 100. * damage);
-						damage -= reflectedDamage;
-
-						if (reflectedDamage > target.getMaxHp()) // to prevent extreme damage when hitting a low lvl char...
-							reflectedDamage = target.getMaxHp();
+						// Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
+						double reflectPercent = target.getStat().calcStat(Stats.REFLECT_DAMAGE_PERCENT, 0, null, null);
+						
+						if (reflectPercent > 0)
+						{
+							reflectedDamage = (int)(reflectPercent / 100. * damage);
+							damage -= reflectedDamage;
+							
+							if (reflectedDamage > target.getMaxHp()) // to prevent extreme damage when hitting a low lvl char...
+								reflectedDamage = target.getMaxHp();
+						}
 					}
 				}
 
@@ -6560,17 +6546,21 @@ public abstract class L2Character extends L2Object
 					if (target instanceof L2Attackable)
 						((L2Attackable) target).overhitEnabled(true);
 				}
-
-				// Launch weapon Special ability skill effect if available
-				if (activeWeapon != null)
-					activeWeapon.getSkillEffectsByCast(this, target, skill);
-
-				// Maybe launch chance skills on us
-				if (_chanceSkills != null)
-					_chanceSkills.onSkillHit(target, false, skill);
-				// Maybe launch chance skills on target
-				if (target.getChanceSkills() != null)
-					target.getChanceSkills().onSkillHit(this, true, skill);
+				
+				if (ChanceSkillList.canTriggerByCast(this, target, skill))
+				{
+					// Launch weapon Special ability skill effect if available
+					if (activeWeapon != null)
+						activeWeapon.getSkillEffectsByCast(this, target, skill);
+					
+					// Maybe launch chance skills on us
+					if (_chanceSkills != null)
+						_chanceSkills.onSkillHit(target, false, skill);
+					
+					// Maybe launch chance skills on target
+					if (target.getChanceSkills() != null)
+						target.getChanceSkills().onSkillHit(this, true, skill);
+				}
 			}
 		}
 

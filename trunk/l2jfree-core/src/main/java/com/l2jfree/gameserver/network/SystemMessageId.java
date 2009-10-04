@@ -10486,17 +10486,16 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1702<br>
-	 * Message: The previous investigated user is not using a third party
-	 * program
+	 * Message: $s1 is using a third party program.
 	 */
-	NOT_USING_THIRD_PARTY_PROGRAM1(1702),
+	S1_USING_THIRD_PARTY_PROGRAM(1702),
 
 	/**
 	 * ID: 1703<br>
 	 * Message: The previous investigated user is not using a third party
 	 * program
 	 */
-	NOT_USING_THIRD_PARTY_PROGRAM2(1703),
+	NOT_USING_THIRD_PARTY_PROGRAM(1703),
 
 	/**
 	 * ID: 1704<br>

@@ -153,16 +153,24 @@ public class PcStat extends PlayableStat
 	@Override
 	public boolean removeExpAndSp(long addToExp, int addToSp)
 	{
+		return removeExpAndSp(addToExp, addToSp, true);
+	}
+	
+	public boolean removeExpAndSp(long addToExp, int addToSp, boolean sendMessage)
+	{
 		if (!super.removeExpAndSp(addToExp, addToSp))
 			return false;
-
-		// Send a Server->Client System Message to the L2PcInstance
-		SystemMessage sm = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);
-		sm.addNumber((int) addToExp);
-		getActiveChar().sendPacket(sm);
-		sm = new SystemMessage(SystemMessageId.SP_DECREASED_S1);
-		sm.addNumber(addToSp);
-		getActiveChar().sendPacket(sm);
+		
+		if (sendMessage)
+		{
+			// Send a Server->Client System Message to the L2PcInstance
+			SystemMessage sm = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);
+			sm.addNumber((int)addToExp);
+			getActiveChar().sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.SP_DECREASED_S1);
+			sm.addNumber(addToSp);
+			getActiveChar().sendPacket(sm);
+		}
 		return true;
 	}
 

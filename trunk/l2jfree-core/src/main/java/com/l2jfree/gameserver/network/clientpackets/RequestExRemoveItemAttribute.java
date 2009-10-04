@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public class RequestExRemoveItemAttribute extends L2GameClientPacket
 {
@@ -47,8 +48,10 @@ public class RequestExRemoveItemAttribute extends L2GameClientPacket
 			requestFailed(SystemMessageId.FAILED_TO_REMOVE_ELEMENTAL_POWER);
 			return;
 		}
-
-		if (activeChar.reduceAdena("RemoveElement", 50000, activeChar, true))
+		
+		final int adena = targetItem.getItem() instanceof L2Weapon ? 50000 : 40000;
+		
+		if (activeChar.reduceAdena("RemoveElement", adena, activeChar, true))
 		{
 			if (targetItem.isEquipped())
 				targetItem.getElementals().removeBonus(activeChar);

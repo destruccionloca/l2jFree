@@ -156,6 +156,17 @@ public class Say2 extends L2GameClientPacket
 		}
 		}
 
+		if (_text.isEmpty())
+		{
+			if (Config.BAN_CLIENT_EMULATORS)
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with empty messages by " + activeChar);
+			else
+				sendPacket(ActionFailed.STATIC_PACKET);
+			
+			_log.warn(activeChar.getName() + ": sending empty text. Possible packet hack!");
+			return;
+		}
+		
 		//Under no circumstances the official client will send a 400 character message
 		//If there are no linked items in the message, you can only input 105 characters
 		if (_text.length() > 400 || (_text.length() > 105 && !containsLinkedItems()))

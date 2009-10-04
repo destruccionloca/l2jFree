@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public class ExShowBaseAttributeCancelWindow extends L2GameServerPacket
 {
@@ -37,7 +38,7 @@ public class ExShowBaseAttributeCancelWindow extends L2GameServerPacket
 		for (L2ItemInstance item : _items)
 		{
 			writeD(item.getObjectId());
-			writeCompQ(50000);
+			writeCompQ(item.getItem() instanceof L2Weapon ? 50000 : 40000);
 		}
 	}
 

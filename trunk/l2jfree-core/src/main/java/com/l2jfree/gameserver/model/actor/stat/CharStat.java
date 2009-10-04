@@ -440,9 +440,12 @@ public class CharStat
 	{
 		// err we should be adding TO the persons run speed
 		// not making it a constant
-		int val = (int) (calcStat(Stats.RUN_SPEED, getBaseRunSpd(), null, null) * Config.RATE_RUN_SPEED);
+		double baseRunSpd = getBaseRunSpd();
 		
-		return val;
+		if (baseRunSpd == 0)
+			return 0;
+		
+		return (int)(calcStat(Stats.RUN_SPEED, baseRunSpd, null, null) * Config.RATE_RUN_SPEED) ;
 	}
 	
 	protected int getBaseRunSpd()
@@ -475,7 +478,12 @@ public class CharStat
 	/** Return the WalkSpeed (base+modifier) of the L2Character. */
 	public int getWalkSpeed()
 	{
-		return (int) calcStat(Stats.WALK_SPEED, _activeChar.getTemplate().getBaseWalkSpd(), null, null);
+		double baseWalkSpd = _activeChar.getTemplate().getBaseWalkSpd();
+		
+		if (baseWalkSpd == 0)
+			return 0;
+		
+		return (int)calcStat(Stats.WALK_SPEED, baseWalkSpd, null, null);
 	}
 
 	/** Return the WIT of the L2Character (base+modifier). */

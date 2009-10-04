@@ -2091,24 +2091,33 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void setClassId(int Id)
 	{
-		academyCheck(Id);
-
-		if (isSubClassActive())
+		if (!_subclassLock.tryLock())
+			return;
+		
+		try
 		{
-			getSubClasses().get(_classIndex).setClassId(Id);
-		}
-		setClassTemplate(Id);
-
-		setTarget(this);
-		// Animation: Production - Clan / Transfer
-		MagicSkillUse msu = new MagicSkillUse(this, this, 5103, 1, 1196, 0);
-		broadcastPacket(msu);
-
-		// Update class icon in party and clan
-		broadcastClassIcon();
-
-		if (Config.ALT_AUTO_LEARN_SKILLS)
+			academyCheck(Id);
+			
+			if (isSubClassActive())
+			{
+				getSubClasses().get(_classIndex).setClassId(Id);
+			}
+			setClassTemplate(Id);
+			
+			setTarget(this);
+			// Animation: Production - Clan / Transfer
+			MagicSkillUse msu = new MagicSkillUse(this, this, 5103, 1, 1196, 0);
+			broadcastPacket(msu);
+			
+			// Update class icon in party and clan
+			broadcastClassIcon();
+			
 			rewardSkills();
+		}
+		finally
+		{
+			_subclassLock.unlock();
+		}
 	}
 
 	public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
@@ -4701,10 +4710,6 @@ public final class L2PcInstance extends L2Playable
 		// Unsummon the Pet
 		//if (getPet() != null) getPet().unSummon(this);
 
-		// Untransforms character.
-		if (!isFlyingMounted() && _transformation != null)
-			untransform();
-
 		// Unsummon Cubics
 		if (!_cubics.isEmpty())
 		{
@@ -4968,19 +4973,21 @@ public final class L2PcInstance extends L2Playable
 			// Check about wars
 			boolean clanWarKill = (targetPlayer.getClan() != null && getClan() != null && !isAcademyMember() && !(targetPlayer.isAcademyMember())
 					&& _clan.isAtWarWith(targetPlayer.getClanId()) && targetPlayer.getClan().isAtWarWith(_clan.getClanId()));
-			if (clanWarKill && target instanceof L2PcInstance)
+			if (clanWarKill)
 			{
 				// 'Both way war' -> 'PvP Kill'
-				increasePvpKills();
+				if (target instanceof L2PcInstance)
+					increasePvpKills();
 				return;
 			}
 
 			// 'No war' or 'One way war' -> 'Normal PK'
 			if (targetPlayer.getKarma() > 0) // Target player has karma
 			{
-				if (Config.KARMA_AWARD_PK_KILL && target instanceof L2PcInstance)
+				if (Config.KARMA_AWARD_PK_KILL)
 				{
-					increasePvpKills();
+					if (target instanceof L2PcInstance)
+						increasePvpKills();
 				}
 			}
 			else if (targetPlayer.getPvpFlag() == 0) // Target player doesn't have karma
@@ -5023,7 +5030,7 @@ public final class L2PcInstance extends L2Playable
 	 * Increase the pvp kills count and send the info to the player
 	 *
 	 */
-	public void increasePvpKills()
+	private void increasePvpKills()
 	{
 		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
 			return;
@@ -5039,8 +5046,9 @@ public final class L2PcInstance extends L2Playable
 	 * Increase pk count, karma and send the info to the player
 	 *
 	 * @param targLVL : level of the killed player
+	 * @param increasePk : true if PK counter should be increased too
 	 */
-	public void increasePkKillsAndKarma(int targLVL, boolean incPK)
+	private void increasePkKillsAndKarma(int targLVL, boolean increasePk)
 	{
 		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
 			return;
@@ -5085,7 +5093,7 @@ public final class L2PcInstance extends L2Playable
 			newKarma = Integer.MAX_VALUE - getKarma();
 
 		// Add karma to attacker and increase its PK counter
-		if (incPK)
+		if (increasePk)
 			setPkKills(getPkKills() + 1);
 		setKarma(getKarma() + newKarma);
 
@@ -8357,7 +8365,7 @@ public final class L2PcInstance extends L2Playable
 		// Check the validity of the target
 		if (target == null)
 		{
-			sendPacket(SystemMessageId.TARGET_CANT_FOUND);
+			//sendPacket(SystemMessageId.TARGET_CANT_FOUND);
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
@@ -11035,6 +11043,11 @@ public final class L2PcInstance extends L2Playable
 	{
 		getStat().removeExpAndSp(removeExp, removeSp);
 	}
+	
+	public void removeExpAndSp(long removeExp, int removeSp, boolean sendMessage)
+	{
+		getStat().removeExpAndSp(removeExp, removeSp, sendMessage);
+	}
 
 	/**
 	 * Function is used in the PLAYER, calls snoop for all GMs listening to this player speak.
@@ -12905,13 +12918,14 @@ public final class L2PcInstance extends L2Playable
 
 		public void run()
 		{
-			if (isDead()  && !Config.ALT_FAME_FOR_DEAD_PLAYERS)
+			if (isDead() && !Config.ALT_FAME_FOR_DEAD_PLAYERS)
 				return;
 
 			setFame(getFame() + _value);
 			SystemMessage sm = new SystemMessage(SystemMessageId.ACQUIRED_S1_REPUTATION_SCORE);
 			sm.addNumber(_value);
 			sendPacket(sm);
+			sendPacket(new UserInfo(L2PcInstance.this));
 		}
 	}
 
