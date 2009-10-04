@@ -127,6 +127,8 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 						case 660:
 						case 661:
 						case 662:
+						case 799:
+						case 800:
 						case 801:
 						case 802:
 						case 803:
