@@ -59,7 +59,10 @@ public class AttackRequest extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
-
+		
+		// removes spawn protection
+		activeChar.onActionRequest();
+		
 		L2Object target = null;
 
 		// Get object from target

@@ -73,20 +73,17 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	{
 		try
 		{
-			final L2PcInstance activeChar = getClient().getActiveChar();
-			
-			if (activeChar != null && activeChar.getProtection() > 0)
-			{
-				// could include pickup and talk too, but less is better
-				if (this instanceof MoveBackwardToLocation ||
-					this instanceof AttackRequest ||
-					this instanceof RequestActionUse ||
-					this instanceof RequestMagicSkillUse)
-				{
-					// removes onspawn protection
-					activeChar.onActionRequest();
-				}
-			}
+			/**
+			 * Spawn protect removal moved to subclasses, take care of it.<br>
+			 * <ul>
+			 * <li>Action (if it's the second click on the target)</li>
+			 * <li>AttackRequest</li>
+			 * <li>MoveBackwardToLocation</li>
+			 * <li>RequestActionUse</li>
+			 * <li>RequestMagicSkillUse</li>
+			 * </ul>
+			 * It could include pickup and talk too, but less is better.
+			 */
 			
 			runImpl();
 		}
@@ -132,7 +129,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 		sendPacket(gsp);
 		sendAF();
 	}
-
+	
 	protected final void sendAF()
 	{
 		sendPacket(STATIC_PACKET);

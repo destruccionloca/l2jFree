@@ -67,16 +67,20 @@ public final class Action extends L2GameClientPacket
 			return;
 		}
 
-		L2Object obj = null;
-
+		final L2Object obj;
+		
 		// Get object from target
 		if (activeChar.getTargetId() == _objectId)
+		{
 			obj = activeChar.getTarget();
-
+			
+			// removes spawn protection
+			activeChar.onActionRequest();
+		}
 		// Try to get object from world if the player doesn't have a target anymore
-		if (obj == null)
+		else
 			obj = L2World.getInstance().findObject(_objectId);
-
+		
 		if (obj == null)
 		{
 			// pressing e.g. pickup many times quickly would get you here

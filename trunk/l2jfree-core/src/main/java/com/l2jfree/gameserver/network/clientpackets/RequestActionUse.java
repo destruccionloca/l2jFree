@@ -68,7 +68,10 @@ public class RequestActionUse extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
-
+		
+		// removes spawn protection
+		activeChar.onActionRequest();
+		
 		if (_log.isDebugEnabled())
 			_log.debug(activeChar.getName() + " request Action use: id " + _actionId + " 2:" + _ctrlPressed + " 3:" + _shiftPressed);
 
@@ -706,5 +709,4 @@ public class RequestActionUse extends L2GameClientPacket
 	{
 		return _C__45_REQUESTACTIONUSE;
 	}
-	
 }

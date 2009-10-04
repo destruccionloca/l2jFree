@@ -44,7 +44,10 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 
 		if (activeChar == null)
 			return;
-
+		
+		// removes spawn protection
+		activeChar.onActionRequest();
+		
 		if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerCast))
 		{
 			activeChar.sendMessage("You cannot cast a skill due to a restriction.");

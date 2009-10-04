@@ -60,7 +60,10 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
-
+		
+		// removes spawn protection
+		activeChar.onActionRequest();
+		
 		if (_moveMovement == -1)
 		{
 			if (Config.BAN_CLIENT_EMULATORS)
