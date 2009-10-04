@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.Disconnection;
@@ -152,8 +153,14 @@ public class CharacterCreate extends L2GameClientPacket
 		newChar.getPosition().setXYZInvisible(template.getSpawnX(), template.getSpawnY(), template.getSpawnZ());
 		newChar.setTitle("");
 
-		newChar.setVitalityPoints(20000.0, false);
+		newChar.setVitalityPoints(PcStat.MAX_VITALITY_POINTS, true);
 
+		if (Config.STARTING_LEVEL > 1)
+			newChar.getStat().addLevel(--Config.STARTING_LEVEL);
+		
+		if (Config.STARTING_SP > 0)
+			newChar.getStat().addSp(Config.STARTING_SP);
+		
 		L2ShortCut shortcut;
 		//add attack shortcut
 		shortcut = new L2ShortCut(0,0,3,2,0,1);

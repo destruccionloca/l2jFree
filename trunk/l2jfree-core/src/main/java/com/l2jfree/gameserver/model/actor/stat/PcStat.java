@@ -35,6 +35,10 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class PcStat extends PlayableStat
 {
+	public static final int[] VITALITY_LEVELS = { 240, 1800, 14600, 18200, 20000 };
+	public static final int MAX_VITALITY_POINTS = VITALITY_LEVELS[4];
+	public static final int MIN_VITALITY_POINTS = 1;
+	
 	// =========================================================
 	// Data Field
 

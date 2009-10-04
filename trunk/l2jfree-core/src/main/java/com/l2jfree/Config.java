@@ -912,6 +912,8 @@ public class Config extends L2Config
 	public static float				RAID_MIN_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss minimum time respawn
 	public static float				RAID_MAX_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss maximum time respawn
 	public static long				STARTING_ADENA;										// Amount of adenas when starting a new character
+	public static byte				STARTING_LEVEL;
+	public static int				STARTING_SP;
 	public static boolean			DEEPBLUE_DROP_RULES;									// Deep Blue Mobs' Drop Rules Enabled
 	public static boolean			DEEPBLUE_DROP_RULES_RAID;								// Deep Blue Mobs' Drop Rules Enabled
 	public static int				UNSTUCK_INTERVAL;
@@ -1001,6 +1003,8 @@ public class Config extends L2Config
 			RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
 
 			STARTING_ADENA = Long.parseLong(otherSettings.getProperty("StartingAdena", "100"));
+			STARTING_LEVEL = Byte.parseByte(otherSettings.getProperty("StartingLevel", "1"));
+			STARTING_SP = Integer.parseInt(otherSettings.getProperty("StartingSP", "0"));
 			UNSTUCK_INTERVAL = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
 
 			/* Player protection after teleport or login */
@@ -3950,6 +3954,10 @@ public class Config extends L2Config
 
 		else if (pName.equalsIgnoreCase("StartingAdena"))
 			STARTING_ADENA = Long.parseLong(pValue);
+		else if (pName.equalsIgnoreCase("StartingLevel"))
+			STARTING_LEVEL = Byte.parseByte(pValue);
+		else if (pName.equalsIgnoreCase("StartingSP"))
+			STARTING_SP = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("UnstuckInterval"))
 			UNSTUCK_INTERVAL = Integer.parseInt(pValue);
 
