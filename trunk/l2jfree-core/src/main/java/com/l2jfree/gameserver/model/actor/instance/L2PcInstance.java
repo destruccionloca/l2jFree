@@ -406,7 +406,8 @@ public final class L2PcInstance extends L2Playable
 		@Override
 		public void doAttack(L2Character target)
 		{
-			getEffects().stopEffects(L2EffectType.HIDE);
+			if (getAppearance().isInvisible())
+				getEffects().stopEffects(L2EffectType.HIDE);
 			
 			super.doAttack(target);
 			
@@ -420,7 +421,8 @@ public final class L2PcInstance extends L2Playable
 		@Override
 		public void doCast(L2Skill skill)
 		{
-			getEffects().stopEffects(L2EffectType.HIDE);
+			if (getAppearance().isInvisible())
+				getEffects().stopEffects(L2EffectType.HIDE);
 			
 			super.doCast(skill);
 			
@@ -12957,8 +12959,11 @@ public final class L2PcInstance extends L2Playable
 
 	public void calculateDeathPenaltyBuffLevel(L2Character killer)
 	{
+		if (Config.DEATH_PENALTY_CHANCE < 1)
+			return;
+		
 		if (!(killer instanceof L2Playable) && !isGM() && !(getCharmOfLuck() && killer.isRaid())
-				&& !isPhoenixBlessed() && !isInFunEvent() && Rnd.get(100) < Config.DEATH_PENALTY_CHANCE)
+				&& !isPhoenixBlessed() && !isInFunEvent() && (getKarma() > 0 || Rnd.get(100) < Config.DEATH_PENALTY_CHANCE))
 			increaseDeathPenaltyBuffLevel();
 	}
 

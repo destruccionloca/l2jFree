@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -21,7 +22,6 @@ import com.l2jfree.gameserver.network.serverpackets.DeleteObject;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.gameserver.util.Broadcast;
 
 /**
  * @author ZaKaX - nBd
@@ -51,10 +51,27 @@ public class EffectHide extends L2Effect
 		{
 			L2PcInstance activeChar = ((L2PcInstance)getEffected());
 			activeChar.getAppearance().setInvisible();
-			activeChar.broadcastUserInfo();
 			activeChar.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_STEALTH);
-			Broadcast.toKnownPlayers(activeChar, new DeleteObject(activeChar));
+			
+			final DeleteObject del = new DeleteObject(activeChar);
+			for (L2Character obj : activeChar.getKnownList().getKnownCharacters())
+			{
+				if (obj == null)
+					continue;
+				
+				if (obj.getTarget() == activeChar)
+				{
+					obj.setTarget(null);
+					obj.abortAttack();
+					obj.abortCast();
+					obj.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				}
+				
+				if (obj instanceof L2PcInstance)
+					((L2PcInstance)obj).sendPacket(del);
+			}
 		}
+		
 		return true;
 	}
 	
@@ -65,7 +82,6 @@ public class EffectHide extends L2Effect
 		{
 			L2PcInstance activeChar = ((L2PcInstance)getEffected());
 			activeChar.getAppearance().setVisible();
-			activeChar.broadcastUserInfo();
 			activeChar.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_STEALTH);
 		}
 	}

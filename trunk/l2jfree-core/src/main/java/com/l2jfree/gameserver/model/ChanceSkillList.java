@@ -104,12 +104,12 @@ public final class ChanceSkillList
 				event |= ChanceCondition.EVT_CRIT;
 		}
 		
-		onEvent(event, evtInitiator);
+		onEvent(event, evtInitiator, Elementals.NONE);
 	}
 	
 	public void onEvadedHit(L2Character attacker)
 	{
-		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
+		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker, Elementals.NONE);
 	}
 	
 	public void onSkillHit(L2Character evtInitiator, boolean ownerWasHit, L2Skill trigger)
@@ -141,7 +141,7 @@ public final class ChanceSkillList
 			event |= trigger.isOffensive() ? ChanceCondition.EVT_MAGIC_OFFENSIVE : ChanceCondition.EVT_MAGIC_GOOD;
 		}
 		
-		onEvent(event, evtInitiator);
+		onEvent(event, evtInitiator, trigger.getElement());
 	}
 	
 	public static boolean canTriggerByCast(L2Character caster, L2Character target, L2Skill trigger)
@@ -158,11 +158,11 @@ public final class ChanceSkillList
 		return true;
 	}
 	
-	public void onEvent(int event, L2Character evtInitiator)
+	public void onEvent(int event, L2Character evtInitiator, byte element)
 	{
 		for (IChanceSkillTrigger trigger : _triggers)
 		{
-			if (trigger != null && trigger.getChanceCondition().trigger(event))
+			if (trigger != null && trigger.getChanceCondition().trigger(event, element))
 			{
 				makeCast(trigger.getChanceTriggeredSkill(_owner), evtInitiator);
 			}

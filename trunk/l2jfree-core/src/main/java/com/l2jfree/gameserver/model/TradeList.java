@@ -35,7 +35,6 @@ import com.l2jfree.util.LinkedBunch;
 
 /**
  * @author Advi
- *
  */
 public class TradeList
 {
@@ -46,11 +45,10 @@ public class TradeList
 		private int _enchant;
 		private long _count;
 		private long _price;
-
-		private byte _elemAtkType = Elementals.NONE;
-		private int _elemAtkPower = 0;
+		
+		private final byte _elemAtkType;
+		private final int _elemAtkPower;
 		private final int[] _elemDefAttr = {0, 0, 0, 0, 0, 0};
-
 
 		public TradeItem(L2ItemInstance item, long count, long price)
 		{
@@ -59,7 +57,7 @@ public class TradeList
 			_enchant = item.getEnchantLevel();
 			_count = count;
 			_price = price;
-
+			
 			_elemAtkType = item.getAttackElementType();
 			_elemAtkPower = item.getAttackElementPower();
 			for (byte i = 0; i < 6; i++)
@@ -73,6 +71,9 @@ public class TradeList
 			_enchant = 0;
 			_count = count;
 			_price = price;
+			
+			_elemAtkType = Elementals.NONE;
+			_elemAtkPower = 0;
 		}
 
 		public TradeItem(TradeItem item, long count, long price)
@@ -82,7 +83,7 @@ public class TradeList
 			_enchant = item.getEnchant();
 			_count = count;
 			_price = price;
-
+			
 			_elemAtkType = item.getAttackElementType();
 			_elemAtkPower = item.getAttackElementPower();
 			for (byte i = 0; i < 6; i++)
@@ -136,7 +137,7 @@ public class TradeList
 
 		public byte getAttackElementType()
 		{
-			 return _elemAtkType;
+			return _elemAtkType;
 		}
 
 		public int getAttackElementPower()
@@ -287,24 +288,6 @@ public class TradeList
 	}
 
 	/**
-	 * Adjust ItemRequest by corresponding item in this list using its <b>ItemId</b>
-	 * @param item : ItemRequest to be adjusted
-	 */
-	public void adjustItemRequestByItemId(ItemRequest item)
-	{
-		for (TradeItem filtItem : _items)
-		{
-			if (filtItem.getItem().getItemId() == item.getItemId())
-			{
-				if (filtItem.getCount() < item.getCount())
-					item.setCount(filtItem.getCount());
-				return;
-			}
-		}
-		item.setCount(0);
-	}
-
-	/**
 	 * Add simplified item to TradeList
 	 * @param objectId : int
 	 * @param count : long
@@ -319,7 +302,7 @@ public class TradeList
 	 * Add item to TradeList
 	 * @param objectId : int
 	 * @param count : long
-	 * @param price : ilong
+	 * @param price : long
 	 * @return
 	 */
 	public synchronized TradeItem addItem(int objectId, long count, long price)
@@ -329,6 +312,7 @@ public class TradeList
 			_log.warn(_owner.getName() + ": Attempt to modify locked TradeList!");
 			return null;
 		}
+		
 		L2ItemInstance item = _owner.getInventory().getItemByObjectId(objectId);
 		if (item == null)
 		{
@@ -338,21 +322,22 @@ public class TradeList
 
 		if ((!item.isTradeable() && !_owner.isGM()) || item.getItemType() == L2EtcItemType.QUEST)
 			return null;
-		
+
 		if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
 			return null;
-		
+
 		if (count <= 0 || count > item.getCount())
 			return null;
-		
+
 		if (!item.isStackable() && count > 1)
 		{
 			_log.warn(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
 			return null;
 		}
+
 		if ((PcInventory.MAX_ADENA / count) < price)
 		{
-			_owner.sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+			_owner.sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 			return null;
 		}
 
@@ -361,6 +346,7 @@ public class TradeList
 			if (checkitem.getObjectId() == objectId)
 				return null;
 		}
+
 		TradeItem titem = new TradeItem(item, count, price);
 		_items.add(titem);
 
@@ -371,7 +357,7 @@ public class TradeList
 
 	/**
 	 * Add item to TradeList
-	 * @param itemId : int
+	 * @param objectId : int
 	 * @param count : long
 	 * @param price : long
 	 * @return
@@ -399,10 +385,16 @@ public class TradeList
 
 		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
 			return null;
-		
+
 		if (!item.isStackable() && count > 1)
 		{
 			_log.warn(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
+			return null;
+		}
+
+		if ((PcInventory.MAX_ADENA / count) < price)
+		{
+			_log.warn(_owner.getName() + ": Attempt to overflow adena !");
 			return null;
 		}
 
@@ -482,7 +474,7 @@ public class TradeList
 	/**
 	 * Clears item list
 	 */
-	public void clear()
+	public synchronized void clear()
 	{
 		_items.clear();
 		_locked = false;
@@ -571,7 +563,7 @@ public class TradeList
 		for (TradeItem titem : _items)
 		{
 			L2ItemInstance item = _owner.checkItemManipulation(titem.getObjectId(), titem.getCount(), "transfer");
-			if (item == null || titem.getCount() < 1)
+			if (item == null || item.getCount() < 1)
 			{
 				_log.warn(_owner.getName() + ": Invalid Item in TradeList");
 				return false;
@@ -584,8 +576,7 @@ public class TradeList
 	/**
 	 * Transfers all TradeItems from inventory to partner
 	 */
-	private boolean transferItems(L2PcInstance partner, InventoryUpdate ownerIU,
-								  InventoryUpdate partnerIU)
+	private boolean transferItems(L2PcInstance partner, InventoryUpdate ownerIU, InventoryUpdate partnerIU)
 	{
 		for (TradeItem titem : _items)
 		{
@@ -619,7 +610,6 @@ public class TradeList
 	/**
 	 * Count items slots
 	 */
-
 	public int countItemsSlots(L2PcInstance partner)
 	{
 		int slots = 0;
@@ -643,7 +633,6 @@ public class TradeList
 	/**
 	 * Calc weight of items in tradeList
 	 */
-
 	public int calcItemsWeight()
 	{
 		int weight = 0;
@@ -720,10 +709,11 @@ public class TradeList
 	 * Buy items from this PrivateStore list
 	 * @return : boolean true if success
 	 */
-	public synchronized boolean privateStoreBuy(L2PcInstance player, ItemRequest[] items, long price)
+	public synchronized boolean privateStoreBuy(L2PcInstance player, ItemRequest[] items)
 	{
 		if (_locked)
 			return false;
+
 		if (!validate())
 		{
 			lock();
@@ -732,12 +722,62 @@ public class TradeList
 
 		int slots = 0;
 		int weight = 0;
+		long totalPrice = 0;
+
+		final PcInventory ownerInventory = _owner.getInventory();
+		final PcInventory playerInventory = player.getInventory();
 
 		for (ItemRequest item : items)
 		{
-			if (item == null)
+			boolean found = false;
+
+			for (TradeItem ti : _items)
+			{
+				if (ti.getObjectId() == item.getObjectId())
+				{
+					if (ti.getPrice() == item.getPrice())
+					{
+						if (ti.getCount() < item.getCount())
+							item.setCount(ti.getCount());
+						found = true;
+					}
+					break;
+				}
+			}
+			// item with this objectId and price not found in tradelist
+			if (!found)
+			{
+				item.setCount(0);
 				continue;
-			
+			}
+
+			// check for overflow in the single item
+			if ((PcInventory.MAX_ADENA / item.getCount()) < item.getPrice())
+			{
+				// private store attempting to overflow - disable it
+				lock();
+				return false;
+			}
+
+			totalPrice += item.getCount() * item.getPrice();
+			// check for overflow of the total price
+			if (PcInventory.MAX_ADENA < totalPrice
+					|| totalPrice < 0)
+			{
+				// private store attempting to overflow - disable it
+				lock();
+				return false;
+			}
+
+			// Check if requested item is available for manipulation
+			L2ItemInstance oldItem = _owner.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
+			if (oldItem == null || !oldItem.isTradeable())
+			{
+				// private store sell invalid item - disable it
+				lock();
+				return false;
+			}
+
 			L2Item template = ItemTable.getInstance().getTemplate(item.getItemId());
 			if (template == null)
 				continue;
@@ -746,47 +786,43 @@ public class TradeList
 			
 			if (!template.isStackable())
 				slots += item.getCount();
-			else if (player.getInventory().getItemByItemId(item.getItemId()) == null)
+			else if (playerInventory.getItemByItemId(item.getItemId()) == null)
 				slots++;
 		}
 
-		if (!player.getInventory().validateWeight(weight))
+		if (!playerInventory.validateWeight(weight))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
 			return false;
 		}
 
-		if (!player.getInventory().validateCapacity(slots))
+		if (!playerInventory.validateCapacity(slots))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
 			return false;
 		}
 
-		PcInventory ownerInventory = _owner.getInventory();
-		PcInventory playerInventory = player.getInventory();
-
 		// Prepare inventory update packets
-		InventoryUpdate ownerIU = new InventoryUpdate();
-		InventoryUpdate playerIU = new InventoryUpdate();
+		final InventoryUpdate ownerIU = new InventoryUpdate();
+		final InventoryUpdate playerIU = new InventoryUpdate();
 
-		// Transfer adena
-		if (price > playerInventory.getAdena())
+		if (totalPrice > playerInventory.getAdena())
 		{
-			lock();
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return false;
 		}
 		
-		L2ItemInstance adenaItem = playerInventory.getAdenaInstance();
-		playerInventory.reduceAdena("PrivateStore", price, player, _owner);
+		final L2ItemInstance adenaItem = playerInventory.getAdenaInstance();
+		playerInventory.reduceAdena("PrivateStore", totalPrice, player, _owner);
 		playerIU.addItem(adenaItem);
-		ownerInventory.addAdena("PrivateStore", price, _owner, player);
+		ownerInventory.addAdena("PrivateStore", totalPrice, _owner, player);
 		ownerIU.addItem(ownerInventory.getAdenaInstance());
+
+		boolean ok = true;
 
 		// Transfer items
 		for (ItemRequest item : items)
 		{
-			//Check if requested item is sill on the list and adjust its count
-			adjustItemRequest(item);
 			if (item.getCount() == 0)
 				continue;
 
@@ -794,14 +830,19 @@ public class TradeList
 			L2ItemInstance oldItem = _owner.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
 			if (oldItem == null)
 			{
+				// should not happens - validation already done
 				lock();
-				return false;
+				ok = false;
+				break;
 			}
 
 			// Proceed with item transfer
 			L2ItemInstance newItem = ownerInventory.transferItem("PrivateStore", item.getObjectId(), item.getCount(), playerInventory, _owner, player);
 			if (newItem == null)
-				return false;
+			{
+				ok = false;
+				break;
+			}
 			removeItem(item.getObjectId(), -1, item.getCount());
 
 			// Add changes to inventory update packets
@@ -846,7 +887,7 @@ public class TradeList
 		// Send inventory update packet
 		_owner.sendPacket(ownerIU);
 		player.sendPacket(playerIU);
-		return true;
+		return ok;
 	}
 
 	/**
@@ -858,67 +899,90 @@ public class TradeList
 		if (_locked)
 			return false;
 
-		PcInventory ownerInventory = _owner.getInventory();
-		PcInventory playerInventory = player.getInventory();
+		boolean ok = false;
 
-		//we must check item are available before begining transaction,
-		// also check if augmented items are traded. If so, cancel it...
-		for (ItemRequest item : items)
-		{
-			// Check if requested item is available for manipulation
-			L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
-			if (oldItem == null)
-				return false;
-			if ( oldItem.getAugmentation() != null )
-			{
-				String msg = "Transaction failed. Augmented items may not be exchanged.";
-				_owner.sendMessage(msg);
-				player.sendMessage(msg);
-				return false;
-			}
-		}
+		final PcInventory ownerInventory = _owner.getInventory();
+		final PcInventory playerInventory = player.getInventory();
 
 		// Prepare inventory update packet
-		InventoryUpdate ownerIU = new InventoryUpdate();
-		InventoryUpdate playerIU = new InventoryUpdate();
+		final InventoryUpdate ownerIU = new InventoryUpdate();
+		final InventoryUpdate playerIU = new InventoryUpdate();
 
-		long totalprice = 0;
+		long totalPrice = 0;
 
-		// Transfer items
 		for (ItemRequest item : items)
 		{
-			// Check if requested item is sill on the list and adjust its count
-			adjustItemRequestByItemId(item);
-			if (item.getCount() == 0)
-				continue;
-
-			long price = -1;
+			// searching item in tradelist using itemId
+			boolean found = false;
 
 			for (TradeItem ti : _items)
 			{
 				if (ti.getItem().getItemId() == item.getItemId())
 				{
+					// price should be the same
 					if (ti.getPrice() == item.getPrice())
-						price = ti.getPrice();
+					{
+						// if requesting more than available - decrease count
+						if (ti.getCount() < item.getCount())
+							item.setCount(ti.getCount());
+						found = item.getCount() > 0;
+					}
 					break;
 				}
 			}
-
-			if (price == -1)
+			// not found any item in the tradelist with same itemId and price
+			// maybe another player already sold this item ?
+			if (!found)
 				continue;
 
-			totalprice += price*item.getCount();
+			// check for overflow in the single item
+			if ((PcInventory.MAX_ADENA / item.getCount()) < item.getPrice())
+			{
+				lock();
+				break;
+			}
+
+			long _totalPrice = totalPrice + item.getCount() * item.getPrice();
+			// check for overflow of the total price
+			if (PcInventory.MAX_ADENA < _totalPrice
+					|| _totalPrice < 0)
+			{
+				lock();
+				break;
+			}
+
+			if (ownerInventory.getAdena() < _totalPrice)
+				continue;
 
 			// Check if requested item is available for manipulation
-			L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
+			int objectId = item.getObjectId();
+			L2ItemInstance oldItem = player.checkItemManipulation(objectId, item.getCount(), "sell");
+			// private store - buy use same objectId for buying several non-stackable items
 			if (oldItem == null)
-				return false;
+			{
+				// searching other items using same itemId
+				oldItem = playerInventory.getItemByItemId(item.getItemId());
+				if (oldItem == null)
+					continue;
+				objectId = oldItem.getObjectId();
+				oldItem = player.checkItemManipulation(objectId, item.getCount(), "sell");
+				if (oldItem == null)
+					continue;
+			}
+
+			if (!oldItem.isTradeable())
+				continue;
 
 			// Proceed with item transfer
-			L2ItemInstance newItem = playerInventory.transferItem("PrivateStore", item.getObjectId(), item.getCount(), ownerInventory, player, _owner);
+			L2ItemInstance newItem = playerInventory.transferItem("PrivateStore", objectId, item.getCount(), ownerInventory, player, _owner);
 			if (newItem == null)
-				return false;
+				continue;
+
 			removeItem(-1, item.getItemId(), item.getCount());
+			ok = true;
+
+			// increase total price only after successful transaction
+			totalPrice = _totalPrice;
 
 			// Add changes to inventory update packets
 			if (oldItem.getCount() > 0 && oldItem != newItem)
@@ -959,32 +1023,25 @@ public class TradeList
 			}
 		}
 
-		// Transfer adena
-		if (totalprice > ownerInventory.getAdena())
-			return false;
-		L2ItemInstance adenaItem = ownerInventory.getAdenaInstance();
-		ownerInventory.reduceAdena("PrivateStore", totalprice, _owner, player);
-		ownerIU.addItem(adenaItem);
-		playerInventory.addAdena("PrivateStore", totalprice, player, _owner);
-		playerIU.addItem(playerInventory.getAdenaInstance());
-
-		// Send inventory update packet
-		_owner.sendPacket(ownerIU);
-		player.sendPacket(playerIU);
-		return true;
-	}
-
-	/**
-	 * @param objectId
-	 * @return
-	 */
-	public TradeItem getItem(int objectId)
-	{
-		for (TradeItem item : _items)
+		if (totalPrice > 0)
 		{
-			if (item.getObjectId() == objectId)
-				return item;
+			// Transfer adena
+			if (totalPrice > ownerInventory.getAdena())
+				// should not happens, just a precaution
+				return false;
+			final L2ItemInstance adenaItem = ownerInventory.getAdenaInstance();
+			ownerInventory.reduceAdena("PrivateStore", totalPrice, _owner, player);
+			ownerIU.addItem(adenaItem);
+			playerInventory.addAdena("PrivateStore", totalPrice, player, _owner);
+			playerIU.addItem(playerInventory.getAdenaInstance());
 		}
-		return null;
+
+		if (ok)
+		{
+			// Send inventory update packet
+			_owner.sendPacket(ownerIU);
+			player.sendPacket(playerIU);
+		}
+		return ok;
 	}
 }

@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Trap;
@@ -29,13 +28,11 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2SkillTrap extends L2SkillSummon
 {
-	private int			_triggerSkillId		= 0;
-	private int			_triggerSkillLvl	= 0;
-	private int			_trapNpcId			= 0;
-	protected L2Spawn	_trapSpawn;
-
+	private final int _triggerSkillId;
+	private final int _triggerSkillLvl;
+	private final int _trapNpcId;
+	
 	/**
-	 * 
 	 * @param set
 	 */
 	public L2SkillTrap(StatsSet set)
@@ -45,9 +42,8 @@ public class L2SkillTrap extends L2SkillSummon
 		_triggerSkillLvl = set.getInteger("triggerSkillLvl");
 		_trapNpcId = set.getInteger("trapNpcId");
 	}
-
+	
 	/**
-	 * 
 	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.actor.L2Character, com.l2jfree.gameserver.model.actor.L2Character...)
 	 */
 	@Override

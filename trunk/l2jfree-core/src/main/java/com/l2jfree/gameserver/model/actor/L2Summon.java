@@ -276,7 +276,17 @@ public abstract class L2Summon extends L2Playable
 	{
 		return getOwner() != null ? getOwner().getKarma() : 0;
 	}
-
+	
+	public final byte getPvpFlag()
+	{
+		return getOwner() != null ? getOwner().getPvpFlag() : 0;
+	}
+	
+	public final int getTeam()
+	{
+		return getOwner() != null ? getOwner().getTeam() : 0;
+	}
+	
 	public final L2PcInstance getOwner()
 	{
 		return _owner;

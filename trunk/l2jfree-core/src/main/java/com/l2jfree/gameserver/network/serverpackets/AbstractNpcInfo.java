@@ -167,7 +167,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			{
 				writeC(0x01);
 				writeC(0x01);
-				writeD(0x00);
+				writeD(_npc.getSpecialEffect());
 			}
 		}
 
@@ -612,8 +612,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeS(_title);
 			writeD(0x01);// Title color 0=client default
 
-			writeD(0);
-			writeD(_summon.getOwner().getPvpFlag());
+			writeD(_summon.getPvpFlag());
+			writeD(_summon.getKarma());
 
 			if (_summon.getOwner().getAppearance().isInvisible())
 			{
@@ -629,7 +629,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0000);  // C2
 			writeC(0000);  // C2
 
-			writeC(_summon.getOwner().getTeam());
+			writeC(_summon.getTeam());
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
 			writeD(0x00);  // C4

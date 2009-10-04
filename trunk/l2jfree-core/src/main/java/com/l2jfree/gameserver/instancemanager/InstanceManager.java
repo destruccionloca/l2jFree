@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -22,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * @author evill33t
@@ -39,7 +39,7 @@ public class InstanceManager
 	public class InstanceWorld
 	{
 		public int instanceId;
-		public FastList<L2PcInstance> allowed = new FastList<L2PcInstance>();
+		public final L2FastSet<Integer> allowed = new L2FastSet<Integer>().setShared(true);
 		public int status;
 	}
 
@@ -58,7 +58,7 @@ public class InstanceManager
 		for (InstanceWorld temp : _instanceWorlds.values())
 		{
 			// check if the player have a World Instance where he/she is allowed to enter
-			if (temp.allowed.contains(player))
+			if (temp.allowed.contains(player.getObjectId()))
 				return temp;
 		}
 		return null;

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.skills;
 
+import java.util.Arrays;
+
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 
@@ -74,14 +76,14 @@ public final class ChanceCondition
 		// You do a melee attack
 		ON_MELEE(32768);
 		
-		private int _mask;
+		private final int _mask;
 		
 		private TriggerType(int mask)
 		{
 			_mask = mask;
 		}
 		
-		public boolean check(int event)
+		public final boolean check(int event)
 		{
 			return (_mask & event) != 0; // Trigger (sub-)type contains event (sub-)type
 		}
@@ -90,42 +92,62 @@ public final class ChanceCondition
 	private final TriggerType _triggerType;
 	
 	private final int _chance;
+	private final byte[] _elements;
 	
-	private ChanceCondition(TriggerType trigger, int chance)
+	private ChanceCondition(TriggerType trigger, int chance, byte[] elements)
 	{
 		_triggerType = trigger;
 		_chance = chance;
+		_elements = elements;
 	}
 	
 	public static ChanceCondition parse(StatsSet set)
 	{
-		if (!set.contains("chanceType") && !set.contains("activationChance"))
+		if (!set.contains("chanceType") && !set.contains("activationChance") && !set.contains("activationElements"))
 			return null;
 		
 		final TriggerType trigger = set.getEnum("chanceType", TriggerType.class);
 		final int chance = set.getInteger("activationChance");
+		final String elements = set.getString("activationElements", null);
 		
 		if (trigger != null && chance >= 0)
-			return new ChanceCondition(trigger, chance);
+			return new ChanceCondition(trigger, chance, parseElements(elements));
 		else
 			throw new IllegalStateException();
 	}
 	
-	public static ChanceCondition parse(String chanceType, Integer chance)
+	public static ChanceCondition parse(String chanceType, Integer chance, String elements)
 	{
-		if (chanceType == null && chance == null)
+		if (chanceType == null && chance == null && elements == null)
 			return null;
 		
 		final TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType);
 		
 		if (trigger != null && chance >= 0)
-			return new ChanceCondition(trigger, chance);
+			return new ChanceCondition(trigger, chance, parseElements(elements));
 		else
 			throw new IllegalStateException();
 	}
 	
-	public boolean trigger(int event)
+	private static byte[] parseElements(String list)
 	{
+		if (list == null)
+			return null;
+		
+		String[] valuesSplit = list.split(",");
+		byte[] elements = new byte[valuesSplit.length];
+		for (int i = 0; i < valuesSplit.length; i++)
+			elements[i] = Byte.parseByte(valuesSplit[i]);
+		
+		Arrays.sort(elements);
+		return elements;
+	}
+	
+	public boolean trigger(int event, byte element)
+	{
+		if (_elements != null && Arrays.binarySearch(_elements, element) < 0)
+			return false;
+		
 		return _triggerType.check(event) && Rnd.get(100) < _chance;
 	}
 	

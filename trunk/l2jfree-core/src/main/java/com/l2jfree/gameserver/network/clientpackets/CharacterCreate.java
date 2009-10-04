@@ -156,7 +156,7 @@ public class CharacterCreate extends L2GameClientPacket
 		newChar.setVitalityPoints(PcStat.MAX_VITALITY_POINTS, true);
 
 		if (Config.STARTING_LEVEL > 1)
-			newChar.getStat().addLevel(--Config.STARTING_LEVEL);
+			newChar.getStat().addLevel((byte)(Config.STARTING_LEVEL - 1));
 		
 		if (Config.STARTING_SP > 0)
 			newChar.getStat().addSp(Config.STARTING_SP);

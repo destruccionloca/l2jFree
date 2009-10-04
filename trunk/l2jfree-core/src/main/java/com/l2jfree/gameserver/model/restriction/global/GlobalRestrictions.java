@@ -497,23 +497,32 @@ public final class GlobalRestrictions
 
 	public static double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)
 	{
-		// Pvp bonusses for dmg
+		// PvP bonus
 		if (activeChar instanceof L2Playable && target instanceof L2Playable)
 		{
 			if (skill == null)
+			{
 				damage *= activeChar.calcStat(Stats.PVP_PHYSICAL_DMG, 1, target, skill);
+				damage *= target.calcStat(Stats.PVP_PHYSICAL_DEF, 1, activeChar, skill);
+			}
 			else if (skill.isMagic())
+			{
 				damage *= activeChar.calcStat(Stats.PVP_MAGICAL_DMG, 1, target, skill);
+				damage *= target.calcStat(Stats.PVP_MAGICAL_DEF, 1, activeChar, skill);
+			}
 			else
+			{
 				damage *= activeChar.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, target, skill);
+				damage *= target.calcStat(Stats.PVP_PHYS_SKILL_DEF, 1, activeChar, skill);
+			}
 		}
-
+		
 		damage *= Formulas.calcElemental(activeChar, target, skill);
 		damage *= Formulas.calcSoulBonus(activeChar, skill);
-
+		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.calcDamage.ordinal()])
 			damage = restriction.calcDamage(activeChar, target, damage, skill);
-
+		
 		return Math.max(1, damage);
 	}
 

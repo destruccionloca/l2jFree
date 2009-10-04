@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import static com.l2jfree.gameserver.model.actor.L2Npc.INTERACTION_DISTANCE;
-import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
@@ -24,7 +23,6 @@ import com.l2jfree.gameserver.model.ItemRequest;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
-import com.l2jfree.gameserver.model.TradeList.TradeItem;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.util.Util;
@@ -132,45 +130,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			return;
 		}
 
-		long priceTotal = 0;
-		for (ItemRequest i : _items)
-		{
-			TradeItem sellersItem = storeList.getItem(i.getObjectId());
-			if (sellersItem == null)
-			{
-				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName()
-						+ " tried to buy an item not sold in a private store (buy), ban this player!";
-				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
-				return;
-			}
-			if ((MAX_ADENA / i.getCount()) < i.getPrice())
-			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
-				return;
-			}
-			if (i.getPrice() != sellersItem.getPrice())
-			{
-				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName()
-						+ " tried to change the seller's price in a private store (buy), ban this player!";
-				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
-				return;
-			}
-			priceTotal += i.getPrice() * i.getCount();
-		}
-
-		// FIXME: this check should be (and most probably is) done in the TradeList mechanics
-		if (priceTotal < 0 || priceTotal > MAX_ADENA)
-		{
-			requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
-			return;
-		}
-
-		if (player.getAdena() < priceTotal)
-		{
-			requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
-			return;
-		}
-
 		if (storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
 		{
 			if (storeList.getItemCount() > _items.length)
@@ -182,7 +141,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			}
 		}
 
-		if (!storeList.privateStoreBuy(player, _items, priceTotal))
+		if (!storeList.privateStoreBuy(player, _items))
 		{
 			sendAF();
 			return;

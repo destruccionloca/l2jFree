@@ -82,8 +82,8 @@ public final class EffectTemplate
 		ABNORMAL_EFFECTS.put("unknown32", L2Character.ABNORMAL_EFFECT_UNKNOWN_32);
 		
 		SPECIAL_EFFECTS.put("invulnerable", L2Character.SPECIAL_EFFECT_INVULNERABLE);
-		SPECIAL_EFFECTS.put("redglow", L2Character.SPECIAL_EFFECT_RED_GLOW);
-		SPECIAL_EFFECTS.put("redglow2", L2Character.SPECIAL_EFFECT_RED_GLOW2);
+		SPECIAL_EFFECTS.put("redglow", L2Character.SPECIAL_EFFECT_AIR_STUN);
+		SPECIAL_EFFECTS.put("redglow2", L2Character.SPECIAL_EFFECT_AIR_ROOT);
 		SPECIAL_EFFECTS.put("baguettesword", L2Character.SPECIAL_EFFECT_BAGUETTE_SWORD);
 		SPECIAL_EFFECTS.put("yellowafro", L2Character.SPECIAL_EFFECT_YELLOW_AFFRO);
 		SPECIAL_EFFECTS.put("pinkafro", L2Character.SPECIAL_EFFECT_PINK_AFFRO);
@@ -187,8 +187,12 @@ public final class EffectTemplate
 		if (set.contains("activationChance"))
 			activationChance = set.getInteger("activationChance");
 		
+		String activationElements = null;
+		if (set.contains("activationElements"))
+			activationElements = set.getString("activationElements");
+		
 		triggeredSkill = TriggeredSkill.parse(trigId, trigLvl);
-		chanceCondition = ChanceCondition.parse(chanceType, activationChance);
+		chanceCondition = ChanceCondition.parse(chanceType, activationChance, activationElements);
 		
 		if ("ChanceSkillTrigger".equals(name))
 		{

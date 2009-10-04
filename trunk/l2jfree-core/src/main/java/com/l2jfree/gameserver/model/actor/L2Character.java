@@ -2419,8 +2419,8 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isImmobileUntilAttacked() || isAttackingNow() || isFakeDeath()
-			|| isParalyzed() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled();
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || isAttackingNow() || isAlikeDead()
+			|| isParalyzed() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled() || isFlying();
 	}
 
 	public final Calculator[] getCalculators()
@@ -3162,8 +3162,8 @@ public abstract class L2Character extends L2Object
 
     private int _SpecialEffects;
 	public static final int SPECIAL_EFFECT_INVULNERABLE		= 0x000001;
-	public static final int SPECIAL_EFFECT_RED_GLOW			= 0x000002;
-	public static final int SPECIAL_EFFECT_RED_GLOW2		= 0x000004;
+	public static final int SPECIAL_EFFECT_AIR_STUN			= 0x000002;
+	public static final int SPECIAL_EFFECT_AIR_ROOT			= 0x000004;
 	public static final int SPECIAL_EFFECT_BAGUETTE_SWORD	= 0x000008;
 	public static final int SPECIAL_EFFECT_YELLOW_AFFRO		= 0x000010;
 	public static final int SPECIAL_EFFECT_PINK_AFFRO		= 0x000020;
@@ -3760,9 +3760,9 @@ public abstract class L2Character extends L2Object
 	public int getAbnormalEffect()
 	{
 		int ae = _abnormalEffects;
-		if (isStunned())
+		if (!isFlying() && isStunned())
 			ae |= ABNORMAL_EFFECT_STUN;
-		if (isRooted())
+		if (!isFlying() && isRooted())
 			ae |= ABNORMAL_EFFECT_ROOT;
 		if (isSleeping())
 			ae |= ABNORMAL_EFFECT_SLEEP;
@@ -3789,7 +3789,12 @@ public abstract class L2Character extends L2Object
 	*/
 	public int getSpecialEffect()
 	{
-		return _SpecialEffects;
+		int se = _SpecialEffects;
+		if (isFlying() && isStunned())
+			se |= SPECIAL_EFFECT_AIR_STUN;
+		if (isFlying() && isRooted())
+			se |= SPECIAL_EFFECT_AIR_ROOT;
+		return se;
 	}
 
 	/**
@@ -6259,7 +6264,7 @@ public abstract class L2Character extends L2Object
 	{
 		final L2Skill skill = magicEnv._skill;
 		final boolean simultaneously = magicEnv._simultaneously;
-
+		
 		if (simultaneously)
 		{
 			_skillCast2 = null;
@@ -6272,44 +6277,45 @@ public abstract class L2Character extends L2Object
 			setIsCastingNow(false);
 			_castInterruptTime = 0;
 		}
-
+		
 		// if the skill has changed the character's state to something other than STATE_CASTING
 		// then just leave it that way, otherwise switch back to STATE_IDLE.
 		// if(isCastingNow())
 		// getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-
-			switch (skill.getSkillType())
+		
+		switch (skill.getSkillType())
+		{
+			case PDAM:
+			case BLOW:
+			case CHARGEDAM:
+			case SPOIL:
+			case STUN:
 			{
-				case PDAM:
-				case BLOW:
-				case CHARGEDAM:
-				case SPOIL:
-				case STUN:
-					final L2Character originalTarget = magicEnv._originalTarget;
-					final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
-					final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
-
-					L2Object newTarget = null;
-
-					if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
-						newTarget = originalSkillTarget;
-					else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
-						newTarget = originalTarget;
-
-				if (//As far as I remember, you can move away after launching a skill without hitting
+				final L2Character originalTarget = magicEnv._originalTarget;
+				final L2Character originalSkillTarget = magicEnv._originalSkillTarget;
+				final L2Object currentTarget = L2Object.getActingCharacter(getTarget());
+				
+				L2Object newTarget = null;
+				
+				if (originalSkillTarget != null && originalSkillTarget != this && originalSkillTarget == currentTarget)
+					newTarget = originalSkillTarget;
+				else if (originalTarget != null && originalTarget != this && originalTarget == currentTarget)
+					newTarget = originalTarget;
+				
+				if (// As far as I remember, you can move away after launching a skill without hitting
 					getAI().getIntention() != AI_INTENTION_MOVE_TO && getAI().getNextIntention() == null
-					//And you will not auto-attack a non-flagged player after launching a skill
+					// And you will not auto-attack a non-flagged player after launching a skill
 					&& newTarget != null && newTarget.isAutoAttackable(this))
-					{
-						double distance = Util.calculateDistance(this, newTarget, false);
-
-						// if the skill is melee, or almost in the range of a normal attack
-						if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
-							getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
-					}
-					break;
+				{
+					double distance = Util.calculateDistance(this, newTarget, false);
+					
+					// if the skill is melee, or almost in the range of a normal attack
+					if (getMagicalAttackRange(skill) < 200 || getPhysicalAttackRange() + 200 > distance)
+						getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, newTarget);
+				}
 			}
-
+		}
+		
 		switch (skill.getSkillType())
 		{
 			case UNLOCK:
@@ -6318,15 +6324,17 @@ public abstract class L2Character extends L2Object
 			case MAKE_QUEST_DROPABLE:
 				break;
 			default:
+			{
 				if (skill.isOffensive() && !skill.isNeutral())
 					getAI().clientStartAutoAttack();
+			}
 		}
-
+		
 		// Notify the AI of the L2Character with EVT_FINISH_CASTING
 		getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
-
+		
 		notifyQuestEventSkillFinished(magicEnv);
-
+		
 		/*
 		 * If this skill casting wasn't a simultaneous one,
 		 * - and the character is a player, then  wipe their current cast state and check if a skill is queued.
@@ -6336,17 +6344,17 @@ public abstract class L2Character extends L2Object
 		{
 			L2PcInstance currPlayer = (L2PcInstance)this;
 			SkillDat queuedSkill = currPlayer.getQueuedSkill();
-
+			
 			// Rescuing old skill cast task if exist
 			//if (skill.isPotion())
 			//queuedSkill = currPlayer.getCurrentSkill();
-
+			
 			currPlayer.setCurrentSkill(null, false, false);
-
+			
 			if (queuedSkill != null)
 			{
 				currPlayer.setQueuedSkill(null, false, false);
-
+				
 				// DON'T USE : Recursive call to useMagic() method
 				ThreadPoolManager.getInstance().execute(new QueuedMagicUseTask(queuedSkill));
 			}

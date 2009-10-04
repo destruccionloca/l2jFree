@@ -82,7 +82,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		L2ItemInstance item = inventory.getItemByObjectId(_objectId);
 
 		int grade;
-		if (item == null || item.isWear() || item.isHeroItem() ||
+		if (item == null || item.isWear() || item.isShadowItem() || item.isTimeLimitedItem() || item.isHeroItem() ||
 				!item.getItem().isCrystallizable() ||
 				item.getItem().getCrystalCount() <= 0 ||
 				(grade = item.getItem().getCrystalGrade()) == L2Item.CRYSTAL_NONE)
