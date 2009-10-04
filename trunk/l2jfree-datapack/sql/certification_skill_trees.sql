@@ -1,5 +1,5 @@
 -- ---------------------------
--- Table structure for `account_data`
+-- Table structure for `certification_skill_trees`
 -- ---------------------------
 DROP TABLE IF EXISTS `certification_skill_trees`;
 CREATE TABLE `certification_skill_trees` (
@@ -62,6 +62,12 @@ INSERT INTO `certification_skill_trees` (`skill_id`, `item_id`, `level`, `name`)
 (638, 10612, 1, 'Master Ability - Empower'),
 (639, 10612, 1, 'Master Ability - Casting'),
 (640, 10612, 1, 'Master Ability - Focus'),
+(799, 10612, 1, 'Master Ability - Defense'),
+(799, 10612, 2, 'Master Ability - Defense'),
+(799, 10612, 3, 'Master Ability - Defense'),
+(800, 10612, 1, 'Master Ability - Magic Defense'),
+(800, 10612, 2, 'Master Ability - Magic Defense'),
+(800, 10612, 3, 'Master Ability - Magic Defense'),
 (641, 10282, 1, 'Knight Ability - Boost HP'),
 (642, 10287, 1, 'Enchanter Ability - Boost Mana'),
 (643, 10286, 1, 'Summoner Ability - Boost HP/MP'),
