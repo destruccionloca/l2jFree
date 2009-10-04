@@ -129,6 +129,7 @@ DROP TABLE IF EXISTS
 	buff_templates,
 	changelog,
 	character_blocks,
+	character_mail,
 	character_raid_points,
 	couples,
 	ctf,

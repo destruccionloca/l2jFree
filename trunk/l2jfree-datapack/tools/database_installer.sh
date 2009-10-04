@@ -282,6 +282,7 @@ full_install()
 	$MYG < ../sql/buff_templates.sql &> /dev/null
 	$MYG < ../sql/changelog.sql &> /dev/null
 	$MYG < ../sql/character_blocks.sql &> /dev/null
+	$MYG < ../sql/character_mail.sql &> /dev/null
 	$MYG < ../sql/character_raid_points.sql &> /dev/null
 	$MYG < ../sql/couples.sql &> /dev/null
 	$MYG < ../sql/ctf.sql &> /dev/null
