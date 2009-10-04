@@ -14,31 +14,19 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
 
-class ConditionPlayerActiveEffectId extends Condition
+class ConditionPlayerActiveEffectId extends AbstractConditionActiveEffectId
 {
-	private final int _effectId;
-	private final int _minEffectLvl;
-	private final int _maxEffectLvl;
-	
-	ConditionPlayerActiveEffectId(int effectId, int minEffectLvl, int maxEffectLvl)
+	ConditionPlayerActiveEffectId(String nodeValue)
 	{
-		_effectId = effectId;
-		_minEffectLvl = minEffectLvl;
-		_maxEffectLvl = maxEffectLvl;
+		super(nodeValue);
 	}
 	
 	@Override
-	boolean testImpl(Env env)
+	L2Character getEffectOwner(Env env)
 	{
-		if (env.player != null)
-			for (L2Effect e : env.player.getAllEffects())
-				if (e != null && e.getId() == _effectId)
-					if (_minEffectLvl == -1 || _minEffectLvl <= e.getLevel() && e.getLevel() <= _maxEffectLvl)
-						return true;
-		
-		return false;
+		return env.player;
 	}
 }

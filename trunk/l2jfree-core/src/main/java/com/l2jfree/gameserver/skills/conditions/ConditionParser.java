@@ -46,34 +46,34 @@ public abstract class ConditionParser
 	{
 		return _instance;
 	}
-
+	
 	protected abstract String getNodeValue(String nodeValue, Object template);
-
+	
 	public final Condition parseConditionWithMessage(Node n, Object template)
 	{
 		Condition cond = parseExistingCondition(n.getFirstChild(), template);
-
+		
 		Node msg = n.getAttributes().getNamedItem("msg");
 		if (msg != null)
 			cond.setMessage(msg.getNodeValue());
-
+		
 		Node msgId = n.getAttributes().getNamedItem("msgId");
 		if (msgId != null)
 			cond.setMessageId(Integer.decode(msgId.getNodeValue()));
-
+		
 		return cond;
 	}
-
+	
 	public final Condition parseExistingCondition(Node n, Object template)
 	{
 		return parseCondition(n, template, true, false);
 	}
-
+	
 	public final Condition parseConditionIfExists(Node n, Object template)
 	{
 		return parseCondition(n, template, false, false);
 	}
-
+	
 	private Condition parseCondition(Node n, Object template, boolean force, boolean onlyFirst)
 	{
 		Condition cond = null;
@@ -83,47 +83,47 @@ public abstract class ConditionParser
 			{
 				if (cond != null)
 					throw new IllegalStateException("Full condition");
-
+				
 				else if ("and".equalsIgnoreCase(n.getNodeName()))
 					cond = parseLogicAnd(n, template);
-
+				
 				else if ("or".equalsIgnoreCase(n.getNodeName()))
 					cond = parseLogicOr(n, template);
-
+				
 				else if ("not".equalsIgnoreCase(n.getNodeName()))
 					cond = parseLogicNot(n, template);
-
+				
 				else if ("player".equalsIgnoreCase(n.getNodeName()))
 					cond = parsePlayerCondition(n, template);
-
+				
 				else if ("target".equalsIgnoreCase(n.getNodeName()))
 					cond = parseTargetCondition(n, template);
-
+				
 				else if ("using".equalsIgnoreCase(n.getNodeName()))
 					cond = parseUsingCondition(n, template);
-
+				
 				else if ("game".equalsIgnoreCase(n.getNodeName()))
 					cond = parseGameCondition(n, template);
-
+				
 				else
 					throw new IllegalStateException("Unrecognized condition <" + n.getNodeName() + ">");
-
+				
 				if (onlyFirst)
 					return cond;
 			}
 		}
-
+		
 		if (force && cond == null)
 			throw new IndexOutOfBoundsException("Empty condition");
-
+		
 		return cond;
 	}
-
+	
 	private Condition parseExistingConditionInsideLogic(Node n, Object template)
 	{
 		return parseCondition(n, template, true, true);
 	}
-
+	
 	private Condition parseLogicAnd(Node n, Object template)
 	{
 		ConditionLogicAnd cond = new ConditionLogicAnd();
@@ -132,10 +132,10 @@ public abstract class ConditionParser
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseExistingConditionInsideLogic(n, template));
 		}
-
+		
 		return cond.getCanonicalCondition();
 	}
-
+	
 	private Condition parseLogicOr(Node n, Object template)
 	{
 		ConditionLogicOr cond = new ConditionLogicOr();
@@ -144,10 +144,10 @@ public abstract class ConditionParser
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseExistingConditionInsideLogic(n, template));
 		}
-
+		
 		return cond.getCanonicalCondition();
 	}
-
+	
 	private Condition parseLogicNot(Node n, Object template)
 	{
 		Condition cond = null;
@@ -157,40 +157,40 @@ public abstract class ConditionParser
 			{
 				if (cond != null)
 					throw new IllegalStateException("Full <not> condition");
-
+				
 				cond = parseExistingConditionInsideLogic(n, template);
 			}
 		}
-
+		
 		if (cond == null)
 			throw new IllegalStateException("Empty <not> condition");
-
+		
 		return new ConditionLogicNot(cond);
 	}
-
+	
 	private Condition parsePlayerCondition(Node n, Object template)
 	{
 		Condition cond = null;
-
+		
 		NamedNodeMap attrs = n.getAttributes();
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-
+			
 			Condition condOr = null;
-
+			
 			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
 				condOr = joinOr(condOr, parsePlayerCondition(a.getNodeName(), nodeValue));
-
+			
 			cond = joinAnd(cond, condOr);
 		}
-
+		
 		if (cond == null)
 			throw new IllegalStateException("Empty <player> condition");
-
+		
 		return cond;
 	}
-
+	
 	private Condition parsePlayerCondition(String nodeName, String nodeValue)
 	{
 		if ("skill".equalsIgnoreCase(nodeName))
@@ -286,12 +286,12 @@ public abstract class ConditionParser
 		else if ("battle_force".equalsIgnoreCase(nodeName))
 		{
 			byte battleForce = Byte.decode(nodeValue);
-			return new ConditionForceBuff(battleForce, (byte) 0);
+			return new ConditionForceBuff(battleForce, (byte)0);
 		}
 		else if ("spell_force".equalsIgnoreCase(nodeName))
 		{
 			byte spellForce = Byte.decode(nodeValue);
-			return new ConditionForceBuff((byte) 0, spellForce);
+			return new ConditionForceBuff((byte)0, spellForce);
 		}
 		else if ("weight".equalsIgnoreCase(nodeName))
 		{
@@ -343,17 +343,9 @@ public abstract class ConditionParser
 			boolean val = Boolean.valueOf(nodeName);
 			return new ConditionPlayerLandingZone(val);
 		}
-		else if ("active_skill_id".equalsIgnoreCase(nodeName))
+		else if ("active_skill_id".equalsIgnoreCase(nodeName) || "active_skill_id_lvl".equalsIgnoreCase(nodeName))
 		{
-			int skill_id = Integer.decode(nodeValue);
-			return new ConditionPlayerActiveSkillId(skill_id);
-		}
-		else if ("active_skill_id_lvl".equalsIgnoreCase(nodeName))
-		{
-			StringTokenizer st = new StringTokenizer(nodeValue, ",");
-			int skill_id = Integer.decode(st.nextToken());
-			int skill_lvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
-			return new ConditionPlayerActiveSkillId(skill_id, skill_lvl);
+			return new ConditionPlayerActiveSkillId(nodeValue);
 		}
 		else if ("agathionId".equalsIgnoreCase(nodeName))
 		{
@@ -362,11 +354,7 @@ public abstract class ConditionParser
 		}
 		else if ("active_effect_id".equalsIgnoreCase(nodeName))
 		{
-			StringTokenizer st = new StringTokenizer(nodeValue, ",");
-			int effectId = Integer.decode(st.nextToken());
-			int minEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
-			int maxEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minEffectLvl;
-			return new ConditionPlayerActiveEffectId(effectId, minEffectLvl, maxEffectLvl);
+			return new ConditionPlayerActiveEffectId(nodeValue);
 		}
 		else if ("class_id_restriction".equalsIgnoreCase(nodeName))
 		{
@@ -390,30 +378,30 @@ public abstract class ConditionParser
 		}
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}
-
+	
 	private Condition parseTargetCondition(Node n, Object template)
 	{
 		Condition cond = null;
-
+		
 		NamedNodeMap attrs = n.getAttributes();
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-
+			
 			Condition condOr = null;
-
+			
 			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
 				condOr = joinOr(condOr, parseTargetCondition(a.getNodeName(), nodeValue));
-
+			
 			cond = joinAnd(cond, condOr);
 		}
-
+		
 		if (cond == null)
 			throw new IllegalStateException("Empty <target> condition");
-
+		
 		return cond;
 	}
-
+	
 	private Condition parseTargetCondition(String nodeName, String nodeValue)
 	{
 		if ("aggro".equalsIgnoreCase(nodeName))
@@ -443,19 +431,11 @@ public abstract class ConditionParser
 		}
 		else if ("active_effect_id".equalsIgnoreCase(nodeName))
 		{
-			StringTokenizer st = new StringTokenizer(nodeValue, ",");
-			int effectId = Integer.decode(st.nextToken());
-			int minEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
-			int maxEffectLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minEffectLvl;
-			return new ConditionTargetActiveEffectId(effectId, minEffectLvl, maxEffectLvl);
+			return new ConditionTargetActiveEffectId(nodeValue);
 		}
 		else if ("active_skill_id".equalsIgnoreCase(nodeName))
 		{
-			StringTokenizer st = new StringTokenizer(nodeValue, ",");
-			int skillId = Integer.decode(st.nextToken());
-			int minSkillLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : -1;
-			int maxSkillLvl = st.hasMoreTokens() ? Integer.decode(st.nextToken()) : minSkillLvl;
-			return new ConditionTargetActiveSkillId(skillId, minSkillLvl, maxSkillLvl);
+			return new ConditionTargetActiveSkillId(nodeValue);
 		}
 		else if ("mindistance".equalsIgnoreCase(nodeName))
 		{
@@ -531,33 +511,33 @@ public abstract class ConditionParser
 			int abnormalId = Integer.decode(nodeValue);
 			return new ConditionTargetAbnormal(abnormalId);
 		}
-
+		
 		throw new IllegalStateException("Invalid attribute at <target>: " + nodeName + "='" + nodeValue + "'");
 	}
-
+	
 	private Condition parseUsingCondition(Node n, Object template)
 	{
 		Condition cond = null;
-
+		
 		NamedNodeMap attrs = n.getAttributes();
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-
+			
 			Condition condOr = null;
-
+			
 			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
 				condOr = joinOr(condOr, parseUsingCondition(a.getNodeName(), nodeValue));
-
+			
 			cond = joinAnd(cond, condOr);
 		}
-
+		
 		if (cond == null)
 			throw new IllegalStateException("Empty <using> condition");
-
+		
 		return cond;
 	}
-
+	
 	private Condition parseUsingCondition(String nodeName, String nodeValue)
 	{
 		if ("kind".equalsIgnoreCase(nodeName))
@@ -609,33 +589,33 @@ public abstract class ConditionParser
 			boolean val = Boolean.parseBoolean(nodeValue);
 			return new ConditionChangeWeapon(val);
 		}
-
+		
 		throw new IllegalStateException("Invalid attribute at <using>: " + nodeName + "='" + nodeValue + "'");
 	}
-
+	
 	private Condition parseGameCondition(Node n, Object template)
 	{
 		Condition cond = null;
-
+		
 		NamedNodeMap attrs = n.getAttributes();
 		for (int i = 0; i < attrs.getLength(); i++)
 		{
 			Node a = attrs.item(i);
-
+			
 			Condition condOr = null;
-
+			
 			for (String nodeValue : StringUtils.split(getNodeValue(a.getNodeValue(), template), "|"))
 				condOr = joinOr(condOr, parseGameCondition(a.getNodeName(), nodeValue));
-
+			
 			cond = joinAnd(cond, condOr);
 		}
-
+		
 		if (cond == null)
 			throw new IllegalStateException("Empty <game> condition");
-
+		
 		return cond;
 	}
-
+	
 	private Condition parseGameCondition(String nodeName, String nodeValue)
 	{
 		if ("night".equalsIgnoreCase(nodeName))
@@ -653,38 +633,38 @@ public abstract class ConditionParser
 			boolean val = Boolean.parseBoolean(nodeValue);
 			return new ConditionWithSkill(val);
 		}
-
+		
 		throw new IllegalStateException("Invalid attribute at <game>: " + nodeName + "='" + nodeValue + "'");
 	}
-
+	
 	private Condition joinAnd(Condition cond, Condition c)
 	{
 		if (cond == null)
 			return c;
-
+		
 		if (cond instanceof ConditionLogicAnd)
 		{
-			((ConditionLogicAnd) cond).add(c);
+			((ConditionLogicAnd)cond).add(c);
 			return cond;
 		}
-
+		
 		ConditionLogicAnd and = new ConditionLogicAnd();
 		and.add(cond);
 		and.add(c);
 		return and;
 	}
-
+	
 	private Condition joinOr(Condition cond, Condition c)
 	{
 		if (cond == null)
 			return c;
-
+		
 		if (cond instanceof ConditionLogicOr)
 		{
-			((ConditionLogicOr) cond).add(c);
+			((ConditionLogicOr)cond).add(c);
 			return cond;
 		}
-
+		
 		ConditionLogicOr and = new ConditionLogicOr();
 		and.add(cond);
 		and.add(c);

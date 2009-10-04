@@ -14,31 +14,19 @@
  */
 package com.l2jfree.gameserver.skills.conditions;
 
-import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.Env;
 
-class ConditionTargetActiveSkillId extends Condition
+class ConditionTargetActiveSkillId extends AbstractConditionActiveSkillId
 {
-	private final int _skillId;
-	private final int _minSkillLvl;
-	private final int _maxSkillLvl;
-	
-	ConditionTargetActiveSkillId(int skillId, int minSkillLvl, int maxSkillLvl)
+	ConditionTargetActiveSkillId(String nodeValue)
 	{
-		_skillId = skillId;
-		_minSkillLvl = minSkillLvl;
-		_maxSkillLvl = maxSkillLvl;
+		super(nodeValue);
 	}
 	
 	@Override
-	boolean testImpl(Env env)
+	L2Character getSkillOwner(Env env)
 	{
-		if (env.target != null)
-			for (L2Skill sk : env.target.getAllSkills())
-				if (sk != null && sk.getId() == _skillId)
-					if (_minSkillLvl == -1 || _minSkillLvl <= sk.getLevel() && sk.getLevel() <= _maxSkillLvl)
-						return true;
-		
-		return false;
+		return env.target;
 	}
 }
