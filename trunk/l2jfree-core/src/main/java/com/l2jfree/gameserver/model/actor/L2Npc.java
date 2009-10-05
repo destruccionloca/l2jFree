@@ -114,6 +114,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.util.StringUtil;
 import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
@@ -725,12 +726,43 @@ public class L2Npc extends L2Character
 
 			// Send a Server->Client NpcHtmlMessage() containing the GM console about this L2Npc
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">NPC Information</font></center>");
-			String className = getClass().getName().substring(44);
-			html1.append("<br>");
+			String className = getClass().getSimpleName();
 
-			html1.append("Instance Type: " + className + "<br1>Faction: " + getFactionId() + "<br1>Location ID: "
-					+ (getSpawn() != null ? getSpawn().getLocation() : 0) + "<br1>");
+			final StringBuilder html1 = StringUtil.startAppend(500,
+					"<html><body><center><font color=\"LEVEL\">NPC Information</font></center>" +
+					"<br>" +
+					"Instance Type: ",
+					className,
+					"<br1>Faction: ",
+					getFactionId() != null ? getFactionId() : "null",
+					"<br1>"
+			);
+			StringUtil.append(html1,
+					"Coords ",
+					String.valueOf(getX()),
+					",",
+					String.valueOf(getY()),
+					",",
+					String.valueOf(getZ()),
+					"<br1>"
+					);
+			if (getSpawn() != null)
+				StringUtil.append(html1,
+						"Spawn ",
+						String.valueOf(getSpawn().getLocx()),
+						",",
+						String.valueOf(getSpawn().getLocy()),
+						",",
+						String.valueOf(getSpawn().getLocz()),
+						" Loc ID: ",
+						String.valueOf(getSpawn().getLocation()),
+						"<br1>",
+						"Distance from spawn 2D ",
+						String.valueOf((int)Math.sqrt(getPlanDistanceSq(getSpawn().getLocx(), getSpawn().getLocy()))),
+						" 3D ",
+						String.valueOf((int)Math.sqrt(getDistanceSq(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz()))),
+						"<br1>"
+				);
 
 			if (this instanceof L2ControllableMobInstance)
 				html1.append("Mob Group: " + MobGroupTable.getInstance().getGroupForMob((L2ControllableMobInstance) this).getGroupId() + "<br>");
@@ -739,8 +771,8 @@ public class L2Npc extends L2Character
 
 			html1.append("<table border=\"0\" width=\"100%\">");
 			html1.append("<tr><td>Object ID</td><td>" + getObjectId() + "</td><td>NPC ID</td><td>" + getTemplate().getNpcId() + "</td></tr>");
-			html1.append("<tr><td>Castle</td><td>" + getCastle().getCastleId() + "</td><td>Coords</td><td>" + getX() + "," + getY() + "," + getZ()
-					+ "</td></tr>");
+			html1.append("<tr><td>Castle</td><td>" + getCastle().getCastleId() + "</td><td>AI </td><td>"
+					+ (hasAI() ? getAI().getIntention() : "NULL") + "</td></tr>");
 			html1.append("<tr><td>Level</td><td>" + getLevel() + "</td><td>Aggro</td><td>"
 					+ ((this instanceof L2Attackable) ? getAggroRange() : 0) + "</td></tr>");
 			html1.append("</table><br>");
@@ -2539,8 +2571,10 @@ public class L2Npc extends L2Character
 				filename = (getHtmlPath(npcId, val));
 			break;
 		case 36402:
-			if (player.olyBuff > 0)
+			if (player.olyBuff == 5)
 				filename = Olympiad.OLYMPIAD_HTML_PATH + "olympiad_buffs.htm";
+			else if (player.olyBuff <= 4 && player.olyBuff >= 1)
+				filename = Olympiad.OLYMPIAD_HTML_PATH + "olympiad_5buffs.htm";
 			else
 				filename = Olympiad.OLYMPIAD_HTML_PATH + "olympiad_nobuffs.htm";
 			break;

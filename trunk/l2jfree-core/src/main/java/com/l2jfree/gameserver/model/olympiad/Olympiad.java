@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ScheduledFuture;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -1421,7 +1420,7 @@ public final class Olympiad
 	
 	public int getNoblePoints(int objId)
 	{
-		if (_nobles.size() == 0)
+		if (_nobles.isEmpty())
 			return 0;
 		
 		StatsSet noble = _nobles.get(objId);
@@ -1432,9 +1431,37 @@ public final class Olympiad
 		return points;
 	}
 	
+	public int getLastNobleOlympiadPoints(int objId)
+	{
+		int result = 0;
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement;
+			statement = con.prepareStatement("SELECT olympiad_points FROM olympiad_nobles_eom WHERE charId = ?");
+			statement.setInt(1, objId);
+			ResultSet rs = statement.executeQuery();
+			if (rs.first())
+				result = rs.getInt(1);
+			rs.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warn("Could not load last olympiad points:", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		
+		return result;
+	}
+	
 	public int getCompetitionDone(int objId)
 	{
-		if (_nobles.size() == 0)
+		if (_nobles.isEmpty())
 			return 0;
 		
 		StatsSet noble = _nobles.get(objId);
@@ -1553,27 +1580,26 @@ public final class Olympiad
 	public static void sendMatchList(L2PcInstance player)
 	{
 		NpcHtmlMessage message = new NpcHtmlMessage(0);
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
-		replyMSG.append("<center><br>Grand Olympiad Game View<table width=270 border=0 bgcolor=\"000000\">");
-		replyMSG.append("<tr><td fixwidth=30>NO.</td><td fixwidth=60>Status</td><td>Player1 / Player2</td></tr>");
+		message.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_observe2.htm");
 		
 		FastMap<Integer, String> matches = getInstance().getMatchList();
 		for (int i = 0; i < Olympiad.getStadiumCount(); i++)
 		{
-			int arenaID = i + 1;
-			String players = "&nbsp;";
+			int arenaId = i + 1;
 			String state = "Initial State";
+			String players = "&nbsp;";
 			if (matches.containsKey(i))
 			{
-				state = "In Progress";
+				if (OlympiadGame._gameIsStarted)
+					state = "Playing";
+				else
+					state = "Standby";
 				players = matches.get(i);
 			}
-			replyMSG.append("<tr><td fixwidth=30><a action=\"bypass -h OlympiadArenaChange " + i + "\">" + arenaID
-				+ "</a></td><td fixwidth=60>" + state + "</td><td>" + players + "</td></tr>");
+			message.replace("%state" + arenaId + "%", state);
+			message.replace("%players" + arenaId + "%", players);
 		}
-		replyMSG.append("</table></center></body></html>");
 		
-		message.setHtml(replyMSG.toString());
 		player.sendPacket(message);
 	}
 	

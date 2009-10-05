@@ -131,14 +131,14 @@ public class L2OlympiadManagerInstance extends L2Npc
 					L2Multisell.getInstance().separateAndSend(102, player, getNpcId(), false, getCastle().getTaxRate());
 					break;
 				case 8:
-					int point = Olympiad.getInstance().getNoblePoints(player.getObjectId());
+					L2Multisell.getInstance().separateAndSend(103, player, getNpcId(), false, getCastle().getTaxRate());
+					break;
+				case 9:
+					int point = Olympiad.getInstance().getLastNobleOlympiadPoints(player.getObjectId());
 					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_points2.htm");
 					html.replace("%points%", String.valueOf(point));
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
-					break;
-				case 9:
-					L2Multisell.getInstance().separateAndSend(103, player, getNpcId(), false, getCastle().getTaxRate());
 					break;
 				case 10:
 					passes = Olympiad.getInstance().getNoblessePasses(player, true);
@@ -188,21 +188,25 @@ public class L2OlympiadManagerInstance extends L2Npc
 			// Get skilllevel from the hashmap
 			skillLvl = buffList.get(skillId);
 
-			L2Skill skill;
-			skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
+			L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
 
 			setTarget(player);
 
 			if (player.olyBuff > 0)
 			{
-				skill.getEffects(player, player);
-				//this.doCast(skill);
+				doCast(skill);
 				player.olyBuff--;
 			}
 
-			if (player.olyBuff > 0)
+			if (player.olyBuff == 5)
 			{
 				html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_buffs.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				player.sendPacket(html);
+			}
+			else if (player.olyBuff <= 4 && player.olyBuff >= 1)
+			{
+				html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_5buffs.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
 			}
@@ -224,9 +228,10 @@ public class L2OlympiadManagerInstance extends L2Npc
 			{
 				case 1:
 					FastMap<Integer, String> matches = Olympiad.getInstance().getMatchList();
-					reply.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_observe.htm");
+					reply.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_observe1.htm");
 
-					for (int i = 0; i < Olympiad.getStadiumCount(); i++) {
+					for (int i = 0; i < Olympiad.getStadiumCount(); i++)
+					{
 						int arenaID = i + 1;
 
 						// &$906; -> \\&\\$906;
