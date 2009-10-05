@@ -94,7 +94,7 @@
       </property-->
     <property name="mappingJarLocations">
       <list>
-        <value>classpath:l2jfree-login-1.3.0.jar</value>
+        <value>classpath:l2jfree-login-1.3.*.jar</value>
       </list>
     </property>
   </bean>
