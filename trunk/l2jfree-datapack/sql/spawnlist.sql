@@ -40690,6 +40690,7 @@ UPDATE `spawnlist` SET `npc_templateid` = 35440 WHERE `id` = 33771;
 UPDATE `spawnlist` SET `heading` = 32768 WHERE `npc_templateid` = 35189;
 
 -- Dimensional Merchants
+DELETE FROM `spawnlist` WHERE `npc_templateid` = 32478;
 INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
 (NULL, '', 1, 32478, 115650, 76619, -2670, 0, 0, 59764, 60, 0, 0),
 (NULL, '', 1, 32478, 88945, -140810, -1544, 0, 0, 10747, 60, 0, 0),
