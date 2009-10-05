@@ -332,7 +332,7 @@ public class L2DoorInstance extends L2Character
 			{
 				fort = FortManager.getInstance().getFort(this);
 				if (fort != null)
-					_fortId = fort.getCastleId();
+					_fortId = fort.getFortId();
 			}
 			if (_fortId > 0)
 				fort = FortManager.getInstance().getFortById(_fortId);
