@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public class RequestExRemoveItemAttribute extends L2GameClientPacket
@@ -49,9 +50,7 @@ public class RequestExRemoveItemAttribute extends L2GameClientPacket
 			return;
 		}
 		
-		final int adena = targetItem.getItem() instanceof L2Weapon ? 50000 : 40000;
-		
-		if (activeChar.reduceAdena("RemoveElement", adena, activeChar, true))
+		if (activeChar.reduceAdena("RemoveElement", getPrice(targetItem), activeChar, true))
 		{
 			if (targetItem.isEquipped())
 				targetItem.getElementals().removeBonus(activeChar);
@@ -80,7 +79,37 @@ public class RequestExRemoveItemAttribute extends L2GameClientPacket
 
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
+	private static long getPrice(L2ItemInstance item)
+	{
+		switch (item.getItem().getCrystalType())
+		{
+			case L2Item.CRYSTAL_S:
+			{
+				if (item.getItem() instanceof L2Weapon)
+					return 50000;
+				else
+					return 40000;
+			}
+			case L2Item.CRYSTAL_S80:
+			{
+				if (item.getItem() instanceof L2Weapon)
+					return 100000;
+				else
+					return 80000;
+			}
+			case L2Item.CRYSTAL_S84:
+			{
+				if (item.getItem() instanceof L2Weapon)
+					return 200000;
+				else
+					return 160000;
+			}
+		}
+		
+		return 0;
+	}
+	
 	@Override
 	public String getType()
 	{

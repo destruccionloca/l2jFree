@@ -147,6 +147,7 @@ public abstract class L2Item implements FuncOwner
 	private final boolean				_tradeable;
 	private final boolean				_isCommonItem;
 	private final boolean				_heroItem;
+	private final boolean				_pvpItem;
 
 	protected final AbstractL2ItemType	_type;
 
@@ -193,8 +194,12 @@ public abstract class L2Item implements FuncOwner
 		_dropable = set.getBool("dropable", true);
 		_destroyable = set.getBool("destroyable", true);
 		_tradeable = set.getBool("tradeable", true);
-		_isCommonItem = _name.startsWith("Common Item") || _name.startsWith("Standard Item");
-		_heroItem = ((_itemId >= 6611 && _itemId <= 6621) || (_itemId >= 9388 && _itemId <= 9390) || _itemId == 6842);
+		_isCommonItem = (_itemId >= 12006 && _itemId <= 12361) || (_itemId >= 11605 && _itemId <= 12308)
+				|| _name.startsWith("Common Item") || _name.startsWith("Standard Item");
+		_heroItem = (_itemId >= 6611 && _itemId <= 6621) || (_itemId >= 9388 && _itemId <= 9390) || _itemId == 6842;
+		_pvpItem = (_itemId >= 10667 && _itemId <= 10792) || (_itemId >= 10793 && _itemId <= 10835)
+				|| (_itemId >= 12852 && _itemId <= 12977) || (_itemId >= 14363 && _itemId <= 14519)
+				|| (_itemId >= 14520 && _itemId <= 14525) || _itemId == 14528 || _itemId == 14529 || _itemId == 14558;
 	}
 
 	/**
@@ -424,9 +429,29 @@ public abstract class L2Item implements FuncOwner
 		return _heroItem;
 	}
 
+	/**
+	 * Returns if item is pvp
+	 * 
+	 * @return
+	 */
+	public final boolean isPvpItem()
+	{
+		return _pvpItem;
+	}
+
 	public boolean isCommonItem()
 	{
 		return _isCommonItem;
+	}
+
+	/**
+	 * Returns if item is common
+	 * 
+	 * @return boolean
+	 */
+	public final boolean isCommon()
+	{
+		return isCommonItem();
 	}
 
 	public boolean isLifeStone()

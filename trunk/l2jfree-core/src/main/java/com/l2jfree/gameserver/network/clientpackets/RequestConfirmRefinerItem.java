@@ -32,6 +32,7 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 	//to avoid unnecessary string allocation
 	private static final String GEMSTONE_D = "Gemstone D";
 	private static final String GEMSTONE_C = "Gemstone C";
+	private static final String GEMSTONE_B = "Gemstone B";
 
 	private int _targetItemObjId;
 	private int _refinerItemObjId;
@@ -57,7 +58,6 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 			return;
 		}
 
-		int itemGrade = targetItem.getItem().getCrystalGrade();
 		int refinerItemId = refinerItem.getItem().getItemId();
  
 		// is the item a life stone?
@@ -70,7 +70,7 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		int gemstoneCount = 0;
 		int gemstoneItemId = 0;
 		SystemMessage sm = new SystemMessage(SystemMessageId.REQUIRES_S1_S2);
-		switch (itemGrade)
+		switch (targetItem.getItem().getCrystalType())
 		{
 			case L2Item.CRYSTAL_C:
 				gemstoneCount = 20;
@@ -95,6 +95,13 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_C;
 				sm.addItemNumber(gemstoneCount);
 				sm.addString(GEMSTONE_C);
+				break;
+			case L2Item.CRYSTAL_S80:
+			case L2Item.CRYSTAL_S84:
+				gemstoneCount = 36;
+				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_B;
+				sm.addItemNumber(gemstoneCount);
+				sm.addString(GEMSTONE_B);
 				break;
 		}
 

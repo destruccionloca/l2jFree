@@ -58,7 +58,7 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 			fail = SystemMessageId.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN;
 		else if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON ||
 				!item.isDestroyable() || item.isShadowItem() ||
-				item.getItem().isCommonItem() || item.isTimeLimitedItem())
+				item.getItem().isCommonItem() || item.isTimeLimitedItem() || item.isPvp())
 			fail = SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM;
 
 		// check if the player can augment

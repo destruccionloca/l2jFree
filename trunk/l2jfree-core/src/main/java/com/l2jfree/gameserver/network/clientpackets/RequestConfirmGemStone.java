@@ -30,6 +30,7 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 	private static final String _C__D0_2B_REQUESTCONFIRMGEMSTONE = "[C] D0:2B RequestConfirmGemStone";
 	public static final int GEMSTONE_D = 2130;
 	public static final int GEMSTONE_C = 2131;
+	public static final int GEMSTONE_B = 2132;
 
 	private int _targetItemObjId;
 	private int _refinerItemObjId;
@@ -63,15 +64,14 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 
 		// Make sure the item is a gemstone
 		int gemstoneItemId = gemstoneItem.getItem().getItemId();
-		if (gemstoneItemId != GEMSTONE_D && gemstoneItemId != GEMSTONE_C)
+		if (gemstoneItemId != GEMSTONE_D && gemstoneItemId != GEMSTONE_C && gemstoneItemId != GEMSTONE_B)
 		{
 			requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
 
 		// Check if the gemstoneCount is sufficient
-		int itemGrade = targetItem.getItem().getCrystalGrade();
-		switch (itemGrade)
+		switch (targetItem.getItem().getCrystalType())
 		{
 			case L2Item.CRYSTAL_C:
 				if (_gemstoneCount != 20 || gemstoneItemId != GEMSTONE_D)
@@ -98,6 +98,14 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 				if (_gemstoneCount != 25 || gemstoneItemId != GEMSTONE_C)
 				{
 					requestFailed(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
+					return;
+				}
+				break;
+			case L2Item.CRYSTAL_S80:
+			case L2Item.CRYSTAL_S84:
+				if (_gemstoneCount != 36 || gemstoneItemId != GEMSTONE_B)
+				{
+					activeChar.sendPacket(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
 					return;
 				}
 				break;

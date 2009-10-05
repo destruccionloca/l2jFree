@@ -737,6 +737,21 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		return _item.isCommonItem();
 	}
 	
+	public boolean isCommon()
+	{
+		return _item.isCommon();
+	}
+	
+	/**
+	 * Returns whether this item is pvp or not
+	 * 
+	 * @return boolean
+	 */
+	public boolean isPvp()
+	{
+		return _item.isPvpItem();
+	}
+	
 	/**
 	 * Returns if item is available for manipulation
 	 * 

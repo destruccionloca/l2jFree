@@ -49,7 +49,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
 
-		if (_objectId == 0xFFFF)
+		if (_objectId == 0xFFFF || _objectId == 0xFFFFFFFF) // which one should be here?
 		{
 			// Player canceled enchant
 			player.setActiveEnchantAttrItem(null);
@@ -152,7 +152,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			powerToAdd = limit - elementValue;
 		}
 
-		if (oldElement != null && oldElement.getElement() != elementToAdd)
+		if (oldElement != null && oldElement.getElement() != elementToAdd && oldElement.getElement() != -2)
 		{
 			requestFailed(SystemMessageId.ANOTHER_ELEMENTAL_POWER_ALREADY_ADDED);
 			player.setActiveEnchantAttrItem(null);
@@ -160,7 +160,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		}
 		else if (powerToAdd <= 0)
 		{
-			requestFailed(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
+			requestFailed(SystemMessageId.ELEMENTAL_ENHANCE_CANCELED);
 			player.setActiveEnchantAttrItem(null);
 			return;
 		}
@@ -200,9 +200,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			sendPacket(iu);
 		}
 		else
-		{
-			sendPacket(SystemMessageId.FAILED_ADDING_ELEMENTAL_POWER);
-		}
+			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_ADDING_ELEMENTAL_POWER));
 
 		sendPacket(new ExAttributeEnchantResult(powerToAdd));
 		sendPacket(new UserInfo(player));

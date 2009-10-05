@@ -250,41 +250,62 @@ public abstract class IdFactory
 	 * @return
 	 * @throws SQLException
 	 */
-	protected int[] extractUsedObjectIDTable() throws SQLException
+	protected final int[] extractUsedObjectIDTable() throws SQLException
 	{
 		Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			Statement s = con.createStatement();
-			TIntArrayList temp = new TIntArrayList();
-
-			ResultSet result = s.executeQuery("SELECT charId FROM characters");
-			while (result.next())
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			Statement statement = con.createStatement();
+			
+			ResultSet rset = null;
+			int count = 0;
+			
+			rset = statement.executeQuery("SELECT COUNT(*) FROM characters");
+			rset.next();
+			count += rset.getInt(1);
+			
+			rset = statement.executeQuery("SELECT COUNT(*) FROM items");
+			rset.next();
+			count += rset.getInt(1);
+			
+			rset = statement.executeQuery("SELECT COUNT(*) FROM clan_data");
+			rset.next();
+			count += rset.getInt(1);
+			
+			rset = statement.executeQuery("SELECT COUNT(*) FROM itemsonground");
+			rset.next();
+			count += rset.getInt(1);
+			
+			final TIntArrayList temp = new TIntArrayList(count);
+			
+			rset = statement.executeQuery("SELECT charId FROM characters");
+			while (rset.next())
 			{
-				temp.add(result.getInt(1));
+				temp.add(rset.getInt(1));
 			}
-
-			result = s.executeQuery("SELECT object_id FROM items");
-			while (result.next())
+			
+			rset = statement.executeQuery("SELECT object_id FROM items");
+			while (rset.next())
 			{
-				temp.add(result.getInt(1));
+				temp.add(rset.getInt(1));
 			}
-
-			result = s.executeQuery("SELECT clan_id FROM clan_data");
-			while (result.next())
+			
+			rset = statement.executeQuery("SELECT clan_id FROM clan_data");
+			while (rset.next())
 			{
-				temp.add(result.getInt(1));
+				temp.add(rset.getInt(1));
 			}
-
-			result = s.executeQuery("SELECT object_id FROM itemsonground");
-			while (result.next())
+			
+			rset = statement.executeQuery("SELECT object_id FROM itemsonground");
+			while (rset.next())
 			{
-				temp.add(result.getInt(1));
+				temp.add(rset.getInt(1));
 			}
-
+			
 			temp.sort();
-
+			
 			return temp.toNativeArray();
 		}
 		finally

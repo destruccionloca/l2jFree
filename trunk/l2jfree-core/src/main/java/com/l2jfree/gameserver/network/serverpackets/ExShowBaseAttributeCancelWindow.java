@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 
 public class ExShowBaseAttributeCancelWindow extends L2GameServerPacket
@@ -38,8 +39,38 @@ public class ExShowBaseAttributeCancelWindow extends L2GameServerPacket
 		for (L2ItemInstance item : _items)
 		{
 			writeD(item.getObjectId());
-			writeCompQ(item.getItem() instanceof L2Weapon ? 50000 : 40000);
+			writeCompQ(getPrice(item));
 		}
+	}
+
+	private long getPrice(L2ItemInstance item)
+	{
+		switch (item.getItem().getCrystalType())
+		{
+			case L2Item.CRYSTAL_S:
+			{
+				if (item.getItem() instanceof L2Weapon)
+					return 50000;
+				else
+					return 40000;
+			}
+			case L2Item.CRYSTAL_S80:
+			{
+				if (item.getItem() instanceof L2Weapon)
+					return 100000;
+				else
+					return 80000;
+			}
+			case L2Item.CRYSTAL_S84:
+			{
+				if (item.getItem() instanceof L2Weapon)
+					return 200000;
+				else
+					return 160000;
+			}
+		}
+		
+		return 0;
 	}
 
 	@Override

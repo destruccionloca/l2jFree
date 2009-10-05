@@ -9116,7 +9116,7 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1481<br>
-	 * Message: You have selected an individual, non-class-limited match. Do you wish to participate?
+	 * Message: You have selected a class irrelevant individual match. Do you wish to participate?
 	 */
 	OLYMPIAD_NON_CLASS_CONFIRM(1481),
 
@@ -14543,6 +14543,12 @@ public enum SystemMessageId
 	 * Message: The collection has failed.
 	 */
 	THE_COLLECTION_HAS_FAILED(2424),
+
+	/**
+	 * ID: 2465<br>
+	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you wish to participate?
+	 */
+	OLYMPIAD_3VS3_CONFIRM(2465),
 
 	/**
 	 * ID: 2500<br>
