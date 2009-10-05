@@ -9,8 +9,8 @@
 <!ATTLIST zone enabled (true|false) #IMPLIED>
 <!ATTLIST zone id CDATA #REQUIRED>
 <!ATTLIST zone name CDATA #REQUIRED>
-<!ATTLIST zone type (Arena|Boss|CastleTeleport|Castle|Clanhall|CoreBarrier|Damage|Danger|DefenderSpawn|Dynamic|Fishing|Fort|HeadQuarters|Jail|Mothertree|Regeneration|SiegeDanger|Siege|Stadium|Town|Water) #IMPLIED>
-<!ELEMENT zone (entity?,instance?,msg?,settings?,skill?,restart_chaotic*,restart_owner*,shape+,cond*)>
+<!ATTLIST zone type (Arena|Boss|CastleTeleport|Castle|Clanhall|CoreBarrier|Damage|Danger|DefenderSpawn|Dynamic|Fishing|Fort|HeadQuarters|Jail|Mothertree|Regeneration|SiegeDanger|Siege|Stadium|Town|Water|Script) #IMPLIED>
+<!ELEMENT zone (entity?,instance?,msg?,settings?,skill?,restart_chaotic*,restart_owner*,shape+,cond?)>
 
 <!-- Entity -->
 <!ATTLIST entity castleId CDATA #IMPLIED>
@@ -68,10 +68,11 @@
 <!ATTLIST settings buffRepeat (true|false) #IMPLIED>
 <!ATTLIST settings exitOnDeath (true|false) #IMPLIED>
 <!ATTLIST settings hpDamage CDATA #IMPLIED>
+<!ATTLIST settings landing (true|false) #IMPLIED>
 <!ATTLIST settings mpDamage CDATA #IMPLIED>
 <!ATTLIST settings noEscape (true|false) #IMPLIED>
 <!ATTLIST settings noHeal (true|false) #IMPLIED>
-<!ATTLIST settings noLanding (true|false) #IMPLIED>
+<!ATTLIST settings noWyvern (true|false) #IMPLIED>
 <!ATTLIST settings noPrivateStore (true|false) #IMPLIED>
 <!ATTLIST settings noSummon (true|false) #IMPLIED>
 <!ATTLIST settings pvp (Arena|General|Peace) #IMPLIED>
@@ -80,6 +81,4 @@
 <!-- Everything below is taken from skills.dtd (should be exported to another file) -->
 
 <!-- Condition -->
-<!ATTLIST cond msg CDATA #IMPLIED>
-<!ATTLIST cond msgId CDATA #IMPLIED>
 <!ELEMENT cond (%condition;)>
