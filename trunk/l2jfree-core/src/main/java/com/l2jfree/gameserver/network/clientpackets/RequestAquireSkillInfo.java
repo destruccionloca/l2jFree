@@ -304,6 +304,8 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			case 653:
 			case 654:
 			case 655:
+			case 799:
+			case 800:
 			case 801:
 			case 802:
 			case 803:
