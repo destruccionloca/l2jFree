@@ -558,6 +558,12 @@ public class L2Npc extends L2Character
 	public boolean canInteract(L2PcInstance player)
 	{
 		// TODO: NPC busy check etc...
+		if (player.isSitting())
+			return false;
+		
+		if (player.getPrivateStoreType() != 0)
+			return false;
+		
 		return isInsideRadius(player, INTERACTION_DISTANCE, true, false);
 	}
 

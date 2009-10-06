@@ -167,10 +167,8 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("Subclass"))
 		{
-			int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
-
 			// Subclasses may not be changed while a skill is in use.
-			if (player.isCastingNow() || player.isAllSkillsDisabled() || player.getTransformation() != null)
+			if (player.isCastingNow() || player.isAllSkillsDisabled())
 			{
 				player.sendPacket(SystemMessageId.SUBCLASS_NO_CHANGE_OR_CREATE_WHILE_SKILL_IN_USE);
 				return;
@@ -181,16 +179,24 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				player.sendMessage("Sub classes may not be created or changed while you are during a restricted condition.");
 				return;
 			}
-
-			final StringBuilder content = StringUtil.startAppend(200);
+			
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			Set<PlayerClass> subsAvailable;
+			
+			if (player.getTransformation() != null)
+			{
+				html.setFile("data/html/villagemaster/SubClass_NoTransformed.htm");
+				player.sendPacket(html);
+				return;
+			}
 
+			int cmdChoice = 0;
 			int paramOne = 0;
 			int paramTwo = 0;
 
 			try
 			{
+				cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
+				
 				int endIndex = command.indexOf(' ', 11);
 				if (endIndex == -1)
 					endIndex = command.length();
@@ -233,13 +239,14 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				}
 
 				html.setFile("data/html/villagemaster/SubClass_Add.htm");
-				subsAvailable = getAvailableSubClasses(player);
+				final StringBuilder content1 = StringUtil.startAppend(200);
+				Set<PlayerClass> subsAvailable = getAvailableSubClasses(player);
 
 				if (subsAvailable != null && !subsAvailable.isEmpty())
 				{
 					for (PlayerClass subClass : subsAvailable)
 					{
-						StringUtil.append(content,
+						StringUtil.append(content1,
 								"<a action=\"bypass -h npc_%objectId%_Subclass 4 ",
 								String.valueOf(subClass.ordinal()),
 								"\" msg=\"1268;",
@@ -255,7 +262,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					player.sendMessage("There are no sub classes available at this time.");
 					return;
 				}
-				html.replace("%list%", content.toString());
+				html.replace("%list%", content1.toString());
 				break;
 			case 2: // Change Class - Initial
 				if (player.getSubClasses().isEmpty())
@@ -264,9 +271,11 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				}
 				else
 				{
+					final StringBuilder content2 = StringUtil.startAppend(200);
+					
 					if (checkVillageMaster(player.getBaseClass()))
 					{
-						StringUtil.append(content,
+						StringUtil.append(content2,
 								"<a action=\"bypass -h npc_%objectId%_Subclass 5 0\">",
 								CharTemplateTable.getClassNameById(player.getBaseClass()),
 						"</a><br>");
@@ -277,7 +286,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 						SubClass subClass = subList.next();
 						if (checkVillageMaster(subClass.getClassDefinition()))
 						{
-							StringUtil.append(content,
+							StringUtil.append(content2,
 									"<a action=\"bypass -h npc_%objectId%_Subclass 5 ",
 									String.valueOf(subClass.getClassIndex()),
 									"\">",
@@ -286,10 +295,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 						}
 					}
 
-					if (content.length() > 0)
+					if (content2.length() > 0)
 					{
 						html.setFile("data/html/villagemaster/SubClass_Change.htm");
-						html.replace("%list%", content.toString());
+						html.replace("%list%", content2.toString());
 					}
 					else
 						html.setFile("data/html/villagemaster/SubClass_ChangeNotFound.htm");
@@ -306,13 +315,14 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				if (player.getTotalSubClasses() > 3)
 				{
 					html.setFile("data/html/villagemaster/SubClass_ModifyCustom.htm");
+					final StringBuilder content3 = StringUtil.startAppend(200);
 					int classIndex = 1;
 					
 					for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 					{
 						SubClass subClass = subList.next();
 						
-						StringUtil.append(content,
+						StringUtil.append(content3,
 								"Sub-class ",
 								String.valueOf(classIndex++),
 								"<br>",
@@ -322,7 +332,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 								CharTemplateTable.getClassNameById(subClass.getClassId()),
 								"</a><br>");
 					}
-					html.replace("%list%", content.toString());
+					html.replace("%list%", content3.toString());
 				}
 				else
 				{
@@ -339,7 +349,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 						html.replace("<a action=\"bypass -h npc_%objectId%_Subclass 6 2\">%sub2%</a><br>", "");
 					
 					if (player.getSubClasses().containsKey(3))
-						html.replace("%sub2%", CharTemplateTable.getClassNameById(player.getSubClasses().get(3).getClassId()));
+						html.replace("%sub3%", CharTemplateTable.getClassNameById(player.getSubClasses().get(3).getClassId()));
 					else
 						html.replace("<a action=\"bypass -h npc_%objectId%_Subclass 6 3\">%sub3%</a><br>", "");
 				}
@@ -426,7 +436,6 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					player.setActiveClass(player.getTotalSubClasses());
 
 					html.setFile("data/html/villagemaster/SubClass_AddOk.htm");
-					html.replace("%name%", CharTemplateTable.getClassNameById(paramOne));
 
 					player.sendPacket(SystemMessageId.CLASS_TRANSFER); // Transfer to new class.
 				}
@@ -493,9 +502,11 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					return;
 				}
 
+				final StringBuilder content6 = StringUtil.startAppend(200);
+				
 				for (PlayerClass subClass : subsAvailable)
 				{
-					StringUtil.append(content,
+					StringUtil.append(content6,
 							"<a action=\"bypass -h npc_%objectId%_Subclass 7 ",
 							String.valueOf(paramOne),
 							" ",
@@ -520,7 +531,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					default:
 						html.setFile("data/html/villagemaster/SubClass_ModifyChoice.htm");
 				}
-				html.replace("%list%", content.toString());
+				html.replace("%list%", content6.toString());
 				break;
 			case 7: // Change Subclass - Action
 				/*

@@ -58,6 +58,7 @@ public final class L2Multisell
 	{
 		_entries.clear();
 		parse();
+		_log.info("L2Multisell: Loaded " + _entries.size() + " lists.");
 	}
 	
 	public MultiSellListContainer getList(int id)

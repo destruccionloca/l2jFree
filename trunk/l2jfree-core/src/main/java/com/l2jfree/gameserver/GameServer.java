@@ -125,6 +125,7 @@ import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
 import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Manor;
+import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -229,6 +230,7 @@ public class GameServer extends Config
 		ExtractableItemsData.getInstance();
 		ExtractableSkillsData.getInstance();
 		EnchantHPBonusData.getInstance();
+		L2Multisell.getInstance();
 		if (Config.ALLOW_FISHING)
 		{
 			FishTable.getInstance();

@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -194,7 +195,8 @@ public class L2OlympiadManagerInstance extends L2Npc
 
 			if (player.olyBuff > 0)
 			{
-				doCast(skill);
+				broadcastPacket(new MagicSkillUse(this, player, skill, 0, 0));
+				skill.getEffects(player, player);
 				player.olyBuff--;
 			}
 
