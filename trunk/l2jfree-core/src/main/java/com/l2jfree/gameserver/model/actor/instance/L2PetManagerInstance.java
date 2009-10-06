@@ -151,10 +151,10 @@ public class L2PetManagerInstance extends L2MerchantInstance
 			{
 			// Info evolve(player, "curent pet summon item", "new pet summon item", "lvl required to evolve")
 			case 1:
-				ok = Evolve.doEvolve(player, this, 9882, 2375, 55);
+				ok = Evolve.doEvolve(player, this, 10307, 9882, 55);
 				break;
 			case 2:
-				ok = Evolve.doEvolve(player, this, 10611, 10426, 55);
+				ok = Evolve.doEvolve(player, this, 10611, 10426, 70);
 				break;
 			case 3:
 				ok = Evolve.doEvolve(player, this, 10308, 4422, 55);
