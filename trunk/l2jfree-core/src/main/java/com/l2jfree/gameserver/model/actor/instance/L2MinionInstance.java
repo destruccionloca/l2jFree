@@ -60,6 +60,7 @@ public class L2MinionInstance extends L2MonsterInstance
 		if (_master.isRaid())
 			setIsRaidMinion(true);
 
+		setIsNoRndWalk(true);
 		super.onSpawn();
 		// Notify Leader that Minion has Spawned
 		_master.notifyMinionSpawned(this);

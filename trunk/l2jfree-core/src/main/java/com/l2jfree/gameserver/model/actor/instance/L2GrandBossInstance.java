@@ -111,6 +111,7 @@ public class L2GrandBossInstance extends L2Boss
 	public void onSpawn()
 	{
 		setIsRaid(true);
+		setIsNoRndWalk(true);
 		//if (getNpcId() == 29020 || getNpcId() == 29028) // baium and valakas are all the time in passive mode, theirs attack AI handled in AI scripts
 			//super.disableCoreAI(true);
 		super.onSpawn();

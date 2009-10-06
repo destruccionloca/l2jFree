@@ -144,6 +144,7 @@ public final class L2GuardInstance extends L2Guard
 	@Override
 	public void onSpawn()
 	{
+		setIsNoRndWalk(true);
 		super.onSpawn();
 		
 		// Check the region where this mob is, do not activate the AI if region is inactive.

@@ -57,6 +57,7 @@ public class L2RaidBossInstance extends L2Boss
     public void onSpawn()
     {
         setIsRaid(true);
+        setIsNoRndWalk(true);
         super.onSpawn();
     }
 }

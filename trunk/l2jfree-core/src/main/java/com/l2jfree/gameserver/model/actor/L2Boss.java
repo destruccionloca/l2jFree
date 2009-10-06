@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.BossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
@@ -103,25 +104,46 @@ public abstract class L2Boss extends L2MonsterInstance
 	 * 
 	 */
 	@Override
-	protected void manageMinions()
+	protected void startMaintenanceTask()
 	{
-		_minionList.spawnMinions();
-		_minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
-		{
+		if (_minionList != null)
+			_minionList.spawnMinions();
+		
+		_maintenanceTask  = ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable() {
 			public void run()
 			{
-				// teleport raid boss home if it's too far from home location
-				L2Spawn bossSpawn = getSpawn();
-				if (!isInsideRadius(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), 5000, true, false))
-				{
-					teleToLocation(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), true);
-					healFull(); // prevents minor exploiting with it
-				}
-				_minionList.maintainMinions();
+				checkAndReturnToSpawn();
+				
+				if (_minionList != null)
+					_minionList.maintainMinions();
 			}
 		}, 60000, getMaintenanceInterval() + Rnd.get(5000));
 	}
-
+	
+	protected void checkAndReturnToSpawn()
+	{
+		if (isDead() || isMovementDisabled())
+			return;
+		
+		// Gordon does not have permanent spawn
+		if (getNpcId() == 29095)
+			return;
+		
+		final L2Spawn spawn = getSpawn();
+		if (spawn == null)
+			return;
+		
+		final int spawnX = spawn.getLocx();
+		final int spawnY = spawn.getLocy();
+		final int spawnZ = spawn.getLocz();
+		
+		if (!isInCombat() && !isMovementDisabled())
+		{
+			if (!isInsideRadius(spawnX, spawnY, spawnZ, Math.max(Config.MAX_DRIFT_RANGE, 200), true, false))
+				teleToLocation(spawnX, spawnY, spawnZ, false);
+		}
+	}
+	
 	/**
 	 * Restore full Amount of HP and MP
 	 * 

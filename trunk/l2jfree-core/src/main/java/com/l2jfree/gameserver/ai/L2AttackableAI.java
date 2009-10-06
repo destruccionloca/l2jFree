@@ -337,6 +337,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				// If its _knownPlayer isn't empty set the Intention to AI_INTENTION_ACTIVE
 				if (!npc.getKnownList().getKnownPlayers().isEmpty())
 					intention = AI_INTENTION_ACTIVE;
+				else
+				{
+					if (npc.getSpawn() != null)
+					{
+						final int range = Config.MAX_DRIFT_RANGE;
+						if (!npc.isInsideRadius(npc.getSpawn().getLocx(), npc.getSpawn().getLocy(), npc.getSpawn().getLocz(), range + range, true, false))
+							intention = AI_INTENTION_ACTIVE;
+					}
+				}
 			}
 
 			if (intention == AI_INTENTION_IDLE)
@@ -611,7 +620,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 		// Order to the L2MonsterInstance to random walk (1/100)
 		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0
-				&& !(_actor.isRaid() || _actor instanceof L2MinionInstance || _actor instanceof L2ChestInstance || _actor instanceof L2GuardInstance || _actor.isNoRndWalk()))
+				&& !_actor.isNoRndWalk())
 		{
 			// [L2J_JP ADD SANDMAN]
 			// Instant move of zaken
@@ -648,13 +657,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					|| _actor instanceof L2GuardInstance)
 				return;
 			
-			int range = Config.MAX_DRIFT_RANGE;
+			final int range = Config.MAX_DRIFT_RANGE;
 			
 			int x1 = npc.getSpawn().getLocx();
 			int y1 = npc.getSpawn().getLocy();
 			int z1 = npc.getSpawn().getLocz();
 			
-			if (_actor.getPlanDistanceSq(x1, y1) > range * range)
+			if (!_actor.isInsideRadius(x1, y1, z1, range + range, true, false))
 			{
 				npc.setisReturningToSpawnPoint(true);
 			}
