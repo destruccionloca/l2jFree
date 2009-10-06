@@ -205,13 +205,31 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 			switch (cmdChoice)
 			{
+			case 0: // Subclass change menu
+				if (getVillageMasterRace() == Race.Kamael)
+				{
+					if (player.getRace() == Race.Kamael)
+						html.setFile("data/html/villagemaster/SubClass.htm");
+					else
+						html.setFile("data/html/villagemaster/SubClass_NoKamael.htm");
+				}
+				else
+				{
+					if (player.getRace() != Race.Kamael)
+						html.setFile("data/html/villagemaster/SubClass.htm");
+					else
+						html.setFile("data/html/villagemaster/SubClass_NoOther.htm");
+				}
+				break;
 			case 1: // Add Subclass - Initial
 				// Avoid giving player an option to add a new sub class, if they have three already.
 				if (player.getTotalSubClasses() >= Config.ALT_MAX_SUBCLASS)
 				{
-					// TODO: Retail message
-					player.sendMessage("You can now only change one of your current sub classes.");
-					return;
+					if (player.getRace() != Race.Kamael)
+						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
+					else
+						html.setFile("data/html/villagemaster/SubClass_Fail_Kamael.htm");
+					break;
 				}
 
 				html.setFile("data/html/villagemaster/SubClass_Add.htm");
@@ -242,7 +260,6 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			case 2: // Change Class - Initial
 				if (player.getSubClasses().isEmpty())
 				{
-					// TODO: Retail message
 					html.setFile("data/html/villagemaster/SubClass_ChangeNo.htm");
 				}
 				else
@@ -362,7 +379,6 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 						}
 					}
 					//Kamael have different quest than 235
-					//temporarily disabled while quest is missing XD
 					else
 					{
 						qs = player.getQuestState("236_SeedsOfChaos");
@@ -376,10 +392,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				if (allowAddition && isValidNewSubClass(player, paramOne))
 				{
 					if (!player.addSubClass(paramOne, player.getTotalSubClasses() + 1))
-					{
-						player.sendMessage("The sub class could not be added.");
 						return;
-					}
 
 					player.setActiveClass(player.getTotalSubClasses());
 
@@ -390,7 +403,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				}
 				else
 				{
-					html.setFile("data/html/villagemaster/SubClass_Fail.htm");
+					if (player.getRace() != Race.Kamael)
+						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
+					else
+						html.setFile("data/html/villagemaster/SubClass_Fail_Kamael.htm");
 				}
 				break;
 			case 5: // Change Class - Action
@@ -760,11 +776,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
 		}
+		
 		if (player.getName().equalsIgnoreCase(target))
-		{
 			return;
-		}
-
+		
 		/*
 		 * Until proper clan leader change support is done, this is a little
 		 * exploit fix (leader, while fliying wyvern changes clan leader and the new leader
@@ -808,13 +823,9 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		if (clan.getLevel() < minClanLvl)
 		{
 			if (pledgeType == L2Clan.SUBUNIT_ACADEMY)
-			{
 				player.sendPacket(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN_ACADEMY);
-			}
 			else
-			{
 				player.sendPacket(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_MILITARY_UNIT);
-			}
 			return;
 		}
 
@@ -842,9 +853,8 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					player.sendPacket(sm);
 				}
 				else
-				{
 					player.sendPacket(SystemMessageId.ANOTHER_MILITARY_UNIT_IS_ALREADY_USING_THAT_NAME);
-				}
+				
 				return;
 			}
 		}
@@ -854,13 +864,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getSubPledgeType() != 0)
 			{
 				if (pledgeType >= L2Clan.SUBUNIT_KNIGHT1)
-				{
 					player.sendPacket(SystemMessageId.CAPTAIN_OF_ORDER_OF_KNIGHTS_CANNOT_BE_APPOINTED);
-				}
 				else if (pledgeType >= L2Clan.SUBUNIT_ROYAL1)
-				{
 					player.sendPacket(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED);
-				}
+				
 				return;
 			}
 		}
@@ -888,6 +895,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			sm = new SystemMessage(SystemMessageId.CLAN_CREATED);
 
 		player.sendPacket(sm);
+		
 		if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
 		{
 			L2ClanMember leaderSubPledge = clan.getClanMember(leaderName);
@@ -1027,7 +1035,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			return;
 		}
 
-		if(player.getName().equals(leaderName))
+		if (player.getName().equals(leaderName))
 		{
 			player.sendPacket(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED);
 			return;
@@ -1056,13 +1064,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		if (clan.getClanMember(leaderName) == null || (clan.getClanMember(leaderName).getSubPledgeType() != 0))
 		{
 			if (subPledge.getId() >= L2Clan.SUBUNIT_KNIGHT1)
-			{
 				player.sendPacket(SystemMessageId.CAPTAIN_OF_ORDER_OF_KNIGHTS_CANNOT_BE_APPOINTED);
-			}
 			else if (subPledge.getId() >= L2Clan.SUBUNIT_ROYAL1)
-			{
 				player.sendPacket(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED);
-			}
+			
 			return;
 		}
 
@@ -1202,8 +1207,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		char[] charArray = classNameStr.toCharArray();
 
 		for (int i = 1; i < charArray.length; i++)
+		{
 			if (Character.isUpperCase(charArray[i]))
 				classNameStr = classNameStr.substring(0, i) + " " + classNameStr.substring(i);
+		}
 
 		return classNameStr;
 	}
@@ -1329,9 +1336,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			}
 		}
 		else
-		{
 			player.sendPacket(asl);
-		}
 
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
