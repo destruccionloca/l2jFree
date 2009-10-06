@@ -2125,6 +2125,16 @@ public class Config extends L2Config
 	public static boolean			SIEGE_GATE_CONTROL;
 	public static boolean           USE_MISSING_CCH_MESSAGES;
 
+	public static int				GLUDIO_MAX_MERCENARIES;
+	public static int				DION_MAX_MERCENARIES;
+	public static int				GIRAN_MAX_MERCENARIES;
+	public static int				OREN_MAX_MERCENARIES;
+	public static int				ADEN_MAX_MERCENARIES;
+	public static int				INNADRIL_MAX_MERCENARIES;
+	public static int				GODDARD_MAX_MERCENARIES;
+	public static int				RUNE_MAX_MERCENARIES;
+	public static int				SCHUTTGART_MAX_MERCENARIES;
+
 	public static final Set<String> CL_SET_SIEGE_TIME_LIST = new L2FastSet<String>();
 	public static final Set<Integer> SIEGE_HOUR_LIST_MORNING = new L2FastSet<Integer>();
 	public static final Set<Integer> SIEGE_HOUR_LIST_AFTERNOON = new L2FastSet<Integer>();
@@ -2153,6 +2163,16 @@ public class Config extends L2Config
 			SIEGE_ONLY_REGISTERED = Boolean.parseBoolean(siegeSettings.getProperty("OnlyRegistered", "true"));
 			SIEGE_GATE_CONTROL = Boolean.parseBoolean(siegeSettings.getProperty("AllowGateControl", "false"));
 			USE_MISSING_CCH_MESSAGES = Boolean.parseBoolean(siegeSettings.getProperty("ClanHallSiegeSysMsgs", "false"));
+
+			GLUDIO_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("GludioMaxMercenaries", "100"));
+			DION_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("DionMaxMercenaries", "150"));
+			GIRAN_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("GiranMaxMercenaries", "200"));
+			OREN_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("OrenMaxMercenaries", "300"));
+			ADEN_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("AdenMaxMercenaries", "400"));
+			INNADRIL_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("InnadrilMaxMercenaries", "400"));
+			GODDARD_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("GoddardMaxMercenaries", "400"));
+			RUNE_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("RuneMaxMercenaries", "400"));
+			SCHUTTGART_MAX_MERCENARIES = Integer.parseInt(siegeSettings.getProperty("SchuttgartMaxMercenaries", "400"));
 
 			CL_SET_SIEGE_TIME_LIST.clear();
 			SIEGE_HOUR_LIST_MORNING.clear();

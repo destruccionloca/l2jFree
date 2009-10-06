@@ -23,6 +23,7 @@ import javolution.util.FastList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
@@ -539,15 +540,15 @@ public class MercTicketManager
 																};
 
 	private static final int[]			MERCS_MAX_PER_CASTLE	=
-																{ 100, // Gludio
-			150, // Dion
-			200, // Giran
-			300, // Oren
-			400, // Aden
-			400, // Innadril
-			400, // Goddard
-			400, // Rune
-			400												// Schuttgart
+																{ Config.GLUDIO_MAX_MERCENARIES,
+			Config.GLUDIO_MAX_MERCENARIES,
+			Config.GIRAN_MAX_MERCENARIES,
+			Config.OREN_MAX_MERCENARIES,
+			Config.ADEN_MAX_MERCENARIES,
+			Config.INNADRIL_MAX_MERCENARIES,
+			Config.GODDARD_MAX_MERCENARIES,
+			Config.RUNE_MAX_MERCENARIES,
+			Config.SCHUTTGART_MAX_MERCENARIES
 																};
 
 	private static final int[]			ITEM_IDS				=
