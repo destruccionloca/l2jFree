@@ -15403,6 +15403,11 @@ public enum SystemMessageId
 			}
 		};
 		
+		init0();
+	}
+	
+	private static void init0()
+	{
 		for (SystemMessageId sm : SystemMessageId.values())
 			TABLE.set(sm.getId(), sm);
 		
