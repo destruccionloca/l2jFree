@@ -15386,9 +15386,6 @@ public enum SystemMessageId
 	
 	public final SystemMessage getSystemMessage()
 	{
-		if (_systemMessage == null)
-			_systemMessage = new SystemMessage(this);
-		
 		return _systemMessage;
 	}
 	
@@ -15408,6 +15405,9 @@ public enum SystemMessageId
 		
 		for (SystemMessageId sm : SystemMessageId.values())
 			TABLE.set(sm.getId(), sm);
+		
+		for (SystemMessageId sm : SystemMessageId.values())
+			sm._systemMessage = new SystemMessage(sm);
 	}
 	
 	public static final SystemMessageId getSystemMessageId(int id)
