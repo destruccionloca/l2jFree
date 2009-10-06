@@ -16,11 +16,11 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
-import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;

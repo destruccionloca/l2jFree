@@ -15,9 +15,9 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;

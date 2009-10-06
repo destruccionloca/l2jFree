@@ -18,12 +18,12 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillSpellbookTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
-import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
@@ -378,7 +378,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 				for (L2PcInstance member: player.getClan().getOnlineMembers(0))
 					member.sendSkillList();
 
-				((L2VillageMasterInstance)trainer).showPledgeSkillList(player); //Maybe we should add a check here...
+				L2VillageMasterInstance.showPledgeSkillList(player); //Maybe we should add a check here...
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
@@ -451,7 +451,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 					return;
 				}
 				break;
-			}			
+			}
 			default:
 			{
 				_log.warn("Recived Wrong Packet Data in Aquired Skill - unk1:" + _skillType);
@@ -498,7 +498,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		{
 			Quest[] qlst = trainer.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_LEARN);
 			qlst[0].notifyAcquireSkillList(trainer, player);
-		}		
+		}
 		else if (trainer instanceof L2FishermanInstance)
 			((L2FishermanInstance)trainer).showSkillList(player);
 		else if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id))
