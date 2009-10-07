@@ -486,7 +486,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				player.setActiveClass(paramOne);
 
 				player.sendPacket(SystemMessageId.SUBCLASS_TRANSFER_COMPLETED); // Transfer completed.
-				break;
+				return;
 			case 6: // Change/Cancel Subclass - Choice
 				// validity check
 				if (paramOne < 1 || paramOne > Config.ALT_MAX_SUBCLASS)

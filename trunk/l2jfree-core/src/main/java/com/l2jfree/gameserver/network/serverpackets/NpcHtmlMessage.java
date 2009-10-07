@@ -63,8 +63,17 @@ public final class NpcHtmlMessage extends AbstractNpcHtmlMessage
 			_builder = new StringBuilder(text);
 	}
 	
+	@Override
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+	{
+		return _builder != null;
+	}
+	
 	public void replace(String pattern, String value)
 	{
+		if (_builder == null)
+			return;
+		
 		value = NpcHtmlMessage.quoteReplacement(value);
 		
 		for (int index = 0; (index = _builder.indexOf(pattern, index)) != -1; index += value.length())

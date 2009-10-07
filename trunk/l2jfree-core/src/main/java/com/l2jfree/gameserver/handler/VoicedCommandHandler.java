@@ -74,11 +74,11 @@ public final class VoicedCommandHandler extends HandlerRegistry<String, IVoicedC
 		
 		final StringTokenizer st = new StringTokenizer(text);
 		
-		final String command = st.nextToken(" .").toLowerCase(); // until the first space without the starting dot
+		final String command = st.nextToken().substring(1).toLowerCase(); // until the first space without the starting dot
 		final String params;
 		
 		if (st.hasMoreTokens())
-			params = st.nextToken("").trim(); // the rest
+			params = text.substring(command.length() + 2).trim(); // the rest
 		else if (activeChar.getTarget() != null)
 			params = activeChar.getTarget().getName();
 		else
