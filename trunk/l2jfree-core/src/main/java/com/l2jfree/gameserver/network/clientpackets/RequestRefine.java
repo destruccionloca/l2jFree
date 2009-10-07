@@ -142,7 +142,7 @@ public final class RequestRefine extends L2GameClientPacket
 			return false;
 		}
 
-		int itemGrade = targetItem.getItem().getCrystalGrade();
+		int itemGrade = targetItem.getItem().getItemGrade();
 		int itemType = targetItem.getItem().getType2();
 		int lifeStoneId = refinerItem.getItemId();
 		int gemstoneItemId = gemstoneItem.getItemId();
