@@ -1256,21 +1256,23 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 	private static final String formatClassForDisplay(ClassId classId)
 	{
-		return formatClassForDisplay(PlayerClass.values()[classId.getId()]);
+		return CharTemplateTable.getClassNameById(classId.getId());
+		//return formatClassForDisplay(PlayerClass.values()[classId.getId()]);
 	}
 	
 	private static final String formatClassForDisplay(PlayerClass className)
 	{
-		String classNameStr = className.toString();
-		char[] charArray = classNameStr.toCharArray();
-
-		for (int i = 1; i < charArray.length; i++)
-		{
-			if (Character.isUpperCase(charArray[i]))
-				classNameStr = classNameStr.substring(0, i) + " " + classNameStr.substring(i);
-		}
-
-		return classNameStr;
+		return CharTemplateTable.getClassNameById(className.ordinal());
+		//String classNameStr = className.toString();
+		//char[] charArray = classNameStr.toCharArray();
+		//
+		//for (int i = 1; i < charArray.length; i++)
+		//{
+		//	if (Character.isUpperCase(charArray[i]))
+		//		classNameStr = classNameStr.substring(0, i) + " " + classNameStr.substring(i);
+		//}
+		//
+		//return classNameStr;
 	}
 
 	/*
