@@ -54,6 +54,8 @@ public class RequestQuestAbort extends L2GameClientPacket
 			if (qs != null)
 			{
 				qs.exitQuest(true);
+				if (qe.getName() == "605_AllianceWithKetraOrcs" || qe.getName() == "611_AllianceWithVarkaSilenos")
+					activeChar.setAllianceWithVarkaKetra(0);
 				sendPacket(new QuestList(activeChar));
 			}
 			else
