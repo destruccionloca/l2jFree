@@ -146,7 +146,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
    JQuest.__init__(self,id,name,descr)
-   self.questItemIds = [Varka_Badge_Soldier, Varka_Badge_Officer, Varka_Badge_Captain]
+   self.questItemIds = [Varka_Badge_Soldier, Varka_Badge_Officer, Varka_Badge_Captain, Ketra_Alliance_One, Ketra_Alliance_Two, Ketra_Alliance_Three, Ketra_Alliance_Four, Ketra_Alliance_Five]
 
  def onEvent (self,event,st) :
    cond = st.getInt("cond")
