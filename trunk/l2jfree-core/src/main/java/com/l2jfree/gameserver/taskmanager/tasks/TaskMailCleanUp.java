@@ -14,9 +14,10 @@
  */
 package com.l2jfree.gameserver.taskmanager.tasks;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -24,9 +25,7 @@ import com.l2jfree.gameserver.communitybbs.Manager.MailBBSManager;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskManager.ExecutedTask;
 
 /**
- * 
  * @author Vital
- * 
  */
 public class TaskMailCleanUp extends TaskHandler
 {
@@ -34,16 +33,16 @@ public class TaskMailCleanUp extends TaskHandler
 	{
 		TaskManager.addUniqueTask(getName(), TaskTypes.TYPE_GLOBAL_TASK, "1", "13:00:00", "");
 	}
-
+	
 	@Override
 	void onTimeElapsed(ExecutedTask task, String[] params)
 	{
-		Vector<Integer> deleteLetterList = new Vector<Integer>();
-		java.sql.Connection con = null;
+		ArrayList<Integer> deleteLetterList = new ArrayList<Integer>();
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT letterId FROM characters WHERE (location = ? OR location = ?) AND deleteDate < ?");
+			PreparedStatement statement = con.prepareStatement("SELECT letterId FROM character_mail WHERE (location = ? OR location = ?) AND deleteDate < ?");
 			statement.setString(1, "inbox");
 			statement.setString(2, "sentbox");
 			statement.setLong(3, System.currentTimeMillis());
@@ -52,7 +51,7 @@ public class TaskMailCleanUp extends TaskHandler
 				deleteLetterList.add(result.getInt(1));
 			result.close();
 			statement.close();
-
+			
 			for (int letterId : deleteLetterList)
 			{
 				if (Config.MAIL_STORE_DELETED_LETTERS)
@@ -68,7 +67,7 @@ public class TaskMailCleanUp extends TaskHandler
 		{
 			L2DatabaseFactory.close(con);
 		}
+		
 		_log.info("Mail Clean Up Global Task: launched.");
 	}
-
 }
