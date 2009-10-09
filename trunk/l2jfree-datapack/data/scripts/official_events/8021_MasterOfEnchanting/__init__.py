@@ -17,9 +17,9 @@ from java.util                                    import GregorianCalendar
 #-------------------- TO MODIFY --------------------
 
 # Start and End date of the event, end date included for the event (Format: YYYYMMDD )
-# Retail: 20090630 - 20091407
+# Retail: 20090630 - 20090714
 EVENTSTARTDATE = 20090630
-EVENTENDDATE   = 20091407
+EVENTENDDATE   = 20090714
 
 # Despawn Yogi at end date? Will start a check every 30 minutes to check if event is over and in case unspawn every npc.
 # Usefull if you don't have a server reboot everyday.
