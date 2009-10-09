@@ -36,7 +36,8 @@ public class ExBasicActionList extends L2GameServerPacket
 		1000, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013,
 		1014, 1015, 1016, 1017, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038,
 		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050,
-		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060
+		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1080, 1081,
+		1082, 1083, 1086, 1087, 1088
 	};
 
 	private static final int[]				TRANSFORMED_ACTIONS			= {
@@ -47,7 +48,8 @@ public class ExBasicActionList extends L2GameServerPacket
 		1000, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013,
 		1014, 1015, 1016, 1017, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038,
 		1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050,
-		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060
+		1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1080, 1081,
+		1082, 1083, 1086, 1087, 1088
 	};
 
 	private static final ExBasicActionList	DEFAULT_ACTION_LIST			= new ExBasicActionList(DEFAULT_ACTIONS);
@@ -178,6 +180,13 @@ public class ExBasicActionList extends L2GameServerPacket
 	1058 - Death Whisper (Nightshade)
 	1059 - Focus (Nightshade)
 	1060 - Guidance (Nightshade)
+	1080 - Rush (Imperial Phoenix)
+	1081 - Cleanse (Imperial Phoenix)
+	1082 - Flame Feather (Imperial Phoenix)
+	1083 - Flame Beak (Imperial Phoenix)
+	1086 - Cancel (Dark Panther)
+	1087 - Dark Claw (Dark Panther)
+	1088 - Fatal Claw (Dark Panther)
 	
 	*/
 
