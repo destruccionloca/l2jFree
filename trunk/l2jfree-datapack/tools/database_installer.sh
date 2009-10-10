@@ -176,6 +176,7 @@ full_install()
 	$MYG < ../sql/armorsets.sql &> /dev/null
 	$MYG < ../sql/auction.sql &> /dev/null
 	$MYG < ../sql/auction_bid.sql &> /dev/null
+	$MYG < ../sql/auction_bids.sql &> /dev/null
 	$MYG < ../sql/auction_lots.sql &> /dev/null
 	$MYG < ../sql/auction_watch.sql &> /dev/null
 	$MYG < ../sql/auto_announcements.sql &> /dev/null
@@ -342,7 +343,6 @@ update_db()
 			$MYG < ../sql/etcitem.sql &> /dev/null
 			$MYG < ../sql/fish.sql &> /dev/null
 			$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
-			$MYG < ../sql/fort_door.sql &> /dev/null
 			$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 			$MYG < ../sql/fort_siege_guards.sql &> /dev/null
 			$MYG < ../sql/henna.sql &> /dev/null
