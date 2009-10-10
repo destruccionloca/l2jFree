@@ -18,12 +18,11 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.L2FastSet;
 
-public class L2SiegeClan
+public final class L2SiegeClan
 {
-	private int					_clanId			= 0;
-	private L2FastSet<L2Npc>	_flags;
-	private int					_numFlagsAdded	= 0;
-	private SiegeClanType		_type;
+	private final int _clanId;
+	private final L2FastSet<L2Npc> _flags = new L2FastSet<L2Npc>().setShared(true);
+	private SiegeClanType _type;
 
 	public enum SiegeClanType
 	{
@@ -41,12 +40,11 @@ public class L2SiegeClan
 
 	public int getNumFlags()
 	{
-		return _numFlagsAdded;
+		return getFlag().size();
 	}
 
 	public void addFlag(L2Npc flag)
 	{
-		_numFlagsAdded++;
 		getFlag().add(flag);
 	}
 
@@ -54,15 +52,10 @@ public class L2SiegeClan
 	{
 		if (flag == null)
 			return false;
-		boolean ret = getFlag().remove(flag);
-		//check if null objects or duplicates remain in the list.
-		//for some reason, this might be happening sometimes...
-		// delete false duplicates: if this flag got deleted, delete its copies too.
-		if (ret)
-			getFlag().remove(flag);
-
+		
+		getFlag().remove(flag);
+		
 		flag.deleteMe();
-		_numFlagsAdded--;
 		return ret;
 	}
 
@@ -70,23 +63,20 @@ public class L2SiegeClan
 	{
 		for (L2Npc flag: getFlag())
 			removeFlag(flag);
-		_numFlagsAdded = 0;
 	}
 
-	public final int getClanId()
+	public int getClanId()
 	{
 		return _clanId;
 	}
 
-	public final L2FastSet<L2Npc> getFlag()
+	public L2FastSet<L2Npc> getFlag()
 	{
-		if (_flags == null)
-			_flags = new L2FastSet<L2Npc>();
 		return _flags;
 	}
 
 	/*** get nearest Flag to Object ***/
-	public final L2Npc getClosestFlag(L2Object obj)
+	public L2Npc getClosestFlag(L2Object obj)
 	{
 		double closestDistance = Double.MAX_VALUE;
 		double distance;
