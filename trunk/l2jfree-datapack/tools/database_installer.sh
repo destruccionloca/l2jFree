@@ -176,7 +176,6 @@ full_install()
 	$MYG < ../sql/armorsets.sql &> /dev/null
 	$MYG < ../sql/auction.sql &> /dev/null
 	$MYG < ../sql/auction_bid.sql &> /dev/null
-	$MYG < ../sql/auction_bids.sql &> /dev/null
 	$MYG < ../sql/auction_lots.sql &> /dev/null
 	$MYG < ../sql/auction_watch.sql &> /dev/null
 	$MYG < ../sql/auto_announcements.sql &> /dev/null
