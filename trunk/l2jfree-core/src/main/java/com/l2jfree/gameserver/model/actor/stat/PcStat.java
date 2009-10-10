@@ -375,7 +375,10 @@ public class PcStat extends PlayableStat
 	{
 		int val = super.getRunSpeed();
 
-		val /= getActiveChar().getArmourExpertisePenalty();
+		/**
+		 * @Deprecated
+		 */
+		//val /= getActiveChar().getArmourExpertisePenalty();
 
 		// Apply max run speed cap.
 		if (val > Config.ALT_MAX_RUN_SPEED && Config.ALT_MAX_RUN_SPEED > 0 && !getActiveChar().isGM())
@@ -406,7 +409,10 @@ public class PcStat extends PlayableStat
 	{
 		int val = super.getPAtkSpd();
 
-		val /= _activeChar.getArmourExpertisePenalty();
+		/**
+		 * @Deprecated
+		 */
+		//val /= _activeChar.getArmourExpertisePenalty();
 
 		if (val > Config.ALT_MAX_PATK_SPEED && Config.ALT_MAX_PATK_SPEED > 0 && !getActiveChar().isGM())
 			return Config.ALT_MAX_PATK_SPEED;
@@ -422,7 +428,10 @@ public class PcStat extends PlayableStat
 	{
 		int val = super.getMAtkSpd();
 
-		val /= _activeChar.getArmourExpertisePenalty();
+		/**
+		 * @Deprecated
+		 */
+		//val /= _activeChar.getArmourExpertisePenalty();
 
 		if (val > Config.ALT_MAX_MATK_SPEED && Config.ALT_MAX_MATK_SPEED > 0 && !getActiveChar().isGM())
 			return Config.ALT_MAX_MATK_SPEED;
@@ -455,19 +464,6 @@ public class PcStat extends PlayableStat
 	public boolean summonShouldHaveAttackElemental(L2Summon pet)
 	{
 		return getActiveChar().getClassId().isSummoner() && pet instanceof L2SummonInstance && !pet.isDead() && getActiveChar().getExpertisePenalty() == 0;
-	}
-
-	@Override
-	public float getMovementSpeedMultiplier()
-	{
-		if (getActiveChar().isMounted())
-		{
-			L2PetData stats = PetDataTable.getInstance().getPetData(getActiveChar().getMountNpcId(), getActiveChar().getMountLevel());
-			if (stats != null)
-				return getRunSpeed() * 1f / stats.getPetSpeed();
-		}
-
-		return super.getMovementSpeedMultiplier();
 	}
 
 	@Override

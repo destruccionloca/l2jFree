@@ -139,7 +139,7 @@ public class CharStat
 	 */
 	public int getAccuracy()
 	{
-		return (int) (calcStat(Stats.ACCURACY_COMBAT, 0, null, null) / _activeChar.getWeaponExpertisePenalty());
+		return (int) (calcStat(Stats.ACCURACY_COMBAT, 0, null, null)/* / _activeChar.getWeaponExpertisePenalty()*/);
 	}
 
 	public L2Character getActiveChar()
@@ -183,7 +183,7 @@ public class CharStat
 	/** Return the Attack Evasion rate (base+modifier) of the L2Character. */
 	public int getEvasionRate(L2Character target)
 	{
-		int val = (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _activeChar.getArmourExpertisePenalty());
+		int val = (int) (calcStat(Stats.EVASION_RATE, 0, target, null)/* / _activeChar.getArmourExpertisePenalty()*/);
 
 		return val;
 	}
@@ -353,7 +353,12 @@ public class CharStat
 
 	public float getMovementSpeedMultiplier()
 	{
-		return getRunSpeed() * 1f / _activeChar.getTemplate().getBaseRunSpd();
+		int base = getBaseRunSpd();
+		
+		if (base == 0)
+			return 1;
+		
+		return getRunSpeed() * 1f / base;
 	}
 
 	/**

@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.stat;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.skills.Stats;
 
 public class NpcStat extends CharStat
 {
@@ -49,22 +48,29 @@ public class NpcStat extends CharStat
 	@Override
 	public final int getMaxHp()
 	{
-		return (int)calcStat(Stats.MAX_HP, getActiveChar().getTemplate().getBaseHpMax()
-			* (getActiveChar().isChampion() ? Config.CHAMPION_HP : 1) , null, null);
-	}
-
-	@Override
-	public int getWalkSpeed()
-	{
-		return (int) calcStat(Stats.WALK_SPEED, getActiveChar().getTemplate().getBaseWalkSpd(), null, null);
+		return super.getMaxHp() * (getActiveChar().isChampion() ? Config.CHAMPION_HP : 1);
 	}
 
 	@Override
 	public float getMovementSpeedMultiplier()
 	{
 		if (getActiveChar().isRunning())
-			return getRunSpeed() * 1f / getActiveChar().getTemplate().getBaseRunSpd();
+		{
+			int base = getActiveChar().getTemplate().getBaseRunSpd();
+			
+			if (base == 0)
+				return 1;
+			
+			return getRunSpeed() * 1f / base;
+		}
 		else
-			return getWalkSpeed() * 1f / getActiveChar().getTemplate().getBaseWalkSpd();
+		{
+			int base = getActiveChar().getTemplate().getBaseWalkSpd();
+			
+			if (base == 0)
+				return 1;
+			
+			return getWalkSpeed() * 1f / base;
+		}
 	}
 }

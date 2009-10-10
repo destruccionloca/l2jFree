@@ -5181,7 +5181,8 @@ public abstract class L2Character extends L2Object
 	 * Return the Weapon Expertise Penalty of the L2Character.<BR>
 	 * <BR>
 	 */
-	public float getWeaponExpertisePenalty()
+	@Deprecated
+	public final float getWeaponExpertisePenalty()
 	{
 		return 1.f;
 	}
@@ -5190,7 +5191,8 @@ public abstract class L2Character extends L2Object
 	 * Return the Armour Expertise Penalty of the L2Character.<BR>
 	 * <BR>
 	 */
-	public float getArmourExpertisePenalty()
+	@Deprecated
+	public final float getArmourExpertisePenalty()
 	{
 		return 1.f;
 	}
