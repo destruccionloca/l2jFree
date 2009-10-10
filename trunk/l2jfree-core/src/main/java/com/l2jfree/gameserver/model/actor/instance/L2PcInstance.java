@@ -297,6 +297,7 @@ import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
+import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
@@ -627,7 +628,7 @@ public final class L2PcInstance extends L2Playable
 	private long							_uptime;
 	private final String							_accountName;
 
-	private final Map<Integer, String>		_chars					= new SingletonMap<Integer, String>();
+	private Map<Integer, String>			_chars;
 
 	/** The table containing all L2RecipeList of the L2PcInstance */
 	private final Map<Integer, L2RecipeList>		_dwarvenRecipeBook		= new SingletonMap<Integer, L2RecipeList>();
@@ -1081,6 +1082,43 @@ public final class L2PcInstance extends L2Playable
 
 	public Map<Integer, String> getAccountChars()
 	{
+		if (_chars == null)
+		{
+			Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				
+				// Retrieve the name and ID of the other characters assigned to this account.
+				PreparedStatement statement = con.prepareStatement("SELECT charId, char_name FROM characters WHERE account_name=? AND charId<>?");
+				statement.setString(1, getAccountName());
+				statement.setInt(2, getObjectId());
+				ResultSet rset = statement.executeQuery();
+				
+				while (rset.next())
+				{
+					if (_chars == null)
+						_chars = new HashMap<Integer, String>();
+					
+					_chars.put(rset.getInt("charId"), rset.getString("char_name"));
+				}
+				
+				rset.close();
+				statement.close();
+			}
+			catch (SQLException e)
+			{
+				_log.warn("", e);
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
+			
+			if (_chars == null)
+				_chars = L2Collections.emptyMap();
+		}
+		
 		return _chars;
 	}
 
@@ -6754,21 +6792,6 @@ public final class L2PcInstance extends L2Playable
 
 				// Set Teleport Bookmark Slot
 				player.setBookMarkSlot(rset.getInt("BookmarkSlot"));
-
-				// Retrieve the name and ID of the other characters assigned to this account.
-				PreparedStatement stmt = con.prepareStatement("SELECT charId, char_name FROM characters WHERE account_name=? AND charId<>?");
-				stmt.setString(1, player._accountName);
-				stmt.setInt(2, objectId);
-				ResultSet chars = stmt.executeQuery();
-
-				while (chars.next())
-				{
-					Integer charId = chars.getInt("charId");
-					String charName = chars.getString("char_name");
-					player._chars.put(charId, charName);
-				}
-				chars.close();
-				stmt.close();
 			}
 
 			rset.close();
