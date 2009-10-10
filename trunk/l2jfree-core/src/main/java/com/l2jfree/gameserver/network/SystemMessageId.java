@@ -3925,10 +3925,10 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 651<br>
-	 * Message: Place in the current location and direction. Do you wish to
+	 * Message: Place $s1 in the current location and direction. Do you wish to
 	 * continue?
 	 */
-	PLACE_CURRENT_LOCATION_DIRECTION(651),
+	PLACE_S1_CURRENT_LOCATION_DIRECTION(651),
 
 	/**
 	 * ID: 652<br>
