@@ -53,10 +53,9 @@ public final class L2SiegeClan
 		if (flag == null)
 			return false;
 		
-		getFlag().remove(flag);
-		
 		flag.deleteMe();
-		return ret;
+		
+		return getFlag().remove(flag);
 	}
 
 	public void removeFlags()
