@@ -78,7 +78,6 @@ public class SiegeFlag extends ISkillConditionChecker
 				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
 				flag.setHeading(player.getHeading());
 				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-				siege.getAttackerClan(player.getClan()).addFlag(flag);
 			}
 		}
 		else if (fsiege != null && FortSiegeManager.checkIfOkToPlaceFlag(player, false))
@@ -92,7 +91,6 @@ public class SiegeFlag extends ISkillConditionChecker
 				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
 				flag.setHeading(player.getHeading());
 				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-				fsiege.getAttackerClan(player.getClan()).addFlag(flag);
 			}
 		}
 		else if (csiege != null && CCHManager.checkIfOkToPlaceFlag(player, false))
@@ -105,7 +103,6 @@ public class SiegeFlag extends ISkillConditionChecker
 				flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
 				flag.setHeading(player.getHeading());
 				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-				csiege.getAttackerClan(player.getClan()).addFlag(flag);
 			}
 		}
 	}

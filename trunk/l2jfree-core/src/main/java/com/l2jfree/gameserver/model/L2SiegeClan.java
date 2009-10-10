@@ -70,6 +70,7 @@ public class L2SiegeClan
 	{
 		for (L2Npc flag: getFlag())
 			removeFlag(flag);
+		_numFlagsAdded = 0;
 	}
 
 	public final int getClanId()
