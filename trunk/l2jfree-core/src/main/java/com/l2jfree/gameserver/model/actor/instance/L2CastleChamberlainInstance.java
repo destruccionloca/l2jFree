@@ -1613,9 +1613,9 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		if (condition == COND_OWNER) // Clan owns castle
 		{
 			// Owner message window
-			if (getCastle().getCastleId() == 8)
-				filename = "data/html/chamberlain/chamberlain-rune.htm";
-			else
+			//if (getCastle().getCastleId() == 8)
+			//	filename = "data/html/chamberlain/chamberlain-rune.htm";
+			//else
 				filename = "data/html/chamberlain/chamberlain.htm";
 		}
 
