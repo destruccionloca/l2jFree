@@ -29,15 +29,15 @@ public abstract class CharView<T extends L2Character> implements CharLikeView
 		_activeChar = activeChar;
 	}
 	
-	private long _lastRefreshTime;
+	//private long _lastRefreshTime;
 	
 	@Override
 	public final void refresh()
 	{
-		if (System.currentTimeMillis() - _lastRefreshTime < 100)
-			return;
-		
-		_lastRefreshTime = System.currentTimeMillis();
+		//if (System.currentTimeMillis() - _lastRefreshTime < 100)
+		//	return;
+		//
+		//_lastRefreshTime = System.currentTimeMillis();
 		
 		refreshImpl();
 	}
