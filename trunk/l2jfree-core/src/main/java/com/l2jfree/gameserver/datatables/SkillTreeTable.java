@@ -88,7 +88,7 @@ public class SkillTreeTable
 			return 0;
 
 		// since expertise comes at same level for all classes we use paladin for now
-		Map<Integer, L2SkillLearn> learnMap = getSkillTrees()[ClassId.paladin.ordinal()];
+		Map<Integer, L2SkillLearn> learnMap = getSkillTrees()[ClassId.Paladin.ordinal()];
 
 		int skillHashCode = SkillTable.getSkillUID(239, grade);
 		if (learnMap.containsKey(skillHashCode))

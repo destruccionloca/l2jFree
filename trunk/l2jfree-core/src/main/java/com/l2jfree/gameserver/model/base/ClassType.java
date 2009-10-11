@@ -15,14 +15,57 @@
 package com.l2jfree.gameserver.model.base;
 
 /**
- * ClassType Enum
- * 
  * @author Tempy
  */
-
 public enum ClassType
 {
-    Fighter,
-    Mystic,
-    Priest
+	Fighter,
+	Mystic,
+	Priest,
+	Summoner;
+	
+	public boolean isMage()
+	{
+		switch (this)
+		{
+			case Fighter:
+				return false;
+			case Mystic:
+			case Priest:
+			case Summoner:
+				return true;
+			default:
+				throw new InternalError();
+		}
+	}
+	
+	public boolean isSummoner()
+	{
+		switch (this)
+		{
+			case Fighter:
+			case Mystic:
+			case Priest:
+				return false;
+			case Summoner:
+				return true;
+			default:
+				throw new InternalError();
+		}
+	}
+	
+	public ClassType getTeachType()
+	{
+		switch (this)
+		{
+			case Fighter:
+			case Mystic:
+			case Priest:
+				return this;
+			case Summoner:
+				return Mystic;
+			default:
+				throw new InternalError();
+		}
+	}
 }

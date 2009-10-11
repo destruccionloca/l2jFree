@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.ClassType;
-import com.l2jfree.gameserver.model.base.PlayerClass;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -240,11 +239,11 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 				html.setFile("data/html/villagemaster/SubClass_Add.htm");
 				final StringBuilder content1 = StringUtil.startAppend(200);
-				Set<PlayerClass> subsAvailable = getAvailableSubClasses(player);
+				Set<ClassId> subsAvailable = getAvailableSubClasses(player);
 
 				if (subsAvailable != null && !subsAvailable.isEmpty())
 				{
-					for (PlayerClass subClass : subsAvailable)
+					for (ClassId subClass : subsAvailable)
 					{
 						StringUtil.append(content1,
 								"<a action=\"bypass -h npc_%objectId%_Subclass 4 ",
@@ -504,7 +503,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 				final StringBuilder content6 = StringUtil.startAppend(200);
 				
-				for (PlayerClass subClass : subsAvailable)
+				for (ClassId subClass : subsAvailable)
 				{
 					StringUtil.append(content6,
 							"<a action=\"bypass -h npc_%objectId%_Subclass 7 ",
@@ -1178,7 +1177,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 		{
 			SubClass sub = subList.next();
-			ClassId subClassId = ClassId.values()[sub.getClassId()];
+			ClassId subClassId = sub.getClassDefinition();
 
 			if (subClassId.equalsOrChildOf(cid))
 				return false;
@@ -1195,20 +1194,19 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		else
 			baseClassId = currentBaseId;
 
-		Set<PlayerClass> availSubs = PlayerClass.values()[baseClassId].getAvailableSubclasses(player);
+		Set<ClassId> availSubs = ClassId.values()[baseClassId].getAvailableSubclasses(player);
 		if (availSubs == null || availSubs.isEmpty())
 			return false;
 
-		boolean found = false;
-		for (PlayerClass pclass : availSubs)
+		for (ClassId pclass : availSubs)
 		{
 			if (pclass.ordinal() == classId)
 			{
-				found = true;
-				break;
+				return true;
 			}
 		}
-		return found;
+		
+		return false;
 	}
 	
 	/*
@@ -1216,18 +1214,13 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	 */
 	private final boolean checkVillageMaster(int classId)
 	{
-		return checkVillageMaster(PlayerClass.values()[classId]);
+		return checkVillageMaster(ClassId.values()[classId]);
 	}
 	
-	private final boolean checkVillageMaster(ClassId classId)
-	{
-		return checkVillageMaster(PlayerClass.values()[classId.getId()]);
-	}
-
 	/*
 	 * Returns true if this PlayerClass is allowed for master
 	 */
-	private final boolean checkVillageMaster(PlayerClass pclass)
+	private final boolean checkVillageMaster(ClassId pclass)
 	{
 		final Race npcRace = getVillageMasterRace();
 
@@ -1257,29 +1250,13 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	private static final String formatClassForDisplay(ClassId classId)
 	{
 		return CharTemplateTable.getClassNameById(classId.getId());
-		//return formatClassForDisplay(PlayerClass.values()[classId.getId()]);
-	}
-	
-	private static final String formatClassForDisplay(PlayerClass className)
-	{
-		return CharTemplateTable.getClassNameById(className.ordinal());
-		//String classNameStr = className.toString();
-		//char[] charArray = classNameStr.toCharArray();
-		//
-		//for (int i = 1; i < charArray.length; i++)
-		//{
-		//	if (Character.isUpperCase(charArray[i]))
-		//		classNameStr = classNameStr.substring(0, i) + " " + classNameStr.substring(i);
-		//}
-		//
-		//return classNameStr;
 	}
 
 	/*
 	 * Returns list of available subclasses
 	 * Base class and already used subclasses removed
 	 */
-	private final Set<PlayerClass> getAvailableSubClasses(L2PcInstance player)
+	private final Set<ClassId> getAvailableSubClasses(L2PcInstance player)
 	{
 		// get player base class
 		final int currentBaseId = player.getBaseClass();
@@ -1316,13 +1293,13 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		 * only be taken if you have already completed the other two Kamael subclasses
 		 *
 		 */
-		Set<PlayerClass> availSubs = PlayerClass.values()[baseClassId].getAvailableSubclasses(player);
+		Set<ClassId> availSubs = ClassId.values()[baseClassId].getAvailableSubclasses(player);
 
 		if (availSubs != null && !availSubs.isEmpty())
 		{
-			for (Iterator<PlayerClass> availSub = availSubs.iterator(); availSub.hasNext();)
+			for (Iterator<ClassId> availSub = availSubs.iterator(); availSub.hasNext();)
 			{
-				PlayerClass pclass = availSub.next();
+				ClassId pclass = availSub.next();
 
 				// check for the village master
 				if (!checkVillageMaster(pclass))
@@ -1332,14 +1309,12 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				}
 
 				// scan for already used subclasses
-				int availClassId = pclass.ordinal();
-				ClassId cid = ClassId.values()[availClassId];
 				for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 				{
 					SubClass prevSubClass = subList.next();
-					ClassId subClassId = ClassId.values()[prevSubClass.getClassId()];
+					ClassId subClassId = prevSubClass.getClassDefinition();
 
-					if (subClassId.equalsOrChildOf(cid))
+					if (subClassId.equalsOrChildOf(pclass))
 					{
 						availSub.remove();
 						break;

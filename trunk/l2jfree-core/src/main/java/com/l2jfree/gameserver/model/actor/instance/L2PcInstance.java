@@ -157,7 +157,6 @@ import com.l2jfree.gameserver.model.actor.view.PcView;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.ClassLevel;
 import com.l2jfree.gameserver.model.base.Experience;
-import com.l2jfree.gameserver.model.base.PlayerClass;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -2098,7 +2097,7 @@ public final class L2PcInstance extends L2Playable
 
 	public void academyCheck(int Id)
 	{
-		if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
+		if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && ClassId.values()[Id].getLevel() == ClassLevel.Third)
 		{
 			if (getLvlJoinedAcademy() <= 16)
 				_clan.setReputationScore(_clan.getReputationScore() + Config.JOIN_ACADEMY_MAX_REP_SCORE, true);

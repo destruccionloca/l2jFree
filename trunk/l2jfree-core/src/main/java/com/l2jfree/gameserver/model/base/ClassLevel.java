@@ -13,22 +13,14 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.model.base;
- /**
-  * 
-  * @author luisantonioa
-  * 
-  */
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
+ * @author luisantonioa
  */
-
 public enum ClassLevel
 {
-    First,
-    Second,
-    Third,
-    Fourth
+	First,
+	Second,
+	Third,
+	Fourth;
 }
