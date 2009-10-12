@@ -34,24 +34,24 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public abstract class AbstractRestriction implements GlobalRestriction
 {
-	static final Log	_log	= LogFactory.getLog(AbstractRestriction.class);
-
+	static final Log _log = LogFactory.getLog(AbstractRestriction.class);
+	
 	public void activate()
 	{
 		GlobalRestrictions.activate(this);
 	}
-
+	
 	public void deactivate()
 	{
 		GlobalRestrictions.deactivate(this);
 	}
-
+	
 	@Override
 	public int hashCode()
 	{
 		return getClass().hashCode();
 	}
-
+	
 	/**
 	 * To avoid accidentally multiple times activated restrictions.
 	 */
@@ -60,150 +60,159 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	{
 		return getClass().equals(obj.getClass());
 	}
-
+	
 	@DisabledRestriction
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean canCreateEffect(L2Character activeChar, L2Character target, L2Skill skill)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
-	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_,
-			boolean isOffensive)
+	public boolean isInvul(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+			L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
-	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_,
-			boolean isOffensive)
+	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+			L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
-	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_)
+	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage, L2PcInstance attacker_,
+			L2PcInstance target_)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean canTeleport(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
-	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar, L2ItemInstance item, L2PcInstance player)
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+			L2ItemInstance item, L2PcInstance player)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean canStandUp(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	// TODO
-
+	
 	@DisabledRestriction
 	public Boolean isInsideZone(L2Character activeChar, byte zone)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public double calcDamage(L2Character activeChar, L2Character target, double damage, L2Skill skill)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
-	public List<L2Character> getTargetList(SkillTargetType type, L2Character activeChar, L2Skill skill, L2Character target)
+	public List<L2Character> getTargetList(SkillTargetType type, L2Character activeChar, L2Skill skill,
+			L2Character target)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	// TODO
-
+	
 	@DisabledRestriction
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public void effectCreated(L2Effect effect)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean playerKilled(L2Character activeChar, L2PcInstance target, L2PcInstance killer)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
+	@DisabledRestriction
+	public void playerRevived(L2PcInstance player)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	@DisabledRestriction
 	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	@DisabledRestriction
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		throw new AbstractMethodError();
 	}
-
+	
 	// TODO
 }

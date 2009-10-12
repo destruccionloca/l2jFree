@@ -33,10 +33,10 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 			activeChar.sendMessage("You are holding a cursed weapon!");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
@@ -45,17 +45,17 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return false;
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
-	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_,
-			boolean isOffensive)
+	public boolean isProtected(L2Character activeChar, L2Character target, L2Skill skill, boolean sendMessage,
+			L2PcInstance attacker_, L2PcInstance target_, boolean isOffensive)
 	{
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return false;
-
+		
 		if (target_.isCursedWeaponEquipped() && attacker_.getLevel() < 21)
 		{
 			if (sendMessage)
@@ -68,17 +68,17 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 				attacker_.sendMessage("You can't attack a newbie player while you are holding a cursed weapon.");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (activeChar.isCursedWeaponEquipped())
 			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquippedId()).cursedOnLogin();
 	}
-
+	
 	@Override
 	public void playerDisconnected(L2PcInstance activeChar)
 	{

@@ -31,25 +31,30 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 abstract class AbstractFunEventRestriction extends AbstractRestriction
 {
 	abstract boolean started();
-
+	
 	abstract boolean allowSummon();
-
+	
 	abstract boolean allowPotions();
-
+	
 	abstract boolean allowInterference();
-
+	
 	boolean sitForced()
 	{
 		return false;
 	}
-
+	
 	boolean joinCursed()
 	{
 		return false;
 	}
-
+	
+	boolean reviveRecovery()
+	{
+		return false;
+	}
+	
 	abstract boolean isInFunEvent(L2PcInstance player);
-
+	
 	@Override
 	public final boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
@@ -60,23 +65,23 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 				if (joinCursed())
 					return false;
 			}
-
+			
 			activeChar.sendMessage("You are participating in a fun event!");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		if (isInFunEvent(activeChar) && started())
 			return false;
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public final boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
@@ -88,16 +93,17 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
-	public final boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_)
+	public final boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage,
+			L2PcInstance attacker_, L2PcInstance target_)
 	{
 		if (attacker_ == null || target_ == null || attacker_ == target_)
 			return true;
-
+		
 		if (started() && !allowInterference() && !attacker_.isGM())
 		{
 			if (isInFunEvent(attacker_) != isInFunEvent(target_))
@@ -107,10 +113,10 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public final boolean canTeleport(L2PcInstance activeChar)
 	{
@@ -119,12 +125,13 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 			activeChar.sendMessage("You can't teleport during an event.");
 			return false;
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
-	public final boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar, L2ItemInstance item, L2PcInstance player)
+	public final boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+			L2ItemInstance item, L2PcInstance player)
 	{
 		if (clazz == SummonItems.class)
 		{
@@ -142,19 +149,19 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public final boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (isInFunEvent(activeChar) && isInFunEvent(target) && started())
 			return false;
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public final Boolean isInsideZone(L2Character activeChar, byte zone)
 	{
@@ -162,20 +169,20 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 		{
 			switch (zone)
 			{
-			case L2Zone.FLAG_PEACE:
-			{
-				return Boolean.FALSE;
-			}
-			case L2Zone.FLAG_PVP:
-			{
-				return Boolean.TRUE;
-			}
+				case L2Zone.FLAG_PEACE:
+				{
+					return Boolean.FALSE;
+				}
+				case L2Zone.FLAG_PVP:
+				{
+					return Boolean.TRUE;
+				}
 			}
 		}
-
+		
 		return null;
 	}
-
+	
 	@Override
 	public boolean canStandUp(L2PcInstance activeChar)
 	{
@@ -184,7 +191,18 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 			activeChar.sendMessage("The Admin/GM handle if you sit or stand in this match!");
 			return false;
 		}
-
+		
 		return true;
+	}
+	
+	@Override
+	public void playerRevived(L2PcInstance player)
+	{
+		if (started() && reviveRecovery() && isInFunEvent(player))
+		{
+			player.getStatus().setCurrentHp(player.getMaxHp());
+			player.getStatus().setCurrentMp(player.getMaxMp());
+			player.getStatus().setCurrentCp(player.getMaxCp());
+		}
 	}
 }

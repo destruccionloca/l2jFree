@@ -29,84 +29,90 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final TvTRestriction	INSTANCE	= new TvTRestriction();
+		private static final TvTRestriction INSTANCE = new TvTRestriction();
 	}
-
+	
 	public static TvTRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-
+	
 	private TvTRestriction()
 	{
 	}
-
+	
 	@Override
 	boolean started()
 	{
 		return TvT._started;
 	}
-
+	
 	@Override
 	boolean allowSummon()
 	{
 		return Config.TVT_ALLOW_SUMMON;
 	}
-
+	
 	@Override
 	boolean allowPotions()
 	{
 		return Config.TVT_ALLOW_POTIONS;
 	}
-
+	
 	@Override
 	boolean allowInterference()
 	{
 		return Config.TVT_ALLOW_INTERFERENCE;
 	}
-
+	
 	@Override
 	boolean sitForced()
 	{
 		return TvT._sitForced;
 	}
-
+	
 	@Override
 	boolean joinCursed()
 	{
 		return Config.TVT_JOIN_CURSED;
 	}
-
+	
+	@Override
+	boolean reviveRecovery()
+	{
+		return Config.TVT_REVIVE_RECOVERY;
+	}
+	
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventTvT;
 	}
-
+	
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		if (activeChar._inEventTvT && TvT._maxlvl == activeChar.getLevel() && !TvT._started)
 		{
 			TvT.removePlayer(activeChar);
-
+			
 			activeChar.sendMessage("Your event sign up was canceled.");
 		}
 	}
-
+	
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (TvT._savePlayers.contains(activeChar.getName()))
 			TvT.addDisconnectedPlayer(activeChar);
 	}
-
+	
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventTvT)
 			return false;
-
+		
 		if (TvT._teleport || TvT._started)
 		{
 			if (killer != null && killer._inEventTvT)
@@ -116,13 +122,14 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 					target._countTvTdies++;
 					killer._countTvTkills++;
 					//pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
-					killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(), target.getY(), target.getZ()));
+					killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target
+							.getX(), target.getY(), target.getZ()));
 					TvT.setTeamKillsCount(killer._teamNameTvT, TvT.teamKillsCount(killer._teamNameTvT) + 1);
 				}
 				else
 				{
 					killer.sendMessage("You are a teamkiller! Teamkills are not allowed, you will get death penalty and your team will lose one kill!");
-
+					
 					// Give Penalty for Team-Kill:
 					// 1. Death Penalty + 5
 					// 2. Team will lost 1 Kill
@@ -134,26 +141,26 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 					TvT.setTeamKillsCount(target._teamNameTvT, TvT.teamKillsCount(target._teamNameTvT) - 1);
 				}
 			}
-
-			target.sendMessage("You will be revived and teleported to team spot in " + Config.TVT_REVIVE_DELAY / 1000 + " seconds!");
-
-			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-			{
+			
+			target.sendMessage("You will be revived and teleported to team spot in " + Config.TVT_REVIVE_DELAY / 1000
+					+ " seconds!");
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 				public void run()
 				{
 					int x = TvT._teamsX.get(TvT._teams.indexOf(target._teamNameTvT));
 					int y = TvT._teamsY.get(TvT._teams.indexOf(target._teamNameTvT));
 					int z = TvT._teamsZ.get(TvT._teams.indexOf(target._teamNameTvT));
-
+					
 					target.teleToLocation(x, y, z, false);
 					target.doRevive();
 				}
 			}, Config.TVT_REVIVE_DELAY);
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
@@ -173,10 +180,10 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 				activeChar.sendMessage("The event is already started. You can not leave now!");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -185,7 +192,7 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 			TvT.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-
+		
 		return false;
 	}
 }

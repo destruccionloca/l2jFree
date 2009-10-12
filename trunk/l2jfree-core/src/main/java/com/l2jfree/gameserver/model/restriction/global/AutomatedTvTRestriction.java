@@ -31,63 +31,64 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final AutomatedTvTRestriction	INSTANCE	= new AutomatedTvTRestriction();
+		private static final AutomatedTvTRestriction INSTANCE = new AutomatedTvTRestriction();
 	}
-
+	
 	public static AutomatedTvTRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-
+	
 	private AutomatedTvTRestriction()
 	{
 	}
-
+	
 	@Override
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		if (callingRestriction == getClass())
 			return false;
-
+		
 		if (AutomatedTvT.isReged(activeChar) || AutomatedTvT.isPlaying(activeChar))
 		{
 			activeChar.sendMessage("Already participating in a fun event!");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public boolean canRequestRevive(L2PcInstance activeChar)
 	{
 		if (!Config.AUTO_TVT_REVIVE_SELF && AutomatedTvT.isPlaying(activeChar))
 			return false;
-
+		
 		return true;
 	}
-
+	
 	@Override
-	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar, L2ItemInstance item, L2PcInstance player)
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+			L2ItemInstance item, L2PcInstance player)
 	{
 		if (player != null && AutomatedTvT.isPlaying(player) && !AutomatedTvT.canUse(itemId))
 		{
 			player.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			return false;
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (AutomatedTvT.isPlaying(activeChar) && AutomatedTvT.isPlaying(target))
 			return false;
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public Boolean isInsideZone(L2Character activeChar, byte zone)
 	{
@@ -95,32 +96,32 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 		{
 			switch (zone)
 			{
-			case L2Zone.FLAG_PEACE:
-			{
-				return Boolean.FALSE;
-			}
-			case L2Zone.FLAG_PVP:
-			{
-				return Boolean.TRUE;
-			}
+				case L2Zone.FLAG_PEACE:
+				{
+					return Boolean.FALSE;
+				}
+				case L2Zone.FLAG_PVP:
+				{
+					return Boolean.TRUE;
+				}
 			}
 		}
-
+		
 		return null;
 	}
-
+	
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().addDisconnected(activeChar);
 	}
-
+	
 	@Override
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
 		AutomatedTvT.getInstance().onDisconnection(activeChar);
 	}
-
+	
 	@Override
 	public boolean playerKilled(L2Character activeChar, L2PcInstance target, L2PcInstance killer)
 	{
@@ -132,13 +133,13 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 		else
 			return false;
 	}
-
+	
 	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (!Config.AUTO_TVT_ENABLED)
 			return false;
-
+		
 		if (command.equals("jointvt"))
 		{
 			AutomatedTvT.getInstance().registerPlayer(activeChar);
@@ -149,7 +150,7 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 			AutomatedTvT.getInstance().cancelRegistration(activeChar);
 			return true;
 		}
-
+		
 		return false;
 	}
 }

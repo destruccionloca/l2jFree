@@ -10781,22 +10781,17 @@ public final class L2PcInstance extends L2Playable
 		updateEffectIcons();
 		_reviveRequested = false;
 		_revivePower = 0;
-
+		
 		if (isMounted())
 			startFeed(_mountNpcId);
-
+		
 		if (isInParty() && getParty().isInDimensionalRift())
 		{
 			if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
 				getParty().getDimensionalRift().memberRessurected(this);
 		}
-
-		if ((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY) || (_inEventTvTi && Config.TVTI_REVIVE_RECOVERY))
-		{
-			getStatus().setCurrentHp(getMaxHp());
-			getStatus().setCurrentMp(getMaxMp());
-			getStatus().setCurrentCp(getMaxCp());
-		}
+		
+		GlobalRestrictions.playerRevived(this);
 	}
 
 	@Override

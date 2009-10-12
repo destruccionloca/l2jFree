@@ -28,88 +28,95 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final CTFRestriction	INSTANCE	= new CTFRestriction();
+		private static final CTFRestriction INSTANCE = new CTFRestriction();
 	}
-
+	
 	public static CTFRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-
+	
 	private CTFRestriction()
 	{
 	}
-
+	
 	@Override
 	boolean started()
 	{
 		return CTF._started;
 	}
-
+	
 	@Override
 	boolean allowSummon()
 	{
 		return Config.CTF_ALLOW_SUMMON;
 	}
-
+	
 	@Override
 	boolean allowPotions()
 	{
 		return Config.CTF_ALLOW_POTIONS;
 	}
-
+	
 	@Override
 	boolean allowInterference()
 	{
 		return Config.CTF_ALLOW_INTERFERENCE;
 	}
-
+	
 	@Override
 	boolean sitForced()
 	{
 		return CTF._sitForced;
 	}
-
+	
 	@Override
 	boolean joinCursed()
 	{
 		return Config.CTF_JOIN_CURSED;
 	}
-
+	
+	@Override
+	boolean reviveRecovery()
+	{
+		return Config.CTF_REVIVE_RECOVERY;
+	}
+	
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventCTF;
 	}
-
+	
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		if (activeChar._inEventCTF && CTF._maxlvl == activeChar.getLevel() && !CTF._started)
 		{
 			CTF.removePlayer(activeChar);
-
+			
 			activeChar.sendMessage("Your event sign up was canceled.");
 		}
 	}
-
+	
 	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (CTF._savePlayers.contains(activeChar.getName()))
 			CTF.addDisconnectedPlayer(activeChar);
 	}
-
+	
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
 		if (!target._inEventCTF)
 			return false;
-
+		
 		if (CTF._teleport || CTF._started)
 		{
-			target.sendMessage("You will be revived and teleported to team flag in " + Config.CTF_REVIVE_DELAY / 1000 + " seconds!");
-
+			target.sendMessage("You will be revived and teleported to team flag in " + Config.CTF_REVIVE_DELAY / 1000
+					+ " seconds!");
+			
 			if (target._haveFlagCTF)
 			{
 				CTF._flagsTaken.set(CTF._teams.indexOf(target._teamNameHaveFlagCTF), false);
@@ -117,26 +124,26 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 				CTF.removeFlagFromPlayer(target);
 				target.broadcastUserInfo();
 				target._haveFlagCTF = false;
-				CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + target._teamNameHaveFlagCTF + "'s flag returned.");
+				CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + target._teamNameHaveFlagCTF
+						+ "'s flag returned.");
 			}
-
-			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-			{
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 				public void run()
 				{
 					int x = CTF._teamsX.get(CTF._teams.indexOf(target._teamNameCTF));
 					int y = CTF._teamsY.get(CTF._teams.indexOf(target._teamNameCTF));
 					int z = CTF._teamsZ.get(CTF._teams.indexOf(target._teamNameCTF));
-
+					
 					target.teleToLocation(x, y, z, false);
 					target.doRevive();
 				}
 			}, Config.CTF_REVIVE_DELAY);
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)
 	{
@@ -156,10 +163,10 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 				activeChar.sendMessage("The event is already started. You can not leave now!");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -178,7 +185,7 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 			CTF.CheckRestoreFlags();
 			return true;
 		}
-
+		
 		return false;
 	}
 }

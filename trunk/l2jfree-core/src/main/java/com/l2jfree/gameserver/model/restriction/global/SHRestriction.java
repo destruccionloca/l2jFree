@@ -22,18 +22,18 @@ public final class SHRestriction extends AbstractRestriction
 {
 	private static final class SingletonHolder
 	{
-		private static final SHRestriction	INSTANCE	= new SHRestriction();
+		private static final SHRestriction INSTANCE = new SHRestriction();
 	}
-
+	
 	public static SHRestriction getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-
+	
 	private SHRestriction()
 	{
 	}
-
+	
 	@Override
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar)
 	{
@@ -42,7 +42,7 @@ public final class SHRestriction extends AbstractRestriction
 			SH.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-
+		
 		return false;
 	}
 }

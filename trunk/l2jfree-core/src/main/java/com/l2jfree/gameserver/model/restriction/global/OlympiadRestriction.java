@@ -33,26 +33,28 @@ public final class OlympiadRestriction extends AbstractRestriction
 	public boolean isRestricted(L2PcInstance activeChar, Class<? extends GlobalRestriction> callingRestriction)
 	{
 		// TODO: merge different checking methods to one
-		if (activeChar.isInOlympiadMode() || Olympiad.getInstance().isRegistered(activeChar) || activeChar.getOlympiadGameId() != -1)
+		if (activeChar.isInOlympiadMode() || Olympiad.getInstance().isRegistered(activeChar)
+				|| activeChar.getOlympiadGameId() != -1)
 		{
 			activeChar.sendMessage("You are registered on Grand Olympiad Games!");
 			return true;
 		}
-
+		
 		return false;
 	}
-
+	
 	@Override
 	public boolean canInviteToParty(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (activeChar.isInOlympiadMode() || target.isInOlympiadMode())
 			return false;
-
+		
 		return true;
 	}
-
+	
 	@Override
-	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar, L2ItemInstance item, L2PcInstance player)
+	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
+			L2ItemInstance item, L2PcInstance player)
 	{
 		if (clazz == SummonItems.class)
 		{
@@ -70,37 +72,38 @@ public final class OlympiadRestriction extends AbstractRestriction
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
-	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage, L2PcInstance attacker_, L2PcInstance target_)
+	public boolean canTarget(L2Character activeChar, L2Character target, boolean sendMessage, L2PcInstance attacker_,
+			L2PcInstance target_)
 	{
 		if (attacker_ == null || target_ == null || attacker_ == target_ || attacker_.isGM())
 			return true;
-
+		
 		if (attacker_.isInOlympiadMode() != target_.isInOlympiadMode())
 			return false;
-
+		
 		if (attacker_.isInOlympiadMode() && target_.isInOlympiadMode())
 		{
 			if (attacker_.getOlympiadGameId() != target_.getOlympiadGameId())
 				return false;
-
+			
 			if (!attacker_.isOlympiadStart() || !target_.isOlympiadStart())
 				return false;
 		}
-
+		
 		return true;
 	}
-
+	
 	@Override
 	public void playerDisconnected(L2PcInstance activeChar)
 	{
 		if (activeChar.isInOlympiadMode())
 			Olympiad.getInstance().unRegisterNoble(activeChar);
-
+		
 		// handle removal from olympiad game
 		if (Olympiad.getInstance().isRegistered(activeChar) || activeChar.getOlympiadGameId() != -1)
 			Olympiad.getInstance().removeDisconnectedCompetitor(activeChar);
