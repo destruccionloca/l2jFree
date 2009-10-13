@@ -36,15 +36,6 @@ public class AttackableStatus extends NpcStatus
 	}
 	
 	@Override
-	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
-	{
-		if (getActiveChar().isEventMob)
-			return false;
-		
-		return super.canReduceHp(value, attacker, awake, isDOT, isConsume);
-	}
-	
-	@Override
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		/*

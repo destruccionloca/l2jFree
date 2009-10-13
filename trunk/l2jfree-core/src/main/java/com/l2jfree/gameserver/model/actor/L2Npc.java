@@ -184,7 +184,7 @@ public class L2Npc extends L2Character
 	private int						_fortIndex				= -2;
 
 	public String					_CTF_FlagTeamName;
-	public boolean					isEventMob				= false, _isEventMobTvT = false, _isEventMobDM = false, _isEventMobCTF = false,
+	public boolean					_isEventMobTvT = false, _isEventMobDM = false, _isEventMobCTF = false,
 			_isCTF_throneSpawn = false, _isCTF_Flag = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
 	public boolean					_isEventMobTvTi			= false;
 	public boolean					_isEventMobSH			= false;
@@ -1014,7 +1014,7 @@ public class L2Npc extends L2Character
 							spawn.getLastSpawn().getStatus().setCurrentHp(getMaxHp());
 							spawn.getLastSpawn().setName("baal");
 							spawn.getLastSpawn().setTitle("hell's god");
-							spawn.getLastSpawn().isEventMob = true;
+							//spawn.getLastSpawn().isEventMob = true;
 							spawn.getLastSpawn().isAggressive();
 							spawn.getLastSpawn().decayMe();
 							spawn.getLastSpawn().spawnMe(spawn.getLastSpawn().getX(), spawn.getLastSpawn().getY(), spawn.getLastSpawn().getZ());

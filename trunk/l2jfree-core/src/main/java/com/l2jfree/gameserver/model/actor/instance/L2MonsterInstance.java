@@ -91,7 +91,7 @@ public class L2MonsterInstance extends L2Attackable
 		if (attacker instanceof L2MonsterInstance)
 			return false;
 
-		return !isEventMob;
+		return true;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public boolean isAggressive()
 	{
-		return (getTemplate().getAggroRange() > 0) && !isEventMob;
+		return getTemplate().getAggroRange() > 0;
 	}
 
 	@Override

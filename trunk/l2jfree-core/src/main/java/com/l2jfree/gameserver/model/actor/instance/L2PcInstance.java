@@ -674,22 +674,6 @@ public final class L2PcInstance extends L2Playable
 	/** Total amount of damage dealt during a olympiad fight */
 	private int								_olyDamage				= 0;
 
-	/** Event parameters */
-
-	public int								eventX;
-	public int								eventY;
-	public int								eventZ;
-	public int								eventKarma;
-	public int								eventPvpKills;
-	public int								eventPkKills;
-	public String							eventTitle;
-	public List<String>						kills					= new ArrayList<String>(0);
-	public boolean							eventSitForced			= false;
-	public boolean							atEvent					= false;
-
-	/** Event Engine parameters */
-	public int								_originalNameColor, _countKills, _originalKarma, _eventKills;
-
 	/** TvT Engine parameters */
 	public String							_teamNameTvT, _originalTitleTvT;
 	public int								_originalNameColorTvT, _countTvTkills, _countTvTdies, _originalKarmaTvT;
@@ -3885,7 +3869,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInFunEvent()
 	{
-		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
+		return ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
 	}
 
 	/**
@@ -4660,11 +4644,6 @@ public final class L2PcInstance extends L2Playable
 				playerKill = true;
 			}
 
-			if (atEvent && pk != null)
-			{
-				pk.kills.add(getName());
-			}
-
 			boolean srcInPvP = isInsideZone(L2Zone.FLAG_PVP) && !isInSiege();
 
 			if (killer instanceof L2PcInstance && srcInPvP && Config.ARENA_ENABLED)
@@ -4803,7 +4782,7 @@ public final class L2PcInstance extends L2Playable
 
 	private void onDieDropItem(L2Character killer)
 	{
-		if (atEvent || killer == null)
+		if (killer == null)
 			return;
 		
 		L2PcInstance pk = killer.getActingPlayer();
@@ -5289,6 +5268,13 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void deathPenalty(boolean atwar, boolean killed_by_pc, boolean charmOfCourage, boolean killed_by_siege_npc)
 	{
+		if (charmOfCourage && isInSiege())
+			return;
+
+		if ((killed_by_pc || killed_by_siege_npc)
+			&& ((isInsideZone(L2Zone.FLAG_PVP) && !isInSiege()) || isInSiege()))
+			return;
+		
 		// FIXME: Need Correct Penalty
 
 		// Get the level of the L2PcInstance
@@ -5366,21 +5352,13 @@ public final class L2PcInstance extends L2Playable
 			percentLost /= 4.0;
 
 		// Calculate the Experience loss
-		long lostExp = 0;
-		if (!atEvent)
-		{
-			if (lvl < Experience.MAX_LEVEL)
-				lostExp = Math.round((getStat().getExpForLevel(lvl + 1) - getStat().getExpForLevel(lvl)) * percentLost / 100);
-			else
-				lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost / 100);
-		}
-
-		if (charmOfCourage && isInSiege())
-			return;
-
-		if ((killed_by_pc || killed_by_siege_npc)
-			&& ((isInsideZone(L2Zone.FLAG_PVP) && !isInSiege()) || isInSiege()))
-			return;
+		final long lostExp;
+		
+		if (lvl < Experience.MAX_LEVEL)
+			lostExp = Math.round((getStat().getExpForLevel(lvl + 1) - getStat().getExpForLevel(lvl)) * percentLost / 100);
+		else
+			lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost / 100);
+		
 
 		if (_log.isDebugEnabled())
 			_log.debug(getName() + " died and lost " + lostExp + " experience.");
@@ -11666,7 +11644,7 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 
-		if (atEvent || isInFunEvent())
+		if (isInFunEvent())
 		{
 			sendMessage("A superior power doesn't allow you to leave the event.");
 			return false;
@@ -13179,20 +13157,6 @@ public final class L2PcInstance extends L2Playable
 	public final void sendAvoidMessage(L2Character attacker)
 	{
 		sendPacket(new SystemMessage(SystemMessageId.AVOIDED_C1S_ATTACK).addCharName(attacker));
-	}
-
-	public void saveEventStats()
-	{
-		_originalNameColor = getAppearance().getNameColor();
-		_originalKarma = getKarma();
-		_eventKills = 0;
-	}
-
-	public void restoreEventStats()
-	{
-		getAppearance().setNameColor(_originalNameColor);
-		setKarma(_originalKarma);
-		_eventKills = 0;
 	}
 
 	public boolean isKamaelic()

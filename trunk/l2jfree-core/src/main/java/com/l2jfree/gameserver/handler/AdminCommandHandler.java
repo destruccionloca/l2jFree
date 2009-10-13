@@ -42,7 +42,6 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditNpc;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEffects;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminElement;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEnchant;
-import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminExpSp;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminFightCalculator;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminFortSiege;
@@ -132,7 +131,6 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminEffects());
 		register(new AdminElement());
 		register(new AdminEnchant());
-		register(new AdminEventEngine());
 		register(new AdminExpSp());
 		register(new AdminFightCalculator());
 		register(new AdminFortSiege());
