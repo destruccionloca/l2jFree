@@ -55,7 +55,6 @@ public final class AutomatedTvT
 
 	private static final Log	_log						= LogFactory.getLog(AutomatedTvT.class);
 
-	private static final String	REMOVE_DISCONNECTED_PLAYER	= "UPDATE characters SET heading=?,x=?,y=?,z=?,title=? WHERE charId=?";
 	private static final String	evtName						= "Team versus team";
 
 	//when the event has ended and not yet started
@@ -347,7 +346,7 @@ public final class AutomatedTvT
 			player = p.getPlayer();
 			if (player == null)
 			{
-				removeDisconnected(p.getObjectID(), p.getLoc(), p.getTitle());
+				removeDisconnected(p.getObjectID(), p.getLoc());
 				continue;
 			}
 			if (p.getTeam() == winnerTeam)
@@ -601,9 +600,9 @@ public final class AutomatedTvT
 		if (player == null)
 			return;
 		if (p.isGodlike())
-			player.setTitle(Config.AUTO_TVT_GODLIKE_TITLE);
+			player.getAppearance().setVisibleTitle(Config.AUTO_TVT_GODLIKE_TITLE);
 		else
-			player.setTitle("Score: " + p.getScore());
+			player.getAppearance().setVisibleTitle("Score: " + p.getScore());
 		player.broadcastTitleInfo();
 	}
 
@@ -659,13 +658,13 @@ public final class AutomatedTvT
 		return false;
 	}
 
-	private final void removeDisconnected(int objID, Location loc, String title)
+	private final void removeDisconnected(int objID, Location loc)
 	{
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement ps = con.prepareStatement(REMOVE_DISCONNECTED_PLAYER);
+			PreparedStatement ps = con.prepareStatement("UPDATE characters SET heading=?,x=?,y=?,z=? WHERE charId=?");
 			ps.setInt(1, loc.getHeading());
 			if (Config.AUTO_TVT_OVERRIDE_TELE_BACK)
 			{
@@ -679,8 +678,7 @@ public final class AutomatedTvT
 				ps.setInt(3, loc.getY());
 				ps.setInt(4, loc.getZ());
 			}
-			ps.setString(5, title);
-			ps.setInt(6, objID);
+			ps.setInt(5, objID);
 			ps.executeUpdate();
 			ps.close();
 		}
@@ -731,7 +729,7 @@ public final class AutomatedTvT
 
 	private final void removeFromEvent(L2PcInstance player, Participant p)
 	{
-		player.setTitle(p.getTitle());
+		player.getAppearance().setVisibleTitle(null);
 		player.getAppearance().setNameColor(p.getNameColor());
 		if (!player.isDead())
 		{
@@ -751,7 +749,6 @@ public final class AutomatedTvT
 		private final int				team;
 		private final int				objectID;
 		private final Location			loc;
-		private final String			title;
 		private final int				nameColor;
 		private volatile L2PcInstance	player;
 		private int						points;
@@ -762,7 +759,6 @@ public final class AutomatedTvT
 			this.team = team;
 			objectID = player.getObjectId();
 			loc = player.getLoc();
-			title = player.getTitle();
 			nameColor = player.getAppearance().getNameColor();
 			this.player = player;
 			points = 0;
@@ -792,11 +788,6 @@ public final class AutomatedTvT
 		public final Location getLoc()
 		{
 			return loc;
-		}
-
-		public final String getTitle()
-		{
-			return title;
 		}
 
 		public final int getNameColor()

@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
-import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.ChanceSkillList;
@@ -2840,18 +2839,8 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Set the Title of the L2Character. */
-	public final void setTitle(String value)
+	public void setTitle(String value)
 	{
-		if (Config.FACTION_ENABLED)
-			if (this instanceof L2PcInstance)
-				if (FactionManager.getInstance().getFactionTitles().contains(value.toLowerCase()) && !value.isEmpty())
-				{
-					_title = getTitle();
-					sendMessage("Title protected by Faction System");
-					return;
-				}
-		if ((this instanceof L2PcInstance) && value.length() > 16)
-			value = value.substring(0, 15);
 		_title = value;
 	}
 

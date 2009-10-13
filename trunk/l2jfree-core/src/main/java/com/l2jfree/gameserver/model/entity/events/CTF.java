@@ -221,7 +221,7 @@ public class CTF
 			{
 				playerToKick.getAppearance().setNameColor(playerToKick._originalNameColorCTF);
 				playerToKick.setKarma(playerToKick._originalKarmaCTF);
-				playerToKick.setTitle(playerToKick._originalTitleCTF);
+				playerToKick.getAppearance().setVisibleTitle(null);
 				playerToKick.broadcastUserInfo();
 				playerToKick.sendMessage("You have been kicked from the CTF.");
 				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
@@ -1250,7 +1250,6 @@ public class CTF
 			player = _playersShuffle.get(playerToAddIndex);
 			player._originalNameColorCTF = player.getAppearance().getNameColor();
 			player._originalKarmaCTF = player.getKarma();
-			player._originalTitleCTF = player.getTitle();
 
 			_players.add(player);
 			_players.get(playersCount)._teamNameCTF = _teams.get(teamCount);
@@ -2005,7 +2004,6 @@ public class CTF
 				{
 					player._originalNameColorCTF = player.getAppearance().getNameColor();
 					player._originalKarmaCTF = player.getKarma();
-					player._originalTitleCTF = player.getTitle();
 					player._inEventCTF = true;
 					player._countCTFflags = p._countCTFflags;
 					_players.remove(p); //removing old object id from vector
@@ -2031,7 +2029,7 @@ public class CTF
 			{
 				player.getAppearance().setNameColor(player._originalNameColorCTF);
 				player.setKarma(player._originalKarmaCTF);
-				player.setTitle(player._originalTitleCTF);
+				player.getAppearance().setVisibleTitle(null);
 				player.broadcastUserInfo();
 			}
 			player._teamNameCTF = "";

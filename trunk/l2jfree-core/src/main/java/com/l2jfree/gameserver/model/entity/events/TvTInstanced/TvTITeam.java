@@ -86,8 +86,7 @@ public class TvTITeam
 					player._countTvTiKills = 0;
 					player._originalNameColorTvTi = player.getAppearance().getNameColor();
 					player.getAppearance().setNameColor(_teamColor);
-					player._originalTitleTvTi = player.getTitle();
-					player.setTitle("Kills: 0");
+					player.getAppearance().setVisibleTitle("Kills: 0");
 					player._originalKarmaTvTi = player.getKarma();
 					player.setKarma(0);
 					player._joiningTvTi = false;
@@ -96,7 +95,7 @@ public class TvTITeam
 					break;
 				case 1:
 					player.getAppearance().setNameColor(player._originalNameColorTvTi);
-					player.setTitle(player._originalTitleTvTi);
+					player.getAppearance().setVisibleTitle(null);
 					player.setKarma(player._originalKarmaTvTi);
 					player.setKarmaFlag(0);
 					player._inEventTvTi = false;
@@ -221,7 +220,7 @@ public class TvTITeam
 	{
 		player._inEventTvTi = false;
 		player.getAppearance().setNameColor(player._originalNameColorTvTi);
-		player.setTitle(player._originalTitleTvTi);
+		player.getAppearance().setVisibleTitle(null);
 		player.setKarma(player._originalKarmaTvTi);
 		_players.remove(player);
 

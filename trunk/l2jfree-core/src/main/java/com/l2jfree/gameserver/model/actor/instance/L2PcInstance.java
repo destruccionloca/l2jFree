@@ -88,6 +88,7 @@ import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
+import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
@@ -675,17 +676,16 @@ public final class L2PcInstance extends L2Playable
 	private int								_olyDamage				= 0;
 
 	/** TvT Engine parameters */
-	public String							_teamNameTvT, _originalTitleTvT;
+	public String							_teamNameTvT;
 	public int								_originalNameColorTvT, _countTvTkills, _countTvTdies, _originalKarmaTvT;
 	public boolean							_inEventTvT				= false;
 
 	/** TvT Instanced Engine parameters */
-	public String							_originalTitleTvTi;
 	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
 	public boolean							_inEventTvTi			= false, _isSitForcedTvTi = false, _joiningTvTi = false;
 
 	/** CTF Engine parameters */
-	public String							_teamNameCTF, _teamNameHaveFlagCTF, _originalTitleCTF;
+	public String							_teamNameCTF, _teamNameHaveFlagCTF;
 	public int								_originalNameColorCTF, _originalKarmaCTF, _countCTFflags;
 	public boolean							_inEventCTF				= false, _haveFlagCTF = false;
 	public Future<?>						_posCheckerCTF			= null;
@@ -1206,6 +1206,24 @@ public final class L2PcInstance extends L2Playable
 	public final PcAppearance getAppearance()
 	{
 		return _appearance;
+	}
+	
+	@Override
+	public void setTitle(String value)
+	{
+		if (Config.FACTION_ENABLED)
+		{
+			if (FactionManager.getInstance().getFactionTitles().contains(value.toLowerCase()) && !value.isEmpty())
+			{
+				sendMessage("Title protected by Faction System");
+				return;
+			}
+		}
+		
+		if (value.length() > 16)
+			value = value.substring(0, 15);
+		
+		super.setTitle(value);
 	}
 
 	/**

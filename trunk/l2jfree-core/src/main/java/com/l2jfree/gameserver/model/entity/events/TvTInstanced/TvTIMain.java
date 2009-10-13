@@ -349,7 +349,6 @@ public class TvTIMain
 					else if (p.getName().equals(player.getName()))
 					{
 						player._originalNameColorTvTi = player.getAppearance().getNameColor();
-						player._originalTitleTvTi = player.getTitle();
 						player._originalKarmaTvTi = player.getKarma();
 						player._inEventTvTi = true;
 						t.getPlayers().remove(p); // Removing old object id from
@@ -422,7 +421,7 @@ public class TvTIMain
 				{
 					p = player;
 					player.getAppearance().setNameColor(player._originalNameColorTvTi);
-					player.setTitle(player._originalTitleTvTi);
+					player.getAppearance().setVisibleTitle(null);
 					player.setKarma(player._originalKarmaTvTi);
 					player.setKarmaFlag(0);
 					player._inEventTvTi = false;

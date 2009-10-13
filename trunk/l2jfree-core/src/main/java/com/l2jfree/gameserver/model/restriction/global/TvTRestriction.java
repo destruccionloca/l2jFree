@@ -127,7 +127,7 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 				{
 					target._countTvTdies++;
 					killer._countTvTkills++;
-					//pk.setTitle("Kills: " + ((L2PcInstance) killer)._countTvTkills);
+					killer.getAppearance().setVisibleTitle("Kills: " + killer._countTvTkills);
 					killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target
 							.getX(), target.getY(), target.getZ()));
 					TvT.setTeamKillsCount(killer._teamNameTvT, TvT.teamKillsCount(killer._teamNameTvT) + 1);

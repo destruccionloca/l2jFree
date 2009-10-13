@@ -119,7 +119,7 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 		if (!TvTIMain.checkSameTeam(killer, target))
 		{
 			killer._countTvTiKills++;
-			killer.setTitle("Kills: " + killer._countTvTiKills);
+			killer.getAppearance().setVisibleTitle("Kills: " + killer._countTvTiKills);
 			killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(),
 					target.getY(), target.getZ()));
 			TvTIMain.addKill(killer);
