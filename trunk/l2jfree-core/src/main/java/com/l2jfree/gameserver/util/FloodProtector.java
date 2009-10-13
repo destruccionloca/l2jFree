@@ -27,7 +27,7 @@ public final class FloodProtector
 {
 	public static enum Protected
 	{
-		USEITEM(400),
+		USEITEM(100),
 		ROLLDICE(4200),
 		FIREWORK(4200),
 		GLOBAL_CHAT(Config.GLOBAL_CHAT_TIME * GameTimeController.MILLIS_IN_TICK),
@@ -35,9 +35,9 @@ public final class FloodProtector
 		ITEMPETSUMMON(1600),
 		HEROVOICE(10000),
 		SOCIAL(Config.SOCIAL_TIME * GameTimeController.MILLIS_IN_TICK),
-		SUBCLASS(2000),
-		DROPITEM(1000),
-		MULTISELL(100);
+		SUBCLASS(500),
+		DROPITEM(500),
+		MULTISELL(500);
 		
 		private final int _reuseDelay;
 		
