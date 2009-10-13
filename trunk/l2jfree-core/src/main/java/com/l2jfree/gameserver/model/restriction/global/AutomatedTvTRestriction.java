@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions.CombatState;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
@@ -81,12 +82,17 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
+	public CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (AutomatedTvT.isPlaying(activeChar) && AutomatedTvT.isPlaying(target))
-			return false;
+		{
+			final int team1 = AutomatedTvT.getTeam(activeChar);
+			final int team2 = AutomatedTvT.getTeam(target);
+			
+			return team1 == team2 ? CombatState.FRIEND : CombatState.ENEMY;
+		}
 		
-		return true;
+		return CombatState.NEUTRAL;
 	}
 	
 	@Override

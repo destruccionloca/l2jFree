@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions.CombatState;
 
 /**
  * @author NB4L1
@@ -53,7 +54,7 @@ public interface GlobalRestriction
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 			L2ItemInstance item, L2PcInstance player);
 	
-	public boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target);
+	public CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target);
 	
 	public boolean canStandUp(L2PcInstance activeChar);
 	

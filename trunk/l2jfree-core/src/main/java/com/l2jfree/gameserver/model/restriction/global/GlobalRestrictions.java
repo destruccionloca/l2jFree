@@ -59,7 +59,7 @@ public final class GlobalRestrictions
 		canRequestRevive,
 		canTeleport,
 		canUseItemHandler,
-		canBeInsidePeaceZone,
+		getCombatState,
 		canStandUp,
 		// TODO
 		
@@ -457,13 +457,43 @@ public final class GlobalRestrictions
 		return true;
 	}
 	
-	public static boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
+	public enum CombatState
 	{
-		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canBeInsidePeaceZone.ordinal()])
-			if (!restriction.canBeInsidePeaceZone(activeChar, target))
-				return false;
+		ENEMY,
+		FRIEND,
+		NEUTRAL;
+	}
+	
+	public static boolean isCombat(L2PcInstance activeChar, L2PcInstance target)
+	{
+		switch (getCombatState(activeChar, target))
+		{
+			case ENEMY:
+			case FRIEND:
+				return true;
+		}
 		
-		return true;
+		return false;
+	}
+	
+	public static CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target)
+	{
+		if (activeChar == null || target == null)
+			return CombatState.NEUTRAL;
+		
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.getCombatState.ordinal()])
+		{
+			final CombatState state = restriction.getCombatState(activeChar, target);
+			
+			switch (state)
+			{
+				case ENEMY:
+				case FRIEND:
+					return state;
+			}
+		}
+		
+		return CombatState.NEUTRAL;
 	}
 	
 	public static boolean canStandUp(L2PcInstance activeChar)

@@ -72,6 +72,12 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2)
+	{
+		return participant1._isVIP == participant2._isVIP && participant1._isNotVIP == participant2._isNotVIP;
+	}
+	
+	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventVIP;

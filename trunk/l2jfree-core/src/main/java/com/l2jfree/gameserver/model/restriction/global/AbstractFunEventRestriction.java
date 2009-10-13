@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions.CombatState;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -52,6 +53,8 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	{
 		return false;
 	}
+	
+	abstract boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2);
 	
 	abstract boolean isInFunEvent(L2PcInstance player);
 	
@@ -154,12 +157,14 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 	}
 	
 	@Override
-	public final boolean canBeInsidePeaceZone(L2PcInstance activeChar, L2PcInstance target)
+	public final CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target)
 	{
 		if (isInFunEvent(activeChar) && isInFunEvent(target) && started())
-			return false;
+		{
+			return teamEquals(activeChar, target) ? CombatState.FRIEND : CombatState.ENEMY;
+		}
 		
-		return true;
+		return CombatState.NEUTRAL;
 	}
 	
 	@Override

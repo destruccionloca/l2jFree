@@ -475,6 +475,11 @@ public final class AutomatedTvT
 	{
 		return eventPlayers.get(oID) != null;
 	}
+	
+	public static int getTeam(L2PcInstance player)
+	{
+		return getInstance().eventPlayers.get(player.getObjectId()).getTeam();
+	}
 
 	private final boolean canJoin(L2PcInstance player)
 	{

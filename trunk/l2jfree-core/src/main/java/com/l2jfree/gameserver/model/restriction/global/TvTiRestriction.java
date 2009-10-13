@@ -77,6 +77,12 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2)
+	{
+		return TvTIMain.checkSameTeam(participant1, participant2);
+	}
+	
+	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventTvTi;

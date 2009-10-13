@@ -5629,7 +5629,7 @@ public abstract class L2Character extends L2Object
 		if (attackerPlayer == null || targetPlayer == null)
 			return false;
 
-		if (!GlobalRestrictions.canBeInsidePeaceZone(attackerPlayer, targetPlayer))
+		if (GlobalRestrictions.isCombat(attackerPlayer, targetPlayer))
 			return false;
 
 		if (attackerPlayer.getAccessLevel() >= Config.GM_PEACEATTACK)

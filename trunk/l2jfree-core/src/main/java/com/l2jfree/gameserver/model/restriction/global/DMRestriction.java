@@ -71,6 +71,12 @@ public final class DMRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2)
+	{
+		return false;
+	}
+	
+	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
 		return player._inEventDM;
