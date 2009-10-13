@@ -77,7 +77,6 @@ import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.view.CharLikeView;
-import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -2239,9 +2238,6 @@ public abstract class L2Character extends L2Object
 				//_status.setCurrentCp(getMaxCp() * Config.RESPAWN_RESTORE_CP);
 				//_status.setCurrentMp(getMaxMp() * Config.RESPAWN_RESTORE_MP);
 			}
-
-			if (this instanceof L2PcInstance)
-				AutomatedTvT.getInstance().recover((L2PcInstance) this);
 
 			// Start broadcast status
 			broadcastPacket(new Revive(this));
@@ -5627,9 +5623,6 @@ public abstract class L2Character extends L2Object
 		final L2PcInstance targetPlayer = L2Object.getActingPlayer(target);
 
 		if (attackerPlayer == null || targetPlayer == null)
-			return false;
-
-		if (GlobalRestrictions.isCombat(attackerPlayer, targetPlayer))
 			return false;
 
 		if (attackerPlayer.getAccessLevel() >= Config.GM_PEACEATTACK)

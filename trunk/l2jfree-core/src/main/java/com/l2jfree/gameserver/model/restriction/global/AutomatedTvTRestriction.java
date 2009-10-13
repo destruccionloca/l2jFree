@@ -69,6 +69,18 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 	}
 	
 	@Override
+	public boolean canTeleport(L2PcInstance activeChar)
+	{
+		if (AutomatedTvT.isPlaying(activeChar))
+		{
+			activeChar.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 			L2ItemInstance item, L2PcInstance player)
 	{
@@ -102,6 +114,10 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 		{
 			switch (zone)
 			{
+				case L2Zone.FLAG_NOSUMMON:
+				{
+					return Boolean.TRUE;
+				}
 				case L2Zone.FLAG_PEACE:
 				{
 					return Boolean.FALSE;
@@ -138,6 +154,12 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 		}
 		else
 			return false;
+	}
+	
+	@Override
+	public void playerRevived(L2PcInstance player)
+	{
+		AutomatedTvT.getInstance().recover(player);
 	}
 	
 	@Override

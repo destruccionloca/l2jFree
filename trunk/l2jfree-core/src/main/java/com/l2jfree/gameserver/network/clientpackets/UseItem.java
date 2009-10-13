@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
-import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
@@ -203,11 +203,8 @@ public final class UseItem extends L2GameClientPacket
 			return;
 		}
 
-		if (AutomatedTvT.isPlaying(activeChar) && !AutomatedTvT.canUse(itemId))
-		{
-			requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		if (!GlobalRestrictions.canUseItemHandler(null, itemId, activeChar, item))
 			return;
-		}
 
 		// Char cannot use item when dead
 		if (activeChar.isDead())

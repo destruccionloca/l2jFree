@@ -174,6 +174,10 @@ abstract class AbstractFunEventRestriction extends AbstractRestriction
 		{
 			switch (zone)
 			{
+				case L2Zone.FLAG_NOSUMMON:
+				{
+					return Boolean.TRUE;
+				}
 				case L2Zone.FLAG_PEACE:
 				{
 					return Boolean.FALSE;

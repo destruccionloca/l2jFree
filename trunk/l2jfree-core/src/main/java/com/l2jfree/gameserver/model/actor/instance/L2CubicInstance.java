@@ -31,8 +31,8 @@ import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
@@ -327,19 +327,6 @@ public class L2CubicInstance
 			if (ownerTarget == null)
 				return;
 
-			// TvT event targeting
-			if (TvT._started && _owner._inEventTvT)
-			{
-				if (ownerTarget.getActingPlayer() != null)
-				{
-					L2PcInstance target = ownerTarget.getActingPlayer();
-					if (!(target._teamNameTvT.equals(_owner._teamNameTvT)) && !target.isDead())
-					{
-						_target = (L2Character) ownerTarget;
-					}
-				}
-				return;
-			}
 			// Duel targeting
 			if (_owner.isInDuel())
 			{
@@ -484,6 +471,16 @@ public class L2CubicInstance
 						if (!enemy.isVisible())
 							targetIt = false;
 
+						switch (GlobalRestrictions.getCombatState(_owner, enemy))
+						{
+							case ENEMY:
+								targetIt = true;
+								break;
+							case FRIEND:
+								targetIt = false;
+								break;
+						}
+						
 						if (targetIt)
 						{
 							_target = enemy;

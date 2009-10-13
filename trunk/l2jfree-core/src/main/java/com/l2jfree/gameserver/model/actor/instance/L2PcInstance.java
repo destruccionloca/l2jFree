@@ -3836,8 +3836,7 @@ public final class L2PcInstance extends L2Playable
 			else
 			{
 				// Check if this L2PcInstance is autoAttackable
-				if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started)
-						|| (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) && !isGM() || (player._inEventTvTi && !player._joiningTvTi))
+				if (isAutoAttackable(player))
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
 					// And a cursed weapon holder  can't attack players with lvl < 21
@@ -4796,16 +4795,6 @@ public final class L2PcInstance extends L2Playable
 		return true;
 	}
 
-	public void removeCTFFlagOnDie()
-	{
-		CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
-		CTF.spawnFlag(_teamNameHaveFlagCTF);
-		CTF.removeFlagFromPlayer(this);
-		broadcastUserInfo();
-		_haveFlagCTF = false;
-		CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
-	}
-
 	/** UnEnquip on skills with disarm effect **/
 	public void onDisarm(L2PcInstance target)
 	{
@@ -4814,10 +4803,9 @@ public final class L2PcInstance extends L2Playable
 
 	private void onDieDropItem(L2Character killer)
 	{
-		if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP)
-				||  _inEventTvTi || killer == null)
+		if (atEvent || killer == null)
 			return;
-
+		
 		L2PcInstance pk = killer.getActingPlayer();
 		if (pk != null && getKarma() <= 0 && pk.getClan() != null && getClan() != null
 				&& (pk.getClan().isAtWarWith(getClanId())
@@ -4946,8 +4934,6 @@ public final class L2PcInstance extends L2Playable
 			return;
 		if (!(target instanceof L2Playable))
 			return;
-		if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM || _inEventTvTi)
-			return;
 
 		L2PcInstance targetPlayer = target.getActingPlayer();
 
@@ -4975,9 +4961,6 @@ public final class L2PcInstance extends L2Playable
 
 		// If in Arena, do nothing
 		if (isInsideZone(L2Zone.FLAG_PVP))
-			return;
-
-		if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(targetPlayer))
 			return;
 
 		// Check if it's pvp
@@ -5069,9 +5052,6 @@ public final class L2PcInstance extends L2Playable
 	 */
 	private void increasePvpKills()
 	{
-		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
-			return;
-
 		// Add karma to attacker and increase its PK counter
 		setPvpKills(getPvpKills() + 1);
 
@@ -5087,9 +5067,6 @@ public final class L2PcInstance extends L2Playable
 	 */
 	private void increasePkKillsAndKarma(int targLVL, boolean increasePk)
 	{
-		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || _inEventTvTi)
-			return;
-
 		int baseKarma = (int)(Config.KARMA_MIN_KARMA * Config.KARMA_RATE);
 		int newKarma = baseKarma;
 		int karmaLimit = (int)(Config.KARMA_MAX_KARMA * Config.KARMA_RATE);
@@ -5257,11 +5234,9 @@ public final class L2PcInstance extends L2Playable
 
 	public void updatePvPStatus()
 	{
-		if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started) || _inEventTvTi)
-			return;
-
 		if (isInsideZone(L2Zone.FLAG_PVP))
 			return;
+		
 		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
 
 		if (getPvpFlag() == 0)
@@ -5274,12 +5249,7 @@ public final class L2PcInstance extends L2Playable
 
 		if (player_target == null)
 			return;
-		if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM)
-				|| (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP) || (_inEventTvTi && player_target._inEventTvTi))
-			return;
-		if (AutomatedTvT.isPlaying(this) && AutomatedTvT.isPlaying(player_target))
-			return;
-
+		
 		if ((isInDuel() && player_target.getDuelId() == getDuelId()))
 			return;
 		if ((!isInsideZone(L2Zone.FLAG_PVP) || !player_target.isInsideZone(L2Zone.FLAG_PVP)) && player_target.getKarma() == 0)
@@ -5397,17 +5367,13 @@ public final class L2PcInstance extends L2Playable
 
 		// Calculate the Experience loss
 		long lostExp = 0;
-		if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started) && !_inEventTvTi)
+		if (!atEvent)
 		{
 			if (lvl < Experience.MAX_LEVEL)
 				lostExp = Math.round((getStat().getExpForLevel(lvl + 1) - getStat().getExpForLevel(lvl)) * percentLost / 100);
 			else
 				lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost / 100);
 		}
-
-
-		// Get the Experience before applying penalty
-		setExpBeforeDeath(getExp());
 
 		if (charmOfCourage && isInSiege())
 			return;
@@ -5419,6 +5385,9 @@ public final class L2PcInstance extends L2Playable
 		if (_log.isDebugEnabled())
 			_log.debug(getName() + " died and lost " + lostExp + " experience.");
 
+		// Get the Experience before applying penalty
+		setExpBeforeDeath(getExp());
+		
 		// Set the new Experience value of the L2PcInstance
 		getStat().addExp(-lostExp);
 	}
@@ -8003,6 +7972,14 @@ public final class L2PcInstance extends L2Playable
 		if (attacker instanceof L2MonsterInstance)
 			return true;
 
+		switch (GlobalRestrictions.getCombatState(L2Object.getActingPlayer(attacker), this))
+		{
+			case ENEMY:
+				return true;
+			case FRIEND:
+				return false;
+		}
+		
 		// Check if the attacker is not in the same party
 		if (getParty() != null && getParty().getPartyMembers().contains(attacker))
 			return false;
@@ -8497,16 +8474,13 @@ public final class L2PcInstance extends L2Playable
 			// Check if the target is attackable
 			if (!target.isAttackable() && (getAccessLevel() < Config.GM_PEACEATTACK))
 			{
-				if (!isInFunEvent() || !target.isInFunEvent())
-				{
-					// If target is not attackable, send a Server->Client packet ActionFailed
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return false;
-				}
+				// If target is not attackable, send a Server->Client packet ActionFailed
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
 			}
 
 			// Check if a Forced ATTACK is in progress on non-attackable target
-			if (!target.isAutoAttackable(this) && !forceUse && !isInFunEvent())
+			if (!target.isAutoAttackable(this) && !forceUse)
 			{
 				switch (sklTargetType)
 				{
@@ -8616,15 +8590,12 @@ public final class L2PcInstance extends L2Playable
 		default:
 			if (!checkPvpSkill(target, skill) && (getAccessLevel() < Config.GM_PEACEATTACK))
 			{
-				if (!isInFunEvent() || !target.isInFunEvent())
-				{
-					// Send a System Message to the L2PcInstance
-					sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-
-					// Send a Server->Client packet ActionFailed to the L2PcInstance
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return false;
-				}
+				// Send a System Message to the L2PcInstance
+				sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+				
+				// Send a Server->Client packet ActionFailed to the L2PcInstance
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
 			}
 		}
 
@@ -14369,12 +14340,6 @@ public final class L2PcInstance extends L2Playable
 		if (inObserverMode())
 		{
 			sendMessage("You can't teleport during Observation Mode.");
-			return false;
-		}
-
-		if (AutomatedTvT.isPlaying(this))
-		{
-			sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			return false;
 		}
 

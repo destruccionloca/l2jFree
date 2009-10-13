@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.CCHManager;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -32,8 +31,8 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
-import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 
 public class RequestRestartPoint extends L2GameClientPacket
@@ -229,7 +228,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			sendAF();
 			return;
 		}
-		else if (AutomatedTvT.isPlaying(activeChar) && !Config.AUTO_TVT_REVIVE_SELF)
+		else if (!GlobalRestrictions.canRequestRevive(activeChar))
 		{
 			sendAF();
 			return;

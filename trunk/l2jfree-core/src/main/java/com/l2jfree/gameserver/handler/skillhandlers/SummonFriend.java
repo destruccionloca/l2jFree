@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
-import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -58,8 +57,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON) || summonerChar.isFlyingMounted()
-				|| AutomatedTvT.isPlaying(summonerChar))
+		if (summonerChar.isInsideZone(L2Zone.FLAG_NOSUMMON) || summonerChar.isFlyingMounted())
 		{
 			summonerChar.sendPacket(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
 			return false;
@@ -125,8 +123,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (targetChar.isInsideZone(L2Zone.FLAG_NOSUMMON) ||
-				AutomatedTvT.isPlaying(targetChar))
+		if (targetChar.isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.C1_IN_SUMMON_BLOCKING_AREA);
 			sm.addString(targetChar.getName());
