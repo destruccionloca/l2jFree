@@ -166,12 +166,13 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.entity.events.AbstractFunEventPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.AbstractFunEventPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.entity.events.TvT.TvTPlayerInfo;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
@@ -675,11 +676,6 @@ public final class L2PcInstance extends L2Playable
 
 	/** Total amount of damage dealt during a olympiad fight */
 	private int								_olyDamage				= 0;
-
-	/** TvT Engine parameters */
-	public String							_teamNameTvT;
-	public int								_originalNameColorTvT, _countTvTkills, _countTvTdies, _originalKarmaTvT;
-	public boolean							_inEventTvT				= false;
 
 	/** TvT Instanced Engine parameters */
 	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
@@ -3888,7 +3884,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInFunEvent()
 	{
-		return ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
+		return ((TvT._started && isInEvent(TvTPlayerInfo.class)) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
 	}
 
 	/**
@@ -14884,6 +14880,11 @@ public final class L2PcInstance extends L2Playable
 	
 	public <T extends AbstractFunEventPlayerInfo> T as(Class<T> clazz)
 	{
-		return clazz.cast(_playerInfoForEvents);
+		final AbstractFunEventPlayerInfo info = _playerInfoForEvents;
+		
+		if (clazz.isInstance(info))
+			return clazz.cast(info);
+		else
+			throw new IllegalStateException();
 	}
 }

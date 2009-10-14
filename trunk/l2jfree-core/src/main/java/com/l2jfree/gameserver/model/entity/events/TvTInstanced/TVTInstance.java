@@ -489,7 +489,7 @@ public class TVTInstance
 				if (player != null)
 				{
 					player._joiningTvTi = false;
-					player._inEventTvT = false;
+					player._inEventTvTi = false;
 				}
 			if (!t.getPlayers().isEmpty())
 				t.getPlayers().clear();

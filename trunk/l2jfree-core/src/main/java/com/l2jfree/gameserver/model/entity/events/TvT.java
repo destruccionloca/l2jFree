@@ -60,6 +60,21 @@ public class TvT
 		TvTRestriction.getInstance().activate();
 	}
 	
+	public static final class TvTPlayerInfo extends AbstractFunEventPlayerInfo
+	{
+		/** TvT Engine parameters */
+		public String _teamNameTvT;
+		public int _originalNameColorTvT;
+		public int _countTvTkills;
+		public int _countTvTdies;
+		public int _originalKarmaTvT;
+		
+		private TvTPlayerInfo(L2PcInstance player)
+		{
+			super(player);
+		}
+	}
+	
 	private final static Log			_log					= LogFactory.getLog(TvT.class);
 	public static String				_eventName				= "";
 	public static String				_eventDesc				= "";
@@ -127,23 +142,28 @@ public class TvT
 		if (playerToKick == null)
 			return;
 		
+		final TvTPlayerInfo info = playerToKick.getPlayerInfo(TvTPlayerInfo.class);
+		
+		if (info == null)
+			return;
+		
 		if (_joining)
 		{
 			_playersShuffle.remove(playerToKick);
 			_players.remove(playerToKick);
-			playerToKick._inEventTvT = false;
-			playerToKick._teamNameTvT = "";
-			playerToKick._countTvTkills = 0;
+			playerToKick.setPlayerInfo(null);
+			info._teamNameTvT = "";
+			info._countTvTkills = 0;
 		}
 		if (_started || _teleport)
 		{
 			_playersShuffle.remove(playerToKick);
-			playerToKick._inEventTvT = false;
+			playerToKick.setPlayerInfo(null);
 			removePlayer(playerToKick);
 			if (playerToKick.isOnline() != 0)
 			{
-				playerToKick.getAppearance().setNameColor(playerToKick._originalNameColorTvT);
-				playerToKick.setKarma(playerToKick._originalKarmaTvT);
+				playerToKick.getAppearance().setNameColor(info._originalNameColorTvT);
+				playerToKick.setKarma(info._originalKarmaTvT);
 				playerToKick.getAppearance().setVisibleTitle(null);
 				playerToKick.broadcastUserInfo();
 				playerToKick.sendMessage("You have been kicked from the TvT.");
@@ -467,10 +487,12 @@ public class TvT
 							L2Party party = player.getParty();
 							party.removePartyMember(player);
 						}
-
-						player.getAppearance().setVisibleTitle("Kills: " + player._countTvTkills);
-						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ
-								.get(_teams.indexOf(player._teamNameTvT)));
+						
+						final TvTPlayerInfo info = player.as(TvTPlayerInfo.class);
+						
+						player.getAppearance().setVisibleTitle("Kills: " + info._countTvTkills);
+						player.teleToLocation(_teamsX.get(_teams.indexOf(info._teamNameTvT)), _teamsY.get(_teams.indexOf(info._teamNameTvT)), _teamsZ
+								.get(_teams.indexOf(info._teamNameTvT)));
 					}
 				}
 			}
@@ -532,9 +554,12 @@ public class TvT
 							L2Party party = player.getParty();
 							party.removePartyMember(player);
 						}
-						player.getAppearance().setVisibleTitle("Kills: " + player._countTvTkills);
-						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ
-								.get(_teams.indexOf(player._teamNameTvT)));
+						
+						final TvTPlayerInfo info = player.as(TvTPlayerInfo.class);
+						
+						player.getAppearance().setVisibleTitle("Kills: " + info._countTvTkills);
+						player.teleToLocation(_teamsX.get(_teams.indexOf(info._teamNameTvT)), _teamsY.get(_teams.indexOf(info._teamNameTvT)), _teamsZ
+								.get(_teams.indexOf(info._teamNameTvT)));
 					}
 				}
 			}
@@ -728,11 +753,11 @@ public class TvT
 			int playerToAddIndex = Rnd.nextInt(_playersShuffle.size());
 			L2PcInstance player = null;
 			player = _playersShuffle.get(playerToAddIndex);
-			player._originalNameColorTvT = player.getAppearance().getNameColor();
-			player._originalKarmaTvT = player.getKarma();
+			player.as(TvTPlayerInfo.class)._originalNameColorTvT = player.getAppearance().getNameColor();
+			player.as(TvTPlayerInfo.class)._originalKarmaTvT = player.getKarma();
 
 			_players.add(player);
-			_players.get(playersCount)._teamNameTvT = _teams.get(teamCount);
+			_players.get(playersCount).as(TvTPlayerInfo.class)._teamNameTvT = _teams.get(teamCount);
 			_savePlayers.add(_players.get(playersCount).getName());
 			_savePlayerTeams.add(_teams.get(teamCount));
 			playersCount++;
@@ -750,7 +775,7 @@ public class TvT
 	{
 		for (L2PcInstance player : _players)
 		{
-			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player.as(TvTPlayerInfo.class)._teamNameTvT)));
 			player.setKarma(0);
 			player.broadcastUserInfo();
 		}
@@ -798,11 +823,11 @@ public class TvT
 		{
 			if (player != null)
 			{
-				if (!player._teamNameTvT.equals(teamName))
+				if (!player.as(TvTPlayerInfo.class)._teamNameTvT.equals(teamName))
 				{
 					player.broadcastPacket(new SocialAction(player.getObjectId(), 7));
 				}
-				else if (player._teamNameTvT.equals(teamName))
+				else if (player.as(TvTPlayerInfo.class)._teamNameTvT.equals(teamName))
 				{
 					player.broadcastPacket(new SocialAction(player.getObjectId(), 3));
 				}
@@ -831,9 +856,9 @@ public class TvT
 	{
 		for (L2PcInstance player : _players)
 		{
-			if (player != null && player.isOnline() != 0 && player._inEventTvT)
+			if (player != null && player.isOnline() != 0 && player.isInEvent(TvTPlayerInfo.class))
 			{
-				if (player._teamNameTvT.equals(teamName) && (player._countTvTkills > 0 || Config.TVT_PRICE_NO_KILLS))
+				if (player.as(TvTPlayerInfo.class)._teamNameTvT.equals(teamName) && (player.as(TvTPlayerInfo.class)._countTvTkills > 0 || Config.TVT_PRICE_NO_KILLS))
 				{
 					player.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, true, true);
 
@@ -965,7 +990,7 @@ public class TvT
 		for (L2PcInstance player : _players)
 		{
 			if (player != null)
-				_log.info("Name: " + player.getName() + "   Team: " + player._teamNameTvT + "  Kills Done:" + player._countTvTkills);
+				_log.info("Name: " + player.getName() + "   Team: " + player.as(TvTPlayerInfo.class)._teamNameTvT + "  Kills Done:" + player.as(TvTPlayerInfo.class)._countTvTkills);
 		}
 
 		_log.info("");
@@ -1185,7 +1210,7 @@ public class TvT
 				if (_players.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
 				{
 					if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
-						replyMSG.append("You are already participating in team <font color=\"LEVEL\">" + eventPlayer._teamNameTvT + "</font><br><br>");
+						replyMSG.append("You are already participating in team <font color=\"LEVEL\">" + eventPlayer.as(TvTPlayerInfo.class)._teamNameTvT + "</font><br><br>");
 					else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 						replyMSG.append("You are already participating!<br><br>");
 
@@ -1269,17 +1294,18 @@ public class TvT
 		if (!addPlayerOk(teamName, player))
 			return;
 
+		final TvTPlayerInfo info = new TvTPlayerInfo(player);
+		player.setPlayerInfo(info);
 		if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
 		{
-			player._teamNameTvT = teamName;
+			info._teamNameTvT = teamName;
 			_players.add(player);
 			setTeamPlayersCount(teamName, teamPlayersCount(teamName) + 1);
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 			_playersShuffle.add(player);
 
-		player._inEventTvT = true;
-		player._countTvTkills = 0;
+		info._countTvTkills = 0;
 	}
 
 	public static void removeOfflinePlayers()
@@ -1314,22 +1340,13 @@ public class TvT
 				if (player == null || player.isOnline() == 0)
 				{
 					_playersShuffle.remove(player);
-					eventPlayer._inEventTvT = false;
+					//eventPlayer._inEventTvT = false;
 					continue;
 				}
 				else if (player.getObjectId() == eventPlayer.getObjectId())
 				{
-					eventPlayer._inEventTvT = true;
-					eventPlayer._countTvTkills = 0;
-					return true;
-				}
-				//this 1 is incase player got new objectid after DC or reconnect
-				else if (player.getName().equals(eventPlayer.getName()))
-				{
-					_playersShuffle.remove(player);
-					_playersShuffle.add(eventPlayer);
-					eventPlayer._inEventTvT = true;
-					eventPlayer._countTvTkills = 0;
+					eventPlayer.setPlayerInfo(player.as(TvTPlayerInfo.class))
+					eventPlayer.as(TvTPlayerInfo.class)._countTvTkills = 0;
 					return true;
 				}
 			}
@@ -1351,7 +1368,7 @@ public class TvT
 		
 		try
 		{
-			if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventTvT)
+			if (checkShufflePlayers(eventPlayer) || eventPlayer.isInEvent(TvTPlayerInfo.class))
 			{
 				eventPlayer.sendMessage("You are already participating in the event!");
 				return false;
@@ -1451,7 +1468,9 @@ public class TvT
 				player.stopAllEffects();
 			}
 
-			player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
+			final TvTPlayerInfo info = new TvTPlayerInfo(player);
+			player.setPlayerInfo(info);
+			info._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
 			for (L2PcInstance p : _players)
 			{
 				if (p == null)
@@ -1461,42 +1480,43 @@ public class TvT
 				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					player._originalNameColorTvT = player.getAppearance().getNameColor();
-					player._originalKarmaTvT = player.getKarma();
-					player._inEventTvT = true;
-					player._countTvTkills = p._countTvTkills;
+					info._originalNameColorTvT = player.getAppearance().getNameColor();
+					info._originalKarmaTvT = player.getKarma();
+					info._countTvTkills = p.as(TvTPlayerInfo.class)._countTvTkills;
 					_players.remove(p); //removing old object id from vector
 					_players.add(player); //adding new objectId to vector
 					break;
 				}
 			}
 
-			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(info._teamNameTvT)));
 			player.setKarma(0);
 			player.broadcastUserInfo();
-			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams
-					.indexOf(player._teamNameTvT)));
+			player.teleToLocation(_teamsX.get(_teams.indexOf(info._teamNameTvT)), _teamsY.get(_teams.indexOf(info._teamNameTvT)), _teamsZ.get(_teams
+					.indexOf(info._teamNameTvT)));
 		}
 	}
 
 	public static void removePlayer(L2PcInstance player)
 	{
-		if (player._inEventTvT)
+		final TvTPlayerInfo info = player.getPlayerInfo(TvTPlayerInfo.class);
+		
+		if (info != null)
 		{
 			if (!_joining)
 			{
-				player.getAppearance().setNameColor(player._originalNameColorTvT);
+				player.getAppearance().setNameColor(info._originalNameColorTvT);
 				player.getAppearance().setVisibleTitle(null);
-				player.setKarma(player._originalKarmaTvT);
+				player.setKarma(info._originalKarmaTvT);
 				player.broadcastUserInfo();
 			}
-			player._teamNameTvT = "";
-			player._countTvTkills = 0;
-			player._inEventTvT = false;
+			info._teamNameTvT = "";
+			info._countTvTkills = 0;
+			player.setPlayerInfo(null);
 
 			if ((Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")) && _players.contains(player))
 			{
-				setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT) - 1);
+				setTeamPlayersCount(info._teamNameTvT, teamPlayersCount(info._teamNameTvT) - 1);
 				_players.remove(player);
 			}
 			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
@@ -1514,7 +1534,7 @@ public class TvT
 				removePlayer(player);
 				if (_savePlayers.contains(player.getName()))
 					_savePlayers.remove(player.getName());
-				player._inEventTvT = false;
+				player.setPlayerInfo(null);
 			}
 		}
 		if (_playersShuffle != null && !_playersShuffle.isEmpty())
@@ -1522,7 +1542,7 @@ public class TvT
 			for (L2PcInstance player : _playersShuffle)
 			{
 				if (player != null)
-					player._inEventTvT = false;
+					player.setPlayerInfo(null);
 			}
 		}
 		_log.info("TvT : Cleaning teams.");

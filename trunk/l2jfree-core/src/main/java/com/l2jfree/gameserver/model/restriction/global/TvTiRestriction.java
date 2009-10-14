@@ -110,7 +110,7 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
-		if (!target._inEventTvT)
+		if (!target._inEventTvTi)
 			return false;
 		
 		if (killer == null || !killer._inEventTvTi || !target._inEventTvTi)

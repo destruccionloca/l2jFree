@@ -1891,7 +1891,7 @@ public class CTF
 				eventPlayer.sendMessage("You are already participating in the event!");
 				return false;
 			}
-			if (eventPlayer._inEventTvT || eventPlayer._inEventDM || eventPlayer._inEventVIP)
+			if (eventPlayer._inEventDM || eventPlayer._inEventVIP)
 			{
 				eventPlayer.sendMessage("You are already participating in another event!");
 				return false;

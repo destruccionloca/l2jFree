@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
+import com.l2jfree.gameserver.model.entity.events.TvT.TvTPlayerInfo;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 
 /**
@@ -86,19 +87,19 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 	@Override
 	boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2)
 	{
-		return participant1._teamNameTvT.equals(participant2._teamNameTvT);
+		return participant1.as(TvTPlayerInfo.class)._teamNameTvT.equals(participant2.as(TvTPlayerInfo.class)._teamNameTvT);
 	}
 	
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
-		return player._inEventTvT;
+		return player.isInEvent(TvTPlayerInfo.class);
 	}
 	
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
-		if (activeChar._inEventTvT && TvT._maxlvl == activeChar.getLevel() && !TvT._started)
+		if (activeChar.isInEvent(TvTPlayerInfo.class) && TvT._maxlvl == activeChar.getLevel() && !TvT._started)
 		{
 			TvT.removePlayer(activeChar);
 			
@@ -116,21 +117,25 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
-		if (!target._inEventTvT)
+		final TvTPlayerInfo targetInfo = target.getPlayerInfo(TvTPlayerInfo.class);
+		
+		if (targetInfo == null)
 			return false;
 		
 		if (TvT._teleport || TvT._started)
 		{
-			if (killer != null && killer._inEventTvT)
+			if (killer != null && killer.isInEvent(TvTPlayerInfo.class))
 			{
-				if (!(killer._teamNameTvT.equals(target._teamNameTvT)))
+				final TvTPlayerInfo killerInfo = target.getPlayerInfo(TvTPlayerInfo.class);
+				
+				if (!(killerInfo._teamNameTvT.equals(targetInfo._teamNameTvT)))
 				{
-					target._countTvTdies++;
-					killer._countTvTkills++;
-					killer.getAppearance().setVisibleTitle("Kills: " + killer._countTvTkills);
+					targetInfo._countTvTdies++;
+					killerInfo._countTvTkills++;
+					killer.getAppearance().setVisibleTitle("Kills: " + killerInfo._countTvTkills);
 					killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target
 							.getX(), target.getY(), target.getZ()));
-					TvT.setTeamKillsCount(killer._teamNameTvT, TvT.teamKillsCount(killer._teamNameTvT) + 1);
+					TvT.setTeamKillsCount(killerInfo._teamNameTvT, TvT.teamKillsCount(killerInfo._teamNameTvT) + 1);
 				}
 				else
 				{
@@ -144,7 +149,7 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 						killer.setDeathPenaltyBuffLevel(killer.getDeathPenaltyBuffLevel() + 4);
 						killer.increaseDeathPenaltyBuffLevel();
 					}
-					TvT.setTeamKillsCount(target._teamNameTvT, TvT.teamKillsCount(target._teamNameTvT) - 1);
+					TvT.setTeamKillsCount(targetInfo._teamNameTvT, TvT.teamKillsCount(targetInfo._teamNameTvT) - 1);
 				}
 			}
 			
@@ -154,9 +159,9 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 				public void run()
 				{
-					int x = TvT._teamsX.get(TvT._teams.indexOf(target._teamNameTvT));
-					int y = TvT._teamsY.get(TvT._teams.indexOf(target._teamNameTvT));
-					int z = TvT._teamsZ.get(TvT._teams.indexOf(target._teamNameTvT));
+					int x = TvT._teamsX.get(TvT._teams.indexOf(targetInfo._teamNameTvT));
+					int y = TvT._teamsY.get(TvT._teams.indexOf(targetInfo._teamNameTvT));
+					int z = TvT._teamsZ.get(TvT._teams.indexOf(targetInfo._teamNameTvT));
 					
 					target.teleToLocation(x, y, z, false);
 					target.doRevive();
