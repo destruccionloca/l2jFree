@@ -7455,7 +7455,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			int skillid = skill.getId();
 
-			if (isTransformed() && containsAllowedTransformSkill(skillid))
+			if (getTransformation() != null && containsAllowedTransformSkill(skillid))
 				continue;
 			// Loop through all skills in players skilltree
 			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
@@ -13242,17 +13242,17 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
-
+	
 	public boolean isTransformed()
 	{
-        return _transformation != null && !_transformation.isStance();
-    }
-
-    public boolean isInStance()
-    {
-    	return _transformation != null && _transformation.isStance();
-    }
-
+		return _transformation != null && !_transformation.isStance();
+	}
+	
+	public boolean isInStance()
+	{
+		return _transformation != null && _transformation.isStance();
+	}
+	
 	public void transform(L2Transformation transformation)
 	{
 		if (_transformation != null)

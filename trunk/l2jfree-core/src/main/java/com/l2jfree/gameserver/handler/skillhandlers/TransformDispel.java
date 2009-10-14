@@ -39,7 +39,7 @@ public class TransformDispel implements ISkillHandler
 		if (pc.isAlikeDead() || pc.isCursedWeaponEquipped())
 			return;
 		
-		if (pc.isTransformed() || pc.isInStance())
+		if (pc.getTransformation() != null)
 		{
 			if (pc.isFlyingMounted() && !pc.isInsideZone(L2Zone.FLAG_LANDING))
 				pc.sendPacket(SystemMessageId.BOARD_OR_CANCEL_NOT_POSSIBLE_HERE);

@@ -62,7 +62,7 @@ public class AdminRide implements IAdminCommandHandler
 			}
 			else if (command.startsWith("admin_ride_horse")) // handled using transformation
 			{
-				if (activeChar.isTransformed() || activeChar.isInStance())
+				if (activeChar.getTransformation() != null)
 					activeChar.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_TRANSFORMED);
 				else
 					 TransformationManager.getInstance().transformPlayer(106, activeChar);

@@ -82,7 +82,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 						}
 						else
 						{
-							if (cha.isTransformed() || cha.isInStance())
+							if (cha.getTransformation() != null)
 								cha.stopTransformation(true);
 							
 							if (!TransformationManager.getInstance().transformPlayer(id, cha))

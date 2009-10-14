@@ -281,7 +281,7 @@ public class CursedWeapon
 		if (_transformId == 0)
 			return;
 
-		if (_player.isTransformed() || _player.isInStance())
+		if (_player.getTransformation() != null)
 		{
 			_player.stopTransformation(true);
 
