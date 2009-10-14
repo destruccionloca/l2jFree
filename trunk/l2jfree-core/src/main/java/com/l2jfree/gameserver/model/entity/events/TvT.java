@@ -1345,7 +1345,7 @@ public class TvT
 				}
 				else if (player.getObjectId() == eventPlayer.getObjectId())
 				{
-					eventPlayer.setPlayerInfo(player.as(TvTPlayerInfo.class))
+					eventPlayer.setPlayerInfo(player.as(TvTPlayerInfo.class));
 					eventPlayer.as(TvTPlayerInfo.class)._countTvTkills = 0;
 					return true;
 				}
