@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.DM;
+import com.l2jfree.gameserver.model.entity.events.DM.DMPlayerInfo;
 
 /**
  * @author NB4L1
@@ -79,13 +80,13 @@ public final class DMRestriction extends AbstractFunEventRestriction
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
-		return player._inEventDM;
+		return player.isInEvent(DMPlayerInfo.class);
 	}
 	
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
-		if (activeChar._inEventDM && DM._maxlvl == activeChar.getLevel() && !DM._started)
+		if (activeChar.isInEvent(DMPlayerInfo.class) && DM._maxlvl == activeChar.getLevel() && !DM._started)
 		{
 			DM.removePlayer(activeChar);
 			
@@ -103,13 +104,15 @@ public final class DMRestriction extends AbstractFunEventRestriction
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
-		if (!target._inEventDM)
+		final DMPlayerInfo targetInfo = target.getPlayerInfo(DMPlayerInfo.class);
+		
+		if (targetInfo == null)
 			return false;
 		
 		if (DM._teleport || DM._started)
 		{
-			if (killer != null && killer._inEventDM)
-				killer._countDMkills++;
+			if (killer != null && killer.isInEvent(DMPlayerInfo.class))
+				killer.as(DMPlayerInfo.class)._countDMkills++;
 			
 			target.sendMessage("You will be revived and teleported to spot in " + Config.DM_REVIVE_DELAY / 1000
 					+ " seconds!");

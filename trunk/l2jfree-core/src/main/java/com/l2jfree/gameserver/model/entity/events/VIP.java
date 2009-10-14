@@ -993,11 +993,7 @@ public class VIP
 			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
-		if (activeChar._inEventDM)
-		{
-			activeChar.sendMessage("You are already participating in another event!");
-			return;
-		}
+		
 		activeChar._isVIP = true;
 		_playersVIP.add(activeChar);
 		activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
@@ -1019,11 +1015,7 @@ public class VIP
 			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
-		if (activeChar._inEventDM)
-		{
-			activeChar.sendMessage("You are already participating in another event!");
-			return;
-		}
+		
 		activeChar._isNotVIP = true;
 		_playersNotVIP.add(activeChar);
 		activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();

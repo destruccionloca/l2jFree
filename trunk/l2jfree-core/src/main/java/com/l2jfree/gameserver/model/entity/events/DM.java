@@ -55,6 +55,19 @@ public class DM
 		DMRestriction.getInstance().activate();
 	}
 	
+	public static final class DMPlayerInfo extends AbstractFunEventPlayerInfo
+	{
+		/** DM Engine parameters */
+		public int _originalNameColorDM;
+		public int _countDMkills;
+		public int _originalKarmaDM;
+		
+		private DMPlayerInfo(L2PcInstance player)
+		{
+			super(player);
+		}
+	}
+	
 	private final static Log _log = LogFactory.getLog(DM.class);
 	public static String _eventName = "",
 						 _eventDesc = "",
@@ -238,10 +251,10 @@ public class DM
 	{
 		for (L2PcInstance player : _players)
 		{
-			player._originalNameColorDM = player.getAppearance().getNameColor();
-			player._originalKarmaDM = player.getKarma();
-			player._inEventDM = true;
-			player._countDMkills = 0;
+			final DMPlayerInfo info = player.as(DMPlayerInfo.class);
+			info._originalNameColorDM = player.getAppearance().getNameColor();
+			info._originalKarmaDM = player.getKarma();
+			info._countDMkills = 0;
 			player.getAppearance().setNameColor(_playerColors);
 			player.setKarma(0);
 			player.broadcastUserInfo();
@@ -252,10 +265,11 @@ public class DM
 	{
 		for (L2PcInstance player : _players)
 		{
-			player.getAppearance().setNameColor(player._originalNameColorDM);
-			player.setKarma(player._originalKarmaDM);
-			player._inEventDM = false;
-			player._countDMkills = 0;
+			final DMPlayerInfo info = player.as(DMPlayerInfo.class);
+			player.getAppearance().setNameColor(info._originalNameColorDM);
+			player.setKarma(info._originalKarmaDM);
+			player.setPlayerInfo(null);
+			info._countDMkills = 0;
 			player.broadcastUserInfo();
 		}
 	}
@@ -292,10 +306,10 @@ public class DM
 	{
 		for (L2PcInstance player : _players)
 		{
-			if (player._countDMkills > _topKills)
+			if (player.as(DMPlayerInfo.class)._countDMkills > _topKills)
 			{
 				_topPlayer = player;
-				_topKills = player._countDMkills;
+				_topKills = player.as(DMPlayerInfo.class)._countDMkills;
 			}
 		}
 	}
@@ -411,7 +425,7 @@ public class DM
 		for (L2PcInstance player : _players)
 		{
 			if (player != null)
-				_log.info("Name: " + player.getName()+ " kills :" + player._countDMkills);
+				_log.info("Name: " + player.getName()+ " kills :" + player.as(DMPlayerInfo.class)._countDMkills);
 		}
 		
 		_log.info("");
@@ -600,10 +614,11 @@ public class DM
 		if (!addPlayerOk(player))
 			return;
 		_players.add(player);
-		player._originalNameColorDM = player.getAppearance().getNameColor();
-		player._originalKarmaDM = player.getKarma();
-		player._inEventDM = true;
-		player._countDMkills = 0;
+		final DMPlayerInfo info = new DMPlayerInfo(player);
+		player.setPlayerInfo(info);
+		info._originalNameColorDM = player.getAppearance().getNameColor();
+		info._originalKarmaDM = player.getKarma();
+		info._countDMkills = 0;
 		_savePlayers.add(player.getName());
 		
 	}
@@ -616,7 +631,7 @@ public class DM
 			return false;
 		}
 		
-		if (eventPlayer._inEventDM)
+		if (eventPlayer.isInEvent(DMPlayerInfo.class))
 		{
 			eventPlayer.sendMessage("You are already participating in the event!");
 			return false;
@@ -647,10 +662,11 @@ public class DM
 				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					player._originalNameColorDM = player.getAppearance().getNameColor();
-					player._originalKarmaDM = player.getKarma();
-					player._inEventDM = true;
-					player._countDMkills =p._countDMkills;
+					final DMPlayerInfo info = new DMPlayerInfo(player);
+					player.setPlayerInfo(info);
+					info._originalNameColorDM = player.getAppearance().getNameColor();
+					info._originalKarmaDM = player.getKarma();
+					info._countDMkills = p.as(DMPlayerInfo.class)._countDMkills;
 					_players.remove(p); //removing old object id from vector
 					_players.add(player); //adding new objectId to vector
 					break;
