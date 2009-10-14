@@ -172,6 +172,7 @@ import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.TvT.TvTPlayerInfo;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
@@ -680,12 +681,6 @@ public final class L2PcInstance extends L2Playable
 	/** TvT Instanced Engine parameters */
 	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
 	public boolean							_inEventTvTi			= false, _isSitForcedTvTi = false, _joiningTvTi = false;
-
-	/** CTF Engine parameters */
-	public String							_teamNameCTF, _teamNameHaveFlagCTF;
-	public int								_originalNameColorCTF, _originalKarmaCTF, _countCTFflags;
-	public boolean							_inEventCTF				= false, _haveFlagCTF = false;
-	public Future<?>						_posCheckerCTF			= null;
 
 	/** VIP parameters */
 	public boolean							_isVIP					= false, _inEventVIP = false, _isNotVIP = false, _isTheVIP = false;
@@ -3884,7 +3879,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInFunEvent()
 	{
-		return ((TvT._started && isInEvent(TvTPlayerInfo.class)) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
+		return ((TvT._started && isInEvent(TvTPlayerInfo.class)) || (DM._started && _inEventDM) || (CTF._started && isInEvent(CTFPlayerInfo.class)) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
 	}
 
 	/**
@@ -6129,7 +6124,7 @@ public final class L2PcInstance extends L2Playable
 				sendMessage("Your Wolf needs minimum level " + Config.GREAT_WOLF_MOUNT_LEVEL);
 				return false;
 			}
-			else if (_haveFlagCTF)
+			else if (isInEvent(CTFPlayerInfo.class) && as(CTFPlayerInfo.class)._haveFlagCTF)
 			{
 				// You cannot mount a steed while holding a flag.
 				sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_HOLDING_A_FLAG);

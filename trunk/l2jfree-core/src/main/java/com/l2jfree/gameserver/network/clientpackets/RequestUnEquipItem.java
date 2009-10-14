@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -53,7 +54,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		if (_log.isDebugEnabled())
 			_log.debug("request unequip slot " + _slot);
 
-		if (activeChar._haveFlagCTF)
+		if (activeChar.isInEvent(CTFPlayerInfo.class) && activeChar.as(CTFPlayerInfo.class)._haveFlagCTF)
 		{
 			activeChar.sendMessage("You can't unequip a CTF flag.");
 			sendAF();

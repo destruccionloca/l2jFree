@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model;
 
 import javolution.util.FastList;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
 
@@ -125,30 +124,6 @@ public final class L2Radar
 			if (_z != other._z)
 				return false;
 			return true;
-		}
-	}
-
-	public static class RadarOnPlayer implements Runnable
-	{
-		private final L2PcInstance _myTarget, _me;
-		
-		public RadarOnPlayer(L2PcInstance target, L2PcInstance me)
-		{
-			_me = me;
-			_myTarget = target;
-		}
-		
-		public void run()
-		{
-			if (_me == null || _me.isOnline() == 0)
-				return;
-			
-			_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
-			if (_myTarget == null || _myTarget.isOnline() == 0 || !_myTarget._haveFlagCTF)
-				return;
-			
-			_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
-			ThreadPoolManager.getInstance().scheduleGeneral(this, 15000);
 		}
 	}
 }

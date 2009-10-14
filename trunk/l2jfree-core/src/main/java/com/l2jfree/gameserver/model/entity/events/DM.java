@@ -616,11 +616,6 @@ public class DM
 			return false;
 		}
 		
-		if (eventPlayer._inEventCTF)
-		{
-			eventPlayer.sendMessage("You are already participating to another event!");
-			return false;
-		}
 		if (eventPlayer._inEventDM)
 		{
 			eventPlayer.sendMessage("You are already participating in the event!");

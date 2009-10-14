@@ -993,7 +993,7 @@ public class VIP
 			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
-		if (activeChar._inEventDM || activeChar._inEventCTF)
+		if (activeChar._inEventDM)
 		{
 			activeChar.sendMessage("You are already participating in another event!");
 			return;
@@ -1019,7 +1019,7 @@ public class VIP
 			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
-		if (activeChar._inEventDM || activeChar._inEventCTF)
+		if (activeChar._inEventDM)
 		{
 			activeChar.sendMessage("You are already participating in another event!");
 			return;

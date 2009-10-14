@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.CTF;
+import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
 
 /**
  * @author NB4L1
@@ -85,19 +86,19 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 	@Override
 	boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2)
 	{
-		return participant1._teamNameCTF.equals(participant2._teamNameCTF);
+		return participant1.as(CTFPlayerInfo.class)._teamNameCTF.equals(participant2.as(CTFPlayerInfo.class)._teamNameCTF);
 	}
 	
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
-		return player._inEventCTF;
+		return player.isInEvent(CTFPlayerInfo.class);
 	}
 	
 	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
-		if (activeChar._inEventCTF && CTF._maxlvl == activeChar.getLevel() && !CTF._started)
+		if (activeChar.isInEvent(CTFPlayerInfo.class) && CTF._maxlvl == activeChar.getLevel() && !CTF._started)
 		{
 			CTF.removePlayer(activeChar);
 			
@@ -115,7 +116,9 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
-		if (!target._inEventCTF)
+		final CTFPlayerInfo targetInfo = target.getPlayerInfo(CTFPlayerInfo.class);
+		
+		if (targetInfo == null)
 			return false;
 		
 		if (CTF._teleport || CTF._started)
@@ -123,23 +126,23 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 			target.sendMessage("You will be revived and teleported to team flag in " + Config.CTF_REVIVE_DELAY / 1000
 					+ " seconds!");
 			
-			if (target._haveFlagCTF)
+			if (targetInfo._haveFlagCTF)
 			{
-				CTF._flagsTaken.set(CTF._teams.indexOf(target._teamNameHaveFlagCTF), false);
-				CTF.spawnFlag(target._teamNameHaveFlagCTF);
+				CTF._flagsTaken.set(CTF._teams.indexOf(targetInfo._teamNameHaveFlagCTF), false);
+				CTF.spawnFlag(targetInfo._teamNameHaveFlagCTF);
 				CTF.removeFlagFromPlayer(target);
 				target.broadcastUserInfo();
-				target._haveFlagCTF = false;
-				CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + target._teamNameHaveFlagCTF
+				targetInfo._haveFlagCTF = false;
+				CTF.AnnounceToPlayers(false, CTF._eventName + "(CTF): " + targetInfo._teamNameHaveFlagCTF
 						+ "'s flag returned.");
 			}
 			
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 				public void run()
 				{
-					int x = CTF._teamsX.get(CTF._teams.indexOf(target._teamNameCTF));
-					int y = CTF._teamsY.get(CTF._teams.indexOf(target._teamNameCTF));
-					int z = CTF._teamsZ.get(CTF._teams.indexOf(target._teamNameCTF));
+					int x = CTF._teamsX.get(CTF._teams.indexOf(targetInfo._teamNameCTF));
+					int y = CTF._teamsY.get(CTF._teams.indexOf(targetInfo._teamNameCTF));
+					int z = CTF._teamsZ.get(CTF._teams.indexOf(targetInfo._teamNameCTF));
 					
 					target.teleToLocation(x, y, z, false);
 					target.doRevive();
@@ -181,7 +184,7 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 			CTF.showEventHtml(activeChar, String.valueOf(npc.getObjectId()));
 			return true;
 		}
-		else if (npc._isCTF_Flag && activeChar._inEventCTF)
+		else if (npc._isCTF_Flag && activeChar.isInEvent(CTFPlayerInfo.class))
 		{
 			CTF.showFlagHtml(activeChar, String.valueOf(npc.getObjectId()), npc._CTF_FlagTeamName);
 			return true;
