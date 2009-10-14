@@ -55,6 +55,21 @@ public class VIP
 		VIPRestriction.getInstance().activate();
 	}
 	
+	public static final class VIPPlayerInfo extends AbstractFunEventPlayerInfo
+	{
+		/** VIP parameters */
+		public boolean _isVIP;
+		public boolean _isNotVIP;
+		public boolean _isTheVIP;
+		public int _originalNameColourVIP;
+		public int _originalKarmaVIP;
+		
+		private VIPPlayerInfo(L2PcInstance player)
+		{
+			super(player);
+		}
+	}
+	
 	private final static Log _log = LogFactory.getLog(VIP.class);
 	public static String	_teamName = "", _joinArea = "", _theVIPName = "";
 	
@@ -618,7 +633,7 @@ public class VIP
 			
 			if (!_started)
 				replyMSG.append("<center>Please wait until the admin/gm starts the joining period.</center>");
-			else if (eventPlayer._isTheVIP)
+			else if (eventPlayer.isInEvent(VIPPlayerInfo.class) && eventPlayer.as(VIPPlayerInfo.class)._isTheVIP)
 			{
 				replyMSG.append("You have made it to the end. All you have to do is hit the finish button to reward yourself and your team. Congrats!<br>");
 				replyMSG.append("<center>");
@@ -689,7 +704,7 @@ public class VIP
 		{
 			if (player == null) continue;
 
-			if (!player._isTheVIP)
+			if (!player.as(VIPPlayerInfo.class)._isTheVIP)
 			{
 				player.addItem("VIP Event: ", _vipReward, _vipRewardAmount, player, true, true);
 
@@ -701,7 +716,7 @@ public class VIP
 				nhm.setHtml(replyMSG.toString());
 				player.sendPacket(nhm);
 			}
-			else if (player._isTheVIP)
+			else if (player.as(VIPPlayerInfo.class)._isTheVIP)
 			{
 				player.addItem("VIP Event: ", _theVipReward, _theVipRewardAmount, player, true, true);
 
@@ -753,24 +768,26 @@ public class VIP
 		
 		for (L2PcInstance player : _playersVIP)
 		{
-			player.getAppearance().setNameColor(player._originalNameColourVIP);
-			player.setKarma(player._originalKarmaVIP);
+			final VIPPlayerInfo info = player.as(VIPPlayerInfo.class);
+			player.getAppearance().setNameColor(info._originalNameColourVIP);
+			player.setKarma(info._originalKarmaVIP);
 			player.broadcastUserInfo();
-			player._inEventVIP = false;
-			player._isTheVIP = false;
-			player._isNotVIP = false;
-			player._isVIP = false;
+			player.setPlayerInfo(null);
+			info._isTheVIP = false;
+			info._isNotVIP = false;
+			info._isVIP = false;
 		}
 		
 		for (L2PcInstance player : _playersNotVIP)
 		{
-			player.getAppearance().setNameColor(player._originalNameColourVIP);
-			player.setKarma(player._originalKarmaVIP);
+			final VIPPlayerInfo info = player.as(VIPPlayerInfo.class);
+			player.getAppearance().setNameColor(info._originalNameColourVIP);
+			player.setKarma(info._originalKarmaVIP);
 			player.broadcastUserInfo();
-			player._inEventVIP = false;
-			player._isTheVIP = false;
-			player._isNotVIP = false;
-			player._isVIP = false;
+			player.setPlayerInfo(null);
+			info._isTheVIP = false;
+			info._isNotVIP = false;
+			info._isVIP = false;
 		}
 		_savePlayers = new Vector<String>();
 		_playersVIP = new Vector<L2PcInstance>();
@@ -788,7 +805,7 @@ public class VIP
 		if (_log.isDebugEnabled())_log.debug("Random number chosen in VIP: " + random);
 		
 		L2PcInstance VIP = _playersVIP.get(random);
-		VIP._isTheVIP = true;
+		VIP.as(VIPPlayerInfo.class)._isTheVIP = true;
 		_theVIPName = VIP.getName();
 	}
 
@@ -859,7 +876,7 @@ public class VIP
 	{
 		for (L2PcInstance player : _playersVIP)
 		{
-			if (player._isTheVIP)
+			if (player.as(VIPPlayerInfo.class)._isTheVIP)
 				player.getAppearance().setNameColor(255,255,0);
 			else
 				player.getAppearance().setNameColor(255,0,0);
@@ -988,17 +1005,18 @@ public class VIP
 			return;
 		}
 		
-		if (activeChar._inEventVIP)
+		if (activeChar.isInEvent(VIPPlayerInfo.class))
 		{
 			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
 		
-		activeChar._isVIP = true;
+		final VIPPlayerInfo info = new VIPPlayerInfo(activeChar);
+		activeChar.setPlayerInfo(info);
+		info._isVIP = true;
 		_playersVIP.add(activeChar);
-		activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
-		activeChar._originalKarmaVIP = activeChar.getKarma();
-		activeChar._inEventVIP = true;
+		info._originalNameColourVIP = activeChar.getAppearance().getNameColor();
+		info._originalKarmaVIP = activeChar.getKarma();
 		_savePlayers.add(activeChar.getName());
 	}
 
@@ -1010,17 +1028,18 @@ public class VIP
 			return;
 		}
 		
-		if (activeChar._inEventVIP)
+		if (activeChar.isInEvent(VIPPlayerInfo.class))
 		{
 			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
 		
-		activeChar._isNotVIP = true;
+		final VIPPlayerInfo info = new VIPPlayerInfo(activeChar);
+		activeChar.setPlayerInfo(info);
+		info._isNotVIP = true;
 		_playersNotVIP.add(activeChar);
-		activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
-		activeChar._originalKarmaVIP = activeChar.getKarma();
-		activeChar._inEventVIP = true;
+		info._originalNameColourVIP = activeChar.getAppearance().getNameColor();
+		info._originalKarmaVIP = activeChar.getKarma();
 		_savePlayers.add(activeChar.getName());
 	}
 	
@@ -1042,16 +1061,17 @@ public class VIP
 					//check by name incase player got new objectId
 					else if (p.getName().equals(player.getName()))
 					{
-						player._isVIP = true;
-						player._originalNameColourVIP = player.getAppearance().getNameColor();
-						player._originalKarmaVIP = player.getKarma();
-						player._inEventVIP = true;
+						final VIPPlayerInfo info = new VIPPlayerInfo(player);
+						player.setPlayerInfo(info);
+						info._isVIP = true;
+						info._originalNameColourVIP = player.getAppearance().getNameColor();
+						info._originalKarmaVIP = player.getKarma();
 						_playersVIP.remove(p); //removing old object id from vector
 						_playersVIP.add(player); //adding new objectId to vector
 						if(_theVIPName.equals(player.getName()))
 						{
 							player.getAppearance().setNameColor(255,255,0);
-							player._isTheVIP = true;
+							info._isTheVIP = true;
 						}
 						else
 							player.getAppearance().setNameColor(255,0,0);
@@ -1069,10 +1089,11 @@ public class VIP
 					//check by name incase player got new objectId
 					else if (p.getName().equals(player.getName()))
 					{
-						player._isNotVIP = true;
-						player._originalNameColourVIP = player.getAppearance().getNameColor();
-						player._originalKarmaVIP = player.getKarma();
-						player._inEventVIP = true;
+						final VIPPlayerInfo info = new VIPPlayerInfo(player);
+						player.setPlayerInfo(info);
+						info._isNotVIP = true;
+						info._originalNameColourVIP = player.getAppearance().getNameColor();
+						info._originalKarmaVIP = player.getKarma();
 						_playersNotVIP.remove(p); //removing old object id from vector
 						_playersNotVIP.add(player); //adding new objectId to vector
 						player.getAppearance().setNameColor(0,255,0);

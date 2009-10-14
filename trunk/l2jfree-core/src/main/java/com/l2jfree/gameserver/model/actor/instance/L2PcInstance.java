@@ -175,6 +175,7 @@ import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.DM.DMPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.TvT.TvTPlayerInfo;
+import com.l2jfree.gameserver.model.entity.events.VIP.VIPPlayerInfo;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
@@ -682,10 +683,6 @@ public final class L2PcInstance extends L2Playable
 	/** TvT Instanced Engine parameters */
 	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
 	public boolean							_inEventTvTi			= false, _isSitForcedTvTi = false, _joiningTvTi = false;
-
-	/** VIP parameters */
-	public boolean							_isVIP					= false, _inEventVIP = false, _isNotVIP = false, _isTheVIP = false;
-	public int								_originalNameColourVIP, _originalKarmaVIP;
 
 	public int								_telemode				= 0;
 
@@ -3876,7 +3873,7 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInFunEvent()
 	{
-		return ((TvT._started && isInEvent(TvTPlayerInfo.class)) || (DM._started && isInEvent(DMPlayerInfo.class)) || (CTF._started && isInEvent(CTFPlayerInfo.class)) || (VIP._started && _inEventVIP) && !isGM() || _inEventTvTi);
+		return ((TvT._started && isInEvent(TvTPlayerInfo.class)) || (DM._started && isInEvent(DMPlayerInfo.class)) || (CTF._started && isInEvent(CTFPlayerInfo.class)) || (VIP._started && isInEvent(VIPPlayerInfo.class)) && !isGM() || _inEventTvTi);
 	}
 
 	/**

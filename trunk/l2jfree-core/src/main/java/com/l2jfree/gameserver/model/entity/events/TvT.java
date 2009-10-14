@@ -1373,11 +1373,6 @@ public class TvT
 				eventPlayer.sendMessage("You are already participating in the event!");
 				return false;
 			}
-			if (eventPlayer._inEventVIP)
-			{
-				eventPlayer.sendMessage("You are already participating in another event!");
-				return false;
-			}
 
 			for (L2PcInstance player : _players)
 			{

@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.VIP;
+import com.l2jfree.gameserver.model.entity.events.VIP.VIPPlayerInfo;
 
 /**
  * @author NB4L1
@@ -74,13 +75,16 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 	@Override
 	boolean teamEquals(L2PcInstance participant1, L2PcInstance participant2)
 	{
-		return participant1._isVIP == participant2._isVIP && participant1._isNotVIP == participant2._isNotVIP;
+		final VIPPlayerInfo info1 = participant1.as(VIPPlayerInfo.class);
+		final VIPPlayerInfo info2 = participant2.as(VIPPlayerInfo.class);
+		
+		return info1._isVIP == info2._isVIP && info1._isNotVIP == info2._isNotVIP;
 	}
 	
 	@Override
 	boolean isInFunEvent(L2PcInstance player)
 	{
-		return player._inEventVIP;
+		return player.isInEvent(VIPPlayerInfo.class);
 	}
 	
 	@Override
@@ -99,25 +103,27 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 	@Override
 	public boolean playerKilled(L2Character activeChar, final L2PcInstance target, L2PcInstance killer)
 	{
-		if (!target._inEventVIP)
+		final VIPPlayerInfo targetInfo = target.getPlayerInfo(VIPPlayerInfo.class);
+		
+		if (targetInfo == null)
 			return false;
 		
 		if (killer != null)
 		{
 			if (VIP._started)
 			{
-				if (target._isTheVIP && killer._inEventVIP)
+				if (targetInfo._isTheVIP && killer.isInEvent(VIPPlayerInfo.class))
 				{
 					VIP.vipDied();
 				}
-				else if (target._isTheVIP && !killer._inEventVIP)
+				else if (targetInfo._isTheVIP && !killer.isInEvent(VIPPlayerInfo.class))
 				{
 					Announcements.getInstance().announceToAll(
 							"VIP Killed by non-event character. VIP going back to initial spawn.");
 					target.doRevive();
 					target.teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
 				}
-				else if (target._isTheVIP && killer._isVIP)
+				else if (targetInfo._isTheVIP && killer.as(VIPPlayerInfo.class)._isVIP)
 				{
 					Announcements.getInstance().announceToAll(
 							"VIP Killed by same team player. VIP going back to initial spawn.");
@@ -131,7 +137,7 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 						public void run()
 						{
 							target.doRevive();
-							if (target._isVIP)
+							if (targetInfo._isVIP)
 								target.teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
 							else
 								target.teleToLocation(VIP._endX, VIP._endY, VIP._endZ);

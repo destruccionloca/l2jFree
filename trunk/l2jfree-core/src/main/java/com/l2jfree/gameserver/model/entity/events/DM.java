@@ -636,11 +636,6 @@ public class DM
 			eventPlayer.sendMessage("You are already participating in the event!");
 			return false;
 		}
-		if (eventPlayer._inEventVIP)
-		{
-			eventPlayer.sendMessage("You are already participating to another event!");
-			return false;
-		}
 
 		return true;
 	}
