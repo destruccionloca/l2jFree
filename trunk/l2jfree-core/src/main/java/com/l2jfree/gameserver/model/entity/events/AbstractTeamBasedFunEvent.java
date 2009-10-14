@@ -21,8 +21,8 @@ import javolution.util.FastMap;
 /**
  * @author NB4L1
  */
-public abstract class AbstractTeamBasedFunEvent<Team extends AbstractFunEventTeam<Info>, Info extends AbstractFunEventTeam<Info>.PlayerInfo>
-	extends AbstractFunEvent
+public abstract class AbstractTeamBasedFunEvent<Team extends AbstractFunEventTeam<Info>, Info extends AbstractFunEventPlayerInfo>
+		extends AbstractFunEvent
 {
 	private final Map<String, Team> _teams = new FastMap<String, Team>().setShared(true);
 	

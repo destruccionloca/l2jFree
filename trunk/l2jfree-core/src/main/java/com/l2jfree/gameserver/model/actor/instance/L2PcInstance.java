@@ -169,6 +169,7 @@ import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.entity.events.CTF;
 import com.l2jfree.gameserver.model.entity.events.DM;
+import com.l2jfree.gameserver.model.entity.events.AbstractFunEventPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
@@ -14854,5 +14855,35 @@ public final class L2PcInstance extends L2Playable
 	public long[] getFloodProtectors()
 	{
 		return _floodProtectors;
+	}
+	
+	private AbstractFunEventPlayerInfo _playerInfoForEvents;
+	
+	public <T extends AbstractFunEventPlayerInfo> void setPlayerInfo(T info)
+	{
+		if (_playerInfoForEvents != null && info != null)
+			throw new IllegalStateException();
+		
+		_playerInfoForEvents = info;
+	}
+	
+	public <T extends AbstractFunEventPlayerInfo> T getPlayerInfo(Class<T> clazz)
+	{
+		final AbstractFunEventPlayerInfo info = _playerInfoForEvents;
+		
+		if (clazz.isInstance(info))
+			return clazz.cast(info);
+		else
+			return null;
+	}
+	
+	public <T extends AbstractFunEventPlayerInfo> boolean isInEvent(Class<T> clazz)
+	{
+		return clazz.isInstance(_playerInfoForEvents);
+	}
+	
+	public <T extends AbstractFunEventPlayerInfo> T as(Class<T> clazz)
+	{
+		return clazz.cast(_playerInfoForEvents);
 	}
 }

@@ -27,27 +27,8 @@ import com.l2jfree.util.L2FastSet;
 /**
  * @author NB4L1
  */
-public abstract class AbstractFunEventTeam<Info extends AbstractFunEventTeam<Info>.PlayerInfo>
+public abstract class AbstractFunEventTeam<Info extends AbstractFunEventPlayerInfo>
 {
-	/**
-	 * Used to store extra informations that could be useful later.<br>
-	 * For example original coords, karma, etc to restore it, when the event ends.
-	 */
-	protected abstract class PlayerInfo
-	{
-		private final L2PcInstance _player;
-		
-		protected PlayerInfo(L2PcInstance player)
-		{
-			_player = player;
-		}
-		
-		protected final L2PcInstance getPlayer()
-		{
-			return _player;
-		}
-	}
-	
 	private final String _name;
 	
 	/**
