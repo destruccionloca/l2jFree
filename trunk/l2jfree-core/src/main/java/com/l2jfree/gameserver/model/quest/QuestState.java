@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExShowQuestMark;
+import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.QuestList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -580,6 +581,56 @@ public final class QuestState
 		getPlayer().getInventory().updateInventory(item);
 	}
 
+	public void giveItems(int itemId, long count, byte attributeId, int attributeLevel)
+	{
+		if (count <= 0)
+			return;
+		
+		// Add items to player's inventory
+		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
+		
+		if (item == null)
+			return;
+		
+		// set enchant level for item if that item is not adena
+		if (attributeId >= 0 && attributeLevel > 0)
+		{
+			item.setElementAttr(attributeId, attributeLevel);
+			if (item.isEquipped())
+				item.updateElementAttrBonus(getPlayer());
+			
+			InventoryUpdate iu = new InventoryUpdate();
+			iu.addModifiedItem(item);
+			getPlayer().sendPacket(iu);
+		}
+		
+		// If item for reward is gold, send message of gold reward to client
+		if (itemId == 57)
+		{
+			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
+			smsg.addItemNumber(count);
+			getPlayer().sendPacket(smsg);
+		}
+		// Otherwise, send message of object reward to client
+		else
+		{
+			if (count > 1)
+			{
+				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+				smsg.addItemName(item);
+				smsg.addItemNumber(count);
+				getPlayer().sendPacket(smsg);
+			}
+			else
+			{
+				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1);
+				smsg.addItemName(item);
+				getPlayer().sendPacket(smsg);
+			}
+		}
+		getPlayer().getInventory().updateInventory(item);
+	}
+	
 	/**
 	 * Give reward to the player
 	 * @param itemId
