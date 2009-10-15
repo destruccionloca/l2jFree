@@ -116,8 +116,8 @@
   </skill>
   <skill id="1406" levels="1" name="Summon Feline King">
     <!-- Needs to be verified -->
-    <set name="mpInitialConsume" val="530"/>
-    <set name="mpConsume" val="114"/>
+    <set name="mpInitialConsume" val="30"/> <!-- Guess -->
+    <set name="mpConsume" val="114"/> <!-- Guess -->
     <set name="itemConsumeId" val="1461"/>
     <set name="itemConsumeCount" val="2"/>
     <set name="itemConsumeIdOT" val="1461"/>
@@ -138,8 +138,8 @@
   </skill>
   <skill id="1407" levels="1" name="Summon Magnus the Unicorn">
     <!-- Needs to be verified -->
-    <set name="mpInitialConsume" val="530"/>
-    <set name="mpConsume" val="114"/>
+    <set name="mpInitialConsume" val="30"/> <!-- Guess -->
+    <set name="mpConsume" val="114"/> <!-- Guess -->
     <set name="itemConsumeId" val="1461"/>
     <set name="itemConsumeCount" val="2"/>
     <set name="itemConsumeIdOT" val="1461"/>
@@ -160,8 +160,8 @@
   </skill>
   <skill id="1408" levels="1" name="Summon Spectral Lord">
     <!-- Needs to be verified -->
-    <set name="mpInitialConsume" val="530"/>
-    <set name="mpConsume" val="114"/>
+    <set name="mpInitialConsume" val="30"/> <!-- Guess -->
+    <set name="mpConsume" val="114"/> <!-- Guess -->
     <set name="itemConsumeId" val="1461"/>
     <set name="itemConsumeCount" val="2"/>
     <set name="itemConsumeIdOT" val="1461"/>
@@ -406,7 +406,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="900000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -423,6 +423,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="36"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
     </for>
@@ -431,7 +434,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="900000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -448,6 +451,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="36"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
     </for>
@@ -456,7 +462,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="900000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -473,6 +479,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="36"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
     </for>
@@ -508,7 +517,7 @@
     <set name="target" val="TARGET_GROUND"/>
     <set name="skillType" val="SIGNET_CASTTIME"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="7000"/>
+    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="900000"/>
     <set name="castRange" val="900"/>
     <set name="skillRadius" val="180"/>
@@ -525,6 +534,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="36"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
     </for>
@@ -548,6 +560,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="70"/>
     <set name="mpConsume" val="70"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="6" name="SignetAntiSummon" time="5" val="0"/>
     </for>
@@ -1136,7 +1151,7 @@
     <set name="mpInitialConsume" val="28"/>
     <set name="mpConsume" val="80"/>
     <set name="magicLvl" val="79"/>
-    <set name="power" val="162"/>
+    <set name="power" val="195"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="2000"/>
     <set name="element" val="0"/> <!-- Fire -->
@@ -1180,7 +1195,7 @@
     <set name="mpInitialConsume" val="28"/>
     <set name="mpConsume" val="80"/>
     <set name="magicLvl" val="79"/>
-    <set name="power" val="162"/>
+    <set name="power" val="195"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="2000"/>
     <set name="element" val="1"/> <!-- Water -->
@@ -1242,7 +1257,7 @@
     <set name="mpInitialConsume" val="28"/>
     <set name="mpConsume" val="80"/>
     <set name="magicLvl" val="79"/>
-    <set name="power" val="162"/>
+    <set name="power" val="195"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="2000"/>
     <set name="element" val="2"/> <!-- Wind -->
