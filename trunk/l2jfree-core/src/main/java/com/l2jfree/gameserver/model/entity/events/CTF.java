@@ -1913,6 +1913,10 @@ public class CTF
 					//eventPlayer._inEventCTF = false;
 					continue;
 				}
+				else if (player == eventPlayer)
+				{
+					return true;
+				}
 				else if (player.getObjectId() == eventPlayer.getObjectId())
 				{
 					eventPlayer.setPlayerInfo(player.as(CTFPlayerInfo.class));

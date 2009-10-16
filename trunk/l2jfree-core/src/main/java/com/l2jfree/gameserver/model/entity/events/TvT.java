@@ -1343,6 +1343,10 @@ public class TvT
 					//eventPlayer._inEventTvT = false;
 					continue;
 				}
+				else if (player == eventPlayer)
+				{
+					return true;
+				}
 				else if (player.getObjectId() == eventPlayer.getObjectId())
 				{
 					eventPlayer.setPlayerInfo(player.as(TvTPlayerInfo.class));
