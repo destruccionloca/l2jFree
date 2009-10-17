@@ -126,7 +126,7 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 		{
 			if (killer != null && killer.isInEvent(TvTPlayerInfo.class))
 			{
-				final TvTPlayerInfo killerInfo = target.getPlayerInfo(TvTPlayerInfo.class);
+				final TvTPlayerInfo killerInfo = killer.getPlayerInfo(TvTPlayerInfo.class);
 				
 				if (!(killerInfo._teamNameTvT.equals(targetInfo._teamNameTvT)))
 				{
