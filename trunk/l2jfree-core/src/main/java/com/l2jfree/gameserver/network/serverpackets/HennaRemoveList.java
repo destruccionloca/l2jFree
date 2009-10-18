@@ -17,48 +17,56 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.item.L2Henna;
 
-public final class HennaInfo extends L2GameServerPacket
+public class HennaRemoveList extends L2GameServerPacket
 {
-	private static final String _S__E5_HennaInfo = "[S] E5 HennaInfo";
+	private static final String _S__E2_HennaRemoveList = "[S] ee HennaRemoveList";
 
-	private final L2PcInstance _activeChar;
-	private final L2Henna[] _hennas = new L2Henna[3];
-	private int _count = 0;
+	private L2PcInstance _player;
 
-	public HennaInfo(L2PcInstance player)
+	public HennaRemoveList(L2PcInstance player)
 	{
-		_activeChar = player;
+		_player = player;
+	}
 
-		for (int i = 1; i <= 3; i++)
+	private final int getHennaUsedSlots()
+	{
+		switch (_player.getHennaEmptySlots())
 		{
-			L2Henna h = _activeChar.getHenna(i);
-			if (h != null)
-				_hennas[_count++] = h;
+		case 0: return 3;
+		case 1: return 2;
+		case 2: return 1;
+		//case 3: return 0;
+		default: return 0;
 		}
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xe5);
-		writeC(_activeChar.getHennaStatINT());	//equip INT
-		writeC(_activeChar.getHennaStatSTR());	//equip STR
-		writeC(_activeChar.getHennaStatCON());	//equip CON
-		writeC(_activeChar.getHennaStatMEN());	//equip MEM
-		writeC(_activeChar.getHennaStatDEX());	//equip DEX
-		writeC(_activeChar.getHennaStatWIT());	//equip WIT
-		writeD(3); // slots?
-		writeD(_count); //size
-		for (int i = 0; i < _count; i++)
+		writeC(0xe6);
+		writeCompQ(_player.getAdena());
+		writeD(0x00);
+		writeD(getHennaUsedSlots());
+
+		for (int i = 1; i <= 3; i++)
 		{
-			writeD(_hennas[i].getSymbolId());
-			writeD(_hennas[i].getSymbolId());
+			L2Henna henna = _player.getHenna(i);
+			if (henna != null)
+			{
+				writeD(henna.getSymbolId());
+				writeD(henna.getItemId());
+				writeD(henna.getAmount() / 2);
+				writeD(0x00);
+				writeD(henna.getPrice() / 5);
+				writeD(0x00);
+				writeD(0x01);
+			}
 		}
 	}
 
 	@Override
 	public String getType()
 	{
-		return _S__E5_HennaInfo;
+		return _S__E2_HennaRemoveList;
 	}
 }

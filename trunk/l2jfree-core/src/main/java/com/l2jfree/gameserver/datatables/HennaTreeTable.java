@@ -89,7 +89,7 @@ public class HennaTreeTable
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error while creating henna tree for classId "+classId+" "+e, e);
+			_log.warn("Error while creating henna tree for classId " + classId + " ", e);
 		}
 		finally
 		{
@@ -100,6 +100,27 @@ public class HennaTreeTable
 	public L2Henna[] getAvailableHenna(L2PcInstance player)
 	{
 		return _hennaTrees.get(player.getClassId().getId());
+	}
+
+	/**
+	 * Prevents henna drawing exploit:
+	 * 1) talk to L2SymbolMakerInstance
+	 * 2) RequestHennaList
+	 * 3) Don't close the window and go to a GrandMaster and change your subclass
+	 * 4) Get SymbolMaker range again and press draw
+	 * You could draw any kind of henna just having the required subclass...
+	 * @param activeChar a player (if it is null, returns false)
+	 * @param symbolId henna dye ID
+	 */
+	public final boolean isDrawable(L2PcInstance player, int symbolId)
+	{
+		if (player == null)
+			return false;
+
+		for (L2Henna h : getAvailableHenna(player))
+			if (h.getSymbolId() == symbolId)
+				return true;
+		return false;
 	}
 
 	@SuppressWarnings("synthetic-access")

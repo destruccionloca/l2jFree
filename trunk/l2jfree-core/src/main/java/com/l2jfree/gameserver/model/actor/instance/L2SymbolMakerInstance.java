@@ -14,66 +14,14 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
+import com.l2jfree.gameserver.network.serverpackets.HennaRemoveList;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.item.L2Henna;
 
-/**
- * This class ...
- * 
- * @version $Revision$ $Date$
- */
 public class L2SymbolMakerInstance extends L2Npc
 {
-	@Override
-	public void onBypassFeedback(L2PcInstance player, String command)
-	{
-		if (command.equals("Draw"))
-		{
-			player.sendPacket(new HennaEquipList(player));
-		}
-		else if (command.equals("RemoveList"))
-		{
-			showRemoveChat(player);
-		}
-		else if (command.startsWith("Remove "))
-		{
-			int slot = Integer.parseInt(command.substring(7));
-			player.removeHenna(slot);
-		}
-		else
-		{
-			super.onBypassFeedback(player, command);
-		}
-	}
-
-	private void showRemoveChat(L2PcInstance player)
-	{
-		TextBuilder html1 = new TextBuilder("<html><body>");
-		html1.append("Select symbol you would like to remove:<br><br>");
-		boolean hasHennas = false;
-		
-		for (int i = 1; i <= 3; i++)
-		{
-			L2Henna henna = player.getHenna(i);
-			
-			if (henna != null)
-			{
-				hasHennas = true;
-				html1.append("<a action=\"bypass -h npc_%objectId%_Remove "+i+"\">"+henna.getName()+"</a><br>");
-			}
-		}
-		
-		if (!hasHennas)
-			html1.append("You don't have any symbol to remove!");
-
-		html1.append("</body></html>");
-		
-		insertObjectIdAndShowChatWindow(player, html1.toString());
-	}
+	private static final String HTML_PATH = "data/html/symbolmaker/SymbolMaker.htm";
 
 	public L2SymbolMakerInstance(int objectID, L2NpcTemplate template)
 	{
@@ -81,8 +29,20 @@ public class L2SymbolMakerInstance extends L2Npc
 	}
 
 	@Override
+	public void onBypassFeedback(L2PcInstance player, String command)
+	{
+		if (command.equals("Draw"))
+			player.sendPacket(new HennaEquipList(player));
+		else if (command.equals("RemoveList"))
+			// l2jserver doesn't send this if player has 0 dyes
+			player.sendPacket(new HennaRemoveList(player));
+		else
+			super.onBypassFeedback(player, command);
+	}
+
+	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
-		return "data/html/symbolmaker/SymbolMaker.htm";
+		return HTML_PATH;
 	}
 }

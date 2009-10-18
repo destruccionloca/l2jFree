@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.regex.Matcher;
-
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 

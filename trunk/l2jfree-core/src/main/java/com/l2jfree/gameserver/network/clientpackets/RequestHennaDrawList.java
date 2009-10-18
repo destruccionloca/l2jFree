@@ -15,44 +15,40 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.HennaEquipList;
 
 /**
- * RequestHennaList - 0xba
- * 
+ * RequestHennaDrawList - 0xba
+ *
  * @author Tempy
  */
-public class RequestHennaList extends L2GameClientPacket
+public final class RequestHennaDrawList extends L2GameClientPacket
 {
-    private static final String _C__BA_RequestHennaList = "[C] ba RequestHennaList";
+	private static final String _C__BA_RequestHennaDrawList = "[C] ba RequestHennaDrawList";
 
-    // This is just a trigger packet...
-    //private int _unknown;
+	//private int _unknown;
 
-    /**
-     * packet type id 0xba
-     * format:		cd
-     */
-    @Override
-    protected void readImpl()
-    {
-        /*_unknown = */readD(); // ??
-    }
+	@Override
+	protected void readImpl()
+	{
+		/*_unknown = */readD(); // ?? just a trigger packet
+	}
 
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
 
-        sendPacket(new HennaEquipList(activeChar));
-        sendPacket(ActionFailed.STATIC_PACKET);
-    }
+		sendPacket(new HennaEquipList(activeChar));
 
-    @Override
-    public String getType()
-    {
-        return _C__BA_RequestHennaList;
-    }
+		sendAF();
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__BA_RequestHennaDrawList;
+	}
 }

@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.templates.item.L2Henna;
 
 public final class HennaEquipList extends L2GameServerPacket
 {
-	private static final String	_S__E2_HennaEquipList	= "[S] E2 HennaEquipList";
+	private static final String	_S__EE_HennaEquipList	= "[S] EE HennaEquipList";
 
 	private final L2PcInstance	_player;
 	private final L2Henna[]		_hennas;
@@ -40,22 +40,6 @@ public final class HennaEquipList extends L2GameServerPacket
 			{
 				return checkRequirements(o1).compareTo(checkRequirements(o2));
 			}
-
-			private Integer checkRequirements(L2Henna henna)
-			{
-				final L2ItemInstance hennaItem = _player.getInventory().getItemByItemId(henna.getItemId());
-
-				if (hennaItem == null)
-					return 3;
-
-				if (hennaItem.getCount() < henna.getAmount())
-					return 2;
-
-				if (_player.getAdena() < henna.getPrice())
-					return 1;
-
-				return 0;
-			}
 		});
 	}
 
@@ -69,18 +53,47 @@ public final class HennaEquipList extends L2GameServerPacket
 
 		for (L2Henna element : _hennas)
 		{
-			writeD(element.getSymbolId()); //symbolid
-			writeD(element.getItemId()); //itemid of dye
-			writeCompQ(element.getAmount()); //amount of dye require
-			writeCompQ(element.getPrice()); //amount of aden require
+			int req = checkRequirements(element);
+			// Player must have at least one dye in inventory
+			// to be able to see the henna that can be applied with it.
+			if (req == 3)
+			{
+				writeD(0x00);
+				writeD(0x00);
+				writeCompQ(0x00);
+				writeCompQ(0x00);
+			}
+			else
+			{
+				writeD(element.getSymbolId()); //symbol ID
+				writeD(element.getItemId()); //item ID of dye
+				writeCompQ(element.getAmount()); //amount of dye required
+				writeCompQ(element.getPrice()); //amount of adena required
+			}
 
-			writeD(1); //meet the requirement or not
+			writeD(req == 0); //meet the requirement(1) or not(0)
 		}
+	}
+
+	private final Integer checkRequirements(L2Henna henna)
+	{
+		final L2ItemInstance hennaItem = _player.getInventory().getItemByItemId(henna.getItemId());
+
+		if (hennaItem == null)
+			return 3;
+
+		if (hennaItem.getCount() < henna.getAmount())
+			return 2;
+
+		if (_player.getAdena() < henna.getPrice())
+			return 1;
+
+		return 0;
 	}
 
 	@Override
 	public String getType()
 	{
-		return _S__E2_HennaEquipList;
+		return _S__EE_HennaEquipList;
 	}
 }

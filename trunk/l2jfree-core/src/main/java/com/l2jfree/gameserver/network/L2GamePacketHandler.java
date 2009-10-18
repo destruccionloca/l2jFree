@@ -391,6 +391,15 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					case 0x6f:
 						msg = new RequestHennaEquip();
 						break;
+					case 0x70:
+						msg = new RequestHennaRemoveList();
+						break;
+					case 0x71:
+						msg = new RequestHennaItemRemoveInfo();
+						break;
+					case 0x72:
+						msg = new RequestHennaRemove();
+						break;
 					case 0x73: // send when talking to trainer npc, to show list of available skills
 						msg = new RequestAquireSkillInfo();//  --> [s] 0xa4;
 						break;
@@ -623,10 +632,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 						msg = new RequestEvaluate();
 						break;
 					case 0xc3:
-						msg = new RequestHennaList();
+						msg = new RequestHennaDrawList();
 						break;
 					case 0xc4:
-						msg = new RequestHennaItemInfo();
+						msg = new RequestHennaItemDrawInfo();
 						break;
 					case 0xcc:
 						// Clan Privileges

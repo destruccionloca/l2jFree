@@ -461,12 +461,15 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						break;
 					case 0x70:
 						// RequestHennaUnequipList
+						msg = new RequestHennaRemoveList();
 						break;
 					case 0x71:
 						// RequestHennaUnequipInfo
+						msg = new RequestHennaItemRemoveInfo();
 						break;
 					case 0x72:
 						// RequestHennaUnequip
+						msg = new RequestHennaRemove();
 						break;
 					case 0x73:
 						msg = new RequestAquireSkillInfo();
@@ -679,10 +682,10 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						msg = new RequestEvaluate();
 						break;
 					case 0xc3: // RequestHennaItemList
-						msg = new RequestHennaList();
+						msg = new RequestHennaDrawList();
 						break;
 					case 0xc4:
-						msg = new RequestHennaItemInfo();
+						msg = new RequestHennaItemDrawInfo();
 						break;
 					case 0xc5:
 						msg = new RequestBuySeed();

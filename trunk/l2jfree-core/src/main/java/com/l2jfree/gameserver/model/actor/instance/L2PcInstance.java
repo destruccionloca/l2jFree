@@ -7727,7 +7727,11 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public int getHennaEmptySlots()
 	{
-		int totalSlots = 1 + getClassId().level();
+		int totalSlots;
+		if (getClassId().level() == 1)
+			totalSlots = 2;
+		else
+			totalSlots = 3;
 
 		for (int i = 0; i < 3; i++)
 			if (_henna[i] != null)
@@ -7789,10 +7793,14 @@ public final class L2PcInstance extends L2Playable
 		L2ItemInstance dye = getInventory().addItem("Henna", henna.getItemId(), henna.getAmount() / 2, this, null);
 		getInventory().updateInventory(dye);
 
+		reduceAdena("Henna", henna.getPrice() / 5, this, false);
+
 		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 		sm.addItemName(henna.getItemId());
 		sm.addItemNumber(henna.getAmount() / 2);
 		sendPacket(sm);
+
+		sendPacket(SystemMessageId.SYMBOL_DELETED);
 
 		return true;
 	}

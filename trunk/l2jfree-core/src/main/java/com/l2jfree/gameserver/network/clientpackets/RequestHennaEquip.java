@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Henna;
 
@@ -40,7 +39,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		_symbolId  = readD();
+		_symbolId = readD();
 	}
 
 	@Override
@@ -50,8 +49,8 @@ public class RequestHennaEquip extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		L2Henna temp = HennaTable.getInstance().getTemplate(_symbolId);
-		if (temp == null)
+		L2Henna henna = HennaTable.getInstance().getTemplate(_symbolId);
+		if (henna == null)
 		{
 			requestFailed(SystemMessageId.SYMBOL_NOT_FOUND);
 			return;
@@ -61,23 +60,25 @@ public class RequestHennaEquip extends L2GameClientPacket
 			requestFailed(SystemMessageId.SYMBOLS_FULL);
 			return;
 		}
-		if (!isDrawable(activeChar))
+		if (!HennaTreeTable.getInstance().isDrawable(activeChar, _symbolId))
 		{
 			requestFailed(SystemMessageId.CANT_DRAW_SYMBOL);
 			return;
 		}
 
-		L2ItemInstance item = activeChar.getInventory().getItemByItemId(temp.getItemId());
+		L2ItemInstance item = activeChar.getInventory().getItemByItemId(henna.getItemId());
 		long count = (item == null ? 0 : item.getCount());
-		if (count >= temp.getAmount() && activeChar.getAdena() >= temp.getPrice())
+		boolean draw = (count >= henna.getAmount());
+		draw &= activeChar.reduceAdena("Henna", henna.getPrice(), activeChar.getLastFolkNPC(), true);
+
+		if (draw)
 		{
-			activeChar.addHenna(temp);
+			activeChar.addHenna(henna);
+			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", henna.getItemId(), henna.getAmount(), activeChar, activeChar.getLastFolkNPC());
 			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
-			sm.addItemName(temp.getItemId());
-			sm.addItemNumber(temp.getAmount());
+			sm.addItemName(henna.getItemId());
+			sm.addItemNumber(henna.getAmount());
 			sendPacket(sm);
-			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);
-			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemId(), temp.getAmount(), activeChar, activeChar.getLastFolkNPC());
 			// Send inventory update packet
 			activeChar.getInventory().updateInventory(dye);
 			sendPacket(SystemMessageId.SYMBOL_ADDED);
@@ -85,24 +86,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		else
 			sendPacket(SystemMessageId.NUMBER_INCORRECT);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
-	/**
-	 * Prevents henna drawing exploit:
-	 * 1) talk to L2SymbolMakerInstance
-	 * 2) RequestHennaList
-	 * 3) Don't close the window and go to a GrandMaster and change your subclass
-	 * 4) Get SymbolMaker range again and press draw
-	 * You could draw any kind of henna just having the required subclass...
-	 * @param activeChar a player that is not null
-	 */
-	private final boolean isDrawable(L2PcInstance activeChar)
-	{
-		for (L2Henna h : HennaTreeTable.getInstance().getAvailableHenna(activeChar))
-			if (h.getSymbolId() == _symbolId)
-				return true;
-		return false;
+		sendAF();
 	}
 
 	@Override
