@@ -619,12 +619,10 @@ public class RequestActionUse extends L2GameClientPacket
 			useSocial(15, activeChar);
 			break;
 		case 67:
-			break;
 		case 68:
-			break;
 		case 69:
-			break;
 		case 70:
+			sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			break;
 		case 71:
 			break;
@@ -692,6 +690,12 @@ public class RequestActionUse extends L2GameClientPacket
 
 	private void useSocial(int socialId, L2PcInstance activeChar)
 	{
+		if (activeChar.isFishing())
+		{
+			sendPacket(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
+			return;
+		}
+		
 		if (	activeChar.getPrivateStoreType() == 0 &&
 				activeChar.getActiveRequester() == null &&
 				!activeChar.isAlikeDead() &&

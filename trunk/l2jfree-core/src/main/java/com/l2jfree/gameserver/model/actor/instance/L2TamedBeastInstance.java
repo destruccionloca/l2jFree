@@ -132,8 +132,10 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			return false;
 
 		getAI().stopFollow();
-		_buffTask.cancel(true);
-		_durationCheckTask.cancel(true);
+		if (_buffTask != null)
+			_buffTask.cancel(false);
+		if (_durationCheckTask != null)
+			_durationCheckTask.cancel(false);
         
 		// Clean up variables
 		if (_owner != null)
@@ -176,8 +178,8 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			}
 
 			// Start the buff tasks
-			if (_buffTask !=null)
-				_buffTask.cancel(true);
+			if (_buffTask != null)
+				_buffTask.cancel(false);
 			_buffTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new CheckOwnerBuffs(this, totalBuffsAvailable), BUFF_INTERVAL, BUFF_INTERVAL);
 		}
 		else
@@ -195,8 +197,10 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 	{
 		// Stop running tasks
 		getAI().stopFollow();
-		_buffTask.cancel(true);
-		_durationCheckTask.cancel(true);
+		if (_buffTask != null)
+			_buffTask.cancel(false);
+		if (_durationCheckTask != null)
+			_durationCheckTask.cancel(false);
 		getStatus().stopHpMpRegeneration();
         
 		// Clean up variables

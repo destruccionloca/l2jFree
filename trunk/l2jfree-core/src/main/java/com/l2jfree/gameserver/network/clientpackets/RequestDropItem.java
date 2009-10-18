@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
@@ -173,6 +174,11 @@ public class RequestDropItem extends L2GameClientPacket
 			return false;
 		}
 		else if (!activeChar.isGM() && (!Config.ALLOW_DISCARDITEM || !item.isDropable()))
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (!activeChar.isGM() && item.getItemType() == L2EtcItemType.QUEST)
 		{
 			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
 			return false;

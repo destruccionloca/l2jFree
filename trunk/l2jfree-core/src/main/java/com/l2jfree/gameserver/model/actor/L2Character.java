@@ -6614,7 +6614,7 @@ public abstract class L2Character extends L2Object
 							if (target instanceof L2PcInstance)
 							{
 								// Casting non offensive skill on player with pvp flag set or with karma
-								if (target != this && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
+								if (target != this && target != player && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
 									player.updatePvPStatus();
 							}
 							else if (target instanceof L2Attackable && !(skill.getSkillType() == L2SkillType.SUMMON)

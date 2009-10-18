@@ -320,7 +320,7 @@ public class TradeList
 			return null;
 		}
 
-		if ((!item.isTradeable() && !_owner.isGM()) || item.getItemType() == L2EtcItemType.QUEST)
+		if (!(item.isTradeable() || getOwner().isGM()) || item.getItemType() == L2EtcItemType.QUEST)
 			return null;
 
 		if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
@@ -383,7 +383,7 @@ public class TradeList
 				return null;
 		}
 
-		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+		if (!(item.isTradeable() || getOwner().isGM()) || item.getItemType() == L2EtcItemType.QUEST)
 			return null;
 
 		if (!item.isStackable() && count > 1)
