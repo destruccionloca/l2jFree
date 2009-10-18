@@ -1039,7 +1039,7 @@ public final class L2PcInstance extends L2Playable
 
 		if (getClan() != null && target.getClan() != null)
 		{
-			if (target.getSubPledgeType() != L2Clan.SUBUNIT_ACADEMY && target.getClan().isAtWarWith(getClan().getClanId()))
+			if (target.getSubPledgeType() != L2Clan.SUBUNIT_ACADEMY && getSubPledgeType() != L2Clan.SUBUNIT_ACADEMY && target.getClan().isAtWarWith(getClan().getClanId()))
 			{
 				result |= RelationChanged.RELATION_1SIDED_WAR;
 				if (getClan().isAtWarWith(target.getClan().getClanId()))
@@ -11622,7 +11622,7 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean canLogout()
 	{
-		if (!isGM())
+		if (!isGM() || !Config.GM_RESTART_FIGHTING)
 		{
 			if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
 			{

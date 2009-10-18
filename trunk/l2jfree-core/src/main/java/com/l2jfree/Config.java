@@ -1948,6 +1948,8 @@ public class Config extends L2Config
 	public static boolean		GM_ANNOUNCER_NAME;
 	public static boolean 		GM_ITEM_RESTRICTION;
 	public static boolean 		GM_SKILL_RESTRICTION;
+	public static boolean		GM_TRADE_RESTRICTED_ITEMS;
+	public static boolean		GM_RESTART_FIGHTING;
 	public static boolean 		GM_ALLOW_CHAT_INVISIBLE;
 	public static boolean		GM_NAME_HAS_BRACELETS;
 	public static boolean		GM_EVERYBODY_HAS_ADMIN_RIGHTS;
@@ -2045,6 +2047,8 @@ public class Config extends L2Config
 
 			GM_ITEM_RESTRICTION	= Boolean.parseBoolean(gmSettings.getProperty("GMItemRestriction", "True"));
 			GM_SKILL_RESTRICTION = Boolean.parseBoolean(gmSettings.getProperty("GMSkillRestriction", "True"));
+			GM_TRADE_RESTRICTED_ITEMS = Boolean.parseBoolean(gmSettings.getProperty("GMTradeRestrictedItems", "False"));
+			GM_RESTART_FIGHTING = Boolean.parseBoolean(gmSettings.getProperty("GMRestartFighting", "False"));
 			GM_ALLOW_CHAT_INVISIBLE	= Boolean.parseBoolean(gmSettings.getProperty("GMChatInvisible", "False"));
 
 		    GM_NAME_HAS_BRACELETS = Boolean.parseBoolean(gmSettings.getProperty("GmBracelets", "true"));

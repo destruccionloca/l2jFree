@@ -173,12 +173,17 @@ public class RequestDropItem extends L2GameClientPacket
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-		else if (!activeChar.isGM() && (!Config.ALLOW_DISCARDITEM || !item.isDropable()))
+		else if (!activeChar.isGM() && !Config.ALLOW_DISCARDITEM)
 		{
 			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
 			return false;
 		}
-		else if (!activeChar.isGM() && item.getItemType() == L2EtcItemType.QUEST)
+		else if (!(activeChar.isGM() && Config.GM_TRADE_RESTRICTED_ITEMS) && !item.isDropable())
+		{
+			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
+			return false;
+		}
+		else if (!(activeChar.isGM() && Config.GM_TRADE_RESTRICTED_ITEMS) && item.getItemType() == L2EtcItemType.QUEST)
 		{
 			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
 			return false;

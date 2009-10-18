@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.List;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -33,7 +34,7 @@ public class TradeStart extends L2GameServerPacket
 	public TradeStart(L2PcInstance player)
 	{
 		_activeChar = player;
-		_itemList = _activeChar.getInventory().getAvailableItems(true, _activeChar.isGM());
+		_itemList = _activeChar.getInventory().getAvailableItems(true, (_activeChar.isGM() && Config.GM_TRADE_RESTRICTED_ITEMS));
 	}
 
 	@Override
