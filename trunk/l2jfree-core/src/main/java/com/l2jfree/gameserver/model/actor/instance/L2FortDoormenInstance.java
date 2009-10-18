@@ -62,9 +62,12 @@ public class L2FortDoormenInstance extends L2DoormenInstance
 		return false;
 	}
 	
+	// TODO: enable then teleports for forts will be done
+	/*
 	@Override
 	protected final boolean isUnderSiege()
 	{
 		return getFort().getSiege().getIsInProgress();
-	}	
+	}
+	*/
 }

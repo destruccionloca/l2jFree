@@ -18,6 +18,8 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.datatables.TeleportLocationTable;
+import com.l2jfree.gameserver.model.L2TeleportLocation;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -36,7 +38,7 @@ public class L2DoormenInstance extends L2NpcInstance
 	{
 		super(objectID, template);
 	}
-
+	
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -46,20 +48,33 @@ public class L2DoormenInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("open_doors"))
 		{
-			// TODO: uncomment after siege teleporters will be done
-			//if (isOwnerClan(player) && !isUnderSiege())
 			if (isOwnerClan(player))
-				openDoors(player, command);
+			{
+				if (isUnderSiege())
+					cannotManageDoors(player);
+				else
+					openDoors(player, command);
+			}
 		}
 		else if (command.startsWith("close_doors"))
 		{
 			if (isOwnerClan(player))
-				closeDoors(player, command);
+			{
+				if (isUnderSiege())
+					cannotManageDoors(player);
+				else
+					closeDoors(player, command);
+			}
+		}
+		else if (command.startsWith("tele"))
+		{
+			if (isOwnerClan(player))
+				doTeleport(player, command);
 		}
 		else
 			super.onBypassFeedback(player, command);
 	}
-
+	
 	/**
 	 * this is called when a player interacts with this NPC
 	 * 
@@ -70,9 +85,9 @@ public class L2DoormenInstance extends L2NpcInstance
 	{
 		if (!canTarget(player))
 			return;
-
+		
 		player.setLastFolkNPC(this);
-
+		
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -97,56 +112,81 @@ public class L2DoormenInstance extends L2NpcInstance
 		// avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	public void showMessageWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-
+		
 		if (!isOwnerClan(player))
 		{
-			html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + "-no.htm");
+			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-no.htm");
 		}
+		// TODO: maybe this should be removed
 		else if (isUnderSiege())
 		{
-			html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + "-busy.htm");
+			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-busy.htm");
 		}
 		else
 		{
-			html.setFile("data/html/doormen/"+ getTemplate().getNpcId() + ".htm");
+			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + ".htm");
 		}
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
-
+	
 	protected void openDoors(L2PcInstance player, String command)
 	{
 		StringTokenizer st = new StringTokenizer(command.substring(10), ", ");
 		st.nextToken();
-
+		
 		while (st.hasMoreTokens())
 		{
 			DoorTable.getInstance().getDoor(Integer.parseInt(st.nextToken())).openMe();
 		}
 	}
-
+	
 	protected void closeDoors(L2PcInstance player, String command)
 	{
 		StringTokenizer st = new StringTokenizer(command.substring(11), ", ");
 		st.nextToken();
-
+		
 		while (st.hasMoreTokens())
 		{
 			DoorTable.getInstance().getDoor(Integer.parseInt(st.nextToken())).closeMe();
 		}
 	}
-
+	
+	protected void cannotManageDoors(L2PcInstance player)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+		
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-busy.htm");
+		player.sendPacket(html);
+	}
+	
+	protected void doTeleport(L2PcInstance player, String command)
+	{
+		final int whereTo = Integer.parseInt(command.substring(5).trim());
+		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(whereTo);
+		if (list != null)
+		{
+			if (!player.isAlikeDead())
+				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), false);
+		}
+		else
+			_log.warn("No teleport destination with id:" + whereTo);
+		
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
+	
 	protected boolean isOwnerClan(L2PcInstance player)
 	{
 		return true;
 	}
-
+	
 	protected boolean isUnderSiege()
 	{
 		return false;
