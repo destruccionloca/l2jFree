@@ -47,6 +47,11 @@ public final class NpcHtmlMessage extends AbstractNpcHtmlMessage
 		_npcObjId = npcObjId;
 	}
 	
+	public void disableValidation()
+	{
+		// TODO
+	}
+	
 	@Override
 	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
 	{

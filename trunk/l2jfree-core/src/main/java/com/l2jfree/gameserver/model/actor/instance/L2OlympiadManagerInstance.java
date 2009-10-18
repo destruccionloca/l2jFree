@@ -200,15 +200,9 @@ public class L2OlympiadManagerInstance extends L2Npc
 				player.olyBuff--;
 			}
 
-			if (player.olyBuff == 5)
+			if (player.olyBuff > 0)
 			{
-				html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_buffs.htm");
-				html.replace("%objectId%", String.valueOf(getObjectId()));
-				player.sendPacket(html);
-			}
-			else if (player.olyBuff <= 4 && player.olyBuff >= 1)
-			{
-				html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "olympiad_5buffs.htm");
+				html.setFile( Olympiad.OLYMPIAD_HTML_PATH + (player.olyBuff == 5 ?"olympiad_buffs.htm" : "olympiad_5buffs.htm"));
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
 			}

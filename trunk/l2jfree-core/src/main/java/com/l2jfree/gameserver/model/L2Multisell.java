@@ -121,7 +121,7 @@ public final class L2Multisell
 			{
 				// only do the matchup on equipable items that are not currently equipped
 				// so for each appropriate item, produce a set of entries for the multisell list.
-				if (!item.isWear() && (item.getItem() instanceof L2Armor || item.getItem() instanceof L2Weapon))
+				if (!item.isEquipped() && (item.getItem() instanceof L2Armor || item.getItem() instanceof L2Weapon))
 				{
 					enchantLevel = (listTemplate.getMaintainEnchantment() ? item.getEnchantLevel() : 0);
 					augmentId = (listTemplate.getMaintainEnchantment() ? (item.getAugmentation() != null ? item
@@ -656,26 +656,16 @@ public final class L2Multisell
 	
 	private void parse()
 	{
-		Document doc = null;
-		int id = 0;
-		
 		for (File f : Util.getDatapackFiles("multisell", ".xml"))
 		{
-			id = Integer.parseInt(f.getName().replaceAll(".xml", ""));
 			try
 			{
-				
+				int id = Integer.parseInt(f.getName().replaceAll(".xml", ""));
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 				factory.setValidating(false);
 				factory.setIgnoringComments(true);
-				doc = factory.newDocumentBuilder().parse(f);
-			}
-			catch (Exception e)
-			{
-				_log.fatal("Error loading file " + f.getAbsolutePath(), e);
-			}
-			try
-			{
+				Document doc = factory.newDocumentBuilder().parse(f);
+				
 				MultiSellListContainer list = parseDocument(doc);
 				list.setListId(id);
 				_entries.put(id, list);

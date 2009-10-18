@@ -95,8 +95,7 @@ public class Book implements IItemHandler
 		{
 			NpcHtmlMessage itemReply = new NpcHtmlMessage(5, itemId);
 			itemReply.setHtml(content);
-			// FIXME:
-			//itemReply.disableValidation();
+			itemReply.disableValidation();
 			activeChar.sendPacket(itemReply);
 		}
 
