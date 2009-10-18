@@ -129,6 +129,26 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x3d: // client definitely sends it right now, enable if supposed to be
 								//msg = new RequestAllFortressInfo();
 								break;
+							case 0x5a:
+								int id3 = 0;
+								if (buf.remaining() >= 4)
+								{
+									id3 = buf.getInt() & 0xffffffff;
+								}
+								else
+								{
+									if (Config.PACKET_HANDLER_DEBUG)
+										_log.warn("Client: " + client + " sent a 0xd0:0x5a without the third opcode.");
+									break;
+								}
+								
+								switch (id3)
+								{
+									case 0x00:
+										msg = new RequestExCubeGameChangeTeam();
+										break;
+								}
+								break;
 							default:
 								printDebug(buf, client, opcode, id2);
 						}
@@ -338,6 +358,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								_log.warn("Client: " + client.toString() + " sent a 0x4a without the second opcode.");
 							break;
 						}
+						
 						switch (id_2)
 						{
 							case 0x00:
@@ -707,6 +728,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 							break;
 						}
+						
 						switch (id2)
 						{
 							case 0x01:
@@ -952,6 +974,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 										_log.warn("Client: " + client + " sent a 0xd0:0x51 without the third opcode.");
 									break;
 								}
+								
 								switch (id3)
 								{
 									case 0x00:
@@ -1002,7 +1025,23 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								// RequestExCleftEnter
 								break;
 							case 0x5a:
-								// RequestExBlockGameEnter
+								id3 = 0;
+								if (buf.remaining() >= 4)
+								{
+									id3 = buf.getInt() & 0xffffffff;
+								}
+								else
+								{
+									_log.warn("Client: " + client + " sent a 0xd0:0x5a without the third opcode.");
+									break;
+								}
+								
+								switch (id3)
+								{
+									case 0x00:
+										msg = new RequestExCubeGameChangeTeam();
+										break;
+								}
 								break;
 							case 0x5b:
 								// EndScenePlayer

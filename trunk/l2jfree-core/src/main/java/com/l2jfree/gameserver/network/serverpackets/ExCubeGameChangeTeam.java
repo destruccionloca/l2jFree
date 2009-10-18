@@ -27,15 +27,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class ExCubeGameChangeTeam extends L2GameServerPacket
 {
 	private static final String _S__FE_97_05_EXCUBEGAMECHANGETEAM = "[S] FE:97:05 ExCubeGameRemovePlayer.java";
-	L2PcInstance _player;
-	boolean _fromRedTeam;
+	
+	private final L2PcInstance _player;
+	private final boolean _fromRedTeam;
 	
 	public ExCubeGameChangeTeam(L2PcInstance player, boolean fromRedTeam)
 	{
 		_player = player;
 		_fromRedTeam = fromRedTeam;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
@@ -50,7 +51,7 @@ public class ExCubeGameChangeTeam extends L2GameServerPacket
 		writeD(_fromRedTeam ? 0x01 : 0x00);
 		writeD(_fromRedTeam ? 0x00 : 0x01);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
@@ -59,5 +60,4 @@ public class ExCubeGameChangeTeam extends L2GameServerPacket
 	{
 		return _S__FE_97_05_EXCUBEGAMECHANGETEAM;
 	}
-
 }
