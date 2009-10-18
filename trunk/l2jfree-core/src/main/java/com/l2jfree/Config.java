@@ -3336,7 +3336,7 @@ public class Config extends L2Config
 	public static float			RATE_VITALITY_LEVEL_3;
 	public static float			RATE_VITALITY_LEVEL_4;
 	public static float			RATE_DROP_VITALITY_HERBS;
-	public static float			RATE_RECOVERY_VITALITY_PEACE_ZONE;
+	public static float			RATE_RECOVERY_VITALITY_TOWN_ZONE;
 	public static float			RATE_VITALITY_LOST;
 	public static float			RATE_VITALITY_GAIN;
 	public static float			RATE_RECOVERY_ON_RECONNECT;
@@ -3362,7 +3362,7 @@ public class Config extends L2Config
 			RATE_VITALITY_LEVEL_3 = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLevel3", "2.5"));
 			RATE_VITALITY_LEVEL_4 = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLevel4", "3."));
 			RATE_DROP_VITALITY_HERBS = Float.parseFloat(vitalitySettings.getProperty("RateVitalityHerbs", "2."));
-			RATE_RECOVERY_VITALITY_PEACE_ZONE = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryPeaceZone", "1."));
+			RATE_RECOVERY_VITALITY_TOWN_ZONE = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryTownZone", "1."));
 			RATE_VITALITY_LOST = Float.parseFloat(vitalitySettings.getProperty("RateVitalityLost", "1."));
 			RATE_VITALITY_GAIN = Float.parseFloat(vitalitySettings.getProperty("RateVitalityGain", "1."));
 			RATE_RECOVERY_ON_RECONNECT = Float.parseFloat(vitalitySettings.getProperty("RateRecoveryOnReconnect", "4."));

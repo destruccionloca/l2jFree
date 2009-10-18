@@ -863,8 +863,8 @@ public final class L2PcInstance extends L2Playable
 			if (_player == null)
 				return;
 
-			double vitalityAdd = Config.RATE_RECOVERY_VITALITY_PEACE_ZONE;
-			if (_player.isInsideZone(L2Zone.FLAG_PEACE) && _player.getVitalityPoints() < 20000.0)
+			double vitalityAdd = Config.RATE_RECOVERY_VITALITY_TOWN_ZONE;
+			if (_player.isInsideZone(L2Zone.FLAG_TOWN) && _player.getVitalityPoints() < 20000.0)
 				_player.addVitalityPoints(vitalityAdd, true);
 		}
 	}
@@ -13461,6 +13461,9 @@ public final class L2PcInstance extends L2Playable
 		else
 			_vitalityPoints += val;
 
+		if (sendMessage)
+			sendPacket(new SystemMessage(SystemMessageId.GAINED_VITALITY_POINTS));
+
 		updateVitalityLevel(sendMessage);
 	}
 
@@ -13691,7 +13694,7 @@ public final class L2PcInstance extends L2Playable
 		double vitalityPointsToAdd = ((curTime - lastAccessTime) / 60000.0) * Config.RATE_RECOVERY_ON_RECONNECT;
 
 		if (vitalityPointsToAdd <= 0)
-		vitalityPointsToAdd = 0;
+			vitalityPointsToAdd = 0;
 
 		setVitalityPoints(vitalityPointsRest + vitalityPointsToAdd, false);
 	}
