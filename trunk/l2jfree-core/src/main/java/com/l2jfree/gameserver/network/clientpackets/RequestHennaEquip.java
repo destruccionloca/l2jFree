@@ -68,10 +68,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 
 		L2ItemInstance item = activeChar.getInventory().getItemByItemId(henna.getItemId());
 		long count = (item == null ? 0 : item.getCount());
-		boolean draw = (count >= henna.getAmount());
-		draw &= activeChar.reduceAdena("Henna", henna.getPrice(), activeChar.getLastFolkNPC(), true);
-
-		if (draw)
+		if (count >= henna.getAmount() && activeChar.reduceAdena("Henna", henna.getPrice(), activeChar.getLastFolkNPC(), true))
 		{
 			activeChar.addHenna(henna);
 			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", henna.getItemId(), henna.getAmount(), activeChar, activeChar.getLastFolkNPC());
