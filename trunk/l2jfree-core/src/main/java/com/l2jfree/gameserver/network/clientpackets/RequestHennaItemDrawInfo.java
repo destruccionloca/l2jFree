@@ -40,7 +40,7 @@ public final class RequestHennaItemDrawInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null || _symbolId == 0) // 0 = player closed window
 			return;
 
 		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
