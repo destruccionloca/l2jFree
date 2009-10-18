@@ -1636,6 +1636,7 @@ public class Config extends L2Config
 
 	public static boolean				ALT_TAX_CHANGE_DELAYED;
 	public static boolean				ALT_CCH_REPUTATION;
+	public static boolean				ALT_SHOW_FULL_HENNA_LIST;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1874,6 +1875,7 @@ public class Config extends L2Config
 
 			ALT_TAX_CHANGE_DELAYED = Boolean.parseBoolean(altSettings.getProperty("CastleTaxChangeDelayed", "true"));
 			ALT_CCH_REPUTATION = Boolean.parseBoolean(altSettings.getProperty("AltClanHallSiegeReputation", "false"));
+			ALT_SHOW_FULL_HENNA_LIST = Boolean.parseBoolean(altSettings.getProperty("AltShowFullHennaList", "false"));
 		}
 	}
 

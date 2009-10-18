@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HennaTreeTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -53,11 +54,24 @@ public final class HennaEquipList extends L2GameServerPacket
 
 		for (L2Henna element : _hennas)
 		{
-			writeD(element.getSymbolId()); //symbol ID
-			writeD(element.getItemId()); //item ID of dye
-			writeCompQ(element.getAmount()); //amount of dye required
-			writeCompQ(element.getPrice()); //amount of adena required
-			
+			int req = checkRequirements(element);
+			if (req == 3 && !Config.ALT_SHOW_FULL_HENNA_LIST)
+			{
+				// Player must have at least one dye in inventory
+				// to be able to see the henna that can be applied with it.
+				writeD(0x00);
+				writeD(0x00);
+				writeCompQ(0x00);
+				writeCompQ(0x00);
+			}
+			else
+			{
+				writeD(element.getSymbolId());   //symbol ID
+				writeD(element.getItemId());     //item ID of dye
+				writeCompQ(element.getAmount()); //amount of dye required
+				writeCompQ(element.getPrice());  //amount of adena required
+			}
+
 			writeD(1); //meet the requirement(1) or not(0) - seems not working at client
 		}
 	}
