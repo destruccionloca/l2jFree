@@ -85,14 +85,28 @@ public final class Olympiad
 		+ "ORDER BY olympiad_nobles.olympiad_points DESC, olympiad_nobles.competitions_done DESC";
 	private static final String GET_ALL_CLASSIFIED_NOBLESS = "SELECT charId from olympiad_nobles_eom "
 			+ "WHERE competitions_done >= 9 ORDER BY olympiad_points DESC, competitions_done DESC";
-	private static final String GET_EACH_CLASS_LEADER = "SELECT characters.char_name FROM olympiad_nobles_eom, characters "
-		+ "WHERE characters.charId = olympiad_nobles_eom.charId AND olympiad_nobles_eom.class_id = ? "
-		+ "AND olympiad_nobles_eom.competitions_done >= 9 "
-		+ "ORDER BY olympiad_nobles_eom.olympiad_points DESC, olympiad_nobles_eom.competitions_done DESC LIMIT 10";
-	private static final String GET_EACH_CLASS_LEADER_CURRENT = "SELECT characters.char_name FROM olympiad_nobles, characters "
-		+ "WHERE characters.charId = olympiad_nobles.charId AND olympiad_nobles.class_id = ? "
-		+ "AND olympiad_nobles.competitions_done >= 9 "
-		+ "ORDER BY olympiad_nobles.olympiad_points DESC, olympiad_nobles.competitions_done DESC LIMIT 10";
+	private static final String GET_EACH_CLASS_LEADER;
+	private static final String GET_EACH_CLASS_LEADER_CURRENT;
+	private static final String GET_EACH_CLASS_LEADER_SOULHOUND;
+	private static final String GET_EACH_CLASS_LEADER_SOULHOUND_CURRENT;
+	
+	static
+	{
+		final String defaultBase = "SELECT characters.char_name FROM %nobles_table%, characters "
+				+ "WHERE characters.charId = %nobles_table%.charId AND %classId_check% "
+				+ "AND %nobles_table%.competitions_done >= 9 "
+				+ "ORDER BY %nobles_table%.olympiad_points DESC, %nobles_table%.competitions_done DESC LIMIT 10";
+		
+		final String normalBase = defaultBase.replace("%classId_check%", "%nobles_table%.class_id = ?");
+		final String soulhoundBase = defaultBase.replace("%classId_check%", "(%nobles_table%.class_id = 132 OR %nobles_table%.class_id = 133)");
+		
+		GET_EACH_CLASS_LEADER = normalBase.replaceAll("%nobles_table%", "olympiad_nobles_eom");
+		GET_EACH_CLASS_LEADER_CURRENT = normalBase.replaceAll("%nobles_table%", "olympiad_nobles");
+		
+		GET_EACH_CLASS_LEADER_SOULHOUND = soulhoundBase.replaceAll("%nobles_table%", "olympiad_nobles_eom");
+		GET_EACH_CLASS_LEADER_SOULHOUND_CURRENT = soulhoundBase.replaceAll("%nobles_table%", "olympiad_nobles");
+	}
+	
 	private static final String OLYMPIAD_DELETE_ALL = "TRUNCATE olympiad_nobles";
 	private static final String OLYMPIAD_MONTH_CLEAR = "TRUNCATE olympiad_nobles_eom";
 	private static final String OLYMPIAD_MONTH_CREATE = "INSERT INTO olympiad_nobles_eom SELECT * FROM olympiad_nobles";
@@ -1315,26 +1329,26 @@ public final class Olympiad
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
 			ResultSet rset;
-			if (Config.ALT_OLY_SHOW_MONTHLY_WINNERS)
-				statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
+			if (classId == 132 || classId == 133)
+			{
+				if (Config.ALT_OLY_SHOW_MONTHLY_WINNERS)
+					statement = con.prepareStatement(GET_EACH_CLASS_LEADER_SOULHOUND);
+				else
+					statement = con.prepareStatement(GET_EACH_CLASS_LEADER_SOULHOUND_CURRENT);
+			}
 			else
-				statement = con.prepareStatement(GET_EACH_CLASS_LEADER_CURRENT);
-			statement.setInt(1, classId);
+			{
+				if (Config.ALT_OLY_SHOW_MONTHLY_WINNERS)
+					statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
+				else
+					statement = con.prepareStatement(GET_EACH_CLASS_LEADER_CURRENT);
+				statement.setInt(1, classId);
+			}
 			rset = statement.executeQuery();
 			
 			while (rset.next())
 			{
 				names.add(rset.getString(CHAR_NAME));
-			}
-			
-			if (classId == 132) // Male & Female SoulHounds are ranked together
-			{
-				statement.setInt(1, 133);
-				rset = statement.executeQuery();
-				while (rset.next())
-				{
-					names.add(rset.getString(CHAR_NAME));
-				}
 			}
 			
 			statement.close();
