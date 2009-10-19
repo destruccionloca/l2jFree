@@ -112,7 +112,10 @@ public abstract class AbstractAI implements Ctrl
 	
 	public synchronized final void followTarget()
 	{
-		final double distance = Util.calculateDistance(_actor, _followTarget, true);
+		double distance = Util.calculateDistance(_actor, _followTarget, false);
+		
+		distance -= _actor.getTemplate().getCollisionRadius();
+		distance -= _followTarget.getTemplate().getCollisionRadius();
 		
 		// TODO: fix Z axis follow support, moveToLocation needs improvements
 		// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
