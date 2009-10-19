@@ -355,6 +355,11 @@ public abstract class L2Object implements L2Entity<Integer>
 		return getPosition().getWorldRegion() != null;
 	}
 	
+	public boolean isMoving()
+	{
+		return false;
+	}
+	
 	/**
 	 * Return the known list of object from this instance
 	 * 
