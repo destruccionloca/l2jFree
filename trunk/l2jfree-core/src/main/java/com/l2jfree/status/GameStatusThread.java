@@ -218,6 +218,7 @@ public final class GameStatusThread extends Thread
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) FROM characters WHERE char_name = ? AND accesslevel >= 100");
+				stmt.setString(1, _gm);
 				ResultSet rs = stmt.executeQuery();
 				if (!rs.next())
 				{

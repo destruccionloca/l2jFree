@@ -340,7 +340,7 @@ public abstract class ConditionParser
 		}
 		else if ("landingZone".equalsIgnoreCase(nodeName))
 		{
-			boolean val = Boolean.valueOf(nodeName);
+			boolean val = Boolean.valueOf(nodeValue);
 			return new ConditionPlayerLandingZone(val);
 		}
 		else if ("active_skill_id".equalsIgnoreCase(nodeName) || "active_skill_id_lvl".equalsIgnoreCase(nodeName))
