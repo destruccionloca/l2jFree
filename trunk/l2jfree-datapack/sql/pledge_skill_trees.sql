@@ -7,7 +7,8 @@ CREATE TABLE `pledge_skill_trees` (
   `Description` VARCHAR(255) DEFAULT NULL,
   `repCost` INT(11) DEFAULT NULL,
   `itemId` INT(11) DEFAULT NULL,
-  `itemCount` INT(11) DEFAULT NULL
+  `itemCount` INT(11) DEFAULT NULL,
+  PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `pledge_skill_trees` VALUES
