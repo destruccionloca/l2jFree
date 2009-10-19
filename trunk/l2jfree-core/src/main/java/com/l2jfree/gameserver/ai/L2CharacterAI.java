@@ -1043,6 +1043,8 @@ public class L2CharacterAI extends AbstractAI
 			// Caller should be L2Playable and thinkAttack/thinkCast/thinkInteract/thinkPickUp
 			if (getFollowTarget() != null)
 			{
+				if (!target.isMoving())
+					return true;
 				// allow larger hit range when the target is moving (check is run only once per second)
 				if (!_actor.isInsideRadius(target, offset + 100, false, false))
 					return true;
