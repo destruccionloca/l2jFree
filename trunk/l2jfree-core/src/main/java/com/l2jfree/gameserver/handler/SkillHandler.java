@@ -77,15 +77,14 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private SkillHandler()
 	{
 		super(L2SkillType.class);
-		
+
 		registerSkillHandler(new BalanceLife());
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
-		registerSkillHandler(new ChangeFace());
 		registerSkillHandler(new ClanGate());
 		registerSkillHandler(new CombatPointHeal());
 		registerSkillHandler(new Continuous());
@@ -129,54 +128,54 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
-		
+
 		HandlerRegistry._log.info("SkillHandler: Loaded " + size() + " handlers.");
 	}
-	
+
 	public void registerSkillHandler(ISkillHandler handler)
 	{
 		registerAll(handler, handler.getSkillIds());
 	}
-	
+
 	public void useSkill(L2SkillType skillType, L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		final ISkillHandler handler = get(skillType);
-		
+
 		if (handler != null)
 			handler.useSkill(activeChar, skill, targets);
 		else
 			skill.useSkill(activeChar, targets);
 	}
-	
+
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
 			return;
-		
+
 		useSkill(skill.getSkillType(), activeChar, skill, targets);
-		
+
 		for (L2Character target : targets)
 		{
 			Formulas.calcLethalHit(activeChar, target, skill);
 		}
-		
+
 		// Increase Charges, Souls, Etc
 		if (activeChar instanceof L2PcInstance)
 		{
 			((L2PcInstance)activeChar).increaseChargesBySkill(skill);
 			((L2PcInstance)activeChar).increaseSoulsBySkill(skill);
 		}
-		
+
 		skill.getEffectsSelf(activeChar);
-		
+
 		if (skill.isSuicideAttack())
 			activeChar.doDie(activeChar);
 	}
-	
+
 	public void useCubicSkill(L2CubicInstance cubic, L2Skill skill, L2Character... targets)
 	{
 		final ISkillHandler handler = get(skill.getSkillType());
-		
+
 		if (handler instanceof ICubicSkillHandler)
 			((ICubicSkillHandler)handler).useCubicSkill(cubic, skill, targets);
 		else if (skill instanceof L2SkillDrain)
@@ -186,27 +185,27 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		else
 			skill.useSkill(cubic.getOwner(), targets);
 	}
-	
+
 	public boolean checkConditions(L2Character activeChar, L2Skill skill)
 	{
 		final ISkillHandler handler = get(skill.getSkillType());
-		
+
 		if (handler instanceof ISkillConditionChecker)
 			return ((ISkillConditionChecker)handler).checkConditions(activeChar, skill);
-		
+
 		return true;
 	}
-	
+
 	public boolean checkConditions(L2Character activeChar, L2Skill skill, L2Character target)
 	{
 		final ISkillHandler handler = get(skill.getSkillType());
-		
+
 		if (handler instanceof ISkillConditionChecker)
 			return ((ISkillConditionChecker)handler).checkConditions(activeChar, skill, target);
-		
+
 		return true;
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
