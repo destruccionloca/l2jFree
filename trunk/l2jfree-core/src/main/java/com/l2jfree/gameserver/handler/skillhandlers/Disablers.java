@@ -71,7 +71,6 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.CANCEL,
 			L2SkillType.CANCEL_DEBUFF,
 			L2SkillType.PARALYZE,
-			L2SkillType.UNSUMMON_ENEMY_PET,
 			L2SkillType.BETRAY,
 			L2SkillType.ERASE,
 			L2SkillType.MAGE_BANE,
@@ -143,18 +142,6 @@ public class Disablers implements ICubicSkillHandler
 					sm.addCharName(target);
 					sm.addSkillName(skill);
 					((L2PcInstance)activeChar).sendPacket(sm);
-				}
-				break;
-			}
-			case UNSUMMON_ENEMY_PET:
-			{
-				if (target instanceof L2Summon && Rnd.get(100) < skill.getLandingPercent())
-				{
-					L2PcInstance targetOwner = null;
-					targetOwner = ((L2Summon) target).getOwner();
-					L2Summon Pet = null;
-					Pet = targetOwner.getPet();
-					Pet.unSummon(targetOwner);
 				}
 				break;
 			}
@@ -265,45 +252,11 @@ public class Disablers implements ICubicSkillHandler
 			}
 			case AGGDAMAGE:
 			{
-				if (target instanceof L2PcInstance && Rnd.get(100) < 75)
-				{
-					L2PcInstance pc = ((L2PcInstance) target);
-					if ((pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP)))
-					{
-						pc.setTarget(activeChar); //c5 hate PvP
-						pc.abortAttack();
-						pc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
-					}
-				}
-				if (target instanceof L2Attackable && skill.getId() != 368)
-				{
-					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) skill.getPower());
-					break;
-				}
 				if (target instanceof L2Attackable)
-				{
-					{
-						if (skill.getId() == 368) //Vengeance
-						{
-							if (target instanceof L2PcInstance)
-							{
-								L2PcInstance pc = ((L2PcInstance) target);
-								if (pc.getPvpFlag() != 0 || pc.isInOlympiadMode() || pc.isInCombat() || pc.isInsideZone(L2Zone.FLAG_PVP))
-								{
-									target.setTarget(activeChar);
-									target.getAI().setAutoAttacking(true);
-									if (target instanceof L2PcInstance)
-									{
-										target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
-									}
-								}
-							}
-							target.setTarget(activeChar); //c5 hate PvP
-							skill.getEffects(activeChar, activeChar);
-							target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
-						}
-					}
-				}
+					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
+				
+				// TODO [Nemesiss] should this have 100% chance?
+				skill.getEffects(activeChar, target);
 				break;
 			}
 			case AGGREDUCE:

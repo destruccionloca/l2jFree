@@ -1280,7 +1280,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case MAGE_BANE:
 			case WARRIOR_BANE:
 			case AGGREDUCE_CHAR:
-			case UNSUMMON_ENEMY_PET:
 			case BETRAY:
 			case GET_PLAYER:
 			case DISARM:
