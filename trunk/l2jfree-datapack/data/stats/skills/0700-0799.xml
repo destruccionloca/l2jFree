@@ -829,7 +829,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5560"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="5"/> <!-- guessed -->
+    <set name="activationChance" val="5"/>
     <set name="chanceType" val="ON_RANGE"/>
     <for>
       <add order="0x40" stat="accCombat" val="8">
