@@ -2736,7 +2736,6 @@ public class Config extends L2Config
 	public static int			VIP_MIN_LEVEL;
 	public static int			VIP_MAX_LEVEL;
 	public static int			VIP_MIN_PARTICIPANTS;
-	public static boolean		FALLDOWNONDEATH;
 	public static boolean		ARENA_ENABLED;
 	public static int			ARENA_INTERVAL;
 	public static int			ARENA_REWARD_ID;
@@ -2827,8 +2826,6 @@ public class Config extends L2Config
 			VIP_MIN_PARTICIPANTS = Integer.parseInt(funEnginesSettings.getProperty("VIPMinParticipants", "10"));
 			if (VIP_MIN_PARTICIPANTS < 10)
 				VIP_MIN_PARTICIPANTS = 10; //can't be set less then lvl 10
-
-			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
 
 			ARENA_ENABLED = Boolean.parseBoolean(funEnginesSettings.getProperty("ArenaEnabled", "false"));
 			ARENA_INTERVAL = Integer.parseInt(funEnginesSettings.getProperty("ArenaInterval", "60"));

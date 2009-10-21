@@ -795,7 +795,7 @@ public abstract class L2Character extends L2Object
 	{
 		isFalling(false, 0);
 
-		if (isInvul() || (this instanceof L2PcInstance && isInFunEvent()))
+		if (isInvul())
 		{
 			setIsFallsdown(false);
 			return;

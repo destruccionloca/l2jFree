@@ -13394,12 +13394,6 @@ public final class L2PcInstance extends L2Playable
 		return _transformationId;
 	}
 
-	@Override
-	public boolean mustFallDownOnDeath()
-	{
-		return (super.mustFallDownOnDeath()) || (isInFunEvent() && Config.FALLDOWNONDEATH);
-	}
-
 	/**
 	*
 	* @param npcId
