@@ -123,19 +123,21 @@ def closeDoor(doorId,instanceId):
 
 def checkCondition(player):
     if not player.getLevel() >= 78:
-        player.sendPacket(SystemMessage.sendString("You must be level 78 to enter Dark Cloud Mansion."))
+        sm = SystemMessage(SystemMessageId.C1_LEVEL_REQUIREMENT_NOT_SUFFICIENT)
+        sm.addPcName(player)
+        player.sendPacket(sm)
         return False
     party = player.getParty()
     if not party:
-        player.sendPacket(SystemMessage.sendString("You are not currently in a party, so you cannot enter."))
+        player.sendPacket(SystemMessage(SystemMessageId.NOT_IN_PARTY_CANT_ENTER))
         return False
     if party and party.getMemberCount() > 2:
-        player.sendPacket(SystemMessage.sendString("You cannot enter due to the party having exceeded the limit."))
+        player.sendPacket(SystemMessage(SystemMessageId.PARTY_EXCEEDED_THE_LIMIT_CANT_ENTER))
         return False
     st = player.getQuestState(qn)
     partyLeader = st.getPlayer().getParty().getLeader()
     if player != partyLeader:
-        player.sendPacket(SystemMessage.sendString("Only a party leader can try to enter"))
+        player.sendPacket(SystemMessage(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER))
         return False
     return True
 
@@ -153,7 +155,7 @@ def enterInstance(self,player,template,teleto):
     if not checkCondition(player):
         return 0
     party = player.getParty()
-    # Check for exising instances of party members
+    # Check for existing instances of party members
     for partyMember in party.getPartyMembers().toArray():
         if partyMember.getInstanceId()!=0:
             instanceId = partyMember.getInstanceId()
@@ -168,7 +170,7 @@ def enterInstance(self,player,template,teleto):
         self.world_ids.append(instanceId)
         print "DarkCloudMansion: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
         runStartRoom(self,world)
-    # teleports player
+    # Teleports player
     teleto.instanceId = instanceId
     for partyMember in party.getPartyMembers().toArray():
         teleportplayer(self,partyMember,teleto)
@@ -557,7 +559,7 @@ class DarkCloudMansion(JQuest):
             if npcId == SOAdventure:
                 removeShadowColumn(self,world)
                 openDoor(D5,world.instanceId)
-                htmltext = "<html><body>Symbol of Anventure:<br>You have succeeded again...<br>Now comes the final test.<br>It is rumored that when Parme was captured by the Demon Beleth, one of her maids hid some valuable items in the <font color=\"LEVEL\">boxes on the bed of the Crystal Lake</font>. She hoped that adventurers like you would find them and use them to help rescue Parme.</body></html>"
+                htmltext = "<html><body>Symbol of Adventure:<br>You have succeeded again...<br>Now comes the final test.<br>It is rumored that when Parme was captured by the Demon Beleth, one of her maids hid some valuable items in the <font color=\"LEVEL\">boxes on the bed of the Crystal Lake</font>. She hoped that adventurers like you would find them and use them to help rescue Parme.</body></html>"
                 return htmltext
         return ""
 
