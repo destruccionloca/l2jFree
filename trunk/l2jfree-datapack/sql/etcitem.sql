@@ -9686,3 +9686,7 @@ UPDATE `etcitem` SET `skills_item` = '2776-1', `handler` = 'ItemSkills' WHERE `i
 UPDATE `etcitem` SET `skills_item` = '2777-1', `handler` = 'ItemSkills' WHERE `item_id` = '13674';  -- Schuttgart Kamael Guard Captain
 UPDATE `etcitem` SET `skills_item` = '2778-1', `handler` = 'ItemSkills' WHERE `item_id` = '13675';  -- Schuttgart Knight of Dawn
 UPDATE `etcitem` SET `skills_item` = '2779-1', `handler` = 'ItemSkills' WHERE `item_id` = '13676';  -- Schuttgart Fortress Captain
+
+-- Water dragon Wcale et claws 
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2360-1' WHERE `etcitem`.`item_id` =9700 LIMIT 1 ; 
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2369-1' WHERE `etcitem`.`item_id` =9691 LIMIT 1 ; 

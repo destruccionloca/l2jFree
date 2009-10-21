@@ -658,11 +658,20 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="2360" levels="1" name="Water Dragon Claw">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="500"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillRadius" val="500"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="1500"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="staticHitTime" val="true"/>
+    <set name="staticReuse" val="true"/>
+    <set name="neutral" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="itemConsumeId" val="9700"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target npcId="29099"/>
+    </cond>
   </skill>
   <skill id="2361" levels="1" name="Evolving Wolf's Food">
     <set name="target" val="TARGET_SELF"/>
@@ -671,11 +680,17 @@
     <set name="feed" val="1000"/>
   </skill>
   <skill id="2362" levels="1" name="Prison Gate Key">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_UNLOCKABLE"/>
     <set name="hitTime" val="500"/>
+    <set name="skillType" val="OPEN_DOOR"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
     <set name="staticHitTime" val="true"/>
+    <set name="itemConsumeId" val="10015"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target doorId="24220009 24220011 24220012 24220014 24220015 24220016 24220017 24220019"/>
+    </cond>
   </skill>
   <skill id="2363" levels="1" name="Underground Warehouse Key">
     <set name="target" val="TARGET_NONE"/>
@@ -757,11 +772,20 @@
     </for>
   </skill>
   <skill id="2369" levels="1" name="Water Dragon Scale">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="500"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillRadius" val="500"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="hitTime" val="1500"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="staticHitTime" val="true"/>
+    <set name="staticReuse" val="true"/>
+    <set name="neutral" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="itemConsumeId" val="9691"/>
+    <set name="itemConsumeCount" val="1"/>
+    <cond msgId="109">
+      <target npcId="25534"/>
+    </cond>
   </skill>
   <skill id="2370" levels="1" name="Scroll of Transformation - Pig">
     <!-- Done by Skatershi Description: Transform into a cute pig. -->
