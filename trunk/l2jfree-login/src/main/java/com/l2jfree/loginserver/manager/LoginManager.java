@@ -505,8 +505,6 @@ public class LoginManager
 	{
 		_logLoginTries.info("User trying to connect  '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
 
-		_log.info("Account " + user + ", password " + password);
-
 		// o Convert password in utf8 byte array
 		// ----------------------------------
 		MessageDigest md = MessageDigest.getInstance("SHA");
