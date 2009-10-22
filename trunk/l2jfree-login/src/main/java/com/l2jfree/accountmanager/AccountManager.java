@@ -135,7 +135,7 @@ public final class AccountManager extends Config
 			{
 				String id = st.nextToken();
 				if (id.equals("-p"))
-					acc.setPassword(st.nextToken());
+					acc.setPlainPassword(st.nextToken());
 				else if (id.equals("-b"))
 				{
 					int[] birth = parseBirth(st.nextToken());
@@ -223,13 +223,13 @@ public final class AccountManager extends Config
 		AccountManager am = new AccountManager();
 		_log.info("/=========================\\");
 		_log.info("| L2JFree Account Manager |");
-		_log.info("\\========================/");
+		_log.info("\\=========================/");
 		_log.info("Available commands:");
 		_log.info(CMD[0] + " [account name] [password] [access level] {-b Year/Month/Day} {-gs last gameserver id}");
 		_log.info("EXAMPLE: " + CMD[0] + " me mypass 200 -b 99/2/22 -gs 1");
 		_log.info(CMD[1] + " [account name] {-p new password} {-a new access level} {-b new birth date} {-gs last gameserver id}");
-		_log.info(CMD[2] + " [account name]");
-		_log.info(CMD[3] + " [account name] [new level]");
+		_log.info(CMD[2] + " [account name] [new level]");
+		_log.info(CMD[3] + " [account name]");
 		_log.info(CMD[4] + " - list all registered accounts");
 		_log.info(CMD[5] + " - exit the application");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

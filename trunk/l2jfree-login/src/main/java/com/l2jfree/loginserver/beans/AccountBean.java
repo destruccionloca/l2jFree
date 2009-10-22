@@ -16,6 +16,12 @@ package com.l2jfree.loginserver.beans;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.tools.codec.Base64;
 
 /**
  * A class for convenient table entry management.<BR>
@@ -25,6 +31,7 @@ import java.math.BigDecimal;
  */
 public class AccountBean implements Serializable
 {
+	private static final Log	_log				= LogFactory.getLog(AccountBean.class);
 	private static final long	serialVersionUID	= 4402116860273590029L;
 
 	private String				login;
@@ -83,6 +90,20 @@ public class AccountBean implements Serializable
 	public final void setPassword(String password)
 	{
 		this.password = password;
+	}
+
+	public final void setPlainPassword(String password)
+	{
+		try
+		{
+			MessageDigest md = MessageDigest.getInstance("SHA");
+			md.update(password.getBytes("UTF-8"));
+			this.password = Base64.encodeBytes(md.digest());
+		}
+		catch (Exception e)
+		{
+			_log.error("Cannot encrypt password!", e);
+		}
 	}
 
 	public final BigDecimal getLastactive()
