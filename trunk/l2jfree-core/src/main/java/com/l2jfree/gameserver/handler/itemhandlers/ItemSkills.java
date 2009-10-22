@@ -52,7 +52,6 @@ public final class ItemSkills implements IItemHandler
 				continue;
 			
 			int skillId = skillInfo.getId();
-			int skillLvl = skillInfo.getLevel();
 			
 			if (!itemSkill.checkCondition(playable, playable.getTarget()))
 				return;
