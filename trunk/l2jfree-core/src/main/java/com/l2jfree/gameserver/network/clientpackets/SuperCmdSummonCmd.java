@@ -27,17 +27,18 @@ public class SuperCmdSummonCmd extends L2GameClientPacket
 {
 	private static final String	_C__39_01_SUPERCMDSUMMONCMD	= "[C] 39:01 SuperCmdSummonCmd";
 
-	//private String _summonName;
+	private String _unk;
 
 	@Override
 	protected void readImpl()
 	{
-		/* _summonName = */readS();
+		_unk = readS();
 	}
 
 	@Override
 	protected void runImpl()
 	{
+		_log.info("SuperCmdSummonCmd, unk=" + _unk + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 

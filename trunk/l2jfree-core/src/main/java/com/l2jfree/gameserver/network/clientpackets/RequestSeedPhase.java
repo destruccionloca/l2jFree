@@ -14,37 +14,23 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
-
 /**
- * Format chS
- * c: (id) 0x39
- * h: (subid) 0x00
- * S: the character name
- * @author -Wooden-
+ * This packet is sent by the client every time the world map is
+ * opened.
+ * @author savormix
  */
-public final class SuperCmdCharacterInfo extends L2GameClientPacket
+public final class RequestSeedPhase extends L2GameClientPacket
 {
-	private static final String	_C__39_00_SUPERCMDCHARACTERINFO	= "[C] 39:00 SuperCmdCharacterInfo";
-
-	private String _name;
-
 	@Override
 	protected void readImpl()
 	{
-		_name = readS();
+		// trigger packet
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("SuperCmdCharacterInfo, name=" + _name + ", sent by " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-	}
-
-	@Override
-	public String getType()
-	{
-		return _C__39_00_SUPERCMDCHARACTERINFO;
+		//_log.info("RequestSeedPhase received from " + getActiveChar());
+		//requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 }

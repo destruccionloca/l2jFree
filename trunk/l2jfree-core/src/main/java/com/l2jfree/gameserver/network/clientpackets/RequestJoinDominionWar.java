@@ -17,34 +17,24 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * Format chS
- * c: (id) 0x39
- * h: (subid) 0x00
- * S: the character name
- * @author -Wooden-
+ * @author savormix
  */
-public final class SuperCmdCharacterInfo extends L2GameClientPacket
+public final class RequestJoinDominionWar extends L2GameClientPacket
 {
-	private static final String	_C__39_00_SUPERCMDCHARACTERINFO	= "[C] 39:00 SuperCmdCharacterInfo";
-
-	private String _name;
+	private int _unk1, _unk2, _unk3;
 
 	@Override
 	protected void readImpl()
 	{
-		_name = readS();
+		_unk1 = readD();
+		_unk2 = readD();
+		_unk3 = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("SuperCmdCharacterInfo, name=" + _name + ", sent by " + getActiveChar());
+		_log.info("RequestJoinDominionWar, unk=" + _unk1 + ", unk=" + _unk2 + ", unk=" + _unk3 + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-	}
-
-	@Override
-	public String getType()
-	{
-		return _C__39_00_SUPERCMDCHARACTERINFO;
 	}
 }

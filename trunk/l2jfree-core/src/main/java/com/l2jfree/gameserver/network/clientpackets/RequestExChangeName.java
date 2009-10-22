@@ -17,34 +17,28 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * Format chS
- * c: (id) 0x39
- * h: (subid) 0x00
- * S: the character name
- * @author -Wooden-
+ * This packet is sent by the client once the player confirms
+ * a new clan name in a dialog opened by ExNeedToChangeName.
+ * @author savormix
  */
-public final class SuperCmdCharacterInfo extends L2GameClientPacket
+@SuppressWarnings("unused")
+public final class RequestExChangeName extends L2GameClientPacket
 {
-	private static final String	_C__39_00_SUPERCMDCHARACTERINFO	= "[C] 39:00 SuperCmdCharacterInfo";
-
+	private int _unk1, _unk2;
 	private String _name;
 
 	@Override
 	protected void readImpl()
 	{
-		_name = readS();
+		_unk1 = readD(); // always 1?
+		_name = readS(); // new name
+		_unk2 = readD(); // always 0?
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("SuperCmdCharacterInfo, name=" + _name + ", sent by " + getActiveChar());
+		//_log.info("RequestExChangeName, unk=" + _unk1 + ", name=" + _name + ", unk=" + _unk2 + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-	}
-
-	@Override
-	public String getType()
-	{
-		return _C__39_00_SUPERCMDCHARACTERINFO;
 	}
 }

@@ -362,16 +362,16 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						switch (id_2)
 						{
 							case 0x00:
-								// SuperCmdCharacterInfo
+								msg = new SuperCmdCharacterInfo();
 								break;
 							case 0x01:
-								// SuperCmdSummonCmd
+								msg = new SuperCmdSummonCmd();
 								break;
 							case 0x02:
-								// SuperCmdServerStatus
+								msg = new SuperCmdServerStatus();
 								break;
 							case 0x03:
-								// SendL2ParamSetting
+								msg = new SendL2ParamSetting();
 								break;
 							default:
 								printDebug(buf, client, opcode, id_2);
@@ -460,15 +460,12 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						msg = new RequestHennaEquip();
 						break;
 					case 0x70:
-						// RequestHennaUnequipList
 						msg = new RequestHennaRemoveList();
 						break;
 					case 0x71:
-						// RequestHennaUnequipInfo
 						msg = new RequestHennaItemRemoveInfo();
 						break;
 					case 0x72:
-						// RequestHennaUnequip
 						msg = new RequestHennaRemove();
 						break;
 					case 0x73:
@@ -897,13 +894,13 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								// MoveToLocationAirShip
 								break;
 							case 0x39:
-								// RequestBidItemAuction
+								msg = new RequestBidItemAuction();
 								break;
 							case 0x3a:
-								// RequestInfoItemAuction
+								msg = new RequestInfoItemAuction();
 								break;
 							case 0x3b:
-								// RequestExChangeName
+								msg = new RequestExChangeName();
 								break;
 							case 0x3c:
 								msg = new RequestAllCastleInfo();
@@ -942,7 +939,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								msg = new RequestFortressMapInfo();
 								break;
 							case 0x49:
-								// RequestPVPMatchRecord
+								msg = new RequestPVPMatchRecord();
 								break;
 							case 0x4a:
 								msg = new SetPrivateStoreWholeMsg();
@@ -1004,28 +1001,28 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								}
 								break;
 							case 0x52:
-								//RequestWithDrawPremiumItem
+								msg = new RequestWithDrawPremiumItem();
 								break;
 							case 0x53:
-								// RequestJump
+								msg = new RequestJump();
 								break;
 							case 0x54:
-								// RequestStartShowCrataeCubeRank
+								msg = new RequestStartShowCrataeCubeRank();
 								break;
 							case 0x55:
-								// RequestStopShowCrataeCubeRank
+								msg = new RequestStopShowCrataeCubeRank();
 								break;
 							case 0x56:
-								// NotifyStartMiniGame
+								msg = new NotifyStartMiniGame();
 								break;
 							case 0x57:
-								// RequestJoinDominionWar
+								msg = new RequestJoinDominionWar();
 								break;
 							case 0x58:
-								// RequestDominionInfo
+								msg = new RequestDominionInfo();
 								break;
 							case 0x59:
-								// RequestExCleftEnter
+								msg = new RequestExCleftEnter();
 								break;
 							case 0x5a:
 								id3 = 0;
@@ -1047,13 +1044,25 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 								}
 								break;
 							case 0x5b:
-								// EndScenePlayer
+								msg = new EndScenePlayer();
 								break;
 							case 0x5c:
-								// RequestExBlockGameVote
+								msg = new RequestExBlockGameVote();
 								break;
 							case 0x63:
-								// RequestSeedPhase
+								msg = new RequestSeedPhase();
+								break;
+							case 0x65:
+								msg = new BR_GamePoint();
+								break;
+							case 0x66:
+								msg = new BR_ProductList();
+								break;
+							case 0x67:
+								msg = new BR_ProductInfo();
+								break;
+							case 0x68:
+								msg = new BR_BuyProduct();
 								break;
 							default:
 								printDebug(buf, client, opcode, id2);

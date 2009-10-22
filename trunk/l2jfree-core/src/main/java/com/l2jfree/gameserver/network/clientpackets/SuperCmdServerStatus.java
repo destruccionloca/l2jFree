@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  * h: (subid) 0x02
  * @author -Wooden-
  */
-class SuperCmdServerStatus extends L2GameClientPacket
+public class SuperCmdServerStatus extends L2GameClientPacket
 {
 	private static final String	_C__39_02_SUPERCMDSERVERSTATUS	= "[C] 39:02 SuperCmdServerStatus";
 
@@ -35,6 +35,7 @@ class SuperCmdServerStatus extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		_log.info("SuperCmdServerStatus received from " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 

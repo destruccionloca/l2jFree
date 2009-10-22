@@ -17,34 +17,26 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * Format chS
- * c: (id) 0x39
- * h: (subid) 0x00
- * S: the character name
- * @author -Wooden-
+ * This packet is sent by client at a second's intervals once it first receives
+ * the ExItemAuctionInfo packet.
+ * @author savormix
  */
-public final class SuperCmdCharacterInfo extends L2GameClientPacket
+public final class RequestInfoItemAuction extends L2GameClientPacket
 {
-	private static final String	_C__39_00_SUPERCMDCHARACTERINFO	= "[C] 39:00 SuperCmdCharacterInfo";
-
-	private String _name;
+	@SuppressWarnings("unused")
+	private int _auctionId;
 
 	@Override
 	protected void readImpl()
 	{
-		_name = readS();
+		_auctionId = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("SuperCmdCharacterInfo, name=" + _name + ", sent by " + getActiveChar());
+		//_log.info("ReqInfoItemAuction, auctionId=" + _objectId + ", sent by " + getActiveChar());
+		//sendPacket(new ExItemAuctionInfo(getActiveChar()));
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
-	}
-
-	@Override
-	public String getType()
-	{
-		return _C__39_00_SUPERCMDCHARACTERINFO;
 	}
 }

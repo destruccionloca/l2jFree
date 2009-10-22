@@ -1219,6 +1219,8 @@ public class Config extends L2Config
 	public static int				ENTERWORLD_TICK;
 	public static int				ENTERWORLD_PPT;
 
+	public static int				MERCENARY_SAVING_DELAY;
+
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1422,6 +1424,8 @@ public class Config extends L2Config
 		    ENTERWORLD_QUEUING = Boolean.parseBoolean(optionsSettings.getProperty("DiscreteStarterPackets", "false"));
 		    ENTERWORLD_TICK = Integer.parseInt(optionsSettings.getProperty("StarterPacketTick", "100"));
 		    ENTERWORLD_PPT = Integer.parseInt(optionsSettings.getProperty("StarterPacketsPerTick", "8"));
+
+		    MERCENARY_SAVING_DELAY = Integer.parseInt(optionsSettings.getProperty("MercenaryPosUpdateDelay", "90000"));
 		}
 	}
 

@@ -55,24 +55,26 @@ public final class HennaEquipList extends L2GameServerPacket
 		for (L2Henna element : _hennas)
 		{
 			int req = checkRequirements(element);
-			if (req == 3 && !Config.ALT_SHOW_FULL_HENNA_LIST)
+			// Player must have at least one dye in inventory
+			// to be able to see the henna that can be applied with it.
+			if (Config.ALT_SHOW_FULL_HENNA_LIST || req != 3)
 			{
-				// Player must have at least one dye in inventory
-				// to be able to see the henna that can be applied with it.
-				writeD(0x00);
-				writeD(0x00);
-				writeCompQ(0x00);
-				writeCompQ(0x00);
+				writeD(element.getSymbolId()); //symbol ID
+				writeD(element.getItemId()); //item ID of dye
+				writeCompQ(element.getAmount()); //amount of dye required
+				writeCompQ(element.getPrice()); //amount of adena required
 			}
 			else
 			{
-				writeD(element.getSymbolId());   //symbol ID
-				writeD(element.getItemId());     //item ID of dye
-				writeCompQ(element.getAmount()); //amount of dye required
-				writeCompQ(element.getPrice());  //amount of adena required
+				writeD(0x00);
+				writeD(0x00);
+				writeCompQ(0x00);
+				writeCompQ(0x00);
 			}
 
-			writeD(1); //meet the requirement(1) or not(0) - seems not working at client
+			// Makes no difference in current gracia final client
+			//writeD(req == 0); //meet the requirement(1) or not(0)
+			writeD(0x01);
 		}
 	}
 
