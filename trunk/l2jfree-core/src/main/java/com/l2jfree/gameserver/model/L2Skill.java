@@ -251,8 +251,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	//Stats for transformation skills
 	private final int				_transformId;
 
-	private final int				_duration;
-
 	private final int				_baseCritRate;				// percent of success for skill critical hit (especially for PDAM & BLOW -
 	// they're not affected by rCrit values or buffs). Default loads -1 for all
 	// other skills but 0 to PDAM & BLOW
@@ -439,8 +437,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		// Stats for transformation Skill
 		_transformId = set.getInteger("transformId", 0);
-
-		_duration = set.getInteger("duration", 0);
 
 		_baseCritRate = set.getInteger("baseCritRate", (_skillType == L2SkillType.PDAM || _skillType == L2SkillType.BLOW) ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
@@ -1211,11 +1207,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int getTransformId()
 	{
 		return _transformId;
-	}
-
-	public final int getDuration()
-	{
-		return _duration;
 	}
 
 	public final static boolean skillLevelExists(int skillId, int level)

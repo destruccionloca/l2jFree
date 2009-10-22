@@ -286,10 +286,7 @@ Control of this needs to be moved back into potions.java so proper message suppo
 			if (activeChar instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) activeChar;
-				// Only for Heal potions
-				if (magicId == 2031 || magicId == 2032 || magicId == 2037)
-					player.shortBuffStatusUpdate(magicId, level, 15);
-
+				
 				if (!(player.isSitting() && !skill.isPotion()))
 					return true;
 			}

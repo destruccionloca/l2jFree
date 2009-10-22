@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.network.serverpackets.ShortBuffStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
@@ -238,8 +239,13 @@ public abstract class L2Effect implements FuncOwner, Runnable
 				_effected.startAbnormalEffect(_template.abnormalEffect | getTypeBasedAbnormalEffect());
 				_effected.startSpecialEffect(_template.specialEffect);
 			}
-
-			if (_effected instanceof L2Playable)
+			
+			if (_effected instanceof L2PcInstance && ShortBuffStatusUpdate.isShortBuff(L2Effect.this))
+			{
+				// short buff icon for healing potions
+				((L2PcInstance)_effected).startShortBuffStatusUpdate(L2Effect.this);
+			}
+			else if (_effected instanceof L2Playable)
 				((L2Playable)_effected).updateEffectIcons();
 		}
 	};
@@ -279,7 +285,12 @@ public abstract class L2Effect implements FuncOwner, Runnable
 
 			_startConditionsCorrect = false;
 
-			if (_effected instanceof L2Playable)
+			if (_effected instanceof L2PcInstance && ShortBuffStatusUpdate.isShortBuff(L2Effect.this))
+			{
+				// short buff icon for healing potions
+				((L2PcInstance)_effected).stopShortBuffStatusUpdate(L2Effect.this);
+			}
+			else if (_effected instanceof L2Playable)
 				((L2Playable)_effected).updateEffectIcons();
 		}
 	};
@@ -487,7 +498,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 
 		return _statFuncs;
 	}
-
+	
 	public final void addPacket(EffectInfoPacketList list)
 	{
 		if (!_inUse || !getShowIcon())
@@ -497,13 +508,8 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			return;
 
 		// ShortBuffStatusUpdate sent by handler
-		switch (_skill.getId())
-		{
-			case 2031:
-			case 2032:
-			case 2037:
-				return;
-		}
+		if (ShortBuffStatusUpdate.isShortBuff(this))
+			return;
 
 		switch (getEffectType())
 		{

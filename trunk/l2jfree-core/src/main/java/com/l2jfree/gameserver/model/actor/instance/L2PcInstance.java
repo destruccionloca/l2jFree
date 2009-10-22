@@ -916,18 +916,6 @@ public final class L2PcInstance extends L2Playable
 		return super.isAttackingDisabled() || isTryingToSitOrStandup();
 	}
 
-	/** ShortBuff clearing Task */
-	private ScheduledFuture<?>	_shortBuffTask	= null;
-
-	private final class ShortBuffTask implements Runnable
-	{
-		public void run()
-		{
-			setShortBuffTaskSkillId(0);
-			sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
-		}
-	}
-
 	/**
 	 * Create a new L2PcInstance and add it in the characters table of the database.<BR><BR>
 	 *
@@ -12905,39 +12893,29 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(new UserInfo(L2PcInstance.this));
 		}
 	}
-
-
-	/**
-	 *
-	 * @param magicId
-	 * @param level
-	 * @param time
-	 */
-	public void shortBuffStatusUpdate(int magicId, int level, int time)
+	
+	private L2Effect _shortBuff;
+	
+	public void startShortBuffStatusUpdate(L2Effect effect)
 	{
-		if (_shortBuffTask != null)
-		{
-			_shortBuffTask.cancel(false);
-			_shortBuffTask = null;
-		}
-		_shortBuffTask = ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(), time * 1000);
-
-		setShortBuffTaskSkillId(magicId);
-		sendPacket(new ShortBuffStatusUpdate(magicId, level, time));
+		if (ShortBuffStatusUpdate.getPriority(_shortBuff) > ShortBuffStatusUpdate.getPriority(effect))
+			return;
+		
+		_shortBuff = effect;
+		
+		sendPacket(new ShortBuffStatusUpdate(effect.getId(), effect.getLevel(), (int)effect.getRemainingTaskTime()));
 	}
-
-	private int _shortBuffTaskSkillId;
-
-	public void setShortBuffTaskSkillId(int id)
+	
+	public void stopShortBuffStatusUpdate(L2Effect effect)
 	{
-		_shortBuffTaskSkillId = id;
+		if (_shortBuff != effect)
+			return;
+		
+		_shortBuff = null;
+		
+		sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
 	}
-
-	public int getShortBuffTaskSkillId()
-	{
-		return _shortBuffTaskSkillId;
-	}
-
+	
 	public int getDeathPenaltyBuffLevel()
 	{
 		return _deathPenaltyBuffLevel;

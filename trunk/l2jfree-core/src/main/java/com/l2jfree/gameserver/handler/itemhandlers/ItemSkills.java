@@ -75,32 +75,6 @@ public final class ItemSkills implements IItemHandler
 					sm.addSkillName(itemSkill);
 					activeChar.sendPacket(sm);
 				}
-				else
-				{
-					switch (skillId)
-					{
-						// short buff icon for healing potions
-						case 2031:
-						case 2032:
-						case 2037:
-						case 26025:
-						case 26026:
-							int buffId = activeChar.getShortBuffTaskSkillId();
-							// greater healing potions
-							if (skillId == 2037 || skillId == 26025)
-								activeChar.shortBuffStatusUpdate(skillId, skillLvl, itemSkill.getDuration() / 1000);
-							// healing potions
-							else if ((skillId == 2032 || skillId == 26026) && buffId != 2037 && buffId != 26025)
-								activeChar.shortBuffStatusUpdate(skillId, skillLvl, itemSkill.getDuration() / 1000);
-							// lesser healing potions
-							else
-							{
-								if (buffId != 2037 && buffId != 26025 && buffId != 2032 && buffId != 26026)
-									activeChar.shortBuffStatusUpdate(skillId, skillLvl, itemSkill.getDuration() / 1000);
-							}
-							break;
-					}
-				}
 				
 				if (itemSkill.isPotion())
 				{
