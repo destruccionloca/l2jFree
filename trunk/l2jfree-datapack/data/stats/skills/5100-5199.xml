@@ -142,8 +142,8 @@
     </for>
   </skill>
   <skill id="5113" levels="12" name="Castle Self AE Dispell Buff">
-    <table name="#mpConsumeInit"> 1 2 2 3 4 5 6 7 7 7 7 7 </table>
-    <set name="mpConsumeInit" val="#mpConsumeInit"/>
+    <table name="#mpInitialConsume"> 1 2 2 3 4 5 6 7 7 7 7 7 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <table name="#mpConsume"> 5 8 11 14 18 22 26 28 29 30 31 31 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
@@ -151,7 +151,7 @@
     <set name="hitTime" val="6000"/>
     <set name="coolTime" val="4000"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="targetType" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="negateStats" val="DEBUFF POISON BLEED WEAKNESS ROOT"/>

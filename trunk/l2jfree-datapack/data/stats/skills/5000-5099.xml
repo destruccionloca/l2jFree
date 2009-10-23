@@ -510,8 +510,8 @@
   </skill>
   <!-- True power, reuse and magic lvl unknown -->
   <skill id="5052" levels="12" name="Castle Long AE Fire">
-    <table name="#mpConsumeInit"> 1 2 2 3 4 5 6 7 7 7 7 7 </table>
-    <set name="mpConsumeInit" val="#mpConsumeInit"/>
+    <table name="#mpInitialConsume"> 1 2 2 3 4 5 6 7 7 7 7 7 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <table name="#mpConsume"> 5 8 11 14 18 22 26 28 29 30 31 31 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
@@ -524,7 +524,7 @@
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
     <set name="coolTime" val="2666"/>
-    <set name="targetType" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="1500"/>
