@@ -25,24 +25,18 @@ public class ExShowDominionRegistry extends L2GameServerPacket
 	private final int _mercReq = 0x00;
 	private final int _warTime = (int) (System.currentTimeMillis() / 1000);
 	private final int _currentTime = (int) (System.currentTimeMillis() / 1000);
-	
+
 	public ExShowDominionRegistry(int terrId)
 	{
 		_territoryId = terrId;
 	}
-	
-	/**
-     * @see net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket#getType()
-     */
+
     @Override
     public String getType()
     {
         return "[S] FE:90 ExShowDominionRegistry";
     }
 
-    /**
-     * @see net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
-     */
     @Override
     protected void writeImpl()
     {
@@ -67,5 +61,4 @@ public class ExShowDominionRegistry extends L2GameServerPacket
         	writeD(0x51 + i); // Emblem ID - should be in for loop for emblem count
         }
     }
-    
 }

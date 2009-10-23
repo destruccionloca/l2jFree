@@ -52,7 +52,7 @@ public class ExShowAgitInfo extends L2GameServerPacket
             writeD(ch.getId());
             writeS(ch.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(ch.getOwnerId()).getName()); // owner clan name
             writeS(ch.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(ch.getOwnerId()).getLeaderName()); // leader name
-            writeD(ch.getGrade()> 0 ? 0x00 : 0x01); // 0 - auction  1 - war clanhall  2 - ETC (rainbow spring clanhall)
+            writeD(ch.getSiege() != null); // 0 - auction  1 - war clanhall  2 - ETC (rainbow spring clanhall)
         }
     }
     
