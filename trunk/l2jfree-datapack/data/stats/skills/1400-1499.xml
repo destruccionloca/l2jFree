@@ -1858,8 +1858,8 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5578"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="30"/>
-    <set name="chanceType" val="ON_HIT"/>
+    <set name="activationChance" val="5"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
   </skill>
   <skill id="1492" levels="1" name="Flame Armor">
     <set name="mpConsume" val="37"/>
