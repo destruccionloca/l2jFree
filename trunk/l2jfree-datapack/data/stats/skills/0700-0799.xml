@@ -1600,37 +1600,12 @@
     </for>
   </skill>
   <skill id="799" levels="3" name="Master Ability - Defense">
-    <table name="#Heavy"> 60 120 180 </table>
-    <table name="#Light"> 45 90 135 </table>
-    <table name="#Robe"> 30 60 90 </table>
+    <table name="#pDef"> 12 24 36 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="pDef" val="#Heavy">
-        <and>
-          <using kind="Heavy"/>
-          <not>
-            <using kind="Light,Magic"/>
-          </not>
-        </and>
-      </add>
-      <add order="0x40" stat="pDef" val="#Light">
-        <and>
-          <using kind="Light"/>
-          <not>
-            <using kind="Heavy,Magic"/>
-          </not>
-        </and>
-      </add>
-      <add order="0x40" stat="pDef" val="#Robe">
-        <and>
-          <using kind="Magic"/>
-          <not>
-            <using kind="Light,Heavy"/>
-          </not>
-        </and>
-      </add>
+      <add order="0x40" val="#pDef" stat="pDef"/>
     </for>
   </skill>
 </list>

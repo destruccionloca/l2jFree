@@ -418,39 +418,39 @@
     </cond>
   </skill>
   <skill id="631" levels="6" name="Emergent Ability - Attack">
-    <table name="#pAtk"> 1.06 1.08 1.1 1.11 1.12 1.13 </table>
+    <table name="#pAtk"> 22 42 60 76 88 98 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="#pAtk" stat="pAtk"/>
+      <add order="0x40" val="#pAtk" stat="pAtk"/>
     </for>
   </skill>
   <skill id="632" levels="6" name="Emergent Ability - Defense">
-    <table name="#pDef"> 1.06 1.08 1.1 1.11 1.12 1.13 </table>
+    <table name="#pDef"> 9 18 27 36 45 54 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="#pDef" stat="pDef"/>
+      <add order="0x40" val="#pDef" stat="pDef"/>
     </for>
   </skill>
   <skill id="633" levels="6" name="Emergent Ability - Empower">
-    <table name="#mAtk"> 1.02 1.04 1.05 1.07 1.08 1.09 </table>
+    <table name="#mAtk"> 11 21 30 38 45 51 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="#mAtk" stat="mAtk"/>
+      <add order="0x40" val="#mAtk" stat="mAtk"/>
     </for>
   </skill>
   <skill id="634" levels="6" name="Emergent Ability - Magic Defense">
-    <table name="#mDef"> 1.06 1.08 1.1 1.11 1.12 1.13 </table>
+    <table name="#mDef"> 15 29 42 54 65 75 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="#mDef" stat="mDef"/>
+      <add order="0x40" val="#mDef" stat="mDef"/>
     </for>
   </skill>
   <skill id="635" levels="3" name="Not In Use">
@@ -468,7 +468,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.25" stat="pAtk"/>
+      <add order="0x40" val="49" stat="pAtk"/>
     </for>
   </skill>
   <skill id="638" levels="1" name="Master Ability - Empower">
@@ -476,7 +476,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.17" stat="mAtk"/>
+      <add order="0x40" val="29" stat="mAtk"/>
     </for>
   </skill>
   <skill id="639" levels="1" name="Master Ability - Casting">
@@ -484,7 +484,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.13" stat="mAtkSpd"/>
+      <add order="0x40" val="15" stat="mAtkSpd"/>
     </for>
   </skill>
   <skill id="640" levels="1" name="Master Ability - Focus">
@@ -492,7 +492,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" val="100" stat="rCrit"/>
+      <add order="0x40" val="30" stat="rCrit"/>
     </for>
   </skill>
   <skill id="641" levels="1" name="Knight Ability - Boost HP">
@@ -500,7 +500,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.17" stat="maxHp"/>
+      <mul order="0x30" val="1.06" stat="maxHp"/>
     </for>
   </skill>
   <skill id="642" levels="1" name="Enchanter Ability - Boost Mana">
@@ -508,7 +508,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.17" stat="maxMp"/>
+      <add order="0x40" val="148" stat="maxMp"/>
     </for>
   </skill>
   <skill id="643" levels="1" name="Summoner Ability - Boost HP/MP">
@@ -516,8 +516,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.13" stat="maxHp"/>
-      <mul order="0x30" val="1.13" stat="maxMp"/>
+      <add order="0x40" val="147" stat="maxHp"/>
+      <add order="0x40" val="74" stat="maxMp"/>
     </for>
   </skill>
   <skill id="644" levels="1" name="Rogue Ability - Evasion">
@@ -534,7 +534,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtkRange" val="50"/>
+      <add order="0x40" stat="pAtkRange" val="100"/>
     </for>
   </skill>
   <skill id="646" levels="1" name="Wizard Ability - Mana Gain">
@@ -542,7 +542,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="gainMp" val="1.47"/>
+      <add order="0x40" stat="gainMp" val="20"/>
     </for>
   </skill>
   <skill id="647" levels="1" name="Enchanter Ability - Mana Recovery">
@@ -550,7 +550,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="regMp" val="1.44"/>
+      <add order="0x40" stat="regMp" val="0.5"/>
     </for>
   </skill>
   <skill id="648" levels="1" name="Healer Ability - Prayer">
@@ -558,7 +558,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="gainHp" val="1.65"/>
+      <add order="0x40" stat="gainHp" val="19"/>
     </for>
   </skill>
   <skill id="650" levels="1" name="Warrior Ability - Resist Trait">
@@ -615,7 +615,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="triggeredId" val="5576"/>
     <set name="triggeredLevel" val="1"/>
-    <set name="activationChance" val="5"/> <!-- guessed -->
+    <set name="activationChance" val="2"/> <!-- guessed -->
     <set name="chanceType" val="ON_ATTACKED"/> <!-- guessed -->
   </skill>
   <skill id="656" levels="3" name="Transform Divine Warrior">

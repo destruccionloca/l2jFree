@@ -2,11 +2,12 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="800" levels="3" name="Master Ability - Magic Defense">
+    <table name="#mDef"> 16 33 50 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.17" stat="mDef"/>
+      <add order="0x40" val="#mDef" stat="mDef"/>
     </for>
   </skill>
   <skill id="801" levels="1" name="Warrior Ability - Boost CP">
@@ -14,13 +15,16 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" val="1.13" stat="maxCp"/> <!-- Maybe need little correction -->
+      <add order="0x40" val="738" stat="maxCp"/> <!-- Maybe need little correction -->
     </for>
   </skill>
   <skill id="802" levels="1" name="Wizard Ability - Anti-magic">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.03"/>
+    </for>
   </skill>
   <skill id="803" levels="1" name="Healer Ability - Divine Protection">
     <set name="target" val="TARGET_SELF"/>
@@ -38,7 +42,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="effectRange" val="-1"/>
     <for>
-      <mul order="0x30" stat="critVuln" val="0.95"/>
+      <mul order="0x30" stat="critVuln" val="0.97"/>
     </for>
   </skill>
   <skill id="805" levels="1" name="not used">
