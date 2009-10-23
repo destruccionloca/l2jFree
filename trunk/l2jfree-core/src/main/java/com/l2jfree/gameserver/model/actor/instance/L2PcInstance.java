@@ -7060,6 +7060,8 @@ public final class L2PcInstance extends L2Playable
 			_classIndex = currentClassIndex;
 			long totalOnlineTime = _onlineTime;
 
+			stopJailTask(true);
+
 			if (_onlineBeginTime > 0)
 				totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
 
