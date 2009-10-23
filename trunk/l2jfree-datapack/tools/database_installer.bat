@@ -4,7 +4,7 @@ REM ############################################
 REM ## You can change here your own DB params ##
 REM ############################################
 REM MYSQL BIN PATH
-set mysqlBinPath=C:\Program Files\MySQL\MySQL Server 5.1\bin
+set mysqlBinPath=C:\InstalledSoftware\MySQL\MySQL Server 5.1\bin
 
 REM LOGINSERVER
 set lsuser=root
@@ -14,7 +14,7 @@ set lshost=localhost
 
 REM GAMESERVER
 set gsuser=root
-set gspass=
+set gspass=a22e46c3
 set gsdb=l2jdb
 set gshost=localhost
 REM ############################################
@@ -103,6 +103,8 @@ echo Castle Manor Procure
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/castle_manor_procure.sql
 echo Castle Manor Production
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/castle_manor_production.sql
+echo Castle Mercenary Guards
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/castle_hired_guards.sql
 echo Castle Siege Guards
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/castle_siege_guards.sql
 echo Castle Traps

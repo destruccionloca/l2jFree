@@ -4109,3 +4109,5 @@ REPLACE INTO `castle_siege_guards` (`castleId`,`id`,`npcId`,`x`,`y`,`z`,`heading
 -- (id,3281,35430,84244,-16982,-1852,6320,10800,0),
 -- (id,3282,35431,84244,-16982,-1852,6320,10800,0),
 -- (id,3283,35432,84244,-16982,-1852,6320,10800,0);
+
+ALTER TABLE `castle_siege_guards` DROP `isHired`;

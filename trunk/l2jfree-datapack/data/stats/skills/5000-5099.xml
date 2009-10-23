@@ -508,11 +508,27 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="4000"/>
   </skill>
+  <!-- True power, reuse and magic lvl unknown -->
   <skill id="5052" levels="12" name="Castle Long AE Fire">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#mpConsumeInit"> 1 2 2 3 4 5 6 7 7 7 7 7 </table>
+    <set name="mpConsumeInit" val="#mpConsumeInit"/>
+    <table name="#mpConsume"> 5 8 11 14 18 22 26 28 29 30 31 31 </table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
+    <set name="power" val="#power"/>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="3000"/>
+    <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="targetType" val="TARGET_ONE"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1500"/>
+    <set name="effectRange" val="2000"/>
   </skill>
   <skill id="5053" levels="12" name="Castle DD Water">
     <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>

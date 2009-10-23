@@ -10061,4 +10061,19 @@ UPDATE `npc` SET `absorb_level` = '16', `absorb_type` = 'FULL_PARTY' WHERE `id` 
 
 # Eva's gift Boxes
 UPDATE `npc` SET `type` = 'L2Monster' WHERE `idTemplate` = 32342 LIMIT 1;
- 
+
+-- Stationary mercenaries are cheaper, but, well, they do not move (yes, at all)...
+UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35010 AND 35014;
+UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35020 AND 35024;
+UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35030 AND 35034;
+UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35040 AND 35044;
+UPDATE `npc` SET `runSpd` = 0, `walkSpd` = 0 WHERE `id` BETWEEN 35050 AND 35054;
+-- Mercenary teleporters
+UPDATE `npc` SET `type` = 'L2SiegeTeleporter' WHERE `id` IN (35092,35093,35094,35134,35135,35136,35176,35177,35178,35218,35219,35220,35261,35262,35263,35264,35265,35308,35309,35310,35352,35353,35354,35497,35498,35499,35500,35501,35544,35545,35546);
+-- Mercenary AI
+-- Sword (knight), Spear (warlord) - balanced
+UPDATE `npc` SET `AI` = 'balanced' WHERE `id` IN (35010,35011,35015,35016,35020,35021,35025,35026,35030,35031,35035,35036,35040,35041,35045,35046,35050,35051,35055,35056,35060);
+-- Bow - archer (perhaps fighter for stationary)
+UPDATE `npc` SET `AI` = 'archer' WHERE `id` IN (35012,35017,35022,35027,35032,35037,35042,35047,35052,35057);
+-- Cleric, Wizard - mage
+UPDATE `npc` SET `AI` = 'mage' WHERE `id` IN (35013,35014,35018,35019,35023,35024,35028,35029,35033,35034,35038,35039,35043,35044,35048,35049,35053,35054,35058,35059,35061);

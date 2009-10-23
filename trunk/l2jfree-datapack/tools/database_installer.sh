@@ -187,6 +187,7 @@ full_install()
 	$MYG < ../sql/castle_functions.sql &> /dev/null
 	$MYG < ../sql/castle_manor_procure.sql &> /dev/null
 	$MYG < ../sql/castle_manor_production.sql &> /dev/null
+	$MYG < ../sql/castle_hired_guards.sql &> /dev/null
 	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
 	$MYG < ../sql/castle_zoneupgrade.sql &> /dev/null
 	$MYG < ../sql/certification_skill_trees.sql &> /dev/null
