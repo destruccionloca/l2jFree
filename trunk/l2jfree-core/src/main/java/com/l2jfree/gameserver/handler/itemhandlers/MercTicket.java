@@ -14,115 +14,23 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.handler.IItemHandler;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
-import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 
 public class MercTicket implements IItemHandler
 {
-	private static final String[]	MESSAGES	=
-												{ "To arms!", "I am ready to serve you my lord when the time comes.", "You summon me." };
-
-	/**
-	 * handler for using mercenary tickets.  Things to do:
-	 * 1) Check constraints:
-	 * 1.a) Tickets may only be used in a castle
-	 * 1.b) Only specific tickets may be used in each castle (different tickets for each castle)
-	 * 1.c) only the owner of that castle may use them
-	 * 1.d) tickets cannot be used during siege
-	 * 1.e) Check if max number of tickets has been reached
-	 * 1.f) Check if max number of tickets from this ticket's TYPE has been reached
-	 * 2) If allowed, call the MercTicketManager to add the item and spawn in the world
-	 * 3) Remove the item from the person's inventory
-	 */
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
-		int itemId = item.getItemId();
-		L2PcInstance activeChar = (L2PcInstance) playable;
-		Castle castle = CastleManager.getInstance().getCastle(activeChar);
-		int castleId = -1;
-		if (castle != null)
-			castleId = castle.getCastleId();
-
-		// Add check that certain tickets can only be placed in certain castles
-		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId)
-		{
-			activeChar.sendPacket(SystemMessageId.MERCENARIES_CANNOT_BE_POSITIONED_HERE);
-			return;
-		}
-
-		if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) != L2Clan.CP_CS_MERCENARIES)
-		{
-			activeChar.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_AUTHORITY_TO_POSITION_MERCENARIES);
-			return;
-		}
-
-		if (castle != null && castle.getSiege().getIsInProgress())
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
-			return;
-		 }
-
-		// Checking Seven Signs Quest Period
-		if (SevenSigns.getInstance().getCurrentPeriod() != SevenSigns.PERIOD_SEAL_VALIDATION)
-		{
-			//_log.warning("Someone has tried to spawn a guardian during Quest Event Period of The Seven Signs.");
-			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
-			return;
-		}
-		// Checking the Seal of Strife status
-		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
-		{
-			case SevenSigns.CABAL_NULL:
-				if (SevenSigns.getInstance().checkIsDawnPostingTicket(itemId))
-				{
-					//_log.warning("Someone has tried to spawn a Dawn Mercenary though the Seal of Strife is not controlled by anyone.");
-					activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
-					return;
-				}
-				break;
-			case SevenSigns.CABAL_DUSK:
-				if (!SevenSigns.getInstance().checkIsRookiePostingTicket(itemId))
-				{
-					//_log.warning("Someone has tried to spawn a non-Rookie Mercenary though the Seal of Strife is controlled by Revolutionaries of Dusk.");
-					activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
-					return;
-				}
-				break;
-			case SevenSigns.CABAL_DAWN:
-				break;
-		}
-
-		if (MercTicketManager.getInstance().isAtCasleLimit(item.getItemId()))
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
-			return;
-		}
-		if (MercTicketManager.getInstance().isAtTypeLimit(item.getItemId()))
-		{
-			activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
-			return;
-		}
-		if (MercTicketManager.getInstance().isTooCloseToAnotherTicket(activeChar.getX(), activeChar.getY(), activeChar.getZ()))
-		{
-			activeChar.sendPacket(SystemMessageId.POSITIONING_CANNOT_BE_DONE_BECAUSE_DISTANCE_BETWEEN_MERCENARIES_TOO_SHORT);
-			return;
-		}
-
-		MercTicketManager.getInstance().addTicket(item.getItemId(), activeChar, MESSAGES);
-		activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false); // Remove item from char's inventory
-		activeChar.sendPacket(new SystemMessage(SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION).addItemName(item));
+		L2PcInstance player = playable.getActingPlayer();
+		MercTicketManager.getInstance().reqPosition(player, item);
+		player.sendPacket(new ConfirmDlg(SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION).addItemName(item));
 	}
 
-	// Left in here for backward compatibility
 	public int[] getItemIds()
 	{
 		return MercTicketManager.getInstance().getItemIds();

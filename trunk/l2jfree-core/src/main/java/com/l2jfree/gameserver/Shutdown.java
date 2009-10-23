@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
+import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
@@ -213,6 +214,8 @@ public final class Shutdown extends Thread
 			ItemsOnGroundManager.getInstance().cleanUp();
 			System.out.println("ItemsOnGroundManager: All items on ground saved.");
 		}
+		if (MercTicketManager.getInstance().stopSaveTask())
+			MercTicketManager.getInstance().saveAll();
 		
 		SQLQueue.getInstance().run();
 		System.out.println("Data saved. All players disconnected, " + _mode.getText() + ".");

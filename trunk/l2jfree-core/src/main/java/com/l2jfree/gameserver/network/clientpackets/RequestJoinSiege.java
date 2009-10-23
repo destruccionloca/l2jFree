@@ -21,6 +21,8 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
+import com.l2jfree.gameserver.network.serverpackets.SiegeDefenderList;
 
 /**
  * This class ...
@@ -77,7 +79,11 @@ public class RequestJoinSiege extends L2GameClientPacket
 			}
 			else
 				castle.getSiege().removeSiegeClan(activeChar);
-			castle.getSiege().listRegisterClan(activeChar);
+			//castle.getSiege().listRegisterClan(activeChar);
+			if (_isAttacker == 1)
+				sendPacket(new SiegeAttackerList(castle));
+			else
+				sendPacket(new SiegeDefenderList(castle));
 		}
 		else if (hideout != null)
 		{
@@ -95,7 +101,11 @@ public class RequestJoinSiege extends L2GameClientPacket
 			}
 			else
 				hideout.getSiege().removeSiegeClan(activeChar);
-			hideout.getSiege().listRegisterClan(activeChar);
+			//hideout.getSiege().listRegisterClan(activeChar);
+			if (_isAttacker == 1)
+				sendPacket(new SiegeAttackerList(hideout));
+			else
+				sendPacket(new SiegeDefenderList(hideout));
 		}
 
 		sendPacket(ActionFailed.STATIC_PACKET);

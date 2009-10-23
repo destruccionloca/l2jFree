@@ -2606,4 +2606,39 @@ public class L2Clan
 		}
 		return list;
 	}
+
+	/**
+	 * Checks if player has sufficient privileges for an action.
+	 * Current action types:
+	 * <LI>{@link #CP_CL_JOIN_CLAN}</LI>
+	 * <LI>{@link #CP_CL_GIVE_TITLE}</LI>
+	 * <LI>{@link #CP_CL_VIEW_WAREHOUSE}</LI>
+	 * <LI>{@link #CP_CL_MANAGE_RANKS}</LI>
+	 * <LI>{@link #CP_CL_PLEDGE_WAR}</LI>
+	 * <LI>{@link #CP_CL_DISMISS}</LI>
+	 * <LI>{@link #CP_CL_REGISTER_CREST}</LI>
+	 * <LI>{@link #CP_CL_APPRENTICE}</LI>
+	 * <LI>{@link #CP_CL_TROOPS_FAME}</LI>
+	 * <LI>{@link #CP_CL_SUMMON_AIRSHIP}</LI>
+	 * <LI>{@link #CP_CH_OPEN_DOOR}</LI>
+	 * <LI>{@link #CP_CH_OTHER_RIGHTS}</LI>
+	 * <LI>{@link #CP_CH_AUCTION}</LI>
+	 * <LI>{@link #CP_CH_DISMISS}</LI>
+	 * <LI>{@link #CP_CH_SET_FUNCTIONS}</LI>
+	 * <LI>{@link #CP_CS_OPEN_DOOR}</LI>
+	 * <LI>{@link #CP_CS_MANOR_ADMIN}</LI>
+	 * <LI>{@link #CP_CS_MANAGE_SIEGE}</LI>
+	 * <LI>{@link #CP_CS_USE_FUNCTIONS}</LI>
+	 * <LI>{@link #CP_CS_DISMISS}</LI>
+	 * <LI>{@link #CP_CS_TAXES}</LI>
+	 * <LI>{@link #CP_CS_MERCENARIES}</LI>
+	 * <LI>{@link #CP_CS_SET_FUNCTIONS}</LI>
+	 * <LI>{@link #CP_ALL}</LI>
+	 * @param player a player
+	 * @param privs action type (see above)
+	 * @return whether player has these privileges
+	 */
+	public static final boolean checkPrivileges(L2PcInstance player, int privs) {
+		return (player.getClanPrivileges() & privs) == privs;
+	}
 }

@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -59,6 +60,8 @@ public class DlgAnswer extends L2GameClientPacket
             cha.gatesAnswer(_answer, 1);
         else if (_messageId == SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE.getId())
             cha.gatesAnswer(_answer, 0);
+        else if (_messageId == SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION.getId())
+        	MercTicketManager.getInstance().addPosition(cha);
 
         sendPacket(ActionFailed.STATIC_PACKET);
     }

@@ -40,7 +40,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.shot.ShotState;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -769,50 +768,17 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 				&& (!player.isCastingSimultaneouslyNow() || player.getLastSimultaneousSkillCast() == null || player.getLastSimultaneousSkillCast().getItemConsumeId() != getItemId())
 				&& (allowNonTradeable || isTradeable()));
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.model.L2Object#onAction(com.l2jfree.gameserver.model.L2PcInstance) also check constraints: only soloing castle owners may pick
-	 *      up mercenary tickets of their castle
-	 */
+
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		// this causes the validate position handler to do the pickup if the location is reached.
-		// mercenary tickets can only be picked up by the castle owner.
-		int _castleId = MercTicketManager.getInstance().getTicketCastleId(getItemId());
-		
-		if (_castleId > 0)
-		{
-			boolean privMatch = (player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES;
-			boolean castleMatch = ((player.getClan() != null) && player.getClan().getHasCastle() == _castleId);
-			if (privMatch && castleMatch)
-			{
-				if (player.isInParty())
-				{
-					player.sendMessage("You cannot pickup mercenaries while in a party.");
-					player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-				}
-				else
-				{
-					player.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, this);
-				}
-			}
-			else
-			{
-				player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-			}
-			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
-		else if (player.isFlying()) // cannot pickup
-		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
-		else
-			player.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, this);
+		if (player.isFlying() || !MercTicketManager.getInstance().canPickUp(player, this))
+			return;
+
+		if (player.isInParty() && MercTicketManager.getInstance().isTicket(getItemId()))
+			player.leaveParty(); // seriously, he asked for it.
+
+		player.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, this);
 	}
 	
 	/**
@@ -1786,6 +1752,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 */
 	public final void pickupMe(L2Character player)
 	{
+		MercTicketManager.getInstance().remPosition(this);
+		
 		L2WorldRegion oldregion = getPosition().getWorldRegion();
 		
 		// Create a server->client GetItem packet to pick up the L2ItemInstance
@@ -1796,16 +1764,10 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			getPosition().clearWorldRegion();
 		}
 		
-		// if this item is a mercenary ticket, remove the spawns!
 		ItemsOnGroundManager.getInstance().removeObject(this);
 		
 		final int itemId = getItemId();
-		
-		if (MercTicketManager.getInstance().getTicketCastleId(itemId) > 0)
-		{
-			MercTicketManager.getInstance().removeTicket(this);
-		}
-		else if (itemId == 57 || itemId == 6353)
+		if (itemId == 57 || itemId == 6353)
 		{
 			L2PcInstance pc = player.getActingPlayer();
 			if (pc != null)
@@ -1816,9 +1778,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			}
 		}
 		
-		ItemsOnGroundManager.getInstance().removeObject(this);
-		
-		// this can synchronize on others instancies, so it's out of
+		// this can synchronize on other instances, so it's out of
 		// synchronized, to avoid deadlocks
 		// Remove the L2ItemInstance from the world
 		L2World.getInstance().removeVisibleObject(this, oldregion);

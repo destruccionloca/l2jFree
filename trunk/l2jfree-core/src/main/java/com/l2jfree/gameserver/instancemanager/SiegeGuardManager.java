@@ -31,141 +31,51 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
+/**
+ * The correct name would be <I>SiegeGuardSpawnManager</I>.
+ * It manages the guard spawn list(s) and spawning/unspawning
+ * guards during siege.
+ * @author unknown & savormix
+ */
 public class SiegeGuardManager
 {
+	private static final Log _log = LogFactory.getLog(SiegeGuardManager.class);
+	private static final int DEFAULT_GUARD_RESPAWN = 600; // as earlier
+	private static final String LOAD_NPC_GUARDS = "SELECT * FROM castle_siege_guards WHERE castleId=?";
+	private static final String ADD_NPC_GUARD = "INSERT INTO castle_siege_guards VALUES (?,NULL,?,?,?,?,?,?)";
 
-	private final static Log	_log				= LogFactory.getLog(SiegeGuardManager.class);
+	private final Castle _castle;
+	private final FastList<L2Spawn> _siegeGuardSpawn;
+	private volatile int _spawnId;
 
-	// =========================================================
-	// Data Field
-	private final Castle				_castle;
-	private final FastList<L2Spawn>	_siegeGuardSpawn	= new FastList<L2Spawn>();
-
-	// =========================================================
-	// Constructor
 	public SiegeGuardManager(Castle castle)
 	{
 		_castle = castle;
-	}
-
-	// =========================================================
-	// Method - Public
-	/**
-	 * Add guard.<BR><BR>
-	 */
-	public void addSiegeGuard(L2PcInstance activeChar, int npcId)
-	{
-		if (activeChar == null)
-			return;
-		addSiegeGuard(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading(), npcId);
+		_siegeGuardSpawn = new FastList<L2Spawn>();
+		_spawnId = Integer.MIN_VALUE;
 	}
 
 	/**
-	 * Add guard.<BR><BR>
-	 */
-	public void addSiegeGuard(int x, int y, int z, int heading, int npcId)
-	{
-		saveSiegeGuard(x, y, z, heading, npcId, 0);
-	}
-
-	/**
-	 * Hire merc.<BR><BR>
-	 */
-	public void hireMerc(L2PcInstance activeChar, int npcId)
-	{
-		if (activeChar == null)
-			return;
-		hireMerc(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading(), npcId);
-	}
-
-	/**
-	 * Hire merc.<BR><BR>
-	 */
-	public void hireMerc(int x, int y, int z, int heading, int npcId)
-	{
-		saveSiegeGuard(x, y, z, heading, npcId, 1);
-	}
-
-	/**
-	 * Remove a single mercenary, identified by the npcId and location.
-	 * Presumably, this is used when a castle lord picks up a previously dropped ticket
-	 */
-	public void removeMerc(int npcId, int x, int y, int z)
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("DELETE FROM castle_siege_guards WHERE npcId = ? AND x = ? AND y = ? AND z = ? AND isHired = 1");
-			statement.setInt(1, npcId);
-			statement.setInt(2, x);
-			statement.setInt(3, y);
-			statement.setInt(4, z);
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e1)
-		{
-			_log.warn("Error deleting hired siege guard at " + x + ',' + y + ',' + z + ":" + e1);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
-
-	/**
-	 * Remove mercs.<BR><BR>
-	 */
-	public void removeMercs()
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("DELETE FROM castle_siege_guards WHERE castleId = ? AND isHired = 1");
-			statement.setInt(1, getCastle().getCastleId());
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e1)
-		{
-			_log.warn("Error deleting hired siege guard for castle " + getCastle().getName() + ":" + e1);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
-
-	/**
-	 * Spawn guards.<BR><BR>
-	 * Added cheat proof check by Darki699. Some players found a way to spawn more than the allowed
-	 * amount of siege guards. This check for max hired guards should stop this.
+	 * Spawns siege guards only if {@link Config#ALT_SPAWN_SIEGE_GUARD} is true.<BR>
+	 * If the castle is owned by NPCs, loads & spawns guards defined in
+	 * <code>castle_siege_guards</code>, since it was always replaceable (and mercenary
+	 * positions were always lost after updating).<BR>
+	 * If the castle is owned by a clan, spawns guards defined in
+	 * <code>castle_hired_guards</code>, which contains only mercenary positions.
+	 * <BR><BR>
+	 * If siege guards are not spawned, mercenary positions are retained, since they
+	 * were not used (they cost quite much to hire).
 	 */
 	public void spawnSiegeGuard()
 	{
+		if (!Config.ALT_SPAWN_SIEGE_GUARD)
+			return;
 		try
 		{
-			int hiredCount = 0;
-			int hiredMax = MercTicketManager.getInstance().getMaxAllowedMerc(_castle.getCastleId());
-			boolean isHired = (getCastle().getOwnerId() > 0);
-			if (Config.ALT_SPAWN_SIEGE_GUARD)
-			{
-				loadSiegeGuard();
-				for (L2Spawn spawn : getSiegeGuardSpawn())
-				{
-					if (spawn != null)
-					{
-						spawn.init();
-						if (isHired)
-						{
-							if (++hiredCount > hiredMax)
-								return;
-						}
-					}
-				}
-			}
+			loadSiegeGuard();
+			for (L2Spawn spawn : getSiegeGuardSpawn())
+				if (spawn != null)
+					spawn.init();
 		}
 		catch (RuntimeException e)
 		{
@@ -174,7 +84,8 @@ public class SiegeGuardManager
 	}
 
 	/**
-	 * Unspawn guards.<BR><BR>
+	 * Unspawns siege guards and clears the {@link #_siegeGuardSpawn}
+	 * <U>Should only be called after siege.</U>
 	 */
 	public void unspawnSiegeGuard()
 	{
@@ -187,27 +98,116 @@ public class SiegeGuardManager
 			if (spawn.getLastSpawn() != null)
 				spawn.getLastSpawn().doDie(spawn.getLastSpawn());
 		}
-
 		getSiegeGuardSpawn().clear();
 	}
 
-	// =========================================================
-	// Method - Private
 	/**
-	 * Load guards.<BR><BR>
+	 * Add a mercenary spawn to the guard list.<BR>
+	 * <B><U>Not to be called from {@link MercTicketManager#addPosition(L2PcInstance)}
+	 * or any subsequent methods!</U></B><BR>
+	 * This method is used to build the spawn list just before spawning the
+	 * siege guards in siege (think of it as an alternative to
+	 * {@link #loadSiegeGuard()}). That is also the reason we do not have any methods
+	 * to remove mercenary spawns and that's why we store positions in MercTicketManager.
+	 * @param npc Mercenary NPC ID
+	 * @param x Mercenary position's coordinate X
+	 * @param y Mercenary position's coordinate Y
+	 * @param z Mercenary position's coordinate Z
+	 * @param heading Mercenary position's heading
 	 */
-	private void loadSiegeGuard()
+	public final void addMercenary(int npc, int x, int y, int z, int heading)
 	{
+		L2NpcTemplate temp = NpcTable.getInstance().getTemplate(npc);
+		if (temp != null)
+		{
+			L2Spawn s = new L2Spawn(temp);
+			s.setId(_spawnId++);
+			s.setAmount(1);
+			s.setLocx(x);
+			s.setLocy(y);
+			s.setLocz(z);
+			s.setHeading(heading);
+			s.setRespawnDelay(0);
+			s.setLocation(0);
+			_siegeGuardSpawn.add(s);
+		}
+		else
+			_log.warn("Missing mercenary NPC data: " + npc);
+	}
+
+	/**
+	 * Saves a castle guard directly to the database.<BR>
+	 * There are no restrictions for the NPC, however, it will be saved
+	 * as a NPC guard (not a mercenary).
+	 * @param gm Game Master (player)
+	 * @param npc any NPC's ID
+	 */
+	public final void addAnyGuard(L2PcInstance gm, int npc, int respawn)
+	{
+		Castle c = CastleManager.getInstance().getCastle(gm);
+		if (c == null)
+		{
+			gm.sendMessage("You must be on a castle's ground.");
+			return;
+		}
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM castle_siege_guards WHERE castleId = ? AND isHired = ?");
+			PreparedStatement ps = con.prepareStatement(ADD_NPC_GUARD);
+			ps.setInt(1, c.getCastleId());
+			ps.setInt(2, npc);
+			ps.setInt(3, gm.getX());
+			ps.setInt(4, gm.getY());
+			ps.setInt(5, gm.getZ());
+			ps.setInt(6, gm.getHeading());
+			ps.setInt(7, respawn);
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("Error adding siege guard for castle " + getCastle().getName(), e);
+			gm.sendMessage("Failed! Reason: " + e.getMessage());
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	/**
+	 * This method behaves just as
+	 * <CODE>addAnyGuard(gm, npc, {@link #DEFAULT_GUARD_RESPAWN})</CODE>
+	 * @param gm Game Master (player)
+	 * @param npc any NPC's ID
+	 * @see #addAnyGuard(L2PcInstance, int, int)
+	 */
+	public final void addAnyGuard(L2PcInstance gm, int npc)
+	{
+		addAnyGuard(gm, npc, DEFAULT_GUARD_RESPAWN);
+	}
+
+	/**
+	 * Load guards defined in <CODE>castle_siege_guards</CODE> if castle is
+	 * owned by NPCs.<BR>
+	 * Calls {@link MercTicketManager#buildSpawns(SiegeGuardManager)} if
+	 * castle is owned by a player clan.
+	 */
+	private void loadSiegeGuard()
+	{
+		if (getCastle().getOwnerId() > 0)
+		{
+			MercTicketManager.getInstance().buildSpawns(this);
+			return;
+		}
+
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement(LOAD_NPC_GUARDS);
 			statement.setInt(1, getCastle().getCastleId());
-			if (getCastle().getOwnerId() > 0) // If castle is owned by a clan, then don't spawn default guards
-				statement.setInt(2, 1);
-			else
-				statement.setInt(2, 0);
 			ResultSet rs = statement.executeQuery();
 
 			L2Spawn spawn1;
@@ -227,19 +227,16 @@ public class SiegeGuardManager
 					spawn1.setHeading(rs.getInt("heading"));
 					spawn1.setRespawnDelay(rs.getInt("respawnDelay"));
 					spawn1.setLocation(0);
-
 					_siegeGuardSpawn.add(spawn1);
 				}
 				else
-				{
 					_log.warn("Missing npc data in npc table for id: " + rs.getInt("npcId"));
-				}
 			}
 			statement.close();
 		}
-		catch (Exception e1)
+		catch (Exception e)
 		{
-			_log.warn("Error loading siege guard for castle " + getCastle().getName() + ":" + e1);
+			_log.warn("Error loading siege guard for castle " + getCastle().getName(), e);
 		}
 		finally
 		{
@@ -247,49 +244,13 @@ public class SiegeGuardManager
 		}
 	}
 
-	/**
-	 * Save guards.<BR><BR>
-	 */
-	private void saveSiegeGuard(int x, int y, int z, int heading, int npcId, int isHire)
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con
-					.prepareStatement("INSERT INTO castle_siege_guards (castleId, npcId, x, y, z, heading, respawnDelay, isHired) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-			statement.setInt(1, getCastle().getCastleId());
-			statement.setInt(2, npcId);
-			statement.setInt(3, x);
-			statement.setInt(4, y);
-			statement.setInt(5, z);
-			statement.setInt(6, heading);
-			if (isHire == 1)
-				statement.setInt(7, 0);
-			else
-				statement.setInt(7, 600);
-			statement.setInt(8, isHire);
-			statement.execute();
-			statement.close();
-		}
-		catch (Exception e1)
-		{
-			_log.warn("Error adding siege guard for castle " + getCastle().getName() + ":" + e1);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
-
-	// =========================================================
-	// Property - Public
-
+	/** @return the owner castle */
 	public final Castle getCastle()
 	{
 		return _castle;
 	}
 
+	/** @return guard spawn list */
 	public final FastList<L2Spawn> getSiegeGuardSpawn()
 	{
 		return _siegeGuardSpawn;

@@ -142,13 +142,9 @@ public final class L2TeleporterInstance extends L2Npc
 	{
 		String pom = "";
 		if (val == 0)
-		{
-			pom = "" + npcId;
-		}
+			pom = String.valueOf(npcId);
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 
 		return "data/html/teleporter/" + pom + ".htm";
 	}

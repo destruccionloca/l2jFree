@@ -24,11 +24,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.4.4 $ $Date: 2005/03/29 23:15:33 $
- */
 public class RequestPetGetItem extends L2GameClientPacket
 {
 	private static final String _C__8f_REQUESTPETGETITEM= "[C] 8F RequestPetGetItem";
@@ -48,40 +43,41 @@ public class RequestPetGetItem extends L2GameClientPacket
 		if (player == null)
 			return;
 
-		// Get object from knownlist
 		L2Object obj = player.getKnownList().getKnownObject(_objectId);
-
-		// Get object from world
 		if (obj == null)
 		{
 			obj = L2World.getInstance().findObject(_objectId);
-			_log.warn("Player "+player.getName()+" requested pet to pickup item from outside of his knownlist.");
+			//_log.warn("Player "+player.getName()+" requested pet to pickup item from outside of his knownlist.");
 		}
-
 		if (!(obj instanceof L2ItemInstance))
-			return;
-
-		L2ItemInstance item = (L2ItemInstance)obj;
-
-		if(player.getPet() == null || player.getPet() instanceof L2SummonInstance)
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
-		int castleId = MercTicketManager.getInstance().getTicketCastleId(item.getItemId());
-		if (castleId > 0)
+		L2ItemInstance item = (L2ItemInstance) obj;
+		if (!MercTicketManager.getInstance().canPickUp(player, item))
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
-		L2PetInstance pet = (L2PetInstance)player.getPet();
+		if (player.getPet() == null || player.getPet() instanceof L2SummonInstance)
+		{
+			sendAF();
+			return;
+		}
+
+		L2PetInstance pet = (L2PetInstance) player.getPet();
 		if (pet.isDead() || pet.isOutOfControl())
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
+		if (MercTicketManager.getInstance().isTicket(item.getItemId()))
+			player.leaveParty();
+
 		pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);
 	}
 

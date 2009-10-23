@@ -1414,38 +1414,6 @@ public class SevenSigns
 		}
 	}
 
-	public boolean checkIsDawnPostingTicket(int itemId)
-	{
-		//TODO I think it should be some kind of a list in the datapack for compare;
-		if (itemId > 6114 && itemId < 6175)
-			return true;
-		if (itemId > 6801 && itemId < 6812)
-			return true;
-		if (itemId > 7997 && itemId < 8008)
-			return true;
-		if (itemId > 7940 && itemId < 7951)
-			return true;
-		if (itemId > 6294 && itemId < 6307)
-			return true;
-		if (itemId > 6831 && itemId < 6834)
-			return true;
-		if (itemId > 8027 && itemId < 8030)
-			return true;
-        return itemId > 7970 && itemId < 7973;
-    }
-
-	public boolean checkIsRookiePostingTicket(int itemId)
-	{
-		//TODO I think it should be some kind of a list in the datapack for compare;
-		if (itemId > 6174 && itemId < 6295)
-			return true;
-		if (itemId > 6811 && itemId < 6832)
-			return true;
-		if (itemId > 7950 && itemId < 7971)
-			return true;
-        return itemId > 8007 && itemId < 8028;
-    }
-
 	public void giveCPMult(int StrifeOwner)
 	{
 		for (L2PcInstance character : L2World.getInstance().getAllPlayers())

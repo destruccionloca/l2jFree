@@ -19,10 +19,12 @@ import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
+import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
@@ -119,9 +121,18 @@ public class RequestDropItem extends L2GameClientPacket
 			activeChar.broadcastUserInfo();
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		if (MercTicketManager.getInstance().isTicket(item.getItemId()))
+		{
+			MercTicketManager.getInstance().reqPosition(activeChar, item);
+			sendPacket(new ConfirmDlg(SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION).addItemName(item));
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 
 		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, activeChar, false);
+
+		sendPacket(ActionFailed.STATIC_PACKET);
+
 		if (_log.isDebugEnabled())
 			_log.debug("dropping " + _objectId + " item(" + _count + ") at: " + _x + " " + _y + " " + _z);
 		if (dropedItem != null && dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)

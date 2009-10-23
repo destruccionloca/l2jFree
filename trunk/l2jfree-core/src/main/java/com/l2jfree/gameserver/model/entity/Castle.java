@@ -1469,7 +1469,7 @@ public class Castle extends Siegeable<Siege>
 	 */
 	public static boolean validateTax(int percent)
 	{
-		return (percent >= 0 && percent < getMaxTax());
+		return (percent >= 0 && percent <= getMaxTax());
 	}
 
 	/** @return maximum tax percentage allowed by Seven Signs */

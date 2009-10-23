@@ -135,7 +135,10 @@ public class AdminSiege implements IAdminCommandHandler
 				try
 				{
 					int npcId = Integer.parseInt(val);
-					castle.getSiege().getSiegeGuardManager().addSiegeGuard(activeChar, npcId);
+					if (st.hasMoreTokens())
+						castle.getSiege().getSiegeGuardManager().addAnyGuard(activeChar, npcId, Integer.parseInt(st.nextToken()));
+					else
+						castle.getSiege().getSiegeGuardManager().addAnyGuard(activeChar, npcId);
 				}
 				catch (Exception e)
 				{

@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
-import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.instancemanager.SiegeGuardManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
@@ -310,7 +309,6 @@ public class Siege extends AbstractSiege
 			removeControlTower(); // Remove all control tower from this castle
 			deactivateZones(); // Control towers removed - bye to danger zone effects
 			_siegeGuardManager.unspawnSiegeGuard(); // Remove all spawned siege guard from this castle
-			if (getCastle().getOwnerId() > 0) _siegeGuardManager.removeMercs();
 			getCastle().spawnDoor(); // Respawn door to castle
 		}
 	}
@@ -346,7 +344,8 @@ public class Siege extends AbstractSiege
 	{
 		if (getIsInProgress()) // Siege still in progress
 		{
-			if (getCastle().getOwnerId() > 0) _siegeGuardManager.removeMercs(); // Remove all merc entry from db
+			if (getCastle().getOwnerId() > 0)
+				_siegeGuardManager.unspawnSiegeGuard();
 
 			if (getDefenderClans().size() == 0 && // If defender doesn't exist (Pc vs Npc)
 				getAttackerClans().size() == 1 // Only 1 attacker
@@ -465,7 +464,6 @@ public class Siege extends AbstractSiege
 			spawnControlTower(getCastle().getCastleId()); // Spawn control tower
 			getCastle().spawnDoor(); // Spawn door
 			spawnSiegeGuard(); // Spawn siege guard
-			MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId()); // remove the tickets from the ground
 			getZone().updateSiegeStatus();
 
 			// Schedule a task to prepare auto siege end
