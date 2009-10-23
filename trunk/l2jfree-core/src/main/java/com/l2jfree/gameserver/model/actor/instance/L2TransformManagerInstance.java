@@ -169,15 +169,6 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 				return;
 			}
 		}
-		else if (command.startsWith("BuyTransform"))
-		{
-			if (testQuestTransformation(player))
-				L2Multisell.getInstance().separateAndSend(getNpcId(), player, getNpcId(), false, getCastle().getTaxRate());
-			else
-			{
-				showHtmlFile(player, getTemplate().getNpcId()+"-cantbuy.htm");
-			}
-		}
 		else
 		{
 			super.onBypassFeedback(player, command);

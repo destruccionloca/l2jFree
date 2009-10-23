@@ -140,7 +140,7 @@ public class L2CastleWarehouseInstance extends L2NpcInstance
 		{
 			if (Config.ENABLE_WAREHOUSESORTING_PRIVATE)
 			{
-				String htmFile = "data/html/mods/WhSortedP.htm";
+				String htmFile = "data/html/custom/WhSortedP.htm";
 				String htmContent = HtmCache.getInstance().getHtm(htmFile);
 				if (htmContent != null)
 				{
@@ -173,7 +173,7 @@ public class L2CastleWarehouseInstance extends L2NpcInstance
 		{
 			if (Config.ENABLE_WAREHOUSESORTING_CLAN)
 			{
-				String htmFile = "data/html/mods/WhSortedC.htm";
+				String htmFile = "data/html/custom/WhSortedC.htm";
 				String htmContent = HtmCache.getInstance().getHtm(htmFile);
 				if (htmContent != null)
 				{
