@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler;
 
+import com.l2jfree.gameserver.handler.usercommandhandlers.Birthday;
 import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelDelete;
 import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelLeave;
 import com.l2jfree.gameserver.handler.usercommandhandlers.ChannelListUpdate;
@@ -41,6 +42,7 @@ public final class UserCommandHandler extends NumberHandlerRegistry<IUserCommand
 	
 	private UserCommandHandler()
 	{
+		registerUserCommandHandler(new Birthday());
 		registerUserCommandHandler(new ChannelDelete());
 		registerUserCommandHandler(new ChannelLeave());
 		registerUserCommandHandler(new ChannelListUpdate());

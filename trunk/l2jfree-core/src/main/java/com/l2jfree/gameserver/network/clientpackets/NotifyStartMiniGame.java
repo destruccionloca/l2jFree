@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
-
 /**
+ * Sent by the client once player starts the
+ * Bejeweled-alike mini game (/minigame).
  * @author savormix
  */
 public final class NotifyStartMiniGame extends L2GameClientPacket
@@ -30,7 +30,7 @@ public final class NotifyStartMiniGame extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		_log.info("NotifyStartMiniGame received from " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		// No idea what should the server do about that
+		//requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 }
