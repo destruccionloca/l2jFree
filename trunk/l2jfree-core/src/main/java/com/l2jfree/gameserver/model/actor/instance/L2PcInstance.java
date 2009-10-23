@@ -7058,12 +7058,6 @@ public final class L2PcInstance extends L2Playable
 			int level = getStat().getLevel();
 			int sp = getStat().getSp();
 			_classIndex = currentClassIndex;
-			long totalOnlineTime = _onlineTime;
-
-			stopJailTask(true);
-
-			if (_onlineBeginTime > 0)
-				totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
 
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
@@ -7103,7 +7097,7 @@ public final class L2PcInstance extends L2Playable
 			statement.setInt(32, getWantsPeace());
 			statement.setInt(33, getBaseClass());
 
-			statement.setLong(34, totalOnlineTime);
+			statement.setLong(34, getOnlineTime());
 			statement.setInt(35, isInJail() ? 1 : 0);
 			statement.setLong(36, getJailTimer());
 			statement.setInt(37, getNewbie());
@@ -12377,7 +12371,7 @@ public final class L2PcInstance extends L2Playable
 			setInstanceId(0);
 			setIsIn7sDungeon(false);
 			
-			teleToLocation(-114356, -249645, -2984, false); // Jail
+			teleToLocation(L2JailZone.JAIL_LOCATION, false); // Jail
 		}
 		else
 		{
@@ -12401,6 +12395,9 @@ public final class L2PcInstance extends L2Playable
 
 	public long getJailTimer()
 	{
+		if (_jailTask != null)
+			return _jailTask.getDelay(TimeUnit.MILLISECONDS);
+		
 		return _jailTimer;
 	}
 

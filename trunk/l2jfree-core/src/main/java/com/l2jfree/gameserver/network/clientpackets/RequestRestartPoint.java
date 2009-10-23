@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 
 public class RequestRestartPoint extends L2GameClientPacket
@@ -190,7 +191,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			case 27: // to jail
 				if (!activeChar.isInJail())
 					return;
-				loc = new Location(-114356, -249645, -2984);
+				loc = L2JailZone.JAIL_LOCATION;
 
 				break;
 

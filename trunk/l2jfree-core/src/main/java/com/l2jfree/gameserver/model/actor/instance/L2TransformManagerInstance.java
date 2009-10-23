@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -85,7 +84,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		else if (command.startsWith("DeleteCertifications"))
 		{
 			if (!player.isSubClassActive())
-			{	
+			{
 				int subclassItemIds[] = {10280,10281,10282,10283,10284,10285,10286,10287,10288,10289,10290,10291,10292,10293,10294,10612};
 				
 				if (player.reduceAdena("Subclass Certification Removal", 10000000, player, true))
@@ -223,7 +222,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 	}
 
 	public void showCertificationSkillsList(L2PcInstance player)
-	{        
+	{
 		if (player.isTransformed())
 			return;
 

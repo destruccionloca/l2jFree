@@ -68,6 +68,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -1197,9 +1198,9 @@ public final class GameStatusThread extends Thread
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
 			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
-			statement.setInt(1, -114356);
-			statement.setInt(2, -249645);
-			statement.setInt(3, -2984);
+			statement.setInt(1, L2JailZone.JAIL_LOCATION.getX());
+			statement.setInt(2, L2JailZone.JAIL_LOCATION.getY());
+			statement.setInt(3, L2JailZone.JAIL_LOCATION.getZ());
 			statement.setInt(4, 1);
 			statement.setLong(5, delay * 60000L);
 			statement.setString(6, name);
