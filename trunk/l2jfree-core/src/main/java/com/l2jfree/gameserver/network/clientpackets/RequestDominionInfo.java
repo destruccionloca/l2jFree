@@ -14,13 +14,17 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.serverpackets.ExReplyDominionInfo;
+
 /**
  * This packet is sent by the client every time the world map is
- * opened. Related to territory wars.
+ * opened (or territory war tab under World Info is clicked).
  * @author savormix
  */
 public final class RequestDominionInfo extends L2GameClientPacket
 {
+	private static final String	_C__D0_58_REQUESTDOMINIONINFO = "[C] D0:58 RequestDominionInfo";
+
 	@Override
 	protected void readImpl()
 	{
@@ -30,7 +34,17 @@ public final class RequestDominionInfo extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		//_log.info("RequestDominionInfo received from " + getActiveChar());
-		//requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		if (getActiveChar() == null)
+			return;
+
+		sendPacket(new ExReplyDominionInfo());
+
+		sendAF();
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__D0_58_REQUESTDOMINIONINFO;
 	}
 }
