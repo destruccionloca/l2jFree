@@ -248,6 +248,8 @@ public class L2DoorInstance extends L2Character
 	public void setOpen(boolean open)
 	{
 		_open = open;
+		getKnownList().updateKnownObjects();
+		broadcastFullInfo();
 	}
 
 	/**
@@ -596,13 +598,11 @@ public class L2DoorInstance extends L2Character
 	public final void closeMe()
 	{
 		setOpen(false);
-		broadcastFullInfo();
 	}
 
 	public final void openMe()
 	{
 		setOpen(true);
-		broadcastFullInfo();
 	}
 
 	@Override
