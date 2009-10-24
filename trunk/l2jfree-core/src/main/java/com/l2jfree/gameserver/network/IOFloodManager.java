@@ -75,9 +75,9 @@ public final class IOFloodManager implements IAcceptFilter
 	{
 		// TODO: fine tune
 		_packets = new FloodManager(1000, 10);
-		_packets.addFloodFilter(100, 120, 1);
+		_packets.addFloodFilter(250, 300, 2);
 		
-		_errors = new FloodManager(100, 10);
+		_errors = new FloodManager(200, 10);
 		_errors.addFloodFilter(10, 10, 1);
 		
 		_log.info("IOFloodManager: initialized.");
