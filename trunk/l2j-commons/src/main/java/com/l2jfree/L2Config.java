@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -35,6 +36,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.io.RedirectingOutputStream.BufferedRedirectingOutputStream;
 import com.l2jfree.util.HandlerRegistry;
 
 /**
@@ -48,6 +50,9 @@ public abstract class L2Config
 	public static Level EXTENDED_LOG_LEVEL = Level.OFF;
 	
 	protected static final Log _log;
+	
+	public static final PrintStream out = System.out;
+	public static final PrintStream err = System.err;
 	
 	static
 	{
@@ -162,6 +167,22 @@ public abstract class L2Config
 		
 		_log = LogFactory.getLog(L2Config.class);
 		_log.info("logging initialized");
+		
+		System.setOut(new PrintStream(new BufferedRedirectingOutputStream() {
+			@Override
+			protected void handleLine(String line)
+			{
+				_log.info(line);
+			}
+		}));
+		
+		System.setErr(new PrintStream(new BufferedRedirectingOutputStream() {
+			@Override
+			protected void handleLine(String line)
+			{
+				_log.warn(line);
+			}
+		}));
 	}
 	
 	protected L2Config()

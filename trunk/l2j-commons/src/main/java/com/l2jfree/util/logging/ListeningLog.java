@@ -14,12 +14,12 @@
  */
 package com.l2jfree.util.logging;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.logging.LogRecord;
 import java.util.logging.StreamHandler;
 
 import org.apache.commons.lang.ArrayUtils;
+
+import com.l2jfree.io.RedirectingOutputStream.BufferedRedirectingOutputStream;
 
 /**
  * @author NB4L1
@@ -52,23 +52,11 @@ public final class ListeningLog
 	{
 		public Handler()
 		{
-			setOutputStream(new OutputStream() {
+			setOutputStream(new BufferedRedirectingOutputStream() {
 				@Override
-				public void write(int b) throws IOException
+				protected void handleLine(String line)
 				{
-					ListeningLog.writeToListeners(new String(new byte[] { (byte)b }));
-				}
-				
-				@Override
-				public void write(byte[] b) throws IOException
-				{
-					ListeningLog.writeToListeners(new String(b));
-				}
-				
-				@Override
-				public void write(byte[] b, int off, int len) throws IOException
-				{
-					ListeningLog.writeToListeners(new String(b, off, len));
+					ListeningLog.writeToListeners(line);
 				}
 			});
 		}
