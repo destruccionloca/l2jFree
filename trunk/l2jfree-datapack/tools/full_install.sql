@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS
 	castle_door,
 	castle_doorupgrade,
 	castle_functions,
+	castle_hired_guards,
 	castle_manor_procure,
 	castle_manor_production,
 	castle_siege_guards,

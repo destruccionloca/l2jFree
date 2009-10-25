@@ -4,7 +4,7 @@ REM ############################################
 REM ## You can change here your own DB params ##
 REM ############################################
 REM MYSQL BIN PATH
-set mysqlBinPath=C:\InstalledSoftware\MySQL\MySQL Server 5.1\bin
+set mysqlBinPath=C:\Program Files\MySQL\MySQL Server 5.1\bin
 
 REM LOGINSERVER
 set lsuser=root
@@ -14,7 +14,7 @@ set lshost=localhost
 
 REM GAMESERVER
 set gsuser=root
-set gspass=a22e46c3
+set gspass=
 set gsdb=l2jdb
 set gshost=localhost
 REM ############################################
