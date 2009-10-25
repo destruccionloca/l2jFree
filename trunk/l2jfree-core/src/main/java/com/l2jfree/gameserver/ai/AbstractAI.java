@@ -42,6 +42,8 @@ import com.l2jfree.gameserver.network.serverpackets.StopRotation;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.Util.Direction;
+import com.l2jfree.lang.L2Math;
 
 /**
  * Mother class of all objects AI in the world.<BR>
@@ -114,9 +116,6 @@ public abstract class AbstractAI implements Ctrl
 	{
 		double distance = Util.calculateDistance(_actor, _followTarget, false);
 		
-		distance -= _actor.getTemplate().getCollisionRadius();
-		distance -= _followTarget.getTemplate().getCollisionRadius();
-		
 		// TODO: fix Z axis follow support, moveToLocation needs improvements
 		// Does not allow targets to follow on infinite distance -> fix for "follow me bug".
 		// if the target is too far (maybe also teleported)
@@ -147,6 +146,8 @@ public abstract class AbstractAI implements Ctrl
 		
 		_followTarget = target;
 		_followRange = 60;
+		_followRange += _actor.getTemplate().getCollisionRadius();
+		_followRange += _followTarget.getTemplate().getCollisionRadius();
 		
 		FollowTaskManager.getInstance().startTask(this);
 		followTarget();
@@ -162,6 +163,8 @@ public abstract class AbstractAI implements Ctrl
 		
 		_followTarget = target;
 		_followRange = range;
+		_followRange += _actor.getTemplate().getCollisionRadius();
+		_followRange += _followTarget.getTemplate().getCollisionRadius();
 		
 		AttackFollowTaskManager.getInstance().startTask(this);
 		followTarget();
@@ -589,8 +592,15 @@ public abstract class AbstractAI implements Ctrl
 		// Check if actor can move
 		if (!_actor.isMovementDisabled())
 		{
-			if (offset < 10)
-				offset = 10;
+			int minOffset = _actor.getTemplate().getCollisionRadius();
+			if (pawn instanceof L2Character)
+				minOffset += ((L2Character)pawn).getTemplate().getCollisionRadius();
+			
+			offset = L2Math.max(10, offset, minOffset);
+			
+			// if the target runs towards the character then don't force the actor to run over it
+			if (pawn != null && pawn.isMoving() && Direction.getDirection(_actor, pawn) == Direction.FRONT)
+				offset += 50;
 			
 			// prevent possible extra calls to this function (there is none?),
 			// also don't send movetopawn packets too often

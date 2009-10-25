@@ -164,10 +164,10 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			broadcastFullInfo();
 
 			owner.setTrainedBeast(this);
-            
+			
 			// Always and automatically follow the owner.
-			getAI().startFollow(_owner,100);
-            
+			getAI().startFollow(_owner);
+			
 			// Instead of calculating this value each time, let's get this now and pass it on
 			int totalBuffsAvailable = 0;
 			for (L2Skill skill : getAllSkills())

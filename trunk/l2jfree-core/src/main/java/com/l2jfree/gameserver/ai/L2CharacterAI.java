@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.util.Util.Direction;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.L2Collections;
 
@@ -1025,6 +1026,8 @@ public class L2CharacterAI extends AbstractAI
 	 */
 	protected boolean maybeMoveToPawn(L2Object target, int offset)
 	{
+		final int originalOffset = offset;
+		
 		// Get the distance between the current position of the L2Character and the target (x,y)
 		if (target == null)
 		{
@@ -1044,6 +1047,9 @@ public class L2CharacterAI extends AbstractAI
 			if (getFollowTarget() != null)
 			{
 				if (!target.isMoving())
+					return true;
+				// allow larger hit range only if the target runs towards the character
+				if (Direction.getDirection(_actor, target) != Direction.FRONT)
 					return true;
 				// allow larger hit range when the target is moving (check is run only once per second)
 				if (!_actor.isInsideRadius(target, offset + 100, false, false))
@@ -1075,12 +1081,7 @@ public class L2CharacterAI extends AbstractAI
 			stopFollow();
 			if ((target instanceof L2Character) && !(target instanceof L2DoorInstance))
 			{
-				if (((L2Character) target).isMoving())
-					offset -= 100;
-				if (offset < 5)
-					offset = 5;
-
-				startFollow((L2Character) target, offset);
+				startFollow((L2Character)target, originalOffset);
 			}
 			else
 			{
