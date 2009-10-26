@@ -161,9 +161,9 @@ class Quest (JQuest) :
         DATE = getDate(self)
         if int(DATE) >= int(EVENTSTARTDATE) and int(DATE) <= int(EVENTENDDATE):
             self.startQuestTimer("SpawnYogi", 30000, None, None)
-            print "INFO Master of Enchanting event is ON"
+            print "Master of Enchanting event is ON"
         else:
-            print "INFO Master of Enchanting event is OFF"
+            print "Master of Enchanting event is OFF"
 
     def onAdvEvent (self,event,npc,player):
         if event == "Autochat":
@@ -204,7 +204,7 @@ class Quest (JQuest) :
             else:
                 for yogi in self.yogiSpawnList:
                     yogi.decayMe()
-                print "INFO Master of Enchanting event is finished"  
+                print "Master of Enchanting event is finished"  
             return
         st = player.getQuestState(qn)
         if not st: st = self.newQuestState(player)
@@ -256,7 +256,7 @@ class Quest (JQuest) :
                     if weaponId == STAFF and weapon.getEnchantLevel() > 3:
                         enchant = weapon.getEnchantLevel()
                         if LOGVALUE > 0 and enchant >= LOGVALUE:
-                            print "INFO: Master of Enchanting event: Player "+str(player.getName())+" brought a +"+str(enchant)+" weapon"
+                            print "Master of Enchanting event: Player "+str(player.getName())+" brought a +"+str(enchant)+" weapon"
                         rewardPlayer(self,st,enchant)
                         htmltext = "32599-08.htm"
                     else:
