@@ -1596,7 +1596,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="majesty">
+      <effect name="Buff" time="300" val="0">
         <mul order="0x30" stat="pDef" val="#pDef"/>
         <sub order="0x40" stat="rEvas" val="#rEvas"/>
       </effect>

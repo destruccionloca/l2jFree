@@ -380,14 +380,14 @@
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
     <set name="isMagic" val="true"/>
+    <cond msgId="2292">
+      <player agathionId="1513"/>
+    </cond>
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="1" stackType="DarkAtr">
         <add order="0x40" stat="darkRes" val="30"/>
       </effect>
     </for>
-    <cond msgId="2292">
-      <player agathionId="1513"/>
-    </cond>
   </skill>
   <skill id="23035" levels="1" name="One-eyed Bat Drove Agathion Special Skill - Ability of Energy Recovery">
     <!-- Recovers energy when acquiring Exp. for 5 minutes. Reuse Delay 1 hours -->

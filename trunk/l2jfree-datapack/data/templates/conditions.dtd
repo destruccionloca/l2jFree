@@ -63,6 +63,7 @@
 <!ATTLIST target npcId CDATA #IMPLIED>
 <!ATTLIST target npcType CDATA #IMPLIED>
 <!ATTLIST target doorId CDATA #IMPLIED>
+<!ATTLIST target abnormal CDATA #IMPLIED>
 <!ELEMENT target EMPTY>
 
 <!ATTLIST using kind CDATA #IMPLIED>

@@ -67,12 +67,12 @@
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#mCritRate" stackType="magic_critical_up">
-        <basemul order="0x40" stat="mCritRate" val="#mCritRate"/>
+        <basemul order="0x30" stat="mCritRate" val="#mCritRate"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" val="0" stackOrder="4" stackType="magic_critical_up">
-        <basemul order="0x40" stat="mCritRate" val="2"/>
+        <basemul order="0x30" stat="mCritRate" val="2"/>
       </effect>
     </enchant1for>
   </skill>
