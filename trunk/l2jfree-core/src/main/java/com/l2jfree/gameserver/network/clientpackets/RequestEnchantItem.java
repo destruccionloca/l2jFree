@@ -98,7 +98,8 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
 		L2ItemInstance scroll = activeChar.getActiveEnchantItem();
 		L2ItemInstance support = activeChar.getActiveEnchantSupportItem();
-		_log.info("ENCHANT: Status bar filled = request enchant " + item);
+		if (_log.isDebugEnabled())
+			_log.info("ENCHANT: Status bar filled = request enchant " + item);
 		if (item == null || scroll == null || item.isWear())
 		{
 			activeChar.setActiveEnchantItem(null);
@@ -196,7 +197,8 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 			{
 				// If chance is 100, the item must be below safe!
 				// Otherwise we found the exploit
-				_log.info("ENCHANT: Success enchanting " + item + ", chance used = " + chance);
+				if (_log.isDebugEnabled())
+					_log.info("ENCHANT: Success enchanting " + item + ", chance used = " + chance);
 				// success
 				item.setEnchantLevel(item.getEnchantLevel() + 1);
 				item.setLastChange(L2ItemInstance.MODIFIED);

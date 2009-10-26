@@ -97,7 +97,8 @@ public class EnchantScrolls implements IItemHandler
 
 		if (activeChar.getActiveEnchantItem() != null)
 		{
-			_log.warn(activeChar + " has got already an active enchant item");
+			if (_log.isDebugEnabled())
+				_log.warn(activeChar + " has got already an active enchant item");
 			return;
 		}
 
