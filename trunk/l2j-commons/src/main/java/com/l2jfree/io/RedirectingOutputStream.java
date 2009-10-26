@@ -56,10 +56,11 @@ public abstract class RedirectingOutputStream extends OutputStream
 				switch (c)
 				{
 					case '\r':
+						break;
 					case '\n':
 					{
-						if (_buffer.length() == 0)
-							break;
+						//if (_buffer.length() == 0)
+						//	break;
 						
 						handleLine(_buffer.toString());
 						

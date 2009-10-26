@@ -29,14 +29,17 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.impl.Jdk14Logger;
 
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.io.RedirectingOutputStream.BufferedRedirectingOutputStream;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.util.HandlerRegistry;
 
 /**
@@ -50,6 +53,7 @@ public abstract class L2Config
 	public static Level EXTENDED_LOG_LEVEL = Level.OFF;
 	
 	protected static final Log _log;
+	protected static final Logger _logger;
 	
 	public static final PrintStream out = System.out;
 	public static final PrintStream err = System.err;
@@ -167,12 +171,15 @@ public abstract class L2Config
 		
 		_log = LogFactory.getLog(L2Config.class);
 		_log.info("logging initialized");
+		_logger = ((Jdk14Logger)_log).getLogger();
 		
 		System.setOut(new PrintStream(new BufferedRedirectingOutputStream() {
 			@Override
 			protected void handleLine(String line)
 			{
-				_log.info(line);
+				final StackTraceElement caller = getCaller();
+				
+				_logger.logp(Level.INFO, caller.getClassName(), caller.getMethodName(), line);
 			}
 		}));
 		
@@ -180,9 +187,22 @@ public abstract class L2Config
 			@Override
 			protected void handleLine(String line)
 			{
-				_log.warn(line);
+				final StackTraceElement caller = getCaller();
+				
+				_logger.logp(Level.WARNING, caller.getClassName(), caller.getMethodName(), line);
 			}
 		}));
+	}
+	
+	private static StackTraceElement getCaller()
+	{
+		StackTraceElement[] stack = new Throwable().getStackTrace();
+		
+		for (int i = stack.length - 1; i >= 0; i--)
+			if (stack[i].getClassName().startsWith("java.io.") || stack[i].getMethodName().equals("printStackTrace"))
+				return stack[L2Math.limit(0, i + 1, stack.length - 1)];
+		
+		return stack[stack.length - 1];
 	}
 	
 	protected L2Config()
