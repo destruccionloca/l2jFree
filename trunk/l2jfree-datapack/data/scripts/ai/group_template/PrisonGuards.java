@@ -80,6 +80,7 @@ public class PrisonGuards extends L2AttackableAIScript
 		}
 	}
 
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("Respawn"))
@@ -114,6 +115,7 @@ public class PrisonGuards extends L2AttackableAIScript
 		return null;
 	}
 
+	@Override
 	public String onSkillSee(L2Npc npc, L2PcInstance player, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		L2Character caster = isPet ? player.getPet() : player;
@@ -130,6 +132,7 @@ public class PrisonGuards extends L2AttackableAIScript
 		return super.onSkillSee(npc, player, skill, targets, isPet);
 	}
 
+	@Override
 	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		L2Character target = isPet ? player.getPet() : player;
@@ -163,6 +166,7 @@ public class PrisonGuards extends L2AttackableAIScript
 		return super.onAggroRangeEnter(npc, player, isPet);
 	}
 
+	@Override
 	public String onAttack(L2Npc npc, L2PcInstance player, int damage, boolean isPet)
 	{
 		L2Character attacker = isPet ? player.getPet() : player;
@@ -205,6 +209,7 @@ public class PrisonGuards extends L2AttackableAIScript
 		return super.onAttack(npc, player, damage, isPet);
 	}
 
+	@Override
 	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) 
 	{
 		if (_guards.containsKey(npc))
