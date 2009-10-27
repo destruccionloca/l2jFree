@@ -7,6 +7,9 @@ import sys
 from com.l2jfree.gameserver.model.quest        import State
 from com.l2jfree.gameserver.model.quest        import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.base import ClassId
+from com.l2jfree.gameserver.model.base import Race
+
 qn = "30154_asterios_occupation_change"
 HIERARCH_ASTERIOS = 30154
 
@@ -54,18 +57,18 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
 
-   Race    = st.getPlayer().getRace()
-   ClassId = st.getPlayer().getClassId()
+   race    = st.getPlayer().getRace()
+   classId = st.getPlayer().getClassId()
 
    # Elfs got accepted
-   if npcId == HIERARCH_ASTERIOS and Race in [Race.Elf]:
-     if ClassId in [ClassId.elvenFighter]: 
+   if npcId == HIERARCH_ASTERIOS and race in [Race.Elf]:
+     if classId in [ClassId.ElvenFighter]: 
        st.setState(State.STARTED)
        return "30154-01.htm"
-     if ClassId in [ClassId.elvenMage]:
+     if classId in [ClassId.ElvenMystic]:
        st.setState(State.STARTED)
        return "30154-02.htm"
-     if ClassId in [ClassId.elvenWizard, ClassId.oracle, ClassId.elvenKnight, ClassId.elvenScout]:
+     if classId in [ClassId.ElvenWizard, ClassId.ElvenOracle, ClassId.ElvenKnight, ClassId.ElvenScout]:
        st.exitQuest(False)
        st.exitQuest(1)
        return "30154-12.htm"
@@ -75,7 +78,7 @@ class Quest (JQuest) :
        return "30154-13.htm"
 
    # All other Races must be out
-   if npcId == HIERARCH_ASTERIOS and Race in [Race.Dwarf, Race.Human, Race.Darkelf, Race.Orc, Race.Kamael]:
+   if npcId == HIERARCH_ASTERIOS and race in [Race.Dwarf, Race.Human, Race.Darkelf, Race.Orc, Race.Kamael]:
      st.exitQuest(False)
      st.exitQuest(1)
      return "30154-11.htm"

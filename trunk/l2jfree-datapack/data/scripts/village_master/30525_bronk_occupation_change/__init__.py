@@ -7,6 +7,9 @@ import sys
 from com.l2jfree.gameserver.model.quest        import State
 from com.l2jfree.gameserver.model.quest        import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.base import ClassId
+from com.l2jfree.gameserver.model.base import Race
+
 qn = "30525_bronk_occupation_change"
 HEAD_BLACKSMITH_BRONK = 30525
 
@@ -42,33 +45,33 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
 
-   Race    = st.getPlayer().getRace()
-   ClassId = st.getPlayer().getClassId()
+   race    = st.getPlayer().getRace()
+   classId = st.getPlayer().getClassId()
 
    # Dwarfs got accepted
-   if npcId == HEAD_BLACKSMITH_BRONK and Race in [Race.Dwarf]:
-     if ClassId in [ClassId.dwarvenFighter]:
+   if npcId == HEAD_BLACKSMITH_BRONK and race in [Race.Dwarf]:
+     if classId in [ClassId.DwarvenFighter]:
        htmltext = "30525-01.htm"
        st.setState(State.STARTED)
        return htmltext
-     if ClassId in [ClassId.artisan]:
+     if classId in [ClassId.Artisan]:
        htmltext = "30525-05.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
-     if ClassId in [ClassId.warsmith]:
+     if classId in [ClassId.Warsmith]:
        htmltext = "30525-06.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
-     if ClassId in [ClassId.scavenger, ClassId.bountyHunter]:
+     if classId in [ClassId.Scavenger, ClassId.BountyHunter]:
        htmltext = "30525-07.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
 
    # All other Races must be out
-   if npcId == HEAD_BLACKSMITH_BRONK and Race in [Race.Orc, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
+   if npcId == HEAD_BLACKSMITH_BRONK and race in [Race.Orc, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
      st.exitQuest(False)
      st.exitQuest(1)
      return "30525-07.htm"

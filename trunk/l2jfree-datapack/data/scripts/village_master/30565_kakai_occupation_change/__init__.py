@@ -7,6 +7,9 @@ import sys
 from com.l2jfree.gameserver.model.quest        import State
 from com.l2jfree.gameserver.model.quest        import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.base import ClassId
+from com.l2jfree.gameserver.model.base import Race
+
 qn = "30565_kakai_occupation_change"
 KAKAI_LORD_OF_FLAME = 30565
 
@@ -54,32 +57,32 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
 
-   Race    = st.getPlayer().getRace()
-   ClassId = st.getPlayer().getClassId()
+   race    = st.getPlayer().getRace()
+   classId = st.getPlayer().getClassId()
 
    # Orcs got accepted
-   if npcId == KAKAI_LORD_OF_FLAME and Race in [Race.Orc]:
-     if ClassId in [ClassId.orcFighter]:
+   if npcId == KAKAI_LORD_OF_FLAME and race in [Race.Orc]:
+     if classId in [ClassId.OrcFighter]:
        htmltext = "30565-01.htm"
        st.setState(State.STARTED)
        return htmltext
-     if ClassId in [ClassId.orcRaider, ClassId.orcMonk, ClassId.orcShaman]:
+     if classId in [ClassId.OrcRaider, ClassId.Monk, ClassId.OrcShaman]:
        htmltext = "30565-09.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
-     if ClassId in [ClassId.destroyer, ClassId.tyrant, ClassId.overlord, ClassId.warcryer]:
+     if classId in [ClassId.Destroyer, ClassId.Tyrant, ClassId.Overlord, ClassId.Warcryer]:
        htmltext = "30565-10.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
-     if ClassId in [ClassId.orcMage]:
+     if classId in [ClassId.OrcMystic]:
        htmltext = "30565-06.htm"
        st.setState(State.STARTED)
        return htmltext
 
    # All other Races must be out
-   if npcId == KAKAI_LORD_OF_FLAME and Race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
+   if npcId == KAKAI_LORD_OF_FLAME and race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
      st.exitQuest(False)
      st.exitQuest(1)
      return "30565-11.htm"

@@ -7,6 +7,9 @@ import sys
 from com.l2jfree.gameserver.model.quest        import State
 from com.l2jfree.gameserver.model.quest        import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.base import ClassId
+from com.l2jfree.gameserver.model.base import Race
+
 qn = "30520_reed_occupation_change"
 WAREHOUSE_CHIEF_REED = 30520
 
@@ -42,28 +45,28 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
 
-   Race    = st.getPlayer().getRace()
-   ClassId = st.getPlayer().getClassId()
+   race    = st.getPlayer().getRace()
+   classId = st.getPlayer().getClassId()
 
    # Dwarfs got accepted
-   if npcId == WAREHOUSE_CHIEF_REED and Race in [Race.Dwarf]:
-     if ClassId in [ClassId.dwarvenFighter]:
+   if npcId == WAREHOUSE_CHIEF_REED and race in [Race.Dwarf]:
+     if classId in [ClassId.DwarvenFighter]:
        htmltext = "30520-01.htm"
        st.setState(State.STARTED)
        return htmltext
-     if ClassId in [ClassId.scavenger, ClassId.artisan]:
+     if classId in [ClassId.Scavenger, ClassId.Artisan]:
        htmltext = "30520-05.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
-     if ClassId in [ClassId.bountyHunter, ClassId.warsmith]:
+     if classId in [ClassId.BountyHunter, ClassId.Warsmith]:
        htmltext = "30520-06.htm"
        st.exitQuest(False)
        st.exitQuest(1)
        return htmltext
 
    # All other Races must be out
-   if npcId == WAREHOUSE_CHIEF_REED and Race in [Race.Orc, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
+   if npcId == WAREHOUSE_CHIEF_REED and race in [Race.Orc, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
      st.exitQuest(False)
      st.exitQuest(1)
      return "30520-07.htm"

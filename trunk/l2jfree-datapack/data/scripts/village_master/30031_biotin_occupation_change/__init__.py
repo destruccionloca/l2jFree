@@ -7,6 +7,9 @@ import sys
 from com.l2jfree.gameserver.model.quest        import State
 from com.l2jfree.gameserver.model.quest        import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.gameserver.model.base import ClassId
+from com.l2jfree.gameserver.model.base import Race
+
 qn = "30031_biotin_occupation_change"
 HIGH_PRIEST_BIOTIN = 30031
 
@@ -41,20 +44,20 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
    
-   Race    = st.getPlayer().getRace()
-   ClassId = st.getPlayer().getClassId()
+   race    = st.getPlayer().getRace()
+   classId = st.getPlayer().getClassId()
    
    # Humans got accepted
-   if npcId == HIGH_PRIEST_BIOTIN and Race in [Race.Human]:
-     if ClassId in [ClassId.fighter, ClassId.warrior, ClassId.knight, ClassId.rogue]:
+   if npcId == HIGH_PRIEST_BIOTIN and race in [Race.Human]:
+     if classId in [ClassId.HumanFighter, ClassId.Warrior, ClassId.HumanKnight, ClassId.Rogue]:
        htmltext = "30031-08.htm"
-     if ClassId in [ClassId.warlord, ClassId.paladin, ClassId.treasureHunter]:
+     if classId in [ClassId.Warlord, ClassId.Paladin, ClassId.TreasureHunter]:
        htmltext = "30031-08.htm"
-     if ClassId in [ClassId.gladiator, ClassId.darkAvenger, ClassId.hawkeye]:
+     if classId in [ClassId.Gladiator, ClassId.DarkAvenger, ClassId.Hawkeye]:
        htmltext = "30031-08.htm"
-     if ClassId in [ClassId.wizard, ClassId.cleric]:
+     if classId in [ClassId.HumanWizard, ClassId.Cleric]:
        htmltext = "30031-06.htm"
-     if ClassId in [ClassId.sorceror, ClassId.necromancer, ClassId.warlock, ClassId.bishop, ClassId.prophet]:
+     if classId in [ClassId.Sorceror, ClassId.Necromancer, ClassId.Warlock, ClassId.Bishop, ClassId.Prophet]:
        htmltext = "30031-07.htm"
      else:
        htmltext = "30031-01.htm"
@@ -63,7 +66,7 @@ class Quest (JQuest) :
      return htmltext
 
    # All other Races must be out
-   if npcId == HIGH_PRIEST_BIOTIN and Race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Orc, Race.Kamael]:
+   if npcId == HIGH_PRIEST_BIOTIN and race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Orc, Race.Kamael]:
      st.exitQuest(False)
      st.exitQuest(1)
      return "30031-08.htm"
