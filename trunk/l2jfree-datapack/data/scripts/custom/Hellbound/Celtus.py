@@ -4,6 +4,7 @@ from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.datatables				import ItemTable
+from com.l2jfree.gameserver.network.serverpackets import CreatureSay
 
 rewards = [9682]
 QUEST_RATE = 5

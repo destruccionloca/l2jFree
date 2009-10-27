@@ -1,8 +1,6 @@
 # Script by Psychokiller1888
 
 import sys
-from com.l2jfree.gameserver.instancemanager             import InstanceManager
-from com.l2jfree.gameserver.model.entity                import Instance
 from com.l2jfree.gameserver.instancemanager.grandbosses import BaylorManager
 from com.l2jfree.gameserver.model.quest                 import State
 from com.l2jfree.gameserver.model.quest                 import QuestState

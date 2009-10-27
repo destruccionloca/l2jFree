@@ -121,7 +121,7 @@ class Quest (JQuest) :
  def onEvent (self,event,st) :
     return do_RequestEvent(event,st)
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
 
    npcId = npc.getNpcId()
    st = player.getQuestState(qn)

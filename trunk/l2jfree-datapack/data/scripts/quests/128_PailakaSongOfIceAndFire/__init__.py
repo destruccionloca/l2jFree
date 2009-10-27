@@ -84,7 +84,7 @@ def enterInstance(self,player,template,teleto):
     teleportplayer(self,player,teleto)
     return instanceId
 
-def exitInstance(player,tele):
+def exitInstance(player,teleto):
     player.setInstanceId(0)
     player.teleToLocation(teleto.x, teleto.y, teleto.z)
     pet = player.getPet()

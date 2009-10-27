@@ -11,11 +11,9 @@ from com.l2jfree.tools.random                      import Rnd
 from com.l2jfree.gameserver.model.itemcontainer import PcInventory
 from com.l2jfree.gameserver.model import L2ItemInstance
 from com.l2jfree.gameserver.network.serverpackets import InventoryUpdate
-from com.l2jfree.gameserver.network.serverpackets import SystemMessage
 from com.l2jfree.gameserver.network import SystemMessageId
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.gameserver.model                  import L2World
-from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.datatables import ItemTable
 
 import time

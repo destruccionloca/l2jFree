@@ -1,4 +1,5 @@
 #  Created by Kerberos
+from com.l2jfree.gameserver.datatables import SpawnTable
 import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver import GameTimeController

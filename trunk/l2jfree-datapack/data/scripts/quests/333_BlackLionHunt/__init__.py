@@ -405,14 +405,14 @@ class Quest (JQuest) :
         st.rewardItems(ADENA_ID,30000)
         return l_give
       else:
-        return no_tablet
+        return l_no_tablet
     elif event == "u_give" :
       if st.getQuestItemsCount(COMPLETE_STATUE) :
         st.takeItems(COMPLETE_STATUE,1)
         st.rewardItems(ADENA_ID,30000)
         return u_give
       else:
-        return no_statue
+        return u_no_statue
     elif event == "m_give":
       if st.getQuestItemsCount(CARGO_BOX1):
         coins = st.getQuestItemsCount(GUILD_COIN)

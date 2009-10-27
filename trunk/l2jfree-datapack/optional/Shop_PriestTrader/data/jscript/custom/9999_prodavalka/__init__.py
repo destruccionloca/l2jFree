@@ -10,7 +10,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onTalk (Self,npc,st):
+ def onTalk (self,npc,st):
    npcId = npc.getNpcId()  
    if npcId in NPC:    
      st.setState(STARTED)
@@ -46,7 +46,7 @@ def onEvent (self,event,st) :
             st.takeItems(57,360)
             st.giveItems(1374,1)
             htmltext = "Item has been succesfully purchased."
-        else:
+         else:
             htmltext = "You do not have enough ancient adena."
 
 # Grate Magic Haste Poition
@@ -60,7 +60,7 @@ def onEvent (self,event,st) :
             htmltext = "You do not have enough ancient adena."
 
 # Grater swift attak poition
-if event == "5":
+    if event == "5":
         if st.getQuestItemsCount(5575)>=7200 and st.getQuestItemsCount(57)>=720:
             st.takeItems(5575,7200)
             st.takeItems(57,720)
@@ -70,7 +70,7 @@ if event == "5":
             htmltext = "You do not have enough ancient adena."
 
 # CP poition
-if event == "6":
+    if event == "6":
         if st.getQuestItemsCount(5575)>=240 and st.getQuestItemsCount(57)>=24:
             st.takeItems(5575,240)
             st.takeItems(57,24)
@@ -101,33 +101,33 @@ if event == "6":
 
 # Charm of luck D-Grade
     if event == "9":
-          if st.getQuestItemsCount(5575)>=396 and st.getQuestItemsCount(57)>=32:
+        if st.getQuestItemsCount(5575)>=396 and st.getQuestItemsCount(57)>=32:
             st.takeItems(5575,396)
             st.takeItems(57,32)
             st.giveItems(5803,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Charm of luck C-Grade
     if event == "10":
-         if st.getQuestItemsCount(5575)>=792 and st.getQuestItemsCount(57)>=76:
+        if st.getQuestItemsCount(5575)>=792 and st.getQuestItemsCount(57)>=76:
             st.takeItems(5575,792)
             st.takeItems(57,76)
             st.giveItems(5804,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Charm of luck B-Grade
     if event == "11":
-         if st.getQuestItemsCount(5575)>=1560 and st.getQuestItemsCount(57)>=156:
+        if st.getQuestItemsCount(5575)>=1560 and st.getQuestItemsCount(57)>=156:
             st.takeItems(5575,1560)
             st.takeItems(57,156)
             st.giveItems(5805,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Charm of luck A-Grade
     if event == "12":
@@ -137,7 +137,7 @@ if event == "6":
             st.giveItems(5806,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Charm of luck S-Grade
     if event == "13":
@@ -147,7 +147,7 @@ if event == "6":
             st.giveItems(5807,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # SP-Scroll low Grade
     if event == "14":
@@ -157,7 +157,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # SP-Scroll Medium Grade
     if event == "15":
@@ -167,7 +167,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # SP-Scroll High Grade
     if event == "16":
@@ -177,7 +177,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Mystery Potion
     if event == "17":
@@ -187,7 +187,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 # Face lifing poition A
     if event == "18":
         if st.getQuestItemsCount(5575)>=24000 and st.getQuestItemsCount(57)>=2400:
@@ -196,7 +196,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Face lifing poition B
     if event == "19":
@@ -206,7 +206,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Face lifing poition C
     if event == "20":
@@ -216,7 +216,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Dye poition A
     if event == "21":
@@ -226,7 +226,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Dye poition B
     if event == "22":
@@ -236,7 +236,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 # Dye poition C
     if event == "23":
         if st.getQuestItemsCount(5575)>=24000 and st.getQuestItemsCount(57)>=2400:
@@ -245,7 +245,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Dye poition D
     if event == "24":
@@ -255,7 +255,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-A
     if event == "25":
@@ -265,7 +265,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-B
     if event == "26":
@@ -275,7 +275,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-C
     if event == "27":
@@ -285,7 +285,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-D
     if event == "28":
@@ -295,7 +295,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-E
     if event == "29":
@@ -305,7 +305,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-F
     if event == "30":
@@ -315,7 +315,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Hair style Change poition-G
     if event == "31":
@@ -325,7 +325,7 @@ if event == "6":
             st.giveItems(955,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # party mask
     if event == "32":
@@ -335,7 +335,7 @@ if event == "6":
             st.giveItems(5808,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # squeaking shoes
     if event == "33":
@@ -345,7 +345,7 @@ if event == "6":
             st.giveItems(5590,1)
             htmltext = "Item has been succesfully purchased."
         else:
-            htmltext = "You do not have enough ancient adena
+            htmltext = "You do not have enough ancient adena."
 
 # Blessed scroll of resurection pets x10
     if event == "34":
@@ -359,7 +359,7 @@ if event == "6":
 
 # Grate Haste poition x10
     if event == "35":
-         if st.getQuestItemsCount(5575)>=36000 and st.getQuestItemsCount(57)>=3600:
+        if st.getQuestItemsCount(5575)>=36000 and st.getQuestItemsCount(57)>=3600:
             st.takeItems(5575,36000)
             st.takeItems(57,3600)
             st.giveItems(1374,10)
@@ -450,9 +450,9 @@ if event == "6":
     if event == "0":
       htmltext = "Cancel."
     
-   st.setState(COMPLETED)
-   st.exitQuest(1)
-   return htmltext
+    st.setState(COMPLETED)
+    st.exitQuest(1)
+    return htmltext
 
 
 QUEST       = Quest(9999,"9999_prodavalka","custom")

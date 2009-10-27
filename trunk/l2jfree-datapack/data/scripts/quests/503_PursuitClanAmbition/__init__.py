@@ -9,6 +9,7 @@ from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.gameserver.network.serverpackets import SocialAction
+from com.l2jfree.gameserver.instancemanager import QuestManager
 
 qn = "503_PursuitClanAmbition"
 qd = "Pursuit Clan Ambition"

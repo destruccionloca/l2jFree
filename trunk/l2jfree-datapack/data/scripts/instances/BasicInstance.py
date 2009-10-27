@@ -12,6 +12,8 @@ from com.l2jfree.gameserver.model.actor                 import L2Summon
 from com.l2jfree.gameserver.model.quest                 import State
 from com.l2jfree.gameserver.model.quest                 import QuestState
 from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import SystemMessage
+from com.l2jfree.gameserver.network import SystemMessageId
 
 class PyObject:
     pass
@@ -20,7 +22,7 @@ class TeleTo:
     def __init__(self,x,y,z,instanceId=0):
         self.x=x
         self.y=y
-        self.z=Z
+        self.z=z
         self.instanceId=instanceId
 
 class BasicInstance(JQuest):
@@ -47,7 +49,7 @@ class BasicInstance(JQuest):
             self.startQuestTimer("teleportNext",delay,None,player)
         else:
             self.teleportPlayer(player,teleto)
-            members = getMembers(player,isInstance)
+            members = self.getMembers(player,inInstance)
             for member in members :
                 self.teleportPlayer(member,teleto)
         return world
@@ -132,7 +134,7 @@ class BasicInstance(JQuest):
         instanceId = 0
         if not self.checkCondition(player):
             return instanceId
-        members = getMembers(player)
+        members = self.getMembers(player)
         # Check for existing instances of party members or channel members
         for member in members :
             if member.getInstanceId()!= 0 and member.getInstanceId() != player.getInstanceId():
@@ -144,7 +146,7 @@ class BasicInstance(JQuest):
                 if worldid == instanceId:
                     foundworld = True
             if not foundworld:
-                self.sendString(player,MEMBERS_IN_OTHER_INSTANCE)
+                self.sendString(player,self.MEMBERS_IN_OTHER_INSTANCE)
                 return 0
             teleto.instanceId = instanceId
             self.teleportPlayer(player, teleto)
@@ -198,7 +200,7 @@ class BasicInstance(JQuest):
         return True
 
     def closeAllDoors(self,world):
-        for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
+        for door in InstanceManager.getInstance().getInstance(world.instanceId).getDoors():
                 door.closeMe()
 
     def getWorld(self,object):

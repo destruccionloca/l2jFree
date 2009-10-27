@@ -1,6 +1,8 @@
 # By Evil33t and Psycho(killer1888) / L2jFree
 # rev 1: Added support for scales (Psycho)
 import sys
+from java.lang import System
+from com.l2jfree.gameserver.datatables import SkillTable
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -128,7 +130,7 @@ class Quest (JQuest) :
 
 	def onKill(self,npc,player,isPet):
 		npcId = npc.getNpcId()
-		if npcId == Tears:
+		if npcId == TEARS:
 			self.addSpawn(32279,144307,154419,-11857,0,False,0,False, player.getInstanceId())
 		return 
 
