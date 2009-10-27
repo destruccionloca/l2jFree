@@ -58,7 +58,7 @@ class Quest (JQuest) :
          return "9000-07-no.htm"
    return htmltext
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
    if npcId in NPC:

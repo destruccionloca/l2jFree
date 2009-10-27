@@ -247,7 +247,7 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
    return "info.htm"
 
 QUEST       = Quest(-1,qn,"custom")

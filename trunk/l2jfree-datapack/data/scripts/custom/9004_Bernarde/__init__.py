@@ -9,7 +9,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
 	if player.isTransformed() and player.getTransformationId()==101:
 		return "trade.htm"
 	else:

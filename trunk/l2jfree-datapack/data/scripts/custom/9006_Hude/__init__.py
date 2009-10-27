@@ -70,7 +70,7 @@ class Quest (JQuest) :
 			player.sendPacket(sm)
 			return
 	
-	def onTalk (Self,npc,player):
+	def onTalk (self,npc,player):
 		item = player.getInventory().getItemByItemId(9850)
 		if item and player.getTrustLevel()>=600000 and player.getTransformationId()==101:
 			return "trade.htm"

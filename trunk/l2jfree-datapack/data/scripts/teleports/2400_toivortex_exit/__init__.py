@@ -12,7 +12,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
     st = player.getQuestState(qn)
     chance = st.getRandom(3)
     if chance == 0:

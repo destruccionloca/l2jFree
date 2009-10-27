@@ -247,7 +247,7 @@ class Quest (JQuest) :
      st.exitQuest(1)
    return htmltext
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
      npcId = npc.getNpcId()
      if npcId in NPC :
          htmltext = str(npcId) + ".htm"

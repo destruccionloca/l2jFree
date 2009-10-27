@@ -111,7 +111,7 @@ class Quest (JQuest) :
           st.exitQuest(1)
      return htmltext
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
      st = player.getQuestState(qn)
      htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
      if player.isHero():

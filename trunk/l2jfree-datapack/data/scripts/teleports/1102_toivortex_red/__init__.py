@@ -13,7 +13,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
    st = player.getQuestState(qn)  
    npcId = npc.getNpcId()
    if npcId in [ DIMENSION_VORTEX_1, DIMENSION_VORTEX_2 ] : 

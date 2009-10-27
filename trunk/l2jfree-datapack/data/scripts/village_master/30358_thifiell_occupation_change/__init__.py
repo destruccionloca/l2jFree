@@ -49,7 +49,7 @@ class Quest (JQuest) :
    if event == "30358-10.htm":
      return "30358-10.htm"
 
- def onTalk (Self,npc,player):
+ def onTalk (self,npc,player):
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
 

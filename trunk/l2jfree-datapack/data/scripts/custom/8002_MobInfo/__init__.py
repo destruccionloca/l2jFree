@@ -343,7 +343,7 @@ class Quest (JQuest) :
 			return text
 		return htmltext
 
-	def onTalk (Self,npc,player):
+	def onTalk (self,npc,player):
 		npcId = npc.getNpcId()
 		if npcId in NPC :
 			htmltext = "mobinfo.htm"

@@ -100,7 +100,7 @@ class Quest (JQuest) :
        player.teleToLocation(-114755,-179466,-6752)
     return htmltext
 
- def onTalk (Self, npc, player):
+ def onTalk (self, npc, player):
     st = player.getQuestState(qn)
     if not st: return
     npcId = npc.getNpcId()

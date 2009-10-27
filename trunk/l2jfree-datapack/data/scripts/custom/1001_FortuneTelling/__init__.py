@@ -60,7 +60,7 @@ class Quest(JQuest) :
 
  def __init__(self, id, name, descr): JQuest.__init__(self, id, name, descr)
 
- def onTalk(Self,npc,player):
+ def onTalk(self,npc,player):
     st = player.getQuestState(qn)
     if not st: return
     if st.getQuestItemsCount(57) < 1000:
