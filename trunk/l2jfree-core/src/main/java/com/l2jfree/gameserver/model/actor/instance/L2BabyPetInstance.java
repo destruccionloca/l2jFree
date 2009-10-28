@@ -110,7 +110,14 @@ public final class L2BabyPetInstance extends L2PetInstance
 		stopCastTask();
 		return true;
 	}
-
+	
+	@Override
+	public synchronized void deleteMe(L2PcInstance owner)
+	{
+		super.deleteMe(owner);
+		stopCastTask();
+	}
+	
 	@Override
 	public synchronized void unSummon(L2PcInstance owner)
 	{
