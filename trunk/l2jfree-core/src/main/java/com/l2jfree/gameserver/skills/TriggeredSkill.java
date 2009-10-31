@@ -46,6 +46,11 @@ public final class TriggeredSkill
 		_skillLvl = skillLvl;
 	}
 	
+	public boolean isValid()
+	{
+		return _skillId > 0 && _skillLvl > 0;
+	}
+	
 	public L2Skill getTriggeredSkill()
 	{
 		return SkillTable.getInstance().getInfo(_skillId, _skillLvl);

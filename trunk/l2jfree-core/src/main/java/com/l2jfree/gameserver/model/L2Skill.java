@@ -421,8 +421,19 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 
-		_chanceCondition = ChanceCondition.parse(set);
-		_triggeredSkill = TriggeredSkill.parse(set);
+		final ChanceCondition chanceCondition = ChanceCondition.parse(set);
+		final TriggeredSkill triggeredSkill = TriggeredSkill.parse(set);
+		
+		if (isValid(chanceCondition, triggeredSkill))
+		{
+			_chanceCondition = chanceCondition;
+			_triggeredSkill = triggeredSkill;
+		}
+		else
+		{
+			_chanceCondition = null;
+			_triggeredSkill = null;
+		}
 
 		_offensiveState = getOffensiveState(set);
 		_isDebuff = set.getBool("isDebuff", false/*isOffensive()*/);
@@ -452,6 +463,17 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_canBeDispeled = set.getBool("canBeDispeled", true);
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
+	}
+	
+	private static boolean isValid(ChanceCondition chanceCondition, TriggeredSkill triggeredSkill)
+	{
+		if (chanceCondition == null)
+			return triggeredSkill == null;
+		
+		if (!chanceCondition.isValid())
+			return false;
+		
+		return triggeredSkill == null || triggeredSkill.isValid();
 	}
 	
 	private boolean isPurePassiveSkill()

@@ -101,6 +101,11 @@ public final class ChanceCondition
 		_elements = elements;
 	}
 	
+	public boolean isValid()
+	{
+		return _chance > 0;
+	}
+	
 	public static ChanceCondition parse(StatsSet set)
 	{
 		if (!set.contains("chanceType") && !set.contains("activationChance") && !set.contains("activationElements"))
