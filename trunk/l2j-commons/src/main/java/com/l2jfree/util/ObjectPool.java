@@ -30,7 +30,7 @@ public abstract class ObjectPool<E>
 	
 	static
 	{
-		new L2Thread(ObjectPool.class.getName()) {
+		final L2Thread t = new L2Thread(ObjectPool.class.getName()) {
 			@Override
 			protected void runTurn()
 			{
@@ -51,7 +51,9 @@ public abstract class ObjectPool<E>
 			{
 				Thread.sleep(60000);
 			}
-		}.start();
+		};
+		t.setDaemon(true);
+		t.start();
 	}
 	
 	private final ReentrantLock _lock = new ReentrantLock();
