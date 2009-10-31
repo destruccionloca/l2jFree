@@ -8059,7 +8059,7 @@ public final class L2PcInstance extends L2Playable
 			return false;
 
 		// Check if the skill is active
-		if (skill.isPassive() || skill.isChance())
+		if (skill.isPassive())
 			return false;
 
 		if (isTransformationDisabledSkill(skill) && !skill.isPotion())
@@ -8512,7 +8512,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		// Check if the skill is defensive
-		if (!skill.isOffensive() && target instanceof L2MonsterInstance && !forceUse && !skill.isNeutral())
+		if (skill.isPositive() && target instanceof L2MonsterInstance && !forceUse)
 		{
 			switch (sklTargetType)
 			{

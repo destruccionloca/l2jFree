@@ -171,28 +171,8 @@ public final class EffectTemplate
 		if ((effectPower == -1) != (effectType == null))
 			throw new IllegalArgumentException("Missing effectType/effectPower for effect: " + name);
 		
-		Integer trigId = null;
-		if (set.contains("triggeredId"))
-			trigId = set.getInteger("triggeredId");
-		
-		Integer trigLvl = null;
-		if (set.contains("triggeredLevel"))
-			trigLvl = set.getInteger("triggeredLevel");
-		
-		String chanceType = null;
-		if (set.contains("chanceType"))
-			chanceType = set.getString("chanceType");
-		
-		Integer activationChance = null;
-		if (set.contains("activationChance"))
-			activationChance = set.getInteger("activationChance");
-		
-		String activationElements = null;
-		if (set.contains("activationElements"))
-			activationElements = set.getString("activationElements");
-		
-		triggeredSkill = TriggeredSkill.parse(trigId, trigLvl);
-		chanceCondition = ChanceCondition.parse(chanceType, activationChance, activationElements);
+		triggeredSkill = TriggeredSkill.parse(set);
+		chanceCondition = ChanceCondition.parse(set);
 		
 		if ("ChanceSkillTrigger".equals(name))
 		{

@@ -118,7 +118,7 @@ public class Continuous implements ICubicSkillHandler
 					((L2PcInstance) activeChar).setCharmOfLuck(true);
 			}
 
-			if (skill.isOffensive() || skill.isDebuff())
+			if (skill.isOffensive())
 			{
 				if (skill.useSpiritShot())
 				{

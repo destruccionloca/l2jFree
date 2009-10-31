@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.skills.effects.EffectFusion;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillFusion;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -29,7 +30,7 @@ public final class FusionSkill implements Runnable
 {
 	private final L2Character _caster;
 	private final L2Character _target;
-	private final L2Skill _skill;
+	private final L2SkillFusion _skill;
 	
 	private final Future<?> _geoCheckTask;
 	
@@ -38,33 +39,33 @@ public final class FusionSkill implements Runnable
 		return _target;
 	}
 	
-	public FusionSkill(L2Character caster, L2Character target, L2Skill skill)
+	public FusionSkill(L2Character caster, L2Character target, L2SkillFusion skill)
 	{
 		_caster = caster;
 		_target = target;
 		_skill = skill;
 		
-		EffectFusion effect = getTriggeredEffect();
+		EffectFusion effect = getFusionTriggeredEffect();
 		
 		if (effect != null)
 			effect.increaseEffect();
 		
 		else
-			skill.getTriggeredSkill().getEffects(_caster, _target);
+			skill.getFusionTriggeredSkill().getEffects(_caster, _target);
 		
 		_geoCheckTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(this, 1000, 1000);
 	}
 	
-	private EffectFusion getTriggeredEffect()
+	private EffectFusion getFusionTriggeredEffect()
 	{
-		return (EffectFusion)_target.getFirstEffect(_skill.getTriggeredSkill().getId());
+		return (EffectFusion)_target.getFirstEffect(_skill.getFusionTriggeredSkill().getId());
 	}
 	
 	public void onCastAbort()
 	{
 		_caster.setFusionSkill(null);
 		
-		EffectFusion effect = getTriggeredEffect();
+		EffectFusion effect = getFusionTriggeredEffect();
 		if (effect != null)
 			effect.decreaseEffect();
 		

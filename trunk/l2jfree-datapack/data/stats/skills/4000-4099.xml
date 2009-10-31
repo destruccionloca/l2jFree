@@ -1233,13 +1233,16 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="4082" levels="1" name="Poison of Death">
+    <set name="canBeDispeled" val="false"/>
+    <set name="ignoreResists" val="true"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="50"/>
-    <set name="skillType" val="BUFF"/>
+    <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
     <set name="offensive" val="true"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="killByDOT" val="true"/>

@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillClanGate;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillFusion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillLearnSkill;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillPdam;
@@ -57,7 +58,7 @@ public enum L2SkillType
 	ROOT,
 	CONT,
 	CONFUSION,
-	FUSION,
+	FUSION(L2SkillFusion.class),
 	PARALYZE,
 	FEAR,
 	SLEEP,
@@ -138,7 +139,6 @@ public enum L2SkillType
 	EXTRACTABLE,
 	LEARN_SKILL(L2SkillLearnSkill.class),
 	CLAN_GATE(L2SkillClanGate.class),
-	UNDEAD_DEFENSE,
 	CANCEL_STATS,
 
 	AGATHION(L2SkillAgathion.class),

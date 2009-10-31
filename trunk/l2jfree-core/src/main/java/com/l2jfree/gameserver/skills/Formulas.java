@@ -2097,7 +2097,7 @@ public final class Formulas
 		// TODO: CHECK/FIX THIS FORMULA UP!!
 		L2SkillType type = skill.getSkillType();
 		double defence = 0;
-		if (skill.isActive() && skill.isOffensive() && !skill.isNeutral())
+		if (skill.isActive() && skill.isOffensive())
 			defence = target.getMDef(actor, skill);
 
 		double attack = 2 * actor.getMAtk(target, skill) * calcSkillVulnerability(actor, target, skill, type);
@@ -2635,7 +2635,6 @@ public final class Formulas
 			case HOT:
 			case CPHOT:
 			case MPHOT:
-			case UNDEAD_DEFENSE:
 			case AGGDEBUFF:
 			case CONT:
 				return SKILL_REFLECT_FAILED;

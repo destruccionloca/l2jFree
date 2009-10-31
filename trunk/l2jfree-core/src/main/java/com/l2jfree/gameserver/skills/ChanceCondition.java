@@ -116,19 +116,6 @@ public final class ChanceCondition
 			throw new IllegalStateException();
 	}
 	
-	public static ChanceCondition parse(String chanceType, Integer chance, String elements)
-	{
-		if (chanceType == null && chance == null && elements == null)
-			return null;
-		
-		final TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType);
-		
-		if (trigger != null && chance >= 0)
-			return new ChanceCondition(trigger, chance, parseElements(elements));
-		else
-			throw new IllegalStateException();
-	}
-	
 	private static byte[] parseElements(String list)
 	{
 		if (list == null)

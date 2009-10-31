@@ -177,7 +177,7 @@ public final class CharEffects
 		if (e.getSkill().isToggle())
 			return 3;
 		
-		if (e.getSkill().isOffensive() || e.getSkill().isDebuff())
+		if (e.getSkill().isOffensive())
 			return 2;
 		
 		return 1;

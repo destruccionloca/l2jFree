@@ -262,7 +262,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="chanceType" val="ON_ATTACKED"/>
     <set name="activationChance" val="#chance"/>
-    <set name="isDebuff" val="true"/>
+    <!-- set name="isDebuff" val="true"/ -->
     <set name="triggeredId" val="5160"/>
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>

@@ -674,8 +674,8 @@
   <skill id="426" levels="1" name="Battle Force">
     <set name="mpInitialConsume" val="12"/>
     <set name="magicLvl" val="77"/>
-    <set name="triggeredId" val="5104"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="fusionTriggeredId" val="5104"/>
+    <set name="fusionTriggeredLevel" val="1"/>
     <set name="target" val="TARGET_PARTY_OTHER"/>
     <set name="hitTime" val="15000"/>
     <set name="skillType" val="FUSION"/>
@@ -688,8 +688,8 @@
   <skill id="427" levels="1" name="Spell Force">
     <set name="mpInitialConsume" val="12"/>
     <set name="magicLvl" val="77"/>
-    <set name="triggeredId" val="5105"/>
-    <set name="triggeredLevel" val="1"/>
+    <set name="fusionTriggeredId" val="5105"/>
+    <set name="fusionTriggeredLevel" val="1"/>
     <set name="target" val="TARGET_PARTY_OTHER"/>
     <set name="hitTime" val="15000"/>
     <set name="skillType" val="FUSION"/>

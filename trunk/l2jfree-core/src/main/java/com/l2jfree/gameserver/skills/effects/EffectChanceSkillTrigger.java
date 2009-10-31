@@ -21,19 +21,12 @@ import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public final class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTrigger
+public final class EffectChanceSkillTrigger extends EffectBuff implements IChanceSkillTrigger
 {
 	public EffectChanceSkillTrigger(Env env, EffectTemplate template)
 	{
 		super(env, template);
-	}
-	
-	@Override
-	public L2EffectType getEffectType()
-	{
-		return L2EffectType.CHANCE_SKILL_TRIGGER;
 	}
 	
 	@Override

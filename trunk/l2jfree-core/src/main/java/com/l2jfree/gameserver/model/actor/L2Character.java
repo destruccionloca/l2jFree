@@ -111,6 +111,7 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillFusion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.MovementController;
@@ -2061,7 +2062,7 @@ public abstract class L2Character extends L2Object
 			return;
 
 		if (_fusionSkill == null)
-			_fusionSkill = new FusionSkill(this, target, skill);
+			_fusionSkill = new FusionSkill(this, target, (L2SkillFusion)skill);
 	}
 
 	/**
@@ -6025,7 +6026,7 @@ public abstract class L2Character extends L2Object
 					targets.remove(target);
 					continue;
 				}
-				if (skill.isOffensive() && !skill.isNeutral())
+				if (skill.isOffensive())
 				{
 					if (L2Character.isInsidePeaceZone(this, target))
 					{
@@ -6296,7 +6297,7 @@ public abstract class L2Character extends L2Object
 				break;
 			default:
 			{
-				if (skill.isOffensive() && !skill.isNeutral())
+				if (skill.isOffensive())
 					getAI().clientStartAutoAttack();
 			}
 		}

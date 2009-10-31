@@ -163,7 +163,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final SkillOpType		_operateType;
 	private final boolean			_magic;
 	private final boolean			_itemSkill;
-	private final boolean			_physic;
 	private final boolean			_staticReuse;
 	private final boolean			_staticHitTime;
 	private final int				_mpConsume;
@@ -309,7 +308,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_targetType = set.getEnum("target", SkillTargetType.class);
 		_magic = set.getBool("isMagic", isSkillTypeMagic());
 		_itemSkill = set.getBool("isItem", 3080 <= getId() && getId() <= 3259);
-		_physic = set.getBool("isPhysic", false);
 		_isPotion = set.getBool("isPotion", false);
 		_staticReuse = set.getBool("staticReuse", false);
 		_staticHitTime = set.getBool("staticHitTime", false);
@@ -398,7 +396,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_levelDepend = set.getInteger("lvlDepend", 1);
 		_ignoreResists = set.getBool("ignoreResists", false);
 
-		_isDebuff = set.getBool("isDebuff", false);
 		_feed = set.getInteger("feed", 0); // Used for pet food
 
 		_effectType = set.getEnum("effectType", L2SkillType.class, null);
@@ -428,6 +425,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_triggeredSkill = TriggeredSkill.parse(set);
 
 		_offensiveState = getOffensiveState(set);
+		_isDebuff = set.getBool("isDebuff", false/*isOffensive()*/);
 
 		_numSouls = set.getInteger("num_souls", 0);
 		_soulConsume = set.getInteger("soulConsumeCount", 0);
@@ -455,18 +453,18 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
 	}
-
+	
 	private boolean isPurePassiveSkill()
 	{
 		return isPassive() && !isChance();
 	}
-
+	
 	private boolean isPureChanceSkill()
 	{
-		return isChance() && _triggeredSkill != null;
+		return isChance() && getTriggeredSkill() != null;
 	}
-
-	public final void validate() throws Exception
+	
+	public void validate() throws Exception
 	{
 		validateOffensiveAndDebuffState();
 		validateTriggeredSkill();
@@ -474,35 +472,36 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private void validateOffensiveAndDebuffState() throws Exception
 	{
-		if (!isOffensive() && isDebuff() && !isPureChanceSkill())
+		if (!isOffensive() && isDebuff())
+			throw new IllegalStateException(toString());
+		
+		if (isBuff() && isDebuff())
 			throw new IllegalStateException(toString());
 	}
 
 	private void validateTriggeredSkill() throws Exception
 	{
-		final L2Skill triggeredSkill = getTriggeredSkill();
-
-		// nonsense...
-		if (triggeredSkill == this)
-			throw new IllegalStateException(toString());
-
-		// must have triggered skill, and can't have effects
-		if (isActive() && getSkillType() == L2SkillType.FUSION)
+		// must have triggered skill
+		if (isChance())
 		{
-			if (triggeredSkill == null)
-				throw new IllegalStateException(toString());
-
-			if (_effectTemplates != null)
-				throw new IllegalStateException(toString());
-		}
-		// can have triggered skill
-		else if (isChance())
-		{
+			if (getTriggeredSkill() != null)
+			{
+				final L2Skill triggeredSkill = getTriggeredSkill().getTriggeredSkill();
+				
+				if (triggeredSkill == null)
+					throw new IllegalStateException(toString());
+				
+				if (triggeredSkill == this)
+					throw new IllegalStateException(toString());
+			}
 		}
 		// can't have triggered skill
 		else
 		{
-			if (triggeredSkill != null)
+			if (getChanceCondition() != null)
+				throw new IllegalStateException(toString());
+			
+			if (getTriggeredSkill() != null)
 				throw new IllegalStateException(toString());
 		}
 	}
@@ -510,19 +509,19 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private OffensiveState getOffensiveState(StatsSet set)
 	{
 		final OffensiveState defaultState = getDefaultOffensiveState();
-
+		
 		final Boolean isOffensive = set.contains("offensive") ? set.getBool("offensive") : null;
 		final Boolean isNeutral = set.contains("neutral") ? set.getBool("neutral") : null;
-
+		
 		if (isOffensive == null && isNeutral == null)
 			return defaultState;
-
-		if (isPassive() || isToggle())
+		
+		if (isPurePassiveSkill() || isPureChanceSkill() || isToggle())
 			throw new IllegalStateException(this + " shouldn't have 'offensive'/'neutral' property specified!");
-
+		
 		final List<OffensiveState> denied = new ArrayList<OffensiveState>(2);
 		final List<OffensiveState> requested = new ArrayList<OffensiveState>(2);
-
+		
 		if (isOffensive != null)
 		{
 			if (isOffensive.booleanValue())
@@ -530,7 +529,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			else
 				denied.add(OffensiveState.OFFENSIVE);
 		}
-
+		
 		if (isNeutral != null)
 		{
 			if (isNeutral.booleanValue())
@@ -538,7 +537,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			else
 				denied.add(OffensiveState.NEUTRAL);
 		}
-
+		
 		switch (requested.size())
 		{
 			case 2:
@@ -690,9 +689,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _effectAbnormalLvl;
 	}
 
-	public final L2Skill getTriggeredSkill()
+	protected final TriggeredSkill getTriggeredSkill()
 	{
-		return _triggeredSkill != null ? _triggeredSkill.getTriggeredSkill() : null;
+		return _triggeredSkill;
 	}
 
 	public final int getLevelDepend()
@@ -838,7 +837,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean allowOnTransform()
 	{
-		return isPassive() || isChance();
+		return isPassive();
 	}
 
 	/**
@@ -910,14 +909,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final boolean isItemSkill()
 	{
 		return _itemSkill;
-	}
-
-	/**
-	 * @return Returns if the skill is Physical.
-	 */
-	public final boolean isPhysical()
-	{
-		return _physic;
 	}
 
 	/**
@@ -1005,7 +996,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean isChance()
 	{
-		return _chanceCondition != null && isPassive();
+		return getChanceCondition() != null && isPassive();
 	}
 
 	public final boolean isDance()
@@ -1043,7 +1034,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean useSoulShot()
 	{
-		switch (getSkillType())
+		switch (getSkillType().getRoot())
 		{
 			case PDAM:
 			case CHARGEDAM:
@@ -1071,7 +1062,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean isPvpSkill()
 	{
-		switch (_skillType)
+		switch (_skillType.getRoot())
 		{
 			case DOT:
 			case BLEED:
@@ -1216,7 +1207,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean isSkillTypeMagic()
 	{
-		switch (getSkillType())
+		switch (getSkillType().getRoot())
 		{
 			// TODO: other skillTypes
 			case MDAM:
@@ -1233,7 +1224,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		if (isPurePassiveSkill() || isPureChanceSkill() || isToggle())
 			return OffensiveState.POSITIVE;
-
+		
 		switch (_skillType)
 		{
 			case PDAM:
@@ -1293,6 +1284,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case MANARECHARGE:
 			case COMBATPOINTHEAL:
 			case CPHEAL_PERCENT:
+			case RECOVER:
 			case REFLECT:
 			case LUCK:
 			case PASSIVE:
@@ -1320,21 +1312,28 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case CREATE_ITEM:
 			case EXTRACTABLE:
 			case UNLOCK:
+			case OPEN_DOOR:
 			case DELUXE_KEY_UNLOCK:
 			case DETECT_TRAP:
 			case REMOVE_TRAP:
+			case DETECTION:
 			case COMMON_CRAFT:
 			case DWARVEN_CRAFT:
 			case SIEGEFLAG:
 			case TAKECASTLE:
 			case TAKEFORT:
+			case TELEPORT:
 			case RECALL:
 			case SUMMON_FRIEND:
 			case CLAN_GATE:
 			case GIVE_SP:
+			case GIVE_VITALITY:
+			case CHANGE_APPEARANCE:
+			case LEARN_SKILL:
 			case FEED_PET:
 			case BEAST_FEED:
 			case NEGATE: // should be divided, since can be positive, and negative skill too
+			case CANCEL_STATS:
 			case MAKE_KILLABLE:
 			case MAKE_QUEST_DROPABLE:
 			case FAKE_DEATH:
@@ -1349,14 +1348,16 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case DUMMY:
 			case COREDONE:
 			case NOTDONE:
+				return OffensiveState.NEUTRAL;
 			default:
+				_log.info(getSkillType() + " should be covered in L2Skill.getDefaultOffensiveState()!");
 				return OffensiveState.NEUTRAL;
 		}
 	}
 
 	public final boolean isNeedWeapon()
 	{
-		return (_skillType == L2SkillType.MDAM);
+		return (_skillType.getRoot() == L2SkillType.MDAM);
 	}
 
 	public final boolean isStayAfterDeath()
@@ -3825,7 +3826,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			return false;
 
 		// TODO: this is a so ugly hax
-		switch (getSkillType())
+		switch (getSkillType().getRoot())
 		{
 			case BUFF:
 			case REFLECT:
@@ -3905,13 +3906,13 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		if (!getWeaponDependancy(activeChar, false))
 			return null;
-
-		if (_triggeredSkill == null)
+		
+		if (getTriggeredSkill() == null)
 			return this;
-
-		return _triggeredSkill.getTriggeredSkill();
+		
+		return getTriggeredSkill().getTriggeredSkill();
 	}
-
+	
 	@Override
 	public final ChanceCondition getChanceCondition()
 	{

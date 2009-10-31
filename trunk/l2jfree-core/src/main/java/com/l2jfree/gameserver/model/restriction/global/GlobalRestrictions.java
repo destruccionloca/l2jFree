@@ -261,7 +261,7 @@ public final class GlobalRestrictions
 		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
 		final L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
-		final boolean isOffensive = (skill.isOffensive() || skill.isDebuff());
+		final boolean isOffensive = skill.isOffensive();
 		
 		if (attacker_ != null && attacker_ == target_)
 			return true;
@@ -291,7 +291,7 @@ public final class GlobalRestrictions
 		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
 		final L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
-		final boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
+		final boolean isOffensive = (skill == null || skill.isOffensive());
 		
 		return isInvul(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive);
 	}
@@ -321,7 +321,7 @@ public final class GlobalRestrictions
 		final L2PcInstance attacker_ = L2Object.getActingPlayer(activeChar);
 		final L2PcInstance target_ = L2Object.getActingPlayer(target);
 		
-		final boolean isOffensive = (skill == null || skill.isOffensive() || skill.isDebuff());
+		final boolean isOffensive = (skill == null || skill.isOffensive());
 		
 		return isProtected(activeChar, target, skill, sendMessage, attacker_, target_, isOffensive);
 	}

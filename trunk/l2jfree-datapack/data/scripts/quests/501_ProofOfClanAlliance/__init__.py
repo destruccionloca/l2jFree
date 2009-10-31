@@ -124,6 +124,7 @@ class Quest (JQuest) :
            skill = SkillTable.getInstance().getInfo(4082,1)
            npc.setTarget(player)
            npc.doCast(skill)
+           skill.getEffects(player,player) 
        elif event == "poison_timer" :
            st.exitQuest(1)
            if DEBUG :
