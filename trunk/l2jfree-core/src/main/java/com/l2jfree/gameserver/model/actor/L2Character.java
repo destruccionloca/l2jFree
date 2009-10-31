@@ -6560,77 +6560,63 @@ public abstract class L2Character extends L2Object
 
 		if (player != null)
 		{
+			final boolean isAggroReducingSkill = skill.getSkillType() == L2SkillType.AGGREMOVE
+					|| skill.getSkillType() == L2SkillType.AGGREDUCE
+					|| skill.getSkillType() == L2SkillType.AGGREDUCE_CHAR;
+			
 			for (L2Object target : targets)
 			{
 				// EVT_ATTACKED and PvPStatus
 				if (target instanceof L2Character)
 				{
-					if (skill.getSkillType() != L2SkillType.AGGREMOVE && skill.getSkillType() != L2SkillType.AGGREDUCE
-							&& skill.getSkillType() != L2SkillType.AGGREDUCE_CHAR)
+					if (skill.isNeutral())
 					{
-						if (skill.isNeutral())
+						// no flags
+					}
+					else if (skill.isOffensive())
+					{
+						if (target instanceof L2PcInstance || target instanceof L2Summon || target instanceof L2Trap)
 						{
-							// no flags
-						}
-						else if (skill.isOffensive())
-						{
-							if (target instanceof L2PcInstance || target instanceof L2Summon || target instanceof L2Trap)
+							if (skill.getSkillType() != L2SkillType.SIGNET && skill.getSkillType() != L2SkillType.SIGNET_CASTTIME)
 							{
-								if (skill.getSkillType() != L2SkillType.SIGNET && skill.getSkillType() != L2SkillType.SIGNET_CASTTIME)
-								{
-									if (skill.getSkillType() != L2SkillType.AGGREDUCE && skill.getSkillType() != L2SkillType.AGGREDUCE_CHAR
-											&& skill.getSkillType() != L2SkillType.AGGREMOVE)
-									{
-										// notify target AI about the attack
-										((L2Character) target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
-									}
-									if (target instanceof L2PcInstance)
-									{
-										((L2PcInstance) target).getAI().clientStartAutoAttack();
-									}
-									else if (target instanceof L2Summon)
-									{
-										L2PcInstance owner = ((L2Summon) target).getOwner();
-										if (owner != null)
-										{
-											owner.getAI().clientStartAutoAttack();
-										}
-									}
-
-									if (!(target instanceof L2Summon) || player.getPet() != target)
-										player.updatePvPStatus(target.getActingPlayer());
-								}
-							}
-							else if (target instanceof L2Attackable)
-							{
-								if (skill.getSkillType() != L2SkillType.AGGREDUCE && skill.getSkillType() != L2SkillType.AGGREDUCE_CHAR
-										&& skill.getSkillType() != L2SkillType.AGGREMOVE)
+								if (!isAggroReducingSkill)
 								{
 									// notify target AI about the attack
-									((L2Character) target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+									((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
 								}
+								
+								if (!(target instanceof L2Summon) || player.getPet() != target)
+									player.updatePvPStatus(target.getActingPlayer());
 							}
 						}
-						else
+						else if (target instanceof L2Attackable)
 						{
-							if (target instanceof L2PcInstance)
+							if (!isAggroReducingSkill)
 							{
-								// Casting non offensive skill on player with pvp flag set or with karma
-								if (target != this && target != player && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
-									player.updatePvPStatus();
+								// notify target AI about the attack
+								((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
 							}
-							else if (target instanceof L2Attackable && !(skill.getSkillType() == L2SkillType.SUMMON)
-									&& !(skill.getSkillType() == L2SkillType.BEAST_FEED) && !(skill.getSkillType() == L2SkillType.UNLOCK)
-									&& !(skill.getSkillType() == L2SkillType.DELUXE_KEY_UNLOCK)
-									&& !(skill.getSkillType() == L2SkillType.HEAL_MOB) && !(skill.getSkillType() == L2SkillType.MAKE_KILLABLE)
-									&& !(skill.getSkillType() == L2SkillType.MAKE_QUEST_DROPABLE)
-									&& (!(target instanceof L2Summon) || player.getPet() != target))
+						}
+					}
+					else
+					{
+						if (target instanceof L2PcInstance)
+						{
+							// Casting non offensive skill on player with pvp flag set or with karma
+							if (target != this && target != player && (((L2PcInstance) target).getPvpFlag() > 0 || ((L2PcInstance) target).getKarma() > 0))
 								player.updatePvPStatus();
 						}
+						else if (target instanceof L2Attackable && !(skill.getSkillType() == L2SkillType.SUMMON)
+								&& !(skill.getSkillType() == L2SkillType.BEAST_FEED) && !(skill.getSkillType() == L2SkillType.UNLOCK)
+								&& !(skill.getSkillType() == L2SkillType.DELUXE_KEY_UNLOCK)
+								&& !(skill.getSkillType() == L2SkillType.HEAL_MOB) && !(skill.getSkillType() == L2SkillType.MAKE_KILLABLE)
+								&& !(skill.getSkillType() == L2SkillType.MAKE_QUEST_DROPABLE)
+								&& (!(target instanceof L2Summon) || player.getPet() != target))
+							player.updatePvPStatus();
 					}
 				}
 			}
-
+			
 			notifyMobsAboutSkillCast(skill, targets);
 		}
 	}

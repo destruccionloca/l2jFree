@@ -326,8 +326,8 @@ public class Disablers implements ICubicSkillHandler
 						target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 					}
 				}
-				else
-					target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+				//else
+				//	target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 				break;
 			}
 			case ERASE: // Doesn't affect siege golem, wild hog cannon or swoop cannon
