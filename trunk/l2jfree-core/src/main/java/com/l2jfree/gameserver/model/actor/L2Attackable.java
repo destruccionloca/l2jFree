@@ -42,9 +42,11 @@ import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.AttackableKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
@@ -1153,14 +1155,56 @@ public class L2Attackable extends L2Npc
 		return dropItem(dropChance, drop);
 	}
 	
+	private static boolean isBossJewel(int itemId)
+	{
+		switch (itemId)
+		{
+			case 6656: // Earring of Antharas
+			case 6657: // Necklace of Valakas
+			case 6658: // Ring of Baium
+			case 6659: // Zaken's Earring
+			case 6660: // Ring of Queen Ant
+			case 6661: // Earring of Orfen
+			case 6662: // Ring of Core
+			case 8191: // Frintezza's Necklace
+			case 10314: // Beleth's Ring
+				return true;
+			default:
+				return false;
+		}
+	}
+	
 	private long calculateDropChance(double chance, L2DropData drop, boolean isSweep, int levelModifier)
 	{
 		if (drop != null && drop.getItemId() == 57)
-			chance *= Config.RATE_DROP_ADENA;
+		{
+			if (this instanceof L2RaidBossInstance)
+				chance *= Config.RATE_DROP_ADENA_RAID;
+			else if (this instanceof L2GrandBossInstance)
+				chance *= Config.RATE_DROP_ADENA_GRAND_BOSS;
+			else
+				chance *= Config.RATE_DROP_ADENA;
+		}
 		else if (isSweep)
-			chance *= Config.RATE_DROP_SPOIL;
+		{
+			if (this instanceof L2RaidBossInstance)
+				chance *= Config.RATE_DROP_SPOIL_RAID;
+			else if (this instanceof L2GrandBossInstance)
+				chance *= Config.RATE_DROP_SPOIL_GRAND_BOSS;
+			else
+				chance *= Config.RATE_DROP_SPOIL;
+		}
 		else
-			chance *= Config.RATE_DROP_ITEMS;
+		{
+			if (drop != null && isBossJewel(drop.getItemId()))
+				chance *= Config.RATE_DROP_ITEMS_JEWEL;
+			else if (this instanceof L2RaidBossInstance)
+				chance *= Config.RATE_DROP_ITEMS_RAID;
+			else if (this instanceof L2GrandBossInstance)
+				chance *= Config.RATE_DROP_ITEMS_GRAND_BOSS;
+			else
+				chance *= Config.RATE_DROP_ITEMS;
+		}
 		
 		if (isChampion())
 		{
