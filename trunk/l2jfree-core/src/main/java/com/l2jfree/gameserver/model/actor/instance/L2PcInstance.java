@@ -8355,7 +8355,7 @@ public final class L2PcInstance extends L2Playable
 			L2DoorInstance door = (L2DoorInstance) target;
 			boolean isCastleDoor = (door.getCastle() != null && door.getCastle().getSiege().getIsInProgress());
 			boolean isFortDoor = (door.getFort() != null && door.getFort().getSiege().getIsInProgress() && !door.getIsCommanderDoor());
-			if (!isCastleDoor && !isFortDoor && !(door.isUnlockable() && skill.getSkillType() == L2SkillType.UNLOCK))
+			if (!isCastleDoor && !isFortDoor && (door.isUnlockable() && skill.getSkillType() != L2SkillType.UNLOCK))
 				return false;
 		}
 
