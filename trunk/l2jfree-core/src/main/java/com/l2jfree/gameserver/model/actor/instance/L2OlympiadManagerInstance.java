@@ -151,9 +151,9 @@ public class L2OlympiadManagerInstance extends L2Npc
 						iu.addModifiedItem(item);
 						player.sendPacket(iu);
 
-						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1);
-						sm.addItemNumber(passes);
+						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 						sm.addItemName(item);
+						sm.addItemNumber(passes);
 						player.sendPacket(sm);
 					}
 					break;
