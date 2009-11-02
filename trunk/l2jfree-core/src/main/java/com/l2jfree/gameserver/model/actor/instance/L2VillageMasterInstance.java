@@ -892,13 +892,6 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			return;
 		}
 
-		int leaderId = pledgeType != L2Clan.SUBUNIT_ACADEMY ? clan.getClanMember(leaderName).getObjectId() : 0;
-		if (leaderId != 0 && clan.getLeaderSubPledge(leaderId) != 0)
-		{
-			player.sendMessage(leaderName + " is already a sub unit leader.");
-			return;
-		}
-
 		for (L2Clan tempClan : ClanTable.getInstance().getClans())
 		{
 			if (tempClan.getSubPledge(clanName) != null)
@@ -927,6 +920,13 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				
 				return;
 			}
+		}
+
+		final int leaderId = pledgeType != L2Clan.SUBUNIT_ACADEMY ? clan.getClanMember(leaderName).getObjectId() : 0;
+		if (leaderId != 0 && clan.getLeaderSubPledge(leaderId) != 0)
+		{
+			player.sendMessage(leaderName + " is already a sub unit leader.");
+			return;
 		}
 
 		if (clan.createSubPledge(player, pledgeType, leaderId, clanName) == null)
