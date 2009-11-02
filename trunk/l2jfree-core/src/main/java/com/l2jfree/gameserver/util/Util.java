@@ -32,6 +32,7 @@ import org.python.core.imp;
 import org.python.util.InteractiveConsole;
 
 import com.l2jfree.Config;
+import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -460,7 +461,7 @@ public final class Util
 		while (s.length() < 160)
 			s = "-" + s;
 		
-		System.out.println(s);
+		L2Config.out.println(s);
 	}
 	
 	public static Map<Integer, Integer> sortMap(Map<Integer, Integer> map, boolean asc)
