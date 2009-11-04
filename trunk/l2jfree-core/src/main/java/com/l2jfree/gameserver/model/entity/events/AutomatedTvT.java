@@ -474,10 +474,14 @@ public final class AutomatedTvT
 	{
 		return eventPlayers.get(oID) != null;
 	}
-	
+
 	public static int getTeam(L2PcInstance player)
 	{
-		return getInstance().eventPlayers.get(player.getObjectId()).getTeam();
+		Participant p = getInstance().eventPlayers.get(player.getObjectId());
+		if (p != null)
+			return p.getTeam();
+		else // re-check if it doesn't create problems
+			return -1;
 	}
 
 	private final boolean canJoin(L2PcInstance player)
