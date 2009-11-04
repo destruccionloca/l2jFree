@@ -289,6 +289,7 @@ public final class MapRegionManager
 			Fort fort = null;
 			ClanHall clanhall = null;
 			
+			// TODO: review this as imo it should limit teleportations outside of Gracia only not every teleport
 			if (player.isFlyingMounted()) // prevent flying players to teleport outside of gracia
 				return new Location(-186330, 242944, 2544);
 			
@@ -324,22 +325,6 @@ public final class MapRegionManager
 				Location loc = arena.getRestartPoint(L2Zone.RestartType.OWNER);
 				if (loc == null)
 					loc = arena.getRandomLocation();
-				return loc;
-			}
-			
-			if (teleportWhere == TeleportWhereType.Town)
-			{
-				L2MapRegionRestart restart = getRestartLocation(player);
-				
-				Location loc = null;
-				
-				// Karma player land out of city
-				if (player.isChaotic())
-					loc = restart.getRandomChaoticRestartPoint(player);
-				
-				if (loc == null)
-					loc = restart.getRandomRestartPoint(player);
-				
 				return loc;
 			}
 			
@@ -442,6 +427,21 @@ public final class MapRegionManager
 					}
 				}
 			}
+			
+			// TeleportWhereType.Town, and other TeleportWhereTypes where the condition was not met
+			L2MapRegionRestart restart = getRestartLocation(player);
+			
+			Location loc = null;
+			
+			// Karma player land out of city
+			if (player.isChaotic())
+				loc = restart.getRandomChaoticRestartPoint(player);
+			
+			if (loc == null)
+				loc = restart.getRandomRestartPoint(player);
+			
+			if (loc != null)
+				return loc;
 		}
 		
 		// teleport to default town if nothing else will work
