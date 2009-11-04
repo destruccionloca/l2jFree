@@ -120,7 +120,9 @@ class Quest (JQuest) :
 					thisCasterInfo = [caster,currentTime]
 					self.activatedScaleList.append(thisCasterInfo)
 					activatedScalesCount = len(self.activatedScaleList)
-					if activatedScalesCount == self.playerCount:
+					playerList = InstanceManager.getInstance().getInstance(self.instanceId).getPlayers().toArray()
+					playerCount = len(playerList)
+					if activatedScalesCount == playerCount:
 						for info in self.activatedScaleList:
 							if currentTime > info[1] + 3000:
 								self.activatedScaleList = []
