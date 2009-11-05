@@ -509,8 +509,14 @@ public final class NpcTable
 	// just wrapper
 	public void reloadAll()
 	{
+		reloadAll(true);
+	}
+	
+	public void reloadAll(boolean reloadQuests)
+	{
 		restoreNpcData();
-		QuestManager.getInstance().reloadAllQuests();
+		if (reloadQuests)
+			QuestManager.getInstance().reloadAllQuests();
 	}
 
 	public void cleanUp()

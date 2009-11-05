@@ -359,7 +359,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			L2World.getInstance().deleteVisibleNpcSpawns();
 			NpcTable.getInstance().cleanUp();
 
-			NpcTable.getInstance().reloadAll();
+			NpcTable.getInstance().reloadAll(false); // quest reloading will be done 6 lines under
 			SpawnTable.getInstance().reloadAll();
 			RaidBossSpawnManager.getInstance().reloadBosses();
 			AutoSpawnManager.getInstance().reload();

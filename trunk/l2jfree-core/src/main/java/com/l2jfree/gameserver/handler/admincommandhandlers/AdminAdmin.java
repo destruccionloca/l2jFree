@@ -332,8 +332,10 @@ public class AdminAdmin implements IAdminCommandHandler
 				else if (type.startsWith("npc"))
 				{
 					NpcTable.getInstance().cleanUp();
-					NpcTable.getInstance().reloadAll();
+					NpcTable.getInstance().reloadAll(false);
 					activeChar.sendMessage("Npcs reloaded");
+					// so NPCs can be reloaded without the need to wait for scripts getting executed
+					activeChar.sendMessage("You should consider using \"//reload quests\".");
 				}
 				else if (type.startsWith("door"))
 				{
