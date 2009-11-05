@@ -14,17 +14,42 @@
  */
 package com.l2jfree.gameserver.threadmanager;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.util.concurrent.ExecuteWrapper;
+import javolution.util.FastList;
 
 /**
  * @author NB4L1
  */
-public abstract class FIFORunnableQueue<T extends Runnable> extends FIFOSimpleExecutableQueue<T>
+public abstract class FIFOSimpleExecutableQueue<T> extends FIFOExecutableQueue
 {
-	@Override
-	protected final void removeAndExecuteFirst()
+	private final FastList<T> _queue = new FastList<T>();
+	
+	public final void execute(T t)
 	{
-		ExecuteWrapper.execute(removeFirst(), ThreadPoolManager.MAXIMUM_RUNTIME_IN_MILLISEC_WITHOUT_WARNING);
+		synchronized (_queue)
+		{
+			_queue.addLast(t);
+		}
+		
+		execute();
 	}
+	
+	@Override
+	protected final boolean isEmpty()
+	{
+		synchronized (_queue)
+		{
+			return _queue.isEmpty();
+		}
+	}
+	
+	protected final T removeFirst()
+	{
+		synchronized (_queue)
+		{
+			return _queue.removeFirst();
+		}
+	}
+	
+	@Override
+	protected abstract void removeAndExecuteFirst();
 }

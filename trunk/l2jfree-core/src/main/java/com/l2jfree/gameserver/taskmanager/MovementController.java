@@ -23,6 +23,8 @@ import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
+import com.l2jfree.gameserver.threadmanager.FIFOSimpleExecutableQueue;
+import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 /**
  * @author NB4L1
@@ -84,30 +86,33 @@ public final class MovementController extends AbstractPeriodicTaskManager
 				continue;
 			
 			_movingChars.remove(cha);
-			_evtArrivedManager.add(cha);
+			_evtArrivedManager.execute(cha);
 		}
 	}
 	
-	private final class EvtArrivedManager extends AbstractFIFOPeriodicTaskManager<L2Character>
+	private final class EvtArrivedManager extends FIFOSimpleExecutableQueue<L2Character>
 	{
-		private EvtArrivedManager()
-		{
-			super(GameTimeController.MILLIS_IN_TICK);
-		}
-		
 		@Override
-		protected void callTask(L2Character cha)
+		protected void removeAndExecuteFirst()
 		{
-			cha.getKnownList().updateKnownObjects();
+			final L2Character cha = removeFirst();
+			final long begin = System.nanoTime();
 			
-			if (cha.hasAI())
-				cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
-		}
-		
-		@Override
-		protected String getCalledMethodName()
-		{
-			return "notifyEvent(CtrlEvent.EVT_ARRIVED)";
+			try
+			{
+				cha.getKnownList().updateKnownObjects();
+				
+				if (cha.hasAI())
+					cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+			}
+			catch (RuntimeException e)
+			{
+				_log.warn("", e);
+			}
+			finally
+			{
+				RunnableStatsManager.handleStats(cha.getClass(), "notifyEvent(CtrlEvent.EVT_ARRIVED)", System.nanoTime() - begin);
+			}
 		}
 	}
 	
