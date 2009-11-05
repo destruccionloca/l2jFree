@@ -417,15 +417,10 @@ public class Disablers implements ICubicSkillHandler
 				int count = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
 				for (L2Effect e : effects)
 				{
-					if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
+					if (count < skill.getMaxNegatedEffects())
 					{
-						//Do not remove raid curse skills
-						if (e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515
-								&& e.getSkill().getId() != 4082
-								&& e.getSkill().getId() != 5660
-								&& e.getEffectType() != L2EffectType.ENVIRONMENT)
+						if (e.tryNegateDebuff())
 						{
-							e.exit();
 							if (count > -1)
 								count++;
 						}
@@ -678,16 +673,10 @@ public class Disablers implements ICubicSkillHandler
 					int count = (skill.getMaxNegatedEffects() > 0) ? 0 : -2;
 					for (L2Effect e : effects)
 					{
-						if (e.getSkill().isDebuff() && count < skill.getMaxNegatedEffects())
+						if (count < skill.getMaxNegatedEffects())
 						{
-							//Do not remove raid curse skills
-							if (e.getSkill().getId() != 4215 &&
-									e.getSkill().getId() != 4515 &&
-									e.getSkill().getId() != 4082 &&
-									e.getSkill().getId() != 5660 &&
-									e.getEffectType() != L2EffectType.ENVIRONMENT)
+							if (e.tryNegateDebuff())
 							{
-								e.exit();
 								if (count > -1)
 									count++;
 							}

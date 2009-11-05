@@ -22,8 +22,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
-import com.l2jfree.tools.random.Rnd;
 
 /**
  * For skills like "Blessing of Eva". Each part is <U>optional</U>.
@@ -92,42 +90,8 @@ public class L2SkillRecover extends L2Skill
 			if (_power <= 0)
 				continue; //do not negate anything
 
-			L2Effect[] effects = target.getAllEffects();
-			for (L2Effect e : effects)
-				tryNegate(e);
+			for (L2Effect e : target.getAllEffects())
+				e.tryNegateDebuff((int)_power);
 		}
-	}
-
-	private final boolean isBadAbnormal(L2Effect e)
-	{
-		//optimized checks
-		if (e.getEffectType() == L2EffectType.ENVIRONMENT)
-			return false;
-		if (e.getSkill().isDebuff())
-			return true;
-		//in-depth check
-		switch (e.getSkill().getSkillType())
-		{
-		case DEBUFF:
-		case WEAKNESS:
-		case STUN:
-		case SLEEP:
-		case CONFUSION:
-		case MUTE:
-		case FEAR:
-		case POISON:
-		case BLEED:
-		case PARALYZE:
-		case ROOT:
-			return true;
-		default:
-			return false;
-		}
-	}
-
-	private final void tryNegate(L2Effect e)
-	{
-		if (isBadAbnormal(e) && Rnd.get(100) < _power)
-			e.exit();
 	}
 }

@@ -39,6 +39,7 @@ import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
+import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
 
 public abstract class L2Effect implements FuncOwner, Runnable
@@ -428,6 +429,61 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			return true;
 
 		return false;
+	}
+	
+	public final boolean tryNegateDebuff()
+	{
+		return tryNegateDebuff(100);
+	}
+	
+	public final boolean tryNegateDebuff(int chanceInPercent)
+	{
+		if (canBeNegatedAsDebuff() && Rnd.get(100) < chanceInPercent)
+		{
+			exit();
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean canBeNegatedAsDebuff()
+	{
+		switch (getId())
+		{
+			case 4215: // Raid Curse
+			case 4515: // Raid Curse
+			case 4082: // Poison of Death
+			case 5660: // Battlefield Death Syndrome
+				return false;
+		}
+		
+		if (!getSkill().canBeDispeled())
+			return false;
+		
+		if (getEffectType() == L2EffectType.ENVIRONMENT)
+			return false;
+		
+		if (getSkill().isDebuff())
+			return true;
+		
+		switch (getSkill().getSkillType())
+		{
+			case DEBUFF:
+			case WEAKNESS:
+			case STUN:
+			case SLEEP:
+			case CONFUSION:
+			case MUTE:
+			case FEAR:
+			case POISON:
+			case BLEED:
+			case PARALYZE:
+			case ROOT:
+				return true;
+			default:
+				return false;
+		}
 	}
 
 	protected int getTypeBasedAbnormalEffect()
