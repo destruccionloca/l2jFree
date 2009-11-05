@@ -26,58 +26,61 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillRecover;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.2.2.4 $ $Date: 2005/04/06 16:13:48 $
- */
 
 public class Heal implements ISkillHandler
 {
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
-	 */
-	private static final L2SkillType[]	SKILL_IDS	=
-													{ L2SkillType.HEAL, L2SkillType.HEAL_PERCENT, L2SkillType.HEAL_STATIC, L2SkillType.HEAL_MOB };
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
-	 */
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.HEAL, L2SkillType.HEAL_PERCENT,
+			L2SkillType.HEAL_STATIC, L2SkillType.HEAL_MOB, L2SkillType.RECOVER };
+	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, activeChar, skill, targets);
-
+		
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
-			player = (L2PcInstance) activeChar;
+			player = (L2PcInstance)activeChar;
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)
 				continue;
-						
+			
 			// We should not heal if char is dead
 			if (target.isDead())
 				continue;
-
+			
 			if (target.isInsideZone(L2Zone.FLAG_NOHEAL))
 				continue;
-
+			
+			if (target instanceof L2DoorInstance || target instanceof L2SiegeFlagInstance)
+				continue;
+			
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
+				if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquipped())
 					continue;
 				else if (player != null && player.isCursedWeaponEquipped())
 					continue;
 			}
-
+			
+			if (skill.getSkillType() == L2SkillType.RECOVER)
+			{
+				((L2SkillRecover)skill).recover(target);
+				continue;
+			}
+			
 			double hp = skill.getPower();
-
+			
 			if (skill.getSkillType() == L2SkillType.HEAL_PERCENT)
 			{
 				hp = target.getMaxHp() * hp / 100.0;
+			}
+			else if (skill.getSkillType() == L2SkillType.HEAL_STATIC)
+			{
+				hp = skill.getPower();
 			}
 			else if (!skill.isPotion())
 			{
@@ -91,45 +94,30 @@ public class Heal implements ISkillHandler
 					hp *= 1.3;
 					activeChar.useSpiritshotCharge();
 				}
-			}
-			
-			if (target instanceof L2DoorInstance || target instanceof L2SiegeFlagInstance)
-			{
-				hp = 0;
-			}
-			else
-			{
-				if (skill.getSkillType() == L2SkillType.HEAL_STATIC)
+				
+				hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
+				// Healer proficiency (since CT1)
+				hp *= activeChar.calcStat(Stats.HEAL_PROFICIENCY, 100, null, null) / 100;
+				// Extra bonus (since CT1.5)
+				hp += target.calcStat(Stats.HEAL_STATIC_BONUS, 0, null, null);
+				
+				// Heal critic, since CT2.3 Gracia Final
+				if (skill.getSkillType() == L2SkillType.HEAL
+						&& Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill)))
 				{
-					hp = skill.getPower();
-				}
-				else if (skill.getSkillType() != L2SkillType.HEAL_PERCENT)
-				{
-					hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
-					// Healer proficiency (since CT1)
-					hp *= activeChar.calcStat(Stats.HEAL_PROFICIENCY, 100, null, null) / 100;
-					// Extra bonus (since CT1.5)
-					hp += target.calcStat(Stats.HEAL_STATIC_BONUS, 0, null, null);
+					hp *= 3;
+					activeChar.sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
 				}
 			}
 			
-			// Heal critic, since CT2.3 Gracia Final
-			if (skill.getSkillType() == L2SkillType.HEAL && !skill.isPotion()
-					&& Formulas.calcMCrit(activeChar.getMCriticalHit(target, skill)))
-			{
-				hp *= 3;
-				activeChar.sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
-			}
-
 			// From CT2 you will receive exact HP, you can't go over it, if you have full HP and you get HP buff, you will receive 0HP restored message
-			if ((target.getStatus().getCurrentHp() + hp) >= target.getMaxHp())
-				hp = target.getMaxHp() - target.getStatus().getCurrentHp();
-	
+			hp = Math.min(hp, target.getMaxHp() - target.getStatus().getCurrentHp());
+			
 			if (hp > 0)
 			{
 				target.getStatus().increaseHp(hp);
 			}
-
+			
 			if (target instanceof L2PcInstance)
 			{
 				if (skill.getId() == 4051)
@@ -142,20 +130,20 @@ public class Heal implements ISkillHandler
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S2_HP_RESTORED_BY_C1);
 						sm.addString(activeChar.getName());
-						sm.addNumber((int) hp);
+						sm.addNumber(hp);
 						target.getActingPlayer().sendPacket(sm);
 					}
 					else
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S1_HP_RESTORED);
-						sm.addNumber((int) hp);
+						sm.addNumber(hp);
 						target.getActingPlayer().sendPacket(sm);
 					}
 				}
 			}
 		}
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

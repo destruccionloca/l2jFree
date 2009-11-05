@@ -17,10 +17,6 @@ package com.l2jfree.gameserver.skills.l2skills;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
@@ -29,69 +25,47 @@ import com.l2jfree.gameserver.templates.StatsSet;
  * <LI>Restores HP (may not specify)</LI>
  * <LI>Restores MP (may not specify)</LI>
  * <LI>Cancels bad effects (power = chance, set 0 to disable)</LI>
+ * 
  * @author Savormix
  */
 public class L2SkillRecover extends L2Skill
 {
-	private final double	_cp;
-	private final double	_hp;
-	private final double	_mp;
-	private final double	_power;
-
+	private final double _cp;
+	private final double _hp;
+	private final double _mp;
+	private final double _power;
+	
 	public L2SkillRecover(StatsSet set)
 	{
 		super(set);
+		
 		_cp = set.getFloat("restoredCP", 0);
 		_hp = set.getFloat("restoredHP", 0);
 		_mp = set.getFloat("restoredMP", 0);
-		if (getPower() > 95)
-			_power = 95;
-		else
-			_power = getPower();
+		_power = Math.min(95, getPower());
 	}
-
-	@Override
-	public void useSkill(L2Character activeChar, L2Character... targets)
+	
+	public void recover(L2Character target)
 	{
-		if (activeChar.isAlikeDead())
-			return;
-
-		for (L2Character target: targets)
-		{
-			if (target == null || target.isDead() ||
-					target.isInsideZone(L2Zone.FLAG_NOHEAL))
-				continue;
-			if (target instanceof L2DoorInstance || target instanceof L2SiegeFlagInstance)
-				continue;
-			// Player holding a cursed weapon can't be healed and can't heal
-			if (target != activeChar)
-			{
-				if (target instanceof L2PcInstance &&
-						((L2PcInstance) target).isCursedWeaponEquipped())
-					continue;
-				else if (activeChar instanceof L2PcInstance &&
-						((L2PcInstance) activeChar).isCursedWeaponEquipped())
-					continue;
-			}
-
-			if (_cp > 0)
-			{
-				target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() + _cp);
-			}
-			if (_hp > 0)
-			{
-				target.getStatus().increaseHp(_hp);
-			}
-			if (_mp > 0)
-			{
-				target.getStatus().increaseMp(_mp);
-			}
+		if (_cp == -1)
+			target.getStatus().setCurrentCp(target.getStat().getMaxCp());
+		else if (_cp > 0)
+			target.getStatus().setCurrentCp(target.getStatus().getCurrentCp() + _cp);
+		
+		if (_hp == -1)
+			target.getStatus().setCurrentHp(target.getStat().getMaxHp());
+		else if (_hp > 0)
+			target.getStatus().increaseHp(_hp);
+		
+		if (_mp == -1)
+			target.getStatus().setCurrentMp(target.getStat().getMaxMp());
+		else if (_mp > 0)
+			target.getStatus().increaseMp(_mp);
+		
+		if (_power <= 0)
+			return; //do not negate anything
 			
-			if (_power <= 0)
-				continue; //do not negate anything
-
-			for (L2Effect e : target.getAllEffects())
-				e.tryNegateDebuff((int)_power);
-		}
+		for (L2Effect e : target.getAllEffects())
+			e.tryNegateDebuff((int)_power);
 	}
 }

@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.lang.L2Math;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> extends L2GameServerPacket
@@ -325,6 +326,13 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	public T addExpNumber(long number)
 	{
 		addElement(new LongNumberElement(number));
+		
+		return (T)this;
+	}
+	
+	public T addNumber(double number)
+	{
+		addElement(new NumberElement(L2Math.limit(Integer.MIN_VALUE, Math.round(number), Integer.MAX_VALUE)));
 		
 		return (T)this;
 	}
