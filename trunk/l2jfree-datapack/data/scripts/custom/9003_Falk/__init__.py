@@ -7,13 +7,18 @@ qn = "9003_Falk"
 
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+    def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onTalk (self,npc,player):
-    if player.getTrustLevel()>=300000:
-        return "trade.htm"
-    else:
-        return "no.htm"
+    def onTalk (Self,npc,player):
+        item = player.getInventory().getItemByItemId(9674)
+        if item:
+            if item.getCount() >= 20:
+                htmltext = "trade.htm"
+            else:
+                htmltext = "no.htm"
+        else:
+            htmltext = "no.htm"
+        return htmltext
 
 
 

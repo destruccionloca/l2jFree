@@ -37,11 +37,11 @@ class Quest (JQuest) :
 		if not st : return htmltext
 		id = st.getState()
 		cond = st.getInt("cond")
-		if player.getLevel() > 77 :
+		if player.getLevel() >= 78 :
 			if id == State.CREATED :
 				htmltext = "32356-01.htm"
 				return htmltext
-			elif id == State.STARTED and st.getQuestItemsCount(EVIL_WEAPON) > 5:
+			elif id == State.STARTED and st.getQuestItemsCount(EVIL_WEAPON) >= 5:
 				htmltext = "32356-03.htm"	   
 				return htmltext
 		else :
@@ -56,7 +56,10 @@ class Quest (JQuest) :
 		npcId = npc.getNpcId()
 		if npcId in MOBS:
 			if st.getRandom(100) < DROP_CHANCE:
-				st.giveItems(EVIL_WEAPON,1)
+				if npcId == 22398:
+					st.giveItems(EVIL_WEAPON,1)
+				else:
+					st.giveItems(EVIL_WEAPON,2)
 				st.playSound("ItemSound.quest_itemget")
 		return
 

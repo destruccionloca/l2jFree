@@ -36,4 +36,4 @@ class WanderingCaravan(JQuest):
 		return
 	
 QUEST = WanderingCaravan(-1, "WanderingCaravan", "custom")
-QUEST.addKillId(22339)
+QUEST.addKillId(WANDERING_CARAVAN)
