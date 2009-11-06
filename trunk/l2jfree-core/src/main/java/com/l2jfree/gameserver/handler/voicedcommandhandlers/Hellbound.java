@@ -14,12 +14,16 @@
  */
 package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * @author evill33t
- * 
+ * @author Psycho(killer1888) / L2jFree
  */
 public class Hellbound implements IVoicedCommandHandler
 {
@@ -33,12 +37,31 @@ public class Hellbound implements IVoicedCommandHandler
 	{
 		if (command.startsWith("trust"))
 		{
-			if (activeChar.getTrustLevel() > 0)
-				activeChar.sendMessage("Current trust level:" + activeChar.getTrustLevel() + " (Natives side)");
-			else if (activeChar.getTrustLevel() == 0)
-				activeChar.sendMessage("Current trust level: Neutral");
-			else
-				activeChar.sendMessage("Current trust level: " + (-activeChar.getTrustLevel()) + " (Beleth side)");
+			String result = "";
+			Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement;
+				statement = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = ? AND var = ?");
+				statement.setString(1, "Hellbound");
+				statement.setString(2, "HellboundPoints");
+				ResultSet rs = statement.executeQuery();
+				if (rs.first())
+					result = rs.getString(1);
+				rs.close();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.warn("could not load Hellbound trust level:", e);
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
+
+			activeChar.sendMessage("Current trust level: " + result);
 			return true;
 		}
 		return false;
