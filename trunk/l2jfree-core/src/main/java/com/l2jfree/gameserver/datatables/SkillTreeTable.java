@@ -686,7 +686,12 @@ public class SkillTreeTable
 	{
 		return _enchantSkillTrees.get(skillId);
 	}
-
+	
+	public Collection<L2EnchantSkillLearn> getSkillEnchantments()
+	{
+		return _enchantSkillTrees.values();
+	}
+	
 	public L2PledgeSkillLearn[] getAvailablePledgeSkills(L2PcInstance cha)
 	{
 		LinkedBunch<L2PledgeSkillLearn> result = new LinkedBunch<L2PledgeSkillLearn>();
