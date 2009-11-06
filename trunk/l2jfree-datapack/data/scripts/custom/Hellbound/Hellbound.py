@@ -67,7 +67,7 @@ PREMIUM_CERTIFICATE = 9852
 NATIVE_TREASURE = 9684
 
 # Transformation
-NATIVE_TRANFOSRMATION = 101
+NATIVE_TRANSFORMATION = 101
 
 #Levels
 LEVEL1 = 0
@@ -871,10 +871,10 @@ class Hellbound (JQuest):
 			else:
 				htmltext = "hude_no.htm"
 		elif npcId == BERNARDE:
-			if player.isTransformed() and player.getTransformationId() == NATIVE_TRANFOSRMATION:
-				if actualPoints < 999000:
+			if player.isTransformed() and player.getTransformationId() == NATIVE_TRANSFORMATION:
+				if int(actualPoints) < 999000:
 					htmltext = "bernarde_trade.htm"
-				elif actualPoints >= 999000 and actualPoints < LEVEL4:
+				elif int(actualPoints) >= 999000 and actualPoints < LEVEL4:
 					htmltext = "bernarde_advanced.htm"
 				else:
 					htmltext = "bernarde.htm"
