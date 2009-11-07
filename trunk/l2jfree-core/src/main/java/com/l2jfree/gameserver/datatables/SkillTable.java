@@ -163,7 +163,7 @@ public final class SkillTable
 				L2Skill old = skillsByUID.put(SkillTable.getSkillUID(skill), skill);
 				
 				if (old != null)
-					throw new IllegalStateException("Overlapping UIDs for: " + old + ", " + skill);
+					_log.warn("Overlapping UIDs for: " + old + ", " + skill, new IllegalStateException());
 				
 				skill.validate();
 			}
@@ -284,6 +284,42 @@ public final class SkillTable
 		
 		for (String skillEnchant : skillEnchantsInDatabase)
 			_log.warn("Missing skill enchant data in XMLs for " + skillEnchant);
+		
+		// just validation
+		for (L2EnchantSkillLearn skillLearn : SkillTreeTable.getInstance().getSkillEnchantments())
+		{
+			final int skillId = skillLearn.getId();
+			final List<EnchantSkillDetail>[] details = skillLearn.getEnchantRoutes();
+			final int maxLevel = getMaxLevel(skillId);
+			
+			if (skillLearn.getBaseLevel() != maxLevel)
+				_log.warn("Invalid `base_lvl` skill enchant data in database for Skill ID: " + skillId);
+			
+			for (int indexingEnchantType = 0; indexingEnchantType < details.length; indexingEnchantType++)
+			{
+				final List<EnchantSkillDetail> route = details[indexingEnchantType];
+				
+				if (route == null)
+					continue;
+				
+				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + (indexingEnchantType + 1);
+				
+				int index = 1;
+				int expectedMinSkillLevel = maxLevel;
+				
+				for (EnchantSkillDetail detail : route)
+				{
+					if (detail.getLevel() % 100 != index)
+						_log.warn("Invalid `level` skill enchant data in database for " + s);
+					
+					if (detail.getMinSkillLevel() != expectedMinSkillLevel)
+						_log.warn("Invalid `min_skill_lvl` skill enchant data in database for " + s);
+					
+					index++;
+					expectedMinSkillLevel = detail.getLevel();
+				}
+			}
+		}
 	}
 	
 	public static int getSkillUID(L2Skill skill)
