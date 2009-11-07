@@ -893,16 +893,24 @@ class Hellbound (JQuest):
 					player.destroyItemByItemId("Kief Exchange", BADGE, 1, player, True)
 					actualPoints = self.loadGlobalQuestVar("HellboundPoints")
 					actualPoints = int(actualPoints)
-					increaseHellboundPoints(self, 0, actualPoints, 10)
+					if actualPoints + 10 > 999000:
+						points = 999000 - actualPoints
+					else:
+						points = 10
+					increaseHellboundPoints(self, 0, actualPoints, points)
 					htmltext = "kief_thanks.htm"
 				else:
 					htmltext = "<html><body>You don't have any Darion's Badge...</body></html>"
-			if event == "kief_exchange100Badges":
-				if player.getInventory().getItemByItemId(BADGE) >= 100:
-					player.destroyItemByItemId("Kief Exchange", BADGE, 100, player, True)
+			if event == "kief_exchangeAllBadges":
+				if player.getInventory().getItemByItemId(BADGE) >= 1:
+					count = st.getQuestItemsCount(BADGE)
+					player.destroyItemByItemId("Kief Exchange", BADGE, count, player, True)
 					actualPoints = self.loadGlobalQuestVar("HellboundPoints")
 					actualPoints = int(actualPoints)
-					increaseHellboundPoints(self, 0, actualPoints, 1000)
+					if actualPoints + (10 * count) > 999000:
+						points = 999000 - actualPoints
+					else:
+						increaseHellboundPoints(self, 0, actualPoints, 10 * count)
 					htmltext = "kief_thanks.htm"
 				else:
 					htmltext = "<html><body>You don't have any Darion's Badge...</body></html>"
