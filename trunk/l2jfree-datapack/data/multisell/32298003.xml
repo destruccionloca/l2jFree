@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
+<list>
+  <item id="1">
+    <ingredient id="9681" count="56"/>
+    <ingredient id="9682" count="14"/>
+    <production id="9852" count="1"/>
+  </item>
+</list>
+
