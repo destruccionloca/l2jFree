@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
 import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -307,13 +308,22 @@ public class AdminEffects implements IAdminCommandHandler
 		{
 			try
 			{
-				int val = Integer.parseInt(st.nextToken());
+				final int level;
+				
+				if (st.hasMoreTokens())
+					level = Integer.parseInt(st.nextToken());
+				else
+					level = activeChar.getEffects().hasEffect(7029) ? 0 : 4;
+				
 				activeChar.stopSkillEffects(7029);
-				activeChar.doSimultaneousCast(SkillTable.getInstance().getInfo(7029, val));
+				
+				L2Skill skill = SkillTable.getInstance().getInfo(7029, level);
+				if (skill != null)
+					skill.getEffects(activeChar, activeChar);
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
-				activeChar.sendMessage("Usage: //gmspeed <value> (0=off...4=max)");
+				activeChar.sendMessage("Usage: //gmspeed [value] (0=off...4=max)");
 			}
 			finally
 			{

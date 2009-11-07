@@ -334,12 +334,12 @@ public final class SkillTable
 	
 	public L2Skill getInfo(final int skillId, final int level)
 	{
-		// there is no skill with negative level
-		if (level < 0)
+		// there is no skill with non-positive level
+		if (level < 1)
 			return null; // TODO: warn
 			
 		// there is no skill at all with that id
-		if (skillId < 0 || _skillTable.length <= skillId)
+		if (skillId < 1 || _skillTable.length <= skillId)
 			return null; // TODO: warn
 			
 		final L2Skill[] array = _skillTable[skillId];
@@ -364,7 +364,7 @@ public final class SkillTable
 	
 	public SkillInfo getSkillInfo(int skillId, int level)
 	{
-		if (skillId < 0 || SKILL_INFOS.length <= skillId)
+		if (skillId < 1 || SKILL_INFOS.length <= skillId)
 			return null;
 		
 		SkillInfo[] array = SKILL_INFOS[skillId];
@@ -372,7 +372,7 @@ public final class SkillTable
 		if (array == null)
 			return null;
 		
-		if (level < 0 || array.length <= level)
+		if (level < 1 || array.length <= level)
 			return null;
 		
 		return array[level];
@@ -380,7 +380,7 @@ public final class SkillTable
 	
 	public int getMaxLevel(int skillId)
 	{
-		if (skillId < 0 || _maxLevels.length <= skillId)
+		if (skillId < 1 || _maxLevels.length <= skillId)
 			return 0;
 		
 		return _maxLevels[skillId];
