@@ -40,14 +40,9 @@ public class CharStatus
 {
 	protected static final Log _log = LogFactory.getLog(CharStatus.class);
 	
-	private static final byte REGEN_FLAG_HP = 1;
-	private static final byte REGEN_FLAG_MP = 2;
-	private static final byte REGEN_FLAG_CP = 4;
-	
 	protected final L2Character _activeChar;
 	private final int _period;
 	
-	private byte _flagsRegenActive = 0;
 	private double _currentHp = 0;
 	private double _currentMp = 0;
 	private double _currentCp = 0;
@@ -93,43 +88,50 @@ public class CharStatus
 		if (getActiveChar().isDead())
 			return;
 		
+		if (setCurrentHp0(newHp))
+			startHpMpRegeneration();
+	}
+	
+	private boolean setCurrentHp0(double newHp)
+	{
 		double maxHp = getActiveChar().getStat().getMaxHp();
 		if (newHp < 0)
 			newHp = 0;
 		
+		boolean requireRegen;
+		
 		synchronized (this)
 		{
+			final double currentHp = _currentHp;
+			
 			if (newHp >= maxHp)
 			{
 				_currentHp = maxHp;
-				_flagsRegenActive &= ~REGEN_FLAG_HP;
-				
-				if (_flagsRegenActive == 0)
-					stopHpMpRegeneration();
+				requireRegen = false;
 			}
 			else
 			{
 				_currentHp = newHp;
-				_flagsRegenActive |= REGEN_FLAG_HP;
-				
-				startHpMpRegeneration();
+				requireRegen = true;
 			}
+			
+			if (currentHp != _currentHp)
+				getActiveChar().broadcastStatusUpdate();
 		}
 		
 		if (getActiveChar() instanceof L2PcInstance)
 		{
 			if (getCurrentHp() <= maxHp * 0.3)
 			{
-				QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial");
+				QuestState qs = ((L2PcInstance)getActiveChar()).getQuestState("255_Tutorial");
 				if (qs != null)
 					qs.getQuest().notifyEvent("CE45", null, ((L2PcInstance)getActiveChar()));
 			}
+			
+			((L2PcInstance)getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
 		}
 		
-		getActiveChar().broadcastStatusUpdate();
-		
-		if (getActiveChar() instanceof L2PcInstance)
-			((L2PcInstance) getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
+		return requireRegen;
 	}
 	
 	public final void setCurrentMp(double newMp)
@@ -137,30 +139,38 @@ public class CharStatus
 		if (getActiveChar().isDead())
 			return;
 		
+		if (setCurrentMp0(newMp))
+			startHpMpRegeneration();
+	}
+	
+	private boolean setCurrentMp0(double newMp)
+	{
 		double maxMp = getActiveChar().getStat().getMaxMp();
 		if (newMp < 0)
 			newMp = 0;
 		
+		boolean requireRegen;
+		
 		synchronized (this)
 		{
+			final double currentMp = _currentMp;
+			
 			if (newMp >= maxMp)
 			{
 				_currentMp = maxMp;
-				_flagsRegenActive &= ~REGEN_FLAG_MP;
-				
-				if (_flagsRegenActive == 0)
-					stopHpMpRegeneration();
+				requireRegen = false;
 			}
 			else
 			{
 				_currentMp = newMp;
-				_flagsRegenActive |= REGEN_FLAG_MP;
-				
-				startHpMpRegeneration();
+				requireRegen = true;
 			}
+			
+			if (currentMp != _currentMp)
+				getActiveChar().broadcastStatusUpdate();
 		}
 		
-		getActiveChar().broadcastStatusUpdate();
+		return requireRegen;
 	}
 	
 	public final void setCurrentCp(double newCp)
@@ -168,30 +178,38 @@ public class CharStatus
 		if (getActiveChar().isDead())
 			return;
 		
+		if (setCurrentCp0(newCp))
+			startHpMpRegeneration();
+	}
+	
+	private boolean setCurrentCp0(double newCp)
+	{
 		double maxCp = getActiveChar().getStat().getMaxCp();
 		if (newCp < 0)
 			newCp = 0;
 		
+		boolean requireRegen;
+		
 		synchronized (this)
 		{
+			final double currentCp = _currentCp;
+			
 			if (newCp >= maxCp)
 			{
 				_currentCp = maxCp;
-				_flagsRegenActive &= ~REGEN_FLAG_CP;
-				
-				if (_flagsRegenActive == 0)
-					stopHpMpRegeneration();
+				requireRegen = false;
 			}
 			else
 			{
 				_currentCp = newCp;
-				_flagsRegenActive |= REGEN_FLAG_CP;
-				
-				startHpMpRegeneration();
+				requireRegen = true;
 			}
+			
+			if (currentCp != _currentCp)
+				getActiveChar().broadcastStatusUpdate();
 		}
 		
-		getActiveChar().broadcastStatusUpdate();
+		return requireRegen;
 	}
 	
 	// ========================================================================
@@ -243,7 +261,7 @@ public class CharStatus
 	{
 		reduceHp(value, attacker, awake, false, false);
 	}
-
+	
 	public final void reduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		if (!canReduceHp(value, attacker, awake, isDOT, isConsume))
@@ -290,21 +308,21 @@ public class CharStatus
 		{
 			// add olympiad damage
 			if (player != null && player.isInOlympiadMode() && attackerPlayer != null
-				&& attackerPlayer.isInOlympiadMode())
+					&& attackerPlayer.isInOlympiadMode())
 			{
 				if (Config.ALT_OLY_SUMMON_DAMAGE_COUNTS
-					|| (attacker instanceof L2PcInstance && getActiveChar() instanceof L2PcInstance))
-					attackerPlayer.addOlyDamage((int) value);
+						|| (attacker instanceof L2PcInstance && getActiveChar() instanceof L2PcInstance))
+					attackerPlayer.addOlyDamage((int)value);
 			}
 			
 			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
 			// Anything else, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				if (((L2Attackable) getActiveChar()).isOverhit())
-					((L2Attackable) getActiveChar()).setOverhitValues(attacker, value);
+				if (((L2Attackable)getActiveChar()).isOverhit())
+					((L2Attackable)getActiveChar()).setOverhitValues(attacker, value);
 				else
-					((L2Attackable) getActiveChar()).overhitEnabled(false);
+					((L2Attackable)getActiveChar()).overhitEnabled(false);
 			}
 			value = getCurrentHp() - value; // Get diff of Hp vs value
 			if (value <= 0)
@@ -332,7 +350,7 @@ public class CharStatus
 			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				((L2Attackable) getActiveChar()).overhitEnabled(false);
+				((L2Attackable)getActiveChar()).overhitEnabled(false);
 			}
 		}
 		
@@ -363,7 +381,7 @@ public class CharStatus
 			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				((L2Attackable) getActiveChar()).overhitEnabled(false);
+				((L2Attackable)getActiveChar()).overhitEnabled(false);
 			}
 		}
 		
@@ -404,7 +422,10 @@ public class CharStatus
 		@Override
 		protected void callTask(CharStatus task)
 		{
-			task.regenTask();
+			if (task.regenTask())
+				startTask(task);
+			else
+				stopTask(task);
 		}
 		
 		@Override
@@ -414,48 +435,45 @@ public class CharStatus
 		}
 	}
 	
-	private long _runTime = System.currentTimeMillis();
+	private long _lastRunTime = System.currentTimeMillis();
 	
-	public synchronized final void startHpMpRegeneration()
+	public final void startHpMpRegeneration()
 	{
-		if (!getActiveChar().isDead() && !RegenTaskManager.getInstance().hasTask(this))
-		{
-			RegenTaskManager.getInstance().startTask(this);
-			
-			_runTime = System.currentTimeMillis();
-		}
+		if (getActiveChar().isDead())
+			return;
+		
+		RegenTaskManager.getInstance().startTask(this);
 	}
 	
-	public synchronized final void stopHpMpRegeneration()
+	public final void stopHpMpRegeneration()
 	{
-		_flagsRegenActive = 0;
-		
 		RegenTaskManager.getInstance().stopTask(this);
 	}
 	
-	public final void regenTask()
+	public final boolean regenTask()
 	{
-		if (System.currentTimeMillis() < _runTime)
-			return;
+		if (getActiveChar().isDead())
+			return false;
 		
-		_runTime += _period;
+		if (System.currentTimeMillis() < _lastRunTime + _period)
+			return true;
+		
+		_lastRunTime = System.currentTimeMillis();
 		
 		CharStat cs = getActiveChar().getStat();
 		
-		if (getCurrentHp() == cs.getMaxHp() && getCurrentMp() == cs.getMaxMp() && getCurrentCp() == cs.getMaxCp())
-		{
-			stopHpMpRegeneration();
-			return;
-		}
+		boolean requireRegen = false;
 		
 		if (getCurrentHp() < cs.getMaxHp())
-			setCurrentHp(getCurrentHp() + Formulas.calcHpRegen(getActiveChar()));
+			requireRegen |= setCurrentHp0(getCurrentHp() + Formulas.calcHpRegen(getActiveChar()));
 		
 		if (getCurrentMp() < cs.getMaxMp())
-			setCurrentMp(getCurrentMp() + Formulas.calcMpRegen(getActiveChar()));
+			requireRegen |= setCurrentMp0(getCurrentMp() + Formulas.calcMpRegen(getActiveChar()));
 		
 		if (getCurrentCp() < cs.getMaxCp())
-			setCurrentCp(getCurrentCp() + Formulas.calcCpRegen(getActiveChar()));
+			requireRegen |= setCurrentCp0(getCurrentCp() + Formulas.calcCpRegen(getActiveChar()));
+		
+		return requireRegen;
 	}
 	
 	// ========================================================================
