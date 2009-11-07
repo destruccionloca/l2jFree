@@ -147,7 +147,8 @@ public class L2Npc extends L2Character
 		@Override
 		protected void callTask(L2Npc npc)
 		{
-			npc.broadcastRandomAnimation(false);
+			if (!npc.tryBroadcastRandomAnimation(false, false))
+				stopTask(npc);
 		}
 		
 		@Override
@@ -205,17 +206,16 @@ public class L2Npc extends L2Character
 	
 	public final void broadcastRandomAnimation(boolean force)
 	{
+		tryBroadcastRandomAnimation(force, true);
+	}
+	
+	public final boolean tryBroadcastRandomAnimation(boolean force, boolean init)
+	{
 		if (!isInActiveRegion() || !hasRandomAnimation())
-		{
-			RandomAnimationTaskManager.getInstance().stopTask(this);
-			return;
-		}
+			return false;
 		
 		if (isMob() && getAI().getIntention() != AI_INTENTION_ACTIVE)
-		{
-			RandomAnimationTaskManager.getInstance().stopTask(this);
-			return;
-		}
+			return false;
 		
 		if (_lastRandomAnimation + 3000 < System.currentTimeMillis() && !getKnownList().getKnownPlayers().isEmpty())
 		{
@@ -234,7 +234,14 @@ public class L2Npc extends L2Character
 			}
 		}
 		
-		RandomAnimationTaskManager.getInstance().startTask(this);
+		if (init)
+			RandomAnimationTaskManager.getInstance().startTask(this);
+		return true;
+	}
+	
+	public final void stopRandomAnimation()
+	{
+		RandomAnimationTaskManager.getInstance().stopTask(this);
 	}
 	
 	/**

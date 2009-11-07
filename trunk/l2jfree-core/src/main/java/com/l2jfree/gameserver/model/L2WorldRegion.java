@@ -244,6 +244,9 @@ public final class L2WorldRegion
 					mob.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 					mob.getAI().stopAITask();
 				}
+				
+				if (obj instanceof L2Npc)
+					((L2Npc)obj).stopRandomAnimation();
 			}
 		}
 		else
