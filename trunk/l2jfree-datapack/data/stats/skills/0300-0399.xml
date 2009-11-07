@@ -973,7 +973,7 @@
         <mul order="0x30" stat="debuffVuln" val="1.3"/>
         <mul order="0x30" stat="gainHp" val="0.7"/>
       </effect>
-      <effect name="Debuff" time="3" val="0" noicon="1" /> <!-- temp hack - requires proper core support -->
+      <effect name="Debuff" time="3" val="0" noicon="1"> <!-- temp hack - requires proper core support -->
         <mul order="0x30" stat="maxCp" val="0.1"/> <!-- decreases CP to 10%: so it gets maximized on it -->
       </effect>
     </for>

@@ -528,38 +528,46 @@ public class Disablers implements ICubicSkillHandler
 						if (e.getEffectType() == L2EffectType.ENVIRONMENT)
 							continue;
 						
-						switch (e.getSkill().getSkillType())
+						if (type == L2SkillType.CANCEL) // works only on buff like skills
 						{
-							case BUFF:
-							case HEAL_PERCENT:
-							case REFLECT:
-							case COMBATPOINTHEAL:
-								double rate = 1 - (count / max);
-								if (rate < 0.33)
-									rate = 0.33;
-								else if (rate > 0.95)
-									rate = 0.95;
-								if (Rnd.get(1000) < (rate * 1000))
+							switch (e.getSkill().getSkillType())
+							{
+								case BUFF:
+								case HEAL_PERCENT:
+								case REFLECT:
+								case COMBATPOINTHEAL:
+									break;
+								default:
+									continue;
+							}
+						}
+						
+						double rate = 1 - (count / max);
+						if (rate < 0.33)
+							rate = 0.33;
+						else if (rate > 0.95)
+							rate = 0.95;
+						if (Rnd.get(1000) < (rate * 1000))
+						{
+							if (type == L2SkillType.CANCEL)
+							{
+								e.exit();
+								count++;
+							}
+							else if (type == L2SkillType.CANCEL_STATS)
+							{
+								for (L2SkillType skillType : skill.getNegateStats())
 								{
-									if (type == L2SkillType.CANCEL)
+									if (skillType == e.getSkill().getEffectType())
 									{
 										e.exit();
 										count++;
-									}
-									else if (type == L2SkillType.CANCEL_STATS)
-									{
-										for (L2SkillType skillType : skill.getNegateStats())
-										{
-											if (skillType == e.getSkill().getEffectType())
-											{
-												e.exit();
-												count++;
-												break;
-											}
-										}
+										break;
 									}
 								}
+							}
 						}
+						
 						if (count > max)
 							break;
 					}
