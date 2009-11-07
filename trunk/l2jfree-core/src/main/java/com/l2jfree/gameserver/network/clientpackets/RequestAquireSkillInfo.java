@@ -84,7 +84,8 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 		{
 			if(_log.isDebugEnabled())
 				_log.info("skill id " + _id + " level " + _level + " is undefined. aquireSkillInfo failed.");
-			requestFailed(new SystemMessage(SystemMessageId.RACE_SETUP_FILE7_ERROR_S1).addNumber(_id));
+			//requestFailed(new SystemMessage(SystemMessageId.RACE_SETUP_FILE7_ERROR_S1).addNumber(_id));
+			sendAF();
 			return;
 		}
 
