@@ -20979,10 +20979,14 @@ SELECT createSkillEnchant2(1389, 2); -- Greater Shield
 SELECT createSkillEnchant(1417, 1, 5); -- Aura Flash
 SELECT createSkillEnchant(1435, 1, 10); -- Death Mark
 SELECT createSkillEnchant2(1435, 2); -- Death Mark
---SELECT createSkillEnchant2(1437, 3); -- Dark Flame
+-- SELECT createSkillEnchant2(1437, 3); -- Dark Flame
 SELECT createSkillEnchant(1443, 1, 1); -- Dark Weapon
 SELECT createSkillEnchant2(1443, 2); -- Dark Weapon
 
 
 DROP FUNCTION createSkillEnchant;
 DROP FUNCTION createSkillEnchant2;
+
+-- TODO: finish them in XMLs, so this can be removed
+DELETE FROM `enchant_skill_trees` WHERE `skill_id` = 1254 AND CAST(`level` / 100 AS SIGNED) = 2; -- Mass Resurrection
+DELETE FROM `enchant_skill_trees` WHERE `skill_id` = 1258 AND CAST(`level` / 100 AS SIGNED) = 2; -- Restore Life

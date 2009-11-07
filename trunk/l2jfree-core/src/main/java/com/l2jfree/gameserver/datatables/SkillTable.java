@@ -269,7 +269,7 @@ public final class SkillTable
 				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + (indexingEnchantType + 1);
 				
 				if (list == null)
-					_log.warn("Missing skill enchant data in database for " + s);
+					continue;
 				else if (list.size() != 30)
 					_log.warn("Invalid skill enchant data in database for " + s);
 				else
