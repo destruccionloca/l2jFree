@@ -20859,3 +20859,130 @@ UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `su
 UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 28;
 UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 29;
 UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 30;
+
+
+DROP FUNCTION IF EXISTS createSkillEnchant;
+DROP FUNCTION IF EXISTS createSkillEnchant2;
+
+delimiter //
+CREATE FUNCTION createSkillEnchant(skillId INT, enchantType INT, baseLvl INT) RETURNS TEXT
+BEGIN
+	SET @SKILL_ID = skillId;
+	SET @ENCHANT_TYPE = enchantType;
+	SET @BASE_LVL = baseLvl;
+	
+	/* copies the route */
+	INSERT INTO `enchant_skill_trees`
+		SELECT
+			@SKILL_ID,
+			`level`,
+			`base_lvl`,
+			`sp`,
+			`exp`,
+			`min_skill_lvl`,
+			`success_rate76`,
+			`success_rate77`,
+			`success_rate78`,
+			`success_rate79`,
+			`success_rate80`,
+			`success_rate81`,
+			`success_rate82`,
+			`success_rate83`,
+			`success_rate84`,
+			`success_rate85`
+		FROM
+			`enchant_skill_trees`
+		WHERE
+			`skill_id` = 1
+		AND
+			CAST(`level` / 100 AS SIGNED) = @ENCHANT_TYPE;
+	
+	/* if there was no entry yet, the base level has to be set */
+	IF @BASE_LVL > 0 THEN
+		UPDATE `enchant_skill_trees`
+			SET
+				`base_lvl` = @BASE_LVL
+			WHERE
+				`skill_id` = @SKILL_ID AND `level` = 101;
+	END IF;
+	
+	/* sets the base level to be the same with the +1 enchant1 */
+	UPDATE `enchant_skill_trees` AS `t1`, `enchant_skill_trees` AS `t2`
+		SET
+			`t1`.`base_lvl` = `t2`.`base_lvl`
+		WHERE
+			`t1`.`skill_id` = @SKILL_ID
+		AND
+			`t2`.`skill_id` = @SKILL_ID AND `t2`.`level` = 101;
+	
+	/* sets the base level as the minimum required skill level for the +1 enchant */
+	UPDATE `enchant_skill_trees`
+		SET
+			`min_skill_lvl` = `base_lvl`
+		WHERE
+			`skill_id` = @SKILL_ID AND `level` = @ENCHANT_TYPE * 100 + 1;
+	
+	RETURN "Done.";
+END//
+
+CREATE FUNCTION createSkillEnchant2(skillId INT, enchantType INT) RETURNS TEXT
+BEGIN
+	SET @SKILL_ID = skillId;
+	SET @ENCHANT_TYPE = enchantType;
+	
+	RETURN createSkillEnchant(@SKILL_ID, @ENCHANT_TYPE, -1);
+END//
+delimiter ;
+
+
+SELECT createSkillEnchant2(92, 6); -- Shield Stun
+SELECT createSkillEnchant2(105, 3); -- "Freezing Strike
+SELECT createSkillEnchant2(110, 3); -- Ultimate Defense
+SELECT createSkillEnchant(290, 1, 14); -- Final Frenzy
+SELECT createSkillEnchant(321, 1, 10); -- Blinding Blow
+SELECT createSkillEnchant2(321, 2); -- Blinding Blow
+SELECT createSkillEnchant2(400, 3); -- Tribunal
+SELECT createSkillEnchant2(401, 3); -- Judgment
+SELECT createSkillEnchant(402, 1, 10); -- Arrest
+SELECT createSkillEnchant2(402, 2); -- Arrest
+SELECT createSkillEnchant(403, 1, 10); -- Shackle
+SELECT createSkillEnchant2(403, 2); -- Shackle
+SELECT createSkillEnchant(404, 1, 5); -- Mass Shackling
+SELECT createSkillEnchant2(404, 2); -- Mass Shackling
+SELECT createSkillEnchant(420, 1, 3); -- Zealot
+SELECT createSkillEnchant2(420, 2); -- Zealot
+SELECT createSkillEnchant(490, 1, 2); -- Fast Shot
+SELECT createSkillEnchant2(490, 2); -- Fast Shot
+SELECT createSkillEnchant(494, 1, 37); -- Shoulder Charge
+SELECT createSkillEnchant(502, 1, 5); -- Life to Soul
+SELECT createSkillEnchant2(502, 2); -- Life to Soul
+SELECT createSkillEnchant(510, 1, 5); -- Deadly Roulette
+SELECT createSkillEnchant2(510, 2); -- Deadly Roulette
+SELECT createSkillEnchant(521, 1, 8); -- Sharpshooting
+SELECT createSkillEnchant2(521, 2); -- Sharpshooting
+SELECT createSkillEnchant(526, 1, 1); -- Enuma Elish
+SELECT createSkillEnchant2(526, 2); -- Enuma Elish
+SELECT createSkillEnchant(793, 1, 1); -- Rush Impact
+SELECT createSkillEnchant2(793, 2); -- Rush Impact
+SELECT createSkillEnchant2(793, 3); -- Rush Impact
+SELECT createSkillEnchant(794, 1, 1); -- Mass Disarm
+SELECT createSkillEnchant2(1236, 3); -- Frost Bolt
+SELECT createSkillEnchant2(1237, 3); -- "Ice Dagger
+SELECT createSkillEnchant(1289, 1, 1); -- Inferno
+SELECT createSkillEnchant2(1289, 2); -- Inferno
+SELECT createSkillEnchant(1290, 1, 1); -- Blizzard
+SELECT createSkillEnchant2(1290, 2); -- Blizzard
+SELECT createSkillEnchant(1291, 1, 1); -- Demon Wind
+SELECT createSkillEnchant2(1291, 2); -- Demon Wind
+SELECT createSkillEnchant(1389, 1, 3); -- Greater Shield
+SELECT createSkillEnchant2(1389, 2); -- Greater Shield
+SELECT createSkillEnchant(1417, 1, 5); -- Aura Flash
+SELECT createSkillEnchant(1435, 1, 10); -- Death Mark
+SELECT createSkillEnchant2(1435, 2); -- Death Mark
+--SELECT createSkillEnchant2(1437, 3); -- Dark Flame
+SELECT createSkillEnchant(1443, 1, 1); -- Dark Weapon
+SELECT createSkillEnchant2(1443, 2); -- Dark Weapon
+
+
+DROP FUNCTION createSkillEnchant;
+DROP FUNCTION createSkillEnchant2;
