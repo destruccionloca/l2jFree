@@ -20865,7 +20865,11 @@ DROP FUNCTION IF EXISTS createSkillEnchant;
 DROP FUNCTION IF EXISTS createSkillEnchant2;
 
 delimiter //
-CREATE FUNCTION createSkillEnchant(skillId INT, enchantType INT, baseLvl INT) RETURNS TEXT
+CREATE FUNCTION createSkillEnchant(skillId INT, enchantType INT, baseLvl INT)
+	RETURNS TEXT
+	NOT DETERMINISTIC
+	MODIFIES SQL DATA
+	SQL SECURITY INVOKER
 BEGIN
 	SET @SKILL_ID = skillId;
 	SET @ENCHANT_TYPE = enchantType;
@@ -20925,7 +20929,11 @@ BEGIN
 	RETURN "Done.";
 END//
 
-CREATE FUNCTION createSkillEnchant2(skillId INT, enchantType INT) RETURNS TEXT
+CREATE FUNCTION createSkillEnchant2(skillId INT, enchantType INT)
+	RETURNS TEXT
+	NOT DETERMINISTIC
+	MODIFIES SQL DATA
+	SQL SECURITY INVOKER
 BEGIN
 	SET @SKILL_ID = skillId;
 	SET @ENCHANT_TYPE = enchantType;
