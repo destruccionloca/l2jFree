@@ -17,13 +17,19 @@ package com.l2jfree;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.persistence.config.PersistenceUnitProperties;
 
 import com.l2jfree.sql.ConnectionWrapper;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -65,6 +71,7 @@ public final class L2DatabaseFactory
 	
 	private final ProviderType _providerType;
 	private final ComboPooledDataSource _source;
+	private final EntityManagerFactory _entityManagerFactory;
 	
 	private L2DatabaseFactory()
 	{
@@ -125,6 +132,18 @@ public final class L2DatabaseFactory
 				_providerType = ProviderType.MsSql;
 			else
 				_providerType = ProviderType.MySql;
+			
+			// ====================================================================================
+			// initialization of the EclipseLink JPA
+			//
+			final Map<Object, Object> props = new HashMap<Object, Object>();
+			
+			props.put(PersistenceUnitProperties.NON_JTA_DATASOURCE, _source);
+			
+			_entityManagerFactory = Persistence.createEntityManagerFactory("default", props);
+			
+			// test the entity manager
+			_entityManagerFactory.createEntityManager().close();
 		}
 		catch (Exception e)
 		{
@@ -180,6 +199,11 @@ public final class L2DatabaseFactory
 		}
 		
 		return con;
+	}
+	
+	public EntityManager getEntityManager()
+	{
+		return _entityManagerFactory.createEntityManager();
 	}
 	
 	public int getBusyConnectionCount() throws SQLException

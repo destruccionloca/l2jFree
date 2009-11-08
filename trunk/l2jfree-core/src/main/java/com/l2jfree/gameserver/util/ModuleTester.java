@@ -30,18 +30,20 @@ import com.l2jfree.util.L2Arrays;
 /**
  * @author NB4L1
  */
+@SuppressWarnings("unused")
 public final class ModuleTester extends Config
 {
 	public static void main(String[] args) throws Exception
 	{
 		Config.load();
 		Config.DATAPACK_ROOT = new File("../l2jfree-datapack");
+		//L2DatabaseFactory.getInstance();
 		
 		// here comes what you want to test
 		//SkillTable.getInstance();
 		//HtmCache.getInstance();
 		
-		new WeaponSQLConverter().convert();
+		//new WeaponSQLConverter().convert();
 		
 		System.gc();
 		System.runFinalization();
