@@ -152,6 +152,12 @@ public final class L2Collections
 			
 			return a;
 		}
+		
+		@Override
+		public final String toString()
+		{
+			return "[]";
+		}
 	}
 	
 	private static final class EmptySet extends EmptyCollection implements Set<Object>
@@ -276,6 +282,12 @@ public final class L2Collections
 		{
 			return emptyCollection();
 		}
+		
+		@Override
+		public String toString()
+		{
+			return "{}";
+		}
 	}
 	
 	private static final class EmptyBunch implements Bunch<Object>
@@ -363,6 +375,12 @@ public final class L2Collections
 		public Bunch<Object> cleanByFilter(Filter<Object> filter)
 		{
 			return this;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return "[]";
 		}
 	}
 	

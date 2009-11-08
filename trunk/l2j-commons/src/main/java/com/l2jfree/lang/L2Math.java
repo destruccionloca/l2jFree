@@ -73,9 +73,29 @@ public final class L2Math
 		return Math.max(min, Math.min(value, max));
 	}
 	
+	public static int limit(int min, double value, int max)
+	{
+		return (int)Math.max(min, Math.min(value, max));
+	}
+	
+	public static int limit(int min, float value, int max)
+	{
+		return (int)Math.max(min, Math.min(value, max));
+	}
+	
 	public static long limit(long min, long value, long max)
 	{
 		return Math.max(min, Math.min(value, max));
+	}
+	
+	public static long limit(long min, double value, long max)
+	{
+		return (long)Math.max(min, Math.min(value, max));
+	}
+	
+	public static long limit(long min, float value, long max)
+	{
+		return (long)Math.max(min, Math.min(value, max));
 	}
 	
 	public static float limit(float min, double value, float max)

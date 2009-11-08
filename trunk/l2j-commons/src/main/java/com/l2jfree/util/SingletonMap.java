@@ -29,7 +29,7 @@ public final class SingletonMap<K, V> implements Map<K, V>
 	private Map<K, V> _map = L2Collections.emptyMap();
 	
 	private boolean _shared = false;
-
+	
 	private void init()
 	{
 		if (!_initialized)
@@ -122,5 +122,11 @@ public final class SingletonMap<K, V> implements Map<K, V>
 	public Collection<V> values()
 	{
 		return _map.values();
+	}
+	
+	@Override
+	public String toString()
+	{
+		return super.toString() + "-" + _map.toString();
 	}
 }

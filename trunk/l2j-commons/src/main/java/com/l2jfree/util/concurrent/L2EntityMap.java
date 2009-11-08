@@ -136,4 +136,10 @@ public abstract class L2EntityMap<T extends L2Entity<Integer>>
 		else
 			throw new RuntimeException("Shouldn't happen!");
 	}
+	
+	@Override
+	public final String toString()
+	{
+		return super.toString() + "-" + _map.toString();
+	}
 }

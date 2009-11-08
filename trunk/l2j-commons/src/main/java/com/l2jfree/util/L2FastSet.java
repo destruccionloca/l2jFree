@@ -122,4 +122,10 @@ public class L2FastSet<E> extends L2FastCollection<E> implements Set<E>
 	{
 		return _map.size();
 	}
+	
+	@Override
+	public String toString()
+	{
+		return super.toString() + "-" + _map.keySet().toString();
+	}
 }

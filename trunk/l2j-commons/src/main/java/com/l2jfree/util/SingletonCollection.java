@@ -116,4 +116,10 @@ public abstract class SingletonCollection<E, C extends Collection<E>> implements
 	{
 		return _collection.toArray(a);
 	}
+	
+	@Override
+	public final String toString()
+	{
+		return super.toString() + "-" + _collection.toString();
+	}
 }
