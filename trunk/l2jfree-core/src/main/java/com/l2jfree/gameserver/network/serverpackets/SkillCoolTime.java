@@ -14,49 +14,42 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Collection;
-
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
-
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
-public class SkillCoolTime extends L2GameServerPacket
+public final class SkillCoolTime extends StaticPacket
 {
-    public Collection<TimeStamp> _reuseTimeStamps;
-    
-    public SkillCoolTime(L2PcInstance cha)
-    {
-        _reuseTimeStamps = cha.getReuseTimeStamps().values();
-    }
-    
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return "[S] C7 SkillCoolTime";
-    }
-
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-        writeC(0xc7);
-        writeD(_reuseTimeStamps.size()); // list size
-        for (TimeStamp ts : _reuseTimeStamps)
-        {
-            writeD(ts.getSkill());
-            writeD(0x00);
-            writeD((int)(ts.getReuse() / 1000));
-            writeD((int)(ts.getRemaining() / 1000));
-        }
-    }
-    
+	public static final SkillCoolTime STATIC_PACKET = new SkillCoolTime();
+	
+	private SkillCoolTime()
+	{
+	}
+	
+	@Override
+	public String getType()
+	{
+		return "[S] C7 SkillCoolTime";
+	}
+	
+	@Override
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
+	{
+		if (activeChar == null)
+			return;
+		
+		writeC(0xc7);
+		writeD(activeChar.getReuseTimeStamps().size()); // list size
+		for (TimeStamp ts : activeChar.getReuseTimeStamps().values())
+		{
+			writeD(ts.getSkillId());
+			writeD(0x00);
+			writeD((int)Math.ceil(ts.getReuseDelay() / 1000.0));
+			writeD((int)Math.ceil(ts.getRemaining() / 1000.0));
+		}
+	}
+	
 }

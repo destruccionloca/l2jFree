@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -2495,8 +2496,6 @@ public final class L2PcInstance extends L2Playable
 		{
 			addSkill(SkillTable.getInstance().getInfo(7029, 4));
 		}
-
-		sendSkillList();
 	}
 
 	/** Set the Experience value of the L2PcInstance. */
@@ -7208,11 +7207,11 @@ public final class L2PcInstance extends L2Playable
 						statement.setInt(3, effect.getSkill().getLevel());
 						statement.setInt(4, effect.getCount());
 						statement.setInt(5, effect.getPeriod() - effect.getTime());
-						if (_reuseTimeStamps.containsKey(skillId))
+						if (getReuseTimeStamps().containsKey(skillId))
 						{
-							TimeStamp t = _reuseTimeStamps.get(skillId);
-							statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0);
-							statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0 );
+							TimeStamp t = getReuseTimeStamps().get(skillId);
+							statement.setLong(6, t.hasNotPassed() ? t.getReuseDelay() : 0);
+							statement.setLong(7, t.hasNotPassed() ? t.getStamp() : 0);
 						}
 						else
 						{
@@ -7229,11 +7228,11 @@ public final class L2PcInstance extends L2Playable
 
 			// Store the reuse delays of remaining skills which
 			// lost effect but still under reuse delay. 'restore_type' 1.
-			for (TimeStamp t : _reuseTimeStamps.values())
+			for (TimeStamp t : getReuseTimeStamps().values())
 			{
 				if (t.hasNotPassed())
 				{
-					int skillId = t.getSkill();
+					int skillId = t.getSkillId();
 
 					if (!storedSkills.add(skillId))
 						continue;
@@ -7243,7 +7242,7 @@ public final class L2PcInstance extends L2Playable
 					statement.setInt(3, -1);
 					statement.setInt(4, -1);
 					statement.setInt(5, -1);
-					statement.setLong(6, t.getReuse());
+					statement.setLong(6, t.getReuseDelay());
 					statement.setLong(7, t.getStamp());
 					statement.setInt(8, 1);
 					statement.setInt(9, getClassIndex());
@@ -7308,7 +7307,16 @@ public final class L2PcInstance extends L2Playable
 
 		return oldSkill;
 	}
-
+	
+	@Override
+	protected void skillChanged(L2Skill removed, L2Skill added)
+	{
+		super.skillChanged(removed, added);
+		
+		if (removed == null ? added != null : !removed.equals(added))
+			sendSkillList();
+	}
+	
 	public L2Skill removeSkill(L2Skill skill, boolean store)
 	{
 		return store ? removeSkill(skill) : super.removeSkill(skill);
@@ -7598,11 +7606,7 @@ public final class L2PcInstance extends L2Playable
 				if (skill != null)
 					skill.getEffects(this, this);
 
-				if (remainingTime > 10)
-				{
-					disableSkill(skillId, remainingTime);
-					addTimeStamp(new TimeStamp(skillId, reuseDelay, systime));
-				}
+				disableSkill(skillId, reuseDelay, remainingTime);
 
 				for (L2Effect effect : getAllEffects())
 				{
@@ -7635,11 +7639,7 @@ public final class L2PcInstance extends L2Playable
 
 				long remainingTime = systime - System.currentTimeMillis();
 
-				if (remainingTime < 10)
-					continue;
-
-				disableSkill(skillId, remainingTime);
-				addTimeStamp(new TimeStamp(skillId, reuseDelay, systime));
+				disableSkill(skillId, reuseDelay, remainingTime);
 			}
 			rset.close();
 			statement.close();
@@ -8173,11 +8173,11 @@ public final class L2PcInstance extends L2Playable
 	public void sendReuseMessage(L2Skill skill)
 	{
 		SystemMessage sm = null;
-
+		
 		TimeStamp timeStamp = getReuseTimeStamps().get(skill.getId());
-		if (timeStamp != null)
+		if (timeStamp != null && timeStamp.hasNotPassed())
 		{
-			int remainingTime = (int)(timeStamp.getRemaining() / 1000);
+			int remainingTime = (int)Math.ceil(timeStamp.getRemaining() / 1000.0);
 			int hours = remainingTime / 3600;
 			int minutes = (remainingTime % 3600) / 60;
 			int seconds = (remainingTime % 60);
@@ -9318,7 +9318,6 @@ public final class L2PcInstance extends L2Playable
 			for (L2Skill s : HeroSkillTable.getHeroSkills())
 				super.removeSkill(s); // Just Remove skills without deleting from Sql
 		_hero = hero;
-		sendSkillList();
 	}
 
 	public void setIsInOlympiadMode(boolean b)
@@ -9358,7 +9357,6 @@ public final class L2PcInstance extends L2Playable
 			for (L2Skill s : NobleSkillTable.getNobleSkills())
 				super.removeSkill(s); // Just Remove skills without deleting from Sql
 		_noble = val;
-		sendSkillList();
 	}
 
 	public boolean isInDuel()
@@ -9752,6 +9750,11 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	public void sendSkillList()
+	{
+		addPacketBroadcastMask(BroadcastMode.SEND_SKILL_LIST);
+	}
+	
+	public void sendSkillListImpl()
 	{
 		sendPacket(new SkillList(this));
 	}
@@ -10260,7 +10263,8 @@ public final class L2PcInstance extends L2Playable
              */
 
             store(Config.SUBCLASS_STORE_SKILL_COOLTIME);
-            _reuseTimeStamps.clear();
+            // TODO
+            //getReuseTimeStamps().clear();
 
             // clear charges
             clearCharges();
@@ -10346,9 +10350,10 @@ public final class L2PcInstance extends L2Playable
             regiveTemporarySkills();
             rewardSkills();
 
+            // TODO
             // Prevents some issues when changing between subclases that shares skills
-            if(_disabledSkills != null && !_disabledSkills.isEmpty())
-            	_disabledSkills.clear();
+            //if(_disabledSkills != null && !_disabledSkills.isEmpty())
+            //	_disabledSkills.clear();
 
             restoreEffects();
             updateEffectIcons();
@@ -10392,7 +10397,7 @@ public final class L2PcInstance extends L2Playable
             sendPacket(new ShortCutInit(this));
 
             broadcastPacket(new SocialAction(getObjectId(), SocialAction.LEVEL_UP));
-            sendPacket(new SkillCoolTime(this));
+            sendSkillCoolTime();
             sendPacket(new ExStorageMaxCount(this));
 
             broadcastClassIcon();
@@ -12999,102 +13004,109 @@ public final class L2PcInstance extends L2Playable
 
 	private boolean _canFeed;
 
-	private final Map<Integer, TimeStamp>	_reuseTimeStamps	= new SingletonMap<Integer, TimeStamp>().setShared();
-
+	private final Map<Integer, TimeStamp> _reuseTimeStamps = new FastMap<Integer, TimeStamp>().setShared(true);
+	
 	public Map<Integer, TimeStamp> getReuseTimeStamps()
 	{
 		return _reuseTimeStamps;
 	}
-
+	
+	public void sendSkillCoolTime()
+	{
+		addPacketBroadcastMask(BroadcastMode.SEND_SKILL_COOL_TIME);
+	}
+	
+	public void sendSkillCoolTimeImpl()
+	{
+		sendPacket(SkillCoolTime.STATIC_PACKET);
+	}
+	
 	/**
 	 * Simple class containing all neccessary information to maintain
 	 * valid timestamps and reuse for skills upon relog. Filter this
 	 * carefully as it becomes redundant to store reuse for small delays.
 	 * @author  Yesod
 	 */
-	public static class TimeStamp
+	public static final class TimeStamp
 	{
-		private final int		skill;
-		private final long	reuse;
-		private final long	stamp;
-
-		public TimeStamp(int _skill, long _reuse)
+		private final int _skillId;
+		private final long _reuseDelay;
+		private final long _stamp;
+		
+		public TimeStamp(int skillId, long reuseDelay, long remaining)
 		{
-			skill = _skill;
-			reuse = _reuse;
-			stamp = System.currentTimeMillis() + reuse;
+			_skillId = skillId;
+			_reuseDelay = reuseDelay;
+			_stamp = System.currentTimeMillis() + remaining;
 		}
-
-		public TimeStamp(int _skill, long _reuse, long _systime)
-		{
-			skill = _skill;
-			reuse = _reuse;
-			stamp = _systime;
-		}
-
+		
 		public long getStamp()
 		{
-			return stamp;
+			return _stamp;
 		}
-
-		public int getSkill()
+		
+		public int getSkillId()
 		{
-			return skill;
+			return _skillId;
 		}
-
-		public long getReuse()
+		
+		public long getReuseDelay()
 		{
-			return reuse;
+			return _reuseDelay;
 		}
-
+		
 		public long getRemaining()
 		{
-			return Math.max(stamp - System.currentTimeMillis(), 0);
+			return Math.max(_stamp - System.currentTimeMillis(), 0);
 		}
-
+		
 		/* Check if the reuse delay has passed and
 		 * if it has not then update the stored reuse time
 		 * according to what is currently remaining on
 		 * the delay. */
 		public boolean hasNotPassed()
 		{
-			return System.currentTimeMillis() < stamp;
+			return System.currentTimeMillis() < _stamp;
 		}
 	}
-
-	/**
-	 * Index according to skill id the current
-	 * timestamp of use.
-	 * @param s skill
-	 * @param r delay
-	 */
+	
+	public void disableSkill(TimeStamp ts)
+	{
+		disableSkill(ts.getSkillId(), ts.getReuseDelay(), ts.getRemaining());
+	}
+	
+	public boolean disableSkill(int skillId, long delay, long remaining)
+	{
+		if (!super.disableSkill(skillId, remaining))
+			return false;
+		
+		if (remaining < 10000)
+			return true;
+		
+		final TimeStamp ts = getReuseTimeStamps().put(skillId, new TimeStamp(skillId, delay, remaining));
+		
+		if (ts == null || Math.abs(ts.getReuseDelay() - delay) > 500 || Math.abs(ts.getRemaining() - remaining) > 500)
+			sendSkillCoolTime();
+		return true;
+	}
+	
 	@Override
-	public void addTimeStamp(int s, int r)
+	public boolean disableSkill(int skillId, long delay)
 	{
-		_reuseTimeStamps.put(s, new TimeStamp(s, r));
+		return disableSkill(skillId, delay, delay);
 	}
-
-	/**
-	 * Index according to skill this TimeStamp
-	 * instance for restoration purposes only.
-	 * @param ts TimeStamp
-	 */
-	public void addTimeStamp(TimeStamp ts)
-	{
-		_reuseTimeStamps.put(ts.getSkill(), ts);
-	}
-
-	/**
-	 * Index according to skill id the current
-	 * timestamp of use.
-	 * @param s skillid
-	 */
+	
 	@Override
-	public void removeTimeStamp(int s)
+	public void enableSkill(int skillId)
 	{
-		_reuseTimeStamps.remove(s);
+		super.enableSkill(skillId);
+		
+		final TimeStamp ts = getReuseTimeStamps().remove(skillId);
+		
+		if (ts != null && ts.getRemaining() > 500)
+			sendSkillCoolTime();
 	}
-
+	
 	@Override
 	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
@@ -13257,7 +13269,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		transformation.onTransform(this);
 		sendSkillList();
-		sendPacket(new SkillCoolTime(this));
+		sendSkillCoolTime();
 		ExBasicActionList.sendTo(this);
 		broadcastUserInfo();
 	}
@@ -13273,7 +13285,7 @@ public final class L2PcInstance extends L2Playable
 			broadcastUserInfo();
 			ExBasicActionList.sendTo(this);
 			sendSkillList();
-			sendPacket(new SkillCoolTime(this));
+			sendSkillCoolTime();
 		}
 	}
 

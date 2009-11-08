@@ -36,7 +36,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Equip;
@@ -277,9 +276,6 @@ public abstract class Inventory extends ItemContainer
 				for (L2Skill itemSkill : enchant4Skills)
 					player.removeSkill(itemSkill, false);
 			}
-
-			if (itemSkills != null || enchant4Skills != null)
-				player.sendSkillList();
 		}
 
 		public void notifyEquiped(int slot, L2ItemInstance item)
@@ -323,26 +319,13 @@ public abstract class Inventory extends ItemContainer
 					enchant4Skills = ((L2Armor) it).getEnchant4Skills();
 			}
 
-			boolean updateTimeStamp = false;
-
 			if (itemSkills != null)
 			{
 				for (L2Skill itemSkill : itemSkills)
 				{
 					player.addSkill(itemSkill, false);
 					if (itemSkill.isActive())
-					{
-						if (!player.getReuseTimeStamps().containsKey(itemSkill.getId()))
-						{
-							int equipDelay = itemSkill.getEquipDelay();
-							if (equipDelay > 0)
-							{
-								player.addTimeStamp(itemSkill.getId(), equipDelay);
-								player.disableSkill(itemSkill.getId(), equipDelay);
-								updateTimeStamp = true;
-							}
-						}
-					}
+						player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
 				}
 			}
 			if (enchant4Skills != null)
@@ -351,25 +334,9 @@ public abstract class Inventory extends ItemContainer
 				{
 					player.addSkill(itemSkill, false);
 					if (itemSkill.isActive())
-					{
-						if (!player.getReuseTimeStamps().containsKey(itemSkill.getId()))
-						{
-							int equipDelay = itemSkill.getEquipDelay();
-							if (equipDelay > 0)
-							{
-								player.addTimeStamp(itemSkill.getId(), equipDelay);
-								player.disableSkill(itemSkill.getId(), equipDelay);
-								updateTimeStamp = true;
-							}
-						}
-					}
+						player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
 				}
 			}
-
-			if (itemSkills != null || enchant4Skills != null)
-				player.sendSkillList();
-			if (updateTimeStamp)
-				player.sendPacket(new SkillCoolTime(player));
 		}
 	}
 
@@ -392,9 +359,6 @@ public abstract class Inventory extends ItemContainer
 			if (armorSet == null)
 				return;
 			
-			boolean update = false;
-			boolean updateTimeStamp = false;
-			
 			// checks if equiped item is part of set
 			if (armorSet.containItem(slot, item.getItemId()))
 			{
@@ -409,21 +373,7 @@ public abstract class Inventory extends ItemContainer
 							player.addSkill(itemSkill, false);
 							
 							if (itemSkill.isActive())
-							{
-								if (player.getReuseTimeStamps().isEmpty()
-										|| !player.getReuseTimeStamps().containsKey(itemSkill.getId()))
-								{
-									int equipDelay = itemSkill.getEquipDelay();
-									
-									if (equipDelay > 0)
-									{
-										player.addTimeStamp(itemSkill.getId(), itemSkill.getEquipDelay());
-										player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
-									}
-								}
-								updateTimeStamp = true;
-							}
-							update = true;
+								player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
 						}
 						else
 						{
@@ -438,7 +388,6 @@ public abstract class Inventory extends ItemContainer
 						if (shieldSkill != null)
 						{
 							player.addSkill(shieldSkill, false);
-							update = true;
 						}
 						else
 							_log.warn("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getShieldSkillId() + ".");
@@ -455,7 +404,6 @@ public abstract class Inventory extends ItemContainer
 							if (skille != null)
 							{
 								player.addSkill(skille, false);
-								update = true;
 							}
 							else
 								_log.warn("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getEnchant6skillId() + ".");
@@ -471,19 +419,10 @@ public abstract class Inventory extends ItemContainer
 					if (shieldSkill != null)
 					{
 						player.addSkill(shieldSkill, false);
-						update = true;
 					}
 					else
 						_log.warn("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getShieldSkillId() + ".");
 				}
-			}
-			
-			if (update)
-			{
-				player.sendSkillList();
-				
-				if (updateTimeStamp)
-					player.sendPacket(new SkillCoolTime(player));
 			}
 		}
 		
@@ -555,7 +494,6 @@ public abstract class Inventory extends ItemContainer
 				}
 				
 				player.checkItemRestriction();
-				player.sendSkillList();
 			}
 		}
 	}

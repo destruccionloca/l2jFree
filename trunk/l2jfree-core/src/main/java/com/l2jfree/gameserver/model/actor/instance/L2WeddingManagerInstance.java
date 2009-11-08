@@ -151,8 +151,8 @@ public class L2WeddingManagerInstance extends L2Npc
             	//ptarget.getInventory().updateDatabase(); // update database
             	
                 // Refresh client side skill lists
-                player.sendSkillList();
-                ptarget.sendSkillList();
+                //player.sendSkillList();
+                //ptarget.sendSkillList();
             }
 
             // Wedding march

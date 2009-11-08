@@ -375,9 +375,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 
 				player.getClan().broadcastToOnlineMembers(new PledgeSkillList(player.getClan()));
 
-				for (L2PcInstance member: player.getClan().getOnlineMembers(0))
-					member.sendSkillList();
-
 				L2VillageMasterInstance.showPledgeSkillList(player); //Maybe we should add a check here...
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
@@ -461,7 +458,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 		}
 
 		player.addSkill(skill, true);
-		//player.sendSkillList(); sent later
 
 		if (_log.isDebugEnabled())
 			_log.debug("Learned skill " + _id + " for " + _requiredSp + " SP.");
@@ -493,7 +489,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 			}
 		}
 
-		player.sendSkillList();
 		if (_skillType == 4)
 		{
 			Quest[] qlst = trainer.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_LEARN);

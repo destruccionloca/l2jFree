@@ -392,7 +392,6 @@ public class Castle extends Siegeable<Siege>
 			for (L2PcInstance member : clan.getOnlineMembers(0))
 			{
 				removeResidentialSkills(member);
-				member.sendSkillList();
 			}
 		}
 
@@ -453,7 +452,6 @@ public class Castle extends Siegeable<Siege>
 		for (L2PcInstance member : clan.getOnlineMembers(0))
 		{
 			giveResidentialSkills(member);
-			member.sendSkillList();
 		}
 	}
 

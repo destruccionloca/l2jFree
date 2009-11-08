@@ -71,7 +71,6 @@ import com.l2jfree.gameserver.network.serverpackets.QuestList;
 import com.l2jfree.gameserver.network.serverpackets.SSQInfo;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutInit;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
-import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
@@ -245,7 +244,7 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		activeChar.updateEffectIcons();
-		sendPacket(new SkillCoolTime(activeChar));
+		activeChar.sendSkillCoolTime();
 
 		Quest.playerEnter(activeChar);
 		loadTutorial(activeChar);

@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
 import com.l2jfree.gameserver.model.itemcontainer.ClanWarehouse;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -47,7 +48,6 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListDeleteAll;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeSkillListAdd;
-import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -447,14 +447,11 @@ public class L2Clan
 			SiegeManager.getInstance().addSiegeSkills(newLeader);
 
 			// Transferring siege skills TimeStamps from old leader to new leader to prevent unlimited headquarters
-			if (!exLeader.getReuseTimeStamps().isEmpty())
+			for (L2Skill sk : SkillTable.getInstance().getSiegeSkills(newLeader.isNoble()))
 			{
-				for (L2Skill sk : SkillTable.getInstance().getSiegeSkills(newLeader.isNoble()))
-				{
-					if (exLeader.getReuseTimeStamps().containsKey(sk.getId()))
-						newLeader.addTimeStamp(exLeader.getReuseTimeStamps().get(sk.getId()));
-				}
-				newLeader.sendPacket(new SkillCoolTime(newLeader));
+				TimeStamp ts = exLeader.getReuseTimeStamps().get(sk.getId());
+				if (ts != null)
+					newLeader.disableSkill(ts);
 			}
 		}
 		newLeader.broadcastUserInfo();
@@ -611,8 +608,6 @@ public class L2Clan
 			
 			// remove Residential skills
 			player.enableResidentialSkills(false);
-			player.sendSkillList();
-			
 
 			// players leaving from clan academy have no penalty
 			if (exMember.getSubPledgeType() != -1)

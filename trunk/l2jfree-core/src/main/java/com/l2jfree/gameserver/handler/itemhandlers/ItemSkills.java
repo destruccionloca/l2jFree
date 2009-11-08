@@ -91,8 +91,7 @@ public final class ItemSkills implements IItemHandler
 					//	playable.doCast(itemSkill);
 				}
 				
-				if (itemSkill.getReuseDelay() > 0)
-					activeChar.addTimeStamp(skillId, itemSkill.getReuseDelay());
+				activeChar.disableSkill(skillId, itemSkill.getReuseDelay());
 			}
 		}
 	}

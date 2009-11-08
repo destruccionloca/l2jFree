@@ -170,7 +170,6 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
         else
         {
         	player.addSkill(SkillTable.getInstance().getInfo(_skillId, s.getBaseLevel()), true);
-        	player.sendSkillList();
         	sendPacket(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL);
         }
         ((L2NpcInstance)trainer).showEnchantSkillList(player, false);

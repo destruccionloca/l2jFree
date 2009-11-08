@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class represents a packet that is sent by the client when a player selects a
@@ -249,7 +248,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), 0, 6);
 			asi.addRequirement(5, costid, costcount, 0);
 			sendPacket(asi);
-        }		
+        }
 		else // Common Skills
 		{
 			int costid = 0;

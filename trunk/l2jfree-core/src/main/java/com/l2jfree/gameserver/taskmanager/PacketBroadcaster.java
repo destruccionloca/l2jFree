@@ -63,6 +63,20 @@ public final class PacketBroadcaster extends AbstractFIFOPeriodicTaskManager<L2C
 				((L2PcInstance)cha).sendEtcStatusUpdateImpl();
 			}
 		},
+		SEND_SKILL_LIST {
+			@Override
+			protected void sendPacket(L2Character cha)
+			{
+				((L2PcInstance)cha).sendSkillListImpl();
+			}
+		},
+		SEND_SKILL_COOL_TIME {
+			@Override
+			protected void sendPacket(L2Character cha)
+			{
+				((L2PcInstance)cha).sendSkillCoolTimeImpl();
+			}
+		},
 		// TODO: more packets
 		;
 		

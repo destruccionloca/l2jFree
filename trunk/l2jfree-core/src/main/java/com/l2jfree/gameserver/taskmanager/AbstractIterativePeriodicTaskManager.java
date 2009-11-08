@@ -40,6 +40,9 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 		readLock();
 		try
 		{
+			if (_stopList.contains(task))
+				return false;
+			
 			return _activeTasks.contains(task) || _startList.contains(task);
 		}
 		finally

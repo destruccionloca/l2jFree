@@ -14,15 +14,12 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
-import java.util.Map;
-
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExUseSharedGroupItem;
@@ -184,55 +181,22 @@ public class Elixir implements IItemHandler
 			// so is not destroyed from inventory
 			if (activeChar.isSkillDisabled(skill.getId()))
 			{
-				reuse(activeChar, skill);
+				activeChar.sendReuseMessage(skill);
 				return false;
 			}
 			if (check)
 			{
 				if (activeChar.isSkillDisabled(skillToCheck))
 				{
-					reuse(activeChar, skill);
+					activeChar.sendReuseMessage(skill);
 					return false;
 				}
-				int reuseDelay = skill.getReuseDelay();
-				activeChar.disableSkill(skillToCheck, reuseDelay);
-				activeChar.addTimeStamp(skillToCheck, reuseDelay);
+				activeChar.disableSkill(skillToCheck, skill.getReuseDelay());
 			}
 			activeChar.doSimultaneousCast(skill);
 			return true;
 		}
 		return false;
-	}
-
-	private void reuse(L2PcInstance player, L2Skill skill)
-	{
-		SystemMessage sm = null;
-		Map<Integer, TimeStamp> timeStamp = player.getReuseTimeStamps();
-
-		if (timeStamp != null && timeStamp.containsKey(skill.getId()))
-		{
-			int remainingTime = (int) (player.getReuseTimeStamps().get(skill.getId()).getRemaining() / 1000);
-			int minutes = (remainingTime % 3600) / 60;
-			int seconds = (remainingTime % 60);
-			if (minutes > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
-				sm.addSkillName(skill);
-				sm.addNumber(minutes);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAINING_FOR_REUSE_S1);
-				sm.addSkillName(skill);
-			}
-			sm.addNumber(seconds);
-		}
-		else
-		{
-			sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-			sm.addSkillName(skill);
-		}
-		player.sendPacket(sm);
 	}
 
 	/**

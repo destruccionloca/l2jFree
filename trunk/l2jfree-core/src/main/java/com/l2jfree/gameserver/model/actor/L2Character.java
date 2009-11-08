@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javolution.util.FastMap;
 
@@ -172,7 +174,7 @@ public abstract class L2Character extends L2Object
 	private boolean					_isMuted							= false;											// Cannot use magic
 	private boolean					_isPhysicalMuted					= false;											// Cannot use physical attack
 	private boolean					_isPhysicalAttackMuted				= false;											// Cannot use attack
-	private boolean					_isDead								= false;
+	private volatile boolean		_isDead								= false;
 	private byte					_isDying							= DEATH_ANIMATION_NONE;
 	private boolean					_isImmobilized						= false;
 	private boolean					_isParalyzed						= false;											// cannot do anything
@@ -290,7 +292,7 @@ public abstract class L2Character extends L2Object
 
 			if (_skills != null)
 				for (L2Skill skill : _skills.values())
-					skillAdded(skill);
+					skillChanged(null, skill);
 		}
 		else
 			_skills = new FastMap<Integer, L2Skill>().setShared(true);
@@ -1693,10 +1695,6 @@ public abstract class L2Character extends L2Object
 			reuseDelay *= skill.isMagic() ? getStat().getMReuseRate(skill) : getStat().getPReuseRate(skill);
 		}
 
-		// Skill reuse check
-		if (reuseDelay > 30000)
-			addTimeStamp(skill.getId(), reuseDelay);
-
 		// Check if this skill consume mp on start casting
 		int initmpcons = getStat().getMpInitialConsume(skill);
 		if (initmpcons > 0)
@@ -1716,10 +1714,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
-		if (reuseDelay > 10)
-		{
-			disableSkill(skill.getId(), reuseDelay);
-		}
+		disableSkill(skill.getId(), reuseDelay);
 
 		// Make sure that char is facing selected target
 		if (target != this)
@@ -2026,34 +2021,6 @@ public abstract class L2Character extends L2Object
 			}
 		}
 		return true;
-	}
-
-	/**
-	 * Index according to skill id the current timestamp of use.<br>
-	 * <br>
-	 *
-	 * @param skill
-	 *            id
-	 * @param reuse
-	 *            delay <BR>
-	 *            <B>Overridden in :</B> (L2PcInstance)
-	 */
-	public void addTimeStamp(int skill, int reuse)
-	{
-		/***/
-	}
-
-	/**
-	 * Index according to skill id the current timestamp of use.<br>
-	 * <br>
-	 *
-	 * @param skill
-	 *            id <BR>
-	 *            <B>Overridden in :</B> (L2PcInstance)
-	 */
-	public void removeTimeStamp(int skill)
-	{
-		/***/
 	}
 
 	public void startFusionSkill(L2Character target, L2Skill skill)
@@ -2852,21 +2819,7 @@ public abstract class L2Character extends L2Object
 			setIsRunning(false);
 	}
 
-	/** Task launching the function enableSkill() */
-	class EnableSkill implements Runnable
-	{
-		int	_skillId;
 
-		public EnableSkill(int skillId)
-		{
-			_skillId = skillId;
-		}
-
-		public void run()
-		{
-			enableSkill(_skillId);
-		}
-	}
 
 	/**
 	 * Task launching the function onHitTimer().<BR>
@@ -3948,7 +3901,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/** Table containing all skillId that are disabled */
-	protected Set<Integer>				_disabledSkills;
+	private Map<Integer, ScheduledFuture<?>> _disabledSkills;
 	private boolean						_allSkillsDisabled;
 
 	// private int _flyingRunSpeed;
@@ -5764,10 +5717,7 @@ public abstract class L2Character extends L2Object
 		final L2Skill oldSkill = _skills.put(newSkill.getId(), newSkill);
 
 		// If an old skill has been replaced, remove all its Func objects
-		if (oldSkill != null)
-			skillRemoved(oldSkill);
-
-		skillAdded(newSkill);
+		skillChanged(oldSkill, newSkill);
 
 		return oldSkill;
 	}
@@ -5807,7 +5757,7 @@ public abstract class L2Character extends L2Object
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
 		{
-			skillRemoved(oldSkill);
+			skillChanged(oldSkill, null);
 
 			// does not abort casting of the transformation dispell
 			if (oldSkill.getSkillType() != L2SkillType.TRANSFORMDISPEL)
@@ -5873,21 +5823,24 @@ public abstract class L2Character extends L2Object
 		return oldSkill;
 	}
 
-	private void skillAdded(L2Skill skill)
+	protected void skillChanged(L2Skill removed, L2Skill added)
 	{
-		if (skill.getSkillType() != L2SkillType.NOTDONE)
-			addStatFuncs(skill.getStatFuncs(this));
-
-		if (skill.isChance())
-			addChanceSkillTrigger(skill);
-	}
-
-	private void skillRemoved(L2Skill skill)
-	{
-		removeStatsOwner(skill);
-
-		if (skill.isChance())
-			removeChanceSkillTrigger(skill);
+		if (removed != null)
+		{
+			removeStatsOwner(removed);
+			
+			if (removed.isChance())
+				removeChanceSkillTrigger(removed);
+		}
+		
+		if (added != null)
+		{
+			if (added.getSkillType() != L2SkillType.NOTDONE)
+				addStatFuncs(added.getStatFuncs(this));
+			
+			if (added.isChance())
+				addChanceSkillTrigger(added);
+		}
 	}
 
 	public synchronized void addChanceSkillTrigger(IChanceSkillTrigger trigger)
@@ -6367,21 +6320,20 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All skills disabled are identified by their skillId in <B>_disabledSkills</B> of the L2Character <BR>
 	 * <BR>
-	 *
-	 * @param skillId
-	 *            The identifier of the L2Skill to enable
+	 * 
+	 * @param skillId The identifier of the L2Skill to enable
 	 */
 	public void enableSkill(int skillId)
 	{
 		if (_disabledSkills == null)
 			return;
-
-		_disabledSkills.remove(Integer.valueOf(skillId));
-
-		if (this instanceof L2PcInstance)
-			removeTimeStamp(skillId);
+		
+		final ScheduledFuture<?> task = _disabledSkills.remove(skillId);
+		
+		if (task != null)
+			task.cancel(false);
 	}
-
+	
 	/**
 	 * Disable a skill (add it to _disabledSkills of the L2Character).<BR>
 	 * <BR>
@@ -6389,32 +6341,61 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All skills disabled are identified by their skillId in <B>_disabledSkills</B> of the L2Character <BR>
 	 * <BR>
-	 *
-	 * @param skillId
-	 *            The identifier of the L2Skill to disable
+	 * 
+	 * @param skillId The identifier of the L2Skill to disable
+	 * @deprecated
 	 */
-	public void disableSkill(int skillId)
+	@Deprecated
+	public final void disableSkill(int skillId)
 	{
-		if (_disabledSkills == null)
-			_disabledSkills = new SingletonSet<Integer>();
-
-		_disabledSkills.add(skillId);
+		disableSkill(skillId, Integer.MAX_VALUE);
 	}
-
+	
 	/**
 	 * Disable this skill id for the duration of the delay in milliseconds.
-	 *
+	 * 
 	 * @param skillId
-	 * @param delay
-	 *            (seconds * 1000)
+	 * @param delay in milliseconds
+	 * @return modified
 	 */
-	public void disableSkill(int skillId, long delay)
+	public boolean disableSkill(int skillId, long delay)
 	{
-		disableSkill(skillId);
-		if (delay > 10)
-			ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skillId), delay);
+		if (delay < 100)
+			return false;
+		
+		if (_disabledSkills == null)
+			_disabledSkills = new FastMap<Integer, ScheduledFuture<?>>();
+		
+		final ScheduledFuture<?> oldTask = _disabledSkills.get(skillId);
+		
+		if (oldTask != null)
+		{
+			if (oldTask.getDelay(TimeUnit.MILLISECONDS) + 50 >= delay)
+				return false;
+			
+			oldTask.cancel(false);
+		}
+		
+		_disabledSkills.put(skillId, ThreadPoolManager.getInstance().schedule(new EnableSkill(skillId), delay));
+		return true;
 	}
-
+	
+	/** Task launching the function enableSkill() */
+	private final class EnableSkill implements Runnable
+	{
+		private final int _skillId;
+		
+		public EnableSkill(int skillId)
+		{
+			_skillId = skillId;
+		}
+		
+		public void run()
+		{
+			enableSkill(_skillId);
+		}
+	}
+	
 	/**
 	 * Check if a skill is disabled.<BR>
 	 * <BR>
@@ -6422,37 +6403,36 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All skills disabled are identified by their skillId in <B>_disabledSkills</B> of the L2Character <BR>
 	 * <BR>
-	 *
-	 * @param skillId
-	 *            The identifier of the L2Skill to disable
+	 * 
+	 * @param skillId The identifier of the L2Skill to disable
 	 */
-	public boolean isSkillDisabled(int skillId)
+	public final boolean isSkillDisabled(int skillId)
 	{
 		if (isAllSkillsDisabled())
 			return true;
-
+		
 		if (_disabledSkills == null)
 			return false;
-
-		return _disabledSkills.contains(skillId);
+		
+		return _disabledSkills.containsKey(skillId);
 	}
-
+	
 	/**
 	 * Disable all skills (set _allSkillsDisabled to True).<BR>
 	 * <BR>
 	 */
-	public void disableAllSkills()
+	public final void disableAllSkills()
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("all skills disabled");
 		_allSkillsDisabled = true;
 	}
-
+	
 	/**
 	 * Enable all skills (set _allSkillsDisabled to False).<BR>
 	 * <BR>
 	 */
-	public void enableAllSkills()
+	public final void enableAllSkills()
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("all skills enabled");

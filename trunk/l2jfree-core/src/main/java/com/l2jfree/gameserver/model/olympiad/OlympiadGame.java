@@ -40,7 +40,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMatchEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -309,9 +308,6 @@ public class OlympiadGame
 				for (L2Skill skill : player.getAllSkills())
 					if (skill.getReuseDelay() <= 900000)
 						player.enableSkill(skill.getId());
-				
-				player.sendSkillList();
-				player.sendPacket(new SkillCoolTime(player));
 			}
 			catch (Exception e)
 			{
@@ -434,7 +430,6 @@ public class OlympiadGame
 					for (L2Skill skill : HeroSkillTable.getHeroSkills())
 						player.addSkill(skill, false);
 				}
-				player.sendSkillList();
 			}
 			catch (Exception e)
 			{

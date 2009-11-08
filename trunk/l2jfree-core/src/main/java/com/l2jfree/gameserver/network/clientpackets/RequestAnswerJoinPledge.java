@@ -109,7 +109,6 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 				activeChar.broadcastUserInfo();
 
 				activeChar.enableResidentialSkills(true);
-				activeChar.sendSkillList();
 			}
 		}
 

@@ -334,7 +334,6 @@ public class CursedWeapon
 
 		if (_log.isDebugEnabled())
 			_log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
-		_player.sendSkillList();
 	}
 
 	public void removeSkillAndAppearance()
@@ -347,8 +346,6 @@ public class CursedWeapon
 		{
 			TransformationManager.getInstance().transformPlayer(_player.transformId(), _player);
 		}
-
-		_player.sendSkillList();
 	}
 
 	public void reActivate()

@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.SkillCoolTime;
 
 /**
  * Format: (c)
@@ -37,7 +36,7 @@ public class RequestSkillCoolTime extends L2GameClientPacket
 		if (player == null)
 			return;
 
-		sendPacket(new SkillCoolTime(player));
+		player.sendSkillCoolTime();
 
 		sendAF();
 	}
