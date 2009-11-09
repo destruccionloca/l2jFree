@@ -1049,10 +1049,10 @@ public class L2CharacterAI extends AbstractAI
 				if (!target.isMoving())
 					return true;
 				// allow larger hit range only if the target runs towards the character
-				if (Direction.getDirection(_actor, target) != Direction.FRONT)
-					return true;
+				//if (Direction.getDirection(_actor, target) != Direction.FRONT)
+				//	return true;
 				// allow larger hit range when the target is moving (check is run only once per second)
-				if (!_actor.isInsideRadius(target, offset + 100, false, false))
+				if (!_actor.isInsideRadius(target, offset + 50, false, false))
 					return true;
 				stopFollow();
 				return false;

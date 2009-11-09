@@ -599,8 +599,18 @@ public abstract class AbstractAI implements Ctrl
 			offset = L2Math.max(10, offset, minOffset);
 			
 			// if the target runs towards the character then don't force the actor to run over it
-			if (pawn != null && pawn.isMoving() && Direction.getDirection(_actor, pawn) == Direction.FRONT)
-				offset += 50;
+			if (pawn != null && pawn.isMoving())
+			{
+				switch (Direction.getDirection(_actor, pawn))
+				{
+					case FRONT:
+						offset += 50;
+						break;
+					case BACK:
+						offset -= 50;
+						break;
+				}
+			}
 			
 			// prevent possible extra calls to this function (there is none?),
 			// also don't send movetopawn packets too often
