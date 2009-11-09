@@ -1504,6 +1504,10 @@ public final class Formulas
 			damage *= Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
+
+		// +20% damage from behind attacks, +5% from side attacks
+		double positionMult = calcPositionRate(attacker, target);
+		damage *= positionMult;
 		
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
@@ -1573,7 +1577,7 @@ public final class Formulas
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
 		damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
-		
+
 		return GlobalRestrictions.calcDamage(owner, target, damage, skill);
 	}
 
@@ -1664,6 +1668,10 @@ public final class Formulas
 			damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
+
+		// +20% damage from behind attacks, +5% from side attacks
+		double positionMult = calcPositionRate(attacker, target);
+		damage *= positionMult;
 		
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
@@ -2657,5 +2665,25 @@ public final class Formulas
 			reflect |= SKILL_REFLECT_SUCCEED;
 		
 		return reflect;
+	}
+
+	/**
+	 * Returns damage multiplicator according to the position of the attacker
+	 */
+	public static double calcPositionRate(L2Character attacker, L2Character target)
+	{
+		double mult = 1.0;
+
+		switch (Direction.getDirection(attacker, target))
+		{
+			case SIDE:
+				mult = 1.05;
+				break;
+			case BACK:
+				mult = 1.2;
+				break;
+		}
+
+		return mult;
 	}
 }
