@@ -550,6 +550,8 @@ public final class GlobalRestrictions
 			}
 		}
 		
+		// +20% damage from behind attacks, +5% from side attacks
+		damage *= Formulas.calcPositionRate(attacker, target);
 		damage *= Formulas.calcElemental(activeChar, target, skill);
 		damage *= Formulas.calcSoulBonus(activeChar, skill);
 		

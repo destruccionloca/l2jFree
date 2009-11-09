@@ -1505,10 +1505,6 @@ public final class Formulas
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
 
-		// +20% damage from behind attacks, +5% from side attacks
-		double positionMult = calcPositionRate(attacker, target);
-		damage *= positionMult;
-		
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
@@ -1648,12 +1644,10 @@ public final class Formulas
 			else
 				damage *= Config.ALT_MCRIT_RATE;
 		}
-			
-		damage += Rnd.nextDouble() * attacker.getRandomDamage(target);
 		
 		//random magic damage
-		float rnd = Rnd.get(-20, 20) / 100 + 1;
-		damage *= rnd;
+		damage *= 1 + (2 * Rnd.nextDouble() - 1) * 0.2;
+		
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
 
@@ -1669,10 +1663,6 @@ public final class Formulas
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
 
-		// +20% damage from behind attacks, +5% from side attacks
-		double positionMult = calcPositionRate(attacker, target);
-		damage *= positionMult;
-		
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 	
@@ -2672,18 +2662,14 @@ public final class Formulas
 	 */
 	public static double calcPositionRate(L2Character attacker, L2Character target)
 	{
-		double mult = 1.0;
-
 		switch (Direction.getDirection(attacker, target))
 		{
 			case SIDE:
-				mult = 1.05;
-				break;
+				return 1.05;
 			case BACK:
-				mult = 1.2;
-				break;
+				return 1.2;
 		}
-
-		return mult;
+		
+		return 1.0;
 	}
 }
