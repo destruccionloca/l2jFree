@@ -45,7 +45,6 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
-import com.l2jfree.gameserver.util.Util.Direction;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.L2Collections;
 
