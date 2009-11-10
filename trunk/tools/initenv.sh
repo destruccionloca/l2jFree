@@ -18,7 +18,7 @@ echo "Environment cleaned."
 cd tools
 ./compile.sh
 cd ..
-$MAVEN eclipse:eclipse $PROJECT_INIT_FLAG
+$MAVEN eclipse:m2eclipse $PROJECT_INIT_FLAG
 cd tools
 echo ""
 echo "Environment initialized."

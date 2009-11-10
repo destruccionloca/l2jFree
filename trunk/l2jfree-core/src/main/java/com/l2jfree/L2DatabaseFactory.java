@@ -153,6 +153,15 @@ public final class L2DatabaseFactory
 	
 	public void shutdown() throws Exception
 	{
+		try
+		{
+			_entityManagerFactory.close();
+		}
+		catch (Throwable t)
+		{
+			_log.fatal("", t);
+		}
+		
 		_source.close();
 	}
 	

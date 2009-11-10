@@ -18,7 +18,7 @@ echo Environment cleaned.
 cd tools
 call compile.bat
 cd ..
-call %MAVEN% eclipse:eclipse %PROJECT_INIT_FLAG%
+call %MAVEN% eclipse:m2eclipse %PROJECT_INIT_FLAG%
 cd tools
 echo.
 echo Environment initialized.
