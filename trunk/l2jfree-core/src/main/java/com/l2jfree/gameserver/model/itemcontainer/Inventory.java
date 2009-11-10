@@ -480,6 +480,11 @@ public abstract class Inventory extends ItemContainer
 					for (SkillInfo skillInfo : skills)
 					{
 						player.removeSkill(skillInfo.getId());
+						
+						final L2Skill skill = skillInfo.getSkill();
+						
+						if (skill != null && skill.getTransformId() != 0)
+							player.untransform();
 					}
 				}
 				
