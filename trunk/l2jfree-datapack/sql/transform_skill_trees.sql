@@ -67,7 +67,7 @@ INSERT INTO `transform_skill_trees` VALUES
 (-1, 671, 10303, 1, 'Transform Vale Master', 0, 70),
 (-1, 672, 10304, 1, 'Transform Saber Tooth Tiger', 0, 70),
 (-1, 673, 10305, 1, 'Transform Ol Mahum', 0, 70),
-(-1, 674, 10306, 1, 'Transform Doll Blader', 0, 70);
+(-1, 674, 10306, 1, 'Transform Doll Blader', 0, 70),
 -- Divine Transformations
 (-1, 656, 10289, 1, 'Transform Divine Warrior', 0, 75),
 (-1, 657, 10288, 1, 'Transform Divine Knight', 0, 75),
