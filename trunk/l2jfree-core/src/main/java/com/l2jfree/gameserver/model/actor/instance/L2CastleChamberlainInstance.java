@@ -831,8 +831,9 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 								sendHtmlMessage(player, html);
 							}
 						}
-						else
-						{
+					}
+					else
+					{
 						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 						html.setFile("data/html/chamberlain/edit_recovery.htm");
 						String hp = "[<a action=\"bypass -h npc_%objectId%_manage recovery edit_hp 80\">80%</a>]"
@@ -897,257 +898,259 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 							html.replace("%change_mp%", mp);
 						}
 						sendHtmlMessage(player, html);
-						}
 					}
-					else if (val.equals("other"))
+				}
+				else if (val.equals("other"))
+				{
+					if (st.countTokens() >= 1)
 					{
-						if (st.countTokens() >= 1)
+						if (getCastle().getOwnerId() == 0)
 						{
-							if (getCastle().getOwnerId() == 0)
-							{
-								player.sendMessage("This castle has no owner, you cannot change configuration");
-								return;
-							}
+							player.sendMessage("This castle has no owner, you cannot change configuration");
+							return;
+						}
+						val = st.nextToken();
+						if (val.equals("tele_cancel"))
+						{
+							NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/functions-cancel.htm");
+							html.replace("%apply%", "other tele 0");
+							sendHtmlMessage(player, html);
+						}
+						else if (val.equals("support_cancel"))
+						{
+							NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/functions-cancel.htm");
+							html.replace("%apply%", "other support 0");
+							sendHtmlMessage(player, html);
+						}
+						else if (val.equalsIgnoreCase("security_cancel"))
+						{
+							NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/functions-cancel.htm");
+							html.replace("%apply%", "other security 0");
+							sendHtmlMessage(player, html);
+						}
+						else if (val.equals("edit_support"))
+						{
 							val = st.nextToken();
-							if (val.equals("tele_cancel"))
+							NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/functions-apply.htm");
+							html.replace("%name%", "Insignia (Supplementary Magic)");
+							int stage = Integer.valueOf(val);
+							int cost;
+							switch (stage)
 							{
-								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-								html.setFile("data/html/chamberlain/functions-cancel.htm");
-								html.replace("%apply%", "other tele 0");
-								sendHtmlMessage(player, html);
+							case 1:
+								cost = Config.CS_SUPPORT1_FEE;
+								break;
+							case 2:
+								cost = Config.CS_SUPPORT2_FEE;
+								break;
+							case 3:
+								cost = Config.CS_SUPPORT3_FEE;
+								break;
+							default:
+								cost = Config.CS_SUPPORT4_FEE;
+								break;
 							}
-							else if (val.equals("support_cancel"))
+							html.replace("%cost%", String.valueOf(cost) + "</font>Adena /"
+									+ String.valueOf(Config.CS_SUPPORT_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
+							html.replace("%use%", "Enables the use of supplementary magic.");
+							html.replace("%apply%", "other support " + String.valueOf(stage));
+							sendHtmlMessage(player, html);
+						}
+						else if (val.equals("edit_tele"))
+						{
+							val = st.nextToken();
+							NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/functions-apply.htm");
+							html.replace("%name%", "Mirror (Teleportation Device)");
+							int stage = Integer.valueOf(val);
+							int cost;
+							switch (stage)
 							{
-								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-								html.setFile("data/html/chamberlain/functions-cancel.htm");
-								html.replace("%apply%", "other support 0");
-								sendHtmlMessage(player, html);
+							case 1:
+								cost = Config.CS_TELE1_FEE;
+								break;
+							default:
+								cost = Config.CS_TELE2_FEE;
+								break;
 							}
-							else if (val.equalsIgnoreCase("security_cancel"))
+							html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.CS_TELE_FEE_RATIO / 1000 / 60 / 60 / 24)
+									+ " Day</font>)");
+							html.replace("%use%", "Teleports clan members in a castle to the target <font color=\"00FFFF\">Stage " + String.valueOf(stage)
+									+ "</font> staging area");
+							html.replace("%apply%", "other tele " + String.valueOf(stage));
+							sendHtmlMessage(player, html);
+						}
+						else if (val.equalsIgnoreCase("edit_security"))
+						{
+							val = st.nextToken();
+							NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+							html.setFile("data/html/chamberlain/functions-apply.htm");
+							html.replace("%name%", "Pulsar (Security System)");
+							int stage = Integer.valueOf(val);
+							int cost;
+							switch (stage)
 							{
-								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-								html.setFile("data/html/chamberlain/functions-cancel.htm");
-								html.replace("%apply%", "other security 0");
-								sendHtmlMessage(player, html);
-							}
-							else if (val.equals("edit_support"))
-							{
-								val = st.nextToken();
-								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-								html.setFile("data/html/chamberlain/functions-apply.htm");
-								html.replace("%name%", "Insignia (Supplementary Magic)");
-								int stage = Integer.valueOf(val);
-								int cost;
-								switch (stage)
-								{
 								case 1:
-									cost = Config.CS_SUPPORT1_FEE;
+									cost = Config.CS_SECURITY1_FEE;
 									break;
 								case 2:
-									cost = Config.CS_SUPPORT2_FEE;
-									break;
-								case 3:
-									cost = Config.CS_SUPPORT3_FEE;
+									cost = Config.CS_SECURITY2_FEE;
 									break;
 								default:
-									cost = Config.CS_SUPPORT4_FEE;
+									cost = Config.CS_SECURITY3_FEE;
 									break;
-								}
-								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /"
-										+ String.valueOf(Config.CS_SUPPORT_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
-								html.replace("%use%", "Enables the use of supplementary magic.");
-								html.replace("%apply%", "other support " + String.valueOf(stage));
-								sendHtmlMessage(player, html);
 							}
-							else if (val.equals("edit_tele"))
+							html.replace("%cost%", String.valueOf(cost) + "</font> Adena /" + String.valueOf(Config.CS_SECURITY_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
+							html.replace("%use%", "Enables the use of security system.");
+							html.replace("%apply%", "other security " + String.valueOf(stage));
+							sendHtmlMessage(player, html);
+						}
+						else if (val.equals("tele"))
+						{
+							if (st.countTokens() >= 1)
 							{
+								int fee;
+								if (_log.isDebugEnabled())
+									_log.warn("Tele editing invoked");
 								val = st.nextToken();
 								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-								html.setFile("data/html/chamberlain/functions-apply.htm");
-								html.replace("%name%", "Mirror (Teleportation Device)");
-								int stage = Integer.valueOf(val);
-								int cost;
-								switch (stage)
+								html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
+								if (getCastle().getFunction(Castle.FUNC_TELEPORT) != null)
 								{
-								case 1:
-									cost = Config.CS_TELE1_FEE;
-									break;
-								default:
-									cost = Config.CS_TELE2_FEE;
-									break;
-								}
-								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.CS_TELE_FEE_RATIO / 1000 / 60 / 60 / 24)
-										+ " Day</font>)");
-								html.replace("%use%", "Teleports clan members in a castle to the target <font color=\"00FFFF\">Stage " + String.valueOf(stage)
-										+ "</font> staging area");
-								html.replace("%apply%", "other tele " + String.valueOf(stage));
-								sendHtmlMessage(player, html);
-							}
-							else if (val.equalsIgnoreCase("edit_security"))
-							{
-								val = st.nextToken();
-								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-								html.setFile("data/html/chamberlain/functions-apply.htm");
-								html.replace("%name%", "Pulsar (Security System)");
-								int stage = Integer.valueOf(val);
-								int cost;
-								switch (stage)
-								{
-									case 1:
-										cost = Config.CS_SECURITY1_FEE;
-										break;
-									case 2:
-										cost = Config.CS_SECURITY2_FEE;
-										break;
-									default:
-										cost = Config.CS_SECURITY3_FEE;
-										break;
-								}
-								html.replace("%cost%", String.valueOf(cost) + "</font> Adena /" + String.valueOf(Config.CS_SECURITY_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
-								html.replace("%use%", "Enables the use of security system.");
-								html.replace("%apply%", "other security " + String.valueOf(stage));
-								sendHtmlMessage(player, html);
-							}
-							else if (val.equals("tele"))
-							{
-								if (st.countTokens() >= 1)
-								{
-									int fee;
-									if (_log.isDebugEnabled())
-										_log.warn("Tele editing invoked");
-									val = st.nextToken();
-									NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-									html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
-									if (getCastle().getFunction(Castle.FUNC_TELEPORT) != null)
+									if (getCastle().getFunction(Castle.FUNC_TELEPORT).getLvl() == Integer.valueOf(val))
 									{
-										if (getCastle().getFunction(Castle.FUNC_TELEPORT).getLvl() == Integer.valueOf(val))
-										{
-											html.setFile("data/html/chamberlain/functions-used.htm");
-											html.replace("%val%", "Stage " + String.valueOf(val));
-											sendHtmlMessage(player, html);
-											return;
-										}
-									}
-									int lvl = Integer.valueOf(val);
-									switch (lvl)
-									{
-									case 0:
-										fee = 0;
-										html.setFile("data/html/chamberlain/functions-cancel_confirmed.htm");
-										break;
-									case 1:
-										fee = Config.CS_TELE1_FEE;
-										break;
-									default:
-										fee = Config.CS_TELE2_FEE;
-										break;
-									}
-									if (!getCastle().updateFunctions(player, Castle.FUNC_TELEPORT, lvl, fee, Config.CS_TELE_FEE_RATIO,
-											(getCastle().getFunction(Castle.FUNC_TELEPORT) == null)))
-									{
-										html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
+										html.setFile("data/html/chamberlain/functions-used.htm");
+										html.replace("%val%", "Stage " + String.valueOf(val));
 										sendHtmlMessage(player, html);
+										return;
 									}
+								}
+								int lvl = Integer.valueOf(val);
+								switch (lvl)
+								{
+								case 0:
+									fee = 0;
+									html.setFile("data/html/chamberlain/functions-cancel_confirmed.htm");
+									break;
+								case 1:
+									fee = Config.CS_TELE1_FEE;
+									break;
+								default:
+									fee = Config.CS_TELE2_FEE;
+									break;
+								}
+								if (!getCastle().updateFunctions(player, Castle.FUNC_TELEPORT, lvl, fee, Config.CS_TELE_FEE_RATIO,
+										(getCastle().getFunction(Castle.FUNC_TELEPORT) == null)))
+								{
+									html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
 									sendHtmlMessage(player, html);
 								}
+								sendHtmlMessage(player, html);
 							}
-							else if (val.equals("support"))
+						}
+						else if (val.equals("support"))
+						{
+							if (st.countTokens() >= 1)
 							{
-								if (st.countTokens() >= 1)
+								int fee;
+								if (_log.isDebugEnabled())
+									_log.warn("Support editing invoked");
+								val = st.nextToken();
+								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+								html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
+								if (getCastle().getFunction(Castle.FUNC_SUPPORT) != null)
 								{
-									int fee;
-									if (_log.isDebugEnabled())
-										_log.warn("Support editing invoked");
-									val = st.nextToken();
-									NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-									html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
-									if (getCastle().getFunction(Castle.FUNC_SUPPORT) != null)
+									if (getCastle().getFunction(Castle.FUNC_SUPPORT).getLvl() == Integer.valueOf(val))
 									{
-										if (getCastle().getFunction(Castle.FUNC_SUPPORT).getLvl() == Integer.valueOf(val))
-										{
-											html.setFile("data/html/chamberlain/functions-used.htm");
-											html.replace("%val%", "Stage " + String.valueOf(val));
-											sendHtmlMessage(player, html);
-											return;
-										}
+										html.setFile("data/html/chamberlain/functions-used.htm");
+										html.replace("%val%", "Stage " + String.valueOf(val));
+										sendHtmlMessage(player, html);
+										return;
 									}
-									int lvl = Integer.valueOf(val);
-									switch (lvl)
+								}
+								int lvl = Integer.valueOf(val);
+								switch (lvl)
+								{
+								case 0:
+									fee = 0;
+									html.setFile("data/html/chamberlain/functions-cancel_confirmed.htm");
+									break;
+								case 1:
+									fee = Config.CS_SUPPORT1_FEE;
+									break;
+								case 2:
+									fee = Config.CS_SUPPORT2_FEE;
+									break;
+								case 3:
+									fee = Config.CS_SUPPORT3_FEE;
+									break;
+								default:
+									fee = Config.CS_SUPPORT4_FEE;
+									break;
+								}
+								if (!getCastle().updateFunctions(player, Castle.FUNC_SUPPORT, lvl, fee, Config.CS_SUPPORT_FEE_RATIO,
+										(getCastle().getFunction(Castle.FUNC_SUPPORT) == null)))
+								{
+									html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
+									sendHtmlMessage(player, html);
+								}
+								else
+									sendHtmlMessage(player, html);
+							}
+						}
+						else if (val.equalsIgnoreCase("security"))
+						{
+							if (st.countTokens() >= 1)
+							{
+								int fee;
+								if (_log.isDebugEnabled())
+									_log.warn("Security editing invoked");
+								val = st.nextToken();
+								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+								html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
+								if (getCastle().getFunction(Castle.FUNC_SECURITY) != null)
+								{
+									if (getCastle().getFunction(Castle.FUNC_SECURITY).getLvl() == Integer.valueOf(val))
 									{
+										html.setFile("data/html/chamberlain/functions-used.htm");
+										html.replace("%val%", "Stage " + String.valueOf(val));
+										sendHtmlMessage(player, html);
+										return;
+									}
+								}
+								int lvl = Integer.valueOf(val);
+								switch (lvl)
+								{
 									case 0:
 										fee = 0;
 										html.setFile("data/html/chamberlain/functions-cancel_confirmed.htm");
 										break;
 									case 1:
-										fee = Config.CS_SUPPORT1_FEE;
+										fee = Config.CS_SECURITY1_FEE;
 										break;
 									case 2:
-										fee = Config.CS_SUPPORT2_FEE;
-										break;
-									case 3:
-										fee = Config.CS_SUPPORT3_FEE;
+										fee = Config.CS_SECURITY2_FEE;
 										break;
 									default:
-										fee = Config.CS_SUPPORT4_FEE;
+										fee = Config.CS_SECURITY3_FEE;
 										break;
-									}
-									if (!getCastle().updateFunctions(player, Castle.FUNC_SUPPORT, lvl, fee, Config.CS_SUPPORT_FEE_RATIO,
-											(getCastle().getFunction(Castle.FUNC_SUPPORT) == null)))
-									{
-										html.setFile("data/html/chamberlain/chamberlain-noadena.htm");
-										sendHtmlMessage(player, html);
-									}
-									else
-										sendHtmlMessage(player, html);
 								}
-							}
-							else if (val.equalsIgnoreCase("security"))
-							{
-								if (st.countTokens() >= 1)
+								if (!getCastle().updateFunctions(player, Castle.FUNC_SECURITY, lvl, fee, Config.CS_SECURITY_FEE_RATIO, (getCastle().getFunction(Castle.FUNC_SECURITY) == null)))
 								{
-									int fee;
-									if (_log.isDebugEnabled())
-										_log.warn("Security editing invoked");
-									val = st.nextToken();
-									NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-									html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
-									if (getCastle().getFunction(Castle.FUNC_SECURITY) != null)
-									{
-										if (getCastle().getFunction(Castle.FUNC_SECURITY).getLvl() == Integer.valueOf(val))
-										{
-											html.setFile("data/html/chamberlain/functions-used.htm");
-											html.replace("%val%", "Stage " + String.valueOf(val));
-											sendHtmlMessage(player, html);
-											return;
-										}
-									}
-									int lvl = Integer.valueOf(val);
-									switch (lvl)
-									{
-										case 0:
-											fee = 0;
-											html.setFile("data/html/chamberlain/functions-cancel_confirmed.htm");
-											break;
-										case 1:
-											fee = Config.CS_SECURITY1_FEE;
-											break;
-										case 2:
-											fee = Config.CS_SECURITY2_FEE;
-											break;
-										default:
-											fee = Config.CS_SECURITY3_FEE;
-											break;
-									}
-									if (!getCastle().updateFunctions(player, Castle.FUNC_SECURITY, lvl, fee, Config.CS_SECURITY_FEE_RATIO, (getCastle().getFunction(Castle.FUNC_SECURITY) == null)))
-									{
-										html.setFile("data/html/chamberlain/low_adena.htm");
-										sendHtmlMessage(player, html);
-									}
-									else
-										sendHtmlMessage(player, html);
+									html.setFile("data/html/chamberlain/low_adena.htm");
+									sendHtmlMessage(player, html);
 								}
+								else
+									sendHtmlMessage(player, html);
 							}
 						}
+					}
+					else
+					{
 						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 						html.setFile("data/html/chamberlain/edit_other.htm");
 						String tele = "[<a action=\"bypass -h npc_%objectId%_manage other edit_tele 1\">Level 1</a>]"
@@ -1159,12 +1162,11 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						String security = "[<a action=\"bypass -h npc_%objectId%_manage other edit_security 1\">Low</a>]"
 								+ "[<a action=\"bypass -h npc_%objectId%_manage other edit_security 2\">Medium</a>]"
 								+ "[<a action=\"bypass -h npc_%objectId%_manage other edit_security 3\">High</a>]";
-
 						if (getCastle().getFunction(Castle.FUNC_TELEPORT) != null)
 						{
 							html.replace("%tele%", "Stage " + String.valueOf(getCastle().getFunction(Castle.FUNC_TELEPORT).getLvl())
-									+ "</font> (<font color=\"FFAABB\">" + String.valueOf(getCastle().getFunction(Castle.FUNC_TELEPORT).getLease())
-									+ "</font>Adena /" + String.valueOf(Config.CS_TELE_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+								+ "</font> (<font color=\"FFAABB\">" + String.valueOf(getCastle().getFunction(Castle.FUNC_TELEPORT).getLease())
+								+ "</font>Adena /" + String.valueOf(Config.CS_TELE_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
 							html.replace("%tele_period%", "Withdraw the fee for the next time at "
 									+ format.format(getCastle().getFunction(Castle.FUNC_TELEPORT).getEndTime()));
 							html.replace("%change_tele%", "[<a action=\"bypass -h npc_%objectId%_manage other tele_cancel\">Deactivate</a>]" + tele);
@@ -1195,7 +1197,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						if (getCastle().getFunction(Castle.FUNC_SECURITY) != null)
 						{
 							html.replace("%security%", "Stage " + String.valueOf(getCastle().getFunction(Castle.FUNC_SECURITY).getLvl()) + "</font> (<font color=\"FFAABB\">"
-									+ String.valueOf(getCastle().getFunction(Castle.FUNC_SECURITY).getLease()) + "</font>Adena /" + String.valueOf(Config.CS_SECURITY_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+								+ String.valueOf(getCastle().getFunction(Castle.FUNC_SECURITY).getLease()) + "</font>Adena /" + String.valueOf(Config.CS_SECURITY_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
 							html.replace("%security_period%", "Withdraw the fee for the next time at " + format.format(getCastle().getFunction(Castle.FUNC_SECURITY).getEndTime()));
 							html.replace("%change_security%", "[<a action=\"bypass -h npc_%objectId%_manage other security_cancel\">Deactivate</a>]" + security);
 						}
@@ -1207,16 +1209,16 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						}
 						sendHtmlMessage(player, html);
 					}
-					else if (val.equals("back"))
-					{
-						showMessageWindow(player);
-					}
-					else
-					{
-						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-						html.setFile("data/html/chamberlain/manage.htm");
-						sendHtmlMessage(player, html);
-					}
+				}
+				else if (val.equals("back"))
+				{
+					showMessageWindow(player);
+				}
+				else
+				{
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setFile("data/html/chamberlain/manage.htm");
+					sendHtmlMessage(player, html);
 				}
 			}
 			else if (actualCommand.equals("support"))
