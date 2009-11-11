@@ -10005,7 +10005,7 @@ REPLACE INTO `npc` VALUES
 REPLACE INTO `npc` VALUES (13135,13135,'Pumpkin Ghost',0,'',0,'Npc2.Pumpkin_Head_man',8,25,70,'etc','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,NULL,0,1,0,'LAST_HIT',0,0,0,'balanced','false');
 
 -- Daniel - Clan Hall Gatekeeper Type fix
-UPDATE `npc` SET `type` = 'L2Doormen' WHERE `id` = 35440;
+-- UPDATE `npc` SET `type` = 'L2Doormen' WHERE `id` = 35440;
 
 -- ------------
 -- Plaza Helm
