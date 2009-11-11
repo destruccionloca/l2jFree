@@ -248,10 +248,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 */
 	public void setLocation(ItemLocation loc)
 	{
-		if (loc == _loc)
-			return;
-		_loc = loc;
-		_storedInDb = false;
+		setLocation(loc, 0);
 	}
 	
 	/**
