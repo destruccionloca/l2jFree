@@ -10081,3 +10081,6 @@ UPDATE `npc` SET `AI` = 'mage' WHERE `id` IN (35013,35014,35018,35019,35023,3502
 
 # Quarry Slaves by Psycho (Needed for their AI)
 UPDATE `npc` SET `type` = 'L2Guard', `hp` = '10' WHERE `id` = '32299';
+
+# Baylor Chest by Psycho
+UPDATE `npc` SET `level` = '83', `type` = 'L2Monster', `walkspd` = '0', `runspd` = '0' WHERE `id` = '29116';

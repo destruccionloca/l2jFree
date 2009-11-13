@@ -7,6 +7,7 @@ from com.l2jfree.gameserver.datatables                  import SkillTable
 from com.l2jfree.gameserver.instancemanager             import InstanceManager
 from com.l2jfree.gameserver.model                       import L2CharPosition
 from com.l2jfree.gameserver.model                       import L2World
+from com.l2jfree.gameserver.model.actor.instance        import L2MonsterInstance
 from com.l2jfree.gameserver.model.entity                import Instance
 from com.l2jfree.gameserver.model.itemcontainer         import Inventory
 from com.l2jfree.gameserver.model.quest                 import QuestState
@@ -149,12 +150,16 @@ class baylor (JQuest):
         self.baylor = npc
         self.maxHp = npc.getMaxHp()
         self.instanceId = npc.getInstanceId()
+        playerList = InstanceManager.getInstance().getInstance(self.instanceId).getPlayers().toArray()
+        self.playerCount = len(playerList)
         self.maxHp = self.baylor.getMaxHp()
         spawnCrystaline(self)
         for doorId in DOORLIST:
             for door in InstanceManager.getInstance().getInstance(self.instanceId).getDoors():
                 if door.getDoorId() == doorId:
                     door.closeMe()
+        npc.setRunning()
+        npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, L2CharPosition(153566,142071,-12745,32900))
         return
 
     def onAttack(self, npc, player, damage, isPet, skill):
@@ -193,10 +198,8 @@ class baylor (JQuest):
             percentage = nowHp / self.maxHp
             if percentage <= 0.2:
                 if skillId == CLAWSKILL:
-                    playerList = InstanceManager.getInstance().getInstance(self.instanceId).getPlayers().toArray()
-                    playerCount = len(playerList)
                     if not self.getQuestTimer("ResetCasterList",npc,None):
-                        self.startQuestTimer("ResetCasterList",2200,npc,None)
+                        self.startQuestTimer("ResetCasterList",3200,npc,None)
                     currentTime = System.currentTimeMillis()
                     for player in self.activatedClawList:
                         if player[0] == caster:
@@ -204,9 +207,9 @@ class baylor (JQuest):
                     thisCasterInfo = [caster,currentTime]
                     self.activatedClawList.append(thisCasterInfo)
                     activatedClawsCount = len(self.activatedClawList)
-                    if activatedClawsCount == playerCount:
+                    if activatedClawsCount == self.playerCount:
                         for info in self.activatedClawList:
-                            if currentTime > info[1] + 2000:
+                            if currentTime > info[1] + 3000:
                                 self.activatedClawList = []
                                 return
                         skill = SkillTable.getInstance().getInfo(5480,1)
@@ -261,34 +264,34 @@ class baylor (JQuest):
                     return
                 if st.getState() == State.STARTED:
                     if st.getQuestItemsCount(5914) == 1 or st.getQuestItemsCount(5911) == 1 or st.getQuestItemsCount(5908) == 1:
-                        random = Rnd.get(100)
-                        GREEN = False
-                        RED = False
-                        BLUE = False
-                        if st.getQuestItemsCount(5914) == 1:
-                            BLUE = True
-                        elif st.getQuestItemsCount(5911) == 1:
-                            GREEN = True
-                        elif st.getQuestItemsCount(5908) == 1:
-                            RED = True
-                        if BLUE:
-                            st.takeItems(5914, 1)
-                            if random >= 50:
-                                st.giveItems(10161, 1)
-                            else:
-                                st.giveItems(9571, 1)
-                        elif GREEN:
-                            st.takeItems(5911, 1)
-                            if random >= 50:
-                                st.giveItems(10162, 1)
-                            else:
-                                st.giveItems(9572, 1)
-                        elif RED:
-                            st.takeItems(5908, 1)
-                            if random >= 50:
-                                st.giveItems(10160, 1)
-                            else:
-                                st.giveItems(9570, 1)
+                         random = Rnd.get(100)
+                         GREEN = False
+                         RED = False
+                         BLUE = False
+                         if st.getQuestItemsCount(5914) == 1:
+                             BLUE = True
+                         elif st.getQuestItemsCount(5911) == 1:
+                             GREEN = True
+                         elif st.getQuestItemsCount(5908) == 1:
+                             RED = True
+                         if BLUE:
+                             st.takeItems(5914, 1)
+                             if random >= 50:
+                                 st.giveItems(10161, 1)
+                             else:
+                                 st.giveItems(9571, 1)
+                         elif GREEN:
+                             st.takeItems(5911, 1)
+                             if random >= 50:
+                                 st.giveItems(10162, 1)
+                             else:
+                                 st.giveItems(9572, 1)
+                         elif RED:
+                             st.takeItems(5908, 1)
+                             if random >= 50:
+                                 st.giveItems(10160, 1)
+                             else:
+                                 st.giveItems(9570, 1)
         return
 
 QUEST = baylor(-1, "baylor", "ai")

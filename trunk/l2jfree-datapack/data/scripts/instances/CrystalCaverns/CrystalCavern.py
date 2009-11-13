@@ -755,9 +755,9 @@ class CrystalCavern(JQuest):
                     exitInstance(player,tele)
                 elif event == "meet":
                     tele = PyObject()
-                    tele.x = 153586
-                    tele.y = 145934
-                    tele.z = -12589
+                    tele.x = 154331
+                    tele.y = 145353
+                    tele.z = -12593
                     teleportplayer(self,player,tele,False)
         return
 
