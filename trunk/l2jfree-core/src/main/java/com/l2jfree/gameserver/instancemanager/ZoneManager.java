@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.instancemanager;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +67,8 @@ public final class ZoneManager
 		
 		// Load the zones
 		load();
+		
+		Arrays.fill(_zones, null);
 	}
 	
 	private void load()
@@ -114,11 +117,14 @@ public final class ZoneManager
 				{
 					if ("zone".equalsIgnoreCase(d.getNodeName()))
 					{
-						L2Zone zone = L2Zone.parseZone(d);
+						final L2Zone zone = L2Zone.parseZone(d);
 						if (zone == null)
 							continue;
 						
-						getZones(zone.getType()).put(zone.getName(), zone);
+						final L2Zone old = getZones(zone.getType()).put(zone.getName(), zone);
+						
+						if (old != null)
+							_log.warn("Duplicated zone for " + zone.getType() + " - " + zone.getName());
 						
 						// Register the zone to any intersecting world region
 						int ax, ay, bx, by;
