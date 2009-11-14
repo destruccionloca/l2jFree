@@ -23,9 +23,11 @@ import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javolution.util.FastList;
 
@@ -175,7 +177,37 @@ public abstract class L2Thread extends Thread
 				list.add(lib);
 		list.add("");
 		
-		Set<Thread> threads = Thread.getAllStackTraces().keySet();
+		Set<Thread> threads = new TreeSet<Thread>(new Comparator<Thread>() {
+			@Override
+			public int compare(Thread t1, Thread t2)
+			{
+				if (t1.isDaemon() != t2.isDaemon())
+					return Boolean.valueOf(t1.isDaemon()).compareTo(t2.isDaemon());
+				
+				final StackTraceElement[] st1 = t1.getStackTrace();
+				final StackTraceElement[] st2 = t2.getStackTrace();
+				
+				for (int i = 1;; i++)
+				{
+					final int i1 = st1.length - i;
+					final int i2 = st2.length - i;
+					
+					if (i1 < 0 || i2 < 0)
+						break;
+					
+					final int compare = st1[i1].toString().compareToIgnoreCase(st2[i2].toString());
+					
+					if (compare != 0)
+						return compare;
+				}
+				
+				if (st1.length != st2.length)
+					return Integer.valueOf(st1.length).compareTo(st2.length);
+				
+				return Long.valueOf(t1.getId()).compareTo(t2.getId());
+			}
+		});
+		threads.addAll(Thread.getAllStackTraces().keySet());
 		list.add("## " + threads.size() + " thread(s) ##");
 		list.add("=================================================");
 		
