@@ -11,7 +11,6 @@ MAVEN="mvn"
 ##############################################
 
 echo ""
-$MAVEN clean:clean deploy -Dmaven.test.skip=true
 cd ..
 cd l2j-mmocore
 $MAVEN clean:clean deploy -Dmaven.test.skip=true

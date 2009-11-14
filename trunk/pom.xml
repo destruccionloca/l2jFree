@@ -4,14 +4,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>l2jfree</groupId>
-    <artifactId>l2jfree-parent</artifactId>
-    <version>1.3.0-SNAPSHOT</version>
-    <relativePath>tools/</relativePath>
-  </parent>
+  <groupId>l2jfree</groupId>
   <artifactId>l2jfree-main</artifactId>
+  <version>1.3.0-SNAPSHOT</version>
+  <name>${project.artifactId}-${project.version}</name>
   <packaging>pom</packaging>
+  <build>
+    <defaultGoal>compile</defaultGoal>
+  </build>
   <modules>
     <module>l2j-commons</module>
     <module>l2j-mmocore</module>

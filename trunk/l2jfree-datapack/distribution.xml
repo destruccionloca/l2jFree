@@ -1,0 +1,17 @@
+<assembly>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+	  <directory>/data</directory>
+    </fileSet>
+    <fileSet>
+	  <directory>/sql</directory>
+    </fileSet>
+    <fileSet>
+	  <directory>/tools</directory>
+    </fileSet>
+  </fileSets>
+</assembly>
