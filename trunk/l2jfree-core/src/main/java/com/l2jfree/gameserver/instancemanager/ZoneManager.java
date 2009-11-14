@@ -16,11 +16,10 @@ package com.l2jfree.gameserver.instancemanager;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -43,7 +42,7 @@ public final class ZoneManager
 		return SingletonHolder._instance;
 	}
 	
-	private final Map<String, L2Zone>[] _zones = new Map[ZoneType.values().length];
+	private final L2Zone[][] _zones = new L2Zone[ZoneType.values().length][];
 	
 	private ZoneManager()
 	{
@@ -121,10 +120,7 @@ public final class ZoneManager
 						if (zone == null)
 							continue;
 						
-						final L2Zone old = getZones(zone.getType()).put(zone.getName(), zone);
-						
-						if (old != null)
-							_log.warn("Duplicated zone for " + zone.getType() + " - " + zone.getName());
+						_zones[zone.getType().ordinal()] = (L2Zone[])ArrayUtils.add(_zones[zone.getType().ordinal()], zone);
 						
 						// Register the zone to any intersecting world region
 						int ax, ay, bx, by;
@@ -151,25 +147,9 @@ public final class ZoneManager
 		return zoneCount;
 	}
 	
-	public Map<String, L2Zone>[] getZones()
+	public L2Zone[][] getZones()
 	{
 		return _zones;
-	}
-	
-	public Map<String, L2Zone> getZones(L2Zone.ZoneType type)
-	{
-		if (_zones[type.ordinal()] == null)
-			_zones[type.ordinal()] = new HashMap<String, L2Zone>();
-		
-		return _zones[type.ordinal()];
-	}
-	
-	public L2Zone getZone(L2Zone.ZoneType type, String name)
-	{
-		if (_zones[type.ordinal()] == null)
-			return null;
-		
-		return _zones[type.ordinal()].get(name);
 	}
 	
 	public final L2Zone isInsideZone(L2Zone.ZoneType zt, int x, int y)
