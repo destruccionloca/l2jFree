@@ -193,8 +193,8 @@ public final class ChanceSkillList
 			
 			final L2Effect effect = target.getFirstEffect(skill.getId());
 			
-			// if we already have a greater or equal effect of it
-			if (effect != null && effect.getSkill().getLevel() >= skill.getLevel())
+			// if we already have a greater effect of it
+			if (effect != null && effect.getSkill().getLevel() > skill.getLevel())
 			{
 				targets[i] = null;
 				continue;
