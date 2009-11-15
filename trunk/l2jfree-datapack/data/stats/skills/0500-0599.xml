@@ -508,7 +508,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="9636"/>
     <set name="create_item_count" val="700"/>
-    <set name="random_count" val="4"/>
+    <set name="random_count" val="2100"/>
     <set name="reuseDelay" val="600000"/>
   </skill>
   <skill id="520" levels="1" name="Quiver of Bolts: S-Grade">
@@ -521,7 +521,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="9637"/>
     <set name="create_item_count" val="900"/>
-    <set name="random_count" val="4"/>
+    <set name="random_count" val="2700"/>
     <set name="reuseDelay" val="600000"/>
   </skill>
   <skill id="521" levels="8" name="Sharpshooting" enchantLevels1="30" enchantLevels2="30">

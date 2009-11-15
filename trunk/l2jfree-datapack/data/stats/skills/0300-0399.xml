@@ -702,7 +702,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="1344"/>
     <set name="create_item_count" val="700"/>
-    <set name="random_count" val="4"/>
+    <set name="random_count" val="2100"/>
     <set name="reuseDelay" val="600000"/>
   </skill>
   <skill id="324" levels="1" name="Quiver of Arrow: Grade S">
@@ -715,7 +715,7 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="1345"/>
     <set name="create_item_count" val="900"/>
-    <set name="random_count" val="4"/>
+    <set name="random_count" val="2700"/>
     <set name="reuseDelay" val="600000"/>
   </skill>
   <skill id="325" levels="1" name="Strider Siege Assault">

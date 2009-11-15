@@ -20,29 +20,23 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.tools.random.Rnd;
 
-
 /**
  * @author Nemesiss
- * 
  */
 public class L2SkillCreateItem extends L2Skill
 {
-	private final int[]	_createItemId;
-	private final int	_createItemCount;
-	private final int	_randomCount;
-
+	private final int[] _createItemId;
+	private final int _createItemCount;
+	private final int _randomCount;
+	
 	public L2SkillCreateItem(StatsSet set)
 	{
 		super(set);
 		_createItemId = set.getIntegerArray("create_item_id");
-		_createItemCount = set.getInteger("create_item_count", 0);
-		_randomCount = set.getInteger("random_count", 1);
+		_createItemCount = set.getInteger("create_item_count");
+		_randomCount = set.getInteger("random_count", 0);
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.actor.L2Character,
-	 *      L2Character...)
-	 */
+	
 	@Override
 	public void useSkill(L2Character activeChar, L2Character... targets)
 	{
