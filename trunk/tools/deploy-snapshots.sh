@@ -18,6 +18,9 @@ cd ..
 cd l2j-commons
 $MAVEN clean:clean deploy -Dmaven.test.skip=true
 cd ..
+cd l2jfree-core
+$MAVEN clean:clean deploy -Dmaven.test.skip=true
+cd ..
 cd tools
 echo ""
 echo "Snapshots deployed."

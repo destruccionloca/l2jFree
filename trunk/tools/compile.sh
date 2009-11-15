@@ -25,7 +25,7 @@ cd l2jfree-login
 $MAVEN clean:clean assembly:assembly -Dmaven.test.skip=true
 cd ..
 cd l2jfree-datapack
-$MAVEN clean:clean compile -Dmaven.test.skip=true
+$MAVEN clean:clean assembly:assembly -Dmaven.test.skip=true
 cd ..
 cd tools
 echo ""

@@ -103,7 +103,7 @@
     <snapshotRepository>
       <id>l2jfree snapshots</id>
       <url>http://www.l2jfree.com:8081/nexus/content/repositories/snapshots/</url>
-      <uniqueVersion>true</uniqueVersion>
+      <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
     <repository>
       <id>l2jfree releases</id>
