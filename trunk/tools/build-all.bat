@@ -45,13 +45,13 @@ if "%1" == "" (
 
 
 cd ..
-call :exec %ECLIPSE_CLEAN% %CLEAN%
-call :exec_cd l2j-mmocore %COMPILE% %INSTALL% %DEPLOY%
-call :exec_cd l2j-commons %COMPILE% %INSTALL% %DEPLOY%
-call :exec_cd l2jfree-core %COMPILE% %INSTALL% %DEPLOY% %ASSEMBLY_ASSEMBLY%
-call :exec_cd l2jfree-login %COMPILE% %ASSEMBLY_ASSEMBLY%
-call :exec_cd l2jfree-datapack %COMPILE% %ASSEMBLY_ASSEMBLY%
-call :exec %ECLIPSE_ECLIPSE% %ECLIPSE_M2ECLIPSE%
+call :execute-maven %ECLIPSE_CLEAN% %CLEAN%
+call :execute-maven-inside l2j-mmocore %COMPILE% %INSTALL% %DEPLOY%
+call :execute-maven-inside l2j-commons %COMPILE% %INSTALL% %DEPLOY%
+call :execute-maven-inside l2jfree-core %COMPILE% %INSTALL% %DEPLOY% %ASSEMBLY_ASSEMBLY%
+call :execute-maven-inside l2jfree-login %COMPILE% %ASSEMBLY_ASSEMBLY%
+call :execute-maven-inside l2jfree-datapack %COMPILE% %ASSEMBLY_ASSEMBLY%
+call :execute-maven %ECLIPSE_ECLIPSE% %ECLIPSE_M2ECLIPSE%
 cd tools
 
 echo.
@@ -68,17 +68,17 @@ goto :eof
 
 
 rem #############################################
-:exec
+:execute-maven
 	if "%*" NEQ "" (
-		call exec.bat %*
+		call execute-maven.bat %*
 	)
 goto :eof
 
-:exec_cd
+:execute-maven-inside
 	for /f "tokens=1*" %%A in ("%*") do (
 		cd %%A
 		if "%%B" NEQ "" (
-			call exec.bat %%B
+			call execute-maven.bat %%B
 		)
 		cd ..
 	)

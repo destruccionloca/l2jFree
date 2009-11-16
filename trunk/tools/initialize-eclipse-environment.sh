@@ -16,7 +16,7 @@ cd ..
 $MAVEN clean:clean eclipse:clean
 echo "Environment cleaned."
 cd tools
-./compile.sh
+./build-all.sh
 cd ..
 $MAVEN eclipse:m2eclipse $PROJECT_INIT_FLAG
 cd tools
