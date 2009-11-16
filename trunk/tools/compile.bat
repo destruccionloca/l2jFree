@@ -1,33 +1,86 @@
 @echo off
+@setlocal
 
-REM #############################################
-REM # Configure this, if you don't have 'svn' in the path!
-SET PATH=%PATH%;C:\Program Files\Subversion\bin
+set PATH=%CD%;%PATH%
 
-set MAVEN_OPTS=-Xms64m -Xmx256m
+set CLEAN=
+set COMPILE=
+set INSTALL=
+set DEPLOY=
+set ASSEMBLY_ASSEMBLY=
+set ECLIPSE_CLEAN=
+set ECLIPSE_ECLIPSE=
+set ECLIPSE_M2ECLIPSE=
 
-REM # Configure this, if you don't have 'mvn' in the path!
-set MAVEN=mvn
-REM #############################################
+for %%A in (%*) do (
+	if %%A == clean (
+		set CLEAN=clean
+	)else if %%A == compile (
+		set COMPILE=compile
+	)else if %%A == install (
+		set INSTALL=install
+	)else if %%A == deploy (
+		set DEPLOY=deploy
+	)else if %%A == assembly:assembly (
+		set ASSEMBLY_ASSEMBLY=assembly:assembly
+	)else if %%A == eclipse:clean (
+		set ECLIPSE_CLEAN=eclipse:clean
+	)else if %%A == eclipse:eclipse (
+		set ECLIPSE_ECLIPSE=eclipse:eclipse
+	)else if %%A == eclipse:m2eclipse (
+		set ECLIPSE_M2ECLIPSE=eclipse:m2eclipse
+	)else (
+		echo.
+		echo Invalid goal '%%A'!
+		echo.
+		goto :end
+	)
+)
 
-echo.
+if "%1" == "" (
+	set CLEAN=clean
+	set INSTALL=install
+	set ASSEMBLY_ASSEMBLY=assembly:assembly
+)
+
+
 cd ..
-cd l2j-mmocore
-call %MAVEN% clean:clean install -Dmaven.test.skip=true
-cd ..
-cd l2j-commons
-call %MAVEN% clean:clean install -Dmaven.test.skip=true
-cd ..
-cd l2jfree-core
-call %MAVEN% clean:clean install assembly:assembly -Dmaven.test.skip=true
-cd ..
-cd l2jfree-login
-call %MAVEN% clean:clean assembly:assembly -Dmaven.test.skip=true
-cd ..
-cd l2jfree-datapack
-call %MAVEN% clean:clean assembly:assembly -Dmaven.test.skip=true
-cd ..
+call :exec %ECLIPSE_CLEAN% %CLEAN%
+call :exec_cd l2j-mmocore %COMPILE% %INSTALL% %DEPLOY%
+call :exec_cd l2j-commons %COMPILE% %INSTALL% %DEPLOY%
+call :exec_cd l2jfree-core %COMPILE% %INSTALL% %DEPLOY% %ASSEMBLY_ASSEMBLY%
+call :exec_cd l2jfree-login %COMPILE% %ASSEMBLY_ASSEMBLY%
+call :exec_cd l2jfree-datapack %COMPILE% %ASSEMBLY_ASSEMBLY%
+call :exec %ECLIPSE_ECLIPSE% %ECLIPSE_M2ECLIPSE%
 cd tools
+
 echo.
-echo Sources compiled, and dependencies installed to the local repository.
+echo Done:
+for %%A in (%ECLIPSE_CLEAN% %CLEAN% %COMPILE% %INSTALL% %DEPLOY% %ASSEMBLY_ASSEMBLY% %ECLIPSE_ECLIPSE% %ECLIPSE_M2ECLIPSE%) do (
+	echo  - %%A
+)
+echo.
 pause
+
+:end
+@endlocal
+goto :eof
+
+
+rem #############################################
+:exec
+	if "%*" NEQ "" (
+		call exec.bat %*
+	)
+goto :eof
+
+:exec_cd
+	for /f "tokens=1*" %%A in ("%*") do (
+		cd %%A
+		if "%%B" NEQ "" (
+			call exec.bat %%B
+		)
+		cd ..
+	)
+goto :eof
+rem #############################################
