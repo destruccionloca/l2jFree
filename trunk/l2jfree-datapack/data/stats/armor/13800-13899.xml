@@ -39,6 +39,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="13"/>
+      <sub order="0x10" stat="rEvas" val="8"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -50,6 +51,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="15"/>
+      <sub order="0x10" stat="rEvas" val="8"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -61,6 +63,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="17"/>
+      <sub order="0x10" stat="rEvas" val="8"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>

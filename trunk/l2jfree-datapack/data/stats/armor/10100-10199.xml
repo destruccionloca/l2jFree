@@ -9,6 +9,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="15"/>
+      <sub order="0x10" stat="rEvas" val="8"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -20,6 +21,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="15"/>
+      <sub order="0x10" stat="rEvas" val="8"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -31,6 +33,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="13"/>
+      <sub order="0x10" stat="rEvas" val="8"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -59,7 +62,6 @@
     <for>
       <add order="0x10" stat="pDef" val="170"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
-      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="10127" name="Dynasty Leather Armor - Weapon Master">
@@ -69,7 +71,6 @@
     <for>
       <add order="0x10" stat="pDef" val="170"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
-      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="10139" name="Agathion Bracelet">
@@ -97,7 +98,6 @@
     <for>
       <add order="0x10" stat="pDef" val="170"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
-      <!-- <enchant val="0" order="0x40" stat="maxHp"/> typo ?  -->
     </for>
   </item>
   <item id="10169" name="Enchanter Circlet (Kamael only)">

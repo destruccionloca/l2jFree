@@ -824,7 +824,7 @@
     <set name="castRange" val="40"/>
     <set name="skillRadius" val="90"/>
     <set name="hitTime" val="1800"/>
-    <set name="reuseDelay" val="45000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="power" val="3000"/>
     <for>
       <effect name="DamOverTime" time="30" val="74"/>
