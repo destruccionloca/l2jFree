@@ -87,9 +87,10 @@
     <property name="dataSource">
       <ref bean="dataSource" />
     </property>
-    <property name="mappingDirectoryLocations">
+    <property name="mappingLocations">
       <list>
-        <value>classpath:mappings</value>
+        <value>classpath:/mappings/Accounts.hbm.xml</value>
+        <value>classpath:/mappings/Gameservers.hbm.xml</value>
       </list>
     </property>
   </bean>
