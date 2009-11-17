@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -365,6 +366,10 @@ public final class L2PcInstance extends L2Playable
 	public static final String  UPDATE_CHAR_CERTIFICATION		= "UPDATE character_subclass_certification SET certif_level=? WHERE charId=? AND class_index=?";
 	private static final String	DELETE_CHAR_CERTIFICATION		= "DELETE FROM character_subclass_certification WHERE charId=?";
 	private static final String	GET_CHAR_CERTIFICATION			= "SELECT certif_level FROM character_subclass_certification WHERE charId=? AND class_index=?";
+
+	// Creation day
+	private static final String	GET_CREATION_DATE				= "SELECT lastClaim,year,month,day FROM character_birthdays WHERE charId=?";
+	private static final String	CLAIM_CREATION_DAY				= "UPDATE character_birthdays SET lastClaim=? WHERE charId=?";
 
 	public static final int		REQUEST_TIMEOUT					= 15;
 
@@ -850,6 +855,12 @@ public final class L2PcInstance extends L2Playable
 	private int								_positionWhenSecretDoorY = 0;
 	private int								_positionWhenSecretDoorZ = 0;
 
+	// Creation day
+	private int								_lastClaim;
+	private int								_createdYear;
+	private int								_createdMonth;
+	private int								_createdDay;
+
 	private class VitalityTask implements Runnable
 	{
 		private L2PcInstance	_player	= null;
@@ -1128,6 +1139,8 @@ public final class L2PcInstance extends L2Playable
 
 		if (Config.ENABLE_VITALITY)
 			startVitalityTask();
+
+		getCreationDate();
 	}
 
 	@Override
@@ -14868,5 +14881,84 @@ public final class L2PcInstance extends L2Playable
 			return clazz.cast(info);
 		else
 			throw new IllegalStateException();
+	}
+
+	public final void getCreationDate()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(GET_CREATION_DATE);
+			ps.setInt(1, getObjectId());
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			_lastClaim = rs.getInt("lastClaim");
+			_createdYear = rs.getInt("year");
+			_createdMonth = rs.getInt("month") - 1;
+			_createdDay = rs.getInt("day");
+			rs.close();
+			ps.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not load character creation date!", e);
+			_lastClaim = Calendar.getInstance().get(Calendar.YEAR);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	public final boolean claimCreationPrize()
+	{
+		_lastClaim = Calendar.getInstance().get(Calendar.YEAR);
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement(CLAIM_CREATION_DAY);
+			ps.setInt(1, _lastClaim);
+			ps.setInt(2, getObjectId());
+			ps.executeUpdate();
+			ps.close();
+			return true;
+		}
+		catch (Exception e)
+		{
+			_log.error(this + " could not claim creation day prize!", e);
+			return false;
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	public final boolean isAnniversaryDay()
+	{
+		Calendar now = Calendar.getInstance();
+		int day = _createdDay;
+		if (_createdMonth == 2 && day == 29)
+			day = 28;
+		return (_lastClaim < now.get(Calendar.YEAR) &&
+				_createdMonth == now.get(Calendar.MONTH) &&
+				day == now.get(Calendar.DAY_OF_MONTH));
+	}
+
+	public final int getCreationDay()
+	{
+		return _createdDay;
+	}
+
+	public final int getCreationMonth()
+	{
+		return _createdMonth;
+	}
+
+	public final int getCreationYear()
+	{
+		return _createdYear;
 	}
 }

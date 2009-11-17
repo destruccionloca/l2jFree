@@ -14,7 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Calendar;
+
 import com.l2jfree.Config;
+import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -144,6 +149,8 @@ public class CharacterCreate extends L2GameClientPacket
 	private void initNewChar(L2GameClient client, L2PcInstance newChar)
 	{
 		if (_log.isDebugEnabled()) _log.debug("Character init start");
+		storeCreationDate(newChar);
+
 		L2World.getInstance().storeObject(newChar);
 
 		L2PcTemplate template = newChar.getTemplate();
@@ -225,6 +232,32 @@ public class CharacterCreate extends L2GameClientPacket
 			q = QuestManager.getInstance().getQuest("255_Tutorial");
 		if (q != null)
 			q.newQuestState(player);
+	}
+
+	private final void storeCreationDate(L2PcInstance player)
+	{
+		Connection con = null;
+		try
+		{
+			Calendar now = Calendar.getInstance();
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement ps = con.prepareStatement("INSERT INTO character_birthdays VALUES (?,?,?,?,?)");
+			ps.setInt(1, player.getObjectId());
+			ps.setInt(2, now.get(Calendar.YEAR));
+			ps.setInt(3, now.get(Calendar.YEAR));
+			ps.setInt(4, now.get(Calendar.MONTH) + 1);
+			ps.setInt(5, now.get(Calendar.DAY_OF_MONTH));
+			ps.executeUpdate();
+			ps.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not store " + player + "'s creation day!", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
 	}
 
 	@Override

@@ -14545,6 +14545,18 @@ public enum SystemMessageId
 	THE_COLLECTION_HAS_FAILED(2424),
 
 	/**
+	 * ID: 2449<br>
+	 * Message: There are $s1 days until your character's birthday. On that day, you can obtain a special gift from the Gatekeeper in any village.
+	 */
+	S1_DAYS_UNTIL_BIRTHDAY(2449),
+
+	/**
+	 * ID: 2450<br>
+	 * Message: $c1's character birthday is $s3/$s4/$s2.
+	 */
+	C1_BIRTHDAY_IS_S3_S4_S2(2450),
+
+	/**
 	 * ID: 2465<br>
 	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you wish to participate?
 	 */
@@ -14560,55 +14572,55 @@ public enum SystemMessageId
 	 * ID: 2501<br>
 	 * Message: You will be moved to the previous chatting channel tab
 	 */
-	MOVED_TO_THE_PREVIOUS_CHATTING_CHANNEL_TAB(2501),
+	//MOVED_TO_THE_PREVIOUS_CHATTING_CHANNEL_TAB(2501),
 
 	/**
 	 * ID: 2502<br>
 	 * Message: You will be moved to the next chatting channel tab.
 	 */
-	MOVED_TO_THE_NEXT_CHATTING_CHANNEL_TAB(2502),
+	//MOVED_TO_THE_NEXT_CHATTING_CHANNEL_TAB(2502),
 
 	/**
 	 * ID: 2503<br>
 	 * Message: The currently selected target will be cancelled.
 	 */
-	CURRENT_TARGET_WILL_BE_CANCELLED(2503),
+	//CURRENT_TARGET_WILL_BE_CANCELLED(2503),
 
 	/**
 	 * ID: 2504<br>
 	 * Message: Focus will be moved to chat window.
 	 */
-	FOCUS_WILL_MOVED_TO_CHAT_WINDOW(2504),
+	//FOCUS_WILL_MOVED_TO_CHAT_WINDOW(2504),
 
 	/**
 	 * ID: 2505<br>
 	 * Message: Opens or closes the inventory window.
 	 */
-	OPENS_OR_CLOSES_INVENTORY_WINDOW(2505),
+	//OPENS_OR_CLOSES_INVENTORY_WINDOW(2505),
 
 	/**
 	 * ID: 2506<br>
 	 * Message: Temporarily hides all open windows.
 	 */
-	TEMPORARILY_HIDES_ALL_OPEN_WINDOWS(2506),
+	//TEMPORARILY_HIDES_ALL_OPEN_WINDOWS(2506),
 
 	/**
 	 * ID: 2507<br>
 	 * Message: Closes all open windows.
 	 */
-	CLOSES_ALL_OPEN_WINDOWS(2507),
+	//CLOSES_ALL_OPEN_WINDOWS(2507),
 
 	/**
 	 * ID: 2508<br>
 	 * Message: Opens the GM manager window.
 	 */
-	OPENS_GM_MANAGER_WINDOW(2508),
+	//OPENS_GM_MANAGER_WINDOW(2508),
 
 	/**
 	 * ID: 2509<br>
 	 * Message: Opens the GM petition window.
 	 */
-	OPENS_GM_PETITION_WINDOW(2509),
+	//OPENS_GM_PETITION_WINDOW(2509),
 
 	/**
 	 * ID: 2510<br>
@@ -14616,684 +14628,566 @@ public enum SystemMessageId
 	 * debuff for two inputs, a song and dance for three inputs, turnoff for 4
 	 * inputs.
 	 */
-	BUFF_IN_PARTY_WINDOW_IS_TOGGLED(2510),
+	//BUFF_IN_PARTY_WINDOW_IS_TOGGLED(2510),
 
 	/**
 	 * ID: 2511<br>
 	 * Message: Activates or deactivates minimum frame function
 	 */
-	ACTIVATES_DESACTIVATES_MINIMUM_FRAME(2511),
+	//ACTIVATES_DESACTIVATES_MINIMUM_FRAME(2511),
 
 	/**
 	 * ID: 2512<br>
 	 * Message: Runs or closes the MSN messenger window.
 	 */
-	RUNS_OR_CLOSES_MSN_WINDOW(2512),
+	//RUNS_OR_CLOSES_MSN_WINDOW(2512),
 
 	/**
 	 * ID: 2513<br>
 	 * Message: Assign 1st slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_1_SLOT_SHORTCUT_BASE_WINDOW(2513),
+	//ASSIGN_1_SLOT_SHORTCUT_BASE_WINDOW(2513),
 
 	/**
 	 * ID: 2514<br>
 	 * Message: Assign 2nd slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_2_SLOT_SHORTCUT_BASE_WINDOW(2514),
+	//ASSIGN_2_SLOT_SHORTCUT_BASE_WINDOW(2514),
 
 	/**
 	 * ID: 2515<br>
 	 * Message: Assign 3rd slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_3_SLOT_SHORTCUT_BASE_WINDOW(2515),
+	//ASSIGN_3_SLOT_SHORTCUT_BASE_WINDOW(2515),
 
 	/**
 	 * ID: 2516<br>
 	 * Message: Assign 4th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_4_SLOT_SHORTCUT_BASE_WINDOW(2516),
+	//ASSIGN_4_SLOT_SHORTCUT_BASE_WINDOW(2516),
 
 	/**
 	 * ID: 2517<br>
 	 * Message: Assign 5th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_5_SLOT_SHORTCUT_BASE_WINDOW(2517),
+	//ASSIGN_5_SLOT_SHORTCUT_BASE_WINDOW(2517),
 
 	/**
 	 * ID: 2518<br>
 	 * Message: Assign 6th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_6_SLOT_SHORTCUT_BASE_WINDOW(2518),
+	//ASSIGN_6_SLOT_SHORTCUT_BASE_WINDOW(2518),
 
 	/**
 	 * ID: 2519<br>
 	 * Message: Assign 7th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_7_SLOT_SHORTCUT_BASE_WINDOW(2519),
+	//ASSIGN_7_SLOT_SHORTCUT_BASE_WINDOW(2519),
 
 	/**
 	 * ID: 2520<br>
 	 * Message: Assign 8th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_8_SLOT_SHORTCUT_BASE_WINDOW(2520),
+	//ASSIGN_8_SLOT_SHORTCUT_BASE_WINDOW(2520),
 
 	/**
 	 * ID: 2521<br>
 	 * Message: Assign 9th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_9_SLOT_SHORTCUT_BASE_WINDOW(2521),
+	//ASSIGN_9_SLOT_SHORTCUT_BASE_WINDOW(2521),
 
 	/**
 	 * ID: 2522<br>
 	 * Message: Assign 10th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_10_SLOT_SHORTCUT_BASE_WINDOW(2522),
+	//ASSIGN_10_SLOT_SHORTCUT_BASE_WINDOW(2522),
 
 	/**
 	 * ID: 2523<br>
 	 * Message: Assign 11th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_11_SLOT_SHORTCUT_BASE_WINDOW(2523),
+	//ASSIGN_11_SLOT_SHORTCUT_BASE_WINDOW(2523),
 
 	/**
 	 * ID: 2524<br>
 	 * Message: Assign 12th slot shortcut in the shortcut base window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_12_SLOT_SHORTCUT_BASE_WINDOW(2524),
+	//ASSIGN_12_SLOT_SHORTCUT_BASE_WINDOW(2524),
 
 	/**
 	 * ID: 2525<br>
 	 * Message: Assign 1st slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW(2525),
+	//ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW(2525),
 
 	/**
 	 * ID: 2526<br>
 	 * Message: Assign 2nd slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW(2526),
+	//ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW(2526),
 
 	/**
 	 * ID: 2527<br>
 	 * Message: Assign 3rd slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW(2527),
+	//ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW(2527),
 
 	/**
 	 * ID: 2528<br>
 	 * Message: Assign 4th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW(2528),
+	//ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW(2528),
 
 	/**
 	 * ID: 2529<br>
 	 * Message: Assign 5th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW(2529),
+	//ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW(2529),
 
 	/**
 	 * ID: 2530<br>
 	 * Message: Assign 6th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW(2530),
+	//ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW(2530),
 
 	/**
 	 * ID: 2531<br>
 	 * Message: Assign 7th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW(2531),
+	//ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW(2531),
 
 	/**
 	 * ID: 2532<br>
 	 * Message: Assign 8th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW(2532),
+	//ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW(2532),
 
 	/**
 	 * ID: 2533<br>
 	 * Message: Assign 9th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW(2533),
+	//ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW(2533),
 
 	/**
 	 * ID: 2534<br>
 	 * Message: Assign 10th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW(2534),
+	//ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW(2534),
 
 	/**
 	 * ID: 2535<br>
 	 * Message: Assign 11th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW(2535),
+	//ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW(2535),
 
 	/**
 	 * ID: 2536<br>
 	 * Message: Assign 12th slot shortcut in the 1st shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW(2536),
+	//ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW(2536),
 
 	/**
 	 * ID: 2537<br>
 	 * Message: Assign 1st slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW2(2537),
+	//ASSIGN_1_SLOT_SHORTCUT_EXPANDED_WINDOW2(2537),
 
 	/**
 	 * ID: 2538<br>
 	 * Message: Assign 2nd slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW2(2538),
+	//ASSIGN_2_SLOT_SHORTCUT_EXPANDED_WINDOW2(2538),
 
 	/**
 	 * ID: 2539<br>
 	 * Message: Assign 3rd slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW2(2539),
+	//ASSIGN_3_SLOT_SHORTCUT_EXPANDED_WINDOW2(2539),
 
 	/**
 	 * ID: 2540<br>
 	 * Message: Assign 4th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW2(2540),
+	//ASSIGN_4_SLOT_SHORTCUT_EXPANDED_WINDOW2(2540),
 
 	/**
 	 * ID: 2541<br>
 	 * Message: Assign 5th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW2(2541),
+	//ASSIGN_5_SLOT_SHORTCUT_EXPANDED_WINDOW2(2541),
 
 	/**
 	 * ID: 2542<br>
 	 * Message: Assign 6th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW2(2542),
+	//ASSIGN_6_SLOT_SHORTCUT_EXPANDED_WINDOW2(2542),
 
 	/**
 	 * ID: 2543<br>
 	 * Message: Assign 7th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW2(2543),
+	//ASSIGN_7_SLOT_SHORTCUT_EXPANDED_WINDOW2(2543),
 
 	/**
 	 * ID: 2544<br>
 	 * Message: Assign 8th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW2(2544),
+	//ASSIGN_8_SLOT_SHORTCUT_EXPANDED_WINDOW2(2544),
 
 	/**
 	 * ID: 2545<br>
 	 * Message: Assign 9th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW2(2545),
+	//ASSIGN_9_SLOT_SHORTCUT_EXPANDED_WINDOW2(2545),
 
 	/**
 	 * ID: 2546<br>
 	 * Message: Assign 10th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW2(2546),
+	//ASSIGN_10_SLOT_SHORTCUT_EXPANDED_WINDOW2(2546),
 
 	/**
 	 * ID: 2547<br>
 	 * Message: Assign 11th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW2(2547),
+	//ASSIGN_11_SLOT_SHORTCUT_EXPANDED_WINDOW2(2547),
 
 	/**
 	 * ID: 2548<br>
 	 * Message: Assign 12th slot shortcut in the 2nd shortcut expanded window.
 	 * Combination of Ctrl and Shift cannot be assigned.
 	 */
-	ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW2(2548),
+	//ASSIGN_12_SLOT_SHORTCUT_EXPANDED_WINDOW2(2548),
 
 	/**
 	 * ID: 2549<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 1.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE1(2549),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE1(2549),
 
 	/**
 	 * ID: 2550<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 2.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE2(2550),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE2(2550),
 
 	/**
 	 * ID: 2551<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 3.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE3(2551),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE3(2551),
 
 	/**
 	 * ID: 2552<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 4.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE4(2552),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE4(2552),
 
 	/**
 	 * ID: 2553<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 5.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE5(2553),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE5(2553),
 
 	/**
 	 * ID: 2554<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 6.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE6(2554),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE6(2554),
 
 	/**
 	 * ID: 2555<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 7.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE7(2555),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE7(2555),
 
 	/**
 	 * ID: 2556<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 8.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE8(2556),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE8(2556),
 
 	/**
 	 * ID: 2557<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 9.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE9(2557),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE9(2557),
 
 	/**
 	 * ID: 2558<br>
 	 * Message: Move the shortcut page in the shortcut base window to page 10.
 	 */
-	MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE10(2558),
+	//MOVE_SHORTCUT_PAGE_TO_BASE_WINDOW_PAGE10(2558),
 
 	/**
 	 * ID: 2559<br>
 	 * Message: Opens and closes the action window, executing character actions
 	 * and game commands.
 	 */
-	OPENS_CLOSES_ACTION_WINDOW(2559),
+	//OPENS_CLOSES_ACTION_WINDOW(2559),
 
 	/**
 	 * ID: 2560<br>
 	 * Message: Opens and closes the game bulletin board.
 	 */
-	OPENS_CLOSES_GAME_BOARD(2560),
+	//OPENS_CLOSES_GAME_BOARD(2560),
 
 	/**
 	 * ID: 2561<br>
 	 * Message: Opens and closes the calculator.
 	 */
-	OPENS_CLOSES_CALCULATOR(2561),
+	//OPENS_CLOSES_CALCULATOR(2561),
 
 	/**
 	 * ID: 2562<br>
 	 * Message: Hides or shows the chat window, the window always shows by
 	 * default.
 	 */
-	HIDES_SHOWS_CHAT_WINDOW(2562),
+	//HIDES_SHOWS_CHAT_WINDOW(2562),
 
 	/**
 	 * ID: 2563<br>
 	 * Message: Opens and closes the clan window, confirming information of the
 	 * included clan and performs the various set-ups related to the clan.
 	 */
-	OPENS_CLOSES_CLAN_WINDOW(2563),
+	//OPENS_CLOSES_CLAN_WINDOW(2563),
 
 	/**
 	 * ID: 2564<br>
 	 * Message: Opens and closes the status window, showing the detailed status
 	 * of a character that you created.
 	 */
-	OPENS_CLOSES_STATUS_WINDOW(2564),
+	//OPENS_CLOSES_STATUS_WINDOW(2564),
 
 	/**
 	 * ID: 2565<br>
 	 * Message: Opens and closes the help window.
 	 */
-	OPENS_CLOSES_HELP_WINDOW(2565),
+	//OPENS_CLOSES_HELP_WINDOW(2565),
 
 	/**
 	 * ID: 2566<br>
 	 * Message: Opens or closes the inventory window.
 	 */
-	OPENS_CLOSES_INVENTORY_WINDOW(2566),
+	//OPENS_CLOSES_INVENTORY_WINDOW(2566),
 
 	/**
 	 * ID: 2567<br>
 	 * Message: Opens and closes the macro window for macro settings.
 	 */
-	OPENS_CLOSES_MACRO_WINDOW(2567),
+	//OPENS_CLOSES_MACRO_WINDOW(2567),
 
 	/**
 	 * ID: 2568<br>
 	 * Message: Opens and closes the skill window, displaying the list of skills
 	 * that you can use.
 	 */
-	OPENS_CLOSES_SKILL_WINDOW(2568),
+	//OPENS_CLOSES_SKILL_WINDOW(2568),
 
 	/**
 	 * ID: 2569<br>
 	 * Message: Hides or shows the menu window, the window shows by default.
 	 */
-	HIDES_SHOWS_MENU_WINDOW(2569),
+	//HIDES_SHOWS_MENU_WINDOW(2569),
 
 	/**
 	 * ID: 2570<br>
 	 * Message: Opens and closes the mini map, showing detailed information
 	 * about the game world.
 	 */
-	OPENS_CLOSES_MINI_MAP(2570),
+	//OPENS_CLOSES_MINI_MAP(2570),
 
 	/**
 	 * ID: 2571<br>
 	 * Message: Opens and closes the option window.
 	 */
-	OPENS_CLOSES_OPTION_WINDOW(2571),
+	//OPENS_CLOSES_OPTION_WINDOW(2571),
 
 	/**
 	 * ID: 2572<br>
 	 * Message: Open and close the party matching window, useful in organizing a
 	 * party by helping to easily find other members looking for a party.
 	 */
-	OPEN_CLOSE_PARTY_WINDOW(2572),
+	//OPEN_CLOSE_PARTY_WINDOW(2572),
 
 	/**
 	 * ID: 2573<br>
 	 * Message: Open and close the quest journal, displaying the progress of
 	 * quests.
 	 */
-	OPEN_CLOSE_QUEST_WINDOW(2573),
+	//OPEN_CLOSE_QUEST_WINDOW(2573),
 
 	/**
 	 * ID: 2574<br>
 	 * Message: Hide or show the radar map, the map will always show by default.
 	 */
-	HIDE_SHOW_RADAR_MAP(2574),
+	//HIDE_SHOW_RADAR_MAP(2574),
 
 	/**
 	 * ID: 2575<br>
 	 * Message: Hide or show the status window, the window will show by default.
 	 */
-	HIDE_SHOW_STATUS_WINDOW(2575),
+	//HIDE_SHOW_STATUS_WINDOW(2575),
 
 	/**
 	 * ID: 2576<br>
 	 * Message: Opens and closes the system menu window, enables detailed menu
 	 * selection.
 	 */
-	OPENS_CLOSES_SYSTEM_WINDOW(2576),
+	//OPENS_CLOSES_SYSTEM_WINDOW(2576),
 
 	/**
 	 * ID: 2577<br>
 	 * Message: Do not show drop items dropped in the world. Game performance
 	 * speed can be enhanced by using this option.
 	 */
-	DONT_SHOW_DROPS_ITEMS(2577),
+	//DONT_SHOW_DROPS_ITEMS(2577),
 
 	/**
 	 * ID: 2578<br>
 	 * Message: A key to automatically send whispers to a targeted character.
 	 */
-	KEY_TO_AUTO_SEND_WHISPERS(2578),
+	//KEY_TO_AUTO_SEND_WHISPERS(2578),
 
 	/**
 	 * ID: 2579<br>
 	 * Message: Turns off all game sounds.
 	 */
-	DISABLE_ALL_GAME_SOUNDS(2579),
+	//DISABLE_ALL_GAME_SOUNDS(2579),
 
 	/**
 	 * ID: 2580<br>
 	 * Message: Expands each shortcut window.
 	 */
-	EXPANDS_SHORTCUT_WINDOW(2580),
+	//EXPANDS_SHORTCUT_WINDOW(2580),
 
 	/**
 	 * ID: 2581<br>
 	 * Message: Initialize user interface location to a default location.
 	 */
-	INITIALIZE_USER_INTERFACE(2581),
+	//INITIALIZE_USER_INTERFACE(2581),
 
 	/**
 	 * ID: 2582<br>
 	 * Message: Turns the character to the left.
 	 */
-	TURNS_CHARACTER_TO_LEFT(2582),
+	//TURNS_CHARACTER_TO_LEFT(2582),
 
 	/**
 	 * ID: 2583<br>
 	 * Message: Turns the character to the right.
 	 */
-	TURNS_CHARACTER_TO_RIGHT(2583),
+	//TURNS_CHARACTER_TO_RIGHT(2583),
 
 	/**
 	 * ID: 2584<br>
 	 * Message: Moves the character forward.
 	 */
-	MOVES_CHARACTER_FORWARD(2584),
+	//MOVES_CHARACTER_FORWARD(2584),
 
 	/**
 	 * ID: 2585<br>
 	 * Message: Moves the character backwards.
 	 */
-	MOVES_CHARACTER_BACKWARDS(2585),
+	//MOVES_CHARACTER_BACKWARDS(2585),
 
 	/**
 	 * ID: 2586<br>
 	 * Message: Moves the character forward automatically.
 	 */
-	MOVES_CHARACTER_FORWARD_AUTO(2586),
+	//MOVES_CHARACTER_FORWARD_AUTO(2586),
 
 	/**
 	 * ID: 2587<br>
 	 * Message: Reduces the character's view.
 	 */
-	REDUCES_CHARACTER_VIEW(2587),
+	//REDUCES_CHARACTER_VIEW(2587),
 
 	/**
 	 * ID: 2588<br>
 	 * Message: Expands the character's view.
 	 */
-	EXPANDS_CHARACTER_VIEW(2588),
+	//EXPANDS_CHARACTER_VIEW(2588),
 
 	/**
 	 * ID: 2589<br>
 	 * Message: Rapidly turns character's view to the front and back.
 	 */
-	RAPID_TURNS_CHARACTER_VIEW(2589),
+	//RAPID_TURNS_CHARACTER_VIEW(2589),
 
 	/**
 	 * ID: 2590<br>
 	 * Message: Opens the GM manager window.
 	 */
-	OPENS_THE_GM_MANAGER_WINDOW(2590),
+	//OPENS_THE_GM_MANAGER_WINDOW(2590),
 
 	/**
 	 * ID: 2591<br>
 	 * Message: Opens the GM petition window.
 	 */
-	OPENS_THE_GM_PETITION_WINDOW(2591),
+	//OPENS_THE_GM_PETITION_WINDOW(2591),
 
 	/**
 	 * ID: 2592<br>
 	 * Message: Rapidly converts the contents of an expanded shortcut window.
 	 * This function cannot be used currently.
 	 */
-	RAPID_CONVERTS_CONTENTS_OF_EXPANDED_SHORTCUT_WINDOW(2592),
+	//RAPID_CONVERTS_CONTENTS_OF_EXPANDED_SHORTCUT_WINDOW(2592),
 
 	/**
 	 * ID: 2593<br>
 	 * Message: Moves a character's view ahead by a certain distance.
 	 */
-	MOVES_CHARACTER_VIEW_AHEAD(2593),
+	//MOVES_CHARACTER_VIEW_AHEAD(2593),
 
 	/**
 	 * ID: 2594<br>
 	 * Message: Moves a character's view behind by a certain distance.
 	 */
-	MOVES_CHARACTER_VIEW_BEHIND(2594),
+	//MOVES_CHARACTER_VIEW_BEHIND(2594),
 
 	/**
 	 * ID: 2595<br>
 	 * Message: Restores the character's view to default.
 	 */
-	RESTORES_CHARACTER_VIEW(2595),
+	//RESTORES_CHARACTER_VIEW(2595),
 
-	/**
-	 * ID: 2596<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION1(2596),
-
-	/**
-	 * ID: 2597<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION2(2597),
-
-	/**
-	 * ID: 2598<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION3(2598),
-
-	/**
-	 * ID: 2599<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION4(2599),
-
-	/**
-	 * ID: 2600<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION5(2600),
-
-	/**
-	 * ID: 2601<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION6(2601),
-
-	/**
-	 * ID: 2602<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION7(2602),
-
-	/**
-	 * ID: 2603<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION8(2603),
-
-	/**
-	 * ID: 2604<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION9(2604),
-
-	/**
-	 * ID: 2605<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION10(2605),
-
-	/**
-	 * ID: 2606<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION11(2606),
-
-	/**
-	 * ID: 2607<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION12(2607),
-
-	/**
-	 * ID: 2608<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION13(2608),
-
-	/**
-	 * ID: 2609<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION14(2609),
-
-	/**
-	 * ID: 2610<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION15(2610),
-
-	/**
-	 * ID: 2611<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION16(2611),
-
-	/**
-	 * ID: 2612<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION17(2612),
-
-	/**
-	 * ID: 2613<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION18(2613),
-
-	/**
-	 * ID: 2614<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION19(2614),
-
-	/**
-	 * ID: 2615<br>
-	 * Message: No translation required
-	 */
-	NO_TRANSLATION20(2615),
+	// 2596-2615: No translation required
 
 	/**
 	 * ID: 2616<br>
@@ -15348,20 +15242,573 @@ public enum SystemMessageId
 	YOU_CANNOT_MOUNT_NOT_MEET_REQUEIREMENTS(2727),
 
 	/**
+	 * ID: 2728<BR>
+	 * Console Message: This action is prohibited while mounted.
+	 */
+	UNNAMED_2728(2728),
+
+	/**
+	 * ID: 2729<BR>
+	 * Console Message: You cannot control the target while transformed.
+	 */
+	UNNAMED_2729(2729),
+
+	/**
+	 * ID: 2730<BR>
+	 * Console Message: You cannot control the target while you are petrified.
+	 */
+	UNNAMED_2730(2730),
+
+	/**
+	 * ID: 2731<BR>
+	 * Console Message: You cannot control the target when you are dead.
+	 */
+	UNNAMED_2731(2731),
+
+	/**
+	 * ID: 2732<BR>
+	 * Console Message: You cannot control the target while fishing.
+	 */
+	UNNAMED_2732(2732),
+
+	/**
+	 * ID: 2733<BR>
+	 * Console Message: You cannot control the target while in a battle.
+	 */
+	UNNAMED_2733(2733),
+
+	/**
+	 * ID: 2734<BR>
+	 * Console Message: You cannot control the target while in a duel.
+	 */
+	UNNAMED_2734(2734),
+
+	/**
+	 * ID: 2735<BR>
+	 * Console Message: You cannot control the target while in a sitting position.
+	 */
+	UNNAMED_2735(2735),
+
+	/**
+	 * ID: 2736<BR>
+	 * Console Message: You cannot control the target while using a skill.
+	 */
+	UNNAMED_2736(2736),
+
+	/**
+	 * ID: 2737<BR>
+	 * Console Message: You cannot control the target while a cursed weapon is equipped.
+	 */
+	UNNAMED_2737(2737),
+
+	/**
+	 * ID: 2738<BR>
+	 * Console Message: You cannot control the target while holding a flag.
+	 */
+	UNNAMED_2738(2738),
+
+	/**
+	 * ID: 2739<BR>
+	 * Console Message: You cannot control because you do not meet the requirements.
+	 */
+	UNNAMED_2739(2739),
+
+	/**
+	 * ID: 2740<BR>
+	 * Console Message: This action is prohibited while controlling.
+	 */
+	UNNAMED_2740(2740),
+
+	/**
+	 * ID: 2741<BR>
+	 * Console Message: You can control the airship by targeting the airship's control key and pressing the "control" action button while riding the airship.
+	 */
+	UNNAMED_2741(2741),
+
+	/**
+	 * ID: 2742<BR>
+	 * Console Message: Any character riding the airship can control it.
+	 */
+	UNNAMED_2742(2742),
+
+	/**
+	 * ID: 2743<BR>
+	 * Console Message: If you restart while on an airship, you will return to the departure location.
+	 */
+	UNNAMED_2743(2743),
+
+	/**
+	 * ID: 2744<BR>
+	 * Console Message: If you press the "Control Cancel" action button, you can exit the control state at any time.
+	 */
+	UNNAMED_2744(2744),
+
+	/**
+	 * ID: 2745<BR>
+	 * Console Message: The "Mount Cancel" action button allows you to dismount before the airship departs.
+	 */
+	UNNAMED_2745(2745),
+
+	/**
+	 * ID: 2746<BR>
+	 * Console Message: Use the "Depart" action to make the airship depart.
+	 */
+	UNNAMED_2746(2746),
+
+	/**
+	 * ID: 2747<BR>
+	 * Console Message: Airship teleport is possible through the "Depart" action, and in that case, fuel (EP) is consumed.
+	 */
+	UNNAMED_2747(2747),
+
+	/**
+	 * ID: 2748<BR>
+	 * Console Message: You have been reported as an illegal program user and cannot report other users.
+	 */
+	UNNAMED_2748(2748),
+
+	/**
+	 * ID: 2749<BR>
+	 * Console Message: You have reached your crystallization limit and cannot crystallize any more.
+	 */
+	UNNAMED_2749(2749),
+
+	/**
+	 * ID: 2750<BR>
+	 * Console Message: The $s1 ward has been destroyed! $c2 now has the territory ward.<BR>
+	 * Screen Message: $s1 ward is captured!
+	 */
+	UNNAMED_2750(2750),
+
+	/**
+	 * ID: 2751<BR>
+	 * Console Message: The character that acquired $s1 ward has been killed.
+	 */
+	UNNAMED_2751(2751),
+
+	/**
+	 * ID: 2752<BR>
+	 * Console Message: The war for $s1 has been declared.
+	 */
+	UNNAMED_2752(2752),
+
+	/**
+	 * ID: 2753<BR>
+	 * Console Message: A powerful attack is prohibited when allied troops are the target.
+	 */
+	UNNAMED_2753(2753),
+
+	/**
+	 * ID: 2754<BR>
+	 * Console Message: PVP matches such as Olympiad, Underground Coliseum, Aerial Cleft, Kratei's Cube, and Handy's Block Checkers overlap and you cannot participate.
+	 */
+	UNNAMED_2754(2754),
+
+	/**
+	 * ID: 2755<BR>
+	 * Console Message: $c1 has been designated as CAT.
+	 */
+	UNNAMED_2755(2755),
+
+	/**
+	 * ID: 2756<BR>
+	 * Console Message: Another player is probably controlling the target.
+	 */
+	UNNAMED_2756(2756),
+
+	/**
+	 * ID: 2757<BR>
+	 * Console Message: The target is moving so you have failed to mount.
+	 */
+	UNNAMED_2757(2757),
+
+	/**
+	 * ID: 2758<BR>
+	 * Console Message: You cannot control the target while a pet or servitor is summoned.
+	 */
+	UNNAMED_2758(2758),
+
+	/**
+	 * ID: 2759<BR>
+	 * Console Message: When actions are prohibited, you cannot mount a mountable.
+	 */
+	UNNAMED_2759(2759),
+
+	/**
+	 * ID: 2760<BR>
+	 * Console Message: When actions are prohibited, you cannot control the target.
+	 */
+	UNNAMED_2760(2760),
+
+	/**
+	 * ID: 2761<BR>
+	 * Console Message: You must target the one you wish to control.
+	 */
+	UNNAMED_2761(2761),
+
+	/**
+	 * ID: 2762<BR>
+	 * Console Message: You cannot control because you are too far.
+	 */
+	UNNAMED_2762(2762),
+
+	/**
+	 * ID: 2763<BR>
+	 * Console Message: You cannot enter the battlefield while in a party state.
+	 */
+	UNNAMED_2763(2763),
+
+	/**
+	 * ID: 2764<BR>
+	 * Console Message: You cannot enter because the corresponding alliance channel's maximum number of entrants has been reached.
+	 */
+	UNNAMED_2764(2764),
+
+	/**
+	 * ID: 2765<BR>
+	 * Console Message: Only the alliance channel leader can attempt entry.
+	 */
+	UNNAMED_2765(2765),
+
+	/**
+	 * ID: 2766<BR>
+	 * Console Message: Seed of Infinity Stage 1 Attack In Progress
+	 */
+	UNNAMED_2766(2766),
+
+	/**
+	 * ID: 2767<BR>
+	 * Console Message: Seed of Infinity Stage 2 Attack In Progress
+	 */
+	UNNAMED_2767(2767),
+
+	/**
+	 * ID: 2768<BR>
+	 * Console Message: Seed of Infinity Conquest Complete
+	 */
+	UNNAMED_2768(2768),
+
+	/**
+	 * ID: 2769<BR>
+	 * Console Message: Seed of Infinity Stage 1 Defense In Progress
+	 */
+	UNNAMED_2769(2769),
+
+	/**
+	 * ID: 2770<BR>
+	 * Console Message: Seed of Infinity Stage 2 Defense In Progress
+	 */
+	UNNAMED_2770(2770),
+
+	/**
+	 * ID: 2771<BR>
+	 * Console Message: Seed of Destruction Attack in Progress
+	 */
+	UNNAMED_2771(2771),
+
+	/**
+	 * ID: 2772<BR>
+	 * Console Message: Seed of Destruction Conquest Complete
+	 */
+	UNNAMED_2772(2772),
+
+	/**
+	 * ID: 2773<BR>
+	 * Console Message: Seed of Destruction Defense in Progress
+	 */
+	UNNAMED_2773(2773),
+
+	/**
+	 * ID: 2774<BR>
+	 * Console Message: You can make another report in $s1-minute(s). You have $s2 points remaining on this account.
+	 */
+	UNNAMED_2774(2774),
+
+	/**
+	 * ID: 2775<BR>
+	 * Console Message: The match cannot take place because a party member is in the process of boarding.
+	 */
+	UNNAMED_2775(2775),
+
+	/**
+	 * ID: 2776<BR>
+	 * Console Message: The effect of territory ward is disappearing.
+	 */
+	UNNAMED_2776(2776),
+
+	/**
+	 * ID: 2777<BR>
+	 * Console Message: The airship summon license has been entered. Your clan can now summon the airship.
+	 */
+	UNNAMED_2777(2777),
+
+	/**
+	 * ID: 2778<BR>
+	 * Console Message: You cannot teleport while in possession of a ward.
+	 */
+	UNNAMED_2778(2778),
+
+	/**
+	 * ID: 2779<BR>
+	 * Console Message: Further increase in altitude is not allowed.
+	 */
+	UNNAMED_2779(2779),
+
+	/**
+	 * ID: 2780<BR>
+	 * Console Message: Further decrease in altitude is not allowed.
+	 */
+	UNNAMED_2780(2780),
+
+	/**
+	 * ID: 2781<BR>
+	 * Console Message: Number of units: $s1
+	 */
+	UNNAMED_2781(2781),
+
+	/**
+	 * ID: 2782<BR>
+	 * Console Message: Number of people: $s1
+	 */
+	UNNAMED_2782(2782),
+
+	/**
+	 * ID: 2783<BR>
+	 * Console Message: No one is left from the opposing team, thus victory is yours.
+	 */
+	UNNAMED_2783(2783),
+
+	/**
+	 * ID: 2784<BR>
+	 * Console Message: The battlefield has been closed. The match has ended in a tie because the match lasted for $s1-minute(s) and $s2-second(s) and the requirements were not met.
+	 */
+	UNNAMED_2784(2784),
+
+	/**
+	 * ID: 2785<BR>
+	 * Console Message: It's a large scaled airship for transportations and battles and can be owned by the unit of clan.
+	 */
+	UNNAMED_2785(2785),
+
+	/**
+	 * ID: 2786<BR>
+	 * Console Message: Start action is available only when controlling the airship.
+	 */
+	UNNAMED_2786(2786),
+
+	/**
+	 * ID: 2787<BR>
+	 * Console Message: $c1 has drained you of $s2 HP.
+	 */
+	UNNAMED_2787(2787),
+
+	/**
+	 * ID: 2788<BR>
+	 * Console Message: Mercenary participation is requested in $s1 territory.<BR>
+	 * Screen Message: $s1 Mercenary Participation Request!
+	 */
+	UNNAMED_2788(2788),
+
+	/**
+	 * ID: 2789<BR>
+	 * Console Message: Mercenary participation request is cancelled in $s1 territory.<BR>
+	 * Screen Message: $s1 Mercenary Participation Cancellation!
+	 */
+	UNNAMED_2789(2789),
+
+	/**
+	 * ID: 2790<BR>
+	 * Console Message: Clan participation is requested in $s1 territory.<BR>
+	 * Screen Message: $s1 Clan Participation Request!
+	 */
+	UNNAMED_2790(2790),
+
+	/**
+	 * ID: 2791<BR>
+	 * Console Message: Clan participation request is cancelled in $s1 territory.<BR>
+	 * Screen Message: $s1 Clan Participation Cancellation!
+	 */
+	UNNAMED_2791(2791),
+
+	/**
+	 * ID: 2792<BR>
+	 * Console Message: 50 clan reputation points will be awarded. Do you wish to continue?
+	 */
+	UNNAMED_2792(2792),
+
+	/**
+	 * ID: 2793<BR>
+	 * Console Message: The minimum number ($s1) of people to enter Instant Zone is not met and entry is not available.
+	 */
+	UNNAMED_2793(2793),
+
+	/**
+	 * ID: 2794<BR>
+	 * Console Message: The territory war channel and functions will now be deactivated.
+	 */
+	UNNAMED_2794(2794),
+
+	/**
+	 * ID: 2795<BR>
+	 * Console Message: You've already requested a territory war in another territory elsewhere.
+	 */
+	UNNAMED_2795(2795),
+
+	/**
+	 * ID: 2796<BR>
+	 * Console Message: The clan who owns the territory cannot participate in the territory war as mercenaries.
+	 */
+	UNNAMED_2796(2796),
+
+	/**
+	 * ID: 2797<BR>
+	 * Console Message: It is not a territory war registration period, so a request cannot be made at this time.
+	 */
+	UNNAMED_2797(2797),
+
+	/**
+	 * ID: 2798<BR>
+	 * Console Message: The territory war will end in $s1-hour(s).
+	 */
+	UNNAMED_2798(2798),
+
+	/**
+	 * ID: 2799<BR>
+	 * Console Message: The territory war will end in $s1-minute(s).
+	 */
+	UNNAMED_2799(2799),
+
+	// 2800-2815: No translation required
+
+	/**
+	 * ID: 2816<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 1 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2816(2816),
+
+	/**
+	 * ID: 2817<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 2 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2817(2817),
+
+	/**
+	 * ID: 2818<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 3 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2818(2818),
+
+	/**
+	 * ID: 2819<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 4 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2819(2819),
+
+	/**
+	 * ID: 2820<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 5 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2820(2820),
+
+	/**
+	 * ID: 2821<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 6 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2821(2821),
+
+	/**
+	 * ID: 2822<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 7 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2822(2822),
+
+	/**
+	 * ID: 2823<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 8 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2823(2823),
+
+	/**
+	 * ID: 2824<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 9 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2824(2824),
+
+	/**
+	 * ID: 2825<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 10 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2825(2825),
+
+	/**
+	 * ID: 2826<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 11 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2826(2826),
+
+	/**
+	 * ID: 2827<BR>
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 12 slot.  The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2827(2827),
+
+	/**
+	 * ID: 2828<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 1 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2828(2828),
+
+	/**
+	 * ID: 2829<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 2 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2829(2829),
+
+	/**
+	 * ID: 2830<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 3 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2830(2830),
+
+	/**
+	 * ID: 2831<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 4 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2831(2831),
+
+	/**
+	 * ID: 2832<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 5 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2832(2832),
+
+	/**
+	 * ID: 2833<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 6 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2833(2833),
+
+	/**
+	* ID: 2957<br>
+	* Message: Characters with a February 29 creation date will receive a gift on February 28.
+	*/
+	CHARACTERS_CREATED_FEB_29_WILL_RECEIVE_GIFT_FEB_28(2957),
+
+	/**
 	* ID: 6501<br>
 	* Message: You cannot bookmark this location because you do not have a My Teleport Flag.
 	*/
 	YOU_CANNOT_BOOKMARK_THIS_LOCATION_BECAUSE_YOU_DO_NOT_HAVE_A_MY_TELEPORT_FLAG(6501);
-	
+
 	private final int _id;
 	private final int _size;
-	
+
 	private SystemMessage _systemMessage;
-	
+
 	private SystemMessageId(int id)
 	{
 		_id = id;
-		
+
 		if (name().contains("S4") || name().contains("C4"))
 			_size = 4;
 		else if (name().contains("S3") || name().contains("C3"))
@@ -15373,26 +15820,26 @@ public enum SystemMessageId
 		else
 			_size = 0;
 	}
-	
+
 	public final int getId()
 	{
 		return _id;
 	}
-	
+
 	public final int size()
 	{
 		return _size;
 	}
-	
+
 	public final SystemMessage getSystemMessage()
 	{
 		return _systemMessage;
 	}
-	
+
 	private static final Log _log = LogFactory.getLog(SystemMessageId.class);
-	
+
 	private static final LookupTable<SystemMessageId> TABLE;
-	
+
 	static
 	{
 		TABLE = new LookupTable<SystemMessageId>() {
@@ -15402,24 +15849,24 @@ public enum SystemMessageId
 				_log.warn("Same ID for SystemMessageId." + oldValue + " and SystemMessageId." + newValue);
 			}
 		};
-		
+
 		init0();
 	}
-	
+
 	private static void init0()
 	{
 		for (SystemMessageId sm : SystemMessageId.values())
 			TABLE.set(sm.getId(), sm);
-		
+
 		for (SystemMessageId sm : SystemMessageId.values())
 			sm._systemMessage = new SystemMessage(sm);
 	}
-	
+
 	public static final SystemMessageId getSystemMessageId(int id)
 	{
 		return getSystemMessageId(id, true);
 	}
-	
+
 	public static final SystemMessageId getSystemMessageId(int id, boolean force)
 	{
 		final SystemMessageId sm = TABLE.get(id);

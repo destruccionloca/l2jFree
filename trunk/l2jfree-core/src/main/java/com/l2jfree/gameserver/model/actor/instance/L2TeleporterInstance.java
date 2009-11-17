@@ -133,6 +133,26 @@ public final class L2TeleporterInstance extends L2Npc
 				return;
 			}
 		}
+		else if (actualCommand.equals("birthday"))
+		{
+			if (player.isAnniversaryDay() || player.isGM())
+			{
+				if (player.claimCreationPrize())
+				{
+					//player.addItem("Creation Day", 13488, 1, this, true);
+					player.addItem("Creation Day", 20314, 1, this, true);
+				}
+				else
+					player.sendPacket(SystemMessageId.TRY_AGAIN_LATER);
+				showChatWindow(player);
+			}
+			else
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/teleporter/notbirthday.htm");
+				player.sendPacket(html);
+			}
+		}
 		else
 			super.onBypassFeedback(player, command);
 	}

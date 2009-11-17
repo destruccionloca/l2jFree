@@ -17,21 +17,26 @@ package com.l2jfree.gameserver.handler.usercommandhandlers;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ExNotifyBirthDay;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class Birthday implements IUserCommandHandler
 {
+	// 161714928 in Gracia P2
 	private static final int[]	COMMAND_IDS	=
-											{ 126, 161714928 };
+											{ 126 };
 
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		// The login server has birth day data
-		// But we don't really know how the system works in retail, so
-		if (activeChar.isGM())
-			activeChar.sendPacket(ExNotifyBirthDay.PACKET);
-		else
-			activeChar.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		SystemMessage sm = new SystemMessage(SystemMessageId.C1_BIRTHDAY_IS_S3_S4_S2);
+		sm.addPcName(activeChar);
+		sm.addNumber(activeChar.getCreationDay());
+		sm.addNumber(activeChar.getCreationYear());
+		sm.addNumber(activeChar.getCreationMonth());
+		activeChar.sendPacket(sm);
+		if (activeChar.getCreationMonth() == 2 && activeChar.getCreationDay() == 29)
+			activeChar.sendPacket(SystemMessageId.CHARACTERS_CREATED_FEB_29_WILL_RECEIVE_GIFT_FEB_28);
+		// Not used in retail
+		//activeChar.sendPacket(SystemMessage sm = new SystemMessage(SystemMessageId.S1_DAYS_UNTIL_BIRTHDAY).addNumber(daysLeft));
 		return true;
 	}
 

@@ -58,6 +58,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.Die;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
+import com.l2jfree.gameserver.network.serverpackets.ExNotifyBirthDay;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
@@ -460,6 +461,9 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(new ExGetBookMarkInfoPacket(activeChar));
 
 		ExBasicActionList.sendTo(activeChar);
+
+		if (activeChar.isAnniversaryDay())
+			sendPacket(ExNotifyBirthDay.PACKET);
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}
