@@ -2625,3 +2625,6 @@ INSERT INTO `armor` VALUES
 
 -- Gold-Maned Lion Mounting Bracelet Skills
 UPDATE `armor` SET `skills_item` = '8262-1' WHERE `item_id` IN (14053,14066);
+
+-- Adventurer's Hat - Event
+UPDATE `armor` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` = 10250;

@@ -9692,7 +9692,5 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2360-1' WHERE `e
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2369-1' WHERE `etcitem`.`item_id` =9691 LIMIT 1 ;
 
 -- Birthday cake pack & birthday cake 
-UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1' WHERE `item_id` = 20314;
--- Need implementation (zone based) & NPC
--- Works similar to Xmas trees
--- UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22035-1' WHERE `item_id` = 20320;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1', `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false' WHERE `item_id` = 20314;
+UPDATE `etcitem` SET `time` = 1440, `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false', `handler` = 'BirthdayCake' WHERE `item_id` = 20320;

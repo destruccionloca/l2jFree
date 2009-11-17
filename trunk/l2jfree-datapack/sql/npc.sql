@@ -10084,3 +10084,6 @@ UPDATE `npc` SET `type` = 'L2Guard', `hp` = '10' WHERE `id` = '32299';
 
 # Baylor Chest by Psycho
 UPDATE `npc` SET `level` = '83', `type` = 'L2Monster', `walkspd` = '0', `runspd` = '0' WHERE `id` = '29116';
+
+# Alegria by savormix
+UPDATE `npc` SET `type` = 'L2BirthdayHelper' WHERE `id` = 32600;
