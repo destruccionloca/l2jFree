@@ -1139,8 +1139,6 @@ public final class L2PcInstance extends L2Playable
 
 		if (Config.ENABLE_VITALITY)
 			startVitalityTask();
-
-		getCreationDate();
 	}
 
 	@Override
@@ -6919,6 +6917,8 @@ public final class L2PcInstance extends L2Playable
 
 		// Retrieve from the database the recipe book of this L2PcInstance.
 		restoreRecipeBook(true);
+		
+		restoreCreationDate();
 	}
 
 	/**
@@ -14883,7 +14883,7 @@ public final class L2PcInstance extends L2Playable
 			throw new IllegalStateException();
 	}
 
-	public final void getCreationDate()
+	private void restoreCreationDate()
 	{
 		Connection con = null;
 		try
