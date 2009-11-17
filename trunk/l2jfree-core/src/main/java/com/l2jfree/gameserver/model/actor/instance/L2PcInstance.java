@@ -877,7 +877,7 @@ public final class L2PcInstance extends L2Playable
 
 			double vitalityAdd = Config.RATE_RECOVERY_VITALITY_TOWN_ZONE;
 			if (_player.isInsideZone(L2Zone.FLAG_TOWN) && _player.getVitalityPoints() < 20000.0)
-				_player.addVitalityPoints(vitalityAdd, true);
+				_player.addVitalityPoints(vitalityAdd, false);
 		}
 	}
 
