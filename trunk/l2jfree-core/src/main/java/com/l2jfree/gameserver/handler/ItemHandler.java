@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSoulShot;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSpice;
 import com.l2jfree.gameserver.handler.itemhandlers.BeastSpiritShot;
+import com.l2jfree.gameserver.handler.itemhandlers.BirthdayCake;
 import com.l2jfree.gameserver.handler.itemhandlers.BlessedSpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.Book;
 import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
@@ -88,6 +89,7 @@ public final class ItemHandler
 		registerItemHandler(new BeastSoulShot());
 		registerItemHandler(new BeastSpice());
 		registerItemHandler(new BeastSpiritShot());
+		registerItemHandler(new BirthdayCake());
 		registerItemHandler(new BlessedSpiritShot());
 		registerItemHandler(new Book());
 		registerItemHandler(new DoorKey());

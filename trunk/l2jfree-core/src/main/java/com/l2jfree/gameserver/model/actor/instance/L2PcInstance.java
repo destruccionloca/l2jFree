@@ -368,7 +368,7 @@ public final class L2PcInstance extends L2Playable
 	private static final String	GET_CHAR_CERTIFICATION			= "SELECT certif_level FROM character_subclass_certification WHERE charId=? AND class_index=?";
 
 	// Creation day
-	private static final String	GET_CREATION_DATE				= "SELECT lastClaim,year,month,day FROM character_birthdays WHERE charId=?";
+	private static final String	GET_CREATION_DATE				= "SELECT lastClaim,birthDate FROM character_birthdays WHERE charId=?";
 	private static final String	CLAIM_CREATION_DAY				= "UPDATE character_birthdays SET lastClaim=? WHERE charId=?";
 
 	public static final int		REQUEST_TIMEOUT					= 15;
@@ -857,9 +857,7 @@ public final class L2PcInstance extends L2Playable
 
 	// Creation day
 	private int								_lastClaim;
-	private int								_createdYear;
-	private int								_createdMonth;
-	private int								_createdDay;
+	private Calendar						_createdOn;
 
 	private class VitalityTask implements Runnable
 	{
@@ -14883,7 +14881,7 @@ public final class L2PcInstance extends L2Playable
 			throw new IllegalStateException();
 	}
 
-	private void restoreCreationDate()
+	private final void restoreCreationDate()
 	{
 		Connection con = null;
 		try
@@ -14894,9 +14892,8 @@ public final class L2PcInstance extends L2Playable
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			_lastClaim = rs.getInt("lastClaim");
-			_createdYear = rs.getInt("year");
-			_createdMonth = rs.getInt("month") - 1;
-			_createdDay = rs.getInt("day");
+			_createdOn = Calendar.getInstance();
+			_createdOn.setTimeInMillis(rs.getDate("birthDate").getTime());
 			rs.close();
 			ps.close();
 		}
@@ -14904,6 +14901,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			_log.error("Could not load character creation date!", e);
 			_lastClaim = Calendar.getInstance().get(Calendar.YEAR);
+			_createdOn = Calendar.getInstance();
 		}
 		finally
 		{
@@ -14936,29 +14934,45 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	public final boolean isAnniversaryDay()
+	public final Calendar getCreationDate()
+	{
+		return _createdOn;
+	}
+
+	public final boolean isBirthdayIllegal()
+	{
+		return (getCreationDate().get(Calendar.MONTH) == Calendar.FEBRUARY &&
+				getCreationDate().get(Calendar.DAY_OF_MONTH) == 29);
+	}
+
+	public final int getDaysUntilAnniversary()
 	{
 		Calendar now = Calendar.getInstance();
-		int day = _createdDay;
-		if (_createdMonth == 2 && day == 29)
+		int day = getCreationDate().get(Calendar.DAY_OF_MONTH);
+		if (isBirthdayIllegal())
 			day = 28;
-		return (_lastClaim < now.get(Calendar.YEAR) &&
-				_createdMonth == now.get(Calendar.MONTH) &&
-				day == now.get(Calendar.DAY_OF_MONTH));
+		if (_createdOn.get(Calendar.MONTH) == now.get(Calendar.MONTH) &&
+				day == now.get(Calendar.DAY_OF_MONTH))
+		{
+			if (now.get(Calendar.YEAR) > _lastClaim)
+				return 0;
+			else
+				return 365;
+		}
+
+		Calendar anno = Calendar.getInstance();
+		anno.setTimeInMillis(_createdOn.getTimeInMillis());
+		anno.set(Calendar.DAY_OF_MONTH, day);
+		anno.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+		if (anno.compareTo(now) < 0)
+			anno.add(Calendar.YEAR, 1);
+		long diff = (anno.getTimeInMillis() - now.getTimeInMillis());
+		return (int) (diff / 86400000) + 1;
 	}
 
-	public final int getCreationDay()
+	public final boolean isAnniversaryDay()
 	{
-		return _createdDay;
-	}
-
-	public final int getCreationMonth()
-	{
-		return _createdMonth;
-	}
-
-	public final int getCreationYear()
-	{
-		return _createdYear;
+		return getDaysUntilAnniversary() == 0;
 	}
 }

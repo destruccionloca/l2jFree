@@ -462,8 +462,14 @@ public class EnterWorld extends L2GameClientPacket
 
 		ExBasicActionList.sendTo(activeChar);
 
-		if (activeChar.isAnniversaryDay())
-			sendPacket(ExNotifyBirthDay.PACKET);
+		int daysLeft = activeChar.getDaysUntilAnniversary();
+		if (daysLeft < 7)
+		{
+			if (daysLeft == 0)
+				sendPacket(ExNotifyBirthDay.PACKET);
+			else
+				sendPacket(new SystemMessage(SystemMessageId.S1_DAYS_UNTIL_BIRTHDAY).addNumber(daysLeft));
+		}
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}

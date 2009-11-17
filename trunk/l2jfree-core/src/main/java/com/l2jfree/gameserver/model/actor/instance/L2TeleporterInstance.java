@@ -138,10 +138,7 @@ public final class L2TeleporterInstance extends L2Npc
 			if (player.isAnniversaryDay() || player.isGM())
 			{
 				if (player.claimCreationPrize())
-				{
-					//player.addItem("Creation Day", 13488, 1, this, true);
 					player.addItem("Creation Day", 20314, 1, this, true);
-				}
 				else
 					player.sendPacket(SystemMessageId.TRY_AGAIN_LATER);
 				showChatWindow(player);

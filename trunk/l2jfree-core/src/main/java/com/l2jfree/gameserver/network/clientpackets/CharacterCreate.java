@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.Calendar;
 
@@ -241,12 +242,10 @@ public class CharacterCreate extends L2GameClientPacket
 		{
 			Calendar now = Calendar.getInstance();
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO character_birthdays VALUES (?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO character_birthdays VALUES (?,?,?)");
 			ps.setInt(1, player.getObjectId());
 			ps.setInt(2, now.get(Calendar.YEAR));
-			ps.setInt(3, now.get(Calendar.YEAR));
-			ps.setInt(4, now.get(Calendar.MONTH) + 1);
-			ps.setInt(5, now.get(Calendar.DAY_OF_MONTH));
+			ps.setDate(3, new Date(now.getTimeInMillis()));
 			ps.executeUpdate();
 			ps.close();
 		}

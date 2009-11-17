@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
+import java.util.Calendar;
+
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -27,16 +29,15 @@ public class Birthday implements IUserCommandHandler
 
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
+		Calendar bDay = activeChar.getCreationDate();
 		SystemMessage sm = new SystemMessage(SystemMessageId.C1_BIRTHDAY_IS_S3_S4_S2);
 		sm.addPcName(activeChar);
-		sm.addNumber(activeChar.getCreationDay());
-		sm.addNumber(activeChar.getCreationYear());
-		sm.addNumber(activeChar.getCreationMonth());
+		sm.addNumber(bDay.get(Calendar.DAY_OF_MONTH));
+		sm.addNumber(bDay.get(Calendar.YEAR));
+		sm.addNumber(bDay.get(Calendar.MONTH));
 		activeChar.sendPacket(sm);
-		if (activeChar.getCreationMonth() == 2 && activeChar.getCreationDay() == 29)
+		if (activeChar.isBirthdayIllegal())
 			activeChar.sendPacket(SystemMessageId.CHARACTERS_CREATED_FEB_29_WILL_RECEIVE_GIFT_FEB_28);
-		// Not used in retail
-		//activeChar.sendPacket(SystemMessage sm = new SystemMessage(SystemMessageId.S1_DAYS_UNTIL_BIRTHDAY).addNumber(daysLeft));
 		return true;
 	}
 
