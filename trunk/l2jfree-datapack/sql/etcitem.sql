@@ -9689,4 +9689,10 @@ UPDATE `etcitem` SET `skills_item` = '2779-1', `handler` = 'ItemSkills' WHERE `i
 
 -- Water dragon Wcale et claws 
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2360-1' WHERE `etcitem`.`item_id` =9700 LIMIT 1 ; 
-UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2369-1' WHERE `etcitem`.`item_id` =9691 LIMIT 1 ; 
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2369-1' WHERE `etcitem`.`item_id` =9691 LIMIT 1 ;
+
+-- Birthday cake pack & birthday cake 
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1' WHERE `item_id` = 20314;
+-- Need implementation (zone based) & NPC
+-- Works similar to Xmas trees
+-- UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22035-1' WHERE `item_id` = 20320;

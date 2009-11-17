@@ -193,6 +193,7 @@ full_install()
 	$MYG < ../sql/certification_skill_trees.sql &> /dev/null
 	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/char_templates.sql &> /dev/null
+	$MYG < ../sql/character_birthdays.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
 	$MYG < ../sql/character_macroses.sql &> /dev/null

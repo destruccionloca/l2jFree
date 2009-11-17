@@ -202,11 +202,22 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="22034" levels="1" name="Birthday Cake">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="20314"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="create_item_id" val="20320"/> 
+    <set name="create_item_count" val="1"/>
+    <set name="power" val="100.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="CREATE_ITEM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isPotion" val="true"/>
   </skill>
   <skill id="22035" levels="1" name="Birthday Cake Effect">
+    <!--
+    After a birthday cake NPC (similar to Xmas tree) is summoned,
+    the summoner receives extra vitality being near it. NPC can
+    be summoned "near towns", it lasts 20 minutes.
+    -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

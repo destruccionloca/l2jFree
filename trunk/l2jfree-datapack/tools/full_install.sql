@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS
 	certification_skill_trees,
 	char_creation_items,
 	char_templates,
+	character_birthdays,
 	character_friends,
 	character_hennas,
 	character_macroses,
