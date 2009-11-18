@@ -463,7 +463,7 @@ public class EnterWorld extends L2GameClientPacket
 		ExBasicActionList.sendTo(activeChar);
 
 		int daysLeft = activeChar.getDaysUntilAnniversary();
-		if (daysLeft < 7)
+		if (daysLeft < 8)
 		{
 			if (daysLeft == 0)
 				sendPacket(ExNotifyBirthDay.PACKET);

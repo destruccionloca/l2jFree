@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.network.gameserverpackets.BlowFishKey;
 import com.l2jfree.gameserver.network.gameserverpackets.CompatibleProtocol;
 import com.l2jfree.gameserver.network.gameserverpackets.PlayerInGame;
 import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
+import com.l2jfree.gameserver.network.gameserverpackets.ServerStatusL2jfree;
 import com.l2jfree.gameserver.network.loginserverpackets.AuthResponse;
 import com.l2jfree.gameserver.network.loginserverpackets.InitLS;
 import com.l2jfree.gameserver.network.loginserverpackets.KickPlayer;
@@ -195,8 +196,16 @@ public final class CrossLoginServerThread extends LoginServerThread
 						ServerStatus st = new ServerStatus(_protocol);
 						st.addAttribute(ServerStatus.SERVER_LIST_PVP, Config.SERVER_PVP);
 						//max players already sent with auth
-						st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY ? ServerStatus.STATUS_GM_ONLY : ServerStatus.STATUS_AUTO);
-						_status = (Config.SERVER_GMONLY ? 1 : 0);
+						if (Config.SERVER_GMONLY)
+						{
+							if (_protocol == PROTOCOL_LEGACY)
+								_status = ServerStatusL2jfree.STATUS_GM_ONLY;
+							else
+								_status = ServerStatus.STATUS_GM_ONLY;
+						}
+						else
+							_status = ServerStatus.STATUS_AUTO;
+						st.addAttribute(ServerStatus.SERVER_LIST_STATUS, _status);
 						st.addAttribute(ServerStatus.SERVER_LIST_UNK, Config.SERVER_BIT_1);
 						st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
 						st.addAttribute(ServerStatus.SERVER_LIST_HIDE_NAME, Config.SERVER_BIT_3);
