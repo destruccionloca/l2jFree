@@ -195,7 +195,7 @@ public final class CrossLoginServerThread extends LoginServerThread
 						ServerStatus st = new ServerStatus(_protocol);
 						st.addAttribute(ServerStatus.SERVER_LIST_PVP, Config.SERVER_PVP);
 						//max players already sent with auth
-						st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY);
+						st.addAttribute(ServerStatus.SERVER_LIST_STATUS, Config.SERVER_GMONLY ? ServerStatus.STATUS_GM_ONLY : ServerStatus.STATUS_AUTO);
 						_status = (Config.SERVER_GMONLY ? 1 : 0);
 						st.addAttribute(ServerStatus.SERVER_LIST_UNK, Config.SERVER_BIT_1);
 						st.addAttribute(ServerStatus.SERVER_LIST_CLOCK, Config.SERVER_BIT_2);
