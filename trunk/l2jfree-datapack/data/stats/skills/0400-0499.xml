@@ -1148,6 +1148,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="24" name="Signet" time="5" val="0"/>
     </for>
@@ -1173,6 +1176,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="6" name="SignetNoise" time="5" val="0"/>
     </for>
@@ -1195,6 +1201,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="24" name="Signet" time="5" val="0"/>
     </for>
@@ -1217,6 +1226,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="24" name="Signet" time="5" val="0"/>
     </for>
@@ -1239,6 +1251,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="24" name="Signet" time="5" val="0"/>
     </for>
@@ -1261,6 +1276,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="24" name="Signet" time="5" val="0"/>
     </for>
@@ -1283,6 +1301,9 @@
     <set name="itemConsumeCount" val="1"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect count="24" name="Signet" time="5" val="0"/>
     </for>

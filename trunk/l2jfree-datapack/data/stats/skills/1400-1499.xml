@@ -502,9 +502,10 @@
     <set name="itemConsumeId" val="8876"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="castRange" val="900"/>
-    <cond msg="3 Spell Forces required.">
-      <!-- Please verify for correct cond message, I'm not sure if this is -->
+    <cond msg="inapproipate conditions">
+    <!-- Please verify for correct cond message, I'm not sure if this is -->
       <player spell_force="3"/>
+      <player olympiad="false"/>
     </cond>
     <for>
       <!--
