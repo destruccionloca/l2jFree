@@ -150,6 +150,9 @@ public class GameServerThread extends Thread
 				if (_log.isDebugEnabled())
 					_log.debug("[C]\n" + HexUtil.printData(data));
 
+				//_log.info("Incoming GameServer packet!");
+				//_log.info("[C]\n" + HexUtil.printData(data));
+
 				int packetType = data[0] & 0xff;
 				switch (packetType)
 				{
@@ -187,7 +190,7 @@ public class GameServerThread extends Thread
 		catch (IOException e)
 		{
 			String serverName = (getServerId() != -1 ? "[" + getServerId() + "] " + GameServerManager.getInstance().getServerName(getServerId()) : "("
-					+ _connectionIpAddress + ")");
+				+ _connectionIpAddress + ")");
 			String msg = "GameServer " + serverName + ": Connection lost: " + e.getMessage();
 			_log.info(msg);
 			broadcastToTelnet(msg);
@@ -369,7 +372,6 @@ public class GameServerThread extends Thread
 		{
 			// does the hex id match?
 			if (Arrays.equals(gsi.getHexId(), hexId))
-			{
 				// check to see if this GS is already connected
 				synchronized (gsi)
 				{
@@ -378,10 +380,7 @@ public class GameServerThread extends Thread
 					else
 						attachGameServerInfo(gsi, gameServerAuth);
 				}
-			}
-			else
-			{
-				// there is already a server registered with the desired id and different hex id
+			else // there is already a server registered with the desired id and different hex id
 				// try to register this one with an alternative id
 				if (Config.ACCEPT_NEW_GAMESERVER && gameServerAuth.acceptAlternateID())
 				{
@@ -397,11 +396,7 @@ public class GameServerThread extends Thread
 				else
 					// server id is already taken, and we cant get a new one for you
 					forceClose(LoginServerFail.REASON_WRONG_HEXID);
-			}
-		}
-		else
-		{
-			// can we register on this id?
+		} else // can we register on this id?
 			if (Config.ACCEPT_NEW_GAMESERVER)
 			{
 				gsi = new GameServerInfo(id, hexId, this);
@@ -416,7 +411,6 @@ public class GameServerThread extends Thread
 			}
 			else
 				forceClose(LoginServerFail.REASON_WRONG_HEXID);
-		}
 	}
 
 	/**
@@ -534,22 +528,18 @@ public class GameServerThread extends Thread
 				SubNetHost _subNetHost = new SubNetHost(_host);
 
 				if (addresses.hasMoreTokens())
-				{
 					while (addresses.hasMoreTokens())
-					{
 						try
-						{
+				{
 							StringTokenizer netmask = new StringTokenizer(addresses.nextToken().trim(), "/");
 							String _net = netmask.nextToken();
 							String _mask = netmask.nextToken();
 
 							_subNetHost.addSubNet(_net, _mask);
-						}
-						catch (NoSuchElementException c)
-						{
-							// Silence of the Lambs =)
-						}
-					}
+				}
+				catch (NoSuchElementException c)
+				{
+					// Silence of the Lambs =)
 				}
 				else
 					_subNetHost.addSubNet("0.0.0.0", "0");
@@ -595,13 +585,11 @@ public class GameServerThread extends Thread
 			updateIPs();
 
 		for (SubNetHost _netConfig : _gameserverSubnets)
-		{
 			if (_netConfig.isInSubnet(ip))
 			{
 				_host = _netConfig.getIp();
 				break;
 			}
-		}
 		if (_host == null)
 			_host = ip;
 
@@ -639,9 +627,7 @@ public class GameServerThread extends Thread
 	private int getServerId()
 	{
 		if (getGameServerInfo() != null)
-		{
 			return getGameServerInfo().getId();
-		}
 		return -1;
 	}
 }

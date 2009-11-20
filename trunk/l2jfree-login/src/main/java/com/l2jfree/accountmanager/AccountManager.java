@@ -157,48 +157,47 @@ public final class AccountManager extends Config
 			}
 		}
 		else if (cmd.startsWith(CMD[2]))
-		{
 			try
-			{
+		{
 				String acc = cmd.split(SPACE)[1];
 				String level = cmd.split(SPACE)[2];
 				accountService.changeAccountLevel(acc, level);
 				_log.info("Account " + acc + " has been leveled to " + level + ".");
-			}
-			catch (ArrayIndexOutOfBoundsException e)
-			{
-				_log.warn("You must specify an account name and the new access level.");
-			}
-			catch (AccountModificationException e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+		}
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			_log.warn("You must specify an account name and the new access level.");
+		}
+		catch (AccountModificationException e)
+		{
+			_log.error(e.getMessage(), e);
 		}
 		else if (cmd.startsWith(CMD[3]))
-		{
 			try
-			{
+		{
 				String acc = cmd.split(SPACE)[1];
 				accountService.deleteAccount(acc);
 				_log.info("Account " + acc + " has been cancelled.");
-			}
-			catch (ArrayIndexOutOfBoundsException e)
-			{
-				_log.warn("You must specify an account name to cancel registration.");
-			}
-			catch (AccountModificationException e)
-			{
-				_log.error(e.getMessage(), e);
-			}
+		}
+		catch (ArrayIndexOutOfBoundsException e)
+		{
+			_log.warn("You must specify an account name to cancel registration.");
+		}
+		catch (AccountModificationException e)
+		{
+			_log.error(e.getMessage(), e);
 		}
 		else if (cmd.equals(CMD[4]))
 		{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 			List<Accounts> list = accountService.getAccountsInfo();
 			for (Accounts a : list)
-				_log.info(a.getLogin() + " (lvl " + a.getAccessLevel() + ") last active " +
-						sdf.format(new Date(a.getLastactive().longValue())) + " from IP " +
-						a.getLastIp() + " in server " +	getGameserverName(a.getLastServerId()));
+				if (a.getLastactive() != null)
+					_log.info(a.getLogin() + " (lvl " + a.getAccessLevel() + ") last active " +
+							sdf.format(new Date(a.getLastactive().longValue())) + " from IP " +
+							a.getLastIp() + " in server " +	getGameserverName(a.getLastServerId()));
+				else
+					_log.info(a.getLogin() + " (lvl " + a.getAccessLevel() + ")");
 			_log.info("Total accounts: " + list.size() + ".");
 		}
 		else if (cmd.equals(CMD[5]))
