@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 
@@ -171,6 +172,10 @@ public class RequestBypassToServer extends L2GameClientPacket
 		}
 		else if (_command.startsWith("OlympiadArenaChange"))
 			Olympiad.bypassChangeArena(_command, activeChar);
+		else if (_command.startsWith("_herolist"))
+		{
+			activeChar.sendPacket(new ExHeroList());
+		}
 
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}

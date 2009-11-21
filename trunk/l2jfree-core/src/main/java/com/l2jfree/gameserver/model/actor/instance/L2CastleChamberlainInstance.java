@@ -57,6 +57,14 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 	protected static final int	COND_ALL_FALSE				= 0;
 	protected static final int	COND_BUSY_BECAUSE_OF_SIEGE	= 1;
 	protected static final int	COND_OWNER					= 2;
+
+	private static final String[] SET_TIME = {
+		"<a action=\"bypass -h npc_%objectId%_siege_time_set 3 ",
+		"\">",
+		":00 ",
+		"</a><br>"
+	};
+
 	private int _preDay;
 	private int _preHour;
 
@@ -67,7 +75,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		super(objectId, template);
 		NO_AUTH = new NpcHtmlMessage(getObjectId());
 		NO_AUTH.setFile("data/html/chamberlain/chamberlain-noprivs.htm");
-		NO_AUTH.replace("%objectId%", String.valueOf(getObjectId()));
 	}
 
 	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
@@ -146,6 +153,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				html.setFile("data/html/chamberlain/chamberlain-banishafter.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equals("banish_foreigner_show"))
 			{
@@ -158,6 +166,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				html.setFile("data/html/chamberlain/chamberlain-banishfore.htm");
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				player.sendPacket(html);
+				return;
 			}
 			else if (actualCommand.equals("list_siege_clans"))
 			{
@@ -200,7 +209,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						html.replace("%clanname%", clan.getName());
 						html.replace("%clanleadername%", clan.getLeaderName());
 					}
-					else //avoid NPE in GM view when castle belongs to NPCs!
+					else // avoid NPE in GM view when castle belongs to NPCs!
 					{
 						html.replace("%clanname%", "NPC");
 						html.replace("%clanleadername%", "");
@@ -228,7 +237,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				if (_log.isDebugEnabled())
 					_log.debug("Showing chamberlain buylist");
 				showBuyWindow(player, Integer.parseInt(val + "1"));
-				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else if (actualCommand.equals("manage_siege_defender"))
 			{
@@ -336,7 +344,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				// manor_menu_select?ask=X&state=Y&time=X
 				if (CastleManorManager.getInstance().isUnderMaintenance())
 				{
-					player.sendPacket(ActionFailed.STATIC_PACKET);
 					player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
 					return;
 				}
@@ -401,21 +408,17 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				{
 					boolean open = (Integer.parseInt(val) == 1);
 					while (st.hasMoreTokens())
+					{
 						getCastle().openCloseDoor(player, Integer.parseInt(st.nextToken()), open);
+					}
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					String file = "data/html/chamberlain/doors-close.htm";
 					if (open)
-					{
-						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-						html.setFile("data/html/chamberlain/chamberlain-door-opened.htm");
-						html.replace("%objectId%", String.valueOf(getObjectId()));
-						player.sendPacket(html);
-					}
-					else
-					{
-						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-						html.setFile("data/html/chamberlain/chamberlain-door-closed.htm");
-						html.replace("%objectId%", String.valueOf(getObjectId()));
-						player.sendPacket(html);
-					}
+						file = "data/html/chamberlain/doors-open.htm";
+					html.setFile(file);
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
+					return;
 				}
 				else
 				{
@@ -430,7 +433,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			{
 				if (!validatePrivileges(player, L2Clan.CP_CS_TAXES))
 					return;
-
 				if (siegeBlocksFunction(player))
 					return;
 
@@ -1416,6 +1418,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					return;
 				if (siegeBlocksFunction(player))
 					return;
+
 				int valbuy = 63880 + getCastle().getCastleId();
 				showBuyWindow(player, valbuy);
 			}
@@ -1589,6 +1592,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 					return;
 				if (siegeBlocksFunction(player))
 					return;
+
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
 				player.sendPacket(html);
@@ -1597,6 +1601,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 			{
 				if (siegeBlocksFunction(player))
 					return;
+
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/chamberlain-disabled.htm");
 				player.sendPacket(html);
@@ -1666,13 +1671,46 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						inc = 12;
 						list = Config.SIEGE_HOUR_LIST_AFTERNOON;
 					}
-					TextBuilder tList = new TextBuilder();
+					/* l2jserver style
+					final StringBuilder tList = new StringBuilder(list.size() * 50);
 					for (Integer hour : list)
 					{
 						if (hour == 0)
-							tList.append("<a action=\"bypass -h npc_%objectId%_siege_time_set 3 " + String.valueOf(hour + inc) + "\">" + String.valueOf(hour + 12) + ":00 " + ampm + "</a><br>");
+						{
+							StringUtil.append(tList,
+									"<a action=\"bypass -h npc_%objectId%_siege_time_set 3 ",
+									String.valueOf(hour + inc),
+									"\">",
+									String.valueOf(hour + 12),
+									":00 ",
+									ampm,
+									"</a><br>"
+							);
+						}
 						else
-							tList.append("<a action=\"bypass -h npc_%objectId%_siege_time_set 3 " + String.valueOf(hour + inc) + "\">" + String.valueOf(hour) + ":00 " + ampm + "</a><br>");
+						{
+							StringUtil.append(tList,
+									"<a action=\"bypass -h npc_%objectId%_siege_time_set 3 ",
+									String.valueOf(hour + inc),
+									"\">",
+									String.valueOf(hour),
+									":00 ",
+									ampm,
+									"</a><br>"
+							);
+						}
+					}
+					*/
+					TextBuilder tList = new TextBuilder(list.size() * 50);
+					for (Integer hour : list)
+					{
+						tList.append(SET_TIME[0]);
+						tList.append(hour + inc);
+						tList.append(SET_TIME[1]);
+						tList.append(hour == 0 ? hour + 12 : hour);
+						tList.append(SET_TIME[2]);
+						tList.append(ampm);
+						tList.append(SET_TIME[3]);
 					}
 					ret.replace("%links%", tList.toString());
 			}
@@ -1719,10 +1757,11 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		return false;
 	}
 
-	private boolean validatePrivileges(L2PcInstance player, int privilege) {
-		if ((player.getClanPrivileges() & privilege) != privilege) {
+	private boolean validatePrivileges(L2PcInstance player, int privilege)
+	{
+		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CS_DISMISS))
+		{
 			player.sendPacket(NO_AUTH);
-			//player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return false;
 		}
 		return true;
