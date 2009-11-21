@@ -38,6 +38,7 @@
       <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
       <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
       <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
   <skill id="8303" levels="1" name="Vesper Light Armor Set for Adults">
@@ -72,6 +73,7 @@
       <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
       <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
       <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
   <skill id="8305" levels="1" name="Vesper Robe Set for Adults">
@@ -108,6 +110,7 @@
       <mul order="0x30" stat="pvpPhysDef" val="1.05"/>
       <mul order="0x30" stat="pvpMagicalDef" val="1.05"/>
       <mul order="0x30" stat="pvpPhysSkillsDef" val="1.05"/>
+      <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
   <skill id="8307" levels="1" name="Boing Hammer's Effect of Doubt">
