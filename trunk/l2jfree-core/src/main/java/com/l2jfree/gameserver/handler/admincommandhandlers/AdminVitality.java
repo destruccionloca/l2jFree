@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.stat.PcStat;
 
 /**
  * @author Psychokiller1888
@@ -29,7 +30,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class AdminVitality implements IAdminCommandHandler
 {
 	private static int				level			= 0;
-	private static double			vitality		= 0.0;
+	private static int				vitality		= 0;
 	
 	private static final String[]	ADMIN_COMMANDS	=
 	{
@@ -57,7 +58,7 @@ public class AdminVitality implements IAdminCommandHandler
 			{
 				try
 				{
-					vitality = Double.parseDouble(st.nextToken());
+					vitality = Integer.parseInt(st.nextToken());
 				}
 				catch (Exception e)
 				{
@@ -80,25 +81,7 @@ public class AdminVitality implements IAdminCommandHandler
 
 				if (level >= 0 && level <= 4)
 				{
-					switch (level)
-					{
-					case 0:
-						vitality = 0.0;
-						break;
-					case 1:
-						vitality = 240.0;
-						break;
-					case 2:
-						vitality = 1800.0;
-						break;
-					case 3:
-						vitality = 14600.0;
-						break;
-					case 4:
-						vitality = 18200.0;
-						break;
-					}
-					target.setVitalityPoints(vitality, true);
+					target.setVitalityPoints(PcStat.VITALITY_LEVELS[level], true);
 					target.sendMessage("Admin set your Vitality level to " + level);
 				}
 				else
@@ -106,7 +89,7 @@ public class AdminVitality implements IAdminCommandHandler
 			}
 			else if (cmd.equals("admin_full_vitality"))
 			{
-				target.setVitalityPoints(20000.0, true);
+				target.setVitalityPoints(PcStat.VITALITY_LEVELS[4], true);
 				target.sendMessage("Admin completly recharged your Vitality");
 			}
 			else if (cmd.equals("admin_empty_vitality"))
@@ -116,10 +99,10 @@ public class AdminVitality implements IAdminCommandHandler
 			}
 			else if (cmd.equals("admin_get_vitality"))
 			{
-				int playerVitalityLevel = target.getVitalityLevel();
+				//int playerVitalityLevel = target.getVitalityLevel();
 				double playerVitalityPoints = target.getVitalityPoints();
 
-				activeChar.sendMessage("Player vitality level: " + playerVitalityLevel);
+				//activeChar.sendMessage("Player vitality level: " + playerVitalityLevel);
 				activeChar.sendMessage("Player vitality points: " + playerVitalityPoints);
 			}
 			return true;

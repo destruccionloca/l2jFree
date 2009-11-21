@@ -161,6 +161,9 @@ public enum Stats
 	ABSORB_MANA_DAMAGE_PERCENT("absorbDamMana"),
 	//ABSORB_CP_PERCENT("absorbCpPercent"),
 	SKILL_MASTERY("skillMastery"),
+
+	// vitality
+	VITALITY_CONSUME_RATE("vitalityConsumeRate"),
 	
 	//Skills Power
 	FIRE_POWER("firePower"),
@@ -214,7 +217,6 @@ public enum Stats
 	
 	TALISMAN_SLOTS("talisman"),
 	//CLOAK_SLOT("cloak"),
-	VITALITY_CONSUME_RATE("vitalityConsumeRate"),
 	;
 	
 	private final String _value;

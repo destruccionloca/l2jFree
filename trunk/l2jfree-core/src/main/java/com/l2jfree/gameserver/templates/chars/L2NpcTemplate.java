@@ -93,8 +93,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private String								_npcFactionName;
 	private String								_jClass;
 	private AIType								_ai;
-	private final boolean								_isQuestMonster;
-	private final boolean								_dropHerbs;
+	private final boolean						_isQuestMonster;
+	private final boolean						_dropHerbs;
+	private final float							_baseVitalityDivider;
 
 	private Race								_race;
 
@@ -261,6 +262,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 		setBaseEarthRes(getBaseEarthRes() + 20);
 		setBaseHolyRes(getBaseHolyRes() + 20);
 		setBaseDarkRes(getBaseDarkRes() + 20);
+
+		// can be loaded from db
+		_baseVitalityDivider = getLevel() > 0 && getRewardExp() > 0 ? getBaseHpMax() * 9 * getLevel() * getLevel() /(100 * getRewardExp()) : 0;
 	}
 
 	/**
@@ -988,5 +992,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public boolean isCustom()
 	{
 		return _npcId != _idTemplate;
+	}
+
+	public float getBaseVitalityDivider()
+	{
+		return _baseVitalityDivider;
 	}
 }

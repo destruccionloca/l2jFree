@@ -719,29 +719,14 @@ public class L2Attackable extends L2Npc
 									{
 										L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
 										if (skill.getExpNeeded() <= addexp)
-										{
 											((L2PcInstance) attacker).absorbSoulFromNpc(skill, this);
-										}
 									}
-								}
-
-								if (Config.ENABLE_VITALITY)
-								{
-									if (attacker instanceof L2PcInstance)
-									{
-										if (!isChampion() || (isChampion() && Config.ENABLE_VITALITY_CHAMPION))
-										{
-											((L2PcInstance)attacker).addVitExpAndSp(addexp, addsp, this);
-											((L2PcInstance)attacker).calculateVitalityPoints(this, damage);
-										}
-										else
-											attacker.addExpAndSp(addexp, addsp);
-									}
-									else
-										attacker.addExpAndSp(addexp, addsp);
+									((L2PcInstance)attacker).addExpAndSp(addexp,addsp, useVitalityRate());
+									if (addexp > 0)
+										((L2PcInstance)attacker).updateVitalityPoints(getVitalityPoints(damage), true, false);
 								}
 								else
-									attacker.addExpAndSp(addexp, addsp);
+									attacker.addExpAndSp(addexp,addsp);
 							}
 						}
 					}
@@ -868,7 +853,7 @@ public class L2Attackable extends L2Npc
 
 						// Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
 						if (partyDmg > 0)
-							attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, this, partyDmg, isChampion());
+							attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, partyDmg, this);
 					}
 				}
 			}
@@ -1724,7 +1709,7 @@ public class L2Attackable extends L2Npc
 				random = Rnd.get(100);
 				if (random < Config.RATE_DROP_VITALITY_HERBS)
 				{
-					RewardItem item = new RewardItem(13028, 1); // Vitality Replenishing Herb
+					RewardItem item = new RewardItem(13028, 1);
 					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
 						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
 					else
@@ -2600,5 +2585,35 @@ public class L2Attackable extends L2Npc
 				}
 			}
 		}
+	}
+
+	/*
+	 * Return vitality points decrease (if positive)
+	 * or increase (if negative) based on damage.
+	 * Maximum for damage = maxHp.
+	 */
+	public float getVitalityPoints(int damage)
+	{
+		// sanity check
+		if (damage <= 0)
+			return 0;
+
+		final float divider = getTemplate().getBaseVitalityDivider();
+		if (divider == 0)
+			return 0;
+
+		// negative value - vitality will be consumed
+		return - Math.min(damage, getMaxHp()) / divider;
+	}
+
+	/*
+	 * True if vitality rate for exp and sp should be applied
+	 */
+	public boolean useVitalityRate()
+	{
+		if (isChampion() && !Config.ENABLE_VITALITY_CHAMPION)
+			return false;
+
+		return true;
 	}
 }

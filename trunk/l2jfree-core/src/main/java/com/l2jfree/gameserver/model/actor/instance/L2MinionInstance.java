@@ -100,4 +100,10 @@ public class L2MinionInstance extends L2MonsterInstance
 	{
 		deleteMe();
 	}
+
+	@Override
+	public float getVitalityPoints(int damage)
+	{
+		return 0;
+	}
 }

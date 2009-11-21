@@ -122,8 +122,12 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		// Restore Vitality
-		if (Config.RECOVER_VITALITY_ON_RECONNECT)
-			activeChar.restoreVitality();
+		if (Config.ENABLE_VITALITY && Config.RECOVER_VITALITY_ON_RECONNECT)
+		{
+			float points = Config.RATE_RECOVERY_ON_RECONNECT * (System.currentTimeMillis() - activeChar.getLastAccess()) / 60000;
+			if (points > 0)
+				activeChar.updateVitalityPoints(points, false, true);
+		}
 
 		if (Config.PLAYER_SPAWN_PROTECTION > 0)
 			activeChar.setProtection(true);

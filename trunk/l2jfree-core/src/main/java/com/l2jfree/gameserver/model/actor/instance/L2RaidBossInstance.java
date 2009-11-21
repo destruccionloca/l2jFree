@@ -60,4 +60,16 @@ public class L2RaidBossInstance extends L2Boss
         setIsNoRndWalk(true);
         super.onSpawn();
     }
+
+    @Override
+    public float getVitalityPoints(int damage)
+    {
+    	return - super.getVitalityPoints(damage) / 100;
+    }
+
+    @Override
+    public boolean useVitalityRate()
+    {
+    	return false;
+    }
 }

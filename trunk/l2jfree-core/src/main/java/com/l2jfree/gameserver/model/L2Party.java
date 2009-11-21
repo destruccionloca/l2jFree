@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -685,7 +684,7 @@ public class L2Party
 	 * @param rewardedMembers The list of L2PcInstance to reward
 	 * 
 	 */
-	public void distributeXpAndSp(long xpReward, int spReward, List<L2Playable> rewardedMembers, int topLvl, L2Npc target, int partyDmg, boolean isChampion)
+	public void distributeXpAndSp(long xpReward, int spReward, List<L2Playable> rewardedMembers, int topLvl, int partyDmg, L2Attackable target)
 	{
 		L2SummonInstance summon = null;
 		List<L2Playable> validMembers = getValidMembers(rewardedMembers, topLvl);
@@ -701,7 +700,10 @@ public class L2Party
 		double sqLevelSum = 0;
 		for (L2Playable character : validMembers)
 			sqLevelSum += (character.getLevel() * character.getLevel());
-		
+
+		final float vitalityPoints = target.getVitalityPoints(partyDmg) * Config.RATE_PARTY_XP / validMembers.size();
+		final boolean useVitalityRate = target.useVitalityRate();
+
 		// Go through the L2PcInstances and L2PetInstances (not L2SummonInstances) that must be rewarded
 		synchronized(rewardedMembers)
 		{
@@ -739,35 +741,25 @@ public class L2Party
 					{
 						long addexp = Math.round(member.calcStat(Stats.EXPSP_RATE, xpReward * preCalculationExp, null, null));
 						int addsp = (int) member.calcStat(Stats.EXPSP_RATE, spReward * preCalculationSp, null, null);
-						if (target != null && member instanceof L2PcInstance)
+						if (member instanceof L2PcInstance)
 						{
 							int soulMasteryLevel = member.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
-							// Soul Mastery skill
-							if (soulMasteryLevel > 0)
+							if (target != null)
 							{
-								L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
-								if (skill.getExpNeeded() <= addexp)
-									((L2PcInstance) member).absorbSoulFromNpc(skill,target);
-							}
-						}
-						
-						if (Config.ENABLE_VITALITY)
-						{
-							if (member instanceof L2PcInstance)
-							{
-								if (!isChampion || (isChampion && Config.ENABLE_VITALITY_CHAMPION))
+								if (soulMasteryLevel > 0)
 								{
-									((L2PcInstance) member).addVitExpAndSp(addexp, addsp, target);
-									((L2PcInstance) member).calculateVitalityPoints(target, partyDmg, rewardedMembers.size(), Config.RATE_PARTY_XP);
+									L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
+								    
+								    if (skill.getExpNeeded() <= addexp)
+								    	((L2PcInstance) member).absorbSoulFromNpc(skill,target);
 								}
-								else
-									member.addExpAndSp(addexp, addsp);
 							}
-							else
-								member.addExpAndSp(addexp,addsp);
+							((L2PcInstance)member).addExpAndSp(addexp, addsp, useVitalityRate);
+							if (addexp > 0)
+								((L2PcInstance)member).updateVitalityPoints(vitalityPoints, true, false);
 						}
 						else
-							member.addExpAndSp(addexp,addsp);
+							member.addExpAndSp(addexp, addsp);
 					}
 				}
 				else

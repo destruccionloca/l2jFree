@@ -220,6 +220,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
+import com.l2jfree.gameserver.network.serverpackets.ExVitalityPointInfo;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.GMHide;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
@@ -285,7 +286,6 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
@@ -841,9 +841,7 @@ public final class L2PcInstance extends L2Playable
 	public int								_fame = 0;					// The Fame of this L2PcInstance
 	private ScheduledFuture<?>				_fameTask;
 
-	/** Vitality Level of this L2PcInstance */
-	private double 							_vitalityPoints = 1.0;
-	private int								_vitalityLevel = 0;
+	/** Vitality recovery task */
 	private ScheduledFuture<?>				_vitalityTask;
 
 	// Id of the afro hair cut
@@ -863,9 +861,9 @@ public final class L2PcInstance extends L2Playable
 	{
 		private L2PcInstance	_player	= null;
 
-		public VitalityTask(L2PcInstance activeChar)
+		public VitalityTask(L2PcInstance player)
 		{
-			_player = activeChar;
+			_player = player;
 		}
 
 		public void run()
@@ -873,9 +871,14 @@ public final class L2PcInstance extends L2Playable
 			if (_player == null)
 				return;
 
-			double vitalityAdd = Config.RATE_RECOVERY_VITALITY_TOWN_ZONE;
-			if (_player.isInsideZone(L2Zone.FLAG_TOWN) && _player.getVitalityPoints() < 20000.0)
-				_player.addVitalityPoints(vitalityAdd, false);
+			if (!_player.isInsideZone(L2Zone.FLAG_PEACE))
+				return;
+
+			if (_player.getVitalityPoints() >= PcStat.MAX_VITALITY_POINTS)
+				return;
+
+			_player.updateVitalityPoints(Config.RATE_RECOVERY_VITALITY_PEACE_ZONE, false, false);
+			_player.sendPacket(new ExVitalityPointInfo(getVitalityPoints()));
 		}
 	}
 
@@ -1134,9 +1137,7 @@ public final class L2PcInstance extends L2Playable
 		if (!Config.WAREHOUSE_CACHE)
 			getWarehouse();
 		getFreight();
-
-		if (Config.ENABLE_VITALITY)
-			startVitalityTask();
+		startVitalityTask();
 	}
 
 	@Override
@@ -5449,12 +5450,10 @@ public final class L2PcInstance extends L2Playable
 		stopSoulTask();
 		stopChargeTask();
 		stopFameTask();
+		stopVitalityTask();
 
 		stopPvPFlag();
 		stopJailTask(true);
-
-		if (Config.ENABLE_VITALITY)
-			stopVitalityTask();
 	}
 
 	/**
@@ -6728,7 +6727,7 @@ public final class L2PcInstance extends L2Playable
 				player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
 				player.setDeathPenaltyBuffLevel(rset.getInt("death_penalty_level"));
 				player.setTrustLevel(rset.getInt("trust_level"));
-				player.setVitalityPoints(rset.getDouble("vitality_points"), false);
+				player.setVitalityPoints(rset.getInt("vitality_points"), true);
 
 				// Add the L2PcInstance object in _allObjects
 				// L2World.getInstance().storeObject(player);
@@ -10977,48 +10976,19 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public void addExpAndSp(long addToExp, int addToSp)
 	{
-		getStat().addExpAndSp(addToExp, addToSp);
+		getStat().addExpAndSp(addToExp, addToSp, false);
 	}
 
-	public void addVitExpAndSp(long addToExp, int addToSp, L2Npc target)
+	public void addExpAndSp(long addToExp, int addToSp, boolean useVitality)
 	{
-		if (target == null)
-			return;
-
-		long addToExpVit = addToExp;
-		int addToSpVit = addToSp;
-
-		if (!target.isRaid())
-		{
-			switch (getVitalityLevel())
-			{
-			case 0:
-				break;
-			case 1:
-				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_1);
-				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_1);
-				break;
-			case 2:
-				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_2);
-				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_2);
-				break;
-			case 3:
-				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_3);
-				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_3);
-				break;
-			case 4:
-				addToExpVit = (long)(addToExpVit * Config.RATE_VITALITY_LEVEL_4);
-				addToSpVit = (int)(addToSpVit * Config.RATE_VITALITY_LEVEL_4);
-			}
-		}
-		getStat().addExpAndSp(addToExpVit, addToSpVit);
+		getStat().addExpAndSp(addToExp, addToSp, useVitality);
 	}
 
 	public void removeExpAndSp(long removeExp, int removeSp)
 	{
 		getStat().removeExpAndSp(removeExp, removeSp);
 	}
-	
+
 	public void removeExpAndSp(long removeExp, int removeSp, boolean sendMessage)
 	{
 		getStat().removeExpAndSp(removeExp, removeSp, sendMessage);
@@ -13412,17 +13382,14 @@ public final class L2PcInstance extends L2Playable
 		return _agathionId;
 	}
 
-	/**
-	 * Functions for Vitality Level.
-	 */
-	/** Starts Vitality Task of this PcInstance **/
 	private void startVitalityTask()
 	{
-		stopVitalityTask();
-		_vitalityTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new VitalityTask(this), 1000, 60000);
+		if (Config.ENABLE_VITALITY && _vitalityTask == null)
+		{
+			_vitalityTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new VitalityTask(this), 1000, 60000);
+		}
 	}
 
-	/** Stops Vitality Task of this PcInstance **/
 	private void stopVitalityTask()
 	{
 		if (_vitalityTask != null)
@@ -13432,266 +13399,20 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	/** Update VL of this PcInstance **/
-	public void updateVitalityLevel(boolean sendMessage)
+	public int getVitalityPoints()
 	{
-		if (getVitalityPoints() > 18200.0 && getVitalityLevel() != 4)
-			setVitalityLevel(4, sendMessage);
-		else if (getVitalityPoints() > 14600.0 && getVitalityPoints() <= 18200.0 && getVitalityLevel() != 3)
-			setVitalityLevel(3, sendMessage);
-		else if (getVitalityPoints() > 1800.0 && getVitalityPoints() <= 14600.0 && getVitalityLevel()!= 2)
-			setVitalityLevel(2, sendMessage);
-		else if (getVitalityPoints() > 240.0 && getVitalityPoints() <= 1800.0 && getVitalityLevel() != 1)
-			setVitalityLevel(1, sendMessage);
-		else if (getVitalityPoints() < 240.0 && getVitalityLevel() != 0)
-			setVitalityLevel(0, sendMessage);
+		return getStat().getVitalityPoints();
 	}
 
-	/** Add/Increase VP of this PcInstance  **/
-	public synchronized void addVitalityPoints(double val, boolean sendMessage)
+	public void setVitalityPoints(int points, boolean quiet)
 	{
-		if ((getVitalityPoints() + val) > 20000.0)
-			_vitalityPoints = 20000.0;
-		else
-			_vitalityPoints += val;
-
-		if (sendMessage)
-			sendPacket(new SystemMessage(SystemMessageId.GAINED_VITALITY_POINTS));
-
-		updateVitalityLevel(sendMessage);
+		getStat().setVitalityPoints(points, quiet);
 	}
 
-	/** Remove/Decrease VP of this PcInstance **/
-	public synchronized void removeVitalityPoints(double val, boolean sendMessage)
+	public synchronized void updateVitalityPoints(float points, boolean useRates, boolean quiet)
 	{
-		if ((getVitalityPoints() - val) < 1.0)
-			_vitalityPoints = 1.0;
-		else
-			_vitalityPoints -= val;
-
-		updateVitalityLevel(sendMessage);
-	}
-
-	/** Returns VL Points **/
-	public double getVitalityPoints()
-	{
-		return _vitalityPoints;
-	}
-
-	/** Set VP of this PcInstance **/
-	public synchronized void setVitalityPoints(double val, boolean sendMessage)
-	{
-		if (val >= 20000.0)
-			val = 20000.0;
-		else if (val < 1.0)
-			val = 1.0;
-
-		_vitalityPoints = val;
-		updateVitalityLevel(sendMessage);
-	}
-
-	/** Returns VL of this PcInstance **/
-	public int getVitalityLevel()
-	{
-		return _vitalityLevel;
-	}
-
-	/** Set VL of this PcInstance **/
-	private void setVitalityLevel(int level, boolean sendMessage)
-	{
-		if (level > 4)
-			level = 4;
-		else if (level < 0)
-			level = 0;
-
-		if (sendMessage)
-		{
-			if (getVitalityLevel() < level)
-				sendPacket(new SystemMessage(SystemMessageId.VITALITY_HAS_INCREASED));
-			else if (getVitalityLevel() > level)
-				sendPacket(new SystemMessage(SystemMessageId.VITALITY_HAS_DECREASED));
-			if (level == 4)
-				sendPacket(new SystemMessage(SystemMessageId.VITALITY_IS_AT_MAXIMUM));
-			else if (level == 0)
-				sendPacket(new SystemMessage(SystemMessageId.VITALITY_IS_EXHAUSTED));
-		}
-		_vitalityLevel = level;
-
-		sendPacket(new UserInfo(this));
-	}
-
-	/** Calcules points to add/remove on this PcInstance - no party **/
-	public void calculateVitalityPoints(L2Npc target, int damage)
-	{
-		double points;
-
-		if (target == null)
-			return;
-
-		if (getLevel() < 10)
-			return;
-
-		L2NpcTemplate template = target.getTemplate();
-		int targetExp = template.getRewardExp();
-		int targetLevel = template.getLevel();
-
-		int targetTotalHp = target.getMaxHp();
-		double damageRate = 1.0;
-
-		int playerLevel = getLevel();
-		double consumeRate = 1.0;
-
-		if (targetExp <= 0)
-			return;
-
-		if (damage >= targetTotalHp)
-			damage = targetTotalHp;
-
-		if (damage > 0)
-			damageRate = damage / targetTotalHp;
-
-		if (playerLevel >= 76 && playerLevel < 79)
-			consumeRate = 1.5;
-		else if (playerLevel >= 79)
-			consumeRate = 2.0;
-		else
-			consumeRate = 1.0;
-
-		final boolean isVitalityBuffed = isVitalityBuffed();
-
-		points = Math.round(((((targetExp / (targetLevel * targetLevel)) * 100) / 9) * damageRate) * consumeRate);
-
-		if (points > 0)
-		{
-			if (target instanceof L2RaidBossInstance || target instanceof L2GrandBossInstance)
-			{
-				// Just a quick divider to avoid giving 10'000 points, needs to be changed
-				points = (points * Config.RATE_VITALITY_GAIN) / 100;
-				addVitalityPoints(points, true);
-			}
-			else if (!(target instanceof L2MinionInstance))
-			{
-				if (isVitalityBuffed)
-				{
-					points = points * Config.RATE_VITALITY_GAIN;
-					addVitalityPoints(points, true);
-				}
-				else
-				{
-					points *= Config.RATE_VITALITY_LOST;
-					removeVitalityPoints(points, true);
-				}
-			}
-		}
-		else if (points < 0)
-			_log.warn("Vitality: Error in decrease " + getName() + " vitality points (no party), the calcul result was negative: " + points + "=> Target XP: " + targetExp + " TargetLevel: " + targetLevel + " Damage Rate: " + damageRate + " Vitality Rate Lost: " + Config.RATE_VITALITY_LOST + " Vitality Rate Gain: " + Config.RATE_VITALITY_GAIN + "");
-	}
-
-	private boolean isVitalityBuffed()
-	{
-		for (L2Effect e : getAllEffects())
-		{
-			switch (e.getSkill().getId())
-			{
-				case 2580:
-				case 8244:
-				case 5655:
-				case 23016:
-				case 23024:
-				case 23032:
-				case 23035:
-				case 23063:
-				case 23064:
-					return true;
-			}
-		}
-
-		return false;
-	}
-
-	/** Calcules points to add/remove on this PcInstance - in party **/
-	public void calculateVitalityPoints(L2Npc target, int damage, int partyMembers, float partyExpRate)
-	{
-		double points;
-
-		if (target == null)
-			return;
-
-		if (getLevel() < 10)
-			return;
-
-		if (partyMembers <= 0)
-			partyMembers = 1;
-
-		L2NpcTemplate template = target.getTemplate();
-		int targetExp = template.getRewardExp();
-		int targetLevel = template.getLevel();
-
-		int targetTotalHp = target.getMaxHp();
-		double damageRate = 1.0;
-
-		int playerLevel = getLevel();
-		double consumeRate = 1.0;
-
-		if (targetExp <= 0)
-			return;
-
-		if (damage >= targetTotalHp)
-			damage = targetTotalHp;
-
-		if (damage > 0)
-			damageRate = damage / targetTotalHp;
-
-		if (playerLevel >= 76 && playerLevel < 79)
-			consumeRate = 1.5;
-		else if (playerLevel >= 79)
-			consumeRate = 2.0;
-		else
-			consumeRate = 1.0;
-
-		final boolean isVitalityBuffed = isVitalityBuffed();
-
-		points = Math.round((((((targetExp / (targetLevel * targetLevel)) * 100) / 9) * damageRate) * consumeRate) * partyExpRate);
-
-		if (points > 0)
-		{
-			if (target instanceof L2RaidBossInstance || target instanceof L2GrandBossInstance)
-			{
-				// Just a quick divider to avoid giving 10'000 points, needs to be changed
-				points = (points * Config.RATE_VITALITY_GAIN) / 100;
-				addVitalityPoints(points, true);
-			}
-			else if (!(target instanceof L2MinionInstance))
-			{
-				if (isVitalityBuffed)
-				{
-					points = points * Config.RATE_VITALITY_GAIN;
-					addVitalityPoints(points, true);
-				}
-				else
-				{
-					points *= Config.RATE_VITALITY_LOST;
-					removeVitalityPoints(points, true);
-				}
-			}
-		}
-		else if (points < 0)
-			_log.warn("Vitality: Error in decrease " + getName() + " vitality points (in party), the calcul result was negative: " + points + "=> Target XP: " + targetExp + " TargetLevel: " + targetLevel + " Damage Rate: " + damageRate + " Vitality Rate Lost: " + Config.RATE_VITALITY_LOST + " Vitality Rate Gain: " + Config.RATE_VITALITY_GAIN + "");
-	}
-
-	/** Add Vitality Points on relog **/
-    public void restoreVitality()
-    {
-		long lastAccessTime = getLastAccess();
-		long curTime = System.currentTimeMillis();
-		double vitalityPointsRest = getVitalityPoints();
-		double vitalityPointsToAdd = ((curTime - lastAccessTime) / 60000.0) * Config.RATE_RECOVERY_ON_RECONNECT;
-
-		if (vitalityPointsToAdd <= 0)
-			vitalityPointsToAdd = 0;
-
-		setVitalityPoints(vitalityPointsRest + vitalityPointsToAdd, false);
-	}
+    	getStat().updateVitalityPoints(points, useRates, quiet);
+    }
 
 	public L2StaticObjectInstance getObjectSittingOn()
 	{
@@ -13801,21 +13522,6 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _fame;
 	}
-
-	/**
-	* Sets VL of this L2PcInstance<BR><BR>
-	* @param level
-	*/
-	/*
-	public void setVitalityLevel(int level)
-	{
-		if (level > 5)
-			level = 5;
-		else if (level < 0)
-			level = 0;
-
-		_vitalityLevel = level;
-	}*/
 
 	/*
 	 * Function for skill Summon Friend or Gate Chant.

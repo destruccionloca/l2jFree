@@ -116,4 +116,16 @@ public class L2GrandBossInstance extends L2Boss
 			//super.disableCoreAI(true);
 		super.onSpawn();
 	}
+
+	@Override
+	public float getVitalityPoints(int damage)
+	{
+		return - super.getVitalityPoints(damage) / 100;
+	}
+
+	@Override
+	public boolean useVitalityRate()
+	{
+		return false;
+	}
 }

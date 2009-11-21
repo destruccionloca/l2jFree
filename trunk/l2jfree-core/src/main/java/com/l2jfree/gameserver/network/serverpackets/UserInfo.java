@@ -390,8 +390,8 @@ public class UserInfo extends L2GameServerPacket
 
 		// T2
 		writeD(_activeChar.getFame());  // Fame
-		writeD(0x00); // Unknown
-		writeD(_activeChar.getVitalityLevel());  // Vitality Level
+		writeD(0x01); // Unknown
+		writeD((int) _activeChar.getVitalityPoints());
 		if (Config.PACKET_FINAL)
 		{
 			writeD(_activeChar.getSpecialEffect());
