@@ -119,7 +119,7 @@ public class L2CastleMagicianInstance extends L2NpcInstance
 				
 				player.addItem("ExchangeKE", item, 1, player, true);
 				
-				filename = "data/html/castlemagician/magician-talisman-done.htm";
+				filename = "data/html/castlemagician/magician-KE-exchange.htm";
 			}
 			else
 				filename = "data/html/castlemagician/magician-no-KE.htm";
