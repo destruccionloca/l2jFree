@@ -14909,6 +14909,11 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
+	/**
+	 * Update the database indicating that the player received this year's
+	 * birthday gift. Should be called before giving items.
+	 * @return whether updating gift receival status succeeds
+	 */
 	public final boolean claimCreationPrize()
 	{
 		_lastClaim = Calendar.getInstance().get(Calendar.YEAR);
@@ -14934,18 +14939,20 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
+	/** @return Calendar object representing the exact creation date. */
 	public final Calendar getCreationDate()
 	{
 		return _createdOn;
 	}
 
+	/** @return true if birthday is on Feb 29th, false otherwise */
 	public final boolean isBirthdayIllegal()
 	{
 		return (getCreationDate().get(Calendar.MONTH) == Calendar.FEBRUARY &&
 				getCreationDate().get(Calendar.DAY_OF_MONTH) == 29);
 	}
 
-	public final int getDaysUntilAnniversary()
+	private final int getDaysUntilAnniversary()
 	{
 		Calendar now = Calendar.getInstance();
 		int day = getCreationDate().get(Calendar.DAY_OF_MONTH);
@@ -14971,8 +14978,18 @@ public final class L2PcInstance extends L2Playable
 		return (int) (diff / 86400000) + 1;
 	}
 
-	public final boolean isAnniversaryDay()
+	/**
+	 * Returns -1 if this day is the anniversary day, but the player
+	 * has already received the gift. Otherwise returns how many days
+	 * are left until the birthday.<BR>
+	 * 0 indicates that player can receive the gift.
+	 * @return days until anniversary or -1
+	 */
+	public final int canReceiveAnnualPresent()
 	{
-		return getDaysUntilAnniversary() == 0;
+		if (_lastClaim < Calendar.getInstance().get(Calendar.YEAR))
+			return getDaysUntilAnniversary();
+		else
+			return -1;
 	}
 }

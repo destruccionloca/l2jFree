@@ -135,7 +135,7 @@ public final class L2TeleporterInstance extends L2Npc
 		}
 		else if (actualCommand.equals("birthday"))
 		{
-			if (player.isAnniversaryDay() || player.isGM())
+			if (player.canReceiveAnnualPresent() == 0 || player.isGM())
 			{
 				if (player.claimCreationPrize())
 					player.addItem("Creation Day", 20314, 1, this, true);

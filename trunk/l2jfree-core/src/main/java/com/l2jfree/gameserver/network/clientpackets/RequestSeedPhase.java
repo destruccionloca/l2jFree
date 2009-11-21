@@ -16,7 +16,12 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 /**
  * This packet is sent by the client every time the world map is
- * opened.
+ * opened. Should contain info about who owns Seed of Infinity and
+ * Seed of Destruction.<BR>
+ * BY DEFAULT THIS PACKET IS IGNORED! Most probably you do not get
+ * seed info while being in Aden continent.<BR>
+ * Related? to serverpacket:<BR>
+ * fea1 ExShowSeedMapInfo
  * @author savormix
  */
 public final class RequestSeedPhase extends L2GameClientPacket

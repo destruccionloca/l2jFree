@@ -17,6 +17,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
+ * Related? to serverpackets:<BR>
+ * fe89 ExPVPMatchCCRecord<BR>
+ * fe8a ExPVPMatchCCMyRecord (most probably)<BR>
+ * fe8b ExPVPMatchCCRetire<BR>
+ * Explanation: CC = CrataeCube
  * @author savormix
  */
 public final class RequestStartShowCrataeCubeRank extends L2GameClientPacket

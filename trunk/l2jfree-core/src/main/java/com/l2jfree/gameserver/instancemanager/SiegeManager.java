@@ -199,7 +199,8 @@ public class SiegeManager
 			sm = SystemMessageId.TARGET_TOO_FAR;
 		else
 		{
-			castle.getSiege().announceToPlayer(SystemMessageId.OPPONENT_STARTED_ENGRAVING.getSystemMessage(), false);
+			// DO NOT OVERSYNC THE LINE BELOW!
+			castle.getSiege().announceToOpponent(SystemMessageId.OPPONENT_STARTED_ENGRAVING.getSystemMessage(), false);
 			return true;
 		}
 		
