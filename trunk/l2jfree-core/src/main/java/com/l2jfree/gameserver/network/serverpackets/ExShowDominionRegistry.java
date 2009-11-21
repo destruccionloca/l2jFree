@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 /**
  * format: dSSSdddddddd (dd(d))
- * @author  GodKratos
+ * @author GodKratos & savormix
  */
 public class ExShowDominionRegistry extends L2GameServerPacket
 {
@@ -25,10 +25,15 @@ public class ExShowDominionRegistry extends L2GameServerPacket
 	private final int _mercReq = 0x00;
 	private final int _warTime = (int) (System.currentTimeMillis() / 1000);
 	private final int _currentTime = (int) (System.currentTimeMillis() / 1000);
+	private final int _clanTerrId;
+	private final int _playerTerrId;
+	private final boolean _canRequest = false;
 
-	public ExShowDominionRegistry(int terrId)
+	public ExShowDominionRegistry(int terrId, int clanTerrId, int playerTerrId)
 	{
 		_territoryId = terrId;
+		_clanTerrId = clanTerrId;
+		_playerTerrId = playerTerrId;
 	}
 
     @Override
@@ -42,6 +47,7 @@ public class ExShowDominionRegistry extends L2GameServerPacket
     {
         writeC(0xfe);
         writeH(0x90);
+
         writeD(_territoryId); // Current Territory Id
         writeS("No Clan");    // Owners Clan
         writeS("No Owner");   // Owner Clan Leader
@@ -50,9 +56,9 @@ public class ExShowDominionRegistry extends L2GameServerPacket
         writeD(_mercReq); // Merc Request
         writeD(_warTime); // War Time
         writeD(_currentTime); // Current Time
-        writeD(0x00); // unknown
-        writeD(0x00); // unknown
-        writeD(0x01); // unknown
+        writeD(_clanTerrId); // Clan's Merc. Request
+        writeD(_playerTerrId); // Player's Merc. Request
+        writeD(_canRequest); // Is request period
         writeD(0x09); // Territory Count
         for (int i = 0; i < 9; i++)
         {

@@ -7123,7 +7123,7 @@ public final class L2PcInstance extends L2Playable
 			statement.setString(48, getName());
 			statement.setLong(49, getDeathPenaltyBuffLevel());
 			statement.setLong(50, getTrustLevel());
-			statement.setDouble(51, getVitalityPoints());
+			statement.setInt(51, getVitalityPoints());
 			statement.setInt(52, getBookMarkSlot());
 		    statement.setInt(53, getObjectId());
 			statement.execute();

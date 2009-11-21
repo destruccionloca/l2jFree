@@ -98,7 +98,7 @@ public class UserInfo extends L2GameServerPacket
 		if (Config.PACKET_FINAL)
 		{
 			_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
-			_activeChar.sendPacket(new ExVitalityPointInfo((int) _activeChar.getVitalityPoints()));
+			_activeChar.sendPacket(new ExVitalityPointInfo(_activeChar.getVitalityPoints()));
 		}
 	}
 
@@ -391,7 +391,7 @@ public class UserInfo extends L2GameServerPacket
 		// T2
 		writeD(_activeChar.getFame());  // Fame
 		writeD(0x01); // Unknown
-		writeD((int) _activeChar.getVitalityPoints());
+		writeD(_activeChar.getVitalityPoints());
 		if (Config.PACKET_FINAL)
 		{
 			writeD(_activeChar.getSpecialEffect());

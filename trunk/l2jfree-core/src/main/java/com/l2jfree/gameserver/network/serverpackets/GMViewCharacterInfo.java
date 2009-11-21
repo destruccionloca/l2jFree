@@ -253,7 +253,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		writePlayerElementAttribute(_activeChar);
 
 		writeD(_activeChar.getFame());
-		writeD((int)_activeChar.getVitalityPoints());
+		writeD(_activeChar.getVitalityPoints());
 	}
 
 	/* (non-Javadoc)
