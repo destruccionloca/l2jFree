@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.gameserver.handler.ISkillHandler;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -22,20 +23,23 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class GiveVitality implements ISkillHandler
 {
-	private static final L2SkillType[] SKILL_IDS = { L2SkillType.GIVE_VITALITY };
-	
+	private static final L2SkillType[] SKILL_IDS =
+	{
+		L2SkillType.GIVE_VITALITY
+	};
+
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		for (L2Character target : targets)
+		for (L2Object target : targets)
 		{
 			if (target instanceof L2PcInstance)
 			{
-				// FIXME:
-				//((L2PcInstance) target).updateVitalityPoints((float)skill.getPower(), false, false);
+				((L2PcInstance) target).updateVitalityPoints((float)skill.getPower(), false, false);
 			}
 		}
 	}
-	
+
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;
