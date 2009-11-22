@@ -345,7 +345,7 @@ public class Config extends L2Config
 			ALT_ALLY_JOIN_DAYS_WHEN_LEAVED = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
 			ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
 			ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(clansSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
-			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "1"));
 			ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
 			CLAN_LEADER_COLOR_ENABLED = Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
 			CLAN_LEADER_COLORED = ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
@@ -1507,6 +1507,7 @@ public class Config extends L2Config
 	public static boolean				ALT_GAME_FREE_TELEPORT;													// Alternative gaming - allow free teleporting around the world.
 	public static boolean				ALT_RECOMMEND;																// Disallow recommend character twice or more a day ?
 	public static boolean				ALT_GAME_SUBCLASS_WITHOUT_QUESTS;											// Alternative gaming - allow sub-class addition without
+	public static boolean				ALT_GAME_SUBCLASS_EVERYWHERE;
 	// quest completion.
 	public static int					ALT_MAX_SUBCLASS;															// Allow to change max number of subclasses
 	public static byte					ALT_MAX_SUBCLASS_LEVEL;
@@ -1745,6 +1746,7 @@ public class Config extends L2Config
 			ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
 			ALT_RECOMMEND = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
+			ALT_GAME_SUBCLASS_EVERYWHERE = Boolean.parseBoolean(altSettings.getProperty("AltSubclassEverywhere", "False"));
 			ALT_MAX_SUBCLASS = Integer.parseInt(altSettings.getProperty("MaxSubclass", "3"));
 			ALT_MAX_SUBCLASS_LEVEL = Byte.parseByte(altSettings.getProperty("MaxSubclassLevel", "80"));
 			ALT_GAME_VIEWNPC = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
@@ -4156,6 +4158,8 @@ public class Config extends L2Config
 			ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltSubClassWithoutQuests"))
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AltSubclassEverywhere"))
+			ALT_GAME_SUBCLASS_EVERYWHERE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MaxSubclass"))
 			ALT_MAX_SUBCLASS = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("MaxSubclassLevel"))

@@ -131,7 +131,10 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			if (cmdParams.isEmpty())
 				return;
 
-			player.getClan().createAlly(player, cmdParams);
+			if (player.getClan() == null)
+				player.sendPacket(SystemMessageId.ONLY_CLAN_LEADER_CREATE_ALLIANCE);
+			else
+				player.getClan().createAlly(player, cmdParams);
 		}
 		else if (actualCommand.equalsIgnoreCase("dissolve_ally"))
 		{
@@ -211,7 +214,9 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			switch (cmdChoice)
 			{
 			case 0: // Subclass change menu
-				if (getVillageMasterRace() == Race.Kamael)
+				if (Config.ALT_GAME_SUBCLASS_EVERYWHERE)
+					html.setFile("data/html/villagemaster/SubClass.htm");
+				else if (getVillageMasterRace() == Race.Kamael)
 				{
 					if (player.getRace() == Race.Kamael)
 						html.setFile("data/html/villagemaster/SubClass.htm");
@@ -1222,6 +1227,9 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	 */
 	private final boolean checkVillageMaster(ClassId pclass)
 	{
+		if (Config.ALT_GAME_SUBCLASS_EVERYWHERE)
+			return true;
+
 		final Race npcRace = getVillageMasterRace();
 
 		switch (npcRace)
