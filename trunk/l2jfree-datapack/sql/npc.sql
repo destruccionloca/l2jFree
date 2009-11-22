@@ -9772,30 +9772,29 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 (18339,18339,'Dark Choir Player',0,'',0,'Monster.skeleton',11,25,80,'male','L2Monster',80,18203,9999,13.43,3.09,40,43,30,21,20,10,440000,40000,9000,5000,6000,6000,300,0,333,148,103,0,88,132,'LIT_R2',500,0,0,'LAST_HIT',0,0,0,'balanced'),
 (32011,32011,'Imperial Tomb Guide',0,'',0,'NPC.a_tombkeeperA',9.5,23,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,'',0,0,0,'LAST_HIT',0,0,0,'fighter');
 
-
 -- Monastery of Silence Updates
 REPLACE INTO `npc` VALUES
-(22122,22122,'Monastic Pilgrim',0,'',0,'Monster.angel_080p',13,28,78,'male','L2Minion',80,4642,2043,13.43,3.09,40,43,30,21,20,10,10320,1115,1890,556,1144,468,278,0,333,148,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22123,22123,'Monastic Crusader',0,'',0,'Monster.archangel_050p',20,40,78,'male','L2Monster',80,4700,2085,13.43,3.09,40,43,30,21,20,10,10422,1139,1972,574,1182,477,278,500,333,1303,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22124,22124,'Solina Brother',0,'',0,'Monster3.solina_brother',20,25,78,'male','L2Monster',80,4700,2085,13.43,3.09,40,43,30,21,20,10,8316,900,1972,574,1182,477,278,0,333,8212,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22125,22125,'Solina Lay Brother',0,'',0,'Monster3.solina_brother',20,25,78,'male','L2Monster',80,4757,2126,13.43,3.09,40,43,30,21,20,10,8326,910,2203,573,1220,485,278,0,333,8212,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22126,22126,'Silent Seeker',0,'',0,'Monster3.solina_father',20,25,78,'male','L2Monster',80,4757,2126,13.43,3.09,40,43,30,21,20,10,8522,933,2203,573,1220,485,278,0,333,8213,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22127,22127,'Silent Brother',0,'',0,'Monster3.solina_father',20,25,78,'male','L2Monster',80,4717,2168,13.43,3.09,40,43,30,21,20,10,9821,1141,2695,571,1258,494,278,0,333,8212,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22128,22128,'Monastery Guardian',0,'',0,'Monster3.grail_protection',20,15,78,'male','L2Monster',80,4810,2168,13.43,3.09,40,43,30,21,20,10,9740,1131,2695,571,1258,494,278,500,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22129,22129,'Warrior Monk',0,'',0,'Monster3.monk_warrior',20,28,78,'male','L2Monster',80,4767,2211,13.43,3.09,40,43,30,21,20,10,11138,1310,2298,612,1296,502,278,0,333,8211,8210,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22130,22130,'Divine Advocate',0,'',0,'Monster2.apostle_warrior',8,30,78,'male','L2Minion',80,4814,2253,13.43,3.09,40,43,30,21,20,10,10931,1301,2129,615,1333,511,278,0,333,6717,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22131,22131,'Pilgrim of Light',0,'',0,'Monster2.apostle_mage',11,38.5,78,'male','L2Minion',80,4814,2253,13.43,3.09,40,43,30,21,20,10,10931,1301,2129,615,1333,511,278,0,333,6718,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'mage','false');
+(22122,22122,'Monastic Pilgrim',0,'',0,'Monster.angel_080p',13,28,78,'male','L2Minion',80,4642,2043,13.43,3.09,40,43,30,21,20,10,10320,1115,1890,556,1144,468,278,0,333,148,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22123,22123,'Monastic Crusader',0,'',0,'Monster.archangel_050p',20,40,78,'male','L2Monster',80,4700,2085,13.43,3.09,40,43,30,21,20,10,10422,1139,1972,574,1182,477,278,500,333,1303,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22124,22124,'Solina Brother',0,'',0,'Monster3.solina_brother',20,25,78,'male','L2Monster',80,4700,2085,13.43,3.09,40,43,30,21,20,10,8316,900,1972,574,1182,477,278,0,333,8212,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22125,22125,'Solina Lay Brother',0,'',0,'Monster3.solina_brother',20,25,78,'male','L2Monster',80,4757,2126,13.43,3.09,40,43,30,21,20,10,8326,910,2203,573,1220,485,278,0,333,8212,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22126,22126,'Silent Seeker',0,'',0,'Monster3.solina_father',20,25,78,'male','L2Monster',80,4757,2126,13.43,3.09,40,43,30,21,20,10,8522,933,2203,573,1220,485,278,0,333,8213,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22127,22127,'Silent Brother',0,'',0,'Monster3.solina_father',20,25,78,'male','L2Monster',80,4717,2168,13.43,3.09,40,43,30,21,20,10,9821,1141,2695,571,1258,494,278,0,333,8212,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22128,22128,'Monastery Guardian',0,'',0,'Monster3.grail_protection',20,15,78,'male','L2Monster',80,4810,2168,13.43,3.09,40,43,30,21,20,10,9740,1131,2695,571,1258,494,278,500,333,0,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22129,22129,'Warrior Monk',0,'',0,'Monster3.monk_warrior',20,28,78,'male','L2Monster',80,4767,2211,13.43,3.09,40,43,30,21,20,10,11138,1310,2298,612,1296,502,278,0,333,8211,8210,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22130,22130,'Divine Advocate',0,'',0,'Monster2.apostle_warrior',8,30,78,'male','L2Minion',80,4814,2253,13.43,3.09,40,43,30,21,20,10,10931,1301,2129,615,1333,511,278,0,333,6717,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22131,22131,'Pilgrim of Light',0,'',0,'Monster2.apostle_mage',11,38.5,78,'male','L2Minion',80,4814,2253,13.43,3.09,40,43,30,21,20,10,10931,1301,2129,615,1333,511,278,0,333,6718,0,0,88,132,'monastery_clan',400,0,0,'LAST_HIT',0,0,0,'mage','false');
 
 -- Pagan Temple Updates
 REPLACE INTO `npc` VALUES
-(22136,22136,'Gatekeeper Zombie',0,'',0,'Monster3.zombie_gateguard',20,30,78,'male','L2Monster',80,4716,2168,13.43,3.09,40,43,30,21,20,10,4391,25,1719,4500,2288,780,300,300,555,8217,0,0,0,0,NULL,0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22176,22176,'Andreas'' Royal Guards',0,'',0,'Monster3.zombie_em_knight',20,23,78,'male','L2Monster',80,4812,430,13.43,3.09,40,43,25,21,20,10,14436,688,2475,1108,1144,780,300,500,350,0,0,0,61,180,NULL,0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22190,22190,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20,23,78,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,11073,694,1883,793,1144,780,300,0,555,0,0,0,61,180,NULL,0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22136,22136,'Gatekeeper Zombie',0,'',0,'Monster3.zombie_gateguard',20,30,78,'male','L2Monster',80,4716,2168,13.43,3.09,40,43,30,21,20,10,4391,25,1719,4500,2288,780,300,300,555,8217,0,0,0,0,'pagan_clan',300,0,0,'LAST_HIT',0,0,0,'balanced','false'),
+(22176,22176,'Andreas'' Royal Guards',0,'',0,'Monster3.zombie_em_knight',20,23,78,'male','L2Monster',80,4812,430,13.43,3.09,40,43,25,21,20,10,14436,688,2475,1108,1144,780,300,500,350,0,0,0,61,180,'pagan_clan',300,1,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22190,22190,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20,23,78,'male','L2Monster',80,4858,2439,13.43,3.09,40,43,30,21,20,10,11073,694,1883,793,1144,780,300,0,555,0,0,0,61,180,'pagan_clan',300,1,0,'LAST_HIT',0,0,0,'fighter','false'),
 (22191,22191,'Andreas'' Captain of the Royal Guard',0,'',0,'Monster3.heretic_priest_120p',20,23,78,'male','L2Monster',80,7350,4560,13.43,3.09,40,43,30,21,20,10,22049,1050,1719,793,1144,780,300,300,555,8206,0,0,61,180,'VANHALTER',1800,0,0,'LAST_HIT',0,0,0,'balanced','false'),
 (22192,22192,'Andreas'' Royal Guards',0,'',0,'Monster3.heretic_privates_120p',20,23,78,'male','L2Monster',80,9716,2439,13.43,3.09,40,43,30,21,20,10,29148,1388,1719,793,1144,780,300,500,555,8206,0,0,61,180,'VANHALTER',1800,0,0,'LAST_HIT',0,0,0,'balanced','false'),
 (22193,22193,'Andreas'' Royal Guards',0,'',0,'Monster3.heretic_privates_120p',20,23,78,'male','L2Monster',80,9716,2439,13.43,3.09,40,43,30,21,20,10,29148,1388,1719,793,1144,780,600,500,555,8206,0,0,61,180,'VANHALTER',1800,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(22194,22194,'Penance Guard',0,'',0,'Monster3.zombie_gateguard_slp',44,27,78,'male','L2Monster',80,4608,1566,13.43,3.09,40,43,30,21,20,10,13824,658,2475,1108,1544,780,300,300,555,8217,0,0,0,0,NULL,0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
-(22195,22195,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20,31,78,'male','L2Monster',80,100000,9999,13.43,3.09,40,43,30,21,20,10,12173,600,3109,755,1893,651,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'fighter','false');
+(22194,22194,'Penance Guard',0,'',0,'Monster3.zombie_gateguard_slp',44,27,78,'male','L2Monster',80,4608,1566,13.43,3.09,40,43,30,21,20,10,13824,658,2475,1108,1544,780,300,300,555,8217,0,0,0,0,'pagan_clan',300,1,0,'LAST_HIT',0,0,0,'fighter','false'),
+(22195,22195,'Ritual Sacrifice',0,'',0,'Monster3.self_blaster',20,31,78,'male','L2Monster',80,100000,9999,13.43,3.09,40,43,30,21,20,10,12173,600,3109,755,1893,651,278,0,333,0,0,0,88,132,'pagan_clan',300,0,0,'LAST_HIT',0,0,0,'fighter','false');
 
 -- Primeval Isle Updates
 REPLACE INTO `npc` VALUES
