@@ -66,6 +66,7 @@ public abstract class L2Playable extends L2Character
 		getKnownList(); // Init knownlist
 		getStat(); // Init stats
 		getStatus(); // Init status
+		setIsInvul(false);
 	}
 
 	@Override

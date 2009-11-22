@@ -185,6 +185,7 @@ public class L2DoorInstance extends L2Character
 		getKnownList(); // init knownlist
 		getStat(); // init stats
 		getStatus(); // init status
+		setIsInvul(false);
 		_doorId = doorId;
 		_name = name;
 		_unlockable = unlockable;

@@ -62,16 +62,12 @@ import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.shot.CharShots;
@@ -297,10 +293,7 @@ public abstract class L2Character extends L2Object
 		else
 			_skills = new FastMap<Integer, L2Skill>().setShared(true);
 
-		if (!(this instanceof L2Playable) && !(this instanceof L2Attackable) && !(this instanceof L2ControlTowerInstance)
-				&& !(this instanceof L2DoorInstance) && !(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2Decoy)
-				&& !(this instanceof L2EffectPointInstance) && !(this instanceof L2NpcInstance))
-			setIsInvul(true);
+		setIsInvul(true);
 	}
 
 	private final byte[] _currentZones = new byte[L2Zone.FLAG_SIZE];

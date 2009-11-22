@@ -34,6 +34,7 @@ public abstract class L2Decoy extends L2Character
         getStatus();
         _owner = owner;
         getPosition().setXYZInvisible(owner.getX(), owner.getY(), owner.getZ());
+        setIsInvul(false);
     }
     
 	@Override

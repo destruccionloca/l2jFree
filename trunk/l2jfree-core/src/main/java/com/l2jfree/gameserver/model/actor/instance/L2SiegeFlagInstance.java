@@ -79,6 +79,8 @@ public final class L2SiegeFlagInstance extends L2Npc
 			deleteMe();
 		else
 			sc.addFlag(this);
+
+		setIsInvul(false);
 	}
 
 	@Override

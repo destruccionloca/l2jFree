@@ -216,7 +216,7 @@ public enum Stats
 	SOULSHOT_COUNT("soulShotCount"),
 	
 	TALISMAN_SLOTS("talisman"),
-	//CLOAK_SLOT("cloak"),
+	CLOAK_SLOT("cloak"),
 	;
 	
 	private final String _value;

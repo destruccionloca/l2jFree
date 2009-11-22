@@ -39,6 +39,7 @@ public class L2Trap extends L2Character
 		getKnownList();
 		getStat();
 		getStatus();
+		setIsInvul(false);
 		_owner = owner;
 		getPosition().setXYZInvisible(owner.getX(), owner.getY(), owner.getZ());
 	}

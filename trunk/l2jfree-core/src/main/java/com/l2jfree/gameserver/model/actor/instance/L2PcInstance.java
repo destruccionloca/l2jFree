@@ -3967,23 +3967,27 @@ public final class L2PcInstance extends L2Playable
 		su.addAttribute(StatusUpdate.CUR_CP, (int)getStatus().getCurrentCp());
 		sendPacket(su);
 
-		if (isInParty() && (needHpUpdate(352) || needMpUpdate(352) || needCpUpdate(352)))
+		final boolean needCpUpdate = needCpUpdate(352);
+		final boolean needHpUpdate = needHpUpdate(352);
+		if (isInParty() && (needCpUpdate || needHpUpdate || needMpUpdate(352)))
 			getParty().broadcastToPartyMembers(this, new PartySmallWindowUpdate(this));
 
-		if (isInOlympiadMode() && isOlympiadStart())
+		if (isInOlympiadMode() && isOlympiadStart() && (needCpUpdate || needHpUpdate))
 		{
+			ExOlympiadUserInfo olyInfo = new ExOlympiadUserInfo(this, 2);
+
 			for (L2PcInstance player : Olympiad.getInstance().getPlayers(_olympiadGameId))
 				if (player != null && player != this)
-					player.sendPacket(new ExOlympiadUserInfo(this, 2));
+					player.sendPacket(olyInfo);
 
 			final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
 
 			if (spectators != null && !spectators.isEmpty())
 			{
-				final ExOlympiadUserInfo eoui = new ExOlympiadUserInfo(this);
-
+				olyInfo = new ExOlympiadUserInfo(this, getOlympiadSide());
 				for (L2PcInstance spectator : spectators)
-					spectator.sendPacket(eoui);
+					if (spectator != null)
+						spectator.sendPacket(olyInfo);
 			}
 		}
 

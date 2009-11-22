@@ -29,6 +29,7 @@ public class L2FortBallistaInstance extends L2Npc
 	{
 		super(objectId, template);
 		getKnownList(); // init knownlist
+		setIsInvul(false);
 	}
 	
 	@Override

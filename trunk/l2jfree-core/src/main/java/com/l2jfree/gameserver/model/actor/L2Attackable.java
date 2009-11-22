@@ -411,6 +411,7 @@ public class L2Attackable extends L2Npc
 	{
 		super(objectId, template);
 		getKnownList(); // init knownlist
+		setIsInvul(false);
 		_mustGiveExpSp = true;
 	}
 
