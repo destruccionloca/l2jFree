@@ -112,11 +112,11 @@ public class Forum
 			if (result.next())
 			{
 				_forumName = result.getString("forum_name");
-				//_ForumParent = Integer.parseInt(result.getString("forum_parent"));
-				_forumPost = Integer.parseInt(result.getString("forum_post"));
-				_forumType = Integer.parseInt(result.getString("forum_type"));
-				_forumPerm = Integer.parseInt(result.getString("forum_perm"));
-				_ownerID = Integer.parseInt(result.getString("forum_owner_id"));
+				//_ForumParent = result.getInt("forum_parent"));
+				_forumPost = result.getInt("forum_post");
+				_forumType = result.getInt("forum_type");
+				_forumPerm = result.getInt("forum_perm");
+				_ownerID = result.getInt("forum_owner_id");
 			}
 			result.close();
 			statement.close();
@@ -140,10 +140,8 @@ public class Forum
 
 			while (result.next())
 			{
-				Topic t = new Topic(Topic.ConstructorType.RESTORE, Integer.parseInt(result.getString("topic_id")), Integer.parseInt(result
-						.getString("topic_forum_id")), result.getString("topic_name"), Long.parseLong(result.getString("topic_date")), result
-						.getString("topic_ownername"), Integer.parseInt(result.getString("topic_ownerid")), Integer.parseInt(result.getString("topic_type")),
-						Integer.parseInt(result.getString("topic_reply")));
+				Topic t = new Topic(Topic.ConstructorType.RESTORE, result.getInt("topic_id"), result.getInt("topic_forum_id"), result.getString("topic_name"),
+result.getLong("topic_date"), result.getString("topic_ownername"), result.getInt("topic_ownerid"), result.getInt("topic_type"), result.getInt("topic_reply"));
 				_topic.put(t.getID(), t);
 				if (t.getID() > TopicBBSManager.getInstance().getMaxID(this))
 				{
@@ -178,9 +176,9 @@ public class Forum
 
 			while (result.next())
 			{
-				Forum forum = new Forum(Integer.parseInt(result.getString("forum_id")), this);
-				ForumsBBSManager.getInstance().addForum(forum);
-				_children.add(forum);
+				Forum f = new Forum(result.getInt("forum_id"), this);
+				_children.add(f);
+				ForumsBBSManager.getInstance().addForum(f);
 			}
 			result.close();
 			statement.close();
@@ -201,13 +199,13 @@ public class Forum
 		return _topic.size();
 	}
 
-	public Topic gettopic(int j)
+	public Topic getTopic(int j)
 	{
 		vload();
 		return _topic.get(j);
 	}
 
-	public void addtopic(Topic t)
+	public void addTopic(Topic t)
 	{
 		vload();
 		_topic.put(t.getID(), t);
@@ -262,14 +260,14 @@ public class Forum
 	/**
 	 *
 	 */
-	public void insertindb()
+	public void insertIntoDb()
 	{
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("INSERT INTO forums (forum_id,forum_name,forum_parent,forum_post,forum_type,forum_perm,forum_owner_id) values (?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO forums (forum_id,forum_name,forum_parent,forum_post,forum_type,forum_perm,forum_owner_id) VALUES (?,?,?,?,?,?,?)");
 			statement.setInt(1, _forumId);
 			statement.setString(2, _forumName);
 			statement.setInt(3, _fParent.getID());
@@ -279,7 +277,6 @@ public class Forum
 			statement.setInt(7, _ownerID);
 			statement.execute();
 			statement.close();
-
 		}
 		catch (Exception e)
 		{

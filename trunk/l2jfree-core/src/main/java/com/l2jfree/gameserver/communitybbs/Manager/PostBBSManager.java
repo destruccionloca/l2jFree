@@ -326,7 +326,7 @@ public class PostBBSManager extends BaseBBSManager
 		}
 		else
 		{
-			Topic t = f.gettopic(idt);
+			Topic t = f.getTopic(idt);
 			if(t == null)
 			{
 				separateAndSend("<html><body><br><br><center>the topic: "+idt+" does not exist !</center><br><br></body></html>", activeChar);

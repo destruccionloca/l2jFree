@@ -40,7 +40,10 @@ public class Sow implements ISkillHandler
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
-		
+
+		if (targets == null || targets.length == 0)
+			return;
+
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
 		if (_log.isDebugEnabled())
 			_log.info("Casting sow");

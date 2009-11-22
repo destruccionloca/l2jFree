@@ -49,9 +49,9 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 public class InventoryUpdate extends L2GameServerPacket
 {
 	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
-	
+
     private final List<ItemInfo> _items;
-    
+
 	public InventoryUpdate()
 	{
 		_items = new ArrayList<ItemInfo>();
@@ -60,7 +60,7 @@ public class InventoryUpdate extends L2GameServerPacket
 			showDebug();
 		}
 	}
-	
+
 	/**
 	 * @param items
 	 */
@@ -84,11 +84,11 @@ public class InventoryUpdate extends L2GameServerPacket
 	{
 		for (ItemInfo item : _items)
 		{
-			_log.debug("oid:" + Integer.toHexString(item.getObjectId()) +
+			_log.fatal("oid:" + Integer.toHexString(item.getObjectId()) +
 					" item:" + item.getItem().getName()+" last change:" + item.getChange());
 		}
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -99,7 +99,7 @@ public class InventoryUpdate extends L2GameServerPacket
 		{
 			writeH(item.getChange());               // Update type : 01-add, 02-modify, 03-remove
 			writeH(item.getItem().getType1());      // Item Type 1 : 00-weapon/ring/earring/necklace, 01-armor/shield, 04-item/questitem/adena
-			
+
 			writeD(item.getObjectId());             // ObjectId
 			writeD(item.getItem().getItemDisplayId());     // ItemId
 			writeD(item.getLocation());             // T1
@@ -115,15 +115,13 @@ public class InventoryUpdate extends L2GameServerPacket
 
 			// T1
 			writeElementalInfo(item); //8x h or d
-			
+
 			// T2
 			writeD(item.getTime());
 		}
+		_items.clear();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

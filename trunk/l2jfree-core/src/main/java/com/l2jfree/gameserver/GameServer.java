@@ -251,6 +251,11 @@ public class GameServer extends Config
 			CoupleManager.getInstance();
 		}
 		CursedWeaponsManager.getInstance();
+
+		// forums must be loaded before clan data, because of last forum id used should have also memo included
+		if (Config.COMMUNITY_TYPE > 0)
+			ForumsBBSManager.getInstance().initRoot();
+
 		ClanTable.getInstance();
 		CrestCache.getInstance();
 		WarehouseCacheManager.getInstance();
@@ -400,7 +405,6 @@ public class GameServer extends Config
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
-		ForumsBBSManager.getInstance();
 		
 		MerchantPriceConfigTable.getInstance().updateReferences();
 		CastleManager.getInstance().activateInstances();

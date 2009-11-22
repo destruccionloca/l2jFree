@@ -18,10 +18,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +31,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public class ForumsBBSManager extends BaseBBSManager
 {
 	private final static Log		_log	= LogFactory.getLog(ForumsBBSManager.class);
-	private final Map<Integer, Forum>		_root;
 	private final List<Forum>				_table;
 	private int						_lastid	= 1;
 
@@ -47,7 +44,6 @@ public class ForumsBBSManager extends BaseBBSManager
 
 	private ForumsBBSManager()
 	{
-		_root = new FastMap<Integer, Forum>();
 		_table = new FastList<Forum>();
 		load();
 	}
@@ -78,10 +74,9 @@ public class ForumsBBSManager extends BaseBBSManager
 			ResultSet result = statement.executeQuery();
 			while (result.next())
 			{
-
-				Forum f = new Forum(Integer.parseInt(result.getString("forum_id")), null);
+				int forumId = result.getInt("forum_id");
+				Forum f = new Forum(forumId, null);
 				addForum(f);
-				_root.put(Integer.parseInt(result.getString("forum_id")), f);
 			}
 			result.close();
 			statement.close();
@@ -94,6 +89,13 @@ public class ForumsBBSManager extends BaseBBSManager
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	public void initRoot()
+	{
+		for (Forum f : _table)
+			f.vload();
+		_log.info("Loaded " + _table.size() + " forums. Last forum id used: " + _lastid);
 	}
 
 	/* (non-Javadoc)
@@ -130,9 +132,8 @@ public class ForumsBBSManager extends BaseBBSManager
 	 */
 	public Forum createNewForum(String name, Forum parent, int type, int perm, int oid)
 	{
-		Forum forum;
-		forum = new Forum(name, parent, type, perm, oid);
-		forum.insertindb();
+		Forum forum = new Forum(name, parent, type, perm, oid);
+		forum.insertIntoDb();
 		return forum;
 	}
 

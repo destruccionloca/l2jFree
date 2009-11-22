@@ -2144,6 +2144,8 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
+	/** @deprecated in retail you can have all grade ss on at once */
+	@Deprecated
 	public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
 	{
 		if (unequipped == null || unequipped.getItem().getType2() != L2Item.TYPE2_WEAPON)
@@ -2154,9 +2156,14 @@ public final class L2PcInstance extends L2Playable
 			return;
 
 		for (L2ItemInstance item : getInventory().getItems())
+		{
+			if (item == null)
+				continue;
+
 			if (ShotTable.isPcShot(item.getItemId()))
 				if (item.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
 					getShots().removeAutoSoulShot(item.getItemId());
+		}
 	}
 
 	public void useEquippableItem(L2ItemInstance item, boolean abortAttack)
@@ -2250,12 +2257,14 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(sm);
 
 			//must be sent before InventoryUpdate
+			/* Sync might have fixed this? TODO: test
 			if ((bodyPart & L2Item.SLOT_HEAD) > 0 || (bodyPart & L2Item.SLOT_NECK) > 0
 					|| (bodyPart & L2Item.SLOT_L_EAR) > 0 || (bodyPart & L2Item.SLOT_R_EAR) > 0
 					|| (bodyPart & L2Item.SLOT_L_FINGER) > 0 || (bodyPart & L2Item.SLOT_R_FINGER) > 0
 					|| (bodyPart & L2Item.SLOT_R_BRACELET) > 0 || (bodyPart & L2Item.SLOT_L_BRACELET) > 0
 					||(bodyPart & L2Item.SLOT_DECO) > 0)
 				sendPacket(new UserInfo(this));
+				*/
 
 			items = getInventory().equipItemAndRecord(item);
 
@@ -2266,13 +2275,13 @@ public final class L2PcInstance extends L2Playable
 
 		refreshExpertisePenalty();
 
+		broadcastUserInfo();
+
 		InventoryUpdate iu = new InventoryUpdate();
 		iu.addEquipItems(items);
 		sendPacket(iu);
 		if (abortAttack)
 			abortAttack();
-
-		broadcastUserInfo();
 
 		if (getInventoryLimit() != oldInvLimit)
 			sendPacket(new ExStorageMaxCount(this));

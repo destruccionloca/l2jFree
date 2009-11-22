@@ -105,7 +105,7 @@ public class TopicBBSManager extends BaseBBSManager
 				f.vload();
 				Topic t = new Topic(Topic.ConstructorType.CREATE, TopicBBSManager.getInstance().getMaxID(f) + 1, Integer.parseInt(ar2), ar5, System
 						.currentTimeMillis(), activeChar.getName(), activeChar.getObjectId(), Topic.MEMO, 0);
-				f.addtopic(t);
+				f.addTopic(t);
 				TopicBBSManager.getInstance().setMaxID(t.getID(), f);
 				Post p = new Post(activeChar.getName(), activeChar.getObjectId(), System.currentTimeMillis(), t.getID(), f.getID(), ar4);
 				PostBBSManager.getInstance().addPostByTopic(p, t);
@@ -122,7 +122,7 @@ public class TopicBBSManager extends BaseBBSManager
 			}
 			else
 			{
-				Topic t = f.gettopic(Integer.parseInt(ar3));
+				Topic t = f.getTopic(Integer.parseInt(ar3));
 				if (t == null)
 				{
 					separateAndSend("<html><body><br><br><center>the topic: " + ar3 + " does not exist !</center><br><br></body></html>", activeChar);
@@ -200,7 +200,7 @@ public class TopicBBSManager extends BaseBBSManager
 			}
 			else
 			{
-				Topic t = f.gettopic(idt);
+				Topic t = f.getTopic(idt);
 				if (t == null)
 				{
 					separateAndSend("<html><body><br><br><center>the topic: " + idt + " does not exist !</center><br><br></body></html>", activeChar);
@@ -357,7 +357,7 @@ public class TopicBBSManager extends BaseBBSManager
 			{
 				break;
 			}
-			Topic t = forum.gettopic(j);
+			Topic t = forum.getTopic(j);
 			if (t != null)
 			{
 				if (i++ >= 12 * (index - 1))

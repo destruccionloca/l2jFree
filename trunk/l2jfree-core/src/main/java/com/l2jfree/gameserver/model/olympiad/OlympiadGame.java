@@ -520,14 +520,14 @@ public class OlympiadGame
 
 		final int playerOnePoints = playerOneStat.getInteger(POINTS);
 		final int playerTwoPoints = playerTwoStat.getInteger(POINTS);
-		final int pointDiff = Math.min(playerOnePoints, playerTwoPoints) / _div;
+		final int pointDiff = Math.min(Math.min(playerOnePoints, playerTwoPoints) / _div, Config.ALT_OLY_MAX_POINTS);
 
 		// Check for if a player defaulted before battle started
 		if (_playerOneDefaulted || _playerTwoDefaulted)
 		{
 			if (_playerOneDefaulted)
 			{
-				final int lostPoints = playerOnePoints / 3;
+				final int lostPoints = Math.min(playerOnePoints / 3, Config.ALT_OLY_MAX_POINTS);
 				playerOneStat.set(POINTS, playerOnePoints - lostPoints);
 				Olympiad.updateNobleStats(_playerOneID, playerOneStat);
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS);
@@ -544,7 +544,7 @@ public class OlympiadGame
 			}
 			if (_playerTwoDefaulted)
 			{
-				final int lostPoints = playerTwoPoints / 3;
+				final int lostPoints = Math.min(playerTwoPoints / 3, Config.ALT_OLY_MAX_POINTS);
 				playerTwoStat.set(POINTS, playerTwoPoints - lostPoints);
 				Olympiad.updateNobleStats(_playerTwoID, playerTwoStat);
 				SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS);
@@ -777,8 +777,8 @@ public class OlympiadGame
 		{
 			_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
 			broadcastMessage(_sm, true);
-			int pointOneDiff = playerOnePoints / 5;
-			int pointTwoDiff = playerTwoPoints / 5;
+			final int pointOneDiff = Math.min(playerOnePoints / 5, Config.ALT_OLY_MAX_POINTS);
+			final int pointTwoDiff = Math.min(playerTwoPoints / 5, Config.ALT_OLY_MAX_POINTS);
 			playerOneStat.set(POINTS, playerOnePoints - pointOneDiff);
 			playerTwoStat.set(POINTS, playerTwoPoints - pointTwoDiff);
 			playerOneStat.set(COMP_DRAWN, playerOneDrawn + 1);

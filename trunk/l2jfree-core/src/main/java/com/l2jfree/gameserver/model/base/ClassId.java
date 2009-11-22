@@ -359,7 +359,7 @@ public enum ClassId
 		{
 			subclasses = getSet(Race.Kamael, ClassLevel.Third);
 			
-			//Check sex, male can't subclass female and vice versa
+			//Check sex, male subclasses female and vice versa
 			switch (classId.getParent().getParent())
 			{
 				case MaleSoldier:
