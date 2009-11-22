@@ -68,6 +68,7 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.CONFUSE_MOB_ONLY,
 			L2SkillType.NEGATE,
 			L2SkillType.CANCEL,
+			L2SkillType.CANCEL_STATS,
 			L2SkillType.CANCEL_DEBUFF,
 			L2SkillType.PARALYZE,
 			L2SkillType.BETRAY,
