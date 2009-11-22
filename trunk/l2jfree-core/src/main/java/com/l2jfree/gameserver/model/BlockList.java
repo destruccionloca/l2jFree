@@ -48,16 +48,17 @@ public final class BlockList
 		
 		if (player.isGM())
 		{
-			_owner.sendPacket(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
+			if (player.getAppearance().isInvisible())
+				_owner.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+			else
+				_owner.sendPacket(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
 			return;
 		}
 		
 		if (_set.add(player.getName()))
 		{
 			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_WAS_ADDED_TO_YOUR_IGNORE_LIST).addPcName(player));
-			
 			player.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_ADDED_YOU_TO_IGNORE_LIST).addPcName(_owner));
-			
 			BlockListManager.getInstance().insert(_owner, player);
 		}
 		else

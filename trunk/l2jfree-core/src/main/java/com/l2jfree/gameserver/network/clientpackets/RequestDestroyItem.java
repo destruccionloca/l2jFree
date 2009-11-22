@@ -27,7 +27,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class represents a packet sent by the client when a player drags an item over the
@@ -66,7 +68,10 @@ public class RequestDestroyItem extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
+		else if (!FloodProtector.tryPerformAction(activeChar, Protected.TRANSACTION))
+			return;
 
 		if (_count < 1)
 		{

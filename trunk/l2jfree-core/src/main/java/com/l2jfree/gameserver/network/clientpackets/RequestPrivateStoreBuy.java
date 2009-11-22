@@ -25,7 +25,9 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class ...
@@ -73,6 +75,8 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
+			return;
+		else if (!FloodProtector.tryPerformAction(player, Protected.TRANSACTION))
 			return;
 
 		if (_items == null)

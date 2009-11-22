@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 public final class RequestBlock extends L2GameClientPacket
 {
@@ -74,7 +73,7 @@ public final class RequestBlock extends L2GameClientPacket
 			}
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

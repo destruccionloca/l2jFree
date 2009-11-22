@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class represents a packet that is sent by the client double-clicking an object
@@ -84,8 +83,17 @@ public final class Action extends L2GameClientPacket
 		if (obj == null)
 		{
 			// pressing e.g. pickup many times quickly would get you here
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
+		}
+		else if (obj instanceof L2PcInstance)
+		{
+			L2PcInstance target = (L2PcInstance) obj;
+			if (target.getAppearance().isInvisible() && !activeChar.isGM())
+			{
+				sendAF();
+				return;
+			}
 		}
 
 		// Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
@@ -110,7 +118,7 @@ public final class Action extends L2GameClientPacket
 			}
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

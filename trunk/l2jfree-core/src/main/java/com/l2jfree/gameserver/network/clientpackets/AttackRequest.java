@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class represents a packet that is sent when an object is "selected"/targeted and
@@ -63,20 +62,25 @@ public class AttackRequest extends L2GameClientPacket
 		// removes spawn protection
 		activeChar.onActionRequest();
 		
-		L2Object target = null;
-
-		// Get object from target
+		final L2Object target;
 		if (activeChar.getTargetId() == _objectId)
 			target = activeChar.getTarget();
-
-		//Try to get object from world if the player doesn't have a target anymore
-		if (target == null)
+		else
 			target = L2World.getInstance().findObject(_objectId);
 
 		if (target == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
+		}
+		else if (target instanceof L2PcInstance)
+		{
+			L2PcInstance tgt = (L2PcInstance) target;
+			if (tgt.getAppearance().isInvisible() && !activeChar.isGM())
+			{
+				sendAF();
+				return;
+			}
 		}
 
 		if (activeChar.getTarget() != target)
@@ -86,7 +90,7 @@ public class AttackRequest extends L2GameClientPacket
 				&& activeChar.getActiveRequester() == null)
 			target.onForcedAttack(activeChar);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

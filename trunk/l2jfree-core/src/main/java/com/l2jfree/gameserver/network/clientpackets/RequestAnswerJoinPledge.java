@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.JoinPledge;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
@@ -40,7 +39,7 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
     @Override
     protected void readImpl()
     {
-        _answer  = readD();
+        _answer = readD();
     }
 
     @Override
@@ -51,7 +50,7 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 		L2PcInstance requestor = activeChar.getRequest().getPartner();
         if (requestor == null)
         {
-        	sendPacket(ActionFailed.STATIC_PACKET);
+        	sendAF();
         	return;
         }
 
@@ -69,12 +68,12 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 		{
 	        if (!(requestor.getRequest().getRequestPacket() instanceof RequestJoinPledge))
 	        {
-	        	sendPacket(ActionFailed.STATIC_PACKET);
+	        	sendAF();
 	        	return; // hax
 	        }
 
 			RequestJoinPledge requestPacket = (RequestJoinPledge) requestor.getRequest().getRequestPacket();
-	        L2Clan clan = requestor.getClan();
+			L2Clan clan = requestor.getClan();
 			// we must double check this cause during response time conditions can be changed, i.e. another player could join clan
 			if (clan.checkClanJoinCondition(requestor, activeChar, requestPacket.getSubPledgeType()))
 	        {
@@ -88,6 +87,7 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 				}
 				else
 					activeChar.setPledgeRank(5); // new member starts at 5, not confirmed
+
 				clan.addClanMember(activeChar);
 				activeChar.setClanPrivileges(activeChar.getClan().getRankPrivs(activeChar.getPledgeRank()));
 				sendPacket(SystemMessageId.ENTERED_THE_CLAN);
@@ -95,13 +95,11 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_JOINED_CLAN);
 				sm.addString(activeChar.getName());
 				clan.broadcastToOnlineMembers(sm);
-				sm = null;
 
 				L2GameServerPacket pledge = new PledgeShowMemberListAdd(activeChar);
 				clan.broadcastToOtherOnlineMembers(pledge, activeChar);
 				pledge = new PledgeShowInfoUpdate(clan);
 				clan.broadcastToOnlineMembers(pledge);
-				pledge = null;
 
 				// this activates the clan tab on the new member
 				sendPacket(new PledgeShowMemberListAll(clan));
@@ -113,7 +111,7 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 		}
 
 		activeChar.getRequest().onRequestResponse();
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

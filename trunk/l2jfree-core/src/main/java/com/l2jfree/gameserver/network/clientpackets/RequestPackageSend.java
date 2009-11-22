@@ -28,6 +28,8 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * @author -Wooden-
@@ -74,6 +76,8 @@ public final class RequestPackageSend extends L2GameClientPacket
 
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
+			return;
+		else if (!FloodProtector.tryPerformAction(player, Protected.TRANSACTION))
 			return;
 
 		// Alt game - Karma punishment

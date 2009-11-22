@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.FriendAddRequest;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
@@ -40,7 +39,7 @@ public final class RequestFriendInvite extends L2GameClientPacket
 		if (activeChar == null) return;
 
 		L2PcInstance friend = L2World.getInstance().getPlayer(_name);
-		if (friend == null)
+		if (friend == null || (friend.getAppearance().isInvisible() && friend.isGM()))
 			sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 		else if (friend == activeChar)
 			sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
@@ -56,7 +55,7 @@ public final class RequestFriendInvite extends L2GameClientPacket
 			friend.sendPacket(new FriendAddRequest(activeChar.getName()));
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

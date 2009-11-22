@@ -37,7 +37,8 @@ public final class FloodProtector
 		SOCIAL(Config.SOCIAL_TIME * GameTimeController.MILLIS_IN_TICK),
 		SUBCLASS(500),
 		DROPITEM(500),
-		MULTISELL(500);
+		MULTISELL(500),
+		TRANSACTION(500);
 		
 		private final int _reuseDelay;
 		

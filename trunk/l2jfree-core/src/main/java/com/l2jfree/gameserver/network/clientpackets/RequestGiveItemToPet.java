@@ -21,6 +21,8 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * This class is sent by the client when the player drags an item out of his to
@@ -46,7 +48,10 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
+		else if (!FloodProtector.tryPerformAction(player, Protected.TRANSACTION))
+			return;
 
 		if (!(player.getPet() instanceof L2PetInstance))
 		{
