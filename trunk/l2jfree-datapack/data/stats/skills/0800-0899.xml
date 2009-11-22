@@ -643,8 +643,7 @@
       <player landingZone="true"/>
     </cond>
     <for>
-      <effect name="Transformation" time="-1" val="0"> <!-- Transformation have unlimited time -->
-      </effect>
+      <effect name="Transformation" time="-1" val="0"/> <!-- Transformation have unlimited time -->
     </for>
   </skill>
   <skill id="841" levels="1" name="Aura Bird - Falcon">

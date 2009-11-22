@@ -176,6 +176,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
+    <set name="itemConsumeId" val="20273"/>
+    <set name="itemConsumeCount" val="1"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>

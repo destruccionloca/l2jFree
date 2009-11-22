@@ -515,7 +515,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="ClanGate" time="120" val="0"/> 
+      <effect name="ClanGate" time="120" val="0"/>
       <effect name="ImmobileBuff" time="120" val="0" noicon="1"/>
     </for>
   </skill>
