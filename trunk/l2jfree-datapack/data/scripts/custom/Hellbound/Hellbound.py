@@ -66,6 +66,8 @@ STANDART_CERTIFICATE = 9851
 PREMIUM_CERTIFICATE = 9852
 NATIVE_TREASURE = 9684
 
+HUDE_ITEMS = [9628,9629,9630]
+
 # Transformation
 NATIVE_TRANSFORMATION = 101
 
@@ -920,8 +922,8 @@ class Hellbound (JQuest):
 				if item.getCount()>=10:
 					for step in range(10,item.getCount(),10):
 						player.destroyItemByItemId("Quest", BADGE, 10, player, True)
-						i = Rnd.get(len(items))
-						item = player.getInventory().addItem("Quest", items[i], 1, player, None)
+						i = Rnd.get(len(HUDE_ITEMS))
+						item = player.getInventory().addItem("Quest", HUDE_ITEMS[i], 1, player, None)
 						iu = InventoryUpdate()
 						iu.addItem(item)
 						player.sendPacket(iu);
@@ -940,8 +942,8 @@ class Hellbound (JQuest):
 					return
 				else:
 					player.destroyItemByItemId("Quest", BADGE, 10, player, True)
-					i = Rnd.get(len(items))
-					item = player.getInventory().addItem("Quest", items[i], 1, player, None)
+					i = Rnd.get(len(HUDE_ITEMS))
+					item = player.getInventory().addItem("Quest", HUDE_ITEMS[i], 1, player, None)
 					iu = InventoryUpdate()
 					iu.addItem(item)
 					player.sendPacket(iu);
