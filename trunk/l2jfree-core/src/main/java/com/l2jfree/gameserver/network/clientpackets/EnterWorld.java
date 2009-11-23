@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Couple;
@@ -474,6 +475,8 @@ public class EnterWorld extends L2GameClientPacket
 			else
 				sendPacket(new SystemMessage(SystemMessageId.S1_DAYS_UNTIL_BIRTHDAY).addNumber(daysLeft));
 		}
+
+		L2ClassMasterInstance.showQuestionMark(activeChar);
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}

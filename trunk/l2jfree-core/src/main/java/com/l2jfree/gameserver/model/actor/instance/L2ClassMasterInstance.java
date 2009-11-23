@@ -18,6 +18,7 @@ import javolution.text.TextBuilder;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -26,12 +27,13 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.TutorialCloseHtml;
+import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
+import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
-/**
- * Class Master implementation
- * ths npc is used for changing character occupation
- **/
 public final class L2ClassMasterInstance extends L2NpcInstance
 {
 	/**
@@ -43,10 +45,29 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 	}
 
 	@Override
+	public String getHtmlPath(int npcId, int val)
+	{
+		String pom = "";
+
+		if (val == 0)
+			pom = "" + npcId;
+		else
+			pom = npcId + "-" + val;
+
+		return "data/html/classmaster/" + pom + ".htm";
+	}
+
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (!canTarget(player))
 			return;
+
+		if (Config.ALT_L2J_CLASS_MASTER)
+		{
+			super.onAction(player);
+			return;
+		}
 
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (getObjectId() != player.getTargetId())
@@ -168,6 +189,39 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
+		if (Config.ALT_L2J_CLASS_MASTER)
+		{
+			if(command.startsWith("1stClass"))
+			{
+				showHtmlMenu(player, getObjectId(), 1);
+			}
+			else if(command.startsWith("2ndClass"))
+			{
+				showHtmlMenu(player, getObjectId(), 2);
+			}
+			else if(command.startsWith("3rdClass"))
+			{
+				showHtmlMenu(player, getObjectId(), 3);
+			}
+			else if(command.startsWith("change_class"))
+			{
+				int val = Integer.parseInt(command.substring(13));
+
+				if (checkAndChangeClass(player, val))
+				{
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setFile("data/html/classmaster/ok.htm");
+					html.replace("%name%", CharTemplateTable.getClassNameById(val));
+					player.sendPacket(html);
+				}
+			}
+			else
+			{
+				super.onBypassFeedback(player, command);
+			}
+			return;
+		}
+
 		if (command.startsWith("change_class"))
 		{
 			int val = Integer.parseInt(command.substring(13));
@@ -313,5 +367,218 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 		player.broadcastUserInfo();
 		player.broadcastClassIcon();
+	}
+
+	// L2JServer CM methods below
+
+	public static final void onTutorialLink(L2PcInstance player, String request)
+	{
+		if (!Config.ALT_CLASS_MASTER_TUTORIAL
+				|| request == null
+				|| !request.startsWith("CO"))
+			return;
+
+		if (!FloodProtector.tryPerformAction(player, Protected.SUBCLASS))
+			return;
+
+		try
+		{
+			int val = Integer.parseInt(request.substring(2));
+			checkAndChangeClass(player, val);
+		}
+		catch (Exception e)
+		{
+		}
+		player.sendPacket(new TutorialCloseHtml());
+	}
+
+	public static final void onTutorialQuestionMark(L2PcInstance player, int number)
+	{
+		if (!Config.ALT_CLASS_MASTER_TUTORIAL || number != 1001)
+			return;
+
+		showTutorialHtml(player);
+	}
+
+	public static final void showQuestionMark(L2PcInstance player)
+	{
+		if (!Config.ALT_CLASS_MASTER_TUTORIAL)
+			return;
+
+		final ClassId classId = player.getClassId();
+		if (getMinLevel(classId.level()) > player.getLevel())
+			return;
+
+		player.sendPacket(new TutorialShowQuestionMark(1001));
+	}
+
+	private static final void showHtmlMenu(L2PcInstance player, int objectId, int level)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(objectId);
+
+		if (!Config.ALT_L2J_CLASS_MASTER)
+		{
+			html.setFile("data/html/classmaster/disabled.htm");
+		}
+		else
+		{
+			final ClassId currentClassId = player.getClassId();
+			if (currentClassId.level() >= level)
+			{
+				html.setFile("data/html/classmaster/nomore.htm");
+			}
+			else
+			{
+				final int minLevel = getMinLevel(currentClassId.level());
+				if (player.getLevel() >= minLevel || Config.ALT_CLASS_MASTER_ENTIRE_TREE)
+				{
+					final TextBuilder menu = new TextBuilder(100);
+					for (ClassId cid : ClassId.values())
+					{
+						if (validateClassId(currentClassId, cid) && cid.level() == level)
+						{
+							menu.append("<a action=\"bypass -h npc_%objectId%_change_class ");
+							menu.append(cid.getId());
+							menu.append("\">");
+							menu.append(CharTemplateTable.getClassNameById(cid.getId()));
+							menu.append("</a><br>");
+						}
+					}
+
+					if (menu.length() > 0)
+					{
+						html.setFile("data/html/classmaster/template.htm");
+						html.replace("%name%", CharTemplateTable.getClassNameById(currentClassId.getId()));
+						html.replace("%menu%", menu.toString());
+					}
+					else
+					{
+						html.setFile("data/html/classmaster/comebacklater.htm");
+						html.replace("%level%", String.valueOf(getMinLevel(level - 1)));
+					}
+				}
+				else	
+				{
+					if (minLevel < Integer.MAX_VALUE)
+					{
+						html.setFile("data/html/classmaster/comebacklater.htm");
+						html.replace("%level%", String.valueOf(minLevel));
+					}
+					else
+						html.setFile("data/html/classmaster/nomore.htm");
+				}
+			}
+		}
+
+		html.replace("%objectId%", String.valueOf(objectId));
+		player.sendPacket(html);
+	}
+
+	private static final void showTutorialHtml(L2PcInstance player)
+	{
+		final ClassId currentClassId = player.getClassId();
+		if (getMinLevel(currentClassId.level()) > player.getLevel()
+				&& !Config.ALT_CLASS_MASTER_ENTIRE_TREE)
+			return;
+
+		String msg = HtmCache.getInstance().getHtm("data/html/classmaster/tutorialtemplate.htm");
+
+		msg = msg.replaceAll("%name%", CharTemplateTable.getClassNameById(currentClassId.getId()));
+
+		final TextBuilder menu = new TextBuilder(100);
+		for (ClassId cid : ClassId.values())
+		{
+			if (validateClassId(currentClassId, cid))
+			{
+				menu.append("<a action=\"link CO");
+				menu.append(cid.getId());
+				menu.append("\">");
+				menu.append(CharTemplateTable.getClassNameById(cid.getId()));
+				menu.append("</a><br>");
+			}
+		}
+
+		msg = msg.replaceAll("%menu%", menu.toString());
+		player.sendPacket(new TutorialShowHtml(msg));
+	}
+
+	private static final boolean checkAndChangeClass(L2PcInstance player, int val)
+	{
+		final ClassId currentClassId = player.getClassId();
+		if (getMinLevel(currentClassId.level()) > player.getLevel()
+				&& !Config.ALT_CLASS_MASTER_ENTIRE_TREE)
+			return false;
+
+		if (!validateClassId(currentClassId, val))
+			return false;
+
+		player.setClassId(val);
+
+		if (player.isSubClassActive())
+			player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
+		else
+			player.setBaseClass(player.getActiveClass());
+
+		player.broadcastUserInfo();
+		return true;
+	}
+
+	/**
+	 * Returns minimum player level required for next class transfer
+	 * @param level - current skillId level (0 - start, 1 - first, etc)
+	 */
+	private static final int getMinLevel(int level)
+	{
+		switch (level)
+		{
+			case 0:
+				return 20;
+			case 1:
+				return 40;
+			case 2:
+				return 76;
+			default:
+				return Integer.MAX_VALUE;
+		}
+	}
+
+	/**
+	 * Returns true if class change is possible
+	 * @param oldCID current player ClassId
+	 * @param val new class index
+	 * @return
+	 */
+	private static final boolean validateClassId(ClassId oldCID, int val)
+	{
+		try
+		{
+			return validateClassId(oldCID, ClassId.values()[val]);
+		}
+		catch (Exception e)
+		{
+			// possible ArrayOutOfBoundsException
+		}
+		return false;
+	}
+
+	/**
+	 * Returns true if class change is possible
+	 * @param oldCID current player ClassId
+	 * @param newCID new ClassId
+	 * @return true if class change is possible
+	 */
+	private static final boolean validateClassId(ClassId oldCID, ClassId newCID)
+	{
+		if (newCID == null || newCID.getRace() == null)
+			return false;
+
+		if (oldCID.equals(newCID.getParent()))
+			return true;
+
+		if (Config.ALT_CLASS_MASTER_ENTIRE_TREE
+				&& newCID.childOf(oldCID))
+			return true;
+
+		return false;
 	}
 }

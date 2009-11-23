@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -223,6 +224,8 @@ public class PcStat extends PlayableStat
 			getActiveChar().getStatus().setCurrentCp(getMaxCp());
 			getActiveChar().broadcastPacket(new SocialAction(getActiveChar().getObjectId(), SocialAction.LEVEL_UP));
 			getActiveChar().sendPacket(SystemMessageId.YOU_INCREASED_YOUR_LEVEL);
+
+			L2ClassMasterInstance.showQuestionMark(getActiveChar());
 
 			GlobalRestrictions.levelChanged(getActiveChar());
 		}

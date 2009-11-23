@@ -1550,6 +1550,9 @@ public class Config extends L2Config
 	public static boolean				ALT_CLASS_MASTER_STRIDER_UPDATE;
 	public static String				ALT_CLASS_MASTER_SETTINGS_LINE;
 	public static ClassMasterSettings	ALT_CLASS_MASTER_SETTINGS;
+	public static boolean				ALT_L2J_CLASS_MASTER;
+	public static boolean				ALT_CLASS_MASTER_ENTIRE_TREE;
+	public static boolean				ALT_CLASS_MASTER_TUTORIAL;
 	public static double				ALT_CRAFT_PRICE;															// reference price multiplier
 	public static int					ALT_CRAFT_DEFAULT_PRICE;													// default price, in case reference is 0
 	public static boolean				ALT_CRAFT_ALLOW_CRAFT;														// allow to craft dwarven recipes
@@ -1715,6 +1718,10 @@ public class Config extends L2Config
 				ALT_CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
 
 			ALT_CLASS_MASTER_SETTINGS = new ClassMasterSettings(ALT_CLASS_MASTER_SETTINGS_LINE);
+
+			ALT_L2J_CLASS_MASTER = Boolean.parseBoolean(altSettings.getProperty("L2JClassMaster", "False"));
+			ALT_CLASS_MASTER_ENTIRE_TREE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterEntireTree", "False"));
+			ALT_CLASS_MASTER_TUTORIAL = Boolean.parseBoolean(altSettings.getProperty("AltClassMaster", "False"));
 
 			ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
 			ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
