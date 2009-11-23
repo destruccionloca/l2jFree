@@ -176,23 +176,29 @@ public final class ChanceSkillList
 	{
 		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
 			return;
-		
+
+		if (_owner.isSkillDisabled(skill.getId()))
+			return;
+
+		if (skill.getReuseDelay() > 0)
+			_owner.disableSkill(skill.getId(), skill.getReuseDelay());
+
 		L2Character[] targets = skill.getTargetList(_owner, false, evtInitiator);
-		
+
 		if (targets == null || targets.length == 0)
 			return;
-		
+
 		//anyone has a better idea?
 		boolean hasValidTarget = false;
 		for (int i = 0; i < targets.length; i++)
 		{
 			final L2Character target = targets[i];
-			
+
 			if (target == null)
 				continue;
-			
+
 			final L2Effect effect = target.getFirstEffect(skill.getId());
-			
+
 			// if we already have a greater effect of it
 			if (effect != null && effect.getSkill().getLevel() > skill.getLevel())
 			{
@@ -204,18 +210,18 @@ public final class ChanceSkillList
 				targets[i] = null;
 				continue;
 			}
-			
+
 			hasValidTarget = true;
 		}
-		
+
 		if (!hasValidTarget)
 			return;
-		
+
 		targets = L2Arrays.compact(targets);
-		
+
 		_owner.broadcastPacket(new MagicSkillUse(_owner, skill, 0, 0));
 		_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill, targets));
-		
+
 		// Launch the magic skill and calculate its effects
 		// TODO: once core will support all posible effects, use effects (not handler)
 		SkillHandler.getInstance().useSkill(_owner, skill, targets);

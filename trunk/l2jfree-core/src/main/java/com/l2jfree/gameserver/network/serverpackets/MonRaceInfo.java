@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.L2Npc;
 
-
 /**
  * sample
  * 06 8f19904b 2522d04b 00000000 80 950c0000 4af50000 08f2ffff 0000    - 0 damage (missed 0x80)
@@ -34,7 +33,7 @@ public class MonRaceInfo extends L2GameServerPacket
     private final int _unknown2;
     private final L2Npc[] _monsters;
     private final int[][] _speeds;
-    
+
     public MonRaceInfo(int unknown1 , int unknown2, L2Npc[] monsters, int[][] speeds)
     {
         /*
@@ -48,10 +47,7 @@ public class MonRaceInfo extends L2GameServerPacket
         _monsters   = monsters;
         _speeds     = speeds;
     }
-    
-//  0xf3;;EtcStatusUpdatePacket;ddddd
-    
-    
+
     @Override
     protected final void writeImpl()
     {
@@ -74,7 +70,6 @@ public class MonRaceInfo extends L2GameServerPacket
             writeF(_monsters[i].getTemplate().getCollisionHeight());                  //coll. height
             writeF(_monsters[i].getTemplate().getCollisionRadius());                  //coll. radius
             writeD(120);            // ?? unknown
-            //*
             for (int j=0; j<20; j++)
             {
                 if  (_unknown1 == 0 )
@@ -83,21 +78,12 @@ public class MonRaceInfo extends L2GameServerPacket
                 }
                 else
                     writeC(0);
-            }//*/
-            /*
-            writeD(0x77776666);
-            writeD(0x99998888);
-            writeD(0xBBBBAAAA);
-            writeD(0xDDDDCCCC);
-            writeD(0xFFFFEEEE);
-            //*/
+            }
             writeD(0);
+            writeD(0); // CT2.3 special effect
         }
     }
-    
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-     */
+
     @Override
     public String getType()
     {

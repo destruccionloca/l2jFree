@@ -18,7 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.datatables.GmListTable;
-import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -205,11 +204,6 @@ public class RequestDropItem extends L2GameClientPacket
 			return false;
 		}
 		else if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
-		{
-			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
-			return false;
-		}
-		else if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
 		{
 			requestFailed(SystemMessageId.CANNOT_DISCARD_THIS_ITEM);
 			return false;

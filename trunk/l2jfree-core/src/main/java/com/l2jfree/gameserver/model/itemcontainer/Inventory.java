@@ -259,6 +259,10 @@ public abstract class Inventory extends ItemContainer
 			}
 			else if (it instanceof L2Armor)
 			{
+				// Remove augmentation bonuses on unequip
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+					item.getAugmentation().removeBonus((L2PcInstance) getOwner());
+
 				if (item.getElementals() != null)
 					item.getElementals().removeBonus(player);
 				
@@ -311,6 +315,10 @@ public abstract class Inventory extends ItemContainer
 			else if (it instanceof L2Armor)
 			{
 				itemSkills = ((L2Armor) it).getSkills();
+
+				// Apply augmentation bonuses on equip
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+					item.getAugmentation().applyBonus((L2PcInstance) getOwner());
 
 				if (item.getElementals() != null)
 					item.getElementals().applyBonus(player, true);

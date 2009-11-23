@@ -57,6 +57,8 @@ public class InstanceManager
 	{
 		for (InstanceWorld temp : _instanceWorlds.values())
 		{
+			if (temp == null)
+				continue;
 			// check if the player have a World Instance where he/she is allowed to enter
 			if (temp.allowed.contains(player.getObjectId()))
 				return temp;
@@ -118,6 +120,8 @@ public class InstanceManager
 	{
 		for (Instance temp : _instanceList.values())
 		{
+			if (temp == null)
+				continue;
 			// check if the player is in any active instance
 			if (temp.containsPlayer(objectId))
 				return temp.getId();

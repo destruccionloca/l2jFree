@@ -3107,7 +3107,7 @@ public final class L2PcInstance extends L2Playable
 	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem)
 	{
 		// If over capacity, drop the item
-		if (!isGM() && !getInventory().validateCapacity(0))
+		if (!isGM() && !getInventory().validateCapacity(0) && newitem.isDropable())
 		{
 			dropItem("InvDrop", newitem, null, true);
 		}
@@ -11112,6 +11112,20 @@ public final class L2PcInstance extends L2Playable
 		throw new InvalidPacketException("[" + this + "] sent invalid bypass '" + cmd + "'!");
 	}
 
+	/**
+	 * Performs following tests:<br>
+	 * <li> Inventory contains item
+	 * <li> Item owner id == this.owner id
+	 * <li> It isnt pet control item while mounting pet or pet summoned
+	 * <li> It isnt active enchant item
+	 * <li> It isnt cursed weapon/item
+	 * <li> It isnt wear item
+	 * <br>
+	 * 
+	 * @param objectId item object id
+	 * @param action just for logging
+	 * @return
+	 */
 	public boolean validateItemManipulation(int objectId, String action)
 	{
 		L2ItemInstance item = getInventory().getItemByObjectId(objectId);
