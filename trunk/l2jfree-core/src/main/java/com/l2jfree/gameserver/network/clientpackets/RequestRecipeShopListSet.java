@@ -16,19 +16,18 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import static com.l2jfree.gameserver.model.itemcontainer.PcInventory.MAX_ADENA;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.model.L2ManufactureItem;
 import com.l2jfree.gameserver.model.L2ManufactureList;
+import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopMsg;
 
-/**
- * This class ... cd(dd)
- * 
- * @version $Revision: 1.1.2.3.2.3 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestRecipeShopListSet extends L2GameClientPacket
 {
 	private static final String	_C__B2_RequestRecipeShopListSet	= "[C] b2 RequestRecipeShopListSet";
@@ -91,8 +90,19 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 
 		L2ManufactureList createList = new L2ManufactureList();
 
+		L2RecipeList[] dwarven = player.getDwarvenRecipeBook();
+		L2RecipeList[] common = player.getCommonRecipeBook();
+
 		for (Recipe i : _items)
 		{
+			L2RecipeList list = RecipeController.getInstance().getRecipeList(i.getRecipeId());
+
+			if (!ArrayUtils.contains(dwarven, list) && !ArrayUtils.contains(common, list))
+			{
+				requestFailed(SystemMessageId.RECIPE_INCORRECT);
+				return;
+			}
+
 			if (!i.addToList(createList))
 			{
 				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
@@ -129,6 +139,11 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 				return false;
 			list.add(new L2ManufactureItem(_recipeId, _cost));
 			return true;
+		}
+
+		public int getRecipeId()
+		{
+			return _recipeId;
 		}
 	}
 

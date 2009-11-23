@@ -11656,12 +11656,6 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 
-		if (isInOlympiadMode() || Olympiad.getInstance().isRegistered(this) || getOlympiadGameId() != -1)
-		{
-			sendMessage("You can't logout while you are at Olympiad.");
-			return false;
-		}
-
 		// Prevent player from restarting if they are a festival participant
 		if (isFestivalParticipant() /* && SevenSignsFestival.getInstance().isFestivalInitialized()*/)
 		{
@@ -11675,16 +11669,8 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 
-		if (getActiveEnchantItem() != null)
-		{
-			sendMessage("You can't logout while enchanting.");
+		if (getActiveEnchantItem() != null || getActiveEnchantAttrItem() != null)
 			return false;
-		}
-		if (getActiveEnchantAttrItem() != null)
-		{
-			sendMessage("You can't logout while enchanting.");
-			return false;
-		}
 
 		if (isLocked())
 		{

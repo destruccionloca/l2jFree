@@ -6566,6 +6566,8 @@ public abstract class L2Character extends L2Object
 						{
 							if (!isAggroReducingSkill)
 							{
+								// add attacker into list
+								((L2Character)target).addAttackerToAttackByList(player);
 								// notify target AI about the attack
 								((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
 							}
