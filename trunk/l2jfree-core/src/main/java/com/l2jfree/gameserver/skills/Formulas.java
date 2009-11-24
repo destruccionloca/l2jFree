@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -50,6 +51,7 @@ import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
 import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -307,12 +309,14 @@ public final class Formulas
 			if (env.player instanceof L2PcInstance)
 			{
 				L2PcInstance p = (L2PcInstance) env.player;
-				boolean hasMagePDef = (p.getClassId().isMage() || p.getClassId().getId() == 0x31); // orc mystics are a special case
+				boolean hasMagePDef = p.getClassId().isMage();
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null)
 					env.value -= 12;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null)
+				L2ItemInstance chest = p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST);
+				if (chest != null)
 					env.value -= hasMagePDef ? 15 : 31;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null)
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null ||
+						(chest != null && chest.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR))
 					env.value -= hasMagePDef ? 8 : 18;
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null)
 					env.value -= 8;

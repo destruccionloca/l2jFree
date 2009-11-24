@@ -378,6 +378,28 @@ public class OlympiadGame
 		return true;
 	}
 
+	protected void cleanEffects()
+	{
+		if (_playerOne == null || _playerTwo == null)
+			return;
+
+		if (_playerOneDisconnected || _playerTwoDisconnected)
+			return;
+
+		for (L2PcInstance player : _players)
+		{
+			if (player == null)
+				continue;
+			player.stopAllEffectsExceptThoseThatLastThroughDeath();
+			player.clearSouls();
+			player.clearCharges();
+
+			L2Summon pet = player.getPet();
+			if (pet != null)
+				pet.stopAllEffects();
+		}
+	}
+
 	protected void portPlayersBack()
 	{
 		if (_playerOne != null)
@@ -1032,6 +1054,7 @@ class OlympiadGameTask implements Runnable
 			_terminated = true;
 			_game.validateWinner();
 			_game.PlayersStatusBack();
+			_game.cleanEffects();
 
 			if (_game._gamestarted)
 			{
