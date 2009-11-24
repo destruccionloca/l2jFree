@@ -168,7 +168,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="70"/> <!-- Base Land Rate -->
+    <set name="power" val="60"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="300"/>
@@ -976,7 +976,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="20"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_MOB"/>
     <set name="reuseDelay" val="3000"/>
     <set name="isDebuff" val="true"/>
@@ -1007,7 +1007,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="20"/>
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="23000"/>

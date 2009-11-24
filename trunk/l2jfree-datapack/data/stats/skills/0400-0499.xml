@@ -913,7 +913,7 @@
     <set name="hitTime" val="2000"/>
     <set name="needCharges" val="3"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="1200000"/>
+    <set name="reuseDelay" val="900000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
@@ -982,7 +982,7 @@
     <set name="hitTime" val="500"/>
     <set name="mpConsume" val="29"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="150000"/>
+    <set name="reuseDelay" val="75000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
@@ -1025,7 +1025,7 @@
     <set name="summonTimeLostIdle" val="1000"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="10000"/>
     <set name="skillType" val="SUMMON"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1069,7 +1069,7 @@
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="70"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="FEAR"/>
