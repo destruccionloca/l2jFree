@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillPdam;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public final class Pdam implements ISkillHandler
@@ -43,7 +44,8 @@ public final class Pdam implements ISkillHandler
 			return;
 		
 		final L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-		final boolean soul = (weapon != null && weapon.isSoulshotCharged());
+		final boolean soul = (weapon != null && weapon.isSoulshotCharged() &&
+				weapon.getItemType() != L2WeaponType.DAGGER);
 		final boolean isBlow = (skill.getSkillType() == L2SkillType.BLOW);
 		final boolean isCharge = (skill.getSkillType() == L2SkillType.CHARGEDAM);
 		

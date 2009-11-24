@@ -6544,9 +6544,9 @@ public abstract class L2Character extends L2Object
 							if (!isAggroReducingSkill)
 							{
 								// add attacker into list
-								((L2Character)target).addAttackerToAttackByList(player);
+								((L2Character)target).addAttackerToAttackByList(this);
 								// notify target AI about the attack
-								((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, player);
+								((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
 							}
 						}
 					}
@@ -6951,8 +6951,8 @@ public abstract class L2Character extends L2Object
 
 	private final class FlyToLocationTask implements Runnable
 	{
-		final L2Character _flyTarget;
-		final L2Skill _skill;
+		private final L2Character _flyTarget;
+		private final L2Skill _skill;
 
 		public FlyToLocationTask(L2Character target, L2Skill skill)
 		{

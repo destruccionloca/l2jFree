@@ -565,6 +565,11 @@ public class L2Npc extends L2Character
 	public boolean canInteract(L2PcInstance player)
 	{
 		// TODO: NPC busy check etc...
+		
+		if (player.isCastingNow() || player.isCastingSimultaneouslyNow())
+			return false;
+		if (player.isDead() || player.isFakeDeath())
+			return false;
 		if (player.isSitting())
 			return false;
 		
@@ -1688,7 +1693,7 @@ public class L2Npc extends L2Character
 	public void showQuestChooseWindow(L2PcInstance player, Quest[] quests)
 	{
 		TextBuilder sb = new TextBuilder();
-		sb.append("<html><body><title>Talk about:</title><br>");
+		sb.append("<html><body>");
 		for (Quest q : quests)
 		{
 			sb.append("<a action=\"bypass -h npc_").append(getObjectId()).append("_Quest ").append(q.getName()).append("\"> [").append(q.getDescr());
@@ -1697,13 +1702,9 @@ public class L2Npc extends L2Character
 			if (qs != null)
 			{
 				if (qs.getState() == State.STARTED && qs.getInt("cond") > 0)
-				{
 					sb.append(" (In Progress)");
-				}
 				else if (qs.getState() == State.COMPLETED)
-				{
 					sb.append(" (Done)");
-				}
 			}
 			sb.append("]</a><br>");
 		}

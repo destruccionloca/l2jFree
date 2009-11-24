@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public abstract class AbstractEnchantPacket extends L2GameClientPacket
 {
-
 	public static final Map<Integer, EnchantScroll> _scrolls = new FastMap<Integer, EnchantScroll>();
 	public static final Map<Integer, EnchantItem> _supports = new FastMap<Integer, EnchantItem>();
 

@@ -428,8 +428,8 @@ public class L2NpcInstance extends L2Npc
 	
 	private void showNoTeachHtml(L2PcInstance player)
 	{
-		int npcId = getTemplate().getNpcId();
-		String html = "";
+		int npcId = getNpcId();
+		String html = null;
 		
 		if (this instanceof L2WarehouseInstance)
 			html = HtmCache.getInstance().getHtm("data/html/warehouse/" + npcId + "-noteach.htm");
@@ -440,16 +440,15 @@ public class L2NpcInstance extends L2Npc
 		{
 			_log.warn("Npc " + npcId + " missing noTeach html!");
 			NpcHtmlMessage msg = new NpcHtmlMessage(getObjectId());
-			final String sb = StringUtil.concat("<html><body>",
-					"I cannot teach you any skills.<br>You must find your current class teachers.", "</body></html>");
-			msg.setHtml(sb);
+			msg.setHtml("<html><body>I cannot teach you any skills.<br>You must find your current class teachers.</body></html>");
 			player.sendPacket(msg);
 			return;
 		}
 		else
 		{
 			NpcHtmlMessage noTeachMsg = new NpcHtmlMessage(getObjectId());
-			noTeachMsg.setHtml(html.replaceAll("%objectId%", String.valueOf(getObjectId())));
+			noTeachMsg.setFile(html);
+			noTeachMsg.replace("%objectId%", String.valueOf(getObjectId()));
 			player.sendPacket(noTeachMsg);
 		}
 	}

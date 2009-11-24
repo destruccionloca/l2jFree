@@ -221,7 +221,7 @@ public class OlympiadGame
 			try
 			{
 				// Remove Buffs
-				player.stopAllEffects();
+				player.stopAllEffectsExceptThoseThatLastThroughDeath();
 
 				// Remove Clan Skills
 				if (player.getClan() != null)
@@ -1051,7 +1051,8 @@ class OlympiadGameTask implements Runnable
 			{
 				for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
 				{
-					spec.sendPacket(new ExOlympiadMatchEnd());
+					if (spec != null)
+						spec.sendPacket(new ExOlympiadMatchEnd());
 				}
 			}
 
@@ -1143,8 +1144,11 @@ class OlympiadGameTask implements Runnable
 		{
 			for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
 			{
-				spec.sendPacket(new ExOlympiadUserInfo(_game._playerOne));
-				spec.sendPacket(new ExOlympiadUserInfo(_game._playerTwo));
+				if (spec != null)
+				{
+					spec.sendPacket(new ExOlympiadUserInfo(_game._playerOne));
+					spec.sendPacket(new ExOlympiadUserInfo(_game._playerTwo));
+				}
 			}
 		}
 
