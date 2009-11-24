@@ -1157,7 +1157,7 @@
     <set name="hitTime" val="2000"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1201,7 +1201,7 @@
     <set name="hitTime" val="2000"/>
     <set name="element" val="1"/> <!-- Water -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1221,13 +1221,13 @@
     <set name="mpConsume" val="109"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="70"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="15000"/>
     <set name="skillRadius" val="250"/>
     <set name="skillType" val="MDAM"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
-      <effect name="Debuff" time="15" val="0" effectPower="80" effectType="DEBUFF" stackOrder="0.7" stackType="RunSpeedDown">
+      <effect name="Debuff" time="30" val="0" effectPower="80" effectType="DEBUFF" stackOrder="0.7" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.6"/>
       </effect>
     </for>
@@ -1254,7 +1254,6 @@
     </for>
   </skill>
   <skill id="1456" levels="1" name="Wind Vortex Slug">
-    <!-- Needs retail accuracy check. -->
     <set name="mpInitialConsume" val="28"/>
     <set name="mpConsume" val="80"/>
     <set name="magicLvl" val="79"/>
@@ -1263,7 +1262,7 @@
     <set name="hitTime" val="2000"/>
     <set name="element" val="2"/> <!-- Wind -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -1280,7 +1279,7 @@
   <skill id="1457" levels="1" name="Empowering Echo">
     <set name="mpConsume" val="145"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
@@ -1320,7 +1319,7 @@
     <set name="isMagic" val="true"/>
     <set name="mpConsume" val="109"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="150000"/>
+    <set name="reuseDelay" val="900000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <for>
@@ -1333,7 +1332,7 @@
     <set name="mpInitialConsume" val="38"/>
     <set name="mpConsume" val="142"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="120000"/>
+    <set name="reuseDelay" val="150000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
@@ -1356,7 +1355,7 @@
     <set name="mpConsume" val="250"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="reuseDelay" val="1000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="2500"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
@@ -1377,9 +1376,9 @@
     <set name="mpConsume" val="100"/>
     <set name="mpInitialConsume" val="9"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/>
-    <set name="reuseDelay" val="30000"/>
-    <set name="skillRadius" val="300"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="reuseDelay" val="75000"/>
+    <set name="skillRadius" val="200"/>
     <set name="skillType" val="MDAM"/>
     <set name="target" val="TARGET_AURA"/>
     <for>

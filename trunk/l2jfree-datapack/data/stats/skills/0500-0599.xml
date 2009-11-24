@@ -658,7 +658,6 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
   </skill>
   <skill id="527" levels="1" name="Iron Shield">
-    <!-- Needs to be verified -->
     <set name="hitTime" val="1000"/>
     <set name="magicLvl" val="79"/>
     <set name="mpConsume" val="43"/>
@@ -697,7 +696,7 @@
     <set name="nextDanceCost" val="30"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="reuseDelay" val="15000"/>
+    <set name="reuseDelay" val="150000"/>
     <set name="hitTime" val="2500"/>
     <set name="skillType" val="BUFF"/>
     <set name="isSong" val="true"/>
@@ -717,7 +716,7 @@
     <set name="mpConsume" val="60"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
-    <set name="reuseDelay" val="15000"/>
+    <set name="reuseDelay" val="150000"/>
     <set name="hitTime" val="2500"/>
     <set name="skillType" val="BUFF"/>
     <set name="isDance" val="true"/>
@@ -737,8 +736,9 @@
     <set name="mpConsume" val="43"/>
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="79"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="8000"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_ONE"/>
@@ -821,11 +821,11 @@
     <set name="target" val="TARGET_AREA"/>
     <set name="skillType" val="SPOIL"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="castRange" val="40"/>
     <set name="skillRadius" val="90"/>
     <set name="hitTime" val="1800"/>
     <set name="reuseDelay" val="15000"/>
-    <set name="power" val="3000"/>
     <for>
       <effect name="DamOverTime" time="30" val="74"/>
     </for>
