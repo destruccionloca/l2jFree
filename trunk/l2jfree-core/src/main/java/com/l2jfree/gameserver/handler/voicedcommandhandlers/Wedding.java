@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
 import com.l2jfree.gameserver.model.entity.Siege;
@@ -37,6 +36,7 @@ import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.util.Broadcast;
 
 /**
@@ -136,7 +136,7 @@ public class Wedding implements IVoicedCommandHandler
 			activeChar.sendMessage("You are already engaged.");
 			if (Config.WEDDING_PUNISH_INFIDELITY)
 			{
-				activeChar.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD); // give player a Big Head
+				activeChar.startAbnormalEffect(AbnormalEffect.BIG_HEAD); // give player a Big Head
 				// lets recycle the sevensigns debuffs
 				int skillId;
 

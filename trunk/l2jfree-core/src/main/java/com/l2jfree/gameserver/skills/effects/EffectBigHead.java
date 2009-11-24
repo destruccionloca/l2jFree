@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 
@@ -31,6 +31,6 @@ public final class EffectBigHead extends EffectBuff
 	@Override
 	protected int getTypeBasedAbnormalEffect()
 	{
-		return L2Character.ABNORMAL_EFFECT_BIG_HEAD;
+		return AbnormalEffect.BIG_HEAD.getMask();
 	}
 }

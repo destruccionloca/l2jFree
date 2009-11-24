@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.skills.effects;
 
 import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -49,6 +49,6 @@ public final class EffectParalyze extends L2Effect
 	@Override
 	protected int getTypeBasedAbnormalEffect()
 	{
-		return L2Character.ABNORMAL_EFFECT_HOLD_1;
+		return AbnormalEffect.HOLD_1.getMask();
 	}
 }

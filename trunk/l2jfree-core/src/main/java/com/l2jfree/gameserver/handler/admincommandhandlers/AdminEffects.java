@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SunRise;
 import com.l2jfree.gameserver.network.serverpackets.SunSet;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 
 
 /**
@@ -198,7 +199,7 @@ public class AdminEffects implements IAdminCommandHandler
 				{
 					if (!player.isGM())
 					{
-						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+						player.startAbnormalEffect(AbnormalEffect.HOLD_1);
 						player.startParalyze();
 						StopMove sm = new StopMove(player);
 						player.sendPacket(sm);
@@ -216,7 +217,7 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 				{
-					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+					player.stopAbnormalEffect(AbnormalEffect.HOLD_1);
 					player.stopParalyze(false);
 				}
 			}
@@ -237,9 +238,9 @@ public class AdminEffects implements IAdminCommandHandler
 				{
 					player = (L2Character) target;
 					if (type.equals("1"))
-						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+						player.startAbnormalEffect(AbnormalEffect.HOLD_1);
 					else
-						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+						player.startAbnormalEffect(AbnormalEffect.HOLD_2);
 					player.startParalyze();
 					StopMove sm = new StopMove(player);
 					player.broadcastPacket(sm);
@@ -263,8 +264,8 @@ public class AdminEffects implements IAdminCommandHandler
 				if (target instanceof L2Character)
 				{
 					player = (L2Character)target;
-					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
-					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+					player.stopAbnormalEffect(AbnormalEffect.HOLD_1);
+					player.stopAbnormalEffect(AbnormalEffect.HOLD_2);
 					player.stopParalyze(false);
 				}
 			}
@@ -281,7 +282,7 @@ public class AdminEffects implements IAdminCommandHandler
 				if (target instanceof L2Character)
 				{
 					player = (L2Character) target;
-					player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+					player.startAbnormalEffect(AbnormalEffect.BIG_HEAD);
 				}
 			}
 			catch (Exception e)
@@ -297,7 +298,7 @@ public class AdminEffects implements IAdminCommandHandler
 				if (target instanceof L2Character)
 				{
 					player = (L2Character) target;
-					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+					player.stopAbnormalEffect(AbnormalEffect.BIG_HEAD);
 				}
 			}
 			catch (Exception e)

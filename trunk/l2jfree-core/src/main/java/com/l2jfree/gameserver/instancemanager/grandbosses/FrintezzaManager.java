@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncMul;
@@ -1072,7 +1073,7 @@ public class FrintezzaManager extends BossLair
 				_effected.setTarget(null);
 
 				// start the animation
-				_effected.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
+				_effected.startAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
 
 				// add the effect icon
 				_effected.callSkill(_skill, _effected);
@@ -1119,7 +1120,7 @@ public class FrintezzaManager extends BossLair
 			_effected.enableAllSkills();
 			_effected.setIsImmobilized(false);
 
-			_effected.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
+			_effected.stopAbnormalEffect(AbnormalEffect.DANCE_STUNNED);
 		}
 	}
 

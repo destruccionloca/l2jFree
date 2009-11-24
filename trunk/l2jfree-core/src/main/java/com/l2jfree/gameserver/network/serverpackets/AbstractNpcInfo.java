@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public abstract class AbstractNpcInfo extends L2GameServerPacket
@@ -625,7 +626,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 
 			if (_summon.getOwner().getAppearance().isInvisible())
 			{
-				writeD((_summon.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
+				writeD((_summon.getAbnormalEffect() | AbnormalEffect.STEALTH.getMask()));
 			}
 			else
 			{
@@ -724,7 +725,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 
 			if (_pc.getAppearance().isInvisible())
 			{
-				writeD((_pc.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
+				writeD((_pc.getAbnormalEffect() | AbnormalEffect.STEALTH.getMask()));
 			}
 			else
 			{

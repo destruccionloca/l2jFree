@@ -18,13 +18,13 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.L2Transformation;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.view.PcLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -329,7 +329,7 @@ public class UserInfo extends L2GameServerPacket
 
 		if (_appearance.isInvisible())
 		{
-			writeD((_activeChar.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
+			writeD((_activeChar.getAbnormalEffect() | AbnormalEffect.STEALTH.getMask()));
 		}
 		else
 		{

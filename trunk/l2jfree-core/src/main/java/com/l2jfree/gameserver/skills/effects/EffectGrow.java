@@ -14,8 +14,8 @@
  */
 package com.l2jfree.gameserver.skills.effects;
 
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 
@@ -52,6 +52,6 @@ public final class EffectGrow extends EffectBuff
 	@Override
 	protected int getTypeBasedAbnormalEffect()
 	{
-		return L2Character.ABNORMAL_EFFECT_GROW;
+		return AbnormalEffect.GROW.getMask();
 	}
 }

@@ -16,9 +16,7 @@ package com.l2jfree.gameserver.templates.effects;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
@@ -42,56 +40,6 @@ public final class EffectTemplate
 {
 	private static final Log _log = LogFactory.getLog(EffectTemplate.class);
 	
-	private static final Map<String, Integer> ABNORMAL_EFFECTS = new HashMap<String, Integer>();
-	private static final Map<String, Integer> SPECIAL_EFFECTS = new HashMap<String, Integer>();
-	
-	static
-	{
-		ABNORMAL_EFFECTS.put("bleed", L2Character.ABNORMAL_EFFECT_BLEEDING);
-		ABNORMAL_EFFECTS.put("bleeding", L2Character.ABNORMAL_EFFECT_BLEEDING);
-		ABNORMAL_EFFECTS.put("poison", L2Character.ABNORMAL_EFFECT_POISON);
-		ABNORMAL_EFFECTS.put("redcircle", L2Character.ABNORMAL_EFFECT_REDCIRCLE);
-		ABNORMAL_EFFECTS.put("ice", L2Character.ABNORMAL_EFFECT_ICE);
-		ABNORMAL_EFFECTS.put("wind", L2Character.ABNORMAL_EFFECT_WIND);
-		ABNORMAL_EFFECTS.put("fear", L2Character.ABNORMAL_EFFECT_FEAR);
-		ABNORMAL_EFFECTS.put("stun", L2Character.ABNORMAL_EFFECT_STUN);
-		ABNORMAL_EFFECTS.put("sleep", L2Character.ABNORMAL_EFFECT_SLEEP);
-		ABNORMAL_EFFECTS.put("mute", L2Character.ABNORMAL_EFFECT_MUTED);
-		ABNORMAL_EFFECTS.put("root", L2Character.ABNORMAL_EFFECT_ROOT);
-		ABNORMAL_EFFECTS.put("hold1", L2Character.ABNORMAL_EFFECT_HOLD_1);
-		ABNORMAL_EFFECTS.put("hold2", L2Character.ABNORMAL_EFFECT_HOLD_2);
-		ABNORMAL_EFFECTS.put("unknown13", L2Character.ABNORMAL_EFFECT_UNKNOWN_13);
-		ABNORMAL_EFFECTS.put("bighead", L2Character.ABNORMAL_EFFECT_BIG_HEAD);
-		ABNORMAL_EFFECTS.put("flame", L2Character.ABNORMAL_EFFECT_FLAME);
-		ABNORMAL_EFFECTS.put("unknown16", L2Character.ABNORMAL_EFFECT_UNKNOWN_16);
-		ABNORMAL_EFFECTS.put("grow", L2Character.ABNORMAL_EFFECT_GROW);
-		ABNORMAL_EFFECTS.put("floatroot", L2Character.ABNORMAL_EFFECT_FLOATING_ROOT);
-		ABNORMAL_EFFECTS.put("dancestun", L2Character.ABNORMAL_EFFECT_DANCE_STUNNED);
-		ABNORMAL_EFFECTS.put("firerootstun", L2Character.ABNORMAL_EFFECT_FIREROOT_STUN);
-		ABNORMAL_EFFECTS.put("stealth", L2Character.ABNORMAL_EFFECT_STEALTH);
-		ABNORMAL_EFFECTS.put("imprison1", L2Character.ABNORMAL_EFFECT_IMPRISIONING_1);
-		ABNORMAL_EFFECTS.put("imprison2", L2Character.ABNORMAL_EFFECT_IMPRISIONING_2);
-		ABNORMAL_EFFECTS.put("magiccircle", L2Character.ABNORMAL_EFFECT_MAGIC_CIRCLE);
-		ABNORMAL_EFFECTS.put("ice2", L2Character.ABNORMAL_EFFECT_ICE2);
-		ABNORMAL_EFFECTS.put("earthquake", L2Character.ABNORMAL_EFFECT_EARTHQUAKE);
-		ABNORMAL_EFFECTS.put("unknown27", L2Character.ABNORMAL_EFFECT_UNKNOWN_27);
-		ABNORMAL_EFFECTS.put("invulnerable", L2Character.ABNORMAL_EFFECT_INVULNERABLE);
-		ABNORMAL_EFFECTS.put("vitality", L2Character.ABNORMAL_EFFECT_VITALITY);
-		ABNORMAL_EFFECTS.put("unknown30", L2Character.ABNORMAL_EFFECT_UNKNOWN_30);
-		ABNORMAL_EFFECTS.put("deathmark", L2Character.ABNORMAL_EFFECT_DEATH_MARK);
-		ABNORMAL_EFFECTS.put("unknown32", L2Character.ABNORMAL_EFFECT_UNKNOWN_32);
-		
-		SPECIAL_EFFECTS.put("invulnerable", L2Character.SPECIAL_EFFECT_INVULNERABLE);
-		SPECIAL_EFFECTS.put("redglow", L2Character.SPECIAL_EFFECT_AIR_STUN);
-		SPECIAL_EFFECTS.put("redglow2", L2Character.SPECIAL_EFFECT_AIR_ROOT);
-		SPECIAL_EFFECTS.put("baguettesword", L2Character.SPECIAL_EFFECT_BAGUETTE_SWORD);
-		SPECIAL_EFFECTS.put("yellowafro", L2Character.SPECIAL_EFFECT_YELLOW_AFFRO);
-		SPECIAL_EFFECTS.put("pinkafro", L2Character.SPECIAL_EFFECT_PINK_AFFRO);
-		SPECIAL_EFFECTS.put("blackafro", L2Character.SPECIAL_EFFECT_BLACK_AFFRO);
-		SPECIAL_EFFECTS.put("unknown8", L2Character.SPECIAL_EFFECT_UNKNOWN8);
-		SPECIAL_EFFECTS.put("unknown9", L2Character.SPECIAL_EFFECT_UNKNOWN9);
-	}
-	
 	private final Constructor<?> _constructor;
 	private final Constructor<?> _stolenConstructor;
 	
@@ -99,6 +47,7 @@ public final class EffectTemplate
 	public final double lambda;
 	public final int count;
 	public final int period;
+	// Effects in mask format due to merging needs
 	public int abnormalEffect;
 	public int specialEffect;
 	public String[] stackTypes;
@@ -133,11 +82,7 @@ public final class EffectTemplate
 		if (set.contains("abnormal"))
 		{
 			final String abnormal = set.getString("abnormal").toLowerCase();
-			
-			if (!ABNORMAL_EFFECTS.containsKey(abnormal))
-				throw new IllegalStateException("Invalid abnormal value: '" + abnormal + "'!");
-			
-			abnormalEffect = ABNORMAL_EFFECTS.get(abnormal);
+			abnormalEffect = AbnormalEffect.getByName(abnormal).getMask();
 		}
 		else
 			abnormalEffect = 0;
@@ -145,11 +90,7 @@ public final class EffectTemplate
 		if (set.contains("special"))
 		{
 			final String special = set.getString("special").toLowerCase();
-			
-			if (!SPECIAL_EFFECTS.containsKey(special))
-				throw new IllegalStateException("Invalid special value: '" + special + "'!");
-			
-			specialEffect = SPECIAL_EFFECTS.get(special);
+			specialEffect = AbnormalEffect.getByName(special).getMask();
 		}
 		else
 			specialEffect = 0;
