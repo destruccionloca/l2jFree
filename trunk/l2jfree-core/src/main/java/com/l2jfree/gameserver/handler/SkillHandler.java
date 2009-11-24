@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.skillhandlers.BalanceLife;
 import com.l2jfree.gameserver.handler.skillhandlers.BallistaBomb;
 import com.l2jfree.gameserver.handler.skillhandlers.BeastFeed;
 import com.l2jfree.gameserver.handler.skillhandlers.ChangeFace;
-import com.l2jfree.gameserver.handler.skillhandlers.ClanGate;
 import com.l2jfree.gameserver.handler.skillhandlers.CombatPointHeal;
 import com.l2jfree.gameserver.handler.skillhandlers.Continuous;
 import com.l2jfree.gameserver.handler.skillhandlers.CpDam;
@@ -86,7 +85,6 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		registerSkillHandler(new BallistaBomb());
 		registerSkillHandler(new BeastFeed());
 		registerSkillHandler(new ChangeFace());
-		registerSkillHandler(new ClanGate());
 		registerSkillHandler(new CombatPointHeal());
 		registerSkillHandler(new Continuous());
 		registerSkillHandler(new CpDam());

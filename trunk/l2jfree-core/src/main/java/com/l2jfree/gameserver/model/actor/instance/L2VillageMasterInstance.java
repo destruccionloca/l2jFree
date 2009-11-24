@@ -856,6 +856,13 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 		final L2Clan clan = player.getClan();
 
+		Castle c = CastleManager.getInstance().getCastleByOwner(clan);
+		if (c != null && c.isGateOpen())
+		{
+			player.sendMessage("Please close the clan gate.");
+			return;
+		}
+
 		final L2ClanMember member = clan.getClanMember(target);
 		if (member == null)
 		{

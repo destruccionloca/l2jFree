@@ -1347,7 +1347,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case TELEPORT:
 			case RECALL:
 			case SUMMON_FRIEND:
-			case CLAN_GATE:
 			case GIVE_SP:
 			case GIVE_VITALITY:
 			case CHANGE_APPEARANCE:

@@ -281,6 +281,8 @@ public class Siege extends AbstractSiege
 
 			announceToParticipants(SystemMessageId.TEMPORARY_ALLIANCE_DISSOLVED.getSystemMessage());
 
+			getCastle().destroyClanGate();
+
 			if (getCastle().getOwnerId() <= 0)
 			{
 				sm = new SystemMessage(SystemMessageId.SIEGE_S1_DRAW);
