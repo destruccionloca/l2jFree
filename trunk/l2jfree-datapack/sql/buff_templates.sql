@@ -53,16 +53,16 @@ CREATE TABLE `buff_templates` (
 -- price_points - amount of faction poins for buff
 
 INSERT INTO `buff_templates` VALUES 
-(1, 'SupportMagic', 4322, 'WindWalk', 1, 1, 1, 6, 62, 0, 0, 0, 0, 0),
-(1, 'SupportMagic', 4323, 'Shield', 1, 1, 2, 6, 62, 0, 0, 0, 0, 0),
-(1, 'SupportMagic', 4338, 'Life Cubic', 1, 1, 3, 16, 34, 0, 0, 0, 0, 0),
-(1, 'SupportMagic', 4324, 'Bless the Body', 1, 1, 4, 6, 62, 0, 1, 0, 0, 0),
-(1, 'SupportMagic', 4325, 'Vampiric Rage', 1, 1, 5, 6, 62, 0, 1, 0, 0, 0),
-(1, 'SupportMagic', 4326, 'Regeneration', 1, 1, 6, 6, 62, 0, 1, 0, 0, 0),
-(1, 'SupportMagic', 4327, 'Haste', 1, 1, 7, 6, 39, 0, 1, 0, 0, 0),
-(1, 'SupportMagic', 5632, 'Haste', 1, 1, 8, 40, 62, 0, 1, 0, 0, 0),
-(1, 'SupportMagic', 4328, 'Bless the Soul', 1, 1, 9, 6, 62, 0, 2, 0, 0, 0),
-(1, 'SupportMagic', 4329, 'Acumen', 1, 1, 10, 6, 62, 0, 2, 0, 0, 0),
-(1, 'SupportMagic', 4330, 'Concentration', 1, 1, 11, 6, 62, 0, 2, 0, 0, 0),
-(1, 'SupportMagic', 4331, 'Empower', 1, 1, 12, 6, 62, 0, 2, 0, 0, 0),
-(1, 'SupportMagic', 5637, 'Magic Barrier', 1, 1, 13, 6, 62, 0, 0, 0, 0, 0);
+(1,'SupportMagic',5627,'WindWalk',1,1,1,6,62,0,0,0,0,0),
+(1,'SupportMagic',5628,'Shield',1,1,2,6,62,0,0,0,0,0),
+(1,'SupportMagic',4338,'Life Cubic',1,1,3,16,34,0,0,0,0,0),
+(1,'SupportMagic',5629,'Bless the Body',1,1,4,6,62,0,1,0,0,0),
+(1,'SupportMagic',5630,'Vampiric Rage',1,1,5,6,62,0,1,0,0,0),
+(1,'SupportMagic',5631,'Regeneration',1,1,6,6,62,0,1,0,0,0),
+(1,'SupportMagic',5632,'Haste',1,1,7,6,39,0,1,0,0,0),
+(1,'SupportMagic',5632,'Haste',1,1,8,40,62,0,1,0,0,0),
+(1,'SupportMagic',5633,'Bless the Soul',1,1,9,6,62,0,2,0,0,0),
+(1,'SupportMagic',5634,'Acumen',1,1,10,6,62,0,2,0,0,0),
+(1,'SupportMagic',5635,'Concentration',1,1,11,6,62,0,2,0,0,0),
+(1,'SupportMagic',5636,'Empower',1,1,12,6,62,0,2,0,0,0),
+(1,'SupportMagic',5637,'Magic Barrier',1,1,13,6,62,0,0,0,0,0);
