@@ -234,8 +234,9 @@
       <point x="-203345" y="241646"/>
     </shape>
   </zone>
-	<!-- Pagans mark --> 
-  <zone id="21" name="PaganZone">
+  <!-- Pagans mark --> 
+  <zone id="21" name="PaganZone" type="Pagan">
+    <settings affected="playable"/>
     <shape type="Poly" zMin="-10735" zMax="-10720">
       <point x="-16100" y="-36620"/>
       <point x="-16600" y="-36620"/>

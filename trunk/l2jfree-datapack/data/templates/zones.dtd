@@ -9,7 +9,7 @@
 <!ATTLIST zone enabled (true|false) #IMPLIED>
 <!ATTLIST zone id CDATA #REQUIRED>
 <!ATTLIST zone name CDATA #REQUIRED>
-<!ATTLIST zone type (Arena|Boss|CastleTeleport|Castle|Clanhall|CoreBarrier|Damage|Danger|DefenderSpawn|Dynamic|Fishing|Fort|HeadQuarters|Jail|Mothertree|Regeneration|SiegeDanger|Siege|Stadium|Town|Water|Script) #IMPLIED>
+<!ATTLIST zone type (Arena|Boss|CastleTeleport|Castle|Clanhall|CoreBarrier|Damage|Danger|DefenderSpawn|Dynamic|Fishing|Fort|HeadQuarters|Jail|Mothertree|Pagan|Regeneration|Script|SiegeDanger|Siege|Stadium|Town|Water) #IMPLIED>
 <!ELEMENT zone (entity?,instance?,msg?,settings?,skill?,restart_chaotic*,restart_owner*,shape+,cond?)>
 
 <!-- Entity -->
