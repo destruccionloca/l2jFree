@@ -719,6 +719,8 @@ public class Config extends L2Config
 	public static int			AUGMENTATION_TOP_SKILL_CHANCE; // Chance to get a skill while using a TopGrade Life Stone
 	public static int			AUGMENTATION_TOP_GLOW_CHANCE; // Chance to get a Glow effect while using a TopGrade Life Stone
 	public static int			AUGMENTATION_BASESTAT_CHANCE; // Chance to get a BaseStatModifier in the augmentation process
+	public static int			AUGMENTATION_ACC_SKILL_CHANCE;
+	public static int[]			AUGMENTATION_BLACKLIST;
 
 	// *******************************************************************************************
 	private static final class EnchantConfig extends ConfigLoader
@@ -764,7 +766,7 @@ public class Config extends L2Config
 			ENCHANT_DWARF_3_CHANCE = Integer.parseInt(enchantSettings.getProperty("EnchantDwarf3Chance", "15"));
 
 
-			AUGMENT_EXCLUDE_NOTDONE = Boolean.parseBoolean(enchantSettings.getProperty("AugmentExcludeNotdone", "False"));
+			AUGMENT_EXCLUDE_NOTDONE				= Boolean.parseBoolean(enchantSettings.getProperty("AugmentExcludeNotdone", "False"));
 			AUGMENTATION_NG_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationNGSkillChance", "15"));
 			AUGMENTATION_NG_GLOW_CHANCE			= Integer.parseInt(enchantSettings.getProperty("AugmentationNGGlowChance", "0"));
 			AUGMENTATION_MID_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationMidSkillChance", "30"));
@@ -774,7 +776,11 @@ public class Config extends L2Config
 			AUGMENTATION_TOP_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationTopSkillChance", "60"));
 			AUGMENTATION_TOP_GLOW_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationTopGlowChance", "100"));
 			AUGMENTATION_BASESTAT_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationBaseStatChance", "1"));
-
+			AUGMENTATION_ACC_SKILL_CHANCE		= Integer.parseInt(enchantSettings.getProperty("AugmentationAccSkillChance", "0"));
+			StringTokenizer st = new StringTokenizer(enchantSettings.getProperty("AugmentationBlackList", "6656,6657,6658,6659,6660,6661,6662,8191,10170,10314"), ",");
+			AUGMENTATION_BLACKLIST = new int[st.countTokens()];
+			for (int i = 0; st.hasMoreTokens(); i++)
+				AUGMENTATION_BLACKLIST[i] = Integer.parseInt(st.nextToken());
 		}
 	}
 

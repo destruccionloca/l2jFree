@@ -157,30 +157,30 @@ public final class ItemTable
 	/** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
 	private static final String[] SQL_ITEM_SELECTS = {
 		"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type,"
-			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, skills_item, handler FROM etcitem",
+			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, skills_item, handler FROM etcitem",
 		
 		"SELECT item_id, name, bodypart, crystallizable, armor_type, weight,"
 			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
-			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, enchant4_skill, skills_item FROM armor",
+			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, enchant4_skill, skills_item FROM armor",
 		
 		"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
 			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
-			+ " sellable,  dropable, destroyable, tradeable, skills_item, enchant4_skill,"
+			+ " sellable,  dropable, destroyable, tradeable, depositable, skills_item, enchant4_skill,"
 			+ " skills_onCast, skills_onCrit, change_weaponId FROM weapon" };
 	
 	private static final String[] SQL_CUSTOM_ITEM_SELECTS = {
 		"SELECT item_id, item_display_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type,"
-			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, skills_item, handler FROM custom_etcitem",
+			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, skills_item, handler FROM custom_etcitem",
 		
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight,"
 			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
-			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, enchant4_skill, skills_item FROM custom_armor",
+			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, enchant4_skill, skills_item FROM custom_armor",
 		
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
 			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
 			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
-			+ " sellable,  dropable, destroyable, tradeable, skills_item, enchant4_skill,"
+			+ " sellable,  dropable, destroyable, tradeable, depositable, skills_item, enchant4_skill,"
 			+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
 	
 	private static final class SingletonHolder
@@ -373,6 +373,7 @@ public final class ItemTable
 		item.set.set("dropable", Boolean.valueOf(rset.getString("dropable")));
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
+		item.set.set("depositable", Boolean.valueOf(rset.getString("depositable")));
 		
 		item.set.set("skills_item", rset.getString("skills_item"));
 		item.set.set("enchant4_skill", rset.getString("enchant4_skill"));
@@ -427,6 +428,7 @@ public final class ItemTable
 		item.set.set("dropable", Boolean.valueOf(rset.getString("dropable")));
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
+		item.set.set("depositable", Boolean.valueOf(rset.getString("depositable")));
 		item.set.set("enchant4_skill", rset.getString("enchant4_skill"));
 		item.set.set("skills_item", rset.getString("skills_item"));
 		
@@ -515,6 +517,7 @@ public final class ItemTable
 		item.set.set("dropable", Boolean.valueOf(rset.getString("dropable")));
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
+		item.set.set("depositable", Boolean.valueOf(rset.getString("depositable")));
 		item.set.set("skills_item", rset.getString("skills_item"));
 		item.set.set("handler", rset.getString("handler"));
 		

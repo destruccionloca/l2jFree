@@ -686,15 +686,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public boolean isDepositable(boolean isPrivateWareHouse)
 	{
 		// equipped, hero and quest items
-		if (isEquipped() || isHeroItem() || _item.getItemType() == L2EtcItemType.QUEST)
+		if (isEquipped() || !_item.isDepositable())
 			return false;
-
-		switch (getItemId())
-		{
-			// Staff of Master Yogi
-			case 13539:
-				return false;
-		}
 
 		if (!isPrivateWareHouse)
 		{

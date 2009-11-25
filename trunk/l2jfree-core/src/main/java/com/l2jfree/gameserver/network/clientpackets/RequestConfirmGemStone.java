@@ -17,25 +17,20 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutCommissionResultForVariationMake;
-import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * Format:(ch) dddd
  * @author  -Wooden-
  */
-public final class RequestConfirmGemStone extends L2GameClientPacket
+public final class RequestConfirmGemStone extends AbstractRefinePacket
 {
 	private static final String _C__D0_2B_REQUESTCONFIRMGEMSTONE = "[C] D0:2B RequestConfirmGemStone";
-	public static final int GEMSTONE_D = 2130;
-	public static final int GEMSTONE_C = 2131;
-	public static final int GEMSTONE_B = 2132;
 
 	private int _targetItemObjId;
 	private int _refinerItemObjId;
 	private int _gemstoneItemObjId;
-	private long _gemstoneCount;
+	private long _gemStoneCount;
 
 	@Override
 	protected void readImpl()
@@ -43,7 +38,7 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		_gemstoneCount= readCompQ();
+		_gemStoneCount= readCompQ();
 	}
 
 	@Override
@@ -55,65 +50,40 @@ public final class RequestConfirmGemStone extends L2GameClientPacket
 
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		L2ItemInstance refinerItem = activeChar.getInventory().getItemByObjectId(_refinerItemObjId);
-		L2ItemInstance gemstoneItem = activeChar.getInventory().getItemByObjectId(_gemstoneItemObjId);
-		if (targetItem == null || refinerItem == null || gemstoneItem == null)
+		L2ItemInstance gemStoneItem = activeChar.getInventory().getItemByObjectId(_gemstoneItemObjId);
+		if (targetItem == null || refinerItem == null || gemStoneItem == null)
 		{
 			requestFailed(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return;
 		}
 
+		if (!isValid(activeChar))
+		{
+			sendAF();
+			return;
+		}
 		// Make sure the item is a gemstone
-		int gemstoneItemId = gemstoneItem.getItem().getItemId();
-		if (gemstoneItemId != GEMSTONE_D && gemstoneItemId != GEMSTONE_C && gemstoneItemId != GEMSTONE_B)
+		if (!isValid(activeChar, targetItem, refinerItem, gemStoneItem))
 		{
 			requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
 
-		// Check if the gemstoneCount is sufficient
-		switch (targetItem.getItem().getCrystalType())
+		// Check for gemstone count
+		final LifeStone ls = getLifeStone(refinerItem.getItemId());
+		if (ls == null)
+			return;
+
+		if (_gemStoneCount != getGemStoneCount(targetItem.getItem().getItemGrade(), ls.getGrade()))
 		{
-			case L2Item.CRYSTAL_C:
-				if (_gemstoneCount != 20 || gemstoneItemId != GEMSTONE_D)
-				{
-					requestFailed(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
-					return;
-				}
-				break;
-			case L2Item.CRYSTAL_B:
-				if (_gemstoneCount != 30 || gemstoneItemId != GEMSTONE_D)
-				{
-					requestFailed(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
-					return;
-				}
-				break;
-			case L2Item.CRYSTAL_A:
-				if (_gemstoneCount != 20 || gemstoneItemId != GEMSTONE_C)
-				{
-					requestFailed(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
-					return;
-				}
-				break;
-			case L2Item.CRYSTAL_S:
-				if (_gemstoneCount != 25 || gemstoneItemId != GEMSTONE_C)
-				{
-					requestFailed(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
-					return;
-				}
-				break;
-			case L2Item.CRYSTAL_S80:
-			case L2Item.CRYSTAL_S84:
-				if (_gemstoneCount != 36 || gemstoneItemId != GEMSTONE_B)
-				{
-					activeChar.sendPacket(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
-					return;
-				}
-				break;
+			requestFailed(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT);
+			return;
 		}
 
-		activeChar.sendPacket(new ExPutCommissionResultForVariationMake(_gemstoneItemObjId, _gemstoneCount, gemstoneItemId));
+		sendPacket(new ExPutCommissionResultForVariationMake(_gemstoneItemObjId, _gemStoneCount, gemStoneItem.getItemId()));
 		sendPacket(SystemMessageId.PRESS_THE_AUGMENT_BUTTON_TO_BEGIN);
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override

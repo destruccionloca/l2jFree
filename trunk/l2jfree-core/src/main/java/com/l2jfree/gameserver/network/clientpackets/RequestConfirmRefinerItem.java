@@ -17,22 +17,16 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutIntensiveResultForVariationMake;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * Fromat(ch) dd
  * @author  -Wooden-
  */
-public class RequestConfirmRefinerItem extends L2GameClientPacket
+public class RequestConfirmRefinerItem extends AbstractRefinePacket
 {
 	private static final String _C__D0_2A_REQUESTCONFIRMREFINERITEM = "[C] D0:2A RequestConfirmRefinerItem";
-	//to avoid unnecessary string allocation
-	private static final String GEMSTONE_D = "Gemstone D";
-	private static final String GEMSTONE_C = "Gemstone C";
-	private static final String GEMSTONE_B = "Gemstone B";
 
 	private int _targetItemObjId;
 	private int _refinerItemObjId;
@@ -48,7 +42,8 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		L2ItemInstance refinerItem = activeChar.getInventory().getItemByObjectId(_refinerItemObjId);
@@ -58,56 +53,30 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 			return;
 		}
 
-		int refinerItemId = refinerItem.getItem().getItemId();
- 
-		// is the item a life stone?
-		if (!refinerItem.getItem().isLifeStone())
+		if (!isValid(activeChar))
+		{
+			sendAF();
+			return;
+		}
+		if (!isValid(activeChar, targetItem, refinerItem))
 		{
 			requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
 
-		int gemstoneCount = 0;
-		int gemstoneItemId = 0;
+		final int refinerItemId = refinerItem.getItem().getItemId();
+		final int grade = targetItem.getItem().getItemGrade();
+		final LifeStone ls = getLifeStone(refinerItemId);
+		final int gemStoneId = getGemStoneId(grade);
+		final int gemStoneCount = getGemStoneCount(grade, ls.getGrade());
 		SystemMessage sm = new SystemMessage(SystemMessageId.REQUIRES_S1_S2);
-		switch (targetItem.getItem().getCrystalType())
-		{
-			case L2Item.CRYSTAL_C:
-				gemstoneCount = 20;
-				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_D;
-				sm.addItemNumber(gemstoneCount);
-				sm.addString(GEMSTONE_D);
-				break;
-			case L2Item.CRYSTAL_B:
-				gemstoneCount = 30;
-				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_D;
-				sm.addItemNumber(gemstoneCount);
-				sm.addString(GEMSTONE_D);
-				break;
-			case L2Item.CRYSTAL_A:
-				gemstoneCount = 20;
-				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_C;
-				sm.addItemNumber(gemstoneCount);
-				sm.addString(GEMSTONE_C);
-				break;
-			case L2Item.CRYSTAL_S:
-				gemstoneCount = 25;
-				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_C;
-				sm.addItemNumber(gemstoneCount);
-				sm.addString(GEMSTONE_C);
-				break;
-			case L2Item.CRYSTAL_S80:
-			case L2Item.CRYSTAL_S84:
-				gemstoneCount = 36;
-				gemstoneItemId = RequestConfirmGemStone.GEMSTONE_B;
-				sm.addItemNumber(gemstoneCount);
-				sm.addString(GEMSTONE_B);
-				break;
-		}
+		sm.addItemNumber(gemStoneCount);
+		sm.addItemName(gemStoneId);
 
-		sendPacket(new ExPutIntensiveResultForVariationMake(_refinerItemObjId, refinerItemId, gemstoneItemId, gemstoneCount));
+		sendPacket(new ExPutIntensiveResultForVariationMake(_refinerItemObjId, refinerItemId, gemStoneId, gemStoneCount));
 		sendPacket(sm);
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override

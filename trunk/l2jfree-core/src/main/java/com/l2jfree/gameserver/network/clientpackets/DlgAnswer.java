@@ -18,7 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * @author Dezmond_snz
@@ -44,7 +43,8 @@ public class DlgAnswer extends L2GameClientPacket
     public void runImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();
-        if (cha == null) return;
+        if (cha == null)
+        	return;
 
         if(_log.isDebugEnabled())
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", Requester ID "+_requesterId);
@@ -63,7 +63,7 @@ public class DlgAnswer extends L2GameClientPacket
         else if (_messageId == SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION.getId())
         	MercTicketManager.getInstance().addPosition(cha);
 
-        sendPacket(ActionFailed.STATIC_PACKET);
+        sendAF();
     }
 
     @Override

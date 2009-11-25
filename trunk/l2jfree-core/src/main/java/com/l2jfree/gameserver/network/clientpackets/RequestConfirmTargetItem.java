@@ -17,15 +17,13 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutItemResultForVariationMake;
-import com.l2jfree.gameserver.templates.item.L2Item;
 
 /**
  * Format:(ch) d
  * @author  -Wooden-
  */
-public final class RequestConfirmTargetItem extends L2GameClientPacket
+public final class RequestConfirmTargetItem extends AbstractRefinePacket
 {
 	private static final String _C__D0_29_REQUESTCONFIRMTARGETITEM = "[C] D0:29 RequestConfirmTargetItem";
 
@@ -43,48 +41,31 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_itemObjId);
-		if (item == null || activeChar.getLevel() < 46)
+		if (item == null)
 		{
 			requestFailed(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return;
 		}
 
-		// check if the item is augmentable
-		int itemGrade = item.getItem().getItemGrade();
-		int itemType = item.getItem().getType2();
-
-		SystemMessageId fail = null;
-		if (item.isAugmented())
-			fail = SystemMessageId.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN;
-		else if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON ||
-				!item.isDestroyable() || item.isShadowItem() ||
-				item.getItem().isCommonItem() || item.isTimeLimitedItem() || item.isPvp())
-			fail = SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM;
-
-		// check if the player can augment
-		else if (activeChar.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)
-			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION;
-		else if (activeChar.getActiveTradeList() != null)
-			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_TRADING;
-		else if (activeChar.isDead())
-			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD;
-		else if (activeChar.isParalyzed())
-			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED;
-		else if (activeChar.isFishing())
-			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING;
-		else if (activeChar.isSitting())
-			fail = SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_SITTING_DOWN;
-
-		if (fail != null)
+		if (!isValid(activeChar))
 		{
-			requestFailed(fail);
-			fail = null;
+			sendAF();
+			return;
+		}
+		if (!isValid(activeChar, item))
+		{
+			// Different system message here
+			if (item.isAugmented())
+				requestFailed(SystemMessageId.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN);
+			else
+				requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
 
 		sendPacket(new ExPutItemResultForVariationMake(_itemObjId));
 		sendPacket(SystemMessageId.SELECT_THE_CATALYST_FOR_AUGMENTATION);
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override
