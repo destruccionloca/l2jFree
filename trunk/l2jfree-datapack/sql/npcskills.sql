@@ -24561,7 +24561,8 @@ INSERT INTO `npcskills` VALUES
 (25534,4494,1),
 (25534,5238,1),
 (25534,5420,1),
-(25534,5421,1),
+-- someone forgot to remove this skill from mobskillanimgrp after deleting from skillname/grp
+-- (25534,5421,1),
 (25534,5463,1),
 (25534,5472,1), -- Raid Boss - Level 83
 (25535,4045,1),

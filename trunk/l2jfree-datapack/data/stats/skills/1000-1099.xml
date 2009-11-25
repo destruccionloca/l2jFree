@@ -863,9 +863,9 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant1 name="power" val="#ench1power"/>
+    <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <cond msgId="109">
       <target undead="true"/>
     </cond>

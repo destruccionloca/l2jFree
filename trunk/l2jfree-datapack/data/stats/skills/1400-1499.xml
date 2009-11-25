@@ -504,8 +504,7 @@
     <set name="castRange" val="900"/>
     <cond msg="inapproipate conditions">
     <!-- Please verify for correct cond message, I'm not sure if this is -->
-      <player spell_force="3"/>
-      <player olympiad="false"/>
+      <player spell_force="3" olympiad="false"/>
     </cond>
     <for>
       <!--

@@ -736,7 +736,6 @@
     <set name="mpConsume" val="43"/>
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
-    <set name="magicLvl" val="79"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="8000"/>
@@ -1662,7 +1661,7 @@
     <set name="effectType" val="DOT"/>
     <set name="effectLevel" val="#effectLevel"/>
     <for>
-      <effect count="11" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
+      <effect count="11" name="DamOverTime" time="3" val="#dmg" abnormal="bleed"/>
     </for>
   </skill>
   <skill id="579" levels="4" name="Fire Armor">
