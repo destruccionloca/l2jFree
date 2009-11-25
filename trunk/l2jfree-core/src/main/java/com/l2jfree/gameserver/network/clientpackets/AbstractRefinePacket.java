@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
-import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public abstract class AbstractRefinePacket extends L2GameClientPacket
 {
@@ -256,15 +255,29 @@ public abstract class AbstractRefinePacket extends L2GameClientPacket
 			return false;
 		if (item.getItem().getCrystalType() < L2Item.CRYSTAL_C)
 			return false;
-		if (item.getItem().getItemType() == L2WeaponType.ROD)
-			return false;
 
 		// Source item can be equipped or in inventory
-		if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY
-				&& item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL)
+		switch (item.getLocation())
+		{
+		case INVENTORY:
+		case PAPERDOLL:
+			break;
+		default:
 			return false;
+		}
 
-		if (item.getItem() instanceof L2Armor)
+		if (item.getItem() instanceof L2Weapon)
+		{
+			switch (((L2Weapon)item.getItem()).getItemType()) 
+			{
+			case NONE: //shields
+			case ROD:
+				return false;
+			default:
+				break;
+			}
+		}
+		else if (item.getItem() instanceof L2Armor)
 		{
 			// only accessories can be augmented
 			switch (item.getItem().getBodyPart())
@@ -277,6 +290,8 @@ public abstract class AbstractRefinePacket extends L2GameClientPacket
 					return false;
 			}
 		}
+		else
+			return false; // neither weapon nor armor ?
 
 		// blacklist check
 		if (Arrays.binarySearch(Config.AUGMENTATION_BLACKLIST, item.getItemId()) >= 0)

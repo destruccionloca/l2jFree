@@ -44,6 +44,7 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.form.Shape;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
@@ -972,6 +973,16 @@ public class L2Zone implements FuncOwner
 			return null;
 		
 		return _questEvents[EventType.ordinal()];
+	}
+	
+	/**
+	 * Broadcasts packet to all players inside the zone
+	 */
+	public void broadcastPacket(L2GameServerPacket packet)
+	{
+		for (L2Character character : getCharactersInside())
+			if (character instanceof L2PcInstance)
+				character.getActingPlayer().sendPacket(packet);
 	}
 	
 	// Zone parser

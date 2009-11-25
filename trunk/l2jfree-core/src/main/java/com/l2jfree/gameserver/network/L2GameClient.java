@@ -301,6 +301,11 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement.execute();
 			statement.close();
 
+			statement = con.prepareStatement("DELETE FROM character_instance_time WHERE charId=?");
+			statement.setInt(1, objid);
+			statement.execute();
+			statement.close();
+
 			statement = con.prepareStatement("DELETE FROM character_hennas WHERE charId=?");
 			statement.setInt(1, objid);
 			statement.execute();

@@ -20,11 +20,6 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.QuestList;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestQuestAbort extends L2GameClientPacket
 {
 	private static final String	_C__64_REQUESTQUESTABORT	= "[C] 64 RequestQuestAbort";
@@ -54,6 +49,7 @@ public class RequestQuestAbort extends L2GameClientPacket
 			if (qs != null)
 			{
 				qs.exitQuest(true);
+				// Is it still necessary?
 				if (qe.getName() == "605_AllianceWithKetraOrcs" || qe.getName() == "611_AllianceWithVarkaSilenos")
 					activeChar.setAllianceWithVarkaKetra(0);
 				sendPacket(new QuestList(activeChar));
@@ -61,13 +57,13 @@ public class RequestQuestAbort extends L2GameClientPacket
 			else
 			{
 				if (_log.isDebugEnabled())
-					_log.info("Player '" + activeChar.getName() + "' tried to abort quest " + qe.getName() + " but he didn't have it started.");
+					_log.debug("Player '"+activeChar.getName()+"' try to abort quest "+qe.getName()+" but he didn't have it started.");
 			}
 		}
 		else
 		{
 			if (_log.isDebugEnabled())
-				_log.warn("Quest (id='" + _questId + "') not found.");
+				_log.warn("Quest (id='"+_questId+"') not found.");
 		}
 
 		sendAF();
