@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS `custom_weapon`;
-CREATE TABLE `custom_weapon` (
+CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(120) NOT NULL DEFAULT '',
   `bodypart` VARCHAR(15) NOT NULL DEFAULT '',
@@ -28,6 +27,7 @@ CREATE TABLE `custom_weapon` (
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
+  `depositable` VARCHAR(5) NOT NULL default 'false',
   `enchant4_skill` VARCHAR(70) NOT NULL DEFAULT '',
   `skills_onCast` VARCHAR(70) NOT NULL DEFAULT '',
   `skills_onCrit` VARCHAR(70) NOT NULL DEFAULT '',

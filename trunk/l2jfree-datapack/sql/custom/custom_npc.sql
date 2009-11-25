@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS `custom_npc`;
-CREATE TABLE `custom_npc` (
+CREATE TABLE IF NOT EXISTS `custom_npc` (
   `id` DECIMAL(11,0) NOT NULL DEFAULT 0,
   `idTemplate` INT(11) NOT NULL DEFAULT 0,
   `name` VARCHAR(200) DEFAULT NULL,

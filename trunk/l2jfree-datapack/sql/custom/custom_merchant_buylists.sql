@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS `custom_merchant_buylists`;
-CREATE TABLE `custom_merchant_buylists` (
+CREATE TABLE IF NOT EXISTS `custom_merchant_buylists` (
   `item_id` DECIMAL(9,0) NOT NULL DEFAULT 0,
   `price` DECIMAL(11,0) NOT NULL DEFAULT 0,
   `shop_id` DECIMAL(9,0) NOT NULL DEFAULT 0,

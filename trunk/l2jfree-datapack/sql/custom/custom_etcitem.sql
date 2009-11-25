@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS `custom_etcitem`;
-CREATE TABLE `custom_etcitem` (
+CREATE TABLE IF NOT EXISTS `custom_etcitem` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(100) NOT NULL DEFAULT '',
   `crystallizable` VARCHAR(5) NOT NULL DEFAULT 'false',
@@ -16,6 +15,7 @@ CREATE TABLE `custom_etcitem` (
   `dropable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `destroyable` VARCHAR(5) NOT NULL DEFAULT 'true',
   `tradeable` VARCHAR(5) NOT NULL DEFAULT 'false',
+  `depositable` VARCHAR(5) NOT NULL default 'false',
   `handler` VARCHAR(70) NOT NULL DEFAULT 'none',
   `skills_item` VARCHAR(70) NOT NULL DEFAULT '',
   PRIMARY KEY (`item_id`)
