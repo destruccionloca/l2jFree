@@ -3,30 +3,33 @@
 <list>
   <item id="10527" name="Dynasty Staff - Mana Up">
     <for>
-      <set val="267" order="0x08" stat="pAtk"/>
+      <set val="325" order="0x08" stat="pAtk"/>
       <set val="222" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
-      <set val="379" order="0x08" stat="pAtkSpd"/>
+      <add val="4" order="0x10" stat="accCombat"/>
+      <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>
   </item>
   <item id="10528" name="Dynasty Staff - Conversion">
     <for>
-      <set val="267" order="0x08" stat="pAtk"/>
+      <set val="325" order="0x08" stat="pAtk"/>
       <set val="222" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
-      <set val="379" order="0x08" stat="pAtkSpd"/>
+      <add val="4" order="0x10" stat="accCombat"/>
+      <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>
   </item>
   <item id="10529" name="Dynasty Staff - Acumen">
     <for>
-      <set val="267" order="0x08" stat="pAtk"/>
+      <set val="325" order="0x08" stat="pAtk"/>
       <set val="222" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
-      <set val="379" order="0x08" stat="pAtkSpd"/>
+      <add val="4" order="0x10" stat="accCombat"/>
+      <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>
@@ -36,7 +39,8 @@
       <set val="405" order="0x08" stat="pAtk"/>
       <set val="151" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
-      <set val="379" order="0x08" stat="pAtkSpd"/>
+      <add val="4" order="0x10" stat="accCombat"/>
+      <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>
@@ -46,7 +50,8 @@
       <set val="405" order="0x08" stat="pAtk"/>
       <set val="151" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
-      <set val="379" order="0x08" stat="pAtkSpd"/>
+      <add val="4" order="0x10" stat="accCombat"/>
+      <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>
@@ -56,7 +61,8 @@
       <set val="405" order="0x08" stat="pAtk"/>
       <set val="151" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
-      <set val="379" order="0x08" stat="pAtkSpd"/>
+      <add val="4" order="0x10" stat="accCombat"/>
+      <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
     </for>

@@ -102,7 +102,7 @@
   </item>
   <item id="11309" name="Icarus Shooter - Concentration">
     <for>
-      <set val="400" order="0x08" stat="pAtk"/>
+      <set val="422" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
       <set val="10" order="0x08" stat="rCrit"/>
       <add val="-1" order="0x10" stat="accCombat"/>
@@ -113,7 +113,7 @@
   </item>
   <item id="11310" name="Icarus Shooter - Concentration - Cheap Shot">
     <for>
-      <set val="400" order="0x08" stat="pAtk"/>
+      <set val="422" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
       <set val="10" order="0x08" stat="rCrit"/>
       <add val="-1" order="0x10" stat="accCombat"/>
@@ -126,7 +126,7 @@
   </item>
   <item id="11311" name="Icarus Shooter - Concentration - Guidance">
     <for>
-      <set val="400" order="0x08" stat="pAtk"/>
+      <set val="422" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
       <set val="10" order="0x08" stat="rCrit"/>
       <add val="-1" order="0x10" stat="accCombat"/>
@@ -137,7 +137,7 @@
   </item>
   <item id="11312" name="Icarus Shooter - Concentration - Focus">
     <for>
-      <set val="400" order="0x08" stat="pAtk"/>
+      <set val="422" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
       <set val="10" order="0x08" stat="rCrit"/>
       <add val="-1" order="0x10" stat="accCombat"/>
@@ -288,7 +288,7 @@
     <for>
       <set val="393" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
-      <set val="6" order="0x08" stat="rCrit"/>
+      <set val="8" order="0x08" stat="rCrit"/>
       <add val="2" order="0x10" stat="accCombat"/>
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
@@ -299,7 +299,7 @@
     <for>
       <set val="393" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
-      <set val="6" order="0x08" stat="rCrit"/>
+      <set val="8" order="0x08" stat="rCrit"/>
       <add val="2" order="0x10" stat="accCombat"/>
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
@@ -310,7 +310,7 @@
     <for>
       <set val="393" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
-      <set val="6" order="0x08" stat="rCrit"/>
+      <set val="8" order="0x08" stat="rCrit"/>
       <add val="2" order="0x10" stat="accCombat"/>
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
@@ -321,7 +321,7 @@
     <for>
       <set val="393" order="0x08" stat="pAtk"/>
       <set val="163" order="0x08" stat="mAtk"/>
-      <set val="6" order="0x08" stat="rCrit"/>
+      <set val="8" order="0x08" stat="rCrit"/>
       <add val="2" order="0x10" stat="accCombat"/>
       <set val="350" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
