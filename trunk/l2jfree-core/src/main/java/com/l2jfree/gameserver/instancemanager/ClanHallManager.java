@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -33,11 +34,13 @@ import com.l2jfree.gameserver.model.entity.ClanHall;
 
 public class ClanHallManager
 {
-	protected static Log			_log	= LogFactory.getLog(ClanHallManager.class);
+	protected static final Log				_log = LogFactory.getLog(ClanHallManager.class);
 
 	private final Map<Integer, ClanHall>	_clanHall;
 	private final Map<Integer, ClanHall>	_freeClanHall;
 	private final Map<Integer, ClanHall>	_allClanHalls;
+	private final Map<Integer, ClanHall[]>	_townClanHalls;
+	private final Town[]					_towns;
 	private static boolean			_loaded	= false;
 
 	public static ClanHallManager getInstance()
@@ -55,6 +58,18 @@ public class ClanHallManager
 		_clanHall = new FastMap<Integer, ClanHall>();
 		_freeClanHall = new FastMap<Integer, ClanHall>();
 		_allClanHalls = new FastMap<Integer, ClanHall>();
+		_townClanHalls = new FastMap<Integer, ClanHall[]>();
+
+		_towns = new Town[8];
+		_towns[0] = new Town(5, "Gludio");
+		_towns[1] = new Town(6, "Gludin");
+		_towns[2] = new Town(7, "Dion");
+		_towns[3] = new Town(8, "Giran");
+		_towns[4] = new Town(10, "Aden");
+		_towns[5] = new Town(15, "Goddard");
+		_towns[6] = new Town(14, "Rune");
+		_towns[7] = new Town(16, "Schuttgart");
+
 		load();
 	}
 
@@ -121,6 +136,20 @@ public class ClanHallManager
 			statement.close();
 			_log.info("ClanHallManager: loaded " + getClanHalls().size() + " clan halls");
 			_log.info("ClanHallManager: loaded " + getFreeClanHalls().size() + " free clan halls");
+
+			ClanHall[] allHalls = _allClanHalls.values().toArray(new ClanHall[_allClanHalls.size()]);
+			FastList<ClanHall> townHalls = new FastList<ClanHall>();
+			for (Town t : _towns)
+			{
+				for (ClanHall ch : allHalls)
+					if (ch.getLocation().equals(t.toString()))
+						townHalls.add(ch);
+
+				_townClanHalls.put(t.getId(), townHalls.toArray(new ClanHall[townHalls.size()]));
+				_log.info("ClanHallManager: " + townHalls.size() + " halls in " + t.toString());
+				townHalls.clear();
+			}
+
 			_loaded = true;
 		}
 		catch (SQLException e)
@@ -260,9 +289,45 @@ public class ClanHallManager
 		return clanH;
 	}
 
+	public final ClanHall[] getTownClanHalls(int townId) {
+		return _townClanHalls.get(townId);
+	}
+
+	// Currently unused
+	public final int getTown(ClanHall hideout) {
+		String loc = hideout.getLocation();
+		for (Town t : _towns)
+			if (loc.equals(t.toString()))
+				return t.getId();
+		return -1;
+	}
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
 		protected static final ClanHallManager _instance = new ClanHallManager();
+	}
+
+	private class Town {
+		private final int _id;
+		private final String _loc;
+
+		private Town(int id, String loc) {
+			_id = id;
+			_loc = loc;
+		}
+
+		private final int getId() {
+			return _id;
+		}
+
+		private final String getLocation() {
+			return _loc;
+		}
+
+		@Override
+		public final String toString() {
+			return getLocation();
+		}
 	}
 }

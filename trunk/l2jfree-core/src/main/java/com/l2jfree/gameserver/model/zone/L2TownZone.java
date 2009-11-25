@@ -19,9 +19,12 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.network.serverpackets.AgitDecoInfo;
 
 public class L2TownZone extends L2Zone
 {
@@ -62,6 +65,15 @@ public class L2TownZone extends L2Zone
 		character.setInsideZone(FLAG_TOWN, true);
 		
 		super.onEnter(character);
+		
+		// Players must always see deco, not only inside clan hall.
+		// retail server behavior
+		if (character instanceof L2PcInstance)
+		{
+			ClanHall[] townHalls = ClanHallManager.getInstance().getTownClanHalls(getTownId());
+			for (ClanHall ch : townHalls)
+				character.getActingPlayer().sendPacket(new AgitDecoInfo(ch));
+		}
 	}
 	
 	@Override

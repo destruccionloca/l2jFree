@@ -1212,6 +1212,7 @@ public class Config extends L2Config
 	public static boolean			ALT_DEV_NO_QUESTS;								// Alt Settings for devs
 	public static boolean			ALT_DEV_NO_SPAWNS;								// Alt Settings for devs
 	public static boolean			ENABLE_JYTHON_SHELL;							// JythonShell
+	public static boolean			ALT_DEV_VERIFY_NPC_SKILLS;						// Alt Settings for devs
 	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
 	public static int				DEADLOCKCHECK_INTERVAL;
 	public static boolean			ALT_MASTERWORK_CONFIG;
@@ -1414,6 +1415,7 @@ public class Config extends L2Config
 			ALT_DEV_NO_QUESTS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
 			ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
 			ENABLE_JYTHON_SHELL = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
+			ALT_DEV_VERIFY_NPC_SKILLS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevVerifyNpcSkills", "False"));
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));
 			ALT_MASTERWORK_CONFIG = Boolean.parseBoolean(optionsSettings.getProperty("AltMasterworkConfig", "False"));
 			ALLOW_MASTERWORK = Boolean.parseBoolean(optionsSettings.getProperty("AllowMasterwork", "False"));

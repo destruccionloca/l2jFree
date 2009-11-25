@@ -107,7 +107,8 @@ public final class NpcTable
 					
 					if (npcDat == null)
 					{
-						_log.warn("NpcTable: Missing template for npcskills for npc id: " + mobId);
+						if (Config.ALT_DEV_VERIFY_NPC_SKILLS)
+							_log.warn("NpcTable: Missing template for npcskills for npc id: " + mobId);
 						continue;
 					}
 					

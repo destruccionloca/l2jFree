@@ -72,6 +72,7 @@ public class L2Zone implements FuncOwner
 		HeadQuarters,
 		Jail,
 		Mothertree,
+		Pagan,
 		Regeneration,
 		Siege,
 		SiegeDanger,
