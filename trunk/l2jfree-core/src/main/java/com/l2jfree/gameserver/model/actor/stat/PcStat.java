@@ -525,13 +525,13 @@ public class PcStat extends PlayableStat
 		if (!quiet && level != _vitalityLevel)
 		{
 			if (level < _vitalityLevel)
-				getActiveChar().sendPacket(new SystemMessage(SystemMessageId.VITALITY_HAS_DECREASED));
+				getActiveChar().sendPacket(SystemMessageId.VITALITY_HAS_DECREASED);
 			else
-				getActiveChar().sendPacket(new SystemMessage(SystemMessageId.VITALITY_HAS_INCREASED));
+				getActiveChar().sendPacket(SystemMessageId.VITALITY_HAS_INCREASED);
 			if (level == 0)
-				getActiveChar().sendPacket(new SystemMessage(SystemMessageId.VITALITY_IS_EXHAUSTED));
+				getActiveChar().sendPacket(SystemMessageId.VITALITY_IS_EXHAUSTED);
 			else if (level == 4)
-				getActiveChar().sendPacket(new SystemMessage(SystemMessageId.VITALITY_IS_AT_MAXIMUM));
+				getActiveChar().sendPacket(SystemMessageId.VITALITY_IS_AT_MAXIMUM);
 		}
 
 		_vitalityLevel = level;

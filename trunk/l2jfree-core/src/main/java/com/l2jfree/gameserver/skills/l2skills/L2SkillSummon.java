@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -203,7 +202,7 @@ public class L2SkillSummon extends L2Skill
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("player can't summon any more cubics. ignore summon skill");
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
+				activeChar.sendPacket(SystemMessageId.CUBIC_SUMMONING_FAILED);
 				return;
 			}
 			activeChar.addCubic(this);

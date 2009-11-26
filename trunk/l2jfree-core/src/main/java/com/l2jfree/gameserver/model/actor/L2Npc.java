@@ -2002,8 +2002,7 @@ public class L2Npc extends L2Character
 			}
 			if (player.getAdena() < price)
 			{
-				sm = new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
-				player.sendPacket(sm);
+				player.sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				return;
 			}
 			if (!player.reduceAdena("Loto", price, this, true))

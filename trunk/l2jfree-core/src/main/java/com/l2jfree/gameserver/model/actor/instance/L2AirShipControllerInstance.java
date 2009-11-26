@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.gameserver.instancemanager.AirShipManager;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Broadcast;
 
@@ -49,7 +48,7 @@ public class L2AirShipControllerInstance extends L2NpcInstance
 			L2AirShipInstance ship = AirShipManager.getInstance().getAirShip();
 			{
 				if (player.isFlyingMounted())
-					player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_MOUNT_NOT_MEET_REQUEIREMENTS));
+					player.sendPacket(SystemMessageId.YOU_CANNOT_MOUNT_NOT_MEET_REQUEIREMENTS);
 				else if (ship.isInDock() && _isBoardAllowed)
 				{
 					ship.onPlayerBoarding(player);

@@ -51,7 +51,7 @@ public class L2CommandChannel
 		_partys.add(leader.getParty());
 		_channelLvl = leader.getParty().getLevel();
 		leader.getParty().setCommandChannel(this);
-		leader.getParty().broadcastToPartyMembers(new SystemMessage(SystemMessageId.COMMAND_CHANNEL_FORMED));
+		leader.getParty().broadcastToPartyMembers(SystemMessageId.COMMAND_CHANNEL_FORMED.getSystemMessage());
 		leader.getParty().broadcastToPartyMembers(ExOpenMPCC.STATIC_PACKET);
 		leader.getParty().broadcastToPartyMembers(new ExMultiPartyCommandChannelInfo(this));
 	}
@@ -67,17 +67,18 @@ public class L2CommandChannel
 			_channelLvl = party.getLevel();
 		party.setCommandChannel(this);
 		if (_partys.size() > 2)
-			party.broadcastToPartyMembers(new SystemMessage(SystemMessageId.JOINED_CHANNEL_ALREADY_OPEN));
+			party.broadcastToPartyMembers(SystemMessageId.JOINED_CHANNEL_ALREADY_OPEN.getSystemMessage());
 		else
-			party.broadcastToPartyMembers(new SystemMessage(SystemMessageId.JOINED_COMMAND_CHANNEL));
+			party.broadcastToPartyMembers(SystemMessageId.JOINED_COMMAND_CHANNEL.getSystemMessage());
 		party.broadcastToPartyMembers(ExOpenMPCC.STATIC_PACKET);
 
 		if (_partys.size() < 5)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_ONLY_AT_LEAST_5_PARTIES);
+			SystemMessage sm = SystemMessageId.COMMAND_CHANNEL_ONLY_AT_LEAST_5_PARTIES.getSystemMessage();
     		broadcastToChannelMembers(sm);
     		sm = new SystemMessage(SystemMessageId.S1_PARTIES_REMAINING_UNTIL_CHANNEL);
     		sm.addNumber(5 - _partys.size());
+    		broadcastToChannelMembers(sm);
 		}
 		broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(this));
 	}
@@ -101,17 +102,17 @@ public class L2CommandChannel
 		SystemMessage sm;
 		if (_partys.size() < 2)
 		{
-			sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_DISBANDED);
-    		broadcastToChannelMembers(sm);
+    		broadcastToChannelMembers(SystemMessageId.COMMAND_CHANNEL_DISBANDED.getSystemMessage());
 			disbandChannel();
 			return;
 		}
 		else if (_partys.size() < 5)
 		{
-			sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_ONLY_AT_LEAST_5_PARTIES);
+			sm = SystemMessageId.COMMAND_CHANNEL_ONLY_AT_LEAST_5_PARTIES.getSystemMessage();
     		broadcastToChannelMembers(sm);
     		sm = new SystemMessage(SystemMessageId.S1_PARTIES_REMAINING_UNTIL_CHANNEL);
     		sm.addNumber(5 - _partys.size());
+    		broadcastToChannelMembers(sm);
 		}
 		broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(this));
 	}

@@ -38,14 +38,14 @@ public class TeleportBookmark implements IItemHandler
 		
 		if(player.getBookMarkSlot() >= 9)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.YOUR_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_REACHED_ITS_MAXIMUM_LIMIT));
+			player.sendPacket(SystemMessageId.YOUR_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_REACHED_ITS_MAXIMUM_LIMIT);
 			return;
 		}
 		
 		player.destroyItem("Consume", item.getObjectId(), 1, null, false);
 		
 		player.setBookMarkSlot(player.getBookMarkSlot()+3);
-		player.sendPacket(new SystemMessage(SystemMessageId.THE_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_BEEN_INCREASED));
+		player.sendPacket(SystemMessageId.THE_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_BEEN_INCREASED);
 		
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
 		sm.addItemName(item.getItemId());

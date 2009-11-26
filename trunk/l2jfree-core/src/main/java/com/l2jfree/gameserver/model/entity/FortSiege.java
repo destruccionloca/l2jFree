@@ -206,7 +206,7 @@ public class FortSiege extends AbstractSiege
 			{
 				_siegeRestore = null;
 				_fortInst.getSiege().resetSiege();
-				announceToPlayer(new SystemMessage(SystemMessageId.BARRACKS_FUNCTION_RESTORED),0,false);
+				announceToPlayer(SystemMessageId.BARRACKS_FUNCTION_RESTORED.getSystemMessage(),0,false);
 			}
 			catch (Exception e)
 			{
@@ -572,16 +572,16 @@ public class FortSiege extends AbstractSiege
 							continue;
 						door.openMe();
 					}
-					getFort().getSiege().announceToPlayer(new SystemMessage(SystemMessageId.ALL_BARRACKS_OCCUPIED), 0, false);
+					getFort().getSiege().announceToPlayer(SystemMessageId.ALL_BARRACKS_OCCUPIED.getSystemMessage(), 0, false);
 				}
 				// schedule restoring doors/commanders respawn
 				else if (_siegeRestore == null)
 				{
-					getFort().getSiege().announceToPlayer(new SystemMessage(SystemMessageId.SEIZED_BARRACKS), 0, false);
+					getFort().getSiege().announceToPlayer(SystemMessageId.SEIZED_BARRACKS.getSystemMessage(), 0, false);
 					_siegeRestore  = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSiegeRestore(getFort()), Config.FORTSIEGE_COUNTDOWN_LENGTH*60*1000);
 				}
 				else
-					getFort().getSiege().announceToPlayer(new SystemMessage(SystemMessageId.SEIZED_BARRACKS), 0, false);
+					getFort().getSiege().announceToPlayer(SystemMessageId.SEIZED_BARRACKS.getSystemMessage(), 0, false);
 			}
 			else
 				_log.warn("FortSiege.killedCommander(): killed commander, but commander not registered for fortress. NpcId: "+instance.getNpcId()+" FortId: "+getFort().getFortId());
@@ -717,7 +717,7 @@ public class FortSiege extends AbstractSiege
 		{
 			for (L2PcInstance member : getFort().getOwnerClan().getOnlineMembers(0))
 			{
-				member.sendPacket(new SystemMessage(SystemMessageId.A_FORTRESS_IS_UNDER_ATTACK));
+				member.sendPacket(SystemMessageId.A_FORTRESS_IS_UNDER_ATTACK.getSystemMessage());
 			}
 		}
 		//System.out.println("Siege of " + getFort().getName() + ": " + getFort().getSiegeDate().getTime());
@@ -778,17 +778,17 @@ public class FortSiege extends AbstractSiege
 		else if (!player.isClanLeader())
 		{
 			b = false;
-			player.sendPacket(new SystemMessage(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED));
+			player.sendPacket(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 		}
 		else if (player.getClan() == getFort().getOwnerClan())
 		{
 			b = false;
-			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING));
+			player.sendPacket(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING);
 		}
 		else if (getFort().getOwnerClan() != null && player.getClan().getHasCastle() > 0 && player.getClan().getHasCastle() == getFort().getCastleId())
 		{
 			b = false;
-			player.sendPacket(new SystemMessage(SystemMessageId.CANT_REGISTER_TO_SIEGE_DUE_TO_CONTRACT));
+			player.sendPacket(SystemMessageId.CANT_REGISTER_TO_SIEGE_DUE_TO_CONTRACT);
 		}
 		else if (getFort().getSiege().getAttackerClans().isEmpty() && player.getInventory().getAdena() < 250000)
 		{
@@ -802,13 +802,13 @@ public class FortSiege extends AbstractSiege
 				if (fort.getSiege().getAttackerClan(player.getClanId())!= null)
 				{
 					b = false;
-					player.sendPacket(new SystemMessage(SystemMessageId.ALREADY_REQUESTED_SIEGE_BATTLE));
+					player.sendPacket(SystemMessageId.ALREADY_REQUESTED_SIEGE_BATTLE);
 					break;
 				}
 				if (fort.getOwnerClan() == player.getClan() && (fort.getSiege().getIsInProgress()||fort.getSiege()._siegeStartTask != null))
 				{
 					b = false;
-					player.sendPacket(new SystemMessage(SystemMessageId.ALREADY_REQUESTED_SIEGE_BATTLE));
+					player.sendPacket(SystemMessageId.ALREADY_REQUESTED_SIEGE_BATTLE);
 					break;
 				}
 			}

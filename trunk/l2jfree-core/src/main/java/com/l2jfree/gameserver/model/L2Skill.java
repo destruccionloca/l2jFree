@@ -2766,7 +2766,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 									{
 										if (targetPet.getOwner().isPetReviveRequested())
 										{
-											player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+											player.sendPacket(SystemMessageId.CANNOT_RES_PET2); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
 											condGood = false;
 										}
 									}

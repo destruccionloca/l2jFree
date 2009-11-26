@@ -179,7 +179,7 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 					|| !isEnchantable(item)
 					|| chance < 0)
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
+				activeChar.sendPacket(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 				activeChar.setActiveEnchantItem(null);
 				activeChar.sendPacket(new EnchantResult(2, 0, 0));
 				return;
@@ -255,8 +255,7 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 					if (scrollTemplate.isBlessed())
 					{
 						// blessed enchant - clear enchant value
-						sm = new SystemMessage(SystemMessageId.BLESSED_ENCHANT_FAILED);
-						activeChar.sendPacket(sm);
+						activeChar.sendPacket(SystemMessageId.BLESSED_ENCHANT_FAILED);
 
 						item.setEnchantLevel(0);
 						item.updateDatabase();

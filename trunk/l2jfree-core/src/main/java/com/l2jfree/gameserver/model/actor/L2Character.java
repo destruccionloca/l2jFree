@@ -879,7 +879,7 @@ public abstract class L2Character extends L2Object
 		// GeoData Los Check here (or dz > 1000)
 		if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
+			sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -1193,7 +1193,7 @@ public abstract class L2Character extends L2Object
 		if (this instanceof L2PcInstance)
 		{
 			// Send a system message
-			sendPacket(new SystemMessage(SystemMessageId.GETTING_READY_TO_SHOOT_AN_ARROW));
+			sendPacket(SystemMessageId.GETTING_READY_TO_SHOOT_AN_ARROW);
 
 			// Send a Server->Client packet SetupGauge
 			SetupGauge sg = new SetupGauge(SetupGauge.RED, sAtk + reuse);
@@ -1262,7 +1262,7 @@ public abstract class L2Character extends L2Object
 		if (this instanceof L2PcInstance)
 		{
 			// Send a system message
-			sendPacket(new SystemMessage(SystemMessageId.CROSSBOW_PREPARING_TO_FIRE));
+			sendPacket(SystemMessageId.CROSSBOW_PREPARING_TO_FIRE);
 
 			// Send a Server->Client packet SetupGauge
 			SetupGauge sg = new SetupGauge(SetupGauge.RED, sAtk + reuse);
@@ -5279,7 +5279,7 @@ public abstract class L2Character extends L2Object
 
 				// Check if shield is efficient
 				/*if (shld && 100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100))
-					enemy.sendPacket(new SystemMessage(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL));
+					enemy.sendPacket(SystemMessageId.SHIELD_DEFENCE_SUCCESSFULL);
 				// else if (!miss && damage < 1)
 				// enemy.sendMessage("You hit the target's armor.");*/
 			}
@@ -5440,7 +5440,7 @@ public abstract class L2Character extends L2Object
 				sendPacket(ActionFailed.STATIC_PACKET);
 
 				// Send a system message
-				sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
+				sendPacket(SystemMessageId.ATTACK_FAILED);
 			}
 		}
 	}
@@ -5460,7 +5460,7 @@ public abstract class L2Character extends L2Object
 			if (this instanceof L2PcInstance)
 			{
 				// Send a system message
-				sendPacket(new SystemMessage(SystemMessageId.CASTING_INTERRUPTED));
+				sendPacket(SystemMessageId.CASTING_INTERRUPTED);
 			}
 		}
 	}

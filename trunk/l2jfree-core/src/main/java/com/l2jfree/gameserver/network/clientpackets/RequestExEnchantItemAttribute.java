@@ -106,7 +106,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			item.getItem().getBodyPart() == L2Item.SLOT_BELT || item.getItem().getBodyPart() == L2Item.SLOT_NECK ||
 			item.getItem().getBodyPart() == L2Item.SLOT_R_EAR || item.getItem().getBodyPart() == L2Item.SLOT_R_FINGER)
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT));
+			player.sendPacket(SystemMessageId.ELEMENTAL_ENHANCE_REQUIREMENT_NOT_SUFFICIENT);
 			player.setActiveEnchantAttrItem(null);
 			return;
 		}
@@ -199,7 +199,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			sendPacket(iu);
 		}
 		else
-			player.sendPacket(new SystemMessage(SystemMessageId.FAILED_ADDING_ELEMENTAL_POWER));
+			player.sendPacket(SystemMessageId.FAILED_ADDING_ELEMENTAL_POWER);
 
 		sendPacket(new ExAttributeEnchantResult(powerToAdd));
 		sendPacket(new UserInfo(player));

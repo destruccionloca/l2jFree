@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class Evolve
@@ -104,7 +103,7 @@ public final class Evolve
 		player.setPet(petSummon);
 
 		player.sendPacket(new MagicSkillUse(npc, 2046, 1, 1000, 600000));
-		player.sendPacket(new SystemMessage(SystemMessageId.SUMMON_A_PET));
+		player.sendPacket(SystemMessageId.SUMMON_A_PET);
 		L2World.getInstance().storeObject(petSummon);
 		petSummon.spawnMe(oldX, oldY, oldZ);
 		petSummon.startFeed();

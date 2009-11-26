@@ -194,7 +194,7 @@ public class ClanTable
 		player.sendPacket(new PledgeShowMemberListAll(clan));
 		player.sendPacket(new UserInfo(player));
 		player.sendPacket(new PledgeShowMemberListUpdate(player));
-		player.sendPacket(new SystemMessage(SystemMessageId.CLAN_CREATED));
+		player.sendPacket(SystemMessageId.CLAN_CREATED);
 		return clan;
 	}
 
@@ -207,7 +207,7 @@ public class ClanTable
 			return;
 		}
 
-		clan.broadcastToOnlineMembers(new SystemMessage(SystemMessageId.CLAN_HAS_DISPERSED));
+		clan.broadcastToOnlineMembers(SystemMessageId.CLAN_HAS_DISPERSED.getSystemMessage());
 
 		int castleId = clan.getHasCastle();
 		if (castleId == 0)

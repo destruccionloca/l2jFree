@@ -669,14 +669,14 @@ public class TradeList
 		if ((!getOwner().getInventory().validateWeight(partnerList.calcItemsWeight()))
 			|| !(partnerList.getOwner().getInventory().validateWeight(calcItemsWeight())))
 		{
-			partnerList.getOwner().sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
-			getOwner().sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+			partnerList.getOwner().sendPacket(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
+			getOwner().sendPacket(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
 		}
 		else if ((!getOwner().getInventory().validateCapacity(partnerList.countItemsSlots(getOwner())))
 			|| (!partnerList.getOwner().getInventory().validateCapacity(countItemsSlots(partnerList.getOwner()))))
 		{
-			partnerList.getOwner().sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
-			getOwner().sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+			partnerList.getOwner().sendPacket(SystemMessageId.SLOTS_FULL);
+			getOwner().sendPacket(SystemMessageId.SLOTS_FULL);
 		}
 		else
 		{
@@ -801,13 +801,13 @@ public class TradeList
 
 		if (!playerInventory.validateWeight(weight))
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+			player.sendPacket(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
 			return false;
 		}
 
 		if (!playerInventory.validateCapacity(slots))
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+			player.sendPacket(SystemMessageId.SLOTS_FULL);
 			return false;
 		}
 
@@ -817,7 +817,7 @@ public class TradeList
 
 		if (totalPrice > playerInventory.getAdena())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+			player.sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return false;
 		}
 		

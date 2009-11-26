@@ -62,13 +62,13 @@ public class L2Fishing implements Runnable
 		if (_fishCurHp >= _fishMaxHp * 2)
 		{
 			// The fish got away
-			_fisher.sendPacket(new SystemMessage(SystemMessageId.BAIT_STOLEN_BY_FISH));
+			_fisher.sendPacket(SystemMessageId.BAIT_STOLEN_BY_FISH);
 			doDie(false);
 		}
 		else if (_time <= 0)
 		{
 			// Time is up, so that fish got away
-			_fisher.sendPacket(new SystemMessage(SystemMessageId.FISH_SPIT_THE_HOOK));
+			_fisher.sendPacket(SystemMessageId.FISH_SPIT_THE_HOOK);
 			doDie(false);
 		}
 		else
@@ -101,7 +101,7 @@ public class L2Fishing implements Runnable
 		_fisher.broadcastPacket(efsc);
 
 		// Succeeded in getting a bite
-		_fisher.sendPacket(new SystemMessage(SystemMessageId.GOT_A_BITE));
+		_fisher.sendPacket(SystemMessageId.GOT_A_BITE);
 
 		if (_fishAiTask == null)
 		{
@@ -150,7 +150,7 @@ public class L2Fishing implements Runnable
 			}
 			else
 			{
-				_fisher.sendPacket(new SystemMessage(SystemMessageId.YOU_CAUGHT_SOMETHING));
+				_fisher.sendPacket(SystemMessageId.YOU_CAUGHT_SOMETHING);
 				_fisher.addItem("Fishing", _fishId, 1, null, true);
 				FishermanManager.getInstance().onCatch(_fisher.getObjectId(), _fisher.getName());
 			}
@@ -218,7 +218,7 @@ public class L2Fishing implements Runnable
 		_anim = 2;
 		if (Rnd.get(100) > 90)
 		{
-			_fisher.sendPacket(new SystemMessage(SystemMessageId.FISH_RESISTED_ATTEMPT_TO_BRING_IT_IN));
+			_fisher.sendPacket(SystemMessageId.FISH_RESISTED_ATTEMPT_TO_BRING_IT_IN);
 			_goodUse = 0;
 			changeHp(0, pen);
 			return;
@@ -286,7 +286,7 @@ public class L2Fishing implements Runnable
 		_anim = 1;
 		if (Rnd.get(100) > 90)
 		{
-			_fisher.sendPacket(new SystemMessage(SystemMessageId.FISH_RESISTED_ATTEMPT_TO_BRING_IT_IN));
+			_fisher.sendPacket(SystemMessageId.FISH_RESISTED_ATTEMPT_TO_BRING_IT_IN);
 			_goodUse = 0;
 			changeHp(0, pen);
 			return;
@@ -354,7 +354,7 @@ public class L2Fishing implements Runnable
 		int lvl = (int) Math.round(_fisher.getLevel() * 0.1);
 		int npcid;
 
-		_fisher.sendPacket(new SystemMessage(SystemMessageId.YOU_CAUGHT_SOMETHING_SMELLY_THROW_IT_BACK));
+		_fisher.sendPacket(SystemMessageId.YOU_CAUGHT_SOMETHING_SMELLY_THROW_IT_BACK);
 		switch (lvl)
 		{
 		case 0:

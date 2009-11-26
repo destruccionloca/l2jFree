@@ -6233,13 +6233,13 @@ public final class L2PcInstance extends L2Playable
 			if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOWYVERN))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
-				sendPacket(new SystemMessage(SystemMessageId.NO_DISMOUNT_HERE));
+				sendPacket(SystemMessageId.NO_DISMOUNT_HERE);
 				return false;
 			}
 			else if (isHungry())
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
-				sendPacket(new SystemMessage(SystemMessageId.HUNGRY_STRIDER_NOT_MOUNT));
+				sendPacket(SystemMessageId.HUNGRY_STRIDER_NOT_MOUNT);
 				return false;
 			}
 			else if (ObjectRestrictions.getInstance().checkRestriction(this, AvailableRestriction.PlayerUnmount))
@@ -9831,7 +9831,7 @@ public final class L2PcInstance extends L2Playable
 					setCurrentFeed(0);
 					stopFeed();
 					dismount();
-					sendPacket(new SystemMessage(SystemMessageId.OUT_OF_FEED_MOUNT_CANCELED));
+					sendPacket(SystemMessageId.OUT_OF_FEED_MOUNT_CANCELED);
 				}
 
 				int[] foodIds = PetDataTable.getFoodItemId(getMountNpcId());
@@ -13178,7 +13178,7 @@ public final class L2PcInstance extends L2Playable
 		final SystemMessage sm;
 		if (target.isInvul() && !(target instanceof L2NpcInstance))
 		{
-			sm = new SystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
+			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
 		}
 		else
 		{

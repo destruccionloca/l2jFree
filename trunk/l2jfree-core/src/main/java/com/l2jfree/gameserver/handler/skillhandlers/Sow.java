@@ -80,11 +80,11 @@ public class Sow implements ISkillHandler
 			{
 				activePlayer.sendPacket(new PlaySound(0, "Itemsound.quest_itemget"));
 				target.setSeeded();
-				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_SUCCESSFULLY_SOWN);
+				sm = SystemMessageId.THE_SEED_WAS_SUCCESSFULLY_SOWN.getSystemMessage();
 			}
 			else
 			{
-				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_NOT_SOWN);
+				sm = SystemMessageId.THE_SEED_WAS_NOT_SOWN.getSystemMessage();
 			}
 			if (activePlayer.getParty() == null)
 			{

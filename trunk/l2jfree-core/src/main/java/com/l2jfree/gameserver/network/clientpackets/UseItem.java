@@ -270,7 +270,7 @@ public final class UseItem extends L2GameClientPacket
 
 				else if (activeChar.isMounted() || activeChar.isDisarmed())
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+					activeChar.sendPacket(SystemMessageId.NO_CONDITION_TO_EQUIP);
 					return;
 				}
 

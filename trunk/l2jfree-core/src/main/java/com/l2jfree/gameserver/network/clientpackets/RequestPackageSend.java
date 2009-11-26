@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
@@ -140,14 +139,14 @@ public final class RequestPackageSend extends L2GameClientPacket
 		// Item Max Limit Check
 		if (!warehouse.validateCapacity(slots))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.WAREHOUSE_FULL));
+			sendPacket(SystemMessageId.WAREHOUSE_FULL);
 			return;
 		}
 
 		// Check if enough adena and charge the fee
 		if (currentAdena < fee || !player.reduceAdena(warehouse.getName(), fee, manager, false))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+			sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 			return;
 		}
 

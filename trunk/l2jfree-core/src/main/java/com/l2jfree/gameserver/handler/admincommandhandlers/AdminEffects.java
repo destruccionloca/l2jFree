@@ -39,7 +39,6 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.SunRise;
 import com.l2jfree.gameserver.network.serverpackets.SunSet;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.AbnormalEffect;
 
 
@@ -522,7 +521,7 @@ public class AdminEffects implements IAdminCommandHandler
 							if (performSpecial(special, player))
 								activeChar.sendMessage(player.getName() + "'s special status was affected by your request.");
 							else
-								activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+								activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 						}
 						else
 						{
@@ -551,10 +550,10 @@ public class AdminEffects implements IAdminCommandHandler
 						if (performSpecial(special, obj))
 							activeChar.sendMessage(obj.getName() + "'s special status was affected by your request.");
 						else
-							activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+							activeChar.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 					//}
 					//else
-					//	activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+					//	activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 				}
 				else if (!command.contains("menu"))
 					activeChar.sendMessage("Usage: //special <special_mask> [player_name|radius]");

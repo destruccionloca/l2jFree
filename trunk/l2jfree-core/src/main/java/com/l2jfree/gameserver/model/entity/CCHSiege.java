@@ -159,7 +159,7 @@ public final class CCHSiege extends AbstractSiege
 		if (getIsInProgress())
 		{
 			if (Config.USE_MISSING_CCH_MESSAGES)
-				announceToPlayer(new SystemMessage(SystemMessageId.CLANHALL_SIEGE_ENDED), true);
+				announceToPlayer(SystemMessageId.CLANHALL_SIEGE_ENDED.getSystemMessage(), true);
 			if (bossKiller != null)
 				ClanHallManager.getInstance().setOwner(_hideout.getId(), bossKiller);
 			else

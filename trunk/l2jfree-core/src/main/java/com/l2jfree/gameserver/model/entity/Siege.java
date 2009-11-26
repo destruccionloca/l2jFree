@@ -273,7 +273,7 @@ public class Siege extends AbstractSiege
 	{
 		if (getIsInProgress())
 		{
-			announceToPlayer(new SystemMessage(SystemMessageId.CASTLE_SIEGE_HAS_ENDED), true);
+			announceToPlayer(SystemMessageId.CASTLE_SIEGE_HAS_ENDED.getSystemMessage(), true);
 			SystemMessage sm;
 			sm = new SystemMessage(SystemMessageId.SIEGE_OF_S1_FINISHED);
 			sm.addString(getCastle().getName());
@@ -291,7 +291,7 @@ public class Siege extends AbstractSiege
 			}
 			if (oldOwner != getCastle().getOwnerId())
 			{
-				announceToPlayer(new SystemMessage(SystemMessageId.NEW_CASTLE_LORD), true); //is it really true?
+				announceToPlayer(SystemMessageId.NEW_CASTLE_LORD.getSystemMessage(), true); //is it really true?
 				sm = new SystemMessage(SystemMessageId.CLAN_S1_VICTORIOUS_OVER_S2_S_SIEGE);
 				sm.addString(ClanTable.getInstance().getClan(getCastle().getOwnerId()).getName());
 				sm.addString(getCastle().getName());
@@ -473,7 +473,7 @@ public class Siege extends AbstractSiege
 			_siegeEndDate.add(Calendar.MINUTE, Config.SIEGE_LENGTH_MINUTES);
 			_endSiegeTask.schedule(1000);
 
-			announceToPlayer(new SystemMessage(SystemMessageId.CASTLE_SIEGE_HAS_BEGUN), true);
+			announceToPlayer(SystemMessageId.CASTLE_SIEGE_HAS_BEGUN.getSystemMessage(), true);
 			SystemMessage sm;
 			sm = new SystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_STARTED);
 			sm.addString(getCastle().getName());

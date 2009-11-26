@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2FortBallistaInstance extends L2Npc
@@ -53,7 +52,7 @@ public class L2FortBallistaInstance extends L2Npc
 				{
 					player.getClan().setReputationScore(player.getClan().getReputationScore() + Config.BALLISTA_POINTS, true);
 				}
-				player.sendPacket(new SystemMessage(SystemMessageId.BALLISTA_DESTROYED_CLAN_REPU_INCREASED));
+				player.sendPacket(SystemMessageId.BALLISTA_DESTROYED_CLAN_REPU_INCREASED);
 			}
 		}
 		

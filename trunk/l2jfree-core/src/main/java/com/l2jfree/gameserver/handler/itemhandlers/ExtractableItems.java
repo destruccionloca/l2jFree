@@ -83,7 +83,7 @@ public class ExtractableItems implements IItemHandler
 		
 		if (createItemID[0] <= 0 || createItemID.length == 0 )
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
+			activeChar.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);
 		}
 		else
 		{
@@ -95,7 +95,7 @@ public class ExtractableItems implements IItemHandler
 				if (ItemTable.getInstance().getTemplate(createItemID[i]) == null)
 				{
 					_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_INSIDE_THAT));
+					activeChar.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);
 					continue;
 				}
 

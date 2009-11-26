@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.L2CommandChannel;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  *
@@ -43,10 +42,7 @@ public class ChannelDelete implements IUserCommandHandler
 					&& activeChar.getParty().getCommandChannel().getChannelLeader() == activeChar)
 			{
 				L2CommandChannel channel = activeChar.getParty().getCommandChannel();
-
-				SystemMessage sm = new SystemMessage(SystemMessageId.COMMAND_CHANNEL_DISBANDED);
-				channel.broadcastToChannelMembers(sm);
-
+				channel.broadcastToChannelMembers(SystemMessageId.COMMAND_CHANNEL_DISBANDED.getSystemMessage());
 				channel.disbandChannel();
 				return true;
 			}

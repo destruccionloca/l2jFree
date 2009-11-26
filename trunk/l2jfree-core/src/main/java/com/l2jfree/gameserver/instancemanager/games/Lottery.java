@@ -270,7 +270,7 @@ public class Lottery
 				_log.info("Lottery: Stopping ticket sell for lottery #" + getId() + ".");
 			_isSellingTickets = false;
 
-			Announcements.getInstance().announceToAll(new SystemMessage(SystemMessageId.LOTTERY_TICKET_SALES_TEMP_SUSPENDED));
+			Announcements.getInstance().announceToAll(SystemMessageId.LOTTERY_TICKET_SALES_TEMP_SUSPENDED);
 		}
 	}
 

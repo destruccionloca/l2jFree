@@ -840,7 +840,7 @@ public class L2Attackable extends L2Npc
 							L2PcInstance player = (L2PcInstance) attacker;
 							if (isOverhit() && attacker == getOverhitAttacker())
 							{
-								player.sendPacket(new SystemMessage(SystemMessageId.OVER_HIT));
+								player.sendPacket(SystemMessageId.OVER_HIT);
 								exp += calculateOverhitExp(exp);
 							}
 						}
@@ -2242,11 +2242,11 @@ public class L2Attackable extends L2Npc
 				// Too many crystals in inventory.
 				if (crystalQTY > 1)
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION));
+					player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION);
 				}
 				// The soul crystal stage of the player is way too high
 				else if (!doLevelup && crystalQTY > 0)
-					player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_REFUSED));
+					player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_REFUSED);
 
 				crystalQTY = 0;
 				continue;
@@ -2267,7 +2267,7 @@ public class L2Attackable extends L2Npc
 				exchangeCrystal(player, crystalOLD, crystalNEW, false);
 			}
 			else
-				player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED));
+				player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED);
 		}
 	}
 
@@ -2287,10 +2287,10 @@ public class L2Attackable extends L2Npc
 			// Send a sound event and text message to the player
 			if (broke)
 			{
-				player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_BROKE));
+				player.sendPacket(SystemMessageId.SOUL_CRYSTAL_BROKE);
 			}
 			else
-				player.sendPacket(new SystemMessage(SystemMessageId.SOUL_CRYSTAL_ABSORBING_SUCCEEDED));
+				player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_SUCCEEDED);
 
 			// Send system message
 			SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_S1);

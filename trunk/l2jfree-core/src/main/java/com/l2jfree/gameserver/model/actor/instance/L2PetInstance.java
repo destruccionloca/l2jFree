@@ -164,13 +164,11 @@ public class L2PetInstance extends L2Summon
 				{
 					if (getCurrentFed() == 0)
 					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY);
-						getOwner().sendPacket(sm);
+						getOwner().sendPacket(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY);
 						if (Rnd.get(100) < 30)
 						{
 							stopFeed();
-							sm = new SystemMessage(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
-							getOwner().sendPacket(sm);
+							getOwner().sendPacket(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
 							_log.info("Hungry pet deleted for player :" + getOwner().getName() + " Control Item Id :"
 								+ getControlItemId());
 							deleteMe(getOwner());
@@ -178,14 +176,11 @@ public class L2PetInstance extends L2Summon
 					}
 					else if (getCurrentFed() < (0.11 * getPetData().getPetMaxFeed()))
 					{
-						SystemMessage sm =
-							new SystemMessage(SystemMessageId.PET_CAN_RUN_AWAY_WHEN_HUNGER_BELOW_10_PERCENT);
-						getOwner().sendPacket(sm);
+						getOwner().sendPacket(SystemMessageId.PET_CAN_RUN_AWAY_WHEN_HUNGER_BELOW_10_PERCENT);
 						if (Rnd.get(100) < 3)
 						{
 							stopFeed();
-							sm = new SystemMessage(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
-							getOwner().sendPacket(sm);
+							getOwner().sendPacket(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
 							_log.info("Hungry pet deleted for player :" + getOwner().getName() + " Control Item Id :"
 								+ getControlItemId());
 							deleteMe(getOwner());

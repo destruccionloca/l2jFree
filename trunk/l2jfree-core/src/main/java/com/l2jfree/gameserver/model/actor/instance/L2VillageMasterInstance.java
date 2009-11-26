@@ -961,7 +961,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			sm.addString(player.getClan().getName());
 		}
 		else
-			sm = new SystemMessage(SystemMessageId.CLAN_CREATED);
+			sm = SystemMessageId.CLAN_CREATED.getSystemMessage();
 
 		player.sendPacket(sm);
 		
@@ -1003,7 +1003,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		if (player == null || player.getClan() == null || !player.isClanLeader())
 		{
 			if (player != null)
-				player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
+				player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
 		}
 		L2Clan clan = player.getClan();
@@ -1063,7 +1063,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	{
 		if (newName.length() > 16 || newName.length() < 3)
 		{
-			clan.getLeader().getPlayerInstance().sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_TOO_LONG));
+			clan.getLeader().getPlayerInstance().sendPacket(SystemMessageId.CLAN_NAME_TOO_LONG);
 			return;
 		}
 		String oldName = element.getName();

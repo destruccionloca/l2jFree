@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
@@ -55,7 +54,7 @@ public class L2SkillMount extends L2Skill
 
 		if (activePlayer.isSitting())
 		{
-			activePlayer.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
+			activePlayer.sendPacket(SystemMessageId.CANT_MOVE_SITTING);
 			return;
 		}
 
@@ -64,19 +63,19 @@ public class L2SkillMount extends L2Skill
 
 		if (activePlayer.isInOlympiadMode())
 		{
-			activePlayer.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+			activePlayer.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 			return;
 		}
 
 		if (activePlayer.getPet() != null || activePlayer.isMounted())
 		{
-			activePlayer.sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_HAVE_A_PET));
+			activePlayer.sendPacket(SystemMessageId.YOU_ALREADY_HAVE_A_PET);
 			return;
 		}
 
 		if (activePlayer.isAttackingNow() || activePlayer.isCursedWeaponEquipped())
 		{
-			activePlayer.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT));
+			activePlayer.sendPacket(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT);
 			return;
 		}
 

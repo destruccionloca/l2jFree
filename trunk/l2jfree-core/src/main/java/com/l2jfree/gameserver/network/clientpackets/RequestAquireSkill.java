@@ -154,7 +154,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 						sm.addItemNumber(1);
 						sm.addItemName(costid);
 						sendPacket(sm);
-						sm = null;
 					}
 					else
 					{
@@ -198,7 +197,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 					sm.addItemNumber(1);
 					sm.addItemName(costid);
 					sendPacket(sm);
-					sm = null;
 
 					break;
 				}
@@ -293,7 +291,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 					sm.addItemNumber(costcount);
 					sm.addItemName(costid);
 					sendPacket(sm);
-					sm = null;
 				}
 				else
 				{
@@ -351,7 +348,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 						sm.addItemName(itemId);
 						sm.addItemNumber(itemCount);
 						sendPacket(sm);
-						sm = null;
 					}
 				}
 				else
@@ -371,7 +367,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 				sm = new SystemMessage(SystemMessageId.CLAN_SKILL_S1_ADDED);
 				sm.addSkillName(_id);
 				sendPacket(sm);
-				sm = null;
 
 				player.getClan().broadcastToOnlineMembers(new PledgeSkillList(player.getClan()));
 
@@ -430,7 +425,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 					if (!player.destroyItemByItemId("Consume", costid, costcount, trainer, false))
 					{
 						// Haven't spellbook
-						player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL));
+						player.sendPacket(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL);
 						return;
 					}
 
@@ -438,13 +433,10 @@ public class RequestAquireSkill extends L2GameClientPacket
 					sm.addItemName(costid);
 					sm.addItemNumber(costcount);
 					sendPacket(sm);
-					sm = null;
 				}
 				else
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_SP_TO_LEARN_SKILL);
-					player.sendPacket(sm);
-					sm = null;
+					player.sendPacket(SystemMessageId.NOT_ENOUGH_SP_TO_LEARN_SKILL);
 					return;
 				}
 				break;

@@ -132,8 +132,7 @@ public class RecipeController
 			return;
 		}
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
-		player.sendPacket(sm);
+		player.sendPacket(SystemMessageId.CANT_ALTER_RECIPEBOOK_WHILE_CRAFTING);
 	}
 
 	public synchronized void requestMakeItemAbort(L2PcInstance player)
@@ -183,7 +182,7 @@ public class RecipeController
 	{
 		if (player.isInDuel())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
+			player.sendPacket(SystemMessageId.CANT_CRAFT_DURING_COMBAT);
 			return;
 		}
 
@@ -470,7 +469,7 @@ public class RecipeController
 						_price = temp.getCost();
 						if (_target.getAdena() < _price) // check price
 						{
-							_target.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+							_target.sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 							abort();
 							return;
 						}
@@ -604,7 +603,7 @@ public class RecipeController
 
 				if (adenatransfer == null)
 				{
-					_target.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+					_target.sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 					abort();
 					return;
 				}
@@ -637,7 +636,7 @@ public class RecipeController
 				}
 				else
 				{
-					_player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MIXING_FAILED));
+					_player.sendPacket(SystemMessageId.ITEM_MIXING_FAILED);
 				}
 			}
 			// update load and mana bar of craft window
@@ -739,7 +738,7 @@ public class RecipeController
 						else
 						// no rest - report no hp
 						{
-							_target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+							_target.sendPacket(SystemMessageId.NOT_ENOUGH_HP);
 							abort();
 						}
 						ret = false;
@@ -760,7 +759,7 @@ public class RecipeController
 						else
 						// no rest - report no mana
 						{
-							_target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+							_target.sendPacket(SystemMessageId.NOT_ENOUGH_MP);
 							abort();
 						}
 						ret = false;

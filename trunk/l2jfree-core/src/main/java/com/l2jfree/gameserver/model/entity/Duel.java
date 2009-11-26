@@ -94,7 +94,7 @@ public class Duel
 			// increase countdown so that start task can teleport players
 			_countdown++;
 			// inform players that they will be portet shortly
-			SystemMessage sm = new SystemMessage(SystemMessageId.IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE);
+			SystemMessage sm = SystemMessageId.IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE.getSystemMessage();
 			broadcastToTeam1(sm);
 			broadcastToTeam2(sm);
 		}
@@ -633,7 +633,8 @@ public class Duel
 			sm = new SystemMessage(SystemMessageId.THE_DUEL_WILL_BEGIN_IN_S1_SECONDS);
 			sm.addNumber(_countdown);
 		}
-		else sm = new SystemMessage(SystemMessageId.LET_THE_DUEL_BEGIN);
+		else
+			sm = SystemMessageId.LET_THE_DUEL_BEGIN.getSystemMessage();
 
 		broadcastToTeam1(sm);
 		broadcastToTeam2(sm);
@@ -707,7 +708,7 @@ public class Duel
 				// dont restore hp, mp, cp
 				restorePlayerConditions(true);
 				// send SystemMessage
-				sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
+				sm = SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE.getSystemMessage();
 
 				broadcastToTeam1(sm);
 				broadcastToTeam2(sm);
@@ -717,7 +718,7 @@ public class Duel
 				// hp,mp,cp seem to be restored in a timeout too...
 				restorePlayerConditions(false);
 				// send SystemMessage
-				sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
+				sm = SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE.getSystemMessage();
 
 				broadcastToTeam1(sm);
 				broadcastToTeam2(sm);

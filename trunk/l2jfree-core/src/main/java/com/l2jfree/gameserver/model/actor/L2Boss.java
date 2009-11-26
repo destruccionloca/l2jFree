@@ -54,7 +54,7 @@ public abstract class L2Boss extends L2MonsterInstance
 		L2PcInstance player = killer.getActingPlayer();
 		if (player != null)
 		{
-			broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
+			broadcastPacket(SystemMessageId.RAID_WAS_SUCCESSFUL.getSystemMessage());
 			if (player.getParty() != null)
 			{
 				for (L2PcInstance member : player.getParty().getPartyMembers())

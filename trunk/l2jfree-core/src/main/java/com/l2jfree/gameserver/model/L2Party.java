@@ -410,7 +410,7 @@ public class L2Party
 				e.printStackTrace();
 			}
 
-			SystemMessage msg = new SystemMessage(SystemMessageId.YOU_LEFT_PARTY);
+			SystemMessage msg = SystemMessageId.YOU_LEFT_PARTY.getSystemMessage();
 			player.sendPacket(msg);
 			player.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
 			player.setParty(null);

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -44,11 +43,12 @@ public final class RequestDuelAnswerStart extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 		L2PcInstance requestor = player.getActiveRequester();
 		if (requestor == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -59,7 +59,7 @@ public final class RequestDuelAnswerStart extends L2GameClientPacket
 			{
 				msg1 = new SystemMessage(SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_ALREADY_ENGAGED_IN_A_DUEL);
 				msg1.addString(requestor.getName());
-				requestFailed(msg1); msg1 = null;
+				requestFailed(msg1);
 				return;
 			}
 			else if (player.isInDuel())
@@ -92,19 +92,18 @@ public final class RequestDuelAnswerStart extends L2GameClientPacket
 		}
 		else
 		{
-			SystemMessage msg = null;
+			SystemMessage msg;
 			if (_partyDuel == 1)
-				msg = new SystemMessage(SystemMessageId.THE_OPPOSING_PARTY_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL);
+				msg = SystemMessageId.THE_OPPOSING_PARTY_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL.getSystemMessage();
 			else
 			{
 				msg = new SystemMessage(SystemMessageId.C1_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL);
 				msg.addString(player.getName());
 			}
     		requestor.sendPacket(msg);
-    		msg = null;
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 
 		player.setActiveRequester(null);
     	requestor.onTransactionResponse();

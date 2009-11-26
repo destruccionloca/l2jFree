@@ -54,7 +54,6 @@ import com.l2jfree.gameserver.templates.item.AbstractL2ItemType;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2Equip;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
-import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.sql.SQLQuery;
@@ -1673,7 +1672,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			{
 				player.getWarehouse().destroyItem("L2ItemInstance", this, player, null);
 			}
-			player.sendPacket(new SystemMessage(SystemMessageId.TIME_LIMITED_ITEM_DELETED));
+			player.sendPacket(SystemMessageId.TIME_LIMITED_ITEM_DELETED);
 			// delete from world
 			L2World.getInstance().removeObject(this);
 		}

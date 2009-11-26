@@ -69,7 +69,7 @@ public class CombatFlag
 	{
 		if (player.isMounted())
 		{
-			player.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			player.sendPacket(SystemMessageId.NO_CONDITION_TO_EQUIP);
 			return false;
 		}
 

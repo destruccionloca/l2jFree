@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -1071,7 +1070,7 @@ public class L2CharacterAI extends AbstractAI
 			{
 				if (!((L2PcInstance)_actor).getTransformation().canStartFollowToCast())
 				{
-					((L2PcInstance)_actor).sendPacket(new SystemMessage(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED));
+					((L2PcInstance)_actor).sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
 					((L2PcInstance)_actor).sendPacket(ActionFailed.STATIC_PACKET);
 					
 					return true;

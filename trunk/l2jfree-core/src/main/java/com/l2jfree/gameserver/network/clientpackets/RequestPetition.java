@@ -53,25 +53,25 @@ public class RequestPetition extends L2GameClientPacket
 
 		if (!GmListTable.isGmOnline(false))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW));
+			activeChar.sendPacket(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW);
 			return;
 		}
 
 		if (!PetitionManager.getInstance().isPetitioningAllowed())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.GAME_CLIENT_UNABLE_TO_CONNECT_TO_PETITION_SERVER));
+			activeChar.sendPacket(SystemMessageId.GAME_CLIENT_UNABLE_TO_CONNECT_TO_PETITION_SERVER);
 			return;
 		}
 
 		if (PetitionManager.getInstance().isPlayerPetitionPending(activeChar))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME));
+			activeChar.sendPacket(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME);
 			return;
 		}
 
 		if (PetitionManager.getInstance().getPendingPetitionCount() == Config.MAX_PETITIONS_PENDING)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_SYSTEM_CURRENT_UNAVAILABLE));
+			activeChar.sendPacket(SystemMessageId.PETITION_SYSTEM_CURRENT_UNAVAILABLE);
 			return;
 		}
 
@@ -82,13 +82,12 @@ public class RequestPetition extends L2GameClientPacket
 			SystemMessage sm = new SystemMessage(SystemMessageId.WE_HAVE_RECEIVED_S1_PETITIONS_TODAY);
 			sm.addNumber(totalPetitions);
 			activeChar.sendPacket(sm);
-			sm = null;
 			return;
 		}
 
 		if (_content.length() > 255)
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_MAX_CHARS_255));
+			activeChar.sendPacket(SystemMessageId.PETITION_MAX_CHARS_255);
 			return;
 		}
 
@@ -106,7 +105,6 @@ public class RequestPetition extends L2GameClientPacket
 		sm = new SystemMessage(SystemMessageId.S1_PETITION_ON_WAITING_LIST);
 		sm.addNumber(PetitionManager.getInstance().getPendingPetitionCount());
 		activeChar.sendPacket(sm);
-		sm = null;
 	}
 
 	/* (non-Javadoc)

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -39,7 +38,9 @@ public class RequestExOustFromMPCC extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
+
 		if (!activeChar.isInParty() || !activeChar.getParty().isInCommandChannel())
 		{
 			requestFailed(SystemMessageId.NO_USER_INVITED_TO_COMMAND_CHANNEL);
@@ -60,14 +61,14 @@ public class RequestExOustFromMPCC extends L2GameClientPacket
 
 		target.getParty().getCommandChannel().removeParty(target.getParty());
 
-		SystemMessage sm = new SystemMessage(SystemMessageId.DISMISSED_FROM_COMMAND_CHANNEL);
+		SystemMessage sm = SystemMessageId.DISMISSED_FROM_COMMAND_CHANNEL.getSystemMessage();
 		target.getParty().broadcastToPartyMembers(sm);
 
 		sm = new SystemMessage(SystemMessageId.C1_PARTY_DISMISSED_FROM_COMMAND_CHANNEL);
 		sm.addString(target.getParty().getPartyMembers().get(0).getName());
 		sendPacket(sm);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

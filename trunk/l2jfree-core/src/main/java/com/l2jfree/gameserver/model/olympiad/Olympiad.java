@@ -460,8 +460,7 @@ public final class Olympiad
 
 		if (!_inCompPeriod)
 		{
-			sm = new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
-			noble.sendPacket(sm);
+			noble.sendPacket(SystemMessageId.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
 			return false;
 		}
 		
@@ -499,8 +498,7 @@ public final class Olympiad
 		}
 		if (getMillisToCompEnd() < 600000)
 		{
-			sm = new SystemMessage(SystemMessageId.GAME_REQUEST_CANNOT_BE_MADE);
-			noble.sendPacket(sm);
+			noble.sendPacket(SystemMessageId.GAME_REQUEST_CANNOT_BE_MADE);
 			return false;
 		}
 		/** End Olympiad Restrictions */
@@ -571,14 +569,12 @@ public final class Olympiad
 				
 				_classBasedRegisters.put(noble.getClassId().getId(), classed);
 			}
-			sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_CLASSIFIED_GAMES);
-			noble.sendPacket(sm);
+			noble.sendPacket(SystemMessageId.YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_CLASSIFIED_GAMES);
 		}
 		else
 		{
 			_nonClassBasedRegisters.add(noble);
-			sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_NO_CLASS_GAMES);
-			noble.sendPacket(sm);
+			noble.sendPacket(SystemMessageId.YOU_HAVE_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_NO_CLASS_GAMES);
 		}
 		
 		return true;
@@ -666,8 +662,7 @@ public final class Olympiad
 
 		if (!_inCompPeriod)
 		{
-			sm = new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
-			noble.sendPacket(sm);
+			noble.sendPacket(SystemMessageId.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
 			return false;
 		}
 		
@@ -682,8 +677,7 @@ public final class Olympiad
 		
 		if (!isRegistered(noble))
 		{
-			sm = new SystemMessage(SystemMessageId.YOU_HAVE_NOT_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_A_GAME);
-			noble.sendPacket(sm);
+			noble.sendPacket(SystemMessageId.YOU_HAVE_NOT_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_A_GAME);
 			return false;
 		}
 		
@@ -710,8 +704,7 @@ public final class Olympiad
 			_classBasedRegisters.put(noble.getClassId().getId(), classed);
 		}
 		
-		sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_DELETED_FROM_THE_WAITING_LIST_OF_A_GAME);
-		noble.sendPacket(sm);
+		noble.sendPacket(SystemMessageId.YOU_HAVE_BEEN_DELETED_FROM_THE_WAITING_LIST_OF_A_GAME);
 		
 		return true;
 	}
@@ -768,8 +761,7 @@ public final class Olympiad
 				
 				_inCompPeriod = true;
 				
-				Announcements.getInstance().announceToAll(
-					new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
+				Announcements.getInstance().announceToAll(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED);
 				_log.info("Olympiad System: Olympiad Game Started");
 				
 				Thread olyCycle = new Thread(OlympiadManager.getInstance());
@@ -781,8 +773,7 @@ public final class Olympiad
 					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 						public void run()
 						{
-							Announcements.getInstance().announceToAll(
-								new SystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED));
+							Announcements.getInstance().announceToAll(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED);
 						}
 					}, regEnd);
 				}

@@ -156,7 +156,7 @@ public class AdminMammon implements IAdminCommandHandler
 				activeChar.sendMessage("Command format: //msg <SYSTEM_MSG_ID>");
 				return true;
 			}
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.getSystemMessageId(msgId)));
+			activeChar.sendPacket(SystemMessageId.getSystemMessageId(msgId));
 		}
 		return true;
 	}

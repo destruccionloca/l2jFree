@@ -1534,9 +1534,9 @@ public final class Formulas
 			if (calcMagicSuccess(owner, target, skill) && getMagicLevelDifference(attacker.getOwner(), target, skill) >= -9)
 			{
 				if (skill.getSkillType() == L2SkillType.DRAIN)
-					owner.sendPacket(new SystemMessage(SystemMessageId.DRAIN_HALF_SUCCESFUL));
+					owner.sendPacket(SystemMessageId.DRAIN_HALF_SUCCESFUL);
 				else
-					owner.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
+					owner.sendPacket(SystemMessageId.ATTACK_FAILED);
 
 				damage /= 2;
 			}

@@ -108,7 +108,7 @@ public class L2FishermanInstance extends L2MerchantInstance
             }
             else
             {
-                sm = new SystemMessage(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
+                sm = SystemMessageId.NO_MORE_SKILLS_TO_LEARN.getSystemMessage();
             }
             player.sendPacket(sm);
         }

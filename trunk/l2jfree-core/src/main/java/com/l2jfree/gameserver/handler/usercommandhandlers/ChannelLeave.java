@@ -46,7 +46,7 @@ public class ChannelLeave implements IUserCommandHandler
 				L2CommandChannel channel = party.getCommandChannel();
 				channel.removeParty(party);
 
-				SystemMessage sm = new SystemMessage(SystemMessageId.LEFT_COMMAND_CHANNEL);
+				SystemMessage sm = SystemMessageId.LEFT_COMMAND_CHANNEL.getSystemMessage();
 				party.broadcastToPartyMembers(sm);
 				sm = new SystemMessage(SystemMessageId.C1_PARTY_LEFT_COMMAND_CHANNEL);
 				sm.addString(activeChar.getName());

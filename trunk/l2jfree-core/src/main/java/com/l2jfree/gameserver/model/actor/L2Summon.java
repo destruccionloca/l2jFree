@@ -644,7 +644,7 @@ public abstract class L2Summon extends L2Playable
 		if (target == null)
 		{
 			if (getOwner() != null)
-				getOwner().sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
+				getOwner().sendPacket(SystemMessageId.TARGET_CANT_FOUND);
 			return;
 		}
 
@@ -670,7 +670,7 @@ public abstract class L2Summon extends L2Playable
 			if (requiredItems == null || requiredItems.getCount() < skill.getItemConsume())
 			{
 				// Send a System Message to the caster
-				getOwner().sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+				getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 				return;
 			}
 		}
@@ -680,7 +680,7 @@ public abstract class L2Summon extends L2Playable
 		{
 			// Send a System Message to the caster
 			if (getOwner() != null)
-				getOwner().sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+				getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_MP);
 			return;
 		}
 
@@ -689,7 +689,7 @@ public abstract class L2Summon extends L2Playable
 		{
 			// Send a System Message to the caster
 			if (getOwner() != null)
-				getOwner().sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+				getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_HP);
 			return;
 		}
 
@@ -807,7 +807,7 @@ public abstract class L2Summon extends L2Playable
 		final SystemMessage sm;
 		if (target.isInvul() && !(target instanceof L2NpcInstance))
 		{
-			sm = new SystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
+			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
 		}
 		else
 		{

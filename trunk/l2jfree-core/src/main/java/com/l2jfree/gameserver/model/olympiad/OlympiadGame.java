@@ -722,7 +722,7 @@ public class OlympiadGame
 		{
 			playerOneStat.set(COMP_DRAWN, playerOneDrawn + 1);
 			playerTwoStat.set(COMP_DRAWN, playerTwoDrawn + 1);
-			_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
+			_sm = SystemMessageId.THE_GAME_ENDED_IN_A_TIE.getSystemMessage();
 			broadcastMessage(_sm, true);
 		}
 		else if (_playerTwo == null || _playerTwo.isOnline() == 0 || (playerTwoHp == 0 && playerOneHp != 0)
@@ -797,7 +797,7 @@ public class OlympiadGame
 		}
 		else
 		{
-			_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
+			_sm = SystemMessageId.THE_GAME_ENDED_IN_A_TIE.getSystemMessage();
 			broadcastMessage(_sm, true);
 			final int pointOneDiff = Math.min(playerOnePoints / 5, Config.ALT_OLY_MAX_POINTS);
 			final int pointTwoDiff = Math.min(playerTwoPoints / 5, Config.ALT_OLY_MAX_POINTS);
@@ -858,7 +858,7 @@ public class OlympiadGame
 		if (_aborted)
 			return false;
 
-		_sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
+		_sm = SystemMessageId.STARTS_THE_GAME.getSystemMessage();
 		broadcastMessage(_sm, true);
 		_gameIsStarted = true;
 		try
