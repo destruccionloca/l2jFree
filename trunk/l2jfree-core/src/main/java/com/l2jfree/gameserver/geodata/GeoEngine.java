@@ -1132,12 +1132,17 @@ public final class GeoEngine extends GeoData
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		byte type = geo.get(index);
 		index++;
-	    if(type == 0) //flat, movement and sight always possible
+	    if (type == 0) //flat, movement and sight always possible
 	    {
-	    	if(debug) _log.warn("flatheight:"+geo.getShort(index));
-	    	return true;
+	    	short height = geo.getShort(index);
+	    	if (debug)
+	    		_log.warn("flatheight:" + height);
+	    	if (z > height)
+	    		return inc_z > height;
+	    	else
+	    		return inc_z < height;
 	    }
-	    else if(type == 1) //complex
+	    else if (type == 1) //complex
 	    {
 	    	cellX = getCell(x);
 			cellY = getCell(y);

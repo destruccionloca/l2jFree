@@ -2687,7 +2687,7 @@ public abstract class L2Character extends L2Object
 		return _isTeleporting;
 	}
 
-	public final void setIsTeleporting(boolean value)
+	public void setIsTeleporting(boolean value)
 	{
 		_isTeleporting = value;
 	}

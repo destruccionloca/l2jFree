@@ -71,10 +71,9 @@ public class L2TownZone extends L2Zone
 		if (character instanceof L2PcInstance)
 		{
 			ClanHall[] townHalls = ClanHallManager.getInstance().getTownClanHalls(getTownId());
-			if (townHalls == null)
-				return;
-			for (ClanHall ch : townHalls)
-				character.getActingPlayer().sendPacket(new AgitDecoInfo(ch));
+			if (townHalls != null)
+				for (ClanHall ch : townHalls)
+					character.getActingPlayer().sendPacket(new AgitDecoInfo(ch));
 		}
 	}
 	

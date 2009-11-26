@@ -937,6 +937,7 @@ public class Config extends L2Config
 	public static boolean			DEEPBLUE_DROP_RULES;									// Deep Blue Mobs' Drop Rules Enabled
 	public static boolean			DEEPBLUE_DROP_RULES_RAID;								// Deep Blue Mobs' Drop Rules Enabled
 	public static int				UNSTUCK_INTERVAL;
+	public static int				TELEPORT_WATCHDOG_TIMEOUT;
 	public static int				PLAYER_SPAWN_PROTECTION;								// Player Protection control
 	public static int				PLAYER_FAKEDEATH_UP_PROTECTION;
 	public static double			NPC_HP_REGEN_MULTIPLIER;								// NPC regen multipliers
@@ -1026,6 +1027,7 @@ public class Config extends L2Config
 			STARTING_LEVEL = Byte.parseByte(otherSettings.getProperty("StartingLevel", "1"));
 			STARTING_SP = Integer.parseInt(otherSettings.getProperty("StartingSP", "0"));
 			UNSTUCK_INTERVAL = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
+			TELEPORT_WATCHDOG_TIMEOUT = Integer.parseInt(otherSettings.getProperty("TeleportWatchdogTimeout", "0"));
 
 			/* Player protection after teleport or login */
 			PLAYER_SPAWN_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerSpawnProtection", "0"));
@@ -4020,6 +4022,8 @@ public class Config extends L2Config
 			STARTING_SP = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("UnstuckInterval"))
 			UNSTUCK_INTERVAL = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("TeleportWatchdogTimeout"))
+			TELEPORT_WATCHDOG_TIMEOUT = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("PlayerSpawnProtection"))
 			PLAYER_SPAWN_PROTECTION = Integer.parseInt(pValue);

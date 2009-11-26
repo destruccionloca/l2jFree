@@ -16,19 +16,14 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SiegeAttackerList;
 import com.l2jfree.gameserver.network.serverpackets.SiegeDefenderList;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestJoinSiege extends L2GameClientPacket
 {
 	private static final String	_C__A4_RequestJoinSiege	= "[C] a4 RequestJoinSiege";
@@ -49,15 +44,22 @@ public class RequestJoinSiege extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null || !activeChar.isClanLeader())
+		if (activeChar == null)
 			return;
+
+		L2Clan clan = activeChar.getClan();
+		if (clan == null || !L2Clan.checkPrivileges(activeChar, L2Clan.CP_CS_MANAGE_SIEGE))
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			return;
+		}
 
 		ClanHall hideout = null;
 		Castle castle = CastleManager.getInstance().getCastleById(_siegeableID);
 		if (castle == null)
 			hideout = ClanHallManager.getInstance().getClanHallById(_siegeableID);
 
-		if (_isJoining == 1 && System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
+		if (_isJoining == 1 && System.currentTimeMillis() < clan.getDissolvingExpiryTime())
 		{
 			requestFailed(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS);
 			return;
@@ -108,7 +110,7 @@ public class RequestJoinSiege extends L2GameClientPacket
 				sendPacket(new SiegeDefenderList(hideout));
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override

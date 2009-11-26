@@ -44,6 +44,7 @@ public class TradeList
 		private final L2Item _item;
 		private int _enchant;
 		private long _count;
+		private long _storeCount;
 		private long _price;
 		
 		private final byte _elemAtkType;
@@ -56,6 +57,7 @@ public class TradeList
 			_item = item.getItem();
 			_enchant = item.getEnchantLevel();
 			_count = count;
+			_storeCount = count;
 			_price = price;
 			
 			_elemAtkType = item.getAttackElementType();
@@ -70,6 +72,7 @@ public class TradeList
 			_item = item;
 			_enchant = 0;
 			_count = count;
+			_storeCount = count;
 			_price = price;
 			
 			_elemAtkType = Elementals.NONE;
@@ -82,6 +85,7 @@ public class TradeList
 			_item = item.getItem();
 			_enchant = item.getEnchant();
 			_count = count;
+			_storeCount = count;
 			_price = price;
 			
 			_elemAtkType = item.getAttackElementType();
@@ -123,6 +127,11 @@ public class TradeList
 		public long getCount()
 		{
 			return _count;
+		}
+
+		public long getStoreCount()
+		{
+			return _storeCount;
 		}
 
 		public void setPrice(long price)

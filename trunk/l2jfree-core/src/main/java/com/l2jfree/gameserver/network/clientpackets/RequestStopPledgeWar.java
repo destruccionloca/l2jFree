@@ -16,9 +16,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 
 public class RequestStopPledgeWar extends L2GameClientPacket
 {
@@ -44,6 +46,11 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
 			return;
 		}
+		else if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
+		{
+			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+			return;
+		}
 
 		L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
 		if (warClan == null)
@@ -51,11 +58,21 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 			requestFailed(SystemMessageId.CLAN_DOESNT_EXISTS);
 			return;
 		}
-
-		if (!clan.isAtWarWith(warClan.getClanId()))
+		else if (!clan.isAtWarWith(warClan.getClanId()))
 		{
 			requestFailed(new SystemMessage(SystemMessageId.NO_CLAN_WAR_AGAINST_CLAN_S1).addString(warClan.getName()));
 			return;
+		}
+
+		for (L2ClanMember member : clan.getMembers())
+		{
+			if (member == null || member.getPlayerInstance() == null)
+				continue;
+			if (AttackStanceTaskManager.getInstance().getAttackStanceTask(member.getPlayerInstance()))
+			{
+				requestFailed(SystemMessageId.CANT_STOP_CLAN_WAR_WHILE_IN_COMBAT);
+				return;
+			}
 		}
 
 		//_log.info("RequestStopPledgeWar: By leader: " + playerClan.getLeaderName() + " of clan: "

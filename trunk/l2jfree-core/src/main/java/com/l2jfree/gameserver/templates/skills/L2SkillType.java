@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillAppearance;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChangeWeapon;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillChargeNegate;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillCpDrain;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillCreateItem;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDecoy;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillDrain;
@@ -44,6 +45,7 @@ public enum L2SkillType
 	MDAM,
 	CPDAM,
 	CPDAMPERCENT,
+	CPDRAIN(L2SkillCpDrain.class),
 	AGGDAMAGE,
 	DOT,
 	HOT,

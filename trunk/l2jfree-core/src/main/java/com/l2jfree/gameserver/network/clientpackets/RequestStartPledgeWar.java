@@ -46,7 +46,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
 			return;
 		}
-		else if (!player.isClanLeader() && (player.getClanPrivileges() & L2Clan.CP_CL_PLEDGE_WAR) != L2Clan.CP_CL_PLEDGE_WAR)
+		else if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;

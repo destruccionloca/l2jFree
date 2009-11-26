@@ -421,6 +421,10 @@ public class Castle extends Siegeable<Siege>
 						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
 				}
 
+				L2PcInstance oldLord = oldOwner.getLeader().getPlayerInstance();
+				if (oldLord != null && oldLord.getMountType() == 2)
+					oldLord.dismount();
+
 				oldOwner.setHasCastle(0); // Unset has castle flag for old owner
 				Announcements.getInstance().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
 

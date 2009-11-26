@@ -337,13 +337,18 @@ public class Fort extends Siegeable<FortSiege>
 		if (getOwnerClan() != null && (clan != null && clan != getOwnerClan()))
 		{
 			updateClansReputation(clan, true);
+
+			L2PcInstance oldLord = getOwnerClan().getLeader().getPlayerInstance();
+			if (oldLord != null && oldLord.getMountType() == 2)
+				oldLord.dismount();
+
 			removeOwner(true);
 		}
 		setFortState(0, 0); // initialize fort state
 		//	if clan already have castle, don't store him in fortress
 		if (clan != null && clan.getHasCastle() > 0)
 		{
-			getSiege().announceToPlayer(new SystemMessage(SystemMessageId.NPCS_RECAPTURED_FORTRESS), 0, false);
+			getSiege().announceToPlayer(SystemMessageId.NPCS_RECAPTURED_FORTRESS.getSystemMessage(), 0, false);
 			return false;
 		}
 		else

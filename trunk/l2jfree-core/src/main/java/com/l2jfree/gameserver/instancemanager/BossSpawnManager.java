@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.GmListTable;
+import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Boss;
@@ -141,6 +142,7 @@ public abstract class BossSpawnManager
 
 		_storedInfo.remove(boss.getNpcId());
 		_storedInfo.put(boss.getNpcId(), info);
+		_log.info(getClass().getSimpleName()+": Updated "+NpcTable.getInstance().getTemplate(boss.getNpcId()).getName()+"(" +boss.getNpcId()+ ") status to " +boss.getRaidStatus());
 	}
 
 	public void addNewSpawn(L2Spawn spawnDat, long respawnTime, double currentHP, double currentMP, boolean storeInDb)

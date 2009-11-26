@@ -844,6 +844,8 @@ public final class L2PcInstance extends L2Playable
 	/** Vitality recovery task */
 	private ScheduledFuture<?>				_vitalityTask;
 
+	private ScheduledFuture<?>				_teleportWatchdog;
+
 	// Id of the afro hair cut
 	private int								_afroId					= 0;
 
@@ -10945,6 +10947,36 @@ public final class L2PcInstance extends L2Playable
 		return _lastPartyPosition;
 	}
 
+	@Override
+	public void setIsTeleporting(boolean teleport)
+	{
+		super.setIsTeleporting(teleport);
+		if (teleport)
+		{
+			if (Config.TELEPORT_WATCHDOG_TIMEOUT > 0 && _teleportWatchdog == null)
+				_teleportWatchdog = ThreadPoolManager.getInstance().scheduleGeneral(new TeleportWatchdog(), Config.TELEPORT_WATCHDOG_TIMEOUT * 1000);
+		}
+		else if (_teleportWatchdog != null)
+		{
+			_teleportWatchdog.cancel(false);
+			_teleportWatchdog = null;
+		}
+	}
+
+	private class TeleportWatchdog implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			if (!isTeleporting())
+				return;
+
+			if (_log.isDebugEnabled())
+				_log.debug("Player " + getName() + " teleport timeout expired");
+			onTeleported();
+		}
+	}
+
 	public void setLastPartyPosition(int x, int y, int z)
 	{
 		getLastPartyPosition().setXYZ(x,y,z);
@@ -11385,6 +11417,15 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		GlobalRestrictions.playerDisconnected(this);
+
+		try
+		{
+			setIsTeleporting(false);
+		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e);
+		}
 
 		// Stop crafting, if in progress
 		try
