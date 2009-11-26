@@ -1023,9 +1023,7 @@ public abstract class L2Character extends L2Object
 		int ssGrade = 0;
 
 		if (weaponItem != null)
-		{
-			ssGrade = weaponItem.getCrystalGrade(); // 0-5
-		}
+			ssGrade = weaponItem.getItemGradeSPlus();
 
 		// Create a Server->Client packet Attack
 		final Attack attack = new Attack(this, target, wasSSCharged, ssGrade);
@@ -1204,7 +1202,7 @@ public abstract class L2Character extends L2Object
 		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk);
 
 		// Add this hit to the Server-Client packet Attack
-		attack.addHit(target, damage1, miss1, crit1, shld1);
+		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1));
 
 		// Return true if hit isn't missed
 		return !miss1;
@@ -1273,7 +1271,7 @@ public abstract class L2Character extends L2Object
 		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1), sAtk);
 
 		// Add this hit to the Server-Client packet Attack
-		attack.addHit(target, damage1, miss1, crit1, shld1);
+		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1));
 
 		// Return true if hit isn't missed
 		return !miss1;
@@ -1347,8 +1345,8 @@ public abstract class L2Character extends L2Object
 		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage2, crit2, miss2), sAtk);
 
 		// Add those hits to the Server-Client packet Attack
-		attack.addHit(target, damage1, miss1, crit1, shld1);
-		attack.addHit(target, damage2, miss2, crit2, shld2);
+		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1),
+				attack.createHit(target, damage2, miss2, crit2, shld2));
 
 		// Return true if hit 1 or hit 2 isn't missed
 		return (!miss1 || !miss2);
@@ -1491,7 +1489,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Add this hit to the Server-Client packet Attack
-		attack.addHit(target, damage1, miss1, crit1, shld1);
+		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1));
 
 		// Create a new hit task
 		return new HitTask(target, damage1, crit1, miss1);

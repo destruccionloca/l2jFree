@@ -326,6 +326,7 @@ public abstract class L2Item implements FuncOwner
 	 */
 	public final int getItemGradeSPlus()
 	{
+		/*
 	        switch (getItemGrade())
 	        {
 	                case CRYSTAL_S80:
@@ -334,6 +335,8 @@ public abstract class L2Item implements FuncOwner
 	            default:
 	                        return getItemGrade();
 	        }
+	    */
+		return getCrystalGrade();
 	}
 	
 	/**

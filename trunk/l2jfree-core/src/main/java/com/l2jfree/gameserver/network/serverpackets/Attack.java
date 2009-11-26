@@ -17,7 +17,9 @@ package com.l2jfree.gameserver.network.serverpackets;
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * @author Forsaiken
@@ -25,109 +27,131 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 public final class Attack extends L2GameServerPacket
 {
 	private static final String _S__06_ATTACK = "[S] 33 Attack";
-	
-	private static final class Hit
+
+	public static final int HITFLAG_USESS = 0x10;
+	public static final int HITFLAG_CRIT = 0x20;
+	public static final int HITFLAG_SHLD = 0x40;
+	public static final int HITFLAG_MISS = 0x80;
+
+	private final class Hit
 	{
-		private static final Hit[] EMPTY_ARRAY = new Hit[0];
-		
 		private final int _targetId;
 		private final int _damage;
 		private final int _flags;
-		
-		private Hit(int targetId, int damage, int flags)
+
+		private Hit(L2Object target, int damage, boolean miss, boolean crit, byte shld)
 		{
-			_targetId = targetId;
+			_targetId = target.getObjectId();
 			_damage = damage;
-			_flags = flags;
+			_flags = getFlags(target, miss, crit, shld);
+		}
+
+		private final int getFlags(L2Object target, boolean miss, boolean crit, byte shld)
+		{
+			if (miss)
+				return HITFLAG_MISS;
+			int flags = 0;
+			if (soulshot)
+				flags = HITFLAG_USESS | Attack.this._ssGrade;
+			if (crit)
+				flags |= HITFLAG_CRIT;
+			// dirty fix for lags on olympiad
+			if (shld > 0 && !(target instanceof L2PcInstance && ((L2PcInstance)target).isInOlympiadMode()))
+				flags |= HITFLAG_SHLD;
+			return flags;
 		}
 	}
-	
+
 	private final int _attackerObjId;
-	private final int _attackerX;
-	private final int _attackerY;
-	private final int _attackerZ;
-	private final int _targetX;
-	private final int _targetY;
-	private final int _targetZ;
-	
+	private final int _targetObjId;
+	private final int _x;
+	private final int _y;
+	private final int _z;
+	private final int _tx;
+	private final int _ty;
+	private final int _tz;
+
 	public final boolean soulshot;
-	private final int _grade;
-	
-	private Hit[] _hits = Hit.EMPTY_ARRAY;
-	
-	public Attack(L2Character attacker, L2Character target, boolean ss, int grade)
+	public final int _ssGrade;
+
+	private Hit[] _hits;
+
+	/**
+	 * @param attacker the attacking L2Character
+	 * @param target the target L2Object
+	 * @param useShots true if soulshots used
+	 * @param ssGrade the grade of the soulshots
+	 */
+	public Attack(L2Character attacker, L2Object target, boolean useShots, int ssGrade)
 	{
 		_attackerObjId = attacker.getObjectId();
-		soulshot = ss;
-		_grade = grade;
-		_attackerX = attacker.getX();
-		_attackerY = attacker.getY();
-		_attackerZ = attacker.getZ();
-		_targetX = target.getX();
-		_targetY = target.getY();
-		_targetZ = target.getZ();
+		_targetObjId = target.getObjectId();
+		soulshot = useShots;
+		_ssGrade = ssGrade;
+		_x = attacker.getX();
+		_y = attacker.getY();
+		_z = attacker.getZ();
+		_tx = target.getX();
+		_ty = target.getY();
+		_tz = target.getZ();
 	}
-	
-	private int getFlags(boolean miss, boolean crit, byte shld)
+
+	public Hit createHit(L2Object target, int damage, boolean miss, boolean crit, byte shld)
 	{
-		int flags = 0;
-		
-		if (soulshot)
-			flags |= 0x10 | _grade;
-		
-		if (crit)
-			flags |= 0x20;
-		
-		if (shld > 0)
-			flags |= 0x40;
-		
-		if (miss)
-			flags |= 0x80;
-		
-		return flags;
+		return new Hit( target, damage, miss, crit, shld );
 	}
-	
-	public void addHit(L2Character target, int damage, boolean miss, boolean crit, byte shld)
+
+	public void hit(Hit... hits)
 	{
-		_hits = (Hit[])ArrayUtils.add(_hits, new Hit(target.getObjectId(), damage, getFlags(miss, crit, shld)));
+		if (_hits == null)
+		{
+			_hits = hits;
+			return;
+		}
+
+		// this will only happen with pole attacks
+		_hits = (Hit[]) ArrayUtils.addAll(hits, _hits);
 	}
-	
+
+	/** @return True if the Server-Client packet Attack contains at least 1 hit. */
 	public boolean hasHits()
 	{
-		return _hits.length > 0;
+		return _hits != null;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x33);
-		
+
 		writeD(_attackerObjId);
-		writeD(_hits[0]._targetId);
+		writeD(_targetObjId);
 		writeD(_hits[0]._damage);
 		writeC(_hits[0]._flags);
-		writeD(_attackerX);
-		writeD(_attackerY);
-		writeD(_attackerZ);
-		
+		writeD(_x);
+		writeD(_y);
+		writeD(_z);
+
 		writeH(_hits.length - 1);
-		for (int i = 1; i < _hits.length; i++)
+		// prevent sending useless packet while there is only one target.
+		if (_hits.length > 1)
 		{
-			final Hit hit = _hits[i];
-			
-			writeD(hit._targetId);
-			writeD(hit._damage);
-			writeC(hit._flags);
+			for (int i = 1; i < _hits.length; i++)
+			{
+				writeD(_hits[i]._targetId);
+				writeD(_hits[i]._damage);
+				writeC(_hits[i]._flags);
+			}
 		}
-		
+
 		if (Config.PACKET_FINAL)
 		{
-			writeD(_targetX);
-			writeD(_targetY);
-			writeD(_targetZ);
+			writeD(_tx);
+			writeD(_ty);
+			writeD(_tz);
 		}
 	}
-	
+
 	@Override
 	public String getType()
 	{

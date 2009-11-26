@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 
@@ -81,12 +80,7 @@ public final class Disconnection
 		try
 		{
 			if (_activeChar != null)
-			{
 				_activeChar.store(true, true);
-				L2Summon pet = _activeChar.getPet();
-				if (pet != null)
-					pet.store();
-			}
 		}
 		catch (RuntimeException e)
 		{

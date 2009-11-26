@@ -47,10 +47,8 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 	{
 		_packageSale = (readD() == 1);
 		int count = readD();
-		if (count < 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
-		{
+		if (count < 1 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
 			return;
-		}
 
 		_items = new Item[count];
 		for (int i = 0; i < count; i++)
@@ -77,9 +75,9 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 
 		if (_items == null)
 		{
+			requestFailed(SystemMessageId.INCORRECT_ITEM_COUNT);
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			player.broadcastUserInfo();
-			sendAF();
 			return;
 		}
 

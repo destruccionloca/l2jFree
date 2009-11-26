@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.idfactory;
 import gnu.trove.TIntArrayList;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -112,6 +113,11 @@ public abstract class IdFactory
 			"SELECT charId      FROM seven_signs           WHERE charId >= ?      AND charId < ?",
 			"SELECT object_id   FROM itemsonground         WHERE object_id >= ?   AND object_id < ?" };
 
+	private static final String[] TIMESTAMPS_CLEAN = {
+		"DELETE FROM character_instance_time WHERE time <= ?",
+		"DELETE FROM character_skills_save WHERE restore_type = 1 AND systime <= ?"
+	};
+
 	protected boolean				_initialized;
 
 	public static final int			FIRST_OID			= 0x10000000;
@@ -124,6 +130,7 @@ public abstract class IdFactory
 	{
 		setAllCharacterOffline();
 		cleanUpDB();
+		cleanUpTimeStamps();
 	}
 
 	static
@@ -199,6 +206,7 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_raid_points WHERE charId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_instance_time WHERE character_instance_time.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM clan_data WHERE clan_data.leader_id NOT IN (SELECT charId FROM characters) AND clan_data.clan_id != 6619248;");
 			cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player1Id NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM couples WHERE couples.player2Id NOT IN (SELECT charId FROM characters);");
@@ -239,6 +247,33 @@ public abstract class IdFactory
 		catch (SQLException e)
 		{
 			_log.error(e.getMessage(), e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
+	private void cleanUpTimeStamps()
+	{
+		Connection con = null;
+		try
+		{
+			int cleanCount = 0;
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement stmt;
+			for (String line : TIMESTAMPS_CLEAN)
+			{
+				stmt = con.prepareStatement(line);
+				stmt.setLong(1, System.currentTimeMillis());
+				cleanCount += stmt.executeUpdate();
+				stmt.close();
+			}
+
+			_log.info("Cleaned " + cleanCount + " expired timestamps from database.");
+		}
+		catch (SQLException e)
+		{
 		}
 		finally
 		{

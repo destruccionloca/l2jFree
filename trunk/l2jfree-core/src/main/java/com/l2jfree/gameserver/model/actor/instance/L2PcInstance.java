@@ -94,6 +94,7 @@ import com.l2jfree.gameserver.instancemanager.FactionManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -167,6 +168,7 @@ import com.l2jfree.gameserver.model.entity.Duel;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.AbstractFunEventPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
@@ -3976,24 +3978,27 @@ public final class L2PcInstance extends L2Playable
 
 		if (isInOlympiadMode() && isOlympiadStart() && (needCpUpdate || needHpUpdate))
 		{
-			ExOlympiadUserInfo olyInfo = new ExOlympiadUserInfo(this, 2);
-
-			for (L2PcInstance player : Olympiad.getInstance().getPlayers(_olympiadGameId))
-				if (player != null && player != this)
-					player.sendPacket(olyInfo);
-
-			final List<L2PcInstance> spectators = Olympiad.getInstance().getSpectators(getOlympiadGameId());
-
-			if (spectators != null && !spectators.isEmpty())
+			Collection<L2PcInstance> players = getKnownList().getKnownPlayers().values();
+			if (!players.isEmpty())
 			{
-				olyInfo = new ExOlympiadUserInfo(this, getOlympiadSide());
-				for (L2PcInstance spectator : spectators)
+				ExOlympiadUserInfo olyInfo = new ExOlympiadUserInfo(this, 2);
+				for (L2PcInstance player : players)
+					if (player != null && player.isInOlympiadMode() &&
+							player.getOlympiadGameId() == _olympiadGameId)
+						player.sendPacket(olyInfo);
+			}
+
+			players = Olympiad.getInstance().getSpectators(_olympiadGameId);
+			if(players != null && !players.isEmpty())
+			{
+				ExOlympiadUserInfo olyInfo = new ExOlympiadUserInfo(this, getOlympiadSide());
+				for (L2PcInstance spectator : players)
 					if (spectator != null)
 						spectator.sendPacket(olyInfo);
 			}
 		}
 
-		if (isInDuel())
+		if (isInDuel() && (needCpUpdate || needHpUpdate))
 			DuelManager.getInstance().broadcastToOppositTeam(this, new ExDuelUpdateUserInfo(this));
 	}
 
@@ -7062,6 +7067,7 @@ public final class L2PcInstance extends L2Playable
 
 		storeCharBase();
 		storeCharSub();
+		storePet();
 		storeEffect(storeActiveEffects);
 		transformInsertInfo();
 
@@ -7285,6 +7291,13 @@ public final class L2PcInstance extends L2Playable
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+
+	private void storePet()
+	{
+		L2Summon pet = getPet();
+		if (pet != null)
+			pet.store();
 	}
 
 	/**
@@ -11540,6 +11553,36 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 
+		// remove player from instance and set spawn location if any
+		try
+		{
+			final int instanceId = getInstanceId();
+			if (instanceId != 0)
+			{
+				final Instance inst = InstanceManager.getInstance().getInstance(instanceId);
+				if (inst != null)
+				{
+					inst.removePlayer(getObjectId());
+					final int[] spawn = inst.getSpawnLoc();
+					if (spawn[0] != 0 && spawn[1] != 0 && spawn[2] != 0)
+					{
+						final int x = spawn[0] + Rnd.get(-30, 30);
+						final int y = spawn[1] + Rnd.get(-30, 30);
+						getPosition().setXYZ(x, y, spawn[2]);
+						if (getPet() != null) // dead pet
+						{
+							getPet().teleToLocation(x, y, spawn[2]);
+							getPet().setInstanceId(0);
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			_log.fatal(e.getMessage(), e);
+		}
+
 		// Update database with items in its inventory and remove them from the world
 		try
 		{
@@ -14074,6 +14117,9 @@ public final class L2PcInstance extends L2Playable
 			sendMessage("You can't teleport during Observation Mode.");
 			return false;
 		}
+
+		if (isAfraid())
+			return false;
 
 		return true;
 	}
