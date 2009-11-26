@@ -226,7 +226,7 @@ public final class UseItem extends L2GameClientPacket
 
 		if (!item.isEquipped())
 		{
-			if (!item.getItem().checkCondition(activeChar))
+			if (!item.getItem().checkCondition(activeChar, true))
 			{
 				sendAF();
 				return;
@@ -267,13 +267,11 @@ public final class UseItem extends L2GameClientPacket
 					requestFailed(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC);
 					return;
 				}
-
 				else if (activeChar.isMounted() || activeChar.isDisarmed())
 				{
-					activeChar.sendPacket(SystemMessageId.NO_CONDITION_TO_EQUIP);
+					requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
 					return;
 				}
-
 				// Don't allow weapon/shield equipment if a cursed weapon is equipped
 				else if (activeChar.isCursedWeaponEquipped())
 				{
@@ -352,7 +350,6 @@ public final class UseItem extends L2GameClientPacket
 		{
 			L2Weapon weaponItem = activeChar.getActiveWeaponItem();
 			int itemid = item.getItemId();
-			//_log.finest("item not equipable id:"+ item.getItemId());
 			if (itemid == 4393)
 				activeChar.sendPacket(new ShowCalculator(4393));
 			else if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.ROD)

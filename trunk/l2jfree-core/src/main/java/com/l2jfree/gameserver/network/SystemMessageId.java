@@ -14567,6 +14567,12 @@ public enum SystemMessageId
 	C1_BIRTHDAY_IS_S3_S4_S2(2450),
 
 	/**
+	 * ID: 2451<br>
+	 * Message: The cloak equip has been removed because the armor set equip has been removed.
+	 */
+	CLOAK_REMOVED_BECAUSE_ARMOR_SET_REMOVED(2451),
+
+	/**
 	 * ID: 2465<br>
 	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you wish to participate?
 	 */

@@ -142,7 +142,9 @@ public class Instance
 	{
 		if (_checkTimeUpTask != null)
 			_checkTimeUpTask.cancel(true);
+
 		_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration), 500);
+		_instanceEndTime = System.currentTimeMillis() + duration + 500;
 	}
 
 	/**
@@ -268,6 +270,13 @@ public class Instance
 	public int[] getSpawnLoc()
 	{
 		return _spawnLoc;
+	}
+
+	public void setSpawnLoc(int[] loc)
+	{
+		if (loc == null || loc.length < 3)
+			return;
+		System.arraycopy(loc, 0, _spawnLoc, 0, 3);
 	}
 
 	public void removePlayers()

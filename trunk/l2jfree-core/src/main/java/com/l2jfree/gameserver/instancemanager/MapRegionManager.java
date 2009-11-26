@@ -289,9 +289,13 @@ public final class MapRegionManager
 			Fort fort = null;
 			ClanHall clanhall = null;
 			
-			// TODO: review this as imo it should limit teleportations outside of Gracia only not every teleport
-			if (player.isFlyingMounted()) // prevent flying players to teleport outside of gracia
-				return new Location(-186330, 242944, 2544);
+			if (player.isFlyingMounted() || player.isFlying()) // prevent flying players to teleport outside of gracia
+			{
+				if (player.isChaotic() && !player.isFlying())
+					return new Location(-186330, 242944, 2544);
+				else
+					getRestartLocation(player).getRandomRestartPoint(player);
+			}
 			
 			// Checking if in Dimensinal Gap
 			if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.getX(), player.getY(), player.getZ(), true)) // true -> ignore waiting room :)
@@ -307,14 +311,12 @@ public final class MapRegionManager
 			// Checking if in an instance
 			if (player.getInstanceId() > 0)
 			{
-				Instance playerInstance = InstanceManager.getInstance().getInstance(player.getInstanceId());
-				if (playerInstance != null)
+				Instance inst = InstanceManager.getInstance().getInstance(player.getInstanceId());
+				if (inst != null)
 				{
-					if (playerInstance.getSpawnLoc() != null)
-					{
-						int[] coord = playerInstance.getSpawnLoc();
+					int[] coord = inst.getSpawnLoc();
+					if (coord[0] != 0 && coord[1] != 0 && coord[2] != 0)
 						return new Location(coord[0], coord[1], coord[2]);
-					}
 				}
 			}
 			

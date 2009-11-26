@@ -14,15 +14,15 @@
  */
 package com.l2jfree.gameserver.templates.item;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
+import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.conditions.Condition;
@@ -568,33 +568,46 @@ public abstract class L2Item implements FuncOwner
 		if (c == null || ArrayUtils.contains(_preConditions, c))
 			return;
 		
-		_preConditions = Arrays.copyOf(_preConditions, _preConditions.length + 1);
-		_preConditions[_preConditions.length - 1] = c;
+		ArrayUtils.add(_preConditions, c);
 	}
 
-	public boolean checkCondition(L2Playable activeChar)
+	public boolean checkCondition(L2Character activeChar, L2Object target, boolean sendMessage)
 	{
-		if (activeChar instanceof L2PcInstance)
-			if (((L2PcInstance)activeChar).isGM() && !Config.GM_ITEM_RESTRICTION)
-				return true;
+		if (activeChar instanceof L2PcInstance && activeChar.getActingPlayer().isGM() &&
+				!Config.GM_ITEM_RESTRICTION)
+			return true;
 		
 		for (Condition preCondition : _preConditions)
 		{
 			Env env = new Env();
 			env.player = activeChar;
-			env.target = activeChar;
+			if (target instanceof L2Character)
+				env.target = target.getActingCharacter();
+			else
+				env.target = activeChar;
 			
 			if (!preCondition.test(env))
 			{
-				if (activeChar instanceof L2SummonInstance)
-					((L2SummonInstance)activeChar).getOwner().sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
-				else if (activeChar instanceof L2PcInstance)
-					preCondition.sendMessage((L2PcInstance)activeChar, this);
+				if (activeChar instanceof L2Summon)
+					((L2Summon) activeChar).getOwner().sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM);
+				else if (sendMessage && activeChar instanceof L2PcInstance)
+					preCondition.sendMessage(activeChar.getActingPlayer(), this);
 				
 				return false;
 			}
 		}
 		return true;
+	}
+
+	public boolean checkCondition(L2Playable activeChar, boolean sendMessage)
+	{
+		return checkCondition(activeChar, activeChar, sendMessage);
+	}
+
+	public boolean checkCondition(L2Summon pet)
+	{
+		// second param does nothing
+		return checkCondition(pet, true);
 	}
 
 	/**

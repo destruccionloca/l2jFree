@@ -48,22 +48,28 @@ public class RequestPetUseItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-
 		if (activeChar == null)
 			return;
 
 		L2PetInstance pet = (L2PetInstance) activeChar.getPet();
-
 		if (pet == null)
+		{
+			sendAF();
 			return;
+		}
 
 		L2ItemInstance item = pet.getInventory().getItemByObjectId(_objectId);
-
 		if (item == null)
+		{
+			sendAF();
 			return;
+		}
 
 		if (item.isWear())
+		{
+			requestFailed(SystemMessageId.PET_CANNOT_USE_ITEM);
 			return;
+		}
 
 		if (activeChar.isAlikeDead() || pet.isDead())
 		{

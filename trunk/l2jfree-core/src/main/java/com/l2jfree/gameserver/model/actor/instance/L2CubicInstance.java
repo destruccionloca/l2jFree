@@ -300,12 +300,12 @@ public class L2CubicInstance
 	public void stopAction()
 	{
 		_target = null;
-		_active = false;
 		if (_actionTask != null)
 		{
 			_actionTask.cancel(true);
 			_actionTask = null;
 		}
+		_active = false;
 	}
 
 	public void cancelDisappear()

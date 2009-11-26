@@ -8202,9 +8202,8 @@ public final class L2PcInstance extends L2Playable
 	public void setIsCastingNow(boolean value)
 	{
 		if (!value)
-		{
 			_currentSkill = null;
-		}
+
 		super.setIsCastingNow(value);
 	}
 
@@ -13662,14 +13661,11 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (_gatesRequestTarget == null)
 			return;
+
 		if (answer == 1 && getTarget() == _gatesRequestTarget && type == 1)
-		{
 			_gatesRequestTarget.openMe();
-		}
 		else if (answer == 1 && getTarget() == _gatesRequestTarget && type == 0)
-		{
 			_gatesRequestTarget.closeMe();
-		}
 
 		_gatesRequestTarget = null;
 	}
@@ -13722,13 +13718,16 @@ public final class L2PcInstance extends L2Playable
     	for (int i = 0; i < Inventory.PAPERDOLL_TOTALSLOTS; i++)
     	{
     		L2ItemInstance equippedItem = getInventory().getPaperdollItem(i);
-    		if (equippedItem != null && !equippedItem.getItem().checkCondition(this))
+    		if (equippedItem != null && !equippedItem.getItem().checkCondition(this, false))
     		{
 				getInventory().unEquipItemInSlotAndRecord(i);
 				if (equippedItem.isWear())
 					continue;
+
 				SystemMessage sm = null;
-				if (equippedItem.getEnchantLevel() > 0)
+				if (equippedItem.getItem().getBodyPart() == L2Item.SLOT_BACK)
+					sm = SystemMessageId.CLOAK_REMOVED_BECAUSE_ARMOR_SET_REMOVED.getSystemMessage();
+				else if (equippedItem.getEnchantLevel() > 0)
 				{
 					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
 					sm.addNumber(equippedItem.getEnchantLevel());
