@@ -764,9 +764,9 @@
   <skill id="2074" levels="1" name="Potion of Critical Escape">
     <set name="castRange" val="600"/>
     <set name="effectRange" val="800"/>
+    <set name="isPotion" val="true"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="itemConsumeId" val="4677"/>
-    <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/>
