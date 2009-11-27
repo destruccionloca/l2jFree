@@ -1632,7 +1632,6 @@
     </for>
   </skill>
   <skill id="480" levels="1" name="Dark Blade">
-    <!-- Needs to be finished -->
     <!-- CT2.2 retail confirmed -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
