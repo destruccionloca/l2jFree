@@ -179,6 +179,7 @@ public final class Shutdown extends Thread
 		System.out.println("RaidBossSpawnManager: All raidboss info saved.");
 		GrandBossSpawnManager.getInstance().cleanUp();
 		System.out.println("GrandBossSpawnManager: All grandboss info saved.");
+		System.out.println("Saving TradeController data, please wait...");
 		TradeListTable.getInstance().dataCountStore();
 		System.out.println("TradeController: All count Item Saved");
 		Olympiad.getInstance().saveOlympiadStatus();

@@ -82,7 +82,8 @@ public final class PcStatus extends CharStatus
 		
 		if (attacker != getActiveChar() && realValue > 0)
 		{
-			SystemMessage smsg = new SystemMessage(SystemMessageId.C1_GAVE_YOU_S2_DMG);
+			SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_C2);
+			smsg.addPcName(getActiveChar());
 			smsg.addCharName(attacker);
 			smsg.addNumber((int)realValue);
 			getActiveChar().sendPacket(smsg);

@@ -14035,27 +14035,27 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2261<br>
-	 * Message: $c1% has given $s2 damage of $s3.
+	 * Message: $c1% has given $c2 damage of $s3.
 	 */
-	C1_GAVE_S2_DAMAGE_OF_S3(2261),
+	C1_GAVE_C2_DAMAGE_OF_S3(2261),
 
 	/**
 	 * ID: 2262<br>
 	 * Message: $c1 has received $s3 damage from $c2.
 	 */
-	C1_RECEIVED_DAMAGE_OF_S3_FROM_S2(2262),
+	C1_RECEIVED_DAMAGE_OF_S3_FROM_C2(2262),
 
 	/**
 	 * ID: 2263<br>
-	 * Message: $c1% has received damage of $s3 through $s2.
+	 * Message: $c1% has received damage of $s3 through $c2.
 	 */
-	C1_RECEIVED_DAMAGE_OF_S3_THROUGH_S2(2263),
+	C1_RECEIVED_DAMAGE_OF_S3_THROUGH_C2(2263),
 
 	/**
 	 * ID: 2264<br>
-	 * Message: $c1% has evaded $s2's attack.
+	 * Message: $c1% has evaded $c2's attack.
 	 */
-	C1_EVADED_S2_ATTACK(2264),
+	C1_EVADED_C2_ATTACK(2264),
 
 	/**
 	 * ID: 2265<br>
@@ -14541,6 +14541,12 @@ public enum SystemMessageId
 	 * Message: You have no open My Teleports slots.
 	 */
 	YOU_HAVE_NO_OPEN_MY_TELEPORTS_SLOTS(2398),
+
+	/**
+	 * ID: 2400<br>
+	 * Message: Instant Zone currently in use: $s1
+	 */
+	INSTANT_ZONE_CURRENTLY_INUSE(2400),
 
 	/**
 	 * ID: 2409<br>
@@ -15244,6 +15250,12 @@ public enum SystemMessageId
 	 * Message: Current location: $s1, $s2, $s3 (inside Aerial Cleft)
 	 */
 	LOC_CLEFT_S1_S2_S3(2716),
+
+	/**
+	 * ID: 2720<br>
+	 * Message: Instant zone from here: $s1's entry has been restricted.
+	 */
+	INSTANT_ZONE_RESTRICTED(2720),
 
 	/**
 	 * ID: 2721<br>

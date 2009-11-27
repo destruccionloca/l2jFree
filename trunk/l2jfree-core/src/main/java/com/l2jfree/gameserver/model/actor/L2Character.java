@@ -6541,8 +6541,14 @@ public abstract class L2Character extends L2Object
 						{
 							if (!isAggroReducingSkill)
 							{
-								// add attacker into list
-								((L2Character)target).addAttackerToAttackByList(this);
+								switch (skill.getId())
+								{
+								case 51: case 511:
+									break;
+								default:
+									// add attacker into list
+									((L2Character)target).addAttackerToAttackByList(this);
+								}
 								// notify target AI about the attack
 								((L2Character)target).getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
 							}

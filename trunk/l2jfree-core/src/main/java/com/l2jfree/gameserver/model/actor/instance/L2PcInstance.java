@@ -7062,8 +7062,8 @@ public final class L2PcInstance extends L2Playable
 			return;
 
 		// Update client coords, if these look like true
-		if (isInsideRadius(getClientX(), getClientY(), 1000, true))
-			getPosition().setXYZ(getClientX(), getClientY(), getClientZ());
+		// if (isInsideRadius(getClientX(), getClientY(), 1000, true))
+		//	getPosition().setXYZ(getClientX(), getClientY(), getClientZ());
 
 		storeCharBase();
 		storeCharSub();
@@ -10376,7 +10376,7 @@ public final class L2PcInstance extends L2Playable
             for (L2Skill oldSkill : getAllSkills())
                 super.removeSkill(oldSkill);
 
-            stopAllEffects();
+            stopAllEffectsExceptThoseThatLastThroughDeath();
 
             restoreRecipeBook(false);
 
@@ -13189,14 +13189,14 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (miss)
 		{
-			sendPacket(SystemMessageId.MISSED_TARGET);
+			sendPacket(new SystemMessage(SystemMessageId.C1_ATTACK_WENT_ASTRAY).addPcName(this));
 			target.sendAvoidMessage(this);
 			return;
 		}
 
 		if (pcrit)
 		{
-			sendPacket(SystemMessageId.CRITICAL_HIT);
+			sendPacket(new SystemMessage(SystemMessageId.C1_HAD_CRITICAL_HIT).addPcName(this));
 
 			if (target instanceof L2Npc)
 			{
@@ -13222,9 +13222,16 @@ public final class L2PcInstance extends L2Playable
 		{
 			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
 		}
-		else
+		else if (target instanceof L2DoorInstance || target instanceof L2ControlTowerInstance)
 		{
 			sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
+			sm.addNumber(damage);
+		}
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.C1_GAVE_C2_DAMAGE_OF_S3);
+			sm.addPcName(this);
+			sm.addCharName(target);
 			sm.addNumber(damage);
 		}
 		sendPacket(sm);

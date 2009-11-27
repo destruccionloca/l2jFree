@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -41,11 +40,12 @@ public class L2SiegeDangerZone extends L2DamageZone
 	{
 		super.checkForDamage(character);
 
-		if (getHPDamagePerSecond() > 0 && character instanceof L2PcInstance)
+		if (getHPDamagePerSecond() > 0 && character instanceof L2Playable)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DAMAGE_FROM_FIRE_MAGIC);
+			SystemMessage sm = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_FROM_S2_THROUGH_FIRE_OF_MAGIC);
+			sm.addCharName(character);
 			sm.addNumber(getHPDamagePerSecond());
-			((L2PcInstance) character).sendPacket(sm);
+			character.getActingPlayer().sendPacket(sm);
 		}
 	}
 

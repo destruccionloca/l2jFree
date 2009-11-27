@@ -525,7 +525,9 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (env.player instanceof L2PcInstance && env.player.getActiveWeaponInstance() != null)
+			if (env.player instanceof L2Summon)
+				env.value = 8; // TODO: needs retail value
+			else if (env.player instanceof L2PcInstance && env.player.getActiveWeaponInstance() != null)
 				env.value *= WITbonus[env.player.getStat().getWIT()];
 		}
 	}
@@ -1711,6 +1713,8 @@ public final class Formulas
 
 		// support for critical damage evasion
 		return Rnd.calcChance(200 - target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, attacker, null), 100);
+		// little weird, but remember what CRIT_DAMAGE_EVASION > 1 increase chances to _evade_ crit hits
+		// return Rnd.get((int)target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, null, null)) > 100;
 	}
 
 	private static boolean calcCrit(L2Character attacker, L2Character target, double rate)

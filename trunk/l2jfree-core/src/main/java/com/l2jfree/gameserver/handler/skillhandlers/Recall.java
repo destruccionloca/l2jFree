@@ -17,7 +17,9 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.handler.ISkillConditionChecker;
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -94,40 +96,43 @@ public class Recall extends ISkillConditionChecker
 					continue;
 				}
 			}
-
-			target.setInstanceId(0);
-			if (target instanceof L2PcInstance)
-				((L2PcInstance) target).setIsIn7sDungeon(false);
+			
+			Location loc;
+			int[] coords = skill.getTeleportCoords();
+			if (coords != null)
+				loc = new Location(coords[0], coords[1], coords[2]);
+			else
+				loc = null;
 			
 			if (skill.getSkillType() == L2SkillType.TELEPORT)
 			{
-				int[] coords = skill.getTeleportCoords();
-				if (coords != null)
+				if (loc != null)
 				{
-					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
-						target.teleToLocation(coords[0], coords[1], coords[2]);
+					// target is not player OR player is not flying or flymounted
+					// TODO: add check for gracia continent coords
+					if (target instanceof L2PcInstance &&
+							(target.isFlying() || target.getActingPlayer().isFlyingMounted()))
+						loc = null;
 				}
 			}
 			else
 			{
 				String recall = skill.getRecallType();
 				if (recall.equalsIgnoreCase("Castle"))
-				{
-					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
-						target.teleToLocation(TeleportWhereType.Castle);
-				}
+					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Castle);
 				else if (recall.equalsIgnoreCase("ClanHall"))
-				{
-					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
-						target.teleToLocation(TeleportWhereType.ClanHall);
-				}
+					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.ClanHall);
 				else if (recall.equalsIgnoreCase("Fortress"))
-				{
-					if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).isFlyingMounted())
-						target.teleToLocation(TeleportWhereType.Fortress);
-				}
+					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Fortress);
 				else
-					target.teleToLocation(TeleportWhereType.Town);
+					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Town);
+			}
+			if (loc != null)
+			{
+				target.setInstanceId(0);
+				if (target instanceof L2PcInstance)
+					target.getActingPlayer().setIsIn7sDungeon(false);
+				target.teleToLocation(loc, true);
 			}
 		}
 	}
