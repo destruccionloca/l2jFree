@@ -29,8 +29,8 @@
     <door doorId="24220022"/>
     <door doorId="24220023"/>
     <door doorId="24220024"/>
-    <door doorId="24220061"/>
-    <door doorId="24220026"/>
     <door doorId="24220025"/>
+    <door doorId="24220026"/>
+    <door doorId="24220061"/>
   </doorlist>
 </instance>
