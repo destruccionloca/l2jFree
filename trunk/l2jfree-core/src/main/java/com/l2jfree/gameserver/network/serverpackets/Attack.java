@@ -33,7 +33,7 @@ public final class Attack extends L2GameServerPacket
 	public static final int HITFLAG_SHLD = 0x40;
 	public static final int HITFLAG_MISS = 0x80;
 
-	private final class Hit
+	public final class Hit
 	{
 		private final int _targetId;
 		private final int _damage;

@@ -14,21 +14,29 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+
 /**
- * When teleported anywhere in CC, you get this packet
- * every time containing the same id while logged in.<BR>
- * No further use tested.
+ * Sent (broadcast?) each time you teleport/are teleported.<BR>
+ * Different states don't seem to have any effect.
  * @author savormix
  */
 public class ExBR_PremiumState extends L2GameServerPacket
 {
 	private static final String _S__FE_AA_EXBRPREMIUMSTATE = "[S] FE:AA ExBR_PremiumState";
 
+	private final int _charId;
 	private final int _state;
 
-	public ExBR_PremiumState(int state)
+	private ExBR_PremiumState(int pcObjectId, int state)
 	{
+		_charId = pcObjectId;
 		_state = state;
+	}
+
+	public ExBR_PremiumState(L2PcInstance player)
+	{
+		this(player.getObjectId(), 0);
 	}
 
 	@Override
@@ -37,9 +45,8 @@ public class ExBR_PremiumState extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0xaa);
 
-		writeD(_state);
-
-		writeC(0x00);
+		writeD(_charId);
+		writeC(_state);
 	}
 
 	@Override
