@@ -9447,6 +9447,9 @@ UPDATE `npc` SET level='70', sp='0', exp='0', hp='3862', mp='1494', attackrange=
 UPDATE `npc` SET level='70', sp='0', exp='0', hp='3862', mp='1494', attackrange='40', AI='fighter', atkspd='253', patk='1303', matk='607', pdef='471', mdef='382', str='40', `int`='21', dex='30', wit='20', con='43', men='20', hpreg='0', mpreg='0', aggro='0', matkspd='333', faction_range='0', absorb_level='0', absorb_type='LAST_HIT', ss='0', bss='0', ss_rate='0', drop_herbs='false' WHERE type='L2CastleDoormen';
 UPDATE `npc` SET level='70', sp='0', exp='0', hp='3862', mp='1494', attackrange='40', AI='fighter', atkspd='253', patk='1303', matk='607', pdef='471', mdef='382', str='40', `int`='21', dex='30', wit='20', con='43', men='20', hpreg='0', mpreg='0', aggro='0', matkspd='333', faction_range='0', absorb_level='0', absorb_type='LAST_HIT', ss='0', bss='0', ss_rate='0', drop_herbs='false' WHERE type='L2FortDoormen';
 
+-- Agathion Standards
+UPDATE `npc` SET type='L2Npc', level='55', sp='0', exp='0', hp='2643', mp='988', attackrange='40', AI='fighter', atkspd='253', patk='665', matk='311', pdef='322', mdef='262', str='40', `int`='21', dex='30', wit='20', con='43', men='25', collision_radius='13', collision_height='11.5', rhand='0', lhand='0' WHERE name LIKE '%Agathion%';
+
 --
 -- L2J-Free Add-ons
 --
