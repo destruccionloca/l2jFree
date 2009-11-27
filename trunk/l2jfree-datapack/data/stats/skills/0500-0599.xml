@@ -196,9 +196,9 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="200"/>
     <set name="soulMaxConsumeCount" val="5"/>
+    <set name="baseCritRate" val="15"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="baseCritRate" val="15"/>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
