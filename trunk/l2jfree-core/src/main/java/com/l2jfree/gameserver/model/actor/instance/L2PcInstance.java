@@ -13183,65 +13183,6 @@ public final class L2PcInstance extends L2Playable
 		if (ts != null && ts.getRemaining() > 500)
 			sendSkillCoolTime();
 	}
-	
-	@Override
-	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
-	{
-		if (miss)
-		{
-			sendPacket(new SystemMessage(SystemMessageId.C1_ATTACK_WENT_ASTRAY).addPcName(this));
-			target.sendAvoidMessage(this);
-			return;
-		}
-
-		if (pcrit)
-		{
-			sendPacket(new SystemMessage(SystemMessageId.C1_HAD_CRITICAL_HIT).addPcName(this));
-
-			if (target instanceof L2Npc)
-			{
-				// Soul Mastery skill
-				final L2Skill skill = getKnownSkill(L2Skill.SKILL_SOUL_MASTERY);
-
-				if (skill != null && Rnd.get(100) < skill.getCritChance())
-					absorbSoulFromNpc(skill, target);
-			}
-		}
-
-		if (mcrit)
-			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
-
-		if (isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance)target).isInOlympiadMode()
-			&& ((L2PcInstance)target).getOlympiadGameId() == getOlympiadGameId())
-		{
-			Olympiad.getInstance().notifyCompetitorDamage(this, damage, getOlympiadGameId());
-		}
-
-		final SystemMessage sm;
-		if (target.isInvul() && !(target instanceof L2NpcInstance))
-		{
-			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
-		}
-		else if (target instanceof L2DoorInstance || target instanceof L2ControlTowerInstance)
-		{
-			sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
-			sm.addNumber(damage);
-		}
-		else
-		{
-			sm = new SystemMessage(SystemMessageId.C1_GAVE_C2_DAMAGE_OF_S3);
-			sm.addPcName(this);
-			sm.addCharName(target);
-			sm.addNumber(damage);
-		}
-		sendPacket(sm);
-	}
-
-	@Override
-	public final void sendAvoidMessage(L2Character attacker)
-	{
-		sendPacket(new SystemMessage(SystemMessageId.AVOIDED_C1S_ATTACK).addCharName(attacker));
-	}
 
 	public boolean isKamaelic()
 	{

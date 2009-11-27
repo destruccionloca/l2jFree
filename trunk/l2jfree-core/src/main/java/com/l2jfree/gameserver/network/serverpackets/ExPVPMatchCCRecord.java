@@ -22,6 +22,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExPVPMatchCCRecord extends L2GameServerPacket
 {
 	private static final String _S__FE_89_EXPVPMATCHCCRECORD = "[S] FE:89 ExPVPMatchCCRecord";
+	public static final CCPlayer[] EMPTY_ARRAY = new CCPlayer[0];
 
 	private final int _state;
 	private final CCPlayer[] _players;

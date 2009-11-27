@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -42,7 +41,6 @@ import com.l2jfree.gameserver.model.actor.view.CharLikeView;
 import com.l2jfree.gameserver.model.actor.view.SummonView;
 import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
-import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -773,63 +771,6 @@ public abstract class L2Summon extends L2Playable
 		_owner = newOwner;
 	}
 
-	@Override
-	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
-	{
-		if (miss)
-		{
-			if (this instanceof L2SummonInstance)
-				getOwner().sendMessage("The summoned monster has missed.");
-			else
-				getOwner().sendMessage("Your pet has missed.");
-			target.sendAvoidMessage(this);
-			return;
-		}
-		
-		if (pcrit || mcrit)
-		{
-			if (this instanceof L2SummonInstance)
-				getOwner().sendPacket(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB);
-			else
-				getOwner().sendPacket(SystemMessageId.CRITICAL_HIT_BY_PET);
-		}
-		
-		if (target.getObjectId() != getOwner().getObjectId())
-		{
-			if (getOwner().isInOlympiadMode() && target instanceof L2PcInstance
-				&& ((L2PcInstance)target).isInOlympiadMode()
-				&& ((L2PcInstance)target).getOlympiadGameId() == getOwner().getOlympiadGameId())
-			{
-				Olympiad.getInstance().notifyCompetitorDamage(getOwner(), damage, getOwner().getOlympiadGameId());
-			}
-		}
-		
-		final SystemMessage sm;
-		if (target.isInvul() && !(target instanceof L2NpcInstance))
-		{
-			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
-		}
-		else
-		{
-			if (this instanceof L2SummonInstance)
-				sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
-			else
-				sm = new SystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE);
-			
-			sm.addNumber(damage);
-		}
-		getOwner().sendPacket(sm);
-	}
-	
-	@Override
-	public final void sendAvoidMessage(L2Character attacker)
-	{
-		if (this instanceof L2SummonInstance)
-			getOwner().sendMessage("The summoned monster has avoided " + attacker.getName() + "'s attack.");
-		else
-			getOwner().sendMessage("Your pet has avoided " + attacker.getName() + "'s attack.");
-	}
-	
 	@Override
 	public final boolean isOutOfControl()
 	{

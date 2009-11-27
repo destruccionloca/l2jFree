@@ -1608,52 +1608,57 @@ public final class Formulas
 		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
 			damage *= 0.9;
 
-		//		if(attacker instanceof L2PcInstance && target instanceof L2PcInstance) damage *= 0.9; // PvP modifier (-10%)
-
 		// Failure calculation
 		if (Config.ALT_GAME_MAGICFAILURES && !calcMagicSuccess(attacker, target, skill))
 		{
-			if (attacker instanceof L2PcInstance)
+			SystemMessage sm;
+			if (attacker instanceof L2Playable)
 			{
+				L2PcInstance attOwner = attacker.getActingPlayer();
 				if (calcMagicSuccess(attacker, target, skill) && getMagicLevelDifference(attacker, target, skill) >= -9)
 				{
-					if (skill.getSkillType() == L2SkillType.DRAIN)
-						attacker.sendPacket(SystemMessageId.DRAIN_HALF_SUCCESFUL);
-					else
-						attacker.sendPacket(SystemMessageId.ATTACK_FAILED);
+					// ~1/10 - weak resist
+					sm = new SystemMessage(SystemMessageId.C1_WEAKLY_RESISTED_C2_MAGIC);
+					sm.addCharName(target);
+					sm.addCharName(attacker);
+					attOwner.sendPacket(sm);
 
 					damage /= 2;
 				}
-				else
+				else // retail message & dmg, verified
 				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-					sm.addCharName(target);
-					sm.addSkillName(skill);
-					((L2PcInstance) attacker).sendPacket(sm);
+					sm = new SystemMessage(SystemMessageId.C1_ATTACK_FAILED);
+					sm.addCharName(attacker);
+					attOwner.sendPacket(sm);
 
-					damage = 1;
+					if (mcrit)
+						damage = 1;
+					else
+						damage = Rnd.nextBoolean() ? 1 : 0;
 				}
 			}
 
-			if (target instanceof L2PcInstance)
+			if (target instanceof L2Playable)
 			{
-				if (skill.getSkillType() == L2SkillType.DRAIN)
-					((L2PcInstance) target).sendPacket(new SystemMessage(SystemMessageId.RESISTED_C1_DRAIN).addCharName(attacker));
-				else
-					((L2PcInstance) target).sendPacket(new SystemMessage(SystemMessageId.RESISTED_C1_MAGIC).addCharName(attacker));
+				sm = new SystemMessage(SystemMessageId.C1_RESISTED_c2_MAGIC);
+				sm.addCharName(target);
+				sm.addCharName(attacker);
+				target.getActingPlayer().sendPacket(sm);
 			}
 		}
-		else if (mcrit)
+
+		// Critical can happen even when failing
+		if (mcrit)
 		{
 			if (attacker instanceof L2Playable && target instanceof L2Playable)
 				damage *= Config.ALT_MCRIT_PVP_RATE;
 			else
 				damage *= Config.ALT_MCRIT_RATE;
 		}
-		
+
 		//random magic damage
 		damage *= 1 + (2 * Rnd.nextDouble() - 1) * 0.2;
-		
+
 		// CT2.3 general magic vuln
 		damage *= target.calcStat(Stats.MAGIC_DAMAGE_VULN, 1, null, null);
 

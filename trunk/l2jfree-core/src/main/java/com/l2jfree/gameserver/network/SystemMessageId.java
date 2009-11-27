@@ -9213,7 +9213,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1495<br>
-	 * Message: The match will start in $s1 second(s).
+	 * Console Message: The match will start in $s1 second(s).<BR>
+	 * Screen Message: $s1 second(s) before the match begins!
 	 */
 	THE_GAME_WILL_START_IN_S1_SECOND_S(1495),
 
@@ -14529,6 +14530,12 @@ public enum SystemMessageId
 	 * Message: The limited-time item has been deleted..
 	 */
 	TIME_LIMITED_ITEM_DELETED(2366),
+
+	/**
+	 * ID: 2370<BR>
+	 * Console Message: Resurrection will take place in the waiting room after $s1 seconds.
+	 */
+	RESURRECTION_IN_WAITING_ROOM_AFTER_S1_SECONDS(2370),
 
 	/**
 	 * ID: 2390<br>

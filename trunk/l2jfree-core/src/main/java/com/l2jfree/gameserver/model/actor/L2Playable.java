@@ -17,11 +17,16 @@ package com.l2jfree.gameserver.model.actor;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
 import com.l2jfree.gameserver.model.actor.stat.PlayableStat;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
@@ -29,6 +34,7 @@ import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * This class represents all Playable characters in the world.<BR><BR>
@@ -129,6 +135,77 @@ public abstract class L2Playable extends L2Character
 	public boolean isAttackable()
 	{
 		return true;
+	}
+
+	@Override
+	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
+	{
+		// All messages are verified on retail
+		L2PcInstance attOwner = getActingPlayer();
+		L2PcInstance trgOwner = target.getActingPlayer();
+		if (miss)
+		{
+			attOwner.sendPacket(new SystemMessage(SystemMessageId.C1_ATTACK_WENT_ASTRAY).addCharName(this));
+			target.sendAvoidMessage(this);
+			return;
+		}
+
+		if (pcrit)
+		{
+			attOwner.sendPacket(new SystemMessage(SystemMessageId.C1_HAD_CRITICAL_HIT).addCharName(this));
+
+			if (this instanceof L2PcInstance && target instanceof L2Npc)
+			{
+				// Soul Mastery skill
+				final L2Skill skill = getKnownSkill(L2Skill.SKILL_SOUL_MASTERY);
+
+				if (skill != null && Rnd.get(100) < skill.getCritChance())
+					attOwner.absorbSoulFromNpc(skill, target);
+			}
+		}
+
+		if (mcrit)
+			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
+
+		if (trgOwner != null && attOwner != trgOwner)
+		{
+			if (attOwner.isInOlympiadMode() && target instanceof L2PcInstance && trgOwner.isInOlympiadMode()
+				&& trgOwner.getOlympiadGameId() == attOwner.getOlympiadGameId())
+			{
+				Olympiad.getInstance().notifyCompetitorDamage(attOwner, damage, attOwner.getOlympiadGameId());
+			}
+		}
+
+		final SystemMessage sm;
+		if (target.isInvul() && !(target instanceof L2NpcInstance))
+		{
+			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
+		}
+		// Still needs retail verification
+		else if (this instanceof L2PcInstance &&
+				(target instanceof L2DoorInstance ||
+						target instanceof L2ControlTowerInstance))
+		{
+			sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
+			sm.addNumber(damage);
+		}
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.C1_GAVE_C2_DAMAGE_OF_S3);
+			sm.addCharName(this);
+			sm.addCharName(target);
+			sm.addNumber(damage);
+		}
+		attOwner.sendPacket(sm);
+	}
+
+	@Override
+	public final void sendAvoidMessage(L2Character attacker)
+	{
+		SystemMessage sm = new SystemMessage(SystemMessageId.C1_EVADED_C2_ATTACK);
+		sm.addCharName(this);
+		sm.addCharName(attacker);
+		getActingPlayer().sendPacket(sm);
 	}
 
 	// Support for Noblesse Blessing skill, where buffs are retained after resurrect

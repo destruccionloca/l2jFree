@@ -14,14 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ExPVPMatchCCRecord;
 
 /**
- * Related? to serverpackets:<BR>
- * fe89 ExPVPMatchCCRecord<BR>
- * fe8a ExPVPMatchCCMyRecord (most probably)<BR>
- * fe8b ExPVPMatchCCRetire<BR>
- * Explanation: CC = CrataeCube
+ * Client requests ExPVPMatchCCRecord to be sent.
  * @author savormix
  */
 public final class RequestStartShowCrataeCubeRank extends L2GameClientPacket
@@ -35,7 +32,12 @@ public final class RequestStartShowCrataeCubeRank extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		_log.info("RequestStartShowCrataeCubeRank received from " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
+
+		sendPacket(new ExPVPMatchCCRecord(2, ExPVPMatchCCRecord.EMPTY_ARRAY));
+
+		sendAF();
 	}
 }

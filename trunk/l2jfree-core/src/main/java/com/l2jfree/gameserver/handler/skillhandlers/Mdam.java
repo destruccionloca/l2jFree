@@ -70,6 +70,7 @@ public final class Mdam implements ICubicSkillHandler
 			final byte reflect = Formulas.calcSkillReflect(target, skill);
 			
 			skill.dealDamage(activeChar, target, skill, damage, reflect, mcrit, false);
+			// Actually, the effect failure message is sent before dmg
 			skill.getEffects(activeChar, target, reflect, shld, false, ss, bss);
 		}
 		

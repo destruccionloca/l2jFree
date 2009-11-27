@@ -14,9 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
-
 /**
+ * Client requests to stop sending ExPVPMatchCCRecord.
  * @author savormix
  */
 public final class RequestStopShowCrataeCubeRank extends L2GameClientPacket
@@ -30,7 +29,5 @@ public final class RequestStopShowCrataeCubeRank extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		_log.info("RequestStopShowCrataeCubeRank received from " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 }
