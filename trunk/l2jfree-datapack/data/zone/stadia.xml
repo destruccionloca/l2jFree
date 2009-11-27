@@ -133,4 +133,10 @@
       <point x="-81800" y="-240036"/>
     </shape>
   </zone>
+  <zone id="23" name="Stadia 23" type="Stadium">
+    <shape type="Rect" zMin="-3400" zMax="-3200">
+      <point x="-81992" y="-237633"/>
+      <point x="-85468" y="-240144"/>
+    </shape>
+  </zone>
 </list>
