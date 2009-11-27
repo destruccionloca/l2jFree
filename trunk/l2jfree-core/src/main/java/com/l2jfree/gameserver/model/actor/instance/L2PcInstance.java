@@ -4741,7 +4741,7 @@ public final class L2PcInstance extends L2Playable
 		// Force Charges
 		clearCharges(); // Empty charges
 
-		updatePvPFlag(0); // Clear the pvp flag
+		//updatePvPFlag(0); // Clear the pvp flag
 		// Pet shouldn't get unsummoned after masters death.
 		// Unsummon the Pet
 		//if (getPet() != null) getPet().unSummon(this);
