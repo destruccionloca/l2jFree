@@ -694,6 +694,7 @@ public class Config extends L2Config
 	public static int			BLESSED_ENCHANT_CHANCE_WEAPON;
 	public static int			BLESSED_ENCHANT_CHANCE_ARMOR;
 	public static int			BLESSED_ENCHANT_CHANCE_JEWELRY;
+	public static int			ENCHANT_CHANCE_ELEMENT;
 	public static boolean		ALLOW_CRYSTAL_SCROLL;
 	public static boolean		ENCHANT_HERO_WEAPONS;									// Enchant hero weapons?
 	public static boolean		ENCHANT_DWARF_SYSTEM;									// Dwarf enchant System?
@@ -747,6 +748,8 @@ public class Config extends L2Config
 			BLESSED_ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponBlessed", "65"));
 			BLESSED_ENCHANT_CHANCE_ARMOR = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorBlessed", "65"));
 			BLESSED_ENCHANT_CHANCE_JEWELRY = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryBlessed", "65"));
+			/* chance to enchant an item with elemental attribute */
+			ENCHANT_CHANCE_ELEMENT = Integer.parseInt(enchantSettings.getProperty("EnchantChanceElement", "50"));
 			/* enchat hero weapons? */
 			ENCHANT_HERO_WEAPONS = Boolean.parseBoolean(enchantSettings.getProperty("EnchantHeroWeapons", "False"));
 			/* enchant dwarf system */
@@ -3952,6 +3955,8 @@ public class Config extends L2Config
 			BLESSED_ENCHANT_CHANCE_ARMOR = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceJewelryBlessed"))
 			BLESSED_ENCHANT_CHANCE_JEWELRY = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("EnchantChanceElement"))
+			ENCHANT_CHANCE_ELEMENT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantMaxWeapon"))
 			ENCHANT_MAX_WEAPON = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantMaxArmor"))

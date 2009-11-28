@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.Elementals;
@@ -171,7 +172,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			return;
 		}
 
-		if (Rnd.get(100) < Elementals.ENCHANT_CHANCE)
+		if (Rnd.get(100) < Config.ENCHANT_CHANCE_ELEMENT)
 		{
 			SystemMessage sm;
 			if (item.getEnchantLevel() == 0)

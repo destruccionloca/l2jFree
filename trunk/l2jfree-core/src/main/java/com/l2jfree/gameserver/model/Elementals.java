@@ -28,9 +28,7 @@ public final class Elementals implements FuncOwner
 	public final static byte EARTH = 3;
 	public final static byte HOLY = 4;
 	public final static byte DARK = 5;
-	
-	public final static int ENCHANT_CHANCE = 50;
-	
+
 	public final static int FIRST_WEAPON_BONUS = 20;
 	public final static int NEXT_WEAPON_BONUS = 5;
 	public final static int ARMOR_BONUS = 6;

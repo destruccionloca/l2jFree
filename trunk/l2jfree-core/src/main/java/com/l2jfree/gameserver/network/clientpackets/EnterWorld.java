@@ -552,12 +552,16 @@ public class EnterWorld extends L2GameClientPacket
 				SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_LOGGED_IN);
 				msg.addString(activeChar.getName());
 				clan.broadcastToOtherOnlineMembers(msg, activeChar);
-				msg = null;
 				clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
 				if (clan.isNoticeEnabled() && !clan.getNotice().isEmpty())
-					sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">"
-							+ activeChar.getClan().getName() + "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>"
-							+ "<img src=\"L2UI.SquareWhite\" width=270 height=1><br>" + activeChar.getClan().getNotice() + "</body></html>"));
+				{
+					NpcHtmlMessage notice = new NpcHtmlMessage(clan.getClanId());
+					notice.setFile("data/html/clanNotice.htm");
+					notice.replace("%clan_name%", clan.getName());
+					// perhaps <br> is in retail?
+					notice.replace("%notice_text%", clan.getNotice().replaceAll("\r\n", "<br1>"));
+					activeChar.sendPacket(notice);
+				}
 			}
 		}
 	}

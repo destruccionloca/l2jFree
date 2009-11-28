@@ -1175,6 +1175,8 @@ public final class Formulas
 			// Add CON bonus
 			init *= cha.getLevelMod() * CONbonus[cha.getStat().getCON()];
 		}
+		else if (cha instanceof L2PetInstance)
+			init = ((L2PetInstance) cha).getPetData().getPetRegenHP();
 
 		if (init < 1)
 			init = 1;
@@ -1278,6 +1280,8 @@ public final class Formulas
 			// Add MEN bonus
 			init *= cha.getLevelMod() * MENbonus[cha.getStat().getMEN()];
 		}
+		else if (cha instanceof L2PetInstance)
+			init = ((L2PetInstance) cha).getPetData().getPetRegenMP();
 
 		if (init < 1)
 			init = 1;
@@ -1718,8 +1722,13 @@ public final class Formulas
 
 		// support for critical damage evasion
 		return Rnd.calcChance(200 - target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, attacker, null), 100);
+
+		// l2jserver's version:
+		//With default value 1.0 for CRIT_DAMAGE_EVASION critical hits will never be evaded at all.
+		//After got buff with CRIT_DAMAGE_EVASION increase (1.3 for exabple) Rnd.get(130) will generate 30% chance to evade crit hit.
+
 		// little weird, but remember what CRIT_DAMAGE_EVASION > 1 increase chances to _evade_ crit hits
-		// return Rnd.get((int)target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, null, null)) > 100;
+		// return Rnd.get((int)target.getStat().calcStat(Stats.CRIT_DAMAGE_EVASION, 100, null, null)) < 100;
 	}
 
 	private static boolean calcCrit(L2Character attacker, L2Character target, double rate)

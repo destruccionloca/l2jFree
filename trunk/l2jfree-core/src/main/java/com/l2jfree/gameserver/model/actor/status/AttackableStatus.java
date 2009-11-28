@@ -61,10 +61,13 @@ public class AttackableStatus extends NpcStatus
 			if (getActiveChar() instanceof L2MinionInstance)
 			{
 				master = ((L2MinionInstance)getActiveChar()).getLeader();
-				if (!master.isInCombat() && !master.isDead())
+				if (master != null && !master.isInCombat() && !master.isDead())
+				{
 					master.addDamage(attacker, 1, null);
+					master.callMinionsToAssist(attacker);
+				}
 			}
-			if (master.hasMinions())
+			else if (master.hasMinions())
 				master.callMinionsToAssist(attacker);
 		}
 		

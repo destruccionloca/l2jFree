@@ -14,7 +14,11 @@
  */
 package com.l2jfree.gameserver.templates;
 
+import java.security.InvalidParameterException;
 import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javolution.util.FastMap;
 
@@ -26,6 +30,8 @@ import javolution.util.FastMap;
  */
 public class StatsSet
 {
+	private static final Log _log = LogFactory.getLog(StatsSet.class);
+
 	private final Map<String, Object> _set = new FastMap<String, Object>();
 	
 	protected Object get(String key)
@@ -562,6 +568,30 @@ public class StatsSet
 	public final void set(String name, int value)
 	{
 		put(name, value);
+	}
+
+	/**
+	 * Safe version of "set". Expected values are within [min, max]<br>
+	 * Add the int hold in param "value" for the key "name"
+	 * @param name String designating the key in the set
+	 * @param value int corresponding to the value associated with the key
+	 */
+	public void safeSet(String name, int value, int min, int max, String reference)
+	{
+		if (min > max)
+			throw new InvalidParameterException("Illegal method call: minimum value > maximum value!");
+
+		if (value < min || value >= max)
+		{
+			_log.warn("Incorrect value (" + value + ") while adding " + name + " to StatsSet. Action: " + reference);
+			// Don't add the incorrect value, add an allowed one!
+			if (Math.abs(value - min) < Math.abs(value - max))
+				set(name, min);
+			else
+				set(name, max);
+		}
+		else
+			set(name, value);
 	}
 
 	/**
