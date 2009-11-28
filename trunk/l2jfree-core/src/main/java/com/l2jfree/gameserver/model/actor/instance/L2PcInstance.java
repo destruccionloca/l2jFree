@@ -14695,6 +14695,11 @@ public final class L2PcInstance extends L2Playable
 	/** @return Calendar object representing the exact creation date. */
 	public final Calendar getCreationDate()
 	{
+		if (_createdOn == null) // this cannot happen, but just in-case
+		{
+			_log.error("Illegal method call: before load() -ing the actual player instance!", new Exception());
+			restoreCreationDate();
+		}
 		return _createdOn;
 	}
 
@@ -14708,10 +14713,11 @@ public final class L2PcInstance extends L2Playable
 	private final int getDaysUntilAnniversary()
 	{
 		Calendar now = Calendar.getInstance();
-		int day = getCreationDate().get(Calendar.DAY_OF_MONTH);
+		Calendar birth = getCreationDate();
+		int day = birth.get(Calendar.DAY_OF_MONTH);
 		if (isBirthdayIllegal())
 			day = 28;
-		if (_createdOn.get(Calendar.MONTH) == now.get(Calendar.MONTH) &&
+		if (birth.get(Calendar.MONTH) == now.get(Calendar.MONTH) &&
 				day == now.get(Calendar.DAY_OF_MONTH))
 		{
 			if (now.get(Calendar.YEAR) > _lastClaim)
@@ -14721,7 +14727,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		Calendar anno = Calendar.getInstance();
-		anno.setTimeInMillis(_createdOn.getTimeInMillis());
+		anno.setTimeInMillis(birth.getTimeInMillis());
 		anno.set(Calendar.DAY_OF_MONTH, day);
 		anno.set(Calendar.YEAR, now.get(Calendar.YEAR));
 

@@ -142,7 +142,7 @@ public class ClanHallManager
 			for (Town t : _towns)
 			{
 				for (ClanHall ch : allHalls)
-					if (ch.getLocation().equals(t.toString()))
+					if (ch.getLocation().equals(t.toString()) && ch.getSiege() == null)
 						townHalls.add(ch);
 
 				_townClanHalls.put(t.getId(), townHalls.toArray(new ClanHall[townHalls.size()]));

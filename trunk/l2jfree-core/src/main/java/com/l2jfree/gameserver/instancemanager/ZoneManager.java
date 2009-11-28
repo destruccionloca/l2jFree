@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.model.zone.L2Zone.ZoneType;
 import com.l2jfree.gameserver.util.Util;
 
-@SuppressWarnings("unchecked")
 public final class ZoneManager
 {
 	private static final Log _log = LogFactory.getLog(ZoneManager.class);

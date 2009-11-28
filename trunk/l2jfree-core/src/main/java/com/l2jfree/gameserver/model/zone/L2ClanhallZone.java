@@ -41,8 +41,8 @@ public class L2ClanhallZone extends L2Zone
 			player.setInsideZone(FLAG_CLANHALL, true);
 			
 			// Send decoration packet
-			AgitDecoInfo deco = new AgitDecoInfo(_clanhall);
-			player.sendPacket(deco);
+			if (_clanhall != null && _clanhall.getOwnerId() > 0)
+				player.sendPacket(new AgitDecoInfo(_clanhall));
 		}
 		
 		super.onEnter(character);
