@@ -1254,6 +1254,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case CPDAM:
 			case DOT:
 			case CPDAMPERCENT:
+			case CPDRAIN:
 			case BLEED:
 			case POISON:
 			case AGGDAMAGE:

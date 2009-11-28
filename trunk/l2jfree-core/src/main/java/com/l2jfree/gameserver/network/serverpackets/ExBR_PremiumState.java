@@ -14,29 +14,34 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 /**
- * Sent (broadcast?) each time you teleport/are teleported.<BR>
- * Different states don't seem to have any effect.
+ * This packet is merely an information packet telling why
+ * the player failed to purchase/receive a premium product.<BR>
+ * Available messages begin with <code>STATE_</code>.<BR>
+ * After client receives this packet, it will send ExBR_GamePoint.
+ * <BR><BR>
+ * 
+ * Packet with the same obfuscated opcode is sent each time you
+ * teleport/are teleported. Different byte values after
+ * object id don't seem to have any effect.
  * @author savormix
  */
 public class ExBR_PremiumState extends L2GameServerPacket
 {
 	private static final String _S__FE_AA_EXBRPREMIUMSTATE = "[S] FE:AA ExBR_PremiumState";
 
-	private final int _charId;
+	public static final int STATE_NOT_ENOUGH_POINTS = -1;
+	public static final int STATE_WRONG_PRODUCT = -2; // also -5
+	public static final int STATE_INVENTORY_FULL = -4;
+	public static final int STATE_SALE_PERIOD_ENDED = -7; // also -8
+	public static final int STATE_WRONG_USER_STATE = -9; // also -11
+	public static final int STATE_WRONG_PRODUCT_ITEM = -10;
+
 	private final int _state;
 
-	private ExBR_PremiumState(int pcObjectId, int state)
+	public ExBR_PremiumState(int state)
 	{
-		_charId = pcObjectId;
 		_state = state;
-	}
-
-	public ExBR_PremiumState(L2PcInstance player)
-	{
-		this(player.getObjectId(), 0);
 	}
 
 	@Override
@@ -45,8 +50,7 @@ public class ExBR_PremiumState extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0xaa);
 
-		writeD(_charId);
-		writeC(_state);
+		writeD(_state);
 	}
 
 	@Override
