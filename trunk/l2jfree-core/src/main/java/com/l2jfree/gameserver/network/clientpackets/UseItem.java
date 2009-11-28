@@ -87,7 +87,7 @@ public final class UseItem extends L2GameClientPacket
 
 		if (activeChar.getPrivateStoreType() != 0)
 		{
-			requestFailed(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE);
+			requestFailed(SystemMessageId.NOT_USE_ITEMS_IN_PRIVATE_STORE);
 			return;
 		}
 
