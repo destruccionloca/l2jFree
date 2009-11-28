@@ -14086,7 +14086,7 @@ public enum SystemMessageId
 	 * ID: 2269<br>
 	 * Message: $c1% resisted $c2's magic.
 	 */
-	C1_RESISTED_c2_MAGIC(2269),
+	C1_RESISTED_C2_MAGIC(2269),
 
 	/**
 	 * ID: 2270<br>

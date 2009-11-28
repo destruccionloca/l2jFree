@@ -1644,7 +1644,7 @@ public final class Formulas
 
 			if (target instanceof L2Playable)
 			{
-				sm = new SystemMessage(SystemMessageId.C1_RESISTED_c2_MAGIC);
+				sm = new SystemMessage(SystemMessageId.C1_RESISTED_C2_MAGIC);
 				sm.addCharName(target);
 				sm.addCharName(attacker);
 				target.getActingPlayer().sendPacket(sm);

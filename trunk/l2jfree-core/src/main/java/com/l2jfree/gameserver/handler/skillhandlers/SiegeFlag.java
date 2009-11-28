@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -49,6 +50,8 @@ public class SiegeFlag extends ISkillConditionChecker
 		final L2PcInstance player = (L2PcInstance) activeChar;
 		
 		if (!SiegeManager.checkIfOkToPlaceFlag(player, false) && !FortSiegeManager.checkIfOkToPlaceFlag(player, false))
+			return false;
+		else if (player.isInsideZone(L2Zone.FLAG_NO_HQ))
 			return false;
 		
 		return super.checkConditions(activeChar, skill);

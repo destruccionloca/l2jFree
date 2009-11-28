@@ -73,6 +73,7 @@ public class L2Zone implements FuncOwner
 		HeadQuarters,
 		Jail,
 		Mothertree,
+		NoHQ,
 		Pagan,
 		Regeneration,
 		Siege,
@@ -156,6 +157,7 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_TOWN = 19;
 	public static final byte FLAG_SCRIPT = 20;
 	public static final byte FLAG_SIZE = 21;
+	public static final byte FLAG_NO_HQ = 22;
 	
 	/**
 	 * Move speed multiplier applied when character is in water (swimming).<BR>
