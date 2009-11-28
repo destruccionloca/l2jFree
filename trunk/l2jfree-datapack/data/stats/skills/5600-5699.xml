@@ -843,7 +843,7 @@
     <set name="hitTime" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="200"/>
-    <set name="skillType" val="CPDAM"/>
+    <set name="skillType" val="CPDRAIN"/>
     <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="5682" levels="1" name="PvP Weapon - Cancel">
