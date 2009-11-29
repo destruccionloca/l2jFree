@@ -1247,6 +1247,8 @@ public class Config extends L2Config
 
 	public static int				MERCENARY_SAVING_DELAY;
 
+	public static int				RETARGET_BLOCKING_PERIOD;
+
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1453,6 +1455,8 @@ public class Config extends L2Config
 		    ENTERWORLD_PPT = Integer.parseInt(optionsSettings.getProperty("StarterPacketsPerTick", "8"));
 
 		    MERCENARY_SAVING_DELAY = Integer.parseInt(optionsSettings.getProperty("MercenaryPosUpdateDelay", "90000"));
+
+		    RETARGET_BLOCKING_PERIOD = Integer.parseInt(optionsSettings.getProperty("CannotRetargetFor", "400"));
 		}
 	}
 

@@ -861,6 +861,9 @@ public final class L2PcInstance extends L2Playable
 	private int								_lastClaim;
 	private Calendar						_createdOn;
 
+	private long							_lastTargetChange;
+	private int								_lastTargetId;
+
 	private class VitalityTask implements Runnable
 	{
 		private L2PcInstance	_player	= null;
@@ -4433,6 +4436,8 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		super.refreshTarget(newTarget);
+
+		saveLastTarget(oldTarget != null ? oldTarget.getObjectId() : 0);
 	}
 
 	/**
@@ -14750,5 +14755,21 @@ public final class L2PcInstance extends L2Playable
 			return getDaysUntilAnniversary();
 		else
 			return -1;
+	}
+
+	public final void saveLastTarget(int objectId)
+	{
+		_lastTargetId = objectId;
+		_lastTargetChange = System.currentTimeMillis();
+	}
+
+	public final int getLastTargetId()
+	{
+		return _lastTargetId;
+	}
+
+	public final long getLastTargetTime()
+	{
+		return _lastTargetChange;
 	}
 }

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -30,6 +31,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AttackRequest extends L2GameClientPacket
 {
+    private static final String _C__0A_ATTACKREQUEST = "[C] 0A AttackRequest";
+
     // cddddc
     private int _objectId;
     @SuppressWarnings("unused")
@@ -40,8 +43,6 @@ public class AttackRequest extends L2GameClientPacket
     private int _originZ;
     @SuppressWarnings("unused")
     private int _attackId;
-
-    private static final String _C__0A_ATTACKREQUEST = "[C] 0A AttackRequest";
 
     @Override
     protected void readImpl()
@@ -57,11 +58,19 @@ public class AttackRequest extends L2GameClientPacket
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
-		
+		if (activeChar == null)
+			return;
+
+		if (activeChar.getLastTargetId() == _objectId &&
+				activeChar.getLastTargetTime() > (System.currentTimeMillis() - Config.RETARGET_BLOCKING_PERIOD))
+		{
+			sendAF();
+			return;
+		}
+
 		// removes spawn protection
 		activeChar.onActionRequest();
-		
+
 		final L2Object target;
 		if (activeChar.getTargetId() == _objectId)
 			target = activeChar.getTarget();
