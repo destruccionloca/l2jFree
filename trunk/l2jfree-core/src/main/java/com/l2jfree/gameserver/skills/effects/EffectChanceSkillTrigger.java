@@ -56,7 +56,7 @@ public final class EffectChanceSkillTrigger extends EffectBuff implements IChanc
 	}
 	
 	@Override
-	public L2Skill getChanceTriggeredSkill(L2Character activeChar)
+	public L2Skill getChanceTriggeredSkill(L2Character activeChar, L2Character evtInitiator)
 	{
 		return getEffectTemplate().triggeredSkill.getTriggeredSkill();
 	}

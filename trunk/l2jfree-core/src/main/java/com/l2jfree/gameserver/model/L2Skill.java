@@ -3924,9 +3924,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	}
 
 	@Override
-	public final L2Skill getChanceTriggeredSkill(L2Character activeChar)
+	public final L2Skill getChanceTriggeredSkill(L2Character activeChar, L2Character evtInitiator)
 	{
 		if (!getWeaponDependancy(activeChar, false))
+			return null;
+		
+		if (!checkCondition(activeChar, evtInitiator))
 			return null;
 		
 		if (getTriggeredSkill() == null)

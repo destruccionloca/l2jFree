@@ -6831,7 +6831,7 @@ public abstract class L2Character extends L2Object
 
 	public final void reduceCurrentHpByDOT(double i, L2Character attacker, L2Skill skill)
 	{
-		getStatus().reduceHp(i, attacker, !skill.isToggle(), true, false);
+		getStatus().reduceHpByDOT(i, attacker, skill);
 	}
 
 	public final void reduceCurrentHpByConsume(double i)

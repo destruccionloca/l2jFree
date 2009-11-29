@@ -30,7 +30,7 @@ public interface IChanceSkillTrigger
 	/**
 	 * Triggered skill
 	 */
-	public L2Skill getChanceTriggeredSkill(L2Character activeChar);
+	public L2Skill getChanceTriggeredSkill(L2Character activeChar, L2Character evtInitiator);
 	
 	/**
 	 * Chance condition object

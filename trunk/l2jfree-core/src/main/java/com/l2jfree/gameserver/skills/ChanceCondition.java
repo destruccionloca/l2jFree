@@ -93,12 +93,14 @@ public final class ChanceCondition
 	
 	private final int _chance;
 	private final byte[] _elements;
+	private final boolean _pvpOnly;
 	
-	private ChanceCondition(TriggerType trigger, int chance, byte[] elements)
+	private ChanceCondition(TriggerType trigger, int chance, byte[] elements, boolean pvpOnly)
 	{
 		_triggerType = trigger;
 		_chance = chance;
 		_elements = elements;
+		_pvpOnly = pvpOnly;
 	}
 	
 	public boolean isValid()
@@ -108,15 +110,17 @@ public final class ChanceCondition
 	
 	public static ChanceCondition parse(StatsSet set)
 	{
-		if (!set.contains("chanceType") && !set.contains("activationChance") && !set.contains("activationElements"))
+		if (!set.contains("chanceType") && !set.contains("activationChance") && !set.contains("activationElements")
+				&& !set.contains("pvpChanceOnly"))
 			return null;
 		
 		final TriggerType trigger = set.getEnum("chanceType", TriggerType.class);
 		final int chance = set.getInteger("activationChance");
 		final String elements = set.getString("activationElements", null);
+		final boolean pvpOnly = set.getBool("pvpChanceOnly", false);
 		
 		if (trigger != null && chance >= 0)
-			return new ChanceCondition(trigger, chance, parseElements(elements));
+			return new ChanceCondition(trigger, chance, parseElements(elements), pvpOnly);
 		else
 			throw new IllegalStateException();
 	}
@@ -135,8 +139,11 @@ public final class ChanceCondition
 		return elements;
 	}
 	
-	public boolean trigger(int event, byte element)
+	public boolean trigger(int event, byte element, boolean playable)
 	{
+		if (_pvpOnly && !playable)
+			return false;
+		
 		if (_elements != null && Arrays.binarySearch(_elements, element) < 0)
 			return false;
 		
