@@ -376,6 +376,16 @@ public abstract class ConditionParser
 			boolean val = Boolean.valueOf(nodeValue);
 			return new ConditionPlayerSubclass(val);
 		}
+		else if ("instanceid".equalsIgnoreCase(nodeName))
+		{
+			List<Integer> array = new ArrayList<Integer>();
+			StringTokenizer st = new StringTokenizer(nodeValue, ",");
+			while (st.hasMoreTokens())
+			{
+				array.add(Integer.decode(st.nextToken().trim()));
+			}
+			return new ConditionPlayerInstanceId(array);
+		}
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}
 	

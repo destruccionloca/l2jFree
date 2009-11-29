@@ -1219,6 +1219,7 @@ public class L2CharacterAI extends AbstractAI
 				case MAGE:
 					isMage = true;
 					break;
+				case CORPSE:
 				case BALANCED:
 					isBalanced = true;
 					break;

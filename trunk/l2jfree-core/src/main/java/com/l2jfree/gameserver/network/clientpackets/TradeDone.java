@@ -86,6 +86,15 @@ public class TradeDone extends L2GameClientPacket
 				requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 				return;
 			}
+
+			if (player.getInstanceId() != trade.getPartner().getInstanceId()
+					&& player.getInstanceId() != -1)
+			{
+				player.cancelActiveTrade();
+				requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);
+				return;
+			}
+
 			trade.confirm();
 		}
 		else

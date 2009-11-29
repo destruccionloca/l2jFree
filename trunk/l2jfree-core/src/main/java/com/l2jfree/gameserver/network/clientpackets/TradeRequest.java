@@ -83,6 +83,14 @@ public class TradeRequest extends L2GameClientPacket
 
 		L2PcInstance partner = (L2PcInstance) obj;
 
+		// cant trade with players from other instance except from multivers
+		if (partner.getInstanceId() != player.getInstanceId()
+				&& player.getInstanceId() != -1)
+		{
+			sendAF();
+			return;
+		}
+
 		if (partner.isInOlympiadMode() || player.isInOlympiadMode())
 		{
 			requestFailed(SystemMessageId.TRADE_ATTEMPT_FAILED);

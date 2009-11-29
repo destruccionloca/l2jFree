@@ -34,14 +34,10 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
-/**
- *
- * This class ...
- *
- * @version $Revision: 1.15.2.10.2.16 $ $Date: 2005/04/06 16:13:40 $
- */
 public final class L2BabyPetInstance extends L2PetInstance
 {
+	protected static final int BUFF_CONTROL = 5771;
+
 	protected int[] _buffs;
 	protected int _majorHeal = 0;
 	protected int _minorHeal = 0;
@@ -69,6 +65,9 @@ public final class L2BabyPetInstance extends L2PetInstance
 			skill = SkillTable.getInstance().getInfo(id, PetSkillsTable.getInstance().getAvailableLevel(L2BabyPetInstance.this, id));
 			if (skill != null)
 			{
+				if (skill.getId() == BUFF_CONTROL)
+					continue;
+
 				switch (skill.getSkillType())
 				{
 					case HEAL:
@@ -140,17 +139,6 @@ public final class L2BabyPetInstance extends L2PetInstance
 		_buffs = null;
 	}
 
-	public final void toggleBuffControl()
-	{
-		final long currentTime = System.currentTimeMillis();
-		if (currentTime > _buffControlTimestamp)
-			// disable buffs for 5 min
-			_buffControlTimestamp = currentTime + 300000L;
-		else
-			// enable buffs
-			_buffControlTimestamp = 0;
-	}
-
 	private final void startCastTask()
 	{
 		if (_majorHeal > 0 || _buffs != null || _recharge > 0)
@@ -211,8 +199,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 					&& !_baby.isCastingNow()
 					&& !_baby.isBetrayed()
 					&& !_baby.isMuted()
-					&& _baby.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST
-					&& _buffControlTimestamp < System.currentTimeMillis())
+					&& _baby.getAI().getIntention() != CtrlIntention.AI_INTENTION_CAST)
 			{
 				L2Skill skill = null;
 
@@ -238,77 +225,81 @@ public final class L2BabyPetInstance extends L2PetInstance
 					}
 				}
 
-				// searching for usable buffs
-				if (_buffs != null)
+				if (!_baby.isSkillDisabled(BUFF_CONTROL)) // Buff Control is not active
 				{
-					for (int id : _buffs)
+					// searching for usable buffs
+					if (_buffs != null)
 					{
-						if (_baby.isSkillDisabled(id))
-							continue;
-						skill = SkillTable.getInstance().getInfo(id, PetSkillsTable.getInstance().getAvailableLevel(_baby, id));
-						if (skill != null && _baby.getCurrentMp() >= skill.getMpConsume())
-							_currentBuffs.add(skill);
-					}
-				}
-
-				// buffs found, checking owner buffs
-				if (!_currentBuffs.isEmpty())
-				{
-					L2Effect[] effects = owner.getAllEffects();
-					Iterator<L2Skill> iter;
-					L2Skill currentSkill;
-					for (L2Effect e : effects)
-					{
-						if (e == null)
-							continue;
-
-						currentSkill = e.getSkill();
-						// skipping debuffs, passives, toggles
-						if (currentSkill.isDebuff()
-								|| currentSkill.isPassive()
-								|| currentSkill.isToggle())
-							continue;
-
-						// if buff does not need to be casted - remove it from list
-						iter = _currentBuffs.iterator();
-						while (iter.hasNext())
+						for (int id : _buffs)
 						{
-							skill = iter.next();
-							if (currentSkill.getId() == skill.getId()
-									&& currentSkill.getLevel() >= skill.getLevel())
-							{
-								// same skill with equal or greater level
-								// replace only if remaining time lower than 60s
-								if (e.getRemainingTaskTime() > 60)
-									iter.remove();
-							}
-							else
-							{
-								// effect with same stacktype and greater stackorder
-								if (skill.hasEffects()
-										&& !"none".equals(skill.getEffectTemplates()[0].stackTypes[0])
-										&& e.getStackTypes()[0].equals(skill.getEffectTemplates()[0].stackTypes[0])
-										&& e.getStackOrder() >= skill.getEffectTemplates()[0].stackOrder)
-									iter.remove();
-							}
+							if (_baby.isSkillDisabled(id))
+								continue;
+							skill = SkillTable.getInstance().getInfo(id, PetSkillsTable.getInstance().getAvailableLevel(_baby, id));
+							if (skill != null && _baby.getCurrentMp() >= skill.getMpConsume())
+								_currentBuffs.add(skill);
 						}
-						// no more buffs in list
-						if (_currentBuffs.isEmpty())
-							break;
 					}
-					// buffs list ready, casting random
+
+					// buffs found, checking owner buffs
 					if (!_currentBuffs.isEmpty())
 					{
-						castSkill(_currentBuffs.get(Rnd.get(_currentBuffs.size())));
-						_currentBuffs.clear();
-						return;
+						L2Effect[] effects = owner.getAllEffects();
+						Iterator<L2Skill> iter;
+						L2Skill currentSkill;
+						for (L2Effect e : effects)
+						{
+							if (e == null)
+								continue;
+
+							currentSkill = e.getSkill();
+							// skipping debuffs, passives, toggles
+							if (currentSkill.isDebuff()
+									|| currentSkill.isPassive()
+									|| currentSkill.isToggle())
+								continue;
+
+							// if buff does not need to be casted - remove it from list
+							iter = _currentBuffs.iterator();
+							while (iter.hasNext())
+							{
+								skill = iter.next();
+								if (currentSkill.getId() == skill.getId()
+										&& currentSkill.getLevel() >= skill.getLevel())
+								{
+									// same skill with equal or greater level
+									// replace only if remaining time lower than 60s
+									if (e.getRemainingTaskTime() > 60)
+										iter.remove();
+								}
+								else
+								{
+									// effect with same stacktype and greater stackorder
+									if (skill.hasEffects()
+											&& !"none".equals(skill.getEffectTemplates()[0].stackTypes[0])
+											&& e.getStackTypes()[0].equals(skill.getEffectTemplates()[0].stackTypes[0])
+											&& e.getStackOrder() >= skill.getEffectTemplates()[0].stackOrder)
+										iter.remove();
+								}
+							}
+							// no more buffs in list
+							if (_currentBuffs.isEmpty())
+								break;
+						}
+						// buffs list ready, casting random
+						if (!_currentBuffs.isEmpty())
+						{
+							castSkill(_currentBuffs.get(Rnd.get(_currentBuffs.size())));
+							_currentBuffs.clear();
+							return;
+						}
 					}
 				}
 
-				// buffs not casted, trying recharge, if exist
+				// buffs/heal not casted, trying recharge, if exist
 				if (_recharge > 0
 						&& !_baby.isSkillDisabled(_recharge)
-						&& owner.getCurrentMp()/owner.getMaxMp() < 0.5
+						&& owner.getCurrentMp()/owner.getMaxMp() < 0.7
+						&& owner.isInCombat() // recharge casted only if owner in combat stance
 						&& Rnd.get(100) <= 60)
 				{
 					skill = SkillTable.getInstance().getInfo(_recharge, PetSkillsTable.getInstance().getAvailableLevel(_baby, _recharge));

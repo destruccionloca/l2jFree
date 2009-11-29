@@ -83,6 +83,15 @@ public class AttackRequest extends L2GameClientPacket
 			}
 		}
 
+		// Players can't attack objects in the other instances
+		// except from multiverse
+		if (target.getInstanceId() != activeChar.getInstanceId()
+				&& activeChar.getInstanceId() != -1)
+		{
+			sendAF();
+			return;
+		}
+
 		if (activeChar.getTarget() != target)
 			target.onAction(activeChar);
 		else if ((target.getObjectId() != activeChar.getObjectId())

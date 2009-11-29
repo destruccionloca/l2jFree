@@ -183,7 +183,7 @@ public class L2CastleWarehouseInstance extends L2NpcInstance
 				}
 				else
 				{
-					_log.warn("Missing htm: " + htmFile + " !");
+					_log.warn("Missing htm: " + htmFile + "!");
 				}
 			}
 			else

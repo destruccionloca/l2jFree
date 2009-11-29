@@ -152,6 +152,7 @@ public enum Stats
 	DUALDAGGER_WPN_VULN("dualDaggerWpnVuln"),
 	RAPIER_WPN_VULN("rapierWpnVuln"),
 	ANCIENT_WPN_VULN("ancientWpnVuln"),
+	PET_WPN_VULN("petWpnVuln"),
 	
 	REFLECT_DAMAGE_PERCENT("reflectDam"),
 	REFLECT_SKILL_MAGIC("reflectSkillMagic"),

@@ -43,6 +43,7 @@ public class TradeList
 		private int _objectId;
 		private final L2Item _item;
 		private int _enchant;
+		private int _type2;
 		private long _count;
 		private long _storeCount;
 		private long _price;
@@ -56,6 +57,7 @@ public class TradeList
 			_objectId = item.getObjectId();
 			_item = item.getItem();
 			_enchant = item.getEnchantLevel();
+			_type2 = item.getCustomType2();
 			_count = count;
 			_storeCount = count;
 			_price = price;
@@ -71,6 +73,7 @@ public class TradeList
 			_objectId = 0;
 			_item = item;
 			_enchant = 0;
+			_type2 = 0;
 			_count = count;
 			_storeCount = count;
 			_price = price;
@@ -84,6 +87,7 @@ public class TradeList
 			_objectId = item.getObjectId();
 			_item = item.getItem();
 			_enchant = item.getEnchant();
+			_type2 = 0;
 			_count = count;
 			_storeCount = count;
 			_price = price;
@@ -117,6 +121,11 @@ public class TradeList
 		public int getEnchant()
 		{
 			return _enchant;
+		}
+
+		public int getCustomType2()
+		{
+			return _type2;
 		}
 
 		public void setCount(long count)

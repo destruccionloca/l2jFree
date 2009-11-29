@@ -88,8 +88,8 @@ public class SellList extends L2GameServerPacket
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
-			writeH(item.getCustomType2());
 			writeH(0x00);
+			writeH(item.getCustomType2());
 			writeCompQ(item.getItem().getReferencePrice() / 2);
 
 			writeElementalInfo(item); //8x h or d

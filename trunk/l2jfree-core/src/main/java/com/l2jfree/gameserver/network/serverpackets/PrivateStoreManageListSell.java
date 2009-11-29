@@ -65,7 +65,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeCompQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
-			writeH(0x00);
+			writeH(item.getCustomType2());
 			writeD(item.getItem().getBodyPart());
 			writeCompQ(item.getPrice()); //store price
 

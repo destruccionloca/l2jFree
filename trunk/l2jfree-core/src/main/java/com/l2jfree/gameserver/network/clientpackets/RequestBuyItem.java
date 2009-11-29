@@ -370,7 +370,11 @@ public class RequestBuyItem extends L2GameClientPacket
 		if (target == null)
 			return false;
 		
-		if (!player.isInsideRadius((L2Character)target, INTERACTION_DISTANCE, false, false))
+		L2Character merchant = (L2Character) target;
+		if (player.getInstanceId() != merchant.getInstanceId())
+			return false;
+		
+		if (!player.isInsideRadius(merchant, INTERACTION_DISTANCE, false, false))
 		{
 			sendPacket(SystemMessageId.TOO_FAR_FROM_NPC);
 			return false;

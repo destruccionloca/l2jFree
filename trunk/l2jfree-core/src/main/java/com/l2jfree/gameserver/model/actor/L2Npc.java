@@ -110,6 +110,7 @@ import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate.AIType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
@@ -132,6 +133,7 @@ public class L2Npc extends L2Character
 {
 	private static final class RandomAnimationTaskManager extends AbstractIterativePeriodicTaskManager<L2Npc>
 	{
+		private static final int MIN_SOCIAL_INTERVAL = 6000;
 		private static final RandomAnimationTaskManager _instance = new RandomAnimationTaskManager();
 		
 		private static RandomAnimationTaskManager getInstance()
@@ -142,6 +144,7 @@ public class L2Npc extends L2Character
 		private RandomAnimationTaskManager()
 		{
 			super(1000);
+			//super(MIN_SOCIAL_INTERVAL);
 		}
 		
 		@Override
@@ -217,13 +220,19 @@ public class L2Npc extends L2Character
 		if (isMob() && getAI().getIntention() != AI_INTENTION_ACTIVE)
 			return false;
 		
-		if (_lastRandomAnimation + 3000 < System.currentTimeMillis() && !getKnownList().getKnownPlayers().isEmpty())
+		if (_lastRandomAnimation + RandomAnimationTaskManager.MIN_SOCIAL_INTERVAL < System.currentTimeMillis()
+				&& !getKnownList().getKnownPlayers().isEmpty())
 		{
 			if (force || _lastRandomAnimation + _randomAnimationDelay < System.currentTimeMillis())
 			{
 				if (!isDead() && !isStunned() && !isSleeping() && !isParalyzed())
 				{
-					broadcastPacket(new SocialAction(getObjectId(), Rnd.get(2, 3)));
+					SocialAction sa;
+					if (force) // on talk/interact
+						sa = new SocialAction(getObjectId(), Rnd.get(8));
+					else // periodic
+						sa = new SocialAction(getObjectId(), Rnd.get(2, 3));
+					broadcastPacket(sa);
 					
 					int minWait = isMob() ? Config.MIN_MONSTER_ANIMATION : Config.MIN_NPC_ANIMATION;
 					int maxWait = isMob() ? Config.MAX_MONSTER_ANIMATION : Config.MAX_NPC_ANIMATION;
@@ -249,7 +258,7 @@ public class L2Npc extends L2Character
 	 */
 	public boolean hasRandomAnimation()
 	{
-		return (Config.MAX_NPC_ANIMATION > 0 && getNpcId() != 29045);
+		return (Config.MAX_NPC_ANIMATION > 0 && getTemplate().getAI() != AIType.CORPSE);
 	}
 
 	public class DestroyTemporalNPC implements Runnable
@@ -571,6 +580,8 @@ public class L2Npc extends L2Character
 		if (player.isDead() || player.isFakeDeath())
 			return false;
 		if (player.isSitting())
+			return false;
+		if (player.getInstanceId() != getInstanceId() && player.getInstanceId() != -1)
 			return false;
 		
 		if (player.getPrivateStoreType() != 0)

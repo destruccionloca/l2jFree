@@ -96,6 +96,15 @@ public final class Action extends L2GameClientPacket
 			}
 		}
 
+		// Players can't interact with objects in the other instances
+		// except from multiverse
+		if (obj.getInstanceId() != activeChar.getInstanceId()
+				&& activeChar.getInstanceId() != -1)
+		{
+			sendAF();
+			return;
+		}
+
 		// Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
 		//if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null)
 		if (activeChar.getActiveRequester() == null)

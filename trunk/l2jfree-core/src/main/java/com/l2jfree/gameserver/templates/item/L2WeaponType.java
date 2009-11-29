@@ -33,7 +33,7 @@ public enum L2WeaponType implements AbstractL2ItemType
 	DUAL(9, "Dual Sword", Stats.DUAL_WPN_VULN),
 	DUALFIST(10, "Dual Fist", Stats.DUALFIST_WPN_VULN),
 	BIGSWORD(11, "Big Sword", Stats.BIGSWORD_WPN_VULN),
-	PET(12, "Pet", null),
+	PET(12, "Pet", Stats.PET_WPN_VULN),
 	ROD(13, "Rod", null),
 	BIGBLUNT(14, "Big Blunt", Stats.BLUNT_WPN_VULN),
 	ANCIENT_SWORD(15, "Ancient", Stats.ANCIENT_WPN_VULN),

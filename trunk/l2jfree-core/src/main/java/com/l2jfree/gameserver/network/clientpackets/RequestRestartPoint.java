@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
-import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2SiegeClan;
@@ -31,7 +30,6 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
-import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -200,18 +198,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			default: // 0
 				if (activeChar.isInsideZone(L2Zone.FLAG_JAIL) || activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 					loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
-				else if (activeChar.getInstanceId() != 0)
-				{
-					final Instance inst = InstanceManager.getInstance().getInstance(activeChar.getInstanceId());
-					if (inst != null)
-					{
-						final int[] spawn = inst.getSpawnLoc();
-						if (spawn[0] != 0 && spawn[1] != 0 && spawn[2] != 0)
-							loc = new Location(spawn[0], spawn[1], spawn[2]);
-					}
-				}
-
-				if (loc == null)
+				else
 					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
 				break;
 			}
