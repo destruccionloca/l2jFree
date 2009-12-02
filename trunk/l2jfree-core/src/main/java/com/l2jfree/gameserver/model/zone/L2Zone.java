@@ -217,6 +217,9 @@ public class L2Zone implements FuncOwner
 	private int _minPlayers;
 	private int _maxPlayers;
 	
+	// Quests
+	private int _uniqueId;
+	
 	private Func[] _statFuncs;
 	
 	protected final void addStatFunc(Func func)
@@ -535,7 +538,7 @@ public class L2Zone implements FuncOwner
 	{
 		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
 		
-		Quest[] quests = getQuestByEvent(Quest.QuestEventType.ON_ENTER_ZONE);
+		Quest[] quests = getQuestByEvent(Quest.QuestEventType.ON_EXIT_ZONE);
 		if (quests != null)
 		{
 			for (Quest quest : quests)
@@ -978,6 +981,17 @@ public class L2Zone implements FuncOwner
 	}
 	
 	/**
+	 * Returns a unique zone identifier, <U><B>if</B> it was specified</U> when
+	 * declaring the zone. Primarily used to obtain an unique zone for Quests.<BR>
+	 * Will return -1 for each zone which needn't to be unique.
+	 * @return an unique ID or -1
+	 */
+	public int getQuestZoneId()
+	{
+		return _uniqueId;
+	}
+	
+	/**
 	 * Broadcasts packet to all players inside the zone
 	 */
 	public void broadcastPacket(L2GameServerPacket packet)
@@ -1214,6 +1228,7 @@ public class L2Zone implements FuncOwner
 		Node hpDamage = n.getAttributes().getNamedItem("hpDamage");
 		Node mpDamage = n.getAttributes().getNamedItem("mpDamage");
 		Node noHeal = n.getAttributes().getNamedItem("noHeal");
+		Node uniqueId = n.getAttributes().getNamedItem("questZoneId");
 		
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
 		_noWyvern = (noWyvern != null) && Boolean.parseBoolean(noWyvern.getNodeValue());
@@ -1229,6 +1244,7 @@ public class L2Zone implements FuncOwner
 		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
 		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
 		_noHeal = (noHeal != null) && Boolean.parseBoolean(noHeal.getNodeValue());
+		_uniqueId = (uniqueId != null) ? Integer.parseInt(uniqueId.getNodeValue()) : 0;
 	}
 	
 	private void parseMessages(Node n) throws Exception

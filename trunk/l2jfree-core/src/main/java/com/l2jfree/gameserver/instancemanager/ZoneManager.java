@@ -19,6 +19,8 @@ import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import javolution.util.FastMap;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +44,7 @@ public final class ZoneManager
 	}
 	
 	private final L2Zone[][] _zones = new L2Zone[ZoneType.values().length][];
+	private final FastMap<Integer, L2Zone> _uniqueZones = new FastMap<Integer, L2Zone>();
 	
 	private ZoneManager()
 	{
@@ -59,9 +62,12 @@ public final class ZoneManager
 				finalElement.clearZones();
 			}
 		}
-		//remove registered siege danger zones
+		// Remove registered siege danger zones
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 			c.getSiege().onZoneReload();
+		
+		// Remove registered unique zones
+		_uniqueZones.clear();
 		
 		// Load the zones
 		load();
@@ -118,6 +124,14 @@ public final class ZoneManager
 						final L2Zone zone = L2Zone.parseZone(d);
 						if (zone == null)
 							continue;
+						Integer id = zone.getQuestZoneId();
+						if (_uniqueZones.containsKey(id))
+						{
+							_log.warn("Zone " + zone.getName() + " doesn't specify a valid unique ID, ignored!");
+							continue;
+						}
+						else if (id > 0)
+							_uniqueZones.put(id, zone);
 						
 						_zones[zone.getType().ordinal()] = (L2Zone[])ArrayUtils.add(_zones[zone.getType().ordinal()], zone);
 						
@@ -156,10 +170,17 @@ public final class ZoneManager
 		return L2World.getInstance().getRegion(x, y).getZone(zt, x, y);
 	}
 	
-	public L2Zone getZoneById(int id)
+	/**
+	 * Returns a unique zone which has the specified ID. <B>This method
+	 * checks only the zones which have a declared unique identifier.</B>
+	 * All other zones are not simply skipped, but not even checked, thus
+	 * speeding execution time.
+	 * @param uniqueId The questZoneId specified declaring the zone
+	 * @return A unique zone or null
+	 */
+	public L2Zone getZoneById(int uniqueId)
 	{
-		//TODO: we don't have that id at zones, that the quest engine requires -.-
-		return null;
+		return _uniqueZones.get(uniqueId);
 	}
 	
 	@SuppressWarnings("synthetic-access")
