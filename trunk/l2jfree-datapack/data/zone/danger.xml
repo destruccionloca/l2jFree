@@ -1593,7 +1593,7 @@
 
   <!-- Steam Corridor -->
   <zone id="138" name="Steam Corridor" type="Danger">
-    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable" questZoneId="1"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/>
     <shape type="Rect" zMin="-12400" zMax="-11500">
       <point x="144722" y="152000"/>
@@ -1601,7 +1601,7 @@
     </shape>
   </zone>
   <zone id="139" name="Steam Corridor 2" type="Danger">
-    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable" questZoneId="2"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/>
     <shape type="Rect" zMin="-12400" zMax="-11500">
       <point x="152148" y="150241"/>
@@ -1609,7 +1609,7 @@
     </shape>
   </zone>
   <zone id="140" name="Steam Corridor - Kechi" type="Danger">
-    <settings exitOnDeath="true" buffRepeat="true" affected="playable"/>
+    <settings exitOnDeath="true" buffRepeat="true" affected="playable" questZoneId="3"/>
     <skill applyEnter="4150,6;4625,3" removeExit="4150;4625"/>
     <shape type="Cylinder" radius="700" zMin="-12400" zMax="-11500">
       <point x="154079" y="149537"/>

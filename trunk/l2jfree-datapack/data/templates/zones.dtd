@@ -76,6 +76,7 @@
 <!ATTLIST settings noPrivateStore (true|false) #IMPLIED>
 <!ATTLIST settings noSummon (true|false) #IMPLIED>
 <!ATTLIST settings pvp (Arena|General|Peace) #IMPLIED>
+<!ATTLIST settings questZoneId CDATA #IMPLIED>
 <!ELEMENT settings EMPTY>
 
 <!-- Everything below is taken from skills.dtd (should be exported to another file) -->
