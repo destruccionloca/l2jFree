@@ -304,32 +304,33 @@ final class DocumentSkill extends DocumentBase
 			
 			_currentSkillLevel = i;
 			
-			boolean found = false;
+			boolean foundCond = false;
+			boolean foundFor = false;
 			for (Node n = first; n != null; n = n.getNextSibling())
 			{
 				if (condName.equalsIgnoreCase(n.getNodeName()))
 				{
-					found = true;
+					foundCond = true;
 					skill.attach(parseConditionWithMessage(n, skill));
 				}
 				else if (forName.equalsIgnoreCase(n.getNodeName()))
 				{
-					found = true;
+					foundFor = true;
 					parseTemplate(n, skill);
 				}
 			}
 			
-			if (!found && startLvl > 0)
+			if (startLvl > 0)
 			{
 				_currentSkillLevel = _sets.size() - 1;
 				
 				for (Node n = first; n != null; n = n.getNextSibling())
 				{
-					if ("cond".equalsIgnoreCase(n.getNodeName()))
+					if ("cond".equalsIgnoreCase(n.getNodeName()) && !foundCond)
 					{
 						skill.attach(parseConditionWithMessage(n, skill));
 					}
-					else if ("for".equalsIgnoreCase(n.getNodeName()))
+					else if ("for".equalsIgnoreCase(n.getNodeName()) && !foundFor)
 					{
 						parseTemplate(n, skill);
 					}
