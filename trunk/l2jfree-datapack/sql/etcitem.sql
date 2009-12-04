@@ -9697,3 +9697,14 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1', `sella
 UPDATE `etcitem` SET `time` = 1440, `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false', `handler` = 'BirthdayCake' WHERE `item_id` = 20320;
 
 UPDATE `etcitem` SET `skills_item` = '2592-1', `handler` = 'ItemSkills' WHERE `item_id` = '13033'; -- Quick Healing Potion
+
+-- Fix seed price (Psycho)
+UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10171';
+UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10172';
+UPDATE `etcitem` SET `price` = '10' WHERE `item_id` = '10174';
+UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10197';
+UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10198';
+UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10199';
+UPDATE `etcitem` SET `price` = '10' WHERE `item_id` = '10200';
+UPDATE `etcitem` SET `price` = '20' WHERE `item_id` = '10201';
+UPDATE `etcitem` SET `price` = '20' WHERE `item_id` = '10202';
