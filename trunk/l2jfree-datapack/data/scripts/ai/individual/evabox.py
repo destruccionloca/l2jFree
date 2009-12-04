@@ -6,7 +6,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.tools.random import Rnd
 from com.l2jfree.gameserver.datatables import ItemTable
 
-KISS_OF_EVA = [1073,3141,3252]
+KISS_OF_EVA = [1073,3143,3252]
 BOX = 32342
 REWARDS = [9692,9693]
 
