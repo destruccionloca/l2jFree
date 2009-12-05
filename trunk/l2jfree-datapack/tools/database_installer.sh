@@ -196,6 +196,7 @@ full_install()
 	$MYG < ../sql/character_birthdays.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
+	$MYG < ../sql/character_instance_time.sql &> /dev/null
 	$MYG < ../sql/character_macroses.sql &> /dev/null
 	$MYG < ../sql/character_quest_global_data.sql &> /dev/null
 	$MYG < ../sql/character_quests.sql &> /dev/null

@@ -661,12 +661,14 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="0"/>
     <set name="reuseDelay" val="1000"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="neutral" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <set name="itemConsumeId" val="9700"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">
@@ -775,12 +777,14 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="0"/>
     <set name="reuseDelay" val="1000"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="neutral" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <set name="itemConsumeId" val="9691"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">

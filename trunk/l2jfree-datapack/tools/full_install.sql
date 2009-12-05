@@ -28,6 +28,7 @@ DROP TABLE IF EXISTS
 	character_birthdays,
 	character_friends,
 	character_hennas,
+	character_instance_time,
 	character_macroses,
 	character_quest_global_data,
 	character_quests,
