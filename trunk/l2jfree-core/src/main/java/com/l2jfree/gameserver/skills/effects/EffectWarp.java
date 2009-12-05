@@ -62,6 +62,9 @@ public final class EffectWarp extends L2Effect
 			_actor = getEffector();
 		else
 			_actor = getEffected();
+
+		if (_actor.isRooted())
+			return false;
 		
 		int _radius = getSkill().getFlyRadius();
 		
