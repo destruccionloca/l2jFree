@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -1819,6 +1820,10 @@ public class AdminSmartShop implements IAdminCommandHandler
 		pc.addItem("Admin SmartShop Buy", item.getItemId(), count, pc, false, false);
 
 		String itemName = item.getName();
+
+		StatusUpdate su = new StatusUpdate(pc);
+		su.addAttribute(StatusUpdate.CUR_LOAD, pc.getCurrentLoad());
+		pc.sendPacket(su);
 
 		SystemMessage sm;
 		sm = new SystemMessage(SystemMessageId.EARNED_S1);

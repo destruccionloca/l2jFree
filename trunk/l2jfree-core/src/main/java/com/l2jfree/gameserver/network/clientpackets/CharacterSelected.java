@@ -46,7 +46,6 @@ public final class CharacterSelected extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		
 		// should always be null
 		// but if not then this is repeated packet and nothing should be done here
 		if (getClient().getActiveChar() != null)
@@ -71,8 +70,9 @@ public final class CharacterSelected extends L2GameClientPacket
 		cha.setRunning(); // running is default
 		cha.standUp(); // standing is default
 
+		// the char & skills are fully loaded, so update
 		cha.refreshOverloaded();
-		cha.refreshExpertisePenalty();
+		// refresh expertise already done when loading character (after loading inv)
 		cha.setOnlineStatus(true);
 
 		L2World.getInstance().storeObject(cha);

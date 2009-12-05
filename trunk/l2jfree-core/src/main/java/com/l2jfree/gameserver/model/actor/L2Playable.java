@@ -480,19 +480,17 @@ public abstract class L2Playable extends L2Character
 		if (getActingPlayer().getDietMode())
 			return 0;
 		
-		final double maxLoad = getMaxLoad();
-		
+		double maxLoad = getMaxLoad();
 		if (maxLoad <= 0)
 			return 0;
 		
 		double currentLoad = getCurrentLoad();
-		
 		if (currentLoad >= maxLoad)
 			return 1;
 		
 		currentLoad -= calcStat(Stats.WEIGHT_LIMIT, 0, this, null);
 		
-		return L2Math.limit(0, currentLoad / maxLoad, 1);
+		return L2Math.limit(0D, currentLoad / maxLoad, 1D);
 	}
 	
 	public final int getExpectedWeightPenalty()
@@ -525,11 +523,11 @@ public abstract class L2Playable extends L2Character
 			if (newWeightPenalty > 0)
 				addSkill(4270, newWeightPenalty);
 			else
-				removeSkill(4270);
+				removeSkill(skill);
 			
 			if (this instanceof L2PcInstance)
 			{
-				L2PcInstance player = (L2PcInstance)this;
+				L2PcInstance player = (L2PcInstance) this;
 				
 				player.sendEtcStatusUpdate();
 				player.broadcastUserInfo();

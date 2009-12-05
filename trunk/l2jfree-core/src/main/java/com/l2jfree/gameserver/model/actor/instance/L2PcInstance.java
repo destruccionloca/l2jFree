@@ -6798,8 +6798,7 @@ public final class L2PcInstance extends L2Playable
 			if (player.getPet() != null)
 				player.getPet().setOwner(player);
 
-			// Update the overloaded status of the L2PcInstance
-			player.refreshOverloaded();
+			// refresh overloaded already done when loading inventory
 			// Update the expertise status of the L2PcInstance
 			player.refreshExpertisePenalty();
 		}
@@ -13944,8 +13943,9 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public void broadcastFullInfoImpl()
 	{
-		refreshOverloaded();
-		refreshExpertisePenalty();
+		// Someone just doesn't understand what this method is for
+		// refreshOverloaded();
+		// refreshExpertisePenalty(); 
 
 		sendPacket(new UserInfo(this));
 		if (getPoly().isMorphed())
