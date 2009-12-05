@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "instances.dtd">
+<!DOCTYPE list SYSTEM "../templates/instances.dtd">
 <instance name="Kamaloka-39">
   <activityTime val="45"/>
   <timeDelay val="24"/>

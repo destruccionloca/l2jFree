@@ -286,10 +286,10 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5224" levels="1" name="Berserk">
-    <set name="mpConsumeInit" val="15"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="60"/>
     <set name="hitTime" val="3000"/>
-    <set name="targetType" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="30000"/>
@@ -309,7 +309,7 @@
   <skill id="5225" levels="1" name="Invincible">
     <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="targetType" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
@@ -330,7 +330,7 @@
     <set name="magicLvl" val="83"/>
     <set name="lvlDepend" val="1"/>
     <set name="power" val="33000"/>
-    <set name="mpConsumeInit" val="37"/>
+    <set name="mpInitialConsume" val="37"/>
     <set name="mpConsume" val="149"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="250"/>
@@ -344,7 +344,7 @@
     <set name="magicLvl" val="83"/>
     <set name="lvlDepend" val="1"/>
     <set name="power" val="33000"/>
-    <set name="mpConsumeInit" val="74"/>
+    <set name="mpInitialConsume" val="74"/>
     <set name="mpConsume" val="298"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="250"/>
@@ -358,10 +358,10 @@
     <set name="magicLvl" val="83"/>
     <set name="lvlDepend" val="1"/>
     <set name="power" val="33000"/>
-    <set name="mpConsumeInit" val="15"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="60"/>
     <set name="hitTime" val="2000"/>
-    <set name="targetType" val="TARGET_ONE"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="flyRadius" val="500"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>

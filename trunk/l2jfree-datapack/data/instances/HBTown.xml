@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "instances.dtd">
+<!DOCTYPE list SYSTEM "../templates/instances.dtd">
 <instance name="HellboundTown">
   <activityTime val="30"/>
   <timeDelay val="24"/>
