@@ -171,10 +171,9 @@ public final class ZoneManager
 	}
 	
 	/**
-	 * Returns a unique zone which has the specified ID. <B>This method
-	 * checks only the zones which have a declared unique identifier.</B>
-	 * All other zones are not simply skipped, but not even checked, thus
-	 * speeding execution time.
+	 * Returns a unique zone which has the specified <U>unique</U> ID.
+	 * This is a direct <CODE>get(key)</CODE> operation on a map which
+	 * contains only zones which have an unique ID.
 	 * @param uniqueId The questZoneId specified declaring the zone
 	 * @return A unique zone or null
 	 */

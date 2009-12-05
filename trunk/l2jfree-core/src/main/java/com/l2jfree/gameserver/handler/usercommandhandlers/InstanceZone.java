@@ -14,40 +14,60 @@
  */
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
+import java.util.Map;
+
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
- * 
  * @author nille02
  */
 public class InstanceZone implements IUserCommandHandler
 {
-
-	private static final int[]	COMMAND_IDS	=
-											{ 114 };
-
-	/**
-	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#getUserCommandList()
-	 */
+	private static final int[] COMMAND_IDS =
+	{
+		114
+	};
+	
 	public int[] getUserCommandList()
 	{
-
 		return COMMAND_IDS;
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int,
-	 *      com.l2jfree.gameserver.model.actor.instance.L2PcInstance)
-	 */
+	
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (id != COMMAND_IDS[0])
 			return false;
-
-		activeChar.sendPacket(SystemMessageId.NO_INSTANCEZONE_TIME_LIMIT);
-
+		
+		Map<Integer, Long> instanceTimes = InstanceManager.getInstance().getAllInstanceTimes(activeChar.getObjectId());
+		boolean firstMessage = true;
+		if (instanceTimes != null)
+			for (int instanceId : instanceTimes.keySet())
+			{
+				long remainingTime = (instanceTimes.get(instanceId) - System.currentTimeMillis()) / 1000;
+				if (remainingTime > 60)
+				{
+					if (firstMessage)
+					{
+						firstMessage = false;
+						activeChar.sendPacket(SystemMessageId.INSTANCE_ZONE_TIME_LIMIT);
+					}
+					int hours = (int) (remainingTime / 3600);
+					int minutes = (int) ((remainingTime % 3600) / 60);
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVAILABLE_AFTER_S1_S2_HOURS_S3_MINUTES);
+					sm.addString(InstanceManager.getInstance().getInstanceIdName(instanceId));
+					sm.addNumber(hours);
+					sm.addNumber(minutes);
+					activeChar.sendPacket(sm);
+				}
+				else
+					InstanceManager.getInstance().deleteInstanceTime(activeChar.getObjectId(), instanceId);
+			}
+		if (firstMessage)
+			activeChar.sendPacket(SystemMessageId.NO_INSTANCEZONE_TIME_LIMIT);
 		return true;
 	}
 }

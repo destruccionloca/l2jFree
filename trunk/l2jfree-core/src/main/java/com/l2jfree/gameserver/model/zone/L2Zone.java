@@ -983,8 +983,8 @@ public class L2Zone implements FuncOwner
 	/**
 	 * Returns a unique zone identifier, <U><B>if</B> it was specified</U> when
 	 * declaring the zone. Primarily used to obtain an unique zone for Quests.<BR>
-	 * Will return -1 for each zone which needn't to be unique.
-	 * @return an unique ID or -1
+	 * Will return 0 for each zone which needn't to be unique.
+	 * @return an unique ID or 0
 	 */
 	public int getQuestZoneId()
 	{
