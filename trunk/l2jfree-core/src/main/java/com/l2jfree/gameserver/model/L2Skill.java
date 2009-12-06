@@ -295,6 +295,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	private final boolean			_stayAfterDeath;					// skill should stay after death
 
+	private final boolean			_sendToClient;
+
 	public L2Skill(StatsSet set)
 	{
 		_id = L2Integer.valueOf(set.getInteger("skill_id"));
@@ -463,6 +465,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_canBeDispeled = set.getBool("canBeDispeled", true);
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
+		_sendToClient = set.getBool("sendToClient", true);
 	}
 	
 	private static boolean isValid(ChanceCondition chanceCondition, TriggeredSkill triggeredSkill)
@@ -3921,6 +3924,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final L2Skill getAfterEffectSkill()
 	{
 		return SkillTable.getInstance().getInfo(getAfterEffectId(), getAfterEffectLvl());
+	}
+
+	public final boolean canSendToClient()
+	{
+		return _sendToClient;
 	}
 
 	@Override

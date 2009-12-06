@@ -653,7 +653,8 @@ public final class L2PcInstance extends L2Playable
 
 	/** The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5, S80=6, S84=7)*/
 	private int								_expertiseIndex;																	// Index in EXPERTISE_LEVELS
-	private int								_expertisePenalty		= 0;
+	private boolean							_weaponPenalty;
+	private int								_armorPenalty;
 
 	private boolean							_isEnchanting			= false;
 	private L2ItemInstance					_activeEnchantItem		= null;
@@ -2013,9 +2014,29 @@ public final class L2PcInstance extends L2Playable
 		return (int)(calcStat(Stats.MAX_LOAD, 69000, this, null) * Config.ALT_WEIGHT_LIMIT);
 	}
 
-	public int getExpertisePenalty()
+	public boolean getWeaponPenalty()
 	{
-		return _expertisePenalty;
+		return _weaponPenalty;
+	}
+
+	private void setWeaponPenalty(boolean penalty)
+	{
+		_weaponPenalty = penalty;
+	}
+
+	public int getArmorPenalty()
+	{
+		return _armorPenalty;
+	}
+
+	private void setArmorPenalty(int level)
+	{
+		_armorPenalty = level;
+	}
+
+	public boolean getExpertisePenalty()
+	{
+		return getWeaponPenalty() || getArmorPenalty() > 0;
 	}
 
 	@Override
@@ -2032,37 +2053,54 @@ public final class L2PcInstance extends L2Playable
 
 	public void refreshExpertisePenalty()
 	{
-		if (Config.ALT_GRADE_PENALTY)
+		if (!Config.ALT_GRADE_PENALTY)
+			return;
+
+		boolean wpnPenalty = false;
+		int armorPenalty = 0;
+
+		for (L2ItemInstance item : getInventory().getItems())
 		{
-			int newPenalty = 0;
-
-			for (L2ItemInstance item : getInventory().getItems())
+			if (item.isEquipped() && item.getItem() != null)
 			{
-				if (item.isEquipped() && item.getItem() != null)
-				{
-					int crystaltype = item.getItem().getCrystalType();
+				if (item.getItem().getCrystalType() <= getExpertiseIndex())
+					continue;
 
-					if (crystaltype > newPenalty)
-						newPenalty = crystaltype;
-				}
-			}
-
-			newPenalty = newPenalty - getExpertiseIndex();
-			if (newPenalty <= 0)
-				newPenalty = 0;
-
-			if (getExpertisePenalty() != newPenalty || hasSkill(4267) != (newPenalty > 0))
-			{
-				_expertisePenalty = newPenalty;
-
-				if (newPenalty > 0)
-					super.addSkill(SkillTable.getInstance().getInfo(4267, 1));
+				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+					wpnPenalty = true;
 				else
-					super.removeSkill(getKnownSkill(4267));
-
-				sendEtcStatusUpdate();
+					armorPenalty++;
 			}
 		}
+
+		boolean sendUpdate = false;
+		if (wpnPenalty != getWeaponPenalty())
+		{
+			setWeaponPenalty(wpnPenalty);
+			if (wpnPenalty)
+				super.addSkill(9009, 1);
+			else
+				super.removeSkill(getKnownSkill(9009));
+			sendUpdate = true;
+		}
+
+		if (armorPenalty > 5)
+			armorPenalty = 5;
+
+		L2Skill skill = getKnownSkill(9010);
+		int skillLevel = skill == null ? 0 : skill.getLevel();
+		if (getArmorPenalty() != armorPenalty || skillLevel != armorPenalty)
+		{
+			setArmorPenalty(armorPenalty);
+			if (armorPenalty > 0)
+				super.addSkill(9010, armorPenalty);
+			else
+				super.removeSkill(skill);
+			sendUpdate = true;
+		}
+
+		if (sendUpdate)
+			sendEtcStatusUpdate();
 	}
 
 	/**
@@ -2263,22 +2301,19 @@ public final class L2PcInstance extends L2Playable
 			}
 			sendPacket(sm);
 
-			//must be sent before InventoryUpdate
-			/* Sync might have fixed this? TODO: test
+			// MUST be sent before InventoryUpdate
 			if ((bodyPart & L2Item.SLOT_HEAD) > 0 || (bodyPart & L2Item.SLOT_NECK) > 0
 					|| (bodyPart & L2Item.SLOT_L_EAR) > 0 || (bodyPart & L2Item.SLOT_R_EAR) > 0
 					|| (bodyPart & L2Item.SLOT_L_FINGER) > 0 || (bodyPart & L2Item.SLOT_R_FINGER) > 0
 					|| (bodyPart & L2Item.SLOT_R_BRACELET) > 0 || (bodyPart & L2Item.SLOT_L_BRACELET) > 0
 					||(bodyPart & L2Item.SLOT_DECO) > 0)
 				sendPacket(new UserInfo(this));
-				*/
 
 			items = getInventory().equipItemAndRecord(item);
 
 			// Consume mana - will start a task if required; returns if item is not a shadow item
 			item.decreaseMana(false);
 		}
-		sm = null;
 
 		refreshExpertisePenalty();
 
@@ -9748,10 +9783,17 @@ public final class L2PcInstance extends L2Playable
 
 			if (!isGM)
 			{
+				/* These skills don't exist any longer?!
 				if (s.getId() > 9000 && s.getId() < 9007)
 				{
 					array[i] = null;
 					continue; // Fake skills to change base stats
+				}
+				*/
+				if (!s.canSendToClient())
+				{
+					array[i] = null;
+					continue;
 				}
 
 				// Hide skills when transformed if they are not passive
