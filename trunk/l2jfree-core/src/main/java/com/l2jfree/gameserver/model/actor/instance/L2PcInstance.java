@@ -653,7 +653,7 @@ public final class L2PcInstance extends L2Playable
 
 	/** The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5, S80=6, S84=7)*/
 	private int								_expertiseIndex;																	// Index in EXPERTISE_LEVELS
-	private boolean							_weaponPenalty;
+	private int								_weaponGradePenalty;
 	private int								_armorPenalty;
 
 	private boolean							_isEnchanting			= false;
@@ -2014,14 +2014,14 @@ public final class L2PcInstance extends L2Playable
 		return (int)(calcStat(Stats.MAX_LOAD, 69000, this, null) * Config.ALT_WEIGHT_LIMIT);
 	}
 
-	public boolean getWeaponPenalty()
+	public int getWeaponPenalty()
 	{
-		return _weaponPenalty;
+		return _weaponGradePenalty;
 	}
 
-	private void setWeaponPenalty(boolean penalty)
+	private void setWeaponPenalty(int level)
 	{
-		_weaponPenalty = penalty;
+		_weaponGradePenalty = level;
 	}
 
 	public int getArmorPenalty()
@@ -2036,7 +2036,7 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean getExpertisePenalty()
 	{
-		return getWeaponPenalty() || getArmorPenalty() > 0;
+		return getWeaponPenalty() > 0 || getArmorPenalty() > 0;
 	}
 
 	@Override
@@ -2056,39 +2056,40 @@ public final class L2PcInstance extends L2Playable
 		if (!Config.ALT_GRADE_PENALTY)
 			return;
 
-		boolean wpnPenalty = false;
+		int wpnPenalty = 0;
 		int armorPenalty = 0;
+		boolean sendUpdate = false;
 
 		for (L2ItemInstance item : getInventory().getItems())
 		{
-			if (item.isEquipped() && item.getItem() != null)
-			{
-				if (item.getItem().getCrystalType() <= getExpertiseIndex())
-					continue;
+			if (!item.isEquipped() || item.getItem() == null
+					|| item.getItem().getCrystalType() <= getExpertiseIndex())
+				continue;
 
-				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-					wpnPenalty = true;
-				else
-					armorPenalty++;
-			}
+			if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+				wpnPenalty = (item.getItem().getCrystalType() - getExpertiseIndex());
+			else
+				armorPenalty++;
 		}
 
-		boolean sendUpdate = false;
-		if (wpnPenalty != getWeaponPenalty())
+		L2Skill skill = getKnownSkill(9009);
+		int skillLevel = skill == null ? 0 : skill.getLevel();
+		if (wpnPenalty > 4)
+			wpnPenalty = 4;
+		if (getWeaponPenalty() != wpnPenalty || skillLevel != wpnPenalty)
 		{
 			setWeaponPenalty(wpnPenalty);
-			if (wpnPenalty)
-				super.addSkill(9009, 1);
+			if (wpnPenalty > 0)
+				super.addSkill(9009, wpnPenalty);
 			else
-				super.removeSkill(getKnownSkill(9009));
+				super.removeSkill(skill);
 			sendUpdate = true;
 		}
 
+		skill = getKnownSkill(9010);
+		skillLevel = skill == null ? 0 : skill.getLevel();
 		if (armorPenalty > 5)
 			armorPenalty = 5;
-
-		L2Skill skill = getKnownSkill(9010);
-		int skillLevel = skill == null ? 0 : skill.getLevel();
 		if (getArmorPenalty() != armorPenalty || skillLevel != armorPenalty)
 		{
 			setArmorPenalty(armorPenalty);
