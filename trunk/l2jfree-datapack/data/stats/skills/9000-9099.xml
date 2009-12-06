@@ -31,26 +31,30 @@
       <player flyMounted="False"/>
     </cond>
   </skill>
-  <skill id="9009" levels="1" name="Grade Penalty - Weapon">
-    <!-- Done by savormix, verified by Psycho -->
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
+  <skill id="9009" levels="4" name="Grade Penalty - Weapon">
+    <!-- Verified on Final & Epilogue -->
+    <table name="#cAtk"> 0.9 0.8 0.7 0.6 </table>
     <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <set name="stayAfterDeath" val="true"/>
     <set name="sendToClient" val="false"/>
     <for>
-      <mul order="0x30" stat="pAtkSpd" val="0.9"/>
       <sub order="0x40" stat="accCombat" val="16"/>
+      <mul order="0x30" stat="pAtkSpd" val="0.9"/>
+      <mul order="0x30" stat="pAtk" val="0.9"/>
+      <mul order="0x30" stat="cAtk" val="#cAtk"/>
+      <!-- Magic attack failure increases -->
     </for>
   </skill>
   <skill id="9010" levels="5" name="Grade Penalty - Armor">
-    <!-- Done by savormix, verified by Psycho -->
+    <!-- Verified on Final & Epilogue -->
     <table name="#AtkSpd"> 0.83 0.69 0.58 0.5 0.5 </table>
     <table name="#rEvas"> 2 4 6 8 10 </table>
     <table name="#runSpd"> 0.83 0.75 0.66 0.59 0.59 </table> <!-- Yes, in percentage -->
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <set name="stayAfterDeath" val="true"/>
     <set name="sendToClient" val="false"/>
     <for>
