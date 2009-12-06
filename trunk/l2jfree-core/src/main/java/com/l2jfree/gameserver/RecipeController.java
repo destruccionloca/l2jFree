@@ -505,7 +505,6 @@ public class RecipeController
 			updateCurMp();
 			updateCurLoad();
 
-			_player.isInCraftMode(false);
 			_isValid = true;
 		}
 
