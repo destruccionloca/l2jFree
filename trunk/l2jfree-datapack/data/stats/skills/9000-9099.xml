@@ -31,4 +31,35 @@
       <player flyMounted="False"/>
     </cond>
   </skill>
+  <skill id="9009" levels="1" name="Grade Penalty - Weapon">
+    <!-- Done by savormix, verified by Psycho -->
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="stayAfterDeath" val="true"/>
+    <set name="sendToClient" val="false"/>
+    <for>
+      <mul order="0x30" stat="pAtkSpd" val="0.9"/>
+      <sub order="0x40" stat="accCombat" val="16"/>
+    </for>
+  </skill>
+  <skill id="9010" levels="5" name="Grade Penalty - Armor">
+    <!-- Done by savormix, verified by Psycho -->
+    <table name="#AtkSpd"> 0.83 0.69 0.58 0.5 0.5 </table>
+    <table name="#rEvas"> 2 4 6 8 10 </table>
+    <table name="#runSpd"> 0.83 0.75 0.66 0.59 0.59 </table> <!-- Yes, in percentage -->
+    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="stayAfterDeath" val="true"/>
+    <set name="sendToClient" val="false"/>
+    <for>
+      <mul order="0x30" stat="pAtkSpd" val="#AtkSpd">
+        <using kind="Sword,Blunt,Dagger,Bow,Pole,Etc,Fist,Dual Sword,Dual Fist,Big Sword,Big Blunt,Ancient,Crossbow,Rapier,Dual Dagger"/>
+      </mul>
+      <sub order="0x40" stat="rEvas" val="#rEvas"/>
+      <mul order="0x30" stat="runSpd" val="#runSpd"/>
+      <mul order="0x30" stat="mAtkSpd" val="#AtkSpd"/>
+    </for>
+  </skill>
 </list>
