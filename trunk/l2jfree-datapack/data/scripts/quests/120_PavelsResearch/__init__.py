@@ -2,6 +2,7 @@
 # this script is part of the Official L2J Datapack Project.
 # Visit http://forum.l2jdp.com for more details.
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -57,6 +58,8 @@ class Quest (JQuest) :
     elif event == "32041-32.htm" :
        st.takeItems(Necklace,1)
        st.giveItems(EarBinding,1)
+       st.giveItems(57, int(174160 * Config.RATE_QUESTS_REWARD_ADENA))
+       st.addExpAndSp(int(766070 * Config.RATE_QUESTS_REWARD_EXPSP), int(60581 * Config.RATE_QUESTS_REWARD_EXPSP))
        st.exitQuest(False)
        st.playSound("ItemSound.quest_finish")
     elif event == "32042-06.htm" :
