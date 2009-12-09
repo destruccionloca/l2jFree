@@ -842,7 +842,7 @@
     <set name="hitTime" val="6000"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -872,7 +872,7 @@
     <set name="hitTime" val="6000"/>
     <set name="element" val="1"/> <!-- Water -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
@@ -902,10 +902,11 @@
     <set name="hitTime" val="6000"/>
     <set name="element" val="2"/> <!-- Wind -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="12000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
     <set name="overHit" val="true"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
@@ -2090,6 +2091,9 @@
   </skill>
   <skill id="1398" levels="10" name="Mana Burn" enchantLevels1="30" enchantLevels2="30">
     <!-- Done by KID -->
+    <table name="#magicLvl"> 56 58 60 62 64 66 68 70 72 74 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
+      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <table name="#ench1Power"> 162 163 164 164 165 166 166 167 168 168 169 170
       170 171 172 172 173 174 174 175 176 176 177 178 178 179 180 180 181 182 </table>
     <table name="#ench2MpConsume"> 100 98 97 96 95 93 91 90 88 87 86 85
@@ -2102,11 +2106,14 @@
     <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MANADAM"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isMagic" val="true"/>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant1 name="power" val="#ench1Power"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   </skill>
   <skill id="1399" levels="5" name="Mana Storm" enchantLevels1="30" enchantLevels2="30">
