@@ -6809,11 +6809,15 @@ public abstract class L2Character extends L2Object
 		getStatus().reduceHp(i, attacker);
 	}
 
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake)
 	{
 		getStatus().reduceHp(i, attacker, awake);
 	}
 
+	@Deprecated
+	@SuppressWarnings("deprecation")
 	public final void reduceCurrentHp(double i, L2Character attacker, boolean awake, L2Skill skill)
 	{
 		getStatus().reduceHp(i, attacker, awake);

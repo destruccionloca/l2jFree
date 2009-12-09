@@ -33,13 +33,14 @@ public class BallistaBomb implements ISkillHandler
 	{
 		if (!(activeChar instanceof L2PcInstance) || targets.length == 0)
 			return;
-
+		
 		L2Character target = targets[0];
 		if (target instanceof L2FortBallistaInstance)
 		{
 			if (Rnd.get(3) == 0)
 			{
-				target.reduceCurrentHp(target.getMaxHp(), activeChar, skill);
+				target.setIsInvul(false);
+				target.reduceCurrentHp(target.getMaxHp() + 1, activeChar, skill);
 			}
 		}
 	}

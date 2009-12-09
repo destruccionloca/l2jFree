@@ -31,15 +31,18 @@ public final class SummonStatus extends CharStatus
 	{
 		super.reduceHp0(value, attacker, awake, isDOT, isConsume);
 		
-		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_C1);
-		sm.addCharName(attacker);
-		sm.addNumber((int)value);
-		getActiveChar().getOwner().sendPacket(sm);
+		if (getActiveChar().getOwner() != null)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_C1);
+			sm.addCharName(attacker);
+			sm.addNumber((int)value);
+			getActiveChar().getOwner().sendPacket(sm);
+		}
 	}
 	
 	@Override
 	public L2SummonInstance getActiveChar()
 	{
-		return (L2SummonInstance) _activeChar;
+		return (L2SummonInstance)_activeChar;
 	}
 }

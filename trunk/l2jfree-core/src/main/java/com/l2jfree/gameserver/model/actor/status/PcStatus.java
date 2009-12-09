@@ -19,35 +19,106 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
+import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2Math;
 
 public final class PcStatus extends CharStatus
 {
+	private double _currentCp = 0;
+	
 	public PcStatus(L2PcInstance activeChar)
 	{
 		super(activeChar);
 	}
 	
 	@Override
+	public final double getCurrentCp()
+	{
+		return _currentCp;
+	}
+	
+	@Override
+	protected boolean setCurrentCp0(double newCp)
+	{
+		double maxCp = getActiveChar().getStat().getMaxCp();
+		if (newCp < 0)
+			newCp = 0;
+		
+		boolean requireRegen;
+		
+		synchronized (this)
+		{
+			final double currentCp = _currentCp;
+			
+			if (newCp >= maxCp)
+			{
+				_currentCp = maxCp;
+				requireRegen = false;
+			}
+			else
+			{
+				_currentCp = newCp;
+				requireRegen = true;
+			}
+			
+			if (currentCp != _currentCp)
+				getActiveChar().broadcastStatusUpdate();
+		}
+		
+		return requireRegen;
+	}
+	
+	@Override
+	protected boolean setCurrentHp0(double newHp)
+	{
+		boolean requireRegen = super.setCurrentHp0(newHp);
+		
+		if (getCurrentHp() <= getActiveChar().getStat().getMaxHp() * 0.3)
+		{
+			QuestState qs = getActiveChar().getQuestState("255_Tutorial");
+			if (qs != null)
+				qs.getQuest().notifyEvent("CE45", null, getActiveChar());
+		}
+		
+		getActiveChar().refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
+		
+		return requireRegen;
+	}
+	
+	@Override
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
+		if (!isConsume)
+		{
+			if (awake && getActiveChar().isSleeping())
+				getActiveChar().stopSleeping(true);
+			
+			if (getActiveChar().isSitting())
+				getActiveChar().standUp();
+			
+			if (getActiveChar().isFakeDeath())
+				getActiveChar().stopFakeDeath(true);
+		}
+		
 		double realValue = value;
+		double tDmg = 0;
 		
 		if (attacker != null && attacker != getActiveChar())
 		{
 			// Check and calculate transfered damage
 			L2Summon summon = getActiveChar().getPet();
 			
-			if (summon != null && summon instanceof L2SummonInstance && Util.checkIfInRange(900, getActiveChar(), summon, true))
+			if (summon instanceof L2SummonInstance && Util.checkIfInRange(900, getActiveChar(), summon, true))
 			{
-				int tDmg = (int)value * (int)getActiveChar().getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
+				tDmg = value * getActiveChar().getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
 				
 				// Only transfer dmg up to current HP, it should not be killed
-				if (summon.getStatus().getCurrentHp() < tDmg)
-					tDmg = (int)summon.getStatus().getCurrentHp() - 1;
+				tDmg = L2Math.limit(0, tDmg, summon.getStatus().getCurrentHp() - 1);
 				
 				if (tDmg > 0)
 				{
@@ -74,12 +145,6 @@ public final class PcStatus extends CharStatus
 		
 		super.reduceHp0(value, attacker, awake, isDOT, isConsume);
 		
-		if (!getActiveChar().isDead() && getActiveChar().isSitting())
-			getActiveChar().standUp();
-		
-		if (getActiveChar().isFakeDeath())
-			getActiveChar().stopFakeDeath(true);
-		
 		if (attacker != getActiveChar() && realValue > 0)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_C2);
@@ -97,6 +162,6 @@ public final class PcStatus extends CharStatus
 	@Override
 	public L2PcInstance getActiveChar()
 	{
-		return (L2PcInstance) _activeChar;
+		return (L2PcInstance)_activeChar;
 	}
 }

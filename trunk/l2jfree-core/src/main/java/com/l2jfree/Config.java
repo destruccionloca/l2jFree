@@ -1628,7 +1628,6 @@ public class Config extends L2Config
 	public static int					ALT_OLY_ENCHANT_LIMIT;
 	public static final Set<Integer>	ALT_LIST_OLY_RESTRICTED_ITEMS = new L2FastSet<Integer>();
 	public static int					ALT_OLY_NONCLASSED;
-	public static boolean				ALT_OLY_SUMMON_DAMAGE_COUNTS;
 	public static boolean				ALT_OLY_REMOVE_CUBICS;
 	public static float					ALT_GAME_SUMMON_PENALTY_RATE;												// Alternative game summon penalty
 	public static int					ALT_MANOR_REFRESH_TIME;													// Manor Refresh Starting time
@@ -1827,7 +1826,6 @@ public class Config extends L2Config
 			ALT_OLY_SAME_IP = Boolean.parseBoolean(altSettings.getProperty("AltOlySameIp", "true"));
 			ALT_OLY_CLASSED = Integer.parseInt(altSettings.getProperty("AltOlyClassedParticipants", "5"));
 			ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants", "9"));
-			ALT_OLY_SUMMON_DAMAGE_COUNTS = Boolean.parseBoolean(altSettings.getProperty("AltOlySummonDamageCounts", "false"));
 			ALT_OLY_REMOVE_CUBICS = Boolean.parseBoolean(altSettings.getProperty("AltOlyRemoveCubics", "false"));
 			ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem", "13722"));
 			ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount", "50"));

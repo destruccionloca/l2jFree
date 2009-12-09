@@ -686,9 +686,6 @@ public final class L2PcInstance extends L2Playable
 	private int								_obsZ;
 	private boolean							_observerMode			= false;
 
-	/** Total amount of damage dealt during a olympiad fight */
-	private int								_olyDamage				= 0;
-
 	/** TvT Instanced Engine parameters */
 	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
 	public boolean							_inEventTvTi			= false, _isSitForcedTvTi = false, _joiningTvTi = false;
@@ -4647,6 +4644,30 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean doDie(L2Character killer)
 	{
+		// is the dying in duel? if so, change his duel state to dead
+		if (isInDuel()) // pets can die as usual
+		{
+			disableAllSkills();
+			getStatus().setCurrentHp(1);
+			getStatus().stopHpMpRegeneration();
+			killer.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+			killer.sendPacket(ActionFailed.STATIC_PACKET);
+			
+			// let the DuelManager know of his defeat
+			DuelManager.getInstance().onPlayerDefeat(this);
+			return false;
+		}
+		
+		if (isInOlympiadMode())
+		{
+			getStatus().stopHpMpRegeneration();
+			setIsDead(true);
+			setIsPendingRevive(true);
+			if (getPet() != null)
+				getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
+			return false;
+		}
+		
 		/* Since L2Character.doDie() calls stopAllEffects(), which includes
 		 * setting charm of curage and other blessings as false, this stores value
 		 * before calling superclass method
@@ -4832,7 +4853,11 @@ public final class L2PcInstance extends L2Playable
 			FrintezzaManager.getInstance().checkAnnihilated();
 		else if (LastImperialTombManager.getInstance().checkIfInZone(this))
 			LastImperialTombManager.getInstance().checkAnnihilated();
-
+		
+		QuestState qs = getQuestState("255_Tutorial");
+		if (qs != null)
+			qs.getQuest().notifyEvent("CE30", null, this);
+		
 		return true;
 	}
 
@@ -8973,6 +8998,7 @@ public final class L2PcInstance extends L2Playable
 
 	class WaterTask implements Runnable
 	{
+		@SuppressWarnings("deprecation")
 		public void run()
 		{
 			double reduceHp = getMaxHp() / 100.0;
@@ -9240,29 +9266,6 @@ public final class L2PcInstance extends L2Playable
 		return _olympiadGameId;
 	}
 
-	public int getOlyDamage()
-	{
-		return _olyDamage;
-	}
-
-	public void setOlyDamage(int dmg)
-	{
-		_olyDamage = dmg;
-	}
-
-	public void addOlyDamage(int dmg)
-	{
-		_olyDamage = _olyDamage + dmg;
-	}
-
-	public void reduceOlyDamage(int dmg)
-	{
-		if (_olyDamage - dmg < 0)
-			_olyDamage = 0;
-		else
-			_olyDamage = _olyDamage - dmg;
-	}
-
 	public int getObsX()
 	{
 		return _obsX;
@@ -9405,9 +9408,6 @@ public final class L2PcInstance extends L2Playable
 	public void setIsOlympiadStart(boolean b)
 	{
 		_olympiadStart = b;
-		// Clear olympiad damage incase its not the first match since init of l2pcisntance
-		if (b)
-			setOlyDamage(0);
 	}
 
 	public boolean isOlympiadStart()
@@ -13988,7 +13988,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		// Someone just doesn't understand what this method is for
 		// refreshOverloaded();
-		// refreshExpertisePenalty(); 
+		// refreshExpertisePenalty();
 
 		sendPacket(new UserInfo(this));
 		if (getPoly().isMorphed())

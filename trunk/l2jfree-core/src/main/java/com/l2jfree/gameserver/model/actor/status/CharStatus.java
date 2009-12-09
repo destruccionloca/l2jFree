@@ -20,18 +20,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.instancemanager.DuelManager;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2FortBallistaInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.entity.Duel;
-import com.l2jfree.gameserver.model.quest.QuestState;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.tools.random.Rnd;
@@ -46,7 +39,6 @@ public class CharStatus
 	
 	private double _currentHp = 0;
 	private double _currentMp = 0;
-	private double _currentCp = 0;
 	
 	public CharStatus(L2Character activeChar)
 	{
@@ -71,9 +63,9 @@ public class CharStatus
 		return _currentMp;
 	}
 	
-	public final double getCurrentCp()
+	public double getCurrentCp()
 	{
-		return _currentCp;
+		return 0;
 	}
 	
 	// ========================================================================
@@ -93,7 +85,7 @@ public class CharStatus
 			startHpMpRegeneration();
 	}
 	
-	private boolean setCurrentHp0(double newHp)
+	protected boolean setCurrentHp0(double newHp)
 	{
 		double maxHp = getActiveChar().getStat().getMaxHp();
 		if (newHp < 0)
@@ -118,18 +110,6 @@ public class CharStatus
 			
 			if (currentHp != _currentHp)
 				getActiveChar().broadcastStatusUpdate();
-		}
-		
-		if (getActiveChar() instanceof L2PcInstance)
-		{
-			if (getCurrentHp() <= maxHp * 0.3)
-			{
-				QuestState qs = ((L2PcInstance)getActiveChar()).getQuestState("255_Tutorial");
-				if (qs != null)
-					qs.getQuest().notifyEvent("CE45", null, ((L2PcInstance)getActiveChar()));
-			}
-			
-			((L2PcInstance)getActiveChar()).refreshConditionListeners(ConditionListenerDependency.PLAYER_HP);
 		}
 		
 		return requireRegen;
@@ -183,34 +163,9 @@ public class CharStatus
 			startHpMpRegeneration();
 	}
 	
-	private boolean setCurrentCp0(double newCp)
+	protected boolean setCurrentCp0(double newCp)
 	{
-		double maxCp = getActiveChar().getStat().getMaxCp();
-		if (newCp < 0)
-			newCp = 0;
-		
-		boolean requireRegen;
-		
-		synchronized (this)
-		{
-			final double currentCp = _currentCp;
-			
-			if (newCp >= maxCp)
-			{
-				_currentCp = maxCp;
-				requireRegen = false;
-			}
-			else
-			{
-				_currentCp = newCp;
-				requireRegen = true;
-			}
-			
-			if (currentCp != _currentCp)
-				getActiveChar().broadcastStatusUpdate();
-		}
-		
-		return requireRegen;
+		return false;
 	}
 	
 	// ========================================================================
@@ -220,10 +175,7 @@ public class CharStatus
 		if (attacker == null || getActiveChar().isDead())
 			return false;
 		
-		if (getActiveChar() instanceof L2FortBallistaInstance && getActiveChar().getMaxHp() == value)
-		{
-		}
-		else if (getActiveChar().isInvul())
+		if (getActiveChar().isInvul())
 		{
 			if (attacker == getActiveChar())
 			{
@@ -258,6 +210,10 @@ public class CharStatus
 		reduceHp(value, attacker, true);
 	}
 	
+	/**
+	 * @deprecated the last boolean parameter was used for awake/isConsume as well, so this is confusing
+	 */
+	@Deprecated
 	public final void reduceHp(double value, L2Character attacker, boolean awake)
 	{
 		reduceHp(value, attacker, awake, false, false);
@@ -283,110 +239,34 @@ public class CharStatus
 	
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
-		if (!isDOT)
+		if (!isConsume)
 		{
-			if (awake)
+			if (!isDOT)
 			{
-				if (getActiveChar().isSleeping())
-					getActiveChar().stopSleeping(true);
+				if (awake)
+				{
+					if (getActiveChar().isSleeping())
+						getActiveChar().stopSleeping(true);
+				}
+				
+				if (getActiveChar().isStunned() && Rnd.get(10) == 0)
+					getActiveChar().stopStunning(true);
 				if (getActiveChar().isImmobileUntilAttacked())
 					getActiveChar().stopImmobileUntilAttacked(true);
 			}
-			
-			if (getActiveChar().isStunned() && Rnd.get(10) == 0)
-				getActiveChar().stopStunning(true);
-		}
-		else if (awake && getActiveChar() instanceof L2PcInstance)
-		{
-			if (getActiveChar().isSleeping())
-				getActiveChar().stopSleeping(true);
 		}
 		
-		final L2PcInstance player = getActiveChar().getActingPlayer();
-		final L2PcInstance attackerPlayer = attacker.getActingPlayer();
-		
-		if (value > 0) // Reduce Hp if any
-		{
-			// add olympiad damage
-			if (player != null && player.isInOlympiadMode() && attackerPlayer != null
-					&& attackerPlayer.isInOlympiadMode())
-			{
-				if (Config.ALT_OLY_SUMMON_DAMAGE_COUNTS
-						|| (attacker instanceof L2PcInstance && getActiveChar() instanceof L2PcInstance))
-					attackerPlayer.addOlyDamage((int)value);
-			}
-			
-			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
-			// Anything else, clear the over-hit flag
-			if (getActiveChar() instanceof L2Attackable)
-			{
-				if (((L2Attackable)getActiveChar()).isOverhit())
-					((L2Attackable)getActiveChar()).setOverhitValues(attacker, value);
-				else
-					((L2Attackable)getActiveChar()).overhitEnabled(false);
-			}
-			value = getCurrentHp() - value; // Get diff of Hp vs value
-			if (value <= 0)
-			{
-				// is the dying a duelist? if so, change his duel state to dead
-				if (player != null && player.isInDuel() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
-				{
-					getActiveChar().disableAllSkills();
-					stopHpMpRegeneration();
-					attacker.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-					attacker.sendPacket(ActionFailed.STATIC_PACKET);
-					
-					// let the DuelManager know of his defeat
-					DuelManager.getInstance().onPlayerDefeat(player);
-					value = 1;
-				}
-				else
-					value = 0; // Set value to 0 if Hp < 0
-			}
-			
-			setCurrentHp(value); // Set Hp
-		}
-		else
-		{
-			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
-			if (getActiveChar() instanceof L2Attackable)
-			{
-				((L2Attackable)getActiveChar()).overhitEnabled(false);
-			}
-		}
+		if (value > 0) // Reduce Hp if any, and Hp can't be negative
+			setCurrentHp(Math.max(getCurrentHp() - value, 0));
 		
 		if (getCurrentHp() < 0.5) // Die
 		{
-			if (player != null && player.isInOlympiadMode() && getActiveChar() instanceof L2PcInstance) // pets can die as usual
-			{
-				stopHpMpRegeneration();
-				player.setIsDead(true);
-				player.setIsPendingRevive(true);
-				if (player.getPet() != null)
-					player.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-				return;
-			}
+			getActiveChar().abortAttack();
+			getActiveChar().abortCast();
 			
 			// Start the doDie process
 			getActiveChar().doDie(attacker);
-			
-			if (player != null)
-			{
-				QuestState qs = player.getQuestState("255_Tutorial");
-				if (qs != null)
-					qs.getQuest().notifyEvent("CE30", null, player);
-			}
 		}
-		else
-		{
-			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
-			if (getActiveChar() instanceof L2Attackable)
-			{
-				((L2Attackable)getActiveChar()).overhitEnabled(false);
-			}
-		}
-		
-		return;
 	}
 	
 	public final void increaseMp(double value)

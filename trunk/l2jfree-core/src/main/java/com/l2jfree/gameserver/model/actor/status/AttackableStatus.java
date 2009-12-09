@@ -71,7 +71,21 @@ public class AttackableStatus extends NpcStatus
 				master.callMinionsToAssist(attacker);
 		}
 		
+		if (value > 0)
+		{
+			if (getActiveChar().isOverhit())
+				getActiveChar().setOverhitValues(attacker, value);
+			else
+				getActiveChar().overhitEnabled(false);
+		}
+		else
+			getActiveChar().overhitEnabled(false);
+		
 		// Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
 		super.reduceHp0(value, attacker, awake, isDOT, isConsume);
+		
+		if (!getActiveChar().isDead())
+			// If the attacker's hit didn't kill the mob, clear the over-hit flag
+			getActiveChar().overhitEnabled(false);
 	}
 }
