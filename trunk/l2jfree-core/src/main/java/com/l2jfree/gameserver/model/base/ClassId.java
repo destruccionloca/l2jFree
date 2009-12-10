@@ -363,10 +363,10 @@ public enum ClassId
 			switch (classId.getParent().getParent())
 			{
 				case MaleSoldier:
-					subclasses.remove(FemaleSoulBreaker);
+					subclasses.remove(MaleSoulBreaker);
 					break;
 				case FemaleSoldier:
-					subclasses.remove(MaleSoulBreaker);
+					subclasses.remove(FemaleSoulBreaker);
 					break;
 				default:
 					throw new InternalError();
