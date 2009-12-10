@@ -209,26 +209,24 @@ public class RequestActionUse extends L2GameClientPacket
 			if (pet != null)
 			{
 				//returns pet to control item
-				SystemMessageId fail = null;
-				if (pet.isOutOfControl())
-					fail = SystemMessageId.PET_REFUSING_ORDER;
-				else if (pet.isDead())
-					fail = SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED;
+				if (pet.isDead())
+					activeChar.sendPacket(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED);
+				//else if (pet.isOutOfControl())
+				//	activeChar.sendPacket(SystemMessageId.PET_REFUSING_ORDER);
 				else if (pet.isAttackingNow() || pet.isInCombat() || pet.isRooted() ||
 						pet.isBetrayed())
-					fail = SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE;
-				else if (pet instanceof L2PetInstance)
-				{
-					if (pet.isHungry())
-						fail = SystemMessageId.YOU_CANNOT_RESTORE_HUNGRY_PETS;
-					else if (pet.isInCombat())
-						fail = SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE;
-				}
-
-				if (fail == null)
-					pet.unSummon(activeChar);
+					activeChar.sendPacket(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE);
 				else
-					sendPacket(fail);
+				{
+					// if it is a pet and not a summon
+					if (pet instanceof L2PetInstance)
+					{
+						if (pet.isHungry())
+							activeChar.sendPacket(SystemMessageId.YOU_CANNOT_RESTORE_HUNGRY_PETS);
+						else
+							pet.unSummon(activeChar);
+					}
+				}
 			}
 			//everything handled
 			break;
