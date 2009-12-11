@@ -116,20 +116,17 @@ public class Potions implements IItemHandler
 				return;
 			res = usePotion(playable, 2031, 1);
 			break;
-/*
-Control of this needs to be moved back into potions.java so proper message support can be handled for specific events.
 		case 10409: // Empty Bottle of Souls
 			if (activeChar.getActiveClass() >= 123 && activeChar.getActiveClass() <= 136) //Kamael classes only
 			{
 				if (activeChar.getSouls() >= 6)
-					res = usePotion(activeChar, 2498, 1);
+					usePotion(activeChar, 2498, 1);
 				else
-					playable.sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
+					playable.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL));
 			}
 			else
-				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
+				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
 			break;
-*/
 		case 10410: // 5 Souls Bottle
 		case 10411:
 			if (activeChar.getActiveClass() >= 123 && activeChar.getActiveClass() <= 136) // Kamael classes only

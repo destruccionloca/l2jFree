@@ -9708,3 +9708,6 @@ UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10199';
 UPDATE `etcitem` SET `price` = '10' WHERE `item_id` = '10200';
 UPDATE `etcitem` SET `price` = '20' WHERE `item_id` = '10201';
 UPDATE `etcitem` SET `price` = '20' WHERE `item_id` = '10202';
+
+-- Empty bottle of soul (Psycho)
+UPDATE `etcitem` SET `handler` = 'Potions' WHERE `item_id` = '10409';
