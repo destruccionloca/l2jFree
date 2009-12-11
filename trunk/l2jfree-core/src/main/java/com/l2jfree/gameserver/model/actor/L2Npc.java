@@ -69,6 +69,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TeleporterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2WarehouseInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
@@ -1302,7 +1303,7 @@ public class L2Npc extends L2Character
 			}
 			else if (command.startsWith("SupportMagic"))
 			{
-				makeSupportMagic(player);
+				makeSupportMagic(player, command);
 			}
 			else if (command.startsWith("GiveBlessing"))
 			{
@@ -1516,17 +1517,17 @@ public class L2Npc extends L2Character
 		}
 
 		if (_templateId > 0)
-			makeBuffs(player, _templateId);
+			makeBuffs(player, _templateId, false);
 	}
 
 	/**
-	 * Cast buffs on player, this function ignore target type
-	 * only buff effects are aplied to player
+	 * Cast buffs on player/servitor, this function ignore target type
+	 * only buff effects are aplied to player/servitor
 	 *
-	 * @param player Target player
+	 * @param player Target player/servitor owner
 	 * @param _templateId Id of buff template
 	 */
-	public void makeBuffs(L2PcInstance player, int _templateId)
+	public void makeBuffs(L2PcInstance player, int _templateId, boolean servitor)
 	{
 		if (player == null)
 			return;
@@ -1536,7 +1537,8 @@ public class L2Npc extends L2Character
 		if (_templateBuffs == null || _templateBuffs.size() == 0)
 			return;
 
-		setTarget(player);
+		L2Playable receiver = (servitor ? player.getPet() : player);
+		setTarget(receiver);
 
 		int _priceTotal = 0;
 		//TODO: add faction points support (evil33t, im waiting for you ^^ )
@@ -1552,17 +1554,19 @@ public class L2Npc extends L2Character
 				{
 					_priceTotal += _buff.getAdenaPrice();
 
-					if (_buff.forceCast() || player.getFirstEffect(_buff.getSkill()) == null)
+					if (_buff.forceCast() || receiver.getFirstEffect(_buff.getSkill()) == null)
 					{
 						// regeneration ^^
 						getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
 
 						// yes, its not for all skills right, but atleast player will know
 						// for what he paid =)
-						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-						sm.addSkillName(_buff.getSkill().getId());
-						player.sendPacket(sm);
-						sm = null;
+						if (_templateId != 1 && !servitor)
+						{
+							SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+							sm.addSkillName(_buff.getSkill().getId());
+							player.sendPacket(sm);
+						}
 
 						// hack for newbie summons
 						if (_buff.getSkill().getSkillType() == L2SkillType.SUMMON)
@@ -1571,9 +1575,9 @@ public class L2Npc extends L2Character
 						}
 						else
 						{ // Ignore skill cast time, using 100ms for NPC buffer's animation
-							MagicSkillUse msu = new MagicSkillUse(this, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
+							MagicSkillUse msu = new MagicSkillUse(this, receiver, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
 							broadcastPacket(msu);
-							_buff.getSkill().getEffects(this, player);
+							_buff.getSkill().getEffects(this, receiver);
 						}
 					}
 				}
@@ -2170,13 +2174,13 @@ public class L2Npc extends L2Character
 	 * @param player The L2PcInstance that talk with the L2Npc
 	 *
 	 */
-	public void makeSupportMagic(L2PcInstance player)
+	public void makeSupportMagic(L2PcInstance player, String cmd)
 	{
 		// Prevent a cursed weapon weilder of being buffed
 		if (!cwCheck(player))
 			return;
 
-		int _newbieBuffsId = BuffTemplateTable.getInstance().getTemplateIdByName("SupportMagic");
+		int _newbieBuffsId = BuffTemplateTable.getInstance().getTemplateIdByName(cmd);
 
 		if (_newbieBuffsId == 0)
 			return;
@@ -2202,7 +2206,20 @@ public class L2Npc extends L2Character
 			return;
 		}
 
-		makeBuffs(player, _newbieBuffsId);
+		// If buffs are for servitor, check it's presence
+		boolean servitor = cmd.endsWith("vitor");
+		if (servitor)
+		{
+			L2Summon pet = player.getPet();
+			if (pet == null || pet instanceof L2PetInstance)
+			{
+				String content = "<html><body>Only servitors can receive this Support Magic. If you do not have a servitor, you cannot access these spells.</body></html>";
+				insertObjectIdAndShowChatWindow(player, content);
+				return;
+			}
+		}
+
+		makeBuffs(player, _newbieBuffsId, servitor);
 	}
 
 	public void giveBlessingSupport(L2PcInstance player)
