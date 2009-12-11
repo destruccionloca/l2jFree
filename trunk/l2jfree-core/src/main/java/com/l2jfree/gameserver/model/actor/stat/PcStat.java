@@ -528,9 +528,9 @@ public class PcStat extends PlayableStat
 				getActiveChar().sendPacket(SystemMessageId.VITALITY_HAS_DECREASED);
 			else
 				getActiveChar().sendPacket(SystemMessageId.VITALITY_HAS_INCREASED);
-			if (level == 0)
+			if (_vitalityPoints <= MIN_VITALITY_POINTS)
 				getActiveChar().sendPacket(SystemMessageId.VITALITY_IS_EXHAUSTED);
-			else if (level == 4)
+			else if (_vitalityPoints >= MAX_VITALITY_POINTS)
 				getActiveChar().sendPacket(SystemMessageId.VITALITY_IS_AT_MAXIMUM);
 		}
 
