@@ -854,7 +854,7 @@
     <set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
-      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
+      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT" stackOrder="1" stackType="vortex">
         <mul order="0x30" stat="runSpd" val="0.9"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <mul order="0x30" stat="mAtkSpd" val="0.9"/>
@@ -884,7 +884,7 @@
     <set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
-      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
+      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT" stackOrder="1" stackType="vortex">
         <mul order="0x30" stat="runSpd" val="0.9"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <mul order="0x30" stat="mAtkSpd" val="0.9"/>
@@ -914,7 +914,7 @@
     <set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
-      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
+      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT" stackOrder="1" stackType="vortex">
         <mul order="0x30" stat="runSpd" val="0.9"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <mul order="0x30" stat="mAtkSpd" val="0.9"/>
@@ -943,7 +943,7 @@
     <set name="effectPower" val="80"/>
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
-      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
+      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT" stackOrder="1" stackType="vortex">
         <sub order="0x40" stat="accCombat" val="6"/>
         <sub order="0x40" stat="holyRes" val="30"/>
       </effect>
@@ -972,7 +972,7 @@
     <!-- Dark Vortex: Power is reduced but drain percentage is increased - so I changed 0.7 -> 0.8 -->
     <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
-      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
+      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT" stackOrder="1" stackType="vortex">
         <sub order="0x40" stat="accCombat" val="6"/>
         <sub order="0x40" stat="darkRes" val="30"/>
       </effect>
