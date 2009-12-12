@@ -77,7 +77,11 @@ public final class IllegalPlayerAction implements Runnable
 			new Disconnection(_actor).defaultSequence(false);
 			break;
 		case PUNISH_JAIL:
-			_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);
+			if (_actor.isInJail())
+			{
+				int minutesLeft = (int)(_actor.getJailTimer() / 60000);
+				_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM + minutesLeft);
+			}
 			break;
 		}
 	}
