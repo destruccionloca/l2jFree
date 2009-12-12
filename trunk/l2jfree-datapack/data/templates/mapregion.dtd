@@ -13,7 +13,7 @@
 <!ATTLIST restartpoint locname CDATA #REQUIRED>
 <!-- <!ELEMENT restartpoint (normal+,chaotic+,bannedrace?)> -->
 <!-- Allow paceholders (temp) -->
-<!ELEMENT restartpoint (normal*,chaotic*,bannedrace*)>
+<!ELEMENT restartpoint (normal*,chaotic*,bannedrace?)>
 
 <!ATTLIST normal X CDATA #REQUIRED>
 <!ATTLIST normal Y CDATA #REQUIRED>

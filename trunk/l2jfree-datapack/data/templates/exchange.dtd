@@ -3,11 +3,11 @@
 <!-- Root -->
 <!ATTLIST list applyTaxes (true|false) #IMPLIED>
 <!ATTLIST list maintainEnchantment (true|false) #IMPLIED>
-<!ELEMENT list (item)*>
+<!ELEMENT list (item)+>
 
 <!-- Item -->
 <!ATTLIST item id CDATA #REQUIRED>
-<!ELEMENT item (ingredient+|production+)+>
+<!ELEMENT item ((ingredient+,production+,ingredient*)|(production+,ingredient+,production*))>
 
 <!-- Ingredient -->
 <!ATTLIST ingredient id CDATA #REQUIRED>

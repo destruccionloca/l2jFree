@@ -9,9 +9,9 @@
 
 <!-- Room -->
 <!ATTLIST room id CDATA #REQUIRED>
-<!ATTLIST room name CDATA #IMPLIED> <!-- not parsed -->
+<!ATTLIST room name CDATA #REQUIRED> <!-- not parsed -->
 <!ATTLIST room isBossRoom (true|false) #IMPLIED>
-<!ELEMENT room (teleport?,spawn*,zone?)>
+<!ELEMENT room (teleport?,spawn*,zone)>
 
 <!-- Teleport -->
 <!ATTLIST teleport x CDATA #REQUIRED>

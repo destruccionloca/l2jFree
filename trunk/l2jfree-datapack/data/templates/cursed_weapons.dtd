@@ -7,7 +7,7 @@
 <!ATTLIST item id CDATA #REQUIRED>
 <!ATTLIST item skillId CDATA #REQUIRED>
 <!ATTLIST item name CDATA #REQUIRED>
-<!ELEMENT item (dropRate?,duration?,durationLost?,disapearChance?,stageKills?,transformId?)>
+<!ELEMENT item (dropRate,duration,durationLost,disapearChance,stageKills,transformId)>
 
 <!ATTLIST dropRate val CDATA #REQUIRED>
 <!ELEMENT dropRate EMPTY>

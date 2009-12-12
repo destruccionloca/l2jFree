@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Overriding %condition; from conditions.dtd -->
+<!ENTITY % condition "and|or|not|player|game">
+
 <!ENTITY % conditions.dtd SYSTEM "conditions.dtd"> %conditions.dtd;
 
 <!-- Root -->
@@ -78,8 +81,6 @@
 <!ATTLIST settings pvp (Arena|General|Peace) #IMPLIED>
 <!ATTLIST settings questZoneId CDATA #IMPLIED>
 <!ELEMENT settings EMPTY>
-
-<!-- Everything below is taken from skills.dtd (should be exported to another file) -->
 
 <!-- Condition -->
 <!ELEMENT cond (%condition;)>

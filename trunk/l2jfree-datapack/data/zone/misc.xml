@@ -117,7 +117,7 @@
     <cond>
       <not>
         <or>
-          <target active_effect_id="2341"/> <!-- 2341: Caravan's Secret Medicine -->
+          <player active_effect_id="2341"/> <!-- 2341: Caravan's Secret Medicine -->
           <game night="true"/>
         </or>
       </not>

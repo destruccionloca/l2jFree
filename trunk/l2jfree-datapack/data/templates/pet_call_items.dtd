@@ -5,7 +5,7 @@
 
 <!-- Item -->
 <!ATTLIST item id CDATA #REQUIRED>
-<!ELEMENT item (npcId?, summonType?)>
+<!ELEMENT item (npcId, summonType)>
 
 <!ATTLIST npcId val CDATA #REQUIRED>
 <!ELEMENT npcId EMPTY>

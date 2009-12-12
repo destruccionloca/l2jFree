@@ -10,7 +10,7 @@
 <!ATTLIST item craftLevel CDATA #REQUIRED>
 <!ATTLIST item type (dwarven|common) #REQUIRED>
 <!ATTLIST item successRate CDATA #REQUIRED>
-<!ELEMENT item (statUse?,altStatChange?,production,productionRare?,ingredient+)>
+<!ELEMENT item (statUse,altStatChange?,production,productionRare?,ingredient+)>
 
 <!-- Used status points -->
 <!ATTLIST statUse name (HP|MP|XP|SP|GIM) #REQUIRED>

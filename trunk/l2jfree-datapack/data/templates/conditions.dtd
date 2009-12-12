@@ -47,6 +47,7 @@
 <!ATTLIST player class_id_restriction CDATA #IMPLIED>
 <!ATTLIST player isClanLeader (%boolean;) #IMPLIED>
 <!ATTLIST player subclass (%boolean;) #IMPLIED>
+<!ATTLIST player instanceid CDATA #IMPLIED>
 <!ELEMENT player EMPTY>
 
 <!ATTLIST target aggro (%boolean;) #IMPLIED>
@@ -74,4 +75,5 @@
 
 <!ATTLIST game night (%boolean;) #IMPLIED>
 <!ATTLIST game chance CDATA #IMPLIED>
+<!ATTLIST game skill (%boolean;) #IMPLIED>
 <!ELEMENT game EMPTY>
