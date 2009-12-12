@@ -6,6 +6,7 @@ import java.util.List;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -103,11 +104,16 @@ public class PartyRoomManager
 	 */
 	public void removeRoom(int roomId)
 	{
-		L2PartyRoom room = getPartyRoom(roomId);
+		L2PartyRoom room = getPartyRooms().remove(roomId);
 		if (room == null)
 			return;
 
-		getPartyRooms().remove(roomId);
+		L2Party party = room.getParty();
+		if (party != null)
+		{
+			room.setParty(null);
+			party.setPartyRoom(null);
+		}
 
 		for (L2PcInstance member : room.getMembers())
 		{

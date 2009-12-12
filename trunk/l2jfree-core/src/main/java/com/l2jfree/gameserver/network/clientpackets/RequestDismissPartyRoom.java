@@ -46,7 +46,7 @@ public class RequestDismissPartyRoom extends L2GameClientPacket
 			return;
 
 		L2PartyRoom room = activeChar.getPartyRoom();
-		if (room.getId() == _roomId && room.getLeader() == activeChar)
+		if (room != null && room.getId() == _roomId && room.getLeader() == activeChar)
 			PartyRoomManager.getInstance().removeRoom(_roomId);
 
 		sendAF();

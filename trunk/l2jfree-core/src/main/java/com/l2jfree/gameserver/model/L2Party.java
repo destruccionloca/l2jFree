@@ -242,10 +242,7 @@ public class L2Party
 		broadcastToPartyMembers(new SystemMessage(SystemMessageId.C1_HAS_BECOME_A_PARTY_LEADER).addString(getLeader().getName()));
 		L2PartyRoom room = getPartyRoom();
 		if (room != null)
-		{
-			room.broadcastPacket(new ExManagePartyRoomMember(ExManagePartyRoomMember.MODIFIED, getLeader()));
 			room.broadcastPacket(SystemMessageId.PARTY_ROOM_LEADER_CHANGED.getSystemMessage());
-		}
 		refreshPartyView();
 	}
 	
@@ -540,7 +537,6 @@ public class L2Party
 	 * Change party leader (used for string arguments)
 	 * @param name
 	 */
-	
 	public void changePartyLeader(String name)
 	{
 		L2PcInstance player = getPlayerByName(name);
@@ -560,7 +556,17 @@ public class L2Party
 					int p1 = getPartyMembers().indexOf(player);
 					getPartyMembers().set(0, getPartyMembers().get(p1));
 					getPartyMembers().set(p1, leader);
-					
+
+					L2PartyRoom room = getPartyRoom();
+					if (room != null)
+					{
+						leader.setLookingForParty(false);
+						leader.broadcastUserInfo();
+						player.setLookingForParty(true);
+						player.broadcastUserInfo();
+						room.updateRoomStatus(true);
+					}
+
 					broadcastToPartyMembersNewLeader();
 					if (isInCommandChannel() && getCommandChannel().getChannelLeader() == leader)
 					{
