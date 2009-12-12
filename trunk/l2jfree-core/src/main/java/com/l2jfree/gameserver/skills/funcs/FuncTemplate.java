@@ -121,7 +121,7 @@ public final class FuncTemplate
 				throwException(pFunc, pStat, pOrder, pLambda);
 		}
 		
-		if ("Enchant".equalsIgnoreCase(pFunc))
+		if (clazz == FuncEnchant.class)
 		{
 			switch (pStat)
 			{
@@ -130,6 +130,17 @@ public final class FuncTemplate
 				case SHIELD_DEFENCE:
 				case MAGIC_ATTACK:
 				case POWER_ATTACK:
+					break;
+				default:
+					throwException(pFunc, pStat, pOrder, pLambda);
+			}
+		}
+		else if (clazz == FuncBaseMul.class)
+		{
+			switch (pStat)
+			{
+				case CRITICAL_RATE:
+				case MCRITICAL_RATE:
 					break;
 				default:
 					throwException(pFunc, pStat, pOrder, pLambda);
@@ -154,7 +165,7 @@ public final class FuncTemplate
 	private void throwException(String pFunc, Stats pStat, int pOrder, double pLambda)
 	{
 		throw new IllegalStateException("<" + pFunc.toLowerCase() + " order=\"0x" + Integer.toHexString(pOrder)
-			+ "\" stat=\"" + pStat.getValue() + "\" val=\"" + pLambda + "\"/>");
+				+ "\" stat=\"" + pStat.getValue() + "\" val=\"" + pLambda + "\"/>");
 	}
 	
 	public Func getFunc(FuncOwner funcOwner)

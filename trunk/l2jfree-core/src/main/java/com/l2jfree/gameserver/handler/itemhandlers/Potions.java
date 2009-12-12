@@ -122,10 +122,10 @@ public class Potions implements IItemHandler
 				if (activeChar.getSouls() >= 6)
 					usePotion(activeChar, 2498, 1);
 				else
-					playable.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL));
+					playable.sendPacket(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL);
 			}
 			else
-				playable.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+				playable.sendPacket(SystemMessageId.NOTHING_HAPPENED);
 			break;
 		case 10410: // 5 Souls Bottle
 		case 10411:

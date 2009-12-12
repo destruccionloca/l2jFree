@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.skills;
 
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 
@@ -27,28 +26,16 @@ public final class Env
 //	Disabled until it's really used...
 //	public L2CubicInstance	cubic;
 	public L2Character		target;
-	public L2ItemInstance	item;
+//	Disabled until it's really used...
+//	public L2ItemInstance	item;
 	public L2Skill			skill;
 //	Disabled until it's really used...
 //	public L2Effect			effect;
 	public double			value;
-	public double			baseValue;
+	public double			baseValue = Double.NaN;
 	public boolean			skillMastery;
-
-	public byte shld = 0;
-	public boolean ss = false;
-	public boolean sps = false;
-	public boolean bss = false;
-
+	
 	public Env()
 	{
-	}
-
-	public Env(byte shd, boolean s, boolean ps, boolean bs)
-	{
-		shld = shd;
-		ss = s;
-		sps = ps;
-		bss = bs;
 	}
 }
