@@ -213,11 +213,11 @@
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
       <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
-      <sub order="0x08" stat="MpConsume" val="1">
+      <set order="0x08" stat="MpConsume" val="1">
          <and>
             <game skill="false" chance="30"/>
          </and>
-      </sub>
+      </set>
     </for>
   </item>
   <item id="10686" name="Shyeed's Bow - PvP - Focus">
