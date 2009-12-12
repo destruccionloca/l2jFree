@@ -14,34 +14,64 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
+import com.l2jfree.gameserver.model.L2PartyRoom;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Format: (ch) d
- * @author -Wooden-
+ * @author -Wooden- (format)
+ * @author Myzreal (implementation)
  */
 public class AnswerJoinPartyRoom extends L2GameClientPacket
 {
-    private static final String _C__D0_15_ANSWERJOINPARTYROOM = "[C] D0:15 AnswerJoinPartyRoom";
-    private int _requesterID; // not tested, just guessed
+    private static final String _C__D0_30_ANSWERJOINPARTYROOM = "[C] D0:30 AnswerJoinPartyRoom";
+
+    private int _response;
 
     @Override
     protected void readImpl()
     {
-        _requesterID = readD();
+        _response = readD();
     }
 
     @Override
     protected void runImpl()
     {
-        // TODO: implementation missing
-        System.out.println("C5:AnswerJoinPartyRoom: d: "+_requesterID);
-        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+    	L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
+
+		if (Shutdown.isActionDisabled(DisableType.PC_ITERACTION))
+        {
+        	requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
+            return;
+        }
+
+		L2PcInstance requester = activeChar.getActiveRequester();
+		if (requester == null)
+		{
+			sendAF();
+			return;
+		}
+
+		if (_response == 1) // takes care of everything
+			L2PartyRoom.tryJoin(activeChar, requester.getPartyRoom(), true);
+		else
+			sendPacket(SystemMessageId.PARTY_MATCHING_REQUEST_NO_RESPONSE);
+
+		// Clears requesting status
+		activeChar.setActiveRequester(null);
+		requester.onTransactionResponse();
+
+		sendAF();
     }
 
     @Override
     public String getType()
     {
-        return _C__D0_15_ANSWERJOINPARTYROOM;
+        return _C__D0_30_ANSWERJOINPARTYROOM;
     }
 }

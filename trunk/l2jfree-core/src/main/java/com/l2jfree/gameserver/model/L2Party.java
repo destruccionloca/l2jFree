@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -34,6 +35,8 @@ import com.l2jfree.gameserver.model.entity.DimensionalRift;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.ExCloseMPCC;
+import com.l2jfree.gameserver.network.serverpackets.ExClosePartyRoom;
+import com.l2jfree.gameserver.network.serverpackets.ExManagePartyRoomMember;
 import com.l2jfree.gameserver.network.serverpackets.ExMultiPartyCommandChannelInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExOpenMPCC;
 import com.l2jfree.gameserver.network.serverpackets.ExPartyPetWindowAdd;
@@ -65,6 +68,7 @@ public class L2Party
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
 	private L2CommandChannel _commandChannel = null;
+	private L2PartyRoom _partyRoom = null;
 
 	private DimensionalRift _dr;
 
@@ -84,6 +88,7 @@ public class L2Party
 		_itemDistribution = itemDistribution;
 		getPartyMembers().add(leader);
 		_partyLvl = leader.getLevel();
+		_partyRoom = leader.getPartyRoom();
 	}
 	
 	/**
@@ -235,6 +240,12 @@ public class L2Party
 	public void broadcastToPartyMembersNewLeader()
 	{
 		broadcastToPartyMembers(new SystemMessage(SystemMessageId.C1_HAS_BECOME_A_PARTY_LEADER).addString(getLeader().getName()));
+		L2PartyRoom room = getPartyRoom();
+		if (room != null)
+		{
+			room.broadcastPacket(new ExManagePartyRoomMember(ExManagePartyRoomMember.MODIFIED, getLeader()));
+			room.broadcastPacket(SystemMessageId.PARTY_ROOM_LEADER_CHANGED.getSystemMessage());
+		}
 		refreshPartyView();
 	}
 	
@@ -295,11 +306,28 @@ public class L2Party
 				return false;
 			}
 		}
-		
+
+		if (player.isLookingForParty())
+		{
+			PartyRoomManager.getInstance().removeFromWaitingList(player);
+			player.sendPacket(ExClosePartyRoom.STATIC_PACKET);
+		}
+
+		L2PartyRoom room = getPartyRoom();
+		L2PartyRoom newMembRoom = player.getPartyRoom();
+		if (newMembRoom != null && newMembRoom != room)
+		{
+			// new player is in a room or owns a room
+			if (newMembRoom.getLeader() == player)
+				PartyRoomManager.getInstance().removeRoom(newMembRoom.getId());
+			else
+				newMembRoom.removeMember(player, false);
+		}
+
 		//sends new member party window for all members
 		//we do all actions before adding member to a list, this speeds things up a little
 		player.sendPacket(new PartySmallWindowAll(this));
-		
+
 		// sends pets/summons of party members
 		L2Summon summon;
 		for (L2PcInstance pMember : getPartyMembers())
@@ -349,6 +377,15 @@ public class L2Party
 			getCommandChannel().broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(getCommandChannel()));
 		}
 
+		if (room != null)
+		{
+			if (getMemberCount() == 2) // party created while being in room
+				room.setParty(this);
+			room.addMember(player); // add if not present
+			// change from candidate to party member
+			room.broadcastPacket(new ExManagePartyRoomMember(ExManagePartyRoomMember.MODIFIED, player));
+		}
+
 		return true;
 	}
 	
@@ -370,12 +407,12 @@ public class L2Party
 	 * Overloaded method that takes player's name as parameter
 	 * @param name
 	 */
-	public void removePartyMember(String name)
+	public void removePartyMember(String name, boolean oust)
 	{
 		L2PcInstance player = getPlayerByName(name);
 
 		if (player != null)
-			removePartyMember(player);
+			removePartyMember(player, oust);
 	}
 
 	/**
@@ -383,6 +420,11 @@ public class L2Party
 	 * @param player
     */
 	public void removePartyMember(L2PcInstance player)
+	{
+		removePartyMember(player, false);
+	}
+
+	public void removePartyMember(L2PcInstance player, boolean oust)
 	{
 		if (getPartyMembers().contains(player))
 		{
@@ -410,12 +452,19 @@ public class L2Party
 				e.printStackTrace();
 			}
 
-			SystemMessage msg = SystemMessageId.YOU_LEFT_PARTY.getSystemMessage();
+			SystemMessage msg;
+			if (oust)
+				msg = SystemMessageId.HAVE_BEEN_EXPELLED_FROM_PARTY.getSystemMessage();
+			else
+				msg = SystemMessageId.YOU_LEFT_PARTY.getSystemMessage();
 			player.sendPacket(msg);
 			player.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
 			player.setParty(null);
 			
-			msg = new SystemMessage(SystemMessageId.C1_LEFT_PARTY);
+			if (oust)
+				msg = new SystemMessage(SystemMessageId.C1_WAS_EXPELLED_FROM_PARTY);
+			else
+				msg = new SystemMessage(SystemMessageId.C1_LEFT_PARTY);
 			msg.addString(player.getName());
 			broadcastToPartyMembers(msg);
 			broadcastToPartyMembers(new PartySmallWindowDelete(player));
@@ -431,6 +480,7 @@ public class L2Party
 			if (isLeader && getPartyMembers().size() > 1)
 				broadcastToPartyMembersNewLeader();
 			
+			L2PartyRoom room = getPartyRoom();
 			if (getPartyMembers().size() == 1)
 			{
 				if (isInCommandChannel())
@@ -447,6 +497,19 @@ public class L2Party
 						cmd.broadcastToChannelMembers(new SystemMessage(SystemMessageId.C1_PARTY_LEFT_COMMAND_CHANNEL)
 								.addString(getLeader().getName()));
 					}
+				}
+				
+				if (room != null)
+				{
+					setPartyRoom(null);
+					if (isLeader) // leader asked to
+					{
+						PartyRoomManager.getInstance().removeRoom(room.getId());
+						player.setLookingForParty(false);
+						player.broadcastUserInfo();
+					}
+					else
+						room.setParty(null);
 				}
 				
 				L2PcInstance leader = getLeader();
@@ -468,6 +531,8 @@ public class L2Party
 					getCommandChannel().broadcastToChannelMembers(new ExMultiPartyCommandChannelInfo(getCommandChannel()));
 				}
 			}
+			if (room != null)
+				room.removeMember(player, oust);
 		}
 	}
 	
@@ -894,6 +959,11 @@ public class L2Party
 		return _itemDistribution;
 	}
 
+	public void setLootDistribution(int dist)
+	{
+		_itemDistribution = dist;
+	}
+
 	public boolean isInCommandChannel()
 	{
 		return _commandChannel != null;
@@ -907,6 +977,16 @@ public class L2Party
 	public void setCommandChannel(L2CommandChannel channel)
 	{
 		_commandChannel = channel;
+	}
+
+	public L2PartyRoom getPartyRoom()
+	{
+		return _partyRoom;
+	}
+
+	public void setPartyRoom(L2PartyRoom room)
+	{
+		_partyRoom = room;
 	}
 
 	public boolean isInDimensionalRift()

@@ -14,80 +14,53 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Collection;
+import static com.l2jfree.gameserver.instancemanager.PartyRoomManager.ENTRIES_PER_PAGE;
 
-import javolution.util.FastList;
+import java.util.List;
 
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Format:(ch) d [sdd]
- * @author  Crion/kombat
+ * @author Crion/kombat (format)
+ * @author Myzreal (implementation)
  */
-
 public class ExListPartyMatchingWaitingRoom extends L2GameServerPacket
 {
-	private FastList<L2PcInstance> _waiting;
+	private static final String	_S__FE_36_EXLISTPARTYMATCHINGWAITINGROOM = "[S] FE:36 ExListPartyMatchingWaitingRoom";
 
-	private final int _minLevel = 1; // To be implemented :)
-	private final int _maxLevel = 80; // To be implemented :)
+	private final List<L2PcInstance>	_waiting;
+	private final int					_offset;
+	private final int					_last;
 
-	/**
-	 * @param waiting
-	 * @param searcher
-	 * @param page
-	 */
-	public ExListPartyMatchingWaitingRoom(Collection<L2PcInstance> waiting, L2PcInstance searcher, int page)
+	public ExListPartyMatchingWaitingRoom(int minLevel, int maxLevel, int page)
 	{
-		int first = (page - 1) * 64;
-		int firstNot = page * 64;
-
-		int i = -1;
-		for (L2PcInstance pc : waiting)
-		{
-			if (pc.getLevel() >= _minLevel && pc.getLevel() <= _maxLevel && !pc.isGM())
-			{
-				i++;
-
-				if (i < first || i >= firstNot)
-					continue;
-				if (_waiting == null)
-					_waiting = new FastList<L2PcInstance>();
-				_waiting.add(pc);
-			}
-		}
+		_waiting = PartyRoomManager.getInstance().getWaitingList(minLevel, maxLevel);
+		_offset = (page - 1) * ENTRIES_PER_PAGE;
+		_last = _offset + Math.min(_waiting.size() - _offset, ENTRIES_PER_PAGE);
 	}
 
-	
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0xFE);
 		writeH(0x36);
 
-		writeD(_waiting.size()); // Client shows size/64 max pages, so there should be 64 players per page on offi... but could modify this
-
-		if (_waiting == null)
+		writeD(_waiting.size() / 64 + 1); // total pages
+		writeD(_last - _offset); // players in this page
+		for (int i = _offset; i < _last; i++)
 		{
-			writeD(0);
-			return;
-		}
-
-		writeD(_waiting.size());
-		for (L2PcInstance p : _waiting)
-		{
-			writeS(p.getName());
-			writeD(p.getClassId().getId());
-			writeD(p.getLevel());
+			L2PcInstance player = _waiting.get(i);
+			writeS(player.getName());
+			writeD(player.getClassId().getId());
+			writeD(player.getLevel());
 		}
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return "FE_36_ExListPartyMatchingWaitingRoom";
+		return _S__FE_36_EXLISTPARTYMATCHINGWAITINGROOM;
 	}
 }

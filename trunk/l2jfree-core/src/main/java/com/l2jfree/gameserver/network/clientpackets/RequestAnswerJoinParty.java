@@ -14,9 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.JoinParty;
 
 /**
@@ -24,9 +25,7 @@ import com.l2jfree.gameserver.network.serverpackets.JoinParty;
  *  2a
  *  01 00 00 00
  * 
- *  format  cdd
- * 
- * 
+ * format (c) d
  * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestAnswerJoinParty extends L2GameClientPacket
@@ -45,11 +44,12 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		if (player == null)
+			return;
 		L2PcInstance requestor = player.getActiveRequester();
         if (requestor == null)
         {
-        	sendPacket(ActionFailed.STATIC_PACKET);
+        	sendAF();
         	return;
         }
 
@@ -72,12 +72,18 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 		{
 			requestor.sendPacket(SystemMessageId.PLAYER_DECLINED);
 
+			L2Party party = requestor.getParty();
 			//activate garbage collection if there are no other members in party (happens when we were creating a new one)
-			if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1)
+			if (party != null && party.getMemberCount() == 1)
+			{
+				L2PartyRoom room = party.getPartyRoom();
+				room.setParty(null);
+				party.setPartyRoom(null);
 				requestor.setParty(null);
+			}
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 
 		if (requestor.getParty() != null)
 			requestor.getParty().setPendingInvitation(false); // if party is null, there is no need of decreasing

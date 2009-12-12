@@ -352,6 +352,59 @@ public class TownManager
 		return getTownName(getClosestTown(activeChar).getTownId());
 	}
 
+	/**
+	 * < 0, 8, > 15 - Empty<BR>1 - Talking island<BR>2 - Gludio<BR>
+	 * 3 - Dark elven<BR>4 - Elven<BR>5 - Dion<BR>6 - Giran<BR>
+	 * 7 - Neutral zone<BR>9 - Schuttgart<BR>10 - Oren<BR>
+	 * 11 - Hunters Village<BR>12 - Innadril<BR>13 - Aden<BR>
+	 * 14 - Rune<BR>15 - Goddard
+	 * @return L2 region used in partymatching
+	 */
+	public final int getTownRegionId(int townId)
+	{
+		// FIXME: use a non town-based method
+		switch (townId)
+		{
+		case 0: // TI
+			return 1;
+		case 1: // Elven village
+			return 4;
+		case 2: // DE village
+			return 3;
+		case 3: // Orc village -> Schuttgart
+		case 4: // Dwarven village -> Schuttgart
+		case 16: // Schuttgart
+			return 9;
+		case 5: // Gludio
+		case 6: // Gludin -> Gludio
+			return 1;
+		case 7: // Dion
+		case 19: // Floran -> Dion
+			return 5;
+		case 8: // Giran
+		case 12: // Giran Harbor
+			return 6;
+		case 9: // Oren
+			return 10;
+		case 10: // Aden
+		case 20: // Kamael Village
+			return 13;
+		case 13: // Heine/Innadril
+			return 12;
+		case 14: // Rune
+		case 18: // Primeval Isle -> Rune
+			return 14;
+		case 11: // Hunters village
+		case 15: // Goddard
+			return townId;
+		case 17: // Dimensional Gap -> ?
+		case 21: // Fantasy Isle -> Town from which ported
+		case 32: // Keucereus -> ?
+		default:
+			return 0; // nameless region
+		}
+	}
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

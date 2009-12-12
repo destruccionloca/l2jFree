@@ -14,34 +14,88 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.Shutdown;
+import com.l2jfree.gameserver.Shutdown.DisableType;
+import com.l2jfree.gameserver.model.L2PartyRoom;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExAskJoinPartyRoom;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Format: (ch) S
- * @author -Wooden-
+ * @author -Wooden- (format)
+ * @author Myzreal (implementation)
  */
 public class RequestAskJoinPartyRoom extends L2GameClientPacket
 {
-    private static final String _C__D0_14_REQUESTASKJOINPARTYROOM = "[C] D0:14 RequestAskJoinPartyRoom";
-    private String _player; // not tested, just guessed
+    private static final String _C__D0_2F_REQUESTASKJOINPARTYROOM = "[C] D0:2F RequestAskJoinPartyRoom";
+
+    private String _name;
 
     @Override
     protected void readImpl()
     {
-        _player = readS();
+    	_name = readS();
     }
 
     @Override
     protected void runImpl()
     {
-        //TODO: implementation missing
-        System.out.println("C5:RequestAskJoinPartyRoom: S: "+_player);
-        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+    	L2PcInstance activeChar = getActiveChar();
+    	if (activeChar == null)
+    		return;
+
+    	if (Shutdown.isActionDisabled(DisableType.PC_ITERACTION))
+        {
+        	requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
+            return;
+        }
+
+    	L2PartyRoom room = activeChar.getPartyRoom();
+    	L2PcInstance target = L2World.getInstance().getPlayer(_name);
+    	if (target == null || target == activeChar || room == null)
+    	{
+    		sendAF();
+    		return;
+    	}
+    	else if (target.getPartyRoom() != null)
+    	{
+    		requestFailed(new SystemMessage(SystemMessageId.C1_NOT_MEET_CONDITIONS_FOR_PARTY_ROOM).addString(_name));
+    		return;
+    	}
+    	else if (activeChar != room.getLeader())
+    	{
+    		requestFailed(SystemMessageId.ONLY_ROOM_LEADER_CAN_INVITE);
+    		return;
+    	}
+    	else if (room.getMemberCount() >= room.getMaxMembers())
+    	{
+    		requestFailed(SystemMessageId.PARTY_ROOM_FULL);
+    		return;
+    	}
+    	else if (activeChar.isProcessingRequest())
+    	{
+    		requestFailed(SystemMessageId.WAITING_FOR_ANOTHER_REPLY);
+    		return;
+    	}
+    	else if (target.isProcessingRequest())
+    	{
+    		requestFailed(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addString(_name));
+    		return;
+    	}
+
+    	activeChar.onTransactionRequest(target);
+		target.sendPacket(new SystemMessage(SystemMessageId.C1_INVITED_YOU_TO_PARTY_ROOM).addPcName(activeChar));
+    	target.sendPacket(new ExAskJoinPartyRoom(activeChar.getName()));
+
+		sendAF();
     }
 
     @Override
     public String getType()
     {
-        return _C__D0_14_REQUESTASKJOINPARTYROOM;
+        return _C__D0_2F_REQUESTASKJOINPARTYROOM;
     }
 }

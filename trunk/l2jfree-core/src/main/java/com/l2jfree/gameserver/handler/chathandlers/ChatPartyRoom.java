@@ -17,42 +17,41 @@ package com.l2jfree.gameserver.handler.chathandlers;
 import com.l2jfree.gameserver.handler.IChatHandler;
 import com.l2jfree.gameserver.model.L2CommandChannel;
 import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 
 /**
  *
- * @author  Noctarius
+ * @author Noctarius
  */
-
 public class ChatPartyRoom implements IChatHandler
 {
 	private final SystemChatChannelId[]	_chatTypes	=
 												{ SystemChatChannelId.Chat_Party_Room };
 
-	/**
-	 * @see com.l2jfree.gameserver.handler.IChatHandler#getChatTypes()
-	 */
 	public SystemChatChannelId[] getChatTypes()
 	{
 		return _chatTypes;
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.handler.IChatHandler#useChatHandler(com.l2jfree.gameserver.character.player.L2PcInstance, java.lang.String, com.l2jfree.gameserver.network.enums.SystemChatChannelId, java.lang.String)
-	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		String charName = "";
-		int charObjId = 0;
-
 		if (activeChar == null)
 			return;
-		
-			charName = activeChar.getName();
-			charObjId = activeChar.getObjectId();
 
+		String charName = activeChar.getName();
+		int charObjId = activeChar.getObjectId();
+
+		L2PartyRoom room = activeChar.getPartyRoom();
+		if (room != null)
+		{
+			CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
+			room.broadcastPacket(cs);
+		}
+
+		// According to ChatCommander comments, this might not belong here?
 		L2Party party = activeChar.getParty();
 		if (party != null)
 		{
@@ -60,7 +59,6 @@ public class ChatPartyRoom implements IChatHandler
 			if (chan != null && party.isLeader(activeChar))
 			{
 				CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
-				//activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);
 				chan.broadcastCSToChannelMembers(cs, activeChar);
 			}
 		}

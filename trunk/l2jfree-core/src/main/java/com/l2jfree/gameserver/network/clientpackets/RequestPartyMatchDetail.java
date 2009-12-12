@@ -14,51 +14,77 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.util.List;
+
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * Format: (ch) dd
- * @author  Crion/kombat
+ * Format: (ch) dddd
+ * @author Myzreal
  */
-
 public class RequestPartyMatchDetail extends L2GameClientPacket
 {
-	private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
+	private static final String _C__81_REQUESTPARTYMATCHDETAIL = "[C] 81 RequestPartyMatchDetail";
 
-	private int _roomId;
-	@SuppressWarnings("unused")
-	private int _mode;
+	// manual join
+	private int		_roomId;
+	// auto join
+	private int		_region;
+	private boolean	_allLevels;
+	//private int		_data2;
 
 	@Override
 	protected void readImpl()
 	{
 		_roomId = readD();
-		_mode = readD();
+		_region = readD();
+		_allLevels = readD() == 1;
+		/*_data2 = */readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
 			return;
+
+		if (activeChar.getPartyRoom() != null || activeChar.getParty() != null)
+		{
+			requestFailed(SystemMessageId.PARTY_ROOM_FORBIDDEN);
+			return;
+		}
+
+		activeChar.setPartyMatchingRegion(_region);
+		activeChar.setPartyMatchingLevelRestriction(_allLevels);
 
 		if (_roomId > 0)
 		{
-			// Join the room with this number and send PartyMatchDetail
+			L2PartyRoom room = PartyRoomManager.getInstance().getPartyRoom(_roomId);
+			L2PartyRoom.tryJoin(activeChar, room, false);
 		}
 		else
 		{
-			// Player clicked "Auto Join" button
+			List<L2PartyRoom> list = PartyRoomManager.getInstance().getRooms(activeChar);
+			for (L2PartyRoom room : list)
+			{
+				if (room.canJoin(activeChar))
+				{
+					room.addMember(activeChar);
+					break;
+				}
+			}
 		}
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _C__71_REQUESTPARTYMATCHDETAIL;
+		return _C__81_REQUESTPARTYMATCHDETAIL;
 	}
 }

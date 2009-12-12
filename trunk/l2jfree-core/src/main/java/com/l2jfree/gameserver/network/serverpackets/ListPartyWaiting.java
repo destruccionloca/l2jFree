@@ -14,18 +14,32 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import static com.l2jfree.gameserver.instancemanager.PartyRoomManager.ENTRIES_PER_PAGE;
+
+import java.util.List;
+
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.L2PartyRoom;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Format:(c) d d[dsddddds]
- * @author  Crion/kombat
+ * @author Crion/kombat (format)
+ * @author Myzreal (implementation)
  */
-
 public class ListPartyWaiting extends L2GameServerPacket
 {
-	private static final String S_9C_LISTPARTYWAITING = "[S] 9c ListPartyWaiting";
+	private static final String	_S__9C_LISTPARTYWATING = "[S] 9C ListPartyWating";
 
-	public ListPartyWaiting()
+	private final List<L2PartyRoom>	_rooms;
+	private final int				_offset;
+	private final int				_last;
+
+	public ListPartyWaiting(L2PcInstance player, int page)
 	{
+		_rooms = PartyRoomManager.getInstance().getRooms(player);
+		_offset = (page - 1) * ENTRIES_PER_PAGE;
+		_last = _offset + Math.min(_rooms.size() - _offset, ENTRIES_PER_PAGE);
 	}
 
 	@Override
@@ -33,28 +47,26 @@ public class ListPartyWaiting extends L2GameServerPacket
 	{
 		writeC(0x9c);
 
-		// ??
-		writeD(0);
-
-		writeD(0x00); // Size of party room list
-		// [
-		//    D   party room id
-		//    S   party room title
-		//    D   party room location id (from 0 to 15)
-		//    D   party room min level
-		//    D   party room max level
-		//    D   how many ppl currently inside
-		//    D   max member count (3-12)
-		//    S   leader name
-		// ]
+		writeD(_rooms.size() / 64 + 1); // total pages?
+		//writeD(_rooms.size()); // total rooms?
+		writeD(_last - _offset); // rooms in this page
+		for (int i = _offset; i < _last; i++)
+		{
+			L2PartyRoom room = _rooms.get(i);
+			writeD(room.getId());
+			writeS(room.getTitle());
+			writeD(room.getLocation()); // region
+			writeD(room.getMinLevel());
+			writeD(room.getMaxLevel());
+			writeD(room.getMemberCount());
+			writeD(room.getMaxMembers());
+			writeS(room.getLeader().getName());
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return S_9C_LISTPARTYWAITING;
+		return _S__9C_LISTPARTYWATING;
 	}
 }

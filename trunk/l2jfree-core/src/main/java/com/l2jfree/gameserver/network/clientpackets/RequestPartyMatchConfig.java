@@ -14,48 +14,59 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ListPartyWaiting;
 
 /**
+ * Sent when a player opens the party matching window.
  * Format:(ch) ddd
- * @author  Crion/kombat
+ * @author Crion/kombat
  */
-
 public class RequestPartyMatchConfig extends L2GameClientPacket
 {
-	private static final String _C__6F_REQUESTPARTYMATCHCONFIG = "[C] 6F RequestPartyMatchConfig";
-	
-	@SuppressWarnings("unused")
-	private int _unk;
-	@SuppressWarnings("unused")
+	private static final String _C__7F_REQUESTPARTYMATCHCONFIG = "[C] 7F RequestPartyMatchConfig";
+
+	private int _page;
 	private int _region;
-	@SuppressWarnings("unused")
-	private int _allLevels;
+	private boolean _allLevels;
 
 	@Override
 	protected void readImpl()
 	{
-		_unk = readD();
+		_page = readD();
 		_region = readD(); // 0 to 15, or -1
-		_allLevels = readD(); // 1 -> all levels, 0 -> only levels matching my level
+		_allLevels = readD() == 1;
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		//TODO: Implementation RequestPartyMatchConfig
-		
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
+
+		L2Party party = player.getParty();
+		if (party != null && !party.isLeader(player))
+		{
+			requestFailed(SystemMessageId.CANT_VIEW_PARTY_ROOMS);
+			return;
+		}
+
+		player.setPartyMatchingLevelRestriction(_allLevels);
+		player.setPartyMatchingRegion(_region);
+
+		PartyRoomManager.getInstance().addToWaitingList(player);
+		sendPacket(new ListPartyWaiting(player, _page));
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _C__6F_REQUESTPARTYMATCHCONFIG;
+		return _C__7F_REQUESTPARTYMATCHCONFIG;
 	}
 }

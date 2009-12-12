@@ -14,43 +14,42 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.L2PartyRoom;
+
 /**
  * Format:(c) dddddds
- * @author  Crion/kombat
+ * @author Myzreal (implementation)
+ * @author Crion/kombat (format)
+ * @since 1.3 (Gracia Final)
  */
-public class PartyMatchDetail extends L2GameServerPacket
+public class PartyRoomInfo extends L2GameServerPacket
 {
-	private static final String _S__B0_PARTYMATCHDETAIL = "[S] 97 PartyMatchDetail";
-	
-	/**
-	 * @param allPlayers
-	 */
-	public PartyMatchDetail()
+	private static final String	_S__9D_PARTYROOMINFO = "[S] 9D PartyRoomInfo";
+
+	private final L2PartyRoom _room;
+
+	public PartyRoomInfo(L2PartyRoom room)
 	{
+		_room = room;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x9d);
-		
-		// This packet shows the inside of a party matching room
-		
-		// D   room id
-		// D   room max member count
-		// D   room min level
-		// D   room max level
-		// D   loot distri - 0 Finders Keepers, 1 Random, 2 Random Inc, 3 By Turn, 4 By Turn Inc
-		// D   room location (from 0 to 15) 1 Talking, 2 Gludio, 3 Dark Elven, 4 Elven, 5 Dion, 6 Giran, 7 Neutral Zone, 9 Schuttgart, 10 Oren, 11 Hunters, 12 Innadril, 13 Aden, 14 Rune, 15 Goddard
-		//  S  room title
+
+		writeD(_room.getId());
+		writeD(_room.getMaxMembers());
+		writeD(_room.getMinLevel());
+		writeD(_room.getMaxLevel());
+		writeD(_room.getLootDist());
+		writeD(_room.getLocation()); // region
+		writeS(_room.getTitle());
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__B0_PARTYMATCHDETAIL;
+		return _S__9D_PARTYROOMINFO;
 	}
 }

@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExManagePartyRoomMember;
 import com.l2jfree.gameserver.network.serverpackets.ExVitalityPointInfo;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
@@ -241,6 +242,9 @@ public class PcStat extends PlayableStat
 
 		if (getActiveChar().getTransformation() != null)
 			getActiveChar().getTransformation().onLevelUp(getActiveChar());
+
+		if (getActiveChar().getPartyRoom() != null)
+			getActiveChar().getPartyRoom().broadcastPacket(new ExManagePartyRoomMember(ExManagePartyRoomMember.MODIFIED, getActiveChar()));
 
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.LEVEL, getLevel());

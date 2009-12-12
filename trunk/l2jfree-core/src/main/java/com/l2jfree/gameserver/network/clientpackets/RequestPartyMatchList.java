@@ -14,17 +14,28 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * Format:(ch) ddddds
- * @author  Crion/kombat
+ * Packet used to create a party room/update existing room's info.
+ * Format:(c) ddddds
+ * @author Crion/kombat (format)
+ * @author Myzreal (implementation)
  */
-
 public class RequestPartyMatchList extends L2GameClientPacket
 {
 	private static final String _C__80_REQUESTPARTYMATCHLIST = "[C] 80 RequestPartyMatchList";
+
+	private int _lootDist;
+	private int _maxMembers;
+	private int _minLevel;
+	private int _maxLevel;
+	private int _roomId;
+	private String _roomTitle;
 
 	@Override
 	protected void readImpl()
@@ -37,35 +48,40 @@ public class RequestPartyMatchList extends L2GameClientPacket
 		_roomTitle = readS();
 	}
 
-	@SuppressWarnings("unused")
-	private int _lootDist;
-	@SuppressWarnings("unused")
-	private int _maxMembers;
-	@SuppressWarnings("unused")
-	private int _minLevel;
-	@SuppressWarnings("unused")
-	private int _maxLevel;
-	@SuppressWarnings("unused")
-	private int _roomId;
-	@SuppressWarnings("unused")
-	private String _roomTitle;
-
 	@Override
 	protected void runImpl()
 	{
-		//TODO: Implementation RequestPartyMatchList
-		
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
 			return;
-		
-		
-		// This packet is used to create a party room.
+
+		L2Party party = activeChar.getParty();
+		if (party != null && !party.isLeader(activeChar))
+		{
+			sendAF();
+			return;
+		}
+
+		L2PartyRoom room = activeChar.getPartyRoom();
+		if (room == null)
+		{
+			PartyRoomManager.getInstance().createRoom(activeChar, _minLevel, _maxLevel, _maxMembers, _lootDist, _roomTitle);
+			sendPacket(SystemMessageId.PARTY_ROOM_CREATED);
+		}
+		else if (room.getId() == _roomId)
+		{
+			room.setLootDist(_lootDist);
+			room.setMaxMembers(_maxMembers);
+			room.setMinLevel(_minLevel);
+			room.setMaxLevel(_maxLevel);
+			room.setTitle(_roomTitle);
+			room.updateRoomStatus(false);
+			room.broadcastPacket(SystemMessageId.PARTY_ROOM_REVISED.getSystemMessage());
+		}
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

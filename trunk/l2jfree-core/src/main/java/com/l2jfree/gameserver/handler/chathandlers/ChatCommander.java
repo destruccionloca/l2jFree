@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 
 /**
  *
- * @author  Noctarius
+ * @author Noctarius
  */
 //TODO: Add here retaillike Commander Channel Code (I'm not sure how it is working on retail - so it's just from my server with =text) **Noctarius**
 public class ChatCommander implements IChatHandler
@@ -31,27 +31,18 @@ public class ChatCommander implements IChatHandler
 	private final SystemChatChannelId[]	_chatTypes	=
 							{ SystemChatChannelId.Chat_Commander, SystemChatChannelId.Chat_Inner_Partymaster };
 
-	/**
-	 * @see com.l2jfree.gameserver.handler.IChatHandler#getChatTypes()
-	 */
 	public SystemChatChannelId[] getChatTypes()
 	{
 		return _chatTypes;
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.handler.IChatHandler#useChatHandler(com.l2jfree.gameserver.character.player.L2PcInstance, java.lang.String, com.l2jfree.gameserver.network.enums.SystemChatChannelId, java.lang.String)
-	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		String charName = "";
-		int charObjId = 0;
-
 		if (activeChar == null)
 			return;
 
-		charName = activeChar.getName();
-		charObjId = activeChar.getObjectId();
+		String charName = activeChar.getName();
+		int charObjId = activeChar.getObjectId();
 
 		L2Party party = activeChar.getParty();
 		if (party != null && party.isInCommandChannel())
@@ -66,12 +57,11 @@ public class ChatCommander implements IChatHandler
 				else
 					activeChar.sendPacket(SystemMessageId.ONLY_CHANNEL_CREATOR_CAN_GLOBAL_COMMAND);
 			}
-			else if(chatType == SystemChatChannelId.Chat_Inner_Partymaster)
+			else if (chatType == SystemChatChannelId.Chat_Inner_Partymaster)
 			{
 				if (party.getLeader() == activeChar)
 				{
 					CreatureSay cs = new CreatureSay(charObjId, chatType, charName, text);
-					//party.getCommandChannel().broadcastToChannelMembers(cs);
 					party.getCommandChannel().broadcastCSToChannelMembers(cs, activeChar);
 				}
 				else

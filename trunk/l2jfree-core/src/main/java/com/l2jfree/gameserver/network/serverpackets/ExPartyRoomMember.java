@@ -14,44 +14,63 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format:(ch) d d [dsdddd]
- * @author  Crion/kombat
- */
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+/**
+ * Format:(ch) d d[dsdddd]
+ * @author Crion/kombat (format)
+ * @author Myzreal (implementation)
+ */
 public class ExPartyRoomMember extends L2GameServerPacket
 {
-	public ExPartyRoomMember()
+	private static final String	_S__FE_08_EXPARTYROOMMEMBER = "[S] FE:08 ExPartyRoomMember";
+
+	private final L2PartyRoom	_room;
+	private final boolean		_leader;
+
+	public ExPartyRoomMember(L2PartyRoom room)
 	{
+		this(room, false);
 	}
-	
+
+	public ExPartyRoomMember(L2PartyRoom room, boolean leader)
+	{
+		_room = room;
+		_leader = leader;
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xFE);
 		writeH(0x08);
 
-		// 0x01 - we are leader
-		// 0x00 - we are not leader
-		writeD(0x00);
-
-		writeD(0x00);   // D     size
-		// [
-		//     D    player object id
-		//     S    player name
-		//     D    player class id
-		//     D    player level
-		//     D    player region (from 0 to 15)
-		//     D     1 leader     2  party member    0 not party member
-		// ]
+		writeD(_leader);
+		writeD(_room.getMemberCount());
+		L2PcInstance leader = _room.getLeader();
+		L2Party party = _room.getParty();
+		for (L2PcInstance member : _room.getMembers())
+		{
+			writeD(member.getObjectId());
+			writeS(member.getName());
+			writeD(member.getClassId().getId());
+			writeD(member.getLevel());
+			writeD(PartyRoomManager.getInstance().getLocation(member)); // region
+			if (leader == member)
+				writeD(0x01);
+			else if (party != null && party == member.getParty())
+				writeD(0x02);
+			else
+				writeD(0x00);
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return "FE_08_ExPartyRoomMember";
+		return _S__FE_08_EXPARTYROOMMEMBER;
 	}
 }

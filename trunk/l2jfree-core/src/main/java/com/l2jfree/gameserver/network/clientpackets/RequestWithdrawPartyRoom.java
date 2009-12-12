@@ -14,38 +14,60 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Format (ch) dd
- * @author -Wooden-
- *
+ * @author -Wooden- (format)
+ * @author Myzreal & savormix (implementation)
  */
 public class RequestWithdrawPartyRoom extends L2GameClientPacket
 {
-	private static final String	_C__D0_02_REQUESTWITHDRAWPARTYROOM	= "[C] D0:02 RequestWithdrawPartyRoom";
+	private static final String	_C__D0_0B_REQUESTWITHDRAWPARTYROOM	= "[C] D0:0B RequestWithdrawPartyRoom";
 
-	private int					_data1;
-	private int					_data2;
+	private int					_roomId;
+	//private int					_data2;
 
 	@Override
 	protected void readImpl()
 	{
-		_data1 = readD();
-		_data2 = readD();
+		_roomId = readD();
+		/*_data2 = */readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("This packet is not well known : RequestWithdrawPartyRoom");
-		_log.info("Data received: d:" + _data1 + " d:" + _data2);
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
+
+		L2Party party = activeChar.getParty();
+		if (party != null && party.isInDimensionalRift() && !party.getDimensionalRift().getRevivedAtWaitingRoom().contains(activeChar))
+		{
+			activeChar.sendMessage("You can't exit party when you are in Dimensional Rift.");
+			sendAF();
+			return;
+		}
+
+		L2PartyRoom room = activeChar.getPartyRoom();
+		if (room != null && room.getId() == _roomId)
+		{
+			if (room.getLeader() == activeChar)
+				PartyRoomManager.getInstance().removeRoom(_roomId);
+			else if (party != null)
+				party.removePartyMember(activeChar, false);
+			else
+				room.removeMember(activeChar, false);
+		}
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__D0_02_REQUESTWITHDRAWPARTYROOM;
+		return _C__D0_0B_REQUESTWITHDRAWPARTYROOM;
 	}
 }

@@ -20,27 +20,23 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExAskJoinPartyRoom extends L2GameServerPacket
 {
 	private static final String _S__FE_35_EXASKJOINPARTYROOM = "[S] FE:35 ExAskJoinPartyRoom [s]";
+
 	private final String _charName;
-	
-	
+
 	public ExAskJoinPartyRoom(String charName)
 	{
 		_charName = charName;
 	}
 
-	
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0xFE);
 		writeH(0x35);
-		
+
 		writeS(_charName);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

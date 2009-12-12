@@ -15,17 +15,19 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ExListPartyMatchingWaitingRoom;
 
 /**
+ * Sent when a player opens the party matching window with waiting list or
+ * clicks "List Update" (either waiting or room).
  * Format: (ch) dddd
- * @author  Crion/kombat
- * 
+ * @author Crion/kombat (format)
+ * @author Myzreal (implementation)
  */
 public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket
 {
-	private static final String _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM = "[C] D0:16 RequestListPartyMatchingWaitingRoom";
+	private static final String _C__D0_31_REQUESTLISTPARTYMATCHINGWAITINGROOM = "[C] D0:31 RequestListPartyMatchingWaitingRoom";
 
-	@SuppressWarnings("unused")
 	private int _page;
 	@SuppressWarnings("unused")
 	private boolean _showAll;
@@ -41,34 +43,22 @@ public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket
 		_showAll = readD() == 1; // client sends 0 if in party room, 1 if not in party room. If you are in party room, only players with matching level are shown.
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
 
-		if (_minLevel < 1)
-			_minLevel = 1;
-		else if (_minLevel > 85)
-			_minLevel = 85;
-		if (_maxLevel < _minLevel)
-			_maxLevel = _minLevel;
-		else if (_maxLevel > 85)
-			_maxLevel = 85;
+		// show all isn't used. TODO: test & compare
+		sendPacket(new ExListPartyMatchingWaitingRoom(_minLevel, _maxLevel, _page));
 
-		// Send waiting list packet here
+		sendAF();
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.network.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM;
+		return _C__D0_31_REQUESTLISTPARTYMATCHINGWAITINGROOM;
 	}
 }

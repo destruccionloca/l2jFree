@@ -14,43 +14,66 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
+import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
+ * Sent when a player selects a party room member and clicks the
+ * "Kick" button.
  * format (ch) d
- * @author -Wooden-
- *
+ * @author -Wooden- (format)
+ * @author Myzreal (implementation)
  */
 public class RequestOustFromPartyRoom extends L2GameClientPacket
 {
-	private static final String _C__D0_01_REQUESTOUSTFROMPARTYROOM = "[C] D0:01 RequestOustFromPartyRoom";
-	@SuppressWarnings("unused")
-	private int _id;
+	private static final String _C__D0_09_REQUESTOUSTFROMPARTYROOM = "[C] D0:09 RequestOustFromPartyRoom";
 
-	/**
-	 * @param buf
-	 * @param client
-	 */
+	private int _objectId;
+
     @Override
     protected void readImpl()
     {
-        _id = readD();
+    	_objectId = readD();
     }
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
     protected void runImpl()
 	{
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
+		L2PcInstance target = L2World.getInstance().findPlayer(_objectId);
+		if (target == null || target == activeChar)
+		{
+			sendAF();
+			return;
+		}
 
+		L2Party party = target.getParty();
+		if (party != null && party.isInDimensionalRift() && !party.getDimensionalRift().getRevivedAtWaitingRoom().contains(activeChar))
+		{
+			activeChar.sendMessage("You can't dismiss party members when you are in Dimensional Rift.");
+			sendAF();
+			return;
+		}
+
+		L2PartyRoom room = activeChar.getPartyRoom();
+		if (room != null && room.getLeader() == activeChar)
+		{
+			if (party != null)
+				party.removePartyMember(target, true);
+			else
+				room.removeMember(target, true);
+		}
+
+		sendAF();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _C__D0_01_REQUESTOUSTFROMPARTYROOM;
+		return _C__D0_09_REQUESTOUSTFROMPARTYROOM;
 	}
 }

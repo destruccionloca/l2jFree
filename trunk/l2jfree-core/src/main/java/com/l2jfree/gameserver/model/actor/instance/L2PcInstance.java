@@ -95,6 +95,7 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -122,6 +123,7 @@ import com.l2jfree.gameserver.model.L2Macro;
 import com.l2jfree.gameserver.model.L2ManufactureList;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
+import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2Radar;
 import com.l2jfree.gameserver.model.L2RecipeList;
@@ -216,6 +218,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExFishingEnd;
 import com.l2jfree.gameserver.network.serverpackets.ExFishingStart;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExGetOnAirShip;
+import com.l2jfree.gameserver.network.serverpackets.ExManagePartyRoomMember;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
@@ -588,11 +591,10 @@ public final class L2PcInstance extends L2Playable
 	private L2Radar							_radar;
 
 	// These values are only stored temporarily
-	private boolean							_partyMatchingAutomaticRegistration;
-	private boolean							_partyMatchingShowLevel;
-	private boolean							_partyMatchingShowClass;
-	private String							_partyMatchingMemo;
-
+	private boolean							_lookingForParty;
+	private boolean							_partyMatchingAllLevels;
+	private int								_partyMatchingRegion;
+	private L2PartyRoom						_partyRoom;
 	private L2Party							_party;
 	// Clan related attributes
 
@@ -5462,56 +5464,48 @@ public final class L2PcInstance extends L2Playable
 		deathPenalty(atwar, killed_by_pc, getCharmOfCourage(), killed_by_siege_npc);
 	}
 
-	/**
-	 * @param b
-	 */
-	public void setPartyMatchingAutomaticRegistration(boolean b)
+	public boolean isLookingForParty()
 	{
-		_partyMatchingAutomaticRegistration = b;
+		return _lookingForParty;
+	}
+
+	public boolean getPartyMatchingLevelRestriction()
+	{
+		return !_partyMatchingAllLevels;
+	}
+
+	public int getPartyMatchingRegion()
+	{
+		return _partyMatchingRegion;
+	}
+
+	public void setLookingForParty(boolean matching)
+	{
+		_lookingForParty = matching;
+	}
+
+	public void setPartyMatchingLevelRestriction(boolean off)
+	{
+		_partyMatchingAllLevels = off;
+	}
+
+	public void setPartyMatchingRegion(int region)
+	{
+		_partyMatchingRegion = region;
+	}
+
+	public L2PartyRoom getPartyRoom()
+	{
+		return _partyRoom;
 	}
 
 	/**
-	 * @param b
+	 * Set the _partyRoom object of the L2PcInstance (without joining it).
+	 * @param room new party room
 	 */
-	public void setPartyMatchingShowLevel(boolean b)
+	public void setPartyRoom(L2PartyRoom room)
 	{
-		_partyMatchingShowLevel = b;
-	}
-
-	/**
-	 * @param b
-	 */
-	public void setPartyMatchingShowClass(boolean b)
-	{
-		_partyMatchingShowClass = b;
-	}
-
-	/**
-	 * @param memo
-	 */
-	public void setPartyMatchingMemo(String memo)
-	{
-		_partyMatchingMemo = memo;
-	}
-
-	public boolean isPartyMatchingAutomaticRegistration()
-	{
-		return _partyMatchingAutomaticRegistration;
-	}
-
-	public String getPartyMatchingMemo()
-	{
-		return _partyMatchingMemo;
-	}
-
-	public boolean isPartyMatchingShowClass()
-	{
-		return _partyMatchingShowClass;
-	}
-
-	public boolean isPartyMatchingShowLevel()
-	{
-		return _partyMatchingShowLevel;
+		_partyRoom = room;
 	}
 
 	/**
@@ -6430,9 +6424,9 @@ public final class L2PcInstance extends L2Playable
 		{
 			// First set the party otherwise this wouldn't be considered
 			// as in a party into the L2Character.updateEffectIcons() call.
-			_party = party;
+			setParty(party);
 			if (!party.addPartyMember(this))
-				_party = null;
+				setParty(null);
 		}
 	}
 
@@ -6443,7 +6437,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (isInParty())
 		{
-			_party.removePartyMember(this);
+			_party.removePartyMember(this, false);
 			_party = null;
 		}
 	}
@@ -10286,6 +10280,10 @@ public final class L2PcInstance extends L2Playable
 
 		// Set the template of the L2PcInstance
 		setTemplate(t);
+
+		L2PartyRoom room = getPartyRoom();
+		if (room != null)
+			room.broadcastPacket(new ExManagePartyRoomMember(ExManagePartyRoomMember.MODIFIED, this));
 	}
 
 	/**
@@ -10331,11 +10329,11 @@ public final class L2PcInstance extends L2Playable
             }
 
             // Delete a force buff upon class change.
-            if(_fusionSkill != null)
+            if (_fusionSkill != null)
                 abortCast();
 
             // Stop casting for any player that may be casting a force buff on this l2pcinstance.
-    		for(L2Character character : getKnownList().getKnownCharacters())
+    		for (L2Character character : getKnownList().getKnownCharacters())
     		{
     			if(character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
     				character.abortCast();
@@ -10371,7 +10369,7 @@ public final class L2PcInstance extends L2Playable
             }
             _classIndex = classIndex;
 
-            if(isInParty())
+            if (isInParty())
             {
             	if (Config.MAX_PARTY_LEVEL_DIFFERENCE > 0)
             	{
@@ -11564,6 +11562,13 @@ public final class L2PcInstance extends L2Playable
 				_log.fatal(e.getMessage(), e);
 			}
 		}
+		else // if in party, already taken care of
+		{
+			L2PartyRoom room = getPartyRoom();
+			if (room != null)
+				room.removeMember(this, false);
+		}
+		PartyRoomManager.getInstance().removeFromWaitingList(this);
 
 		if (getClanId() != 0 && getClan() != null)
 		{

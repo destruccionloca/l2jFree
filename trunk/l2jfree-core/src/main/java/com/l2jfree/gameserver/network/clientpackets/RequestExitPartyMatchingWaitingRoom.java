@@ -14,32 +14,41 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
+ * Sent when the party matching window is closed by the 'X' on the
+ * upper right corner.
  * Format: (ch)
- * @author  Crion/kombat
+ * @author Crion/kombat (format)
+ * @author Myzreal (implementation)
  */
 public class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
 {
-    private static final String _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM = "[C] D0:17 RequestExitPartyMatchingWaitingRoom";
+    private static final String _C__D0_25_REQUESTEXITPARTYMATCHINGWAITINGROOM = "[C] D0:25 RequestExitPartyMatchingWaitingRoom";
 
     @Override
     protected void readImpl()
     {
+    	// trigger packet
     }
 
     @Override
     protected void runImpl()
     {
-        // This packet is sent if you close the party matching window. Remove player from party matching list here.
-    	// FIXME: implementation must be done ASAP
-        requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+        L2PcInstance activeChar = getActiveChar();
+        if (activeChar == null)
+        	return;
+
+        PartyRoomManager.getInstance().removeFromWaitingList(activeChar);
+
+        sendAF();
     }
 
     @Override
     public String getType()
     {
-        return _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM;
+        return _C__D0_25_REQUESTEXITPARTYMATCHINGWAITINGROOM;
     }
 }
