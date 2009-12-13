@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- Root -->
-<!ELEMENT instances_list (instance)+>
-
-<!-- Instance -->
-<!ATTLIST instance id CDATA #REQUIRED>
-<!ATTLIST instance name CDATA #REQUIRED>
-<!ELEMENT instance EMPTY>

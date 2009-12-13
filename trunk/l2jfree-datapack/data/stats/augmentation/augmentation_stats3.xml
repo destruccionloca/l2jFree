@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<list>
+<list xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../../templates/aug_stats.xsd">
   <stat name="pDef">
     <table name="#soloValues">
       10.3 10.7 11.1 11.4 12.4 12.6 12.8 12.7 12.8 14.2 13.9
