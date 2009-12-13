@@ -5808,6 +5808,9 @@ public abstract class L2Character extends L2Object
 			
 			if (added.isChance())
 				addChanceSkillTrigger(added);
+			
+			if (added.isActive())
+				disableSkill(added.getId(), added.getEquipDelay());
 		}
 	}
 

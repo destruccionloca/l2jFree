@@ -332,8 +332,6 @@ public abstract class Inventory extends ItemContainer
 				for (L2Skill itemSkill : itemSkills)
 				{
 					player.addSkill(itemSkill, false);
-					if (itemSkill.isActive())
-						player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
 				}
 			}
 			if (enchant4Skills != null)
@@ -341,8 +339,6 @@ public abstract class Inventory extends ItemContainer
 				for (L2Skill itemSkill : enchant4Skills)
 				{
 					player.addSkill(itemSkill, false);
-					if (itemSkill.isActive())
-						player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
 				}
 			}
 		}
@@ -379,9 +375,6 @@ public abstract class Inventory extends ItemContainer
 						if (itemSkill != null)
 						{
 							player.addSkill(itemSkill, false);
-							
-							if (itemSkill.isActive())
-								player.disableSkill(itemSkill.getId(), itemSkill.getEquipDelay());
 						}
 						else
 						{

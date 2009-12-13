@@ -133,8 +133,6 @@ public final class L2Augmentation
 		if (_skill != null)
 		{
 			player.addSkill(_skill);
-			if (_skill.isActive())
-				player.disableSkill(_skill.getId(), _skill.getEquipDelay());
 		}
 	}
 
