@@ -9711,3 +9711,11 @@ UPDATE `etcitem` SET `price` = '20' WHERE `item_id` = '10202';
 
 -- Empty bottle of soul (Psycho)
 UPDATE `etcitem` SET `handler` = 'Potions' WHERE `item_id` = '10409';
+
+-- Wrapped Vitamin Packs (savormix)
+UPDATE `etcitem` SET `handler` = 'WrappedPack' WHERE `item_id` BETWEEN 13079 AND 13094;
+UPDATE `etcitem` SET `handler` = 'WrappedPack' WHERE `item_id` BETWEEN 13097 AND 13098;
+UPDATE `etcitem` SET `handler` = 'WrappedPack' WHERE `item_id` BETWEEN 13103 AND 13118;
+UPDATE `etcitem` SET `handler` = 'WrappedPack' WHERE `item_id` BETWEEN 13121 AND 13126;
+UPDATE `etcitem` SET `handler` = 'WrappedPack' WHERE `item_id` BETWEEN 13225 AND 13233;
+UPDATE `etcitem` SET `handler` = 'WrappedPack' WHERE `item_id` IN (13279, 13343, 13345, 13368);
