@@ -35,6 +35,8 @@ import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2JailZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.Die;
 
 public class RequestRestartPoint extends L2GameClientPacket
 {
@@ -178,7 +180,17 @@ public class RequestRestartPoint extends L2GameClientPacket
 				break;
 
 			case 5: // Fixed or Player is a festival participant
-				if (!activeChar.isGM() && !activeChar.isFestivalParticipant())
+				boolean can = false;
+				if (activeChar.isGM() || activeChar.isFestivalParticipant())
+					can = true;
+				else if (activeChar.destroyItemByItemId("Fixed Resurrection", Die.FEATHER_OF_BLESSING_1, 1, activeChar, false)
+						|| activeChar.destroyItemByItemId("Fixed Resurrection", Die.FEATHER_OF_BLESSING_2, 1, activeChar, false)
+						|| activeChar.destroyItemByItemId("Fixed Resurrection", Die.PHOENIX_FEATHER, 1, activeChar, false))
+				{
+					activeChar.sendPacket(SystemMessageId.USED_FEATHER_TO_RESURRECT);
+					can = true;
+				}
+				if (!can)
 				{
 					_log.warn("Player [" + activeChar.getName() + "] called RestartPointPacket - Fixed and he isn't GM/festival participant!");
 					return;

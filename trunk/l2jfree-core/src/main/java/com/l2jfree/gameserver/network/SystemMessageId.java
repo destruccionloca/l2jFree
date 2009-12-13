@@ -14538,10 +14538,40 @@ public enum SystemMessageId
 	RESURRECTION_IN_WAITING_ROOM_AFTER_S1_SECONDS(2370),
 
 	/**
+	 * ID: 2388<BR>
+	 * Console Message: A party cannot be formed in this area.
+	 */
+	CANNOT_FORM_PARTY_HERE(2388),
+
+	/**
 	 * ID: 2390<br>
 	 * Message: Your number of My Teleports slots has reached its maximum limit.
 	 */
 	YOUR_NUMBER_OF_MY_TELEPORTS_SLOTS_HAS_REACHED_ITS_MAXIMUM_LIMIT(2390),
+
+	/**
+	 * ID: 2391<br>
+	 * Message: You have used the Feather of Blessing to resurrect.
+	 */
+	USED_FEATHER_TO_RESURRECT(2391),
+
+	/**
+	 * ID: 2394<br>
+	 * Message: That skill cannot be used because your pet/servitor lacks sufficient MP.
+	 */
+	SERVITOR_LACKS_MP(2394),
+
+	/**
+	 * ID: 2395<br>
+	 * Message: That skill cannot be used because your pet/servitor lacks sufficient HP.
+	 */
+	SERVITOR_LACKS_HP(2395),
+
+	/**
+	 * ID: 2396<br>
+	 * Message: That pet/servitor skill cannot be used because it is recharging.
+	 */
+	SERVITOR_SKILL_RECHARGING(2396),
 
 	/**
 	 * ID: 2398<br>
@@ -15260,9 +15290,9 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2720<br>
-	 * Message: Instant zone from here: $s1's entry has been restricted.
+	 * Message: Instant zone from here: $s1's entry has been restricted. You can check the next entry possible time with the command "/instancezone."
 	 */
-	INSTANT_ZONE_RESTRICTED(2720),
+	INSTANT_ZONE_S1_ENTRY_RESTRICTED(2720),
 
 	/**
 	 * ID: 2721<br>
@@ -15280,115 +15310,115 @@ public enum SystemMessageId
 	 * ID: 2728<BR>
 	 * Console Message: This action is prohibited while mounted.
 	 */
-	UNNAMED_2728(2728),
+	CANNOT_DO_WHILE_MOUNTED(2728),
 
 	/**
 	 * ID: 2729<BR>
 	 * Console Message: You cannot control the target while transformed.
 	 */
-	UNNAMED_2729(2729),
+	CANNOT_CONTROL_TRANSFORMED(2729),
 
 	/**
 	 * ID: 2730<BR>
 	 * Console Message: You cannot control the target while you are petrified.
 	 */
-	UNNAMED_2730(2730),
+	CANNOT_CONTROL_PETRIFIED(2730),
 
 	/**
 	 * ID: 2731<BR>
 	 * Console Message: You cannot control the target when you are dead.
 	 */
-	UNNAMED_2731(2731),
+	CANNOT_CONTROL_WHILE_DEAD(2731),
 
 	/**
 	 * ID: 2732<BR>
 	 * Console Message: You cannot control the target while fishing.
 	 */
-	UNNAMED_2732(2732),
+	CANNOT_CONTROL_FISHING(2732),
 
 	/**
 	 * ID: 2733<BR>
 	 * Console Message: You cannot control the target while in a battle.
 	 */
-	UNNAMED_2733(2733),
+	CANNOT_CONTROL_IN_COMBAT(2733),
 
 	/**
 	 * ID: 2734<BR>
 	 * Console Message: You cannot control the target while in a duel.
 	 */
-	UNNAMED_2734(2734),
+	CANNOT_CONTROL_IN_DUEL(2734),
 
 	/**
 	 * ID: 2735<BR>
 	 * Console Message: You cannot control the target while in a sitting position.
 	 */
-	UNNAMED_2735(2735),
+	CANNOT_CONTROL_SITTING(2735),
 
 	/**
 	 * ID: 2736<BR>
 	 * Console Message: You cannot control the target while using a skill.
 	 */
-	UNNAMED_2736(2736),
+	CANNOT_CONTROL_CASTING(2736),
 
 	/**
 	 * ID: 2737<BR>
 	 * Console Message: You cannot control the target while a cursed weapon is equipped.
 	 */
-	UNNAMED_2737(2737),
+	CANNOT_CONTROL_WITH_CURSED_WEAPON(2737),
 
 	/**
 	 * ID: 2738<BR>
 	 * Console Message: You cannot control the target while holding a flag.
 	 */
-	UNNAMED_2738(2738),
+	CANNOT_CONTROL_WITH_FLAG(2738),
 
 	/**
 	 * ID: 2739<BR>
 	 * Console Message: You cannot control because you do not meet the requirements.
 	 */
-	UNNAMED_2739(2739),
+	CANNOT_CONTROL_AIRSHIP(2739),
 
 	/**
 	 * ID: 2740<BR>
 	 * Console Message: This action is prohibited while controlling.
 	 */
-	UNNAMED_2740(2740),
+	CANNOT_DO_WHILE_CONTROLLING(2740),
 
 	/**
 	 * ID: 2741<BR>
 	 * Console Message: You can control the airship by targeting the airship's control key and pressing the "control" action button while riding the airship.
 	 */
-	UNNAMED_2741(2741),
+	YOU_CAN_CONTROL_AIRSHIP(2741),
 
 	/**
 	 * ID: 2742<BR>
 	 * Console Message: Any character riding the airship can control it.
 	 */
-	UNNAMED_2742(2742),
+	ANY_CHARACTER_CAN_CONTROL_AIRSHIP(2742),
 
 	/**
 	 * ID: 2743<BR>
 	 * Console Message: If you restart while on an airship, you will return to the departure location.
 	 */
-	UNNAMED_2743(2743),
+	RESTART_WHILE_ON_AIRSHIP(2743),
 
 	/**
 	 * ID: 2744<BR>
 	 * Console Message: If you press the "Control Cancel" action button, you can exit the control state at any time.
 	 */
-	UNNAMED_2744(2744),
+	YOU_CAN_EXIT_CONTROL_STATE(2744),
 
 	/**
 	 * ID: 2745<BR>
 	 * Console Message: The "Mount Cancel" action button allows you to dismount before the airship departs.
 	 */
-	UNNAMED_2745(2745),
+	YOU_CAN_DISMOUNT_AIRSHIP(2745),
 
 	/**
 	 * ID: 2746<BR>
 	 * Console Message: Use the "Depart" action to make the airship depart.
 	 */
-	UNNAMED_2746(2746),
+	USE_DEPART(2746),
 
 	/**
 	 * ID: 2747<BR>
@@ -15400,50 +15430,50 @@ public enum SystemMessageId
 	 * ID: 2748<BR>
 	 * Console Message: You have been reported as an illegal program user and cannot report other users.
 	 */
-	UNNAMED_2748(2748),
+	REPORTED_FOR_ILLEGAL_SOFTWARE(2748),
 
 	/**
 	 * ID: 2749<BR>
 	 * Console Message: You have reached your crystallization limit and cannot crystallize any more.
 	 */
-	UNNAMED_2749(2749),
+	CANNOT_CRYSTALLIZE_LIMIT_REACHED(2749),
 
 	/**
 	 * ID: 2750<BR>
 	 * Console Message: The $s1 ward has been destroyed! $c2 now has the territory ward.<BR>
 	 * Screen Message: $s1 ward is captured!
 	 */
-	UNNAMED_2750(2750),
+	S1_WARD_DESTROYED_C2_HAS_WARD(2750),
 
 	/**
 	 * ID: 2751<BR>
 	 * Console Message: The character that acquired $s1 ward has been killed.
 	 */
-	UNNAMED_2751(2751),
+	CHARACTER_WITH_S1_WARD_KILLED(2751),
 
 	/**
 	 * ID: 2752<BR>
 	 * Console Message: The war for $s1 has been declared.
 	 */
-	UNNAMED_2752(2752),
+	WAR_DECLARED_FOR_S1(2752),
 
 	/**
 	 * ID: 2753<BR>
 	 * Console Message: A powerful attack is prohibited when allied troops are the target.
 	 */
-	UNNAMED_2753(2753),
+	CANNOT_ATTACK_ALLIED_TROOPS(2753),
 
 	/**
 	 * ID: 2754<BR>
 	 * Console Message: PVP matches such as Olympiad, Underground Coliseum, Aerial Cleft, Kratei's Cube, and Handy's Block Checkers overlap and you cannot participate.
 	 */
-	UNNAMED_2754(2754),
+	PVP_MATCHES_OVERLAP(2754),
 
 	/**
 	 * ID: 2755<BR>
 	 * Console Message: $c1 has been designated as CAT.
 	 */
-	UNNAMED_2755(2755),
+	C1_IS_NOW_CAT(2755),
 
 	/**
 	 * ID: 2756<BR>
@@ -15479,353 +15509,407 @@ public enum SystemMessageId
 	 * ID: 2761<BR>
 	 * Console Message: You must target the one you wish to control.
 	 */
-	UNNAMED_2761(2761),
+	MUST_TARGET_TO_CONTROL(2761),
 
 	/**
 	 * ID: 2762<BR>
 	 * Console Message: You cannot control because you are too far.
 	 */
-	UNNAMED_2762(2762),
+	CANNOT_CONTROL_TOO_FAR(2762),
 
 	/**
 	 * ID: 2763<BR>
 	 * Console Message: You cannot enter the battlefield while in a party state.
 	 */
-	UNNAMED_2763(2763),
+	CANT_ENTER_BATTLEFIELD_IN_PARTY(2763),
 
 	/**
 	 * ID: 2764<BR>
-	 * Console Message: You cannot enter because the corresponding alliance channel's maximum number of entrants has been reached.
+	 * Console Message: You cannot enter because the corresponding alliance channel's
+	 * maximum number of entrants has been reached.
 	 */
-	UNNAMED_2764(2764),
+	CANNOT_ENTER_MAX_ENTRANTS(2764),
 
 	/**
 	 * ID: 2765<BR>
 	 * Console Message: Only the alliance channel leader can attempt entry.
 	 */
-	UNNAMED_2765(2765),
+	ONLY_FOR_ALLIANCE_CHANNEL_LEADER(2765),
 
 	/**
 	 * ID: 2766<BR>
 	 * Console Message: Seed of Infinity Stage 1 Attack In Progress
 	 */
-	UNNAMED_2766(2766),
+	SEED_OF_INFINITY_ATTACK_1(2766),
 
 	/**
 	 * ID: 2767<BR>
 	 * Console Message: Seed of Infinity Stage 2 Attack In Progress
 	 */
-	UNNAMED_2767(2767),
+	SEED_OF_INFINITY_ATTACK_2(2767),
 
 	/**
 	 * ID: 2768<BR>
 	 * Console Message: Seed of Infinity Conquest Complete
 	 */
-	UNNAMED_2768(2768),
+	SEED_OF_INFINITY_CONQUERED(2768),
 
 	/**
 	 * ID: 2769<BR>
 	 * Console Message: Seed of Infinity Stage 1 Defense In Progress
 	 */
-	UNNAMED_2769(2769),
+	SEED_OF_INFINITY_DEFENSE_1(2769),
 
 	/**
 	 * ID: 2770<BR>
 	 * Console Message: Seed of Infinity Stage 2 Defense In Progress
 	 */
-	UNNAMED_2770(2770),
+	SEED_OF_INFINITY_DEFENSE_2(2770),
 
 	/**
 	 * ID: 2771<BR>
 	 * Console Message: Seed of Destruction Attack in Progress
 	 */
-	UNNAMED_2771(2771),
+	SEED_OF_DESTRUCTION_ATTACKED(2771),
 
 	/**
 	 * ID: 2772<BR>
 	 * Console Message: Seed of Destruction Conquest Complete
 	 */
-	UNNAMED_2772(2772),
+	SEED_OF_DESTRUCTION_CONQUERED(2772),
 
 	/**
 	 * ID: 2773<BR>
 	 * Console Message: Seed of Destruction Defense in Progress
 	 */
-	UNNAMED_2773(2773),
+	SEED_OF_DESTRUCTION_DEFENDED(2773),
 
 	/**
 	 * ID: 2774<BR>
-	 * Console Message: You can make another report in $s1-minute(s). You have $s2 points remaining on this account.
+	 * Console Message: You can make another report in $s1-minute(s). You have $s2
+	 * points remaining on this account.
 	 */
-	UNNAMED_2774(2774),
+	YOU_CAN_MAKE_ANOTHER_REPORT_IN_S1_MINUTES_HAVE_S2_POINTS_REMAINING(2774),
 
 	/**
 	 * ID: 2775<BR>
-	 * Console Message: The match cannot take place because a party member is in the process of boarding.
+	 * Console Message: The match cannot take place because a party member is in the
+	 * process of boarding.
 	 */
-	UNNAMED_2775(2775),
+	MATCH_CANT_START_PARTY_MEMBER_BOARDING(2775),
 
 	/**
 	 * ID: 2776<BR>
 	 * Console Message: The effect of territory ward is disappearing.
 	 */
-	UNNAMED_2776(2776),
+	WARD_EFFECT_DISSAPPEARING(2776),
 
 	/**
 	 * ID: 2777<BR>
-	 * Console Message: The airship summon license has been entered. Your clan can now summon the airship.
+	 * Console Message: The airship summon license has been entered. Your clan can
+	 * now summon the airship.
 	 */
-	UNNAMED_2777(2777),
+	CLAN_MAY_NOW_SUMMON_AIRSHIP(2777),
 
 	/**
 	 * ID: 2778<BR>
 	 * Console Message: You cannot teleport while in possession of a ward.
 	 */
-	UNNAMED_2778(2778),
+	CANNOT_TELEPORT_WITH_WARD(2778),
 
 	/**
 	 * ID: 2779<BR>
 	 * Console Message: Further increase in altitude is not allowed.
 	 */
-	UNNAMED_2779(2779),
+	CANNOT_INCREASE_ALTITUDE(2779),
 
 	/**
 	 * ID: 2780<BR>
 	 * Console Message: Further decrease in altitude is not allowed.
 	 */
-	UNNAMED_2780(2780),
+	CANNOT_DECREASE_ALTITUDE(2780),
 
 	/**
 	 * ID: 2781<BR>
 	 * Console Message: Number of units: $s1
 	 */
-	UNNAMED_2781(2781),
+	NUMBER_OF_UNITS_S1(2781),
 
 	/**
 	 * ID: 2782<BR>
 	 * Console Message: Number of people: $s1
 	 */
-	UNNAMED_2782(2782),
+	NUMBER_OF_PEOPLE_S1(2782),
 
 	/**
 	 * ID: 2783<BR>
 	 * Console Message: No one is left from the opposing team, thus victory is yours.
 	 */
-	UNNAMED_2783(2783),
+	VICTORY_NOONE_LEFT(2783),
 
 	/**
 	 * ID: 2784<BR>
-	 * Console Message: The battlefield has been closed. The match has ended in a tie because the match lasted for $s1-minute(s) and $s2-second(s) and the requirements were not met.
+	 * Console Message: The battlefield has been closed. The match has ended in a tie
+	 * because the match lasted for $s1-minute(s) and $s2-second(s) and the requirements
+	 * were not met.
 	 */
-	UNNAMED_2784(2784),
+	MATCH_LASTED_S1_MINUTES_S2_SECONDS_TIED(2784),
 
 	/**
 	 * ID: 2785<BR>
-	 * Console Message: It's a large scaled airship for transportations and battles and can be owned by the unit of clan.
+	 * Console Message: It's a large scaled airship for transportations and battles and
+	 * can be owned by the unit of clan.
 	 */
-	UNNAMED_2785(2785),
+	LARGE_SCALE_AIRSHIP(2785),
 
 	/**
 	 * ID: 2786<BR>
 	 * Console Message: Start action is available only when controlling the airship.
 	 */
-	UNNAMED_2786(2786),
+	START_ONLY_WHEN_CONTROLLING(2786),
 
 	/**
 	 * ID: 2787<BR>
 	 * Console Message: $c1 has drained you of $s2 HP.
 	 */
-	UNNAMED_2787(2787),
+	C1_DRAINED_YOU_S2_HP(2787),
 
 	/**
 	 * ID: 2788<BR>
 	 * Console Message: Mercenary participation is requested in $s1 territory.<BR>
 	 * Screen Message: $s1 Mercenary Participation Request!
 	 */
-	UNNAMED_2788(2788),
+	MERCENARY_REQUESTED_PARTICIPATION_IN_S1_TERRITORY(2788),
 
 	/**
 	 * ID: 2789<BR>
 	 * Console Message: Mercenary participation request is cancelled in $s1 territory.<BR>
 	 * Screen Message: $s1 Mercenary Participation Cancellation!
 	 */
-	UNNAMED_2789(2789),
+	MERCENARY_CANCELLED_PARTICIPATION_IN_S1_TERRITORY(2789),
 
 	/**
 	 * ID: 2790<BR>
 	 * Console Message: Clan participation is requested in $s1 territory.<BR>
 	 * Screen Message: $s1 Clan Participation Request!
 	 */
-	UNNAMED_2790(2790),
+	CLAN_REQUESTED_PARTICIPATION_IN_S1_TERRITORY(2790),
 
 	/**
 	 * ID: 2791<BR>
 	 * Console Message: Clan participation request is cancelled in $s1 territory.<BR>
 	 * Screen Message: $s1 Clan Participation Cancellation!
 	 */
-	UNNAMED_2791(2791),
+	CLAN_CANCELLED_PARTICIPATION_IN_S1_TERRITORY(2791),
 
 	/**
 	 * ID: 2792<BR>
 	 * Console Message: 50 clan reputation points will be awarded. Do you wish to continue?
 	 */
-	UNNAMED_2792(2792),
+	WILL_GAIN_50_REPUTATION(2792),
 
 	/**
 	 * ID: 2793<BR>
-	 * Console Message: The minimum number ($s1) of people to enter Instant Zone is not met and entry is not available.
+	 * Console Message: The minimum number ($s1) of people to enter Instant Zone is not
+	 * met and entry is not available.
 	 */
-	UNNAMED_2793(2793),
+	NOT_ENOUGH_PEOPLE_TO_ENTER_INSTANCE_ZONE_NEED_S1(2793),
 
 	/**
 	 * ID: 2794<BR>
 	 * Console Message: The territory war channel and functions will now be deactivated.
 	 */
-	UNNAMED_2794(2794),
+	TERRITORY_WAR_CHANNEL_FUNCTIONS_DEACTIVATED(2794),
 
 	/**
 	 * ID: 2795<BR>
-	 * Console Message: You've already requested a territory war in another territory elsewhere.
+	 * Console Message: You've already requested a territory war in another territory
+	 * elsewhere.
 	 */
-	UNNAMED_2795(2795),
+	ALREADY_REQUESTED_WAR_IN_ANOTHER_TERRITORY(2795),
 
 	/**
 	 * ID: 2796<BR>
-	 * Console Message: The clan who owns the territory cannot participate in the territory war as mercenaries.
+	 * Console Message: The clan who owns the territory cannot participate in the
+	 * territory war as mercenaries.
 	 */
-	UNNAMED_2796(2796),
+	TERRITORY_OWNING_CLAN_CANNOT_JOIN_AS_MERCENARIES(2796),
 
 	/**
 	 * ID: 2797<BR>
-	 * Console Message: It is not a territory war registration period, so a request cannot be made at this time.
+	 * Console Message: It is not a territory war registration period, so a request
+	 * cannot be made at this time.
 	 */
-	UNNAMED_2797(2797),
+	NOT_TERRITORY_WAR_REGISTRATION_PERIOD(2797),
 
 	/**
 	 * ID: 2798<BR>
 	 * Console Message: The territory war will end in $s1-hour(s).
 	 */
-	UNNAMED_2798(2798),
+	TERRITORY_WAR_ENDS_IN_S1_HOURS(2798),
 
 	/**
 	 * ID: 2799<BR>
 	 * Console Message: The territory war will end in $s1-minute(s).
 	 */
-	UNNAMED_2799(2799),
+	TERRITORY_WAR_ENDS_IN_S1_MINUTES(2799),
 
 	// 2800-2815: No translation required
 
 	/**
 	 * ID: 2816<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 1 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 1 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2816(2816),
 
 	/**
 	 * ID: 2817<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 2 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 2 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2817(2817),
 
 	/**
 	 * ID: 2818<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 3 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 3 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2818(2818),
 
 	/**
 	 * ID: 2819<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 4 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 4 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2819(2819),
 
 	/**
 	 * ID: 2820<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 5 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 5 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2820(2820),
 
 	/**
 	 * ID: 2821<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 6 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 6 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2821(2821),
 
 	/**
 	 * ID: 2822<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 7 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 7 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2822(2822),
 
 	/**
 	 * ID: 2823<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 8 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 8 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2823(2823),
 
 	/**
 	 * ID: 2824<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 9 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 9 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2824(2824),
 
 	/**
 	 * ID: 2825<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 10 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 10 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2825(2825),
 
 	/**
 	 * ID: 2826<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 11 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 11 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2826(2826),
 
 	/**
 	 * ID: 2827<BR>
-	 * Console Message: Designate a shortcut key for the Flying Transformed Object Exclusive use shortcut window's No 12 slot.  The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Flying Transformed Object
+	 * Exclusive use shortcut window's No 12 slot.  The CTRL and SHIFT keys cannot be
+	 * designated.
 	 */
 	//UNNAMED_2827(2827),
 
 	/**
 	 * ID: 2828<BR>
-	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 1 slot. The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 1 slot. The CTRL and SHIFT keys cannot be designated.
 	 */
 	//UNNAMED_2828(2828),
 
 	/**
 	 * ID: 2829<BR>
-	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 2 slot. The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 2 slot. The CTRL and SHIFT keys cannot be designated.
 	 */
 	//UNNAMED_2829(2829),
 
 	/**
 	 * ID: 2830<BR>
-	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 3 slot. The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 3 slot. The CTRL and SHIFT keys cannot be designated.
 	 */
 	//UNNAMED_2830(2830),
 
 	/**
 	 * ID: 2831<BR>
-	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 4 slot. The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 4 slot. The CTRL and SHIFT keys cannot be designated.
 	 */
 	//UNNAMED_2831(2831),
 
 	/**
 	 * ID: 2832<BR>
-	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 5 slot. The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 5 slot. The CTRL and SHIFT keys cannot be designated.
 	 */
 	//UNNAMED_2832(2832),
 
 	/**
 	 * ID: 2833<BR>
-	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut window's No 6 slot. The CTRL and SHIFT keys cannot be designated.
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 6 slot. The CTRL and SHIFT keys cannot be designated.
 	 */
 	//UNNAMED_2833(2833),
 
 	/**
+	* ID: 2911<br>
+	* Message: You've requested $c1 to be on your Friends List.
+	*/
+	REQUESTED_C1_ON_FRIENDS_LIST(2911),
+
+	/**
+	* ID: 2912<br>
+	* Message: You've invited $c1 to join your clan.
+	*/
+	INVITED_C1_TO_CLAN(2912),
+
+	/**
 	* ID: 2957<br>
-	* Message: Characters with a February 29 creation date will receive a gift on February 28.
+	* Message: Characters with a February 29 creation date will receive a gift on
+	* February 28.
 	*/
 	CHARACTERS_CREATED_FEB_29_WILL_RECEIVE_GIFT_FEB_28(2957),
 

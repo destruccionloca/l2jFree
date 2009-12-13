@@ -75,7 +75,6 @@ import com.l2jfree.gameserver.datatables.NobleSkillTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.RecordTable;
-import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.geodata.GeoData;
@@ -2189,28 +2188,6 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	/** @deprecated in retail you can have all grade ss on at once */
-	@Deprecated
-	public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
-	{
-		if (unequipped == null || unequipped.getItem().getType2() != L2Item.TYPE2_WEAPON)
-			return;
-
-		// Keep shots with S80/84 weapons
-		if (equipped != null && equipped.getItem().getCrystalGrade() == unequipped.getItem().getCrystalGrade())
-			return;
-
-		for (L2ItemInstance item : getInventory().getItems())
-		{
-			if (item == null)
-				continue;
-
-			if (ShotTable.isPcShot(item.getItemId()))
-				if (item.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
-					getShots().removeAutoSoulShot(item.getItemId());
-		}
-	}
-
 	public void useEquippableItem(L2ItemInstance item, boolean abortAttack)
 	{
 		// Equip or unEquip
@@ -2221,8 +2198,6 @@ public final class L2PcInstance extends L2Playable
 		L2ItemInstance old = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
 		if (old == null)
 			old = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-
-		checkSSMatch(item, old);
 
 		int bodyPart = item.getItem().getBodyPart();
 		if (isEquiped)

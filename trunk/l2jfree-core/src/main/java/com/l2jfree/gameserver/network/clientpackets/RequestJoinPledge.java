@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AskJoinPledge;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestJoinPledge extends L2GameClientPacket
 {
@@ -45,12 +46,11 @@ public class RequestJoinPledge extends L2GameClientPacket
 		L2Clan clan = activeChar.getClan();
 		if (clan == null)
 		{
-			sendPacket(SystemMessageId.NOT_JOINED_IN_ANY_CLAN);
+			requestFailed(SystemMessageId.NOT_JOINED_IN_ANY_CLAN);
 			return;
 		}
 
 		L2Object obj;
-
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
 		else
@@ -58,7 +58,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 
 		if (obj == null)
 		{
-			sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+			requestFailed(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 			return;
 		}
 
@@ -71,6 +71,9 @@ public class RequestJoinPledge extends L2GameClientPacket
 
 		String _subPledge = (activeChar.getClan().getSubPledge(_pledgeType) != null ? activeChar.getClan().getSubPledge(_pledgeType).getName() : null);
 		target.sendPacket(new AskJoinPledge(activeChar.getObjectId(), _subPledge, _pledgeType, clan.getName()));
+		sendPacket(new SystemMessage(SystemMessageId.INVITED_C1_TO_CLAN).addPcName(target));
+
+		sendAF();
 	}
 
 	public int getSubPledgeType()

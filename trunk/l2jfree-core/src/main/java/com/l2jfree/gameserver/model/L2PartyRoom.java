@@ -2,6 +2,7 @@ package com.l2jfree.gameserver.model;
 
 import javolution.util.FastList;
 
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -223,7 +224,7 @@ public class L2PartyRoom
 	/** @return L2 region ID (1-15) */
 	public int getLocation()
 	{
-		return PartyRoomManager.getInstance().getLocation(getLeader());
+		return MapRegionManager.getInstance().getL2Region(getLeader());
 	}
 
 	/**

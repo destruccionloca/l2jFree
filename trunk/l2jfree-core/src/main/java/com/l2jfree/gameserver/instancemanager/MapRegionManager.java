@@ -460,6 +460,79 @@ public final class MapRegionManager
 		return town.getCastleId();
 	}
 	
+	/**
+	 * < 1, 8, > 15 - Empty<BR>1 - Talking island<BR>2 - Gludio<BR>
+	 * 3 - Dark elven<BR>4 - Elven<BR>5 - Dion<BR>6 - Giran<BR>
+	 * 7 - Neutral zone<BR>9 - Schuttgart<BR>10 - Oren<BR>
+	 * 11 - Hunters Village<BR>12 - Innadril<BR>13 - Aden<BR>
+	 * 14 - Rune<BR>15 - Goddard
+	 * @param player a player
+	 * @return L2 region used in partymatching
+	 */
+	public int getL2Region(L2PcInstance player)
+	{
+		L2MapRegion region = getRegion(player);
+		int locName = -1;
+		if (region != null)
+		{
+			int restartId = region.getRestartId();
+			L2MapRegionRestart restart = getRestartLocation(restartId);
+			locName = restart.getLocName();
+		}
+		return convertLocNameToL2Region(locName);
+	}
+	
+	public int convertLocNameToL2Region(int locName)
+	{
+		switch(locName)
+		{
+		case 910: // TI
+			return 1;
+		case 911: // Gludin
+		case 912: // Gludio
+		case 2190: // Southern wastelands
+		case 2710: // Keucereus
+		case 2711: // inside SoI
+		case 2712: // outside SoI
+		case 2716: // inside Cleft
+			return 2;
+		case 913: // Neutral zone
+			return 7;
+		case 914: // Elven village
+			return 4;
+		case 915: // DE village
+			return 3;
+		case 916: // Dion
+		case 917: // Floran
+			return 5;
+		case 918: // Giran
+		case 919: // Harbor
+			return 6;
+		case 920: // Orc village
+		case 921: // Dwarven village
+		case 1714: // Schuttgart
+			return 9;
+		case 922: // Oren
+			return 10;
+		case 923: // Hunters village
+			return 11;
+		case 924: // Aden
+		case 925: // Coliseum
+		case 2189: // Kamael Village
+			return 13;
+		case 926: // Heine
+			return 12;
+		case 1537: // Rune
+		case 1924: // Primeval Isle
+		case 2259: // Fantasy Isle
+			return 14;
+		case 1538: // Goddard
+			return 15;
+		default: // TODO: Epilogue locations
+			return 0; // no name
+		}
+	}
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

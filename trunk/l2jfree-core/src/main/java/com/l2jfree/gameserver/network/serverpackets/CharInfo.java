@@ -32,10 +32,10 @@ public class CharInfo extends L2GameServerPacket
 	private final L2PcInstance		_activeChar;
 	private final PcAppearance		_appearance;
 	private final Inventory			_inv;
-	private final int					_mAtkSpd, _pAtkSpd;
+	private final int				_mAtkSpd, _pAtkSpd;
 	private final float				_moveMultiplier, _attackSpeedMultiplier;
-	private int					_cursedWeaponLevel = 0;
-	private double				_collisionHeight, _collisionRadius;
+	private int						_cursedWeaponLevel = 0;
+	private double					_collisionHeight, _collisionRadius;
 	private final L2Transformation	_trans;
 
 	/**
@@ -129,7 +129,7 @@ public class CharInfo extends L2GameServerPacket
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
 		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
 		// end of t1 new d's
-		if (Config.PACKET_FINAL)
+		if (Config.PACKET_FINAL) // belt item ID
 			writeD(0x00); // CT2.3
 
 
@@ -267,6 +267,7 @@ public class CharInfo extends L2GameServerPacket
 
 		writeD(_appearance.getTitleColor());
 
+		// Doesn't work with Zariche
 		writeD(_cursedWeaponLevel);
 
 		if (_activeChar.getClan() != null)

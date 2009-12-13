@@ -54,7 +54,6 @@ import com.l2jfree.gameserver.network.serverpackets.PetItemList;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
@@ -652,11 +651,7 @@ public abstract class L2Summon extends L2Playable
 		if (isSkillDisabled(skill.getId()))
 		{
 			if (getOwner() != null)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-				sm.addSkillName(skill);
-				getOwner().sendPacket(sm);
-			}
+				getOwner().sendPacket(SystemMessageId.SERVITOR_SKILL_RECHARGING);
 			return;
 		}
 
@@ -678,7 +673,7 @@ public abstract class L2Summon extends L2Playable
 		{
 			// Send a System Message to the caster
 			if (getOwner() != null)
-				getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_MP);
+				getOwner().sendPacket(SystemMessageId.SERVITOR_LACKS_MP);
 			return;
 		}
 
@@ -687,7 +682,7 @@ public abstract class L2Summon extends L2Playable
 		{
 			// Send a System Message to the caster
 			if (getOwner() != null)
-				getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_HP);
+				getOwner().sendPacket(SystemMessageId.SERVITOR_LACKS_HP);
 			return;
 		}
 

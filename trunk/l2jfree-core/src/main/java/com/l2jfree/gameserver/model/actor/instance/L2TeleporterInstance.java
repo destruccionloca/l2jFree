@@ -28,7 +28,6 @@ import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -44,9 +43,6 @@ public final class L2TeleporterInstance extends L2Npc
 	private static final int	COND_OWNER					= 2;
 	private static final int	COND_REGULAR				= 3;
 
-	/**
-	 * @param template
-	 */
 	public L2TeleporterInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -109,9 +105,8 @@ public final class L2TeleporterInstance extends L2Npc
 			}
 
 			if (st.countTokens() <= 0)
-			{
 				return;
-			}
+
 			int whereTo = Integer.parseInt(st.nextToken());
 			if (condition == COND_REGULAR)
 			{
@@ -222,19 +217,15 @@ public final class L2TeleporterInstance extends L2Npc
 				return;
 			}
 			if (player.isAlikeDead())
-			{
 				return;
-			}
 
 			Calendar cal = Calendar.getInstance();
 			int price = list.getPrice();
-			// From CT2 all players below lvl 40 have all ports for free
-			if (player.getLevel() < 40 && !getTemplate().isCustom())
-			{
+			// From CT2 all players lvl 40 or below (quote) have all ports for free
+			if (player.getLevel() <= 40 && !getTemplate().isCustom())
 				price = 0;
-			}
 
-			// At weekeend evening hours, teleport costs are / 2
+			// At weekend evening hours, teleport costs are / 2
 			// But only adena teleports
 			else if (!list.isForNoble())
 			{
@@ -260,7 +251,6 @@ public final class L2TeleporterInstance extends L2Npc
 		{
 			_log.warn("No teleport destination with id:" + val);
 		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private int validateCondition(L2PcInstance player)

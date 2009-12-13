@@ -66,7 +66,8 @@ public class RequestActionUse extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 		
 		// removes spawn protection
 		activeChar.onActionRequest();
@@ -77,7 +78,7 @@ public class RequestActionUse extends L2GameClientPacket
 		if (activeChar.isAlikeDead() || activeChar.isOutOfControl() ||
 				activeChar.isTryingToSitOrStandup())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -93,7 +94,7 @@ public class RequestActionUse extends L2GameClientPacket
 				case 51:
 				case 61:
 				{
-					sendPacket(ActionFailed.STATIC_PACKET);
+					sendAF();
 					return;
 				}
 			}
@@ -115,7 +116,7 @@ public class RequestActionUse extends L2GameClientPacket
 			{
 				if (((L2StaticObjectInstance) target).onSit(activeChar))
 				{
-					sendPacket(ActionFailed.STATIC_PACKET);
+					sendAF();
 					return;
 				}
 			}
@@ -162,7 +163,7 @@ public class RequestActionUse extends L2GameClientPacket
 				else if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
 				{
 					// if L2PcInstance is in Olympiad and the match isn't already started, send a Server->Client packet ActionFailed
-					sendPacket(ActionFailed.STATIC_PACKET);
+					sendAF();
 					return;
 				}
 
@@ -175,7 +176,7 @@ public class RequestActionUse extends L2GameClientPacket
 				if (pet.getNpcId() == 12564 || pet.getNpcId() == 12621)
 				{
 					// sin eater and wyvern can't attack with attack button
-					sendPacket(ActionFailed.STATIC_PACKET);
+					sendAF();
 					return;
 				}
 				

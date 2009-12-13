@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -54,7 +54,7 @@ public class ExManagePartyRoomMember extends L2GameServerPacket
 		writeS(_member.getName());
 		writeD(_member.getClassId().getId());
 		writeD(_member.getLevel());
-		writeD(PartyRoomManager.getInstance().getLocation(_member)); // region
+		writeD(MapRegionManager.getInstance().getL2Region(_member));
 		writeD(L2PartyRoom.getPartyRoomState(_member));
 	}
 

@@ -325,7 +325,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(_x);
 			writeD(_y);
 			writeD(_z);
-			writeD(_heading);
+			writeD(0x00); // airship ID
 			writeD(_decoy.getObjectId());
 			writeS(owner.getAppearance().getVisibleName());
 			writeD(owner.getRace().ordinal());
@@ -336,7 +336,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			else
 				writeD(owner.getBaseClass());
 
-			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
@@ -345,7 +345,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
 
@@ -357,10 +357,10 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
-			if (Config.PACKET_FINAL)
-				writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BELT));
+			if (Config.PACKET_FINAL) // belt item ID
+				writeD(0x00); // CT 2.3
 
-			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIRALL));
+			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_UNDER));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HEAD));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LHAND));
@@ -382,7 +382,12 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
 			if (Config.PACKET_FINAL)
-				writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BELT));
+			{
+				// belt aug ID
+				writeD(0x00); // CT 2.3
+				writeD(0x00);
+				writeD(0x00);
+			}
 
 			writeD(owner.getPvpFlag());
 			writeD(owner.getKarma());
@@ -455,16 +460,16 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			for (int id : owner.getCubics().keySet())
 				writeH(id);
 
-			writeC(0x00); // find party members
+			writeC(owner.isLookingForParty());
 
 			writeD(owner.getAbnormalEffect());
 
-			writeC(owner.getEvaluations()); // Changed by Thorgrim
+			writeC(owner.isFlying() ? 2 : 0);
 			writeH(owner.getEvalPoints()); // Blue value for name (0 = white, 255 = pure blue)
-			writeD(owner.getClassId().getId());
+			writeD(owner.getMountNpcId() + 1000000);
 
-			writeD(owner.getMaxCp());
-			writeD((int) owner.getCurrentCp());
+			writeD(owner.getClassId().getId());
+			writeD(0x00); //?
 			writeC(owner.isMounted() ? 0 : owner.getEnchantEffect());
 
 			if (owner.getTeam() == 1)
@@ -476,7 +481,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 
 			writeD(owner.getClanCrestLargeId());
 			writeC(owner.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
-			writeC(owner.isHero() ? 1 : 0); // Hero Aura
+			writeC((owner.isHero() || (owner.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
 
 			writeC(owner.isFishing() ? 1 : 0); // 0x01: Fishing Mode (Cant be undone by setting back to 0)
 			writeD(owner.getFishx());
@@ -506,13 +511,13 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			// T1
 			writeD(0x00); // Can Decoys be transformed?
 			writeD(0x00); // Can Decoys have Agathions?
-			
+
 			writeD(0x00);
-			
+
 			if (Config.PACKET_FINAL)
 			{
 				// T2.3
-				writeD(0x00);
+				writeD(owner.getSpecialEffect());
 				writeD(0x00);
 				writeD(0x00);
 				writeD(0x00);

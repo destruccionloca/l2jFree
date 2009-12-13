@@ -87,13 +87,10 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
 
 		for (L2ItemInstance element : unequiped)
-		{
-			activeChar.checkSSMatch(null, element);
 			activeChar.getInventory().updateInventory(element);
-		}
 		activeChar.broadcastUserInfo();
 
-		// this can be 0 if the user pressed the right mousebutton twice very fast
+		// this can be 0 if the user pressed the right mouse button twice very fast
 		if (unequiped.length > 0)
 		{
 			SystemMessage sm = null;

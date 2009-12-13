@@ -125,7 +125,8 @@ public class PartyRoomManager
 
 	public List<L2PartyRoom> getRooms(L2PcInstance player)
 	{
-		return getRooms(player.getPartyMatchingRegion(), getLocation(player),
+		return getRooms(player.getPartyMatchingRegion(),
+				MapRegionManager.getInstance().getL2Region(player),
 				player.getPartyMatchingLevelRestriction(), player.getLevel());
 	}
 
@@ -159,19 +160,6 @@ public class PartyRoomManager
 				list.add(room);
 		}
 		return list;
-	}
-
-	/**
-	 * @param player a player
-	 * @see TownManager#getTownRegionId(int)
-	 */
-	public int getLocation(L2PcInstance player)
-	{
-		if (player == null)
-			return 0;
-
-		int townId = TownManager.getInstance().getClosestTown(player).getTownId();
-		return TownManager.getInstance().getTownRegionId(townId);
 	}
 
 	@SuppressWarnings("synthetic-access")

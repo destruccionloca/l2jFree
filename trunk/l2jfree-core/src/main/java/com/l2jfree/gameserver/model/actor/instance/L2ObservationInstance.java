@@ -47,8 +47,9 @@ public final class L2ObservationInstance extends L2Npc
 			{
 				val = Integer.parseInt(command.substring(5));
 			}
-			catch (IndexOutOfBoundsException ioobe){}
-			catch (NumberFormatException nfe){}
+			catch (Exception e)
+			{
+			}
 			showMessageWindow(player, val);
 		}
 		else if (command.startsWith("observeSiege"))

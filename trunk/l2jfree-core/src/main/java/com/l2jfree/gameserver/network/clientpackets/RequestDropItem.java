@@ -111,12 +111,8 @@ public class RequestDropItem extends L2GameClientPacket
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (L2ItemInstance element : unequiped)
-			{
-				activeChar.checkSSMatch(null, element);
 				iu.addModifiedItem(element);
-			}
 			sendPacket(iu);
-			iu = null;
 			activeChar.broadcastUserInfo();
 		}
 
@@ -130,7 +126,7 @@ public class RequestDropItem extends L2GameClientPacket
 
 		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, activeChar, false);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 
 		if (_log.isDebugEnabled())
 			_log.debug("dropping " + _objectId + " item(" + _count + ") at: " + _x + " " + _y + " " + _z);

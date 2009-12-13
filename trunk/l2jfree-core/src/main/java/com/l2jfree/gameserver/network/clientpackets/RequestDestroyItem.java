@@ -144,11 +144,8 @@ public class RequestDestroyItem extends L2GameClientPacket
 				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getLocationSlot());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (L2ItemInstance element : unequiped)
-			{
-				activeChar.checkSSMatch(null, element);
 				iu.addModifiedItem(element);
-			}
-			sendPacket(iu); iu = null;
+			sendPacket(iu);
 			activeChar.broadcastUserInfo();
 		}
 
@@ -169,7 +166,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 			}
 			catch (Exception e)
 			{
-				_log.warn( "could not delete pet objectid: ", e);
+				_log.warn("Could not delete pet. ObjectId: ", e);
 			}
 			finally
 			{
@@ -182,13 +179,13 @@ public class RequestDestroyItem extends L2GameClientPacket
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, _count, activeChar, null);
 		if (removedItem == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		activeChar.getInventory().updateInventory(removedItem);
-
 		L2World.getInstance().removeObject(removedItem);
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override

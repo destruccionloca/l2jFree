@@ -36,7 +36,8 @@ public final class RequestFriendInvite extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 
 		L2PcInstance friend = L2World.getInstance().getPlayer(_name);
 		if (friend == null || (friend.getAppearance().isInvisible() && friend.isGM()))
@@ -53,6 +54,7 @@ public final class RequestFriendInvite extends L2GameClientPacket
 
 			friend.sendPacket(new SystemMessage(SystemMessageId.C1_REQUESTED_TO_BECOME_FRIENDS).addPcName(activeChar));
 			friend.sendPacket(new FriendAddRequest(activeChar.getName()));
+			sendPacket(new SystemMessage(SystemMessageId.REQUESTED_C1_ON_FRIENDS_LIST).addPcName(friend));
 		}
 
 		sendAF();

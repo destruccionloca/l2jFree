@@ -1137,10 +1137,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 					L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(getLocationSlot());
 					InventoryUpdate iu = new InventoryUpdate();
 					for (L2ItemInstance element : unequiped)
-					{
-						player.checkSSMatch(null, element);
 						iu.addModifiedItem(element);
-					}
 					player.sendPacket(iu);
 				}
 				
@@ -1647,10 +1644,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 				L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(getLocationSlot());
 				InventoryUpdate iu = new InventoryUpdate();
 				for (L2ItemInstance item: unequiped)
-				{
-					player.checkSSMatch(null, item);
 					iu.addModifiedItem(item);
-				}
 				player.sendPacket(iu);
 			}
 			

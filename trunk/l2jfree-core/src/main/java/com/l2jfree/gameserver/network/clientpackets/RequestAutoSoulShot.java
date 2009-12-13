@@ -14,12 +14,11 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 public final class RequestAutoSoulShot extends L2GameClientPacket
 {
@@ -44,17 +43,22 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
+
+		if (!Config.ALT_AUTO_FISHING_SHOT && ShotTable.isFishingShot(_shotId))
+		{
+			sendAF();
+			return;
+		}
 
 		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null && !activeChar.isDead())
 		{
 			if (_type == 1)
 			{
-				//Fishing shots are not automatic on retail?
-				//if (ShotTable.getInstance().isFishingShot(_shotId))
-				//	return;
 				L2ItemInstance shot = activeChar.getInventory().getItemByItemId(_shotId);
-				if (shot == null) return;
+				if (shot == null)
+					return;
 
 				if (ShotTable.isBeastShot(_shotId))
 				{
@@ -67,21 +71,8 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				}
 				else if (activeChar.getActiveWeaponItem() != null)
 				{
-					int weaponGrade = activeChar.getActiveWeaponItem().getCrystalGrade();
-
-					if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()
-						&& shot.getItem().getCrystalGrade() == weaponGrade)
-					{
-						activeChar.getShots().addAutoSoulShot(_shotId);
-						activeChar.rechargeShot();
-					}
-					else
-					{
-						if (ShotTable.isMagicShot(_shotId))
-							sendPacket(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH);
-						else
-							sendPacket(SystemMessageId.SOULSHOTS_GRADE_MISMATCH);
-					}
+					activeChar.getShots().addAutoSoulShot(_shotId);
+					activeChar.rechargeShot();
 				}
 			}
 			else if (_type == 0)
@@ -89,7 +80,8 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				activeChar.getShots().removeAutoSoulShot(_shotId);
 			}
 		}
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override

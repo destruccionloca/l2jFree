@@ -30,9 +30,6 @@ public class Loc implements IUserCommandHandler
 	private static final int[]	COMMAND_IDS	=
 											{ 0 };
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#useUserCommand(int, com.l2jfree.gameserver.model.L2PcInstance)
-	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		L2MapRegionRestart restart = null;
@@ -43,7 +40,6 @@ public class Loc implements IUserCommandHandler
 		if (town != null && town.getMapRegion() != null)
 		{
 			restart = MapRegionManager.getInstance().getRestartLocation(town.getMapRegion().getRestartId());
-
 			if (restart != null)
 				msg = SystemMessageId.getSystemMessageId(restart.getLocName());
 		}
@@ -62,16 +58,15 @@ public class Loc implements IUserCommandHandler
 		sm.addNumber(activeChar.getZ());
 		activeChar.sendPacket(sm);
 
-		if (restart != null)
+		if (Config.ALT_SHOW_RESTART_TOWN && restart != null)
 		{
-			// TODO: review this if it works properly or not
 			if (restart.getLocName() < 1222)
 			{
 				if (restart.getLocName() != 943)
 				{
 					activeChar.sendPacket(SystemMessageId.getSystemMessageId(msg.getId() + 31));
 				}
-				else
+				else // system message has a typo
 					activeChar.sendMessage("Restart at the Town of Gludio.");
 			}
 			else
@@ -98,9 +93,6 @@ public class Loc implements IUserCommandHandler
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IUserCommandHandler#getUserCommandList()
-	 */
 	public int[] getUserCommandList()
 	{
 		return COMMAND_IDS;

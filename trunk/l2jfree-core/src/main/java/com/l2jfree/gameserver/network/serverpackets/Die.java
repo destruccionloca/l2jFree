@@ -39,15 +39,20 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
  */
 public class Die extends L2GameServerPacket
 {
-	private static final String _S__00_DIE = "[S] 00 Die [dddddddd]";
+	private static final String _S__00_DIE			= "[S] 00 Die [dddddddd]";
+	public static final int FEATHER_OF_BLESSING_1	= 10649;
+	public static final int FEATHER_OF_BLESSING_2	= 13300;
+	public static final int PHOENIX_FEATHER			= 13128;
+
 	private final int _charObjId;
 	private final boolean _fallDown;
 	private final int _sweepable;
-	private final int _access;
+
 	private final int _showVillage;
 	private final int _showClanhall;
 	private final int _showCastle;
 	private int _showFlag;
+	private final int _showFeather;
 	private final int _showFortress;
 
 	public Die(L2Character cha)
@@ -60,15 +65,17 @@ public class Die extends L2GameServerPacket
 			_sweepable = 0;
 		if (cha instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) cha;
-			_access = player.getAccessLevel();
-
+			L2PcInstance player = cha.getActingPlayer();
 			if (!GlobalRestrictions.canRequestRevive(player))
 			{
 				_showVillage = 0;
 				_showClanhall = 0;
 				_showCastle = 0;
 				_showFlag = 0;
+				if (player.getAccessLevel() >= Config.GM_FIXED)
+					_showFeather = 1;
+				else
+					_showFeather = 0;
 				_showFortress = 0;
 				return;
 			}
@@ -110,6 +117,14 @@ public class Die extends L2GameServerPacket
 				_showCastle = 0;
 				_showFortress = 0;
 			}
+
+			if (player.getAccessLevel() >= Config.GM_FIXED ||
+					player.getInventory().getItemByItemId(FEATHER_OF_BLESSING_1) != null ||
+					player.getInventory().getItemByItemId(FEATHER_OF_BLESSING_2) != null ||
+					player.getInventory().getItemByItemId(PHOENIX_FEATHER) != null)
+				_showFeather = 1;
+			else
+				_showFeather = 0;
 		}
 		else
 		{
@@ -118,7 +133,7 @@ public class Die extends L2GameServerPacket
 			_showCastle = 0;
 			_showFortress = 0;
 			_showFlag = 0;
-			_access = 0;
+			_showFeather = 0;
 		}
 	}
 
@@ -128,14 +143,14 @@ public class Die extends L2GameServerPacket
 		if (!_fallDown)
 			return;
 
-		writeC(0x0);
+		writeC(0x00);
 		writeD(_charObjId);
 		writeD(_showVillage);
 		writeD(_showClanhall);
 		writeD(_showCastle);
 		writeD(_showFlag);
 		writeD(_sweepable);
-		writeD(_access >= Config.GM_FIXED ? 0x01: 0x00);
+		writeD(_showFeather);
 		writeD(_showFortress);
 	}
 

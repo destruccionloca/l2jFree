@@ -47,6 +47,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.SpecialXMas;
 import com.l2jfree.gameserver.handler.itemhandlers.SpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.SummonItems;
 import com.l2jfree.gameserver.handler.itemhandlers.TeleportBookmark;
+import com.l2jfree.gameserver.handler.itemhandlers.WrappedPack;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -115,6 +116,7 @@ public final class ItemHandler
 		registerItemHandler(new SpiritShot());
 		registerItemHandler(new SummonItems());
 		registerItemHandler(new TeleportBookmark());
+		registerItemHandler(new WrappedPack());
 		
 		_log.info("ItemHandler: Loaded " + _byHandlerName.size() + " handlers by handlerName.");
 		
