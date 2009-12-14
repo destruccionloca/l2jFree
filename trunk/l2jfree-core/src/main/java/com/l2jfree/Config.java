@@ -1447,7 +1447,7 @@ public class Config extends L2Config
 		    ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTrade", "false"));
 		    ALLOW_OFFLINE_TRADE_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeCraft", "true"));
 		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeColorName", "true"));
-		    OFFLINE_TRADE_COLOR_NAME = Integer.parseInt(optionsSettings.getProperty("OfflineTradeColorName", "999999"));
+		    OFFLINE_TRADE_COLOR_NAME = Integer.decode("0x" + optionsSettings.getProperty("OfflineTradeColorName", "999999"));
 		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeProtection", "true"));
 
 		    ENTERWORLD_QUEUING = Boolean.parseBoolean(optionsSettings.getProperty("DiscreteStarterPackets", "false"));
