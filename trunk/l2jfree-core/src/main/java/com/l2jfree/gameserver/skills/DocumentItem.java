@@ -22,7 +22,6 @@ import java.util.Map;
 import org.w3c.dom.Node;
 
 import com.l2jfree.gameserver.items.model.Item;
-import com.l2jfree.gameserver.skills.conditions.Condition;
 import com.l2jfree.gameserver.templates.item.L2Armor;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
 import com.l2jfree.gameserver.templates.item.L2EtcItem;
@@ -90,8 +89,7 @@ final class DocumentItem extends DocumentBase
 			{
 				if ("cond".equalsIgnoreCase(n.getNodeName()))
 				{
-					Condition cond = parseConditionWithMessage(n, item);
-					item.attach(cond);
+					item.attach(parseConditionWithMessage(n, item));
 				}
 				else if ("for".equalsIgnoreCase(n.getNodeName()))
 				{

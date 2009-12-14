@@ -208,7 +208,9 @@ public class RequestRestartPoint extends L2GameClientPacket
 				break;
 
 			default: // 0
-				if (activeChar.isInsideZone(L2Zone.FLAG_JAIL) || activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
+				if (activeChar.isInsideZone(L2Zone.FLAG_JAIL))
+					// From current zones I can't imagine why?
+					//|| activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 					loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
 				else
 					loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
