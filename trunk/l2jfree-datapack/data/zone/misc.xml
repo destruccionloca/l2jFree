@@ -5,7 +5,8 @@
     <settings noWyvern="true"/>
     <shape type="Rect" zMin="-30000" zMax="30000"> <!-- FIXME -->
       <point x="109448" y="10233"/>
-      <point x="118547" y="21446"/>
+<!-- <point x="118547" y="21446"/> allows SUMMON_FRIEND type skills in ToI 10 -->
+      <point x="118690" y="21446"/>
     </shape>
   </zone>
   <zone id="2" name="GM Consultation Service" type="Jail">

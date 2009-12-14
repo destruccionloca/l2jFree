@@ -9684,13 +9684,9 @@ UPDATE `npc` SET `collision_radius` = 22,`collision_height` = 23 WHERE `id` = 25
 REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 (29065,29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100,83.1,87,'male','L2GrandBoss',40,4068372,7347,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,12,'LAST_HIT'),
 (25595,25595,'Gerg\'s Henchman',0,'',0,'LineageMonster.batur_orc',9,21.5,1,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT'),
-(29099,29099,'Baylor',0,'Warden',0,'LineageMonster4.Barler',54,77.5,83,'male','L2GrandBoss',40,850000,2444,0,0,10,10,30,30,10,10,0,0,500,500,500,500,540,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT'),
-(29100,29100,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless',36,43.5,78,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT'),
-(29101,29101,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem',40,22,78,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT'),
 (29102,29102,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem',40,47,78,'male','L2Monster',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,0,80,120,'',0,0,0,'LAST_HIT');
 
 -- Pet Managers
-
 UPDATE `npc` SET `type` = 'L2PetManager' WHERE `id` = 30731;
 UPDATE `npc` SET `type` = 'L2PetManager' WHERE `id` = 30827;
 UPDATE `npc` SET `type` = 'L2PetManager' WHERE `id` = 30828;
@@ -10085,6 +10081,12 @@ UPDATE `npc` SET `type` = 'L2Guard', `hp` = '10' WHERE `id` = '32299';
 
 # Baylor Chest by Psycho
 UPDATE `npc` SET `level` = '83', `type` = 'L2Monster', `walkspd` = '0', `runspd` = '0' WHERE `id` = '29116';
+# Baylor Chests by savormix
+UPDATE `npc` SET `hp` = 4716 WHERE `id` IN (29116,29117);
 
 # Alegria by savormix
 UPDATE `npc` SET `type` = 'L2BirthdayHelper' WHERE `id` = 32600;
+
+# Baylor & Crystalline Golem from L2WH by savormix
+UPDATE `npc` SET `hp` = 2566624, `exp` = 2856882, `sp` = 1322380 WHERE `id` = 29099;
+UPDATE `npc` SET `hp` = 177459 WHERE `id` = 29101;
