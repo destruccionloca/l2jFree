@@ -567,8 +567,8 @@ public abstract class L2Item implements FuncOwner
 	{
 		if (c == null || ArrayUtils.contains(_preConditions, c))
 			return;
-		
-		ArrayUtils.add(_preConditions, c);
+
+		_preConditions = (Condition[]) ArrayUtils.add(_preConditions, c);
 	}
 
 	public boolean checkCondition(L2Character activeChar, L2Object target, boolean sendMessage)
@@ -576,7 +576,7 @@ public abstract class L2Item implements FuncOwner
 		if (activeChar instanceof L2PcInstance && activeChar.getActingPlayer().isGM() &&
 				!Config.GM_ITEM_RESTRICTION)
 			return true;
-		
+
 		for (Condition preCondition : _preConditions)
 		{
 			Env env = new Env();
