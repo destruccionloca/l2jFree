@@ -504,7 +504,6 @@ public final class Formulas
 				env.value *= DEXbonus[p.getStat().getDEX()];
 				env.value *= 10;
 			}
-			env.baseValue = env.value;
 		}
 	}
 
@@ -529,7 +528,6 @@ public final class Formulas
 				env.value = 8; // TODO: needs retail value
 			else if (env.player instanceof L2PcInstance && env.player.getActiveWeaponInstance() != null)
 				env.value *= WITbonus[env.player.getStat().getWIT()];
-			env.baseValue = env.value;
 		}
 	}
 

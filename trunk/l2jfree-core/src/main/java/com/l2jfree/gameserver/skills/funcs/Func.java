@@ -73,7 +73,12 @@ public abstract class Func
 	public final void calcIfAllowed(Env env)
 	{
 		if (isAllowed(env))
+		{
+			if (order == 0x30 && Double.isNaN(env.baseValue))
+				env.baseValue = env.value;
+			
 			calc(env);
+		}
 	}
 	
 	public final boolean isAllowed(Env env)
