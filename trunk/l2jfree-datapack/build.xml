@@ -65,8 +65,9 @@
            <exclude name="geodata/**"/>
            <exclude name="pathnode/**"/>
            <include name="sql/*.*"/>
-           <include name="sql/updates/*.*"/>
+           <include name="sql/addon/*.*"/>
            <include name="sql/custom/*.*"/>
+           <include name="sql/updates/*.*"/>
            <include name="tools/*.*"/>
          </fileset>
       </copy>

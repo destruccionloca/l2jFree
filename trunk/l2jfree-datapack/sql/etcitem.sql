@@ -9721,13 +9721,18 @@ UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable`
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13279 AND 13292;
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13341 AND 13381;
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` IN (13384,13385);
+UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14228 AND 14291; 
 -- Vitamin Items (savormix)
-UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 12786 AND 12797;
+UPDATE `etcitem` SET `handler` = 'ColorName' WHERE `item_id` IN (13021, 13307);
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `destroyable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 12362 AND 12371;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` IN (10649, 12782, 12783, 12800, 13015, 13016, 13027, 13128, 13273, 13382, 13383);
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 12786 AND 12797;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13010 AND 13012;
-UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13021 AND 13023;
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13021 AND 13026;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13239 AND 13254;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13297 AND 13299;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13300 AND 13302;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13307 AND 13323;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13325 AND 13340;
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14053 AND 14060;
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14065 AND 14103;
