@@ -20982,6 +20982,9 @@ SELECT createSkillEnchant(1290, 1, 1); -- Blizzard
 SELECT createSkillEnchant2(1290, 2); -- Blizzard
 SELECT createSkillEnchant(1291, 1, 1); -- Demon Wind
 SELECT createSkillEnchant2(1291, 2); -- Demon Wind
+SELECT createSkillEnchant(1386, 1, 10); -- Arcane Disruption
+SELECT createSkillEnchant2(1386, 2); -- Arcane Disruption
+SELECT createSkillEnchant2(1386, 3); -- Arcane Disruption
 SELECT createSkillEnchant(1389, 1, 3); -- Greater Shield
 SELECT createSkillEnchant2(1389, 2); -- Greater Shield
 SELECT createSkillEnchant(1417, 1, 5); -- Aura Flash
