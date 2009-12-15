@@ -40,7 +40,12 @@ public class WrappedPack implements IItemHandler
 		13341, 13342, 13343, 13344, 13345, 13346, 13347, 13348, 13349, 13350, 13351, 13352,
 		13353, 13354, 13355, 13356, 13357, 13358, 13359, 13360, 13361, 13362, 13363, 13364,
 		13365, 13366, 13367, 13368, 13369, 13370, 13371, 13372, 13373, 13374, 13375, 13376,
-		13377, 13378, 13379, 13380, 13381, 13384, 13385
+		13377, 13378, 13379, 13380, 13381, 13384, 13385, 14228, 14229, 14230, 14231, 14232,
+		14233, 14234, 14235, 14236, 14237, 14238, 14239, 14240, 14241, 14242, 14243, 14244,
+		14245, 14246, 14247, 14248, 14249, 14250, 14251, 14252, 14253, 14254, 14255, 14256,
+		14257, 14258, 14259, 14260, 14261, 14262, 14263, 14264, 14265, 14266, 14267, 14268,
+		14269, 14270, 14271, 14272, 14273, 14274, 14275, 14276, 14277, 14278, 14279, 14280,
+		14281, 14282, 14283, 14284, 14285, 14286, 14287, 14288, 14289, 14290, 14291
 	};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
@@ -375,6 +380,200 @@ public class WrappedPack implements IItemHandler
 		case 13384:
 		case 13385:
 			itemId = 13383;
+			break;
+		case 14228:
+			itemId = 13024;
+			break;
+		case 14229:
+			itemId = 13025;
+			break;
+		case 14230:
+			itemId = 13026;
+			break;
+		case 14231:
+			itemId = 14053;
+			break;
+		case 14232:
+			itemId = 14054;
+			break;
+		case 14233:
+			itemId = 14055;
+			break;
+		case 14234:
+			itemId = 14056;
+			break;
+		case 14235:
+			itemId = 14057;
+			break;
+		case 14236:
+			itemId = 14058;
+			break;
+		case 14237:
+			itemId = 14059;
+			break;
+		case 14238:
+			itemId = 14060;
+			break;
+		case 14239:
+			itemId = 14065;
+			count = 2;
+			break;
+		case 14240:
+			itemId = 14066;
+			break;
+		case 14241:
+			itemId = 14067;
+			break;
+		case 14242:
+			itemId = 14068;
+			break;
+		case 14243:
+			itemId = 14069;
+			break;
+		case 14244:
+			itemId = 14070;
+			break;
+		case 14245:
+			itemId = 14071;
+			break;
+		case 14246:
+			itemId = 14072;
+			break;
+		case 14247:
+			itemId = 14073;
+			break;
+		case 14248:
+		case 14291:
+			itemId = 14074;
+			break;
+		case 14249:
+			itemId = 14075;
+			break;
+		case 14250:
+			itemId = 14076;
+			break;
+		case 14251:
+			itemId = 14077;
+			break;
+		case 14252:
+			itemId = 14078;
+			break;
+		case 14253:
+			itemId = 14079;
+			break;
+		case 14254:
+			itemId = 14080;
+			break;
+		case 14255:
+			itemId = 14081;
+			break;
+		case 14256:
+			itemId = 14082;
+			break;
+		case 14257:
+			itemId = 14083;
+			break;
+		case 14258:
+			itemId = 14084;
+			break;
+		case 14259:
+			itemId = 14085;
+			break;
+		case 14260:
+			itemId = 14086;
+			break;
+		case 14261:
+			itemId = 14087;
+			break;
+		case 14262:
+			itemId = 14088;
+			break;
+		case 14263:
+			itemId = 14089;
+			break;
+		case 14264:
+			itemId = 14090;
+			break;
+		case 14265:
+			itemId = 14091;
+			break;
+		case 14266:
+			itemId = 14092;
+			break;
+		case 14267:
+			itemId = 14093;
+			break;
+		case 14268:
+			itemId = 14094;
+			break;
+		case 14269:
+			itemId = 14095;
+			break;
+		case 14270:
+			itemId = 14096;
+			break;
+		case 14271:
+			itemId = 14097;
+			break;
+		case 14272:
+			itemId = 14098;
+			break;
+		case 14273:
+			itemId = 14099;
+			break;
+		case 14274:
+			itemId = 14100;
+			break;
+		case 14275:
+			itemId = 14101;
+			break;
+		case 14276:
+			itemId = 14102;
+			break;
+		case 14277:
+			itemId = 14103;
+			break;
+		case 14278:
+			itemId = 12362;
+			break;
+		case 14279:
+			itemId = 12363;
+			break;
+		case 14280:
+			itemId = 12364;
+			break;
+		case 14281:
+			itemId = 12365;
+			break;
+		case 14282:
+			itemId = 12366;
+			break;
+		case 14283:
+			itemId = 12367;
+			break;
+		case 14284:
+			itemId = 12368;
+			break;
+		case 14285:
+			itemId = 12369;
+			break;
+		case 14286:
+			itemId = 12370;
+			break;
+		case 14287:
+			itemId = 12371;
+			break;
+		case 14288:
+			itemId = 14055;
+			count = 3;
+			break;
+		case 14289:
+			itemId = 14068;
+			count = 3;
+			break;
+		case 14290:
+			itemId = 14074;
+			count = 2;
 			break;
 		default:
 			player.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);

@@ -14,37 +14,82 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * @author evill33t
+ * Sent when a player confirms Change Name Color dialog.
+ * @author savormix
  */
 public class RequestChangeNicknameColor extends L2GameClientPacket
 {
-	private static final String	_C__D0_82_REQUESTCHANGENICKNAMECOLOR	= "[C] D0 52 RequestChangeNicknameColor";
+	private static final String	_C__D0_4F_REQUESTCHANGENICKNAMECOLOR	= "[C] D0:4F RequestChangeNicknameColor";
+	public static final int COLOR_NAME_1 = 13021;
+	public static final int COLOR_NAME_2 = 13307;
+	private static final int[] COLOR_CHOICES = {
+		// colors harvested from client, do not modify
+		0x9292fc, // pink
+		0x7c49fc, // rose pink
+		0x98f8fc, // lemon yellow
+		0xfa9aee, // lilac
+		0xfc5c92, // cobalt violet
+		0x00fca0, // mint green
+		0xa2a800, // peacock green
+		0x7797ad, // yellow ochre
+		0x4a669d, // chocolate
+		0x999a9a  // silver
+	};
 
-	@SuppressWarnings("unused")
+	// Name Color
 	private int					_color;
-	@SuppressWarnings("unused")
-	private String				_player;
+	// Ennoble = fail translated entitle (see a dictionary)
+	private String				_title;
+	//private int				_unk;
 
 	@Override
 	protected void readImpl()
 	{
 		_color = readD();
-		_player = readS();
+		_title = readS();
+		/*_unk = */readD(); // 202611200 ???
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		//TODO: Implementation RequestChangeNicknameColor
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
+
+		if (!player.destroyItemByItemId("ChangeNickColor", COLOR_NAME_1, 1, player, true)
+				&& !player.destroyItemByItemId("ChangeNickColor", COLOR_NAME_2, 1, player, true))
+		{
+			sendAF();
+			return;
+		}
+
+		if (Config.TITLE_PATTERN.matcher(_title).matches())
+			player.setTitle(_title);
+		else
+			player.setTitle(""); // as in description
+		sendPacket(SystemMessageId.TITLE_CHANGED);
+
+		try
+		{
+			player.getAppearance().setNickColor(COLOR_CHOICES[_color]);
+		}
+		catch (Exception e)
+		{
+		}
+		player.broadcastUserInfo();
+
+		sendAF();
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__D0_82_REQUESTCHANGENICKNAMECOLOR;
+		return _C__D0_4F_REQUESTCHANGENICKNAMECOLOR;
 	}
 }

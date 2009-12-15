@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.BeastSpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.BirthdayCake;
 import com.l2jfree.gameserver.handler.itemhandlers.BlessedSpiritShot;
 import com.l2jfree.gameserver.handler.itemhandlers.Book;
+import com.l2jfree.gameserver.handler.itemhandlers.ColorName;
 import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
 import com.l2jfree.gameserver.handler.itemhandlers.Elixir;
 import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttr;
@@ -93,6 +94,7 @@ public final class ItemHandler
 		registerItemHandler(new BirthdayCake());
 		registerItemHandler(new BlessedSpiritShot());
 		registerItemHandler(new Book());
+		registerItemHandler(new ColorName());
 		registerItemHandler(new DoorKey());
 		registerItemHandler(new Elixir());
 		registerItemHandler(new EnchantAttr());

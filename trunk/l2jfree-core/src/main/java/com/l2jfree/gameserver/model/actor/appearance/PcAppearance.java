@@ -35,6 +35,8 @@ public class PcAppearance
 	private String _visibleTitle;
 	/** The hexadecimal Color of players name (white is 0xFFFFFF) */
 	private int _nameColor = 0xFFFFFF;
+	// No idea if this should be stored between sessions
+	private int _nickColor = -1;
 	/** The hexadecimal Color of players title (light blue is 0xFFFF77) */
 	private int _titleColor = 0xFFFF77;
 
@@ -182,7 +184,10 @@ public class PcAppearance
 
 	public int getNameColor()
 	{
-		return _nameColor;
+		if (getNickColor() == -1)
+			return _nameColor;
+		else
+			return getNickColor();
 	}
 
 	public void setNameColor(int nameColor)
@@ -237,5 +242,15 @@ public class PcAppearance
 	public void setDisplayName(boolean b)
 	{
 		_displayName = b;
+	}
+
+	public int getNickColor()
+	{
+		return _nickColor;
+	}
+
+	public void setNickColor(int color)
+	{
+		_nickColor = color;
 	}
 }

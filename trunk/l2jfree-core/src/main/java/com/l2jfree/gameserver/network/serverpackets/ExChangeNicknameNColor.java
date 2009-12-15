@@ -12,42 +12,30 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.network.clientpackets;
+package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- * @author evill33t & savormix
+ * For use with "Color name" items.
+ * @author savormix
  */
-public class RequestResetNickname extends L2GameClientPacket
+public final class ExChangeNicknameNColor extends StaticPacket
 {
-	private static final String	_C__D0_50_REQUESTRESETNICKNAME	= "[C] D0:50 RequestResetNickname";
+	private static final String _S__FE_83_EXCHANGENICKNAMENCOLOR = "[S] FE:83 ExChangeNicknameNColor";
+	public static final ExChangeNicknameNColor PACKET = new ExChangeNicknameNColor();
 
 	@Override
-	protected void readImpl()
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
-		// trigger packet
-	}
-
-	@Override
-	protected void runImpl()
-	{
-		L2PcInstance player = getActiveChar();
-		if (player == null)
-			return;
-
-		if (player.getAppearance().getNickColor() != -1)
-		{
-			player.getAppearance().setNickColor(-1);
-			player.broadcastUserInfo();
-		}
-
-		sendAF();
+		writeC(0xFE);
+		writeH(0x83);
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__D0_50_REQUESTRESETNICKNAME;
+		return _S__FE_83_EXCHANGENICKNAMENCOLOR;
 	}
 }

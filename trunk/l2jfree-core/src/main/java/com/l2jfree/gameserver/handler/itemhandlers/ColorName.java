@@ -12,42 +12,31 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.network.clientpackets;
+package com.l2jfree.gameserver.handler.itemhandlers;
 
+import com.l2jfree.gameserver.handler.IItemHandler;
+import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.clientpackets.RequestChangeNicknameColor;
+import com.l2jfree.gameserver.network.serverpackets.ExChangeNicknameNColor;
 
-/**
- * @author evill33t & savormix
- */
-public class RequestResetNickname extends L2GameClientPacket
+public class ColorName implements IItemHandler
 {
-	private static final String	_C__D0_50_REQUESTRESETNICKNAME	= "[C] D0:50 RequestResetNickname";
+	private static final int[] ITEM_IDS = {
+		RequestChangeNicknameColor.COLOR_NAME_1, RequestChangeNicknameColor.COLOR_NAME_2
+	};
 
-	@Override
-	protected void readImpl()
+	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
-		// trigger packet
-	}
-
-	@Override
-	protected void runImpl()
-	{
-		L2PcInstance player = getActiveChar();
-		if (player == null)
+		if (!(playable instanceof L2PcInstance))
 			return;
 
-		if (player.getAppearance().getNickColor() != -1)
-		{
-			player.getAppearance().setNickColor(-1);
-			player.broadcastUserInfo();
-		}
-
-		sendAF();
+		playable.sendPacket(ExChangeNicknameNColor.PACKET);
 	}
 
-	@Override
-	public String getType()
+	public int[] getItemIds()
 	{
-		return _C__D0_50_REQUESTRESETNICKNAME;
+		return ITEM_IDS;
 	}
 }

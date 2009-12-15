@@ -1,4 +1,5 @@
-<ehcache>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
   <diskStore path="java.io.tmpdir" />
   <defaultCache maxElementsInMemory="1000" eternal="false"
     timeToIdleSeconds="120" timeToLiveSeconds="120"
@@ -12,6 +13,9 @@
   <cache name="org.hibernate.cache.UpdateTimestampsCache"
     maxElementsInMemory="50" eternal="false"
     timeToLiveSeconds="120" overflowToDisk="false" />
+<!--
+1. Missing "eternal" element
+2. No such classes
   <cache
     name="com.l2jfree.gameserver.communitybbs.model.forum.Forums"
     maxElementsInMemory="50" timeToIdleSeconds="6000"
@@ -32,4 +36,5 @@
     name="com.l2jfree.gameserver.communitybbs.model.forum.Posts"
     maxElementsInMemory="300" timeToIdleSeconds="380"
     timeToLiveSeconds="380" overflowToDisk="false" />
+-->
 </ehcache>
