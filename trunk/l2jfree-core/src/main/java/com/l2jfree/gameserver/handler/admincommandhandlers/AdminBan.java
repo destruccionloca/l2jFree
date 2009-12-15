@@ -34,96 +34,125 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
  */
 public class AdminBan implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	= { "admin_ban", "admin_unban", "admin_ban_select" };
+	private static final String[]	ADMIN_COMMANDS	= {
+		"admin_ban", "admin_unban", "admin_ban_select", "admin_banbychar"
+	};
 
-	private static final String HTML_ROOT = "data/html/admin/";
-
+	@SuppressWarnings("null")
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		StringTokenizer st = new StringTokenizer(command);
-		st.nextToken();
-		String account_name = "";
-		String player = "";
-		L2PcInstance plyr = null;
+		StringTokenizer st = new StringTokenizer(command, " ");
+		command = st.nextToken();
+		String nameToBan = null;
+		if (st.hasMoreTokens())
+			nameToBan = st.nextToken().trim();
+		L2PcInstance player = null;
+		L2Object target = activeChar.getTarget();
+		if (target != null && target instanceof L2PcInstance && target != activeChar)
+			player = target.getActingPlayer();
+
+		if (nameToBan == null && player == null)
+		{
+			if (command.contains("un"))
+				activeChar.sendMessage("//unban [account name] or //unban_menu");
+			else if (command.charAt(command.length() - 1) == 't')
+				activeChar.sendMessage("//ban_select [account name]");
+			else if (command.charAt(command.length() - 1) == 'r')
+				activeChar.sendMessage("//banbychar [character name]");
+			else
+				activeChar.sendMessage("//ban [account name] [access level] or //ban_menu");
+			activeChar.sendMessage("Or just target a player.");
+			return false;
+		}
+		if (nameToBan != null && nameToBan.isEmpty())
+		{
+			activeChar.sendPacket(SystemMessageId.INCORRECT_NAME_TRY_AGAIN);
+			return false;
+		}
 
 		if (command.startsWith(ADMIN_COMMANDS[0]))
 		{
-			if (command.startsWith(ADMIN_COMMANDS[2]))
+			if (command.charAt(command.length() - 1) == 't')
 			{
-				String accountOrOnlineChar;
-				if (!st.hasMoreTokens() ||
-						(accountOrOnlineChar = st.nextToken().trim()).length() == 0) {
-					activeChar.sendPacket(SystemMessageId.INCORRECT_NAME_TRY_AGAIN);
-					return false;
-				}
-				NpcHtmlMessage html = new NpcHtmlMessage(1);
-				html.setFile(HTML_ROOT + "BanMenu.html");
-				html.replace("%account%", accountOrOnlineChar);
-				activeChar.sendPacket(html); html = null;
-				return true;
-			}
-			int aLvl = -100;
-			try
-			{
-				player = st.nextToken();
-				if (st.hasMoreTokens()) {
-					aLvl = Integer.parseInt(st.nextToken());
-					//prevent abuse
-					if (aLvl > 0)
-						aLvl *= -1;
-					else if (aLvl == 0)
-						aLvl = -100;
-				}
-				plyr = L2World.getInstance().getPlayer(player);
-			}
-			catch(NumberFormatException nfe) { activeChar.sendMessage("Wrong accesslevel specified!"); }
-			catch (Exception e)
-			{
-				L2Object target = activeChar.getTarget();
-				if (target != null && target instanceof L2PcInstance)
-					plyr = (L2PcInstance) target;
+				if (nameToBan != null)
+					sendBanSelect(activeChar, nameToBan);
 				else
-					activeChar.sendMessage("Usage: //ban [account_name] (if none, target char's account gets banned) [accesslevel]");
+					sendBanSelect(activeChar, player.getAccountName());
 			}
-			if (plyr != null && plyr == activeChar)
+			else if (command.charAt(command.length() - 1) == 'r')
 			{
-				plyr.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
-			}
-			else if (plyr == null)
-			{
-				account_name = player;
-				LoginServerThread.getInstance().sendAccessLevel(account_name, aLvl);
-				activeChar.sendMessage("Ban request sent for account " + account_name + ". If you need a playername based commmand, see //ban_menu");
+				if (nameToBan != null)
+				{
+					player = L2World.getInstance().getPlayer(nameToBan);
+					if (player == null)
+					{
+						activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+						return false;
+					}
+				}
+				sendBanSelect(activeChar, player.getAccountName());
 			}
 			else
 			{
-				plyr.setAccountAccesslevel(aLvl);
-				account_name = plyr.getAccountName();
+				if (!st.hasMoreTokens())
+				{	// missing level, so send a level selection page
+					if (nameToBan != null)
+						sendBanSelect(activeChar, nameToBan);
+					else
+						sendBanSelect(activeChar, player.getAccountName());
+					return true;
+				}
+
+				int level;
 				try
 				{
-					new Disconnection(plyr).defaultSequence(false);
+					level = Integer.parseInt(st.nextToken());
+					if (level > 0)
+						level *= -1;
+					else if (level == 0)
+						level = -100;
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
+					activeChar.sendPacket(SystemMessageId.INCORRECT_SYNTAX);
+					return false;
 				}
-				activeChar.sendMessage("Account " + account_name + " banned.");
+
+				if (player != null && nameToBan.equalsIgnoreCase(player.getAccountName()))
+				{
+					player.setAccountAccesslevel(level);
+					activeChar.sendMessage("Account " + player.getAccountName() + " banned.");
+					try
+					{
+						new Disconnection(player).defaultSequence(false);
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				else
+				{
+					LoginServerThread.getInstance().sendAccessLevel(nameToBan, level);
+					activeChar.sendMessage("Ban for account " + nameToBan + " requested.");
+				}
 			}
 		}
-		else if (command.startsWith(ADMIN_COMMANDS[1]))
+		else
 		{
-			try
-			{
-				account_name = st.nextToken();
-				LoginServerThread.getInstance().sendAccessLevel(account_name, 0);
-				activeChar.sendMessage("Unban request sent for account " + account_name + ". If you need a playername based commmand, see //unban_menu");
-			}
-			catch (Exception e)
-			{
-				activeChar.sendMessage("Usage: //unban <account_name>");
-			}
+			if (nameToBan == null)
+				nameToBan = player.getAccountName();
+			LoginServerThread.getInstance().sendAccessLevel(nameToBan, 0);
+			activeChar.sendMessage("Unban for account " + nameToBan + " requested.");
 		}
 		return true;
+	}
+
+	private void sendBanSelect(L2PcInstance gm, String account)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(gm.getObjectId());
+		html.setFile("data/html/admin/ban_selection.htm");
+		html.replace("%account%", account);
+		gm.sendPacket(html);
 	}
 
 	public String[] getAdminCommandList()

@@ -27,7 +27,6 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -39,7 +38,6 @@ import com.l2jfree.gameserver.util.Util;
 public class Say2 extends L2GameClientPacket
 {
 	private static final String		_C__38_SAY2	= "[C] 38 Say2";
-
 	private static final Log		_logChat	= LogFactory.getLog("chat");
 
 	private String					_text;
@@ -75,22 +73,17 @@ public class Say2 extends L2GameClientPacket
 		case Chat_Critical_Announce:
 		case Chat_System:
 		case Chat_Custom:
-		{
 			if (Config.BAN_CLIENT_EMULATORS)
 				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with wrong type by " + activeChar);
 			else
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendAF();
 			return;
 		}
-			// seems client sends this if typing '*'
-			//case Chat_GM_Pet:
-			//{
-			//	if (!activeChar.isGM())
-			//	{
-			//		sendPacket(ActionFailed.STATIC_PACKET);
-			//		return;
-			//	}
-			//}
+
+		if (Config.DISABLE_ALL_CHAT)
+		{
+			requestFailed(SystemMessageId.GM_NOTICE_CHAT_DISABLED);
+			return;
 		}
 
 		switch (_type)
@@ -100,14 +93,12 @@ public class Say2 extends L2GameClientPacket
 		case Chat_Tell:
 			break;
 		default:
-		{
 			// If player is chat banned
 			if (ObjectRestrictions.getInstance().checkRestriction(activeChar, AvailableRestriction.PlayerChat))
 			{
 				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
 				return;
 			}
-		}
 		}
 
 		if (activeChar.isCursedWeaponEquipped())
@@ -128,14 +119,12 @@ public class Say2 extends L2GameClientPacket
 		case Chat_Normal:
 			break;
 		default:
-		{
 			// If player is jailed
 			if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
 			{
 				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
 				return;
 			}
-		}
 		}
 
 		// If Petition and GM use GM_Petition Channel
@@ -147,13 +136,11 @@ public class Say2 extends L2GameClientPacket
 		case Chat_Normal:
 		case Chat_Shout:
 		case Chat_Market:
-		{
 			if (!Config.GM_ALLOW_CHAT_INVISIBLE && activeChar.getAppearance().isInvisible())
 			{
 				requestFailed(SystemMessageId.NOT_CHAT_WHILE_INVISIBLE);
 				return;
 			}
-		}
 		}
 
 		if (_text.isEmpty())
@@ -161,12 +148,12 @@ public class Say2 extends L2GameClientPacket
 			if (Config.BAN_CLIENT_EMULATORS)
 				Util.handleIllegalPlayerAction(activeChar, "Bot usage for chatting with empty messages by " + activeChar);
 			else
-				sendPacket(ActionFailed.STATIC_PACKET);
-			
+				sendAF();
+
 			_log.warn(activeChar.getName() + ": sending empty text. Possible packet hack!");
 			return;
 		}
-		
+
 		//Under no circumstances the official client will send a 400 character message
 		//If there are no linked items in the message, you can only input 105 characters
 		if (_text.length() > 400 || (_text.length() > 105 && !containsLinkedItems()))

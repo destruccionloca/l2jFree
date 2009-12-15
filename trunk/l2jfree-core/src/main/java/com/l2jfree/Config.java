@@ -129,6 +129,8 @@ public class Config extends L2Config
 	public static boolean		PACKET_FINAL;
 	public static boolean		NEW_LOGIN_PROTOCOL;
 	public static boolean		L2JFREE_LOGIN;
+	// not to be loaded from file
+	public static boolean		DISABLE_ALL_CHAT					= false;
 
 	// *******************************************************************************************
 	public static void loadConfiguration()
