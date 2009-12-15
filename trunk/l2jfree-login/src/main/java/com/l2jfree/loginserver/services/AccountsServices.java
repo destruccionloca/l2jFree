@@ -24,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
-import com.l2jfree.Config;
 import com.l2jfree.loginserver.beans.Accounts;
 import com.l2jfree.loginserver.dao.AccountsDAO;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
@@ -233,10 +232,8 @@ public class AccountsServices
 		}
 		catch (ObjectRetrievalFailureException e)
 		{
-			if (Config.AUTO_CREATE_ACCOUNTS)
-				_log.info("The account [" + id + "] was not found in account table.");
-			else
-				_log.warn("The account [" + id + "] was not found in account table.", e);
+			if (_log.isDebugEnabled())
+				_log.debug("Account not found in database: " + id, e);
 			return null;
 		}
 		catch (Exception e)

@@ -652,7 +652,7 @@ public class LoginManager
 				_service.addOrUpdateAccount(acc);
 
 				_logLogin.info("Account created: " + user);
-
+				_log.info("An account was newly created: " + user);
 				Status.tryBroadcast("Account created for player " + user);
 
 				return true;
