@@ -9697,6 +9697,7 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1', `sella
 UPDATE `etcitem` SET `time` = 1440, `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false', `handler` = 'BirthdayCake' WHERE `item_id` = 20320;
 
 UPDATE `etcitem` SET `skills_item` = '2592-1', `handler` = 'ItemSkills' WHERE `item_id` = '13033'; -- Quick Healing Potion
+UPDATE `etcitem` SET `skills_item` = '2403-1', `handler` = 'ItemSkills' WHERE `item_id` = '10166'; -- Spring CP Potion
 
 -- Fix seed price (Psycho)
 UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10171';
@@ -9736,3 +9737,7 @@ UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = '
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13325 AND 13340;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14053 AND 14060;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14065 AND 14103;
+
+-- Cocktails
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22056-1;22057-1;22058-1;22059-1;22060-1;22061-1;22064-1;22065-1' WHERE `item_id` = 10178;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22062-1;22063-1;22065-1;22066-1;22067-1;22068-1;22069-1;22070-1' WHERE `item_id` = 10179;
