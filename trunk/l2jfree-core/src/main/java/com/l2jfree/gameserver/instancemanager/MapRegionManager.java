@@ -315,7 +315,7 @@ public final class MapRegionManager
 				if (inst != null)
 				{
 					int[] coord = inst.getSpawnLoc();
-					if (coord[0] != 0 && coord[1] != 0 && coord[2] != 0)
+					if (coord != null && coord[0] != 0 && coord[1] != 0 && coord[2] != 0)
 						return new Location(coord[0], coord[1], coord[2]);
 				}
 			}

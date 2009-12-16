@@ -45,7 +45,7 @@ public class WrappedPack implements IItemHandler
 		14245, 14246, 14247, 14248, 14249, 14250, 14251, 14252, 14253, 14254, 14255, 14256,
 		14257, 14258, 14259, 14260, 14261, 14262, 14263, 14264, 14265, 14266, 14267, 14268,
 		14269, 14270, 14271, 14272, 14273, 14274, 14275, 14276, 14277, 14278, 14279, 14280,
-		14281, 14282, 14283, 14284, 14285, 14286, 14287, 14288, 14289, 14290, 14291
+		14281, 14282, 14283, 14284, 14285, 14286, 14287, 14288, 14289, 14290, 14291, 14530
 	};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
@@ -574,6 +574,13 @@ public class WrappedPack implements IItemHandler
 		case 14290:
 			itemId = 14074;
 			count = 2;
+			break;
+		case 14530:
+			player.addItem(LOG_PROCESS, 13022, count, item, true);
+			player.addItem(LOG_PROCESS, 12790, count, item, true);
+			itemId = Die.FEATHER_OF_BLESSING_1;
+			count = 3;
+			player.addItem(LOG_PROCESS, 13273, count, item, true);
 			break;
 		default:
 			player.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);

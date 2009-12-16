@@ -14616,6 +14616,18 @@ public enum SystemMessageId
 	CLOAK_REMOVED_BECAUSE_ARMOR_SET_REMOVED(2451),
 
 	/**
+	 * ID: 2452<BR>
+	 * Console Message: The inventory is full, so it cannot be equipped or removed on the belt.
+	 */
+	INVENTORY_FULL_CANNOT_EQUIP_OR_REMOVE_PIN(2452),
+
+	/**
+	 * ID: 2453<BR>
+	 * Console Message: The cloak cannot be equipped because a necessary item is not equipped.
+	 */
+	CANNOT_EQUIP_CLOAK_WITHOUT_NECESSARY_ITEM(2453),
+
+	/**
 	 * ID: 2465<br>
 	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you wish to participate?
 	 */
