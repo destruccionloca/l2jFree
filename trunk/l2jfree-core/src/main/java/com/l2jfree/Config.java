@@ -1682,6 +1682,7 @@ public class Config extends L2Config
 	public static boolean				ALT_SHOW_FULL_HENNA_LIST;
 	public static boolean				ALT_SHOW_RESTART_TOWN;
 	public static boolean				ALT_AUTO_FISHING_SHOT;
+	public static boolean				ALT_ENABLE_DIMENSIONAL_MERCHANTS;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1928,6 +1929,7 @@ public class Config extends L2Config
 			ALT_SHOW_FULL_HENNA_LIST = Boolean.parseBoolean(altSettings.getProperty("AltShowFullHennaList", "false"));
 			ALT_SHOW_RESTART_TOWN = Boolean.parseBoolean(altSettings.getProperty("AltShowRestartTown", "false"));
 			ALT_AUTO_FISHING_SHOT = Boolean.parseBoolean(altSettings.getProperty("AltAllowAutoFishShot", "false"));
+			ALT_ENABLE_DIMENSIONAL_MERCHANTS = Boolean.parseBoolean(altSettings.getProperty("AltEnableDimensionalMerchants", "false"));
 		}
 	}
 
