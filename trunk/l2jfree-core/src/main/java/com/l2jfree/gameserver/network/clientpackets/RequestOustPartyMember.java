@@ -15,12 +15,8 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestOustPartyMember extends L2GameClientPacket
 {
 	private static final String _C__2C_REQUESTOUSTPARTYMEMBER = "[C] 2C RequestOustPartyMember";
@@ -43,10 +39,12 @@ public class RequestOustPartyMember extends L2GameClientPacket
 		if (activeChar.isInParty() && activeChar.getParty().isLeader(activeChar))
 		{
 			if (activeChar.getParty().isInDimensionalRift() && !activeChar.getParty().getDimensionalRift().getRevivedAtWaitingRoom().contains(activeChar))
-				activeChar.sendMessage("You can't dismiss party members when you are in Dimensional Rift.");
+				sendPacket(SystemMessageId.COULD_NOT_OUST_FROM_PARTY);
 			else
 				activeChar.getParty().removePartyMember(_name, true);
 		}
+
+		sendAF();
 	}
 	
 	@Override

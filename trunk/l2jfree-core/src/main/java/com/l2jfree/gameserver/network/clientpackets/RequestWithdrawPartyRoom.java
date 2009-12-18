@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Format (ch) dd
@@ -48,8 +49,7 @@ public class RequestWithdrawPartyRoom extends L2GameClientPacket
 		L2Party party = activeChar.getParty();
 		if (party != null && party.isInDimensionalRift() && !party.getDimensionalRift().getRevivedAtWaitingRoom().contains(activeChar))
 		{
-			activeChar.sendMessage("You can't exit party when you are in Dimensional Rift.");
-			sendAF();
+			requestFailed(SystemMessageId.COULD_NOT_LEAVE_PARTY);
 			return;
 		}
 

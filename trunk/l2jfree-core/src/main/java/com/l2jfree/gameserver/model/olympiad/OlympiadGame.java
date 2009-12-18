@@ -1027,8 +1027,7 @@ class OlympiadGameTask implements Runnable
 				if (player != null)
 					player.sendPacket(sm);
 				if (otherPlayer != null)
-					otherPlayer.sendPacket(new SystemMessage(
-							SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME));
+					otherPlayer.sendPacket(SystemMessageId.THE_GAME_CANCELLED_DUE_TO_OPPONENT);
 				if (i == 0)
 					_game._playerOneDefaulted = true;
 				else

@@ -25,24 +25,25 @@ public final class SummonStatus extends CharStatus
 	{
 		super(activeChar);
 	}
-	
+
 	@Override
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
 		super.reduceHp0(value, attacker, awake, isDOT, isConsume);
-		
+
 		if (getActiveChar().getOwner() != null)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_C1);
-			sm.addCharName(attacker);
-			sm.addNumber((int)value);
-			getActiveChar().getOwner().sendPacket(sm);
+			SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_C2);
+			smsg.addCharName(getActiveChar());
+			smsg.addCharName(attacker);
+			smsg.addNumber((int) value);
+			getActiveChar().getOwner().sendPacket(smsg);
 		}
 	}
-	
+
 	@Override
 	public L2SummonInstance getActiveChar()
 	{
-		return (L2SummonInstance)_activeChar;
+		return (L2SummonInstance) _activeChar;
 	}
 }

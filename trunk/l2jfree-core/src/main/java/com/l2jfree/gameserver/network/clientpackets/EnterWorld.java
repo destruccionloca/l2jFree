@@ -24,7 +24,6 @@ import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateO
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
-import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CrownManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
@@ -42,7 +41,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
@@ -414,15 +412,19 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
 			sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
-
+/*
 		if (activeChar.getClan() != null)
 		{
 			// Add message if clanHall not paid. Possibly this is custom...
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
 			if (clanHall != null && !clanHall.getPaid())
-				sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW);
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.MAKE_CLAN_HALL_PAYMENT_BY_S1_TOMORROW);
+				sm.addNumber(???);
+				sendPacket(sm);
+			}
 		}
-
+*/
 		//Sets the appropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
 		activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
 

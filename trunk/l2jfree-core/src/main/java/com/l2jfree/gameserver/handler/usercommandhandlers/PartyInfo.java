@@ -37,9 +37,10 @@ public class PartyInfo implements IUserCommandHandler
 		if (id != COMMAND_IDS[0])
 			return false;
 
+		activeChar.sendPacket(SystemMessageId.PARTY_INFORMATION);
 		if (!activeChar.isInParty())
 		{
-			activeChar.sendMessage("You are not in a party.");
+			activeChar.sendPacket(SystemMessageId.WAR_LIST);
 			return false;
 		}
 
@@ -47,8 +48,6 @@ public class PartyInfo implements IUserCommandHandler
 		int memberCount = playerParty.getMemberCount();
 		int lootDistribution = playerParty.getLootDistribution();
 		String partyLeader = playerParty.getPartyMembers().get(0).getName();
-
-		activeChar.sendPacket(SystemMessageId.PARTY_INFORMATION);
 
 		switch (lootDistribution)
 		{

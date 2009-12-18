@@ -71,7 +71,7 @@ public class RequestPetition extends L2GameClientPacket
 
 		if (PetitionManager.getInstance().getPendingPetitionCount() == Config.MAX_PETITIONS_PENDING)
 		{
-			activeChar.sendPacket(SystemMessageId.PETITION_SYSTEM_CURRENT_UNAVAILABLE);
+			activeChar.sendPacket(SystemMessageId.PETITION_UNAVAILABLE);
 			return;
 		}
 

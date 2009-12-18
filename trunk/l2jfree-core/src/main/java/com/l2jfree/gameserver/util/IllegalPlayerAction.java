@@ -48,13 +48,13 @@ public final class IllegalPlayerAction implements Runnable
 		switch (punishment)
 		{
 		case PUNISH_KICK:
-			_actor.sendPacket(SystemMessageId.YOU_HAVE_BEEN_DISCONNECTED);
+			_actor.sendPacket(SystemMessageId.DISCONNECTED_AS_ILLEGAL_USER);
 			break;
 		case PUNISH_KICKBAN:
 			_actor.sendPacket(SystemMessageId.ACCOUNT_SUSPENDED);
 			break;
 		case PUNISH_JAIL:
-			_actor.sendPacket(SystemMessageId.FROZEN_CONDITION_STARTED);
+			_actor.sendPacket(SystemMessageId.BLOCKED_DUE_TO_3RD_PARTY_PROGRAM);
 			break;
 		}
 	}
@@ -69,7 +69,7 @@ public final class IllegalPlayerAction implements Runnable
 		{
 		case PUNISH_BROADCAST:
 			return;
-			
+
 		case PUNISH_KICKBAN:
 			_actor.setAccountAccesslevel(-100);
 			//$FALL-THROUGH$
@@ -78,11 +78,11 @@ public final class IllegalPlayerAction implements Runnable
 			break;
 		case PUNISH_JAIL:
 			long duration = Config.DEFAULT_PUNISH_PARAM * 60000;
-			
+
 			if (_actor.isInJail())
 				duration = Math.max(duration, _actor.getJailTimer());
-			
-			_actor.setInJail(true, (int)Math.ceil(duration / 60000.0));
+
+			_actor.setInJail(true, (int) Math.ceil(duration / 60000.0));
 			break;
 		}
 	}

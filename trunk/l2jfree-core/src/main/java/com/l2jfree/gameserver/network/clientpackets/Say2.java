@@ -122,7 +122,7 @@ public class Say2 extends L2GameClientPacket
 			// If player is jailed
 			if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
 			{
-				requestFailed(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED);
+				requestFailed(SystemMessageId.REPORTED_CHAT_NOT_ALLOWED);
 				return;
 			}
 		}

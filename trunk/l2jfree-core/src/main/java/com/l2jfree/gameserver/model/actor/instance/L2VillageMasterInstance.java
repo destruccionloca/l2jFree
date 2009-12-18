@@ -1086,13 +1086,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	private static final void assignSubPledgeLeader(L2PcInstance player, String clanName, String leaderName)
 	{
 		final L2Clan clan = player.getClan();
-		if (clan == null)
-		{
-			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
-			return;
-		}
-		
-		if (!player.isClanLeader())
+		if (clan == null || !player.isClanLeader())
 		{
 			player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
@@ -1100,7 +1094,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 		if (leaderName.length() > 16)
 		{
-			player.sendPacket(SystemMessageId.NAMING_CHARNAME_UP_TO_16CHARS);
+			player.sendPacket(SystemMessageId.INCORRECT_CHARACTER_NAME_TRY_AGAIN);
 			return;
 		}
 
@@ -1111,13 +1105,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		}
 
 		final SubPledge subPledge = player.getClan().getSubPledge(clanName);
-
-		if (null == subPledge)
-		{
-			player.sendPacket(SystemMessageId.CLAN_NAME_INCORRECT);
-			return;
-		}
-		if (subPledge.getId() == L2Clan.SUBUNIT_ACADEMY)
+		if (subPledge == null || subPledge.getId() == L2Clan.SUBUNIT_ACADEMY)
 		{
 			player.sendPacket(SystemMessageId.CLAN_NAME_INCORRECT);
 			return;
@@ -1171,7 +1159,6 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		sm.addString(leaderName);
 		sm.addString(clanName);
 		clan.broadcastToOnlineMembers(sm);
-		sm = null;
 	}
 	
 	/*

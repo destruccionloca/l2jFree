@@ -104,6 +104,7 @@ import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
+import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.instancemanager.PetitionManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
@@ -299,6 +300,7 @@ public class GameServer extends Config
 			fort.getSpawnManager().initNpcs();
 		for (CCHSiege siege : CCHManager.getInstance().getSieges())
 			siege.correctSiegeDateTime();
+		PartyRoomManager.getInstance();
 		Util.printSection("Quests");
 		QuestManager.getInstance();
 		TransformationManager.getInstance();

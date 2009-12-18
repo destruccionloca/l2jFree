@@ -20,10 +20,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javolution.util.FastList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.IAcceptFilter;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.lang.L2System;
@@ -150,7 +153,10 @@ public final class IOFloodManager implements IAcceptFilter
 	{
 		// TODO: we don't know the account yet, so it must be mapped by host address,
 		// BUT a lot of players could have the same, so it's complicated
-		return true;
+		if (!Config.CONNECTION_FILTERING)
+			return true;
+
+		return _legalConnections.remove(socketChannel.socket().getInetAddress().getHostAddress());
 	}
 	
 	private static final class FloodManager
@@ -297,5 +303,12 @@ public final class IOFloodManager implements IAcceptFilter
 				return Result.ACCEPTED;
 			}
 		}
+	}
+
+	public static final FastList<String> _legalConnections = new FastList<String>();
+
+	public static final void legalize(String ip)
+	{
+		_legalConnections.add(ip);
 	}
 }

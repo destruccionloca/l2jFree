@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * Sent when a player selects a party room member and clicks the
@@ -54,8 +55,7 @@ public class RequestOustFromPartyRoom extends L2GameClientPacket
 		L2Party party = target.getParty();
 		if (party != null && party.isInDimensionalRift() && !party.getDimensionalRift().getRevivedAtWaitingRoom().contains(activeChar))
 		{
-			activeChar.sendMessage("You can't dismiss party members when you are in Dimensional Rift.");
-			sendAF();
+			requestFailed(SystemMessageId.COULD_NOT_OUST_FROM_PARTY);
 			return;
 		}
 

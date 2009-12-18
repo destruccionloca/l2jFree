@@ -95,7 +95,7 @@ public class Duel
 			// increase countdown so that start task can teleport players
 			_countdown++;
 			// inform players that they will be portet shortly
-			SystemMessage sm = SystemMessageId.IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE.getSystemMessage();
+			SystemMessage sm = SystemMessageId.YOU_WILL_BE_TRANSPORTED_WHERE_THE_DUEL_WILL_TAKE_PLACE.getSystemMessage();
 			broadcastToTeam1(sm);
 			broadcastToTeam2(sm);
 		}

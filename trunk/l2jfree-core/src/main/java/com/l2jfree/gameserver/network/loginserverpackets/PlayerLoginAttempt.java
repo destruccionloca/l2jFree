@@ -12,26 +12,27 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.handler.usercommandhandlers;
+package com.l2jfree.gameserver.network.loginserverpackets;
 
-import com.l2jfree.gameserver.handler.IUserCommandHandler;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-
-public class FatigueTime implements IUserCommandHandler
+public class PlayerLoginAttempt extends LoginServerBasePacket
 {
-	private static final int[] COMMAND_IDS = { 102 };
+	private final String _ip;
 
-	public boolean useUserCommand(int id, L2PcInstance activeChar)
+	/**
+	 * @param protocol
+	 * @param decrypt
+	 */
+	public PlayerLoginAttempt(int protocol, byte[] decrypt)
 	{
-		// Fatigue system is not used in NA
-		// Until something is known, use the retail answer
-		activeChar.sendPacket(SystemMessageId.FATIGUE_TIME_NONE);
-		return true;
+		super(protocol, decrypt);
+		_ip = readS();
 	}
 
-	public int[] getUserCommandList()
+	/**
+	 * @return Returns the IP address.
+	 */
+	public String getIP()
 	{
-		return COMMAND_IDS;
+		return _ip;
 	}
 }

@@ -70,7 +70,7 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 		}
 		else
 		{
-			requestor.sendPacket(SystemMessageId.PLAYER_DECLINED);
+			requestor.sendPacket(SystemMessageId.PLAYER_DECLINED_PARTY);
 
 			L2Party party = requestor.getParty();
 			//activate garbage collection if there are no other members in party (happens when we were creating a new one)

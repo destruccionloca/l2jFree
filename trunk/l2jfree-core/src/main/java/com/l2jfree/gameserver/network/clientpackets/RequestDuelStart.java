@@ -86,7 +86,7 @@ public final class RequestDuelStart extends L2GameClientPacket
 			// Target must be in a party
 			else if (!targetChar.isInParty())
 			{
-				requestFailed(SystemMessageId.SINCE_THE_PERSON_YOU_CHALLENGED_IS_NOT_CURRENTLY_IN_A_PARTY_THEY_CANNOT_DUEL_AGAINST_YOUR_PARTY);
+				requestFailed(SystemMessageId.CHALLENGED_PLAYER_NOT_IN_PARTY_CANNOT_PARTY_DUEL);
 				return;
 			}
 			// Target may not be of the same party

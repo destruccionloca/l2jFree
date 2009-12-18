@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.gameserverpackets.AuthRequest;
 import com.l2jfree.gameserver.network.gameserverpackets.BlowFishKey;
@@ -44,6 +45,7 @@ import com.l2jfree.gameserver.network.loginserverpackets.InitLS;
 import com.l2jfree.gameserver.network.loginserverpackets.KickPlayer;
 import com.l2jfree.gameserver.network.loginserverpackets.LoginServerFail;
 import com.l2jfree.gameserver.network.loginserverpackets.PlayerAuthResponse;
+import com.l2jfree.gameserver.network.loginserverpackets.PlayerLoginAttempt;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.network.serverpackets.LoginFail;
 import com.l2jfree.tools.security.NewCrypt;
@@ -56,7 +58,8 @@ public final class CrossLoginServerThread extends LoginServerThread
 {
 	public static final int	PROTOCOL_L2J		= 258;
 	public static final int	PROTOCOL_LEGACY		= 259;
-	public static final int	PROTOCOL_CURRENT	= 1;
+	// protocol 1 does not support connection filtering
+	public static final int	PROTOCOL_CURRENT	= 2;
 
 	private int				_protocol;
 
@@ -133,7 +136,7 @@ public final class CrossLoginServerThread extends LoginServerThread
 					int packetType = decrypt[0] & 0xff;
 					switch (packetType)
 					{
-					case 00:
+					case 00: // 0x00
 						InitLS init = new InitLS(decrypt);
 						if (_log.isDebugEnabled())
 							_log.debug("Init received");
@@ -150,8 +153,13 @@ public final class CrossLoginServerThread extends LoginServerThread
 							sendPacket(new CompatibleProtocol());
 						}
 						else
+						{
 							// Default compatibility login
 							_protocol = init.getRevision();
+							// not supported
+							Config.CONNECTION_FILTERING = false;
+						}
+
 						try
 						{
 							KeyFactory kfac = KeyFactory.getInstance("RSA");
@@ -161,7 +169,6 @@ public final class CrossLoginServerThread extends LoginServerThread
 							if (_log.isDebugEnabled())
 								_log.debug("RSA key set up");
 						}
-
 						catch (GeneralSecurityException e)
 						{
 							_log.warn("Troubles while init the public key send by login");
@@ -182,12 +189,12 @@ public final class CrossLoginServerThread extends LoginServerThread
 						if (_log.isDebugEnabled())
 							_log.debug("Sent AuthRequest to login");
 						break;
-					case 01:
+					case 01: // 0x01
 						LoginServerFail lsf = new LoginServerFail(decrypt);
 						_log.info("Damn! Registration Failed: " + lsf.getReasonString());
 						// login will close the connection here
 						break;
-					case 02:
+					case 02: // 0x02
 						AuthResponse aresp = new AuthResponse(CrossLoginServerThread.PROTOCOL_LEGACY, decrypt);
 						_serverID = aresp.getServerId();
 						_serverName = aresp.getServerName();
@@ -221,7 +228,7 @@ public final class CrossLoginServerThread extends LoginServerThread
 							sendPacket(new PlayerInGame(_protocol, playerList.toArray(new String[playerList.size()])));
 						}
 						break;
-					case 03:
+					case 03: // 0x03
 						PlayerAuthResponse par = new PlayerAuthResponse(_protocol, decrypt);
 						String account = par.getAccount();
 						WaitingClient wcToRemove = null;
@@ -255,9 +262,13 @@ public final class CrossLoginServerThread extends LoginServerThread
 							_waitingClients.remove(wcToRemove);
 						}
 						break;
-					case 04:
+					case 04: // 0x04
 						KickPlayer kp = new KickPlayer(_protocol, decrypt);
 						doKickPlayer(kp.getAccount());
+						break;
+					case 020: // 0x10
+						PlayerLoginAttempt pla = new PlayerLoginAttempt(_protocol, decrypt);
+						IOFloodManager.legalize(pla.getIP());
 						break;
 					}
 				}

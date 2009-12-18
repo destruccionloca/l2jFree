@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExRpItemLink;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
@@ -44,7 +43,8 @@ public class RequestExRqItemLink extends L2GameClientPacket
     protected void runImpl()
     {
     	L2PcInstance player = getClient().getActiveChar();
-    	if (player == null) return;
+    	if (player == null)
+    		return;
 
         L2Object object = L2World.getInstance().findObject(_objectId);
         if (object instanceof L2ItemInstance)
@@ -53,7 +53,7 @@ public class RequestExRqItemLink extends L2GameClientPacket
         	Util.handleIllegalPlayerAction(player, "Fake item link packet! " + player,
 					IllegalPlayerAction.PUNISH_KICKBAN);
 
-        sendPacket(ActionFailed.STATIC_PACKET);
+        sendAF();
     }
 
     @Override

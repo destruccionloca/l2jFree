@@ -33,6 +33,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.util.HexUtil;
 
 /**
@@ -267,8 +268,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					// Deprecated - RequestActionUse
 					case 0x35:
 						//	msg = new ChangeMoveType2();
-						break;
+						//break;
 					case 0x36:
+						Util.handleIllegalPlayerAction(client.getActiveChar(), "Sent a deprecated packet!");
 						//	msg = new ChangeWaitType2();
 						break;
 					//
@@ -961,5 +963,11 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		}
 		
 		return getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient)key.attachment());
+	}
+
+	@Override
+	public int cleanse(L2GameClient newCon)
+	{
+		return 0;
 	}
 }

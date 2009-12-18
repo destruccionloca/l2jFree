@@ -41,7 +41,7 @@ public final class RequestRestart extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		if (!activeChar.canLogout())
+		if (!activeChar.canLogout() || activeChar.isIllegalWaiting())
 		{
 			sendAF();
 			return;

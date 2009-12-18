@@ -150,7 +150,7 @@ public final class PcStatus extends CharStatus
 			SystemMessage smsg = new SystemMessage(SystemMessageId.C1_RECEIVED_DAMAGE_OF_S3_FROM_C2);
 			smsg.addPcName(getActiveChar());
 			smsg.addCharName(attacker);
-			smsg.addNumber((int)realValue);
+			smsg.addNumber((int) realValue);
 			getActiveChar().sendPacket(smsg);
 		}
 		

@@ -662,4 +662,13 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 		if (_log.isDebugEnabled())
 			_log.info("Client " + toString() + " disconnected abnormally.");
 	}
+
+	/* (non-Javadoc)
+	 * @see org.mmocore.network.MMOConnection#isLossless()
+	 */
+	@Override
+	public final boolean isLossless()
+	{
+		return false;
+	}
 }

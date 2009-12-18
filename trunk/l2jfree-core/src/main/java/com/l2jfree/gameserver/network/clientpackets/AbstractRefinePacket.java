@@ -307,7 +307,7 @@ public abstract class AbstractRefinePacket extends L2GameClientPacket
 	{
 		if (player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE)
 		{
-			player.sendPacket(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION);
+			player.sendPacket(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_IN_PRIVATE_STORE);
 			return false;
 		}
 		if (player.getActiveTradeList() != null)

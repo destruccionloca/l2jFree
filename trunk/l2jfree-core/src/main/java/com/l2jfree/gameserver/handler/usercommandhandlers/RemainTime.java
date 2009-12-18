@@ -14,19 +14,24 @@
  */
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-public class FatigueTime implements IUserCommandHandler
+public class RemainTime implements IUserCommandHandler
 {
-	private static final int[] COMMAND_IDS = { 102 };
+	private static final int[]	COMMAND_IDS	= {
+		53
+	};
 
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		// Fatigue system is not used in NA
-		// Until something is known, use the retail answer
-		activeChar.sendPacket(SystemMessageId.FATIGUE_TIME_NONE);
+		if (Config.SERVER_LIST_CLOCK)
+			// we do not support limited time/week servers
+			activeChar.sendPacket(SystemMessageId.WEEKS_USAGE_TIME_FINISHED);
+		else // verified
+			activeChar.sendPacket(SystemMessageId.RELAX_SERVER_ONLY);
 		return true;
 	}
 

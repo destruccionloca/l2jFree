@@ -109,6 +109,7 @@ public final class Util
 	
 	public static void handleIllegalPlayerAction(L2PcInstance actor, String message, int punishment)
 	{
+		actor.setIllegalWaiting(true);
 		ThreadPoolManager.getInstance().scheduleGeneral(new IllegalPlayerAction(actor, message, punishment), 5000);
 	}
 	

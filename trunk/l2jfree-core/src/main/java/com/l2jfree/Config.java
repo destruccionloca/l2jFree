@@ -129,6 +129,7 @@ public class Config extends L2Config
 	public static boolean		PACKET_FINAL;
 	public static boolean		NEW_LOGIN_PROTOCOL;
 	public static boolean		L2JFREE_LOGIN;
+	public static boolean		CONNECTION_FILTERING;
 	// not to be loaded from file
 	public static boolean		DISABLE_ALL_CHAT					= false;
 
@@ -216,6 +217,7 @@ public class Config extends L2Config
 			PACKET_FINAL = Boolean.parseBoolean(serverSettings.getProperty("PacketFinal", "True"));
 			NEW_LOGIN_PROTOCOL = Boolean.parseBoolean(serverSettings.getProperty("NewLoginServerHandler", "True"));
 			L2JFREE_LOGIN = Boolean.parseBoolean(serverSettings.getProperty("L2jfreeLogin", "True"));
+			CONNECTION_FILTERING = Boolean.parseBoolean(serverSettings.getProperty("ConnectionFiltering", "True"));
 
 			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "OFF"));
 		}

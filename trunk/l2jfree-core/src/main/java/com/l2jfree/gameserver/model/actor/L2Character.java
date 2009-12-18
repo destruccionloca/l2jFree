@@ -5458,7 +5458,9 @@ public abstract class L2Character extends L2Object
 			if (this instanceof L2PcInstance)
 			{
 				// Send a system message
-				sendPacket(SystemMessageId.CASTING_INTERRUPTED);
+				SystemMessage sm = new SystemMessage(SystemMessageId.C1_CASTING_INTERRUPTED);
+				sm.addCharName(this);
+				getActingPlayer().sendPacket(sm);
 			}
 		}
 	}

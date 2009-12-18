@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
  * This class ...
@@ -46,7 +47,7 @@ public class RequestWithDrawalParty extends L2GameClientPacket
 
 		if (player.isInParty())
 			if (player.getParty().isInDimensionalRift() && !player.getParty().getDimensionalRift().getRevivedAtWaitingRoom().contains(player))
-				player.sendMessage("You can't exit party when you are in Dimensional Rift.");
+				sendPacket(SystemMessageId.COULD_NOT_LEAVE_PARTY);
 			else
 				player.getParty().removePartyMember(player, false);
 

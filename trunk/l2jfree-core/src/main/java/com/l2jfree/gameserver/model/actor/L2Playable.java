@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.actor;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.instance.L2ControlTowerInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.PlayableKnownList;
@@ -182,13 +180,13 @@ public abstract class L2Playable extends L2Character
 			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
 		}
 		// Still needs retail verification
-		else if (this instanceof L2PcInstance &&
+		/*else if (this instanceof L2PcInstance &&
 				(target instanceof L2DoorInstance ||
 						target instanceof L2ControlTowerInstance))
 		{
 			sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 			sm.addNumber(damage);
-		}
+		}*/
 		else
 		{
 			sm = new SystemMessage(SystemMessageId.C1_GAVE_C2_DAMAGE_OF_S3);

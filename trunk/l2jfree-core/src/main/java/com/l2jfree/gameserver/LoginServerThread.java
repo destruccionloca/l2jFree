@@ -54,6 +54,8 @@ public abstract class LoginServerThread extends Thread
 		{
 			if (!Config.NEW_LOGIN_PROTOCOL)
 			{
+				// not supported
+				Config.CONNECTION_FILTERING = false;
 				if (Config.L2JFREE_LOGIN)
 					INSTANCE = new LoginServerThreadL2jfree();
 				else

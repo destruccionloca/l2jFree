@@ -863,6 +863,8 @@ public final class L2PcInstance extends L2Playable
 	private long							_lastTargetChange;
 	private int								_lastTargetId;
 
+	private boolean							_illegalWaiting;
+
 	private class VitalityTask implements Runnable
 	{
 		private L2PcInstance	_player	= null;
@@ -5069,7 +5071,7 @@ public final class L2PcInstance extends L2Playable
 						sendPacket(iu);
 					}
 					refreshExpertisePenalty();
-					sendPacket(SystemMessageId.YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE);
+					sendPacket(SystemMessageId.CANT_EQUIP_WITH_PK_POINTS);
 				}
 			}
 		}
@@ -9501,7 +9503,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		if (getPrivateStoreType() != STORE_PRIVATE_NONE)
 		{
-			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_C1_IS_IN_A_PRIVATE_STORE_OR_MANUFACTURE.getId();
 			return false;
 		}
 		if (isMounted() || isInBoat())
@@ -9516,7 +9518,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		if (isInsideZone(L2Zone.FLAG_PVP) || isInsideZone(L2Zone.FLAG_PEACE) || SiegeManager.getInstance().checkIfInZone(this))
 		{
-			_noDuelReason = SystemMessageId.C1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_C1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA.getId();
+			_noDuelReason = SystemMessageId.C1_CANNOT_DUEL_BECAUSE_C1_IS_IN_A_DUEL_PROHIBITED_AREA.getId();
 			return false;
 		}
 		if (GlobalRestrictions.isRestricted(this, DuelRestriction.class))
@@ -14794,5 +14796,15 @@ public final class L2PcInstance extends L2Playable
 	public final long getLastTargetTime()
 	{
 		return _lastTargetChange;
+	}
+
+	public final boolean isIllegalWaiting()
+	{
+		return _illegalWaiting;
+	}
+
+	public final void setIllegalWaiting(boolean iw)
+	{
+		_illegalWaiting = iw;
 	}
 }

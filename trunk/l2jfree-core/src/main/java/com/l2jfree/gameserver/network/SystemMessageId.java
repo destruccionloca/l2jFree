@@ -195,7 +195,7 @@ public enum SystemMessageId
 	 * ID: 27<br>
 	 * Message: Your casting has been interrupted.
 	 */
-	CASTING_INTERRUPTED(27),
+	//CASTING_INTERRUPTED(27),
 
 	/**
 	 * ID: 28<br>
@@ -244,38 +244,38 @@ public enum SystemMessageId
 	 * ID: 35<br>
 	 * Message: You hit for $s1 damage
 	 */
-	YOU_DID_S1_DMG(35),
+	//YOU_DID_S1_DMG(35),
 
 	/**
 	 * ID: 36<br>
 	 * Message: $c1 hit you for $s2 damage.
 	 */
-	C1_GAVE_YOU_S2_DMG(36),
+	//C1_GAVE_YOU_S2_DMG(36),
 
 	/**
 	 * ID: 37<br>
 	 * Message: $c1 hit you for $s2 damage.
 	 */
-	C1_GAVE_YOU_S2_DMG2(37),
+	//C1_GAVE_YOU_S2_DMG2(37),
 
 	/**
 	 * ID: 38<br>
 	 * Message: The TGS2002 event begins!
 	 */
-	TGS2002_BEGINS(38),
+	//TGS2002_BEGINS(38),
 
 	/**
 	 * ID: 39<br>
 	 * Message: The TGS2002 event is over. Thank you very much.
 	 */
-	TGS2002_ENDS(39),
+	//TGS2002_ENDS(39),
 
 	/**
 	 * ID: 40<br>
 	 * Message: This is the TGS demo: the character will immediately be
 	 * restored.
 	 */
-	TGS_DEMO(40),
+	//TGS_DEMO(40),
 
 	/**
 	 * ID: 41<br>
@@ -287,19 +287,19 @@ public enum SystemMessageId
 	 * ID: 42<br>
 	 * Message: You have avoided $c1's attack.
 	 */
-	AVOIDED_C1S_ATTACK(42),
+	//AVOIDED_C1S_ATTACK(42),
 
 	/**
 	 * ID: 43<br>
 	 * Message: You have missed.
 	 */
-	MISSED_TARGET(43),
+	//MISSED_TARGET(43),
 
 	/**
 	 * ID: 44<br>
 	 * Message: Critical hit!
 	 */
-	CRITICAL_HIT(44),
+	//CRITICAL_HIT(44),
 
 	/**
 	 * ID: 45<br>
@@ -449,7 +449,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 69<br>
-	 * Message: Would you like to dismiss $s1 from the clan? If you do so, you will have to wait at least a day before accepting a new member.
+	 * Message: Would you like to dismiss $s1 from the clan? If you do so, you will
+	 * have to wait at least a day before accepting a new member.
 	 */
 	WOULD_YOU_LIKE_TO_DISMISS_S1_FROM_THE_CLAN(69),
 
@@ -513,32 +514,32 @@ public enum SystemMessageId
 	 * ID: 79<br>
 	 * Message: This name already exists.
 	 */
-	NAMING_NAME_ALREADY_EXISTS(79),
+	//NAMING_NAME_ALREADY_EXISTS(79),
 
 	/**
 	 * ID: 80<br>
 	 * Message: Names must be between 1-16 characters, excluding spaces or
 	 * special characters.
 	 */
-	NAMING_CHARNAME_UP_TO_16CHARS(80),
+	//NAMING_CHARNAME_UP_TO_16CHARS(80),
 
 	/**
 	 * ID: 81<br>
 	 * Message: Please select your race.
 	 */
-	PLEASE_SELECT_RACE(81),
+	//PLEASE_SELECT_RACE(81),
 
 	/**
 	 * ID: 82<br>
 	 * Message: Please select your occupation.
 	 */
-	PLEASE_SELECT_OCCUPATION(82),
+	//PLEASE_SELECT_OCCUPATION(82),
 
 	/**
 	 * ID: 83<br>
 	 * Message: Please select your gender.
 	 */
-	PLEASE_SELECT_GENDER(83),
+	//PLEASE_SELECT_GENDER(83),
 
 	/**
 	 * ID: 84<br>
@@ -605,7 +606,7 @@ public enum SystemMessageId
 	 * ID: 94<br>
 	 * Message: 2004-2009 (c) Copyright NCsoft Corporation. All Rights Reserved.
 	 */
-	COPYRIGHT(94),
+	//COPYRIGHT(94),
 
 	/**
 	 * ID: 95<br>
@@ -771,7 +772,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 122<br>
-	 * Message: You may no longer adjust items in the trade because the trade has been confirmed.
+	 * Message: You may no longer adjust items in the trade because the trade has
+	 * been confirmed.
 	 */
 	CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED(122),
 
@@ -1294,20 +1296,20 @@ public enum SystemMessageId
 	 * ID: 208<br>
 	 * Message: Please include file type when entering file path.
 	 */
-	INCLUDE_FILE_TYPE_WHEN_ENTERING_FILE_PATH(208),
+	//INCLUDE_FILE_TYPE_WHEN_ENTERING_FILE_PATH(208),
 
 	/**
 	 * ID: 209<br>
 	 * Message: The size of the image file is inappropriate. Please adjust to
 	 * 16*12
 	 */
-	IMAGE_SIZE_INAPPROPRIATE(209),
+	//IMAGE_SIZE_INAPPROPRIATE(209),
 
 	/**
 	 * ID: 210<br>
 	 * Message: Cannot find file. Please enter precise path.
 	 */
-	CANNOT_FIND_FILE_ENTER_PRECISE_PATH(210),
+	//CANNOT_FIND_FILE_ENTER_PRECISE_PATH(210),
 
 	/**
 	 * ID: 211<br>
@@ -1449,7 +1451,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 233<br>
-	 * Message:
+	 * Message: The Academy/Royal Guard/Order of Knights is full and cannot accept
+	 * new members at this time.
 	 */
 	SUBCLAN_IS_FULL(233),
 
@@ -1795,7 +1798,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 289<br>
-	 * Message: An outpost or headquarters cannot be built because at least one already exists.
+	 * Message: An outpost or headquarters cannot be built because at least one
+	 * already exists.
 	 */
 	NOT_ANOTHER_HEADQUARTERS(289),
 
@@ -1828,7 +1832,7 @@ public enum SystemMessageId
 	 * Message: Because your clan is not currently on the offensive in a Clan
 	 * Hall siege war, it cannot summon its base camp.
 	 */
-	BECAUSE_YOUR_CLAN_IS_NOT_CURRENTLY_ON_THE_OFFENSIVE_IN_A_CLAN_HALL_SIEGE_WAR_IT_CANNOT_SUMMON_ITS_BASE_CAMP(294),
+	CANNOT_SUMMON_BASE_CAMP_NOT_CCH_WAR(294),
 
 	/**
 	 * ID: 295<br>
@@ -1895,9 +1899,25 @@ public enum SystemMessageId
 	 * ID: 305<br>
 	 * Message: The player declined to join your party.
 	 */
-	PLAYER_DECLINED(305),
+	PLAYER_DECLINED_PARTY(305),
 
-	// 306 - 308 empty
+	/**
+	 * ID: 306<BR>
+	 * Console Message: You have failed to delete the character.
+	 */
+	//FAILED_DELETING_CHAR(306),
+
+	/**
+	 * ID: 307<BR>
+	 * Console Message: You cannot trade with a warehouse keeper.
+	 */
+	CANT_TRADE_WITH_WAREHOUSE(307),
+
+	/**
+	 * ID: 308<BR>
+	 * Console Message: The player declined your clan invitation.
+	 */
+	PLAYER_DECLINED_CLAN(308),
 
 	/**
 	 * ID: 309<br>
@@ -1905,7 +1925,11 @@ public enum SystemMessageId
 	 */
 	YOU_HAVE_SUCCEEDED_IN_EXPELLING_CLAN_MEMBER(309),
 
-	// 310 empty
+	/**
+	 * ID: 310<BR>
+	 * Console Message: You have failed to expel the clan member.
+	 */
+	//YOU_HAVE_FAILED_IN_EXPELLING_CLAN_MEMBER(310),
 
 	/**
 	 * ID: 311<br>
@@ -1925,7 +1949,35 @@ public enum SystemMessageId
 	 */
 	CEASE_WAR_REQUEST_ACCEPTED(313),
 
-	// 314  - 318 empty
+	/**
+	 * ID: 314<BR>
+	 * Console Message: You have failed to surrender.
+	 */
+	//UNNAMED_314(314),
+
+	/**
+	 * ID: 315<BR>
+	 * Console Message: You have failed to personally surrender.
+	 */
+	//UNNAMED_315(315),
+
+	/**
+	 * ID: 316<BR>
+	 * Console Message: You have failed to withdraw from the party.
+	 */
+	COULD_NOT_LEAVE_PARTY(316),
+
+	/**
+	 * ID: 317<BR>
+	 * Console Message: You have failed to expel the party member.
+	 */
+	COULD_NOT_OUST_FROM_PARTY(317),
+
+	/**
+	 * ID: 318<BR>
+	 * Console Message: You have failed to disperse the party.
+	 */
+	//COULD_NOT_DISPERSE_PARTY(318),
 
 	/**
 	 * ID: 319<br>
@@ -2126,7 +2178,17 @@ public enum SystemMessageId
 	 */
 	NOT_ENOUGH_ITEMS(351),
 
-	// 352 - 353: empty
+	/**
+	 * ID: 352<BR>
+	 * Console Message: Incorrect item.
+	 */
+	INCORRECT_ITEM(352),
+
+	/**
+	 * ID: 353<BR>
+	 * Console Message: Cannot purchase.
+	 */
+	CANNOT_PURCHASE(353),
 
 	/**
 	 * ID: 354<br>
@@ -2390,7 +2452,7 @@ public enum SystemMessageId
 	 * ID: 396<br>
 	 * Message: Please login after changing your temporary password.
 	 */
-	TRY_AGAIN_AFTER_CHANGING_PASSWORD(396),
+	//TRY_AGAIN_AFTER_CHANGING_PASSWORD(396),
 
 	/**
 	 * ID: 397<br>
@@ -2404,7 +2466,11 @@ public enum SystemMessageId
 	 */
 	NO_TIME_LEFT_ON_ACCOUNT(398),
 
-	// 399: empty
+	/**
+	 * ID: 399<BR>
+	 * Console Message: System error.
+	 */
+	//SYSTEM_ERROR(399),
 
 	/**
 	 * ID: 400<br>
@@ -2581,117 +2647,117 @@ public enum SystemMessageId
 	 * Message: In accordance with company policy, your account has been
 	 * suspended due to ...
 	 */
-	ILLEGAL_USE1(428),
+	//ILLEGAL_USE1(428),
 
 	/**
 	 * ID: 429<br>
 	 * Message: In accordance with company policy, your account has been
 	 * suspended due to ...
 	 */
-	ILLEGAL_USE2(429),
+	//ILLEGAL_USE2(429),
 
 	/**
 	 * ID: 430<br>
 	 * Message: (Doesn't need to translate.)
 	 */
-	NO_NEED_TO_TRANSLATE(430),
+	//NO_NEED_TO_TRANSLATE(430),
 
 	/**
 	 * ID: 431<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE3(431),
+	//ILLEGAL_USE3(431),
 
 	/**
 	 * ID: 432<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE4(432),
+	//ILLEGAL_USE4(432),
 
 	/**
 	 * ID: 433<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE5(433),
+	//ILLEGAL_USE5(433),
 
 	/**
 	 * ID: 434<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE6(434),
+	//ILLEGAL_USE6(434),
 
 	/**
 	 * ID: 435<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE7(435),
+	//ILLEGAL_USE7(435),
 
 	/**
 	 * ID: 436<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE8(436),
+	//ILLEGAL_USE8(436),
 
 	/**
 	 * ID: 437<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE9(437),
+	//ILLEGAL_USE9(437),
 
 	/**
 	 * ID: 438<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE10(438),
+	//ILLEGAL_USE10(438),
 
 	/**
 	 * ID: 439<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE11(439),
+	//ILLEGAL_USE11(439),
 
 	/**
 	 * ID: 440<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE12(440),
+	//ILLEGAL_USE12(440),
 
 	/**
 	 * ID: 441<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE13(441),
+	//ILLEGAL_USE13(441),
 
 	/**
 	 * ID: 442<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE14(442),
+	//ILLEGAL_USE14(442),
 
 	/**
 	 * ID: 443<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE15(443),
+	//ILLEGAL_USE15(443),
 
 	/**
 	 * ID: 444<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE16(444),
+	//ILLEGAL_USE16(444),
 
 	/**
 	 * ID: 445<br>
 	 * Message: (Reference Number Regarding Membership Withdrawal Request: $s1)
 	 */
-	REFERENCE_MEMBERSHIP_WITHDRAWAL_S1(445),
+	//REFERENCE_MEMBERSHIP_WITHDRAWAL_S1(445),
 
 	/**
 	 * ID: 446<br>
 	 * Message: For more information, please visit the Support Center on the
 	 * PlayNC website (http://www.plaync.com/us/support/).
 	 */
-	NCSOFT_SUPPOR(446),
+	//NCSOFT_SUPPOR(446),
 
 	/**
 	 * ID: 447<br>
@@ -2703,51 +2769,51 @@ public enum SystemMessageId
 	 * ID: 448<br>
 	 * Message: There is a system error. Please log in again later.
 	 */
-	SYSTEM_ERROR_LOGIN_LATER(448),
+	//SYSTEM_ERROR_LOGIN_LATER(448),
 
 	/**
 	 * ID: 449<br>
 	 * Message: The password you have entered is incorrect.
 	 */
-	PASSWORD_ENTERED_INCORRECT1(449),
+	//PASSWORD_ENTERED_INCORRECT1(449),
 
 	/**
 	 * ID: 450<br>
 	 * Message: Confirm your account information and log in later.
 	 */
-	CONFIRM_ACCOUNT_LOGIN_LATER(450),
+	//CONFIRM_ACCOUNT_LOGIN_LATER(450),
 
 	/**
 	 * ID: 451<br>
 	 * Message: The password you have entered is incorrect.
 	 */
-	PASSWORD_ENTERED_INCORRECT2(451),
+	//PASSWORD_ENTERED_INCORRECT2(451),
 
 	/**
 	 * ID: 452<br>
 	 * Message: Please confirm your account information and try logging in
 	 * later.
 	 */
-	PLEASE_CONFIRM_ACCOUNT_LOGIN_LATER(452),
+	//PLEASE_CONFIRM_ACCOUNT_LOGIN_LATER(452),
 
 	/**
 	 * ID: 453<br>
 	 * Message: Your account information is incorrect.
 	 */
-	ACCOUNT_INFORMATION_INCORRECT(453),
+	//ACCOUNT_INFORMATION_INCORRECT(453),
 
 	/**
 	 * ID: 454<br>
 	 * Message: For more details, please contact our customer service center at
 	 * http://support.plaync.com.
 	 */
-	DETAILS_NCSUPPORT(454),
+	//DETAILS_NCSUPPORT(454),
 
 	/**
 	 * ID: 455<br>
 	 * Message: Account is already in use. Unable to log in.
 	 */
-	ACCOUNT_IN_USE(455),
+	//ACCOUNT_IN_USE(455),
 
 	/**
 	 * ID: 456<br>
@@ -2755,14 +2821,14 @@ public enum SystemMessageId
 	 * age or older except for PvP servers,which may only be used by adults 18
 	 * years of age and older (Korea Only)
 	 */
-	LINAGE_MINIMUM_AGE(456),
+	//LINAGE_MINIMUM_AGE(456),
 
 	/**
 	 * ID: 457<br>
 	 * Message: Currently undergoing game server maintenance. Please log in
 	 * again later.
 	 */
-	SERVER_MAINTENANCE(457),
+	//SERVER_MAINTENANCE(457),
 
 	/**
 	 * ID: 458<br>
@@ -2774,7 +2840,7 @@ public enum SystemMessageId
 	 * ID: 459<br>
 	 * Message: PlayNC website (http://www.plaync.com/us/support/)
 	 */
-	PLAYNC_WEBSITE(459),
+	//PLAYNC_WEBSITE(459),
 
 	/**
 	 * ID: 460<br>
@@ -2786,7 +2852,7 @@ public enum SystemMessageId
 	 * ID: 461<br>
 	 * Message: Access failed.
 	 */
-	ACCESS_FAILED(461),
+	//ACCESS_FAILED(461),
 
 	/**
 	 * ID: 462<br>
@@ -2798,7 +2864,7 @@ public enum SystemMessageId
 	 * ID: 463<br>
 	 * Message: .
 	 */
-	DOT2(463),
+	//DOT2(463),
 
 	/**
 	 * ID: 464<br>
@@ -2873,13 +2939,13 @@ public enum SystemMessageId
 	 * ID: 475<br>
 	 * Message: Different alliance.
 	 */
-	DIFFERENT_ALLIANCE2(475),
+	//DIFFERENT_ALLIANCE2(475),
 
 	/**
 	 * ID: 476<br>
 	 * Message: Please adjust the image size to 8x12.
 	 */
-	ADJUST_IMAGE_8_12(476),
+	//ADJUST_IMAGE_8_12(476),
 
 	/**
 	 * ID: 477<br>
@@ -3448,7 +3514,7 @@ public enum SystemMessageId
 	 * Message: Caution -- this item's price greatly differs from non-player run
 	 * shops. Do you wish to continue?
 	 */
-	GREATLY_DIFF_ITEM_PRICE(569),
+	//GREATLY_DIFF_ITEM_PRICE(569),
 
 	/**
 	 * ID: 570<br>
@@ -3557,7 +3623,7 @@ public enum SystemMessageId
 	 * ID: 587<br>
 	 * Message: Irregular system speed.
 	 */
-	IRREGULAR_SYSTEM_SPEED(587),
+	//IRREGULAR_SYSTEM_SPEED(587),
 
 	/**
 	 * ID: 588<br>
@@ -3768,7 +3834,7 @@ public enum SystemMessageId
 	 * ID: 621<br>
 	 * Message: Game connection attempted through a restricted IP.
 	 */
-	CONNECTION_RESTRICTED_IP(621),
+	//CONNECTION_RESTRICTED_IP(621),
 
 	/**
 	 * ID: 622<br>
@@ -3885,7 +3951,17 @@ public enum SystemMessageId
 	 */
 	APPLICATION_DENIED_BECAUSE_ALREADY_SUBMITTED_A_REQUEST_FOR_ANOTHER_SIEGE_BATTLE(639),
 
-	// 640 - 641: empty
+	/**
+	 * ID: 640<BR>
+	 * Console Message: You have failed to refuse castle defense aid.
+	 */
+	FAILED_REFUSE_DEFENDER(640),
+
+	/**
+	 * ID: 641<BR>
+	 * Console Message: You have failed to approve castle defense aid.
+	 */
+	FAILED_APPROVE_DEFENDER(641),
 
 	/**
 	 * ID: 642<br>
@@ -3913,7 +3989,17 @@ public enum SystemMessageId
 	 */
 	ONLY_CLAN_LEVEL_5_ABOVE_MAY_SIEGE(645),
 
-	// 646 - 647: empty
+	/**
+	 * ID: 646<BR>
+	 * Console Message: You do not have the authority to modify the castle defender list.
+	 */
+	CANNOT_MODIFY_DEFENDER_LIST(646),
+
+	/**
+	 * ID: 647<BR>
+	 * Console Message: You do not have the authority to modify the siege time.
+	 */
+	CANNOT_MODIFY_SIEGE_TIME(647),
 
 	/**
 	 * ID: 648<br>
@@ -4010,7 +4096,12 @@ public enum SystemMessageId
 	 */
 	THE_PLAYER_IS_REJECTING_FRIEND_INVITATIONS(662),
 
-	// 663 will crash client
+	/**
+	 * ID: 663<BR>
+	 * Console Message: The siege time has been declared for $s. It is not possible
+	 * to change the time after a siege time has been declared. Do you want to continue?
+	 */
+	DECLARING_SIEGE_TIME(663),
 
 	/**
 	 * ID: 664<br>
@@ -4122,7 +4213,13 @@ public enum SystemMessageId
 	 * ID: 681<br>
 	 * Message: The clan does not own a clan hall.
 	 */
-	//CLAN_HAS_NO_CLAN_HALL(681) // Doesn't work in CT1
+	CLAN_HAS_NO_CLAN_HALL(681),
+
+	/**
+	 * ID: 682<BR>
+	 * Console Message: You are moving to another village. Do you want to continue?
+	 */
+	//YOU_ARE_ABOUT_TO_TELEPORT(682),
 
 	/**
 	 * ID: 683<br>
@@ -4153,7 +4250,7 @@ public enum SystemMessageId
 	 * ID: 687<br>
 	 * Message: You cannot move while frozen. Please wait.
 	 */
-	CANNOT_MOVE_FROZEN(687),
+	//CANNOT_MOVE_FROZEN(687),
 
 	/**
 	 * ID: 688<br>
@@ -4185,7 +4282,7 @@ public enum SystemMessageId
 	 * ID: 692<br>
 	 * Message: The other party is frozen. Please wait a moment.
 	 */
-	OTHER_PARTY_IS_FROZEN(692),
+	//OTHER_PARTY_IS_FROZEN(692),
 
 	/**
 	 * ID: 693<br>
@@ -4216,7 +4313,7 @@ public enum SystemMessageId
 	 * ID: 697<br>
 	 * Message: The item enchant value is strange
 	 */
-	ITEM_ENCHANT_VALUE_STRANGE(697),
+	//ITEM_ENCHANT_VALUE_STRANGE(697),
 
 	/**
 	 * ID: 698<br>
@@ -4395,13 +4492,13 @@ public enum SystemMessageId
 	 * ID: 726<br>
 	 * Message: Frozen condition has started. Please wait a moment.
 	 */
-	FROZEN_CONDITION_STARTED(726),
+	//FROZEN_CONDITION_STARTED(726),
 
 	/**
 	 * ID: 727<br>
 	 * Message: The frozen condition was removed.
 	 */
-	FROZEN_CONDITION_REMOVED(727),
+	//FROZEN_CONDITION_REMOVED(727),
 
 	/**
 	 * ID: 728<br>
@@ -4534,7 +4631,7 @@ public enum SystemMessageId
 	 * Message: If you need help, please visit the Support Center on the PlayNC
 	 * website (http://www.plaync.com/us/support/).
 	 */
-	PLAYNC_SUPPORT_CENTER(747),
+	//PLAYNC_SUPPORT_CENTER(747),
 
 	/**
 	 * ID: 748<br>
@@ -4574,21 +4671,23 @@ public enum SystemMessageId
 	NO_MERCS_HERE(753),
 
 	/**
-	 * ID: 754<br>
-	 * Message: There are $s1 hours and $s2 minutes left in this week's usage
-	 * time.
+	 * ID: 754<BR>
+	 * Console Message: There are $s1 hours and $s2 minutes left in this week's usage time.<BR>
+	 * Screen Message: Usage time remaining: $s1 hour(s) $s2 minute(s)
 	 */
 	S1_HOURS_S2_MINUTES_LEFT_THIS_WEEK(754),
 
 	/**
-	 * ID: 755<br>
-	 * Message: There are $s1 minutes left in this week's usage time.
+	 * ID: 755<BR>
+	 * Console Message: There are $s1 minutes left in this week's usage time.<BR>
+	 * Screen Message: Usage time remaining: $s1 minute(s)
 	 */
 	S1_MINUTES_LEFT_THIS_WEEK(755),
 
 	/**
-	 * ID: 756<br>
-	 * Message: This week's usage time has finished.
+	 * ID: 756<BR>
+	 * Console Message: This week's usage time has finished.<BR>
+	 * Screen Message: Usage time has expired!
 	 */
 	WEEKS_USAGE_TIME_FINISHED(756),
 
@@ -4599,9 +4698,9 @@ public enum SystemMessageId
 	S1_HOURS_S2_MINUTES_LEFT_IN_TIME(757),
 
 	/**
-	 * ID: 758<br>
-	 * Message: There are $s1 hours and $s2 minutes left in this week's play
-	 * time.
+	 * ID: 758<BR>
+	 * Console Message: There are $s1 hour(s) $s2 minute(s) left in this week's play time.<BR>
+	 * Screen Message: Play time for this week:\n$s1 hour(s) $s2 minute(s) remaining
 	 */
 	S1_HOURS_S2_MINUTES_LEFT_THIS_WEEKS_PLAY_TIME(758),
 
@@ -4650,27 +4749,27 @@ public enum SystemMessageId
 	 * Message: GameGuard is already running. Please try running it again after
 	 * rebooting.
 	 */
-	GG_ALREADY_RUNNING(765),
+	//GG_ALREADY_RUNNING(765),
 
 	/**
 	 * ID: 766<br>
 	 * Message: There is a GameGuard initialization error. Please try running it
 	 * again after rebooting.
 	 */
-	GG_INITIALIZATION_ERROR(766),
+	//GG_INITIALIZATION_ERROR(766),
 
 	/**
 	 * ID: 767<br>
 	 * Message: The GameGuard file is damaged. Please reinstall GameGuard.
 	 */
-	GG_DAMAGED(767),
+	//GG_DAMAGED(767),
 
 	/**
 	 * ID: 768<br>
 	 * Message: A Windows system file is damaged. Please reinstall Internet
 	 * Explorer.
 	 */
-	WINDOWS_FILE_DAMAGED(768),
+	//WINDOWS_FILE_DAMAGED(768),
 
 	/**
 	 * ID: 769<br>
@@ -4684,7 +4783,7 @@ public enum SystemMessageId
 	 * Message: The GameGuard update was canceled. Please check your network
 	 * connection status or firewall.
 	 */
-	GG_UPDATE_CANCELED1(770),
+	//GG_UPDATE_CANCELED1(770),
 
 	/**
 	 * ID: 771<br>
@@ -4692,19 +4791,19 @@ public enum SystemMessageId
 	 * after doing a virus scan or changing the settings in your PC management
 	 * program.
 	 */
-	GG_UPDATE_CANCELED2(771),
+	//GG_UPDATE_CANCELED2(771),
 
 	/**
 	 * ID: 772<br>
 	 * Message: There was a problem when running GameGuard.
 	 */
-	GG_PROBLEM(772),
+	//GG_PROBLEM(772),
 
 	/**
 	 * ID: 773<br>
 	 * Message: The game or GameGuard files are damaged.
 	 */
-	GG_FILES_DAMAGED(773),
+	//GG_FILES_DAMAGED(773),
 
 	/**
 	 * ID: 774<br>
@@ -4877,11 +4976,11 @@ public enum SystemMessageId
 	REGISTRATION_CLOSED(801),
 
 	/**
-	 * ID: 802<br>
-	 * Message: Petitions are not being accepted at this time. You may submit
-	 * your petition after a.m./p.m.
+	 * ID: 802<BR>
+	 * Console Message: Observation window can not be opened. Please exit the existing
+	 * window and restart.
 	 */
-	PETITION_NOT_ACCEPTED_NOW(802),
+	CANNOT_OPEN_OBSERVATION_WINDOW(802),
 
 	/**
 	 * ID: 803<br>
@@ -4913,7 +5012,7 @@ public enum SystemMessageId
 	 * Message: This terrain is navigable. Prepare for transport to the nearest
 	 * village.
 	 */
-	STUCK_PREPARE_FOR_TRANSPORT(807),
+	//STUCK_PREPARE_FOR_TRANSPORT(807),
 
 	/**
 	 * ID: 808<br>
@@ -5451,17 +5550,16 @@ public enum SystemMessageId
 	NO_RECIPES_REGISTERED(895),
 
 	/**
-	 * ID: 896<br>
-	 * Message:The ferry has arrived at Gludin Harbor.
+	 * ID: 896<BR>
+	 * Console Message: Quest recipes can not be registered.
 	 */
-	FERRY_AT_GLUDIN(896),
+	CANT_REGISTER_QUEST_RECIPE(896),
 
 	/**
-	 * ID: 897<br>
-	 * Message:The ferry will leave for Talking Island Harbor after anchoring
-	 * for ten minutes.
+	 * ID: 897<BR>
+	 * Console Message: The fee to create the item is incorrect.
 	 */
-	FERRY_LEAVE_TALKING(897),
+	INCORRECT_CREATE_ITEM_FEE(897),
 
 	/**
 	 * ID: 898<br>
@@ -6247,19 +6345,19 @@ public enum SystemMessageId
 	 * ID: 1026<br>
 	 * Message: The summoned monster gave damage of $s1
 	 */
-	SUMMON_GAVE_DAMAGE_S1(1026),
+	//SUMMON_GAVE_DAMAGE_S1(1026),
 
 	/**
 	 * ID: 1027<br>
 	 * Message: Servitor received $s2 damage caused by $c1.
 	 */
-	SUMMON_RECEIVED_DAMAGE_S2_BY_C1(1027),
+	//SUMMON_RECEIVED_DAMAGE_S2_BY_C1(1027),
 
 	/**
 	 * ID: 1028<br>
 	 * Message: Summoned monster's critical hit!
 	 */
-	CRITICAL_HIT_BY_SUMMONED_MOB(1028),
+	//CRITICAL_HIT_BY_SUMMONED_MOB(1028),
 
 	/**
 	 * ID: 1029<br>
@@ -6394,17 +6492,18 @@ public enum SystemMessageId
 	NO_CB_IN_MY_CLAN(1050),
 
 	/**
-	 * ID: 1051 <br>
-	 * Message: Payment for your clan hall has not been made please make payment
-	 * tomorrow.
+	 * ID: 1051<BR>
+	 * Console Message: Payment for your clan hall has not been made. Please make
+	 * payment to your clan warehouse by $s1 tomorrow.
 	 */
-	PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_TOMORROW(1051),
+	MAKE_CLAN_HALL_PAYMENT_BY_S1_TOMORROW(1051),
 
 	/**
-	 * ID: 1052 <br>
-	 * Message: Payment of Clan Hall is overdue the owner loose Clan Hall.
+	 * ID: 1052<BR>
+	 * Console Message: The clan hall fee is one week overdue; therefore the clan hall
+	 * ownership has been revoked.
 	 */
-	THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED(1052),
+	CLAN_HALL_PAYMENT_OVERDUE(1052),
 
 	/**
 	 * ID: 1053<br>
@@ -6943,7 +7042,7 @@ public enum SystemMessageId
 	 * log in illegally, this account is not allowed to connect to the game
 	 * server for $s1 minutes. Please use another game server.
 	 */
-	ACCOUNT_NOT_ALLOWED_TO_CONNECT_FOR_S1_MINUTES(1136),
+	//ACCOUNT_NOT_ALLOWED_TO_CONNECT_FOR_S1_MINUTES(1136),
 
 	/**
 	 * ID: 1137<br>
@@ -7265,7 +7364,7 @@ public enum SystemMessageId
 	 * Message: To create a new account, please visit the PlayNC website
 	 * (http://www.plaync.com/us/support/)
 	 */
-	TO_CREATE_ACCOUNT_VISIT_WEBSITE(1186),
+	//TO_CREATE_ACCOUNT_VISIT_WEBSITE(1186),
 
 	/**
 	 * ID: 1187<br>
@@ -7273,7 +7372,7 @@ public enum SystemMessageId
 	 * visit the Support Center on the PlayNC
 	 * website(http://www.plaync.com/us/support/)
 	 */
-	ACCOUNT_INFORMATION_FORGOTTON_VISIT_WEBSITE(1187),
+	//ACCOUNT_INFORMATION_FORGOTTON_VISIT_WEBSITE(1187),
 
 	/**
 	 * ID: 1188<br>
@@ -7382,7 +7481,7 @@ public enum SystemMessageId
 	 * ID: 1204<br>
 	 * Message: The screenshot has been saved. ($s1 $s2x$s3)
 	 */
-	SCREENSHOT_S1_S2_S3(1204),
+	//SCREENSHOT_S1_S2_S3(1204),
 
 	/**
 	 * ID: 1205<br>
@@ -7883,13 +7982,13 @@ public enum SystemMessageId
 	 * ID: 1283<br>
 	 * Message: The minimum frame option has been activated.
 	 */
-	MINIMUM_FRAME_ACTIVATED(1283),
+	//MINIMUM_FRAME_ACTIVATED(1283),
 
 	/**
 	 * ID: 1284<br>
 	 * Message: The minimum frame option has been deactivated.
 	 */
-	MINIMUM_FRAME_DEACTIVATED(1284),
+	//MINIMUM_FRAME_DEACTIVATED(1284),
 
 	/**
 	 * ID: 1285<br>
@@ -8631,11 +8730,11 @@ public enum SystemMessageId
 	 * ID: 1400<br>
 	 * Message: Please select the person you wish to make the party leader.
 	 */
-	PLEASE_SELECT_THE_PERSON_TO_WHOM_YOU_WOULD_LIKE_TO_TRANSFER_THE_RIGHTS_OF_A_PARTY_LEADER(1400),
+	SELECT_NEW_PARTY_LEADER(1400),
 
 	/**
 	 * ID: 1401<br>
-	 * Message: Slow down.you are already the party leader.
+	 * Message: Slow down, you are already the party leader.
 	 */
 	YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF(1401),
 
@@ -9126,7 +9225,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 1481<br>
-	 * Message: You have selected a class irrelevant individual match. Do you wish to participate?
+	 * Message: You have selected a class irrelevant individual match. Do you wish
+	 * to participate?
 	 */
 	OLYMPIAD_NON_CLASS_CONFIRM(1481),
 
@@ -9209,7 +9309,7 @@ public enum SystemMessageId
 	 * Message: Your opponent does not meet the requirements to do battle), the
 	 * match has been cancelled.
 	 */
-	THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME(1494),
+	THE_GAME_CANCELLED_DUE_TO_OPPONENT(1494),
 
 	/**
 	 * ID: 1495<br>
@@ -10151,7 +10251,35 @@ public enum SystemMessageId
 	 */
 	LOC_DIMENSIONAL_GAP_S1_S2_S3(1643),
 
-	// 1644 - 1648: none
+	/**
+	 * ID: 1644<BR>
+	 * Console Message: none
+	 */
+	FATIGUE_TIME_NONE(1644),
+
+	/**
+	 * ID: 1645<BR>
+	 * Console Message: none
+	 */
+	//FATIGUE_TIME_NONE2(1645),
+
+	/**
+	 * ID: 1646<BR>
+	 * Console Message: none
+	 */
+	//FATIGUE_TIME_NONE3(1646),
+
+	/**
+	 * ID: 1647<BR>
+	 * Console Message: none
+	 */
+	//FATIGUE_TIME_NONE4(1647),
+
+	/**
+	 * ID: 1648<BR>
+	 * Console Message: none
+	 */
+	//FATIGUE_TIME_NONE5(1648),
 
 	/**
 	 * ID: 1649<br>
@@ -10310,7 +10438,7 @@ public enum SystemMessageId
 	 * Message: Your current record for this Grand Olympiad is $s1 match(es),
 	 * $s2 win(s) and $s3 defeat(s). You have earned $s4 Olympiad Point(s).
 	 */
-	THE_CURRENT_RECORD_FOR_THIS_OLYMPIAD_SESSION_IS_S1_MATCHES_S2_WINS_S3_DEFEATS_YOU_HAVE_EARNED_S4_OLYMPIAD_POINTS(1673),
+	YOUR_CURRENT_OLYMPIAD_RECORD_S1_MATCHES_S2_WINS_S3_DEFEATS_EARNED_S4_POINTS(1673),
 
 	/**
 	 * ID: 1674<br>
@@ -10387,7 +10515,7 @@ public enum SystemMessageId
 	 * Message: You are unable to equip this item when your PK count is greater
 	 * or equal to one.
 	 */
-	YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE(1685),
+	CANT_EQUIP_WITH_PK_POINTS(1685),
 
 	/**
 	 * ID: 1686<br>
@@ -10968,7 +11096,7 @@ public enum SystemMessageId
 	 * in the Festival of Darkness. $s2 points have been added to your clan's
 	 * reputation score.
 	 */
-	CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION(1775),
+	CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_FESTIVAL_PARTY_GAINED_S2_REPUTATION(1775),
 
 	/**
 	 * ID: 1776<br>
@@ -11108,7 +11236,7 @@ public enum SystemMessageId
 	 * ID: 1796<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE17(1796),
+	//ILLEGAL_USE17(1796),
 
 	/**
 	 * ID: 1797<br>
@@ -11157,31 +11285,31 @@ public enum SystemMessageId
 	 * ID: 1804<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE18(1804),
+	//ILLEGAL_USE18(1804),
 
 	/**
 	 * ID: 1805<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE19(1805),
+	//ILLEGAL_USE19(1805),
 
 	/**
 	 * ID: 1806<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE20(1806),
+	//ILLEGAL_USE20(1806),
 
 	/**
 	 * ID: 1807<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE21(1807),
+	//ILLEGAL_USE21(1807),
 
 	/**
 	 * ID: 1808<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE22(1808),
+	//ILLEGAL_USE22(1808),
 
 	/**
 	 * ID: 1809<br>
@@ -11189,7 +11317,7 @@ public enum SystemMessageId
 	 * procedures, please visit the PlayNC website
 	 * (http://www.plaync.com/us/support/)
 	 */
-	ACCOUNT_MUST_VERIFIED(1809),
+	//ACCOUNT_MUST_VERIFIED(1809),
 
 	/**
 	 * ID: 1810<br>
@@ -11886,7 +12014,7 @@ public enum SystemMessageId
 	 * into the game for some time. You may reactivate your account by visiting
 	 * the PlayNC website (http://www.plaync.com/us/support/).
 	 */
-	ACCOUNT_INACTIVITY(1920),
+	//ACCOUNT_INACTIVITY(1920),
 
 	/**
 	 * ID: 1921<br>
@@ -11968,14 +12096,14 @@ public enum SystemMessageId
 	 * Message: You have accepted $c1's challenge to a party duel. The duel will
 	 * begin in a few moments.
 	 */
-	YOU_HAVE_ACCEPTED_C1_CHALLENGE_TO_A_PARTY_DUEL_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1933),
+	YOU_ACCEPTED_C1_CHALLENGE_TO_PARTY_DUEL(1933),
 
 	/**
 	 * ID: 1934<br>
 	 * Message: $c1 has accepted your challenge to duel against their party. The
 	 * duel will begin in a few moments.
 	 */
-	C1_HAS_ACCEPTED_YOUR_CHALLENGE_TO_DUEL_AGAINST_THEIR_PARTY_THE_DUEL_WILL_BEGIN_IN_A_FEW_MOMENTS(1934),
+	C1_ACCEPTED_YOUR_CHALLENGE_TO_A_PARTY_DUEL(1934),
 
 	/**
 	 * ID: 1935<br>
@@ -11994,7 +12122,7 @@ public enum SystemMessageId
 	 * Message: Since the person you challenged is not currently in a party,
 	 * they cannot duel against your party.
 	 */
-	SINCE_THE_PERSON_YOU_CHALLENGED_IS_NOT_CURRENTLY_IN_A_PARTY_THEY_CANNOT_DUEL_AGAINST_YOUR_PARTY(1937),
+	CHALLENGED_PLAYER_NOT_IN_PARTY_CANNOT_PARTY_DUEL(1937),
 
 	/**
 	 * ID: 1938<br>
@@ -12040,7 +12168,7 @@ public enum SystemMessageId
 	 * Message: In a moment, you will be transported to the site where the duel
 	 * will take place.
 	 */
-	IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE(1944),
+	YOU_WILL_BE_TRANSPORTED_WHERE_THE_DUEL_WILL_TAKE_PLACE(1944),
 
 	/**
 	 * ID: 1945<br>
@@ -12210,7 +12338,7 @@ public enum SystemMessageId
 	 * Message: You cannot augment items while a private store or private
 	 * workshop is in operation.
 	 */
-	YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION(1972),
+	YOU_CANNOT_AUGMENT_ITEMS_WHILE_IN_PRIVATE_STORE(1972),
 
 	/**
 	 * ID: 1973<br>
@@ -12479,7 +12607,7 @@ public enum SystemMessageId
 	 * Message: $c1 cannot duel because $c1 is currently engaged in a private
 	 * store or manufacture.
 	 */
-	C1_CANNOT_DUEL_BECAUSE_C1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE(2017),
+	C1_CANNOT_DUEL_C1_IS_IN_A_PRIVATE_STORE_OR_MANUFACTURE(2017),
 
 	/**
 	 * ID: 2018<br>
@@ -12499,7 +12627,7 @@ public enum SystemMessageId
 	 * in a duel-prohibited area (Peaceful Zone / Seven Signs Zone / Near Water
 	 * / Restart Prohibited Area).
 	 */
-	C1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_C1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA(2020),
+	C1_CANNOT_DUEL_BECAUSE_C1_IS_IN_A_DUEL_PROHIBITED_AREA(2020),
 
 	/**
 	 * ID: 2021<br>
@@ -12645,7 +12773,7 @@ public enum SystemMessageId
 	 * Message: This account has been suspended for non-payment based on the cell phone payment agreement.\\n
 	 * Please submit proof of payment by fax (02-2186-3499) and contact customer service at 1600-0020.
 	 */
-	ILLEGAL_USE23(2042),
+	//ILLEGAL_USE23(2042),
 
 	/**
 	 * ID: 2043<br>
@@ -12711,21 +12839,21 @@ public enum SystemMessageId
 	 * Message: You must accept the User Agreement before this account can
 	 * access Lineage II.
 	 */
-	MUST_ACCEPT_AGREEMENT(2051),
+	//MUST_ACCEPT_AGREEMENT(2051),
 
 	/**
 	 * ID: 2052<br>
 	 * Message: A guardian's consent is required before this account can be used
 	 * to play Lineage II.
 	 */
-	NEED_CONSENT_TO_PLAY_THIS_ACCOUNT(2052),
+	//NEED_CONSENT_TO_PLAY_THIS_ACCOUNT(2052),
 
 	/**
 	 * ID: 2053<br>
 	 * Message: This account has declined the User Agreement or is pending a
 	 * withdrawl request.
 	 */
-	ACCOUNT_DECLINED_AGREEMENT_OR_PENDING(2053),
+	//ACCOUNT_DECLINED_AGREEMENT_OR_PENDING(2053),
 
 	/**
 	 * ID: 2054<br>
@@ -12968,7 +13096,7 @@ public enum SystemMessageId
 	 * Message: Your account can only be used after changing your password and
 	 * quiz.
 	 */
-	CHANGE_PASSWORT_FIRST(2091),
+	//CHANGE_PASSWORT_FIRST(2091),
 
 	/**
 	 * ID: 2092<br>
@@ -13042,7 +13170,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2103<br>
-	 * Message: You cannot enter because you are not associated with the current command channel.
+	 * Message: You cannot enter because you are not associated with the current
+	 * command channel.
 	 */
 	NOT_IN_COMMAND_CHANNEL_CANT_ENTER(2103),
 
@@ -13078,7 +13207,7 @@ public enum SystemMessageId
 	 * ID: 2108<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE24(2108),
+	//ILLEGAL_USE24(2108),
 
 	/**
 	 * ID: 2109<br>
@@ -13098,20 +13227,20 @@ public enum SystemMessageId
 	 * ID: 2111<br>
 	 * Message: Enter a shortcut to assign.
 	 */
-	ENTER_SHORTCUT_TO_ASSIGN(2111),
+	//ENTER_SHORTCUT_TO_ASSIGN(2111),
 
 	/**
 	 * ID: 2112<br>
 	 * Message: Sub-key can be CTRL, ALT, SHIFT and you may enter two sub-keys
 	 * at a time.
 	 */
-	SUBKEY_EXPLANATION1(2112),
+	//SUBKEY_EXPLANATION1(2112),
 
 	/**
 	 * ID: 2113<br>
 	 * Message: (Sub key explanation)
 	 */
-	SUBKEY_EXPLANATION2(2113),
+	//SUBKEY_EXPLANATION2(2113),
 
 	/**
 	 * ID: 2114<br>
@@ -13120,94 +13249,96 @@ public enum SystemMessageId
 	 * expanded sub-key mode, and CTRL and SHIFT will be available to assign to
 	 * another shortcut. Will you continue?
 	 */
-	SUBKEY_EXPLANATION3(2114),
+	//SUBKEY_EXPLANATION3(2114),
 
 	/**
 	 * ID: 2115<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE25(2115),
+	//ILLEGAL_USE25(2115),
 
 	/**
 	 * ID: 2116<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE26(2116),
+	//ILLEGAL_USE26(2116),
 
 	/**
 	 * ID: 2117<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE27(2117),
+	//ILLEGAL_USE27(2117),
 
 	/**
 	 * ID: 2118<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE28(2118),
+	//ILLEGAL_USE28(2118),
 
 	/**
 	 * ID: 2119<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE29(2119),
+	//ILLEGAL_USE29(2119),
 
 	/**
 	 * ID: 2120<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE30(2120),
+	//ILLEGAL_USE30(2120),
 
 	/**
 	 * ID: 2121<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE31(2121),
+	//ILLEGAL_USE31(2121),
 
 	/**
 	 * ID: 2122<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE32(2122),
+	//ILLEGAL_USE32(2122),
 
 	/**
 	 * ID: 2123<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE33(2123),
+	//ILLEGAL_USE33(2123),
 
 	/**
 	 * ID: 2124<br>
 	 * Message: The server has been integrated, and your Clan name, $s1, has
 	 * been overlapped with another name. Please enter the Clan name to be
 	 * changed.
+	 * @see ExNeedToChangeName
 	 */
-	CLAN_NAME_S1_OVERLAPPING_RENAME_CLAN(2124),
+	//CLAN_NAME_S1_OVERLAPPING_RENAME_CLAN(2124),
 
 	/**
 	 * ID: 2125<br>
 	 * Message: This name already exists or is an invalid name. Please enter the
 	 * Clan name to be changed.
+	 * @see ExNeedToChangeName
 	 */
-	CLAN_NAME_INVALID_RENAME_CLAN(2125),
+	//CLAN_NAME_INVALID_RENAME_CLAN(2125),
 
 	/**
 	 * ID: 2126<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE34(2126),
+	//ILLEGAL_USE34(2126),
 
 	/**
 	 * ID: 2127<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE35(2127),
+	//ILLEGAL_USE35(2127),
 
 	/**
 	 * ID: 2128<br>
 	 * Message: Your account has been suspended ...
 	 */
-	ILLEGAL_USE36(2128),
+	//ILLEGAL_USE36(2128),
 
 	/**
 	 * ID: 2129<br>
@@ -13363,7 +13494,7 @@ public enum SystemMessageId
 	 * Message: You are currently logged into 10 of your accounts and can no
 	 * longer access your other accounts.
 	 */
-	MAXIMUM_ACCOUNT_LOGINS_REACHED(2153),
+	//MAXIMUM_ACCOUNT_LOGINS_REACHED(2153),
 
 	/**
 	 * ID: 2154<br>
@@ -13809,7 +13940,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2225<br>
-	 * Message: There are no other skills to learn. Please come back after $s1nd class change.
+	 * Message: There are no other skills to learn. Please come back after $s1nd
+	 * class change.
 	 */
 	NO_SKILLS_TO_LEARN_RETURN_AFTER_S1_CLASS_CHANGE(2225),
 
@@ -14260,10 +14392,10 @@ public enum SystemMessageId
 	GAINED_VITALITY_POINTS(2296),
 
 	/**
-	 * ID: 2297<br>
-	 * Message:
+	 * ID: 2297<BR>
+	 * Console Message: Round $s1
 	 */
-	EMPTY2(2297),
+	ROUND_S1(2297),
 
 	/**
 	 * ID: 2298<br>
@@ -14319,6 +14451,7 @@ public enum SystemMessageId
 	 * remaining in $s1's re-use time.
 	 */
 	S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1(2305),
+
 	/**
 	 * ID: 2306<br>
 	 * Message: Resurrection is possible because of the courage charm's effect.
@@ -14459,7 +14592,7 @@ public enum SystemMessageId
 	 * Message: Clans of level 4 or above can register for hideaway wars for
 	 * devastated castle and fortress of the dead.
 	 */
-	CLAN_LEVEL_4_OR_ABOVE_CAN_REGISTER_FOR_HIDEAWAYS_WARS_FOR_DEVASTED_CASTLE_AND_FORTRESS_OF_THE_DEAD(2328),
+	CLAN_LEVEL_4_OR_ABOVE_CAN_REGISTER_FOR_DEVASTED_CASTLE_AND_FORTRESS_OF_THE_DEAD(2328),
 
 	/**
 	 * ID: 2329<br>
@@ -14498,7 +14631,7 @@ public enum SystemMessageId
 	 * participating in a castle siege, fortress siege, hideout siege, the
 	 * Underground Coliseum, the Festival of Darkness, and the Olympiad.
 	 */
-	INDIVIDUAL_FAME_CAN_BE_OBTAINED_BY_PARTICIPATING_IN_SIEGE_UNDERGROUND_COLISEUM_FESTIVAL_OF_DARKNESS_AND_OLYMPIAD(2334),
+	INDIVIDUAL_FAME_CAN_BE_OBTAINED(2334),
 
 	/**
 	 * ID: 2335<br>
@@ -14599,7 +14732,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2449<br>
-	 * Message: There are $s1 days until your character's birthday. On that day, you can obtain a special gift from the Gatekeeper in any village.
+	 * Message: There are $s1 days until your character's birthday. On that day, you
+	 * can obtain a special gift from the Gatekeeper in any village.
 	 */
 	S1_DAYS_UNTIL_BIRTHDAY(2449),
 
@@ -14611,33 +14745,283 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2451<br>
-	 * Message: The cloak equip has been removed because the armor set equip has been removed.
+	 * Message: The cloak equip has been removed because the armor set equip has
+	 * been removed.
 	 */
 	CLOAK_REMOVED_BECAUSE_ARMOR_SET_REMOVED(2451),
 
 	/**
 	 * ID: 2452<BR>
-	 * Console Message: The inventory is full, so it cannot be equipped or removed on the belt.
+	 * Console Message: The inventory is full, so it cannot be equipped or removed
+	 * on the belt.
 	 */
 	INVENTORY_FULL_CANNOT_EQUIP_OR_REMOVE_PIN(2452),
 
 	/**
 	 * ID: 2453<BR>
-	 * Console Message: The cloak cannot be equipped because a necessary item is not equipped.
+	 * Console Message: The cloak cannot be equipped because a necessary item is
+	 * not equipped.
 	 */
 	CANNOT_EQUIP_CLOAK_WITHOUT_NECESSARY_ITEM(2453),
 
 	/**
 	 * ID: 2465<br>
-	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you wish to participate?
+	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you
+	 * wish to participate?
 	 */
 	OLYMPIAD_3VS3_CONFIRM(2465),
+
+	/**
+	 * ID: 2466<BR>
+	 * Console Message: A pet on auxiliary mode cannot use skills.
+	 */
+	PET_ON_AUXILIARY_MODE_CANT_USE_SKILL(2466),
+
+	/**
+	 * ID: 2467<BR>
+	 * Console Message: Do you wish to begin the game now?
+	 */
+	DO_YOU_WISH_TO_BEGIN_GAME(2467),
+
+	/**
+	 * ID: 2468<BR>
+	 * Console Message: You have used a report point on $c1. You have $s2 points
+	 * remaining on this account.
+	 */
+	REPORTED_C1_YOU_HAVE_S2_POINTS_LEFT(2468),
+
+	/**
+	 * ID: 2469<BR>
+	 * Console Message: You have used all available points. Points are reset everyday
+	 * at noon.
+	 */
+	NO_MORE_REPORT_POINTS(2469),
+
+	/**
+	 * ID: 2470<BR>
+	 * Console Message: This character cannot make a report. You cannot make a report
+	 * while located inside a peace zone or a battlefield, while you are an opposing
+	 * clan member during a clan war, or while participating in the Olympiad.
+	 */
+	CANT_REPORT_CURRENTLY(2470),
+
+	/**
+	 * ID: 2471<BR>
+	 * Console Message: This character cannot make a report. The target has already
+	 * been reported by either your clan or alliance, or has already been reported
+	 * from your current IP.
+	 */
+	CANT_REPORT_ALREADY_REPORTED(2471),
+
+	/**
+	 * ID: 2472<BR>
+	 * Console Message: This character cannot make a report because another character
+	 * from this account has already done so.
+	 */
+	CANT_REPORT_ONLY_ONCE_PER_ACCOUNT_ALLOWED(2472),
+
+	/**
+	 * ID: 2473<BR>
+	 * Console Message: You have been reported as an illegal program user, and your
+	 * chatting will be blocked for 10 minutes.<BR>
+	 * Screen Message: Chatting Prohibited 10 minutes
+	 */
+	REPORTED_CHATTING_PROHIBITED_10_MINUTES(2473),
+
+	/**
+	 * ID: 2474<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your party participation will be blocked for 60 minutes.<BR>
+	 * Screen Message: Party Prohibited 60 minutes
+	 */
+	REPORTED_PARTY_PROHIBITED_60_MINUTES(2474),
+
+	/**
+	 * ID: 2475<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your party participation will be blocked for 120 minutes.<BR>
+	 * Screen Message: Party Prohibited 120 minutes
+	 */
+	REPORTED_PARTY_PROHIBITED_120_MINUTES(2475),
+
+	/**
+	 * ID: 2476<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your party participation will be blocked for 180 minutes.<BR>
+	 * Screen Message: Party Prohibited 180 minutes
+	 */
+	REPORTED_PARTY_PROHIBITED_180_MINUTES(2476),
+
+	/**
+	 * ID: 2477<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your actions will be restricted for 120 minutes.<BR>
+	 * Screen Message: Action Restricted 120 minutes
+	 */
+	REPORTED_ACTIONS_RESTRICTED_120_MINUTES(2477),
+
+	/**
+	 * ID: 2478<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your actions will be restricted for 180 minutes.<BR>
+	 * Screen Message: Action Restricted 180 minutes
+	 */
+	REPORTED_ACTIONS_RESTRICTED_180_MINUTES(2478),
+
+	/**
+	 * ID: 2479<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your actions will be restricted for 180 minutes.<BR>
+	 * Screen Message: Action Restricted 180 minutes
+	 */
+	//REPORTED_ACTIONS_RESTRICTED_180_MINUTES2(2479),
+
+	/**
+	 * ID: 2480<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * moving will be blocked for 120 minutes.<BR>
+	 * Screen Message: Moving Prohibited 120 minutes
+	 */
+	REPORTED_MOVING_BLOCKED_120_MINUTES(2480),
+
+	/**
+	 * ID: 2481<BR>
+	 * Console Message: $c1% has been reported as an illegal program user and has
+	 * been investigated.
+	 */
+	C1_REPORTED_AND_INVESTIGATED(2481),
+
+	/**
+	 * ID: 2482<BR>
+	 * Console Message: $c1% has been reported as an illegal program user and cannot
+	 * join a party.
+	 */
+	C1_IS_REPORTED_CANT_PARTY(2482),
+
+	/**
+	 * ID: 2483<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * chatting is not allowed.
+	 */
+	REPORTED_CHAT_NOT_ALLOWED(2483),
+
+	/**
+	 * ID: 2484<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * participating in a party is not allowed.
+	 */
+	REPORTED_PARTY_NOT_ALLOWED(2484),
+
+	/**
+	 * ID: 2485<BR>
+	 * Console Message: You have been reported as an illegal program user, and
+	 * your activities are only allowed within limitation.
+	 */
+	REPORTED_ACTIVITY_LIMITATIONS(2485),
+
+	/**
+	 * ID: 2486<BR>
+	 * Console Message: You have been blocked due to verification that you are
+	 * using a third party program. Subsequent violations may result termination of
+	 * the account rather than a penalty within the game, so please keep this in mind.
+	 */
+	BLOCKED_DUE_TO_3RD_PARTY_PROGRAM(2486),
+
+	/**
+	 * ID: 2487<BR>
+	 * Console Message: You have been reported as an illegal program user, and your
+	 * connection has been ended. Please contact our CS team to confirm your identity.
+	 */
+	DISCONNECTED_AS_ILLEGAL_USER(2487),
+
+	/**
+	 * ID: 2488<BR>
+	 * Console Message: You cannot enter Aerial Cleft because you are not at the
+	 * right level. Entry is possible only after level 75.
+	 */
+	TOO_LOW_LEVEL_FOR_CLEFT(2488),
+
+	/**
+	 * ID: 2489<BR>
+	 * Console Message: You must target a control device in order to perform this action.
+	 */
+	MUST_TARGET_CONTROL_DEVICE(2489),
+
+	/**
+	 * ID: 2490<BR>
+	 * Console Message: You cannot perform this action because you are too far away
+	 * from the control device.
+	 */
+	TOO_FAR_FROM_CONTROL_DEVICE(2490),
+
+	/**
+	 * ID: 2491<BR>
+	 * Console Message: Your ship cannot teleport because it does not have enough fuel
+	 * for the trip.
+	 */
+	AIRSHIP_CANT_TELEPORT_NOT_ENOUGH_FUEL(2491),
+
+	/**
+	 * ID: 2492<BR>
+	 * Console Message: The airship has been summoned. It will automatically depart
+	 * in %s minutes.
+	 */
+	AIRSHIP_SUMMONED_AUTO_DEPART_IN_S1_MINUTES(2492),
+
+	/**
+	 * ID: 2493<BR>
+	 * Console Message: Enter chat mode is automatically enabled when you are in a
+	 * flying transformation state.
+	 */
+	//UNNAMED_2493(2493),
+
+	/**
+	 * ID: 2494<BR>
+	 * Console Message: Enter chat mode is automatically enabled when you are in
+	 * airship control state.
+	 */
+	//UNNAMED_2494(2494),
+
+	/**
+	 * ID: 2495<BR>
+	 * Console Message: W (go forward), S (stop), A (turn left), D (turn right), E
+	 * (increase altitude) and Q (decrease altitude).
+	 */
+	//UNNAMED_2495(2495),
+
+	/**
+	 * ID: 2496<BR>
+	 * Console Message: If you click on a skill designated on your shortcut bar, that
+	 * slot is activated. Once activated, you can press the spacebar to execute the
+	 * designated skill.
+	 */
+	//UNNAMED_2496(2496),
+
+	/**
+	 * ID: 2497<BR>
+	 * Console Message: To close the currently open tip, please cancel the checked
+	 * box "System Tutorial" in Options.
+	 */
+	//UNNAMED_2497(2497),
+
+	/**
+	 * ID: 2498<BR>
+	 * Console Message: During the airship control state, you can also change altitude
+	 * using the button at the center of the control key image.
+	 */
+	//UNNAMED_2498(2498),
+
+	/**
+	 * ID: 2499<BR>
+	 * Console Message: You cannot collect because someone else is already collecting.
+	 */
+	SOMEONE_ELSE_COLLECTING_STARSTONE(2499),
 
 	/**
 	 * ID: 2500<br>
 	 * Message: The collection has succeeded.
 	 */
-	THE_COLLECTION_HAS_SUCCEEDED(2500),
+	STARSTONE_COLLECTED(2500),
 
 	/**
 	 * ID: 2501<br>
@@ -15235,46 +15619,86 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2592<br>
-	 * Message: Rapidly converts the contents of an expanded shortcut window.
-	 * This function cannot be used currently.
+	 * Message: Quickly switch the content of the expanded shortcut window.
 	 */
 	//RAPID_CONVERTS_CONTENTS_OF_EXPANDED_SHORTCUT_WINDOW(2592),
 
 	/**
 	 * ID: 2593<br>
-	 * Message: Moves a character's view ahead by a certain distance.
+	 * Message: Advance by a set distance the viewing point of my character or mountable.
 	 */
 	//MOVES_CHARACTER_VIEW_AHEAD(2593),
 
 	/**
 	 * ID: 2594<br>
-	 * Message: Moves a character's view behind by a certain distance.
+	 * Message: Retreat by a set distance the viewing point of my character or mountable.
 	 */
 	//MOVES_CHARACTER_VIEW_BEHIND(2594),
 
 	/**
 	 * ID: 2595<br>
-	 * Message: Restores the character's view to default.
+	 * Message: Reset the viewing point of my character or mountable.
 	 */
 	//RESTORES_CHARACTER_VIEW(2595),
 
-	// 2596-2615: No translation required
+	// 2596-2599: No translation required
 
 	/**
-	 * ID: 2616<br>
-	 * Message: If you join the clan academy, you can become a clan member and
-	 * learn the game system until you become level 40. If you want more fun, we
-	 * recommend that you join the clan academy.
+	 * ID: 2701<BR>
+	 * Console Message: The match is being prepared. Please try again later.
 	 */
-	JOIN_CLAN_ACADEMY_INFORMATION(2616),
+	MATCH_BEING_PREPARED(2701),
 
 	/**
-	 * ID: 2617<br>
-	 * Message: If you become level 40, the second class change is available. If
-	 * you complete the second class change, the character's capability is
-	 * enhanced.
+	 * ID: 2702<BR>
+	 * Console Message: You were excluded from the match because the registration count
+	 * was not correct.
 	 */
-	BECOME_LEVEL_40_INFORMATION(2617),
+	EXCLUDED_FROM_MATCH_SLOTS_FULL(2702),
+
+	/**
+	 * ID: 2703<BR>
+	 * Console Message: The team was adjusted because the population ratio was not correct.
+	 */
+	TEAM_ADJUSTED(2703),
+
+	/**
+	 * ID: 2704<BR>
+	 * Console Message: You cannot register because capacity has been exceeded.
+	 */
+	CANNOT_REGISTER_SLOTS_FULL(2704),
+
+	/**
+	 * ID: 2705<BR>
+	 * Console Message: The match waiting time was extended by 1 minute.
+	 */
+	MATCH_WAITING_TIME_EXTENDED(2705),
+
+	/**
+	 * ID: 2706<BR>
+	 * Console Message: You cannot enter because you do not meet the requirements.
+	 */
+	CANNOT_ENTER_MATCH(2706),
+
+	/**
+	 * ID: 2707<BR>
+	 * Console Message: You cannot make another request for 10 seconds after cancelling
+	 * a match registration.
+	 */
+	CANT_ATTEMPT_REGISTRATION_AFTER_CANCELLATION(2707),
+
+	/**
+	 * ID: 2708<BR>
+	 * Console Message: You cannot register while possessing a cursed weapon.
+	 */
+	CANT_REGISTER_WITH_CURSED_WEAPON(2708),
+
+	/**
+	 * ID: 2709<BR>
+	 * Console Message: Applicants for the Olympiad, Underground Coliseum, or Kratei's Cube
+	 * matches cannot register.
+	 */
+	PVP_MATCH_PARTICIPANTS_CANT_REGISTER(2709),
 
 	/**
 	 * ID: 2710<br>
@@ -15295,22 +15719,94 @@ public enum SystemMessageId
 	LOC_OUT_SEED_INFINITY_S1_S2_S3(2712),
 
 	/**
+	 * ID: 2713<BR>
+	 * Console Message: ------------------------------------------------------
+	 */
+	LINE_OF_DASHES(2713),
+
+	/**
+	 * ID: 2714<BR>
+	 * Console Message: ----------------------------------------------------------------------
+	 */
+	LONG_LINE_OF_DASHES(2714),
+
+	/**
+	 * ID: 2715<BR>
+	 * Console Message: Airships cannot be boarded in the current area.
+	 */
+	CANNOT_BOARD_AIRSHIP_HERE(2715),
+
+	/**
 	 * ID: 2716<br>
 	 * Message: Current location: $s1, $s2, $s3 (inside Aerial Cleft)
 	 */
 	LOC_CLEFT_S1_S2_S3(2716),
 
 	/**
+	 * ID: 2717<BR>
+	 * Console Message: The airship will land at the wharf shortly.
+	 */
+	AIRSHIP_LANDS_SOON(2717),
+
+	/**
+	 * ID: 2718<BR>
+	 * Console Message: The skill cannot be used because the target's location is too
+	 * high or low.
+	 */
+	CANNOT_USE_SKILL_Z_DIFF(2718),
+
+	/**
+	 * ID: 2719<BR>
+	 * Console Message: Only non-compressed 256 color bmp bitmap files can be registered.
+	 */
+	ONLY_UNCOMPRESSED_256_COLOR_BMP(2719),
+
+	/**
 	 * ID: 2720<br>
-	 * Message: Instant zone from here: $s1's entry has been restricted. You can check the next entry possible time with the command "/instancezone."
+	 * Message: Instant zone from here: $s1's entry has been restricted. You can check
+	 * the next entry possible time with the command "/instancezone."
 	 */
 	INSTANT_ZONE_S1_ENTRY_RESTRICTED(2720),
 
 	/**
 	 * ID: 2721<br>
-	 * Message: Boarding or cancellation of boarding on Airships is not allowed in the current area.
+	 * Message: Boarding or cancellation of boarding on Airships is not allowed in the
+	 * current area.
 	 */
 	BOARD_OR_CANCEL_NOT_POSSIBLE_HERE(2721),
+
+	/**
+	 * ID: 2722<BR>
+	 * Console Message: Another airship has already been summoned at the wharf.
+	 * Please try again later.
+	 */
+	ANOTHER_AIRSHIP_SUMMONED(2722),
+
+	/**
+	 * ID: 2723<BR>
+	 * Console Message: The airship cannot be summoned because you don't have enough $s1%.
+	 */
+	CANT_SUMMON_AIRSHIP_NEED_S1(2723),
+
+	/**
+	 * ID: 2724<BR>
+	 * Console Message: The airship cannot be purchased because you don't have enough $s1%.
+	 */
+	CANT_PURCHASE_AIRSHIP_NEED_S1(2724),
+
+	/**
+	 * ID: 2725<BR>
+	 * Console Message: You cannot summon the airship because you do not meet the
+	 * requirements.
+	 */
+	CANT_SUMMON_AIRSHIP(2725),
+
+	/**
+	 * ID: 2726<BR>
+	 * Console Message: You cannot purchase the airship because you do not meet the
+	 * requirements.
+	 */
+	CANT_PURCHASE_AIRSHIP(2726),
 
 	/**
 	 * ID: 2727<br>
@@ -15398,7 +15894,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2741<BR>
-	 * Console Message: You can control the airship by targeting the airship's control key and pressing the "control" action button while riding the airship.
+	 * Console Message: You can control the airship by targeting the airship's control
+	 * key and pressing the "control" action button while riding the airship.
 	 */
 	YOU_CAN_CONTROL_AIRSHIP(2741),
 
@@ -15410,19 +15907,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2743<BR>
-	 * Console Message: If you restart while on an airship, you will return to the departure location.
+	 * Console Message: If you restart while on an airship, you will return to the
+	 * departure location.
 	 */
 	RESTART_WHILE_ON_AIRSHIP(2743),
 
 	/**
 	 * ID: 2744<BR>
-	 * Console Message: If you press the "Control Cancel" action button, you can exit the control state at any time.
+	 * Console Message: If you press the "Control Cancel" action button, you can exit
+	 * the control state at any time.
 	 */
 	YOU_CAN_EXIT_CONTROL_STATE(2744),
 
 	/**
 	 * ID: 2745<BR>
-	 * Console Message: The "Mount Cancel" action button allows you to dismount before the airship departs.
+	 * Console Message: The "Mount Cancel" action button allows you to dismount before
+	 * the airship departs.
 	 */
 	YOU_CAN_DISMOUNT_AIRSHIP(2745),
 
@@ -15434,19 +15934,22 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2747<BR>
-	 * Console Message: Airship teleport is possible through the "Depart" action, and in that case, fuel (EP) is consumed.
+	 * Console Message: Airship teleport is possible through the "Depart" action,
+	 * and in that case, fuel (EP) is consumed.
 	 */
-	UNNAMED_2747(2747),
+	AIRSHIP_TELEPORT_IS_POSSIBLE(2747),
 
 	/**
 	 * ID: 2748<BR>
-	 * Console Message: You have been reported as an illegal program user and cannot report other users.
+	 * Console Message: You have been reported as an illegal program user and cannot
+	 * report other users.
 	 */
-	REPORTED_FOR_ILLEGAL_SOFTWARE(2748),
+	REPORTED_CANT_REPORT_OTHERS(2748),
 
 	/**
 	 * ID: 2749<BR>
-	 * Console Message: You have reached your crystallization limit and cannot crystallize any more.
+	 * Console Message: You have reached your crystallization limit and cannot
+	 * crystallize any more.
 	 */
 	CANNOT_CRYSTALLIZE_LIMIT_REACHED(2749),
 
@@ -15477,7 +15980,8 @@ public enum SystemMessageId
 
 	/**
 	 * ID: 2754<BR>
-	 * Console Message: PVP matches such as Olympiad, Underground Coliseum, Aerial Cleft, Kratei's Cube, and Handy's Block Checkers overlap and you cannot participate.
+	 * Console Message: PVP matches such as Olympiad, Underground Coliseum, Aerial Cleft,
+	 * Kratei's Cube, and Handy's Block Checkers overlap and you cannot participate.
 	 */
 	PVP_MATCHES_OVERLAP(2754),
 
@@ -15491,31 +15995,31 @@ public enum SystemMessageId
 	 * ID: 2756<BR>
 	 * Console Message: Another player is probably controlling the target.
 	 */
-	UNNAMED_2756(2756),
+	SOMEONE_ELSE_ALREADY_CONTROLLING(2756),
 
 	/**
 	 * ID: 2757<BR>
 	 * Console Message: The target is moving so you have failed to mount.
 	 */
-	UNNAMED_2757(2757),
+	CANNOT_MOUNT_TARGET_MOVING(2757),
 
 	/**
 	 * ID: 2758<BR>
 	 * Console Message: You cannot control the target while a pet or servitor is summoned.
 	 */
-	UNNAMED_2758(2758),
+	CANNOT_CONTROL_WITH_SERVITOR(2758),
 
 	/**
 	 * ID: 2759<BR>
 	 * Console Message: When actions are prohibited, you cannot mount a mountable.
 	 */
-	UNNAMED_2759(2759),
+	CANNOT_MOUNT_ACTIONS_PROHIBITED(2759),
 
 	/**
 	 * ID: 2760<BR>
 	 * Console Message: When actions are prohibited, you cannot control the target.
 	 */
-	UNNAMED_2760(2760),
+	CANNOT_CONTROL_ACTIONS_PROHIBITED(2760),
 
 	/**
 	 * ID: 2761<BR>
@@ -15907,6 +16411,184 @@ public enum SystemMessageId
 	//UNNAMED_2833(2833),
 
 	/**
+	 * ID: 2834<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 7 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2834(2834),
+
+	/**
+	 * ID: 2835<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 8 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2835(2835),
+
+	/**
+	 * ID: 2836<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 9 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2836(2836),
+
+	/**
+	 * ID: 2837<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 10 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2837(2837),
+
+	/**
+	 * ID: 2838<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 11 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2838(2838),
+
+	/**
+	 * ID: 2839<BR>
+	 * Console Message: Designate a shortcut key for the Mountable Exclusive use shortcut
+	 * window's No 12 slot. The CTRL and SHIFT keys cannot be designated.
+	 */
+	//UNNAMED_2839(2839),
+
+	/**
+	 * ID: 2840<BR>
+	 * Console Message: Execute the designated shortcut's action/skill/macro.
+	 */
+	//UNNAMED_2840(2840),
+
+	/**
+	 * ID: 2841<BR>
+	 * Console Message: Raise my character to the top.
+	 */
+	//UNNAMED_2841(2841),
+
+	/**
+	 * ID: 2842<BR>
+	 * Console Message: Lower my character to the bottom.
+	 */
+	//UNNAMED_2842(2842),
+
+	/**
+	 * ID: 2843<BR>
+	 * Console Message: Raise the controlled mountable to the top.
+	 */
+	//UNNAMED_2843(2843),
+
+	/**
+	 * ID: 2844<BR>
+	 * Console Message: Lower the controlled mountable to the bottom.
+	 */
+	//UNNAMED_2844(2844),
+
+	/**
+	 * ID: 2845<BR>
+	 * Console Message: Automatically send forward my character or mountable.
+	 */
+	//UNNAMED_2845(2845),
+
+	// 2846 - 2850 No translation required
+
+	/**
+	 * ID: 2851<BR>
+	 * Console Message: Stop all actions of my character.
+	 */
+	//UNNAMED_2851(2851),
+
+	/**
+	 * ID: 2852<BR>
+	 * Console Message: Stop all actions of my controlled mountable.
+	 */
+	//UNNAMED_2852(2852),
+
+	/**
+	 * ID: 2853<BR>
+	 * Console Message: If you join the clan academy, you can become a clan member and
+	 * learn the game system until you become level 40. If you want more fun, we recommend
+	 * that you join the clan academy.
+	 */
+	JOIN_CLAN_ACADEMY(2853),
+
+	/**
+	 * ID: 2854<BR>
+	 * Console Message: Once you attain level 40, you are then eligible for a second
+	 * class transfer. After completing this line of quests, your character's capabilities
+	 * and proficiencies will be more specialized.
+	 */
+	LEVEL_40_2ND_CLASS(2854),
+
+	/**
+	 * ID: 2900<BR>
+	 * Console Message: $s1-second(s) to the end of territory war!<BR>
+	 * Screen Message: The territory war is ending in $s1-second(s)
+	 */
+	TERRITORY_WAR_ENDS_IN_S1_SECONDS(2900),
+
+	/**
+	 * ID: 2901<BR>
+	 * Console Message: You cannot force attack a member of the same territory.
+	 */
+	CANT_FORCE_ATTACK_SAME_TERRITORY_MEMBER(2901),
+
+	/**
+	 * ID: 2902<BR>
+	 * Console Message: You've acquired the ward. Move quickly to your forces' outpost.
+	 */
+	YOU_ACQUIRED_WARD(2902),
+
+	/**
+	 * ID: 2903<BR>
+	 * Console Message: Territory war has begun.<BR>
+	 * Screen Message: Territory war begins now!
+	 */
+	TERRITORY_WAR_BEGUN(2903),
+
+	/**
+	 * ID: 2904<BR>
+	 * Console Message: Territory war has ended.
+	 */
+	TERRITORY_WAR_ENDED(2904),
+
+	/**
+	 * ID: 2905<BR>
+	 * Console Message: Altitude cannot be decreased any further.
+	 */
+	CANT_DECREASE_ALTITUDE(2905),
+
+	/**
+	 * ID: 2906<BR>
+	 * Console Message: Altitude cannot be increased any further.
+	 */
+	CANT_INCREASE_ALTITUDE(2906),
+
+	/**
+	 * ID: 2907<BR>
+	 * Console Message: You have entered a potentially hostile environment so the
+	 * airship's speed has been greatly decreased.
+	 */
+	AIRSHIP_SPEED_DECREASED(2907),
+
+	/**
+	 * ID: 2908<BR>
+	 * Console Message: As you are leaving the hostile environment, the airship's speed
+	 * has been returned to normal.
+	 */
+	AIRSHIP_SPEED_INCREASED(2908),
+
+	/**
+	 * ID: 2909<BR>
+	 * Console Message: A servitor or pet cannot be summoned while on an airship.
+	 */
+	CANT_SUMMON_ON_AIRSHIP(2909),
+
+	/**
+	 * ID: 2910<BR>
+	 * Console Message: You have entered an incorrect command.
+	 */
+	INCORRECT_COMMAND(2910),
+
+	/**
 	* ID: 2911<br>
 	* Message: You've requested $c1 to be on your Friends List.
 	*/
@@ -15919,6 +16601,265 @@ public enum SystemMessageId
 	INVITED_C1_TO_CLAN(2912),
 
 	/**
+	 * ID: 2913<BR>
+	 * Console Message: Clan $s1 has succeeded in capturing $s2's territory ward.<BR>
+	 * Screen Message: $s2 ward is captured!
+	 */
+	CLAN_S1_CAPTURED_S2_WARD(2913),
+
+	/**
+	 * ID: 2914<BR>
+	 * Console Message: The territory war will begin in 20 minutes! Territory related
+	 * functions (ie: battlefield channel, Disguise Scrolls, Transformations, etc...)
+	 * can now be used.
+	 */
+	TERRITORY_WAR_IN_20_MINUTES(2914),
+
+	/**
+	 * ID: 2915<BR>
+	 * Console Message: This clan member cannot withdraw or be expelled while
+	 * participating in a territory war.
+	 */
+	THIS_MEMBER_CANT_LEAVE_CLAN_DURING_TERRITORY_WAR(2915),
+
+	/**
+	 * ID: 2916<BR>
+	 * Console Message: Participating in $s1 territory war
+	 */
+	IN_S1_TERRITORY_WAR(2916),
+
+	/**
+	 * ID: 2917<BR>
+	 * Console Message: Not participating in a territory war
+	 */
+	NOT_IN_TERRITORY_WAR(2917),
+
+	/**
+	 * ID: 2918<BR>
+	 * Console Message: Only characters who are level 40 or above who have completed their
+	 * second class transfer can register in a territory war.
+	 */
+	LEVEL_40_AND_SECOND_CLASS_FOR_TERRITORY_WAR(2918),
+
+	/**
+	 * ID: 2919<BR>
+	 * Console Message: While disguised, you cannot operate a private or manufacture store.
+	 */
+	NO_STORE_IN_DISGUISE(2919),
+
+	/**
+	 * ID: 2920<BR>
+	 * Console Message: No more airships can be summoned as the maximum airship limit
+	 * has been met.<BR>
+	 * Screen Message: Airship
+	 */
+	NO_MORE_AIRSHIPS(2920),
+
+	/**
+	 * ID: 2921<BR>
+	 * Console Message: You cannot board the airship because the maximum number for
+	 * occupants is met.<BR>
+	 * Screen Message: Airship
+	 */
+	AIRSHIP_FULL(2921),
+
+	/**
+	 * ID: 2922<BR>
+	 * Console Message: Block Checker will end in 5 seconds!<BR>
+	 * Screen Message: Block Checker will end in 5 seconds!
+	 */
+	BC_ENDS_5(2922),
+
+	/**
+	 * ID: 2923<BR>
+	 * Console Message: Block Checker will end in 4 seconds!!<BR>
+	 * Screen Message: Block Checker will end in 4 seconds!
+	 */
+	BC_ENDS_4(2923),
+
+	/**
+	 * ID: 2924<BR>
+	 * Console Message: You cannot enter a Seed while in a flying transformation state.
+	 */
+	CANNOT_ENTER_SEED_WHILE_FLYING(2924),
+
+	/**
+	 * ID: 2925<BR>
+	 * Console Message: Block Checker will end in 3 seconds!!!<BR>
+	 * Screen Message: Block Checker will end in 3 seconds!
+	 */
+	BC_ENDS_3(2925),
+
+	/**
+	 * ID: 2926<BR>
+	 * Console Message: Block Checker will end in 2 seconds!!!!<BR>
+	 * Screen Message: Block Checker will end in 2 seconds!
+	 */
+	BC_ENDS_2(2926),
+
+	/**
+	 * ID: 2927<BR>
+	 * Console Message: Block Checker will end in 1 second!!!!!<BR>
+	 * Screen Message: Block Checker will end in 1 second!
+	 */
+	BC_ENDS_1(2927),
+
+	/**
+	 * ID: 2928<BR>
+	 * Console Message: The $c1 team has won.<BR>
+	 * Screen Message: Victory goes to the $c1 team!
+	 */
+	TEAM_C1_WON(2928),
+
+	/**
+	 * ID: 2929<BR>
+	 * Console Message: Your request cannot be processed because there's no enough
+	 * available memory on your graphic card. Please try again after reducing the
+	 * resolution.
+	 */
+	//NOT_ENOUGH_GRAPHICS_MEMORY_REDUCE_RESOLUTION(2929),
+
+	/**
+	 * ID: 2930<BR>
+	 * Console Message: A graphic card internal error has occurred. Please install the
+	 * latest version of the graphic card driver and try again.
+	 */
+	//INSTALL_LATEST_DRIVERS(2930),
+
+	/**
+	 * ID: 2931<BR>
+	 * Console Message: The system file may have been damaged. After ending the game,
+	 * please check the file using the Lineage II auto update.
+	 */
+	//SYSTEM_FILE_DAMAGED(2931),
+
+	/**
+	 * ID: 2932<BR>
+	 * Console Message: $s1 adena
+	 */
+	S1_ADENA(2932),
+
+	/**
+	 * ID: 2933<BR>
+	 * Console Message: Thomas D. Turkey has appeared. Please save Santa.
+	 */
+	//UNNAMED_2933(2933),
+
+	/**
+	 * ID: 2934<BR>
+	 * Console Message: You have defeated Thomas D. Turkey and rescued Santa.
+	 */
+	//UNNAMED_2934(2934),
+
+	/**
+	 * ID: 2935<BR>
+	 * Console Message: You failed to rescue Santa, and Thomas D. Turkey has disappeared.
+	 */
+	//UNNAMED_2935(2935),
+
+	/**
+	 * ID: 2936<BR>
+	 * Console Message: The disguise scroll cannot be used because it is meant for use
+	 * in a different territory.
+	 */
+	CANT_DISGUISE_WRONG_TERRITORY(2936),
+
+	/**
+	 * ID: 2937<BR>
+	 * Console Message: A territory owning clan member cannot use a disguise scroll.
+	 */
+	CANT_DISGUISE_OWNING_TERRITORY(2937),
+
+	/**
+	 * ID: 2938<BR>
+	 * Console Message: The disguise scroll cannot be used while you are engaged in
+	 * a private store or manufacture workshop.
+	 */
+	CANT_DISGUISE_WITH_SHOP(2938),
+
+	/**
+	 * ID: 2939<BR>
+	 * Console Message: A disguise cannot be used when you are in a chaotic state.
+	 */
+	CANT_DISGUISE_WITH_KARMA(2939),
+
+	/**
+	 * ID: 2940<BR>
+	 * Console Message: You can increase the chance to enchant the item. Press the
+	 * Start button below to begin.
+	 */
+	//CAN_INCREASE_ENCHANT_CHANCE(2940),
+
+	/**
+	 * ID: 2941<BR>
+	 * Console Message: The request cannot be completed because the requirements are
+	 * not met. In order to participate in a team match, all team members must have an
+	 * Olympiad score of 1 or more.
+	 */
+	CANNOT_PARTICIPATE_IN_TEAM_OLYMPIAD_MATCH(2941),
+
+	/**
+	 * ID: 2942<BR>
+	 * Console Message: The first gift's remaining resupply time is $s1 hour(s)
+	 * $s2 minute(s) $s3 second(s).  (If you resummon the Agathion at the gift supply
+	 * time, the supply time can take an additional 10 minutes.)
+	 */
+	FIRST_GIFT_RESUPPLY_TIME_S1_HOURS_S2_MINUTES_S3_SECONDS(2942),
+
+	/**
+	 * ID: 2943<BR>
+	 * Console Message: The first gift's remaining resupply time is $s1 minute(s)
+	 * $s2 second(s). (If you resummon the Agathion at the gift supply time, the
+	 * supply time can take an additional 10 minutes.)
+	 */
+	FIRST_GIFT_RESUPPLY_TIME_S1_MINUTES_S2_SECONDS(2943),
+
+	/**
+	 * ID: 2944<BR>
+	 * Console Message: The first gift's remaining resupply time is $s1 second(s).
+	 *  (If you resummon the Agathion at the gift supply time, the supply time can
+	 * take an additional 10 minutes.)
+	 */
+	FIRST_GIFT_RESUPPLY_TIME_S1_SECONDS(2944),
+
+	/**
+	 * ID: 2945<BR>
+	 * Console Message: The second gift's remaining resupply time is $s1 hour(s)
+	 * $s2 minute(s) $s3 second(s).  (If you resummon the Agathion at the gift supply
+	 * time, the supply time can take an additional 1 hour 10 minutes.)
+	 */
+	SECOND_GIFT_RESUPPLY_TIME_S1_HOURS_S2_MINUTES_S3_SECONDS(2945),
+
+	/**
+	 * ID: 2946<BR>
+	 * Console Message: The second gift's remaining resupply time is $s1 minute(s)
+	 * $s2 second(s). (If you resummon the Agathion at the gift supply time, the supply
+	 * time can take an additional 1 hour 10 minutes.)
+	 */
+	SECOND_GIFT_RESUPPLY_TIME_S1_MINUTES_S2_SECONDS(2946),
+
+	/**
+	 * ID: 2947<BR>
+	 * Console Message: The second gift's remaining resupply time is $s1 second(s).
+	 * (If you resummon the Agathion at the gift supply time, the supply time can take
+	 * an additional 1 hour 10 minutes.)
+	 */
+	SECOND_GIFT_RESUPPLY_TIME_S1_SECONDS(2947),
+
+	/**
+	 * ID: 2955<BR>
+	 * Console Message: The territory war exclusive disguise and transformation can be
+	 * used 20 minutes before the start of the territory war to 10 minutes after its end.
+	 */
+	DISGUISE_USAGE(2955),
+
+	/**
+	 * ID: 2956<BR>
+	 * Console Message: A user participating in the Olympiad cannot witness the battle.
+	 */
+	OLYMPIAD_PARTICIPANT_CANT_OBSERVE(2956),
+
+	/**
 	* ID: 2957<br>
 	* Message: Characters with a February 29 creation date will receive a gift on
 	* February 28.
@@ -15926,10 +16867,198 @@ public enum SystemMessageId
 	CHARACTERS_CREATED_FEB_29_WILL_RECEIVE_GIFT_FEB_28(2957),
 
 	/**
+	 * ID: 2958<BR>
+	 * Console Message: An Agathion has already been summoned.
+	 */
+	AGATHION_ALREADY_SUMMONED(2958),
+
+	/**
+	 * ID: 2959<BR>
+	 * Console Message: Your account has been temporarily restricted...
+	 */
+	//ILLEGAL_USE37(2959),
+
+	/**
+	 * ID: 2960<BR>
+	 * Console Message: The item $s1% is required.
+	 */
+	ITEM_S1_REQUIRED(2960),
+
+	/**
+	 * ID: 2961<BR>
+	 * Console Message: $2 unit(s) of the item $s1% is required.
+	 */
+	S2_UNITS_OF_S1_REQUIRED(2961),
+
+	/**
+	 * ID: 6001<BR>
+	 * Console Message: The item has been successfully purchased.
+	 */
+	UNNAMED_6001(6001),
+
+	/**
+	 * ID: 6002<BR>
+	 * Console Message: The item has failed to be purchased.
+	 */
+	UNNAMED_6002(6002),
+
+	/**
+	 * ID: 6003<BR>
+	 * Console Message: The item you selected cannot be purchased. Unfortunately, the sale period ended.
+	 * @see ExBR_PremiumState#STATE_SALE_PERIOD_ENDED
+	 */
+	//UNNAMED_6003(6003),
+
+	/**
+	 * ID: 6004<BR>
+	 * Console Message: Enchant failed. The enchant skill for the corresponding item will be exactly retained.
+	 */
+	ENCHANT_FAILED_SKILL_RETAINED(6004),
+
+	/**
+	 * ID: 6005<BR>
+	 * Console Message: Game points are not enough.
+	 * @see ExBR_PremiumState#STATE_NOT_ENOUGH_POINTS
+	 */
+	//UNNAMED_6005(6005),
+
+	/**
+	 * ID: 6006<BR>
+	 * Console Message: The item cannot be received because the inventory weight/quantity
+	 * limit has been exceeded.
+	 * @see ExBR_PremiumState#STATE_INVENTORY_FULL
+	 */
+	//UNNAMED_6006(6006),
+
+	/**
+	 * ID: 6007<BR>
+	 * Console Message: Product Purchase Error - The user state is not right.
+	 * @see ExBR_PremiumState#STATE_WRONG_USER_STATE
+	 */
+	//UNNAMED_6007(6007),
+
+	/**
+	 * ID: 6008<BR>
+	 * Console Message: Product Purchase Error - The product is not right.
+	 * @see ExBR_PremiumState#STATE_WRONG_PRODUCT
+	 */
+	//UNNAMED_6008(6008),
+
+	/**
+	 * ID: 6009<BR>
+	 * Console Message: Product Purchase Error - The item within the product is not right.
+	 * @see ExBR_PremiumState#STATE_WRONG_PRODUCT_ITEM
+	 */
+	//UNNAMED_6009(6009),
+
+	/**
+	 * ID: 6010<BR>
+	 * Console Message: The master account of your account has been restricted.
+	 * @see com.l2jfree.loginserver.serverpackets.LoginFail
+	 */
+	//MASTER_ACCOUNT_RESTRICTED(6010),
+
+	/**
+	 * ID: 6011<BR>
+	 * Console Message: You acquired $s1 Exp. and $s2 SP. (As a reward you receive $s3%
+	 * more Exp.)
+	 */
+	ACQUIRED_S1_XP_S2_SP_REWARD_S3_MORE_XP_6011(6011),
+
+	/**
+	 * ID: 6012<BR>
+	 * Console Message: a blessing that increases Exp. by $1 $2
+	 */
+	INCREASES_XP_BY_S1_S2(6012),
+
+	/**
+	 * ID: 6013<BR>
+	 * Console Message: It is not a blessing period. When you reach today's target, you
+	 * can receive $s1%.
+	 */
+	NOT_EVA_BLESSING_CAN_RECEIVE_S1(6013),
+
+	/**
+	 * ID: 6014<BR>
+	 * Console Message: It is Eva's blessing period. $s1% will be effective until $s2.
+	 */
+	EVA_BLESSING_S1_EFFECTIVE_UNTIL_S2(6014),
+
+	/**
+	 * ID: 6015<BR>
+	 * Console Message: It is Eva's blessing period. Until $s1, Jack Sage can gift you
+	 * with $s2%.
+	 */
+	UNTIL_S1_JACK_SAGE_GIFT_YOU_S2(6015),
+
+	/**
+	 * ID: 6016<BR>
+	 * Console Message: Progress: Event stage $s1.
+	 */
+	EVENT_STAGE_S1(6016),
+
+	/**
+	 * ID: 6017<BR>
+	 * Console Message: Eva's Blessing Stage $s1 has begun.<BR>
+	 * Screen Message: It is Eva's blessing period.
+	 */
+	EVA_BLESSING_S1_BEGUN(6017),
+
+	/**
+	 * ID: 6018<BR>
+	 * Console Message: Eva's Blessing Stage $s1 has ended.<BR>
+	 * Screen Message: It is not Eva's Blessing period.
+	 */
+	EVA_BLESSING_S1_ENDED(6018),
+
+	/**
 	* ID: 6501<br>
 	* Message: You cannot bookmark this location because you do not have a My Teleport Flag.
 	*/
-	YOU_CANNOT_BOOKMARK_THIS_LOCATION_BECAUSE_YOU_DO_NOT_HAVE_A_MY_TELEPORT_FLAG(6501);
+	YOU_CANNOT_BOOKMARK_THIS_LOCATION_BECAUSE_YOU_DO_NOT_HAVE_A_MY_TELEPORT_FLAG(6501),
+
+	/**
+	 * ID: 6502<BR>
+	 * Console Message: My Teleport Flag: $s1
+	 */
+	MY_TELEPORT_FLAG_S1(6502),
+
+	/**
+	 * ID: 6503<BR>
+	 * Console Message: The evil Thomas D. Turkey has appeared. Please save Santa.<BR>
+	 * Screen Message: Please save Santa.
+	 */
+	PLEASE_SAVE_SANTA(6503),
+
+	/**
+	 * ID: 6504<BR>
+	 * Console Message: You won the battle against Thomas D. Turkey. Santa has been
+	 * rescued.<BR>
+	 * Screen Message: Rescue Santa - Success
+	 */
+	SANTA_RESCUED(6504),
+
+	/**
+	 * ID: 6505<BR>
+	 * Console Message: You did not rescue Santa, and Thomas D. Turkey has disappeared.<BR>
+	 * Screen Message: Rescue Santa - Failure
+	 */
+	SANTA_NOT_RESCUED(6505),
+
+	/**
+	 * ID: 6506<BR>
+	 * Console Message: Although you can't be certain, the air seems laden with the scent
+	 * of freshly baked bread.<BR>
+	 * Screen Message: Spirit Leaven has been activated.
+	 */
+	SPIRIT_LEAVEN_ACTIVATED(6506),
+
+	/**
+	 * ID: 6507<BR>
+	 * Console Message: You feel refreshed. Everything appears clear.<BR>
+	 * Screen Message: Spirit Leaven has disappeared.
+	 */
+	SPIRIT_LEAVEN_DEACTIVATED(6507);
 
 	private final int _id;
 	private final int _size;
