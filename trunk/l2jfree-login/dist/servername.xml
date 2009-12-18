@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<servers_list>
+<servers_list xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com server_names.xsd">
   <!-- server list from c3 (only english names) -->
   <server id="1" name="Bartz" />
   <server id="2" name="Sieghardt" />

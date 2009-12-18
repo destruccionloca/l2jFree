@@ -42,7 +42,8 @@ public class L2LoginServer extends Config
 	@SuppressWarnings("hiding")
 	public static final int PROTOCOL_LEGACY = 259;
 	/** Current network protocol version */
-	public static final int PROTOCOL_CURRENT = 1;
+	// protocol 1 does not support connection filtering
+	public static final int PROTOCOL_CURRENT = 2;
 
 	private static L2LoginServer			_instance;
 	@SuppressWarnings("hiding")
