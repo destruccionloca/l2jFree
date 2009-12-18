@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -156,7 +156,18 @@ public final class IOFloodManager implements IAcceptFilter
 		if (!Config.CONNECTION_FILTERING)
 			return true;
 
-		return _legalConnections.remove(socketChannel.socket().getInetAddress().getHostAddress());
+		String ip = socketChannel.socket().getInetAddress().getHostAddress();
+		Integer count = _legalConnections.get(ip);
+		if (count != null)
+		{
+			if (count == 1)
+				_legalConnections.remove(ip);
+			else
+				_legalConnections.put(ip, --count);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	private static final class FloodManager
@@ -305,10 +316,15 @@ public final class IOFloodManager implements IAcceptFilter
 		}
 	}
 
-	public static final FastList<String> _legalConnections = new FastList<String>();
+	private static final Integer ONE = 1;
+	public static final FastMap<String, Integer> _legalConnections = new FastMap<String, Integer>();
 
 	public static final void legalize(String ip)
 	{
-		_legalConnections.add(ip);
+		Integer count = _legalConnections.get(ip);
+		if (count == null)
+			_legalConnections.put(ip, ONE);
+		else
+			_legalConnections.put(ip, ++count);
 	}
 }
