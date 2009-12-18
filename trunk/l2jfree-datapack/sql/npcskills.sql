@@ -34693,3 +34693,8 @@ INSERT INTO `npcskills` VALUES
 (35060,5113,7),
 (35061,5052,6),
 (35061,5114,7);
+
+# Swamp of screams
+DELETE FROM `npcskills` WHERE `skillid` = 4072 AND `npcid` = 21516;
+DELETE FROM `npcskills` WHERE `skillid` = 4073 AND `npcid` IN (21510, 21515);
+DELETE FROM `npcskills` WHERE `skillid` = 4142 AND `npcid` IN (21509, 21514);

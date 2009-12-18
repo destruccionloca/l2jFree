@@ -10090,3 +10090,8 @@ UPDATE `npc` SET `type` = 'L2BirthdayHelper' WHERE `id` = 32600;
 # Baylor & Crystalline Golem from L2WH by savormix
 UPDATE `npc` SET `hp` = 2566624, `exp` = 2856882, `sp` = 1322380 WHERE `id` = 29099;
 UPDATE `npc` SET `hp` = 177459 WHERE `id` = 29101;
+
+# Silent valley
+UPDATE `npc` SET `drop_herbs` = 'true' WHERE `id` IN (20964, 20965, 20966, 20967, 20968, 20969, 20970, 20971, 20972, 20973);
+# Swamp of screams
+UPDATE `npc` SET `drop_herbs` = 'true' WHERE `id` IN (21508, 21509, 21510, 21511, 21512, 21513, 21514, 21515, 21516, 21517, 21518, 21519);

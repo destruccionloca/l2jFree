@@ -9714,15 +9714,14 @@ UPDATE `etcitem` SET `price` = '20' WHERE `item_id` = '10202';
 UPDATE `etcitem` SET `handler` = 'Potions' WHERE `item_id` = '10409';
 
 -- Wrapped Vitamin Packs (savormix)
+UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` IN (13256, 13257, 13384, 13385, 14530);
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13079 AND 13098;
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13103 AND 13126;
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13225 AND 13233;
-UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` IN (13256, 13257);
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13274 AND 13276;
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13279 AND 13292;
 UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 13341 AND 13381;
-UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` IN (13384,13385);
-UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14228 AND 14291; 
+UPDATE `etcitem` SET `handler` = 'WrappedPack', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 14228 AND 14291;
 -- Vitamin Items (savormix)
 UPDATE `etcitem` SET `handler` = 'ColorName' WHERE `item_id` IN (13021, 13307);
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `destroyable` = 'false', `tradeable` = 'false' WHERE `item_id` BETWEEN 12362 AND 12371;
