@@ -32,8 +32,7 @@ public class DoorKey implements IItemHandler
 {
 	// All the item IDs that this handler knows.
 	// TODO skill for 9694
-	private static final int[]	ITEM_IDS				=
-														{ 9694 };
+	private static final int[]	ITEM_IDS				= {};
 
 	public static final int		INTERACTION_DISTANCE	= 100;
 
@@ -70,40 +69,12 @@ public class DoorKey implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-        // Temp hack for secret doors, not to let players be too close to it when opening it 
-		if (itemId == 9694 && !(activeChar.isOutsideRadius(door.getX(), door.getY(), 130)))
-		{
-			activeChar.sendMessage("Too near...");
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
 
 		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You are currently engaged in combat.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
-		}
-
-		switch (itemId)
-		{
-		case 9694: // Secret Garden Key
-		{
-			if ((door.getDoorId() != 24220001 && door.getDoorId() != 24220002 && door.getDoorId() != 24220003 && door.getDoorId() != 24220004)
-					|| door.getOpen())
-			{
-				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-
-			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-				return;
-
-			door.openMe();
-			activeChar.setOpenedSecretDoor(door.getDoorId());
-			break;
-		}
 		}
 	}
 

@@ -850,12 +850,6 @@ public final class L2PcInstance extends L2Playable
 	// Id of the afro hair cut
 	private int								_afroId					= 0;
 
-	// Secret doors in Emerald
-	private int								_openedSecretDoor		 = 0;
-	private int								_positionWhenSecretDoorX = 0;
-	private int								_positionWhenSecretDoorY = 0;
-	private int								_positionWhenSecretDoorZ = 0;
-
 	// Creation day
 	private int								_lastClaim;
 	private Calendar						_createdOn;
@@ -14457,34 +14451,6 @@ public final class L2PcInstance extends L2Playable
 	public boolean isChaotic()
 	{
 		return getKarma() > 0 || isCursedWeaponEquipped();
-	}
-
-	public void setOpenedSecretDoor(int doorId)
-	{
-		_openedSecretDoor = doorId;
-		_positionWhenSecretDoorX = getX();
-		_positionWhenSecretDoorY = getY();
-		_positionWhenSecretDoorZ = getZ();
-
-		ThreadPoolManager.getInstance().scheduleGeneral(new checkPositionForSecretDoor(), 1000);
-	}
-
-	class checkPositionForSecretDoor implements Runnable
-	{
-		public void run()
-		{
-			if (getX() != _positionWhenSecretDoorX || getY() != _positionWhenSecretDoorY || getZ() != _positionWhenSecretDoorZ)
-			{
-				DoorTable.getInstance().getDoor(_openedSecretDoor).closeMe();
-
-				_openedSecretDoor = 0;
-				_positionWhenSecretDoorX = 0;
-				_positionWhenSecretDoorY = 0;
-				_positionWhenSecretDoorZ = 0;
-			}
-			else
-				ThreadPoolManager.getInstance().scheduleGeneral(new checkPositionForSecretDoor(), 500);
-		}
 	}
 
 	public int getCertificationLevel(int classIndex)
