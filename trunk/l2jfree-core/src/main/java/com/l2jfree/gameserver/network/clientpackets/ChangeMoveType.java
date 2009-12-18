@@ -15,55 +15,35 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class is no longer useful.<BR>
- * Please verify with compatible client(s) and remove it completely!
- * 
- * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
- * @deprecated see RequestActionUse
+ * This packet is never sent since by the official client since Gracia P2.
+ * @see RequestActionUse#RequestActionUse()
  */
-@Deprecated
-public class ChangeMoveType2 extends L2GameClientPacket
+public class ChangeMoveType extends L2GameClientPacket
 {
-	private static final String _C__1C_CHANGEMOVETYPE2 = "[C] 1C ChangeMoveType2";
+	private static final String _C__35_CHANGEMOVETYPE = "[C] 35 ChangeMoveType";
 
-	private boolean _typeRun;
+	//private boolean _typeRun;
 
-	/**
-	 * packet type id 0x1c
-	 * 
-	 * sample
-	 * 
-	 * 1d
-	 * 01 00 00 00 // type (0 = walk, 1 = run)
-	 * 
-	 * format:		cd
-	 */
     @Override
     protected void readImpl()
     {
-        _typeRun = (readD() == 1);
+        /*_typeRun = (*/readD();// == 1);
     }
 
     @Override
     protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
-
-		if (_typeRun)
-			player.setRunning();
-		else
-			player.setWalking();
-
-		sendPacket(ActionFailed.STATIC_PACKET);
+    	L2PcInstance player = getActiveChar();
+		if (player != null)
+			Util.handleIllegalPlayerAction(player, "Sent a deprecated packet!");
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__1C_CHANGEMOVETYPE2;
+		return _C__35_CHANGEMOVETYPE;
 	}
 }

@@ -33,7 +33,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
-import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.util.HexUtil;
 
 /**
@@ -284,13 +283,11 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x34:
 						msg = new RequestSocialAction();
 						break;
-					// Deprecated - RequestActionUse
 					case 0x35:
-						//msg = new ChangeMoveType2();
-						//break;
+						msg = new ChangeMoveType();
+						break;
 					case 0x36:
-						//msg = new ChangeWaitType2();
-						Util.handleIllegalPlayerAction(client.getActiveChar(), "Sent a deprecated packet!");
+						msg = new ChangeWaitType();
 						break;
 					case 0x37:
 						msg = new RequestSellItem();
