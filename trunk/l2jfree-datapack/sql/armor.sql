@@ -2582,6 +2582,16 @@ UPDATE `armor` SET `name` = 'Shadow Item: Majestic Gauntlet' WHERE `item_id` = 9
 UPDATE `armor` SET `name` = 'Shadow Item: Majestic Boots' WHERE `item_id` = 9103;
 
 -- Agathion skills update
+UPDATE `armor` SET `skills_item` = '3423-1;3267-1;5535-1;5538-1' WHERE `item_id` = 10316;
+UPDATE `armor` SET `skills_item` = '3423-1;3267-1;5535-1;5539-1' WHERE `item_id` = 10317;
+UPDATE `armor` SET `skills_item` = '3423-1;3267-1;5535-1;5540-1' WHERE `item_id` = 10318;
+UPDATE `armor` SET `skills_item` = '3423-1;3267-1;5535-1;5541-1' WHERE `item_id` = 10319;
+UPDATE `armor` SET `skills_item` = '3423-1;3267-1;5535-1' WHERE `item_id` = 10320;
+UPDATE `armor` SET `skills_item` = '3424-1;3267-1;5536-1;5542-1' WHERE `item_id` = 10322;
+UPDATE `armor` SET `skills_item` = '3424-1;3267-1;5536-1;5543-1' WHERE `item_id` = 10323;
+UPDATE `armor` SET `skills_item` = '3424-1;3267-1;5536-1;5544-1' WHERE `item_id` = 10324;
+UPDATE `armor` SET `skills_item` = '3424-1;3267-1;5536-1;5545-1' WHERE `item_id` = 10325;
+UPDATE `armor` SET `skills_item` = '3424-1;3267-1;5536-1' WHERE `item_id` = 10326;
 UPDATE `armor` SET `skills_item` = '21000-1;3267-1;23000-1' WHERE `item_id` = 20006;
 UPDATE `armor` SET `skills_item` = '21001-1;3267-1;23001-1' WHERE `item_id` = 20007;
 UPDATE `armor` SET `skills_item` = '21002-1;3267-1;23002-1' WHERE `item_id` = 20008;
