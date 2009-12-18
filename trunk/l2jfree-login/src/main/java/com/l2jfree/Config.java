@@ -77,6 +77,8 @@ public class Config extends L2Config
 	public static int			MAX_CONNECTION_PER_IP;
 
 	public static boolean		PROTOCOL_LEGACY;
+	public static boolean		AGGRESSIVE_BUFFER_REUSE;
+	public static int			INFRACT_FOR_MMOCORE_ABUSE;
 
 	public static void load()
 	{
@@ -117,6 +119,8 @@ public class Config extends L2Config
 			MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
 
 			PROTOCOL_LEGACY = Boolean.parseBoolean(serverSettings.getProperty("SupportL2JFreeCT2P2", "False"));
+			AGGRESSIVE_BUFFER_REUSE = Boolean.parseBoolean(serverSettings.getProperty("AggressivelyReuseReadBuffers", "True"));
+			INFRACT_FOR_MMOCORE_ABUSE = Integer.parseInt(serverSettings.getProperty("InfractForReadBufferCreation", "20"));
 		}
 		catch (Exception e)
 		{

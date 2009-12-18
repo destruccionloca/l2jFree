@@ -26,12 +26,12 @@ import com.l2jfree.Config;
 
 /**
  *
- * @author  KenM
+ * @author KenM
  */
 public class GameServerListener extends FloodProtectedListener
 {
-	private static Log						_log			= LogFactory.getLog(GameServerListener.class);
-	private static List<GameServerThread>	_gameServers	= new FastList<GameServerThread>();
+	private static Log _log								= LogFactory.getLog(GameServerListener.class);
+	private static List<GameServerThread> _gameServers	= new FastList<GameServerThread>();
 
 	public GameServerListener()
 	{
@@ -55,5 +55,17 @@ public class GameServerListener extends FloodProtectedListener
 	public void removeGameServer(GameServerThread gst)
 	{
 		_gameServers.remove(gst);
+	}
+
+	public void playerSelectedServer(int id, String ip)
+	{
+		for (GameServerThread gst : _gameServers)
+		{
+			if (gst.getServerId() == id)
+			{
+				gst.playerSelectedServer(ip);
+				break;
+			}
+		}
 	}
 }

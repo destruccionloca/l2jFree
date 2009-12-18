@@ -25,12 +25,11 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 import javax.crypto.Cipher;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,6 +42,7 @@ import com.l2jfree.loginserver.beans.FailedLoginAttempt;
 import com.l2jfree.loginserver.beans.GameServerInfo;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.gameserverpackets.ServerStatus;
+import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
@@ -88,9 +88,6 @@ public class LoginManager
 	/** Keep trace of login attempt for an inetadress*/
 	private Map<InetAddress, FailedLoginAttempt>	_hackProtection;
 
-	/** Clients that are on the LS but arent assocated with a account yet*/
-	protected Set<L2LoginClient>					_clients			= new FastSet<L2LoginClient>();
-
 	private ScrambledKeyPair[]						_keyPairs;
 
 	protected byte[][]								_blowfishKeys;
@@ -103,6 +100,8 @@ public class LoginManager
 	{
 		INVALID_PASSWORD, ACCOUNT_BANNED, ALREADY_ON_LS, ALREADY_ON_GS, AUTH_SUCCESS, SYSTEM_ERROR
 	}
+
+	private FastList<L2LoginClient>					_connections;
 
 	/**
 	 * Private constructor to avoid direct instantiation.
@@ -119,6 +118,8 @@ public class LoginManager
 			_keyPairs = new ScrambledKeyPair[10];
 
 			_service = (AccountsServices) L2Registry.getBean("AccountsServices");
+
+			_connections = new FastList<L2LoginClient>();
 
 			KeyPairGenerator keygen = null;
 
@@ -169,10 +170,6 @@ public class LoginManager
 		rsaCipher.init(Cipher.DECRYPT_MODE, key);
 	}
 
-	/**
-	 * 
-	 *
-	 */
 	private void generateBlowFishKeys()
 	{
 		_blowfishKeys = new byte[BLOWFISH_KEYS][16];
@@ -663,5 +660,42 @@ public class LoginManager
 		}
 		_logLogin.warn("No such account exists: " + user);
 		return false;
+	}
+
+	public int attemptCleansing(L2LoginClient newCon)
+	{
+		if (!Config.AGGRESSIVE_BUFFER_REUSE || newCon == null)
+			return 0;
+
+		int result = 0;
+		for (L2LoginClient lc : _connections)
+		{
+			if (newCon != lc && newCon.getIp().equals(lc.getIp()))
+			{
+				if (result < 5)
+					lc.closeLogin(LoginFail.REASON_USING_A_COMPUTER_NO_DUAL_BOX);
+				else
+					lc.closeNow();
+				result++;
+			}
+		}
+		if (result >= Config.INFRACT_FOR_MMOCORE_ABUSE)
+		{
+			// ban until login restart
+			// if user keeps seeing the same IP, he should use hardware measures
+			BanManager.getInstance().addBanForAddress(newCon.getInetAddress(), 0);
+			_log.info(newCon.getIp() + " has been infracted. Parallel unfinished login connections: " + result);
+		}
+		return result;
+	}
+
+	public void addConnection(L2LoginClient lc)
+	{
+		_connections.add(lc);
+	}
+
+	public void remConnection(L2LoginClient lc)
+	{
+		_connections.remove(lc);
 	}
 }

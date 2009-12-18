@@ -50,13 +50,13 @@ public class BanManager
 		return SingletonHolder.INSTANCE;
 	}
 	
-	private static final Log			_log		= LogFactory.getLog(BanManager.class);
+	private static final Log				_log			= LogFactory.getLog(BanManager.class);
 	/** Banned ips */
-	private final FastMap<SubNet, BanInfo>	_bannedIps	= new FastMap<SubNet, BanInfo>().setShared(true);
-	private final FastMap<SubNet, BanInfo>	_restrictedIps = new FastMap<SubNet, BanInfo>().setShared(true);
+	private final FastMap<SubNet, BanInfo>	_bannedIps		= new FastMap<SubNet, BanInfo>().setShared(true);
+	private final FastMap<SubNet, BanInfo>	_restrictedIps	= new FastMap<SubNet, BanInfo>().setShared(true);
 
-	public static String				BAN_LIST	= "config/banned_ip.cfg";
-	private static final String			ENCODING	= "UTF-8";
+	public static String					BAN_LIST		= "config/banned_ip.cfg";
+	private static final String				ENCODING		= "UTF-8";
 
 	private BanManager()
 	{
@@ -162,9 +162,9 @@ public class BanManager
         InetAddress netAddress = InetAddress.getByName(address);
         SubNet _net = new SubNet(netAddress.getHostAddress());
         if (expiration != 0)
-        	_bannedIps.put(_net, new BanInfo(_net,  expiration));
+        	_bannedIps.put(_net, new BanInfo(_net, expiration));
         else
-        	_restrictedIps.put(_net, new BanInfo(_net,  expiration));
+        	_restrictedIps.put(_net, new BanInfo(_net, expiration));
     }
 
     /**
@@ -177,9 +177,9 @@ public class BanManager
     {
     	SubNet _net = new SubNet(address);
     	if (duration != 0)
-    		_bannedIps.put(_net, new BanInfo(_net,  System.currentTimeMillis() + duration));
+    		_bannedIps.put(_net, new BanInfo(_net, System.currentTimeMillis() + duration));
     	else
-    		_restrictedIps.put(_net, new BanInfo(_net,  0));
+    		_restrictedIps.put(_net, new BanInfo(_net, 0));
     }
     
     /**
@@ -192,9 +192,9 @@ public class BanManager
     {
     	SubNet _net = new SubNet(address.getHostAddress());
     	if (duration != 0)
-    		_bannedIps.put(_net, new BanInfo(_net,  System.currentTimeMillis() + duration));
+    		_bannedIps.put(_net, new BanInfo(_net, System.currentTimeMillis() + duration));
     	else
-    		_restrictedIps.put(_net, new BanInfo(_net,  0));
+    		_restrictedIps.put(_net, new BanInfo(_net, 0));
     }
     
     public boolean isRestrictedAddress(InetAddress address)
@@ -235,24 +235,28 @@ public class BanManager
         return false;
     }
 
-    public long getBanExpiry(InetAddress address) {
-    	try {
+    public long getBanExpiry(InetAddress address)
+    {
+    	try
+    	{
     		return getBanData(address).getExpiry();
     	}
-    	catch (NullPointerException npe) {
+    	catch (NullPointerException npe)
+    	{
     		return 0;
     	}
     }
 
-    private BanInfo getBanData(InetAddress address) {
+    private BanInfo getBanData(InetAddress address)
+    {
     	return getInfo(address).getValue();
     }
  
-    public Entry<SubNet, BanInfo> getInfo(InetAddress address) {
+    public Entry<SubNet, BanInfo> getInfo(InetAddress address)
+    {
     	for(Map.Entry<SubNet, BanInfo> _bannedIP : _bannedIps.entrySet())
         {
         	SubNet net = _bannedIP.getKey();
-        	
         	if (net.isInSubnet(address.getHostAddress()))
         		return _bannedIP;
         }
@@ -267,7 +271,6 @@ public class BanManager
     {
         return _bannedIps;
     }
-
 
     /**
      * Remove the specified address from the ban list

@@ -28,6 +28,7 @@ import org.mmocore.network.ISocket;
 import org.mmocore.network.MMOConnection;
 import org.mmocore.network.SelectorThread;
 
+import com.l2jfree.Config;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.crypt.LoginCrypt;
 import com.l2jfree.loginserver.manager.LoginManager;
@@ -166,7 +167,7 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	
 	public RSAPrivateKey getRSAPrivateKey()
 	{
-		return (RSAPrivateKey)_scrambledPair.getPair().getPrivate();
+		return (RSAPrivateKey) _scrambledPair.getPair().getPrivate();
 	}
 	
 	public String getAccount()
@@ -254,21 +255,9 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 		close(new LoginFail(getAccessLevel(), true));
 	}
 
-	//public static int failcode = 100;
-
 	public void closeBanned(int timeLeft)
 	{
-		//if (timeLeft == -1) {
-			closeLogin(LoginFail.REASON_IP_RESTRICTED);
-			//-45 to 200 = nothing
-			//closeLogin(failcode);
-			//failcode++;
-			//_log.info(failcode);
-		/*}
-		else {
-			close(new LoginFail(LoginFail.REASON_TEMP_BAN));
-			close(new SystemMessage(LoginFail.REASON_TEMP_BAN).addNumber(timeLeft));
-		}*/
+		closeLogin(LoginFail.REASON_IP_RESTRICTED);
 	}
 
 	public InetAddress getInetAddress()
@@ -282,6 +271,8 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 		if (_log.isDebugEnabled())
 			_log.info("onDisconnection: " + this);
 		
+		LoginManager.getInstance().remConnection(this);
+		
 		// If player was not on GS, don't forget to remove it from authed login on LS
 		if (getState() == LoginClientState.AUTHED_LOGIN && !hasJoinedGS())
 		{
@@ -294,6 +285,15 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	{
 		if (_log.isDebugEnabled())
 			_log.info("onForcedDisconnection: " + this);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.mmocore.network.MMOConnection#isLossless()
+	 */
+	@Override
+	public boolean isLossless()
+	{
+		return Config.AGGRESSIVE_BUFFER_REUSE;
 	}
 	
 	@Override

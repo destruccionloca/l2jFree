@@ -53,6 +53,7 @@ import com.l2jfree.loginserver.loginserverpackets.KickPlayer;
 import com.l2jfree.loginserver.loginserverpackets.LoginServerFail;
 import com.l2jfree.loginserver.loginserverpackets.LoginToGamePacket;
 import com.l2jfree.loginserver.loginserverpackets.PlayerAuthResponse;
+import com.l2jfree.loginserver.loginserverpackets.PlayerLoginAttempt;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.status.Status;
@@ -66,28 +67,28 @@ import com.l2jfree.tools.util.HexUtil;
  */
 public class GameServerThread extends Thread
 {
-	private static final Log	_log					= LogFactory.getLog(GameServerThread.class);
-	private final Socket				_connection;
-	private InputStream			_in;
-	private OutputStream		_out;
+	private static final Log		_log					= LogFactory.getLog(GameServerThread.class);
+	private final Socket			_connection;
+	private InputStream				_in;
+	private OutputStream			_out;
 	private final RSAPublicKey		_publicKey;
 	private final RSAPrivateKey		_privateKey;
-	private NewCrypt			_blowfish;
-	private byte[]				_blowfishKey;
+	private NewCrypt				_blowfish;
+	private byte[]					_blowfishKey;
 
-	private final String				_connectionIp;
+	private final String			_connectionIp;
 
-	private GameServerInfo		_gsi;
+	private GameServerInfo			_gsi;
 	private final List<SubNetHost>	_gameserverSubnets		= new FastList<SubNetHost>();
 
-	private long				_lastIpUpdate;
+	private long					_lastIpUpdate;
 
 	/** Authed Clients on a GameServer*/
-	private final Set<String>			_accountsOnGameServer	= new FastSet<String>();
+	private final Set<String>		_accountsOnGameServer	= new FastSet<String>();
 
-	private String				_connectionIpAddress;
+	private String					_connectionIpAddress;
 
-	private int					_protocol;
+	private int						_protocol;
 
 	@Override
 	public void run()
@@ -553,7 +554,6 @@ public class GameServerThread extends Thread
 
 	public void updateIPs()
 	{
-
 		_lastIpUpdate = System.currentTimeMillis();
 
 		if (_gameserverSubnets.size() > 0)
@@ -624,10 +624,23 @@ public class GameServerThread extends Thread
 		return _connectionIpAddress;
 	}
 
-	private int getServerId()
+	public int getServerId()
 	{
 		if (getGameServerInfo() != null)
 			return getGameServerInfo().getId();
 		return -1;
+	}
+
+	public void playerSelectedServer(String ip)
+	{
+		if (_protocol > 200 || _protocol < L2LoginServer.PROTOCOL_CURRENT)
+			return;
+		try
+		{
+			sendPacket(new PlayerLoginAttempt(ip));
+		}
+		catch (IOException e)
+		{
+		}
 	}
 }

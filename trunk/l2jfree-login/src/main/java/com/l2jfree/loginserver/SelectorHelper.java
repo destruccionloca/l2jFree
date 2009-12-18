@@ -30,6 +30,8 @@ import org.mmocore.network.ReceivablePacket;
 import org.mmocore.network.SelectorThread;
 import org.mmocore.network.TCPHeaderHandler;
 
+import com.l2jfree.loginserver.manager.BanManager;
+import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.Init;
 import com.l2jfree.util.concurrent.ExecuteWrapper;
 
@@ -62,6 +64,7 @@ public class SelectorHelper extends TCPHeaderHandler<L2LoginClient> implements I
 	{
 		L2LoginClient client = new L2LoginClient(selectorThread, socket, key);
 		client.sendPacket(new Init(client));
+		LoginManager.getInstance().addConnection(client);
 		return client;
 	}
 	
@@ -70,8 +73,8 @@ public class SelectorHelper extends TCPHeaderHandler<L2LoginClient> implements I
 	 */
 	public boolean accept(SocketChannel sc)
 	{
-		return true;
-		//return !BanManager.getInstance().isBannedAddress(sc.socket().getInetAddress());
+		// Ignore permabanned IPs
+		return !BanManager.getInstance().isRestrictedAddress(sc.socket().getInetAddress());
 	}
 	
 	/**
@@ -90,5 +93,11 @@ public class SelectorHelper extends TCPHeaderHandler<L2LoginClient> implements I
 		{
 			return getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2LoginClient)key.attachment());
 		}
+	}
+
+	@Override
+	public int cleanse(L2LoginClient newCon)
+	{
+		return LoginManager.getInstance().attemptCleansing(newCon);
 	}
 }

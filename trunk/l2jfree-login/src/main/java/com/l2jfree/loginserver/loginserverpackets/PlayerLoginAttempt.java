@@ -14,18 +14,11 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-import com.l2jfree.loginserver.manager.GameServerManager;
-
-public class AuthResponse extends LoginToGamePacket
+public class PlayerLoginAttempt extends LoginToGamePacket
 {
-	/**
-	 * @param serverID
-	 * @param protocol
-	 */
-	public AuthResponse(int protocol, int serverID)
+	public PlayerLoginAttempt(String ip)
 	{
-		super(0x02, protocol);
-		writeC(serverID);
-		writeS(GameServerManager.getInstance().getServerName(serverID));
+		super(0x10);
+		writeS(ip);
 	}
 }

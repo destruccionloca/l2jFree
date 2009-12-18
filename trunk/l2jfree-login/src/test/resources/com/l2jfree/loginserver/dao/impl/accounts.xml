@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE dataset SYSTEM "l2jdb.dtd">
+<!DOCTYPE list SYSTEM "database/l2jdb.dtd">
 <dataset>
   <accounts login="player1"
     password="xp+zGkLrfK6N5s3rbkwoXLaDn7c="
