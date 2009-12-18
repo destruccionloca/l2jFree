@@ -26,16 +26,8 @@ import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
-
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.2.2.9 $ $Date: 2005/04/03 15:55:04 $
- */
 
 public class Continuous implements ICubicSkillHandler
 {
@@ -171,13 +163,8 @@ public class Continuous implements ICubicSkillHandler
 					}
 				}
 			}
-			else if (activeChar instanceof L2PcInstance)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-				sm.addString(target.getName());
-				sm.addSkillName(skill.getId());
-				((L2PcInstance)activeChar).sendPacket(sm);
-			}
+			else
+				activeChar.sendResistedMyEffectMessage(target, skill);
 		}
 	}
 
@@ -194,7 +181,7 @@ public class Continuous implements ICubicSkillHandler
 				boolean acted = Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld);
 				if (!acted)
 				{
-					activeCubic.getOwner().sendPacket(SystemMessageId.ATTACK_FAILED);
+					activeCubic.getOwner().sendResistedMyEffectMessage(target, skill);
 					continue;
 				}
 			}

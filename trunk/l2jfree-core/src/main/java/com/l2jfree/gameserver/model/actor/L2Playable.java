@@ -206,6 +206,45 @@ public abstract class L2Playable extends L2Character
 		getActingPlayer().sendPacket(sm);
 	}
 
+	@Override
+	public final void sendResistedMyMagicMessage(L2Character target)
+	{
+		SystemMessage sm = new SystemMessage(SystemMessageId.C1_ATTACK_FAILED);
+		sm.addCharName(this);
+		getActingPlayer().sendPacket(sm);
+		target.sendResistedAgainstMagicMessage(this);
+	}
+
+	@Override
+	public final void sendResistedAgainstMagicMessage(L2Character attacker)
+	{
+		SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_C2_MAGIC);
+		sm.addCharName(this);
+		sm.addCharName(attacker);
+		getActingPlayer().sendPacket(sm);
+	}
+
+	@Override
+	public final void sendResistedMyMagicSlightlyMessage(L2Character target)
+	{
+		// Perhaps this method is not retail and we should use
+		//sendResistedMyMagicMessage(L2Character, boolean) & sendResistedAgainstMagicWeaklyMessage(L2Character, boolean)
+		SystemMessage sm = new SystemMessage(SystemMessageId.DAMAGE_DECREACE_C1_RESISTED_C2_MAGIC);
+		sm.addCharName(target);
+		sm.addCharName(this);
+		getActingPlayer().sendPacket(sm);
+		target.sendResistedAgainstMagicWeaklyMessage(this);
+	}
+
+	@Override
+	public final void sendResistedAgainstMagicWeaklyMessage(L2Character attacker)
+	{
+		SystemMessage sm = new SystemMessage(SystemMessageId.C1_WEAKLY_RESISTED_C2_MAGIC);
+		sm.addCharName(this);
+		sm.addCharName(attacker);
+		getActingPlayer().sendPacket(sm);
+	}
+
 	// Support for Noblesse Blessing skill, where buffs are retained after resurrect
 	public final boolean isNoblesseBlessed()
 	{

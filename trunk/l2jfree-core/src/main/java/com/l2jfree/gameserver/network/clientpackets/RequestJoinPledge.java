@@ -58,7 +58,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 
 		if (obj == null)
 		{
-			requestFailed(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+			requestFailed(SystemMessageId.FIRST_SELECT_USER_TO_INVITE_TO_CLAN);
 			return;
 		}
 

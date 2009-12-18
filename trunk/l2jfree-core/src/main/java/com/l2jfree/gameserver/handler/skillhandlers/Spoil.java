@@ -22,7 +22,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
@@ -78,12 +77,7 @@ public class Spoil extends ISkillConditionChecker
 					activeChar.sendPacket(SystemMessageId.SPOIL_SUCCESS);
 				}
 				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-					sm.addCharName(target);
-					sm.addSkillName(skill);
-					activeChar.getActingPlayer().sendPacket(sm);
-				}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 			}
 		}

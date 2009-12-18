@@ -136,13 +136,8 @@ public class Disablers implements ICubicSkillHandler
 			{
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 					skill.getEffects(activeChar, target);
-				else if (activeChar instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-					sm.addCharName(target);
-					sm.addSkillName(skill);
-					((L2PcInstance)activeChar).sendPacket(sm);
-				}
+				else
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				break;
 			}
 			case FAKE_DEATH:
@@ -163,15 +158,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				}
 				else
-				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
-				}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				break;
 			}
 			case SLEEP:
@@ -189,15 +176,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				}
 				else
-				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
-				}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				break;
 			}
 			case CONFUSION:
@@ -215,15 +194,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				}
 				else
-				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
-				}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				break;
 			}
 			case CONFUSE_MOB_ONLY:
@@ -236,15 +207,7 @@ public class Disablers implements ICubicSkillHandler
 						skill.getEffects(activeChar, target);
 					}
 					else
-					{
-						if (activeChar instanceof L2PcInstance)
-						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-							sm.addCharName(target);
-							sm.addSkillName(skill);
-							((L2PcInstance)activeChar).sendPacket(sm);
-						}
-					}
+						activeChar.sendResistedMyEffectMessage(target, skill);
 				}
 				else
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
@@ -294,13 +257,7 @@ public class Disablers implements ICubicSkillHandler
 				}
 				else
 				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addString(target.getName());
-						sm.addSkillName(skill.getId());
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 					target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 				}
 				break;
@@ -317,13 +274,7 @@ public class Disablers implements ICubicSkillHandler
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
-						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-							sm.addCharName(target);
-							sm.addSkillName(skill);
-							((L2PcInstance)activeChar).sendPacket(sm);
-						}
+						activeChar.sendResistedMyEffectMessage(target, skill);
 						target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 					}
 				}
@@ -346,16 +297,7 @@ public class Disablers implements ICubicSkillHandler
 					}
 				}
 				else
-				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
-				}
-
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				break;
 			}
 			case MAGE_BANE:
@@ -365,13 +307,7 @@ public class Disablers implements ICubicSkillHandler
 
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 					continue;
 				}
 				
@@ -390,13 +326,7 @@ public class Disablers implements ICubicSkillHandler
 				
 				if (!Formulas.calcSkillSuccess(activeChar, target, skill, shld, ss, sps, bss))
 				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 					continue;
 				}
 				
@@ -577,15 +507,7 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				}
 				else
-				{
-					if (activeChar instanceof L2PcInstance)
-					{
-						SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-						sm.addCharName(target);
-						sm.addSkillName(skill);
-						((L2PcInstance)activeChar).sendPacket(sm);
-					}
-				}
+					activeChar.sendResistedMyEffectMessage(target, skill);
 				break;
 			}
 			case NEGATE:

@@ -11733,18 +11733,26 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean canLogout()
 	{
+		return canLogout(false);
+	}
+
+	public boolean canLogout(boolean restart)
+	{
 		if (!isGM() || !Config.GM_RESTART_FIGHTING)
 		{
 			if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
 			{
-				sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
+				if (restart)
+					sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
+				else
+					sendPacket(SystemMessageId.CANT_RESTART_WHILE_FIGHTING);
 				return false;
 			}
 		}
 
 		if (isFlying())
 		{
-			sendMessage("You can't log out while flying.");
+			sendPacket(SystemMessageId.CANNOT_DO_WHILE_MOUNTED);
 			return false;
 		}
 
@@ -14123,7 +14131,7 @@ public final class L2PcInstance extends L2Playable
 		public int _id,_x,_y,_z,_icon;
 		public String _name,_tag;
 
-		public TeleportBookmark(int id, int x, int y, int z, int icon,String tag , String name)
+		public TeleportBookmark(int id, int x, int y, int z, int icon, String tag, String name)
 		{
 			_id = id;
 			_x = x;
@@ -14135,13 +14143,13 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	public void teleportBookmarkModify(int Id,int icon, String tag,String name)
+	public void teleportBookmarkModify(int Id, int icon, String tag, String name)
 	{
 		int count = 0;
 		int size = tpbookmark.size();
-		while(size > count)
+		while (size > count)
 		{
-			if (tpbookmark.get(count)._id==Id)
+			if (tpbookmark.get(count)._id == Id)
 			{
 				tpbookmark.get(count)._icon = icon;
 				tpbookmark.get(count)._tag = tag;
@@ -14150,7 +14158,6 @@ public final class L2PcInstance extends L2Playable
 				Connection con = null;
 				try
 				{
-
 					con = L2DatabaseFactory.getInstance().getConnection();
 					PreparedStatement statement = con.prepareStatement(UPDATE_TP_BOOKMARK);
 
@@ -14165,7 +14172,7 @@ public final class L2PcInstance extends L2Playable
 				}
 				catch (Exception e)
 				{
-					_log.error("Could not update character teleport bookmark data: " + e, e);
+					_log.error("Could not update character teleport bookmark data.", e);
 				}
 				finally
 				{
@@ -14180,7 +14187,6 @@ public final class L2PcInstance extends L2Playable
 	public void teleportBookmarkDelete(int Id)
 	{
 		Connection con = null;
-
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -14194,7 +14200,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		catch (Exception e)
 		{
-			_log.error("Could not delete character teleport bookmark data: " + e, e);
+			_log.error("Could not delete character teleport bookmark data.", e);
 		}
 		finally
 		{
@@ -14206,7 +14212,7 @@ public final class L2PcInstance extends L2Playable
 
 		while (size > count)
 		{
-			if (tpbookmark.get(count)._id==Id)
+			if (tpbookmark.get(count)._id == Id)
 			{
 				tpbookmark.remove(count);
 				break;
@@ -14223,7 +14229,7 @@ public final class L2PcInstance extends L2Playable
 			return;
 		if (getInventory().getInventoryItemCount(20025, 0) == 0)
 		{
-			sendPacket(new SystemMessage(2359));
+			sendPacket(SystemMessageId.CANNOT_TELEPORT_WITHOUT_TELEPORT_ITEM);
 			return;
 		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
@@ -14234,7 +14240,7 @@ public final class L2PcInstance extends L2Playable
 		int size = tpbookmark.size();
 		while (size > count)
 		{
-			if (tpbookmark.get(count)._id==Id)
+			if (tpbookmark.get(count)._id == Id)
 			{
 				destroyItem("Consume", getInventory().getItemByItemId(20025).getObjectId(), 1, null, false);
 				teleToLocation(tpbookmark.get(count)._x, tpbookmark.get(count)._y, tpbookmark.get(count)._z);
@@ -14247,59 +14253,58 @@ public final class L2PcInstance extends L2Playable
 
 	public boolean teleportBookmarkCondition(int type)
 	{
-
 		if (isInCombat())
 		{
-			sendPacket(new SystemMessage(2348));
+			sendPacket(SystemMessageId.UNNAMED_2348);
 			return false;
 		}
 		else if (isInSiege())
 		{
-			sendPacket(new SystemMessage(2349));
+			sendPacket(SystemMessageId.UNNAMED_2349);
 			return false;
 		}
 		else if (isInDuel())
 		{
-			sendPacket(new SystemMessage(2350));
+			sendPacket(SystemMessageId.UNNAMED_2350);
 			return false;
 		}
 		else if (isFlying())
 		{
-			sendPacket(new SystemMessage(2351));
+			sendPacket(SystemMessageId.UNNAMED_2351);
 			return false;
 		}
 		else if (isInOlympiadMode())
 		{
-			sendPacket(new SystemMessage(2352));
+			sendPacket(SystemMessageId.UNNAMED_2352);
 			return false;
 		}
 		else if (isParalyzed())
 		{
-			sendPacket(new SystemMessage(2353));
+			sendPacket(SystemMessageId.UNNAMED_2353);
 			return false;
 		}
 		else if (isDead())
 		{
-			sendPacket(new SystemMessage(2354));
+			sendPacket(SystemMessageId.UNNAMED_2354);
 			return false;
 		}
 		else if (isInBoat() || isInAirShip() || isInJail() || isInsideZone(L2Zone.FLAG_NOSUMMON))
 		{
 			if(type == 0)
-				sendPacket(new SystemMessage(2355));
+				sendPacket(SystemMessageId.UNNAMED_2355);
 			else if (type == 1)
-				sendPacket(new SystemMessage(2410));
+				sendPacket(SystemMessageId.UNNAMED_2410);
 			return false;
 		}
 		else if (isInWater())
 		{
-			sendPacket(new SystemMessage(2356));
+			sendPacket(SystemMessageId.UNNAMED_2356);
 			return false;
 		}
 		/* TODO: Instant Zone still not implement
 		else if (this.isInsideZone(ZONE_INSTANT))
 		{
-			sendPacket(new SystemMessage(2357));
+			sendPacket(SystemMessageId.UNNAMED_2357);
 			return;
 		}
 		*/
@@ -14307,14 +14312,14 @@ public final class L2PcInstance extends L2Playable
 			return true;
 	}
 
-	public void teleportBookmarkAdd(int x,int y,int z,int icon, String tag, String name)
+	public void teleportBookmarkAdd(int x, int y, int z, int icon, String tag, String name)
 	{
 		if (!teleportBookmarkCondition(1))
 			return;
 
 		if (tpbookmark.size() >= _bookmarkslot)
 		{
-			sendPacket(new SystemMessage(2358));
+			sendPacket(SystemMessageId.UNNAMED_2358);
 			return;
 		}
 
@@ -14329,14 +14334,13 @@ public final class L2PcInstance extends L2Playable
 		List<Integer> idlist = new ArrayList<Integer>();
 
 		int size = tpbookmark.size();
-
 		while (size > count)
 		{
 			idlist.add(tpbookmark.get(count)._id);
 			count++;
 		}
 
-		for (int i=1;i<10;i++)
+		for (int i=1; i<10; i++)
 		{
 			if (!idlist.contains(i))
 			{
@@ -14355,7 +14359,6 @@ public final class L2PcInstance extends L2Playable
 		sendPacket(sm);
 
 		Connection con = null;
-
 		try
 		{
 
@@ -14371,13 +14374,12 @@ public final class L2PcInstance extends L2Playable
 			statement.setString(7, tag);
 			statement.setString(8, name);
 
-
 			statement.execute();
 			statement.close();
 		}
 		catch (Exception e)
 		{
-			_log.error("Could not insert character teleport bookmark data: " + e, e);
+			_log.error("Could not insert character teleport bookmark data.", e);
 		}
 		finally
 		{
@@ -14390,7 +14392,6 @@ public final class L2PcInstance extends L2Playable
 	public void restoreTeleportBookmark()
 	{
 		Connection con = null;
-
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -14408,7 +14409,7 @@ public final class L2PcInstance extends L2Playable
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Failed restoing character teleport bookmark.", e);
+			_log.fatal("Failed restoring character teleport bookmark.", e);
 		}
 		finally
 		{
@@ -14772,5 +14773,14 @@ public final class L2PcInstance extends L2Playable
 	public final void setIllegalWaiting(boolean iw)
 	{
 		_illegalWaiting = iw;
+	}
+
+	@Override
+	public void sendResistedMyEffectMessage(L2Character target, L2Skill skill)
+	{
+		SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2_EFFECT);
+		sm.addCharName(target);
+		sm.addSkillName(skill);
+		sendPacket(sm);
 	}
 }

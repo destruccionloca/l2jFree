@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
@@ -75,7 +74,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 
 		if (_count < 1)
 		{
-			requestFailed(SystemMessageId.NOT_ENOUGH_ITEMS);
+			requestFailed(SystemMessageId.CANNOT_DESTROY_NUMBER_INCORRECT);
 			return;
 		}
 
@@ -130,13 +129,17 @@ public class RequestDestroyItem extends L2GameClientPacket
 
         if (!itemToRemove.isStackable() && _count > 1)
         {
-        	sendPacket(ActionFailed.STATIC_PACKET);
+        	sendAF();
             Util.handleIllegalPlayerAction(activeChar, "[RequestDestroyItem] count > 1 but item is not stackable! oid: "+_objectId+" owner: "+activeChar.getName(),Config.DEFAULT_PUNISH);
             return;
         }
 
 		if (_count > itemToRemove.getCount())
-			_count = itemToRemove.getCount();
+		{
+			requestFailed(SystemMessageId.CANNOT_DESTROY_NUMBER_INCORRECT);
+			return;
+			//_count = itemToRemove.getCount();
+		}
 
 		if (itemToRemove.isEquipped())
 		{
@@ -155,7 +158,11 @@ public class RequestDestroyItem extends L2GameClientPacket
 			try
 			{
 				if (activeChar.getPet() != null && activeChar.getPet().getControlItemId() == _objectId)
-					activeChar.getPet().unSummon(activeChar);
+				{
+					requestFailed(SystemMessageId.PET_SUMMONED_MAY_NOT_DESTROYED);
+					return;
+					//activeChar.getPet().unSummon(activeChar);
+				}
 
 				// if it's a pet control item, delete the pet
 				con = L2DatabaseFactory.getInstance().getConnection(con);

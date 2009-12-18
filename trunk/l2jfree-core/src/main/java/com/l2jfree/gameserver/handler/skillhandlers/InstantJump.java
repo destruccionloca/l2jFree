@@ -30,9 +30,8 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- *
- * @author Didldak
  * Some parts taken from EffectWarp, which cannot be used for this case.
+ * @author Didldak
  */
 public class InstantJump extends ISkillConditionChecker
 {
@@ -52,7 +51,7 @@ public class InstantJump extends ISkillConditionChecker
 				// Sends message that skill cannot be used...
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addSkillName(skill);
-				((L2PcInstance)activeChar).sendPacket(sm);
+				activeChar.getActingPlayer().sendPacket(sm);
 			}
 			return false;
 		}
@@ -80,9 +79,9 @@ public class InstantJump extends ISkillConditionChecker
 		int py = target.getY();
 		double ph = Util.convertHeadingToDegree(target.getHeading());
 		
-		ph+=180;
+		ph += 180;
 		
-		if (ph>360)
+		if (ph > 360)
 			ph -= 360;
 		
 		ph = (Math.PI * ph) / 180;
@@ -115,28 +114,17 @@ public class InstantJump extends ISkillConditionChecker
 				if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, false, false, false))
 				{
 					skill.getEffects(activeChar, target);
-				
+					
 					//SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 					//sm.addSkillName(skill);
 					//target.sendPacket(sm);
 				}
-				else if (activeChar instanceof L2PcInstance)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-					sm.addCharName(target);
-					sm.addSkillName(skill);
-					((L2PcInstance)activeChar).sendPacket(sm);
-				}
+				else
+					activeChar.sendResistedMyEffectMessage(target, skill);
 			}
 		}
 	}
 	
-	
-	
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()
-	 */
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

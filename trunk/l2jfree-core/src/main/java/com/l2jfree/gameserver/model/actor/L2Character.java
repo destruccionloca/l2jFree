@@ -5435,10 +5435,8 @@ public abstract class L2Character extends L2Object
 
 			if (this instanceof L2PcInstance)
 			{
+				// not retail, so no system message.
 				sendPacket(ActionFailed.STATIC_PACKET);
-
-				// Send a system message
-				sendPacket(SystemMessageId.ATTACK_FAILED);
 			}
 		}
 	}
@@ -7147,5 +7145,27 @@ public abstract class L2Character extends L2Object
 			}
 		}
 		broadcastFullInfo();
+	}
+
+	public void sendResistedMyEffectMessage(L2Character target, L2Skill skill)
+	{
+	}
+
+	public void sendResistedMyMagicMessage(L2Character target)
+	{
+		target.sendResistedAgainstMagicMessage(this);
+	}
+
+	public void sendResistedMyMagicSlightlyMessage(L2Character target)
+	{
+		target.sendResistedAgainstMagicWeaklyMessage(this);
+	}
+
+	public void sendResistedAgainstMagicMessage(L2Character attacker)
+	{
+	}
+
+	public void sendResistedAgainstMagicWeaklyMessage(L2Character attacker)
+	{
 	}
 }

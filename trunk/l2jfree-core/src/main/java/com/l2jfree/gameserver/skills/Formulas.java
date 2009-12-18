@@ -46,7 +46,6 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
 import com.l2jfree.gameserver.skills.conditions.ConditionUsingItemType;
 import com.l2jfree.gameserver.skills.funcs.Func;
@@ -1538,40 +1537,20 @@ public final class Formulas
 		{
 			if (calcMagicSuccess(owner, target, skill) && getMagicLevelDifference(attacker.getOwner(), target, skill) >= -9)
 			{
-				if (skill.getSkillType() == L2SkillType.DRAIN)
-					owner.sendPacket(SystemMessageId.DRAIN_HALF_SUCCESFUL);
-				else
-					owner.sendPacket(SystemMessageId.ATTACK_FAILED);
-
+				owner.sendResistedMyMagicSlightlyMessage(target);
 				damage /= 2;
 			}
 			else
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-				sm.addCharName(target);
-				sm.addSkillName(skill);
-				owner.sendPacket(sm);
-
-				damage = 1;
-			}
-
-			if (target instanceof L2PcInstance)
-			{
-				if (skill.getSkillType() == L2SkillType.DRAIN)
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_C1_DRAIN);
-					sm.addCharName(owner);
-					((L2PcInstance)target).sendPacket(sm);
-				}
+				owner.sendResistedMyMagicMessage(target);
+				if (mcrit)
+					damage = 1;
 				else
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_C1_MAGIC);
-					sm.addCharName(owner);
-					((L2PcInstance)target).sendPacket(sm);
-				}
+					damage = Rnd.nextBoolean() ? 1 : 0;
 			}
 		}
-		else if (mcrit)
+
+		if (mcrit)
 		{
 			if (target instanceof L2Playable)
 				damage *= Config.ALT_MCRIT_PVP_RATE;
@@ -1614,39 +1593,23 @@ public final class Formulas
 		// Failure calculation
 		if (Config.ALT_GAME_MAGICFAILURES && !calcMagicSuccess(attacker, target, skill))
 		{
-			SystemMessage sm;
 			if (attacker instanceof L2Playable)
 			{
 				L2PcInstance attOwner = attacker.getActingPlayer();
 				if (calcMagicSuccess(attacker, target, skill) && getMagicLevelDifference(attacker, target, skill) >= -9)
 				{
 					// ~1/10 - weak resist
-					sm = new SystemMessage(SystemMessageId.C1_WEAKLY_RESISTED_C2_MAGIC);
-					sm.addCharName(target);
-					sm.addCharName(attacker);
-					attOwner.sendPacket(sm);
-
+					attOwner.sendResistedMyMagicSlightlyMessage(target);
 					damage /= 2;
 				}
 				else // retail message & dmg, verified
 				{
-					sm = new SystemMessage(SystemMessageId.C1_ATTACK_FAILED);
-					sm.addCharName(attacker);
-					attOwner.sendPacket(sm);
-
+					attOwner.sendResistedMyMagicMessage(target);
 					if (mcrit)
 						damage = 1;
 					else
 						damage = Rnd.nextBoolean() ? 1 : 0;
 				}
-			}
-
-			if (target instanceof L2Playable)
-			{
-				sm = new SystemMessage(SystemMessageId.C1_RESISTED_C2_MAGIC);
-				sm.addCharName(target);
-				sm.addCharName(attacker);
-				target.getActingPlayer().sendPacket(sm);
 			}
 		}
 

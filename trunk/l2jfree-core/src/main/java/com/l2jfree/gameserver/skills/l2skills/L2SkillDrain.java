@@ -127,12 +127,7 @@ public class L2SkillDrain extends L2Skill
 						if (Formulas.calcSkillSuccess(activeChar, target, this, shld, false, ss, bss))
 							getEffects(activeChar, target);
 						else if (activeChar.getActingPlayer() != null)
-						{
-							SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-							sm.addCharName(target);
-							sm.addSkillName(this);
-							activeChar.getActingPlayer().sendPacket(sm);
-						}
+							activeChar.sendResistedMyEffectMessage(target, this);
 					}
 				}
 

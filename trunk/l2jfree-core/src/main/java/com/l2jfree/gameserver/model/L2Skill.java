@@ -3650,18 +3650,12 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 				sm.addSkillName(this);
-				((L2PcInstance)effected).sendPacket(sm);
+				effected.getActingPlayer().sendPacket(sm);
 			}
 		}
 		else
 		{
-			if (effector instanceof L2PcInstance)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-				sm.addCharName(effected);
-				sm.addSkillName(this);
-				((L2PcInstance)effector).sendPacket(sm);
-			}
+			effector.sendResistedMyEffectMessage(effected, this);
 		}
 	}
 

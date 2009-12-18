@@ -19,7 +19,6 @@ import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
@@ -67,13 +66,8 @@ public final class EffectSpoil extends L2Effect
 				target.setIsSpoiledBy(getEffector().getObjectId());
 				getEffector().sendPacket(SystemMessageId.SPOIL_SUCCESS);
 			}
-			else if (getEffector() instanceof L2PcInstance)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.C1_RESISTED_YOUR_S2);
-				sm.addCharName(target);
-				sm.addSkillName(this);
-				((L2PcInstance)getEffector()).sendPacket(sm);
-			}
+			else
+				getEffector().sendResistedMyEffectMessage(target, getSkill());
 			target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 		}
 		return true;
