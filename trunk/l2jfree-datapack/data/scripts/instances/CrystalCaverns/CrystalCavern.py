@@ -10,14 +10,17 @@
 # @devs: Please edit this list if bugs found or points solved
 
 from java.lang                                          import System
+from com.l2jfree.gameserver.datatables                  import DoorTable
 from com.l2jfree.gameserver.datatables                  import ItemTable
 from com.l2jfree.gameserver.instancemanager             import InstanceManager
 from com.l2jfree.gameserver.instancemanager.grandbosses import BaylorManager
 from com.l2jfree.gameserver.model.actor                 import L2Summon
+from com.l2jfree.gameserver.model.actor.instance        import L2PcInstance
 from com.l2jfree.gameserver.model.entity                import Instance
 from com.l2jfree.gameserver.model.quest                 import State
 from com.l2jfree.gameserver.model.quest                 import QuestState
 from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
+from com.l2jfree.gameserver.model.zone                  import L2Zone
 from com.l2jfree.gameserver.network.serverpackets       import CreatureSay
 from com.l2jfree.gameserver.network.serverpackets       import InventoryUpdate
 from com.l2jfree.gameserver.network.serverpackets       import MagicSkillUse
@@ -35,12 +38,15 @@ CRYSTAL       = 9690
 BLUE_CRYSTAL  = 9695
 RED_CRYSTAL   = 9696
 CLEAR_CRYSTAL = 9697
+SECRET_KEY    = 9694
+SHARDS        = [9597,9598]
 
 #NPCs
 TELEPORTER    = 32279
 ORACLE_GUIDE  = 32281
 ORACLE_GUIDE2 = 32278
 ORACLE_GUIDE3 = 32280
+MECHANISM     = 18378
 
 #Mobs
 GK1          = 22275
@@ -103,6 +109,11 @@ def openDoor(doorId,instanceId):
     for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
         if door.getDoorId() == doorId:
             door.openMe()
+
+def closeDoor(doorId,instanceId):
+    for door in InstanceManager.getInstance().getInstance(instanceId).getDoors():
+        if door.getDoorId() == doorId:
+            door.closeMe()
 
 def dropItem(npc,itemId,count,player):
     ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
@@ -553,32 +564,33 @@ def runDarnel(self,world):
     openDoor(24220006,world.instanceId)
 
 def runSteamRoom1(self,world):
-    world.status = 20
-    world.killedCaptains = 0
-    world.steamRoom1 = PyObject()
-    world.steamRoom1.npclist = {}
-    newNpc = self.addSpawn(22306, 148755, 152573, -12170, 65497, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22416, 146862, 152734, -12169, 42584, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22416, 146014, 152607, -12172, 23694, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22416, 145346, 152585, -12172, 31490, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 146972, 152421, -12172, 28476, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 145714, 152821, -12172, 58705, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 145336, 152805, -12172, 39590, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 146530, 152762, -12172, 60307, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 145941, 152412, -12172, 14182, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 146243, 152807, -12172, 38832, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 145152, 152410, -12172, 21338, False, 0, False, world.instanceId)
-    world.steamRoom1.npclist[newNpc] = False
+    if world.status < 20:
+        world.status = 20
+        world.killedCaptains = 0
+        world.steamRoom1 = PyObject()
+        world.steamRoom1.npclist = {}
+        newNpc = self.addSpawn(22306, 148755, 152573, -12170, 65497, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22416, 146862, 152734, -12169, 42584, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22416, 146014, 152607, -12172, 23694, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22416, 145346, 152585, -12172, 31490, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 146972, 152421, -12172, 28476, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 145714, 152821, -12172, 58705, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 145336, 152805, -12172, 39590, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 146530, 152762, -12172, 60307, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 145941, 152412, -12172, 14182, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 146243, 152807, -12172, 38832, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 145152, 152410, -12172, 21338, False, 0, False, world.instanceId)
+        world.steamRoom1.npclist[newNpc] = False
 
 def runSteamRoom1Oracle(self,world):
     world.OracleTriggered = False
@@ -589,32 +601,33 @@ def runSteamRoom1Oracle(self,world):
     self.addSpawn(o4, 147090, 152715, -12169, 31613, False, 0, False, world.instanceId)
 
 def runSteamRoom2(self,world):
-    world.status = 21
-    world.killedCaptains = 0
-    world.steamRoom2 = PyObject()
-    world.steamRoom2.npclist = {}
-    newNpc = self.addSpawn(22420, 148815, 152804, -12172, 44197, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 149414, 152478, -12172, 25651, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 148482, 152388, -12173, 32189, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 147908, 152861, -12172, 61173, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 147835, 152484, -12172, 7781, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 148176, 152627, -12173, 3336, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 148813, 152453, -12172, 50373, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 149233, 152773, -12172, 36765, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22306, 149550, 152718, -12172, 37301, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22306, 148881, 152601, -12172, 24054, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
-    newNpc = self.addSpawn(22306, 148183, 152486, -12172, 5289, False, 0, False, world.instanceId)
-    world.steamRoom2.npclist[newNpc] = False
+    if world.status == 20:
+        world.status = 21
+        world.killedCaptains = 0
+        world.steamRoom2 = PyObject()
+        world.steamRoom2.npclist = {}
+        newNpc = self.addSpawn(22420, 148815, 152804, -12172, 44197, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 149414, 152478, -12172, 25651, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 148482, 152388, -12173, 32189, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 147908, 152861, -12172, 61173, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 147835, 152484, -12172, 7781, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 148176, 152627, -12173, 3336, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 148813, 152453, -12172, 50373, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 149233, 152773, -12172, 36765, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22306, 149550, 152718, -12172, 37301, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22306, 148881, 152601, -12172, 24054, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
+        newNpc = self.addSpawn(22306, 148183, 152486, -12172, 5289, False, 0, False, world.instanceId)
+        world.steamRoom2.npclist[newNpc] = False
 
 def runSteamRoom2Oracle(self,world):
     world.OracleTriggered = False
@@ -625,38 +638,39 @@ def runSteamRoom2Oracle(self,world):
     self.addSpawn(o4, 149783, 152715, -12169, 31613, False, 0, False, world.instanceId)
 
 def runSteamRoom3(self,world):
-    world.status = 22
-    world.killedCaptains = 0
-    world.steamRoom3 = PyObject()
-    world.steamRoom3.npclist = {}
-    newNpc = self.addSpawn(22419, 150751, 152430, -12172, 29190, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 150613, 152778, -12172, 19574, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 151242, 152832, -12172, 40116, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 151473, 152656, -12172, 28951, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 151090, 152401, -12172, 1909, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 151625, 152372, -12172, 31372, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 152283, 152577, -12172, 15323, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 151906, 152699, -12172, 49605, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 151134, 152626, -12172, 59956, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 152105, 152766, -12172, 59956, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 150416, 152567, -12173, 53744, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22307, 150689, 152618, -12172, 34932, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22307, 151329, 152558, -12172, 55102, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
-    newNpc = self.addSpawn(22307, 152054, 152557, -12172, 40959, False, 0, False, world.instanceId)
-    world.steamRoom3.npclist[newNpc] = False
+    if world.status == 21:
+        world.status = 22
+        world.killedCaptains = 0
+        world.steamRoom3 = PyObject()
+        world.steamRoom3.npclist = {}
+        newNpc = self.addSpawn(22419, 150751, 152430, -12172, 29190, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 150613, 152778, -12172, 19574, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 151242, 152832, -12172, 40116, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 151473, 152656, -12172, 28951, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 151090, 152401, -12172, 1909, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 151625, 152372, -12172, 31372, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 152283, 152577, -12172, 15323, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 151906, 152699, -12172, 49605, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 151134, 152626, -12172, 59956, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 152105, 152766, -12172, 59956, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 150416, 152567, -12173, 53744, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22307, 150689, 152618, -12172, 34932, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22307, 151329, 152558, -12172, 55102, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
+        newNpc = self.addSpawn(22307, 152054, 152557, -12172, 40959, False, 0, False, world.instanceId)
+        world.steamRoom3.npclist[newNpc] = False
 
 def runSteamRoom3Oracle(self,world):
     world.OracleTriggered = False
@@ -667,30 +681,31 @@ def runSteamRoom3Oracle(self,world):
     self.addSpawn(o4, 152461, 152715, -12169, 31613, False, 0, False, world.instanceId)
 
 def runSteamRoom4(self,world):
-    world.status = 23
-    world.killedCaptains = 0
-    world.steamRoom4 = PyObject()
-    world.steamRoom4.npclist = {}
-    newNpc = self.addSpawn(22307, 150454, 149976, -12173, 28435, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22307, 151186, 150140, -12173, 37604, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22307, 151718, 149805, -12172, 26672, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 150755, 149852, -12173, 31074, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22418, 150457, 150173, -12172, 34736, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 151649, 150194, -12172, 35198, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 151254, 149876, -12172, 26433, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22420, 151819, 150010, -12172, 33680, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 150852, 150030, -12173, 32002, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
-    newNpc = self.addSpawn(22419, 150031, 149797, -12172, 16560, False, 0, False, world.instanceId)
-    world.steamRoom4.npclist[newNpc] = False
+    if world.status == 22:
+        world.status = 23
+        world.killedCaptains = 0
+        world.steamRoom4 = PyObject()
+        world.steamRoom4.npclist = {}
+        newNpc = self.addSpawn(22307, 150454, 149976, -12173, 28435, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22307, 151186, 150140, -12173, 37604, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22307, 151718, 149805, -12172, 26672, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 150755, 149852, -12173, 31074, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22418, 150457, 150173, -12172, 34736, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 151649, 150194, -12172, 35198, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 151254, 149876, -12172, 26433, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22420, 151819, 150010, -12172, 33680, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 150852, 150030, -12173, 32002, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
+        newNpc = self.addSpawn(22419, 150031, 149797, -12172, 16560, False, 0, False, world.instanceId)
+        world.steamRoom4.npclist[newNpc] = False
 
 def runKechi(self,world):
     world.status = 24
@@ -709,6 +724,11 @@ class CrystalCavern(JQuest):
         self.worlds = {}
         self.world_ids = []
         self.BossKilled = 0
+        self.door1Open = False
+        self.door2Open = False
+        self.door3Open = False
+        self.door4Open = False
+        self.mechanism = False
 
     def onAdvEvent (self,event,npc,player):
         st = player.getQuestState(qn)
@@ -740,6 +760,14 @@ class CrystalCavern(JQuest):
                 else:
                     CRYSTAL_TO_GIVE = BLUE_CRYSTAL
                 item = player.getInventory().addItem("Crystal Cavern", CRYSTAL_TO_GIVE, 1, player, None)
+                iu = InventoryUpdate()
+                iu.addItem(item)
+                player.sendPacket(iu);
+                sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
+                sm.addItemName(item)
+                sm.addNumber(1)
+                player.sendPacket(sm)
+                item = player.getInventory().addItem("Crystal Cavern", SHARDS[Rnd.get(len(SHARDS))], 1, player, None)
                 iu = InventoryUpdate()
                 iu.addItem(item)
                 player.sendPacket(iu);
@@ -818,6 +846,10 @@ class CrystalCavern(JQuest):
         npcId = npc.getNpcId()
         if npcId in [32275,32276,32277] and skillId in [1217,1218,1011,1015,1401,5146]:
             world.OracleTriggered = True
+        elif npcId == MECHANISM and skillId == 471:
+            self.door1Open = True
+            openDoor(24220001,world.instanceId)
+        return
 
     def onAttack(self,npc,player,damage,isPet,skill):
         return
@@ -913,6 +945,48 @@ class CrystalCavern(JQuest):
                     self.BossKilled = KECHI
         return
 
+    def onEnterZone(self,character,zone):
+        if isinstance(character, L2PcInstance):
+            if character.getInstanceId() == 0:
+                return
+            player = character
+            zoneId = zone.getQuestZoneId()
+            world = self.worlds[player.getInstanceId()]
+            if zoneId == 100000 and not self.mechanism:
+                self.addSpawn(MECHANISM, 143676, 142615, -11891, 0, False, 0, False, world.instanceId)
+                self.mechanism = True
+            else:
+                item = player.getInventory().getItemByItemId(SECRET_KEY)
+                if item:
+                    if zoneId == 100001 and not self.door2Open:
+                        self.door2Open = True
+                        player.destroyItemByItemId("Crystal Cavern", SECRET_KEY, 1, player, True)
+                        openDoor(24220002,world.instanceId)
+                    elif zoneId == 100002 and not self.door3Open:
+                        self.door3Open = True
+                        player.destroyItemByItemId("Crystal Cavern", SECRET_KEY, 1, player, True)
+                        openDoor(24220003,world.instanceId)
+                    elif zoneId == 100003 and not self.door4Open:
+                        self.door4Open = True
+                        player.destroyItemByItemId("Crystal Cavern", SECRET_KEY, 1, player, True)
+                        openDoor(24220004,world.instanceId)
+        return
+
+    def onExitZone(self,character,zone):
+        if isinstance(character, L2PcInstance):
+            if character.getInstanceId() == 0:
+                return
+            player = character
+            world = self.worlds[player.getInstanceId()]
+            zoneId = zone.getQuestZoneId()
+            if zoneId == 100001 and self.door2Open:
+                closeDoor(24220002,world.instanceId)
+            elif zoneId == 100002 and self.door3Open:
+                closeDoor(24220003,world.instanceId)
+            elif zoneId == 100003 and self.door4Open:
+                closeDoor(24220004,world.instanceId)
+        return
+
 QUEST = CrystalCavern(-1, qn, "CrystalCavern")
 QUEST.addStartNpc(ORACLE_GUIDE)
 QUEST.addTalkId(ORACLE_GUIDE)
@@ -931,7 +1005,15 @@ QUEST.addKillId(KECHICAPTAIN)
 QUEST.addKillId(TEARS)
 for npc in [32274,32275,32276,32277]:
     QUEST.addFirstTalkId(npc)
-for npc in [32275,32276,32277]:
+for npc in [18378,32275,32276,32277]:
     QUEST.addSkillSeeId(npc)
 for mob in MOBLIST:
     QUEST.addKillId(mob)
+QUEST.addEnterZoneId(100000)
+QUEST.addEnterZoneId(100001)
+QUEST.addEnterZoneId(100002)
+QUEST.addEnterZoneId(100003)
+QUEST.addExitZoneId(100000)
+QUEST.addExitZoneId(100001)
+QUEST.addExitZoneId(100002)
+QUEST.addExitZoneId(100003)
