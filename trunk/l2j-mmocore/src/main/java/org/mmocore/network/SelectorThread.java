@@ -199,7 +199,15 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 								hasPendingWrite |= writePacket2(key);
 								// key might have been invalidated on writePacket
 								if (key.isValid())
-									readPacket(key);
+									try
+									{
+										readPacket(key);
+									}
+									catch (OutOfMemoryError e)
+									{
+										// Error = restart (can't do anything else)
+										Runtime.getRuntime().halt(2);
+									}
 								break;
 						}
 					}
@@ -664,6 +672,17 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 	{
 		//System.out.println("con: "+Integer.toHexString(con.hashCode()));
 		//Util.printHexDump(READ_BUFFER);
+		if (con.isLossless() && getFreeBuffers().isEmpty())
+		{
+			int found = getClientFactory().cleanse(con);
+			// TODO: fine tune
+			if (found > 0) // found > HELPER_BUFFER_COUNT / 3
+			{
+				con.closeNow();
+				con.setReadBuffer(null);
+				return;
+			}
+		}
 		con.setReadBuffer(getPooledBuffer().put(READ_BUFFER));
 		READ_BUFFER.clear();
 	}

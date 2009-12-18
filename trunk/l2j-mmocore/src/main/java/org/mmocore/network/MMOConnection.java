@@ -369,4 +369,12 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	protected abstract boolean decrypt(ByteBuffer buf, int size);
 	
 	protected abstract boolean encrypt(ByteBuffer buf, int size);
+
+	/**
+	 * Returns true if any instance of this <code>T</code> is not an essential
+	 * connection and if we close the socket randomly, there wont be any
+	 * consequent losses.
+	 * @return true if we can terminate at will
+	 */
+	public abstract boolean isLossless();
 }
