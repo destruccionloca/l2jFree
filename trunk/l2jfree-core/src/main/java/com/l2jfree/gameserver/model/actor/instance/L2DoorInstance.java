@@ -496,11 +496,11 @@ public class L2DoorInstance extends L2Character
 					player.gatesRequest(this);
 					if (!getOpen())
 					{
-						player.sendPacket(new ConfirmDlg(1140));
+						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE));
 					}
 					else
 					{
-						player.sendPacket(new ConfirmDlg(1141));
+						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE));
 					}
 				}
 			}
@@ -515,11 +515,11 @@ public class L2DoorInstance extends L2Character
 					player.gatesRequest(this);
 					if (!getOpen())
 					{
-						player.sendPacket(new ConfirmDlg(1140));
+						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE));
 					}
 					else
 					{
-						player.sendPacket(new ConfirmDlg(1141));
+						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE));
 					}
 				}
 			}

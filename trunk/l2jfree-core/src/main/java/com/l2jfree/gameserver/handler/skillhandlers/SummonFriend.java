@@ -240,7 +240,7 @@ public class SummonFriend implements ISkillHandler
 				if (skill.getId() == 1403) //summon friend
 				{
 					// Send message
-					ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
+					ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT);
 					confirm.addCharName(activeChar);
 					confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 					confirm.addTime(30000);
