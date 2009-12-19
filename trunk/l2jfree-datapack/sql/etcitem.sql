@@ -9555,7 +9555,6 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (8056,8192,8273
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2440-1' WHERE `item_id` = 9599;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2359-1' WHERE `item_id` = 9672;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2358-1' WHERE `item_id` = 9673;
-UPDATE `etcitem` SET `handler` = 'DoorKey' WHERE `item_id` = 9694;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2341-1' WHERE `item_id` = 9702;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2580-1' WHERE `item_id` = 13028;
 UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` >= '9546' AND `item_id` <= '9569';
