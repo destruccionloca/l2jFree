@@ -20974,8 +20974,17 @@ SELECT createSkillEnchant(793, 1, 1); -- Rush Impact
 SELECT createSkillEnchant2(793, 2); -- Rush Impact
 SELECT createSkillEnchant2(793, 3); -- Rush Impact
 SELECT createSkillEnchant(794, 1, 1); -- Mass Disarm
+SELECT createSkillEnchant2(1033, 3); -- Resist Poison
+SELECT createSkillEnchant(1034, 1, 13); -- Repose
+SELECT createSkillEnchant2(1034, 2); -- Repose
+SELECT createSkillEnchant2(1042, 3); -- Hold Undead
+SELECT createSkillEnchant(1047, 1, 4); -- Mana Regeneration
+SELECT createSkillEnchant2(1047, 2); -- Mana Regeneration
+SELECT createSkillEnchant2(1071, 3); -- Surrender to Water
+SELECT createSkillEnchant2(1074, 3); -- Surrender to Wind
+SELECT createSkillEnchant2(1083, 3); -- Surrender to Fire
 SELECT createSkillEnchant2(1236, 3); -- Frost Bolt
-SELECT createSkillEnchant2(1237, 3); -- "Ice Dagger
+SELECT createSkillEnchant2(1237, 3); -- Ice Dagger
 SELECT createSkillEnchant(1289, 1, 1); -- Inferno
 SELECT createSkillEnchant2(1289, 2); -- Inferno
 SELECT createSkillEnchant(1290, 1, 1); -- Blizzard
