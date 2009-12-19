@@ -49,10 +49,10 @@ public class DlgAnswer extends L2GameClientPacket
         if(_log.isDebugEnabled())
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", Requester ID "+_requesterId);
 
-        if (_messageId == SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId())
+        if (_messageId == SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId()
+        		|| _messageId == SystemMessageId.RESURRECT_USING_CHARM_OF_COURAGE.getId())
             cha.reviveAnswer(_answer);
-        else if (_messageId == SystemMessageId.C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()
-                || _messageId == SystemMessageId.RESURRECT_USING_CHARM_OF_COURAGE.getId())
+        else if (_messageId == SystemMessageId.C1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId())
             cha.teleportAnswer(_answer, _requesterId);
         else if (_messageId == SystemMessageId.S1.getId() && Config.ALLOW_WEDDING && cha.isEngageRequest())
             cha.engageAnswer(_answer);

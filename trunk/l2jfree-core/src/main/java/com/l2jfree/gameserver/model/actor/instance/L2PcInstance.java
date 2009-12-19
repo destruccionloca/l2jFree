@@ -65,7 +65,6 @@ import com.l2jfree.gameserver.communitybbs.bb.Forum;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
-import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.FishTable;
 import com.l2jfree.gameserver.datatables.GmListTable;
 import com.l2jfree.gameserver.datatables.HennaTable;
@@ -10831,7 +10830,9 @@ public final class L2PcInstance extends L2Playable
 			}
 
 			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP);
-			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
+			dlg.addPcName(reviver);
+			dlg.addString(String.valueOf(restoreExp));
+			sendPacket(dlg);
 		}
 	}
 
