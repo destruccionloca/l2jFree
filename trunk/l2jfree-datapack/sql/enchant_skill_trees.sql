@@ -20983,14 +20983,57 @@ SELECT createSkillEnchant2(1047, 2); -- Mana Regeneration
 SELECT createSkillEnchant2(1071, 3); -- Surrender to Water
 SELECT createSkillEnchant2(1074, 3); -- Surrender to Wind
 SELECT createSkillEnchant2(1083, 3); -- Surrender to Fire
+SELECT createSkillEnchant2(1157, 2); -- Body To Mind
+SELECT createSkillEnchant2(1157, 3); -- Body To Mind
+SELECT createSkillEnchant2(1160, 3); -- Slow
+SELECT createSkillEnchant2(1164, 3); -- Curse: Weakness
+SELECT createSkillEnchant2(1164, 4); -- Curse: Weakness
+SELECT createSkillEnchant(1167, 1, 6); -- Poisonous Cloud
+SELECT createSkillEnchant2(1167, 2); -- Poisonous Cloud
+SELECT createSkillEnchant2(1167, 3); -- Poisonous Cloud
+SELECT createSkillEnchant(1169, 1, 14); -- Curse Fear
+SELECT createSkillEnchant2(1169, 2); -- Curse Fear
+SELECT createSkillEnchant2(1182, 3); -- Resist Aqua
+SELECT createSkillEnchant2(1189, 3); -- Resist Wind
+SELECT createSkillEnchant2(1191, 3); -- Resist Fire
+SELECT createSkillEnchant2(1206, 3); -- Wind Shackle
+SELECT createSkillEnchant2(1223, 3); -- Surrender to Earth
+SELECT createSkillEnchant2(1232, 3); -- Blazing Circle
+SELECT createSkillEnchant2(1232, 4); -- Blazing Circle
 SELECT createSkillEnchant2(1236, 3); -- Frost Bolt
 SELECT createSkillEnchant2(1237, 3); -- Ice Dagger
+SELECT createSkillEnchant2(1238, 3); -- Freezing Skin
+SELECT createSkillEnchant2(1238, 4); -- Freezing Skin
+SELECT createSkillEnchant2(1245, 3); -- Steal Essence
+SELECT createSkillEnchant2(1254, 2); -- Mass Resurrection
+SELECT createSkillEnchant2(1258, 2); -- Restore Life
+SELECT createSkillEnchant(1262, 1, 5); -- Transfer Pain
+SELECT createSkillEnchant2(1269, 3); -- Curse Disease
+SELECT createSkillEnchant(1271, 1, 1); -- Benediction
+SELECT createSkillEnchant2(1271, 2); -- Benediction
+SELECT createSkillEnchant2(1275, 3); -- Aura Bolt
+SELECT createSkillEnchant(1279, 1, 9); -- Summon Binding Cubic
+SELECT createSkillEnchant(1280, 1, 9); -- Summon Aqua Cubic
+SELECT createSkillEnchant(1281, 1, 9); -- Summon Spark Cubic
+SELECT createSkillEnchant(1283, 1, 13); -- Soul Guard
+SELECT createSkillEnchant(1288, 1, 1); -- Aura Symphony
+SELECT createSkillEnchant2(1288, 2); -- Aura Symphony
+SELECT createSkillEnchant2(1288, 3); -- Aura Symphony
 SELECT createSkillEnchant(1289, 1, 1); -- Inferno
 SELECT createSkillEnchant2(1289, 2); -- Inferno
 SELECT createSkillEnchant(1290, 1, 1); -- Blizzard
 SELECT createSkillEnchant2(1290, 2); -- Blizzard
 SELECT createSkillEnchant(1291, 1, 1); -- Demon Wind
 SELECT createSkillEnchant2(1291, 2); -- Demon Wind
+SELECT createSkillEnchant(1292, 1, 1); -- Elemental Assault
+SELECT createSkillEnchant2(1292, 2); -- Elemental Assault
+SELECT createSkillEnchant2(1292, 3); -- Elemental Assault
+SELECT createSkillEnchant(1293, 1, 1); -- Elemental Symphony
+SELECT createSkillEnchant2(1293, 2); -- Elemental Symphony
+SELECT createSkillEnchant2(1293, 3); -- Elemental Symphony
+SELECT createSkillEnchant(1294, 1, 1); -- Elemental Storm
+SELECT createSkillEnchant2(1294, 2); -- Elemental Storm
+SELECT createSkillEnchant2(1294, 3); -- Elemental Storm
 SELECT createSkillEnchant(1386, 1, 10); -- Arcane Disruption
 SELECT createSkillEnchant2(1386, 2); -- Arcane Disruption
 SELECT createSkillEnchant2(1386, 3); -- Arcane Disruption

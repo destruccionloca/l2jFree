@@ -647,8 +647,11 @@
     <table name="#mpInitialConsume"> 7 8 10 </table>
     <table name="#mpConsume"> 28 35 41 </table>
     <table name="#poisonVuln">0.7 0.6 0.5</table>
+    <table name="#stack"> 1.3 1.4 1.5 </table>
     <table name="#ench3poisonVuln"> 0.49 0.48 0.47 0.46 0.45 0.44 0.43 0.42 0.41 0.4 0.39 0.38 0.37
       0.36 0.35 0.34 0.33 0.32 0.31 0.3 0.29 0.28 0.27 0.26 0.25 0.24 0.23 0.22 0.21 0.2 </table>
+    <table name="#ench3stack"> 1.51 1.52 1.53 1.54 1.55 1.56 1.57 1.58 1.59 1.6 1.61 1.62 1.63 1.64
+      1.64 1.65 1.66 1.67 1.68 1.69 1.7 1.71 1.72 1.73 1.74 1.75 1.76 1.77 1.78 1.79 1.8 </table>
     <table name="#aggroPoints">331 379 418</table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -664,17 +667,17 @@
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
-      <effect name="Buff" time="1200" val="0">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="PoisonVuln">
         <mul order="0x30" stat="poisonVuln" val="#poisonVuln"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Buff" time="#ench1time" val="0">
+      <effect name="Buff" time="#ench1time" val="0" stackOrder="1.5" stackType="PoisonVuln">
         <mul order="0x30" stat="poisonVuln" val="0.5"/>
       </effect>
     </enchant1for>
     <enchant3for>
-      <effect name="Buff" time="1200" val="0">
+      <effect name="Buff" time="1200" val="0" stackOrder="#ench3stack" stackType="PoisonVuln">
         <mul order="0x30" stat="poisonVuln" val="#ench3poisonVuln"/>
       </effect>
     </enchant3for>
@@ -685,11 +688,12 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#enchant2mpInitialConsume"> 20 19 19 19 18 18 18 17 17 17 16 16 16 15 15 15 14 14 14 13 13 13 12 12 12 11 11 11 10 10 </table>
     <table name="#enchant2mpConsume"> 81 79 78 77 75 74 73 71 70 69 67 66 64 63 62 60 59 58 56 55 54 52 51 50 48 47 45 44 43 41 </table>
+    <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
+      44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <table name="#mpInitialConsume"> 11 13 14 15 16 16 17 17 18 19 19 20 20 </table>
     <table name="#mpConsume"> 47 52 56 61 64 66 69 71 74 76 78 80 82 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <!-- Needs data for both unenchanted and enchanted values! -->
     <set name="power" val="40"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="200"/>
@@ -698,6 +702,7 @@
     <set name="skillType" val="AGGREMOVE"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <cond msgId="109">
@@ -1325,6 +1330,7 @@
     <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#ench3Vuln"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#ench3stack"> 2.21 2.22 2.23 2.24 2.25 2.26 2.27 2.28 2.29 2.3 2.31 2.32 2.33 2.34 2.35 2.36 2.37 2.38 2.39 2.4 2.41 2.42 2.43 2.44 2.45 2.46 2.47 2.48 2.49 2.5 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -1349,7 +1355,7 @@
       </effect>
     </for>
     <enchant3for>
-      <effect name="Debuff" time="30" val="0" stackOrder="3" stackType="AquaAtr">
+      <effect name="Debuff" time="30" val="0" stackOrder="#ench3stack" stackType="AquaAtr">
         <sub order="0x40" stat="waterRes" val="#ench3Vuln"/>
         <add order="0x40" stat="fireRes" val="10"/>
       </effect>
@@ -1440,6 +1446,7 @@
     <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#ench3Vuln"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#ench3stack"> 2.21 2.22 2.23 2.24 2.25 2.26 2.27 2.28 2.29 2.3 2.31 2.32 2.33 2.34 2.35 2.36 2.37 2.38 2.39 2.4 2.41 2.42 2.43 2.44 2.45 2.46 2.47 2.48 2.49 2.5 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -1464,7 +1471,7 @@
       </effect>
     </for>
     <enchant3for>
-      <effect name="Debuff" time="30" val="0" stackOrder="3" stackType="WindAtr">
+      <effect name="Debuff" time="30" val="0" stackOrder="#ench3stack" stackType="WindAtr">
         <sub order="0x40" stat="windRes" val="#ench3Vuln"/>
         <add order="0x40" stat="earthRes" val="10"/>
       </effect>
@@ -1572,6 +1579,7 @@
     <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#ench3Vuln"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
+    <table name="#ench3stack"> 2.21 2.22 2.23 2.24 2.25 2.26 2.27 2.28 2.29 2.3 2.31 2.32 2.33 2.34 2.35 2.36 2.37 2.38 2.39 2.4 2.41 2.42 2.43 2.44 2.45 2.46 2.47 2.48 2.49 2.5 </table>
     <table name="#mpInitialConsume"> 2 2 3 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 9 11 12 28 31 35 38 41 43 44 46 48 49 51 52 53 55 </table>
     <table name="#magicLvl"> 25 30 35 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
@@ -1601,7 +1609,7 @@
       </effect>
     </for>
     <enchant3for>
-      <effect name="Debuff" time="30" val="0" stackOrder="3" stackType="FireAtr">
+      <effect name="Debuff" time="30" val="0" stackOrder="#ench3stack" stackType="FireAtr">
         <sub order="0x40" stat="fireRes" val="#ench3Vuln"/>
         <add order="0x40" stat="waterRes" val="10"/>
       </effect>
