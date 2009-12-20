@@ -10102,91 +10102,94 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (!_subclassLock.tryLock())
 			return false;
-
-    	try
-    	{
-        	if (getTotalSubClasses() == Config.ALT_MAX_SUBCLASS || classIndex == 0)
-        		return false;
-
-        	if (getSubClasses().containsKey(classIndex))
-        		return false;
-
-        	// Note: Never change _classIndex in any method other than setActiveClass().
-
-            SubClass newClass = new SubClass();
-            newClass.setClassId(classId);
-            newClass.setClassIndex(classIndex);
-
-            Connection con = null;
-            try
-            {
-                // Store the basic info about this new sub-class.
-                con = L2DatabaseFactory.getInstance().getConnection();
-                PreparedStatement statement = con.prepareStatement(ADD_CHAR_SUBCLASS);
-                statement.setInt(1, getObjectId());
-                statement.setInt(2, newClass.getClassId());
-                statement.setLong(3, newClass.getExp());
-                statement.setInt(4, newClass.getSp());
-                statement.setInt(5, newClass.getLevel());
-                statement.setInt(6, newClass.getClassIndex()); // <-- Added
-                statement.execute();
-                statement.close();
-            }
-            catch (Exception e)
-            {
-                _log.warn("Could not add character sub class for " + getName() + ": ", e);
-                return false;
-            }
-            finally
-            {
-            	L2DatabaseFactory.close(con);
-            }
-
-            // Commit after database INSERT incase exception is thrown.
-            getSubClasses().put(newClass.getClassIndex(), newClass);
-
-            if (_log.isDebugEnabled())
-                _log.info(getName() + " added class ID " + classId + " as a sub class at index " + classIndex + ".");
-
-    		ClassId subTemplate = ClassId.values()[classId];
-    		Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
-
-    		if (skillTree == null)
-    			return true;
-
-    		Map<Integer, L2Skill> prevSkillList = new HashMap<Integer, L2Skill>();
-
-    		for (L2SkillLearn skillInfo : skillTree)
-    		{
-    			if (skillInfo.getMinLevel() <= 40)
-    			{
-    				L2Skill prevSkill = prevSkillList.get(skillInfo.getId());
-    				L2Skill newSkill = SkillTable.getInstance().getInfo(skillInfo.getId(), skillInfo.getLevel());
-
-    				if (prevSkill != null && (prevSkill.getLevel() >= newSkill.getLevel()))
-    					continue;
-
-    				prevSkillList.put(newSkill.getId(), newSkill);
-    				storeSkill(newSkill, prevSkill, classIndex);
-    			}
-    		}
-
-    		if (_log.isDebugEnabled())
-                _log.info(getName() + " was given " + getAllSkills().length + " skills for their new sub class.");
-
-            return true;
-    	}
-    	finally
-    	{
-    		_subclassLock.unlock();
-    	}
+		
+		try
+		{
+			if (getTotalSubClasses() == Config.ALT_MAX_SUBCLASS || classIndex == 0)
+				return false;
+			
+			if (getSubClasses().containsKey(classIndex))
+				return false;
+			
+			// Note: Never change _classIndex in any method other than setActiveClass().
+			
+			SubClass newClass = new SubClass();
+			newClass.setClassId(classId);
+			newClass.setClassIndex(classIndex);
+			
+			Connection con = null;
+			try
+			{
+				// Store the basic info about this new sub-class.
+				con = L2DatabaseFactory.getInstance().getConnection();
+				PreparedStatement statement = con.prepareStatement(ADD_CHAR_SUBCLASS);
+				statement.setInt(1, getObjectId());
+				statement.setInt(2, newClass.getClassId());
+				statement.setLong(3, newClass.getExp());
+				statement.setInt(4, newClass.getSp());
+				statement.setInt(5, newClass.getLevel());
+				statement.setInt(6, newClass.getClassIndex()); // <-- Added
+				statement.execute();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.warn("Could not add character sub class for " + getName() + ": ", e);
+				return false;
+			}
+			finally
+			{
+				L2DatabaseFactory.close(con);
+			}
+			
+			// Commit after database INSERT incase exception is thrown.
+			getSubClasses().put(newClass.getClassIndex(), newClass);
+			
+			if (_log.isDebugEnabled())
+				_log.info(getName() + " added class ID " + classId + " as a sub class at index " + classIndex + ".");
+			
+			ClassId subTemplate = ClassId.values()[classId];
+			Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
+			
+			if (skillTree == null)
+				return true;
+			
+			final Map<Integer, L2Skill> skills = new FastMap<Integer, L2Skill>();
+			
+			for (L2SkillLearn skillInfo : skillTree)
+			{
+				if (skillInfo.getMinLevel() <= 40)
+				{
+					final L2Skill prevSkill = skills.get(skillInfo.getId());
+					final L2Skill newSkill = SkillTable.getInstance().getInfo(skillInfo.getId(), skillInfo.getLevel());
+					
+					if (prevSkill != null && prevSkill.getLevel() >= newSkill.getLevel())
+						continue;
+					
+					skills.put(newSkill.getId(), newSkill);
+				}
+			}
+			
+			
+			for (L2Skill newSkill : skills.values())
+				storeSkill(newSkill, null, classIndex);
+			
+			if (_log.isDebugEnabled())
+				_log.info(getName() + " was given " + getAllSkills().length + " skills for their new sub class.");
+			
+			return true;
+		}
+		finally
+		{
+			_subclassLock.unlock();
+		}
 	}
 
 	/**
 	 * 1. Completely erase all existance of the subClass linked to the classIndex.<BR>
 	 * 2. Send over the newClassId to addSubClass()to create a new instance on this classIndex.<BR>
 	 * 3. Upon Exception, revert the player to their BaseClass to avoid further problems.<BR>
-	 *
+	 * 
 	 * @param classIndex
 	 * @param newClassId
 	 * @return subclassAdded
