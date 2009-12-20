@@ -494,6 +494,8 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 
 	void setDisconnected()
 	{
+		LoginServerThread.getInstance().sendLogout(getAccountName());
+		
 		_disconnected = true;
 	}
 
@@ -643,14 +645,6 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 	@Override
 	protected void onDisconnection()
 	{
-		ThreadPoolManager.getInstance().execute(new Runnable() {
-			@Override
-			public void run()
-			{
-				LoginServerThread.getInstance().sendLogout(getAccountName());
-			}
-		});
-
 		new Disconnection(this).onDisconnection();
 
 		setDisconnected();
