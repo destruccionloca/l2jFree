@@ -1,21 +1,21 @@
 DROP TABLE IF EXISTS `enchant_skill_trees`;
 CREATE TABLE `enchant_skill_trees` (
-  `skill_id` INT(10) NOT NULL DEFAULT 0,
-  `level` INT(10) NOT NULL DEFAULT 0,
-  `base_lvl` TINYINT(2) NOT NULL DEFAULT 0,
-  `sp` INT(10) NOT NULL DEFAULT 0,
-  `exp` INT(20) DEFAULT NULL,
-  `min_skill_lvl` INT(3) NOT NULL DEFAULT 0,
-  `success_rate76` SMALLINT(3) unsigned NOT NULL DEFAULT 0,
-  `success_rate77` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate78` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate79` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate80` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate81` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate82` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate83` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate84` SMALLINT(3) NOT NULL DEFAULT 0,
-  `success_rate85` SMALLINT(3) NOT NULL DEFAULT 0,
+  `skill_id` SMALLINT UNSIGNED NOT NULL,
+  `level` SMALLINT(3) UNSIGNED NOT NULL,
+  `base_lvl` TINYINT(2) UNSIGNED NOT NULL,
+  `sp` INT UNSIGNED NOT NULL,
+  `exp` INT UNSIGNED NOT NULL,
+  `min_skill_lvl` SMALLINT(3) UNSIGNED NOT NULL,
+  `success_rate76` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate77` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate78` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate79` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate80` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate81` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate82` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate83` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate84` TINYINT(3) UNSIGNED NOT NULL,
+  `success_rate85` TINYINT(3) UNSIGNED NOT NULL,
   PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 
@@ -21005,8 +21005,6 @@ SELECT createSkillEnchant2(1237, 3); -- Ice Dagger
 SELECT createSkillEnchant2(1238, 3); -- Freezing Skin
 SELECT createSkillEnchant2(1238, 4); -- Freezing Skin
 SELECT createSkillEnchant2(1245, 3); -- Steal Essence
-SELECT createSkillEnchant2(1254, 2); -- Mass Resurrection
-SELECT createSkillEnchant2(1258, 2); -- Restore Life
 SELECT createSkillEnchant(1262, 1, 5); -- Transfer Pain
 SELECT createSkillEnchant2(1269, 3); -- Curse Disease
 SELECT createSkillEnchant(1271, 1, 1); -- Benediction
@@ -21049,7 +21047,3 @@ SELECT createSkillEnchant2(1443, 2); -- Dark Weapon
 
 DROP FUNCTION createSkillEnchant;
 DROP FUNCTION createSkillEnchant2;
-
--- TODO: finish them in XMLs, so this can be removed
-DELETE FROM `enchant_skill_trees` WHERE `skill_id` = 1254 AND CAST(`level` / 100 AS SIGNED) = 2; -- Mass Resurrection
-DELETE FROM `enchant_skill_trees` WHERE `skill_id` = 1258 AND CAST(`level` / 100 AS SIGNED) = 2; -- Restore Life
