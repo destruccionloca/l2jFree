@@ -308,6 +308,7 @@ import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.L2Collections;
+import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
@@ -7367,11 +7368,11 @@ public final class L2PcInstance extends L2Playable
 	{
 		// Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance
 		final L2Skill oldSkill = addSkill(newSkill);
-
+		
 		// Add or update a L2PcInstance skill in the character_skills table of the database
 		if (save)
 			storeSkill(newSkill, oldSkill, -1);
-
+		
 		return oldSkill;
 	}
 	
@@ -7410,10 +7411,17 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public L2Skill removeSkill(L2Skill skill)
 	{
+		if (skill == null)
+			return null;
+		
 		// Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
 		L2Skill oldSkill = super.removeSkill(skill);
-
-		if (oldSkill != null)
+		
+		boolean shouldExistInDb = _storedSkillIds.remove(skill.getId());
+		boolean existsInDb = false;
+		boolean hasSkill = (oldSkill != null);
+		
+		//if (oldSkill != null)
 		{
 			Connection con = null;
 			try
@@ -7421,10 +7429,10 @@ public final class L2PcInstance extends L2Playable
 				// Remove or update a L2PcInstance skill from the character_skills table of the database
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 				PreparedStatement statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
-				statement.setInt(1, oldSkill.getId());
+				statement.setInt(1, skill.getId());
 				statement.setInt(2, getObjectId());
 				statement.setInt(3, getClassIndex());
-				statement.execute();
+				existsInDb = statement.executeUpdate() > 0;
 				statement.close();
 			}
 			catch (Exception e)
@@ -7436,14 +7444,16 @@ public final class L2PcInstance extends L2Playable
 				L2DatabaseFactory.close(con);
 			}
 		}
-
+		
+		checkStoredSkillId(shouldExistInDb, existsInDb, hasSkill, oldSkill, skill);
+		
 		if (transformId() > 0 || isCursedWeaponEquipped())
 			return oldSkill;
-
+		
 		for (L2ShortCut sc : getAllShortCuts())
-			if (sc != null && skill != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL)
+			if (sc != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL)
 				deleteShortCut(sc.getSlot(), sc.getPage());
-
+		
 		return oldSkill;
 	}
 
@@ -7454,7 +7464,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	private void storeSkill(L2Skill newSkill, L2Skill oldSkill, int newClassIndex)
 	{
-		if (newSkill == null || newSkill.getId() > 369 && newSkill.getId() < 392)
+		if (newSkill == null/* || newSkill.getId() > 369 && newSkill.getId() < 392*/)
 			return;
 
 		int classIndex = _classIndex;
@@ -7462,6 +7472,13 @@ public final class L2PcInstance extends L2Playable
 		if (newClassIndex > -1)
 			classIndex = newClassIndex;
 
+		boolean shouldExistInDb = false;
+		boolean existsInDb = false;
+		boolean hasSkill = (oldSkill != null);
+		
+		if (newClassIndex == -1) // check only for skills added normally (not because of subclass creation)
+			shouldExistInDb = !_storedSkillIds.add(newSkill.getId());
+		
 		Connection con = null;
 
 		try
@@ -7476,7 +7493,7 @@ public final class L2PcInstance extends L2Playable
 				statement.setInt(2, oldSkill.getId());
 				statement.setInt(3, getObjectId());
 				statement.setInt(4, classIndex);
-				statement.execute();
+				existsInDb = statement.executeUpdate() > 0;
 				statement.close();
 			}
 			else
@@ -7498,8 +7515,45 @@ public final class L2PcInstance extends L2Playable
 		{
 			L2DatabaseFactory.close(con);
 		}
+		
+		if (newClassIndex == -1) // check only for skills added normally (not because of subclass creation)
+			checkStoredSkillId(shouldExistInDb, existsInDb, hasSkill, oldSkill, newSkill);
 	}
-
+	
+	/**
+	 * Contains skillIds stored in character_skills table for the current classIndex.<br>
+	 * It will help to determine which query should be/shouldn't be called for skill addition/removal.<br>
+	 * NOTE: Currently only for validation, but without any strict check.
+	 */
+	private final Set<Integer> _storedSkillIds = new L2FastSet<Integer>().setShared(true);
+	
+	private void checkStoredSkillId(boolean shouldExistInDb, boolean existsInDb, boolean hasSkill, L2Skill oldSkill, L2Skill newSkill)
+	{
+		if (shouldExistInDb && existsInDb && hasSkill)
+		{
+			// normal saved skill
+		}
+		else if (!shouldExistInDb && !existsInDb && hasSkill)
+		{
+			// given skill
+		}
+		else if (!shouldExistInDb && !existsInDb && !hasSkill)
+		{
+			// not owned skill
+		}
+		else
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append("Invalid skill saving conditions - ");
+			sb.append("newSkill: ").append(newSkill).append(", ");
+			sb.append("oldSkill: ").append(oldSkill).append(", ");
+			sb.append("shouldExistInDb: ").append(shouldExistInDb).append(", ");
+			sb.append("existsInDb: ").append(existsInDb).append(", ");
+			sb.append("hasSkill: ").append(hasSkill);
+			_log.info(sb, new IllegalStateException());
+		}
+	}
+	
 	/**
 	 * check player skills and remove unlegit ones (excludes hero, noblesse and cursed weapon skills)
 	 */
@@ -7572,6 +7626,8 @@ public final class L2PcInstance extends L2Playable
 	 */
 	private void restoreSkills()
 	{
+		_storedSkillIds.clear();
+		
 		List<L2Skill> tmp = new ArrayList<L2Skill>();
 
 		Connection con = null;
@@ -7590,8 +7646,10 @@ public final class L2PcInstance extends L2Playable
 				int id = rset.getInt("skill_id");
 				int level = rset.getInt("skill_level");
 
+				/*
 				if (id > 9000 && id < 9007)
 					continue; // Fake skills for base stats
+				*/
 
 				// Create a L2Skill object for each record
 				L2Skill skill = SkillTable.getInstance().getInfo(id, level);
@@ -7600,6 +7658,8 @@ public final class L2PcInstance extends L2Playable
 					continue;
 
 				tmp.add(skill);
+				
+				_storedSkillIds.add(skill.getId());
 			}
 
 			rset.close();
@@ -9716,8 +9776,10 @@ public final class L2PcInstance extends L2Playable
 			if (isTransformationDisabledSkill(s))
 				return 9;
 
+			/*
 			if (s.getId() > 9000 && s.getId() < 9007)
 				return 7;
+			*/
 
 			// TODO: add other ordering conditions, if there is any other useful :)
 
@@ -10854,7 +10916,7 @@ public final class L2PcInstance extends L2Playable
 
 			int restoreExp = (int) Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * _revivePetPower / 100);
 
-			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId());
+			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP);
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}
