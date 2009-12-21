@@ -22,6 +22,7 @@ import java.util.logging.LogRecord;
 import javolution.text.TextBuilder;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.l2jfree.L2Config;
 
@@ -38,7 +39,8 @@ public abstract class L2RuntimeLogFormatter extends L2LogFormatter
 		appendDate(record, tb);
 		
 		if (record.getLevel().intValue() > Level.INFO.intValue() || record.getThrown() != null)
-			tb.append(record.getSourceClassName()).append(".").append(record.getSourceMethodName()).append("(): ");
+			if (!StringUtils.isEmpty(record.getSourceClassName()) && !StringUtils.isEmpty(record.getSourceMethodName()))
+				tb.append(record.getSourceClassName()).append(".").append(record.getSourceMethodName()).append("(): ");
 		
 		appendMessage(record, tb);
 		appendThrown(record, tb);

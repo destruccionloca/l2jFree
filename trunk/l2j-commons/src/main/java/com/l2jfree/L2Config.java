@@ -179,7 +179,10 @@ public abstract class L2Config
 			{
 				final StackTraceElement caller = getCaller();
 				
-				_logger.logp(Level.INFO, caller.getClassName(), caller.getMethodName(), line);
+				if (caller == null)
+					_logger.logp(Level.INFO, "", "", line);
+				else
+					_logger.logp(Level.INFO, caller.getClassName(), caller.getMethodName(), line);
 			}
 		}));
 		
@@ -189,7 +192,10 @@ public abstract class L2Config
 			{
 				final StackTraceElement caller = getCaller();
 				
-				_logger.logp(Level.WARNING, caller.getClassName(), caller.getMethodName(), line);
+				if (caller == null)
+					_logger.logp(Level.WARNING, "", "", line);
+				else
+					_logger.logp(Level.WARNING, caller.getClassName(), caller.getMethodName(), line);
 			}
 		}));
 	}
@@ -199,10 +205,15 @@ public abstract class L2Config
 		StackTraceElement[] stack = new Throwable().getStackTrace();
 		
 		for (int i = stack.length - 1; i >= 0; i--)
+		{
 			if (stack[i].getClassName().startsWith("java.io.") || stack[i].getMethodName().equals("printStackTrace"))
 				return stack[L2Math.limit(0, i + 1, stack.length - 1)];
+			
+			if (stack[i].getMethodName().equals("dispatchUncaughtException"))
+				break;
+		}
 		
-		return stack[stack.length - 1];
+		return null;
 	}
 	
 	protected L2Config()
