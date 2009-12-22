@@ -2217,14 +2217,11 @@ public final class L2PcInstance extends L2Playable
 				case L2Item.SLOT_LR_EAR:
 				case L2Item.SLOT_L_FINGER:
 				case L2Item.SLOT_LR_FINGER:
-				case L2Item.SLOT_DECO:
-				{
 					getInventory().setPaperdollItem(item.getLocationSlot(), null);
 					sendPacket(new ItemList(this, false));
-				}
 			}
 
-			// We cant unequip talisman by body slot
+			// We can't unequip talisman by body slot
 			if (bodyPart == L2Item.SLOT_DECO)
 				items = getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
 			else
@@ -2237,7 +2234,7 @@ public final class L2PcInstance extends L2Playable
 			// Check if the item replaces a wear-item
 			if (tempItem != null && tempItem.isWear())
 			{
-				// Dont allow an item to replace a wear-item
+				// Don't allow an item to replace a wear-item
 				return;
 			}
 			else if (bodyPart == L2Item.SLOT_LR_HAND)
@@ -2251,7 +2248,7 @@ public final class L2PcInstance extends L2Playable
 			}
 			else if (bodyPart == L2Item.SLOT_FULL_ARMOR)
 			{
-				// This may not remove chest or leggins
+				// This may not remove chest or leggings
 				tempItem = getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST);
 				if (tempItem != null && tempItem.isWear()) return;
 
@@ -2272,13 +2269,15 @@ public final class L2PcInstance extends L2Playable
 			}
 			sendPacket(sm);
 
-			// MUST be sent before InventoryUpdate
 			if ((bodyPart & L2Item.SLOT_HEAD) > 0 || (bodyPart & L2Item.SLOT_NECK) > 0
 					|| (bodyPart & L2Item.SLOT_L_EAR) > 0 || (bodyPart & L2Item.SLOT_R_EAR) > 0
 					|| (bodyPart & L2Item.SLOT_L_FINGER) > 0 || (bodyPart & L2Item.SLOT_R_FINGER) > 0
 					|| (bodyPart & L2Item.SLOT_R_BRACELET) > 0 || (bodyPart & L2Item.SLOT_L_BRACELET) > 0
-					||(bodyPart & L2Item.SLOT_DECO) > 0)
+					|| (bodyPart & L2Item.SLOT_DECO) > 0)
+			{
+				// must be sent explicitly before IU
 				sendPacket(new UserInfo(this));
+			}
 
 			items = getInventory().equipItemAndRecord(item);
 
@@ -2288,11 +2287,15 @@ public final class L2PcInstance extends L2Playable
 
 		refreshExpertisePenalty();
 
-		broadcastUserInfo();
-
 		InventoryUpdate iu = new InventoryUpdate();
 		iu.addEquipItems(items);
 		sendPacket(iu);
+
+		// must be sent explicitly after IU
+		sendPacket(new UserInfo(this));
+		// send 3rd time, just like retail
+		broadcastUserInfo();
+
 		if (abortAttack)
 			abortAttack();
 
@@ -8277,6 +8280,9 @@ public final class L2PcInstance extends L2Playable
 			case TARGET_SELF:
 				target = this;
 				break;
+			case TARGET_SERVITOR_AURA:
+				target = getPet();
+				break;
 			default:
 				// Get the first target of the list
 				target = skill.getFirstOfTargetList(this);
@@ -8458,6 +8464,7 @@ public final class L2PcInstance extends L2Playable
 		case TARGET_SELF:
 			target = this;
 			break;
+		case TARGET_SERVITOR_AURA:
 		case TARGET_PET:
 		case TARGET_SUMMON:
 			target = getPet();
@@ -8593,6 +8600,7 @@ public final class L2PcInstance extends L2Playable
 				case TARGET_AURA:
 				case TARGET_FRONT_AURA:
 				case TARGET_BEHIND_AURA:
+				case TARGET_SERVITOR_AURA:
 				case TARGET_CLAN:
 				case TARGET_PARTY_CLAN:
 				case TARGET_ALLY:
@@ -8647,6 +8655,7 @@ public final class L2PcInstance extends L2Playable
 			case TARGET_AURA:
 			case TARGET_FRONT_AURA:
 			case TARGET_BEHIND_AURA:
+			case TARGET_SERVITOR_AURA:
 			case TARGET_CLAN:
 			case TARGET_PARTY_CLAN:
 			case TARGET_SELF:
@@ -8690,6 +8699,7 @@ public final class L2PcInstance extends L2Playable
 		case TARGET_AURA:
 		case TARGET_FRONT_AURA:
 		case TARGET_BEHIND_AURA:
+		case TARGET_SERVITOR_AURA:
 		case TARGET_GROUND:
 		case TARGET_SELF:
 			break;
@@ -14036,10 +14046,6 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public void broadcastFullInfoImpl()
 	{
-		// Someone just doesn't understand what this method is for
-		// refreshOverloaded();
-		// refreshExpertisePenalty();
-
 		sendPacket(new UserInfo(this));
 		if (getPoly().isMorphed())
 		{
@@ -14048,7 +14054,6 @@ public final class L2PcInstance extends L2Playable
 		else
 		{
 			Broadcast.toKnownPlayers(this, new CharInfo(this));
-			//Broadcast.toKnownPlayers(this, new ExBrExtraUserInfo(this));
 		}
 	}
 

@@ -628,6 +628,7 @@ public abstract class L2Summon extends L2Playable
 		case TARGET_AURA:
 		case TARGET_FRONT_AURA:
 		case TARGET_BEHIND_AURA:
+		case TARGET_SERVITOR_AURA:
 		case TARGET_SELF:
 			target = this;
 			break;
@@ -726,6 +727,7 @@ public abstract class L2Summon extends L2Playable
 					case TARGET_AURA:
 					case TARGET_FRONT_AURA:
 					case TARGET_BEHIND_AURA:
+					case TARGET_SERVITOR_AURA:
 					case TARGET_CLAN:
 					case TARGET_ALLY:
 					case TARGET_PARTY:

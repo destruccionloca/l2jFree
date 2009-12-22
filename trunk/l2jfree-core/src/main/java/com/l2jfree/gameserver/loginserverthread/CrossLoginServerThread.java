@@ -156,7 +156,9 @@ public final class CrossLoginServerThread extends LoginServerThread
 						{
 							// Default compatibility login
 							_protocol = init.getRevision();
-							// not supported
+							// not supported by login, inform that GS can't do anything
+							_log.warn("Connection Filtering has been disabled, as the login server doesn't support it.");
+							_log.warn("If you intend to use this login server, please turn off ConnectionFiltering in server.properties");
 							Config.CONNECTION_FILTERING = false;
 						}
 

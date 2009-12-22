@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.handler.usercommandhandlers.Loc;
 import com.l2jfree.gameserver.handler.usercommandhandlers.Mount;
 import com.l2jfree.gameserver.handler.usercommandhandlers.OlympiadStat;
 import com.l2jfree.gameserver.handler.usercommandhandlers.PartyInfo;
+import com.l2jfree.gameserver.handler.usercommandhandlers.RemainTime;
 import com.l2jfree.gameserver.handler.usercommandhandlers.SiegeStatus;
 import com.l2jfree.gameserver.handler.usercommandhandlers.Time;
 import com.l2jfree.util.NumberHandlerRegistry;
@@ -57,6 +58,7 @@ public final class UserCommandHandler extends NumberHandlerRegistry<IUserCommand
 		registerUserCommandHandler(new Mount());
 		registerUserCommandHandler(new OlympiadStat());
 		registerUserCommandHandler(new PartyInfo());
+		registerUserCommandHandler(new RemainTime());
 		registerUserCommandHandler(new SiegeStatus());
 		registerUserCommandHandler(new Time());
 		

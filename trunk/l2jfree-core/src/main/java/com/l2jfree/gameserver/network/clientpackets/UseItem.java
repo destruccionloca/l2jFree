@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -36,11 +35,6 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.18.2.7.2.9 $ $Date: 2005/03/27 15:29:30 $
- */
 public final class UseItem extends L2GameClientPacket
 {
 	private static final String	_C__14_USEITEM	= "[C] 14 UseItem";
@@ -284,7 +278,7 @@ public final class UseItem extends L2GameClientPacket
 				{
 					if (activeChar.isKamaelic())
 					{
-						if (item.getItemType() == L2ArmorType.HEAVY || item.getItemType() == L2ArmorType.MAGIC || item.getItemType() == L2WeaponType.NONE)
+						if (item.getItemType() == L2WeaponType.NONE)
 						{
 							requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
 							return;
@@ -307,7 +301,7 @@ public final class UseItem extends L2GameClientPacket
 			case L2Item.SLOT_FULL_ARMOR:
 			case L2Item.SLOT_LEGS:
 			{
-				if (activeChar.getRace() == Race.Kamael
+				if (activeChar.isKamaelic()
 						&& (item.getItem().getItemType() == L2ArmorType.HEAVY || item.getItem().getItemType() == L2ArmorType.MAGIC))
 				{
 					requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
@@ -315,14 +309,19 @@ public final class UseItem extends L2GameClientPacket
 				}
 				break;
 			}
-			case L2Item.SLOT_DECO:
+			}
+
+			// All talisman slots full. Verified.
+			if (!item.isEquipped() && item.getItem().getBodyPart() == L2Item.SLOT_DECO)
 			{
-				if (!item.isEquipped() && activeChar.getInventory().getMaxTalismanCount() == 0)
+				if (activeChar.getInventory().getMaxTalismanCount() <=
+					activeChar.getInventory().getEquippedTalismanCount())
 				{
-					requestFailed(SystemMessageId.NO_CONDITION_TO_EQUIP);
+					SystemMessage sm = new SystemMessage(SystemMessageId.NO_SPACE_TO_WEAR_S1);
+					sm.addItemName(item);
+					requestFailed(sm);
 					return;
 				}
-			}
 			}
 
 			if (activeChar.isCursedWeaponEquipped() && itemId == 6408) // Don't allow to put formal wear

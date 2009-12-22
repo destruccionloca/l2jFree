@@ -236,6 +236,8 @@ public final class SkillTable
 				{
 					if (!enchantLevels.remove(skillLvl))
 					{
+						if (skillLvl == 16)
+							break;
 						_log.warn("Missing skill enchant level in XMLs for " + s + " - Level: " + skillLvl);
 						valid = false;
 					}
@@ -270,7 +272,7 @@ public final class SkillTable
 				
 				if (list == null)
 					continue;
-				else if (list.size() != 30)
+				else if (list.size() != 30 && list.size() != 15)
 					_log.warn("Invalid skill enchant data in database for " + s);
 				else
 					skillEnchantsInDatabase.add(s);

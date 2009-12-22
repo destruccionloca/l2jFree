@@ -109,6 +109,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		TARGET_AURA,
 		TARGET_FRONT_AURA,
 		TARGET_BEHIND_AURA,
+		TARGET_SERVITOR_AURA,
 		TARGET_CORPSE,
 		TARGET_CORPSE_ALLY,
 		TARGET_CORPSE_CLAN,
@@ -1662,6 +1663,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 					return null;
 				}
 				case TARGET_AURA:
+				case TARGET_SERVITOR_AURA:
 				{
 					int radius = getSkillRadius();
 					boolean srcInPvP = activeChar.isInsideZone(L2Zone.FLAG_PVP) && !activeChar.isInsideZone(L2Zone.FLAG_SIEGE);
@@ -3035,7 +3037,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			targetList.clear();
 		}
 	}
-
+/*
 	// [L2J_JP ADD SANDMAN START]
 	public final L2Character[] getAreaTargetList(L2Character activeChar)
 	{
@@ -3228,7 +3230,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		return targetList.moveToArray(new L2Character[targetList.size()]);
 	}
-
+*/
 	public final L2Character[] getMultiFaceTargetList(L2Character activeChar)
 	{
 		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();

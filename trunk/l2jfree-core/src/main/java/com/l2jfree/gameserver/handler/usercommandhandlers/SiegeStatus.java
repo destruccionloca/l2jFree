@@ -15,7 +15,11 @@
 package com.l2jfree.gameserver.handler.usercommandhandlers;
 
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SiegeInfo;
 
 public class SiegeStatus implements IUserCommandHandler
 {
@@ -23,7 +27,15 @@ public class SiegeStatus implements IUserCommandHandler
 
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		activeChar.sendMessage("Command /siegestatus not implemented yet.");
+		if (!activeChar.isNoble())
+		{
+			// verified
+			activeChar.sendPacket(SystemMessageId.ONLY_NOBLESSE_LEADER_CAN_VIEW_SIEGE_STATUS_WINDOW);
+			return false;
+		}
+		Castle c = CastleManager.getInstance().getCastle(activeChar);
+		if (c != null)
+			activeChar.sendPacket(new SiegeInfo(c));
 		return true;
 	}
 

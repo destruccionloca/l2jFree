@@ -1553,6 +1553,11 @@ public abstract class L2Character extends L2Object
 				target = this;
 				break;
 			}
+			case TARGET_SERVITOR_AURA:
+			{
+				target = getPet();
+				break;
+			}
 			default:
 			{
 				if (targets == null || targets.length == 0)

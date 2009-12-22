@@ -77,7 +77,8 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 			if (party != null && party.getMemberCount() == 1)
 			{
 				L2PartyRoom room = party.getPartyRoom();
-				room.setParty(null);
+				if (room != null)
+					room.setParty(null);
 				party.setPartyRoom(null);
 				requestor.setParty(null);
 			}

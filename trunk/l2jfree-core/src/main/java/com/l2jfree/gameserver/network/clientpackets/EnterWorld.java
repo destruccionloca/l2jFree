@@ -46,6 +46,7 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.Siege;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -246,6 +247,13 @@ public class EnterWorld extends L2GameClientPacket
 				}
 			}
 		}
+
+		L2ItemInstance weapon = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+		if (weapon == null)
+			weapon = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+		if ((weapon.isHeroItem() && !activeChar.isHero() && !activeChar.isGM())
+				|| (activeChar.getPkKills() > 0 && weapon.getItemId() > 7815 && weapon.getItemId() < 7832))
+			activeChar.getInventory().unEquipItemInBodySlotAndRecord(weapon.getItem().getBodyPart());		
 
 		activeChar.updateEffectIcons();
 		activeChar.sendSkillCoolTime();
