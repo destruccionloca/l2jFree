@@ -19,11 +19,13 @@ import java.nio.ByteBuffer;
 import org.mmocore.network.IPacketHandler;
 import org.mmocore.network.ReceivablePacket;
 
+import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.clientpackets.AuthGameGuard;
 import com.l2jfree.loginserver.clientpackets.RequestAuthLogin;
 import com.l2jfree.loginserver.clientpackets.RequestServerList;
 import com.l2jfree.loginserver.clientpackets.RequestServerLogin;
+import com.l2jfree.loginserver.clientpackets.RequestSubmitCardNo;
 
 /**
  * Handler for packets received by Login Server
@@ -72,6 +74,11 @@ public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 			else if (opcode == 0x02)
 			{
 				packet = new RequestServerLogin();
+			}
+			else if (opcode == 0x06)
+			{
+				if (Config.SECURITY_CARD_LOGIN)
+					packet = new RequestSubmitCardNo();
 			}
 			else
 			{

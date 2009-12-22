@@ -100,17 +100,19 @@ public class RequestAuthLogin extends L2LoginClientPacket
 		L2LoginClient client = getClient();
 		try
 		{
-			AuthLoginResult result = lc.tryAuthLogin(_user, _password, getClient());
+			AuthLoginResult result = lc.tryAuthLogin(_user, _password, client);
 			switch (result)
 			{
 				case AUTH_SUCCESS:
 					client.setAccount(_user);
 					client.setState(LoginClientState.AUTHED_LOGIN);
 					client.setSessionKey(lc.assignSessionKeyToClient(_user, client));
-					if (Config.SHOW_LICENCE)
-						client.sendPacket(new LoginOk(getClient().getSessionKey()));
+					if (Config.SECURITY_CARD_LOGIN)
+						client.sendPacket(new LoginFail(LoginFail.REASON_INVALID_SECURITY_CARD_NO));
+					else if (Config.SHOW_LICENCE)
+						client.sendPacket(new LoginOk(client.getSessionKey()));
 					else
-						getClient().sendPacket(new ServerList(getClient()));
+						client.sendPacket(new ServerList(client));
 					break;
 				case ALREADY_ON_LS:
 					L2LoginClient oldClient;
