@@ -60,6 +60,7 @@ public class RequestSubmitCardNo extends L2LoginClientPacket
 		System.err.println(HexUtil.printData(decrypted));
 		*/
 		L2LoginClient client = getClient();
+		client.setCardAuthed(true);
 		if (Config.SHOW_LICENCE)
 			client.sendPacket(new LoginOk(client.getSessionKey()));
 		else

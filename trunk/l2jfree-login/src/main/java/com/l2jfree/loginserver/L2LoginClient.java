@@ -68,6 +68,8 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	private final int _sessionId = Rnd.nextInt(Integer.MAX_VALUE);
 	private boolean _joinedGS;
 	private final String _ip;
+
+	private boolean _card;
 	
 	public L2LoginClient(SelectorThread<L2LoginClient> selectorThread, ISocket socket, SelectionKey key)
 	{
@@ -263,6 +265,16 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	public InetAddress getInetAddress()
 	{
 		return getSocket().getInetAddress();
+	}
+
+	public boolean isCardAuthed()
+	{
+		return _card;
+	}
+
+	public void setCardAuthed(boolean card)
+	{
+		_card = card;
 	}
 	
 	@Override

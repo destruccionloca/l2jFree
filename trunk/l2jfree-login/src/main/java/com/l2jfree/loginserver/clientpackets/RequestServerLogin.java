@@ -83,6 +83,12 @@ public class RequestServerLogin extends L2LoginClientPacket
 	{
 		SessionKey sk = getClient().getSessionKey();
 
+		if (Config.SECURITY_CARD_LOGIN && !getClient().isCardAuthed())
+		{
+			getClient().closeLogin(LoginFail.REASON_IGNORE);
+			return;
+		}
+
 		// if we didn't show the license we can't check these values
 		if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
 		{

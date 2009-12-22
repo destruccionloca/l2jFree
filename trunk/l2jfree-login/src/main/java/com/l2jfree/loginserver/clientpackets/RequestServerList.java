@@ -14,6 +14,7 @@
  */
 package com.l2jfree.loginserver.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.ServerList;
 
@@ -74,6 +75,12 @@ public class RequestServerList extends L2LoginClientPacket
 	@Override
 	public void run()
 	{
+		if (Config.SECURITY_CARD_LOGIN && !getClient().isCardAuthed())
+		{
+			getClient().closeLogin(LoginFail.REASON_IGNORE);
+			return;
+		}
+
 		if (getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
 		{
 			getClient().sendPacket(new ServerList(getClient()));
