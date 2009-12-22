@@ -610,7 +610,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
+      <effect name="Buff" time="1200" val="0" stackOrder="0" stackType="great_p_up">
         <mul order="0x30" stat="pAtk" val="1.1"/>
       </effect>
     </for>
@@ -627,7 +627,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
+      <effect name="Buff" time="1200" val="0" stackOrder="0" stackType="great_p_up">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>

@@ -2276,7 +2276,7 @@
     <set name="expPenalty" val="#expPenalty"/> <!-- percent of earned Exp will be consumed -->
   </skill>
   <skill id="1279" levels="9" name="Summon Binding Cubic" enchantLevels1="30">
-    <!-- 9 skill levels, 16 cubic debuff/attack skill levels? enchant lvls? -->
+    <!-- Unknown enchant bonuses -->
     <table name="#mpInitialConsume"> 7 7 8 9 10 11 12 12 13 </table>
     <table name="#mpConsume"> 28 31 35 38 41 44 48 51 53 </table>
     <table name="#itemConsumeCount"> 5 6 7 8 9 9 11 12 13 </table>
@@ -2300,7 +2300,7 @@
     <set name="isCubic" val="true"/>
   </skill>
   <skill id="1280" levels="9" name="Summon Aqua Cubic" enchantLevels1="30">
-    <!-- 9 skill levels, 16 cubic debuff/attack skill levels? enchant lvls? -->
+    <!-- Unknown enchant bonuses -->
     <table name="#mpInitialConsume"> 7 7 8 9 10 11 12 13 13 </table>
     <table name="#mpConsume"> 28 31 35 38 41 46 49 52 55 </table>
     <table name="#itemConsumeCount"> 2 3 3 4 4 5 6 6 7 </table>
@@ -2325,7 +2325,7 @@
     <set name="isCubic" val="true"/>
   </skill>
   <skill id="1281" levels="9" name="Summon Spark Cubic" enchantLevels1="30">
-    <!-- 9 skill levels, 16 cubic debuff/attack skill levels? enchant lvls? -->
+    <!-- Unknown enchant bonuses -->
     <table name="#mpInitialConsume"> 7 7 8 9 10 11 12 12 13 </table>
     <table name="#mpConsume"> 28 31 35 38 41 44 48 51 53 </table>
     <table name="#itemConsumeCount"> 5 6 7 8 9 9 11 12 13 </table>
@@ -2860,23 +2860,25 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
-    <!-- Missing increase to buff cancelling attacks by 80% (all levels) -->
     <for>
       <effect name="ImmobilePetBuff" time="30" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="#pDef"/>
         <add order="0x40" stat="mDef" val="#mDef"/>
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="ImmobilePetBuff" time="#ench1time" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </enchant1for>
     <enchant2for>
       <effect name="ImmobilePetBuff" time="30" val="0" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="#ench2pDef"/>
         <add order="0x40" stat="mDef" val="#ench2mDef"/>
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </enchant2for>
   </skill>
