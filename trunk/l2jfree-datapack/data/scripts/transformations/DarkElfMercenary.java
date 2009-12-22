@@ -29,11 +29,13 @@ public class DarkElfMercenary extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 869, 1); // Mercenary Power Strike
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 866); // Mercenary Power Strike
 	}
 	
 	public static void main(String[] args)

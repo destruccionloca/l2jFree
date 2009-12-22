@@ -29,11 +29,15 @@ public class MagicLeader extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 874, 1); // Magic Leader Flame Strike
+		addSkill(player, 875, 1); // Magic Leader Empower
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 874); // Magic Leader Flame Strike
+		removeSkill(player, 875); // Magic Leader Empower
 	}
 	
 	public static void main(String[] args)

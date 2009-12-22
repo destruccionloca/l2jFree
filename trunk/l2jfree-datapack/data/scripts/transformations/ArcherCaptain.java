@@ -29,11 +29,15 @@ public class ArcherCaptain extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 872, 1); // Archer Captain Power Shot
+		addSkill(player, 873, 1); // Archer Captain Rapid Shot
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 872); // Archer Captain Power Shot
+		removeSkill(player, 873); // Archer Captain Rapid Shot
 	}
 	
 	public static void main(String[] args)

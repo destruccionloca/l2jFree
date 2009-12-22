@@ -29,11 +29,15 @@ public class RoyalGuardCaptain extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 870, 1); // Royal Guard Captain Power Strike
+		addSkill(player, 871, 1); // Royal Guard Captain Might
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 870); // Royal Guard Captain Power Strike
+		removeSkill(player, 871); // Royal Guard Captain Might
 	}
 	
 	public static void main(String[] args)

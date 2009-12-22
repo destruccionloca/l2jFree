@@ -29,11 +29,17 @@ public class FortressCaptain extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 891, 1); // Fortress Captain Twister
+		addSkill(player, 892, 1); // Fortress Captain Blaze
+		addSkill(player, 893, 1); // Fortress Captain Seal of Binding
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 891); // Fortress Captain Twister
+		removeSkill(player, 892); // Fortress Captain Blaze
+		removeSkill(player, 893); // Fortress Captain Seal of Binding
 	}
 	
 	public static void main(String[] args)

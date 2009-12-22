@@ -29,11 +29,17 @@ public class KnightofDawn extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 878, 1); // Knight of Dawn Power Strike
+		addSkill(player, 879, 1); // Knight of Dawn Curse Fear
+		addSkill(player, 880, 1); // Knight of Dawn Ultimate Defense
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 878); // Knight of Dawn Power Strike
+		removeSkill(player, 879); // Knight of Dawn Curse Fear
+		removeSkill(player, 880); // Knight of Dawn Ultimate Defense
 	}
 	
 	public static void main(String[] args)
