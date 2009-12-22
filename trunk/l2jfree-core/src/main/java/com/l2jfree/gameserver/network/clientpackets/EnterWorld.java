@@ -251,9 +251,12 @@ public class EnterWorld extends L2GameClientPacket
 		L2ItemInstance weapon = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
 		if (weapon == null)
 			weapon = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-		if ((weapon.isHeroItem() && !activeChar.isHero() && !activeChar.isGM())
-				|| (activeChar.getPkKills() > 0 && weapon.getItemId() > 7815 && weapon.getItemId() < 7832))
-			activeChar.getInventory().unEquipItemInBodySlotAndRecord(weapon.getItem().getBodyPart());		
+		if (weapon != null)
+		{
+			if ((weapon.isHeroItem() && !activeChar.isHero() && !activeChar.isGM())
+					|| (activeChar.getPkKills() > 0 && weapon.getItemId() > 7815 && weapon.getItemId() < 7832))
+				activeChar.getInventory().unEquipItemInBodySlotAndRecord(weapon.getItem().getBodyPart());
+		}
 
 		activeChar.updateEffectIcons();
 		activeChar.sendSkillCoolTime();

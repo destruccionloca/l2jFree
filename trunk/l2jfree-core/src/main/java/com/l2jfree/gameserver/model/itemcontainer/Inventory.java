@@ -1038,7 +1038,6 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public L2ItemInstance unEquipItemInSlot(int pdollSlot)
 	{
-		_log.warn("Item being unequipped in slot " + pdollSlot, new Exception());
 		return setPaperdollItem(pdollSlot, null);
 	}
 
@@ -1071,7 +1070,6 @@ public abstract class Inventory extends ItemContainer
 	 */
 	private void unEquipItemInBodySlot(int slot)
 	{
-		_log.warn("Item being unequipped in body slot " + slot, new Exception());
 		if (_log.isDebugEnabled())
 			_log.debug("--- unequip body slot:" + slot);
 		int pdollSlot = -1;
