@@ -910,8 +910,8 @@ public class Config extends L2Config
 	public static boolean			PETITIONING_ALLOWED;
 	public static int				MAX_PETITIONS_PER_PLAYER;
 	public static int				MAX_PETITIONS_PENDING;
-	public static boolean			STORE_SKILL_COOLTIME;									// Store skills cooltime on char exit/relogin
-	public static boolean			SUBCLASS_STORE_SKILL_COOLTIME;
+	public static boolean			STORE_EFFECTS;									// Store skills cooltime on char exit/relogin
+	public static boolean			STORE_EFFECTS_ON_SUBCLASS_CHANGE;
 	public static int				SEND_NOTDONE_SKILLS;
 	public static boolean			ANNOUNCE_MAMMON_SPAWN;
 	public static double			RESPAWN_RESTORE_CP;									// Percent CP is restore on respawn
@@ -1062,8 +1062,8 @@ public class Config extends L2Config
 			MAX_PVTSTOREBUY_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsDwarf", "5"));
 			MAX_PVTSTOREBUY_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreBuySlotsOther", "4"));
 
-			STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
-			SUBCLASS_STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("SubclassStoreSkillCooltime", "false"));
+			STORE_EFFECTS = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
+			STORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(otherSettings.getProperty("SubclassStoreSkillCooltime", "false"));
 
 			SEND_NOTDONE_SKILLS = Integer.parseInt(otherSettings.getProperty("SendNOTDONESkills", "2"));
 
@@ -4071,7 +4071,7 @@ public class Config extends L2Config
 			MAX_PVTSTOREBUY_SLOTS_OTHER = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("StoreSkillCooltime"))
-			STORE_SKILL_COOLTIME = Boolean.parseBoolean(pValue);
+			STORE_EFFECTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AnnounceMammonSpawn"))
 			ANNOUNCE_MAMMON_SPAWN = Boolean.parseBoolean(pValue);
 

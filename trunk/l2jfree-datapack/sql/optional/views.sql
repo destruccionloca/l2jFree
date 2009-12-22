@@ -47,23 +47,38 @@ CREATE VIEW `character_skills_with_char_names` AS
 		`character_skills`.`skill_id` ASC;
 
 
-DROP VIEW IF EXISTS `character_skills_save_with_char_names`;
-CREATE VIEW `character_skills_save_with_char_names` AS
+DROP VIEW IF EXISTS `character_effects_with_char_names`;
+CREATE VIEW `character_effects_with_char_names` AS
 	SELECT
 		`characters`.`account_name`,
 		`characters`.`char_name`,
 		`characters`.`accesslevel`,
-		`character_skills_save`.*
+		`character_effects`.*
 	FROM
-		`character_skills_save`
+		`character_effects`
 	INNER JOIN
 		`characters` USING (`charId`)
 	ORDER BY
 		`characters`.`account_name` ASC,
 		`characters`.`char_name` ASC,
-		`character_skills_save`.`class_index` ASC,
-		`character_skills_save`.`skill_id` ASC;
+		`character_effects`.`classIndex` ASC,
+		`character_effects`.`skillId` ASC;
 
+DROP VIEW IF EXISTS `character_skill_reuses_with_char_names`;
+CREATE VIEW `character_skill_reuses_with_char_names` AS
+	SELECT
+		`characters`.`account_name`,
+		`characters`.`char_name`,
+		`characters`.`accesslevel`,
+		`character_skill_reuses`.*
+	FROM
+		`character_skill_reuses`
+	INNER JOIN
+		`characters` USING (`charId`)
+	ORDER BY
+		`characters`.`account_name` ASC,
+		`characters`.`char_name` ASC,
+		`character_skill_reuses`.`skillId` ASC;
 
 DROP VIEW IF EXISTS `heroes_with_char_names`;
 CREATE VIEW `heroes_with_char_names` AS

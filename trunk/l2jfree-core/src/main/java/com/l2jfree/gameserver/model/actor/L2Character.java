@@ -6334,7 +6334,7 @@ public abstract class L2Character extends L2Object
 	 * @param delay in milliseconds
 	 * @return modified
 	 */
-	public boolean disableSkill(int skillId, long delay)
+	public boolean disableSkill(int skillId, int delay)
 	{
 		if (delay < 100)
 			return false;

@@ -69,6 +69,7 @@ import com.l2jfree.lang.L2Integer;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.util.concurrent.ForEachExecutable;
 
 public class L2Skill implements FuncOwner, IChanceSkillTrigger
 {
@@ -3663,20 +3664,30 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final void getEffects(L2Character effector, L2Character effected)
 	{
+		getEffects(effector, effected, null);
+	}
+	
+	public final void getEffects(L2Character effector, L2Character effected, ForEachExecutable<L2Effect> executable)
+	{
 		if (_effectTemplates == null)
 			return;
-
+		
 		if (!GlobalRestrictions.canCreateEffect(effector, effected, this))
 			return;
-
+		
 		Env env = new Env();
 		env.player = effector;
 		env.target = effected;
 		env.skill = this;
 		env.skillMastery = Formulas.calcSkillMastery(effector, this);
-
+		
 		for (EffectTemplate et : _effectTemplates)
-			et.getEffect(env);
+		{
+			final L2Effect e = et.getEffect(env);
+			if (e != null)
+				if (executable != null)
+					executable.execute(e);
+		}
 	}
 
 	public final void getEffects(L2CubicInstance effector, L2Character effected)

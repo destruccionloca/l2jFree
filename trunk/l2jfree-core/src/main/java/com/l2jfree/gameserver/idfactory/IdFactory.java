@@ -51,7 +51,6 @@ public abstract class IdFactory
 			"UPDATE character_shortcuts   SET shortcut_id = ? WHERE shortcut_id = ? AND type = 1", // items
 			"UPDATE character_macroses    SET charId = ?      WHERE charId = ?",
 			"UPDATE character_skills      SET charId = ?      WHERE charId = ?",
-			"UPDATE character_skills_save SET charId = ?      WHERE charId = ?",
 			"UPDATE character_subclasses  SET charId = ?      WHERE charId = ?",
 			"UPDATE characters            SET charId = ?      WHERE charId = ?",
 			"UPDATE characters            SET clanid = ?      WHERE clanid = ?",
@@ -77,9 +76,11 @@ public abstract class IdFactory
 			"UPDATE clan_privs               SET clan_id = ?        WHERE clan_id = ?",
 			"UPDATE clan_skills              SET clan_id = ?        WHERE clan_id = ?",
 			"UPDATE clan_subpledges          SET clan_id = ?        WHERE clan_id = ?",
+			"UPDATE character_effects        SET charId = ?         WHERE charId = ?",
 			"UPDATE character_recommends     SET charId = ?         WHERE charId = ?",
 			"UPDATE character_recommends     SET target_id = ?      WHERE target_id = ?",
 			"UPDATE character_raid_points     SET charId = ?       WHERE charId = ?",
+			"UPDATE character_skill_reuses   SET charId = ?         WHERE charId = ?",
 			"UPDATE couples                  SET id = ?             WHERE id = ?",
 			"UPDATE couples                  SET player1Id = ?      WHERE player1Id = ?",
 			"UPDATE couples                  SET player2Id = ?      WHERE player2Id = ?",
@@ -93,14 +94,15 @@ public abstract class IdFactory
 			"SELECT object_id   FROM items                 WHERE object_id >= ?   AND object_id < ?",
 			"SELECT charId      FROM character_quests      WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_blocks      WHERE charId >= ?      AND charId < ?",
+			"SELECT charId      FROM character_effects     WHERE charId >= ?      AND charId < ?",
 			"SELECT charId1     FROM character_friends     WHERE charId1 >= ?     AND charId1 < ?",
 			"SELECT charId2     FROM character_friends     WHERE charId2 >= ?     AND charId2 < ?",
 			"SELECT charId      FROM character_hennas      WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_recipebook  WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_shortcuts   WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_macroses    WHERE charId >= ?      AND charId < ?",
+			"SELECT charId      FROM character_skill_reuses WHERE charId >= ?     AND charId < ?",
 			"SELECT charId      FROM character_skills      WHERE charId >= ?      AND charId < ?",
-			"SELECT charId      FROM character_skills_save WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM character_subclasses  WHERE charId >= ?      AND charId < ?",
 			"SELECT charId      FROM characters            WHERE charId >= ?      AND charId < ?",
 			"SELECT clanid      FROM characters            WHERE clanid >= ?      AND clanid < ?",
@@ -115,7 +117,7 @@ public abstract class IdFactory
 
 	private static final String[] TIMESTAMPS_CLEAN = {
 		"DELETE FROM character_instance_time WHERE time <= ?",
-		"DELETE FROM character_skills_save WHERE restore_type = 1 AND systime <= ?"
+		"DELETE FROM character_skill_reuses WHERE expiration <= ?"
 	};
 
 	protected boolean				_initialized;
@@ -195,6 +197,7 @@ public abstract class IdFactory
 
 			// If a character not exists
 			cleanCount += stmt.executeUpdate("DELETE FROM character_blocks WHERE character_blocks.charId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_effects WHERE character_effects.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId1 NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.charId2 NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_hennas WHERE character_hennas.charId NOT IN (SELECT charId FROM characters);");
@@ -202,8 +205,8 @@ public abstract class IdFactory
 			cleanCount += stmt.executeUpdate("DELETE FROM character_quests WHERE character_quests.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_recipebook WHERE character_recipebook.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_shortcuts WHERE character_shortcuts.charId NOT IN (SELECT charId FROM characters);");
+			cleanCount += stmt.executeUpdate("DELETE FROM character_skill_reuses WHERE character_skill_reuses.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_skills WHERE character_skills.charId NOT IN (SELECT charId FROM characters);");
-			cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_raid_points WHERE charId NOT IN (SELECT charId FROM characters);");
 			cleanCount += stmt.executeUpdate("DELETE FROM character_instance_time WHERE character_instance_time.charId NOT IN (SELECT charId FROM characters);");

@@ -164,11 +164,11 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		return _template.count;
 	}
 
-	public synchronized final void setTiming(int newcount, int newfirsttime)
+	public synchronized final void setTiming(int count, int remaining)
 	{
-		_count = newcount;
-
-		scheduleEffect(_period - newfirsttime);
+		_count = count;
+		
+		scheduleEffect(remaining);
 	}
 
 	public final boolean getShowIcon()
@@ -623,10 +623,10 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	{
 		if (_skill.isToggle())
 			return false;
-
+		
 		if (isHerbEffect())
 			return false;
-
+		
 		switch (getEffectType())
 		{
 			case HEAL_OVER_TIME:
@@ -634,7 +634,10 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			case HIDE:
 				return false;
 		}
-
+		
+		if (getRemainingTaskTime() < 30)
+			return false;
+		
 		return true;
 	}
 

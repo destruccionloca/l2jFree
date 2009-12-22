@@ -205,7 +205,6 @@ full_install()
 	$MYG < ../sql/character_recommends.sql &> /dev/null
 	$MYG < ../sql/character_shortcuts.sql &> /dev/null
 	$MYG < ../sql/character_skills.sql &> /dev/null
-	$MYG < ../sql/character_skills_save.sql &> /dev/null
 	$MYG < ../sql/character_subclasses.sql &> /dev/null
 	$MYG < ../sql/character_subclass_certification.sql &> /dev/null
 	$MYG < ../sql/character_tpbookmark.sql &> /dev/null
@@ -285,8 +284,10 @@ full_install()
 	$MYG < ../sql/buff_templates.sql &> /dev/null
 	$MYG < ../sql/changelog.sql &> /dev/null
 	$MYG < ../sql/character_blocks.sql &> /dev/null
+	$MYG < ../sql/character_effects.sql &> /dev/null
 	$MYG < ../sql/character_mail.sql &> /dev/null
 	$MYG < ../sql/character_raid_points.sql &> /dev/null
+	$MYG < ../sql/character_skill_reuses.sql &> /dev/null
 	$MYG < ../sql/couples.sql &> /dev/null
 	$MYG < ../sql/ctf.sql &> /dev/null
 	$MYG < ../sql/ctf_teams.sql &> /dev/null
@@ -460,6 +461,7 @@ update_db()
 			$MYG < ../sql/updates/20091117update.sql
 			$MYG < ../sql/updates/20091121update.sql
 			$MYG < ../sql/updates/20091125update.sql
+			$MYG < ../sql/updates/20091220update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else

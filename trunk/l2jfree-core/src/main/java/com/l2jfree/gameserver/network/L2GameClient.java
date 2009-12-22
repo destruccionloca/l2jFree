@@ -295,6 +295,11 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement.execute();
 			statement.close();
 
+			statement = con.prepareStatement("DELETE FROM character_effects WHERE charId=?");
+			statement.setInt(1, objid);
+			statement.execute();
+			statement.close();
+
 			statement = con.prepareStatement("DELETE FROM character_friends WHERE charId1=? OR charId2=?");
 			statement.setInt(1, objid);
 			statement.setInt(2, objid);
@@ -341,7 +346,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient>
 			statement.execute();
 			statement.close();
 
-			statement = con.prepareStatement("DELETE FROM character_skills_save WHERE charId=?");
+			statement = con.prepareStatement("DELETE FROM character_skill_reuses WHERE charId=?");
 			statement.setInt(1, objid);
 			statement.execute();
 			statement.close();
