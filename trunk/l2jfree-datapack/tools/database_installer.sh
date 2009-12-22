@@ -104,8 +104,6 @@ action_type()
 	echo "Insert backups            [r] (Erase all the tables and insert the backups)"
 	echo "Full installation         [f] (for first installation, this will erase all the existing tables)"
 	echo "Update non critical data  [u] (Only erase and reinsert tables without players' data)"
-	echo "Database update           [d] (Update tables which contain player's data using update files)"
-	echo "Complete update           [c] (Update your database without data loss)"
 	echo "Insert one table          [t] (Only insert one table in your database)"
 	echo "Quit this script          [q]"
 	echo -ne "Choice: "
@@ -115,8 +113,6 @@ action_type()
 		"r"|"R") insert_backup; finish;;
 		"f"|"F") full_install; finish;;
 		"u"|"U") update_db noncritical; finish;;
-		"d"|"D") update_db critical; finish;;
-		"c"|"C") update_db noncritical; update_db critical; finish;;
 		"t"|"T") table_insert;;
 		"q"|"Q") finish;;
 		*)       action_type;;
@@ -393,75 +389,6 @@ update_db()
 			$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 			$MYG < ../sql/version.sql &> /dev/null
 			$MYG < ../sql/vip.sql &> /dev/null
-			echo "Update completed"
-		# Insert update files
-		elif [ "$1" = "critical" ]; then
-			echo "Updating the database"
-			$MYG < ../sql/updates/il_to_ct1_update.sql
-			$MYG < ../sql/updates/20080107update.sql
-			$MYG < ../sql/updates/20080109update.sql
-			$MYG < ../sql/updates/20080128update.sql
-			$MYG < ../sql/updates/20080218update.sql
-			$MYG < ../sql/updates/20080220update.sql
-			$MYG < ../sql/updates/20080303update.sql
-			$MYG < ../sql/updates/20080404update.sql
-			$MYG < ../sql/updates/20080408update.sql
-			$MYG < ../sql/updates/20080419update.sql
-			$MYG < ../sql/updates/20080430update.sql
-			$MYG < ../sql/updates/20080506update.sql
-			$MYG < ../sql/updates/20080509update.sql
-			$MYG < ../sql/updates/20080510update.sql
-			$MYG < ../sql/updates/20080518update.sql
-			$MYG < ../sql/updates/20080529update.sql
-			$MYG < ../sql/updates/20080607update.sql
-			$MYG < ../sql/updates/20080611update.sql
-			$MYG < ../sql/updates/20080615update.sql
-			$MYG < ../sql/updates/20080626update.sql
-			$MYG < ../sql/updates/20080817update.sql
-			$MYG < ../sql/updates/20080917update.sql
-			$MYG < ../sql/updates/20080920update.sql
-			$MYG < ../sql/updates/20080920update_1.sql
-			$MYG < ../sql/updates/20081004update.sql
-			$MYG < ../sql/updates/20081227update.sql
-			$MYG < ../sql/updates/20090107update.sql
-			$MYG < ../sql/updates/20090108update.sql
-			$MYG < ../sql/updates/20090131update.sql
-			$MYG < ../sql/updates/20090208update.sql
-			$MYG < ../sql/updates/20090304update.sql
-			$MYG < ../sql/updates/20090331update.sql
-			$MYG < ../sql/updates/20090403update.sql
-			$MYG < ../sql/updates/20090411update.sql
-			$MYG < ../sql/updates/20090412update.sql
-			$MYG < ../sql/updates/20090421update.sql
-			$MYG < ../sql/updates/20090422update.sql
-			$MYG < ../sql/updates/20090424update.sql
-			$MYG < ../sql/updates/20090424update_1.sql
-			$MYG < ../sql/updates/20090425update.sql
-			$MYG < ../sql/updates/20090501update.sql
-			$MYG < ../sql/updates/20090504update.sql
-			$MYG < ../sql/updates/20090507update.sql
-			$MYG < ../sql/updates/20090510update.sql
-			$MYG < ../sql/updates/20090513update.sql
-			$MYG < ../sql/updates/20090514update.sql
-			$MYG < ../sql/updates/20090518update.sql
-			$MYG < ../sql/updates/20090519update.sql
-			$MYG < ../sql/updates/20090531update.sql
-			$MYG < ../sql/updates/20090601update.sql
-			$MYG < ../sql/updates/20090709update.sql
-			$MYG < ../sql/updates/20090803update.sql
-			$MYG < ../sql/updates/20090805update.sql
-			$MYG < ../sql/updates/20090807update.sql
-			$MYG < ../sql/updates/20090824update.sql
-			$MYG < ../sql/updates/20090910update.sql
-			$MYG < ../sql/updates/20090912update.sql
-			$MYG < ../sql/updates/20090916update.sql
-			$MYG < ../sql/updates/20090921update.sql
-			$MYG < ../sql/updates/20091007update.sql
-			$MYG < ../sql/updates/20091014update.sql
-			$MYG < ../sql/updates/20091117update.sql
-			$MYG < ../sql/updates/20091121update.sql
-			$MYG < ../sql/updates/20091125update.sql
-			$MYG < ../sql/updates/20091220update.sql
 			echo "Update completed"
 		# Bad argument O_o
 		else
