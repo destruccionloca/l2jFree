@@ -14,59 +14,46 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.handler.UserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class BypassUserCmd extends L2GameClientPacket
 {
-	private static final String _C__AA_REQUESTUSERCOMMAND = "[C] aa BypassUserCmd";
-	
-	private int _command;
-	
+	private static final String	_C__B3_BYPASSUSERCMD = "[C] B3 BypassUserCmd";
+
+	private int					_command;
+
 	/**
-	 * packet type id 0xaa
+	 * packet type id 0xb3
 	 * format:	cd
-	 * 
-	 * @param rawPacket
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _command = readD();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null)
-            return;
-
-        IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
-        
-        if (handler == null)
-        {
-            player.sendMessage("User command ID "+_command+" is not implemented yet.");
-        }
-        else
-        {
-            handler.useUserCommand(_command, getClient().getActiveChar());
-        }
+	@Override
+	protected void readImpl()
+	{
+		_command = readD();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+
+		IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
+		if (handler == null)
+			sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		else
+			handler.useUserCommand(_command, player);
+
+		sendAF();
+	}
+
 	@Override
 	public String getType()
 	{
-		return _C__AA_REQUESTUSERCOMMAND;
+		return _C__B3_BYPASSUSERCMD;
 	}
 }

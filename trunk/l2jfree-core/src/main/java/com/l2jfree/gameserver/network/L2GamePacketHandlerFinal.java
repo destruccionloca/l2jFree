@@ -481,7 +481,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x77:
 						msg = new RequestFriendInvite();
 						break;
-					case 0x78: // RequestFriendAddReply
+					case 0x78:
 						msg = new RequestAnswerFriendInvite();
 						break;
 					case 0x79:
@@ -538,10 +538,10 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0x8d:
 						msg = new RequestAnswerJoinAlly();
 						break;
-					case 0x8e: // RequestWithdrawAlly
+					case 0x8e:
 						msg = new AllyLeave();
 						break;
-					case 0x8f: // RequestOustAlly
+					case 0x8f:
 						msg = new AllyDismiss();
 						break;
 					case 0x90:
@@ -626,10 +626,10 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 						// NetPing
 						break;
 					case 0xb2:
-						// RequestRemainTime
+						msg = new RequestRemainTime();
 						break;
 					case 0xb3:
-						msg = new RequestUserCommand();
+						msg = new BypassUserCmd();
 						break;
 					case 0xb4:
 						msg = new SnoopQuit();
@@ -685,10 +685,10 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 					case 0xc5:
 						msg = new RequestBuySeed();
 						break;
-					case 0xc6: // ConfirmDlg
+					case 0xc6:
 						msg = new DlgAnswer();
 						break;
-					case 0xc7: // RequestPreviewItem
+					case 0xc7:
 						msg = new RequestWearItem();
 						break;
 					case 0xc8:
@@ -762,7 +762,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x0b:
 								msg = new RequestWithdrawPartyRoom();
 								break;
-							case 0x0c: // RequestHandOverPartyMaster
+							case 0x0c:
 								msg = new RequestChangePartyLeader();
 								break;
 							case 0x0d:
@@ -873,13 +873,13 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 							case 0x31:
 								msg = new RequestListPartyMatchingWaitingRoom();
 								break;
-							case 0x32: // test me
+							case 0x32:
 								msg = new RequestExEnchantSkillSafe();
 								break;
-							case 0x33: // test me
+							case 0x33:
 								msg = new RequestExEnchantSkillUntrain();
 								break;
-							case 0x34: // test me
+							case 0x34:
 								msg = new RequestExEnchantSkillRouteChange();
 								break;
 							case 0x35:

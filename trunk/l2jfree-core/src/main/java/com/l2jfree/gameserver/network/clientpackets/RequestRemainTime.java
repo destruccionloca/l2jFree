@@ -14,10 +14,14 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class RequestRemainTime extends L2GameClientPacket
 {
+	private static final String _C__B2_REQUESTREMAINTIME = "[C] B2 RequestRemainTime";
+
 	@Override
 	protected void readImpl()
 	{
@@ -27,13 +31,20 @@ public class RequestRemainTime extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		// TODO: /remaintime command (send remaining time for summons?)
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
+
+		if (Config.SERVER_LIST_CLOCK)
+			// we do not support limited time/week servers
+			player.sendPacket(SystemMessageId.WEEKS_USAGE_TIME_FINISHED);
+		else // verified
+			player.sendPacket(SystemMessageId.RELAX_SERVER_ONLY);
 	}
 
 	@Override
 	public String getType()
 	{
-		return "[C] 0xb2 RequestRemainTime";
+		return _C__B2_REQUESTREMAINTIME;
 	}
 }
