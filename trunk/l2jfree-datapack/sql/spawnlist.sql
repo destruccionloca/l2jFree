@@ -40719,3 +40719,6 @@ DELETE FROM spawnlist WHERE location LIKE "aden05agit%";
 -- Adler for Pailaka Song of Ice And Fire
 INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES 
 (NULL, '', 1, 32497, -80563, 151274, -3046, 0, 0, 20808, 60, 0, 0);
+
+-- WeatherMaster West
+UPDATE `spawnlist` SET `locx` = '86101', `locy` =  '-105821', `locz` = '-3310', `heading` = '36123' WHERE `npc_templateid` = '32044' LIMIT 1;
