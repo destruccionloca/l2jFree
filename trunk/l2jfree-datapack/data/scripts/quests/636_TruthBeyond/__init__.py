@@ -1,5 +1,6 @@
 # Made by Polo - Have fun! - Fixed by BiTi
 # v0.3.1 by DrLecter
+# Update 2009.12.23 Psycho(killer1888) / L2jFree (there's no cond 2)
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
@@ -30,7 +31,7 @@ class Quest (JQuest) :
     elif htmltext == "32010-02.htm" :
        st.playSound("ItemSound.quest_finish")
        st.giveItems(MARK,1)
-       st.set("cond","2")
+       st.setState(State.COMPLETED)
     return htmltext
 
  def onTalk (self,npc,player):
