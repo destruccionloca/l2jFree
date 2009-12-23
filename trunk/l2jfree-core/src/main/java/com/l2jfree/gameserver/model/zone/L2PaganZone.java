@@ -27,9 +27,13 @@ public class L2PaganZone extends L2Zone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character.destroyItemByItemId("Pagan Zone", MARK, 1, character, true))
-			character.getInventory().addItem("Pagan Zone", FADED_MARK, 1, null, character);
 		if (character instanceof L2PcInstance)
-			character.getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.EARNED_S1).addItemName(FADED_MARK));
+		{
+			if (character.destroyItemByItemId("Pagan Zone", MARK, 1, character, true))
+			{
+				character.getInventory().addItem("Pagan Zone", FADED_MARK, 1, null, character);
+				character.getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.EARNED_S1).addItemName(FADED_MARK));
+			}
+		}
 	}
 }
