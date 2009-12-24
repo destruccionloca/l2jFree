@@ -143,6 +143,7 @@ public class L2SkillChangeWeapon extends L2Skill
                     newItem.setElementAttr(elementals.getElement(), elementals.getValue());
 				newItem.setEnchantLevel(enchantLevel);
 				player.getInventory().equipItem(newItem);
+				player.refreshExpertisePenalty();
 
 				SystemMessage msg = null;
 
