@@ -257,7 +257,9 @@
     <set name="itemConsumeId" val="22039"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -274,7 +276,9 @@
     <set name="itemConsumeId" val="22040"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -291,7 +295,9 @@
     <set name="itemConsumeId" val="22041"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -299,7 +305,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="1.2" stackType="pa_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="1.5" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="1.15"/>
       </effect>
     </for>
@@ -308,7 +314,9 @@
     <set name="itemConsumeId" val="22042"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -316,7 +324,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="1.2" stackType="pd_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="1.5" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="1.15"/>
       </effect>
     </for>
@@ -325,7 +333,9 @@
     <set name="itemConsumeId" val="22043"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -342,7 +352,9 @@
     <set name="itemConsumeId" val="22044"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -359,7 +371,9 @@
     <set name="itemConsumeId" val="22045"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -376,7 +390,9 @@
     <set name="itemConsumeId" val="22046"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -393,7 +409,9 @@
     <set name="itemConsumeId" val="22047"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -410,7 +428,9 @@
     <set name="itemConsumeId" val="22048"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -427,7 +447,9 @@
     <set name="itemConsumeId" val="22049"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -451,7 +473,9 @@
     <set name="itemConsumeId" val="22050"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -468,7 +492,9 @@
     <set name="itemConsumeId" val="22051"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -485,7 +511,9 @@
     <set name="itemConsumeId" val="22052"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -504,7 +532,9 @@
     <set name="itemConsumeId" val="22053"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -518,24 +548,52 @@
     </for>
   </skill>
   <skill id="26046" levels="5" name="Rune of Experience Points">
+  <!-- 
+    Lv1: Acquired Experience Points increase by 10%.
+    Lv2: Acquired Experience Points increase by 20%.
+    Lv3: Acquired Experience Points increase by 30%.
+    Lv4: Acquired Experience Points increase by 40%.
+    Lv5: Acquired Experience Points increase by 50%.
+   -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="26047" levels="5" name="Rune of SP">
+  <!-- 
+    Lv1: Acquired SP increase by 10%.
+    Lv2: Acquired SP increase by 20%.
+    Lv3: Acquired SP increase by 30%.
+    Lv4: Acquired SP increase by 40%.
+    Lv5: Acquired SP increase by 50%.
+   -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="26048" levels="5" name="Rune of Crystal Form">
+  <!-- 
+    Lv1: One's Grade Penalty decreases by 1 level.
+    Lv2: One's Grade Penalty decreases by 2 level.
+    Lv3: One's Grade Penalty decreases by 3 level.
+    Lv4: One's Grade Penalty decreases by 4 level.
+    Lv5: One's Grade Penalty decreases by 5 level.
+   -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="26049" levels="1" name="Rune of Feather">
+    <!-- One's Weight Limit increases by 20% -->
+   <set name="itemConsumeId" val="22066"/>
+    <set name="itemConsumeCount" val="1"/>
+    <table name="#rate"> 1.2 </table>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="maxLoad" val="#rate"/>
+    </for>
   </skill>
   <skill id="26050" levels="1" name="Blessed Spiritshot - D grade">
     <set name="target" val="TARGET_SELF"/>
@@ -647,7 +705,7 @@
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="#create_item_id"/>
-    <set name="create_item_count" val="1000"/>
+    <set name="create_item_count" val="10000"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -658,7 +716,7 @@
   <skill id="26068" levels="10" name="Blessed Spiritshot Pack">
     <table name="#itemConsumeId"> 22094 22095 22096 22097 22098 22109 22110 22111 22112 22113 </table>
     <table name="#create_item_id"> 22072 22073 22074 22075 22076 22072 22073 22074 22075 22076 </table>
-    <table name="#create_item_count"> 300 300 300 300 300 1000 1000 1000 1000 1000</table>
+    <table name="#create_item_count"> 5000 5000 5000 5000 5000 10000 10000 10000 10000 10000</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CREATE_ITEM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -676,7 +734,7 @@
   <skill id="26069" levels="10" name="Spiritshot Pack">
     <table name="#itemConsumeId"> 22099 22100 22101 22102 22103 22114 22115 22116 22117 22118 </table>
     <table name="#create_item_id"> 22077 22078 22079 22080 22081 22077 22078 22079 22080 22081 </table>
-    <table name="#create_item_count"> 300 300 300 300 300 1000 1000 1000 1000 1000</table>
+    <table name="#create_item_count"> 5000 5000 5000 5000 5000 10000 10000 10000 10000 10000</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CREATE_ITEM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -694,7 +752,7 @@
   <skill id="26070" levels="10" name="Soulshot Pack">
     <table name="#itemConsumeId"> 22104 22105 22106 22107 22108 22119 22120 22121 22122 22123 </table>
     <table name="#create_item_id"> 22082 22083 22084 22085 22086 22082 22083 22084 22085 22086</table>
-    <table name="#create_item_count"> 300 300 300 300 300 1000 1000 1000 1000 1000</table>
+    <table name="#create_item_count"> 5000 5000 5000 5000 5000 10000 10000 10000 10000 10000</table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CREATE_ITEM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -754,7 +812,7 @@
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="create_item_id" val="#create_item_id"/>
-    <set name="create_item_count" val="1000"/>
+    <set name="create_item_count" val="10000"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
