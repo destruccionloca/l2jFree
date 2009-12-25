@@ -161,13 +161,12 @@ def enterInstance(self,player,template,teleto):
             if debug: print "DarkCloudMansion: found party member in instance:"+str(instanceId)
             return 0
     instanceId = InstanceManager.getInstance().createDynamicInstance(template)
-    if not self.worlds.has_key(instanceId):
-        world = PyObject()
-        world.instanceId = instanceId
-        self.worlds[instanceId]=world
-        self.world_ids.append(instanceId)
-        print "DarkCloudMansion: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
-        runStartRoom(self,world)
+    world = PyObject()
+    world.instanceId = instanceId
+    self.worlds[instanceId]=world
+    self.world_ids.append(instanceId)
+    print "DarkCloudMansion: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
+    runStartRoom(self,world)
     # Teleports player
     teleto.instanceId = instanceId
     for partyMember in party.getPartyMembers().toArray():

@@ -231,16 +231,15 @@ def enterInstance(self,player,KamaInfo,level):
 			return 0
 	# New instance
 	instanceId = InstanceManager.getInstance().createDynamicInstance(template)
-	if not self.worlds.has_key(instanceId):
-		world = PyObject()
-		world.instanceId = instanceId
-		self.worlds[instanceId]=world
-		self.world_ids.append(instanceId)
-		if level in [29,39,49,59,69,78,81]:
-			world.level = level
-			startFirstRoom(self,world)
-		if debug:
-			print "Kamaloka: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
+	world = PyObject()
+	world.instanceId = instanceId
+	self.worlds[instanceId]=world
+	self.world_ids.append(instanceId)
+	if level in [29,39,49,59,69,78,81]:
+		world.level = level
+		startFirstRoom(self,world)
+	if debug:
+		print "Kamaloka: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
 	# Teleport players
 	for partyMember in party.getPartyMembers().toArray():
 		partyMember.stopAllEffects()

@@ -73,12 +73,11 @@ def enterInstance(self,player,template,teleto):
         return 0
     # Create instance
     instanceId = InstanceManager.getInstance().createDynamicInstance(template)
-    if not self.worlds.has_key(instanceId):
-        world = PyObject()
-        world.instanceId = instanceId
-        self.worlds[instanceId]=world
-        self.world_ids.append(instanceId)
-        print "Song of Ice and Fire (Lvl 36-42): " +str(instanceId) + " created by player: " + str(player.getName())
+    world = PyObject()
+    world.instanceId = instanceId
+    self.worlds[instanceId]=world
+    self.world_ids.append(instanceId)
+    print "Song of Ice and Fire (Lvl 36-42): " +str(instanceId) + " created by player: " + str(player.getName())
     # Teleports player
     teleto.instanceId = instanceId
     teleportplayer(self,player,teleto)
