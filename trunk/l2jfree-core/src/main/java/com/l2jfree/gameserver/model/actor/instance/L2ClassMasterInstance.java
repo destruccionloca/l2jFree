@@ -255,30 +255,8 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 				return;
 			// -- Prevention ends
 
-			// Check if player have all required items for class transfer
-			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
-			{
-				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
-				if (player.getInventory().getInventoryItemCount(_itemId, -1) < _count)
-				{
-					player.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
-					return;
-				}
-			}
-
-			// Get all required items for class transfer
-			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
-			{
-				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
-				player.destroyItemByItemId("ClassMaster", _itemId, _count, player, true);
-			}
-
-			// Reward player with items
-			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).keySet())
-			{
-				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).get(_itemId);
-				player.addItem("ClassMaster", _itemId, _count, player, true);
-			}
+			if (!checkDestroyAndRewardItems(player, newJobLevel))
+				return;
 
 			changeClass(player, val);
 
@@ -367,6 +345,36 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 		player.broadcastUserInfo();
 		player.broadcastClassIcon();
+	}
+
+	private static boolean checkDestroyAndRewardItems(L2PcInstance player, int newJobLevel)
+	{
+		// Check if player have all required items for class transfer
+		for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+		{
+			int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+			if (player.getInventory().getInventoryItemCount(_itemId, -1) < _count)
+			{
+				player.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				return false;
+			}
+		}
+
+		// Get all required items for class transfer
+		for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+		{
+			int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+			player.destroyItemByItemId("ClassMaster", _itemId, _count, player, true);
+		}
+
+		// Reward player with items
+		for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).keySet())
+		{
+			int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRewardItems(newJobLevel).get(_itemId);
+			player.addItem("ClassMaster", _itemId, _count, player, true);
+		}
+
+		return true;
 	}
 
 	// L2JServer CM methods below
@@ -477,6 +485,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 	private static final void showTutorialHtml(L2PcInstance player)
 	{
 		final ClassId currentClassId = player.getClassId();
+		int newJobLevel = currentClassId.level() + 1;
 		if (getMinLevel(currentClassId.level()) > player.getLevel()
 				&& !Config.ALT_CLASS_MASTER_ENTIRE_TREE)
 			return;
@@ -498,6 +507,20 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			}
 		}
 
+		if (Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null
+				&& !Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).isEmpty())
+		{
+			menu.append("<br><br>Item(s) required for class change:");
+			menu.append("<table width=270>");
+			for (Integer _itemId : Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+			{
+				int _count = Config.ALT_CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+				menu.append("<tr><td><font color=\"LEVEL\">" + _count + "</font></td><td>" + ItemTable.getInstance().getTemplate(_itemId).getName()
+						+ "</td></tr>");
+			}
+			menu.append("</table><br><br>");
+		}
+
 		msg = msg.replaceAll("%menu%", menu.toString());
 		player.sendPacket(new TutorialShowHtml(msg));
 	}
@@ -505,11 +528,15 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 	private static final boolean checkAndChangeClass(L2PcInstance player, int val)
 	{
 		final ClassId currentClassId = player.getClassId();
+		int newJobLevel = currentClassId.level() + 1; 
 		if (getMinLevel(currentClassId.level()) > player.getLevel()
 				&& !Config.ALT_CLASS_MASTER_ENTIRE_TREE)
 			return false;
 
 		if (!validateClassId(currentClassId, val))
+			return false;
+
+		if (!checkDestroyAndRewardItems(player, newJobLevel))
 			return false;
 
 		player.setClassId(val);
