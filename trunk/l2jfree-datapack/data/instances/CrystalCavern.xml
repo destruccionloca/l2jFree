@@ -3,6 +3,7 @@
 <instance name="CrystalCavern">
   <activityTime val="120"/>
   <allowSummon val="false"/>
+  <emptyDestroyTime val="1200"/>
   <returnteleport x="42673" y="-47988" z="-797"/>
   <doorlist>
     <door doorId="24220001"/>
