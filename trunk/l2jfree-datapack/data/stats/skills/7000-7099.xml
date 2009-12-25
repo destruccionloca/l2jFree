@@ -37,6 +37,7 @@
     <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="7004" levels="2" name="Dispel Petrification">
+  <!-- Cures petrification with the effect of 2 or less. -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
@@ -47,40 +48,50 @@
     <set name="aggroPoints" val="566"/>
   </skill>
   <skill id="7005" levels="4" name="Greater Chant of Vampire">
+  <!-- Temporarily allows party members to partially restore HP using damage inflicted upon the enemy. Excludes damage from skill or range attack. Effect 4. -->
+    <table name="#absorbDam"> 9 9 9 9 </table> <!-- Missing values Lvl 2-4 -->
     <set name="magicLvl" val="74"/>
-    <set name="mpInitialConsume" val="55"/>
+    <set name="mpInitialConsume" val="54"/>
     <set name="mpConsume" val="217"/>
-    <set name="target" val="TARGET_CLAN"/>
-    <set name="skillRadius" val="900"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
     <set name="skillType" val="BUFF"/>
-    <set name="hitTime" val="2500"/>
-    <set name="reuseDelay" val="20000"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="900"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="655"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="9" stackType="vampRage">
-        <add order="0x40" stat="absorbDam" val="9"/> <!-- absorb 9% HP from damage inflicted on enemies -->
+      <effect name="Buff" time="1200" val="0" stackOrder="#absorbDam" stackType="vampRage">
+        <add order="0x40" stat="absorbDam" val="#absorbDam"/>
       </effect>
     </for>
   </skill>
   <skill id="7006" levels="13" name="The Love of Pa'agrio">
-    <!-- Needs to be done -->
-    <set name="mpConsume" val="272"/>
-    <set name="target" val="TARGET_CLAN"/>
+  <!-- Greatly enhances alliance members' HP restoration.  Effect 6. -->
+    <table name="#hot"> 46 48 50 52 53 55 56 58 58 58 58 58 58 </table> <!-- Missing values Lvl 7-13 -->
+    <table name="#power"> 138 144 149 154 158 164 168 172 172 172 172 172 172 </table> <!-- Missing values Lvl 7-13 -->
+    <set name="mpInitialConsume" val="39"/>
+    <set name="mpConsume" val="156"/>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_PARTY_CLAN"/>
     <set name="skillRadius" val="900"/>
-    <set name="skillType" val="PASSIVE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
-    <set name="castRange" val="400"/>
-    <set name="effectRange" val="900"/>
-    <set name="aggroPoints" val="655"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="aggroPoints" val="566"/>
+    <for>
+      <!-- retail value: "#hot"/sec; stat update every time unit (2/3 sec) -->
+      <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="LifeChant"/>
+    </for>
   </skill>
   <skill id="7007" levels="4" name="Greater Seal of Flame">
-    <!-- Needs to be done -->
+  <!-- A protective ring of fire that continuously reduces HP of surrounding enemies and their alliance members. Effect 8. -->
     <set name="mpConsume" val="122"/>
     <set name="mpInitialConsume" val="30"/>
     <set name="skillRadius" val="200"/>
@@ -124,46 +135,55 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7014" levels="1" name="Test - Critical Damage Up">
+  <!-- Increases damage of successful critical hit % -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7015" levels="1" name="Test - Critical Damage Down">
+  <!-- Decreases damage of successful critical hit % -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7016" levels="1" name="Test - Critical Damage Up">
+  <!-- Increases damage of successful critical hit diff -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7017" levels="1" name="Test - Critical Damage Down">
+  <!-- Decreases damage of successful critical hit diff -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7018" levels="1" name="Test - Critical Rate Up">
+  <!-- Increases rate of successful critical hit % -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7019" levels="1" name="Test - Critical Rate Down">
+  <!-- Decreases rate of successful critical hit % -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7020" levels="1" name="Test - Critical Rate Up">
+  <!-- Increases rate of successful critical hit diff -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7021" levels="1" name="Test - Critical Rate Down">
+  <!-- Decreases rate of successful critical hit diff -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7022" levels="1" name="Test - Find Hidden Door">
+  <!-- Look for hidden door. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -231,6 +251,7 @@
     <set name="itemConsumeCount" val="8"/>
     <set name="reuseDelay" val="18600000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="skillType" val="SUMMON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -248,6 +269,7 @@
     <set name="itemConsumeCount" val="8"/>
     <set name="reuseDelay" val="18600000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="skillType" val="SUMMON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -265,6 +287,7 @@
     <set name="itemConsumeCount" val="8"/>
     <set name="reuseDelay" val="18600000"/>
     <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="skillType" val="SUMMON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -312,7 +335,6 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <!-- Admin / Game Masters skills -->
-  <!-- Done by SqueezeD Edit by Shaka for L2J Project - 01/28/2008 -->
   <skill id="7041" levels="1" name="Master's Blessing - Focus">
     <!-- A GM is always by your side. Increases critical attack rate temporarily. Effect 3. -->
     <set name="mpConsume" val="2"/>
@@ -323,7 +345,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="0.3" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3"/>
@@ -646,8 +668,8 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="1.4" stackType="magic_critical_up">
-        <basemul order="0x30" stat="mCritRate" val="0.4"/>
+      <effect name="Buff" time="1200" val="0" stackOrder="2" stackType="magic_critical_up">
+        <basemul order="0x30" stat="mCritRate" val="2"/>
       </effect>
     </for>
   </skill>
@@ -665,10 +687,10 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="3" stackType="MPrate">
+      <effect name="Buff" time="1200" val="0" stackOrder="3" stackType="MPrate">
         <mul order="0x30" stat="MagicalMpConsumeRate" val="0.9"/>
-        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.9"/>
-        <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>
+        <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.8"/>
+        <mul order="0x30" stat="DanceMpConsumeRate" val="0.8"/>
       </effect>
     </for>
   </skill>
@@ -685,13 +707,17 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
+        <basemul order="0x30" stat="mCritRate" val="2"/>
+        <mul order="0x30" stat="regMp" val="1.2"/>
+        <mul order="0x30" stat="pAtk" val="1.1"/>
+        <mul order="0x30" stat="pDef" val="1.2"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/>
         <mul order="0x30" stat="mAtk" val="1.2"/>
         <mul order="0x30" stat="mDef" val="1.2"/>
         <mul order="0x30" stat="mAtkSpd" val="1.2"/>
-        <basemul order="0x30" stat="mCritRate" val="0.2"/>
-        <mul order="0x30" stat="regMp" val="1.2"/>
-        <mul order="0x30" stat="runSpd" val="0.8"/>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
+        <mul order="0x30" stat="runSpd" val="0.8"/>
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="0.95"/>
       </effect>
     </for>
   </skill>
@@ -708,14 +734,18 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
+        <mul order="0x30" stat="maxMp" val="1.2"/>
+        <mul order="0x30" stat="regHp" val="1.2"/>
+        <basemul order="0x30" stat="mCritRate" val="1.02"/>
+        <mul order="0x30" stat="cAtk" val="1.2"/>
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
-        <add order="0x40" stat="accCombat" val="4"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
-        <mul order="0x30" stat="runSpd" val="0.9"/>
-        <mul order="0x30" stat="maxHp" val="1.2"/>
-        <mul order="0x30" stat="regHp" val="1.2"/>
+        <mul order="0x30" stat="mAtk" val="1.2"/>
+        <mul order="0x30" stat="mDef" val="1.2"/>
+        <mul order="0x30" stat="mAtkSpd" val="1.2"/>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
+        <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
   </skill>
@@ -732,17 +762,18 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
-        <add order="0x40" stat="absorbDam" val="5"/> <!-- absorb 5% HP from damage inflicted on enemies -->
-        <add order="0x40" stat="accCombat" val="4"/>
-        <add order="0x40" stat="rEvas" val="4"/>
+        <mul order="0x30" stat="maxHp" val="1.2"/>
+        <basemul order="0x30" stat="rCrit" val="0.2"/>
+        <basemul order="0x30" stat="mCritRate" val="1.2"/>
+        <mul order="0x30" stat="pAtk" val="1.1"/>
+        <mul order="0x30" stat="pDef" val="1.2"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
-        <mul order="0x30" stat="cAtk" val="1.2">
-          <player behind="true"/>
-        </mul>
-        <basemul order="0x30" stat="rCrit" val="0.2">
-          <player behind="true"/>
-        </basemul>
+        <mul order="0x30" stat="mAtk" val="1.2"/>
+        <mul order="0x30" stat="mDef" val="1.2"/>
+        <mul order="0x30" stat="mAtkSpd" val="1.2"/>
         <mul order="0x30" stat="debuffVuln" val="0.9"/>
+        <mul order="0x30" stat="runSpd" val="0.8"/>
+        <add order="0x40" stat="absorbDam" val="5"/>
       </effect>
     </for>
   </skill>
@@ -759,199 +790,291 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
+        <mul order="0x30" stat="maxHp" val="1.2"/>
+        <basemul order="0x30" stat="mCritRate" val="0.2"/>
+        <mul order="0x30" stat="cAtk" val="1.2"/>
         <mul order="0x30" stat="pAtk" val="1.1"/>
         <mul order="0x30" stat="pDef" val="1.2"/>
-        <basemul order="0x30" stat="rCrit" val="0.2"/>
-        <add order="0x40" stat="accCombat" val="4"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
-        <mul order="0x30" stat="mAtkSpd" val="1.2"/>
-        <mul order="0x30" stat="cAtk" val="1.2"/>
         <mul order="0x30" stat="mAtk" val="1.2"/>
         <mul order="0x30" stat="mDef" val="1.2"/>
+        <mul order="0x30" stat="mAtkSpd" val="1.2"/>
+        <mul order="0x30" stat="debuffVuln" val="0.9"/>
+        <add order="0x40" stat="accCombat" val="4"/>
         <mul order="0x30" stat="runSpd" val="0.8"/>
-        <mul order="0x30" stat="maxHp" val="1.2"/>
-        <mul order="0x30" stat="debuffVuln" val="0.8"/>
       </effect>
     </for>
   </skill>
   <!-- End skills for Admins / Game Masters -->
+  <!-- Charges into an enemy. -->
   <skill id="7065" levels="1" name="Test - Charge">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="800"/>
-  </skill>
-  <skill id="7066" levels="1" name="Test Stun Charge">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="800"/>
-  </skill>
-  <skill id="7067" levels="1" name="Test Range Charge">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="800"/>
-  </skill>
-  <skill id="7068" levels="1" name="Test Steal Abnormal State">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2000"/>
-  </skill>
-  <skill id="7069" levels="1" name="Test Abnormal State DD">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2000"/>
-  </skill>
-  <skill id="7070" levels="1" name="Test - Soul Eating Passive">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="7071" levels="1" name="Test - Soul Transfer">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="900"/>
-  </skill>
-  <skill id="7072" levels="1" name="Test - Basic Trap">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3000"/>
-  </skill>
-  <skill id="7073" levels="1" name="Test - Find Trap">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1000"/>
-  </skill>
-  <skill id="7074" levels="1" name="Test - Cancel Trap">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
-  </skill>
-  <skill id="7075" levels="1" name="Test - Distance DD">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
-  </skill>
-  <skill id="7076" levels="1" name="Test - Delay Debuff">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1080"/>
-  </skill>
-  <skill id="7077" levels="1" name="Test - Delay Debuff - Call">
-    <!-- Currently stunned. -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="STUN"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="isMagic" val="false"/>
-  </skill>
-  <skill id="7078" levels="1" name="Test - Blink">
-    <!-- Stuns -->
-    <set name="mpInitialConsume" val="20"/>
-    <set name="mpConsume" val="80"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="300"/>
-    <set name="coolTime" val="200"/>
-    <set name="isMagic" val="true"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-  </skill>
-  <skill id="7079" levels="1" name="Test - Party Damage Absorb">
-    <!-- Transfers party damage to tanker. -->
-    <set name="mpInitialConsume" val="20"/>
-    <set name="mpConsume" val="80"/>
-    <set name="target" val="TARGET_PARTY"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="skillRadius" val="1000"/>
-    <set name="coolTime" val="1666"/>
-    <set name="isMagic" val="false"/>
-  </skill>
-  <skill id="7080" levels="1" name="Test - General Attack Prohibited">
-    <!-- Cannot perform general attack. -->
-    <set name="mpInitialConsume" val="6"/>
-    <set name="mpConsume" val="24"/>
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="hitTime" val="0"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="coolTime" val="1666"/>
-    <set name="isMagic" val="false"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+  </skill>
+  <!-- Charges into enemy and stuns. -->
+  <skill id="7066" levels="1" name="Test Stun Charge">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="hitTime" val="0"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+  </skill>
+  <!-- Charges into enemy and causes bleeding -->
+  <skill id="7067" levels="1" name="Test Range Charge">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="hitTime" val="0"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+  </skill>
+  <!-- Steals enemy's abnormal state. -->
+  <skill id="7068" levels="1" name="Test Steal Abnormal State">
+    <set name="mpInitialConsume" val="20"/>
+    <set name="mpConsume" val="80"/>
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
   </skill>
-  <skill id="7081" levels="1" name="Effect Test - Land Shot">
-    <!-- Shoots toward ground. -->
-    <set name="mpInitialConsume" val="6"/>
-    <set name="mpConsume" val="24"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="hitTime" val="3200"/>
-    <set name="coolTime" val="2132"/>
-    <set name="isMagic" val="false"/>
-    <set name="skillType" val="PDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="500"/>
-    <set name="effectRange" val="1000"/>
-  </skill>
-  <skill id="7082" levels="1" name="Effect Test - Chain Lightning">
-    <!-- Chain Lightning -->
+  <!-- Inflicts damage according to the enemy's number of abnormal states. -->
+  <skill id="7069" levels="1" name="Test Abnormal State DD">
     <set name="mpInitialConsume" val="20"/>
     <set name="mpConsume" val="80"/>
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
-    <set name="isMagic" val="true"/>
-    <set name="castRange" val="500"/>
-    <set name="effectRange" val="1000"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
   </skill>
-  <skill id="7083" levels="1" name="Test - Trap Skill">
-    <!-- Trap Range Skill -->
+  <!-- Absorbs soul. -->
+  <skill id="7070" levels="1" name="Test - Soul Eating Passive">
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="isMagic" val="true"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="7084" levels="1" name="Test - Trap Skill">
-    <!-- Trap Range Skill -->
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="isMagic" val="true"/>
-  </skill>
-  <skill id="7085" levels="1" name="Self-Destruct Explosion">
-    <set name="mpInitialConsume" val="19"/>
-    <set name="mpConsume" val="76"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="MDAM"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
-    <set name="isMagic" val="true"/>
-  </skill>
-  <skill id="7086" levels="1" name="Last Stand_test">
-    <set name="target" val="TARGET_SELF"/>
-    <set name="isMagic" val="false"/>
+  <!-- Transfers soul to party member. -->
+  <skill id="7071" levels="1" name="Test - Soul Transfer">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="1"/>
+    <set name="mpConsume" val="4"/>
+    <set name="hpConsume" val="20"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="hitTime" val="0"/>
+    <set name="target" val="TARGET_PARTY_MEMBER"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
-  <skill id="7087" levels="1" name="Chain Magic - Dark Explosion_test">
-    <set name="mpInitialConsume" val="19"/>
-    <set name="mpConsume" val="76"/>
-    <set name="target" val="TARGET_ONE"/>
+  <!-- Summons trap. -->
+  <skill id="7072" levels="1" name="Test - Basic Trap">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- Locates trap. -->
+  <skill id="7073" levels="1" name="Test - Find Trap">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- Cancels trap. -->
+  <skill id="7074" levels="1" name="Test - Cancel Trap">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+  </skill>
+  <!-- DD damage changes by distance. -->
+  <skill id="7075" levels="1" name="Test - Distance DD">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+  </skill>
+  <!-- Bleeds for 20 seconds and stuns. -->
+  <skill id="7076" levels="1" name="Test - Delay Debuff">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="6"/>
+    <set name="mpConsume" val="24"/>
+    <set name="reuseDelay" val="1000"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
+  </skill>
+  <!-- Currently stunned. -->
+  <skill id="7077" levels="1" name="Test - Delay Debuff - Call">
+    <set name="SSBoost" val="2.0"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- Stuns -->
+  <skill id="7078" levels="1" name="Test - Blink">
+    <set name="mpInitialConsume" val="20"/>
+    <set name="mpConsume" val="80"/>
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="hitTime" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- Transfers party damage to tanker. -->
+  <skill id="7079" levels="1" name="Test - Party Damage Absorb">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="20"/>
+    <set name="mpConsume" val="80"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- Cannot perform general attack. -->
+  <skill id="7080" levels="1" name="Test - General Attack Prohibited">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="6"/>
+    <set name="mpConsume" val="24"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+  </skill>
+  <!-- Shoots toward ground. -->
+  <skill id="7081" levels="1" name="Effect Test - Land Shot">
+    <set name="SSBoost" val="2.0"/>
+    <set name="mpInitialConsume" val="6"/>
+    <set name="mpConsume" val="24"/>
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="500"/>
+    <set name="effectRange" val="1000"/>
+  </skill>
+  <!-- Chain Lightning -->
+  <skill id="7082" levels="1" name="Effect Test - Chain Lightning">
+    <set name="mpInitialConsume" val="20"/>
+    <set name="mpConsume" val="80"/>
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="5000"/>
+    <set name="hitTime" val="5000"/>
+    <set name="coolTime" val="3332"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="500"/>
+    <set name="effectRange" val="1000"/>
+  </skill>
+  <!-- Trap Range Skill -->
+  <skill id="7083" levels="1" name="Test - Trap Skill">
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- Trap Range Skill -->
+  <skill id="7084" levels="1" name="Test - Trap Skill">
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- none -->
+  <skill id="7085" levels="1" name="Self-Destruct Explosion">
+    <set name="mpInitialConsume" val="17"/>
+    <set name="mpConsume" val="68"/>
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="1000"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- none -->
+  <skill id="7086" levels="1" name="Last Stand_test">
+    <set name="SSBoost" val="2.0"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+  </skill>
+  <!-- none -->
+  <skill id="7087" levels="1" name="Chain Magic - Dark Explosion_test">
+    <set name="mpInitialConsume" val="17"/>
+    <set name="mpConsume" val="68"/>
+    <set name="isMagic" val="true"/>
+    <set name="reuseDelay" val="1000"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
