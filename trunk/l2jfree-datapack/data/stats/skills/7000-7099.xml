@@ -84,6 +84,8 @@
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="566"/>
     <for>
       <!-- retail value: "#hot"/sec; stat update every time unit (2/3 sec) -->
