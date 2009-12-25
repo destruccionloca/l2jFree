@@ -163,7 +163,6 @@ def enterInstance(self,player,template,teleto):
     instanceId = InstanceManager.getInstance().createDynamicInstance(template)
     if not self.worlds.has_key(instanceId):
         world = PyObject()
-        world.rewarded=[]
         world.instanceId = instanceId
         self.worlds[instanceId]=world
         self.world_ids.append(instanceId)
@@ -459,28 +458,33 @@ class DarkCloudMansion(JQuest):
                 return
             if instanceId == 0:
                 return
-        if self.worlds.has_key(npc.getInstanceId()):
-            world = self.worlds[npc.getInstanceId()]
-            if npcId == SOTruth :
-                tele = PyObject()
-                tele.x = 139968
-                tele.y = 150367
-                tele.z = -3111
-                exitInstance(player,tele)
-                if player.getObjectId() in world.rewarded:
-                    pass
-                else:
-                    item = player.getInventory().addItem("Quest", CC, 1, player, None)
-                    iu = InventoryUpdate()
-                    iu.addItem(item)
-                    player.sendPacket(iu)
-                    sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
-                    sm.addItemName(item)
-                    sm.addNumber(1)
-                    player.sendPacket(sm)
-                    if debug: print "DarkCloudMansion - id"+str(player.getObjectId())+" added to reward list"
-                    world.rewarded.append(player.getObjectId())
+        elif npcId == SOTruth :
+            if npc.getInstanceId() == 0:
                 return
+            world = self.worlds[npc.getInstanceId()]
+            item = player.getInventory().addItem("Quest", CC, 1, player, None)
+            iu = InventoryUpdate()
+            iu.addItem(item)
+            player.sendPacket(iu)
+            sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
+            sm.addItemName(item)
+            sm.addNumber(1)
+            player.sendPacket(sm)
+
+            tele = PyObject()
+            tele.x = 139968
+            tele.y = 150367
+            tele.z = -3111
+            exitInstance(player,tele)
+            if debug: print "DarkCloudMansion - id"+str(player.getObjectId())+" rewarded and gone out of instance"
+
+            # Check if the instance is empty, as it should be destroyed directly if yes according to retail info.
+            playerList = InstanceManager.getInstance().getInstance(world.instanceId).getPlayers().toArray()
+            playerCount = len(playerList)
+            if playerCount == 0:
+                del self.worlds[npc.getInstanceId()]
+                self.world_ids.remove(npc.getInstanceId())
+                InstanceManager.getInstance().destroyInstance(npc.getInstanceId())
         return
 
     def onKill(self,npc,player,isPet):
@@ -569,6 +573,7 @@ QUEST.addFirstTalkId(SOAdversity)
 QUEST.addFirstTalkId(SOAdventure)
 QUEST.addStartNpc(YIYEN)
 QUEST.addTalkId(YIYEN)
+QUEST.addStartNpc(SOTruth)
 QUEST.addTalkId(SOTruth)
 for mob in [18371,18372,18373,18374,18375,18376,18377,22264,SC]:
     QUEST.addAttackId(mob)
