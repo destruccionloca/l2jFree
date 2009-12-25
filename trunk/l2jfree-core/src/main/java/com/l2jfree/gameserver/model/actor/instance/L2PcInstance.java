@@ -11050,7 +11050,7 @@ public final class L2PcInstance extends L2Playable
 		@Override
 		public void run()
 		{
-			if (!isTeleporting())
+			if (!isTeleporting() || getOnlineState() == L2PcInstance.ONLINE_STATE_DELETED)
 				return;
 
 			if (_log.isDebugEnabled())

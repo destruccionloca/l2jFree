@@ -34,7 +34,7 @@ public final class NpcSay extends L2GameServerPacket
 	{
 		_objectId = objectId;
 		_textType = messageType;
-		_npcId = 1000000+npcId;
+		_npcId = 1000000 + npcId;
 		_text = text;
 	}
 
@@ -48,9 +48,6 @@ public final class NpcSay extends L2GameServerPacket
 		writeS(_text);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

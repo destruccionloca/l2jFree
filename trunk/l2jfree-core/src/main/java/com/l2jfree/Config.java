@@ -1220,6 +1220,7 @@ public class Config extends L2Config
 	public static int				CHAR_VIP_COLOR;								// VIP Characters configuration
 	public static boolean			ALT_DEV_NO_QUESTS;								// Alt Settings for devs
 	public static boolean			ALT_DEV_NO_SPAWNS;								// Alt Settings for devs
+	public static boolean			ALT_DEV_NO_HTMLS;								// Alt Settings for devs
 	public static boolean			ENABLE_JYTHON_SHELL;							// JythonShell
 	public static boolean			ALT_DEV_VERIFY_NPC_SKILLS;						// Alt Settings for devs
 	public static boolean			ONLY_GM_ITEMS_FREE;							// Only GM buy items for free
@@ -1425,6 +1426,7 @@ public class Config extends L2Config
 
 			ALT_DEV_NO_QUESTS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
 			ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
+			ALT_DEV_NO_HTMLS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoHtmls", "False"));
 			ENABLE_JYTHON_SHELL = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
 			ALT_DEV_VERIFY_NPC_SKILLS = Boolean.parseBoolean(optionsSettings.getProperty("AltDevVerifyNpcSkills", "False"));
 			DEADLOCKCHECK_INTERVAL = Integer.parseInt(optionsSettings.getProperty("DeadLockCheck", "10000"));

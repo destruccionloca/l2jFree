@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
@@ -755,6 +756,17 @@ public class L2CharacterAI extends AbstractAI
 			((L2Attackable) _accessor.getActor()).setisReturningToSpawnPoint(false);
 		}
 		clientStoppedMoving();
+
+		if (_actor != null)
+		{
+			// Currently done for NPCs only
+			Quest[] quests = null;
+			if (_actor instanceof L2Npc)
+				quests = ((L2Npc) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
+			if (quests != null)
+				for (Quest quest: quests)
+					quest.notifyMoveFinished(_actor);
+		}
 
 		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)

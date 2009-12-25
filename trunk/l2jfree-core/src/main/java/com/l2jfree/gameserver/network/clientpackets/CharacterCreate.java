@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateFail;
 import com.l2jfree.gameserver.network.serverpackets.CharCreateOk;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
@@ -143,7 +142,7 @@ public class CharacterCreate extends L2GameClientPacket
 			sendPacket(new CharCreateOk());
 
 			initNewChar(getClient(), newChar);
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 		}
 	}
 
@@ -158,7 +157,8 @@ public class CharacterCreate extends L2GameClientPacket
 
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 
-		newChar.getPosition().setXYZInvisible(template.getSpawnX(), template.getSpawnY(), template.getSpawnZ());
+		int[] xyz = template.getStartingPosition();
+		newChar.getPosition().setXYZInvisible(xyz[0], xyz[1], xyz[2]);
 		newChar.setTitle("");
 
 		newChar.setVitalityPoints(PcStat.MAX_VITALITY_POINTS, true);

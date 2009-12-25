@@ -145,7 +145,8 @@ public class Quest extends ManagedScript
 		ON_SPELL_FINISHED(true), // on spell finished action when npc finish casting skill
 		ON_SKILL_LEARN(false), // control the AcquireSkill dialog from quest script
 		ON_ENTER_ZONE(true), // on zone enter
-		ON_EXIT_ZONE(true); // on zone exit
+		ON_EXIT_ZONE(true), // on zone exit
+		ON_ARRIVED(true); // on
 		
 		// control whether this event type is allowed for the same npc template in multiple quests
 		// or if the npc must be registered in at most one quest for the specified event
@@ -603,6 +604,24 @@ public class Quest extends ManagedScript
 		return true;
 	}
 	
+	public final boolean notifyMoveFinished(L2Character character)
+	{
+		L2PcInstance player = character.getActingPlayer();
+		String res = null;
+		try
+		{
+			res = onArrived(character);
+		}
+		catch (Exception e)
+		{
+			if (player != null)
+				return showError(player, e);
+		}
+		if (player != null)
+			return showResult(player, res);
+		return true;
+	}
+	
 	// these are methods that java calls to invoke scripts
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
@@ -704,6 +723,11 @@ public class Quest extends ManagedScript
 	}
 	
 	public String onExitZone(L2Character character, L2Zone zone)
+	{
+		return null;
+	}
+	
+	public String onArrived(L2Character character)
 	{
 		return null;
 	}

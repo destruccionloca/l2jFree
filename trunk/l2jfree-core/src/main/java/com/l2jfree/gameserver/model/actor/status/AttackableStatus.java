@@ -32,7 +32,7 @@ public class AttackableStatus extends NpcStatus
 	@Override
 	public L2Attackable getActiveChar()
 	{
-		return (L2Attackable)_activeChar;
+		return (L2Attackable) _activeChar;
 	}
 	
 	@Override
@@ -52,15 +52,15 @@ public class AttackableStatus extends NpcStatus
 		
 		// Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
 		if (attacker != null)
-			getActiveChar().addDamage(attacker, (int)value);
+			getActiveChar().addDamage(attacker, (int) value);
 		
 		// If this L2Attackable is a L2MonsterInstance and it has spawned minions, call its minions to battle
 		if (getActiveChar() instanceof L2MonsterInstance)
 		{
-			L2MonsterInstance master = (L2MonsterInstance)getActiveChar();
+			L2MonsterInstance master = (L2MonsterInstance) getActiveChar();
 			if (getActiveChar() instanceof L2MinionInstance)
 			{
-				master = ((L2MinionInstance)getActiveChar()).getLeader();
+				master = ((L2MinionInstance) getActiveChar()).getLeader();
 				if (master != null && !master.isInCombat() && !master.isDead())
 				{
 					master.addDamage(attacker, 1, null);

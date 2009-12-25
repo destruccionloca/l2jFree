@@ -22,6 +22,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.templates.StatsSet;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Base template for all type of playable characters
@@ -37,6 +38,117 @@ import com.l2jfree.gameserver.templates.StatsSet;
  */
 public class L2PcTemplate extends L2CharTemplate
 {
+	private static final int[][][] START_POINTS = {
+		// Human Fighter
+		new int[][] {
+			new int[] { -72662, 258431, -3104 },
+			new int[] { -72963, 258034, -3104 },
+			new int[] { -71436, 256718, -3104 },
+			new int[] { -71081, 257082, -3104 },
+			new int[] { -72682, 257559, -3104 },
+			new int[] { -71958, 256935, -3104 },
+			new int[] { -72352, 257936, -3104 },
+			new int[] { -71616, 257328, -3104 },
+			new int[] { -72320, 258816, -3104 },
+			new int[] { -72432, 258656, -3104 },
+			new int[] { -72256, 258672, -3104 },
+			new int[] { -71936, 259232, -3104 },
+			new int[] { -71792, 259408, -3104 },
+			new int[] { -71760, 259264, -3104 },
+			new int[] { -72064, 257344, -3104 },
+			new int[] { -72304, 257552, -3104 },
+			new int[] { -70880, 257360, -3104 },
+			new int[] { -70736, 257520, -3104 },
+			new int[] { -70896, 257536, -3104 },
+			new int[] { -70400, 257936, -3104 },
+			new int[] { -70432, 258112, -3104 },
+			new int[] { -70240, 258112, -3104 }
+		},
+		// Elf
+		new int[][] {
+			new int[] { 43648, 40352, -3440 },
+			new int[] { 43424, 40224, -3440 },
+			new int[] { 43584, 40208, -3440 },
+			new int[] { 43360, 40368, -3440 },
+			new int[] { 43392, 40560, -3440 },
+			new int[] { 43584, 40560, -3440 },
+			new int[] { 43504, 40384, -3440 },
+			new int[] { 48720, 40000, -3440 },
+			new int[] { 48912, 39984, -3440 },
+			new int[] { 48832, 40144, -3440 },
+			new int[] { 48656, 40144, -3440 },
+			new int[] { 49011, 40128, -3440 },
+			new int[] { 48752, 40304, -3440 },
+			new int[] { 48928, 40288, -3440 }
+		},
+		// Dark Elf
+		new int[][] {
+			new int[] { 26716, 11680, -4224 },
+			new int[] { 26794, 11561, -4224 },
+			new int[] { 26672, 11440, -4224 },
+			new int[] { 27008, 11568, -4224 },
+			new int[] { 27104, 11408, -4224 },
+			new int[] { 26672, 10656, -4224 },
+			new int[] { 26768, 10512, -4224 },
+			new int[] { 26624, 10368, -4224 },
+			new int[] { 26912, 10400, -4224 },
+			new int[] { 26960, 10496, -4224 }
+		},
+		// Dwarf
+		new int[][] {
+			new int[] { 107520, -175808, -400 },
+			new int[] { 107824, -175776, -400 },
+			new int[] { 108336, -175536, -400 },
+			new int[] { 108592, -175232, -400 },
+			new int[] { 107024, -175440, -400 },
+			new int[] { 106880, -175056, -400 },
+			new int[] { 106848, -174704, -400 },
+			new int[] { 108256, -175152, -400 },
+			new int[] { 107632, -175376, -400 },
+			new int[] { 107200, -174800, -400 }
+		},
+		// Orc
+		new int[][] {
+			new int[] { -56936, -112448, -679 },
+			new int[] { -57281, -112427, -679 },
+			new int[] { -56928, -112880, -679 },
+			new int[] { -57248, -112864, -679 },
+			new int[] { -58192, -113408, -679 },
+			new int[] { -58256, -113856, -679 },
+			new int[] { -57824, -113408, -679 },
+			new int[] { -57824, -113744, -679 },
+			new int[] { -57280, -114688, -679 },
+			new int[] { -56880, -114752, -679 },
+			new int[] { -57248, -114320, -679 },
+			new int[] { -56896, -114320, -679 },
+			new int[] { -56192, -113792, -679 },
+			new int[] { -56448, -113792, -679 },
+			new int[] { -56096, -113424, -679 },
+			new int[] { -56432, -113456, -679 }
+		},
+		// Kamael
+		new int[][] {
+			new int[] { 87000, -125464, 37776 },
+			new int[] { 87000, -125517, 38267 },
+			new int[] { 87000, -125533, 38114 }
+		}
+	};
+	private static final int[][] START_POINTS_HM = {
+		new int[] { -88832, 248256, -3570 },
+		new int[] { -88944, 248208, -3570 },
+		new int[] { -89040, 248128, -3570 },
+		new int[] { -89200, 248000, -3570 },
+		new int[] { -91008, 249248, -3570 },
+		new int[] { -90848, 249360, -3570 },
+		new int[] { -90912, 249312, -3570 },
+		new int[] { -89696, 247664, -3570 },
+		new int[] { -89755, 247606, -3570 },
+		new int[] { -89840, 247536, -3570 },
+		new int[] { -90378, 249698, -3570 },
+		new int[] { -90256, 249792, -3570 },
+		new int[] { -89968, 249936, -3570 },
+		new int[] { -90096, 249856, -3570 }
+	};
 
 	/** The Class object of the L2PcInstance */
 	private ClassId			classId;
@@ -44,9 +156,11 @@ public class L2PcTemplate extends L2CharTemplate
 	private Race			race;
 	private String			className;
 
+	/* Not a single point
 	private int				spawnX;
 	private int				spawnY;
 	private int				spawnZ;
+	*/
 
 	private int				classBaseLevel;
 	private float			lvlHpAdd;
@@ -65,9 +179,11 @@ public class L2PcTemplate extends L2CharTemplate
 		race = Race.values()[set.getInteger("raceId")];
 		className = set.getString("className");
 
+		/*
 		spawnX = set.getInteger("spawnX");
 		spawnY = set.getInteger("spawnY");
 		spawnZ = set.getInteger("spawnZ");
+		*/
 
 		classBaseLevel = set.getInteger("classBaseLevel");
 		lvlHpAdd = set.getFloat("lvlHpAdd");
@@ -259,6 +375,7 @@ public class L2PcTemplate extends L2CharTemplate
 	/**
 	 * @return the spawnX
 	 */
+	/*
 	public int getSpawnX()
 	{
 		return spawnX;
@@ -267,6 +384,7 @@ public class L2PcTemplate extends L2CharTemplate
 	/**
 	 * @param spawnX the spawnX to set
 	 */
+	/*
 	public void setSpawnX(int _spawnX)
 	{
 		spawnX = _spawnX;
@@ -275,6 +393,7 @@ public class L2PcTemplate extends L2CharTemplate
 	/**
 	 * @return the spawnY
 	 */
+	/*
 	public int getSpawnY()
 	{
 		return spawnY;
@@ -283,6 +402,7 @@ public class L2PcTemplate extends L2CharTemplate
 	/**
 	 * @param spawnY the spawnY to set
 	 */
+	/*
 	public void setSpawnY(int _spawnY)
 	{
 		spawnY = _spawnY;
@@ -291,6 +411,7 @@ public class L2PcTemplate extends L2CharTemplate
 	/**
 	 * @return the spawnZ
 	 */
+	/*
 	public int getSpawnZ()
 	{
 		return spawnZ;
@@ -299,9 +420,19 @@ public class L2PcTemplate extends L2CharTemplate
 	/**
 	 * @param spawnZ the spawnZ to set
 	 */
+	/*
 	public void setSpawnZ(int _spawnZ)
 	{
 		spawnZ = _spawnZ;
+	}
+	*/
+
+	public int[] getStartingPosition()
+	{
+		if (getRace().equals(Race.Human) && getClassId().isMage())
+			return START_POINTS_HM[Rnd.get(START_POINTS_HM.length)];
+		int[][] pos = START_POINTS[getRace().ordinal()];
+		return pos[Rnd.get(pos.length)];
 	}
 
 	public int getBaseFallSafeHeight(boolean female)

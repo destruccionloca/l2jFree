@@ -34,11 +34,11 @@ public class TestL2PcTemplate extends TestCase
         set.set("baseINT",4);
         set.set("baseWIT",5);
         set.set("baseMEN",6);
-        set.set ("baseHpMax",7);
+        set.set("baseHpMax",7);
         set.set("baseCpMax",8);
-        set.set ("baseMpMax",9);
-        set.set ("baseHpReg",10);
-        set.set ("baseMpReg",11);
+        set.set("baseMpMax",9);
+        set.set("baseHpReg",10);
+        set.set("baseMpReg",11);
         set.set("basePAtk",12);
         set.set("baseMAtk",13);
         set.set("basePDef",14);
@@ -61,9 +61,11 @@ public class TestL2PcTemplate extends TestCase
         set.set("classId",60);
         set.set("raceId",4);
         set.set("className","classname");
+        /*
         set.set("spawnX",62);
         set.set("spawnY",63);
         set.set("spawnZ",64);
+        */
         set.set("classBaseLevel",65);
         set.set("lvlHpAdd",66.f);
         set.set("lvlHpMod",67.f);
@@ -78,9 +80,11 @@ public class TestL2PcTemplate extends TestCase
         assertEquals("dummyEntry3",template.getClassId().name());
         assertEquals("Dwarf",template.getRace().name());
         assertEquals("classname",template.getClassName());
+        /*
         assertEquals(62,template.getSpawnX());
         assertEquals(63,template.getSpawnY());
         assertEquals(64,template.getSpawnZ());
+        */
         assertEquals(65,template.getClassBaseLevel());
         assertEquals(66.f,template.getLvlHpAdd());
         assertEquals(67.f,template.getLvlHpMod());

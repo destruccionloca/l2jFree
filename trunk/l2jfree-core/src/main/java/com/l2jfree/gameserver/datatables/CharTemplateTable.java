@@ -233,9 +233,11 @@ public class CharTemplateTable
 				set.set("baseShldRate", 0);
 				set.set("baseAtkRange", 40);
 
+				/* Not a single point
 				set.set("spawnX", rset.getInt("x"));
 				set.set("spawnY", rset.getInt("y"));
 				set.set("spawnZ", rset.getInt("z"));
+				*/
 
 				L2PcTemplate ct;
 

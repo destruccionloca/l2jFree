@@ -60,7 +60,8 @@ public final class HtmCache
 	
 	private HtmCache()
 	{
-		reload();
+		if (!Config.ALT_DEV_NO_HTMLS)
+			reload();
 	}
 	
 	public synchronized void reload()

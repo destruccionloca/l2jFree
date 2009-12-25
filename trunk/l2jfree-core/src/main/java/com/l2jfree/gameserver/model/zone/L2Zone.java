@@ -391,7 +391,7 @@ public class L2Zone implements FuncOwner
 	{
 		if (character instanceof L2PcInstance)
 		{
-			if (((L2PcInstance)character).getOnlineState()  == L2PcInstance.ONLINE_STATE_DELETED)
+			if (((L2PcInstance) character).getOnlineState() == L2PcInstance.ONLINE_STATE_DELETED)
 			{
 				_log.warn("", new IllegalStateException());
 				return State.OUTSIDE;

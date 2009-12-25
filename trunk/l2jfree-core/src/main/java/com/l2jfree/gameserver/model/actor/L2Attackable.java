@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
+import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2CommandChannel;
 import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
@@ -82,6 +83,11 @@ import com.l2jfree.util.SingletonMap;
  */
 public class L2Attackable extends L2Npc
 {
+	public static final int FLEEING_NOT_STARTED		= 0;
+	public static final int FLEEING_STARTED			= 1;
+	public static final int FLEEING_DONE_WAITING	= 2;
+	public static final int FLEEING_DONE_RETURNING	= 3;
+
 	/**
 	 * This class contains all AggroInfo of the L2Attackable against the
 	 * attacker L2Character.<BR>
@@ -390,6 +396,10 @@ public class L2Attackable extends L2Npc
 	
 	/** Have this L2Attackable to reward Exp and SP on Die? **/
 	private boolean								_mustGiveExpSp;
+
+	private boolean								_beenAttacked;
+	private int									_fleeing;
+	private L2CharPosition						_moveAroundPos;
 
 	/**
 	 * Constructor of L2Attackable (use L2Character and L2NpcInstance
@@ -916,6 +926,7 @@ public class L2Attackable extends L2Npc
 	{
 		if (attacker == null)
 			return;
+
 		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
 		AggroInfo ai = getAggroListRP().get(attacker);
 		if (ai == null)
@@ -2616,5 +2627,35 @@ public class L2Attackable extends L2Npc
 			return false;
 
 		return true;
+	}
+
+	public boolean hasBeenAttacked()
+	{
+		return _beenAttacked;
+	}
+
+	public void setBeenAttacked(boolean has)
+	{
+		_beenAttacked = has;
+	}
+
+	public int getFleeingStatus()
+	{
+		return _fleeing;
+	}
+
+	public void setFleeingStatus(int fleeing)
+	{
+		_fleeing = fleeing;
+	}
+
+	public L2CharPosition getMoveAroundPos()
+	{
+		return _moveAroundPos;
+	}
+
+	public void setMoveAroundPos(L2CharPosition pos)
+	{
+		_moveAroundPos = pos;
 	}
 }

@@ -120,7 +120,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
-
 	}
 
 	/**
@@ -165,9 +164,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (target.isInvul())
 		{
 			// However EffectInvincible requires to check GMs specially
-			if (target instanceof L2PcInstance && ((L2PcInstance) target).isGM())
-				return false;
-			if (target instanceof L2Summon && ((L2Summon) target).getOwner().isGM())
+			if (target instanceof L2Playable && target.getActingPlayer().isGM())
 				return false;
 		}
 
@@ -294,14 +291,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		AttackableAiTaskManager.getInstance().startTask(this);
 		
 		if (_actor instanceof L2GuardInstance)
-			((L2GuardInstance)_actor).startReturnTask();
+			((L2GuardInstance) _actor).startReturnTask();
 	}
 	
 	@Override
 	public void stopAITask()
 	{
 		if (_actor instanceof L2GuardInstance)
-			((L2GuardInstance)_actor).stopReturnTask();
+			((L2GuardInstance) _actor).stopReturnTask();
 		
 		AttackableAiTaskManager.getInstance().stopTask(this);
 		_accessor.detachAI();
@@ -428,7 +425,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			else
 				_globalAggro--;
 		}
-
+/*
+		switch (npc.getFleeingStatus())
+		{
+		// 10 million
+		case L2Attackable.FLEEING_STARTED:
+		// 1 million
+		case L2Attackable.FLEEING_DONE_RETURNING:
+			return;
+		}
+*/
 		// Add all autoAttackable L2Character in L2Attackable Aggro Range to its _aggroList with 0 damage and 1 hate
 		// A L2Attackable isn't aggressive during 10s after its spawn because _globalAggro is set to -10
 		if (_globalAggro >= 0)
@@ -659,9 +665,22 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			
 			final int range = Config.MAX_DRIFT_RANGE;
 			
-			int x1 = npc.getSpawn().getLocx();
-			int y1 = npc.getSpawn().getLocy();
-			int z1 = npc.getSpawn().getLocz();
+			int x1;
+			int y1;
+			int z1;
+			if (npc.getFleeingStatus() == L2Attackable.FLEEING_NOT_STARTED
+					|| npc.getMoveAroundPos() == null)
+			{
+				x1 = npc.getSpawn().getLocx();
+				y1 = npc.getSpawn().getLocy();
+				z1 = npc.getSpawn().getLocz();
+			}
+			else
+			{
+				x1 = npc.getMoveAroundPos().x;
+				y1 = npc.getMoveAroundPos().y;
+				z1 = npc.getMoveAroundPos().z;
+			}
 			
 			if (!_actor.isInsideRadius(x1, y1, z1, range + range, true, false))
 			{
@@ -861,6 +880,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 		if (_actor.isAttackingDisabled())
 			return;
+
+		switch (((L2Attackable) _actor).getFleeingStatus())
+		{
+		// 10 million
+		case L2Attackable.FLEEING_STARTED:
+		// 1 million
+		case L2Attackable.FLEEING_DONE_RETURNING:
+			return;
+		}
 
 		// Get 2 most hated chars
 		L2Character[] hated = ((L2Attackable) _actor).get2MostHated();
