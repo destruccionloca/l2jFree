@@ -1,20 +1,8 @@
-/*
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
- */
 package ai.group_template;
 
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+
+import org.apache.commons.lang.ArrayUtils;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlEvent;
@@ -56,6 +44,7 @@ public class L2AttackableAIScript extends QuestJython
 			addEventId(id, Quest.QuestEventType.ON_SKILL_SEE);
 			addEventId(id, Quest.QuestEventType.ON_FACTION_CALL);
 			addEventId(id, Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+			addEventId(id, Quest.QuestEventType.ON_ARRIVED);
 		}
 	}
 
@@ -65,26 +54,12 @@ public class L2AttackableAIScript extends QuestJython
 	 */
 	public static <T> boolean contains(T[] array, T obj)
 	{
-		for (T finalElement : array)
-		{
-			if (finalElement == obj)
-			{
-				return true;
-			}
-		}
-		return false;
+		return ArrayUtils.contains(array, obj);
 	}
 
 	public static boolean contains(int[] array, int obj)
 	{
-		for (int finalElement : array)
-		{
-			if (finalElement == obj)
-			{
-				return true;
-			}
-		}
-		return false;
+		return ArrayUtils.contains(array, obj);
 	}
 
 	public L2AttackableAIScript(int questId, String name, String descr)
@@ -93,11 +68,11 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onAdvEvent (String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		return null;
 	}
-	
+
 	@Override
 	public String onSpellFinished(L2Npc npc, L2PcInstance player, L2Skill skill)
 	{
@@ -113,7 +88,7 @@ public class L2AttackableAIScript extends QuestJython
 		if (!(npc instanceof L2Attackable))
 			return null;
 
-		L2Attackable attackable = (L2Attackable)npc;
+		L2Attackable attackable = (L2Attackable) npc;
 		int skillAggroPoints = skill.getAggroPoints();
 		if (caster.getPet() != null)
 		{
@@ -131,8 +106,8 @@ public class L2AttackableAIScript extends QuestJython
 				{
 					if (npcTarget == skillTarget || npc == skillTarget)
 					{
-						L2Character originalCaster = isPet ? caster.getPet(): caster;
-						attackable.addDamageHate(originalCaster, 0, (skillAggroPoints*150)/(attackable.getLevel()+7));
+						L2Character originalCaster = isPet ? caster.getPet() : caster;
+						attackable.addDamageHate(originalCaster, 0, (skillAggroPoints * 150) / (attackable.getLevel() + 7));
 					}
 				}
 			}
@@ -141,7 +116,7 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onFactionCall (L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
+	public String onFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
 	{
 		L2Character originalAttackTarget = (isPet ? attacker.getPet(): attacker);
 
@@ -166,7 +141,7 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onAggroRangeEnter (L2Npc npc, L2PcInstance player, boolean isPet)
+	public String onAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		L2Character target = isPet ? player.getPet() : player;
 
@@ -179,7 +154,7 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	@Override
-	public String onSpawn (L2Npc npc)
+	public String onSpawn(L2Npc npc)
 	{
 		return null;
 	}
@@ -193,13 +168,13 @@ public class L2AttackableAIScript extends QuestJython
 
 			L2Character originalAttacker = isPet ? attacker.getPet() : attacker;
 			attackable.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, originalAttacker);
-			attackable.addDamageHate(originalAttacker, damage, (damage*100)/(attackable.getLevel()+7));
+			attackable.addDamageHate(originalAttacker, damage, (damage * 100) / (attackable.getLevel() + 7));
 		}
 		return null;
 	}
 
 	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		return null;
 	}
@@ -213,7 +188,7 @@ public class L2AttackableAIScript extends QuestJython
 			L2NpcTemplate[] templates = NpcTable.getInstance().getAllOfLevel(level);
 			if (templates != null)
 			{
-				for (L2NpcTemplate t: templates)
+				for (L2NpcTemplate t : templates)
 				{
 					try
 					{
@@ -226,6 +201,7 @@ public class L2AttackableAIScript extends QuestJython
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_SKILL_SEE);
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_FACTION_CALL);
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_ARRIVED);
 						}
 					}
 					catch (ClassNotFoundException ex)

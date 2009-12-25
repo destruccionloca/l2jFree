@@ -40,13 +40,15 @@ public class Chests extends L2AttackableAIScript
 	// Chance for a chest to actually be a BOX (as opposed to being a mimic).
 	private static final int IS_BOX = 40;
 
-	private static final int[] NPC_IDS = { 18265,18266,18267,18268,18269,18270,18271,
-			18272,18273,18274,18275,18276,18277,18278,18279,18280,18281,
-			18282,18283,18284,18285,18286,18287,18288,18289,18290,18291,
-			18292,18293,18294,18295,18296,18297,18298,21671,21694,21717,
-			21740,21763,21786,21801,21802,21803,21804,21805,21806,21807,
-			21808,21809,21810,21811,21812,21813,21814,21815,21816,21817,
-			21818,21819,21820,21821,21822 };
+	private static final int[] NPC_IDS = {
+		18265,18266,18267,18268,18269,18270,18271,
+		18272,18273,18274,18275,18276,18277,18278,18279,18280,18281,
+		18282,18283,18284,18285,18286,18287,18288,18289,18290,18291,
+		18292,18293,18294,18295,18296,18297,18298,21671,21694,21717,
+		21740,21763,21786,21801,21802,21803,21804,21805,21806,21807,
+		21808,21809,21810,21811,21812,21813,21814,21815,21816,21817,
+		21818,21819,21820,21821,21822
+	};
 
 	public Chests(int questId, String name, String descr)
 	{
@@ -57,7 +59,7 @@ public class Chests extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onSkillSee (L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
+	public String onSkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		if (npc instanceof L2ChestInstance)
 		{
@@ -67,10 +69,10 @@ public class Chests extends L2AttackableAIScript
 			{
 				return super.onSkillSee(npc, caster, skill, targets, isPet);
 			}
-			L2ChestInstance chest = ((L2ChestInstance)npc);
+			L2ChestInstance chest = (L2ChestInstance) npc;
 			int npcId = chest.getNpcId();
 			int skillId = skill.getId();
-			int skillLevel= skill.getLevel();
+			int skillLevel = skill.getLevel();
 
 			// check if the chest and skills used are valid for this script.  Exit if invalid.
 			if (!contains(NPC_IDS, npcId))
@@ -84,7 +86,7 @@ public class Chests extends L2AttackableAIScript
 				chest.setInteracted();
 				if (Rnd.get(100) < IS_BOX)
 				{
-					// if it's a box, either it will be successfully openned by a proper key, or instantly disappear
+					// if it's a box, either it will be successfully opened by a proper key, or instantly disappear
 					if (skillId == SKILL_DELUXE_KEY)
 					{
 						// check the chance to open the box
@@ -120,7 +122,7 @@ public class Chests extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		if (npc instanceof L2ChestInstance)
 		{

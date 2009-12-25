@@ -23,8 +23,7 @@ import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemChatChannelId;
-import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
+import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -65,32 +64,32 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
     }
 
     @Override
-	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
     {
         if (MOBSPAWNS.containsKey(npc.getNpcId()))
         {
             Integer[] tmp = MOBSPAWNS.get(npc.getNpcId());
-            if (npc.getStatus().getCurrentHp() <= (npc.getMaxHp() * tmp[1]/100)&& Rnd.get(100) < tmp[2])
+            if (npc.getStatus().getCurrentHp() <= (npc.getMaxHp() * tmp[1] / 100) && Rnd.get(100) < tmp[2])
             {
                 if (tmp[3] >= 0)
                 {
                     String text = MOBTEXTS[tmp[3]][Rnd.get(MOBTEXTS[tmp[3]].length)];
-                    npc.broadcastPacket(new CreatureSay(npc.getObjectId(),SystemChatChannelId.Chat_Normal,npc.getName(),text));
+                    npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text));
                 }
                 npc.getSpawn().decreaseCount(npc);
                 npc.deleteMe();
-                L2Attackable newNpc = (L2Attackable) addSpawn(tmp[0], npc.getX(), npc.getY(), npc.getZ()+10, npc.getHeading(), false, 0, true);
-                L2Character originalAttacker = isPet? attacker.getPet(): attacker;
+                L2Attackable newNpc = (L2Attackable) addSpawn(tmp[0], npc.getX(), npc.getY(), npc.getZ() + 10, npc.getHeading(), false, 0, true);
+                L2Character originalAttacker = isPet? attacker.getPet() : attacker;
                 newNpc.setRunning();
-                newNpc.addDamageHate(originalAttacker,0,500);
+                newNpc.addDamageHate(originalAttacker, 0, 500);
                 newNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalAttacker);
             }
         }
-        return super.onAttack (npc, attacker, damage, isPet);
+        return super.onAttack(npc, attacker, damage, isPet);
     }
 
     public static void main(String[] args)
     {
-        new PolymorphingOnAttack(-1,"polymorphing_on_attack","ai");
+        new PolymorphingOnAttack(-1, "polymorphing_on_attack", "ai");
     }
 }

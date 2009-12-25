@@ -149,3 +149,7 @@ UPDATE char_templates SET M_COL_H=22.0 WHERE ClassId=124 OR ClassId=126 OR Class
 
 -- Fix for dwarf female height
 UPDATE `char_templates` SET `F_COL_H` = 18.0 WHERE `RaceId` = 4;
+-- There's more than one point
+ALTER TABLE `char_templates` DROP `x`;
+ALTER TABLE `char_templates` DROP `y`;
+ALTER TABLE `char_templates` DROP `z`;
