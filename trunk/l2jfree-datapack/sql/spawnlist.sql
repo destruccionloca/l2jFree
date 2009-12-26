@@ -31676,7 +31676,7 @@ INSERT INTO `spawnlist` VALUES
 (45574,'Monastery Silence',1,22135,115642,-77661,-57,0,0,44784,60,0,0),
 (45575,'Monastery Silence',1,22135,116264,-78164,-82,0,0,57460,60,0,0),
 (45576,'Monastery Silence',1,22135,114360,-79545,-50,0,0,43967,60,0,0),
-(45577,'Monastery Silence',1,22135,114482,-80787,-50,0,0,33991,60,0,0),
+(45577,'Monastery Silence',1,22135,114482,-80787,-50,0,0,33991,0,0,0),
 (45578,'Forsaken Plains',1,27316,171715,44028,-4904,0,0,0,21600,0,0),
 (45579,'rune_chamberlain_etc',1,35503,18616,-48956,-1216,0,0,0,60,0,0),
 (45580,'rune_chamberlain_etc',1,35503,17908,-48960,-1200,0,0,33000,60,0,0),
@@ -40722,3 +40722,6 @@ INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `l
 
 -- WeatherMaster West
 UPDATE `spawnlist` SET `locx` = '86101', `locy` =  '-105821', `locz` = '-3310', `heading` = '36123' WHERE `npc_templateid` = '32044' LIMIT 1;
+
+-- Monastery of Silence spawn fix
+UPDATE `spawnlist` SET `respawn_delay` = 60 WHERE `npc_templateid` = '45577';
