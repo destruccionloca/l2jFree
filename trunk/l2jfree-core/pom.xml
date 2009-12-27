@@ -24,48 +24,11 @@
       <artifactId>l2j-mmocore</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!-- 
-    <dependency>
-      <groupId>org.apache.bsf</groupId>
-      <artifactId>bsf</artifactId>
-      <version>2.0</version>
-    </dependency>
-    -->
-    <!-- 
-    <dependency>
-      <groupId>org.beanshell</groupId>
-      <artifactId>bsh</artifactId>
-      <version>2.0b5</version>
-    </dependency>
-    -->
-    <dependency>
-      <groupId>org.eclipse.jdt.core.compiler</groupId>
-      <artifactId>ecj</artifactId>
-      <version>3.5.1</version>
-    </dependency>
     <dependency>
       <groupId>l2jfree</groupId>
-      <artifactId>java-engine</artifactId>
-      <version>1.0.2</version>
+      <artifactId>l2jfree-scripting-engines</artifactId>
+      <version>1.3.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.python</groupId>
-      <artifactId>jython</artifactId>
-      <!-- Change to 2.5.1 after adding __findattr_ex__ in the engine -->
-      <version>2.2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>l2jfree</groupId>
-      <artifactId>jython-engine</artifactId>
-      <version>1.0.1</version>
-    </dependency>
-    <!-- 
-    <dependency>
-      <groupId>l2jfree</groupId>
-      <artifactId>bsh-engine</artifactId>
-      <version>1.0.1</version>
-    </dependency>
-    -->
     <dependency>
       <groupId>org.schwering</groupId>
       <artifactId>irclib</artifactId>
