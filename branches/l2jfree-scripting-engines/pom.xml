@@ -1,1 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                      http://maven.apache.org/xsd/maven-4.0.0.xsd">  <modelVersion>4.0.0</modelVersion>  <groupId>l2jfree</groupId>  <artifactId>l2jfree-scripting-engines</artifactId>  <version>1.3.0</version>  <name>${project.artifactId}-${project.version}</name>  <packaging>jar</packaging>  <scm>    <connection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</connection> <!-- we aren't using it anyway -->    <developerConnection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</developerConnection> <!-- we aren't using it anyway -->  </scm>  <dependencies>    <dependency>      <groupId>org.python</groupId>      <artifactId>jython</artifactId>      <version>2.2.1</version>    </dependency>  </dependencies>  <build>    <defaultGoal>install</defaultGoal>    <finalName>${project.artifactId}-${project.version}</finalName>    <plugins>      <plugin>        <groupId>org.codehaus.mojo</groupId>        <artifactId>buildnumber-maven-plugin</artifactId>        <version>1.0-beta-4</version>        <executions>          <execution>            <phase>validate</phase>            <goals>              <goal>create</goal>            </goals>          </execution>        </executions>      </plugin>      <plugin>        <groupId>org.apache.maven.plugins</groupId>        <artifactId>maven-jar-plugin</artifactId>        <configuration>          <archive>            <manifest>              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>            </manifest>            <manifestEntries>              <Implementation-Build>${buildNumber}</Implementation-Build>              <Implementation-Time>${timestamp}</Implementation-Time>            </manifestEntries>          </archive>        </configuration>      </plugin>      <plugin>        <groupId>org.apache.maven.plugins</groupId>        <artifactId>maven-surefire-plugin</artifactId>        <configuration>          <skipTests>true</skipTests>          <forkMode>pertest</forkMode>          <argLine>-enableassertions</argLine>        </configuration>      </plugin>      <plugin>        <groupId>org.apache.maven.plugins</groupId>        <artifactId>maven-compiler-plugin</artifactId>        <configuration>          <source>1.6</source>          <target>1.6</target>          <encoding>UTF-8</encoding>        </configuration>      </plugin>      <plugin>        <groupId>org.apache.maven.plugins</groupId>        <artifactId>maven-resources-plugin</artifactId>        <configuration>          <encoding>UTF-8</encoding>        </configuration>      </plugin>      <plugin>        <groupId>org.apache.maven.plugins</groupId>        <artifactId>maven-eclipse-plugin</artifactId>        <configuration>          <addGroupIdToProjectName>true</addGroupIdToProjectName>        </configuration>      </plugin>    </plugins>  </build>  <repositories>    <repository>      <id>l2jfree</id>      <url>http://maven.l2jfree.com</url>      <releases>        <enabled>true</enabled>      </releases>      <snapshots>        <enabled>true</enabled>        <updatePolicy>always</updatePolicy>      </snapshots>    </repository>  </repositories>  <distributionManagement>    <snapshotRepository>      <id>l2jfree snapshots</id>      <url>http://www.l2jfree.com:8081/nexus/content/repositories/snapshots/</url>      <uniqueVersion>false</uniqueVersion>    </snapshotRepository>    <repository>      <id>l2jfree releases</id>      <url>http://www.l2jfree.com:8081/nexus/content/repositories/releases/</url>      <uniqueVersion>false</uniqueVersion>    </repository>  </distributionManagement></project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>l2jfree</groupId>
+  <artifactId>l2jfree-scripting-engines</artifactId>
+  <version>1.3.0</version>
+  <name>${project.artifactId}-${project.version}</name>
+  <packaging>jar</packaging>
+  <scm>
+    <connection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</connection> <!-- we aren't using it anyway -->
+    <developerConnection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</developerConnection> <!-- we aren't using it anyway -->
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.python</groupId>
+      <artifactId>jython</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.0-beta-4</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Implementation-Build>${buildNumber}</Implementation-Build>
+              <Implementation-Time>${timestamp}</Implementation-Time>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>true</skipTests>
+          <forkMode>pertest</forkMode>
+          <argLine>-enableassertions</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <addGroupIdToProjectName>true</addGroupIdToProjectName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <id>l2jfree</id>
+      <url>http://maven.l2jfree.com</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>l2jfree snapshots</id>
+      <url>http://www.l2jfree.com:8081/nexus/content/repositories/snapshots/</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+    <repository>
+      <id>l2jfree releases</id>
+      <url>http://www.l2jfree.com:8081/nexus/content/repositories/releases/</url>
+      <uniqueVersion>false</uniqueVersion>
+    </repository>
+  </distributionManagement>
+</project>
