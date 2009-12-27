@@ -17,7 +17,7 @@
     <dependency>
       <groupId>javolution</groupId>
       <artifactId>javolution</artifactId>
-      <version>5.3.1</version>
+      <version>5.4.2</version>
     </dependency>
   </dependencies>
   <build>
@@ -27,7 +27,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
-        <version>1.0-beta-3</version>
+        <version>1.0-beta-4</version>
         <executions>
           <execution>
             <phase>validate</phase>

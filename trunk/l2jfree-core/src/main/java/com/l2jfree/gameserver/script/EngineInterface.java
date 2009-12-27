@@ -14,29 +14,23 @@
  */
 package com.l2jfree.gameserver.script;
 
-import java.util.Map;
-
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-
 /**
  * @author Luis Arias
- *
- * Define the contract for any engine interface. You should be able to add drop,
- * quest drop, event drop, modify pet stats and make action on player login
+ *         Define the contract for any engine interface. You should be able to add drop,
+ *         quest drop, event drop and make action on player login
  */
 public interface EngineInterface
 {
 	public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states);
-
+	
 	public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep);
-
+	
 	public void addDrop(L2NpcTemplate npc, L2DropData drop, int category);
-
+	
 	public void addEventDrop(int[] items, int[] count, double chance, DateRange range);
-
-	public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats);
-
+	
 	public void onPlayerLogin(String[] message, DateRange range);
 }

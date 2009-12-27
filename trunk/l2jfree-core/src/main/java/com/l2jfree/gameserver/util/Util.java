@@ -93,7 +93,7 @@ public final class Util
 		interp.setLocals(mod.__dict__);
 		try
 		{
-			interp.interact(null);
+			interp.interact();
 		}
 		catch (RuntimeException e)
 		{
