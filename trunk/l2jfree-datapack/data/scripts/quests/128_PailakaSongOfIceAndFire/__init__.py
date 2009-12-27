@@ -154,6 +154,10 @@ class Quest(JQuest):
             player.setVitalityPoints(20000.0, True)
             st.addExpAndSp(810000, 50000)
             st.exitQuest(False)
+            if player.getInstanceId() != 0:
+                instance = InstanceManager.getInstance().getInstance(player.getInstanceId())
+                if instance != None:
+                    instance.setDuration(300000)
         return htmltext
             
 
@@ -165,25 +169,26 @@ class Quest(JQuest):
         state = st.getState()
         if state == State.COMPLETED :
             htmltext = "<html><body>This quest has already been completed.</body></html>"
-        cond = st.getInt("cond")
-        if npcId == ADLER:
-            if cond > 0:
-                tele = PyObject()
-                tele.x = -52855
-                tele.y = 188199
-                tele.z = -4700
-                instanceId = enterInstance(self, player, "SongOfIceAndFire.xml", tele)
-                self.startQuestTimer("TimeOver", 3600000, None, player)
-                player.setPailaka(True)
-                htmltext = ""
-            else:
-                htmltext = "32497.htm"
-        elif npcId == SINAI:
-            if cond == 1:
-                htmltext = "32500.htm"
-        elif npcId == ADLER2:
-            if cond == 9:
-                htmltext = "32510.htm"
+        else :
+            cond = st.getInt("cond")
+            if npcId == ADLER:
+                if cond > 0:
+                    tele = PyObject()
+                    tele.x = -52855
+                    tele.y = 188199
+                    tele.z = -4700
+                    instanceId = enterInstance(self, player, "SongOfIceAndFire.xml", tele)
+                    self.startQuestTimer("TimeOver", 3600000, None, player)
+                    player.setPailaka(True)
+                    htmltext = ""
+                else:
+                    htmltext = "32497.htm"
+            elif npcId == SINAI:
+                if cond == 1:
+                    htmltext = "32500.htm"
+            elif npcId == ADLER2:
+                if cond == 9:
+                    htmltext = "32510.htm"
         return htmltext
 
     def onFirstTalk (self,npc,player):
