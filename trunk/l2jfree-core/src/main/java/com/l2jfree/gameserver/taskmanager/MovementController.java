@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
+import java.util.ArrayList;
+
 import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
 
@@ -72,6 +74,8 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	@Override
 	public void run()
 	{
+		// see my messages on MSN
+		ArrayList<L2Character> dirtyFix = new ArrayList<L2Character>();
 		for (Entry<L2Character, TickRange> entry = _movingChars.head(), end = _movingChars.tail();
 				(entry = entry.getNext()) != end;)
 		{
@@ -85,9 +89,12 @@ public final class MovementController extends AbstractPeriodicTaskManager
 			if (!cha.updatePosition(GameTimeController.getGameTicks()))
 				continue;
 			
-			_movingChars.remove(cha);
+			dirtyFix.add(cha);
+			//_movingChars.remove(cha);
 			_evtArrivedManager.execute(cha);
 		}
+		for (L2Character cha : dirtyFix)
+			_movingChars.remove(cha);
 	}
 	
 	private final class EvtArrivedManager extends FIFOSimpleExecutableQueue<L2Character>
