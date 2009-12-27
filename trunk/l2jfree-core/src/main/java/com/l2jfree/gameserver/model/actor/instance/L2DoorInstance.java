@@ -44,18 +44,12 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
-import com.l2jfree.gameserver.network.serverpackets.DoorStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.lang.L2Math;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
- */
 public class L2DoorInstance extends L2Character
 {
 	/** The castle index in the array of L2Castle this L2DoorInstance belongs to */
@@ -70,8 +64,8 @@ public class L2DoorInstance extends L2Character
 	protected final int			_doorId;
 	protected final String		_name;
 	private boolean				_open;
-	private boolean				_isCommanderDoor;
-	private final boolean				_unlockable;
+	private boolean				_commanderDoor;
+	private final boolean		_unlockable;
 
 	// when door is closed, the dimensions are
 	private int					_rangeXMin			= 0;
@@ -130,13 +124,13 @@ public class L2DoorInstance extends L2Character
 		{
 		}
 	}
-	
+
 	@Override
 	protected L2CharacterAI initAI()
 	{
 		return new L2DoorAI(new AIAccessor());
 	}
-	
+
 	class CloseTask implements Runnable
 	{
 		public void run()
@@ -156,7 +150,7 @@ public class L2DoorInstance extends L2Character
 			{
 				String doorAction;
 
-				if (!getOpen())
+				if (!isOpen())
 				{
 					doorAction = "opened";
 					openMe();
@@ -177,8 +171,6 @@ public class L2DoorInstance extends L2Character
 		}
 	}
 
-	/**
-	 */
 	public L2DoorInstance(int objectId, L2CharTemplate template, int doorId, String name, boolean unlockable)
 	{
 		super(objectId, template);
@@ -196,23 +188,23 @@ public class L2DoorInstance extends L2Character
 	{
 		return new DoorKnownList(this);
 	}
-	
+
 	@Override
 	public final DoorKnownList getKnownList()
 	{
-		return (DoorKnownList)_knownList;
+		return (DoorKnownList) _knownList;
 	}
-	
+
 	@Override
 	protected CharStat initStat()
 	{
 		return new DoorStat(this);
 	}
-	
+
 	@Override
 	public DoorStat getStat()
 	{
-		return (DoorStat)_stat;
+		return (DoorStat) _stat;
 	}
 
 	public final boolean isUnlockable()
@@ -226,26 +218,16 @@ public class L2DoorInstance extends L2Character
 		return 1;
 	}
 
-	/**
-	 * @return Returns the doorId.
-	 */
 	public int getDoorId()
 	{
 		return _doorId;
 	}
 
-	/**
-	 * @return Returns the open.
-	 */
-	public boolean getOpen()
+	public boolean isOpen()
 	{
 		return _open;
 	}
 
-	/**
-	 * @param open
-	 *            The open to set.
-	 */
 	public void setOpen(boolean open)
 	{
 		_open = open;
@@ -258,25 +240,23 @@ public class L2DoorInstance extends L2Character
 	 */
 	public void setIsCommanderDoor(boolean val)
 	{
-		_isCommanderDoor = val;
+		_commanderDoor = val;
 	}
 
 	/**
 	 * @return Doors that cannot be attacked during siege
 	 * these doors will be auto opened if u take control of all commanders buildings
 	 */
-	public boolean getIsCommanderDoor()
+	public boolean isCommanderDoor()
 	{
-		return _isCommanderDoor;
+		return _commanderDoor;
 	}
 
 	/**
 	 * Sets the delay in milliseconds for automatic opening/closing of this door
 	 * instance. <BR>
 	 * <B>Note:</B> A value of -1 cancels the auto open/close task.
-	 * 
-	 * @param actionDelay
-	 *            actionDelay
+	 * @param actionDelay open/close delay
 	 */
 	public void setAutoActionDelay(int actionDelay)
 	{
@@ -297,14 +277,9 @@ public class L2DoorInstance extends L2Character
 		_autoActionDelay = actionDelay;
 	}
 
-	public int getDamage()
+	public int getDamageGrade()
 	{
-		int dmg = 6 - (int) Math.ceil(getStatus().getCurrentHp() / getMaxHp() * 6);
-		if (dmg > 6)
-			return 6;
-		if (dmg < 0)
-			return 0;
-		return dmg;
+		return L2Math.limit(0, 6 - Math.ceil(getStatus().getCurrentHp() / getMaxHp() * 6), 6);
 	}
 
 	public final Castle getCastle()
@@ -359,7 +334,7 @@ public class L2DoorInstance extends L2Character
 	{
 		if (getCastle() != null && getCastle().getSiege().getIsInProgress())
 			return true;
-		else if (getFort() != null && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor())
+		else if (getFort() != null && getFort().getSiege().getIsInProgress() && !isCommanderDoor())
 			return true;
 		else if (getClanHall() != null && getClanHall().getSiege() != null)
 			return getClanHall().getSiege().getIsInProgress();
@@ -378,7 +353,7 @@ public class L2DoorInstance extends L2Character
 
 		// Attackable only during siege by everyone (not owner)
 		boolean isCastle = (getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress());
-		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && !getIsCommanderDoor());
+		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && !isCommanderDoor());
 		boolean isHideout = (getClanHall() != null && getClanHall().getSiege() != null && getClanHall().getSiege().getIsInProgress());
 
 		if (isFort)
@@ -471,7 +446,7 @@ public class L2DoorInstance extends L2Character
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 
-			player.sendPacket(new StaticObject(this));
+			sendInfo(player);
 		}
 		else
 		{
@@ -494,7 +469,7 @@ public class L2DoorInstance extends L2Character
 				else
 				{
 					player.gatesRequest(this);
-					if (!getOpen())
+					if (!isOpen())
 					{
 						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE));
 					}
@@ -513,7 +488,7 @@ public class L2DoorInstance extends L2Character
 				else
 				{
 					player.gatesRequest(this);
-					if (!getOpen())
+					if (!isOpen())
 					{
 						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE));
 					}
@@ -524,9 +499,6 @@ public class L2DoorInstance extends L2Character
 				}
 			}
 		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to
-		// avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -536,7 +508,7 @@ public class L2DoorInstance extends L2Character
 		{
 			player.setTarget(this);
 
-			player.sendPacket(new StaticObject(this));
+			sendInfo(player);
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
@@ -576,16 +548,14 @@ public class L2DoorInstance extends L2Character
 		{
 			// ATTACK the mob without moving?
 		}
-
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
 	public final void broadcastStatusUpdateImpl()
 	{
-		broadcastPacket(new DoorStatusUpdate(this));
+		broadcastFullInfoImpl();
 	}
-	
+
 	public void onOpen()
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new CloseTask(), 60000);
@@ -694,28 +664,34 @@ public class L2DoorInstance extends L2Character
 	{
 		return _D;
 	}
-	
+
+	// FIXME: BADLY IMPLEMENTED METHODS
+	// Most doors (Castle, CH, Fort, automatic) show hp and are targetable
+	// Some automatic doors (e.g. krateis cube) are NOT targetable (and don't show hp)
+
 	@Override
 	public void sendInfo(L2PcInstance activeChar)
 	{
 		activeChar.sendPacket(new StaticObject(this));
 	}
-	
+
 	@Override
 	public void broadcastFullInfoImpl()
 	{
 		broadcastPacket(new StaticObject(this));
 	}
-	
+
+	// BADLY IMPLEMENTED METHODS END
+
 	@Override
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
 			return false;
-		
+
 		if (isEnemy())
 			broadcastPacket(SystemMessageId.CASTLE_GATE_BROKEN_DOWN.getSystemMessage());
-		
+
 		return true;
 	}
 }

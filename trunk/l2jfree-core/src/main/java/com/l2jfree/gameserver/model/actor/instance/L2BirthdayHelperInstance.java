@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public final class L2BirthdayHelperInstance extends L2Npc
 {
-	private static final int HELPING_LENGTH = 1200000;
-	private static final int BIRTHDAY_CAKE_EFFECT = 22035;
+	private static final int HELPING_LENGTH = 300000;
+	private static final int BIRTHDAY_CAKE_EFFECT = 5950;
 
 	private int _ownerId;
 	private ScheduledFuture<?> _leaveTask;

@@ -18,10 +18,12 @@ import java.util.Calendar;
 import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
+import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
@@ -42,6 +44,8 @@ public final class L2TeleporterInstance extends L2Npc
 	private static final int	COND_BUSY_BECAUSE_OF_SIEGE	= 1;
 	private static final int	COND_OWNER					= 2;
 	private static final int	COND_REGULAR				= 3;
+
+	private static final int	BIRTHDAY_HELPER				= 32600;
 
 	public L2TeleporterInstance(int objectId, L2NpcTemplate template)
 	{
@@ -132,11 +136,30 @@ public final class L2TeleporterInstance extends L2Npc
 		{
 			if (player.canReceiveAnnualPresent() == 0 || player.isGM())
 			{
-				if (player.claimCreationPrize())
-					player.addItem("Creation Day", 20314, 1, this, true);
-				else
+				L2NpcTemplate template = NpcTable.getInstance().getTemplate(BIRTHDAY_HELPER);
+				if (template == null)
+				{
+					if (player.isGM())
+						player.sendMessage("Missing NPC " + BIRTHDAY_HELPER);
+					else
+						player.sendPacket(SystemMessageId.TRY_AGAIN_LATER);
+					return;
+				}
+				else if (!player.claimCreationPrize())
+				{
 					player.sendPacket(SystemMessageId.TRY_AGAIN_LATER);
-				showChatWindow(player);
+					return;
+				}
+				L2Spawn spawn = new L2Spawn(template);
+				spawn.setLocx(player.getX());
+				spawn.setLocy(player.getY());
+				spawn.setLocz(player.getZ() + 20);
+				spawn.setAmount(1);
+				spawn.setHeading(65535 - player.getHeading());
+				spawn.setInstanceId(player.getInstanceId());
+				L2BirthdayHelperInstance helper = (L2BirthdayHelperInstance) spawn.spawnOne(false);
+				spawn.stopRespawn();
+				helper.setOwner(player);
 			}
 			else
 			{

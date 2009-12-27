@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvT;
 import com.l2jfree.gameserver.model.entity.events.TvT.TvTPlayerInfo;
-import com.l2jfree.gameserver.network.serverpackets.PlaySound;
+import com.l2jfree.gameserver.model.quest.Quest;
 
 /**
  * @author NB4L1
@@ -133,8 +133,7 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 					targetInfo._countTvTdies++;
 					killerInfo._countTvTkills++;
 					killer.getAppearance().setVisibleTitle("Kills: " + killerInfo._countTvTkills);
-					killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target
-							.getX(), target.getY(), target.getZ()));
+					killer.sendPacket(Quest.SND_ITEM_GET);
 					TvT.setTeamKillsCount(killerInfo._teamNameTvT, TvT.teamKillsCount(killerInfo._teamNameTvT) + 1);
 				}
 				else

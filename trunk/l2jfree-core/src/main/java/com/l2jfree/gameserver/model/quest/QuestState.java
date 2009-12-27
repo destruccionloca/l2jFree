@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExShowQuestMark;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.QuestList;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -236,6 +237,11 @@ public final class QuestState
 			}
 		}
 		return val;
+	}
+
+	public String set(String var, int val)
+	{
+		return set(var, String.valueOf(val));
 	}
 
 	/**
@@ -704,9 +710,6 @@ public final class QuestState
     {
         dropChance *= Config.RATE_DROP_QUEST / ((getPlayer().getParty() != null) ? getPlayer().getParty().getMemberCount() : 1);
         long currentCount = getQuestItemsCount(itemId);
-
-        if (neededCount > 0 && currentCount >= neededCount)
-            return true;
         
         if (currentCount >= neededCount)
             return true;
@@ -809,9 +812,18 @@ public final class QuestState
 	 */
 	public void playSound(String sound)
 	{
-		getPlayer().sendPacket(new PlaySound(0, sound));
+		sendPacket(new PlaySound(0, sound));
 	}
-
+	
+	/**
+	 * Send a packet in order to play sound at client terminal
+	 * @param sound
+	 */
+	public void sendPacket(L2GameServerPacket packet)
+	{
+		getPlayer().sendPacket(packet);
+	}
+	
 	/**
 	 * Add XP and SP as quest reward
 	 * @param exp
@@ -1042,7 +1054,7 @@ public final class QuestState
 
 	public void playTutorialVoice(String voice)
 	{
-		getPlayer().sendPacket(new PlaySound(2, voice, 0, 0, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ()));
+		getPlayer().sendPacket(new PlaySound(2, voice));
 	}
 
 	public void showTutorialHTML(String html)

@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 /**
@@ -25,7 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
  */
 public class CharacterRestore extends L2GameClientPacket
 {
-	private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
+	private static final String _C__7B_CHARACTERRESTORE = "[C] 7B CharacterRestore";
 
 	// cd
     private int _charSlot;
@@ -47,16 +46,17 @@ public class CharacterRestore extends L2GameClientPacket
 	    {
 	    	_log.warn("", e);
 	    }
+
 		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
 		sendPacket(cl);
 		getClient().setCharSelection(cl.getCharInfo());
-		cl = null;
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__62_CHARACTERRESTORE;
+		return _C__7B_CHARACTERRESTORE;
 	}
 }

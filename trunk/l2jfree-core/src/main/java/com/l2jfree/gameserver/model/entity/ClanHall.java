@@ -399,7 +399,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				getDoors().set(i, door);
 			}
-			else if (door.getOpen())
+			else if (door.isOpen())
 				door.closeMe();
 		}
 	}

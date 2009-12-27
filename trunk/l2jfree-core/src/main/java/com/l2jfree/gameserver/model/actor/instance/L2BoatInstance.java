@@ -680,7 +680,7 @@ public class L2BoatInstance extends L2Character
 					if (getId() == 5)
 						sm2 = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess5_1);
 				}
-				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
+				ps = new PlaySound(0, this, 0, "itemsound.ship_arrival_departure");
 				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
 				for (L2PcInstance player : knownPlayers)
@@ -701,7 +701,7 @@ public class L2BoatInstance extends L2Character
 				{
 					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess5_1);
 				}
-				ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
+				ps = new PlaySound(0, this, 0, "itemsound.ship_5min");
 				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
 				for (L2PcInstance player : knownPlayers)
@@ -719,7 +719,7 @@ public class L2BoatInstance extends L2Character
 				{
 					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmess1_1);
 				}
-				ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
+				ps = new PlaySound(0, this, 0, "itemsound.ship_1min");
 				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
 				for (L2PcInstance player : knownPlayers)
@@ -754,7 +754,7 @@ public class L2BoatInstance extends L2Character
 				{
 					sm = new CreatureSay(0, SystemChatChannelId.Chat_Shout, _t2.npc1, _t2.sysmessb_1);
 				}
-				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
+				ps = new PlaySound(0, this, 0, "itemsound.ship_arrival_departure");
 				for (L2PcInstance player : knownPlayers)
 				{
 					player.sendPacket(sm);

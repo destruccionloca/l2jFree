@@ -436,7 +436,7 @@ public class Fort extends Siegeable<FortSiege>
 		for (int i = 0; i < getDoors().size(); i++)
 		{
 			L2DoorInstance door = getDoors().get(i);
-			if (door.getOpen())
+			if (door.isOpen())
 				door.closeMe();
 			if (door.getStatus().getCurrentHp() <= 0)
 				door.doRevive();
@@ -805,7 +805,7 @@ public class Fort extends Siegeable<FortSiege>
 						player.sendPacket(sm);
 				}
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
-				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
+				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory"));
 				int runCount = getOwnedTime() / (Config.FS_BLOOD_OATH_FRQ * 60);
 				long initial = System.currentTimeMillis() - _lastOwnedTime;
 				while (initial > (Config.FS_BLOOD_OATH_FRQ * 60000))

@@ -568,7 +568,7 @@ public class FortSiege extends AbstractSiege
 					// open doors in main building
 					for (L2DoorInstance door : getFort().getDoors())
 					{
-						if (!door.getIsCommanderDoor())
+						if (!door.isCommanderDoor())
 							continue;
 						door.openMe();
 					}

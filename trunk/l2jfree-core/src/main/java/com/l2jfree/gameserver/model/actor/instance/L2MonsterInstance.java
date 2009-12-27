@@ -108,6 +108,9 @@ public class L2MonsterInstance extends L2Attackable
 	{
 		super.onSpawn();
 
+		if (getRightHandItem() > 0)
+			setWeaponEnchantLevel(Rnd.get(16));
+
 		if (_minionList != null)
 		{
 			if (getSpawnedMinions() != null)

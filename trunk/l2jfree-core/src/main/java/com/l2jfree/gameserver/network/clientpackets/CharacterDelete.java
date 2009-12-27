@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteFail;
 import com.l2jfree.gameserver.network.serverpackets.CharDeleteSuccess;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
@@ -27,7 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
  */
 public class CharacterDelete extends L2GameClientPacket
 {
-	private static final String _C__0C_CHARACTERDELETE = "[C] 0C CharacterDelete";
+	private static final String _C__0D_CHARACTERDELETE = "[C] 0D CharacterDelete";
 
 	// cd
 	private int _charSlot;
@@ -41,7 +40,8 @@ public class CharacterDelete extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_log.isDebugEnabled()) _log.debug("deleting slot:" + _charSlot);
+		if (_log.isDebugEnabled())
+			_log.debug("deleting slot:" + _charSlot);
 
 		try
 		{
@@ -68,16 +68,16 @@ public class CharacterDelete extends L2GameClientPacket
 			_log.fatal("Error:", e);
 		}
 
-		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1, 0);
+		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
 		sendPacket(cl);
 		getClient().setCharSelection(cl.getCharInfo());
-		cl = null;
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__0C_CHARACTERDELETE;
+		return _C__0D_CHARACTERDELETE;
 	}
 }

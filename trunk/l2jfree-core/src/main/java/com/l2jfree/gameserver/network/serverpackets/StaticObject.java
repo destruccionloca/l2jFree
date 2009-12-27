@@ -19,76 +19,96 @@ import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 
 public class StaticObject extends L2GameServerPacket
 {
-	private final static String S_9F_STATICOBJECT = "[S] 9f StaticObject";
+	private final static String S_9F_STATICOBJECT = "[S] 9F StaticObject";
+
 	private final int _staticObjectId;
 	private final int _objectId;
 	private final int _type;
-	private final boolean _isTargetable;
+	private final boolean _targetable;
 	private final int _meshIndex;
-	private final boolean _isClosed;
-	private final boolean _isEnemy;
+	private final boolean _closed;
+	private final boolean _enemy;
 	private final int _maxHp;
 	private final int _currentHp;
-	private final boolean _showHp;
+	private final boolean _hpShown;
 	private final int _damageGrade;
 
+	/**
+	 * Default static object packet.
+	 * @param staticObject A static object (throne, bulletin, etc)
+	 */
 	public StaticObject(L2StaticObjectInstance staticObject)
 	{
 		_staticObjectId = staticObject.getStaticObjectId();
 		_objectId = staticObject.getObjectId();
 		_type = 0;
-		_isTargetable = true;
+		_targetable = true;
 		_meshIndex = staticObject.getMeshIndex();
-		_isClosed = false;
-		_isEnemy = false;
+		_closed = false;
+		_enemy = false;
 		_maxHp = 0;
 		_currentHp = 0;
-		_showHp = false;
+		_hpShown = false;
 		_damageGrade = 0;
 	}
-	
+
+	/**
+	 * Creates a default info packet for a door.
+	 * Targeting is allowed and HP is shown.
+	 * @param door A door instance
+	 */
 	public StaticObject(L2DoorInstance door)
 	{
-		this(door, door.getCastle() != null ||
-				(door.getFort() != null && !door.getIsCommanderDoor()) ||
-				(door.getClanHall() != null && door.getClanHall().getSiege() != null));
+		this(door, true, true);
 	}
-	
-	public StaticObject(L2DoorInstance door, boolean showHp)
+
+	/**
+	 * Advanced door packet creation.
+	 * @param door A door instance
+	 * @param target Can the player target the object
+	 * @param showHp Should we show HP when targeted
+	 */
+	public StaticObject(L2DoorInstance door, boolean targetable, boolean hpShown)
 	{
 		_staticObjectId = door.getDoorId();
 		_objectId = door.getObjectId();
 		_type = 1;
-		_isTargetable = true;
+		_targetable = targetable;
 		_meshIndex = 1;
-		_isClosed = !door.getOpen();
-		_isEnemy = door.isEnemy();
+		_closed = !door.isOpen();
 		_maxHp = door.getMaxHp();
-		_currentHp = (int) door.getStatus().getCurrentHp();
-		_showHp = showHp;
-		_damageGrade = door.getDamage();
+		if (_targetable)
+		{
+			_enemy = door.isEnemy();
+			_currentHp = (int) door.getCurrentHp();
+		}
+		else
+		{
+			_enemy = false;
+			_currentHp = _maxHp;
+		}
+		_hpShown = hpShown;
+		_damageGrade = door.getDamageGrade();
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x9f);
+		writeC(0x9F);
+
 		writeD(_staticObjectId);
 		writeD(_objectId);
 		writeD(_type);
-		writeD(_isTargetable ? 1 : 0);
+		writeD(_targetable);
 		writeD(_meshIndex);
-		writeD(_isClosed ? 1 : 0);
-		writeD(_isEnemy ? 1 : 0);
+		writeD(_closed);
+		writeD(_enemy);
 		writeD(_currentHp);
 		writeD(_maxHp);
-		writeD(_showHp ? 1 : 0);
+		writeD(_hpShown);
 		writeD(_damageGrade);
 	}
 
-	/* (non-Javadoc)
-	* @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	*/
 	@Override
 	public String getType()
 	{

@@ -36,30 +36,14 @@ public class CharSelectionInfo extends L2GameServerPacket
 	private static final String _S__09_CHARSELECTINFO = "[S] 09 CharSelectInfo [ddc (sdsddd dddd ddd ff d q ddddd dddddddddddddddddddddddddddddddddd ff ddd hh d)]";
 
 	private final String _loginName;
-
 	private final int _sessionId;
-
-	private int _activeId;
-
 	private final CharSelectInfoPackage[] _characterPackages;
 
-	/**
-	 * @param _characters
-	 */
 	public CharSelectionInfo(String loginName, int sessionId)
 	{
 		_sessionId = sessionId;
 		_loginName = loginName;
 		_characterPackages = loadCharacterSelectInfo();
-		_activeId = -1;
-	}
-	
-	public CharSelectionInfo(String loginName, int sessionId, int activeId)
-	{
-		_sessionId = sessionId;
-		_loginName = loginName;
-		_characterPackages = loadCharacterSelectInfo();
-		_activeId = activeId;
 	}
 
 	public CharSelectInfoPackage[] getCharInfo()
@@ -72,20 +56,22 @@ public class CharSelectionInfo extends L2GameServerPacket
 	{
 		writeC(0x09);
 
-		int size = (_characterPackages.length);
+		int size = _characterPackages.length;
 		writeD(size);
         writeD(0x07);
         writeC(0x00);
-        
-		long lastAccess = 0L;
 
-		if (_activeId == -1)
-			for (int i = 0; i < size; i++)
-				if (lastAccess < _characterPackages[i].getLastAccess())
-				{
-					lastAccess = _characterPackages[i].getLastAccess();
-					_activeId = i;
-				}
+		long lastAccess = 0L;
+		int activeId = 0;
+		for (int i = 0; i < size; i++)
+		{
+			CharSelectInfoPackage infoPack = _characterPackages[i];
+			if (lastAccess < infoPack.getLastAccess())
+			{
+				lastAccess = infoPack.getLastAccess();
+				activeId = i;
+			}
+		}
 
 		for (int i = 0; i < size; i++)
 		{
@@ -106,11 +92,11 @@ public class CharSelectionInfo extends L2GameServerPacket
 			else
 				writeD(charInfoPackage.getBaseClassId());
 
-			writeD(0x01); // active ??
+			writeD(0x01); // active ?? (no difference between 0 and 1)
 
-			writeD(0x00); // x
-			writeD(0x00); // y
-			writeD(0x00); // z
+			writeD(charInfoPackage.getX());
+			writeD(charInfoPackage.getY());
+			writeD(charInfoPackage.getZ());
 
 			writeF(charInfoPackage.getCurrentHp()); // hp cur
 			writeF(charInfoPackage.getCurrentMp()); // mp cur
@@ -121,16 +107,10 @@ public class CharSelectionInfo extends L2GameServerPacket
 
 			writeD(charInfoPackage.getKarma()); // karma
             writeD(charInfoPackage.getPkKills());
-            
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            
+
+            for (int k = 0; k < 8; k++)
+            	writeD(0x00);
+
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
@@ -148,7 +128,7 @@ public class CharSelectionInfo extends L2GameServerPacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
-            
+
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
@@ -157,9 +137,9 @@ public class CharSelectionInfo extends L2GameServerPacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
-            if (Config.PACKET_FINAL)
-                writeD(0x00);
-            
+            if (Config.PACKET_FINAL) // verified
+                writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BELT));
+
             writeD(charInfoPackage.getHairStyle());
             writeD(charInfoPackage.getHairColor());
             writeD(charInfoPackage.getFace());
@@ -170,12 +150,10 @@ public class CharSelectionInfo extends L2GameServerPacket
 			long deleteTime = charInfoPackage.getDeleteTimer();
 			int deletedays = 0;
 			if (deleteTime > 0)
-				deletedays = (int)((deleteTime-System.currentTimeMillis())/1000);
+				deletedays = (int) ((deleteTime - System.currentTimeMillis()) / 1000);
 			writeD(deletedays); // days left before
-			// delete .. if != 0
-			// then char is inactive
 			writeD(charInfoPackage.getClassId());
-			writeD(i != _activeId ? 0 : 1);
+			writeD(i == activeId);
 			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
 			writeD(charInfoPackage.getAugmentationId());
 
@@ -255,7 +233,6 @@ public class CharSelectionInfo extends L2GameServerPacket
 
 	}
 
-
 	private CharSelectInfoPackage restoreChar(ResultSet chardata) throws Exception
 	{
 		int objectId = chardata.getInt("charId");
@@ -297,12 +274,15 @@ public class CharSelectionInfo extends L2GameServerPacket
 		charInfopackage.setClanId(chardata.getInt("clanid"));
 
 		charInfopackage.setRace(chardata.getInt("race"));
+		charInfopackage.setX(chardata.getInt("x"));
+		charInfopackage.setY(chardata.getInt("y"));
+		charInfopackage.setZ(chardata.getInt("z"));
 
 		final int baseClassId = chardata.getInt("base_class");
 		final int activeClassId = chardata.getInt("classid");
 
 		// if is in subclass, load subclass exp, sp, lvl info
-		if(baseClassId != activeClassId)
+		if (baseClassId != activeClassId)
 			loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);
 
 		charInfopackage.setClassId(activeClassId);

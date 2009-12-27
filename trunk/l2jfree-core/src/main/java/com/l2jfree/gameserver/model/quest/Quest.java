@@ -48,6 +48,7 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.NpcQuestHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.scripting.ManagedScript;
 import com.l2jfree.gameserver.scripting.ScriptManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -59,6 +60,22 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class Quest extends ManagedScript
 {
+	// Basic variables
+	public static final String CONDITION = "cond";
+	public static final String ID = "id";
+	public static final String NO_QUEST = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
+
+	// Quest sounds
+	public static final PlaySound SND_ACCEPT = new PlaySound(0, "ItemSound.quest_accept");
+	public static final PlaySound SND_FINISH = new PlaySound(0, "ItemSound.quest_finish");
+	public static final PlaySound SND_MIDDLE = new PlaySound(0, "ItemSound.quest_middle");
+	public static final PlaySound SND_ITEM_GET = new PlaySound(0, "ItemSound.quest_itemget");
+
+	// Quest monster status
+	public static final int ATTACK_NOONE = 0;
+	public static final int ATTACK_SINGLE = 1;
+	public static final int ATTACK_MULTIPLE = 2;
+
 	protected static final Log							_log			= LogFactory.getLog(Quest.class);
 
 	/** HashMap containing events from String value of the event */
@@ -161,7 +178,6 @@ public class Quest extends ManagedScript
 		{
 			return _allowMultipleRegistration;
 		}
-
 	}
 
 	/**
@@ -625,6 +641,17 @@ public class Quest extends ManagedScript
 	// these are methods that java calls to invoke scripts
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
+		switch (npc.getQuestAttackStatus())
+		{
+		case ATTACK_NOONE:
+			npc.setQuestFirstAttacker(attacker);
+			npc.setQuestAttackStatus(ATTACK_SINGLE);
+			break;
+		case ATTACK_SINGLE:
+			if (attacker != npc.getQuestFirstAttacker())
+				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
+			break;
+		}
 		return null;
 	}
 
@@ -699,6 +726,8 @@ public class Quest extends ManagedScript
 
 	public String onSpawn(L2Npc npc)
 	{
+		npc.setQuestFirstAttacker(null);
+		npc.setQuestAttackStatus(ATTACK_NOONE);
 		return null;
 	}
 

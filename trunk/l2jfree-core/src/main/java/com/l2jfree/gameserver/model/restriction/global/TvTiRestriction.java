@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.events.TvTInstanced.TvTIMain;
-import com.l2jfree.gameserver.network.serverpackets.PlaySound;
+import com.l2jfree.gameserver.model.quest.Quest;
 
 /**
  * @author NB4L1
@@ -120,8 +120,7 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 		{
 			killer._countTvTiKills++;
 			killer.getAppearance().setVisibleTitle("Kills: " + killer._countTvTiKills);
-			killer.sendPacket(new PlaySound(0, "ItemSound.quest_itemget", 1, target.getObjectId(), target.getX(),
-					target.getY(), target.getZ()));
+			killer.sendPacket(Quest.SND_ITEM_GET);
 			TvTIMain.addKill(killer);
 		}
 		else if (TvTIMain.checkSameTeam(killer, target))

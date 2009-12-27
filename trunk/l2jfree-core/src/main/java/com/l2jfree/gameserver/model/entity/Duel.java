@@ -388,7 +388,7 @@ public class Duel
 		}
 
 		// play sound
-		PlaySound ps = new PlaySound(1, "B04_S01", 0, 0, 0, 0, 0);
+		PlaySound ps = new PlaySound(1, "B04_S01");
 		broadcastToTeam1(ps);
 		broadcastToTeam2(ps);
 

@@ -221,8 +221,8 @@ public class CharacterCreate extends L2GameClientPacket
 		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
-		cl = null;
-		if (_log.isDebugEnabled()) _log.debug("Character init end");
+		if (_log.isDebugEnabled())
+			_log.debug("Character init end");
 	}
 
 	public void startTutorialQuest(L2PcInstance player)

@@ -535,7 +535,7 @@ public class Castle extends Siegeable<Siege>
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				getDoors().set(i, door);
 			}
-			else if (door.getOpen())
+			else if (door.isOpen())
 				door.closeMe();
 		}
 		loadDoorUpgrade(); // Check for any upgrade the doors may have
@@ -792,7 +792,7 @@ public class Castle extends Siegeable<Siege>
 				clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
 				Announcements.getInstance().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
-				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
+				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory"));
 
 				// give crowns
 				CrownManager.checkCrowns(clan);

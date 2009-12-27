@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 
+/** @deprecated Seems to be completely replaced by StaticObject in retail */
+@Deprecated
 public class DoorInfo extends L2GameServerPacket
 {
 	private static final String _S__4C_DOORINFO = "[S] 4c DoorInfo [ddd]";
@@ -23,9 +25,9 @@ public class DoorInfo extends L2GameServerPacket
 
 	public DoorInfo(L2DoorInstance door)
 	{
-		_door=door;
+		_door = door;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -34,10 +36,7 @@ public class DoorInfo extends L2GameServerPacket
 		writeD(_door.getDoorId());
 		writeD(0x00); //door hp view
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+
 	@Override
 	public String getType()
 	{

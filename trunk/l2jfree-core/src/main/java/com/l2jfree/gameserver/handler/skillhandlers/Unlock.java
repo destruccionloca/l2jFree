@@ -45,7 +45,7 @@ public class Unlock implements ISkillHandler
 					return;
 				}
 
-				if (!door.getOpen() && Formulas.calculateUnlockChance(skill))
+				if (!door.isOpen() && Formulas.calculateUnlockChance(skill))
 				{
 					door.openMe();
 					door.onOpen();

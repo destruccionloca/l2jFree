@@ -23,14 +23,12 @@ import com.l2jfree.gameserver.network.serverpackets.RestartResponse;
 
 public final class RequestRestart extends L2GameClientPacket
 {
-	private static final String	_C__46_REQUESTRESTART	= "[C] 46 RequestRestart";
+	private static final String	_C__57_REQUESTRESTART	= "[C] 57 RequestRestart";
 
-	/**
-	 * packet type id 0x46 format: c
-	 */
 	@Override
 	protected void readImpl()
 	{
+		// trigger packet
 	}
 
 	@Override
@@ -65,6 +63,6 @@ public final class RequestRestart extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__46_REQUESTRESTART;
+		return _C__57_REQUESTRESTART;
 	}
 }

@@ -174,7 +174,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
-			writeD(0x00); // C4
+			writeD(_npc.getWeaponEnchantLevel()); // C4
 			writeD(_npc.isFlying() ? 1 : 0); // C6
 			writeD(0x00);
 			writeD(0x00);// CT1.5 Pet form and skills

@@ -207,12 +207,19 @@ public class L2Npc extends L2Character
 
 	private boolean					_isKillable						= true;
 	private boolean					_questDropable					= true;
-	
+
+	// In case quests are going to use non-L2Attackables in the future
+	private int						_questAttackStatus;
+	private L2PcInstance			_questFirstAttacker;
+
+	// doesn't affect damage at all (retail)
+	private int						_weaponEnchant;
+
 	public final void broadcastRandomAnimation(boolean force)
 	{
 		tryBroadcastRandomAnimation(force, true);
 	}
-	
+
 	public final boolean tryBroadcastRandomAnimation(boolean force, boolean init)
 	{
 		if (!isInActiveRegion() || !hasRandomAnimation())
@@ -2916,4 +2923,34 @@ public class L2Npc extends L2Character
 		&& Config.CHAMPION_FREQUENCY > 0 && !getTemplate().isQuestMonster() && getLevel() >= Config.CHAMPION_MIN_LEVEL
 		&& getLevel() <= Config.CHAMPION_MAX_LEVEL;
  	}
+
+	public int getQuestAttackStatus()
+	{
+		return _questAttackStatus;
+	}
+
+	public void setQuestAttackStatus(int status)
+	{
+		_questAttackStatus = status;
+	}
+
+	public L2PcInstance getQuestFirstAttacker()
+	{
+		return _questFirstAttacker;
+	}
+
+	public void setQuestFirstAttacker(L2PcInstance attacker)
+	{
+		_questFirstAttacker = attacker;
+	}
+
+	public int getWeaponEnchantLevel()
+	{
+		return _weaponEnchant;
+	}
+
+	public void setWeaponEnchantLevel(int level)
+	{
+		_weaponEnchant = level;
+	}
 }

@@ -133,7 +133,7 @@ public final class DoorTable
 	{
 		for (L2DoorInstance door : getDoors())
 		{
-			if (door.getFort() != null && door.getOpen())
+			if (door.getFort() != null && door.isOpen())
 			{
 				door.setOpen(false);
 				door.setIsCommanderDoor(true);
@@ -302,7 +302,7 @@ public final class DoorTable
 					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
 					// in some cases the direct line check (only) in the beginning isn't sufficient,
 					// when char z changes a lot along the path
-					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.getOpen())
+					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.isOpen())
 					{
 						int px1 = doorInst.getXMin();
 						int py1 = doorInst.getYMin();
