@@ -1,496 +1,506 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
-  <skill id="6100" levels="3" name="Turkey's Choice - Scissors">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3000"/>
-  </skill>
-  <skill id="6103" levels="5" name="Showdown with the Turkey - 1 Win">
+  <skill id="2900" levels="1" name="Ancient Herb - Slayer">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6104" levels="1" name="Event Cancel">
+  <skill id="2901" levels="1" name="Ancient Herb - Immortal">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6105" levels="1" name="Turkey's Mistake">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
-  </skill>
-  <skill id="6106" levels="1" name="Winter Holiday Festival">
+  <skill id="2902" levels="1" name="Ancient Herb - Terminator">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6107" levels="1" name="Winter Holiday Blessing - Gludio">
+  <skill id="2903" levels="1" name="Ancient Herb - Guide">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6108" levels="1" name="Winter Holiday Blessing - Dion">
+  <skill id="2904" levels="1" name="Guardian Spirit's Divine Protection">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6109" levels="1" name="Winter Holiday Blessing - Giran">
+  <skill id="2905" levels="1" name="Growth Accelerator">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6110" levels="1" name="Winter Holiday Blessing - Oren">
+  <skill id="2906" levels="1" name="Incubation Accelerator">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6111" levels="1" name="Winter Holiday Blessing - Aden">
+  <skill id="2907" levels="1" name="Battlefield Use Secret Medicine of Life">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6112" levels="1" name="Winter Holiday Blessing - Innadril">
+  <skill id="2908" levels="1" name="Battlefield Use Secret Medicine of Mind">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6113" levels="1" name="Winter Holiday Blessing - Goddard">
+  <skill id="2909" levels="1" name="Battlefield Use Secret Medicine of Will">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6114" levels="1" name="Winter Holiday Blessing - Rune">
+  <skill id="2910" levels="1" name="Skull Key of Pain">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6115" levels="1" name="Winter Holiday Blessing - Schuttgart">
+  <skill id="2911" levels="1" name="Skull Key of Erosion">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6116" levels="1" name="Attack Turkey">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3000"/>
-  </skill>
-  <skill id="6117" levels="3" name="Choice - Scissors">
+  <skill id="2912" levels="1" name="Skull Key of the Heart">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6120" levels="1" name="Santa Claus' Reward">
-    <set name="itemConsumeId" val="20101"/>
-    <set name="itemConsumeCount" val="1"/>
+  <skill id="2913" levels="1" name="Soul Extraction">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2914" levels="2" name="Equipment Set 10 Day Pack">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2915" levels="1" name="Clear Five-Colored Crystal">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2916" levels="1" name="Feed for Enriched Enhanced Pets">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2917" levels="1" name="Big Staccato Silk Cocoon">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2918" levels="1" name="Small Staccato Silk Cocoon">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2919" levels="1" name="Ancient Parchment">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2920" levels="1" name="Titan's Ancient Book">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2921" levels="1" name="Gludio Supply Box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2922" levels="1" name="Dion supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2923" levels="1" name="Giran supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2924" levels="1" name="Oren supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2925" levels="1" name="Aden supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2926" levels="1" name="Innadril supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2927" levels="1" name="Goddard supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2928" levels="1" name="Rune supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2929" levels="1" name="Schuttgart supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2930" levels="1" name="Gludio supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2931" levels="1" name="Dion supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2932" levels="1" name="Giran supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2933" levels="1" name="Oren supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2934" levels="1" name="Aden supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2935" levels="1" name="Innadril supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2936" levels="1" name="Goddard supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2937" levels="1" name="Rune supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2938" levels="1" name="Schuttgart supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2939" levels="1" name="Gludio supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2940" levels="1" name="Dion supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2941" levels="1" name="Giran supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2942" levels="1" name="Oren supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2943" levels="1" name="Aden supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2944" levels="1" name="Innadril supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2945" levels="1" name="Goddard supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2946" levels="1" name="Rune supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2947" levels="1" name="Schuttgart supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2948" levels="1" name="Gludio Supply Box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2949" levels="1" name="Dion supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2950" levels="1" name="Giran supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2951" levels="1" name="Oren supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2952" levels="1" name="Aden supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2953" levels="1" name="Innadril supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2954" levels="1" name="Goddard supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2955" levels="1" name="Rune supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2956" levels="1" name="Schuttgart supply box - magic pin">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2957" levels="1" name="Gludio supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2958" levels="1" name="Dion supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2959" levels="1" name="Giran supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2960" levels="1" name="Oren supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2961" levels="1" name="Aden supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2962" levels="1" name="Innadril supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2963" levels="1" name="Goddard supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2964" levels="1" name="Rune supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2965" levels="1" name="Schuttgart supply box - magic pouch">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2966" levels="1" name="Gludio supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2967" levels="1" name="Dion supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2968" levels="1" name="Giran supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2969" levels="1" name="Oren supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2970" levels="1" name="Aden supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2971" levels="1" name="Innadril supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2972" levels="1" name="Goddard supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2973" levels="1" name="Rune supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2974" levels="1" name="Schuttgart supply box - belt">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2975" levels="1" name="Gludio supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2976" levels="1" name="Dion supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2977" levels="1" name="Giran supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2978" levels="1" name="Oren supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2979" levels="1" name="Aden supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2980" levels="1" name="Innadril supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2981" levels="1" name="Goddard supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2982" levels="1" name="Rune supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2983" levels="1" name="Schuttgart supply box - magic rune clip">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2984" levels="1" name="Gludio supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2985" levels="1" name="Dion supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2986" levels="1" name="Giran supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2987" levels="1" name="Oren supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2988" levels="1" name="Aden supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2989" levels="1" name="Innadril supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2990" levels="1" name="Goddard supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2991" levels="1" name="Rune supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2992" levels="1" name="Schuttgart supply box - magic ornament">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2993" levels="1" name="Ancient herb - Deceiver">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="2994" levels="1" name="Disguised Half - Aqua Elf">
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="EXTRACTABLE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <cond msgId="129">
-      <and>
-        <player invSize="10"/>
-        <player weight="80"/>
-      </and>
-    </cond>
-  </skill>
-  <skill id="6121" levels="1" name="Agathion's New Year's Gift 1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2700"/>
-  </skill>
-  <skill id="6122" levels="1" name="Agathion's New Year's Gift 2">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2700"/>
-  </skill>
-  <skill id="6123" levels="1" name="Agathion's New Year's Wish">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2000"/>
-  </skill>
-  <skill id="6124" levels="1" name="Agathion Cute Trick - Saerom">
-    <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
-    <set name="staticReuse" val="true"/>
-    <set name="staticHitTime" val="true"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="DUMMY"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <cond msgId="2292">
-      <player agathionId="16063"/>
-    </cond>
-  </skill>
-  <skill id="6125" levels="1" name="Paralysis">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6126" levels="1" name="Paralysis">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6127" levels="1" name="Anti-limit">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6128" levels="1" name="Presentation - Cow Rage">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3000"/>
-  </skill>
-  <skill id="6129" levels="1" name="Shock">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1000"/>
-  </skill>
-  <skill id="6130" levels="1" name="Curse of the Mutant Animal">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="6000"/>
-  </skill>
-  <skill id="6131" levels="1" name="Decrease Spd">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2000"/>
-  </skill>
-  <skill id="6132" levels="1" name="Decrease Atk. Spd">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
-  </skill>
-  <skill id="6133" levels="1" name="Effect of Doubt">
-    <set name="magicLvl" val="1"/>
-    <set name="reuseDelay" val="1200000"/>
-    <set name="staticReuse" val="true"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="transformId" val="125"/>
     <for>
-      <effect name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
+      <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
   </skill>
-  <skill id="6134" levels="1" name="Curse of the Mutant Animal">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
-  </skill>
-  <skill id="6135" levels="1" name="Cow Basic Attack">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="6000"/>
-  </skill>
-  <skill id="6136" levels="1" name="Agathion Cute Trick - Juju">
-    <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
-    <set name="staticReuse" val="true"/>
-    <set name="staticHitTime" val="true"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="DUMMY"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <cond msgId="2292">
-      <player agathionId="16064"/>
-    </cond>
-  </skill>
-  <skill id="6137" levels="1" name="Agathion Juju - Effect of Doubt">
-    <set name="magicLvl" val="1"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
-    <cond msgId="2292">
-      <player agathionId="16064"/>
-    </cond>
-    <for>
-     <effect name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
-    </for>
-  </skill>
-  <skill id="6138" levels="1" name="Agathion Juju - Large Firework">
-    <set name="itemConsumeId" val="6407"/>
-    <set name="itemConsumeCount" val="1"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="DUMMY"/>
-    <set name="staticHitTime" val="true"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="3600000"/>
-    <set name="staticReuse" val="true"/>
-    <cond msgId="2292">
-      <player agathionId="16064"/>
-    </cond>
-  </skill>
-  <skill id="6139" levels="1" name="Fake Tears">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="100"/>
-  </skill>
-  <skill id="6140" levels="3" name="Bog Stride">
+  <skill id="2995" levels="1" name="PC room private weapon strengthening order sheet - D grade">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6141" levels="1" name="Swamp's Wish">
+  <skill id="2996" levels="1" name="PC room private weapon strengthening order sheet - C grade">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6142" levels="3" name="Tar Spite">
-  <!-- Lvl 1: Covered in hot and sticky tar. Movement is impaired. Due to the burning tar, for 5 minbutes, moving speed is decreased 30% and P. Def. and evasion are decreased 10%. -->
-  <!-- Lvl 2: Covered in hot and sticky tar. Movement is impaired. Due to the burning tar, for 5 minbutes, moving speed is decreased 60% and P. Def. and evasion are decreased 20%. -->
-  <!-- Lvl 3: Covered in hot and sticky tar. Movement is impaired. Due to the burning tar, for 5 minbutes, moving speed is decreased 90% and P. Def. and evasion are decreased 30%. -->
+  <skill id="2997" levels="1" name="PC room private weapon strengthening order sheet - B grade">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6143" levels="1" name="Ancient Beam">
+  <skill id="2998" levels="1" name="PC room private weapon strengthening order sheet - A grade">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
-  <skill id="6144" levels="1" name="Ancient Beam">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6145" levels="1" name="Earthworm's Evil Aura">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6146" levels="1" name="Forfeiture of Will">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6147" levels="1" name="Kasha's Divine Protection">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6148" levels="1" name="Altar's Curse">
-  <!-- You have been weakened by the Altar's Curse. You probably can't fight in this condition. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6149" levels="1" name="Kasha's Betrayal">
-  <!-- Kasha's Betrayal. For 15 minutes, decreases P. Atk./P. Def./moving speed by 50%. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6150" levels="4" name="Kasha's Curse">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6151" levels="4" name="Kasha's Curse">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6152" levels="4" name="Kasha's Yearning">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6153" levels="4" name="Kasha's Yearning">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6154" levels="4" name="Kasha's Despair">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6155" levels="4" name="Kasha's Despair">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6166" levels="1" name="Hold">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6167" levels="12" name="Shock">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6168" levels="12" name="Shock">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6169" levels="1" name="Shyeed's Fury">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6170" levels="1" name="Shyeed's Fury">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6171" levels="1" name="Full Authority">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6172" levels="1" name="Presentation - Tyranno">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6173" levels="1" name="Presentation - Memorial Service for Repose">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6174" levels="1" name="Presentation - Incense for Relic">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6175" levels="1" name="Presentation - High Ranking Dawn Priest's Prayer">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6176" levels="1" name="Presentation - Dawn's Seal Stone">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6177" levels="1" name="Presentation - Anakim's Message">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6178" levels="1" name="Presentation - Ultimate Seal Motion1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6179" levels="1" name="Presentation - Ultimate Seal Motion2">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6180" levels="1" name="Presentation - Lilith Presentation1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6181" levels="1" name="Presentation - Lilith Presentation2">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6182" levels="1" name="Presentation - Lilith Presentation3">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6183" levels="1" name="Presentation - Lilith Presentation4">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6184" levels="1" name="Presentation - Anakim's Presentation1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6185" levels="1" name="Presentation - Anakim's Presentation2">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6186" levels="1" name="Presentation - Anakim's Presentation3">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6187" levels="1" name="Presentation - Lilith Battle">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6188" levels="1" name="Presentation - Lilith's Steward Battle1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6189" levels="1" name="Presentation - Lilith's Steward Battle2">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6190" levels="1" name="Presentation - Lilith's Bodyguards Battle1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6191" levels="1" name="Presentation - Anakim Battle">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6192" levels="1" name="Presentation - Anakim's Guardian Battle1">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6193" levels="1" name="Presentation - Anakim's Guardian Battle2">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6194" levels="1" name="Presentation - Anakim's Guard Battle">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6195" levels="1" name="Presentation - Anakim's Executor Battle">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6196" levels="1" name="Agathion Oink Oink's Ability">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6197" levels="1" name="Agathion Cute Trick - Oink Oink">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6198" levels="1" name="Agathion Cute Trick - Light of the Dawn">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="6199" levels="7" name="Tail Strike">
+  <skill id="2999" levels="1" name="PC room private weapon strengthening order sheet - S grade">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

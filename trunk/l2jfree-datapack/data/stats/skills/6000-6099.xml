@@ -97,38 +97,65 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6019" levels="1" name="Searching Master">
+  <!-- Directly attacks a pet's master or summoner. -->
+  <!-- 
+    Used by NPCs:
+    20965 20966 20967 20968 20969 20970 20971 20972 20973 18694
+    18695
+   -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6020" levels="1" name="Soul Retain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="6021" levels="1" name="Soul Retain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="6022" levels="1" name="Soul Retain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="6023" levels="1" name="Soul Retain">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="6024" levels="1" name="Weight Aerial Cleft">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+  <!-- Renders target unable to transform into a flying transformed object. -->
+    <set name="isDebuff" val="true"/>
+    <set name="reuseDelay" val="0"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
   <skill id="6025" levels="1" name="not_used">
     <set name="target" val="TARGET_NONE"/>
@@ -171,9 +198,15 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6033" levels="1" name="Treasure Seeker's Betrayal">
+  <!-- Carrying this mark of betrayal makes one the target of nearby monsters. -->
+    <set name="mpInitialConsume" val="8"/>
+    <set name="mpConsume" val="33"/>
+    <set name="reuseDelay" val="0"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="1500"/>
+    <set name="effectRange" val="2000"/>
   </skill>
   <skill id="6034" levels="1" name="Freeze">
     <set name="target" val="TARGET_NONE"/>
@@ -229,10 +262,12 @@
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="83"/>
-    <set name="mpConsume" val="59"/>
+    <set name="mpInitialConsume" val="11"/>
+    <set name="mpConsume" val="47"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="15000"/>
     <set name="skillType" val="CANCEL_DEBUFF"/>
@@ -242,10 +277,12 @@
     <!-- Done by DJ MELERIX -->
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="83"/>
-    <set name="mpConsume" val="109"/>
+    <set name="mpInitialConsume" val="21"/>
+    <set name="mpConsume" val="87"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="70"/>
     <set name="reuseDelay" val="20000"/> <!-- Guess -->
@@ -259,9 +296,11 @@
     <set name="effectRange" val="400"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
-    <set name="hitTime" val="1080"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
     <set name="magicLvl" val="83"/>
-    <set name="mpConsume" val="80"/>
+    <set name="mpInitialConsume" val="16"/>
+    <set name="mpConsume" val="64"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="2156"/>
     <set name="reuseDelay" val="3000"/>
@@ -270,6 +309,11 @@
     <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="6045" levels="1" name="Presentation - Fortune Bug">
+  <!-- none -->
+  <!-- 
+    Used by NPCs:
+    18664 18665
+   -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -324,6 +368,7 @@
     <set name="hitTime" val="1000"/>
   </skill>
   <skill id="6054" levels="1" name="Switch State">
+  <!-- The pet's condition changes. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -349,9 +394,21 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6059" levels="1" name="Counter Critical">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="magicLvl" val="83"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <for>
+      <effect name="Buff" time="8" val="0">
+        <mul order="0x30" stat="cAtk" val="2">
+         <and>
+          <not>
+            <using kind="Bow,Crossbow"/>
+          </not>
+         </and>
+        </mul>
+      </effect>
+    </for>
   </skill>
   <skill id="6060" levels="1" name="Great Fury">
     <set name="target" val="TARGET_PARTY"/>
@@ -365,6 +422,7 @@
     </for>
   </skill>
   <skill id="6061" levels="1" name="Decrease Weight">
+  <!-- Weight penalty interval increases by 9000, and the number of items an individual can possess increases. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -526,6 +584,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6093" levels="1" name="Panther Hide">
+  <!-- Allows one to stay hidden. Movement speed is decreased by 10%. The effect is canceled if any action other than movement is initiated. -->
+    <set name="mpInitialConsume" val="8"/>
+    <set name="mpConsume" val="33"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -534,9 +595,11 @@
     <!-- Done by DJ MELERIX -->
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
     <set name="maxNegated" val="3"/> <!-- TODO: maxNegated amount needs to be verified, because in PTS maxNegated is upto 3, but in Live appears to be upto 2 -->
-    <set name="mpConsume" val="42"/>
+    <set name="mpInitialConsume" val="8"/>
+    <set name="mpConsume" val="33"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="75000"/>
@@ -548,9 +611,11 @@
     <table name="#power"> 469 758 1136 1327 1525 1727 1925 2020 2067 2112 2156 2200 2241 2282 2320 </table>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1500"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
     <set name="lvlDepend" val="2"/>
-    <set name="mpConsume" val="42"/>
+    <set name="mpInitialConsume" val="8"/>
+    <set name="mpConsume" val="33"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="12000"/>
@@ -568,8 +633,10 @@
     <table name="#power"> 3408 3980 4575 5180 5773 6060 6199 6335 6468 6598 6723 6844 6960 </table>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1080"/>
-    <set name="mpConsume" val="42"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="mpInitialConsume" val="8"/>
+    <set name="mpConsume" val="33"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="8000"/>
