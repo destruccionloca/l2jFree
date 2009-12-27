@@ -14,11 +14,41 @@
     <developerConnection>scm:svn:http://svn.l2jfree.com/svn/l2j-free/trunk</developerConnection> <!-- we aren't using it anyway -->
   </scm>
   <dependencies>
+    <!-- dependency>
+      <groupId>org.apache.bsf</groupId>
+      <artifactId>bsf</artifactId>
+      <version>2.0</version>
+    </dependency -->
+    <dependency>
+      <groupId>org.eclipse.jdt.core.compiler</groupId>
+      <artifactId>ecj</artifactId>
+      <version>3.5.1</version>
+    </dependency>
+    <!-- dependency>
+      <groupId>l2jfree</groupId>
+      <artifactId>java-engine</artifactId>
+      <version>1.0.2</version>
+    </dependency -->
     <dependency>
       <groupId>org.python</groupId>
       <artifactId>jython</artifactId>
       <version>2.2.1</version>
     </dependency>
+    <!-- dependency>
+      <groupId>l2jfree</groupId>
+      <artifactId>jython-engine</artifactId>
+      <version>1.0.1</version>
+    </dependency -->
+    <!-- dependency>
+      <groupId>org.beanshell</groupId>
+      <artifactId>bsh</artifactId>
+      <version>2.0b5</version>
+    </dependency -->
+    <!-- dependency>
+      <groupId>l2jfree</groupId>
+      <artifactId>bsh-engine</artifactId>
+      <version>1.0.1</version>
+    </dependency -->
   </dependencies>
   <build>
     <defaultGoal>install</defaultGoal>
