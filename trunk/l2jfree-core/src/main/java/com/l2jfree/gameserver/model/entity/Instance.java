@@ -101,7 +101,13 @@ public class Instance
 		_tpy = tpy;
 		_tpz = tpz;
 	}
-	
+
+	public int[] getReturnTeleport()
+	{
+		int[] returnCoords = {_tpx,_tpy,_tpz};
+		return returnCoords;
+	}
+
 	/**
 	 * Returns whether summon friend type skills are allowed for this instance
 	 */
