@@ -1,5 +1,4 @@
-# Kamaloka Script by Psychokiller1888
-# Psycho / L2jFree
+# Kamaloka Script by Psycho(killer1888) / L2jFree
 
 import sys
 from java.lang                                     import System
@@ -11,6 +10,7 @@ from com.l2jfree.gameserver.model.entity           import Instance
 from com.l2jfree.gameserver.model.quest            import State
 from com.l2jfree.gameserver.model.quest            import QuestState
 from com.l2jfree.gameserver.model.quest.jython     import QuestJython as JQuest
+from com.l2jfree.gameserver.network                import SystemMessageId
 from com.l2jfree.gameserver.network.serverpackets  import SystemMessage
 
 qn = "Kamaloka"
@@ -18,12 +18,13 @@ qn = "Kamaloka"
 debug = False
 
 #NPC
-BATHIS    = 30332 #Gludio
-LUCAS     = 30071 #Dion
-GOSTA     = 30916 #Heine
-MOUEN     = 30196 #Oren
-VISHOTSKY = 31981 #Schuttgart
-MATHIAS   = 31340 #Rune
+BATHIS    = 30332 # Gludio
+LUCAS     = 30071 # Dion
+GOSTA     = 30916 # Heine
+MOUEN     = 30196 # Oren
+VISHOTSKY = 31981 # Schuttgart
+MATHIAS   = 31340 # Rune
+DEVICE    = 32496 # Escape Device
 
 MAX_DISTANCE = 500
 
@@ -36,22 +37,22 @@ MOBS = [22485,22486,22487,22488,22489,22490,22491,22492,22493,22494,22495,22496,
 KAMALOKA = {
 23: ["Kamaloka-23.xml",86400,18554,18,28,6,-57109,-219871,-8117, True],
 26: ["Kamaloka-26.xml",86400,18555,21,31,6,-55556,-206144,-8117, True],
-29: ["Kamaloka-29.xml",86400,18555,24,34,9,-10864,-174897,-10947, True],
+29: ["Kamaloka-29.xml",86400,18555,24,34,9,-10661,-174902,-10946, True],
 33: ["Kamaloka-33.xml",86400,18558,28,38,6,-55492,-206143,-8117, True],
 36: ["Kamaloka-36.xml",86400,18559,31,41,6,-41257,-213143,-8117, True],
-39: ["Kamaloka-39.xml",86400,18555,34,44,9,-10864,-174897,-10947, True],
+39: ["Kamaloka-39.xml",86400,18555,34,44,9,-10661,-174902,-10946, True],
 43: ["Kamaloka-43.xml",86400,18562,38,48,6,-49802,-206141,-8117, True],
 46: ["Kamaloka-46.xml",86400,18564,41,51,6,-41184,-213144,-8117, True],
-49: ["Kamaloka-49.xml",86400,18555,44,54,9,-10864,-174897,-10947, True],
+49: ["Kamaloka-49.xml",86400,18555,44,54,9,-10661,-174902,-10946, True],
 53: ["Kamaloka-53.xml",86400,18566,48,58,6,-41201,-219859,-8117, True],
 56: ["Kamaloka-56.xml",86400,18568,51,61,6,-57102,-206143,-8117, True],
-59: ["Kamaloka-59.xml",86400,18555,54,64,9,-10864,-174897,-10947, True],
+59: ["Kamaloka-59.xml",86400,18555,54,64,9,-10661,-174902,-10946, True],
 63: ["Kamaloka-63.xml",86400,18571,58,68,6,-57116,-219857,-8117, True],
 66: ["Kamaloka-66.xml",86400,18573,61,71,6,-41228,-219860,-8117, True],
-69: ["Kamaloka-69.xml",86400,18555,64,74,9,-10864,-174897,-10947, True],
+69: ["Kamaloka-69.xml",86400,18555,64,74,9,-10661,-174902,-10946, True],
 73: ["Kamaloka-73.xml",86400,18577,68,78,6,-55823,-212935,-8071, True],
-78: ["Kamaloka-78.xml",86400,18555,73,85,9,-10864,-174897,-10947, True],
-81: ["Kamaloka-81.xml",86400,18555,76,86,9,-10864,-174897,-10947, True]
+78: ["Kamaloka-78.xml",86400,18555,73,85,9,-10661,-174902,-10946, True],
+81: ["Kamaloka-81.xml",86400,18555,76,86,9,-10661,-174902,-10946, True]
 }
 
 #LABYRINTHMOBS = LEVEL: [[ROOM1],[ROOM2],[ROOM3],[ROOM4]]
@@ -170,38 +171,40 @@ def checkDistance(player) :
 	party = player.getParty()
 	if party:
 		for partyMember in party.getPartyMembers().toArray():
-			if abs(partyMember.getX() - player.getX()) > MAX_DISTANCE :
+			if not partyMember.isInsideRadius(player, MAX_DISTANCE, true, true):
 				isTooFar = True
 				break;
-			if abs(partyMember.getY() - player.getY()) > MAX_DISTANCE :
-				isTooFar = True
-				break;
-			if abs(partyMember.getZ() - player.getZ()) > MAX_DISTANCE :
-				isTooFar = True
-				break;
+	if isTooFar:
+		sm = SystemMessage(SystemMessageId.C1_IS_IN_LOCATION_THAT_CANNOT_BE_ENTERED)
+		sm.addPcName(partyMember)
+		player.sendPacket(sm)
 	return isTooFar
 
 def checkCondition(player,KamaInfo):
 	currentTime = System.currentTimeMillis()/1000
 	party = player.getParty()
 	if not party:
-		player.sendPacket(SystemMessage.sendString("You are not currently in a party, so you cannot enter."))
+		player.sendPacket(SystemMessage(SystemMessageId.NOT_IN_PARTY_CANT_ENTER))
 		return False
 	# Check size of the party, max 6 for entering Kamaloka Hall of Abyss, 9 for Labyrinth
 	if party and party.getMemberCount() > KamaInfo[5]:
-		player.sendPacket(SystemMessage.sendString("Instance for max "+str(KamaInfo[5])+" players in party."))
+		player.sendPacket(SystemMessage(SystemMessageId.PARTY_EXCEEDED_THE_LIMIT_CANT_ENTER))
 		return False
 	for partyMember in party.getPartyMembers().toArray():
 		if partyMember.getLevel() < KamaInfo[3] or partyMember.getLevel() > KamaInfo[4]:
-			player.sendPacket(SystemMessage.sendString("You and your party mates must be between level " + str(KamaInfo[3]) + " and level " + str(KamaInfo[4]) + " to enter this Kamaloka."))
-			partyMember.sendPacket(SystemMessage.sendString("You must be between level " + str(KamaInfo[3]) + " and level " + str(KamaInfo[4]) + " to enter this Kamaloka."))
+			sm = SystemMessage(SystemMessageId.C1_LEVEL_REQUIREMENT_NOT_SUFFICIENT)
+			sm.addPcName(partyMember)
+			player.sendPacket(sm)
+			partyMember.sendPacket(sm)
 			return False
 		st = partyMember.getQuestState(qn)
 		if st:
 			LastEntry = st.getInt("LastEntry")
 			if currentTime < LastEntry + KamaInfo[1]:
-				player.sendPacket(SystemMessage.sendString(player.getName()+" may not re-enter yet."))
-				partyMember.sendPacket(SystemMessage.sendString(partyMember.getName()+" may not re-enter yet."))
+				sm = SystemMessage(SystemMessageId.C1_MAY_NOT_REENTER_YET)
+				sm.addPcName(partyMember)
+				player.sendPacket(sm)
+				partyMember.sendPacket(sm)
 				return False
 	return True
 
@@ -219,7 +222,6 @@ def enterInstance(self,player,KamaInfo,level):
 	template = KamaInfo[0]
 	reuse = KamaInfo[1]
 	if checkDistance(player):
-		player.sendPacket(SystemMessage.sendString("Please regroup your party before joining Kamaloka."))
 		return 0
 	if not checkCondition(player,KamaInfo):
 		return 0
@@ -227,7 +229,9 @@ def enterInstance(self,player,KamaInfo,level):
 	# Check for existing instances of party members
 	for partyMember in party.getPartyMembers().toArray():
 		if partyMember.getInstanceId() != 0:
-			player.sendPacket(SystemMessage.sendString("One of your party member is already in an instance"))
+			sm = SystemMessage(SystemMessageId.C1_IS_IN_LOCATION_THAT_CANNOT_BE_ENTERED)
+			sm.addPcName(partyMember)
+			player.sendPacket(sm)
 			return 0
 	# New instance
 	instanceId = InstanceManager.getInstance().createDynamicInstance(template)
@@ -263,8 +267,14 @@ class Kamaloka(JQuest):
 		if not KamaInfo[9]:
 			player.sendPacket(SystemMessage.sendString("This Kamaloka has been disabled by an Admin"))
 			return
+		party = player.getParty()
+		if party:
+			partyLeader = st.getPlayer().getParty().getLeader()
+			if player != partyLeader:
+				player.sendPacket(SystemMessage(SystemMessageId.ONLY_PARTY_LEADER_CAN_ENTER))
+				return	
 		if player.getInstanceId() != 0:
-			player.sendPacket(SystemMessage.sendString("You are already in an instance..."))
+			player.sendPacket(SystemMessage(SystemMessageId.ALREADY_ENTERED_ANOTHER_INSTANCE_CANT_ENTER))
 			return
 		instanceId = enterInstance(self,player,KamaInfo,level)
 		if not instanceId:
@@ -299,7 +309,6 @@ class Kamaloka(JQuest):
 			for member in playerList.toArray():
 				member = L2World.getInstance().findPlayer(member)
 				saveEntry(self,member)
-				member.sendPacket(SystemMessage.sendString("You will be moved out of Kamaloka in 5 minutes"))
 			if player.getInstanceId() != 0:
 				instance = InstanceManager.getInstance().getInstance(npc.getInstanceId())
 				if instance != None:
@@ -329,3 +338,5 @@ for boss in BOSSES :
 
 for mob in MOBS :
 	QUEST.addKillId(mob)
+
+QUEST.addTalkId(DEVICE)

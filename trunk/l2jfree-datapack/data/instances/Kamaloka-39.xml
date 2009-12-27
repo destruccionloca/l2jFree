@@ -5,4 +5,7 @@
   <timeDelay val="24"/>
   <allowSummon val="false"/>
   <returnteleport x="18149" y="146024" z="-3100"/>
+  <spawnlist>
+	<spawn npcId="32496" x="-10857" y="-174902" z="-10946" heading="3355" respawn="0" amount="1" /> 
+  </spawnlist>
 </instance>
