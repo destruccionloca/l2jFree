@@ -4,6 +4,7 @@
   <activityTime val="30"/>
   <timeDelay val="24"/>
   <allowSummon val="false"/>
+  <emptyDestroyTime val="300"/>
   <returnteleport x="-13870" y="123767" z="-3117"/>
   <spawnlist>
     <spawn npcId="18555" x="-56293" y="-206136" z="-8117" heading="0" respawn="0" amount="1"/>

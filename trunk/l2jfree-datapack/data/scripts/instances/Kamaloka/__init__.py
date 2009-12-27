@@ -171,7 +171,7 @@ def checkDistance(player) :
 	party = player.getParty()
 	if party:
 		for partyMember in party.getPartyMembers().toArray():
-			if not partyMember.isInsideRadius(player, MAX_DISTANCE, true, true):
+			if not partyMember.isInsideRadius(player, MAX_DISTANCE, True, True):
 				isTooFar = True
 				break;
 	if isTooFar:
@@ -246,7 +246,7 @@ def enterInstance(self,player,KamaInfo,level):
 		print "Kamaloka: started " + template + " Instance: " +str(instanceId) + " created by player: " + str(player.getName())
 	# Teleport players
 	for partyMember in party.getPartyMembers().toArray():
-		partyMember.stopAllEffects()
+		partyMember.stopAllEffectsExceptThoseThatLastThroughDeath()
 		partyMember.clearSouls()
 		partyMember.clearCharges()
 		teleportplayer(self,partyMember,KamaInfo,instanceId)
@@ -290,16 +290,21 @@ class Kamaloka(JQuest):
 			st.setState(State.STARTED)
 		if npcId == BATHIS:
 			htmltext = "start-bathis.htm"
-		if npcId == LUCAS:
+		elif npcId == LUCAS:
 			htmltext = "start-lucas.htm"
-		if npcId == GOSTA:
+		elif npcId == GOSTA:
 			htmltext = "start-gosta.htm"
-		if npcId == MOUEN:
+		elif npcId == MOUEN:
 			htmltext = "start-mouen.htm"
-		if npcId == VISHOTSKY:
+		elif npcId == VISHOTSKY:
 			htmltext = "start-vishotsky.htm"
-		if npcId == MATHIAS:
+		elif npcId == MATHIAS:
 			htmltext = "start-mathias.htm"
+		elif npcId == DEVICE:
+			returnCoords = InstanceManager.getInstance().getInstance(player.getInstanceId()).getReturnTeleport()
+			KamaInfo = [0,0,0,0,0,0,returnCoords[0],returnCoords[1],returnCoords[2]]
+			teleportplayer(self,player,KamaInfo,0)
+			return
 		return htmltext
 
 	def onKill(self,npc,player,isPet):
@@ -339,4 +344,5 @@ for boss in BOSSES :
 for mob in MOBS :
 	QUEST.addKillId(mob)
 
+QUEST.addStartNpc(DEVICE)
 QUEST.addTalkId(DEVICE)
