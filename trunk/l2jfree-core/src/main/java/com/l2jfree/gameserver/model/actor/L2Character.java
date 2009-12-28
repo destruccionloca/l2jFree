@@ -1655,8 +1655,7 @@ public abstract class L2Character extends L2Object
 
 			hitTime *= multi;
 			coolTime *= multi;
-			// I highly doubt it
-			//skillInterruptTime *= multi;
+			skillInterruptTime *= multi;
 		}
 
 		// queue herbs and potions

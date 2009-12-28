@@ -44,7 +44,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 			return;
 
 		L2Clan clan = activeChar.getClan();
-		if (clan == null || L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_JOIN_CLAN))
+		if (clan == null || !L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_JOIN_CLAN))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
