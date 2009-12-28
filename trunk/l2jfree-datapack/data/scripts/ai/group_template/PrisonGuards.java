@@ -74,7 +74,7 @@ public class PrisonGuards extends L2AttackableAIScript
 			npc.setIsImmobilized(true);
 			if (npc.getNpcId() == GUARD1)
 			{
-				npc.setIsInvul(true);
+				npc.setKillable(false);
 				npc.disableCoreAI(true);
 			}
 		}
