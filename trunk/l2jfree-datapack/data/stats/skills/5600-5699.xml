@@ -396,7 +396,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -419,7 +419,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -442,7 +442,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -473,7 +473,7 @@
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="35"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -508,7 +508,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -532,7 +532,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -556,7 +556,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -597,7 +597,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -620,7 +620,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
@@ -644,7 +644,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>

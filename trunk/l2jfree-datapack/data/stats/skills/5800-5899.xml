@@ -79,7 +79,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="1000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_NONE"/>
@@ -142,7 +142,7 @@
     <set name="mpInitialConsume" val="20"/>
     <set name="mpConsume" val="82"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="target" val="TARGET_NONE"/>

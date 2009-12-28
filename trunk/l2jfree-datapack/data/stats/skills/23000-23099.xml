@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="23000" levels="1" name="Majo Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -15,7 +15,7 @@
     </cond>
   </skill>
   <skill id="23001" levels="1" name="Gold Majo Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -28,7 +28,7 @@
     </cond>
   </skill>
   <skill id="23002" levels="1" name="Black Majo Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -42,7 +42,7 @@
   </skill>
   <skill id="23003" levels="1" name="Plaipitak Agathion Cute Trick">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -139,7 +139,7 @@
     </cond>
   </skill>
   <skill id="23010" levels="1" name="Baby Panda Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -152,7 +152,7 @@
     </cond>
   </skill>
   <skill id="23011" levels="1" name="Bamboo Panda Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -166,7 +166,7 @@
   </skill>
   <skill id="23012" levels="1" name="Sexy Panda Agathion Cute Trick">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -290,7 +290,7 @@
   </skill>
   <skill id="23025" levels="1" name="Charming Cupid Agathion Cute Trick">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -303,7 +303,7 @@
     </cond>
   </skill>
   <skill id="23026" levels="1" name="Naughty Cupid Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -329,7 +329,7 @@
     </cond>
   </skill>
   <skill id="23028" levels="1" name="Black Maneki Neko Agathion Cute Trick I">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -342,7 +342,7 @@
     </cond>
   </skill>
   <skill id="23029" levels="1" name="Brown Maneki Neko Agathion Cute Trick I">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -395,7 +395,7 @@
     </for>
   </skill>
   <skill id="23033" levels="1" name="One-Eyed Bat Drove Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -444,7 +444,7 @@
     </for>
   </skill>
   <skill id="23036" levels="1" name="Pegasus Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -487,7 +487,7 @@
     </cond>
   </skill>
   <skill id="23039" levels="1" name="Yellow-Robed Tojigong Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -500,7 +500,7 @@
     </cond>
   </skill>
   <skill id="23040" levels="1" name="Blue-Robed Tojigong Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -513,7 +513,7 @@
     </cond>
   </skill>
   <skill id="23041" levels="1" name="Green-Robed Tojigong Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -582,7 +582,7 @@
     </for>
   </skill>
   <skill id="23045" levels="1" name="Bugbear Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -595,7 +595,7 @@
     </cond>
   </skill>
   <skill id="23046" levels="1" name="White Maneki Neko Agathion Cute Trick II">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -608,7 +608,7 @@
     </cond>
   </skill>
   <skill id="23047" levels="1" name="Black Maneki Neko Agathion Cute Trick II">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -621,7 +621,7 @@
     </cond>
   </skill>
   <skill id="23048" levels="1" name="Brown Maneki Neko Agathion Cute Trick II">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -634,7 +634,7 @@
     </cond>
   </skill>
   <skill id="23049" levels="1" name="Red Sumo Wrestler Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -647,7 +647,7 @@
     </cond>
   </skill>
   <skill id="23050" levels="1" name="Blue Sumo Wrestler Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -660,7 +660,7 @@
     </cond>
   </skill>
   <skill id="23051" levels="1" name="Great Sumo Match Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -673,7 +673,7 @@
     </cond>
   </skill>
   <skill id="23052" levels="1" name="Button-Eyed Bear Doll Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -686,7 +686,7 @@
     </cond>
   </skill>
   <skill id="23053" levels="1" name="God of Fortune Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -699,7 +699,7 @@
     </cond>
   </skill>
   <skill id="23054" levels="1" name="Dryad Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -712,7 +712,7 @@
     </cond>
   </skill>
   <skill id="23055" levels="1" name="Wonboso Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -725,7 +725,7 @@
     </cond>
   </skill>
   <skill id="23056" levels="1" name="Daewoonso Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -895,7 +895,7 @@
     </cond>
   </skill>
   <skill id="23067" levels="1" name="Pomona Agathion Cute Trick">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>

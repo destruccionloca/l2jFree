@@ -629,7 +629,7 @@
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="61"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="40000"/>
     <set name="hitTime" val="5000"/>
     <set name="coolTime" val="3332"/>
     <set name="target" val="TARGET_SELF"/>
@@ -758,7 +758,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="15000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="15000"/>
     <set name="coolTime" val="10000"/>
     <set name="isMagic" val="true"/>

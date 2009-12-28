@@ -14,9 +14,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -242,9 +241,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -262,9 +260,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -283,9 +280,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -304,9 +300,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -324,9 +319,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -350,9 +344,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -371,9 +364,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -391,9 +383,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -411,9 +402,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Wind -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -432,9 +422,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Wind -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -452,9 +441,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Wind -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -472,9 +460,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -493,9 +480,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -513,9 +499,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -533,9 +518,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -554,9 +538,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -574,9 +557,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -594,9 +576,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -615,9 +596,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Should be Dark -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -635,9 +615,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Should be Dark -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -655,9 +634,8 @@
     <set name="skillType" val="MDAM"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
@@ -669,9 +647,8 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="13000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MANADAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -717,7 +694,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -734,9 +710,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -755,7 +730,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -772,9 +746,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -792,9 +765,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="6000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -812,9 +784,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -834,7 +805,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -852,9 +822,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -872,9 +841,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="1"/> <!-- Wind -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="6000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -892,9 +860,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="1"/> <!-- Wind -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -914,7 +881,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -932,9 +898,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -954,7 +919,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -974,7 +938,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -994,7 +957,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -1012,9 +974,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1034,7 +995,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -1054,7 +1014,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -1074,7 +1033,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -1092,9 +1050,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="3"/> <!-- Earth -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1114,7 +1071,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -1134,7 +1090,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -1154,7 +1109,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -1172,9 +1126,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1194,7 +1147,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -1212,9 +1164,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -1234,7 +1185,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
@@ -1252,9 +1202,8 @@
     <set name="power" val="#power"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1366,7 +1315,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1413,7 +1361,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1440,7 +1387,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1461,7 +1407,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BLEED"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -1485,7 +1430,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1523,9 +1467,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1544,9 +1487,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1564,9 +1506,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1589,9 +1530,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1610,9 +1550,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1630,9 +1569,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1650,9 +1588,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Wind -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1671,9 +1608,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="1"/> <!-- Wind -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1691,9 +1627,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Wind -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1711,9 +1646,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1732,9 +1666,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1752,9 +1685,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="3"/> <!-- Earth -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1772,9 +1704,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1793,9 +1724,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1813,9 +1743,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="4"/> <!-- Holy -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1833,9 +1762,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1854,9 +1782,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Should be Dark -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1874,9 +1801,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Should be Dark -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -1894,9 +1820,8 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="DRAIN"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1911,9 +1836,8 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MANADAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1933,9 +1857,8 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

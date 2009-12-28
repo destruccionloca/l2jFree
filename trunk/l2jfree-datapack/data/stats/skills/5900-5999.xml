@@ -627,8 +627,8 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="900"/>
-    <set name="effectRange" val="1400"/>
+    <set name="reuseDelay" val="300"/>
+    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="43200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -675,7 +675,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5954" levels="1" name="Agathion Cute Trick - Tin Plate Golem">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -688,7 +688,7 @@
     </cond -->
   </skill>
   <skill id="5955" levels="1" name="Agathion Cute Trick - Joy">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -701,7 +701,7 @@
     </cond>
   </skill>
   <skill id="5956" levels="1" name="Agathion Cute Trick - Anger">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -714,7 +714,7 @@
     </cond>
   </skill>
   <skill id="5957" levels="1" name="Agathion Cute Trick - Sorrow">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -727,7 +727,7 @@
     </cond>
   </skill>
   <skill id="5958" levels="1" name="Agathion Cute Trick - Boy Teddy Bear">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -740,7 +740,7 @@
     </cond>
   </skill>
   <skill id="5959" levels="1" name="Agathion Cute Trick - Girl Teddy Bear">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -823,7 +823,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="1500"/>
     <set name="staticReuse" val="true"/>
   </skill>
   <skill id="5966" levels="1" name="Large Firework">
@@ -832,7 +832,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="1500"/>
     <set name="staticReuse" val="true"/>
   </skill>
   <skill id="5967" levels="2" name="Hate Aura">
@@ -1086,7 +1086,7 @@
     <set name="skillType" val="CONT"/>
     <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="0"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="1332"/>
     <set name="staticReuse" val="true"/>
@@ -1115,7 +1115,7 @@
     <set name="skillType" val="CONT"/>
     <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="0"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="1332"/>
     <set name="staticReuse" val="true"/>

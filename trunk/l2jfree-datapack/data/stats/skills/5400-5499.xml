@@ -90,7 +90,7 @@
   </skill>
   <skill id="5413" levels="1" name="Performing Agathion - Beast Farm">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -104,7 +104,7 @@
   </skill>
   <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -118,7 +118,7 @@
   </skill>
   <skill id="5415" levels="1" name="Performing Agathion - Castle">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -351,7 +351,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -413,7 +412,7 @@
     <set name="element" val="5"/> <!-- Dark -->
     <set name="skillType" val="PARALYZE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="40"/> <!-- Guessing -->
+    <set name="power" val="80"/> <!-- Guessing -->
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <for>
@@ -522,7 +521,7 @@
   </skill>
   <skill id="5458" levels="1" name="Performing Agathion - Fortress">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -555,9 +554,8 @@
     <set name="power" val="102"/> <!-- power for lvl7 -->
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -633,9 +631,8 @@
     <set name="power" val="87"/> <!-- power for lvl7 -->
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="150"/>
     <set name="skillType" val="MDAM"/>

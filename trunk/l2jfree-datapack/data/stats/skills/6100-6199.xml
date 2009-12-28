@@ -116,7 +116,7 @@
     <set name="hitTime" val="2000"/>
   </skill>
   <skill id="6124" levels="1" name="Agathion Cute Trick - Saerom">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
@@ -197,7 +197,7 @@
     <set name="hitTime" val="6000"/>
   </skill>
   <skill id="6136" levels="1" name="Agathion Cute Trick - Juju">
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
