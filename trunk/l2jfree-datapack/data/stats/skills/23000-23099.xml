@@ -231,7 +231,7 @@
       <player agathionId="1504"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality" stackType="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -283,7 +283,7 @@
       <player agathionId="16049"/>
     </cond>
     <for>
-      <effect name="Buff" time="1200" val="0" abnormal="vitality" stackType="vitality">
+      <effect name="Buff" time="1200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -438,7 +438,7 @@
       <player agathionId="1513"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality" stackType="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -840,7 +840,7 @@
       <player agathionId="1522"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality" stackType="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -857,7 +857,7 @@
       <player agathionId="1523"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality" stackType="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>

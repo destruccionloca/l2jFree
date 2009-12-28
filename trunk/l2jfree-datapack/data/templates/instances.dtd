@@ -2,7 +2,7 @@
 
 <!-- Root -->
 <!ATTLIST instance name CDATA #REQUIRED>
-<!ELEMENT instance (activityTime?,timeDelay?,allowSummon?,returnteleport?,doorlist?,spawnlist?,spawnPoint?)>
+<!ELEMENT instance (activityTime?,timeDelay?,allowSummon?,emptyDestroyTime?,PvPInstance?,returnteleport?,doorlist?,spawnlist?,spawnPoint?)>
 
 <!-- Activity Time (minutes) -->
 <!ATTLIST activityTime val CDATA #REQUIRED>
@@ -15,6 +15,14 @@
 <!-- Allow Summon [Friend type skills] -->
 <!ATTLIST allowSummon val (true|false) #REQUIRED>
 <!ELEMENT allowSummon EMPTY>
+
+<!-- Instance inactive removal time (seconds) -->
+<!ATTLIST emptyDestroyTime val CDATA #IMPLIED>
+<!ELEMENT emptyDestroyTime EMPTY>
+
+<!-- Whether pvp is allowed in the instance -->
+<!ATTLIST PvPInstance val (true|false) #REQUIRED>
+<!ELEMENT PvPInstance EMPTY>
 
 <!-- Return Teleport [location] -->
 <!ATTLIST returnteleport x CDATA #REQUIRED>

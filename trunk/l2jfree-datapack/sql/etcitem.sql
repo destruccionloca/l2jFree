@@ -9693,7 +9693,7 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2369-1' WHERE `e
 
 -- Birthday cake pack & birthday cake (savormix)
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22034-1', `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false' WHERE `item_id` = 20314;
-UPDATE `etcitem` SET `time` = 1440, `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false', `handler` = 'BirthdayCake' WHERE `item_id` = 20320;
+UPDATE `etcitem` SET `time` = 1440, `sellable` = 'false', `dropable` = 'false', `tradeable`= 'false', `handler` = 'ItemSkills', `skills_item` = '22035-1' WHERE `item_id` = 20320;
 
 UPDATE `etcitem` SET `skills_item` = '2592-1', `handler` = 'ItemSkills' WHERE `item_id` = '13033'; -- Quick Healing Potion
 UPDATE `etcitem` SET `skills_item` = '2403-1', `handler` = 'ItemSkills' WHERE `item_id` = '10166'; -- Spring CP Potion

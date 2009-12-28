@@ -585,7 +585,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>

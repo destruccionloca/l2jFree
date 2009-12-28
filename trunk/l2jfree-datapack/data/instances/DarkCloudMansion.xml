@@ -3,8 +3,8 @@
 <instance name="Dark Cloud Mansion">
   <activityTime val="30"/>
   <timeDelay val="24"/>
-  <emptyDestroyTime val="60"/>
   <allowSummon val="false"/>
+  <emptyDestroyTime val="60"/>
   <returnteleport x="139408" y="150805" z="-3108"/>
   <doorlist>
     <door doorId="24230001"/>

@@ -2,7 +2,11 @@ Group Template AI:
 This folder contains AI scripts for group templates.  That is, if many different mobs share the same behaviour, 
 a group AI script can be created for all of them.  Such group templates ought to be here.
 
-Group templates can be subclassed.  In other words, a group may inherit from another group.  For example,
+Group templates CANNOT be subclassed. Even a trivial subclassing attempt will result in an internal compiler error.
+Do not report this, we will not give any support.
+
+DEPRECATED TEXT:
+In other words, a group may inherit from another group.  For example,
 one group template might define mobs that cast spells.  Another template may then define the AI for mobs
 that cast spells AND use shots.  In that case, instead of rewriting all the attack and spell-use AI, we can
 inherit from the first group template, then add the new behaviours, and split up the NPC registrations appropriately.

@@ -84,7 +84,7 @@ public class Orfen extends L2AttackableAIScript
 		if (npc.getNpcId() == ORFEN)
 		{
 			_isAlive = true;
-			npc.broadcastPacket(new PlaySound(1, "BS01_A", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
+			npc.broadcastPacket(new PlaySound(1, npc, 7000, "BS01_A"));
 			startQuestTimer("check_orfen_pos", 10000, npc, null, true);
 			//Spawn minions
 			int x = npc.getX();
@@ -215,7 +215,7 @@ public class Orfen extends L2AttackableAIScript
 		if (npc.getNpcId() == ORFEN)
 		{
 			_isAlive = false;
-			npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
+			npc.broadcastPacket(new PlaySound(1, npc, 7000, "BS02_D"));
 			cancelQuestTimer("check_minion_loc",npc,null);
 			cancelQuestTimer("check_orfen_pos",npc,null);
 			cancelQuestTimers("spawn_minion");

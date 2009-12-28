@@ -283,7 +283,7 @@ public class MC_Show extends Quest
 			{
 				autoChat(npc,text[6],1);
 				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(-56511,-56647,-2008,36863));
-				npc.broadcastPacket(new PlaySound(1, "NS22_F", 0, 0, 0, 0, 0));
+				npc.broadcastPacket(new PlaySound(1, "NS22_F"));
 				addSpawn(singers[0],-56344,-56328,-2008,32768,false,224000);
 				addSpawn(singers[1],-56552,-56245,-2008,36863,false,224000);
 				addSpawn(singers[1],-56546,-56426,-2008,28672,false,224000);
@@ -311,7 +311,7 @@ public class MC_Show extends Quest
 			else if (event.equalsIgnoreCase("10"))
 			{
 				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new L2CharPosition(-56483,-56665,-2034,32768));
-				npc.broadcastPacket(new PlaySound(1, "TP05_F", 0, 0, 0, 0, 0));
+				npc.broadcastPacket(new PlaySound(1, "TP05_F"));
 				startQuestTimer("npc1_1",3000, addSpawn(circus[0],-56495,-56375,-2008,32768,false,101000), null);
 				startQuestTimer("npc2_1",3000, addSpawn(circus[0],-56491,-56289,-2008,32768,false,101000), null);
 				startQuestTimer("npc3_1",3000, addSpawn(circus[1],-56502,-56246,-2008,32768,false,101000), null);

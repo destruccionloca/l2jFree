@@ -287,7 +287,7 @@ public class FleeingClanMembers extends L2AttackableAIScript
 			{
 				if (DEBUG)
 					_log.info("onAdvEvent(): waiting to recover");
-				if (!myself.isRunning())
+				if (!myself.isRunning() && !myself.isInCombat())
 					((L2AttackableAI) myself.getAI()).setGlobalAggro(-30);
 			}
 		}

@@ -65,7 +65,7 @@ public class Core extends L2AttackableAIScript
 		if (npc.getNpcId() == CORE)
 		{
 			_isAlive = true;
-			npc.broadcastPacket(new PlaySound(1, "BS01_A", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
+			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS01_A"));
 			//Spawn minions
 			for (int i = 0; i < 5;i++)
 			{
@@ -124,14 +124,14 @@ public class Core extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		if (npcId == CORE)
 		{
 			_isAlive = false;
 			int objId = npc.getObjectId();
-			npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, objId, npc.getX(), npc.getY(), npc.getZ()));
+			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS02_D"));
 			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "A fatal error has occurred."));
 			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "System is being shut down..."));
 			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "......"));
@@ -145,9 +145,9 @@ public class Core extends L2AttackableAIScript
 		else if (_isAlive && Minions.contains(npc))
 		{
 			Minions.remove(npc);
-			startQuestTimer("spawn_minion",60000,npc,null);
+			startQuestTimer("spawn_minion", 60000, npc, null);
 		}
-		return super.onKill(npc,killer,isPet);
+		return super.onKill(npc, killer, isPet);
 	}
 
 	public static void main(String[] args)

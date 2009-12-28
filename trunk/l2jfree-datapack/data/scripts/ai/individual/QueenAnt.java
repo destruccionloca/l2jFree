@@ -60,7 +60,7 @@ public class QueenAnt extends L2AttackableAIScript
 		{
 			_isAlive = true;
 			startQuestTimer("action", 10000, npc, null, true);
-			npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
+			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS01_A"));
 			//Spawn minions
 			addSpawn(LARVA,-21600, 179482, -5846, Rnd.get(360), false, 0);
 			addSpawn(NURSE,-22000, 179482, -5846, 0, false, 0);
@@ -184,7 +184,7 @@ public class QueenAnt extends L2AttackableAIScript
 		if (npcId == QUEEN)
 		{
 			_isAlive = false;
-			npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
+			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS02_D"));
 			cancelQuestTimers("spawn_minion");
 			startQuestTimer("despawn_royals", 20000, null, null);
 		}

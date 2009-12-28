@@ -55,7 +55,7 @@
     <set name="itemConsumeId" val="20004"/>
     <set name="itemConsumeCount" val="1"/>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -214,7 +214,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" abnormal="vitality">
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -242,10 +242,11 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
+  <!-- Vitamin Pack -->
   <skill id="22034" levels="1" name="Birthday Cake">
     <set name="itemConsumeId" val="20314"/>
     <set name="itemConsumeCount" val="1"/>
-    <set name="create_item_id" val="20320"/> 
+    <set name="create_item_id" val="20320"/>
     <set name="create_item_count" val="1"/>
     <set name="power" val="100.0"/>
     <set name="target" val="TARGET_SELF"/>
@@ -253,13 +254,17 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
   </skill>
+  <!-- Vitamin Item -->
   <skill id="22035" levels="1" name="Birthday Cake Effect">
+    <!-- Someone should verify the consume -->
+    <set name="itemConsumeId" val="20320"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
     <for>
-      <effect name="Buff" time="43200" val="0" abnormal="vitality">
+      <effect name="Buff" time="1200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -520,7 +525,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-    <effect name="Buff" time="600" val="0" abnormal="vitality">
+    <effect name="Buff" time="600" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
       <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
     </effect>
     </for>

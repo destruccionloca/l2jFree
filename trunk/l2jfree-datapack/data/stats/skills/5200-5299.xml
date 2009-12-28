@@ -553,56 +553,77 @@
     </for>
   </skill>
   <skill id="5243" levels="1" name="Blind">
+    <set name="mpConsume" val="1"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1200"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5244" levels="1" name="Physical Up">
-    <!-- It's an active skill on retail, quick hack by l2j-dp -->
     <!-- Increases P. Atk. and P. Def. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <mul order="0x40" stat="pDef" val="1.1"/> <!-- Guess -->
-      <mul order="0x40" stat="pAtk" val="1.05"/> <!-- Guess -->
+      <effect name="Buff" time="90" val="0" stackOrder="99" stackType="pa_up;pd_up">
+        <mul order="0x30" stat="pDef" val="2"/> <!-- Guess -->
+        <mul order="0x30" stat="pAtk" val="2"/> <!-- Guess -->
+      </effect>
     </for>
   </skill>
   <skill id="5245" levels="1" name="Magical Up">
-    <!-- It's an active skill on retail, quick hack by l2j-dp -->
     <!-- Increases magic power and magic resistance. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <mul order="0x40" stat="mDef" val="1.1"/> <!-- Guess -->
-      <mul order="0x40" stat="mAtk" val="1.05"/> <!-- Guess -->
+      <effect name="Buff" time="90" val="0" stackOrder="99" stackType="ma_up;MagicDefUp">
+        <mul order="0x30" stat="mDef" val="2"/> <!-- Guess -->
+        <mul order="0x30" stat="mAtk" val="2"/> <!-- Guess -->
+      </effect>
     </for>
   </skill>
   <skill id="5246" levels="12" name="Boss Dark Explosion">
+    <table name="#mpInitialConsume"> 4 6 8 11 14 17 20 21 22 22 23 23 </table>
+    <table name="#mpConsume"> 18 25 35 46 59 71 81 85 89 91 92 94 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3300"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5247" levels="12" name="Seed of Darkness">
+    <table name="#mpInitialConsume"> 3 4 6 8 10 13 15 15 16 16 17 17 </table>
+    <table name="#mpConsume"> 12 18 25 33 42 52 60 63 65 67 68 69 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3300"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5248" levels="12" name="Seed Explosion">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="500"/>
   </skill>
   <skill id="5249" levels="12" name="Boss Dark Circle">
+    <table name="#mpInitialConsume"> 3 5 8 10 13 16 19 20 21 22 23 23 </table>
+    <table name="#mpConsume"> 14 23 32 42 54 66 78 83 87 90 92 93 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="hitTime" val="3000"/>
+    <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3300"/>
   </skill>
   <skill id="5250" levels="1" name="Stun">
     <set name="target" val="TARGET_NONE"/>

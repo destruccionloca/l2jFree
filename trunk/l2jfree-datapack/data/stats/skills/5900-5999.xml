@@ -622,16 +622,17 @@
     <set name="reuseDelay" val="3000"/>
     <set name="staticReuse" val="true"/>
   </skill>
+  <!-- Birthday Helper's NPC buff -->
   <skill id="5950" levels="1" name="Birthday Cake">
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="hitTime" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="300"/>
-    <set name="staticReuse" val="true"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
     <for>
-     <effect name="Buff" time="43200" val="0" abnormal="vitality" stackType="vitality"/>
-      <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
+      <effect name="Buff" time="43200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
+        <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
+      </effect>
     </for>
   </skill>
   <skill id="5951" levels="1" name="Agathion's Blessing">
