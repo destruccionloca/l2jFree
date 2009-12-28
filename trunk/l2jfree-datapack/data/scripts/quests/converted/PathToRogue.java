@@ -24,6 +24,10 @@ import com.l2jfree.gameserver.model.quest.jython.QuestJython;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.tools.random.Rnd;
 
+/**
+ * 1st class transfer quest for Human Fighter.
+ * @author savormix
+ */
 public final class PathToRogue extends QuestJython
 {
 	private static final String PATH_TO_ROGUE = "403_PathToRogue";
@@ -62,6 +66,11 @@ public final class PathToRogue extends QuestJython
 	public PathToRogue(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
+		questItemIds = new int[] {
+			BEZIQUES_LETTER, NETIS_BOW, NETIS_DAGGER, SPATOIS_BONES, HORSESHOE_OF_LIGHT,
+			WANTED_BILL, STOLEN_JEWELRY, STOLEN_TOMES, STOLEN_RING, STOLEN_NECKLACE,
+			BEZIQUES_RECOMMENDATION
+		};
 		addStartNpc(BEZIQUE);
 		addTalkId(BEZIQUE);
 		addTalkId(NETI);
@@ -108,7 +117,7 @@ public final class PathToRogue extends QuestJython
 		QuestState qs = player.getQuestState(PATH_TO_ROGUE);
 		if ("30379_2".equals(event))
 		{
-			if (player.getClassId().getId() == 0)
+			if (player.getClassId().getId() == 0 && !qs.isCompleted())
 			{
 				if (player.getLevel() > 17)
 				{
@@ -129,7 +138,6 @@ public final class PathToRogue extends QuestJython
 		{
 			if ("1".equals(event))
 			{
-				qs.set(ID, 0);
 				qs.set(CONDITION, 1);
 				qs.setState(State.STARTED);
 				player.sendPacket(SND_ACCEPT);
@@ -147,7 +155,7 @@ public final class PathToRogue extends QuestJython
 				return "30425-05.htm";
 			}
 		}
-		return NO_QUEST;
+		return event;
 	}
 
 	@Override
@@ -216,20 +224,15 @@ public final class PathToRogue extends QuestJython
 			{
 				if (allStolenItems(qs))
 				{
-					qs.takeItems(NETIS_BOW, -1);
-					qs.takeItems(NETIS_DAGGER, -1);
-					for (int itemId : STOLEN_ITEMS)
-						qs.takeItems(itemId, -1);
-					qs.takeItems(WANTED_BILL, -1);
-					qs.giveItems(BEZIQUES_RECOMMENDATION, 1);
 					String done = qs.getGlobalQuestVar("1ClassQuestFinished");
+					qs.set(CONDITION, 0);
+					qs.exitQuest(false);
 					if (done.isEmpty())
 					{
 						qs.rewardItems(PcInventory.ADENA_ID, 81900);
 						qs.addExpAndSp(295862, 16814);
+						qs.giveItems(BEZIQUES_RECOMMENDATION, 1);
 					}
-					qs.set(CONDITION, 0);
-					qs.exitQuest(false);
 					qs.saveGlobalQuestVar("1ClassQuestFinished", "1");
 					talker.sendPacket(SND_FINISH);
 					return "30379-09.htm";

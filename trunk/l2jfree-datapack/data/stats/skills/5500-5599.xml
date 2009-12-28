@@ -782,12 +782,15 @@
     <set name="target" val="TARGET_PET"/>
     <set name="skillType" val="RECOVER"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="5572" levels="1" name="Warrior Ability - Haste">
-    <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="15" val="0">
         <mul order="0x30" stat="pAtkSpd" val="1.32"/>
@@ -795,10 +798,11 @@
     </for>
   </skill>
   <skill id="5573" levels="1" name="Knight Ability - Defense">
-    <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="15" val="0">
         <mul order="0x30" stat="pDef" val="1.20"/>
@@ -807,13 +811,14 @@
     </for>
   </skill>
   <skill id="5574" levels="1" name="Log Ability - Critical Chance">
-    <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="15" val="0">
-        <add order="0x40" stat="rCrit" val="30"/>
+      <effect name="Buff" time="15" val="0" stackOrder="1.3" stackType="critical_prob_up">
+        <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
     </for>
   </skill>
@@ -824,10 +829,11 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5576" levels="1" name="Enchanter Ability - Barrier">
-    <set name="magicLvl" val="75"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <for>
       <effect name="Invincible" time="5" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>
