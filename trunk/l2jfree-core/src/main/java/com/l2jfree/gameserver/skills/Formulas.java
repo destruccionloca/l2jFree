@@ -2110,12 +2110,22 @@ public final class Formulas
 	
 	private static double calcSkillVulnerability(L2Character attacker, L2Character target, L2Skill skill, L2SkillType type)
 	{
+		if (target.isPreventedFromReceivingBuffs())
+			return 0;
+
 		double multiplier = 1; // initialize...
 		
 		// Get the skill type to calculate its effect in function of base stats
 		// of the L2Character target
 		if (skill.getElement() > 0)
 			multiplier *= Math.sqrt(calcElemental(attacker, target, skill));
+		
+		/* I would believe this is more logical, and comment BUFF & DEBUFF in switch
+		if (skill.isOffensive())
+			multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, null);
+		else
+			multiplier = target.calcStat(Stats.BUFF_VULN, multiplier, target, null);
+		*/
 		
 		switch (type)
 		{
@@ -2160,7 +2170,7 @@ public final class Formulas
 				break;
 			default:
 		}
-		
+
 		return multiplier;
 	}
 	
@@ -2292,7 +2302,7 @@ public final class Formulas
 		
 		// Add Matk/Mdef Bonus
 		if (skill.isMagic())
-			rate *= Math.pow((double)attacker.getMAtk(target, skill) / (target.getMDef(attacker, skill) + (shld == 1 ? target.getShldDef() : 0)), 0.1);
+			rate *= Math.pow((double) attacker.getMAtk(target, skill) / (target.getMDef(attacker, skill) + (shld == 1 ? target.getShldDef() : 0)), 0.1);
 		
 		// Add Bonus for Sps/SS
 		if (ssmodifier != 100)

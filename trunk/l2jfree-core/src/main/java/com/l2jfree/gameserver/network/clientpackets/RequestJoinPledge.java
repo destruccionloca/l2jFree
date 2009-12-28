@@ -44,9 +44,9 @@ public class RequestJoinPledge extends L2GameClientPacket
 			return;
 
 		L2Clan clan = activeChar.getClan();
-		if (clan == null)
+		if (clan == null || L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_JOIN_CLAN))
 		{
-			requestFailed(SystemMessageId.NOT_JOINED_IN_ANY_CLAN);
+			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
 		}
 
@@ -62,12 +62,18 @@ public class RequestJoinPledge extends L2GameClientPacket
 			return;
 		}
 
-		L2PcInstance target = (L2PcInstance) obj;
+		L2PcInstance target = obj.getActingPlayer();
 		if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
+		{
+			sendAF();
 			return;
+		}
 
 		if (!activeChar.getRequest().setRequest(target, this))
+		{
+			sendAF();
 			return;
+		}
 
 		String _subPledge = (activeChar.getClan().getSubPledge(_pledgeType) != null ? activeChar.getClan().getSubPledge(_pledgeType).getName() : null);
 		target.sendPacket(new AskJoinPledge(activeChar.getObjectId(), _subPledge, _pledgeType, clan.getName()));

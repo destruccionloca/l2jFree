@@ -49,9 +49,6 @@ public class Continuous implements ICubicSkillHandler
 			L2SkillType.AGGDEBUFF,
 			L2SkillType.FUSION			};
 
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.L2PcInstance, com.l2jfree.gameserver.model.L2ItemInstance)
-	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2PcInstance player = null;
@@ -60,7 +57,7 @@ public class Continuous implements ICubicSkillHandler
 
 		if (skill.getEffectId() != 0)
 		{
-			int skillLevel = (int)skill.getEffectLvl();
+			int skillLevel = (int) skill.getEffectLvl();
 			int skillEffectId = skill.getEffectId();
 			
 			L2Skill skill2;

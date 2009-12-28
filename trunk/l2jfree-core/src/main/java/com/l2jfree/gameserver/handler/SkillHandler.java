@@ -161,8 +161,8 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		// Increase Charges, Souls, Etc
 		if (activeChar instanceof L2PcInstance)
 		{
-			((L2PcInstance)activeChar).increaseChargesBySkill(skill);
-			((L2PcInstance)activeChar).increaseSoulsBySkill(skill);
+			((L2PcInstance) activeChar).increaseChargesBySkill(skill);
+			((L2PcInstance) activeChar).increaseSoulsBySkill(skill);
 		}
 		
 		skill.getEffectsSelf(activeChar);
@@ -176,9 +176,9 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		final ISkillHandler handler = get(skill.getSkillType());
 		
 		if (handler instanceof ICubicSkillHandler)
-			((ICubicSkillHandler)handler).useCubicSkill(cubic, skill, targets);
+			((ICubicSkillHandler) handler).useCubicSkill(cubic, skill, targets);
 		else if (skill instanceof L2SkillDrain)
-			((L2SkillDrain)skill).useCubicSkill(cubic, targets);
+			((L2SkillDrain) skill).useCubicSkill(cubic, targets);
 		else if (handler != null)
 			handler.useSkill(cubic.getOwner(), skill, targets);
 		else
@@ -190,7 +190,7 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		final ISkillHandler handler = get(skill.getSkillType());
 		
 		if (handler instanceof ISkillConditionChecker)
-			return ((ISkillConditionChecker)handler).checkConditions(activeChar, skill);
+			return ((ISkillConditionChecker) handler).checkConditions(activeChar, skill);
 		
 		return true;
 	}
@@ -200,7 +200,7 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		final ISkillHandler handler = get(skill.getSkillType());
 		
 		if (handler instanceof ISkillConditionChecker)
-			return ((ISkillConditionChecker)handler).checkConditions(activeChar, skill, target);
+			return ((ISkillConditionChecker) handler).checkConditions(activeChar, skill, target);
 		
 		return true;
 	}
