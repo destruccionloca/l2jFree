@@ -25,6 +25,8 @@ import java.io.InputStreamReader;
 import java.io.InvalidClassException;
 import java.io.LineNumberReader;
 import java.io.ObjectInputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -119,43 +121,30 @@ public final class L2ScriptEngineManager
 		{
 			try
 			{
+				_log.info("Script Engine: " + factory.getEngineName() + " " + factory.getEngineVersion()
+					+ " - Language: " + factory.getLanguageName() + " " + factory.getLanguageVersion());
+				
 				ScriptEngine engine = factory.getScriptEngine();
-				boolean reg = false;
+				
 				for (String name : factory.getNames())
 				{
-					ScriptEngine existentEngine = _nameEngines.get(name);
+					if (_nameEngines.containsKey(name))
+						throw new IllegalStateException("Multiple script engines for the same name!");
 					
-					if (existentEngine != null)
-					{
-						double engineVer = Double.parseDouble(factory.getEngineVersion());
-						double existentEngVer = Double.parseDouble(existentEngine.getFactory().getEngineVersion());
-						
-						if (engineVer <= existentEngVer)
-						{
-							continue;
-						}
-					}
-					reg = true;
 					_nameEngines.put(name, engine);
 				}
-
-				if (reg)
-				{
-					_log.info("Script Engine: "+factory.getEngineName()+" "+factory.getEngineVersion()+" - Language: "+
-							factory.getLanguageName()+" - Language Version: "+factory.getLanguageVersion());
-				}
-
+				
 				for (String ext : factory.getExtensions())
 				{
-					if (!ext.equals("java") || factory.getLanguageName().equals("java"))
-					{
-						_extEngines.put(ext, engine);
-					}
+					if (_extEngines.containsKey(ext))
+						throw new IllegalStateException("Multiple script engines for the same extension!");
+					
+					_extEngines.put(ext, engine);
 				}
 			}
 			catch (Exception e)
 			{
-				_log.warn("Failed initializing factory. ", e);
+				_log.warn("Failed initializing factory.", e);
 			}
 		}
 
@@ -410,6 +399,7 @@ public final class L2ScriptEngineManager
 			context.setAttribute(ScriptEngine.FILENAME, file.getName(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("classpath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("sourcepath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
+			context.setAttribute("parentLoader", ClassLoader.getSystemClassLoader(), ScriptContext.ENGINE_SCOPE);
 
 			setCurrentLoadingScript(file);
 			ScriptContext ctx = engine.getContext();
@@ -434,6 +424,7 @@ public final class L2ScriptEngineManager
 				setCurrentLoadingScript(null);
 				context.removeAttribute(ScriptEngine.FILENAME, ScriptContext.ENGINE_SCOPE);
 				context.removeAttribute("mainClass", ScriptContext.ENGINE_SCOPE);
+				context.removeAttribute("parentLoader", ScriptContext.ENGINE_SCOPE);
 			}
 		}
 		else
@@ -443,6 +434,7 @@ public final class L2ScriptEngineManager
 			context.setAttribute(ScriptEngine.FILENAME, file.getName(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("classpath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("sourcepath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
+			context.setAttribute("parentLoader", ClassLoader.getSystemClassLoader(), ScriptContext.ENGINE_SCOPE);
 			setCurrentLoadingScript(file);
 			try
 			{
@@ -453,6 +445,7 @@ public final class L2ScriptEngineManager
 				setCurrentLoadingScript(null);
 				engine.getContext().removeAttribute(ScriptEngine.FILENAME, ScriptContext.ENGINE_SCOPE);
 				engine.getContext().removeAttribute("mainClass", ScriptContext.ENGINE_SCOPE);
+				engine.getContext().removeAttribute("parentLoader", ScriptContext.ENGINE_SCOPE);
 			}
 
 		}
@@ -517,41 +510,36 @@ public final class L2ScriptEngineManager
 
 	public void reportScriptFileError(File script, ScriptException e)
 	{
-		String dir = script.getParent();
-		String name = script.getName() + ".error.log";
-		if (dir != null)
+		_log.warn("Failed executing script: " + script.getPath() + ".");
+		
+		final StringWriter sw = new StringWriter();
+		final PrintWriter pw = new PrintWriter(sw);
+		pw.println("Error on: " + script.getAbsolutePath());
+		pw.println("Line: " + e.getLineNumber() + " - Column: " + e.getColumnNumber());
+		pw.println();
+		e.printStackTrace(pw);
+		pw.close();
+		
+		final String report = sw.toString();
+		
+		FileOutputStream fos = null;
+		try
 		{
-			File file = new File(dir + "/" + name);
-
-			FileOutputStream fos = null;
-			try
-			{
-				if (!file.exists())
-				{
-					file.createNewFile();
-				}
-
-				fos = new FileOutputStream(file);
-				String errorHeader = "Error on: " + file.getCanonicalPath() + "\r\nLine: " + e.getLineNumber() + " - Column: " + e.getColumnNumber()
-						+ "\r\n\r\n";
-				fos.write(errorHeader.getBytes());
-				fos.write(e.getMessage().getBytes());
-				_log.warn("Failed executing script: " + script.getAbsolutePath() + ". See " + file.getName() + " for details.");
-			}
-			catch (IOException ioe)
-			{
-				_log.warn("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
-						+ "Additionally failed when trying to write an error report on script directory. Reason: " + ioe.getMessage(), ioe);
-			}
-			finally
-			{
-				IOUtils.closeQuietly(fos);
-			}
+			String fileName = script.getName() + ".error.log";
+			
+			fos = new FileOutputStream(new File(script.getParent(), fileName));
+			fos.write(report.getBytes());
+			
+			_log.warn("See " + fileName + " for details.");
 		}
-		else
+		catch (IOException ioe)
 		{
-			_log.warn("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
-					+ "Additionally failed when trying to write an error report on script directory.");
+			_log.warn("Additionally failed when trying to write an error report on script directory.", ioe);
+			_log.info(report);
+		}
+		finally
+		{
+			IOUtils.closeQuietly(fos);
 		}
 	}
 
