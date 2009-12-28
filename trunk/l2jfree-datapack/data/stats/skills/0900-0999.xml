@@ -513,7 +513,7 @@
     <set name="power" val="7546"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="condition" val="16"/> <!-- Crit Condition, like in others blows-->
-    <set name="reuseDelay" val="1000"/>
+    <set name="reuseDelay" val="12000"/>
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="666"/>
     <set name="skillType" val="BLOW"/>
