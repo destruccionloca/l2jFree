@@ -1,22 +1,22 @@
 /*
- * Copyright (C) 2006 Sun Microsystems, Inc. All rights reserved. 
+ * Copyright (C) 2006 Sun Microsystems, Inc. All rights reserved.
  * Use is subject to license terms.
  *
- * Redistribution and use in source and binary forms, with or without modification, are 
- * permitted provided that the following conditions are met: Redistributions of source code 
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met: Redistributions of source code
  * must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of 
- * conditions and the following disclaimer in the documentation and/or other materials 
- * provided with the distribution. Neither the name of the Sun Microsystems nor the names of 
- * is contributors may be used to endorse or promote products derived from this software 
- * without specific prior written permission. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
+ * provided with the distribution. Neither the name of the Sun Microsystems nor the names of
+ * is contributors may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER 
- * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON 
+ * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
@@ -29,19 +29,29 @@
 
 package com.sun.script.java;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.CharBuffer;
-import java.util.Map;
 import java.util.HashMap;
-import javax.tools.*;
+import java.util.Map;
+
+import javax.tools.FileObject;
+import javax.tools.ForwardingJavaFileManager;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.SimpleJavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 
 /**
  * JavaFileManager that keeps compiled .class bytes in memory.
  */
-public final class MemoryJavaFileManager extends ForwardingJavaFileManager
+public final class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaFileManager>
 {
 	/** Java source file extension. */
 	private final static String EXT = ".java";
@@ -58,11 +68,13 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager
 		return classBytes;
 	}
 	
+	@Override
 	public void close() throws IOException
 	{
 		classBytes = new HashMap<String, byte[]>();
 	}
 	
+	@Override
 	public void flush() throws IOException
 	{
 	}
@@ -80,6 +92,7 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager
 			this.code = code;
 		}
 		
+		@Override
 		public CharBuffer getCharContent(boolean ignoreEncodingErrors)
 		{
 			return CharBuffer.wrap(code);
@@ -104,9 +117,11 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager
 			this.name = name;
 		}
 		
+		@Override
 		public OutputStream openOutputStream()
 		{
 			return new FilterOutputStream(new ByteArrayOutputStream()) {
+				@Override
 				public void close() throws IOException
 				{
 					out.close();
@@ -117,6 +132,7 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager
 		}
 	}
 	
+	@Override
 	public JavaFileObject getJavaFileForOutput(JavaFileManager.Location location, String className, Kind kind,
 		FileObject sibling) throws IOException
 	{

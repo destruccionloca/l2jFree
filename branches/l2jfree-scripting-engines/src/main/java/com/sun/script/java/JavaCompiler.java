@@ -1,22 +1,22 @@
 /*
- * Copyright (C) 2006 Sun Microsystems, Inc. All rights reserved. 
+ * Copyright (C) 2006 Sun Microsystems, Inc. All rights reserved.
  * Use is subject to license terms.
  *
- * Redistribution and use in source and binary forms, with or without modification, are 
- * permitted provided that the following conditions are met: Redistributions of source code 
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met: Redistributions of source code
  * must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of 
- * conditions and the following disclaimer in the documentation and/or other materials 
- * provided with the distribution. Neither the name of the Sun Microsystems nor the names of 
- * is contributors may be used to endorse or promote products derived from this software 
- * without specific prior written permission. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
+ * provided with the distribution. Neither the name of the Sun Microsystems nor the names of
+ * is contributors may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER 
- * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON 
+ * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
@@ -30,12 +30,17 @@
 package com.sun.script.java;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.tools.*;
+
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 
 /**
  * Simple interface to Java compiler using JSR 199 Compiler API.
@@ -86,7 +91,7 @@ public class JavaCompiler
 		
 		// prepare the compilation unit
 		List<JavaFileObject> compUnits = new ArrayList<JavaFileObject>(1);
-		compUnits.add(manager.makeStringSource(fileName, source));
+		compUnits.add(MemoryJavaFileManager.makeStringSource(fileName, source));
 		
 		// javac options
 		List<String> options = new ArrayList<String>();
@@ -112,7 +117,7 @@ public class JavaCompiler
 		if (task.call() == false)
 		{
 			PrintWriter perr = new PrintWriter(err);
-			for (Diagnostic diagnostic : diagnostics.getDiagnostics())
+			for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics.getDiagnostics())
 			{
 				perr.println(diagnostic.getMessage(null));
 			}

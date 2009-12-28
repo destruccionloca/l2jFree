@@ -1,22 +1,22 @@
 /*
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved. 
+ * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
  * Use is subject to license terms.
  *
- * Redistribution and use in source and binary forms, with or without modification, are 
- * permitted provided that the following conditions are met: Redistributions of source code 
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met: Redistributions of source code
  * must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of 
- * conditions and the following disclaimer in the documentation and/or other materials 
- * provided with the distribution. Neither the name of the Sun Microsystems nor the names of 
- * is contributors may be used to endorse or promote products derived from this software 
- * without specific prior written permission. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
+ * provided with the distribution. Neither the name of the Sun Microsystems nor the names of
+ * is contributors may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER 
- * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON 
+ * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
@@ -29,10 +29,28 @@
 
 package com.sun.script.jython;
 
-import javax.script.*;
-import java.lang.reflect.*;
-import java.io.*;
-import org.python.core.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+import javax.script.AbstractScriptEngine;
+import javax.script.Bindings;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.Invocable;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptException;
+import javax.script.SimpleBindings;
+
+import org.python.core.Py;
+import org.python.core.PyCode;
+import org.python.core.PyObject;
+import org.python.core.PySystemState;
+import org.python.core.__builtin__;
 
 public class JythonScriptEngine extends AbstractScriptEngine implements Compilable, Invocable
 {
@@ -64,11 +82,13 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 			this.code = code;
 		}
 		
+		@Override
 		public ScriptEngine getEngine()
 		{
 			return JythonScriptEngine.this;
 		}
 		
+		@Override
 		public Object eval(ScriptContext ctx) throws ScriptException
 		{
 			return evalCode(code, ctx);
@@ -102,7 +122,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 		return invokeImpl(obj, name, args);
 	}
 	
-	private Object invokeImpl(Object obj, String name, Object... args) throws ScriptException, NoSuchMethodException
+	private Object invokeImpl(Object obj, String name, Object... args) throws NoSuchMethodException
 	{
 		if (name == null)
 		{
@@ -129,7 +149,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 			{
 				// lookup in built-in functions. This way
 				// user can call invoke built-in functions.
-				PyObject builtins = systemState.get().builtins;
+				PyObject builtins = PySystemState.builtins;
 				func = builtins.__finditem__(name);
 			}
 		}
@@ -155,6 +175,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 		return makeInterface(null, clazz);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private <T> T makeInterface(Object obj, Class<T> clazz)
 	{
 		if (clazz == null || !clazz.isInterface())
@@ -200,6 +221,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 		return new SimpleBindings();
 	}
 	
+	@Override
 	public void setContext(ScriptContext ctx)
 	{
 		super.setContext(ctx);
@@ -218,7 +240,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 		return Py.java2py(javaObj);
 	}
 	
-	static Object py2java(PyObject pyObj, Class type)
+	static Object py2java(PyObject pyObj, Class<?> type)
 	{
 		return (pyObj == null) ? null : pyObj.__tojava__(type);
 	}
@@ -264,7 +286,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 	{
 		/*
 		 * From my reading of Jython source, it appears that
-		 * PySystemState is set on per-thread basis. So, I 
+		 * PySystemState is set on per-thread basis. So, I
 		 * maintain it in a thread local and set it. Besides,
 		 * this also helps in setting correct class loader
 		 * -- which is thread context class loader.
@@ -294,7 +316,7 @@ public class JythonScriptEngine extends AbstractScriptEngine implements Compilab
 			 * Jython parser seems to have 3 input modes (called compile "kind")
 			 * These are "single", "eval" and "exec". I don't clearly understand
 			 * the difference. But, with "eval" and "exec" certain features are
-			 * not working. For eg. with "eval" assignments are not working. 
+			 * not working. For eg. with "eval" assignments are not working.
 			 * I've used "exec". But, that is customizable by special attribute.
 			 */
 			String mode = (String)ctx.getAttribute(JYTHON_COMPILE_MODE);

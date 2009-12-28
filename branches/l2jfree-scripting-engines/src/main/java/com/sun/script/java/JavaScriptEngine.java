@@ -1,22 +1,22 @@
 /*
- * Copyright (C) 2006 Sun Microsystems, Inc. All rights reserved. 
+ * Copyright (C) 2006 Sun Microsystems, Inc. All rights reserved.
  * Use is subject to license terms.
  *
- * Redistribution and use in source and binary forms, with or without modification, are 
- * permitted provided that the following conditions are met: Redistributions of source code 
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met: Redistributions of source code
  * must retain the above copyright notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list of 
- * conditions and the following disclaimer in the documentation and/or other materials 
- * provided with the distribution. Neither the name of the Sun Microsystems nor the names of 
- * is contributors may be used to endorse or promote products derived from this software 
- * without specific prior written permission. 
+ * Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials
+ * provided with the distribution. Neither the name of the Sun Microsystems nor the names of
+ * is contributors may be used to endorse or promote products derived from this software
+ * without specific prior written permission.
 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
- * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER 
- * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON 
+ * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+ * AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
@@ -29,10 +29,22 @@
 
 package com.sun.script.java;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
-import javax.script.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.script.AbstractScriptEngine;
+import javax.script.Bindings;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 
 /**
  * This is script engine for Java programming language.
@@ -53,18 +65,20 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 	// my implementation for CompiledScript
 	private class JavaCompiledScript extends CompiledScript
 	{
-		private Class clazz;
+		private Class<?> clazz;
 		
-		JavaCompiledScript(Class clazz)
+		JavaCompiledScript(Class<?> clazz)
 		{
 			this.clazz = clazz;
 		}
 		
+		@Override
 		public ScriptEngine getEngine()
 		{
 			return JavaScriptEngine.this;
 		}
 		
+		@Override
 		public Object eval(ScriptContext ctx) throws ScriptException
 		{
 			return evalClass(clazz, ctx);
@@ -73,7 +87,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 	
 	public CompiledScript compile(String script) throws ScriptException
 	{
-		Class clazz = parse(script, context);
+		Class<?> clazz = parse(script, context);
 		return new JavaCompiledScript(clazz);
 	}
 	
@@ -84,7 +98,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 	
 	public Object eval(String str, ScriptContext ctx) throws ScriptException
 	{
-		Class clazz = parse(str, ctx);
+		Class<?> clazz = parse(str, ctx);
 		return evalClass(clazz, ctx);
 	}
 	
@@ -116,7 +130,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 	}
 	
 	// Internals only below this point
-	private Class parse(String str, ScriptContext ctx) throws ScriptException
+	private Class<?> parse(String str, ScriptContext ctx) throws ScriptException
 	{
 		String fileName = getFileName(ctx);
 		String sourcePath = getSourcePath(ctx);
@@ -133,7 +147,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 		{
 			try
 			{
-				Class clazz = loader.load(mainClassName);
+				Class<?> clazz = loader.load(mainClassName);
 				Method mainMethod = findMainMethod(clazz);
 				if (mainMethod == null)
 				{
@@ -147,7 +161,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 			}
 		}
 		// no main class configured - load all compiled classes
-		Iterable<Class> classes;
+		Iterable<Class<?>> classes;
 		try
 		{
 			classes = loader.loadAll();
@@ -157,7 +171,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 			throw new ScriptException(exp);
 		}
 		// search for class with main method
-		Class c = findMainClass(classes);
+		Class<?> c = findMainClass(classes);
 		if (c != null)
 		{
 			return c;
@@ -166,7 +180,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 		{
 			// if class with "main" method, then
 			// return first class
-			Iterator<Class> itr = classes.iterator();
+			Iterator<Class<?>> itr = classes.iterator();
 			if (itr.hasNext())
 			{
 				return itr.next();
@@ -178,10 +192,10 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 		}
 	}
 	
-	private static Class findMainClass(Iterable<Class> classes)
+	private static Class<?> findMainClass(Iterable<Class<?>> classes)
 	{
 		// find a public class with public static main method
-		for (Class clazz : classes)
+		for (Class<?> clazz : classes)
 		{
 			int modifiers = clazz.getModifiers();
 			if (Modifier.isPublic(modifiers))
@@ -195,7 +209,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 		}
 		// okay, try to find package private class that
 		// has public static main method
-		for (Class clazz : classes)
+		for (Class<?> clazz : classes)
 		{
 			Method mainMethod = findMainMethod(clazz);
 			if (mainMethod != null)
@@ -208,7 +222,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 	}
 	
 	// find public static void main(String[]) method, if any
-	private static Method findMainMethod(Class clazz)
+	private static Method findMainMethod(Class<?> clazz)
 	{
 		try
 		{
@@ -226,7 +240,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 	}
 	
 	// find public static void setScriptContext(ScriptContext) method, if any
-	private static Method findSetScriptContextMethod(Class clazz)
+	private static Method findSetScriptContextMethod(Class<?> clazz)
 	{
 		try
 		{
@@ -346,7 +360,7 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 		return null;
 	}
 	
-	private static Object evalClass(Class clazz, ScriptContext ctx) throws ScriptException
+	private static Object evalClass(Class<?> clazz, ScriptContext ctx) throws ScriptException
 	{
 		// JSR-223 requirement
 		ctx.setAttribute("context", ctx, ScriptContext.ENGINE_SCOPE);
