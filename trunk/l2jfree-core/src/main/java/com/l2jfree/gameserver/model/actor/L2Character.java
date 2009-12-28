@@ -1655,7 +1655,8 @@ public abstract class L2Character extends L2Object
 
 			hitTime *= multi;
 			coolTime *= multi;
-			skillInterruptTime *= multi;
+			// I highly doubt it
+			//skillInterruptTime *= multi;
 		}
 
 		// queue herbs and potions
@@ -6662,7 +6663,7 @@ public abstract class L2Character extends L2Object
 	{
 		setIsCastingNow(true);
 		// for interrupt -200 ms
-		_castInterruptTime = L2System.milliTime() + durationInMillis - 200;
+		_castInterruptTime = L2System.milliTime() + durationInMillis;// - 200;
 	}
 
 	private boolean		_AIdisabled	= false;

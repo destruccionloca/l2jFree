@@ -66,7 +66,6 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Integer;
-import com.l2jfree.lang.L2Math;
 import com.l2jfree.lang.L2System;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.LinkedBunch;
@@ -380,10 +379,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_killByDOT = set.getBool("killByDOT", false);
 
 		_hitTime = set.getInteger("hitTime", 0);
-		// Prevent warnings; better to have these in XML just in case
-		/*_coolTime = */set.getInteger("coolTime", 0);
-		//_skillInterruptTime = isMagic() ? getHitTime() / 2 : 0;
-		_skillInterruptTime = isMagic() ? getHitTime() : 0;
+		_coolTime = set.getInteger("coolTime", 0);
+		_skillInterruptTime = set.getInteger("interruptTime", 500);
 		_reuseDelay = set.getInteger("reuseDelay", 0);
 		_equipDelay = set.getInteger("equipDelay", 0);
 
@@ -443,12 +440,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		}
 
 		_offensiveState = getOffensiveState(set);
-		if (isOffensive()) // seems so from testing
-		// even when drastically decreasing cast/atk speed and using long cast time
-		// skills, we start queued skill after no longer than 0,5s
-			_coolTime = L2Math.limit(0, _hitTime / 3, 500);
-		else
-			_coolTime = 0;
 		_isDebuff = set.getBool("isDebuff", false/*isOffensive()*/);
 
 		_numSouls = set.getInteger("num_souls", 0);
