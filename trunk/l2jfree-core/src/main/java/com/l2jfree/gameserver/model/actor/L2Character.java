@@ -1774,7 +1774,7 @@ public abstract class L2Character extends L2Object
 			if (reuseDelay < protTime)
 				protTime /= 2;
 
-			((L2PcInstance)this).setSkillQueueProtectionTime(System.currentTimeMillis() + protTime);
+			((L2PcInstance) this).setSkillQueueProtectionTime(System.currentTimeMillis() + protTime);
 		}
 
 		// Send a system message USE_S1 to the L2Character
