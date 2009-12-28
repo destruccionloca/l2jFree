@@ -201,7 +201,7 @@ def checkCondition(player,KamaInfo):
 		if st:
 			LastEntry = st.getInt("LastEntry")
 			if currentTime < LastEntry + KamaInfo[1]:
-				sm = SystemMessage(SystemMessageId.C1_MAY_NOT_REENTER_YET)
+				sm = SystemMessage(SystemMessageId.NO_RE_ENTER_TIME_FOR_C1)
 				sm.addPcName(partyMember)
 				player.sendPacket(sm)
 				partyMember.sendPacket(sm)
