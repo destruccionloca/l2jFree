@@ -90,10 +90,13 @@
   </skill>
   <skill id="5413" levels="1" name="Performing Agathion - Beast Farm">
     <!-- Needs to be verified -->
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="3000"/>
-    <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <cond msgId="2292">
       <player agathionId="16026"/>
@@ -101,10 +104,13 @@
   </skill>
   <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
     <!-- Needs to be verified -->
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="3000"/>
-    <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <cond msgId="2292">
       <player agathionId="16027"/>
@@ -112,10 +118,13 @@
   </skill>
   <skill id="5415" levels="1" name="Performing Agathion - Castle">
     <!-- Needs to be verified -->
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="3000"/>
-    <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <cond msgId="2292">
       <player agathionId="16028"/>
@@ -337,10 +346,13 @@
   </skill>
   <skill id="5442" levels="4" name="Bite Attack">
     <!-- Bite ferociously with sharp teeth. -->
-    <table name="#mpConsume"> 55 61 66 71 </table>
+    <table name="#mpInitialConsume"> 11 12 13 14 </table>
+    <table name="#mpConsume"> 44 48 52 56 </table>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1080"/>
+    <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
@@ -510,10 +522,13 @@
   </skill>
   <skill id="5458" levels="1" name="Performing Agathion - Fortress">
     <!-- Needs to be verified -->
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="coolTime" val="2000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="3000"/>
-    <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <cond msgId="2292">
       <player agathionId="16029"/>
@@ -532,19 +547,22 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5461" levels="12" name="Castle Gunner Shot">
-    <table name="#mpConsume"> 19 22 25 28 31 33 36 38 40 42 42 43 </table>
+    <table name="#mpInitialConsume"> 3 4 5 5 6 6 7 7 8 8 8 8 </table>
+    <table name="#mpConsume"> 15 17 20 22 24 26 28 30 32 33 33 34 </table>
     <set name="magicLvl" val="70"/>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="102"/> <!-- power for lvl7 -->
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
-    <set name="hitTime" val="4000"/>
-    <set name="reuseDelay" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
-    <set name="effectRange" val="1500"/>
+    <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5462" levels="1" name="Fire Attacks">
     <!-- Needs to be verified -->
@@ -607,20 +625,23 @@
     </for>
   </skill>
   <skill id="5468" levels="12" name="Castle Gunner Fire">
-    <table name="#mpConsume"> 19 22 25 28 31 33 36 38 40 42 42 43 </table>
+    <table name="#mpInitialConsume"> 3 4 5 5 6 6 7 7 8 8 8 8 </table>
+    <table name="#mpConsume"> 15 17 20 22 24 26 28 30 32 33 33 34 </table>
     <set name="magicLvl" val="70"/>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="87"/> <!-- power for lvl7 -->
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="150"/>
     <set name="skillType" val="MDAM"/>
-    <set name="hitTime" val="4000"/>
-    <set name="reuseDelay" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="800"/>
   </skill>
   <skill id="5469" levels="1" name="Raid Boss - Level 22">
     <set name="target" val="TARGET_SELF"/>
