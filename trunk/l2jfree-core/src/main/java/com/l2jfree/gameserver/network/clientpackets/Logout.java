@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.Disconnection;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
 public final class Logout extends L2GameClientPacket
 {
@@ -30,13 +29,14 @@ public final class Logout extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		final L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
 
 		// this method sends an information message to the player
-		if (!activeChar.canLogout())
+		if (!activeChar.canLogout(false))
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 

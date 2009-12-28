@@ -11795,9 +11795,9 @@ public final class L2PcInstance extends L2Playable
 			if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
 			{
 				if (restart)
-					sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
-				else
 					sendPacket(SystemMessageId.CANT_RESTART_WHILE_FIGHTING);
+				else
+					sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
 				return false;
 			}
 		}

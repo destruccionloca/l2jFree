@@ -836,6 +836,12 @@ public class L2Npc extends L2Character
 					+ "</td></tr>");
 			html1.append("</table>");
 
+			html1.append("<font color=\"LEVEL\">Quest Info</font>");
+			html1.append("<table border=\"0\" width=\"100%\">");
+			html1.append("<tr><td>Quest attack status:</td><td>" + getQuestAttackStatus() + "</td></tr>");
+			html1.append("<tr><td>Quest attacker:</td><td>" + getQuestFirstAttacker() + "</td></tr>");
+			html1.append("</table>");
+
 			html1.append("<br><center><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc " + getTemplate().getNpcId()
 					+ "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1></td>");
 			html1
@@ -2660,6 +2666,8 @@ public class L2Npc extends L2Character
 
 		super.onSpawn();
 
+		setQuestFirstAttacker(null);
+		setQuestAttackStatus(Quest.ATTACK_NOONE);
 		if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN) != null)
 			for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN))
 				quest.notifySpawn(this);
