@@ -42,24 +42,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.tools.FileObject;
-import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 
+import org.eclipse.jdt.internal.compiler.tool.EclipseFileManager;
+
 /**
  * JavaFileManager that keeps compiled .class bytes in memory.
  */
-public final class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaFileManager>
+public final class MemoryJavaFileManager extends EclipseFileManager
 {
 	/** Java source file extension. */
 	private final static String EXT = ".java";
 	private Map<String, byte[]> classBytes;
 	
-	public MemoryJavaFileManager(JavaFileManager fileManager)
+	public MemoryJavaFileManager()
 	{
-		super(fileManager);
+		super(null, null);
 		classBytes = new HashMap<String, byte[]>();
 	}
 	
@@ -138,7 +139,7 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaF
 	{
 		if (kind == Kind.CLASS)
 		{
-			return new ClassOutputBuffer(className);
+			return new ClassOutputBuffer(className.replace('/', '.'));
 		}
 		else
 		{
@@ -163,7 +164,7 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaF
 			try
 			{
 				final StringBuilder newUri = new StringBuilder();
-				newUri.append("mfm:///");
+				newUri.append("file:///");
 				newUri.append(name.replace('.', '/'));
 				if (name.endsWith(EXT))
 					newUri.replace(newUri.length() - EXT.length(), newUri.length(), EXT);
@@ -171,7 +172,7 @@ public final class MemoryJavaFileManager extends ForwardingJavaFileManager<JavaF
 			}
 			catch (Exception exp)
 			{
-				return URI.create("mfm:///com/sun/script/java/java_source");
+				return URI.create("file:///com/sun/script/java/java_source");
 			}
 		}
 	}

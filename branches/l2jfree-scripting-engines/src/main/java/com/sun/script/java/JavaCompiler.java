@@ -39,8 +39,8 @@ import java.util.Map;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
+
+import org.eclipse.jdt.internal.compiler.tool.EclipseCompiler;
 
 /**
  * Simple interface to Java compiler using JSR 199 Compiler API.
@@ -48,12 +48,10 @@ import javax.tools.ToolProvider;
 public class JavaCompiler
 {
 	private javax.tools.JavaCompiler tool;
-	private StandardJavaFileManager stdManager;
 	
 	public JavaCompiler()
 	{
-		tool = ToolProvider.getSystemJavaCompiler();
-		stdManager = tool.getStandardFileManager(null, null, null);
+		tool = new EclipseCompiler();
 	}
 	
 	public Map<String, byte[]> compile(String source, String fileName)
@@ -87,7 +85,7 @@ public class JavaCompiler
 		DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
 		
 		// create a new memory JavaFileManager
-		MemoryJavaFileManager manager = new MemoryJavaFileManager(stdManager);
+		MemoryJavaFileManager manager = new MemoryJavaFileManager();
 		
 		// prepare the compilation unit
 		List<JavaFileObject> compUnits = new ArrayList<JavaFileObject>(1);
@@ -96,7 +94,7 @@ public class JavaCompiler
 		// javac options
 		List<String> options = new ArrayList<String>();
 		options.add("-Xlint:all");
-		options.add("-g:none");
+		options.add("-g");
 		options.add("-deprecation");
 		if (sourcePath != null)
 		{
@@ -127,8 +125,7 @@ public class JavaCompiler
 		
 		Map<String, byte[]> classBytes = manager.getClassBytes();
 		try
-		{
-			manager.close();
+		{			manager.close();
 		}
 		catch (IOException exp)
 		{
