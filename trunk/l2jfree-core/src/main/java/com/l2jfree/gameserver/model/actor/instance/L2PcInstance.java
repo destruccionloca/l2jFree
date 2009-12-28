@@ -1605,10 +1605,8 @@ public final class L2PcInstance extends L2Playable
 		QuestState retval = null;
 		if (event == null)
 			event = "";
-		if (!_quests.containsKey(quest))
-			return retval;
 		QuestState qs = getQuestState(quest);
-		if (qs == null && event.length() == 0)
+		if (qs == null && event.isEmpty())
 			return retval;
 		if (qs == null)
 		{
@@ -1631,7 +1629,7 @@ public final class L2PcInstance extends L2Playable
 					{
 						for (QuestState state : states)
 						{
-							if ((state.getQuest().getQuestIntId() == qs.getQuest().getQuestIntId()) && !qs.isCompleted())
+							if ((state.getQuest().getQuestIntId() == qs.getQuest().getQuestIntId()))// && !qs.isCompleted())
 							{
 								if (qs.getQuest().notifyEvent(event, npc, this))
 									showQuestWindow(quest, State.getStateName(qs.getState()));

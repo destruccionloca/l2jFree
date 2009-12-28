@@ -668,17 +668,38 @@ public class Quest extends ManagedScript
 		return onAdvEvent("", null, qs.getPlayer());
 	}
 
+	/**
+	 * This method is called by quest timers when they expire and
+	 * all player bypasses ("Quest [...]") from NPC chat dialog.<BR>
+	 * For bypasses, it is guaranteed that <CODE>player.getQuestState(getName())
+	 * </CODE> is not null, so there's no need to validate.<BR>
+	 * When this method is overridden, onEvent(String, QuestState) will not be called.<BR>
+	 * <B>This method is called even if player has already completed the quest!</B>
+	 * @param event Timer name or bypass string
+	 * @param npc quest NPC or null for timers
+	 * @param player quester
+	 * @return a htm file name (to be shown to player) or null
+	 */
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		// if not overridden by a subclass, then default to the returned value of the simpler (and older) onEvent override
 		// if the player has a state, use it as parameter in the next call, else return null
 		QuestState qs = player.getQuestState(getName());
-		if (qs != null)
+		if (qs != null && !qs.isCompleted())
 			return onEvent(event, qs);
 
 		return null;
 	}
 
+	/**
+	 * A simple quest event handler. Used when
+	 * <CODE>onAdvEvent(String, L2Npc, L2PcInstance)</CODE> is not overridden.<BR>
+	 * It is guaranteed that both <CODE>event</CODE> and <CODE>qs</CODE>
+	 * are not <CODE>null</CODE>s and the quest is in progress.
+	 * @param event Timer name or bypass string
+	 * @param qs Quest state
+	 * @return a htm file name (to be shown to player) or null
+	 */
 	public String onEvent(String event, QuestState qs)
 	{
 		return null;

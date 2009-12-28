@@ -21,6 +21,8 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
+import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -69,6 +71,8 @@ public final class L2BirthdayHelperInstance extends L2Npc
 			// any anniversary
 			L2Skill buff = SkillTable.getInstance().getSkillInfo(BIRTHDAY_CAKE_EFFECT, 1).getSkill();
 			buff.getEffects(player, player);
+			player.broadcastPacket(new MagicSkillUse(player, player, buff, 0, 0));
+			player.broadcastPacket(new MagicSkillLaunched(player, buff, player));
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(buff));
 			showChatWindow(player, 1);
 		}

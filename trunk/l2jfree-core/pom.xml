@@ -25,11 +25,6 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>l2jfree</groupId>
-      <artifactId>l2jfree-scripting-engines</artifactId>
-      <version>1.3.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.schwering</groupId>
       <artifactId>irclib</artifactId>
       <version>1.10</version>
@@ -56,11 +51,40 @@
       <artifactId>eclipselink</artifactId>
       <version>1.2.0</version>
     </dependency>
+    <!-- Testing -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <!-- Scripting -->
+    <!-- Jython engine for 2.2.1 works, but java engine has issues with CP
+    <dependency>
+      <groupId>l2jfree</groupId>
+      <artifactId>l2jfree-scripting-engines</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>l2jfree</groupId>
+      <artifactId>java-engine</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>l2jfree</groupId>
+      <artifactId>jython-engine</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jdt.core.compiler</groupId>
+      <artifactId>ecj</artifactId>
+      <version>3.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.python</groupId>
+      <artifactId>jython</artifactId>
+      <version>2.2.1</version>
     </dependency>
   </dependencies>
   <build>
