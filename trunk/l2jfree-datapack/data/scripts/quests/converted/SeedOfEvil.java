@@ -17,46 +17,41 @@ package quests.converted;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.quest.jython.QuestJython;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 
-/**
- * A quest restricted to dark elves.
- * @author savormix
- */
-public final class DangerousAllure extends QuestJython
+public final class SeedOfEvil extends QuestJython
 {
-	private static final String DANGEROUS_ALLURE = "170_DangerousAllure";
+	private static final String SEED_OF_EVIL = "158_SeedOfEvil";
 
 	// Quest NPCs
-	private static final int VELLIOR = 30305;
+	private static final int BIOTIN = 30031;
 
 	// Quest items
-	private static final int NIGHTMARE_CRYSTAL = 1046;
+	private static final int CLAY_TABLET = 1025;
 
 	// Quest monsters
-	private static final int MERKENIS = 27022;
-	private static final String MERKENIS_ATTACKED = "I shall put you in a never-ending nightmare!";
-	private static final String MERKENIS_KILLED = "My soul is to Icarus...";
+	private static final int NERKAS = 27016;
+	private static final String NERKAS_ATTACKED = "...How dare you challenge me!";
+	private static final String NERKAS_KILLED = "May Beleth's power be spread on the whole world!";
 
-	public DangerousAllure(int questId, String name, String descr)
+	public SeedOfEvil(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
-		questItemIds = new int[] { NIGHTMARE_CRYSTAL };
-		addStartNpc(VELLIOR);
-		addTalkId(VELLIOR);
-		addAttackId(MERKENIS);
-		addKillId(MERKENIS);
+		questItemIds = new int[] { CLAY_TABLET };
+		addStartNpc(BIOTIN);
+		addTalkId(BIOTIN);
+		addAttackId(NERKAS);
+		addKillId(NERKAS);
 	}
 
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		QuestState qs = player.getQuestState(DANGEROUS_ALLURE);
+		QuestState qs = player.getQuestState(SEED_OF_EVIL);
 		if (qs.isCompleted())
 			return QUEST_DONE;
 		else if (QUEST_START_EVT.equals(event))
@@ -64,7 +59,7 @@ public final class DangerousAllure extends QuestJython
 			qs.set(CONDITION, 1);
 			qs.setState(State.STARTED);
 			player.sendPacket(SND_ACCEPT);
-			return "30305-04.htm";
+			return "30031-04.htm";
 		}
 		else
 			return event;
@@ -77,7 +72,7 @@ public final class DangerousAllure extends QuestJython
 		switch (npc.getQuestAttackStatus())
 		{
 		case ATTACK_NOONE:
-			npc.broadcastPacket(new NpcSay(npc, MERKENIS_ATTACKED));
+			npc.broadcastPacket(new NpcSay(npc, NERKAS_ATTACKED));
 			npc.setQuestAttackStatus(ATTACK_SINGLE);
 			npc.setQuestFirstAttacker(attacker);
 			break;
@@ -92,18 +87,18 @@ public final class DangerousAllure extends QuestJython
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
+		npc.broadcastPacket(new NpcSay(npc, NERKAS_KILLED));
 		L2PcInstance quester = npc.getQuestFirstAttacker();
 		if (quester == null)
 			return null;
-		QuestState qs = quester.getQuestState(DANGEROUS_ALLURE);
+		QuestState qs = quester.getQuestState(SEED_OF_EVIL);
 		if (qs == null || !qs.isStarted() || qs.getInt(CONDITION) != 1
 				|| npc.getQuestAttackStatus() != ATTACK_SINGLE)
 			return null;
 
-		if (qs.getQuestItemsCount(NIGHTMARE_CRYSTAL) == 0)
+		if (qs.getQuestItemsCount(CLAY_TABLET) == 0)
 		{
-			npc.broadcastPacket(new NpcSay(npc, MERKENIS_KILLED));
-			qs.giveItems(NIGHTMARE_CRYSTAL, 1);
+			qs.giveItems(CLAY_TABLET, 1);
 			quester.sendPacket(SND_MIDDLE);
 			qs.set(CONDITION, 2);
 		}
@@ -114,7 +109,7 @@ public final class DangerousAllure extends QuestJython
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
-		QuestState qs = talker.getQuestState(DANGEROUS_ALLURE);
+		QuestState qs = talker.getQuestState(SEED_OF_EVIL);
 		if (qs == null)
 			return NO_QUEST;
 		else if (qs.isCompleted())
@@ -123,36 +118,32 @@ public final class DangerousAllure extends QuestJython
 		int cond = qs.getInt(CONDITION);
 		if (cond == 0)
 		{
-			if (talker.getRace() != Race.Darkelf)
+			if (talker.getLevel() < 21)
 			{
 				qs.exitQuest(true);
-				return "30305-00.htm";
-			}
-			else if (talker.getLevel() < 21)
-			{
-				qs.exitQuest(true);
-				return "30305-02.htm";
+				return "30031-02.htm";
 			}
 			else
-				return "30305-03.htm";
+				return "30031-03.htm";
 		}
 		else
 		{
-			if (qs.getQuestItemsCount(NIGHTMARE_CRYSTAL) != 0)
+			if (qs.getQuestItemsCount(CLAY_TABLET) != 0)
 			{
 				qs.exitQuest(false);
-				qs.rewardItems(PcInventory.ADENA_ID, 102680);
-				qs.addExpAndSp(38607, 4018);
+				qs.rewardItems(PcInventory.ADENA_ID, 1495);
+				qs.giveItems(956, 1);
+				qs.addExpAndSp(17818, 927);
 				talker.sendPacket(SND_FINISH);
-				return "30305-06.htm";
+				return "30031-06.htm";
 			}
 			else
-				return "30305-05.htm";
+				return "30031-05.htm";
 		}
 	}
 
 	public static void main(String[] args)
 	{
-		new DangerousAllure(170, DANGEROUS_ALLURE, "Dangerous Allure");
+		new SeedOfEvil(158, SEED_OF_EVIL, "Seed of Evil");
 	}
 }

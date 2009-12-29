@@ -90,7 +90,7 @@ public final class PathToRogue extends QuestJython
 		int weaponId = attacker.getInventory().getPaperdollItemId(PcInventory.PAPERDOLL_RHAND);
 		switch (npc.getQuestAttackStatus())
 		{
-		case 0:
+		case ATTACK_NOONE:
 			npc.setQuestFirstAttacker(attacker);
 			if (weaponId == NETIS_BOW || weaponId == NETIS_DAGGER)
 			{
@@ -101,7 +101,7 @@ public final class PathToRogue extends QuestJython
 			else
 				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			break;
-		case 1:
+		case ATTACK_SINGLE:
 			if (weaponId != NETIS_BOW && weaponId != NETIS_DAGGER)
 				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			if (attacker != npc.getQuestFirstAttacker())
@@ -136,7 +136,7 @@ public final class PathToRogue extends QuestJython
 		}
 		else if (!qs.isCompleted())
 		{
-			if ("1".equals(event))
+			if (QUEST_START_EVT.equals(event))
 			{
 				qs.set(CONDITION, 1);
 				qs.setState(State.STARTED);
@@ -167,7 +167,7 @@ public final class PathToRogue extends QuestJython
 		if (quester == null)
 			return null;
 		QuestState qs = quester.getQuestState(PATH_TO_ROGUE);
-		if (qs == null || qs.getState() != State.STARTED || qs.getInt(CONDITION) == 0
+		if (qs == null || !qs.isStarted() || qs.getInt(CONDITION) == 0
 				|| npc.getQuestAttackStatus() != ATTACK_SINGLE)
 			return null;
 
@@ -199,7 +199,7 @@ public final class PathToRogue extends QuestJython
 				chance = 300000;
 			else
 				chance = 800000;
-			if (qs.dropQuestItems(SPATOIS_BONES, 1, SPATOI_BONE_COUNT, chance, true))
+			if (qs.dropQuestItems(SPATOIS_BONES, 1, SPATOI_BONE_COUNT, chance, true, false))
 				qs.set(CONDITION, 3);
 		}
 		return null;

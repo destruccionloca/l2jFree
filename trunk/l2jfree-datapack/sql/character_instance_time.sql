@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `character_instance_time` (
-  `charId` INT UNSIGNED NOT NULL DEFAULT '0',
-  `instanceId` int(3) NOT NULL DEFAULT '0',
-  `time` decimal(20) NOT NULL DEFAULT '0',
+  `charId` INT UNSIGNED NOT NULL,
+  `instanceId` SMALLINT UNSIGNED NOT NULL,
+  `time` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`charId`,`instanceId`)
 );

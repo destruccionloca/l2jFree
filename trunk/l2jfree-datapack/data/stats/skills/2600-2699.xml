@@ -110,7 +110,7 @@
       147928,-55273,-2734
       43799,-47727,-798
       87331,-142842,-1317
-      -117251,46771,360
+      -120050,44500,360
     </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>

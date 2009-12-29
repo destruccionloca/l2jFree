@@ -1,3 +1,17 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package quests.converted;
 
 import com.l2jfree.gameserver.model.L2Skill;
@@ -10,12 +24,16 @@ import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.quest.jython.QuestJython;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 
+/**
+ * A quest for all races except dark elves.
+ * @author savormix
+ */
 public final class BloodFiend extends QuestJython
 {
 	private static final String BLOOD_FIEND = "164_BloodFiend";
 
 	// Quest NPCs
-	private static final int CEL = 30149;
+	private static final int CREAMEES = 30149;
 
 	// Quest items
 	private static final int KIRUNAK_SKULL = 1044;
@@ -29,8 +47,8 @@ public final class BloodFiend extends QuestJython
 	{
 		super(questId, name, descr);
 		questItemIds = new int[] { KIRUNAK_SKULL };
-		addStartNpc(CEL);
-		addTalkId(CEL);
+		addStartNpc(CREAMEES);
+		addTalkId(CREAMEES);
 		addAttackId(KIRUNAK);
 		addKillId(KIRUNAK);
 	}
@@ -41,7 +59,7 @@ public final class BloodFiend extends QuestJython
 		QuestState qs = player.getQuestState(BLOOD_FIEND);
 		if (qs.isCompleted())
 			return QUEST_DONE;
-		else if ("1".equals(event))
+		else if (QUEST_START_EVT.equals(event))
 		{
 			qs.set(CONDITION, 1);
 			qs.setState(State.STARTED);
@@ -58,12 +76,12 @@ public final class BloodFiend extends QuestJython
 	{
 		switch (npc.getQuestAttackStatus())
 		{
-		case 0:
+		case ATTACK_NOONE:
 			npc.broadcastPacket(new NpcSay(npc, KIRUNAK_ATTACKED));
 			npc.setQuestAttackStatus(ATTACK_SINGLE);
 			npc.setQuestFirstAttacker(attacker);
 			break;
-		case 1:
+		case ATTACK_SINGLE:
 			if (attacker != npc.getQuestFirstAttacker())
 				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			break;
@@ -78,7 +96,7 @@ public final class BloodFiend extends QuestJython
 		if (quester == null)
 			return null;
 		QuestState qs = quester.getQuestState(BLOOD_FIEND);
-		if (qs == null || qs.getState() != State.STARTED || qs.getInt(CONDITION) != 1
+		if (qs == null || !qs.isStarted() || qs.getInt(CONDITION) != 1
 				|| npc.getQuestAttackStatus() != ATTACK_SINGLE)
 			return null;
 
@@ -123,7 +141,6 @@ public final class BloodFiend extends QuestJython
 		{
 			if (qs.getQuestItemsCount(KIRUNAK_SKULL) != 0)
 			{
-				// should we set cond to 0?
 				qs.exitQuest(false);
 				qs.rewardItems(PcInventory.ADENA_ID, 42130);
 				qs.addExpAndSp(35637, 1854);

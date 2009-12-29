@@ -9672,11 +9672,7 @@ INSERT INTO npc(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTit
 REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 (13037,13037,'Trap',0,'',0,'LineageNpc2.trap_mark',5,10,1,'male','L2Trap',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,0,0,'',0,0,0,'LAST_HIT');
 
--- Master anays fixes:
-UPDATE `npc` SET `collision_radius` = 16 WHERE `id` = 29096;
-UPDATE `npc` SET `collision_height` = 41.8 WHERE `id` = 29096;
-
--- Minon fixes:
+-- Anays minion fixes:
 UPDATE `npc` SET `collision_radius` = 20,`collision_height` = 43 WHERE `id` = 29097;
 UPDATE `npc` SET `collision_radius` = 20,`collision_height` = 43 WHERE `id` = 29098;
 UPDATE `npc` SET `collision_radius` = 22,`collision_height` = 23 WHERE `id` = 25524;
@@ -9950,13 +9946,6 @@ REPLACE INTO `npc` VALUES
 
 UPDATE `npc` SET `walkspd` = 0,`runspd` = 0 WHERE `id` = 22138;
 
--- Moving Anais and minions differences here to make syncs easier
-DELETE FROM `npc` WHERE `id` IN (29096,29097,29098);
-INSERT INTO `npc` VALUES
-(29096,29096,'Anais',0,'Lord of Splendor',0,'Monster3.solina_priest_120p',16,41.8,87,'male','L2RaidBoss',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(29097,29097,'Splendor Disciple',0,'Raid Fighter',0,'Monster3.apostle_grail',13,47,86,'male','L2Minion',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
-(29098,29098,'Splendor Worshiper',0,'Raid Fighter',0,'Monster3.apostle_grail_a',13,47,86,'male','L2Minion',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT',0,0,0,'balanced','false');
-
 -- DCM Updates
 REPLACE INTO `npc` VALUES
 (32282,32282,'Yiyen',0,'Archaeologist',0,'LineageNPC.e_teleporter_FDwarf',8,21.3,70,'male','L2Npc',40,2444,2444,0,0,10,10,10,10,10,10,0,0,500,500,500,500,253,0,253,0,0,NULL,80,120,'',0,0,0,'LAST_HIT',0,0,0,'balanced','false'),
@@ -10027,7 +10016,7 @@ UPDATE `npc` SET `name` = 'Rignos' WHERE `id` = 32349;
 -- Siegeable clan halls
 UPDATE `npc` SET `type` = 'L2CCHBoss' WHERE `id` IN (35410,35629);
 UPDATE `npc` SET `faction_id` = 'gustav_clan', `faction_range` = 1900 WHERE `id` = 35410;
-UPDATE `npc` SET `type` = 'L2Doormen', `collision_height` = 16 WHERE `id` IN (35417,35418);
+UPDATE `npc` SET `type` = 'L2Doormen', `collision_radius` = 8, `collision_height` = 23.5 WHERE `id` IN (35417,35418);
 UPDATE `npc` SET `type` = 'L2CCHRegistrar' WHERE `id` IN (35420,35639);
 UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` IN (35421,35640);
 UPDATE `npc` SET `type` = 'L2Monster' WHERE `id` BETWEEN 35630 AND 35637;
