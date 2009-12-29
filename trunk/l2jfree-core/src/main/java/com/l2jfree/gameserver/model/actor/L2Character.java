@@ -928,73 +928,60 @@ public abstract class L2Character extends L2Object
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
-		// BOW and CROSSBOW checks
-		if (weaponItem != null && !transformed)
+		
+		// Verify if the attack can be started
+		if (getEvtReadyToAct().isScheduled())
 		{
+			// Cancel the attack because it can't be done at this moment
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		// BOW and CROSSBOW checks
+		if (weaponItem != null && !transformed && this instanceof L2PcInstance)
+		{
+			// Check for arrows and MP
 			if (weaponItem.getItemType() == L2WeaponType.BOW)
 			{
-				// Verify if the bow can be use
-				if (getEvtReadyToAct().isScheduled())
+				// Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
+				if (!checkAndEquipArrows())
 				{
+					// Cancel the action because the L2PcInstance have no arrow
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 					sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(SystemMessageId.NOT_ENOUGH_ARROWS);
 					return;
 				}
 				
-				// Check for arrows and MP
-				if (this instanceof L2PcInstance)
+				// Verify if L2PcInstance owns enough MP
+				int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
+				int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
+				mpConsume = (int)calcStat(Stats.BOW_MP_CONSUME_RATE, mpConsume, null, null);
+				
+				if (getStatus().getCurrentMp() < mpConsume)
 				{
-					// Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
-					if (!checkAndEquipArrows())
-					{
-						// Cancel the action because the L2PcInstance have no arrow
-						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(SystemMessageId.NOT_ENOUGH_ARROWS);
-						return;
-					}
-					
-					// Verify if L2PcInstance owns enough MP
-					int saMpConsume = (int)getStat().calcStat(Stats.MP_CONSUME, 0, null, null);
-					int mpConsume = saMpConsume == 0 ? weaponItem.getMpConsume() : saMpConsume;
-					mpConsume = (int)calcStat(Stats.BOW_MP_CONSUME_RATE, mpConsume, null, null);
-					
-					if (getStatus().getCurrentMp() < mpConsume)
-					{
-						// If L2PcInstance doesn't have enough MP, stop the attack
-						getEvtReadyToAct().schedule(1000);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(SystemMessageId.NOT_ENOUGH_MP);
-						return;
-					}
-					
-					// If L2PcInstance have enough MP, the bow consumes it
-					if (mpConsume > 0)
-						getStatus().reduceMp(mpConsume);
+					// If L2PcInstance doesn't have enough MP, stop the attack
+					getEvtReadyToAct().schedule(1000);
+					sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(SystemMessageId.NOT_ENOUGH_MP);
+					return;
 				}
+				
+				// If L2PcInstance have enough MP, the bow consumes it
+				if (mpConsume > 0)
+					getStatus().reduceMp(mpConsume);
 			}
+			// Check for bolts
 			else if (weaponItem.getItemType() == L2WeaponType.CROSSBOW)
 			{
-				// Verify if the crossbow can be use
-				if (getEvtReadyToAct().isScheduled())
+				// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
+				if (!checkAndEquipBolts())
 				{
-					// Cancel the action because the crossbow can't be re-use at this moment
+					// Cancel the action because the L2PcInstance have no arrow
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 					sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(SystemMessageId.NOT_ENOUGH_BOLTS);
 					return;
-				}
-				
-				// Check for bolts
-				if (this instanceof L2PcInstance)
-				{
-					// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
-					if (!checkAndEquipBolts())
-					{
-						// Cancel the action because the L2PcInstance have no arrow
-						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-						sendPacket(ActionFailed.STATIC_PACKET);
-						sendPacket(SystemMessageId.NOT_ENOUGH_BOLTS);
-						return;
-					}
 				}
 			}
 		}
@@ -1115,7 +1102,7 @@ public abstract class L2Character extends L2Object
 
 	private EvtReadyToAct _evtReadyToAct;
 
-	private EvtReadyToAct getEvtReadyToAct()
+	protected EvtReadyToAct getEvtReadyToAct()
 	{
 		if (_evtReadyToAct == null)
 			_evtReadyToAct = new EvtReadyToAct();
@@ -1123,7 +1110,7 @@ public abstract class L2Character extends L2Object
 		return _evtReadyToAct;
 	}
 
-	private final class EvtReadyToAct extends ExclusiveTask
+	protected final class EvtReadyToAct extends ExclusiveTask
 	{
 		@Override
 		protected void onElapsed()

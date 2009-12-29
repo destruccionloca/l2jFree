@@ -8221,7 +8221,7 @@ public final class L2PcInstance extends L2Playable
 		//************************************* Check Casting in Progress *******************************************
 
 		// If a skill is currently being used, queue this one if this is not the same
-		if (isCastingNow())
+		if (isCastingNow() || getEvtReadyToAct().isScheduled()/* because of bow reuse */)
 		{
 			SkillDat currentSkill = getCurrentSkill();
 			// Check if new skill different from current skill in progress
