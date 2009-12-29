@@ -113,6 +113,7 @@ public class Recall extends ISkillConditionChecker
 					if (target instanceof L2PcInstance &&
 							(target.isFlying() || target.getActingPlayer().isFlyingMounted()))
 						loc = null;
+					// verified on retail - nothing happens
 				}
 			}
 			else

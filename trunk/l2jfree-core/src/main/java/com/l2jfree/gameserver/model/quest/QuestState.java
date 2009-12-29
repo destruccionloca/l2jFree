@@ -31,10 +31,12 @@ import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExShowQuestMark;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -216,7 +218,7 @@ public final class QuestState
 		else
 			Quest.createQuestVarInDb(this, var, val);
 		
-		if (var.equals("cond"))
+		if (var.equals(Quest.CONDITION))
 		{
 			try
 			{
@@ -280,14 +282,14 @@ public final class QuestState
 			completedStateFlags = getInt("__compltdStateFlags");
 
 		// case 1: No steps have been skipped so far...
-		if(completedStateFlags == 0)
+		if (completedStateFlags == 0)
 		{
 			// check if this step also doesn't skip anything.  If so, no further work is needed
 			// also, in this case, no work is needed if the state is being reset to a smaller value
 			// in those cases, skip forward to informing the client about the change...
 
 			// ELSE, if we just now skipped for the first time...prepare the flags!!!
-			if (cond > (old+1))
+			if (cond > (old + 1))
 			{
 				// set the most significant bit to 1 (indicates that there exist skipped states)
 				// also, ensure that the least significant bit is an 1 (the first step is never skipped, no matter
@@ -296,10 +298,10 @@ public final class QuestState
 
 				// since no flag had been skipped until now, the least significant bits must all
 				// be set to 1, up until "old" number of bits.
-				completedStateFlags |= ((1<<old)-1);
+				completedStateFlags |= ((1 << old) - 1);
 
 				// now, just set the bit corresponding to the passed cond to 1 (current step)
-				completedStateFlags |= (1<<(cond-1));
+				completedStateFlags |= (1 << (cond - 1));
 				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
 		}
@@ -309,10 +311,10 @@ public final class QuestState
 			// if this is a push back to a previous step, clear all completion flags ahead
 			if (cond < old)
 			{
-				completedStateFlags &= ((1<<cond)-1);  // note, this also unsets the flag indicating that there exist skips
+				completedStateFlags &= ((1 << cond) - 1);  // note, this also unsets the flag indicating that there exist skips
 
 				//now, check if this resulted in no steps being skipped any more
-				if ( completedStateFlags == ((1<<cond)-1) )
+				if ( completedStateFlags == ((1 << cond) - 1) )
 					unset("__compltdStateFlags");
 				else
 				{
@@ -327,7 +329,7 @@ public final class QuestState
 			// state and we are done
 			else
 			{
-				completedStateFlags |= (1<<(cond-1));
+				completedStateFlags |= (1 << (cond - 1));
 				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
 		}
@@ -553,7 +555,7 @@ public final class QuestState
 			return;
 
 		// Add items to player's inventory
-		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
+		L2ItemInstance item = getPlayer().getInventory().addItem(Quest.QUEST, itemId, count, getPlayer(), getPlayer().getTarget());
 
 		if (item == null)
 			return;
@@ -561,7 +563,7 @@ public final class QuestState
 			item.setEnchantLevel(enchantlevel);
 
 		// If item for reward is gold, send message of gold reward to client
-		if (itemId == 57)
+		if (itemId == PcInventory.ADENA_ID)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 			smsg.addItemNumber(count);
@@ -593,7 +595,7 @@ public final class QuestState
 			return;
 		
 		// Add items to player's inventory
-		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
+		L2ItemInstance item = getPlayer().getInventory().addItem(Quest.QUEST, itemId, count, getPlayer(), getPlayer().getTarget());
 		
 		if (item == null)
 			return;
@@ -611,7 +613,7 @@ public final class QuestState
 		}
 		
 		// If item for reward is gold, send message of gold reward to client
-		if (itemId == 57)
+		if (itemId == PcInventory.ADENA_ID)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 			smsg.addItemNumber(count);
@@ -652,13 +654,13 @@ public final class QuestState
 		if (count <= 0)
 			return;
 
-		if (itemId == 57)
-			count= (long)(count*Config.RATE_QUESTS_REWARD_ADENA);
+		if (itemId == PcInventory.ADENA_ID)
+			count = (long) (count * Config.RATE_QUESTS_REWARD_ADENA);
 		else
-			count= (long)(count*Config.RATE_QUESTS_REWARD_ITEMS);
+			count = (long) (count * Config.RATE_QUESTS_REWARD_ITEMS);
 		
 		// Add items to player's inventory
-		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
+		L2ItemInstance item = getPlayer().getInventory().addItem(Quest.QUEST, itemId, count, getPlayer(), getPlayer().getTarget());
 
 		if (item == null)
 			return;
@@ -666,7 +668,7 @@ public final class QuestState
 			item.setEnchantLevel(enchantlevel);
 
 		// If item for reward is gold, send message of gold reward to client
-		if (itemId == 57)
+		if (itemId == PcInventory.ADENA_ID)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 			smsg.addItemNumber(count);
@@ -694,23 +696,39 @@ public final class QuestState
 
     /**
      * Drop Quest item using Config.RATE_DROP_QUEST
-     * @param itemId : int Item Identifier of the item to be dropped
-     * @param count(minCount, maxCount) : int Quantity of items to be dropped
-     * @param neededCount : Quantity of items needed for quest
-     * @param dropChance : int Base chance of drop, same as in droplist
-     * @param sound : boolean indicating whether to play sound
-     * @return boolean indicating whether player has requested number of items
+     * @param itemId Item Identifier of the item to be dropped
+     * @param count Quantity of items to be dropped
+     * @param neededCount Quantity of items needed for quest
+     * @param dropChance Base chance of drop, same as in droplist
+     * @param sound indicating whether to play sound
+     * @return whether player has requested number of items
      */
     public boolean dropQuestItems(int itemId, int count, int neededCount, int dropChance, boolean sound)
     {
-        return dropQuestItems(itemId, count, count, neededCount, dropChance, sound);
+        return dropQuestItems(itemId, count, neededCount, dropChance, sound, true);
+    }
+    
+    public boolean dropQuestItems(int itemId, int count, int neededCount, int dropChance, boolean sound, boolean party)
+    {
+        return dropQuestItems(itemId, count, count, neededCount, dropChance, sound, party);
     }
     
     public boolean dropQuestItems(int itemId, int minCount, int maxCount, int neededCount, int dropChance, boolean sound)
     {
-        dropChance *= Config.RATE_DROP_QUEST / ((getPlayer().getParty() != null) ? getPlayer().getParty().getMemberCount() : 1);
+    	return dropQuestItems(itemId, minCount, maxCount, neededCount, dropChance, sound, true);
+    }
+    
+    public boolean dropQuestItems(int itemId, int minCount, int maxCount, int neededCount, int dropChance, boolean sound, boolean party)
+    {
+    	dropChance *= Config.RATE_DROP_QUEST;
+    	if (party)
+    	{
+    		L2Party p = getPlayer().getParty();
+    		if (p != null)
+    			dropChance /= getPlayer().getParty().getMemberCount();
+    	}
+
         long currentCount = getQuestItemsCount(itemId);
-        
         if (currentCount >= neededCount)
             return true;
         
@@ -736,16 +754,16 @@ public final class QuestState
             // if over neededCount, just fill the gap
             if (neededCount > 0 && currentCount + itemCount > neededCount)
                 itemCount = neededCount - currentCount;
-    
+            
             // Inventory slot check
             if (!getPlayer().getInventory().validateCapacityByItemId(itemId))
                 return false;
             
             // Give the item to Player
-            getPlayer().addItem("Quest", itemId, itemCount, getPlayer().getTarget(), true);
+            getPlayer().addItem(Quest.QUEST, itemId, itemCount, getPlayer().getTarget(), true);
             
             if (sound)
-                playSound((currentCount + itemCount < neededCount) ? "Itemsound.quest_itemget" : "Itemsound.quest_middle");
+                sendPacket((currentCount + itemCount < neededCount) ? Quest.SND_ITEM_GET : Quest.SND_MIDDLE);
         }
         
         return (neededCount > 0 && currentCount + itemCount >= neededCount);
@@ -781,7 +799,7 @@ public final class QuestState
 	{
 		// Get object item from player's inventory list
 		L2ItemInstance item = getPlayer().getInventory().getItemByItemId(itemId);
-		if (item == null)
+		if (item == null || count == 0)
 			return;
 
 		// Tests on count value in order not to have negative value
@@ -789,8 +807,8 @@ public final class QuestState
 			count = item.getCount();
 
 		// Destroy the quantity of items wanted
-		if (itemId == 57)
-			getPlayer().reduceAdena("Quest", count, getPlayer(), true);
+		if (itemId == PcInventory.ADENA_ID)
+			getPlayer().reduceAdena(Quest.QUEST, count, getPlayer(), true);
 		else
 		{
 			if (item.isEquipped())
@@ -802,7 +820,7 @@ public final class QuestState
 				getPlayer().sendPacket(iu);
 				getPlayer().broadcastUserInfo();
 			}
-			getPlayer().destroyItemByItemId("Quest", itemId, count, getPlayer(), true);
+			getPlayer().destroyItemByItemId(Quest.QUEST, itemId, count, getPlayer(), true);
 		}
 	}
 	
@@ -831,8 +849,8 @@ public final class QuestState
 	 */
 	public void addExpAndSp(int exp, int sp)
     {
-	    getPlayer().addExpAndSp((int)getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD_EXPSP, null, null),
-                           (int)getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD_EXPSP, null, null));
+	    getPlayer().addExpAndSp((int) getPlayer().calcStat(Stats.EXPSP_RATE, exp * Config.RATE_QUESTS_REWARD_EXPSP, null, null),
+                           (int) getPlayer().calcStat(Stats.EXPSP_RATE, sp * Config.RATE_QUESTS_REWARD_EXPSP, null, null));
 	}
 	
 	/**

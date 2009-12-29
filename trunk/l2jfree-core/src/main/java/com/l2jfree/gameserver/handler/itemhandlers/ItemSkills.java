@@ -30,14 +30,8 @@ public final class ItemSkills implements IItemHandler
 {
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
-		L2PcInstance activeChar; // use activeChar only for L2PcInstance checks where cannot be used PetInstance
+		L2PcInstance activeChar = playable.getActingPlayer();
 		boolean isPet = playable instanceof L2PetInstance;
-		if (playable instanceof L2PcInstance)
-			activeChar = (L2PcInstance)playable;
-		else if (isPet)
-			activeChar = ((L2PetInstance)playable).getOwner();
-		else
-			return;
 		
 		if (activeChar.isInOlympiadMode())
 		{

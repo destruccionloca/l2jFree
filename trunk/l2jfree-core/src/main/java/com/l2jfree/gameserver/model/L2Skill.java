@@ -864,7 +864,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final boolean allowOnTransform()
 	{
-		return isPassive();
+		// FIXME: do something about item skills!!!
+		return (isPassive() || (getId() > 1999 && getId() < 3000));
 	}
 
 	/**

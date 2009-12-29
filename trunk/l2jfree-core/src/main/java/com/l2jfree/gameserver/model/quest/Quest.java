@@ -61,10 +61,12 @@ import com.l2jfree.tools.random.Rnd;
 public class Quest extends ManagedScript
 {
 	// Basic variables
+	public static final String QUEST = "Quest";
 	public static final String CONDITION = "cond";
 	public static final String ID = "id";
 	public static final String NO_QUEST = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
 	public static final String QUEST_DONE = "<html><body>This quest has already been completed.</body></html>";
+	public static final String QUEST_START_EVT = "1";
 
 	// Quest sounds
 	public static final PlaySound SND_ACCEPT = new PlaySound(0, "ItemSound.quest_accept");

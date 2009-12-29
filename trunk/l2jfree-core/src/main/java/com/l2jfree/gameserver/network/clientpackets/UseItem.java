@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -184,7 +185,7 @@ public final class UseItem extends L2GameClientPacket
 		}
 
 		// Items that cannot be used
-		if (itemId == 57)
+		if (itemId == PcInventory.ADENA_ID)
 		{
 			sendAF();
 			return;
