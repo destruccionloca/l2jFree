@@ -212,7 +212,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="14603"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="1"/>
     <type val="purple"/>
   </augmentation>
@@ -1102,7 +1102,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="14781"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="2"/>
     <type val="purple"/>
   </augmentation>
@@ -1992,7 +1992,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="14959"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="3"/>
     <type val="purple"/>
   </augmentation>
@@ -2882,7 +2882,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="15137"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="4"/>
     <type val="purple"/>
   </augmentation>
@@ -3772,7 +3772,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="15315"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="5"/>
     <type val="purple"/>
   </augmentation>
@@ -4662,7 +4662,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="15493"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="6"/>
     <type val="purple"/>
   </augmentation>
@@ -5552,7 +5552,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="15671"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="7"/>
     <type val="purple"/>
   </augmentation>
@@ -6442,7 +6442,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="15849"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="8"/>
     <type val="purple"/>
   </augmentation>
@@ -7332,7 +7332,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="16027"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="9"/>
     <type val="purple"/>
   </augmentation>
@@ -8222,7 +8222,7 @@
     <type val="purple"/>
   </augmentation>
   <augmentation id="16205"> <!-- Active: Unleashes a general attack and temporarily decreases your magic attack power during PvP. -->
-    <skillId val="0"/> <!-- DONT KNOW -->
+    <skillId val="3179"/>
     <skillLevel val="10"/>
     <type val="purple"/>
   </augmentation>
