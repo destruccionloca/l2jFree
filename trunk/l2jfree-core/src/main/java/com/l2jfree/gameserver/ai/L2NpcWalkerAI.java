@@ -110,7 +110,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	
 	public void run()
 	{
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 	}
 	
 	@Override

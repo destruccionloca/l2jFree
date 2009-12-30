@@ -107,7 +107,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	public void run()
 	{
 		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 	}
 
 	/**

@@ -935,6 +935,12 @@ public final class L2PcInstance extends L2Playable
 	{
 		return super.isAttackingDisabled() || isTryingToSitOrStandup();
 	}
+	
+	@Override
+	public boolean isInProtectedAction()
+	{
+		return super.isInProtectedAction() || isTryingToSitOrStandup();
+	}
 
 	/**
 	 * Create a new L2PcInstance and add it in the characters table of the database.<BR><BR>

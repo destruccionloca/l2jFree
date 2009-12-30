@@ -21,8 +21,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO_IN_AIR_SHIP;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
@@ -62,33 +60,6 @@ import com.l2jfree.util.L2Collections;
  */
 public class L2CharacterAI extends AbstractAI
 {
-	public class IntentionCommand
-	{
-		protected final CtrlIntention	_crtlIntention;
-		protected final Object			_arg0, _arg1;
-
-		protected IntentionCommand(CtrlIntention pIntention, Object pArg0, Object pArg1)
-		{
-			_crtlIntention = pIntention;
-			_arg0 = pArg0;
-			_arg1 = pArg1;
-		}
-
-		public CtrlIntention getCtrlIntention()
-		{
-			return _crtlIntention;
-		}
-	}
-	
-	protected void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
-	{
-	}
-	
-	public IntentionCommand getNextIntention()
-	{
-		return null;
-	}
-
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
@@ -172,7 +143,7 @@ public class L2CharacterAI extends AbstractAI
 				((L2Npc)_actor).broadcastRandomAnimation(false);
 			
 			// Launch the Think Event
-			onEvtThink();
+			notifyEvent(CtrlEvent.EVT_THINK);
 		}
 	}
 
@@ -224,11 +195,12 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow() || _actor.isAfraid())
+		if (_actor.isAfraid())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
-			saveNextIntention(AI_INTENTION_ATTACK, target, null);
+			// TODO
+			//saveNextIntention(AI_INTENTION_ATTACK, target, null);
 			return;
 		}
 
@@ -335,14 +307,6 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_MOVE_TO, pos, null);
-			return;
-		}
-
 		// Set the Intention of this AbstractAI to AI_INTENTION_MOVE_TO
 		changeIntention(AI_INTENTION_MOVE_TO, pos, null);
 
@@ -366,14 +330,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
-			return;
-		}
-
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_MOVE_TO_IN_A_BOAT, destination, origin);
 			return;
 		}
 
@@ -401,14 +357,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
-			return;
-		}
-		
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_MOVE_TO_IN_AIR_SHIP, destination, origin);
 			return;
 		}
 		
@@ -442,14 +390,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
-			return;
-		}
-
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_FOLLOW, target, null);
 			return;
 		}
 
@@ -503,14 +443,6 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_PICK_UP, object, null);
-			return;
-		}
-
 		// Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
 		clientStopAutoAttack();
 
@@ -550,14 +482,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
-			return;
-		}
-
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_INTERACT, object, null);
 			return;
 		}
 
@@ -621,7 +545,7 @@ public class L2CharacterAI extends AbstractAI
 		clientStopMoving(null);
 
 		// Launch actions corresponding to the Event onAttacked (only for L2AttackableAI after the stunning periode)
-		onEvtAttacked(attacker);
+		notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 	}
 
 	@Override
@@ -639,7 +563,7 @@ public class L2CharacterAI extends AbstractAI
 		clientStopMoving(null);
 
 		// Launch actions corresponding to the Event onAttacked (only for L2AttackableAI after the stunning periode)
-		onEvtAttacked(attacker);
+		notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 	}
 
 	/**
@@ -687,7 +611,7 @@ public class L2CharacterAI extends AbstractAI
 		clientStopMoving(null);
 
 		// Launch actions corresponding to the Event onAttacked
-		onEvtAttacked(attacker);
+		notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 	}
 
 	/**
@@ -705,7 +629,7 @@ public class L2CharacterAI extends AbstractAI
 		clientStopMoving(null);
 
 		// Launch actions corresponding to the Event onAttacked
-		onEvtAttacked(attacker);
+		notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 	}
 
 	/**
@@ -719,7 +643,7 @@ public class L2CharacterAI extends AbstractAI
 	protected void onEvtMuted(L2Character attacker)
 	{
 		// Break a cast and send Server->Client ActionFailed packet and a System Message to the L2Character
-		onEvtAttacked(attacker);
+		notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 	}
 
 	/**
@@ -732,8 +656,7 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtReadyToAct()
 	{
-		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		executeNextIntention();
 	}
 
 	/**
@@ -786,7 +709,7 @@ public class L2CharacterAI extends AbstractAI
 			setIntention(AI_INTENTION_ACTIVE);
 
 		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 
 		if (_actor instanceof L2BoatInstance)
 		{
@@ -809,7 +732,7 @@ public class L2CharacterAI extends AbstractAI
 	protected void onEvtArrivedRevalidate()
 	{
 		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 	}
 
 	/**
@@ -832,7 +755,7 @@ public class L2CharacterAI extends AbstractAI
 		clientStopMoving(blocked_at_pos);
 
 		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 	}
 
 	/**
@@ -908,7 +831,7 @@ public class L2CharacterAI extends AbstractAI
 			clientStopMoving(null);
 
 			// Set the Intention of this AbstractAI to AI_INTENTION_IDLE
-			changeIntention(AI_INTENTION_IDLE, null, null);
+			setIntention(AI_INTENTION_IDLE, null, null);
 		}
 	}
 
@@ -923,6 +846,7 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtCancel()
 	{
+		clearNextIntention();
 		_actor.abortCast();
 
 		// Stop an AI Follow Task
@@ -932,7 +856,7 @@ public class L2CharacterAI extends AbstractAI
 			_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 
 		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 	}
 
 	/**
@@ -980,14 +904,18 @@ public class L2CharacterAI extends AbstractAI
 	}
 
 	/**
-	 * Do nothing.<BR><BR>
+	 * Finalize the casting of a skill. This method overrides L2CharacterAI method.<BR><BR>
+	 *
+	 * <B>What it does:</B>
+	 * Check if actual intention is set to CAST and, if so, retrieves latest intention
+	 * before the actual CAST and set it as the current intention for the player
 	 */
 	@Override
 	protected void onEvtFinishCasting()
 	{
-		// do nothing
+		executeNextIntention();
 	}
-
+	
 	protected boolean maybeMoveToPosition(Point3D worldPosition, int offset)
 	{
 		if (worldPosition == null)

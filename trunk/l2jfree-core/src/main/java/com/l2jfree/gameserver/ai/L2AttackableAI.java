@@ -119,7 +119,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	public void run()
 	{
 		// Launch actions corresponding to the Event Think
-		onEvtThink();
+		notifyEvent(CtrlEvent.EVT_THINK);
 	}
 
 	/**

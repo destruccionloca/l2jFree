@@ -40,7 +40,7 @@ public class L2SummonAI extends L2CharacterAI
 			return;
 		stopFollow();
 		_startFollow = false;
-		onIntentionActive();
+		setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 	}
 
 	@Override
@@ -152,6 +152,7 @@ public class L2SummonAI extends L2CharacterAI
 			return;
 		if (getIntention() != AI_INTENTION_ATTACK)
 			((L2Summon)_actor).setFollowStatus(_startFollow);
+		super.onEvtFinishCasting();
 	}
 
 	public void notifyFollowStatusChange()

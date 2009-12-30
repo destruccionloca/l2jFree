@@ -2365,6 +2365,11 @@ public abstract class L2Character extends L2Object
 		return isStunned() || isSleeping() || isImmobileUntilAttacked() || isAttackingNow() || isAlikeDead()
 			|| isParalyzed() || isFallsdown() || isPhysicalAttackMuted() || isCoreAIDisabled() || isFlying();
 	}
+	
+	public boolean isInProtectedAction()
+	{
+		return isAllSkillsDisabled() || isAttackingDisabled() || isCastingNow() || isAttackingNow();
+	}
 
 	public final Calculator[] getCalculators()
 	{
@@ -4182,8 +4187,8 @@ public abstract class L2Character extends L2Object
 			setIsCastingSimultaneouslyNow(false);
 			// safeguard for cannot be interrupt any more
 			_castInterruptTime = 0;
-			if (this instanceof L2PcInstance)
-				getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
+			//if (this instanceof L2PcInstance)
+			getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
 			broadcastPacket(new MagicSkillCanceled(getObjectId())); // broadcast packet to stop animations client-side
 			sendPacket(ActionFailed.STATIC_PACKET); // send an "action failed" packet to the caster
 		}
@@ -6206,7 +6211,7 @@ public abstract class L2Character extends L2Object
 					newTarget = originalTarget;
 				
 				if (// As far as I remember, you can move away after launching a skill without hitting
-					getAI().getIntention() != AI_INTENTION_MOVE_TO && getAI().getNextIntention() == null
+					getAI().getIntention() != AI_INTENTION_MOVE_TO && getAI().getNextCtrlIntention() == null
 					// And you will not auto-attack a non-flagged player after launching a skill
 					&& newTarget != null && newTarget.isAutoAttackable(this))
 				{

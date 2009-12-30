@@ -22,7 +22,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
@@ -31,138 +30,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 
 public class L2PlayerAI extends L2CharacterAI
 {
-
 	private volatile boolean _thinking; // to prevent recursive thinking
-
-	//private Stack<IntentionCommand> _interruptedIntentions = new Stack<IntentionCommand>();
-	IntentionCommand	_nextIntention	= null;
 
 	public L2PlayerAI(AIAccessor accessor)
 	{
 		super(accessor);
-	}
-
-	@Override
-	protected void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
-	{
-		/*
-		if (Config.DEBUG)
-		_log.warning("L2PlayerAI: changeIntention -> Saving next intention: " + _intention + " " + _intention_arg0 + " " + _intention_arg1);
-		*/
-
-		_nextIntention = new IntentionCommand(intention, arg0, arg1);
-	}
-
-	@Override
-	public IntentionCommand getNextIntention()
-	{
-		return _nextIntention;
-	}
-
-	/**
-	 * Saves the current Intention for this L2PlayerAI if necessary and calls changeIntention in AbstractAI.<BR><BR>
-	 *
-	 * @param intention The new Intention to set to the AI
-	 * @param arg0 The first parameter of the Intention
-	 * @param arg1 The second parameter of the Intention
-	 *
-	 */
-	@Override
-	protected synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
-	{
-		/*
-		 if (_log.isDebugEnabled())
-		 _log.warn("L2PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
-		 */
-
-		// do nothing unless CAST intention
-		// however, forget interrupted actions when starting to use an offensive skill
-		if (intention != AI_INTENTION_CAST || (arg0 != null && ((L2Skill) arg0).isOffensive()))
-		{
-			_nextIntention = null;
-			super.changeIntention(intention, arg0, arg1);
-			return;
-		}
-
-		// do nothing if next intention is same as current one.
-		if (intention == _intention && arg0 == _intentionArg0 && arg1 == _intentionArg1)
-		{
-			super.changeIntention(intention, arg0, arg1);
-			return;
-		}
-
-		// save current intention so it can be used after cast
-		saveNextIntention(_intention, _intentionArg0, _intentionArg1);
-		super.changeIntention(intention, arg0, arg1);
-	}
-
-	/**
-	 * Launch actions corresponding to the Event ReadyToAct.<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Launch actions corresponding to the Event Think</li><BR><BR>
-	 *
-	 */
-	@Override
-	protected void onEvtReadyToAct()
-	{
-		// Launch actions corresponding to the Event Think
-		if (_nextIntention != null)
-		{
-			setIntention(_nextIntention._crtlIntention, _nextIntention._arg0, _nextIntention._arg1);
-			_nextIntention = null;
-		}
-		super.onEvtReadyToAct();
-	}
-
-	/**
-	 * Launch actions corresponding to the Event Cancel.<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Stop an AI Follow Task</li>
-	 * <li>Launch actions corresponding to the Event Think</li><BR><BR>
-	 *
-	 */
-	@Override
-	protected void onEvtCancel()
-	{
-		_nextIntention = null;
-		super.onEvtCancel();
-	}
-
-	/**
-	 * Finalize the casting of a skill. This method overrides L2CharacterAI method.<BR><BR>
-	 *
-	 * <B>What it does:</B>
-	 * Check if actual intention is set to CAST and, if so, retrieves latest intention
-	 * before the actual CAST and set it as the current intention for the player
-	 */
-	@Override
-	protected void onEvtFinishCasting()
-	{
-		if (getIntention() == AI_INTENTION_CAST)
-		{
-			// run interrupted or next intention
-			IntentionCommand nextIntention = _nextIntention;
-			if (nextIntention != null)
-			{
-				if (nextIntention._crtlIntention != AI_INTENTION_CAST) // previous state shouldn't be casting
-				{
-					setIntention(nextIntention._crtlIntention, nextIntention._arg0, nextIntention._arg1);
-				}
-				else
-					setIntention(AI_INTENTION_IDLE);
-			}
-			else
-			{
-				/*
-				 if (_log.isDebugEnabled())
-				 _log.warn("L2PlayerAI: no previous intention set... Setting it to IDLE");
-				 */
-				// set intention to idle if skill doesn't change intention.
-				setIntention(AI_INTENTION_IDLE);
-			}
-		}
 	}
 
 	@Override

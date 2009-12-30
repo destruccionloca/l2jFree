@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.ai;
 
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
@@ -344,6 +345,18 @@ public abstract class AbstractAI implements Ctrl
 	 */
 	public final void setIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
+		if (_actor.isInProtectedAction())
+		{
+			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
+			clientActionFailed();
+			// Save intention for delayed execution
+			saveNextIntention(intention, arg0, arg1);
+			return;
+		}
+		
+		// Cancel saved intention as the current one overrides it
+		clearNextIntention();
+		
 		/*
 		 if (Config.DEBUG)
 		 _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
@@ -378,7 +391,7 @@ public abstract class AbstractAI implements Ctrl
 				onIntentionMoveToInABoat((L2CharPosition)arg0, (L2CharPosition)arg1);
 				break;
 			case AI_INTENTION_MOVE_TO_IN_AIR_SHIP:
-				onIntentionMoveToInAirShip((L2CharPosition) arg0, (L2CharPosition) arg1);
+				onIntentionMoveToInAirShip((L2CharPosition)arg0, (L2CharPosition)arg1);
 				break;
 			case AI_INTENTION_FOLLOW:
 				onIntentionFollow((L2Character)arg0);
@@ -390,6 +403,64 @@ public abstract class AbstractAI implements Ctrl
 				onIntentionInteract((L2Object)arg0);
 				break;
 		}
+	}
+	
+	private static final class IntentionCommand
+	{
+		private final CtrlIntention _crtlIntention;
+		private final Object _arg0;
+		private final Object _arg1;
+		
+		private IntentionCommand(CtrlIntention pIntention, Object pArg0, Object pArg1)
+		{
+			_crtlIntention = pIntention;
+			_arg0 = pArg0;
+			_arg1 = pArg1;
+		}
+	}
+	
+	private static boolean equals(Object o1, Object o2)
+	{
+		return o1 == null ? o2 == null : o1.equals(o2);
+	}
+	
+	private IntentionCommand _nextIntention = null;
+	
+	private final void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
+	{
+		if (intention == AI_INTENTION_CAST)
+			if (equals(intention, _intention))
+				if (equals(arg0, _intentionArg0))
+					if (equals(arg1, _intentionArg1))
+						return;
+		
+		_nextIntention = new IntentionCommand(intention, arg0, arg1);
+	}
+	
+	final void clearNextIntention()
+	{
+		_nextIntention = null;
+	}
+	
+	final void executeNextIntention()
+	{
+		// run interrupted or next intention
+		final IntentionCommand nextIntention = _nextIntention;
+		if (nextIntention != null)
+		{
+			clearNextIntention();
+			
+			setIntention(nextIntention._crtlIntention, nextIntention._arg0, nextIntention._arg1);
+		}
+		
+		notifyEvent(CtrlEvent.EVT_THINK);
+	}
+	
+	public final CtrlIntention getNextCtrlIntention()
+	{
+		final IntentionCommand nextIntention = _nextIntention;
+		
+		return nextIntention == null ? null : nextIntention._crtlIntention;
 	}
 	
 	/**
@@ -445,7 +516,8 @@ public abstract class AbstractAI implements Ctrl
 		switch (evt)
 		{
 			case EVT_THINK:
-				onEvtThink();
+				if (!_actor.isInProtectedAction())
+					onEvtThink();
 				break;
 			case EVT_ATTACKED:
 				onEvtAttacked((L2Character)arg0);
@@ -472,21 +544,21 @@ public abstract class AbstractAI implements Ctrl
 				onEvtMuted((L2Character)arg0);
 				break;
 			case EVT_READY_TO_ACT:
-				if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
-					onEvtReadyToAct();
+				//if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
+				onEvtReadyToAct();
 				break;
 			case EVT_USER_CMD:
 				onEvtUserCmd(arg0, arg1);
 				break;
 			case EVT_ARRIVED:
 				// happens e.g. from stopmove but we don't process it if we're casting
-				if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
-					onEvtArrived();
+				//if (!_actor.isCastingNow() && !_actor.isCastingSimultaneouslyNow())
+				onEvtArrived();
 				break;
 			case EVT_ARRIVED_REVALIDATE:
 				// this is disregarded if the char is not moving any more
-				if (_actor.isMoving())
-					onEvtArrivedRevalidate();
+				//if (_actor.isMoving())
+				onEvtArrivedRevalidate();
 				break;
 			case EVT_ARRIVED_BLOCKED:
 				onEvtArrivedBlocked((L2CharPosition)arg0);
@@ -505,6 +577,15 @@ public abstract class AbstractAI implements Ctrl
 				break;
 			case EVT_FINISH_CASTING:
 				onEvtFinishCasting();
+				break;
+			case EVT_AFRAID:
+				// TODO
+				break;
+			case EVT_BETRAYED:
+				// TODO
+				break;
+			case EVT_LUCKNOBLESSE:
+				// TODO
 				break;
 		}
 	}
