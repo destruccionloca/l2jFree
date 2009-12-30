@@ -134,7 +134,7 @@ public final class ZoneManager
 							_uniqueZones.put(id, zone);
 						
 						if (_zones[zone.getType().ordinal()] == null)
-							_zones[zone.getType().ordinal()] = new L2Zone[] { zone }
+							_zones[zone.getType().ordinal()] = new L2Zone[] { zone };
 						else
 							_zones[zone.getType().ordinal()] = (L2Zone[])ArrayUtils.add(_zones[zone.getType().ordinal()], zone);
 						
