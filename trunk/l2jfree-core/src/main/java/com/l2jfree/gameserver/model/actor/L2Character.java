@@ -66,9 +66,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2RiftInvaderInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
@@ -106,6 +104,7 @@ import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
@@ -1539,82 +1538,12 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
-		// Set the target of the skill in function of Skill Type and Target Type
-		final L2Character target;
-
 		// Get all possible targets of the skill in a table in function of the skill target type
 		final L2Character[] targets = skill.getTargetList(this);
-
-		// AURA skills should always be using caster as target
-		switch (skill.getTargetType())
-		{
-			case TARGET_AURA:
-			case TARGET_FRONT_AURA:
-			case TARGET_BEHIND_AURA:
-			case TARGET_GROUND:
-			{
-				target = this;
-				break;
-			}
-			case TARGET_SERVITOR_AURA:
-			{
-				target = getPet();
-				break;
-			}
-			default:
-			{
-				if (targets == null || targets.length == 0)
-				{
-					target = null;
-					break;
-				}
-
-				switch (skill.getSkillType())
-				{
-					case BUFF:
-					case HEAL:
-					case COMBATPOINTHEAL:
-					case MANAHEAL:
-					case REFLECT:
-					{
-						target = targets[0];
-						break;
-					}
-					default:
-					{
-						switch (skill.getTargetType())
-						{
-							case TARGET_SELF:
-							case TARGET_PET:
-							case TARGET_SUMMON:
-							case TARGET_PARTY:
-							case TARGET_CLAN:
-							case TARGET_PARTY_CLAN:
-							case TARGET_ALLY:
-							case TARGET_ENEMY_ALLY:
-							{
-								target = targets[0];
-								break;
-							}
-							case TARGET_OWNER_PET:
-							{
-								if (this instanceof L2PetInstance)
-									target = ((L2PetInstance)this).getOwner();
-								else
-									target = null;
-								break;
-							}
-							default:
-							{
-								target = (L2Character)getTarget();
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-
+		
+		// Set the target of the skill in function of Skill Type and Target Type
+		final L2Character target = skill.getFirstOfTargetList(this, targets);
+		
 		if (target == null || GlobalRestrictions.isProtected(this, target, skill, true))
 		{
 			if (simultaneously)
@@ -2708,15 +2637,14 @@ public abstract class L2Character extends L2Object
 		_isInvul = b;
 	}
 
-	public void setIsInvulByEffect(boolean b, L2Effect effect)
+	public void setIsInvulByEffect(L2Effect effect)
 	{
-		_isInvul = b;
 		_invulEffect = effect;
 	}
 
 	public boolean isInvul()
 	{
-		return _isInvul || _isTeleporting || GlobalRestrictions.isInvul(null, this, null, false);
+		return _isInvul || _invulEffect != null || _isTeleporting || GlobalRestrictions.isInvul(null, this, null, false);
 	}
 
 	public L2Effect getInvulEffect()
@@ -2992,23 +2920,6 @@ public abstract class L2Character extends L2Object
 				else
 					setIsCastingNow(false);
 			}
-		}
-	}
-
-	/** Task launching the function useMagic() */
-	private final class QueuedMagicUseTask implements Runnable
-	{
-		private final SkillDat _queuedSkill;
-
-		private QueuedMagicUseTask(SkillDat queuedSkill)
-		{
-			_queuedSkill = queuedSkill;
-		}
-
-		public void run()
-		{
-			L2PcInstance player = (L2PcInstance)L2Character.this;
-			player.useMagic(_queuedSkill.getSkill(), _queuedSkill.isCtrlPressed(), _queuedSkill.isShiftPressed());
 		}
 	}
 
@@ -3815,6 +3726,10 @@ public abstract class L2Character extends L2Object
 		 */
 		public void doAttack(L2Character target)
 		{
+			// stop invul effect if exist
+			if (getInvulEffect() != null)
+				getInvulEffect().exit();
+			
 			if (L2Character.this != target)
 				L2Character.this.doAttack(target);
 		}
@@ -3825,6 +3740,10 @@ public abstract class L2Character extends L2Object
 		 */
 		public void doCast(L2Skill skill)
 		{
+			// stop invul effect if exist
+			if (getInvulEffect() != null)
+				getInvulEffect().exit();
+			
 			L2Character.this.doCast(skill);
 		}
 
@@ -5745,7 +5664,7 @@ public abstract class L2Character extends L2Object
 				// Stop casting if this skill is used right now
 				if (isCastingNow() && this instanceof L2PcInstance)
 				{
-					SkillDat currentSkill = ((L2PcInstance)this).getCurrentSkill();
+					SkillUsageRequest currentSkill = ((L2PcInstance)this).getCurrentSkill();
 					if (currentSkill != null && currentSkill.getSkillId() == oldSkill.getId())
 						abortCast();
 				}
@@ -6242,31 +6161,6 @@ public abstract class L2Character extends L2Object
 		getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
 		
 		notifyQuestEventSkillFinished(magicEnv);
-		
-		/*
-		 * If this skill casting wasn't a simultaneous one,
-		 * - and the character is a player, then  wipe their current cast state and check if a skill is queued.
-		 * - and there is a queued skill, then launch it and wipe the queue.
-		 */
-		if (this instanceof L2PcInstance && !simultaneously)
-		{
-			L2PcInstance currPlayer = (L2PcInstance)this;
-			SkillDat queuedSkill = currPlayer.getQueuedSkill();
-			
-			// Rescuing old skill cast task if exist
-			//if (skill.isPotion())
-			//queuedSkill = currPlayer.getCurrentSkill();
-			
-			currPlayer.setCurrentSkill(null, false, false);
-			
-			if (queuedSkill != null)
-			{
-				currPlayer.setQueuedSkill(null, false, false);
-				
-				// DON'T USE : Recursive call to useMagic() method
-				ThreadPoolManager.getInstance().execute(new QueuedMagicUseTask(queuedSkill));
-			}
-		}
 	}
 
 	// Quest event ON_SPELL_FNISHED

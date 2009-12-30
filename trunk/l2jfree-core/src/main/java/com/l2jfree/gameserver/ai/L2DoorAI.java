@@ -19,11 +19,11 @@ import javolution.util.FastMap.Entry;
 
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
 
 /**
@@ -58,7 +58,7 @@ public class L2DoorAI extends L2CharacterAI
 	}
 
 	@Override
-	protected void onIntentionCast(L2Skill skill, L2Object target)
+	protected void onIntentionCast(SkillUsageRequest request, L2Object target)
 	{
 	}
 
@@ -166,18 +166,18 @@ public class L2DoorAI extends L2CharacterAI
 				return true;
 			switch (((L2Attackable) o).getNpcId())
 			{
-			case 35411: 
-			case 35412: 
-			case 35413: 
-			case 35414: 
-			case 35415: 
-			case 35416: 
-			case 35369: 
-			case 35370: 
-			case 35371: 
-			case 35372: 
-			case 35373: 
-			case 35382: 
+			case 35411:
+			case 35412:
+			case 35413:
+			case 35414:
+			case 35415:
+			case 35416:
+			case 35369:
+			case 35370:
+			case 35371:
+			case 35372:
+			case 35373:
+			case 35382:
 			case 35383:
 				return true;
 			}

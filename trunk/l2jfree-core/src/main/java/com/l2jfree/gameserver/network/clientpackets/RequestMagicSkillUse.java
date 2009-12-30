@@ -19,16 +19,16 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 
 public class RequestMagicSkillUse extends L2GameClientPacket
 {
-	private static final String	_C__2F_REQUESTMAGICSKILLUSE	= "[C] 2F RequestMagicSkillUse";
-
-	private int					_magicId;
-	private boolean				_ctrlPressed;
-	private boolean				_shiftPressed;
-
+	private static final String _C__2F_REQUESTMAGICSKILLUSE = "[C] 2F RequestMagicSkillUse";
+	
+	private int _magicId;
+	private boolean _ctrlPressed;
+	private boolean _shiftPressed;
+	
 	@Override
 	protected void readImpl()
 	{
@@ -36,12 +36,11 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		_ctrlPressed = readD() != 0; // True if it's a ForceAttack : Ctrl pressed
 		_shiftPressed = readC() != 0; // True if Shift pressed
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-
 		if (activeChar == null)
 			return;
 		
@@ -53,29 +52,29 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 			activeChar.sendMessage("You cannot cast a skill due to a restriction.");
 			return;
 		}
-
+		
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_magicId);
 		if (level <= 0)
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
-
+		
 		// Get the L2Skill template corresponding to the skillID received from the client
 		L2Skill skill = SkillTable.getInstance().getInfo(_magicId, level);
-
+		
 		// Check the validity of the skill
 		if (activeChar.canUseMagic(skill))
 		{
-			activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
+			activeChar.useMagic(new SkillUsageRequest(skill, _ctrlPressed, _shiftPressed));
 		}
 		else
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{

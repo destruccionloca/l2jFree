@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.MoveToLocationInVehicle;
 import com.l2jfree.gameserver.network.serverpackets.MoveToPawn;
 import com.l2jfree.gameserver.network.serverpackets.StopMove;
 import com.l2jfree.gameserver.network.serverpackets.StopRotation;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.util.Util;
@@ -382,7 +383,7 @@ public abstract class AbstractAI implements Ctrl
 				onIntentionAttack((L2Character)arg0);
 				break;
 			case AI_INTENTION_CAST:
-				onIntentionCast((L2Skill)arg0, (L2Object)arg1);
+				onIntentionCast((SkillUsageRequest)arg0, (L2Object)arg1);
 				break;
 			case AI_INTENTION_MOVE_TO:
 				onIntentionMoveTo((L2CharPosition)arg0);
@@ -452,6 +453,8 @@ public abstract class AbstractAI implements Ctrl
 			
 			setIntention(nextIntention._crtlIntention, nextIntention._arg0, nextIntention._arg1);
 		}
+		else if (getIntention() == AI_INTENTION_CAST)
+			setIntention(AI_INTENTION_IDLE);
 		
 		notifyEvent(CtrlEvent.EVT_THINK);
 	}
@@ -598,7 +601,7 @@ public abstract class AbstractAI implements Ctrl
 	
 	protected abstract void onIntentionAttack(L2Character target);
 	
-	protected abstract void onIntentionCast(L2Skill skill, L2Object target);
+	protected abstract void onIntentionCast(SkillUsageRequest request, L2Object target);
 	
 	protected abstract void onIntentionMoveTo(L2CharPosition destination);
 	

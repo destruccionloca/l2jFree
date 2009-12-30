@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
+import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -25,6 +26,7 @@ import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
@@ -598,5 +600,71 @@ public abstract class L2Playable extends L2Character
 		return super.removeSkill(skill);
 	}
 	
-	public abstract void useMagic(L2Skill skill, boolean forceUse, boolean dontMove);
+	public final void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
+	{
+		useMagic(new SkillUsageRequest(skill, forceUse, dontMove));
+	}
+	
+	public void useMagic(SkillUsageRequest request)
+	{
+		L2Character target = request.getSkill().getFirstOfTargetList(this);
+		
+		// Notify the AI with AI_INTENTION_CAST and target
+		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, request, target);
+	}
+	
+	protected abstract boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove);
+	
+	/**
+	 * <b>WARNING:</b> for players and summons this mustn't be called except through AI!
+	 */
+	@Override
+	public void doCast(L2Skill skill)
+	{
+		SkillUsageRequest request = getCurrentSkill();
+		
+		if (request == null)
+		{
+			request = new SkillUsageRequest(skill);
+			
+			setCurrentSkill(request);
+			
+			_log.warn("Missing 'getCurrentSkill()'!", new IllegalStateException());
+		}
+		
+		if (request.getSkill() != skill)
+		{
+			_log.warn("Different 'request.getSkill()' and 'skill'!", new IllegalStateException());
+			return;
+		}
+		
+		if (!checkUseMagicConditions(request.getSkill(), request.isCtrlPressed(), request.isShiftPressed()))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		super.doCast(skill);
+	}
+	
+	private SkillUsageRequest _currentSkill;
+	
+	public final SkillUsageRequest getCurrentSkill()
+	{
+		return _currentSkill;
+	}
+	
+	public void setCurrentSkill(SkillUsageRequest currentSkill)
+	{
+		_currentSkill = currentSkill;
+	}
+	
+	@Override
+	public final void setIsCastingNow(boolean value)
+	{
+		if (!value)
+			setCurrentSkill(null);
+		
+		super.setIsCastingNow(value);
+	}
 }

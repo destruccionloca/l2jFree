@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.BuyList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -107,7 +108,7 @@ public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merc
     }
 
     @Override
-    public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
+    public void useMagic(SkillUsageRequest request)
     {
 
     }

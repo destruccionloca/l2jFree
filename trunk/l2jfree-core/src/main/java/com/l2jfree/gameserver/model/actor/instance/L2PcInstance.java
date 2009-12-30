@@ -279,6 +279,7 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.skills.Formulas;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.conditions.ConditionGameTime;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerHp;
@@ -796,12 +797,6 @@ public final class L2PcInstance extends L2Playable
 
 	private boolean							_inCraftMode;
 
-	/** Current skill in use. Note that L2Character has _lastSkillCast, but this has the button presses */
-	private SkillDat						_currentSkill;
-	private SkillDat						_currentPetSkill;
-	/** Skills queued because a skill is already in progress */
-	private SkillDat						_queuedSkill;
-
 	/** Store object used to summon the strider you are mounting **/
 	private int								_mountObjectID			= 0;
 
@@ -840,9 +835,6 @@ public final class L2PcInstance extends L2Playable
 	// Force charges
 	private int								_charges				= 0;
 	private ScheduledFuture<?>				_chargeTask				= null;
-
-	// WorldPosition used by TARGET_SIGNET_GROUND
-	private Point3D							_currentSkillWorldPosition;
 
 	public int								_fame = 0;					// The Fame of this L2PcInstance
 	private ScheduledFuture<?>				_fameTask;
@@ -886,41 +878,6 @@ public final class L2PcInstance extends L2Playable
 
 			_player.updateVitalityPoints(Config.RATE_RECOVERY_VITALITY_PEACE_ZONE, false, false);
 			_player.sendPacket(new ExVitalityPointInfo(getVitalityPoints()));
-		}
-	}
-
-	/** Skill casting information (used to queue when several skills are cast in a short time) **/
-	public class SkillDat
-	{
-		private final L2Skill	_skill;
-		private final boolean	_ctrlPressed;
-		private final boolean	_shiftPressed;
-
-		protected SkillDat(L2Skill skill, boolean ctrlPressed, boolean shiftPressed)
-		{
-			_skill = skill;
-			_ctrlPressed = ctrlPressed;
-			_shiftPressed = shiftPressed;
-		}
-
-		public boolean isCtrlPressed()
-		{
-			return _ctrlPressed;
-		}
-
-		public boolean isShiftPressed()
-		{
-			return _shiftPressed;
-		}
-
-		public L2Skill getSkill()
-		{
-			return _skill;
-		}
-
-		public int getSkillId()
-		{
-			return (getSkill() != null) ? getSkill().getId() : -1;
 		}
 	}
 
@@ -3717,12 +3674,9 @@ public final class L2PcInstance extends L2Playable
 
 	public Point3D getCurrentSkillWorldPosition()
 	{
-		return _currentSkillWorldPosition;
-	}
-
-	public void setCurrentSkillWorldPosition(Point3D worldPosition)
-	{
-		_currentSkillWorldPosition = worldPosition;
+		SkillUsageRequest currentSkill = getCurrentSkill();
+		
+		return currentSkill == null ? null : currentSkill.getSkillWorldPosition();
 	}
 
 	public boolean canBeTargetedByAtSiege(L2PcInstance player)
@@ -8193,101 +8147,17 @@ public final class L2PcInstance extends L2Playable
 
 		return false;
 	}
-
-	/**
-	 * Check if the active L2Skill can be casted.<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Check if the skill isn't toggle and is offensive </li>
-	 * <li>Check if the target is in the skill cast range </li>
-	 * <li>Check if the skill is Spoil type and if the target isn't already spoiled </li>
-	 * <li>Check if the caster owns enought consummed Item, enough HP and MP to cast the skill </li>
-	 * <li>Check if the caster isn't sitting </li>
-	 * <li>Check if all skills are enabled and this skill is enabled </li><BR><BR>
-	 * <li>Check if the caster own the weapon needed </li><BR><BR>
-	 * <li>Check if the skill is active </li><BR><BR>
-	 * <li>Check if all casting conditions are completed</li><BR><BR>
-	 * <li>Notify the AI with AI_INTENTION_CAST and target</li><BR><BR>
-	 *
-	 * @param skill The L2Skill to use
-	 * @param forceUse used to force ATTACK on players
-	 * @param dontMove used to prevent movement, if not in range
-	 *
-	 */
+	
 	@Override
-	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
+	public void doCast(L2Skill skill)
 	{
 		if (!canUseMagic(skill))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
-		//************************************* Check Casting in Progress *******************************************
-
-		// If a skill is currently being used, queue this one if this is not the same
-		if (isCastingNow() || isAttackingNow())
-		{
-			SkillDat currentSkill = getCurrentSkill();
-			// Check if new skill different from current skill in progress
-			if (currentSkill != null && skill.getId() == currentSkill.getSkillId())
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-
-			// Create a new SkillDat object and queue it in the player _queuedSkill
-			setQueuedSkill(skill, forceUse, dontMove);
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		setIsCastingNow(true);
-		// Create a new SkillDat object and set the player _currentSkill
-		// This is used mainly to save & queue the button presses, since L2Character has
-		// _lastSkillCast which could otherwise replace it
-		setCurrentSkill(skill, forceUse, dontMove);
-
-		if (getQueuedSkill() != null) // Wiping out previous values, after casting has been aborted
-			setQueuedSkill(null, false, false);
-
-		if (!checkUseMagicConditions(skill, forceUse, dontMove))
-		{
-			setIsCastingNow(false);
-			return;
-		}
-
-		// Check if the target is correct and Notify the AI with AI_INTENTION_CAST and target
-		L2Character target = null;
-
-		switch (skill.getTargetType())
-		{
-			case TARGET_AURA:    // AURA, SELF should be cast even if no target has been found
-			case TARGET_FRONT_AURA:
-			case TARGET_BEHIND_AURA:
-			case TARGET_GROUND:
-			case TARGET_SELF:
-				target = this;
-				break;
-			case TARGET_SERVITOR_AURA:
-				target = getPet();
-				break;
-			default:
-				// Get the first target of the list
-				target = skill.getFirstOfTargetList(this);
-				break;
-		}
-
-		// Notify the AI with AI_INTENTION_CAST and target
-		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
-	}
-
-	@Override
-	public void setIsCastingNow(boolean value)
-	{
-		if (!value)
-			_currentSkill = null;
-
-		super.setIsCastingNow(value);
+		
+		super.doCast(skill);
 	}
 
 	public void sendReuseMessage(L2Skill skill)
@@ -8328,8 +8198,9 @@ public final class L2PcInstance extends L2Playable
 		}
 		sendPacket(sm);
 	}
-
-	private boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
+	
+	@Override
+	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
 		L2SkillType sklType = skill.getSkillType();
 
@@ -12298,91 +12169,27 @@ public final class L2PcInstance extends L2Playable
 
 	private L2ItemInstance	_lure	= null;
 
-	/**
-	 * Get the current skill in use or return null.<BR><BR>
-	 *
-	 */
-	public SkillDat getCurrentSkill()
+	@Override
+	public void setCurrentSkill(SkillUsageRequest currentSkill)
 	{
-		return _currentSkill;
-	}
-
-	/**
-	 * Create a new SkillDat object and set the player _currentSkill.<BR><BR>
-	 *
-	 */
-	public void setCurrentSkill(L2Skill currentSkill, boolean ctrlPressed, boolean shiftPressed)
-	{
-		if (currentSkill == null)
+		super.setCurrentSkill(currentSkill);
+		
+		final Point3D p = getCurrentSkillWorldPosition();
+		if (p != null)
 		{
-			if (_log.isDebugEnabled())
-				_log.info("Setting current skill: NULL for " + getName() + ".");
-
-			_currentSkill = null;
-			return;
+			// normally magicskilluse packet turns char client side but for these skills, it doesn't (even with correct target)
+			setHeading(Util.calculateHeadingFrom(getX(), getY(), p.getX(), p.getY()));
+			broadcastPacket(new ValidateLocation(this));
 		}
-
-		if (_log.isDebugEnabled())
-			_log.info("Setting current skill: " + currentSkill.getName() + " (ID: " + currentSkill.getId() + ") for " + getName() + ".");
-
-		_currentSkill = new SkillDat(currentSkill, ctrlPressed, shiftPressed);
 	}
-
-	/**
-	 * Get the current pet skill in use or return null.<BR><BR>
-	 *
-	 */
-	public SkillDat getCurrentPetSkill()
+	
+	public SkillUsageRequest getCurrentPetSkill()
 	{
-		return _currentPetSkill;
+		final L2Summon pet = getPet();
+		
+		return pet == null ?  null : pet.getCurrentSkill();
 	}
-	/**
-	 * Create a new SkillDat object and set the player _currentPetSkill.<BR><BR>
-	 *
-	 */
-	public void setCurrentPetSkill(L2Skill currentSkill, boolean ctrlPressed, boolean shiftPressed)
-	{
-		if (currentSkill == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.info("Setting current skill: NULL for " + getName() + ".");
-
-			_currentPetSkill = null;
-			return;
-		}
-
-		if (_log.isDebugEnabled())
-			_log.info("Setting current skill: " + currentSkill.getName() + " (ID: " + currentSkill.getId() + ") for " + getName() + ".");
-
-		_currentPetSkill = new SkillDat(currentSkill, ctrlPressed, shiftPressed);
-	}
-
-	public SkillDat getQueuedSkill()
-	{
-		return _queuedSkill;
-	}
-
-	/**
-	 * Create a new SkillDat object and queue it in the player _queuedSkill.<BR><BR>
-	 *
-	 */
-	public void setQueuedSkill(L2Skill queuedSkill, boolean ctrlPressed, boolean shiftPressed)
-	{
-		if (queuedSkill == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.info("Setting queued skill: NULL for " + getName() + ".");
-
-			_queuedSkill = null;
-			return;
-		}
-
-		if (_log.isDebugEnabled())
-			_log.info("Setting queued skill: " + queuedSkill.getName() + " (ID: " + queuedSkill.getId() + ") for " + getName() + ".");
-
-		_queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
-	}
-
+	
 	private long	_skillQueueProtectionTime	= 0;
 
 	public void setSkillQueueProtectionTime(long time)

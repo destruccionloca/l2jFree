@@ -54,14 +54,14 @@ public class Escape implements IUserCommandHandler
 		{
 			if (GM_escape != null)
 			{
-				activeChar.doCast(GM_escape);
+				activeChar.useMagic(GM_escape, false, false);
 				return true;
 			}
 			activeChar.sendMessage("You use Escape: 1 second.");
 		}
 		else if (Config.UNSTUCK_INTERVAL == 300 && escape  != null)
 		{
-			activeChar.doCast(escape);
+			activeChar.useMagic(escape, false, false);
 			return true;
 		}
 		else

@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -42,6 +43,7 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
@@ -178,10 +180,6 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onIntentionAttack(L2Character target)
 	{
-		// stop invul effect if exist
-		if (_actor.getInvulEffect() != null)
-			_actor.getInvulEffect().exit();
-
 		if (target == null)
 		{
 			clientActionFailed();
@@ -251,39 +249,44 @@ public class L2CharacterAI extends AbstractAI
 	 *
 	 */
 	@Override
-	protected void onIntentionCast(L2Skill skill, L2Object target)
+	protected void onIntentionCast(SkillUsageRequest request, L2Object target)
 	{
-		// stop invul effect if exist
-		if (_actor.getInvulEffect() != null)
-			_actor.getInvulEffect().exit();
-
+		final L2Skill skill = request.getSkill();
+		
 		if (getIntention() == AI_INTENTION_REST && skill.isMagic())
 		{
 			clientActionFailed();
 			_actor.setIsCastingNow(false);
 			return;
 		}
-
+		
 		// Set the AI cast target
-		setCastTarget((L2Character) target);
-
+		setCastTarget((L2Character)target);
+		
+		if (_actor instanceof L2Playable)
+		{
+			// This is used mainly to save & queue the button presses, since L2Character has
+			// _lastSkillCast which could otherwise replace it
+			((L2Playable)_actor).setCurrentSkill(request);
+		}
+		
 		// Stop actions client-side to cast the skill
 		if (skill.getHitTime() > 50)
 		{
 			// Abort the attack of the L2Character and send Server->Client ActionFailed packet
 			_actor.abortAttack();
-
+			
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			// no need for second ActionFailed packet, abortAttack() already sent it
 			//clientActionFailed();
 		}
-
+		
 		// Set the AI skill used by INTENTION_CAST
 		_skill = skill;
-
+		
 		// Change the Intention of this AbstractAI to AI_INTENTION_CAST
 		changeIntention(AI_INTENTION_CAST, skill, target);
-
+		
 		// Launch the Think Event
 		notifyEvent(CtrlEvent.EVT_THINK, null);
 	}

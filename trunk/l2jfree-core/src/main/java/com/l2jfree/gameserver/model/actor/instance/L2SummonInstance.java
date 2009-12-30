@@ -18,9 +18,7 @@ import java.util.concurrent.Future;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Object;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
@@ -324,33 +322,5 @@ public class L2SummonInstance extends L2Summon
 	public final SummonStatus getStatus()
 	{
 		return (SummonStatus)_status;
-	}
-	
-	/**
-	 * Servitors' skills automatically change their level based on the servitor's level.
-	 * Until level 70, the servitor gets 1 lv of skill per 10 levels. After that, it is 1
-	 * skill level per 5 servitor levels.  If the resulting skill level doesn't exist use
-	 * the max that does exist!
-	 *
-	 * @see com.l2jfree.gameserver.model.actor.L2Character#doCast(com.l2jfree.gameserver.model.L2Skill)
-	 */
-	@Override
-	public void doCast(L2Skill skill)
-	{
-        final int petLevel = getLevel();
-        int skillLevel = petLevel/10;
-        if(petLevel >= 70)
-            skillLevel += (petLevel-65)/10;
-
-        // adjust the level for servitors less than lv 10
-        if (skillLevel < 1)
-            skillLevel = 1;
-
-        L2Skill skillToCast = SkillTable.getInstance().getInfo(skill.getId(),skillLevel);
-
-		if (skillToCast != null)
-            super.doCast(skillToCast);
-        else
-            super.doCast(skill);
 	}
 }

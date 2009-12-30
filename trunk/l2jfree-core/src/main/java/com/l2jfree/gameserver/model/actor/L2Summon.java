@@ -61,6 +61,7 @@ import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public abstract class L2Summon extends L2Playable
 {
@@ -574,76 +575,31 @@ public abstract class L2Summon extends L2Playable
 
 		return _owner.getParty() != null;
 	}
-
-	/**
-	 * Check if the active L2Skill can be casted.<BR><BR>
-	 *
-	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Check if the target is correct </li>
-	 * <li>Check if the target is in the skill cast range </li>
-	 * <li>Check if the summon owns enough HP and MP to cast the skill </li>
-	 * <li>Check if all skills are enabled and this skill is enabled </li><BR><BR>
-	 * <li>Check if the skill is active </li><BR><BR>
-	 * <li>Notify the AI with AI_INTENTION_CAST and target</li><BR><BR>
-	 *
-	 * @param skill The L2Skill to use
-	 * @param forceUse used to force ATTACK on players
-	 * @param dontMove used to prevent movement, if not in range
-	 * 
-	 */
+	
 	@Override
-	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
+	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
-		if (skill == null || isDead())
-			return;
-
+		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE || isDead())
+			return false;
+		
 		// Check if the skill is active
 		if (skill.isPassive())
 		{
 			// just ignore the passive skill request. why does the client send it anyway ??
-			return;
-		}
-
-		//************************************* Check Casting in Progress *******************************************
-
-		// If a skill is currently being used
-		if (isCastingNow())
-		{
-			return;
+			return false;
 		}
 
 		//************************************* Check Target *******************************************
 
 		// Get the target for the skill
-		L2Character target = null;
-
-		switch (skill.getTargetType())
-		{
-		// OWNER_PET should be cast even if no target has been found
-		case TARGET_OWNER_PET:
-			target = getOwner();
-			break;
-		// PARTY, AURA, SELF should be cast even if no target has been found
-		case TARGET_PARTY:
-		case TARGET_AURA:
-		case TARGET_FRONT_AURA:
-		case TARGET_BEHIND_AURA:
-		case TARGET_SERVITOR_AURA:
-		case TARGET_SELF:
-			target = this;
-			break;
-		default:
-			// Get the first target of the list
-			target = skill.getFirstOfTargetList(this);
-			break;
-		}
-
+		final L2Character target = skill.getFirstOfTargetList(this);
+		
 		// Check the validity of the target
 		if (target == null)
 		{
 			if (getOwner() != null)
 				getOwner().sendPacket(SystemMessageId.TARGET_CANT_FOUND);
-			return;
+			return false;
 		}
 
 		//************************************* Check skill availability *******************************************
@@ -653,7 +609,7 @@ public abstract class L2Summon extends L2Playable
 		{
 			if (getOwner() != null)
 				getOwner().sendPacket(SystemMessageId.SERVITOR_SKILL_RECHARGING);
-			return;
+			return false;
 		}
 
 		//************************************* Check Consumables *******************************************
@@ -665,7 +621,7 @@ public abstract class L2Summon extends L2Playable
 			{
 				// Send a System Message to the caster
 				getOwner().sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
-				return;
+				return false;
 			}
 		}
 
@@ -675,7 +631,7 @@ public abstract class L2Summon extends L2Playable
 			// Send a System Message to the caster
 			if (getOwner() != null)
 				getOwner().sendPacket(SystemMessageId.SERVITOR_LACKS_MP);
-			return;
+			return false;
 		}
 
 		// Check if the summon has enough HP
@@ -684,7 +640,7 @@ public abstract class L2Summon extends L2Playable
 			// Send a System Message to the caster
 			if (getOwner() != null)
 				getOwner().sendPacket(SystemMessageId.SERVITOR_LACKS_HP);
-			return;
+			return false;
 		}
 
 		//************************************* Check Summon State *******************************************
@@ -696,27 +652,27 @@ public abstract class L2Summon extends L2Playable
 			{
 				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
 				getOwner().sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
-				return;
+				return false;
 			}
 
 			if (getOwner() != null && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
 			{
 				// if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
 				getOwner().sendPacket(ActionFailed.STATIC_PACKET);
-				return;
+				return false;
 			}
 
 			// Check if the target is attackable
 			if (target instanceof L2DoorInstance)
 			{
 				if (!((L2DoorInstance) target).isAttackable(getOwner()))
-					return;
+					return false;
 			}
 			else
 			{
 				if (!target.isAttackable() && getOwner() != null && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 				{
-					return;
+					return false;
 				}
 
 				// Check if a Forced ATTACK is in progress on non-attackable target
@@ -734,14 +690,32 @@ public abstract class L2Summon extends L2Playable
 					case TARGET_SELF:
 						break;
 					default:
-						return;
+						return false;
 					}
 				}
 			}
 		}
-		getOwner().setCurrentPetSkill(skill, forceUse, dontMove);
-		// Notify the AI with AI_INTENTION_CAST and target
-		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
+		
+		final L2PcInstance actingPlayer = getActingPlayer();
+		
+		if (actingPlayer.isGM() && actingPlayer.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+		{
+			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+		
+		if (!actingPlayer.checkPvpSkill(getTarget(), skill))
+		{
+			// Send a System Message to the L2PcInstance
+			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+			
+			// Send a Server->Client packet ActionFailed to the L2PcInstance
+			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -772,31 +746,6 @@ public abstract class L2Summon extends L2Playable
 	public final boolean isOutOfControl()
 	{
 		return isConfused() || isAfraid() || isBetrayed();
-	}
-
-	@Override
-	public void doCast(L2Skill skill)
-	{
-		final L2PcInstance actingPlayer = getActingPlayer();
-
-		if (actingPlayer.isGM() && actingPlayer.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-		{
-			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
-		if (!actingPlayer.checkPvpSkill(getTarget(), skill))
-		{
-			// Send a System Message to the L2PcInstance
-			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
-
-			// Send a Server->Client packet ActionFailed to the L2PcInstance
-			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		
-		super.doCast(skill);
 	}
 
 	@Override

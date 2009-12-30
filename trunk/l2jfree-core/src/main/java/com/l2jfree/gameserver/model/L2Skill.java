@@ -1483,18 +1483,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 	public final L2Character[] getTargetList(L2Character activeChar, boolean onlyFirst)
 	{
-		// Init to null the target of the skill
-		L2Character target = null;
-
-		// Get the L2Objcet targeted by the user of the skill at this moment
-		L2Object objTarget = activeChar.getTarget();
-		// If the L2Object targeted is a L2Character, it becomes the L2Character target
-		if (objTarget instanceof L2Character)
-		{
-			target = (L2Character) objTarget;
-		}
-
-		return getTargetList(activeChar, onlyFirst, target);
+		return getTargetList(activeChar, onlyFirst, activeChar.getTarget(L2Character.class));
 	}
 
 	/**
@@ -3540,17 +3529,39 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		return getTargetList(activeChar, false);
 	}
-
+	
 	public final L2Character getFirstOfTargetList(L2Character activeChar)
 	{
-		L2Character[] targets;
-
-		targets = getTargetList(activeChar, true);
-
-		if (targets == null || targets.length == 0)
-			return null;
-
-		return targets[0];
+		return getFirstOfTargetList(activeChar, null);
+	}
+	
+	public final L2Character getFirstOfTargetList(L2Character activeChar, L2Character[] targets)
+	{
+		switch (getTargetType())
+		{
+			case TARGET_SELF:
+			case TARGET_PARTY:
+			case TARGET_PARTY_CLAN:
+			case TARGET_CLAN:
+			case TARGET_ALLY:
+			case TARGET_ENEMY_ALLY:
+			case TARGET_AURA:
+			case TARGET_FRONT_AURA:
+			case TARGET_BEHIND_AURA:
+			case TARGET_GROUND:
+				return activeChar;
+			case TARGET_PET:
+			case TARGET_SUMMON:
+			case TARGET_SERVITOR_AURA:
+				return activeChar.getActingSummon();
+			case TARGET_OWNER_PET:
+				return activeChar.getActingPlayer();
+		}
+		
+		if (targets == null)
+			targets = getTargetList(activeChar, true);
+		
+		return targets == null || targets.length == 0 ? null : targets[0];
 	}
 
 	private Func[] _statFuncs;

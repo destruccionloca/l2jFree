@@ -847,7 +847,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 							skill_lvl = Integer.parseInt(st.nextToken());
 						skill = SkillTable.getInstance().getInfo(skill_id, skill_lvl);
 						if (skill.getSkillType() == L2SkillType.SUMMON)
-							player.doCast(skill);
+							player.doSimultaneousCast(skill);
 						else
 						{
 							if (!((skill.getMpConsume() + skill.getMpInitialConsume()) > getStatus().getCurrentMp()))
