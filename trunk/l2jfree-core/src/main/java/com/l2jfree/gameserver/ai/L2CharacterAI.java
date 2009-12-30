@@ -77,7 +77,11 @@ public class L2CharacterAI extends AbstractAI
 			return _crtlIntention;
 		}
 	}
-
+	
+	protected void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
+	{
+	}
+	
 	public IntentionCommand getNextIntention()
 	{
 		return null;
@@ -218,10 +222,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAfraid())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow() || _actor.isAfraid())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_ATTACK, target, null);
 			return;
 		}
 
@@ -328,10 +333,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_MOVE_TO, pos, null);
 			return;
 		}
 
@@ -361,10 +367,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled()|| _actor.isCastingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_MOVE_TO_IN_A_BOAT, destination, origin);
 			return;
 		}
 
@@ -395,10 +402,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 		
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_MOVE_TO_IN_AIR_SHIP, destination, origin);
 			return;
 		}
 		
@@ -435,10 +443,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_FOLLOW, target, null);
 			return;
 		}
 
@@ -492,10 +501,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_PICK_UP, object, null);
 			return;
 		}
 
@@ -541,10 +551,11 @@ public class L2CharacterAI extends AbstractAI
 			return;
 		}
 
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow())
+		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
 		{
 			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
+			saveNextIntention(AI_INTENTION_INTERACT, object, null);
 			return;
 		}
 

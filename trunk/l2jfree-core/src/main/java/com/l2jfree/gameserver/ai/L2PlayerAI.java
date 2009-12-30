@@ -44,7 +44,8 @@ public class L2PlayerAI extends L2CharacterAI
 		super(accessor);
 	}
 
-	void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
+	@Override
+	protected void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
 		/*
 		if (Config.DEBUG)
@@ -185,45 +186,6 @@ public class L2PlayerAI extends L2CharacterAI
 	protected void onIntentionActive()
 	{
 		setIntention(AI_INTENTION_IDLE);
-	}
-
-	/**
-	 * Manage the Move To Intention : Stop current Attack and Launch a Move to Location Task.<BR><BR>
-	 *
-	 * <B><U> Actions</U> : </B><BR><BR>
-	 * <li>Stop the actor auto-attack server side AND client side by sending Server->Client packet AutoAttackStop (broadcast) </li>
-	 * <li>Set the Intention of this AI to AI_INTENTION_MOVE_TO </li>
-	 * <li>Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast) </li><BR><BR>
-	 *
-	 */
-	@Override
-	protected void onIntentionMoveTo(L2CharPosition pos)
-	{
-		if (getIntention() == AI_INTENTION_REST)
-		{
-			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
-			clientActionFailed();
-			return;
-		}
-
-		if (_actor.isAllSkillsDisabled() || _actor.isCastingNow() || _actor.isAttackingNow())
-		{
-			clientActionFailed();
-			saveNextIntention(AI_INTENTION_MOVE_TO, pos, null);
-			return;
-		}
-
-		// Set the Intention of this AbstractAI to AI_INTENTION_MOVE_TO
-		changeIntention(AI_INTENTION_MOVE_TO, pos, null);
-
-		// Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
-		clientStopAutoAttack();
-
-		// Abort the attack of the L2Character and send Server->Client ActionFailed packet
-		_actor.abortAttack();
-
-		// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
-		moveTo(pos.x, pos.y, pos.z);
 	}
 
 	@Override

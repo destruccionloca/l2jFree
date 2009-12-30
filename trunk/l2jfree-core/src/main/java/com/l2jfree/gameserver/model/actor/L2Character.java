@@ -929,20 +929,20 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 		
-		// Verify if the attack can be started
-		if (getEvtReadyToAct().isScheduled())
-		{
-			// Cancel the attack because it can't be done at this moment
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		
 		// BOW and CROSSBOW checks
 		if (weaponItem != null && !transformed && this instanceof L2PcInstance)
 		{
 			// Check for arrows and MP
 			if (weaponItem.getItemType() == L2WeaponType.BOW)
 			{
+				// Verify if the bow can be used
+				if (getBowReuseEndEvtReadyToAct().isScheduled())
+				{
+					// Cancel the action because the bow can't be re-used at this moment
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+				
 				// Equip arrows needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
 				if (!checkAndEquipArrows())
 				{
@@ -961,7 +961,7 @@ public abstract class L2Character extends L2Object
 				if (getStatus().getCurrentMp() < mpConsume)
 				{
 					// If L2PcInstance doesn't have enough MP, stop the attack
-					getEvtReadyToAct().schedule(1000);
+					getBowReuseEndEvtReadyToAct().schedule(1000);
 					sendPacket(ActionFailed.STATIC_PACKET);
 					sendPacket(SystemMessageId.NOT_ENOUGH_MP);
 					return;
@@ -974,6 +974,14 @@ public abstract class L2Character extends L2Object
 			// Check for bolts
 			else if (weaponItem.getItemType() == L2WeaponType.CROSSBOW)
 			{
+				// Verify if the crossbow can be used
+				if (getBowReuseEndEvtReadyToAct().isScheduled())
+				{
+					// Cancel the action because the crossbow can't be re-used at this moment
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+				
 				// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
 				if (!checkAndEquipBolts())
 				{
@@ -1005,7 +1013,10 @@ public abstract class L2Character extends L2Object
 		// Get the Attack Reuse Delay of the L2Weapon
 		int reuse = calculateReuseTime(target, weaponItem);
 
-		_attackEndTime = L2System.milliTime() + timeAtk;
+		// Notify AI with EVT_READY_TO_ACT
+		getAttackEndEvtReadyToAct().schedule(timeAtk); // normal attacks and bow attacks with queued intentions
+		if (reuse > 0)
+			getBowReuseEndEvtReadyToAct().schedule(timeAtk + reuse); // bow attack without queued intentions
 
 		int ssGrade = 0;
 
@@ -1095,29 +1106,34 @@ public abstract class L2Character extends L2Object
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		if (attack.hasHits())
 			broadcastPacket(attack);
-
-		// Notify AI with EVT_READY_TO_ACT
-		getEvtReadyToAct().schedule(timeAtk + reuse);
 	}
-
-	private EvtReadyToAct _evtReadyToAct;
-
-	protected EvtReadyToAct getEvtReadyToAct()
+	
+	private EvtReadyToAct _attackEndEvtReadyToAct;
+	private EvtReadyToAct _bowReuseEndEvtReadyToAct;
+	
+	private EvtReadyToAct getAttackEndEvtReadyToAct()
 	{
-		if (_evtReadyToAct == null)
-			_evtReadyToAct = new EvtReadyToAct();
-
-		return _evtReadyToAct;
+		if (_attackEndEvtReadyToAct == null)
+			_attackEndEvtReadyToAct = new EvtReadyToAct();
+		
+		return _attackEndEvtReadyToAct;
 	}
-
-	protected final class EvtReadyToAct extends ExclusiveTask
+	
+	private EvtReadyToAct getBowReuseEndEvtReadyToAct()
+	{
+		if (_bowReuseEndEvtReadyToAct == null)
+			_bowReuseEndEvtReadyToAct = new EvtReadyToAct();
+		
+		return _bowReuseEndEvtReadyToAct;
+	}
+	
+	private final class EvtReadyToAct extends ExclusiveTask
 	{
 		@Override
 		protected void onElapsed()
 		{
-			_attackEndTime = 0;
-			_evtReadyToAct.cancel();
-
+			cancel();
+			
 			getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT);
 		}
 	}
@@ -3876,7 +3892,6 @@ public abstract class L2Character extends L2Object
 	private L2Object					_target					= null;
 
 	// set by the start of attack, in game ticks
-	private long						_attackEndTime;
 	private int							_attacking;
 
 	private long						_castInterruptTime;
@@ -4103,7 +4118,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public boolean isAttackingNow()
 	{
-		return getAttackEndTime() > L2System.milliTime();
+		return getAttackEndEvtReadyToAct().isScheduled();
 	}
 
 	/**
@@ -6674,11 +6689,6 @@ public abstract class L2Character extends L2Object
 	public String toString()
 	{
 		return "mob " + getObjectId();
-	}
-
-	public long getAttackEndTime()
-	{
-		return _attackEndTime;
 	}
 
 	/**
