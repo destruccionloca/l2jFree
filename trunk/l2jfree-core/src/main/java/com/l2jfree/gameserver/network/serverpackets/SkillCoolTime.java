@@ -47,9 +47,8 @@ public final class SkillCoolTime extends StaticPacket
 		{
 			writeD(ts.getSkillId());
 			writeD(0x00);
-			writeD((int)Math.ceil(ts.getReuseDelay() / 1000.0));
-			writeD((int)Math.ceil(ts.getRemaining() / 1000.0));
+			writeD((int) Math.ceil(ts.getReuseDelay() / 1000.0));
+			writeD((int) Math.ceil(ts.getRemaining() / 1000.0));
 		}
 	}
-	
 }

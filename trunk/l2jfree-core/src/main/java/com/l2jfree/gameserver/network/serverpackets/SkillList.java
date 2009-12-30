@@ -15,8 +15,10 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public final class SkillList extends L2GameServerPacket
 {
@@ -47,7 +49,10 @@ public final class SkillList extends L2GameServerPacket
 			writeD(s.isPassive() ? 1 : 0);
 			writeD(s.getLevel());
 			writeD(s.getDisplayId());
-			writeC(0x00); // 1 = Disabled (gray) e.g. when transformed
+			// as currently this isn't used in retail?
+			// it will serve us better like this
+			writeC(s.getSkillType() == L2SkillType.NOTDONE
+					|| s.getTargetType() == SkillTargetType.TARGET_NONE);
 		}
 	}
 	

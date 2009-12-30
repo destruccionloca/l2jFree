@@ -21,6 +21,8 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO_IN_AIR_SHIP;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 

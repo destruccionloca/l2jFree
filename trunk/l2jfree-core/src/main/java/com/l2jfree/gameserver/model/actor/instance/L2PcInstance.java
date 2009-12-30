@@ -701,7 +701,6 @@ public final class L2PcInstance extends L2Playable
 
 	/** new loto ticket **/
 	private final int								_loto[]					= new int[5];
-	//public static int _loto_nums[] = {0,1,2,3,4,5,6,7,8,9,};
 	/** new race ticket **/
 	private final int								_race[]					= new int[2];
 
@@ -713,7 +712,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_fishy					= 0;
 	private int								_fishz					= 0;
 
-	private final List<Integer>					_transformAllowedSkills				= new SingletonList<Integer>();
+	private final List<Integer>				_transformAllowedSkills	= new SingletonList<Integer>();
 
 	private int								_team					= 0;
 	private int								_wantsPeace				= 0;
