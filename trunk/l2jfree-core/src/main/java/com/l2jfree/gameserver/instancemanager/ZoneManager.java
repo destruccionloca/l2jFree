@@ -66,13 +66,13 @@ public final class ZoneManager
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 			c.getSiege().onZoneReload();
 		
+		Arrays.fill(_zones, null);
+		
 		// Remove registered unique zones
 		_uniqueZones.clear();
 		
 		// Load the zones
 		load();
-		
-		Arrays.fill(_zones, null);
 	}
 	
 	private void load()
@@ -133,7 +133,10 @@ public final class ZoneManager
 						else if (id > 0)
 							_uniqueZones.put(id, zone);
 						
-						_zones[zone.getType().ordinal()] = (L2Zone[])ArrayUtils.add(_zones[zone.getType().ordinal()], zone);
+						if (_zones[zone.getType().ordinal()] == null)
+							_zones[zone.getType().ordinal()] = new L2Zone[] { zone }
+						else
+							_zones[zone.getType().ordinal()] = (L2Zone[])ArrayUtils.add(_zones[zone.getType().ordinal()], zone);
 						
 						// Register the zone to any intersecting world region
 						int ax, ay, bx, by;

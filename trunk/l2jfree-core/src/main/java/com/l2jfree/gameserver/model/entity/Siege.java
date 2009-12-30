@@ -1560,9 +1560,19 @@ public class Siege extends AbstractSiege
 	public void registerZone(L2SiegeDangerZone sdz, boolean east)
 	{
 		if (east)
-			_dangerZonesE = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesE, sdz);
+		{
+			if (_dangerZonesE == null)
+				_dangerZonesE = new L2SiegeDangerZone[] { sdz };
+			else
+				_dangerZonesE = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesE, sdz);
+		}
 		else
-			_dangerZonesW = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesW, sdz);
+		{
+			if (_dangerZonesW == null)
+				_dangerZonesW = new L2SiegeDangerZone[] { sdz };
+			else
+				_dangerZonesW = (L2SiegeDangerZone[])ArrayUtils.add(_dangerZonesW, sdz);
+		}
 	}
 
 	/**

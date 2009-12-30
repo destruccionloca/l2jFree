@@ -348,7 +348,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public void addRaidData(L2MinionData minion)
 	{
-		_minions = (L2MinionData[])ArrayUtils.add(_minions, minion);
+		if (_minions == null)
+			_minions = new L2MinionData[] { minion };
+		else
+			_minions = (L2MinionData[])ArrayUtils.add(_minions, minion);
 	}
 
 	public void addSkill(L2Skill skill)

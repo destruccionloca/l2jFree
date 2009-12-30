@@ -209,6 +209,9 @@ public abstract class L2Equip extends L2Item
 	 */
 	public void attach(FuncTemplate f)
 	{
-		_funcTemplates = (FuncTemplate[])ArrayUtils.add(_funcTemplates, f);
+		if (_funcTemplates == null)
+			_funcTemplates = new FuncTemplate[] { f };
+		else
+			_funcTemplates = (FuncTemplate[])ArrayUtils.add(_funcTemplates, f);
 	}
 }

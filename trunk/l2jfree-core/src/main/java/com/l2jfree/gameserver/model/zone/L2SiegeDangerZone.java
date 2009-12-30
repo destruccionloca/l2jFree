@@ -73,7 +73,10 @@ public class L2SiegeDangerZone extends L2DamageZone
 		L2Skill s = SkillTable.getInstance().getInfo(SPEED_SKILL, 12);
 		if (s != null)
 		{
-			_applyEnter = (L2Skill[]) ArrayUtils.add(_applyEnter, s);
+			if (_applyEnter == null)
+				_applyEnter = new L2Skill[] { s };
+			else
+				_applyEnter = (L2Skill[]) ArrayUtils.add(_applyEnter, s);
 			_removeExit = ArrayUtils.add(_removeExit, SPEED_SKILL);
 		}
 		else
