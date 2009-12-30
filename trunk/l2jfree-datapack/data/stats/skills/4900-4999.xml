@@ -558,25 +558,29 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4993" levels="1" name="Venom - Strike">
-    <!-- Done by KID [C5] -->
-    <set name="mpConsume" val="88"/>
+    <!-- Benom Skills -->
+    <set name="mpInitialConsume" val="17"/>
+    <set name="mpConsume" val="70"/>
     <set name="power" val="14000"/>
-    <set name="hitTime" val="829"/>
+    <set name="hitTime" val="830"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
   </skill>
   <skill id="4994" levels="1" name="Venom - Sonic Storm">
-    <!-- Done by KID [C5] -->
-    <set name="mpConsume" val="88"/>
+    <!-- Benom Skills -->
+    <set name="mpInitialConsume" val="17"/>
+    <set name="mpConsume" val="70"/>
     <set name="power" val="12450"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="205"/>
     <set name="skillType" val="PDAM"/>
-    <set name="hitTime" val="1899"/>
+    <set name="hitTime" val="1900"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
+    <set name="effectRange" val="1000"/>
     <set name="baseCritRate" val="15"/>
   </skill>
   <skill id="4995" levels="1" name="Venom - Teleport">
@@ -609,27 +613,30 @@
     </for>
   </skill>
   <skill id="4998" levels="1" name="Lidia - Twister">
-    <!-- Needs to be done -->
+    <set name="mpInitialConsume" val="23"/>
+    <set name="mpConsume" val="92"/>
     <set name="element" val="2"/> <!-- Wind -->
+    <set name="reuseDelay" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="hitTime" val="2000"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="2500"/>
-    <set name="mpConsume" val="116"/>
     <set name="power" val="287"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="750"/>
   </skill>
   <skill id="4999" levels="1" name="Lidia - Range Life Drain">
-    <!-- Needs to be done -->
+    <set name="mpInitialConsume" val="25"/>
+    <set name="mpConsume" val="100"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="2000"/>
-    <set name="mpConsume" val="126"/>
     <set name="power" val="144"/>
     <set name="isMagic" val="true"/>
-    <set name="castRange" val="600"/>
+    <set name="castRange" val="1000"/>
+    <set name="effectRange" val="1500"/>
     <set name="absorbPart" val="0.8"/>
   </skill>
 </list>
