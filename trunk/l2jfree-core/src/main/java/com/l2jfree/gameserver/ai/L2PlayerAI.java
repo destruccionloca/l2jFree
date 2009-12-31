@@ -24,9 +24,11 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
+import com.l2jfree.gameserver.skills.SkillUsageRequest;
 
 public class L2PlayerAI extends L2CharacterAI
 {
@@ -103,7 +105,15 @@ public class L2PlayerAI extends L2CharacterAI
 		{
 			if (maybeMoveToPosition(((L2PcInstance) _actor).getCurrentSkillWorldPosition(), _actor.getMagicalAttackRange(_skill)))
 			{
-				_actor.setIsCastingNow(false);
+				if (_actor instanceof L2Playable)
+				{
+					// we are just moving closer to the target, no need to forget request
+					SkillUsageRequest sur = ((L2Playable) _actor).getCurrentSkill();
+					_actor.setIsCastingNow(false);
+					((L2Playable) _actor).setCurrentSkill(sur);
+				}
+				else
+					_actor.setIsCastingNow(false);
 				return;
 			}
 		}
@@ -122,7 +132,15 @@ public class L2PlayerAI extends L2CharacterAI
 			if (target != null && maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill)))
 			{
 				clientActionFailed();
-				_actor.setIsCastingNow(false);
+				if (_actor instanceof L2Playable)
+				{
+					// we are just moving closer to the target, no need to forget request
+					SkillUsageRequest sur = ((L2Playable) _actor).getCurrentSkill();
+					_actor.setIsCastingNow(false);
+					((L2Playable) _actor).setCurrentSkill(sur);
+				}
+				else
+					_actor.setIsCastingNow(false);
 				return;
 			}
 		}

@@ -640,6 +640,7 @@ public abstract class L2Playable extends L2Character
 		
 		if (!checkUseMagicConditions(request.getSkill(), request.isCtrlPressed(), request.isShiftPressed()))
 		{
+			_log.info("Fail conditions...");
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
