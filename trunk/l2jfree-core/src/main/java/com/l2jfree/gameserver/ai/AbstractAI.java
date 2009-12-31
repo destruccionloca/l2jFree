@@ -873,7 +873,6 @@ public abstract class AbstractAI implements Ctrl
 				_actor.broadcastPacket(sr);
 			}
 		}
-		
 	}
 	
 	// Client has already arrived to target, no need to force StopMove packet

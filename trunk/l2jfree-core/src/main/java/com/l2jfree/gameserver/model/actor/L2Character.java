@@ -1695,9 +1695,12 @@ public abstract class L2Character extends L2Object
 				callSkill(skill, targets);
 		}
 
-		broadcastPacket(new MagicSkillUse(this, target, skill, hitTime, reuseDelay));
-		// The correct time to send this packet?!!
-		broadcastPacket(new MagicSkillLaunched(this, skill, targets));
+		if (!skill.isToggle()) // otherwise stops movement client side
+		{
+			broadcastPacket(new MagicSkillUse(this, target, skill, hitTime, reuseDelay));
+			// The correct time to send this packet?!!
+			broadcastPacket(new MagicSkillLaunched(this, skill, targets));
+		}
 
 		if (this instanceof L2PcInstance)
 		{
@@ -1714,7 +1717,7 @@ public abstract class L2Character extends L2Object
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.USE_S1);
 			sm.addSkillName(skill);
-			sendPacket(sm);
+			getActingPlayer().sendPacket(sm);
 		}
 
 //		switch (skill.getTargetType())
@@ -1753,7 +1756,7 @@ public abstract class L2Character extends L2Object
 		else
 		{
 			if (this instanceof L2PcInstance && !effectWhileCasting)
-				sendPacket(new SetupGauge(SetupGauge.BLUE, hitTime));
+				getActingPlayer().sendPacket(new SetupGauge(SetupGauge.BLUE, hitTime));
 
 			// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
 			if (simultaneously)
@@ -1855,7 +1858,8 @@ public abstract class L2Character extends L2Object
 		}
 		case HEAL:
 		{
-			if (isInsideZone(L2Zone.FLAG_NOHEAL)) {
+			if (isInsideZone(L2Zone.FLAG_NOHEAL))
+			{
 				sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
 				return false;
 			}

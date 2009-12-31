@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
 
 public class RequestMagicSkillUse extends L2GameClientPacket
@@ -67,7 +68,15 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		// Check the validity of the skill
 		if (activeChar.canUseMagic(skill))
 		{
-			activeChar.useMagic(new SkillUsageRequest(skill, _ctrlPressed, _shiftPressed));
+			if (skill.isToggle())
+			{
+				if (activeChar.isSitting())
+					requestFailed(SystemMessageId.CANT_MOVE_SITTING);
+				else
+					activeChar.doSimultaneousCast(skill);
+			}
+			else
+				activeChar.useMagic(new SkillUsageRequest(skill, _ctrlPressed, _shiftPressed));
 		}
 		else
 		{
