@@ -47,21 +47,20 @@ public final class Rnd
 			return (int)(nextseed >>> (48 - bits));
 		}
 		
-		@Override
-		public double nextDouble()
-		{
-			return (double)next(31) / 0x7fffffff;
-		}
-		
 		public double nextDouble(double n)
 		{
-			return ((double)(next(31) - 1) / 0x7fffffff) * n;
+			return nextDouble() * n;
 		}
 		
 		@Override
 		public int nextInt(int n)
 		{
-			return (int)(((double)(next(31) - 1) / 0x7fffffff) * n);
+			return (int)(nextDouble() * n);
+		}
+		
+		public long nextLong(long n)
+		{
+			return (long)(nextDouble() * n);
 		}
 	}
 	
@@ -100,6 +99,33 @@ public final class Rnd
 			return min + RND.nextInt(max - min + 1);
 		else
 			return max + RND.nextInt(min - max + 1);
+	}
+	
+	/**
+	 * Get random number from 0 to n-1
+	 */
+	public static long nextLong(long n)
+	{
+		return RND.nextLong(n);
+	}
+	
+	/**
+	 * Get random number from 0 to n-1
+	 */
+	public static long get(long n)
+	{
+		return RND.nextLong(n);
+	}
+	
+	/**
+	 * Get random number from min to max <b>(not max-1)</b>
+	 */
+	public static long get(long min, long max)
+	{
+		if (min < max)
+			return min + RND.nextLong(max - min + 1);
+		else
+			return max + RND.nextLong(min - max + 1);
 	}
 	
 	public static boolean calcChance(int chance, int maxChance)
