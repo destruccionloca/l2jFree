@@ -64,7 +64,6 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.AGGREDUCE_CHAR,
 			L2SkillType.AGGREMOVE,
 			L2SkillType.MUTE,
-			L2SkillType.FAKE_DEATH,
 			L2SkillType.CONFUSE_MOB_ONLY,
 			L2SkillType.NEGATE,
 			L2SkillType.CANCEL,
@@ -138,12 +137,6 @@ public class Disablers implements ICubicSkillHandler
 					skill.getEffects(activeChar, target);
 				else
 					activeChar.sendResistedMyEffectMessage(target, skill);
-				break;
-			}
-			case FAKE_DEATH:
-			{
-				// stun/fakedeath is not mdef dependant, it depends on lvl difference, target CON and power of stun
-				skill.getEffects(activeChar, target);
 				break;
 			}
 			case ROOT:

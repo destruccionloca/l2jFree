@@ -231,7 +231,7 @@
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
     <for>
-      <effect name="Buff" time="144000" val="0" stackOrder="99" stackType="attack_time_down">
+      <effect name="Buff" count="0x7fffffff" time="144000" val="0" stackOrder="99" stackType="attack_time_down">
         <mul order="0x30" stat="runSpd" val="#runSpd"/>
         <div order="0x30" stat="pReuse" val="#pReuse"/>
         <div order="0x30" stat="mReuse" val="#mReuse"/>

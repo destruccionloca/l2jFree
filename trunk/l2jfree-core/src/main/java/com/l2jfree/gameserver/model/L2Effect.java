@@ -149,7 +149,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 			_effected.getEffects().printStackTrace(getStackTypes(), this);
 
 		if (_count > 1)
-			_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initialDelay * 1000, _period * 1000);
+			_currentFuture = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initialDelay * 1000, _period * 1000L);
 		else
 			_currentFuture = ThreadPoolManager.getInstance().schedule(this, initialDelay * 1000);
 	}
@@ -183,7 +183,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 
 	public final int getTime()
 	{
-		return (int)((_period * 1000 - _currentFuture.getDelay(TimeUnit.MILLISECONDS)) / 1000);
+		return (int)((_period * 1000L - _currentFuture.getDelay(TimeUnit.MILLISECONDS)) / 1000);
 	}
 
 	/**

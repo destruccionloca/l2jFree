@@ -169,7 +169,7 @@ public final class SkillTable
 			}
 			catch (Exception e)
 			{
-				_log.warn("", e);
+				_log.warn(skill, e);
 			}
 		}
 		

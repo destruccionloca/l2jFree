@@ -105,7 +105,6 @@ public enum L2SkillType
 	WEAKNESS, // should be deprecated
 	DISARM,
 	STEAL_BUFF,
-	FAKE_DEATH,
 	SIEGEFLAG(L2SkillSiegeFlag.class),
 	TAKECASTLE,
 	TAKEFORT,

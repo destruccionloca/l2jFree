@@ -380,7 +380,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 
 		_hitTime = set.getInteger("hitTime", 0);
 		_coolTime = set.getInteger("coolTime", 0);
-		_skillInterruptTime = set.getInteger("interruptTime", 500);
+		_skillInterruptTime = set.getInteger("interruptTime", Math.min(_hitTime, 500));
 		_reuseDelay = set.getInteger("reuseDelay", 0);
 		_equipDelay = set.getInteger("equipDelay", 0);
 
@@ -493,10 +493,35 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	
 	public void validate() throws Exception
 	{
+		validateToggle();
 		validateOffensiveAndDebuffState();
 		validateTriggeredSkill();
 	}
-
+	
+	private void validateToggle() throws Exception
+	{
+		if (!isToggle())
+			return;
+		
+		if (getTargetType() != SkillTargetType.TARGET_SELF)
+			throw new IllegalStateException(toString());
+		
+		if (getSkillType() != L2SkillType.CONT)
+			throw new IllegalStateException(toString());
+		
+		if (getHitTime() != 0 || getSkillInterruptTime() != 0 || getCoolTime() != 0 || getReuseDelay() != 0)
+			throw new IllegalStateException(toString());
+		
+		if (_effectTemplatesSelf != null)
+			throw new IllegalStateException(toString());
+		
+		if (_effectTemplates == null || _effectTemplates.length != 1)
+			throw new IllegalStateException(toString());
+		
+		if (_effectTemplates[0].count != Integer.MAX_VALUE)
+			throw new IllegalStateException(toString());
+	}
+	
 	private void validateOffensiveAndDebuffState() throws Exception
 	{
 		if (!isOffensive() && isDebuff())
@@ -1364,7 +1389,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case CANCEL_STATS:
 			case MAKE_KILLABLE:
 			case MAKE_QUEST_DROPABLE:
-			case FAKE_DEATH:
 			case SOW:
 			case HARVEST:
 			case FISHING:

@@ -403,7 +403,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <effect count="2147483647" name="ManaDamOverTime" time="3" val="15.0" stackOrder="1.0"/>
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="15.0" stackOrder="1.0"/>
     </for>
   </skill>
   <skill id="5930" levels="1" name="Shielding of the Lost">
@@ -413,7 +413,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <effect count="2147483647" name="ManaDamOverTime" time="3" val="15.0" stackOrder="1.0"/>
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="15.0" stackOrder="1.0"/>
     </for>
   </skill>
   <skill id="5931" levels="1" name="Ultimate Shield">
@@ -424,7 +424,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <effect count="2147483647" name="ManaDamOverTime" time="3" val="15.0" stackOrder="1.0"/>
+      <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="15.0" stackOrder="1.0"/>
     </for>
   </skill>
   <skill id="5932" levels="1" name="Dark Blade">
