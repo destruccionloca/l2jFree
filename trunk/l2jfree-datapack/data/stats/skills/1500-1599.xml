@@ -468,7 +468,7 @@
     <set name="effectRange" val="1250"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="Debuff" time="30" val="0" stackOrder="2" stackType="surrender">
+      <effect name="Debuff" time="30" val="0" stackOrder="2" stackType="HolyAtr">
         <sub order="0x40" stat="holyRes" val="25"/>
         <add order="0x40" stat="darkRes" val="12"/>
       </effect>
@@ -777,17 +777,41 @@
     </for>
   </skill>
   <skill id="1541" levels="1" name="Curse of Desparion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpConsume" val="55"/>
+    <set name="power" val="80"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="reuseDelay" val="300000"/><!-- Need Verify -->
     <set name="hitTime" val="4000"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Debuff" time="120" val="0">
+        <mul order="0x30" stat="runSpd" val="0.3"/>
+        <mul order="0x30" stat="accCombat" val="0.3"/>
+        <mul order="0x30" stat="pAtk" val="0.3"/>
+        <mul order="0x30" stat="pAtkSpd" val="0.3"/>
+      </effect>
+    </for>
   </skill>
   <skill id="1542" levels="1" name="Counter Critical">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="mpConsume" val="73"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isMagic" val="true"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="4000"/>
+    <for> 
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="6059" chanceType="ON_ATTACKED_CRIT" activationChance="5" stackOrder="1" stackType="critVuln">
+        <mul order="0x30" stat="cAtk" val="1.3"/>
+      </effect>
+      </for>
   </skill>
   <skill id="1543" levels="1" name="Great Fury">
     <!-- disabled until core-side support is done -->
@@ -795,21 +819,28 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <!--
     <set name="triggeredId" val="6060"/>
     <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="25"/>
     <set name="chanceType" val="ON_HIT"/>
+    <!--
     <cond>
       <target active_effect_id="927"/>
     </cond>
     -->
   </skill>
   <skill id="1544" levels="7" name="Death Beam">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpConsume" val="73"/>
+    <set name="power" val="138"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1500"/>
+    <set name="reuseDelay" val="20000"/>
+    <set name="target" val="TARGET_FRONT_AREA"/>
+    <set name="skillRadius" val="310"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
   </skill>
   <skill id="1545" levels="1" name="Soul Sucking">
     <set name="target" val="TARGET_NONE"/>

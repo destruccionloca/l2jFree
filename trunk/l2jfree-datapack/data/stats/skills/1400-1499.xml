@@ -1059,7 +1059,7 @@
     <set name="castRange" val="#castRange"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect name="Debuff" time="30" val="0" stackOrder="2" stackType="surrender">
+      <effect name="Debuff" time="30" val="0" stackOrder="2" stackType="DarkAtr">
         <sub order="0x40" stat="darkRes" val="#darkRes"/>
         <add order="0x40" stat="holyRes" val="#holyRes"/>
       </effect>
@@ -1221,7 +1221,7 @@
     <set name="mpConsume" val="109"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="15000"/>
     <set name="skillRadius" val="250"/>
     <set name="skillType" val="MDAM"/>
