@@ -1451,9 +1451,9 @@
         <mul order="0x30" stat="mAtk" val="#mAtk"/>
         <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
         <add order="0x40" stat="runSpd" val="#runSpd"/>
-        <sub order="0x40" stat="rEvas" val="#rEvas"/>
         <mul order="0x30" stat="mDef" val="#mDef"/>
         <mul order="0x30" stat="pDef" val="#pDef"/>
+        <sub order="0x40" stat="rEvas" val="#rEvas"/>
       </effect>
     </for>
   </skill>
