@@ -128,6 +128,7 @@
       <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 Effect -->
       <add order="0x40" stat="darkRes" val="8"/> <!-- Dark resistance +8 -->
       <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.95"/> <!-- MP consumption of the active skill is decreased -5% -->
+      <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
   <skill id="3415" levels="1" name="Dynasty Leather Armor - Weapon Master">
@@ -285,9 +286,10 @@
     <set name="staticReuse" val="true"/>
   </skill>
   <skill id="3430" levels="1" name="White Talisman - Darkness">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="mpConsume" val="50"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
@@ -301,9 +303,10 @@
     </for>
   </skill>
   <skill id="3431" levels="1" name="White Talisman - Storm">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="mpConsume" val="50"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
@@ -317,9 +320,10 @@
     </for>
   </skill>
   <skill id="3432" levels="1" name="White Talisman - Water">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="mpConsume" val="50"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
@@ -333,9 +337,10 @@
     </for>
   </skill>
   <skill id="3433" levels="1" name="White Talisman - Fire">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="mpConsume" val="50"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
@@ -349,9 +354,10 @@
     </for>
   </skill>
   <skill id="3434" levels="1" name="White Talisman - Earth">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="mpConsume" val="50"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
@@ -365,9 +371,10 @@
     </for>
   </skill>
   <skill id="3435" levels="1" name="White Talisman - Light">
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="mpConsume" val="50"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
@@ -807,7 +814,8 @@
     </for>
   </skill>
   <skill id="3487" levels="1" name="Blue Talisman of Power">
-    <set name="mpConsume" val="50"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
@@ -822,7 +830,8 @@
     </for>
   </skill>
   <skill id="3488" levels="1" name="Blue Talisman of Protection">
-    <set name="mpConsume" val="50"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="360000"/>
     <set name="staticReuse" val="true"/>
@@ -986,6 +995,6 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <set name="hitTime" val="2000"/>
   </skill>
 </list>

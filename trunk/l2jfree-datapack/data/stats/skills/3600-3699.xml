@@ -381,14 +381,14 @@
     <set name="fusionTriggeredId" val="5106"/>
     <set name="fusionTriggeredLevel" val="1"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
-    <set name="effectRange" val="900"/>
-    <set name="reuseDelay" val="30000"/>
+    <set name="effectRange" val="800"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="offensive" val="true"/>
@@ -407,14 +407,14 @@
     <set name="fusionTriggeredId" val="5107"/>
     <set name="fusionTriggeredLevel" val="1"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
-    <set name="effectRange" val="900"/>
-    <set name="reuseDelay" val="30000"/>
+    <set name="effectRange" val="800"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="offensive" val="true"/>
@@ -433,14 +433,14 @@
     <set name="fusionTriggeredId" val="5108"/>
     <set name="fusionTriggeredLevel" val="1"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
-    <set name="effectRange" val="900"/>
-    <set name="reuseDelay" val="30000"/>
+    <set name="effectRange" val="800"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="offensive" val="true"/>
@@ -480,20 +480,22 @@
     </for>
   </skill>
   <skill id="3630" levels="1" name="Void Burst">
+    <set name="mpInitialConsume" val="28"/>
+    <set name="mpConsume" val="112"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="mpConsume" val="140"/>
     <set name="power" val="2500"/> <!-- Guess -->
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="10000"/> <!-- Guess -->
     <set name="skillRadius" val="200"/>
   </skill>
   <skill id="3631" levels="1" name="Void Flow">
+    <set name="mpInitialConsume" val="28"/>
+    <set name="mpConsume" val="112"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="mpConsume" val="140"/>
     <set name="power" val="1000"/> <!-- Guessing -->
     <set name="hitTime" val="1900"/>
     <set name="reuseDelay" val="4000"/> <!-- Guess -->
@@ -671,6 +673,7 @@
       <add order="0x40" stat="maxHp" val="492"/> <!-- Max HP +492 -->
       <add order="0x40" stat="darkRes" val="8"/> <!-- Dark Resistance +8 -->
       <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.94"/> <!-- MP Consumption -6% -->
+      <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
   <skill id="3643" levels="1" name="Dynasty Jeweled Leather Armor - Weapon Master">
@@ -703,6 +706,7 @@
       <add order="0x40" stat="darkRes" val="8"/> <!-- Dark Resistance +8 -->
       <mul order="0x30" stat="pAtk" val="1.0266"/> <!-- P. Atk. +2.66% -->
       <mul order="0x30" stat="pDef" val="1.0266"/> <!-- P. Def. +2.66% -->
+      <add order="0x10" stat="cloak" val="1"/>
     </for>
   </skill>
   <skill id="3645" levels="1" name="Dynasty Silver Satin Tunic - Healer">
@@ -775,8 +779,11 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <mul order="0x30" stat="magicDamVul" val="0.88"/>
+      <add order="0x40" stat="maxHp" val="105"/>
       <mul order="0x30" stat="derangementProf" val="1.1"/>
       <mul order="0x30" stat="derangementVuln" val="0.9"/>
+      <add order="0x40" stat="maxMp" val="38"/>
+      <add order="0x40" stat="regMp" val="0.23"/>
       <add order="0x40" stat="darkRes" val="15"/>
     </for>
   </skill>
@@ -935,163 +942,255 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3668" levels="1" name="Zubei's Leather Gaiters">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="rEvas" val="0.5"/>
+    </for>
   </skill>
   <skill id="3669" levels="1" name="Zubei's Leather Shirt">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3670" levels="1" name="Zubei's Gauntlet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="rEvas" val="0.5"/>
+    </for>
   </skill>
   <skill id="3671" levels="1" name="Zubei's Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="rEvas" val="0.5"/>
+    </for>
   </skill>
   <skill id="3672" levels="1" name="Zubei's Gaiters">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.00655"/>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3673" levels="1" name="Zubei's Gauntlet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.00655"/>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3674" levels="1" name="Zubei's Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.00655"/>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3675" levels="1" name="Zubei's Helmet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.00655"/>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3676" levels="1" name="Zubei's Breastplate">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3677" levels="1" name="Tunic of Zubei">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3678" levels="1" name="Stockings of Zubei">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mAtk" val="1.0125"/>
+    </for>
   </skill>
   <skill id="3679" levels="1" name="Zubei's Gauntlet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mAtk" val="1.0125"/>
+    </for>
   </skill>
   <skill id="3680" levels="1" name="Zubei's Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mAtk" val="1.0125"/>
+    </for>
   </skill>
   <skill id="3681" levels="1" name="Zubei's Shield">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.01"/>
+    </for>
   </skill>
   <skill id="3682" levels="1" name="Avadon Gloves">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3683" levels="1" name="Avadon Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3684" levels="1" name="Avadon Circlet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3685" levels="1" name="Avadon Gaiters">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="36.75"/>
+    </for>
   </skill>
   <skill id="3686" levels="1" name="Avadon Breastplate">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3687" levels="1" name="Avadon Shield">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.01"/>
+    </for>
   </skill>
   <skill id="3688" levels="1" name="Avadon Circlet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.00875"/>
+      <add order="0x40" stat="maxLoad" val="965.83"/>
+    </for>
   </skill>
   <skill id="3689" levels="1" name="Avadon Gloves">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.00875"/>
+      <add order="0x40" stat="maxLoad" val="965.83"/>
+    </for>
   </skill>
   <skill id="3690" levels="1" name="Avadon Leather Armor">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3691" levels="1" name="Avadon Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="mDef" val="1.00875"/>
+      <add order="0x40" stat="maxLoad" val="965.83"/>
+    </for>
   </skill>
   <skill id="3692" levels="1" name="Avadon Circlet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.008745"/>
+    </for>
   </skill>
   <skill id="3693" levels="1" name="Avadon Gloves">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.008745"/>
+    </for>
   </skill>
   <skill id="3694" levels="1" name="Avadon Robe">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3695" levels="1" name="Avadon Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pDef" val="1.008745"/>
+    </for>
   </skill>
   <skill id="3696" levels="1" name="Doom Gloves">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="53.33"/>
+      <add order="0x40" stat="breath" val="33.33"/>
+    </for>
   </skill>
   <skill id="3697" levels="1" name="Doom Boots">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="53.33"/>
+      <add order="0x40" stat="breath" val="33.33"/>
+    </for>
   </skill>
   <skill id="3698" levels="1" name="Doom Plate Armor">
+    <!-- It has been changed so that a rare type upper armor is not manufactured during item creation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3699" levels="1" name="Doom Helmet">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="maxHp" val="53.33"/>
+      <add order="0x40" stat="breath" val="33.33"/>
+    </for>
   </skill>
 </list>

@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="3200" levels="3" name="Item Skill: Spell Refresh">
-    <table name="#mpInitialConsume"> 11 13 14 </table>
+    <table name="#mpInitialConsume"> 10 12 13 </table>
     <table name="#mpConsume"> 43 49 55 </table>
     <table name="#mReuse"> 0.95 0.93 0.9 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -11,6 +11,7 @@
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -21,7 +22,7 @@
     </for>
   </skill>
   <skill id="3201" levels="3" name="Item Skill: Music Refresh">
-    <table name="#mpInitialConsume"> 11 13 14 </table>
+    <table name="#mpInitialConsume"> 10 12 13 </table>
     <table name="#mpConsume"> 43 49 55 </table>
     <table name="#pReuse"> 0.95 0.93 0.9 </table> <!-- Needs check -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -30,6 +31,7 @@
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -40,7 +42,7 @@
     </for>
   </skill>
   <skill id="3202" levels="3" name="Item Skill: Refresh">
-    <table name="#mpInitialConsume"> 11 13 14 </table>
+    <table name="#mpInitialConsume"> 10 12 13 </table>
     <table name="#mpConsume"> 43 49 55 </table>
     <table name="#reuseRate"> 0.95 0.93 0.9 </table> <!-- Needs check -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -48,6 +50,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="600000"/>
     <set name="staticReuse" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="staticHitTime" val="true"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="BUFF"/>
@@ -63,9 +66,11 @@
     <set name="mpInitialConsume" val="2"/>
     <set name="mpConsume" val="8"/>
     <set name="magicLvl" val="1"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="equipDelay" val="30000"/>
     <for>
       <effect name="BigHead" time="120" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
     </for>
@@ -78,11 +83,12 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="REFLECT"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="120" val="0">
         <add order="0x40" stat="reflectDam" val="#reflectDam"/>
@@ -90,19 +96,20 @@
     </for>
   </skill>
   <skill id="3205" levels="2" name="Item Skill: Party Recall">
-    <table name="#mpInitialConsume"> 45 64 </table>
-    <table name="#mpConsume"> 169 241 </table>
-    <table name="#hitTime">20000 3500</table>
+    <table name="#mpInitialConsume"> 42 61 </table>
+    <table name="#mpConsume"> 171 244 </table>
+    <table name="#hitTime"> 20000 3000 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillRadius" val="1000"/>
     <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="#hitTime"/>
     <set name="skillType" val="RECALL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="staticReuse" val="true"/>
   </skill>
   <skill id="3206" levels="10" name="Item Skill: Music">
     <!-- Description(s): Lvl 1-10 - Active: Plays music. -->
@@ -695,18 +702,32 @@
     </for>
   </skill>
   <skill id="3263" levels="1" name="Blessed Resurrection">
-    <!-- Description(s): Allows the use of Blessed Resurrection. -->
+    <!-- Allows the use of Blessed Resurrection. -->
+    <set name="magicLvl" val="76"/>
+    <set name="mpInitialConsume" val="17"/>
+    <set name="mpConsume" val="65"/>
+    <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
-    <set name="skillType" val="RESURRECT"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="3264" levels="1" name="Blessed Escape">
-    <!-- Description(s): Allows the use of Blessed Escape. -->
+    <!-- Allows the use of Blessed Escape. -->
+    <set name="mpInitialConsume" val="31"/>
+    <set name="mpConsume" val="122"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="skillType" val="RECALL"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="200"/>
   </skill>
@@ -721,10 +742,17 @@
     </for>
   </skill>
   <skill id="3266" levels="1" name="Large Fireworks Ability">
-    <!-- Description(s): Allows the use of Large Fireworks. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Allows the use of Large Fireworks. -->
+    <set name="mpInitialConsume" val="5"/>
+    <set name="mpConsume" val="19"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="equipDelay" val="30000"/>
+    <set name="hitTime" val="500"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="3267" levels="1" name="Dismiss Agathion">
     <set name="target" val="TARGET_SELF"/>
@@ -759,7 +787,8 @@
     <set name="npcId" val="16026"/>
   </skill>
   <skill id="3271" levels="1" name="Blue Talisman of Power">
-    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -769,7 +798,8 @@
     </for>
   </skill>
   <skill id="3272" levels="1" name="Blue Talisman of Defense">
-    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -847,7 +877,8 @@
     <set name="hitTime" val="4000"/>
   </skill>
   <skill id="3284" levels="1" name="Blue Talisman - Divine Protection">
-    <set name="mpConsume" val="50"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="900000"/>
     <set name="staticReuse" val="true"/>
@@ -856,7 +887,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+      <effect name="Buff" time="10" val="0">
+        <add order="0x40" stat="pDef" val="3600"/>
+        <add order="0x40" stat="mDef" val="2700"/>
+      </effect>
     </for>
   </skill>
   <skill id="3285" levels="1" name="Blue Talisman of Defense">
@@ -913,19 +947,23 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3294" levels="1" name="Yellow Talisman of Arcane Power">
-    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
     <for>
       <add order="0x40" stat="mAtk" val="12"/> <!-- increase M. Atk. +12 -->
     </for>
   </skill>
   <skill id="3295" levels="1" name="Yellow Talisman of Defense">
-    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
     <for>
       <add order="0x40" stat="pDef" val="18"/> <!-- increase P. Def. +18 -->
     </for>
@@ -941,10 +979,12 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3298" levels="1" name="Yellow Talisman of Evasion">
-    <!-- Done by Nekys/ Stats by Goz -->
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
     <for>
       <add order="0x40" stat="rEvas" val="1"/> <!-- increase Evasion +1 -->
     </for>
