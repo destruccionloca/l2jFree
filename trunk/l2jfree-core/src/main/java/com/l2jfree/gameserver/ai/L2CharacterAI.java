@@ -97,10 +97,6 @@ public class L2CharacterAI extends AbstractAI
 		// Set the AI Intention to AI_INTENTION_IDLE
 		changeIntention(AI_INTENTION_IDLE, null, null);
 
-		// Init cast and attack target
-		setCastTarget(null);
-		setAttackTarget(null);
-
 		// Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
 		clientStopMoving(null);
 
@@ -128,10 +124,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 			// Set the AI Intention to AI_INTENTION_ACTIVE
 			changeIntention(AI_INTENTION_ACTIVE, null, null);
-
-			// Init cast and attack target
-			setCastTarget(null);
-			setAttackTarget(null);
 
 			// Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
 			clientStopMoving(null);
@@ -203,37 +195,20 @@ public class L2CharacterAI extends AbstractAI
 		}
 
 		// Check if the Intention is already AI_INTENTION_ATTACK
-		if (getIntention() == AI_INTENTION_ATTACK)
+		if (getIntention() == AI_INTENTION_ATTACK && getAttackTarget() == target)
 		{
 			// Check if the AI already targets the L2Character
-			if (getAttackTarget() != target)
-			{
-				// Set the AI attack target (change target)
-				setAttackTarget(target);
-
-				stopFollow();
-
-				// Launch the Think Event
-				notifyEvent(CtrlEvent.EVT_THINK, null);
-
-			}
-			else
-				clientActionFailed(); // else client freezes until cancel target
-
+			clientActionFailed(); // else client freezes until cancel target
+			return;
 		}
-		else
-		{
-			// Set the Intention of this AbstractAI to AI_INTENTION_ATTACK
-			changeIntention(AI_INTENTION_ATTACK, target, null);
-
-			// Set the AI attack target
-			setAttackTarget(target);
-
-			stopFollow();
-
-			// Launch the Think Event
-			notifyEvent(CtrlEvent.EVT_THINK, null);
-		}
+		
+		// Set the Intention of this AbstractAI to AI_INTENTION_ATTACK
+		changeIntention(AI_INTENTION_ATTACK, target, null);
+		
+		stopFollow();
+		
+		// Launch the Think Event
+		notifyEvent(CtrlEvent.EVT_THINK, null);
 	}
 
 	/**
@@ -249,7 +224,7 @@ public class L2CharacterAI extends AbstractAI
 	 *
 	 */
 	@Override
-	protected void onIntentionCast(SkillUsageRequest request, L2Object target)
+	protected void onIntentionCast(SkillUsageRequest request)
 	{
 		final L2Skill skill = request.getSkill();
 		
@@ -259,9 +234,6 @@ public class L2CharacterAI extends AbstractAI
 			_actor.setIsCastingNow(false);
 			return;
 		}
-		
-		// Set the AI cast target
-		setCastTarget((L2Character)target);
 		
 		if (_actor instanceof L2Playable)
 		{
@@ -281,8 +253,7 @@ public class L2CharacterAI extends AbstractAI
 			//clientActionFailed();
 		}
 		
-		// Set the AI skill used by INTENTION_CAST
-		_skill = skill;
+		final L2Object target = request.getSkill().getFirstOfTargetList(_actor);
 		
 		// Change the Intention of this AbstractAI to AI_INTENTION_CAST
 		changeIntention(AI_INTENTION_CAST, skill, target);
@@ -696,16 +667,13 @@ public class L2CharacterAI extends AbstractAI
 		}
 		clientStoppedMoving();
 
-		if (_actor != null)
-		{
-			// Currently done for NPCs only
-			Quest[] quests = null;
-			if (_actor instanceof L2Npc)
-				quests = ((L2Npc) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
-			if (quests != null)
-				for (Quest quest: quests)
-					quest.notifyMoveFinished(_actor);
-		}
+		// Currently done for NPCs only
+		Quest[] quests = null;
+		if (_actor instanceof L2Npc)
+			quests = ((L2Npc) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
+		if (quests != null)
+			for (Quest quest: quests)
+				quest.notifyMoveFinished(_actor);
 
 		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)
@@ -789,9 +757,6 @@ public class L2CharacterAI extends AbstractAI
 		// Check if the object was targeted to attack
 		if (getAttackTarget() == object)
 		{
-			// Cancel attack target
-			setAttackTarget(null);
-
 			// Set the Intention of this AbstractAI to AI_INTENTION_ACTIVE
 			setIntention(AI_INTENTION_ACTIVE);
 		}
@@ -799,9 +764,6 @@ public class L2CharacterAI extends AbstractAI
 		// Check if the object was targeted to cast
 		if (getCastTarget() == object)
 		{
-			// Cancel cast target
-			setCastTarget(null);
-
 			// Set the Intention of this AbstractAI to AI_INTENTION_ACTIVE
 			setIntention(AI_INTENTION_ACTIVE);
 		}
@@ -824,8 +786,6 @@ public class L2CharacterAI extends AbstractAI
 		{
 			// Cancel AI target
 			setTarget(null);
-			setAttackTarget(null);
-			setCastTarget(null);
 
 			// Stop an AI Follow Task
 			stopFollow();
@@ -900,10 +860,8 @@ public class L2CharacterAI extends AbstractAI
 		clientStopMoving(null);
 
 		// Init AI
-		_intention = AI_INTENTION_IDLE;
+		changeIntention(AI_INTENTION_IDLE, null, null);
 		setTarget(null);
-		setCastTarget(null);
-		setAttackTarget(null);
 	}
 
 	/**

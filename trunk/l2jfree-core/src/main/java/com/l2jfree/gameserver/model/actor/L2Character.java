@@ -1702,14 +1702,14 @@ public abstract class L2Character extends L2Object
 			broadcastPacket(new MagicSkillLaunched(this, skill, targets));
 		}
 
-		if (this instanceof L2PcInstance)
+		if (this instanceof L2Playable)
 		{
 			long protTime = hitTime + coolTime;
-
+			
 			if (reuseDelay < protTime)
 				protTime /= 2;
-
-			((L2PcInstance) this).setSkillQueueProtectionTime(System.currentTimeMillis() + protTime);
+			
+			((L2Playable)this).setSkillQueueProtectionTime(System.currentTimeMillis() + protTime);
 		}
 
 		// Send a system message USE_S1 to the L2Character

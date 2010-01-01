@@ -353,7 +353,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 		L2Character attackTarget = getAttackTarget();
 		// Check if target is dead or if timeout is expired to stop this attack
-		if (attackTarget == null || _attackTarget.isAlikeDead() || _attackTimeout < GameTimeController.getGameTicks())
+		if (attackTarget == null || attackTarget.isAlikeDead() || _attackTimeout < GameTimeController.getGameTicks())
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			if (attackTarget != null)
@@ -364,7 +364,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 			// Cancel target and timeout
 			_attackTimeout = Integer.MAX_VALUE;
-			setAttackTarget(null);
 
 			// Set the AI Intention to AI_INTENTION_ACTIVE
 			setIntention(AI_INTENTION_ACTIVE, null, null);
@@ -438,7 +437,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			{
 				if (!npc.isDead() && Math.abs(target.getZ() - npc.getZ()) < 600
 				//&& _actor.getAttackByList().contains(getAttackTarget())
-						&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
+						&& (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE || npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ACTIVE)
 						//limiting aggro for siege guards
 						&& target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
 				{
@@ -573,7 +572,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 				// Check if the L2SiegeGuardInstance isn't too far from it's home location
 				if ((dx * dx + dy * dy > 10000) && (homeX * homeX + homeY * homeY > 3240000) // 1800 * 1800
-						&& (_actor.getKnownList().knowsObject(_attackTarget)))
+						&& (_actor.getKnownList().knowsObject(attackTarget)))
 				{
 					// Cancel the target
 					_actor.getKnownList().removeKnownObject(attackTarget);
@@ -591,7 +590,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							return;
 						if (_selfAnalysis.isMage)
 							range = _selfAnalysis.maxCastRange - 50;
-						if (_attackTarget.isMoving())
+						if (attackTarget.isMoving())
 							moveToPawn(attackTarget, range - 70);
 						else
 							moveToPawn(attackTarget, range);
@@ -609,7 +608,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			{
 				if (_selfAnalysis.isMage)
 					range = _selfAnalysis.maxCastRange - 50;
-				if (_attackTarget.isMoving())
+				if (attackTarget.isMoving())
 					moveToPawn(attackTarget, range - 70);
 				else
 					moveToPawn(attackTarget, range);
@@ -755,8 +754,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtAggression(L2Character target, int aggro)
 	{
-		if (_actor == null)
-			return;
 		L2Attackable me = (L2Attackable) _actor;
 
 		if (target != null)

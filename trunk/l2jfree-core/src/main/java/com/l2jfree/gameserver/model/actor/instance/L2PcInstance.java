@@ -8298,7 +8298,7 @@ public final class L2PcInstance extends L2Playable
 		//************************************* Check Target *******************************************
 
 		// Create and set a L2Object containing the target of the skill
-		L2Object target = null;
+		
 		SkillTargetType sklTargetType = skill.getTargetType();
 		Point3D worldPosition = getCurrentSkillWorldPosition();
 
@@ -8309,30 +8309,8 @@ public final class L2PcInstance extends L2Playable
 			return false;
 		}
 
-		switch (sklTargetType)
-		{
-		// Target the player if skill type is AURA, PARTY, CLAN or SELF
-		case TARGET_AURA:
-		case TARGET_FRONT_AURA:
-		case TARGET_BEHIND_AURA:
-		case TARGET_PARTY:
-		case TARGET_ALLY:
-		case TARGET_CLAN:
-		case TARGET_PARTY_CLAN:
-		case TARGET_GROUND:
-		case TARGET_SELF:
-			target = this;
-			break;
-		case TARGET_SERVITOR_AURA:
-		case TARGET_PET:
-		case TARGET_SUMMON:
-			target = getPet();
-			break;
-		default:
-			target = getTarget();
-			break;
-		}
-
+		final L2Character target = skill.getFirstOfTargetList(this);
+		
 		// Check the validity of the target
 		if (target == null)
 		{
@@ -12188,18 +12166,6 @@ public final class L2PcInstance extends L2Playable
 		final L2Summon pet = getPet();
 		
 		return pet == null ?  null : pet.getCurrentSkill();
-	}
-	
-	private long	_skillQueueProtectionTime	= 0;
-
-	public void setSkillQueueProtectionTime(long time)
-	{
-		_skillQueueProtectionTime = time;
-	}
-
-	public long getSkillQueueProtectionTime()
-	{
-		return _skillQueueProtectionTime;
 	}
 
 	public boolean isMaried()

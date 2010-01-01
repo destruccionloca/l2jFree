@@ -607,10 +607,8 @@ public abstract class L2Playable extends L2Character
 	
 	public void useMagic(SkillUsageRequest request)
 	{
-		L2Character target = request.getSkill().getFirstOfTargetList(this);
-		
 		// Notify the AI with AI_INTENTION_CAST and target
-		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, request, target);
+		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, request);
 	}
 	
 	protected abstract boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove);
@@ -657,6 +655,18 @@ public abstract class L2Playable extends L2Character
 	public void setCurrentSkill(SkillUsageRequest currentSkill)
 	{
 		_currentSkill = currentSkill;
+	}
+	
+	private long _skillQueueProtectionTime = 0;
+	
+	public void setSkillQueueProtectionTime(long time)
+	{
+		_skillQueueProtectionTime = time;
+	}
+	
+	public long getSkillQueueProtectionTime()
+	{
+		return _skillQueueProtectionTime;
 	}
 	
 	@Override

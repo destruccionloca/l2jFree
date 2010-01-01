@@ -58,7 +58,7 @@ public class L2DoorAI extends L2CharacterAI
 	}
 
 	@Override
-	protected void onIntentionCast(SkillUsageRequest request, L2Object target)
+	protected void onIntentionCast(SkillUsageRequest request)
 	{
 	}
 

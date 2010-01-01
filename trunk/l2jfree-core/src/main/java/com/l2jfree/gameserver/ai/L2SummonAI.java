@@ -18,112 +18,137 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 
+import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 
 public class L2SummonAI extends L2CharacterAI
 {
-
 	private volatile boolean _thinking; // to prevent recursive thinking
-	private boolean _startFollow = ((L2Summon)_actor).getFollowStatus();
-
+	private boolean _startFollow = getActor().getFollowStatus();
+	
 	public L2SummonAI(AIAccessor accessor)
 	{
 		super(accessor);
 	}
-
+	
+	@Override
+	public L2Summon getActor()
+	{
+		return (L2Summon)_actor;
+	}
+	
 	@Override
 	protected void onIntentionIdle()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
+		
 		stopFollow();
 		_startFollow = false;
 		setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 	}
-
+	
 	@Override
 	protected void onIntentionActive()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
-		L2Summon summon = (L2Summon) _actor;
+		
 		if (_startFollow)
-			setIntention(AI_INTENTION_FOLLOW, summon.getOwner());
+			setIntention(AI_INTENTION_FOLLOW, getActor().getOwner());
 		else
 			super.onIntentionActive();
 	}
-
+	
 	private void thinkAttack()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
-		if (checkTargetLostOrDead(getAttackTarget()))
-		{
-			setAttackTarget(null);
+		
+		final L2Character target = getAttackTarget();
+		
+		if (checkTargetLostOrDead(target))
 			return;
-		}
-		if (maybeMoveToPawn(getAttackTarget(), _actor.getPhysicalAttackRange()))
+		
+		if (maybeMoveToPawn(target, _actor.getPhysicalAttackRange()))
 			return;
+		
 		clientStopMoving(null);
-		_accessor.doAttack(getAttackTarget());
+		_accessor.doAttack(target);
 	}
-
+	
 	private void thinkCast()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
-		L2Summon summon = (L2Summon) _actor;
-		if (checkTargetLost(getCastTarget()))
-		{
-			setCastTarget(null);
+		
+		final L2Skill skill = getCastSkill();
+		final L2Character target = getCastTarget();
+		
+		if (checkTargetLost(target))
 			return;
-		}
+		
 		boolean val = _startFollow;
-		if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill)))
+		if (maybeMoveToPawn(target, _actor.getMagicalAttackRange(skill)))
 			return;
+		
 		clientStopMoving(null);
-		summon.setFollowStatus(false);
+		getActor().setFollowStatus(false);
 		setIntention(AI_INTENTION_IDLE);
 		_startFollow = val;
-		_accessor.doCast(_skill);
+		_accessor.doCast(skill);
 	}
-
+	
 	private void thinkPickUp()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
-		if (checkTargetLost(getTarget()))
+		
+		final L2Object target = getTarget();
+		
+		if (checkTargetLost(target))
 			return;
-		if (maybeMoveToPawn(getTarget(), 36))
+		
+		if (maybeMoveToPawn(target, 36))
 			return;
+		
 		setIntention(AI_INTENTION_IDLE);
-		((L2Summon.AIAccessor) _accessor).doPickupItem(getTarget());
+		((L2Summon.AIAccessor)_accessor).doPickupItem(target);
 	}
-
+	
 	private void thinkInteract()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
-		if (checkTargetLost(getTarget()))
+		
+		final L2Object target = getTarget();
+		
+		if (checkTargetLost(target))
 			return;
-		if (maybeMoveToPawn(getTarget(), 36))
+		
+		if (maybeMoveToPawn(target, 36))
 			return;
+		
 		setIntention(AI_INTENTION_IDLE);
 	}
-
+	
 	@Override
 	protected void onEvtThink()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
+		
 		if (_thinking || _actor.isCastingNow() || _actor.isAllSkillsDisabled())
 			return;
+		
 		_thinking = true;
 		try
 		{
-			switch(getIntention())
+			switch (getIntention())
 			{
 				case AI_INTENTION_ATTACK:
 					thinkAttack();
@@ -144,35 +169,41 @@ public class L2SummonAI extends L2CharacterAI
 			_thinking = false;
 		}
 	}
-
+	
 	@Override
 	protected void onEvtFinishCasting()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
+		
 		if (getIntention() != AI_INTENTION_ATTACK)
-			((L2Summon)_actor).setFollowStatus(_startFollow);
+			getActor().setFollowStatus(_startFollow);
+		
 		super.onEvtFinishCasting();
 	}
-
+	
 	public void notifyFollowStatusChange()
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
+		
 		_startFollow = !_startFollow;
+		
 		switch (getIntention())
 		{
 			case AI_INTENTION_ACTIVE:
 			case AI_INTENTION_FOLLOW:
 			case AI_INTENTION_IDLE:
-				((L2Summon)_actor).setFollowStatus(_startFollow);
+				getActor().setFollowStatus(_startFollow);
+				break;
 		}
 	}
-
+	
 	public void setStartFollowController(boolean val)
 	{
 		if (_actor instanceof L2MerchantSummonInstance)
 			return;
+		
 		_startFollow = val;
 	}
 }

@@ -785,7 +785,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (_actor.isInsideRadius(npc, npc.getFactionRange() + npc.getTemplate().getCollisionRadius(), true, false) && npc.getAI() != null)
 					{
 						if (Math.abs(originalAttackTarget.getZ() - npc.getZ()) < 600 && _actor.getAttackByList().contains(originalAttackTarget)
-								&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
+								&& (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE || npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ACTIVE)
 								&& GeoData.getInstance().canSeeTarget(_actor, npc))
 						{
 							if ((originalAttackTarget instanceof L2PcInstance) || (originalAttackTarget instanceof L2Summon))

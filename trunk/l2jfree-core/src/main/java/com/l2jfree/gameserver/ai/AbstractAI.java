@@ -187,11 +187,11 @@ public abstract class AbstractAI implements Ctrl
 	protected final L2Character.AIAccessor _accessor;
 	
 	/** Current long-term intention */
-	protected CtrlIntention _intention = AI_INTENTION_IDLE;
+	private CtrlIntention _intention = AI_INTENTION_IDLE;
 	/** Current long-term intention parameter */
-	protected Object _intentionArg0 = null;
+	private Object _intentionArg0;
 	/** Current long-term intention parameter */
-	protected Object _intentionArg1 = null;
+	private Object _intentionArg1;
 	
 	/** Flags about client's state, in order to know which messages to send */
 	protected boolean _clientMoving;
@@ -202,11 +202,6 @@ public abstract class AbstractAI implements Ctrl
 	
 	/** Different targets this AI maintains */
 	private L2Object _target;
-	private L2Character _castTarget;
-	protected L2Character _attackTarget;
-	
-	/** The skill we are currently casting by INTENTION_CAST */
-	L2Skill _skill;
 	
 	/** Different internal state flags */
 	private int _moveToPawnTimeout;
@@ -243,9 +238,18 @@ public abstract class AbstractAI implements Ctrl
 		return _intention;
 	}
 	
+	public L2Skill getCastSkill()
+	{
+		return _intention == CtrlIntention.AI_INTENTION_CAST ? (L2Skill)_intentionArg0 :  null;
+	}
+	
+	@Deprecated
 	public synchronized void setCastTarget(L2Character target)
 	{
-		_castTarget = target;
+		if (_intention == CtrlIntention.AI_INTENTION_CAST)
+			_intentionArg1 = target;
+		else
+			_log.warn("", new IllegalStateException());
 	}
 	
 	/**
@@ -254,12 +258,15 @@ public abstract class AbstractAI implements Ctrl
 	 */
 	public L2Character getCastTarget()
 	{
-		return _castTarget;
+		return _intention == CtrlIntention.AI_INTENTION_CAST ? (L2Character)_intentionArg1 :  null;
 	}
 	
 	public synchronized void setAttackTarget(L2Character target)
 	{
-		_attackTarget = target;
+		if (_intention == CtrlIntention.AI_INTENTION_ATTACK)
+			_intentionArg0 = target;
+		else
+			_log.warn("", new IllegalStateException());
 	}
 	
 	/**
@@ -268,7 +275,7 @@ public abstract class AbstractAI implements Ctrl
 	 */
 	public L2Character getAttackTarget()
 	{
-		return _attackTarget;
+		return _intention == CtrlIntention.AI_INTENTION_ATTACK ? (L2Character)_intentionArg0 :  null;
 	}
 	
 	/**
@@ -287,11 +294,6 @@ public abstract class AbstractAI implements Ctrl
 	 */
 	synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
-		/*
-		 if (Config.DEBUG)
-		 _log.warning("AbstractAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
-		 */
-
 		_intention = intention;
 		_intentionArg0 = arg0;
 		_intentionArg1 = arg1;
@@ -383,7 +385,7 @@ public abstract class AbstractAI implements Ctrl
 				onIntentionAttack((L2Character)arg0);
 				break;
 			case AI_INTENTION_CAST:
-				onIntentionCast((SkillUsageRequest)arg0, (L2Object)arg1);
+				onIntentionCast((SkillUsageRequest)arg0);
 				break;
 			case AI_INTENTION_MOVE_TO:
 				onIntentionMoveTo((L2CharPosition)arg0);
@@ -429,11 +431,13 @@ public abstract class AbstractAI implements Ctrl
 	
 	private final void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
-		if (intention == AI_INTENTION_CAST)
-			if (equals(intention, _intention))
-				if (equals(arg0, _intentionArg0))
-					if (equals(arg1, _intentionArg1))
-						return;
+		if (_actor instanceof L2Playable)
+			if (((L2Playable)_actor).getSkillQueueProtectionTime() > System.currentTimeMillis())
+				if (intention == AI_INTENTION_CAST)
+					if (equals(intention, _intention))
+						if (equals(arg0, _intentionArg0))
+							if (equals(arg1, _intentionArg1))
+								return;
 		
 		_nextIntention = new IntentionCommand(intention, arg0, arg1);
 	}
@@ -601,7 +605,7 @@ public abstract class AbstractAI implements Ctrl
 	
 	protected abstract void onIntentionAttack(L2Character target);
 	
-	protected abstract void onIntentionCast(SkillUsageRequest request, L2Object target);
+	protected abstract void onIntentionCast(SkillUsageRequest request);
 	
 	protected abstract void onIntentionMoveTo(L2CharPosition destination);
 	
@@ -699,7 +703,7 @@ public abstract class AbstractAI implements Ctrl
 			// prevent possible extra calls to this function (there is none?),
 			// also don't send movetopawn packets too often
 			boolean sendPacket = true;
-			if (_clientMoving && _target == pawn)
+			if (_clientMoving && getTarget() == pawn)
 			{
 				if (_clientMovingToPawnOffset == offset)
 				{
@@ -718,7 +722,7 @@ public abstract class AbstractAI implements Ctrl
 			// Set AI movement data
 			_clientMoving = true;
 			_clientMovingToPawnOffset = offset;
-			_target = pawn;
+			setTarget(pawn);
 			_moveToPawnTimeout = GameTimeController.getGameTicks();
 			_moveToPawnTimeout += 1000 / GameTimeController.MILLIS_IN_TICK;
 			
@@ -972,10 +976,8 @@ public abstract class AbstractAI implements Ctrl
 		_actor.broadcastPacket(msg);
 		
 		// Init AI
-		_intention = AI_INTENTION_IDLE;
-		_target = null;
-		_castTarget = null;
-		setAttackTarget(null);
+		changeIntention(AI_INTENTION_IDLE, null, null);
+		setTarget(null);
 		
 		// Cancel the follow task if necessary
 		stopFollow();
@@ -1031,14 +1033,14 @@ public abstract class AbstractAI implements Ctrl
 	
 	public void removeReferencesOf(L2Playable playable)
 	{
+		if (_intentionArg0 == playable)
+			_intentionArg0 = null;
+		
+		if (_intentionArg1 == playable)
+			_intentionArg1 = null;
+		
 		if (getTarget() == playable)
 			setTarget(null);
-		
-		if (getCastTarget() == playable)
-			setCastTarget(null);
-		
-		if (getAttackTarget() == playable)
-			setAttackTarget(null);
 		
 		if (getFollowTarget() == playable)
 			setFollowTarget(null);
