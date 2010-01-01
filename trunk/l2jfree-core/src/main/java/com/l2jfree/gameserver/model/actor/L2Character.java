@@ -4016,7 +4016,12 @@ public abstract class L2Character extends L2Object
 		return _isCastingNow;
 	}
 
-	public void setIsCastingNow(boolean value)
+	public final void setIsCastingNow(boolean value)
+	{
+		setIsCastingNow(value, false);
+	}
+
+	public void setIsCastingNow(boolean value, boolean temp)
 	{
 		_isCastingNow = value;
 	}
@@ -4106,7 +4111,7 @@ public abstract class L2Character extends L2Object
 
 			if (_allSkillsDisabled)
 				enableAllSkills(); // this remains for forced skill use, e.g. scroll of escape
-			setIsCastingNow(false);
+			setIsCastingNow(false, getAI().getNextCtrlIntention() != null);
 			setIsCastingSimultaneouslyNow(false);
 			// safeguard for cannot be interrupt any more
 			_castInterruptTime = 0;

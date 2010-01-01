@@ -105,15 +105,7 @@ public class L2PlayerAI extends L2CharacterAI
 		{
 			if (maybeMoveToPosition(((L2PcInstance) _actor).getCurrentSkillWorldPosition(), _actor.getMagicalAttackRange(_skill)))
 			{
-				if (_actor instanceof L2Playable)
-				{
-					// we are just moving closer to the target, no need to forget request
-					SkillUsageRequest sur = ((L2Playable) _actor).getCurrentSkill();
-					_actor.setIsCastingNow(false);
-					((L2Playable) _actor).setCurrentSkill(sur);
-				}
-				else
-					_actor.setIsCastingNow(false);
+				_actor.setIsCastingNow(false, true);
 				return;
 			}
 		}
@@ -132,15 +124,7 @@ public class L2PlayerAI extends L2CharacterAI
 			if (target != null && maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill)))
 			{
 				clientActionFailed();
-				if (_actor instanceof L2Playable)
-				{
-					// we are just moving closer to the target, no need to forget request
-					SkillUsageRequest sur = ((L2Playable) _actor).getCurrentSkill();
-					_actor.setIsCastingNow(false);
-					((L2Playable) _actor).setCurrentSkill(sur);
-				}
-				else
-					_actor.setIsCastingNow(false);
+				_actor.setIsCastingNow(false, true);
 				return;
 			}
 		}

@@ -28,6 +28,7 @@ import java.util.Vector;
 import java.util.concurrent.Future;
 
 import javolution.text.TextBuilder;
+import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +91,7 @@ public class CTF
 	private static int			_FlagNPC	= 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
 	public static String		_eventName	= "", _eventDesc = "", _topTeam = "", _joiningLocationName = "";
 	public static Vector<String>	_teams	= new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();
-	public static Vector<L2PcInstance>	_players	= new Vector<L2PcInstance>(), _playersShuffle = new Vector<L2PcInstance>();
+	public static FastList<L2PcInstance>	_players	= new FastList<L2PcInstance>(), _playersShuffle = new FastList<L2PcInstance>();
 	public static Vector<Integer>		_teamPlayersCount	= new Vector<Integer>(), _teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(),
 			_teamsY = new Vector<Integer>(), _teamsZ = new Vector<Integer>();
 	public static boolean				_joining			= false, _teleport = false, _started = false, _sitForced = false;
@@ -417,14 +418,13 @@ public class CTF
 			}
 			catch (Exception e)
 			{
-				_log.warn("CTF Engine[spawnAllFlags()]: exception: " + e.getStackTrace());
+				_log.warn("CTF Engine[spawnAllFlags()]: exception: ", e);
 			}
 		}
 	}
 
 	public static void processTopTeam()
 	{
-
 		_topTeam = null;
 		for (String team : _teams)
 		{
@@ -1273,7 +1273,7 @@ public class CTF
 		}
 		else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
 		{
-			Vector<L2PcInstance> playersShuffleTemp = new Vector<L2PcInstance>();
+			FastList<L2PcInstance> playersShuffleTemp = new FastList<L2PcInstance>();
 			int loopCount = 0;
 
 			loopCount = _playersShuffle.size();
@@ -1561,8 +1561,8 @@ public class CTF
 		_teams = new Vector<String>();
 		_savePlayers = new Vector<String>();
 		_savePlayerTeams = new Vector<String>();
-		_players = new Vector<L2PcInstance>();
-		_playersShuffle = new Vector<L2PcInstance>();
+		_players = new FastList<L2PcInstance>();
+		_playersShuffle = new FastList<L2PcInstance>();
 		_teamPlayersCount = new Vector<Integer>();
 		_teamPointsCount = new Vector<Integer>();
 		_teamColors = new Vector<Integer>();
@@ -2139,8 +2139,8 @@ public class CTF
 		}
 		_topScore = 0;
 		_topTeam = "";
-		_players = new Vector<L2PcInstance>();
-		_playersShuffle = new Vector<L2PcInstance>();
+		_players.clear();
+		_playersShuffle.clear();
 		_savePlayers = new Vector<String>();
 		_savePlayerTeams = new Vector<String>();
 		_teamPointsCount = new Vector<Integer>();

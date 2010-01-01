@@ -660,11 +660,11 @@ public abstract class L2Playable extends L2Character
 	}
 	
 	@Override
-	public final void setIsCastingNow(boolean value)
+	public final void setIsCastingNow(boolean value, boolean temp)
 	{
-		if (!value)
+		if (!value && !temp)
 			setCurrentSkill(null);
 		
-		super.setIsCastingNow(value);
+		super.setIsCastingNow(value, temp);
 	}
 }
