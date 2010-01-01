@@ -703,22 +703,22 @@ public final class QuestState
      * @param sound indicating whether to play sound
      * @return whether player has requested number of items
      */
-    public boolean dropQuestItems(int itemId, int count, int neededCount, int dropChance, boolean sound)
+    public boolean dropQuestItems(int itemId, long count, long neededCount, int dropChance, boolean sound)
     {
         return dropQuestItems(itemId, count, neededCount, dropChance, sound, true);
     }
     
-    public boolean dropQuestItems(int itemId, int count, int neededCount, int dropChance, boolean sound, boolean party)
+    public boolean dropQuestItems(int itemId, long count, long neededCount, int dropChance, boolean sound, boolean party)
     {
         return dropQuestItems(itemId, count, count, neededCount, dropChance, sound, party);
     }
     
-    public boolean dropQuestItems(int itemId, int minCount, int maxCount, int neededCount, int dropChance, boolean sound)
+    public boolean dropQuestItems(int itemId, long minCount, long maxCount, long neededCount, int dropChance, boolean sound)
     {
     	return dropQuestItems(itemId, minCount, maxCount, neededCount, dropChance, sound, true);
     }
     
-    public boolean dropQuestItems(int itemId, int minCount, int maxCount, int neededCount, int dropChance, boolean sound, boolean party)
+    public boolean dropQuestItems(int itemId, long minCount, long maxCount, long neededCount, int dropChance, boolean sound, boolean party)
     {
     	dropChance *= Config.RATE_DROP_QUEST;
     	if (party)
