@@ -22,7 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.text.TextBuilder;
 
@@ -93,9 +93,9 @@ public class VIP
 							_sitForced = false;
 	
 	public static L2Spawn   _endSpawn, _joinSpawn;
-	public static Vector<String>		_savePlayers	= new Vector<String>();
-	public static Vector<L2PcInstance>  _playersVIP = new Vector<L2PcInstance>(),
-										_playersNotVIP = new Vector<L2PcInstance>();
+	public static CopyOnWriteArrayList<String>		_savePlayers	= new CopyOnWriteArrayList<String>();
+	public static CopyOnWriteArrayList<L2PcInstance>  _playersVIP = new CopyOnWriteArrayList<L2PcInstance>(),
+										_playersNotVIP = new CopyOnWriteArrayList<L2PcInstance>();
 	
 	public static void setTeam(String team, L2PcInstance activeChar){
 		if (team.compareToIgnoreCase("Human") == 0){
@@ -789,9 +789,9 @@ public class VIP
 			info._isNotVIP = false;
 			info._isVIP = false;
 		}
-		_savePlayers = new Vector<String>();
-		_playersVIP = new Vector<L2PcInstance>();
-		_playersNotVIP = new Vector<L2PcInstance>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
+		_playersVIP = new CopyOnWriteArrayList<L2PcInstance>();
+		_playersNotVIP = new CopyOnWriteArrayList<L2PcInstance>();
 	}
 
 	public static void chooseVIP()
@@ -1066,8 +1066,8 @@ public class VIP
 						info._isVIP = true;
 						info._originalNameColourVIP = player.getAppearance().getNameColor();
 						info._originalKarmaVIP = player.getKarma();
-						_playersVIP.remove(p); //removing old object id from vector
-						_playersVIP.add(player); //adding new objectId to vector
+						_playersVIP.remove(p); //removing old object id from list
+						_playersVIP.add(player); //adding new objectId to list
 						if(_theVIPName.equals(player.getName()))
 						{
 							player.getAppearance().setNameColor(255,255,0);
@@ -1094,8 +1094,8 @@ public class VIP
 						info._isNotVIP = true;
 						info._originalNameColourVIP = player.getAppearance().getNameColor();
 						info._originalKarmaVIP = player.getKarma();
-						_playersNotVIP.remove(p); //removing old object id from vector
-						_playersNotVIP.add(player); //adding new objectId to vector
+						_playersNotVIP.remove(p); //removing old object id from list
+						_playersNotVIP.add(player); //adding new objectId to list
 						player.getAppearance().setNameColor(0,255,0);
 						player.setKarma(0);
 						player.broadcastUserInfo();

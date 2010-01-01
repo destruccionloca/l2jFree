@@ -22,7 +22,7 @@ package com.l2jfree.gameserver.model.entity.events;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.text.TextBuilder;
 
@@ -72,8 +72,8 @@ public class DM
 	public static String _eventName = "",
 						 _eventDesc = "",
 						 _joiningLocationName = "";
-	public static Vector<String> _savePlayers = new Vector<String>();
-	public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();
+	public static CopyOnWriteArrayList<String> _savePlayers = new CopyOnWriteArrayList<String>();
+	public static CopyOnWriteArrayList<L2PcInstance> _players = new CopyOnWriteArrayList<L2PcInstance>();
 	public static boolean _joining = false,
 						  _teleport = false,
 						  _started = false,
@@ -417,7 +417,7 @@ public class DM
 		
 		_log.info("");
 		_log.info("##################################");
-		_log.info("# _players(Vector<L2PcInstance>) #");
+		_log.info("# _players(CopyOnWriteArrayList<L2PcInstance>) #");
 		_log.info("##################################");
 		
 		_log.info("Total Players : " + _players.size());
@@ -430,7 +430,7 @@ public class DM
 		
 		_log.info("");
 		_log.info("################################");
-		_log.info("# _savePlayers(Vector<String>) #");
+		_log.info("# _savePlayers(CopyOnWriteArrayList<String>) #");
 		_log.info("################################");
 		
 		for (String player : _savePlayers)
@@ -445,8 +445,8 @@ public class DM
 		_eventName = "";
 		_eventDesc = "";
 		_joiningLocationName = "";
-		_savePlayers = new Vector<String>();
-		_players = new Vector<L2PcInstance>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
+		_players = new CopyOnWriteArrayList<L2PcInstance>();
 		_topPlayer = null;
 		_npcSpawn = null;
 		_joining = false;
@@ -662,8 +662,8 @@ public class DM
 					info._originalNameColorDM = player.getAppearance().getNameColor();
 					info._originalKarmaDM = player.getKarma();
 					info._countDMkills = p.as(DMPlayerInfo.class)._countDMkills;
-					_players.remove(p); //removing old object id from vector
-					_players.add(player); //adding new objectId to vector
+					_players.remove(p); //removing old object id from list
+					_players.add(player); //adding new objectId to list
 					break;
 				}
 			}
@@ -690,7 +690,7 @@ public class DM
 			removePlayer(player);
 		}
 
-		_savePlayers = new Vector<String>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
 		_topPlayer = null;
 		_npcSpawn = null;
 		_joining = false;
@@ -698,7 +698,7 @@ public class DM
 		_started = false;
 		_sitForced = false;
 		_topKills = 0;
-		_players = new Vector<L2PcInstance>();
+		_players = new CopyOnWriteArrayList<L2PcInstance>();
 		
 	}
 	

@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.model.entity.events.TvTInstanced;
  * 
  */
 
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.text.TextBuilder;
 
@@ -67,7 +67,7 @@ public class TvTIMain
 	private static int					_npcHeading		= 0;
 	private static int					_spawnRadius	= 250;
 
-	private static Vector<TVTInstance>	_instances		= new Vector<TVTInstance>();
+	private static CopyOnWriteArrayList<TVTInstance>	_instances		= new CopyOnWriteArrayList<TVTInstance>();
 
 	public static void announceToAll(String announce)
 	{
@@ -330,9 +330,9 @@ public class TvTIMain
 					else if (p.getName().equals(player.getName()))
 					{
 						i.getPlayers().remove(p); // Removing old object id from
-													// fastlist
+													// list
 						i.getPlayers().add(player); // Adding new objectId to
-													// fastlist
+													// list
 						return;
 					}
 				}
@@ -352,9 +352,9 @@ public class TvTIMain
 						player._originalKarmaTvTi = player.getKarma();
 						player._inEventTvTi = true;
 						t.getPlayers().remove(p); // Removing old object id from
-													// fastlist
+													// list
 						t.getPlayers().add(player); // Adding new objectId to
-													// fastlist
+													// list
 						player.getAppearance().setNameColor(t.getTeamColor());
 						player.setKarma(0);
 						player.broadcastUserInfo();
@@ -684,7 +684,7 @@ public class TvTIMain
 		return _npcSpawn;
 	}
 
-	public static Vector<TVTInstance> getInstances()
+	public static CopyOnWriteArrayList<TVTInstance> getInstances()
 	{
 		return _instances;
 	}

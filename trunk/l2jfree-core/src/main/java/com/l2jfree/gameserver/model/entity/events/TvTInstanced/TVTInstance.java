@@ -20,10 +20,9 @@ package com.l2jfree.gameserver.model.entity.events.TvTInstanced;
  * 
  */
 
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.text.TextBuilder;
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,9 +62,9 @@ public class TVTInstance
 
 	private TvTITeam				_winner			= null;
 
-	private final Vector<TvTITeam>		_teams			= new Vector<TvTITeam>();
+	private final CopyOnWriteArrayList<TvTITeam>		_teams			= new CopyOnWriteArrayList<TvTITeam>();
 
-	private final FastList<L2PcInstance>	_tempJoinList	= new FastList<L2PcInstance>();
+	private final CopyOnWriteArrayList<L2PcInstance>	_tempJoinList	= new CopyOnWriteArrayList<L2PcInstance>();
 
 	public TVTInstance()
 	{
@@ -835,12 +834,12 @@ public class TVTInstance
 		_tempJoinList.remove(player);
 	}
 
-	public FastList<L2PcInstance> getPlayers()
+	public CopyOnWriteArrayList<L2PcInstance> getPlayers()
 	{
 		return _tempJoinList;
 	}
 
-	public Vector<TvTITeam> getTeams()
+	public CopyOnWriteArrayList<TvTITeam> getTeams()
 	{
 		return _teams;
 	}

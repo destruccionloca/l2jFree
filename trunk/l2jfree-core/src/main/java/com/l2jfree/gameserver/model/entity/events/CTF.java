@@ -24,11 +24,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Future;
 
 import javolution.text.TextBuilder;
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,19 +89,19 @@ public class CTF
 	private final static Log	_log	= LogFactory.getLog(CTF.class);
 	private static int			_FlagNPC	= 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
 	public static String		_eventName	= "", _eventDesc = "", _topTeam = "", _joiningLocationName = "";
-	public static Vector<String>	_teams	= new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();
-	public static FastList<L2PcInstance>	_players	= new FastList<L2PcInstance>(), _playersShuffle = new FastList<L2PcInstance>();
-	public static Vector<Integer>		_teamPlayersCount	= new Vector<Integer>(), _teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(),
-			_teamsY = new Vector<Integer>(), _teamsZ = new Vector<Integer>();
+	public static CopyOnWriteArrayList<String>	_teams	= new CopyOnWriteArrayList<String>(), _savePlayers = new CopyOnWriteArrayList<String>(), _savePlayerTeams = new CopyOnWriteArrayList<String>();
+	public static CopyOnWriteArrayList<L2PcInstance>	_players	= new CopyOnWriteArrayList<L2PcInstance>(), _playersShuffle = new CopyOnWriteArrayList<L2PcInstance>();
+	public static CopyOnWriteArrayList<Integer>		_teamPlayersCount	= new CopyOnWriteArrayList<Integer>(), _teamColors = new CopyOnWriteArrayList<Integer>(), _teamsX = new CopyOnWriteArrayList<Integer>(),
+			_teamsY = new CopyOnWriteArrayList<Integer>(), _teamsZ = new CopyOnWriteArrayList<Integer>();
 	public static boolean				_joining			= false, _teleport = false, _started = false, _sitForced = false;
 	public static L2Spawn				_npcSpawn;
 	public static int					_npcId				= 0, _npcX = 0, _npcY = 0, _npcZ = 0, _npcHeading = 0, _rewardId = 0, _rewardAmount = 0,
 			_minlvl = 0, _maxlvl = 0, _joinTime = 0, _eventTime = 0, _minPlayers = 0, _maxPlayers = 0;
-	public static Vector<Integer>		_teamPointsCount	= new Vector<Integer>();
-	public static Vector<Integer>		_flagIds			= new Vector<Integer>(), _flagsX = new Vector<Integer>(), _flagsY = new Vector<Integer>(),
-			_flagsZ = new Vector<Integer>();
-	public static Vector<L2Spawn>		_flagSpawns			= new Vector<L2Spawn>(), _throneSpawns = new Vector<L2Spawn>();
-	public static Vector<Boolean>		_flagsTaken			= new Vector<Boolean>();
+	public static CopyOnWriteArrayList<Integer>		_teamPointsCount	= new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<Integer>		_flagIds			= new CopyOnWriteArrayList<Integer>(), _flagsX = new CopyOnWriteArrayList<Integer>(), _flagsY = new CopyOnWriteArrayList<Integer>(),
+			_flagsZ = new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<L2Spawn>		_flagSpawns			= new CopyOnWriteArrayList<L2Spawn>(), _throneSpawns = new CopyOnWriteArrayList<L2Spawn>();
+	public static CopyOnWriteArrayList<Boolean>		_flagsTaken			= new CopyOnWriteArrayList<Boolean>();
 	public static int					_topScore			= 0, eventCenterX = 0, eventCenterY = 0, eventCenterZ = 0, eventOffset = 0;
 
 	public static void showFlagHtml(L2PcInstance eventPlayer, String objectId, String teamName)
@@ -139,7 +138,7 @@ public class CTF
 
 	public static void CheckRestoreFlags()
 	{
-		Vector<Integer> teamsTakenFlag = new Vector<Integer>();
+		CopyOnWriteArrayList<Integer> teamsTakenFlag = new CopyOnWriteArrayList<Integer>();
 		try
 		{
 			for (L2PcInstance player : _players)
@@ -475,7 +474,7 @@ public class CTF
 					SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
 				}
 			}
-			_throneSpawns.removeAllElements();
+			_throneSpawns.clear();
 		}
 		catch (RuntimeException e)
 		{
@@ -1273,7 +1272,7 @@ public class CTF
 		}
 		else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
 		{
-			FastList<L2PcInstance> playersShuffleTemp = new FastList<L2PcInstance>();
+			CopyOnWriteArrayList<L2PcInstance> playersShuffleTemp = new CopyOnWriteArrayList<L2PcInstance>();
 			int loopCount = 0;
 
 			loopCount = _playersShuffle.size();
@@ -1498,7 +1497,7 @@ public class CTF
 		_log.info("Max lvl: " + _maxlvl);
 		_log.info("");
 		_log.info("##########################");
-		_log.info("# _teams(Vector<String>) #");
+		_log.info("# _teams(CopyOnWriteArrayList<String>) #");
 		_log.info("##########################");
 
 		for (String team : _teams)
@@ -1508,7 +1507,7 @@ public class CTF
 		{
 			_log.info("");
 			_log.info("#########################################");
-			_log.info("# _playersShuffle(Vector<L2PcInstance>) #");
+			_log.info("# _playersShuffle(CopyOnWriteArrayList<L2PcInstance>) #");
 			_log.info("#########################################");
 
 			for (L2PcInstance player : _playersShuffle)
@@ -1520,7 +1519,7 @@ public class CTF
 
 		_log.info("");
 		_log.info("##################################");
-		_log.info("# _players(Vector<L2PcInstance>) #");
+		_log.info("# _players(CopyOnWriteArrayList<L2PcInstance>) #");
 		_log.info("##################################");
 
 		for (L2PcInstance player : _players)
@@ -1531,7 +1530,7 @@ public class CTF
 
 		_log.info("");
 		_log.info("#####################################################################");
-		_log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
+		_log.info("# _savePlayers(CopyOnWriteArrayList<String>) and _savePlayerTeams(CopyOnWriteArrayList<String>) #");
 		_log.info("#####################################################################");
 
 		for (String player : _savePlayers)
@@ -1558,25 +1557,25 @@ public class CTF
 		_eventDesc = "";
 		_topTeam = "";
 		_joiningLocationName = "";
-		_teams = new Vector<String>();
-		_savePlayers = new Vector<String>();
-		_savePlayerTeams = new Vector<String>();
-		_players = new FastList<L2PcInstance>();
-		_playersShuffle = new FastList<L2PcInstance>();
-		_teamPlayersCount = new Vector<Integer>();
-		_teamPointsCount = new Vector<Integer>();
-		_teamColors = new Vector<Integer>();
-		_teamsX = new Vector<Integer>();
-		_teamsY = new Vector<Integer>();
-		_teamsZ = new Vector<Integer>();
+		_teams = new CopyOnWriteArrayList<String>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
+		_savePlayerTeams = new CopyOnWriteArrayList<String>();
+		_players = new CopyOnWriteArrayList<L2PcInstance>();
+		_playersShuffle = new CopyOnWriteArrayList<L2PcInstance>();
+		_teamPlayersCount = new CopyOnWriteArrayList<Integer>();
+		_teamPointsCount = new CopyOnWriteArrayList<Integer>();
+		_teamColors = new CopyOnWriteArrayList<Integer>();
+		_teamsX = new CopyOnWriteArrayList<Integer>();
+		_teamsY = new CopyOnWriteArrayList<Integer>();
+		_teamsZ = new CopyOnWriteArrayList<Integer>();
 
-		_throneSpawns = new Vector<L2Spawn>();
-		_flagSpawns = new Vector<L2Spawn>();
-		_flagsTaken = new Vector<Boolean>();
-		_flagIds = new Vector<Integer>();
-		_flagsX = new Vector<Integer>();
-		_flagsY = new Vector<Integer>();
-		_flagsZ = new Vector<Integer>();
+		_throneSpawns = new CopyOnWriteArrayList<L2Spawn>();
+		_flagSpawns = new CopyOnWriteArrayList<L2Spawn>();
+		_flagsTaken = new CopyOnWriteArrayList<Boolean>();
+		_flagIds = new CopyOnWriteArrayList<Integer>();
+		_flagsX = new CopyOnWriteArrayList<Integer>();
+		_flagsY = new CopyOnWriteArrayList<Integer>();
+		_flagsZ = new CopyOnWriteArrayList<Integer>();
 
 		_joining = false;
 		_teleport = false;
@@ -2008,7 +2007,7 @@ public class CTF
 					countBefore = teamPlayerCount;
 			}
 
-			Vector<String> joinableTeams = new Vector<String>();
+			CopyOnWriteArrayList<String> joinableTeams = new CopyOnWriteArrayList<String>();
 
 			for (String team : _teams)
 			{
@@ -2057,8 +2056,8 @@ public class CTF
 					info._originalNameColorCTF = player.getAppearance().getNameColor();
 					info._originalKarmaCTF = player.getKarma();
 					info._countCTFflags = p.as(CTFPlayerInfo.class)._countCTFflags;
-					_players.remove(p); //removing old object id from vector
-					_players.add(player); //adding new objectId to vector
+					_players.remove(p); //removing old object id from list
+					_players.add(player); //adding new objectId to list
 					break;
 				}
 			}
@@ -2141,12 +2140,12 @@ public class CTF
 		_topTeam = "";
 		_players.clear();
 		_playersShuffle.clear();
-		_savePlayers = new Vector<String>();
-		_savePlayerTeams = new Vector<String>();
-		_teamPointsCount = new Vector<Integer>();
-		_flagSpawns = new Vector<L2Spawn>();
-		_flagsTaken = new Vector<Boolean>();
-		_teamPlayersCount = new Vector<Integer>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
+		_savePlayerTeams = new CopyOnWriteArrayList<String>();
+		_teamPointsCount = new CopyOnWriteArrayList<Integer>();
+		_flagSpawns = new CopyOnWriteArrayList<L2Spawn>();
+		_flagsTaken = new CopyOnWriteArrayList<Boolean>();
+		_teamPlayersCount = new CopyOnWriteArrayList<Integer>();
 		_log.info("Cleaning CTF done.");
 		_log.info("Loading new data from MySql");
 		loadData();

@@ -23,7 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javolution.text.TextBuilder;
 
@@ -80,18 +80,18 @@ public class TvT
 	public static String				_eventDesc				= "";
 	public static String				_topTeam				= "";
 	public static String				_joiningLocationName	= "";
-	public static Vector<String>		_teams					= new Vector<String>();
-	public static Vector<String>		_savePlayers			= new Vector<String>();
-	public static Vector<String>		_savePlayerTeams		= new Vector<String>();
+	public static CopyOnWriteArrayList<String>		_teams					= new CopyOnWriteArrayList<String>();
+	public static CopyOnWriteArrayList<String>		_savePlayers			= new CopyOnWriteArrayList<String>();
+	public static CopyOnWriteArrayList<String>		_savePlayerTeams		= new CopyOnWriteArrayList<String>();
 
-	public static Vector<L2PcInstance>	_players				= new Vector<L2PcInstance>();
-	public static Vector<L2PcInstance>	_playersShuffle			= new Vector<L2PcInstance>();
-	public static Vector<Integer>		_teamPlayersCount		= new Vector<Integer>();
-	public static Vector<Integer>		_teamKillsCount			= new Vector<Integer>();
-	public static Vector<Integer>		_teamColors				= new Vector<Integer>();
-	public static Vector<Integer>		_teamsX					= new Vector<Integer>();
-	public static Vector<Integer>		_teamsY					= new Vector<Integer>();
-	public static Vector<Integer>		_teamsZ					= new Vector<Integer>();
+	public static CopyOnWriteArrayList<L2PcInstance>	_players				= new CopyOnWriteArrayList<L2PcInstance>();
+	public static CopyOnWriteArrayList<L2PcInstance>	_playersShuffle			= new CopyOnWriteArrayList<L2PcInstance>();
+	public static CopyOnWriteArrayList<Integer>		_teamPlayersCount		= new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<Integer>		_teamKillsCount			= new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<Integer>		_teamColors				= new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<Integer>		_teamsX					= new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<Integer>		_teamsY					= new CopyOnWriteArrayList<Integer>();
+	public static CopyOnWriteArrayList<Integer>		_teamsZ					= new CopyOnWriteArrayList<Integer>();
 	public static boolean				_joining				= false;
 	public static boolean				_teleport				= false;
 	public static boolean				_started				= false;
@@ -719,7 +719,7 @@ public class TvT
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 		{
-			Vector<L2PcInstance> playersShuffleTemp = new Vector<L2PcInstance>();
+			CopyOnWriteArrayList<L2PcInstance> playersShuffleTemp = new CopyOnWriteArrayList<L2PcInstance>();
 			int loopCount = 0;
 
 			loopCount = _playersShuffle.size();
@@ -962,7 +962,7 @@ public class TvT
 		_log.info("Max lvl: " + _maxlvl);
 		_log.info("");
 		_log.info("##########################");
-		_log.info("# _teams(Vector<String>) #");
+		_log.info("# _teams(CopyOnWriteArrayList<String>) #");
 		_log.info("##########################");
 
 		for (String team : _teams)
@@ -972,7 +972,7 @@ public class TvT
 		{
 			_log.info("");
 			_log.info("#########################################");
-			_log.info("# _playersShuffle(Vector<L2PcInstance>) #");
+			_log.info("# _playersShuffle(CopyOnWriteArrayList<L2PcInstance>) #");
 			_log.info("#########################################");
 
 			for (L2PcInstance player : _playersShuffle)
@@ -984,7 +984,7 @@ public class TvT
 
 		_log.info("");
 		_log.info("##################################");
-		_log.info("# _players(Vector<L2PcInstance>) #");
+		_log.info("# _players(CopyOnWriteArrayList<L2PcInstance>) #");
 		_log.info("##################################");
 
 		for (L2PcInstance player : _players)
@@ -995,7 +995,7 @@ public class TvT
 
 		_log.info("");
 		_log.info("#####################################################################");
-		_log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
+		_log.info("# _savePlayers(CopyOnWriteArrayList<String>) and _savePlayerTeams(CopyOnWriteArrayList<String>) #");
 		_log.info("#####################################################################");
 
 		for (String player : _savePlayers)
@@ -1011,17 +1011,17 @@ public class TvT
 		_eventDesc = "";
 		_topTeam = "";
 		_joiningLocationName = "";
-		_teams = new Vector<String>();
-		_savePlayers = new Vector<String>();
-		_savePlayerTeams = new Vector<String>();
-		_players = new Vector<L2PcInstance>();
-		_playersShuffle = new Vector<L2PcInstance>();
-		_teamPlayersCount = new Vector<Integer>();
-		_teamKillsCount = new Vector<Integer>();
-		_teamColors = new Vector<Integer>();
-		_teamsX = new Vector<Integer>();
-		_teamsY = new Vector<Integer>();
-		_teamsZ = new Vector<Integer>();
+		_teams = new CopyOnWriteArrayList<String>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
+		_savePlayerTeams = new CopyOnWriteArrayList<String>();
+		_players = new CopyOnWriteArrayList<L2PcInstance>();
+		_playersShuffle = new CopyOnWriteArrayList<L2PcInstance>();
+		_teamPlayersCount = new CopyOnWriteArrayList<Integer>();
+		_teamKillsCount = new CopyOnWriteArrayList<Integer>();
+		_teamColors = new CopyOnWriteArrayList<Integer>();
+		_teamsX = new CopyOnWriteArrayList<Integer>();
+		_teamsY = new CopyOnWriteArrayList<Integer>();
+		_teamsZ = new CopyOnWriteArrayList<Integer>();
 		_joining = false;
 		_teleport = false;
 		_started = false;
@@ -1439,7 +1439,7 @@ public class TvT
 					countBefore = teamPlayerCount;
 			}
 
-			Vector<String> joinableTeams = new Vector<String>();
+			CopyOnWriteArrayList<String> joinableTeams = new CopyOnWriteArrayList<String>();
 
 			for (String team : _teams)
 			{
@@ -1482,8 +1482,8 @@ public class TvT
 					info._originalNameColorTvT = player.getAppearance().getNameColor();
 					info._originalKarmaTvT = player.getKarma();
 					info._countTvTkills = p.as(TvTPlayerInfo.class)._countTvTkills;
-					_players.remove(p); //removing old object id from vector
-					_players.add(player); //adding new objectId to vector
+					_players.remove(p); //removing old object id from list
+					_players.add(player); //adding new objectId to list
 					break;
 				}
 			}
@@ -1555,10 +1555,10 @@ public class TvT
 
 		_topKills = 0;
 		_topTeam = "";
-		_players = new Vector<L2PcInstance>();
-		_playersShuffle = new Vector<L2PcInstance>();
-		_savePlayers = new Vector<String>();
-		_savePlayerTeams = new Vector<String>();
+		_players = new CopyOnWriteArrayList<L2PcInstance>();
+		_playersShuffle = new CopyOnWriteArrayList<L2PcInstance>();
+		_savePlayers = new CopyOnWriteArrayList<String>();
+		_savePlayerTeams = new CopyOnWriteArrayList<String>();
 		_log.info("Cleaning TvT done.");
 	}
 

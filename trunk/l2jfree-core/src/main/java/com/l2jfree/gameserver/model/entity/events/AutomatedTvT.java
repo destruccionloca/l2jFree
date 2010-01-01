@@ -17,9 +17,9 @@ package com.l2jfree.gameserver.model.entity.events;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledFuture;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
@@ -100,8 +100,8 @@ public final class AutomatedTvT
 	private ScheduledFuture<?>					reviver;
 	private ScheduledFuture<?>					event;
 
-	private final FastList<Integer>				registered;
-	private final FastList<L2PcInstance>		participants;
+	private final CopyOnWriteArrayList<Integer>				registered;
+	private final CopyOnWriteArrayList<L2PcInstance>		participants;
 	private final FastMap<Integer, Participant>	eventPlayers;
 	private Team[]								eventTeams;
 	private int[]								teamMembers;
@@ -116,8 +116,8 @@ public final class AutomatedTvT
 		status = STATUS_NOT_IN_PROGRESS;
 		announced = 0;
 		// This has no maximum bound, thus configuration changes will not crash anything
-		participants = new FastList<L2PcInstance>(Config.AUTO_TVT_PARTICIPANTS_MAX);
-		registered = new FastList<Integer>(Config.AUTO_TVT_PARTICIPANTS_MAX);
+		participants = new CopyOnWriteArrayList<L2PcInstance>();
+		registered = new CopyOnWriteArrayList<Integer>();
 		eventPlayers = new FastMap<Integer, Participant>(Config.AUTO_TVT_PARTICIPANTS_MAX);
 		eventTeams = null;
 		task = new AutoEventTask();

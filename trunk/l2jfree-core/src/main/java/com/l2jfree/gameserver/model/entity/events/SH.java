@@ -20,8 +20,9 @@ package com.l2jfree.gameserver.model.entity.events;
  * 
  */
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import javolution.text.TextBuilder;
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,9 +64,9 @@ public class SH
 	private static int				_npcZ			= 0;
 	private static int				_npcHeading		= 0;
 
-	private static FastList<Items>	_items			= new FastList<Items>();
-	private static FastList<Items>	_prizes			= new FastList<Items>();
-	private static FastList<String>	_winners		= new FastList<String>();
+	private static CopyOnWriteArrayList<Items>	_items			= new CopyOnWriteArrayList<Items>();
+	private static CopyOnWriteArrayList<Items>	_prizes			= new CopyOnWriteArrayList<Items>();
+	private static CopyOnWriteArrayList<String>	_winners		= new CopyOnWriteArrayList<String>();
 
 	public static class Items
 	{
@@ -433,7 +434,7 @@ public class SH
 		_items.add(item);
 	}
 
-	public static FastList<Items> getItems()
+	public static CopyOnWriteArrayList<Items> getItems()
 	{
 		return _items;
 	}
@@ -443,7 +444,7 @@ public class SH
 		_prizes.add(item);
 	}
 
-	public static FastList<Items> getPrizes()
+	public static CopyOnWriteArrayList<Items> getPrizes()
 	{
 		return _prizes;
 	}
@@ -453,7 +454,7 @@ public class SH
 		_winners.add(winner);
 	}
 
-	public static FastList<String> getWinners()
+	public static CopyOnWriteArrayList<String> getWinners()
 	{
 		return _winners;
 	}

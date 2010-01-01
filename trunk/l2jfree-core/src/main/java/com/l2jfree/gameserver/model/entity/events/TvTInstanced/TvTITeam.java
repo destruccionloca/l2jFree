@@ -20,7 +20,7 @@ package com.l2jfree.gameserver.model.entity.events.TvTInstanced;
  * 
  */
 
-import javolution.util.FastList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Summon;
@@ -42,7 +42,7 @@ public class TvTITeam
 
 	private boolean					_sitForced		= false;
 
-	private final FastList<L2PcInstance>	_players		= new FastList<L2PcInstance>();
+	private final CopyOnWriteArrayList<L2PcInstance>	_players		= new CopyOnWriteArrayList<L2PcInstance>();
 
 	public TvTITeam(String teamName)
 	{
@@ -236,7 +236,7 @@ public class TvTITeam
 		}
 	}
 
-	public FastList<L2PcInstance> getPlayers()
+	public CopyOnWriteArrayList<L2PcInstance> getPlayers()
 	{
 		return _players;
 	}
