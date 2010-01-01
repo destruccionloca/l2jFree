@@ -607,6 +607,14 @@ public abstract class L2Playable extends L2Character
 	
 	public void useMagic(SkillUsageRequest request)
 	{
+		final L2Skill skill = request.getSkill();
+		
+		if (skill.isToggle() || skill.isPotion())
+		{
+			doSimultaneousCast(skill);
+			return;
+		}
+		
 		// Notify the AI with AI_INTENTION_CAST and target
 		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, request);
 	}
@@ -642,6 +650,18 @@ public abstract class L2Playable extends L2Character
 		}
 		
 		super.doCast(skill);
+	}
+	
+	@Override
+	public void doSimultaneousCast(L2Skill skill)
+	{
+		if (!checkUseMagicConditions(skill, false, false))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		super.doSimultaneousCast(skill);
 	}
 	
 	public final SkillUsageRequest getCurrentSkill()

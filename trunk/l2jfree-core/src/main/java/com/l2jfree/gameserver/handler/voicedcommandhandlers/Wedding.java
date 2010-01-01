@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
@@ -25,6 +23,7 @@ import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
 import com.l2jfree.gameserver.model.entity.Siege;
@@ -33,11 +32,8 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.AbnormalEffect;
-import com.l2jfree.gameserver.util.Broadcast;
 
 /**
  * @author evill33t
@@ -339,21 +335,8 @@ public class Wedding implements IVoicedCommandHandler
 		activeChar.sendMessage("After " + teleportTimer / 60000 + " min. you will be teleported to your partner.");
 		activeChar.getInventory().reduceAdena("Wedding", Config.WEDDING_TELEPORT_PRICE, activeChar, null);
 
-		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-		// SoE Animation section
-		activeChar.setTarget(activeChar);
-		activeChar.disableAllSkills();
-
-		MagicSkillUse msk = new MagicSkillUse(activeChar, 1050, 1, teleportTimer, 0);
-		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, msk, 810000/*900*/);
-		SetupGauge sg = new SetupGauge(0, teleportTimer);
-		activeChar.sendPacket(sg);
-		// End SoE Animation section
-
-		EscapeFinalizer ef = new EscapeFinalizer(activeChar, partner.getX(), partner.getY(), partner.getZ(), partner.isIn7sDungeon());
 		// Continue execution later
-		activeChar.setSkillCast(ThreadPoolManager.getInstance().scheduleGeneral(ef, teleportTimer));
-		activeChar.forceIsCastingForDuration(teleportTimer);
+		activeChar.setTeleportSkillCast(new EscapeFinalizer(activeChar, partner.getLoc(), partner.isIn7sDungeon()), teleportTimer);
 
 		return true;
 	}
@@ -361,32 +344,23 @@ public class Wedding implements IVoicedCommandHandler
 	private static class EscapeFinalizer implements Runnable
 	{
 		private final L2PcInstance	_activeChar;
-		private final int				_partnerx;
-		private final int				_partnery;
-		private final int				_partnerz;
+		private final Location			_partnerLoc;
 		private final boolean			_to7sDungeon;
 
-		EscapeFinalizer(L2PcInstance activeChar, int x, int y, int z, boolean to7sDungeon)
+		EscapeFinalizer(L2PcInstance activeChar, Location partnerLoc, boolean to7sDungeon)
 		{
 			_activeChar = activeChar;
-			_partnerx = x;
-			_partnery = y;
-			_partnerz = z;
+			_partnerLoc = partnerLoc;
 			_to7sDungeon = to7sDungeon;
 		}
 
 		public void run()
 		{
-			if (_activeChar.isDead())
-				return;
-			_activeChar.enableAllSkills();
-			_activeChar.setIsCastingNow(false);
-
 			if (checkGoToLoveState(_activeChar) == null)
 				return;
 
 			_activeChar.setIsIn7sDungeon(_to7sDungeon);
-			_activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
+			_activeChar.teleToLocation(_partnerLoc, true);
 		}
 	}
 

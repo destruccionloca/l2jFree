@@ -1522,6 +1522,13 @@ public abstract class L2Character extends L2Object
 
 	public void doSimultaneousCast(L2Skill skill)
 	{
+		// queue herbs and potions
+		if (isCastingSimultaneouslyNow())
+		{
+			ThreadPoolManager.getInstance().scheduleAi(new UsePotionTask(skill), 100);
+			return;
+		}
+		
 		beginCast(skill, true);
 	}
 
@@ -1533,7 +1540,7 @@ public abstract class L2Character extends L2Object
 				getAI().setIntention(AI_INTENTION_ACTIVE);
 			return;
 		}
-
+		
 		// Get all possible targets of the skill in a table in function of the skill target type
 		final L2Character[] targets = skill.getTargetList(this);
 		
@@ -1547,7 +1554,7 @@ public abstract class L2Character extends L2Object
 				sendPacket(ActionFailed.STATIC_PACKET);
 				getAI().setIntention(AI_INTENTION_ACTIVE);
 			}
-
+			
 			return;
 		}
 
@@ -1582,26 +1589,17 @@ public abstract class L2Character extends L2Object
 			skillInterruptTime *= multi;
 		}
 
-		// queue herbs and potions
-		if (isCastingSimultaneouslyNow() && simultaneously)
-		{
-			ThreadPoolManager.getInstance().scheduleAi(new UsePotionTask(skill), 100);
-			return;
-		}
-
 		// Set the _castInterruptTime and casting status (L2PcInstance already has this true)
 		if (simultaneously)
-			setIsCastingSimultaneouslyNow(true);
-		else
-			setIsCastingNow(true);
-
-		// Note: _castEndTime = GameTimeController.getGameTicks() + (coolTime + hitTime) / GameTimeController.MILLIS_IN_TICK;
-		if (!simultaneously)
 		{
-			forceIsCastingForDuration(skillInterruptTime);
+			setIsCastingSimultaneouslyNow(true);
+			setLastSimultaneousSkillCast(skill);
 		}
 		else
-			setLastSimultaneousSkillCast(skill);
+		{
+			// Note: _castEndTime = GameTimeController.getGameTicks() + (coolTime + hitTime) / GameTimeController.MILLIS_IN_TICK;
+			setIsCastingNow(true, skillInterruptTime);
+		}
 
 		// Init the reuse time of the skill
 		int reuseDelay = skill.getReuseDelay();
@@ -4007,20 +4005,51 @@ public abstract class L2Character extends L2Object
 	{
 		return _isCastingNow;
 	}
-
-	public void setIsCastingNow(boolean value)
+	
+	
+	public final void setIsCastingNow(boolean value)
+	{
+		setIsCastingNow(value, 0);
+	}
+	
+	public final void setIsCastingNow(boolean value, int interruptTime)
 	{
 		_isCastingNow = value;
+		
+		if (!value)
+		{
+			// safeguard for cannot be interrupt any more
+			_castInterruptTime = 0;
+			
+			if (_skillCast != null)
+			{
+				_skillCast.cancel(false);
+				_skillCast = null;
+			}
+		}
+		else
+		{
+			_castInterruptTime = L2System.milliTime() + interruptTime;
+		}
 	}
-
+	
 	public final boolean isCastingSimultaneouslyNow()
 	{
 		return _isCastingSimultaneouslyNow;
 	}
-
-	public void setIsCastingSimultaneouslyNow(boolean value)
+	
+	public final void setIsCastingSimultaneouslyNow(boolean value)
 	{
 		_isCastingSimultaneouslyNow = value;
+		
+		if (!value)
+		{
+			if (_skillCast2 != null)
+			{
+				_skillCast2.cancel(false);
+				_skillCast2 = null;
+			}
+		}
 	}
 
 	/**
@@ -4079,18 +4108,6 @@ public abstract class L2Character extends L2Object
 	{
 		if (isCastingNow() || isCastingSimultaneouslyNow())
 		{
-			// cancels the skill hit scheduled task
-			if (_skillCast != null)
-			{
-				_skillCast.cancel(false);
-				_skillCast = null;
-			}
-			if (_skillCast2 != null)
-			{
-				_skillCast2.cancel(false);
-				_skillCast2 = null;
-			}
-
 			if (getFusionSkill() != null)
 				getFusionSkill().onCastAbort();
 
@@ -4100,8 +4117,6 @@ public abstract class L2Character extends L2Object
 				enableAllSkills(); // this remains for forced skill use, e.g. scroll of escape
 			setIsCastingNow(false);
 			setIsCastingSimultaneouslyNow(false);
-			// safeguard for cannot be interrupt any more
-			_castInterruptTime = 0;
 			//if (this instanceof L2PcInstance)
 			getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
 			broadcastPacket(new MagicSkillCanceled(getObjectId())); // broadcast packet to stop animations client-side
@@ -5901,8 +5916,6 @@ public abstract class L2Character extends L2Object
 			// now cancels both, simultaneous and normal
 			//setAttackingChar(null);
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-
-			_castInterruptTime = 0;
 			return;
 		}
 
@@ -5934,12 +5947,10 @@ public abstract class L2Character extends L2Object
 		{
 			if (simultaneously)
 			{
-				_skillCast2 = null;
 				setIsCastingSimultaneouslyNow(false);
 			}
 			else
 			{
-				_skillCast = null;
 				setIsCastingNow(false);
 			}
 			notifyQuestEventSkillFinished(magicEnv);
@@ -5952,12 +5963,10 @@ public abstract class L2Character extends L2Object
 		{
 			if (simultaneously)
 			{
-				_skillCast2 = null;
 				setIsCastingSimultaneouslyNow(false);
 			}
 			else
 			{
-				_skillCast = null;
 				setIsCastingNow(false);
 			}
 			mog.exit();
@@ -6090,15 +6099,12 @@ public abstract class L2Character extends L2Object
 		
 		if (simultaneously)
 		{
-			_skillCast2 = null;
 			setIsCastingSimultaneouslyNow(false);
 			return;
 		}
 		else
 		{
-			_skillCast = null;
 			setIsCastingNow(false);
-			_castInterruptTime = 0;
 		}
 		
 		// if the skill has changed the character's state to something other than STATE_CASTING
@@ -6549,19 +6555,46 @@ public abstract class L2Character extends L2Object
 		return 1;
 	}
 
-	public final void setSkillCast(Future<?> newSkillCast)
+	public final void setTeleportSkillCast(final Runnable runnable, int delay)
 	{
-		_skillCast = newSkillCast;
+		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		
+		// SoE Animation section
+		setTarget(this);
+		
+		broadcastPacket(new MagicSkillUse(this, 1050, 1, delay, 0));
+		// End SoE Animation section
+		
+		setSkillCast(new Runnable() {
+			@Override
+			public void run()
+			{
+				if (isDead())
+					return;
+				
+				runnable.run();
+			}
+		}, delay);
 	}
-
-	/** Sets _isCastingNow to true and _castInterruptTime is calculated from end time (ticks) */
-	public final void forceIsCastingForDuration(long durationInMillis)
+	
+	public final void setSkillCast(final Runnable runnable, int delay)
 	{
-		setIsCastingNow(true);
-		// for interrupt -200 ms
-		_castInterruptTime = L2System.milliTime() + durationInMillis;// - 200;
+		if (this instanceof L2PcInstance)
+			getActingPlayer().sendPacket(new SetupGauge(SetupGauge.BLUE, delay));
+		
+		setIsCastingNow(true, delay);
+		
+		_skillCast = ThreadPoolManager.getInstance().schedule(new Runnable() {
+			@Override
+			public void run()
+			{
+				setIsCastingNow(false);
+				
+				runnable.run();
+			}
+		}, delay);
 	}
-
+	
 	private boolean		_AIdisabled	= false;
 
 	private boolean		_isMinion = false;

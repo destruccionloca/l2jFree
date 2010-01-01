@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.PetItemList;
-import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
@@ -140,12 +139,10 @@ public class SummonItems implements IItemHandler
 			break;
 		case 1: // Pet Summons
 			Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, 2046, 1, 5000, 0), 2000);
-			activeChar.sendPacket(new SetupGauge(0, 5000));
 
 			activeChar.sendPacket(SystemMessageId.SUMMON_A_PET);
-			activeChar.setIsCastingNow(true);
 
-			ThreadPoolManager.getInstance().scheduleGeneral(new PetSummonFinalizer(activeChar, npcTemplate, item), 5000);
+			activeChar.setSkillCast(new PetSummonFinalizer(activeChar, npcTemplate, item), 5000);
 			break;
 		case 2: // Wyvern
 			activeChar.mount(sitem.getNpcId(), item.getObjectId(), true);
@@ -196,7 +193,6 @@ public class SummonItems implements IItemHandler
 		public void run()
 		{
 			_activeChar.sendPacket(new MagicSkillLaunched(_activeChar, 2046, 1));
-			_activeChar.setIsCastingNow(false);
 			
 			// check for summon item validity
 			if (_item == null || _item.getOwnerId() != _activeChar.getObjectId()

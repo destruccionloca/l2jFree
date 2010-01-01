@@ -8159,6 +8159,18 @@ public final class L2PcInstance extends L2Playable
 		
 		super.doCast(skill);
 	}
+	
+	@Override
+	public void doSimultaneousCast(L2Skill skill)
+	{
+		if (!canUseMagic(skill))
+		{
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		super.doSimultaneousCast(skill);
+	}
 
 	public void sendReuseMessage(L2Skill skill)
 	{
