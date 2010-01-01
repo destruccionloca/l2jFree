@@ -101,7 +101,7 @@ public final class DestroyPlaguebringers extends QuestJython
 				qs.dropQuestItems(VAROOL_FOULCLAWS_FANG, 1, 1, 700000, true, false);
 		}
 		else
-			qs.dropQuestItems(WERERAT_FANG, 1, Integer.MAX_VALUE, 500000, true, false);
+			qs.dropQuestItems(WERERAT_FANG, 1, Long.MAX_VALUE, 500000, true, false);
 
 		return null;
 	}
@@ -132,8 +132,8 @@ public final class DestroyPlaguebringers extends QuestJython
 		else
 		{
 			// current drop system wont allow larger drop count
-			int normal = (int) qs.getQuestItemsCount(WERERAT_FANG);
-			int leader = (int) qs.getQuestItemsCount(VAROOL_FOULCLAWS_FANG);
+			long normal = qs.getQuestItemsCount(WERERAT_FANG);
+			long leader = qs.getQuestItemsCount(VAROOL_FOULCLAWS_FANG);
 			if (normal != 0 || leader != 0)
 			{
 				qs.takeItems(WERERAT_FANG, normal);
