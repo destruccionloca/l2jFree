@@ -101,7 +101,7 @@ public class L2PlayerAI extends L2CharacterAI
 		{
 			if (maybeMoveToPosition(getActor().getCurrentSkillWorldPosition(), _actor.getMagicalAttackRange(skill)))
 			{
-				_actor.setIsCastingNow(false, true);
+				clientActionFailed();
 				return;
 			}
 		}
@@ -109,14 +109,13 @@ public class L2PlayerAI extends L2CharacterAI
 		{
 			if (checkTargetLost(target))
 			{
-				_actor.setIsCastingNow(false);
+				clientActionFailed();
 				return;
 			}
 			
 			if (maybeMoveToPawn(target, _actor.getMagicalAttackRange(skill)))
 			{
 				clientActionFailed();
-				_actor.setIsCastingNow(false, true);
 				return;
 			}
 		}

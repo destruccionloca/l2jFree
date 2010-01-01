@@ -34,7 +34,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -43,10 +42,12 @@ import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.AutoAttackStop;
+import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.L2Collections;
 
@@ -231,15 +232,7 @@ public class L2CharacterAI extends AbstractAI
 		if (getIntention() == AI_INTENTION_REST && skill.isMagic())
 		{
 			clientActionFailed();
-			_actor.setIsCastingNow(false);
 			return;
-		}
-		
-		if (_actor instanceof L2Playable)
-		{
-			// This is used mainly to save & queue the button presses, since L2Character has
-			// _lastSkillCast which could otherwise replace it
-			((L2Playable)_actor).setCurrentSkill(request);
 		}
 		
 		// Stop actions client-side to cast the skill
@@ -256,7 +249,15 @@ public class L2CharacterAI extends AbstractAI
 		final L2Object target = request.getSkill().getFirstOfTargetList(_actor);
 		
 		// Change the Intention of this AbstractAI to AI_INTENTION_CAST
-		changeIntention(AI_INTENTION_CAST, skill, target);
+		changeIntention(AI_INTENTION_CAST, request, target);
+		
+		final Point3D p = request.getSkillWorldPosition();
+		if (p != null)
+		{
+			// normally magicskilluse packet turns char client side but for these skills, it doesn't (even with correct target)
+			_actor.setHeading(Util.calculateHeadingFrom(_actor.getX(), _actor.getY(), p.getX(), p.getY()));
+			_actor.broadcastPacket(new ValidateLocation(_actor));
+		}
 		
 		// Launch the Think Event
 		notifyEvent(CtrlEvent.EVT_THINK, null);

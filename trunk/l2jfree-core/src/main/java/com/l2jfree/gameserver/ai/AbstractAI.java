@@ -233,18 +233,25 @@ public abstract class AbstractAI implements Ctrl
 	 * Return the current Intention.<BR>
 	 * <BR>
 	 */
-	public CtrlIntention getIntention()
+	public final CtrlIntention getIntention()
 	{
 		return _intention;
 	}
 	
-	public L2Skill getCastSkill()
+	public final SkillUsageRequest getCurrentSkill()
 	{
-		return _intention == CtrlIntention.AI_INTENTION_CAST ? (L2Skill)_intentionArg0 :  null;
+		return _intention == CtrlIntention.AI_INTENTION_CAST ? (SkillUsageRequest)_intentionArg0 :  null;
+	}
+	
+	public final L2Skill getCastSkill()
+	{
+		final SkillUsageRequest currentSkill = getCurrentSkill();
+		
+		return currentSkill == null ? null : currentSkill.getSkill();
 	}
 	
 	@Deprecated
-	public synchronized void setCastTarget(L2Character target)
+	public final synchronized void setCastTarget(L2Character target)
 	{
 		if (_intention == CtrlIntention.AI_INTENTION_CAST)
 			_intentionArg1 = target;
@@ -256,12 +263,12 @@ public abstract class AbstractAI implements Ctrl
 	 * Return the current cast target.<BR>
 	 * <BR>
 	 */
-	public L2Character getCastTarget()
+	public final L2Character getCastTarget()
 	{
 		return _intention == CtrlIntention.AI_INTENTION_CAST ? (L2Character)_intentionArg1 :  null;
 	}
 	
-	public synchronized void setAttackTarget(L2Character target)
+	public final synchronized void setAttackTarget(L2Character target)
 	{
 		if (_intention == CtrlIntention.AI_INTENTION_ATTACK)
 			_intentionArg0 = target;
@@ -273,7 +280,7 @@ public abstract class AbstractAI implements Ctrl
 	 * Return current attack target.<BR>
 	 * <BR>
 	 */
-	public L2Character getAttackTarget()
+	public final L2Character getAttackTarget()
 	{
 		return _intention == CtrlIntention.AI_INTENTION_ATTACK ? (L2Character)_intentionArg0 :  null;
 	}
@@ -299,12 +306,12 @@ public abstract class AbstractAI implements Ctrl
 		_intentionArg1 = arg1;
 	}
 	
-	public Object getIntentionArg0()
+	public final Object getIntentionArg0()
 	{
 		return _intentionArg0;
 	}
 	
-	public Object getIntentionArg1()
+	public final Object getIntentionArg1()
 	{
 		return _intentionArg1;
 	}

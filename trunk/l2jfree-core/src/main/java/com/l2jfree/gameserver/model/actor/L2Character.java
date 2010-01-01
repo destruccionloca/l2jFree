@@ -1529,10 +1529,6 @@ public abstract class L2Character extends L2Object
 	{
 		if (!checkDoCastConditions(skill))
 		{
-			if (simultaneously)
-				setIsCastingSimultaneouslyNow(false);
-			else
-				setIsCastingNow(false);
 			if (this instanceof L2PcInstance)
 				getAI().setIntention(AI_INTENTION_ACTIVE);
 			return;
@@ -1546,10 +1542,6 @@ public abstract class L2Character extends L2Object
 		
 		if (target == null || GlobalRestrictions.isProtected(this, target, skill, true))
 		{
-			if (simultaneously)
-				setIsCastingSimultaneouslyNow(false);
-			else
-				setIsCastingNow(false);
 			if (this instanceof L2PcInstance)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -4016,12 +4008,7 @@ public abstract class L2Character extends L2Object
 		return _isCastingNow;
 	}
 
-	public final void setIsCastingNow(boolean value)
-	{
-		setIsCastingNow(value, false);
-	}
-
-	public void setIsCastingNow(boolean value, boolean temp)
+	public void setIsCastingNow(boolean value)
 	{
 		_isCastingNow = value;
 	}
@@ -4111,7 +4098,7 @@ public abstract class L2Character extends L2Object
 
 			if (_allSkillsDisabled)
 				enableAllSkills(); // this remains for forced skill use, e.g. scroll of escape
-			setIsCastingNow(false, getAI().getNextCtrlIntention() != null);
+			setIsCastingNow(false);
 			setIsCastingSimultaneouslyNow(false);
 			// safeguard for cannot be interrupt any more
 			_castInterruptTime = 0;

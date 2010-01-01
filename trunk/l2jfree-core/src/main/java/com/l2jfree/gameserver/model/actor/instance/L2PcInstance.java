@@ -12147,20 +12147,6 @@ public final class L2PcInstance extends L2Playable
 
 	private L2ItemInstance	_lure	= null;
 
-	@Override
-	public void setCurrentSkill(SkillUsageRequest currentSkill)
-	{
-		super.setCurrentSkill(currentSkill);
-		
-		final Point3D p = getCurrentSkillWorldPosition();
-		if (p != null)
-		{
-			// normally magicskilluse packet turns char client side but for these skills, it doesn't (even with correct target)
-			setHeading(Util.calculateHeadingFrom(getX(), getY(), p.getX(), p.getY()));
-			broadcastPacket(new ValidateLocation(this));
-		}
-	}
-	
 	public SkillUsageRequest getCurrentPetSkill()
 	{
 		final L2Summon pet = getPet();

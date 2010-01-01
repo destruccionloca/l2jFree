@@ -619,20 +619,19 @@ public abstract class L2Playable extends L2Character
 	@Override
 	public void doCast(L2Skill skill)
 	{
-		SkillUsageRequest request = getCurrentSkill();
+		final SkillUsageRequest request = getCurrentSkill();
 		
 		if (request == null)
 		{
-			request = new SkillUsageRequest(skill);
-			
-			setCurrentSkill(request);
-			
 			_log.warn("Missing 'getCurrentSkill()'!", new IllegalStateException());
+			useMagic(new SkillUsageRequest(skill));
+			return;
 		}
 		
 		if (request.getSkill() != skill)
 		{
 			_log.warn("Different 'request.getSkill()' and 'skill'!", new IllegalStateException());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		
@@ -645,16 +644,9 @@ public abstract class L2Playable extends L2Character
 		super.doCast(skill);
 	}
 	
-	private SkillUsageRequest _currentSkill;
-	
 	public final SkillUsageRequest getCurrentSkill()
 	{
-		return _currentSkill;
-	}
-	
-	public void setCurrentSkill(SkillUsageRequest currentSkill)
-	{
-		_currentSkill = currentSkill;
+		return getAI().getCurrentSkill();
 	}
 	
 	private long _skillQueueProtectionTime = 0;
@@ -667,14 +659,5 @@ public abstract class L2Playable extends L2Character
 	public long getSkillQueueProtectionTime()
 	{
 		return _skillQueueProtectionTime;
-	}
-	
-	@Override
-	public final void setIsCastingNow(boolean value, boolean temp)
-	{
-		if (!value && !temp)
-			setCurrentSkill(null);
-		
-		super.setIsCastingNow(value, temp);
 	}
 }
