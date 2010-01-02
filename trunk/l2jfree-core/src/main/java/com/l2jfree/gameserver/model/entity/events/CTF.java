@@ -413,13 +413,13 @@ public class CTF
 				_flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(),
 						_flagSpawns.get(index).getLastSpawn().getZ());
 				_flagSpawns.get(index).getLastSpawn()._isCTF_Flag = true;
-				calculateOutSideOfCTF(); // sets event boundaries so players don't run with the flag.
 			}
 			catch (Exception e)
 			{
 				_log.warn("CTF Engine[spawnAllFlags()]: exception: ", e);
 			}
 		}
+		calculateOutSideOfCTF(); // sets event boundaries so players don't run with the flag.
 	}
 
 	public static void processTopTeam()
