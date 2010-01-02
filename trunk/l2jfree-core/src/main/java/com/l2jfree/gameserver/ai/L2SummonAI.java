@@ -97,10 +97,10 @@ public class L2SummonAI extends L2CharacterAI
 			return;
 		
 		clientStopMoving(null);
+		_accessor.doCast(skill);
 		getActor().setFollowStatus(false);
 		setIntention(AI_INTENTION_IDLE);
 		_startFollow = val;
-		_accessor.doCast(skill);
 	}
 	
 	private void thinkPickUp()
