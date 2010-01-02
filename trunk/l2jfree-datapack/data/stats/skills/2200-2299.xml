@@ -470,6 +470,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="8273"/>
     <set name="itemConsumeCount" val="1"/>
@@ -483,6 +484,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="8274"/>
     <set name="itemConsumeCount" val="1"/>
@@ -497,6 +499,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="itemConsumeId" val="8275"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">
@@ -510,6 +513,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="itemConsumeId" val="8056"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">

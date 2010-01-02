@@ -117,9 +117,18 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2309" levels="1" name="Pig Chest">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="9144"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2310" levels="1" name="Scroll of Guidance - Event Use">
     <set name="itemConsumeId" val="9146"/>
@@ -661,7 +670,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="hitTime" val="0"/>
+    <set name="hitTime" val="500"/>
     <set name="reuseDelay" val="1000"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
@@ -671,8 +680,11 @@
     <set name="effectRange" val="900"/>
     <set name="itemConsumeId" val="9700"/>
     <set name="itemConsumeCount" val="1"/>
-    <cond msgId="109">
-      <target npcId="29099"/>
+    <cond msgId="109" addName="1">
+      <and>
+        <player flyMounted="False"/>
+        <target npcId="29099"/>
+      </and>
     </cond>
   </skill>
   <skill id="2361" levels="1" name="Evolving Wolf's Food">
@@ -687,6 +699,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="staticHitTime" val="true"/>
     <set name="itemConsumeId" val="10015"/>
     <set name="itemConsumeCount" val="1"/>
@@ -731,6 +744,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="itemConsumeId" val="9698"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">
@@ -744,6 +758,7 @@
     <set name="skillType" val="OPEN_DOOR"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <set name="itemConsumeId" val="9699"/>
     <set name="itemConsumeCount" val="1"/>
     <cond msgId="109">
@@ -762,7 +777,7 @@
     <set name="itemConsumeId" val="9689"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="castRange" val="600"/>
-    <set name="effectRange" val="900"/>
+    <set name="effectRange" val="1100"/>
     <cond msgId="113" addName="1">
       <and>
         <player flyMounted="False"/>
@@ -787,8 +802,11 @@
     <set name="effectRange" val="900"/>
     <set name="itemConsumeId" val="9691"/>
     <set name="itemConsumeCount" val="1"/>
-    <cond msgId="109">
-      <target npcId="25534"/>
+    <cond msgId="109" addName="1">
+      <and>
+      <player flyMounted="False"/>
+      <target npcId="29099"/>
+      </and>
     </cond>
   </skill>
   <skill id="2370" levels="1" name="Scroll of Transformation - Pig">
@@ -1083,17 +1101,24 @@
     </cond>
   </skill>
   <skill id="2393" levels="1" name="Blessed Scroll of Battlefield Resurrection">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10150"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="100"/>
+    <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
+    <set name="skillType" val="RESURRECT"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
     <cond msgId="113" addName="1">
       <player SiegeZone="126"/>
     </cond>
   </skill>
   <skill id="2394" levels="1" name="Scroll of Battlefield Transformation">
     <!-- Done by Skatershi Description: Transform into a Pixy. -->
+    <set name="itemConsumeId" val="10151"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>

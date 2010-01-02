@@ -650,7 +650,7 @@
       <add order="0x40" stat="reflectDam" val="#reflectDam"/>
     </for>
   </skill>
-  <skill id="3260" levels="1" name="Heart Shot">
+  <skill id="3260" levels="1" name="Forgiveness">
     <!-- Description(s): Gathers up your love and throws a heart at the huge pig. -->
     <set name="castRange" val="750"/>
     <set name="hitTime" val="2500"/>
@@ -665,7 +665,7 @@
       <effect count="15" name="HealOverTime" val="35" stackOrder="35" stackType="LifeForce"/>
     </for>
   </skill>
-  <skill id="3261" levels="1" name="Heart Shot">
+  <skill id="3261" levels="1" name="Forgiveness">
     <!--
       Description(s): Gathers up your love and throws a heart to the target. Warning: If you send
       love to a monster, you may be attacked from all sides.
@@ -680,7 +680,7 @@
     <set name="target" val="TARGET_COUPLE"/>
     <set name="weaponsAllowed" val="32"/>
   </skill>
-  <skill id="3262" levels="1" name="Double Heart Shot">
+  <skill id="3262" levels="1" name="Pardon">
     <!--
       Description(s): Gathers up your love and throws two hearts at the huge pig. There is a low
       chance that the huge pig will transform into either a golden pig or a super huge pig.
@@ -918,10 +918,18 @@
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="3289" levels="1" name="Black Talisman - Escape">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="3000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="ROOT PARALYZE"/>
+    <set name="negateLvl" val="9"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="3290" levels="1" name="Black Talisman of Rescue">
     <set name="target" val="TARGET_NONE"/>
@@ -930,16 +938,32 @@
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="3291" levels="1" name="Black Talisman of Vocalization">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="3000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="MUTE"/> <!-- SILENCE -->
+    <set name="negateLvl" val="9"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="3292" levels="1" name="Black Talisman of Free Speech">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
     <set name="hitTime" val="3000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="MUTE"/> <!-- All -->
+    <set name="negateLvl" val="9"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="3293" levels="1" name="Yellow Talisman of Power">
     <set name="target" val="TARGET_NONE"/>

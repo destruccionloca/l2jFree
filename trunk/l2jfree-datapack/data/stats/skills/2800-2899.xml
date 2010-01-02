@@ -2,14 +2,34 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="2800" levels="1" name="Stone of Ease">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="14049"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <cond msgId="113" addName="1">
+        <player flyMounted="True"/>
+    </cond>
+    <for>
+      <effect name="Buff" time="1200" val="0" stackOrder="1.35" stackType="max_hp_up">
+        <mul order="0x30" stat="maxHp" val="1.35"/>
+      </effect>
+    </for>
   </skill>
   <skill id="2801" levels="1" name="Stone of Abundance">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="14050"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+        <cond msgId="113" addName="1">
+        <player flyMounted="True"/>
+        </cond>
+    <for>
+      <effect name="Buff" time="1200" val="0" stackOrder="1.35" stackType="max_mp_up">
+        <mul order="0x30" stat="maxMp" val="1.35"/>
+      </effect>
+    </for>
   </skill>
   <skill id="2802" levels="1" name="Recovery Stone">
     <set name="target" val="TARGET_NONE"/>
@@ -557,6 +577,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2839" levels="1" name="Sacred Light Fragment">
+    <!-- Resistance to divinity attribute is decreased. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -706,11 +727,13 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2867" levels="1" name="Cupid's Cure">
+  <!-- Sends mutated animals a Heart with love. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2868" levels="1" name="Cupid's Enhanced Cure">
+  <!-- Sends mutated animals a powerful Heart filled with love. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>

@@ -326,204 +326,564 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2532" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10836"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2533" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10837"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2534" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10838"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2535" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10839"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2536" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10840"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2537" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10841"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2538" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10842"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2539" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10843"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2540" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10844"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2541" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10845"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2542" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10846"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2543" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10847"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2544" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10848"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2545" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10849"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2546" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10850"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2547" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10851"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2548" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10852"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2549" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10853"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2550" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10854"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2551" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10855"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2552" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10856"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2553" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10857"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2554" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10858"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2555" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10859"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2556" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10860"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2557" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10861"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2558" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10862"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2559" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10863"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2560" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10864"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2561" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="10865"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2562" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12824"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2563" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12825"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2564" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12826"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2565" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12827"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2566" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12828"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2567" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12829"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2568" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12830"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2569" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12831"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2570" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12832"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2571" levels="1" name="Pathfinder Supplies">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="12833"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2572" levels="1" name="Pathfinder's Reward">
     <set name="target" val="TARGET_NONE"/>
@@ -655,6 +1015,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="isPotion" val="true"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
@@ -689,7 +1050,7 @@
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="2597" levels="1" name="Gran Kain's Echo Crystal - Theme of Journey">
     <set name="itemConsumeId" val="13261"/>

@@ -148,7 +148,7 @@
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="2015" levels="1" name="Scroll: Enchant Weapon (Grade B)">
     <set name="target" val="TARGET_SELF"/>
@@ -252,6 +252,7 @@
     <set name="skillType" val="HOT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
+    <set name="reuseDelay" val="10000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
@@ -267,6 +268,7 @@
     <set name="skillType" val="HOT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isPotion" val="true"/>
+    <set name="reuseDelay" val="10000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
@@ -456,7 +458,7 @@
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="2050" levels="1" name="Scroll of Guidance">
     <set name="itemConsumeId" val="3926"/>
@@ -658,7 +660,7 @@
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="2063" levels="1" name="Hatchling Food">
     <set name="target" val="TARGET_SELF"/>
@@ -691,6 +693,7 @@
     <set name="skillType" val="UNLOCK"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
   </skill>
   <skill id="2066" levels="1" name="Item - Theme Sound Crystal">
     <set name="itemConsumeId" val="5010"/>
@@ -763,7 +766,7 @@
   </skill>
   <skill id="2074" levels="1" name="Potion of Critical Escape">
     <set name="castRange" val="600"/>
-    <set name="effectRange" val="800"/>
+    <set name="effectRange" val="1100"/>
     <set name="isPotion" val="true"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="itemConsumeId" val="4677"/>
@@ -782,9 +785,8 @@
     </for>
   </skill>
   <skill id="2075" levels="1" name="Decrease Hate Scroll">
-    <!-- Done by DJ MELERIX -->
     <set name="castRange" val="600"/>
-    <set name="effectRange" val="800"/>
+    <set name="effectRange" val="1100"/>
     <set name="isPotion" val="true"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="itemConsumeId" val="4678"/>
@@ -1093,7 +1095,8 @@
     </cond>
   </skill>
   <skill id="2096" levels="1" name="Soul Crystal">
-    <set name="mpConsume" val="26"/>
+    <set name="mpInitialConsume" val="5"/>
+    <set name="mpConsume" val="20"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="1200"/>
     <set name="staticHitTime" val="true"/>
@@ -1102,11 +1105,12 @@
     <set name="reuseDelay" val="1300"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="300"/>
-    <set name="effectRange" val="500"/>
+    <set name="effectRange" val="800"/>
   </skill>
   <skill id="2097" levels="3" name="Sowing">
-    <!-- Done by l3x-->
-    <table name="#mpConsume">4 6 8</table>
+    <table name="#mpInitialConsume"> 0 1 1 </table>
+    <table name="#mpConsume"> 3 4 6 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="1200"/>
@@ -1115,11 +1119,10 @@
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="SOW"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="effectRange" val="400"/>
-    <set name="castRange" val="40"/>
+    <set name="castRange" val="150"/>
+    <set name="effectRange" val="650"/>
   </skill>
   <skill id="2098" levels="1" name="Harvesting">
-    <!-- Done by l3x-->
     <set name="mpConsume" val="3"/>
     <set name="target" val="TARGET_CORPSE_MOB"/>
     <set name="hitTime" val="500"/>
@@ -1129,7 +1132,7 @@
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="20"/>
-    <set name="effectRange" val="100"/>
+    <set name="effectRange" val="200"/>
   </skill>
   <skill id="2099" levels="1" name="Escape: 5 minutes">
     <set name="target" val="TARGET_SELF"/>

@@ -783,7 +783,7 @@
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
     <set name="negateStats" val="SLEEP"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
@@ -903,7 +903,7 @@
     <set name="skillType" val="RESURRECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
-    <set name="effectRange" val="600"/>
+    <set name="effectRange" val="900"/>
   </skill>
   <skill id="2180" levels="1" name="Feed: Castle Strider"> <!-- should be wyvern -->
     <set name="target" val="TARGET_SELF"/>
