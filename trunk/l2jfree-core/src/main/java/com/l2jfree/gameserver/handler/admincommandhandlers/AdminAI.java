@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -65,13 +66,13 @@ public class AdminAI implements IAdminCommandHandler
 
 			if (target instanceof L2Attackable)
 			{
-				AggroInfo[] aggro = ((L2Attackable)target).copyAggroList();
-
 				html1.append("<font color=\"LEVEL\">Aggrolist</font>");
 				html1.append("<table border=\"0\" width=\"100%\">");
-				for (AggroInfo a : aggro)
+				for (Map.Entry<L2Character, AggroInfo> entry : ((L2Attackable)target).getAggroListRP().entrySet())
 				{
-					html1.append("<tr><td>"+a.getAttacker().getName()+"</td><td>" + a.getHate() + " ("+a.getDamage()+")</td></tr>");
+					L2Character attacker = entry.getKey();
+					AggroInfo a = entry.getValue();
+					html1.append("<tr><td>"+attacker.getName()+"</td><td>" + a.getHate() + " ("+a.getDamage()+")</td></tr>");
 				}
 				html1.append("</table><br><br>");
 			}
