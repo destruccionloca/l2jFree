@@ -749,6 +749,8 @@ public final class L2Multisell
 				
 				MultiSellIngredient e = new MultiSellIngredient(id, count, isTaxIngredient, maintainIngredient);
 				entry.addIngredient(e);
+				
+				validateItemId(id);
 			}
 			else if ("production".equalsIgnoreCase(n.getNodeName()))
 			{
@@ -757,10 +759,30 @@ public final class L2Multisell
 				
 				MultiSellIngredient e = new MultiSellIngredient(id, count, false, false);
 				entry.addProduct(e);
+				
+				validateItemId(id);
 			}
 		}
 		
 		return entry;
+	}
+	
+	private void validateItemId(int itemId)
+	{
+		switch (itemId)
+		{
+			case -200: // Clan Reputation Score
+			case -300: // Player Fame
+			{
+				break;
+			}
+			default:
+			{
+				L2Item template = ItemTable.getInstance().getTemplate(itemId);
+				if (template == null)
+					_log.warn("[L2Multisell] can't find item with itemId: " + itemId, new IllegalStateException());
+			}
+		}
 	}
 	
 	@SuppressWarnings("synthetic-access")
