@@ -14,7 +14,7 @@
     <production id="6387" count="1"/>
     <ingredient id="57" count="5000" isTaxIngredient="true"/>
   </item>
-  <!-- Greater Haste Potion for 3600 Ancient Adena  -->
+  <!-- Greater Haste Potion for 3600 Ancient Adena -->
   <item id="3">
     <ingredient id="5575" count="3600"/>
     <production id="1374" count="1"/>
@@ -26,13 +26,13 @@
     <production id="1375" count="1"/>
     <ingredient id="57" count="6000" isTaxIngredient="true"/>
   </item>
-  <!-- Greater Magic Haste Potion for 7200 Ancient Adena  -->
+  <!-- Greater Magic Haste Potion for 7200 Ancient Adena -->
   <item id="5">
     <ingredient id="5575" count="7200"/>
     <production id="6036" count="1"/>
     <ingredient id="57" count="6000" isTaxIngredient="true"/>
   </item>
-  <!-- CP Potion for 240 Ancient Adena  -->
+  <!-- CP Potion for 240 Ancient Adena -->
   <item id="6">
     <ingredient id="5575" count="240"/>
     <production id="5591" count="1"/>
@@ -86,7 +86,7 @@
     <production id="5593" count="1"/>
     <ingredient id="57" count="2000" isTaxIngredient="true"/>
   </item>
-  <!-- SP Scroll - Medium Grade for 24000 Ancient Adena  -->
+  <!-- SP Scroll - Medium Grade for 24000 Ancient Adena -->
   <item id="15">
     <ingredient id="5575" count="24000"/>
     <production id="5594" count="1"/>
@@ -128,25 +128,25 @@
     <production id="5238" count="1"/>
     <ingredient id="57" count="20000" isTaxIngredient="true"/>
   </item>
-  <!-- Hair Dye Potion B for 24000 Ancient Adena  -->
+  <!-- Hair Dye Potion B for 24000 Ancient Adena -->
   <item id="22">
     <ingredient id="5575" count="24000"/>
     <production id="5239" count="1"/>
     <ingredient id="57" count="20000" isTaxIngredient="true"/>
   </item>
-  <!-- Hair Dye Potion C for 24000 Ancient Adena  -->
+  <!-- Hair Dye Potion C for 24000 Ancient Adena -->
   <item id="23">
     <ingredient id="5575" count="24000"/>
     <production id="5240" count="1"/>
     <ingredient id="57" count="20000" isTaxIngredient="true"/>
   </item>
-  <!-- Hair Dye Potion D for 24000 Ancient Adena  -->
+  <!-- Hair Dye Potion D for 24000 Ancient Adena -->
   <item id="24">
     <ingredient id="5575" count="24000"/>
     <production id="5241" count="1"/>
     <ingredient id="57" count="20000" isTaxIngredient="true"/>
   </item>
-  <!-- Hair Style Change Potion A for 24000 Ancient Adena  -->
+  <!-- Hair Style Change Potion A for 24000 Ancient Adena -->
   <item id="25">
     <ingredient id="5575" count="24000"/>
     <production id="5242" count="1"/>
