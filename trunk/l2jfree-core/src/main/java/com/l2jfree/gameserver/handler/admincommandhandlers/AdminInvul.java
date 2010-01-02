@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.handler.admincommandhandlers;
 
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,16 +35,29 @@ public class AdminInvul implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_invul", "admin_setinvul" };
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	public boolean useAdminCommand(String command0, L2PcInstance activeChar)
 	{
+		StringTokenizer st = new StringTokenizer(command0, " ");
+		String command = st.nextToken();
+		
+		String param = st.hasMoreTokens() ? st.nextToken() : "";
+		
+		final Boolean isInvul;
+		if (param.equalsIgnoreCase("on") || param.equalsIgnoreCase("true") || param.equalsIgnoreCase("1"))
+			isInvul = true;
+		else if (param.equalsIgnoreCase("off") || param.equalsIgnoreCase("false") || param.equalsIgnoreCase("0"))
+			isInvul = false;
+		else
+			isInvul = null;
+		
 		if (command.equals("admin_invul"))
-			handleInvul(activeChar);
+			handleInvul(activeChar, isInvul);
 		if (command.equals("admin_setinvul"))
 		{
 			L2Object target = activeChar.getTarget();
 			if (target instanceof L2PcInstance)
 			{
-				handleInvul((L2PcInstance) target);
+				handleInvul((L2PcInstance) target, isInvul);
 			}
 		}
 		return true;
@@ -54,15 +68,18 @@ public class AdminInvul implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
-	private void handleInvul(L2PcInstance activeChar)
+	private void handleInvul(L2PcInstance activeChar, Boolean isInvul)
 	{
+		if (isInvul == null)
+			isInvul = !activeChar.isInvul();
+		
 		String text;
-		if (activeChar.isInvul())
+		if (!isInvul)
 		{
 			activeChar.setIsInvul(false);
 			if (activeChar.getPet() != null)
 				activeChar.getPet().setIsInvul(false);
-
+			
 			text = activeChar.getName() + " is now mortal.";
 			if (_log.isDebugEnabled())
 				_log.debug("GM: Gm removed invul mode from character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
@@ -72,7 +89,7 @@ public class AdminInvul implements IAdminCommandHandler
 			activeChar.setIsInvul(true);
 			if (activeChar.getPet() != null)
 				activeChar.getPet().setIsInvul(true);
-
+			
 			text = activeChar.getName() + " is now invulnerable.";
 			if (_log.isDebugEnabled())
 				_log.debug("GM: Gm activated invul mode for character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");

@@ -169,7 +169,7 @@ public class EnterWorld extends L2GameClientPacket
 			}
 
 			if (Config.GM_STARTUP_INVULNERABLE)
-				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invul");
+				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invul on");
 
 			if (Config.GM_NAME_COLOR_ENABLED)
 			{
