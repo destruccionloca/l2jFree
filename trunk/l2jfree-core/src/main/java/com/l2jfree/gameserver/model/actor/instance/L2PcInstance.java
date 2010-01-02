@@ -8177,30 +8177,29 @@ public final class L2PcInstance extends L2Playable
 		SystemMessage sm = null;
 		
 		TimeStamp timeStamp = getReuseTimeStamps().get(skill.getId());
-		if (timeStamp != null && timeStamp.hasNotPassed())
+		int remainingTime = (timeStamp == null ? 0 : timeStamp.getRemaining() / 1000);
+		int hours = remainingTime / 3600;
+		int minutes = (remainingTime % 3600) / 60;
+		int seconds = (remainingTime % 60);
+		if (hours > 0)
 		{
-			int remainingTime = (int)Math.ceil(timeStamp.getRemaining() / 1000.0);
-			int hours = remainingTime / 3600;
-			int minutes = (remainingTime % 3600) / 60;
-			int seconds = (remainingTime % 60);
-			if (hours > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
-				sm.addSkillName(skill);
-				sm.addNumber(hours);
-				sm.addNumber(minutes);
-			}
-			else if (minutes > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
-				sm.addSkillName(skill);
-				sm.addNumber(minutes);
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAINING_FOR_REUSE_S1);
-				sm.addSkillName(skill);
-			}
+			sm = new SystemMessage(SystemMessageId.S2_HOURS_S3_MINUTES_S4_SECONDS_REMAINING_FOR_REUSE_S1);
+			sm.addSkillName(skill);
+			sm.addNumber(hours);
+			sm.addNumber(minutes);
+			sm.addNumber(seconds);
+		}
+		else if (minutes > 0)
+		{
+			sm = new SystemMessage(SystemMessageId.S2_MINUTES_S3_SECONDS_REMAINING_FOR_REUSE_S1);
+			sm.addSkillName(skill);
+			sm.addNumber(minutes);
+			sm.addNumber(seconds);
+		}
+		else if (seconds > 0)
+		{
+			sm = new SystemMessage(SystemMessageId.S2_SECONDS_REMAINING_FOR_REUSE_S1);
+			sm.addSkillName(skill);
 			sm.addNumber(seconds);
 		}
 		else
@@ -12994,15 +12993,6 @@ public final class L2PcInstance extends L2Playable
 		public int getRemaining()
 		{
 			return L2Math.limit(0, _expiration - System.currentTimeMillis(), Integer.MAX_VALUE);
-		}
-		
-		/* Check if the reuse delay has passed and
-		 * if it has not then update the stored reuse time
-		 * according to what is currently remaining on
-		 * the delay. */
-		public boolean hasNotPassed()
-		{
-			return System.currentTimeMillis() < _expiration;
 		}
 	}
 	
