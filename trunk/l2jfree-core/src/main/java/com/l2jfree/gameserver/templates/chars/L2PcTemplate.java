@@ -128,9 +128,9 @@ public class L2PcTemplate extends L2CharTemplate
 		},
 		// Kamael
 		new int[][] {
-			new int[] { 87000, -125464, 37776 },
-			new int[] { 87000, -125517, 38267 },
-			new int[] { 87000, -125533, 38114 }
+			new int[] { -125464, 37776, 1176 },
+			new int[] { -125517, 38267, 1176 },
+			new int[] { -125533, 38114, 1142 }
 		}
 	};
 	private static final int[][] START_POINTS_HM = {
