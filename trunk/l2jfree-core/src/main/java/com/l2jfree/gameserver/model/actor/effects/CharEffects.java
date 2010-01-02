@@ -180,7 +180,10 @@ public final class CharEffects
 		if (e.getSkill().isOffensive())
 			return 2;
 		
-		return 1;
+		if (e.getSkill().isDance() || e.getSkill().isSong())
+			return 1;
+		
+		return 0;
 	}
 	
 	public synchronized boolean removeEffect(L2Effect effect)
