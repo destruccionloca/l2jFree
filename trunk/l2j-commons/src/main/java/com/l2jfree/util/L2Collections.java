@@ -22,7 +22,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.RandomAccess;
 import java.util.Set;
+
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author NB4L1
@@ -749,5 +752,21 @@ public final class L2Collections
 	public static void recycle(L2FastSet l2FastSet)
 	{
 		L2_FAST_SETS.store(l2FastSet);
+	}
+	
+	public static <T> T random(Collection<? extends T> c)
+	{
+		if (c instanceof RandomAccess)
+		{
+			final List<? extends T> list = (List<? extends T>)c;
+			
+			return list.isEmpty() ? null : (T)list.get(Rnd.get(list.size()));
+		}
+		else
+		{
+			final Object[] array = c.toArray();
+			
+			return array.length == 0 ? null : (T)array[Rnd.get(array.length)];
+		}
 	}
 }
