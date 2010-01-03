@@ -32,7 +32,6 @@ package com.sun.script.java;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
@@ -138,17 +137,12 @@ public class JavaScriptEngine extends AbstractScriptEngine implements Compilable
 		String sourcePath = getSourcePath(ctx);
 		String classPath = getClassPath(ctx);
 		
-		Writer err = ctx.getErrorWriter();
-		if (err == null)
-			err = new StringWriter();
+		final StringWriter err = new StringWriter();
 		
 		Map<String, byte[]> classBytes = compiler.compile(fileName, str, err, sourcePath, classPath);
 		if (classBytes == null)
 		{
-			if (err instanceof StringWriter)
-				throw new ScriptException(err.toString());
-			
-			throw new ScriptException("compilation failed");
+			throw new ScriptException("Compilation failed:\n" + err.toString());
 		}
 		// create a ClassLoader to load classes from MemoryJavaFileManager
 		MemoryClassLoader loader = new MemoryClassLoader(classBytes, classPath, getParentLoader(ctx));
