@@ -322,18 +322,22 @@
     <set name="effectRange" val="1400"/>
     <set name="negateId" val="1512"/>
     <set name="soulMaxConsumeCount" val="5"/>
-    <cond msgId="109">
-      <target active_effect_id="1512"/>
-    </cond>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
-    <enchant3for>
-        <mul order="0x30" stat="pvpMagicalDmg" val="#ench3Duel"/>
-    </enchant3for>
+    <cond msgId="109">
+      <target active_effect_id="1512"/>
+    </cond>
     <for>
       <effect name="Negate" val="0" noicon="1" effectType="NEGATE" effectPower="80"/>
     </for>
+    <enchant3for>
+      <!-- Temp hack, verify or implement pvpPower -->
+      <effect self="1" name="Buff" val="0" noicon="1">
+        <mul order="0x30" stat="pvpMagicalDmg" val="#ench3Duel"/>
+      </effect>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE" effectPower="80"/>
+    </enchant3for>
   </skill>
   <skill id="1514" levels="1" name="Soul Barrier" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
@@ -360,22 +364,22 @@
         <mul order="0x30" stat="pDef" val="1"/>
       </effect>
     </for>
-      <enchant1for>
+    <enchant1for>
       <effect name="Buff" time="#ench1Time" val="0">
         <mul order="0x30" stat="bowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="mDef" val="2"/>
         <mul order="0x30" stat="pDef" val="1"/>
       </effect>
-      </enchant1for>
-      <enchant2for>
+    </enchant1for>
+    <enchant2for>
       <effect name="Buff" time="10" val="0">
         <mul order="0x30" stat="bowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="0.4"/>
         <mul order="0x30" stat="mDef" val="2"/>
         <mul order="0x30" stat="pDef" val="#ench2pDef"/>
       </effect>
-      </enchant2for>
+    </enchant2for>
   </skill>
   <skill id="1515" levels="1" name="Lightning Barrier" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
@@ -426,8 +430,8 @@
     <set name="effectRange" val="1250"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="power" val="#ench1Power"/>
-     <enchant2for>
-        <mul order="0x30" stat="pvpMagicalDmg" val="#ench2Duel"/>
+    <enchant2for>
+      <mul order="0x30" stat="pvpMagicalDmg" val="#ench2Duel"/>
     </enchant2for>
   </skill>
   <skill id="1517" levels="1" name="Chant of Combat">
