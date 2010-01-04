@@ -27,6 +27,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1300"/>
+    <set name="coolTime" val="200"/>
     <set name="skillType" val="PDAM"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="overHit" val="true"/>
@@ -82,6 +83,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1300"/>
+    <set name="coolTime" val="200"/>
     <set name="skillType" val="PDAM"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="overHit" val="true"/>
@@ -342,6 +344,7 @@
     <set name="condition" val="16"/>
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="1300"/>
+    <set name="coolTime" val="720"/>
     <set name="skillType" val="BLOW"/>
     <set name="lethal1" val="5"/>
     <set name="overHit" val="true"/>
@@ -1113,7 +1116,8 @@
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="reuseDelay" val="5000"/>
-    <set name="hitTime" val="500"/>
+    <set name="hitTime" val="500"/> <!-- Verified -->
+    <set name="coolTime" val="720"/> <!-- Verified -->
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
@@ -1873,10 +1877,10 @@
     <table name="#castRange"> 400 400 400 400 400 400 400 400 400 400 400 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 500 </table>
     <table name="#effectRange"> 900 900 900 900 900 900 900 900 900 900 900 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 </table>
     <set name="castRange" val="#castRange"/>
-    <set name="coolTime" val="320"/>
     <set name="effectRange" val="#effectRange"/>
     <set name="flyType" val="CHARGE"/>
     <set name="hitTime" val="800"/>
+    <set name="coolTime" val="320"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>

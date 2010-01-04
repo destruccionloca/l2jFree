@@ -4,7 +4,6 @@
   <skill id="21000" levels="1" name="Release Seal on Agathion - Majo">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -14,7 +13,6 @@
   <skill id="21001" levels="1" name="Release Seal on Agathion - Gold Majo">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -24,7 +22,6 @@
   <skill id="21002" levels="1" name="Release Seal on Agathion - Black Majo">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -34,7 +31,6 @@
   <skill id="21003" levels="1" name="Release Seal on Agathion - Plaipitak">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -45,7 +41,6 @@
     <!-- Increases moving speed by 20 for 2 minutes. Reuse delay 18 minutes -->
     <set name="reuseDelay" val="1080000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -61,7 +56,6 @@
     <!-- Increases evasion rate by 4 for 1 hour. Reuse Delay 24 hours -->
     <set name="reuseDelay" val="86400000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -97,7 +91,6 @@
   <skill id="21008" levels="1" name="Release Seal on Agathion - Baby Panda">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -107,7 +100,6 @@
   <skill id="21009" levels="1" name="Release Seal on Agathion - Bamboo Panda">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -117,7 +109,6 @@
   <skill id="21010" levels="1" name="Release Seal on Agathion - Sexy Panda">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -128,7 +119,6 @@
     <!-- Recovers energy when acquiring Exp. for 20 minutes -->
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -142,7 +132,6 @@
     <!-- Recovers energy when acquiring Exp. for 20 minutes -->
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -156,7 +145,6 @@
     <!-- Recovers energy when acquiring Exp. for 20 minutes -->
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -257,7 +245,6 @@
   <skill id="21031" levels="1" name="Agathion Seal Release - Charming Cupid">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -267,7 +254,6 @@
   <skill id="21032" levels="1" name="Agathion Seal Release - Naughty Cupid">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -277,7 +263,6 @@
   <skill id="21033" levels="1" name="Release Seal on Agathion - White Maneki Neko">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -287,7 +272,6 @@
   <skill id="21034" levels="1" name="Release Seal on Agathion - Black Maneki Neko">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -297,7 +281,6 @@
   <skill id="21035" levels="1" name="Release Seal on Agathion - Brown Maneki Neko">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -307,7 +290,6 @@
   <skill id="21036" levels="1" name="Release Seal on Agathion - One-eyed Bat Drove">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -317,7 +299,6 @@
   <skill id="21037" levels="1" name="Release Seal on Agathion - Pegasus">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -327,7 +308,6 @@
   <skill id="21038" levels="1" name="Release Seal on Agathion - Yellow-robed Tojigong">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -337,7 +317,6 @@
   <skill id="21039" levels="1" name="Release Seal on Agathion - Blue-robed Tojigong">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -347,7 +326,6 @@
   <skill id="21040" levels="1" name="Release Seal on Agathion - Yellow-robed Tojigong">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -357,7 +335,6 @@
   <skill id="21041" levels="1" name="Release Seal on Agathion - Bugbear">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -374,7 +351,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -385,7 +361,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -396,7 +371,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -407,7 +381,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -418,7 +391,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -429,7 +401,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -440,7 +411,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -451,7 +421,6 @@
     <!-- Update by rocknow -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -472,7 +441,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -495,7 +463,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -513,7 +480,6 @@
     <set name="power" val="100"/>
     <set name="reuseDelay" val="43200000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="skillType" val="RESURRECT"/>
@@ -532,7 +498,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="1080000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -556,7 +521,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="86400000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -580,7 +544,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="REFLECT"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -605,7 +568,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -629,7 +591,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="14400000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -651,7 +612,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -675,7 +635,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="86400000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -699,7 +658,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -723,7 +681,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="1080000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -750,7 +707,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -772,7 +728,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="REFLECT"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -787,7 +742,6 @@
     <!-- Recovers energy when acquiring Exp. for 5 minutes. Reuse Delay 1 hours -->
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -815,7 +769,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -839,7 +792,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="1080000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -863,7 +815,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -887,7 +838,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="86400000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -911,7 +861,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -938,7 +887,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -960,7 +908,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="REFLECT"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -984,7 +931,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="14400000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1004,7 +950,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1028,7 +973,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="1080000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1052,7 +996,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1076,7 +1019,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="86400000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1100,7 +1042,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1127,7 +1068,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1149,7 +1089,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="REFLECT"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1173,7 +1112,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="14400000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1188,7 +1126,6 @@
     <!-- Recovers energy when acquiring Exp. for 5 minutes. Reuse Delay 1 hours -->
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1245,7 +1182,6 @@
     <set name="skillRadius" val="1000"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="skillType" val="BUFF"/>
     <set name="isDance" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1267,7 +1203,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="staticReuse" val="true"/>
     <set name="isMagic" val="true"/>
@@ -1304,7 +1239,6 @@
     <set name="power" val="100"/>
     <set name="reuseDelay" val="43200000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
     <set name="skillType" val="RESURRECT"/>

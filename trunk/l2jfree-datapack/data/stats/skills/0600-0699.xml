@@ -7,7 +7,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="accCombat" val="4"/>
+      <add order="0x40" stat="accCombat" val="4"/>
     </for>
   </skill>
   <skill id="601" levels="1" name="Residence Agility">
@@ -16,7 +16,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="rEvas" val="4"/>
+      <add order="0x40" stat="rEvas" val="4"/>
     </for>
   </skill>
   <skill id="602" levels="1" name="Residence Shield Block">
@@ -26,7 +26,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
-        <mul order="0x30" stat="rShld" val="1.547"/>
+      <mul order="0x30" stat="rShld" val="1.547"/>
     </for>
   </skill>
   <skill id="603" levels="1" name="Residence Shield Defense">
@@ -36,7 +36,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
-        <add order="0x40" stat="sDef" val="225"/>
+      <add order="0x40" stat="sDef" val="225"/>
     </for>
   </skill>
   <skill id="604" levels="1" name="Residence Resist Typhoon">
@@ -45,8 +45,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="windRes" val="10"/>
-        <add order="0x40" stat="waterRes" val="10"/>
+      <add order="0x40" stat="windRes" val="10"/>
+      <add order="0x40" stat="waterRes" val="10"/>
     </for>
   </skill>
   <skill id="605" levels="1" name="Residence Resist Lava">
@@ -55,8 +55,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="fireRes" val="10"/>
-        <add order="0x40" stat="earthRes" val="10"/>
+      <add order="0x40" stat="fireRes" val="10"/>
+      <add order="0x40" stat="earthRes" val="10"/>
     </for>
   </skill>
   <skill id="606" levels="1" name="Residence Fortitude">
@@ -65,7 +65,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <mul order="0x30" stat="stunVuln" val="0.9"/>
+      <mul order="0x30" stat="stunVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="607" levels="1" name="Residence Freedom">
@@ -74,7 +74,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <mul order="0x30" stat="rootVuln" val="0.9"/>
+      <mul order="0x30" stat="rootVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="608" levels="1" name="Residence Vigilance">
@@ -83,7 +83,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <mul order="0x30" stat="sleepVuln" val="0.9"/>
+      <mul order="0x30" stat="sleepVuln" val="0.9"/>
     </for>
   </skill>
   <skill id="609" levels="1" name="Residence Movement">
@@ -93,7 +93,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="minPledgeClass" val="7"/>
     <for>
-        <add order="0x40" stat="runSpd" val="6"/>
+      <add order="0x40" stat="runSpd" val="6"/>
     </for>
   </skill>
   <skill id="610" levels="1" name="Residence Death Fortune">
@@ -102,7 +102,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <mul order="0x30" stat="lostExp" val="0.7"/>
+      <mul order="0x30" stat="lostExp" val="0.7"/>
     </for>
   </skill>
   <skill id="611" levels="3" name="Fire Squad">
@@ -113,9 +113,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="pAtk" val="17.3"/>
-        <add order="0x40" stat="rCrit" val="#rCrit"/>
-        <add order="0x40" stat="cAtkAdd" val="#cAtk"/>
+      <add order="0x40" stat="pAtk" val="17.3"/>
+      <add order="0x40" stat="rCrit" val="#rCrit"/>
+      <add order="0x40" stat="cAtkAdd" val="#cAtk"/>
     </for>
   </skill>
   <skill id="612" levels="3" name="Water Squad">
@@ -126,9 +126,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="pDef" val="27.3"/>
-        <add order="0x40" stat="mDef" val="#mDef"/>
-        <mul order="0x30" stat="sDef" val="#sDef"/>
+      <add order="0x40" stat="pDef" val="27.3"/>
+      <add order="0x40" stat="mDef" val="#mDef"/>
+      <mul order="0x30" stat="sDef" val="#sDef"/>
     </for>
   </skill>
   <skill id="613" levels="3" name="Wind Squad">
@@ -139,9 +139,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="accCombat" val="2"/>
-        <add order="0x40" stat="rEvas" val="#rEvas"/>
-        <add order="0x40" stat="runSpd" val="#runSpd"/>
+      <add order="0x40" stat="accCombat" val="2"/>
+      <add order="0x40" stat="rEvas" val="#rEvas"/>
+      <add order="0x40" stat="runSpd" val="#runSpd"/>
     </for>
   </skill>
   <skill id="614" levels="3" name="Earth Squad">
@@ -151,7 +151,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="mDef" val="#mDef"/>
+      <add order="0x40" stat="mDef" val="#mDef"/>
     </for>
   </skill>
   <skill id="615" levels="3" name="Holy Squad">
@@ -162,10 +162,10 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="regHp" val="20"/>
-        <mul order="0x30" stat="maxMp" val="#maxMp"/>
-        <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
-        <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
+      <add order="0x40" stat="regHp" val="20"/>
+      <mul order="0x30" stat="maxMp" val="#maxMp"/>
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
     </for>
   </skill>
   <skill id="616" levels="3" name="Dark Squad">
@@ -176,8 +176,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="mAtk" val="#mAtk"/>
-        <mul order="0x30" stat="mCritRate" val="#mCritRate"/>
+      <add order="0x40" stat="mAtk" val="#mAtk"/>
+      <mul order="0x30" stat="mCritRate" val="#mCritRate"/>
     </for>
   </skill>
   <skill id="617" levels="1" name="Transform Onyx Beast">
@@ -343,8 +343,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <basemul order="0x30" stat="rCrit" val="#rCrit"/>
-        <add order="0x40" stat="cAtkAdd" val="#cAtk"/>
+      <basemul order="0x30" stat="rCrit" val="#rCrit"/>
+      <add order="0x40" stat="cAtkAdd" val="#cAtk"/>
     </for>
     <enchant1for>
       <basemul order="0x30" stat="rCrit" val="#ench1rCrit"/>
@@ -417,6 +417,7 @@
     <set name="flyCourse" val="180"/> <!-- Teleport to Front -->
     <set name="flyRadius" val="500"/>
     <set name="hitTime" val="100"/>
+    <set name="coolTime" val="200"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="10000"/>
@@ -461,7 +462,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="#pAtk" stat="pAtk"/>
+      <add order="0x40" val="#pAtk" stat="pAtk"/>
     </for>
   </skill>
   <skill id="632" levels="6" name="Emergent Ability - Defense">
@@ -470,7 +471,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="#pDef" stat="pDef"/>
+      <add order="0x40" val="#pDef" stat="pDef"/>
     </for>
   </skill>
   <skill id="633" levels="6" name="Emergent Ability - Empower">
@@ -479,7 +480,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="#mAtk" stat="mAtk"/>
+      <add order="0x40" val="#mAtk" stat="mAtk"/>
     </for>
   </skill>
   <skill id="634" levels="6" name="Emergent Ability - Magic Defense">
@@ -488,7 +489,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="#mDef" stat="mDef"/>
+      <add order="0x40" val="#mDef" stat="mDef"/>
     </for>
   </skill>
   <skill id="635" levels="3" name="Not In Use">
@@ -506,7 +507,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="49" stat="pAtk"/>
+      <add order="0x40" val="49" stat="pAtk"/>
     </for>
   </skill>
   <skill id="638" levels="1" name="Master Ability - Empower">
@@ -514,7 +515,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="29" stat="mAtk"/>
+      <add order="0x40" val="29" stat="mAtk"/>
     </for>
   </skill>
   <skill id="639" levels="1" name="Master Ability - Casting">
@@ -522,7 +523,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="15" stat="mAtkSpd"/>
+      <add order="0x40" val="15" stat="mAtkSpd"/>
     </for>
   </skill>
   <skill id="640" levels="1" name="Master Ability - Focus">
@@ -530,7 +531,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="30" stat="rCrit"/>
+      <add order="0x40" val="30" stat="rCrit"/>
     </for>
   </skill>
   <skill id="641" levels="1" name="Knight Ability - Boost HP">
@@ -538,7 +539,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <mul order="0x30" val="1.06" stat="maxHp"/>
+      <mul order="0x30" val="1.06" stat="maxHp"/>
     </for>
   </skill>
   <skill id="642" levels="1" name="Enchanter Ability - Boost Mana">
@@ -546,7 +547,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="148" stat="maxMp"/>
+      <add order="0x40" val="148" stat="maxMp"/>
     </for>
   </skill>
   <skill id="643" levels="1" name="Summoner Ability - Boost HP/MP">
@@ -554,8 +555,8 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="147" stat="maxHp"/>
-        <add order="0x40" val="74" stat="maxMp"/>
+      <add order="0x40" val="147" stat="maxHp"/>
+      <add order="0x40" val="74" stat="maxMp"/>
     </for>
   </skill>
   <skill id="644" levels="1" name="Rogue Ability - Evasion">
@@ -563,7 +564,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" val="4" stat="rEvas"/>
+      <add order="0x40" val="4" stat="rEvas"/>
     </for>
   </skill>
   <skill id="645" levels="1" name="Rogue Ability - Long Shot">
@@ -572,7 +573,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-        <add order="0x40" stat="pAtkRange" val="100"/>
+      <add order="0x40" stat="pAtkRange" val="100"/>
     </for>
   </skill>
   <skill id="646" levels="1" name="Wizard Ability - Mana Gain">
@@ -580,7 +581,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="gainMp" val="20"/>
+      <add order="0x40" stat="gainMp" val="20"/>
     </for>
   </skill>
   <skill id="647" levels="1" name="Enchanter Ability - Mana Recovery">
@@ -588,7 +589,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="regMp" val="0.5"/>
+      <add order="0x40" stat="regMp" val="0.5"/>
     </for>
   </skill>
   <skill id="648" levels="1" name="Healer Ability - Prayer">
@@ -596,7 +597,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <add order="0x40" stat="gainHp" val="19"/>
+      <add order="0x40" stat="gainHp" val="19"/>
     </for>
   </skill>
   <skill id="650" levels="1" name="Warrior Ability - Resist Trait">
@@ -604,11 +605,11 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-        <mul order="0x30" stat="paralyzeVuln" val="0.85"/>
-        <mul order="0x30" stat="stunVuln" val="0.85"/>
-        <mul order="0x30" stat="rootVuln" val="0.85"/>
-        <mul order="0x30" stat="sleepVuln" val="0.85"/>
-        <mul order="0x30" stat="cancelVuln" val="0.85"/>
+      <mul order="0x30" stat="paralyzeVuln" val="0.85"/>
+      <mul order="0x30" stat="stunVuln" val="0.85"/>
+      <mul order="0x30" stat="rootVuln" val="0.85"/>
+      <mul order="0x30" stat="sleepVuln" val="0.85"/>
+      <mul order="0x30" stat="cancelVuln" val="0.85"/>
     </for>
   </skill>
   <skill id="651" levels="1" name="Warrior Ability - Haste">

@@ -1653,7 +1653,6 @@
     <set name="staticReuse" val="true"/>
     <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="#hitTime"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -1827,7 +1826,6 @@
     <set name="equipDelay" val="30000"/>
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
-    <set name="coolTime" val="720"/>
     <set name="skillType" val="BLEED"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>

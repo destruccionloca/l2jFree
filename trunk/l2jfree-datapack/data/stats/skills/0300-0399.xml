@@ -461,7 +461,7 @@
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="1000"/>
+    <set name="coolTime" val="500"/>
     <set name="skillType" val="FATALCOUNTER"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -741,6 +741,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="1800000"/>
     <set name="hitTime" val="4000"/>
+    <set name="interruptTime" val="4000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="skillType" val="SIEGEFLAG"/>

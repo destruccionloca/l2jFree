@@ -35,6 +35,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1500"/>
+    <set name="interruptTime" val="1500"/>
     <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="2004" levels="1" name="Large Squash Seed">
@@ -43,6 +44,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1500"/>
+    <set name="interruptTime" val="1500"/>
     <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="2005" levels="1" name="Nectar">

@@ -109,7 +109,6 @@
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="3600000"/>
     <set name="skillRadius" val="1000"/>
-    <set name="coolTime" val="2666"/>
     <for>
       <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
     </for>
@@ -129,7 +128,6 @@
     <set name="isMagic" val="true"/>
     <set name="hitTime" val="4000"/>
     <set name="reuseDelay" val="1440000"/>
-    <set name="coolTime" val="2666"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
   </skill>
@@ -155,7 +153,6 @@
     <!-- Done by L2CDP -->
     <set name="mpInitialConsume" val="21"/>
     <set name="mpConsume" val="87"/>
-    <set name="coolTime" val="1000"/>
     <set name="hitTime" val="1500"/>
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
@@ -227,7 +224,6 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="reuseDelay" val="15000"/>
     <set name="power" val="80"/>
     <set name="target" val="TARGET_ONE"/>
@@ -1018,7 +1014,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="15000"/>
-    <set name="coolTime" val="10000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>

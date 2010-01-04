@@ -383,6 +383,9 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
+    <!-- FIXME: verify against implementation
+    <set name="coolTime" val="15000"/>
+    -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
@@ -409,6 +412,9 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
+    <!-- FIXME: verify against implementation
+    <set name="coolTime" val="15000"/>
+    -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
@@ -435,6 +441,9 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
+    <!-- FIXME: verify against implementation
+    <set name="coolTime" val="15000"/>
+    -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
@@ -507,7 +516,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="hitTime" val="10000"/>
     <set name="reuseDelay" val="1800000"/>
-    <set name="coolTime" val="6666"/>
     <set name="isMagic" val="false"/>
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
