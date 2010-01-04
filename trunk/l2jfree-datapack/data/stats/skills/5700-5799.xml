@@ -82,7 +82,6 @@
     <set name="power" val="84"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -210,7 +209,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="1500"/>
@@ -257,7 +255,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -276,7 +273,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -288,7 +284,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -302,7 +297,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -316,7 +310,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -330,7 +323,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -344,7 +336,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -358,7 +349,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -372,7 +362,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -386,7 +375,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -399,7 +387,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -414,7 +401,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -429,7 +415,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -444,7 +429,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -459,7 +443,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -474,7 +457,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -488,7 +470,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -502,7 +483,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -514,7 +494,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -637,7 +616,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="PDAM"/>
     <set name="skillRadius" val="200"/>
@@ -655,7 +633,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -672,7 +649,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -689,7 +665,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="MDAM"/>
     <set name="skillRadius" val="200"/>
@@ -710,7 +685,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -771,7 +745,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -797,7 +770,6 @@
     <set name="power" val="80"/>
     <set name="reuseDelay" val="15000"/> <!-- values to be confirmed -->
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="FEAR"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1068,7 +1040,6 @@
     <set name="reuseDelay" val="3000"/>
     <set name="isDebuff" val="true"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

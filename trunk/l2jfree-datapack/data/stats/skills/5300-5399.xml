@@ -60,7 +60,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -128,7 +127,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -200,7 +198,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -671,7 +668,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1247,7 +1243,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="POISON"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

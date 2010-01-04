@@ -112,7 +112,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -122,7 +121,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -132,7 +130,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -142,7 +139,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -263,7 +259,6 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="83"/>
     <set name="mpInitialConsume" val="11"/>
@@ -278,7 +273,6 @@
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="83"/>
     <set name="mpInitialConsume" val="21"/>
@@ -297,7 +291,6 @@
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="magicLvl" val="83"/>
     <set name="mpInitialConsume" val="16"/>
     <set name="mpConsume" val="64"/>
@@ -596,7 +589,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="maxNegated" val="3"/> <!-- TODO: maxNegated amount needs to be verified, because in PTS maxNegated is upto 3, but in Live appears to be upto 2 -->
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
@@ -612,7 +604,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="lvlDepend" val="2"/>
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
@@ -634,7 +625,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
     <set name="operateType" val="OP_ACTIVE"/>

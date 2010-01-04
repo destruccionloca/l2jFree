@@ -92,7 +92,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -106,7 +105,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -120,7 +118,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -523,7 +520,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>

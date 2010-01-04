@@ -771,6 +771,7 @@
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="1500"/>
+    <set name="interruptTime" val="1000"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -790,6 +791,7 @@
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="1500"/>
+    <set name="interruptTime" val="1500"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -827,6 +829,7 @@
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
+    <set name="interruptTime" val="4500"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -846,6 +849,7 @@
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="2000"/>
+    <set name="interruptTime" val="2000"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -890,6 +894,7 @@
     <set name="elementPower" val="20"/>
     <set name="skillType" val="MDAM"/>
     <set name="hitTime" val="5000"/>
+    <set name="interruptTime" val="4500"/>
     <set name="reuseDelay" val="6000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -911,6 +916,7 @@
     <set name="elementPower" val="20"/>
     <set name="skillType" val="MDAM"/>
     <set name="hitTime" val="2000"/>
+    <set name="interruptTime" val="2000"/>
     <set name="reuseDelay" val="6000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -949,6 +955,7 @@
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="5000"/>
+    <set name="interruptTime" val="4500"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -969,6 +976,7 @@
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="2000"/>
+    <set name="interruptTime" val="2000"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -1450,6 +1458,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
+    <set name="interruptTime" val="3500"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1475,6 +1484,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
+    <set name="interruptTime" val="2000"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1527,6 +1537,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
+    <set name="interruptTime" val="3500"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1553,6 +1564,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
+    <set name="interruptTime" val="2000"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1630,6 +1642,7 @@
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="4000"/>
+    <set name="interruptTime" val="3500"/>
     <set name="skillType" val="BLEED"/>
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
@@ -1657,6 +1670,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="2000"/>
+    <set name="interruptTime" val="2000"/>
     <set name="skillType" val="BLEED"/>
     <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>

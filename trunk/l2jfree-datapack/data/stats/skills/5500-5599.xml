@@ -13,7 +13,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -28,7 +27,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -83,7 +81,6 @@
     <set name="power" val="0"/>
     <set name="reuseDelay" val="360000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -106,7 +103,6 @@
     <set name="power" val="0"/>
     <set name="reuseDelay" val="360000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -129,7 +125,6 @@
     <set name="power" val="0"/>
     <set name="reuseDelay" val="360000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -152,7 +147,6 @@
     <set name="power" val="0"/>
     <set name="reuseDelay" val="360000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -340,7 +334,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -354,7 +347,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -368,7 +360,6 @@
     <!-- Needs to be verified -->
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -703,7 +694,6 @@
     <set name="mpConsume" val="34"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="isDebuff" val="true"/>
     <set name="magicLvl" val="81"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -950,7 +940,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -973,7 +962,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -996,7 +984,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1019,7 +1006,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1042,7 +1028,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

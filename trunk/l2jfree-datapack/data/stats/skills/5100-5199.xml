@@ -113,6 +113,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="10000"/>
+    <set name="coolTime" val="1000"/>
   </skill>
   <skill id="5111" levels="1" name="Big Bang">
     <!--
@@ -123,6 +124,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="10000"/>
+    <set name="coolTime" val="1000"/>
   </skill>
   <skill id="5112" levels="12" name="Stun">
     <!-- Description(s): Lvl 1-12 - Temporarily Immobilized and in a state of shock. -->
@@ -153,7 +155,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="6000"/>
-    <set name="coolTime" val="4000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -176,7 +177,6 @@
     <set name="skillRadius" val="200"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="skillType" val="ROOT"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
@@ -239,7 +239,7 @@
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
+    <set name="coolTime" val="800"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -372,7 +372,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -388,7 +387,7 @@
     <set name="skillRadius" val="230"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
+    <set name="coolTime" val="800"/>
     <set name="skillType" val="PDAM"/>
     <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -404,7 +403,6 @@
     <set name="skillRadius" val="230"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="ROOT"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
@@ -422,7 +420,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
+    <set name="coolTime" val="660"/>
     <set name="overHit" val="true"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -442,7 +440,6 @@
     <set name="power" val="250"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="isMagic" val="true"/>
     <set name="skillType" val="MDAM"/>
@@ -458,7 +455,6 @@
     <set name="target" val="TARGET_AREA"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -479,7 +475,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="PDAM"/>
     <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -493,7 +488,7 @@
     <set name="target" val="TARGET_AREA_CORPSE_MOB"/>
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
+    <set name="interruptTime" val="750"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
@@ -531,7 +526,6 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -542,7 +536,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -558,7 +551,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -575,7 +567,6 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="hitTime" val="6000"/>
-    <set name="coolTime" val="4000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="MANARECHARGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -586,7 +577,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -602,7 +592,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -619,7 +608,6 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#rateCp"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="COMBATPOINTHEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -630,7 +618,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -646,7 +633,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -662,7 +648,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -678,7 +663,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -694,7 +678,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -710,7 +693,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -727,7 +709,6 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="40"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -760,7 +741,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -776,7 +756,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -792,7 +771,6 @@
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 70 76 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -809,7 +787,6 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="AGGREDUCE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1011,7 +988,6 @@
     <set name="skillRadius" val="200"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1058,7 +1034,6 @@
     <!-- Needs more work -->
     <!-- Only pre-implementation -->
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1069,7 +1044,6 @@
     <!-- Needs more work -->
     <!-- Only pre-implementation -->
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1086,7 +1060,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1114,7 +1087,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1138,7 +1110,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1162,7 +1133,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1186,7 +1156,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1209,7 +1178,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1231,7 +1199,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1255,7 +1222,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1279,7 +1245,6 @@
     <set name="target" val="TARGET_OWNER_PET"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1303,7 +1268,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
@@ -1327,7 +1291,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="600"/>
@@ -1350,7 +1313,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1376,7 +1338,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="7000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1401,7 +1362,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="isDebuff" val="true"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>

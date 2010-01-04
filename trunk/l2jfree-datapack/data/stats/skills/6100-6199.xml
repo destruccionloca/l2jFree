@@ -108,6 +108,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="2700"/>
+    <set name="coolTime" val="100"/>
   </skill>
   <skill id="6123" levels="1" name="Agathion's New Year's Wish">
     <set name="target" val="TARGET_NONE"/>
@@ -118,7 +119,7 @@
   <skill id="6124" levels="1" name="Agathion Cute Trick - Saerom">
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
+    <set name="interruptTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -199,7 +200,6 @@
   <skill id="6136" levels="1" name="Agathion Cute Trick - Juju">
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>

@@ -188,7 +188,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PARALYZE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -210,7 +209,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PARALYZE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -391,7 +389,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -414,7 +411,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -437,7 +433,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -468,7 +463,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="35"/>
@@ -503,7 +497,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -525,7 +518,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="itemConsumeCount" val="#SpiritOre"/>
     <set name="itemConsumeId" val="3031"/>
@@ -551,7 +543,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -592,7 +583,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -615,7 +605,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -639,7 +628,6 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -662,7 +650,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="transformId" val="319"/>
@@ -683,7 +670,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2500"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -709,7 +695,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -729,7 +714,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="200"/>
     <set name="skillType" val="MDAM"/>
@@ -757,7 +741,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="4000"/>
-    <set name="coolTime" val="2666"/>
     <set name="isMagic" val="true"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
@@ -850,7 +833,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -865,7 +847,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -880,7 +861,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -900,7 +880,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -915,7 +894,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -930,7 +908,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -945,7 +922,6 @@
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="skillType" val="STUN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>

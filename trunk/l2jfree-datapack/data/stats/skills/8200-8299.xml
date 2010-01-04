@@ -631,7 +631,6 @@
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="40000"/>
     <set name="hitTime" val="5000"/>
-    <set name="coolTime" val="3332"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HOT"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -642,7 +641,6 @@
     <set name="mpConsume" val="59"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
-    <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -678,7 +676,6 @@
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
@@ -712,7 +709,6 @@
   <skill id="8245" levels="1" name="Summon Agathion - Love">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -760,7 +756,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="15000"/>
-    <set name="coolTime" val="10000"/>
     <set name="isMagic" val="true"/>
     <!-- Summon-specific -->
     <set name="npcId" val="#npc"/>
@@ -770,7 +765,6 @@
   <skill id="8251" levels="1" name="Collection Agathion Release Seal">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -790,7 +784,6 @@
   <skill id="8254" levels="1" name="Release Seal on Agathion - Monkey">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -800,7 +793,6 @@
   <skill id="8255" levels="1" name="Release Seal on Agathion - Griffin">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -810,7 +802,6 @@
   <skill id="8256" levels="1" name="Release Seal on Agathion - Joy">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -820,7 +811,6 @@
   <skill id="8257" levels="1" name="Release Seal on Agathion - Anger">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -830,7 +820,6 @@
   <skill id="8258" levels="1" name="Release Seal on Agathion - Sorrow">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -840,7 +829,6 @@
   <skill id="8259" levels="1" name="Release Seal on Agathion - Boy Teddy Bear">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -850,7 +838,6 @@
   <skill id="8260" levels="1" name="Release Seal on Agathion - Girl Teddy Bear">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -954,7 +941,6 @@
   <skill id="8275" levels="1" name="Release Seal on Agathion - pvp">
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
-    <set name="coolTime" val="2000"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="AGATHION"/>
@@ -967,7 +953,6 @@
     <set name="mpConsume" val="66"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
