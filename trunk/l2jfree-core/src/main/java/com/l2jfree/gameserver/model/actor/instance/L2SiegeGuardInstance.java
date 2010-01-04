@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
@@ -79,7 +80,7 @@ public class L2SiegeGuardInstance extends L2SiegeGuard
 	public boolean isAutoAttackable(L2Character attacker)
 	{
 		// Summons and traps are attackable, too
-		L2PcInstance player = attacker.getActingPlayer();
+		L2PcInstance player = L2Object.getActingPlayer(attacker);
 		if (player == null)
 			return false;
 		if (player.getClan() == null)
