@@ -10081,3 +10081,9 @@ UPDATE `npc` SET `hp` = 4910, `exp` = 11319, `sp` = 1297 WHERE `id` = 22131;
 UPDATE `npc` SET `collision_radius` = 13, `collision_height` = 47, `hp` = 4955, `walkspd` = 30, `runspd` = 120 WHERE `id` = 22132;
 UPDATE `npc` SET `collision_height` = 22, `hp` = 4955, `walkspd` = 80, `runspd` = 140 WHERE `id` = 22133;
 UPDATE `npc` SET `collision_radius` = 13, `collision_height` = 47, `hp` = 4997, `atkspd` = 399, `matkspd` = 359, `walkspd` = 30 WHERE `id` = 22135;
+
+# Rok from L2WH (savormix)
+UPDATE `npc` SET `hp` = 759929 WHERE `id` = 25624;
+
+# Officer Tolonis
+UPDATE `npc` SET `type` = 'L2StarCollector' WHERE `id` = 32611;

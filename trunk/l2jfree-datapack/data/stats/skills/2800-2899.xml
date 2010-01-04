@@ -590,7 +590,7 @@
     <set name="skillType" val="LEARN_SKILL"/>
     <set name="learnSkillId" val="932"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="hitTime" val="100"/>
+    <set name="hitTime" val="500"/>
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <player level="75"/>
