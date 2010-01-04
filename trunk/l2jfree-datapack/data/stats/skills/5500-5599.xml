@@ -1041,8 +1041,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="#power"/>
   </skill>
-  <skill id="5592" levels="1" name="Lightning Barrier">
-    <set name="power" val="20"/> <!-- guessed -->
+  <skill id="5592" levels="16" name="Lightning Barrier">
+    <table name="#power"> 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 </table> <!-- guessed -->
+    <set name="power" val="#power"/> <!-- guessed -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_INITIATOR"/>
     <set name="skillType" val="PARALYZE"/>
