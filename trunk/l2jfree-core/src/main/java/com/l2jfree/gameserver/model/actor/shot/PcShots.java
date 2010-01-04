@@ -297,7 +297,7 @@ public final class PcShots extends CharShots
 		if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), count, null, false))
 		{
 			if (type == ShotType.SOUL)
-				activeChar.sendPacket(SystemMessageId.ENABLED_SOULSHOT);
+				activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_SOULSHOTS);
 			else if (type != ShotType.FISH)
 				activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS);
 			

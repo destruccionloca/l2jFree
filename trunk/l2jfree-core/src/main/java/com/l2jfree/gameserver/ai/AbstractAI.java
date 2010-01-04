@@ -44,7 +44,6 @@ import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.gameserver.util.Util.Direction;
 import com.l2jfree.lang.L2Math;
 
 /**
