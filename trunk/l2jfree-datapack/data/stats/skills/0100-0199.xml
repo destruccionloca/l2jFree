@@ -26,7 +26,7 @@
   </skill>
   <skill id="101" levels="40" name="Stunning Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <table name="#ench3-pDef"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94 0.93 0.93 0.92 0.91 0.9 0.9
       0.88 0.87 0.86 0.86 0.85 0.84 0.81 0.8 0.8 0.79 0.78 0.78 0.77 0.76 0.74 0.73 0.72 </table>
     <table name="#ench4-mDef"> 0.99 0.98 0.98 0.97 0.97 0.95 0.94 0.93 0.93 0.92 0.91 0.9 0.9
@@ -88,7 +88,7 @@
   </skill>
   <skill id="102" levels="16" name="Entangle" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
@@ -236,7 +236,7 @@
   </skill>
   <skill id="107" levels="9" name="Holy Aura" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <table name="#enchantmpConsume"> 51 50 50 49 48 48 47 47 46 45 45 44
       44 43 42 42 41 41 40 39 39 38 38 37 37 36 35 35 34 34 </table>
     <table name="#enchantPower"> 40 41 42 43 44 45 46 47 48 49 50 51
@@ -283,7 +283,7 @@
   </skill>
   <skill id="110" levels="2" name="Ultimate Defense" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#pDef">1800 3600</table>
@@ -327,7 +327,7 @@
   </skill>
   <skill id="111" levels="2" name="Ultimate Evasion" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <table name="#ench1time"> 30 31 32 32 33 34 35 35 36 37 38 38
       39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 </table>
     <table name="#ench2reuseDelay"> 890000 880000 870000 860000 850000 840000 830000 820000 810000
@@ -364,7 +364,7 @@
   </skill>
   <skill id="112" levels="4" name="Deflect Arrow" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -408,7 +408,7 @@
   </skill>
   <skill id="115" levels="17" name="Power Break" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 27 27 27 26 26 26 25 25 25 25 25 24
@@ -446,7 +446,7 @@
   </skill>
   <skill id="116" levels="14" name="Howl" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
@@ -513,7 +513,7 @@
   <skill id="121" levels="6" name="Battle Roar" enchantLevels1="30">
     <!-- @Calculation@ (#power / 100 ) * (100 * #maxHp) = ~#maxHp -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Reuse"> 147500 145000 142500 140000 137500 135000 132500 130000 127500 125000
       122500 120000 117500 115000 112500 110000 107500 105000 102500 100000 97500 95000 92500 90000
@@ -539,7 +539,7 @@
   </skill>
   <skill id="122" levels="15" name="Hex" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 33 33 33 32 32 32 32 31 31 31 31 30
@@ -571,7 +571,7 @@
   </skill>
   <skill id="123" levels="3" name="Spirit Barrier" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -607,7 +607,7 @@
   </skill>
   <skill id="127" levels="14" name="Hamstring" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 33 33 33 32 32 32 32 31 31 31 31 30

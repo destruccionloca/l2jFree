@@ -215,7 +215,7 @@
   <skill id="1511" levels="8" name="Curse of Life Flow" enchantLevels1="30" enchantLevels2="30">
     <!-- CT2.2 retail partially confirmed -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Time"> 31 31 32 32 33 34 35 35 36 37 38 38 39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 </table> <!-- Need Verify -->
@@ -341,7 +341,7 @@
   </skill>
   <skill id="1514" levels="1" name="Soul Barrier" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Time"> 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 </table>
@@ -683,7 +683,7 @@
   <skill id="1529" levels="7" name="Soul Web" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <!-- CT2.2 retail confirmed -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant3 name="magicLvl" val="#enchantMagicLvl"/>

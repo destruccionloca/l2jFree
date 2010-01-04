@@ -31,7 +31,7 @@
   </skill>
   <skill id="302" levels="9" name="Spoil Festival" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#magicLvl"> 28 36 43 49 55 62 66 70 74 </table>
@@ -67,7 +67,7 @@
   </skill>
   <skill id="303" levels="4" name="Soul of Sagittarius" enchantLevels1="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#maxMp">1.1 1.15 1.2 1.25</table>
     <table name="#hpConsume">185 271 316 364</table>
@@ -97,7 +97,7 @@
   </skill>
   <skill id="304" levels="1" name="Song of Vitality" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186
@@ -130,7 +130,7 @@
   </skill>
   <skill id="305" levels="1" name="Song of Vengeance" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186 191
@@ -161,7 +161,7 @@
   </skill>
   <skill id="306" levels="1" name="Song of Flame Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186 191
@@ -194,7 +194,7 @@
   </skill>
   <skill id="307" levels="1" name="Dance of Aqua Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186 191
@@ -228,7 +228,7 @@
   </skill>
   <skill id="308" levels="1" name="Song of Storm Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186 191
@@ -261,7 +261,7 @@
   </skill>
   <skill id="309" levels="1" name="Dance of Earth Guard" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186 191
@@ -295,7 +295,7 @@
   </skill>
   <skill id="310" levels="1" name="Dance of the Vampire" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186 191
@@ -327,7 +327,7 @@
   </skill>
   <skill id="311" levels="1" name="Dance of Protection" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 125 131 136 142 147 153 158 164 169 175 180 186
@@ -361,7 +361,7 @@
   </skill>
   <skill id="312" levels="20" name="Vicious Stance" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#mpInitialConsume"> 4 5 5 6 7 7 8 9 9 10 10 11 11 12 12 13 13 13 14 14 </table>
@@ -397,7 +397,7 @@
   </skill>
   <skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#mpConsume">28 29 30 31 32 33 34 34</table>
@@ -595,7 +595,7 @@
   </skill>
   <skill id="320" levels="10" name="Wrath" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 74 73 72 71 70 69 68 67 66 65 64 63
@@ -627,7 +627,7 @@
     <table name="#power"> 2751 2850 2950 3050 3151 3252 3353 3453 3553 3653 </table>
     <table name="#ench2MpConsume"> 71 70 69 67 66 65 63 62 61 60 58 57 56 54 53 52 50 49 48 47 45 44 43 41 40 39 37 36 35 34 </table>
     <table name="#ench1Power"> 3875 3902 3928 3955 3981 4007 4034 4060 4086 4113 4139 4166 4192 4218 4245 4271 4298 4324 4350 4377 4403 4429 4456 4482 4509 4535 4561 4588 4614 4640 </table>
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -657,7 +657,7 @@
   </skill>
   <skill id="322" levels="6" name="Shield Fortress" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#mpInitialConsume">12 13 13 13 14 14</table>

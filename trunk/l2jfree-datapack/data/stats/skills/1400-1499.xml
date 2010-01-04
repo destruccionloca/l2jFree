@@ -4,7 +4,7 @@
   <skill id="1400" levels="10" name="Turn Undead" enchantLevels1="30" enchantLevels2="30">
     <!-- Done by KID -->
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Power"> 51 52 53 54 55 56 57 58 59 60 61 62 63 64
