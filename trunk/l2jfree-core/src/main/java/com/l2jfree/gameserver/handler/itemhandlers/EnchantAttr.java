@@ -20,6 +20,7 @@ import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExChooseInventoryAttributeItem;
 
 public class EnchantAttr implements IItemHandler
@@ -50,7 +51,13 @@ public class EnchantAttr implements IItemHandler
 			9566,
 			9567,
 			9568,
-			9569							};
+			9569,
+			10521,
+			10522,
+			10523,
+			10524,
+			10525,
+			10526							};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
@@ -64,7 +71,7 @@ public class EnchantAttr implements IItemHandler
 		// Restrict enchant during restart/shutdown (because of an existing exploit)
 		if (Shutdown.isActionDisabled(DisableType.ENCHANT))
 		{
-			activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
+			activeChar.sendPacket(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
 

@@ -73,6 +73,8 @@ public final class Elementals implements FuncOwner
 	
 	public final static int[] ENERGIES = { 9564, 9565, 9567, 9566, 9569, 9568 };
 	
+	public final static int[] ORES = { 10251, 10252, 10254, 10253, 10256, 10255 };
+	
 	private byte _element;
 	private int _value;
 	

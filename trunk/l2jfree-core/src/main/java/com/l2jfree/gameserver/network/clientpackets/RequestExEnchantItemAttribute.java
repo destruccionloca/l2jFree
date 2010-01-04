@@ -204,7 +204,8 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 
 		sendPacket(new ExAttributeEnchantResult(powerToAdd));
 		sendPacket(new UserInfo(player));
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 		player.setActiveEnchantAttrItem(null);
 	}
 
@@ -212,6 +213,13 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 	{
 		byte element = 0;
 		for (int id : Elementals.STONES)
+		{
+			if (id == itemId)
+				return element;
+			element++;
+		}
+		element = 0;
+		for (int id : Elementals.ORES)
 		{
 			if (id == itemId)
 				return element;
@@ -244,6 +252,15 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 	public int getLimit(int itemId, L2ItemInstance item)
 	{
 		for (int id : Elementals.STONES)
+		{
+			if (id == itemId)
+			{
+				if (item.isWeapon())
+					return Elementals.WEAPON_VALUES[3];
+				return Elementals.ARMOR_VALUES[3];
+			}
+		}
+		for (int id : Elementals.ORES)
 		{
 			if (id == itemId)
 			{
@@ -288,6 +305,14 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		boolean crystal = false;
 		//boolean jewel = false, energy = false;
 		for (int id : Elementals.STONES)
+		{
+			if (id == stoneId)
+			{
+				stone = true;
+				break;
+			}
+		}
+		for (int id : Elementals.ORES)
 		{
 			if (id == stoneId)
 			{
