@@ -205,6 +205,14 @@ public class EnterWorld extends L2GameClientPacket
 				activeChar.getAppearance().setNameColor(Config.CHAR_VIP_COLOR);
 		}
 
+		Siege quickfix = SiegeManager.getInstance().getSiege(activeChar);
+		if (quickfix.getIsInProgress() && !quickfix.checkIsDefender(activeChar.getClan()))
+		{
+			if (activeChar.isInsideZone(L2Zone.FLAG_NO_HQ) // no such zones yet, so
+					|| activeChar.isInsideZone(L2Zone.FLAG_CASTLE))
+				activeChar.teleToLocation(TeleportWhereType.Town);
+		}
+
 		// send user info again .. just like the real client
 		sendPacket(new UserInfo(activeChar));
 
