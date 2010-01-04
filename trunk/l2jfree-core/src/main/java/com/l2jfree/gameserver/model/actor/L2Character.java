@@ -2291,7 +2291,7 @@ public abstract class L2Character extends L2Object
 	
 	public boolean isInProtectedAction()
 	{
-		return isAllSkillsDisabled() || isAttackingDisabled() || isCastingNow() || isAttackingNow();
+		return isAllSkillsDisabled() || isCastingNow() || isAttackingNow();
 	}
 
 	public final Calculator[] getCalculators()

@@ -206,7 +206,8 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		Siege quickfix = SiegeManager.getInstance().getSiege(activeChar);
-		if (quickfix.getIsInProgress() && !quickfix.checkIsDefender(activeChar.getClan()))
+		if (quickfix != null && quickfix.getIsInProgress()
+				&& !quickfix.checkIsDefender(activeChar.getClan()))
 		{
 			if (activeChar.isInsideZone(L2Zone.FLAG_NO_HQ) // no such zones yet, so
 					|| activeChar.isInsideZone(L2Zone.FLAG_CASTLE))
