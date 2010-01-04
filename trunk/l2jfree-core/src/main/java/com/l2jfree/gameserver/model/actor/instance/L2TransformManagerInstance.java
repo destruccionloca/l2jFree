@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -59,7 +60,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		if (command.startsWith("TransformSkillList"))
 		{
 			player.setSkillLearningClassId(player.getClassId());
-			showTransformSkillList(player);
+			showTransformSkillList(player, false);
 		}
 		else if (command.startsWith("CertificationSkills"))
 		{
@@ -73,7 +74,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 				}
 				
 				player.setSkillLearningClassId(player.getClassId());
-				showCertificationSkillsList(player);
+				showCertificationSkillsList(player, false);
 			}
 			else
 			{
@@ -178,7 +179,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 	 * this displays TransformationSkillList to the player.
 	 * @param player
 	 */
-	public void showTransformSkillList(L2PcInstance player)
+	public void showTransformSkillList(L2PcInstance player, boolean closable)
 	{
 		L2TransformSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableTransformSkills(player);
 		AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Usual);
@@ -212,6 +213,8 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 				html.setHtml("<html><body>You've learned all skills.<br></body></html>");
 				player.sendPacket(html);
 			}
+            if (closable)
+            	player.sendPacket(AcquireSkillDone.PACKET);
 		}
 		else
 		{
@@ -221,7 +224,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	public void showCertificationSkillsList(L2PcInstance player)
+	public void showCertificationSkillsList(L2PcInstance player, boolean closable)
 	{
 		if (player.isTransformed())
 			return;
@@ -246,6 +249,8 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setHtml("<html><body>You've learned all skills.<br></body></html>");
 			player.sendPacket(html);
+            if (closable)
+            	player.sendPacket(AcquireSkillDone.PACKET);
 		}
 		else
 		{

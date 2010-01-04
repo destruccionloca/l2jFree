@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.status.FolkStatus;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList;
@@ -61,7 +62,7 @@ public class L2NpcInstance extends L2Npc
 	 * this displays SkillList to the player.
 	 * @param player
 	 */
-	public void showSkillList(L2PcInstance player, ClassId classId)
+	public void showSkillList(L2PcInstance player, ClassId classId, boolean closable)
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("SkillList activated on: " + getObjectId());
@@ -116,6 +117,8 @@ public class L2NpcInstance extends L2Npc
 			}
 			else
 				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
+            if (closable)
+            	player.sendPacket(AcquireSkillDone.PACKET);
 		}
 		else
 			player.sendPacket(asl);
@@ -345,7 +348,7 @@ public class L2NpcInstance extends L2Npc
 				if (id.length() != 0)
 				{
 					player.setSkillLearningClassId(ClassId.values()[Integer.parseInt(id)]);
-					showSkillList(player, ClassId.values()[Integer.parseInt(id)]);
+					showSkillList(player, ClassId.values()[Integer.parseInt(id)], false);
 				}
 				else
 				{
@@ -408,7 +411,7 @@ public class L2NpcInstance extends L2Npc
 			else
 			{
 				player.setSkillLearningClassId(player.getClassId());
-				showSkillList(player, player.getClassId());
+				showSkillList(player, player.getClassId(), false);
 			}
 		}
 		else if (command.startsWith("EnchantSkillList"))

@@ -165,7 +165,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		}
 		else if (actualCommand.equalsIgnoreCase("learn_clan_skills"))
 		{
-			showPledgeSkillList(player);
+			showPledgeSkillList(player, false);
 		}
 		else if (command.startsWith("Subclass"))
 		{
@@ -1331,7 +1331,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	 * this displays PledgeSkillList to the player.
 	 * @param player
 	 */
-	public static final void showPledgeSkillList(L2PcInstance player)
+	public static final void showPledgeSkillList(L2PcInstance player, boolean closable)
 	{
 		if (player.getClan() == null || !player.isClanLeader())
 		{
@@ -1361,9 +1361,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					sm.addNumber(5);
 				else
 					sm.addNumber(player.getClan().getLevel() + 1);
-
 				player.sendPacket(sm);
-				player.sendPacket(new AcquireSkillDone());
 			}
 			else
 			{
@@ -1371,6 +1369,8 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				html.setFile("data/html/villagemaster/NoMoreSkills.htm");
 				player.sendPacket(html);
 			}
+            if (closable)
+            	player.sendPacket(AcquireSkillDone.PACKET);
 		}
 		else
 			player.sendPacket(asl);

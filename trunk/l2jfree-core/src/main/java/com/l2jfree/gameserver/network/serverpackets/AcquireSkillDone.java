@@ -15,12 +15,17 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 /**
-*
-* @author  Kerberos
-*/
-
-public class AcquireSkillDone extends L2GameServerPacket
+ * @author Kerberos
+ */
+public class AcquireSkillDone extends StaticPacket
 {
+	private static final String _S__94_AQUIRESKILLDONE = "[S] 91 AquireSkillDone";
+	public static final AcquireSkillDone PACKET = new AcquireSkillDone();
+
+	private AcquireSkillDone()
+	{
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -33,6 +38,6 @@ public class AcquireSkillDone extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return "[S] 94 AcquireSkillDone";
+		return _S__94_AQUIRESKILLDONE;
 	}
 }

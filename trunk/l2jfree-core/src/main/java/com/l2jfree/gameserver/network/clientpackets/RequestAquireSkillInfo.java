@@ -81,7 +81,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 
 		if (skill == null)
 		{
-			if(_log.isDebugEnabled())
+			if (_log.isDebugEnabled())
 				_log.info("skill id " + _id + " level " + _level + " is undefined. aquireSkillInfo failed.");
 			//requestFailed(new SystemMessage(SystemMessageId.RACE_SETUP_FILE7_ERROR_S1).addNumber(_id));
 			sendAF();
@@ -273,9 +273,9 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), spcost, 1);
 			asi.addRequirement(4, costid, costcount, 0);
 			sendPacket(asi);
-			asi = null;
 		}
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	private boolean isCertificationSkill(int id)

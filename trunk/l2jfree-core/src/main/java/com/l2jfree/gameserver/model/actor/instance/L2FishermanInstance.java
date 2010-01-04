@@ -21,6 +21,7 @@ import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -56,7 +57,7 @@ public class L2FishermanInstance extends L2MerchantInstance
         if (command.startsWith("FishSkillList"))
         {
             player.setSkillLearningClassId(player.getClassId());
-            showSkillList(player);
+            showSkillList(player, false);
         }
 
         StringTokenizer st = new StringTokenizer(command, " ");
@@ -78,7 +79,7 @@ public class L2FishermanInstance extends L2MerchantInstance
         }
     }
 
-    public void showSkillList(L2PcInstance player)
+    public void showSkillList(L2PcInstance player, boolean closable)
     {
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableFishingSkills(player);
         AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Fishing);
@@ -102,7 +103,6 @@ public class L2FishermanInstance extends L2MerchantInstance
             int minlevel = SkillTreeTable.getInstance().getMinLevelForNewFishingSkill(player);
             if (minlevel > 0)
             {
-                // No more skills to learn, come back when you level.
                 sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1);
                 sm.addNumber(minlevel);
             }
@@ -111,6 +111,8 @@ public class L2FishermanInstance extends L2MerchantInstance
                 sm = SystemMessageId.NO_MORE_SKILLS_TO_LEARN.getSystemMessage();
             }
             player.sendPacket(sm);
+            if (closable)
+            	player.sendPacket(AcquireSkillDone.PACKET);
         }
         else
         {

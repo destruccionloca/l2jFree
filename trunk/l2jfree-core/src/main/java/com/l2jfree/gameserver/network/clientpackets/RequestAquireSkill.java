@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2FishermanInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2StarCollectorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TransformManagerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2VillageMasterInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -370,8 +371,8 @@ public class RequestAquireSkill extends L2GameClientPacket
 
 				player.getClan().broadcastToOnlineMembers(new PledgeSkillList(player.getClan()));
 
-				L2VillageMasterInstance.showPledgeSkillList(player); //Maybe we should add a check here...
-				sendPacket(ActionFailed.STATIC_PACKET);
+				L2VillageMasterInstance.showPledgeSkillList(player, true); //Maybe we should add a check here...
+				sendAF();
 				return;
 			}
 			case 4:
@@ -444,7 +445,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			default:
 			{
 				_log.warn("Recived Wrong Packet Data in Aquired Skill - unk1:" + _skillType);
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendAF();
 				return;
 			}
 		}
@@ -463,7 +464,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 		SystemMessage sm = new SystemMessage(SystemMessageId.LEARNED_SKILL_S1);
 		sm.addSkillName(_id);
 		sendPacket(sm);
-		sm = null;
 
 		// update all the shortcuts to this skill
 		if (_level > 1)
@@ -487,17 +487,20 @@ public class RequestAquireSkill extends L2GameClientPacket
 			qlst[0].notifyAcquireSkillList(trainer, player);
 		}
 		else if (trainer instanceof L2FishermanInstance)
-			((L2FishermanInstance)trainer).showSkillList(player);
+			((L2FishermanInstance)trainer).showSkillList(player, true);
 		else if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id))
-			((L2TransformManagerInstance) trainer).showTransformSkillList(player);
+			((L2TransformManagerInstance) trainer).showTransformSkillList(player, true);
 		else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id))
-			((L2TransformManagerInstance) trainer).showCertificationSkillsList(player);
+			((L2TransformManagerInstance) trainer).showCertificationSkillsList(player, true);
+		else if (trainer instanceof L2StarCollectorInstance)
+			((L2StarCollectorInstance) trainer).showCollectionSkillList(player, true);
 		else
-			((L2NpcInstance)trainer).showSkillList(player, player.getSkillLearningClassId());
+			((L2NpcInstance) trainer).showSkillList(player, player.getSkillLearningClassId(), true);
 
 		if (_id >= 1368 && _id <= 1372) //if skill is expand - send packet :)
 			sendPacket(new ExStorageMaxCount(player));
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	private boolean isCertificationSkill(int id)
