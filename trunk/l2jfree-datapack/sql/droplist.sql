@@ -32675,3 +32675,17 @@ DELETE FROM `droplist` WHERE mobId = 22275 AND itemId = 9698;
 
 -- Knight's epaulettes are dropped via script, to be removed if decided to drop from droplist.
 DELETE FROM `droplist` WHERE `itemId` = 9912;
+
+-- Anais
+DELETE FROM `droplist` WHERE `mobId` = 29096;
+INSERT INTO `droplist` VALUES
+(29096,6675,1,1,0,12803),   -- Sealed Imperial Gaiters
+(29096,6674,1,1,0,8022),    -- Sealed Imperial Breastplate
+(29096,6702,4,12,0,491363), -- Sealed Imperial Gaiters Pattern
+(29096,6701,8,22,0,203579), -- Sealed Imperial Breastplate Part
+(29096,6370,1,1,1,8120),    -- Saint Spear
+(29096,6694,3,9,1,726675),  -- Saint Spear Blade
+(29096,959,1,1,2,24745),    -- Scroll: Enchant Weapon (Grade S)
+(29096,960,1,1,2,247447),   -- Scroll: Enchant Armor (Grade S)
+(29096,6577,1,1,2,4124),    -- Blessed Scroll: Enchant Weapon (Grade S)
+(29096,8920,1,1,3,247447);  -- Angel Halo

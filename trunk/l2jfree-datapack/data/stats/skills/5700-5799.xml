@@ -830,73 +830,41 @@
     </for>
   </skill>
   <skill id="5772" levels="1" name="Surrender to Fire">
-  <!-- 
-    Used by NPCs:
-    18609 18610 18614 18615
-   -->
-    <table name="#fireRes"> 15 20 20 20 </table> <!-- Custom Lvl 4, needs retail values -->
-    <table name="#waterRes"> 15 20 20 20 </table> <!-- Custom Lvl 4, needs retail values -->
-    <table name="#mpInitialConsume"> 4 7 13 25 </table>
-    <table name="#mpConsume"> 16 28 52 100 </table>
-    <table name="#magicLvl"> 40 70 70 70 </table> <!-- Custom Lvl 4, needs retail values -->
-    <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="2"/>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
-    <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="2000"/>
-    <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
+    <set name="hitTime" val="2000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
-    <set name="castRange" val="600"/>
-    <set name="effectRange" val="1100"/>
     <for>
-      <effect name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
-        <sub order="0x40" stat="fireRes" val="#fireRes"/>
-        <add order="0x40" stat="waterRes" val="#waterRes"/>
+      <effect name="Buff" time="30" val="0" stackOrder="2.4" stackType="FireAtr">
+        <sub order="0x40" stat="fireRes" val="40"/>
+        <add order="0x40" stat="waterRes" val="10"/>
       </effect>
     </for>
   </skill>
   <skill id="5773" levels="1" name="Surrender to Water">
-  <!-- 
-    Used by NPCs:
-    18607 18611 18612 18613
-   -->
-    <table name="#waterRes"> 15 20 20 20 </table> <!-- Custom Lvl 4, needs retail values -->
-    <table name="#fireRes"> 15 20 20 20 </table> <!-- Custom Lvl 4, needs retail values -->
-    <table name="#mpInitialConsume"> 4 7 13 25 </table>
-    <table name="#mpConsume"> 16 28 52 100 </table>
-    <table name="#magicLvl"> 40 70 70 70 </table> <!-- Custom Lvl 4, needs retail values -->
-    <set name="magicLvl" val="#magicLvl"/>
-    <set name="lvlDepend" val="2"/>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
-    <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="8000"/>
-    <set name="hitTime" val="2000"/>
-    <set name="skillType" val="WEAKNESS"/>
     <set name="isMagic" val="true"/>
+    <set name="hitTime" val="2000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
-    <set name="castRange" val="600"/>
-    <set name="effectRange" val="1100"/>
     <for>
-      <effect name="Debuff" time="120" val="0" stackOrder="2" stackType="surrender">
-        <sub order="0x40" stat="waterRes" val="#waterRes"/>
-        <add order="0x40" stat="fireRes" val="#fireRes"/>
+      <effect name="Buff" time="30" val="0" stackOrder="2.4" stackType="AquaAtr">
+        <sub order="0x40" stat="waterRes" val="40"/>
+        <add order="0x40" stat="fireRes" val="10"/>
       </effect>
     </for>
   </skill>
   <skill id="5774" levels="2" name="Pailaka Reward Energy Replenishing">
     <!-- lvl1 restore 50%, lvl2 restore 100% of vitality -->
     <!-- lvl1 used on pailaka 40, lvl2 used on pailaka 60/70 -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#power"> 10000 20000 </table>
+    <set name="power" val="#power"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="GIVE_VITALITY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5775" levels="1" name="Great Blessing of Pathfinder">
     <set name="target" val="TARGET_NONE"/>
@@ -904,13 +872,13 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5776" levels="1" name="Raid Boss">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="RAIDBOSS_DESCRIPTION"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5777" levels="1" name="Raid Boss">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="RAIDBOSS_DESCRIPTION"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5778" levels="1" name="Invincible After-effect">
@@ -920,8 +888,9 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5779" levels="42" name="Transform Effect">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Probably this is, in fact, just an icon -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5780" levels="9" name="Agathion Collection">
@@ -936,124 +905,154 @@
     <set name="hitTime" val="6000"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="100"/>
+    <set name="effectRange" val="600"/>
     <cond msgId="2292">
       <player agathionId="16061"/>
     </cond>
   </skill>
+  <!-- Presentation skills - animation only, used when ExPlayScene is in progress -->
   <skill id="5781" levels="1" name="Presentation - Lindvior Approach">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="17000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5782" levels="1" name="Presentation - Lindvior Gust">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="10000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5783" levels="1" name="Presentation - Lindvior Descent">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="15000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5784" levels="1" name="Presentation - Lindvior Dust">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="5000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5785" levels="1" name="Presentation - Dimensional Door">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5786" levels="1" name="Presentation - Ekimus Separation">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="22000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5787" levels="1" name="Presentation - Ekimus Approach">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="11000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5788" levels="1" name="Presentation - Ekimus Blood Hail">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2100"/>
+    <set name="hitTime" val="2000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5789" levels="1" name="Presentation - Ekimus Sneer">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="13000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5790" levels="1" name="Presentation - Ekimus Aftereffect">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5791" levels="1" name="Presentation - Magyun's Entrance">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4200"/>
+    <set name="hitTime" val="4000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5792" levels="1" name="Presentation - Summon Banshee Queen Boomi">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="2000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5793" levels="1" name="Presentation - Summon Boomi">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="3000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
+  <!-- RAID BOSS 25624 (Rok) -->
   <skill id="5794" levels="1" name="Decrease Spd.">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2000"/>
-  </skill>
-  <skill id="5795" levels="1" name="Poison">
-  <!-- Poisons the target, causing them to lose 66 HP every second for 30 seconds. -->
-  <!-- 
-    Used by NPCs:
-    25624
-   -->
-    <table name="#magicLvl"> 20 </table>
-    <table name="#dot"> 66 </table>
-    <table name="#abnormalLvl"> 3 </table>
-    <set name="abnormalLvl" val="#abnormalLvl"/>
-    <set name="mpInitialConsume" val="14"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="59"/>
-    <set name="magicLvl" val="#magicLvl"/>
+    <set name="magicLvl" val="83"/>
+    <set name="power" val="80"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <for>
+      <effect name="Debuff" time="60" val="0" stackOrder="1.3" stackType="RunSpeedDown">
+        <mul order="0x30" stat="runSpd" val="0.7"/>
+      </effect>
+    </for>
+  </skill>
+  <!-- RAID BOSS 25624 (Rok) -->
+  <skill id="5795" levels="1" name="Poison">
+    <set name="abnormalLvl" val="8"/>
+    <set name="mpInitialConsume" val="15"/>
+    <set name="mpConsume" val="59"/>
+    <set name="magicLvl" val="83"/>
     <set name="power" val="70"/> <!-- Base Land Rate -->
+    <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="isDebuff" val="true"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="POISON"/>
+    <set name="isDebuff" val="true"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3" val="#dot" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="198" abnormal="poison"/>
     </for>
   </skill>
+  <!-- RAID BOSS 25624 (Rok) -->
   <skill id="5796" levels="1" name="Decrease Spd.">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
+    <set name="mpInitialConsume" val="15"/>
+    <set name="mpConsume" val="59"/>
+    <set name="magicLvl" val="83"/>
+    <set name="power" val="80"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <for>
+      <effect name="Debuff" time="60" val="0" stackOrder="1.3" stackType="RunSpeedDown">
+        <mul order="0x30" stat="runSpd" val="0.7"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5797" levels="1" name="Bursting Flame">
     <set name="target" val="TARGET_NONE"/>
