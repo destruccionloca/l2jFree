@@ -288,7 +288,7 @@
     </enchant4for>
      <for>
       <!-- Retail Values CT2.3: 12MP * 3 Sec -->
-      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="60" effectType="MDOT">
+      <effect count="10" name="ManaDamOverTime" time="3" val="36" effectPower="80" effectType="MDOT">
         <mul order="0x30" stat="runSpd" val="0.8"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <mul order="0x30" stat="mAtkSpd" val="0.7"/>
