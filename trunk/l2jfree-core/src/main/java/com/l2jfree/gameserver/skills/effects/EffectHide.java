@@ -52,7 +52,6 @@ public class EffectHide extends L2Effect
 		{
 			L2PcInstance activeChar = ((L2PcInstance)getEffected());
 			activeChar.getAppearance().setInvisible();
-			activeChar.startAbnormalEffect(AbnormalEffect.STEALTH);
 
 			if (activeChar.getAI().getNextCtrlIntention() == CtrlIntention.AI_INTENTION_ATTACK)
 				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
@@ -86,7 +85,12 @@ public class EffectHide extends L2Effect
 		{
 			L2PcInstance activeChar = ((L2PcInstance)getEffected());
 			activeChar.getAppearance().setVisible();
-			activeChar.stopAbnormalEffect(AbnormalEffect.STEALTH);
 		}
+	}
+	
+	@Override
+	protected int getTypeBasedAbnormalEffect()
+	{
+		return AbnormalEffect.STEALTH.getMask();
 	}
 }

@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.skills.ChanceCondition;
 import com.l2jfree.gameserver.skills.Env;
+import com.l2jfree.gameserver.skills.SpecialEffect;
 import com.l2jfree.gameserver.skills.TriggeredSkill;
 import com.l2jfree.gameserver.skills.funcs.FuncTemplate;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -90,7 +91,7 @@ public final class EffectTemplate
 		if (set.contains("special"))
 		{
 			final String special = set.getString("special").toLowerCase();
-			specialEffect = AbnormalEffect.getByName(special).getMask();
+			specialEffect = SpecialEffect.getByName(special).getMask();
 		}
 		else
 			specialEffect = 0;

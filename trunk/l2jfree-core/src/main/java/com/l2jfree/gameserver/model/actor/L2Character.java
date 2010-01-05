@@ -105,6 +105,7 @@ import com.l2jfree.gameserver.skills.Calculator;
 import com.l2jfree.gameserver.skills.Formulas;
 import com.l2jfree.gameserver.skills.IChanceSkillTrigger;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
+import com.l2jfree.gameserver.skills.SpecialEffect;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
@@ -2959,27 +2960,26 @@ public abstract class L2Character extends L2Object
 	 * Active abnormal effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR>
 	 * <BR>
 	 */
-    public final void startAbnormalEffect(AbnormalEffect mask)
-    {
-    	_AbnormalEffects |= mask.getMask();
-    	updateAbnormalEffect();
-    }
-
+	public final void startAbnormalEffect(AbnormalEffect mask)
+	{
+		startAbnormalEffect(mask.getMask());
+	}
+	
 	/**
-     * Active special effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR><BR>
-     */
-    public final void startSpecialEffect(AbnormalEffect mask)
-    {
-    	_SpecialEffects |= mask.getMask();
-    	updateAbnormalEffect();
-    }
-
+	 * Active special effects flags in the binary mask and send Server->Client UserInfo/CharInfo packet.<BR>
+	 * <BR>
+	 */
+	public final void startSpecialEffect(SpecialEffect mask)
+	{
+		startSpecialEffect(mask.getMask());
+	}
+	
 	public final void startAbnormalEffect(int mask)
 	{
 		if (_AbnormalEffects != (_AbnormalEffects |= mask))
 			updateAbnormalEffect();
 	}
-
+	
 	public final void startSpecialEffect(int mask)
 	{
 		if (_SpecialEffects != (_SpecialEffects |= mask))
@@ -3210,29 +3210,28 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void stopAbnormalEffect(AbnormalEffect mask)
 	{
-		_AbnormalEffects &= ~mask.getMask();
-		updateAbnormalEffect();
+		stopAbnormalEffect(mask.getMask());
 	}
-
+	
 	/**
-	* Modify the special effect map according to the mask.<BR><BR>
-	*/
-	public final void stopSpecialEffect(AbnormalEffect mask)
+	 * Modify the special effect map according to the mask.<BR>
+	 * <BR>
+	 */
+	public final void stopSpecialEffect(SpecialEffect mask)
 	{
-		_SpecialEffects &= ~mask.getMask();
-		updateAbnormalEffect();
+		stopSpecialEffect(mask.getMask());
 	}
-
+	
 	public final void stopAbnormalEffect(int mask)
 	{
 		if (_AbnormalEffects != (_AbnormalEffects &= ~mask))
 			updateAbnormalEffect();
 	}
-
+	
 	public final void stopSpecialEffect(int mask)
 	{
 		if (_SpecialEffects != (_SpecialEffects &= ~mask))
-		updateAbnormalEffect();
+			updateAbnormalEffect();
 	}
 
 	/**
@@ -3596,9 +3595,9 @@ public abstract class L2Character extends L2Object
 	{
 		int se = _SpecialEffects;
 		if (isFlying() && isStunned())
-			se |= AbnormalEffect.S_AIR_STUN.getMask();
+			se |= SpecialEffect.S_AIR_STUN.getMask();
 		if (isFlying() && isRooted())
-			se |= AbnormalEffect.S_AIR_ROOT.getMask();
+			se |= SpecialEffect.S_AIR_ROOT.getMask();
 		return se;
 	}
 

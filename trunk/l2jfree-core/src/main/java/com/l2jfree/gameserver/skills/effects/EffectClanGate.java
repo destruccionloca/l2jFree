@@ -68,7 +68,6 @@ public final class EffectClanGate extends L2Effect
 		if (c == null)
 			return false;
 		effected.setIsParalyzed(true);
-		effected.startAbnormalEffect(AbnormalEffect.MAGIC_CIRCLE);
 		c.createClanGate(effected.getX(), effected.getY(), effected.getZ());
 		clan.broadcastToOnlineMembers(SystemMessageId.COURT_MAGICIAN_CREATED_PORTAL.getSystemMessage());
 		return true;
@@ -82,6 +81,11 @@ public final class EffectClanGate extends L2Effect
 		if (c != null)
 			c.destroyClanGate();
 		lord.setIsParalyzed(false);
-		lord.stopAbnormalEffect(AbnormalEffect.MAGIC_CIRCLE);
+	}
+	
+	@Override
+	protected int getTypeBasedAbnormalEffect()
+	{
+		return AbnormalEffect.MAGIC_CIRCLE.getMask();
 	}
 }

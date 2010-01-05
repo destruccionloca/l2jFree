@@ -17,12 +17,10 @@ package com.l2jfree.gameserver.skills;
 import java.util.NoSuchElementException;
 
 /**
- *
- * @author  DrHouse
+ * @author DrHouse
  */
 public enum AbnormalEffect
 {
-	NULL("null", 0x0),
 	BLEEDING("bleed", 0x000001),
 	POISON("poison", 0x000002),
 	REDCIRCLE("redcircle", 0x000004),
@@ -55,18 +53,7 @@ public enum AbnormalEffect
 	UNKNOWN_30("unknown30", 0x20000000),
 	DEATH_MARK("deathmark", 0x40000000),
 	UNKNOWN_32("unknown32", 0x80000000),
-	CONFUSED("confused", 0x0020),
-	
-	// special effects
-	S_INVULNERABLE("invulnerable", 0x000001),
-	S_AIR_STUN("redglow", 0x000002),
-	S_AIR_ROOT("redglow2", 0x000004),
-	S_BAGUETTE_SWORD("baguettesword", 0x000008),
-	S_YELLOW_AFFRO("yellowafro", 0x000010),
-	S_PINK_AFFRO("pinkafro", 0x000020),
-	S_BLACK_AFFRO("blackafro", 0x000040),
-	S_UNKNOWN8("unknown8", 0x000080),
-	S_UNKNOWN9("unknown9", 0x000100);
+	CONFUSED("confused", 0x000020); // same with "fear"?
 	
 	private final int _mask;
 	private final String _name;
@@ -90,11 +77,9 @@ public enum AbnormalEffect
 	public static AbnormalEffect getByName(String name)
 	{
 		for (AbnormalEffect eff : AbnormalEffect.values())
-		{
 			if (eff.getName().equals(name))
 				return eff;
-		}
 		
-		throw new NoSuchElementException("AbnormalEffect not found for name: '"+name+ "'.\n Please check "+AbnormalEffect.class.getCanonicalName());
+		throw new NoSuchElementException("AbnormalEffect not found for name: '" + name + "'.");
 	}
 }
