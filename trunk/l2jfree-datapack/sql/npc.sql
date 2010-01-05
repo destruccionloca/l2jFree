@@ -9454,9 +9454,6 @@ UPDATE `npc` SET type='L2Npc', level='55', sp='0', exp='0', hp='2643', mp='988',
 -- L2J-Free Add-ons
 --
 
--- greater wolf start level 55 not 70, thx dorban for the hint
-UPDATE `npc` SET `level` = 55 WHERE `id` = 16030;
-
 -- Fix for Triol's High Priest
 UPDATE `npc` SET `lhand` = 8206 WHERE `id` in (22163,22171);
 
@@ -9639,7 +9636,7 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 -- Update Boss Manager
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;
 UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` = 29065;
-UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `id` IN (32107,31759,31859);
+UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `id` IN (31759,31859,32107);
 
 UPDATE `npc` SET `aggro` = 800 WHERE `id` IN (29019,29066,29067,29068,29028);
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29014,29020,29021,29022);
@@ -9725,10 +9722,6 @@ UPDATE `npc` SET `class` = 'LineageMonster.gargoyle_02te',`collision_radius` = 3
 UPDATE `npc` SET `class` = 'LineageMonster.vale_master',`collision_radius` = 32,`collision_height` = 35,`level` = 82,`sex` = 'male',`type` = 'L2Monster',`attackrange` = 40,`hp` = 9327,`mp` = 1934,`hpreg` = 26.86,`mpreg` = 3.09,`str` = 40,`con` = 43,`dex` = 30,`int` = 21,`wit` = 20,`men` = 10,`exp` = 15996,`sp` = 1669,`patk` = 1912,`pdef` = 598,`matk` = 1220,`mdef` = 485,`atkspd` = 278,`aggro` = 0,`matkspd` = 333,`rhand` = 0,`lhand` = 0,`armor` = 0,`walkspd` = 49,`runspd` = 192,`faction_id` = NULL,`faction_range` = 0,`isUndead` = 0,`absorb_level` = 0,`absorb_type` = 'LAST_HIT',`ss` = 0,`bss` = 0,`ss_rate` = 0,`AI` = 'fighter' where id = 22272;
 
 -- L2JFree addon from forced_updates
-UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `idTemplate` = 31759;
-UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `idTemplate` = 31859;
-UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `idTemplate` = 32107;
-
 UPDATE `npc` SET `faction_id` = 'tomb5_clan',`faction_range` = 600 WHERE `id` IN (18231,18232,18233,18234,18235,18236,18237,18238,18239,18240,18241,18242,18243);
 
 UPDATE `npc` SET `aggro` = 800 WHERE `idTemplate` IN (29019,29066,29067,29068);

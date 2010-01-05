@@ -9739,3 +9739,6 @@ UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = '
 -- Cocktails
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22056-1;22057-1;22058-1;22059-1;22060-1;22061-1;22064-1;22065-1' WHERE `item_id` = 10178;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22062-1;22063-1;22065-1;22066-1;22067-1;22068-1;22069-1;22070-1' WHERE `item_id` = 10179;
+
+-- Rough elemental ores
+UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` BETWEEN 10521 AND 10526;
