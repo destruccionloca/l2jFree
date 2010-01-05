@@ -30,6 +30,7 @@ import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.taskmanager.MovementController;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
@@ -409,6 +410,7 @@ public abstract class L2Playable extends L2Character
 		getStatus().stopHpMpRegeneration();
 		DecayTaskManager.getInstance().cancelDecayTask(this);
 		AttackStanceTaskManager.getInstance().removeAttackStanceTask(this);
+		MovementController.getInstance().remove(this);
 		
 		for (L2Object obj : array)
 		{

@@ -33,6 +33,14 @@ public abstract class FIFOSimpleExecutableQueue<T> extends FIFOExecutableQueue
 		execute();
 	}
 	
+	public final void remove(T t)
+	{
+		synchronized (_queue)
+		{
+			_queue.remove(t);
+		}
+	}
+	
 	@Override
 	protected final boolean isEmpty()
 	{

@@ -288,6 +288,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
+import com.l2jfree.gameserver.taskmanager.MovementController;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
@@ -11503,7 +11504,7 @@ public final class L2PcInstance extends L2Playable
 				{
 					inst.removePlayer(getObjectId());
 					final int[] spawn = inst.getSpawnLoc();
-					if (spawn[0] != 0 && spawn[1] != 0 && spawn[2] != 0)
+					if (spawn != null && spawn[0] != 0 && spawn[1] != 0 && spawn[2] != 0)
 					{
 						final int x = spawn[0] + Rnd.get(-30, 30);
 						final int y = spawn[1] + Rnd.get(-30, 30);
@@ -11603,7 +11604,9 @@ public final class L2PcInstance extends L2Playable
 				friend.sendMessage("Friend: " + getName() + " has logged off.");
 			}
 		}
-
+		
+		MovementController.getInstance().remove(this);
+		
 		// Remove L2Object object from _allObjects of L2World, if still in it
 		L2World.getInstance().removeObject(this);
 

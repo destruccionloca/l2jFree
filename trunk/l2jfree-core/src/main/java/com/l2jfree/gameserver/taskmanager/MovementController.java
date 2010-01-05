@@ -69,6 +69,12 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		_movingChars.put(cha, new TickRange(ticks));
 	}
 	
+	public void remove(L2Character cha)
+	{
+		_movingChars.remove(cha);
+		_evtArrivedManager.remove(cha);
+	}
+	
 	@Override
 	public void run()
 	{
