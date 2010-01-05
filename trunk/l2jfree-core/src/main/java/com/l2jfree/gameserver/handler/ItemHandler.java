@@ -125,9 +125,18 @@ public final class ItemHandler
 			if (!(item instanceof L2EtcItem))
 				continue;
 			
-			final L2EtcItem etcItem = (L2EtcItem)item;
+			final String handlerName = ((L2EtcItem)item).getHandlerName();
 			
-			final IItemHandler handlerByHandlerName = _byHandlerName.get(etcItem.getHandlerName());
+			if (handlerName.isEmpty())
+				continue;
+			
+			final IItemHandler handlerByHandlerName = _byHandlerName.get(handlerName);
+			
+			if (handlerByHandlerName == null)
+			{
+				_log.warn("ItemHandler: Missing handler for '" + handlerName + "'!");
+				continue;
+			}
 			
 			_byItemId.register(item.getItemId(), handlerByHandlerName);
 		}
