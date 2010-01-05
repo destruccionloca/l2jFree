@@ -3452,3 +3452,18 @@ UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 8210;
 -- Crystal Count Fix
 UPDATE `weapon` SET `crystal_count` = '1346' WHERE `item_id` = 10973;
 UPDATE `weapon` SET `crystal_count` = '1346' WHERE `item_id` = 10981;
+
+-- Santa Claus' Blessed Weapon
+-- Weapon conversion
+UPDATE `weapon` SET `change_weaponId` = 14632 WHERE `item_id` = 14621; -- Sirra Blade -> Eclair Bijou
+UPDATE `weapon` SET `change_weaponId` = 14621 WHERE `item_id` = 14632; -- Eclair Bijou -> Sirra Blade
+UPDATE `weapon` SET `change_weaponId` = 0 WHERE `item_id` = 14629; -- Themis Tongue -> Nothing
+-- Weapon skills (bonus info needed)
+UPDATE `weapon` SET `skills_item` = '8315-1' WHERE `item_id` IN (14621,14623,14632);
+UPDATE `weapon` SET `skills_item` = '8316-1' WHERE `item_id` IN (14622,14624,14634);
+UPDATE `weapon` SET `skills_item` = '8317-1' WHERE `item_id` = 14625;
+UPDATE `weapon` SET `skills_item` = '3599-1;8318-1' WHERE `item_id` = 14626;
+UPDATE `weapon` SET `skills_item` = '8319-1' WHERE `item_id` IN (14627,14633);
+UPDATE `weapon` SET `skills_item` = '8320-1' WHERE `item_id` = 14628;
+UPDATE `weapon` SET `skills_item` = '8321-1' WHERE `item_id` IN (14629,14630,14631);
+UPDATE `weapon` SET `skills_item` = '8322-1' WHERE `item_id` = 14674;

@@ -201,43 +201,51 @@
     <set name="npcId" val="16063"/>
   </skill>
   <skill id="8315" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- General one handed physical damage weapon -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8316" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- General two handed physical damage weapon -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8317" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Dagger -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8318" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Polearm -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8319" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Long range weapon -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8320" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Dual fist -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8321" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- General one handed magical damage weapon -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8322" levels="1" name="Santa Claus' Blessed Weapon">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Dual swords -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8323" levels="1" name="Notifier">
@@ -274,187 +282,5 @@
     <set name="skillType" val="AGATHION"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="npcId" val="16064"/>
-  </skill>
-  <skill id="8328" levels="1" name="Release Seal on Agathion - Oink oink">
-    <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="3000"/>
-    <set name="staticHitTime" val="true"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="AGATHION"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="npcId" val="16065"/>
-  </skill>
-  <skill id="8329" levels="1" name="Summon Friend">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8330" levels="1" name="Release Seal on Agathion - Dawn">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8331" levels="1" name="Blue Talisman - Buff Cancel">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8332" levels="1" name="Blue Talisman - Buff Steal">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8333" levels="1" name="Red Talisman - Territory Guard">
-  <!-- Increases maximum CP 1500 and recovers CP by the increased amount using the power of the talisman. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8334" levels="1" name="Blue Talisman - Lord's Divine Protection">
-  <!-- Damage received during PVP is decreased 75% using the power of the talisman. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8335" levels="1" name="White Talisman - Attribute Resistance">
-  <!-- For 10 seconds, increases resistance to all attributes by 15 using the power of the talisman. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8336" levels="1" name="Guardian's Strider Mount">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8337" levels="1" name="Weight Up">
-  <!-- Increases the weight limit by 5000. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8338" levels="4" name="Low-grade Magic Rune Clip Iron Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8339" levels="4" name="Low-grade Magic Rune Clip Mithril Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8340" levels="4" name="Low-grade Magic Rune Clip Iron Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8341" levels="4" name="Low-grade Magic Rune Clip Mithril Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8342" levels="4" name="Low-grade Magic Ornament Iron Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8343" levels="4" name="Low-grade Magic Ornament Iron Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8344" levels="4" name="Low-grade Magic Ornament Iron Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8345" levels="4" name="Low-grade Magic Ornament Mithril Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8346" levels="4" name="Low-grade Magic Ornament Mithril Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8347" levels="4" name="Low-grade Magic Ornament Mithril Belt">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8348" levels="1" name="Royal Guard Earring - Gludio">
-  <!-- Increases maximum CP by 5 and resistance to bleed attacks by 15. Increases bonus for shock attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8349" levels="1" name="Royal Guard Earring - Dion">
-  <!-- Increases maximum CP by 5 and resistance to posion attacks by 15.  Increases bonus for hold attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8350" levels="1" name="Royal Guard Earring - Giran">
-  <!-- Increases maximum CP by 5 and resistance to paralysis attacks by 15.  Increases bonus for bleed attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8351" levels="1" name="Royal Guard Earring - Oren">
-  <!-- Increases maximum CP by 5 and resistance to hold attacks by 15.  Increases bonus for paralysis attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8352" levels="1" name="Royal Guard Earring - Aden">
-  <!-- Increases maximum CP by 5 and resistance to shock attacks by 15.  Increases bonus for abnormal mind attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8353" levels="1" name="Royal Guard Earring - Innadril">
-  <!-- Increases maximum CP by 5 and resistance to shock attacks by 15.  Increases bonus for sleep attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8354" levels="1" name="Royal Guard Earring - Goddard">
-  <!-- Increases maximum CP by 5 and resistance to sleep attacks by 15.  Increases bonus for sleep attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8355" levels="1" name="Royal Guard Earring - Rune">
-  <!-- Increases maximum CP by 5 and resistance to hold attacks by 15.  Increases bonus for poison attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8356" levels="1" name="Royal Guard Earring - Schuttgart">
-  <!-- Increases maximum CP by 5 and resistance to abnormal mind attacks by 15.  Increases bonus for hold attacks by 15. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8357" levels="1" name="Einhasad's Strike">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8358" levels="1" name="Remove the seal of an Agathion - Towbat">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8359" levels="1" name="Notifier">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="8360" levels="1" name="Energy Maintenance Effect">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
   </skill>
 </list>

@@ -610,7 +610,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="300"/>
     <set name="staticReuse" val="true"/>
     <for>
       <effect name="Buff" time="43200" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
