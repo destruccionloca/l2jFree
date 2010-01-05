@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExChooseInventoryAttributeItem;
 
-public class EnchantAttr implements IItemHandler
+public class EnchantAttribute implements IItemHandler
 {
 	// All the item IDs that this handler knows.
 	private static final int	ITEM_IDS[]	=

@@ -9557,7 +9557,6 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2359-1' WHERE `i
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2358-1' WHERE `item_id` = 9673;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2341-1' WHERE `item_id` = 9702;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2580-1' WHERE `item_id` = 13028;
-UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` >= '9546' AND `item_id` <= '9569';
 UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true' where item_id >= 8570 and item_id <= 8575;
 -- Temp fix for Sound Crystals 
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2073-1' WHERE `item_id` = 4416;
@@ -9739,6 +9738,3 @@ UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = '
 -- Cocktails
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22056-1;22057-1;22058-1;22059-1;22060-1;22061-1;22064-1;22065-1' WHERE `item_id` = 10178;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22062-1;22063-1;22065-1;22066-1;22067-1;22068-1;22069-1;22070-1' WHERE `item_id` = 10179;
-
--- Rough elemental ores
-UPDATE `etcitem` SET `handler` = 'EnchantAttr' WHERE `item_id` BETWEEN 10521 AND 10526;

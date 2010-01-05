@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.handler.itemhandlers.Book;
 import com.l2jfree.gameserver.handler.itemhandlers.ColorName;
 import com.l2jfree.gameserver.handler.itemhandlers.DoorKey;
 import com.l2jfree.gameserver.handler.itemhandlers.Elixir;
-import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttr;
+import com.l2jfree.gameserver.handler.itemhandlers.EnchantAttribute;
 import com.l2jfree.gameserver.handler.itemhandlers.EnchantScrolls;
 import com.l2jfree.gameserver.handler.itemhandlers.ExtractableItems;
 import com.l2jfree.gameserver.handler.itemhandlers.FishShots;
@@ -95,7 +95,7 @@ public final class ItemHandler
 		registerItemHandler(new ColorName());
 		registerItemHandler(new DoorKey());
 		registerItemHandler(new Elixir());
-		registerItemHandler(new EnchantAttr());
+		registerItemHandler(new EnchantAttribute());
 		registerItemHandler(new EnchantScrolls());
 		registerItemHandler(new ExtractableItems());
 		registerItemHandler(new FishShots());
