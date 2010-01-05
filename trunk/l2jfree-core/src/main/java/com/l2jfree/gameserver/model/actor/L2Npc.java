@@ -199,21 +199,21 @@ public class L2Npc extends L2Character
 
 	private long					_lastRandomAnimation;
 	private int						_randomAnimationDelay;
-	private int						_currentLHandId;															// normally this shouldn't change from the template, but there exist exceptions
-	private int						_currentRHandId;															// normally this shouldn't change from the template, but there exist exceptions
+	private int						_currentLHandId;						// normally this shouldn't change from the template, but there exist exceptions
+	private int						_currentRHandId;						// normally this shouldn't change from the template, but there exist exceptions
 
-	private int						_currentCollisionHeight;													// used for npc grow effect skills
-	private int						_currentCollisionRadius;													// used for npc grow effect skills
+	private int						_currentCollisionHeight;				// used for npc grow effect skills
+	private int						_currentCollisionRadius;				// used for npc grow effect skills
 
-	private boolean					_isKillable						= true;
-	private boolean					_questDropable					= true;
+	private boolean					_isKillable				= true;
+	private boolean					_questDropable			= true;
 
 	// In case quests are going to use non-L2Attackables in the future
 	private int						_questAttackStatus;
 	private L2PcInstance			_questFirstAttacker;
 
 	// doesn't affect damage at all (retail)
-	private int						_weaponEnchant;
+	private int						_weaponEnchant			= 0;
 
 	public final void broadcastRandomAnimation(boolean force)
 	{

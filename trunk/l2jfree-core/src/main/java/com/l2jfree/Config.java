@@ -1685,6 +1685,7 @@ public class Config extends L2Config
 	public static boolean				ALT_SHOW_RESTART_TOWN;
 	public static boolean				ALT_AUTO_FISHING_SHOT;
 	public static boolean				ALT_ENABLE_DIMENSIONAL_MERCHANTS;
+	public static boolean				ALT_MONSTER_HAVE_ENCHANTED_WEAPONS;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1932,6 +1933,7 @@ public class Config extends L2Config
 			ALT_SHOW_RESTART_TOWN = Boolean.parseBoolean(altSettings.getProperty("AltShowRestartTown", "false"));
 			ALT_AUTO_FISHING_SHOT = Boolean.parseBoolean(altSettings.getProperty("AltAllowAutoFishShot", "false"));
 			ALT_ENABLE_DIMENSIONAL_MERCHANTS = Boolean.parseBoolean(altSettings.getProperty("AltEnableDimensionalMerchants", "false"));
+			ALT_MONSTER_HAVE_ENCHANTED_WEAPONS = Boolean.parseBoolean(altSettings.getProperty("AltEnableEnchantedWeaponOnMonsters", "false"));
 		}
 	}
 
