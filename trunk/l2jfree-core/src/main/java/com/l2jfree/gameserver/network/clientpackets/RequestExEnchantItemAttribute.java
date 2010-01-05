@@ -292,8 +292,8 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			if (id == itemId)
 			{
 				if (item.isWeapon())
-					return Elementals.WEAPON_VALUES[10]; // Should be 12
-				return Elementals.ARMOR_VALUES[10]; //
+					return Elementals.WEAPON_VALUES[12];
+				return Elementals.ARMOR_VALUES[12];
 			}
 		}
 		return 0;
@@ -301,51 +301,61 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 
 	public int getPowerToAdd(int stoneId, int oldValue, L2ItemInstance item)
 	{
-		boolean stone = false;
-		boolean crystal = false;
-		//boolean jewel = false, energy = false;
+		boolean found = false;
 		for (int id : Elementals.STONES)
 		{
 			if (id == stoneId)
 			{
-				stone = true;
+				found = true;
 				break;
 			}
 		}
-		for (int id : Elementals.ORES)
+		if (!found)
 		{
-			if (id == stoneId)
+			for (int id : Elementals.ORES)
 			{
-				stone = true;
-				break;
+				if (id == stoneId)
+				{
+					found = true;
+					break;
+				}
 			}
 		}
-		if (!stone)
+		if (!found)
 		{
 			for (int id : Elementals.CRYSTALS)
 			{
 				if (id == stoneId)
 				{
-					crystal = true;
+					found = true;
 					break;
 				}
 			}
-			if (!crystal)
+		}
+		if (!found)
+		{
+			for (int id : Elementals.JEWELS)
 			{
-				for (int id : Elementals.JEWELS)
+				if (id == stoneId)
 				{
-					if (id == stoneId)
-					{
-						//jewel = true;
-						break;
-					}
+					found = true;
+					break;
 				}
-				//if (!jewel)
-					//energy = true;
+			}
+		}
+		if (!found)
+		{
+			for (int id : Elementals.ENERGIES)
+			{
+				if (id == stoneId)
+				{
+					found = true;
+					break;
+				}
 			}
 		}
 
-		if (stone || crystal)
+		if (found)
 		{
 			if (item.isWeapon())
 			{
@@ -357,7 +367,7 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 			else if (item.isArmor())
 				return Elementals.ARMOR_BONUS;
 		}
-		// Others not implemented
+
 		return 0;
 	}
 
