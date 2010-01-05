@@ -228,7 +228,7 @@ public final class SkillTable
 				if (enchantLevels.isEmpty())
 					continue;
 				
-				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + enchantType;
+				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + enchantType + " - Levels: " + enchantLevels.size();
 				
 				boolean valid = true;
 				
@@ -236,7 +236,7 @@ public final class SkillTable
 				{
 					if (!enchantLevels.remove(skillLvl))
 					{
-						if (skillLvl == 16)
+						if (skillLvl == 16 && enchantLevels.isEmpty())
 							break;
 						_log.warn("Missing skill enchant level in XMLs for " + s + " - Level: " + skillLvl);
 						valid = false;
@@ -266,13 +266,14 @@ public final class SkillTable
 			
 			for (int indexingEnchantType = 0; indexingEnchantType < details.length; indexingEnchantType++)
 			{
-				final List<EnchantSkillDetail> list = details[indexingEnchantType];
+				final List<EnchantSkillDetail> route = details[indexingEnchantType];
 				
-				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + (indexingEnchantType + 1);
-				
-				if (list == null)
+				if (route == null)
 					continue;
-				else if (list.size() != 30 && list.size() != 15)
+				
+				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + (indexingEnchantType + 1) + " - Levels: " + route.size();
+				
+				if (route.size() != 30 && route.size() != 15)
 					_log.warn("Invalid skill enchant data in database for " + s);
 				else
 					skillEnchantsInDatabase.add(s);
@@ -304,7 +305,7 @@ public final class SkillTable
 				if (route == null)
 					continue;
 				
-				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + (indexingEnchantType + 1);
+				final String s = "Skill ID: " + skillId + " - EnchantType: enchant" + (indexingEnchantType + 1) + " - Levels: " + route.size();
 				
 				int index = 1;
 				int expectedMinSkillLevel = maxLevel;
