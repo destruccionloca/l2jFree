@@ -100,7 +100,8 @@ public class RequestExEnchantItemAttribute extends L2GameClientPacket
 		int itemId = item.getItemId();
 
 		//can't enchant rods, shadow items, adventurers', PvP items, hero items, cloaks, bracelets, underwear (e.g. shirt), belt, necklace, earring, ring
-		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || item.isPvp() || item.isHeroItem() || item.isTimeLimitedItem() ||
+		if (item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || item.isPvp() ||
+			(!Config.ENCHANT_HERO_WEAPONS && item.isHeroItem()) || item.isTimeLimitedItem() ||
 			(itemId >= 7816 && itemId <= 7831) || (item.getItem().getItemType() == L2WeaponType.NONE) ||
 			item.getItem().getItemGradeSPlus() != L2Item.CRYSTAL_S || item.getItem().getBodyPart() == L2Item.SLOT_BACK ||
 			item.getItem().getBodyPart() == L2Item.SLOT_R_BRACELET || item.getItem().getBodyPart() == L2Item.SLOT_UNDERWEAR ||

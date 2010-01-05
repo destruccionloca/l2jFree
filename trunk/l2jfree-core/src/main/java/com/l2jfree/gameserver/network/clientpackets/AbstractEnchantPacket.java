@@ -324,7 +324,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 	 */
 	protected static final boolean isEnchantable(L2ItemInstance item)
 	{
-		if (item.isHeroItem())
+		if (!Config.ENCHANT_HERO_WEAPONS && item.isHeroItem())
 			return false;
 		if (item.isShadowItem())
 			return false;

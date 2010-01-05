@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExPutEnchantTargetItemResult;
 
 /**
@@ -48,7 +47,7 @@ public class RequestExTryToPutEnchantTargetItem extends AbstractEnchantPacket
 		{
 			if (_log.isDebugEnabled())
 				_log.info("ENCHANT: Nonexisting item dragged on. Bye.");
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -89,7 +88,8 @@ public class RequestExTryToPutEnchantTargetItem extends AbstractEnchantPacket
 		activeChar.setIsEnchanting(true);
 		activeChar.setActiveEnchantTimestamp(System.currentTimeMillis());
 		activeChar.sendPacket(new ExPutEnchantTargetItemResult(_objectId));
-		sendPacket(ActionFailed.STATIC_PACKET);
+
+		sendAF();
 	}
 
 	@Override
