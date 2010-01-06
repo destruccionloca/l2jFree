@@ -14,6 +14,7 @@
  */
 package org.mmocore.network;
 
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.CancelledKeyException;
 import java.nio.channels.ReadableByteChannel;
@@ -28,7 +29,7 @@ import javolution.util.FastList;
 public abstract class MMOConnection<T extends MMOConnection<T>>
 {
 	private final SelectorThread<T> _selectorThread;
-	private final ISocket _socket;
+	private final Socket _socket;
 	
 	private FastList<SendablePacket<T>> _sendQueue;
 	private final SelectionKey _selectionKey;
@@ -40,7 +41,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	
 	private long _timeClosed = -1;
 	
-	protected MMOConnection(SelectorThread<T> selectorThread, ISocket socket, SelectionKey key)
+	protected MMOConnection(SelectorThread<T> selectorThread, Socket socket, SelectionKey key)
 	{
 		_selectorThread = selectorThread;
 		_socket = socket;
@@ -121,19 +122,19 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		}
 	}
 	
-	public ISocket getSocket()
+	public Socket getSocket()
 	{
 		return _socket;
 	}
 	
 	WritableByteChannel getWritableChannel()
 	{
-		return _socket.getWritableByteChannel();
+		return _socket.getChannel();
 	}
 	
 	ReadableByteChannel getReadableByteChannel()
 	{
-		return _socket.getReadableByteChannel();
+		return _socket.getChannel();
 	}
 	
 	synchronized FastList<SendablePacket<T>> getSendQueue2()
@@ -183,84 +184,6 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		}
 	}
 	
-	/*
-	void appendIntoWriteBuffer(ByteBuffer buf)
-	{
-	    // if we already have a buffer
-	    if (_secondaryWriteBuffer != null && (_primaryWriteBuffer != null && !_primaryWriteBuffer.hasRemaining()))
-	    {
-	        _secondaryWriteBuffer.put(buf);
-	        
-	        if (MMOCore.ASSERTIONS_ENABLED)
-	        {
-	            // correct state
-	            assert _primaryWriteBuffer == null || !_primaryWriteBuffer.hasRemaining();
-	            // full write
-	            assert !buf.hasRemaining();
-	        }
-	    }
-	    else if (_primaryWriteBuffer != null)
-	    {
-	        int size = Math.min(buf.limit(), _primaryWriteBuffer.remaining());
-	        _primaryWriteBuffer.put(buf.array(), buf.position(), size);
-	        buf.position(buf.position() + size);
-	        
-	        // primary wasnt enough
-	        if (buf.hasRemaining())
-	        {
-	            _secondaryWriteBuffer = getSelectorThread().getPooledBuffer();
-	            _secondaryWriteBuffer.put(buf);
-	        }
-	        
-	        if (MMOCore.ASSERTIONS_ENABLED)
-	        {
-	            // full write
-	            assert !buf.hasRemaining();
-	        }
-	    }
-	    else
-	    {
-	        // a single empty buffer should be always enough by design
-	        _primaryWriteBuffer = getSelectorThread().getPooledBuffer();
-	        _primaryWriteBuffer.put(buf);
-	        System.err.println("ESCREVI "+_primaryWriteBuffer.position());
-	        if (MMOCore.ASSERTIONS_ENABLED)
-	        {
-	            // full write
-	            assert !buf.hasRemaining();
-	        }
-	    }
-	}*/
-
-	/*protected void prependIntoPendingWriteBuffer(ByteBuffer buf)
-	{
-	    int remaining = buf.remaining();
-	    
-	    //do we already have some buffer
-	    if (_primaryWriteBuffer != null && _primaryWriteBuffer.hasRemaining())
-	    {
-	        if (remaining == _primaryWriteBuffer.capacity())
-	        {
-	            if (MMOCore.ASSERTIONS_ENABLED)
-	            {
-	                assert _secondaryWriteBuffer == null;
-	            }
-	            
-	            _secondaryWriteBuffer = _primaryWriteBuffer;
-	            _primaryWriteBuffer = getSelectorThread().getPooledBuffer();
-	            _primaryWriteBuffer.put(buf);
-	        }
-	        else if (remaining < _primaryWriteBuffer.remaining())
-	        {
-	            
-	        }
-	    }
-	    else
-	    {
-	        
-	    }
-	}*/
-
 	boolean hasPendingWriteBuffer()
 	{
 		return _primaryWriteBuffer != null;
@@ -277,29 +200,6 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		_secondaryWriteBuffer = null;
 	}
 	
-	/*protected void finishPrepending(int written)
-	{
-	    _primaryWriteBuffer.position(Math.min(written, _primaryWriteBuffer.limit()));
-	    // discard only the written bytes
-	    _primaryWriteBuffer.compact();
-	    
-	    if (_secondaryWriteBuffer != null)
-	    {
-	        _secondaryWriteBuffer.flip();
-	        _primaryWriteBuffer.put(_secondaryWriteBuffer);
-	        
-	        if (!_secondaryWriteBuffer.hasRemaining())
-	        {
-	            getSelectorThread().recycleBuffer(_secondaryWriteBuffer);
-	            _secondaryWriteBuffer = null;
-	        }
-	        else
-	        {
-	            _secondaryWriteBuffer.compact();
-	        }
-	    }
-	}*/
-
 	void setReadBuffer(ByteBuffer buf)
 	{
 		_readBuffer = buf;
@@ -369,12 +269,4 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	protected abstract boolean decrypt(ByteBuffer buf, int size);
 	
 	protected abstract boolean encrypt(ByteBuffer buf, int size);
-
-	/**
-	 * Returns true if any instance of this <code>T</code> is not an essential
-	 * connection and if we close the socket randomly, there wont be any
-	 * consequent losses.
-	 * @return true if we can terminate at will
-	 */
-	public abstract boolean isLossless();
 }

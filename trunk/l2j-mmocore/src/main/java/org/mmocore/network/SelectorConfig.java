@@ -21,45 +21,29 @@ import java.nio.ByteOrder;
  */
 public final class SelectorConfig<T extends MMOConnection<T>>
 {
-	// UDP
-	private final UDPHeaderHandler<T> UDP_HEADER_HANDLER;
-	private final IPacketHandler<T> UDP_PACKET_HANDLER;
+	private IAcceptFilter ACCEPT_FILTER;
+	private IClientFactory<T> CLIENT_FACTORY;
+	private IMMOExecutor<T> EXECUTOR;
+	private IPacketHandler<T> PACKET_HANDLER;
 	
-	// TCP
-	private final TCPHeaderHandler<T> TCP_HEADER_HANDLER;
-	private final IPacketHandler<T> TCP_PACKET_HANDLER;
+	private int READ_BUFFER_SIZE = 64 * 1024;
+	private int WRITE_BUFFER_SIZE = 64 * 1024;
 	
-	private final int READ_BUFFER_SIZE = 64 * 1024;
-	private final int WRITE_BUFFER_SIZE = 64 * 1024;
 	private int MAX_SEND_PER_PASS = 1;
 	private int SLEEP_TIME = 10;
-	private final HeaderSize HEADER_TYPE = HeaderSize.SHORT_HEADER;
-	private final int HELPER_BUFFER_SIZE = 64 * 1024;
-	private final int HELPER_BUFFER_COUNT = 20;
-	private final ByteOrder BYTE_ORDER = ByteOrder.LITTLE_ENDIAN;
 	
-	/**
-	 * BYTE_HEADER: unsigned byte, max size: 255 <BR>
-	 * SHORT_HEADER: unsigned short, max size: 65535<BR>
-	 * INT_HEADER: signed integer, max size: Integer.MAX_SIZE<BR>
-	 * 
-	 * @author KenM
-	 */
-	static enum HeaderSize
+	private int HELPER_BUFFER_SIZE = 64 * 1024;
+	private int HELPER_BUFFER_COUNT = 20;
+	
+	private ByteOrder BYTE_ORDER = ByteOrder.LITTLE_ENDIAN;
+	
+	public SelectorConfig()
 	{
-		BYTE_HEADER,
-		SHORT_HEADER,
-		INT_HEADER,
 	}
 	
-	public SelectorConfig(UDPHeaderHandler<T> udpHeaderHandler, IPacketHandler<T> udpPacketHandler,
-		TCPHeaderHandler<T> tcpHeaderHandler, IPacketHandler<T> tcpPacketHandler)
+	public void setReadBufferSize(int readBufferSize)
 	{
-		UDP_HEADER_HANDLER = udpHeaderHandler;
-		UDP_PACKET_HANDLER = udpPacketHandler;
-		
-		TCP_HEADER_HANDLER = tcpHeaderHandler;
-		TCP_PACKET_HANDLER = tcpPacketHandler;
+		READ_BUFFER_SIZE = readBufferSize;
 	}
 	
 	int getReadBufferSize()
@@ -67,9 +51,19 @@ public final class SelectorConfig<T extends MMOConnection<T>>
 		return READ_BUFFER_SIZE;
 	}
 	
+	public void setWriteBufferSize(int writeBufferSize)
+	{
+		WRITE_BUFFER_SIZE = writeBufferSize;
+	}
+	
 	int getWriteBufferSize()
 	{
 		return WRITE_BUFFER_SIZE;
+	}
+	
+	public void setHelperBufferSize(int helperBufferSize)
+	{
+		HELPER_BUFFER_SIZE = helperBufferSize;
 	}
 	
 	int getHelperBufferSize()
@@ -77,9 +71,19 @@ public final class SelectorConfig<T extends MMOConnection<T>>
 		return HELPER_BUFFER_SIZE;
 	}
 	
+	public void setHelperBufferCount(int helperBufferCount)
+	{
+		HELPER_BUFFER_COUNT = helperBufferCount;
+	}
+	
 	int getHelperBufferCount()
 	{
 		return HELPER_BUFFER_COUNT;
+	}
+	
+	public void setByteOrder(ByteOrder byteOrder)
+	{
+		BYTE_ORDER = byteOrder;
 	}
 	
 	ByteOrder getByteOrder()
@@ -87,29 +91,44 @@ public final class SelectorConfig<T extends MMOConnection<T>>
 		return BYTE_ORDER;
 	}
 	
-	HeaderSize getHeaderType()
+	public void setAcceptFilter(IAcceptFilter acceptFilter)
 	{
-		return HEADER_TYPE;
+		ACCEPT_FILTER = acceptFilter;
 	}
 	
-	UDPHeaderHandler<T> getUDPHeaderHandler()
+	IAcceptFilter getAcceptFilter()
 	{
-		return UDP_HEADER_HANDLER;
+		return ACCEPT_FILTER;
 	}
 	
-	IPacketHandler<T> getUDPPacketHandler()
+	public void setClientFactory(IClientFactory<T> clientFactory)
 	{
-		return UDP_PACKET_HANDLER;
+		CLIENT_FACTORY = clientFactory;
 	}
 	
-	TCPHeaderHandler<T> getTCPHeaderHandler()
+	IClientFactory<T> getClientFactory()
 	{
-		return TCP_HEADER_HANDLER;
+		return CLIENT_FACTORY;
 	}
 	
-	IPacketHandler<T> getTCPPacketHandler()
+	public void setExecutor(IMMOExecutor<T> executor)
 	{
-		return TCP_PACKET_HANDLER;
+		EXECUTOR = executor;
+	}
+	
+	IMMOExecutor<T> getExecutor()
+	{
+		return EXECUTOR;
+	}
+	
+	public void setPacketHandler(IPacketHandler<T> packetHandler)
+	{
+		PACKET_HANDLER = packetHandler;
+	}
+	
+	IPacketHandler<T> getPacketHandler()
+	{
+		return PACKET_HANDLER;
 	}
 	
 	/**

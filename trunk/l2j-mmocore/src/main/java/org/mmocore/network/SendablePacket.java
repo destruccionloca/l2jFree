@@ -91,8 +91,4 @@ public abstract class SendablePacket<T extends MMOConnection<T>> extends Abstrac
 	}
 	
 	protected abstract void write(T client);
-	
-	protected abstract int getHeaderSize();
-	
-	protected abstract void writeHeader(int dataSize);
 }
