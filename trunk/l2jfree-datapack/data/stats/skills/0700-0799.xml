@@ -51,7 +51,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="703" levels="1" name="Sacrifice Healer">
-  <!-- Regenerate party member's HP and MP by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <!-- Regenerate party member's HP and MP by sacrificing yourself. Usable only when MP is under 10 percent. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -290,7 +290,7 @@
     <set name="aggroPoints" val="780"/>
   </skill>
   <skill id="714" levels="1" name="Sacrifice Summoner">
-  <!-- Increase the party member's critical abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <!-- Increase the party member's critical abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
