@@ -26,12 +26,12 @@ import javolution.util.FastList;
 /**
  * @author KenM
  */
-public abstract class MMOConnection<T extends MMOConnection<T>>
+public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 {
-	private final SelectorThread<T> _selectorThread;
+	private final SelectorThread<T, RP, SP> _selectorThread;
 	private final Socket _socket;
 	
-	private FastList<SendablePacket<T>> _sendQueue;
+	private FastList<SP> _sendQueue;
 	private final SelectionKey _selectionKey;
 	
 	private ByteBuffer _readBuffer;
@@ -41,14 +41,14 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 	
 	private long _timeClosed = -1;
 	
-	protected MMOConnection(SelectorThread<T> selectorThread, Socket socket, SelectionKey key)
+	protected MMOConnection(SelectorThread<T, RP, SP> selectorThread, Socket socket, SelectionKey key)
 	{
 		_selectorThread = selectorThread;
 		_socket = socket;
 		_selectionKey = key;
 	}
 	
-	public synchronized void sendPacket(SendablePacket<T> sp)
+	public synchronized void sendPacket(SP sp)
 	{
 		if (isClosed())
 			return;
@@ -64,7 +64,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		}
 	}
 	
-	private SelectorThread<T> getSelectorThread()
+	private SelectorThread<T, RP, SP> getSelectorThread()
 	{
 		return _selectorThread;
 	}
@@ -137,10 +137,10 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		return _socket.getChannel();
 	}
 	
-	synchronized FastList<SendablePacket<T>> getSendQueue2()
+	synchronized FastList<SP> getSendQueue2()
 	{
 		if (_sendQueue == null)
-			_sendQueue = new FastList<SendablePacket<T>>();
+			_sendQueue = new FastList<SP>();
 		
 		return _sendQueue;
 	}
@@ -220,6 +220,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		return System.currentTimeMillis() > _timeClosed + 10000;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public synchronized void closeNow()
 	{
 		if (isClosed())
@@ -228,10 +229,11 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		_timeClosed = System.currentTimeMillis();
 		getSendQueue2().clear();
 		disableWriteInterest();
-		getSelectorThread().closeConnection(this);
+		getSelectorThread().closeConnection((T)this);
 	}
 	
-	public synchronized void close(SendablePacket<T> sp)
+	@SuppressWarnings("unchecked")
+	public synchronized void close(SP sp)
 	{
 		if (isClosed())
 			return;
@@ -239,7 +241,7 @@ public abstract class MMOConnection<T extends MMOConnection<T>>
 		getSendQueue2().clear();
 		sendPacket(sp);
 		_timeClosed = System.currentTimeMillis();
-		getSelectorThread().closeConnection(this);
+		getSelectorThread().closeConnection((T)this);
 	}
 	
 	void releaseBuffers()

@@ -20,7 +20,7 @@ import java.nio.channels.SelectionKey;
 /**
  * @author KenM
  */
-public interface IClientFactory<T extends MMOConnection<T>>
+public interface IClientFactory<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 {
-	public T create(SelectorThread<T> selectorThread, Socket socket, SelectionKey key);
+	public T create(SelectorThread<T, RP, SP> selectorThread, Socket socket, SelectionKey key);
 }

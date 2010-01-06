@@ -19,7 +19,8 @@ import javolution.text.TextBuilder;
 /**
  * @author KenM
  */
-public abstract class ReceivablePacket<T extends MMOConnection<T>> extends AbstractPacket implements Runnable
+public abstract class ReceivablePacket<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+	extends AbstractPacket implements Runnable
 {
 	protected ReceivablePacket()
 	{

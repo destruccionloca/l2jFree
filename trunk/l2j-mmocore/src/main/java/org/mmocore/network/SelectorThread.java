@@ -32,20 +32,21 @@ import javolution.util.FastList;
  * @author KenM<BR>
  *         Parts of design based on networkcore from WoodenGil
  */
-public final class SelectorThread<T extends MMOConnection<T>> extends Thread
+public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+	extends Thread
 {
 	private final Selector _selector;
 	
 	// Implementations
-	private final IPacketHandler<T> _packetHandler;
-	private final IMMOExecutor<T> _executor;
-	private final IClientFactory<T> _clientFactory;
+	private final IPacketHandler<T, RP, SP> _packetHandler;
+	private final IMMOExecutor<T, RP, SP> _executor;
+	private final IClientFactory<T, RP, SP> _clientFactory;
 	private final IAcceptFilter _acceptFilter;
 	
 	private volatile boolean _shutdown;
 	
 	// Pending Close
-	private final FastList<MMOConnection<T>> _pendingClose = new FastList<MMOConnection<T>>();
+	private final FastList<T> _pendingClose = new FastList<T>();
 	
 	// Configs
 	private final int HELPER_BUFFER_SIZE;
@@ -63,7 +64,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 	// ByteBuffers General Purpose Pool
 	private final FastList<ByteBuffer> _bufferPool = new FastList<ByteBuffer>();
 	
-	public SelectorThread(SelectorConfig<T> sc) throws IOException
+	public SelectorThread(SelectorConfig<T, RP, SP> sc) throws IOException
 	{
 		HELPER_BUFFER_SIZE = sc.getHelperBufferSize();
 		HELPER_BUFFER_COUNT = sc.getHelperBufferCount();
@@ -206,16 +207,15 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		// process pending close
 		synchronized (getPendingClose())
 		{
-			for (FastList.Node<MMOConnection<T>> n = getPendingClose().head(), end = getPendingClose().tail(); (n =
-				n.getNext()) != end;)
+			for (FastList.Node<T> n = getPendingClose().head(), end = getPendingClose().tail(); (n = n.getNext()) != end;)
 			{
-				final MMOConnection<T> con = n.getValue();
+				final T con = n.getValue();
 				
 				synchronized (con)
 				{
 					if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer() || con.closeTimeouted())
 					{
-						FastList.Node<MMOConnection<T>> temp = n.getPrevious();
+						FastList.Node<T> temp = n.getPrevious();
 						getPendingClose().delete(n);
 						n = temp;
 						closeConnectionImpl(con, false);
@@ -366,7 +366,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 			int result = buf.remaining();
 			
 			// then check if header was processed
-			if (headerPending  == 0)
+			if (headerPending == 0)
 			{
 				// get expected packet size
 				int size = dataPending;
@@ -379,7 +379,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 					if (size > 0)
 					{
 						int pos = buf.position();
-						parseClientPacket(getPacketHandler(), buf, size, con);
+						parseClientPacket(buf, size, con);
 						buf.position(pos + size);
 					}
 					
@@ -454,7 +454,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		READ_BUFFER.clear();
 	}
 	
-	private void parseClientPacket(IPacketHandler<T> handler, ByteBuffer buf, int dataSize, T client)
+	private void parseClientPacket(ByteBuffer buf, int dataSize, T client)
 	{
 		int pos = buf.position();
 		
@@ -470,7 +470,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 			int limit = buf.limit();
 			buf.limit(pos + dataSize);
 			//System.out.println("pCP2 -> BUF: POS: "+buf.position()+" - LIMIT: "+buf.limit()+" == Packet: SIZE: "+size);
-			ReceivablePacket<T> cp = handler.handlePacket(buf, client);
+			RP cp = getPacketHandler().handlePacket(buf, client);
 			
 			if (cp != null)
 			{
@@ -547,8 +547,8 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 			
 			//if (result == 0)
 			//{
-				//System.err.println("DEBUG: write result: 0 - write size: "+size+" - DWB rem: "+DIRECT_WRITE_BUFFER.remaining());
-				//System.err.flush();
+			//System.err.println("DEBUG: write result: 0 - write size: "+size+" - DWB rem: "+DIRECT_WRITE_BUFFER.remaining());
+			//System.err.flush();
 			//}
 		}
 		else
@@ -575,11 +575,11 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		{
 			for (int i = 0; i < MAX_SEND_PER_PASS; i++)
 			{
-				SendablePacket<T> sp = null;
+				SP sp = null;
 				
 				synchronized (con)
 				{
-					final FastList<SendablePacket<T>> sendQueue = con.getSendQueue2();
+					final FastList<SP> sendQueue = con.getSendQueue2();
 					
 					if (sendQueue.isEmpty())
 						break;
@@ -612,7 +612,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		}
 	}
 	
-	private void putPacketIntoWriteBuffer(T client, SendablePacket<T> sp)
+	private void putPacketIntoWriteBuffer(T client, SP sp)
 	{
 		WRITE_BUFFER.clear();
 		
@@ -646,17 +646,17 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		return _selector;
 	}
 	
-	private IMMOExecutor<T> getExecutor()
+	private IMMOExecutor<T, RP, SP> getExecutor()
 	{
 		return _executor;
 	}
 	
-	private IPacketHandler<T> getPacketHandler()
+	private IPacketHandler<T, RP, SP> getPacketHandler()
 	{
 		return _packetHandler;
 	}
 	
-	private IClientFactory<T> getClientFactory()
+	private IClientFactory<T, RP, SP> getClientFactory()
 	{
 		return _clientFactory;
 	}
@@ -666,7 +666,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		return _acceptFilter;
 	}
 	
-	void closeConnection(MMOConnection<T> con)
+	void closeConnection(T con)
 	{
 		synchronized (getPendingClose())
 		{
@@ -674,7 +674,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		}
 	}
 	
-	private void closeConnectionImpl(MMOConnection<T> con, boolean forced)
+	private void closeConnectionImpl(T con, boolean forced)
 	{
 		try
 		{
@@ -717,7 +717,7 @@ public final class SelectorThread<T extends MMOConnection<T>> extends Thread
 		}
 	}
 	
-	private FastList<MMOConnection<T>> getPendingClose()
+	private FastList<T> getPendingClose()
 	{
 		return _pendingClose;
 	}

@@ -19,7 +19,7 @@ import java.nio.ByteBuffer;
 /**
  * @author KenM
  */
-public interface IPacketHandler<T extends MMOConnection<T>>
+public interface IPacketHandler<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 {
-	public ReceivablePacket<T> handlePacket(ByteBuffer buf, T client);
+	public RP handlePacket(ByteBuffer buf, T client);
 }

@@ -17,7 +17,8 @@ package org.mmocore.network;
 /**
  * @author KenM
  */
-public abstract class SendablePacket<T extends MMOConnection<T>> extends AbstractPacket
+public abstract class SendablePacket<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+	extends AbstractPacket
 {
 	protected SendablePacket()
 	{
