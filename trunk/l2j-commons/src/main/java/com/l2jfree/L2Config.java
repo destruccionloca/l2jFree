@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,6 +61,20 @@ public abstract class L2Config
 	
 	static
 	{
+		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+			@Override
+			public void uncaughtException(Thread t, Throwable e)
+			{
+				System.err.print("Exception in thread \"" + t.getName() + "\" ");
+				
+				e.printStackTrace(System.err);
+				
+				// restart automatically
+				if (e instanceof OutOfMemoryError)
+					Runtime.getRuntime().halt(2);
+			}
+		});
+		
 		if (System.getProperty("user.name").equals("root") && System.getProperty("user.home").equals("/root"))
 		{
 			System.out.print("L2Jfree servers should not run under root-account ... exited.");
