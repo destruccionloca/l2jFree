@@ -23,12 +23,12 @@ abstract class AbstractPacket
 {
 	private ByteBuffer _buf;
 	
-	void setByteBuffer(ByteBuffer buf)
+	final void setByteBuffer(ByteBuffer buf)
 	{
 		_buf = buf;
 	}
 	
-	protected ByteBuffer getByteBuffer()
+	protected final ByteBuffer getByteBuffer()
 	{
 		return _buf;
 	}

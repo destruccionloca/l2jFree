@@ -27,17 +27,17 @@ public abstract class ReceivablePacket<T extends MMOConnection<T>> extends Abstr
 	
 	private T _client;
 	
-	void setClient(T client)
+	final void setClient(T client)
 	{
 		_client = client;
 	}
 	
-	public T getClient()
+	public final T getClient()
 	{
 		return _client;
 	}
 	
-	protected int getAvaliableBytes()
+	protected final int getAvaliableBytes()
 	{
 		return getByteBuffer().remaining();
 	}
@@ -46,42 +46,42 @@ public abstract class ReceivablePacket<T extends MMOConnection<T>> extends Abstr
 	
 	public abstract void run();
 	
-	protected void readB(byte[] dst)
+	protected final void readB(byte[] dst)
 	{
 		getByteBuffer().get(dst);
 	}
 	
-	protected void readB(byte[] dst, int offset, int len)
+	protected final void readB(byte[] dst, int offset, int len)
 	{
 		getByteBuffer().get(dst, offset, len);
 	}
 	
-	protected int readC()
+	protected final int readC()
 	{
 		return getByteBuffer().get() & 0xFF;
 	}
 	
-	protected int readH()
+	protected final int readH()
 	{
 		return getByteBuffer().getShort() & 0xFFFF;
 	}
 	
-	protected int readD()
+	protected final int readD()
 	{
 		return getByteBuffer().getInt();
 	}
 	
-	protected long readQ()
+	protected final long readQ()
 	{
 		return getByteBuffer().getLong();
 	}
 	
-	protected double readF()
+	protected final double readF()
 	{
 		return getByteBuffer().getDouble();
 	}
 	
-	protected String readS()
+	protected final String readS()
 	{
 		TextBuilder tb = TextBuilder.newInstance();
 		

@@ -23,62 +23,62 @@ public abstract class SendablePacket<T extends MMOConnection<T>> extends Abstrac
 	{
 	}
 	
-	protected void writeC(boolean value)
+	protected final void writeC(boolean value)
 	{
 		getByteBuffer().put((byte)(value ? 1 : 0));
 	}
 	
-	protected void writeC(int value)
+	protected final void writeC(int value)
 	{
 		getByteBuffer().put((byte)value);
 	}
 	
-	protected void writeH(boolean value)
+	protected final void writeH(boolean value)
 	{
 		getByteBuffer().putShort((short)(value ? 1 : 0));
 	}
 	
-	protected void writeH(int value)
+	protected final void writeH(int value)
 	{
 		getByteBuffer().putShort((short)value);
 	}
 	
-	protected void writeD(boolean value)
+	protected final void writeD(boolean value)
 	{
 		getByteBuffer().putInt(value ? 1 : 0);
 	}
 	
-	protected void writeD(int value)
+	protected final void writeD(int value)
 	{
 		getByteBuffer().putInt(value);
 	}
 	
-	protected void writeD(long value)
+	protected final void writeD(long value)
 	{
 		getByteBuffer().putInt(value < Integer.MAX_VALUE ? (int)value : Integer.MAX_VALUE);
 	}
 	
-	protected void writeQ(boolean value)
+	protected final void writeQ(boolean value)
 	{
 		getByteBuffer().putLong(value ? 1 : 0);
 	}
 	
-	protected void writeQ(long value)
+	protected final void writeQ(long value)
 	{
 		getByteBuffer().putLong(value);
 	}
 	
-	protected void writeF(double value)
+	protected final void writeF(double value)
 	{
 		getByteBuffer().putDouble(value);
 	}
 	
-	protected void writeB(byte[] data)
+	protected final void writeB(byte[] data)
 	{
 		getByteBuffer().put(data);
 	}
 	
-	protected void writeS(CharSequence charSequence)
+	protected final void writeS(CharSequence charSequence)
 	{
 		if (charSequence == null)
 			charSequence = "";
