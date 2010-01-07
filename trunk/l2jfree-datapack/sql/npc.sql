@@ -10042,8 +10042,12 @@ UPDATE `npc` SET `collision_radius` = 13, `collision_height` = 47, `hp` = 4955, 
 UPDATE `npc` SET `collision_height` = 22, `hp` = 4955, `walkspd` = 80, `runspd` = 140 WHERE `id` = 22133;
 UPDATE `npc` SET `collision_radius` = 13, `collision_height` = 47, `hp` = 4997, `atkspd` = 399, `matkspd` = 359, `walkspd` = 30 WHERE `id` = 22135;
 
+# Valdstone (savormix)
+UPDATE `npc` SET `hp` = 489654, `mp` = 1859, `exp` = 3539613, `sp` = 991696, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1195, `pdef` = 1558, `matk` = 159, `mdef` = 843 WHERE `id` = 25623;
 # Rok (savormix)
 UPDATE `npc` SET `hp` = 504491, `mp` = 1973, `exp` = 3658390, `sp` = 1026322, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1253, `pdef` = 1643, `matk` = 170, `mdef` = 890 WHERE `id` = 25624;
+# Enira (savormix)
+UPDATE `npc` SET `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `isUndead` = 1 WHERE `id` = 25625;
 # Anais (savormix)
 UPDATE `npc` SET `hp` = 759807, `mp` = 2277, `exp` = 8827525, `sp` = 2036475, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 6164, `pdef` = 2004, `matk` = 1674, `mdef` = 1085, `rhand` = 8214, `atkspd` = 253 WHERE `id` = 29096;
 
