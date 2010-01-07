@@ -26,7 +26,7 @@ public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends
 	private IMMOExecutor<T, RP, SP> EXECUTOR;
 	private IPacketHandler<T, RP, SP> PACKET_HANDLER;
 	
-	private int BUFFER_SIZE = 64 * 1024;
+	private int BUFFER_SIZE = 64 * 1024; // 0xFFFF + 1
 	
 	private int MAX_SEND_PER_PASS = 1;
 	private int MAX_READ_PER_PASS = 1;
@@ -46,6 +46,9 @@ public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends
 	
 	public void setBufferSize(int bufferSize)
 	{
+		if (bufferSize < 64 * 1024) // 0xFFFF + 1
+			throw new IllegalArgumentException();
+		
 		BUFFER_SIZE = bufferSize;
 	}
 	

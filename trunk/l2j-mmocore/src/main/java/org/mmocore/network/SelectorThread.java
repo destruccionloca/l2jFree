@@ -151,8 +151,6 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				break;
 			}
 			
-			boolean hasPendingWrite = false;
-			
 			try
 			{
 				if (getSelector().selectNow() > 0)
@@ -173,10 +171,10 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 								readPacket(key);
 								break;
 							case SelectionKey.OP_WRITE:
-								hasPendingWrite |= writePacket2(key);
+								writePacket(key);
 								break;
 							case SelectionKey.OP_READ | SelectionKey.OP_WRITE:
-								hasPendingWrite |= writePacket2(key);
+								writePacket(key);
 								// key might have been invalidated on writePacket
 								if (key.isValid())
 									readPacket(key);
@@ -196,8 +194,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 			
 			try
 			{
-				if (!hasPendingWrite)
-					Thread.sleep(SLEEP_TIME);
+				Thread.sleep(SLEEP_TIME);
 			}
 			catch (InterruptedException e)
 			{
@@ -242,6 +239,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 			@SuppressWarnings("unchecked")
 			T con = (T)key.attachment();
 			closeConnectionImpl(con, true);
+			return;
 		}
 		
 		// key might have been invalidated on finishConnect()
@@ -292,44 +290,67 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 			buf.clear();
 		}
 		
-		int result = -2;
-		
-		try
+		for (;;)
 		{
-			result = con.getReadableByteChannel().read(buf);
-		}
-		catch (IOException e)
-		{
-			//error handling goes bellow
-		}
-		
-		switch (result)
-		{
-			case -2: // IOException
+			final int remainingFreeSpace = buf.remaining();
+			int result = -2;
+			
+			try
 			{
-				closeConnectionImpl(con, true);
-				break;
+				result = con.getReadableByteChannel().read(buf);
 			}
-			case -1: // EOS
+			catch (IOException e)
 			{
-				closeConnectionImpl(con, false);
-				break;
+				//error handling goes bellow
 			}
-			default:
+			
+			boolean hasReachedAConfigLimit = false;
+			
+			switch (result)
 			{
-				buf.flip();
-				// try to read as many packets as possible
-				for (int i = 0; i < MAX_READ_PER_PASS && buf.position() < MAX_READ_BYTE_PER_PASS; i++)
+				case -2: // IOException
 				{
-					if (!tryReadPacket2(con, buf))
-						break;
+					closeConnectionImpl(con, true);
+					return;
 				}
-				break;
+				case -1: // EOS
+				{
+					closeConnectionImpl(con, false);
+					return;
+				}
+				default:
+				{
+					buf.flip();
+					// try to read as many packets as possible
+					for (int i = 0;; i++)
+					{
+						if (i >= MAX_READ_PER_PASS || buf.position() >= MAX_READ_BYTE_PER_PASS)
+						{
+							hasReachedAConfigLimit = true;
+							break;
+						}
+						
+						if (!tryReadPacket2(con, buf))
+							break;
+					}
+					break;
+				}
 			}
+			
+			// stop reading, if we have reached a config limit
+			if (hasReachedAConfigLimit)
+				break;
+			
+			// if the buffer wasn't filled completely, we should stop trying as the input channel is empty
+			if (remainingFreeSpace > result)
+				break;
+			
+			// compact the buffer for reusing the remaining bytes
+			if (buf.hasRemaining())
+				buf.compact();
+			else
+				buf.clear();
 		}
-		
-		if (!key.isValid())
-			return;
 		
 		// check if there are some more bytes in buffer and allocate/compact to prevent content lose.
 		if (buf.hasRemaining())
@@ -377,13 +398,6 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				
 				return true;
 			}
-			else if (size > BUFFER_SIZE - HEADER_SIZE)
-			{
-				// that packet simly won't fit in our buffer and will result in a never succeeding packet parsing
-				// so close the connection as this is an invalid packet (probably an offensive attack)
-				closeConnectionImpl(con, false);
-				return false;
-			}
 			else
 			{
 				// we dont have enough bytes for the packet so we need to read and revert the header
@@ -427,61 +441,66 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		}
 	}
 	
-	private boolean writePacket2(SelectionKey key)
+	private void writePacket(SelectionKey key)
 	{
 		@SuppressWarnings("unchecked")
 		T con = (T)key.attachment();
 		
-		prepareWriteBuffer2(con);
-		DIRECT_WRITE_BUFFER.flip();
-		
-		int size = DIRECT_WRITE_BUFFER.remaining();
-		
-		int result = -1;
-		
-		try
+		for (;;)
 		{
-			result = con.getWritableChannel().write(DIRECT_WRITE_BUFFER);
-		}
-		catch (IOException e)
-		{
-			// error handling goes on the if bellow
-		}
-		
-		// check if no error happened
-		if (result >= 0)
-		{
-			// check if we wrote everything
-			if (result == size)
+			final boolean hasReachedAConfigLimit = prepareWriteBuffer2(con);
+			DIRECT_WRITE_BUFFER.flip();
+			
+			int size = DIRECT_WRITE_BUFFER.remaining();
+			
+			int result = -1;
+			
+			try
 			{
-				// complete write
-				synchronized (con)
+				result = con.getWritableChannel().write(DIRECT_WRITE_BUFFER);
+			}
+			catch (IOException e)
+			{
+				// error handling goes on the if bellow
+			}
+			
+			// check if no error happened
+			if (result >= 0)
+			{
+				// check if we wrote everything
+				if (result == size)
 				{
-					if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer())
+					// complete write
+					synchronized (con)
 					{
-						con.disableWriteInterest();
-						return false;
+						if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer())
+						{
+							con.disableWriteInterest();
+							return;
+						}
+						else if (hasReachedAConfigLimit)
+							return;
 					}
-					else
-						return true;
+				}
+				else
+				// incomplete write
+				{
+					con.createWriteBuffer(DIRECT_WRITE_BUFFER);
+					return;
 				}
 			}
 			else
-			// incomplete write
 			{
-				con.createWriteBuffer(DIRECT_WRITE_BUFFER);
-				return false;
+				closeConnectionImpl(con, true);
+				return;
 			}
-		}
-		else
-		{
-			closeConnectionImpl(con, true);
-			return false;
 		}
 	}
 	
-	private void prepareWriteBuffer2(T con)
+	private boolean prepareWriteBuffer2(T con)
 	{
+		boolean hasReachedAConfigLimit = false;
+		
 		DIRECT_WRITE_BUFFER.clear();
 		
 		// if theres pending content add it
@@ -494,9 +513,14 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		// don't write additional, if there are still pending content
 		if (!con.hasPendingWriteBuffer())
 		{
-			for (int i = 0; DIRECT_WRITE_BUFFER.remaining() >= 2 && i < MAX_SEND_PER_PASS
-				&& DIRECT_WRITE_BUFFER.position() < MAX_SEND_BYTE_PER_PASS; i++)
+			for (int i = 0; DIRECT_WRITE_BUFFER.remaining() >= 2; i++)
 			{
+				if (i >= MAX_SEND_PER_PASS || DIRECT_WRITE_BUFFER.position() >= MAX_SEND_BYTE_PER_PASS)
+				{
+					hasReachedAConfigLimit = true;
+					break;
+				}
+				
 				final SP sp;
 				
 				synchronized (con)
@@ -526,6 +550,8 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				}
 			}
 		}
+		
+		return hasReachedAConfigLimit;
 	}
 	
 	private void putPacketIntoWriteBuffer(T client, SP sp)
