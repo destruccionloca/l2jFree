@@ -327,6 +327,8 @@ public class CharTemplateTable
 
 	public L2PcTemplate getTemplate(int classId)
 	{
+		if (classId < 0 || classId >= _templates.length)
+			return null;
 		return _templates[classId];
 	}
 

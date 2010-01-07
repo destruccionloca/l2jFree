@@ -39,7 +39,7 @@ import com.l2jfree.tools.random.Rnd;
 public class L2PcTemplate extends L2CharTemplate
 {
 	private static final int[][][] START_POINTS = {
-		// Human Fighter
+		// Human Fighter (0)
 		new int[][] {
 			new int[] { -72662, 258431, -3104 },
 			new int[] { -72963, 258034, -3104 },
@@ -64,7 +64,7 @@ public class L2PcTemplate extends L2CharTemplate
 			new int[] { -70432, 258112, -3104 },
 			new int[] { -70240, 258112, -3104 }
 		},
-		// Elf
+		// Elf (1)
 		new int[][] {
 			new int[] { 43648, 40352, -3440 },
 			new int[] { 43424, 40224, -3440 },
@@ -81,7 +81,7 @@ public class L2PcTemplate extends L2CharTemplate
 			new int[] { 48752, 40304, -3440 },
 			new int[] { 48928, 40288, -3440 }
 		},
-		// Dark Elf
+		// Dark Elf (2)
 		new int[][] {
 			new int[] { 26716, 11680, -4224 },
 			new int[] { 26794, 11561, -4224 },
@@ -94,20 +94,7 @@ public class L2PcTemplate extends L2CharTemplate
 			new int[] { 26912, 10400, -4224 },
 			new int[] { 26960, 10496, -4224 }
 		},
-		// Dwarf
-		new int[][] {
-			new int[] { 107520, -175808, -400 },
-			new int[] { 107824, -175776, -400 },
-			new int[] { 108336, -175536, -400 },
-			new int[] { 108592, -175232, -400 },
-			new int[] { 107024, -175440, -400 },
-			new int[] { 106880, -175056, -400 },
-			new int[] { 106848, -174704, -400 },
-			new int[] { 108256, -175152, -400 },
-			new int[] { 107632, -175376, -400 },
-			new int[] { 107200, -174800, -400 }
-		},
-		// Orc
+		// Orc (3)
 		new int[][] {
 			new int[] { -56936, -112448, -679 },
 			new int[] { -57281, -112427, -679 },
@@ -126,7 +113,20 @@ public class L2PcTemplate extends L2CharTemplate
 			new int[] { -56096, -113424, -679 },
 			new int[] { -56432, -113456, -679 }
 		},
-		// Kamael
+		// Dwarf (4)
+		new int[][] {
+			new int[] { 107520, -175808, -400 },
+			new int[] { 107824, -175776, -400 },
+			new int[] { 108336, -175536, -400 },
+			new int[] { 108592, -175232, -400 },
+			new int[] { 107024, -175440, -400 },
+			new int[] { 106880, -175056, -400 },
+			new int[] { 106848, -174704, -400 },
+			new int[] { 108256, -175152, -400 },
+			new int[] { 107632, -175376, -400 },
+			new int[] { 107200, -174800, -400 }
+		},
+		// Kamael (5)
 		new int[][] {
 			new int[] { -125464, 37776, 1176 },
 			new int[] { -125517, 38267, 1176 },
