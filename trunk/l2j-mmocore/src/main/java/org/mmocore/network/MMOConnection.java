@@ -39,7 +39,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	private ByteBuffer _primaryWriteBuffer;
 	private ByteBuffer _secondaryWriteBuffer;
 	
-	private long _timeClosed = -1;
+	private long _closeTimeout = -1;
 	
 	protected MMOConnection(SelectorThread<T, RP, SP> selectorThread, Socket socket, SelectionKey key)
 	{
@@ -185,12 +185,12 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	
 	final boolean isClosed()
 	{
-		return _timeClosed != -1;
+		return _closeTimeout != -1;
 	}
 	
 	final boolean closeTimeouted()
 	{
-		return System.currentTimeMillis() > _timeClosed + 10000;
+		return System.currentTimeMillis() > _closeTimeout;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -199,9 +199,13 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		if (isClosed())
 			return;
 		
-		_timeClosed = System.currentTimeMillis();
 		getSendQueue2().clear();
-		disableWriteInterest();
+		sendPacket(getDefaultClosePacket());
+		
+		// close the client as soon as possible
+		// for a normal connection 100 msec should be enough to write the pending packets
+		_closeTimeout = System.currentTimeMillis() + 100;
+		
 		disableReadInterest();
 		getSelectorThread().closeConnection((T)this);
 	}
@@ -214,7 +218,11 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		
 		getSendQueue2().clear();
 		sendPacket(sp);
-		_timeClosed = System.currentTimeMillis();
+		
+		// let the client have the chance to get all of the packets
+		// even for a connection with issues 10'000 msec should be enough to write the pending packets
+		_closeTimeout = System.currentTimeMillis() + 10000;
+		
 		disableReadInterest();
 		getSelectorThread().closeConnection((T)this);
 	}
@@ -246,4 +254,6 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	protected abstract boolean decrypt(ByteBuffer buf, int size);
 	
 	protected abstract boolean encrypt(ByteBuffer buf, int size);
+	
+	protected abstract SP getDefaultClosePacket();
 }
