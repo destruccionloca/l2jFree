@@ -77,8 +77,6 @@ public class Config extends L2Config
 	public static int			MAX_CONNECTION_PER_IP;
 
 	public static boolean		PROTOCOL_LEGACY;
-	public static boolean		AGGRESSIVE_BUFFER_REUSE;
-	public static int			INFRACT_FOR_MMOCORE_ABUSE;
 	public static boolean		SECURITY_CARD_LOGIN;
 	public static String		SECURITY_CARD_ID;
 
@@ -121,8 +119,6 @@ public class Config extends L2Config
 			MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
 
 			PROTOCOL_LEGACY = Boolean.parseBoolean(serverSettings.getProperty("SupportL2JFreeCT2P2", "False"));
-			AGGRESSIVE_BUFFER_REUSE = Boolean.parseBoolean(serverSettings.getProperty("AggressivelyReuseReadBuffers", "True"));
-			INFRACT_FOR_MMOCORE_ABUSE = Integer.parseInt(serverSettings.getProperty("InfractForReadBufferCreation", "20"));
 			SECURITY_CARD_LOGIN = Boolean.parseBoolean(serverSettings.getProperty("UseSecurityCardToLogin", "False"));
 			SECURITY_CARD_ID = serverSettings.getProperty("SecurityCardID", "l2jfree");
 		}

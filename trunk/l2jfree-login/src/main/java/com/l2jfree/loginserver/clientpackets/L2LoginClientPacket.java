@@ -19,18 +19,16 @@ import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.loginserver.L2LoginClient;
+import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
-public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient>
+public abstract class L2LoginClientPacket extends
+	ReceivablePacket<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>
 {
-	private static Log	_log	= LogFactory.getLog(L2LoginClientPacket.class);
-
-	/**
-	 * @see com.l2jserver.mmocore.network.ReceivablePacket#read()
-	 */
+	protected static final Log _log = LogFactory.getLog(L2LoginClientPacket.class);
+	
 	@Override
 	protected final boolean read()
 	{
@@ -38,12 +36,12 @@ public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient
 		{
 			return readImpl();
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
-			_log.fatal("ERROR READING: " + this.getClass().getSimpleName(), e);
+			_log.warn("", e);
 			return false;
 		}
 	}
-
+	
 	protected abstract boolean readImpl();
 }

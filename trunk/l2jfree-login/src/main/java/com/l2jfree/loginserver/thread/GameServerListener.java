@@ -16,47 +16,48 @@ package com.l2jfree.loginserver.thread;
 
 import java.net.Socket;
 import java.util.List;
-
-import javolution.util.FastList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.l2jfree.Config;
 
 /**
- *
  * @author KenM
  */
-public class GameServerListener extends FloodProtectedListener
+public final class GameServerListener extends FloodProtectedListener
 {
-	private static Log _log								= LogFactory.getLog(GameServerListener.class);
-	private static List<GameServerThread> _gameServers	= new FastList<GameServerThread>();
-
-	public GameServerListener()
+	private static final class SingletonHolder
+	{
+		private static final GameServerListener INSTANCE = new GameServerListener();
+	}
+	
+	public static GameServerListener getInstance()
+	{
+		return SingletonHolder.INSTANCE;
+	}
+	
+	private final List<GameServerThread> _gameServers = new CopyOnWriteArrayList<GameServerThread>();
+	
+	private GameServerListener()
 	{
 		super(Config.LOGIN_HOSTNAME, Config.LOGIN_PORT);
+		start();
+		_log.info("GameServerListener: Initialized.");
 	}
-
-	/**
-	 * @see com.l2jfree.loginserver.FloodProtectedListener#addClient(java.net.Socket)
-	 */
+	
 	@Override
 	public void addClient(Socket s)
 	{
 		if (_log.isDebugEnabled())
-		{
 			_log.info("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
-		}
-		GameServerThread gst = new GameServerThread(s);
-		_gameServers.add(gst);
+		
+		_gameServers.add(new GameServerThread(s));
 	}
-
+	
 	public void removeGameServer(GameServerThread gst)
 	{
 		_gameServers.remove(gst);
 	}
-
+	
 	public void playerSelectedServer(int id, String ip)
 	{
 		for (GameServerThread gst : _gameServers)

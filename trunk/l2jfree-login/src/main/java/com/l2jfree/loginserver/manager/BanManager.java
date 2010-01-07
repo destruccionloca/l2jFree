@@ -86,9 +86,9 @@ public class BanManager
 					addBannedIP(line);
 				}
 			}
-            _log.info("Ban Manager Loaded.");
-            _log.info("Temporary Banned IPs:" + getTempBanCount());
-            _log.info("Forever Banned IPs:" + getEternalBanCount());
+            _log.info("BanManager: Loaded.");
+            _log.info(" - temporary banned IPs:" + getTempBanCount());
+            _log.info(" - forever banned IPs:" + getEternalBanCount());
 		}
 		catch (IOException e)
 		{

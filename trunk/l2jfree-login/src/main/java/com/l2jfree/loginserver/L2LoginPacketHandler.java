@@ -17,80 +17,79 @@ package com.l2jfree.loginserver;
 import java.nio.ByteBuffer;
 
 import org.mmocore.network.IPacketHandler;
-import org.mmocore.network.ReceivablePacket;
 
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.clientpackets.AuthGameGuard;
+import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.clientpackets.RequestAuthLogin;
 import com.l2jfree.loginserver.clientpackets.RequestServerList;
 import com.l2jfree.loginserver.clientpackets.RequestServerLogin;
 import com.l2jfree.loginserver.clientpackets.RequestSubmitCardNo;
+import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 
 /**
  * Handler for packets received by Login Server
- *
- * @author  KenM
+ * 
+ * @author KenM
  */
-public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
+public final class L2LoginPacketHandler implements
+	IPacketHandler<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>
 {
-	/**
-	 * @see com.l2jserver.mmocore.network.IPacketHandler#handlePacket(java.nio.ByteBuffer, com.l2jserver.mmocore.interfaces.MMOClient)
-	 */
-	public ReceivablePacket<L2LoginClient> handlePacket(ByteBuffer buf, L2LoginClient client)
+	public L2LoginClientPacket handlePacket(ByteBuffer buf, L2LoginClient client)
 	{
-		int opcode = buf.get() & 0xFF;
-
-		ReceivablePacket<L2LoginClient> packet = null;
-		LoginClientState state = client.getState();
-
+		final int opcode = buf.get() & 0xFF;
+		
+		final LoginClientState state = client.getState();
+		
 		switch (state)
 		{
-		case CONNECTED:
-			if (opcode == 0x07)
-			{
-				packet = new AuthGameGuard();
-			}
-			else
-			{
-				debugOpcode(opcode, state);
-			}
-			break;
-		case AUTHED_GG:
-			if (opcode == 0x00)
-			{
-				packet = new RequestAuthLogin();
-			}
-			else
-			{
-				debugOpcode(opcode, state);
-			}
-			break;
-		case AUTHED_LOGIN:
-			if (opcode == 0x05)
-			{
-				packet = new RequestServerList();
-			}
-			else if (opcode == 0x02)
-			{
-				packet = new RequestServerLogin();
-			}
-			else if (opcode == 0x06)
-			{
-				if (Config.SECURITY_CARD_LOGIN)
-					packet = new RequestSubmitCardNo();
-			}
-			else
-			{
-				debugOpcode(opcode, state);
-			}
-			break;
+			case CONNECTED:
+				if (opcode == 0x07)
+				{
+					return new AuthGameGuard();
+				}
+				else
+				{
+					debugOpcode(opcode, state, client);
+				}
+				break;
+			case AUTHED_GG:
+				if (opcode == 0x00)
+				{
+					return new RequestAuthLogin();
+				}
+				else
+				{
+					debugOpcode(opcode, state, client);
+				}
+				break;
+			case AUTHED_LOGIN:
+				if (opcode == 0x05)
+				{
+					return new RequestServerList();
+				}
+				else if (opcode == 0x02)
+				{
+					return new RequestServerLogin();
+				}
+				else if (opcode == 0x06)
+				{
+					if (Config.SECURITY_CARD_LOGIN)
+						return new RequestSubmitCardNo();
+				}
+				else
+				{
+					debugOpcode(opcode, state, client);
+				}
+				break;
 		}
-		return packet;
+		
+		return null;
 	}
-
-	private void debugOpcode(int opcode, LoginClientState state)
+	
+	private void debugOpcode(int opcode, LoginClientState state, L2LoginClient client)
 	{
-		System.out.println("Unknown Opcode: " + opcode + " for state: " + state.name());
+		System.out.println("Unknown Opcode: " + opcode + " for state: " + state.name() + " for client " + client);
 	}
 }

@@ -17,28 +17,12 @@ package com.l2jfree.loginserver.serverpackets;
 import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.loginserver.L2LoginClient;
+import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
-public abstract class L2LoginServerPacket extends SendablePacket<L2LoginClient>
+public abstract class L2LoginServerPacket extends
+	SendablePacket<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>
 {
-	/**
-	* @see org.mmocore.network.SendablePacket#getHeaderSize()
-	*/
-	@Override
-	protected int getHeaderSize()
-	{
-		return 2;
-	}
-
-	/**
-	* @see org.mmocore.network.SendablePacket#writeHeader(int)
-	*/
-	@Override
-	protected void writeHeader(int dataSize)
-	{
-		writeH(dataSize + getHeaderSize());
-	}
 }

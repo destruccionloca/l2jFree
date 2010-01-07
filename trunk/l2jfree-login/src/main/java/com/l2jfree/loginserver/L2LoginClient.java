@@ -16,6 +16,7 @@ package com.l2jfree.loginserver;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.security.interfaces.RSAPrivateKey;
@@ -24,14 +25,14 @@ import java.util.GregorianCalendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.ISocket;
 import org.mmocore.network.MMOConnection;
 import org.mmocore.network.SelectorThread;
 
-import com.l2jfree.Config;
 import com.l2jfree.loginserver.beans.SessionKey;
+import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.crypt.LoginCrypt;
 import com.l2jfree.loginserver.manager.LoginManager;
+import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.PlayFail;
 import com.l2jfree.tools.math.ScrambledKeyPair;
@@ -42,7 +43,7 @@ import com.l2jfree.tools.random.Rnd;
  * 
  * @author KenM
  */
-public class L2LoginClient extends MMOConnection<L2LoginClient>
+public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>
 {
 	private static final Log _log = LogFactory.getLog(L2LoginClient.class);
 	
@@ -68,10 +69,11 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	private final int _sessionId = Rnd.nextInt(Integer.MAX_VALUE);
 	private boolean _joinedGS;
 	private final String _ip;
-
+	
 	private boolean _card;
 	
-	public L2LoginClient(SelectorThread<L2LoginClient> selectorThread, ISocket socket, SelectionKey key)
+	public L2LoginClient(SelectorThread<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket> selectorThread,
+		Socket socket, SelectionKey key)
 	{
 		super(selectorThread, socket, key);
 		
@@ -97,9 +99,6 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 		return _ip;
 	}
 	
-	/**
-	 * @see com.l2jserver.mmocore.interfaces.MMOClient#decrypt(java.nio.ByteBuffer, int)
-	 */
 	@Override
 	public boolean decrypt(ByteBuffer buf, int size)
 	{
@@ -126,9 +125,6 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 		return ret;
 	}
 	
-	/**
-	 * @see com.l2jserver.mmocore.interfaces.MMOClient#encrypt(java.nio.ByteBuffer, int)
-	 */
 	@Override
 	public boolean encrypt(ByteBuffer buf, int size)
 	{
@@ -169,7 +165,7 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	
 	public RSAPrivateKey getRSAPrivateKey()
 	{
-		return (RSAPrivateKey) _scrambledPair.getPair().getPrivate();
+		return (RSAPrivateKey)_scrambledPair.getPair().getPrivate();
 	}
 	
 	public String getAccount()
@@ -201,19 +197,21 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	{
 		return _lastServerId;
 	}
-
-	public void setAge(int year, int month, int day) {
-	    Calendar dateOfBirth = new GregorianCalendar(year, month-1, day);
-	    Calendar today = Calendar.getInstance();
-	    int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
-	    dateOfBirth.add(Calendar.YEAR, age);
-	    if (today.before(dateOfBirth))
-	        age--;
-
+	
+	public void setAge(int year, int month, int day)
+	{
+		Calendar dateOfBirth = new GregorianCalendar(year, month - 1, day);
+		Calendar today = Calendar.getInstance();
+		int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+		dateOfBirth.add(Calendar.YEAR, age);
+		if (today.before(dateOfBirth))
+			age--;
+		
 		_age = age;
 	}
-
-	public int getAge() {
+	
+	public int getAge()
+	{
 		return _age;
 	}
 	
@@ -241,40 +239,46 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 	{
 		return _sessionKey;
 	}
-
+	
 	public void closeLogin(int reason)
 	{
 		close(new LoginFail(reason));
 	}
-
+	
 	public void closeLoginGame(int reason)
 	{
 		close(new PlayFail(reason));
 	}
-
+	
 	public void closeBanned()
 	{
 		close(new LoginFail(getAccessLevel(), true));
 	}
-
+	
 	public void closeBanned(int timeLeft)
 	{
 		closeLogin(LoginFail.REASON_IP_RESTRICTED);
 	}
-
+	
 	public InetAddress getInetAddress()
 	{
 		return getSocket().getInetAddress();
 	}
-
+	
 	public boolean isCardAuthed()
 	{
 		return _card;
 	}
-
+	
 	public void setCardAuthed(boolean card)
 	{
 		_card = card;
+	}
+	
+	@Override
+	protected L2LoginServerPacket getDefaultClosePacket()
+	{
+		return new LoginFail(LoginFail.REASON_ACCESS_FAILED);
 	}
 	
 	@Override
@@ -299,22 +303,12 @@ public class L2LoginClient extends MMOConnection<L2LoginClient>
 			_log.info("onForcedDisconnection: " + this);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.mmocore.network.MMOConnection#isLossless()
-	 */
-	@Override
-	public boolean isLossless()
-	{
-		return Config.AGGRESSIVE_BUFFER_REUSE;
-	}
-	
 	@Override
 	public String toString()
 	{
-		InetAddress address = getSocket().getInetAddress();
 		if (getState() == LoginClientState.AUTHED_LOGIN)
-			return "[" + getAccount() + " (" + (address == null ? "disconnected" : address.getHostAddress()) + ")]";
+			return "[" + getAccount() + " (" + _ip + ")]";
 		else
-			return "[" + (address == null ? "disconnected" : address.getHostAddress()) + "]";
+			return "[" + _ip + "]";
 	}
 }

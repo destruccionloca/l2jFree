@@ -42,11 +42,11 @@ import com.l2jfree.loginserver.beans.FailedLoginAttempt;
 import com.l2jfree.loginserver.beans.GameServerInfo;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.gameserverpackets.ServerStatus;
-import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
+import com.l2jfree.loginserver.services.exception.HackingException;
 import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
@@ -111,7 +111,7 @@ public class LoginManager
 	{
 		try
 		{
-			_log.info("LoginManager initiating");
+			_log.info("LoginManager: initializing.");
 
 			_hackProtection = new FastMap<InetAddress, FailedLoginAttempt>();
 
@@ -142,7 +142,7 @@ public class LoginManager
 			{
 				_keyPairs[i] = new ScrambledKeyPair(keygen.generateKeyPair());
 			}
-			_log.info("Cached 10 KeyPairs for RSA communication");
+			_log.info("LoginManager: Cached 10 KeyPairs for RSA communication");
 
 			testCipher((RSAPrivateKey) _keyPairs[0].getPair().getPrivate());
 
@@ -660,33 +660,6 @@ public class LoginManager
 		}
 		_logLogin.warn("No such account exists: " + user);
 		return false;
-	}
-
-	public int attemptCleansing(L2LoginClient newCon)
-	{
-		if (!Config.AGGRESSIVE_BUFFER_REUSE || newCon == null)
-			return 0;
-
-		int result = 0;
-		for (L2LoginClient lc : _connections)
-		{
-			if (newCon != lc && newCon.getIp().equals(lc.getIp()))
-			{
-				if (result < 5)
-					lc.closeLogin(LoginFail.REASON_USING_A_COMPUTER_NO_DUAL_BOX);
-				else
-					lc.closeNow();
-				result++;
-			}
-		}
-		if (result >= Config.INFRACT_FOR_MMOCORE_ABUSE)
-		{
-			// ban until login restart
-			// if user keeps seeing the same IP, he should use hardware measures
-			BanManager.getInstance().addBanForAddress(newCon.getInetAddress(), 0);
-			_log.info(newCon.getIp() + " has been infracted. Parallel unfinished login connections: " + result);
-		}
-		return result;
 	}
 
 	public void addConnection(L2LoginClient lc)

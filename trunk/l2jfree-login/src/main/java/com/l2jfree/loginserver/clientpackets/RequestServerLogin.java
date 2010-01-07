@@ -15,13 +15,13 @@
 package com.l2jfree.loginserver.clientpackets;
 
 import com.l2jfree.Config;
-import com.l2jfree.loginserver.L2LoginServer;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.PlayOk;
 import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
+import com.l2jfree.loginserver.thread.GameServerListener;
 
 /**
  * Fromat is ddc
@@ -93,7 +93,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 		if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
 		{
 			// make sure GS handles the info packet
-			L2LoginServer.getInstance().getGameServerListener().playerSelectedServer(_serverId, getClient().getIp());
+			GameServerListener.getInstance().playerSelectedServer(_serverId, getClient().getIp());
 			try
 			{
 				if (LoginManager.getInstance().isLoginPossible(getClient().getAge(), getClient().getAccessLevel(), _serverId))

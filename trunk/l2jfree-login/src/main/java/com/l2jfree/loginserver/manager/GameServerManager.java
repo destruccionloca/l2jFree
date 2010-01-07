@@ -119,7 +119,7 @@ public class GameServerManager
 		{
 			_keyPairs[i] = keyGen.genKeyPair();
 		}
-		_log.info("Cached " + _keyPairs.length + " RSA keys for Game Server communication.");
+		_log.info("GameServerManager: Cached " + _keyPairs.length + " RSA keys for Game Server communication.");
 	}
 
 	public Map<Integer, GameServerInfo> getRegisteredGameServers()

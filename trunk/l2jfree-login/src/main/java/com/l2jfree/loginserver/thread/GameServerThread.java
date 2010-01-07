@@ -203,8 +203,8 @@ public class GameServerThread extends Thread
 				_gsi.setDown();
 				_log.info("Server [" + getServerId() + "] " + GameServerManager.getInstance().getServerName(getServerId()) + " is now set as disconnected");
 			}
-			L2LoginServer.getInstance().getGameServerListener().removeGameServer(this);
-			L2LoginServer.getInstance().getGameServerListener().removeFloodProtection(_connectionIp);
+			GameServerListener.getInstance().removeGameServer(this);
+			GameServerListener.getInstance().removeFloodProtection(_connectionIp);
 		}
 	}
 

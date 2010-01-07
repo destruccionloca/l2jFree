@@ -14,154 +14,89 @@
  */
 package com.l2jfree.loginserver;
 
-import java.io.IOException;
 import java.net.InetAddress;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.mmocore.network.SelectorConfig;
 import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
+import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
+import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.loginserver.thread.GameServerListener;
 import com.l2jfree.status.Status;
 
-/**
- * Main class for loginserver
- * 
- */
-public class L2LoginServer extends Config
+public final class L2LoginServer extends Config
 {
 	/** Version sent if {@link Config#PROTOCOL_LEGACY} is false */
 	public static final int PROTOCOL_L2J = 258;
 	/** Version sent if {@link Config#PROTOCOL_LEGACY} is true */
-	@SuppressWarnings("hiding")
 	public static final int PROTOCOL_LEGACY = 259;
 	/** Current network protocol version */
 	// protocol 1 does not support connection filtering
 	public static final int PROTOCOL_CURRENT = 2;
-
-	private static L2LoginServer			_instance;
-	@SuppressWarnings("hiding")
-	private static Log						_log			= LogFactory.getLog(L2LoginServer.class);
-	/**the gameserver listener store all gameserver connected to the client*/
-	private GameServerListener				_gameServerListener;
-	private SelectorThread<L2LoginClient>	_selectorThread;
-
-	/**
-	 * @return the instance of L2LoginServer
-	 */
-	public static L2LoginServer getInstance()
-	{
-		return _instance;
-	}
-
-	/**
-	 * Instantiate loginserver and launch it
-	 * Initialize log folder, telnet console and registry
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException
-	{
-		_instance = new L2LoginServer();
-	}
-
-	public L2LoginServer() throws IOException
+	
+	public static void main(String[] args) throws Throwable
 	{
 		// Initialize config
 		// ------------------
 		Config.load();
-
+		
 		// Initialize Application context (registry of beans)
 		// ---------------------------------------------------
-		L2Registry.loadRegistry(new String[]
-		{ "spring.xml" });
-
+		L2Registry.loadRegistry(new String[] { "spring.xml" });
+		
 		// o Initialize LoginManager
 		// -------------------------
 		LoginManager.getInstance();
-
+		
 		// o Initialize GameServer Manager
 		// ------------------------------
 		GameServerManager.getInstance();
-
+		
 		// o Initialize ban list
 		// ----------------------
 		BanManager.getInstance();
-
+		
 		// o Initialize SelectorThread
 		// ----------------------------
-		initNetworkLayer();
-
+		final SelectorThread<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket> selectorThread;
+		final SelectorConfig<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket> ssc;
+		
+		final L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
+		final SelectorHelper sh = new SelectorHelper();
+		ssc = new SelectorConfig<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>();
+		ssc.setAcceptFilter(sh);
+		ssc.setClientFactory(sh);
+		ssc.setExecutor(sh);
+		ssc.setPacketHandler(loginPacketHandler);
+		
+		selectorThread = new SelectorThread<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>(ssc);
+		
 		// o Initialize GS listener
 		// ----------------------------
-		initGSListener();
-
+		GameServerListener.getInstance();
+		
+		_log.info("Listening for GameServers on " + Config.LOGIN_HOSTNAME + ":" + Config.LOGIN_PORT);
+		
 		// o Start status telnet server
 		// --------------------------
-		initTelnetServer();
-
-		System.gc();
-
-		// o Start the server
-		// ------------------
-		startServer();
-		_log.info("Login Server ready on " + Config.LOGIN_SERVER_HOSTNAME + ":" + Config.LOGIN_SERVER_PORT);
-	}
-
-	private void startServer()
-	{
-		try
-		{
-			_selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
-		}
-		catch (IOException e)
-		{
-			_log.fatal("FATAL: Failed to open server socket. Reason: " + e.getMessage(), e);
-			System.exit(1);
-		}
-		_selectorThread.start();
-	}
-
-	private void initTelnetServer() throws IOException
-	{
 		if (Config.IS_TELNET_ENABLED)
 			Status.initInstance();
-		
 		else
 			_log.info("Telnet server is currently disabled.");
-	}
-
-	private void initGSListener()
-	{
-		_gameServerListener = new GameServerListener();
-		_gameServerListener.start();
-		_log.info("Listening for GameServers on " + Config.LOGIN_HOSTNAME + ":" + Config.LOGIN_PORT);
-	}
-
-	private void initNetworkLayer()
-	{
-		L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
-		SelectorHelper sh = new SelectorHelper();
-		SelectorConfig<L2LoginClient> ssc = new SelectorConfig<L2LoginClient>(null, null, sh, loginPacketHandler);
-		try
-		{
-			_selectorThread = new SelectorThread<L2LoginClient>(ssc, sh, sh, sh);
-		}
-		catch (IOException e)
-		{
-			_log.fatal("FATAL: Failed to open Selector. Reason: " + e.getMessage(), e);
-			System.exit(1);
-		}
-	}
-
-	public GameServerListener getGameServerListener()
-	{
-		return _gameServerListener;
+		
+		System.gc();
+		
+		// o Start the server
+		// ------------------
+		
+		selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
+		selectorThread.start();
+		
+		_log.info("Login Server ready on " + Config.LOGIN_SERVER_HOSTNAME + ":" + Config.LOGIN_SERVER_PORT);
 	}
 }
