@@ -69,24 +69,12 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		return _selectorThread;
 	}
 	
-	SelectionKey getSelectionKey()
+	final SelectionKey getSelectionKey()
 	{
 		return _selectionKey;
 	}
 	
-	void enableReadInterest()
-	{
-		try
-		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() | SelectionKey.OP_READ);
-		}
-		catch (CancelledKeyException e)
-		{
-			// ignore
-		}
-	}
-	
-	void disableReadInterest()
+	final void disableReadInterest()
 	{
 		try
 		{
@@ -98,19 +86,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		}
 	}
 	
-	void enableWriteInterest()
-	{
-		try
-		{
-			getSelectionKey().interestOps(getSelectionKey().interestOps() | SelectionKey.OP_WRITE);
-		}
-		catch (CancelledKeyException e)
-		{
-			// ignore
-		}
-	}
-	
-	void disableWriteInterest()
+	final void disableWriteInterest()
 	{
 		try
 		{
@@ -122,22 +98,22 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		}
 	}
 	
-	public Socket getSocket()
+	public final Socket getSocket()
 	{
 		return _socket;
 	}
 	
-	WritableByteChannel getWritableChannel()
+	final WritableByteChannel getWritableChannel()
 	{
 		return _socket.getChannel();
 	}
 	
-	ReadableByteChannel getReadableByteChannel()
+	final ReadableByteChannel getReadableByteChannel()
 	{
 		return _socket.getChannel();
 	}
 	
-	synchronized FastList<SP> getSendQueue2()
+	final FastList<SP> getSendQueue2()
 	{
 		if (_sendQueue == null)
 			_sendQueue = new FastList<SP>();
@@ -145,19 +121,18 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		return _sendQueue;
 	}
 	
-	void createWriteBuffer(ByteBuffer buf)
+	final void createWriteBuffer(ByteBuffer buf)
 	{
 		if (_primaryWriteBuffer == null)
 		{
-			//System.err.println("APPENDING FOR NULL");
-			//System.err.flush();
+			// APPENDING FOR NULL
+			
 			_primaryWriteBuffer = getSelectorThread().getPooledBuffer();
 			_primaryWriteBuffer.put(buf);
 		}
 		else
 		{
-			//System.err.println("PREPENDING ON EXISTING");
-			//System.err.flush();
+			// PREPENDING ON EXISTING
 			
 			ByteBuffer temp = getSelectorThread().getPooledBuffer();
 			temp.put(buf);
@@ -184,15 +159,13 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		}
 	}
 	
-	boolean hasPendingWriteBuffer()
+	final boolean hasPendingWriteBuffer()
 	{
 		return _primaryWriteBuffer != null;
 	}
 	
-	void movePendingWriteBufferTo(ByteBuffer dest)
+	final void movePendingWriteBufferTo(ByteBuffer dest)
 	{
-		//System.err.println("PRI SIZE: "+_primaryWriteBuffer.position());
-		//System.err.flush();
 		_primaryWriteBuffer.flip();
 		dest.put(_primaryWriteBuffer);
 		getSelectorThread().recycleBuffer(_primaryWriteBuffer);
@@ -200,22 +173,22 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		_secondaryWriteBuffer = null;
 	}
 	
-	void setReadBuffer(ByteBuffer buf)
+	final void setReadBuffer(ByteBuffer buf)
 	{
 		_readBuffer = buf;
 	}
 	
-	ByteBuffer getReadBuffer()
+	final ByteBuffer getReadBuffer()
 	{
 		return _readBuffer;
 	}
 	
-	boolean isClosed()
+	final boolean isClosed()
 	{
 		return _timeClosed != -1;
 	}
 	
-	boolean closeTimeouted()
+	final boolean closeTimeouted()
 	{
 		return System.currentTimeMillis() > _timeClosed + 10000;
 	}
@@ -229,6 +202,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		_timeClosed = System.currentTimeMillis();
 		getSendQueue2().clear();
 		disableWriteInterest();
+		disableReadInterest();
 		getSelectorThread().closeConnection((T)this);
 	}
 	
@@ -241,10 +215,11 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		getSendQueue2().clear();
 		sendPacket(sp);
 		_timeClosed = System.currentTimeMillis();
+		disableReadInterest();
 		getSelectorThread().closeConnection((T)this);
 	}
 	
-	void releaseBuffers()
+	final void releaseBuffers()
 	{
 		if (_primaryWriteBuffer != null)
 		{

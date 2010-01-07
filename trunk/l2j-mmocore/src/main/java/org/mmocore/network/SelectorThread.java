@@ -49,9 +49,12 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 	private final FastList<T> _pendingClose = new FastList<T>();
 	
 	// Configs
-	private final int HELPER_BUFFER_SIZE;
+	private final int BUFFER_SIZE;
 	private final int HELPER_BUFFER_COUNT;
 	private final int MAX_SEND_PER_PASS;
+	private final int MAX_READ_PER_PASS;
+	private final int MAX_SEND_BYTE_PER_PASS;
+	private final int MAX_READ_BYTE_PER_PASS;
 	private final int HEADER_SIZE = 2;
 	private final ByteOrder BYTE_ORDER;
 	private final long SLEEP_TIME;
@@ -66,15 +69,18 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 	
 	public SelectorThread(SelectorConfig<T, RP, SP> sc) throws IOException
 	{
-		HELPER_BUFFER_SIZE = sc.getHelperBufferSize();
+		BUFFER_SIZE = sc.getBufferSize();
 		HELPER_BUFFER_COUNT = sc.getHelperBufferCount();
 		MAX_SEND_PER_PASS = sc.getMaxSendPerPass();
+		MAX_READ_PER_PASS = sc.getMaxReadPerPass();
+		MAX_SEND_BYTE_PER_PASS = sc.getMaxSendBytePerPass();
+		MAX_READ_BYTE_PER_PASS = sc.getMaxReadBytePerPass();
 		BYTE_ORDER = sc.getByteOrder();
 		SLEEP_TIME = sc.getSelectorSleepTime();
 		
-		DIRECT_WRITE_BUFFER = ByteBuffer.allocateDirect(sc.getWriteBufferSize()).order(BYTE_ORDER);
-		WRITE_BUFFER = ByteBuffer.wrap(new byte[sc.getWriteBufferSize()]).order(BYTE_ORDER);
-		READ_BUFFER = ByteBuffer.wrap(new byte[sc.getReadBufferSize()]).order(BYTE_ORDER);
+		DIRECT_WRITE_BUFFER = ByteBuffer.allocateDirect(BUFFER_SIZE).order(BYTE_ORDER);
+		WRITE_BUFFER = ByteBuffer.allocate(BUFFER_SIZE).order(BYTE_ORDER);
+		READ_BUFFER = ByteBuffer.allocate(BUFFER_SIZE).order(BYTE_ORDER);
 		
 		initBufferPool();
 		_acceptFilter = sc.getAcceptFilter();
@@ -89,7 +95,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 	{
 		for (int i = 0; i < HELPER_BUFFER_COUNT; i++)
 		{
-			getFreeBuffers().addLast(ByteBuffer.wrap(new byte[HELPER_BUFFER_SIZE]).order(BYTE_ORDER));
+			getFreeBuffers().addLast(ByteBuffer.allocate(BUFFER_SIZE).order(BYTE_ORDER));
 		}
 	}
 	
@@ -113,7 +119,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 	ByteBuffer getPooledBuffer()
 	{
 		if (getFreeBuffers().isEmpty())
-			return ByteBuffer.wrap(new byte[HELPER_BUFFER_SIZE]).order(BYTE_ORDER);
+			return ByteBuffer.allocate(BUFFER_SIZE).order(BYTE_ORDER);
 		else
 			return getFreeBuffers().removeFirst();
 	}
@@ -157,11 +163,11 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 					{
 						switch (key.readyOps())
 						{
-							case SelectionKey.OP_CONNECT:
-								finishConnection(key);
-								break;
 							case SelectionKey.OP_ACCEPT:
 								acceptConnection(key);
+								break;
+							case SelectionKey.OP_CONNECT:
+								finishConnection(key);
 								break;
 							case SelectionKey.OP_READ:
 								readPacket(key);
@@ -256,6 +262,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				if (getAcceptFilter() == null || getAcceptFilter().accept(sc))
 				{
 					sc.configureBlocking(false);
+					
 					SelectionKey clientKey = sc.register(getSelector(), SelectionKey.OP_READ);
 					
 					clientKey.attach(getClientFactory().create(this, sc.socket(), clientKey));
@@ -277,24 +284,15 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		@SuppressWarnings("unchecked")
 		T con = (T)key.attachment();
 		
-		ByteBuffer buf;
-		if ((buf = con.getReadBuffer()) == null)
+		ByteBuffer buf = con.getReadBuffer();
+		
+		if (buf == null)
 		{
 			buf = READ_BUFFER;
+			buf.clear();
 		}
+		
 		int result = -2;
-		
-		// if we try to to do a read with no space in the buffer it will read 0 bytes
-		// going into infinite loop
-		if (buf.position() == buf.limit())
-		{
-			// should never happen
-			System.err.println("POS ANTES SC.READ(): " + buf.position() + " limit: " + buf.limit());
-			System.err.println("NOOBISH ERROR " + (buf == READ_BUFFER ? "READ_BUFFER" : "temp"));
-			System.exit(0);
-		}
-		
-		//System.out.println("POS ANTES SC.READ(): "+buf.position()+" limit: "+buf.limit()+" - buf: "+(buf == READ_BUFFER ? "READ_BUFFER" : "TEMP"));
 		
 		try
 		{
@@ -305,171 +303,111 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 			//error handling goes bellow
 		}
 		
-		//System.out.println("LEU: "+result+" pos: "+buf.position());
-		if (result > 0)
+		switch (result)
 		{
-			// TODO this should be done vefore even reading
-			if (!con.isClosed())
+			case -2: // IOException
+			{
+				closeConnectionImpl(con, true);
+				break;
+			}
+			case -1: // EOS
+			{
+				closeConnectionImpl(con, false);
+				break;
+			}
+			default:
 			{
 				buf.flip();
 				// try to read as many packets as possible
-				while (tryReadPacket2(key, con, buf))
+				for (int i = 0; i < MAX_READ_PER_PASS && buf.position() < MAX_READ_BYTE_PER_PASS; i++)
 				{
-					// ...
+					if (!tryReadPacket2(con, buf))
+						break;
 				}
+				break;
+			}
+		}
+		
+		if (!key.isValid())
+			return;
+		
+		// check if there are some more bytes in buffer and allocate/compact to prevent content lose.
+		if (buf.hasRemaining())
+		{
+			if (buf == READ_BUFFER)
+			{
+				con.setReadBuffer(getPooledBuffer().put(READ_BUFFER));
 			}
 			else
 			{
-				if (buf == READ_BUFFER)
-				{
-					READ_BUFFER.clear();
-				}
+				buf.compact();
 			}
-		}
-		else if (result == 0)
-		{
-			// read interest but nothing to read? wtf?
-			System.out.println("NOOBISH ERROR 2 THE MISSION");
-			//System.exit(0);
-		}
-		else if (result == -1)
-		{
-			closeConnectionImpl(con, false);
 		}
 		else
 		{
-			closeConnectionImpl(con, true);
+			if (buf == READ_BUFFER)
+			{
+			}
+			else
+			{
+				con.setReadBuffer(null);
+				recycleBuffer(buf);
+			}
 		}
 	}
 	
-	private boolean tryReadPacket2(SelectionKey key, T con, ByteBuffer buf)
+	private boolean tryReadPacket2(T con, ByteBuffer buf)
 	{
-		//System.out.println("BUFF POS ANTES DE LER: "+buf.position()+" - REMAINING: "+buf.remaining());
-		
-		if (buf.hasRemaining())
+		// check if header could be processed
+		if (buf.remaining() >= 2)
 		{
-			// parse all headers
-			final int headerPending;
-			final int dataPending;
+			// parse all headers and get expected packet size
+			final int size = (buf.getShort() & 0xFFFF) - HEADER_SIZE;
 			
-			if (buf.remaining() >= 2)
+			// do we got enough bytes for the packet?
+			if (size <= buf.remaining())
 			{
-				headerPending = 0;
-				dataPending = (buf.getShort() & 0xffff) - 2;
+				// avoid parsing dummy packets (packets without body)
+				if (size > 0)
+				{
+					int pos = buf.position();
+					parseClientPacket(buf, size, con);
+					buf.position(pos + size);
+				}
+				
+				return true;
+			}
+			else if (size > BUFFER_SIZE - HEADER_SIZE)
+			{
+				// that packet simly won't fit in our buffer and will result in a never succeeding packet parsing
+				// so close the connection as this is an invalid packet (probably an offensive attack)
+				closeConnectionImpl(con, false);
+				return false;
 			}
 			else
 			{
-				headerPending = 2 - buf.remaining();
-				dataPending = 0;
-			}
-			
-			int result = buf.remaining();
-			
-			// then check if header was processed
-			if (headerPending == 0)
-			{
-				// get expected packet size
-				int size = dataPending;
-				
-				//System.out.println("IF: ("+size+" <= "+result+") => (size <= result)");
-				// do we got enough bytes for the packet?
-				if (size <= result)
-				{
-					// avoid parsing dummy packets (packets without body)
-					if (size > 0)
-					{
-						int pos = buf.position();
-						parseClientPacket(buf, size, con);
-						buf.position(pos + size);
-					}
-					
-					// if we are done with this buffer
-					if (!buf.hasRemaining())
-					{
-						//System.out.println("BOA 2");
-						if (buf != READ_BUFFER)
-						{
-							con.setReadBuffer(null);
-							recycleBuffer(buf);
-						}
-						else
-						{
-							READ_BUFFER.clear();
-						}
-						
-						return false;
-					}
-					else
-					{
-						// nothing
-					}
-					
-					return true;
-				}
-				else
-				{
-					// we dont have enough bytes for the dataPacket so we need to read
-					con.enableReadInterest();
-					
-					//System.out.println("LIMIT "+buf.limit());
-					if (buf == READ_BUFFER)
-					{
-						buf.position(buf.position() - HEADER_SIZE);
-						allocateReadBuffer(con);
-					}
-					else
-					{
-						buf.position(buf.position() - HEADER_SIZE);
-						buf.compact();
-					}
-					return false;
-				}
-			}
-			else
-			{
-				// we dont have enough data for header so we need to read
-				con.enableReadInterest();
-				
-				if (buf == READ_BUFFER)
-				{
-					allocateReadBuffer(con);
-				}
-				else
-				{
-					buf.compact();
-				}
+				// we dont have enough bytes for the packet so we need to read and revert the header
+				buf.position(buf.position() - HEADER_SIZE);
 				return false;
 			}
 		}
 		else
-			//con.disableReadInterest();
-			return false; //empty buffer
-	}
-	
-	private void allocateReadBuffer(T con)
-	{
-		//System.out.println("con: "+Integer.toHexString(con.hashCode()));
-		//Util.printHexDump(READ_BUFFER);
-		con.setReadBuffer(getPooledBuffer().put(READ_BUFFER));
-		READ_BUFFER.clear();
+		{
+			// we dont have enough data for header so we need to read
+			return false;
+		}
 	}
 	
 	private void parseClientPacket(ByteBuffer buf, int dataSize, T client)
 	{
 		int pos = buf.position();
 		
-		boolean ret = client.decrypt(buf, dataSize);
-		
-		//buf.position(pos); //can be annoying for some decrypt impl decrypt should place the pos at the right place itself
-		
-		//System.out.println("pCP -> BUF: POS: "+buf.position()+" - LIMIT: "+buf.limit()+" == Packet: SIZE: "+dataSize);
-		
-		if (buf.hasRemaining() && ret)
+		if (client.decrypt(buf, dataSize) && buf.hasRemaining())
 		{
-			//  apply limit
+			// apply limit
 			int limit = buf.limit();
 			buf.limit(pos + dataSize);
-			//System.out.println("pCP2 -> BUF: POS: "+buf.position()+" - LIMIT: "+buf.limit()+" == Packet: SIZE: "+size);
+			
 			RP cp = getPacketHandler().handlePacket(buf, client);
 			
 			if (cp != null)
@@ -481,7 +419,10 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				{
 					getExecutor().execute(cp);
 				}
+				
+				cp.setByteBuffer(null);
 			}
+			
 			buf.limit(limit);
 		}
 	}
@@ -496,7 +437,6 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		
 		int size = DIRECT_WRITE_BUFFER.remaining();
 		
-		//System.err.println("WRITE SIZE: "+size);
 		int result = -1;
 		
 		try
@@ -506,25 +446,15 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		catch (IOException e)
 		{
 			// error handling goes on the if bellow
-			//System.err.println("IOError: " + e.getMessage());
 		}
 		
 		// check if no error happened
 		if (result >= 0)
 		{
-			// check if we writed everything
+			// check if we wrote everything
 			if (result == size)
 			{
 				// complete write
-				//System.err.println("FULL WRITE");
-				//System.err.flush();
-				
-				// if there was a a pending write then we need to finish the operation
-				/*if (con.getWriterMark() > 0)
-				{
-				    con.finishPrepending(con.getWriterMark());
-				}*/
-
 				synchronized (con)
 				{
 					if (con.getSendQueue2().isEmpty() && !con.hasPendingWriteBuffer())
@@ -537,24 +467,14 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				}
 			}
 			else
-			//incomplete write
+			// incomplete write
 			{
 				con.createWriteBuffer(DIRECT_WRITE_BUFFER);
 				return false;
-				//System.err.println("DEBUG: INCOMPLETE WRITE - write size: "+size);
-				//System.err.flush();
 			}
-			
-			//if (result == 0)
-			//{
-			//System.err.println("DEBUG: write result: 0 - write size: "+size+" - DWB rem: "+DIRECT_WRITE_BUFFER.remaining());
-			//System.err.flush();
-			//}
 		}
 		else
 		{
-			//System.err.println("IOError: "+result);
-			//System.err.flush();
 			closeConnectionImpl(con, true);
 			return false;
 		}
@@ -568,14 +488,16 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		if (con.hasPendingWriteBuffer())
 		{
 			con.movePendingWriteBufferTo(DIRECT_WRITE_BUFFER);
-			//System.err.println("ADDED PENDING TO DIRECT "+DIRECT_WRITE_BUFFER.position());
+			// ADDED PENDING TO DIRECT
 		}
 		
-		if (DIRECT_WRITE_BUFFER.remaining() > 1 && !con.hasPendingWriteBuffer())
+		// don't write additional, if there are still pending content
+		if (!con.hasPendingWriteBuffer())
 		{
-			for (int i = 0; i < MAX_SEND_PER_PASS; i++)
+			for (int i = 0; DIRECT_WRITE_BUFFER.remaining() >= 2 && i < MAX_SEND_PER_PASS
+				&& DIRECT_WRITE_BUFFER.position() < MAX_SEND_BYTE_PER_PASS; i++)
 			{
-				SP sp = null;
+				final SP sp;
 				
 				synchronized (con)
 				{
@@ -589,22 +511,16 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 				
 				// put into WriteBuffer
 				putPacketIntoWriteBuffer(con, sp);
-				
 				WRITE_BUFFER.flip();
-				//System.err.println("WB SIZE: "+WRITE_BUFFER.limit());
+				
 				if (DIRECT_WRITE_BUFFER.remaining() >= WRITE_BUFFER.limit())
 				{
-					/*if (i == 0)
-					{
-					    // mark begining of new data from previous pending data
-					    con.setWriterMark(DIRECT_WRITE_BUFFER.position());
-					}*/
+					// put last written packet to the direct buffer
 					DIRECT_WRITE_BUFFER.put(WRITE_BUFFER);
 				}
 				else
 				{
-					// there is no more space in the direct buffer
-					//con.addWriteBuffer(getPooledBuffer().put(WRITE_BUFFER));
+					// there isn't enough space in the direct buffer
 					con.createWriteBuffer(WRITE_BUFFER);
 					break;
 				}
@@ -620,25 +536,27 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		sp.setByteBuffer(WRITE_BUFFER);
 		
 		// reserve space for the size
-		int headerPos = sp.getByteBuffer().position();
-		sp.getByteBuffer().position(headerPos + HEADER_SIZE);
+		WRITE_BUFFER.position(HEADER_SIZE);
 		
 		// write content to buffer
 		sp.write(client);
 		
-		// size (incl header)
-		int dataSize = sp.getByteBuffer().position() - headerPos - HEADER_SIZE;
-		sp.getByteBuffer().position(headerPos + HEADER_SIZE);
-		client.encrypt(sp.getByteBuffer(), dataSize);
+		// calculate size and encrypt content
+		int dataSize = WRITE_BUFFER.position() - HEADER_SIZE;
+		WRITE_BUFFER.position(HEADER_SIZE);
+		client.encrypt(WRITE_BUFFER, dataSize);
 		
 		// recalculate size after encryption
-		dataSize = sp.getByteBuffer().position() - headerPos - HEADER_SIZE;
+		dataSize = WRITE_BUFFER.position() - HEADER_SIZE;
 		
 		// prepend header
-		//prependHeader(headerPos, size);
-		sp.getByteBuffer().position(headerPos);
-		sp.writeH(HEADER_SIZE + dataSize);
-		sp.getByteBuffer().position(headerPos + HEADER_SIZE + dataSize);
+		WRITE_BUFFER.position(0);
+		WRITE_BUFFER.putShort((short)(HEADER_SIZE + dataSize));
+		
+		WRITE_BUFFER.position(HEADER_SIZE + dataSize);
+		
+		// set the write buffer
+		sp.setByteBuffer(null);
 	}
 	
 	private Selector getSelector()

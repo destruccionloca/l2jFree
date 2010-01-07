@@ -26,13 +26,16 @@ public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends
 	private IMMOExecutor<T, RP, SP> EXECUTOR;
 	private IPacketHandler<T, RP, SP> PACKET_HANDLER;
 	
-	private int READ_BUFFER_SIZE = 64 * 1024;
-	private int WRITE_BUFFER_SIZE = 64 * 1024;
+	private int BUFFER_SIZE = 64 * 1024;
 	
 	private int MAX_SEND_PER_PASS = 1;
+	private int MAX_READ_PER_PASS = 1;
+	
+	private int MAX_SEND_BYTE_PER_PASS = BUFFER_SIZE;
+	private int MAX_READ_BYTE_PER_PASS = BUFFER_SIZE;
+	
 	private int SLEEP_TIME = 10;
 	
-	private int HELPER_BUFFER_SIZE = 64 * 1024;
 	private int HELPER_BUFFER_COUNT = 20;
 	
 	private ByteOrder BYTE_ORDER = ByteOrder.LITTLE_ENDIAN;
@@ -41,34 +44,14 @@ public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends
 	{
 	}
 	
-	public void setReadBufferSize(int readBufferSize)
+	public void setBufferSize(int bufferSize)
 	{
-		READ_BUFFER_SIZE = readBufferSize;
+		BUFFER_SIZE = bufferSize;
 	}
 	
-	int getReadBufferSize()
+	int getBufferSize()
 	{
-		return READ_BUFFER_SIZE;
-	}
-	
-	public void setWriteBufferSize(int writeBufferSize)
-	{
-		WRITE_BUFFER_SIZE = writeBufferSize;
-	}
-	
-	int getWriteBufferSize()
-	{
-		return WRITE_BUFFER_SIZE;
-	}
-	
-	public void setHelperBufferSize(int helperBufferSize)
-	{
-		HELPER_BUFFER_SIZE = helperBufferSize;
-	}
-	
-	int getHelperBufferSize()
-	{
-		return HELPER_BUFFER_SIZE;
+		return BUFFER_SIZE;
 	}
 	
 	public void setHelperBufferCount(int helperBufferCount)
@@ -148,6 +131,36 @@ public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends
 	int getMaxSendPerPass()
 	{
 		return MAX_SEND_PER_PASS;
+	}
+	
+	public void setMaxReadPerPass(int maxReadPerPass)
+	{
+		MAX_READ_PER_PASS = maxReadPerPass;
+	}
+	
+	int getMaxReadPerPass()
+	{
+		return MAX_READ_PER_PASS;
+	}
+	
+	public void setMaxSendBytePerPass(int maxSendBytePerPass)
+	{
+		MAX_SEND_BYTE_PER_PASS = maxSendBytePerPass;
+	}
+	
+	int getMaxSendBytePerPass()
+	{
+		return MAX_SEND_BYTE_PER_PASS;
+	}
+	
+	public void setMaxReadBytePerPass(int maxReadBytePerPass)
+	{
+		MAX_READ_BYTE_PER_PASS = maxReadBytePerPass;
+	}
+	
+	int getMaxReadBytePerPass()
+	{
+		return MAX_READ_BYTE_PER_PASS;
 	}
 	
 	/**
