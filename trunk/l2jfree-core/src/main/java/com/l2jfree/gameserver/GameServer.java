@@ -139,6 +139,8 @@ import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GamePacketHandler;
 import com.l2jfree.gameserver.network.L2GamePacketHandlerFinal;
+import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
@@ -161,7 +163,7 @@ public class GameServer extends Config
 	@SuppressWarnings("hiding")
 	private static final Log _log = LogFactory.getLog(GameServer.class);
 	private static final Calendar _serverStarted = Calendar.getInstance();
-	private static SelectorThread<L2GameClient> _selectorThread;
+	private static SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> _selectorThread;
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -252,11 +254,11 @@ public class GameServer extends Config
 			CoupleManager.getInstance();
 		}
 		CursedWeaponsManager.getInstance();
-
+		
 		// forums must be loaded before clan data, because of last forum id used should have also memo included
 		if (Config.COMMUNITY_TYPE > 0)
 			ForumsBBSManager.getInstance().initRoot();
-
+		
 		ClanTable.getInstance();
 		CrestCache.getInstance();
 		WarehouseCacheManager.getInstance();
@@ -423,20 +425,28 @@ public class GameServer extends Config
 		if (Config.PACKET_FINAL)
 		{
 			L2GamePacketHandlerFinal gph = new L2GamePacketHandlerFinal();
-			SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
+			SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket> sc = new SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket>();
+			sc.setAcceptFilter(IOFloodManager.getInstance());
+			sc.setClientFactory(gph);
+			sc.setExecutor(gph);
+			sc.setPacketHandler(gph);
 			sc.setMaxSendPerPass(25);
 			sc.setSelectorSleepTime(5);
-			_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, IOFloodManager.getInstance());
+			_selectorThread = new SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket>(sc);
 			_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 			_selectorThread.start();
 		}
 		else
 		{
 			L2GamePacketHandler gph = new L2GamePacketHandler();
-			SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
+			SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket> sc = new SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket>();
+			sc.setAcceptFilter(IOFloodManager.getInstance());
+			sc.setClientFactory(gph);
+			sc.setExecutor(gph);
+			sc.setPacketHandler(gph);
 			sc.setMaxSendPerPass(25);
 			sc.setSelectorSleepTime(5);
-			_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, IOFloodManager.getInstance());
+			_selectorThread = new SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket>(sc);
 			_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 			_selectorThread.start();
 		}
@@ -495,7 +505,7 @@ public class GameServer extends Config
 		public void onStartup();
 	}
 	
-	public static SelectorThread<L2GameClient> getSelectorThread()
+	public static SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> getSelectorThread()
 	{
 		return _selectorThread;
 	}

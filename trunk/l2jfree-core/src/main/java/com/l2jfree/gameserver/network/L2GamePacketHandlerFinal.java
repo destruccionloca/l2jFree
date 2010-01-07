@@ -14,25 +14,23 @@
  */
 package com.l2jfree.gameserver.network;
 
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.HeaderInfo;
 import org.mmocore.network.IClientFactory;
 import org.mmocore.network.IMMOExecutor;
 import org.mmocore.network.IPacketHandler;
-import org.mmocore.network.ISocket;
-import org.mmocore.network.ReceivablePacket;
 import org.mmocore.network.SelectorThread;
-import org.mmocore.network.TCPHeaderHandler;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.tools.util.HexUtil;
 
 /**
@@ -48,17 +46,18 @@ import com.l2jfree.tools.util.HexUtil;
  * 
  * @author KenM
  */
-public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClient> implements
-	IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
+public final class L2GamePacketHandlerFinal implements
+	IPacketHandler<L2GameClient, L2GameClientPacket, L2GameServerPacket>,
+	IClientFactory<L2GameClient, L2GameClientPacket, L2GameServerPacket>,
+	IMMOExecutor<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
 	public L2GamePacketHandlerFinal()
 	{
-		super(null);
 	}
 	
 	private static final Log _log = LogFactory.getLog(L2GamePacketHandlerFinal.class);
 	
-	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
+	public L2GameClientPacket handlePacket(ByteBuffer buf, L2GameClient client)
 	{
 		if (client.isDisconnected())
 			return null;
@@ -68,7 +67,7 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 		if (!IOFloodManager.canReceivePacketFrom(client, opcode))
 			return null;
 		
-		ReceivablePacket<L2GameClient> msg = null;
+		L2GameClientPacket msg = null;
 		GameClientState state = client.getState();
 		
 		switch (state)
@@ -1108,31 +1107,14 @@ public final class L2GamePacketHandlerFinal extends TCPHeaderHandler<L2GameClien
 			_log.info(line);
 	}
 	
-	public L2GameClient create(SelectorThread<L2GameClient> selectorThread, ISocket socket, SelectionKey key)
+	public L2GameClient create(SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> selectorThread,
+		Socket socket, SelectionKey key)
 	{
 		return new L2GameClient(selectorThread, socket, key);
 	}
 	
-	public void execute(ReceivablePacket<L2GameClient> rp)
+	public void execute(L2GameClientPacket rp)
 	{
 		rp.getClient().execute(rp);
-	}
-	
-	@Override
-	public HeaderInfo<L2GameClient> handleHeader(SelectionKey key, ByteBuffer buf)
-	{
-		if (buf.remaining() >= 2)
-		{
-			int dataPending = (buf.getShort() & 0xffff) - 2;
-			return getHeaderInfoReturn().set(0, dataPending, false, (L2GameClient)key.attachment());
-		}
-		
-		return getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, (L2GameClient)key.attachment());
-	}
-
-	@Override
-	public int cleanse(L2GameClient newCon)
-	{
-		return 0;
 	}
 }

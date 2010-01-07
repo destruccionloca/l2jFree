@@ -23,24 +23,21 @@ import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.lang.L2Math;
 
 /**
  * @author KenM
  */
-public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
+public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
 	protected static final Log _log = LogFactory.getLog(L2GameServerPacket.class);
 	
-	/**
-	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
-	 */
 	@Override
 	protected final void write(L2GameClient client)
 	{
 		try
 		{
-			writeImpl();
 			writeImpl(client, client.getActiveChar());
 		}
 		catch (RuntimeException e)
@@ -63,6 +60,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	
 	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
+		writeImpl();
 	}
 	
 	/**
@@ -71,24 +69,6 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	public String getType()
 	{
 		return getClass().getSimpleName();
-	}
-	
-	/**
-	 * @see org.mmocore.network.SendablePacket#getHeaderSize()
-	 */
-	@Override
-	protected final int getHeaderSize()
-	{
-		return 2;
-	}
-	
-	/**
-	 * @see org.mmocore.network.SendablePacket#writeHeader(int)
-	 */
-	@Override
-	protected final void writeHeader(int dataSize)
-	{
-		writeH(dataSize + getHeaderSize());
 	}
 	
 	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)

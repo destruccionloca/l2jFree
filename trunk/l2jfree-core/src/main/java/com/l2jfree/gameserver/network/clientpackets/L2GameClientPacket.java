@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
  * 
  * @author KenM
  */
-public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
+public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
 	protected static final Log _log = LogFactory.getLog(L2GameClientPacket.class);
 	
