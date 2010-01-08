@@ -10053,3 +10053,10 @@ UPDATE `npc` SET `hp` = 759807, `mp` = 2277, `exp` = 8827525, `sp` = 2036475, `s
 
 # Officer Tolonis
 UPDATE `npc` SET `type` = 'L2StarCollector' WHERE `id` = 32611;
+
+# Adiantum
+UPDATE `npc` SET `hp` = 43410, `mp` = 480, `exp` = 91640, `sp` = 4070, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 309, `pdef` = 189, `matk` = 189, `mdef` = 154, `level` = 42, `atkspd` = 253 WHERE `id` = 18620;
+# Lematan
+UPDATE `npc` SET `hp` = 78113, `mp` = 1389, `exp` = 317821, `sp` = 23080, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 1160, `pdef` = 439, `matk` = 537, `mdef` = 357, `level` = 67, `atkspd` = 253 WHERE `id` = 18633;
+# Lematan's follower
+UPDATE `npc` SET `hp` = 3384, `mp` = 1285, `exp` = 2295, `sp` = 199, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 1023, `pdef` = 409, `matk` = 332, `mdef` = 357, `level` = 64, `atkspd` = 253, `type` = 'L2Minion', `rhand` = 232 WHERE `id` = 18634;

@@ -18,7 +18,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
-    <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect count="1" name="Buff" time="2700" val="0">
@@ -43,7 +42,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="isMagic" val="true"/>
-    <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect count="1" name="Buff" time="2700" val="0">
@@ -72,22 +70,22 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1000"/>
   </skill>
+  <!-- SUB BOSS ADIANTUM (18620) -->
   <skill id="5704" levels="1" name="Water Strike">
-  <!-- 
-    Used by NPCs:
-    18620
-   -->
     <set name="mpInitialConsume" val="1"/>
     <set name="mpConsume" val="6"/>
-    <set name="power" val="84"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="magicLvl" val="42"/>
+    <set name="power" val="55"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
     <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <set name="isMagic" val="true"/>
   </skill>
   <skill id="5705" levels="1" name="Fire Trap">
   <!-- 
@@ -122,71 +120,112 @@
       <effect count="10" name="DamOverTime" time="3" val="#DamOverTime" abnormal="poison"/>
     </for>
   </skill>
+  <!-- Triggered when 5706 effect ends (100%) -->
   <skill id="5707" levels="1" name="Paralysis">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
+  <!-- SUB BOSS LEMATAN 18633 -->
   <skill id="5708" levels="1" name="Water Cannon">
-  <!-- 
-    Used by NPCs:
-    18633
-   -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="mpInitialConsume" val="11"/>
+    <set name="mpConsume" val="46"/>
+    <set name="magicLvl" val="67"/>
+    <set name="power" val="49"/>
+    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
   </skill>
+  <!-- SUB BOSS LEMATAN 18633 -->
   <skill id="5709" levels="1" name="Whirlpool">
-  <!-- 
-    Used by NPCs:
-    18633
-   -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1200"/>
+    <set name="mpInitialConsume" val="9"/>
+    <set name="mpConsume" val="35"/>
+    <set name="magicLvl" val="67"/>
+    <set name="power" val="97"/>
+    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="4000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="element" val="1"/> <!-- Water -->
+    <set name="elementPower" val="20"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
+  <!-- SUB BOSS LEMATAN 18633 -->
   <skill id="5710" levels="1" name="Triple Sword">
-  <!-- 
-    Used by NPCs:
-    18633
-   -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1500"/>
+    <set name="mpConsume" val="47"/>
+    <set name="magicLvl" val="67"/>
+    <set name="power" val="2065"/>
+    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="3000"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
   </skill>
+  <!-- SUB BOSS LEMATAN 18633 -->
   <skill id="5711" levels="1" name="Power of Rage">
-  <!-- Attack ability is greatly increased because of rage. -->
-  <!-- 
-    Used by NPCs:
-    18633
-   -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="11"/>
+    <set name="mpConsume" val="46"/>
+    <set name="magicLvl" val="67"/>
+    <set name="isMagic" val="true"/>
+    <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="90" val="0">
+        <mul order="0x30" stat="pAtk" val="1.5"/>
+      </effect>
+    </for>
   </skill>
+  <!-- SUB MINION LEMATAN'S FOLLOWER 18634 -->
   <skill id="5712" levels="1" name="Energy Ditch">
   <!-- Delivers one's own energy to Lematan. The delivery status is cancelled when damage is incurred. -->
-  <!-- 
-    Used by NPCs:
-    18634
-   -->
+  <!-- It's a battle-force like skill. The effect (5713) level increases depending on how many followers are casting the skill. -->
+    <set name="magicLvl" val="64"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="1300"/>
+    <set name="effectRange" val="1800"/>
   </skill>
+  <!-- Effect of 5712. -->
   <skill id="5713" levels="5" name="Energy Ditch">
   <!-- Lv1: Receiving the follower's magic power. Increases HP regeneration. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#hp"> 2 4 6 10 15 </table>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect name="Buff" time="60" val="0">
+        <mul order="0x30" stat="regHp" val="#hp"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5714" levels="1" name="Boom Up">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="11"/>
+    <set name="mpConsume" val="46"/>
+    <set name="magicLvl" val="70"/>
+    <set name="power" val="207"/>
+    <set name="isMagic" val="true"/>
+    <set name="target" val="TARGET_AURA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isSuicideAttack" val="true"/>
   </skill>
   <skill id="5715" levels="1" name="Electric Flame">
   <!-- Incurring continuous flame damage and has decreased moving speed. -->
@@ -1068,6 +1107,7 @@
     <set name="skillRadius" val="200"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
+    <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
