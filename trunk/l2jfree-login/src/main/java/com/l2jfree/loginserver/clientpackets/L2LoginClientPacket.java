@@ -14,6 +14,8 @@
  */
 package com.l2jfree.loginserver.clientpackets;
 
+import java.nio.BufferUnderflowException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,19 +31,15 @@ public abstract class L2LoginClientPacket extends
 {
 	protected static final Log _log = LogFactory.getLog(L2LoginClientPacket.class);
 	
-	@Override
-	protected final boolean read()
+	protected L2LoginClientPacket()
 	{
-		try
-		{
-			return readImpl();
-		}
-		catch (RuntimeException e)
-		{
-			_log.warn("", e);
-			return false;
-		}
 	}
 	
-	protected abstract boolean readImpl();
+	@Override
+	protected final boolean read() throws BufferUnderflowException, RuntimeException
+	{
+		return readImpl();
+	}
+	
+	protected abstract boolean readImpl() throws BufferUnderflowException, RuntimeException;
 }

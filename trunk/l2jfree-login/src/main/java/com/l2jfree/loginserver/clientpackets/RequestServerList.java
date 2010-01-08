@@ -73,7 +73,7 @@ public class RequestServerList extends L2LoginClientPacket
 	 * @see com.l2jfree.mmocore.network.ReceivablePacket#run()
 	 */
 	@Override
-	public void run()
+	public void runImpl()
 	{
 		if (Config.SECURITY_CARD_LOGIN && !getClient().isCardAuthed())
 		{

@@ -19,13 +19,8 @@ import java.nio.ByteOrder;
 /**
  * @author KenM
  */
-public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+public final class SelectorConfig
 {
-	private IAcceptFilter ACCEPT_FILTER;
-	private IClientFactory<T, RP, SP> CLIENT_FACTORY;
-	private IMMOExecutor<T, RP, SP> EXECUTOR;
-	private IPacketHandler<T, RP, SP> PACKET_HANDLER;
-	
 	private int BUFFER_SIZE = 64 * 1024; // 0xFFFF + 1
 	
 	private int MAX_SEND_PER_PASS = 1;
@@ -75,46 +70,6 @@ public final class SelectorConfig<T extends MMOConnection<T, RP, SP>, RP extends
 	ByteOrder getByteOrder()
 	{
 		return BYTE_ORDER;
-	}
-	
-	public void setAcceptFilter(IAcceptFilter acceptFilter)
-	{
-		ACCEPT_FILTER = acceptFilter;
-	}
-	
-	IAcceptFilter getAcceptFilter()
-	{
-		return ACCEPT_FILTER;
-	}
-	
-	public void setClientFactory(IClientFactory<T, RP, SP> clientFactory)
-	{
-		CLIENT_FACTORY = clientFactory;
-	}
-	
-	IClientFactory<T, RP, SP> getClientFactory()
-	{
-		return CLIENT_FACTORY;
-	}
-	
-	public void setExecutor(IMMOExecutor<T, RP, SP> executor)
-	{
-		EXECUTOR = executor;
-	}
-	
-	IMMOExecutor<T, RP, SP> getExecutor()
-	{
-		return EXECUTOR;
-	}
-	
-	public void setPacketHandler(IPacketHandler<T, RP, SP> packetHandler)
-	{
-		PACKET_HANDLER = packetHandler;
-	}
-	
-	IPacketHandler<T, RP, SP> getPacketHandler()
-	{
-		return PACKET_HANDLER;
 	}
 	
 	/**

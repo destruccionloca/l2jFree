@@ -42,7 +42,7 @@ public class RequestSubmitCardNo extends L2LoginClientPacket
 	}
 
 	@Override
-	public void run()
+	public void runImpl()
 	{
 		/* This definetly shouldn't be used, since it isn't a RSA crypted block
 		byte[] decrypted = null;

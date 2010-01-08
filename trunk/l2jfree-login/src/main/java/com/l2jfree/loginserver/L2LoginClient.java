@@ -311,4 +311,10 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 		else
 			return "[" + _ip + "]";
 	}
+	
+	@Override
+	protected String getUID()
+	{
+		return getAccount();
+	}
 }

@@ -64,7 +64,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		}
 	}
 	
-	private SelectorThread<T, RP, SP> getSelectorThread()
+	final SelectorThread<T, RP, SP> getSelectorThread()
 	{
 		return _selectorThread;
 	}
@@ -256,4 +256,6 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	protected abstract boolean encrypt(ByteBuffer buf, int size);
 	
 	protected abstract SP getDefaultClosePacket();
+	
+	protected abstract String getUID();
 }

@@ -14,24 +14,16 @@
  */
 package com.l2jfree.gameserver.network;
 
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2jfree.mmocore.network.IClientFactory;
-import com.l2jfree.mmocore.network.IMMOExecutor;
 import com.l2jfree.mmocore.network.IPacketHandler;
-import com.l2jfree.mmocore.network.SelectorThread;
-import com.l2jfree.tools.util.HexUtil;
 
 /**
  * Stateful Packet Handler<BR>
@@ -46,26 +38,12 @@ import com.l2jfree.tools.util.HexUtil;
  * 
  * @author KenM
  */
-public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L2GameClientPacket, L2GameServerPacket>,
-	IClientFactory<L2GameClient, L2GameClientPacket, L2GameServerPacket>,
-	IMMOExecutor<L2GameClient, L2GameClientPacket, L2GameServerPacket>
+public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
-	public L2GamePacketHandler()
-	{
-	}
-	
 	private static final Log _log = LogFactory.getLog(L2GamePacketHandler.class);
 	
-	public L2GameClientPacket handlePacket(ByteBuffer buf, L2GameClient client)
+	public L2GameClientPacket handlePacket(ByteBuffer buf, L2GameClient client, final int opcode)
 	{
-		if (client.isDisconnected())
-			return null;
-		
-		final int opcode = buf.get() & 0xFF;
-		
-		if (!IOFloodManager.canReceivePacketFrom(client, opcode))
-			return null;
-		
 		L2GameClientPacket msg = null;
 		GameClientState state = client.getState();
 		
@@ -87,7 +65,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new AuthLogin();
 						break;
 					default:
-						printDebug(opcode, null, buf, client);
+						printDebug(buf, client, opcode);
 						break;
 				}
 				break;
@@ -140,7 +118,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						}
 						else
 						{
-							printDebug(opcode, id2, buf, client);
+							printDebug(buf, client, opcode, id2);
 						}
 						
 						break;
@@ -149,7 +127,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						break;
 					//
 					default:
-						printDebug(opcode, null, buf, client);
+						printDebug(buf, client, opcode);
 						break;
 				}
 				break;
@@ -902,7 +880,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 								// TODO: implement me (just disabling warnings for this packet)
 								break;
 							default:
-								printDebug(opcode, id2, buf, client);
+								printDebug(buf, client, opcode, id2);
 								break;
 						}
 						break;
@@ -910,7 +888,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new RequestChangePartyLeader(data, _client);
 						break;*/
 					default:
-						printDebug(opcode, null, buf, client);
+						printDebug(buf, client, opcode);
 						break;
 				}
 				break;
@@ -918,33 +896,8 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 		return msg;
 	}
 	
-	private void printDebug(int opcode, Integer opcode2, ByteBuffer buf, L2GameClient client)
+	private void printDebug(ByteBuffer buf, L2GameClient client, int... opcodes)
 	{
-		IOFloodManager.report(ErrorMode.INVALID_OPCODE, client, null, null);
-		
-		if (!Config.PACKET_HANDLER_DEBUG)
-			return;
-		
-		StringBuilder sb = new StringBuilder("Unknown Packet: 0x").append(Integer.toHexString(opcode));
-		if (opcode2 != null)
-			sb.append(" : 0x").append(Integer.toHexString(opcode2));
-		sb.append(", Client: ").append(client);
-		_log.info(sb);
-		
-		byte[] array = new byte[buf.remaining()];
-		buf.get(array);
-		for (String line : StringUtils.split(HexUtil.printData(array), "\n"))
-			_log.info(line);
-	}
-	
-	public L2GameClient create(SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> selectorThread,
-		Socket socket, SelectionKey key)
-	{
-		return new L2GameClient(selectorThread, socket, key);
-	}
-	
-	public void execute(L2GameClientPacket rp)
-	{
-		rp.getClient().execute(rp);
+		L2GameSelectorThread.getInstance().printDebug(buf, client, opcodes);
 	}
 }

@@ -15,9 +15,31 @@
 package com.l2jfree.mmocore.network;
 
 /**
- * @author KenM
+ * Exception thrown by ReceivablePacket.runImpl() to trigger IOFloodManager.report().
+ * 
+ * @author NB4L1
  */
-public interface IMMOExecutor<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+public class InvalidPacketException extends Exception
 {
-	public void execute(RP packet);
+	private static final long serialVersionUID = -8023992556276431695L;
+	
+	public InvalidPacketException()
+	{
+		super();
+	}
+	
+	public InvalidPacketException(String message)
+	{
+		super(message);
+	}
+	
+	public InvalidPacketException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
+	
+	public InvalidPacketException(Throwable cause)
+	{
+		super(cause);
+	}
 }

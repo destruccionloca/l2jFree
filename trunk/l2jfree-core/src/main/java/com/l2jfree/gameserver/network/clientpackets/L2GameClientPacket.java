@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import static com.l2jfree.gameserver.network.serverpackets.ActionFailed.STATIC_PACKET;
-
 import java.nio.BufferUnderflowException;
 
 import org.apache.commons.logging.Log;
@@ -23,12 +21,11 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.IOFloodManager;
-import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.mmocore.network.InvalidPacketException;
 import com.l2jfree.mmocore.network.ReceivablePacket;
 
 /**
@@ -40,69 +37,32 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient, 
 {
 	protected static final Log _log = LogFactory.getLog(L2GameClientPacket.class);
 	
-	@Override
-	protected final boolean read()
+	protected L2GameClientPacket()
 	{
-		if (getAvaliableBytes() < getMinimumLength())
-		{
-			IOFloodManager.report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, null);
-			return false;
-		}
-		
-		try
-		{
-			readImpl();
-			return true;
-		}
-		catch (BufferUnderflowException e)
-		{
-			IOFloodManager.report(ErrorMode.BUFFER_UNDER_FLOW, getClient(), this, e);
-		}
-		catch (RuntimeException e)
-		{
-			IOFloodManager.report(ErrorMode.FAILED_READING, getClient(), this, e);
-		}
-		
-		return false;
 	}
-	
-	protected abstract void readImpl();
 	
 	@Override
-	public final void run()
+	protected final boolean read() throws BufferUnderflowException, RuntimeException
 	{
-		try
-		{
-			/**
-			 * Spawn protect removal moved to subclasses, take care of it.<br>
-			 * <ul>
-			 * <li>Action (if it's the second click on the target)</li>
-			 * <li>AttackRequest</li>
-			 * <li>MoveBackwardToLocation</li>
-			 * <li>RequestActionUse</li>
-			 * <li>RequestMagicSkillUse</li>
-			 * </ul>
-			 * It could include pickup and talk too, but less is better.
-			 */
-			
-			runImpl();
-		}
-		catch (InvalidPacketException e)
-		{
-			IOFloodManager.report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
-		}
-		catch (RuntimeException e)
-		{
-			IOFloodManager.report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
-		}
+		readImpl();
+		return true;
 	}
 	
-	protected abstract void runImpl() throws InvalidPacketException;
+	protected abstract void readImpl() throws BufferUnderflowException, RuntimeException;
 	
-	protected final void sendPacket(L2GameServerPacket gsp)
-	{
-		getClient().sendPacket(gsp);
-	}
+	/**
+	 * Spawn protect removal moved to subclasses, take care of it.<br>
+	 * <ul>
+	 * <li>Action (if it's the second click on the target)</li>
+	 * <li>AttackRequest</li>
+	 * <li>MoveBackwardToLocation</li>
+	 * <li>RequestActionUse</li>
+	 * <li>RequestMagicSkillUse</li>
+	 * </ul>
+	 * It could include pickup and talk too, but less is better.
+	 */
+	@Override
+	protected abstract void runImpl() throws InvalidPacketException, RuntimeException;
 	
 	protected final void sendPacket(SystemMessageId sm)
 	{
@@ -112,11 +72,6 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient, 
 	protected final L2PcInstance getActiveChar()
 	{
 		return getClient().getActiveChar();
-	}
-	
-	public String getType()
-	{
-		return getClass().getSimpleName();
 	}
 	
 	protected final void requestFailed(SystemMessageId sm)
@@ -132,13 +87,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient, 
 	
 	protected final void sendAF()
 	{
-		sendPacket(STATIC_PACKET);
-	}
-	
-	/** Should be overridden. */
-	protected int getMinimumLength()
-	{
-		return 0;
+		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
 	protected final long readCompQ()

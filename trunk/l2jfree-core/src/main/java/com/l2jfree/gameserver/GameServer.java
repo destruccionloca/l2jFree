@@ -16,7 +16,6 @@ package com.l2jfree.gameserver;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -133,10 +132,8 @@ import com.l2jfree.gameserver.model.entity.Hero;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
-import com.l2jfree.gameserver.network.IOFloodManager;
 import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.network.L2GamePacketHandler;
-import com.l2jfree.gameserver.network.L2GamePacketHandlerFinal;
+import com.l2jfree.gameserver.network.L2GameSelectorThread;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
@@ -153,7 +150,6 @@ import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.mmocore.network.SelectorConfig;
 import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.status.Status;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
@@ -422,34 +418,8 @@ public class GameServer extends Config
 		Util.printSection("ServerThreads");
 		LoginServerThread.getInstance().start();
 		
-		if (Config.PACKET_FINAL)
-		{
-			L2GamePacketHandlerFinal gph = new L2GamePacketHandlerFinal();
-			SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket> sc = new SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket>();
-			sc.setAcceptFilter(IOFloodManager.getInstance());
-			sc.setClientFactory(gph);
-			sc.setExecutor(gph);
-			sc.setPacketHandler(gph);
-			sc.setMaxSendPerPass(25);
-			sc.setSelectorSleepTime(5);
-			_selectorThread = new SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket>(sc);
-			_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
-			_selectorThread.start();
-		}
-		else
-		{
-			L2GamePacketHandler gph = new L2GamePacketHandler();
-			SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket> sc = new SelectorConfig<L2GameClient, L2GameClientPacket, L2GameServerPacket>();
-			sc.setAcceptFilter(IOFloodManager.getInstance());
-			sc.setClientFactory(gph);
-			sc.setExecutor(gph);
-			sc.setPacketHandler(gph);
-			sc.setMaxSendPerPass(25);
-			sc.setSelectorSleepTime(5);
-			_selectorThread = new SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket>(sc);
-			_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
-			_selectorThread.start();
-		}
+		L2GameSelectorThread.getInstance().openServerSocket(Config.GAMESERVER_HOSTNAME, Config.PORT_GAME);
+		L2GameSelectorThread.getInstance().start();
 		
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");

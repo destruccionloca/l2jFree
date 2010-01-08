@@ -14,7 +14,11 @@
  */
 package com.l2jfree.mmocore.network;
 
+import java.nio.BufferUnderflowException;
+
 import javolution.text.TextBuilder;
+
+import com.l2jfree.mmocore.network.SelectorThread.ErrorMode;
 
 /**
  * @author KenM
@@ -38,14 +42,42 @@ public abstract class ReceivablePacket<T extends MMOConnection<T, RP, SP>, RP ex
 		return _client;
 	}
 	
+	/** Should be overridden. */
+	protected int getMinimumLength()
+	{
+		return 0;
+	}
+	
 	protected final int getAvaliableBytes()
 	{
 		return getByteBuffer().remaining();
 	}
 	
-	protected abstract boolean read();
+	protected abstract boolean read() throws BufferUnderflowException, RuntimeException;
 	
-	public abstract void run();
+	@Override
+	public final void run()
+	{
+		try
+		{
+			runImpl();
+		}
+		catch (InvalidPacketException e)
+		{
+			getClient().getSelectorThread().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+		}
+		catch (RuntimeException e)
+		{
+			getClient().getSelectorThread().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+		}
+	}
+	
+	protected abstract void runImpl() throws InvalidPacketException, RuntimeException;
+	
+	protected final void sendPacket(SP sp)
+	{
+		getClient().sendPacket(sp);
+	}
 	
 	protected final void readB(byte[] dst)
 	{

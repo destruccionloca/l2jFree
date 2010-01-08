@@ -14,6 +14,8 @@
  */
 package com.l2jfree.loginserver.serverpackets;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
@@ -25,4 +27,9 @@ import com.l2jfree.mmocore.network.SendablePacket;
 public abstract class L2LoginServerPacket extends
 	SendablePacket<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>
 {
+	protected static final Log _log = LogFactory.getLog(L2LoginServerPacket.class);
+	
+	protected L2LoginServerPacket()
+	{
+	}
 }

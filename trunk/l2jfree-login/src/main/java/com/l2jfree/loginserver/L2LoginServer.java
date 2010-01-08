@@ -18,14 +18,10 @@ import java.net.InetAddress;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
-import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
-import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.loginserver.thread.GameServerListener;
-import com.l2jfree.mmocore.network.SelectorConfig;
-import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.status.Status;
 
 public final class L2LoginServer extends Config
@@ -62,18 +58,7 @@ public final class L2LoginServer extends Config
 		
 		// o Initialize SelectorThread
 		// ----------------------------
-		final SelectorThread<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket> selectorThread;
-		final SelectorConfig<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket> ssc;
-		
-		final L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
-		final SelectorHelper sh = new SelectorHelper();
-		ssc = new SelectorConfig<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>();
-		ssc.setAcceptFilter(sh);
-		ssc.setClientFactory(sh);
-		ssc.setExecutor(sh);
-		ssc.setPacketHandler(loginPacketHandler);
-		
-		selectorThread = new SelectorThread<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>(ssc);
+		L2LoginSelectorThread.getInstance();
 		
 		// o Initialize GS listener
 		// ----------------------------
@@ -93,8 +78,8 @@ public final class L2LoginServer extends Config
 		// o Start the server
 		// ------------------
 		
-		selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
-		selectorThread.start();
+		L2LoginSelectorThread.getInstance().openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
+		L2LoginSelectorThread.getInstance().start();
 		
 		_log.info("Login Server ready on " + Config.LOGIN_SERVER_HOSTNAME + ":" + Config.LOGIN_SERVER_PORT);
 	}

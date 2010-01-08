@@ -28,11 +28,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
-import com.l2jfree.gameserver.network.InvalidPacketException;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.mmocore.network.InvalidPacketException;
 
 /**
  * This class represents a packet sent when player clicks a link in the chat dialog.

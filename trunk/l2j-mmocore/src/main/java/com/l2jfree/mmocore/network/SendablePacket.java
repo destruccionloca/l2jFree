@@ -91,5 +91,5 @@ public abstract class SendablePacket<T extends MMOConnection<T, RP, SP>, RP exte
 		getByteBuffer().putChar('\000');
 	}
 	
-	protected abstract void write(T client);
+	protected abstract void write(T client) throws RuntimeException;
 }

@@ -81,7 +81,7 @@ public class AuthGameGuard extends L2LoginClientPacket
 	 * @see com.l2jfree.mmocore.network.ReceivablePacket#run()
 	 */
 	@Override
-	public void run()
+	public void runImpl()
 	{
 		if (_sessionId == getClient().getSessionId())
 		{

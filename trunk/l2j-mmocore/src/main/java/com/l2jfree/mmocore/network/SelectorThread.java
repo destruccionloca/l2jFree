@@ -18,30 +18,38 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author KenM<BR>
  *         Parts of design based on networkcore from WoodenGil
  */
-public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 	extends Thread
 {
+	protected static final Log _log = LogFactory.getLog(SelectorThread.class);
+	
 	private final Selector _selector;
 	
 	// Implementations
 	private final IPacketHandler<T, RP, SP> _packetHandler;
-	private final IMMOExecutor<T, RP, SP> _executor;
-	private final IClientFactory<T, RP, SP> _clientFactory;
-	private final IAcceptFilter _acceptFilter;
 	
 	private volatile boolean _shutdown;
 	
@@ -67,7 +75,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 	// ByteBuffers General Purpose Pool
 	private final FastList<ByteBuffer> _bufferPool = new FastList<ByteBuffer>();
 	
-	public SelectorThread(SelectorConfig<T, RP, SP> sc) throws IOException
+	protected SelectorThread(SelectorConfig sc, IPacketHandler<T, RP, SP> packetHandler) throws IOException
 	{
 		BUFFER_SIZE = sc.getBufferSize();
 		HELPER_BUFFER_COUNT = sc.getHelperBufferCount();
@@ -83,10 +91,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		READ_BUFFER = ByteBuffer.allocate(BUFFER_SIZE).order(BYTE_ORDER);
 		
 		initBufferPool();
-		_acceptFilter = sc.getAcceptFilter();
-		_packetHandler = sc.getPacketHandler();
-		_clientFactory = sc.getClientFactory();
-		_executor = sc.getExecutor();
+		_packetHandler = packetHandler;
 		setName("SelectorThread-" + getId());
 		_selector = Selector.open();
 	}
@@ -99,7 +104,12 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		}
 	}
 	
-	public void openServerSocket(InetAddress address, int tcpPort) throws IOException
+	public final void openServerSocket(String address, int port) throws IOException
+	{
+		openServerSocket(InetAddress.getByName(address), port);
+	}
+	
+	public final void openServerSocket(InetAddress address, int port) throws IOException
 	{
 		ServerSocketChannel selectable = ServerSocketChannel.open();
 		selectable.configureBlocking(false);
@@ -107,16 +117,16 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		ServerSocket ss = selectable.socket();
 		if (address == null)
 		{
-			ss.bind(new InetSocketAddress(tcpPort));
+			ss.bind(new InetSocketAddress(port));
 		}
 		else
 		{
-			ss.bind(new InetSocketAddress(address, tcpPort));
+			ss.bind(new InetSocketAddress(address, port));
 		}
 		selectable.register(getSelector(), SelectionKey.OP_ACCEPT);
 	}
 	
-	ByteBuffer getPooledBuffer()
+	final ByteBuffer getPooledBuffer()
 	{
 		if (getFreeBuffers().isEmpty())
 			return ByteBuffer.allocate(BUFFER_SIZE).order(BYTE_ORDER);
@@ -124,7 +134,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 			return getFreeBuffers().removeFirst();
 	}
 	
-	void recycleBuffer(ByteBuffer buf)
+	final void recycleBuffer(ByteBuffer buf)
 	{
 		if (getFreeBuffers().size() < HELPER_BUFFER_COUNT)
 		{
@@ -139,7 +149,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 	}
 	
 	@Override
-	public void run()
+	public final void run()
 	{
 		// main loop
 		for (;;)
@@ -257,13 +267,13 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		{
 			while ((sc = ((ServerSocketChannel)key.channel()).accept()) != null)
 			{
-				if (getAcceptFilter() == null || getAcceptFilter().accept(sc))
+				if (acceptConnectionFrom(sc))
 				{
 					sc.configureBlocking(false);
 					
 					SelectionKey clientKey = sc.register(getSelector(), SelectionKey.OP_READ);
 					
-					clientKey.attach(getClientFactory().create(this, sc.socket(), clientKey));
+					clientKey.attach(createClient(sc.socket(), clientKey));
 				}
 				else
 				{
@@ -422,19 +432,39 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 			int limit = buf.limit();
 			buf.limit(pos + dataSize);
 			
-			RP cp = getPacketHandler().handlePacket(buf, client);
+			final int opcode = buf.get() & 0xFF;
 			
-			if (cp != null)
+			if (canReceivePacketFrom(client, opcode))
 			{
-				cp.setByteBuffer(buf);
-				cp.setClient(client);
+				RP cp = getPacketHandler().handlePacket(buf, client, opcode);
 				
-				if (cp.read())
+				if (cp != null)
 				{
-					getExecutor().execute(cp);
+					cp.setByteBuffer(buf);
+					cp.setClient(client);
+					
+					try
+					{
+						if (cp.getAvaliableBytes() < cp.getMinimumLength())
+						{
+							report(ErrorMode.BUFFER_UNDER_FLOW, client, cp, null);
+						}
+						else if (cp.read())
+						{
+							executePacket(cp);
+						}
+					}
+					catch (BufferUnderflowException e)
+					{
+						report(ErrorMode.BUFFER_UNDER_FLOW, client, cp, e);
+					}
+					catch (RuntimeException e)
+					{
+						report(ErrorMode.FAILED_READING, client, cp, e);
+					}
+					
+					cp.setByteBuffer(null);
 				}
-				
-				cp.setByteBuffer(null);
 			}
 			
 			buf.limit(limit);
@@ -565,7 +595,14 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		WRITE_BUFFER.position(HEADER_SIZE);
 		
 		// write content to buffer
-		sp.write(client);
+		try
+		{
+			sp.write(client);
+		}
+		catch (RuntimeException e)
+		{
+			_log.fatal("Failed writing: " + client + " - " + sp.getType() + " - " + getVersionInfo(), e);
+		}
 		
 		// calculate size and encrypt content
 		int dataSize = WRITE_BUFFER.position() - HEADER_SIZE;
@@ -590,27 +627,12 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		return _selector;
 	}
 	
-	private IMMOExecutor<T, RP, SP> getExecutor()
-	{
-		return _executor;
-	}
-	
 	private IPacketHandler<T, RP, SP> getPacketHandler()
 	{
 		return _packetHandler;
 	}
 	
-	private IClientFactory<T, RP, SP> getClientFactory()
-	{
-		return _clientFactory;
-	}
-	
-	private IAcceptFilter getAcceptFilter()
-	{
-		return _acceptFilter;
-	}
-	
-	void closeConnection(T con)
+	final void closeConnection(T con)
 	{
 		synchronized (getPendingClose())
 		{
@@ -666,7 +688,7 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		return _pendingClose;
 	}
 	
-	public void shutdown() throws InterruptedException
+	public final void shutdown() throws InterruptedException
 	{
 		_shutdown = true;
 		
@@ -699,6 +721,291 @@ public final class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends
 		catch (IOException e)
 		{
 			// Ignore
+		}
+	}
+	
+	// ==============================================
+	
+	protected abstract T createClient(Socket socket, SelectionKey key);
+	
+	protected abstract void executePacket(RP packet);
+	
+	// ==============================================
+	
+	public static enum ErrorMode
+	{
+		INVALID_OPCODE,
+		BUFFER_UNDER_FLOW,
+		FAILED_READING,
+		FAILED_RUNNING;
+	}
+	
+	private static enum Result
+	{
+		ACCEPTED,
+		WARNED,
+		REJECTED;
+		
+		public static Result max(Result r1, Result r2)
+		{
+			if (r1.ordinal() > r2.ordinal())
+				return r1;
+			
+			return r2;
+		}
+	}
+	
+	private final FloodManager _accepts;
+	private final FloodManager _packets;
+	private final FloodManager _errors;
+	
+	{
+		// TODO: fine tune
+		_accepts = new FloodManager(1000, 60);
+		_accepts.addFloodFilter(10, 20, 10);
+		_accepts.addFloodFilter(30, 60, 60);
+		
+		_packets = new FloodManager(1000, 10);
+		_packets.addFloodFilter(250, 300, 2);
+		
+		_errors = new FloodManager(200, 10);
+		_errors.addFloodFilter(10, 10, 1);
+	}
+	
+	protected String getVersionInfo()
+	{
+		return "";
+	}
+	
+	public boolean acceptConnectionFrom(SocketChannel sc)
+	{
+		final String host = sc.socket().getInetAddress().getHostAddress();
+		
+		final Result isFlooding = _accepts.isFlooding(host, true);
+		
+		switch (isFlooding)
+		{
+			case REJECTED:
+			{
+				// TODO: punish, warn, log, etc
+				_log.warn("Rejected connection from " + host);
+				return false;
+			}
+			case WARNED:
+			{
+				// TODO: punish, warn, log, etc
+				_log.warn("Connection over warn limit from " + host);
+				return true;
+			}
+			default:
+				return true;
+		}
+	}
+	
+	public void report(ErrorMode mode, MMOConnection<?, ?, ?> client, ReceivablePacket<?, ?, ?> packet,
+		Throwable throwable)
+	{
+		final Result isFlooding = _errors.isFlooding(client.getUID(), true);
+		
+		final StringBuilder sb = new StringBuilder();
+		if (isFlooding != Result.ACCEPTED)
+		{
+			sb.append("Flooding with ");
+		}
+		sb.append(mode);
+		sb.append(": ");
+		sb.append(client);
+		if (packet != null)
+		{
+			sb.append(" - ");
+			sb.append(packet.getType());
+		}
+		final String versionInfo = getVersionInfo();
+		if (versionInfo != null && !versionInfo.isEmpty())
+		{
+			sb.append(" - ");
+			sb.append(versionInfo);
+		}
+		
+		if (throwable != null)
+			_log.info(sb, throwable);
+		else
+			_log.info(sb);
+		
+		//if (isFlooding != Result.ACCEPTED)
+		//{
+		//	// TODO: punish, warn, log, etc
+		//}
+	}
+	
+	public boolean canReceivePacketFrom(MMOConnection<?, ?, ?> client, int opcode)
+	{
+		final String key = client.getUID();
+		
+		switch (Result.max(_packets.isFlooding(key, true), _errors.isFlooding(key, false)))
+		{
+			case REJECTED:
+			{
+				// TODO: punish, warn, log, etc
+				_log.warn("Rejected packet (0x" + Integer.toHexString(opcode) + ") from " + client);
+				return false;
+			}
+			case WARNED:
+			{
+				// TODO: punish, warn, log, etc
+				_log.warn("Packet over warn limit (0x" + Integer.toHexString(opcode) + ") from " + client);
+				return true;
+			}
+			default:
+				return true;
+		}
+	}
+	
+	private static final class FloodManager
+	{
+		private static final long ZERO = System.currentTimeMillis();
+		
+		private final Map<String, LogEntry> _entries = new HashMap<String, LogEntry>();
+		
+		private final ReentrantLock _lock = new ReentrantLock();
+		
+		private final int _tickLength;
+		private final int _tickAmount;
+		
+		private FloodFilter[] _filters = new FloodFilter[0];
+		
+		private FloodManager(int msecPerTick, int tickAmount)
+		{
+			_tickLength = msecPerTick;
+			_tickAmount = tickAmount;
+		}
+		
+		private void addFloodFilter(int warnLimit, int rejectLimit, int tickLimit)
+		{
+			_filters = Arrays.copyOf(_filters, _filters.length + 1);
+			_filters[_filters.length - 1] = new FloodFilter(warnLimit, rejectLimit, tickLimit);
+		}
+		
+		private static final class FloodFilter
+		{
+			private final int _warnLimit;
+			private final int _rejectLimit;
+			private final int _tickLimit;
+			
+			private FloodFilter(int warnLimit, int rejectLimit, int tickLimit)
+			{
+				_warnLimit = warnLimit;
+				_rejectLimit = rejectLimit;
+				_tickLimit = tickLimit;
+			}
+			
+			public int getWarnLimit()
+			{
+				return _warnLimit;
+			}
+			
+			public int getRejectLimit()
+			{
+				return _rejectLimit;
+			}
+			
+			public int getTickLimit()
+			{
+				return _tickLimit;
+			}
+		}
+		
+		public Result isFlooding(String key, boolean increment)
+		{
+			if (key == null || key.isEmpty())
+				return Result.ACCEPTED;
+			
+			_lock.lock();
+			try
+			{
+				LogEntry entry = _entries.get(key);
+				
+				if (entry == null)
+				{
+					entry = new LogEntry();
+					
+					_entries.put(key, entry);
+				}
+				
+				return entry.isFlooding(increment);
+			}
+			finally
+			{
+				_lock.unlock();
+			}
+		}
+		
+		private final class LogEntry
+		{
+			private final short[] _ticks = new short[_tickAmount];
+			
+			private int _lastTick = getCurrentTick();
+			
+			public int getCurrentTick()
+			{
+				return (int)((System.currentTimeMillis() - ZERO) / _tickLength);
+			}
+			
+			public Result isFlooding(boolean increment)
+			{
+				final int currentTick = getCurrentTick();
+				
+				if (currentTick - _lastTick >= _ticks.length)
+				{
+					_lastTick = currentTick;
+					
+					Arrays.fill(_ticks, (short)0);
+				}
+				else if (_lastTick > currentTick)
+				{
+					_log.warn("The current tick (" + currentTick + ") is smaller than the last (" + _lastTick + ")!",
+						new IllegalStateException());
+					
+					_lastTick = currentTick;
+				}
+				else
+				{
+					while (currentTick != _lastTick)
+					{
+						_lastTick++;
+						
+						_ticks[_lastTick % _ticks.length] = 0;
+					}
+				}
+				
+				if (increment)
+					_ticks[_lastTick % _ticks.length]++;
+				
+				for (FloodFilter filter : _filters)
+				{
+					int previousSum = 0;
+					int currentSum = 0;
+					
+					for (int i = 0; i <= filter.getTickLimit(); i++)
+					{
+						int value = _ticks[(_lastTick - i) % _ticks.length];
+						
+						if (i != 0)
+							previousSum += value;
+						
+						if (i != filter.getTickLimit())
+							currentSum += value;
+					}
+					
+					if (previousSum > filter.getRejectLimit() || currentSum > filter.getRejectLimit())
+						return Result.REJECTED;
+					
+					if (previousSum > filter.getWarnLimit() || currentSum > filter.getWarnLimit())
+						return Result.WARNED;
+				}
+				
+				return Result.ACCEPTED;
+			}
 		}
 	}
 }

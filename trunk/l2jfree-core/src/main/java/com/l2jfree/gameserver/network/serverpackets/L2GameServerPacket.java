@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -33,17 +32,14 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 {
 	protected static final Log _log = LogFactory.getLog(L2GameServerPacket.class);
 	
+	protected L2GameServerPacket()
+	{
+	}
+	
 	@Override
 	protected final void write(L2GameClient client)
 	{
-		try
-		{
-			writeImpl(client, client.getActiveChar());
-		}
-		catch (RuntimeException e)
-		{
-			_log.fatal("Failed writing: " + client + " - " + getType() + " - " + CoreInfo.getVersionInfo(), e);
-		}
+		writeImpl(client, client.getActiveChar());
 	}
 	
 	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
@@ -61,14 +57,6 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		writeImpl();
-	}
-	
-	/**
-	 * @return a String with this packet name for debuging purposes
-	 */
-	public String getType()
-	{
-		return getClass().getSimpleName();
 	}
 	
 	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)

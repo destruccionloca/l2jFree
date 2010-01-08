@@ -73,7 +73,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	}
 
 	@Override
-	public void run()
+	public void runImpl()
 	{
 		byte[] decrypted = null;
 		try

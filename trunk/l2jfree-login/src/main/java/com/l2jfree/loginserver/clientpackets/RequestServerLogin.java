@@ -79,7 +79,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 	 * @see com.l2jfree.mmocore.network.ReceivablePacket#run()
 	 */
 	@Override
-	public void run()
+	public void runImpl()
 	{
 		SessionKey sk = getClient().getSessionKey();
 

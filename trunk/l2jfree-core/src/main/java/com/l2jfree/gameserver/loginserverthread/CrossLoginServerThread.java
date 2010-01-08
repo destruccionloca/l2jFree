@@ -32,7 +32,7 @@ import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.IOFloodManager;
+import com.l2jfree.gameserver.network.L2GameSelectorThread;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.gameserverpackets.AuthRequest;
 import com.l2jfree.gameserver.network.gameserverpackets.BlowFishKey;
@@ -273,7 +273,7 @@ public final class CrossLoginServerThread extends LoginServerThread
 						break;
 					case 020: // 0x10
 						PlayerLoginAttempt pla = new PlayerLoginAttempt(_protocol, decrypt);
-						IOFloodManager.legalize(pla.getIP());
+						L2GameSelectorThread.getInstance().legalize(pla.getIP());
 						break;
 					}
 				}

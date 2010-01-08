@@ -35,10 +35,8 @@ import com.l2jfree.mmocore.network.IPacketHandler;
 public final class L2LoginPacketHandler implements
 	IPacketHandler<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket>
 {
-	public L2LoginClientPacket handlePacket(ByteBuffer buf, L2LoginClient client)
+	public L2LoginClientPacket handlePacket(ByteBuffer buf, L2LoginClient client, final int opcode)
 	{
-		final int opcode = buf.get() & 0xFF;
-		
 		final LoginClientState state = client.getState();
 		
 		switch (state)

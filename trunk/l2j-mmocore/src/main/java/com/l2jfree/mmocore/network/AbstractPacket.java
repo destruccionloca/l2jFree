@@ -32,4 +32,12 @@ abstract class AbstractPacket
 	{
 		return _buf;
 	}
+	
+	/**
+	 * @return a String with this packet name for debugging purposes
+	 */
+	public String getType()
+	{
+		return getClass().getSimpleName();
+	}
 }

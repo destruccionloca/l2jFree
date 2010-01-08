@@ -670,4 +670,10 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 		if (_log.isDebugEnabled())
 			_log.info("Client " + toString() + " disconnected abnormally.");
 	}
+
+	@Override
+	protected String getUID()
+	{
+		return getAccountName();
+	}
 }
