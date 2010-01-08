@@ -12,12 +12,15 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.mmocore.network;
+package com.l2jfree.mmocore.network;
+
+import java.net.Socket;
+import java.nio.channels.SelectionKey;
 
 /**
  * @author KenM
  */
-public interface IMMOExecutor<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
+public interface IClientFactory<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 {
-	public void execute(RP packet);
+	public T create(SelectorThread<T, RP, SP> selectorThread, Socket socket, SelectionKey key);
 }
