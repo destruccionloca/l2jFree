@@ -2,11 +2,14 @@ package com.l2jfree.loginserver;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.manager.BanManager;
@@ -16,6 +19,7 @@ import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.mmocore.network.IPacketHandler;
 import com.l2jfree.mmocore.network.SelectorConfig;
 import com.l2jfree.mmocore.network.SelectorThread;
+import com.l2jfree.tools.util.HexUtil;
 import com.l2jfree.util.concurrent.ExecuteWrapper;
 
 public final class L2LoginSelectorThread extends
@@ -49,6 +53,24 @@ public final class L2LoginSelectorThread extends
 		throws IOException
 	{
 		super(sc, packetHandler);
+	}
+	
+	public void printDebug(ByteBuffer buf, L2LoginClient client, int opcode)
+	{
+		report(ErrorMode.INVALID_OPCODE, client, null, null);
+		
+		//if (!Config.PACKET_HANDLER_DEBUG)
+		//	return;
+		
+		StringBuilder sb = new StringBuilder("Unknown Packet: ");
+		sb.append("0x").append(Integer.toHexString(opcode));
+		sb.append(", Client: ").append(client);
+		_log.info(sb);
+		
+		byte[] array = new byte[buf.remaining()];
+		buf.get(array);
+		for (String line : StringUtils.split(HexUtil.printData(array), "\n"))
+			_log.info(line);
 	}
 	
 	// ==============================================

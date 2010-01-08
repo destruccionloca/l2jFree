@@ -452,6 +452,16 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 						else if (cp.read())
 						{
 							executePacket(cp);
+							
+							if (buf.hasRemaining())
+							{
+								// disabled until packet structures updated properly
+								//report(ErrorMode.BUFFER_OVER_FLOW, client, cp, null);
+								
+								_log.info("Invalid packet format (buf: " + buf + ", dataSize: " + dataSize + ", pos: "
+									+ pos + ", limit: " + limit + ", opcode: " + opcode + ") used for reading - "
+									+ client + " - " + cp.getType() + " - " + getVersionInfo());
+							}
 						}
 					}
 					catch (BufferUnderflowException e)
@@ -736,6 +746,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 	{
 		INVALID_OPCODE,
 		BUFFER_UNDER_FLOW,
+		BUFFER_OVER_FLOW,
 		FAILED_READING,
 		FAILED_RUNNING;
 	}

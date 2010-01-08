@@ -48,7 +48,7 @@ public final class L2LoginPacketHandler implements
 				}
 				else
 				{
-					debugOpcode(opcode, state, client);
+					debugOpcode(buf, client, opcode);
 				}
 				break;
 			case AUTHED_GG:
@@ -58,7 +58,7 @@ public final class L2LoginPacketHandler implements
 				}
 				else
 				{
-					debugOpcode(opcode, state, client);
+					debugOpcode(buf, client, opcode);
 				}
 				break;
 			case AUTHED_LOGIN:
@@ -77,7 +77,7 @@ public final class L2LoginPacketHandler implements
 				}
 				else
 				{
-					debugOpcode(opcode, state, client);
+					debugOpcode(buf, client, opcode);
 				}
 				break;
 		}
@@ -85,8 +85,8 @@ public final class L2LoginPacketHandler implements
 		return null;
 	}
 	
-	private void debugOpcode(int opcode, LoginClientState state, L2LoginClient client)
+	private void debugOpcode(ByteBuffer buf, L2LoginClient client, int opcode)
 	{
-		System.out.println("Unknown Opcode: " + opcode + " for state: " + state.name() + " for client " + client);
+		L2LoginSelectorThread.getInstance().printDebug(buf, client, opcode);
 	}
 }

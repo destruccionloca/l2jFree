@@ -23,6 +23,8 @@ import java.security.interfaces.RSAPrivateKey;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import javolution.text.TextBuilder;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -306,10 +308,25 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	@Override
 	public String toString()
 	{
-		if (getState() == LoginClientState.AUTHED_LOGIN)
-			return "[" + getAccount() + " (" + _ip + ")]";
-		else
-			return "[" + _ip + "]";
+		TextBuilder tb = TextBuilder.newInstance();
+		
+		tb.append("[State: ").append(getState());
+		
+		String ip = getIp();
+		if (ip != null)
+			tb.append(" | IP: ").append(String.format("%-15s", ip));
+		
+		String account = getAccount();
+		if (account != null)
+			tb.append(" | Account: ").append(String.format("%-15s", account));
+		
+		tb.append("]");
+		
+		final String toString = tb.toString();
+		
+		TextBuilder.recycle(tb);
+		
+		return toString;
 	}
 	
 	@Override
