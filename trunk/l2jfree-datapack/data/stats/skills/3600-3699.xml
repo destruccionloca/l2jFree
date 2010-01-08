@@ -522,6 +522,9 @@
     <cond msgId="113" addName="1">
       <player flyMounted="false" olympiad="false"/>
     </cond>
+    <for>
+      <effect name="ClanGate" time="120" val="0" stackOrder="1" stackType="clan_gate"/>
+    </for>
   </skill>
   <skill id="3633" levels="2" name="Residential Shock Immunity">
     <table name="#vuln">0.5 0</table>
