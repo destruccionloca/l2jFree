@@ -80,14 +80,14 @@ public class L2CastleMagicianInstance extends L2NpcInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (command.equals("clan_gate"))
+		if (command.equals("gotoleader"))
 		{
 			Castle castle = getCastle();
-			if (!castle.isGateOpen()) {
+			if (!castle.isGateOpen())
+			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/castlemagician/magician-nogate.htm");
-				html.replace("%npcname%", getName());
-				player.sendPacket(html); html = null;
+				player.sendPacket(html);
 				return;
 			}
 			player.teleToLocation(castle.getGateX(), castle.getGateY(), castle.getGateZ());

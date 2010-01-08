@@ -197,13 +197,13 @@ public abstract class L2Object implements L2Entity<Integer>
 		//if (Config.ASSERT)
 		//	assert getPosition().getWorldRegion() != null;
 		
-		L2WorldRegion reg = getPosition().getWorldRegion();
+		L2WorldRegion reg = getWorldRegion();
 		
 		synchronized (this)
 		{
 			getPosition().clearWorldRegion();
 		}
-		// this can synchronize on others instancies, so it's out of
+		// this can synchronize on others instances, so it's out of
 		// synchronized, to avoid deadlocks
 		// Remove the L2Object from the world
 		L2World.getInstance().removeVisibleObject(this, reg);

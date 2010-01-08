@@ -55,7 +55,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.MobGroupTable;
 import com.l2jfree.gameserver.model.actor.instance.L2AuctioneerInstance;
@@ -2735,7 +2734,7 @@ public class L2Npc extends L2Character
 		getStatus().stopHpMpRegeneration();
 		getEffects().stopAllEffects(true);
 		
-		L2WorldRegion oldRegion = getWorldRegion();
+		L2WorldRegion region = getWorldRegion();
 
 		try
 		{
@@ -2760,8 +2759,8 @@ public class L2Npc extends L2Character
 			_log.fatal("Failed deleteMe().", e);
 		}
 
-		if (oldRegion != null)
-			oldRegion.removeFromZones(this);
+		if (region != null)
+			region.removeFromZones(this);
 
 		// Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attack or Cast and notify AI
 		try
@@ -2772,9 +2771,6 @@ public class L2Npc extends L2Character
 		{
 			_log.fatal("Failed removing cleaning knownlist.", e);
 		}
-
-		// Remove L2Object object from _allObjects of L2World
-		L2World.getInstance().removeObject(this);
 	}
 
 	/**
