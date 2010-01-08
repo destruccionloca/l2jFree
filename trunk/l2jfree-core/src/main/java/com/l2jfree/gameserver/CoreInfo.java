@@ -16,7 +16,6 @@ package com.l2jfree.gameserver;
 
 import java.util.Date;
 
-
 import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;

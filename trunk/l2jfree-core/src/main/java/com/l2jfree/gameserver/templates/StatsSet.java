@@ -17,10 +17,10 @@ package com.l2jfree.gameserver.templates;
 import java.security.InvalidParameterException;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javolution.util.FastMap;
 
 /**
  * @author mkizub

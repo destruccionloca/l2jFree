@@ -16,10 +16,10 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.entity.Castle;
-import com.l2jfree.gameserver.network.SystemMessageId; 
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage; 
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 

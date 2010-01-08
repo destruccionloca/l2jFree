@@ -16,7 +16,6 @@ package com.l2jfree.loginserver;
 
 import java.nio.ByteBuffer;
 
-
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.clientpackets.AuthGameGuard;

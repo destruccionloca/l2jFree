@@ -21,7 +21,6 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.manager.LoginManager;

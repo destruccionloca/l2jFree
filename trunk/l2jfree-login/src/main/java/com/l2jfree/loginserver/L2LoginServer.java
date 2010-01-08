@@ -16,7 +16,6 @@ package com.l2jfree.loginserver;
 
 import java.net.InetAddress;
 
-
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
