@@ -16,7 +16,9 @@
 <!ATTLIST skill enchantLevels4 CDATA #IMPLIED>
 <!ATTLIST skill enchantLevels5 CDATA #IMPLIED>
 <!ATTLIST skill enchantLevels6 CDATA #IMPLIED>
-<!ELEMENT skill ((table|set|enchant1|enchant2|enchant3|enchant4|enchant5|enchant6)*,cond?,enchant1cond?,enchant2cond?,enchant3cond?,enchant4cond?,enchant5cond?,enchant6cond?,for?,enchant1for?,enchant2for?,enchant3for?,enchant4for?,enchant5for?,enchant6for?)>
+<!ATTLIST skill enchantLevels7 CDATA #IMPLIED>
+<!ATTLIST skill enchantLevels8 CDATA #IMPLIED>
+<!ELEMENT skill ((table|set|enchant1|enchant2|enchant3|enchant4|enchant5|enchant6|enchant7|enchant8)*,cond?,enchant1cond?,enchant2cond?,enchant3cond?,enchant4cond?,enchant5cond?,enchant6cond?,enchant7cond?,enchant8cond?,for?,enchant1for?,enchant2for?,enchant3for?,enchant4for?,enchant5for?,enchant6for?,enchant7for?,enchant8for?)>
 
 <!-- Table -->
 <!ATTLIST table name CDATA #REQUIRED>
@@ -30,6 +32,8 @@
 <!ATTLIST enchant4 name CDATA #REQUIRED>
 <!ATTLIST enchant5 name CDATA #REQUIRED>
 <!ATTLIST enchant6 name CDATA #REQUIRED>
+<!ATTLIST enchant7 name CDATA #REQUIRED>
+<!ATTLIST enchant8 name CDATA #REQUIRED>
 <!ATTLIST set      val CDATA #REQUIRED>
 <!ATTLIST enchant1 val CDATA #REQUIRED>
 <!ATTLIST enchant2 val CDATA #REQUIRED>
@@ -37,6 +41,8 @@
 <!ATTLIST enchant4 val CDATA #REQUIRED>
 <!ATTLIST enchant5 val CDATA #REQUIRED>
 <!ATTLIST enchant6 val CDATA #REQUIRED>
+<!ATTLIST enchant7 val CDATA #REQUIRED>
+<!ATTLIST enchant8 val CDATA #REQUIRED>
 <!-- <!ELEMENT set      EMPTY> --> <!-- overlapping with stats -->
 <!ELEMENT enchant1 EMPTY>
 <!ELEMENT enchant2 EMPTY>
@@ -44,6 +50,8 @@
 <!ELEMENT enchant4 EMPTY>
 <!ELEMENT enchant5 EMPTY>
 <!ELEMENT enchant6 EMPTY>
+<!ELEMENT enchant7 EMPTY>
+<!ELEMENT enchant8 EMPTY>
 
 <!-- Template -->
 <!ELEMENT for         (effect+|(%func;)+)?> <!-- TODO -->
@@ -53,6 +61,8 @@
 <!ELEMENT enchant4for (effect+|(%func;)+)?> <!-- TODO -->
 <!ELEMENT enchant5for (effect+|(%func;)+)?> <!-- TODO -->
 <!ELEMENT enchant6for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant7for (effect+|(%func;)+)?> <!-- TODO -->
+<!ELEMENT enchant8for (effect+|(%func;)+)?> <!-- TODO -->
 
 <!-- Condition -->
 <!ATTLIST cond         msg CDATA #IMPLIED>
@@ -62,6 +72,8 @@
 <!ATTLIST enchant4cond msg CDATA #IMPLIED>
 <!ATTLIST enchant5cond msg CDATA #IMPLIED>
 <!ATTLIST enchant6cond msg CDATA #IMPLIED>
+<!ATTLIST enchant7cond msg CDATA #IMPLIED>
+<!ATTLIST enchant8cond msg CDATA #IMPLIED>
 <!ATTLIST cond         msgId CDATA #IMPLIED>
 <!ATTLIST enchant1cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant2cond msgId CDATA #IMPLIED>
@@ -69,6 +81,8 @@
 <!ATTLIST enchant4cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant5cond msgId CDATA #IMPLIED>
 <!ATTLIST enchant6cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant7cond msgId CDATA #IMPLIED>
+<!ATTLIST enchant8cond msgId CDATA #IMPLIED>
 <!ATTLIST cond         addName (1) #IMPLIED>
 <!ATTLIST enchant1cond addName (1) #IMPLIED>
 <!ATTLIST enchant2cond addName (1) #IMPLIED>
@@ -76,6 +90,8 @@
 <!ATTLIST enchant4cond addName (1) #IMPLIED>
 <!ATTLIST enchant5cond addName (1) #IMPLIED>
 <!ATTLIST enchant6cond addName (1) #IMPLIED>
+<!ATTLIST enchant7cond addName (1) #IMPLIED>
+<!ATTLIST enchant8cond addName (1) #IMPLIED>
 <!ELEMENT cond         (%condition;)>
 <!ELEMENT enchant1cond (%condition;)>
 <!ELEMENT enchant2cond (%condition;)>
@@ -83,6 +99,8 @@
 <!ELEMENT enchant4cond (%condition;)>
 <!ELEMENT enchant5cond (%condition;)>
 <!ELEMENT enchant6cond (%condition;)>
+<!ELEMENT enchant7cond (%condition;)>
+<!ELEMENT enchant8cond (%condition;)>
 
 <!-- Effect -->
 <!ATTLIST effect name CDATA #REQUIRED>

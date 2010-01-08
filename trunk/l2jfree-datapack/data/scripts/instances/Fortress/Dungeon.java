@@ -128,7 +128,7 @@ public class Dungeon extends QuestJython
 		Prison prison = null;
 
 		for (Prison p : _prisons.values())
-			if (p.getInstanceId() == player.getInstanceId())
+			if (player.isSameInstance(p.getInstanceId()))
 				prison = p;
 
 		// TODO: check what should happen
