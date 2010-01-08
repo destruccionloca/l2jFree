@@ -194,7 +194,7 @@ public class RequestSellItem extends L2GameClientPacket
 			return false;
 
 		L2Character merchant = (L2Character) target;
-		if (player.getInstanceId() != merchant.getInstanceId())
+		if (!player.isSameInstance(merchant))
 			return false;
 
 		if (!player.isInsideRadius(merchant, INTERACTION_DISTANCE, false, false))

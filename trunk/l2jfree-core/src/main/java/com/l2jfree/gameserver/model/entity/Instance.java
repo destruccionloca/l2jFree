@@ -58,22 +58,22 @@ public class Instance
 {
 	private final static Log			_log				= LogFactory.getLog(Instance.class);
 
-	private final int							_id;
+	private final int					_id;
 	private int							_tpx;
 	private int							_tpy;
 	private int							_tpz;
 	private String						_name;
-	private final Set<Integer> _players = new L2FastSet<Integer>().setShared(true);
-	private final Set<L2Npc> _npcs = new L2FastSet<L2Npc>().setShared(true);
-	private final Map<Integer, L2DoorInstance> _doors = new FastMap<Integer, L2DoorInstance>().setShared(true);
-	private L2DoorInstance[] _doorArray;
+	private final Set<Integer>			_players			= new L2FastSet<Integer>().setShared(true);
+	private final Set<L2Npc>			_npcs				= new L2FastSet<L2Npc>().setShared(true);
+	private final Map<Integer, L2DoorInstance> _doors		= new FastMap<Integer, L2DoorInstance>().setShared(true);
+	private L2DoorInstance[]			_doorArray;
 	private int[]						_spawnLoc;
 	private boolean						_allowSummon		= true;
 	private boolean						_isPvPInstance		= false;
 	protected ScheduledFuture<?>		_checkTimeUpTask	= null;
-	private long						_emptyDestroyTime = -1;
-	private long						_lastLeft = -1;
-	private long						_instanceEndTime = -1;
+	private long						_emptyDestroyTime	= -1;
+	private long						_lastLeft			= -1;
+	private long						_instanceEndTime	= -1;
 
 	public Instance(int id)
 	{
@@ -185,10 +185,11 @@ public class Instance
 	public void ejectPlayer(int objectId)
 	{
 		L2PcInstance player = L2World.getInstance().findPlayer(objectId);
-		if (player != null && player.getInstanceId() == getId())
+		if (player != null && player.isSameInstance(getId()))
 		{
-			player.setInstanceId(0);
-			player.sendMessage("You were removed from the instance");
+			if (!player.isInMultiverse())
+				player.setInstanceId(0);
+			//player.sendPacket(SystemMessageId.INSTANCE_ZONE_DELETED_CANT_ACCESSED);
 			if (_tpx == 0 || _tpy == 0 || _tpz == 0)
 				player.teleToLocation(TeleportWhereType.Town);
 			else
@@ -556,7 +557,7 @@ public class Instance
 			for (int objectId : _players)
 			{
 				L2PcInstance player = L2World.getInstance().findPlayer(objectId);
-				if (player != null && player.getInstanceId() == getId())
+				if (player != null && player.isSameInstance(getId()))
 				{
 					player.sendPacket(cs);
 				}

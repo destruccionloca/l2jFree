@@ -63,9 +63,9 @@ public class AdminElement implements IAdminCommandHandler
 
 				byte element = Elementals.getElementId(args[1]);
 				int value = Integer.parseInt(args[2]);
-				if (element < -1 || element > 5 || value < 0 || value > 450)
+				if (element < -1 || element > 5 || value < 0 || value > 600)
 				{
-					activeChar.sendMessage("Usage: //setlh/setlc/setlg/setlb/setll/setlw/setls <element> <value>[0-450]");
+					activeChar.sendMessage("Usage: //setlh/setlc/setlg/setlb/setll/setlw/setls <element> <value>[0-600]");
 					return false;
 				}
 
@@ -73,7 +73,7 @@ public class AdminElement implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Usage: //setlh/setlc/setlg/setlb/setll/setlw/setls <element>[0-5] <value>[0-450]");
+				activeChar.sendMessage("Usage: //setlh/setlc/setlg/setlb/setll/setlw/setls <element>[0-5] <value>[0-600]");
 				return false;
 			}
 		}

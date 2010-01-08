@@ -41,12 +41,11 @@ public class ConditionPlayerInstanceId extends Condition
 		if (!(env.player instanceof L2PcInstance))
 			return false;
 
-		final int instanceId = env.player.getInstanceId();
-		if (instanceId <= 0)
+		if (!env.player.isInInstance())
 			return false; // player not in instance
 
 		final InstanceWorld world = InstanceManager.getInstance().getPlayerWorld((L2PcInstance)env.player);
-		if (world == null || world.instanceId != instanceId)
+		if (world == null || !env.player.isSameInstance(world.instanceId))
 			return false; // player in the different instance
 
 		return Arrays.binarySearch(_instanceIds, world.templateId) >= 0;

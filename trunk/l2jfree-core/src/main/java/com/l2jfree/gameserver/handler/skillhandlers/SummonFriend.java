@@ -63,7 +63,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 
-		if (summonerChar.getInstanceId() > 0)
+		if (summonerChar.isInInstance())
 		{
 			Instance summonerInstance = InstanceManager.getInstance().getInstance(summonerChar.getInstanceId());
 			if (summonerInstance != null && (!Config.ALLOW_SUMMON_TO_INSTANCE || !summonerInstance.isSummonAllowed()))

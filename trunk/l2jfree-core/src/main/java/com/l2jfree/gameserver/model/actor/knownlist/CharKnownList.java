@@ -47,7 +47,7 @@ public class CharKnownList extends ObjectKnownList
 			return false;
 		
 		// instance -1 for gms can see everything on all instances
-		if (getActiveChar().getInstanceId() != -1 && getActiveChar().getInstanceId() != object.getInstanceId())
+		if (!getActiveChar().isSameInstance(object))
 			return false;
 		
 		// check if the object is i a l2pcinstance in ghost mode

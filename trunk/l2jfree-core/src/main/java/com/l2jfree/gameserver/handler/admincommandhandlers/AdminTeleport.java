@@ -512,7 +512,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			return;
 		}
 		
-		if (target.getInstanceId() != activeChar.getInstanceId())
+		if (!activeChar.isSameInstance(target))
 		{
 			// move to targets instance
 			activeChar.setInstanceId(target.getInstanceId());

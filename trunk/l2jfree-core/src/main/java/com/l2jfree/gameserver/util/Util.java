@@ -320,7 +320,7 @@ public final class Util
 	 */
 	public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
-		if (obj1 == null || obj2 == null || obj1.getInstanceId() != obj2.getInstanceId())
+		if (!L2Object.isSameInstance(obj1, obj2))
 			return false;
 		
 		if (range == -1)
@@ -349,7 +349,7 @@ public final class Util
 	 */
 	public static boolean checkIfInShortRadius(int radius, L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
-		if (obj1 == null || obj2 == null || obj1.getInstanceId() != obj2.getInstanceId())
+		if (!L2Object.isSameInstance(obj1, obj2))
 			return false;
 		
 		if (radius == -1)

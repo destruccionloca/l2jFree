@@ -115,8 +115,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			return;
 		}
 
-		if (player.getInstanceId() != storePlayer.getInstanceId()
-				&& player.getInstanceId() != -1)
+		if (!player.isSameInstance(storePlayer))
 		{
 			sendAF();
 			return;

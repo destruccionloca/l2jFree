@@ -79,7 +79,7 @@ public class L2CastleZone extends SiegeableEntityZone
 			return;
 		else if (castle.getFunction(Castle.FUNC_SECURITY) == null)
 			return;
-		else if (character.getInstanceId() != 0)
+		else if (character.isInInstance())
 			return;
 		else if (character.isInFunEvent())
 			return;

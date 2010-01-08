@@ -1003,7 +1003,12 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		else
 		{
 			_elementals.setElement(element);
-			_elementals.setValue(value);
+			if (!isWeapon() && value > Elementals.ARMOR_VALUES[12])
+				_elementals.setValue(Elementals.ARMOR_VALUES[12]);
+			else if (value > Elementals.WEAPON_VALUES[12])
+				_elementals.setValue(Elementals.WEAPON_VALUES[12]);
+			else
+				_elementals.setValue(value);
 		}
 		updateItemAttributes();
 	}
@@ -1415,7 +1420,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		if (dropper != null)
 			setInstanceId(dropper.getInstanceId()); // Inherit instancezone when dropped in visible world
 		else
-			setInstanceId(0); // No dropper? Make it a global item...
+			setInstanceId(-1); // No dropper? Make it a global item...
 
 		synchronized (this)
 		{

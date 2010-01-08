@@ -596,7 +596,7 @@ public class L2Zone implements FuncOwner
 		if (_landing)
 			character.setInsideZone(FLAG_LANDING, false);
 		
-		if (_instanceName != null && player != null && character.getInstanceId() > 0)
+		if (_instanceName != null && player != null && player.isInInstance())
 			portIntoInstance(player, 0);
 	}
 	
@@ -675,7 +675,7 @@ public class L2Zone implements FuncOwner
 	{
 		for (L2PcInstance mem : group)
 		{
-			if (mem == null || mem.getInstanceId() == 0)
+			if (mem == null || !mem.isInInstance())
 				continue;
 			
 			Instance i = InstanceManager.getInstance().getInstance(mem.getInstanceId());
@@ -701,7 +701,7 @@ public class L2Zone implements FuncOwner
 		
 		for (L2PcInstance mem : group)
 		{
-			if (mem != null && mem.getInstanceId() == ir.instanceId)
+			if (mem != null && mem.isSameInstance(ir.instanceId))
 				valid++;
 			all++;
 			
@@ -723,10 +723,7 @@ public class L2Zone implements FuncOwner
 		pl.getKnownList().updateKnownObjects();
 		L2Summon pet = pl.getPet();
 		if (pet != null)
-		{
-			pet.setInstanceId(instanceId);
 			pet.getKnownList().updateKnownObjects();
-		}
 	}
 	
 	public final void onDie(L2Character character)

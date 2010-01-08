@@ -106,7 +106,6 @@ public class AdminInstance implements IAdminCommandHandler
 					L2Summon pet = player.getPet();
 					if (pet != null)
 					{
-						pet.setInstanceId(val);
 						pet.teleToLocation(pet.getX(), pet.getY(), pet.getZ());
 						player.sendMessage("Admin set " + pet.getName() + "'s instance to:" + val);
 					}

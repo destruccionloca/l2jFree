@@ -107,8 +107,6 @@ public abstract class L2Summon extends L2Playable
 		getStat(); // init stats
 		getStatus(); // init status
 
-		setInstanceId(owner.getInstanceId()); // set instance to owners one
-
 		_showSummonAnimation = true;
 		_owner = owner;
 		getAI();
@@ -840,5 +838,17 @@ public abstract class L2Summon extends L2Playable
 	public final SummonShots getShots()
 	{
 		return (SummonShots)_shots;
+	}
+
+	@Override
+	public int getInstanceId()
+	{
+		return getActingPlayer().getInstanceId();
+	}
+
+	@Deprecated
+	@Override
+	public void setInstanceId(int id)
+	{
 	}
 }

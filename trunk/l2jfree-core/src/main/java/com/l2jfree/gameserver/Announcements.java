@@ -235,7 +235,7 @@ public class Announcements
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
-			if(player.getInstanceId() == instanceId)
+			if (player.isSameInstance(instanceId))
 				player.sendPacket(gsp);
 		}
 	}

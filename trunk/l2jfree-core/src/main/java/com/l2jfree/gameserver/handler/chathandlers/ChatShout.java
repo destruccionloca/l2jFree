@@ -71,7 +71,7 @@ public class ChatShout implements IChatHandler
 			{
 				if (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ())
 						&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar))
-						&& (player.getInstanceId() == activeChar.getInstanceId()))
+						&& player.isSameInstance(activeChar))
 				{
 					player.sendPacket(cs);
 				}
@@ -81,7 +81,9 @@ public class ChatShout implements IChatHandler
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)) && (player.getInstanceId() == activeChar.getInstanceId()))
+				if (!(Config.REGION_CHAT_ALSO_BLOCKED
+						&& BlockList.isBlocked(player, activeChar))
+						&& player.isSameInstance(activeChar))
 				{
 					player.sendPacket(cs);
 				}

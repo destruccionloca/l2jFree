@@ -68,8 +68,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 
 		L2PcInstance manufacturer = (L2PcInstance) object;
 
-		if (manufacturer.getInstanceId() != activeChar.getInstanceId()
-				&& activeChar.getInstanceId() != -1)
+		if (!activeChar.isSameInstance(manufacturer))
 		{
 			sendAF();
 			return;

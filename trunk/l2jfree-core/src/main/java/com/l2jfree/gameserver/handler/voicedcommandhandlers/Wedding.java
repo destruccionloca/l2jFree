@@ -265,7 +265,7 @@ public class Wedding implements IVoicedCommandHandler
 		}
 		
 		// Check to see if the player is in a instance.
-		if (activeChar.getInstanceId() != partner.getInstanceId())
+		if (!activeChar.isSameInstance(partner))
 		{
 			activeChar.sendMessage("Your partner is in another World!");
 			return null;

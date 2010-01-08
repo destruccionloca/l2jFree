@@ -465,8 +465,12 @@ public abstract class L2Object implements L2Entity<Integer>
 						inst.addPlayer(getObjectId());
 				}
 			}
-			if (((L2PcInstance) this).getPet() != null)
-				((L2PcInstance) this).getPet().setInstanceId(instanceId);
+			L2Summon pet = getActingPlayer().getPet();
+			if (pet != null)
+			{
+				pet.decayMe();
+				pet.spawnMe();
+			}
 		}
 		else if (this instanceof L2Npc)
 		{
@@ -593,5 +597,41 @@ public abstract class L2Object implements L2Entity<Integer>
 	public int getMyTargetSelectedColor(L2PcInstance player)
 	{
 		return 0;
+	}
+
+	public boolean isInInstance()
+	{
+		return getInstanceId() > 0;
+	}
+
+	public boolean isInMultiverse()
+	{
+		return isInMultiverse(getInstanceId());
+	}
+
+	public boolean isSameInstance(L2Object object)
+	{
+		if (object == null)
+			return false;
+		return isSameInstance(object.getInstanceId());
+	}
+
+	public boolean isSameInstance(int instanceId)
+	{
+		return (getInstanceId() == instanceId
+				|| isInMultiverse()
+				|| isInMultiverse(instanceId));
+	}
+
+	public static final boolean isSameInstance(L2Object object1, L2Object object2)
+	{
+		if (object1 == null || object2 == null)
+			return false;
+		return object1.isSameInstance(object2);
+	}
+
+	public static final boolean isInMultiverse(int instanceId)
+	{
+		return instanceId == -1;
 	}
 }

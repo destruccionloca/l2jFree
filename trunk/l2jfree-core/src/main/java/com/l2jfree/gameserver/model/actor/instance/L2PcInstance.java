@@ -11496,10 +11496,9 @@ public final class L2PcInstance extends L2Playable
 		// remove player from instance and set spawn location if any
 		try
 		{
-			final int instanceId = getInstanceId();
-			if (instanceId != 0)
+			if (isInInstance())
 			{
-				final Instance inst = InstanceManager.getInstance().getInstance(instanceId);
+				final Instance inst = InstanceManager.getInstance().getInstance(getInstanceId());
 				if (inst != null)
 				{
 					inst.removePlayer(getObjectId());
@@ -11512,7 +11511,9 @@ public final class L2PcInstance extends L2Playable
 						if (getPet() != null) // dead pet
 						{
 							getPet().teleToLocation(x, y, spawn[2]);
-							getPet().setInstanceId(0);
+							// ??? unset pet's instance id, but not players
+							getPet().decayMe();
+							getPet().spawnMe();
 						}
 					}
 				}

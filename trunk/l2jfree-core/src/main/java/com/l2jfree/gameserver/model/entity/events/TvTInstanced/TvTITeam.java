@@ -229,11 +229,7 @@ public class TvTITeam
 	public void setInstance(int instanceId)
 	{
 		for (L2PcInstance player : _players)
-		{
 			player.setInstanceId(instanceId);
-			if (player.getPet() != null)
-				player.getPet().setInstanceId(instanceId);
-		}
 	}
 
 	public CopyOnWriteArrayList<L2PcInstance> getPlayers()

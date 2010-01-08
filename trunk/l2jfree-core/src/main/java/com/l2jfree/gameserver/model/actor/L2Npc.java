@@ -588,7 +588,7 @@ public class L2Npc extends L2Character
 			return false;
 		if (player.isSitting())
 			return false;
-		if (player.getInstanceId() != getInstanceId() && player.getInstanceId() != -1)
+		if (!isSameInstance(player))
 			return false;
 		
 		if (player.getPrivateStoreType() != 0)

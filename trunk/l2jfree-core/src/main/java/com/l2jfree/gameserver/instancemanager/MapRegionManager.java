@@ -309,7 +309,7 @@ public final class MapRegionManager
 			}
 			
 			// Checking if in an instance
-			if (player.getInstanceId() > 0)
+			if (player.isInInstance())
 			{
 				Instance inst = InstanceManager.getInstance().getInstance(player.getInstanceId());
 				if (inst != null)
