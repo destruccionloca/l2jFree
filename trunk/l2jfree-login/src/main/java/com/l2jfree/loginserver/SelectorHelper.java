@@ -21,16 +21,16 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.mmocore.network.IAcceptFilter;
-import org.mmocore.network.IClientFactory;
-import org.mmocore.network.IMMOExecutor;
-import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.manager.BanManager;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.Init;
 import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
+import com.l2jfree.mmocore.network.IAcceptFilter;
+import com.l2jfree.mmocore.network.IClientFactory;
+import com.l2jfree.mmocore.network.IMMOExecutor;
+import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.util.concurrent.ExecuteWrapper;
 
 /**

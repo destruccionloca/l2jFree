@@ -25,8 +25,6 @@ import java.util.GregorianCalendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.MMOConnection;
-import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
@@ -35,6 +33,8 @@ import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
 import com.l2jfree.loginserver.serverpackets.PlayFail;
+import com.l2jfree.mmocore.network.MMOConnection;
+import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.tools.math.ScrambledKeyPair;
 import com.l2jfree.tools.random.Rnd;
 

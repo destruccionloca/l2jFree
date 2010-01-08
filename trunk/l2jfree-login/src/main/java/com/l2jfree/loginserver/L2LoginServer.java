@@ -16,8 +16,6 @@ package com.l2jfree.loginserver;
 
 import java.net.InetAddress;
 
-import org.mmocore.network.SelectorConfig;
-import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
@@ -27,6 +25,8 @@ import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.loginserver.thread.GameServerListener;
+import com.l2jfree.mmocore.network.SelectorConfig;
+import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.status.Status;
 
 public final class L2LoginServer extends Config

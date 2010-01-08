@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.SendablePacket;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.CoreInfo;
@@ -25,6 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.mmocore.network.SendablePacket;
 
 /**
  * @author KenM

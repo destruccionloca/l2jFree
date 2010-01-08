@@ -16,7 +16,6 @@ package com.l2jfree.loginserver;
 
 import java.nio.ByteBuffer;
 
-import org.mmocore.network.IPacketHandler;
 
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
@@ -27,6 +26,7 @@ import com.l2jfree.loginserver.clientpackets.RequestServerList;
 import com.l2jfree.loginserver.clientpackets.RequestServerLogin;
 import com.l2jfree.loginserver.clientpackets.RequestSubmitCardNo;
 import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
+import com.l2jfree.mmocore.network.IPacketHandler;
 
 /**
  * Handler for packets received by Login Server

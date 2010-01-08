@@ -172,7 +172,7 @@ public final class GPLLicenseChecker extends Config
 	
 	private static final String[] WHOLE_PROJECT_PACKAGE_NAMES = {
 		"package com.l2jfree",
-		"package org.mmocore.network",
+		"package com.l2jfree.mmocore.network",
 		"package ai",
 		"package cron",
 		"package custom",

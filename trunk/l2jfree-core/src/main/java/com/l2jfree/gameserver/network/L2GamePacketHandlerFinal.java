@@ -21,16 +21,16 @@ import java.nio.channels.SelectionKey;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.IClientFactory;
-import org.mmocore.network.IMMOExecutor;
-import org.mmocore.network.IPacketHandler;
-import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.IOFloodManager.ErrorMode;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.clientpackets.*;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.mmocore.network.IClientFactory;
+import com.l2jfree.mmocore.network.IMMOExecutor;
+import com.l2jfree.mmocore.network.IPacketHandler;
+import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.tools.util.HexUtil;
 
 /**

@@ -49,7 +49,7 @@ public final class Init extends L2LoginServerPacket
 	}
 
 	/**
-	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 * @see com.l2jfree.mmocore.network.SendablePacket#write()
 	 */
 	@Override
 	protected void write(L2LoginClient client)

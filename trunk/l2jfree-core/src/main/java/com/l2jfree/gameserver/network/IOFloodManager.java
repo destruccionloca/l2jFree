@@ -24,12 +24,12 @@ import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.IAcceptFilter;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.lang.L2System;
+import com.l2jfree.mmocore.network.IAcceptFilter;
 
 /**
  * @author NB4L1

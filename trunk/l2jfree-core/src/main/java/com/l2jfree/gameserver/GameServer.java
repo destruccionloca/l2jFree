@@ -23,8 +23,6 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.SelectorConfig;
-import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -155,6 +153,8 @@ import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.mmocore.network.SelectorConfig;
+import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.status.Status;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 

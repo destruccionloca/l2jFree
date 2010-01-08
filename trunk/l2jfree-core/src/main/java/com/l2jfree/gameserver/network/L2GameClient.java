@@ -26,8 +26,6 @@ import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.MMOConnection;
-import org.mmocore.network.SelectorThread;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -44,6 +42,8 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.LeaveWorld;
 import com.l2jfree.gameserver.network.serverpackets.ServerClose;
 import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
+import com.l2jfree.mmocore.network.MMOConnection;
+import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.tools.security.BlowFishKeygen;
 import com.l2jfree.tools.security.GameCrypt;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
