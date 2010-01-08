@@ -14,6 +14,8 @@
  */
 package com.l2jfree.loginserver.clientpackets;
 
+import java.nio.BufferOverflowException;
+
 import com.l2jfree.Config;
 import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.serverpackets.LoginOk;
@@ -29,16 +31,19 @@ public class RequestSubmitCardNo extends L2LoginClientPacket
 	//private final byte[] _raw = new byte[128];
 
 	@Override
-	public boolean readImpl()
+	protected int getMinimumLength()
+	{
+		return 151;
+	}
+	
+	@Override
+	public void readImpl()
 	{
 		// always 151 bytes, despite what the input is
-		if (getAvaliableBytes() == 151)
-		{
-			//readB(_raw);
-			return true;
-		}
-		else
-			return false;
+		if (getAvaliableBytes() != 151)
+			throw new BufferOverflowException();
+		
+		//readB(_raw);
 	}
 
 	@Override

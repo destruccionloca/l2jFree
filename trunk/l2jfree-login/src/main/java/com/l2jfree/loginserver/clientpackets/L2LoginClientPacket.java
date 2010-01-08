@@ -38,8 +38,9 @@ public abstract class L2LoginClientPacket extends
 	@Override
 	protected final boolean read() throws BufferUnderflowException, RuntimeException
 	{
-		return readImpl();
+		readImpl();
+		return true;
 	}
 	
-	protected abstract boolean readImpl() throws BufferUnderflowException, RuntimeException;
+	protected abstract void readImpl() throws BufferUnderflowException, RuntimeException;
 }

@@ -56,25 +56,23 @@ public class AuthGameGuard extends L2LoginClientPacket
 		return _data4;
 	}
 
+	@Override
+	protected int getMinimumLength()
+	{
+		return 20;
+	}
+	
 	/**
 	 * @see com.l2jfree.loginserver.clientpackets.L2LoginClientPacket#readImpl()
 	 */
 	@Override
-	protected boolean readImpl()
+	protected void readImpl()
 	{
-		if (getAvaliableBytes() >= 20)
-		{
-			_sessionId = readD();
-			_data1 = readD();
-			_data2 = readD();
-			_data3 = readD();
-			_data4 = readD();
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		_sessionId = readD();
+		_data1 = readD();
+		_data2 = readD();
+		_data3 = readD();
+		_data4 = readD();
 	}
 
 	/**

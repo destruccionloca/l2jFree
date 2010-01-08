@@ -59,17 +59,15 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	}
 
 	@Override
-	public boolean readImpl()
+	protected int getMinimumLength()
 	{
-		if (getAvaliableBytes() >= 128)
-		{
-			readB(_raw);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return 128;
+	}
+	
+	@Override
+	public void readImpl()
+	{
+		readB(_raw);
 	}
 
 	@Override

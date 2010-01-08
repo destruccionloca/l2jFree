@@ -55,18 +55,16 @@ public class RequestServerList extends L2LoginClientPacket
 	}
 
 	@Override
-	public boolean readImpl()
+	protected int getMinimumLength()
 	{
-		if (getAvaliableBytes() >= 8)
-		{
-			_skey1 = readD(); // loginOk 1
-			_skey2 = readD(); // loginOk 2
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return 8;
+	}
+	
+	@Override
+	public void readImpl()
+	{
+		_skey1 = readD(); // loginOk 1
+		_skey2 = readD(); // loginOk 2
 	}
 
 	/**
