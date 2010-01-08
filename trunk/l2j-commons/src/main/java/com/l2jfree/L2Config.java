@@ -70,7 +70,7 @@ public abstract class L2Config
 				e.printStackTrace(System.err);
 				
 				// restart automatically
-				if (e instanceof Error)
+				if (e instanceof Error && !(e instanceof StackOverflowError))
 					Runtime.getRuntime().halt(2);
 			}
 		});
