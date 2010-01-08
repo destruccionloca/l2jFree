@@ -70,7 +70,7 @@ public abstract class L2Config
 				e.printStackTrace(System.err);
 				
 				// restart automatically
-				if (e instanceof OutOfMemoryError)
+				if (e instanceof Error)
 					Runtime.getRuntime().halt(2);
 			}
 		});
