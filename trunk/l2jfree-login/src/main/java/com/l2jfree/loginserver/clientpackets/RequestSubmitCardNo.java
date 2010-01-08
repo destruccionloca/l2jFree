@@ -29,6 +29,7 @@ import com.l2jfree.loginserver.serverpackets.ServerList;
 public class RequestSubmitCardNo extends L2LoginClientPacket
 {
 	//private final byte[] _raw = new byte[128];
+	private static final byte[] _raw = new byte[151];
 
 	@Override
 	protected int getMinimumLength()
@@ -43,7 +44,7 @@ public class RequestSubmitCardNo extends L2LoginClientPacket
 		if (getAvaliableBytes() != 151)
 			throw new BufferOverflowException();
 		
-		//readB(_raw);
+		readB(_raw); // to consume the buffers content
 	}
 
 	@Override
