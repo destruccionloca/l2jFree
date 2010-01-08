@@ -13,7 +13,7 @@
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillRadius" val="1000" />
+    <set name="skillRadius" val="1000"/>
     <set name="aggroPoints" val="400"/>
     <for>
       <effect count="15" name="HealOverTime" val="27" stackOrder="27" stackType="LifeForce"/>
@@ -188,7 +188,7 @@
     <set name="mpInitialConsume" val="21"/>
     <set name="mpConsume" val="87"/>
     <set name="magicLvl" val="74"/>
-    <set name="power" val="40" /> <!-- Base Land Rate -->
+    <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="2000"/>
@@ -1285,7 +1285,7 @@
     <set name="power" val="5750"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="25000" /> <!-- Guess -->
+    <set name="reuseDelay" val="60000"/> <!-- Guess -->
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="80"/> <!-- Guess -->
@@ -1303,7 +1303,7 @@
     <set name="power" val="4312"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="60000"/> <!-- Guess -->
+    <set name="reuseDelay" val="45000"/> <!-- Guess -->
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="100"/>
@@ -1321,7 +1321,7 @@
     <set name="power" val="6037"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="25000" /> <!-- Guess -->
+    <set name="reuseDelay" val="75000"/> <!-- Guess -->
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="80"/> <!-- Guess -->
@@ -1616,7 +1616,7 @@
       <player active_effect_id="5563,3"/>
     </cond>
     <for>
-      <effect count="20" name="HealOverTime" time="3" val="150">
+      <effect count="20" name="HealOverTime" time="3" val="150" stackOrder="1" stackType="touch">
         <mul order="0x30" stat="cancelVuln" val="0.1"/> <!-- increases resistance to buff cancel attacks by 100% -->
         <mul order="0x30" stat="debuffVuln" val="0.7"/>
         <mul order="0x30" stat="gainHp" val="1.3"/>
