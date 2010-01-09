@@ -805,7 +805,7 @@
     <cond msgId="109" addName="1">
       <and>
       <player flyMounted="False"/>
-      <target npcId="29099"/>
+      <target npcId="25534"/>
       </and>
     </cond>
   </skill>
