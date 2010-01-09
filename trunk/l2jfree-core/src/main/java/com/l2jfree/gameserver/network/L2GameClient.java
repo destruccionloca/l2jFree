@@ -486,7 +486,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 	public String getHostAddress()
 	{
 		if (_hostAddress == null || _hostAddress.isEmpty())
-			return getSocket().getInetAddress().getHostAddress();
+			return getInetAddress().getHostAddress();
 		
 		return _hostAddress;
 	}

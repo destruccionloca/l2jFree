@@ -14,6 +14,7 @@
  */
 package com.l2jfree.mmocore.network;
 
+import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.CancelledKeyException;
@@ -98,9 +99,14 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		}
 	}
 	
-	public final Socket getSocket()
+	final Socket getSocket()
 	{
 		return _socket;
+	}
+	
+	public final InetAddress getInetAddress()
+	{
+		return _socket.getInetAddress();
 	}
 	
 	final WritableByteChannel getWritableChannel()
@@ -258,4 +264,11 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	protected abstract SP getDefaultClosePacket();
 	
 	protected abstract String getUID();
+	
+	final String getValidUID()
+	{
+		final String UID = getUID();
+		
+		return UID == null ? _socket.getInetAddress().getHostAddress() : UID;
+	}
 }

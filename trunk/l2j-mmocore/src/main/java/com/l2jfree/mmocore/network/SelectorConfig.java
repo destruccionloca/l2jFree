@@ -23,11 +23,11 @@ public final class SelectorConfig
 {
 	private int BUFFER_SIZE = 64 * 1024; // 0xFFFF + 1
 	
-	private int MAX_SEND_PER_PASS = 1;
-	private int MAX_READ_PER_PASS = 1;
+	private int MAX_SEND_PER_PASS = Integer.MAX_VALUE;
+	private int MAX_READ_PER_PASS = Integer.MAX_VALUE;
 	
-	private int MAX_SEND_BYTE_PER_PASS = BUFFER_SIZE;
-	private int MAX_READ_BYTE_PER_PASS = BUFFER_SIZE;
+	private int MAX_SEND_BYTE_PER_PASS = Integer.MAX_VALUE;
+	private int MAX_READ_BYTE_PER_PASS = Integer.MAX_VALUE;
 	
 	private int SLEEP_TIME = 10;
 	

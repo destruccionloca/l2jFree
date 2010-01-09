@@ -15,7 +15,6 @@
 package com.l2jfree.loginserver;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -79,7 +78,7 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	{
 		super(selectorThread, socket, key);
 		
-		_ip = getSocket().getInetAddress().getHostAddress();
+		_ip = getInetAddress().getHostAddress();
 		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
@@ -260,11 +259,6 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	public void closeBanned(int timeLeft)
 	{
 		closeLogin(LoginFail.REASON_IP_RESTRICTED);
-	}
-	
-	public InetAddress getInetAddress()
-	{
-		return getSocket().getInetAddress();
 	}
 	
 	public boolean isCardAuthed()

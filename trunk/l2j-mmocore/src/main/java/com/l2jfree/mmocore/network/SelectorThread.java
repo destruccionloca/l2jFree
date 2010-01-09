@@ -788,7 +788,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		return "";
 	}
 	
-	public boolean acceptConnectionFrom(SocketChannel sc)
+	protected boolean acceptConnectionFrom(SocketChannel sc)
 	{
 		final String host = sc.socket().getInetAddress().getHostAddress();
 		
@@ -815,7 +815,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 	
 	public void report(ErrorMode mode, T client, RP packet, Throwable throwable)
 	{
-		final Result isFlooding = _errors.isFlooding(client.getUID(), true);
+		final Result isFlooding = _errors.isFlooding(client.getValidUID(), true);
 		
 		final StringBuilder sb = new StringBuilder();
 		if (isFlooding != Result.ACCEPTED)
@@ -848,9 +848,9 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		//}
 	}
 	
-	public boolean canReceivePacketFrom(T client, int opcode)
+	protected boolean canReceivePacketFrom(T client, int opcode)
 	{
-		final String key = client.getUID();
+		final String key = client.getValidUID();
 		
 		switch (Result.max(_packets.isFlooding(key, true), _errors.isFlooding(key, false)))
 		{

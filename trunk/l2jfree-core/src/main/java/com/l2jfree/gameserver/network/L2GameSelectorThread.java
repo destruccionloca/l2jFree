@@ -28,8 +28,7 @@ public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2G
 		
 		static
 		{
-			SelectorConfig sc = new SelectorConfig();
-			sc.setMaxSendPerPass(25);
+			final SelectorConfig sc = new SelectorConfig();
 			sc.setSelectorSleepTime(5);
 			
 			try
