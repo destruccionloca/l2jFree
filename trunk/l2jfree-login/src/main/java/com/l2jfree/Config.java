@@ -76,7 +76,7 @@ public class Config extends L2Config
 	public static int			FAST_CONNECTION_TIME;
 	public static int			MAX_CONNECTION_PER_IP;
 
-	public static boolean		PROTOCOL_LEGACY;
+	public static boolean		PROTOCOL_SPECIAL;
 	public static boolean		SECURITY_CARD_LOGIN;
 	public static String		SECURITY_CARD_ID;
 
@@ -118,7 +118,7 @@ public class Config extends L2Config
 			FAST_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("FastConnectionTime", "350"));
 			MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
 
-			PROTOCOL_LEGACY = Boolean.parseBoolean(serverSettings.getProperty("SupportL2JFreeCT2P2", "False"));
+			PROTOCOL_SPECIAL = Boolean.parseBoolean(serverSettings.getProperty("SupportL2JFreeCT2P2", "False"));
 			SECURITY_CARD_LOGIN = Boolean.parseBoolean(serverSettings.getProperty("UseSecurityCardToLogin", "False"));
 			SECURITY_CARD_ID = serverSettings.getProperty("SecurityCardID", "l2jfree");
 		}

@@ -68,6 +68,16 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	public void readImpl()
 	{
 		readB(_raw);
+
+		/* First three bytes will match with AuthGameGuard's additional block's
+		 * 2nd, 3rd and 4th byte respectively, then goes the randomly deviated 1st byte.
+		 * Then 16 null bytes, a byte equal to 8, 10 null bytes, 4 unknown bytes,
+		 * rest null bytes
+		byte[] b = new byte[47];
+		readB(b);
+		_log.info("RAL: " + HexUtil.printData(b));
+		*/
+		skip(47);
 	}
 
 	@Override

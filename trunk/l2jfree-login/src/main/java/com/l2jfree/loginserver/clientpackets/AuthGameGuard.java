@@ -14,46 +14,22 @@
  */
 package com.l2jfree.loginserver.clientpackets;
 
+import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.L2LoginClient.LoginClientState;
 import com.l2jfree.loginserver.serverpackets.GGAuth;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
 
 /**
- * @author -Wooden-
- * Format: ddddd
- * 
+ * Considering the fact that GG packets were never understood, there's
+ * no reason to hope they will be.
  */
 public class AuthGameGuard extends L2LoginClientPacket
 {
 	private int	_sessionId;
-	private int	_data1;
-	private int	_data2;
-	private int	_data3;
-	private int	_data4;
 
 	public int getSessionId()
 	{
 		return _sessionId;
-	}
-
-	public int getData1()
-	{
-		return _data1;
-	}
-
-	public int getData2()
-	{
-		return _data2;
-	}
-
-	public int getData3()
-	{
-		return _data3;
-	}
-
-	public int getData4()
-	{
-		return _data4;
 	}
 
 	@Override
@@ -61,7 +37,7 @@ public class AuthGameGuard extends L2LoginClientPacket
 	{
 		return 20;
 	}
-	
+
 	/**
 	 * @see com.l2jfree.loginserver.clientpackets.L2LoginClientPacket#readImpl()
 	 */
@@ -69,10 +45,15 @@ public class AuthGameGuard extends L2LoginClientPacket
 	protected void readImpl()
 	{
 		_sessionId = readD();
-		_data1 = readD();
-		_data2 = readD();
-		_data3 = readD();
-		_data4 = readD();
+
+		/* 19 null bytes, 1 byte, 3 bytes, rest - null bytes
+		 * 3 bytes will match with RequestAuthLogin first three bytes
+		 * and the randomly deviated 1 byte will be as 4th byte in RAL
+		byte[] b = new byte[35];
+		readB(b);
+		_log.info("AGG: " + HexUtil.printData(b));
+		*/
+		skip(35);
 	}
 
 	/**
@@ -81,15 +62,16 @@ public class AuthGameGuard extends L2LoginClientPacket
 	@Override
 	public void runImpl()
 	{
-		if (_sessionId == getClient().getSessionId())
+		L2LoginClient client = getClient();
+		if (_sessionId == client.getSessionId())
 		{
-			getClient().setState(LoginClientState.AUTHED_GG);
-			getClient().sendPacket(new GGAuth(getClient().getSessionId()));
+			client.setState(LoginClientState.AUTHED_GG);
+			client.sendPacket(new GGAuth(client.getSessionId()));
 		}
 		else
 		{
 			//this.getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
-			getClient().closeLogin(LoginFail.REASON_IGNORE);
+			client.closeLogin(LoginFail.REASON_IGNORE);
 		}
 	}
 }

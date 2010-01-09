@@ -447,7 +447,7 @@ public class GameServerThread extends Thread
 	{
 		_connection = con;
 		_connectionIp = con.getInetAddress().getHostAddress();
-		if (Config.PROTOCOL_LEGACY)
+		if (Config.PROTOCOL_SPECIAL)
 			_protocol = L2LoginServer.PROTOCOL_LEGACY;
 		else
 			_protocol = L2LoginServer.PROTOCOL_L2J;

@@ -15,6 +15,7 @@
 package com.l2jfree.loginserver.clientpackets;
 
 import com.l2jfree.Config;
+import com.l2jfree.loginserver.L2LoginClient;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.manager.LoginManager;
 import com.l2jfree.loginserver.serverpackets.LoginFail;
@@ -71,6 +72,14 @@ public class RequestServerLogin extends L2LoginClientPacket
 		_skey1 = readD();
 		_skey2 = readD();
 		_serverId = readC();
+		/* 6 null bytes, 1 byte, 1 byte, 2 bytes, rest - null bytes
+		 * 2 bytes will match with respective RequestServerList bytes, the 1 & 1 byte
+		 * will both be randomly deviated.
+		byte[] b = new byte[22];
+		readB(b);
+		_log.info("RSLog: " + HexUtil.printData(b));
+		*/
+		skip(22);
 	}
 
 	/**
@@ -79,11 +88,12 @@ public class RequestServerLogin extends L2LoginClientPacket
 	@Override
 	public void runImpl()
 	{
-		SessionKey sk = getClient().getSessionKey();
+		L2LoginClient client = getClient();
+		SessionKey sk = client.getSessionKey();
 
-		if (Config.SECURITY_CARD_LOGIN && !getClient().isCardAuthed())
+		if (Config.SECURITY_CARD_LOGIN && !client.isCardAuthed())
 		{
-			getClient().closeLogin(LoginFail.REASON_IGNORE);
+			client.closeLoginGame(LoginFail.REASON_IGNORE);
 			return;
 		}
 
@@ -91,32 +101,32 @@ public class RequestServerLogin extends L2LoginClientPacket
 		if (!Config.SHOW_LICENCE || sk.checkLoginPair(_skey1, _skey2))
 		{
 			// make sure GS handles the info packet
-			GameServerListener.getInstance().playerSelectedServer(_serverId, getClient().getIp());
+			GameServerListener.getInstance().playerSelectedServer(_serverId, client.getIp());
 			try
 			{
-				if (LoginManager.getInstance().isLoginPossible(getClient().getAge(), getClient().getAccessLevel(), _serverId))
+				if (LoginManager.getInstance().isLoginPossible(client.getAge(), client.getAccessLevel(), _serverId))
 				{
-					getClient().setJoinedGS(true);
-					getClient().sendPacket(new PlayOk(sk));
-					LoginManager.getInstance().setAccountLastServerId(getClient().getAccount(), _serverId);
+					client.setJoinedGS(true);
+					client.sendPacket(new PlayOk(sk));
+					LoginManager.getInstance().setAccountLastServerId(client.getAccount(), _serverId);
 				}
 				else
 				{
-					getClient().closeLoginGame(LoginFail.REASON_TOO_HIGH_TRAFFIC);
+					client.closeLoginGame(LoginFail.REASON_TOO_HIGH_TRAFFIC);
 				}
 			}
 			catch (MaintenanceException e)
 			{
-				getClient().closeLoginGame(LoginFail.REASON_MAINTENANCE_UNDERGOING);
+				client.closeLoginGame(LoginFail.REASON_MAINTENANCE_UNDERGOING);
 			}
 			catch (MaturityException e)
 			{
-				getClient().closeLoginGame(LoginFail.REASON_AGE_LIMITATION);
+				client.closeLoginGame(LoginFail.REASON_AGE_LIMITATION);
 			}
 		}
 		else
 		{
-			getClient().closeLogin(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
+			client.closeLoginGame(LoginFail.REASON_ACCESS_FAILED_TRY_AGAIN);
 		}
 	}
 }
