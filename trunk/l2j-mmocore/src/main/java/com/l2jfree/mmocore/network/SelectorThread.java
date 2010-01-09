@@ -300,6 +300,9 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 			buf.clear();
 		}
 		
+		int readPackets = 0;
+		int readBytes = 0;
+		
 		for (;;)
 		{
 			final int remainingFreeSpace = buf.remaining();
@@ -313,8 +316,6 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 			{
 				//error handling goes bellow
 			}
-			
-			boolean hasReachedAConfigLimit = false;
 			
 			switch (result)
 			{
@@ -332,23 +333,25 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 				{
 					buf.flip();
 					// try to read as many packets as possible
-					for (int i = 0;; i++)
+					for (;;)
 					{
-						if (i >= MAX_READ_PER_PASS || buf.position() >= MAX_READ_BYTE_PER_PASS)
-						{
-							hasReachedAConfigLimit = true;
+						final int startPos = buf.position();
+						
+						if (readPackets >= MAX_READ_PER_PASS || readBytes >= MAX_READ_BYTE_PER_PASS)
 							break;
-						}
 						
 						if (!tryReadPacket2(con, buf))
 							break;
+						
+						readPackets++;
+						readBytes += (buf.position() - startPos);
 					}
 					break;
 				}
 			}
 			
 			// stop reading, if we have reached a config limit
-			if (hasReachedAConfigLimit)
+			if (readPackets >= MAX_READ_PER_PASS || readBytes >= MAX_READ_BYTE_PER_PASS)
 				break;
 			
 			// if the buffer wasn't filled completely, we should stop trying as the input channel is empty
@@ -486,9 +489,13 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		@SuppressWarnings("unchecked")
 		T con = (T)key.attachment();
 		
+		int wrotePackets = 0;
+		int wroteBytes = 0;
+		
 		for (;;)
 		{
-			final boolean hasReachedAConfigLimit = prepareWriteBuffer2(con);
+			wrotePackets += prepareWriteBuffer2(con, wrotePackets, wroteBytes);
+			wroteBytes += DIRECT_WRITE_BUFFER.position();
 			DIRECT_WRITE_BUFFER.flip();
 			
 			int size = DIRECT_WRITE_BUFFER.remaining();
@@ -518,7 +525,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 							con.disableWriteInterest();
 							return;
 						}
-						else if (hasReachedAConfigLimit)
+						else if (wrotePackets >= MAX_SEND_PER_PASS || wroteBytes >= MAX_SEND_BYTE_PER_PASS)
 							return;
 					}
 				}
@@ -537,10 +544,8 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		}
 	}
 	
-	private boolean prepareWriteBuffer2(T con)
+	private int prepareWriteBuffer2(T con, int wrotePackets, int wroteBytes)
 	{
-		boolean hasReachedAConfigLimit = false;
-		
 		DIRECT_WRITE_BUFFER.clear();
 		
 		// if theres pending content add it
@@ -548,18 +553,20 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		{
 			con.movePendingWriteBufferTo(DIRECT_WRITE_BUFFER);
 			// ADDED PENDING TO DIRECT
+			
+			//wrotePackets += x; // not stored yet, so...
+			wroteBytes += DIRECT_WRITE_BUFFER.position();
 		}
 		
 		// don't write additional, if there are still pending content
 		if (!con.hasPendingWriteBuffer())
 		{
-			for (int i = 0; DIRECT_WRITE_BUFFER.remaining() >= 2; i++)
+			for (; DIRECT_WRITE_BUFFER.remaining() >= 2;)
 			{
-				if (i >= MAX_SEND_PER_PASS || DIRECT_WRITE_BUFFER.position() >= MAX_SEND_BYTE_PER_PASS)
-				{
-					hasReachedAConfigLimit = true;
+				final int startPos = DIRECT_WRITE_BUFFER.position();
+				
+				if (wrotePackets >= MAX_SEND_PER_PASS || wroteBytes >= MAX_SEND_BYTE_PER_PASS)
 					break;
-				}
 				
 				final SP sp;
 				
@@ -581,6 +588,9 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 				{
 					// put last written packet to the direct buffer
 					DIRECT_WRITE_BUFFER.put(WRITE_BUFFER);
+					
+					wrotePackets++;
+					wroteBytes += (DIRECT_WRITE_BUFFER.position() - startPos);
 				}
 				else
 				{
@@ -591,7 +601,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 			}
 		}
 		
-		return hasReachedAConfigLimit;
+		return wrotePackets;
 	}
 	
 	private void putPacketIntoWriteBuffer(T client, SP sp)
