@@ -813,8 +813,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		}
 	}
 	
-	public void report(ErrorMode mode, MMOConnection<?, ?, ?> client, ReceivablePacket<?, ?, ?> packet,
-		Throwable throwable)
+	public void report(ErrorMode mode, T client, RP packet, Throwable throwable)
 	{
 		final Result isFlooding = _errors.isFlooding(client.getUID(), true);
 		
@@ -849,7 +848,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		//}
 	}
 	
-	public boolean canReceivePacketFrom(MMOConnection<?, ?, ?> client, int opcode)
+	public boolean canReceivePacketFrom(T client, int opcode)
 	{
 		final String key = client.getUID();
 		

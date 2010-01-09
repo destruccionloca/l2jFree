@@ -16,7 +16,6 @@ import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.mmocore.network.IPacketHandler;
-import com.l2jfree.mmocore.network.MMOConnection;
 import com.l2jfree.mmocore.network.SelectorConfig;
 import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.tools.util.HexUtil;
@@ -141,12 +140,12 @@ public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2G
 	}
 	
 	@Override
-	public boolean canReceivePacketFrom(MMOConnection<?, ?, ?> client, int opcode)
+	public boolean canReceivePacketFrom(L2GameClient client, int opcode)
 	{
 		if (!super.canReceivePacketFrom(client, opcode))
 			return false;
 		
-		if (((L2GameClient)client).isDisconnected())
+		if (client.isDisconnected())
 			return false;
 		
 		return true;

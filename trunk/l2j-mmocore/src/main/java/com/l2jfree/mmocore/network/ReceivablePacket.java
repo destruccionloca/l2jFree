@@ -55,6 +55,7 @@ public abstract class ReceivablePacket<T extends MMOConnection<T, RP, SP>, RP ex
 	
 	protected abstract boolean read() throws BufferUnderflowException, RuntimeException;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public final void run()
 	{
@@ -64,11 +65,11 @@ public abstract class ReceivablePacket<T extends MMOConnection<T, RP, SP>, RP ex
 		}
 		catch (InvalidPacketException e)
 		{
-			getClient().getSelectorThread().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+			getClient().getSelectorThread().report(ErrorMode.FAILED_RUNNING, getClient(), (RP)this, e);
 		}
 		catch (RuntimeException e)
 		{
-			getClient().getSelectorThread().report(ErrorMode.FAILED_RUNNING, getClient(), this, e);
+			getClient().getSelectorThread().report(ErrorMode.FAILED_RUNNING, getClient(), (RP)this, e);
 		}
 	}
 	
