@@ -15,7 +15,7 @@
     <table name="#ench2mpConsume"> 52 52 52 50 49 49 48 48 46 46 45 44 44 44
       42 41 41 40 40 38 38 37 36 36 36 34 33 33 32 32 </table>
     <table name="#ench3mAtk"> 101 102 103 104 105 106 107 108 109 111 112 113 114
-      114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130</table> <!-- Guess -->
+      114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 </table> <!-- Guess -->
     <table name="#enchElementPower"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
       25 26 27 28 29 30 </table>
     <table name="#mpInitialConsume"> 10 10 11 11 12 12 12 13 13 13 </table>
@@ -399,7 +399,7 @@
     <table name="#ench1time"> 320 340 360 380 400 420 440 460 480 500 520 540 560 580 600 </table>
     <table name="#ench2mpInitialConsume"> 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 </table>
     <table name="#ench2mpConsume"> 222 218 214 212 208 204 200 196 193 189 185 181 177 174 170 </table>
-    <table name="#ench3runSpd"> 0.83 0.85 0.87 0.89 0.90 0.91 0.92 0.93 0.94 0.95 0.96 0.97 0.98 0.99 0.99</table>
+    <table name="#ench3runSpd"> 0.83 0.85 0.87 0.89 0.90 0.91 0.92 0.93 0.94 0.95 0.96 0.97 0.98 0.99 0.99 </table>
     <set name="mpInitialConsume" val="57"/>
     <set name="mpConsume" val="227"/>
     <set name="itemConsumeId" val="3031"/>
@@ -955,13 +955,13 @@
     <table name="#ench1effectLvl"> 10 10 10 10 10 10 10 10 11 11 11 11
       11 11 11 11 12 12 12 12 12 12 12 12 12 13 13 13 13 13 </table>
     <table name="#ench1Dot"> 63 63 63 64 64 64 64 64 64 64 64 64 64
-      65 65 65 65 65 65 65 65 65 65 66 66 66 66 66 66 66</table>
+      65 65 65 65 65 65 65 65 65 65 66 66 66 66 66 66 66 </table>
     <table name="#ench2Chance"> 60 61 62 62 63 64 64 65 66 66 67 68
       68 69 70 70 71 72 72 73 74 74 75 76 76 77 78 78 79 80 </table> <!-- Guess -->
     <table name="#mpInitialConsume"> 2 3 4 4 5 6 6 6 7 7 </table>
     <table name="#mpConsume"> 10 11 14 18 19 22 23 26 26 28 </table>
     <table name="#magicLvl"> 24 32 40 46 52 58 62 66 70 74 </table>
-    <table name="#power"> 33 36 39 42 45 48 51 54 57 60</table> <!-- Guess -->
+    <table name="#power"> 33 36 39 42 45 48 51 54 57 60 </table> <!-- Guess -->
     <table name="#effectLvl"> 1 2 3 4 5 6 7 8 9 10 </table>
     <table name="#rateDef"> 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
     <table name="#Dot"> 24 32 41 41 50 50 58 58 63 63 </table>
@@ -2204,7 +2204,7 @@
     <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1mpInitialConsume"> 21 20 20 20 19 19 19 18 18 18 17 17 17 16 16 15 15 15 14 14 14 13 13 13 12 12 12 11 11 11 </table>
     <table name="#ench1mpConsume"> 84 82 81 78 78 76 74 74 72 70 69 68 66 65 64 62 61 60 58 57 54 54 52 50 50 48 46 45 44 42 </table>
-    <table name="#ench2time"> 15 16 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30</table>
+    <table name="#ench2time"> 15 16 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 </table>
     <table name="#ench3Reuse"> 299000 298000 297000 296000 295000 294000 293000 292000 291000 290000 289000 288000 287000 286000 285000
       284000 283000 282000 281000 280000 279000 278000 277000 276000 275000 274000 273000 272000 271000 270000 </table> <!-- Guess -->
     <table name="#mpInitialConsume"> 14 18 21 </table>
