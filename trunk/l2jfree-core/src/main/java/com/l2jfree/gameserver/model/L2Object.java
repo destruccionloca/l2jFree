@@ -465,12 +465,6 @@ public abstract class L2Object implements L2Entity<Integer>
 						inst.addPlayer(getObjectId());
 				}
 			}
-			L2Summon pet = getActingPlayer().getPet();
-			if (pet != null)
-			{
-				pet.decayMe();
-				pet.spawnMe();
-			}
 		}
 		else if (this instanceof L2Npc)
 		{
@@ -487,7 +481,7 @@ public abstract class L2Object implements L2Entity<Integer>
 				{
 					inst = InstanceManager.getInstance().getInstance(instanceId);
 					if (inst != null)
-						inst.addNpc(((L2Npc)this));
+						inst.addNpc((L2Npc)this);
 				}
 			}
 		}
@@ -502,6 +496,13 @@ public abstract class L2Object implements L2Entity<Integer>
 				// We don't want some ugly looking disappear/appear effects, so don't update
 				// the knownlist here, but players usually enter instancezones through teleporting
 				// and the teleport will do the revalidation for us.
+				
+				final L2Summon pet = getActingSummon();
+				if (pet != null)
+				{
+					pet.decayMe();
+					pet.spawnMe();
+				}
 			}
 			else
 			{
