@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javolution.util.FastList;
@@ -883,7 +884,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 	
 	private static final class FloodManager
 	{
-		private static final long ZERO = System.currentTimeMillis();
+		private static final long ZERO = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1);
 		
 		private final Map<String, LogEntry> _entries = new HashMap<String, LogEntry>();
 		
