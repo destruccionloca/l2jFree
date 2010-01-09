@@ -14,6 +14,8 @@
  */
 package com.l2jfree.lang;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author NB4L1
  */
@@ -23,7 +25,7 @@ public final class L2System
 	{
 	}
 	
-	private static final long ZERO = System.currentTimeMillis();
+	private static final long ZERO = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1);
 	
 	public static long milliTime()
 	{
@@ -37,7 +39,7 @@ public final class L2System
 	 * In case just remove the comment from below, and add around the method above.
 	 */
 	/*
-	private static final long ZERO = System.nanoTime();
+	private static final long ZERO = System.nanoTime() - TimeUnit.DAYS.toNanos(1);
 	
 	public static long milliTime()
 	{
