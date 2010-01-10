@@ -20964,7 +20964,7 @@ END//
 delimiter ;
 
 
-SELECT createSkillEnchant2(1, 7); -- Shield Stun
+SELECT createSkillEnchant2(1, 7); -- Triple Slash
 SELECT createSkillEnchant2(5, 7); -- Double Sonic Slash
 SELECT createSkillEnchant2(6, 7); -- Sonic Blaster
 SELECT createSkillEnchant2(7, 7); -- Sonic Storm
@@ -20981,11 +20981,11 @@ SELECT createSkillEnchant(67, 1, 7); -- Summon Life Cubic
 SELECT createSkillEnchant2(69, 3); -- Sacrifice
 SELECT createSkillEnchant2(69, 4); -- Sacrifice
 SELECT createSkillEnchant2(70, 3); -- Drain Health
+SELECT createSkillEnchant2(92, 6); -- Shield Stun
 SELECT createSkillEnchant2(96, 2); -- Bleed
 SELECT createSkillEnchant2(96, 3); -- Bleed
 SELECT createSkillEnchant2(97, 3); -- Sanctuary
 SELECT createSkillEnchant2(97, 4); -- Sanctuary
-SELECT createSkillEnchant2(92, 6); -- Shield Stun
 SELECT createSkillEnchant2(105, 3); -- Freezing Strike
 SELECT createSkillEnchant2(110, 3); -- Ultimate Defense
 SELECT createSkillEnchant(290, 1, 14); -- Final Frenzy
