@@ -187,11 +187,10 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		// Dynamic testing extensions
 		try
 		{
-			Class.forName("com.l2jfree.gameserver.handler.admincommandhandlers.AdminRuntimeTest").newInstance();
+			register((IAdminCommandHandler) Class.forName("com.l2jfree.gameserver.handler.admincommandhandlers.AdminRuntimeTest").newInstance());
 		}
 		catch (Throwable t)
 		{
-			_log.info("najs", t);
 		}
 		
 		_log.info("AdminCommandHandler: Loaded " + size() + " handlers.");

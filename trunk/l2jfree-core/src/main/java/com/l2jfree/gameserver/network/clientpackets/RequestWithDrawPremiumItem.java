@@ -16,12 +16,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * @author savormix
- */
 public final class RequestWithDrawPremiumItem extends L2GameClientPacket
 {
-	private long _unk1, _unk2;
+	private static final String	_C__REQUESTWITHDRAWPREMIUMITEM	= "[C] D0:52 RequestWriteHeroWords ch[qq]";
+
+	private long				_unk1, _unk2;
 
 	@Override
 	protected void readImpl()
@@ -35,5 +34,11 @@ public final class RequestWithDrawPremiumItem extends L2GameClientPacket
 	{
 		_log.info("RequestWithDrawPremiumItem, unk=" + _unk1 + ", unk=" + _unk2 + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__REQUESTWITHDRAWPREMIUMITEM;
 	}
 }
