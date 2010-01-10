@@ -281,8 +281,8 @@ public final class L2GamePacketHandlerFinal implements
 					case 0x39:
 						msg = new RequestMagicSkillUse();
 						break;
-					case 0x3a: // SendApperingPacket
-						msg = new Appearing(); // (after death)
+					case 0x3a:
+						msg = new SendAppearing();
 						break;
 					case 0x3b:
 						if (Config.ALLOW_WAREHOUSE)
@@ -669,7 +669,7 @@ public final class L2GamePacketHandlerFinal implements
 						msg = new RequestBuySeed();
 						break;
 					case 0xc6:
-						msg = new DlgAnswer();
+						msg = new ConfirmDlgAnswer();
 						break;
 					case 0xc7:
 						msg = new RequestWearItem();

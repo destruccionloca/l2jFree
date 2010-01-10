@@ -19,17 +19,13 @@ import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * @author Dezmond_snz
- * Format: cddd
- */
-public class DlgAnswer extends L2GameClientPacket
+public class ConfirmDlgAnswer extends L2GameClientPacket
 {
-    private static final String _C__C5_DLGANSWER = "[C] C5 DlgAnswer";
+    private static final String _C__CONFIRMDLG = "[C] C6 ConfirmDlg c[ddd]";
 
-    private int _messageId;
-    private int _answer;
-    private int _requesterId;
+    private int					_messageId;
+    private int					_answer;
+    private int					_requesterId;
 
     @Override
     protected void readImpl()
@@ -42,12 +38,12 @@ public class DlgAnswer extends L2GameClientPacket
     @Override
     public void runImpl()
     {
-        L2PcInstance cha = getClient().getActiveChar();
+        L2PcInstance cha = getActiveChar();
         if (cha == null)
         	return;
 
-        if(_log.isDebugEnabled())
-            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", Requester ID "+_requesterId);
+        if (_log.isDebugEnabled())
+            _log.debug(getType() + ": Answer acepted. Message ID " + _messageId + ", answer " + _answer + ", Requester ID " + _requesterId);
 
         if (_messageId == SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP.getId()
         		|| _messageId == SystemMessageId.RESURRECT_USING_CHARM_OF_COURAGE.getId())
@@ -69,6 +65,6 @@ public class DlgAnswer extends L2GameClientPacket
     @Override
     public String getType()
     {
-        return _C__C5_DLGANSWER;
+        return _C__CONFIRMDLG;
     }
 }

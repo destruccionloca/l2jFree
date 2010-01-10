@@ -253,7 +253,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new RequestMagicSkillUse();
 						break;
 					case 0x3a:
-						msg = new Appearing(); //  (after death)
+						msg = new SendAppearing(); //  (after death)
 						break;
 					case 0x3b:
 						if (Config.ALLOW_WAREHOUSE)
@@ -629,7 +629,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new RequestBuySeed();
 						break;
 					case 0xc6:
-						msg = new DlgAnswer();
+						msg = new ConfirmDlgAnswer();
 						break;
 					case 0xc7:
 						msg = new RequestWearItem();

@@ -17,10 +17,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 /**
  * Sent by the client once player starts the
  * Bejeweled-alike mini game (/minigame).
- * @author savormix
  */
 public final class NotifyStartMiniGame extends L2GameClientPacket
 {
+	private static final String _C__NOTIFYSTARTMINIGAME = "[C] D0:56 NotifyStartMiniGame ch";
+
 	@Override
 	protected void readImpl()
 	{
@@ -31,6 +32,11 @@ public final class NotifyStartMiniGame extends L2GameClientPacket
 	protected void runImpl()
 	{
 		// No idea what should the server do about that
-		//requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__NOTIFYSTARTMINIGAME;
 	}
 }

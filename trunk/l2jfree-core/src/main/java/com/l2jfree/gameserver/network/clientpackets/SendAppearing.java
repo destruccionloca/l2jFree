@@ -18,28 +18,22 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
-/**
- * Appearing Packet Handler<p>
- * <p>
- * 0000: 30 <p>
- * <p>
- * 
- * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
- */
-public class Appearing extends L2GameClientPacket
+public class SendAppearing extends L2GameClientPacket
 {
-	private static final String _C__30_APPEARING = "[C] 30 Appearing";
+	private static final String _C__SENDAPPEARING = "[C] 3A SendAppearing c";
 
 	@Override
 	protected void readImpl()
 	{
+		// trigger packet
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
 
 		if (activeChar.isTeleporting())
 			activeChar.onTeleported();
@@ -47,13 +41,13 @@ public class Appearing extends L2GameClientPacket
 		sendPacket(new UserInfo(activeChar));
 		sendAF();
 
-		if(activeChar.getParty() != null)
-			activeChar.getParty().broadcastToPartyMembers(activeChar,new PartyMemberPosition(activeChar));
+		if (activeChar.getParty() != null)
+			activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__30_APPEARING;
+		return _C__SENDAPPEARING;
 	}
 }

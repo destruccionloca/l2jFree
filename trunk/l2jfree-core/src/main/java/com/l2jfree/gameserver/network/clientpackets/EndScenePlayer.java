@@ -14,25 +14,30 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
-
 /**
- * @author savormix
+ * Sent by client once (quest? mini-raid?) animation, started with ExPlayScene, ends.
  */
 public final class EndScenePlayer extends L2GameClientPacket
 {
-	private int _unk;
+	private static final String _C__ENDSCENEPLAYER = "[C] D0:5b EndScenePlayer ch[d]";
+
+	//private int					_sceneId;
 
 	@Override
 	protected void readImpl()
 	{
-		_unk = readD();
+		//_sceneId = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("EndScenePlayer, unk=" + _unk + ", sent by " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		//requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__ENDSCENEPLAYER;
 	}
 }

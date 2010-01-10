@@ -31,27 +31,23 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AttackRequest extends L2GameClientPacket
 {
-    private static final String _C__0A_ATTACKREQUEST = "[C] 0A AttackRequest";
+    private static final String _C__ATTACKREQUEST = "[C] 01 AttackRequest c[ddddc]";
 
-    // cddddc
     private int _objectId;
-    @SuppressWarnings("unused")
-    private int _originX;
-    @SuppressWarnings("unused")
-    private int _originY;
-    @SuppressWarnings("unused")
-    private int _originZ;
-    @SuppressWarnings("unused")
-    private int _attackId;
+    //private int _originX;
+    //private int _originY;
+    //private int _originZ;
+    //private boolean _shift;
 
     @Override
     protected void readImpl()
     {
-        _objectId  = readD();
-        _originX  = readD();
-        _originY  = readD();
-        _originZ  = readD();
-        _attackId  = readC();    // 0 for simple click   1 for shift-click
+        _objectId	= readD();
+        /*_originX	= */readD();
+        /*_originY	= */readD();
+        /*_originZ	= */readD();
+        //_shift	= (readC() == 1);
+        readC();
     }
 
     @Override
@@ -61,6 +57,7 @@ public class AttackRequest extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
+		// prevent target jumping
 		if (activeChar.getLastTargetId() == _objectId &&
 				activeChar.getLastTargetTime() > (System.currentTimeMillis() - Config.RETARGET_BLOCKING_PERIOD))
 		{
@@ -113,6 +110,6 @@ public class AttackRequest extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__0A_ATTACKREQUEST;
+		return _C__ATTACKREQUEST;
 	}
 }
