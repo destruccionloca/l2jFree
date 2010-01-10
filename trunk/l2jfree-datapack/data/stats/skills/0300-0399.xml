@@ -773,7 +773,8 @@
       </effect>
     </for>
   </skill>
-  <skill id="328" levels="1" name="Wisdom">
+  <skill id="328" levels="1" name="Wisdom" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
+    <table name="#enchVuln"> 0.78 0.76 0.74 0.72 0.7 0.68 0.66 0.64 0.62 0.6 0.58 0.56 0.54 0.52 0.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -782,21 +783,42 @@
       <mul order="0x30" stat="sleepVuln" val="0.8"/>
       <mul order="0x30" stat="derangementVuln" val="0.8"/>
     </for>
+    <enchant1for>
+      <mul order="0x30" stat="rootVuln" val="#enchVuln"/>
+      <mul order="0x30" stat="sleepVuln" val="0.8"/>
+      <mul order="0x30" stat="derangementVuln" val="0.8"/>
+    </enchant1for>
+    <enchant2for>
+      <mul order="0x30" stat="rootVuln" val="0.8"/>
+      <mul order="0x30" stat="sleepVuln" val="#enchVuln"/>
+      <mul order="0x30" stat="derangementVuln" val="0.8"/>
+    </enchant2for>
+    <enchant3for>
+      <mul order="0x30" stat="rootVuln" val="0.8"/>
+      <mul order="0x30" stat="sleepVuln" val="0.8"/>
+      <mul order="0x30" stat="derangementVuln" val="#enchVuln"/>
+    </enchant3for>
   </skill>
-  <skill id="329" levels="1" name="Health">
+  <skill id="329" levels="1" name="Health" enchantLevels1="15" enchantLevels2="15">
+    <table name="#enchVuln"> 0.78 0.76 0.74 0.72 0.7 0.68 0.66 0.64 0.62 0.6 0.58 0.56 0.54 0.52 0.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="bleedVuln" val="0.8"/>
       <mul order="0x30" stat="poisonVuln" val="0.8"/>
+      <mul order="0x30" stat="bleedVuln" val="0.8"/>
     </for>
+    <enchant1for>
+      <mul order="0x30" stat="poisonVuln" val="#enchVuln"/>
+      <mul order="0x30" stat="bleedVuln" val="0.8"/>
+    </enchant1for>
+    <enchant2for>
+      <mul order="0x30" stat="poisonVuln" val="0.8"/>
+      <mul order="0x30" stat="bleedVuln" val="#enchVuln"/>
+    </enchant2for>
   </skill>
   <skill id="330" levels="1" name="Skill Mastery">
-    <!--
-      Masters excellence in skills. Low possibility of being able
-      to re-use skills without delay or doubles the duration. Influenced by STR.
-    -->
+    <!-- Depending on user's STR, the re-use time resets or the duration doubles. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -805,10 +827,7 @@
     </for>
   </skill>
   <skill id="331" levels="1" name="Skill Mastery">
-    <!--
-      Masters excellence in skills. Low possibility of being able to
-      re-use skills without delay or doubles the duration. Influenced by INT.
-    -->
+    <!-- Depending on user's INT, the re-use time resets or the duration doubles. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -817,20 +836,25 @@
     </for>
   </skill>
   <skill id="332" levels="1" name="Extra Inventory">
-    <!-- Increases size of inventory. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="inventoryLimit" val="1"/>
+    </for>
   </skill>
   <skill id="333" levels="1" name="Extra Sales Slots">
-    <!-- Increases private store sales slots. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="PrivateSellLimit" val="1"/>
+      <add order="0x40" stat="PrivateBuyLimit" val="1"/>
+    </for>
   </skill>
   <skill id="334" levels="1" name="Focus Skill Mastery">
     <!-- Skill for Daggers & Archers -->
-    <set name="mpConsume" val="36"/>
+    <set name="mpInitialConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -840,10 +864,14 @@
       </effect>
     </for>
   </skill>
-  <skill id="335" levels="1" name="Fortitude">
+  <skill id="335" levels="1" name="Fortitude" enchantLevels1="15" enchantLevels2="15">
+    <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <table name="#enchVuln"> 0.69 0.69 0.69 0.68 0.68 0.68 0.68 0.67 0.67 0.67 0.67 0.66 0.66 0.66 0.65 </table>
+    <set name="mpInitialConsume" val="35"/>
     <set name="magicLvl" val="76"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="mpConsume" val="35"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
     <for>
@@ -852,6 +880,18 @@
         <mul order="0x30" stat="stunVuln" val="0.7"/>
       </effect>
     </for>
+    <enchant1for>
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5">
+        <mul order="0x30" stat="paralyzeVuln" val="0.7"/>
+        <mul order="0x30" stat="stunVuln" val="#enchVuln"/>
+      </effect>
+    </enchant1for>
+    <enchant2for>
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.5">
+        <mul order="0x30" stat="paralyzeVuln" val="#enchVuln"/>
+        <mul order="0x30" stat="stunVuln" val="0.7"/>
+      </effect>
+    </enchant2for>
   </skill>
   <skill id="336" levels="1" name="Arcane Wisdom">
     <set name="magicLvl" val="78"/>

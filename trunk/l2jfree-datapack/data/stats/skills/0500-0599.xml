@@ -632,32 +632,40 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="npcId" val="#npcId"/>
   </skill>
-  <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 78 78 78 78 79 79 79 79 79 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <table name="#ench2MpConsume"> 77 76 75 74 73 72 71 70 69
-      68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 </table>
-    <table name="#ench1Power"> 6140 6161 6180 6201 6225 6248 6262 6280 6298 6315 6325 6344 6362
-      6388 6401 6425 6448 6470 6491 6515 6535 6580 6613 6631 6662 6682 6702 6722 6744 6775 </table>
-    <!-- Needs retail accuracy check -->
+  <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15">
+    <!--
+      Enchant route 3 has been added only due to the fact that NC uses a script to translate
+      mostly everything ingame. Only wording differs, in reality it's SAME as route 2
+    -->
+    <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
+    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant4 name="magicLvl" val="#enchantMagicLvl"/>
+    <table name="#enchant2_3mpConsume"> 78 77 76 74 73 72 70 69 68 67 65 64 63 61 60 </table>
+    <table name="#ench1Power"> 6502 6535 6568 6601 6634 6667 6700 6733 6766 6799 6833 6866 6899 6932 6965 </table>
+    <table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
     <set name="mpConsume" val="78"/>
-    <set name="power" val="6060"/>
-    <set name="hitTime" val="1080"/>
-    <set name="SSBoost" val="2.0"/>
-    <set name="overHit" val="true"/>
     <set name="magicLvl" val="78"/>
+    <set name="SSBoost" val="2.0"/>
+    <set name="power" val="6060"/>
+    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="75000"/>
+    <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="310"/>
     <set name="skillType" val="PDAM"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="reuseDelay" val="75000"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="power" val="#ench1Power"/>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant2 name="mpConsume" val="#enchant2_3mpConsume"/>
+    <enchant3 name="mpConsume" val="#enchant2_3mpConsume"/>
+    <enchant4for>
+        <mul order="0x30" stat="pvpPhysDmg" val="#ench4Duel"/>
+        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench4Duel"/>
+    </enchant4for>
   </skill>
   <skill id="527" levels="1" name="Iron Shield">
     <set name="hitTime" val="1000"/>
