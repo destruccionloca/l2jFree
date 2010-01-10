@@ -88,16 +88,14 @@
       80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <!-- enchant3 name="magicLvl" val="#enchantMagicLvl"/-->
-    <!-- enchant4 name="magicLvl" val="#enchantMagicLvl"/ -->
+    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
+    <enchant4 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Power"> 1174 1178 1183 1187 1191 1196 1200 1204 1209 1213 1218 1222 1226
       1231 1235 1239 1244 1248 1252 1257 1261 1266 1270 1274 1279 1283 1287 1292 1296 1301 </table>
     <table name="#ench2mpInitialConsume"> 46 46 45 45 44 43 43 42 41 41 40 39 39 38 38
       37 36 36 35 34 34 33 33 32 31 31 30 29 29 28 </table>
     <table name="#ench2mpConsume"> 186 184 181 180 176 174 172 169 166 164 161 158 156
       153 152 148 146 144 141 138 136 133 132 128 125 124 120 118 116 113 </table>
-    <!-- To do: Enchant3: Cure Poison - Adds effect to skill. Neutralizes poison. -->
-    <!-- To do: Enchant4: Heal Bleeding - Adds effect to skill. Stops bleeding. -->
     <table name="#power">902 979 1050 1115 1170</table>
     <table name="#mpInitialConsume"> 37 39 42 45 47 </table>
     <table name="#mpConsume"> 151 159 171 182 191 </table>
@@ -116,6 +114,12 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant3 name="negateStats" val="POISON"/>
+    <enchant3 name="negateLvl" val="9"/>
+    <enchant3 name="effectType" val="NEGATE"/>
+    <enchant4 name="negateStats" val="BLEED"/>
+    <enchant4 name="negateLvl" val="9"/>
+    <enchant4 name="effectType" val="NEGATE"/>
   </skill>
   <skill id="1403" levels="1" name="Summon Friend">
     <set name="mpInitialConsume" val="36"/>
