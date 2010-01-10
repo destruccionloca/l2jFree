@@ -16,15 +16,10 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * Format ch
- * c: (id) 0x39
- * h: (subid) 0x02
- * @author -Wooden-
- */
 public class SuperCmdServerStatus extends L2GameClientPacket
 {
-	private static final String	_C__39_02_SUPERCMDSERVERSTATUS	= "[C] 39:02 SuperCmdServerStatus";
+	// currently server acts as opcode is ch?!
+	private static final String	_C__SUPERCMDSERVERSTATUS	= "[C] 4A:02 SuperCmdServerStatus cc";
 
 	@Override
 	protected void readImpl()
@@ -42,6 +37,6 @@ public class SuperCmdServerStatus extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__39_02_SUPERCMDSERVERSTATUS;
+		return _C__SUPERCMDSERVERSTATUS;
 	}
 }

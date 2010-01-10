@@ -74,25 +74,32 @@ import com.l2jfree.gameserver.network.serverpackets.ShortCutInit;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
+import com.l2jfree.tools.util.HexUtil;
 
-/**
- * Enter World Packet Handler
- * <p>
- * 0000: 03
- * <p>
- * packet format rev656 cbdddd
- * <p>
- *
- * @version $Revision: 1.16.2.1.2.7 $ $Date: 2005/03/29 23:15:33 $
- */
 public class EnterWorld extends L2GameClientPacket
 {
-	private static final String	_C__03_ENTERWORLD	= "[C] 03 EnterWorld";
+	private static final String	_C__11_ENTERWORLD	= "[C] 11 EnterWorld c[bddddbdcccccccccccccccccccc] (unk)";
 
 	@Override
 	protected void readImpl()
 	{
-		// this is just a trigger packet. it has no content
+		/*
+0000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00    ................
+0010: c9 bc f2 a7 66 5a 0b 98 36 a5 bd 89 ed 7f e4 d7    ....fZ..6......
+0020: 6b 49 e2 9f ef 76 eb ce a3 fa f4 bf 0c 64 a3 b4    kI...v.......d..
+0030: a4 ce dc c6 08 3e 6e ea 45 ca d3 fe 88 13 87 b8    .....>n.E.......
+0040: 06 2c 96 f0 9b 1e 8e bc c6 9b 98 c8 63 16 cf d0    .,..........c...
+0050: d6 2c 00 00 7f 00 00 01 00 00 00 00 00 00 00 00    .,.............
+0060: 00 00 00 00 00 00 00 00                            ........
+		 */
+		/* 16 leading and trailing null bytes and a block of bytes inside.
+		 * The block seems not to change (same IP, diff chars/accounts)
+		 */
+		byte[] b = new byte[104];
+		readB(b);
+		_log.info("EW: " + HexUtil.printData(b));
+		
+		//skip(104);
 	}
 
 	@Override
@@ -627,6 +634,6 @@ public class EnterWorld extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__03_ENTERWORLD;
+		return _C__11_ENTERWORLD;
 	}
 }

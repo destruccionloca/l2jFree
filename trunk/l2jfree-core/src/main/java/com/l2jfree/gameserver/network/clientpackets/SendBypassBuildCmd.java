@@ -17,9 +17,13 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+/**
+ * Client send this packet if it's in builder mode and //text
+ * was written in the chat window.
+ */
 public final class SendBypassBuildCmd extends L2GameClientPacket
 {
-	private static final String	_C__5B_SENDBYPASSBUILDCMD	= "[C] 5b SendBypassBuildCmd";
+	private static final String	_C__SENDBYPASSBUILDCMD	= "[C] 74 SendBypassBuildCmd c[s]";
 
 	private String				_command;
 
@@ -44,6 +48,6 @@ public final class SendBypassBuildCmd extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__5B_SENDBYPASSBUILDCMD;
+		return _C__SENDBYPASSBUILDCMD;
 	}
 }

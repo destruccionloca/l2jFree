@@ -33,7 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class TradeRequest extends L2GameClientPacket
 {
-	private static final String	TRADEREQUEST__C__15	= "[C] 15 TradeRequest";
+	private static final String	_C__TRADEREQUEST	= "[C] 1A TradeRequest c[d]";
 
 	private int					_objectId;
 
@@ -163,6 +163,6 @@ public class TradeRequest extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return TRADEREQUEST__C__15;
+		return _C__TRADEREQUEST;
 	}
 }

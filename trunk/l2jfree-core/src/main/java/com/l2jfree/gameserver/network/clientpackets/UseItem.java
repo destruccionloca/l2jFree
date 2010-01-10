@@ -38,9 +38,10 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 public final class UseItem extends L2GameClientPacket
 {
-	private static final String	_C__14_USEITEM	= "[C] 14 UseItem";
+	private static final String	_C__USEITEM	= "[C] 19 UseItem c[dd]";
 
 	private int					_objectId;
+	//private int				_unk;
 
 	/** Weapon Equip Task */
 	public class WeaponEquipTask implements Runnable
@@ -65,14 +66,13 @@ public final class UseItem extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
-		// TODO:
-		//readD();
+		/*_unk = */_log.info("UseItem: " + readD());
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
 
@@ -373,6 +373,6 @@ public final class UseItem extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__14_USEITEM;
+		return _C__USEITEM;
 	}
 }

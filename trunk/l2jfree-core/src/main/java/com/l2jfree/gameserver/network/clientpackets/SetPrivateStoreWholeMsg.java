@@ -17,18 +17,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 
-/**
- * @author  KenM
- */
 public class SetPrivateStoreWholeMsg extends L2GameClientPacket
 {
-	private String	_msg;
+	private static final String	_C__SETPRIVATESTOREWHOLEMSG	= "[C] D0:4A SetPrivateStoreWholeMsg ch[s]";
 
-	@Override
-	public String getType()
-	{
-		return "[C] D0:4D SetPrivateStoreWholeMsg";
-	}
+	private String	_msg;
 
 	@Override
 	protected void readImpl()
@@ -39,13 +32,24 @@ public class SetPrivateStoreWholeMsg extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getSellList() == null)
+		L2PcInstance player = getActiveChar();
+		if (player == null)
 			return;
+		if (player.getSellList() == null)
+		{
+			sendAF();
+			return;
+		}
 
 		player.getSellList().setTitle(_msg);
 		sendPacket(new ExPrivateStoreSetWholeMsg(player));
 
 		sendAF();
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__SETPRIVATESTOREWHOLEMSG;
 	}
 }

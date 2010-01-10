@@ -29,7 +29,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class TradeDone extends L2GameClientPacket
 {
-	private static final String	_C__17_TRADEDONE	= "[C] 17 TradeDone";
+	private static final String	_C__TRADEDONE	= "[C] 1C TradeDone c[d]";
 
 	private int					_response;
 
@@ -105,6 +105,6 @@ public class TradeDone extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__17_TRADEDONE;
+		return _C__TRADEDONE;
 	}
 }

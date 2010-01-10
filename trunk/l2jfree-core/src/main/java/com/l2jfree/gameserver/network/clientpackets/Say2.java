@@ -30,14 +30,11 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.util.Util;
 
 /**
- * This class represents a packet sent by the server when a chat message is
- * sent.
- * 
- * @version $Revision: 1.16.2.12.2.7 $ $Date: 2005/04/11 10:06:11 $
+ * This class represents a packet sent by the client when a chat message is entered.
  */
 public class Say2 extends L2GameClientPacket
 {
-	private static final String		_C__38_SAY2	= "[C] 38 Say2";
+	private static final String		_C__SAY2	= "[C] 49 Say2 c[sd|s|]";
 	private static final Log		_logChat	= LogFactory.getLog("chat");
 
 	private String					_text;
@@ -47,9 +44,6 @@ public class Say2 extends L2GameClientPacket
 	private static final String[]	LINKED_ITEM	=
 												{ "Type=", "ID=", "Color=", "Underline=", "Title=" };
 
-	/**
-	 * packet type id 0x38 format: cSd (S)
-	 */
 	@Override
 	protected void readImpl()
 	{
@@ -216,7 +210,7 @@ public class Say2 extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__38_SAY2;
+		return _C__SAY2;
 	}
 
 	private boolean containsLinkedItems()

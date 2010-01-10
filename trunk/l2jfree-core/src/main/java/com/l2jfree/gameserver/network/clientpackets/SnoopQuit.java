@@ -16,31 +16,32 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * @author -Wooden-
- */
 public class SnoopQuit extends L2GameClientPacket
 {
-	private static final String	_C__AB_SNOOPQUIT	= "[C] AB SnoopQuit";
+	private static final String	_C__SNOOPQUIT	= "[C] B4 Snoop_quit c[d]";
 
-	private int					_snoopID;
+	private int					_objectId;
 
 	@Override
 	protected void readImpl()
 	{
-		_snoopID = readD();
+		_objectId = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
-		L2PcInstance target = L2World.getInstance().getPlayer(_snoopID);
+		L2PcInstance target = L2World.getInstance().findPlayer(_objectId);
 		if (target == null)
+		{
+			requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 			return;
+		}
 
 		player.removeSnooped(target);
 		target.removeSnooper(player);
@@ -52,6 +53,6 @@ public class SnoopQuit extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__AB_SNOOPQUIT;
+		return _C__SNOOPQUIT;
 	}
 }

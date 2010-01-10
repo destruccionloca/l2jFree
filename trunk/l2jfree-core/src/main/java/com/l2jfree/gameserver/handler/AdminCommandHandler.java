@@ -184,6 +184,16 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		if (Config.IRC_ENABLED)
 			register(new AdminIRC());
 		
+		// Dynamic testing extensions
+		try
+		{
+			Class.forName("com.l2jfree.gameserver.handler.admincommandhandlers.AdminRuntimeTest").newInstance();
+		}
+		catch (Throwable t)
+		{
+			_log.info("najs", t);
+		}
+		
 		_log.info("AdminCommandHandler: Loaded " + size() + " handlers.");
 		
 		for (String cmd : Config.GM_COMMAND_PRIVILEGES.keySet())
@@ -227,27 +237,21 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		if (handler == null)
 		{
 			activeChar.sendMessage("No handler registered.");
-			
 			_log.warn("No handler registered for bypass '" + message + "'");
-			
 			return;
 		}
 		
 		if (!Config.GM_COMMAND_PRIVILEGES.containsKey(command))
 		{
 			activeChar.sendMessage("It has no access level definition. It can't be used.");
-			
-			_log.warn(message + "' have no access level definition. It can't be used.");
-			
+			_log.warn(message + "' has no access level definition. It can't be used.");
 			return;
 		}
 		
 		if (activeChar.getAccessLevel() < Config.GM_COMMAND_PRIVILEGES.get(command))
 		{
 			activeChar.sendMessage("You don't have sufficient privileges.");
-			
 			_log.warn(activeChar + " does not have sufficient privileges for '" + message + "'.");
-			
 			return;
 		}
 		

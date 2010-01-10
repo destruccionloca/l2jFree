@@ -16,16 +16,10 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * Format chS
- * c: (id) 0x39
- * h: (subid) 0x00
- * S: the character name
- * @author -Wooden-
- */
 public final class SuperCmdCharacterInfo extends L2GameClientPacket
 {
-	private static final String	_C__39_00_SUPERCMDCHARACTERINFO	= "[C] 39:00 SuperCmdCharacterInfo";
+	// currently server acts as opcode is ch?!
+	private static final String	_C__SUPERCMDCHARACTERINFO	= "[C] 4A:00 SuperCmdCharacterInfo cc[s]";
 
 	private String _name;
 
@@ -45,6 +39,6 @@ public final class SuperCmdCharacterInfo extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__39_00_SUPERCMDCHARACTERINFO;
+		return _C__SUPERCMDCHARACTERINFO;
 	}
 }

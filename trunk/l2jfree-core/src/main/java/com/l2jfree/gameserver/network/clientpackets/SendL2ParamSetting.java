@@ -16,11 +16,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * @author savormix
- */
 public final class SendL2ParamSetting extends L2GameClientPacket
 {
+	// currently server acts as opcode is ch?!
+	private static final String	_C__SENDL2PARAMSETTING	= "[C] 4A:03 SendL2ParamSetting cc[dd]";
+
 	private int _unk1, _unk2;
 
 	@Override
@@ -35,5 +35,11 @@ public final class SendL2ParamSetting extends L2GameClientPacket
 	{
 		_log.info("SendL2ParamSetting, unk=" + _unk1 + ", unk=" + _unk2 + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__SENDL2PARAMSETTING;
 	}
 }

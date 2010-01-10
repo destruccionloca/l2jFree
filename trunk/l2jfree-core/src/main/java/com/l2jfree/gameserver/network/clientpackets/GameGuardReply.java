@@ -20,14 +20,9 @@ import java.util.Arrays;
 
 import com.l2jfree.gameserver.network.L2GameClient;
 
-/**
- * Format: c dddd
- * 
- * @author  KenM
- */
 public class GameGuardReply extends L2GameClientPacket
 {
-    private static final String _C__CA_GAMEGUARDREPLY = "[C] CA GameGuardReply";
+    private static final String _C__GAMEGUARDREPLY = "[C] CA GameGuardReply c[dddd]";
 
     private static final byte[] VALID =
     {
@@ -36,7 +31,7 @@ public class GameGuardReply extends L2GameClientPacket
         0xFFFFFFB6 , 0x10 , 0xFFFFFFE3 , 0xFFFFFF84 , 0xFFFFFFB3
     };
 
-    private final byte[] _reply = new byte[8];
+    private final byte[]		_reply = new byte[8];
 
     @Override
     protected void readImpl()
@@ -44,6 +39,7 @@ public class GameGuardReply extends L2GameClientPacket
         readB(_reply, 0, 4);
         readD();
         readB(_reply, 4, 4);
+        readD();
     }
 
     @Override
@@ -52,20 +48,20 @@ public class GameGuardReply extends L2GameClientPacket
         L2GameClient client = getClient();
         try
         {
-            MessageDigest md = MessageDigest.getInstance( "SHA" );
+            MessageDigest md = MessageDigest.getInstance("SHA");
             byte[] result = md.digest(_reply);
             if (Arrays.equals(result, VALID))
                 client.setGameGuardOk(true);
         }
         catch (NoSuchAlgorithmException e)
         {
-            _log.warn("", e);
+            _log.warn("Strange, the server should have already died?!", e);
         }
     }
 
     @Override
     public String getType()
     {
-        return _C__CA_GAMEGUARDREPLY;
+        return _C__GAMEGUARDREPLY;
     }
 }

@@ -15,73 +15,74 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
 
 /**
  * This class represents the first packet that is sent by the client to the game server.
- * 
- * @version $Revision: 1.5.2.8.2.8 $ $Date: 2005/04/02 10:43:04 $
  */
 public class ProtocolVersion extends L2GameClientPacket
 {
-	private static final String	_C__00_PROTOCOLVERSION	= "[C] 00 ProtocolVersion";
+	private static final String	_C__PROTOCOLVERSION	= "[C] 0E ProtocolVersion c[unk]";
 
-	private long				_version;
+	private int					_version;
 
-	/**
-	 * packet type id 0x00
-	 * format: cd
-	 */
 	@Override
 	protected void readImpl()
 	{
 		_version = readD();
+		/* A block of bytes
+		byte[] b = new byte[260];
+		readB(b);
+		_log.info(HexUtil.printData(b));
+		*/
+		skip(260);
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		KeyPacket kp = null;
+		L2GameClient client = getClient();
+		KeyPacket kp;
 		// this packet is never encrypted
 		if (_version == -2)
 		{
 			if (_log.isDebugEnabled())
 				_log.info("Ping received");
 			// this is just a ping attempt from the C2+ client
-			getClient().closeNow();
+			client.closeNow();
 		}
 		else if (_version < Config.MIN_PROTOCOL_REVISION)
 		{
 			_log.info("Client Protocol Revision:" + _version + " is too low. only " + Config.MIN_PROTOCOL_REVISION + " and " + Config.MAX_PROTOCOL_REVISION
 					+ " are supported. Closing connection.");
 			_log.warn("Wrong Protocol Version " + _version);
-			kp = new KeyPacket(getClient().enableCrypt(), 0);
-			getClient().sendPacket(kp);
-			getClient().setProtocolOk(false);
+			kp = new KeyPacket(client.enableCrypt(), 0);
+			client.sendPacket(kp);
+			client.setProtocolOk(false);
 		}
 		else if (_version > Config.MAX_PROTOCOL_REVISION)
 		{
 			_log.info("Client Protocol Revision:" + _version + " is too high. only " + Config.MIN_PROTOCOL_REVISION + " and " + Config.MAX_PROTOCOL_REVISION
 					+ " are supported. Closing connection.");
 			_log.warn("Wrong Protocol Version " + _version);
-			kp = new KeyPacket(getClient().enableCrypt(), 0);
-			getClient().sendPacket(kp);
-			getClient().setProtocolOk(false);
+			kp = new KeyPacket(client.enableCrypt(), 0);
+			client.sendPacket(kp);
+			client.setProtocolOk(false);
 		}
 		else
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("Client Protocol Revision is ok: " + _version);
-			kp = new KeyPacket(getClient().enableCrypt(), 1);
+			kp = new KeyPacket(client.enableCrypt(), 1);
 			sendPacket(kp);
-			getClient().setProtocolOk(true);
+			client.setProtocolOk(true);
 		}
-		kp = null;
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__00_PROTOCOLVERSION;
+		return _C__PROTOCOLVERSION;
 	}
 }

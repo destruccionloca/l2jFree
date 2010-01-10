@@ -24,20 +24,18 @@ import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocationInVehicle;
 
 /**
- * This class ...
- *
- * @version $Revision: 1.13.4.7 $ $Date: 2005/03/27 15:29:30 $
+ * Sent by client during movement.
  */
 public class ValidatePosition extends L2GameClientPacket
 {
-	private static final String	_C__48_VALIDATEPOSITION	= "[C] 48 ValidatePosition";
+	private static final String	_C__VALIDATEPOSITION	= "[C] 59 ValidatePosition c[ddddd]";
 
 	private int					_x;
 	private int					_y;
 	private int					_z;
 	private int					_heading;
-
-	//private int _data;
+	// usually 0
+	//private int				_unk;
 
 	@Override
 	protected void readImpl()
@@ -46,14 +44,14 @@ public class ValidatePosition extends L2GameClientPacket
 		_y = readD();
 		_z = readD();
 		_heading = readD();
-		//_data	= readD();
+		/*_unk = */readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null || activeChar.isTeleporting())
+		if (activeChar == null || activeChar.isTeleporting() || activeChar.isDead())
 			return;
 
 		int realX = activeChar.getX();
@@ -152,12 +150,11 @@ public class ValidatePosition extends L2GameClientPacket
 		activeChar.setClientZ(_z);
 		activeChar.setClientHeading(_heading); // No real need to validate heading.
 		activeChar.setLastServerPosition(realX, realY, realZ);
-		//sendAF();
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__48_VALIDATEPOSITION;
+		return _C__VALIDATEPOSITION;
 	}
 }

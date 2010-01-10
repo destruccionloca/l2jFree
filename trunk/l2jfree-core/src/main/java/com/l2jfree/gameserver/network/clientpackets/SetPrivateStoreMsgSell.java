@@ -17,31 +17,31 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PrivateStoreMsgSell;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class SetPrivateStoreMsgSell extends L2GameClientPacket
 {
-	private static final String	_C__77_SETPRIVATESTOREMSGSELL	= "[C] 77 SetPrivateStoreMsgSell";
+	private static final String	_C__SETPRIVATESTOREMSGSELL	= "[C] 97 SetPrivateStoreMsgSell c[s]";
 
-	private String				_storeMsg;
+	private String				_msg;
 
 	@Override
 	protected void readImpl()
 	{
-		_storeMsg = readS();
+		_msg = readS();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getSellList() == null)
+		L2PcInstance player = getActiveChar();
+		if (player == null)
 			return;
+		if (player.getSellList() == null)
+		{
+			sendAF();
+			return;
+		}
 
-		player.getSellList().setTitle(_storeMsg);
+		player.getSellList().setTitle(_msg);
 		sendPacket(new PrivateStoreMsgSell(player));
 
 		sendAF();
@@ -50,6 +50,6 @@ public class SetPrivateStoreMsgSell extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__77_SETPRIVATESTOREMSGSELL;
+		return _C__SETPRIVATESTOREMSGSELL;
 	}
 }

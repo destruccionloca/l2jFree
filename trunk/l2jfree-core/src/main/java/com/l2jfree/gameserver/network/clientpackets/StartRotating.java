@@ -17,30 +17,13 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.StartRotation;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
- */
 public class StartRotating extends L2GameClientPacket
 {
-	private static final String	_C__4A_STARTROTATING	= "[C] 4A StartRotating";
+	private static final String	_C__STARTROTATING	= "[C] 5B StartRotating c[dd]";
 
 	private int					_degree;
 	private int					_side;
 
-	/**
-	 * packet type id 0x4a
-	 * 
-	 * sample
-	 * 
-	 * 4a
-	 * fb 0f 00 00 // degree (goes from 0 to 65535)
-	 * 01 00 00 00 // side (01 00 00 00 = right, ff ff ff ff = left)
-	 * 
-	 * format:		cdd
-	 * @param decrypt
-	 */
 	@Override
 	protected void readImpl()
 	{
@@ -63,6 +46,6 @@ public class StartRotating extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__4A_STARTROTATING;
+		return _C__STARTROTATING;
 	}
 }

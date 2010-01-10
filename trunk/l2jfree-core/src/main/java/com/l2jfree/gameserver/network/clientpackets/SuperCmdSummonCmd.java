@@ -16,35 +16,29 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * Format chS
- * c: (id) 0x39
- * h: (subid) 0x01
- * S: the summon name (or maybe cmd string ?)
- * @author -Wooden-
- */
 public class SuperCmdSummonCmd extends L2GameClientPacket
 {
-	private static final String	_C__39_01_SUPERCMDSUMMONCMD	= "[C] 39:01 SuperCmdSummonCmd";
+	// currently server acts as opcode is ch?!
+	private static final String	_C__SUPERCMDSUMMONCMD	= "[C] 4A:00 SuperCmdSummonCmd cc[s]";
 
-	private String _unk;
+	private String _command;
 
 	@Override
 	protected void readImpl()
 	{
-		_unk = readS();
+		_command = readS();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("SuperCmdSummonCmd, unk=" + _unk + ", sent by " + getActiveChar());
+		_log.info("SuperCmdSummonCmd, unk=" + _command + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__39_01_SUPERCMDSUMMONCMD;
+		return _C__SUPERCMDSUMMONCMD;
 	}
 }
