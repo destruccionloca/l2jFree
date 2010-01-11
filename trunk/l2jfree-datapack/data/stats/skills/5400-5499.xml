@@ -894,7 +894,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="isDebuff" val="true"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
   </skill>
