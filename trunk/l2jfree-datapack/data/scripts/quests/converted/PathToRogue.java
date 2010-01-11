@@ -17,6 +17,7 @@ package quests.converted;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
@@ -87,7 +88,7 @@ public final class PathToRogue extends QuestJython
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet,
 			L2Skill skill)
 	{
-		int weaponId = attacker.getInventory().getPaperdollItemId(PcInventory.PAPERDOLL_RHAND);
+		int weaponId = attacker.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_RHAND);
 		switch (npc.getQuestAttackStatus())
 		{
 		case ATTACK_NOONE:
