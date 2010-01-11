@@ -9535,7 +9535,7 @@ DELETE FROM `etcitem` WHERE `item_id` = 10607;
 UPDATE `etcitem` SET `price` = 10000 WHERE `item_id` = 6388;
 
 -- Revita Pop not only destroyable
-UPDATE `etcitem` SET `sellable` = 'false', `tradeable` = 'false',`dropable` = 'false' WHERE `item_id` = 20034;
+UPDATE `etcitem` SET `consume_type` = `stackable`, `sellable` = 'false', `tradeable` = 'false',`dropable` = 'false', `handler` = 'ItemSkills', `skills_item` = '22006-1' WHERE `item_id` = 20034;
 
 -- Setting Vitality Replenishing Herbs as herb
 UPDATE `etcitem` SET `item_type` = 'herb' WHERE `item_id` IN (13028,13029,13030,13031);
