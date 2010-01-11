@@ -23,7 +23,6 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.EnchantResult;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
@@ -33,24 +32,16 @@ import com.l2jfree.tools.random.Rnd;
 
 public class RequestEnchantItem extends AbstractEnchantPacket
 {
-	private static final String	_C__58_REQUESTENCHANTITEM	= "[C] 58 RequestEnchantItem";
+	private static final String	_C__REQUESTENCHANTITEM	= "[C] 5F RequestEnchantItem c[dd]";
 
 	private int					_objectId = 0;
+	//private int				_unk;
 
-	/**
-	 * packet type id 0x58
-	 * 
-	 * sample
-	 * 
-	 * 58
-	 * c0 d5 00 10 // objectId
-	 * 
-	 * format:      cd
-	 */
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD();
+		/*_unk = */readD();
 	}
 
 	@Override
@@ -68,7 +59,7 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 
 		if (_objectId == 0)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -313,12 +304,12 @@ public class RequestEnchantItem extends AbstractEnchantPacket
 		activeChar.broadcastUserInfo();
 		activeChar.setActiveEnchantItem(null);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__58_REQUESTENCHANTITEM;
+		return _C__REQUESTENCHANTITEM;
 	}
 }

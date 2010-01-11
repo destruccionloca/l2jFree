@@ -66,7 +66,7 @@ public final class UseItem extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
-		/*_unk = */_log.info("UseItem: " + readD());
+		/*_unk = */readD();
 	}
 
 	@Override

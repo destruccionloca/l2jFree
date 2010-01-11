@@ -5189,7 +5189,8 @@ public abstract class L2Character extends L2Object
 			// Check Raidboss attack
 			// Character will be petrified if attacking a raid that's more
 			// than 8 levels lower
-			if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
+			if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
+					&& getSkillLevel(L2Boss.BOSS_PENALTY_RESISTANCE) == -1)
 			{
 				int level = 0;
 				if (this instanceof L2PcInstance)
@@ -5199,12 +5200,12 @@ public abstract class L2Character extends L2Object
 
 				if (level > target.getLevel() + 8)
 				{
-					L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
+					L2Skill skill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_PETRIFICATION, 1);
 
 					if (skill != null)
 						skill.getEffects(target, this);
 					else
-						_log.warn("Skill 4515 at level 1 is missing in DP.");
+						_log.warn("Skill " + L2Boss.BOSS_PENALTY_PETRIFICATION + " at level 1 is missing in DP.");
 
 					damage = 0; // prevents messing up drop calculation
 				}
@@ -6359,6 +6360,7 @@ public abstract class L2Character extends L2Object
 				}
 
 				if (!Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION
+				&& getSkillLevel(L2Boss.BOSS_PENALTY_RESISTANCE) == -1
 				&& ((target.isRaid() && getLevel() > target.getLevel() + 8) || (!skill.isOffensive() && targetsAttackTarget != null && targetsAttackTarget.isRaid()
 				&& targetsAttackTarget.getAttackByList().contains(target) // has attacked raid
 				&& getLevel() > targetsAttackTarget.getLevel() + 8) || (!skill.isOffensive() && targetsCastTarget != null && targetsCastTarget.isRaid()
@@ -6367,19 +6369,19 @@ public abstract class L2Character extends L2Object
 				{
 					if (skill.isMagic())
 					{
-						L2Skill tempSkill = SkillTable.getInstance().getInfo(4215, 1);
+						L2Skill tempSkill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_SILENCE, 1);
 						if (tempSkill != null)
 							tempSkill.getEffects(target, this);
 						else
-							_log.warn("Skill 4215 at level 1 is missing in DP.");
+							_log.warn("Skill " + L2Boss.BOSS_PENALTY_SILENCE + " at level 1 is missing in DP.");
 					}
 					else
 					{
-						L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 1);
+						L2Skill tempSkill = SkillTable.getInstance().getInfo(L2Boss.BOSS_PENALTY_PETRIFICATION, 1);
 						if (tempSkill != null)
 							tempSkill.getEffects(target, this);
 						else
-							_log.warn("Skill 4515 at level 1 is missing in DP.");
+							_log.warn("Skill " + L2Boss.BOSS_PENALTY_PETRIFICATION + " at level 1 is missing in DP.");
 					}
 					return;
 				}

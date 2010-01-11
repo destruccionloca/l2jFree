@@ -29,8 +29,10 @@ import com.l2jfree.tools.random.Rnd;
 public abstract class L2Boss extends L2MonsterInstance
 {
 	private static final int	BOSS_MAINTENANCE_INTERVAL	= 10000;
-
 	public static final int		BOSS_INTERACTION_DISTANCE	= 500;
+	public static final int		BOSS_PENALTY_SILENCE		= 4215;
+	public static final int		BOSS_PENALTY_PETRIFICATION	= 4515;
+	public static final int		BOSS_PENALTY_RESISTANCE		= 5479;
 
 	public L2Boss(int objectId, L2NpcTemplate template)
 	{
