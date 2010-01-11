@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public class AuthLogin extends L2GameClientPacket
 {
-	private static final String	_C__08_AUTHLOGIN	= "[C] 08 AuthLogin";
+	private static final String	_C__AUTHLOGIN	= "[C] 2B AuthLogin c[sdddddddd] (unk)";
 
 	// loginName + keys must match what the login server used.
 	private String				_loginName;
@@ -43,6 +43,7 @@ public class AuthLogin extends L2GameClientPacket
 		_playKey1 = readD();
 		_loginKey1 = readD();
 		_loginKey2 = readD();
+		skip(16);
 	}
 
 	@Override
@@ -71,6 +72,6 @@ public class AuthLogin extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__08_AUTHLOGIN;
+		return _C__AUTHLOGIN;
 	}
 }

@@ -41,7 +41,7 @@ public class SpawnTable
 {
 	private final static Log			_log		= LogFactory.getLog(SpawnTable.class);
 
-	private final Map<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>(50000).setShared(true);
+	private final FastMap<Integer, L2Spawn> _spawnTable = new FastMap<Integer, L2Spawn>(50000).setShared(true);
 	private int							_npcSpawnCount;
 	private int							_cSpawnCount;
 	private int							_highestDbId;
@@ -62,7 +62,7 @@ public class SpawnTable
 
 	public Map<Integer, L2Spawn> getSpawnTable()
 	{
-		return _spawntable;
+		return _spawnTable;
 	}
 
 	private void fillSpawnTable()
@@ -131,7 +131,7 @@ public class SpawnTable
 
 						if (spawnDat.getDbId() > _highestDbId)
 							_highestDbId = spawnDat.getDbId();
-						_spawntable.put(spawnDat.getId(), spawnDat);
+						_spawnTable.put(spawnDat.getId(), spawnDat);
 					}
 				}
 				else
@@ -147,7 +147,7 @@ public class SpawnTable
 			// problem with initializing spawn, go to next one
 			_log.warn("SpawnTable: Spawn could not be initialized: ", e);
 		}
-		_log.info("SpawnTable: Loaded " + _spawntable.size() + " Npc Spawn Locations.");
+		_log.info("SpawnTable: Loaded " + _spawnTable.size() + " Npc Spawn Locations.");
 
 		try
 		{
@@ -159,7 +159,7 @@ public class SpawnTable
 			L2Spawn spawnDat;
 			L2NpcTemplate template1;
 
-			_cSpawnCount = _spawntable.size();
+			_cSpawnCount = _spawnTable.size();
 
 			while (rset.next())
 			{
@@ -210,7 +210,7 @@ public class SpawnTable
 
 						if (spawnDat.getDbId() > _highestCustomDbId)
 							_highestCustomDbId = spawnDat.getDbId();
-						_spawntable.put(spawnDat.getId(), spawnDat);
+						_spawnTable.put(spawnDat.getId(), spawnDat);
 					}
 				}
 				else
@@ -231,18 +231,17 @@ public class SpawnTable
 			L2DatabaseFactory.close(con);
 		}
 
-		_cSpawnCount = _spawntable.size() - _cSpawnCount;
+		_cSpawnCount = _spawnTable.size() - _cSpawnCount;
 		if (_cSpawnCount > 0)
 			_log.info("SpawnTable: Loaded " + _cSpawnCount + " Custom Spawn Locations.");
 
 		if (_log.isDebugEnabled())
 			_log.debug("SpawnTable: Spawning completed, total number of NPCs in the world: " + _npcSpawnCount);
-
 	}
 
 	public Map<Integer, L2Spawn> getAllTemplates()
 	{
-		return _spawntable;
+		return _spawnTable;
 	}
 
 	public void addNewSpawn(L2Spawn spawn, boolean storeInDb)
@@ -261,7 +260,7 @@ public class SpawnTable
 
 		spawn.setId(_npcSpawnCount);
 
-		_spawntable.put(spawn.getId(), spawn);
+		_spawnTable.put(spawn.getId(), spawn);
 
 		if (storeInDb)
 		{
@@ -331,7 +330,7 @@ public class SpawnTable
 
 	public void deleteSpawn(L2Spawn spawn, boolean updateDb)
 	{
-		if (_spawntable.remove(spawn.getId()) == null)
+		if (_spawnTable.remove(spawn.getId()) == null)
 			return;
 
 		if (updateDb)
@@ -369,7 +368,7 @@ public class SpawnTable
 	 */
 	private void cleanUp()
 	{
-		_spawntable.clear();
+		_spawnTable.clear();
 	}
 
 	/**
@@ -378,7 +377,7 @@ public class SpawnTable
 	 */
 	public L2Spawn getTemplate(int id)
 	{
-		return _spawntable.get(id);
+		return _spawnTable.get(id);
 	}
 
 	/**
@@ -390,8 +389,10 @@ public class SpawnTable
 	public void findNPCInstances(L2PcInstance activeChar, int npcId, int teleportIndex)
 	{
 		int index = 0;
-		for (L2Spawn spawn : _spawntable.values())
+		for (FastMap.Entry<Integer, L2Spawn> entry = _spawnTable.head(), end = _spawnTable.tail();
+				(entry = entry.getNext()) != end;)
 		{
+			L2Spawn spawn = entry.getValue();
 			if (npcId == spawn.getNpcId())
 			{
 				index++;

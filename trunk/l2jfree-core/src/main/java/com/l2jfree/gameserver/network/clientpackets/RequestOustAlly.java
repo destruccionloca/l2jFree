@@ -19,11 +19,10 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
-public class AllyDismiss extends L2GameClientPacket
+public class RequestOustAlly extends L2GameClientPacket
 {
-    private static final String _C__85_ALLYDISMISS = "[C] 85 AllyDismiss";
+    private static final String _C__REQUESTOUSTALLY = "[C] 8F RequestOustAlly c[s]";
 
     private String _clanName;
 
@@ -39,16 +38,16 @@ public class AllyDismiss extends L2GameClientPacket
         if (_clanName == null)
             return;
         L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+        if (player == null)
+        	return;
 
-		if (player.getClan() == null)
+        L2Clan leaderClan = player.getClan();
+		if (leaderClan == null)
         {
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
             return;
         }
-
-        L2Clan leaderClan = player.getClan();
-		if (leaderClan.getAllyId() == 0)
+		else if (leaderClan.getAllyId() == 0)
 		{
 			requestFailed(SystemMessageId.NO_CURRENT_ALLIANCES);
 			return;
@@ -79,7 +78,7 @@ public class AllyDismiss extends L2GameClientPacket
 		long currentTime = System.currentTimeMillis();
         leaderClan.setAllyPenaltyExpiryTime(
         		currentTime + Config.ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED * 86400000L,
-        		L2Clan.PENALTY_TYPE_DISMISS_CLAN); //24*60*60*1000 = 86400000
+        		L2Clan.PENALTY_TYPE_DISMISS_CLAN);
 		leaderClan.updateClanInDB();
 
         clan.setAllyId(0);
@@ -87,14 +86,12 @@ public class AllyDismiss extends L2GameClientPacket
         clan.setAllyCrestId(0);
         clan.setAllyPenaltyExpiryTime(
         		currentTime + Config.ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED * 86400000L,
-        		L2Clan.PENALTY_TYPE_CLAN_DISMISSED); //24*60*60*1000 = 86400000
+        		L2Clan.PENALTY_TYPE_CLAN_DISMISSED);
         clan.updateClanInDB();
+        sendPacket(SystemMessageId.YOU_HAVE_EXPELED_A_CLAN);
 
-        sendPacket(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE);
+		sendAF();
 
-        // Added to delete the Alliance Crest when a clan leaves an ally.
-		player.getClan().setAllyCrestId(0);
-		sendPacket(ActionFailed.STATIC_PACKET);
 		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
 			member.broadcastUserInfo();
     }
@@ -102,6 +99,6 @@ public class AllyDismiss extends L2GameClientPacket
     @Override
     public String getType()
     {
-        return _C__85_ALLYDISMISS;
+        return _C__REQUESTOUSTALLY;
     }
 }

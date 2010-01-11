@@ -294,8 +294,6 @@ public class GameServer extends Config
 		// make sure that all the scheduled siege dates are in the Seal Validation period
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
 			castle.getSiege().correctSiegeDateTime();
-		for (Fort fort : FortManager.getInstance().getForts())
-			fort.getSpawnManager().initNpcs();
 		for (CCHSiege siege : CCHManager.getInstance().getSieges())
 			siege.correctSiegeDateTime();
 		PartyRoomManager.getInstance();
@@ -347,6 +345,8 @@ public class GameServer extends Config
 			FishermanManager.getInstance().engineInit();
 		Util.printSection("Spawns");
 		SpawnTable.getInstance();
+		for (Fort fort : FortManager.getInstance().getForts())
+			fort.getSpawnManager().initNpcs();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
 		RaidBossSpawnManager.getInstance();
 		GrandBossSpawnManager.getInstance();

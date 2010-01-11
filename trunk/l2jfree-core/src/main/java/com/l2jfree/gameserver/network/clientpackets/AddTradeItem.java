@@ -27,16 +27,14 @@ import com.l2jfree.gameserver.network.serverpackets.TradeOwnAdd;
 /**
  * This class represents a packet that is sent by the client when you are adding an item
  * to the trade window.
- * 
- * @version $Revision: 1.5.2.2.2.5 $ $Date: 2005/03/27 15:29:29 $
  */
 public class AddTradeItem extends L2GameClientPacket
 {
-    private static final String _C__16_ADDTRADEITEM = "[C] 16 AddTradeItem";
+    private static final String _C__ADDTRADEITEM = "[C] 1B AddTradeItem c[ddq]";
 
-    private int _tradeId;
-    private int _objectId;
-    private long _count;
+    private int					_tradeId;
+    private int					_objectId;
+    private long				_count;
 
     @Override
     protected void readImpl()
@@ -49,8 +47,9 @@ public class AddTradeItem extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+        L2PcInstance player = getActiveChar();
+        if (player == null)
+        	return;
 
         if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
@@ -114,6 +113,6 @@ public class AddTradeItem extends L2GameClientPacket
     @Override
     public String getType()
     {
-        return _C__16_ADDTRADEITEM;
+        return _C__ADDTRADEITEM;
     }
 }

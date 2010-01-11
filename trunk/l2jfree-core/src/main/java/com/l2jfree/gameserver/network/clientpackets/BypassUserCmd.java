@@ -21,14 +21,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class BypassUserCmd extends L2GameClientPacket
 {
-	private static final String	_C__B3_BYPASSUSERCMD = "[C] B3 BypassUserCmd";
+	private static final String	_C__BYPASSUSERCMD = "[C] B3 BypassUserCmd c[d]";
 
 	private int					_command;
 
-	/**
-	 * packet type id 0xb3
-	 * format:	cd
-	 */
 	@Override
 	protected void readImpl()
 	{
@@ -54,6 +50,6 @@ public class BypassUserCmd extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__B3_BYPASSUSERCMD;
+		return _C__BYPASSUSERCMD;
 	}
 }

@@ -16,12 +16,11 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.network.SystemMessageId;
 
-/**
- * @author savormix
- */
 public final class BR_BuyProduct extends L2GameClientPacket
 {
-	private int _unk1, _unk2; // productId is one of them
+	private static final String	_C__BR_BUYPRODUCT = "[C] D0:65 BR_BuyProduct ch[dd]";
+
+	private int _unk1, _unk2;
 
 	@Override
 	protected void readImpl()
@@ -35,5 +34,11 @@ public final class BR_BuyProduct extends L2GameClientPacket
 	{
 		_log.info("BR_BuyProduct, unk=" + _unk1 + ", unk=" + _unk2 + ", sent by " + getActiveChar());
 		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__BR_BUYPRODUCT;
 	}
 }

@@ -18,28 +18,29 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
-public class AllyLeave extends L2GameClientPacket
+public class RequestWithdrawAlly extends L2GameClientPacket
 {
-    private static final String _C__84_ALLYLEAVE = "[C] 84 AllyLeave";
+    private static final String _C__REQUESTWITHDRAWALLY = "[C] 8E RequestWithdrawAlly c";
 
     @Override
     protected void readImpl()
     {
+    	// trigger packet
     }
 
     @Override
     protected void runImpl()
     {
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
-		if (player.getClan() == null)
+        L2PcInstance player = getActiveChar();
+        if (player == null)
+        	return;
+        else if (player.getClan() == null)
         {
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
             return;
         }
-		if (!player.isClanLeader())
+        else if (!player.isClanLeader())
 		{
 			requestFailed(SystemMessageId.ONLY_CLAN_LEADER_WITHDRAW_ALLY);
 			return;
@@ -51,7 +52,7 @@ public class AllyLeave extends L2GameClientPacket
 			requestFailed(SystemMessageId.NO_CURRENT_ALLIANCES);
 			return;
 		}
-		if (clan.getClanId() == clan.getAllyId())
+		else if (clan.getClanId() == clan.getAllyId())
 		{
 			requestFailed(SystemMessageId.ALLIANCE_LEADER_CANT_WITHDRAW);
 			return;
@@ -63,14 +64,12 @@ public class AllyLeave extends L2GameClientPacket
         clan.setAllyCrestId(0);
         clan.setAllyPenaltyExpiryTime(
         		currentTime + Config.ALT_ALLY_JOIN_DAYS_WHEN_LEAVED * 86400000L,
-        		L2Clan.PENALTY_TYPE_CLAN_LEAVED); //24*60*60*1000 = 86400000
+        		L2Clan.PENALTY_TYPE_CLAN_LEAVED);
         clan.updateClanInDB();
-        
         sendPacket(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE);
 
-        // Added to delete the Alliance Crest when a clan leaves an ally.
-		player.getClan().setAllyCrestId(0);
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
+
 		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
 			member.broadcastUserInfo();
     }
@@ -78,6 +77,6 @@ public class AllyLeave extends L2GameClientPacket
     @Override
     public String getType()
     {
-        return _C__84_ALLYLEAVE;
+        return _C__REQUESTWITHDRAWALLY;
     }
 }

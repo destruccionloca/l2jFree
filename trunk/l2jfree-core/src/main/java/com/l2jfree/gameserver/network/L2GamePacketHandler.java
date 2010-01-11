@@ -450,10 +450,10 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new RequestAnswerJoinAlly();
 						break;
 					case 0x8e:
-						msg = new AllyLeave();
+						msg = new RequestWithdrawAlly();
 						break;
 					case 0x8f:
-						msg = new AllyDismiss();
+						msg = new RequestOustAlly();
 						break;
 					case 0x90:
 						msg = new RequestDismissAlly();

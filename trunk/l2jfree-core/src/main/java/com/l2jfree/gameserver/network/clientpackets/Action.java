@@ -21,21 +21,19 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 /**
- * This class represents a packet that is sent by the client double-clicking an object
- * (or clicking on a "selected"/targeted object)
- * 
- * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 18:46:19 $
+ * This class represents a packet that is sent by the client clicking an object
+ * (also clicking on a "selected"/targeted object).
+ * Client also sends this packet after successful /nexttarget.
  */
 public final class Action extends L2GameClientPacket
 {
-	private static final String	ACTION__C__04	= "[C] 04 Action";
+	private static final String	_C__ACTION	= "[C] 1F Action c[ddddc]";
 
-	// cddddc
 	private int					_objectId;
 //	private int					_originX;
 //	private int					_originY;
 //	private int					_originZ;
-	private int					_actionId;
+	private boolean				_shift;
 
 	@Override
 	protected void readImpl()
@@ -44,7 +42,7 @@ public final class Action extends L2GameClientPacket
 		/*_originX =*/ readD();
 		/*_originY =*/ readD();
 		/*_originZ =*/ readD();
-		_actionId = readC(); // Action identifier : 0-Simple click, 1-Shift click
+		_shift = (readC() == 1);
 	}
 
 	@Override
@@ -52,13 +50,14 @@ public final class Action extends L2GameClientPacket
 	{
 		if (_log.isDebugEnabled())
 		{
-			_log.debug("Action:" + _actionId);
-			_log.debug("oid:" + _objectId);
+			_log.debug("Action shift: " + _shift);
+			_log.debug("ObjectID: " + _objectId);
 		}
 
 		// Get the current L2PcInstance of the player
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
 
 		if (activeChar.inObserverMode())
 		{
@@ -67,19 +66,16 @@ public final class Action extends L2GameClientPacket
 		}
 
 		final L2Object obj;
-		
 		// Get object from target
 		if (activeChar.getTargetId() == _objectId)
 		{
 			obj = activeChar.getTarget();
-			
 			// removes spawn protection
 			activeChar.onActionRequest();
 		}
-		// Try to get object from world if the player doesn't have a target anymore
 		else
 			obj = L2World.getInstance().findObject(_objectId);
-		
+
 		if (obj == null)
 		{
 			// pressing e.g. pickup many times quickly would get you here
@@ -96,34 +92,19 @@ public final class Action extends L2GameClientPacket
 			}
 		}
 
-		// Players can't interact with objects in the other instances
-		// except from multiverse
 		if (!activeChar.isSameInstance(obj))
 		{
 			sendAF();
 			return;
 		}
 
-		// Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
-		//if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null)
 		if (activeChar.getActiveRequester() == null)
 		{
-			switch (_actionId)
-			{
-				case 0:
-					obj.onAction(activeChar);
-					break;
-				case 1:
-					if (obj instanceof L2Character && ((L2Character) obj).isAlikeDead() && !activeChar.isGM())
-						obj.onAction(activeChar);
-					else
-						obj.onActionShift(activeChar);
-					break;
-				default:
-					// Invalid action detected (probably client cheating), log this
-					_log.warn("Character: " + activeChar.getName() + " requested invalid action: " + _actionId);
-					break;
-			}
+			L2Character target = obj.getActingCharacter();
+			if (!_shift || (target != null && target.isAlikeDead() && !activeChar.isGM()))
+				obj.onAction(activeChar);
+			else
+				obj.onActionShift(activeChar);
 		}
 
 		sendAF();
@@ -132,6 +113,6 @@ public final class Action extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return ACTION__C__04;
+		return _C__ACTION;
 	}
 }
