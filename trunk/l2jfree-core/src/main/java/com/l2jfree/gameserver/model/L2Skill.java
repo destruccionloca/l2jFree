@@ -602,13 +602,14 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	
 	private void validateOffensiveAndDebuffState() throws Exception
 	{
-		if (!isOffensive() && isDebuff())
-			throw new IllegalStateException(toString());
+		if (getSkillType() != L2SkillType.NOTDONE || getTargetType() != SkillTargetType.TARGET_NONE)
+			if (!isOffensive() && isDebuff())
+				throw new IllegalStateException(toString());
 		
 		if (isBuff() && isDebuff())
 			throw new IllegalStateException(toString());
 	}
-
+	
 	private void validateTriggeredSkill() throws Exception
 	{
 		// must have triggered skill
