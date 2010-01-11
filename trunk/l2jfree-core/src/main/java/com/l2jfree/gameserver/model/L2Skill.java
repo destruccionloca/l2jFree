@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.handler.SkillTargetHandler;
 import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -410,7 +411,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_element = set.getByte("element", (byte) -1);
 		_elementPower = set.getInteger("elementPower", 0);
 		_activateRate = set.getInteger("activateRate", -1);
-		_magicLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
+		_magicLevel = initMagicLevel(set);
 
 		_ignoreShld = set.getBool("ignoreShld", false);
 		_condition = set.getInteger("condition", 0);
@@ -468,6 +469,83 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
 		_sendToClient = set.getBool("sendToClient", true);
+	}
+	
+	private int initMagicLevel(StatsSet set)
+	{
+		if (getLevel() < 100) // normal skills
+		{
+			return set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(getId(), getLevel()));
+		}
+		else if (!set.contains("magicLvl")) // enchanted skills without magicLvl definition in XMLs
+		{
+			return getExpectedEnchantMagicLevel();
+		}
+		else // enchanted skills with magicLvl defined
+		{
+			final int magicLevel = set.getInteger("magicLvl");
+			final int expectedMagicLevel = getExpectedEnchantMagicLevel();
+			
+			if (expectedMagicLevel == -1) // invalid skill enchant data, use value from XMLs
+			{
+				return magicLevel;
+			}
+			else if (magicLevel == expectedMagicLevel) // equal values
+			{
+				return expectedMagicLevel;
+			}
+			else // examine...
+			{
+				if (getLevel() % 100 == 22 && magicLevel == 82 && expectedMagicLevel == 83)
+				{
+					// common error in XMLs
+				}
+				else if (getLevel() % 100 == 25 && magicLevel == 83 && expectedMagicLevel == 84)
+				{
+					// common error in XMLs
+				}
+				else if (magicLevel == 74)
+				{
+					// common error in XMLs, defined normal, but missing enchanted magicLvl definition
+				}
+				else
+				{
+					_log.info(this + " -> magicLevel: " + magicLevel + ", expected: " + expectedMagicLevel);
+				}
+				
+				return expectedMagicLevel;
+			}
+		}
+	}
+	
+	private int getExpectedEnchantMagicLevel()
+	{
+		final L2EnchantSkillLearn esl = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(getId());
+		
+		if (esl == null)
+			return -1;
+		
+		final List<EnchantSkillDetail> route = esl.getEnchantRoutes()[L2EnchantSkillLearn.getEnchantType(getLevel())];
+		
+		if (route == null)
+			return -1;
+		
+		final int minMagicLevel = SkillTreeTable.getInstance().getMinSkillLevel(getId(), 1);
+		
+		if (minMagicLevel != 0)
+		{
+			if (route.size() == 15 && minMagicLevel > 75)
+			{
+				return 81 + ((getLevel() % 100) - 1) / 3;
+			}
+			else if (route.size() == 30 && minMagicLevel <= 75)
+			{
+				return 76 + ((getLevel() % 100) - 1) / 3;
+			}
+		}
+		
+		_log.warn("Invalid skill enchants (route.size(): " + route.size() + ") for " + this);
+		return -1;
 	}
 	
 	private static boolean isValid(ChanceCondition chanceCondition, TriggeredSkill triggeredSkill)
