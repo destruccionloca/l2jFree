@@ -226,35 +226,7 @@ public class CTF
 
 	public static void kickPlayerFromCTf(L2PcInstance playerToKick)
 	{
-		if (playerToKick == null)
-			return;
-		
-		final CTFPlayerInfo info = playerToKick.getPlayerInfo(CTFPlayerInfo.class);
-		
-		if (info == null)
-			return;
-		
-		if (_joining)
-		{
-			_playersShuffle.remove(playerToKick);
-			_players.remove(playerToKick);
-			info._teamNameCTF = "";
-		}
-		if (_started || _teleport)
-		{
-			_playersShuffle.remove(playerToKick);
-			removePlayer(playerToKick);
-			if (playerToKick.isOnline() != 0)
-			{
-				playerToKick.getAppearance().setNameColor(info._originalNameColorCTF);
-				playerToKick.setKarma(info._originalKarmaCTF);
-				playerToKick.getAppearance().setVisibleTitle(null);
-				playerToKick.broadcastUserInfo();
-				playerToKick.sendMessage("You have been kicked from the CTF.");
-				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
-			}
-		}
-		playerToKick.setPlayerInfo(null);
+		removePlayer(playerToKick, true);
 	}
 
 	public static void AnnounceToPlayers(Boolean toall, String announce)
@@ -1350,7 +1322,7 @@ public class CTF
 		if (_topScore != 0)
 			playKneelAnimation(_topTeam);
 
-		if (Config.TVT_ANNOUNCE_TEAM_STATS)
+		if (Config.CTF_ANNOUNCE_TEAM_STATS)
 		{
 			AnnounceToPlayers(true, _eventName + " Team Statistics:");
 			for (String team : _teams)
@@ -1768,7 +1740,7 @@ public class CTF
 							.append("<font color=\"FFFF00\">The event has reached its maximum capacity.</font><br>Keep checking, someone may crit and you can steal their spot.");
 				}
 			}
-			else if (eventPlayer.isCursedWeaponEquipped() && !Config.TVT_JOIN_CURSED)
+			else if (eventPlayer.isCursedWeaponEquipped() && !Config.CTF_JOIN_CURSED)
 			{
 				replyMSG.append("<font color=\"FFFF00\">You can't participate in this event with a cursed Weapon.</font><br>");
 			}
@@ -2069,19 +2041,29 @@ public class CTF
 			CheckRestoreFlags();
 		}
 	}
-
+	
 	public static void removePlayer(L2PcInstance player)
+	{
+		removePlayer(player, false);
+	}
+	
+	public static void removePlayer(L2PcInstance player, boolean kick)
 	{
 		final CTFPlayerInfo info = player.getPlayerInfo(CTFPlayerInfo.class);
 		
 		if (info != null)
 		{
-			if (!_joining)
+			if (!_joining && player.isOnline() != 0)
 			{
 				player.getAppearance().setNameColor(info._originalNameColorCTF);
-				player.setKarma(info._originalKarmaCTF);
 				player.getAppearance().setVisibleTitle(null);
+				player.setKarma(info._originalKarmaCTF);
 				player.broadcastUserInfo();
+				if (kick)
+				{
+					player.sendMessage("You have been kicked from the CTF.");
+					player.teleToLocation(_npcX, _npcY, _npcZ, false);
+				}
 			}
 			info._teamNameCTF = "";
 			info._countCTFflags = 0;
@@ -2090,10 +2072,11 @@ public class CTF
 			if ((Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE")) && _players.contains(player))
 			{
 				setTeamPlayersCount(info._teamNameCTF, teamPlayersCount(info._teamNameCTF) - 1);
-				_players.remove(player);
 			}
-			else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
-				_playersShuffle.remove(player);
+			
+			_players.remove(player);
+			_playersShuffle.remove(player);
+			_savePlayers.remove(player.getName());
 		}
 	}
 
@@ -2112,9 +2095,6 @@ public class CTF
 					player.getInventory().destroyItemByItemId("", CTF._FLAG_IN_HAND_ITEM_ID, 1, player, null);
 				info._haveFlagCTF = false;
 				removePlayer(player);
-				if (_savePlayers.contains(player.getName()))
-					_savePlayers.remove(player.getName());
-				player.setPlayerInfo(null);
 			}
 		}
 		if (_playersShuffle != null && !_playersShuffle.isEmpty())

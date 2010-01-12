@@ -139,36 +139,7 @@ public class TvT
 
 	public static void kickPlayerFromTvt(L2PcInstance playerToKick)
 	{
-		if (playerToKick == null)
-			return;
-		
-		final TvTPlayerInfo info = playerToKick.getPlayerInfo(TvTPlayerInfo.class);
-		
-		if (info == null)
-			return;
-		
-		if (_joining)
-		{
-			_playersShuffle.remove(playerToKick);
-			_players.remove(playerToKick);
-			info._teamNameTvT = "";
-			info._countTvTkills = 0;
-		}
-		if (_started || _teleport)
-		{
-			_playersShuffle.remove(playerToKick);
-			removePlayer(playerToKick);
-			if (playerToKick.isOnline() != 0)
-			{
-				playerToKick.getAppearance().setNameColor(info._originalNameColorTvT);
-				playerToKick.setKarma(info._originalKarmaTvT);
-				playerToKick.getAppearance().setVisibleTitle(null);
-				playerToKick.broadcastUserInfo();
-				playerToKick.sendMessage("You have been kicked from the TvT.");
-				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
-			}
-		}
-		playerToKick.setPlayerInfo(null);
+		removePlayer(playerToKick, true);
 	}
 
 	public static void setNpcPos(L2PcInstance activeChar)
@@ -1494,19 +1465,29 @@ public class TvT
 					.indexOf(info._teamNameTvT)));
 		}
 	}
-
+	
 	public static void removePlayer(L2PcInstance player)
+	{
+		removePlayer(player, false);
+	}
+	
+	public static void removePlayer(L2PcInstance player, boolean kick)
 	{
 		final TvTPlayerInfo info = player.getPlayerInfo(TvTPlayerInfo.class);
 		
 		if (info != null)
 		{
-			if (!_joining)
+			if (!_joining && player.isOnline() != 0)
 			{
 				player.getAppearance().setNameColor(info._originalNameColorTvT);
 				player.getAppearance().setVisibleTitle(null);
 				player.setKarma(info._originalKarmaTvT);
 				player.broadcastUserInfo();
+				if (kick)
+				{
+					player.sendMessage("You have been kicked from the TvT.");
+					player.teleToLocation(_npcX, _npcY, _npcZ, false);
+				}
 			}
 			info._teamNameTvT = "";
 			info._countTvTkills = 0;
@@ -1515,10 +1496,11 @@ public class TvT
 			if ((Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")) && _players.contains(player))
 			{
 				setTeamPlayersCount(info._teamNameTvT, teamPlayersCount(info._teamNameTvT) - 1);
-				_players.remove(player);
 			}
-			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
-				_playersShuffle.remove(player);
+			
+			_players.remove(player);
+			_playersShuffle.remove(player);
+			_savePlayers.remove(player.getName());
 		}
 	}
 
@@ -1530,9 +1512,6 @@ public class TvT
 			if (player != null)
 			{
 				removePlayer(player);
-				if (_savePlayers.contains(player.getName()))
-					_savePlayers.remove(player.getName());
-				player.setPlayerInfo(null);
 			}
 		}
 		if (_playersShuffle != null && !_playersShuffle.isEmpty())
