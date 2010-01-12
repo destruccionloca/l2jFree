@@ -13014,9 +13014,11 @@ public final class L2PcInstance extends L2Playable
 		//	return true;
 		
 		final TimeStamp ts = getReuseTimeStamps().put(skillId, new TimeStamp(skillId, delay, remaining));
+		final SkillUsageRequest request = getCurrentSkill();
 		
 		if (ts == null || Math.abs(ts.getReuseDelay() - delay) > 500 || Math.abs(ts.getRemaining() - remaining) > 500)
-			sendSkillCoolTime();
+			if (request == null || request.getSkillId() != skillId)
+				sendSkillCoolTime();
 		return true;
 	}
 	

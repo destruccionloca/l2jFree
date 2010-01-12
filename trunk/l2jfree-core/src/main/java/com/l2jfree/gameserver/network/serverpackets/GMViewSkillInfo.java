@@ -24,7 +24,7 @@ public final class GMViewSkillInfo extends L2GameServerPacket
 	private final L2PcInstance _activeChar;
 	private final L2Skill[] _skills;
 	
-	public GMViewSkillInfo(L2PcInstance activeChar, L2PcInstance gm)
+	public GMViewSkillInfo(L2PcInstance activeChar)
 	{
 		_activeChar = activeChar;
 		_skills = activeChar.getSortedAllSkills(true);
@@ -41,7 +41,7 @@ public final class GMViewSkillInfo extends L2GameServerPacket
 		{
 			writeD(skill.isPassive() ? 1 : 0);
 			writeD(skill.getLevel());
-			writeD(skill.getId());
+			writeD(skill.getDisplayId());
 			writeC(0x00); //c5
 		}
 	}

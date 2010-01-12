@@ -92,7 +92,7 @@ public class RequestGMCommand extends L2GameClientPacket
 			case 3: // player skills
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_SKILL)
-					sendPacket(new GMViewSkillInfo(player, activeChar));
+					sendPacket(new GMViewSkillInfo(player));
 				break;
 			}
 			case 4: // player quests
