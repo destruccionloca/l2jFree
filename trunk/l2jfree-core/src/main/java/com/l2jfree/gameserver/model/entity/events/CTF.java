@@ -238,13 +238,11 @@ public class CTF
 		{
 			_playersShuffle.remove(playerToKick);
 			_players.remove(playerToKick);
-			playerToKick.setPlayerInfo(null);
 			info._teamNameCTF = "";
 		}
 		if (_started || _teleport)
 		{
 			_playersShuffle.remove(playerToKick);
-			playerToKick.setPlayerInfo(null);
 			removePlayer(playerToKick);
 			if (playerToKick.isOnline() != 0)
 			{
@@ -256,6 +254,7 @@ public class CTF
 				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
 			}
 		}
+		playerToKick.setPlayerInfo(null);
 	}
 
 	public static void AnnounceToPlayers(Boolean toall, String announce)

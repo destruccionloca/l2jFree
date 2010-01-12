@@ -151,14 +151,12 @@ public class TvT
 		{
 			_playersShuffle.remove(playerToKick);
 			_players.remove(playerToKick);
-			playerToKick.setPlayerInfo(null);
 			info._teamNameTvT = "";
 			info._countTvTkills = 0;
 		}
 		if (_started || _teleport)
 		{
 			_playersShuffle.remove(playerToKick);
-			playerToKick.setPlayerInfo(null);
 			removePlayer(playerToKick);
 			if (playerToKick.isOnline() != 0)
 			{
@@ -170,6 +168,7 @@ public class TvT
 				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
 			}
 		}
+		playerToKick.setPlayerInfo(null);
 	}
 
 	public static void setNpcPos(L2PcInstance activeChar)
