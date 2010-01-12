@@ -20977,8 +20977,12 @@ SELECT createSkillEnchant2(96, 2); -- Bleed
 SELECT createSkillEnchant2(96, 3); -- Bleed
 SELECT createSkillEnchant2(97, 3); -- Sanctuary
 SELECT createSkillEnchant2(97, 4); -- Sanctuary
+SELECT createSkillEnchant(100, 1, 15); -- Stun Attack
 SELECT createSkillEnchant2(105, 3); -- Freezing Strike
+SELECT createSkillEnchant2(107, 3); -- Holy Aura
 SELECT createSkillEnchant2(110, 3); -- Ultimate Defense
+SELECT createSkillEnchant2(144, 2); -- Dual Weapon Mastery
+SELECT createSkillEnchant(153, 1, 4); -- Shield Mastery
 SELECT createSkillEnchant(290, 1, 14); -- Final Frenzy
 SELECT createSkillEnchant(321, 1, 10); -- Blinding Blow
 SELECT createSkillEnchant2(321, 2); -- Blinding Blow
