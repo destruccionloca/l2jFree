@@ -269,6 +269,6 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	{
 		final String UID = getUID();
 		
-		return UID == null ? _socket.getInetAddress().getHostAddress() : UID;
+		return UID == null || UID.isEmpty() ? _socket.getInetAddress().getHostAddress() : UID;
 	}
 }
