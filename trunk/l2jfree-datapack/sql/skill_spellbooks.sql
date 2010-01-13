@@ -315,7 +315,11 @@ INSERT INTO `skill_spellbooks` VALUES
 (1399,8399), -- Spellbook: Mana Storm
 (1400,8400), -- Spellbook: Turn Undead
 (1401,8401), -- Spellbook: Major Heal
-(1402,8402), -- Spellbook: Major Group Heal
+(1402,8402); -- Spellbook: Major Group Heal
+
+-- Late C5 Spellbooks and Amulets
+
+INSERT INTO `skill_spellbooks` VALUES 
 (1403,8616), -- Spellbook: Summon Friend
 (1404,8617); -- Spellbook: Word of Invitation
 
@@ -488,3 +492,13 @@ INSERT INTO `skill_spellbooks` VALUES
 (837,12777), -- Battle Manual - Painkiller
 (838,12778), -- Battle Manual - Soul Web
 (1456,10109); -- Spellbook: Wind Vortex Slug
+
+--
+-- L2J-Free Add-ons
+--
+
+(1450,10067), -- Battle Manual - Chain Lightning
+-- (xxxx,10035), -- Battle Manual: Change Life Stone
+-- (xxxx,10056), -- Battle Manual: Create Bio Potion
+-- (1449,10051), -- Battle Manual: Transfer Soul
+(540,10096), -- Battle Manual - Wing Assault
