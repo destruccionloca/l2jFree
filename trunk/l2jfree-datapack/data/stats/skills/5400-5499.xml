@@ -749,8 +749,11 @@
   </skill>
   <skill id="5479" levels="1" name="Boss Petrification Resistance">
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="COREDONE"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="paralyzeVuln" val="0"/>
+    </for>
   </skill>
   <skill id="5480" levels="1" name="Balor Invincible Removal">
     <set name="hitTime" val="4000"/>
@@ -893,7 +896,6 @@
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
-    <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>

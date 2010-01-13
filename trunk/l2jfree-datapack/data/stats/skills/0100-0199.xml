@@ -853,7 +853,7 @@
     </enchant1for>
     <enchant2for>
       <add order="0x40" stat="pAtk" val="129.3"/>
-      <mul order="0x40" stat="pAtkSpd" val="#ench2pAtkSpd"/>
+      <mul order="0x30" stat="pAtkSpd" val="#ench2pAtkSpd"/>
     </enchant2for>
   </skill>
   <skill id="146" levels="45" name="Anti Magic" enchantLevels1="30">
