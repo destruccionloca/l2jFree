@@ -150,7 +150,7 @@ public final class MMOLogger implements Log
 			if (count == 1)
 				_logger.logp(level, className, methodName, message, throwable);
 			else
-				_logger.logp(level, className, methodName, count + "× " + message, throwable);
+				_logger.logp(level, className, methodName, count + " x " + message, throwable);
 		}
 	}
 	
