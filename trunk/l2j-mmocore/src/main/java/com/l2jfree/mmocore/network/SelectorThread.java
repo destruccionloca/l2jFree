@@ -28,6 +28,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -36,16 +37,15 @@ import java.util.concurrent.locks.ReentrantLock;
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author KenM<BR>
  *         Parts of design based on networkcore from WoodenGil
  */
 public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
-	extends Thread
+		extends Thread
 {
-	protected static final Log _log = LogFactory.getLog(SelectorThread.class);
+	protected static final Log _log = new MMOLogger(SelectorThread.class, 100);
 	
 	private final Selector _selector;
 	
@@ -463,8 +463,8 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 								//report(ErrorMode.BUFFER_OVER_FLOW, client, cp, null);
 								
 								_log.info("Invalid packet format (buf: " + buf + ", dataSize: " + dataSize + ", pos: "
-									+ pos + ", limit: " + limit + ", opcode: " + opcode + ") used for reading - "
-									+ client + " - " + cp.getType() + " - " + getVersionInfo());
+										+ pos + ", limit: " + limit + ", opcode: " + opcode + ") used for reading - "
+										+ client + " - " + cp.getType() + " - " + getVersionInfo());
 							}
 						}
 					}
@@ -783,15 +783,15 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 	
 	{
 		// TODO: fine tune
-		_accepts = new FloodManager(1000, 60);
-		_accepts.addFloodFilter(10, 20, 10);
-		_accepts.addFloodFilter(30, 60, 60);
+		_accepts = new FloodManager(1000, // 1000 msec per tick
+				new FloodManager.FloodFilter(10, 20, 10), // short period
+				new FloodManager.FloodFilter(30, 60, 60)); // long period
 		
-		_packets = new FloodManager(1000, 10);
-		_packets.addFloodFilter(250, 300, 2);
+		_packets = new FloodManager(1000, // 1000 msec per tick
+				new FloodManager.FloodFilter(250, 300, 2));
 		
-		_errors = new FloodManager(200, 10);
-		_errors.addFloodFilter(10, 10, 1);
+		_errors = new FloodManager(200, // 200 msec per tick
+				new FloodManager.FloodFilter(10, 10, 1));
 	}
 	
 	protected String getVersionInfo()
@@ -893,18 +893,27 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 		private final int _tickLength;
 		private final int _tickAmount;
 		
-		private FloodFilter[] _filters = new FloodFilter[0];
+		private final FloodFilter[] _filters;
 		
-		private FloodManager(int msecPerTick, int tickAmount)
+		private FloodManager(int msecPerTick, FloodFilter... filters)
 		{
 			_tickLength = msecPerTick;
-			_tickAmount = tickAmount;
-		}
-		
-		private void addFloodFilter(int warnLimit, int rejectLimit, int tickLimit)
-		{
-			_filters = Arrays.copyOf(_filters, _filters.length + 1);
-			_filters[_filters.length - 1] = new FloodFilter(warnLimit, rejectLimit, tickLimit);
+			_filters = filters;
+			
+			int max = 1;
+			
+			for (FloodFilter filter : _filters)
+				max = Math.max(filter.getTickLimit() + 1, max);
+			
+			_tickAmount = max;
+			
+			MMOFlusher.add(new Runnable() {
+				@Override
+				public void run()
+				{
+					flush();
+				}
+			}, 60000);
 		}
 		
 		private static final class FloodFilter
@@ -936,10 +945,29 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 			}
 		}
 		
+		public void flush()
+		{
+			_lock.lock();
+			try
+			{
+				for (Iterator<LogEntry> it = _entries.values().iterator(); it.hasNext();)
+				{
+					if (it.next().isActive())
+						continue;
+					
+					it.remove();
+				}
+			}
+			finally
+			{
+				_lock.unlock();
+			}
+		}
+		
 		public Result isFlooding(String key, boolean increment)
 		{
 			if (key == null || key.isEmpty())
-				return Result.ACCEPTED;
+				return Result.REJECTED;
 			
 			_lock.lock();
 			try
@@ -972,6 +1000,11 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 				return (int)((System.currentTimeMillis() - ZERO) / _tickLength);
 			}
 			
+			public boolean isActive()
+			{
+				return getCurrentTick() - _lastTick < _tickAmount * 10;
+			}
+			
 			public Result isFlooding(boolean increment)
 			{
 				final int currentTick = getCurrentTick();
@@ -985,7 +1018,7 @@ public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP exte
 				else if (_lastTick > currentTick)
 				{
 					_log.warn("The current tick (" + currentTick + ") is smaller than the last (" + _lastTick + ")!",
-						new IllegalStateException());
+							new IllegalStateException());
 					
 					_lastTick = currentTick;
 				}
