@@ -857,6 +857,8 @@ public final class L2PcInstance extends L2Playable
 
 	private boolean							_illegalWaiting;
 
+	private long							_nextJumpTime;
+
 	private class VitalityTask implements Runnable
 	{
 		private L2PcInstance	_player	= null;
@@ -5671,7 +5673,7 @@ public final class L2PcInstance extends L2Playable
 
 		_activeTradeList.lock();
 		_activeTradeList = null;
-		sendPacket(new TradeDone(0));
+		sendPacket(TradeDone.CANCELLED);
 		SystemMessage msg = new SystemMessage(SystemMessageId.C1_CANCELED_TRADE);
 		msg.addPcName(partner);
 		sendPacket(msg);
@@ -5680,7 +5682,7 @@ public final class L2PcInstance extends L2Playable
 	public void onTradeFinish(boolean successfull)
 	{
 		_activeTradeList = null;
-		sendPacket(new TradeDone(1));
+		sendPacket(TradeDone.COMPLETED);
 		if (successfull)
 			sendPacket(SystemMessageId.TRADE_SUCCESSFUL);
 	}
@@ -14601,5 +14603,17 @@ public final class L2PcInstance extends L2Playable
 		sm.addCharName(target);
 		sm.addSkillName(skill);
 		sendPacket(sm);
+	}
+
+	public boolean tryJump()
+	{
+		long time = System.currentTimeMillis();
+		if (_nextJumpTime < time)
+		{
+			_nextJumpTime = time + 3000;
+			return true;
+		}
+		else
+			return false;
 	}
 }

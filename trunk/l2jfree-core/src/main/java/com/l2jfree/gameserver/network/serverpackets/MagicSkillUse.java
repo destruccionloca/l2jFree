@@ -17,35 +17,23 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 
-/**
- * 
- * sample
- * 
- * 0000: 5a  d8 a8 10 48  d8 a8 10 48  10 04 00 00  01 00 00    Z...H...H.......
- * 0010: 00  f0 1a 00 00  68 28 00 00                         .....h(..
- *
- * format   dddddd dddh (h)
- * 
- * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
- */
 public class MagicSkillUse extends L2GameServerPacket
 {
-	private static final String _S__5A_MAGICSKILLUSER = "[S] 5A MagicSkillUser";
+	private static final String _S__MAGICSKILLUSE = "[S] 48 MagicSkillUse c[ddddddddd0ddd]";
 	private final int _targetId, _tx, _ty, _tz;
 	private final int _skillId;
 	private final int _skillLevel;
-	private final int _skillTime;
+	private final int _hitTime;
 	private final int _reuseDelay;
 	private final int _charObjId, _x, _y, _z;
-	//private final int _flags;
-	
-	public MagicSkillUse(L2Character cha, L2Character target, int skillId, int skillLevel, int skillTime, int reuseDelay)
+
+	public MagicSkillUse(L2Character cha, L2Character target, int skillId, int skillLevel, int hitTime, int reuseDelay)
 	{
 		_charObjId = cha.getObjectId();
 		_targetId = target.getObjectId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
-		_skillTime = skillTime;
+		_hitTime = hitTime;
 		_reuseDelay = reuseDelay;
 		_x = cha.getX();
 		_y = cha.getY();
@@ -53,24 +41,23 @@ public class MagicSkillUse extends L2GameServerPacket
 		_tx = target.getX();
 		_ty = target.getY();
 		_tz = target.getZ();
-		//_flags |= 0x20;
 	}
-	
-	public MagicSkillUse(L2Character cha, int skillId, int skillLevel, int skillTime, int reuseDelay)
+
+	public MagicSkillUse(L2Character cha, int skillId, int skillLevel, int hitTime, int reuseDelay)
 	{
-		this(cha, cha, skillId, skillLevel, skillTime, reuseDelay);
+		this(cha, cha, skillId, skillLevel, hitTime, reuseDelay);
 	}
-	
-	public MagicSkillUse(L2Character cha, L2Character target, L2Skill skill, int skillTime, int reuseDelay)
+
+	public MagicSkillUse(L2Character cha, L2Character target, L2Skill skill, int hitTime, int reuseDelay)
 	{
-		this(cha, target, skill.getDisplayId(), skill.getLevel(), skillTime, reuseDelay);
+		this(cha, target, skill.getDisplayId(), skill.getLevel(), hitTime, reuseDelay);
 	}
-	
-	public MagicSkillUse(L2Character cha, L2Skill skill, int skillTime, int reuseDelay)
+
+	public MagicSkillUse(L2Character cha, L2Skill skill, int hitTime, int reuseDelay)
 	{
-		this(cha, cha, skill.getDisplayId(), skill.getLevel(), skillTime, reuseDelay);
+		this(cha, cha, skill.getDisplayId(), skill.getLevel(), hitTime, reuseDelay);
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -79,7 +66,7 @@ public class MagicSkillUse extends L2GameServerPacket
 		writeD(_targetId);
 		writeD(_skillId);
 		writeD(_skillLevel);
-		writeD(_skillTime);
+		writeD(_hitTime);
 		writeD(_reuseDelay);
 		writeD(_x);
 		writeD(_y);
@@ -89,13 +76,13 @@ public class MagicSkillUse extends L2GameServerPacket
 		writeD(_ty);
 		writeD(_tz);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__5A_MAGICSKILLUSER;
+		return _S__MAGICSKILLUSE;
 	}
 }

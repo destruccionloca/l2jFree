@@ -14,26 +14,24 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
-public class TradeDone extends L2GameServerPacket
+public class TradeDone extends StaticPacket
 {
-	private static final String S_1C_TRADEDONE = "[S] 1C TradeDone";
-	private final int _num;
-	
-	public TradeDone (int num)
+	private static final String	_S__TRADEDONE = "[S] 1C TradeDone c[d]";
+	public static final TradeDone COMPLETED = new TradeDone(true);
+	public static final TradeDone CANCELLED = new TradeDone(false);
+
+	private final boolean _completed;
+
+	private TradeDone(boolean completed)
 	{
-		_num = num;
+		_completed = completed;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x1c);
-		writeD(_num);
+		writeD(_completed);
 	}
 
 	/* (non-Javadoc)
@@ -42,6 +40,6 @@ public class TradeDone extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return S_1C_TRADEDONE;
+		return _S__TRADEDONE;
 	}
 }

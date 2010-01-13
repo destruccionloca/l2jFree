@@ -26,26 +26,25 @@ import com.l2jfree.gameserver.network.serverpackets.TradeDone;
 /**
  * This class represents a packet sent by the client when a player clicks either "Yes"
  * or "No" in the trade request dialog.
- * 
- * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public class AnswerTradeRequest extends L2GameClientPacket
 {
-    private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
+    private static final String _C__ANSWERTRADEREQUEST = "[C] 55 AnswerTradeRequest c[d]";
 
-    private int _response;
+    private boolean				_accepted;
 
     @Override
     protected void readImpl()
     {
-        _response = readD();
+        _accepted = (readD() == 1);
     }
 
     @Override
     protected void runImpl()
     {
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+        L2PcInstance player = getActiveChar();
+        if (player == null)
+        	return;
 
         if (Shutdown.isActionDisabled(DisableType.TRANSACTION))
         {
@@ -57,7 +56,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
         if (partner == null || L2World.getInstance().getPlayer(partner.getObjectId()) == null)
         {
             // Trade partner not found, cancel trade
-            player.sendPacket(new TradeDone(0));
+            player.sendPacket(TradeDone.CANCELLED);
             player.setActiveRequester(null);
             requestFailed(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
             return;
@@ -84,7 +83,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
             return;
         }
 
-        if (_response == 1 && !partner.isRequestExpired())
+        if (_accepted && !partner.isRequestExpired())
 			player.startTrade(partner);
 		else
 			partner.sendPacket(new SystemMessage(SystemMessageId.C1_DENIED_TRADE_REQUEST).addString(player.getName()));
@@ -99,6 +98,6 @@ public class AnswerTradeRequest extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__40_ANSWERTRADEREQUEST;
+		return _C__ANSWERTRADEREQUEST;
 	}
 }

@@ -31,29 +31,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AttackRequest extends L2GameClientPacket
 {
-    private static final String _C__ATTACKREQUEST = "[C] 01 AttackRequest c[ddddc]";
+	private static final String _C__ATTACKREQUEST = "[C] 01 AttackRequest c[ddddc]";
 
     private int _objectId;
-    //private int _originX;
-    //private int _originY;
-    //private int _originZ;
-    //private boolean _shift;
+/*
+    private int _originX;
+    private int _originY;
+    private int _originZ;
+    private boolean _shift;
+*/
 
     @Override
     protected void readImpl()
     {
-        _objectId	= readD();
-        /*_originX	= */readD();
-        /*_originY	= */readD();
-        /*_originZ	= */readD();
-        //_shift	= (readC() == 1);
-        readC();
-    }
+    	_objectId	= readD();
+		/*_originX	= */readD();
+		/*_originY	= */readD();
+		/*_originZ	= */readD();
+		/*_shift	= (readC() == 1);*/readC();
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
 
@@ -89,8 +90,6 @@ public class AttackRequest extends L2GameClientPacket
 			}
 		}
 
-		// Players can't attack objects in the other instances
-		// except from multiverse
 		if (!activeChar.isSameInstance(target))
 		{
 			sendAF();
@@ -104,6 +103,7 @@ public class AttackRequest extends L2GameClientPacket
 				&& activeChar.getActiveRequester() == null)
 			target.onForcedAttack(activeChar);
 
+		// actually AF is sent after moving to target, just before auto attack starts
 		sendAF();
 	}
 

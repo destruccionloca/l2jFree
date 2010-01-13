@@ -34,7 +34,7 @@ public class BypassUserCmd extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
 
@@ -44,7 +44,7 @@ public class BypassUserCmd extends L2GameClientPacket
 		else
 			handler.useUserCommand(_command, player);
 
-		sendAF();
+		// no AF here
 	}
 
 	@Override

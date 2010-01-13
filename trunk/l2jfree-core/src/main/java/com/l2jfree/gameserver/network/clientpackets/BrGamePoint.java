@@ -14,13 +14,10 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
-
-/**
- * @author savormix
- */
-public final class BR_ProductList extends L2GameClientPacket
+public final class BrGamePoint extends L2GameClientPacket
 {
+	private static final String	_C__BRGAMEPOINT = "[C] D0:65 BR_GamePoint ch";
+
 	@Override
 	protected void readImpl()
 	{
@@ -30,7 +27,12 @@ public final class BR_ProductList extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		_log.info("BR_ProductList received from " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		// normally server doesn't respond to this packet
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__BRGAMEPOINT;
 	}
 }

@@ -17,16 +17,16 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Format: (c)
+ * Sent when client receives SkillList packet (opens the skill list dialog)
  */
 public class RequestSkillCoolTime extends L2GameClientPacket
 {
-	private static final String	_C__A6_REQUESTSKILLCOOLTIME	= "[C] 0xa6 RequestSkillCoolTime";
+	private static final String	_C__REQUESTSKILLCOOLTIME	= "[C] A6 RequestSkillCoolTime c";
 
 	@Override
 	protected void readImpl()
 	{
-		// Trigger
+		// trigger packet
 	}
 
 	@Override
@@ -44,6 +44,6 @@ public class RequestSkillCoolTime extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__A6_REQUESTSKILLCOOLTIME;
+		return _C__REQUESTSKILLCOOLTIME;
 	}
 }

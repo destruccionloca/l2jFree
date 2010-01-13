@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
  * This class represents the packet that is sent by the client when the server
  * selection is confirmed.
  * 
- * @version $Revision: 1.9.2.3.2.4 $ $Date: 2005/03/27 15:29:30 $
+ * Note for sync: packet structure changed in Epilogue.
  */
 public class AuthLogin extends L2GameClientPacket
 {

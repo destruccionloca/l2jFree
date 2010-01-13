@@ -12,37 +12,31 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.network.clientpackets;
+package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ExJumpToLocation;
-
-public final class RequestJump extends L2GameClientPacket
+public class ExBrProductList extends L2GameServerPacket
 {
-	private static final String _C__REQUESTJUMP = "[C] D0:53 RequestJump ch";
+	private static final String _S__EXBRPRODUCTLIST = "[S] FE:A7 ExBR_ProductList ch[d(unk)]";
+	public static final ExBrProductList EMPTY = new ExBrProductList();
 
-	@Override
-	protected void readImpl()
+	/** Unknown packet structure when list isn't empty! */
+	private ExBrProductList()
 	{
-		// trigger packet
 	}
 
 	@Override
-	protected void runImpl()
+	protected void writeImpl()
 	{
-		L2PcInstance player = getActiveChar();
-		if (player == null)
-			return;
+		writeC(0xfe);
+		writeH(0xa7);
 
-		if (player.tryJump())
-			sendPacket(new ExJumpToLocation(player));
-		else
-			sendAF();
+		writeD(0x00); // list size
+		// ???
 	}
 
-    @Override
-    public String getType()
-    {
-        return _C__REQUESTJUMP;
-    }
+	@Override
+	public String getType()
+	{
+		return _S__EXBRPRODUCTLIST;
+	}
 }

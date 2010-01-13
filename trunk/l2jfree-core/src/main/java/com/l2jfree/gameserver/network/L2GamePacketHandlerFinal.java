@@ -1037,16 +1037,16 @@ public final class L2GamePacketHandlerFinal implements
 								msg = new RequestSeedPhase();
 								break;
 							case 0x65:
-								msg = new BR_GamePoint();
+								msg = new BrGamePoint();
 								break;
 							case 0x66:
-								msg = new BR_ProductList();
+								msg = new BrProductList();
 								break;
 							case 0x67:
-								msg = new BR_ProductInfo();
+								msg = new BrProductInfo();
 								break;
 							case 0x68:
-								msg = new BR_BuyProduct();
+								msg = new BrBuyProduct();
 								break;
 							default:
 								printDebug(buf, client, opcode, id2);

@@ -14,31 +14,34 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ExBrProductList;
 
-public final class BR_BuyProduct extends L2GameClientPacket
+public final class BrProductList extends L2GameClientPacket
 {
-	private static final String	_C__BR_BUYPRODUCT = "[C] D0:65 BR_BuyProduct ch[dd]";
-
-	private int _unk1, _unk2;
+	private static final String	_C__BRPRODUCTLIST = "[C] D0:66 BR_ProductList ch";
 
 	@Override
 	protected void readImpl()
 	{
-		_unk1 = readD();
-		_unk2 = readD();
+		// trigger packet
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("BR_BuyProduct, unk=" + _unk1 + ", unk=" + _unk2 + ", sent by " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
+
+		sendPacket(ExBrProductList.EMPTY);
+
+		// no AF here
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__BR_BUYPRODUCT;
+		return _C__BRPRODUCTLIST;
 	}
 }

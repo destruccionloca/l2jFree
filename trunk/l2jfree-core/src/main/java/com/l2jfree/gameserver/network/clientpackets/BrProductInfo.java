@@ -14,25 +14,27 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.SystemMessageId;
-
-/**
- * @author savormix
- */
-public final class BR_ProductInfo extends L2GameClientPacket
+public final class BrProductInfo extends L2GameClientPacket
 {
-	private int _productId;
+	private static final String	_C__BRPRODUCTINFO = "[C] D0:67 BR_ProductInfo ch[d]";
+
+	//private int				_productId;
 
 	@Override
 	protected void readImpl()
 	{
-		_productId = readD();
+		/*_productId = */readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		_log.info("BR_ProductInfo, productId=" + _productId + ", sent by " + getActiveChar());
-		requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		// normally server doesn't respond to this packet
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__BRPRODUCTINFO;
 	}
 }
