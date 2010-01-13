@@ -496,9 +496,9 @@ INSERT INTO `skill_spellbooks` VALUES
 --
 -- L2J-Free Add-ons
 --
-
+INSERT INTO `skill_spellbooks` VALUES 
 (1450,10067), -- Battle Manual - Chain Lightning
 -- (xxxx,10035), -- Battle Manual: Change Life Stone
 -- (xxxx,10056), -- Battle Manual: Create Bio Potion
 -- (1449,10051), -- Battle Manual: Transfer Soul
-(540,10096), -- Battle Manual - Wing Assault
+(540,10096); -- Battle Manual - Wing Assault
