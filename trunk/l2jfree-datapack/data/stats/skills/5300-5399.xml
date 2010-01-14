@@ -1890,6 +1890,14 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond>
+      <and>
+       <game night="false"/>
+        <not>
+         <target active_effect_id="2341"/>
+        </not>
+      </and>
+    </cond>
     <for>
       <effect count="0x7fffffff" name="Environment" time="3600" val="0"/>
     </for>
