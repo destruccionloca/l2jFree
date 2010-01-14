@@ -45,7 +45,7 @@ import org.apache.commons.logging.Log;
 public abstract class SelectorThread<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 		extends Thread
 {
-	protected static final Log _log = new MMOLogger(SelectorThread.class, 100);
+	protected static final Log _log = new MMOLogger(SelectorThread.class, 1000);
 	
 	private final Selector _selector;
 	
