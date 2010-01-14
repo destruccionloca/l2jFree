@@ -76,7 +76,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new Logout();
 						break;
 					case 0x0c:
-						msg = new CharacterCreate();
+						msg = new NewCharacter();
 						break;
 					case 0x0d:
 						msg = new CharacterDelete();
@@ -85,7 +85,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new CharacterSelected();
 						break;
 					case 0x13:
-						msg = new NewCharacter();
+						msg = new NewCharacterInit();
 						break;
 					/* Commented out by Kerberos: not being used anymore
 					case 0x54:
@@ -600,7 +600,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new RequestRecipeShopManagePrev();
 						break;
 					case 0xc1:
-						msg = new ObserverReturn();
+						msg = new RequestObserverEnd();
 						break;
 					case 0xc2:
 						msg = new RequestEvaluate();

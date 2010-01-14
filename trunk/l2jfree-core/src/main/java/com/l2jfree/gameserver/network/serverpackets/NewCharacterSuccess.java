@@ -14,64 +14,82 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import javolution.util.FastList;
-
+import com.l2jfree.gameserver.datatables.CharTemplateTable;
+import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.templates.chars.L2PcTemplate;
 
-/**
- * This class ...
- *
- * @version $Revision: 1.3.2.1.2.7 $ $Date: 2005/03/27 15:29:39 $
- */
-public class NewCharacterSuccess extends L2GameServerPacket
+public class NewCharacterSuccess extends StaticPacket
 {
-	// dddddddddddddddddddd
-	private static final String S_0D_CHARTEMPLATES = "[S] 0d CharTemplates";
-	private final List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
+	private static final String				_S__NEWCHARACTERSUCCESS	= "[S] 0D NewCharacterSuccess c[d->dddddddddddddddddddd<-]";
+	private static final int[]				DELIMITER				= { 0x46, 0x0A };
+	public static final NewCharacterSuccess	PACKET					= new NewCharacterSuccess();
+	static
+	{
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(0));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.HumanFighter));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.HumanMystic));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.ElvenFighter));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.ElvenMystic));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.DarkFighter));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.DarkMystic));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.OrcFighter));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.OrcMystic));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.DwarvenFighter));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.MaleSoldier));
+		PACKET.addChar(CharTemplateTable.getInstance().getTemplate(ClassId.FemaleSoldier));
+		PACKET.finish();
+	}
 
-    public NewCharacterSuccess()
-    {
-        
-    }
-    
+	private final ArrayList<L2PcTemplate>	_chars = new ArrayList<L2PcTemplate>();
+
+	private NewCharacterSuccess()
+	{
+	}
+
 	public void addChar(L2PcTemplate template)
 	{
 		_chars.add(template);
 	}
 
+	public void finish()
+	{
+		_chars.trimToSize();
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0d);
+		writeC(0x0D);
 		writeD(_chars.size());
 
-		for (L2PcTemplate temp : _chars)
+		for (int i = 0; i < _chars.size(); i++)
 		{
+			L2PcTemplate temp = _chars.get(i);
 			if (temp == null)
 				continue;
 
 			writeD(temp.getRace().ordinal());
 			writeD(temp.getClassId().getId());
-			writeD(0x46);
+			writeD(DELIMITER[0]);
 			writeD(temp.getBaseSTR());
-			writeD(0x0a);
-			writeD(0x46);
+			writeD(DELIMITER[1]);
+			writeD(DELIMITER[0]);
 			writeD(temp.getBaseDEX());
-			writeD(0x0a);
-			writeD(0x46);
+			writeD(DELIMITER[1]);
+			writeD(DELIMITER[0]);
 			writeD(temp.getBaseCON());
-			writeD(0x0a);
-			writeD(0x46);
+			writeD(DELIMITER[1]);
+			writeD(DELIMITER[0]);
 			writeD(temp.getBaseINT());
-			writeD(0x0a);
-			writeD(0x46);
+			writeD(DELIMITER[1]);
+			writeD(DELIMITER[0]);
 			writeD(temp.getBaseWIT());
-			writeD(0x0a);
-			writeD(0x46);
+			writeD(DELIMITER[1]);
+			writeD(DELIMITER[0]);
 			writeD(temp.getBaseMEN());
-			writeD(0x0a);
+			writeD(DELIMITER[1]);
 		}
 	}
 
@@ -81,6 +99,6 @@ public class NewCharacterSuccess extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return S_0D_CHARTEMPLATES;
+		return _S__NEWCHARACTERSUCCESS;
 	}
 }

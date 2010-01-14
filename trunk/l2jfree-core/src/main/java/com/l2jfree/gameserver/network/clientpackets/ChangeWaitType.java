@@ -23,14 +23,12 @@ import com.l2jfree.gameserver.util.Util;
  */
 public class ChangeWaitType extends L2GameClientPacket
 {
-	private static final String _C__36_CHANGEWAITTYPE = "[C] 36 ChangeWaitType";
-
-	//private boolean _typeStand;
+	private static final String _C__CHANGEWAITTYPE = "[C] 36 ChangeWaitType c[d]";
 
 	@Override
 	protected void readImpl()
 	{
-		/*_typeStand = (*/readD();// == 1);
+		readD();
 	}
 
 	@Override
@@ -38,12 +36,12 @@ public class ChangeWaitType extends L2GameClientPacket
 	{
 		L2PcInstance player = getActiveChar();
 		if (player != null)
-			Util.handleIllegalPlayerAction(player, "Sent a deprecated packet!");
+			Util.handleIllegalPlayerAction(player, player + " sent a deprecated packet!");
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__36_CHANGEWAITTYPE;
+		return _C__CHANGEWAITTYPE;
 	}
 }

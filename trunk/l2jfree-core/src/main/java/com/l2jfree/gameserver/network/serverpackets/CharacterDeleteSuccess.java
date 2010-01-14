@@ -14,15 +14,14 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-
-/**
- * This class ...
- *
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
-public class CharDeleteSuccess extends L2GameServerPacket
+public class CharacterDeleteSuccess extends StaticPacket
 {
-	private static final String S_1D_CHARDELETESUCCESS = "[S] 1d CharDeleteSuccess";
+	private static final String	_S__CHARACTERDELETESUCCESS	= "[S] 1D CharacterDeleteSuccess c";
+	public static final CharacterDeleteSuccess PACKET = new CharacterDeleteSuccess();
+
+	private CharacterDeleteSuccess()
+	{
+	}
 
 	@Override
 	protected final void writeImpl()
@@ -36,6 +35,6 @@ public class CharDeleteSuccess extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return S_1D_CHARDELETESUCCESS;
+		return _S__CHARACTERDELETESUCCESS;
 	}
 }

@@ -71,7 +71,7 @@ public final class L2GamePacketHandlerFinal implements
 						msg = new Logout();
 						break;
 					case 0x0c:
-						msg = new CharacterCreate();
+						msg = new NewCharacter();
 						break;
 					case 0x0d:
 						msg = new CharacterDelete();
@@ -80,7 +80,7 @@ public final class L2GamePacketHandlerFinal implements
 						msg = new CharacterSelected();
 						break;
 					case 0x13:
-						msg = new NewCharacter();
+						msg = new NewCharacterInit();
 						break;
 					case 0x7b:
 						msg = new CharacterRestore();
@@ -653,8 +653,8 @@ public final class L2GamePacketHandlerFinal implements
 					case 0xc0: // RequestRecipeShopSellList
 						msg = new RequestRecipeShopManagePrev();
 						break;
-					case 0xc1: // RequestObserverEndPacket
-						msg = new ObserverReturn();
+					case 0xc1:
+						msg = new RequestObserverEnd();
 						break;
 					case 0xc2: // VoteSociality
 						msg = new RequestEvaluate();

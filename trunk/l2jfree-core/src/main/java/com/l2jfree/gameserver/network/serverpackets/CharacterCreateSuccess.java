@@ -14,14 +14,19 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-public class CharCreateOk extends L2GameServerPacket
+public class CharacterCreateSuccess extends StaticPacket
 {
-	private static final String _S__0F_CHARCREATEOK = "[S] 0f CharCreateOk [d]";
-	
+	private static final String _S__0F_CHARACTERCREATESUCCESS = "[S] 0F CharacterCreateSuccess c[d]";
+	public static final CharacterCreateSuccess PACKET = new CharacterCreateSuccess();
+
+	private CharacterCreateSuccess()
+	{
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0f);
+		writeC(0x0F);
 		writeD(0x01);
 	}
 
@@ -31,6 +36,6 @@ public class CharCreateOk extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__0F_CHARCREATEOK;
+		return _S__0F_CHARACTERCREATESUCCESS;
 	}
 }

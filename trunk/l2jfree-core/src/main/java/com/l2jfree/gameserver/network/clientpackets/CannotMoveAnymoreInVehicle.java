@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StopMoveInVehicle;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.tools.geometry.Point3D;
@@ -27,11 +26,13 @@ import com.l2jfree.tools.geometry.Point3D;
  */
 public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 {
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _heading;
-	private int _boatId;
+	private static final String	_C__CANNOTMOVEANYMOREINVEHICLE	= "[C] 76 CannotMoveAnymoreInVehicle c[ddddd]";
+
+	private int					_x;
+	private int					_y;
+	private int					_z;
+	private int					_heading;
+	private int					_boatId;
 
     @Override
     protected void readImpl()
@@ -46,8 +47,9 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) return;
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
 
 		if (player.isInBoat() && player.getBoat().getObjectId() == _boatId)
 		{
@@ -55,16 +57,15 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 			player.getPosition().setHeading(_heading);
 			StopMoveInVehicle stop = new StopMoveInVehicle(player, _boatId);
 			Broadcast.toSelfAndKnownPlayers(player, stop);
-			stop = null;
 			//XXX: is PartyMemberPosition necessary here or it's auto when on boat?
 		}
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	@Override
 	public String getType()
 	{
-		return "[C] 5D CannotMoveAnymoreInVehicle";
+		return _C__CANNOTMOVEANYMOREINVEHICLE;
 	}
 }

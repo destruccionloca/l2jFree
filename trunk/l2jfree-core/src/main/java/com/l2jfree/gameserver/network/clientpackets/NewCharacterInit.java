@@ -14,34 +14,35 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.gameserver.network.serverpackets.NewCharacterSuccess;
 
 /**
- * This packet is never sent since by the official client since Gracia P2.
- * @see RequestActionUse#RequestActionUse()
+ * This class represents a packet sent by the client when the "Create [character]" button
+ * is pressed.<BR>
+ * <I>The packet sent by the client when character creation is confirmed is NewCharacter</I>
  */
-public class ChangeMoveType extends L2GameClientPacket
+public class NewCharacterInit extends L2GameClientPacket
 {
-	private static final String _C__CHANGEMOVETYPE = "[C] 35 ChangeMoveType c[d]";
+	private static final String _C__NEWCHARACTER = "[C] 13 NewCharacterPacket c";
 
     @Override
     protected void readImpl()
     {
-        readD();
+    	// trigger packet
     }
 
     @Override
     protected void runImpl()
 	{
-    	L2PcInstance player = getActiveChar();
-		if (player != null)
-			Util.handleIllegalPlayerAction(player, player + " sent a deprecated packet!");
+		if (_log.isDebugEnabled())
+			_log.debug("CreateNewChar");
+
+		sendPacket(NewCharacterSuccess.PACKET);
 	}
 
 	@Override
 	public String getType()
 	{
-		return _C__CHANGEMOVETYPE;
+		return _C__NEWCHARACTER;
 	}
 }

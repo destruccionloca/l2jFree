@@ -14,20 +14,18 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 /**
  * This class represents a packet sent by the client when a marked to delete character
  * is being restored ("Yes" is clicked in the restore confirmation dialog)
- * 
- * @version $Revision: 1.4.2.1.2.2 $ $Date: 2005/03/27 15:29:29 $
  */
 public class CharacterRestore extends L2GameClientPacket
 {
-	private static final String _C__7B_CHARACTERRESTORE = "[C] 7B CharacterRestore";
+	private static final String	_C__CHARACTERRESTORE	= "[C] 7B CharacterRestore c[d]";
 
-	// cd
-    private int _charSlot;
+    private int					_charSlot;
 
     @Override
     protected void readImpl()
@@ -44,12 +42,13 @@ public class CharacterRestore extends L2GameClientPacket
 	    }
 	    catch (Exception e)
 	    {
-	    	_log.warn("", e);
+	    	_log.warn("Couldn't mark character as restored!", e);
 	    }
 
-		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
+	    L2GameClient client = getClient();
+		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		sendPacket(cl);
-		getClient().setCharSelection(cl.getCharInfo());
+		client.setCharSelection(cl.getCharInfo());
 
 		sendAF();
 	}
@@ -57,6 +56,6 @@ public class CharacterRestore extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__7B_CHARACTERRESTORE;
+		return _C__CHARACTERRESTORE;
 	}
 }
