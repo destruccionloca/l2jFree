@@ -1,37 +1,51 @@
+# Author: Psycho(killer1888) / L2jFree
+
 import sys
-from com.l2jfree.gameserver.model.quest import State
-from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
-from com.l2jfree.tools.random import Rnd
-from com.l2jfree.gameserver.datatables				import ItemTable
+from com.l2jfree.gameserver.model.quest           import State
+from com.l2jfree.gameserver.model.quest           import QuestState
+from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets import InventoryUpdate
+from com.l2jfree.gameserver.network.serverpackets import SystemMessage
+from com.l2jfree.gameserver.network               import SystemMessageId
+from com.l2jfree.tools.random                     import Rnd
 
-reward = 9681
-QUEST_RATE = 5
-
-def dropItem(player,npc,itemId,count):
-	ditem = ItemTable.getInstance().createItem("Loot", itemId, count, player)
-	ditem.dropMe(player, npc.getX(), npc.getY(), npc.getZ()); 
+LIFE_FORCES = [9680,9681]
+CHIMERA     = [22349,22350,22351,22352]
 
 class Chimera(JQuest):
 	def __init__(self,id,name,descr):
 		JQuest.__init__(self,id,name,descr)
-	
-	def onSpawn(self, npc):
-		npc.setQuestDropable(False)
 
 	def onKill (self,npc,player,isPet):
-		item = player.getInventory().getItemByItemId(9672)
-		if item:
-			dropItem(player,npc,reward,QUEST_RATE,player)
+		if npc.getQuestDropable() == True and Rnd.get <= 30:
+			reward = LIFE_FORCES[Rnd.get(len(LIFE_FORCES))]
+			item = player.getInventory().addItem("Chimera", reward, 1, player, None)
+			iu = InventoryUpdate()
+			iu.addItem(item)
+			player.sendPacket(iu);
+			sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
+			sm.addItemName(item)
+			sm.addNumber(1)
+			player.sendPacket(sm)
 		return
-	
-QUEST = Chimera(-1, "Chimera", "ai")
-QUEST.addKillId(22349)
-QUEST.addKillId(22350)
-QUEST.addKillId(22351)
-QUEST.addKillId(22352)
 
-QUEST.addSpawnId(22349)
-QUEST.addSpawnId(22350)
-QUEST.addSpawnId(22351)
-QUEST.addSpawnId(22352)
+	def onSkillSee(self,npc,caster,skill,targets,isPet):
+		skillId = skill.getId()
+		if skillId != 2359:
+			return
+		if not npc in targets:
+			return
+		if npc.getStatus().getCurrentHp() <=  npc.getMaxHp() / 10:
+			npc.setMagicBottled(True)
+		else:
+			npc.setQuestDropable(False)
+			caster.sendPacket(SystemMessage(SystemMessageId.NOTHING_HAPPENED))
+			return
+		return
+
+QUEST = Chimera(-1, "Chimera", "ai")
+
+for mob in CHIMERA:	
+	QUEST.addKillId(mob)
+	QUEST.addSpawnId(mob)
+	QUEST.addSkillSeeId(mob)
