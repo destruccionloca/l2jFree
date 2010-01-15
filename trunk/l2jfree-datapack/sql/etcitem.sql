@@ -9738,3 +9738,11 @@ UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = '
 -- Cocktails
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22056-1;22057-1;22058-1;22059-1;22060-1;22061-1;22064-1;22065-1' WHERE `item_id` = 10178;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '22062-1;22063-1;22065-1;22066-1;22067-1;22068-1;22069-1;22070-1' WHERE `item_id` = 10179;
+
+-- Some items aren't in this table... (savormix)
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2856-1' WHERE `item_id` = 14614;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2857-1' WHERE `item_id` = 14615;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2858-1' WHERE `item_id` = 14612;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2883-1' WHERE `item_id` = 14742;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2884-1' WHERE `item_id` = 14743;
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2894-1' WHERE `item_id` = 14769;
