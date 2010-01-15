@@ -17,7 +17,6 @@ package com.l2jfree.status;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Properties;
 
 import javolution.text.TextBuilder;
 
@@ -83,7 +82,7 @@ public class Status extends Thread
 	public Status() throws IOException
 	{
 		super("Status");
-		Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
+		L2Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
 
 		_statusPort = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
 		_statusPw = telnetSettings.getProperty("StatusPW");

@@ -18,7 +18,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
-import java.util.Properties;
 
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.tools.random.Rnd;
@@ -61,7 +60,7 @@ public class HexUtil {
 	 */
 	public static void saveHexid(String string, String fileName) {
 		try {
-			Properties hexSetting = new L2Properties();
+			L2Properties hexSetting = new L2Properties();
 			File file = new File(fileName);
 			// Create a new empty file only if it doesn't exist
 			file.createNewFile();
@@ -84,7 +83,7 @@ public class HexUtil {
 	 */
 	public static void saveHexid(int serverId, String hexId, String fileName) {
 		try {
-			Properties hexSetting = new L2Properties();
+			L2Properties hexSetting = new L2Properties();
 			File file = new File(fileName);
 			// Create a new empty file only if it doesn't exist
 			file.createNewFile();

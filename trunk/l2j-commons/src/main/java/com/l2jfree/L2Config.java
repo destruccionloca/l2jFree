@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -313,7 +312,7 @@ public abstract class L2Config
 			loadImpl(new L2Properties(reader));
 		}
 		
-		protected void loadImpl(Properties properties) throws Exception
+		protected void loadImpl(L2Properties properties) throws Exception
 		{
 		}
 		

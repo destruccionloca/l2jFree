@@ -25,7 +25,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
-import java.util.Properties;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
@@ -135,7 +134,7 @@ public final class GameStatusThread extends Thread
 
 		try
 		{
-			Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
+			L2Properties telnetSettings = new L2Properties(L2Config.TELNET_FILE);
 
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
 

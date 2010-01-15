@@ -14,6 +14,7 @@
  */
 package com.l2jfree.loginserver.thread;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -50,7 +51,23 @@ public final class GameServerListener extends FloodProtectedListener
 		if (_log.isDebugEnabled())
 			_log.info("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
 		
-		_gameServers.add(new GameServerThread(s));
+		try
+		{
+			_gameServers.add(new GameServerThread(s));
+		}
+		catch (Exception e)
+		{
+			_log.warn("", e);
+			
+			try
+			{
+				s.close();
+			}
+			catch (IOException e1)
+			{
+				_log.warn("", e1);
+			}
+		}
 	}
 	
 	public void removeGameServer(GameServerThread gst)

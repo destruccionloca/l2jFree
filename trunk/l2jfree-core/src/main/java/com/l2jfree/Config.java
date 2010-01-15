@@ -24,7 +24,6 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -137,7 +136,7 @@ public class Config extends L2Config
 		_log.info("loading " + CONFIGURATION_FILE);
 		try
 		{
-			Properties serverSettings = new L2Properties(CONFIGURATION_FILE);
+			L2Properties serverSettings = new L2Properties(CONFIGURATION_FILE);
 
 			GAME_SERVER_LOGIN_HOST = serverSettings.getProperty("LoginHost", "127.0.0.1");
 			GAME_SERVER_LOGIN_PORT = Integer.parseInt(serverSettings.getProperty("LoginPort", "9013"));
@@ -249,7 +248,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties geoSettings) throws Exception
+		protected void loadImpl(L2Properties geoSettings) throws Exception
 		{
 			GEODATA					= Integer.parseInt(geoSettings.getProperty("GeoData", "0"));
 			GEODATA_CELLFINDING		= Boolean.parseBoolean(geoSettings.getProperty("CellPathFinding", "False"));
@@ -336,7 +335,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties clansSettings) throws Exception
+		protected void loadImpl(L2Properties clansSettings) throws Exception
 		{
 			ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
 			ALT_CLAN_JOIN_DAYS = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
@@ -428,7 +427,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties championsSettings) throws Exception
+		protected void loadImpl(L2Properties championsSettings) throws Exception
 		{
 			CHAMPION_FREQUENCY = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
 			CHAMPION_PASSIVE = Boolean.parseBoolean(championsSettings.getProperty("ChampionPassive", "false"));
@@ -476,7 +475,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties lotterySettings) throws Exception
+		protected void loadImpl(L2Properties lotterySettings) throws Exception
 		{
 			ALT_LOTTERY_PRIZE = Long.parseLong(lotterySettings.getProperty("AltLotteryPrize", "50000"));
 			ALT_LOTTERY_TICKET_PRICE = Long.parseLong(lotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
@@ -511,7 +510,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties weddingSettings) throws Exception
+		protected void loadImpl(L2Properties weddingSettings) throws Exception
 		{
 			WEDDING_PRICE = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
 			WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));
@@ -590,7 +589,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties ratesSettings) throws Exception
+		protected void loadImpl(L2Properties ratesSettings) throws Exception
 		{
 			RATE_XP = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
 			RATE_SP = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
@@ -733,7 +732,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties enchantSettings) throws Exception
+		protected void loadImpl(L2Properties enchantSettings) throws Exception
 		{
 			/* chance to enchant an item normal scroll */
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
@@ -821,7 +820,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties pvpSettings) throws Exception
+		protected void loadImpl(L2Properties pvpSettings) throws Exception
 		{
 			/* KARMA SYSTEM */
 			KARMA_MIN_KARMA = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
@@ -884,7 +883,7 @@ public class Config extends L2Config
 		_log.info("loading " + ID_CONFIG_FILE);
 		try
 		{
-			Properties idSettings = new L2Properties(ID_CONFIG_FILE);
+			L2Properties idSettings = new L2Properties(ID_CONFIG_FILE);
 
 			IDFACTORY_TYPE = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "BitSet"));
 			BAD_ID_CHECKING = Boolean.parseBoolean(idSettings.getProperty("BadIdChecking", "True"));
@@ -984,7 +983,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties otherSettings) throws Exception
+		protected void loadImpl(L2Properties otherSettings) throws Exception
 		{
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
 			DEEPBLUE_DROP_RULES_RAID = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRulesRaid", "True"));
@@ -1258,7 +1257,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties optionsSettings) throws Exception
+		protected void loadImpl(L2Properties optionsSettings) throws Exception
 		{
 			SERVER_LIST_BRACKET = Boolean.parseBoolean(optionsSettings.getProperty("ServerListBrackets", "false"));
 			SERVER_LIST_CLOCK = Boolean.parseBoolean(optionsSettings.getProperty("ServerListClock", "false"));
@@ -1692,7 +1691,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties altSettings) throws Exception
+		protected void loadImpl(L2Properties altSettings) throws Exception
 		{
 			ALT_DEFAULT_RESTARTTOWN = Integer.parseInt(altSettings.getProperty("AltDefaultRestartTown", "0"));
 			ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
@@ -2017,7 +2016,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties gmSettings) throws Exception
+		protected void loadImpl(L2Properties gmSettings) throws Exception
 		{
 			GM_ACCESSLEVEL = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
 			GM_MIN = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
@@ -2125,7 +2124,7 @@ public class Config extends L2Config
 		_log.info("loading " + DATETIME_FILE);
 		try
 		{
-			Properties datetimeSettings = new L2Properties(DATETIME_FILE);
+			L2Properties datetimeSettings = new L2Properties(DATETIME_FILE);
 
 			DATETIME_SAVECAL = Boolean.parseBoolean(datetimeSettings.getProperty("SaveDate", "false"));
 			DATETIME_SUNSET = Integer.parseInt(datetimeSettings.getProperty("SunSet", "24"));
@@ -2151,7 +2150,7 @@ public class Config extends L2Config
 		_log.info("loading " + TELNET_FILE);
 		try
 		{
-			Properties telnetSettings = new L2Properties(TELNET_FILE);
+			L2Properties telnetSettings = new L2Properties(TELNET_FILE);
 
 			IS_TELNET_ENABLED = Boolean.parseBoolean(telnetSettings.getProperty("EnableTelnet", "false"));
 			ALT_TELNET = Boolean.parseBoolean(telnetSettings.getProperty("AltTelnet", "false"));
@@ -2205,7 +2204,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties siegeSettings) throws Exception
+		protected void loadImpl(L2Properties siegeSettings) throws Exception
 		{
 			SIEGE_MAX_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerMaxClans", "500"));
 			SIEGE_MAX_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderMaxClans", "500"));
@@ -2318,7 +2317,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties fortSiegeSettings) throws Exception
+		protected void loadImpl(L2Properties fortSiegeSettings) throws Exception
 		{
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
@@ -2362,7 +2361,7 @@ public class Config extends L2Config
 		_log.info("loading " + HEXID_FILE);
 		try
 		{
-			Properties Settings = new L2Properties(HEXID_FILE);
+			L2Properties Settings = new L2Properties(HEXID_FILE);
 
 			SERVER_ID = Integer.parseInt(Settings.getProperty("ServerID"));
 			HEX_ID = new BigInteger(Settings.getProperty("HexID"), 16).toByteArray();
@@ -2441,7 +2440,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties commandPrivileges) throws Exception
+		protected void loadImpl(L2Properties commandPrivileges) throws Exception
 		{
 			for (Map.Entry<Object, Object> _command : commandPrivileges.entrySet())
 			{
@@ -2499,7 +2498,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties SevenSettings) throws Exception
+		protected void loadImpl(L2Properties SevenSettings) throws Exception
 		{
 			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDawn", "True"));
 			ALT_GAME_CASTLE_DUSK = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDusk", "True"));
@@ -2590,7 +2589,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties clanhallSettings) throws Exception
+		protected void loadImpl(L2Properties clanhallSettings) throws Exception
 		{
 			CH_TELE_FEE_RATIO = Long.parseLong(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRatio", "604800000"));
 			CH_TELE1_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "7000"));
@@ -2701,7 +2700,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties castleSettings) throws Exception
+		protected void loadImpl(L2Properties castleSettings) throws Exception
 		{
 			CS_TELE_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
 			CS_TELE1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
@@ -2825,7 +2824,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties funEnginesSettings) throws Exception
+		protected void loadImpl(L2Properties funEnginesSettings) throws Exception
 		{
 			CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
 			CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
@@ -2948,7 +2947,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties ircSettings) throws Exception
+		protected void loadImpl(L2Properties ircSettings) throws Exception
 		{
 			IRC_ENABLED = Boolean.parseBoolean(ircSettings.getProperty("Enable", "false"));
 			IRC_LOG_CHAT = Boolean.parseBoolean(ircSettings.getProperty("LogChat", "false"));
@@ -3073,7 +3072,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties bossSettings) throws Exception
+		protected void loadImpl(L2Properties bossSettings) throws Exception
 		{
 			//antharas
 			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520"));
@@ -3364,7 +3363,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties elayneSettings) throws Exception
+		protected void loadImpl(L2Properties elayneSettings) throws Exception
 		{
 			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
 			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
@@ -3401,7 +3400,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties vitalitySettings) throws Exception
+		protected void loadImpl(L2Properties vitalitySettings) throws Exception
 		{
 			ENABLE_VITALITY = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitality", "False"));
 			RECOVER_VITALITY_ON_RECONNECT = Boolean.parseBoolean(vitalitySettings.getProperty("RecoverVitalityOnReconnect", "True"));
@@ -3474,7 +3473,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(final Properties properties) throws Exception
+		protected void loadImpl(L2Properties properties) throws Exception
 		{
 			AUTO_TVT_ENABLED = Boolean.parseBoolean(properties.getProperty("EnableAutoTvT", "false"));
 			
@@ -3610,7 +3609,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(Properties customSettings) throws Exception
+		protected void loadImpl(L2Properties customSettings) throws Exception
 		{
 		}
 	}
@@ -4477,7 +4476,7 @@ public class Config extends L2Config
 	{
 		try
 		{
-			Properties hexSetting = new L2Properties();
+			L2Properties hexSetting = new L2Properties();
 			File file = new File(fileName);
 			// Create a new empty file only if it doesn't exist
 			file.createNewFile();

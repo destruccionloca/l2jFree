@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
@@ -35,7 +34,7 @@ public class DynamicExtension
 	private static Log										_log	= LogFactory.getLog(DynamicExtension.class);
 	private JarClassLoader									classLoader;
 	private static final String								CONFIG	= "config/extensions.properties";
-	private Properties										_prop;
+	private L2Properties									_prop;
 	private ConcurrentHashMap<String, Object>				_loadedExtensions;
 	private final ConcurrentHashMap<String, ExtensionFunction>	_getters;
 	private final ConcurrentHashMap<String, ExtensionFunction>	_setters;

@@ -25,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -212,7 +211,7 @@ public final class Olympiad
 
 		if (!loaded)
 		{
-			Properties properties;
+			L2Properties properties;
 			try
 			{
 				properties = new L2Properties("./" + OLYMPIAD_DATA_FILE);

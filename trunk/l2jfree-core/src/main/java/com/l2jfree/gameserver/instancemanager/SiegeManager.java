@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
@@ -265,7 +264,7 @@ public class SiegeManager
 	{
 		try
 		{
-			Properties siegeSettings = new L2Properties(Config.SIEGE_CONFIGURATION_FILE).setLog(false);
+			L2Properties siegeSettings = new L2Properties(Config.SIEGE_CONFIGURATION_FILE).setLog(false);
 
 			// Siege spawns settings
 			_controlTowerSpawnList = new FastMap<Integer, FastList<SiegeSpawn>>();
