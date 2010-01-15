@@ -19,16 +19,11 @@ import java.security.interfaces.RSAPublicKey;
 
 import javax.crypto.Cipher;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author -Wooden-
  */
 public final class BlowFishKey extends GameServerBasePacket
 {
-	private final static Log _log = LogFactory.getLog(BlowFishKey.class);
-	
 	public BlowFishKey(byte[] blowfishKey, RSAPublicKey publicKey)
 	{
 		super(0x00);

@@ -1763,26 +1763,26 @@ public final class L2PcInstance extends L2Playable
 
 		if (isInsideZone(L2Zone.FLAG_SIEGE))
 		{
-			setLastCompassZone(ExSetCompassZoneCode.SIEGEWARZONE2);
+			setLastCompassZone(ExSetCompassZoneCode.ZONE_SIEGE_WAR);
 		}
 		else if (isInsideZone(L2Zone.FLAG_PVP))
 		{
-			setLastCompassZone(ExSetCompassZoneCode.PVPZONE);
+			setLastCompassZone(ExSetCompassZoneCode.ZONE_PVP);
 		}
 		else if (isIn7sDungeon())
 		{
-			setLastCompassZone(ExSetCompassZoneCode.SEVENSIGNSZONE);
+			setLastCompassZone(ExSetCompassZoneCode.ZONE_SSQ);
 		}
 		else if (isInsideZone(L2Zone.FLAG_PEACE))
 		{
-			setLastCompassZone(ExSetCompassZoneCode.PEACEZONE);
+			setLastCompassZone(ExSetCompassZoneCode.ZONE_PEACEFUL);
 		}
 		else
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
+			if (_lastCompassZone == ExSetCompassZoneCode.ZONE_SIEGE_WAR)
 				updatePvPStatus();
 
-			setLastCompassZone(ExSetCompassZoneCode.GENERALZONE);
+			setLastCompassZone(ExSetCompassZoneCode.ZONE_GENERAL);
 		}
 
 		return true;

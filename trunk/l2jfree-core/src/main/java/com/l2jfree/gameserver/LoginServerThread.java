@@ -551,6 +551,7 @@ public final class LoginServerThread extends Thread
 									client.closeNow();
 								}
 							}
+							break;
 						}
 						case 0x04:
 						{
@@ -570,6 +571,7 @@ public final class LoginServerThread extends Thread
 								break;
 							}
 						}
+						//$FALL-THROUGH$
 						default:
 						{
 							_log.warn("Unknown opcode: " + packetType);

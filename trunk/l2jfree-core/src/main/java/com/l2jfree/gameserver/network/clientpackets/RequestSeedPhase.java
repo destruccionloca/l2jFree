@@ -14,18 +14,18 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ExShowSeedMapInfo;
+
 /**
  * This packet is sent by the client every time the world map is
- * opened. Should contain info about who owns Seed of Infinity and
- * Seed of Destruction.<BR>
- * BY DEFAULT THIS PACKET IS IGNORED! Most probably you do not get
- * seed info while being in Aden continent.<BR>
- * Related? to serverpacket:<BR>
- * fea1 ExShowSeedMapInfo
+ * opened. Server replies only if client is in gracia continent.
  * @author savormix
  */
 public final class RequestSeedPhase extends L2GameClientPacket
 {
+	private static final String	_C__REQUESTSEEDPHASE	= "[C] D0:63 RequestSeedPhase ch";
+
 	@Override
 	protected void readImpl()
 	{
@@ -35,7 +35,17 @@ public final class RequestSeedPhase extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		//_log.info("RequestSeedPhase received from " + getActiveChar());
-		//requestFailed(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
+
+		// should be sent only in Gracia
+		sendPacket(ExShowSeedMapInfo.PACKET);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__REQUESTSEEDPHASE;
 	}
 }

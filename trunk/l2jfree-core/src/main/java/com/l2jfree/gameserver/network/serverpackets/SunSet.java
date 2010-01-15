@@ -14,14 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
- */
 public class SunSet extends StaticPacket
 {
-	private static final String _S__29_SUNSET = "[S] 1d SunSet";
+	private static final String _S__SUNSET = "[S] 13 SunSet c";
 
 	public static final SunSet STATIC_PACKET = new SunSet();
 
@@ -41,6 +36,6 @@ public class SunSet extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__29_SUNSET;
+		return _S__SUNSET;
 	}
 }

@@ -14,14 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class SunRise extends StaticPacket
 {
-	private static final String _S__28_SUNRISE = "[S] 1c SunRise";
+	private static final String _S__SUNRISE = "[S] 12 SunRise c";
 
 	public static final SunRise STATIC_PACKET = new SunRise();
 
@@ -41,6 +36,6 @@ public class SunRise extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__28_SUNRISE;
+		return _S__SUNRISE;
 	}
 }
