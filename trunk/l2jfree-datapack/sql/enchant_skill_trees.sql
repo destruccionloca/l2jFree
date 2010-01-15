@@ -20983,7 +20983,49 @@ SELECT createSkillEnchant2(107, 3); -- Holy Aura
 SELECT createSkillEnchant2(110, 3); -- Ultimate Defense
 SELECT createSkillEnchant2(144, 2); -- Dual Weapon Mastery
 SELECT createSkillEnchant(153, 1, 4); -- Shield Mastery
+SELECT createSkillEnchant2(205, 3); -- Blunt Weapon Mastery
+SELECT createSkillEnchant2(208, 2); -- Bow Mastery
+SELECT createSkillEnchant2(209, 2); -- Dagger Mastery
+SELECT createSkillEnchant2(209, 3); -- Dagger Mastery
+SELECT createSkillEnchant2(211, 3); -- Boost HP
+SELECT createSkillEnchant2(211, 4); -- Boost HP
+SELECT createSkillEnchant2(216, 2); -- Polearm Mastery
+SELECT createSkillEnchant2(217, 2); -- Sword/Blunt Weapon Mastery
+SELECT createSkillEnchant(221, 1, 1); -- Silent Move
+SELECT createSkillEnchant2(227, 2); -- Light Armor Mastery
+SELECT createSkillEnchant2(230, 3); -- Sprint
+SELECT createSkillEnchant2(231, 2); -- Heavy Armor Mastery
+SELECT createSkillEnchant2(234, 2); -- Robe Mastery
+SELECT createSkillEnchant2(234, 3); -- Robe Mastery
+SELECT createSkillEnchant2(235, 2); -- Robe Mastery
+SELECT createSkillEnchant2(235, 3); -- Robe Mastery
+SELECT createSkillEnchant2(251, 2); -- Robe Mastery
+SELECT createSkillEnchant2(251, 3); -- Robe Mastery
+SELECT createSkillEnchant(252, 1, 33); -- Light Armor Mastery
+SELECT createSkillEnchant2(252, 2); -- Light Armor Mastery
+SELECT createSkillEnchant2(254, 3); -- Spoil
+SELECT createSkillEnchant(258, 1, 33); -- Light Armor Mastery
+SELECT createSkillEnchant2(258, 2); -- Light Armor Mastery
+SELECT createSkillEnchant(259, 1, 33); -- Heavy Armor Mastery
+SELECT createSkillEnchant2(259, 2); -- Heavy Armor Mastery
+SELECT createSkillEnchant2(259, 3); -- Heavy Armor Mastery
+SELECT createSkillEnchant2(261, 7); -- Triple Sonic Slash
+SELECT createSkillEnchant2(262, 3); -- Holy Blessing
+SELECT createSkillEnchant2(262, 4); -- Holy Blessing
+SELECT createSkillEnchant(278, 1, 6); -- Summon Viper Cubic
+SELECT createSkillEnchant2(279, 3); -- Lightning Strike
+SELECT createSkillEnchant2(281, 3); -- Soul Breaker
+SELECT createSkillEnchant2(281, 4); -- Soul Breaker
+SELECT createSkillEnchant2(284, 7); -- Hurricane Assault
+SELECT createSkillEnchant(285, 1, 27); -- Higher Mana Gain
+SELECT createSkillEnchant2(289, 3); -- Life Leech
 SELECT createSkillEnchant(290, 1, 14); -- Final Frenzy
+SELECT createSkillEnchant(291, 1, 11); -- Final Fortress
+SELECT createSkillEnchant2(291, 2); -- Final Fortress
+SELECT createSkillEnchant(293, 1, 20); -- Two-handed Weapon Mastery
+SELECT createSkillEnchant2(293, 2); -- Two-handed Weapon Mastery
+SELECT createSkillEnchant(297, 1, 2); -- Duelist Spirit
+SELECT createSkillEnchant2(297, 2); -- Duelist Spirit
 SELECT createSkillEnchant(321, 1, 10); -- Blinding Blow
 SELECT createSkillEnchant2(321, 2); -- Blinding Blow
 SELECT createSkillEnchant2(400, 3); -- Tribunal
