@@ -579,6 +579,9 @@ public class L2Spawn
 			mob.setChampion(false);
 		}
 
+		if (mob.getNpcId() >= 22349 && mob.getNpcId() <= 22353)
+			mob.setQuestDropable(false);
+
 		mob.setIsDead(false);
 		// Reset decay info
 		mob.setDecayed(false);
