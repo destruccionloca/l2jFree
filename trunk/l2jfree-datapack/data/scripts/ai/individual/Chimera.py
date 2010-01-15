@@ -17,7 +17,7 @@ class Chimera(JQuest):
 		JQuest.__init__(self,id,name,descr)
 
 	def onKill (self,npc,player,isPet):
-		if npc.getQuestDropable() == True and Rnd.get <= 30:
+		if npc.getQuestDropable() == True and Rnd.get(100) <= 30:
 			reward = LIFE_FORCES[Rnd.get(len(LIFE_FORCES))]
 			item = player.getInventory().addItem("Chimera", reward, 1, player, None)
 			iu = InventoryUpdate()
