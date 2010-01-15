@@ -14,10 +14,7 @@
  */
 package com.l2jfree.gameserver;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -31,10 +28,6 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.model.L2World;
@@ -47,7 +40,6 @@ import com.l2jfree.gameserver.network.gameserverpackets.AuthRequest;
 import com.l2jfree.gameserver.network.gameserverpackets.BlowFishKey;
 import com.l2jfree.gameserver.network.gameserverpackets.ChangeAccessLevel;
 import com.l2jfree.gameserver.network.gameserverpackets.CompatibleProtocol;
-import com.l2jfree.gameserver.network.gameserverpackets.GameServerBasePacket;
 import com.l2jfree.gameserver.network.gameserverpackets.PlayerAuthRequest;
 import com.l2jfree.gameserver.network.gameserverpackets.PlayerInGame;
 import com.l2jfree.gameserver.network.gameserverpackets.PlayerLogout;
@@ -60,16 +52,14 @@ import com.l2jfree.gameserver.network.loginserverpackets.PlayerAuthResponse;
 import com.l2jfree.gameserver.network.loginserverpackets.PlayerLoginAttempt;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.network.serverpackets.LoginFail;
+import com.l2jfree.network.NetworkThread;
 import com.l2jfree.network.ServerStatus;
 import com.l2jfree.network.ServerStatusAttributes;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.tools.security.NewCrypt;
-import com.l2jfree.tools.util.HexUtil;
 
-public final class LoginServerThread extends Thread
+public final class LoginServerThread extends NetworkThread
 {
-	private static final Log _log = LogFactory.getLog(LoginServerThread.class);
-	
 	private static final class SingletonHolder
 	{
 		private static final LoginServerThread INSTANCE = new LoginServerThread();
@@ -83,17 +73,6 @@ public final class LoginServerThread extends Thread
 	private final String _hostname;
 	private final int _port;
 	private final int _gamePort;
-	private OutputStream _out;
-	
-	/**
-	 * The BlowFish engine used to encrypt packets<br>
-	 * It is first initialized with a unified key:<br>
-	 * "_;v.]05-31!|+-%xT!^[$\00"<br>
-	 * <br>
-	 * and then after handshake, with a new key sent by<br>
-	 * loginserver during the handshake.
-	 */
-	private NewCrypt _blowfish;
 	private final byte[] _hexID;
 	private final boolean _acceptAlternate;
 	private final int _requestID;
@@ -168,37 +147,6 @@ public final class LoginServerThread extends Thread
 	private static byte[] generateHex(int size)
 	{
 		return Rnd.nextBytes(new byte[size]);
-	}
-	
-	private void sendPacket(GameServerBasePacket sl) throws IOException
-	{
-		byte[] data = sl.getContent();
-		NewCrypt.appendChecksum(data);
-		if (_log.isDebugEnabled())
-			_log.debug("[S] " + sl.getClass().getSimpleName() + ":\n" + HexUtil.printData(data));
-		data = _blowfish.crypt(data);
-		
-		int len = data.length + 2;
-		synchronized (_out) // avoids tow threads writing in the mean time
-		{
-			_out.write(len & 0xff);
-			_out.write(len >> 8 & 0xff);
-			_out.write(data);
-			_out.flush();
-		}
-	}
-	
-	private void sendPacketQuietly(GameServerBasePacket sp)
-	{
-		try
-		{
-			sendPacket(sp);
-		}
-		catch (IOException e)
-		{
-			if (_log.isDebugEnabled())
-				_log.debug(e.getMessage(), e);
-		}
 	}
 	
 	public static final class SessionKey
@@ -341,65 +289,20 @@ public final class LoginServerThread extends Thread
 	{
 		for (;;)
 		{
-			Socket loginSocket = null;
-			InputStream in = null;
-			
 			try
 			{
 				// Connection
 				_log.info("Connecting to login on " + _hostname + ":" + _port);
-				loginSocket = new Socket(_hostname, _port);
-				in = loginSocket.getInputStream();
-				_out = new BufferedOutputStream(loginSocket.getOutputStream());
 				
-				// init Blowfish
-				_blowfish = new NewCrypt("_;v.]05-31!|+-%xT!^[$\00");
+				initConnection(new Socket(_hostname, _port));
 				
 				while (true)
 				{
-					int lengthLo = in.read();
-					int lengthHi = in.read();
-					int length = lengthHi * 256 + lengthLo;
+					byte[] decrypt = read();
 					
-					if (lengthHi < 0)
-					{
-						_log.debug("LoginServerThread: Login terminated the connection.");
+					if (decrypt == null)
 						break;
-					}
-					
-					byte[] incoming = new byte[length];
-					incoming[0] = (byte)lengthLo;
-					incoming[1] = (byte)lengthHi;
-					
-					int receivedBytes = 0;
-					int newBytes = 0;
-					while (newBytes != -1 && receivedBytes < length - 2)
-					{
-						newBytes = in.read(incoming, 2, length - 2);
-						receivedBytes = receivedBytes + newBytes;
-					}
-					
-					if (receivedBytes != length - 2)
-					{
-						_log.warn("Incomplete Packet is sent to the server, closing connection.(LS)");
-						break;
-					}
-					
-					byte[] decrypt = new byte[length - 2];
-					System.arraycopy(incoming, 2, decrypt, 0, decrypt.length);
-					// decrypt if we have a key
-					decrypt = _blowfish.decrypt(decrypt);
-					boolean checksumOk = NewCrypt.verifyChecksum(decrypt);
-					
-					if (!checksumOk)
-					{
-						_log.warn("Incorrect packet checksum, ignoring packet (LS)");
-						break;
-					}
-					
-					if (_log.isDebugEnabled())
-						_log.debug("[C]\n" + HexUtil.printData(decrypt));
-					
+						
 					int packetType = decrypt[0] & 0xff;
 					
 					switch (packetType)
@@ -466,7 +369,7 @@ public final class LoginServerThread extends Thread
 							if (_log.isDebugEnabled())
 								_log.info("Sent new blowfish key");
 							// now, only accept paket with the new encryption
-							_blowfish = new NewCrypt(blowfishKey);
+							setBlowfish(new NewCrypt(blowfishKey));
 							if (_log.isDebugEnabled())
 								_log.info("Changed blowfish key");
 							sendPacket(new AuthRequest(_requestID, _acceptAlternate, _hexID, _gameExternalHost,
@@ -571,10 +474,10 @@ public final class LoginServerThread extends Thread
 								break;
 							}
 						}
-						//$FALL-THROUGH$
+							//$FALL-THROUGH$
 						default:
 						{
-							_log.warn("Unknown opcode: " + packetType);
+							_log.warn("Unknown opcode: " + Integer.toHexString(packetType));
 							break;
 						}
 					}
@@ -594,16 +497,7 @@ public final class LoginServerThread extends Thread
 			}
 			finally
 			{
-				try
-				{
-					if (loginSocket != null)
-						loginSocket.close();
-				}
-				catch (IOException e)
-				{
-				}
-				
-				IOUtils.closeQuietly(in);
+				close();
 			}
 			
 			try

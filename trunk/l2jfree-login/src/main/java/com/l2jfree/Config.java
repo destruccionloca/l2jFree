@@ -14,10 +14,7 @@
  */
 package com.l2jfree;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Properties;
+import com.l2jfree.config.L2Properties;
 
 /**
  * This class containce global server configuration.<br>
@@ -84,10 +81,7 @@ public class Config extends L2Config
 		_log.info("loading login config");
 		try
 		{
-			Properties serverSettings = new Properties();
-			InputStream is = new FileInputStream(new File(LOGIN_CONFIGURATION_FILE));
-			serverSettings.load(is);
-			is.close();
+			L2Properties serverSettings = new L2Properties(LOGIN_CONFIGURATION_FILE);
 
 			LOGIN_SERVER_HOSTNAME = serverSettings.getProperty("LoginServerHostname", "0.0.0.0");
 			LOGIN_SERVER_PORT = Integer.parseInt(serverSettings.getProperty("LoginServerPort", "2106"));
@@ -129,10 +123,7 @@ public class Config extends L2Config
 		//      telnet
 		try
 		{
-			Properties telnetSettings = new Properties();
-			InputStream is = new FileInputStream(new File(TELNET_FILE));
-			telnetSettings.load(is);
-			is.close();
+			L2Properties telnetSettings = new L2Properties(TELNET_FILE);
 
 			IS_TELNET_ENABLED = Boolean.valueOf(telnetSettings.getProperty("EnableTelnet", "false"));
 		}

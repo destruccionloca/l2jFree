@@ -1,0 +1,152 @@
+package com.l2jfree.network;
+
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.tools.security.NewCrypt;
+import com.l2jfree.tools.util.HexUtil;
+
+public abstract class NetworkThread extends Thread
+{
+	protected static final Log _log = LogFactory.getLog(NetworkThread.class);
+	
+	protected NetworkThread()
+	{
+	}
+	
+	protected NetworkThread(String name)
+	{
+		super(name);
+	}
+	
+	private Socket _connection;
+	private InputStream _in;
+	private OutputStream _out;
+	private String _connectionIp;
+	/**
+	 * The BlowFish engine used to encrypt packets.<br>
+	 * <br>
+	 * It is first initialized with a unified key: <quote>_;v.]05-31!|+-%xT!^[$\00</quote><br>
+	 * and then after handshake, with a new key sent by server during the handshake.
+	 */
+	private NewCrypt _blowfish;
+	
+	protected final void initConnection(Socket con) throws IOException
+	{
+		_connection = con;
+		_connectionIp = con.getInetAddress().getHostAddress();
+		
+		_in = con.getInputStream();
+		_out = new BufferedOutputStream(con.getOutputStream());
+		
+		_blowfish = new NewCrypt("_;v.]05-31!|+-%xT!^[$\00");
+	}
+	
+	protected final void setBlowfish(NewCrypt blowfish)
+	{
+		_blowfish = blowfish;
+	}
+	
+	protected final String getConnectionIp()
+	{
+		return _connectionIp;
+	}
+	
+	protected final void sendPacket(SendableBasePacket sbp) throws IOException
+	{
+		byte[] data = sbp.getContent();
+		NewCrypt.appendChecksum(data);
+		if (_log.isDebugEnabled())
+			_log.debug("[S] " + sbp.getClass().getSimpleName() + ":\n" + HexUtil.printData(data));
+		data = _blowfish.crypt(data);
+		
+		int len = data.length + 2;
+		synchronized (_out) // avoids tow threads writing in the mean time
+		{
+			_out.write(len & 0xff);
+			_out.write(len >> 8 & 0xff);
+			_out.write(data);
+			_out.flush();
+		}
+	}
+	
+	protected final void sendPacketQuietly(SendableBasePacket sbp)
+	{
+		try
+		{
+			sendPacket(sbp);
+		}
+		catch (IOException e)
+		{
+			_log.info("", e);
+		}
+	}
+	
+	protected final byte[] read() throws IOException
+	{
+		final int lengthLo = _in.read();
+		final int lengthHi = _in.read();
+		final int length = lengthHi * 256 + lengthLo;
+		
+		if (lengthHi < 0 || _connection.isClosed())
+		{
+			_log.info(getClass().getSimpleName() + ": the connection was terminated.");
+			return null;
+		}
+		
+		byte[] data = new byte[length - 2];
+		
+		for (int receivedBytes = 0; receivedBytes < data.length;)
+		{
+			final int newBytes = _in.read(data, receivedBytes, data.length - receivedBytes);
+			
+			if (newBytes == -1)
+			{
+				_log.warn(getClass().getSimpleName() + ": Incomplete packet received, closing connection.");
+				return null;
+			}
+			
+			receivedBytes += newBytes;
+		}
+		
+		// decrypt if we have a key
+		data = _blowfish.decrypt(data);
+		
+		if (!NewCrypt.verifyChecksum(data))
+		{
+			_log.warn(getClass().getSimpleName() + ": Incorrect packet checksum, ignoring packet, closing connection.");
+			return null;
+		}
+		
+		if (_log.isDebugEnabled())
+			_log.debug("[C]\n" + HexUtil.printData(data));
+		
+		return data;
+	}
+	
+	protected final void close()
+	{
+		IOUtils.closeQuietly(_in);
+		IOUtils.closeQuietly(_out);
+		
+		try
+		{
+			if (_connection != null)
+				_connection.close();
+		}
+		catch (IOException e)
+		{
+		}
+		
+		_in = null;
+		_out = null;
+		_connection = null;
+	}
+}
