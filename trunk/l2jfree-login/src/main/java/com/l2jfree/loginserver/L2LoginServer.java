@@ -26,14 +26,6 @@ import com.l2jfree.status.Status;
 
 public final class L2LoginServer extends Config
 {
-	/** Version sent if {@link Config#PROTOCOL_LEGACY} is false */
-	public static final int PROTOCOL_L2J = 258;
-	/** Version sent if {@link Config#PROTOCOL_LEGACY} is true */
-	public static final int PROTOCOL_LEGACY = 259;
-	/** Current network protocol version */
-	// protocol 1 does not support connection filtering
-	public static final int PROTOCOL_CURRENT = 2;
-	
 	public static void main(String[] args) throws Throwable
 	{
 		// Initialize config

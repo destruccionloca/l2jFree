@@ -127,8 +127,6 @@ public class Config extends L2Config
 	public static int			MAX_PROTOCOL_REVISION;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
 	public static boolean		PACKET_FINAL;
-	public static boolean		NEW_LOGIN_PROTOCOL;
-	public static boolean		L2JFREE_LOGIN;
 	public static boolean		CONNECTION_FILTERING;
 	// not to be loaded from file
 	public static boolean		DISABLE_ALL_CHAT					= false;
@@ -215,8 +213,6 @@ public class Config extends L2Config
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
 			PACKET_FINAL = Boolean.parseBoolean(serverSettings.getProperty("PacketFinal", "True"));
-			NEW_LOGIN_PROTOCOL = Boolean.parseBoolean(serverSettings.getProperty("NewLoginServerHandler", "True"));
-			L2JFREE_LOGIN = Boolean.parseBoolean(serverSettings.getProperty("L2jfreeLogin", "True"));
 			CONNECTION_FILTERING = Boolean.parseBoolean(serverSettings.getProperty("ConnectionFiltering", "True"));
 
 			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "OFF"));
@@ -1101,9 +1097,7 @@ public class Config extends L2Config
 	public static int				SERVER_AGE_LIM;											// Server age limitation
 	public static boolean			SERVER_GMONLY;											// Set the server as GM only at startup?
 	public static boolean			SERVER_BIT_1;											// UNK
-	public static boolean			SERVER_BIT_2;											// UNK/Clock
 	public static boolean			SERVER_BIT_3;											// UNK/HideName
-	public static boolean			SERVER_BIT_4;											// UNK/TestServer
 	public static boolean			SERVER_LIST_BRACKET;									// Display [] in front of server name
 
 	public static int				THREAD_POOL_SIZE;
@@ -1271,11 +1265,10 @@ public class Config extends L2Config
 
 			ASSERT = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
 			DEVELOPER = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
-			SERVER_BIT_4 = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
+			SERVER_LIST_TESTSERVER = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
 
 			SERVER_LIST_BRACKET = Boolean.parseBoolean(optionsSettings.getProperty("ServerListBrackets", "false"));
 			SERVER_BIT_1 = Boolean.parseBoolean(optionsSettings.getProperty("ServerB1UNK", "false"));
-			SERVER_BIT_2 = Boolean.parseBoolean(optionsSettings.getProperty("ServerListClock", "false"));
 			SERVER_BIT_3 = !Boolean.parseBoolean(optionsSettings.getProperty("ServerShowName", "true"));
 			SERVER_GMONLY = Boolean.parseBoolean(optionsSettings.getProperty("ServerGMOnly", "false"));
 			SERVER_PVP = Boolean.parseBoolean(optionsSettings.getProperty("ServerPvPEnabled", "true"));

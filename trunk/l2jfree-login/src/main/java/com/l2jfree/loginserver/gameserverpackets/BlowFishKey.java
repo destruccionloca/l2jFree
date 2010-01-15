@@ -19,21 +19,13 @@ import java.security.interfaces.RSAPrivateKey;
 
 import javax.crypto.Cipher;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author -Wooden-
- *
  */
-public class BlowFishKey extends GameToLoginPacket
+public final class BlowFishKey extends GameToLoginPacket
 {
-	private static final Log _log = LogFactory.getLog(BlowFishKey.class);
 	private byte[] _key;
-
-	/**
-	 * @param decrypt
-	 */
+	
 	public BlowFishKey(byte[] decrypt, RSAPrivateKey privateKey)
 	{
 		super(decrypt);
@@ -59,7 +51,7 @@ public class BlowFishKey extends GameToLoginPacket
 			_log.fatal("Error While decrypting blowfish key (RSA)", e);
 		}
 	}
-
+	
 	public byte[] getKey()
 	{
 		return _key;

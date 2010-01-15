@@ -18,19 +18,15 @@ import com.l2jfree.loginserver.beans.SessionKey;
 
 /**
  * @author -Wooden-
- *
  */
-public class PlayerAuthRequest extends GameToLoginPacket
+public final class PlayerAuthRequest extends GameToLoginPacket
 {
-	private final String		_account;
-	private final SessionKey	_sessionKey;
-
-	/**
-	 * @param decrypt
-	 */
-	public PlayerAuthRequest(int protocol, byte[] decrypt)
+	private final String _account;
+	private final SessionKey _sessionKey;
+	
+	public PlayerAuthRequest(byte[] decrypt)
 	{
-		super(decrypt, protocol);
+		super(decrypt);
 		_account = readS();
 		int playKey1 = readD();
 		int playKey2 = readD();
@@ -38,7 +34,7 @@ public class PlayerAuthRequest extends GameToLoginPacket
 		int loginKey2 = readD();
 		_sessionKey = new SessionKey(loginKey1, loginKey2, playKey1, playKey2);
 	}
-
+	
 	/**
 	 * @return Returns the account.
 	 */
@@ -46,7 +42,7 @@ public class PlayerAuthRequest extends GameToLoginPacket
 	{
 		return _account;
 	}
-
+	
 	/**
 	 * @return Returns the key.
 	 */

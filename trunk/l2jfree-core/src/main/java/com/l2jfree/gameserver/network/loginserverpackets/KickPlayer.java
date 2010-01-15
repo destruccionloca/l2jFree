@@ -14,20 +14,16 @@
  */
 package com.l2jfree.gameserver.network.loginserverpackets;
 
-public class KickPlayer extends LoginServerBasePacket
+public final class KickPlayer extends LoginServerBasePacket
 {
 	private final String _account;
-
-	/**
-	 * @param protocol
-	 * @param decrypt
-	 */
-	public KickPlayer(int protocol, byte[] decrypt)
+	
+	public KickPlayer(byte[] decrypt)
 	{
-		super(protocol, decrypt);
+		super(decrypt);
 		_account = readS();
 	}
-
+	
 	/**
 	 * @return Returns the account.
 	 */

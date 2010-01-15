@@ -14,37 +14,35 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.L2GameClient;
+import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.network.serverpackets.CharacterDeleteFail;
 import com.l2jfree.gameserver.network.serverpackets.CharacterDeleteSuccess;
-import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 /**
- * This class represents a packet sent by the client when a character is being marked for
- * deletion ("Yes" is clicked in the deletion confirmation dialog)
+ * This class represents a packet sent by the client when a character is being marked for deletion ("Yes" is clicked in the deletion confirmation dialog)
  */
 public class CharacterDelete extends L2GameClientPacket
 {
-	private static final String _C__CHARACTERDELETE	= "[C] 0D CharacterDelete c[d]";
-
-	private int					_charSlot;
-
+	private static final String _C__CHARACTERDELETE = "[C] 0D CharacterDelete c[d]";
+	
+	private int _charSlot;
+	
 	@Override
 	protected void readImpl()
 	{
 		_charSlot = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		if (_log.isDebugEnabled())
 			_log.debug("deleting slot:" + _charSlot);
-
+		
 		try
 		{
 			byte answer = getClient().markToDeleteChar(_charSlot);
-
+			
 			switch (answer)
 			{
 				default:
@@ -65,15 +63,12 @@ public class CharacterDelete extends L2GameClientPacket
 		{
 			_log.fatal("Couldn't mark character for deletion!", e);
 		}
-
-		L2GameClient client = getClient();
-		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
-		sendPacket(cl);
-		client.setCharSelection(cl.getCharInfo());
-
+		
+		sendPacket(new CharSelectionInfo(getClient()));
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

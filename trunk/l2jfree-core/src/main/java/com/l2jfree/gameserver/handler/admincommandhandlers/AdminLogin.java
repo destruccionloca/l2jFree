@@ -20,8 +20,8 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.gameserverpackets.ServerStatus;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.network.ServerStatusAttributes;
 
 /**
  * This class handles admin commands that manage the loginserver
@@ -85,7 +85,7 @@ public class AdminLogin implements IAdminCommandHandler
 			int age;
 			try { age = Integer.parseInt(st.nextToken()); }
 			catch (Exception e) { showMenu(GM); return false; }
-			LoginServerThread.getInstance().changeAttribute(ServerStatus.SERVER_AGE_LIMITATION, age);
+			LoginServerThread.getInstance().changeAttribute(ServerStatusAttributes.SERVER_AGE_LIMITATION, age);
 		}
 		else
 			return false;
@@ -100,11 +100,11 @@ public class AdminLogin implements IAdminCommandHandler
 		html.setFile(HTML_ROOT + "LoginMenu.html");
 		switch (LoginServerThread.getInstance().getServerStatus())
 		{
-		case ServerStatus.STATUS_DOWN:
+		case STATUS_DOWN:
 			html.replace("%statusCol%", "EE0000");
 			html.replace("%statusStr%", OFF);
 			break;
-		case ServerStatus.STATUS_GM_ONLY:
+		case STATUS_GM_ONLY:
 			html.replace("%statusCol%", "EEEE00");
 			html.replace("%statusStr%", "MAINTENANCE");
 			break;
@@ -114,13 +114,13 @@ public class AdminLogin implements IAdminCommandHandler
 			break;
 		}
 		html.replace("%statusB1%", Config.SERVER_BIT_1 ? ON : OFF);
-		html.replace("%statusB2%", Config.SERVER_BIT_2 ? ON : OFF);
+		html.replace("%statusB2%", Config.SERVER_LIST_CLOCK ? ON : OFF);
 		html.replace("%statusB3%", Config.SERVER_BIT_3 ? ON : OFF);
-		html.replace("%statusB4%", Config.SERVER_BIT_4 ? ON : OFF);
+		html.replace("%statusB4%", Config.SERVER_LIST_TESTSERVER ? ON : OFF);
 		html.replace("%b1%", Config.SERVER_BIT_1 ? DISABLE : ENABLE);
-		html.replace("%b2%", Config.SERVER_BIT_2 ? DISABLE : ENABLE);
+		html.replace("%b2%", Config.SERVER_LIST_CLOCK ? DISABLE : ENABLE);
 		html.replace("%b3%", Config.SERVER_BIT_3 ? DISABLE : ENABLE);
-		html.replace("%b4%", Config.SERVER_BIT_4 ? DISABLE : ENABLE);
+		html.replace("%b4%", Config.SERVER_LIST_TESTSERVER ? DISABLE : ENABLE);
 		html.replace("%statusBr%", Config.SERVER_LIST_BRACKET ? ON : OFF);
 		html.replace("%br%", Config.SERVER_LIST_BRACKET ? DISABLE : ENABLE);
 		html.replace("%maxConn%", String.valueOf(LoginServerThread.getInstance().getMaxPlayer()));

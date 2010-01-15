@@ -18,13 +18,12 @@ import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 
 /**
  * @author -Wooden-
- * 
  */
-public class PlayerAuthRequest extends GameServerBasePacket
+public final class PlayerAuthRequest extends GameServerBasePacket
 {
-	public PlayerAuthRequest(int protocol, String account, SessionKey key)
+	public PlayerAuthRequest(String account, SessionKey key)
 	{
-		super(protocol, 0x05);
+		super(0x05);
 		writeS(account);
 		writeD(key.playOkID1);
 		writeD(key.playOkID2);

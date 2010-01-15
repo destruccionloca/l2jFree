@@ -16,21 +16,17 @@ package com.l2jfree.loginserver.gameserverpackets;
 
 /**
  * @author -Wooden-
- *
  */
-public class PlayerLogout extends GameToLoginPacket
+public final class PlayerLogout extends GameToLoginPacket
 {
 	private final String _account;
-
-	/**
-	 * @param decrypt
-	 */
-	public PlayerLogout(int protocol, byte[] decrypt)
+	
+	public PlayerLogout(byte[] decrypt)
 	{
-		super(decrypt, protocol);
+		super(decrypt);
 		_account = readS();
 	}
-
+	
 	/**
 	 * @return Returns the account.
 	 */

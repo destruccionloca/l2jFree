@@ -14,11 +14,11 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-public class PlayerAuthResponse extends LoginToGamePacket
+public final class PlayerAuthResponse extends LoginToGamePacket
 {
-	public PlayerAuthResponse(int protocol, String account, boolean response, String host)
+	public PlayerAuthResponse(String account, boolean response, String host)
 	{
-		super(0x03, protocol);
+		super(0x03);
 		writeS(account);
 		writeC(response ? 1 : 0);
 		writeS(host);

@@ -48,6 +48,12 @@ import com.l2jfree.util.HandlerRegistry;
  */
 public abstract class L2Config
 {
+	public static final int LOGIN_PROTOCOL_L2J = 258;
+	
+	/** Current network protocol version */
+	// protocol 1 does not support connection filtering
+	public static final int LOGIN_PROTOCOL_CURRENT = 2;
+	
 	public static final String LOG_FILE = "./config/logging.properties";
 	public static final String TELNET_FILE = "./config/telnet.properties";
 	

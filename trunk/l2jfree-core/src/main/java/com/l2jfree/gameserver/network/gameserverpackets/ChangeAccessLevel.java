@@ -16,13 +16,12 @@ package com.l2jfree.gameserver.network.gameserverpackets;
 
 /**
  * @author -Wooden-
- * 
  */
-public class ChangeAccessLevel extends GameServerBasePacket
+public final class ChangeAccessLevel extends GameServerBasePacket
 {
-	public ChangeAccessLevel(int protocol, String player, int access)
+	public ChangeAccessLevel(String player, int access)
 	{
-		super(protocol, 0x04);
+		super(0x04);
 		writeD(access);
 		writeS(player);
 	}

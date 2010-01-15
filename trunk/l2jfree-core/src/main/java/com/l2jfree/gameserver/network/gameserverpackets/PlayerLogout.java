@@ -16,13 +16,12 @@ package com.l2jfree.gameserver.network.gameserverpackets;
 
 /**
  * @author -Wooden-
- * 
  */
-public class PlayerLogout extends GameServerBasePacket
+public final class PlayerLogout extends GameServerBasePacket
 {
-	public PlayerLogout(int protocol, String player)
+	public PlayerLogout(String player)
 	{
-		super(protocol, 0x03);
+		super(0x03);
 		writeS(player);
 	}
 }

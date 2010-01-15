@@ -14,7 +14,7 @@
  */
 package com.l2jfree.loginserver.loginserverpackets;
 
-public class PlayerLoginAttempt extends LoginToGamePacket
+public final class PlayerLoginAttempt extends LoginToGamePacket
 {
 	public PlayerLoginAttempt(String ip)
 	{

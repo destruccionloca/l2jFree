@@ -513,12 +513,12 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 		getPacketQueue().execute(rp);
 	}
 	
-	private FIFORunnableQueue<L2GameClientPacket> _packetQueue;
+	private FIFORunnableQueue<Runnable> _packetQueue;
 	
-	private FIFORunnableQueue<L2GameClientPacket> getPacketQueue()
+	public FIFORunnableQueue<Runnable> getPacketQueue()
 	{
 		if (_packetQueue == null)
-			_packetQueue = new FIFORunnableQueue<L2GameClientPacket>() {};
+			_packetQueue = new FIFORunnableQueue<Runnable>() {};
 		
 		return _packetQueue;
 	}

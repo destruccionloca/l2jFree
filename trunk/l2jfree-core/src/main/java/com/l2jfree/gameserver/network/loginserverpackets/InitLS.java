@@ -14,39 +14,33 @@
  */
 package com.l2jfree.gameserver.network.loginserverpackets;
 
-public class InitLS extends LoginServerBasePacket
+public final class InitLS extends LoginServerBasePacket
 {
-	private final int		_rev;
-	private final byte[]	_key;
-	private final int		_pro;
-
-	public int getRevision()
-	{
-		return _rev;
-	}
-
-	public byte[] getRSAKey()
-	{
-		return _key;
-	}
-
-	public int getTrueRevision()
-	{
-		return _pro;
-	}
-
-	/**
-	 * @param decrypt
-	 */
+	private final int _rev;
+	private final byte[] _key;
+	private final int _pro;
+	
 	public InitLS(byte[] decrypt)
 	{
 		super(decrypt);
 		_rev = readD();
 		int size = readD();
 		_key = readB(size);
-		if (canRead())
-			_pro = readD();
-		else
-			_pro = -1;
+		_pro = canRead() ? readD() : -1;
+	}
+	
+	public int getRevision()
+	{
+		return _rev;
+	}
+	
+	public byte[] getRSAKey()
+	{
+		return _key;
+	}
+	
+	public int getTrueRevision()
+	{
+		return _pro;
 	}
 }

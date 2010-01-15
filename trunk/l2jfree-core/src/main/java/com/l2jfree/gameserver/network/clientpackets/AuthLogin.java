@@ -64,7 +64,6 @@ public class AuthLogin extends L2GameClientPacket
 		if (client.getAccountName() == null)
 		{
 			client.setAccountName(_loginName);
-			LoginServerThread.getInstance().addGameServerLogin(_loginName, client);
 			LoginServerThread.getInstance().addWaitingClientAndSendRequest(_loginName, client, key);
 		}
 	}

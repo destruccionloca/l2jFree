@@ -14,21 +14,18 @@
  */
 package com.l2jfree.loginserver.gameserverpackets;
 
-public class PlayerInGame extends GameToLoginPacket
+public final class PlayerInGame extends GameToLoginPacket
 {
 	private final String[] _accounts;
-
-	/**
-	 * @param decrypt
-	 */
-	public PlayerInGame(int protocol, byte[] decrypt)
+	
+	public PlayerInGame(byte[] decrypt)
 	{
-		super(decrypt, protocol);
+		super(decrypt);
 		_accounts = new String[readH()];
 		for (int i = 0; i < _accounts.length; i++)
 			_accounts[i] = readS();
 	}
-
+	
 	/**
 	 * @return Returns the accounts.
 	 */

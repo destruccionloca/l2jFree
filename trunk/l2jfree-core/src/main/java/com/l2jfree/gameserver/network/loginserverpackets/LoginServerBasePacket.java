@@ -14,104 +14,15 @@
  */
 package com.l2jfree.gameserver.network.loginserverpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.l2jfree.gameserver.loginserverthread.CrossLoginServerThread;
+import com.l2jfree.network.ReceivableBasePacket;
 
 /**
  * @author -Wooden-
- * 
  */
-public abstract class LoginServerBasePacket
+public abstract class LoginServerBasePacket  extends ReceivableBasePacket
 {
-	private final static Log	_log	= LogFactory.getLog(LoginServerBasePacket.class);
-	protected final boolean	_l2j;
-	private final byte[]	_decrypt;
-	private int				_off;
-
-	public LoginServerBasePacket(int protocol, byte[] decrypt)
+	protected LoginServerBasePacket(byte[] decrypt)
 	{
-		_l2j = (protocol == CrossLoginServerThread.PROTOCOL_L2J);
-		_decrypt = decrypt;
-		_off = 1; // skip packet type id
-	}
-
-	public LoginServerBasePacket(byte[] decrypt)
-	{
-		this(CrossLoginServerThread.PROTOCOL_CURRENT, decrypt);
-	}
-
-	public int readD()
-	{
-		int result = _decrypt[_off++] & 0xff;
-		result |= _decrypt[_off++] << 8 & 0xff00;
-		result |= _decrypt[_off++] << 0x10 & 0xff0000;
-		result |= _decrypt[_off++] << 0x18 & 0xff000000;
-		return result;
-	}
-
-	public int readC()
-	{
-		int result = _decrypt[_off++] & 0xff;
-		return result;
-	}
-
-	public int readH()
-	{
-		int result = _decrypt[_off++] & 0xff;
-		result |= _decrypt[_off++] << 8 & 0xff00;
-		return result;
-	}
-
-	public double readF()
-	{
-		long result = _decrypt[_off++] & 0xff;
-		result |= _decrypt[_off++] << 8 & 0xff00;
-		result |= _decrypt[_off++] << 0x10 & 0xff0000;
-		result |= _decrypt[_off++] << 0x18 & 0xff000000;
-		result |= _decrypt[_off++] << 0x20 & 0xff00000000l;
-		result |= _decrypt[_off++] << 0x28 & 0xff0000000000l;
-		result |= _decrypt[_off++] << 0x30 & 0xff000000000000l;
-		result |= _decrypt[_off++] << 0x38 & 0xff00000000000000l;
-		return Double.longBitsToDouble(result);
-	}
-
-	public String readS()
-	{
-		String result = null;
-		try
-		{
-			if (_l2j)
-			{
-				result = new String(_decrypt, _off, _decrypt.length - _off, "UTF-16LE");
-				result = result.substring(0, result.indexOf(0x00));
-				_off += result.length() * 2 + 2;
-			}
-			else
-			{
-				result = new String(_decrypt, _off, _decrypt.length - _off, "UTF-8");
-				result = result.substring(0, result.indexOf(0x00));
-				_off += result.length() + 2;
-			}
-		}
-		catch (Exception e)
-		{
-			_log.error(e.getMessage(), e);
-		}
-		return result;
-	}
-
-	public final byte[] readB(int length)
-	{
-		byte[] result = new byte[length];
-		System.arraycopy(_decrypt, _off, result, 0, length);
-		_off += length;
-		return result;
-	}
-
-	protected final boolean canRead()
-	{
-		return _off < _decrypt.length;
+		super(decrypt);
 	}
 }

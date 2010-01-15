@@ -37,7 +37,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.loginserver.L2LoginServer;
+import com.l2jfree.L2Config;
 import com.l2jfree.loginserver.beans.GameServerInfo;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.gameserverpackets.BlowFishKey;
@@ -56,6 +56,7 @@ import com.l2jfree.loginserver.loginserverpackets.PlayerAuthResponse;
 import com.l2jfree.loginserver.loginserverpackets.PlayerLoginAttempt;
 import com.l2jfree.loginserver.manager.GameServerManager;
 import com.l2jfree.loginserver.manager.LoginManager;
+import com.l2jfree.network.LoginServerFailReason;
 import com.l2jfree.status.Status;
 import com.l2jfree.tools.network.SubNetHost;
 import com.l2jfree.tools.security.NewCrypt;
@@ -97,12 +98,12 @@ public class GameServerThread extends Thread
 		if (GameServerThread.isBannedGameserverIP(_connectionIpAddress))
 		{
 			_log.info("GameServerRegistration: IP Address " + _connectionIpAddress + " is on Banned IP list.");
-			forceClose(LoginServerFail.REASON_IP_BANNED);
+			forceClose(LoginServerFailReason.REASON_IP_BANNED);
 			// ensure no further processing for this connection
 			return;
 		}
 
-		InitLS startPacket = new InitLS(_protocol, _publicKey.getModulus().toByteArray());
+		InitLS startPacket = new InitLS(_publicKey.getModulus().toByteArray());
 		try
 		{
 			sendPacket(startPacket);
@@ -180,11 +181,11 @@ public class GameServerThread extends Thread
 					break;
 				case 0xAF:
 					// trigger packet, shows that Game Server supports the actual protocol
-					_protocol = L2LoginServer.PROTOCOL_CURRENT;
+					_protocol = L2Config.LOGIN_PROTOCOL_CURRENT;
 					break;
 				default:
 					_log.warn("Unknown Opcode (" + Integer.toHexString(packetType).toUpperCase() + ") from GameServer, closing connection.");
-					forceClose(LoginServerFail.NOT_AUTHED);
+					forceClose(LoginServerFailReason.REASON_NOT_AUTHED);
 				}
 			}
 		}
@@ -224,13 +225,13 @@ public class GameServerThread extends Thread
 
 	private void onGameServerAuth(byte[] data) throws IOException
 	{
-		GameServerAuth gsa = new GameServerAuth(_protocol, data);
+		GameServerAuth gsa = new GameServerAuth(data);
 		if (_log.isDebugEnabled())
 			_log.info("Auth request received");
 		handleRegProcess(gsa);
 		if (isAuthed())
 		{
-			sendPacket(new AuthResponse(_protocol, getGameServerInfo().getId()));
+			sendPacket(new AuthResponse(getGameServerInfo().getId()));
 			if (_log.isDebugEnabled())
 				_log.info("Authed: id: " + getGameServerInfo().getId());
 			broadcastToTelnet("GameServer [" + getServerId() + "] " + GameServerManager.getInstance().getServerNameById(getServerId()) + " is connected");
@@ -241,7 +242,7 @@ public class GameServerThread extends Thread
 	{
 		if (isAuthed())
 		{
-			PlayerInGame pig = new PlayerInGame(_protocol, data);
+			PlayerInGame pig = new PlayerInGame(data);
 			String[] newAccounts = pig.getAccounts();
 			for (String account : newAccounts)
 			{
@@ -255,14 +256,14 @@ public class GameServerThread extends Thread
 
 		}
 		else
-			forceClose(LoginServerFail.NOT_AUTHED);
+			forceClose(LoginServerFailReason.REASON_NOT_AUTHED);
 	}
 
 	private void onReceivePlayerLogOut(byte[] data)
 	{
 		if (isAuthed())
 		{
-			PlayerLogout plo = new PlayerLogout(_protocol, data);
+			PlayerLogout plo = new PlayerLogout(data);
 			_accountsOnGameServer.remove(plo.getAccount());
 			if (_log.isDebugEnabled())
 				_log.info("Player " + plo.getAccount() + " logged out from gameserver [" + getServerId() + "] "
@@ -271,14 +272,14 @@ public class GameServerThread extends Thread
 			broadcastToTelnet("Player " + plo.getAccount() + " disconnected from GameServer " + getServerId());
 		}
 		else
-			forceClose(LoginServerFail.NOT_AUTHED);
+			forceClose(LoginServerFailReason.REASON_NOT_AUTHED);
 	}
 
 	private void onReceiveChangeAccessLevel(byte[] data)
 	{
 		if (isAuthed())
 		{
-			ChangeAccessLevel cal = new ChangeAccessLevel(_protocol, data);
+			ChangeAccessLevel cal = new ChangeAccessLevel(data);
 			try
 			{
 				LoginManager.getInstance().setAccountAccessLevel(cal.getAccount(), cal.getLevel());
@@ -290,14 +291,14 @@ public class GameServerThread extends Thread
 			}
 		}
 		else
-			forceClose(LoginServerFail.NOT_AUTHED);
+			forceClose(LoginServerFailReason.REASON_NOT_AUTHED);
 	}
 
 	private void onReceivePlayerAuthRequest(byte[] data) throws IOException
 	{
 		if (isAuthed())
 		{
-			PlayerAuthRequest par = new PlayerAuthRequest(_protocol, data);
+			PlayerAuthRequest par = new PlayerAuthRequest(data);
 			PlayerAuthResponse authResponse;
 			if (_log.isDebugEnabled())
 				_log.info("auth request received for Player " + par.getAccount());
@@ -308,7 +309,7 @@ public class GameServerThread extends Thread
 				if (_log.isDebugEnabled())
 					_log.info("auth request: OK");
 				LoginManager.getInstance().removeAuthedLoginClient(par.getAccount());
-				authResponse = new PlayerAuthResponse(_protocol, par.getAccount(), true, host);
+				authResponse = new PlayerAuthResponse(par.getAccount(), true, host);
 			}
 			else
 			{
@@ -318,12 +319,12 @@ public class GameServerThread extends Thread
 					_log.info("session key from self: " + key);
 					_log.info("session key sent: " + par.getKey());
 				}
-				authResponse = new PlayerAuthResponse(_protocol, par.getAccount(), false, host);
+				authResponse = new PlayerAuthResponse(par.getAccount(), false, host);
 			}
 			sendPacket(authResponse);
 		}
 		else
-			forceClose(LoginServerFail.NOT_AUTHED);
+			forceClose(LoginServerFailReason.REASON_NOT_AUTHED);
 	}
 
 	private void onReceiveServerStatus(byte[] data)
@@ -332,13 +333,13 @@ public class GameServerThread extends Thread
 		{
 			if (_log.isDebugEnabled())
 				_log.info("ServerStatus received");
-			new ServerStatus(_protocol, data, getServerId()); //will do the actions by itself
+			new ServerStatus(data, getServerId()); //will do the actions by itself
 		}
 		else
-			forceClose(LoginServerFail.NOT_AUTHED);
+			forceClose(LoginServerFailReason.REASON_NOT_AUTHED);
 	}
 
-	private void forceClose(int reason)
+	private void forceClose(LoginServerFailReason reason)
 	{
 		LoginServerFail lsf = new LoginServerFail(reason);
 		try
@@ -377,7 +378,7 @@ public class GameServerThread extends Thread
 				synchronized (gsi)
 				{
 					if (gsi.isAuthed())
-						forceClose(LoginServerFail.REASON_ALREADY_LOGGED8IN);
+						forceClose(LoginServerFailReason.REASON_ALREADY_LOGGED_IN);
 					else
 						attachGameServerInfo(gsi, gameServerAuth);
 				}
@@ -392,11 +393,11 @@ public class GameServerThread extends Thread
 						gameServerTable.registerServerOnDB(gsi);
 					}
 					else
-						forceClose(LoginServerFail.REASON_NO_FREE_ID);
+						forceClose(LoginServerFailReason.REASON_NO_FREE_ID);
 				}
 				else
 					// server id is already taken, and we cant get a new one for you
-					forceClose(LoginServerFail.REASON_WRONG_HEXID);
+					forceClose(LoginServerFailReason.REASON_WRONG_HEXID);
 		} else // can we register on this id?
 			if (Config.ACCEPT_NEW_GAMESERVER)
 			{
@@ -408,10 +409,10 @@ public class GameServerThread extends Thread
 				}
 				else
 					// some one took this ID meanwhile
-					forceClose(LoginServerFail.REASON_ID_RESERVED);
+					forceClose(LoginServerFailReason.REASON_ID_RESERVED);
 			}
 			else
-				forceClose(LoginServerFail.REASON_WRONG_HEXID);
+				forceClose(LoginServerFailReason.REASON_WRONG_HEXID);
 	}
 
 	/**
@@ -447,10 +448,8 @@ public class GameServerThread extends Thread
 	{
 		_connection = con;
 		_connectionIp = con.getInetAddress().getHostAddress();
-		if (Config.PROTOCOL_SPECIAL)
-			_protocol = L2LoginServer.PROTOCOL_LEGACY;
-		else
-			_protocol = L2LoginServer.PROTOCOL_L2J;
+		_protocol = L2Config.LOGIN_PROTOCOL_L2J;
+		
 		try
 		{
 			_in = _connection.getInputStream();
@@ -478,7 +477,7 @@ public class GameServerThread extends Thread
 		if (_log.isDebugEnabled())
 			_log.debug("[S] " + sl.getClass().getSimpleName() + ":\n" + HexUtil.printData(data));
 		data = _blowfish.crypt(data);
-
+		
 		int len = data.length + 2;
 		synchronized (_out)
 		{
@@ -491,7 +490,7 @@ public class GameServerThread extends Thread
 
 	public void kickPlayer(String account)
 	{
-		KickPlayer kp = new KickPlayer(_protocol, account);
+		KickPlayer kp = new KickPlayer(account);
 		try
 		{
 			sendPacket(kp);
@@ -633,7 +632,7 @@ public class GameServerThread extends Thread
 
 	public void playerSelectedServer(String ip)
 	{
-		if (_protocol > 200 || _protocol < L2LoginServer.PROTOCOL_CURRENT)
+		if (_protocol > 200 || _protocol < L2Config.LOGIN_PROTOCOL_CURRENT)
 			return;
 		try
 		{

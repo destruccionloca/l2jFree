@@ -16,13 +16,12 @@ package com.l2jfree.gameserver.network.gameserverpackets;
 
 /**
  * @author -Wooden-
- * 
  */
-public class PlayerInGame extends GameServerBasePacket
+public final class PlayerInGame extends GameServerBasePacket
 {
-	public PlayerInGame(int protocol, String... players)
+	public PlayerInGame(String... players)
 	{
-		super(protocol, 0x02);
+		super(0x02);
 		writeH(players.length);
 		for (String pc : players)
 			writeS(pc);

@@ -14,20 +14,16 @@
  */
 package com.l2jfree.gameserver.network.loginserverpackets;
 
-public class PlayerLoginAttempt extends LoginServerBasePacket
+public final class PlayerLoginAttempt extends LoginServerBasePacket
 {
 	private final String _ip;
-
-	/**
-	 * @param protocol
-	 * @param decrypt
-	 */
-	public PlayerLoginAttempt(int protocol, byte[] decrypt)
+	
+	public PlayerLoginAttempt(byte[] decrypt)
 	{
-		super(protocol, decrypt);
+		super(decrypt);
 		_ip = readS();
 	}
-
+	
 	/**
 	 * @return Returns the IP address.
 	 */

@@ -14,8 +14,8 @@
  */
 package com.l2jfree.loginserver.beans;
 
-import com.l2jfree.loginserver.gameserverpackets.ServerStatus;
 import com.l2jfree.loginserver.thread.GameServerThread;
+import com.l2jfree.network.ServerStatus;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class GameServerInfo
 
 	// status
 	private GameServerThread	_gst;
-	private int					_status;
+	private ServerStatus			_status;
 
 	// network
 	private String				_ip;
@@ -100,10 +100,15 @@ public class GameServerInfo
 
 	public void setStatus(int status)
 	{
+		setStatus(ServerStatus.valueOf(status));
+	}
+	
+	public void setStatus(ServerStatus status)
+	{
 		_status = status;
 	}
 
-	public int getStatus()
+	public ServerStatus getStatus()
 	{
 		return _status;
 	}

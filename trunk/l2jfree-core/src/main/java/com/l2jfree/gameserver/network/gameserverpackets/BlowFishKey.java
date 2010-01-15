@@ -24,26 +24,21 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * @author -Wooden-
- * 
  */
-public class BlowFishKey extends GameServerBasePacket
+public final class BlowFishKey extends GameServerBasePacket
 {
-	private final static Log	_log	= LogFactory.getLog(BlowFishKey.class);
-
-	/**
-	 * @param blowfishKey
-	 * @param publicKey
-	 */
-	public BlowFishKey(int protocol, byte[] blowfishKey, RSAPublicKey publicKey)
+	private final static Log _log = LogFactory.getLog(BlowFishKey.class);
+	
+	public BlowFishKey(byte[] blowfishKey, RSAPublicKey publicKey)
 	{
-		super(protocol, 0x00);
+		super(0x00);
 		byte[] encrypted = null;
 		try
 		{
 			Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
 			rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 			encrypted = rsaCipher.doFinal(blowfishKey);
-
+			
 			writeD(encrypted.length);
 			writeB(encrypted);
 		}

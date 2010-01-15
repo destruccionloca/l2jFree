@@ -23,14 +23,14 @@ import com.l2jfree.gameserver.network.serverpackets.RestartResponse;
 
 public final class RequestRestart extends L2GameClientPacket
 {
-	private static final String	_C__57_REQUESTRESTART	= "[C] 57 RequestRestart";
-
+	private static final String _C__57_REQUESTRESTART = "[C] 57 RequestRestart";
+	
 	@Override
 	protected void readImpl()
 	{
 		// trigger packet
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
@@ -38,28 +38,26 @@ public final class RequestRestart extends L2GameClientPacket
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		if (!activeChar.canLogout(true) || activeChar.isIllegalWaiting())
 		{
 			sendAF();
 			return;
 		}
-
+		
 		new Disconnection(client, activeChar).store().deleteMe();
-
+		
 		// return the client to the authed status
 		client.setState(GameClientState.AUTHED);
-
+		
 		sendPacket(new RestartResponse());
-
+		
 		// send char list
-		CharSelectionInfo cl = new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
-		sendPacket(cl);
-		client.setCharSelection(cl.getCharInfo());
-
+		sendPacket(new CharSelectionInfo(client));
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

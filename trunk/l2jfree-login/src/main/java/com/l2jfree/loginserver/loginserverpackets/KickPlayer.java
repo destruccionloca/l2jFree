@@ -16,11 +16,11 @@ package com.l2jfree.loginserver.loginserverpackets;
 
 import com.l2jfree.status.Status;
 
-public class KickPlayer extends LoginToGamePacket
+public final class KickPlayer extends LoginToGamePacket
 {
-	public KickPlayer(int protocol, String account)
+	public KickPlayer(String account)
 	{
-		super(0x04, protocol);
+		super(0x04);
 		writeS(account);
 		Status.tryBroadcast("Player " + account + " was kicked.");
 	}

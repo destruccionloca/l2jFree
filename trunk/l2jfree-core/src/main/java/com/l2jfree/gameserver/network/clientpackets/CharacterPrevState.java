@@ -18,22 +18,21 @@ import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 
 public final class CharacterPrevState extends L2GameClientPacket
 {
-    @Override
+	@Override
 	protected void readImpl()
-    {
-    }
-
-    @Override
+	{
+	}
+	
+	@Override
 	protected void runImpl()
-    {
-        sendPacket(new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1));
-
-        sendAF();
-    }
-
-    @Override
+	{
+		sendPacket(new CharSelectionInfo(getClient()));
+		sendAF();
+	}
+	
+	@Override
 	public String getType()
-    {
-        return "CharacterPrevState";
-    }
+	{
+		return "CharacterPrevState";
+	}
 }
