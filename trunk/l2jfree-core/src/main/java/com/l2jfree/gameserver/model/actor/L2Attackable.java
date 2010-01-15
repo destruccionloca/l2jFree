@@ -316,6 +316,9 @@ public class L2Attackable extends L2Npc
 	private int									_fleeing;
 	private L2CharPosition						_moveAroundPos;
 
+	// Used for Chimeras on Hellbound
+	private boolean								_bottled = false;
+
 	/**
 	 * Constructor of L2Attackable (use L2Character and L2NpcInstance
 	 * constructor).<BR>
@@ -493,10 +496,13 @@ public class L2Attackable extends L2Npc
 			if (getAggroListRP().isEmpty())
 				return;
 
-			// Manage Base, Quests and Sweep drops of the L2Attackable
-			doItemDrop(lastAttacker);
-			// Manage drop of Special Events created by GM for a defined period
-			doEventDrop(lastAttacker);
+			if (!isMagicBottled())
+			{
+				// Manage Base, Quests and Sweep drops of the L2Attackable
+				doItemDrop(lastAttacker);
+				// Manage drop of Special Events created by GM for a defined period
+				doEventDrop(lastAttacker);
+			}
 
 			if (!getMustRewardExpSP())
 				return;
@@ -2582,5 +2588,15 @@ public class L2Attackable extends L2Npc
 	public void setMoveAroundPos(L2CharPosition pos)
 	{
 		_moveAroundPos = pos;
+	}
+
+	public void setMagicBottled(boolean bottled)
+	{
+		_bottled = bottled;
+	}
+
+	public boolean isMagicBottled()
+	{
+		return _bottled;
 	}
 }
