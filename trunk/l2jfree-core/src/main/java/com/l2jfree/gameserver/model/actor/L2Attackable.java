@@ -1089,6 +1089,7 @@ public class L2Attackable extends L2Npc
 			case 6661: // Earring of Orfen
 			case 6662: // Ring of Core
 			case 8191: // Frintezza's Necklace
+			case 10170: // Baylor's Earring
 			case 10314: // Beleth's Ring
 				return true;
 			default:
