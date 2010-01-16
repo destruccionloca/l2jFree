@@ -2336,14 +2336,6 @@
     <production id="11214" count="1"/>
     <ingredient id="11217" count="1"/>
   </item>
-
-
-
-
-  <item id="583">
-    <production id="11017" count="1"/>
-    <ingredient id="11018" count="1"/>
-  </item>
   <item id="584">
     <production id="11017" count="1"/>
     <ingredient id="11019" count="1"/>
@@ -2843,5 +2835,9 @@
   <item id="708">
     <production id="11021" count="1"/>
     <ingredient id="11022" count="1"/>
+  </item>
+  <item id="709">
+    <production id="11017" count="1"/>
+    <ingredient id="11018" count="1"/>
   </item>
 </list>
