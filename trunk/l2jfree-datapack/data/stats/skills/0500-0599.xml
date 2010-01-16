@@ -375,8 +375,8 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <enchant1 name="lethal1" val="#ench1Chance1"/>
-    <enchant1 name="lethal2" val="#ench1Chance2"/>
-    <enchant1 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="lethal2" val="#ench1Chance2"/> <!-- TODO: smaller than default -->
+    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <cond msg="Can be used when HP is below 10 percent.">
       <player hp="10"/>
     </cond>

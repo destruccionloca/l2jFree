@@ -312,7 +312,7 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1hpConsume"> 196 193 190 186 183 180 176 173 170 166 163 160 156 153 150 146 143
       140 136 133 130 126 123 120 116 113 110 106 103 100 </table>
-    <table name="#ench1Reuse"> 177500 175000 172500 160000 167500 165000 162500 160000 157500 155000
+    <table name="#ench2Reuse"> 177500 175000 172500 160000 167500 165000 162500 160000 157500 155000
       152500 150000 147500 145000 142500 140000 137500 135000 132500 120000 127500 125000 122500 120000
       117500 115000 112500 110000 107500 105000 </table>
     <!-- CT2.2 retail confirmed -->
@@ -327,7 +327,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="num_souls" val="8"/>
     <enchant1 name="hpConsume" val="#ench1hpConsume"/>
-    <enchant2 name="reuseDelay" val="#ench1Reuse"/>
+    <enchant2 name="reuseDelay" val="#ench2Reuse"/>
   </skill>
   <skill id="626" levels="4" name="Critical Sense" enchantLevels1="30" enchantLevels2="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79

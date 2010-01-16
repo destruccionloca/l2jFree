@@ -2919,8 +2919,10 @@
       </add>
     </enchant1for>
     <enchant2for>
-      <add order="0x40" stat="pDef" val="215.75"/>
-      <add order="0x30" stat="sDef" val="#ench2sDef">
+      <add order="0x40" stat="pDef" val="215.75">
+        <player hp="30"/>
+      </add>
+      <add order="0x40" stat="sDef" val="#ench2sDef">
         <player hp="30"/>
       </add>
     </enchant2for>
