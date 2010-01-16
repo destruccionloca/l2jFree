@@ -1435,7 +1435,7 @@
     </for>
      <enchant2for>
       <effect name="Stun" time="2" val="0" stackOrder="1" stackType="Stun">
-        <sub order="0x30" stat="fireRes" val="#enchvuln"/>
+        <sub order="0x40" stat="fireRes" val="#enchvuln"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant2for>
@@ -1447,7 +1447,7 @@
     </enchant3for>
     <enchant4for>
       <effect name="Stun" time="2" val="0" stackOrder="1" stackType="Stun">
-        <sub order="0x30" stat="windRes" val="#enchvuln"/>
+        <sub order="0x40" stat="windRes" val="#enchvuln"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant4for>
@@ -2111,10 +2111,6 @@
     <enchant6 name="element" val="2"/> <!-- Wind -->
     <enchant7 name="elementPower" val="#enchElementPower"/>
     <enchant7 name="element" val="3"/> <!-- Earth -->
-    <enchant8for>
-      <mul order="0x30" stat="pvpPhysDmg" val="#ench8Duel"/>
-      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench8Duel"/>
-    </enchant8for>
     <for>
       <effect self="1" name="Buff" time="30" val="0" stackOrder="6" stackType="avoid_up_special">
         <add order="0x40" stat="rEvas" val="6"/>
@@ -2125,6 +2121,10 @@
         <add order="0x40" stat="rEvas" val="#ench2rEvas"/>
       </effect>
     </enchant2for>
+    <enchant8for>
+      <mul order="0x30" stat="pvpPhysDmg" val="#ench8Duel"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench8Duel"/>
+    </enchant8for>
   </skill>
   <!--
     CLAN SKILLS - temp addition until proper implementation is done

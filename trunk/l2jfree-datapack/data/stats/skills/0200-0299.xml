@@ -568,7 +568,7 @@
     <enchant3for>
       <effect name="Buff" time="1200" val="0" stackOrder="33" stackType="speed_up">
         <add order="0x40" stat="runSpd" val="33"/>
-        <add order="0x30" stat="rEvas" val="#ench3rEvas"/>
+        <add order="0x40" stat="rEvas" val="#ench3rEvas"/>
       </effect>
     </enchant3for>
   </skill>
@@ -2729,21 +2729,16 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
     <enchant3 name="element" val="0"/> <!-- Fire -->
-    <enchant3 name="power" val="3196"/>
     <enchant4 name="elementPower" val="#enchElementPower"/>
     <enchant4 name="element" val="1"/> <!-- Water -->
-    <enchant4 name="power" val="3196"/>
     <enchant5 name="elementPower" val="#enchElementPower"/>
     <enchant5 name="element" val="2"/> <!-- Wind -->
-    <enchant5 name="power" val="3196"/>
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
-    <enchant6 name="power" val="3196"/>
     <enchant7for>
         <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
         <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
     </enchant7for>
-    <enchant7 name="power" val="3196"/>
   </skill>
   <skill id="285" levels="27" name="Higher Mana Gain" enchantLevels1="30">
     <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
