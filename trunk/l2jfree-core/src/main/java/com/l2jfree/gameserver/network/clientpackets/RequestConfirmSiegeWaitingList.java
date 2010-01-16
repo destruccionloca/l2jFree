@@ -49,13 +49,14 @@ public class RequestConfirmSiegeWaitingList extends L2GameClientPacket{
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
+        if (activeChar == null)
+        	return;
 
         L2Clan clan = ClanTable.getInstance().getClan(_clanId);
         // Check if the player has a clan
-        if (activeChar.getClan() == null || clan == null)
+        if (clan == null || !L2Clan.checkPrivileges(activeChar, L2Clan.CP_CS_MANAGE_SIEGE))
         {
-        	requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
+        	requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
         	return;
         }
 
@@ -69,12 +70,6 @@ public class RequestConfirmSiegeWaitingList extends L2GameClientPacket{
         else if (castle.getOwnerId() != activeChar.getClanId())
         {
         	sendAF();
-        	return;
-        }
-        else if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE ||
-        		activeChar.isClanLeader())
-        {
-        	requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
         	return;
         }
 

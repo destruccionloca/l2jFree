@@ -88,15 +88,11 @@ public class L2CastleWarehouseInstance extends L2NpcInstance
 			}
 			else
 			{
-				if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
-				{
+				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
 					player.sendPacket(SystemMessageId.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE);
-				}
 				player.setActiveWarehouse(player.getClan().getWarehouse());
 				player.tempInventoryDisable();
-
-				WareHouseDepositList dl = new WareHouseDepositList(player, WareHouseDepositList.CLAN);
-				player.sendPacket(dl);
+				player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN));
 			}
 		}
 	}
@@ -104,7 +100,7 @@ public class L2CastleWarehouseInstance extends L2NpcInstance
 	private void showWithdrawWindowClan(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
-		if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
 		{
 			player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
 			return;

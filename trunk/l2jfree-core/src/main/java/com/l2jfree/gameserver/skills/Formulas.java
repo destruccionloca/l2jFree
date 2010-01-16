@@ -1858,9 +1858,11 @@ public final class Formulas
 
 		double init;
 
-		if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow())
+		if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow() && target.canAbortCast())
 			init = 15;
-		else if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow() && target.getActiveWeaponItem() != null && target.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
+		else if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow() &&
+				target.getActiveWeaponItem() != null &&
+				target.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
 		{
 			init = 15;
 		}
@@ -1877,10 +1879,7 @@ public final class Formulas
 		double rate = target.calcStat(Stats.ATTACK_CANCEL, init, null, null);
 
 		// Adjust the rate to be between 1 and 99
-		if (rate > 99)
-			rate = 99;
-		else if (rate < 1)
-			rate = 1;
+		rate = L2Math.limit(1, rate, 99);
 
 		return Rnd.get(100) < rate;
 	}

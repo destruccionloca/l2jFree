@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor;
 
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
+import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 
 import java.util.ArrayList;
@@ -1566,6 +1567,9 @@ public abstract class L2Character extends L2Object
 		int hitTime = skill.getHitTime();
 		int coolTime = skill.getCoolTime();
 		int skillInterruptTime = skill.getSkillInterruptTime();
+		// Seems this is the indicator in retail
+		if (!skill.isMagic())
+			skillInterruptTime = 0;
 
 		final boolean effectWhileCasting = skill.hasEffectWhileCasting();
 
@@ -4005,7 +4009,6 @@ public abstract class L2Character extends L2Object
 		return _isCastingNow;
 	}
 	
-	
 	public final void setIsCastingNow(boolean value)
 	{
 		setIsCastingNow(value, 0);
@@ -6132,7 +6135,9 @@ public abstract class L2Character extends L2Object
 					newTarget = originalTarget;
 				
 				if (// As far as I remember, you can move away after launching a skill without hitting
-					getAI().getIntention() != AI_INTENTION_MOVE_TO && getAI().getNextCtrlIntention() == null
+					getAI().getIntention() != AI_INTENTION_MOVE_TO && (getAI().getNextCtrlIntention() == null
+							// I see no problems with this...
+							|| getAI().getNextCtrlIntention() == AI_INTENTION_IDLE)
 					// And you will not auto-attack a non-flagged player after launching a skill
 					&& newTarget != null && newTarget.isAutoAttackable(this))
 				{

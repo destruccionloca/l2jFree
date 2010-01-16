@@ -118,8 +118,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-
-				if ((player.getClanPrivileges() & L2Clan.CP_CS_DISMISS) == L2Clan.CP_CS_DISMISS)
+				if (L2Clan.checkPrivileges(player, L2Clan.CP_CS_DISMISS))
 				{
 					if (val.isEmpty())
 					{
@@ -142,7 +141,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			}
 			else if(actualCommand.equalsIgnoreCase("manage_vault"))
 			{
-				if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)
+				if (L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
 				{
 					if (val.equalsIgnoreCase("deposit"))
 						showVaultWindowDeposit(player);
@@ -185,14 +184,13 @@ public class L2FortManagerInstance extends L2MerchantInstance
 				player.sendPacket(html);
 				return;
 			}
-			else if (actualCommand.equalsIgnoreCase("operate_door")) // Door
-			// Control
+			else if (actualCommand.equalsIgnoreCase("operate_door")) // Door Control
 			{
-				if ((player.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) == L2Clan.CP_CS_OPEN_DOOR)
+				if (L2Clan.checkPrivileges(player, L2Clan.CP_CS_OPEN_DOOR))
 				{
 					if (!val.isEmpty())
 					{
-						boolean open = (Integer.parseInt(val) == 1);
+						boolean open = (val.charAt(0) == '1');
 						while (st.hasMoreTokens())
 							getFort().openCloseDoor(Integer.parseInt(st.nextToken()), open);
 					}
@@ -269,7 +267,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			}
 			else if (actualCommand.equalsIgnoreCase("manage"))
 			{
-				if ((player.getClanPrivileges() & L2Clan.CP_CS_SET_FUNCTIONS) == L2Clan.CP_CS_SET_FUNCTIONS)
+				if (L2Clan.checkPrivileges(player, L2Clan.CP_CS_SET_FUNCTIONS))
 				{
 					if (val.equalsIgnoreCase("recovery"))
 					{
@@ -947,7 +945,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 
     private void showVaultWindowWithdraw(L2PcInstance player)
     {
-        if (player.isClanLeader()||((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
+        if (L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
         {
             player.sendPacket(ActionFailed.STATIC_PACKET);
             player.setActiveWarehouse(player.getClan().getWarehouse());

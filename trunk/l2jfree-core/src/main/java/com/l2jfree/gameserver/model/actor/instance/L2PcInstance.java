@@ -8140,6 +8140,13 @@ public final class L2PcInstance extends L2Playable
 		if (isTransformationDisabledSkill(skill) && !skill.isPotion())
 			return false;
 
+		// Failfast as in retail
+		if (isSkillDisabled(skill.getId()))
+		{
+			sendReuseMessage(skill);
+			return false;
+		}
+
 		return true;
 	}
 

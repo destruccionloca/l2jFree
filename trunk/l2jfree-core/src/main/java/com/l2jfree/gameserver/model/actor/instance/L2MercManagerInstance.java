@@ -117,10 +117,12 @@ public final class L2MercManagerInstance extends L2MerchantInstance
         {
             if (player.getClan() != null)
             {
-                if (getCastle().getSiege().getIsInProgress()) return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
+                if (getCastle().getSiege().getIsInProgress())
+                	return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
                 else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
                 {
-                    if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES) return COND_OWNER;
+                	if (L2Clan.checkPrivileges(player, L2Clan.CP_CS_MERCENARIES))
+                		return COND_OWNER;
                 }
             }
         }

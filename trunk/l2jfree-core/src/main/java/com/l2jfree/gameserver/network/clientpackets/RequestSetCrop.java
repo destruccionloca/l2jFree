@@ -92,7 +92,7 @@ public class RequestSetCrop extends L2GameClientPacket
 		}
 
 		// check player privileges
-		if ((player.getClanPrivileges() & L2Clan.CP_CS_MANOR_ADMIN) == 0)
+		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CS_MANOR_ADMIN))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;

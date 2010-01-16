@@ -49,13 +49,7 @@ public class RequestPledgeSetAcademyMaster extends L2GameClientPacket
 			return;
 
 		L2Clan clan = activeChar.getClan();
-		if (clan == null)
-		{
-			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-			return;
-		}
-
-		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_APPRENTICE) != L2Clan.CP_CL_APPRENTICE)
+		if (!L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_APPRENTICE))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;

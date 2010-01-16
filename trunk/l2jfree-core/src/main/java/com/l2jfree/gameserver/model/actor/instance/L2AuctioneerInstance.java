@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.entity.Auction;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.entity.Auction.Bidder;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -474,9 +475,9 @@ public final class L2AuctioneerInstance extends L2Npc
 			}
 			else if (actualCommand.equalsIgnoreCase("cancelAuction"))
 			{
-				if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
+				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CH_AUCTION))
 				{
-					player.sendMessage("You don't have the right privileges to do this");
+					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 					return;
 				}
 				String filename = "data/html/auction/AgitSaleCancel.htm";
@@ -510,9 +511,9 @@ public final class L2AuctioneerInstance extends L2Npc
 			}
 			else if (actualCommand.equalsIgnoreCase("sale"))
 			{
-				if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
+				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CH_AUCTION))
 				{
-					player.sendMessage("You don't have the right privileges to do this");
+					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 					return;
 				}
 				String filename = "data/html/auction/AgitSale1.htm";
@@ -527,19 +528,19 @@ public final class L2AuctioneerInstance extends L2Npc
 			}
 			else if (actualCommand.equalsIgnoreCase("rebid"))
 			{
-				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-				if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
+				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CH_AUCTION))
 				{
-					player.sendMessage("You don't have the right privileges to do this");
+					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 					return;
 				}
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 				try
 				{
 				String filename = "data/html/auction/AgitBid2.htm";
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(filename);
 				Auction a = AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt());
-				if(a != null)
+				if (a != null)
 				{
 					html.replace("%AGIT_AUCTION_BID%", String.valueOf(a.getBidders().get(player.getClanId()).getBid()));
 					html.replace("%AGIT_AUCTION_MINBID%", String.valueOf(a.getStartingBid()));

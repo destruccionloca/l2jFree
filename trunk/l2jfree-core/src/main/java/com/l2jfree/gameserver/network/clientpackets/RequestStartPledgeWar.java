@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestStartPledgeWar extends L2GameClientPacket
 {
-	private static final String	_C__4D_REQUESTSTARTPLEDGEWAR	= "[C] 4D RequestStartPledgewar";
+	private static final String	_C__REQUESTSTARTPLEDGEWAR	= "[C] 03 RequestStartPledgewar c[s]";
 
 	private String				_pledgeName;
 
@@ -41,12 +41,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
 			return;
 
 		L2Clan clan = player.getClan();
-		if (clan == null)
-		{
-			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-			return;
-		}
-		else if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
+		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
@@ -127,6 +122,6 @@ public class RequestStartPledgeWar extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__4D_REQUESTSTARTPLEDGEWAR;
+		return _C__REQUESTSTARTPLEDGEWAR;
 	}
 }

@@ -1707,10 +1707,9 @@ public class Config extends L2Config
 			ALT_DANCES_SONGS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("MaxDanceSongAmount", "12"));
 			DANCE_CANCEL_BUFF = Boolean.parseBoolean(altSettings.getProperty("DanceCancelBuff", "false"));
 			ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
-			ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow")
-					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
-			ALT_GAME_CANCEL_CAST = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("cast")
-					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
+			String cancel = altSettings.getProperty("AltGameCancelByHit", "Cast").trim();
+			ALT_GAME_CANCEL_BOW = (cancel.equalsIgnoreCase("bow") || cancel.equalsIgnoreCase("all"));
+			ALT_GAME_CANCEL_CAST = (cancel.equalsIgnoreCase("cast") || cancel.equalsIgnoreCase("all"));
 			ALT_GAME_SHIELD_BLOCKS = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "false"));
 			ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
 			ALT_ITEM_SKILLS_NOT_INFLUENCED = Boolean.parseBoolean(altSettings.getProperty("AltItemSkillsNotInfluenced", "false"));

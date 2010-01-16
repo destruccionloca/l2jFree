@@ -51,17 +51,12 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
 
 		L2Clan clan = activeChar.getClan();
-		if (clan == null)
-		{
-			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-			return;
-		}
-		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) != L2Clan.CP_CL_REGISTER_CREST)
+		if (!L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_REGISTER_CREST))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;

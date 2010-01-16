@@ -54,13 +54,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 			sendAF();
 			return;
 		}
-		else if (activeChar.getClan() == null)
-		{
-			requestFailed(SystemMessageId.NOBLESSE_ONLY);
-			return;
-		}
-		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) !=
-			L2Clan.CP_CL_GIVE_TITLE)
+		else if (!L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_GIVE_TITLE))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;

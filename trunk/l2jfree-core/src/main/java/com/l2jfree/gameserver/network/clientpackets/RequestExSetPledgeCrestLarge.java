@@ -57,22 +57,18 @@ public class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
 
 		SystemMessageId fail = null;
 		L2Clan clan = activeChar.getClan();
-		if (clan == null)
-		{
-			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-			return;
-		}
+		if (!L2Clan.checkPrivileges(activeChar, L2Clan.CP_CL_REGISTER_CREST))
+			fail = SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT;
 		else if (clan.getLevel() < 3)
 			fail = SystemMessageId.CLAN_LVL_3_NEEDED_TO_SET_CREST;
 		else if (clan.getDissolvingExpiryTime() > 0)
 			fail = SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS;
-		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) != L2Clan.CP_CL_REGISTER_CREST)
-			fail = SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT;
 		else if (_size > MAX_INSIGNIA_BYTESIZE)
 			fail = SystemMessageId.INVALID_INSIGNIA_FORMAT;
 

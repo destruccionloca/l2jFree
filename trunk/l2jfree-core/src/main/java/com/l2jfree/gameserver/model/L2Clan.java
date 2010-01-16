@@ -2578,7 +2578,10 @@ public class L2Clan
 	}
 
 	/**
-	 * Checks if player has sufficient privileges for an action.
+	 * Checks if player has sufficient privileges for an action.<BR>
+	 * This method considers these two facts (fully retail):<BR>
+	 * Player has no clan - no privileges<BR>
+	 * Player is clan leader - all privileges<BR>
 	 * Current action types:
 	 * <LI>{@link #CP_CL_JOIN_CLAN}</LI>
 	 * <LI>{@link #CP_CL_GIVE_TITLE}</LI>
@@ -2609,6 +2612,11 @@ public class L2Clan
 	 * @return whether player has these privileges
 	 */
 	public static final boolean checkPrivileges(L2PcInstance player, int privs) {
-		return (player.getClanPrivileges() & privs) == privs;
+		if (player.getClan() == null)
+			return false;
+		else if (player.isClanLeader())
+			return true;
+		else
+			return (player.getClanPrivileges() & privs) == privs;
 	}
 }

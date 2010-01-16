@@ -120,7 +120,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 
 		if (Config.ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH)
 		{
-			if (warehouse instanceof ClanWarehouse && !((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
+			if (warehouse instanceof ClanWarehouse && !L2Clan.checkPrivileges(player, L2Clan.CP_CL_VIEW_WAREHOUSE))
 			{
 				requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 				return;
