@@ -318,7 +318,7 @@ public class L2Attackable extends L2Npc
 
 	// Used for Chimeras on Hellbound
 	private boolean								_bottled = false;
-	private float								_hpWhenBottled = 0;
+	private float								_hpWhenBottled = 1;
 
 	/**
 	 * Constructor of L2Attackable (use L2Character and L2NpcInstance
