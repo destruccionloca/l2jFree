@@ -318,6 +318,7 @@ public class L2Attackable extends L2Npc
 
 	// Used for Chimeras on Hellbound
 	private boolean								_bottled = false;
+	private float								_hpWhenBottled = 0;
 
 	/**
 	 * Constructor of L2Attackable (use L2Character and L2NpcInstance
@@ -640,6 +641,12 @@ public class L2Attackable extends L2Npc
 								sp *= Config.CHAMPION_EXP_SP;
 							}
 
+							if (isMagicBottled())
+							{
+								exp = Math.round(exp / 100 * _hpWhenBottled);
+								sp = Math.round(sp / 100 * _hpWhenBottled);
+							}
+
 							if (!attacker.isDead())
 							{
 								long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
@@ -782,6 +789,12 @@ public class L2Attackable extends L2Npc
 						{
 							exp *= Config.CHAMPION_EXP_SP;
 							sp *= Config.CHAMPION_EXP_SP;
+						}
+
+						if (isMagicBottled())
+						{
+							exp = Math.round(exp / 100 * _hpWhenBottled);
+							sp = Math.round(sp / 100 * _hpWhenBottled);
 						}
 
 						// Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
@@ -2590,9 +2603,10 @@ public class L2Attackable extends L2Npc
 		_moveAroundPos = pos;
 	}
 
-	public void setMagicBottled(boolean bottled)
+	public void setMagicBottled(boolean bottled, float percent)
 	{
 		_bottled = bottled;
+		_hpWhenBottled = percent;
 	}
 
 	public boolean isMagicBottled()

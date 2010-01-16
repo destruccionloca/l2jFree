@@ -31,8 +31,9 @@ class Celtus(JQuest):
 			return
 		if not npc in targets:
 			return
-		if npc.getStatus().getCurrentHp() <=  npc.getMaxHp() / 10:
-			npc.setMagicBottled(True)
+		percent = npc.getStatus().getCurrentHp() / npc.getMaxHp() * 100
+		if percent <= 10:
+			npc.setMagicBottled(True, percent)
 		else:
 			npc.setQuestDropable(False)
 			caster.sendPacket(SystemMessage(SystemMessageId.NOTHING_HAPPENED))
