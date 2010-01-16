@@ -21026,6 +21026,11 @@ SELECT createSkillEnchant(293, 1, 20); -- Two-handed Weapon Mastery
 SELECT createSkillEnchant2(293, 2); -- Two-handed Weapon Mastery
 SELECT createSkillEnchant(297, 1, 2); -- Duelist Spirit
 SELECT createSkillEnchant2(297, 2); -- Duelist Spirit
+SELECT createSkillEnchant2(302, 3); -- Spoil Festival
+SELECT createSkillEnchant2(314, 7); -- Fatal Counter
+SELECT createSkillEnchant2(315, 7); -- Crush of Doom
+SELECT createSkillEnchant(319, 1, 2); -- Agile Movement
+SELECT createSkillEnchant2(319, 2); -- Agile Movement
 SELECT createSkillEnchant(321, 1, 10); -- Blinding Blow
 SELECT createSkillEnchant2(321, 2); -- Blinding Blow
 SELECT createSkillEnchant2(400, 3); -- Tribunal
@@ -21270,6 +21275,80 @@ SELECT createSpecialSkillEnchant(329, 1, 1);
 SELECT createSpecialSkillEnchant(329, 2, 1);
 SELECT createSpecialSkillEnchant(335, 1, 1);
 SELECT createSpecialSkillEnchant(335, 2, 1);
+SELECT createSpecialSkillEnchant(336, 1, 1); -- Arcane Wisdom
+SELECT createSpecialSkillEnchant(337, 1, 1); -- Arcane Power
+SELECT createSpecialSkillEnchant(338, 1, 1); -- Arcane Agility
+SELECT createSpecialSkillEnchant(338, 2, 1); -- Arcane Agility
+SELECT createSpecialSkillEnchant(339, 1, 1); -- Parry Stance
+SELECT createSpecialSkillEnchant(341, 1, 1); -- Touch of Life
+SELECT createSpecialSkillEnchant(341, 2, 1); -- Touch of Life
+SELECT createSpecialSkillEnchant(342, 1, 1); -- Touch of Death
+SELECT createSpecialSkillEnchant(342, 2, 1); -- Touch of Death
+SELECT createSpecialSkillEnchant(343, 1, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(343, 2, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(343, 3, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(343, 4, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(343, 5, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(343, 6, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(343, 7, 1); -- Lethal Shot
+SELECT createSpecialSkillEnchant(344, 1, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(344, 2, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(344, 3, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(344, 4, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(344, 5, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(344, 6, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(344, 7, 1); -- Lethal Blow
+SELECT createSpecialSkillEnchant(347, 1, 1); -- Earthquake
+SELECT createSpecialSkillEnchant(347, 2, 1); -- Earthquake
+SELECT createSpecialSkillEnchant(347, 3, 1); -- Earthquake
+SELECT createSpecialSkillEnchant(349, 1, 1); -- Song of Renewal
+SELECT createSpecialSkillEnchant(349, 2, 1); -- Song of Renewal
+SELECT createSpecialSkillEnchant(352, 1, 1); -- Shield Bash
+SELECT createSpecialSkillEnchant(352, 2, 1); -- Shield Bash
+SELECT createSpecialSkillEnchant(352, 3, 1); -- Shield Bash
+SELECT createSpecialSkillEnchant(352, 4, 1); -- Shield Bash
+SELECT createSpecialSkillEnchant(352, 5, 1); -- Shield Bash
+SELECT createSpecialSkillEnchant(353, 1, 1); -- Shield Slam
+SELECT createSpecialSkillEnchant(353, 2, 1); -- Shield Slam
+SELECT createSpecialSkillEnchant(353, 3, 1); -- Shield Slam
+SELECT createSpecialSkillEnchant(354, 1, 1); -- Hamstring Shot
+SELECT createSpecialSkillEnchant(354, 2, 1); -- Hamstring Shot
+SELECT createSpecialSkillEnchant(355, 1, 1); -- Focus Death
+SELECT createSpecialSkillEnchant(355, 2, 1); -- Focus Death
+SELECT createSpecialSkillEnchant(356, 1, 1); -- Focus Chance
+SELECT createSpecialSkillEnchant(356, 2, 1); -- Focus Chance
+SELECT createSpecialSkillEnchant(357, 1, 1); -- Focus Power
+SELECT createSpecialSkillEnchant(357, 2, 1); -- Focus Power
+SELECT createSpecialSkillEnchant(358, 1, 1); -- Bluff
+SELECT createSpecialSkillEnchant(359, 1, 1); -- Eye of Hunter
+SELECT createSpecialSkillEnchant(359, 2, 1); -- Eye of Hunter
+SELECT createSpecialSkillEnchant(360, 1, 1); -- Eye of Slayer
+SELECT createSpecialSkillEnchant(360, 2, 1); -- Eye of Slayer
+SELECT createSpecialSkillEnchant(361, 1, 1); -- Shock Blast
+SELECT createSpecialSkillEnchant(361, 2, 1); -- Shock Blast
+SELECT createSpecialSkillEnchant(361, 3, 1); -- Shock Blast
+SELECT createSpecialSkillEnchant(362, 1, 1); -- Armor Crush
+SELECT createSpecialSkillEnchant(362, 2, 1); -- Armor Crush
+SELECT createSpecialSkillEnchant(362, 3, 1); -- Armor Crush
+SELECT createSpecialSkillEnchant(363, 1, 1); -- Song of Meditation
+SELECT createSpecialSkillEnchant(363, 2, 1); -- Song of Meditation
+SELECT createSpecialSkillEnchant(365, 1, 1); -- Siren's Dance
+SELECT createSpecialSkillEnchant(365, 2, 1); -- Siren's Dance
+SELECT createSpecialSkillEnchant(366, 1, 1); -- Dance of Shadows
+SELECT createSpecialSkillEnchant(366, 2, 1); -- Dance of Shadows
+SELECT createSpecialSkillEnchant(367, 1, 1); -- Dance of Medusa
+SELECT createSpecialSkillEnchant(367, 2, 1); -- Dance of Medusa
+SELECT createSpecialSkillEnchant(368, 1, 1); -- Vengeance
+SELECT createSpecialSkillEnchant(368, 2, 1); -- Vengeance
+SELECT createSpecialSkillEnchant(368, 3, 1); -- Vengeance
+SELECT createSpecialSkillEnchant(369, 1, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 2, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 3, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 4, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 5, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 6, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 7, 1); -- Evade Shot
+SELECT createSpecialSkillEnchant(369, 8, 1); -- Evade Shot
 SELECT createSpecialSkillEnchant(526, 1, 1);
 SELECT createSpecialSkillEnchant(526, 2, 1);
 SELECT createSpecialSkillEnchant(526, 3, 1);
