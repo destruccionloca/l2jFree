@@ -2122,8 +2122,11 @@
       </effect>
     </enchant2for>
     <enchant8for>
-      <mul order="0x30" stat="pvpPhysDmg" val="#ench8Duel"/>
-      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench8Duel"/>
+      <effect self="1" name="Buff" time="30" val="0" stackOrder="6" stackType="avoid_up_special">
+        <add order="0x40" stat="rEvas" val="6"/>
+        <mul order="0x30" stat="pvpPhysDmg" val="#ench8Duel"/>
+        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench8Duel"/>
+      </effect>
     </enchant8for>
   </skill>
   <!--
