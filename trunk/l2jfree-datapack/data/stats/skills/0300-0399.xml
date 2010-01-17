@@ -2129,294 +2129,237 @@
       </effect>
     </enchant8for>
   </skill>
-  <!--
-    CLAN SKILLS - temp addition until proper implementation is done
-    - see http://l2p.bravehost.com/passives.html for partial data
-  -->
   <skill id="370" levels="3" name="Clan Body">
-    <!-- Increases clan members' Max HP. It only effects those who are of an Heir class or higher. -->
     <table name="#maxHp"> 1.03 1.05 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="2"/>
+    <set name="minPledgeClass" val="1"/> <!-- Member (Vassal) -->
     <for>
       <mul order="0x30" stat="maxHp" val="#maxHp"/>
     </for>
   </skill>
   <skill id="371" levels="3" name="Clan Spirituality">
-    <!-- Increases clan members' Max CP. It only effects those who are of a Baron class or higher. -->
     <table name="#maxCp"> 1.06 1.1 1.12 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="5"/>
+    <set name="minPledgeClass" val="5"/> <!-- Baron -->
     <for>
       <mul order="0x30" stat="maxCp" val="#maxCp"/>
     </for>
   </skill>
   <skill id="372" levels="3" name="Clan Essence">
-    <!-- Increases clan members' Max MP. It only effects those who are of a Viscount class or higher. -->
     <table name="#maxMp"> 1.03 1.05 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <mul order="0x30" stat="maxMp" val="#maxMp"/>
     </for>
   </skill>
   <skill id="373" levels="3" name="Clan Lifeblood">
-    <!-- Increases the clan members' HP regeneration. Only affects Heir class and above. -->
     <table name="#regHp"> 1.03 1.05 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="2"/>
+    <set name="minPledgeClass" val="1"/> <!-- Member (Vassal) -->
     <for>
       <mul order="0x30" stat="regHp" val="#regHp"/>
     </for>
   </skill>
   <skill id="374" levels="3" name="Clan Morale">
-    <!-- Increases the clan members' CP regeneration. Only affects Wise Man class and above. -->
     <table name="#regCp"> 1.06 1.1 1.12 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="4"/>
+    <set name="minPledgeClass" val="4"/> <!-- Elder -->
     <for>
       <mul order="0x30" stat="regCp" val="#regCp"/>
     </for>
   </skill>
   <skill id="375" levels="3" name="Clan Clarity">
-    <!-- Increases the clan members' MP regeneration. Only affects Viscount class and above. -->
     <table name="#regMp"> 1.03 1.05 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <mul order="0x30" stat="regMp" val="#regMp"/>
     </for>
   </skill>
   <skill id="376" levels="3" name="Clan Might">
-    <!-- Increases the clan members' P. Atk. Only affects Knight class and above. -->
     <table name="#pAtk"> 1.03 1.05 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="3"/>
+    <set name="minPledgeClass" val="3"/> <!-- Knight -->
     <for>
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </for>
   </skill>
   <skill id="377" levels="3" name="Clan Aegis">
-    <!-- Increases clan members' P. Def. It only effects those who are of a Knight class or higher. -->
     <table name="#pDef"> 1.03 1.05 1.06 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="3"/>
+    <set name="minPledgeClass" val="3"/> <!-- Knight -->
     <for>
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </for>
   </skill>
   <skill id="378" levels="3" name="Clan Empowerment">
-    <!-- Increases clan members' M. Atk. It only effects those who are of a Viscount class or higher. -->
     <table name="#mAtk"> 1.06 1.1 1.12 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <mul order="0x30" stat="mAtk" val="#mAtk"/>
     </for>
   </skill>
   <skill id="379" levels="3" name="Clan Magic Protection">
-    <!-- Increases clan members' M. Def. It only effects those who are of an Heir class or higher. -->
     <table name="#mDef"> 1.06 1.1 1.12 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="2"/>
+    <set name="minPledgeClass" val="1"/> <!-- Member (Vassal) -->
     <for>
       <mul order="0x30" stat="mDef" val="#mDef"/>
     </for>
   </skill>
   <skill id="380" levels="3" name="Clan Guidance">
-    <!-- Increases the clan members' Accuracy. Only affects Baron class and above. -->
     <table name="#accCombat"> 1 2 3 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="5"/>
+    <set name="minPledgeClass" val="5"/> <!-- Baron -->
     <for>
       <add order="0x40" stat="accCombat" val="#accCombat"/>
     </for>
   </skill>
   <skill id="381" levels="3" name="Clan Agility">
-    <!-- Increases the clan members' Evasion. Only affects Baron class and above. -->
     <table name="#rEvas"> 1 2 3 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="5"/>
+    <set name="minPledgeClass" val="5"/> <!-- Baron -->
     <for>
       <add order="0x40" stat="rEvas" val="#rEvas"/>
     </for>
   </skill>
   <skill id="382" levels="3" name="Clan Withstand-Attack">
-    <!--
-      Increases clan members' Shield defense probability. It only effects those who are of a Viscount class or higher.
-    -->
     <table name="#rShld"> 1.12 1.2 1.24 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <mul order="0x30" stat="rShld" val="#rShld"/>
     </for>
   </skill>
   <skill id="383" levels="3" name="Clan Shield Boost">
-    <!--
-      Increases clan members' Shield P. Def. It only effects those who are of a Baron class or higher.
-    -->
     <table name="#sDef"> 1.24 1.4 1.48 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="5"/>
+    <set name="minPledgeClass" val="5"/> <!-- Baron -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <for>
       <mul order="0x30" stat="sDef" val="#sDef"/>
     </for>
   </skill>
   <skill id="384" levels="3" name="Clan Cyclonic Resistance">
-    <!--
-      Increases clan members' resistance to water/wind attacks. It only effects those who are of a Viscount class or higher.
-    -->
     <table name="#vuln"> 3 5 6 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <add order="0x40" stat="windRes" val="#vuln"/>
       <add order="0x40" stat="waterRes" val="#vuln"/>
     </for>
   </skill>
   <skill id="385" levels="3" name="Clan Magmatic Resistance">
-    <!--
-      Increases clan members' resistance to fire/earth attacks. It only effects those who are of a Viscount class or higher.
-    -->
     <table name="#vuln"> 3 5 6 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <add order="0x40" stat="fireRes" val="#vuln"/>
       <add order="0x40" stat="earthRes" val="#vuln"/>
     </for>
   </skill>
   <skill id="386" levels="3" name="Clan Fortitude">
-    <!-- Increases the clan members' resistance to shock attacks. Only affects Viscount class and above. -->
     <table name="#vuln"> 0.88 0.8 0.76 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <mul order="0x30" stat="stunVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="387" levels="3" name="Clan Freedom">
-    <!-- Increases the clan members' resistance to hold attacks. Only affects Viscount class and above. -->
     <table name="#vuln"> 0.88 0.8 0.76 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <mul order="0x30" stat="rootVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="388" levels="3" name="Clan Vigilance">
-    <!-- Increases the clan members' resistance to sleep attacks. Only affects Viscount class and above. -->
     <table name="#vuln"> 0.88 0.8 0.76 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="6"/>
+    <set name="minPledgeClass" val="6"/> <!-- Viscount -->
     <for>
       <mul order="0x30" stat="sleepVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="389" levels="3" name="Clan March">
-    <!-- Increases clan members' Speed. It only effects those who are of a Count class or higher. -->
     <table name="#runSpd"> 3 5 6 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="isMagic" val="true"/>
-    <set name="minPledgeClass" val="7"/>
+    <set name="minPledgeClass" val="7"/> <!-- Count -->
     <for>
       <add order="0x40" stat="runSpd" val="#runSpd"/>
     </for>
   </skill>
   <skill id="390" levels="3" name="Clan Luck">
-    <!--
-      Decreases Exp. loss and the chance of other death penalties when killed by a monster or player.
-      It only effects those who are of an Heir class or higher.
-      Still missing info about other penalties than exp. loss
-    -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="COREDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="minPledgeClass" val="2"/>
+    <set name="minPledgeClass" val="1"/> <!-- Main clan family descendant (Vassal) -->
   </skill>
   <skill id="391" levels="1" name="Clan Imperium">
-    <!-- Gives authority to open up a command channel. Only affects Wise Man class and above. -->
+    <!-- Grants the privilege of Command Channel formation. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="minPledgeClass" val="4"/>
+    <set name="minPledgeClass" val="4"/> <!-- Elder -->
   </skill>
   <skill id="392" levels="1" name="none">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="393" levels="1" name="none">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="394" levels="1" name="none">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="395" levels="1" name="Heroic Miracle">
     <set name="mpConsume" val="72"/>
@@ -2463,18 +2406,18 @@
     </for>
   </skill>
   <skill id="397" levels="1" name="none">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="398" levels="1" name="none">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="399" levels="1" name="none">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
 </list>
