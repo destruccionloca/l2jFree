@@ -16,43 +16,49 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 public class RadarControl extends L2GameServerPacket
 {
-    private static final String _S__EB_RadarControl = "[S] EB RadarControl";
-    private final int _showRadar;
-    private final int _type;
-    private final int _x;
-    private final int _y;
-    private final int _z;
-    /**
-     * 0xEB RadarControl         ddddd
-     * @param _
-     */
+	private static final String	_S__RADARCONTROL	= "[S] F1 RadarControl c[ddddd]";
 
-    public RadarControl(int showRadar, int type, int x , int  y ,int z)
-    {
-        _showRadar = showRadar;         // showRader?? 0 = showradar; 1 = delete radar;
-        _type = type;                   // radar type??
-        _x = x;
-        _y = y;
-        _z = z;
-    }
-	
-    @Override
-    protected final void writeImpl()
-    {
-        writeC(0xf1);
-        writeD(_showRadar);
-        writeD(_type);     //maybe type
-        writeD(_x);    //x
-        writeD(_y);    //y
-        writeD(_z);    //z
-    }
+	public static final int MARKER_ADD				= 0;
+	public static final int MARKER_REMOVE			= 1;
+	private static final int MARKER_REMOVE_ALL		= 2;
+	public static final RadarControl REMOVE_ALL		= new RadarControl(MARKER_REMOVE_ALL, 0, 0, 0, 0);
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__EB_RadarControl;
-    }
+	// Identical
+	public static final int FLAG_1					= 1;
+	public static final int FLAG_2					= 2;
+
+	private final int _marker;
+	private final int _flag;
+	private final int _x;
+	private final int _y;
+	private final int _z;
+
+	public RadarControl(int marker, int flag, int x, int y, int z)
+	{
+		_marker = marker;
+		_flag = flag;
+		_x = x;
+		_y = y;
+		_z = z;
+	}
+
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0xF1);
+		writeD(_marker);
+		writeD(_flag);
+		writeD(_x);
+		writeD(_y);
+		writeD(_z);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__RADARCONTROL;
+	}
 }

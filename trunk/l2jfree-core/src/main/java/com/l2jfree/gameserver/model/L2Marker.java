@@ -19,59 +19,62 @@ import javolution.util.FastList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
 
-
-/**
- * @author dalrond
- */
-public final class L2Radar
+public final class L2Marker
 {
-	private final L2PcInstance        _player;
-	private final FastList<RadarMarker> _markers;
+	private final L2PcInstance			_player;
+	private final FastList<MapMarker>	_markers;
 
-	public L2Radar(L2PcInstance player)
+	public L2Marker(L2PcInstance player)
 	{
 		_player = player;
-		_markers = new FastList<RadarMarker>();
+		_markers = new FastList<MapMarker>();
 	}
 
-	// Add a marker to player's radar
+	/**
+	 * Adds a red flag to the world map (mini-map) at given coordinates.
+	 * Doesn't check if a flag is already present.
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void addMarker(int x, int y, int z)
 	{
-		RadarMarker newMarker = new RadarMarker(x, y, z);
-		_markers.add(newMarker);
-		_player.sendPacket(new RadarControl(2, 2, x, y, z));
-		_player.sendPacket(new RadarControl(0, 1, x, y, z));
+		_markers.add(new MapMarker(x, y, z));
+		_player.sendPacket(new RadarControl(RadarControl.MARKER_ADD, RadarControl.FLAG_1, x, y, z));
 	}
 
-	// Remove a marker from player's radar
+	/**
+	 * Removes a red flag from the world map (mini-map) at given coordinates if it's present.
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
 	public void removeMarker(int x, int y, int z)
 	{
-		RadarMarker newMarker = new RadarMarker(x, y, z);
+		MapMarker newMarker = new MapMarker(x, y, z);
 		_markers.remove(newMarker);
-		_player.sendPacket(new RadarControl(1, 1, x, y, z));
+		_player.sendPacket(new RadarControl(RadarControl.MARKER_REMOVE, RadarControl.FLAG_1, x, y, z));
 	}
 
 	public void removeAllMarkers()
 	{
-		for (RadarMarker tempMarker : _markers)
-			_player.sendPacket(new RadarControl(2, 2, tempMarker._x, tempMarker._y, tempMarker._z));
-
 		_markers.clear();
+		_player.sendPacket(RadarControl.REMOVE_ALL);
 	}
 
 	public void loadMarkers()
 	{
-		_player.sendPacket(new RadarControl(2, 2, _player.getX(), _player.getY(), _player.getZ()));
-		for (RadarMarker tempMarker : _markers)
-			_player.sendPacket(new RadarControl(0, 1, tempMarker._x, tempMarker._y, tempMarker._z));
+		_player.sendPacket(RadarControl.REMOVE_ALL);
+		for (MapMarker mark : _markers)
+			_player.sendPacket(new RadarControl(RadarControl.MARKER_ADD, RadarControl.FLAG_1, mark._x, mark._y, mark._z));
 	}
 
-	public static class RadarMarker
+	public static class MapMarker
 	{
 		// Simple class to model radar points.
 		public int _type, _x, _y, _z;
 
-		public RadarMarker(int type, int x, int y, int z)
+		public MapMarker(int type, int x, int y, int z)
 		{
 			_type = type;
 			_x = x;
@@ -79,9 +82,9 @@ public final class L2Radar
 			_z = z;
 		}
 
-		public RadarMarker(int x, int y, int z)
+		public MapMarker(int x, int y, int z)
 		{
-			_type = 1;
+			_type = RadarControl.FLAG_1;
 			_x = x;
 			_y = y;
 			_z = z;
@@ -112,9 +115,9 @@ public final class L2Radar
 				return true;
 			if (obj == null)
 				return false;
-			if (!(obj instanceof RadarMarker))
+			if (!(obj instanceof MapMarker))
 				return false;
-			final RadarMarker other = (RadarMarker) obj;
+			final MapMarker other = (MapMarker) obj;
 			if (_type != other._type)
 				return false;
 			if (_x != other._x)

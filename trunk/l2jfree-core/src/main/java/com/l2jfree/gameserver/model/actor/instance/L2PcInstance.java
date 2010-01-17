@@ -123,7 +123,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.L2PetData;
-import com.l2jfree.gameserver.model.L2Radar;
+import com.l2jfree.gameserver.model.L2Marker;
 import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.L2Request;
 import com.l2jfree.gameserver.model.L2ShortCut;
@@ -595,7 +595,7 @@ public final class L2PcInstance extends L2Playable
 	private L2TamedBeastInstance			_tamedBeast				= null;
 
 	// Client radar
-	private L2Radar							_radar;
+	private L2Marker							_radar;
 
 	// These values are only stored temporarily
 	private boolean							_lookingForParty;
@@ -2576,10 +2576,10 @@ public final class L2PcInstance extends L2Playable
 		return charTemp.getRace();
 	}
 
-	public L2Radar getRadar()
+	public L2Marker getRadar()
 	{
 		if (_radar == null)
-			_radar = new L2Radar(this);
+			_radar = new L2Marker(this);
 
 		return _radar;
 	}
