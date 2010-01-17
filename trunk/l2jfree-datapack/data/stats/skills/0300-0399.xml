@@ -957,9 +957,9 @@
   <skill id="336" levels="1" name="Arcane Wisdom" enchantLevels1="15">
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1MagicalMpConsumeRate"> 30 30 31 31 31 32 32 32 33 33 33 34 34 34 35 </table>
+    <table name="#ench1MagicalMpConsumeRate"> 0.7 0.7 0.69 0.69 0.69 0.68 0.68 0.68 0.67 0.67 0.67 0.66 0.66 0.66 0.65 </table>
     <set name="magicLvl" val="78"/>
-    <set name="mpConsume" val="36"/>
+    <set name="mpInitialConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -971,7 +971,6 @@
       </effect>
     </for>
     <enchant1for>
-      <!-- Retail Values CT2.3: 50HP * 3 Sec -->
       <effect count="0x7fffffff" name="DamOverTime" time="3" val="150">
         <mul order="0x30" stat="mAtkSpd" val="0.9"/>
         <mul order="0x30" stat="MagicalMpConsumeRate" val="#ench1MagicalMpConsumeRate"/>
@@ -981,9 +980,9 @@
   <skill id="337" levels="1" name="Arcane Power" enchantLevels1="15">
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1mAtk"> 30 30.3 30.6 31 31.3 31.6 32 32.3 32.6 33 33.3 33.6 34 34.3 34.6 35 </table>
+    <table name="#ench1mAtk"> 1.303 1.306 1.31 1.313 1.316 1.32 1.323 1.326 1.33 1.333 1.336 1.34 1.343 1.346 1.35 </table>
     <set name="magicLvl" val="78"/>
-    <set name="mpConsume" val="36"/>
+    <set name="mpInitialConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -1007,9 +1006,9 @@
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1mAtkSpd"> 1.201 1.202 1.204 1.205 1.206 1.208 1.209 1.21 1.212 1.213 1.214 1.216 1.217 1.218 1.22 </table>
-    <table name="#ench2mReuse"> 0.89 0.88 0.88 0.87 0.86 0.86 0.85 0.84 0.84 0.83 0.82 0.82 0.81 0.8 0.79 </table>
+    <table name="#ench2mReuse"> 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.88 </table>
     <set name="magicLvl" val="78"/>
-    <set name="mpConsume" val="36"/>
+    <set name="mpInitialConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -1041,9 +1040,9 @@
   <skill id="339" levels="1" name="Parry Stance" enchantLevels1="15">
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1Def"> 25.1 25.2 25.4 25.5 25.6 25.8 25.9 26 26.2 26.3 26.4 26.6 26.7 26.8 27 </table>
+    <table name="#ench1Def"> 1.251 1.252 1.254 1.255 1.256 1.258 1.259 1.26 1.262 1.263 1.264 1.266 1.267 1.268 1.27 </table>
     <set name="magicLvl" val="78"/>
-    <set name="mpConsume" val="36"/>
+    <set name="mpInitialConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -1068,7 +1067,7 @@
   </skill>
   <skill id="340" levels="1" name="Riposte Stance">
     <set name="magicLvl" val="77"/>
-    <set name="mpConsume" val="35"/>
+    <set name="mpInitialConsume" val="35"/>
     <set name="power" val="30"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
