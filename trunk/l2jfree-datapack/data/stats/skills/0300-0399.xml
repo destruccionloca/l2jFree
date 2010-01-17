@@ -367,7 +367,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
-    <enchant1 name="mpInitialConsume" val="14"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.4">
@@ -425,7 +424,7 @@
     </enchant1for>
     <enchant2for>
       <effect name="ImmobileBuff" time="#ench2time" val="0">
-        <add order="0x40" stat="pAtk" val="260"/>
+        <add order="0x40" stat="pAtk" val="199"/> <!-- TODO: should be 260? -->
         <add order="0x40" stat="accCombat" val="6"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
         <add order="0x40" stat="pAtkRange" val="200"/>
@@ -476,8 +475,10 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7for>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
+      -->
     </enchant7for>
   </skill>
   <skill id="315" levels="16" name="Crush of Doom" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
@@ -517,26 +518,22 @@
     <set name="effectRange" val="400"/>
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="hpConsume" val="#ench2hpConsume"/>
-    <enchant3 name="power" val="7635"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
     <enchant3 name="element" val="0"/> <!-- Fire -->
-    <enchant4 name="power" val="7635"/>
     <enchant4 name="elementPower" val="#enchElementPower"/>
     <enchant4 name="element" val="1"/> <!-- Water -->
-    <enchant5 name="power" val="7635"/>
     <enchant5 name="elementPower" val="#enchElementPower"/>
     <enchant5 name="element" val="2"/> <!-- Wind -->
-    <enchant6 name="power" val="7635"/>
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
-    <enchant7 name="power" val="7635"/>
     <enchant7for>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
+      -->
     </enchant7for>
   </skill>
   <skill id="316" levels="1" name="Aegis">
-    <!-- done by NB4L1 -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1175,24 +1172,20 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="power" val="5132"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
-    <enchant3 name="power" val="5132"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
     <enchant3 name="element" val="0"/> <!-- Fire -->
-    <enchant4 name="power" val="5132"/>
     <enchant4 name="elementPower" val="#enchElementPower"/>
     <enchant4 name="element" val="1"/> <!-- Water -->
-    <enchant5 name="power" val="5132"/>
     <enchant5 name="elementPower" val="#enchElementPower"/>
     <enchant5 name="element" val="2"/> <!-- Wind -->
-    <enchant6 name="power" val="5132"/>
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
-    <enchant7 name="power" val="5132"/>
     <enchant7for>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
+      -->
     </enchant7for>
   </skill>
   <skill id="344" levels="1" name="Lethal Blow" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15">
@@ -1224,24 +1217,20 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="power" val="5773"/>
     <enchant2 name="lethal1" val="#ench2lethal1"/>
-    <enchant3 name="power" val="5773"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
     <enchant3 name="element" val="0"/> <!-- Fire -->
-    <enchant4 name="power" val="5773"/>
     <enchant4 name="elementPower" val="#enchElementPower"/>
     <enchant4 name="element" val="1"/> <!-- Water -->
-    <enchant5 name="power" val="5773"/>
     <enchant5 name="elementPower" val="#enchElementPower"/>
     <enchant5 name="element" val="2"/> <!-- Wind -->
-    <enchant6 name="power" val="5773"/>
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
-    <enchant7 name="power" val="5773"/>
     <enchant7for>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
+      -->
     </enchant7for>
   </skill>
   <skill id="345" levels="1" name="Sonic Rage">
@@ -1309,7 +1298,6 @@
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="hpConsume" val="#ench2hpConsume"/>
-    <enchant3 name="power" val="4848"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <enchant3 name="element" val="3"/> <!-- Earth -->
     <for>
@@ -1533,8 +1521,8 @@
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1blowRate"> 60.6 61.3 62 62.6 63.3 64 64.6 65.3 66 66.6 67.3 68 68.6 69.3 70 </table>
-    <table name="#ench2cAtk"> 91 91 91 92 92 92 92 93 93 93 93 94 94 94 95 </table>
+    <table name="#ench1blowRate"> 1.606 1.613 1.62 1.626 1.633 1.64 1.646 1.653 1.66 1.666 1.673 1.68 1.686 1.693 1.70 </table>
+    <table name="#ench2cAtk"> 1.91 1.91 1.91 1.92 1.92 1.92 1.92 1.93 1.93 1.93 1.93 1.94 1.94 1.94 1.95 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="36"/>
     <set name="magicLvl" val="78"/>
@@ -1586,7 +1574,7 @@
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <!-- Client description do not contains blowRate. -->
-    <table name="#ench1rCrit"> 60.3 60.6 60.9 61.3 61.6 61.9 62.3 62.6 62.9 63.3 63.6 63.9 64.3 64.6 64.9 </table>
+    <table name="#ench1rCrit"> 1.603 1.606 1.609 1.613 1.616 1.619 1.623 1.626 1.629 1.633 1.636 1.639 1.643 1.646 1.649 </table>
     <table name="#ench2rCrit"> 1.303 1.306 1.31 1.313 1.316 1.32 1.323 1.326 1.33 1.333 1.336 1.34 1.343 1.346 1.35 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="36"/>
@@ -1650,8 +1638,8 @@
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1cAtk"> 61 62 62 63 64 64 65 66 66 67 67 68 69 69 70 </table>
-    <table name="#ench2cAtk"> 31 32 32 33 34 34 35 36 36 37 37 38 39 39 40 </table>
+    <table name="#ench1cAtk"> 1.61 1.62 1.62 1.63 1.64 1.64 1.65 1.66 1.66 1.67 1.67 1.68 1.69 1.69 1.70 </table>
+    <table name="#ench2cAtk"> 1.31 1.32 1.32 1.33 1.34 1.34 1.35 1.36 1.36 1.37 1.37 1.38 1.39 1.39 1.40 </table>
     <set name="mpConsume" val="36"/>
     <set name="magicLvl" val="78"/>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
@@ -1740,7 +1728,7 @@
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1pAtk"> 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 </table>
+    <table name="#ench1pAtk"> 1.31 1.32 1.33 1.34 1.35 1.36 1.37 1.38 1.39 1.40 1.41 1.42 1.43 1.44 1.45 </table>
     <table name="#ench2time"> 640 680 720 760 800 840 880 920 960 1000 1040 1080 1120 1160 1200 </table>
     <set name="mpConsume" val="70"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1775,7 +1763,7 @@
     <table name="#enchantMagicLvl"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
     <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1pAtk"> 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 </table>
+    <table name="#ench1pAtk"> 1.31 1.32 1.33 1.34 1.35 1.36 1.37 1.38 1.39 1.40 1.41 1.42 1.43 1.44 1.45 </table>
     <table name="#ench2time"> 640 680 720 760 800 840 880 920 960 1000 1040 1080 1120 1160 1200 </table>
     <set name="mpConsume" val="71"/>
     <set name="reuseDelay" val="3000"/>
@@ -2067,7 +2055,7 @@
         <add order="0x40" stat="pDef" val="5400"/>
         <add order="0x40" stat="mDef" val="4050"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
-        <mul order="0x30" stat="runSpd" val="#ench2Penalty"/>
+        <mul order="0x30" stat="runSpd" val="#ench2Penalty"/> <!-- ImmobileBuff won't let players move at all, regardless the runSpd -->
       </effect>
       <effect name="TargetMe" time="3" val="0"/>
     </enchant2for>
