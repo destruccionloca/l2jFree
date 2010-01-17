@@ -6298,6 +6298,10 @@ public final class L2PcInstance extends L2Playable
 		{
 			return true;
 		}
+		else if (weaponItem.getItemType() == L2WeaponType.DUAL_DAGGER)
+		{
+			return true;
+		}
 		else if (weaponItem.getItemType() == L2WeaponType.DUALFIST)
 		{
 			return true;
