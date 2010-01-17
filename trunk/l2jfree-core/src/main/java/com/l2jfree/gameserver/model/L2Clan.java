@@ -2482,6 +2482,21 @@ public class L2Clan
 			}
 			break;
 		}
+		case 10:
+		{
+			// Upgrade to 11
+			// Missing check for territory
+			if (getReputationScore() >= Config.CLAN_LEVEL_11_COST &&
+					getMembersCount() >= Config.MEMBER_FOR_LEVEL_ELEVEN)
+			{
+				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_11_COST, true);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
+				sm.addNumber(Config.CLAN_LEVEL_11_COST);
+				player.sendPacket(sm);
+				increaseClanLevel = true;
+			}
+			break;
+		}
 		default:
 			return false;
 		}

@@ -284,10 +284,11 @@ public class Config extends L2Config
 	public static int				CLAN_LEADER_COLOR;
 	public static int				CLAN_LEADER_COLOR_CLAN_LEVEL;
 	public static int				MEMBER_FOR_LEVEL_SIX;			// Number of members to level up a clan to lvl 6
-	public static int				MEMBER_FOR_LEVEL_SEVEN;		// Number of members to level up a clan to lvl 7
-	public static int				MEMBER_FOR_LEVEL_EIGHT;		// Number of members to level up a clan to lvl 8
+	public static int				MEMBER_FOR_LEVEL_SEVEN;			// Number of members to level up a clan to lvl 7
+	public static int				MEMBER_FOR_LEVEL_EIGHT;			// Number of members to level up a clan to lvl 8
 	public static int				MEMBER_FOR_LEVEL_NINE;			// Number of members to level up a clan to lvl 9
 	public static int				MEMBER_FOR_LEVEL_TEN;			// Number of members to level up a clan to lvl 10
+	public static int				MEMBER_FOR_LEVEL_ELEVEN;		// Number of members to level up a clan to lvl 11
 
 	// Clan Fame
 	public static int				TAKE_FORT_POINTS;
@@ -324,6 +325,7 @@ public class Config extends L2Config
 	public static int				CLAN_LEVEL_8_COST;
 	public static int				CLAN_LEVEL_9_COST;
 	public static int				CLAN_LEVEL_10_COST;
+	public static int				CLAN_LEVEL_11_COST;
 
 	// *******************************************************************************************
 	private static final class ClansConfig extends ConfigLoader
@@ -355,6 +357,7 @@ public class Config extends L2Config
 			MEMBER_FOR_LEVEL_EIGHT = Integer.parseInt(clansSettings.getProperty("MemberForLevel8", "120"));
 			MEMBER_FOR_LEVEL_NINE = Integer.parseInt(clansSettings.getProperty("MemberForLevel9", "120"));
 			MEMBER_FOR_LEVEL_TEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel10", "140"));
+			MEMBER_FOR_LEVEL_ELEVEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel11", "170"));
 
 			// Clan Fame
 			TAKE_FORT_POINTS			= Integer.parseInt(clansSettings.getProperty("TakeFortPoints", "200"));
@@ -391,6 +394,7 @@ public class Config extends L2Config
 			CLAN_LEVEL_8_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel8Cost", "40000"));
 			CLAN_LEVEL_9_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel9Cost", "40000"));
 			CLAN_LEVEL_10_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel10Cost", "40000"));
+			CLAN_LEVEL_11_COST			= Integer.parseInt(clansSettings.getProperty("ClanLevel11Cost", "75000"));
 		}
 	}
 
