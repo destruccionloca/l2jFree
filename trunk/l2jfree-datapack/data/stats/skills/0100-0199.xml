@@ -852,6 +852,7 @@
       <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
     </enchant1for>
     <enchant2for>
+      <add order="0x40" stat="pAtk" val="129.3"/>
       <add order="0x40" stat="pAtkSpd" val="#ench2pAtkSpd"/>
     </enchant2for>
   </skill>
