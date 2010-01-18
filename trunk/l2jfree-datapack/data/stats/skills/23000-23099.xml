@@ -880,7 +880,7 @@
   </skill>
   <skill id="23068" levels="1" name="Pomona Agathion Special Skill - Mental Shield Ability">
     <!-- Increases resistance to hold/sleep/abnormal mental attacks by 50 for 10 minutes. Reuse Delay 1 hours -->
-    <table name="#vuln">0.5</table>
+    <table name="#vuln"> 0.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>

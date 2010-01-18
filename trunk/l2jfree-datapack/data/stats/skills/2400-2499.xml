@@ -1431,7 +1431,7 @@
     </cond>
   </skill>
   <skill id="2499" levels="2" name="Bottle of Full Soul">
-    <table name="#souls">5 10</table>
+    <table name="#souls"> 5 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CHARGESOUL"/>
     <set name="operateType" val="OP_ACTIVE"/>

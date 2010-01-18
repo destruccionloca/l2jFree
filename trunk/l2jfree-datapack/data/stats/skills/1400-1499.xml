@@ -80,7 +80,7 @@
       37 36 36 35 34 34 33 33 32 31 31 30 29 29 28 </table>
     <table name="#ench2mpConsume"> 186 184 181 180 176 174 172 169 166 164 161 158 156
       153 152 148 146 144 141 138 136 133 132 128 125 124 120 118 116 113 </table>
-    <table name="#power">902 979 1050 1115 1170</table>
+    <table name="#power"> 902 979 1050 1115 1170 </table>
     <table name="#mpInitialConsume"> 37 39 42 45 47 </table>
     <table name="#mpConsume"> 151 159 171 182 191 </table>
     <set name="itemConsumeId" val="3031"/>
@@ -472,7 +472,7 @@
     </enchant1for>
   </skill>
   <skill id="1416" levels="1" name="Pa'agrio's Fist" enchantLevels1="15" enchantLevels2="15">
-    <table name="#ench1Power"> 810  820 830 840 850 860 870 880 890 900 910 920 930 940 950</table>
+    <table name="#ench1Power"> 810  820 830 840 850 860 870 880 890 900 910 920 930 940 950 </table>
     <table name="#ench2mpInitialConsume"> 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 </table>
     <table name="#ench2mpConsume"> 222 218 214 212 208 204 200 196 193 189 185 181 177 174 170 </table>
     <set name="mpConsume" val="227"/>
@@ -497,15 +497,15 @@
     </for>
   </skill>
   <skill id="1417" levels="5" name="Aura Flash" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1Power">    65 66 67 67 68 69 69 70 71 71 72 73 73 74 75 75 76 77 77 78 79 79 80
+    <table name="#ench1Power"> 65 66 67 67 68 69 69 70 71 71 72 73 73 74 75 75 76 77 77 78 79 79 80
       81 81 82 83 83 84 85 </table>
     <table name="#ench2effPower"> 40 41 42 42 43 44 44 44 45 46 47 48 48 48 49 49 49 49 50 51 52 53 54
       55 55 56 57 58 59 60 </table> <!-- Guess -->
     <table name="#mpInitialConsume"> 11 12 12 13 14 </table>
     <table name="#mpConsume"> 43 46 50 52 55 </table>
-    <table name="#itemConsumeCount">2 2 3 3 4</table>
-    <table name="#magicLvl">58 62 66 70 74</table>
-    <table name="#power">49 53 58 61 65</table>
+    <table name="#itemConsumeCount"> 2 2 3 3 4 </table>
+    <table name="#magicLvl"> 58 62 66 70 74 </table>
+    <table name="#power"> 49 53 58 61 65 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="itemConsumeId" val="3031"/>
@@ -829,7 +829,7 @@
     <table name="#mpInitialConsume"> 2 2 2 3 3 3 </table>
     <table name="#mpConsume"> 7 7 8 11 12 12 </table>
     <table name="#power"> 13 14 16 18 20 22 </table>
-    <table name="#magicLvl">17 20 23 25 28 30</table>
+    <table name="#magicLvl"> 17 20 23 25 28 30 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -848,7 +848,7 @@
     <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="1432" levels="2" name="Increase Power">
-    <table name="#pAtk">1.08 1.12</table>
+    <table name="#pAtk"> 1.08 1.12 </table>
     <table name="#mpInitialConsume"> 3 5 </table>
     <table name="#mpConsume"> 10 20 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -893,7 +893,7 @@
     <table name="#mpInitialConsume"> 6 7 7 8 </table>
     <table name="#mpConsume"> 22 26 30 34 </table>
     <table name="#power"> 16 18 20 23 </table>
-    <table name="#magicLvl">24 28 32 36</table>
+    <table name="#magicLvl"> 24 28 32 36 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -1015,7 +1015,7 @@
     <table name="#ench1Power"> 78 78 79 79 79 79 80 80 80 80 81 81 81 81 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 85 </table>
     <table name="#ench2mpInitialConsume"> 18 18 17 17 17 17 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 13 13 12 12 12 12 11 11 11 </table>
     <table name="#ench2mpConsume"> 71 70 70 68 67 66 66 64 63 62 62 60 59 58 58 56 55 54 54 54 52 51 50 50 48 47 46 46 44 43 </table>
-    <table name="#ench3effPower"> 15 16 17 17 18 19 19 19 20 21 22 23 23 23 24 24 24 24 25 26 27 28 29 30 31 32 33 33 34 35 </table>  <!-- Guess -->
+    <table name="#ench3effPower"> 15 16 17 17 18 19 19 19 20 21 22 23 23 23 24 24 24 24 25 26 27 28 29 30 31 32 33 33 34 35 </table> <!-- Guess -->
     <table name="#ench4ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
     <table name="#ench5darkRes"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 </table> <!-- Guess -->
     <table name="#mpInitialConsume"> 10 11 11 12 12 12 13 13 14 14 14 15 15 15 15 16 16 16 16 17 17 17 17 17 18 18 </table>
@@ -1137,7 +1137,7 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#mpInitialConsume"> 8 10 </table>
     <table name="#mpConsume"> 30 40 </table>
-    <table name="#mAtk">1.55 1.65</table>
+    <table name="#mAtk"> 1.55 1.65 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
@@ -1159,8 +1159,8 @@
       1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#mpInitialConsume"> 11 12 14 </table>
     <table name="#mpConsume"> 43 50 55 </table>
-    <table name="#vuln">15 23 30</table>
-    <table name="#aggroPoints">285 379 418 </table>
+    <table name="#vuln"> 15 23 30 </table>
+    <table name="#aggroPoints"> 285 379 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
@@ -2049,7 +2049,7 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#mpInitialConsume"> 3 6 9 </table>
     <table name="#mpConsume"> 12 23 35 </table>
-    <table name="#magicLvl">24 46 66</table>
+    <table name="#magicLvl"> 24 46 66 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -2110,8 +2110,8 @@
       284000 283000 282000 281000 280000 279000 278000 277000 276000 275000 274000 273000 272000 271000 270000 </table> <!-- Guess -->
     <table name="#mpInitialConsume"> 19 24 27 </table>
     <table name="#mpConsume"> 75 95 106 </table>
-    <table name="#absorbDam">60 70 80</table>
-    <table name="#aggroPoints">418 549 611</table>
+    <table name="#absorbDam"> 60 70 80 </table>
+    <table name="#aggroPoints"> 418 549 611 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
@@ -2384,7 +2384,7 @@
     <table name="#ench2Chance"> 31 31 32 32 33 34 34 35 36 36 37 38 38 39 40 40 41 42 42 43 44 44 45 46 46 47 48 48 49 50 </table> <!-- Need Verify -->
     <table name="#mpInitialConsume"> 13 13 13 14 </table>
     <table name="#mpConsume"> 51 52 54 54 </table>
-    <table name="#lvl"> 1 2 3 4</table>
+    <table name="#lvl"> 1 2 3 4 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>

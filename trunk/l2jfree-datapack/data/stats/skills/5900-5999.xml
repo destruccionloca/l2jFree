@@ -823,7 +823,7 @@
    -->
     <table name="#mpInitialConsume"> 2 5 </table>
     <table name="#mpConsume"> 11 20 </table>
-    <table name="#rate">1.08 1.12</table>
+    <table name="#rate"> 1.08 1.12 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="target" val="TARGET_SELF"/>

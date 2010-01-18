@@ -129,7 +129,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3208" levels="10" name="Item Skill: Blessed Body">
-    <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
+    <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -140,7 +140,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3209" levels="10" name="Item Skill: Prayer">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -162,7 +162,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3211" levels="10" name="Item Skill: Blessed Soul">
-    <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
+    <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -173,7 +173,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3212" levels="10" name="Item Skill: Mana Gain">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -184,7 +184,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3213" levels="10" name="Item Skill: Ritual">
-    <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
+    <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -195,7 +195,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3214" levels="10" name="Item Skill: Cheer">
-    <table name="#chance">1 1 2 2 3 3 4 4 5 5</table>
+    <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -206,7 +206,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3215" levels="10" name="Item Skill: Might">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -217,7 +217,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3216" levels="10" name="Item Skill: Empower">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="chanceType" val="ON_ATTACKED"/>
@@ -228,7 +228,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3217" levels="10" name="Item Skill: Duel Might">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -239,7 +239,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3218" levels="10" name="Item Skill: Shield">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -250,7 +250,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3219" levels="10" name="Item Skill: Magic Barrier">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -261,7 +261,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3220" levels="10" name="Item Skill: Duel Weakness">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="power" val="40"/> <!-- Guessing -->
     <set name="target" val="TARGET_SELF"/>
@@ -274,7 +274,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3221" levels="10" name="Item Skill: Agility">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -285,7 +285,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3222" levels="10" name="Item Skill: Guidance">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -296,7 +296,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3223" levels="10" name="Item Skill: Focus">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -307,7 +307,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3224" levels="10" name="Item Skill: Wild Magic">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -329,7 +329,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3226" levels="10" name="Item Skill: Slow">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -340,7 +340,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3227" levels="10" name="Item Skill: Winter">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -351,7 +351,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3228" levels="10" name="Item Skill: Stun">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -362,7 +362,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3229" levels="10" name="Item Skill: Hold">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -373,7 +373,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3230" levels="10" name="Item Skill: Sleep">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -384,7 +384,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3231" levels="10" name="Item Skill: Paralyze">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -395,7 +395,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3232" levels="10" name="Item Skill: Medusa">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -406,7 +406,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3233" levels="10" name="Item Skill: Fear">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -417,7 +417,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3234" levels="10" name="Item Skill: Poison">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -428,7 +428,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3235" levels="10" name="Item Skill: Bleed">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -439,7 +439,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3236" levels="10" name="Item Skill: Silence">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -450,7 +450,7 @@
     <set name="triggeredLevel" val="#triggeredLevel"/>
   </skill>
   <skill id="3237" levels="10" name="Item Skill: Doom">
-    <table name="#chance">2 2 2 3 3 3 4 4 5 5</table>
+    <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
     <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -604,7 +604,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3255" levels="3" name="Item Skill: Skill Clarity">
-    <table name="#PhysicalMpConsumeRate">0.95 0.92 0.9</table>
+    <table name="#PhysicalMpConsumeRate"> 0.95 0.92 0.9 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -613,7 +613,7 @@
     </for>
   </skill>
   <skill id="3256" levels="3" name="Item Skill: Spell Clarity">
-    <table name="#MagicalMpConsumeRate">0.95 0.92 0.9</table>
+    <table name="#MagicalMpConsumeRate"> 0.95 0.92 0.9 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -622,7 +622,7 @@
     </for>
   </skill>
   <skill id="3257" levels="3" name="Item Skill: Music Clarity">
-    <table name="#DanceMpConsumeRate">0.95 0.92 0.9</table>
+    <table name="#DanceMpConsumeRate"> 0.95 0.92 0.9 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -631,7 +631,7 @@
     </for>
   </skill>
   <skill id="3258" levels="3" name="Item Skill: Clarity">
-    <table name="#MpConsumeRate">0.95 0.92 0.9</table>
+    <table name="#MpConsumeRate"> 0.95 0.92 0.9 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>

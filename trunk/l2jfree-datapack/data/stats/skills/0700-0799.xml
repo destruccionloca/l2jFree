@@ -299,8 +299,8 @@
   <skill id="715" levels="4" name="Zaken Energy Drain">
     <table name="#mpInitialConsume"> 12 13 13 14 </table>
     <table name="#mpConsume"> 48 52 55 57 </table>
-    <table name="#magicLvl">70 75 80 82</table>
-    <table name="#power">104 105 107 108</table>
+    <table name="#magicLvl"> 70 75 80 82 </table>
+    <table name="#power"> 104 105 107 108 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -338,7 +338,7 @@
   <skill id="717" levels="4" name="Zaken Concentrated Attack">
     <table name="#mpInitialConsume"> 12 13 13 14 </table>
     <table name="#mpConsume"> 48 52 55 57 </table>
-    <table name="#power">2751 3252 3752 4224</table>
+    <table name="#power"> 2751 3252 3752 4224 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="SSBoost" val="2.0"/>
@@ -355,7 +355,7 @@
   <skill id="718" levels="4" name="Zaken Dancing Sword">
     <table name="#mpInitialConsume"> 12 13 13 14 </table>
     <table name="#mpConsume"> 48 52 55 57 </table>
-    <table name="#power">1651 1951 2251 2534</table>
+    <table name="#power"> 1651 1951 2251 2534 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -387,7 +387,7 @@
   <skill id="720" levels="2" name="Anakim Holy Light Burst">
     <table name="#mpInitialConsume"> 13 14 </table>
     <table name="#mpConsume"> 55 57 </table>
-    <table name="#power">3189 3590</table>
+    <table name="#power"> 3189 3590 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -406,7 +406,7 @@
     <table name="#mpInitialConsume"> 13 14 </table>
     <table name="#mpConsume"> 55 57 </table>
     <table name="#power"> 186 197 </table>
-    <table name="#magicLvl">80 82</table>
+    <table name="#magicLvl"> 80 82 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -427,8 +427,8 @@
   <skill id="722" levels="2" name="Anakim Holy Beam">
     <table name="#mpInitialConsume"> 13 14 </table>
     <table name="#mpConsume"> 55 57 </table>
-    <table name="#power">186 197</table>
-    <table name="#magicLvl">80 82</table>
+    <table name="#power"> 186 197 </table>
+    <table name="#magicLvl"> 80 82 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -692,7 +692,7 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#mpInitialConsume"> 34 35 36 </table>
     <table name="#mpConsume"> 136 142 146 </table>
-    <table name="#power">743 772 796</table>
+    <table name="#power"> 743 772 796 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -709,7 +709,7 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#mpInitialConsume"> 45 47 48 </table>
     <table name="#mpConsume"> 182 189 195 </table>
-    <table name="#power">50 55 60</table>
+    <table name="#power"> 50 55 60 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
@@ -726,7 +726,7 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#mpInitialConsume"> 13 13 14 </table>
     <table name="#mpConsume"> 52 54 56 </table>
-    <table name="#dmg"> 121 169 215</table>
+    <table name="#dmg"> 121 169 215 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="80"/>
@@ -794,7 +794,7 @@
   <skill id="745" levels="3" name="Vale Master Dark Cure">
     <!-- Lv1: Cancel all the debuffs of the target. -->
     <table name="#mpInitialConsume"> 5 6 7 </table>
-    <table name="#mpConsume">21 22 23</table>
+    <table name="#mpConsume"> 21 22 23 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -810,7 +810,7 @@
   <skill id="746" levels="3" name="Saber Tooth Tiger Bite">
     <!-- CT2.2 retail confirmed -->
     <table name="#power"> 1789 1955 2117 </table>
-    <table name="#magicLvl">71 72 73 74</table>
+    <table name="#magicLvl"> 71 72 73 74 </table>
     <set name="mpInitialConsume" val="17"/>
     <set name="mpConsume" val="70"/>
     <set name="power" val="#power"/>
@@ -867,7 +867,7 @@
     <!-- CT2.2 retail confirmed -->
     <table name="#mpInitialConsume"> 13 14 14 </table>
     <table name="#mpConsume"> 54 56 58 </table>
-    <table name="#magicLvl">70 71 72</table>
+    <table name="#magicLvl"> 70 71 72 </table>
     <table name="#power"> 895 978 1059 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -912,7 +912,7 @@
     <table name="#mpInitialConsume"> 14 14 15 </table>
     <table name="#mpConsume"> 56 59 61 </table>
     <table name="#power"> 1073 1173 1271 </table>
-    <table name="#magicLvl">70 71 72</table>
+    <table name="#magicLvl"> 70 71 72 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>

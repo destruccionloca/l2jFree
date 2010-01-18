@@ -1059,8 +1059,8 @@
   <skill id="871" levels="1" name="Royal Guard Captain Might">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="28"/>
-    <table name="#rate">1.15</table>
-    <table name="#aggroPoints">379</table>
+    <table name="#rate"> 1.15 </table>
+    <table name="#aggroPoints"> 379 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="4000"/>
@@ -1092,8 +1092,8 @@
     <set name="effectRange" val="1200"/>
   </skill>
   <skill id="873" levels="1" name="Archer Captain Rapid Shot">
-    <table name="#rate">1.12</table>
-    <table name="#aggroPoints">549</table>
+    <table name="#rate"> 1.12 </table>
+    <table name="#aggroPoints"> 549 </table>
     <set name="mpInitialConsume" val="5"/>
     <set name="mpConsume" val="20"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
@@ -1126,8 +1126,8 @@
     <set name="effectRange" val="1000"/>
   </skill>
   <skill id="875" levels="1" name="Magic Leader Empower">
-    <table name="#mAtk">1.75</table>
-    <table name="#aggroPoints">495</table>
+    <table name="#mAtk"> 1.75 </table>
+    <table name="#aggroPoints"> 495 </table>
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="56"/>
     <set name="target" val="TARGET_ONE"/>
@@ -1213,9 +1213,9 @@
     </for>
   </skill>
   <skill id="880" levels="1" name="Knight of Dawn Ultimate Defense">
-    <table name="#pDef">3600</table>
-    <table name="#mDef">2700</table>
-    <table name="#aggroPoints">438</table>
+    <table name="#pDef"> 3600 </table>
+    <table name="#mDef"> 2700 </table>
+    <table name="#aggroPoints"> 438 </table>
     <set name="mpInitialConsume" val="4"/>
     <set name="mpConsume" val="16"/>
     <set name="target" val="TARGET_SELF"/>

@@ -220,11 +220,11 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="7029" levels="4" name="Super Haste">
-    <table name="#runSpd">1.5 2 3 4</table>
-    <table name="#pReuse">1 2 4 30</table>
-    <table name="#mReuse">1 2 4 30</table>
-    <table name="#mAtkSpd">1.5 1.8 3 4</table>
-    <table name="#pAtkSpd">1.2 1.5 2 3</table>
+    <table name="#runSpd"> 1.5 2 3 4 </table>
+    <table name="#pReuse"> 1 2 4 30 </table>
+    <table name="#mReuse"> 1 2 4 30 </table>
+    <table name="#mAtkSpd"> 1.5 1.8 3 4 </table>
+    <table name="#pAtkSpd"> 1.2 1.5 2 3 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>

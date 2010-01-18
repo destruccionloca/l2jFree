@@ -213,10 +213,10 @@
     <!-- CT2.2 retail partially confirmed -->
     <table name="#ench1Time"> 31 31 32 32 33 34 35 35 36 37 38 38 39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 </table> <!-- Need Verify -->
     <table name="#ench2Chance"> 41 41 42 42 43 44 44 45 46 46 47 48 48 49 50 50 51 52 52 53 54 54 55 56 56 57 58 58 59 60 </table> <!-- Need Verify -->
-    <table name="#magicLvl">60 62 64 66 68 70 72 74</table>
+    <table name="#magicLvl"> 60 62 64 66 68 70 72 74 </table>
     <table name="#mpInitialConsume"> 6 7 7 7 7 7 8 8 </table>
     <table name="#mpConsume"> 27 28 29 30 31 31 32 33 </table>
-    <table name="#lvl">1 2 3 4 5 6 7 8</table>
+    <table name="#lvl"> 1 2 3 4 5 6 7 8 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="hitTime" val="3000"/>
@@ -584,7 +584,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="70"/> <!-- Base Land Rate --><!-- Guessing -->
+    <set name="power" val="70"/> <!-- Base Land Rate --> <!-- Guessing -->
     <set name="lvlDepend" val="1"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
@@ -635,7 +635,7 @@
     <table name="#magicLvl"> 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61
       62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
     <table name="#power"> 29 29 30 31 32 33 33 34 35 36 37 38 39 39 40 41 42 43 44
-      45 45 46 47 48 49 50 50 51 52 53 54 54 55 56 56 57 58 58 59 60 60 61</table>
+      45 45 46 47 48 49 50 50 51 52 53 54 54 55 56 56 57 58 58 59 60 60 61 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -913,7 +913,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
-    <set name="reuseDelay" val="300000"/><!-- Need Verify -->
+    <set name="reuseDelay" val="300000"/> <!-- Need Verify -->
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>

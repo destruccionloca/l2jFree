@@ -1136,8 +1136,8 @@
     <set name="sendToClient" val="false"/>
   </skill>
   <skill id="4270" levels="4" name="Weight Penalty">
-    <table name="#rate">0.5 0.5 0.5 0.5</table>
-    <table name="#rateSpd">1 0.5 0.5 0</table> <!-- verified on Final & Epi -->
+    <table name="#rate"> 0.5 0.5 0.5 0.5 </table>
+    <table name="#rateSpd"> 1 0.5 0.5 0 </table> <!-- verified on Final & Epi -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
@@ -1198,7 +1198,7 @@
     </for>
   </skill>
   <skill id="4276" levels="5" name="Weak Point against Bow/Crossbow Weapons">
-    <table name="#bowVuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#bowVuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>

@@ -452,7 +452,7 @@
     <set name="target" val="TARGET_SELF"/>
   </skill>
   <skill id="5447" levels="7" name="Paralysis">
-    <table name="#dmg">76 76 76 76 83 83 83</table>
+    <table name="#dmg"> 76 76 76 76 83 83 83 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="skillType" val="PARALYZE"/>

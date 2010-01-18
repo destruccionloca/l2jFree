@@ -250,7 +250,7 @@
     </enchant3for>
   </skill>
   <skill id="406" levels="3" name="Angelic Icon">
-    <table name="#mpConsume">133 153 170 </table>
+    <table name="#mpConsume"> 133 153 170 </table>
     <table name="#runSpd"> 10 20 30 </table>
     <table name="#pAtkSpd"> 1.1 1.2 1.3 </table>
     <table name="#rCrit"> 33 66 100 </table>
@@ -402,7 +402,7 @@
     <table name="#mpConsume"> 27 31 34 </table>
     <table name="#rCrit"> 0.1 0.15 0.2 </table>
     <!-- Client description do not contains blowRate. -->
-    <!-- table name="#blowRate">1.1 1.15 1.2</table -->
+    <!-- table name="#blowRate"> 1.1 1.15 1.2 </table -->
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="150000"/>
@@ -744,7 +744,7 @@
     </for>
   </skill>
   <skill id="424" levels="3" name="War Frenzy" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1stunVuln">  0.84 0.84 0.84 0.83 0.83 0.83 0.82 0.82 0.82 0.81 0.81 0.81 0.81 0.8 0.8 0.8 0.79 0.79 0.79 0.78 0.78 0.78 0.78 0.77 0.77 0.77 0.76 0.76 0.76 0.75 </table>
+    <table name="#ench1stunVuln"> 0.84 0.84 0.84 0.83 0.83 0.83 0.82 0.82 0.82 0.81 0.81 0.81 0.81 0.8 0.8 0.8 0.79 0.79 0.79 0.78 0.78 0.78 0.78 0.77 0.77 0.77 0.76 0.76 0.76 0.75 </table>
     <table name="#ench1sleepVuln"> 0.69 0.69 0.69 0.68 0.68 0.68 0.67 0.67 0.67 0.66 0.66 0.66 0.66 0.65 0.65 0.65 0.64 0.64 0.64 0.63 0.63 0.63 0.63 0.62 0.62 0.62 0.61 0.61 0.61 0.6 </table>
     <table name="#ench2val"> 1.99 1.99 1.98 1.98 1.97 1.96 1.96 1.95 1.94 1.94 1.93 1.92 1.92 1.91 1.9
       1.9 1.89 1.88 1.88 1.87 1.86 1.86 1.85 1.84 1.84 1.83 1.82 1.82 1.81 1.8 </table> <!-- Guess -->
@@ -2156,8 +2156,8 @@
     </for>
   </skill>
   <skill id="485" levels="7" name="Disarm" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1power">81 81 81 81 82 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 85 86 86 86 86 87 87 88 89 90 </table>
-    <table name="#ench2time">5 6 6 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 </table>
+    <table name="#ench1power"> 81 81 81 81 82 82 82 82 82 83 83 83 83 84 84 84 84 85 85 85 85 86 86 86 86 87 87 88 89 90 </table>
+    <table name="#ench2time"> 5 6 6 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 </table>
     <table name="#mpConsume"> 20 25 29 34 40 44 48 </table>
     <table name="#mpInitialConsume"> 5 5 6 6 6 7 7 </table>
     <table name="#magicLvl"> 36 43 49 55 62 68 74 </table>

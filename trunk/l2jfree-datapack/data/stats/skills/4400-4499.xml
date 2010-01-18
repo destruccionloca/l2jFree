@@ -3,7 +3,7 @@
 <list>
   <skill id="4400" levels="3" name="Acumen">
     <!-- by DrLecter -->
-    <table name="#mAtkSpd">1.15 1.23 1.3</table>
+    <table name="#mAtkSpd"> 1.15 1.23 1.3 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -20,7 +20,7 @@
   </skill>
   <skill id="4401" levels="3" name="Empower">
     <!-- by DrLecter -->
-    <table name="#mAtk">1.55 1.65 1.75</table>
+    <table name="#mAtk"> 1.55 1.65 1.75 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -37,7 +37,7 @@
   </skill>
   <skill id="4402" levels="2" name="Haste">
     <!-- by DrLecter -->
-    <table name="#pAtkSpd">1.15 1.33</table>
+    <table name="#pAtkSpd"> 1.15 1.33 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -54,7 +54,7 @@
   </skill>
   <skill id="4403" levels="3" name="Guidance">
     <!-- Done by DJ MELERIX -->
-    <table name="#accCombat">2 3 4</table>
+    <table name="#accCombat"> 2 3 4 </table>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="isMagic" val="true"/>
@@ -70,7 +70,7 @@
   </skill>
   <skill id="4404" levels="3" name="Focus">
     <!-- by DrLecter -->
-    <table name="#rCrit">0.2 0.25 0.3</table>
+    <table name="#rCrit"> 0.2 0.25 0.3 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -87,7 +87,7 @@
   </skill>
   <skill id="4405" levels="3" name="Death Whisper">
     <!-- by DrLecter -->
-    <table name="#cAtk">1.25 1.3 1.35</table>
+    <table name="#cAtk"> 1.25 1.3 1.35 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -308,8 +308,8 @@
   </skill>
   <skill id="4414" levels="3" name="Light Armor Type">
     <!-- Needs to be verified -->
-    <table name="#pdef">1.3 1 0.7</table>
-    <table name="#evasion">0.95 1 1.05</table>
+    <table name="#pdef"> 1.3 1 0.7 </table>
+    <table name="#evasion"> 0.95 1 1.05 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -468,7 +468,7 @@
     </for>
   </skill>
   <skill id="4424" levels="5" name="Resist Hand-to-hand Weapons">
-    <table name="#vuln">0.85 0.7 0.5 0.3 0.1</table>
+    <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -477,7 +477,7 @@
     </for>
   </skill>
   <skill id="4425" levels="5" name="Resist Blunt Weapons">
-    <table name="#vuln">0.85 0.7 0.5 0.3 0.1</table>
+    <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -486,7 +486,7 @@
     </for>
   </skill>
   <skill id="4426" levels="5" name="Resist Dual-Sword Weapons">
-    <table name="#vuln">0.85 0.7 0.5 0.3 0.1</table>
+    <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -495,7 +495,7 @@
     </for>
   </skill>
   <skill id="4427" levels="5" name="Resist Swords">
-    <table name="#vuln">0.85 0.7 0.5 0.3 0.1</table>
+    <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -569,7 +569,7 @@
     </for>
   </skill>
   <skill id="4435" levels="5" name="Greater Resist Stun">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -578,7 +578,7 @@
     </for>
   </skill>
   <skill id="4436" levels="5" name="Greater Resist Poison">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -587,7 +587,7 @@
     </for>
   </skill>
   <skill id="4437" levels="5" name="Greater Resist Bleeding">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -596,7 +596,7 @@
     </for>
   </skill>
   <skill id="4438" levels="5" name="Greater Resist Sleep">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -605,7 +605,7 @@
     </for>
   </skill>
   <skill id="4439" levels="5" name="Greater Resist Hold">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -614,7 +614,7 @@
     </for>
   </skill>
   <skill id="4440" levels="5" name="Greater Resist Paralysis">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -623,7 +623,7 @@
     </for>
   </skill>
   <skill id="4441" levels="5" name="Greater Resist Mental Derangement">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -632,7 +632,7 @@
     </for>
   </skill>
   <skill id="4442" levels="5" name="Greater Resist Hand-to-hand Weapons">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -641,7 +641,7 @@
     </for>
   </skill>
   <skill id="4443" levels="5" name="Greater Resist Blunt Weapons">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -650,7 +650,7 @@
     </for>
   </skill>
   <skill id="4444" levels="5" name="Higher Resist Bow/Crossbow Weapons">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -660,7 +660,7 @@
     </for>
   </skill>
   <skill id="4445" levels="5" name="Greater Resist Spear Weapons">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -669,7 +669,7 @@
     </for>
   </skill>
   <skill id="4446" levels="5" name="Greater Resist Dual-Sword Weapons">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -678,7 +678,7 @@
     </for>
   </skill>
   <skill id="4447" levels="5" name="Greater Resist Swords">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -687,7 +687,7 @@
     </for>
   </skill>
   <skill id="4448" levels="5" name="Higher resist Daggers/Rapier Weapon">
-    <table name="#vuln">0.5 0.4 0.3 0.2 0.1</table>
+    <table name="#vuln"> 0.5 0.4 0.3 0.2 0.1 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -709,7 +709,7 @@
     </for>
   </skill>
   <skill id="4450" levels="5" name="Stun Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -718,7 +718,7 @@
     </for>
   </skill>
   <skill id="4451" levels="5" name="Poison Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -727,7 +727,7 @@
     </for>
   </skill>
   <skill id="4452" levels="5" name="Bleed Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -736,7 +736,7 @@
     </for>
   </skill>
   <skill id="4453" levels="5" name="Sleep Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -745,7 +745,7 @@
     </for>
   </skill>
   <skill id="4454" levels="5" name="Hold Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -754,7 +754,7 @@
     </for>
   </skill>
   <skill id="4455" levels="5" name="Paralysis Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -763,7 +763,7 @@
     </for>
   </skill>
   <skill id="4456" levels="5" name="Mental Attack Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -772,7 +772,7 @@
     </for>
   </skill>
   <skill id="4457" levels="5" name="Hand-to-hand Weapon Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -781,7 +781,7 @@
     </for>
   </skill>
   <skill id="4458" levels="5" name="Spear Weapon Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -790,7 +790,7 @@
     </for>
   </skill>
   <skill id="4459" levels="5" name="Dual-Sword Weapon Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -799,7 +799,7 @@
     </for>
   </skill>
   <skill id="4460" levels="5" name="Sword Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -808,7 +808,7 @@
     </for>
   </skill>
   <skill id="4461" levels="5" name="Dagger Weak Point">
-    <table name="#vuln">1.1 1.15 1.2 1.3 1.5</table>
+    <table name="#vuln"> 1.1 1.15 1.2 1.3 1.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="WEAKNESS"/>
     <set name="operateType" val="OP_PASSIVE"/>

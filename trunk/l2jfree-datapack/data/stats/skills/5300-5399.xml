@@ -73,7 +73,7 @@
     <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <table name="#mpInitialConsume"> 15 15 16 16 16 16 17 17 17 </table>
     <table name="#mpConsume"> 60 62 64 65 67 67 68 68 69 </table>
-    <table name="#stackOrder">8 8 9 9 9 10 10 10 10</table>
+    <table name="#stackOrder"> 8 8 9 9 9 10 10 10 10 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="80"/>
@@ -211,7 +211,7 @@
     <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <table name="#mpInitialConsume"> 15 15 16 16 16 16 17 17 17 </table>
     <table name="#mpConsume"> 60 62 64 65 67 67 68 68 69 </table>
-    <table name="#stackOrder">8 8 9 9 9 10 10 10 10</table>
+    <table name="#stackOrder"> 8 8 9 9 9 10 10 10 10 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="80"/>
@@ -1256,7 +1256,7 @@
     <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <table name="#mpInitialConsume"> 15 15 16 16 16 16 17 17 17 </table>
     <table name="#mpConsume"> 60 62 64 65 67 67 68 68 69 </table>
-    <table name="#stackOrder">8 8 9 9 9 10 10 10 10</table>
+    <table name="#stackOrder"> 8 8 9 9 9 10 10 10 10 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="80"/>
@@ -1395,7 +1395,7 @@
     <!-- Description(s): Condition causing target to instantly decrease HP by bleeding. Effect 8-10. -->
     <table name="#mpInitialConsume"> 15 15 16 16 16 16 17 17 17 </table>
     <table name="#mpConsume"> 60 62 64 65 67 67 68 68 69 </table>
-    <table name="#stackOrder">8 8 9 9 9 10 10 10 10</table>
+    <table name="#stackOrder"> 8 8 9 9 9 10 10 10 10 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="80"/>

@@ -962,7 +962,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2274" levels="9" name="Fisherman's Potion">
-    <table name="#power">2 5 8 11 14 17 20 23 26</table>
+    <table name="#power"> 2 5 8 11 14 17 20 23 26 </table>
     <table name="#itemConsumeId"> 8193 8194 8195 8196 8197 8198 8199 8200 8201 </table>
     <table name="#active_skill_id_lvl"> 1315,4 1315,7 1315,10 1315,13 1315,16 1315,19 1315,22 1315,25 1315,28 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
@@ -1007,7 +1007,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2278" levels="3" name="Herb of Life">
-    <table name="#power">15 25 100</table>
+    <table name="#power"> 15 25 100 </table>
     <set name="power" val="#power"/>
     <set name="hitTime" val="100"/>
     <set name="staticHitTime" val="true"/>
@@ -1024,7 +1024,7 @@
       Lvl 2 is Greater Herb of Mana
       Lvl 3 is Superior Herb of Mana
     -->
-    <table name="#power">12 18 100</table>
+    <table name="#power"> 12 18 100 </table>
     <set name="power" val="#power"/>
     <set name="hitTime" val="100"/>
     <set name="staticHitTime" val="true"/>
@@ -1134,8 +1134,8 @@
   </skill>
   <skill id="2286" levels="6" name="Scroll: Recovery">
     <table name="#itemConsumeId"> 8594 8595 8596 8597 8598 8599 </table>
-    <table name="#minLvl">0 20 40 52 61 76 </table>
-    <table name="#maxLvl">20 40 52 61 76 86 </table>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="hitTime" val="1000"/>
@@ -1159,8 +1159,8 @@
   </skill>
   <skill id="2287" levels="6" name="Elixir of Life">
     <table name="#itemConsumeId"> 8622 8623 8624 8625 8626 8627 </table>
-    <table name="#minLvl">0 20 40 52 61 76 </table>
-    <table name="#maxLvl">20 40 52 61 76 86 </table>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="50"/>
@@ -1181,10 +1181,10 @@
     </cond>
   </skill>
   <skill id="2288" levels="6" name="Elixir of Mental Strength">
-    <table name="#power">75 125 175 250 350 420</table>
+    <table name="#power"> 75 125 175 250 350 420 </table>
     <table name="#itemConsumeId"> 8628 8629 8630 8631 8632 8633 </table>
-    <table name="#minLvl">0 20 40 52 61 76 </table>
-    <table name="#maxLvl">20 40 52 61 76 86 </table>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>
@@ -1207,8 +1207,8 @@
   <skill id="2289" levels="6" name="Elixir of CP">
     <table name="#power"> 100 200 600 800 1000 1200 </table>
     <table name="#itemConsumeId"> 8634 8635 8636 8637 8638 8639 </table>
-    <table name="#minLvl">0 20 40 52 61 76 </table>
-    <table name="#maxLvl">20 40 52 61 76 86 </table>
+    <table name="#minLvl"> 0 20 40 52 61 76 </table>
+    <table name="#maxLvl"> 20 40 52 61 76 86 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>

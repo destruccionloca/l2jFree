@@ -73,7 +73,7 @@
   </skill>
   <skill id="4103" levels="2" name="NPC Ultimate Evasion">
     <!-- Done by dc -->
-    <table name="#rEvas">20 25</table>
+    <table name="#rEvas"> 20 25 </table>
     <table name="#mpInitialConsume"> 7 13 </table>
     <table name="#mpConsume"> 28 52 </table>
     <table name="#magicLvl"> 40 70 </table>
@@ -371,8 +371,8 @@
   <skill id="4119" levels="3" name="Decrease Accuracy">
     <table name="#mpInitialConsume"> 4 7 13 </table>
     <table name="#mpConsume"> 16 28 52 </table>
-    <table name="#accCombat">11 12 13</table>
-    <table name="#magicLvl">20 40 70</table>
+    <table name="#accCombat"> 11 12 13 </table>
+    <table name="#magicLvl"> 20 40 70 </table>
     <table name="#time"> 5 10 15 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="2"/>
@@ -763,7 +763,7 @@
     <!-- Danger Zone Skill -->
     <!-- They don't have anything defined client side (optype = target_self, castrange = -1) -->
     <table name="#effect"> 1 2 3 </table>
-    <table name="#pAtk">0.83 0.8 0.77</table>
+    <table name="#pAtk"> 0.83 0.8 0.77 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -777,7 +777,7 @@
     <!-- Danger Zone Skill -->
     <!-- They don't have anything defined client side (optype = target_self, castrange = -1) -->
     <table name="#effect"> 1 2 3 </table>
-    <table name="#pDef">0.83 0.8 0.77</table>
+    <table name="#pDef"> 0.83 0.8 0.77 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>

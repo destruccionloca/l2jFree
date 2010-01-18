@@ -748,7 +748,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8250" levels="2" name="Summon Tigress">
-    <table name="#npc">14916 14917</table>
+    <table name="#npc"> 14916 14917 </table>
     <set name="mpInitialConsume" val="23"/>
     <set name="mpConsume" val="93"/>
     <set name="target" val="TARGET_SELF"/>

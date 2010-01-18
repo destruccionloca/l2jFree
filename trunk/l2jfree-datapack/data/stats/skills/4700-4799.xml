@@ -1642,7 +1642,7 @@
     </for>
   </skill>
   <skill id="4789" levels="10" name="NPC High Level">
-    <table name="#rEvas">1 2 3 4 5 6 7 8 9 10</table>
+    <table name="#rEvas"> 1 2 3 4 5 6 7 8 9 10 </table>
     <table name="#mDef"> 1.03 1.06 1.09 1.1 1.12 1.15 1.18 1.21 1.24 1.27 1.3 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

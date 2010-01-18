@@ -224,7 +224,7 @@
     </for>
   </skill>
   <skill id="216" levels="45" name="Polearm Mastery" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1pAtk">137 138 139 140 141 142 143 144 145 146 147 148 150 151 152 153
+    <table name="#ench1pAtk"> 137 138 139 140 141 142 143 144 145 146 147 148 150 151 152 153
       154 155 156 157 158 159 160 161 162 163 164 165 166 167 </table>
     <table name="#ench2atkCountMax"> 10 11 11 11 11 11 11 11 11 11 12 12 12 12 12 12 12 12 12
      12 13 13 13 13 13 13 13 13 13 14 </table> <!-- Guess -->
@@ -396,7 +396,7 @@
     </for>
   </skill>
   <skill id="227" levels="50" name="Light Armor Mastery" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1pDef">85 86 86 87 87 88 88 89 90 90 91 91 92 92 93 94 94 95 95 96 96
+    <table name="#ench1pDef"> 85 86 86 87 87 88 88 89 90 90 91 91 92 92 93 94 94 95 95 96 96
       97 98 98 99 99 100 100 101 102 </table>
     <table name="#ench2regHp"> 1.21 1.22 1.23 1.24 1.25 1.26 1.27 1.28 1.29 1.3 1.31 1.32 1.33 1.34
       1.35 1.36 1.37 1.38 1.39 1.4 1.41 1.42 1.43 1.44 1.45 1.46 1.47 1.48 1.49 1.5 </table> <!-- Guess -->
@@ -1504,7 +1504,7 @@
     </for>
   </skill>
   <skill id="258" levels="33" name="Light Armor Mastery" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1pDef">85 86 86 87 87 88 88 89 90 90 91 91 92 92 93 94 94 95 95 96 96
+    <table name="#ench1pDef"> 85 86 86 87 87 88 88 89 90 90 91 91 92 92 93 94 94 95 95 96 96
       97 98 98 99 99 100 100 101 102 </table>
     <table name="#ench2regMp"> 1.21 1.22 1.23 1.24 1.25 1.26 1.27 1.28 1.29 1.3 1.31 1.32 1.33 1.34
       1.35 1.36 1.37 1.38 1.39 1.4 1.41 1.42 1.43 1.44 1.45 1.46 1.47 1.48 1.49 1.5 </table> <!-- Guess -->
