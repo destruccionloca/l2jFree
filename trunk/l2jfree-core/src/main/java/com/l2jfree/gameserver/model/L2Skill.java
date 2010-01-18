@@ -473,53 +473,13 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	
 	private int initMagicLevel(StatsSet set)
 	{
-		if (getLevel() < 100) // normal skills
-		{
-			return set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(getId(), getLevel()));
-		}
-		else if (!set.contains("magicLvl")) // enchanted skills without magicLvl definition in XMLs
-		{
-			return getExpectedEnchantMagicLevel();
-		}
-		else // enchanted skills with magicLvl defined
-		{
-			final int magicLevel = set.getInteger("magicLvl");
-			final int expectedMagicLevel = getExpectedEnchantMagicLevel();
-			
-			if (expectedMagicLevel == -1) // invalid skill enchant data, use value from XMLs
-			{
-				return magicLevel;
-			}
-			else if (magicLevel == expectedMagicLevel) // equal values
-			{
-				return expectedMagicLevel;
-			}
-			else // examine...
-			{
-				if (getLevel() % 100 == 22 && magicLevel == 82 && expectedMagicLevel == 83)
-				{
-					// common error in XMLs
-				}
-				else if (getLevel() % 100 == 25 && magicLevel == 83 && expectedMagicLevel == 84)
-				{
-					// common error in XMLs
-				}
-				else if (magicLevel == 74)
-				{
-					// common error in XMLs, defined normal, but missing enchanted magicLvl definition
-				}
-				else
-				{
-					_log.info(this + " -> magicLevel: " + magicLevel + ", expected: " + expectedMagicLevel);
-				}
-				
-				return expectedMagicLevel;
-			}
-		}
-	}
-	
-	private int getExpectedEnchantMagicLevel()
-	{
+		final int normalLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
+		
+		// normal skills
+		if (getLevel() < 100)
+			return normalLevel;
+		
+		// enchanted skills
 		final L2EnchantSkillLearn esl = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(getId());
 		
 		if (esl == null)
