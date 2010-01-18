@@ -1709,7 +1709,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="hitTime" val="1200"/>
-    <!--   
+    <!--
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
     <set name="power" val="80"/>

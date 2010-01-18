@@ -4,24 +4,24 @@
   <skill id="3600" levels="10" name="Special Ability: Anger">
     <!-- s_opt_anger_polearm_1/2/3/4/5/6/7/8/9 -->
     <!--
-      4834	Scythe - Anger	3600-1	
-      4837	Orcish Glaive - Anger	3600-1	
-      4846	Scorpion - Anger	3600-3	
-      4855	Great Axe - Anger	3600-5	
-      4858	Lance - Anger	3600-6	
+      4834	Scythe - Anger	3600-1
+      4837	Orcish Glaive - Anger	3600-1
+      4846	Scorpion - Anger	3600-3
+      4855	Great Axe - Anger	3600-5
+      4858	Lance - Anger	3600-6
     -->
     <!--
       Guessing...
       9869	Dynasty Halberd - Anger	3600-10	Decreases your HP by 15% and increases P. Atk. by 78. Increases damage inflicted during PvP.
       10449	Icarus Trident - Anger	3600-10	Decreases HP by 15% while increasing P. Atk. by 78 on a critical attack. Increases damage inflicted during PvP.
-      10765	Dynasty Halberd {PvP} - Anger	3600-10	
+      10765	Dynasty Halberd {PvP} - Anger	3600-10
       10875	Great Axe - Thunder - Anger	3600-5	A Masterwork Item that increases the critical effect.\n\nDecreases Max HP by 15%, and increases P. Atk. by 28.
       10968	Lance - Earth - Anger	3600-6	A Masterwork Item that increases Max HP.\n\nDecreases Max HP by 15%, and increases P. Atk. by 30.
       11297	Dynasty Halberd - Earth - Anger	3600-10	A Masterwork Item that increases Max HP.\n\nDecreases Max HP by 15% and increases P. Atk. by 78. Increases damage inflicted during PvP.
       11330	Icarus Trident - Thunder - Anger	3600-10	A Masterwork Item that increases critical attack impact.\n\nDecreases Max HP by 15% and increases P. Atk. by 78. Increases damage inflicted during PvP.
       12975	Dynasty Halberd - Earth {PvP} - Anger	3600-10	A Masterwork Item that increases Max HP.\n\nDecreases Max HP by 15% and increases P. Atk. by 78. Increases damage inflicted during PvP.
-      14391	Icarus Trident {PvP} - Anger	3600-10	
-      14442	Icarus Trident - Thunder {PvP} - Anger	3600-10	
+      14391	Icarus Trident {PvP} - Anger	3600-10
+      14442	Icarus Trident - Thunder {PvP} - Anger	3600-10
     -->
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 75 80 </table>
     <table name="#pAtk"> 20.44 22.64 24.77 26.78 28.59 30.12 31.30 39 45 78 </table> <!-- Guessing Level 10 -->
@@ -72,8 +72,8 @@
       10726	Saint Spear - PvP - Guidance	3602-9;	Increases Accuracy by 5. Increases damage inflicted during PvP.
       11220	Saint Spear - Destruction - Guidance	3602-9;	A Masterwork Item that increases P. Atk. Increases Accuracy by 5. Increases damage inflicted during PvP.
       12917	Saint Spear - Landslide - Guidance	3602-9;	A Masterwork Item that has a chance to stun when attacking. Increases Accuracy by 5. Increases damage inflicted during PvP.
-      14134	Vesper Stormer - Guidance	3602-10;	
-      14494	Vesper Stormer {PvP} - Guidance	3602-10;	
+      14134	Vesper Stormer - Guidance	3602-10;
+      14494	Vesper Stormer {PvP} - Guidance	3602-10;
     -->
     <table name="#accCombat"> 6.88 6.07 5.72 5.37 5.02 4.68 4.34 3.95 5.27 7.5 </table> <!-- Guessing Level 10 -->
     <table name="#magicLvl"> 46 49 52 55 58 61 64 67 75 80 </table> <!-- Guessing Level 10 -->
@@ -430,7 +430,7 @@
   </skill>
   <skill id="3628" levels="1" name="Shabonoba">
     <!--
-      Description(s): 
+      Description(s):
       Used on a struggling Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
     -->
     <set name="itemConsumeId" val="8764"/>

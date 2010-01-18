@@ -5,7 +5,7 @@
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <!--   
+    <!--
       <set name="target" val="TARGET_ONE"/>
       <set name="skillType" val="PDAM"/>
       <set name="operateType" val="OP_PASSIVE"/>
@@ -161,7 +161,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5623" levels="1" name="Weakened Magic Force">
-  <!-- 
+  <!--
     Used by NPCs:
     32483
    -->
@@ -181,7 +181,7 @@
   </skill>
   <skill id="5624" levels="1" name="Soul Confinement">
   <!-- The soul is confined, making it impossible to move, but in addition, damage is not incurred. Effect 1. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18578
    -->
@@ -202,7 +202,7 @@
   </skill>
   <skill id="5625" levels="1" name="Soul Confinement">
   <!-- The soul is confined, making it impossible to move, but in addition, damage is not incurred. Effect 1. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18564
    -->
@@ -1202,12 +1202,12 @@
   </skill>
   <skill id="5699" levels="7" name="Decrease P. Def">
   <!--
-    Lvl 1 - Kamaloka (Labyrinth of the Abyss) 29 
-    Lvl 2 - Kamaloka (Labyrinth of the Abyss) 39 
-    Lvl 3 - Kamaloka (Labyrinth of the Abyss) 49 
-    Lvl 4 - Kamaloka (Labyrinth of the Abyss) 59 
-    Lvl 5 - Kamaloka (Labyrinth of the Abyss) 69 
-    Lvl 6 - Kamaloka (Labyrinth of the Abyss) 78 
+    Lvl 1 - Kamaloka (Labyrinth of the Abyss) 29
+    Lvl 2 - Kamaloka (Labyrinth of the Abyss) 39
+    Lvl 3 - Kamaloka (Labyrinth of the Abyss) 49
+    Lvl 4 - Kamaloka (Labyrinth of the Abyss) 59
+    Lvl 5 - Kamaloka (Labyrinth of the Abyss) 69
+    Lvl 6 - Kamaloka (Labyrinth of the Abyss) 78
     Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81
    -->
     <!-- Guessed values, need retail information -->

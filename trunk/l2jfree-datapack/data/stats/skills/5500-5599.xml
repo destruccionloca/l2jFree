@@ -72,7 +72,7 @@
   </skill>
   <skill id="5509" levels="1" name="Fire Power">
   <!-- Fire resistance decreases. -->
-  <!-- 
+  <!--
     Used by NPCs:
     25609
    -->
@@ -94,7 +94,7 @@
   </skill>
   <skill id="5510" levels="1" name="Water Power">
   <!-- Water resistance decreases. -->
-  <!-- 
+  <!--
     Used by NPCs:
     25610
    -->
@@ -116,7 +116,7 @@
   </skill>
   <skill id="5511" levels="1" name="Wind Power">
   <!-- Wind resistance decreases. -->
-  <!-- 
+  <!--
     Used by NPCs:
     25611
    -->
@@ -138,7 +138,7 @@
   </skill>
   <skill id="5512" levels="1" name="Earth Power">
   <!-- Earth resistance decreases. -->
-  <!-- 
+  <!--
     Used by NPCs:
     25612
    -->
@@ -187,7 +187,7 @@
     <set name="hitTime" val="15000"/>
   </skill>
   <skill id="5517" levels="1" name="Nurture">
-  <!-- 
+  <!--
     Used by NPCs:
     25609 25610 25611 25612
    -->
@@ -202,7 +202,7 @@
   </skill>
   <skill id="5519" levels="1" name="Chain Buff - Power Up">
   <!-- Made the contract of greed with the devil. Cannot wait to take every soul. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22424 22432
    -->
@@ -212,7 +212,7 @@
   </skill>
   <skill id="5520" levels="1" name="Chain Buff - Vampiric Shield">
   <!-- Made the contract of desire with the devil. The pain feels like pleasure. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22425 22433
    -->
@@ -222,7 +222,7 @@
   </skill>
   <skill id="5521" levels="1" name="Chain Buff - Critical Sense">
   <!-- Made the contract of wrath with the devil. Every enemy will fear your wrath. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22426 22434
    -->
@@ -231,10 +231,10 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5522" levels="1" name="Chain Magic - Dark Explosion">
-  <!-- 
+  <!--
     Used by NPCs:
     22423 22427 22431 22435
-   --> 
+   -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -242,7 +242,7 @@
   </skill>
   <skill id="5523" levels="1" name="Chain Magic - Unholy Castle">
   <!-- The devil gave you the curse of jealousy. You cannot be stronger than this. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22423 22428 22431 22436
    -->
@@ -253,7 +253,7 @@
   </skill>
   <skill id="5524" levels="1" name="Chain Buff - Resistance to Bow and Magic attacks">
   <!-- You have made the contract of arrogance with the devil. No one can stop you. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22429 22437
    -->
@@ -263,7 +263,7 @@
   </skill>
   <skill id="5525" levels="1" name="Chain Buff - Resistance to Melee Attacks">
   <!-- You have made the contract of gluttony with the devil. Everything you eat is good for your strength. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22430 22438
    -->
@@ -278,7 +278,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5527" levels="1" name="Overflow">
-  <!-- 
+  <!--
     Used by NPCs:
     18492
    -->
@@ -287,7 +287,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5528" levels="1" name="Self-Destruct">
-  <!-- 
+  <!--
     Used by NPCs:
     18490
    -->

@@ -739,7 +739,7 @@
   <skill id="3144" levels="10" name="Item Skill: Acrobatics">
     <!--
       Description(s):
-      Lvl 1-10 - Active: Increases the height from which you can jump 
+      Lvl 1-10 - Active: Increases the height from which you can jump
       without sustaining damage temporarily.
     -->
     <set name="target" val="TARGET_NONE"/>

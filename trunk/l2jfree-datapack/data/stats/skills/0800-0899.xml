@@ -757,7 +757,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="844" levels="1" name="Outpost Construction">
-  <!-- Constructs an outpost that assists clan member recovery and reinforcement during 
+  <!-- Constructs an outpost that assists clan member recovery and reinforcement during
   territory battles. Territory ward capture is possible. Consumes 120 B-Grade Gemstones. -->
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
@@ -789,7 +789,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="847" levels="1" name="Ward Transport">
-  <!-- With an opposing ward in hand, go back to your outpost and use this skill to move the 
+  <!-- With an opposing ward in hand, go back to your outpost and use this skill to move the
   ward back to your castle. -->
     <set name="reuseDelay" val="180000"/>
     <set name="hitTime" val="180000"/>
@@ -1299,7 +1299,7 @@
     <set name="effectRange" val="3000"/>
     <for>
       <effect name="EnemyCharge" val="0"/>
-    </for>  
+    </for>
   </skill>
   <skill id="885" levels="1" name="Air Blink">
     <!-- Aurabird Falcon & Owl -->

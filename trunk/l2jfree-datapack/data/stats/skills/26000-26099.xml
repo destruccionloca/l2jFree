@@ -518,7 +518,7 @@
     </for>
   </skill>
   <skill id="26046" levels="5" name="Rune of Experience Points">
-  <!-- 
+  <!--
     Lv1: Acquired Experience Points increase by 10%.
     Lv2: Acquired Experience Points increase by 20%.
     Lv3: Acquired Experience Points increase by 30%.
@@ -530,7 +530,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="26047" levels="5" name="Rune of SP">
-  <!-- 
+  <!--
     Lv1: Acquired SP increase by 10%.
     Lv2: Acquired SP increase by 20%.
     Lv3: Acquired SP increase by 30%.
@@ -542,7 +542,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="26048" levels="5" name="Rune of Crystal Form">
-  <!-- 
+  <!--
     Lv1: One's Grade Penalty decreases by 1 level.
     Lv2: One's Grade Penalty decreases by 2 level.
     Lv3: One's Grade Penalty decreases by 3 level.

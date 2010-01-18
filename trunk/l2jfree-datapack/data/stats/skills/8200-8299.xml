@@ -1095,8 +1095,8 @@
     TGS' Notes: With Gracia Final there are 4 new SA Focus skills and 4 levels of focus for the new
       Vesper weapons. Not too hard to figure out what goes where...
     Guessing...
-    14130	Vesper Fighter - Focus	8289	1	
-    14490	Vesper Fighter {PvP} - Focus	8289	1	
+    14130	Vesper Fighter - Focus	8289	1
+    14490	Vesper Fighter {PvP} - Focus	8289	1
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1173,12 +1173,12 @@
     TGS' Notes: With Gracia Final there are 4 new SA Focus skills and 4 levels of focus for the new
       Vesper weapons. Not too hard to figure out what goes where...
     Guessing...
-    14120	Vesper Cutter - Focus	8295	1	
-    14123	Vesper Slasher - Focus	8295	1	
-    14480	Vesper Cutter {PvP} - Focus	8295	1	
-    14483	Vesper Slasher {PvP} - Focus	8295	1	
-    14159	Vesper Nagan - Focus	8295	1	
-    14519	Vesper Nagan {PvP} - Focus	8295	1	
+    14120	Vesper Cutter - Focus	8295	1
+    14123	Vesper Slasher - Focus	8295	1
+    14480	Vesper Cutter {PvP} - Focus	8295	1
+    14483	Vesper Slasher {PvP} - Focus	8295	1
+    14159	Vesper Nagan - Focus	8295	1
+    14519	Vesper Nagan {PvP} - Focus	8295	1
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1196,10 +1196,10 @@
     TGS' Notes: With Gracia Final there are 4 new SA Focus skills and 4 levels of focus for the new
     Vesper weapons. Not too hard to figure out what goes where...
     Guessing...
-    14153	Vesper Pincer - Focus	8296	1	
-    14155	Vesper Sheutjeh - Focus	8296	1	
-    14513	Vesper Pincer {PvP} - Focus	8296	1	
-    14515	Vesper Sheutjeh {PvP} - Focus	8296	1	
+    14153	Vesper Pincer - Focus	8296	1
+    14155	Vesper Sheutjeh - Focus	8296	1
+    14513	Vesper Pincer {PvP} - Focus	8296	1
+    14515	Vesper Sheutjeh {PvP} - Focus	8296	1
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1215,20 +1215,20 @@
   <skill id="8297" levels="1" name="Special Ability Haste">
     <!--
     Guessing...
-    14118	Vesper Cutter - Haste	8297	1	
-    14121	Vesper Slasher - Haste	8297	1	
-    14129	Vesper Shaper - Haste	8297	1	
-    14135	Vesper Stormer - Haste	8297	1	
-    14151	Vesper Pincer - Haste	8297	1	
-    14157	Vesper Nagan - Haste	8297	1	
-    14402,'Icarus Hand {PvP} - Haste	8297	1	
-    14452,'Icarus Hand - Destruction {PvP} - Haste	8297	1	
-    14478	Vesper Cutter {PvP} - Haste	8297	1	
-    14481	Vesper Slasher {PvP} - Haste	8297	1	
-    14489	Vesper Shaper {PvP} - Haste	8297	1	
-    14495	Vesper Stormer {PvP} - Haste	8297	1	
-    14511	Vesper Pincer {PvP} - Haste	8297	1	
-    14517	Vesper Nagan {PvP} - Haste	8297	1	
+    14118	Vesper Cutter - Haste	8297	1
+    14121	Vesper Slasher - Haste	8297	1
+    14129	Vesper Shaper - Haste	8297	1
+    14135	Vesper Stormer - Haste	8297	1
+    14151	Vesper Pincer - Haste	8297	1
+    14157	Vesper Nagan - Haste	8297	1
+    14402,'Icarus Hand {PvP} - Haste	8297	1
+    14452,'Icarus Hand - Destruction {PvP} - Haste	8297	1
+    14478	Vesper Cutter {PvP} - Haste	8297	1
+    14481	Vesper Slasher {PvP} - Haste	8297	1
+    14489	Vesper Shaper {PvP} - Haste	8297	1
+    14495	Vesper Stormer {PvP} - Haste	8297	1
+    14511	Vesper Pincer {PvP} - Haste	8297	1
+    14517	Vesper Nagan {PvP} - Haste	8297	1
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1248,8 +1248,8 @@
     -->
     <!--
     Guessing...
-    14149	Vesper Thrower - Focus	8298	1	
-    14509	Vesper Thrower {PvP} - Focus	8298	1	
+    14149	Vesper Thrower - Focus	8298	1
+    14509	Vesper Thrower {PvP} - Focus	8298	1
     -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

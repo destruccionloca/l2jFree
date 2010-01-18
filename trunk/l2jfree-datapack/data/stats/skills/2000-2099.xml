@@ -754,7 +754,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2073" levels="2" name="Item - Theme Sound Crystal">
-    <!--  
+    <!--
       Since no icon is shown on sound crystals,
       lvl 2 is just a temp fix for 2 items using same skill.
     -->

@@ -487,7 +487,7 @@
     </for>
   </skill>
   <skill id="5239" levels="5" name="Event Timer">
-    <table name="#Time"> 300 600 900 1200 1800 </table> 
+    <table name="#Time"> 300 600 900 1200 1800 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>

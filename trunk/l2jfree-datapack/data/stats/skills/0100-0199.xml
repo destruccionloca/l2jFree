@@ -187,7 +187,7 @@
     <table name="#ench2mpConsume"> 54 53 52 50 50 50 49 48 48 46 46 45 44 44 42 42 41 41 40 38 38 38 37 36 34 34
       34 33 32 30 </table>
     <table name="#ench3effectPower"> 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 78 79
-      80 81 82 83 84 85 86 87 88 </table> <!-- Guess -->  
+      80 81 82 83 84 85 86 87 88 </table> <!-- Guess -->
     <table name="#ench4ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42
       43 44 45 46 47 48 49 50 </table>
     <table name="#mpInitialConsume"> 6 8 8 8 8 8 8 10 10 10 10 10 10 10 12 12 12 12 12 14 14 14 14 14 </table>
@@ -984,7 +984,7 @@
     </for>
   </skill>
   <skill id="165" levels="5" name="Trade">
-    <!-- 
+    <!--
       Not Done "Needs Core Support"
       Lvl 1: Enables you to purchase high quality weapons with a discount up to 5 percent.
       Lvl 2: Enables you to purchase high quality weapons with a discount up to 10 percent.

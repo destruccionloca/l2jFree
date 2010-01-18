@@ -3,7 +3,7 @@
 <list>
   <skill id="5900" levels="1" name="Burst of Oblivion">
   <!-- When a blow is incurred, the target is continuously removed, and skills and magic cannot be used. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22530 22531 25642 25648
    -->
@@ -20,7 +20,7 @@
   </skill>
   <skill id="5901" levels="2" name="Mist of Oblivion">
   <!-- Lv1: When a blow is incurred, the target is continuously removed, and skills and magic cannot be used. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18717 - Lv1 22534 - Lv1 22535 - Lv1 25638 - Lv1 25651 - Lv2
     25667 - Lv1
@@ -50,7 +50,7 @@
   </skill>
   <skill id="5903" levels="1" name="Burst of Misplace">
   <!-- Equipment are removed. Unable to use weapons while the effect lasts. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22514 22521 25645
    -->
@@ -67,7 +67,7 @@
   </skill>
   <skill id="5904" levels="3" name="Mist of Souliter">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22511 - Lv1 22517 - Lv1 22532 - Lv1 22533 - Lv1 25634 - Lv1
     25637 - Lv1 25652 - Lv2 29150 - Lv1
@@ -91,7 +91,7 @@
   </skill>
   <skill id="5905" levels="1" name="Confusing Nuph">
   <!-- Physical and magic skills are all blocked. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22514 22521 22616 25645
    -->
@@ -106,7 +106,7 @@
   </skill>
   <skill id="5906" levels="1" name="Ritual of Revive">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29150
    -->
@@ -120,11 +120,11 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="5907" levels="2" name="Ritual of Entombment">
-  <!-- 
+  <!--
     Lv1: none
     Lv2: Temporarily inflicts Hold on the enemy. Additional Hold is not available while effects last.
    -->
-  <!-- 
+  <!--
     Used by NPCs:
     22532 - Lv1 22533 - Lv1 25634 - Lv2 25637 - Lv2 25652 - Lv2
    -->
@@ -145,7 +145,7 @@
   </skill>
   <skill id="5908" levels="2" name="Ritual of Entombment">
   <!-- Lv1: Temporarily inflicts Hold on the enemy. Additional Hold is not available while effects last. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22534 - Lv2 22535 - Lv2 25634 - Lv2 25638 - Lv1 25651 - Lv2
    -->
@@ -166,7 +166,7 @@
   </skill>
   <skill id="5909" levels="1" name="Stronghold Attack">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22509 22510 22512 22513 22515 22516 22518 22519 22520 22522
     22523 22524 22525 22526 22527 22528 22529 22530 22531 22650
@@ -183,7 +183,7 @@
   </skill>
   <skill id="5910" levels="1" name="Stronghold Attack">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22511 22514 22517 22521 22532 22533 22534 22535 22658 22659
    -->
@@ -255,7 +255,7 @@
   </skill>
   <skill id="5919" levels="1" name="Obey">
   <!-- Lord of Immortality's command. Cannot resurrect. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29150
    -->
@@ -283,7 +283,7 @@
   </skill>
   <skill id="5921" levels="1" name="Inhale">
   <!-- P. Atk., Atk. Spd., M. Atk., accuracy, critical attack rate and critical damage are decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29150
    -->
@@ -300,7 +300,7 @@
   </skill>
   <skill id="5922" levels="1" name="Exhale">
   <!-- Evasion, P. Def., M. Def. and speed are decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29150
    -->
@@ -326,7 +326,7 @@
   </skill>
   <skill id="5924" levels="1" name="Devour Soul">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29151
    -->
@@ -356,7 +356,7 @@
   </skill>
   <skill id="5926" levels="1" name="Breath Corruption">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29151
    -->
@@ -416,7 +416,7 @@
   </skill>
   <skill id="5932" levels="1" name="Dark Blade">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25666
    -->
@@ -430,13 +430,13 @@
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <set name="skillRadius" val="300"/> 
+    <set name="skillRadius" val="300"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5933" levels="1" name="Dark Blade">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25665
    -->
@@ -450,7 +450,7 @@
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <set name="skillRadius" val="300"/> 
+    <set name="skillRadius" val="300"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
   </skill>
@@ -466,7 +466,7 @@
   </skill>
   <skill id="5935" levels="1" name="Dark Ring">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25666
    -->
@@ -482,7 +482,7 @@
   </skill>
   <skill id="5936" levels="1" name="Earth Ring">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25665
    -->
@@ -498,7 +498,7 @@
   </skill>
   <skill id="5937" levels="1" name="Self Stun">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22515
    -->
@@ -619,7 +619,7 @@
   </skill>
   <skill id="5951" levels="1" name="Agathion's Blessing">
   <!-- The summoned sprite uses a blessing. -->
-  <!-- 
+  <!--
     Used by NPCs:
     16054
    -->
@@ -631,7 +631,7 @@
   </skill>
   <skill id="5952" levels="1" name="Agathion's Blessing">
   <!-- The summoned sprite uses a blessing. -->
-  <!-- 
+  <!--
     Used by NPCs:
     16055
    -->
@@ -643,7 +643,7 @@
   </skill>
   <skill id="5953" levels="1" name="Agathion's Blessing">
   <!-- The summoned sprite uses a blessing. -->
-  <!-- 
+  <!--
     Used by NPCs:
     16054 16055
    -->
@@ -735,7 +735,7 @@
   </skill>
   <skill id="5961" levels="1" name="Barrier Thunder Storm">
   <!-- A state of instant paralysis caused by the shock -->
-  <!-- 
+  <!--
     Used by NPCs:
     22557
    -->
@@ -752,7 +752,7 @@
   </skill>
   <skill id="5962" levels="1" name="Air Defense Cannon">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22558
    -->
@@ -813,11 +813,11 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5968" levels="2" name="Rapid Shot">
-  <!-- 
+  <!--
     Lv1: Temporarily increases your own bow Atk. Spd. Effect 1.
     Lv2: Temporarily increases your own bow Atk. Spd. Effect 2.
    -->
-  <!-- 
+  <!--
     Used by NPCs:
     36563 - Lv2 36567 - Lv1
    -->
@@ -838,11 +838,11 @@
     </for>
   </skill>
   <skill id="5969" levels="2" name="Punch of Doom">
-  <!-- 
+  <!--
     Lv1: Becomes shocked momentarily while propelling a powerful iron-fist to enemy that gives significant damage. Requires a hand-to-hand combat weapon. Ignores shield defense. Over-hit is possible. Power 10331.
     Lv2: Becomes shocked momentarily while propelling a powerful iron-fist to enemy that gives significant damage. Requires a hand-to-hand combat weapon. Ignores shield defense. Over-hit is possible. Power 12288.
    -->
-  <!-- 
+  <!--
     Used by NPCs:
     36565 - Lv2 36569 - Lv1
    -->
@@ -868,7 +868,7 @@
   </skill>
   <skill id="5970" levels="1" name="Seduced Knight's Help">
   <!-- Increases Max HP. -->
-  <!-- 
+  <!--
     Used by NPCs:
     36562 36566
    -->
@@ -885,7 +885,7 @@
   </skill>
   <skill id="5971" levels="1" name="Seduced Ranger's Help">
   <!-- Increases HP regeneration. -->
-  <!-- 
+  <!--
     Used by NPCs:
     36563 36567
    -->
@@ -902,7 +902,7 @@
   </skill>
   <skill id="5972" levels="1" name="Seduced Wizard's Help">
   <!-- Increases Max MP. -->
-  <!-- 
+  <!--
     Used by NPCs:
     36564 36568
    -->
@@ -919,7 +919,7 @@
   </skill>
   <skill id="5973" levels="1" name="Seduced Warrior's Help">
   <!-- Increases MP regeneration. -->
-  <!-- 
+  <!--
     Used by NPCs:
     36565 36569
    -->
@@ -936,7 +936,7 @@
   </skill>
   <skill id="5974" levels="1" name="Tiat Transformation">
   <!-- Tiat's Transformation -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -948,7 +948,7 @@
   </skill>
   <skill id="5975" levels="3" name="Dark Attack">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     27341 - Lv1 27342 - Lv2 27343 - Lv3 27344 - Lv1 27345 - Lv2
     27346 - Lv3 27394 - Lv1 27395 - Lv1 27396 - Lv1 27397 - Lv1
@@ -966,7 +966,7 @@
   </skill>
   <skill id="5976" levels="3" name="Dark Storm">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     27341 - Lv1 27342 - Lv2 27343 - Lv3 27344 - Lv1 27345 - Lv2
     27346 - Lv3 27394 - Lv1 27395 - Lv1 27396 - Lv1 27397 - Lv1
@@ -991,7 +991,7 @@
   </skill>
   <skill id="5978" levels="1" name="Death Strike">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     27347 27348
    -->
@@ -1017,7 +1017,7 @@
   </skill>
   <skill id="5980" levels="3" name="Seal Isolation">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     27382 - Lv1 27383 - Lv2 27384 - Lv3
    -->
@@ -1148,7 +1148,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5990" levels="3" name="Lesser Heal">
-  <!-- 
+  <!--
     Lv1: Quickly restores HP. Power 817.
     Lv2: Quickly restores HP. Power 839.
     Lv3: Quickly restores HP. Power 867.
@@ -1168,7 +1168,7 @@
   </skill>
   <skill id="5991" levels="1" name="Presentation - Summon Tiat">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->

@@ -50,7 +50,7 @@
     </for>
   </skill>
   <skill id="5702" levels="2" name="Adiantum Round Fighter">
-  <!-- 
+  <!--
     Used by NPCs:
     18608 - Lv1
     18620 - Lv2
@@ -61,7 +61,7 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="5703" levels="2" name="Adiantum Water Strike Deflect">
-  <!-- 
+  <!--
     Used by NPCs:
     18620 - Lv2
    -->
@@ -88,7 +88,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5705" levels="1" name="Fire Trap">
-  <!-- 
+  <!--
     Used by NPCs:
     18617
    -->
@@ -98,7 +98,7 @@
   </skill>
   <skill id="5706" levels="1" name="Poison">
   <!-- HP decreased momentarily by poison. The body is paralyzed after a set amount of time. Effect 7. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18624 18625 18626 18627
    -->
@@ -229,7 +229,7 @@
   </skill>
   <skill id="5715" levels="1" name="Electric Flame">
   <!-- Incurring continuous flame damage and has decreased moving speed. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18660
    -->
@@ -239,7 +239,7 @@
     <set name="hitTime" val="2500"/>
   </skill>
   <skill id="5716" levels="1" name="Stun">
-  <!-- 
+  <!--
     Used by NPCs:
     18660
    -->
@@ -257,7 +257,7 @@
     </for>
   </skill>
   <skill id="5717" levels="1" name="Fire Breath">
-  <!-- 
+  <!--
     Used by NPCs:
     18660
    -->
@@ -268,7 +268,7 @@
   </skill>
   <skill id="5718" levels="1" name="Anger">
   <!-- P. Def. is decreased and P. Atk. is greatly increased because of rage. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18660
    -->
@@ -283,7 +283,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5720" levels="6" name="Blade Cut">
-  <!-- 
+  <!--
     Used by NPCs:
     18580 - Lv2 18582 - Lv2
     18585 - Lv3
@@ -301,7 +301,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5721" levels="6" name="Blade Strike">
-  <!-- 
+  <!--
     Used by NPCs:
     18580 - Lv2 18582 - Lv2
     18585 - Lv3
@@ -584,7 +584,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5745" levels="12" name="Death Blow">
-  <!-- 
+  <!--
     Used by NPCs:
     16044 - Lv1 16045 - Lv1 16052 - Lv1 16053 - Lv1
    -->
@@ -606,7 +606,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5746" levels="12" name="Double Attack">
-  <!-- 
+  <!--
     Used by NPCs:
     16044 - Lv1 16052 - Lv1 16053 - Lv1
    -->
@@ -626,7 +626,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5747" levels="12" name="Spin Attack">
-  <!-- 
+  <!--
     Used by NPCs:
     16044 - Lv1 16052 - Lv1 16053 - Lv1
    -->
@@ -936,7 +936,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5780" levels="9" name="Agathion Collection">
-  <!-- 
+  <!--
     Lv1: Summons a Sprite to collect the essence of the Seeds of Infinity and Destruction.
     Lv2: The summoned Sprite collects the essence of the Seeds of Infinity and Destruction.
    -->

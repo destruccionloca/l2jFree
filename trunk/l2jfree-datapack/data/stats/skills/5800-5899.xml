@@ -12,7 +12,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5801" levels="1" name="Drake Breath">
-  <!-- 
+  <!--
     Used by NPCs:
     25626
    -->
@@ -29,7 +29,7 @@
   </skill>
   <skill id="5802" levels="1" name="Stun">
   <!-- Temporarily renders target unable to act. -->
-  <!-- 
+  <!--
     Used by NPCs:
     25626
    -->
@@ -48,7 +48,7 @@
     </for>
   </skill>
   <skill id="5803" levels="3" name="Green Chili">
-  <!-- 
+  <!--
     Used by NPCs:
     22606 - Lv1 22607 - Lv1 25629 - Lv2
    -->
@@ -66,7 +66,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5804" levels="3" name="Fireball">
-  <!-- 
+  <!--
     Used by NPCs:
     22606 - Lv1 22607 - Lv1 22610 - Lv1 22611 - Lv1 22614 - Lv1
     22615 - Lv1 25629 - Lv1 25631 - Lv1 25633 - Lv1
@@ -85,7 +85,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5805" levels="1" name="Air Assault">
-  <!-- 
+  <!--
     Used by NPCs:
     22610 22611 25631
    -->
@@ -101,7 +101,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="5806" levels="1" name="High Wave Beam">
-  <!-- 
+  <!--
     Used by NPCs:
     22602 22603 25627
    -->
@@ -117,7 +117,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5807" levels="1" name="Self-destruction">
-  <!-- 
+  <!--
     Used by NPCs:
     22602 22603 25627
    -->
@@ -130,7 +130,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5808" levels="1" name="Burst Flame">
-  <!-- 
+  <!--
     Used by NPCs:
     22614 22615 25633
    -->
@@ -146,7 +146,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="5809" levels="1" name="Dark Blood">
-  <!-- 
+  <!--
     Used by NPCs:
     22604 22605 25628
    -->
@@ -162,7 +162,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5810" levels="1" name="Decrease Spd.">
-  <!-- 
+  <!--
     Used by NPCs:
     22604 22605 25628
    -->
@@ -185,7 +185,7 @@
   </skill>
   <skill id="5811" levels="1" name="Sonic Bomb">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22612 22613 25632
    -->
@@ -202,7 +202,7 @@
   </skill>
   <skill id="5812" levels="1" name="Fire Breath">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22612 22613 25632
    -->
@@ -219,7 +219,7 @@
   </skill>
   <skill id="5813" levels="1" name="Sand Ball">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22608 22609 25630
    -->
@@ -236,7 +236,7 @@
   </skill>
   <skill id="5814" levels="3" name="Self-Destruction">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22506 - Lv1 22507 - Lv1 22508 - Lv1
    -->
@@ -251,7 +251,7 @@
   </skill>
   <skill id="5815" levels="1" name="Presentation - Mercenary Troops Shout">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29162
    -->
@@ -263,7 +263,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5816" levels="1" name="Presentation - Female Priest Transformation">
-  <!-- 
+  <!--
     Used by NPCs:
     29171 29173 29174
    -->
@@ -285,7 +285,7 @@
   </skill>
   <skill id="5818" levels="1" name="Presentation - Repentance">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -298,7 +298,7 @@
   </skill>
   <skill id="5819" levels="1" name="Presentation - Victory">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -311,7 +311,7 @@
   </skill>
   <skill id="5820" levels="1" name="Presentation - Removal">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -324,7 +324,7 @@
   </skill>
   <skill id="5821" levels="1" name="Presentation - Female Priest Exit">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29173 29174
    -->
@@ -348,7 +348,7 @@
   </skill>
   <skill id="5823" levels="1" name="Presentation - District1 Boss Defeat">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25665 25666
    -->
@@ -361,7 +361,7 @@
   </skill>
   <skill id="5824" levels="1" name="Presentation - District1 Boss Arise">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25665 25666
    -->
@@ -374,7 +374,7 @@
   </skill>
   <skill id="5825" levels="1" name="Presentation - Algraia Exit">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     32600
    -->
@@ -387,7 +387,7 @@
   </skill>
   <skill id="5826" levels="3" name="Fire Breath">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22536 - Lv1 22537 - Lv1 22569 - Lv1 22570 - Lv1 22571 - Lv1
     22572 - Lv1 22573 - Lv1 22574 - Lv1 22575 - Lv1 22576 - Lv1
@@ -408,7 +408,7 @@
   </skill>
   <skill id="5827" levels="6" name="Fireball">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18783 - Lv1 18784 - Lv1 18785 - Lv1 18786 - Lv1 18787 - Lv1
     18788 - Lv1 18789 - Lv1 22538 - Lv1 22539 - Lv1 22540 - Lv1
@@ -433,14 +433,14 @@
   </skill>
   <skill id="5828" levels="6" name="Unholy Flare">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22545 - Lv1 22551 - Lv1
    -->
     <table name="#mpInitialConsume"> 13 14 14 14 14 15 </table>
     <table name="#mpConsume"> 55 56 58 58 59 60 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
-    <set name="mpConsume" val="#mpConsume"/>    
+    <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
@@ -452,7 +452,7 @@
   </skill>
   <skill id="5829" levels="6" name="Fire Flare">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18787 - Lv1 18788 - Lv1 18789 - Lv1 22537 - Lv1 22542 - Lv1
     22543 - Lv1 22544 - Lv1 22571 - Lv1 22576 - Lv1 22577 - Lv1
@@ -474,7 +474,7 @@
   </skill>
   <skill id="5830" levels="1" name="Polearm Thrust">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18783 18784 22538 22539 22572 22573 22586 22587 22594
     22595
@@ -492,7 +492,7 @@
   </skill>
   <skill id="5831" levels="1" name="Polearm Swing">
   <!-- HP is decreased momentarily from bleeding. Effect 9. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18783 18784 22538 22539 22572 22573 22586 22587 22594
     22595
@@ -508,7 +508,7 @@
   </skill>
   <skill id="5832" levels="1" name="Hate Aura">
   <!-- Your mark is fixed. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18785 18786 22540 22541 22574 22575 22588 22589 22596
     22597
@@ -524,7 +524,7 @@
   </skill>
   <skill id="5833" levels="1" name="Shield">
   <!-- Increases defense power temporarily. Effect 3. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18787 18788 22542 22543 22576 22577 22583 22584 22591
     22592
@@ -543,7 +543,7 @@
   </skill>
   <skill id="5834" levels="1" name="Magic Barrier">
   <!-- Temporarily increases magic resistance. Effect 3. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18789 22544 22578 22585 22593
    -->
@@ -561,7 +561,7 @@
   </skill>
   <skill id="5835" levels="1" name="Major Heal">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18790 22547 22580
    -->
@@ -578,7 +578,7 @@
   </skill>
   <skill id="5836" levels="1" name="Greater Heal">
   <!-- Restores party member's HP and momentarily increases HP regeneration. Power 1. Effect 5. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18790 22547 22580
    -->
@@ -594,7 +594,7 @@
   </skill>
   <skill id="5837" levels="1" name="Double Throwing Javelin">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18791 18792 22548 22549 22581 22582
    -->
@@ -611,7 +611,7 @@
   </skill>
   <skill id="5838" levels="1" name="Throwing Javelin">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18791 18792 22548 22549 22581 22582
    -->
@@ -628,7 +628,7 @@
   </skill>
   <skill id="5839" levels="1" name="Breath">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -645,7 +645,7 @@
   </skill>
   <skill id="5840" levels="1" name="Fire Breath">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -662,7 +662,7 @@
   </skill>
   <skill id="5841" levels="1" name="Multi Defense">
   <!-- P. Def. and magic resistance are increased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -677,7 +677,7 @@
   </skill>
   <skill id="5842" levels="1" name="Spinning Slasher">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -692,7 +692,7 @@
   </skill>
   <skill id="5843" levels="1" name="Terror">
   <!-- Temporarily inflicted with Fear and moves regardless of volition. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29163 29175
    -->
@@ -726,7 +726,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5846" levels="12" name="Bleed">
-  <!-- 
+  <!--
     Lv1: HP is decreased momentarily from bleeding. Effect 2.
     Lv2: HP is decreased momentarily from bleeding. Effect 3.
     Lv3: HP is decreased momentarily from bleeding. Effect 4.
@@ -806,7 +806,7 @@
   </skill>
   <skill id="5852" levels="1" name="Flip Block">
   <!-- Flips blocks. -->
-  <!-- 
+  <!--
     Used by NPCs:
     13167 13168
    -->
@@ -821,7 +821,7 @@
   </skill>
   <skill id="5853" levels="1" name="Flip Block">
   <!-- Flips blocks. -->
-  <!-- 
+  <!--
     Used by NPCs:
     13167 13168
    -->
@@ -847,7 +847,7 @@
   </skill>
   <skill id="5855" levels="2" name="Weakened Sweep">
   <!-- Lv1: A state of instant paralysis caused by the shock -->
-  <!-- 
+  <!--
     Used by NPCs:
     25642 - Lv1 25648 - Lv2
    -->
@@ -916,7 +916,7 @@
   </skill>
   <skill id="5860" levels="1" name="Wrath of Valakas">
   <!-- Magic skills are blocked, temporarily decreasing speed. Destruction of the Body is activated, inflicting major damage on the stamina of nearby party members after 10 seconds. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29028
    -->
@@ -935,7 +935,7 @@
   </skill>
   <skill id="5861" levels="1" name="Authority of Valakas">
   <!-- Magic skills are blocked, temporarily decreasing speed. Destruction of the Mind is activated, inflicting major damage on the minds of nearby party members after 10 seconds. -->
-  <!-- 
+  <!--
     Used by NPCs:
     29028
    -->
@@ -954,7 +954,7 @@
   </skill>
   <skill id="5862" levels="1" name="Destruction of the Body">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29028
    -->
@@ -968,7 +968,7 @@
   </skill>
   <skill id="5863" levels="1" name="Destruction of the Soul">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     29028
    -->
@@ -1003,7 +1003,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5866" levels="10" name="Soul Worm">
-  <!-- 
+  <!--
     Lv1: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 8.
     Lv4: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 9.
     Lv8: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 10.
@@ -1016,7 +1016,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="5867" levels="10" name="Soul Worm">
-  <!-- 
+  <!--
     Lv1: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 8.
     Lv4: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 9.
     Lv8: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 10.
@@ -1029,7 +1029,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5868" levels="10" name="Soul Worm">
-  <!-- 
+  <!--
     Lv1: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 8.
     Lv4: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 9.
     Lv8: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 10.
@@ -1042,7 +1042,7 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5869" levels="10" name="Soul Worm">
-  <!-- 
+  <!--
     Lv1: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 8.
     Lv4: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 9.
     Lv8: Current MP, Max MP, and MP Regeneration are decreased due to damage to the mind, and HP is temporarily decreased due to poison. Effect 10.
@@ -1053,7 +1053,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5870" levels="10" name="Flash Worm">
-  <!-- 
+  <!--
     Lv1: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 8.
     Lv4: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 9.
     Lv8: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 10.
@@ -1065,7 +1065,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5871" levels="10" name="Flash Worm">
-  <!-- 
+  <!--
     Lv1: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 8.
     Lv4: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 9.
     Lv8: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 10.
@@ -1077,7 +1077,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5872" levels="10" name="Flash Worm">
-  <!-- 
+  <!--
     Lv1: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 8.
     Lv4: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 9.
     Lv8: P. Def., Max HP, and HP Regeneration are decreased due to damage to the body, and HP is temporarily decreased due to bleeding. Effect 10.
@@ -1126,7 +1126,7 @@
   </skill>
   <skill id="5877" levels="4" name="Chant of Worm Waking">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     25634 - Lv1 25635 - Lv1 25636 - Lv1 25637 - Lv1 25638 - Lv1
     25640 - Lv1 25641 - Lv1 25642 - Lv1 25643 - Lv1 25644 - Lv1
@@ -1144,7 +1144,7 @@
   </skill>
   <skill id="5878" levels="1" name="Cruel Puncture">
   <!-- Life force is lost and Casting Spd. is decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22510 22518 25643
    -->
@@ -1160,7 +1160,7 @@
   </skill>
   <skill id="5879" levels="1" name="Cruel Expunge">
   <!-- HP is decreased momentarily from bleeding. Effect 9. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22510 22518 25643
    -->
@@ -1177,7 +1177,7 @@
   </skill>
   <skill id="5880" levels="2" name="Vicious Mutilation">
   <!-- Lv1: Speed is decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18716 - Lv1 22524 - Lv2 22525 - Lv2 25640 - Lv1 25649 - Lv2
    -->
@@ -1194,7 +1194,7 @@
   </skill>
   <skill id="5881" levels="2" name="Vicious Mutilation">
   <!-- Lv1: P. Def., Evasion, and Speed are decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22526 - Lv1 22527 - Lv1 25635 - Lv1 25639 - Lv1 25650 - Lv2
    -->
@@ -1211,7 +1211,7 @@
   </skill>
   <skill id="5882" levels="2" name="Weakened Pommel">
   <!-- Lv1: A state of instant paralysis caused by the shock -->
-  <!-- 
+  <!--
     Used by NPCs:
     22513 - Lv1 22519 - Lv1 22616 - Lv1
    -->
@@ -1230,7 +1230,7 @@
   </skill>
   <skill id="5883" levels="1" name="Meggling Injury">
   <!-- HP is decreased momentarily from bleeding. Effect 9. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22513 22519
    -->
@@ -1247,7 +1247,7 @@
   </skill>
   <skill id="5884" levels="2" name="Weakened Sweep">
   <!-- Lv1: Equipment are removed. Unable to use weapons while the effect lasts. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22509 - Lv1 22512 - Lv1 22516 - Lv1 22520 - Lv1 22528 - Lv1
     22529 - Lv1 25641 - Lv1 25644 - Lv2 25647 - Lv2
@@ -1265,7 +1265,7 @@
   </skill>
   <skill id="5885" levels="1" name="Weakened Sweep">
   <!-- A state of instant paralysis caused by the shock -->
-  <!-- 
+  <!--
     Used by NPCs:
     22530 22531
    -->
@@ -1282,7 +1282,7 @@
   </skill>
   <skill id="5886" levels="1" name="Ground Shaker">
   <!-- Evasion and Speed are decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22509 22516
    -->
@@ -1297,7 +1297,7 @@
   </skill>
   <skill id="5887" levels="1" name="Howl from Beyond">
   <!-- P. Atk., M. Atk., Atk. Spd., Accuracy, Critical Rate, and Critical Impact are greatly decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22528 22529 25641 25647
    -->
@@ -1312,7 +1312,7 @@
   </skill>
   <skill id="5888" levels="2" name="Earth Shaker">
   <!-- Lv1: Temporarily cannot move due to shock and has lost the target. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22515 - Lv1 22522 - Lv1 22523 - Lv1 22526 - Lv1 22527 - Lv1
     25635 - Lv1 25636 - Lv1 25639 - Lv1 25646 - Lv2 25650 - Lv2
@@ -1330,7 +1330,7 @@
   </skill>
   <skill id="5889" levels="3" name="Tainted Shackle">
   <!-- Lv1: Cannot act because the target is locked. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22509 - Lv2 22513 - Lv2 22516 - Lv2 22519 - Lv2
    -->
@@ -1348,7 +1348,7 @@
   </skill>
   <skill id="5890" levels="3" name="Tainted Mass Shackle">
   <!-- Lv1: Cannot move because the target is locked. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22530 - Lv1 22531 - Lv1 22616 - Lv2 25642 - Lv3 25648 - Lv3
    -->
@@ -1364,7 +1364,7 @@
   </skill>
   <skill id="5891" levels="1" name="Threatening Bellow">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22528 22529 22530 22531 25641 25642 25647 25648
    -->
@@ -1381,7 +1381,7 @@
   </skill>
   <skill id="5892" levels="2" name="Cunning Coercion">
   <!-- Lv1: Makes the enemy show his back, removes its desire for attack, and cancels its target state. Temporarily inflicts mental shock on the enemy. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22514 - Lv1 22521 - Lv1 25645 - Lv2
    -->
@@ -1401,7 +1401,7 @@
   </skill>
   <skill id="5893" levels="1" name="Ritual of Cannibalism">
   <!-- none -->
-  <!-- 
+  <!--
     Used by NPCs:
     22524 22525 22526 22527 25635 25639 25640 25649 25650
    -->
@@ -1418,7 +1418,7 @@
   </skill>
   <skill id="5894" levels="1" name="Mark of Despair">
   <!-- Significantly decreases P. Def., M. Def., evasion and HP. HP Recovery is limited, but P. Atk., M. Atk., Atk. Spd., Accuracy, critical damage and critical attack rate are increased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     18716 22510 22518 22524 22525 22526 22527 25635 25639
     25640 25643 25649 25650 29150
@@ -1436,7 +1436,7 @@
   </skill>
   <skill id="5895" levels="1" name="Mark of Cowardice">
   <!-- Significantly decreases HP, P. Def., M. Def. and evasion. The use of attack actions and skills and HP Recovery are limited, but movement speed is slightly increased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22512 22520 22528 22529 25635 25641 25644 25647 29150
    -->
@@ -1453,7 +1453,7 @@
   </skill>
   <skill id="5896" levels="2" name="Soulless">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18717 - Lv2 22534 - Lv1 22535 - Lv1 25638 - Lv2 25651 - Lv2
     25667 - Lv1
@@ -1475,7 +1475,7 @@
   </skill>
   <skill id="5897" levels="1" name="Spike of Anger">
   <!-- P. Def., M. Def., Evasion, and Speed are decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22511 22517
    -->
@@ -1492,7 +1492,7 @@
   </skill>
   <skill id="5898" levels="2" name="Blast of Anger">
   <!-- Lv1: P. Def., M. Def., Evasion, and Speed are decreased. -->
-  <!-- 
+  <!--
     Used by NPCs:
     22512 - Lv1 22520 - Lv1 22532 - Lv1 22533 - Lv1 25634 - Lv1
     25637 - Lv1 25644 - Lv2 25652 - Lv2 29150 - Lv1
@@ -1516,7 +1516,7 @@
   </skill>
   <skill id="5899" levels="2" name="Burst of Pain">
   <!-- Lv1: none -->
-  <!-- 
+  <!--
     Used by NPCs:
     18716 - Lv2 22515 - Lv1 22522 - Lv1 22523 - Lv1 22524 - Lv1
     22525 - Lv1 25640 - Lv2 25646 - Lv2 25649 - Lv2 29150 - Lv1
