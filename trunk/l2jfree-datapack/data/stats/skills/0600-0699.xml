@@ -306,10 +306,6 @@
     <set name="effectRange" val="900"/>
   </skill>
   <skill id="625" levels="1" name="Soul Gathering" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1hpConsume"> 196 193 190 186 183 180 176 173 170 166 163 160 156 153 150 146 143
       140 136 133 130 126 123 120 116 113 110 106 103 100 </table>
     <table name="#ench2Reuse"> 177500 175000 172500 160000 167500 165000 162500 160000 157500 155000
@@ -330,10 +326,6 @@
     <enchant2 name="reuseDelay" val="#ench2Reuse"/>
   </skill>
   <skill id="626" levels="4" name="Critical Sense" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <!-- Needs to be verified -->
     <table name="#rCrit">0.1 0.15 0.2 0.25</table>
     <table name="#cAtk"> 111 177 253 317 </table>
@@ -356,12 +348,6 @@
     </enchant2for>
   </skill>
   <skill id="627" levels="40" name="Soul Shock" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82
-      83 83 83 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant4 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1Power"> 2268 2286 2304 2322 2339 2357 2375 2393 2410 2428 2446 2464 2481 2499
       2517 2535 2553 2570 2588 2606 2624 2641 2659 2677 2695 2712 2730 2748 2766 2784 </table>
     <table name="#ench2mpInitialConsume"> 21 21 20 20 19 19 19 18 18 18 17 17 17 16 16 15 15 15 14

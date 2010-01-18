@@ -27,9 +27,6 @@
     </enchant1for>
   </skill>
   <skill id="1002" levels="3" name="Flame Chant" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
@@ -61,9 +58,6 @@
     </enchant1for>
   </skill>
   <skill id="1003" levels="3" name="Pa'agrian Gift" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 134 132 130 127 125 123 120 118 116 114 111 109 107 104 102 100 98 95 92 91 88 86 84 82 79 76 75 72 70 68 </table>
@@ -96,10 +90,6 @@
     </enchant1for>
   </skill>
   <skill id="1004" levels="3" name="The Wisdom of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
@@ -132,10 +122,6 @@
     </enchant1for>
   </skill>
   <skill id="1005" levels="3" name="Blessings of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 147 144 142 140 136 135 132 129 127 124 122 120 116 115 112 109 107 104 101 100 96 95 92 89 87 84 81 80 76 75 </table>
@@ -168,10 +154,6 @@
     </enchant1for>
   </skill>
   <skill id="1006" levels="3" name="Chant of Fire" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 147 144 142 140 136 135 132 129 127 124 122 120 116 115 112 109 107 104 101 100 96 95 92 89 87 84 81 80 76 75 </table>
@@ -204,10 +186,6 @@
     </enchant1for>
   </skill>
   <skill id="1007" levels="3" name="Chant of Battle" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 120 117 116 113 112 109 108 105 104 101 100 97 96 93 92 89 88 85 84 81 79 76 75 72 71 68 67 64 63 60 </table>
@@ -240,10 +218,6 @@
     </enchant1for>
   </skill>
   <skill id="1008" levels="3" name="The Glory of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
@@ -276,10 +250,6 @@
     </enchant1for>
   </skill>
   <skill id="1009" levels="3" name="Chant of Shielding" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 108 107 104 103 100 99 97 96 93 92 89 88 85 84 83 80 79 76 75 73 72 69 68 65 64 61 60 58 56 55 </table>
@@ -312,10 +282,6 @@
     </enchant1for>
   </skill>
   <skill id="1010" levels="3" name="Soul Shield" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 22 22 21 21 21 20 20 20 20 20 18 18 17 17 17 16 16 16 16 16 14 14 13 13 13 12 12 12 12 12 </table>
@@ -386,10 +352,6 @@
     <set name="aggroPoints" val="#aggroPoints"/>
   </skill>
   <skill id="1013" levels="32" name="Recharge" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 108 106 105 104 104 102 101 100 98 97 96 96 94 93 92 92 90 89 88 88 86 85 84 84 82 81 80 80 78 77 </table>
     <table name="#ench2mpInitialConsume"> 27 26 26 26 26 25 25 25 24 24 24 24 23 23 23 23 22 22 22 22 21 21 21 21 20 20 20 20 19 19 </table>
     <table name="#ench1Power"> 137 137 138 139 139 140 141 141 142 143 143 144 145
@@ -477,10 +439,6 @@
     <set name="aggroPoints" val="#aggroPoints"/>
   </skill>
   <skill id="1020" levels="27" name="Vitalize" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 112 112 110 109 108 108 106 105 104 104 102 101 100 100 98 97 96 96 94 93 92 92 90 89 88 88 86 85 84 84 </table>
     <table name="#ench2mpInitialConsume"> 28 28 27 27 27 27 26 26 26 26 25 25 25 25 24 24 24 24 23 23 23 23 22 22 22 22 21 21 21 21 </table>
     <table name="#mpInitialConsume"> 17 17 18 19 19 19 20 21 21 22 22 23 23 23 24 24 24 25 25 26 26 27 27 27 28 28 28 </table>
@@ -531,11 +489,6 @@
     <set name="aggroPoints" val="#aggroPoints"/>
   </skill>
   <skill id="1028" levels="19" name="Might of Heaven" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82
-      83 83 83 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
     <table name="#mpInitialConsume"> 6 7 7 7 8 8 9 9 9 10 10 11 11 12 12 12 13 13 13 </table>
@@ -592,10 +545,6 @@
     </cond>
   </skill>
   <skill id="1032" levels="3" name="Invigor" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
@@ -636,10 +585,6 @@
     </enchant3for>
   </skill>
   <skill id="1033" levels="3" name="Resist Poison" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
@@ -683,9 +628,6 @@
     </enchant3for>
   </skill>
   <skill id="1034" levels="13" name="Repose" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#enchant2mpInitialConsume"> 20 19 19 19 18 18 18 17 17 17 16 16 16 15 15 15 14 14 14 13 13 13 12 12 12 11 11 11 10 10 </table>
     <table name="#enchant2mpConsume"> 81 79 78 77 75 74 73 71 70 69 67 66 64 63 62 60 59 58 56 55 54 52 51 50 48 47 45 44 43 41 </table>
     <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
@@ -710,10 +652,6 @@
     </cond>
   </skill>
   <skill id="1035" levels="4" name="Mental Shield" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
@@ -754,10 +692,6 @@
     </enchant1for>
   </skill>
   <skill id="1036" levels="2" name="Magic Barrier" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
     <table name="#ench2mpInitialConsume"> 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 6 6 5 5 5 5 5 5 4 4 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -791,10 +725,6 @@
     </enchant1for>
   </skill>
   <skill id="1040" levels="3" name="Shield" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 29 28 28 28 28 27 27 25 25 24 24 24 24 23 23 21 21 20 20 20 20 19 18 17 17 16 16 16 16 15 </table>
     <table name="#ench2mpInitialConsume"> 7 7 7 7 7 6 6 6 6 6 6 6 6 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 3 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -828,10 +758,6 @@
     </enchant1for>
   </skill>
   <skill id="1042" levels="12" name="Hold Undead" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#mpInitialConsume"> 25 28 30 31 33 34 35 36 37 38 39 40 </table>
     <table name="#mpConsume"> 103 112 122 127 132 137 142 147 151 155 159 163 </table>
     <table name="#magicLvl"> 48 52 56 58 60 62 64 66 68 70 72 74 </table>
@@ -872,10 +798,6 @@
     </enchant3for>
   </skill>
   <skill id="1043" levels="1" name="Holy Weapon" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 16 16 16 16 16 16 15 15 15 15 14 14 13 12 12 12 12 12 12 12 11 11 11 10 9 9 8 8 8 8 </table>
     <table name="#ench2mpInitialConsume"> 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2 2 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720 1760
@@ -907,10 +829,6 @@
     </enchant1for>
   </skill>
   <skill id="1044" levels="3" name="Regeneration" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
     <table name="#ench2mpInitialConsume"> 10 9 9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -945,10 +863,6 @@
   </skill>
   <skill id="1045" levels="6" name="Blessed Body" enchantLevels1="30" enchantLevels2="30">
     <!-- Done by dc -->
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2mpInitialConsume"> 13 12 12 12 12 11 11 11 11 11 10 10 10 10 9 9 9 9 9 8 8 8 8 7 7 7 7 7 6 6 </table>
@@ -982,10 +896,6 @@
     </enchant1for>
   </skill>
   <skill id="1047" levels="4" name="Mana Regeneration" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1regMp"> 3.157 3.214 3.271 3.328 3.385 3.442 3.499 3.556 3.613 3.67
       3.727 3.784 3.841 3.898 3.955 4.012 4.069 4.126 4.183 4.24 4.297 4.354 4.411 4.468
       4.525 4.582 4.639 4.696 4.753 4.81 </table>
@@ -1025,10 +935,6 @@
   </skill>
   <skill id="1048" levels="6" name="Blessed Soul" enchantLevels1="30" enchantLevels2="30">
     <!-- Done by dc -->
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2mpInitialConsume"> 12 12 12 12 11 11 11 11 11 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 7 7 7 6 6 6 </table>
@@ -1119,10 +1025,6 @@
     <set name="maxNegated" val="5"/>
   </skill>
   <skill id="1059" levels="3" name="Empower" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
     <table name="#ench2mpInitialConsume"> 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 6 6 5 5 5 5 5 5 4 4 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -1156,10 +1058,6 @@
     </enchant1for>
   </skill>
   <skill id="1062" levels="2" name="Berserker Spirit" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
     <table name="#ench2mpInitialConsume"> 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 6 6 5 5 5 5 5 5 4 4 </table>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
@@ -1213,10 +1111,6 @@
     </enchant1for>
   </skill>
   <skill id="1064" levels="14" name="Silence" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
@@ -1246,10 +1140,6 @@
     </for>
   </skill>
   <skill id="1068" levels="3" name="Might" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 26 26 25 25 24 24 24 24 22 22 21 21 20 20 20 20 20 18 18 17 17 16 16 16 16 14 14 13 13 13 </table>
@@ -1283,10 +1173,6 @@
     </enchant1for>
   </skill>
   <skill id="1069" levels="42" name="Sleep" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 9 9 9 9 10 10 10 10 11 11 11 11 11 12 12 12 12 12 12 13 13 13 13 13 </table>
@@ -1317,11 +1203,6 @@
     </for>
   </skill>
   <skill id="1071" levels="14" name="Surrender To Water" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
@@ -1362,10 +1243,6 @@
     </enchant3for>
   </skill>
   <skill id="1072" levels="5" name="Sleeping Cloud" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 76 76 74 73 73 72 72 70 69 69 68 68 66 65 64 64 64 62 61 60 60 60 58 57 56 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 19 19 18 18 18 18 18 17 17 17 17 17 16 16 16 16 16 15 15 15 15 15 14 14 14 14 14 13 13 13 </table>
     <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
@@ -1396,10 +1273,6 @@
     </for>
   </skill>
   <skill id="1073" levels="2" name="Kiss of Eva" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
@@ -1433,11 +1306,6 @@
     </enchant1for>
   </skill>
   <skill id="1074" levels="14" name="Surrender To Wind" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
@@ -1495,10 +1363,6 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="1077" levels="3" name="Focus" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
@@ -1532,10 +1396,6 @@
     </enchant1for>
   </skill>
   <skill id="1078" levels="6" name="Concentration" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 49 48 48 47 45 44 44 44 43 41 40 40 39 38 37 36 36 35 33 33 32 32 31 29 28 28 28 26 25 24 </table>
@@ -1569,11 +1429,6 @@
     </enchant1for>
   </skill>
   <skill id="1083" levels="17" name="Surrender To Fire" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant3 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
@@ -1616,10 +1471,6 @@
     </enchant3for>
   </skill>
   <skill id="1085" levels="3" name="Acumen" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 33 32 32 32 32 31 29 29 28 28 28 28 27 25 25 24 24 24 23 23 21 21 20 20 20 19 18 17 17 16 </table>
@@ -1653,10 +1504,6 @@
     </enchant1for>
   </skill>
   <skill id="1086" levels="2" name="Haste" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
@@ -1690,10 +1537,6 @@
     </enchant1for>
   </skill>
   <skill id="1087" levels="3" name="Agility" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
     <table name="#ench2MpConsume"> 36 36 36 35 34 34 32 32 32 31 31 30 28 28 28 27 27 26 24 24 24 24 23 22 21 20 20 20 19 19 </table>
@@ -1793,10 +1636,6 @@
     </for>
   </skill>
   <skill id="1096" levels="16" name="Seal of Chaos" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 20 20 19 19 19 19 18 18 18 18 17 17 17 17 16 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 </table>
     <table name="#mpInitialConsume"> 4 4 10 11 13 14 15 16 16 17 17 18 19 19 20 20 </table>
@@ -1828,10 +1667,6 @@
     </for>
   </skill>
   <skill id="1097" levels="20" name="Dreaming Spirit" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
@@ -1861,10 +1696,6 @@
     </for>
   </skill>
   <skill id="1099" levels="15" name="Seal of Slow" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79
-      80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
-    <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench2MpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 20 20 19 19 19 19 18 18 18 18 17 17 17 17 16 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 </table>
     <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
