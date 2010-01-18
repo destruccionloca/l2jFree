@@ -1131,7 +1131,7 @@
     </for>
   </skill>
   <skill id="196" levels="1" name="Holy Blade">
-    <set name="mpConsume" val="8"/>
+    <set name="mpInitialConsume" val="8"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -1144,8 +1144,8 @@
   </skill>
   <skill id="197" levels="2" name="Holy Armor">
     <table name="#darkRes"> 7 10 </table>
-    <table name="#mpConsume"> 7 9 </table>
-    <set name="mpConsume" val="#mpConsume"/>
+    <table name="#mpInitialConsume"> 7 9 </table>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>

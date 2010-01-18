@@ -713,9 +713,9 @@
     </enchant2for>
   </skill>
   <skill id="422" levels="3" name="Polearm Accuracy">
-    <table name="#mpConsume"> 11 13 14 </table>
+    <table name="#mpInitialConsume"> 11 13 14 </table>
     <table name="#accCombat"> 2 3 4 </table>
-    <set name="mpConsume" val="#mpConsume"/>
+    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -2062,7 +2062,7 @@
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_TOGGLE"/>
     <set name="element" val="5"/> <!-- Dark -->
-    <set name="mpConsume" val="10"/>
+    <set name="mpInitialConsume" val="10"/>
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
         <add order="0x40" stat="darkPower" val="10"/>
@@ -2077,7 +2077,7 @@
     <set name="skillType" val="CONT"/>
     <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_TOGGLE"/>
-    <set name="mpConsume" val="10"/>
+    <set name="mpInitialConsume" val="10"/>
     <for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
         <add order="0x40" stat="darkRes" val="#darkRes"/>

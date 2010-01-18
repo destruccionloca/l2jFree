@@ -233,7 +233,7 @@
   <skill id="711" levels="1" name="Divine Summoner Transfer Pain">
     <!-- Transfers some of the player's damage to the summoner. Consumes MP continuously. -->
     <set name="mpInitialConsume" val="14"/>
-    <set name="mpConsume" val="57"/>
+    <set name="mpInitialConsume" val="57"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
