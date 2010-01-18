@@ -10,7 +10,7 @@
     <enchant1 name="npcId" val="#enchantNpcIds"/>
     <table name="#mpInitialConsume"> 14 16 17 18 20 </table>
     <table name="#mpConsume"> 59 65 70 75 80 </table>
-    <table name="#itemConsumeCount">3 3 4 4 5</table>
+    <table name="#itemConsumeCount"> 3 3 4 4 5 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="itemConsumeId" val="1458"/>

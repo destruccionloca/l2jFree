@@ -161,7 +161,7 @@
     </for>
   </skill>
   <skill id="104" levels="1" name="Detect Plant Weakness">
-    <set name="mpConsume" val="21"/>
+    <set name="mpInitialConsume" val="21"/>
     <set name="magicLvl" val="46"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
@@ -281,7 +281,7 @@
   </skill>
   <skill id="109" levels="1" name="Ogre Spirit Totem">
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
-    <set name="mpConsume" val="21"/>
+    <set name="mpInitialConsume" val="21"/>
     <set name="magicLvl" val="46"/>
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="2000"/>
@@ -312,7 +312,7 @@
     <table name="#mpConsume"> 10 21 </table>
     <table name="#pDef"> 1800 3600 </table>
     <table name="#mDef"> 1350 2700 </table>
-    <table name="#aggroPoints">204 438</table>
+    <table name="#aggroPoints"> 204 438 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="900000"/>
     <set name="hitTime" val="1000"/>
@@ -838,8 +838,7 @@
     <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
     <table name="#ench1pAtk"> 137 138 139 140 141 142 143 144 145 146 147 148 150 151 152 153 154 155 156 157 158 159 160
       161 162 163 164 165 166 167 </table>
-    <table name="#ench2pAtkSpd"> 1.101 1.102 1.103 1.104 1.105 1.106 1.107 1.108 1.109 1.11 1.111 1.112 1.113 1.114
-      1.115 1.116 1.117 1.118 1.119 1.12 1.121 1.122 1.123 1.124 1.125 1.126 1.127 1.128 1.129 1.13 </table> <!-- Guess -->
+    <table name="#ench2pAtkSpd"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 </table> <!-- Guess -->
     <table name="#pAtk"> 23.7 25.4 27.1 29 30.9 32.9 35 37.1 39.4 41.7 44.1 46.6 49.2 51.9 54.6 57.5 60.4 63.3
       66.4 69.5 72.7 76 79.3 82.7 86.1 89.6 93.1 96.6 100.2 103.8 107.5 111.1 114.8 118.4 122.1 125.7 129.3 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
@@ -853,8 +852,7 @@
       <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
     </enchant1for>
     <enchant2for>
-      <add order="0x40" stat="pAtk" val="129.3"/>
-      <mul order="0x30" stat="pAtkSpd" val="#ench2pAtkSpd"/>
+      <add order="0x40" stat="pAtkSpd" val="#ench2pAtkSpd"/>
     </enchant2for>
   </skill>
   <skill id="146" levels="45" name="Anti Magic" enchantLevels1="30">

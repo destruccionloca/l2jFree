@@ -57,8 +57,8 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7for>
-        <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
-        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
+      <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench7Duel"/>
     </enchant7for>
   </skill>
   <skill id="2" levels="19" name="Confusion">
@@ -289,7 +289,7 @@
   <skill id="8" levels="8" name="Sonic Focus">
     <table name="#maxCharges"> 1 2 3 4 5 6 7 8 </table>
     <set name="weaponsAllowed" val="18956"/> <!-- Dual Sword/Sword/Big Sword/Blunt/Big Blunt -->
-    <set name="mpConsume" val="5"/>
+    <set name="mpInitialConsume" val="5"/>
     <set name="hpConsume" val="25"/>
     <set name="SSBoost" val="2.0"/>
     <set name="hitTime" val="900"/>
@@ -648,11 +648,11 @@
     <enchant6 name="element" val="3"/> <!-- Earth -->
   </skill>
   <skill id="21" levels="3" name="Poison Recovery">
-    <table name="#mpInitialConsume">4 7 11</table>
-    <table name="#mpConsume">16 28 44</table>
-    <table name="#magicLvl">20 40 60</table>
-    <table name="#negateLvl">3 7 9</table>
-    <table name="#aggroPoints">204 379 566</table>
+    <table name="#mpInitialConsume"> 4 7 11 </table>
+    <table name="#mpConsume"> 16 28 44 </table>
+    <table name="#magicLvl"> 20 40 60< /table>
+    <table name="#negateLvl"> 3 7 9 </table>
+    <table name="#aggroPoints"> 204 379 566 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="isMagic" val="true"/>
@@ -937,10 +937,10 @@
     <!-- enchant1 name="power" val="#ench1power"/ -->
   </skill>
   <skill id="34" levels="3" name="Bandage">
-    <table name="#mpConsume">19 41 55</table>
-    <table name="#magicLvl">20 46 62</table>
-    <table name="#negateLvl">3 7 9</table>
-    <table name="#aggroPoints">204 438 582</table>
+    <table name="#mpConsume"> 19 41 55 </table>
+    <table name="#magicLvl"> 20 46 62 </table>
+    <table name="#negateLvl"> 3 7 9 </table>
+    <table name="#aggroPoints"> 204 438 582 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="reuseDelay" val="1000"/>
@@ -1236,7 +1236,7 @@
   <skill id="50" levels="8" name="Focused Force">
     <table name="#maxCharges"> 1 2 3 4 5 6 7 8 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
-    <set name="mpConsume" val="5"/>
+    <set name="mpInitialConsume" val="5"/>
     <set name="hpConsume" val="20"/>
     <set name="hitTime" val="900"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1581,7 +1581,7 @@
     </enchant1for>
   </skill>
   <skill id="75" levels="1" name="Detect Insect Weakness">
-    <set name="mpConsume" val="14"/>
+    <set name="mpInitialConsume" val="14"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1597,7 +1597,7 @@
   <skill id="76" levels="1" name="Bear Spirit Totem">
     <!-- Done by dc -->
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
-    <set name="mpConsume" val="13"/>
+    <set name="mpInitialConsume" val="13"/>
     <set name="magicLvl" val="28"/>
     <set name="reuseDelay" val="22500"/>
     <set name="hitTime" val="2000"/>
@@ -1653,7 +1653,7 @@
     </for>
   </skill>
   <skill id="80" levels="1" name="Detect Beast Weakness">
-    <set name="mpConsume" val="24"/>
+    <set name="mpInitialConsume" val="24"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1743,9 +1743,8 @@
     </enchant2for>
   </skill>
   <skill id="83" levels="1" name="Wolf Spirit Totem">
-    <!-- Done by Scott -->
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
-    <set name="mpConsume" val="10"/>
+    <set name="mpInitialConsume" val="10"/>
     <set name="magicLvl" val="20"/>
     <set name="reuseDelay" val="23000"/>
     <set name="hitTime" val="2000"/>
@@ -1832,7 +1831,7 @@
     </enchant1for>
   </skill>
   <skill id="87" levels="1" name="Detect Animal Weakness">
-    <set name="mpConsume" val="18"/>
+    <set name="mpInitialConsume" val="18"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1846,7 +1845,7 @@
     </for>
   </skill>
   <skill id="88" levels="1" name="Detect Dragon Weakness">
-    <set name="mpConsume" val="27"/>
+    <set name="mpInitialConsume" val="27"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
