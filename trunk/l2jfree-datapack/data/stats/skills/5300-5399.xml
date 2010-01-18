@@ -592,7 +592,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/> <!-- Should be Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="5000"/>
     <set name="skillType" val="MDAM"/>
@@ -611,7 +611,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/> <!-- Should be Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -835,7 +835,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="element" val="1"/> <!-- Wind -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
@@ -854,7 +854,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="element" val="1"/> <!-- Wind -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
@@ -911,7 +911,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
@@ -930,7 +930,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="element" val="2"/> <!-- Water -->
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
@@ -1602,7 +1602,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="1"/> <!-- Wind -->
+    <set name="element" val="1"/> <!-- Water -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1776,7 +1776,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/> <!-- Should be Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
@@ -1795,7 +1795,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="element" val="5"/> <!-- Should be Dark -->
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>

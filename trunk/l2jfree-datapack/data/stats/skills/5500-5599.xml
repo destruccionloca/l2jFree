@@ -106,7 +106,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
-    <set name="element" val="1"/> <!-- Water-->
+    <set name="element" val="1"/> <!-- Water -->
     <for>
      <effect count="1" name="Buff" time="1200" val="0">
       <add order="0x40" stat="waterRes" val="10"/>
@@ -892,7 +892,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="20000"/>
     <set name="hitTime" val="1000"/>
-    <set name="element" val="0"/> <!--Fire-->
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>

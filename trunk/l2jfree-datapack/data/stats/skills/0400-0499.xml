@@ -1344,7 +1344,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="itemConsumeId" val="1458"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
-    <set name="element" val="3"/>
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="elementPower" val="20"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="6000"/>
@@ -2016,7 +2016,7 @@
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
-    <enchant3 name="element" val="5"/>
+    <enchant3 name="element" val="5"/> <!-- Dark -->
     <enchant4for>
       <mul order="0x30" stat="pvpPhysDmg" val="#ench4Duel"/>
       <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench4Duel"/>

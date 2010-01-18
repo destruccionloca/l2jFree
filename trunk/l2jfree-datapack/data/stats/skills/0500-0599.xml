@@ -104,13 +104,13 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
-    <enchant3 name="element" val="0"/>
+    <enchant3 name="element" val="0"/> <!-- Fire -->
     <enchant4 name="elementPower" val="#enchElementPower"/>
-    <enchant4 name="element" val="1"/>
+    <enchant4 name="element" val="1"/> <!-- Water -->
     <enchant5 name="elementPower" val="#enchElementPower"/>
-    <enchant5 name="element" val="2"/>
+    <enchant5 name="element" val="2"/> <!-- Wind -->
     <enchant6 name="elementPower" val="#enchElementPower"/>
-    <enchant6 name="element" val="3"/>
+    <enchant6 name="element" val="3"/> <!-- Earth -->
   </skill>
   <skill id="505" levels="28" name="Shining Edge" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30">
     <!-- CT2.2 retail confirmed -->
@@ -145,13 +145,13 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
-    <enchant3 name="element" val="0"/>
+    <enchant3 name="element" val="0"/> <!-- Fire -->
     <enchant4 name="elementPower" val="#enchElementPower"/>
-    <enchant4 name="element" val="1"/>
+    <enchant4 name="element" val="1"/> <!-- Water -->
     <enchant5 name="elementPower" val="#enchElementPower"/>
-    <enchant5 name="element" val="2"/>
+    <enchant5 name="element" val="2"/> <!-- Wind -->
     <enchant6 name="elementPower" val="#enchElementPower"/>
-    <enchant6 name="element" val="3"/>
+    <enchant6 name="element" val="3"/> <!-- Earth -->
   </skill>
   <skill id="506" levels="4" name="Checkmate" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <!-- CT2.2 retail confirmed -->
@@ -184,7 +184,7 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
-    <enchant3 name="element" val="5"/>
+    <enchant3 name="element" val="5"/> <!-- Dark -->
     <cond msgId="113" addName="1">
       <target active_effect_id="5264"/>
     </cond>
@@ -221,13 +221,13 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
-    <enchant3 name="element" val="0"/>
+    <enchant3 name="element" val="0"/> <!-- Fire -->
     <enchant4 name="elementPower" val="#enchElementPower"/>
-    <enchant4 name="element" val="1"/>
+    <enchant4 name="element" val="1"/> <!-- Water -->
     <enchant5 name="elementPower" val="#enchElementPower"/>
-    <enchant5 name="element" val="2"/>
+    <enchant5 name="element" val="2"/> <!-- Wind -->
     <enchant6 name="elementPower" val="#enchElementPower"/>
-    <enchant6 name="element" val="3"/>
+    <enchant6 name="element" val="3"/> <!-- Earth -->
   </skill>
   <skill id="508" levels="31" name="Rising Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30">
     <table name="#ench1Power"> 1292 1301 1310 1319 1327 1336 1345 1354 1362 1371 1380 1389 1398 1406
@@ -260,13 +260,13 @@
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2 name="mpConsume" val="#ench2MpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
-    <enchant3 name="element" val="0"/>
+    <enchant3 name="element" val="0"/> <!-- Fire -->
     <enchant4 name="elementPower" val="#enchElementPower"/>
-    <enchant4 name="element" val="1"/>
+    <enchant4 name="element" val="1"/> <!-- Water -->
     <enchant5 name="elementPower" val="#enchElementPower"/>
-    <enchant5 name="element" val="2"/>
+    <enchant5 name="element" val="2"/> <!-- Wind -->
     <enchant6 name="elementPower" val="#enchElementPower"/>
-    <enchant6 name="element" val="3"/>
+    <enchant6 name="element" val="3"/> <!-- Earth -->
   </skill>
   <skill id="509" levels="34" name="Bleeding Shot" enchantLevels1="30" enchantLevels2="30">
     <table name="#dot"> 44 44 44 44 44 44 44 44 44 54 54 54 54 54 54 54 54 54 54 62 62
@@ -1593,7 +1593,7 @@
     <set name="reuseDelay" val="14000"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_FRONT_AURA"/>
-    <set name="element" val="2"/>
+    <set name="element" val="2"/> <!-- Wind -->
     <!-- maybe we need a better way to use elemental damage on physical skills... -->
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>

@@ -836,7 +836,7 @@
     <set name="power" val="#power"/>
     <set name="isMagic" val="true"/>
     <set name="lvlDepend" val="2"/>
-    <set name="element" val="5"/>
+    <set name="element" val="5"/> <!-- Dark -->
     <set name="elementPower" val="20"/> <!-- Dark -->
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1000"/>
@@ -1356,7 +1356,7 @@
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
     <set name="power" val="60"/>
-    <set name="element" val="3"/>
+    <set name="element" val="3"/> <!-- Earth -->
     <set name="elementPower" val="20"/>
     <set name="lvlDepend" val="2"/>
     <set name="isMagic" val="true"/>
