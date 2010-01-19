@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
@@ -268,9 +269,8 @@ public class NewCharacter extends L2GameClientPacket
 	
 	private final boolean obsceneCheck(String name)
 	{
-		int len = name.length();
-		for (String pattern : Config.FILTER_LIST)
-			if (name.replaceAll("(?i)" + pattern, "").length() != len)
+		for (Pattern pattern : Config.FILTER_LIST)
+			if (pattern.matcher(name).find())
 				return true;
 		return false;
 	}

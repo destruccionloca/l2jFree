@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import java.util.regex.Pattern;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -169,8 +171,8 @@ public class Say2 extends L2GameClientPacket
 
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
-			for (String pattern : Config.FILTER_LIST)
-				_text = _text.replaceAll("(?i)" + pattern, "-_-");
+			for (Pattern pattern : Config.FILTER_LIST)
+				_text = pattern.matcher(_text).replaceAll("-_-");
 
 		if (VoicedCommandHandler.getInstance().useVoicedCommand(_text, activeChar))
 		{

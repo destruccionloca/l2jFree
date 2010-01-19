@@ -1113,7 +1113,7 @@ public class Config extends L2Config
 	public static boolean			SHOW_HTML_GM;
 	public static int				LEVEL_HTML_NEWBIE;											// Show newbie html when player's level is < to define level
 	public static boolean			USE_SAY_FILTER;											// Config for use chat filter
-	public static String[]			FILTER_LIST = new String[0];
+	public static Pattern[]			FILTER_LIST = new Pattern[0];
 	public static int				AUTODESTROY_ITEM_AFTER;									// Time after which item will auto-destroy
 	public static int				HERB_AUTO_DESTROY_TIME;									// Auto destroy herb time
 	public static String			PROTECTED_ITEMS;
@@ -3313,31 +3313,34 @@ public class Config extends L2Config
 		{
 			return SAY_FILTER_FILE;
 		}
-
+		
 		@Override
 		protected String getName()
 		{
 			return "sayfilter";
 		}
-
+		
 		@Override
 		protected void loadReader(BufferedReader reader) throws Exception
 		{
 			try
 			{
-				FILTER_LIST = new String[0];
+				FILTER_LIST = new Pattern[0];
+				
 				if (USE_SAY_FILTER)
 				{
 					for (String line; (line = reader.readLine()) != null;)
 					{
 						line = line.trim();
-
+						
 						if (line.length() == 0 || line.startsWith("#"))
 							continue;
-
-						FILTER_LIST = (String[])ArrayUtils.add(FILTER_LIST, line);
+						
+						final Pattern pattern  = Pattern.compile(line);
+						
+						FILTER_LIST = (Pattern[])ArrayUtils.add(FILTER_LIST, pattern);
 					}
-
+					
 					_log.info("Say Filter: Loaded " + FILTER_LIST.length + " words");
 				}
 			}

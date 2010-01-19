@@ -841,7 +841,7 @@ public class AdminEditChar implements IAdminCommandHandler
 	 */
 	private void findCharactersPerAccount(L2PcInstance activeChar, String characterName) throws IllegalArgumentException
 	{
-		if (characterName.matches(Config.CNAME_PATTERN.pattern()))
+		if (Config.CNAME_PATTERN.matcher(characterName).matches())
 		{
 			String account = null;
 			Map<Integer, String> chars;
