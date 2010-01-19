@@ -406,7 +406,7 @@
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="1900"/>
     <set name="skillType" val="WEAKNESS"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Buff" time="14400" val="0"/> <!-- TODO: abnormal change texture O.o -->
     </for>

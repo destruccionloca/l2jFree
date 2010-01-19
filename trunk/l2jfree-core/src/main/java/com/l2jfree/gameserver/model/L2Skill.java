@@ -531,10 +531,24 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	
 	public void validate() throws Exception
 	{
+		validateEffectsAndFuncs();
 		validateMpConsume();
 		validateToggle();
 		validateOffensiveAndDebuffState();
 		validateTriggeredSkill();
+	}
+	
+	private void validateEffectsAndFuncs()
+	{
+		if (isPassive())
+			if (_effectTemplates != null || _effectTemplatesSelf != null)
+				if (_skillType != L2SkillType.NOTDONE)
+					if (_chanceCondition == null || _triggeredSkill != null)
+						throw new IllegalStateException(toString());
+		
+		if (!isPassive())
+			if (_funcTemplates != null)
+				throw new IllegalStateException(toString());
 	}
 	
 	private void validateMpConsume() throws Exception

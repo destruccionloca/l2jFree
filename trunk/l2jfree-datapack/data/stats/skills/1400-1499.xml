@@ -970,8 +970,8 @@
       32 31 31 30 30 30 30 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
       42 43 44 45 46 47 48 49 50 </table>
-    <table name="#ench4Duel"> 1.01 1.01 1.01 1.02 1.02 1.02 1.03 1.03 1.03 1.04 1.04 1.04 1.05 1.05 1.05
-      1.06 1.06 1.06 1.07 1.07 1.07 1.08 1.08 1.08 1.09 1.09 1.09 1.1 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench4Duel"> 1.01 1.01 1.01 1.02 1.02 1.02 1.03 1.03 1.03 1.04 1.04 1.04 1.05 1.05 1.05
+      1.06 1.06 1.06 1.07 1.07 1.07 1.08 1.08 1.08 1.09 1.09 1.09 1.1 1.1 1.11 </table --> <!-- Need Verify -->
     <table name="#mpConsume"> 22 23 24 24 26 26 28 28 30 30 32 32 34 34 35 36 36 38 38 38 39 39 40 42 42
       42 42 43 43 44 </table>
     <table name="#mpInitialConsume"> 6 6 6 6 7 7 7 7 8 8 8 8 9 9 9 9 9 9 10 10 10 10 10 10 10 11 11 11 11 11 </table>
@@ -1005,9 +1005,10 @@
       <effect name="RemoveTarget" val="0" effectPower="40" effectType="DEBUFF"/>
     </for>
     <enchant4for>
-      <effect name="RemoveTarget" val="0" effectPower="40" effectType="DEBUFF">
-        <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
-      </effect>
+      <effect name="RemoveTarget" val="0" effectPower="40" effectType="DEBUFF"/>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      -->
     </enchant4for>
   </skill>
   <skill id="1437" levels="26" name="Dark Flame" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30">
@@ -1062,8 +1063,8 @@
     <table name="#ench2mpConsume"> 71 70 70 68 67 66 66 64 63 62 62 60 59 58 58 56 55 54 54 54 52 51 50 50 48 47 46 46 44 43 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
       42 43 44 45 46 47 48 49 50 </table>
-    <table name="#ench4Duel"> 1.01 1.01 1.01 1.02 1.02 1.02 1.03 1.03 1.03 1.04 1.04 1.04 1.05 1.05 1.05
-      1.06 1.06 1.06 1.07 1.07 1.07 1.08 1.08 1.08 1.09 1.09 1.09 1.1 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench4Duel"> 1.01 1.01 1.01 1.02 1.02 1.02 1.03 1.03 1.03 1.04 1.04 1.04 1.05 1.05 1.05
+      1.06 1.06 1.06 1.07 1.07 1.07 1.08 1.08 1.08 1.09 1.09 1.09 1.1 1.1 1.11 </table --> <!-- Need Verify -->
     <table name="#mpInitialConsume"> 14 15 15 16 16 17 17 17 18 </table>
     <table name="#mpConsume"> 55 58 60 62 64 66 68 70 71 </table>
     <table name="#power"> 82 85 89 92 96 99 102 105 108 </table>
@@ -1090,7 +1091,9 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <enchant4for>
-        <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      -->
     </enchant4for>
   </skill>
   <skill id="1439" levels="5" name="Curse of Divinity">
@@ -1448,7 +1451,7 @@
     <table name="#ench2mpInitialConsume"> 19 19 18 18 17 17 16 16 15 15 14 14 13 13 12 </table>
     <table name="#ench2mpConsume"> 77 75 74 70 69 67 66 62 61 59 58 54 53 51 50 </table>
     <table name="#ench3ElementPower"> 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 </table>
-    <table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table --> <!-- Need Verify -->
     <set name="mpConsume" val="80"/>
     <set name="mpInitialConsume" val="20"/>
     <set name="magicLvl" val="76"/>
@@ -1470,7 +1473,9 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <enchant4for>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      -->
     </enchant4for>
   </skill>
   <skill id="1451" levels="1" name="Fire Vortex Buster" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
@@ -1930,7 +1935,7 @@
     <table name="#ench2mpInitialConsume"> 21 21 20 20 20 19 19 18 18 18 17 17 17 16 16 </table>
     <table name="#ench2mpConsume"> 83 82 80 79 78 76 75 74 72 71 70 68 66 66 64 </table>
     <table name="#ench3ElementPower"> 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 </table>
-    <table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table --> <!-- Need Verify -->
     <set name="mpInitialConsume" val="21"/>
     <set name="mpConsume" val="84"/>
     <set name="power" val="224"/>
@@ -1952,7 +1957,9 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <enchant4for>
-        <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      -->
     </enchant4for>
   </skill>
   <skill id="1470" levels="1" name="Prahnah" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15">

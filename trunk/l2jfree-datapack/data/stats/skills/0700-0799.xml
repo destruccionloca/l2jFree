@@ -1726,7 +1726,7 @@
     <table name="#ench2mpConsume"> 64 62 60 59 57 56 54 52 51 49 47 45 44 42 40 </table>
     <table name="#ench3effectPower"> 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 </table>
     <table name="#enchElementPower"> 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 </table> <!-- Guess -->
-    <table name="#ench8Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench8Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table --> <!-- Need Verify -->
     <set name="mpInitialConsume" val="16"/>
     <set name="mpConsume" val="66"/>
     <set name="power" val="4040"/>
@@ -1766,11 +1766,12 @@
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
     <enchant8for>
-      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun">
-        <mul order="0x30" stat="pvpPhysDmg" val="#ench8Duel"/>
-        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench8Duel"/>
-      </effect>
+      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
       <effect name="RemoveTarget" noicon="1" val="0"/>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpPhysDmg" val="#ench8Duel"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench8Duel"/>
+      -->
     </enchant8for>
   </skill>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="15" enchantLevels2="15">

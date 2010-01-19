@@ -245,7 +245,7 @@
     <table name="#ench2mpInitialConsume"> 20 19 19 18 18 17 17 16 16 15 15 14 14 13 13 </table>
     <table name="#ench2mpConsume"> 80 78 76 74 72 70 68 66 64 62 60 58 56 53 52 </table>
     <table name="#ench3effPower"> 80 81 82 82 83 84 84 84 85 86 87 88 88 88 89 90 </table> <!-- Need Verify -->
-    <table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table --> <!-- Need Verify -->
     <set name="mpInitialConsume" val="21"/>
     <set name="mpConsume" val="84"/>
     <set name="magicLvl" val="77"/>
@@ -282,8 +282,10 @@
         <mul order="0x30" stat="runSpd" val="0.8"/>
         <mul order="0x30" stat="pAtkSpd" val="0.7"/>
         <mul order="0x30" stat="mAtkSpd" val="0.7"/>
-        <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
       </effect>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
+      -->
     </enchant4for>
   </skill>
   <skill id="1513" levels="1" name="Soul Vortex Extinction" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
@@ -387,7 +389,7 @@
   </skill>
   <skill id="1516" levels="1" name="Soul Strike" enchantLevels1="15" enchantLevels2="15">
     <table name="#ench1Power"> 167 168 169 170 171 173 174 175 176 177 178 180 181 182 183 </table>
-    <table name="#ench2Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench2Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table --> <!-- Need Verify -->
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="34"/>
     <set name="isMagic" val="true"/>
@@ -403,7 +405,9 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <enchant1 name="power" val="#ench1Power"/>
     <enchant2for>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpMagicalDmg" val="#ench2Duel"/>
+      -->
     </enchant2for>
   </skill>
   <skill id="1517" levels="1" name="Chant of Combat">

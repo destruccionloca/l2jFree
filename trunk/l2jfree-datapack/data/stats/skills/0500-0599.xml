@@ -594,7 +594,7 @@
     -->
     <table name="#enchant2_3mpConsume"> 78 77 76 74 73 72 70 69 68 67 65 64 63 61 60 </table>
     <table name="#ench1Power"> 6502 6535 6568 6601 6634 6667 6700 6733 6766 6799 6833 6866 6899 6932 6965 </table>
-    <table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
+    <!-- table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table --> <!-- Need Verify -->
     <set name="mpConsume" val="78"/>
     <set name="magicLvl" val="78"/>
     <set name="SSBoost" val="2.0"/>
@@ -613,8 +613,10 @@
     <enchant2 name="mpConsume" val="#enchant2_3mpConsume"/>
     <enchant3 name="mpConsume" val="#enchant2_3mpConsume"/>
     <enchant4for>
-        <mul order="0x30" stat="pvpPhysDmg" val="#ench4Duel"/>
-        <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench4Duel"/>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpPhysDmg" val="#ench4Duel"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench4Duel"/>
+      -->
     </enchant4for>
   </skill>
   <skill id="527" levels="1" name="Iron Shield">
