@@ -660,7 +660,7 @@
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="HEAL"/>
     <set name="target" val="TARGET_COUPLE"/>
-    <set name="weaponsAllowed" val="32"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect count="15" name="HealOverTime" val="35" stackOrder="35" stackType="LifeForce"/>
     </for>
@@ -678,7 +678,7 @@
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="MANARECHARGE"/>
     <set name="target" val="TARGET_COUPLE"/>
-    <set name="weaponsAllowed" val="32"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
   </skill>
   <skill id="3262" levels="1" name="Pardon">
     <!--
@@ -693,7 +693,7 @@
     <set name="reuseDelay" val="12000"/>
     <set name="skillType" val="HEAL"/>
     <set name="target" val="TARGET_COUPLE"/>
-    <set name="weaponsAllowed" val="32"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
       <effect count="15" name="HealOverTime" val="70" stackOrder="70" stackType="LifeForce">
         <div order="0x30" stat="pDef" val="1.3"/>

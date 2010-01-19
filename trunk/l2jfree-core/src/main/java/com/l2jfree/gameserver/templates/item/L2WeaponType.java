@@ -39,7 +39,7 @@ public enum L2WeaponType implements AbstractL2ItemType
 	ANCIENT_SWORD(15, "Ancient", Stats.ANCIENT_WPN_VULN),
 	CROSSBOW(16, "Crossbow", Stats.CROSSBOW_WPN_VULN),
 	RAPIER(17, "Rapier", Stats.RAPIER_WPN_VULN),
-	DUAL_DAGGER(18, "Dual Dagger", Stats.DUALDAGGER_WPN_VULN);
+	DUAL_DAGGER(18, "Dual Daggers", Stats.DUALDAGGER_WPN_VULN);
 	
 	private final int _mask;
 	private final String _name;

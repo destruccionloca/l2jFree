@@ -322,7 +322,7 @@
     <set name="skillType" val="FISHING"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="weaponsAllowed" val="8192"/>
+    <set name="weaponsAllowed" val="8192"/> <!-- Rod -->
   </skill>
   <skill id="1313" levels="27" name="Pumping">
     <table name="#power"> 24 37 50 62 70 76 82 88 94 100 104
@@ -333,7 +333,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="skillType" val="PUMPING"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="weaponsAllowed" val="8192"/>
+    <set name="weaponsAllowed" val="8192"/> <!-- Rod -->
   </skill>
   <skill id="1314" levels="27" name="Reeling">
     <table name="#power"> 24 37 50 62 70 76 82 88 94 100 104
@@ -344,7 +344,7 @@
     <set name="reuseDelay" val="2000"/>
     <set name="skillType" val="REELING"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="weaponsAllowed" val="8192"/>
+    <set name="weaponsAllowed" val="8192"/> <!-- Rod -->
   </skill>
   <skill id="1315" levels="27" name="Fishing Expertise">
     <set name="target" val="TARGET_SELF"/>

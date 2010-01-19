@@ -776,7 +776,7 @@
   <skill id="537" levels="1" name="Spoil Bomb">
     <!-- Done by Sephiroth for L2Umbrella -->
     <set name="mpConsume" val="72"/>
-    <set name="weaponsAllowed" val="15"/>
+    <set name="weaponsAllowed" val="15"/> <!-- Sword/Blunt/Shield -->
     <set name="target" val="TARGET_AREA"/>
     <set name="skillType" val="SPOIL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1306,7 +1306,7 @@
     <table name="#power"> 900 1013 1129 1248 </table>
     <table name="#mpConsume"> 68 70 74 78 </table>
     <table name="#effectLevel"> 6 6 7 7 </table>
-    <set name="weaponsAllowed" val="72"/>
+    <set name="weaponsAllowed" val="72"/> <!-- Blunt/Pole -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="hitTime" val="1080"/>

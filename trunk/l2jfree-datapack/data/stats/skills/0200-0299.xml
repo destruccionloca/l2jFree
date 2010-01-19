@@ -338,7 +338,7 @@
       241 253 266 279 292 306 320 334 349 364 379 395 410 426 443 459 475 492 509 526 542 559 576 593 609 </table>
     <table name="#dot"> 75 75 75 75 75 75 102 102 102 102 102 102 102 102 132 132 132 132 132 132 132 132 132 132
       162 162 162 162 162 162 162 162 162 162 186 186 186 186 186 186 186 186 186 186 201 201 201 201 201 </table>
-    <set name="weaponsAllowed" val="2580"/> <!-- Sword/Big Sword/Dagger/Dual Sword -->
+    <set name="weaponsAllowed" val="2580"/> <!-- Dual Sword/Sword/Big Sword/Dagger -->
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>

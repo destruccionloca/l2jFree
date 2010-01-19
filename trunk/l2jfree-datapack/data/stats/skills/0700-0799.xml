@@ -1351,7 +1351,7 @@
     </for>
   </skill>
   <skill id="775" levels="1" name="Weapon Blockade">
-    <set name="weaponsAllowed" val="512"/>
+    <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpInitialConsume" val="11"/>
     <set name="mpConsume" val="46"/>
     <set name="power" val="80"/>

@@ -531,9 +531,16 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	
 	public void validate() throws Exception
 	{
+		validateMpConsume();
 		validateToggle();
 		validateOffensiveAndDebuffState();
 		validateTriggeredSkill();
+	}
+	
+	private void validateMpConsume() throws Exception
+	{
+		if (isToggle() && getMpConsume() != 0) // toggle skills consume the full mp on initial
+			throw new IllegalStateException(toString());
 	}
 	
 	private void validateToggle() throws Exception
