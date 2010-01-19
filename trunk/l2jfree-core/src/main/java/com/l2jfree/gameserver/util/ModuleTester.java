@@ -20,11 +20,18 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.Elementals;
+import com.l2jfree.gameserver.templates.item.L2WeaponType;
 import com.l2jfree.util.L2Arrays;
 
 /**
@@ -44,30 +51,34 @@ public final class ModuleTester extends Config
 		//HtmCache.getInstance();
 		
 		//new WeaponSQLConverter().convert();
+		//convertSkills();
 		
 		System.gc();
 		System.runFinalization();
 		Thread.sleep(1000);
 	}
 	
-	private static abstract class SQLConverter
+	private static abstract class ContentConverter
 	{
-		protected abstract String getFileName();
+		private final File _file;
+		
+		private ContentConverter(File file)
+		{
+			_file = file;
+		}
 		
 		protected abstract ArrayList<String> convertImpl(ArrayList<String> list);
 		
 		protected final void convert() throws IOException
 		{
-			File f = new File(getFileName());
-			
-			System.out.println("Converting: '" + f.getCanonicalPath() + "'");
+			System.out.println("Converting: '" + _file.getCanonicalPath() + "'");
 			
 			ArrayList<String> list = new ArrayList<String>();
 			
 			LineNumberReader lnr = null;
 			try
 			{
-				lnr = new LineNumberReader(new FileReader(f));
+				lnr = new LineNumberReader(new FileReader(_file));
 				
 				for (String line; (line = lnr.readLine()) != null;)
 					list.add(line);
@@ -82,7 +93,7 @@ public final class ModuleTester extends Config
 			PrintStream ps = null;
 			try
 			{
-				ps = new PrintStream(f);
+				ps = new PrintStream(_file);
 				
 				for (String line : result)
 					ps.println(line);
@@ -97,12 +108,11 @@ public final class ModuleTester extends Config
 		}
 	}
 	
-	private static final class WeaponSQLConverter extends SQLConverter
+	private static final class WeaponSQLConverter extends ContentConverter
 	{
-		@Override
-		protected String getFileName()
+		private WeaponSQLConverter()
 		{
-			return "../l2jfree-datapack/sql/weapon.sql";
+			super(new File("../l2jfree-datapack/sql/weapon.sql"));
 		}
 		
 		@Override
@@ -197,5 +207,265 @@ public final class ModuleTester extends Config
 			
 			return result;
 		}
+	}
+	
+	private static void convertSkills() throws IOException
+	{
+		for (final File f : new File("../l2jfree-datapack/data/stats/skills/").listFiles())
+		{
+			if (f.isHidden())
+				continue;
+			
+			new SkillXMLConverter(f).convert();
+		}
+	}
+	
+	private static final class SkillXMLConverter extends ContentConverter
+	{
+		private SkillXMLConverter(File file)
+		{
+			super(file);
+		}
+		
+		private static final String L1_S1 = "    <table name=\"#enchantMagicLvl\"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>";
+		private static final String L1_S2 = "    <table name=\"#enchantMagicLvl\"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>";
+		private static final String L1_S3 = "    <table name=\"#enchantMagicLvl\"> 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>";
+		
+		@Override
+		protected ArrayList<String> convertImpl(ArrayList<String> list)
+		{
+			for (int i = 0; i < list.size(); i++)
+			{
+				String line = list.get(i);
+				StringBuilder sb = new StringBuilder();
+				
+				for (int k = 0; k < line.length() && line.charAt(k) == ' '; k++)
+					sb.append(' ');
+				
+				line = line.replaceAll("[ \t]+$", "");
+				line = line.replaceAll(">", "> ");
+				line = line.replaceAll("> +", "> ");
+				line = line.replaceAll("<", " <");
+				line = line.replaceAll(" +<", " <");
+				line = line.trim();
+				
+				sb.append(line);
+				
+				list.set(i, sb.toString());
+			}
+			
+			final ArrayList<String> result = new ArrayList<String>(list.size());
+			
+			ArrayList<String> tmpList = null;
+			for (int i = 0; i < list.size(); i++)
+			{
+				final String line = list.get(i);
+				
+				if (line.contains("<skill"))
+					tmpList = new ArrayList<String>();
+				
+				if (tmpList != null)
+					tmpList.add(line);
+				else
+					result.add(line);
+				
+				if (line.contains("</skill"))
+				{
+					result.addAll(convertSkill(tmpList));
+					tmpList = null;
+				}
+			}
+			
+			return result;
+		}
+		
+		private ArrayList<String> convertSkill(ArrayList<String> list)
+		{
+			// magicLvl
+			for (int i = 0; i < list.size(); i++)
+			{
+				final String line = list.get(i);
+				final String lowerCase = line.toLowerCase();
+				
+				if (line.contains("<table") && lowerCase.contains("ench") && lowerCase.contains("magicl"))
+				{
+					if (line.equals(L1_S1) || line.equals(L1_S2) || line.equals(L1_S3))
+					{
+						list.remove(i);
+						i--;
+					}
+					else if (line.contains("</table>"))
+					{
+						System.out.println("|" + line + "|");
+					}
+					else
+					{
+						final String sum = line + " " + list.get(i + 1).trim();
+						
+						if (sum.equals(L1_S1) || sum.equals(L1_S2) || sum.equals(L1_S3))
+						{
+							list.remove(i + 1);
+							list.remove(i);
+							i--;
+						}
+						else
+						{
+							System.out.println("|" + line + "|" + list.get(i + 1) + "|");
+						}
+					}
+				}
+				else if (line.contains("<enchant") && lowerCase.contains("magicl"))
+				{
+					if (line.matches("    <enchant. name=\"magicLvl\" val=\"#enchantMagicLvl\"/>"))
+					{
+						list.remove(i);
+						i--;
+					}
+					else
+					{
+						System.out.println("|" + line + "|");
+					}
+				}
+			}
+			
+			// element
+			for (int i = 0; i < list.size(); i++)
+			{
+				String line = list.get(i);
+				
+				if (!line.contains("\"element\""))
+					continue;
+				
+				final String name = Elementals.getElementName(Byte.parseByte(getAttributeValue(line, "val")));
+				
+				if (name.equals("None"))
+				{
+					System.out.println("|" + line + "|");
+				}
+				else
+				{
+					line = line.substring(0, line.indexOf("/>") + 2) + " <!-- " + name + " -->";
+					list.set(i, line);
+				}
+			}
+			
+			// weaponsAllowed
+			for (int i = 0; i < list.size(); i++)
+			{
+				String line = list.get(i);
+				
+				if (!line.contains("\"weaponsAllowed\""))
+					continue;
+				
+				final int weaponsAllowed = Integer.parseInt(getAttributeValue(line, "val"));
+				
+				final TreeSet<L2WeaponType> types = new TreeSet<L2WeaponType>(new Comparator<L2WeaponType>() {
+					@Override
+					public int compare(L2WeaponType o1, L2WeaponType o2)
+					{
+						return getOrder(o1).compareTo(getOrder(o2));
+					}
+					
+					private Integer getOrder(L2WeaponType wt)
+					{
+						switch (wt)
+						{
+							case ANCIENT_SWORD:
+								return 1;
+							case RAPIER:
+								return 2;
+							case DUAL:
+								return 3;
+							case SWORD:
+								return 4;
+							case BIGSWORD:
+								return 5;
+							case BLUNT:
+								return 6;
+							case BIGBLUNT:
+								return 7;
+							case DAGGER:
+								return 8;
+							case DUAL_DAGGER:
+								return 9;
+							case BOW:
+								return 10;
+							case CROSSBOW:
+								return 11;
+							case NONE:
+								return 12;
+							case POLE:
+								return 13;
+							case ETC:
+								return 14;
+							case FIST:
+								return 15;
+							case DUALFIST:
+								return 16;
+							case PET:
+								return 17;
+							case ROD:
+							default:
+								return 18;
+						}
+					}
+				});
+				
+				for (L2WeaponType wt : L2WeaponType.VALUES)
+				{
+					if ((wt.mask() & weaponsAllowed) != 0)
+					{
+						types.add(wt);
+					}
+				}
+				
+				line = line.substring(0, line.indexOf("/>") + 2) + " <!-- " + StringUtils.join(types, '/') + " -->";
+				list.set(i, line);
+			}
+			
+			// mpConsume
+			boolean toggle = false;
+			for (int i = 0; i < list.size(); i++)
+			{
+				String line = list.get(i);
+				
+				if ("operateType".equals(getAttributeValue(line, "name")))
+				{
+					if ("OP_TOGGLE".equals(getAttributeValue(line, "val")))
+					{
+						toggle = true;
+						break;
+					}
+				}
+			}
+			
+			if (toggle)
+			{
+				for (int i = 0; i < list.size(); i++)
+				{
+					String line = list.get(i);
+					
+					line = line.replaceAll("mpConsume", "mpInitialConsume");
+					list.set(i, line);
+				}
+			}
+			
+			return list;
+		}
+	}
+	
+	private static String getAttributeValue(String line, String name)
+	{
+		final Matcher m = Pattern.compile("[^ ]+=\"[^\"]+\"").matcher(line);
+		
+		while (m.find())
+		{
+			final String[] result = m.group().split("=");
+			
+			if (result[0].equals(name))
+				return result[1].replace("\"", "");
+		}
+		
+		return null;
 	}
 }
