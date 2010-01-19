@@ -14,26 +14,17 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExAskJoinMPCC;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-/**
- * Format: (ch) S
- * @author chris_00
- *
- * D0 0D 00 5A 00 77 00 65 00 72 00 67 00 00 00
- *
- */
 public class RequestExAskJoinMPCC extends L2GameClientPacket
 {
-	private static final String _C__D0_0D_REQUESTEXASKJOINMPCC = "[C] D0:0D RequestExAskJoinMPCC";
+	private static final String _C__REQUESTEXASKJOINMPCC = "[C] D0:06 RequestExAskJoinMPCC ch[s]";
 
 	private String _name;
 
@@ -46,8 +37,9 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
 
 		L2PcInstance player = L2World.getInstance().getPlayer(_name);
 		if (player == null)
@@ -57,7 +49,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		}
 		else if (!player.isInParty())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -76,7 +68,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		// invite yourself? ;)
 		else if (activeParty.equals(player.getParty()))
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		else if (invitedParty.isInCommandChannel())
@@ -98,7 +90,7 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		else
 			tryInvite(invitedParty, true);
 
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 
 	private final void tryInvite(L2Party invited, boolean newCC)
@@ -106,11 +98,9 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 		L2PcInstance activeChar = getActiveChar();
 		if (newCC)
 		{
-			L2Clan clan = activeChar.getClan();
-			if (clan == null || clan.getLeaderId() != activeChar.getObjectId() ||
-					clan.getLevel() < 5 || !canCreateCC(activeChar))
+			if (!canCreateCC(activeChar))
 			{
-				sendPacket(SystemMessageId.COMMAND_CHANNEL_ONLY_BY_LEVEL_5_CLAN_LEADER_PARTY_LEADER);
+				sendPacket(SystemMessageId.CANNOT_INVITE_TO_COMMAND_CHANNEL);
 				return;
 			}
 		}
@@ -142,6 +132,6 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__D0_0D_REQUESTEXASKJOINMPCC;
+		return _C__REQUESTEXASKJOINMPCC;
 	}
 }

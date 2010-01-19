@@ -115,7 +115,7 @@ public class NewCharacter extends L2GameClientPacket
 					_log.debug("charname: " + _name + " is invalid. creation failed.");
 				reason = CharacterCreateFail.REASON_16_ENG_CHARS;
 			}
-			else if (NpcTable.getInstance().getTemplateByName(_name) != null)
+			else if (NpcTable.getInstance().getTemplateByName(_name) != null || obsceneCheck(_name))
 			{
 				if (_log.isDebugEnabled())
 					_log.debug("charname: " + _name + " overlaps with a NPC. creation failed.");
@@ -264,6 +264,15 @@ public class NewCharacter extends L2GameClientPacket
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+	
+	private final boolean obsceneCheck(String name)
+	{
+		int len = name.length();
+		for (String pattern : Config.FILTER_LIST)
+			if (name.replaceAll("(?i)" + pattern, "").length() != len)
+				return true;
+		return false;
 	}
 	
 	@Override

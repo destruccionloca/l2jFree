@@ -114,7 +114,7 @@ public class AdminPledge implements IAdminCommandHandler
 				{
 				}
 
-				if (level >= 0 && level < 11)
+				if (level >= 0 && level < 12)
 				{
 					player.getClan().changeLevel(level);
 					activeChar.sendMessage("You set level " + level + " for clan " + player.getClan().getName());
