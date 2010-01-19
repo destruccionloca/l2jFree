@@ -1451,6 +1451,7 @@
     <table name="#ench4Duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
     <set name="mpConsume" val="80"/>
     <set name="mpInitialConsume" val="20"/>
+    <set name="magicLvl" val="76"/>
     <set name="power" val="200"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="2"/> <!-- Wind -->

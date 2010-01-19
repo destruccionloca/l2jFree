@@ -4,7 +4,7 @@
   <skill id="700" levels="1" name="Divine Healer Group Heal">
     <!-- Restores the HP of a party member by 400 power and causes 27 HP recovery every second for 15 seconds. -->
     <set name="mpInitialConsume" val="50"/>
-    <set name="mpConsume" val="201"/>
+    <set name="mpConsume" val="202"/>
     <set name="isMagic" val="true"/>
     <set name="magicLvl" val="74"/>
     <set name="power" val="400"/>
@@ -22,7 +22,7 @@
   <skill id="701" levels="1" name="Divine Healer Resurrection">
     <!-- Resurrects a corpse. Restores the experience value about 70 percent additionally. -->
     <set name="mpInitialConsume" val="50"/>
-    <set name="mpConsume" val="201"/>
+    <set name="mpConsume" val="202"/>
     <set name="isMagic" val="true"/>
     <set name="power" val="70"/>
     <set name="reuseDelay" val="30000"/>
@@ -37,7 +37,7 @@
     <!-- Cancel all the debuffs of the target. -->
     <set name="itemConsumeId" val="8874"/>
     <set name="itemConsumeCount" val="1"/>
-    <set name="mpInitialConsume" val="11"/>
+    <set name="mpInitialConsume" val="12"/>
     <set name="mpConsume" val="47"/>
     <set name="magicLvl" val="74"/>
     <set name="power" val="102"/>
@@ -52,15 +52,18 @@
   </skill>
   <skill id="703" levels="1" name="Sacrifice Healer">
     <!-- Regenerate party member's HP and MP by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
+    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
   </skill>
   <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="10"/>
-    <set name="mpInitialConsume" val="14"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="58"/>
     <set name="magicLvl" val="74"/>
     <set name="reuseDelay" val="4000"/>
@@ -91,7 +94,7 @@
   <skill id="705" levels="1" name="Divine Enchanter Fire Spirit">
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="10"/>
-    <set name="mpInitialConsume" val="14"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="58"/>
     <set name="magicLvl" val="74"/>
     <set name="reuseDelay" val="4000"/>
@@ -123,7 +126,7 @@
   <skill id="706" levels="1" name="Divine Enchanter Wind Spirit">
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="10"/>
-    <set name="mpInitialConsume" val="14"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="58"/>
     <set name="magicLvl" val="74"/>
     <set name="reuseDelay" val="4000"/>
@@ -155,7 +158,7 @@
   <skill id="707" levels="1" name="Divine Enchanter Hero Spirit">
     <set name="itemConsumeId" val="3031"/>
     <set name="itemConsumeCount" val="10"/>
-    <set name="mpInitialConsume" val="14"/>
+    <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="58"/>
     <set name="magicLvl" val="74"/>
     <set name="reuseDelay" val="4000"/>
@@ -185,7 +188,7 @@
   </skill>
   <skill id="708" levels="1" name="Divine Enchanter Mass Binding">
     <!-- Instantly apply Hold to surrounding enemies. Additional Hold is not available while effects last. -->
-    <set name="mpInitialConsume" val="21"/>
+    <set name="mpInitialConsume" val="22"/>
     <set name="mpConsume" val="87"/>
     <set name="magicLvl" val="74"/>
     <set name="power" val="40"/> <!-- Base Land Rate -->
@@ -198,15 +201,18 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Root" time="10" val="0" stackOrder="1" stackType="Root"/>
+      <effect count="1" name="Root" time="10" val="0" stackOrder="1" stackType="Root">
+        <mul order="0x30" stat="rootVuln" val="0"/>
+      </effect>
     </for>
   </skill>
   <skill id="709" levels="1" name="Sacrifice Enchanter">
     <!-- Increase all the party member's abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
+    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
   </skill>
   <skill id="710" levels="1" name="Divine Summoner Summon Divine Beast">
     <!-- Summons the divine beast. Consumes 2 Crystals: A grade - when summoning, and consumes additional 1 Crystal - A grade per hour. -->
@@ -232,8 +238,7 @@
   </skill>
   <skill id="711" levels="1" name="Divine Summoner Transfer Pain">
     <!-- Transfers some of the player's damage to the summoner. Consumes MP continuously. -->
-    <set name="mpInitialConsume" val="14"/>
-    <set name="mpConsume" val="57"/>
+    <set name="mpInitialConsume" val="72"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
@@ -248,7 +253,7 @@
     <set name="itemConsumeCount" val="20"/>
     <set name="itemConsumeId" val="3031"/>
     <set name="mpInitialConsume" val="14"/>
-    <set name="mpConsume" val="57"/>
+    <set name="mpConsume" val="58"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="50000"/>
     <set name="hitTime" val="4000"/>
@@ -275,9 +280,9 @@
       </effect>
     </for>
   </skill>
-  <skill id="713" levels="1" name="Divine Summoner Servitor Hill">
+  <skill id="713" levels="1" name="Divine Summoner Servitor Heal">
     <set name="mpInitialConsume" val="25"/>
-    <set name="mpConsume" val="101"/>
+    <set name="mpConsume" val="102"/>
     <set name="power" val="991"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="4000"/>
@@ -291,14 +296,15 @@
   </skill>
   <skill id="714" levels="1" name="Sacrifice Summoner">
     <!-- Increase the party member's critical abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
+    <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
   </skill>
   <skill id="715" levels="4" name="Zaken Energy Drain">
-    <table name="#mpInitialConsume"> 12 13 13 14 </table>
-    <table name="#mpConsume"> 48 52 55 57 </table>
+    <table name="#mpInitialConsume"> 12 13 14 14 </table>
+    <table name="#mpConsume"> 48 52 55 58 </table>
     <table name="#magicLvl"> 70 75 80 82 </table>
     <table name="#power"> 104 105 107 108 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -317,11 +323,11 @@
     <set name="absorbPart" val="0.4"/> <!-- absorbs 40% of damage -->
   </skill>
   <skill id="716" levels="4" name="Zaken Hold">
-    <table name="#mpInitialConsume"> 12 13 13 14 </table>
-    <table name="#mpConsume"> 48 52 55 57 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <table name="#mpConsume"> 60 65 69 72 </table>
+    <table name="#magicLvl"> 70 75 80 82 </table>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="80"/>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="power" val="100"/> <!-- Lands extremely often in retail -->
     <set name="lvlDepend" val="2"/>
     <set name="reuseDelay" val="16000"/>
     <set name="hitTime" val="2000"/>
@@ -336,11 +342,11 @@
     </for>
   </skill>
   <skill id="717" levels="4" name="Zaken Concentrated Attack">
-    <table name="#mpInitialConsume"> 12 13 13 14 </table>
-    <table name="#mpConsume"> 48 52 55 57 </table>
+    <table name="#mpConsume"> 60 65 69 72 </table>
+    <table name="#magicLvl"> 70 75 80 82 </table>
     <table name="#power"> 2751 3252 3752 4224 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="SSBoost" val="2.0"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="10000"/>
@@ -353,10 +359,8 @@
     <set name="effectRange" val="500"/>
   </skill>
   <skill id="718" levels="4" name="Zaken Dancing Sword">
-    <table name="#mpInitialConsume"> 12 13 13 14 </table>
-    <table name="#mpConsume"> 48 52 55 57 </table>
+    <table name="#mpConsume"> 60 65 69 72 </table>
     <table name="#power"> 1651 1951 2251 2534 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
@@ -385,11 +389,11 @@
     </for>
   </skill>
   <skill id="720" levels="2" name="Anakim Holy Light Burst">
-    <table name="#mpInitialConsume"> 13 14 </table>
-    <table name="#mpConsume"> 55 57 </table>
+    <table name="#mpConsume"> 69 72 </table>
+    <table name="#magicLvl"> 80 82 </table>
     <table name="#power"> 3189 3590 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="element" val="4"/> <!-- Holy -->
@@ -403,11 +407,10 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="721" levels="2" name="Anakim Energy Attack">
-    <table name="#mpInitialConsume"> 13 14 </table>
-    <table name="#mpConsume"> 55 57 </table>
+    <table name="#mpConsume"> 55 58 </table>
     <table name="#power"> 186 197 </table>
     <table name="#magicLvl"> 80 82 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
@@ -425,11 +428,10 @@
     <set name="effectRange" val="1200"/>
   </skill>
   <skill id="722" levels="2" name="Anakim Holy Beam">
-    <table name="#mpInitialConsume"> 13 14 </table>
-    <table name="#mpConsume"> 55 57 </table>
+    <table name="#mpConsume"> 55 58 </table>
     <table name="#power"> 186 197 </table>
     <table name="#magicLvl"> 80 82 </table>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
+    <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -457,7 +459,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="624"/>
   </skill>
-  <skill id="724" levels="1" name="Anakim Clans">
+  <skill id="724" levels="1" name="Anakim Cleanse">
     <set name="mpInitialConsume" val="5"/>
     <set name="mpConsume" val="20"/>
     <set name="isMagic" val="true"/>
@@ -471,12 +473,11 @@
   <skill id="725" levels="2" name="Venom Power Smash">
     <table name="#power"> 2626 2957 </table>
     <set name="SSBoost" val="2.0"/>
-    <set name="mpInitialConsume" val="17"/>
-    <set name="mpConsume" val="70"/>
+    <set name="mpConsume" val="88"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="830"/>
+    <!-- <set name="hitTime" val="830"/> -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -486,8 +487,7 @@
   <skill id="726" levels="2" name="Venom Sonic Storm">
     <table name="#power"> 2626 2957 </table>
     <set name="SSBoost" val="2.0"/>
-    <set name="mpInitialConsume" val="17"/>
-    <set name="mpConsume" val="70"/>
+    <set name="mpConsume" val="88"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="18000"/>
     <set name="hitTime" val="1000"/>
@@ -514,13 +514,12 @@
     </for>
   </skill>
   <skill id="728" levels="1" name="Gordon Beast Attack">
-    <set name="mpInitialConsume" val="17"/>
-    <set name="mpConsume" val="70"/>
+    <set name="mpConsume" val="88"/>
     <set name="power" val="2957"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="18000"/>
-    <set name="hitTime" val="830"/>
+    <!-- <set name="hitTime" val="830"/> -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -528,8 +527,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="729" levels="1" name="Gordon Sword Stab">
-    <set name="mpInitialConsume" val="17"/>
-    <set name="mpConsume" val="70"/>
+    <set name="mpConsume" val="88"/>
     <set name="power" val="2957"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
@@ -543,7 +541,7 @@
     <set name="effectRange" val="1000"/>
   </skill>
   <skill id="730" levels="1" name="Gordon Press">
-    <set name="mpInitialConsume" val="21"/>
+    <set name="mpInitialConsume" val="22"/>
     <set name="mpConsume" val="87"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
@@ -563,7 +561,7 @@
   </skill>
   <skill id="731" levels="1" name="Ranku Dark Explosion">
     <set name="mpInitialConsume" val="22"/>
-    <set name="mpConsume" val="89"/>
+    <set name="mpConsume" val="90"/>
     <set name="power" val="162"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
@@ -577,14 +575,12 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="732" levels="1" name="Ranku Stun Attack">
-    <set name="mpInitialConsume" val="3"/>
-    <set name="mpConsume" val="15"/>
+    <set name="mpConsume" val="19"/>
     <set name="power" val="1"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="13000"/>
     <set name="hitTime" val="1000"/>
-    <set name="coolTime" val="666"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -596,13 +592,12 @@
     </for>
   </skill>
   <skill id="733" levels="1" name="Kechi Double Cutter">
-    <set name="mpInitialConsume" val="17"/>
-    <set name="mpConsume" val="70"/>
+    <set name="mpConsume" val="88"/>
     <set name="power" val="2957"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="6000"/>
-    <set name="hitTime" val="830"/>
+    <!-- <set name="hitTime" val="830"/> -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -610,8 +605,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="734" levels="1" name="Kechi Air Blade">
-    <set name="mpInitialConsume" val="11"/>
-    <set name="mpConsume" val="44"/>
+    <set name="mpConsume" val="56"/>
     <set name="power" val="1812"/>
     <set name="baseCritRate" val="15"/>
     <set name="SSBoost" val="2.0"/>
@@ -625,7 +619,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="735" levels="1" name="Devil Spinning Weapon">
-    <set name="mpInitialConsume" val="21"/>
+    <set name="mpInitialConsume" val="22"/>
     <set name="mpConsume" val="87"/>
     <set name="power" val="162"/>
     <set name="isMagic" val="true"/>
@@ -641,7 +635,7 @@
   <skill id="736" levels="1" name="Devil Seed">
     <!-- This skill is wrong, needs core support! -->
     <set name="mpInitialConsume" val="16"/>
-    <set name="mpConsume" val="65"/>
+    <set name="mpConsume" val="66"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
@@ -658,8 +652,7 @@
     </for>
   </skill>
   <skill id="737" levels="1" name="Devil Ultimate Defense">
-    <set name="mpInitialConsume" val="2"/>
-    <set name="mpConsume" val="8"/>
+    <set name="mpConsume" val="10"/>
     <set name="reuseDelay" val="1800000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
@@ -690,7 +683,7 @@
   </skill>
   <skill id="739" levels="3" name="Heretic Battle Heal">
     <!-- CT2.2 retail confirmed -->
-    <table name="#mpInitialConsume"> 34 35 36 </table>
+    <table name="#mpInitialConsume"> 34 36 37 </table>
     <table name="#mpConsume"> 136 142 146 </table>
     <table name="#power"> 743 772 796 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -707,8 +700,8 @@
   </skill>
   <skill id="740" levels="3" name="Heretic Resurrection">
     <!-- CT2.2 retail confirmed -->
-    <table name="#mpInitialConsume"> 45 47 48 </table>
-    <table name="#mpConsume"> 182 189 195 </table>
+    <table name="#mpInitialConsume"> 46 47 49 </table>
+    <table name="#mpConsume"> 182 190 195 </table>
     <table name="#power"> 50 55 60 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -724,7 +717,7 @@
   </skill>
   <skill id="741" levels="3" name="Heretic Heal Side Effect">
     <!-- CT2.2 retail confirmed -->
-    <table name="#mpInitialConsume"> 13 13 14 </table>
+    <table name="#mpInitialConsume"> 13 14 14 </table>
     <table name="#mpConsume"> 52 54 56 </table>
     <table name="#dmg"> 121 169 215 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
