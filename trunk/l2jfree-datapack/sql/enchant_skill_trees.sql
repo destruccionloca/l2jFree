@@ -20878,7 +20878,7 @@ BEGIN
 	SET @BASE_LVL = baseLvl;
 	
 	/* creates the route */
-	INSERT INTO `enchant_skill_trees`
+	REPLACE INTO `enchant_skill_trees`
 		SELECT
 			@SKILL_ID,
 			@ENCHANT_TYPE * 100 + (`level` % 100),
@@ -21303,7 +21303,7 @@ BEGIN
 	SET @BASE_LVL = baseLvl;
 	
 --	Chances unknown yet
-	INSERT INTO `enchant_skill_trees` VALUES
+	REPLACE INTO `enchant_skill_trees` VALUES
 --	( skill_id,                    level,  base_lvl,      sp,     exp,            min_skill_lvl, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85)
 	(@SKILL_ID, 100 * @ENCHANT_TYPE +  1, @BASE_LVL,  857000,  857000,                @BASE_LVL,  1,  1,  2,  2, 28, 28, 28, 28, 28, 28), 
 	(@SKILL_ID, 100 * @ENCHANT_TYPE +  2, @BASE_LVL,  884000,  884000, 100 * @ENCHANT_TYPE +  1,  1,  1,  2,  2, 20, 20, 20, 20, 20, 20), 
