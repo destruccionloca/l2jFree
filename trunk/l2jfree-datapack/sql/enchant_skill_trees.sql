@@ -21002,8 +21002,8 @@ SELECT createSkillEnchant2(235, 2); -- Robe Mastery
 SELECT createSkillEnchant2(235, 3); -- Robe Mastery
 SELECT createSkillEnchant2(251, 2); -- Robe Mastery
 SELECT createSkillEnchant2(251, 3); -- Robe Mastery
-SELECT createSkillEnchant(252, 1, 33); -- Light Armor Mastery
-SELECT createSkillEnchant2(252, 2); -- Light Armor Mastery
+-- SELECT createSkillEnchant(252, 1, 33); -- Light Armor Mastery
+-- SELECT createSkillEnchant2(252, 2); -- Light Armor Mastery
 SELECT createSkillEnchant2(254, 3); -- Spoil
 SELECT createSkillEnchant(258, 1, 33); -- Light Armor Mastery
 SELECT createSkillEnchant2(258, 2); -- Light Armor Mastery
