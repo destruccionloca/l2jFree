@@ -1721,7 +1721,7 @@
     -->
   </skill>
   <skill id="793" levels="1" name="Rush Impact" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15" enchantLevels8="15">
-    <table name="#ench1Power"> 4071 4102 4133 4164 4195 4226 4257 4289 4320 4351 4382 4413 4444 4475 4507 </table>
+    <table name="#ench1power"> 4071 4102 4133 4164 4195 4226 4257 4289 4320 4351 4382 4413 4444 4475 4507 </table>
     <table name="#ench2mpInitialConsume"> 16 15 15 14 14 14 13 13 12 12 11 11 11 10 10 </table>
     <table name="#ench2mpConsume"> 64 62 60 59 57 56 54 52 51 49 47 45 44 42 40 </table>
     <table name="#ench3effectPower"> 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 </table>
@@ -1746,7 +1746,7 @@
     <set name="isDebuff" val="true"/>
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="effectPower" val="#ench3effectPower"/>
@@ -1775,7 +1775,7 @@
     </enchant8for>
   </skill>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="15" enchantLevels2="15">
-    <table name="#ench1Power"> 41 43 45 47 49 51 53 55 57 59 61 63 65 68 70 </table> <!-- Guess -->
+    <table name="#ench1power"> 41 43 45 47 49 51 53 55 57 59 61 63 65 68 70 </table> <!-- Guess -->
     <table name="#ench2Reuse"> 147500 145000 142500 140000 137500 135000 132500 130000 127500 125000
       122500 120000 117500 115000 112500 </table> <!-- Guess -->
     <set name="mpInitialConsume" val="11"/>
@@ -1790,7 +1790,7 @@
     <set name="skillType" val="DISARM"/>
     <set name="skillRadius" val="200"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="reuseDelay" val="#ench2Reuse"/>
     <for>
       <effect name="Disarm" time="5" val="0"/>

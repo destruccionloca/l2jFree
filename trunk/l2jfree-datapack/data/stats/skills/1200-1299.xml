@@ -2,9 +2,9 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="1201" levels="33" name="Dryad Root" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#mpInitialConsume"> 4 4 4 5 5 5 5 6 6 6 6 7 7 7 7 8 8 8 9 9 9 9 10 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 17 17 18 20 21 21 23 24 24 27 27 28 30 30 31 33 34 35 36 37 38 39 40 41 43 44 46 48 49 51 52 53 55 </table>
@@ -24,8 +24,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
@@ -35,7 +35,7 @@
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480
       1520 1560 1600 1640 1680 1720 1760 1800 1840 1880 1920
       1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 20 20 19 19 19 18 18 18 17 17 16 16 16 16 15 15 15 14 14 14 12 12 12 12 12 11 11 11 10 10 </table>
+    <table name="#ench2mpConsume"> 20 20 19 19 19 18 18 18 17 17 16 16 16 16 15 15 15 14 14 14 12 12 12 12 12 11 11 11 10 10 </table>
     <table name="#ench2mpInitialConsume"> 5 5 4 4 4 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 </table>
     <table name="#mpInitialConsume"> 4 5 </table>
     <table name="#mpConsume"> 16 21 </table>
@@ -52,7 +52,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#runSpd" stackType="speed_up">
@@ -66,14 +66,14 @@
     </enchant1for>
   </skill>
   <skill id="1206" levels="19" name="Wind Shackle" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 0 2 2 2 3 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 2 8 9 11 12 28 31 35 38 41 43 44 46 48 49 51 52 53 55 </table>
     <table name="#magicLvl"> 14 20 25 30 35 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#pAtkSpd"> 0.83 0.8 0.8 0.8 0.8 0.77 0.77 0.77
       0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#ench3Vuln"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -90,8 +90,8 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="30" val="0" stackOrder="#pAtkSpd" stackType="attack_time_up">
@@ -106,12 +106,12 @@
     </enchant3for>
   </skill>
   <skill id="1208" levels="17" name="Seal of Binding" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
+    <table name="#ench2mpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 20 20 19 19 19 19 18 18 18 18 17 17 17 17 16 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 </table>
     <table name="#mpInitialConsume"> 6 8 9 10 11 13 14 15 16 16 17 17 18 19 19 20 20 </table>
     <table name="#mpConsume"> 27 32 36 42 47 52 56 61 64 66 69 71 74 76 78 80 82 </table>
     <table name="#magicLvl"> 25 30 35 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
-    <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
+    <table name="#ench1power"> 40 40 41 41 41 42 42 42 43 43 43 44
       44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -126,8 +126,8 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
@@ -216,7 +216,7 @@
     <set name="aggroPoints" val="10"/>
   </skill>
   <skill id="1217" levels="33" name="Greater Heal" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 94 93 92 92 90 89 88 88 88 86 85 84 84 82 82 81 80 80 78 77 76 76 76 74 73 72 72 70 70 69 </table>
+    <table name="#ench2mpConsume"> 94 93 92 92 90 89 88 88 88 86 85 84 84 82 82 81 80 80 78 77 76 76 76 74 73 72 72 70 70 69 </table>
     <table name="#ench2mpInitialConsume"> 23 23 23 23 22 22 22 22 22 21 21 21 21 20 20 20 20 20 19 19 19 19 19 18 18 18 18 17 17 17 </table>
     <table name="#mpInitialConsume"> 11 12 12 12 13 13 14 14 15 16 16 16 17 17 18 18 19 19 19 19 20 20 20 21 21 21 22 22 22 23 23 23 24 </table>
     <table name="#mpConsume"> 46 48 49 51 52 54 57 59 61 64 64 66 69 71 72 74 76 77 78 78 80 81 83 84 86 87 89 90 91 92 93 95 96 </table>
@@ -224,7 +224,7 @@
       356 364 372 380 388 395 402 410 417 424 431 437 444 450 456 462 467 472 </table>
     <table name="#hotValue"> 14 15 15 16 17 17 18 19 19 20 21 22 23 23 24 24 25 25 26
       26 27 27 28 28 29 29 30 30 30 31 31 32 32 </table>
-    <table name="#ench1Power"> 863 868 873 878 883 887 892 897 902 907 912 917 921
+    <table name="#ench1power"> 863 868 873 878 883 887 892 897 902 907 912 917 921
       926 931 936 941 946 950 955 960 965 970 975 980 984 989 994 999 1004 </table>
     <table name="#aggroPoints"> 337 349 362 388 401 414 440 454 467 494 508 521 548 562 575
       588 602 615 627 640 653 665 677 689 700 711 722 733 743 753 763 772 780 </table>
@@ -240,21 +240,21 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect count="15" name="HealOverTime" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
     </for>
   </skill>
   <skill id="1218" levels="33" name="Greater Battle Heal" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 141 140 138 137 136 134 133 132 130 129 128 128 125 124 124 121 120 120 118 116 116 114 112 112 110 109 108 106 105 104 </table>
+    <table name="#ench2mpConsume"> 141 140 138 137 136 134 133 132 130 129 128 128 125 124 124 121 120 120 118 116 116 114 112 112 110 109 108 106 105 104 </table>
     <table name="#ench2mpInitialConsume"> 35 35 34 34 34 33 33 33 32 32 32 32 31 31 31 30 30 30 29 29 29 28 28 28 27 27 27 26 26 26 </table>
     <table name="#mpInitialConsume"> 17 18 18 19 19 20 21 22 22 24 24 24 25 26 27 27 28 29 29 29 30 30 31 31 32 32 33 33 34 34 35 35 35 </table>
     <table name="#mpConsume"> 69 72 73 76 78 81 86 88 91 96 96 98 103 106 108 111 113 116 117 117 120 122 124 126 128 131 133 134 136 138 140 142 143 </table>
     <table name="#power"> 371 384 398 426 441 455 484 499 514 544 559 573 603 618
       633 647 662 676 690 704 718 731 745 758 770 783 795 806 817 828 839 849 858 </table>
-    <table name="#ench1Power"> 863 868 873 878 883 887 892 897 902 907 912 917 921
+    <table name="#ench1power"> 863 868 873 878 883 887 892 897 902 907 912 917 921
       926 931 936 941 946 950 955 960 965 970 975 980 984 989 994 999 1004 </table>
     <table name="#aggroPoints"> 270 280 290 310 321 331 352 363 374 396 406 417 439 450 460
       471 481 492 502 512 522 532 542 551 560 569 578 586 595 603 610 617 624 </table>
@@ -270,12 +270,12 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
   </skill>
   <skill id="1219" levels="33" name="Greater Group Heal" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 188 186 184 184 181 180 178 176 174 173 172 169 168 166 164 162 161 160 157 156 154 152 152 149 148 145 144 142 140 140 </table>
+    <table name="#ench2mpConsume"> 188 186 184 184 181 180 178 176 174 173 172 169 168 166 164 162 161 160 157 156 154 152 152 149 148 145 144 142 140 140 </table>
     <table name="#ench2mpInitialConsume"> 47 46 46 46 45 45 44 44 43 43 43 42 42 41 41 40 40 40 39 39 38 38 38 37 37 36 36 35 35 35 </table>
     <table name="#mpInitialConsume"> 23 23 24 25 26 26 28 29 30 31 31 32 34 35 36 37 37 38 39 39 39 40 41 42 42 43 44 44 45 46 46 47 47 </table>
     <table name="#mpConsume"> 92 95 97 101 104 107 114 118 121 127 127 131 138 141 144 148 151 154 156 156 159 162 165 168 171 174 177 179 182 184 186 189 191 </table>
@@ -283,7 +283,7 @@
       291 298 304 310 316 322 328 334 339 345 350 355 360 365 369 374 378 </table>
     <table name="#hotValue"> 11 12 12 13 13 14 15 15 16 16 17 17 18 19 19 19 20 20 21 21 21
       22 22 23 23 23 24 24 24 25 25 25 26 </table>
-    <table name="#ench1Power"> 382 386 391 395 400 404 408 413 417 422 426 430 435 439 444
+    <table name="#ench1power"> 382 386 391 395 400 404 408 413 417 422 426 430 435 439 444
       448 452 457 461 466 470 474 479 483 488 492 496 501 505 510 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -296,9 +296,9 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#power"/>
-    <enchant1 name="aggroPoints" val="#ench1Power"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="aggroPoints" val="#ench1power"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect count="15" name="HealOverTime" val="#hotValue" stackOrder="#hotValue" stackType="LifeForce"/>
@@ -325,7 +325,7 @@
     <set name="effectRange" val="1250"/>
   </skill>
   <skill id="1222" levels="15" name="Curse Chaos" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 3 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 12 28 31 35 38 41 43 44 46 48 49 51 52 53 55 </table>
@@ -333,7 +333,7 @@
     <table name="#accCombat"> 9 12 12 12 12 12 12 12 12 12 12 12 12 12 12 </table>
     <table name="#ench3accCombat"> 12 12 12 12 13 13 13 13 13 14 14 14 14 14 15 15
       15 15 15 16 16 16 16 16 17 17 17 17 17 18 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -349,8 +349,8 @@
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="30" val="0" stackOrder="#accCombat" stackType="accuracyDown">
@@ -364,14 +364,14 @@
     </enchant3for>
   </skill>
   <skill id="1223" levels="15" name="Surrender To Earth" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 3 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 12 28 31 35 38 41 43 44 46 48 49 51 52 53 55 </table>
     <table name="#magicLvl"> 35 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#castRange"> 750 900 900 900 900 900 900 900 900 900 900 900 900 900 900 </table>
     <table name="#effectRange"> 1250 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#ench3Vuln"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 </table>
     <table name="#ench3stack"> 2.21 2.22 2.23 2.24 2.25 2.26 2.27 2.28 2.29 2.3 2.31 2.32 2.33 2.34 2.35 2.36 2.37 2.38 2.39 2.4 2.41 2.42 2.43 2.44 2.45 2.46 2.47 2.48 2.49 2.5 </table>
@@ -389,8 +389,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="#castRange"/>
     <set name="effectRange" val="#effectRange"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="30" val="0" stackOrder="2" stackType="EarthAtr">
@@ -406,7 +406,7 @@
     </enchant3for>
   </skill>
   <skill id="1224" levels="17" name="Surrender To Poison" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#mpInitialConsume"> 2 2 3 7 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 9 11 12 28 31 35 38 41 43 44 46 48 49 51 52 53 55 </table>
@@ -415,9 +415,9 @@
     <table name="#stack"> 2.25 2.25 2.25 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 2.3 </table>
     <table name="#castRange"> 750 750 750 900 900 900 900 900 900 900 900 900 900 900 900 900 900 </table>
     <table name="#effectRange"> 1250 1250 1250 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 1400 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
-    <table name="#ench3Time"> 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41
+    <table name="#ench3time"> 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41
       42 42 43 43 44 44 45 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -433,8 +433,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="#castRange"/>
     <set name="effectRange" val="#effectRange"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="30" val="0" stackOrder="#stack" stackType="PoisonVuln">
@@ -442,7 +442,7 @@
       </effect>
     </for>
     <enchant3for>
-      <effect name="Debuff" time="#ench3Time" val="0" stackOrder="2.3" stackType="PoisonVuln">
+      <effect name="Debuff" time="#ench3time" val="0" stackOrder="2.3" stackType="PoisonVuln">
         <mul order="0x30" stat="poisonVuln" val="1.3"/>
       </effect>
     </enchant3for>
@@ -572,7 +572,7 @@
   <skill id="1229" levels="18" name="Chant of Life" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1hot"> 58 58 59 59 59 59 60 60 60 61 61 61
       61 62 62 62 62 63 63 63 64 64 64 64 65 65 65 66 66 66 </table>
-    <table name="#ench2MpConsume"> 188 186 184 182 181 180 177 176 173 172 170 168 166 164 162 161 160 157 156 153 152 150 148 146 144 144 141 140 137 136 </table>
+    <table name="#ench2mpConsume"> 188 186 184 182 181 180 177 176 173 172 170 168 166 164 162 161 160 157 156 153 152 150 148 146 144 144 141 140 137 136 </table>
     <table name="#ench2mpInitialConsume"> 47 46 46 45 45 45 44 44 43 43 42 42 41 41 40 40 40 39 39 38 38 37 37 36 36 36 35 35 34 34 </table>
     <table name="#hot"> 12 15 18 23 27 31 35 39 43 45 46 58 50 52 53 55 56 58 </table>
     <table name="#mpInitialConsume"> 11 14 17 20 24 26 30 32 36 37 39 39 41 42 44 45 46 47 </table>
@@ -590,7 +590,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect count="15" name="HealOverTime" val="#hot" stackOrder="#hot" stackType="LifeChant"/>
@@ -600,7 +600,7 @@
     </enchant1for>
   </skill>
   <skill id="1230" levels="28" name="Prominence" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
+    <table name="#ench2mpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
     <table name="#magicLvl"> 38 40 42 44 46 48 50 52 54 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
       71 72 73 74 </table>
@@ -608,7 +608,7 @@
     <table name="#mpConsume"> 27 28 30 31 33 35 36 38 39 41 42 43 44 44 45 46 47 48 48 49 50 51 51 52 53 53 54 55 </table>
     <table name="#power"> 49 52 55 58 61 65 68 72 75 78 80 82 84 85 87 89 90 92 94 96 97 99 100 102
       104 105 107 108 </table>
-    <table name="#ench1Power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119
+    <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119
       120 120 121 122 122 123 124 124 125 125 126 127 127 </table>
     <table name="#ench3FireVuln"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
       26 27 28 29 30 </table>
@@ -628,8 +628,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
     <enchant3for>
@@ -639,7 +639,7 @@
     </enchant3for>
   </skill>
   <skill id="1231" levels="28" name="Aura Flare" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
+    <table name="#ench2mpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
     <table name="#mpInitialConsume"> 6 7 7 7 8 8 9 9 9 10 10 10 11 11 11 11 11 12 12 12 12 12 12 13 13 13 13 13 </table>
     <table name="#mpConsume"> 27 28 30 31 33 35 36 38 39 41 42 43 44 44 45 46 47 48 48 49 50 51 51 52 53 53 54 55 </table>
@@ -647,7 +647,7 @@
       59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <table name="#power"> 39 42 44 47 49 52 55 57 60 63 64 66
       67 68 70 71 72 74 75 77 78 79 80 82 83 84 85 87 </table>
-    <table name="#ench1Power"> 87 88 88 89 89 90 90 91 91 92 92 93
+    <table name="#ench1power"> 87 88 88 89 89 90 90 91 91 92 92 93
       93 94 94 95 95 96 96 97 97 98 98 99 99 100 100 101 102 102 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -661,8 +661,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="150"/>
     <set name="effectRange" val="650"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect self="1" name="Buff" time="3" val="0">
@@ -673,7 +673,7 @@
   <skill id="1232" levels="3" name="Blazing Skin" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
+    <table name="#ench2mpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
     <table name="#ench2mpInitialConsume"> 10 9 9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 </table>
     <table name="#ench3pDef"> 1.01 1.02 1.02 1.03 1.03 1.05 1.06 1.07 1.07 1.08 1.09 1.1 1.1
       1.12 1.13 1.14 1.14 1.15 1.16 1.19 1.2 1.2 1.21 1.22 1.22 1.23 1.24 1.26 1.27 1.28 </table>
@@ -694,7 +694,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#reflectDam" stackType="DmgShield">
@@ -746,7 +746,7 @@
     </for>
   </skill>
   <skill id="1234" levels="28" name="Vampiric Claw" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench2MpConsume"> 96 94 93 92 90 89 88 86 85 84 84 81 80 80 77 76 76 73 72 72 70 68 68 66 64 64 62 60 60 58 </table>
+    <table name="#ench2mpConsume"> 96 94 93 92 90 89 88 86 85 84 84 81 80 80 77 76 76 73 72 72 70 68 68 66 64 64 62 60 60 58 </table>
     <table name="#ench2mpInitialConsume"> 24 23 23 23 22 22 22 21 21 21 21 20 20 20 19 19 19 18 18 18 17 17 17 16 16 16 15 15 15 14 </table>
     <table name="#mpInitialConsume"> 12 12 13 14 14 15 16 17 17 18 18 19 19 20 20 20 21 21 21 22 22 22 23 23 23 24 24 24 </table>
     <table name="#mpConsume"> 48 50 53 56 59 62 65 68 71 74 75 77 78 80 81 83 84 85 87 88 89 91 92 93 95 96 97 98 </table>
@@ -754,7 +754,7 @@
       71 72 73 74 </table>
     <table name="#power"> 49 52 55 58 61 65 68 72 75 78 80 82 84 85 87 89 90 92 94 96 97 99 100 102
       104 105 107 108 </table>
-    <table name="#ench1Power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119
+    <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119
       120 120 121 122 122 123 124 124 125 125 126 127 127 </table>
     <table name="#ench3absorbPart"> 0.41 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 0.5 0.51 0.52 0.53
       0.54 0.55 0.56 0.57 0.58 0.59 0.6 0.61 0.62 0.63 0.64 0.65 0.66 0.67 0.68 0.69 0.7 </table>
@@ -775,14 +775,14 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="absorbPart" val="0.4"/> <!-- absorbs 40% of damage -->
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="absorbPart" val="#ench3absorbPart"/>
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
   </skill>
   <skill id="1235" levels="28" name="Hydro Blast" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
+    <table name="#ench2mpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
     <table name="#mpInitialConsume"> 6 7 7 7 8 8 9 9 9 10 10 10 11 11 11 11 11 12 12 12 12 12 12 13 13 13 13 13 </table>
     <table name="#mpConsume"> 27 28 30 31 33 35 36 38 39 41 42 43 44 44 45 46 47 48 48 49 50 51 51 52 53 53 54 55 </table>
@@ -790,7 +790,7 @@
       71 72 73 74 </table>
     <table name="#power"> 49 52 55 58 61 65 68 72 75 78 80 82 84 85 87 89 90 92 94 96 97 99 100 102
       104 105 107 108 </table>
-    <table name="#ench1Power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119
+    <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116 116 117 118 118 119
       120 120 121 122 122 123 124 124 125 125 126 127 127 </table>
     <table name="#ench3WaterVuln"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
       26 27 28 29 30 </table>
@@ -810,8 +810,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
     <enchant3for>
@@ -821,13 +821,13 @@
     </enchant3for>
   </skill>
   <skill id="1236" levels="19" name="Frost Bolt" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
+    <table name="#ench2mpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
     <table name="#mpInitialConsume"> 6 7 7 7 8 8 9 9 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 27 28 30 31 33 35 36 38 39 41 43 44 46 48 49 51 52 53 55 </table>
     <table name="#magicLvl"> 38 40 42 44 46 48 50 52 54 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#power"> 30 31 33 35 37 39 41 43 45 47 49 51 53 56 58 59 61 63 65 </table>
-    <table name="#ench1Power"> 65 66 66 67 67 67 68 68 69 69 69 70 70 70 71 71 72 72 72 73 73 74 74 74
+    <table name="#ench1power"> 65 66 66 67 67 67 68 68 69 69 69 70 70 70 71 71 72 72 72 73 73 74 74 74
       75 75 75 76 76 77 </table>
     <table name="#ench3EffectPower"> 60 60 61 61 61 62 62 62 63 63 63 64 64 64
       65 65 65 66 66 66 67 67 67 68 68 68 69 69 69 70 </table>
@@ -852,8 +852,8 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="isDebuff" val="true"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
     <for>
@@ -873,7 +873,7 @@
     </enchant4for>
   </skill>
   <skill id="1237" levels="17" name="Ice Dagger" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
-    <table name="#ench2MpConsume"> 56 56 54 53 52 52 52 50 49 48 48 48 46 45 44 44 42 42 41 40 40 38 38 37 36 36 34 34 33 32 </table>
+    <table name="#ench2mpConsume"> 56 56 54 53 52 52 52 50 49 48 48 48 46 45 44 44 42 42 41 40 40 38 38 37 36 36 34 34 33 32 </table>
     <table name="#ench2mpInitialConsume"> 14 14 13 13 13 13 13 12 12 12 12 12 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 </table>
     <table name="#mpInitialConsume"> 7 7 8 8 9 9 9 10 10 11 11 11 12 12 12 13 13 </table>
     <table name="#mpConsume"> 29 31 32 34 36 37 39 41 42 44 45 47 48 50 51 53 54 </table>
@@ -881,7 +881,7 @@
     <table name="#power"> 28 29 31 33 34 36 38 39 41 43 45 46 48 50 51 53 54 </table>
     <table name="#abnormalLvl"> 5 5 5 5 6 6 6 6 6 7 7 7 7 7 8 8 8 </table>
     <table name="#dot"> 132 132 132 132 162 162 162 162 162 186 186 186 186 186 201 201 201 </table>
-    <table name="#ench1Power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60 61 61 61
+    <table name="#ench1power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60 61 61 61
       62 62 62 63 63 63 64 64 </table>
     <table name="#ench3EffectPower"> 60 60 61 61 61 62 62 62 63 63 63 64 64 64
       65 65 65 66 66 66 67 67 67 68 68 68 69 69 69 70 </table>
@@ -910,8 +910,8 @@
     <enchant1 name="mpConsume" val="57"/>
     <enchant3 name="mpConsume" val="57"/>
     <enchant4 name="mpConsume" val="57"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
     <for>
@@ -925,7 +925,7 @@
   <skill id="1238" levels="3" name="Freezing Skin" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
+    <table name="#ench2mpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
     <table name="#ench2mpInitialConsume"> 10 9 9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 </table>
     <table name="#ench3pDef"> 1.01 1.02 1.02 1.03 1.03 1.05 1.06 1.07 1.07 1.08 1.09 1.1 1.1
       1.12 1.13 1.14 1.14 1.15 1.16 1.19 1.2 1.2 1.21 1.22 1.22 1.23 1.24 1.26 1.27 1.28 </table>
@@ -946,7 +946,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#reflectDam" stackType="DmgShield">
@@ -972,7 +972,7 @@
     </enchant4for>
   </skill>
   <skill id="1239" levels="28" name="Hurricane" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
+    <table name="#ench2mpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
     <table name="#mpInitialConsume"> 6 7 7 7 8 8 9 9 9 10 10 10 11 11 11 11 11 12 12 12 12 12 12 13 13 13 13 13 </table>
     <table name="#mpConsume"> 27 28 30 31 33 35 36 38 39 41 42 43 44 44 45 46 47 48 48 49 50 51 51 52 53 53 54 55 </table>
@@ -980,7 +980,7 @@
       59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <table name="#power"> 49 52 55 58 61 65 68 72 75 78 80 82
       84 85 87 89 90 92 94 96 97 99 100 102 104 105 107 108 </table>
-    <table name="#ench1Power"> 109 109 110 111 111 112 113 113 114 115 115 116 116
+    <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116 116
       117 118 118 119 120 120 121 122 122 123 124 124 125 125 126 127 127 </table>
     <table name="#ench3WindVuln"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
       21 22 23 24 25 26 27 28 29 30 </table>
@@ -998,8 +998,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3for>
       <effect name="Debuff" time="30" val="0" stackOrder="1" stackType="ElementalPower">
@@ -1010,7 +1010,7 @@
   <skill id="1240" levels="3" name="Guidance" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
+    <table name="#ench2mpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
     <table name="#ench2mpInitialConsume"> 10 9 9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 </table>
     <table name="#mpInitialConsume"> 7 8 10 </table>
     <table name="#mpConsume"> 28 35 41 </table>
@@ -1027,7 +1027,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#accCombat" stackType="hit_up">
@@ -1043,7 +1043,7 @@
   <skill id="1242" levels="3" name="Death Whisper" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
+    <table name="#ench2mpConsume"> 40 39 38 38 37 36 36 35 34 34 32 32 32 31 30 30 28 28 28 27 26 24 24 24 23 23 22 20 20 20 </table>
     <table name="#ench2mpInitialConsume"> 10 9 9 9 9 9 9 8 8 8 8 8 8 7 7 7 7 7 7 6 6 6 6 6 5 5 5 5 5 5 </table>
     <table name="#cAtk"> 1.25 1.3 1.35 </table>
     <table name="#mpInitialConsume"> 7 8 10 </table>
@@ -1060,7 +1060,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#cAtk" stackType="critical_dmg_up">
@@ -1076,7 +1076,7 @@
   <skill id="1243" levels="6" name="Bless Shield" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 50 49 48 48 46 45 44 44 44 42 41 40 40 38 38 37 36 36 34 33 32 32 32 30 29 28 28 26 25 25 </table>
+    <table name="#ench2mpConsume"> 50 49 48 48 46 45 44 44 44 42 41 40 40 38 38 37 36 36 34 33 32 32 32 30 29 28 28 26 25 25 </table>
     <table name="#ench2mpInitialConsume"> 12 12 12 12 11 11 11 11 11 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 7 7 7 6 6 6 </table>
     <table name="#rShld"> 1.05 1.1 1.15 1.2 1.25 1.3 </table>
     <table name="#mpInitialConsume"> 7 8 10 11 12 13 </table>
@@ -1093,7 +1093,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rShld" stackType="shieldProbUp">
@@ -1133,13 +1133,13 @@
     </for>
   </skill>
   <skill id="1245" levels="14" name="Steal Essence" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 138 137 136 133 132 129 128 125 124 121 120 118 116 114 112 110 108 106 105 104 101 100 97 96 93 92 90 88 86 84 </table>
+    <table name="#ench2mpConsume"> 138 137 136 133 132 129 128 125 124 121 120 118 116 114 112 110 108 106 105 104 101 100 97 96 93 92 90 88 86 84 </table>
     <table name="#ench2mpInitialConsume"> 34 34 34 33 33 32 32 31 31 30 30 29 29 28 28 27 27 26 26 26 25 25 24 24 23 23 22 22 21 21 </table>
     <table name="#mpInitialConsume"> 18 20 22 24 26 27 28 29 30 31 32 33 34 35 </table>
     <table name="#mpConsume"> 73 80 89 97 106 110 115 119 123 127 131 135 138 141 </table>
     <table name="#magicLvl"> 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#power"> 52 58 65 72 78 82 85 89 92 96 99 102 105 108 </table>
-    <table name="#ench1Power"> 109 109 110 111 111 112 113 113 114 115 115 116
+    <table name="#ench1power"> 109 109 110 111 111 112 113 113 114 115 115 116
       116 117 118 118 119 120 120 121 122 122 123 124 124 125 125 126 127 127 </table>
     <table name="#ench3absorbPart"> 0.8 0.81 0.82 0.82 0.83 0.84 0.84 0.85 0.86 0.86 0.87 0.88
       0.88 0.89 0.9 0.9 0.91 0.92 0.92 0.93 0.94 0.94 0.95 0.96 0.96 0.97 0.98 0.98 0.99 1 </table>
@@ -1156,15 +1156,15 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="absorbPart" val="#ench3absorbPart"/> <!-- absorbs 80% of damage -->
   </skill>
   <skill id="1246" levels="12" name="Seal of Silence" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
+    <table name="#ench2mpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 20 20 19 19 19 19 18 18 18 18 17 17 17 17 16 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 </table>
-    <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
+    <table name="#ench1power"> 40 40 41 41 41 42 42 42 43 43 43 44
       44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <table name="#mpInitialConsume"> 13 14 15 16 16 17 17 18 19 19 20 20 </table>
     <table name="#mpConsume"> 52 56 61 64 66 69 71 74 76 78 80 82 </table>
@@ -1182,8 +1182,8 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Mute" time="60" val="0" stackOrder="1" stackType="silence"/>
@@ -1191,9 +1191,9 @@
   </skill>
   <skill id="1247" levels="14" name="Seal of Scourge" enchantLevels1="30" enchantLevels2="30">
     <!-- should stop regen - check if mul regHP by 0 will work -->
-    <table name="#ench2MpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
+    <table name="#ench2mpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 20 20 19 19 19 19 18 18 18 18 17 17 17 17 16 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#mpInitialConsume"> 10 11 13 14 15 16 16 17 17 18 19 19 20 20 </table>
     <table name="#mpConsume"> 42 47 52 56 61 64 66 69 71 74 76 78 80 82 </table>
@@ -1211,8 +1211,8 @@
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="120" val="0">
@@ -1221,9 +1221,9 @@
     </for>
   </skill>
   <skill id="1248" levels="12" name="Seal of Suspension" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
+    <table name="#ench2mpConsume"> 80 80 78 77 76 76 74 73 72 72 70 69 68 68 66 65 64 64 64 62 61 60 60 58 57 56 56 54 53 52 </table>
     <table name="#ench2mpInitialConsume"> 20 20 19 19 19 19 18 18 18 18 17 17 17 17 16 16 16 16 16 15 15 15 15 14 14 14 14 13 13 13 </table>
-    <table name="#ench1Power"> 60 61 61 62 62 63 63 64 64 65 65 66
+    <table name="#ench1power"> 60 61 61 62 62 63 63 64 64 65 65 66
       66 67 67 68 68 69 69 70 70 71 71 72 72 73 73 74 74 75 </table>
     <table name="#mpInitialConsume"> 13 14 15 16 16 17 17 18 19 19 20 20 </table>
     <table name="#mpConsume"> 52 56 61 64 66 69 71 74 76 78 80 82 </table>
@@ -1241,8 +1241,8 @@
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="120" val="0">
@@ -1254,7 +1254,7 @@
   <skill id="1249" levels="3" name="The Vision of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720 1760
       1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
+    <table name="#ench2mpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
     <table name="#mpInitialConsume"> 30 37 40 </table>
     <table name="#mpConsume"> 123 150 163 </table>
@@ -1270,7 +1270,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#accCombat" stackType="hit_up">
@@ -1286,7 +1286,7 @@
   <skill id="1250" levels="3" name="Under the Protection of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
+    <table name="#ench2mpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
     <table name="#rShld"> 1.3 1.4 1.5 </table>
     <table name="#mpInitialConsume"> 27 34 40 </table>
@@ -1302,7 +1302,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rShld" stackType="shieldProbUp">
@@ -1318,7 +1318,7 @@
   <skill id="1251" levels="2" name="Chant of Fury" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
+    <table name="#ench2mpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
     <table name="#pAtkSpd"> 1.15 1.33 </table>
     <table name="#mpInitialConsume"> 34 40 </table>
@@ -1334,7 +1334,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#pAtkSpd" stackType="attack_time_down">
@@ -1350,7 +1350,7 @@
   <skill id="1252" levels="3" name="Chant of Evasion" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
+    <table name="#ench2mpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
     <table name="#rEvas"> 2 3 4 </table>
     <table name="#mpInitialConsume"> 27 34 40 </table>
@@ -1366,7 +1366,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rEvas" stackType="rEvas">
@@ -1382,7 +1382,7 @@
   <skill id="1253" levels="3" name="Chant of Rage" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
+    <table name="#ench2mpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
     <table name="#cAtk"> 1.25 1.3 1.35 </table>
     <table name="#mpInitialConsume"> 30 37 40 </table>
@@ -1398,7 +1398,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#cAtk" stackType="critical_dmg_up">
@@ -1417,7 +1417,7 @@
     <table name="#mpInitialConsume"> 48 53 65 72 75 88 </table>
     <table name="#mpConsume"> 194 214 261 288 301 353 </table>
     <table name="#power"> 0 20 30 40 50 55 </table>
-    <table name="#ench1Power"> 56 56 57 57 58 58 59 59 60 60 61 61 62 62 63 63 63 64 64 65
+    <table name="#ench1power"> 56 56 57 57 58 58 59 59 60 60 61 61 62 62 63 63 63 64 64 65
       65 66 66 67 67 68 68 69 69 70 </table>
     <table name="#aggroPoints"> 290 331 417 460 481 578 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -1431,7 +1431,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
   </skill>
@@ -1455,7 +1455,7 @@
       61 62 62 62 62 63 63 63 64 64 64 64 65 65 65 66 66 66 </table>
     <table name="#mpInitialConsume"> 26 30 32 36 37 39 39 41 42 44 45 46 47 </table>
     <table name="#mpConsume"> 107 121 131 144 151 156 159 165 171 177 182 186 191 </table>
-    <table name="#ench2MpConsume"> 188 186 184 182 181 180 177 176 173 172 170 168 166 164 162 161 160 157 156 153 152 150 148 146 144 144 141 140 137 136 </table>
+    <table name="#ench2mpConsume"> 188 186 184 182 181 180 177 176 173 172 170 168 166 164 162 161 160 157 156 153 152 150 148 146 144 144 141 140 137 136 </table>
     <table name="#ench2mpInitialConsume"> 47 46 46 45 45 45 44 44 43 43 42 42 41 41 40 40 40 39 39 38 38 37 37 36 36 36 35 35 34 34 </table>
     <table name="#power"> 91 103 115 127 133 138 144 149 154 158 164 168 172 </table>
     <table name="#aggroPoints"> 418 457 495 532 549 566 582 597 611 624 635 646 655 </table>
@@ -1470,7 +1470,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <!-- retail value: "#hot"/sec; stat update every time unit (2/3 sec) -->
@@ -1484,7 +1484,7 @@
   <skill id="1257" levels="3" name="Decrease Weight" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 17 17 17 16 16 16 16 16 16 15 15 15 13 13 13 12 12 12 12 12 12 12 11 11 10 9 9 9 8 8 </table>
+    <table name="#ench2mpConsume"> 17 17 17 16 16 16 16 16 16 15 15 15 13 13 13 12 12 12 12 12 12 12 11 11 10 9 9 9 8 8 </table>
     <table name="#ench2mpInitialConsume"> 4 4 4 4 4 4 4 4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 </table>
     <table name="#mpInitialConsume"> 3 4 4 </table>
     <table name="#mpConsume"> 12 16 19 </table>
@@ -1501,7 +1501,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#Weight" stackType="Weight">
@@ -1520,7 +1520,7 @@
     <table name="#mpInitialConsume"> 16 21 26 31 </table>
     <table name="#mpConsume"> 64 85 106 127 </table>
     <table name="#power"> 15 20 25 30 </table>
-    <table name="#ench1Power"> 31 31 31 32 32 32 33 33 33 34 34 34 34 35 35 35 36 36 36
+    <table name="#ench1power"> 31 31 31 32 32 32 33 33 33 34 34 34 34 35 35 35 36 36 36
       37 37 37 37 38 38 38 39 39 39 40 </table>
     <table name="#aggroPoints"> 500 666 833 1000 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -1535,14 +1535,14 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
   </skill>
   <skill id="1259" levels="4" name="Resist Shock" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 50 49 48 48 46 45 44 44 44 42 41 40 40 38 38 37 36 36 34 33 32 32 32 30 29 28 28 26 25 25 </table>
+    <table name="#ench2mpConsume"> 50 49 48 48 46 45 44 44 44 42 41 40 40 38 38 37 36 36 34 33 32 32 32 30 29 28 28 26 25 25 </table>
     <table name="#ench2mpInitialConsume"> 12 12 12 12 11 11 11 11 11 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 7 7 7 6 6 6 </table>
     <table name="#mpInitialConsume"> 7 9 11 13 </table>
     <table name="#mpConsume"> 28 38 46 52 </table>
@@ -1563,7 +1563,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="ShockVuln">
@@ -1584,7 +1584,7 @@
   <skill id="1260" levels="3" name="The Tact of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
+    <table name="#ench2mpConsume"> 160 156 153 152 148 145 143 140 137 135 132 129 127 124 121 119 116 113 111 108 104 102 100 96 94 92 88 85 84 80 </table>
     <table name="#ench2mpInitialConsume"> 40 39 38 38 37 36 35 35 34 33 33 32 31 31 30 29 29 28 27 27 26 25 25 24 23 23 22 21 21 20 </table>
     <table name="#rEvas"> 2 3 4 </table>
     <table name="#mpInitialConsume"> 27 34 40 </table>
@@ -1600,7 +1600,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rEvas" stackType="rEvas">
@@ -1616,7 +1616,7 @@
   <skill id="1261" levels="2" name="The Rage of Pa'agrio" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 147 144 142 140 136 135 132 129 127 124 122 120 116 115 112 109 107 104 101 100 96 95 92 89 87 84 81 80 76 75 </table>
+    <table name="#ench2mpConsume"> 147 144 142 140 136 135 132 129 127 124 122 120 116 115 112 109 107 104 101 100 96 95 92 89 87 84 81 80 76 75 </table>
     <table name="#ench2mpInitialConsume"> 36 36 35 35 34 33 33 32 31 31 30 30 29 28 28 27 26 26 25 25 24 23 23 22 21 21 20 20 19 18 </table>
     <table name="#mAtk"> 1.1 1.16 </table>
     <table name="#pAtk"> 1.05 1.08 </table>
@@ -1639,7 +1639,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="berserk">
@@ -1669,7 +1669,7 @@
   <skill id="1262" levels="5" name="Transfer Pain" enchantLevels1="30">
     <table name="#mpInitialConsume"> 6 8 10 10 12 </table>
     <table name="#power"> 10 20 30 40 50 </table>
-    <table name="#ench1Power"> 51 52 52 53 54 54 55 56 56 57 57 58 59 59 60 61 61 62 63 63 64 64 65 66 66 67 68 68 69 70 </table>
+    <table name="#ench1power"> 51 52 52 53 54 54 55 56 56 57 57 58 59 59 60 61 61 62 63 63 64 64 65 66 66 67 68 68 69 70 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
@@ -1681,14 +1681,14 @@
     </for>
     <enchant1for>
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.2">
-        <add order="0x40" stat="transDam" val="#ench1Power"/>
+        <add order="0x40" stat="transDam" val="#ench1power"/>
       </effect>
     </enchant1for>
   </skill>
   <skill id="1263" levels="13" name="Curse Gloom" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#mpInitialConsume"> 7 8 9 10 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 31 35 38 41 43 44 46 48 49 51 52 53 55 </table>
@@ -1707,8 +1707,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="30" val="0" stackOrder="1" stackType="matkdebuff">
@@ -1738,9 +1738,9 @@
     <set name="effectRange" val="1250"/>
   </skill>
   <skill id="1265" levels="14" name="Solar Flare" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 66 65 64 64 62 61 60 60 58 57 56 56 56 54 53 52 52 50 49 48 48 46 45 44 44 42 41 40 40 38 </table>
+    <table name="#ench2mpConsume"> 66 65 64 64 62 61 60 60 58 57 56 56 56 54 53 52 52 50 49 48 48 46 45 44 44 42 41 40 40 38 </table>
     <table name="#ench2mpInitialConsume"> 16 16 16 16 15 15 15 15 14 14 14 14 14 13 13 13 13 12 12 12 12 11 11 11 11 10 10 10 10 9 </table>
-    <table name="#ench1Power"> 136 137 137 138 139 140 141 141 142 143 144 145 145 146 147 148 149
+    <table name="#ench1power"> 136 137 137 138 139 140 141 141 142 143 144 145 145 146 147 148 149
       149 150 151 152 153 153 154 155 156 157 158 158 159 </table>
     <table name="#mpInitialConsume"> 8 9 10 11 12 13 13 14 14 15 15 16 16 17 </table>
     <table name="#mpConsume"> 35 39 43 47 51 53 55 58 59 61 63 65 67 68 </table>
@@ -1763,8 +1763,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
   </skill>
@@ -1790,13 +1790,13 @@
     <set name="effectRange" val="1250"/>
   </skill>
   <skill id="1267" levels="14" name="Shadow Flare" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 66 65 64 64 62 61 60 60 58 57 56 56 56 54 53 52 52 50 49 48 48 46 45 44 44 42 41 40 40 38 </table>
+    <table name="#ench2mpConsume"> 66 65 64 64 62 61 60 60 58 57 56 56 56 54 53 52 52 50 49 48 48 46 45 44 44 42 41 40 40 38 </table>
     <table name="#ench2mpInitialConsume"> 16 16 16 16 15 15 15 15 14 14 14 14 14 13 13 13 13 12 12 12 12 11 11 11 11 10 10 10 10 9 </table>
     <table name="#mpInitialConsume"> 8 9 10 11 12 13 13 14 14 15 15 16 16 17 </table>
     <table name="#mpConsume"> 35 39 43 47 51 53 55 58 59 61 63 65 67 68 </table>
     <table name="#magicLvl"> 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#power"> 65 73 81 89 98 102 107 111 115 119 123 127 131 135 </table>
-    <table name="#ench1Power"> 136 137 137 138 139 140 141 141 142 143 144 145 145 146 147 148
+    <table name="#ench1power"> 136 137 137 138 139 140 141 141 142 143 144 145 145 146 147 148
       149 149 150 151 152 153 153 154 155 156 157 158 158 159 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
       42 43 44 45 46 47 48 49 50 </table>
@@ -1815,15 +1815,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
   </skill>
   <skill id="1268" levels="4" name="Vampiric Rage" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 52 51 50 49 48 47 46 45 44 44 43 42 40 40 39 38 37 36 36 35 34 32 32 31 30 29 28 28 27 26 </table>
+    <table name="#ench2mpConsume"> 52 51 50 49 48 47 46 45 44 44 43 42 40 40 39 38 37 36 36 35 34 32 32 31 30 29 28 28 27 26 </table>
     <table name="#ench2mpInitialConsume"> 13 12 12 12 12 11 11 11 11 11 10 10 10 10 9 9 9 9 9 8 8 8 8 7 7 7 7 7 6 6 </table>
     <table name="#mpInitialConsume"> 5 7 10 13 </table>
     <table name="#mpConsume"> 21 31 43 53 </table>
@@ -1840,7 +1840,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#absorbDam" stackType="vampRage">
@@ -1854,9 +1854,9 @@
     </enchant1for>
   </skill>
   <skill id="1269" levels="9" name="Curse Disease" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
+    <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
-    <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88
+    <table name="#ench1power"> 80 81 82 82 83 84 84 85 86 86 87 88
       88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
     <table name="#ench3gainHp"> 0.5 0.49 0.48 0.47 0.46 0.45 0.45 0.44 0.43 0.42 0.41 0.4 0.4 0.39 0.38 0.37 0.36 0.35 0.35 0.34 0.33 0.32 0.31 0.3 0.3 0.29 0.28 0.27 0.26 0.25 </table>
     <table name="#mpInitialConsume"> 10 11 11 12 12 12 13 13 13 </table>
@@ -1876,8 +1876,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Debuff" time="120" val="0">
@@ -1967,13 +1967,13 @@
     <set name="effectRange" val="900"/>
   </skill>
   <skill id="1275" levels="14" name="Aura Bolt" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 26 26 25 25 24 24 24 24 24 24 22 22 21 21 21 20 20 20 20 20 18 18 18 17 17 16 16 16 16 16 </table>
+    <table name="#ench2mpConsume"> 26 26 25 25 24 24 24 24 24 24 22 22 21 21 21 20 20 20 20 20 18 18 18 17 17 16 16 16 16 16 </table>
     <table name="#ench2mpInitialConsume"> 6 6 6 6 6 6 6 6 6 6 5 5 5 5 5 5 5 5 5 5 4 4 4 4 4 4 4 4 4 4 </table>
     <table name="#mpInitialConsume"> 3 4 4 4 5 5 5 5 6 6 6 6 6 7 </table>
     <table name="#mpConsume"> 14 16 18 19 21 22 22 23 24 25 26 26 27 28 </table>
     <table name="#power"> 26 29 33 36 39 41 43 45 46 48 50 51 53 54 </table>
     <table name="#magicLvl"> 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
-    <table name="#ench1Power"> 55 55 55 56 56 56 57 57 57 58 58 58 58
+    <table name="#ench1power"> 55 55 55 56 56 56 57 57 57 58 58 58 58
       59 59 59 60 60 60 61 61 61 62 62 62 63 63 63 64 64 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1987,8 +1987,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <!-- Needs PvP Power increase for enchant 3! -->
   </skill>
@@ -2160,7 +2160,7 @@
   <skill id="1282" levels="2" name="Pa'agrian Haste" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 185 182 179 176 173 170 166 163 160 157 154 151 148 144 141 138 135 132 128 126 122 119 116 112 110 107 103 100 96 94 </table>
+    <table name="#ench2mpConsume"> 185 182 179 176 173 170 166 163 160 157 154 151 148 144 141 138 135 132 128 126 122 119 116 112 110 107 103 100 96 94 </table>
     <table name="#ench2mpInitialConsume"> 46 45 44 44 43 42 41 40 40 39 38 37 37 36 35 34 33 33 32 31 30 29 29 28 27 26 25 25 24 23 </table>
     <table name="#mpInitialConsume"> 42 47 </table>
     <table name="#mpConsume"> 170 189 </table>
@@ -2176,7 +2176,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#runSpd" stackType="speed_up">
@@ -2191,7 +2191,7 @@
   </skill>
   <skill id="1283" levels="13" name="Soul Guard" enchantLevels1="30">
     <table name="#power"> 293.3 333.2 375.9 421.4 445.2 469.7 494.9 520.1 546 571.9 598.5 625.8 653.1 </table>
-    <table name="#ench1Power"> 683.76 687.82 691.88 695.94 700 704.06 708.12 712.18 716.24 720.3 724.36 728.42 732.48 736.54
+    <table name="#ench1power"> 683.76 687.82 691.88 695.94 700 704.06 708.12 712.18 716.24 720.3 724.36 728.42 732.48 736.54
       740.6 744.66 748.72 752.78 756.84 760.9 764.96 769.02 773.08 777.14 781.2 785.26 789.32 793.38 797.44 801.5 </table>
     <table name="#mdot"> 15 18 18 21 24 24 24 24 27 27 27 30 30 </table>
     <table name="#mpInitialConsume"> 7 8 10 10 10 10 11 11 12 12 12 13 13 </table>
@@ -2207,14 +2207,14 @@
     </for>
     <enchant1for>
       <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="30">
-        <add order="0x40" stat="pDef" val="#ench1Power"/>
+        <add order="0x40" stat="pDef" val="#ench1power"/>
       </effect>
     </enchant1for>
   </skill>
   <skill id="1284" levels="3" name="Chant of Revenge" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1time"> 1240 1280 1320 1360 1400 1440 1480 1520 1560 1600 1640 1680 1720
       1760 1800 1840 1880 1920 1960 2000 2040 2080 2120 2160 2200 2240 2280 2320 2360 2400 </table>
-    <table name="#ench2MpConsume"> 213 209 206 202 198 195 191 188 184 180 176 173 169 166 162 159 155 151 148 144 140 136 132 130 126 122 119 115 112 108 </table>
+    <table name="#ench2mpConsume"> 213 209 206 202 198 195 191 188 184 180 176 173 169 166 162 159 155 151 148 144 140 136 132 130 126 122 119 115 112 108 </table>
     <table name="#ench2mpInitialConsume"> 53 52 51 50 49 48 47 47 46 45 44 43 42 41 40 39 38 37 37 36 35 34 33 32 31 30 29 28 28 27 </table>
     <table name="#mpInitialConsume"> 45 50 54 </table>
     <table name="#mpConsume"> 183 201 217 </table>
@@ -2230,7 +2230,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#power" stackType="DmgShield">
@@ -2315,7 +2315,7 @@
     <!-- Needs PvP Power increase for enchant 3! -->
   </skill>
   <skill id="1289" levels="1" name="Inferno" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench1Power"> 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 </table>
+    <table name="#ench1power"> 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 </table>
     <table name="#enchant2mpInitialConsume"> 49 49 49 48 48 48 47 47 47 46 46 46 45 45 45 44 44 44 43 43 43 42 42 42 41 41 41 40 40 40 </table>
     <table name="#enchant2mpConsume"> 197 196 196 193 192 192 189 188 188 185 184 184 181 180 180 177 176 176 173 172 172 169 168 168 165 164 164 161 160 160 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
@@ -2335,7 +2335,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
@@ -2345,7 +2345,7 @@
     </for>
   </skill>
   <skill id="1290" levels="1" name="Blizzard" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench1Power"> 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 </table>
+    <table name="#ench1power"> 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 </table>
     <table name="#enchant2mpInitialConsume"> 49 49 49 48 48 48 47 47 47 46 46 46 45 45 45 44 44 44 43 43 43 42 42 42 41 41 41 40 40 40 </table>
     <table name="#enchant2mpConsume"> 197 196 196 193 192 192 189 188 188 185 184 184 181 180 180 177 176 176 173 172 172 169 168 168 165 164 164 161 160 160 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
@@ -2365,7 +2365,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
@@ -2376,7 +2376,7 @@
     </for>
   </skill>
   <skill id="1291" levels="1" name="Demon Wind" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench1Power"> 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 </table>
+    <table name="#ench1power"> 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 </table>
     <table name="#enchant2mpInitialConsume"> 49 49 49 48 48 48 47 47 47 46 46 46 45 45 45 44 44 44 43 43 43 42 42 42 41 41 41 40 40 40 </table>
     <table name="#enchant2mpConsume"> 197 196 196 193 192 192 189 188 188 185 184 184 181 180 180 177 176 176 173 172 172 169 168 168 165 164 164 161 160 160 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
@@ -2396,7 +2396,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
@@ -2407,7 +2407,7 @@
     </for>
   </skill>
   <skill id="1292" levels="1" name="Elemental Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench1Power"> 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 </table>
+    <table name="#ench1power"> 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 </table>
     <table name="#enchant2mpInitialConsume"> 49 49 49 48 48 48 47 47 47 46 46 46 45 45 45 44 44 44 43 43 43 42 42 42 41 41 41 40 40 40 </table>
     <table name="#enchant2mpConsume"> 197 196 196 193 192 192 189 188 188 185 184 184 181 180 180 177 176 176 173 172 172 169 168 168 165 164 164 161 160 160 </table>
     <set name="mpInitialConsume" val="50"/>
@@ -2423,13 +2423,13 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <!-- Needs PvP Power increase for enchant 3! -->
   </skill>
   <skill id="1293" levels="1" name="Elemental Symphony" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench1Power"> 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 </table>
+    <table name="#ench1power"> 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 </table>
     <table name="#enchant2mpInitialConsume"> 49 49 49 48 48 48 47 47 47 46 46 46 45 45 45 44 44 44 43 43 43 42 42 42 41 41 41 40 40 40 </table>
     <table name="#enchant2mpConsume"> 197 196 196 193 192 192 189 188 188 185 184 184 181 180 180 177 176 176 173 172 172 169 168 168 165 164 164 161 160 160 </table>
     <set name="mpInitialConsume" val="50"/>
@@ -2445,13 +2445,13 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <!-- Needs PvP Power increase for enchant 3! -->
   </skill>
   <skill id="1294" levels="1" name="Elemental Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench1Power"> 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 </table>
+    <table name="#ench1power"> 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 </table>
     <table name="#enchant2mpInitialConsume"> 49 49 49 48 48 48 47 47 47 46 46 46 45 45 45 44 44 44 43 43 43 42 42 42 41 41 41 40 40 40 </table>
     <table name="#enchant2mpConsume"> 197 196 196 193 192 192 189 188 188 185 184 184 181 180 180 177 176 176 173 172 172 169 168 168 165 164 164 161 160 160 </table>
     <set name="mpInitialConsume" val="50"/>
@@ -2467,19 +2467,19 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
     <!-- Needs PvP Power increase for enchant 3! -->
   </skill>
   <skill id="1295" levels="9" name="Aqua Splash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 80 78 77 76 76 74 73 72 70 69 68 68 66 64 64 62 61 60 60 58 56 56 54 53 52 52 49 48 48 46 </table>
+    <table name="#ench2mpConsume"> 80 78 77 76 76 74 73 72 70 69 68 68 66 64 64 62 61 60 60 58 56 56 54 53 52 52 49 48 48 46 </table>
     <table name="#ench2mpInitialConsume"> 20 19 19 19 19 18 18 18 17 17 17 17 16 16 16 15 15 15 15 14 14 14 13 13 13 13 12 12 12 11 </table>
     <table name="#mpInitialConsume"> 16 16 17 17 18 19 19 20 20 </table>
     <table name="#mpConsume"> 64 66 69 71 74 76 78 80 82 </table>
     <table name="#magicLvl"> 58 60 62 64 66 68 70 72 74 </table>
     <table name="#power"> 41 43 45 46 48 50 51 53 54 </table>
-    <table name="#ench1Power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60 61 61 61
+    <table name="#ench1power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60 61 61 61
       62 62 62 63 63 63 64 64 </table>
     <table name="#ench3ElementPower"> 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
       41 42 43 44 45 46 47 48 49 50 </table>
@@ -2498,15 +2498,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
   </skill>
   <skill id="1296" levels="9" name="Rain of Fire" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
-    <table name="#ench2MpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
+    <table name="#ench2mpConsume"> 53 52 52 50 50 49 48 48 48 46 45 44 44 44 42 41 40 40 40 38 37 37 36 36 34 33 33 32 32 30 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 12 12 12 12 12 12 11 11 11 11 11 10 10 10 10 10 9 9 9 9 9 8 8 8 8 8 7 </table>
-    <table name="#ench1Power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60 61 61 61
+    <table name="#ench1power"> 55 55 55 56 56 56 57 57 57 58 58 58 58 59 59 59 60 60 60 61 61 61
       62 62 62 63 63 63 64 64 </table>
     <table name="#mpInitialConsume"> 10 11 11 12 12 12 13 13 13 </table>
     <table name="#mpConsume"> 43 44 46 48 49 51 52 53 55 </table>
@@ -2529,8 +2529,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
-    <enchant1 name="power" val="#ench1Power"/>
-    <enchant2 name="mpConsume" val="#ench2MpConsume"/>
+    <enchant1 name="power" val="#ench1power"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
   </skill>
@@ -2558,7 +2558,7 @@
   <skill id="1298" levels="14" name="Mass Slow" enchantLevels1="30" enchantLevels2="30">
     <table name="#magicLvl"> 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <table name="#hpConsume"> 505 514 522 531 540 548 557 565 573 581 589 596 603 610 </table>
-    <table name="#ench1Power"> 40 40 41 41 41 42 42 42 43 43 43 44
+    <table name="#ench1power"> 40 40 41 41 41 42 42 42 43 43 43 44
       44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <table name="#ench2hpConsume"> 603 596 589 582 575 568 561 554 546 539 532 525 518 511 504 497 489 482 475 468 461 454 447 440 433 425 418 411 404 397 </table>
     <set name="hpConsume" val="#hpConsume"/>
@@ -2575,7 +2575,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
-    <enchant1 name="power" val="#ench1Power"/>
+    <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="hpConsume" val="#ench2hpConsume"/>
     <for>
       <effect name="Debuff" time="60" val="0" stackOrder="0.5" stackType="RunSpeedDown">
