@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 import javolution.util.FastList;
