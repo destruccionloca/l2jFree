@@ -625,7 +625,7 @@ public class L2CubicInstance
 		{
 			// Get all visible objects in a spheric area near the L2Character
 			// Get a list of Party Members
-			FastList<L2PcInstance> partyList = party.getPartyMembers();
+			List<L2PcInstance> partyList = party.getPartyMembers();
 			for (L2Character partyMember : partyList)
 			{
 				if (!partyMember.isDead())

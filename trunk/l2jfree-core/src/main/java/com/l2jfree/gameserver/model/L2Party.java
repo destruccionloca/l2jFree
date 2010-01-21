@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.model;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javolution.util.FastList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSignsFestival;
@@ -62,7 +62,7 @@ public class L2Party
 {
 	private static final double[] BONUS_EXP_SP = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
 
-	private FastList<L2PcInstance> _members = null;
+	private CopyOnWriteArrayList<L2PcInstance> _members = null;
 	private boolean _pendingInvitation = false;
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
@@ -121,10 +121,10 @@ public class L2Party
 	 * returns all party members
 	 * @return
 	 */
-	public synchronized FastList<L2PcInstance> getPartyMembers()
+	public synchronized List<L2PcInstance> getPartyMembers()
 	{
 		if (_members == null)
-			_members = new FastList<L2PcInstance>();
+			_members = new CopyOnWriteArrayList<L2PcInstance>();
 		return _members;
 	}
 
@@ -134,7 +134,7 @@ public class L2Party
 	 */
 	private L2PcInstance getCheckedRandomMember(int ItemId, L2Character target)
 	{
-		List<L2PcInstance> availableMembers = new FastList<L2PcInstance>();
+		List<L2PcInstance> availableMembers = new ArrayList<L2PcInstance>(getPartyMembers().size());
 		for (L2PcInstance member : getPartyMembers())
 		{
 			if (member.getInventory().validateCapacityByItemId(ItemId) &&
@@ -716,11 +716,11 @@ public class L2Party
 	public void distributeAdena(L2PcInstance player, long adena, L2Character target)
 	{
 		// Get all the party members
-		FastList<L2PcInstance> membersList = getPartyMembers();
+		List<L2PcInstance> membersList = getPartyMembers();
 		
 		// Check the number of party members that must be rewarded
 		// (The party member must be in range to receive its reward)
-		FastList<L2PcInstance> toReward = new FastList<L2PcInstance>();
+		List<L2PcInstance> toReward = new ArrayList<L2PcInstance>(membersList.size());
 		for (L2PcInstance member : membersList)
 		{
 			if (!Util.checkIfInRange(Config.ALT_PARTY_RANGE2, target, member, true))
@@ -873,7 +873,7 @@ public class L2Party
 
 	private List<L2Playable> getValidMembers(List<L2Playable> members, int topLvl)
 	{
-		List<L2Playable> validMembers = new FastList<L2Playable>();
+		List<L2Playable> validMembers = new ArrayList<L2Playable>(members.size());
 		
 		//Fixed LevelDiff cutoff point
 		if (Config.PARTY_XP_CUTOFF_METHOD.equalsIgnoreCase("level"))
@@ -1012,6 +1012,6 @@ public class L2Party
 
 	public synchronized L2PcInstance getLeader()
 	{
-		return _members == null ? null : _members.getFirst();
+		return _members == null ? null : _members.get(0);
 	}
 }
