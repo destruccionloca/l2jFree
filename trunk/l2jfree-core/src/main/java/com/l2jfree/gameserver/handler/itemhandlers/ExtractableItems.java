@@ -118,8 +118,7 @@ public class ExtractableItems implements IItemHandler
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 					sm.addItemName(createItemID[i]);
-					if (createAmount[i] > 1)
-						sm.addNumber(createAmount[i]);
+					sm.addNumber(createAmount[i]);
 					activeChar.sendPacket(sm);
 				}
 			}

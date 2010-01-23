@@ -40,10 +40,10 @@ public abstract class BossSpawnManager
 {
 	protected final static Log						_log	= LogFactory.getLog(BossSpawnManager.class);
 
-	protected FastMap<Integer, L2Boss>				_bosses;
-	protected FastMap<Integer, L2Spawn>				_spawns;
-	protected FastMap<Integer, StatsSet>			_storedInfo;
-	protected FastMap<Integer, ScheduledFuture<?>>	_schedules;
+	protected final FastMap<Integer, L2Boss>				_bosses;
+	protected final FastMap<Integer, L2Spawn>				_spawns;
+	protected final FastMap<Integer, StatsSet>				_storedInfo;
+	protected final FastMap<Integer, ScheduledFuture<?>>	_schedules;
 
 	public static enum StatusEnum
 	{
@@ -52,10 +52,10 @@ public abstract class BossSpawnManager
 
 	public BossSpawnManager()
 	{
-		_bosses = new FastMap<Integer, L2Boss>();
-		_schedules = new FastMap<Integer, ScheduledFuture<?>>();
-		_storedInfo = new FastMap<Integer, StatsSet>();
-		_spawns = new FastMap<Integer, L2Spawn>();
+		_bosses = new FastMap<Integer, L2Boss>().setShared(true);
+		_schedules = new FastMap<Integer, ScheduledFuture<?>>().setShared(true);
+		_storedInfo = new FastMap<Integer, StatsSet>().setShared(true);
+		_spawns = new FastMap<Integer, L2Spawn>().setShared(true);
 		init();
 	}
 
