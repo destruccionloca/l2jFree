@@ -20981,6 +20981,7 @@ SELECT createSkillEnchant(100, 1, 15); -- Stun Attack
 SELECT createSkillEnchant2(105, 3); -- Freezing Strike
 SELECT createSkillEnchant2(107, 3); -- Holy Aura
 SELECT createSkillEnchant2(110, 3); -- Ultimate Defense
+SELECT createSkillEnchant2(121, 2); -- Battle Roar
 SELECT createSkillEnchant2(144, 2); -- Dual Weapon Mastery
 SELECT createSkillEnchant(153, 1, 4); -- Shield Mastery
 SELECT createSkillEnchant2(205, 3); -- Blunt Weapon Mastery
@@ -21002,8 +21003,8 @@ SELECT createSkillEnchant2(235, 2); -- Robe Mastery
 SELECT createSkillEnchant2(235, 3); -- Robe Mastery
 SELECT createSkillEnchant2(251, 2); -- Robe Mastery
 SELECT createSkillEnchant2(251, 3); -- Robe Mastery
--- SELECT createSkillEnchant(252, 1, 33); -- Light Armor Mastery
--- SELECT createSkillEnchant2(252, 2); -- Light Armor Mastery
+SELECT createSkillEnchant(252, 1, 45); -- Light Armor Mastery
+SELECT createSkillEnchant2(252, 2); -- Light Armor Mastery
 SELECT createSkillEnchant2(254, 3); -- Spoil
 SELECT createSkillEnchant(258, 1, 33); -- Light Armor Mastery
 SELECT createSkillEnchant2(258, 2); -- Light Armor Mastery
@@ -21105,12 +21106,39 @@ SELECT createSkillEnchant2(494, 7); -- Shoulder Charge
 SELECT createSkillEnchant2(496, 7); -- Slashing Blade
 SELECT createSkillEnchant2(497, 7); -- Crush of Pain
 SELECT createSkillEnchant2(498, 3); -- Contagion
+SELECT createSkillEnchant(500, 1, 2); -- True Berserker
+SELECT createSkillEnchant2(500, 2); -- True Berserker
+SELECT createSkillEnchant(501, 1, 12); -- Violent Temper
+SELECT createSkillEnchant2(501, 2); -- Violent Temper
 SELECT createSkillEnchant(502, 1, 5); -- Life to Soul
 SELECT createSkillEnchant2(502, 2); -- Life to Soul
+SELECT createSkillEnchant2(504, 7); -- Triple Thrust
+SELECT createSkillEnchant2(505, 7); -- Shining Edge
+SELECT createSkillEnchant2(506, 4); -- Checkmate
+SELECT createSkillEnchant2(507, 7); -- Twin Shot
+SELECT createSkillEnchant2(508, 7); -- Rising Shot
+SELECT createSkillEnchant2(509, 3); -- Bleed Shot
 SELECT createSkillEnchant(510, 1, 5); -- Deadly Roulette
 SELECT createSkillEnchant2(510, 2); -- Deadly Roulette
+SELECT createSkillEnchant(514, 1, 9); -- Fire Trap
+SELECT createSkillEnchant2(514, 2); -- Fire Trap
+SELECT createSkillEnchant(515, 1, 6); -- Poison Trap
+SELECT createSkillEnchant2(515, 2); -- Poison Trap
+SELECT createSkillEnchant(516, 1, 6); -- Slow Trap
+SELECT createSkillEnchant2(516, 2); -- Slow Trap
+SELECT createSkillEnchant(517, 1, 5); -- Flash Trap
+SELECT createSkillEnchant2(517, 2); -- Flash Trap
+SELECT createSkillEnchant(518, 1, 8); -- Binding Trap
+SELECT createSkillEnchant2(518, 2); -- Binding Trap
 SELECT createSkillEnchant(521, 1, 8); -- Sharpshooting
 SELECT createSkillEnchant2(521, 2); -- Sharpshooting
+SELECT createSkillEnchant(522, 1, 4); -- Real Target
+SELECT createSkillEnchant2(522, 2); -- Real Target
+SELECT createSkillEnchant2(522, 3); -- Real Target
+SELECT createSkillEnchant2(522, 4); -- Real Target
+SELECT createSkillEnchant(525, 1, 6); -- Decoy
+SELECT createSkillEnchant2(525, 2); -- Decoy
+SELECT createSkillEnchant2(525, 3); -- Decoy
 SELECT createSkillEnchant(625, 1, 1); -- Soul Gathering
 SELECT createSkillEnchant2(625, 2); -- Soul Gathering
 SELECT createSkillEnchant(626, 1, 4); -- Critical Sense
@@ -21327,13 +21355,13 @@ END//
 delimiter ;
 
 
-SELECT createSpecialSkillEnchant(328, 1, 1);
-SELECT createSpecialSkillEnchant(328, 2, 1);
-SELECT createSpecialSkillEnchant(328, 3, 1);
-SELECT createSpecialSkillEnchant(329, 1, 1);
-SELECT createSpecialSkillEnchant(329, 2, 1);
-SELECT createSpecialSkillEnchant(335, 1, 1);
-SELECT createSpecialSkillEnchant(335, 2, 1);
+SELECT createSpecialSkillEnchant(328, 1, 1); -- Wisdom
+SELECT createSpecialSkillEnchant(328, 2, 1); -- Wisdom
+SELECT createSpecialSkillEnchant(328, 3, 1); -- Wisdom
+SELECT createSpecialSkillEnchant(329, 1, 1); -- Health
+SELECT createSpecialSkillEnchant(329, 2, 1); -- Health
+SELECT createSpecialSkillEnchant(335, 1, 1); -- Fortitude
+SELECT createSpecialSkillEnchant(335, 2, 1); -- Fortitude
 SELECT createSpecialSkillEnchant(336, 1, 1); -- Arcane Wisdom
 SELECT createSpecialSkillEnchant(337, 1, 1); -- Arcane Power
 SELECT createSpecialSkillEnchant(338, 1, 1); -- Arcane Agility
@@ -21425,10 +21453,17 @@ SELECT createSpecialSkillEnchant(436, 1, 1); -- Divine Lore
 SELECT createSpecialSkillEnchant(437, 1, 1); -- Song of Silence
 SELECT createSpecialSkillEnchant(437, 2, 1); -- Song of Silence
 SELECT createSpecialSkillEnchant(440, 1, 1); -- Braveheart
-SELECT createSpecialSkillEnchant(526, 1, 1);
-SELECT createSpecialSkillEnchant(526, 2, 1);
-SELECT createSpecialSkillEnchant(526, 3, 1);
-SELECT createSpecialSkillEnchant(526, 4, 1);
+SELECT createSpecialSkillEnchant(526, 1, 1); -- Enuma Elish
+SELECT createSpecialSkillEnchant(526, 2, 1); -- Enuma Elish
+SELECT createSpecialSkillEnchant(526, 3, 1); -- Enuma Elish
+SELECT createSpecialSkillEnchant(526, 4, 1); -- Enuma Elish
+SELECT createSpecialSkillEnchant(528, 1, 1); -- Shield of Faith
+SELECT createSpecialSkillEnchant(528, 2, 1); -- Shield of Faith
+SELECT createSpecialSkillEnchant(528, 3, 1); -- Shield of Faith
+SELECT createSpecialSkillEnchant(529, 1, 1); -- Song of Elemental
+SELECT createSpecialSkillEnchant(529, 2, 1); -- Song of Elemental
+SELECT createSpecialSkillEnchant(530, 1, 1);Dance of Alignment
+SELECT createSpecialSkillEnchant(530, 2, 1);Dance of Alignment
 SELECT createSpecialSkillEnchant(793, 1, 1);
 SELECT createSpecialSkillEnchant(793, 2, 1);
 SELECT createSpecialSkillEnchant(793, 3, 1);
