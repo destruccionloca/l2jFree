@@ -24,7 +24,7 @@
       <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.2">
         <mul order="0x30" stat="pAtk" val="#ench1pAtk"/>
         <mul order="0x30" stat="pAtkSpd" val="1.08"/>
-        <add order="0x40" stat="accCombat" val="#ench1accCombat"/> <!-- Needs fix, should be #ench1accCombat -->
+        <add order="0x40" stat="accCombat" val="#ench1accCombat"/>
         <mul order="0x30" stat="pDef" val="0.9"/>
         <sub order="0x40" stat="rEvas" val="4"/>
       </effect>
