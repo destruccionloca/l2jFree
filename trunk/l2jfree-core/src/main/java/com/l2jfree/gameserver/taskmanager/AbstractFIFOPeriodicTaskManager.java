@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
+import java.util.Collection;
+
 import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
@@ -35,6 +37,19 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 		try
 		{
 			_queue.add(cha);
+		}
+		finally
+		{
+			writeUnlock();
+		}
+	}
+	
+	public final void addAll(Collection<T> c)
+	{
+		writeLock();
+		try
+		{
+			_queue.addAll(c);
 		}
 		finally
 		{

@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.threadmanager;
 
+import java.util.Collection;
+
 import javolution.util.FastList;
 
 /**
@@ -28,6 +30,16 @@ public abstract class FIFOSimpleExecutableQueue<T> extends FIFOExecutableQueue
 		synchronized (_queue)
 		{
 			_queue.addLast(t);
+		}
+		
+		execute();
+	}
+	
+	public final void executeAll(Collection<T> c)
+	{
+		synchronized (_queue)
+		{
+			_queue.addAll(c);
 		}
 		
 		execute();
