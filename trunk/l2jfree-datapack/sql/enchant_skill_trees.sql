@@ -21462,8 +21462,8 @@ SELECT createSpecialSkillEnchant(528, 2, 1); -- Shield of Faith
 SELECT createSpecialSkillEnchant(528, 3, 1); -- Shield of Faith
 SELECT createSpecialSkillEnchant(529, 1, 1); -- Song of Elemental
 SELECT createSpecialSkillEnchant(529, 2, 1); -- Song of Elemental
-SELECT createSpecialSkillEnchant(530, 1, 1);Dance of Alignment
-SELECT createSpecialSkillEnchant(530, 2, 1);Dance of Alignment
+SELECT createSpecialSkillEnchant(530, 1, 1); -- Dance of Alignment
+SELECT createSpecialSkillEnchant(530, 2, 1); -- Dance of Alignment
 SELECT createSpecialSkillEnchant(793, 1, 1);
 SELECT createSpecialSkillEnchant(793, 2, 1);
 SELECT createSpecialSkillEnchant(793, 3, 1);
