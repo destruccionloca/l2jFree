@@ -764,7 +764,7 @@
     <enchant2for>
       <effect name="TargetMe" time="3" val="0" noicon="1"/>
       <effect name="Debuff" time="30" val="0">
-        <mul order="0x30" stat="pAtk" val="#ench2pDef"/>
+        <mul order="0x30" stat="pDef" val="#ench2pDef"/>
       </effect>
     </enchant2for>
     <enchant3for>
