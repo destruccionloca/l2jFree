@@ -1550,7 +1550,6 @@
     </for>
   </skill>
   <skill id="458" levels="1" name="Symbol of Energy">
-
     <set name="mpInitialConsume" val="36"/>
     <set name="mpConsume" val="44"/>
     <set name="magicLvl" val="80"/>
