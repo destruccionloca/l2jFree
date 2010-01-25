@@ -876,12 +876,12 @@ class Hellbound (JQuest):
 			if player.isTransformed() and player.getTransformationId() == NATIVE_TRANSFORMATION:
 				if int(actualPoints) < 999000:
 					htmltext = "bernarde_trade.htm"
-				elif int(actualPoints) >= 999000 and actualPoints < LEVEL4:
+				elif int(actualPoints) >= 999000 and int(actualPoints) < LEVEL4:
 					htmltext = "bernarde_advanced.htm"
 				else:
 					htmltext = "bernarde.htm"
 			else:
-				htmltxt = "bernarde_no.htm"	
+				htmltxt = "bernarde_no.htm"
 		return htmltext
 
 	def onAdvEvent (self,event,npc,player):
