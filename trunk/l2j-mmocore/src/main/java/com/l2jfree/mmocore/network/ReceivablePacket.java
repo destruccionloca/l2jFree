@@ -88,6 +88,11 @@ public abstract class ReceivablePacket<T extends MMOConnection<T, RP, SP>, RP ex
 		getByteBuffer().position(getByteBuffer().position() + bytes);
 	}
 	
+	protected final void skipAll()
+	{
+		getByteBuffer().position(getByteBuffer().limit());
+	}
+	
 	protected final void readB(byte[] dst)
 	{
 		getByteBuffer().get(dst);
