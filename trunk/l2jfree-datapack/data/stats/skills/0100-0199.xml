@@ -283,8 +283,8 @@
     <table name="#ench2reuseDelay"> 890000 880000 870000 860000 850000 840000 830000 820000 810000 800000 790000
       780000 770000 760000 750000 740000 730000 720000 710000 700000 690000 680000 670000 660000 650000 640000
       630000 620000 610000 600000 </table>
-    <table name="#ench3Penalty"> 0.03 0.06 0.09 0.12 0.15 0.18 0.21 0.24 0.27 0.3 0.33 0.36 0.39 0.42 0.45 0.48 0.51 0.54
-      0.57 0.6 0.63 0.66 0.69 0.72 0.75 0.78 0.81 0.84 0.87 0.9 </table> <!-- Guess -->
+    <table name="#ench3Penalty"> 0.2 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.3 0.31 0.32 0.33 0.34
+      0.35 0.36 0.37 0.38 0.39 0.4 0.41 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 </table> <!-- Guess -->
     <table name="#mpConsume"> 10 21 </table>
     <table name="#pDef"> 1800 3600 </table>
     <table name="#mDef"> 1350 2700 </table>
@@ -319,7 +319,7 @@
       </effect>
     </enchant2for>
     <enchant3for>
-      <effect name="ImmobileBuff" time="30" val="0" abnormal="invulnerable" stackOrder="1" stackType="pd_up_special">
+      <effect name="Buff" time="30" val="0" abnormal="invulnerable" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>

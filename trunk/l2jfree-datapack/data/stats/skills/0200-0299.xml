@@ -288,8 +288,8 @@
     </enchant2for>
   </skill>
   <skill id="221" levels="1" name="Silent Move" enchantLevels1="30">
-    <table name="#ench3Penalty"> 0.6 0.61 0.62 0.62 0.63 0.64 0.64 0.64 0.65 0.66 0.67 0.68 0.68
-      0.68 0.69 0.69 0.69 0.69 0.7 0.71 0.72 0.73 0.74 0.75 0.76 0.77 0.78 0.79 0.79 0.8 </table> <!-- Guess -->
+    <table name="#ench1Penalty"> 0.2 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.3 0.31 0.32 0.33 0.34
+      0.35 0.36 0.37 0.38 0.39 0.4 0.41 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 </table> <!-- Guess -->
     <set name="mpInitialConsume" val="7"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
@@ -305,7 +305,7 @@
     </for>
     <enchant1for>
       <effect count="0x7fffffff" name="SilentMove" abnormal="stealth" time="3" val="15">
-        <mul order="0x30" stat="runSpd" val="#ench3Penalty"/>
+        <mul order="0x30" stat="runSpd" val="#ench1Penalty"/>
       </effect>
     </enchant1for>
   </skill>
