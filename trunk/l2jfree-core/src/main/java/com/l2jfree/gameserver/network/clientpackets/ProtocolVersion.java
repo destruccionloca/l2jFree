@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
  */
 public class ProtocolVersion extends L2GameClientPacket
 {
-	private static final String	_C__PROTOCOLVERSION	= "[C] 0E ProtocolVersion c[unk]";
+	private static final String	_C__PROTOCOLVERSION	= "[C] 0E ProtocolVersion c[unk] (changes often)";
 
 	private int					_version;
 
@@ -36,7 +36,10 @@ public class ProtocolVersion extends L2GameClientPacket
 		readB(b);
 		_log.info(HexUtil.printData(b));
 		*/
-		skip(260);
+		if (Config.STRICT_FINAL)
+			skip(260);
+		else
+			skipAll();
 	}
 
 	@Override

@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -26,7 +27,7 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public class AuthLogin extends L2GameClientPacket
 {
-	private static final String	_C__AUTHLOGIN	= "[C] 2B AuthLogin c[sdddddddd] (unk)";
+	private static final String	_C__AUTHLOGIN	= "[C] 2B AuthLogin c[sdddddddd] (unk) (changes often)";
 
 	// loginName + keys must match what the login server used.
 	private String				_loginName;
@@ -43,7 +44,10 @@ public class AuthLogin extends L2GameClientPacket
 		_playKey1 = readD();
 		_loginKey1 = readD();
 		_loginKey2 = readD();
-		skip(16);
+		if (Config.STRICT_FINAL)
+			skip(16);
+		else
+			skipAll();
 	}
 
 	@Override
