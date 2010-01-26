@@ -510,6 +510,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="overHit" val="true"/>
+    <set name="SSBoost" val="1.05"/>
   </skill>
   <skill id="929" levels="1" name="Spirit of the Cat">
     <set name="hitTime" val="2000"/>

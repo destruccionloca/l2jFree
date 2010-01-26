@@ -1892,6 +1892,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="overHit" val="true"/>
+    <set name="SSBoost" val="1.05"/>
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="power" val="#ench2power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>

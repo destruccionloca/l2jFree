@@ -173,7 +173,7 @@
     <set name="skillType" val="BLOW"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
-    <set name="SSBoost" val="2.0"/>
+    <set name="SSBoost" val="1.05"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="soulMaxConsumeCount" val="5"/>
@@ -1872,6 +1872,7 @@
     <set name="magicLvl" val="50"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
+    <set name="SSBoost" val="1.05"/>
     <set name="reuseDelay" val="11250"/>
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_ONE"/>
