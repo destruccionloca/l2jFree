@@ -1399,7 +1399,17 @@ public final class Formulas
 		double damage = attacker.getPAtk(target);
 		damage += calcValakasAttribute(attacker, target, skill);
 		
-		if (ss)
+		if (skill != null)
+		{
+			double skillPower = skill.getPower(attacker);
+			float ssBoost = skill.getSSBoost();
+			
+			if (ss && ssBoost > 0)
+				skillPower *= ssBoost;
+			
+			damage += skillPower;
+		} // in retail, at least blow skills do not get 2x damage just by having ss on... NO!
+		else if (ss)
 			damage *= 2;
 		
 		double defence = target.getPDef(attacker);
@@ -1412,17 +1422,6 @@ public final class Formulas
 				break;
 			case SHIELD_DEFENSE_PERFECT_BLOCK: // perfect block
 				return 1.;
-		}
-		
-		if (skill != null)
-		{
-			double skillPower = skill.getPower(attacker);
-			float ssBoost = skill.getSSBoost();
-			
-			if (ss && ssBoost > 0)
-				skillPower *= ssBoost;
-			
-			damage += skillPower;
 		}
 		
 		if (crit)

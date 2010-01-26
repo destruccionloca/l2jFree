@@ -1145,19 +1145,6 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _aggroPoints;
 	}
 
-	public final boolean useSoulShot()
-	{
-		switch (getSkillType().getRoot())
-		{
-			case PDAM:
-			case CHARGEDAM:
-			case BLOW:
-				return true;
-			default:
-				return false;
-		}
-	}
-
 	public final boolean useSpiritShot()
 	{
 		return isMagic();
