@@ -32689,3 +32689,26 @@ INSERT INTO `droplist` VALUES
 (29096,960,1,1,2,247447),   -- Scroll: Enchant Armor (Grade S)
 (29096,6577,1,1,2,4124),    -- Blessed Scroll: Enchant Weapon (Grade S)
 (29096,8920,1,1,3,247447);  -- Angel Halo
+
+-- Keltas
+DELETE FROM `droplist` WHERE `mobId` = 22341;
+INSERT INTO `droplist` VALUES 
+(22341,57,64685,129494,0,700000),-- Adena
+(22341,9599,4,12,100,708000),-- Ancient Tome of the Demon
+(22341,9684,1,1,101,45313),-- Native Treasure
+(22341,289,1,1,1,262),-- Soul Bow
+(22341,5534,1,1,1,74642),-- Soul Bow Stave
+(22341,9551,1,1,200,36251),-- Divine Stone
+(22341,4042,1,1,2,75521),-- Enria
+(22341,1867,28,84,2,107887),-- Animal Skin
+(22341,1872,60,180,2,50348),-- Animal Bone
+(22341,1894,5,15,2,15899),-- Crafted Leather
+(22341,1882,27,81,2,18647),-- Leather
+(22341,959,1,1,2,181),-- Scroll: Enchant Weapon (Grade S)
+(22341,10483,1,1,200,31467),-- Life Stone - level 82
+(22341,10484,1,1,200,7867),-- Mid-Grade Life Stone - level 82
+(22341,10485,1,1,200,787),-- High-Grade Life Stone - level 82
+(22341,10486,1,1,200,157),-- Top-Grade Life Stone - level 82
+(22341,4042,1,3,-1,919845),-- Enria
+(22341,8717,1,1,-1,267916),-- Tiphon's Spear Edge
+(22341,960,1,1,-1,44153);-- Scroll: Enchant Armor (S)
