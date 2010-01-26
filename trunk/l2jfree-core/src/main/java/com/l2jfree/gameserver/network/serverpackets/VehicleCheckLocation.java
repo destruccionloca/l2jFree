@@ -18,7 +18,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 
 /**
  * @author Maktakien
- *
  */
 public class VehicleCheckLocation extends L2GameServerPacket
 {
@@ -26,6 +25,7 @@ public class VehicleCheckLocation extends L2GameServerPacket
 	private final int _x;
 	private final int _y;
 	private final int _z;
+	
 	/**
 	 * @param instance
 	 * @param x
@@ -39,10 +39,7 @@ public class VehicleCheckLocation extends L2GameServerPacket
 		_y = y;
 		_z = z;
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	
 	@Override
 	protected void writeImpl()
 	{
@@ -53,14 +50,5 @@ public class VehicleCheckLocation extends L2GameServerPacket
 		writeD(_y);
 		writeD(_z);
 		writeD(_boat.getPosition().getHeading());
-	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return null;
 	}
 }

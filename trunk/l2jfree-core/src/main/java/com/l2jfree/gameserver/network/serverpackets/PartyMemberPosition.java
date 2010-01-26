@@ -19,17 +19,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * @author zabbix
- *
  */
 public class PartyMemberPosition extends L2GameServerPacket
 {
 	private final L2Party _party;
-
+	
 	public PartyMemberPosition(L2PcInstance actor)
 	{
 		_party = actor.getParty();
 	}
-
+	
 	@Override
 	protected void writeImpl()
 	{
@@ -45,11 +44,5 @@ public class PartyMemberPosition extends L2GameServerPacket
 			writeD(pm.getY());
 			writeD(pm.getZ());
 		}
-	}
-
-	@Override
-	public String getType()
-	{
-		return null;
 	}
 }

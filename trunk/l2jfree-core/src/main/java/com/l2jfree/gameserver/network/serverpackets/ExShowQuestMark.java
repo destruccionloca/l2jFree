@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 /**
- *
  * @author  Luca Baldi
  */
 public class ExShowQuestMark extends L2GameServerPacket
@@ -26,19 +25,7 @@ public class ExShowQuestMark extends L2GameServerPacket
 	{
 		_questId = questId;
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return null;
-	}
-
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
-	 */
+	
 	@Override
 	protected void writeImpl()
 	{
@@ -46,5 +33,4 @@ public class ExShowQuestMark extends L2GameServerPacket
 		writeH(0x21);
 		writeD(_questId);
 	}
-
 }
