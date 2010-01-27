@@ -597,13 +597,13 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 						msg = new RequestRecipeShopMakeItem();
 						break;
 					case 0xc0:
-						msg = new RequestRecipeShopManagePrev();
+						msg = new RequestRecipeShopSellList();
 						break;
 					case 0xc1:
 						msg = new RequestObserverEnd();
 						break;
 					case 0xc2:
-						msg = new RequestEvaluate();
+						msg = new VoteSociality();
 						break;
 					case 0xc3:
 						msg = new RequestHennaDrawList();

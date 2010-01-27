@@ -19,11 +19,10 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 
-public class RequestEvaluate extends L2GameClientPacket
+public class VoteSociality extends L2GameClientPacket
 {
-    private static final String _C__B9_REQUESTEVALUATE = "[C] B9 RequestEvaluate";
+    private static final String _C__VOTESOCIALITY = "[C] C2 VoteSociality c[d]";
 
     private int _targetId;
 
@@ -47,16 +46,16 @@ public class RequestEvaluate extends L2GameClientPacket
 			target = L2World.getInstance().findObject(_targetId);
 
     	if (target instanceof L2PcInstance)
-    		RecommendationManager.getInstance().recommend(activeChar, (L2PcInstance) target);
+    		RecommendationManager.getInstance().recommend(activeChar, target.getActingPlayer());
     	else
     		sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 
-    	sendPacket(ActionFailed.STATIC_PACKET);
+    	sendAF();
     }
 
     @Override
     public String getType()
     {
-        return _C__B9_REQUESTEVALUATE;
+        return _C__VOTESOCIALITY;
     }
 }

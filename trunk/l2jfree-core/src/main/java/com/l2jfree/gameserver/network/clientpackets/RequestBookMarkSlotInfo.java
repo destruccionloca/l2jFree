@@ -17,32 +17,27 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 
-
-/**
- *  @author ShanSoft
- *  Packets Structure: chddd
- */
 public final class RequestBookMarkSlotInfo extends L2GameClientPacket
 {
-	private static final String _C__51_REQUESTBOOKMARKSLOTINFO = "[C] 51 RequestBookMarkSlotInfo";
+	private static final String _C__REQUESTBOOKMARKSLOTINFO = "[C] D0:51:00 RequestBookMarkSlotInfo chd";
 
 	@Override
 	protected void readImpl()
 	{
-		//There is nothing to read.
+		// trigger packet
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
-		player.sendPacket(new ExGetBookMarkInfoPacket(player));
+		L2PcInstance player = getActiveChar();
+		if (player != null)
+			sendPacket(new ExGetBookMarkInfoPacket(player));
 	}
-
 
 	@Override
 	public String getType()
 	{
-		return _C__51_REQUESTBOOKMARKSLOTINFO;
+		return _C__REQUESTBOOKMARKSLOTINFO;
 	}
 }

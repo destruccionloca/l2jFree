@@ -14,54 +14,46 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.L2Object;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.RecipeShopSellList;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
+ * Packet sent when player clicks "< Previous" button when viewing a selected recipe in the
+ * manufacture shop.
  */
-public class RequestRecipeShopManagePrev extends L2GameClientPacket
+public class RequestRecipeShopSellList extends L2GameClientPacket
 {
-	private static final String	_C__B7_RequestRecipeShopPrev	= "[C] b7 RequestRecipeShopPrev";
+	private static final String	_C__REQUESTRECIPESHOPSELLLIST	= "[C] 0C RequestRecipeShopSellList c[d]";
+
+	private int _targetId;
 
 	@Override
 	protected void readImpl()
 	{
-		// trigger
+		_targetId = readD();
 	}
 
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
 
-		// Player shouldn't be able to view stores if he/she is alike dead (dead or fake death)
 		if (player.isAlikeDead())
 		{
 			sendAF();
 			return;
 		}
 
-		L2Object target = player.getTarget();
-
-		if (target == null)
-		{
-			requestFailed(SystemMessageId.TARGET_CANT_FOUND);
-			return;
-		}
-		else if (!(target instanceof L2PcInstance))
-		{
-			requestFailed(SystemMessageId.TARGET_IS_INCORRECT);
-			return;
-		}
-
-		sendPacket(new RecipeShopSellList(player, (L2PcInstance) target));
+		final L2PcInstance manufacturer;
+		if (player.getTargetId() == _targetId)
+			manufacturer = player.getTarget(L2PcInstance.class);
+		else
+			manufacturer = L2World.getInstance().findPlayer(_targetId);
+		if (manufacturer != null)
+			sendPacket(new RecipeShopSellList(player, manufacturer));
 
 		sendAF();
 	}
@@ -69,6 +61,6 @@ public class RequestRecipeShopManagePrev extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__B7_RequestRecipeShopPrev;
+		return _C__REQUESTRECIPESHOPSELLLIST;
 	}
 }

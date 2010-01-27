@@ -76,11 +76,17 @@ public final class L2GamePacketHandlerFinal implements
 					case 0x0d:
 						msg = new CharacterDelete();
 						break;
+					case 0x0f:
+						// MoveBackwardsToLocation, lag issue
+						break;
 					case 0x12:
 						msg = new CharacterSelected();
 						break;
 					case 0x13:
 						msg = new NewCharacterInit();
+						break;
+					case 0x57:
+						// RequestRestart, lag issue
 						break;
 					case 0x7b:
 						msg = new CharacterRestore();
@@ -100,6 +106,9 @@ public final class L2GamePacketHandlerFinal implements
 						
 						switch (id2)
 						{
+							case 0x24:
+								// RequestSaveInventoryOrder, lag issue
+								break;
 							case 0x36:
 								msg = new CharacterPrevState();
 								break;
@@ -331,7 +340,7 @@ public final class L2GamePacketHandlerFinal implements
 						int id_2 = -1;
 						if (buf.remaining() >= 2)
 						{
-							id_2 = buf.getShort() & 0xffff;
+							id_2 = buf.get() & 0xff;
 						}
 						else
 						{
@@ -650,14 +659,14 @@ public final class L2GamePacketHandlerFinal implements
 					case 0xbf:
 						msg = new RequestRecipeShopMakeItem();
 						break;
-					case 0xc0: // RequestRecipeShopSellList
-						msg = new RequestRecipeShopManagePrev();
+					case 0xc0:
+						msg = new RequestRecipeShopSellList();
 						break;
 					case 0xc1:
 						msg = new RequestObserverEnd();
 						break;
 					case 0xc2: // VoteSociality
-						msg = new RequestEvaluate();
+						msg = new VoteSociality();
 						break;
 					case 0xc3: // RequestHennaItemList
 						msg = new RequestHennaDrawList();
@@ -947,7 +956,7 @@ public final class L2GamePacketHandlerFinal implements
 								int id3 = 0;
 								if (buf.remaining() >= 2)
 								{
-									id3 = buf.getShort() & 0xffff;
+									id3 = buf.getInt() & 0xffffffff;
 								}
 								else
 								{
