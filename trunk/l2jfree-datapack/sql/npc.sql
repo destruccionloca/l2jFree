@@ -10051,12 +10051,15 @@ UPDATE `npc` SET `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `s
 # Anais (savormix)
 UPDATE `npc` SET `hp` = 759807, `mp` = 2277, `exp` = 8827525, `sp` = 2036475, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 6164, `pdef` = 2004, `matk` = 1674, `mdef` = 1085, `rhand` = 8214, `atkspd` = 253 WHERE `id` = 29096;
 
-# Officer Tolonis
+# Officer Tolonis (savormix)
 UPDATE `npc` SET `type` = 'L2StarCollector' WHERE `id` = 32611;
 
-# Adiantum
+# Adiantum (savormix)
 UPDATE `npc` SET `hp` = 43410, `mp` = 480, `exp` = 91640, `sp` = 4070, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 309, `pdef` = 189, `matk` = 189, `mdef` = 154, `level` = 42, `atkspd` = 253 WHERE `id` = 18620;
-# Lematan
+# Lematan (savormix)
 UPDATE `npc` SET `hp` = 78113, `mp` = 1389, `exp` = 317821, `sp` = 23080, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 1160, `pdef` = 439, `matk` = 537, `mdef` = 357, `level` = 67, `atkspd` = 253 WHERE `id` = 18633;
-# Lematan's follower
+# Lematan's follower (savormix)
 UPDATE `npc` SET `hp` = 3384, `mp` = 1285, `exp` = 2295, `sp` = 199, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 1023, `pdef` = 409, `matk` = 332, `mdef` = 357, `level` = 64, `atkspd` = 253, `type` = 'L2Minion', `rhand` = 232 WHERE `id` = 18634;
+
+# Gatekeeper zombie (savormix)
+UPDATE `npc` SET `hp` = 4735, `mp` = 1751, `exp` = 0, `sp` = 0, `patk` = 2038, `pdef` = 623, `matk` = 1001, `mdef` = 506, `attackrange` = 40;

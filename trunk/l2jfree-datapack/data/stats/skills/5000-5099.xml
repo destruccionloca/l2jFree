@@ -440,10 +440,16 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5043" levels="12" name="NPC Super Sonic Blaster">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1900"/>
+    <table name="#mpConsume"> 7 10 14 19 25 31 36 38 40 42 42 43 </table>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="1958"/> <!-- Guess, and only for lvl 10 -->
+    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="7000"/> <!-- However, it's ignored? -->
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1200"/>
+    <set name="effectRange" val="1700"/>
   </skill>
   <skill id="5044" levels="3" name="NPC Ultimate Defense">
     <set name="target" val="TARGET_NONE"/>
