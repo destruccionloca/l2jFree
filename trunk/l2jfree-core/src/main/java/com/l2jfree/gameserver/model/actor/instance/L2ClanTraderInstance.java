@@ -19,10 +19,8 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.MyTargetSelected;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
-import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2ClanTraderInstance extends L2Npc
@@ -43,8 +41,6 @@ public final class L2ClanTraderInstance extends L2Npc
 		if (this != player.getTarget())
 		{
 			player.setTarget(this);
-			player.sendPacket(new MyTargetSelected(player, player.getTarget()));
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{
