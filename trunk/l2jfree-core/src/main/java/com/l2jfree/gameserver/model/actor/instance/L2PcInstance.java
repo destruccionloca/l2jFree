@@ -119,11 +119,11 @@ import com.l2jfree.gameserver.model.L2FriendList;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Macro;
 import com.l2jfree.gameserver.model.L2ManufactureList;
+import com.l2jfree.gameserver.model.L2Marker;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2PartyRoom;
 import com.l2jfree.gameserver.model.L2PetData;
-import com.l2jfree.gameserver.model.L2Marker;
 import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.L2Request;
 import com.l2jfree.gameserver.model.L2ShortCut;
@@ -238,7 +238,6 @@ import com.l2jfree.gameserver.network.serverpackets.NicknameChanged;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ObservationMode;
 import com.l2jfree.gameserver.network.serverpackets.ObservationReturn;
-import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PartySpelled;
 import com.l2jfree.gameserver.network.serverpackets.PetInventoryUpdate;
@@ -532,11 +531,8 @@ public final class L2PcInstance extends L2Playable
 	/** True if the L2PcInstance is using the relax skill */
 	private boolean							_relax;
 
-	/** True if the L2PcInstance is in a boat */
-	private boolean							_inBoat;
 	/** AirShip */
 	private L2AirShipInstance 				_airShip;
-	private boolean 						_inAirShip;
 	private Point3D 						_inAirShipPosition;
 
 	public ScheduledFuture<?>				_taskforfish;
@@ -778,12 +774,6 @@ public final class L2PcInstance extends L2Playable
 	private Forum							_forumMemo;
 
 	private L2Fishing						_fishCombat;
-
-	/** Stored from last ValidatePosition **/
-	private Point3D							_lastServerPosition;
-
-	/** Previous coordinate sent to party in ValidatePosition **/
-	private Point3D							_lastPartyPosition;
 
 	/** The number of evaluation points obtained by this player */
 	private int								_evalPoints;
@@ -1757,10 +1747,10 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (!super.revalidateZone(force))
 			return false;
-
+		
 		if (Config.ALLOW_WATER)
 			checkWaterState();
-
+		
 		if (isInsideZone(L2Zone.FLAG_SIEGE))
 		{
 			setLastCompassZone(ExSetCompassZoneCode.ZONE_SIEGE_WAR);
@@ -1781,10 +1771,10 @@ public final class L2PcInstance extends L2Playable
 		{
 			if (_lastCompassZone == ExSetCompassZoneCode.ZONE_SIEGE_WAR)
 				updatePvPStatus();
-
+			
 			setLastCompassZone(ExSetCompassZoneCode.ZONE_GENERAL);
 		}
-
+		
 		return true;
 	}
 
@@ -10892,18 +10882,7 @@ public final class L2PcInstance extends L2Playable
 		}
 
 		sendPacket(new UserInfo(this));
-
-		if (getParty() != null)
-			getParty().broadcastToPartyMembers(this, new PartyMemberPosition(this));
 		return true;
-	}
-
-	private Point3D getLastPartyPosition()
-	{
-		if (_lastPartyPosition == null)
-			_lastPartyPosition =  new Point3D(0, 0, 0);
-
-		return _lastPartyPosition;
 	}
 
 	@Override
@@ -10934,47 +10913,6 @@ public final class L2PcInstance extends L2Playable
 				_log.debug("Player " + getName() + " teleport timeout expired");
 			onTeleported();
 		}
-	}
-
-	public void setLastPartyPosition(int x, int y, int z)
-	{
-		getLastPartyPosition().setXYZ(x,y,z);
-	}
-
-	public int getLastPartyPositionDistance(int x, int y, int z)
-	{
-		double dx = (x - getLastPartyPosition().getX());
-		double dy = (y - getLastPartyPosition().getY());
-		double dz = (z - getLastPartyPosition().getZ());
-
-		return (int) Math.sqrt(dx * dx + dy * dy + dz * dz);
-	}
-
-	public void setLastServerPosition(int x, int y, int z)
-	{
-		getLastServerPosition().setXYZ(x, y, z);
-	}
-
-	public Point3D getLastServerPosition()
-	{
-		if (_lastServerPosition == null)
-			_lastServerPosition =  new Point3D(0, 0, 0);
-
-		return _lastServerPosition;
-	}
-
-	public boolean checkLastServerPosition(int x, int y, int z)
-	{
-		return getLastServerPosition().equals(x, y, z);
-	}
-
-	public int getLastServerDistance(int x, int y, int z)
-	{
-		double dx = (x - getLastServerPosition().getX());
-		double dy = (y - getLastServerPosition().getY());
-		double dz = (z - getLastServerPosition().getZ());
-
-		return (int) Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
 	@Override
@@ -11158,15 +11096,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean isInBoat()
 	{
-		return _inBoat;
-	}
-
-	/**
-	 * @param inBoat The inBoat to set.
-	 */
-	public void setInBoat(boolean inBoat)
-	{
-		_inBoat = inBoat;
+		return getBoat() != null;
 	}
 
 	/**
@@ -11190,15 +11120,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public boolean isInAirShip()
 	{
-		return _inAirShip;
-	}
-
-	/**
-	 * @param inAirShip The inAirShip to set.
-	 */
-	public void setInAirShip(boolean inAirShip)
-	{
-		_inAirShip = inAirShip;
+		return getAirShip() != null;
 	}
 
 	/**
@@ -11214,12 +11136,9 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void setAirShip(L2AirShipInstance airShip)
 	{
-		if (airShip != null)
-			setInAirShip(true);
-		else
-			setInAirShip(false);
 		_airShip = airShip;
 	}
+	
 	public void setInCrystallize(boolean inCrystallize)
 	{
 		_inCrystallize = inCrystallize;

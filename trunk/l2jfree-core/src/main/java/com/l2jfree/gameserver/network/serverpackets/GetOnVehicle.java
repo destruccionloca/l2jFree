@@ -45,7 +45,6 @@ public class GetOnVehicle extends L2GameServerPacket
 		_z = z;
 		
 		_activeChar.setBoat(_boat);
-		_activeChar.setInBoat(true);
 	}
 
 	/* (non-Javadoc)

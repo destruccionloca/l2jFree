@@ -31,12 +31,12 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 		super(period);
 	}
 	
-	public final void add(T cha)
+	public final void add(T t)
 	{
 		writeLock();
 		try
 		{
-			_queue.add(cha);
+			_queue.add(t);
 		}
 		finally
 		{
@@ -57,12 +57,25 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 		}
 	}
 	
-	private final T removeFirst()
+	private final T getFirst()
 	{
 		writeLock();
 		try
 		{
-			return _queue.removeFirst();
+			return _queue.getFirst();
+		}
+		finally
+		{
+			writeUnlock();
+		}
+	}
+	
+	private final void remove(T t)
+	{
+		writeLock();
+		try
+		{
+			_queue.remove(t);
 		}
 		finally
 		{
@@ -73,7 +86,7 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 	@Override
 	public final void run()
 	{
-		for (T task; (task = removeFirst()) != null;)
+		for (T task; (task = getFirst()) != null;) // don't remove just read
 		{
 			final long begin = System.nanoTime();
 			
@@ -88,6 +101,8 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 			finally
 			{
 				RunnableStatsManager.handleStats(task.getClass(), getCalledMethodName(), System.nanoTime() - begin);
+				
+				remove(task); // so this way re-queueing will be avoided
 			}
 		}
 	}

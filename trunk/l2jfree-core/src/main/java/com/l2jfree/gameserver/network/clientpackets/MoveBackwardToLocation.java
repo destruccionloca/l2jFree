@@ -19,14 +19,13 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 
 public final class MoveBackwardToLocation extends L2GameClientPacket
 {
 	private static final String _C__01_MOVEBACKWARDTOLOC = "[C] 01 MoveBackwardToLoc";
-
+	
 	private int _targetX;
 	private int _targetY;
 	private int _targetZ;
@@ -37,7 +36,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 	*/
 
 	private int _moveMovement;
-
+	
 	@Override
 	protected void readImpl()
 	{
@@ -47,19 +46,20 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		/*_originX = */readD();
 		/*_originY = */readD();
 		/*_originZ = */readD();
-
+		
 		// L2Walker is being used
 		if (getByteBuffer().remaining() < 4)
 			_moveMovement = -1;
 		else
 			_moveMovement = readD(); // is 0 if cursor keys are used  1 if mouse is used
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 		
 		// removes spawn protection
 		activeChar.onActionRequest();
@@ -75,7 +75,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 			else
 				_moveMovement = 1;
 		}
-
+		
 		// Correcting targetZ from floor level to head level (?)
 		// Client is giving floor level as targetZ but that floor level doesn't
 		// match our current geodata and teleport coords as good as head level!
@@ -83,14 +83,14 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		// sort of incompatibility fix.
 		// Validate position packets sends head level.
 		_targetZ += activeChar.getTemplate().getCollisionHeight();
-
+		
 		int curX = activeChar.getX();
 		int curY = activeChar.getY();
 		//int curZ = activeChar.getZ();
-
-		if (activeChar.isInBoat())
-			activeChar.setInBoat(false);
-
+		
+		//if (activeChar.isInBoat())
+		//	activeChar.setInBoat(false);
+		
 		if (activeChar.getTeleMode() > 0)
 		{
 			if (activeChar.getTeleMode() == 1)
@@ -99,13 +99,13 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
 		}
-
+		
 		if (activeChar.isAlikeDead())
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
+		
 		if (_moveMovement == 0 && Config.GEODATA == 0) // cursor movement without geodata movement check is disabled
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -114,7 +114,7 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		{
 			double dx = _targetX - curX;
 			double dy = _targetY - curY;
-
+			
 			// Can't move if character is confused, or trying to move a huge distance
 			if (activeChar.isOutOfControl() || ((dx * dx + dy * dy) > 98010000)) // 9900*9900
 			{
@@ -125,12 +125,9 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
 				new L2CharPosition(_targetX, _targetY, _targetZ, 0));
 			sendPacket(ActionFailed.STATIC_PACKET);
-
-			if (activeChar.getParty() != null)
-				activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{

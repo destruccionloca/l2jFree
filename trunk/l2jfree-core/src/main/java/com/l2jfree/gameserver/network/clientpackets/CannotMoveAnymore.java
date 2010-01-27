@@ -17,21 +17,20 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 
 /**
  * This class represents a packet that is sent by the client once a character has been
  * running into a wall for a few moments and the client stopped the movement
  */
-public class CannotMoveAnymore extends L2GameClientPacket
+public final class CannotMoveAnymore extends L2GameClientPacket
 {
-	private static final String	_C__CANNOTMOVEANYMORE	= "[C] 47 CannotMoveAnymore c[dddd]";
-
-	private int					_x;
-	private int					_y;
-	private int					_z;
-	private int					_heading;
-
+	private static final String _C__CANNOTMOVEANYMORE = "[C] 47 CannotMoveAnymore c[dddd]";
+	
+	private int _x;
+	private int _y;
+	private int _z;
+	private int _heading;
+	
 	@Override
 	protected void readImpl()
 	{
@@ -40,25 +39,21 @@ public class CannotMoveAnymore extends L2GameClientPacket
 		_z = readD();
 		_heading = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
-
+		
 		if (_log.isDebugEnabled())
 			_log.debug("client: x:" + _x + " y:" + _y + " z:" + _z + " server x:" + player.getX() + " y:" + player.getY() + " z:" + player.getZ());
-
-		if (player.getAI() != null)
-			player.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_BLOCKED, new L2CharPosition(_x, _y, _z, _heading));
+		
+		player.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_BLOCKED, new L2CharPosition(_x, _y, _z, _heading));
 		sendAF();
-
-		if (player.getParty() != null)
-			player.getParty().broadcastToPartyMembers(player, new PartyMemberPosition(player));
 	}
-
+	
 	@Override
 	public String getType()
 	{

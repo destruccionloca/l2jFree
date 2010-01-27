@@ -15,36 +15,32 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.PartyMemberPosition;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
-public class SendAppearing extends L2GameClientPacket
+public final class SendAppearing extends L2GameClientPacket
 {
 	private static final String _C__SENDAPPEARING = "[C] 3A SendAppearing c";
-
+	
 	@Override
 	protected void readImpl()
 	{
 		// trigger packet
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		if (activeChar.isTeleporting())
 			activeChar.onTeleported();
-
+		
 		sendPacket(new UserInfo(activeChar));
 		sendAF();
-
-		if (activeChar.getParty() != null)
-			activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
 	}
-
+	
 	@Override
 	public String getType()
 	{
