@@ -82,8 +82,8 @@ public final class DangerousAllure extends QuestJython
 			npc.setQuestFirstAttacker(attacker);
 			break;
 		case ATTACK_SINGLE:
-			if (attacker != npc.getQuestFirstAttacker())
-				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
+			//if (attacker != npc.getQuestFirstAttacker())
+			//	npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			break;
 		}
 		return null;
@@ -92,7 +92,7 @@ public final class DangerousAllure extends QuestJython
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		L2PcInstance quester = npc.getQuestFirstAttacker();
+		L2PcInstance quester = killer/*npc.getQuestFirstAttacker()*/;
 		if (quester == null)
 			return null;
 		QuestState qs = quester.getQuestState(DANGEROUS_ALLURE);

@@ -77,8 +77,8 @@ public final class SeedOfEvil extends QuestJython
 			npc.setQuestFirstAttacker(attacker);
 			break;
 		case ATTACK_SINGLE:
-			if (attacker != npc.getQuestFirstAttacker())
-				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
+			//if (attacker != npc.getQuestFirstAttacker())
+			//	npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			break;
 		}
 		return null;
@@ -88,7 +88,7 @@ public final class SeedOfEvil extends QuestJython
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		npc.broadcastPacket(new NpcSay(npc, NERKAS_KILLED));
-		L2PcInstance quester = npc.getQuestFirstAttacker();
+		L2PcInstance quester = killer/*npc.getQuestFirstAttacker()*/;
 		if (quester == null)
 			return null;
 		QuestState qs = quester.getQuestState(SEED_OF_EVIL);

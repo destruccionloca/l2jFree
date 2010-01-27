@@ -10062,4 +10062,4 @@ UPDATE `npc` SET `hp` = 78113, `mp` = 1389, `exp` = 317821, `sp` = 23080, `str` 
 UPDATE `npc` SET `hp` = 3384, `mp` = 1285, `exp` = 2295, `sp` = 199, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 1023, `pdef` = 409, `matk` = 332, `mdef` = 357, `level` = 64, `atkspd` = 253, `type` = 'L2Minion', `rhand` = 232 WHERE `id` = 18634;
 
 # Gatekeeper zombie (savormix)
-UPDATE `npc` SET `hp` = 4735, `mp` = 1751, `exp` = 0, `sp` = 0, `patk` = 2038, `pdef` = 623, `matk` = 1001, `mdef` = 506, `attackrange` = 40;
+UPDATE `npc` SET `hp` = 4735, `mp` = 1751, `exp` = 0, `sp` = 0, `patk` = 2038, `pdef` = 623, `matk` = 1001, `mdef` = 506, `attackrange` = 40 WHERE `id` = 18343;

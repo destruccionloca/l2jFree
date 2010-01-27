@@ -74,8 +74,8 @@ public final class DestroyPlaguebringers extends QuestJython
 			npc.setQuestFirstAttacker(attacker);
 			break;
 		case ATTACK_SINGLE:
-			if (attacker != npc.getQuestFirstAttacker())
-				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
+			//if (attacker != npc.getQuestFirstAttacker())
+			//	npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			break;
 		}
 		return null;
@@ -101,7 +101,7 @@ public final class DestroyPlaguebringers extends QuestJython
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		L2PcInstance quester = npc.getQuestFirstAttacker();
+		L2PcInstance quester = killer/*npc.getQuestFirstAttacker()*/;
 		if (quester == null)
 			return null;
 		QuestState qs = quester.getQuestState(DESTROY_PLAGUE_BRINGERS);
@@ -145,7 +145,6 @@ public final class DestroyPlaguebringers extends QuestJython
 		}
 		else
 		{
-			// current drop system wont allow larger drop count
 			long normal = qs.getQuestItemsCount(WERERAT_FANG);
 			long leader = qs.getQuestItemsCount(VAROOL_FOULCLAWS_FANG);
 			if (normal != 0 || leader != 0)

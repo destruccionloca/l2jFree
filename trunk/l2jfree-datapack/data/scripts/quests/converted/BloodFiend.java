@@ -82,8 +82,8 @@ public final class BloodFiend extends QuestJython
 			npc.setQuestFirstAttacker(attacker);
 			break;
 		case ATTACK_SINGLE:
-			if (attacker != npc.getQuestFirstAttacker())
-				npc.setQuestAttackStatus(ATTACK_MULTIPLE);
+			//if (attacker != npc.getQuestFirstAttacker())
+			//	npc.setQuestAttackStatus(ATTACK_MULTIPLE);
 			break;
 		}
 		return null;
@@ -92,7 +92,7 @@ public final class BloodFiend extends QuestJython
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		L2PcInstance quester = npc.getQuestFirstAttacker();
+		L2PcInstance quester = killer/*npc.getQuestFirstAttacker()*/;
 		if (quester == null)
 			return null;
 		QuestState qs = quester.getQuestState(BLOOD_FIEND);
@@ -123,8 +123,7 @@ public final class BloodFiend extends QuestJython
 		int cond = qs.getInt(CONDITION);
 		if (cond == 0)
 		{
-			// Can't risk more races to be added
-			if (talker.getRace() == Race.Darkelf)// || talker.getRace() == Race.Kamael)
+			if (talker.getRace() == Race.Darkelf)
 			{
 				qs.exitQuest(true);
 				return "30149-00.htm";
