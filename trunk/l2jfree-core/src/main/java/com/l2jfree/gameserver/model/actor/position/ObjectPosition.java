@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.taskmanager.CoordRevalidator;
 
 public final class ObjectPosition
 {
@@ -125,6 +126,8 @@ public final class ObjectPosition
 		try
 		{
 			setWorldRegion(L2World.getInstance().getRegion(_x, _y));
+			
+			CoordRevalidator.getInstance().add(_activeObject);
 		}
 		catch (RuntimeException e)
 		{
