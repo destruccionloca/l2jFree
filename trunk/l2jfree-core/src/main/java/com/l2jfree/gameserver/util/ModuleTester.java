@@ -21,7 +21,9 @@ import java.io.LineNumberReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,61 +126,73 @@ public final class ModuleTester extends Config
 			{
 				try
 				{
-					String[] array = line.trim().replace("Rsk., Evasion", "Rsk. Evasion").split(",");
+					line = line.trim();
+					line = line.replace("Rsk., Evasion", "Rsk. Evasion");
+					line = line.replace(" -- PvP Bonus Damage Skill Assigned", "");
+					
+					if (line.matches(".{60,}--.+"))
+					{
+						System.out.println(line);
+						line = line.split("--")[0].trim();
+						System.out.println("\tchanged to:");
+						System.out.println(line);
+					}
+					
+					String[] array = line.split(",");
 					
 					if (array.length > 10)
 					{
 						array[13] = array[13].replaceAll(".00000", "");
 						
 						{
-							int enchant4SkillId = Integer.parseInt(array[28]);
-							int enchant4SkillLvl = Integer.parseInt(array[29]);
+							int enchant4SkillId = Integer.parseInt(array[29]);
+							int enchant4SkillLvl = Integer.parseInt(array[30]);
 							
 							if (enchant4SkillId == 0 && enchant4SkillLvl == 0)
 							{
-								array[28] = "''";
+								array[29] = "''";
 							}
 							else
 							{
-								array[28] = "'" + enchant4SkillId + "-" + enchant4SkillLvl + "'";
+								array[29] = "'" + enchant4SkillId + "-" + enchant4SkillLvl + "'";
 							}
-							array[29] = null;
+							array[30] = null;
 						}
 						{
-							int onCastSkillId = Integer.parseInt(array[30]);
-							int onCastSkillLvl = Integer.parseInt(array[31]);
-							int onCastSkillChance = Integer.parseInt(array[32]);
+							int onCastSkillId = Integer.parseInt(array[31]);
+							int onCastSkillLvl = Integer.parseInt(array[32]);
+							int onCastSkillChance = Integer.parseInt(array[33]);
 							
 							if (onCastSkillId == 0 && onCastSkillLvl == 0 && onCastSkillChance == 0)
 							{
-								array[30] = "''";
+								array[31] = "''";
 							}
 							else
 							{
-								array[30] = "'" + onCastSkillId + "-" + onCastSkillLvl + "-" + onCastSkillChance + "'";
+								array[31] = "'" + onCastSkillId + "-" + onCastSkillLvl + "-" + onCastSkillChance + "'";
 							}
 							
-							array[31] = null;
 							array[32] = null;
+							array[33] = null;
 						}
 						{
-							int onCritSkillId = Integer.parseInt(array[33]);
-							int onCritSkillLvl = Integer.parseInt(array[34]);
-							int onCritSkillChance = Integer.parseInt(array[35]);
+							int onCritSkillId = Integer.parseInt(array[34]);
+							int onCritSkillLvl = Integer.parseInt(array[35]);
+							int onCritSkillChance = Integer.parseInt(array[36]);
 							
 							if (onCritSkillId == 0 && onCritSkillLvl == 0 && onCritSkillChance == 0)
 							{
-								array[33] = "''";
+								array[34] = "''";
 							}
 							else
 							{
-								array[33] = "'" + onCritSkillId + "-" + onCritSkillLvl + "-" + onCritSkillChance + "'";
+								array[34] = "'" + onCritSkillId + "-" + onCritSkillLvl + "-" + onCritSkillChance + "'";
 							}
-							array[34] = null;
 							array[35] = null;
+							array[36] = null;
 						}
 						{
-							array[37] = array[37].replaceAll(";'", "'").replaceAll("0-0", "");
+							array[38] = array[38].replaceAll(";'", "'").replaceAll("0-0", "");
 						}
 						
 						array = L2Arrays.compact(array);
@@ -281,6 +295,52 @@ public final class ModuleTester extends Config
 		
 		private ArrayList<String> convertSkill(ArrayList<String> list)
 		{
+			Map<String, String> map = new HashMap<String, String>();
+			
+			for (int i = 0; i < list.size(); i++)
+			{
+				final String line = list.get(i);
+				
+				if (line.matches(".*<enchant[0-9] .*"))
+				{
+					final String name = getAttributeValue(line, "name");
+					final String val = getAttributeValue(line, "val");
+					
+					if (val.contains("#"))
+					{
+						final Matcher m = Pattern.compile("#ench(ant)?[0-9_]*").matcher(val);
+						m.find();
+						
+						final StringBuilder sb = new StringBuilder();
+						
+						sb.append(val.substring(0, m.start()));
+						sb.append(m.group());
+						
+						if (Character.isDigit(sb.charAt(sb.length() - 1)))
+							sb.append(name);
+						else
+							sb.append(Util.capitalizeFirst(name));
+						
+						final String expected = sb.toString();
+						
+						if (!val.equals(expected))
+							map.put(val, expected);
+					}
+				}
+			}
+			
+			for (int i = 0; i < list.size(); i++)
+			{
+				String line = list.get(i);
+				
+				for (Map.Entry<String, String> entry : map.entrySet())
+				{
+					//line = line.replaceAll(entry.getKey(), entry.getValue());
+				}
+				
+				list.set(i, line);
+			}
+			
 			// magicLvl
 			for (int i = 0; i < list.size(); i++)
 			{

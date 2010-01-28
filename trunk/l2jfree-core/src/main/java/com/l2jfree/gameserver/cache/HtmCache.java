@@ -106,7 +106,12 @@ public final class HtmCache
 	
 	private void validate()
 	{
-		final Set<String> set = new HashSet<String>();
+		final Set<String> validTags = new HashSet<String>();
+		
+		validTags.add("!--"); // comment
+		
+		for (String tag : AbstractNpcHtmlMessage.VALID_TAGS)
+			validTags.add(tag);
 		
 		for (Entry<String, String> entry : _cache.entrySet())
 		{
@@ -128,23 +133,12 @@ public final class HtmCache
 				
 				end++;
 				
-				set.add(html.substring(begin + 1, end - 1).toLowerCase().replaceAll("/", ""));
+				final String rawTag = html.substring(begin + 1, end - 1);
+				final String pureTag = rawTag.toLowerCase().replaceAll("/", "");
+				
+				if (!validTags.contains(pureTag))
+					System.out.println("Invalid tag '" + rawTag + "' in " + entry.getKey());
 			}
-		}
-		
-		//_log.info("Tags used: " + set.size());
-		//for (String tag : set)
-		//	_log.info("'" + tag + "'");
-		
-		set.remove("!--"); // comment
-		for (String tag : AbstractNpcHtmlMessage.VALID_TAGS)
-			set.remove(tag);
-		
-		if (!set.isEmpty())
-		{
-			_log.info("Invalid tags used: " + set.size());
-			for (String tag : set)
-				_log.info("'" + tag + "'");
 		}
 	}
 	

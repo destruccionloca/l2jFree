@@ -3,7 +3,7 @@
 <list>
   <skill id="500" levels="2" name="True Berserker" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1pAtk"> 1.09 1.09 1.09 1.09 1.09 1.09 1.09 1.09 1.09 1.1 1.1 1.1 1.1 1.1 1.1 1.1 1.1 1.1 1.1 1.11 1.11 1.11 1.11 1.11 1.11 1.11 1.11 1.11 1.11 1.12 </table>
-    <table name="#ench2val"> 0.19 0.19 0.18 0.17 0.17 0.16 0.15 0.15 0.14 0.13 0.13 0.12 0.11 0.11 0.10 0.09 0.08 0.08 0.07 0.06 0.06 0.05 0.05 0.04 0.04 0.03 0.02 0.02 0.01 0.01 </table><!-- need retail info -->
+    <table name="#ench2val"> 0.19 0.19 0.18 0.17 0.17 0.16 0.15 0.15 0.14 0.13 0.13 0.12 0.11 0.11 0.10 0.09 0.08 0.08 0.07 0.06 0.06 0.05 0.05 0.04 0.04 0.03 0.02 0.02 0.01 0.01 </table> <!-- need retail info -->
     <table name="#ench1accCombat"> 4 4 4 4 4 4 4 4 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 6 </table>
     <table name="#amount"> 1.05 1.08 </table>
     <table name="#accCombat"> 2 4 </table>
@@ -268,7 +268,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <set name="baseCritRate" val="15"/>
-    <set name="numberOfHits" val="2"/>"/> <!-- Support for "Shoots 2 arrows continuously" -->
+    <set name="numberOfHits" val="2"/> <!-- Support for "Shoots 2 arrows continuously" -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
