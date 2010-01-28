@@ -62372,8 +62372,8 @@ INSERT IGNORE INTO `npcskills` VALUES
 (25624,4415,3),
 (25624,4045,1);
 
-
 # !! Request below this comments are deleting skills that should be AI handled !!
+DELETE FROM `npcskills` WHERE `npcid` = 18343 AND `skillid` = 5043;
 DELETE FROM `npcskills` WHERE `npcid` = 18558 AND `skillid` = 4175;
 DELETE FROM `npcskills` WHERE `npcid` = 18558 AND `skillid` = 4737;
 DELETE FROM `npcskills` WHERE `npcid` = 18563 AND `skillid` = 4209;
