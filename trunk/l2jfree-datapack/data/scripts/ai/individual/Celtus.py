@@ -14,8 +14,9 @@ class Celtus(JQuest):
 		JQuest.__init__(self,id,name,descr)
 
 	def onKill (self,npc,player,isPet):
-		if npc.getQuestDropable() == True and Rnd.get(100) <= 20:
-			item = player.getInventory().addItem("Celtus", 9682, 1, player, None)
+		if npc.getQuestDropable() == True and Rnd.get(100) <= 100:
+			amount = Rnd.get(5)
+			item = player.getInventory().addItem("Celtus", 9682, amount, player, None)
 			iu = InventoryUpdate()
 			iu.addItem(item)
 			player.sendPacket(iu);
