@@ -84,7 +84,7 @@ public final class MapRegionManager
 			{
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 				
-				factory.setValidating(false);
+				factory.setValidating(true);
 				factory.setIgnoringComments(true);
 				
 				doc = factory.newDocumentBuilder().parse(xml);

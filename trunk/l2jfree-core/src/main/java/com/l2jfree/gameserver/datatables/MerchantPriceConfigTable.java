@@ -82,7 +82,7 @@ public class MerchantPriceConfigTable implements InstanceListManager
 	public void loadXML() throws SAXException, IOException, ParserConfigurationException
 	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setValidating(false);
+		factory.setValidating(true);
 		factory.setIgnoringComments(true);
 		File file = new File(Config.DATAPACK_ROOT, "data/" + MPCS_FILE);
 		if (file.exists())

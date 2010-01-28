@@ -40,7 +40,7 @@ import com.l2jfree.tools.random.Rnd;
 /**
  * This class manages the augmentation data and can also create new augmentations.
  *
- * @author  durgus 
+ * @author  durgus
  * edited by Gigiikun
  */
 public class AugmentationData
@@ -104,15 +104,15 @@ public class AugmentationData
 	private static final byte[] ACC_STATS1_MAP = new byte[ACC_STAT_SUBBLOCKSIZE];
 	private static final byte[] ACC_STATS2_MAP = new byte[ACC_STAT_SUBBLOCKSIZE];
 	
-	private ArrayList<?>[] _augStats = new ArrayList[4];
-	private ArrayList<?>[] _augAccStats = new ArrayList[4];
+	private final ArrayList<?>[] _augStats = new ArrayList[4];
+	private final ArrayList<?>[] _augAccStats = new ArrayList[4];
 
-	private ArrayList<?>[] _blueSkills = new ArrayList[10];
-	private ArrayList<?>[] _purpleSkills = new ArrayList[10];
-	private ArrayList<?>[] _redSkills = new ArrayList[10];
-	private ArrayList<?>[] _yellowSkills = new ArrayList[10];
+	private final ArrayList<?>[] _blueSkills = new ArrayList[10];
+	private final ArrayList<?>[] _purpleSkills = new ArrayList[10];
+	private final ArrayList<?>[] _redSkills = new ArrayList[10];
+	private final ArrayList<?>[] _yellowSkills = new ArrayList[10];
 
-	private FastMap<Integer, augmentationSkill> _allSkills = new FastMap<Integer, augmentationSkill>().setShared(true);
+	private final FastMap<Integer, augmentationSkill> _allSkills = new FastMap<Integer, augmentationSkill>().setShared(true);
 
 	// =========================================================
 	// Constructor
@@ -172,7 +172,7 @@ public class AugmentationData
 			for (int j = i; j < ACC_STAT_NUM; idx++, j++)
 			{
 				ACC_STATS1_MAP[idx] = (byte)i;
-				ACC_STATS2_MAP[idx] = (byte)j;				
+				ACC_STATS2_MAP[idx] = (byte)j;
 			}
 		}
 		ACC_STATS1_MAP[idx] = 4;
@@ -207,8 +207,8 @@ public class AugmentationData
 	
 	public class augmentationSkill
 	{
-		private int _skillId;
-		private int _skillLevel;
+		private final int _skillId;
+		private final int _skillLevel;
 		
 		public augmentationSkill(int skillId, int skillLevel)
 		{
@@ -280,7 +280,7 @@ public class AugmentationData
 		{
 			int badAugmantData = 0;
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setValidating(false);
+			factory.setValidating(true);
 			factory.setIgnoringComments(true);
 			
 			File file = new File(Config.DATAPACK_ROOT + "/data/stats/augmentation/augmentation_skillmap.xml");
@@ -530,7 +530,7 @@ public class AugmentationData
 		
 		// Note: lifeStoneGrade: (0 means low grade, 3 top grade)
 		// First: determine whether we will add a skill/baseStatModifier or not
-		// because this determine which color could be the result 
+		// because this determine which color could be the result
 		int stat12 = 0;
 		int stat34 = 0;
 		boolean generateSkill = false;
@@ -789,7 +789,7 @@ public class AugmentationData
 				}
 				else // combined stat
 				{
-					augmentationStat as = ((augmentationStat) _augStats[color].get(stat1));					
+					augmentationStat as = ((augmentationStat) _augStats[color].get(stat1));
 					temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(level)));
 					as = ((augmentationStat) _augStats[color].get(stat2));
 					temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(level)));
@@ -818,7 +818,7 @@ public class AugmentationData
 			// 3 areas for rings, earrings and necklaces
 			// each area consist of 10 blocks (level)
 			// each block has skills first (18 or 24 for necklaces)
-			// and sub-block for stats next 
+			// and sub-block for stats next
 			else if (stats[i] >= ACC_START && stats[i] <= ACC_END)
 			{
 				int base, level, subblock;
@@ -850,12 +850,12 @@ public class AugmentationData
 					byte stat2 = ACC_STATS2_MAP[stat];
 					if (stat1 == stat2) // solo
 					{
-						augmentationStat as = ((augmentationStat) _augAccStats[color].get(stat1));					
+						augmentationStat as = ((augmentationStat) _augAccStats[color].get(stat1));
 						temp.add(new AugStat(as.getStat(), as.getSingleStatValue(level)));
 					}
 					else // combined
 					{
-						augmentationStat as = ((augmentationStat) _augAccStats[color].get(stat1));					
+						augmentationStat as = ((augmentationStat) _augAccStats[color].get(stat1));
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(level)));
 						as = ((augmentationStat) _augAccStats[color].get(stat2));
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(level)));

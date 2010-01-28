@@ -20,6 +20,7 @@
 <!-- Condition -->
 <!ATTLIST cond msg CDATA #IMPLIED>
 <!ATTLIST cond msgId CDATA #IMPLIED>
+<!ATTLIST cond addName (1) #IMPLIED>
 <!ELEMENT cond (%condition;)>
 
 <!-- Stat -->

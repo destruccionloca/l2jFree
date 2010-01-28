@@ -53,7 +53,7 @@ public final class EnchantHPBonusData
 	private EnchantHPBonusData()
 	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setValidating(false);
+		factory.setValidating(true);
 		factory.setIgnoringComments(true);
 		File file = new File(Config.DATAPACK_ROOT, "data/enchantHPBonus.xml");
 		Document doc = null;

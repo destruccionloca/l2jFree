@@ -86,7 +86,7 @@ public class CursedWeaponsManager
 		try
 		{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setValidating(false);
+			factory.setValidating(true);
 			factory.setIgnoringComments(true);
 
 			File file = new File(Config.DATAPACK_ROOT, "data/cursedWeapons.xml");

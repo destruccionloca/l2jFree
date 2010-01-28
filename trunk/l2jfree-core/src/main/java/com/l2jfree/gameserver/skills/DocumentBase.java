@@ -50,7 +50,7 @@ abstract class DocumentBase
 		try
 		{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setValidating(false);
+			factory.setValidating(true);
 			factory.setIgnoringComments(true);
 			parseDocument(factory.newDocumentBuilder().parse(_file));
 		}

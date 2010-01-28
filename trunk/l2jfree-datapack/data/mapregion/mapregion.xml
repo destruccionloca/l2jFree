@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "../templates/mapregion.dtd">
+<!DOCTYPE mapregion SYSTEM "../templates/mapregion.dtd">
 <mapregion>
   <!-- TODO: find proper 'bbs' for newer restarts, as '101' is just a placeholder -->
   <!-- TODO: add more restart points to newer restarts (for example: 36, 37, 132) -->
