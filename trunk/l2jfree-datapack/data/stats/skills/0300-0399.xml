@@ -29,7 +29,7 @@
     <set name="npcId" val="#npcIds"/>
     <set name="expPenalty" val="0.3"/> <!-- 30 percent of acquired Exp will be consumed. -->
     <table name="#ench1expPenalty"> 0.28 0.26 0.24 0.22 0.20 0.18 0.16 0.14 0.12 0.10 0.08 0.06 0.04 0.02 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </table>
-    <enchant1 name="expPenalty" val="#ench1expPenalty"/>
+    <enchant1 name="expPenalty" val="#ench1expPenalty"/> <!-- percent of earned Exp will be consumed -->
   </skill>
   <skill id="302" levels="9" name="Spoil Festival" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench12power"> 0 1 2 2 3 4 4 5 6 6 7 8 8 9 10 10 11 12 12 13 14 14 15 16 16

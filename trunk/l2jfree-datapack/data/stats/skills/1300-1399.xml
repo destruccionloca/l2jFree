@@ -1025,7 +1025,7 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="1400"/>
     <!-- Dark Vortex: Power is reduced but drain percentage is increased - so I changed 0.7 -> 0.8 -->
-    <set name="absorbPart" val="0.8"/>
+    <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
     <set name="effectType" val="DEBUFF"/>
     <set name="effectPower" val="80"/>
     <enchant1 name="power" val="#ench1power"/>

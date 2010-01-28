@@ -704,7 +704,7 @@
     <set name="npcId" val="#npcIds"/>
     <set name="expPenalty" val="0.15"/> <!-- 15 percent of earned Exp will be consumed -->
     <table name="#ench1expPenalty"> 0.14 0.13 0.12 0.11 0.10 0.09 0.08 0.07 0.06 0.05 0.04 0.03 0.02 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </table>
-    <enchant1 name="expPenalty" val="#ench1expPenalty"/>
+    <enchant1 name="expPenalty" val="#ench1expPenalty"/> <!-- percent of earned Exp will be consumed -->
   </skill>
   <skill id="27" levels="14" name="Unlock">
     <table name="#mpConsume"> 19 22 25 28 31 35 39 43 47 51 55 59 63 67 </table>

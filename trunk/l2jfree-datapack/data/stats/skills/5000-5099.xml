@@ -198,7 +198,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="isMagic" val="true"/>
-    <set name="absorbPart" val="0.8"/>
+    <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
   </skill>
   <skill id="5014" levels="3" name="Frintezza's Daemon Attack">
     <!--
@@ -298,7 +298,7 @@
     <set name="castRange" val="600"/>
     <set name="isMagic" val="true"/>
     <set name="effectRange" val="1100"/>
-    <set name="absorbPart" val="0.8"/>
+    <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
   </skill>
   <skill id="5020" levels="1" name="Forced Action">
     <!-- Description(s): Crumples to the ground because of unknown power. -->

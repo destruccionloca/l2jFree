@@ -165,7 +165,7 @@
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="npcId" val="14836"/>
-    <set name="expPenalty" val="0.1"/>
+    <set name="expPenalty" val="0.1"/> <!-- 10 percent of acquired Exp is consumed. -->
     <enchant1 name="npcId" val="#ench1npcId"/>
     <enchant1 name="mpInitialConsume" val="29"/>
     <enchant1 name="mpConsume" val="116"/>
@@ -190,7 +190,7 @@
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="npcId" val="14837"/>
-    <set name="expPenalty" val="0.1"/>
+    <set name="expPenalty" val="0.1"/> <!-- 10 percent of acquired Exp is consumed. -->
     <enchant1 name="npcId" val="#ench1npcId"/>
     <enchant1 name="mpInitialConsume" val="29"/>
     <enchant1 name="mpConsume" val="116"/>
@@ -215,7 +215,7 @@
     <set name="summonTimeLostIdle" val="500"/>
     <set name="summonTimeLostActive" val="1000"/>
     <set name="npcId" val="14838"/>
-    <set name="expPenalty" val="0.1"/>
+    <set name="expPenalty" val="0.1"/> <!-- 10 percent of acquired Exp is consumed. -->
     <enchant1 name="npcId" val="#ench1npcId"/>
     <enchant1 name="mpInitialConsume" val="29"/>
     <enchant1 name="mpConsume" val="116"/>

@@ -637,6 +637,6 @@
     <set name="isMagic" val="true"/>
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
-    <set name="absorbPart" val="0.8"/>
+    <set name="absorbPart" val="0.8"/> <!-- absorbs 80% of damage -->
   </skill>
 </list>

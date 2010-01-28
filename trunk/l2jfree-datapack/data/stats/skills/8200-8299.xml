@@ -700,6 +700,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="319"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -720,6 +723,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="108"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/>
     </for>
@@ -729,6 +735,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="transformId" val="106"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0">
         <mul order="0x30" stat="runSpd" val="1.5"/> <!-- Run Speed +50 -->
@@ -849,6 +858,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="transformId" val="110"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0">
         <mul order="0x30" stat="runSpd" val="1.5"/> <!-- Run Speed +50 -->
@@ -860,6 +872,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="transformId" val="109"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0">
         <mul order="0x30" stat="runSpd" val="1.5"/> <!-- Run Speed +50 -->
@@ -871,6 +886,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="114"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -880,6 +898,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="115"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -889,6 +910,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="116"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -964,6 +988,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="101"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="-1" val="0"/>
     </for>
@@ -973,6 +1000,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="113"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>

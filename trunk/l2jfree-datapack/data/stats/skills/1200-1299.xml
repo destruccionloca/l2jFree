@@ -539,7 +539,7 @@
     <table name="#npcIds"> 14347 14343 14348 14344 14349 14345 14350 14346
       14351 14352 14353 14354 14355 14356 14357 14358 14359 14360 </table>
     <set name="npcId" val="#npcIds"/>
-    <set name="expPenalty" val="0.9"/>
+    <set name="expPenalty" val="0.9"/> <!-- 90 percent of acquired Exp is consumed. -->
   </skill>
   <skill id="1228" levels="18" name="Summon Silhouette" enchantLevels1="30">
     <table name="#enchantNpcId"> 14545 14546 14547 14548 14549 14550 14551 14552 14553 14554 14555 14556 14557
@@ -778,7 +778,7 @@
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
-    <enchant3 name="absorbPart" val="#ench3absorbPart"/>
+    <enchant3 name="absorbPart" val="#ench3absorbPart"/> <!-- absorbs damage -->
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
   </skill>
   <skill id="1235" levels="28" name="Hydro Blast" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">

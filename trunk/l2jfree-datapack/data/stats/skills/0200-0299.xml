@@ -2514,7 +2514,7 @@
     <table name="#npcIds"> 14799 14800 14801 14802 14803 14804 14805 </table>
     <set name="npcId" val="#npcIds"/>
     <set name="expPenalty" val="0.15"/> <!-- 15 percent of acquired Exp will also be consumed. -->
-    <enchant1 name="expPenalty" val="#ench1expPenalty"/>
+    <enchant1 name="expPenalty" val="#ench1expPenalty"/> <!-- percent of earned Exp will be consumed -->
   </skill>
   <skill id="284" levels="40" name="Hurricane Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 3225 3254 3283 3312 3340 3369 3398 3427 3456 3484 3513 3542 3571
