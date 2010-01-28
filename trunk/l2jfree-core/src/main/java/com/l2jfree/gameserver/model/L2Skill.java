@@ -490,7 +490,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		if (route == null)
 			return -1;
 		
-		final int minMagicLevel = SkillTreeTable.getInstance().getMinSkillLevel(getId(), 1);
+		int minMagicLevel = SkillTreeTable.getInstance().getMinSkillLevel(getId(), 1);
+		
+		if (minMagicLevel == 0)
+			minMagicLevel = normalLevel;
 		
 		if (minMagicLevel != 0)
 		{
