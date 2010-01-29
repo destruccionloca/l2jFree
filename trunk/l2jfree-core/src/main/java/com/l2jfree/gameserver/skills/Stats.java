@@ -72,6 +72,7 @@ public enum Stats
 	MAGIC_ATTACK_RANGE("mAtkRange"),
 	POWER_ATTACK_ANGLE("pAtkAngle"),
 	ATTACK_COUNT_MAX("atkCountMax"),
+	MAGIC_FAIL_RATE("mFailRate"),
 	
 	// Run speed,
 	// walk & escape speed are calculated proportionally,

@@ -2414,9 +2414,10 @@ public final class Formulas
 	public static boolean calcMagicSuccess(L2Character attacker, L2Character target, L2Skill skill)
 	{
 		double lvlDifference = -1 * getMagicLevelDifference(attacker, target, skill);
-		int rate = Math.round((float) (Math.pow(1.3, lvlDifference) * 100));
+		double rate = Math.round(Math.pow(1.3, lvlDifference) * 100);
+		rate = attacker.getStat().calcStat(Stats.MAGIC_FAIL_RATE, rate, target, skill);
 
-		return (Rnd.get(10000) > rate);
+		return (Rnd.get(10000) > (int) rate);
 	}
 
 	public static boolean calculateUnlockChance(L2Skill skill)

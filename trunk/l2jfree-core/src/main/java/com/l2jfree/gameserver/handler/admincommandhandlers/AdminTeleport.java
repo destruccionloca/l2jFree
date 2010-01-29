@@ -225,7 +225,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				String targetName = command.substring(13);
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-				teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+				teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getInstanceId());
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -237,7 +237,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 					if (player.getAccessLevel() > 0)
-						teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+						teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getInstanceId());
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -249,7 +249,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				if (character == activeChar)
 					continue;
-				teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ());
+				teleportCharacter(character, activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getInstanceId());
 			}
 		}
 		// [L2J_JP ADD END - TSL]
@@ -480,7 +480,7 @@ public class AdminTeleport implements IAdminCommandHandler
 				int y = Integer.parseInt(y1);
 				String z1 = st.nextToken();
 				int z = Integer.parseInt(z1);
-				teleportCharacter(player, x, y, z);
+				teleportCharacter(player, x, y, z, player.getInstanceId());
 			}
 			catch (NoSuchElementException nsee)
 			{
@@ -488,17 +488,11 @@ public class AdminTeleport implements IAdminCommandHandler
 		}
 	}
 
-	/**
-	 * @param player
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
-	private void teleportCharacter(L2PcInstance player, int x, int y, int z)
+	private void teleportCharacter(L2PcInstance player, int x, int y, int z, int instance)
 	{
 		if (player != null)
 		{
-			player.sendMessage("Admin is teleporting you.");
+			player.sendMessage("You have been teleported by a Game Master.");
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			player.teleToLocation(x, y, z);
 		}
