@@ -78,7 +78,7 @@ class Quest (JQuest) :
       self.isNpcSpawned = 0
       return
     st = player.getQuestState(qn)
-    if st.isCompleted() : return QUEST_DONE
+    if st.isCompleted() : return "<html><body>This quest has already been completed.</body></html>"
     htmltext = event
     if event == "31435-03.htm" :
       st.set("cond","1")
