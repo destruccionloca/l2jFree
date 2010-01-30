@@ -149,6 +149,7 @@ import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
+import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.status.Status;
@@ -187,6 +188,8 @@ public class GameServer extends Config
 			throw new Exception("Could not initialize the ID factory");
 		}
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
+		if (Config.OPTIMIZE_DATABASE)
+			TableOptimizer.optimize();
 		Class.forName(RunnableStatsManager.class.getName());
 		ThreadPoolManager.getInstance();
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)

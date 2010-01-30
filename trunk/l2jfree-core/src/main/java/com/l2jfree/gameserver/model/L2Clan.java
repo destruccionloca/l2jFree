@@ -132,12 +132,27 @@ public class L2Clan
 
 	// Sub-unit types
 	public static final int					SUBUNIT_ACADEMY				= -1;
+	public static final int					SUBUNIT_NONE				= 0;
 	public static final int					SUBUNIT_ROYAL1				= 100;
 	public static final int					SUBUNIT_ROYAL2				= 200;
 	public static final int					SUBUNIT_KNIGHT1				= 1001;
 	public static final int					SUBUNIT_KNIGHT2				= 1002;
 	public static final int					SUBUNIT_KNIGHT3				= 2001;
 	public static final int					SUBUNIT_KNIGHT4				= 2002;
+
+	// Player ranks
+	public static final int					RANK_VAGABOND				= 0;
+	public static final int					RANK_VASSAL					= 1;
+	public static final int					RANK_HEIR					= 2;
+	public static final int					RANK_KNIGHT					= 3;
+	public static final int					RANK_ELDER					= 4;
+	public static final int					RANK_BARON					= 5;
+	public static final int					RANK_VISCOUNT				= 6;
+	public static final int					RANK_COUNT					= 7;
+	public static final int					RANK_MARQUIS				= 8;
+	public static final int					RANK_DUKE					= 9;
+	public static final int					RANK_GRAND_DUKE				= 10;
+	public static final int					RANK_DISTINGUISHED_KING		= 11;
 
 	/** FastMap(Integer, L2Skill) containing all skills of the L2Clan */
 	protected final Map<Integer, L2Skill>	_skills						= new FastMap<Integer, L2Skill>();
@@ -1880,7 +1895,7 @@ public class L2Clan
 
 	public int getLeaderSubPledge(int leaderId)
 	{
-		int id = 0;
+		int id = SUBUNIT_NONE;
 		for (SubPledge sp : _subPledges.values())
 		{
 			if (sp.getLeaderId() == 0)

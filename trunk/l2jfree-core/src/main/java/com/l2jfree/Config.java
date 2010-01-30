@@ -1253,6 +1253,8 @@ public class Config extends L2Config
 
 	public static int				RETARGET_BLOCKING_PERIOD;
 
+	public static boolean			OPTIMIZE_DATABASE;
+
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1461,6 +1463,8 @@ public class Config extends L2Config
 		    MERCENARY_SAVING_DELAY = Integer.parseInt(optionsSettings.getProperty("MercenaryPosUpdateDelay", "90000"));
 
 		    RETARGET_BLOCKING_PERIOD = Integer.parseInt(optionsSettings.getProperty("CannotRetargetFor", "400"));
+
+		    OPTIMIZE_DATABASE = Boolean.parseBoolean(optionsSettings.getProperty("OptimizeDatabaseTables", "True"));
 		}
 	}
 

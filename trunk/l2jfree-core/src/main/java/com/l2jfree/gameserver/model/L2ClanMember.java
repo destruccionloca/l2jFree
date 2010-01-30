@@ -25,16 +25,11 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:33 $
- */
 public class L2ClanMember
 {
 	private static final Log _log = LogFactory.getLog(L2ClanMember.class);
-	
-	private final L2Clan			_clan;
+
+	private final L2Clan	_clan;
 	private int				_objectId;
 	private String			_name;
 	private String			_title;
@@ -371,110 +366,127 @@ public class L2ClanMember
 		return _clan;
 	}
 
+	/**
+	 * Returns player's pledge rank.
+	 * @param activeChar player
+	 * @return pledge rank
+	 */
 	public static int getCurrentPledgeClass(L2PcInstance activeChar)
 	{
+		int pledgeClass = calculatePledgeClass(activeChar);
+
 		if (activeChar.isHero())
-			return 8;
-
-		int pledgeClass = 0;
-		if (activeChar.getClan() != null)
-			pledgeClass = calculatePledgeClass(activeChar);
-
-		if (activeChar.isNoble() && pledgeClass < 5)
-			return 5;
+			return Math.max(pledgeClass, L2Clan.RANK_MARQUIS);
+		else if (activeChar.isNoble())
+			return Math.max(pledgeClass, L2Clan.RANK_BARON);
 
 		return pledgeClass;
 	}
 
-	public static int calculatePledgeClass(L2PcInstance player)
+	/**
+	 * Returns player's <B>RAW</B> pledge rank.
+	 * Only clan status is factored.
+	 * @param player A player (may be null)
+	 * @return raw pledge rank
+	 */
+	private static int calculatePledgeClass(L2PcInstance player)
 	{
-		int pledgeClass = 0;
-
+		int pledgeClass = L2Clan.RANK_VAGABOND;
 		if (player == null)
 			return pledgeClass;
 
 		L2Clan clan = player.getClan();
 		if (clan != null)
 		{
-			// Added 2nd hero check. Some other functions call this calculations.
-			if (player.isHero())
-				return 8;
-
 			switch (player.getClan().getLevel())
 			{
+			case 3:
+				if (player.isClanLeader())
+					pledgeClass = L2Clan.RANK_HEIR;
+				else
+					pledgeClass = L2Clan.RANK_VASSAL;
+				break;
 			case 4:
 				if (player.isClanLeader())
-					pledgeClass = 3;
-				break;
-			case 5:
-				if (player.isClanLeader())
-					pledgeClass = 4;
+					pledgeClass = L2Clan.RANK_KNIGHT;
 				else
-					pledgeClass = 2;
+					pledgeClass = L2Clan.RANK_HEIR;
 				break;
-			case 6:
+			case 5: // academy may now be created
 				switch (player.getSubPledgeType())
 				{
-				case -1:
-					pledgeClass = 1;
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
 					break;
-				case 100:
-				case 200:
-					pledgeClass = 2;
-					break;
-				case 0:
+				case L2Clan.SUBUNIT_NONE:
 					if (player.isClanLeader())
-						pledgeClass = 5;
+						pledgeClass = L2Clan.RANK_ELDER;
+					else
+						pledgeClass = L2Clan.RANK_HEIR;
+					break;
+				}
+				break;
+			case 6: // royal guard may now be created
+				switch (player.getSubPledgeType())
+				{
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
+					break;
+				case L2Clan.SUBUNIT_ROYAL1:
+				case L2Clan.SUBUNIT_ROYAL2:
+					pledgeClass = L2Clan.RANK_HEIR; // because L7 RG are Knights
+					break;
+				case L2Clan.SUBUNIT_NONE:
+					if (player.isClanLeader())
+						pledgeClass = L2Clan.RANK_BARON;
 					else
 						switch (clan.getLeaderSubPledge(player.getObjectId()))
 						{
-						case 100:
-						case 200:
-							pledgeClass = 4;
+						case L2Clan.SUBUNIT_ROYAL1:
+						case L2Clan.SUBUNIT_ROYAL2:
+							pledgeClass = L2Clan.RANK_ELDER;
 							break;
-						case -1:
 						default:
-							pledgeClass = 3;
+							pledgeClass = L2Clan.RANK_KNIGHT;
 							break;
 						}
 					break;
 				}
 				break;
-			case 7:
+			case 7: // order of knights may now be created
 				switch (player.getSubPledgeType())
 				{
-				case -1:
-					pledgeClass = 1;
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
 					break;
-				case 100:
-				case 200:
-					pledgeClass = 3;
+				case L2Clan.SUBUNIT_ROYAL1:
+				case L2Clan.SUBUNIT_ROYAL2:
+					pledgeClass = L2Clan.RANK_KNIGHT;
 					break;
-				case 1001:
-				case 1002:
-				case 2001:
-				case 2002:
-					pledgeClass = 2;
+				case L2Clan.SUBUNIT_KNIGHT1:
+				case L2Clan.SUBUNIT_KNIGHT2:
+				case L2Clan.SUBUNIT_KNIGHT3:
+				case L2Clan.SUBUNIT_KNIGHT4:
+					pledgeClass = L2Clan.RANK_HEIR; // because L8 KU are Knights
 					break;
-				case 0:
+				case L2Clan.SUBUNIT_NONE:
 					if (player.isClanLeader())
-						pledgeClass = 7;
+						pledgeClass = L2Clan.RANK_COUNT;
 					else
 						switch (clan.getLeaderSubPledge(player.getObjectId()))
 						{
-						case 100:
-						case 200:
-							pledgeClass = 6;
+						case L2Clan.SUBUNIT_ROYAL1:
+						case L2Clan.SUBUNIT_ROYAL2:
+							pledgeClass = L2Clan.RANK_VISCOUNT;
 							break;
-						case 1001:
-						case 1002:
-						case 2001:
-						case 2002:
-							pledgeClass = 5;
+						case L2Clan.SUBUNIT_KNIGHT1:
+						case L2Clan.SUBUNIT_KNIGHT2:
+						case L2Clan.SUBUNIT_KNIGHT3:
+						case L2Clan.SUBUNIT_KNIGHT4:
+							pledgeClass = L2Clan.RANK_BARON;
 							break;
-						case -1:
 						default:
-							pledgeClass = 4;
+							pledgeClass = L2Clan.RANK_ELDER;
 							break;
 						}
 					break;
@@ -483,38 +495,37 @@ public class L2ClanMember
 			case 8:
 				switch (player.getSubPledgeType())
 				{
-				case -1:
-					pledgeClass = 1;
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
 					break;
-				case 100:
-				case 200:
-					pledgeClass = 4;
+				case L2Clan.SUBUNIT_ROYAL1:
+				case L2Clan.SUBUNIT_ROYAL2:
+					pledgeClass = L2Clan.RANK_ELDER;
 					break;
-				case 1001:
-				case 1002:
-				case 2001:
-				case 2002:
-					pledgeClass = 3;
+				case L2Clan.SUBUNIT_KNIGHT1:
+				case L2Clan.SUBUNIT_KNIGHT2:
+				case L2Clan.SUBUNIT_KNIGHT3:
+				case L2Clan.SUBUNIT_KNIGHT4:
+					pledgeClass = L2Clan.RANK_KNIGHT;
 					break;
-				case 0:
+				case L2Clan.SUBUNIT_NONE:
 					if (player.isClanLeader())
-						pledgeClass = 8;
+						pledgeClass = L2Clan.RANK_MARQUIS;
 					else
 						switch (clan.getLeaderSubPledge(player.getObjectId()))
 						{
-						case 100:
-						case 200:
-							pledgeClass = 7;
+						case L2Clan.SUBUNIT_ROYAL1:
+						case L2Clan.SUBUNIT_ROYAL2:
+							pledgeClass = L2Clan.RANK_COUNT;
 							break;
-						case 1001:
-						case 1002:
-						case 2001:
-						case 2002:
-							pledgeClass = 6;
+						case L2Clan.SUBUNIT_KNIGHT1:
+						case L2Clan.SUBUNIT_KNIGHT2:
+						case L2Clan.SUBUNIT_KNIGHT3:
+						case L2Clan.SUBUNIT_KNIGHT4:
+							pledgeClass = L2Clan.RANK_VISCOUNT;
 							break;
-						case -1:
 						default:
-							pledgeClass = 5;
+							pledgeClass = L2Clan.RANK_BARON;
 							break;
 						}
 					break;
@@ -523,86 +534,122 @@ public class L2ClanMember
 			case 9:
 				switch (player.getSubPledgeType())
 				{
-					case -1:
-						pledgeClass = 1;
-						break;
-					case 100:
-					case 200:
-						pledgeClass = 5;
-						break;
-					case 1001:
-					case 1002:
-					case 2001:
-					case 2002:
-						pledgeClass = 4;
-						break;
-					case 0:
-						if (player.isClanLeader())
-							pledgeClass = 9;
-						else
-							switch (clan.getLeaderSubPledge(player.getObjectId()))
-							{
-								case 100:
-								case 200:
-									pledgeClass = 8;
-									break;
-								case 1001:
-								case 1002:
-								case 2001:
-								case 2002:
-									pledgeClass = 7;
-									break;
-								case -1:
-								default:
-									pledgeClass = 6;
-									break;
-							}
-						break;
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
+					break;
+				case L2Clan.SUBUNIT_ROYAL1:
+				case L2Clan.SUBUNIT_ROYAL2:
+					pledgeClass = L2Clan.RANK_BARON;
+					break;
+				case L2Clan.SUBUNIT_KNIGHT1:
+				case L2Clan.SUBUNIT_KNIGHT2:
+				case L2Clan.SUBUNIT_KNIGHT3:
+				case L2Clan.SUBUNIT_KNIGHT4:
+					pledgeClass = L2Clan.RANK_ELDER;
+					break;
+				case L2Clan.SUBUNIT_NONE:
+					if (player.isClanLeader())
+						pledgeClass = L2Clan.RANK_DUKE;
+					else
+						switch (clan.getLeaderSubPledge(player.getObjectId()))
+						{
+						case L2Clan.SUBUNIT_ROYAL1:
+						case L2Clan.SUBUNIT_ROYAL2:
+							pledgeClass = L2Clan.RANK_MARQUIS;
+							break;
+						case L2Clan.SUBUNIT_KNIGHT1:
+						case L2Clan.SUBUNIT_KNIGHT2:
+						case L2Clan.SUBUNIT_KNIGHT3:
+						case L2Clan.SUBUNIT_KNIGHT4:
+							pledgeClass = L2Clan.RANK_COUNT;
+							break;
+						default:
+							pledgeClass = L2Clan.RANK_VISCOUNT;
+							break;
+						}
+					break;
 				}
 				break;
 			case 10:
 				switch (player.getSubPledgeType())
 				{
-					case -1:
-						pledgeClass = 1;
-						break;
-					case 100:
-					case 200:
-						pledgeClass = 6;
-						break;
-					case 1001:
-					case 1002:
-					case 2001:
-					case 2002:
-						pledgeClass = 5;
-						break;
-					case 0:
-						if (player.isClanLeader())
-							pledgeClass = 10;
-						else
-							switch (clan.getLeaderSubPledge(player.getObjectId()))
-							{
-								case 100:
-								case 200:
-									pledgeClass = 9;
-									break;
-								case 1001:
-								case 1002:
-								case 2001:
-								case 2002:
-									pledgeClass = 8;
-									break;
-								case -1:
-								default:
-									pledgeClass = 7;
-									break;
-							}
-						break;
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
+					break;
+				case L2Clan.SUBUNIT_ROYAL1:
+				case L2Clan.SUBUNIT_ROYAL2:
+					pledgeClass = L2Clan.RANK_VISCOUNT;
+					break;
+				case L2Clan.SUBUNIT_KNIGHT1:
+				case L2Clan.SUBUNIT_KNIGHT2:
+				case L2Clan.SUBUNIT_KNIGHT3:
+				case L2Clan.SUBUNIT_KNIGHT4:
+					pledgeClass = L2Clan.RANK_BARON;
+					break;
+				case L2Clan.SUBUNIT_NONE:
+					if (player.isClanLeader())
+						pledgeClass = L2Clan.RANK_GRAND_DUKE;
+					else
+						switch (clan.getLeaderSubPledge(player.getObjectId()))
+						{
+						case L2Clan.SUBUNIT_ROYAL1:
+						case L2Clan.SUBUNIT_ROYAL2:
+							pledgeClass = L2Clan.RANK_DUKE;
+							break;
+						case L2Clan.SUBUNIT_KNIGHT1:
+						case L2Clan.SUBUNIT_KNIGHT2:
+						case L2Clan.SUBUNIT_KNIGHT3:
+						case L2Clan.SUBUNIT_KNIGHT4:
+							pledgeClass = L2Clan.RANK_MARQUIS;
+							break;
+						default:
+							pledgeClass = L2Clan.RANK_COUNT;
+							break;
+						}
+					break;
 				}
 				break;
-
-			default:
-				pledgeClass = 1;
+			case 11:
+				switch (player.getSubPledgeType())
+				{
+				case L2Clan.SUBUNIT_ACADEMY:
+					pledgeClass = L2Clan.RANK_VASSAL;
+					break;
+				case L2Clan.SUBUNIT_ROYAL1:
+				case L2Clan.SUBUNIT_ROYAL2:
+					pledgeClass = L2Clan.RANK_COUNT;
+					break;
+				case L2Clan.SUBUNIT_KNIGHT1:
+				case L2Clan.SUBUNIT_KNIGHT2:
+				case L2Clan.SUBUNIT_KNIGHT3:
+				case L2Clan.SUBUNIT_KNIGHT4:
+					pledgeClass = L2Clan.RANK_VISCOUNT;
+					break;
+				case L2Clan.SUBUNIT_NONE:
+					if (player.isClanLeader())
+						pledgeClass = L2Clan.RANK_DISTINGUISHED_KING;
+					else
+						switch (clan.getLeaderSubPledge(player.getObjectId()))
+						{
+						case L2Clan.SUBUNIT_ROYAL1:
+						case L2Clan.SUBUNIT_ROYAL2:
+							pledgeClass = L2Clan.RANK_GRAND_DUKE;
+							break;
+						case L2Clan.SUBUNIT_KNIGHT1:
+						case L2Clan.SUBUNIT_KNIGHT2:
+						case L2Clan.SUBUNIT_KNIGHT3:
+						case L2Clan.SUBUNIT_KNIGHT4:
+							pledgeClass = L2Clan.RANK_DUKE;
+							break;
+						default:
+							pledgeClass = L2Clan.RANK_MARQUIS;
+							break;
+						}
+					break;
+				}
+				break;
+			default: // player is in a clan; clan level < 3
+				pledgeClass = L2Clan.RANK_VASSAL;
 				break;
 			}
 		}
