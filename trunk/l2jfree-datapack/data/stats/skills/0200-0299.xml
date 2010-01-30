@@ -68,7 +68,7 @@
       </add>
     </enchant1for>
     <enchant2for>
-      <add order="0x40" stat="pAtk" val="#ench2pAtkSpd">
+      <add order="0x40" stat="pAtkSpd" val="#ench2pAtkSpd">
           <using kind="Bow"/>
       </add>
     </enchant2for>
