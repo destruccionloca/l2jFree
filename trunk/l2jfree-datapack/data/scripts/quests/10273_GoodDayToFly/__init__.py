@@ -77,7 +77,6 @@ class Quest (JQuest) :
                 htmltext = "32557-11.htm"
         return htmltext
 
-
     def onKill(self,npc,player,isPet):
         st = player.getQuestState(qn)
         if not st : return
@@ -96,6 +95,7 @@ class Quest (JQuest) :
 QUEST       = Quest(10273,qn,"Good Day To Fly")
 
 QUEST.addStartNpc(Lekon)
+
 QUEST.addTalkId(Lekon)
 QUEST.addKillId(22614)
 QUEST.addKillId(22615)

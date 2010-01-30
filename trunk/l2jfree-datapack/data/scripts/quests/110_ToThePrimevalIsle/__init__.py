@@ -41,7 +41,7 @@ class Quest (JQuest) :
     st = player.getQuestState(qn)
     npcId=npc.getNpcId()
     htmltext="<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
-    if not st : return htmltext 
+    if not st : return htmltext
     id = st.getState()
     if id == State.COMPLETED:
       htmltext = "<html><body>This quest have already been completed.</body></html>"

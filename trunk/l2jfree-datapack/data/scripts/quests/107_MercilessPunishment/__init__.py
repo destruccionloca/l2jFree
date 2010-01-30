@@ -152,7 +152,6 @@ QUEST       = Quest(107,qn,"Merciless Punishment")
 QUEST.addStartNpc(30568)
 
 QUEST.addTalkId(30568)
-
 QUEST.addTalkId(30580)
 
 QUEST.addKillId(27041)

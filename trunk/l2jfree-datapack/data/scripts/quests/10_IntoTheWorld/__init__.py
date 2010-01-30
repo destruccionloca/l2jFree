@@ -20,7 +20,6 @@ VERY_EXPENSIVE_NECKLACE = 7574
 SCROLL_OF_ESCAPE_GIRAN = 7559
 MARK_OF_TRAVELER = 7570
 
-
 class Quest (JQuest) :
 
     def __init__(self,id,name,descr):

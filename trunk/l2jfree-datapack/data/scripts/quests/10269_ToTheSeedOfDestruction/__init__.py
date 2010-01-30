@@ -64,5 +64,6 @@ class Quest (JQuest) :
 QUEST       = Quest(10269,qn,"To the Seed of Destruction")
 
 QUEST.addStartNpc(Keucereus)
+
 QUEST.addTalkId(Keucereus)
 QUEST.addTalkId(Allenos)

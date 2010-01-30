@@ -167,9 +167,11 @@ QUEST       = Quest(10275,qn,"Containing the Attribute Power")
 
 QUEST.addStartNpc(Holly)
 QUEST.addStartNpc(Weber)
+
 QUEST.addTalkId(Holly)
 QUEST.addTalkId(Weber)
 QUEST.addTalkId(Yin)
 QUEST.addTalkId(Yang)
+
 QUEST.addKillId(Air)
 QUEST.addKillId(Water)

@@ -64,5 +64,6 @@ class Quest (JQuest) :
 QUEST       = Quest(10268,qn,"To the Seed of Infinity")
 
 QUEST.addStartNpc(Keucereus)
+
 QUEST.addTalkId(Keucereus)
 QUEST.addTalkId(Tepios)

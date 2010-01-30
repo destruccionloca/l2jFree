@@ -37,10 +37,10 @@ class Quest (JQuest) :
    foot = st.getQuestItemsCount(FOOT_OF_BANDERSNATCHLING)
    spice = st.getQuestItemsCount(SECRET_SPICE)
    if event == "31521-1.htm" :
-     if st.getPlayer().getLevel() >= 73 : 
+     if st.getPlayer().getLevel() >= 73 :
         st.set("cond","1")
         st.setState(State.STARTED)
-        st.playSound("ItemSound.quest_accept")       
+        st.playSound("ItemSound.quest_accept")
      else:
         htmltext = "31521-0a.htm"
         st.exitQuest(1)
@@ -81,7 +81,7 @@ class Quest (JQuest) :
    partyMember = partyMember1
    numItems,chance = divmod(100*Config.RATE_DROP_QUEST,100)
    dropchance = Rnd.get(100)
-   if dropchance  < chance:
+   if dropchance < chance:
     # player who has State.COMPLETED up to 2 out of 3 item collections may consume the party drop
     if partyMember2 :
       if Rnd.get(100) <= 66:
@@ -109,7 +109,7 @@ class Quest (JQuest) :
                  st.set("cond","3")
                  st.playSound("ItemSound.quest_middle")
                else:
-                 st.playSound("ItemSound.quest_itemget")  
+                 st.playSound("ItemSound.quest_itemget")
    return
 
 QUEST       = Quest(624,qn,"The Finest Ingredients - Part 1")

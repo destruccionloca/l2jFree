@@ -74,6 +74,7 @@ class Quest (JQuest) :
 QUEST       = Quest(10267,qn,"Journey to Gracia")
 
 QUEST.addStartNpc(Orven)
+
 QUEST.addTalkId(Orven)
 QUEST.addTalkId(Keucereus)
 QUEST.addTalkId(Papiku)

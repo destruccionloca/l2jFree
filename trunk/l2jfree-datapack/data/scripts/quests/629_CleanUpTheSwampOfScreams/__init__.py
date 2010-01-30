@@ -34,7 +34,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [CLAWS]
- 
+
  def onEvent (self,event,st) :
    htmltext = event
    if event == "31553-1.htm" :
@@ -106,4 +106,4 @@ QUEST.addStartNpc(CAPTAIN)
 QUEST.addTalkId(CAPTAIN)
 
 for mobs in range(21508,21518) :
-  QUEST.addKillId(mobs)
+    QUEST.addKillId(mobs)

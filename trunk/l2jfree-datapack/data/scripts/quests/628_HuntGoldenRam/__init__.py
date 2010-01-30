@@ -149,7 +149,7 @@ class Quest (JQuest) :
                numItems = numItems + 1
             item = 0
             if cond in [1,2] and npcId in range(21508,21513): #Splinter Stakatos
-               item = CHITIN       
+               item = CHITIN
             elif cond==2 and npcId in range(21513,21518): #Needle Stakatos
                item = CHITIN2
             if item != 0 and numItems >= 1 :

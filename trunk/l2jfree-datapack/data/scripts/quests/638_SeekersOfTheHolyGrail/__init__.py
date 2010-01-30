@@ -77,11 +77,11 @@ class Quest (JQuest) :
       if st.getInt("cond") == 1 :
         chance = DROP_CHANCE * Config.RATE_DROP_QUEST
         numItems, chance = divmod(chance,100)
-        if st.getRandom(100) < chance : 
+        if st.getRandom(100) < chance :
            numItems += 1
         if numItems :
-           st.playSound("ItemSound.quest_itemget")   
-           st.giveItems(TOTEM,int(numItems))       
+           st.playSound("ItemSound.quest_itemget")
+           st.giveItems(TOTEM,int(numItems))
     return
 
 QUEST       = Quest(638,qn,"Seekers of the Holy Grail")

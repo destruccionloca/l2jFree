@@ -123,7 +123,7 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st: return   
+   if not st: return
    if st.getState() == State.STARTED :
        npcId = npc.getNpcId()
        if npcId in [20361,20362] :

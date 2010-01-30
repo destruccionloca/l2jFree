@@ -85,7 +85,9 @@ class Quest (JQuest) :
 QUEST       = Quest(10274,qn,"Collecting in the Air")
 
 QUEST.addStartNpc(Lekon)
+
 QUEST.addTalkId(Lekon)
+
 QUEST.addSkillSeeId(18684)
 QUEST.addSkillSeeId(18685)
 QUEST.addSkillSeeId(18686)

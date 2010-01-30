@@ -30,17 +30,17 @@ def AutoChat(npc,text) :
 
 class Quest (JQuest) :
  def __init__(self,id,name,descr):
- 	JQuest.__init__(self,id,name,descr)
- 	self.questItemIds = [FOOD, MEAT]
- 	test = self.loadGlobalQuestVar("625_respawn")
- 	if test.isdigit() :
- 	   remain = long(test) - System.currentTimeMillis()
- 	   if remain <= 0 :
- 	      self.addSpawn(31542,157136,-121456,-2363,40000, False, 0, True)
- 	   else :
- 	      self.startQuestTimer("spawn_npc", remain, None, None)
- 	else:
- 	   self.addSpawn(31542,157136,-121456,-2363,40000, False, 0, True)
+    JQuest.__init__(self,id,name,descr)
+    self.questItemIds = [FOOD, MEAT]
+    test = self.loadGlobalQuestVar("625_respawn")
+    if test.isdigit() :
+       remain = long(test) - System.currentTimeMillis()
+       if remain <= 0 :
+          self.addSpawn(31542,157136,-121456,-2363,40000, False, 0, True)
+       else :
+          self.startQuestTimer("spawn_npc", remain, None, None)
+    else:
+       self.addSpawn(31542,157136,-121456,-2363,40000, False, 0, True)
 
  def onAdvEvent (self, event, npc, player) :
    if event == "Icicle Emperor Bumbalump has despawned" :

@@ -95,7 +95,7 @@ class Quest (JQuest) :
         st.giveItems(WAND_OF_ADEPT,1)
         for item in range(4412,4417) :
             st.rewardItems(item,int(10))   # Echo crystals
-	st.addExpAndSp(39750,3407)
+    st.addExpAndSp(39750,3407)
         htmltext = "30017-05.htm"
         st.unset("cond")
         st.exitQuest(False)
@@ -134,7 +134,6 @@ QUEST       = Quest(104,qn,"Spirit Of Mirrors")
 QUEST.addStartNpc(30017)
 
 QUEST.addTalkId(30017)
-
 QUEST.addTalkId(30041)
 QUEST.addTalkId(30043)
 QUEST.addTalkId(30045)

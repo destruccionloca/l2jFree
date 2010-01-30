@@ -47,7 +47,7 @@ class Quest (JQuest) :
              if level >= 75 and partyleader == player:
                  if npcId == MARQUEZ :
                      if cond == 0 :
-                         st.set("cond","1")  
+                         st.set("cond","1")
                          st.playSound("ItemSound.quest_accept")
                          st.setState(State.STARTED)
                          htmltext = "32113-1.htm"
@@ -119,7 +119,7 @@ class Quest (JQuest) :
              if st.getQuestItemsCount(FRAGMENT) <= 49:
                  st.playSound("ItemSound.quest_itemget")
              else:
-                 st.set("cond","5")  
+                 st.set("cond","5")
                  st.playSound("ItemSound.quest_middle")
      elif cond == 10 :
          if npcId in MOBS2:
@@ -138,7 +138,7 @@ class Quest (JQuest) :
                  if st.getQuestItemsCount(8771) <= 9:
                      st.playSound("ItemSound.quest_itemget")
          if st.getQuestItemsCount(8770) >= 10 and st.getQuestItemsCount(8771) >= 10 and st.getQuestItemsCount(8772) >= 10:
-             st.set("cond","11")  
+             st.set("cond","11")
              st.playSound("ItemSound.quest_middle")
      return
 
