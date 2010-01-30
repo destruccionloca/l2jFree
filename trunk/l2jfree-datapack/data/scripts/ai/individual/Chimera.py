@@ -44,6 +44,11 @@ class Chimera(JQuest):
 			return
 		return
 
+	def onSpawn (self,npc):
+		npc.setQuestDropable(False)
+		npc.setMagicBottled(False, 100)
+		return
+
 QUEST = Chimera(-1, "Chimera", "ai")
 
 for mob in CHIMERA:	

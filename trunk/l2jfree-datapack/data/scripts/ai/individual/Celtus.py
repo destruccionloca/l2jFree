@@ -41,6 +41,11 @@ class Celtus(JQuest):
 			return
 		return
 
+	def onSpawn (self,npc):
+		npc.setQuestDropable(False)
+		npc.setMagicBottled(False, 100)
+		return
+
 QUEST = Celtus(-1, "Celtus", "ai")
 QUEST.addKillId(22353)
 QUEST.addSpawnId(22353)
