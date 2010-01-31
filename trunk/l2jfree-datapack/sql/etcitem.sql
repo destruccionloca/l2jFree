@@ -9550,7 +9550,7 @@ UPDATE `etcitem` SET `material` = 'adamantaite', `crystal_type` = 's', `price` =
 
 -- Moving our Changes to update statements to make syncs easier
 UPDATE `etcitem` SET `sellable` = 'true', `dropable` = 'true', `destroyable` = 'true', `tradeable` = 'true', `handler` = 'SummonItems' WHERE `item_id` = 5249;
-UPDATE `etcitem` SET `item_type` = 'castle_guard' WHERE `item_id` = 7917;
+UPDATE `etcitem` SET `item_type` = 'castle_guard' WHERE `item_id` = 8029;
 UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (8056,8192,8273,8274,8275,8379,9698,9699,20272,20273,20274,20335,20336,20337,20338,20339,20340,20341,20342,20343,20344,20345,20346,20347,20348,20349,20350,20351,20352,20391,20392,22000,22001,22002,22003,22004,22005,22038,22054,22055,22056,22057,22058,22059,22060,22061,22062,22063,22064,22065,22066);
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2440-1' WHERE `item_id` = 9599;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2359-1' WHERE `item_id` = 9672;
@@ -9685,6 +9685,7 @@ UPDATE `etcitem` SET `skills_item` = '2776-1', `handler` = 'ItemSkills' WHERE `i
 UPDATE `etcitem` SET `skills_item` = '2777-1', `handler` = 'ItemSkills' WHERE `item_id` = '13674';  -- Schuttgart Kamael Guard Captain
 UPDATE `etcitem` SET `skills_item` = '2778-1', `handler` = 'ItemSkills' WHERE `item_id` = '13675';  -- Schuttgart Knight of Dawn
 UPDATE `etcitem` SET `skills_item` = '2779-1', `handler` = 'ItemSkills' WHERE `item_id` = '13676';  -- Schuttgart Fortress Captain
+UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 13569 AND 13685; -- Disguise Scrolls
 
 -- Water dragon Scale and claws (Psycho) 
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2360-1' WHERE `etcitem`.`item_id` =9700 LIMIT 1 ; 
@@ -9746,3 +9747,8 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2858-1' WHERE `i
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2883-1' WHERE `item_id` = 14742;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2884-1' WHERE `item_id` = 14743;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2894-1' WHERE `item_id` = 14769;
+
+UPDATE `etcitem` SET `consume_type` = 'stackable' WHERE `item_id` IN (6622,9625,9626,9627); -- Giant's Codex
+
+UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 13731 AND 13739; -- Blessed Scrolls
+UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 20364 AND 20371; -- Transformation Scrolls

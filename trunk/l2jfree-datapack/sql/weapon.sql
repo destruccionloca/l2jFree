@@ -3390,11 +3390,13 @@ UPDATE `weapon` SET bodypart = "lrhand" WHERE (weaponType = "pole") or (weaponTy
 
 UPDATE `weapon` SET time = "60" WHERE (name LIKE '%1 hour%') or (name LIKE '%1-hour%');
 UPDATE `weapon` SET time = "180" WHERE (name LIKE '%3 hour%') or (name LIKE '%3-hour%');
+UPDATE `weapon` SET time = "240" WHERE (name LIKE '%4 hour%') or (name LIKE '%4-hour%');
 UPDATE `weapon` SET time = "1440" WHERE (name LIKE '%24 hour%') or (name LIKE '%24-hour%');
 UPDATE `weapon` SET time = "4320" WHERE (name LIKE '%3 Day%') or (name LIKE '%3-Day%');
 UPDATE `weapon` SET time = "10080" WHERE (name LIKE '%7 Day%') or (name LIKE '%7-Day%');
 UPDATE `weapon` SET time = "21600" WHERE (name LIKE '%15 Day%') or (name LIKE '%15-Day%');
 UPDATE `weapon` SET time = "43200" WHERE (name LIKE '%30 Day%') or (name LIKE '%30-Day%');
+UPDATE `weapon` SET time = "86400" WHERE (name LIKE '%60 Day%') or (name LIKE '%60-Day%');
 
 -- Ensures that all rapiers have the rapier skill, then sets the Infinity Rapier one to 0 (since it's called via the Infinity SA)
 UPDATE `weapon` SET enchant4_skill = "3426-1" WHERE weaponType = "rapier";
@@ -3467,3 +3469,13 @@ UPDATE `weapon` SET `skills_item` = '8319-1' WHERE `item_id` IN (14627,14633);
 UPDATE `weapon` SET `skills_item` = '8320-1' WHERE `item_id` = 14628;
 UPDATE `weapon` SET `skills_item` = '8321-1' WHERE `item_id` IN (14629,14630,14631);
 UPDATE `weapon` SET `skills_item` = '8322-1' WHERE `item_id` = 14674;
+
+-- Weapon Names
+UPDATE `weapon` SET `name` = 'Durendal {PvP} - Focus' WHERE `item_id` = 10703;
+UPDATE `weapon` SET `name` = 'Durendal {PvP} - Haste' WHERE `item_id` = 10704;
+UPDATE `weapon` SET `name` = 'Durendal {PvP} - Health' WHERE `item_id` = 10705;
+UPDATE `weapon` SET `name` = 'Tallum Blade*Dark Legion\'s Edge - Lightning' WHERE `item_id` = 11234;
+UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder' WHERE `item_id` = 11239;
+UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Haste' WHERE `item_id` = 11240;
+UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Health' WHERE `item_id` = 11241;
+UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Focus' WHERE `item_id` = 11242;
