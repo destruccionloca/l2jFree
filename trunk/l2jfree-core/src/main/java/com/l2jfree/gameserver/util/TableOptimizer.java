@@ -17,7 +17,9 @@ package com.l2jfree.gameserver.util;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,34 +27,85 @@ import com.l2jfree.L2DatabaseFactory;
 
 public final class TableOptimizer
 {
-	private final static Log _log = LogFactory.getLog(TableOptimizer.class);
-
-	public static final void optimize()
+	private static final Log _log = LogFactory.getLog(TableOptimizer.class);
+	
+	public static void optimize()
 	{
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("OPTIMIZE TABLE auction_bid,auction_watch,auction,auto_announcements," +
-					"castle_doorupgrade,castle_functions,castle_hired_guards,castle_manor_procure," +
-					"castle_manor_production,castle_zoneupgrade,character_birthdays,character_blocks," +
-					"character_effects,character_friends,character_hennas,character_instance_time," +
-					"character_macroses,character_mail,character_quest_global_data,character_quests," +
-					"character_raid_points,character_recipebook,character_recommend_data,character_recommends," +
-					"character_shortcuts,character_skill_reuses,character_skills,character_subclass_certification," +
-					"character_subclasses,character_tpbookmark,characters,clan_data,clan_notices,clan_privs," +
-					"clan_skills,clan_subpledges,clan_wars,clanhall_functions,clanhall_sieges,clanhall," +
-					"couples,ctf_teams,ctf,cursed_weapons,dm,fort_doorupgrade,fort_functions,fort," +
-					"fortsiege_clans,forums,games,gm_audit,heroes,item_attributes,items,itemsonground," +
-					"obj_restrictions,olympiad_data,olympiad_nobles_eom,olympiad_nobles,petitions,pets," +
-					"posts,quest_global_data,record,seven_signs_festival,seven_signs_status,seven_signs," +
-					"siege_clans,topic,tvt_teams,tvt,VIPinfo");
-			if (_log.isDebugEnabled())
+			
+			final ArrayList<String> tables = new ArrayList<String>();
+			{
+				ResultSet rs = st.executeQuery("SHOW TABLES");
 				while (rs.next())
-					_log.debug("TableOptimizer: " + rs.getString("Table") + " " + rs.getString("Msg_type") + " - " + rs.getString("Msg_text"));
+					tables.add(rs.getString(1));
+				rs.close();
+			}
+			
+			{
+				ResultSet rs = st.executeQuery("CHECK TABLE " + StringUtils.join(tables, ","));
+				while (rs.next())
+				{
+					String table = rs.getString("Table");
+					String msgType = rs.getString("Msg_type");
+					String msgText = rs.getString("Msg_text");
+					
+					if (msgType.equals("status"))
+						if (msgText.equals("OK"))
+							continue;
+					
+					_log.warn("TableOptimizer: CHECK TABLE " + table + ": " + msgType + " -> " + msgText);
+				}
+				rs.close();
+				
+				_log.info("TableOptimizer: Database tables have been checked.");
+			}
+			
+			{
+				ResultSet rs = st.executeQuery("ANALYZE TABLE " + StringUtils.join(tables, ","));
+				while (rs.next())
+				{
+					String table = rs.getString("Table");
+					String msgType = rs.getString("Msg_type");
+					String msgText = rs.getString("Msg_text");
+					
+					if (msgType.equals("status"))
+						if (msgText.equals("OK") || msgText.equals("Table is already up to date"))
+							continue;
+					
+					_log.warn("TableOptimizer: ANALYZE TABLE " + table + ": " + msgType + " -> " + msgText);
+				}
+				rs.close();
+				
+				_log.info("TableOptimizer: Database tables have been analyzed.");
+			}
+			
+			{
+				ResultSet rs = st.executeQuery("OPTIMIZE TABLE " + StringUtils.join(tables, ","));
+				while (rs.next())
+				{
+					String table = rs.getString("Table");
+					String msgType = rs.getString("Msg_type");
+					String msgText = rs.getString("Msg_text");
+					
+					if (msgType.equals("status"))
+						if (msgText.equals("OK") || msgText.equals("Table is already up to date"))
+							continue;
+					
+					if (msgType.equals("note"))
+						if (msgText.equals("Table does not support optimize, doing recreate + analyze instead"))
+							continue;
+					
+					_log.warn("TableOptimizer: OPTIMIZE TABLE " + table + ": " + msgType + " -> " + msgText);
+				}
+				rs.close();
+				
+				_log.info("TableOptimizer: Database tables have been optimized.");
+			}
 			st.close();
-			_log.info("TableOptimizer: Database tables have been optimized.");
 		}
 		catch (Exception e)
 		{
