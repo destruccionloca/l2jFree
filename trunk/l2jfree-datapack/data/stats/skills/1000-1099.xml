@@ -628,8 +628,8 @@
     </enchant3for>
   </skill>
   <skill id="1034" levels="13" name="Repose" enchantLevels1="30" enchantLevels2="30">
-    <table name="#enchant2mpInitialConsume"> 20 19 19 19 18 18 18 17 17 17 16 16 16 15 15 15 14 14 14 13 13 13 12 12 12 11 11 11 10 10 </table>
-    <table name="#enchant2mpConsume"> 81 79 78 77 75 74 73 71 70 69 67 66 64 63 62 60 59 58 56 55 54 52 51 50 48 47 45 44 43 41 </table>
+    <table name="#ench2mpInitialConsume"> 20 19 19 19 18 18 18 17 17 17 16 16 16 15 15 15 14 14 14 13 13 13 12 12 12 11 11 11 10 10 </table>
+    <table name="#ench2mpConsume"> 81 79 78 77 75 74 73 71 70 69 67 66 64 63 62 60 59 58 56 55 54 52 51 50 48 47 45 44 43 41 </table>
     <table name="#ench1power"> 40 40 41 41 41 42 42 42 43 43 43 44
       44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
     <table name="#mpInitialConsume"> 11 13 14 15 16 16 17 17 18 19 19 20 20 </table>
@@ -645,8 +645,8 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
-    <enchant2 name="mpConsume" val="#enchant2mpConsume"/>
+    <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <cond msgId="109">
       <target undead="true"/>
     </cond>
@@ -762,7 +762,7 @@
     <table name="#mpConsume"> 103 112 122 127 132 137 142 147 151 155 159 163 </table>
     <table name="#magicLvl"> 48 52 56 58 60 62 64 66 68 70 72 74 </table>
     <table name="#ench1power"> 40 40 41 41 41 42 42 42 43 43 43 44 44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 </table>
-    <table name="#enchant2mpInitialConsume"> 40 40 39 39 39 38 38 37 37 37 36 36 36 35 35 35 34 34 33 33 33 32 32 32 31 31 30 30 30 29 </table>
+    <table name="#ench2mpInitialConsume"> 40 40 39 39 39 38 38 37 37 37 36 36 36 35 35 35 34 34 33 33 33 32 32 32 31 31 30 30 30 29 </table>
     <table name="#ench2mpConsume"> 160 160 158 156 156 153 152 150 149 148 146 144 144 141 140 140 137 136 134 133 132 130 128 128 125 124 122 121 120 118 </table>
     <!-- Unknown (damage power) -->
     <table name="#ench3power"> 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 </table>
@@ -781,7 +781,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <enchant1 name="power" val="#ench1power"/>
-    <enchant2 name="mpInitialConsume" val="#enchant2mpInitialConsume"/>
+    <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="power" val="#ench3power"/>
     <enchant3 name="skillType" val="MDAM"/>
