@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.l2jfree.com"
+xmlns="http://www.l2jfree.com"
+elementFormDefault="qualified">
+
+<xs:element name="instance">
+  <xs:complexType>
+    <xs:complexContent>
+      <xs:extension base="namedType">
+        <xs:all>
+          <xs:element name="activityTime" type="timeType" minOccurs="0"/> <!-- Minutes -->
+          <xs:element name="allowSummon" type="boolAtrType" minOccurs="0"/>
+          <xs:element name="timeDelay" type="timeType" minOccurs="0"/> <!-- Missing handling core-side -->
+          <xs:element name="emptyDestroyTime" type="timeType" minOccurs="0"/> <!-- Seconds -->
+          <xs:element name="PvPInstance" type="boolAtrType" minOccurs="0"/>
+          <xs:element name="returnTeleport" type="coordType" minOccurs="0"/>
+          <xs:element name="doorList" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="door" minOccurs="1" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:attribute name="doorId" use="required"/>
+                    <xs:attribute name="open" type="xs:boolean"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="spawnList" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="spawn" minOccurs="1" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="coordType">
+                        <xs:attribute name="npcId" type="xs:int" use="required"/>
+                        <xs:attribute name="heading" type="xs:unsignedShort" use="required"/>
+                        <xs:attribute name="respawnDelay" type="xs:nonNegativeInteger" default="0"/>
+                        <xs:attribute name="amount" type="xs:positiveInteger" default="1"/>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="spawnPoint" type="coordType" minOccurs="0"/>
+        </xs:all>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:element>
+
+<xs:complexType name="namedType">
+  <xs:attribute name="name" type="xs:string" use="required"/>
+</xs:complexType>
+<xs:complexType name="timeType">
+  <xs:attribute name="val" type="xs:positiveInteger" use="required"/>
+</xs:complexType>
+<xs:complexType name="boolAtrType">
+  <xs:attribute name="val" type="xs:boolean" use="required"/>
+</xs:complexType>
+<xs:complexType name="coordType">
+  <xs:attribute name="x" type="xs:int" use="required"/>
+  <xs:attribute name="y" type="xs:int" use="required"/>
+  <xs:attribute name="z" type="xs:int" use="required"/>
+</xs:complexType>
+
+</xs:schema>

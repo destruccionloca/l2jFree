@@ -66,7 +66,7 @@ class Quest (JQuest) :
         relics = st.getQuestItemsCount(RELICS)
         entrance = st.getQuestItemsCount(ENTRANCE)
         if id==State.CREATED:
-           if player.getLevel() >= 74 :
+           if player.getLevel() >= 75 :
               htmltext="31538-01.htm"
            else :
               htmltext="31538-02.htm"
