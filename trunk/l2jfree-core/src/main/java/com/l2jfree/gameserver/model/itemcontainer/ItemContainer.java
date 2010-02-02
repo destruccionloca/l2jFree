@@ -611,7 +611,7 @@ public abstract class ItemContainer
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement(
-                 "SELECT object_id, item_id, count, enchant_level, loc, loc_data, custom_type1, custom_type2, mana_left, time FROM items WHERE owner_id=? AND (loc=?)");
+                 "SELECT object_id, item_id, count, enchant_level, loc, loc_data, custom_type1, custom_type2, mana_left, time FROM items WHERE owner_id=? AND loc=?");
             statement.setInt(1, getOwnerId());
             statement.setString(2, getBaseLocation().name());
             ResultSet inv = statement.executeQuery();
@@ -624,9 +624,10 @@ public abstract class ItemContainer
 
                 L2World.getInstance().storeObject(item);
 
+                L2Character owner = getOwner(); // may be null for clan WH
                 // If stackable item is found in inventory just add to current quantity
                 if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
-                    addItem("Restore", item, getOwner().getActingPlayer(), null);
+                    addItem("Restore", item, owner != null ? owner.getActingPlayer() : null, null);
                 else
                     addItem(item);
             }

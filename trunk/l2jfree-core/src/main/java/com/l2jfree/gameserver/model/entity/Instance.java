@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -329,8 +330,11 @@ public class Instance
 		try
 		{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setValidating(false);
+			factory.setValidating(false); // DTD isn't used
 			factory.setIgnoringComments(true);
+			// Such validation will not find element 'instance' 
+			//SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			//factory.setSchema(sf.newSchema(new File(Config.DATAPACK_ROOT, "data/templates/instances.xsd")));
 			doc = factory.newDocumentBuilder().parse(xml);
 
 			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
@@ -369,15 +373,15 @@ public class Instance
 				if (a != null)
 				{
 					_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(Integer.parseInt(a.getNodeValue()) * 60000), 15000);
-					_instanceEndTime = System.currentTimeMillis() + Long.parseLong(a.getNodeValue()) * 60000 + 15000;
+					_instanceEndTime = System.currentTimeMillis() + _checkTimeUpTask.getDelay(TimeUnit.MILLISECONDS);
 				}
 			}
-			/*			else if ("timeDelay".equalsIgnoreCase(n.getNodeName()))
-						{
-							a = n.getAttributes().getNamedItem("val");
-							if (a != null)
-								instance.setTimeDelay(Integer.parseInt(a.getNodeValue()));
-						}*/
+			/*else if ("timeDelay".equalsIgnoreCase(n.getNodeName()))
+			{
+				a = n.getAttributes().getNamedItem("val");
+				if (a != null)
+					setTimeDelay(Integer.parseInt(a.getNodeValue()));
+			}*/
 			else if ("allowSummon".equalsIgnoreCase(n.getNodeName()))
 			{
 				a = n.getAttributes().getNamedItem("val");
@@ -396,7 +400,7 @@ public class Instance
 				if (a != null)
 					setPvPInstance(Boolean.parseBoolean(a.getNodeValue()));
 			}
-			else if ("returnteleport".equalsIgnoreCase(n.getNodeName()))
+			else if ("returnTeleport".equalsIgnoreCase(n.getNodeName()))
 			{
 					int tpx = 0, tpy = 0, tpz = 0;
 
@@ -406,7 +410,7 @@ public class Instance
 					
 					setReturnTeleport(tpx, tpy, tpz);
 			}
-			else if ("doorlist".equalsIgnoreCase(n.getNodeName()))
+			else if ("doorList".equalsIgnoreCase(n.getNodeName()))
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
@@ -421,11 +425,11 @@ public class Instance
 					}
 				}
 			}
-			else if ("spawnlist".equalsIgnoreCase(n.getNodeName()))
+			else if ("spawnList".equalsIgnoreCase(n.getNodeName()))
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
-					int npcId = 0, x = 0, y = 0, z = 0, respawn = 0, heading = 0;
+					int npcId = 0, x = 0, y = 0, z = 0, respawn = 0, heading = 0, amount = 1;
 
 					if ("spawn".equalsIgnoreCase(d.getNodeName()))
 					{
@@ -434,8 +438,13 @@ public class Instance
 						y = Integer.parseInt(d.getAttributes().getNamedItem("y").getNodeValue());
 						z = Integer.parseInt(d.getAttributes().getNamedItem("z").getNodeValue());
 						heading = Integer.parseInt(d.getAttributes().getNamedItem("heading").getNodeValue());
-						respawn = Integer.parseInt(d.getAttributes().getNamedItem("respawn").getNodeValue());
-						int amount = Integer.parseInt(d.getAttributes().getNamedItem("amount").getNodeValue());
+						// these have default values in schema, but DF doesn't seem to care
+						Node opt = d.getAttributes().getNamedItem("respawnDelay");
+						if (opt != null)
+							respawn = Integer.parseInt(opt.getNodeValue());
+						opt = d.getAttributes().getNamedItem("amount");
+						if (opt != null)
+							amount = Integer.parseInt(opt.getNodeValue());
 
 						npcTemplate = NpcTable.getInstance().getTemplate(npcId);
 						if (npcTemplate != null)
@@ -461,14 +470,14 @@ public class Instance
 					}
 				}
 			}
-			else if ("spawnpoint".equalsIgnoreCase(n.getNodeName()))
+			else if ("spawnPoint".equalsIgnoreCase(n.getNodeName()))
 			{
 				try
 				{
 					_spawnLoc = new int[3];
-					_spawnLoc[0] = Integer.parseInt(n.getAttributes().getNamedItem("spawnX").getNodeValue());
-					_spawnLoc[1] = Integer.parseInt(n.getAttributes().getNamedItem("spawnY").getNodeValue());
-					_spawnLoc[2] = Integer.parseInt(n.getAttributes().getNamedItem("spawnZ").getNodeValue());
+					_spawnLoc[0] = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
+					_spawnLoc[1] = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
+					_spawnLoc[2] = Integer.parseInt(n.getAttributes().getNamedItem("z").getNodeValue());
 				}
 				catch (Exception e)
 				{
