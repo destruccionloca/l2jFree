@@ -662,7 +662,7 @@ public final class L2Multisell
 			{
 				int id = Integer.parseInt(f.getName().replaceAll(".xml", ""));
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				factory.setValidating(false);
+				factory.setValidating(true);
 				factory.setIgnoringComments(true);
 				Document doc = factory.newDocumentBuilder().parse(f);
 				

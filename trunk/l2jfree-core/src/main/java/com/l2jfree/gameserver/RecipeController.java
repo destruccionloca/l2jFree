@@ -229,7 +229,7 @@ public class RecipeController
 	private void loadFromXML() throws SAXException, IOException, ParserConfigurationException
 	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setValidating(false);
+		factory.setValidating(true);
 		factory.setIgnoringComments(true);
 		File file = new File(Config.DATAPACK_ROOT, "data/" + RECIPES_FILE);
 		if (file.exists())
