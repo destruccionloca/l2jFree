@@ -4,9 +4,6 @@ import sys
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
-from com.l2jfree.gameserver.network.serverpackets import InventoryUpdate
-from com.l2jfree.gameserver.network.serverpackets import SystemMessage
-from com.l2jfree.gameserver.network               import SystemMessageId
 from com.l2jfree.tools.random                     import Rnd
 
 LIFE_FORCES = [9680,9681]
@@ -19,14 +16,7 @@ class Chimera(JQuest):
 	def onKill (self,npc,player,isPet):
 		if npc.getQuestDropable() == True and Rnd.get(100) <= 70:
 			reward = LIFE_FORCES[Rnd.get(len(LIFE_FORCES))]
-			item = player.getInventory().addItem("Chimera", reward, 1, player, None)
-			iu = InventoryUpdate()
-			iu.addItem(item)
-			player.sendPacket(iu);
-			sm = SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2)
-			sm.addItemName(item)
-			sm.addNumber(1)
-			player.sendPacket(sm)
+			player.addItem("Chimera", reward, 1, player, True, True)
 		return
 
 	def onSkillSee(self,npc,caster,skill,targets,isPet):
