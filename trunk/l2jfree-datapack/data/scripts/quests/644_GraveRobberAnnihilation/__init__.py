@@ -4,9 +4,9 @@ import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest 
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
-qn = "644_GraveRobberAnnihilation" 
+qn = "644_GraveRobberAnnihilation"
 
 #Drop rate
 DROP_CHANCE = 75
@@ -37,7 +37,7 @@ class Quest (JQuest) :
    if not st : return
    cond = st.getInt("cond")
    if event == "32017-03.htm" :
-      if st.getPlayer().getLevel() < 20 : 
+      if st.getPlayer().getLevel() < 20 :
          htmltext = "32017-02.htm"
          st.exitQuest(1)
       else :
@@ -81,7 +81,7 @@ class Quest (JQuest) :
          if st.getInt("cond") == 1 and count < 120 :
             chance = DROP_CHANCE * Config.RATE_DROP_QUEST
             numItems, chance = divmod(chance,100)
-            if st.getRandom(100) < chance : 
+            if st.getRandom(100) < chance :
                numItems += 1
             if numItems :
                if count + numItems >= 120 :
@@ -89,14 +89,14 @@ class Quest (JQuest) :
                   st.playSound("ItemSound.quest_middle")
                   st.set("cond","2")
                else:
-                  st.playSound("ItemSound.quest_itemget")   
-               st.giveItems(ORC_GOODS,int(numItems))       
+                  st.playSound("ItemSound.quest_itemget")
+               st.giveItems(ORC_GOODS,int(numItems))
    return
 
 QUEST       = Quest(644, qn, "Grave Robber Annihilation")
 
 QUEST.addStartNpc(KARUDA)
-QUEST.addTalkId(KARUDA) 
+QUEST.addTalkId(KARUDA)
 
 for i in MOBS :
   QUEST.addKillId(i)
