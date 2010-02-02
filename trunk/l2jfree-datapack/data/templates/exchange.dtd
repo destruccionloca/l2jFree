@@ -14,9 +14,11 @@
 <!ATTLIST ingredient count CDATA #REQUIRED>
 <!ATTLIST ingredient isTaxIngredient (true|false) #IMPLIED>
 <!ATTLIST ingredient maintainIngredient (true|false) #IMPLIED>
+<!ATTLIST ingredient enchant CDATA #IMPLIED>
 <!ELEMENT ingredient EMPTY>
 
 <!-- Production -->
 <!ATTLIST production id CDATA #REQUIRED>
 <!ATTLIST production count CDATA #REQUIRED>
+<!ATTLIST production enchant CDATA #IMPLIED>
 <!ELEMENT production EMPTY>
