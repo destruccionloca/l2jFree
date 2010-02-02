@@ -16,7 +16,7 @@ class Chimera(JQuest):
 		JQuest.__init__(self,id,name,descr)
 
 	def onKill (self,npc,player,isPet):
-		if npc.getQuestDropable() == True and Rnd.get(100) <= 70:
+		if npc.getQuestDropable() == True and not isPet and Rnd.get(100) <= 70:
 			reward = LIFE_FORCES[Rnd.get(len(LIFE_FORCES))]
 			player.addItem("Chimera", reward, 1, player, True, True)
 		return

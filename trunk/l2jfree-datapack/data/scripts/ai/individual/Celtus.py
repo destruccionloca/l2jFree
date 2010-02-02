@@ -13,7 +13,7 @@ class Celtus(JQuest):
 		JQuest.__init__(self,id,name,descr)
 
 	def onKill (self,npc,player,isPet):
-		if npc.getQuestDropable() == True:
+		if npc.getQuestDropable() == True and not isPet:
 			amount = Rnd.get(1,5)
 			player.addItem("Celtus", 9682, amount, player, True, True)
 		return
