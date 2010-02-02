@@ -55,7 +55,7 @@ class Quest (JQuest) :
           htmltext = "31538-05.htm"
      elif event == "31538-08.htm" :
          st.exitQuest(1)
-     return htmltext    
+     return htmltext
 
  def onTalk (self,npc,player):
      htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
