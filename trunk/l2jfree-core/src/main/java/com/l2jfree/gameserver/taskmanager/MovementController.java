@@ -14,16 +14,14 @@
  */
 package com.l2jfree.gameserver.taskmanager;
 
-import javolution.util.FastMap;
-import javolution.util.FastMap.Entry;
+import java.util.ArrayList;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
 import com.l2jfree.gameserver.threadmanager.FIFOSimpleExecutableQueue;
+import com.l2jfree.util.L2Collections;
+import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 /**
@@ -42,19 +40,7 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		return SingletonHolder.INSTANCE;
 	}
 	
-	private static final class TickRange
-	{
-		private int begin;
-		private final int end;
-		
-		private TickRange(int ticks)
-		{
-			begin = GameTimeController.getGameTicks();
-			end = begin + ticks;
-		}
-	}
-	
-	private final FastMap<L2Character, TickRange> _movingChars = new FastMap<L2Character, TickRange>().setShared(true);
+	private final L2FastSet<L2Character> _movingChars = new L2FastSet<L2Character>().setShared(true);
 	
 	private final EvtArrivedManager _evtArrivedManager = new EvtArrivedManager();
 	private final EvtArrivedRevalidateManager _evtArrivedRevalidateManager = new EvtArrivedRevalidateManager();
@@ -66,34 +52,55 @@ public final class MovementController extends AbstractPeriodicTaskManager
 	
 	public void add(L2Character cha, int ticks)
 	{
-		_movingChars.put(cha, new TickRange(ticks));
+		_movingChars.add(cha);
 	}
 	
 	public void remove(L2Character cha)
 	{
 		_movingChars.remove(cha);
 		_evtArrivedManager.remove(cha);
+		_evtArrivedRevalidateManager.remove(cha);
 	}
 	
 	@Override
 	public void run()
 	{
-		for (Entry<L2Character, TickRange> entry = _movingChars.head(), end = _movingChars.tail();
-				(entry = entry.getNext()) != end;)
+		final ArrayList<L2Character> arrivedChars = L2Collections.newArrayList();
+		final ArrayList<L2Character> followers = L2Collections.newArrayList();
+		
+		for (L2Character cha : _movingChars)
 		{
-			L2Character cha = entry.getKey();
-			TickRange range = entry.getValue();
-			int remaining = range.end - GameTimeController.getGameTicks();
+			boolean arrived = cha.updatePosition(GameTimeController.getGameTicks());
 			
-			if (remaining > Config.DATETIME_MOVE_DELAY && remaining % Config.DATETIME_MOVE_DELAY != 0)
-				continue;
-			
-			if (!cha.updatePosition(GameTimeController.getGameTicks()))
-				continue;
-			
-			_movingChars.remove(cha);
-			_evtArrivedManager.execute(cha);
+			// normal movement to an exact coordinate
+			if (cha.getAI().getFollowTarget() == null)
+			{
+				if (arrived)
+					arrivedChars.add(cha);
+			}
+			// following a target
+			else
+			{
+				followers.add(cha);
+			}
 		}
+		
+		// the followed chars must move before checking for acting radius
+		for (L2Character follower : followers)
+		{
+			// we have reached our target
+			if (follower.getAI().isInsideActingRadius())
+				arrivedChars.add(follower);
+		}
+		
+		_movingChars.remove(arrivedChars);
+		followers.remove(arrivedChars);
+		
+		_evtArrivedManager.executeAll(arrivedChars);
+		_evtArrivedRevalidateManager.executeAll(followers);
+		
+		L2Collections.recycle(arrivedChars);
+		L2Collections.recycle(followers);
 	}
 	
 	private final class EvtArrivedManager extends FIFOSimpleExecutableQueue<L2Character>
@@ -122,47 +129,27 @@ public final class MovementController extends AbstractPeriodicTaskManager
 		}
 	}
 	
-	private final class EvtArrivedRevalidateManager extends AbstractPeriodicTaskManager
+	private final class EvtArrivedRevalidateManager extends FIFOSimpleExecutableQueue<L2Character>
 	{
-		private EvtArrivedRevalidateManager()
-		{
-			super(GameTimeController.MILLIS_IN_TICK);
-		}
-		
 		@Override
-		public void run()
+		protected void removeAndExecuteFirst()
 		{
-			for (Entry<L2Character, TickRange> entry = _movingChars.head();
-					(entry = entry.getNext()) != _movingChars.tail();)
+			final L2Character cha = removeFirst();
+			final long begin = System.nanoTime();
+			
+			try
 			{
-				L2Character cha = entry.getKey();
-				TickRange range = entry.getValue();
-				int minDelay = getMinDelayInTick(cha);
-				
-				if (minDelay < 0)
-					continue;
-				
-				if (GameTimeController.getGameTicks() >= range.end - minDelay)
-					continue;
-				
-				if (GameTimeController.getGameTicks() <= range.begin + minDelay)
-					continue;
-				
-				cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_REVALIDATE);
-				
-				range.begin = GameTimeController.getGameTicks();
+				if (cha.hasAI())
+					cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_REVALIDATE);
 			}
-		}
-		
-		private int getMinDelayInTick(L2Character cha)
-		{
-			if (cha instanceof L2Playable)
-				return Config.DATETIME_MOVE_DELAY * 2;
-			
-			if (cha instanceof L2BoatInstance)
-				return -1;
-			
-			return Config.DATETIME_MOVE_DELAY * 4;
+			catch (RuntimeException e)
+			{
+				_log.warn("", e);
+			}
+			finally
+			{
+				RunnableStatsManager.handleStats(cha.getClass(), "notifyEvent(CtrlEvent.EVT_ARRIVED_REVALIDATE)", System.nanoTime() - begin);
+			}
 		}
 	}
 }

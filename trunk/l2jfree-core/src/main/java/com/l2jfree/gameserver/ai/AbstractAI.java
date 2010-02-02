@@ -133,8 +133,21 @@ public abstract class AbstractAI implements Ctrl
 			}
 		}
 		
-		if (distance > _followRange)
+		if (!isInsideActingRadius(_followTarget, distance, _followRange))
 			moveToPawn(_followTarget, _followRange);
+	}
+	
+	public final boolean isInsideActingRadius()
+	{
+		return isInsideActingRadius(_followTarget, Util.calculateDistance(_actor, _followTarget, false), _followRange);
+	}
+	
+	public final boolean isInsideActingRadius(L2Object target, double distance, double range)
+	{
+		if (target == null)
+			return false;
+		
+		return distance < range;
 	}
 	
 	public final synchronized void startFollow(L2Character target)
@@ -692,22 +705,6 @@ public abstract class AbstractAI implements Ctrl
 			
 			offset = L2Math.max(10, offset, minOffset);
 			
-			// if the target runs towards the character then don't force the actor to run over it
-			/*
-			if (pawn != null && pawn.isMoving())
-			{
-				switch (Direction.getDirection(_actor, pawn))
-				{
-					case FRONT:
-						offset += 50;
-						break;
-					case BACK:
-						offset -= 50;
-						break;
-				}
-			}
-			*/
-			
 			// prevent possible extra calls to this function (there is none?),
 			// also don't send movetopawn packets too often
 			boolean sendPacket = true;
@@ -715,8 +712,8 @@ public abstract class AbstractAI implements Ctrl
 			{
 				if (_clientMovingToPawnOffset == offset)
 				{
-					if (GameTimeController.getGameTicks() < _moveToPawnTimeout)
-						return;
+					//if (GameTimeController.getGameTicks() < _moveToPawnTimeout)
+					//	return;
 					sendPacket = false;
 				}
 				else if (_actor.isOnGeodataPath())
@@ -737,6 +734,14 @@ public abstract class AbstractAI implements Ctrl
 			if (pawn == null || _accessor == null)
 				return;
 			
+			// if the target runs towards the character then don't force the actor to run over it
+			if (pawn instanceof L2Character && pawn.isMoving())
+			{
+				double speed = ((L2Character)pawn).getStat().getMoveSpeed() / GameTimeController.TICKS_PER_SECOND;
+				
+				offset += speed * Math.cos(Math.toRadians(Util.getAngleDifference(_actor, pawn)));
+			}
+			
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
 			
@@ -755,7 +760,7 @@ public abstract class AbstractAI implements Ctrl
 					_clientMovingToPawnOffset = 0;
 				}
 				else if (sendPacket) // don't repeat unnecessarily
-					_actor.broadcastPacket(new MoveToPawn(_actor, (L2Character)pawn, offset));
+					_actor.broadcastPacket(new MoveToPawn(_actor, (L2Character)pawn, _clientMovingToPawnOffset));
 			}
 			else
 				_actor.broadcastPacket(new MoveToLocation(_actor));

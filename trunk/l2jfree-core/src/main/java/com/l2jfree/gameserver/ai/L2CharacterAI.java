@@ -704,7 +704,9 @@ public class L2CharacterAI extends AbstractAI
 	protected void onEvtArrivedRevalidate()
 	{
 		// Launch actions corresponding to the Event Think
-		notifyEvent(CtrlEvent.EVT_THINK);
+		//notifyEvent(CtrlEvent.EVT_THINK);
+		
+		followTarget();
 	}
 
 	/**
@@ -959,19 +961,16 @@ public class L2CharacterAI extends AbstractAI
 		if (target instanceof L2Character)
 			offset += ((L2Character) target).getTemplate().getCollisionRadius();
 
-		if (!_actor.isInsideRadius(target, offset, false, false))
+		final double distance = Util.calculateDistance(_actor, target, false);
+		
+		if (distance > offset)
 		{
 			// Caller should be L2Playable and thinkAttack/thinkCast/thinkInteract/thinkPickUp
 			if (getFollowTarget() != null)
 			{
-				if (!target.isMoving())
+				if (!isInsideActingRadius(target, distance, offset))
 					return true;
-				// allow larger hit range only if the target runs towards the character
-				//if (Direction.getDirection(_actor, target) != Direction.FRONT)
-				//	return true;
-				// allow larger hit range when the target is moving (check is run only once per second)
-				if (!_actor.isInsideRadius(target, offset + 50, false, false))
-					return true;
+
 				stopFollow();
 				return false;
 			}

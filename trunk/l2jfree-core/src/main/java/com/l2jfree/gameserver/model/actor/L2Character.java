@@ -114,6 +114,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillAgathion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillFusion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
+import com.l2jfree.gameserver.taskmanager.CoordRevalidator;
 import com.l2jfree.gameserver.taskmanager.MovementController;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.PacketBroadcaster.BroadcastMode;
@@ -218,8 +219,6 @@ public abstract class L2Character extends L2Object
 	private ChanceSkillList			_chanceSkills;
 	/** Current force buff this caster is casting to a target */
 	protected FusionSkill			_fusionSkill;
-
-	protected byte					_zoneValidateCounter				= 4;
 
 	private boolean					_isRaid								= false;
 	private boolean					_isFlying;
@@ -4233,14 +4232,6 @@ public abstract class L2Character extends L2Object
 		{
 			// Set the position of the L2Character to the destination
 			super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-			if (this instanceof L2BoatInstance)
-			{
-				((L2BoatInstance) this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
-			}
-			else if (this instanceof L2AirShipInstance)
-			{
-				((L2AirShipInstance) this).updatePeopleInTheAirShip(m._xDestination, m._yDestination, m._zDestination);
-			}
 		}
 		else
 		{
@@ -4249,18 +4240,6 @@ public abstract class L2Character extends L2Object
 
 			// Set the position of the L2Character to estimated after parcial move
 			super.getPosition().setXYZ((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
-			if (this instanceof L2BoatInstance)
-			{
-				((L2BoatInstance)this).updatePeopleInTheBoat((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
-			}
-			else if (this instanceof L2AirShipInstance)
-			{
-				((L2AirShipInstance)this).updatePeopleInTheAirShip((int)(m._xAccurate), (int)(m._yAccurate), zPrev + (int)(dz * distFraction + 0.5));
-			}
-			else
-			{
-				revalidateZone(false);
-			}
 		}
 
 		// Set the timer of last position update to now
@@ -4271,22 +4250,18 @@ public abstract class L2Character extends L2Object
 
 	public boolean revalidateZone(boolean force)
 	{
-		if (getWorldRegion() == null)
-			return false;
-
-		// This function is called very often from movement code
-		if (force)
-			_zoneValidateCounter = 4;
-		else
+		if (!force)
 		{
-			_zoneValidateCounter--;
-			if (_zoneValidateCounter < 0)
-				_zoneValidateCounter = 4;
-			else
-				return false;
+			CoordRevalidator.getInstance().add(this);
+			return false;
 		}
-
-		getWorldRegion().revalidateZones(this);
+		
+		final L2WorldRegion region = getWorldRegion();
+		
+		if (region == null)
+			return false;
+		
+		region.revalidateZones(this);
 		return true;
 	}
 
@@ -4533,12 +4508,12 @@ public abstract class L2Character extends L2Object
 		double sin;
 
 		// Check if a movement offset is defined or no distance to go through
-		if (offset > 0 || distance < 1)
+		if (offset != 0 || distance < 1)
 		{
 			// approximation for moving closer when z coordinates are different
 			// TODO: handle Z axis movement better
 			offset -= Math.abs(dz);
-			if (offset < 5) offset = 5;
+			//if (offset < 5) offset = 5;
 
 			// If no distance to go through, the movement is canceled
 			if (distance < 1 || distance - offset  <= 0)
@@ -4554,7 +4529,8 @@ public abstract class L2Character extends L2Object
 			sin = dy/distance;
 			cos = dx/distance;
 
-			distance -= (offset-5); // due to rounding error, we have to move a bit closer to be in range
+			//distance -= (offset-5); // due to rounding error, we have to move a bit closer to be in range
+			distance -= offset;
 
 			// Calculate the new destination with offset included
 			x = curX + (int)(distance * cos);
@@ -5788,7 +5764,7 @@ public abstract class L2Character extends L2Object
 		if (_skills == null)
 			return new L2Skill[0];
 
-		return _skills.values().toArray(new L2Skill[_skills.values().size()]);
+		return _skills.values().toArray(new L2Skill[_skills.size()]);
 	}
 
 	/**
