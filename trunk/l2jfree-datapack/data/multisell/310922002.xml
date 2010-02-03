@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-  <!-- Seven Signs - Black Marketeer of Mammon - Black Market Goods -->
-<list>
-  <!-- Ancient Book-->
+<!-- Seven Signs - Black Marketeer of Mammon - Black Market Goods -->
+<list xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
+  <!-- Ancient Book -->
   <item id="1">
     <ingredient id="57" count="400000"/>
     <production id="8618" count="1"/>

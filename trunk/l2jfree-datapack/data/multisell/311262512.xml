@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-  <!-- Seven Signs - Blacksmith of Mammon - Weapon Exchange -->
-<list maintainEnchantment="true">
+<!-- Seven Signs - Blacksmith of Mammon - Weapon Exchange -->
+<list maintainEnchantment="true" xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- 3272 D-grade crystals -->
   <!-- Ancient Reagent for Atuba Mace -->
   <item id="1">
@@ -15809,7 +15810,7 @@
     <production id="259" count="1"/>
   </item>
   <!-- Single-Edged Jamadhr for Pike -->
-  <item id="3157">
+  <item id="4486"> <!-- Fail. -->
     <ingredient id="259" count="1"/>
     <production id="292" count="1"/>
   </item>

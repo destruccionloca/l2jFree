@@ -9,7 +9,7 @@ elementFormDefault="qualified">
 
 <xs:complexType name="listType">  
   <xs:sequence>
-    <xs:element name="stat" minOccurs="1" maxOccurs="unbounded" type="statType"/>
+    <xs:element name="stat" maxOccurs="unbounded" type="statType"/>
   </xs:sequence>
 </xs:complexType>
 

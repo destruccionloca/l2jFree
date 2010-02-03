@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
+<list xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- Teleporter scroll multisell -->
-<list>
   <!-- SoE to Talking Island -->
   <item id="1">
     <ingredient id="7562" count="5"/>

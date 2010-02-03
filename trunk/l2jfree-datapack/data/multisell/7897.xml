@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
-  <!-- Quest 351_BlackSwan: exchange Bills -->
-<list>
+<!-- Quest 351_BlackSwan: exchange Bills -->
+<list xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- 1 Bill: 700 adena-->
   <item id="1">
     <ingredient id="4310" count="1"/>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE list SYSTEM "../templates/exchange.dtd">
 <!-- Blacksmith Ishuma - Apply Dynasty, Icarus, Vesper Weapon SA -->
-<list maintainEnchantment="true">
+<list maintainEnchantment="true" xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- Dynasty Sword - Focus -->
   <item id="1">
     <ingredient id="9442" count="1"/>
