@@ -93,8 +93,8 @@ public final class MovementController extends AbstractPeriodicTaskManager
 				arrivedChars.add(follower);
 		}
 		
-		_movingChars.remove(arrivedChars);
-		followers.remove(arrivedChars);
+		_movingChars.removeAll(arrivedChars);
+		followers.removeAll(arrivedChars);
 		
 		_evtArrivedManager.executeAll(arrivedChars);
 		_evtArrivedRevalidateManager.executeAll(followers);
