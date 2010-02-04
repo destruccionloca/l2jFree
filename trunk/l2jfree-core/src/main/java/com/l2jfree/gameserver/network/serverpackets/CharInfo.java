@@ -302,6 +302,8 @@ public class CharInfo extends L2GameServerPacket
 	@Override
 	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
 	{
+		if (activeChar == null)
+			return false;
 		if (_activeChar == activeChar)
 			return false;
 		if (!activeChar.canSee(_activeChar))

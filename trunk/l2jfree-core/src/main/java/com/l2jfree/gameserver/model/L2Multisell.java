@@ -662,7 +662,7 @@ public final class L2Multisell
 			{
 				int id = Integer.parseInt(f.getName().replaceAll(".xml", ""));
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				factory.setValidating(true);
+				factory.setValidating(false);
 				factory.setIgnoringComments(true);
 				Document doc = factory.newDocumentBuilder().parse(f);
 				
@@ -709,11 +709,6 @@ public final class L2Multisell
 					}
 				}
 			}
-			else if ("item".equalsIgnoreCase(n.getNodeName()))
-			{
-				MultiSellEntry e = parseEntry(n);
-				list.addEntry(e);
-			}
 		}
 		
 		return list;
@@ -742,7 +737,7 @@ public final class L2Multisell
 				if (attribute != null)
 					isTaxIngredient = Boolean.parseBoolean(attribute.getNodeValue());
 				
-				attribute = n.getAttributes().getNamedItem("maintainIngredient");
+				attribute = n.getAttributes().getNamedItem("maintain");
 				
 				if (attribute != null)
 					maintainIngredient = Boolean.parseBoolean(attribute.getNodeValue());
