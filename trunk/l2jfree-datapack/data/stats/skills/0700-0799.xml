@@ -963,7 +963,7 @@
     <set name="flyType" val="CHARGE"/>
     <set name="flyRadius" val="700"/>
     <for>
-      <effect count="1" name="EnemyCharge" time="1" val="0"/>
+      <effect count="1" name="EnemyCharge" time="1" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="754" levels="1" name="Doll Blader Clairvoyance">
@@ -1358,7 +1358,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <for>
       <effect name="Disarm" time="5" val="0"/>
     </for>
@@ -1380,7 +1380,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <for>
       <effect count="8" name="DamOverTime" val="212" effectPower="40" effectType="DOT"/>
     </for>
@@ -1694,6 +1694,7 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
     <for>
+      <!-- TODO: This effect should be in the skill 6092 -->
       <effect name="Paralyze" time="9" val="0" effectPower="20" effectType="PARALYZE"/>
     </for>
   </skill>

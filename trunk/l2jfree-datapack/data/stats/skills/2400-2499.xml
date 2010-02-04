@@ -354,6 +354,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="105"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1345,6 +1348,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="305"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1356,6 +1362,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="306"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1367,6 +1376,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="307"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1378,6 +1390,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="308"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1389,6 +1404,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="309"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1400,6 +1418,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="310"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -1411,6 +1432,9 @@
     <set name="reuseDelay" val="14400000"/>
     <set name="transformId" val="311"/>
     <set name="hitTime" val="1500"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>

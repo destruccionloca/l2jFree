@@ -143,7 +143,7 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="3"/>
+    <set name="needCharges" val="3"/> <!-- 3 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -192,7 +192,7 @@
     <set name="effectRange" val="1100"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -244,7 +244,7 @@
     <set name="effectRange" val="1000"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -313,7 +313,7 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -499,7 +499,7 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -924,7 +924,7 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <!-- charge values -->
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant7for>
       <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpPhysDmg" val="#ench7Duel"/>
@@ -1201,7 +1201,7 @@
     <set name="effectRange" val="1100"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="1"/>
+    <set name="needCharges" val="1"/> <!-- 1 Charge is consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>

@@ -13,7 +13,7 @@
    -->
     <!-- Guessed values, need retail information -->
     <table name="#magicLvl"> 29 39 49 59 69 78 81 </table>
-    <table name="#power"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
+    <table name="#mDef"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -21,7 +21,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect count="1" name="Buff" time="2700" val="0">
-        <mul order="0x30" stat="mDef" val="#power"/>
+        <mul order="0x30" stat="mDef" val="#mDef"/>
       </effect>
     </for>
   </skill>
@@ -37,7 +37,7 @@
    -->
     <!-- Guessed values, need retail information -->
     <table name="#magicLvl"> 29 39 49 59 69 78 81 </table>
-    <table name="#power"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
+    <table name="#pAtk"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -45,7 +45,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect count="1" name="Buff" time="2700" val="0">
-        <mul order="0x30" stat="pAtk" val="#power"/>
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
   </skill>

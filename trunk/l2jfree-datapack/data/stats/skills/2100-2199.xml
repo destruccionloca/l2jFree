@@ -709,13 +709,14 @@
   <skill id="2166" levels="2" name="CP Gauge Potion">
     <table name="#power"> 50 200 </table>
     <table name="#itemConsumeId"> 5591 5592 </table>
+    <table name="#reuseDelay"> 600 1000 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="COMBATPOINTHEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="1000"/>
+    <set name="reuseDelay" val="#reuseDelay"/>
     <set name="staticReuse" val="true"/>
     <set name="isPotion" val="true"/>
     <cond msgId="113" addName="1">

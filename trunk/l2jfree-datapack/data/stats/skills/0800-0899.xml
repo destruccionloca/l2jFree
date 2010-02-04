@@ -326,7 +326,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect name="RemoveTarget" val="0"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
   </skill>
   <skill id="822" levels="3" name="Repair Golem">
@@ -888,6 +888,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="10"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -900,6 +903,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="11"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -912,6 +918,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="12"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -924,6 +933,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="13"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -936,6 +948,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="14"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -948,6 +963,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="15"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -960,6 +978,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="16"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -972,6 +993,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="17"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -984,6 +1008,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="18"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -996,6 +1023,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="19"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -1008,6 +1038,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="20"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -1020,6 +1053,9 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="transformId" val="21"/>
+     <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/> <!-- Guess -->
     </for>
@@ -1298,7 +1334,7 @@
     <set name="castRange" val="2500"/>
     <set name="effectRange" val="3000"/>
     <for>
-      <effect name="EnemyCharge" val="0"/>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="885" levels="1" name="Air Blink">

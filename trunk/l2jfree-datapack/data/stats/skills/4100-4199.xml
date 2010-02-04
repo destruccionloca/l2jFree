@@ -157,6 +157,7 @@
     <set name="power" val="11000"/>
     <set name="target" val="TARGET_MULTIFACE"/>
     <set name="skillRadius" val="1500"/>
+    <set name="flyRadius" val="500"/>
     <set name="overHit" val="true"/>
     <set name="hitTime" val="3000"/>
     <set name="coolTime" val="3000"/>

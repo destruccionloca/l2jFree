@@ -816,6 +816,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="104"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0"/>
     </for>
@@ -827,6 +830,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="1"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -838,6 +844,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="2"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -849,6 +858,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="201"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -860,6 +872,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="204"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -871,6 +886,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="207"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -882,6 +900,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="210"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -893,6 +914,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="213"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
@@ -904,6 +928,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
     <set name="transformId" val="216"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>

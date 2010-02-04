@@ -628,11 +628,12 @@
   <!-- Recovers using the power of the talisman attached to the Sword of Fire and Water. -->
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="61"/>
+    <set name="power" val="549"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="40000"/>
     <set name="hitTime" val="5000"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="HOT"/>
+    <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="8238" levels="1" name="Shalin Strike">

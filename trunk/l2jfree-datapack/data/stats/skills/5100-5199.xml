@@ -384,10 +384,10 @@
     <set name="mpConsume" val="257"/>
     <set name="power" val="2500"/> <!-- Guessing -->
     <set name="target" val="TARGET_AURA"/>
-    <set name="skillRadius" val="230"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="800"/>
+    <set name="skillRadius" val="230"/>
     <set name="skillType" val="PDAM"/>
     <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>

@@ -1810,7 +1810,7 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="4"/>
+    <set name="needCharges" val="4"/> <!-- 4 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -2549,7 +2549,7 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <!-- charge values -->
-    <set name="needCharges" val="2"/>
+    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>

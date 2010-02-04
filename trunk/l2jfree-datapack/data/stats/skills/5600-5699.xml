@@ -54,19 +54,46 @@
     </for>
   </skill>
   <skill id="5605" levels="2" name="Power of Apella">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Apella Heavy -->
+    <table name="#rCrit"> 1 1.02621 </table>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <for>
+      <effect name="Buff" time="10" val="0">
+        <mul order="0x30" stat="mDef" val="1.05"/> <!-- magic defense power is increased by 5% -->
+        <mul order="0x30" stat="rCrit" val="#rCrit"/>
+        <sub order="0x40" stat="cAtkAdd" val="3"/> <!-- critical damage is decreased by 3 -->
+      </effect>
+    </for>
   </skill>
   <skill id="5607" levels="2" name="Power of Apella">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Apella Light -->
+    <table name="#pAtkSpd"> 1 1.025 </table>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <for>
+      <effect name="Buff" time="10" val="0">
+        <add order="0x40" stat="rEvas" val="2"/> <!-- evasion is increased by 2 -->
+        <sub order="0x40" stat="cAtkAdd" val="86"/> <!-- critical damage is decreased by 86 -->
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5608" levels="2" name="Power of Apella">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Apella Robe -->
+    <table name="#mAtk"> 0 6 </table>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <for>
+      <effect name="Buff" time="10" val="0">
+        <add order="0x40" stat="runSpd" val="10"/> <!-- Speed is increased by 10 -->
+        <mul order="0x30" stat="pDef" val="1.05"/> <!-- defense power is increased by 5% -->
+        <add order="0x40" stat="mAtk" val="#mAtk"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5609" levels="1" name="Sound 1">
     <set name="target" val="TARGET_NONE"/>
@@ -653,6 +680,9 @@
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="transformId" val="319"/>
+    <cond msgId="1509">
+      <player olympiad="false"/>
+    </cond>
     <for>
       <effect name="Transformation" time="3600" val="0">
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
@@ -996,7 +1026,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="RemoveTarget" val="0"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
   </skill>
   <skill id="5680" levels="1" name="Oblivion Trap">
@@ -1159,7 +1189,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect name="RemoveTarget" val="0"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
   </skill>
   <skill id="5695" levels="1" name="Talisman - Increase Force">

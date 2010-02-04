@@ -375,7 +375,7 @@
     <set name="castRange" val="150"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="1" name="EnemyCharge" time="1" val="0"/>
+      <effect count="1" name="EnemyCharge" time="1" val="0" noicon="1"/>
       <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     </for>
   </skill>
@@ -394,6 +394,7 @@
     <set name="effectRange" val="1100"/>
     <for>
       <effect name="ThrowUp" time="5" val="0" effectPower="80" effectType="STUN"/>
+      <effect name="ThrowUp" noicon="1" val="0" stackOrder="1" stackType="fly_away"/>
     </for>
   </skill>
   <skill id="5230" levels="1" name="Stun">

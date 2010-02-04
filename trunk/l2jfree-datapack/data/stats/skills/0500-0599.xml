@@ -975,6 +975,7 @@
     </for>
   </skill>
   <skill id="537" levels="1" name="Spoil Bomb">
+    <!-- TODO: Needs core-side support for TimeSkillTrigger effect -->
     <set name="weaponsAllowed" val="15"/> <!-- Sword/Blunt/Shield -->
     <set name="mpConsume" val="72"/>
     <set name="magicLvl" val="79"/>
@@ -1052,6 +1053,9 @@
     <cond msgId="113" addName="1">
       <target mindistance="200"/>
     </cond>
+    <for>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
+    </for>
   </skill>
   <skill id="541" levels="1" name="Transform Grail Apostle">
     <set name="mpInitialConsume" val="6"/>
@@ -1640,7 +1644,7 @@
     <!-- set name="flyType" val="CHARGE"/>
     <set name="flyRadius" val="400"/>
     <for>
-      <effect name="EnemyCharge" val="0"/>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
     </for --> <!-- Verify if Charge skill -->
   </skill>
   <skill id="567" levels="4" name="Light of Heal">

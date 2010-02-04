@@ -1212,11 +1212,11 @@
     <!-- Done by Ritsu -->
     <set name="negateId" val="441"/>
     <set name="hitTime" val="2000"/>
-    <set name="needCharges" val="3"/>
     <set name="reuseDelay" val="900000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="needCharges" val="3"/> <!-- 3 Charges are consumed -->
     <for>
       <effect name="ImmobileUntilAttacked" time="60" val="0">
         <mul order="0x30" stat="pDef" val="0.2"/>
@@ -1233,7 +1233,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="needCharges" val="5"/>
+    <set name="needCharges" val="5"/> <!-- 5 Charges are consumed -->
     <for>
       <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
     </for>
@@ -1246,7 +1246,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="needCharges" val="4"/>
+    <set name="needCharges" val="4"/> <!-- 4 Charges are consumed -->
     <for>
       <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
     </for>
@@ -1403,7 +1403,7 @@
   </skill>
   <skill id="451" levels="2" name="Sonic Move">
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
-    <table name="#numCharges"> 2 3 </table>
+    <table name="#numCharges"> 2 3 </table> <!-- 2 3 Charges are consumed -->
     <table name="#runSpd"> 40 66 </table>
     <table name="#mpConsume"> 29 32 </table>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1412,7 +1412,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
-    <set name="needCharges" val="#numCharges"/>
+    <set name="needCharges" val="#numCharges"/> <!-- Requires 2nd 3rd stage of Sword Energy recharge. -->
     <for>
       <effect name="Buff" time="15" val="0" stackOrder="#runSpd" stackType="speed_up_special">
         <add order="0x40" stat="runSpd" val="#runSpd"/>
@@ -1629,8 +1629,7 @@
       Lvl 2 - Uses Focused Force to escape from a slow or immobile state. Level 3 Focused Force charge required.
     -->
     <table name="#mpConsume"> 33 37 </table>
-    <table name="#numCharges"> 2 3 </table>
-
+    <table name="#numCharges"> 2 3 </table> <!-- 2 3 Charges are consumed -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="4000"/>
@@ -1640,6 +1639,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="needCharges" val="2"/> <!-- Requires 2nd 3rd stage of Sword Energy recharge. -->
   </skill>
   <skill id="462" levels="1" name="Guilted Body">
     <set name="target" val="TARGET_SELF"/>
@@ -2154,7 +2154,7 @@
       <target mindistance="200"/>
     </cond>
     <for>
-      <effect name="EnemyCharge" val="0"/>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="485" levels="7" name="Disarm" enchantLevels1="30" enchantLevels2="30">
@@ -2426,7 +2426,7 @@
       <effect count="20" name="DamOverTime" val="#dmg" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
-      <effect name="EnemyCharge" val="0"/>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="496" levels="31" name="Slashing Blade" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">

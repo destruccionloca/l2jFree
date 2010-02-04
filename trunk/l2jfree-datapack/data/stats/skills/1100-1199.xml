@@ -949,6 +949,7 @@
     </for>
   </skill>
   <skill id="1170" levels="13" name="Anchor" enchantLevels1="30" enchantLevels2="30">
+  <!-- TODO: Needs core-side support for TimeSkillTrigger effect -->
     <table name="#ench2mpConsume"> 53 53 52 52 52 52 50 50 49 49 48 48 48 48 46 46 45 45 44 44 44 44 42 42 41 41 40 40 40 40 </table>
     <table name="#ench2mpInitialConsume"> 13 13 13 13 13 13 12 12 12 12 12 12 12 12 11 11 11 11 11 11 11 11 10 10 10 10 10 10 10 10 </table>
     <table name="#ench1power"> 40 40 40 40 40 41 41 41 41 41 41 42 42 42 42 42 42
