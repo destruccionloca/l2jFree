@@ -39,9 +39,16 @@ public final class TableOptimizer
 			
 			final ArrayList<String> tables = new ArrayList<String>();
 			{
-				ResultSet rs = st.executeQuery("SHOW TABLES");
+				ResultSet rs = st.executeQuery("SHOW FULL TABLES");
 				while (rs.next())
+				{
+					String tableType = rs.getString(2/*"Table_type"*/);
+					
+					if (tableType.equals("VIEW"))
+						continue;
+					
 					tables.add(rs.getString(1));
+				}
 				rs.close();
 			}
 			
