@@ -522,10 +522,10 @@
     <set name="isDebuff" val="true"/>
     <enchant1 name="power" val="#ench1power"/>
     <for>
-      <effect name="RemoveTarget" noicon="1" val="0" effectPower="40" effectType="DEBUFF"/> <!-- Guess effectPower -->
+      <effect name="RemoveTarget" val="0" noicon="1" effectPower="40" effectType="DEBUFF"/> <!-- Guess effectPower -->
     </for>
     <enchant2for>
-      <effect name="RemoveTarget" noicon="1" val="0" effectPower="#ench2effPower" effectType="DEBUFF"/> <!-- Guess effectPower -->
+      <effect name="RemoveTarget" val="0" noicon="1" effectPower="#ench2effPower" effectType="DEBUFF"/> <!-- Guess effectPower -->
     </enchant2for>
   </skill>
   <skill id="1418" levels="1" name="Celestial Shield">
@@ -1000,10 +1000,10 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <for>
-      <effect name="RemoveTarget" noicon="1" val="0" effectPower="40" effectType="DEBUFF"/>
+      <effect name="RemoveTarget" val="0" noicon="1" effectPower="40" effectType="DEBUFF"/>
     </for>
     <enchant4for>
-      <effect name="RemoveTarget" noicon="1" val="0" effectPower="40" effectType="DEBUFF"/>
+      <effect name="RemoveTarget" val="0" noicon="1" effectPower="40" effectType="DEBUFF"/>
       <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
       <mul order="0x30" stat="pvpMagicalDmg" val="#ench4Duel"/>
       -->
@@ -2240,13 +2240,13 @@
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <enchant3 name="reuseDelay" val="#ench3Reuse"/>
     <for>
-      <effect count="15" name="ManaHealOverTime" noicon="1" val="200"/>
+      <effect count="15" name="ManaHealOverTime" val="200" noicon="1"/>
       <effect name="ImmobileUntilAttacked" time="15" val="0">
         <mul order="0x30" stat="pDef" val="0.1"/>
       </effect>
     </for>
     <enchant2for>
-      <effect count="#ench2time" name="ManaHealOverTime" noicon="1" val="200"/>
+      <effect count="#ench2time" name="ManaHealOverTime" val="200" noicon="1"/>
       <effect name="ImmobileUntilAttacked" time="15" val="0">
         <mul order="0x30" stat="pDef" val="0.1"/>
       </effect>

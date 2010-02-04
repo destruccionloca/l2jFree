@@ -1198,7 +1198,7 @@
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <enchant3 name="element" val="3"/> <!-- Earth -->
     <for>
-      <effect name="RemoveTarget" noicon="1" val="0"/>
+      <effect name="RemoveTarget" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="348" levels="1" name="Spoil Crush">
