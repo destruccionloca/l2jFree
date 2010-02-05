@@ -222,7 +222,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		L2NpcTemplate template = NpcTable.getInstance().getTemplate(bossId);
 		if (template == null)
 			return null;
-		if (!template.getType().equalsIgnoreCase("L2RaidBoss"))
+		if (!template.getType().endsWith("RaidBoss"))
 			return null;
 		return template;
 	}

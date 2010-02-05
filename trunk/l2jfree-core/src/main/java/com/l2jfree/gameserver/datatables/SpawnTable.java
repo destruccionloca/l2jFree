@@ -88,7 +88,7 @@ public class SpawnTable
 					{
 						// Don't spawn siege guards
 					}
-					else if (template1.getType().equalsIgnoreCase("L2RaidBoss"))
+					else if (template1.getType().endsWith("RaidBoss"))
 					{
 						// Don't spawn raidbosses
 					}
@@ -170,7 +170,7 @@ public class SpawnTable
 					{
 						// Don't spawn siege guards
 					}
-					else if (template1.getType().equalsIgnoreCase("L2RaidBoss"))
+					else if (template1.getType().endsWith("RaidBoss"))
 					{
 						// Don't spawn raidbosses
 					}
