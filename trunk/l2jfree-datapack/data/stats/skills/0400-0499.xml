@@ -1635,11 +1635,10 @@
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="3000"/>
     <set name="negateStats" val="ROOT"/>
-    <set name="needCharges" val="#numCharges"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="needCharges" val="2"/> <!-- Requires 2nd 3rd stage of Sword Energy recharge. -->
+    <set name="needCharges" val="#numCharges"/>
   </skill>
   <skill id="462" levels="1" name="Guilted Body">
     <set name="target" val="TARGET_SELF"/>
