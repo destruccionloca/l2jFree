@@ -9748,7 +9748,5 @@ UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2883-1' WHERE `i
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2884-1' WHERE `item_id` = 14743;
 UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2894-1' WHERE `item_id` = 14769;
 
-UPDATE `etcitem` SET `consume_type` = 'stackable' WHERE `item_id` IN (6622,9625,9626,9627); -- Giant's Codex
-
 UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 13731 AND 13739; -- Blessed Scrolls
 UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 20364 AND 20371; -- Transformation Scrolls
