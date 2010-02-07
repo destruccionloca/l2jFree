@@ -741,6 +741,7 @@ public abstract class AbstractAI implements Ctrl
 				
 				offset += speed * Math.cos(Math.toRadians(Util.getAngleDifference(_actor, pawn)));
 			}
+			offset -= 5;
 			
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);

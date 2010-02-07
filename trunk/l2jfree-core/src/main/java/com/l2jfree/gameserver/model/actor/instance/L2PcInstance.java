@@ -3244,8 +3244,6 @@ public final class L2PcInstance extends L2Playable
 		return true;
 	}
 
-
-
 	/**
 	 * Destroys item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
 	 * @param process : String Identifier of process triggering this action
@@ -14545,5 +14543,54 @@ public final class L2PcInstance extends L2Playable
 		}
 		else
 			return false;
+	}
+
+	public boolean destroyItems(String process, int[] itemId, long[] count, L2Object ref, boolean sendMessage)
+	{
+		if (itemId == null || itemId.length == 0 || count == null || count.length == 0 ||
+				itemId.length != count.length)
+		{
+			_log.error("Invalid mass item destruction call!", new IllegalArgumentException());
+			return false;
+		}
+
+		int fail = -1;
+		L2ItemInstance[] items = new L2ItemInstance[itemId.length];
+		for (int i = 0; i < itemId.length; i++)
+		{
+			L2ItemInstance item = getInventory().getItemByItemId(itemId[i]);
+			items[i] = item;
+			if (item == null || item.getCount() < count[i] ||
+					getInventory().destroyItem(process, item, count[i], this, ref) == null)
+			{
+				fail = i;
+				break;
+			}
+		}
+
+		if (fail > -1)
+		{
+			if (fail > 0)
+				for (int i = 0; i < fail; i++)
+					getInventory().addItem(process, itemId[i], count[i], this, ref);
+			if (sendMessage)
+				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+			return false;
+		}
+		else
+		{
+			for (int i = 0; i < itemId.length; i++)
+			{
+				getInventory().updateInventory(items[i]);
+				if (sendMessage)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+					sm.addItemName(itemId[i]);
+					sm.addItemNumber(count[i]);
+					sendPacket(sm);
+				}
+			}
+			return true;
+		}
 	}
 }

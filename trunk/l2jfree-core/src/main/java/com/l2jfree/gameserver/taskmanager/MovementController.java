@@ -27,7 +27,6 @@ import com.l2jfree.util.concurrent.RunnableStatsManager;
 /**
  * @author NB4L1
  */
-@SuppressWarnings("unused")
 public final class MovementController extends AbstractPeriodicTaskManager
 {
 	private static final class SingletonHolder
