@@ -20833,34 +20833,33 @@ UPDATE `enchant_skill_trees` SET `sp` = 2597000, `exp` = 2597000 WHERE (`level` 
 UPDATE `enchant_skill_trees` SET `success_rate76` = 82, `success_rate77` = 92, `success_rate78` = 97, `success_rate79` = 97, `success_rate80` = 97, `success_rate81` = 97, `success_rate82` = 97, `success_rate83` = 97, `success_rate84` = 97, `success_rate85` = 97 WHERE (`level` % 100) = 1;
 UPDATE `enchant_skill_trees` SET `success_rate76` = 80, `success_rate77` = 90, `success_rate78` = 95, `success_rate79` = 95, `success_rate80` = 95, `success_rate81` = 95, `success_rate82` = 95, `success_rate83` = 95, `success_rate84` = 95, `success_rate85` = 95 WHERE (`level` % 100) = 2;
 UPDATE `enchant_skill_trees` SET `success_rate76` = 78, `success_rate77` = 88, `success_rate78` = 93, `success_rate79` = 93, `success_rate80` = 93, `success_rate81` = 93, `success_rate82` = 93, `success_rate83` = 93, `success_rate84` = 93, `success_rate85` = 93 WHERE (`level` % 100) = 3;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 38, `success_rate77` = 82, `success_rate78` = 91, `success_rate79` = 91, `success_rate80` = 91, `success_rate81` = 91, `success_rate82` = 91, `success_rate83` = 91, `success_rate84` = 91, `success_rate85` = 91 WHERE (`level` % 100) = 4;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 30, `success_rate77` = 80, `success_rate78` = 89, `success_rate79` = 89, `success_rate80` = 89, `success_rate81` = 89, `success_rate82` = 89, `success_rate83` = 89, `success_rate84` = 89, `success_rate85` = 89 WHERE (`level` % 100) = 5;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 20, `success_rate77` = 78, `success_rate78` = 78, `success_rate79` = 78, `success_rate80` = 87, `success_rate81` = 87, `success_rate82` = 87, `success_rate83` = 87, `success_rate84` = 87, `success_rate85` = 87 WHERE (`level` % 100) = 6;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 14, `success_rate77` = 38, `success_rate78` = 70, `success_rate79` = 70, `success_rate80` = 85, `success_rate81` = 85, `success_rate82` = 85, `success_rate83` = 85, `success_rate84` = 85, `success_rate85` = 85 WHERE (`level` % 100) = 7;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 10, `success_rate77` = 30, `success_rate78` = 68, `success_rate79` = 68, `success_rate80` = 83, `success_rate81` = 83, `success_rate82` = 83, `success_rate83` = 83, `success_rate84` = 83, `success_rate85` = 83 WHERE (`level` % 100) = 8;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 6, `success_rate77` = 20, `success_rate78` = 66, `success_rate79` = 66, `success_rate80` = 81, `success_rate81` = 81, `success_rate82` = 81, `success_rate83` = 81, `success_rate84` = 81, `success_rate85` = 81 WHERE (`level` % 100) = 9;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 6, `success_rate77` = 14, `success_rate78` = 38, `success_rate79` = 38, `success_rate80` = 74, `success_rate81` = 74, `success_rate82` = 74, `success_rate83` = 74, `success_rate84` = 74, `success_rate85` = 74 WHERE (`level` % 100) = 10;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 2, `success_rate77` = 10, `success_rate78` = 30, `success_rate79` = 30, `success_rate80` = 72, `success_rate81` = 72, `success_rate82` = 72, `success_rate83` = 72, `success_rate84` = 72, `success_rate85` = 72 WHERE (`level` % 100) = 11;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 2, `success_rate77` = 6, `success_rate78` = 20, `success_rate79` = 20, `success_rate80` = 70, `success_rate81` = 70, `success_rate82` = 70, `success_rate83` = 70, `success_rate84` = 70, `success_rate85` = 70 WHERE (`level` % 100) = 12;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 2, `success_rate77` = 2, `success_rate78` = 14, `success_rate79` = 14, `success_rate80` = 58, `success_rate81` = 58, `success_rate82` = 58, `success_rate83` = 58, `success_rate84` = 58, `success_rate85` = 58 WHERE (`level` % 100) = 13;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 2, `success_rate78` = 10, `success_rate79` = 10, `success_rate80` = 56, `success_rate81` = 56, `success_rate82` = 56, `success_rate83` = 56, `success_rate84` = 56, `success_rate85` = 56 WHERE (`level` % 100) = 14;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 2, `success_rate78` = 6, `success_rate79` = 6, `success_rate80` = 54, `success_rate81` = 54, `success_rate82` = 54, `success_rate83` = 54, `success_rate84` = 54, `success_rate85` = 54 WHERE (`level` % 100) = 15; -- 1 row affected
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 2, `success_rate79` = 2, `success_rate80` = 28, `success_rate81` = 28, `success_rate82` = 28, `success_rate83` = 28, `success_rate84` = 28, `success_rate85` = 28 WHERE (`level` % 100) = 16;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 2, `success_rate79` = 2, `success_rate80` = 20, `success_rate81` = 20, `success_rate82` = 20, `success_rate83` = 20, `success_rate84` = 20, `success_rate85` = 20 WHERE (`level` % 100) = 17;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 2, `success_rate79` = 2, `success_rate80` = 14, `success_rate81` = 14, `success_rate82` = 14, `success_rate83` = 14, `success_rate84` = 14, `success_rate85` = 14 WHERE (`level` % 100) = 18;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 6, `success_rate81` = 6, `success_rate82` = 6, `success_rate83` = 6, `success_rate84` = 6, `success_rate85` = 6 WHERE (`level` % 100) = 19;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 2, `success_rate81` = 2, `success_rate82` = 2, `success_rate83` = 2, `success_rate84` = 2, `success_rate85` = 2 WHERE (`level` % 100) = 20;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 2, `success_rate81` = 2, `success_rate82` = 2, `success_rate83` = 2, `success_rate84` = 2, `success_rate85` = 2 WHERE (`level` % 100) = 21;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 2, `success_rate81` = 2, `success_rate82` = 2, `success_rate83` = 2, `success_rate84` = 2, `success_rate85` = 2 WHERE (`level` % 100) = 22;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 1, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 23;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 24;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 25;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 1, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 26;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 27;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 28;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 1, `success_rate79` = 1, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 29;
-UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 1, `success_rate81` = 1, `success_rate82` = 1, `success_rate83` = 1, `success_rate84` = 1, `success_rate85` = 1 WHERE (`level` % 100) = 30;
-
+UPDATE `enchant_skill_trees` SET `success_rate76` = 52, `success_rate77` = 76, `success_rate78` = 86, `success_rate79` = 91, `success_rate80` = 91, `success_rate81` = 91, `success_rate82` = 91, `success_rate83` = 91, `success_rate84` = 91, `success_rate85` = 91 WHERE (`level` % 100) = 4;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 50, `success_rate77` = 74, `success_rate78` = 84, `success_rate79` = 89, `success_rate80` = 89, `success_rate81` = 89, `success_rate82` = 89, `success_rate83` = 89, `success_rate84` = 89, `success_rate85` = 89 WHERE (`level` % 100) = 5;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 48, `success_rate77` = 72, `success_rate78` = 82, `success_rate79` = 87, `success_rate80` = 87, `success_rate81` = 87, `success_rate82` = 87, `success_rate83` = 87, `success_rate84` = 87, `success_rate85` = 87 WHERE (`level` % 100) = 6;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 46, `success_rate78` = 70, `success_rate79` = 80, `success_rate80` = 85, `success_rate81` = 85, `success_rate82` = 85, `success_rate83` = 85, `success_rate84` = 85, `success_rate85` = 85 WHERE (`level` % 100) = 7;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 44, `success_rate78` = 68, `success_rate79` = 78, `success_rate80` = 83, `success_rate81` = 83, `success_rate82` = 83, `success_rate83` = 83, `success_rate84` = 83, `success_rate85` = 83 WHERE (`level` % 100) = 8;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 42, `success_rate78` = 66, `success_rate79` = 76, `success_rate80` = 81, `success_rate81` = 81, `success_rate82` = 81, `success_rate83` = 81, `success_rate84` = 81, `success_rate85` = 81 WHERE (`level` % 100) = 9;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 40, `success_rate79` = 64, `success_rate80` = 74, `success_rate81` = 79, `success_rate82` = 79, `success_rate83` = 79, `success_rate84` = 79, `success_rate85` = 79 WHERE (`level` % 100) = 10;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 38, `success_rate79` = 62, `success_rate80` = 72, `success_rate81` = 77, `success_rate82` = 77, `success_rate83` = 77, `success_rate84` = 77, `success_rate85` = 77 WHERE (`level` % 100) = 11;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 36, `success_rate79` = 60, `success_rate80` = 70, `success_rate81` = 75, `success_rate82` = 75, `success_rate83` = 75, `success_rate84` = 75, `success_rate85` = 75 WHERE (`level` % 100) = 12;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 34, `success_rate80` = 58, `success_rate81` = 68, `success_rate82` = 73, `success_rate83` = 73, `success_rate84` = 73, `success_rate85` = 73 WHERE (`level` % 100) = 13;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 32, `success_rate80` = 56, `success_rate81` = 66, `success_rate82` = 71, `success_rate83` = 71, `success_rate84` = 71, `success_rate85` = 71 WHERE (`level` % 100) = 14;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 30, `success_rate80` = 54, `success_rate81` = 64, `success_rate82` = 69, `success_rate83` = 69, `success_rate84` = 69, `success_rate85` = 69 WHERE (`level` % 100) = 15; -- 1 row affected
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 28, `success_rate81` = 52, `success_rate82` = 62, `success_rate83` = 67, `success_rate84` = 67, `success_rate85` = 67 WHERE (`level` % 100) = 16;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 26, `success_rate81` = 50, `success_rate82` = 60, `success_rate83` = 65, `success_rate84` = 65, `success_rate85` = 65 WHERE (`level` % 100) = 17;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 24, `success_rate81` = 48, `success_rate82` = 58, `success_rate83` = 63, `success_rate84` = 63, `success_rate85` = 63 WHERE (`level` % 100) = 18;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 22, `success_rate82` = 46, `success_rate83` = 56, `success_rate84` = 61, `success_rate85` = 61 WHERE (`level` % 100) = 19;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 20, `success_rate82` = 44, `success_rate83` = 54, `success_rate84` = 59, `success_rate85` = 59 WHERE (`level` % 100) = 20;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 18, `success_rate82` = 42, `success_rate83` = 52, `success_rate84` = 57, `success_rate85` = 57 WHERE (`level` % 100) = 21;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 16, `success_rate83` = 40, `success_rate84` = 50, `success_rate85` = 55 WHERE (`level` % 100) = 22;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 14, `success_rate83` = 38, `success_rate84` = 48, `success_rate85` = 53 WHERE (`level` % 100) = 23;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 12, `success_rate83` = 36, `success_rate84` = 46, `success_rate85` = 51 WHERE (`level` % 100) = 24;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 0, `success_rate83` = 10, `success_rate84` = 34, `success_rate85` = 44 WHERE (`level` % 100) = 25;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 0, `success_rate83` = 8, `success_rate84` = 32, `success_rate85` = 42 WHERE (`level` % 100) = 26;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 0, `success_rate83` = 6, `success_rate84` = 30, `success_rate85` = 40 WHERE (`level` % 100) = 27;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 0, `success_rate83` = 0, `success_rate84` = 4, `success_rate85` = 28 WHERE (`level` % 100) = 28;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 0, `success_rate83` = 0, `success_rate84` = 2, `success_rate85` = 26 WHERE (`level` % 100) = 29;
+UPDATE `enchant_skill_trees` SET `success_rate76` = 0, `success_rate77` = 0, `success_rate78` = 0, `success_rate79` = 0, `success_rate80` = 0, `success_rate81` = 0, `success_rate82` = 0, `success_rate83` = 0, `success_rate84` = 1, `success_rate85` = 24 WHERE (`level` % 100) = 30;
 
 DROP FUNCTION IF EXISTS createSkillEnchant;
 DROP FUNCTION IF EXISTS createSkillEnchant2;
@@ -21065,8 +21064,8 @@ SELECT createSkillEnchant(420, 1, 3); -- Zealot
 SELECT createSkillEnchant2(420, 2); -- Zealot
 SELECT createSkillEnchant(421, 1, 5); -- Fell Swoop
 SELECT createSkillEnchant2(421, 2); -- Fell Swoop
--- SELECT createSkillEnchant(422, 1, 3); -- Polearm Accuracy
--- SELECT createSkillEnchant2(422, 2); -- Polearm Accuracy
+SELECT createSkillEnchant(422, 1, 3); -- Polearm Accuracy
+SELECT createSkillEnchant2(422, 2); -- Polearm Accuracy
 SELECT createSkillEnchant(424, 1, 3); -- War Frenzy
 SELECT createSkillEnchant2(424, 2); -- War Frenzy
 SELECT createSkillEnchant(448, 1, 1); -- Summon Swoop Cannon
@@ -21333,21 +21332,21 @@ BEGIN
 --	Chances unknown yet
 	REPLACE INTO `enchant_skill_trees` VALUES
 --	( skill_id,                    level,  base_lvl,      sp,     exp,            min_skill_lvl, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85)
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  1, @BASE_LVL,  857000,  857000,                @BASE_LVL,  1,  1,  2,  2, 28, 28, 28, 28, 28, 28), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  2, @BASE_LVL,  884000,  884000, 100 * @ENCHANT_TYPE +  1,  1,  1,  2,  2, 20, 20, 20, 20, 20, 20), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  3, @BASE_LVL,  909000,  909000, 100 * @ENCHANT_TYPE +  2,  1,  1,  2,  2, 14, 14, 14, 14, 14, 14), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  4, @BASE_LVL, 1114000, 1114000, 100 * @ENCHANT_TYPE +  3,  1,  1,  1,  1,  6,  6,  6,  6,  6,  6), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  5, @BASE_LVL, 1149000, 1149000, 100 * @ENCHANT_TYPE +  4,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  6, @BASE_LVL, 1182000, 1182000, 100 * @ENCHANT_TYPE +  5,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  7, @BASE_LVL, 1448000, 1448000, 100 * @ENCHANT_TYPE +  6,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  8, @BASE_LVL, 1494000, 1494000, 100 * @ENCHANT_TYPE +  7,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE +  9, @BASE_LVL, 1537000, 1537000, 100 * @ENCHANT_TYPE +  8,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE + 10, @BASE_LVL, 1882000, 1882000, 100 * @ENCHANT_TYPE +  9,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE + 11, @BASE_LVL, 1942000, 1942000, 100 * @ENCHANT_TYPE + 10,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE + 12, @BASE_LVL, 1998000, 1998000, 100 * @ENCHANT_TYPE + 11,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE + 13, @BASE_LVL, 2447000, 2447000, 100 * @ENCHANT_TYPE + 12,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE + 14, @BASE_LVL, 2525000, 2525000, 100 * @ENCHANT_TYPE + 13,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1), 
-	(@SKILL_ID, 100 * @ENCHANT_TYPE + 15, @BASE_LVL, 2597000, 2597000, 100 * @ENCHANT_TYPE + 14,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1);
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  1, @BASE_LVL,  857000,  857000,                @BASE_LVL, 18, 28, 38, 48, 58, 82, 92, 97, 97, 97), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  2, @BASE_LVL,  884000,  884000, 100 * @ENCHANT_TYPE +  1,  0,  0,  0, 46, 56, 80, 90, 95, 95, 95), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  3, @BASE_LVL,  909000,  909000, 100 * @ENCHANT_TYPE +  2,  0,  0,  0,  0, 54, 78, 88, 93, 93, 93), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  4, @BASE_LVL, 1114000, 1114000, 100 * @ENCHANT_TYPE +  3,  0,  0,  0,  0, 42, 52, 76, 86, 91, 91), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  5, @BASE_LVL, 1149000, 1149000, 100 * @ENCHANT_TYPE +  4,  0,  0,  0,  0,  0, 50, 74, 84, 89, 89), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  6, @BASE_LVL, 1182000, 1182000, 100 * @ENCHANT_TYPE +  5,  0,  0,  0,  0,  0, 48, 72, 82, 87, 87), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  7, @BASE_LVL, 1448000, 1448000, 100 * @ENCHANT_TYPE +  6,  0,  0,  0,  0,  0,  0, 46, 70, 80, 85), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  8, @BASE_LVL, 1494000, 1494000, 100 * @ENCHANT_TYPE +  7,  0,  0,  0,  0,  0,  0, 44, 68, 78, 83), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE +  9, @BASE_LVL, 1537000, 1537000, 100 * @ENCHANT_TYPE +  8,  0,  0,  0,  0,  0,  0, 42, 66, 76, 81), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE + 10, @BASE_LVL, 1882000, 1882000, 100 * @ENCHANT_TYPE +  9,  0,  0,  0,  0,  0,  0,  0, 40, 64, 74), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE + 11, @BASE_LVL, 1942000, 1942000, 100 * @ENCHANT_TYPE + 10,  0,  0,  0,  0,  0,  0,  0, 38, 62, 72), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE + 12, @BASE_LVL, 1998000, 1998000, 100 * @ENCHANT_TYPE + 11,  0,  0,  0,  0,  0,  0,  0, 36, 60, 70), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE + 13, @BASE_LVL, 2447000, 2447000, 100 * @ENCHANT_TYPE + 12,  0,  0,  0,  0,  0,  0,  0,  0, 34, 58), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE + 14, @BASE_LVL, 2525000, 2525000, 100 * @ENCHANT_TYPE + 13,  0,  0,  0,  0,  0,  0,  0,  0, 32, 56), 
+	(@SKILL_ID, 100 * @ENCHANT_TYPE + 15, @BASE_LVL, 2597000, 2597000, 100 * @ENCHANT_TYPE + 14,  0,  0,  0,  0,  0,  0,  0,  0, 30, 54);
 --	( skill_id,                    level,  base_lvl,      sp,     exp,            min_skill_lvl, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85)
 	
 	RETURN "Done.";

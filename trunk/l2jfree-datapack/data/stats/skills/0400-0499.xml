@@ -713,9 +713,13 @@
       </effect>
     </enchant2for>
   </skill>
-  <skill id="422" levels="3" name="Polearm Accuracy">
+  <skill id="422" levels="3" name="Polearm Accuracy" enchantLevels1="30" enchantLevels2="30">
     <table name="#mpInitialConsume"> 11 13 14 </table>
     <table name="#accCombat"> 2 3 4 </table>
+    <table name="#ench1accCombat"> 5 5 5 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 </table>
+    <table name="#ench2cost"> 0.195 0.19 0.185 0.18 0.175 0.17 0.165 0.16 0.155 0.15
+      0.145 0.14 0.135 0.13 0.125 0.12 0.115 0.11 0.105 0.1
+      0.095 0.09 0.085 0.08 0.075 0.07 0.065 0.06 0.055 0.05 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
@@ -725,6 +729,16 @@
         <add order="0x40" stat="accCombat" val="#accCombat"/>
       </effect>
     </for>
+    <enchant1for>
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="0.2">
+        <add order="0x40" stat="accCombat" val="#ench1accCombat"/>
+      </effect>
+    </enchant1for>
+    <enchant2for>
+      <effect count="0x7fffffff" name="MpConsumePerLevel" time="3" val="#ench2cost">
+        <add order="0x40" stat="accCombat" val="4"/>
+      </effect>
+    </enchant2for>
   </skill>
   <skill id="423" levels="3" name="Dark Form">
     <table name="#mpConsume"> 27 31 34 </table>
