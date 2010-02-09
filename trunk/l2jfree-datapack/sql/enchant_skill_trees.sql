@@ -21045,10 +21045,10 @@ SELECT createSkillEnchant2(404, 2); -- Mass Shackling
 SELECT createSkillEnchant2(405, 2); -- Banish Undead
 SELECT createSkillEnchant2(405, 3); -- Banish Undead
 SELECT createSkillEnchant2(405, 4); -- Banish Undead
--- SELECT createSkillEnchant(406, 1, 3); -- Angelic Icon
--- SELECT createSkillEnchant2(406, 2); -- Angelic Icon
--- SELECT createSkillEnchant2(406, 3); -- Angelic Icon
--- SELECT createSkillEnchant2(406, 4); -- Angelic Icon
+SELECT createSkillEnchant(406, 1, 3); -- Angelic Icon
+SELECT createSkillEnchant2(406, 2); -- Angelic Icon
+SELECT createSkillEnchant2(406, 3); -- Angelic Icon
+SELECT createSkillEnchant2(406, 4); -- Angelic Icon
 SELECT createSkillEnchant2(409, 7); -- Critical Blow
 SELECT createSkillEnchant(410, 1, 3); -- Mortal Strike
 SELECT createSkillEnchant2(410, 2); -- Mortal Strike
@@ -21098,10 +21098,10 @@ SELECT createSkillEnchant2(494, 4); -- Shoulder Charge
 SELECT createSkillEnchant2(494, 5); -- Shoulder Charge
 SELECT createSkillEnchant2(494, 6); -- Shoulder Charge
 SELECT createSkillEnchant2(494, 7); -- Shoulder Charge
--- SELECT createSkillEnchant(495, 1, 10); -- Blade Rush
--- SELECT createSkillEnchant2(495, 2); -- Blade Rush
--- SELECT createSkillEnchant2(495, 3); -- Blade Rush
--- SELECT createSkillEnchant2(495, 4); -- Blade Rush
+SELECT createSkillEnchant(495, 1, 10); -- Blade Rush
+SELECT createSkillEnchant2(495, 2); -- Blade Rush
+SELECT createSkillEnchant2(495, 3); -- Blade Rush
+SELECT createSkillEnchant2(495, 4); -- Blade Rush
 SELECT createSkillEnchant2(496, 7); -- Slashing Blade
 SELECT createSkillEnchant2(497, 7); -- Crush of Pain
 SELECT createSkillEnchant2(498, 3); -- Contagion

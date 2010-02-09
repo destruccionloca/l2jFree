@@ -249,7 +249,17 @@
       <effect count="10" name="Fear" time="2" val="#ench3val"/>
     </enchant3for>
   </skill>
-  <skill id="406" levels="3" name="Angelic Icon">
+  <skill id="406" levels="3" name="Angelic Icon" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
+    <!-- Don't be mislead by the description. This is the correct E1. -->
+    <table name="#ench1def"> 1.503 1.506 1.51 1.513 1.516 1.52 1.523 1.526 1.53 1.533
+      1.536 1.54 1.543 1.546 1.55 1.553 1.556 1.56 1.563 1.566
+      1.57 1.573 1.576 1.58 1.583 1.586 1.59 1.593 1.596 1.6 </table>
+    <table name="#ench2mpConsume"> 167 164 161 158 155 153 150 147 144 141 138 136 133 130 127 124 121 119 116 113 110 107 104 102 99 96 93 90 87 85 </table>
+    <table name="#ench3reuseDelay"> 295000 290000 285000 280000 275000 270000 265000 260000 255000 250000
+      245000 240000 235000 230000 225000 220000 215000 210000 205000 200000
+      195000 190000 185000 180000 175000 170000 165000 160000 155000 150000 </table> <!-- Guessed -->
+    <table name="#ench4time"> 62 64 66 68 70 72 74 76 78 80 82 84 86 88 90
+      92 94 96 98 100 102 104 106 108 110 112 114 116 118 120 </table>
     <table name="#mpConsume"> 133 153 170 </table>
     <table name="#runSpd"> 10 20 30 </table>
     <table name="#pAtkSpd"> 1.1 1.2 1.3 </table>
@@ -263,6 +273,8 @@
     <set name="reuseDelay" val="300000"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <enchant2 name="mpConsume" val="#ench2mpConsume"/>
+    <enchant3 name="reuseDelay" val="#ench3reuseDelay"/>
     <cond msg="This skill is only available when your HP is at 30 percent or lower.">
       <player hp="30"/>
     </cond>
@@ -288,6 +300,50 @@
         <mul order="0x30" stat="gainHp" val="0.2"/>
       </effect>
     </for>
+    <enchant1for>
+      <effect name="Buff" time="60" val="0" stackOrder="3" stackType="icon_buff">
+        <mul order="0x30" stat="debuffVuln" val="0.6"/>
+        <mul order="0x30" stat="pDef" val="#ench1def"/>
+        <mul order="0x30" stat="mDef" val="#ench1def"/>
+        <add order="0x40" stat="accCombat" val="6">
+          <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        </add>
+        <add order="0x40" stat="runSpd" val="30"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.3">
+          <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        </mul>
+        <add order="0x40" stat="rCrit" val="100">
+          <using kind="Sword,Big Sword"/>
+        </add>
+        <mul order="0x30" stat="cAtk" val="2">
+          <using kind="Blunt,Big Blunt"/>
+        </mul>
+        <mul order="0x30" stat="cancelVuln" val="0.6"/>
+        <mul order="0x30" stat="gainHp" val="0.2"/>
+      </effect>
+    </enchant1for>
+    <enchant4for>
+      <effect name="Buff" time="#ench4time" val="0" stackOrder="3" stackType="icon_buff">
+        <mul order="0x30" stat="debuffVuln" val="0.6"/>
+        <mul order="0x30" stat="pDef" val="1.5"/>
+        <mul order="0x30" stat="mDef" val="1.5"/>
+        <add order="0x40" stat="accCombat" val="6">
+          <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        </add>
+        <add order="0x40" stat="runSpd" val="30"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.3">
+          <using kind="Sword,Big Sword,Blunt,Big Blunt"/>
+        </mul>
+        <add order="0x40" stat="rCrit" val="100">
+          <using kind="Sword,Big Sword"/>
+        </add>
+        <mul order="0x30" stat="cAtk" val="2">
+          <using kind="Blunt,Big Blunt"/>
+        </mul>
+        <mul order="0x30" stat="cancelVuln" val="0.6"/>
+        <mul order="0x30" stat="gainHp" val="0.2"/>
+      </effect>
+    </enchant4for>
   </skill>
   <skill id="407" levels="10" name="Psycho Symphony">
     <table name="#debuff"> 0.9 0.9 0.9 0.85 0.85 0.8 0.8 0.75 0.75 0.7 </table>
@@ -2406,41 +2462,63 @@
       -->
     </enchant7for>
   </skill>
-  <skill id="495" levels="10" name="Blade Rush">
+  <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
+    <table name="#ench1dmg"> 134 135 135 135 135 135 135 136 136 136 136 136 136 137 137 137 137 137 137 138 138 138 138 138 138 139 139 139 139 139 </table>
+    <table name="#ench2power"> 80 81 82 82 83 84 84 85 86 86 87 88 88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
+    <table name="#ench3mpConsume"> 88 87 85 84 82 81 79 78 76 75 73 72 70 69 67 66 64 63 61 60 58 57 55 54 52 51 49 48 46 45 </table>
+    <!-- table name="#ench4Duel"> 1.01 1.01 1.01 1.02 1.02 1.02 1.03 1.03 1.03 1.04 1.04 1.04 1.05 1.05 1.05
+      1.06 1.06 1.06 1.07 1.07 1.07 1.08 1.08 1.08 1.09 1.09 1.09 1.1 1.1 1.11 </table --> <!-- Need Verify -->
     <table name="#abnormalLvl"> 6 6 7 7 7 7 7 8 8 8 </table>
-    <table name="#castRange"> 500 500 500 500 500 500 600 600 600 600 </table>
+    <table name="#castRange"> 400 500 500 500 500 500 600 600 600 600 </table>
     <table name="#dmg"> 107 107 123 123 123 123 123 134 134 134 </table>
-    <table name="#effectRange"> 1000 1000 1000 1000 1000 1000 1100 1100 1100 1100 </table>
+    <table name="#effectRange"> 900 1000 1000 1000 1000 1000 1100 1100 1100 1100 </table>
     <table name="#magicLvl"> 55 57 59 61 63 66 68 70 72 74 </table>
     <table name="#mpConsume"> 65 70 73 75 77 80 83 85 88 90 </table>
+    <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
     <set name="abnormalLvl" val="#abnormalLvl"/>
-    <set name="castRange" val="#castRange"/>
-    <set name="effectRange" val="#effectRange"/>
-    <set name="flyType" val="CHARGE"/>
-    <set name="hitTime" val="800"/>
-    <set name="isDebuff" val="true"/>
-    <set name="lvlDepend" val="2"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="lvlDepend" val="2"/>
+    <set name="hitTime" val="800"/>
+    <set name="reuseDelay" val="9000"/>
+    <set name="target" val="TARGET_FRONT_AREA"/>
+    <set name="skillType" val="BLEED"/>
+    <set name="flyType" val="CHARGE"/>
+    <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="overHit" val="true"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
-    <set name="reuseDelay" val="9000"/>
     <set name="skillRadius" val="#castRange"/>
-    <set name="skillType" val="BLEED"/>
     <set name="soulMaxConsumeCount" val="5"/>
-    <set name="target" val="TARGET_FRONT_AREA"/>
-    <set name="weaponsAllowed" val="32768"/> <!-- Ancient -->
+    <set name="castRange" val="#castRange"/>
+    <set name="effectRange" val="#effectRange"/>
+    <enchant2 name="power" val="#ench2power"/>
+    <enchant3 name="mpConsume" val="#ench3mpConsume"/>
     <cond msgId="113" addName="1">
       <target mindistance="200"/>
     </cond>
     <for>
-      <!-- Retail Values CT2.3: 107 107 123 123 123 123 123 134 134 134 * 1 Sec -->
       <effect count="20" name="DamOverTime" val="#dmg" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
       <effect name="EnemyCharge" val="0" noicon="1"/>
     </for>
+    <enchant1for>
+      <effect count="20" name="DamOverTime" val="#ench1dmg" abnormal="bleed">
+        <mul order="0x30" stat="runSpd" val="0.8"/>
+      </effect>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
+    </enchant1for>
+    <enchant4for>
+      <effect count="20" name="DamOverTime" val="134" abnormal="bleed">
+        <mul order="0x30" stat="runSpd" val="0.8"/>
+      </effect>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
+      <!-- FIXME: either make it an effect for X sec, or a passive with a condition for this skill, or a new stat, because this way is definetely bad
+      <mul order="0x30" stat="pvpPhysDmg" val="#ench4Duel"/>
+      <mul order="0x30" stat="pvpPhysSkillsDmg" val="#ench4Duel"/>
+      -->
+    </enchant4for>
   </skill>
   <skill id="496" levels="31" name="Slashing Blade" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 2907 2926 2946 2966 2986 3006 3025 3045 3065 3085 3105 3124 3144 3164
