@@ -22,9 +22,9 @@ import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.FloodProtector;
@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  */
 public class RequestDropItem extends L2GameClientPacket
 {
-	private static final String	_C__12_REQUESTDROPITEM	= "[C] 12 RequestDropItem";
+	private static final String	_C__REQUESTDROPITEM	= "[C] 17 RequestDropItem c[dqddd]";
 
 	private int					_objectId;
 	private long				_count;
@@ -91,12 +91,12 @@ public class RequestDropItem extends L2GameClientPacket
 		L2ItemInstance item = activeChar.checkItemManipulation(_objectId, _count, "Drop");
 		if (_count > item.getCount() || _count < 1)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		else if (!item.isStackable() && _count > 1)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			Util.handleIllegalPlayerAction(activeChar, "[RequestDropItem] count > 1 but item is not stackable! ban! oid: " + _objectId + " owner: " + activeChar.getName(), IllegalPlayerAction.PUNISH_KICK);
 			return;
 		}
@@ -113,14 +113,14 @@ public class RequestDropItem extends L2GameClientPacket
 			for (L2ItemInstance element : unequiped)
 				iu.addModifiedItem(element);
 			sendPacket(iu);
-			activeChar.broadcastUserInfo();
+			sendPacket(new UserInfo(activeChar));
 		}
 
 		if (MercTicketManager.getInstance().isTicket(item.getItemId()))
 		{
 			MercTicketManager.getInstance().reqPosition(activeChar, item);
 			sendPacket(new ConfirmDlg(SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION).addItemName(item));
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
@@ -160,6 +160,7 @@ public class RequestDropItem extends L2GameClientPacket
 		}
 		else if (activeChar.isFlying())
 		{
+			sendAF();
 			return false;
 		}
 		else if (activeChar.isCastingSimultaneouslyNow() && activeChar.getLastSimultaneousSkillCast() != null && activeChar.getLastSimultaneousSkillCast().getItemConsumeId() == item.getItemId())
@@ -176,7 +177,7 @@ public class RequestDropItem extends L2GameClientPacket
 		else if (item == null)
 		{
 			_log.warn("Error while droping item for char " + activeChar.getName() + " (validity check).");
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return false;
 		}
 		else if (!activeChar.isGM() && !Config.ALLOW_DISCARDITEM)
@@ -216,6 +217,6 @@ public class RequestDropItem extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__12_REQUESTDROPITEM;
+		return _C__REQUESTDROPITEM;
 	}
 }
