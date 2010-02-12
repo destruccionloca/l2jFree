@@ -113,7 +113,11 @@ public class RequestDropItem extends L2GameClientPacket
 			for (L2ItemInstance element : unequiped)
 				iu.addModifiedItem(element);
 			sendPacket(iu);
+			
+			// must be sent explicitly after IU
 			sendPacket(new UserInfo(activeChar));
+			
+			activeChar.broadcastUserInfo();
 		}
 
 		if (MercTicketManager.getInstance().isTicket(item.getItemId()))
