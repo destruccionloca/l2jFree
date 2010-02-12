@@ -4529,8 +4529,7 @@ public abstract class L2Character extends L2Object
 			sin = dy/distance;
 			cos = dx/distance;
 
-			//distance -= (offset-5); // due to rounding error, we have to move a bit closer to be in range
-			distance -= offset;
+			distance -= (offset-5); // due to rounding error, we have to move a bit closer to be in range
 
 			// Calculate the new destination with offset included
 			x = curX + (int)(distance * cos);

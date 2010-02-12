@@ -712,8 +712,8 @@ public abstract class AbstractAI implements Ctrl
 			{
 				if (_clientMovingToPawnOffset == offset)
 				{
-					//if (GameTimeController.getGameTicks() < _moveToPawnTimeout)
-					//	return;
+					if (GameTimeController.getGameTicks() < _moveToPawnTimeout)
+						return;
 					sendPacket = false;
 				}
 				else if (_actor.isOnGeodataPath())
@@ -729,7 +729,7 @@ public abstract class AbstractAI implements Ctrl
 			_clientMovingToPawnOffset = offset;
 			setTarget(pawn);
 			_moveToPawnTimeout = GameTimeController.getGameTicks();
-			_moveToPawnTimeout += 1000 / GameTimeController.MILLIS_IN_TICK;
+			_moveToPawnTimeout += /*1000*/ 200 / GameTimeController.MILLIS_IN_TICK;
 			
 			if (pawn == null || _accessor == null)
 				return;
@@ -741,7 +741,6 @@ public abstract class AbstractAI implements Ctrl
 				
 				offset += speed * Math.cos(Math.toRadians(Util.getAngleDifference(_actor, pawn)));
 			}
-			offset -= 5;
 			
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
