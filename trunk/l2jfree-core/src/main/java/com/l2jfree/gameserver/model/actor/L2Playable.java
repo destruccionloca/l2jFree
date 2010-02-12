@@ -621,7 +621,7 @@ public abstract class L2Playable extends L2Character
 		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, request);
 	}
 	
-	protected abstract boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove);
+	protected abstract boolean checkUseMagicConditions(L2Skill skill, boolean forceUse);
 	
 	/**
 	 * <b>WARNING:</b> for players and summons this mustn't be called except through AI!
@@ -645,7 +645,7 @@ public abstract class L2Playable extends L2Character
 			return;
 		}
 		
-		if (!checkUseMagicConditions(request.getSkill(), request.isCtrlPressed(), request.isShiftPressed()))
+		if (!checkUseMagicConditions(request.getSkill(), request.isCtrlPressed()))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -657,7 +657,7 @@ public abstract class L2Playable extends L2Character
 	@Override
 	public void doSimultaneousCast(L2Skill skill)
 	{
-		if (!checkUseMagicConditions(skill, false, false))
+		if (!checkUseMagicConditions(skill, false))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;

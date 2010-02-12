@@ -8213,7 +8213,7 @@ public final class L2PcInstance extends L2Playable
 	}
 	
 	@Override
-	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
+	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse)
 	{
 		L2SkillType sklType = skill.getSkillType();
 
@@ -8460,34 +8460,6 @@ public final class L2PcInstance extends L2Playable
 					// Everything okay
 					break;
 				default:
-					// Send a Server->Client packet ActionFailed to the L2PcInstance
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return false;
-				}
-			}
-
-			// Check if the target is in the skill cast range
-			if (dontMove)
-			{
-				// Calculate the distance between the L2PcInstance and the target
-				if (sklTargetType == SkillTargetType.TARGET_GROUND)
-				{
-					if (!isInsideRadius(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), skill.getCastRange()
-							+ getTemplate().getCollisionRadius(), false, false))
-					{
-						// Send a System Message to the caster
-						sendPacket(SystemMessageId.TARGET_TOO_FAR);
-
-						// Send a Server->Client packet ActionFailed to the L2PcInstance
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return false;
-					}
-				}
-				else if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange() + getTemplate().getCollisionRadius(), false, false))
-				{
-					// Send a System Message to the caster
-					sendPacket(SystemMessageId.TARGET_TOO_FAR);
-
 					// Send a Server->Client packet ActionFailed to the L2PcInstance
 					sendPacket(ActionFailed.STATIC_PACKET);
 					return false;

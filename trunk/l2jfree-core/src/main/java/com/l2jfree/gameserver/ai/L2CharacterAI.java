@@ -895,7 +895,18 @@ public class L2CharacterAI extends AbstractAI
 		{
 			if (_actor.isMovementDisabled())
 				return true;
-
+			
+			if (getIntention() == CtrlIntention.AI_INTENTION_CAST)
+			{
+				if (getCurrentSkill().isShiftPressed())
+				{
+					_actor.sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
+					_actor.sendPacket(ActionFailed.STATIC_PACKET);
+					
+					return true;
+				}
+			}
+			
 			if (!_actor.isRunning() && !(this instanceof L2PlayerAI) && !(this instanceof L2SummonAI))
 				_actor.setRunning();
 
@@ -979,13 +990,24 @@ public class L2CharacterAI extends AbstractAI
 				return true;
 
 			// while flying there is no move to cast
-			if (_actor.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST &&
+			if (getIntention() == CtrlIntention.AI_INTENTION_CAST &&
 					_actor instanceof L2PcInstance && ((L2PcInstance)_actor).isTransformed())
 			{
 				if (!((L2PcInstance)_actor).getTransformation().canStartFollowToCast())
 				{
-					((L2PcInstance)_actor).sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
-					((L2PcInstance)_actor).sendPacket(ActionFailed.STATIC_PACKET);
+					_actor.sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
+					_actor.sendPacket(ActionFailed.STATIC_PACKET);
+					
+					return true;
+				}
+			}
+			
+			if (getIntention() == CtrlIntention.AI_INTENTION_CAST)
+			{
+				if (getCurrentSkill().isShiftPressed())
+				{
+					_actor.sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
+					_actor.sendPacket(ActionFailed.STATIC_PACKET);
 					
 					return true;
 				}
@@ -994,7 +1016,7 @@ public class L2CharacterAI extends AbstractAI
 			// If not running, set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 			if (!_actor.isRunning() && !(this instanceof L2PlayerAI) && !(this instanceof L2SummonAI))
 				_actor.setRunning();
-
+			
 			stopFollow();
 			if ((target instanceof L2Character) && !(target instanceof L2DoorInstance))
 			{

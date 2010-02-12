@@ -575,7 +575,7 @@ public abstract class L2Summon extends L2Playable
 	}
 	
 	@Override
-	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse, boolean dontMove)
+	protected boolean checkUseMagicConditions(L2Skill skill, boolean forceUse)
 	{
 		if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE || isDead())
 			return false;
