@@ -8938,7 +8938,7 @@ public final class L2PcInstance extends L2Playable
 		startParalyze();
 		setIsInvul(true);
 		getAppearance().setInvisible();
-		sendPacket(new GMHide(1));
+		sendPacket(GMHide.ENABLE);
 		sendPacket(new ObservationMode(x, y, z));
 		getPosition().setXYZ(x, y, z);
 
@@ -8979,8 +8979,8 @@ public final class L2PcInstance extends L2Playable
 		setIsInvul(true);
 		getAppearance().setInvisible();
 		teleToLocation(x, y, z, false);
-		sendPacket(new GMHide(1));
-		sendPacket(new ExOlympiadMode(3));
+		sendPacket(GMHide.ENABLE);
+		sendPacket(ExOlympiadMode.SPECTATE);
 		_observerMode = true;
 
 		updateInvisibilityStatus();
@@ -8993,7 +8993,7 @@ public final class L2PcInstance extends L2Playable
 		stopMove(null);
 		setIsInvul(true);
 		setIsImmobilized(true);
-		sendPacket(new CameraMode(1));
+		sendPacket(CameraMode.FIRST_PERSON);
 	}
 
 	public void leaveMovieMode()
@@ -9001,7 +9001,7 @@ public final class L2PcInstance extends L2Playable
 		if (!isGM())
 			setIsInvul(false);
 		setIsImmobilized(false);
-		sendPacket(new CameraMode(0));
+		sendPacket(CameraMode.THIRD_PERSON);
 	}
 
 	/**
@@ -9020,7 +9020,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		setTarget(null);
 		getPosition().setXYZ(_obsX, _obsY, _obsZ);
-		sendPacket(new GMHide(0));
+		sendPacket(GMHide.DISABLE);
 		stopParalyze(false);
 
 		if (!isGM())
@@ -9041,9 +9041,9 @@ public final class L2PcInstance extends L2Playable
 	public void leaveOlympiadObserverMode()
 	{
 		setTarget(null);
-		sendPacket(new ExOlympiadMode(0));
+		sendPacket(ExOlympiadMode.RETURN);
 		teleToLocation(_obsX, _obsY, _obsZ);
-		sendPacket(new GMHide(0));
+		sendPacket(GMHide.DISABLE);
 		if (!isGM())
 		{
 			getAppearance().setVisible();

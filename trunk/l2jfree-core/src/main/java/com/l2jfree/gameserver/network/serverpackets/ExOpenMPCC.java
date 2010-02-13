@@ -14,15 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format:(ch)
- * @author  Crion/kombat
- */
 public class ExOpenMPCC extends StaticPacket
 {
-
-	private static final String _S__FE_25_EXOPENMPCC = "[S] FE:25 ExOpenMPCC []";
-
+	private static final String _S__EXOPENMPCC = "[S] FE:12 ExOpenMPCC ch";
 	public static final ExOpenMPCC STATIC_PACKET = new ExOpenMPCC();
 
 	private ExOpenMPCC()
@@ -45,7 +39,6 @@ public class ExOpenMPCC extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_25_EXOPENMPCC;
+		return _S__EXOPENMPCC;
 	}
-	
 }

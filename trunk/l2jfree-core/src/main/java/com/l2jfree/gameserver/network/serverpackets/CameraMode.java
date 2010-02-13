@@ -16,31 +16,27 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 public class CameraMode extends L2GameServerPacket
 {
-    private static final String _S__F7_CAMERAMODE = "[S] F7 CameraMode [d]";
-    
-    private final int _mode;
+	private static final String _S__CAMERAMODE = "[S] F7 CameraMode c[d]";
+	public static final CameraMode FIRST_PERSON = new CameraMode(0x01);
+	public static final CameraMode THIRD_PERSON = new CameraMode(0x00);
 
-    /**
-     * Forces client camera mode change
-     * @param mode
-     * 0 - third person cam
-     * 1 - first person cam
-     */
-    public CameraMode(int mode)
-    {
-        _mode = mode;
-    }
-    
-    @Override
-    public void writeImpl()
-    {
-        writeC(0xf7);
-        writeD(_mode);
-    }
-    
-    @Override
-    public String getType()
-    {
-        return _S__F7_CAMERAMODE;
-    }
+	private final int _mode;
+
+	private CameraMode(int mode)
+	{
+		_mode = mode;
+	}
+	
+	@Override
+	public void writeImpl()
+	{
+		writeC(0xf7);
+		writeD(_mode);
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _S__CAMERAMODE;
+	}
 }

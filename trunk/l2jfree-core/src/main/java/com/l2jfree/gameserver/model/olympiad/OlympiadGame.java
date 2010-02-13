@@ -353,8 +353,8 @@ public class OlympiadGame
 			_playerOne.teleToLocation(_stadiumPort[0] + 1200, _stadiumPort[1], _stadiumPort[2], false);
 			_playerTwo.teleToLocation(_stadiumPort[0] - 1200, _stadiumPort[1], _stadiumPort[2], false);
 
-			_playerOne.sendPacket(new ExOlympiadMode(2));
-			_playerTwo.sendPacket(new ExOlympiadMode(2));
+			_playerOne.sendPacket(ExOlympiadMode.INGAME);
+			_playerTwo.sendPacket(ExOlympiadMode.INGAME);
 
 			_spawnOne = SpawnBuffer(_stadiumPort[0] + 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
 			_spawnTwo = SpawnBuffer(_stadiumPort[0] - 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
@@ -404,13 +404,13 @@ public class OlympiadGame
 	{
 		if (_playerOne != null)
 		{
-			_playerOne.sendPacket(new ExOlympiadMatchEnd());
+			_playerOne.sendPacket(ExOlympiadMatchEnd.PACKET);
 			_playerOne.teleToLocation(x1, y1, z1, true);
 		}
 
 		if (_playerTwo != null)
 		{
-			_playerTwo.sendPacket(new ExOlympiadMatchEnd());
+			_playerTwo.sendPacket(ExOlympiadMatchEnd.PACKET);
 			_playerTwo.teleToLocation(x2, y2, z2, true);
 		}
 	}
@@ -433,7 +433,7 @@ public class OlympiadGame
 				player.setIsOlympiadStart(false);
 				player.setOlympiadSide(-1);
 				player.setOlympiadGameId(-1);
-				player.sendPacket(new ExOlympiadMode(0));
+				player.sendPacket(ExOlympiadMode.RETURN);
 
 				// Add Clan Skills
 				if (player.getClan() != null)
@@ -1074,7 +1074,7 @@ class OlympiadGameTask implements Runnable
 				for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
 				{
 					if (spec != null)
-						spec.sendPacket(new ExOlympiadMatchEnd());
+						spec.sendPacket(ExOlympiadMatchEnd.PACKET);
 				}
 			}
 

@@ -14,40 +14,34 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * format: dc
- * @author  GodKratos
- */
-public class PremiumState extends L2GameServerPacket
+/** @deprecated the latest client treats this packet as FE:A9 (BuyProduct) */
+@Deprecated
+public class ExBrPremiumState extends L2GameServerPacket
 {
-	private static final String _S__FE_AA_EXGETBOOKMARKINFO = "[S] FE:AA PremiumState";
+	private static final String _S__EXBRPREMIUMSTATE = "[S] FE:AA ExBR_PremiumState ch[dc]";
+
 	private final int _objectId;
 	private final int _state;
-	
-	public PremiumState(int objectId, int state)
+
+	public ExBrPremiumState(int objectId, int state)
 	{
 		_objectId = objectId;
 		_state = state;
 	}
 
-	/**
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0xaa);
+
 		writeD(_objectId);
 		writeC(_state);
 	}
-	
-	/**
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
+
 	@Override
 	public String getType()
 	{
-		return _S__FE_AA_EXGETBOOKMARKINFO;
+		return _S__EXBRPREMIUMSTATE;
 	}
 }

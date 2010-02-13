@@ -23,7 +23,7 @@ package com.l2jfree.gameserver.network.serverpackets;
  */
 public final class ExNotifyPremiumItem extends StaticPacket
 {
-	private static final String _S__FE_85_EXNOTIFYPREMIUMITEM = "[S] FE:85 ExNotifyPremiumItem";
+	private static final String _S__EXNOTIFYPREMIUMITEM = "[S] FE:85 ExNotifyPremiumItem ch";
 	public static final ExNotifyPremiumItem PACKET = new ExNotifyPremiumItem();
 
 	private ExNotifyPremiumItem()
@@ -40,6 +40,6 @@ public final class ExNotifyPremiumItem extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_85_EXNOTIFYPREMIUMITEM;
+		return _S__EXNOTIFYPREMIUMITEM;
 	}
 }

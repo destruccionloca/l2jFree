@@ -14,18 +14,15 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format: (ch)
- *
- * @author  -Wooden-
- */
-public class ShowPCCafeCouponShowUI extends L2GameServerPacket
+public class ShowPCCafeCouponShowUI extends StaticPacket
 {
-	private static final String _S__FE_43_SHOWPCCAFECOUPONSHOWUI = "[S] FE:43 ShowPCCafeCouponShowUI";
+	private static final String _S__SHOWPCCAFECOUPONSHOWUI = "[S] FE:44 ShowPCCafeCouponShowUI ch";
+	public static final ShowPCCafeCouponShowUI PACKET = new ShowPCCafeCouponShowUI();
 
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	private ShowPCCafeCouponShowUI()
+	{
+	}
+
 	@Override
 	protected void writeImpl()
 	{
@@ -33,13 +30,9 @@ public class ShowPCCafeCouponShowUI extends L2GameServerPacket
 		writeH(0x44);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_43_SHOWPCCAFECOUPONSHOWUI;
+		return _S__SHOWPCCAFECOUPONSHOWUI;
 	}
-	
 }

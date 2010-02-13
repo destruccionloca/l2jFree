@@ -14,20 +14,20 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format:(c)c
- * @author  Crion/kombat
- */
-
-public class HideBoard extends L2GameServerPacket
+public class HideBoard extends StaticPacket
 {
-	private static final String _S__6E_SHOWBOARD = "[S] 6e ShowBoard";
+	private static final String _S__SHOWBOARD = "[S] 7B ShowBoard c[c]";
+	public static final HideBoard PACKET = new HideBoard();
+
+	private HideBoard()
+	{
+	}
 
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x7b);
-		writeC(0x00); //c4 1 to show community 00 to hide
+		writeC(0x00);
 	}
 
 	/* (non-Javadoc)
@@ -36,6 +36,6 @@ public class HideBoard extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__6E_SHOWBOARD;
+		return _S__SHOWBOARD;
 	}
 }

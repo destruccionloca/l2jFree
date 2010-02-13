@@ -20,17 +20,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.JoinParty;
 
-/**
- *  sample
- *  2a
- *  01 00 00 00
- * 
- * format (c) d
- * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestAnswerJoinParty extends L2GameClientPacket
 {
-	private static final String _C__2A_REQUESTANSWERPARTY = "[C] 2A RequestAnswerJoinParty";
+	private static final String _C__REQUESTANSWERPARTY = "[C] 43 RequestAnswerJoinParty c[d]";
 
 	private int _response;
 
@@ -53,10 +45,9 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
         	return;
         }
 
-		requestor.sendPacket(new JoinParty(_response));
-
 		if (_response == 1)
 		{
+			requestor.sendPacket(JoinParty.ACCEPTED);
 			if (requestor.getParty() != null)
 			{
 				if (requestor.getParty().getMemberCount() >= 9)
@@ -70,6 +61,7 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 		}
 		else
 		{
+			requestor.sendPacket(JoinParty.DECLINED);
 			requestor.sendPacket(SystemMessageId.PLAYER_DECLINED_PARTY);
 
 			L2Party party = requestor.getParty();
@@ -95,6 +87,6 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__2A_REQUESTANSWERPARTY;
+		return _C__REQUESTANSWERPARTY;
 	}
 }

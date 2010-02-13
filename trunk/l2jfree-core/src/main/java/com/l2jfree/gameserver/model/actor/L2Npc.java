@@ -93,7 +93,7 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ExQuestInfo;
+import com.l2jfree.gameserver.network.serverpackets.ExShowQuestInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowBaseAttributeCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationCancelWindow;
 import com.l2jfree.gameserver.network.serverpackets.ExShowVariationMakeWindow;
@@ -1402,7 +1402,7 @@ public class L2Npc extends L2Character
 			}
 			else if (command.equals("questlist"))
 			{
-				player.sendPacket(new ExQuestInfo());
+				player.sendPacket(ExShowQuestInfo.PACKET);
 			}
 			else if (command.startsWith("MakeBuffs"))
 			{

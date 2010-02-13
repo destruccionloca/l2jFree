@@ -32,7 +32,7 @@ public class L2AdventurerInstance extends L2NpcInstance
 	{
 		if (command.equalsIgnoreCase("questlist"))
 		{
-			player.sendPacket(new ExShowQuestInfo());
+			player.sendPacket(ExShowQuestInfo.PACKET);
 		}
 		else
 		{

@@ -1269,7 +1269,8 @@ public class FourSepulchersManager extends BossLair
 		if (!isAttackTime())
 			return;
 
-		if (_archonSpawned.get(npcId))
+		Boolean status = _archonSpawned.get(npcId);
+		if (status != null && status)
 			return;
 
 		FastList<L2Spawn> monsterList = (FastList<L2Spawn>) _dukeFinalMobs.get(npcId);

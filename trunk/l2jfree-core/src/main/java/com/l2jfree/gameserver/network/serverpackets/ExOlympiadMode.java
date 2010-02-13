@@ -14,18 +14,16 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * @author godson
- */
-public class ExOlympiadMode extends L2GameServerPacket
+public class ExOlympiadMode extends StaticPacket
 {
-	private static final String _S__FE_7C_OLYMPIADMODE = "[S] FE:7c ExOlympiadMode [c]";
+	private static final String _S__OLYMPIADMODE = "[S] FE:7C ExOlympiadMode ch[c]";
+	public static final ExOlympiadMode SPECTATE = new ExOlympiadMode(0x03);
+	public static final ExOlympiadMode INGAME = new ExOlympiadMode(0x02);
+	public static final ExOlympiadMode RETURN = new ExOlympiadMode(0x00);
+
 	private final int _mode;
 
-	/**
-	 * @param _mode (0 = return, 3 = spectate)
-	 */
-	public ExOlympiadMode(int mode)
+	private ExOlympiadMode(int mode)
 	{
 		_mode = mode;
 	}
@@ -35,16 +33,16 @@ public class ExOlympiadMode extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x7c);
-		
+
 		writeC(_mode);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_7C_OLYMPIADMODE;
+		return _S__OLYMPIADMODE;
 	}
 }

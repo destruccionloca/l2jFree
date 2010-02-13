@@ -23,8 +23,12 @@ package com.l2jfree.gameserver.network.serverpackets;
  */
 public final class ExNotifyBirthDay extends StaticPacket
 {
-	private static final String _S__FE_8F_EXNOTIFYBIRTHDAY = "[S] FE:8F ExNotifyBirthDay";
+	private static final String _S__EXNOTIFYBIRTHDAY = "[S] FE:8F ExNotifyBirthDay ch";
 	public static final ExNotifyBirthDay PACKET = new ExNotifyBirthDay();
+
+	private ExNotifyBirthDay()
+	{
+	}
 
 	@Override
 	protected void writeImpl()
@@ -36,6 +40,6 @@ public final class ExNotifyBirthDay extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_8F_EXNOTIFYBIRTHDAY;
+		return _S__EXNOTIFYBIRTHDAY;
 	}
 }

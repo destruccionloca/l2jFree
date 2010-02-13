@@ -14,18 +14,15 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * @author Kerberos
- */
-public class GMHide extends L2GameServerPacket
+public class GMHide extends StaticPacket
 {
-	// cd
+	private static final String _S__GMHIDE = "[S] 93 GMHide c[d]";
+	public static final GMHide ENABLE = new GMHide(0x01);
+	public static final GMHide DISABLE = new GMHide(0x00);
+
 	private final int _mode;
 
-	/**
-	 * @param _mode (0 = display windows, 1 = hide windows)
-	 */
-	public GMHide(int mode)
+	private GMHide(int mode)
 	{
 		_mode = mode;
 	}
@@ -43,6 +40,6 @@ public class GMHide extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return "[S] 93 GMHide";
+		return _S__GMHIDE;
 	}
 }

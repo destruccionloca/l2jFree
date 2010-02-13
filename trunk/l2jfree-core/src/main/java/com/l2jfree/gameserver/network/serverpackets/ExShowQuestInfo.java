@@ -14,32 +14,31 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * This class ...
- *
- * @version $Revision: $ $Date: $
- * @author  Luca Baldi
- */
-public class ExShowQuestInfo extends L2GameServerPacket
+public class ExShowQuestInfo extends StaticPacket
 {
-    private static final String S_FE_20_EXQUESTINFO = "[S] FE:20 EXQUESTINFO";
+	private static final String _S__EXSHOWQUESTINFO = "[S] FE:20 ExShowQuestInfo ch";
+	public static final ExShowQuestInfo PACKET = new ExShowQuestInfo();
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
+	private ExShowQuestInfo()
+	{
+	}
+ 
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */	
+	@Override
 	protected void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x20);
-    }
+	{
+		writeC(0xfe);
+		writeH(0x20);
+	}
 
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return S_FE_20_EXQUESTINFO;
-    }
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__EXSHOWQUESTINFO;
+	}
 }

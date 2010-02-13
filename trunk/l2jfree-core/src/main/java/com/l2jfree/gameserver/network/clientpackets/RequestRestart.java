@@ -23,7 +23,7 @@ import com.l2jfree.gameserver.network.serverpackets.RestartResponse;
 
 public final class RequestRestart extends L2GameClientPacket
 {
-	private static final String _C__57_REQUESTRESTART = "[C] 57 RequestRestart";
+	private static final String _C__REQUESTRESTART = "[C] 57 RequestRestart c";
 	
 	@Override
 	protected void readImpl()
@@ -50,17 +50,15 @@ public final class RequestRestart extends L2GameClientPacket
 		// return the client to the authed status
 		client.setState(GameClientState.AUTHED);
 		
-		sendPacket(new RestartResponse());
+		sendPacket(RestartResponse.PACKET);
 		
 		// send char list
 		sendPacket(new CharSelectionInfo(client));
-		
-		sendAF();
 	}
 	
 	@Override
 	public String getType()
 	{
-		return _C__57_REQUESTRESTART;
+		return _C__REQUESTRESTART;
 	}
 }

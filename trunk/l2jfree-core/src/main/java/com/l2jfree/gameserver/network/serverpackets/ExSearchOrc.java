@@ -14,18 +14,15 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format: (ch)
- *
- * @author  -Wooden-
- */
-public class ExSearchOrc extends L2GameServerPacket
+public class ExSearchOrc extends StaticPacket
 {
-	private static final String _S__FE_45_EXSEARCHORC = "[S] FE:45 ExSearchOrc";
+	private static final String _S__EXSEARCHORC = "[S] FE:45 ExSearchOrc ch";
+	public static final ExSearchOrc PACKET = new ExSearchOrc();
 
-	/**
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	private ExSearchOrc()
+	{
+	}
+
 	@Override
 	protected void writeImpl()
 	{
@@ -33,13 +30,9 @@ public class ExSearchOrc extends L2GameServerPacket
 		writeH(0x45);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_45_EXSEARCHORC;
+		return _S__EXSEARCHORC;
 	}
-
 }

@@ -20,8 +20,12 @@ package com.l2jfree.gameserver.network.serverpackets;
  */
 public class ExPVPMatchCCRetire extends StaticPacket
 {
-	private static final String _S__FE_8B_EXPVPMATCHCCRETIRE = "[S] FE:8B ExPVPMatchCCRetire";
+	private static final String _S__EXPVPMATCHCCRETIRE = "[S] FE:8B ExPVPMatchCCRetire ch";
 	public static final ExPVPMatchCCRetire PACKET = new ExPVPMatchCCRetire();
+
+	private ExPVPMatchCCRetire()
+	{
+	}
 
 	@Override
 	protected void writeImpl()
@@ -33,6 +37,6 @@ public class ExPVPMatchCCRetire extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_8B_EXPVPMATCHCCRETIRE;
+		return _S__EXPVPMATCHCCRETIRE;
 	}
 }
