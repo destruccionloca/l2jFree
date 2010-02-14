@@ -14,29 +14,29 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowAgitInfo;
 
-/**
- * @author KenM
- */
+/** Sent when player opens the world map or the relevant World Info dialog. */
 public class RequestAllAgitInfo extends L2GameClientPacket
 {
+	private static final String _C__REQUESTALLAGITINFO = "[C] D0:3E RequestAllAgitInfo ch";
+
     @Override
     protected void readImpl()
     {
+    	// trigger packet
     }
 
     @Override
     protected void runImpl()
     {
-        sendPacket(new ExShowAgitInfo());
-        sendPacket(ActionFailed.STATIC_PACKET);
+    	if (getActiveChar() != null)
+    		sendPacket(ExShowAgitInfo.PACKET);
     }
 
     @Override
     public String getType()
     {
-        return "[C] D0:41 RequestAllAgitInfo";
+        return _C__REQUESTALLAGITINFO;
     }
 }

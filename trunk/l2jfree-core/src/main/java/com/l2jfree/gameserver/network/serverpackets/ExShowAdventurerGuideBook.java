@@ -14,17 +14,15 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format: ch (trigger)
- * @author  KenM
- */
-public class ExShowAdventurerGuideBook extends L2GameServerPacket
+public class ExShowAdventurerGuideBook extends StaticPacket
 {
-	private static final String _S__FE_37_EXSHOWADVENTURERGUIDEBOOK = "[S] FE:37 ExShowAdventurerGuideBook";
+	private static final String _S__EXSHOWADVENTURERGUIDEBOOK = "[S] FE:38 ExShowAdventurerGuideBook ch";
+	public static final ExShowAdventurerGuideBook PACKET = new ExShowAdventurerGuideBook();
 
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	private ExShowAdventurerGuideBook()
+	{
+	}
+
 	@Override
 	protected void writeImpl()
 	{
@@ -32,13 +30,9 @@ public class ExShowAdventurerGuideBook extends L2GameServerPacket
 		writeH(0x38);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_37_EXSHOWADVENTURERGUIDEBOOK;
+		return _S__EXSHOWADVENTURERGUIDEBOOK;
 	}
-
 }

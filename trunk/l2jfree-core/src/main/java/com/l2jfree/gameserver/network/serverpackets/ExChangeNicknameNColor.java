@@ -18,13 +18,17 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 
 /**
- * For use with "Color name" items.
+ * Opens a dialog to change your title (nickname) and name color. 
  * @author savormix
  */
 public final class ExChangeNicknameNColor extends StaticPacket
 {
-	private static final String _S__FE_83_EXCHANGENICKNAMENCOLOR = "[S] FE:83 ExChangeNicknameNColor";
+	private static final String _S__EXCHANGENICKNAMENCOLOR = "[S] FE:83 ExChangeNicknameNColor";
 	public static final ExChangeNicknameNColor PACKET = new ExChangeNicknameNColor();
+
+	private ExChangeNicknameNColor()
+	{
+	}
 
 	@Override
 	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
@@ -36,6 +40,6 @@ public final class ExChangeNicknameNColor extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_83_EXCHANGENICKNAMENCOLOR;
+		return _S__EXCHANGENICKNAMENCOLOR;
 	}
 }

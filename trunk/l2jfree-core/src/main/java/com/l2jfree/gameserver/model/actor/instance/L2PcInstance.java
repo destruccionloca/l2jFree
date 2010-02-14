@@ -1753,38 +1753,38 @@ public final class L2PcInstance extends L2Playable
 		
 		if (isInsideZone(L2Zone.FLAG_SIEGE))
 		{
-			setLastCompassZone(ExSetCompassZoneCode.ZONE_SIEGE_WAR);
+			setLastCompassZone(ExSetCompassZoneCode.SIEGE_WAR);
 		}
 		else if (isInsideZone(L2Zone.FLAG_PVP))
 		{
-			setLastCompassZone(ExSetCompassZoneCode.ZONE_PVP);
+			setLastCompassZone(ExSetCompassZoneCode.PVP);
 		}
 		else if (isIn7sDungeon())
 		{
-			setLastCompassZone(ExSetCompassZoneCode.ZONE_SSQ);
+			setLastCompassZone(ExSetCompassZoneCode.SEVEN_SIGNS);
 		}
 		else if (isInsideZone(L2Zone.FLAG_PEACE))
 		{
-			setLastCompassZone(ExSetCompassZoneCode.ZONE_PEACEFUL);
+			setLastCompassZone(ExSetCompassZoneCode.PEACEFUL);
 		}
 		else
 		{
-			if (_lastCompassZone == ExSetCompassZoneCode.ZONE_SIEGE_WAR)
+			if (_lastCompassZone == ExSetCompassZoneCode.SIEGE_WAR.getZoneCode())
 				updatePvPStatus();
 			
-			setLastCompassZone(ExSetCompassZoneCode.ZONE_GENERAL);
+			setLastCompassZone(ExSetCompassZoneCode.GENERAL);
 		}
 		
 		return true;
 	}
 
-	private void setLastCompassZone(int newCompassZone)
+	private void setLastCompassZone(ExSetCompassZoneCode packet)
 	{
-		if (_lastCompassZone == newCompassZone)
+		if (_lastCompassZone == packet.getZoneCode())
 			return;
 
-		_lastCompassZone = newCompassZone;
-		sendPacket(new ExSetCompassZoneCode(newCompassZone));
+		_lastCompassZone = packet.getZoneCode();
+		sendPacket(packet);
 	}
 
 	/**

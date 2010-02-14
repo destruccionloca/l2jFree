@@ -14,29 +14,29 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowCastleInfo;
 
-/**
- * @author KenM
- */
+/** Sent when player opens the world map or the relevant World Info dialog. */
 public class RequestAllCastleInfo extends L2GameClientPacket
 {
+	private static final String _C__REQUESTALLCASTLEINFO = "[C] D0:3C RequestAllCastleInfo ch";
+
     @Override
     protected void readImpl()
     {
+    	// trigger packet
     }
 
     @Override
     protected void runImpl()
     {
-        sendPacket(new ExShowCastleInfo());
-        sendPacket(ActionFailed.STATIC_PACKET);
+    	if (getActiveChar() != null)
+    		sendPacket(ExShowCastleInfo.PACKET);
     }
 
     @Override
     public String getType()
     {
-        return "[C] D0:3F RequestAllCastleInfo";
+        return _C__REQUESTALLCASTLEINFO;
     }
 }

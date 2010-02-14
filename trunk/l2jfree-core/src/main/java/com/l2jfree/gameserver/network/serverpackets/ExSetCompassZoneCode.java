@@ -14,24 +14,28 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-public class ExSetCompassZoneCode extends L2GameServerPacket
+public class ExSetCompassZoneCode extends StaticPacket
 {
-	private static final String	_S__EXSETCOMPASSZONECODE = "[S] FE:32 ExSetCompassZoneCode ch[d]";
+	private static final String	_S__EXSETCOMPASSZONECODE	= "[S] FE:32 ExSetCompassZoneCode ch[d]";
+	public static final ExSetCompassZoneCode ALTERED_1		= new ExSetCompassZoneCode(0x08);
+	public static final ExSetCompassZoneCode ALTERED_2		= new ExSetCompassZoneCode(0x09);
+	public static final ExSetCompassZoneCode SHOW_PREVIOUS	= new ExSetCompassZoneCode(0x0A);
+	public static final ExSetCompassZoneCode SIEGE_WAR		= new ExSetCompassZoneCode(0x0B);
+	public static final ExSetCompassZoneCode PEACEFUL		= new ExSetCompassZoneCode(0x0C);
+	public static final ExSetCompassZoneCode SEVEN_SIGNS	= new ExSetCompassZoneCode(0x0D);
+	public static final ExSetCompassZoneCode PVP			= new ExSetCompassZoneCode(0x0E);
+	public static final ExSetCompassZoneCode GENERAL		= new ExSetCompassZoneCode(0x0F);
 
-	public static final int		ZONE_ALTERED_1			= 0x08;
-	public static final int		ZONE_ALTERED_2			= 0x09;
-	public static final int		ZONE_REMINDER			= 0x0A;
-	public static final int		ZONE_SIEGE_WAR			= 0x0B;
-	public static final int		ZONE_PEACEFUL			= 0x0C;
-	public static final int		ZONE_SSQ				= 0x0D;
-	public static final int		ZONE_PVP				= 0x0E;
-	public static final int		ZONE_GENERAL			= 0x0F;
+	private final int _code;
 
-	private final int			_code;
-
-	public ExSetCompassZoneCode(int code)
+	private ExSetCompassZoneCode(int code)
 	{
 		_code = code;
+	}
+
+	public final int getZoneCode()
+	{
+		return _code;
 	}
 
 	@Override

@@ -14,12 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * Format:(ch)
- * @author  Crion/kombat
- */
 public class ExClosePartyRoom extends StaticPacket
 {
+	private static final String _S__EXCLOSEPARTYROOM = "[S] FE:09 ExClosePartyRoom ch";
 	public static final ExClosePartyRoom STATIC_PACKET = new ExClosePartyRoom();
 
 	private ExClosePartyRoom()
@@ -33,12 +30,9 @@ public class ExClosePartyRoom extends StaticPacket
 		writeH(0x09);
 	}
 
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return "FE_09_ExClosePartyRoom";
+		return _S__EXCLOSEPARTYROOM;
 	}
 }

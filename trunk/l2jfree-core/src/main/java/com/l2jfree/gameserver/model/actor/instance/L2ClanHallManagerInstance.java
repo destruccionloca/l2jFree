@@ -1551,7 +1551,8 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         if (ch != null)
         {
             Town t = TownManager.getInstance().getTown(ch.getTownId());
-            t.broadcastToPlayers(new AgitDecoInfo(ch));
+            if (t != null)
+            	t.broadcastToPlayers(new AgitDecoInfo(ch));
         }
     }
 }

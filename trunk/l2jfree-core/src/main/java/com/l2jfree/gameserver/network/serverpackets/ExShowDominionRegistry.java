@@ -14,15 +14,12 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- * format: dSSSdddddddd (dd(d))
- * @author GodKratos & savormix
- */
 public class ExShowDominionRegistry extends L2GameServerPacket
 {
+	private static final String _S__EXSHOWDOMINIONREGISTRY = "[S] FE:90 ExShowDominionRegistry ch[dsssdddddddd (dd (d))]";
 	private final int _territoryId;
-	private final int _clanReq = 0x00;
-	private final int _mercReq = 0x00;
+	private final int _clanReqCnt = 0x00;
+	private final int _mercReqCnt = 0x00;
 	private final int _warTime = (int) (System.currentTimeMillis() / 1000);
 	private final int _currentTime = (int) (System.currentTimeMillis() / 1000);
 	private final int _clanTerrId;
@@ -37,12 +34,6 @@ public class ExShowDominionRegistry extends L2GameServerPacket
 	}
 
     @Override
-    public String getType()
-    {
-        return "[S] FE:90 ExShowDominionRegistry";
-    }
-
-    @Override
     protected void writeImpl()
     {
         writeC(0xfe);
@@ -52,8 +43,8 @@ public class ExShowDominionRegistry extends L2GameServerPacket
         writeS("No Clan");    // Owners Clan
         writeS("No Owner");   // Owner Clan Leader
         writeS("No Ally");    // Owner Alliance
-        writeD(_clanReq); // Clan Request
-        writeD(_mercReq); // Merc Request
+        writeD(_clanReqCnt); // Clan Request
+        writeD(_mercReqCnt); // Merc Request
         writeD(_warTime); // War Time
         writeD(_currentTime); // Current Time
         writeD(_clanTerrId); // Clan's Merc. Request
@@ -66,5 +57,11 @@ public class ExShowDominionRegistry extends L2GameServerPacket
         	writeD(0x01);     // Emblem Count
         	writeD(0x51 + i); // Emblem ID - should be in for loop for emblem count
         }
+    }
+
+    @Override
+    public String getType()
+    {
+        return _S__EXSHOWDOMINIONREGISTRY;
     }
 }

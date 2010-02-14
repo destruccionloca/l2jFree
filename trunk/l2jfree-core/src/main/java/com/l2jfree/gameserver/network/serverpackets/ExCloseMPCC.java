@@ -14,18 +14,9 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-/**
- *
- * @author  chris_00
- * 
- * close the CommandChannel Information window
- * 
- */
 public class ExCloseMPCC extends StaticPacket
 {
-
-	private static final String _S__FE_13_EXCLOSEMPCC = "[S] FE:13 ExCloseMPCC []";
-
+	private static final String _S__EXCLOSEMPCC = "[S] FE:13 ExCloseMPCC ch";
 	public static final ExCloseMPCC STATIC_PACKET = new ExCloseMPCC();
 
 	private ExCloseMPCC()
@@ -48,7 +39,6 @@ public class ExCloseMPCC extends StaticPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_13_EXCLOSEMPCC;
+		return _S__EXCLOSEMPCC;
 	}
-	
 }

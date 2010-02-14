@@ -20,40 +20,34 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 
-
-/**
- *
- * @author  KenM
- */
-public class ExShowAgitInfo extends L2GameServerPacket
+public class ExShowAgitInfo extends StaticPacket
 {
-    private static final String S_FE_16_EX_SHOW_AGIT_INFO = "[S] FE:16 ExShowAgitInfo";
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return S_FE_16_EX_SHOW_AGIT_INFO;
-    }
+	private static final String _S__EXSHOWAGITINFO = "[S] FE:16 ExShowAgitInfo ch[d (dssd)]";
+	public static final ExShowAgitInfo PACKET = new ExShowAgitInfo();
 
-    /**
-     * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x16);
-        Map<Integer, ClanHall> clannhalls = ClanHallManager.getInstance().getAllClanHalls();
-        writeD(clannhalls.size());
-        for (ClanHall ch : clannhalls.values())
-        {
-            writeD(ch.getId());
-            writeS(ch.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(ch.getOwnerId()).getName()); // owner clan name
-            writeS(ch.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(ch.getOwnerId()).getLeaderName()); // leader name
-            writeD(ch.getSiege() != null); // 0 - auction  1 - war clanhall  2 - ETC (rainbow spring clanhall)
-        }
-    }
-    
+	private ExShowAgitInfo()
+	{
+	}
+
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x16);
+		Map<Integer, ClanHall> clannhalls = ClanHallManager.getInstance().getAllClanHalls();
+		writeD(clannhalls.size());
+		for (ClanHall ch : clannhalls.values())
+		{
+			writeD(ch.getId());
+			writeS(ch.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(ch.getOwnerId()).getName()); // owner clan name
+			writeS(ch.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(ch.getOwnerId()).getLeaderName()); // leader name
+			writeD(ch.getSiege() != null); // 0 - auction  1 - war clanhall  2 - ETC (rainbow spring clanhall)
+		}
+	}
+
+	@Override
+	public String getType()
+	{
+		return _S__EXSHOWAGITINFO;
+	}
 }

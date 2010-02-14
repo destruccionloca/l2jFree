@@ -14,16 +14,12 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.ExShowFortressInfo;
 
-/**
- * Sent when player opens the world map or the relevant World Info dialog.
- * @author KenM
- */
+/** Sent when player opens the world map or the relevant World Info dialog. */
 public class RequestAllFortressInfo extends L2GameClientPacket
 {
-	private static final String _C__D0_3D_REQUESTALLFORTRESSINFO = "[C] D0:3D RequestAllFortressInfo";
+	private static final String _C__REQUESTALLFORTRESSINFO = "[C] D0:3D RequestAllFortressInfo ch";
 
     @Override
     protected void readImpl()
@@ -34,18 +30,13 @@ public class RequestAllFortressInfo extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-    	L2PcInstance player = getActiveChar();
-    	if (player == null)
-    		return;
-
-        sendPacket(new ExShowFortressInfo());
-
-        sendAF();
+    	if (getActiveChar() != null)
+    		sendPacket(ExShowFortressInfo.PACKET);
     }
 
     @Override
     public String getType()
     {
-        return _C__D0_3D_REQUESTALLFORTRESSINFO;
+        return _C__REQUESTALLFORTRESSINFO;
     }
 }

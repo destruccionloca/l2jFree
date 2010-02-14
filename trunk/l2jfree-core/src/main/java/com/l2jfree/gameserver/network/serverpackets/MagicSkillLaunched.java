@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 
 public final class MagicSkillLaunched extends L2GameServerPacket
 {
-	private static final String _S__8E_MAGICSKILLLAUNCHED = "[S] 8E MagicSkillLaunched";
+	private static final String _S__MAGICSKILLLAUNCHED = "[S] 54 MagicSkillLaunched c[ddd (d)]";
 	
 	private final int _charObjId;
 	private final int _skillId;
@@ -32,7 +32,13 @@ public final class MagicSkillLaunched extends L2GameServerPacket
 		_charObjId = cha.getObjectId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
-		_targets = targets;
+		if (targets == null) // how??!
+		{
+			_targets = new L2Object[0];
+			_log.info("Invalid MSL construction!", new IllegalArgumentException());
+		}
+		else
+			_targets = targets;
 	}
 	
 	public MagicSkillLaunched(L2Character cha, L2Skill skill, L2Object... targets)
@@ -69,6 +75,6 @@ public final class MagicSkillLaunched extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__8E_MAGICSKILLLAUNCHED;
+		return _S__MAGICSKILLLAUNCHED;
 	}
 }
