@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -42,7 +41,7 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 public final class MultiSellChoose extends L2GameClientPacket
 {
-	private static final String _C__A7_MULTISELLCHOOSE = "[C] A7 MultiSellChoose";
+	private static final String _C__MULTISELLCHOOSE = "[C] B0 MultiSellChoose c[ddqhddhhhhhhhh]";
 	
 	private int _listId;
 	private int _entryId;
@@ -81,7 +80,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 		if (_amount < 1 || _amount > 5000)
 			return;
 		
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
 		
@@ -108,7 +107,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 		}
 		
 		//will always be sent
-		sendPacket(ActionFailed.STATIC_PACKET);
+		sendAF();
 	}
 	
 	private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes,
@@ -169,7 +168,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 				// this happens if 1 list entry has the same ingredient twice (example 2 swords = 1 dual)
 				if ((ex.getItemId() == e.getItemId()) && (ex.getEnchantmentLevel() == e.getEnchantmentLevel()))
 				{
-					if ((double)ex.getItemCount() + e.getItemCount() >= Integer.MAX_VALUE)
+					if (ex.getItemCount() + e.getItemCount() >= Integer.MAX_VALUE)
 					{
 						sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 						_ingredientsList.clear();
@@ -189,7 +188,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 		// now check if the player has sufficient items in the inventory to cover the ingredients' expences
 		for (MultiSellIngredient e : _ingredientsList)
 		{
-			if ((double)e.getItemCount() * _amount >= Integer.MAX_VALUE)
+			if (e.getItemCount() * _amount >= Integer.MAX_VALUE)
 			{
 				sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				_ingredientsList.clear();
@@ -230,8 +229,8 @@ public final class MultiSellChoose extends L2GameClientPacket
 				{
 					// if this is not a list that maintains enchantment, check the count of all items that have the given id.
 					// otherwise, check only the count of items with exactly the needed enchantment level
-					if (inv.getInventoryItemCount(e.getItemId(), maintainEnchantment ? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e
-						.getMaintainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
+					if (inv.getInventoryItemCount(e.getItemId(), maintainEnchantment ? e.getEnchantmentLevel() : -1, false) <
+							((Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMaintainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()))
 					{
 						sendPacket(SystemMessageId.NOT_ENOUGH_REQUIRED_ITEMS);
 						_ingredientsList.clear();
@@ -451,7 +450,6 @@ public final class MultiSellChoose extends L2GameClientPacket
 						sm.addItemName(e.getItemId());
 						sm.addItemNumber(e.getItemCount() * _amount);
 						sendPacket(sm);
-						sm = null;
 					}
 					else
 					{
@@ -467,7 +465,6 @@ public final class MultiSellChoose extends L2GameClientPacket
 							sm.addItemName(e.getItemId());
 						}
 						sendPacket(sm);
-						sm = null;
 					}
 				}
 			}
@@ -477,7 +474,6 @@ public final class MultiSellChoose extends L2GameClientPacket
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 		sendPacket(su);
-		su = null;
 		
 		// finally, give the tax to the castle...
 		if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
@@ -565,6 +561,6 @@ public final class MultiSellChoose extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__A7_MULTISELLCHOOSE;
+		return _C__MULTISELLCHOOSE;
 	}
 }

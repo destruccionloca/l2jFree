@@ -153,19 +153,21 @@ public abstract class ItemContainer
 	}
 
 	/**
-	 * Gets count of item in the inventory
-	* @param itemId : Item to look for
-	 * @param enchantLevel : enchant level to match on, or -1 for ANY enchant level
-	 * @return int corresponding to the number of items matching the above conditions.
+	 * Gets count of item in the inventory.
+	 * @param itemId item to look for
+	 * @param enchantLevel enchant level to match on, or -1 for ANY enchant level
+	 * @param includeEq whether to include equipped items
+	 * @return the number of items matching the above conditions
 	 */
-	public long getInventoryItemCount(int itemId, int enchantLevel)
+	public long getInventoryItemCount(int itemId, int enchantLevel, boolean includeEq)
 	{
 		long count = 0;
-		
 		for (L2ItemInstance item : _items)
 		{
-			if (item.getItemId() == itemId && ((item.getEnchantLevel() == enchantLevel) || (enchantLevel<0)))
+			if (item.getItemId() == itemId && ((item.getEnchantLevel() == enchantLevel) || (enchantLevel < 0)))
 			{
+				if (!includeEq && item.isEquipped())
+					continue;
 				//if (item.isAvailable((L2PcInstance)getOwner(), true) || item.getItem().getType2() == 3)//available or quest item
 				if (item.isStackable())
 					count = item.getCount();
@@ -174,6 +176,11 @@ public abstract class ItemContainer
 			}
 		}
 		return count;
+	}
+	
+	public long getInventoryItemCount(int itemId, int enchantLevel)
+	{
+		return getInventoryItemCount(itemId, enchantLevel, true);
 	}
 	
 	public long getAdena()
