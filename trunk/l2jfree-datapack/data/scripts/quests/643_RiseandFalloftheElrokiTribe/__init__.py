@@ -34,7 +34,7 @@ class Quest (JQuest) :
     elif event == "32117-03.htm" :
        if count >= 300 :
           st.takeItems(BONES_OF_A_PLAINS_DINOSAUR,300)
-          st.giveItems(REWARDS[st.getRandom(len(REWARDS))],int(5))
+          st.rewardItems(REWARDS[st.getRandom(len(REWARDS))],int(5))
        else :
           htmltext = "32117-04.htm"
     elif event == "Quit" :
