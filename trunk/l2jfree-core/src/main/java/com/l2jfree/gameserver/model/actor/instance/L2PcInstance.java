@@ -4363,12 +4363,12 @@ public final class L2PcInstance extends L2Playable
 				}
 			}
 
-			if (!(newTarget instanceof L2PcInstance) || !isInParty() ||  getParty() != ((L2PcInstance)newTarget).getParty())
+			if (!(newTarget instanceof L2PcInstance) || !isInParty() || getParty() != ((L2PcInstance)newTarget).getParty())
 			{
 				if (!newTarget.isVisible())
 					return;
 
-				if (Math.abs(newTarget.getZ() - getZ()) > 1000)
+				if (Math.abs(newTarget.getZ() - getZ()) > 500)
 					return;
 			}
 		}

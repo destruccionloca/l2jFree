@@ -4355,7 +4355,7 @@ public abstract class L2Character extends L2Object
 			if (!newTarget.isVisible())
 				return;
 
-			if (Math.abs(newTarget.getZ() - getZ()) > 1000)
+			if (Math.abs(newTarget.getZ() - getZ()) > 500)
 				return;
 		}
 
