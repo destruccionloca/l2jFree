@@ -146,6 +146,7 @@ import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
+import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
@@ -272,6 +273,8 @@ import com.l2jfree.gameserver.network.serverpackets.TargetUnselected;
 import com.l2jfree.gameserver.network.serverpackets.TradeDone;
 import com.l2jfree.gameserver.network.serverpackets.TradeOtherDone;
 import com.l2jfree.gameserver.network.serverpackets.TradeStart;
+import com.l2jfree.gameserver.network.serverpackets.TutorialCloseHtml;
+import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
@@ -14563,6 +14566,33 @@ public final class L2PcInstance extends L2Playable
 				}
 			}
 			return true;
+		}
+	}
+
+	public void onTutorialQuestionMark(int number)
+	{
+		showTutorialHtml(number);
+	}
+
+	public void onTutorialLink(String request)
+	{
+		if (request.equals("close"))
+			sendPacket(new TutorialCloseHtml());
+	}
+
+	private void showTutorialHtml(int number)
+	{
+		String msg = "";
+
+		switch (number)
+		{
+		case 1001:
+			L2ClassMasterInstance.onTutorialQuestionMark(this, number);
+			break;
+		case 1002:
+			msg = HtmCache.getInstance().getHtm("data/html/level28.htm");
+			sendPacket(new TutorialShowHtml(msg));
+			break;
 		}
 	}
 }

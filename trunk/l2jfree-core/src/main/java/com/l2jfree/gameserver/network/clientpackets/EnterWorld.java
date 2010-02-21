@@ -73,6 +73,7 @@ import com.l2jfree.gameserver.network.serverpackets.SSQInfo;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutInit;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 
 public class EnterWorld extends L2GameClientPacket
@@ -495,6 +496,9 @@ public class EnterWorld extends L2GameClientPacket
 		}
 
 		L2ClassMasterInstance.showQuestionMark(activeChar);
+
+		if (activeChar.getLevel() == 28)
+			sendPacket(new TutorialShowQuestionMark(1002));
 
 		GlobalRestrictions.playerLoggedIn(activeChar);
 	}

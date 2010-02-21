@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.QuestState;
 
@@ -41,7 +40,7 @@ public class RequestTutorialQuestionMark extends L2GameClientPacket
 		if (player == null)
 			return;
 
-		L2ClassMasterInstance.onTutorialQuestionMark(player, _id);
+		player.onTutorialQuestionMark(_id);
 
 		QuestState qs = player.getQuestState("255_Tutorial");
 		if (qs != null)

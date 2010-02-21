@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.skills.Stats;
 
@@ -227,6 +228,9 @@ public class PcStat extends PlayableStat
 			getActiveChar().sendPacket(SystemMessageId.YOU_INCREASED_YOUR_LEVEL);
 
 			L2ClassMasterInstance.showQuestionMark(getActiveChar());
+
+			if (getActiveChar().getLevel() == 28)
+				getActiveChar().sendPacket(new TutorialShowQuestionMark(1002));
 
 			GlobalRestrictions.levelChanged(getActiveChar());
 		}
