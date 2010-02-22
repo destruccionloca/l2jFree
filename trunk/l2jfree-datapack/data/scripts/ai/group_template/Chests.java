@@ -108,6 +108,9 @@ public class Chests extends L2AttackableAIScript
 					// used a skill other than chest-key, or used a chest-key but failed to open: disappear with no rewards
 					chest.getSpawn().decreaseCount(chest);
 					chest.deleteMe();
+
+					if (isPet)
+						caster.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, caster);
 				}
 				else
 				{
@@ -142,6 +145,9 @@ public class Chests extends L2AttackableAIScript
 				{
 					chest.getSpawn().decreaseCount(chest);
 					chest.deleteMe();
+
+					if (isPet)
+						attacker.getPet().getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, attacker);
 				}
 				else
 				{
