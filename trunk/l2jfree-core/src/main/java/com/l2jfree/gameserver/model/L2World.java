@@ -106,7 +106,7 @@ public final class L2World
 		final L2Object oldObject = findObject(objectId);
 		
 		if (oldObject != null && oldObject != object)
-			_log.warn("L2World.objects: " + oldObject + " replaced with " + object + " - objId: " + objectId + "!");
+			_log.warn("[" + oldObject + "] replaced with [" + object + "] - objId: " + objectId + "!", new IllegalStateException());
 		
 		_objects.add(object);
 	}
