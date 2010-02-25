@@ -1404,11 +1404,16 @@ public final class Formulas
 			double skillPower = skill.getPower(attacker);
 			float ssBoost = skill.getSSBoost();
 			
-			if (ss && ssBoost > 0)
-				skillPower *= ssBoost;
+			if (ss)
+			{
+				if (ssBoost > 0)
+					skillPower *= ssBoost;
+				else
+					skillPower *= 2;
+			}
 			
 			damage += skillPower;
-		} // in retail, at least blow skills do not get 2x damage just by having ss on... NO!
+		}
 		else if (ss)
 			damage *= 2;
 		
