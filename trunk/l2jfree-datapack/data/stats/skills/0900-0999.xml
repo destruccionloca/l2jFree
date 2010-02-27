@@ -368,15 +368,13 @@
   <skill id="920" levels="37" name="Power Crush">
     <table name="#magicLvl"> 40 40 40 43 43 43 46 46 46 49 49 49 52 52 52 55 55 55 58 58 58 60 60
       62 62 64 64 66 66 68 68 70 70 72 72 74 74 </table>
-    <table name="#mpInitialConsume"> 7 7 8 8 8 8 8 9 9 9 10 10 10 10 10 11 11 11 11 12 12 12 12
-      12 13 13 13 13 13 14 14 14 14 14 15 15 15 </table>
-    <table name="#mpConsume"> 30 30 32 32 33 34 35 36 37 38 40 40 40 41 42 44 44 45 46 48 48 48
-      49 50 52 52 53 54 55 56 56 57 58 59 60 60 61 </table>
+    <table name="#mpConsume"> 38 38 40 41 42 43 44 46 47 48 50 50 51 52 53 55 56 57 58 60 61 61 62
+      63 65 66 67 68 69 70 71 72 73 74 75 76 77 </table>
     <table name="#power"> 664 706 750 795 843 893 945 998 1054 1112 1172 1234 1298 1365 1433 1503 1575 1649
       1725 1803 1882 1963 2045 2129 2214 2301 2388 2476 2565 2655 2745 2836 2927 3018 3108 3198 3288 </table>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="weaponsAllowed" val="64"/> <!-- Pole -->
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3000"/>
@@ -390,10 +388,10 @@
     <set name="effectRange" val="800"/>
   </skill>
   <skill id="921" levels="1" name="Cursed Pierce">
-    <set name="power" val="3849"/>
+    <set name="weaponsAllowed" val="64"/> <!-- Pole -->
     <set name="magicLvl" val="76"/>
-    <set name="mpInitialConsume" val="15"/>
-    <set name="mpConsume" val="61"/>
+    <set name="mpConsume" val="77"/>
+    <set name="power" val="3849"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
