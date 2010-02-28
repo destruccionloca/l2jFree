@@ -913,25 +913,23 @@
     <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="1435" levels="10" name="Death Mark" enchantLevels1="30" enchantLevels2="30">
-    <!-- CT2.2 retail confirmed -->
-    <table name="#ench1effectLvl"> 10 10 10 10 10 10 10 10 11 11 11 11
-      11 11 11 11 12 12 12 12 12 12 12 12 12 13 13 13 13 13 </table>
-    <table name="#ench1Dot"> 63 63 63 64 64 64 64 64 64 64 64 64 64
+    <table name="#ench1dmg"> 63 63 63 64 64 64 64 64 64 64 64 64 64
       65 65 65 65 65 65 65 65 65 65 66 66 66 66 66 66 66 </table>
-    <table name="#ench2Chance"> 60 61 62 62 63 64 64 65 66 66 67 68
+    <table name="#ench2power"> 60 61 62 62 63 64 64 65 66 66 67 68
       68 69 70 70 71 72 72 73 74 74 75 76 76 77 78 78 79 80 </table> <!-- Guess -->
     <table name="#mpInitialConsume"> 2 3 4 4 5 6 6 6 7 7 </table>
     <table name="#mpConsume"> 10 11 14 18 19 22 23 26 26 28 </table>
     <table name="#magicLvl"> 24 32 40 46 52 58 62 66 70 74 </table>
     <table name="#power"> 33 36 39 42 45 48 51 54 57 60 </table> <!-- Guess -->
-    <table name="#effectLvl"> 1 2 3 4 5 6 7 8 9 10 </table>
-    <table name="#rateDef"> 0.80 0.80 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
-    <table name="#Dot"> 24 32 41 41 50 50 58 58 63 63 </table>
+    <table name="#def"> 0.8 0.8 0.77 0.77 0.77 0.77 0.77 0.77 0.77 0.77 </table>
+    <table name="#dmg"> 24 32 41 41 50 50 58 58 63 63 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="lvlDepend" val="3"/>
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="12000"/>
@@ -941,23 +939,18 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="effectId" val="5264"/>
-    <set name="effectLevel" val="#effectLvl"/>
-    <enchant1 name="effectLevel" val="#ench1effectLvl"/>
-    <enchant2 name="power" val="#ench2Chance"/>
+    <enchant2 name="power" val="#ench2power"/>
     <for>
-      <effect name="Debuff" time="30" val="0">
-        <mul order="0x30" stat="mDef" val="#rateDef"/>
-        <mul order="0x30" stat="pDef" val="#rateDef"/>
+      <effect count="30" name="DamOverTime" val="#dmg" abnormal="deathmark">
+        <mul order="0x30" stat="mDef" val="#def"/>
+        <mul order="0x30" stat="pDef" val="#def"/>
       </effect>
-      <effect count="30" name="DamOverTime" val="#Dot"/>
     </for>
     <enchant1for>
-      <effect name="Debuff" time="30" val="0">
+      <effect count="30" name="DamOverTime" val="#ench1dmg" abnormal="deathmark">
         <mul order="0x30" stat="mDef" val="0.77"/>
         <mul order="0x30" stat="pDef" val="0.77"/>
       </effect>
-      <effect count="30" name="DamOverTime" val="#ench1Dot"/>
     </enchant1for>
   </skill>
   <skill id="1436" levels="30" name="Soul of Pain" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
