@@ -1402,6 +1402,8 @@ public final class Formulas
 		if (skill != null)
 		{
 			double skillPower = skill.getPower(attacker);
+			if (attacker instanceof L2Playable && target instanceof L2Playable)
+				skillPower *= skill.getPvpPowerMultiplier();
 			float ssBoost = skill.getSSBoost();
 			
 			if (ss)

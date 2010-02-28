@@ -299,6 +299,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_stayAfterDeath;					// skill should stay after death
 
 	private final boolean			_sendToClient;
+	private final float				_pvpPowerMulti;
 
 	public L2Skill(StatsSet set)
 	{
@@ -469,6 +470,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
 		_sendToClient = set.getBool("sendToClient", true);
+		_pvpPowerMulti = set.getFloat("pvpPowerMulti", 1);
 	}
 	
 	private int initMagicLevel(StatsSet set)
@@ -4022,6 +4024,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final boolean canSendToClient()
 	{
 		return _sendToClient;
+	}
+
+	public final float getPvpPowerMultiplier()
+	{
+		return _pvpPowerMulti;
 	}
 
 	@Override
