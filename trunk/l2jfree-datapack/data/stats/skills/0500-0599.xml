@@ -220,7 +220,7 @@
     <enchant3 name="element" val="5"/> <!-- Dark -->
     <enchant4 name="pvpPowerMulti" val="#ench4duel"/>
     <cond msgId="113" addName="1">
-      <target active_effect_id="5264"/>
+      <target active_effect_id="1435"/>
     </cond>
   </skill>
   <skill id="507" levels="37" name="Twin Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">

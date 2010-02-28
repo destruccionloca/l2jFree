@@ -1621,20 +1621,7 @@ public abstract class L2Character extends L2Object
 		// Check if this skill consume mp on start casting
 		int initmpcons = getStat().getMpInitialConsume(skill);
 		if (initmpcons > 0)
-		{
-			if (skill.isDance() || skill.isSong())
-			{
-				getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, initmpcons, null, null));
-			}
-			else if (skill.isMagic())
-			{
-				getStatus().reduceMp(calcStat(Stats.MAGIC_CONSUME_RATE, initmpcons, null, null));
-			}
-			else
-			{
-				getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, initmpcons, null, null));
-			}
-		}
+			getStatus().reduceMp(initmpcons);
 
 		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
 		disableSkill(skill.getId(), reuseDelay);
@@ -5974,22 +5961,8 @@ public abstract class L2Character extends L2Object
 
 			// Consume MP of the L2Character and Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
 			double mpConsume = getStat().getMpConsume(skill);
-
 			if (mpConsume > 0)
-			{
-				if (skill.isDance())
-				{
-					getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, mpConsume, null, null));
-				}
-				else if (skill.isMagic())
-				{
-					getStatus().reduceMp(calcStat(Stats.MAGIC_CONSUME_RATE, mpConsume, null, null));
-				}
-				else
-				{
-					getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, mpConsume, null, null));
-				}
-			}
+				getStatus().reduceMp(mpConsume);
 
 			// Consume HP if necessary and Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
 			if (skill.getHpConsume() > 0)

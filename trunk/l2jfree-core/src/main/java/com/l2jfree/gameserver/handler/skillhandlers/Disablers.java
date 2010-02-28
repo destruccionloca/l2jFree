@@ -443,7 +443,7 @@ public class Disablers implements ICubicSkillHandler
 						}
 						
 						//do note delete songs / dances
-						if (e.getSkill().isSong() || e.getSkill().isDance())
+						if (e.getSkill().isDanceOrSong())
 						{
 							continue;
 						}

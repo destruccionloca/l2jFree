@@ -502,26 +502,44 @@ public class CharStat
 	{
 		if (skill == null)
 			return 1;
-
+		
 		int mpconsume = skill.getMpConsume();
-
-		if (!Config.ALT_DANCE_MP_CONSUME && (skill.isDance() || skill.isSong()) && _activeChar != null)
+		
+		if (!Config.ALT_DANCE_MP_CONSUME && skill.isDanceOrSong())
 		{
 			int count = _activeChar.getDanceCount(skill.isDance(), skill.isSong());
 			if (count > 0)
 				mpconsume += (count * skill.getNextDanceMpCost());
 		}
-
-		return (int) calcStat(Stats.MP_CONSUME, mpconsume, null, skill);
+		
+		return calculateMpConsumption(mpconsume, skill);
 	}
-
+	
 	/** Return the mpInitialConsume. */
 	public final int getMpInitialConsume(L2Skill skill)
 	{
 		if (skill == null)
 			return 1;
-
-		return (int) calcStat(Stats.MP_CONSUME, skill.getMpInitialConsume(), null, skill);
+		
+		return calculateMpConsumption(skill.getMpInitialConsume(), skill);
+	}
+	
+	private int calculateMpConsumption(int init, L2Skill skill)
+	{
+		final double value = calcStat(Stats.MP_CONSUME, init, null, skill);
+		
+		if (skill.isDanceOrSong())
+		{
+			return (int)calcStat(Stats.DANCE_CONSUME_RATE, value, null, skill);
+		}
+		else if (skill.isMagic())
+		{
+			return (int)calcStat(Stats.MAGIC_CONSUME_RATE, value, null, skill);
+		}
+		else
+		{
+			return (int)calcStat(Stats.PHYSICAL_CONSUME_RATE, value, null, skill);
+		}
 	}
 
 	public byte getAttackElement()

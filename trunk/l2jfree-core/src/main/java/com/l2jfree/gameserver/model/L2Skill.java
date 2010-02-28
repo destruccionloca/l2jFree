@@ -1127,6 +1127,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		return _isSong;
 	}
 
+	public final boolean isDanceOrSong()
+	{
+		return isDance() || isSong();
+	}
+
 	public final int getNextDanceMpCost()
 	{
 		return _nextDanceCost;
@@ -1527,7 +1532,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		if (isOffensive())
 			return false;
 
-		if (!(isDance() || isSong()) && !getWeaponDependancy(activeChar, false))
+		if (!isDanceOrSong() && !getWeaponDependancy(activeChar, false))
 			return true;
 
 		return false;

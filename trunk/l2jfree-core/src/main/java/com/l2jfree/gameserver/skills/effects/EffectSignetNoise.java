@@ -62,7 +62,7 @@ public final class EffectSignetNoise extends L2Effect
 			if (effects != null)
 				for (L2Effect effect : effects)
 				{
-					if (effect.getSkill().isDance() || effect.getSkill().isSong())
+					if (effect.getSkill().isDanceOrSong())
 						effect.exit();
 				}
 			// there doesn't seem to be a visible effect?

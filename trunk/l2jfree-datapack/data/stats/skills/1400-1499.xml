@@ -2043,7 +2043,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="negateId" val="5264"/>
+    <set name="negateId" val="1435"/>
   </skill>
   <skill id="1476" levels="3" name="Appetite for Destruction" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1mpInitialConsume"> 21 20 20 20 19 19 19 18 18 18 17 17 17 16 16 15 15 15 14 14 14 13 13 13 12 12 12 11 11 11 </table>

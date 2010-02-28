@@ -64,7 +64,7 @@ public final class CharEffects
 		if (!e.getSkill().isBuff() || e.getSkill().isDebuff())
 			return false;
 		
-		if (e.getSkill().isDance() || e.getSkill().isSong())
+		if (e.getSkill().isDanceOrSong())
 			return false;
 		
 		switch (e.getEffectType())
@@ -180,7 +180,7 @@ public final class CharEffects
 		if (e.getSkill().isOffensive())
 			return 2;
 		
-		if (e.getSkill().isDance() || e.getSkill().isSong())
+		if (e.getSkill().isDanceOrSong())
 			return 1;
 		
 		return 0;
