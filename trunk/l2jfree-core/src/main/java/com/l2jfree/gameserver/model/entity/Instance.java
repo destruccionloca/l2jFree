@@ -60,6 +60,7 @@ public class Instance
 	private final static Log			_log				= LogFactory.getLog(Instance.class);
 
 	private final int					_id;
+	private int							_template;
 	private int							_tpx;
 	private int							_tpy;
 	private int							_tpz;
@@ -79,11 +80,17 @@ public class Instance
 	public Instance(int id)
 	{
 		_id = id;
+		_template = -1;
 	}
 
 	public int getId()
 	{
 		return _id;
+	}
+
+	public int getTemplate()
+	{
+		return _template;
 	}
 
 	public String getName()
@@ -164,17 +171,17 @@ public class Instance
 		_emptyDestroyTime = time;
 	}
 
-	public boolean containsPlayer(int objectId)
+	public boolean containsPlayer(Integer objectId)
 	{
 		return _players.contains(objectId);
 	}
 
-	public void addPlayer(int objectId)
+	public void addPlayer(Integer objectId)
 	{
 		_players.add(objectId);
 	}
 
-	public void removePlayer(int objectId)
+	public void removePlayer(Integer objectId)
 	{
 		if (_players.remove(objectId) && _players.isEmpty() && _emptyDestroyTime >= 0)
 		{
@@ -183,7 +190,7 @@ public class Instance
 		}
 	}
 
-	public void ejectPlayer(int objectId)
+	public void ejectPlayer(Integer objectId)
 	{
 		L2PcInstance player = L2World.getInstance().findPlayer(objectId);
 		if (player != null && player.isSameInstance(getId()))
@@ -289,7 +296,7 @@ public class Instance
 
 	public void removePlayers()
 	{
-		for (int objectId : _players)
+		for (Integer objectId : _players)
 		{
 			removePlayer(objectId);
 			ejectPlayer(objectId);
@@ -313,7 +320,7 @@ public class Instance
 
 	public void removeDoors()
 	{
-		for (L2DoorInstance door: _doors.values())
+		for (L2DoorInstance door : _doors.values())
 		{
 			if (door != null)
 				door.decayMe();
@@ -359,9 +366,12 @@ public class Instance
 	{
 		L2Spawn spawnDat;
 		L2NpcTemplate npcTemplate;
-		String name = null;
+		String name;
 		name = n.getAttributes().getNamedItem("name").getNodeValue();
 		setName(name);
+		Node template = n.getAttributes().getNamedItem("template");
+		if (template != null)
+			_template = Integer.parseInt(template.getNodeValue());
 
 		Node a;
 		Node first = n.getFirstChild();

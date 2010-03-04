@@ -22,6 +22,7 @@ import org.apache.commons.lang.ArrayUtils;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager.InstanceWorld;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.skills.Env;
 
 public class ConditionPlayerInstanceId extends Condition
@@ -40,14 +41,23 @@ public class ConditionPlayerInstanceId extends Condition
 	{
 		if (!(env.player instanceof L2PcInstance))
 			return false;
+		L2PcInstance player = env.player.getActingPlayer();
+		if (!player.isInInstance())
+			return false;
 
-		if (!env.player.isInInstance())
-			return false; // player not in instance
+		int templateId = -1;
+		Instance dyn = InstanceManager.getInstance().getDynamicInstance(player);
+		if (dyn != null)
+			templateId = dyn.getTemplate();
+		if (templateId == -1)
+		{
+			InstanceWorld world = InstanceManager.getInstance().getPlayerWorld(player);
+			if (world != null && player.isSameInstance(world.instanceId))
+				templateId = world.templateId;
+		}		
+		if (templateId == -1)
+			return false;
 
-		final InstanceWorld world = InstanceManager.getInstance().getPlayerWorld((L2PcInstance)env.player);
-		if (world == null || !env.player.isSameInstance(world.instanceId))
-			return false; // player in the different instance
-
-		return Arrays.binarySearch(_instanceIds, world.templateId) >= 0;
+		return Arrays.binarySearch(_instanceIds, templateId) >= 0;
 	}
 }

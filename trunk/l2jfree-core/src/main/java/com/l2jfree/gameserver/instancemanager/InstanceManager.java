@@ -231,13 +231,26 @@ public class InstanceManager
 
 	public InstanceWorld getPlayerWorld(L2PcInstance player)
 	{
-		for (InstanceWorld temp : _instanceWorlds.values())
+		for (FastMap.Entry<Integer, InstanceWorld> entry = _instanceWorlds.head(), end = _instanceWorlds.tail();
+				(entry = entry.getNext()) != end;)
 		{
-			if (temp == null)
-				continue;
 			// check if the player have a World Instance where he/she is allowed to enter
-			if (temp.allowed.contains(player.getObjectId()))
-				return temp;
+			InstanceWorld iw = entry.getValue();
+			if (iw.allowed.contains(player.getObjectId()))
+				return iw;
+		}
+		return null;
+	}
+
+	public Instance getDynamicInstance(L2PcInstance player)
+	{
+		for (FastMap.Entry<Integer, Instance> entry = _instanceList.head(), end = _instanceList.tail();
+				(entry = entry.getNext()) != end;)
+		{
+			// check if the player is in a dynamic instance
+			Instance i = entry.getValue();
+			if (i.containsPlayer(player.getObjectId()))
+				return i;
 		}
 		return null;
 	}
