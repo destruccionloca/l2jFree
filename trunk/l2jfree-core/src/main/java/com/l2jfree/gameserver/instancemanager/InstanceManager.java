@@ -307,20 +307,6 @@ public class InstanceManager
 		return _instanceList;
 	}
 
-	public int getPlayerInstance(int objectId)
-	{
-		for (Instance temp : _instanceList.values())
-		{
-			if (temp == null)
-				continue;
-			// check if the player is in any active instance
-			if (temp.containsPlayer(objectId))
-				return temp.getId();
-		}
-		// 0 is default instance aka the world
-		return 0;
-	}
-
 	public boolean createInstance(int id)
 	{
 		if (getInstance(id) != null)

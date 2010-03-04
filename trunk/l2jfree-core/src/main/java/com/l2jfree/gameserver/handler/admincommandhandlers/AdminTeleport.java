@@ -495,6 +495,8 @@ public class AdminTeleport implements IAdminCommandHandler
 			player.sendMessage("You have been teleported by a Game Master.");
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			player.teleToLocation(x, y, z);
+			if (player.getInstanceId() != instance)
+				player.setInstanceId(instance);
 		}
 	}
 

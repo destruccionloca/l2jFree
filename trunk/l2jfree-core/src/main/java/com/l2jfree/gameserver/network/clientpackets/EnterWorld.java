@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.model.entity.Couple;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Hero;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
@@ -109,13 +110,13 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.setAccessLevel(200);
 
 		// restore instance
-		if (Config.RESTORE_PLAYER_INSTANCE)
-			activeChar.setInstanceId(InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId()));
-		else
+		Instance ins = InstanceManager.getInstance().getDynamicInstance(activeChar);
+		if (ins != null)
 		{
-			int instanceId = InstanceManager.getInstance().getPlayerInstance(activeChar.getObjectId());
-			if (instanceId > 0)
-				InstanceManager.getInstance().getInstance(instanceId).removePlayer(activeChar.getObjectId());
+			if (Config.RESTORE_PLAYER_INSTANCE)
+				activeChar.setInstanceId(ins.getId());
+			else
+				ins.removePlayer(activeChar.getObjectId());
 		}
 
 		// Restore Vitality
