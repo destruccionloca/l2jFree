@@ -9,7 +9,7 @@ elementFormDefault="qualified">
 <xs:element name="instance">
   <xs:complexType>
     <xs:complexContent>
-      <xs:extension base="nameable">
+      <xs:extension base="instanceType">
         <xs:all>
           <xs:element name="activityTime" type="timeType" minOccurs="0"/> <!-- Minutes -->
           <xs:element name="allowSummon" type="boolAtrType" minOccurs="0"/>
@@ -62,6 +62,13 @@ elementFormDefault="qualified">
 </xs:complexType>
 <xs:complexType name="boolAtrType">
   <xs:attribute name="val" type="xs:boolean" use="required"/>
+</xs:complexType>
+<xs:complexType name="instanceType">
+  <xs:complexContent>
+    <xs:extension base="nameable">
+      <xs:attribute name="template" type="identAsInt"/>
+    </xs:extension>
+  </xs:complexContent>
 </xs:complexType>
 <xs:complexType name="coordType">
   <xs:attributeGroup ref="coords"/>

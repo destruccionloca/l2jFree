@@ -2,6 +2,9 @@
 <!DOCTYPE list SYSTEM "../../templates/weapons.dtd">
 <list>
   <item id="13034" name="Sprite's Sword">
+    <cond msgId="1518">
+      <player instanceid="43"/>
+    </cond>
     <for>
       <set val="107" order="0x08" stat="pAtk"/>
       <set val="72" order="0x08" stat="mAtk"/>
@@ -13,6 +16,9 @@
     </for>
   </item>
   <item id="13035" name="Enhanced Sprite's Sword">
+    <cond msgId="1518">
+      <player instanceid="43"/>
+    </cond>
     <for>
       <set val="127" order="0x08" stat="pAtk"/>
       <set val="82" order="0x08" stat="mAtk"/>
@@ -24,6 +30,9 @@
     </for>
   </item>
   <item id="13036" name="Sword of Ice and Fire">
+    <cond msgId="1518">
+      <player instanceid="43"/>
+    </cond>
     <for>
       <set val="147" order="0x08" stat="pAtk"/>
       <set val="92" order="0x08" stat="mAtk"/>
