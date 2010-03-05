@@ -1560,11 +1560,10 @@
     <set name="isDebuff" val="true"/>
     <set name="effectRange" val="400"/>
     <set name="effectType" val="STUN"/>
-    <set name="effectPower" val="40"/>
     <enchant1 name="power" val="#ench1power"/>
     <for>
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
-      <effect name="Bluff" time="3" noicon="1" val="0"/>
+      <effect name="Bluff" noicon="1" val="0"/>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
   </skill>
