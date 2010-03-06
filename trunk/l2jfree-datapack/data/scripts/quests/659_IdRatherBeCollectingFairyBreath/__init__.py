@@ -16,7 +16,6 @@ MOBS=[20078,21026,21025,21024,21023]
 FAIRY_BREATH = 8286
 ADENA = 57
 
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -65,9 +64,9 @@ class Quest (JQuest) :
    if not st: return
    npcId = npc.getNpcId()
    if st.getInt("cond") == 1 :
-     chance = st.getRandom(100)  
-     if npcId in MOBS and chance < 90 :  
-         st.giveItems(FAIRY_BREATH,1) 
+     chance = st.getRandom(100)
+     if npcId in MOBS and chance < 90 :
+         st.giveItems(FAIRY_BREATH,1)
          st.playSound("ItemSound.quest_itemget")
    return
 

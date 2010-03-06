@@ -20,7 +20,7 @@ Chance = {
   21354:522,#Hunter
   21355:519,#Shaman
   21357:529,#Priest
-  21358:529,#Warrior  
+  21358:529,#Warrior
   21360:539,#Medium
   21362:568,#Officer
   21364:558,#Seer
@@ -28,7 +28,7 @@ Chance = {
   21366:664,#General
   21368:568,#Great Seer
   21369:548,#Commander
-  21371:713,#Head magus
+  21371:713,#Head Magus
   21373:738 #Prophet
 }
 
@@ -61,7 +61,7 @@ class Quest (JQuest) :
          if manes >= 100 :
              htmltext = "31370-07.htm"
              st.takeItems(Mane,100)
-             st.giveItems(Horn,20)
+             st.rewardItems(Horn,20)
          else :
              htmltext = "31370-08.htm"
      elif event == "31370-09.htm" :

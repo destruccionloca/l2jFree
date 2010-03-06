@@ -26,16 +26,16 @@ class Quest (JQuest) :
      st.setState(State.STARTED)
      st.playSound("ItemSound.quest_accept")
    elif event == "32292-03.htm" :
-	 st.set("cond","2")
-	 st.playSound("ItemSound.quest_middle")
+     st.set("cond","2")
+     st.playSound("ItemSound.quest_middle")
    elif event == "30612-05.htm" :
-	 st.set("cond","3")
-	 st.giveItems(CASIAN_BLUE_CRY,1)
-	 st.playSound("ItemSound.quest_middle")
+     st.set("cond","3")
+     st.giveItems(CASIAN_BLUE_CRY,1)
+     st.playSound("ItemSound.quest_middle")
    elif event == "32292-06.htm" :
-	 st.takeItems(CASIAN_BLUE_CRY,-1)
-	 st.playSound("ItemSound.quest_finish")
-	 st.exitQuest(False)
+     st.takeItems(CASIAN_BLUE_CRY,-1)
+     st.playSound("ItemSound.quest_finish")
+     st.exitQuest(False)
    return htmltext
 
  def onTalk (self,npc,player):

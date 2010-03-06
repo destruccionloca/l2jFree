@@ -12,7 +12,7 @@ SARA = 30180
 #Items
 SOULSHOT_C = 1464
 ADENA = 57
-ENCHANT_ARMOR_D = 956 
+ENCHANT_ARMOR_D = 956
 
 class Quest (JQuest) :
 

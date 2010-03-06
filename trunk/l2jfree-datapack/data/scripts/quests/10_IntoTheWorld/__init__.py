@@ -41,7 +41,7 @@ class Quest (JQuest) :
             st.set("cond","3")
             st.takeItems(VERY_EXPENSIVE_NECKLACE,1)
         elif event == "30533-06.htm" :
-            st.giveItems(SCROLL_OF_ESCAPE_GIRAN,1)
+            st.rewardItems(SCROLL_OF_ESCAPE_GIRAN,1)
             st.giveItems(MARK_OF_TRAVELER,1)
             st.unset("cond")
             st.exitQuest(False)
@@ -58,11 +58,11 @@ class Quest (JQuest) :
             htmltext = "<html><body>I can't supply you with another Giran Scroll of Escape. Sorry traveller.</body></html>"
         elif id == State.CREATED :
             if player.getRace().ordinal() == 4 :
-				if player.getLevel() >= 3 and player.getLevel() <= 10 :
-					htmltext = "30533-02.htm"
-				else :
-					htmltext = "30533-01.htm"
-					st.exitQuest(1)
+                if player.getLevel() >= 3 and player.getLevel() <= 10 :
+                    htmltext = "30533-02.htm"
+                else :
+                    htmltext = "30533-01.htm"
+                    st.exitQuest(1)
         elif id == State.STARTED:
             if npcId == BALANKI and st.getInt("cond") == 1 :
                 htmltext = "30533-04.htm"

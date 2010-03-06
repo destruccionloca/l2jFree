@@ -16,21 +16,21 @@ Ketra_Orcs = [ 21324, 21327, 21328, 21329, 21331, 21332, 21334, 21336, 21338, 21
 
 
 Chance = {
-  21324:500,
-  21327:510,
-  21328:522,
-  21329:519,
-  21331:529,
-  21332:664,
-  21334:539,
-  21336:529,
-  21338:558,
-  21339:568,
-  21340:568,
-  21342:578,
-  21343:548,
-  21345:713,
-  21347:738
+  21324:500, #Footman
+  21327:510, #Raider
+  21328:522, #Scout
+  21329:519, #Shaman
+  21331:529, #Warrior
+  21332:664, #Lieutenant
+  21334:539, #Medium
+  21336:529, #White Captain
+  21338:558, #Seer
+  21339:568, #General
+  21340:568, #Battalion Commander
+  21342:578, #Grand Seer
+  21343:548, #Commander
+  21345:713, #Head Shaman
+  21347:738 #Prophet
 }
 
 #Items
@@ -62,7 +62,7 @@ class Quest (JQuest) :
          if Molars >= 100 :
              htmltext = "31377-07.htm"
              st.takeItems(Molar,100)
-             st.giveItems(Seed,20)
+             st.rewardItems(Seed,20)
          else :
              htmltext = "31377-08.htm"
      elif event == "31377-09.htm" :

@@ -19,15 +19,15 @@ qn = "116_BeyondTheHillsOfWinter"
 
 # NPCs
 FILAUR = 30535
-OBI = 32052
+OBI    = 32052
 
 # ITEMs
 BANDAGE = 1833
-ESTONE = 5589
-TKEY = 1661
-SGOODS = 8098
-SS = 1463
-ADENA = 57
+ESTONE  = 5589
+TKEY    = 1661
+SGOODS  = 8098
+SS      = 1463
+ADENA   = 57
 
 class Quest (JQuest) :
 	

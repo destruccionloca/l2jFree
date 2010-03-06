@@ -10,7 +10,7 @@ qn = "650_ABrokenDream"
 GHOST = 32054
 
 #MOBS
-CREWMAN = 22027
+CREWMAN  = 22027
 VAGABOND = 22028
 
 #DROP
@@ -55,7 +55,7 @@ class Quest (JQuest) :
                     htmltext = "600.htm"
                     st.exitQuest(1)
             else :
-            	htmltext = "600.htm"
+                htmltext = "600.htm"
                 st.exitQuest(1)
         elif id == State.STARTED :
             if st.getQuestItemsCount(DREAM_FRAGMENT_ID):

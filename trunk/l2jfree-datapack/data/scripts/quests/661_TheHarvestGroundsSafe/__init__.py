@@ -13,11 +13,11 @@ NORMAN = 30210
 
 # MOBS
 GIANT_POISON_BEE = 21095
-CLOUDY_BEAST = 21096
-YOUNG_ARANEID = 21097
+CLOUDY_BEAST     = 21096
+YOUNG_ARANEID    = 21097
 
 # ITEMS
-STING_OF_GIANT_POISON = 8283
+STING_OF_GIANT_POISON  = 8283
 TALON_OF_YOUNG_ARANEID = 8285
 CLOUDY_GEM = 8284
 ADENA = 57
@@ -32,8 +32,8 @@ DROPLIST = {
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
- 	JQuest.__init__(self,id,name,descr)
- 	self.questItemIds = range(8283,8286)
+    JQuest.__init__(self,id,name,descr)
+    self.questItemIds = range(8283,8286)
 
  def onEvent (self,event,st) :
     htmltext = event
@@ -42,7 +42,7 @@ class Quest (JQuest) :
        st.setState(State.STARTED)
        st.playSound("ItemSound.quest_accept")
     if event == "30210-08.htm" :
-      STING = st.getQuestItemsCount(STING_OF_GIANT_POISON)    
+      STING = st.getQuestItemsCount(STING_OF_GIANT_POISON)
       TALON = st.getQuestItemsCount(TALON_OF_YOUNG_ARANEID)
       GEM = st.getQuestItemsCount(CLOUDY_GEM)
       bonus = 0
@@ -71,13 +71,13 @@ class Quest (JQuest) :
          htmltext = "30210-01.htm"
          st.exitQuest(1)
    if cond :
-      S = st.getQuestItemsCount(STING_OF_GIANT_POISON)  
+      S = st.getQuestItemsCount(STING_OF_GIANT_POISON)
       T = st.getQuestItemsCount(TALON_OF_YOUNG_ARANEID)
-      C = st.getQuestItemsCount(CLOUDY_GEM)     
+      C = st.getQuestItemsCount(CLOUDY_GEM)
       if S+T+C == 0 :
          htmltext = "30210-04.htm"
       else :
-         htmltext = "30210-05.htm"  
+         htmltext = "30210-05.htm"
    return htmltext
 
  def onKill(self,npc,player,isPet):

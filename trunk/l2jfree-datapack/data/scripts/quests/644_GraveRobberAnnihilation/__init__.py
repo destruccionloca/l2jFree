@@ -47,7 +47,7 @@ class Quest (JQuest) :
    elif event in REWARDS.keys() :
        item, amount = REWARDS[event]
        st.takeItems(ORC_GOODS,-1)
-       st.giveItems(item, amount)
+       st.rewardItems(item, amount)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
        return

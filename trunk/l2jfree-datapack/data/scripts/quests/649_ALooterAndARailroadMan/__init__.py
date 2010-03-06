@@ -35,7 +35,7 @@ class Quest (JQuest) :
      if count < 200 :
         htmltext = "32052-3a.htm"
      else :
-        st.giveItems(ADENA,21698)
+        st.rewardItems(ADENA,21698)
         st.takeItems(THIEF_GUILD_MARK,-1)
         st.playSound("ItemSound.quest_finish")
         st.exitQuest(1)

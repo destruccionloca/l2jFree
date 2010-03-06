@@ -17,8 +17,8 @@ REWARDS = range(8712,8723)
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
- 	JQuest.__init__(self,id,name,descr)
- 	self.questItemIds = [BONES_OF_A_PLAINS_DINOSAUR]
+    JQuest.__init__(self,id,name,descr)
+    self.questItemIds = [BONES_OF_A_PLAINS_DINOSAUR]
 
  def onAdvEvent (self,event,npc, player) :
     htmltext = event
@@ -87,7 +87,7 @@ class Quest (JQuest) :
                    st.playSound("ItemSound.quest_middle")
                 else :
                    st.playSound("ItemSound.quest_itemget")
-                st.giveItems(BONES_OF_A_PLAINS_DINOSAUR,int(numItems))
+                st.rewardItems(BONES_OF_A_PLAINS_DINOSAUR,int(numItems))
     return
 
 QUEST = Quest(643,qn,"Rise and Fall of the Elroki Tribe")

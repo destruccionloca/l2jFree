@@ -10,16 +10,16 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "648_AnIceMerchantsDream"
 
 #NPCs
-Rafforty = 32020
+Rafforty  = 32020
 Ice_Shelf = 32023
 
 #MOBs
 MOBS = range(22080,22095)+range(22096,22099)
 
 #Items
-Hemocyte = 8057
+Hemocyte   = 8057
 Silver_Ice = 8077
-Black_Ice = 8078
+Black_Ice  = 8078
 
 class Quest (JQuest) :
  def __init__(self,id,name,descr):
@@ -57,7 +57,7 @@ class Quest (JQuest) :
 
  def onTalk (self,npc,player):
     st = player.getQuestState(qn)
-    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     if not st: return htmltext
     npcId = npc.getNpcId()
     id = st.getState()
@@ -124,7 +124,8 @@ QUEST = Quest(648,qn,"An Ice Merchant's Dream")
 
 QUEST.addStartNpc(Rafforty)
 QUEST.addStartNpc(Ice_Shelf)
-QUEST.addTalkId(Rafforty) 
+
+QUEST.addTalkId(Rafforty)
 QUEST.addTalkId(Ice_Shelf)
 
 for m in MOBS:
