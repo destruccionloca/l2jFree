@@ -845,7 +845,7 @@ class CrystalCavern(JQuest):
         npcId = npc.getNpcId()
         if npcId in [32275,32276,32277] and skillId in [1217,1218,1011,1015,1401,5146]:
             world.OracleTriggered = True
-        elif npcId == MECHANISM and skillId == 471:
+        elif npcId == MECHANISM and skillId == 471 and not self.door1Open:
             self.door1Open = True
             openDoor(24220001,world.instanceId)
         return
@@ -979,10 +979,13 @@ class CrystalCavern(JQuest):
             world = self.worlds[player.getInstanceId()]
             zoneId = zone.getQuestZoneId()
             if zoneId == 100001 and self.door2Open:
+                self.door2Open = False
                 closeDoor(24220002,world.instanceId)
             elif zoneId == 100002 and self.door3Open:
+                self.door3Open = False
                 closeDoor(24220003,world.instanceId)
             elif zoneId == 100003 and self.door4Open:
+                self.door4Open = False
                 closeDoor(24220004,world.instanceId)
         return
 
