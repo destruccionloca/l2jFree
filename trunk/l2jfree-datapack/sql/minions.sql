@@ -508,3 +508,18 @@ INSERT INTO minions VALUES
 DELETE FROM minions WHERE boss_id = 18633;
 INSERT INTO minions VALUES
 (18633,18634,6,6);
+
+# Gracia flying bosses (savormix)
+DELETE FROM minions WHERE boss_id BETWEEN 25623 AND 25626;
+INSERT INTO minions VALUES
+-- Valdstone
+(25623,25633,5,5),
+-- Rok
+(25624,25627,3,3),
+(25624,25628,3,3),
+-- Enira
+(25625,25629,3,3),
+(25625,25630,3,3),
+-- Dius
+(25626,25631,3,3),
+(25626,25632,3,3);

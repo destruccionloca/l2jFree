@@ -1038,7 +1038,7 @@
     <set name="magicLvl" val="83"/>
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
@@ -1062,7 +1062,7 @@
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="POISON"/>
     <set name="isDebuff" val="true"/>
@@ -1081,7 +1081,7 @@
     <set name="magicLvl" val="83"/>
     <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
@@ -1102,6 +1102,7 @@
     <set name="mpConsume" val="87"/>
     <set name="magicLvl" val="80"/>
     <set name="power" val="70"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="200"/>
@@ -1119,6 +1120,7 @@
     <set name="mpConsume" val="58"/>
     <set name="magicLvl" val="80"/>
     <set name="power" val="117"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
@@ -1137,6 +1139,8 @@
     <set name="magicLvl" val="85"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="2"/>
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BLEED"/>
     <set name="isMagic" val="true"/>
