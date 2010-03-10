@@ -10043,24 +10043,24 @@ UPDATE `npc` SET `collision_height` = 22, `hp` = 4955, `walkspd` = 80, `runspd` 
 UPDATE `npc` SET `collision_radius` = 13, `collision_height` = 47, `hp` = 4997, `atkspd` = 399, `matkspd` = 359, `walkspd` = 30 WHERE `id` = 22135;
 
 # Valdstone (savormix)
-UPDATE `npc` SET `hp` = 489654, `mp` = 1859, `exp` = 3539613, `sp` = 991696, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1195, `pdef` = 1558, `matk` = 159, `mdef` = 843 WHERE `id` = 25623;
+UPDATE `npc` SET `hp` = 489654, `mp` = 1859, `exp` = 3539613, `sp` = 991696, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1195, `pdef` = 1558, `matk` = 159, `mdef` = 843, `faction_id` = 'master_rider_clan', `faction_range` = 3000 WHERE `id` = 25623;
 # Valdstone minions (savormix)
-UPDATE `npc` SET `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76 WHERE `id` = 25633;
+UPDATE `npc` SET `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76, `faction_id` = 'master_rider_clan', `faction_range` = 2300 WHERE `id` = 25633;
 # Rok (savormix)
-UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 504491, `mp` = 1973, `exp` = 3658390, `sp` = 1026322, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1253, `pdef` = 1643, `matk` = 170, `mdef` = 890 WHERE `id` = 25624;
+UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 504491, `mp` = 1973, `exp` = 3658390, `sp` = 1026322, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1253, `pdef` = 1643, `matk` = 170, `mdef` = 890, `faction_id` = 'king_of_birds_clan', `faction_range` = 3000 WHERE `id` = 25624;
 # Rok minions (savormix)
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 91055, `mp` = 1674, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 837, `pdef` = 707, `matk` = 138, `mdef` = 765, `level` = 75 WHERE `id` = 25627;
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76 WHERE `id` = 25628;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 91055, `mp` = 1674, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 837, `pdef` = 707, `matk` = 138, `mdef` = 765, `level` = 75, `faction_id` = 'king_of_birds_clan', `faction_range` = 2100 WHERE `id` = 25627;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 92575, `mp` = 1710, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 864, `pdef` = 721, `matk` = 142, `mdef` = 781, `level` = 76, `faction_id` = 'king_of_birds_clan', `faction_range` = 2300 WHERE `id` = 25628;
 # Enira (savormix)
-UPDATE `npc` SET `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `isUndead` = 1 WHERE `id` = 25625;
+UPDATE `npc` SET `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `isUndead` = 1, `faction_id` = 'banshee_queen_clan', `faction_range` = 3000 WHERE `id` = 25625;
 # Enira minions (savormix)
-UPDATE `npc` SET `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78 WHERE `id` = 25629;
-UPDATE `npc` SET `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77 WHERE `id` = 25630;
+UPDATE `npc` SET `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78, `faction_id` = 'banshee_queen_clan', `faction_range` = 2500 WHERE `id` = 25629;
+UPDATE `npc` SET `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77, `faction_id` = 'banshee_queen_clan', `faction_range` = 2400 WHERE `id` = 25630;
 # Dius (savormix)
-UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920 WHERE `id` = 25626;
+UPDATE `npc` SET `type` = 'L2FlyRaidBoss', `hp` = 514631, `mp` = 2050, `exp` = 3745533, `sp` = 1082907, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 1293, `pdef` = 1700, `matk` = 173, `mdef` = 920, `faction_id` = 'destruction_lord_clan', `faction_range` = 3000 WHERE `id` = 25626;
 # Dius minions (savormix)
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77 WHERE `id` = 25631;
-UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78 WHERE `id` = 25632;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 94017, `mp` = 1747, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 889, `pdef` = 736, `matk` = 144, `mdef` = 797, `level` = 77, `faction_id` = 'destruction_lord_clan', `faction_range` = 2400 WHERE `id` = 25631;
+UPDATE `npc` SET `type` = 'L2FlyMinion', `hp` = 95386, `mp` = 1784, `exp` = 0, `sp` = 0, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 913, `pdef` = 750, `matk` = 148, `mdef` = 812, `level` = 78, `faction_id` = 'destruction_lord_clan', `faction_range` = 2500 WHERE `id` = 25632;
 
 # Anais (savormix)
 UPDATE `npc` SET `hp` = 759807, `mp` = 2277, `exp` = 8827525, `sp` = 2036475, `str` = 60, `con` = 57, `dex` = 73, `int` = 76, `wit` = 70, `men` = 80, `patk` = 6164, `pdef` = 2004, `matk` = 1674, `mdef` = 1085, `rhand` = 8214, `atkspd` = 253 WHERE `id` = 29096;

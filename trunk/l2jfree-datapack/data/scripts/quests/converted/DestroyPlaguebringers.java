@@ -47,7 +47,7 @@ public final class DestroyPlaguebringers extends QuestJython
 	private static final int VAROOL_FOULCLAW = 27020;
 	private static final String VAROOL_ATTACKED = "For what reason are you oppressing us?";
 
-	public DestroyPlaguebringers(int questId, String name, String descr)
+	private DestroyPlaguebringers(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 		questItemIds = new int[] { WERERAT_FANG, VAROOL_FOULCLAWS_FANG };

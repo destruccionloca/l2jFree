@@ -38,7 +38,7 @@ public final class SeedOfEvil extends QuestJython
 	private static final String NERKAS_ATTACKED = "...How dare you challenge me!";
 	private static final String NERKAS_KILLED = "May Beleth's power be spread on the whole world!";
 
-	public SeedOfEvil(int questId, String name, String descr)
+	private SeedOfEvil(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 		questItemIds = new int[] { CLAY_TABLET };

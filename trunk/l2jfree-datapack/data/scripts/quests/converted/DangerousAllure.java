@@ -43,7 +43,7 @@ public final class DangerousAllure extends QuestJython
 	private static final String MERKENIS_ATTACKED = "I shall put you in a never-ending nightmare!";
 	private static final String MERKENIS_KILLED = "My soul is to Icarus...";
 
-	public DangerousAllure(int questId, String name, String descr)
+	private DangerousAllure(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 		questItemIds = new int[] { NIGHTMARE_CRYSTAL };

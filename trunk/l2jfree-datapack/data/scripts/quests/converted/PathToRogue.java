@@ -17,6 +17,7 @@ package quests.converted;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -41,8 +42,8 @@ public final class PathToRogue extends QuestJython
 	private static final int BEZIQUES_LETTER = 1180;
 	private static final int NETIS_BOW = 1181;
 	private static final int NETIS_DAGGER = 1182;
-	private static final int SPATOIS_BONES = 1183;
-	private static final int SPATOI_BONE_COUNT = 10;
+	private static final int SPARTOIS_BONES = 1183;
+	private static final int SPARTOI_BONE_COUNT = 10;
 	private static final int HORSESHOE_OF_LIGHT = 1184;
 	private static final int WANTED_BILL = 1185;
 
@@ -57,25 +58,25 @@ public final class PathToRogue extends QuestJython
 	private static final int BEZIQUES_RECOMMENDATION = 1190;
 
 	// Quest monsters
-	private static final int[] SPATOI = {
+	private static final int[] SPARTOI = {
 		20035, 20042, 20045, 20051, 20054, 20060
 	};
 	private static final int CATS_EYE_BANDIT = 27038;
 	private static final String BANDIT_ATTACKED = "You childish fool, do you think you can catch me?";
 	private static final String BANDIT_KILLED = "I must do something about this shameful incident...";
 
-	public PathToRogue(int questId, String name, String descr)
+	private PathToRogue(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 		questItemIds = new int[] {
-			BEZIQUES_LETTER, NETIS_BOW, NETIS_DAGGER, SPATOIS_BONES, HORSESHOE_OF_LIGHT,
+			BEZIQUES_LETTER, NETIS_BOW, NETIS_DAGGER, SPARTOIS_BONES, HORSESHOE_OF_LIGHT,
 			WANTED_BILL, STOLEN_JEWELRY, STOLEN_TOMES, STOLEN_RING, STOLEN_NECKLACE,
 			BEZIQUES_RECOMMENDATION
 		};
 		addStartNpc(BEZIQUE);
 		addTalkId(BEZIQUE);
 		addTalkId(NETI);
-		for (int mobId : SPATOI)
+		for (int mobId : SPARTOI)
 		{
 			addAttackId(mobId);
 			addKillId(mobId);
@@ -118,7 +119,8 @@ public final class PathToRogue extends QuestJython
 		QuestState qs = player.getQuestState(PATH_TO_ROGUE);
 		if ("30379_2".equals(event))
 		{
-			if (player.getClassId().getId() == 0 && !qs.isCompleted())
+			ClassId prof = player.getClassId();
+			if (prof == ClassId.HumanFighter && !qs.isCompleted())
 			{
 				if (player.getLevel() > 17)
 				{
@@ -130,7 +132,7 @@ public final class PathToRogue extends QuestJython
 				else
 					return "30379-03.htm";
 			}
-			else if (player.getClassId().getId() == 7)
+			else if (prof == ClassId.Rogue)
 				return "30379-02a.htm";
 			else
 				return "30379-02.htm";
@@ -194,13 +196,13 @@ public final class PathToRogue extends QuestJython
 		else
 		{
 			int chance;
-			if (npcId == SPATOI[0] || npcId == SPATOI[2] || npcId == SPATOI[3])
+			if (npcId == SPARTOI[0] || npcId == SPARTOI[2] || npcId == SPARTOI[3])
 				chance = 200000;
-			else if (npcId == SPATOI[1])
+			else if (npcId == SPARTOI[1])
 				chance = 300000;
 			else
 				chance = 800000;
-			if (qs.dropQuestItems(SPATOIS_BONES, 1, SPATOI_BONE_COUNT, chance, true, false))
+			if (qs.dropQuestItems(SPARTOIS_BONES, 1, SPARTOI_BONE_COUNT, chance, true, false))
 				qs.set(CONDITION, 3);
 		}
 		return null;
@@ -265,9 +267,9 @@ public final class PathToRogue extends QuestJython
 				return "30425-08.htm";
 			else if (qs.getQuestItemsCount(WANTED_BILL) != 0)
 				return "30425-08.htm";
-			else if (qs.getQuestItemsCount(SPATOIS_BONES) >= SPATOI_BONE_COUNT)
+			else if (qs.getQuestItemsCount(SPARTOIS_BONES) >= SPARTOI_BONE_COUNT)
 			{
-				qs.takeItems(SPATOIS_BONES, -1);
+				qs.takeItems(SPARTOIS_BONES, -1);
 				qs.giveItems(HORSESHOE_OF_LIGHT, 1);
 				qs.set(CONDITION, 4);
 				return "30425-07.htm";

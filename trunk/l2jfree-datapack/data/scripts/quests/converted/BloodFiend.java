@@ -43,7 +43,7 @@ public final class BloodFiend extends QuestJython
 	private static final String KIRUNAK_ATTACKED = "I shall taste your steaming blood!";
 	private static final String KIRUNAK_KILLED = "Contract with Creamees is accomplished...";
 
-	public BloodFiend(int questId, String name, String descr)
+	private BloodFiend(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 		questItemIds = new int[] { KIRUNAK_SKULL };
