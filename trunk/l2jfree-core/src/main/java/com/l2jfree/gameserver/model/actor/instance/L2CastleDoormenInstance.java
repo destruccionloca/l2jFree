@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -68,6 +69,6 @@ public class L2CastleDoormenInstance extends L2DoormenInstance
 	@Override
 	protected final boolean isUnderSiege()
 	{
-		return getCastle().getSiege().getIsInProgress();
+		return (!Config.SIEGE_GATE_CONTROL && getCastle().getSiege().getIsInProgress());
 	}	
 }
