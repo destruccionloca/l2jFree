@@ -592,11 +592,18 @@
     <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="6000"/>
     <set name="staticHitTime" val="true"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="DUMMY"/>
+    <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="castRange" val="100"/>
     <set name="effectRange" val="600"/>
+    <cond msgId="113" addName="1">
+      <and>
+       <player flyMounted="True"/>
+        <target npcId="18684 18685 18686 18687 18688 18689 18690 18691 18692"/>
+      </and>
+    </cond>
   </skill>
   <skill id="933" levels="1" name="Detection">
     <set name="mpInitialConsume" val="13"/>
