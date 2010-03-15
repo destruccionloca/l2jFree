@@ -1702,7 +1702,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="needCharges" val="#numCharges"/>
+    <set name="needCharges" val="#numCharges"/> <!-- Requires 2nd 3rd stage of Sword Energy recharge. -->
   </skill>
   <skill id="462" levels="1" name="Guilted Body">
     <set name="target" val="TARGET_SELF"/>
@@ -2309,12 +2309,16 @@
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd">
+          <using kind="Crossbow"/>
+        </mul>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="1.12"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.12">
+          <using kind="Crossbow"/>
+        </mul>
       </effect>
     </enchant1for>
   </skill>
