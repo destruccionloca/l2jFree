@@ -130,7 +130,9 @@ public class Recall extends ISkillConditionChecker
 			}
 			if (loc != null)
 			{
-				target.setInstanceId(0);
+				if (skill.getId() != 5226)
+					target.setInstanceId(0);
+
 				if (target instanceof L2PcInstance)
 					target.getActingPlayer().setIsIn7sDungeon(false);
 				target.teleToLocation(loc, true);
