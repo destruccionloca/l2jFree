@@ -311,6 +311,7 @@ def runCoralGarden(self,world):
     world.CoralGarden.npclist[newNpc]=False
     newNpc = self.addSpawn(22316, 140800, 150707, -11817, 55884, False,0,False, world.instanceId)
     world.CoralGarden.npclist[newNpc]=False
+    self.addSpawn(ORACLE_GUIDE3, 154333, 145200, -12589, 16483, False, 0, False, world.instanceId)
     if debug: print "Coral: hall spawned in instance " + str(world.instanceId)
 
 def runGolems(self,world):
