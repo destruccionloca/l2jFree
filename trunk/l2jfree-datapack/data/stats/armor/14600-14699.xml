@@ -71,7 +71,7 @@
       <add order="0x10" stat="pDef" val="20"/>
     </for>
   </item>
-  <item id="14609" name="Ancient Cloak">
+  <item id="14609" name="Ancient Cloak - Heavy Armor exclusive">
     <cond msgId="2453">
       <or>
         <player active_skill_id="3348"/> <!-- Dynasty Breast Plate - Shield Master -->
