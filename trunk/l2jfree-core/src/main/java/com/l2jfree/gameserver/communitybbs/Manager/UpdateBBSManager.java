@@ -28,6 +28,10 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
+/**
+ * @author evill33t
+ * 
+ */
 public class UpdateBBSManager extends BaseBBSManager
 {
 	private final static Log	_log	= LogFactory.getLog(UpdateBBSManager.class);

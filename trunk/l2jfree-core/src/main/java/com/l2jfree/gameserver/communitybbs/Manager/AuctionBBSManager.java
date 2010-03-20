@@ -191,8 +191,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		{
 			String[] params;
 			params = command.split(" ");
-
-			if (params.length > 2)
+			if (params.length == 5)
 			{
 				try
 				{
@@ -216,7 +215,9 @@ public class AuctionBBSManager extends BaseBBSManager
 			Long startingBid, increment, buyNow, count;
 			String[] params;
 			params = command.split(" ");
-
+			if(params.length!=8)
+				return;
+			
 			hours = Integer.parseInt(params[1]);
 			currency = Integer.parseInt(params[2]);
 			startingBid = Long.parseLong(params[3]);
@@ -861,6 +862,7 @@ public class AuctionBBSManager extends BaseBBSManager
 						{
 							con = L2DatabaseFactory.getInstance().getConnection(con);
 							for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+							{
 								if (player.getObjectId().equals(lot.ownerId))
 								{
 									L2ItemInstance item = player.getInventory().addItem("Auction Give Bid", lot.currency, bid.bidAmount.intValue(), null, null);
@@ -876,9 +878,9 @@ public class AuctionBBSManager extends BaseBBSManager
 									playerWasOnline = true;
 									break;
 								}
+							}
 							if (!playerWasOnline)
 								addItemToInventory(con, lot.ownerId, IdFactory.getInstance().getNextId(), lot.currency, bid.bidAmount, 0);
-
 							sendMail(con, lot.ownerId, "Auctioneer", "Your auction was success!", "Item Sold: "
 									+ (!lot.count.equals(1) ? "(" + Util.formatAdena(lot.count.intValue()) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName() + "<br>Check your inventory for "
 									+ Util.formatAdena(bid.bidAmount.intValue()) + " " + ItemTable.getInstance().getTemplate(lot.currency));
@@ -890,12 +892,10 @@ public class AuctionBBSManager extends BaseBBSManager
 									player.sendPacket(ExMailArrived.STATIC_PACKET);
 									break;
 								}
-
 							addItemToInventory(con, bid.bidderId, (lot.count.equals(1) ? lot.objectId : IdFactory.getInstance().getNextId()), lot.itemId, lot.count, lot.enchantLevel);
 
 							sendMail(con, bid.bidderId, "Bidder", "You won an auction!!", "Please relog to see your "
 									+ (!lot.count.equals(1) ? "(" + Util.formatAdena(lot.count.intValue()) + ")" : (itemWon.isEquipable() ? "+" : "Level ") + lot.enchantLevel) + " " + itemWon.getName());
-
 							PreparedStatement statement = con.prepareStatement("UPDATE auction_lots SET processed = 'true' WHERE lotId = ?");
 							statement.setInt(1, lot.lotId);
 							statement.execute();
@@ -1005,18 +1005,18 @@ public class AuctionBBSManager extends BaseBBSManager
 				java.sql.Connection con = null;
 				try
 				{
-					try
+					con = L2DatabaseFactory.getInstance().getConnection(con);
+					PreparedStatement statement = con.prepareStatement("SELECT * FROM auction_bids WHERE lotId = ? ORDER BY bidId DESC");
+					statement.setInt(1, lotId);
+					ResultSet result = statement.executeQuery();
+					if(result.next())
 					{
-						con = L2DatabaseFactory.getInstance().getConnection(con);
-						PreparedStatement statement = con.prepareStatement("SELECT * FROM auction_bids WHERE lotId = ? ORDER BY bidId DESC");
-						statement.setInt(1, lotId);
-						ResultSet result = statement.executeQuery();
-						result.next();
 						prevBidderId = result.getInt("bidderId");
 						prevBidAmount = result.getInt("bidAmount");
 						statement.close();
 
 						for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+						{
 							if (player.getObjectId().equals(prevBidderId))
 							{
 								L2ItemInstance item = player.getInventory().addItem("Auction", currency, prevBidAmount, null, null);
@@ -1032,25 +1032,20 @@ public class AuctionBBSManager extends BaseBBSManager
 								playerWasOnline = true;
 								break;
 							}
+						}
 						if (!playerWasOnline)
 							addItemToInventory(con, prevBidderId, IdFactory.getInstance().getNextId(), currency, prevBidAmount, 0);
-
 						sendMail(con, prevBidderId, "Bidder", "You've been out bidded!", "Someone has out bidded you!<br1><a action=\"bypass _bbsauction_bid " + lotId + "\">Click here to bid fast!</a>");
-					}
-					catch (Exception e)
-					{
-						_log.warn("", e);
 					}
 
 					con = L2DatabaseFactory.getInstance().getConnection(con);
-					PreparedStatement statement = con.prepareStatement("INSERT INTO auction_bids (lotId, bidderId, bidAmount, bidDate) VALUES (?,?,?,?)");
+					statement = con.prepareStatement("INSERT INTO auction_bids (lotId, bidderId, bidAmount, bidDate) VALUES (?,?,?,?)");
 					statement.setInt(1, lotId);
 					statement.setInt(2, activeChar.getObjectId());
 					statement.setLong(3, bidAmount);
 					statement.setLong(4, System.currentTimeMillis());
 					statement.execute();
 					statement.close();
-
 					if (currency == 57)
 						activeChar.reduceAdena("Auction Bid", (int) bidAmount, activeChar, true);
 					else if (currency == 5575)
@@ -1203,10 +1198,12 @@ public class AuctionBBSManager extends BaseBBSManager
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM auction_bids WHERE lotId = ? ORDER BY bidId DESC");
 			statement.setInt(1, lotId);
 			ResultSet result = statement.executeQuery();
-			result.next();
-			bid.bidderId = result.getInt("bidderId");
-			bid.bidAmount = result.getLong("bidAmount");
-			bid.bidDateFormated = "";
+			while(result.next())
+			{
+				bid.bidderId = result.getInt("bidderId");
+				bid.bidAmount = result.getLong("bidAmount");
+				bid.bidDateFormated = "";
+			}
 			result.close();
 			statement.close();
 		}

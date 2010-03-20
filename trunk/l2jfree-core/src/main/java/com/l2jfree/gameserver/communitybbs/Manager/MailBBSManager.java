@@ -1077,7 +1077,6 @@ public class MailBBSManager extends BaseBBSManager
 	@Override
 	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
 	{
-		// TODO Auto-generated method stub
 		if (ar1.equals("Send"))
 		{
 			sendLetter(ar3, ar4, ar5, activeChar);

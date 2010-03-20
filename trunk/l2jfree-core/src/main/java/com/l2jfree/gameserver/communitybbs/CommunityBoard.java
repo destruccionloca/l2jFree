@@ -40,7 +40,7 @@ public class CommunityBoard
 		switch (Config.COMMUNITY_TYPE)
 		{
 		default:
-		case 0: //disabled
+		case 0: // disabled
 			activeChar.sendPacket(SystemMessageId.CB_OFFLINE);
 			break;
 		case 1: // old
@@ -132,6 +132,14 @@ public class CommunityBoard
 			else if (url.equals("Notice"))
 			{
 				ClanBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+			}
+			else if (url.equals("Mail"))
+			{
+				MailBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
+			}
+			else if (url.equals("Auction"))
+			{
+				AuctionBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
 			}
 			else
 			{
