@@ -34,7 +34,7 @@ class Quest (JQuest) :
     elif event == "32117-03.htm" :
        if count >= 300 :
           st.takeItems(BONES_OF_A_PLAINS_DINOSAUR,300)
-          st.rewardItems(REWARDS[st.getRandom(len(REWARDS))],int(5))
+          st.giveItems(REWARDS[st.getRandom(len(REWARDS))],int(5))
        else :
           htmltext = "32117-04.htm"
     elif event == "Quit" :
@@ -87,7 +87,7 @@ class Quest (JQuest) :
                    st.playSound("ItemSound.quest_middle")
                 else :
                    st.playSound("ItemSound.quest_itemget")
-                st.rewardItems(BONES_OF_A_PLAINS_DINOSAUR,int(numItems))
+                st.giveItems(BONES_OF_A_PLAINS_DINOSAUR,int(numItems))
     return
 
 QUEST = Quest(643,qn,"Rise and Fall of the Elroki Tribe")
