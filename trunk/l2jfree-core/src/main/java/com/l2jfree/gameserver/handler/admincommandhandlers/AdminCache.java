@@ -47,7 +47,7 @@ public class AdminCache implements IAdminCommandHandler
 	{
 		if (command.startsWith("admin_cache_htm_rebuild") || command.equals("admin_cache_htm_reload"))
 		{
-			HtmCache.getInstance().reload();
+			HtmCache.getInstance().reload(true);
 			activeChar.sendMessage(HtmCache.getInstance().toString());
 		}
 		else if (command.startsWith("admin_cache_reload_path "))

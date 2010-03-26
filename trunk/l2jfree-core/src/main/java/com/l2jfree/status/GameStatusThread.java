@@ -957,7 +957,7 @@ public final class GameStatusThread extends Thread
 						else if (type.equals("htm"))
 						{
 							_print.print("Reloading html cache... ");
-							HtmCache.getInstance().reload();
+							HtmCache.getInstance().reload(true);
 							_print.println("done");
 						}
 						else if (type.equals("item"))

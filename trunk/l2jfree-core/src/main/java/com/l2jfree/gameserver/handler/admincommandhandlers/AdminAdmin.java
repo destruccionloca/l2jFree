@@ -344,7 +344,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else if (type.startsWith("htm"))
 				{
-					HtmCache.getInstance().reload();
+					HtmCache.getInstance().reload(true);
 					activeChar.sendMessage(HtmCache.getInstance().toString());
 				}
 				else if (type.startsWith("item"))

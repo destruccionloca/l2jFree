@@ -1255,6 +1255,7 @@ public class Config extends L2Config
 
 	public static boolean			OPTIMIZE_DATABASE;
 
+	public static String			HTML_CACHE_FILE;
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigLoader
 	{
@@ -1465,6 +1466,8 @@ public class Config extends L2Config
 		    RETARGET_BLOCKING_PERIOD = Integer.parseInt(optionsSettings.getProperty("CannotRetargetFor", "400"));
 
 		    OPTIMIZE_DATABASE = Boolean.parseBoolean(optionsSettings.getProperty("OptimizeDatabaseTables", "True"));
+		    
+		    HTML_CACHE_FILE = optionsSettings.getProperty("HtmlCacheFile", "./html.cache");
 		}
 	}
 
