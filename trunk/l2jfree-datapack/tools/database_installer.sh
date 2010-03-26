@@ -234,6 +234,7 @@ full_install()
 	$MYG < ../sql/global_tasks.sql &> /dev/null
 	$MYG < ../sql/gm_audit.sql &> /dev/null
 	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null
+	$MYG < ../sql/hellbounds_trees.sql &> /dev/null
 	$MYG < ../sql/henna.sql &> /dev/null
 	$MYG < ../sql/henna_trees.sql &> /dev/null
 	$MYG < ../sql/heroes.sql &> /dev/null
@@ -344,6 +345,7 @@ update_db()
 			$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
 			$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 			$MYG < ../sql/fort_siege_guards.sql &> /dev/null
+			$MYG < ../sql/hellbounds.sql &> /dev/null
 			$MYG < ../sql/henna.sql &> /dev/null
 			$MYG < ../sql/henna_trees.sql &> /dev/null
 			$MYG < ../sql/lvlupgain.sql &> /dev/null

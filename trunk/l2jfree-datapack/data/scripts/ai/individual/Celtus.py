@@ -1,6 +1,7 @@
 # Author: Psycho(killer1888) / L2jFree
 
 import sys
+from com.l2jfree.gameserver.instancemanager       import HellboundManager
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
@@ -19,18 +20,19 @@ class Celtus(JQuest):
 		return
 
 	def onSkillSee(self,npc,caster,skill,targets,isPet):
-		skillId = skill.getId()
-		if skillId != 2359:
-			return
-		if not npc in targets:
-			return
-		percent = npc.getStatus().getCurrentHp() / npc.getMaxHp() * 100
-		if percent <= 10:
-			npc.setMagicBottled(True, percent)
-		else:
-			npc.setQuestDropable(False)
-			caster.sendPacket(SystemMessage(SystemMessageId.NOTHING_HAPPENED))
-			return
+		if HellboundManager.getInstance().getHellboundLevel() >= 7:
+			skillId = skill.getId()
+			if skillId != 2359:
+				return
+			if not npc in targets:
+				return
+			percent = npc.getStatus().getCurrentHp() / npc.getMaxHp() * 100
+			if percent <= 10:
+				npc.setMagicBottled(True, percent)
+			else:
+				npc.setQuestDropable(False)
+				caster.sendPacket(SystemMessage(SystemMessageId.NOTHING_HAPPENED))
+				return
 		return
 
 	def onSpawn (self,npc):

@@ -96,6 +96,7 @@ import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.FriendListManager;
 import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.HellboundManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
@@ -366,6 +367,8 @@ public class GameServer extends Config
 		Util.printSection("Dungeons");
 		DimensionalRiftManager.getInstance();
 		FourSepulchersManager.getInstance().init();
+		Util.printSection("Hellbound");
+		HellboundManager.getInstance().init();
 		Util.printSection("Bosses");
 		AntharasManager.getInstance().init();
 		BaiumManager.getInstance().init();

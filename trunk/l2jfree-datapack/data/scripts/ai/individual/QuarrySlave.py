@@ -1,7 +1,7 @@
 # Author: Psycho(killer1888) / L2jFree
 import sys
 from com.l2jfree.gameserver.ai 						import CtrlIntention
-from com.l2jfree 									import L2DatabaseFactory
+from com.l2jfree.gameserver.instancemanager         import HellboundManager
 from com.l2jfree.gameserver.network.serverpackets 	import NpcSay
 from com.l2jfree.gameserver.model.quest 			import State
 from com.l2jfree.gameserver.model.quest 			import QuestState
@@ -9,32 +9,6 @@ from com.l2jfree.gameserver.model.quest.jython 		import QuestJython as JQuest
 from com.l2jfree.gameserver.model.actor.instance    import L2MonsterInstance
 
 debug = False
-
-def getHellbountPoints(self):
-	con = L2DatabaseFactory.getInstance().getConnection(None)
-	offline = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = 'Hellbound' AND var = 'HellboundPoints'")
-	rs = offline.executeQuery()
-	if rs :
-		rs.next()
-		try :
-			actualPoints = rs.getInt("value")
-			con.close()
-		except :
-			actualPoints = 0
-	return int(actualPoints)
-
-def setPoints(self,value):
-	con = L2DatabaseFactory.getInstance().getConnection(None)
-	offline = con.prepareStatement("UPDATE quest_global_data SET value = ? WHERE quest_name = 'Hellbound' AND var = 'HellboundPoints'")
-	offline.setInt(1, value)
-	try :
-		offline.executeUpdate()
-		offline.close()
-		con.close()
-	except :
-		try : con.close()
-		except : pass
-	return
 
 def cancelTimers(self,npc):
 	if self.getQuestTimer("CheckIfSafe",npc,None):
@@ -51,18 +25,10 @@ class QuarrySlave(JQuest):
 		if event == "CheckIfSafe":
 			if npc.isDead():
 				cancelTimers(self,npc)
-				points = getHellbountPoints(self)
-				points -= 30
-				if debug:
-					print "Points: "+str(points)
-				setPoints(self,points)
+				HellboundManager.getInstance().decreaseTrustPoints(30)
 				return
 			if (npc.getX() >= -5967 and npc.getX() <= -4163) and (npc.getY() >= 251137 and npc.getY() <= 251970) and (npc.getZ() >= -3400 and npc.getZ() <= -3100):
-				points = getHellbountPoints(self)
-				points += 30
-				if debug:
-					print "Points: "+str(points)
-				setPoints(self,points)
+				HellboundManager.getInstance().addTrustPoints(30)
 				npc.broadcastPacket(NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Thank you, you saved me! I'll remember you my whole life!"))
 				npc.decayMe()
 				cancelTimers(self,npc)
@@ -73,11 +39,7 @@ class QuarrySlave(JQuest):
 		elif event == "CallKillers":
 			if npc.isDead():
 				cancelTimers(self,npc)
-				points = getHellbountPoints(self)
-				points -= 30
-				if debug:
-					print "Points: "+str(points)
-				setPoints(self,points)
+				HellboundManager.getInstance().decreaseTrustPoints(30)
 				return
 			for object in npc.getKnownList().getKnownObjects().values():
 				if object != None:
@@ -94,7 +56,7 @@ class QuarrySlave(JQuest):
 	def onTalk (self,npc,player):
 		npcId = npc.getNpcId()
 		trust = getHellbountPoints(self)
-		if npcId == 32299 and trust >= 1030000 and trust <= 1060000:
+		if npcId == 32299 and HellboundManager.getInstance().getHellboundLevel() == 5:
 			npc.setTarget(player);
 			npc.setRunning()
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, player)

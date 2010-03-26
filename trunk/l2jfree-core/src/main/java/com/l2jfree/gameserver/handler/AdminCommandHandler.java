@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminGeodata;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminGm;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminGmChat;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminHeal;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminHellbound;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminHelpPage;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminIRC;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminInstance;
@@ -139,6 +140,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminGm());
 		register(new AdminGmChat());
 		register(new AdminHeal());
+		register(new AdminHellbound());
 		register(new AdminHelpPage());
 		register(new AdminInstance());
 		register(new AdminInvul());

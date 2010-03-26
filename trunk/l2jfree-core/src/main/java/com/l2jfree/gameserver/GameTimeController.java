@@ -31,12 +31,14 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
+import com.l2jfree.gameserver.instancemanager.HellboundManager;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListenerDependency;
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.lang.L2Thread;
+import com.l2jfree.tools.random.Rnd;
 
 public final class GameTimeController
 {
@@ -175,6 +177,28 @@ public final class GameTimeController
 							DoorTable.getInstance().getDoor(21240006).closeMe();
 						}
 					}, Config.ALT_TIME_OF_OPENING_A_DOOR * 60 * 1000);
+				}
+
+				// Blacksmith Shadai
+				if (newHour == 0)
+				{
+					if (HellboundManager.getInstance().getHellboundLevel() >= 9)
+					{
+						if (Rnd.get(100) > 20)
+						{
+							int nightLenght = Math.abs(Config.DATETIME_SUNRISE * 60 / Config.DATETIME_MULTI);
+
+							HellboundManager.getInstance().spawnShadai();
+	
+							ThreadPoolManager.getInstance().schedule(new Runnable()
+							{
+								public void run()
+								{
+									HellboundManager.getInstance().unspawnShadai();
+								}
+							}, nightLenght * 60 * 1000);
+						}
+					}
 				}
 				
 				//check if night state changed

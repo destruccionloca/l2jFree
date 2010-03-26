@@ -10077,3 +10077,6 @@ UPDATE `npc` SET `hp` = 3384, `mp` = 1285, `exp` = 2295, `sp` = 199, `str` = 40,
 
 # Gatekeeper zombie (savormix)
 UPDATE `npc` SET `hp` = 4735, `mp` = 1751, `exp` = 0, `sp` = 0, `patk` = 2038, `pdef` = 623, `matk` = 1001, `mdef` = 506, `attackrange` = 40 WHERE `id` = 18343;
+
+# Since AI should be made, the Outpost Captain is desactivated
+UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 18466;
