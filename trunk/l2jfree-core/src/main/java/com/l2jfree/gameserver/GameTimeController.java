@@ -184,7 +184,7 @@ public final class GameTimeController
 				{
 					if (HellboundManager.getInstance().getHellboundLevel() >= 9)
 					{
-						if (Rnd.get(100) > 20)
+						if (Rnd.get(100) >= 80)
 						{
 							int nightLenght = Math.abs(Config.DATETIME_SUNRISE * 60 / Config.DATETIME_MULTI);
 
