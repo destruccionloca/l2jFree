@@ -40733,3 +40733,8 @@ INSERT INTO `spawnlist` VALUES
 (NULL, 'pagan_temple_entrance_001', 1, 18343, 35713, -50050, -760, 0, 0, 26726, 60, 0, 0),
 (NULL, 'pagan_temple_entrance_002', 1, 18343, 35517, -50049, -760, 0, 0, 6026, 60, 0, 0),
 (NULL, 'pagan_temple_entrance_003', 1, 18343, 35348, -49857, -760, 0, 0, 56645, 60, 0, 0);
+
+-- Vice Hierarch Eindburgh
+DELETE FROM `spawnlist` WHERE `npc_templateid` = 32469;
+INSERT INTO `spawnlist` VALUES
+(NULL, 'Kamael Island', 1, 32469, -111519, 41742, 2175, 0, 0, 31385, 60, 0, 0);
