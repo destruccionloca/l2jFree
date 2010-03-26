@@ -61,4 +61,44 @@ public final class L2CertificationSkillsLearn
 	{
 		return _item_id;
 	}
+	
+	public static boolean isCertificationSkill(int id)
+	{
+		switch (id)
+		{
+			case 631: // Emergent Ability - Attack
+			case 632: // Emergent Ability - Defense
+			case 633: // Emergent Ability - Empower
+			case 634: // Emergent Ability - Magic Defense
+			case 637: // Master Ability - Attack
+			case 638: // Master Ability - Empower
+			case 639: // Master Ability - Casting
+			case 640: // Master Ability - Focus
+			case 641: // Knight Ability - Boost HP
+			case 642: // Enchanter Ability - Boost Mana
+			case 643: // Summoner Ability - Boost HP/MP
+			case 644: // Rogue Ability - Evasion
+			case 645: // Rogue Ability - Long Shot
+			case 646: // Wizard Ability - Mana Gain
+			case 647: // Enchanter Ability - Mana Recovery
+			case 648: // Healer Ability - Prayer
+			case 650: // Warrior Ability - Resist Trait
+			case 651: // Warrior Ability - Haste
+			case 652: // Knight Ability - Defense
+			case 653: // Rogue Ability - Critical Chance
+			case 654: // Wizard Ability - Mana Steal
+			case 655: // Enchanter Ability - Barrier
+			case 799: // Master Ability - Defense
+			case 800: // Master Ability - Magic Defense
+			case 801: // Warrior Ability - Boost CP
+			case 802: // Wizard Ability - Anti-magic
+			case 803: // Healer Ability - Divine Protection
+			case 804: // Knight Ability - Resist Critical
+			case 1489: // Summoner Ability - Resist Attribute
+			case 1490: // Healer Ability - Heal
+			case 1491: // Summoner Ability - Spirit
+				return true;
+		}
+		return false;
+	}
 }

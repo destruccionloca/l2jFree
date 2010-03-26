@@ -90,59 +90,27 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 				
 				if (player.reduceAdena("Subclass Certification Removal", 10000000, player, true))
 				{
-					L2ItemInstance item;
-					int skillId;
-
 					for (L2Skill skill : player.getAllSkills())
 					{
-						skillId = skill.getId();
-						switch (skillId)
-						{
-						case 631:
-						case 632:
-						case 633:
-						case 634:
-						case 637:
-						case 638:
-						case 639:
-						case 640:
-						case 641:
-						case 642:
-						case 643:
-						case 644:
-						case 645:
-						case 646:
-						case 647:
-						case 648:
-						case 650:
-						case 651:
-						case 652:
-						case 653:
-						case 654:
-						case 655:
-						case 656:
-						case 657:
-						case 658:
-						case 659:
-						case 660:
-						case 661:
-						case 662:
-						case 799:
-						case 800:
-						case 801:
-						case 802:
-						case 803:
-						case 804:
-						case 1489:
-						case 1490:
-						case 1491:
+						if (L2CertificationSkillsLearn.isCertificationSkill(skill.getId()))
 							player.removeSkill(skill);
-							break;
+
+						switch (skill.getId())
+						{
+							case 656: // Transform Divine Warrior
+							case 657: // Transform Divine Knight
+							case 658: // Transform Divine Rogue
+							case 659: // Transform Divine Wizard
+							case 660: // Transform Divine Summoner
+							case 661: // Transform Divine Healer
+							case 662: // Transform Divine Enchanter
+								player.removeSkill(skill);
 						}
 					}
+					
 					for (int itemId : subclassItemIds)
 					{
-						item = player.getInventory().getItemByItemId(itemId);
+						L2ItemInstance item = player.getInventory().getItemByItemId(itemId);
 						if (item != null)
 							player.destroyItemByItemId("Subclass Certification Removal", itemId, item.getCount(), player, true);
 

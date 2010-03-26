@@ -117,7 +117,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		{
 			case 0:
 			{
-				if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id)) // Transformation skills
+				if (trainer instanceof L2TransformManagerInstance && !L2CertificationSkillsLearn.isCertificationSkill(_id)) // Transformation skills
 				{
 					int costid = 0;
 					// Skill Learn bug Fix
@@ -163,7 +163,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 					}
 					break;
 				}
-				else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id)) // Certification skills
+				else if (trainer instanceof L2TransformManagerInstance && L2CertificationSkillsLearn.isCertificationSkill(_id)) // Certification skills
 				{
 					int costid = 0;
 					L2CertificationSkillsLearn[] skillss = SkillTreeTable.getInstance().getAvailableCertificationSkills(player);
@@ -488,9 +488,9 @@ public class RequestAquireSkill extends L2GameClientPacket
 		}
 		else if (trainer instanceof L2FishermanInstance)
 			((L2FishermanInstance)trainer).showSkillList(player, true);
-		else if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id))
+		else if (trainer instanceof L2TransformManagerInstance && !L2CertificationSkillsLearn.isCertificationSkill(_id))
 			((L2TransformManagerInstance) trainer).showTransformSkillList(player, true);
-		else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id))
+		else if (trainer instanceof L2TransformManagerInstance && L2CertificationSkillsLearn.isCertificationSkill(_id))
 			((L2TransformManagerInstance) trainer).showCertificationSkillsList(player, true);
 		else if (trainer instanceof L2StarCollectorInstance)
 			((L2StarCollectorInstance) trainer).showCollectionSkillList(player, true);
@@ -501,47 +501,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 			sendPacket(new ExStorageMaxCount(player));
 
 		sendAF();
-	}
-
-	private boolean isCertificationSkill(int id)
-	{
-		switch (id)
-		{
-			case 631:
-			case 632:
-			case 633:
-			case 634:
-			case 637:
-			case 638:
-			case 639:
-			case 640:
-			case 641:
-			case 642:
-			case 643:
-			case 644:
-			case 645:
-			case 646:
-			case 647:
-			case 648:
-			case 650:
-			case 651:
-			case 652:
-			case 653:
-			case 654:
-			case 655:
-			case 799:
-			case 800:
-			case 801:
-			case 802:
-			case 803:
-			case 804:
-			case 1489:
-			case 1490:
-			case 1491:
-				return true;
-			default:
-				return false;
-		}
 	}
 
 	@Override

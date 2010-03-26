@@ -90,7 +90,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 
 		if (_skillType == 0)
 		{
-			if (trainer instanceof L2TransformManagerInstance && !isCertificationSkill(_id))
+			if (trainer instanceof L2TransformManagerInstance && !L2CertificationSkillsLearn.isCertificationSkill(_id))
 			{
 				int itemId = 0;
 				L2TransformSkillLearn[] skillst = SkillTreeTable.getInstance().getAvailableTransformSkills(activeChar);
@@ -117,7 +117,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 				sendPacket(asi);
 				return;
 			}
-			else if (trainer instanceof L2TransformManagerInstance && isCertificationSkill(_id))
+			else if (trainer instanceof L2TransformManagerInstance && L2CertificationSkillsLearn.isCertificationSkill(_id))
 			{
 				int itemId = 0;
 				L2CertificationSkillsLearn[] skillss = SkillTreeTable.getInstance().getAvailableCertificationSkills(activeChar);
@@ -276,47 +276,6 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 		}
 
 		sendAF();
-	}
-
-	private boolean isCertificationSkill(int id)
-	{
-		switch (id)
-		{
-			case 631:
-			case 632:
-			case 633:
-			case 634:
-			case 637:
-			case 638:
-			case 639:
-			case 640:
-			case 641:
-			case 642:
-			case 643:
-			case 644:
-			case 645:
-			case 646:
-			case 647:
-			case 648:
-			case 650:
-			case 651:
-			case 652:
-			case 653:
-			case 654:
-			case 655:
-			case 799:
-			case 800:
-			case 801:
-			case 802:
-			case 803:
-			case 804:
-			case 1489:
-			case 1490:
-			case 1491:
-				return true;
-			default:
-				return false;
-		}
 	}
 
 	@Override
