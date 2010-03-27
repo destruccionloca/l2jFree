@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -180,6 +181,10 @@ public class L2Spawn
 		{
 			_log.fatal("", e);
 		}
+	}
+	public L2Spawn(int npcId)
+	{
+		this(NpcTable.getInstance().getTemplate(npcId));
 	}
 
 	/**

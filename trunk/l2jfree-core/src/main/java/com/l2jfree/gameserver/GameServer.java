@@ -368,7 +368,7 @@ public class GameServer extends Config
 		DimensionalRiftManager.getInstance();
 		FourSepulchersManager.getInstance().init();
 		Util.printSection("Hellbound");
-		HellboundManager.getInstance().init();
+		HellboundManager.getInstance();
 		Util.printSection("Bosses");
 		AntharasManager.getInstance().init();
 		BaiumManager.getInstance().init();
