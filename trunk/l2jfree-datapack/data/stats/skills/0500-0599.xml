@@ -359,11 +359,11 @@
   </skill>
   <skill id="510" levels="5" name="Deadly Roulette" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1lethal1"> 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8 8 8 8 9 9 9 9 9 9 10 10 10 10 10 10 </table>
-    <table name="#ench1lethal2"> 3 3 6 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 </table>
+    <table name="#ench1lethal2"> 41 41 41 42 42 42 43 43 43 44 44 44 45 45 45 46 46 46 47 47 47 48 48 48 49 49 49 50 50 50 </table> <!-- Guessing -->
     <table name="#ench2mpConsume"> 111 109 107 105 103 101 99 97 95 93 91 89 87 85 83 81 79 77 75 73 71 69 67 65 63 61 59 57 55 53 </table>
     <table name="#mpConsume"> 100 103 106 109 112 </table>
     <table name="#magicLvl"> 66 68 70 72 74 </table>
-    <table name="#lethal2"> 10 18 26 34 42 </table> <!-- Guessing -->
+    <table name="#lethal2"> 10 18 25 33 40 </table> <!-- Guessing -->
     <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -379,7 +379,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <enchant1 name="lethal1" val="#ench1lethal1"/>
-    <enchant1 name="lethal2" val="#ench1lethal2"/> <!-- TODO: smaller than default -->
+    <enchant1 name="lethal2" val="#ench1lethal2"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <cond msg="Can be used when HP is below 10 percent.">
       <player hp="10"/>
