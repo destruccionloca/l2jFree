@@ -542,9 +542,9 @@ public final class HellboundManager
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
 				
-				PreparedStatement statement = con.prepareStatement("UPDATE hellbounds SET value=? WHERE variable=?");
-				statement.setInt(1, _trustPoints);
-				statement.setString(2, "trust_points");
+				PreparedStatement statement = con.prepareStatement("REPLACE INTO hellbounds VALUES (?,?)");
+				statement.setString(1, "trust_points");
+				statement.setInt(2, _trustPoints);
 				statement.execute();
 				statement.close();
 			}
@@ -562,9 +562,9 @@ public final class HellboundManager
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
 				
-				PreparedStatement statement = con.prepareStatement("UPDATE hellbounds SET value=? WHERE variable=?");
-				statement.setInt(1, _warpgateEnergy);
-				statement.setString(2, "warpgates_energy");
+				PreparedStatement statement = con.prepareStatement("REPLACE INTO hellbounds VALUES (?,?)");
+				statement.setString(1, "warpgates_energy");
+				statement.setInt(2, _warpgateEnergy);
 				statement.execute();
 				statement.close();
 			}
@@ -639,9 +639,9 @@ public final class HellboundManager
 					
 					try
 					{
-						statement = con.prepareStatement("UPDATE hellbounds SET value=? WHERE variable=?");
-						statement.setDouble(1, System.currentTimeMillis());
-						statement.setString(2, "warpgatesLastcheck");
+						statement = con.prepareStatement("REPLACE INTO hellbounds VALUES (?,?)");
+						statement.setString(1, "warpgatesLastcheck");
+						statement.setDouble(2, System.currentTimeMillis());
 						statement.execute();
 						statement.close();
 					}

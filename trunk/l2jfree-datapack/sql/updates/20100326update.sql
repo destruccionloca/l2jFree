@@ -1,7 +1,5 @@
-UPDATE `hellbounds` SET `value` = 
-(SELECT `value` FROM `quest_global_data` WHERE `quest_name` = 'Hellbound' AND `var` = 'HellboundPoints') 
-WHERE `variable` = 'trust_points';
+REPLACE INTO `hellbounds`
+	(SELECT 'trust_points', `value` FROM `quest_global_data` WHERE `quest_name` = 'Hellbound' AND `var` = 'HellboundPoints');
 
-UPDATE `hellbounds` SET `value` = 
-(SELECT `value` FROM `quest_global_data` WHERE `quest_name` = '1108_Hellbound_WarpGate' AND `var` = 'WarpGateEnergy') 
-WHERE `variable` = 'warpgates_energy';
+REPLACE INTO `hellbounds`
+	(SELECT 'warpgates_energy', `value` FROM `quest_global_data` WHERE `quest_name` = '1108_Hellbound_WarpGate' AND `var` = 'WarpGateEnergy');
