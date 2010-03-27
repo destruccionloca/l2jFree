@@ -376,8 +376,8 @@ public final class HellboundManager
 	private final Set<L2Npc> _spawnOutpostCaptain = new L2FastSet<L2Npc>().setShared(true);
 	private final Set<L2Npc> _spawnWoundedLandGuards = new L2FastSet<L2Npc>().setShared(true);
 	private final Set<L2Npc> _spawnShadai = new L2FastSet<L2Npc>().setShared(true);
-	
-	// TODO: currently can't go over LEVEL_4
+
+
 	private int _trustPoints = 0;
 	private int _currentLevel = 0;
 	
@@ -746,7 +746,7 @@ public final class HellboundManager
 	public void addTrustPoints(int amount)
 	{
 		// Handling Bernarde treasure needed to up to level 4
-		if (_trustPoints + amount < 999000 || _trustPoints >= LEVEL_4)
+		if (_trustPoints + amount < 999000 || _trustPoints + amount >= LEVEL_4)
 		{
 			_trustPoints += amount;
 			
