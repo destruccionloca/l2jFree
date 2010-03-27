@@ -7412,8 +7412,14 @@ public final class L2PcInstance extends L2Playable
 			return oldSkill;
 		
 		for (L2ShortCut sc : getAllShortCuts())
-			if (sc != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL)
+		{
+			if (sc != null && sc.getId() == skill.getId() 
+					&& sc.getType() == L2ShortCut.TYPE_SKILL 
+					&& !skill.isItemSkill())
+			{
 				deleteShortCut(sc.getSlot(), sc.getPage());
+			}
+		}
 		
 		return oldSkill;
 	}

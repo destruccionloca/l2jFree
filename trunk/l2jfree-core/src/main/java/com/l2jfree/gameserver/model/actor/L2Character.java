@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
+import com.l2jfree.gameserver.datatables.AugmentationData;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
@@ -5665,6 +5666,9 @@ public abstract class L2Character extends L2Object
 
 				if (e.getSkill().isChance())
 					continue; // don't remove triggered effects
+				
+				if (Config.ALT_KEEP_ITEM_BUFFS && e.getSkill().isItemSkill())
+					continue; // skip item/augmentation active/self buffs
 
 				if (e.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
 					e.exit(); // remove self skills only - there is no reason to remove normal buffs
