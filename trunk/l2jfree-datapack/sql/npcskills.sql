@@ -62386,3 +62386,5 @@ DELETE FROM `npcskills` WHERE `npcid` = 29003 AND `skillid` = 4020;
 DELETE FROM `npcskills` WHERE `npcid` = 29003 AND `skillid` = 4024;
 DELETE FROM `npcskills` WHERE `npcid` = 25534 AND `skillid` = 5225;
 DELETE FROM `npcskills` WHERE `npcid` = 25534 AND `skillid` = 5441;
+DELETE FROM `npcskills` WHERE `npcid` = 22363 AND `skillid` = 5256; -- Body Destroyer - Announcement of Death (hex1r0)
+

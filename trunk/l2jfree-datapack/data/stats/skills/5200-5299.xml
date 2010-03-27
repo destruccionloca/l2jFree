@@ -653,11 +653,16 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
   </skill>
+  <!-- @author hex1r0 -->
   <skill id="5256" levels="1" name="Announcement of Death">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1000"/>
+	<set name="canBeDispeled" val="false"/>
+	<for>
+	  <effect count="1" name="DelayedKill" time="30" val="0" />
+	</for>
   </skill>
   <skill id="5257" levels="1" name="Death">
     <set name="target" val="TARGET_NONE"/>

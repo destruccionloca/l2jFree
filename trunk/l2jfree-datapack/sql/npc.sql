@@ -10080,3 +10080,6 @@ UPDATE `npc` SET `hp` = 4735, `mp` = 1751, `exp` = 0, `sp` = 0, `patk` = 2038, `
 
 # Since AI should be made, the Outpost Captain is desactivated
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 18466;
+
+-- Body Destroyer has special AI (hex1r0)
+UPDATE `npc` SET `type` =  'SCBodyDestroyer' WHERE `id` = 22363;
