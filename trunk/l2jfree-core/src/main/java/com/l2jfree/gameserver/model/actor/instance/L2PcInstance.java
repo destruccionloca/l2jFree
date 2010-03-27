@@ -14158,9 +14158,15 @@ public final class L2PcInstance extends L2Playable
 			return false;
 
 		leaveParty();
+		
+		if (getPet() != null) 
+			getPet().unSummon(this);
+		
 		if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
+		{
 			getAppearance().setNameColor(Config.OFFLINE_TRADE_COLOR_NAME);
-		sendMessage("Offline mode enabled.");
+			broadcastUserInfo();
+		}
 
 		new Disconnection(this).store().close(false);
 
