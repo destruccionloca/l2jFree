@@ -146,7 +146,6 @@ import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
-import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
@@ -6572,12 +6571,16 @@ public final class L2PcInstance extends L2Playable
 	public static void disconnectIfOnline(int objectId)
 	{
 		L2PcInstance onlinePlayer = L2World.getInstance().findPlayer(objectId);
+		
+		if (onlinePlayer == null)
+			onlinePlayer = L2World.getInstance().getPlayer(CharNameTable.getInstance().getByObjectId(objectId));
+		
 		if (onlinePlayer == null)
 			return;
-
+		
 		if (!onlinePlayer.isInOfflineMode())
 			_log.warn("Avoiding duplicate character! Disconnecting online character (" + onlinePlayer.getName() + ")");
-
+		
 		new Disconnection(onlinePlayer).defaultSequence(true);
 	}
 
@@ -13455,8 +13458,8 @@ public final class L2PcInstance extends L2Playable
 	public void setName(String name)
 	{
 		super.setName(name);
-
-		CharNameTable.getInstance().update(getObjectId(), getName());
+		
+		CharNameTable.getInstance().update(getObjectId(), getAccountName(), getName());
 	}
 
 	// =========================================================================================
@@ -14159,7 +14162,7 @@ public final class L2PcInstance extends L2Playable
 
 		leaveParty();
 		
-		if (getPet() != null) 
+		if (getPet() != null)
 			getPet().unSummon(this);
 		
 		if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)

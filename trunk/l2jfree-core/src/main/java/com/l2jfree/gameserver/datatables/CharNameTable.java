@@ -31,14 +31,14 @@ import com.l2jfree.lang.L2Integer;
 public final class CharNameTable
 {
 	private static final Log _log = LogFactory.getLog(CharNameTable.class);
-
+	
 	public static CharNameTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
 	
-	private final Map<Integer, CharacterInfo> _mapByObjectId = new FastMap<Integer, CharacterInfo>();
-	private final Map<String, CharacterInfo> _mapByName = new FastMap<String, CharacterInfo>();
+	private final Map<Integer, CharacterInfo> _mapByObjectId = new FastMap<Integer, CharacterInfo>().setShared(true);
+	private final Map<String, CharacterInfo> _mapByName = new FastMap<String, CharacterInfo>().setShared(true);
 	
 	private CharNameTable()
 	{
@@ -47,11 +47,11 @@ public final class CharNameTable
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement statement = con.prepareStatement("SELECT charId, char_name FROM characters");
+			PreparedStatement statement = con.prepareStatement("SELECT charId, account_name, char_name FROM characters");
 			ResultSet rset = statement.executeQuery();
 			
 			while (rset.next())
-				update(rset.getInt("charId"), rset.getString("char_name"));
+				update(rset.getInt("charId"), rset.getString("account_name"), rset.getString("char_name"));
 			
 			rset.close();
 			statement.close();
@@ -82,18 +82,20 @@ public final class CharNameTable
 		return characterInfo == null ? null : characterInfo._objectId;
 	}
 	
-	public void update(int objectId, String name)
+	public void update(int objectId, String accountName, String name)
 	{
 		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
 		if (characterInfo == null)
 			characterInfo = new CharacterInfo(objectId);
 		
-		characterInfo.updateName(name);
+		characterInfo.updateNames(accountName, name);
 	}
 	
 	private class CharacterInfo
 	{
 		private final Integer _objectId;
+		
+		private String _accountName;
 		private String _name;
 		
 		private CharacterInfo(int objectId)
@@ -105,8 +107,10 @@ public final class CharNameTable
 				_log.warn("CharNameTable: Duplicated objectId: [" + this + "] - [" + characterInfo + "]");
 		}
 		
-		private void updateName(String name)
+		private void updateNames(String accountName, String name)
 		{
+			_accountName = accountName;
+			
 			if (_name != null)
 				_mapByName.remove(_name.toLowerCase());
 			
@@ -120,7 +124,7 @@ public final class CharNameTable
 		@Override
 		public String toString()
 		{
-			return "objectId: " + _objectId + ", name: " + _name;
+			return "objectId: " + _objectId + ", accountName: " + _accountName + ", name: " + _name;
 		}
 	}
 	
@@ -131,35 +135,15 @@ public final class CharNameTable
 	
 	public int accountCharNumber(String account)
 	{
-		int number = 0;
+		int count = 0;
 		
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			
-			PreparedStatement statement = con.prepareStatement("SELECT COUNT(*) FROM characters WHERE account_name=?");
-			statement.setString(1, account);
-			ResultSet rset = statement.executeQuery();
-			
-			if (rset.next())
-				number = rset.getInt(1);
-			
-			rset.close();
-			statement.close();
-		}
-		catch (SQLException e)
-		{
-			_log.warn("", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
+		for (CharacterInfo characterInfo : _mapByObjectId.values())
+			if (characterInfo.getAccountName().equalsIgnoreCase(account))
+				count++;
 		
-		return number;
+		return count;
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
