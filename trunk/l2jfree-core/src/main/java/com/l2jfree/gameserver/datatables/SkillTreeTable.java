@@ -44,11 +44,6 @@ import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.LinkedBunch;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.13.2.2.2.8 $ $Date: 2005/04/06 16:13:25 $
- */
 @SuppressWarnings("unchecked")
 public class SkillTreeTable
 {
@@ -63,13 +58,13 @@ public class SkillTreeTable
 	private final static Log								_log							= LogFactory.getLog(SkillTreeTable.class);
 
 	private final Map<Integer, L2SkillLearn>[] _skillTrees = new Map[ClassId.values().length];
-	private FastList<L2SkillLearn>							_fishingSkillTrees;				//all common skills (teached by Fisherman)
-	private FastList<L2SkillLearn>							_expandDwarfCraftSkillTrees;	//list of special skill for dwarf (expand dwarf craft) learned by class teacher
-	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;				//pledge skill list
-	private FastMap<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;				//enchant skill list
-	private FastList<L2TransformSkillLearn>					_TransformSkillTrees;			// Transform Skills (Test)
+	private FastList<L2SkillLearn>							_fishingSkillTrees;				// all common skills (teached by Fisherman)
+	private FastList<L2SkillLearn>							_expandDwarfCraftSkillTrees;	// list of special skill for dwarf (expand dwarf craft) learned by class teacher
+	private FastList<L2PledgeSkillLearn>					_pledgeSkillTrees;				// pledge skill list
+	private FastMap<Integer, L2EnchantSkillLearn>			_enchantSkillTrees;				// enchant skill list
+	private FastList<L2TransformSkillLearn>					_transformSkillTrees;			// Transform Skills (Test)
 	private FastList<L2SkillLearn> 							_specialSkillTrees;
-	private FastList<L2CertificationSkillsLearn>			_CertificationSkillsTrees; 		// Special Ability Skills (Hellbound)
+	private FastList<L2CertificationSkillsLearn>			_certificationSkillsTrees; 		// Special Ability Skills (Hellbound)
 	
 	public static SkillTreeTable getInstance()
 	{
@@ -355,7 +350,7 @@ public class SkillTreeTable
 		int count6 = 0;
 		try
 		{
-			_TransformSkillTrees = new FastList<L2TransformSkillLearn>();
+			_transformSkillTrees = new FastList<L2TransformSkillLearn>();
 
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT race_id, skill_id, item_id, level, name, sp, min_level FROM transform_skill_trees ORDER BY race_id, skill_id, level");
@@ -378,13 +373,13 @@ public class SkillTreeTable
 
 				L2TransformSkillLearn skill = new L2TransformSkillLearn(race_id, skill_id, item_id, level, name, sp, min_level);
 
-				_TransformSkillTrees.add(skill);
+				_transformSkillTrees.add(skill);
 			}
 
 			skilltree5.close();
 			statement.close();
 
-			count6 = _TransformSkillTrees.size();
+			count6 = _transformSkillTrees.size();
 		}
 		catch (Exception e)
 		{
@@ -430,7 +425,7 @@ public class SkillTreeTable
 		int count8 = 0;
 		try
 		{
-			_CertificationSkillsTrees = new FastList<L2CertificationSkillsLearn>();
+			_certificationSkillsTrees = new FastList<L2CertificationSkillsLearn>();
 
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
@@ -451,13 +446,13 @@ public class SkillTreeTable
 
 				L2CertificationSkillsLearn skill = new L2CertificationSkillsLearn(skill_id, item_id, level, name);
 
-				_CertificationSkillsTrees.add(skill);
+				_certificationSkillsTrees.add(skill);
 			}
 
 			skilltree6.close();
 			statement.close();
 
-			count8 = _CertificationSkillsTrees.size();
+			count8 = _certificationSkillsTrees.size();
 		}
 		catch (Exception e)
 		{
@@ -738,7 +733,7 @@ public class SkillTreeTable
 	public L2TransformSkillLearn[] getAvailableTransformSkills(L2PcInstance cha)
 	{
 		LinkedBunch<L2TransformSkillLearn> result = new LinkedBunch<L2TransformSkillLearn>();
-		List<L2TransformSkillLearn> skills = _TransformSkillTrees;
+		List<L2TransformSkillLearn> skills = _transformSkillTrees;
 
 		if (skills == null)
 		{
@@ -784,7 +779,7 @@ public class SkillTreeTable
 	public L2CertificationSkillsLearn[] getAvailableCertificationSkills(L2PcInstance cha)
 	{
 		LinkedBunch<L2CertificationSkillsLearn> result = new LinkedBunch<L2CertificationSkillsLearn>();
-		List<L2CertificationSkillsLearn> skills = _CertificationSkillsTrees;
+		List<L2CertificationSkillsLearn> skills = _certificationSkillsTrees;
 
 		if (skills == null)
 		{
@@ -896,7 +891,7 @@ public class SkillTreeTable
 		int minLevel = 0;
 		List<L2TransformSkillLearn> skills = new FastList<L2TransformSkillLearn>();
 
-		skills.addAll(_TransformSkillTrees);
+		skills.addAll(_transformSkillTrees);
 
 		if (skills.size() == 0)
 		{

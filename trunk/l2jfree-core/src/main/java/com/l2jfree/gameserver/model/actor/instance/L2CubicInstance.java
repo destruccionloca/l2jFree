@@ -597,8 +597,11 @@ public class L2CubicInstance
 	{
 		if (owner == null || target == null)
 			return false;
+		
+		if (owner == target)
+			return true;
 
-		int x, y, z;
+		long x, y, z;
 		// Temporary range check until real behavior of cubics is known/coded
 		int range = MAX_MAGIC_RANGE;
 
@@ -606,7 +609,7 @@ public class L2CubicInstance
 		y = (owner.getY() - target.getY());
 		z = (owner.getZ() - target.getZ());
 
-		return ((x * x) + (y * y) + (z * z) <= (range * range));
+		return ((x * x) + (y * y) + (z * z)) <= (range * range);
 	}
 
 	/** this sets the friendly target for a cubic */
