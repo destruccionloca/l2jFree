@@ -820,7 +820,7 @@ public final class HellboundManager
 		{
 			case 1:
 				unspawnRemnants();
-				// TODO: break; missing?!
+				break;
 			case 2:
 				unspawnKeltas();
 				spawnRemnants();
