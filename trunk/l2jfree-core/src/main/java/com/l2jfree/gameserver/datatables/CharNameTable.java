@@ -138,7 +138,7 @@ public final class CharNameTable
 		int count = 0;
 		
 		for (CharacterInfo characterInfo : _mapByObjectId.values())
-			if (characterInfo.getAccountName().equalsIgnoreCase(account))
+			if (characterInfo._accountName.equalsIgnoreCase(account))
 				count++;
 		
 		return count;
