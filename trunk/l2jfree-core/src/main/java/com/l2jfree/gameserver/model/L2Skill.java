@@ -2911,7 +2911,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				}
 				case TARGET_AREA_CORPSE_MOB:
 				{
-					if ((!(target instanceof L2Attackable)) || !target.isDead())
+					if (!((target instanceof L2Attackable) || (target instanceof L2SummonInstance)) || !target.isDead())
 					{
 						activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 						return null;

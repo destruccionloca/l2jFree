@@ -2271,7 +2271,7 @@ public final class Formulas
 			L2Effect e = target.getEffects().getFirstEffect(skill.getEffectTemplates()[0].stackTypes);
 			if (e != null)
 			{
-				if (skill.getEffectTemplates()[0].stackOrder < e.getStackOrder())
+				if (skill.getEffectTemplates()[0].stackOrder <= e.getStackOrder())
 					return false;
 			}
 		}
