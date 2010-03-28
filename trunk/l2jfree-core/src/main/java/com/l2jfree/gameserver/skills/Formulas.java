@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -2266,8 +2267,14 @@ public final class Formulas
 	public static boolean calcSkillSuccess(final double baseChance, L2Character attacker, L2Character target, L2Skill skill, byte shld, boolean ss, boolean sps, boolean bss)
 	{
 		if (skill.hasEffects()) // debuffs should fail if already applied
-			if (target.getEffects().hasEffect(skill.getEffectTemplates()[0].stackTypes))
-				return false;
+		{
+			L2Effect e = target.getEffects().getFirstEffect(skill.getEffectTemplates()[0].stackTypes);
+			if (e != null)
+			{
+				if (skill.getEffectTemplates()[0].stackOrder < e.getStackOrder())
+					return false;
+			}
+		}
 		
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;
