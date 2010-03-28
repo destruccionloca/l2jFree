@@ -523,3 +523,8 @@ INSERT INTO minions VALUES
 -- Dius
 (25626,25631,3,3),
 (25626,25632,3,3);
+
+-- Queen Ant minions (hex1r0)
+DELETE FROM `minions` WHERE `boss_id` = 29001;
+-- INSERT INTO `minions` ( `boss_id` , `minion_id` , `amount_min` , `amount_max` ) VALUES ('29001', '29004', '4', '6');
+INSERT INTO `minions` ( `boss_id` , `minion_id` , `amount_min` , `amount_max` ) VALUES ('29001', '29005', '4', '6');

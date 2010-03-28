@@ -10085,6 +10085,6 @@ UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 18466;
 UPDATE `npc` SET `type` =  'SCBodyDestroyer' WHERE `id` = 22363;
 
 -- Queen Ant and & family :) (hex1r0)
-UPDATE `npc` SET `type` = 'QueenAntLarva' WHERE `id` = 29002;
+UPDATE `npc` SET `type` = 'QueenAntLarva', `walkspd` =  '0', `runspd` = '0' WHERE `id` = 29002;
 UPDATE `npc` SET `type` = 'QueenAnt' WHERE `id` = 29001;
 UPDATE `npc` SET `type` = 'QueenAntNurse' WHERE `id` = 29003;

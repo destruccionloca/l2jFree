@@ -15,6 +15,7 @@
 package com.l2jfree.gameserver.ai;
 
 import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.grandbosses.QueenAntManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -102,16 +103,16 @@ public class QueenAntNurseAI extends L2AttackableAI
 			return larva;
 	}
 	
-	private void checkDistance(L2Npc t)
+	private void checkDistance(L2Npc npc)
 	{
-		if (Util.calculateDistance(_actor, t, true) > 1500)
+		if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 		{
-			_actor.teleToLocation(t.getX(), t.getY(), t.getZ());
+			_actor.teleToLocation(npc.getX(), npc.getY(), npc.getZ());
 		}
 		else
 		{
 			_actor.setRunning();
-			startFollow(t);
+			startFollow(npc);
 		}
 	}
 }

@@ -43,6 +43,7 @@ public class QueenAntLarvaStatus extends AttackableStatus
 	@Override
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
+		getActiveChar().addAttackerToAttackByList(attacker);
 		getActiveChar().addDamage(attacker, 0, null);
 	}
 }
