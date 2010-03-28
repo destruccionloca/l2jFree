@@ -526,20 +526,20 @@ public class Disablers implements ICubicSkillHandler
 					{
 						if (removedBuffs > skill.getMaxNegatedEffects())
 							break;
-						
+										
 						switch(skillType)
 						{
 							case BUFF:
 								if (Formulas.calcSkillSuccess(90.0, activeChar, target, skill, shld, ss, sps, bss))
 								{
-									removedBuffs += negateEffect(target, L2SkillType.BUFF, -1, skill.getMaxNegatedEffects());
+									removedBuffs += negateEffect(target, L2SkillType.BUFF, -1, skill);
 								}
 								break;
 							case HEAL:
 								SkillHandler.getInstance().useSkill(L2SkillType.HEAL, activeChar, skill, target);
 								break;
 							default:
-								removedBuffs += negateEffect(target, skillType, -1, skill.getMaxNegatedEffects());
+								removedBuffs += negateEffect(target, skillType, -1, skill);
 								break;
 						}//end switch
 					}//end for
@@ -626,15 +626,16 @@ public class Disablers implements ICubicSkillHandler
 		}
 	}
 
-	private int negateEffect(L2Character target, L2SkillType type, double negateLvl, int maxRemoved)
+	private int negateEffect(L2Character target, L2SkillType type, double negateLvl, L2Skill skill)
 	{
-		return negateEffect(target, type, negateLvl, 0, maxRemoved);
+		return negateEffect(target, type, negateLvl, 0, skill);
 	}
 
-	private int negateEffect(L2Character target, L2SkillType type, double negateLvl, int skillId, int maxRemoved)
+	private int negateEffect(L2Character target, L2SkillType type, double negateLvl, int skillId, L2Skill skill)
 	{
+		int maxNegatedEffects = skill.getMaxNegatedEffects();
 		L2Effect[] effects = target.getAllEffects();
-		int count = (maxRemoved <= 0 )? -2 : 0;
+		int count = (maxNegatedEffects <= 0 )? -2 : 0;
 		for (L2Effect e : effects)
 		{
 			//players may not remove these effects under any circumstances
@@ -644,16 +645,20 @@ public class Disablers implements ICubicSkillHandler
 			{
 				if (e.getSkill().getSkillType() == type || (e.getSkill().getEffectType() != null && e.getSkill().getEffectType() == type))
 				{
+					if (skill.getNegatePhysicalOnly())
+						if(e.getSkill().isMagic())
+							continue;
+					
 					if (skillId != 0)
 					{
-						if (skillId == e.getSkill().getId() && count < maxRemoved)
+						if (skillId == e.getSkill().getId() && count < maxNegatedEffects)
 						{
 							e.exit();
 							if (count > -1)
 								count++;
 						}
 					}
-					else if (count < maxRemoved)
+					else if (count < maxNegatedEffects)
 					{
 						e.exit();
 						if (count > -1)
@@ -674,16 +679,20 @@ public class Disablers implements ICubicSkillHandler
 				
 				if (cancel)
 				{
+					if (skill.getNegatePhysicalOnly())
+						if(e.getSkill().isMagic())
+							continue;
+					
 					if (skillId != 0)
 					{
-						if (skillId == e.getSkill().getId() && count < maxRemoved)
+						if (skillId == e.getSkill().getId() && count < maxNegatedEffects)
 						{
 							e.exit();
 							if (count > -1)
 								count++;
 						}
 					}
-					else if (count < maxRemoved)
+					else if (count < maxNegatedEffects)
 					{
 						e.exit();
 						if (count > -1)
@@ -693,7 +702,7 @@ public class Disablers implements ICubicSkillHandler
 			}
 		}
 
-		return  (maxRemoved <= 0) ? count + 2 : count;
+		return  (maxNegatedEffects <= 0) ? count + 2 : count;
 	}
 
 	private void stealEffects(L2Character stealer, L2Character stolen, List<L2Effect> stolenEffects)

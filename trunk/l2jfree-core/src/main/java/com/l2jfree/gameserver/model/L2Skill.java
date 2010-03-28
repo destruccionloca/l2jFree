@@ -189,6 +189,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	// Note: see also _effectAbnormalLvl
 	private final int				_negateLvl;				// abnormalLvl is negated with negateLvl
 	private final int[]				_negateId;					// cancels the effect of skill ID
+	private final boolean			_negatePhysicalOnly;	// cancel physical effects only
 	private final L2SkillType[]		_negateStats;			// lists the effect types that are canceled
 	private final int				_maxNegatedEffects;		// maximum number of effects to negate
 
@@ -375,6 +376,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		}
 		else
 			_negateId = new int[0];
+		
+		_negatePhysicalOnly = set.getBool("negatePhysicalOnly", false);
 		
 		_maxNegatedEffects = set.getInteger("maxNegated", 0);
 		_stayAfterDeath = set.getBool("stayAfterDeath", false);
@@ -794,6 +797,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public final int[] getNegateId()
 	{
 		return _negateId;
+	}
+	
+	public final boolean getNegatePhysicalOnly()
+	{
+		return _negatePhysicalOnly;
 	}
 
 	public final int getMaxNegatedEffects()
