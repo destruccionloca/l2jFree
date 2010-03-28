@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.grandbosses.QueenAntManager;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -608,6 +609,10 @@ public class L2Spawn
 
 		// Init other values of the L2Npc (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world as a visible object
 		mob.spawnMe(newlocx, newlocy, newlocz, firstspawn);
+		
+		// FIXME @hex1r0 will be removed later
+		if (mob.getNpcId() == 29001)
+			QueenAntManager.getInstance().init(mob);
 
 		L2Spawn.notifyNpcSpawned(mob);
 

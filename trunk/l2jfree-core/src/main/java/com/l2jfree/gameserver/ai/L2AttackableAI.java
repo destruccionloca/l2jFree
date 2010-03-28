@@ -413,7 +413,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 * <li>If the actor is a L2MonsterInstance that can't attack, order to it to random walk (1/100)</li><BR><BR>
 	 * 
 	 */
-	private void thinkActive()
+	protected void thinkActive()
 	{
 		L2Attackable npc = (L2Attackable) _actor;
 
@@ -718,7 +718,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 * <li>Call all L2Object of its Faction inside the Faction Range</li>
 	 * <li>Chose a target and order to attack it with magic skill or physical attack</li><BR><BR>
 	 */
-	private void thinkAttack()
+	protected void thinkAttack()
 	{
 		if (_attackTimeout < GameTimeController.getGameTicks())
 		{

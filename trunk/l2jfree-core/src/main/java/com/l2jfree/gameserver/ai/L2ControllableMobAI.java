@@ -369,7 +369,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 		}
 	}
 	
-	private void thinkActive()
+	protected void thinkActive()
 	{
 		L2Character hated = findNextRndTarget();
 		

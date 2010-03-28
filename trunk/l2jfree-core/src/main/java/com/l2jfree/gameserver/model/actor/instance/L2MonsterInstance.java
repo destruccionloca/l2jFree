@@ -63,12 +63,6 @@ public class L2MonsterInstance extends L2Attackable
 			_minionList  = new MinionList(this);
 		else
 			_minionList = null;
-
-		// [L2J_JP ADD]
-		if (getNpcId() == 29002) // Queen Ant Larva is invulnerable.
-		{
-			setIsInvul(true);
-		}
 	}
 	
 	@Override
