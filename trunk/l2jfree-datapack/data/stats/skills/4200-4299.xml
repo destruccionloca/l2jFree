@@ -314,24 +314,24 @@
     </for>
   </skill>
   <skill id="4216" levels="1" name="Scatter Enemy">
-    <!-- Zaken skills - teleport PC -->
+    <!-- Zaken skills - teleport PC / handeled by core -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="100"/>
-    <set name="skillType" val="RECALL"/>
+    <set name="skillType" val="ZAKEN_TELEPORT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="800"/>
     <set name="effectRange" val="1300"/>
   </skill>
   <skill id="4217" levels="1" name="Scatter Enemies">
-    <!-- Zaken skills -->
+    <!-- Zaken skills / handeled by core -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="100"/>
     <set name="skillRadius" val="300"/>
-    <set name="skillType" val="RECALL"/>
+    <set name="skillType" val="ZAKEN_TELEPORT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="800"/>
     <set name="effectRange" val="1300"/>
@@ -344,7 +344,7 @@
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="2000"/>
-    <set name="skillRadius" val="100"/>
+    <set name="skillRadius" val="300"/>
     <set name="skillType" val="DRAIN"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="57"/>
@@ -378,7 +378,7 @@
     <set name="coolTime" val="900"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="50"/>
+    <set name="castRange" val="100"/>
     <set name="effectRange" val="500"/>
   </skill>
   <skill id="4221" levels="1" name="Deadly Dual-Sword Weapon: Range Attack">
@@ -386,18 +386,18 @@
     <set name="magicLvl" val="60"/>
     <set name="power" val="7224"/>
     <set name="target" val="TARGET_AURA"/>
-    <set name="skillRadius" val="100"/>
+    <set name="skillRadius" val="500"/>
     <set name="hitTime" val="1500"/>
     <set name="coolTime" val="1500"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="4222" levels="1" name="Instant Move">
-    <!-- Zaken skills - self teleport -->
+    <!-- Zaken skills - self teleport / handeled by core -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="500"/>
-    <set name="skillType" val="BUFF"/> <!-- Just Broadcast -->
+    <set name="skillType" val="ZAKEN_TELEPORT"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="4223" levels="1" name="Face Chance: Night to Day">

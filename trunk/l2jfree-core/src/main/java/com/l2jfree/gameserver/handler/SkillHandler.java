@@ -60,6 +60,7 @@ import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
 import com.l2jfree.gameserver.handler.skillhandlers.TransformDispel;
 import com.l2jfree.gameserver.handler.skillhandlers.Trap;
 import com.l2jfree.gameserver.handler.skillhandlers.Unlock;
+import com.l2jfree.gameserver.handler.skillhandlers.ZakenTeleport;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
@@ -127,6 +128,7 @@ public final class SkillHandler extends EnumHandlerRegistry<L2SkillType, ISkillH
 		registerSkillHandler(new TransformDispel());
 		registerSkillHandler(new Trap());
 		registerSkillHandler(new Unlock());
+		registerSkillHandler(new ZakenTeleport());
 		
 		HandlerRegistry._log.info("SkillHandler: Loaded " + size() + " handlers.");
 	}

@@ -127,9 +127,21 @@ public abstract class L2Boss extends L2MonsterInstance
 		if (isDead() || isMovementDisabled())
 			return;
 		
-		// Gordon does not have permanent spawn
-		if (getNpcId() == 29095)
-			return;
+		switch (getNpcId())
+		{
+				// Gordon does not have permanent spawn
+			case 29095:
+				// Antharas lair is very big so just ignore
+			case 29068:
+			case 29067:
+				// QA is handeled by AI script
+			case 29001:
+				// Valakas lair is very big so just ignore
+			case 29028:
+				// Zaken is handeled by AI script
+			case 29022:
+				return;
+		}
 		
 		final L2Spawn spawn = getSpawn();
 		if (spawn == null)

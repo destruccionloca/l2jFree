@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -1075,13 +1076,20 @@ public final class Formulas
 		if (cha.isChampion())
 			hpRegenMultiplier *= Config.CHAMPION_HP_REGEN;
 
-		// [L2J_JP ADD SANDMAN]
 		// The recovery power of Zaken decreases under sunlight.
+		// The recovery power of Zaken increases during night.
 		if (cha instanceof L2GrandBossInstance)
 		{
 			L2GrandBossInstance boss = (L2GrandBossInstance) cha;
-			if ((boss.getNpcId() == 29022) && boss.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM))
-				hpRegenMultiplier *= 0.75;
+			if (boss.getNpcId() == 29022)
+			{
+				if (boss.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM))
+					hpRegenMultiplier *= 0.75;
+				else if (GameTimeController.getInstance().isNowNight())
+				{
+					hpRegenMultiplier *= 1.75;
+				}
+			}
 		}
 
 		if (cha instanceof L2PcInstance)

@@ -10088,3 +10088,6 @@ UPDATE `npc` SET `type` =  'SCBodyDestroyer' WHERE `id` = 22363;
 UPDATE `npc` SET `type` = 'QueenAntLarva', `walkspd` =  '0', `runspd` = '0' WHERE `id` = 29002;
 UPDATE `npc` SET `type` = 'QueenAnt' WHERE `id` = 29001;
 UPDATE `npc` SET `type` = 'QueenAntNurse' WHERE `id` = 29003;
+
+-- Zaken (hex1r0)
+UPDATE `npc` SET `type` = 'Zaken' WHERE `id` = 29022;

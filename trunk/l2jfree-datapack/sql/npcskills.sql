@@ -62388,3 +62388,20 @@ DELETE FROM `npcskills` WHERE `npcid` = 25534 AND `skillid` = 5225;
 DELETE FROM `npcskills` WHERE `npcid` = 25534 AND `skillid` = 5441;
 DELETE FROM `npcskills` WHERE `npcid` = 22363 AND `skillid` = 5256; -- Body Destroyer - Announcement of Death (hex1r0)
 
+-- Zaken Skills (hex1r0)
+DELETE FROM `npcskills` WHERE `npcid` = 29022;
+INSERT INTO `npcskills` VALUES (29022, 4045, 1);
+INSERT INTO `npcskills` VALUES (29022, 4218, 1);
+INSERT INTO `npcskills` VALUES (29022, 4219, 1);
+INSERT INTO `npcskills` VALUES (29022, 4220, 1);
+INSERT INTO `npcskills` VALUES (29022, 4221, 1);
+INSERT INTO `npcskills` VALUES (29022, 4408, 1);
+INSERT INTO `npcskills` VALUES (29022, 4409, 1);
+INSERT INTO `npcskills` VALUES (29022, 4410, 11);
+INSERT INTO `npcskills` VALUES (29022, 4411, 11);
+INSERT INTO `npcskills` VALUES (29022, 4412, 11);
+INSERT INTO `npcskills` VALUES (29022, 4413, 11);
+INSERT INTO `npcskills` VALUES (29022, 4414, 2);
+INSERT INTO `npcskills` VALUES (29022, 4415, 3);
+INSERT INTO `npcskills` VALUES (29022, 4416, 1);
+

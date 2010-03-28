@@ -1421,7 +1421,7 @@
 
   <!-- Zaken, Devil's Isle -->
   <zone id="121" name="zaken_no_restart" type="Danger">
-    <settings exitOnDeath="true" noEscape="true" affected="playable"/>
+    <settings exitOnDeath="true" noEscape="true" noSummon="true" affected="playable"/>
     <shape type="Poly" zMin="-4815" zMax="-315">
       <point x="50797" y="213515"/>
       <point x="57617" y="213510"/>

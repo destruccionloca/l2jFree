@@ -162,7 +162,8 @@ public enum L2SkillType
 	NOTDONE,
 	TELEPORT(L2SkillTeleport.class),
 	CHANGE_APPEARANCE(L2SkillAppearance.class),
-	OPEN_DOOR,
+	OPEN_DOOR, 
+	ZAKEN_TELEPORT,
 	;
 
 	private final Class<? extends L2Skill> _clazz;
