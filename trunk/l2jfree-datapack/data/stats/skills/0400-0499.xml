@@ -498,7 +498,7 @@
     <set name="target" val="TARGET_SELF"/>
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <for>
-      <effect name="SilentMove" abnormal="stealth" time="120" val="0">
+      <effect name="Buff" abnormal="stealth" time="120" val="0" stackOrder="1" stackType="stealth">
         <sub order="0x40" stat="rEvas" val="#rEvas"/>
         <mul order="0x30" stat="pDef" val="#Def"/>
         <mul order="0x30" stat="mDef" val="#Def"/>
@@ -507,7 +507,7 @@
       </effect>
     </for>
     <enchant2for>
-      <effect name="SilentMove" abnormal="stealth" time="#ench2time" val="0">
+      <effect name="Buff" abnormal="stealth" time="#ench2time" val="0" stackOrder="1" stackType="stealth">
         <sub order="0x40" stat="rEvas" val="12"/>
         <mul order="0x30" stat="pDef" val="0.85"/>
         <mul order="0x30" stat="mDef" val="0.85"/>
