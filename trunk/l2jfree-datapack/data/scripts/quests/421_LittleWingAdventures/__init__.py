@@ -12,7 +12,7 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.network import SystemMessageId
-from com.l2jfree.gameserver.network.serverpackets import ItemList;
+from com.l2jfree.gameserver.network.serverpackets import ItemList
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 from com.l2jfree.gameserver.network.serverpackets import SystemMessage
 
@@ -118,7 +118,7 @@ class Quest (JQuest) :
    return htmltext
 
  def onTalk (self,npc,player):
-   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 
+   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
    if not st: return htmltext
    id = st.getState()
@@ -237,7 +237,6 @@ class Quest (JQuest) :
                htmltext = "30747-17.htm"
    return htmltext
 
-
  def onAttack(self, npc, player, damage, isPet, skill) :
    st = player.getQuestState(qn)
    if not st:
@@ -256,7 +255,7 @@ class Quest (JQuest) :
          if st.getQuestItemsCount(FT_LEAF) == 0 :
             st.set("id","15")
             st.set("cond","3")
-   return 
+   return
 
 # Quest class and state definition
 QUEST       = Quest(421,qn,"Little Wing's Big Adventures")
