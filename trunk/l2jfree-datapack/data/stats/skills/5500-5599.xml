@@ -750,6 +750,7 @@
     </for>
   </skill>
   <skill id="5570" levels="1" name="Excessive Royalty">
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_PET"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -766,6 +767,7 @@
   </skill>
   <skill id="5571" levels="1" name="Mutual Response">
     <!-- Need retail values -->
+    <set name="magicLvl" val="81"/>
     <set name="restoredHP" val="50"/>
     <set name="restoredMP" val="50"/>
     <set name="target" val="TARGET_PET"/>

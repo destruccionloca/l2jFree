@@ -1194,6 +1194,7 @@
     </for>
   </skill>
   <skill id="766" levels="1" name="Sixth Sense">
+    <set name="magicLvl" val="81"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1857,12 +1858,37 @@
     </for>
   </skill>
   <skill id="799" levels="3" name="Master Ability - Defense">
-    <table name="#pDef"> 12 24 36 </table>
+    <table name="#Heavy"> 72 84 96 </table>
+    <table name="#Light"> 36 48 60 </table>
+    <table name="#Robe"> 12 24 36 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" val="#pDef" stat="pDef"/>
+      <add order="0x40" stat="pDef" val="#Heavy">
+        <and>
+          <using kind="Heavy"/>
+          <not>
+            <using kind="Light,Magic"/>
+          </not>
+        </and>
+      </add>
+      <add order="0x40" stat="pDef" val="#Light">
+        <and>
+          <using kind="Light"/>
+          <not>
+            <using kind="Heavy,Magic"/>
+          </not>
+        </and>
+      </add>
+      <add order="0x40" stat="pDef" val="#Robe">
+        <and>
+          <using kind="Magic"/>
+          <not>
+            <using kind="Light,Heavy"/>
+          </not>
+        </and>
+      </add>
     </for>
   </skill>
 </list>

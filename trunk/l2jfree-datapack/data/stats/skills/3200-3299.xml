@@ -16,7 +16,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="Buff" time="120" val="0">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="item_skill">
         <mul order="0x30" stat="mReuse" val="#mReuse"/>
       </effect>
     </for>
@@ -36,7 +36,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="Buff" time="120" val="0">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="item_skill">
         <mul order="0x30" stat="pReuse" val="#pReuse"/>
       </effect>
     </for>
@@ -56,7 +56,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="Buff" time="120" val="0">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="item_skill">
         <mul order="0x30" stat="mReuse" val="#reuseRate"/>
         <mul order="0x30" stat="pReuse" val="#reuseRate"/>
       </effect>
@@ -72,7 +72,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="equipDelay" val="30000"/>
     <for>
-      <effect name="BigHead" time="120" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
+      <effect name="BigHead" time="120" val="0" abnormal="bighead" stackOrder="1" stackType="item_skill"/>
     </for>
   </skill>
   <skill id="3204" levels="3" name="Item Skill: Reflect Damage">
@@ -90,7 +90,7 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect name="Buff" time="120" val="0">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="item_skill">
         <add order="0x40" stat="reflectDam" val="#reflectDam"/>
       </effect>
     </for>
@@ -591,17 +591,27 @@
       Description(s): Lvl 1-10 - Passive: Increases the height from which you can
       jump without sustaining damage when equipped.
     -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#fallVuln"> 0.97 0.94 0.91 0.88 0.85 0.82 0.79 0.76 0.73 0.7 </table>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <for>
+      <mul order="0x30" stat="fallVuln" val="#fallVuln"/>
+    </for>
   </skill>
   <skill id="3254" levels="10" name="Item Skill: Iron Body">
     <!--
       Description(s): Lvl 1-10 - Passive: Raises resistance to damage from falling when equipped.
     -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#fallVuln"> 0.96 0.92 0.88 0.84 0.8 0.76 0.72 0.68 0.64 0.6 </table>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="castRange" val="-1"/>
+    <for>
+      <mul order="0x30" stat="fallVuln" val="#fallVuln"/>
+    </for>
   </skill>
   <skill id="3255" levels="3" name="Item Skill: Skill Clarity">
     <table name="#PhysicalMpConsumeRate"> 0.95 0.92 0.9 </table>

@@ -715,6 +715,7 @@
   <skill id="1532" levels="1" name="Enlightenment">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -734,6 +735,7 @@
   <skill id="1533" levels="1" name="Enlightenment">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -880,6 +882,7 @@
     </for>
   </skill>
   <skill id="1540" levels="1" name="Turn to Stone">
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -893,6 +896,7 @@
   <skill id="1541" levels="1" name="Curse of Desparion">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
+    <set name="magicLvl" val="83"/>
     <set name="power" val="80"/>
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
@@ -933,6 +937,7 @@
   <skill id="1543" levels="1" name="Great Fury">
     <!-- disabled until core-side support is done -->
     <!-- it's triggered ONLY by casting "Burning Chop" ID: 927 -->
+    <set name="magicLvl" val="83"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>

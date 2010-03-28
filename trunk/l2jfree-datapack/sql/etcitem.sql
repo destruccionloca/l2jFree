@@ -9768,3 +9768,37 @@ UPDATE `etcitem` SET `handler` = 'ExtractableItems' WHERE `item_id` IN (
 13116,13288,13353,13377,13093,13117,13289,13354,13378,13094,13118,13290,13355,13379,13098,13122,13124,
 13359,13360,14232,14241,20395,20058,20059,14240,20096,20189,14252,14253,14254,14255,14256,14278,14279,
 14280,14281,14282,14257,14258,14259,14260,14261,14283,14284,14285,14286,14287);
+
+-- Supply boxes (Spire)
+UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (
+13695,13696,13697,13698,13699,13700,13701,13702,13703,13704,13705,13706,13707,13708,13709,13710,13711,
+13712,13713,13714,13715,13716,13717,13718,13719,13720,13721);
+
+UPDATE `etcitem` SET `skills_item` = '2921-1' WHERE `item_id` = 13695;
+UPDATE `etcitem` SET `skills_item` = '2922-1' WHERE `item_id` = 13696;
+UPDATE `etcitem` SET `skills_item` = '2923-1' WHERE `item_id` = 13697;
+UPDATE `etcitem` SET `skills_item` = '2924-1' WHERE `item_id` = 13698;
+UPDATE `etcitem` SET `skills_item` = '2925-1' WHERE `item_id` = 13699;
+UPDATE `etcitem` SET `skills_item` = '2926-1' WHERE `item_id` = 13700;
+UPDATE `etcitem` SET `skills_item` = '2927-1' WHERE `item_id` = 13701;
+UPDATE `etcitem` SET `skills_item` = '2928-1' WHERE `item_id` = 13702;
+UPDATE `etcitem` SET `skills_item` = '2929-1' WHERE `item_id` = 13703;
+UPDATE `etcitem` SET `skills_item` = '2930-1' WHERE `item_id` = 13704;
+UPDATE `etcitem` SET `skills_item` = '2931-1' WHERE `item_id` = 13705;
+UPDATE `etcitem` SET `skills_item` = '2932-1' WHERE `item_id` = 13706;
+UPDATE `etcitem` SET `skills_item` = '2933-1' WHERE `item_id` = 13707;
+UPDATE `etcitem` SET `skills_item` = '2934-1' WHERE `item_id` = 13708;
+UPDATE `etcitem` SET `skills_item` = '2935-1' WHERE `item_id` = 13709;
+UPDATE `etcitem` SET `skills_item` = '2936-1' WHERE `item_id` = 13710;
+UPDATE `etcitem` SET `skills_item` = '2937-1' WHERE `item_id` = 13711;
+UPDATE `etcitem` SET `skills_item` = '2938-1' WHERE `item_id` = 13712;
+UPDATE `etcitem` SET `skills_item` = '2939-1' WHERE `item_id` = 13713;
+UPDATE `etcitem` SET `skills_item` = '2940-1' WHERE `item_id` = 13714;
+UPDATE `etcitem` SET `skills_item` = '2941-1' WHERE `item_id` = 13715;
+UPDATE `etcitem` SET `skills_item` = '2942-1' WHERE `item_id` = 13716;
+UPDATE `etcitem` SET `skills_item` = '2943-1' WHERE `item_id` = 13717;
+UPDATE `etcitem` SET `skills_item` = '2944-1' WHERE `item_id` = 13718;
+UPDATE `etcitem` SET `skills_item` = '2945-1' WHERE `item_id` = 13719;
+UPDATE `etcitem` SET `skills_item` = '2946-1' WHERE `item_id` = 13720;
+UPDATE `etcitem` SET `skills_item` = '2947-1' WHERE `item_id` = 13721;
+

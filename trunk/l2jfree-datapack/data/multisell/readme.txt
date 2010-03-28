@@ -77,6 +77,9 @@ of this directory a little bit.
 311262514.xml -> Seven Signs - Blacksmith of Mammon - Unseal S80-Grade Armor
 311262515.xml -> Seven Signs - Blacksmith of Mammon - Unseal S80-grade Accesories
 311262516.xml -> Seven Signs - Blacksmith of Mammon - Exchange rare armor for superior armor.
+311262517.xml -> Seven Signs - Blacksmith of Mammon - SA: S80-Grade
+311262518.xml -> Seven Signs - Blacksmith of Mammon - SA: S84-Grade
+
 9987.xml  -> Blacksmith of Mammon AA Exchange
 
 306893001.xml -> Shadow weaponry system. D-grade coupons exchange

@@ -172,7 +172,7 @@
   <skill id="3608" levels="2" name="Apella Heavy Armor Set">
     <table name="#maxCP"> 1035 1116 </table>
     <table name="#triggeredLevel"> 1 2 </table>
-    <set name="activationChance" val="5"/>
+    <set name="activationChance" val="10"/>
     <set name="chanceType" val="ON_ATTACKED_HIT"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -188,7 +188,7 @@
   <skill id="3609" levels="2" name="Apella Light Armor Set">
     <table name="#maxCP"> 1035 1116 </table>
     <table name="#triggeredLevel"> 1 2 </table>
-    <set name="activationChance" val="5"/>
+    <set name="activationChance" val="10"/>
     <set name="chanceType" val="ON_ATTACKED_HIT"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -204,7 +204,7 @@
   <skill id="3610" levels="2" name="Apella Robe Set">
     <table name="#maxCP"> 1035 1116 </table>
     <table name="#triggeredLevel"> 1 2 </table>
-    <set name="activationChance" val="5"/>
+    <set name="activationChance" val="10"/>
     <set name="chanceType" val="ON_ATTACKED_HIT"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="skillType" val="BUFF"/>

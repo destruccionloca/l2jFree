@@ -515,6 +515,7 @@
     </cond>
   </skill>
   <skill id="2658" levels="1" name="Dual Dagger Mastery">
+    <set name="magicLvl" val="81"/>
     <set name="itemConsumeId" val="14210"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
@@ -642,7 +643,7 @@
       </and>
     </cond>
   </skill>
-  <skill id="2666" levels="1" name="Duel Blow">
+  <skill id="2666" levels="1" name="Dual Blow">
     <set name="itemConsumeId" val="14218"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>

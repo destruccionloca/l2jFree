@@ -229,6 +229,7 @@
   <skill id="912" levels="1" name="Summon Imperial Phoenix">
     <set name="mpInitialConsume" val="29"/>
     <set name="mpConsume" val="116"/>
+    <set name="magicLvl" val="83"/>
     <set name="itemConsumeId" val="1461"/>
     <set name="itemConsumeCount" val="2"/>
     <set name="itemConsumeIdOT" val="1461"/>
@@ -249,6 +250,7 @@
   <skill id="913" levels="1" name="Deflect Magic">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
+    <set name="magicLvl" val="81"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
@@ -264,6 +266,7 @@
   <skill id="914" levels="1" name="Song of Purification">
     <set name="mpInitialConsume" val="12"/>
     <set name="mpConsume" val="48"/>
+    <set name="magicLvl" val="83"/>
     <set name="nextDanceCost" val="30"/>
     <set name="isSong" val="true"/>
     <set name="target" val="TARGET_PARTY"/>
@@ -285,6 +288,7 @@
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpInitialConsume" val="12"/>
     <set name="mpConsume" val="48"/>
+    <set name="magicLvl" val="83"/>
     <set name="nextDanceCost" val="30"/>
     <set name="isDance" val="true"/>
     <set name="skillRadius" val="1000"/>
@@ -329,6 +333,7 @@
   <skill id="917" levels="1" name="Final Secret">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
+    <set name="magicLvl" val="81"/>
     <set name="reuseDelay" val="150000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
@@ -345,6 +350,7 @@
     <set name="mpInitialConsume" val="4"/>
     <set name="mpConsume" val="16"/>
     <set name="hpConsume" val="80"/>
+    <set name="magicLvl" val="83"/>
     <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="900"/>
     <set name="target" val="TARGET_SELF"/>
@@ -357,6 +363,7 @@
     <set name="mpInitialConsume" val="4"/>
     <set name="mpConsume" val="16"/>
     <set name="hpConsume" val="80"/>
+    <set name="magicLvl" val="83"/>
     <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="900"/>
     <set name="target" val="TARGET_SELF"/>
@@ -405,6 +412,7 @@
     <set name="effectRange" val="800"/>
   </skill>
   <skill id="922" levels="1" name="Hide">
+    <set name="magicLvl" val="81"/>
     <set name="reuseDelay" val="180000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -419,6 +427,7 @@
     <!-- Done by DJ MELERIX -->
     <!-- Client description says blowRate. -->
     <set name="weaponsAllowed" val="262144"/> <!-- Dual Daggers -->
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -430,6 +439,7 @@
   <skill id="924" levels="1" name="Seven Arrow">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
+    <set name="magicLvl" val="81"/>
     <set name="power" val="4000"/>
     <set name="reuseDelay" val="600000"/>
     <set name="hitTime" val="15000"/>
@@ -591,6 +601,7 @@
   <skill id="932" levels="9" name="Star Stone Gathering">
     <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="6000"/>
+    <set name="magicLvl" val="83"/>
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -726,6 +737,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="945" levels="1" name="Magician's Will">
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -737,6 +749,7 @@
     </for>
   </skill>
   <skill id="946" levels="1" name="Silent Mind">
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -766,6 +779,7 @@
     <!-- For 10 seconds, returns damage from close range physical attacks and skills back to the opponent. -->
     <set name="mpInitialConsume" val="5"/>
     <set name="mpConsume" val="23"/>
+    <set name="magicLvl" val="83"/>
     <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="500"/>
     <set name="target" val="TARGET_SELF"/>
@@ -783,6 +797,7 @@
     <set name="power" val="4312"/>
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="28"/>
+    <set name="magicLvl" val="83"/>
     <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1000"/>
     <set name="isDebuff" val="true"/>

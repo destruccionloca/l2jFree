@@ -1880,6 +1880,7 @@
     <!-- TODO: Needs Core-Side Support for "continuous fire damage" -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
+    <set name="magicLvl" val="81"/>
     <set name="power" val="117"/>
     <set name="isMagic" val="true"/>
     <set name="element" val="0"/> <!-- Fire -->
@@ -1898,6 +1899,7 @@
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="58"/>
     <set name="power" val="117"/>
+    <set name="magicLvl" val="81"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="225000"/>
     <set name="hitTime" val="11000"/>
@@ -2548,6 +2550,7 @@
   <skill id="1496" levels="1" name="Servitor Barrier">
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="58"/>
+    <set name="magicLvl" val="81"/>
     <set name="itemConsumeCount" val="5"/>
     <set name="itemConsumeId" val="3031"/>
     <set name="isMagic" val="true"/>
@@ -2566,6 +2569,7 @@
   </skill>
   <skill id="1497" levels="1" name="Excessive Loyalty">
     <!-- When the master incurs damage, the servitor's battle skills are increased. -->
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -2575,6 +2579,7 @@
     <set name="chanceType" val="ON_HIT"/>
   </skill>
   <skill id="1498" levels="1" name="Mutual Response">
+    <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
