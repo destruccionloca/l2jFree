@@ -257,6 +257,7 @@
     <set name="power" val="10845"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="3000"/>
+	<set name="reuseDelay" val="10000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
