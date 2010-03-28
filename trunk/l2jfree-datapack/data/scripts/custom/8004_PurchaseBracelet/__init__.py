@@ -7,7 +7,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "8004_PurchaseBracelet"
 
 # NPCs
-TRADER_ALEXANDRIA = 30098
+TRADER_ALEXANDRIA   = 30098
 
 # QUEST ITEMS
 ANGEL_BRACELET      = 12779
@@ -20,7 +20,6 @@ EARTH_EGG           = 9816
 NONLIVING_NUCLEUS   = 9817
 ADENA_ID            = 57
 
-
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
@@ -29,7 +28,7 @@ class Quest (JQuest) :
     htmltext = event
     st = player.getQuestState(qn)
     if not st : return
-    if st.getQuestItemsCount(BIG_RED_NIMBLE_FISH) >= 20 and st.getQuestItemsCount(GREAT_CODRAN) >= 50 and st.getQuestItemsCount(MEMENTO_MORI) >= 4 and st.getQuestItemsCount(EARTH_EGG) >= 5 and st.getQuestItemsCount(NONLIVING_NUCLEUS) >= 5 and st.getQuestItemsCount(DRAGON_HEART) >= 3 and st.getQuestItemsCount(ADENA_ID) >= 7500000 :
+    if st.getQuestItemsCount(BIG_RED_NIMBLE_FISH) >= 25 and st.getQuestItemsCount(GREAT_CODRAN) >= 50 and st.getQuestItemsCount(MEMENTO_MORI) >= 4 and st.getQuestItemsCount(EARTH_EGG) >= 5 and st.getQuestItemsCount(NONLIVING_NUCLEUS) >= 5 and st.getQuestItemsCount(DRAGON_HEART) >= 3 and st.getQuestItemsCount(ADENA_ID) >= 7500000 :
        st.takeItems(BIG_RED_NIMBLE_FISH,25)
        st.takeItems(GREAT_CODRAN,50)
        st.takeItems(MEMENTO_MORI,4)
