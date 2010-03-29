@@ -692,10 +692,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (_actor instanceof L2MonsterInstance)
 			{
 				L2MonsterInstance boss = (L2MonsterInstance) _actor;
-				if (boss.hasMinions())
-				{
-					boss.callMinions();
-				}
+				boss.callMinions();
 			}
 		}
 	}

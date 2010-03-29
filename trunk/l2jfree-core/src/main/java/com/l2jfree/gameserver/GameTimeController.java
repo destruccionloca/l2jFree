@@ -166,12 +166,13 @@ public final class GameTimeController
 				//update time for all players
 				Broadcast.toAllOnlinePlayers(ClientSetTime.STATIC_PACKET);
 				
-				//check for zaken door
+				// check for zaken door
 				if (newHour == Config.ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR)
 				{
 					DoorTable.getInstance().getDoor(21240006).openMe();
-					
-					ThreadPoolManager.getInstance().schedule(new Runnable() {
+
+					ThreadPoolManager.getInstance().schedule(new Runnable()
+					{
 						public void run()
 						{
 							DoorTable.getInstance().getDoor(21240006).closeMe();

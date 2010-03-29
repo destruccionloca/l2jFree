@@ -1086,9 +1086,7 @@ public final class Formulas
 				if (boss.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM))
 					hpRegenMultiplier *= 0.75;
 				else if (GameTimeController.getInstance().isNowNight())
-				{
 					hpRegenMultiplier *= 1.75;
-				}
 			}
 		}
 

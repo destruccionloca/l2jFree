@@ -14,15 +14,108 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import com.l2jfree.gameserver.datatables.NpcTable;
+import com.l2jfree.gameserver.datatables.SkillTable;
+import com.l2jfree.gameserver.datatables.SpawnTable;
+import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2Math;
+import com.l2jfree.tools.random.Rnd;
 
 /** 
  * @author hex1r0
  **/
 public class ZakenAI extends L2AttackableAI
-{
+{	
+	private final int _minionIds[] =
+		{ 29023, 29024, 29026, 29027 };
+	
+	private final int _chances[] =
+		{ 90, 80, 50, 75 };
+	
+	private long _lastMinionSpawn = System.currentTimeMillis();
+	
 	public ZakenAI(AIAccessor accessor)
 	{
 		super(accessor);
+	}
+
+	@Override
+	protected void thinkActive()
+	{
+		super.thinkActive();
+		
+		if (Rnd.nextInt(1000) == 0)
+		{
+			_actor.doCast(SkillTable.getInstance().getInfo(4222, 1));
+		}
+	}
+
+	@Override
+	protected void thinkAttack()
+	{
+		super.thinkAttack();
+		
+		if (Rnd.nextInt(100) == 0)
+		{
+			_actor.doCast(SkillTable.getInstance().getInfo(4222, 1));
+		}
+		else if(Rnd.get(100) < 5)
+		{
+			_actor.doCast(SkillTable.getInstance().getInfo(4216, 1));
+		}
+		else if(Rnd.get(100) < 10)
+		{
+			_actor.doCast(SkillTable.getInstance().getInfo(4217, 1));
+		}
+		
+		if (Rnd.get(100) < (L2Math.limit(1, 90 - (_actor.getCurrentHp() / _actor.getMaxHp() * 100), 90)))
+		{
+			for (int i = 0; i < _minionIds.length; i++)
+			{
+				if (Rnd.get(100) < _chances[i])
+					spawnMinion(_minionIds[i]);
+			}
+			_lastMinionSpawn = System.currentTimeMillis();
+		}
+	}
+	
+	private void spawnMinion(int minionId)
+	{
+		if (System.currentTimeMillis() - _lastMinionSpawn <= 60000)
+			return;
+		
+		L2NpcTemplate template = NpcTable.getInstance().getTemplate(minionId);
+		if (template != null)
+		{
+			int x = _actor.getX();
+			int y = _actor.getY();
+			int z = _actor.getZ();
+
+			int offset = Rnd.get(2); // Get the direction of the offset
+			if (offset == 0)
+			{
+				offset = -1;
+			} // make offset negative
+			offset *= Rnd.get(50, 100);
+			x += offset;
+
+			offset = Rnd.get(2); // Get the direction of the offset
+			if (offset == 0)
+			{
+				offset = -1;
+			} // make offset negative
+			offset *= Rnd.get(50, 100);
+			y += offset;
+
+			L2Spawn spawn = new L2Spawn(template);
+			spawn.setHeading(0);
+			spawn.setLocx(x);
+			spawn.setLocy(y);
+			spawn.setLocz(z + 20);
+			spawn.stopRespawn();
+			spawn.spawnOne(false);
+		}
 	}
 }
