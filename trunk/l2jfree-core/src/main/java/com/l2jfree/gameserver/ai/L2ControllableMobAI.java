@@ -262,6 +262,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 		_accessor.doAttack(target);
 	}
 	
+	@Override
 	protected void thinkAttack()
 	{
 		L2Character target = getAttackTarget();
@@ -369,6 +370,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 		}
 	}
 	
+	@Override
 	protected void thinkActive()
 	{
 		L2Character hated = findNextRndTarget();

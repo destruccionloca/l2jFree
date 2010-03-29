@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
