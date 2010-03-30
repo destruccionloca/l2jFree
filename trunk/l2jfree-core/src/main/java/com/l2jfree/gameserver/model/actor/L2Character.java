@@ -5666,7 +5666,7 @@ public abstract class L2Character extends L2Object
 				if (e.getSkill().isChance())
 					continue; // don't remove triggered effects
 				
-				if (Config.ALT_KEEP_ITEM_BUFFS && e.getSkill().isItemSkill())
+				if (Config.ALT_KEEP_ITEM_BUFFS && e.getSkill().isItemSkill() && e.getSkill().isActive())
 					continue; // skip item/augmentation active/self buffs
 
 				if (e.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
