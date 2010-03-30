@@ -850,4 +850,17 @@ public final class ItemTable
 				return false;
 		}
 	}
+	
+	public static boolean isSealStone(int itemId)
+	{
+		switch (itemId)
+		{
+			case 6360:
+			case 6361:
+			case 6362:
+				return true;
+			default:
+				return false;
+		}
+	}
 }

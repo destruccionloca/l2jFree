@@ -1127,6 +1127,10 @@ public class L2Attackable extends L2Npc
 			else
 				chance *= Config.RATE_DROP_ADENA;
 		}
+		else if (drop != null && ItemTable.isSealStone(drop.getItemId()))
+		{
+			chance *= Config.RATE_DROP_SEALSTONE;
+		}
 		else if (isSweep)
 		{
 			if (this instanceof L2RaidBossInstance)
@@ -1150,8 +1154,10 @@ public class L2Attackable extends L2Npc
 		
 		if (isChampion())
 		{
-			if (drop != null && ItemTable.isAdenaLikeItem(drop.getItemId()))
+			if (drop != null && drop.getItemId() == 57)
 				chance *= Config.CHAMPION_ADENA;
+			else if (drop != null && ItemTable.isSealStone(drop.getItemId()))
+				chance *= Config.CHAMPION_SEALSTONE;
 			else
 				chance *= Config.CHAMPION_REWARDS;
 		}

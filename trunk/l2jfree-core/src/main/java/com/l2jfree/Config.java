@@ -410,6 +410,7 @@ public class Config extends L2Config
 	public static float			CHAMPION_HP_REGEN;									// Hp.reg multiplier
 	public static float			CHAMPION_ATK;										// P.Atk & M.Atk multiplier
 	public static float			CHAMPION_SPD_ATK;									// Attack speed multiplier
+	public static int			CHAMPION_SEALSTONE;
 	public static int			CHAMPION_ADENA;									// Adena/Sealstone reward multiplier
 	public static int			CHAMPION_REWARDS;									// Drop/Spoil reward multiplier
 	public static int			CHAMPION_EXP_SP;									// Exp/Sp reward multiplier
@@ -441,6 +442,7 @@ public class Config extends L2Config
 			CHAMPION_HP = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
 			CHAMPION_HP_REGEN = Float.parseFloat(championsSettings.getProperty("ChampionHpRegen", "1."));
 			CHAMPION_REWARDS = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
+			CHAMPION_SEALSTONE = Integer.parseInt(championsSettings.getProperty("ChampionSealStoneRewards", "1"));
 			CHAMPION_ADENA = Integer.parseInt(championsSettings.getProperty("ChampionAdenasRewards", "1"));
 			CHAMPION_ATK = Float.parseFloat(championsSettings.getProperty("ChampionAtk", "1."));
 			CHAMPION_SPD_ATK = Float.parseFloat(championsSettings.getProperty("ChampionSpdAtk", "1."));
@@ -541,6 +543,7 @@ public class Config extends L2Config
 	public static float			RATE_QUESTS_REWARD_EXPSP;
 	public static float			RATE_QUESTS_REWARD_ADENA;
 	public static float			RATE_QUESTS_REWARD_ITEMS;
+	public static float			RATE_DROP_SEALSTONE;
 	public static float			RATE_DROP_ADENA;
 	public static float			RATE_DROP_ADENA_RAID;
 	public static float			RATE_DROP_ADENA_GRAND_BOSS;
@@ -606,6 +609,7 @@ public class Config extends L2Config
 			RATE_QUESTS_REWARD_ADENA = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardAdena", "1."));
 			RATE_QUESTS_REWARD_ITEMS = Float.parseFloat(ratesSettings.getProperty("RateQuestsRewardItems", "1."));
 
+			RATE_DROP_SEALSTONE = Float.parseFloat(ratesSettings.getProperty("RateDropSealStone", "1."));
 			RATE_DROP_ADENA = Float.parseFloat(ratesSettings.getProperty("RateDropAdena", "1."));
 			RATE_DROP_ADENA_RAID = Float.parseFloat(ratesSettings.getProperty("RateDropAdenaRaid", "1."));
 			RATE_DROP_ADENA_GRAND_BOSS = Float.parseFloat(ratesSettings.getProperty("RateDropAdenaGrandBoss", "1."));
