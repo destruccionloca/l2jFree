@@ -1593,7 +1593,6 @@ public class Config extends L2Config
 	public static boolean				ALT_SPAWN_SIEGE_GUARD;														// Config for spawn siege guards
 	public static int					ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 	public static int					ALT_TIME_OF_OPENING_A_DOOR;
-	public static int					ALT_NURSEANT_RESPAWN_DELAY;
 	public static int					ALT_TIMELIMITOFINVADE;														//Time limit of invade to lair of bosses after server restarted
 	public static int					ALT_DWARF_RECIPE_LIMIT;													// Recipebook limits
 	public static int					ALT_COMMON_RECIPE_LIMIT;
@@ -1881,13 +1880,7 @@ public class Config extends L2Config
 
 			ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(altSettings.getProperty("TimeInADayOfOpenADoor", "0"));
 			ALT_TIME_OF_OPENING_A_DOOR = Integer.parseInt(altSettings.getProperty("TimeOfOpeningADoor", "5"));
-			ALT_NURSEANT_RESPAWN_DELAY = Integer.parseInt(altSettings.getProperty("NurseAntRespawnDelay", "15"));
-			if (ALT_NURSEANT_RESPAWN_DELAY < 15)
-				ALT_NURSEANT_RESPAWN_DELAY = 15;
-			else if (ALT_NURSEANT_RESPAWN_DELAY > 120)
-				ALT_NURSEANT_RESPAWN_DELAY = 120;
-			ALT_NURSEANT_RESPAWN_DELAY = ALT_NURSEANT_RESPAWN_DELAY * 1000;
-
+			
 			ALT_TIMELIMITOFINVADE = Integer.parseInt(altSettings.getProperty("TimeLimitOfInvade", "1800000"));
 
 			ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
@@ -2993,6 +2986,11 @@ public class Config extends L2Config
 	public static final String	BOSS_FILE	= "./config/boss.properties";
 	// *******************************************************************************************
 	/*****************************************
+	 * Queen Ant CONFIG *
+	 *****************************************/
+	public static int			NURSEANT_RESPAWN_DELAY;
+	
+	/*****************************************
 	 * Antharas CONFIG *
 	 *****************************************/
 	public static int			FWA_FIXINTERVALOFANTHARAS;
@@ -3090,7 +3088,15 @@ public class Config extends L2Config
 		@Override
 		protected void loadImpl(L2Properties bossSettings) throws Exception
 		{
-			//antharas
+			// Queen Ant
+			NURSEANT_RESPAWN_DELAY = Integer.parseInt(bossSettings.getProperty("NurseAntRespawnDelay", "15"));
+			if (NURSEANT_RESPAWN_DELAY < 15)
+				NURSEANT_RESPAWN_DELAY = 15;
+			else if (NURSEANT_RESPAWN_DELAY > 120)
+				NURSEANT_RESPAWN_DELAY = 120;
+			NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
+
+			// antharas
 			FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520"));
 			if (FWA_FIXINTERVALOFANTHARAS < 5 || FWA_FIXINTERVALOFANTHARAS > 20160)
 				FWA_FIXINTERVALOFANTHARAS = 11520;
@@ -4327,7 +4333,7 @@ public class Config extends L2Config
 		else if (pName.equalsIgnoreCase("TimeOfOpeningADoor"))
 			ALT_TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("NurseAntRespawnDelay"))
-			ALT_NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue);
+			NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("TimeLimitOfInvade"))
 			ALT_TIMELIMITOFINVADE = Integer.parseInt(pValue);
 

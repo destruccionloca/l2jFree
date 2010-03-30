@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.instancemanager.grandbosses;
 
 import javolution.util.FastList;
 
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Spawn;
@@ -63,7 +64,7 @@ public class QueenAntManager
 			nurseSpawn.setLocy(y);
 			nurseSpawn.setLocz(_queenAntPos.z);
 			nurseSpawn.setHeading(_queenAntPos.heading);
-			nurseSpawn.setRespawnDelay(10);
+			nurseSpawn.setRespawnDelay(Config.NURSEANT_RESPAWN_DELAY);
 			_nurseSpawns.add(nurseSpawn);
 		}
 	}
