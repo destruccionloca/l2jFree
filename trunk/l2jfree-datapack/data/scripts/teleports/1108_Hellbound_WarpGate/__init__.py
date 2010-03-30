@@ -24,7 +24,6 @@ class Quest(JQuest):
 
     def __init__(self,id,name,descr):
         JQuest.__init__(self,id,name,descr)
-        warpEnergy = self.loadGlobalQuestVar("WarpGateEnergy")
         longQuest = self.loadGlobalQuestVar("BloodyHotQuest")
         if longQuest == "":
             self.saveGlobalQuestVar("BloodyHotQuest","0")
