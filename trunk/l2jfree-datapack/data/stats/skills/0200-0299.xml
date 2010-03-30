@@ -314,7 +314,7 @@
         retail value: 5MP/sec; stat update every 3 sec
         Verified by slyce - Interlude - 12th Aug 2007
       -->
-      <effect count="0x7fffffff" name="ManaDamOverTime" abnormal="stealth" time="3" val="15" stackOrder="1" stackType="stealth">
+      <effect count="0x7fffffff" name="SilentMove" abnormal="stealth" time="3" val="15" stackOrder="1" stackType="stealth">
         <mul order="0x30" stat="runSpd" val="0.6"/>
       </effect>
     </for>
