@@ -55,7 +55,6 @@ class QuarrySlave(JQuest):
 
 	def onTalk (self,npc,player):
 		npcId = npc.getNpcId()
-		# trust = getHellbountPoints(self)
 		if npcId == 32299 and HellboundManager.getInstance().getHellboundLevel() == 5:
 			npc.setTarget(player);
 			npc.setRunning()
