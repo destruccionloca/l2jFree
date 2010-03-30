@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class manages AI of Body Destroyer in Steel Citadel
@@ -55,7 +56,8 @@ public class SCBodyDestroyerAI extends L2AttackableAI
 	{
 		if (_firstAttakerObjectId > 0)
 		{
-			L2World.getInstance().getPlayer(_firstAttakerObjectId).getEffects().stopEffects(5256);
+			L2PcInstance p = L2World.getInstance().getPlayer(_firstAttakerObjectId);
+			p.getEffects().removeEffect(p.getFirstEffect(5256));
 			_firstAttakerObjectId = 0;
 		}
 		super.onEvtDead();

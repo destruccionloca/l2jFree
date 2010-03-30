@@ -19,34 +19,26 @@ import com.l2jfree.gameserver.skills.Env;
 import com.l2jfree.gameserver.templates.effects.EffectTemplate;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
-public class EffectDelayedKill extends L2Effect
+/**
+ * @author hex1r0
+ **/
+public class EffectInstantDeath extends L2Effect
 {
-	public EffectDelayedKill(Env env, EffectTemplate template)
+	protected EffectInstantDeath(Env env, EffectTemplate template)
 	{
 		super(env, template);
-	}
-	
-	public EffectDelayedKill(Env env, L2Effect effect)
-	{
-		super(env, effect);
 	}
 
 	@Override
 	public L2EffectType getEffectType()
 	{
-		return L2EffectType.DELAYEDKILL;
+		return L2EffectType.INSTANT_DEATH;
 	}
 
 	@Override
 	protected boolean onStart()
 	{
+		getEffected().doDie(getEffector());
 		return true;
-	}
-	
-	@Override
-	protected void onExit()
-	{
-		if (getTime() == getTotalTaskTime())
-			getEffected().doDie(getEffector());
 	}
 }

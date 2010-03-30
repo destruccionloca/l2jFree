@@ -77,5 +77,5 @@ public enum L2EffectType
 	NEGATE,
 	HIDE,
 	THROW_UP, 
-	DELAYEDKILL
+	INSTANT_DEATH
 }
