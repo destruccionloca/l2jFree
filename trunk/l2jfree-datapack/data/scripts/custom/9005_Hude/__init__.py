@@ -61,7 +61,7 @@ class Quest (JQuest) :
 				htmltext = "hude_no.htm"
 			elif basicCertif:
 				htmltext = "hude.htm"
-		elif hellboundLevel > 4 and hellboundLevel < 7:
+		elif hellboundLevel >= 4 and hellboundLevel < 7:
 			if not basicCertif:
 				htmltext = "hude_no.htm"
 			elif basicCertif and not standartCertif:
@@ -70,7 +70,7 @@ class Quest (JQuest) :
 				htmltext = "hude_basic.htm"
 			else:
 				htmltext = "hude_no.htm"
-		elif hellboundLevel > 7:
+		elif hellboundLevel >= 7:
 			if not basicCertif:
 				htmltext = "hude_no.htm"
 			if basicCertif and not standartCertif:
