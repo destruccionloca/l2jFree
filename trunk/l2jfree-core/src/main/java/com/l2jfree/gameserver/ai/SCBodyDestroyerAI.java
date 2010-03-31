@@ -57,7 +57,8 @@ public class SCBodyDestroyerAI extends L2AttackableAI
 		if (_firstAttakerObjectId > 0)
 		{
 			L2PcInstance p = L2World.getInstance().getPlayer(_firstAttakerObjectId);
-			p.getEffects().removeEffect(p.getFirstEffect(5256));
+			// FIXME
+			//p.getEffects().removeEffect(p.getFirstEffect(5256));
 			_firstAttakerObjectId = 0;
 		}
 		super.onEvtDead();

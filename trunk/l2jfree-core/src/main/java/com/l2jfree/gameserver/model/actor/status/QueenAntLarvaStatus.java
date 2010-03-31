@@ -27,26 +27,16 @@ public class QueenAntLarvaStatus extends AttackableStatus
 	{
 		super(activeChar);
 	}
-	
+
 	@Override
 	public QueenAntLarvaInstance getActiveChar()
 	{
-		return (QueenAntLarvaInstance)_activeChar;
+		return (QueenAntLarvaInstance) _activeChar;
 	}
-	
-	@Override
-	boolean canReduceHp(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
-	{
-		// TODO: is isInvul() and so on (inside super..) ignored for a purpose?
-		return true;
-	}
-	
+
 	@Override
 	void reduceHp0(double value, L2Character attacker, boolean awake, boolean isDOT, boolean isConsume)
 	{
-		// TODO: is super.reduceHp0() missing for a purpose?
-		
-		getActiveChar().addAttackerToAttackByList(attacker);
-		getActiveChar().addDamage(attacker, 0, null);
+		super.reduceHp0(0, attacker, awake, isDOT, isConsume);
 	}
 }
