@@ -20,19 +20,21 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author hex1r0
- **/
+ */
 public class QueenAntInstance extends L2GrandBossInstance
 {
 	public QueenAntInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 	}
-
+	
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		QueenAntManager.getInstance().deleteNurses();
-		QueenAntManager.getInstance().deleteLarva();
-		return super.doDie(killer);
+		if (!super.doDie(killer))
+			return false;
+		
+		QueenAntManager.getInstance().queenAntDied();
+		return true;
 	}
 }

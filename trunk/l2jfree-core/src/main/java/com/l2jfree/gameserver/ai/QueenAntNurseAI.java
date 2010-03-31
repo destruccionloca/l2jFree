@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.instancemanager.grandbosses.QueenAntManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 import com.l2jfree.gameserver.util.Util;
@@ -27,21 +28,21 @@ import com.l2jfree.gameserver.util.Util;
  * This class manages AI of Larva for Queen Ant raid
  * 
  * @author hex1r0
- **/
+ */
 public class QueenAntNurseAI extends L2AttackableAI
 {
-	private long _lastTargetSwitch = System.currentTimeMillis();
+	private long _lastTargetSwitch = 0;
 	
 	public QueenAntNurseAI(AIAccessor accessor)
 	{
 		super(accessor);
 	}
-
+	
 	@Override
 	protected void thinkActive()
 	{
 		L2Npc queen = QueenAntManager.getInstance().getQueenAntInstance();
-				
+		
 		if (queen != null)
 		{
 			checkDistance(queen);
@@ -52,18 +53,21 @@ public class QueenAntNurseAI extends L2AttackableAI
 	protected void thinkAttack()
 	{
 		L2Skill healSkill = SkillTable.getInstance().getInfo(4020, 1);
-
+		
 		if (healSkill == null)
 			return;
-
-		L2Npc newTarget = (L2Npc) _actor.getTarget();
+		
+		L2Npc newTarget = (L2Npc)_actor.getTarget();
 		
 		if (System.currentTimeMillis() - _lastTargetSwitch > 30000)
+		{
 			newTarget = chooseTarget();
-
+			_lastTargetSwitch = System.currentTimeMillis();
+		}
+		
 		if (newTarget == null)
 			return;
-
+		
 		if (Util.checkIfInRange(healSkill.getCastRange(), _actor, newTarget, true))
 		{
 			if (!_actor.isSkillDisabled(healSkill.getId()))
@@ -81,9 +85,9 @@ public class QueenAntNurseAI extends L2AttackableAI
 	}
 	
 	private L2Npc chooseTarget()
-	{	
-		L2Attackable queen = (L2Attackable) QueenAntManager.getInstance().getQueenAntInstance();
-		L2Attackable larva = (L2Attackable) QueenAntManager.getInstance().getLarvaInstance();
+	{
+		final L2Attackable queen = QueenAntManager.getInstance().getQueenAntInstance();
+		final L2Attackable larva = QueenAntManager.getInstance().getLarvaInstance();
 		
 		if (queen == null)
 			return null;
@@ -91,13 +95,16 @@ public class QueenAntNurseAI extends L2AttackableAI
 		if (larva == null)
 			return queen;
 		
-		if (queen.getMostHated() == null && larva.getMostHated() == null)
+		final L2Character queenMostHated = queen.getMostHated();
+		final L2Character larvaMostHated = larva.getMostHated();
+		
+		if (queenMostHated == null && larvaMostHated == null)
 			return null;
-		else if (queen.getMostHated() != null && larva.getMostHated() == null)
+		else if (queenMostHated != null && larvaMostHated == null)
 			return queen;
-		else if (queen.getMostHated() == null && larva.getMostHated() != null)
+		else if (queenMostHated == null && larvaMostHated != null)
 			return larva;
-		else if (queen.getHating(queen.getMostHated()) > larva.getHating(larva.getMostHated()))
+		else if (queen.getHating(queenMostHated) > larva.getHating(larvaMostHated))
 			return queen;
 		else
 			return larva;

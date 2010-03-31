@@ -14,118 +14,99 @@
  */
 package com.l2jfree.gameserver.instancemanager.grandbosses;
 
-import javolution.util.FastList;
+import java.util.Set;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.SpawnListener;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.model.actor.instance.QueenAntInstance;
+import com.l2jfree.gameserver.model.actor.instance.QueenAntLarvaInstance;
+import com.l2jfree.gameserver.model.actor.instance.QueenAntNurseInstance;
+import com.l2jfree.util.L2FastSet;
 
-/** 
+/**
  * @author hex1r0
- **/
-public class QueenAntManager
+ */
+public final class QueenAntManager
 {
-	private final L2CharPosition _queenAntPos 		= new L2CharPosition(-21610, 181594, -5734, 0);
-	private final L2CharPosition _queenAntLarvaPos 	= new L2CharPosition(-21600, 179482, -5846, 0);
+	private static final L2CharPosition QUEEN_ANT_POS = new L2CharPosition(-21610, 181594, -5734, 0);
+	private static final L2CharPosition QUEEN_ANT_LARVA_POS = new L2CharPosition(-21600, 179482, -5846, 0);
 	
-	private final L2NpcTemplate _larvaTemplate = NpcTable.getInstance().getTemplate(29002);
-	private final L2NpcTemplate _nurseTemplate = NpcTable.getInstance().getTemplate(29003);
+	private final Set<QueenAntNurseInstance> _nurses = new L2FastSet<QueenAntNurseInstance>().setShared(true);
+	private QueenAntLarvaInstance _larva;
+	private QueenAntInstance _queenAnt;
 	
-	private FastList <L2Spawn> 	_nurseSpawns 	= new FastList<L2Spawn>();
-	private FastList <L2Npc> 	_nurses 		= new FastList<L2Npc>(); 
-	
-	private L2Spawn 			_larvaSpawn 	= null;
-	private L2Npc 				_larva 			= null;
-	
-	private L2Npc 				_queenAnt 		= null;
-	
-	public QueenAntManager()
+	private QueenAntManager()
 	{
-		_larvaSpawn = new L2Spawn(_larvaTemplate);
-		_larvaSpawn.setAmount(1);
-		_larvaSpawn.setLocx(_queenAntLarvaPos.x);
-		_larvaSpawn.setLocy(_queenAntLarvaPos.y);
-		_larvaSpawn.setLocz(_queenAntLarvaPos.z);
-		_larvaSpawn.setHeading(_queenAntLarvaPos.heading);
-		_larvaSpawn.stopRespawn();
-
-		int radius = 400;
+		L2Spawn.addSpawnListener(new SpawnListener() {
+			@Override
+			public void npcSpawned(L2Npc npc)
+			{
+				if (npc.getNpcId() == 29001)
+					init((QueenAntInstance)npc);
+			}
+		});
+	}
+	
+	private void init(QueenAntInstance queen)
+	{
+		_queenAnt = queen;
+		
 		for (int i = 0; i < 4; i++)
 		{
-			int x = _queenAntPos.x + (int) (radius * Math.cos(i * 1.407));
-			int y = _queenAntPos.y + (int) (radius * Math.sin(i * 1.407));
-
-			L2Spawn nurseSpawn = new L2Spawn(_nurseTemplate);
+			final L2Spawn nurseSpawn = new L2Spawn(29003);
 			nurseSpawn.setAmount(1);
-			nurseSpawn.setLocx(x);
-			nurseSpawn.setLocy(y);
-			nurseSpawn.setLocz(_queenAntPos.z);
-			nurseSpawn.setHeading(_queenAntPos.heading);
+			nurseSpawn.setLocx(QUEEN_ANT_POS.x + (int)(400 * Math.cos(i * 1.407)));
+			nurseSpawn.setLocy(QUEEN_ANT_POS.y + (int)(400 * Math.sin(i * 1.407)));
+			nurseSpawn.setLocz(QUEEN_ANT_POS.z);
+			nurseSpawn.setHeading(QUEEN_ANT_POS.heading);
 			nurseSpawn.setRespawnDelay(Config.NURSEANT_RESPAWN_DELAY);
-			_nurseSpawns.add(nurseSpawn);
+			nurseSpawn.startRespawn();
+			
+			_nurses.add((QueenAntNurseInstance)nurseSpawn.doSpawn());
 		}
+		
+		final L2Spawn larvaSpawn = new L2Spawn(29002);
+		larvaSpawn.setAmount(1);
+		larvaSpawn.setLoc(QUEEN_ANT_LARVA_POS);
+		larvaSpawn.stopRespawn();
+		
+		_larva = (QueenAntLarvaInstance)larvaSpawn.doSpawn();
 	}
 	
-	public void init(L2Npc queen)
+	public void queenAntDied()
 	{
-		QueenAntManager.getInstance().setQueenAntInstance(queen);
-		QueenAntManager.getInstance().spawnNurses();
-		QueenAntManager.getInstance().spawnLarva();
-	}
-	
-	public void setQueenAntInstance(L2Npc npc)
-	{
-		_queenAnt = npc;
-	}
-	
-	public void spawnNurses()
-	{	
-		for (L2Spawn spawn : _nurseSpawns)
-		{
-			spawn.startRespawn();
-			_nurses.add(spawn.doSpawn());
-		}
-	}
-	
-	public void deleteNurses()
-	{
+		_queenAnt = null;
+		
 		for (L2Npc n : _nurses)
 		{
 			n.getSpawn().stopRespawn();
 			n.deleteMe();
 		}
 		_nurses.clear();
-	}
-	
-	public void spawnLarva()
-	{
-		_larva = _larvaSpawn.doSpawn();
-	}
-
-	public void deleteLarva()
-	{
+		
 		_larva.getSpawn().stopRespawn();
 		_larva.deleteMe();
+		_larva = null;
 	}
 	
-	public L2Npc getQueenAntInstance()
+	public QueenAntInstance getQueenAntInstance()
 	{
 		return _queenAnt;
 	}
 	
-	public L2Npc getLarvaInstance()
+	public QueenAntLarvaInstance getLarvaInstance()
 	{
 		return _larva;
 	}
 	
 	private static final class SingletonHolder
 	{
-		private static final QueenAntManager INSTANCE = new QueenAntManager();
+		public static final QueenAntManager INSTANCE = new QueenAntManager();
 	}
-
+	
 	public static QueenAntManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
