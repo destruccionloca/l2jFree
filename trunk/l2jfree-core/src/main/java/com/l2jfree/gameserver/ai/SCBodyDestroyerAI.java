@@ -58,13 +58,7 @@ public class SCBodyDestroyerAI extends L2AttackableAI
 		{
 			L2PcInstance player = L2World.getInstance().getPlayer(_firstAttakerObjectId);
 			if (player != null)
-			{
 				player.stopSkillEffects(5256);
-				
-				L2Skill skill = SkillTable.getInstance().getInfo(5256, 1);
-				if (skill != null)
-					player.stopSkillEffects(skill.getAfterEffectId());
-			}
 			
 			_firstAttakerObjectId = 0;
 		}

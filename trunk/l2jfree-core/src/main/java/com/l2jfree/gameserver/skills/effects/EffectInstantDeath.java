@@ -21,24 +21,24 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 
 /**
  * @author hex1r0
- **/
+ */
 public class EffectInstantDeath extends L2Effect
 {
 	public EffectInstantDeath(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-
+	
 	@Override
 	public L2EffectType getEffectType()
 	{
 		return L2EffectType.INSTANT_DEATH;
 	}
-
+	
 	@Override
-	protected boolean onStart()
+	protected void onExit()
 	{
-		getEffected().doDie(getEffector());
-		return true;
+		if (getTime() == getTotalTaskTime())
+			getEffected().doDie(getEffector());
 	}
 }
