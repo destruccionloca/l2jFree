@@ -124,6 +124,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 		startEffect();
 	}
 
+	@SuppressWarnings("deprecation")
 	private synchronized void startEffect()
 	{
 		if (_skill.isPvpSkill() && getShowIcon() && _effected instanceof L2PcInstance)
@@ -375,6 +376,7 @@ public abstract class L2Effect implements FuncOwner, Runnable
 	 * <BR>
 	 * <BR>
 	 */
+	@SuppressWarnings("deprecation")
 	public final void exit()
 	{
 		if (_effected.getEffects().removeEffect(this))

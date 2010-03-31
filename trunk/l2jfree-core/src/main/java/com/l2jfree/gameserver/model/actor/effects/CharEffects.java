@@ -106,6 +106,10 @@ public final class CharEffects
 		return queue.getAllEffects();
 	}
 	
+	/**
+	 * @deprecated don't use it!
+	 */
+	@Deprecated
 	public synchronized void addEffect(L2Effect newEffect)
 	{
 		if (_effects == null)
@@ -186,6 +190,10 @@ public final class CharEffects
 		return 0;
 	}
 	
+	/**
+	 * @deprecated don't use it!
+	 */
+	@Deprecated
 	public synchronized boolean removeEffect(L2Effect effect)
 	{
 		final int index = _effects.indexOf(effect);
