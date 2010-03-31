@@ -660,20 +660,15 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="1000"/>
     <set name="canBeDispeled" val="false"/>
-	<set name="afterEffectId" val="5257"/>
-	<set name="afterEffectLvl" val="1"/>
     <for>
-      <effect count="1" name="Debuff" time="30" val="0" />
+      <effect count="1" name="InstantDeath" time="30" val="0" />
     </for>
   </skill>
-  <!-- @author hex1r0 -->
+  <!-- should be used with 5256 but we don't need it  -->
   <skill id="5257" levels="1" name="Death">
-    <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="DEBUFF"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <for>
-      <effect count="1" name="InstantDeath" time="1" val="0" noicon="1"/>
-    </for>
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5258" levels="12" name="Mana Burn">
     <set name="target" val="TARGET_NONE"/>
