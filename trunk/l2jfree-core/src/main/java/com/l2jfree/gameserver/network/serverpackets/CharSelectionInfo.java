@@ -160,6 +160,8 @@ public class CharSelectionInfo extends L2GameServerPacket
 	
 	private CharSelectInfoPackage[] loadCharacterSelectInfo()
 	{
+		L2PcInstance.disconnectIfOnline(_loginName);
+		
 		CharSelectInfoPackage charInfopackage;
 		List<CharSelectInfoPackage> characterList = new ArrayList<CharSelectInfoPackage>();
 		

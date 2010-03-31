@@ -18,9 +18,9 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.SCBodyDestroyerAI;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-/** 
+/**
  * @author hex1r0
- **/
+ */
 public class SCBodyDestroyerInstance extends L2MonsterInstance
 {
 	public SCBodyDestroyerInstance(int objectId, L2NpcTemplate template)

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author hex1r0
- **/
+ */
 public class ZakenInstance extends L2GrandBossInstance
 {
 	public ZakenInstance(int objectId, L2NpcTemplate template)

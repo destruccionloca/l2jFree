@@ -116,6 +116,7 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.AntharasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaylorManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.FrintezzaManager;
+import com.l2jfree.gameserver.instancemanager.grandbosses.QueenAntManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.SailrenManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.ValakasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.VanHalterManager;
@@ -373,6 +374,7 @@ public class GameServer extends Config
 		AntharasManager.getInstance().init();
 		BaiumManager.getInstance().init();
 		BaylorManager.getInstance().init();
+		QueenAntManager.getInstance();
 		SailrenManager.getInstance().init();
 		ValakasManager.getInstance().init();
 		VanHalterManager.getInstance().init();

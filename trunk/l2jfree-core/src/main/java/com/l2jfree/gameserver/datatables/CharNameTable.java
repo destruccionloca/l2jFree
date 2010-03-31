@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.lang.L2Integer;
+import com.l2jfree.util.L2Collections;
 
 public final class CharNameTable
 {
@@ -142,6 +143,21 @@ public final class CharNameTable
 				count++;
 		
 		return count;
+	}
+	
+	public Iterable<Integer> getObjectIdsForAccount(final String account)
+	{
+		return L2Collections.convertingIterable(_mapByObjectId.values(),
+				new L2Collections.Converter<CharacterInfo, Integer>() {
+					@Override
+					public Integer convert(CharacterInfo characterInfo)
+					{
+						if (characterInfo._accountName.equalsIgnoreCase(account))
+							return characterInfo._objectId;
+						
+						return null;
+					}
+				});
 	}
 	
 	@SuppressWarnings("synthetic-access")

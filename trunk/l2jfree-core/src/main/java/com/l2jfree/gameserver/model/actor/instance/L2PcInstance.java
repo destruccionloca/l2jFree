@@ -6567,7 +6567,7 @@ public final class L2PcInstance extends L2Playable
 
 		return true;
 	}
-
+	
 	public static void disconnectIfOnline(int objectId)
 	{
 		L2PcInstance onlinePlayer = L2World.getInstance().findPlayer(objectId);
@@ -6583,7 +6583,13 @@ public final class L2PcInstance extends L2Playable
 		
 		new Disconnection(onlinePlayer).defaultSequence(true);
 	}
-
+	
+	public static void disconnectIfOnline(String accountName)
+	{
+		for (int objectId : CharNameTable.getInstance().getObjectIdsForAccount(accountName))
+			disconnectIfOnline(objectId);
+	}
+	
 	/**
 	 * Retrieve a L2PcInstance from the characters table of the database and add it in _allObjects of the L2world.<BR><BR>
 	 *
@@ -7413,8 +7419,8 @@ public final class L2PcInstance extends L2Playable
 		
 		for (L2ShortCut sc : getAllShortCuts())
 		{
-			if (sc != null && sc.getId() == skill.getId() 
-					&& sc.getType() == L2ShortCut.TYPE_SKILL 
+			if (sc != null && sc.getId() == skill.getId()
+					&& sc.getType() == L2ShortCut.TYPE_SKILL
 					&& !skill.isItemSkill())
 			{
 				deleteShortCut(sc.getSlot(), sc.getPage());

@@ -16,19 +16,24 @@ package com.l2jfree.gameserver.ai;
 
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 
-/** 
+/**
  * @author hex1r0
- **/
+ */
 public class OrfenAI extends L2AttackableAI
 {
-	private enum Position {FIELD, NEST};
+	private enum Position
+	{
+		FIELD,
+		NEST
+	}
+	
 	private Position _pos = Position.FIELD;
 	
 	public OrfenAI(AIAccessor accessor)
 	{
 		super(accessor);
 	}
-
+	
 	@Override
 	protected void thinkActive()
 	{
@@ -39,7 +44,7 @@ public class OrfenAI extends L2AttackableAI
 			// TODO tele to field
 		}
 	}
-
+	
 	@Override
 	protected void thinkAttack()
 	{

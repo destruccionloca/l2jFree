@@ -22,11 +22,11 @@ import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * This class manages AI of Body Destroyer in Steel Citadel
- * * first attaker get 30 debuff that will kill player if mob will be alive
+ * This class manages AI of Body Destroyer in Steel Citadel<br>
+ * First attaker gets 30 sec debuff that will kill player if mob will be alive.
  * 
  * @author hex1r0
- **/
+ */
 public class SCBodyDestroyerAI extends L2AttackableAI
 {
 	private int _firstAttakerObjectId = 0;

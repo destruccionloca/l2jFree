@@ -463,6 +463,8 @@ public final class LoginServerThread extends NetworkThread
 							
 							if (client != null)
 								client.closeNow();
+							
+							L2PcInstance.disconnectIfOnline(kp.getAccount());
 							break;
 						}
 						case 0x10:

@@ -27,16 +27,16 @@ public class QueenAntLarvaInstance extends L2MonsterInstance
 	{
 		super(objectId, template);
 	}
-
+	
 	@Override
 	protected CharStatus initStatus()
 	{
 		return new QueenAntLarvaStatus(this);
 	}
-
+	
 	@Override
 	public QueenAntLarvaStatus getStatus()
 	{
-		return (QueenAntLarvaStatus) _status;
+		return (QueenAntLarvaStatus)_status;
 	}
 }

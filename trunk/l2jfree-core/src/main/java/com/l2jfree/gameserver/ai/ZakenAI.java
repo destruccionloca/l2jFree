@@ -22,16 +22,13 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 
-/** 
+/**
  * @author hex1r0
- **/
+ */
 public class ZakenAI extends L2AttackableAI
-{	
-	private final int _minionIds[] =
-		{ 29023, 29024, 29026, 29027 };
-	
-	private final int _chances[] =
-		{ 90, 80, 50, 75 };
+{
+	private static final int[] MINION_IDS = { 29023, 29024, 29026, 29027 };
+	private static final int[] CHANCES = { 90, 80, 50, 75 };
 	
 	private long _lastMinionSpawn = System.currentTimeMillis();
 	
@@ -39,7 +36,7 @@ public class ZakenAI extends L2AttackableAI
 	{
 		super(accessor);
 	}
-
+	
 	@Override
 	protected void thinkActive()
 	{
@@ -50,7 +47,7 @@ public class ZakenAI extends L2AttackableAI
 			_actor.doCast(SkillTable.getInstance().getInfo(4222, 1));
 		}
 	}
-
+	
 	@Override
 	protected void thinkAttack()
 	{
@@ -60,21 +57,21 @@ public class ZakenAI extends L2AttackableAI
 		{
 			_actor.doCast(SkillTable.getInstance().getInfo(4222, 1));
 		}
-		else if(Rnd.get(100) < 5)
+		else if (Rnd.get(100) < 5)
 		{
 			_actor.doCast(SkillTable.getInstance().getInfo(4216, 1));
 		}
-		else if(Rnd.get(100) < 10)
+		else if (Rnd.get(100) < 10)
 		{
 			_actor.doCast(SkillTable.getInstance().getInfo(4217, 1));
 		}
 		
 		if (Rnd.get(100) < (L2Math.limit(1, 90 - (_actor.getCurrentHp() / _actor.getMaxHp() * 100), 90)))
 		{
-			for (int i = 0; i < _minionIds.length; i++)
+			for (int i = 0; i < MINION_IDS.length; i++)
 			{
-				if (Rnd.get(100) < _chances[i])
-					spawnMinion(_minionIds[i]);
+				if (Rnd.get(100) < CHANCES[i])
+					spawnMinion(MINION_IDS[i]);
 			}
 			_lastMinionSpawn = System.currentTimeMillis();
 		}
@@ -91,7 +88,7 @@ public class ZakenAI extends L2AttackableAI
 			int x = _actor.getX();
 			int y = _actor.getY();
 			int z = _actor.getZ();
-
+			
 			int offset = Rnd.get(2); // Get the direction of the offset
 			if (offset == 0)
 			{
@@ -99,7 +96,7 @@ public class ZakenAI extends L2AttackableAI
 			} // make offset negative
 			offset *= Rnd.get(50, 100);
 			x += offset;
-
+			
 			offset = Rnd.get(2); // Get the direction of the offset
 			if (offset == 0)
 			{
@@ -107,7 +104,7 @@ public class ZakenAI extends L2AttackableAI
 			} // make offset negative
 			offset *= Rnd.get(50, 100);
 			y += offset;
-
+			
 			L2Spawn spawn = new L2Spawn(template);
 			spawn.setHeading(0);
 			spawn.setLocx(x);

@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author hex1r0
- **/
+ */
 public class OrfenInstance extends L2GrandBossInstance
 {
 	public OrfenInstance(int objectId, L2NpcTemplate template)
