@@ -12,33 +12,44 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.skills.effects;
+package com.l2jfree.gameserver.ai;
 
-import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.effects.EffectTemplate;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 
-/**
+/** 
  * @author hex1r0
  **/
-public class EffectInstantDeath extends L2Effect
+public class OrfenAI extends L2AttackableAI
 {
-	public EffectInstantDeath(Env env, EffectTemplate template)
+	private enum Position {FIELD, NEST};
+	private Position _pos = Position.FIELD;
+	
+	public OrfenAI(AIAccessor accessor)
 	{
-		super(env, template);
+		super(accessor);
 	}
 
 	@Override
-	public L2EffectType getEffectType()
+	protected void thinkActive()
 	{
-		return L2EffectType.INSTANT_DEATH;
+		super.thinkActive();
+		if (_actor.getCurrentHp() > _actor.getMaxHp() / 2 && _pos == Position.NEST)
+		{
+			_pos = Position.FIELD;
+			// TODO tele to field
+		}
 	}
 
 	@Override
-	protected boolean onStart()
+	protected void thinkAttack()
 	{
-		getEffected().doDie(getEffector());
-		return true;
+		super.thinkAttack();
+		
+		if (_actor.getCurrentHp() < _actor.getMaxHp() / 2 && _pos == Position.FIELD)
+		{
+			_pos = Position.NEST;
+			// TODO tele to nest
+		}
+		// TODO figth algorithm
 	}
 }

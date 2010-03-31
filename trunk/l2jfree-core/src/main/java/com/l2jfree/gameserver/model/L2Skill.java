@@ -1442,6 +1442,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case TAKECASTLE:
 			case TAKEFORT:
 			case TELEPORT:
+			case ZAKEN_TELEPORT:
 			case RECALL:
 			case SUMMON_FRIEND:
 			case GIVE_SP:
@@ -1465,6 +1466,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			case DUMMY:
 			case COREDONE:
 			case NOTDONE:
+			
 				return OffensiveState.NEUTRAL;
 			default:
 				_log.info(getSkillType() + " should be covered in L2Skill.getDefaultOffensiveState()!");

@@ -12,33 +12,25 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.skills.effects;
+package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.model.L2Effect;
-import com.l2jfree.gameserver.skills.Env;
-import com.l2jfree.gameserver.templates.effects.EffectTemplate;
-import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.ai.L2CharacterAI;
+import com.l2jfree.gameserver.ai.OrfenAI;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author hex1r0
  **/
-public class EffectInstantDeath extends L2Effect
+public class OrfenInstance extends L2GrandBossInstance
 {
-	public EffectInstantDeath(Env env, EffectTemplate template)
+	public OrfenInstance(int objectId, L2NpcTemplate template)
 	{
-		super(env, template);
+		super(objectId, template);
 	}
-
+	
 	@Override
-	public L2EffectType getEffectType()
+	protected L2CharacterAI initAI()
 	{
-		return L2EffectType.INSTANT_DEATH;
-	}
-
-	@Override
-	protected boolean onStart()
-	{
-		getEffected().doDie(getEffector());
-		return true;
+		return new OrfenAI(new AIAccessor());
 	}
 }
