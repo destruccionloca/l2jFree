@@ -40738,3 +40738,6 @@ INSERT INTO `spawnlist` VALUES
 DELETE FROM `spawnlist` WHERE `npc_templateid` = 32469;
 INSERT INTO `spawnlist` VALUES
 (NULL, 'Kamael Island', 1, 32469, -111519, 41742, 2175, 0, 0, 31385, 60, 0, 0);
+
+-- Chimera/Celtus spawns are handled via HellboundManager and therefor not to be spawned via spawnlist (Psycho)
+DELETE FROM `spawnlist` WHERE `npc_templateid` IN (22349,22350,22351,22352,22353);

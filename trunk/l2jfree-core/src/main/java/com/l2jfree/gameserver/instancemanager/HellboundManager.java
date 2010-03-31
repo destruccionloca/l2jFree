@@ -356,6 +356,72 @@ public final class HellboundManager
 			new SpawnData(18467, -16, 235137, -3267, 34467, 60, 60, 60),
 			new SpawnData(18467, -64, 235182, -3253, 35793, 60, 60, 60),
 			new SpawnData(18467, -114, 235206, -3235, 39343, 60, 60, 60) };
+
+	private static final SpawnData[] CHIMERA_SPAWNS = {
+			new SpawnData(22349, 1527, 232903, -3272, 36685, 60, 60, 60),
+			new SpawnData(22349, 1223, 235495, -3328, 28019, 60, 60, 60),
+			new SpawnData(22349, 2199, 232986, -3216, 58088, 60, 60, 60),
+			new SpawnData(22349, 4125, 234074, -3272, 62181, 60, 60, 60),
+			new SpawnData(22349, 3071, 239280, -3104, 23095, 60, 60, 60),
+			new SpawnData(22349, 3442, 238401, -3224, 20614, 60, 60, 60),
+			new SpawnData(22349, 4453, 238735, -3208, 55381, 60, 60, 60),
+			new SpawnData(22349, 4635, 239367, -3072, 54442, 60, 60, 60),
+			new SpawnData(22349, 7955, 240219, -2080, 53635, 60, 60, 60),
+			new SpawnData(22349, 7445, 239843, -2024, 44023, 60, 60, 60),
+			new SpawnData(22349, 9407, 237919, -1976, 39968, 60, 60, 60),
+			new SpawnData(22349, 9834, 237812, -1960, 28145, 60, 60, 60),
+			new SpawnData(22349, 8560, 239355, -2024, 47276, 60, 60, 60),
+			new SpawnData(22349, 8339, 240456, -2040, 27108, 60, 60, 60),
+			new SpawnData(22349, 11128, 235215, -1928, 34937, 60, 60, 60),
+			new SpawnData(22349, 11167, 234830, -1864, 8425, 60, 60, 60),
+			new SpawnData(22350, 824, 235287, -3280, 41620, 60, 60, 60),
+			new SpawnData(22350, 1632, 234961, -3352, 20943, 60, 60, 60),
+			new SpawnData(22350, 1112, 237596, -3152, 62125, 60, 60, 60),
+			new SpawnData(22350, 886, 236121, -3232, 3904, 60, 60, 60),
+			new SpawnData(22350, 2275, 233833, -3328, 42729, 60, 60, 60),
+			new SpawnData(22350, 2630, 237944, -3320, 64142, 60, 60, 60),
+			new SpawnData(22350, 2613, 240192, -2904, 34566, 60, 60, 60),
+			new SpawnData(22350, 7001, 240247, -1960, 42511, 60, 60, 60),
+			new SpawnData(22350, 6853, 239474, -1960, 52607, 60, 60, 60),
+			new SpawnData(22350, 8000, 238746, -2000, 49153, 60, 60, 60),
+			new SpawnData(22350, 9908, 239539, -1960, 933, 60, 60, 60),
+			new SpawnData(22350, 8675, 238491, -1952, 58061, 60, 60, 60),
+			new SpawnData(22350, 8587, 240036, -2040, 15689, 60, 60, 60),
+			new SpawnData(22350, 8268, 235942, -1952, 62452, 60, 60, 60),
+			new SpawnData(22350, 8990, 236541, -1904, 13666, 60, 60, 60),
+			new SpawnData(22350, 5103, 234775, -3128, 61470, 60, 60, 60),
+			new SpawnData(22351, 2042, 234066, -3344, 7940, 60, 60, 60),
+			new SpawnData(22351, 2174, 235293, -3360, 8705, 60, 60, 60),
+			new SpawnData(22351, 2184, 234553, -3376, 24832, 60, 60, 60),
+			new SpawnData(22351, 2983, 236508, -3408, 47074, 60, 60, 60),
+			new SpawnData(22351, 3716, 236573, -3320, 63572, 60, 60, 60),
+			new SpawnData(22351, 2013, 239588, -3032, 56616, 60, 60, 60),
+			new SpawnData(22351, 5157, 237797, -3264, 32082, 60, 60, 60),
+			new SpawnData(22351, 6716, 240801, -1976, 7630, 60, 60, 60),
+			new SpawnData(22351, 7301, 239715, -2008, 11617, 60, 60, 60),
+			new SpawnData(22351, 8120, 238943, -1992, 4806, 60, 60, 60),
+			new SpawnData(22351, 10073, 238444, -1976, 23659, 60, 60, 60),
+			new SpawnData(22351, 8507, 240079, -2064, 34082, 60, 60, 60),
+			new SpawnData(22351, 10972, 237656, -1952, 1940, 60, 60, 60),
+			new SpawnData(22351, 9642, 236269, -1952, 18778, 60, 60, 60),
+			new SpawnData(22351, 10434, 235517, -2000, 16560, 60, 60, 60),
+			new SpawnData(22351, 4264, 234880, -3216, 9875, 60, 60, 60),
+			new SpawnData(22352, 1596, 233442, -3304, 993, 60, 60, 60),
+			new SpawnData(22352, 807, 237085, -3200, 7348, 60, 60, 60),
+			new SpawnData(22352, 817, 236992, -3208, 7667, 60, 60, 60),
+			new SpawnData(22352, 2847, 233398, -3288, 32177, 60, 60, 60),
+			new SpawnData(22352, 3205, 233645, -3344, 42258, 60, 60, 60),
+			new SpawnData(22352, 2862, 236427, -3408, 11370, 60, 60, 60),
+			new SpawnData(22352, 2022, 239482, -3064, 64609, 60, 60, 60),
+			new SpawnData(22352, 6581, 240217, -1888, 26390, 60, 60, 60),
+			new SpawnData(22352, 7683, 239779, -2048, 27491, 60, 60, 60),
+			new SpawnData(22352, 6774, 239346, -1960, 4840, 60, 60, 60),
+			new SpawnData(22352, 8724, 237855, -1944, 22684, 60, 60, 60),
+			new SpawnData(22352, 8409, 239644, -2048, 9147, 60, 60, 60),
+			new SpawnData(22352, 10925, 238010, -1952, 52509, 60, 60, 60),
+			new SpawnData(22352, 10496, 237369, -1968, 48018, 60, 60, 60),
+			new SpawnData(22352, 10269, 237058, -1976, 687, 60, 60, 60),
+			new SpawnData(22352, 5197, 235229, -3144, 24127, 60, 60, 60) };
 	
 	private static final SpawnData[] SHADAI_SPAWNS = { new SpawnData(32347, 8864, 253160, -1933, 51999, 60, 60, 60) };
 	
@@ -375,6 +441,7 @@ public final class HellboundManager
 	private final Set<L2Npc> _spawnHellinark = new L2FastSet<L2Npc>().setShared(true);
 	private final Set<L2Npc> _spawnOutpostCaptain = new L2FastSet<L2Npc>().setShared(true);
 	private final Set<L2Npc> _spawnWoundedLandGuards = new L2FastSet<L2Npc>().setShared(true);
+	private final Set<L2Npc> _spawnChimera = new L2FastSet<L2Npc>().setShared(true);
 	private final Set<L2Npc> _spawnShadai = new L2FastSet<L2Npc>().setShared(true);
 
 
@@ -446,18 +513,20 @@ public final class HellboundManager
 				spawnKiefBuronVillage();
 				spawnNatives();
 				spawnWoundedLandGuards();
+				spawnChimeraAndCeltus();
 				openWoundedPassage();
 				break;
 			case 8:
 				spawnKiefBuronVillage();
 				spawnNatives();
-				spawnWoundedLandGuards();
+				spawnChimeraAndCeltus();
 				openWoundedPassage();
 				spawnOutpostCaptain();
 				break;
 			case 9:
 				spawnKiefBuronVillage();
 				spawnNatives();
+				spawnChimeraAndCeltus();
 				spawnOutpostCaptain();
 				openWoundedPassage();
 				openIronGates();
@@ -465,6 +534,7 @@ public final class HellboundManager
 			case 10:
 				spawnKiefBuronVillage();
 				spawnNatives();
+				spawnChimeraAndCeltus();
 				openWoundedPassage();
 				openIronGates();
 				break;
@@ -799,6 +869,7 @@ public final class HellboundManager
 			case 7:
 				unspawnHellinark();
 				spawnWoundedLandGuards();
+				spawnChimeraAndCeltus();
 				openWoundedPassage();
 				break;
 			case 8:
@@ -847,6 +918,7 @@ public final class HellboundManager
 				break;
 			case 6:
 				unspawnWoundedLandGuards();
+				unspawnChimeraAndCeltus();
 				closeWoundedPassage();
 				spawnHellinark();
 				break;
@@ -921,6 +993,11 @@ public final class HellboundManager
 	private void unspawnWoundedLandGuards()
 	{
 		unspawnNpcs(_spawnWoundedLandGuards, false, "Hellbound: Wounded Land guards unspawned");
+	}
+
+	public void unspawnChimeraAndCeltus()
+	{
+		unspawnNpcs(_spawnChimera, false, "Hellbound: Chimera/Celtus unspawned");
 	}
 	
 	public void unspawnShadai()
@@ -1000,7 +1077,12 @@ public final class HellboundManager
 	{
 		spawnNpcs(WOUNDED_LAND_GUARDS_SPAWNS, _spawnWoundedLandGuards, "Hellbound: Wounded Land guards spawned");
 	}
-	
+
+	private void spawnChimeraAndCeltus()
+	{
+		spawnNpcs(CHIMERA_SPAWNS, _spawnChimera, "Hellbound: Chimera/Celtus spawned");
+	}
+
 	public void spawnShadai()
 	{
 		spawnNpcs(SHADAI_SPAWNS, _spawnShadai, "Hellbound: Legendary Blacksmith Shadai spawned.");
@@ -1034,7 +1116,7 @@ public final class HellboundManager
 	
 	private void announceAndLog(int level, boolean up)
 	{
-		String message = (up ? "Hellbound went up to stage" : "Hellbound went down to stage") + " " + level;
+		String message = (up ? "Hellbound went up to stage " : "Hellbound went down to stage ") + level;
 		
 		Announcements.getInstance().announceToAll(message);
 		_log.info(message);
