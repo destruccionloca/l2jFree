@@ -119,7 +119,6 @@ public final class LoginServerThread extends NetworkThread
 	public void addWaitingClientAndSendRequest(String acc, L2GameClient client, SessionKey key)
 	{
 		_waitingClients.put(acc, new WaitingClient(client, key));
-		_accountsInGameServer.put(acc, client);
 		
 		sendPacketQuietly(new PlayerAuthRequest(acc, key));
 	}
@@ -129,6 +128,7 @@ public final class LoginServerThread extends NetworkThread
 		if (account == null || account.isEmpty())
 			return;
 		
+		_waitingClients.remove(account);
 		_accountsInGameServer.remove(account);
 		
 		sendPacketQuietly(new PlayerLogout(account));
@@ -446,6 +446,8 @@ public final class LoginServerThread extends NetworkThread
 									}
 									
 									client.getPacketQueue().execute(new AsyncCharSelectionInfo());
+									
+									_accountsInGameServer.put(client.getAccountName(), client);
 								}
 								else
 								{
@@ -459,10 +461,16 @@ public final class LoginServerThread extends NetworkThread
 						case 0x04:
 						{
 							KickPlayer kp = new KickPlayer(decrypt);
+							
 							L2GameClient client = _accountsInGameServer.get(kp.getAccount());
 							
 							if (client != null)
 								client.closeNow();
+							
+							WaitingClient wc = _waitingClients.get(kp.getAccount());
+							
+							if (wc != null)
+								wc.gameClient.closeNow();
 							
 							L2PcInstance.disconnectIfOnline(kp.getAccount());
 							break;
