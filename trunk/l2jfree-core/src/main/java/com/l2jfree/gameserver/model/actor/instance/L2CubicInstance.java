@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
 public class L2CubicInstance
@@ -601,15 +602,8 @@ public class L2CubicInstance
 		if (owner == target)
 			return true;
 
-		long x, y, z;
-		// Temporary range check until real behavior of cubics is known/coded
-		int range = MAX_MAGIC_RANGE;
-
-		x = (owner.getX() - target.getX());
-		y = (owner.getY() - target.getY());
-		z = (owner.getZ() - target.getZ());
-
-		return ((x * x) + (y * y) + (z * z)) <= (range * range);
+		// Temporary MAX_MAGIC_RANGE check until real behavior of cubics is known/coded	
+		return Util.checkIfInRange(MAX_MAGIC_RANGE, owner, target, true);
 	}
 
 	/** this sets the friendly target for a cubic */
