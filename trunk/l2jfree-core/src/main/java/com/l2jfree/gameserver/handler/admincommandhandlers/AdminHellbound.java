@@ -25,7 +25,11 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class AdminHellbound implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = { "admin_add_trust_points", "admin_remove_trust_points" };
+	private static final String[] ADMIN_COMMANDS = { 
+		"admin_add_trust_points",
+		"admin_remove_trust_points",
+		"admin_add_warpgate_points",
+		"admin_remove_warpgate_points" };
 	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -42,6 +46,16 @@ public final class AdminHellbound implements IAdminCommandHandler
 		{
 			HellboundManager.getInstance().decreaseTrustPoints(Integer.valueOf(val));
 			activeChar.sendMessage("Removed " + val + " trust points to Hellbound.");
+		}
+		else if (cmd.equals("admin_add_warpgate_points"))
+		{
+			HellboundManager.getInstance().addWarpgateEnergy(Integer.valueOf(val));
+			activeChar.sendMessage("Added " + val + " points to warpgates.");
+		}
+		else if (cmd.equals("admin_remove_warpgate_points"))
+		{
+			HellboundManager.getInstance().subWarpgateEnergy(Integer.valueOf(val));
+			activeChar.sendMessage("Removed " + val + " points to warpgates.");
 		}
 		
 		return true;
