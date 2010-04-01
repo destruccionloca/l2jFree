@@ -42,6 +42,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * @author Vital
@@ -531,7 +532,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			currentBid = lot.startingBid;
 
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = new TextBuilder("<html><body>");
+		L2TextBuilder html = L2TextBuilder.newInstance("<html><body>");
 
 		html.append("<title>Bidding Window</title>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=280 bgcolor=808080>");
@@ -573,7 +574,7 @@ public class AuctionBBSManager extends BaseBBSManager
 
 		html.append("</body></html>");
 
-		nhm.setHtml(html.toString());
+		nhm.setHtml(html.moveToString());
 		activeChar.sendPacket(nhm);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
@@ -584,7 +585,7 @@ public class AuctionBBSManager extends BaseBBSManager
 	private void showNewAuctionPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = new TextBuilder("<html><body>");
+		L2TextBuilder html = L2TextBuilder.newInstance("<html><body>");
 
 		html.append("<title>New Auction Lot Window</title>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=280>");
@@ -617,7 +618,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("</table>");
 
 		html.append("</body></html>");
-		nhm.setHtml(html.toString());
+		nhm.setHtml(html.moveToString());
 		activeChar.sendPacket(nhm);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
@@ -632,7 +633,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		minIndex = maxIndex - 19;
 
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = new TextBuilder("<html><body>");
+		L2TextBuilder html = L2TextBuilder.newInstance("<html><body>");
 
 		html.append("<title>New Auction Lot Window</title>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=280><tr>");
@@ -691,7 +692,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("</table>");
 
 		html.append("</body></html>");
-		nhm.setHtml(html.toString());
+		nhm.setHtml(html.moveToString());
 		activeChar.sendPacket(nhm);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
@@ -718,7 +719,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			currentBid = lot.startingBid;
 
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = new TextBuilder("<html><body>");
+		L2TextBuilder html = L2TextBuilder.newInstance("<html><body>");
 
 		html.append("<title>Buy Now Comfirmation Window</title>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=280 bgcolor=808080>");
@@ -761,7 +762,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("</table>");
 
 		html.append("</body></html>");
-		nhm.setHtml(html.toString());
+		nhm.setHtml(html.moveToString());
 		activeChar.sendPacket(nhm);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to

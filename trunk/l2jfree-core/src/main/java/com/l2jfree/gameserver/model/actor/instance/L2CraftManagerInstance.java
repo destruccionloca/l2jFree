@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -152,7 +153,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 			replyMSG.append("<center>Items to Crystallize</center>");
 			replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1> <img src=\"L2UI.SquareBlank\" width=1 height=3>");
@@ -217,7 +218,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 			replyMSG.append("</body></html>");
 
-			npcReply.setHtml(replyMSG.toString());
+			npcReply.setHtml(replyMSG.moveToString());
 
 			player.sendPacket(npcReply);
 		}
@@ -388,7 +389,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 			replyMSG.append("<center>List of Recipes</center>");
 			replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1> <img src=\"L2UI.SquareBlank\" width=1 height=3>");
@@ -429,7 +430,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 			replyMSG.append("</body></html>");
 
-			npcReply.setHtml(replyMSG.toString());
+			npcReply.setHtml(replyMSG.moveToString());
 
 			player.sendPacket(npcReply);
 		}
@@ -471,7 +472,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 				NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 
-				TextBuilder replyMSG = new TextBuilder("<html><body>");
+				L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 				replyMSG.append("<center>Craft Info</center>");
 				replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1> <img src=\"L2UI.SquareBlank\" width=1 height=3>");
@@ -531,7 +532,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 				replyMSG.append("</table>");
 				replyMSG.append("</body></html>");
 
-				npcReply.setHtml(replyMSG.toString());
+				npcReply.setHtml(replyMSG.moveToString());
 				player.sendPacket(npcReply);
 			}
 		}

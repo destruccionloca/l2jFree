@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.Calendar;
 import java.util.List;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
@@ -31,6 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * Festival of Darkness Guide (Seven Signs)
@@ -304,7 +303,7 @@ public final class L2FestivalGuideInstance extends L2Npc
                         showChatWindow(player, 3, "d", false);
                     break;
                 case 4: // Current High Scores
-                    TextBuilder strBuffer = new TextBuilder("<html><body>Festival Guide:<br>These are the top scores of the week, for the ");
+                    L2TextBuilder strBuffer = L2TextBuilder.newInstance("<html><body>Festival Guide:<br>These are the top scores of the week, for the ");
                     
                     final StatsSet dawnData = SevenSignsFestival.getInstance().getHighestScoreData(SevenSigns.CABAL_DAWN, _festivalType);
                     final StatsSet duskData = SevenSignsFestival.getInstance().getHighestScoreData(SevenSigns.CABAL_DUSK, _festivalType);
@@ -347,7 +346,7 @@ public final class L2FestivalGuideInstance extends L2Npc
                     strBuffer.append("<a action=\"bypass -h npc_" + getObjectId() + "_Chat 0\">Go back.</a></body></html>");
                    
                     NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                    html.setHtml(strBuffer.toString());
+                    html.setHtml(strBuffer.moveToString());
                     player.sendPacket(html);
                     break;
                 case 8: // Increase the Festival Challenge
@@ -451,7 +450,7 @@ public final class L2FestivalGuideInstance extends L2Npc
     
     private final String getStatsTable()
     {
-        TextBuilder tableHtml = new TextBuilder();
+        L2TextBuilder tableHtml = L2TextBuilder.newInstance();
         
         // Get the scores for each of the festival level ranges (types).
         for (int i = 0; i < 5; i++)
@@ -470,12 +469,12 @@ public final class L2FestivalGuideInstance extends L2Npc
                              duskScore + "</td><td align=\"center\" width=\"35\">" + dawnScore + "</td><td align=\"center\" width=\"130\">" + winningCabal + "</td></tr>");
         }
         
-        return tableHtml.toString();
+        return tableHtml.moveToString();
     }
     
     private final String getBonusTable()
     {
-        TextBuilder tableHtml = new TextBuilder();
+        L2TextBuilder tableHtml = L2TextBuilder.newInstance();
         
         // Get the accumulated scores for each of the festival level ranges (types).
         for (int i = 0; i < 5; i++)
@@ -486,7 +485,7 @@ public final class L2FestivalGuideInstance extends L2Npc
             tableHtml.append("<tr><td align=\"center\" width=\"150\">" + festivalName + "</td><td align=\"center\" width=\"150\">" + accumScore + "</td></tr>");
         }
         
-        return tableHtml.toString();
+        return tableHtml.moveToString();
     }
     
     private final String calculateDate(String milliFromEpoch)

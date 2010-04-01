@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * Petition Manager
@@ -472,7 +473,7 @@ public final class PetitionManager
 
 	public void sendPendingPetitionList(L2PcInstance activeChar)
 	{
-		TextBuilder htmlContent = new TextBuilder("<html><body>" + "<center><font color=\"LEVEL\">Current Petitions</font><br><table width=\"300\">");
+		L2TextBuilder htmlContent = L2TextBuilder.newInstance("<html><body>" + "<center><font color=\"LEVEL\">Current Petitions</font><br><table width=\"300\">");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM HH:mm z");
 
 		if (getPendingPetitionCount() == 0)
@@ -503,7 +504,7 @@ public final class PetitionManager
 				+ "width=\"40\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></body></html>");
 
 		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-		htmlMsg.setHtml(htmlContent.toString());
+		htmlMsg.setHtml(htmlContent.moveToString());
 		activeChar.sendPacket(htmlMsg);
 	}
 

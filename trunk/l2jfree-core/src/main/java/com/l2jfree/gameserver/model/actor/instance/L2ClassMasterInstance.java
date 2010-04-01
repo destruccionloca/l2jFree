@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
+import com.l2jfree.lang.L2TextBuilder;
 
 public final class L2ClassMasterInstance extends L2NpcInstance
 {
@@ -84,7 +85,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			}
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder sb = new TextBuilder();
+			L2TextBuilder sb = L2TextBuilder.newInstance();
 			sb.append("<html><body>");
 			sb.append(getName() + ":<br>");
 			sb.append("<br>");
@@ -179,7 +180,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			for (Quest q : Quest.findAllEvents())
 				sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
 			sb.append("</body></html>");
-			html.setHtml(sb.toString());
+			html.setHtml(sb.moveToString());
 			player.sendPacket(html);
 
 		}
@@ -440,7 +441,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 				final int minLevel = getMinLevel(currentClassId.level());
 				if (player.getLevel() >= minLevel || Config.ALT_CLASS_MASTER_ENTIRE_TREE)
 				{
-					final TextBuilder menu = new TextBuilder(100);
+					final L2TextBuilder menu = L2TextBuilder.newInstance(100);
 					for (ClassId cid : ClassId.values())
 					{
 						if (validateClassId(currentClassId, cid) && cid.level() == level)
@@ -457,7 +458,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 					{
 						html.setFile("data/html/classmaster/template.htm");
 						html.replace("%name%", CharTemplateTable.getClassNameById(currentClassId.getId()));
-						html.replace("%menu%", menu.toString());
+						html.replace("%menu%", menu.moveToString());
 					}
 					else
 					{
@@ -465,7 +466,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 						html.replace("%level%", String.valueOf(getMinLevel(level - 1)));
 					}
 				}
-				else	
+				else
 				{
 					if (minLevel < Integer.MAX_VALUE)
 					{
@@ -494,7 +495,7 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 
 		msg = msg.replaceAll("%name%", CharTemplateTable.getClassNameById(currentClassId.getId()));
 
-		final TextBuilder menu = new TextBuilder(100);
+		final L2TextBuilder menu = L2TextBuilder.newInstance(100);
 		for (ClassId cid : ClassId.values())
 		{
 			if (validateClassId(currentClassId, cid))
@@ -521,14 +522,14 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			menu.append("</table><br><br>");
 		}
 
-		msg = msg.replaceAll("%menu%", menu.toString());
+		msg = msg.replaceAll("%menu%", menu.moveToString());
 		player.sendPacket(new TutorialShowHtml(msg));
 	}
 
 	private static final boolean checkAndChangeClass(L2PcInstance player, int val)
 	{
 		final ClassId currentClassId = player.getClassId();
-		int newJobLevel = currentClassId.level() + 1; 
+		int newJobLevel = currentClassId.level() + 1;
 		if (getMinLevel(currentClassId.level()) > player.getLevel()
 				&& !Config.ALT_CLASS_MASTER_ENTIRE_TREE)
 			return false;
