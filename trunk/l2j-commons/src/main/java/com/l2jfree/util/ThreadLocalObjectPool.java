@@ -17,7 +17,7 @@ package com.l2jfree.util;
 /**
  * @author NB4L1
  */
-public abstract class ThreadLocalObjectPool<E> extends ObjectPool<E>
+public abstract class ThreadLocalObjectPool<E> extends AbstractObjectPool<E>
 {
 	protected ThreadLocalObjectPool()
 	{
@@ -39,7 +39,7 @@ public abstract class ThreadLocalObjectPool<E> extends ObjectPool<E>
 		@Override
 		protected ObjectPool<E> initialValue()
 		{
-			return new ObjectPool<E>() {
+			return new ObjectPool<E>(false) {
 				@Override
 				protected int getMaximumSize()
 				{

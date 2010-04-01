@@ -17,14 +17,16 @@ package com.l2jfree.util;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.WeakHashMap;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.l2jfree.lang.L2Thread;
+import com.l2jfree.util.concurrent.EmptyLock;
 
 /**
  * @author NB4L1
  */
-public abstract class ObjectPool<E>
+public abstract class ObjectPool<E> extends AbstractObjectPool<E>
 {
 	private static final WeakHashMap<ObjectPool<?>, Object> POOLS = new WeakHashMap<ObjectPool<?>, Object>();
 	
@@ -56,7 +58,7 @@ public abstract class ObjectPool<E>
 		t.start();
 	}
 	
-	private final ReentrantLock _lock = new ReentrantLock();
+	private final Lock _lock;
 	
 	private Object[] _elements = new Object[0];
 	private long[] _access = new long[0];
@@ -64,6 +66,13 @@ public abstract class ObjectPool<E>
 	
 	protected ObjectPool()
 	{
+		this(true);
+	}
+	
+	protected ObjectPool(boolean concurrent)
+	{
+		_lock = concurrent ? new ReentrantLock() : new EmptyLock();
+		
 		POOLS.put(this, POOLS);
 	}
 	
@@ -78,16 +87,6 @@ public abstract class ObjectPool<E>
 		{
 			_lock.unlock();
 		}
-	}
-	
-	protected int getMaximumSize()
-	{
-		return Integer.MAX_VALUE;
-	}
-	
-	protected long getMaxLifeTime()
-	{
-		return 120000; // 2 min
 	}
 	
 	public void clear()
@@ -105,6 +104,7 @@ public abstract class ObjectPool<E>
 		}
 	}
 	
+	@Override
 	public void store(E e)
 	{
 		if (getCurrentSize() >= getMaximumSize())
@@ -132,10 +132,7 @@ public abstract class ObjectPool<E>
 		}
 	}
 	
-	protected void reset(E e)
-	{
-	}
-	
+	@Override
 	@SuppressWarnings("unchecked")
 	public E get()
 	{
@@ -161,8 +158,6 @@ public abstract class ObjectPool<E>
 		
 		return obj == null ? create() : (E)obj;
 	}
-	
-	protected abstract E create();
 	
 	public void purge()
 	{
