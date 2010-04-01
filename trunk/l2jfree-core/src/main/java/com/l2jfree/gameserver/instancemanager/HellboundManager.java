@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -24,11 +26,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.Announcements;
+import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2FastSet;
 
 /**
@@ -356,9 +360,8 @@ public final class HellboundManager
 			new SpawnData(18467, -16, 235137, -3267, 34467, 60, 60, 60),
 			new SpawnData(18467, -64, 235182, -3253, 35793, 60, 60, 60),
 			new SpawnData(18467, -114, 235206, -3235, 39343, 60, 60, 60) };
-
-	private static final SpawnData[] CHIMERA_SPAWNS = {
-			new SpawnData(22349, 1527, 232903, -3272, 36685, 60, 60, 60),
+	
+	private static final SpawnData[] CHIMERA_SPAWNS = { new SpawnData(22349, 1527, 232903, -3272, 36685, 60, 60, 60),
 			new SpawnData(22349, 1223, 235495, -3328, 28019, 60, 60, 60),
 			new SpawnData(22349, 2199, 232986, -3216, 58088, 60, 60, 60),
 			new SpawnData(22349, 4125, 234074, -3272, 62181, 60, 60, 60),
@@ -430,26 +433,14 @@ public final class HellboundManager
 		return SingletonHolder.INSTANCE;
 	}
 	
-	private final Set<L2Npc> _spawnRemnants = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnKeltas = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnDerek = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnNatives = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnBadNatives = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnKiefBuron = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnQuarryGuards = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnQuarrySlaves = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnHellinark = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnOutpostCaptain = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnWoundedLandGuards = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnChimera = new L2FastSet<L2Npc>().setShared(true);
-	private final Set<L2Npc> _spawnShadai = new L2FastSet<L2Npc>().setShared(true);
-
-
 	private int _trustPoints = 0;
 	private int _currentLevel = 0;
 	
 	private int _warpgateEnergy = 0;
-	private boolean _warpgateOpen = false;
+	
+	private boolean _allowShadaiSpawn = false;
+	
+	private final List<HellboundStageHandler> _handlers = new ArrayList<HellboundStageHandler>();
 	
 	private HellboundManager()
 	{
@@ -457,95 +448,38 @@ public final class HellboundManager
 		
 		loadTrustPoints();
 		loadWarpgates();
+		revalidateCurrentLevel();
 		
-		_log.info("Hellbound: Current points: " + _trustPoints);
-		
-		_currentLevel = getHellboundLevel();
-		
-		_log.info("Hellbound: Current level: " + _currentLevel);
-		
-		revalidateWarpGates();
-		
-		_log.info("Hellbound: Warpgates energy: " + _warpgateEnergy);
-		
-		_log.info("Hellbound: Warpgates are " + (_warpgateOpen ? "open" : "closed"));
-		
-		switch (_currentLevel)
-		{
-			case 1:
-				spawnKiefBuronHarbor();
-				spawnQuarrySlaves();
-				spawnBadNatives();
-				break;
-			case 2:
-				spawnKiefBuronHarbor();
-				spawnQuarrySlaves();
-				spawnBadNatives();
-				spawnRemnants();
-				break;
-			case 3:
-				spawnKiefBuronHarbor();
-				spawnQuarrySlaves();
-				spawnBadNatives();
-				spawnRemnants();
-				spawnKeltas();
-				break;
-			case 4:
-				spawnKiefBuronHarbor();
-				spawnQuarrySlaves();
-				spawnBadNatives();
-				spawnRemnants();
-				spawnKeltas();
-				spawnDerek();
-				break;
-			case 5:
-				spawnKiefBuronVillage();
-				spawnNatives();
-				spawnQuarryGuards();
-				spawnQuarrySlaves();
-				break;
-			case 6:
-				spawnKiefBuronVillage();
-				spawnNatives();
-				spawnHellinark();
-				break;
-			case 7:
-				spawnKiefBuronVillage();
-				spawnNatives();
-				spawnWoundedLandGuards();
-				spawnChimeraAndCeltus();
-				openWoundedPassage();
-				break;
-			case 8:
-				spawnKiefBuronVillage();
-				spawnNatives();
-				spawnChimeraAndCeltus();
-				openWoundedPassage();
-				spawnOutpostCaptain();
-				break;
-			case 9:
-				spawnKiefBuronVillage();
-				spawnNatives();
-				spawnChimeraAndCeltus();
-				spawnOutpostCaptain();
-				openWoundedPassage();
-				openIronGates();
-				break;
-			case 10:
-				spawnKiefBuronVillage();
-				spawnNatives();
-				spawnChimeraAndCeltus();
-				openWoundedPassage();
-				openIronGates();
-				break;
-		}
+		_log.info("Hellbound: Current points: " + getTrustPoints());
+		_log.info("Hellbound: Current level: " + getCurrentLevel());
+		_log.info("Hellbound: Warpgates energy: " + getWarpgateEnergy());
+		_log.info("Hellbound: Warpgates are " + (isWarpgateActive() ? "open" : "closed"));
 		
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(new SaveToDB(), 15 * 60 * 1000, 15 * 60 * 1000);
+		
+		new SpawnHandler("Kief and Buron spawned in Harbor", KIEF_BURON_HARBOR_SPAWNS, 1, 4);
+		new SpawnHandler("Bad Natives spawned", BAD_NATIVES_SPAWNS, 1, 4);
+		new SpawnHandler("Quarry slaves spawned", QUARRY_SLAVES, 1, 5);
+		new SpawnHandler("Remants spawned", REMNANTS_SPAWNS, 2, 4);
+		new KeltaSpawnHandler("Keltas spawned", KELTAS_AND_UNDERLING_SPAWNS, 3, 4);
+		new SpawnHandler("Derek spawned", DEREK_SPAWNS, 4, 4);
+		new SpawnHandler("Quarry Guards spawned", QUARRY_GUARDS_SPAWNS, 5, 5);
+		new SpawnHandler("Kief and Buron spawned in Village", KIEF_BURON_VILLAGE_SPAWNS, 5, 10);
+		new SpawnHandler("Natives spawned", NATIVES_SPAWNS, 5, 10);
+		new SpawnHandler("Hellinark spawned", HELLINARK_SPAWNS, 6, 6);
+		new SpawnHandler("Wounded Land guards spawned", WOUNDED_LAND_GUARDS_SPAWNS, 7, 7);
+		new SpawnHandler("Chimera/Celtus spawned", CHIMERA_SPAWNS, 7, 10);
+		new DoorHandler("Wounded passage", 20250002, 7, 10);
+		new SpawnHandler("Outpost Captain spawned", OUTPOST_CAPTAIN_SPAWNS, 8, 9);
+		new DoorHandler("Iron Gate", 20250001, 9, 10);
+		new ShadaiSpawnHandler("Legendary Blacksmith Shadai spawned", SHADAI_SPAWNS, 9, 10);
 	}
 	
-	public void revalidateWarpGates()
+	public void recalculateShadaiSpawn()
 	{
-		_warpgateOpen = (_warpgateEnergy >= POINTS_TO_OPEN_WARPGATE) ? true : false;
+		_allowShadaiSpawn = GameTimeController.getInstance().isNowNight() && (Rnd.get(100) < 20);
+		
+		revalidateCurrentLevel();
 	}
 	
 	public int getWarpgateEnergy()
@@ -556,20 +490,16 @@ public final class HellboundManager
 	public void addWarpgateEnergy(int amount)
 	{
 		_warpgateEnergy += amount;
-		
-		revalidateWarpGates();
 	}
 	
 	public void subWarpgateEnergy(int amount)
 	{
 		_warpgateEnergy = Math.max(0, _warpgateEnergy - amount);
-		
-		revalidateWarpGates();
 	}
 	
 	public boolean isWarpgateActive()
 	{
-		return _warpgateOpen;
+		return getWarpgateEnergy() >= POINTS_TO_OPEN_WARPGATE;
 	}
 	
 	public int getHellboundLevel()
@@ -761,28 +691,6 @@ public final class HellboundManager
 		return spawnNpc(spawnData, spawnData.respawnTime, spawnData.respawnMinDelay, spawnData.respawnMaxDelay);
 	}
 	
-	private void spawnNpcs(SpawnData[] spawnDatas, Set<L2Npc> npcs, String message)
-	{
-		for (SpawnData spawnData : spawnDatas)
-			npcs.add(spawnNpc(spawnData));
-		
-		_log.info(message);
-	}
-	
-	private void unspawnNpcs(Set<L2Npc> npcs, boolean stopRespawn, String message)
-	{
-		for (L2Npc npc : npcs)
-		{
-			if (stopRespawn && npc.getSpawn() != null)
-				npc.getSpawn().stopRespawn();
-			npc.deleteMe();
-		}
-		
-		npcs.clear();
-		
-		_log.info(message);
-	}
-	
 	private static final class SpawnData
 	{
 		public final int npcId;
@@ -820,10 +728,7 @@ public final class HellboundManager
 		{
 			_trustPoints += amount;
 			
-			int newLevel = getHellboundLevel();
-			
-			if (newLevel != _currentLevel)
-				handelHellboundLevelUp(newLevel);
+			revalidateCurrentLevel();
 		}
 	}
 	
@@ -831,295 +736,187 @@ public final class HellboundManager
 	{
 		_trustPoints -= amount;
 		
-		int newLevel = getHellboundLevel();
-		
-		if (newLevel != _currentLevel)
-			handelHellboundLevelDown(newLevel);
+		revalidateCurrentLevel();
 	}
 	
-	public void handelHellboundLevelUp(int newLevel)
+	private abstract class HellboundStageHandler
 	{
-		switch (newLevel)
+		private final String _activation;
+		private final String _deactivation;
+		private final int _minLevel;
+		private final int _maxLevel;
+		
+		private boolean _active = false;
+		
+		private HellboundStageHandler(String activation, String deactivation, int minLevel, int maxLevel)
 		{
-			case 2:
-				spawnRemnants();
-				break;
-			case 3:
-				spawnKeltas();
-				break;
-			case 4:
-				spawnDerek();
-				break;
-			case 5:
-				unspawnKiefBuron();
-				unspawnRemnants();
-				unspawnBadNatives();
-				unspawnKeltas();
-				unspawnDerek();
-				spawnNatives();
-				spawnKiefBuronVillage();
-				spawnQuarryGuards();
-				spawnQuarrySlaves();
-				break;
-			case 6:
-				unspawnQuarrySlaves();
-				unspawnQuarryGuards();
-				spawnHellinark();
-				break;
-			case 7:
-				unspawnHellinark();
-				spawnWoundedLandGuards();
-				spawnChimeraAndCeltus();
-				openWoundedPassage();
-				break;
-			case 8:
-				unspawnWoundedLandGuards();
-				spawnOutpostCaptain();
-				break;
-			case 9:
-				openIronGates();
-				break;
-		}
-		
-		announceAndLog(newLevel, true);
-		_currentLevel = newLevel;
-	}
-	
-	public void handelHellboundLevelDown(int newLevel)
-	{
-		switch (newLevel)
-		{
-			case 1:
-				unspawnRemnants();
-				break;
-			case 2:
-				unspawnKeltas();
-				spawnRemnants();
-				break;
-			case 3:
-				unspawnDerek();
-				spawnKeltas();
-				break;
-			case 4:
-				unspawnKiefBuron();
-				unspawnNatives();
-				unspawnQuarryGuards();
-				unspawnQuarrySlaves();
-				spawnDerek();
-				spawnKiefBuronHarbor();
-				spawnRemnants();
-				spawnBadNatives();
-				spawnKeltas();
-				break;
-			case 5:
-				unspawnHellinark();
-				spawnQuarryGuards();
-				spawnQuarrySlaves();
-				break;
-			case 6:
-				unspawnWoundedLandGuards();
-				unspawnChimeraAndCeltus();
-				closeWoundedPassage();
-				spawnHellinark();
-				break;
-			case 7:
-				unspawnOutpostCaptain();
-				spawnWoundedLandGuards();
-				break;
-			case 8:
-				unspawnShadai();
-				closeIronGates();
-				spawnOutpostCaptain();
-				break;
-			case 9:
-				openIronGates();
-				break;
-		}
-		
-		announceAndLog(newLevel, false);
-		_currentLevel = newLevel;
-	}
-	
-	private void unspawnKiefBuron()
-	{
-		unspawnNpcs(_spawnKiefBuron, false, "Hellbound: Kief and Buron unspawned");
-	}
-	
-	private void unspawnRemnants()
-	{
-		unspawnNpcs(_spawnRemnants, true, "Hellbound: Remnants unspawned");
-	}
-	
-	private void unspawnBadNatives()
-	{
-		unspawnNpcs(_spawnBadNatives, true, "Hellbound: Bad Natives unspawned");
-	}
-	
-	private void unspawnNatives()
-	{
-		unspawnNpcs(_spawnNatives, true, "Hellbound: Natives unspawned");
-	}
-	
-	private void unspawnKeltas()
-	{
-		unspawnNpcs(_spawnKeltas, true, "Hellbound: Keltas unspawned");
-	}
-	
-	private void unspawnDerek()
-	{
-		unspawnNpcs(_spawnDerek, true, "Hellbound: Derek unspawned");
-	}
-	
-	private void unspawnQuarryGuards()
-	{
-		unspawnNpcs(_spawnQuarryGuards, true, "Hellbound: Quarry guards unspawned");
-	}
-	
-	private void unspawnQuarrySlaves()
-	{
-		unspawnNpcs(_spawnQuarrySlaves, true, "Hellbound: Quarry slaves unspawned");
-	}
-	
-	private void unspawnHellinark()
-	{
-		unspawnNpcs(_spawnHellinark, true, "Hellbound: Hellinark unspawned");
-	}
-	
-	private void unspawnOutpostCaptain()
-	{
-		unspawnNpcs(_spawnOutpostCaptain, true, "Hellbound: Outpost captain unspawned");
-	}
-	
-	private void unspawnWoundedLandGuards()
-	{
-		unspawnNpcs(_spawnWoundedLandGuards, false, "Hellbound: Wounded Land guards unspawned");
-	}
-
-	public void unspawnChimeraAndCeltus()
-	{
-		unspawnNpcs(_spawnChimera, false, "Hellbound: Chimera/Celtus unspawned");
-	}
-	
-	public void unspawnShadai()
-	{
-		unspawnNpcs(_spawnShadai, false, "Hellbound: Shadai unspawned");
-		
-		Announcements.getInstance().announceToAll("The legendary Blacksmith Shadai has disappeared.");
-	}
-	
-	private void spawnKiefBuronHarbor()
-	{
-		spawnNpcs(KIEF_BURON_HARBOR_SPAWNS, _spawnKiefBuron, "Hellbound: Kief and Buron Spawned in harbor");
-	}
-	
-	private void spawnRemnants()
-	{
-		spawnNpcs(REMNANTS_SPAWNS, _spawnRemnants, "Hellbound: Remants spawned");
-	}
-	
-	private void spawnKeltas()
-	{
-		for (SpawnData spawnData : KELTAS_AND_UNDERLING_SPAWNS)
-		{
-			final L2Npc npc;
+			_activation = activation;
+			_deactivation = deactivation;
+			_minLevel = minLevel;
+			_maxLevel = maxLevel;
 			
+			_handlers.add(this);
+		}
+		
+		protected abstract void activate();
+		
+		protected abstract void deactivate();
+		
+		protected boolean shouldBeActive()
+		{
+			return _minLevel <= getCurrentLevel() && getCurrentLevel() <= _maxLevel;
+		}
+	}
+	
+	private class SpawnHandler extends HellboundStageHandler
+	{
+		private final Set<L2Npc> _spawnedNpcs = new L2FastSet<L2Npc>().setShared(true);
+		private final SpawnData[] _spawnDatas;
+		
+		private SpawnHandler(String activation, SpawnData[] spawnDatas, int minLevel, int maxLevel)
+		{
+			super(activation, activation.replace("spawned", "unspawned"), minLevel, maxLevel);
+			
+			_spawnDatas = spawnDatas;
+		}
+		
+		@Override
+		protected void activate()
+		{
+			for (SpawnData spawnData : _spawnDatas)
+				_spawnedNpcs.add(spawn(spawnData));
+		}
+		
+		protected L2Npc spawn(SpawnData spawnData)
+		{
+			return spawnNpc(spawnData);
+		}
+		
+		@Override
+		protected void deactivate()
+		{
+			for (L2Npc npc : _spawnedNpcs)
+			{
+				npc.getSpawn().stopRespawn();
+				npc.deleteMe();
+			}
+			
+			_spawnedNpcs.clear();
+		}
+	}
+	
+	private class KeltaSpawnHandler extends SpawnHandler
+	{
+		private KeltaSpawnHandler(String activation, SpawnData[] spawnDatas, int minLevel, int maxLevel)
+		{
+			super(activation, spawnDatas, minLevel, maxLevel);
+		}
+		
+		@Override
+		protected L2Npc spawn(SpawnData spawnData)
+		{
 			if (spawnData.npcId == 22341 && getHellboundLevel() >= 4)
-				npc = spawnNpc(spawnData, 28800, 28800, 57600);
+				return spawnNpc(spawnData, 28800, 28800, 57600);
 			else
-				npc = spawnNpc(spawnData);
-			
-			_spawnKeltas.add(npc);
+				return super.spawn(spawnData);
 		}
-		_log.info("Hellbound: Keltas spawned");
 	}
 	
-	private void spawnDerek()
+	private class ShadaiSpawnHandler extends SpawnHandler
 	{
-		spawnNpcs(DEREK_SPAWNS, _spawnDerek, "Hellbound: Derek spawned");
-	}
-	
-	private void spawnNatives()
-	{
-		spawnNpcs(NATIVES_SPAWNS, _spawnNatives, "Hellbound: Natives spawned");
-	}
-	
-	private void spawnKiefBuronVillage()
-	{
-		spawnNpcs(KIEF_BURON_VILLAGE_SPAWNS, _spawnKiefBuron, "Hellbound: Kief and Buron spawned in Village");
-	}
-	
-	private void spawnQuarryGuards()
-	{
-		spawnNpcs(QUARRY_GUARDS_SPAWNS, _spawnQuarryGuards, "Hellbound: Quarry Guards spawned");
-	}
-	
-	private void spawnHellinark()
-	{
-		spawnNpcs(HELLINARK_SPAWNS, _spawnHellinark, "Hellbound: Hellinark spawned");
-	}
-	
-	private void spawnOutpostCaptain()
-	{
-		spawnNpcs(OUTPOST_CAPTAIN_SPAWNS, _spawnOutpostCaptain, "Hellbound: Outpost Captain spawned");
-	}
-	
-	private void spawnBadNatives()
-	{
-		spawnNpcs(BAD_NATIVES_SPAWNS, _spawnBadNatives, "Hellbound: Charmed Natives spawned");
-	}
-	
-	private void spawnQuarrySlaves()
-	{
-		spawnNpcs(QUARRY_SLAVES, _spawnQuarrySlaves, "Hellbound: Quarry slaves spawned");
-	}
-	
-	private void spawnWoundedLandGuards()
-	{
-		spawnNpcs(WOUNDED_LAND_GUARDS_SPAWNS, _spawnWoundedLandGuards, "Hellbound: Wounded Land guards spawned");
-	}
-
-	private void spawnChimeraAndCeltus()
-	{
-		spawnNpcs(CHIMERA_SPAWNS, _spawnChimera, "Hellbound: Chimera/Celtus spawned");
-	}
-
-	public void spawnShadai()
-	{
-		spawnNpcs(SHADAI_SPAWNS, _spawnShadai, "Hellbound: Legendary Blacksmith Shadai spawned.");
+		private ShadaiSpawnHandler(String activation, SpawnData[] spawnDatas, int minLevel, int maxLevel)
+		{
+			super(activation, spawnDatas, minLevel, maxLevel);
+		}
 		
-		Announcements.getInstance().announceToAll("The legendary Blacksmith Shadai can now be met!");
-	}
-	
-	private void openWoundedPassage()
-	{
-		DoorTable.getInstance().getDoor(20250002).openMe();
-		_log.info("Hellbound: Wounded passage open");
-	}
-	
-	private void openIronGates()
-	{
-		DoorTable.getInstance().getDoor(20250001).openMe();
-		_log.info("Hellbound: Iron Gate open");
-	}
-	
-	private void closeWoundedPassage()
-	{
-		DoorTable.getInstance().getDoor(20250002).closeMe();
-		_log.info("Hellbound: Wounded passage closed");
-	}
-	
-	private void closeIronGates()
-	{
-		DoorTable.getInstance().getDoor(20250001).closeMe();
-		_log.info("Hellbound: Iron Gate closed");
-	}
-	
-	private void announceAndLog(int level, boolean up)
-	{
-		String message = (up ? "Hellbound went up to stage " : "Hellbound went down to stage ") + level;
+		@Override
+		protected boolean shouldBeActive()
+		{
+			if (!_allowShadaiSpawn)
+				return false;
+			
+			return super.shouldBeActive();
+		}
 		
-		Announcements.getInstance().announceToAll(message);
-		_log.info(message);
+		@Override
+		protected void activate()
+		{
+			super.activate();
+			
+			Announcements.getInstance().announceToAll("The legendary Blacksmith Shadai can now be met!");
+		}
+		
+		@Override
+		protected void deactivate()
+		{
+			super.deactivate();
+			
+			Announcements.getInstance().announceToAll("The legendary Blacksmith Shadai has disappeared.");
+		}
+	}
+	
+	private class DoorHandler extends HellboundStageHandler
+	{
+		private final int _doorId;
+		
+		private DoorHandler(String doorName, int doorId, int minLevel, int maxLevel)
+		{
+			super(doorName + " open", doorName + " closed", minLevel, maxLevel);
+			
+			_doorId = doorId;
+		}
+		
+		@Override
+		protected void activate()
+		{
+			DoorTable.getInstance().getDoor(_doorId).openMe();
+		}
+		
+		@Override
+		protected void deactivate()
+		{
+			DoorTable.getInstance().getDoor(_doorId).closeMe();
+		}
+	}
+	
+	public void revalidateCurrentLevel()
+	{
+		final int previousLevel = getCurrentLevel();
+		
+		_currentLevel = getHellboundLevel();
+		
+		if (previousLevel != getCurrentLevel())
+		{
+			String message = "Hellbound went " + ((previousLevel < getCurrentLevel()) ? "up" : "down") + " to stage "
+					+ getCurrentLevel();
+			
+			Announcements.getInstance().announceToAll(message);
+			
+			_log.info(message);
+		}
+		
+		for (HellboundStageHandler handler : _handlers)
+		{
+			final boolean previousValue = handler._active;
+			
+			handler._active = handler.shouldBeActive();
+			
+			if (previousValue != handler._active)
+			{
+				if (handler._active)
+				{
+					_log.info("Hellbound: " + handler._activation);
+					
+					handler.activate();
+				}
+				else
+				{
+					_log.info("Hellbound: " + handler._deactivation);
+					
+					handler.deactivate();
+				}
+			}
+		}
 	}
 	
 	public int getNeededTrustPoints(int level)

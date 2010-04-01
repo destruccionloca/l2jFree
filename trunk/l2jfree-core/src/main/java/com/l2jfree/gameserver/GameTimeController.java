@@ -38,7 +38,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.ConditionListene
 import com.l2jfree.gameserver.network.serverpackets.ClientSetTime;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.lang.L2Thread;
-import com.l2jfree.tools.random.Rnd;
 
 public final class GameTimeController
 {
@@ -181,25 +180,9 @@ public final class GameTimeController
 				}
 
 				// Blacksmith Shadai
-				if (newHour == 0)
+				if (newHour == 0 || newHour == Config.DATETIME_SUNRISE)
 				{
-					if (HellboundManager.getInstance().getHellboundLevel() >= 9)
-					{
-						if (Rnd.get(100) >= 80)
-						{
-							int nightLenght = Math.abs(Config.DATETIME_SUNRISE * 60 / Config.DATETIME_MULTI);
-
-							HellboundManager.getInstance().spawnShadai();
-	
-							ThreadPoolManager.getInstance().schedule(new Runnable()
-							{
-								public void run()
-								{
-									HellboundManager.getInstance().unspawnShadai();
-								}
-							}, nightLenght * 60 * 1000);
-						}
-					}
+					HellboundManager.getInstance().recalculateShadaiSpawn();
 				}
 				
 				//check if night state changed
