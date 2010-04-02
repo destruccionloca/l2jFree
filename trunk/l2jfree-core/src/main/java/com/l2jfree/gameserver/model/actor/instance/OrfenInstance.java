@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.OrfenAI;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -23,6 +24,24 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  */
 public class OrfenInstance extends L2GrandBossInstance
 {
+	public static enum Position
+	{
+		FIELD, NEST
+	}
+	
+	public static final Location FIELD_POS = new Location(55024, 17368, -5412, 0);
+	public static final Location NEST_POS = new Location(43728, 17220, -4342, 0);
+	
+	public static final String[] MESSAGES = 
+	{
+		"%s, stop kidding yourthis about your own powerlessness!",
+		"%s, I'll make you feel what true fear is!",
+		"You're really stupid to have challenged me. %s! Get ready!",
+		"%s, do you think that's going to work?!"
+	};
+	
+	private Position _pos = Position.FIELD;
+	
 	public OrfenInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -32,5 +51,15 @@ public class OrfenInstance extends L2GrandBossInstance
 	protected L2CharacterAI initAI()
 	{
 		return new OrfenAI(new AIAccessor());
+	}
+	
+	public Position getPos()
+	{
+		return _pos;
+	}
+	
+	public void setPos(Position pos)
+	{
+		 _pos = pos;
 	}
 }

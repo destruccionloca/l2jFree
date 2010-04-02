@@ -140,6 +140,8 @@ public abstract class L2Boss extends L2MonsterInstance
 			case 29028:
 				// Zaken is handeled by AI script
 			case 29022:
+				// Orfen is handeled by AI script
+			case 29014:
 				return;
 		}
 		

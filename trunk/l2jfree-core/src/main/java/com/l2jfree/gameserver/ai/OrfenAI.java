@@ -14,21 +14,19 @@
  */
 package com.l2jfree.gameserver.ai;
 
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
+import com.l2jfree.gameserver.model.actor.instance.OrfenInstance;
+import com.l2jfree.gameserver.model.actor.instance.OrfenInstance.Position;
+import com.l2jfree.gameserver.network.serverpackets.NpcSay;
+import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author hex1r0
  */
 public class OrfenAI extends L2AttackableAI
 {
-	private enum Position
-	{
-		FIELD,
-		NEST
-	}
-	
-	private Position _pos = Position.FIELD;
-	
 	public OrfenAI(AIAccessor accessor)
 	{
 		super(accessor);
@@ -38,10 +36,12 @@ public class OrfenAI extends L2AttackableAI
 	protected void thinkActive()
 	{
 		super.thinkActive();
-		if (_actor.getCurrentHp() > _actor.getMaxHp() / 2 && _pos == Position.NEST)
+		
+		OrfenInstance actor = (OrfenInstance) _actor;
+		if (actor.getCurrentHp() == actor.getMaxHp() && actor.getPos() == Position.NEST)
 		{
-			_pos = Position.FIELD;
-			// TODO tele to field
+			actor.setPos(Position.FIELD);
+			actor.teleToLocation(OrfenInstance.FIELD_POS, false);
 		}
 	}
 	
@@ -49,12 +49,26 @@ public class OrfenAI extends L2AttackableAI
 	protected void thinkAttack()
 	{
 		super.thinkAttack();
-		
-		if (_actor.getCurrentHp() < _actor.getMaxHp() / 2 && _pos == Position.FIELD)
+
+		OrfenInstance actor = (OrfenInstance) _actor;
+		if (actor.getCurrentHp() < (actor.getMaxHp() / 2) && actor.getPos() == Position.FIELD)
 		{
-			_pos = Position.NEST;
-			// TODO tele to nest
+			actor.setPos(Position.NEST);
+			actor.teleToLocation(OrfenInstance.NEST_POS, false);
 		}
-		// TODO figth algorithm
+	}
+
+	@Override
+	protected void onEvtAttacked(L2Character attacker)
+	{
+		super.onEvtAttacked(attacker);
+		
+		OrfenInstance actor = (OrfenInstance) _actor;
+		double distance = Util.calculateDistance(actor, attacker, true);
+		if (distance > 300D && Rnd.get(100) < 10)
+		{	
+			actor.broadcastPacket(new NpcSay(actor.getObjectId(), 0, actor.getNpcId(), OrfenInstance.MESSAGES[Rnd.get(OrfenInstance.MESSAGES.length)].replace("%s", attacker.getName())));
+			attacker.teleToLocation(actor.getLoc(), true);
+		}
 	}
 }

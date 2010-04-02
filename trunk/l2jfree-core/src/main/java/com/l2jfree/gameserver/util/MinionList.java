@@ -35,7 +35,10 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.L2MinionData;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
+import com.l2jfree.gameserver.model.actor.instance.OrfenInstance;
+import com.l2jfree.gameserver.model.actor.instance.OrfenInstance.Position;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
@@ -174,13 +177,32 @@ public class MinionList
 
 		synchronized (minionReferences)
 		{
-			int minionCount, minionId, minionsToSpawn;
+			int minionCount = 0, minionId =	0, minionsToSpawn;
 			for (L2MinionData minion : minions)
 			{
-				minionCount = minion.getAmount();
-				minionId = minion.getMinionId();
+				switch (master.getNpcId())
+				{
+					case 29014: // Orfen
+						OrfenInstance orfen = (OrfenInstance) master; 
+						switch (orfen.getPos())
+						{
+							case FIELD:
+								minionCount = 4;
+								minionId = 29016;
+								break;
+							case NEST:
+								minionCount = minion.getAmount();
+								minionId = minion.getMinionId();
+								break;
+						}
+						break;
+					default:
+						minionCount = minion.getAmount();
+						minionId = minion.getMinionId();
+				}
+				
 
-				minionsToSpawn = minionCount - countSpawnedMinionsById(minionId);
+				minionsToSpawn = Math.abs(minionCount - countSpawnedMinionsById(minionId));
 
 				for (int i = 0; i < minionsToSpawn; i++)
 				{

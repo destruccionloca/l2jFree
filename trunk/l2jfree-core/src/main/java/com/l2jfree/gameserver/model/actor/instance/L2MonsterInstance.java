@@ -107,19 +107,8 @@ public class L2MonsterInstance extends L2Attackable
 			setWeaponEnchantLevel(Rnd.get(16));
 
 		if (_minionList != null)
-		{
-			if (getSpawnedMinions() != null)
-			{
-				for (L2MinionInstance minion : getSpawnedMinions())
-				{
-					if (minion == null)
-						continue;
-					getSpawnedMinions().remove(minion);
-					minion.deleteMe();
-				}
-				_minionList.clearRespawnList();
-			}
-		}
+			deleteSpawnedMinions();
+		
 		startMaintenanceTask();
 	}
 	
@@ -268,8 +257,8 @@ public class L2MonsterInstance extends L2Attackable
 	{
 		if (hasMinions())
 		{
-			if (_maintenanceTask  != null)
-				_maintenanceTask .cancel(true);
+			if (_maintenanceTask != null)
+				_maintenanceTask.cancel(true);
 
 			deleteSpawnedMinions();
 		}
