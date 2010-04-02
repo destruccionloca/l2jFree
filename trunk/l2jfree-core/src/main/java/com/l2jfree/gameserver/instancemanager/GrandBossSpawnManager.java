@@ -227,8 +227,11 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		L2NpcTemplate template = NpcTable.getInstance().getTemplate(bossId);
 		if (template == null)
 			return null;
-//		if (!template.getType().equalsIgnoreCase("L2GrandBoss"))
-//			return null;
+		if (!template.getType().equalsIgnoreCase("L2GrandBoss") && 
+				!template.getType().equalsIgnoreCase("QueenAnt") &&
+				!template.getType().equalsIgnoreCase("Zaken") &&
+				!template.getType().equalsIgnoreCase("Orfen"))
+			return null;
 		return template;
 	}
 
