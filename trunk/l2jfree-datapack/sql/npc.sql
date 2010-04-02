@@ -10091,3 +10091,6 @@ UPDATE `npc` SET `type` = 'QueenAntNurse' WHERE `id` = 29003;
 
 -- Zaken (hex1r0)
 UPDATE `npc` SET `type` = 'Zaken' WHERE `id` = 29022;
+
+-- Orfen (hex1r0)
+UPDATE `npc` SET `type` = 'Orfen' WHERE `id` = 29014;

@@ -62405,3 +62405,6 @@ INSERT INTO `npcskills` VALUES (29022, 4414, 2);
 INSERT INTO `npcskills` VALUES (29022, 4415, 3);
 INSERT INTO `npcskills` VALUES (29022, 4416, 1);
 
+-- Riba Iren (Orfen Minion) heal skill (hex1r0)
+INSERT INTO `npcskills` VALUES (29018, 4516, 1);
+
