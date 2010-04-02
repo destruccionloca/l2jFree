@@ -32,6 +32,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <set name="aggroPoints" val="624"/>
   </skill>
   <skill id="702" levels="1" name="Divine Healer Cleanse">
     <!-- Cancel all the debuffs of the target. -->
@@ -1348,7 +1349,7 @@
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpInitialConsume" val="11"/>
     <set name="mpConsume" val="46"/>
-    <set name="power" val="80"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="magicLvl" val="83"/>
     <set name="lvlDepend" val="2"/>
     <set name="isDebuff" val="true"/>
@@ -1707,7 +1708,8 @@
     <!--
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
-    <set name="power" val="80"/>
+    <set name="magicLvl" val="78"/>
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>

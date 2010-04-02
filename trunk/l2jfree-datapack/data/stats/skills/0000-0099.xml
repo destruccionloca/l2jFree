@@ -1740,7 +1740,7 @@
     </enchant5for>
     <enchant6for>
       <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun">
-        <add order="0x40" stat="earthRes" val="#enchVuln"/>
+        <sub order="0x40" stat="earthRes" val="#enchVuln"/>
       </effect>
     </enchant6for>
   </skill>

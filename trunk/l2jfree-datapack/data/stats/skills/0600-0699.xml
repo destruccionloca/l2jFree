@@ -321,7 +321,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CHARGESOUL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="num_souls" val="8"/>
+    <set name="num_souls" val="40"/>
     <enchant1 name="hpConsume" val="#ench1hpConsume"/>
     <enchant2 name="reuseDelay" val="#ench2Reuse"/>
   </skill>
@@ -559,7 +559,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <for>
-      <add order="0x40" stat="pAtkRange" val="100"/>
+      <add order="0x40" stat="pAtkRange" val="200"/>
     </for>
   </skill>
   <skill id="646" levels="1" name="Wizard Ability - Mana Gain">
@@ -1112,7 +1112,7 @@
     <set name="mpConsume" val="40"/>
     <set name="magicLvl" val="74"/>
     <set name="power" val="6752"/>
-    <set name="reuseDelay" val="40000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="700"/>
     <set name="SSBoost" val="2.0"/>
     <set name="staticReuse" val="true"/>
@@ -1201,7 +1201,7 @@
       <effect name="ImmobileBuff" time="30" val="0" abnormal="invulnerable" stackOrder="1" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
-        <mul order="0x30" stat="cancelVuln" val="0.9"/>
+        <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </for>
   </skill>
@@ -1280,6 +1280,8 @@
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="57"/>
+    <set name="power" val="6969"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="magicLvl" val="74"/>
     <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="3000"/>
