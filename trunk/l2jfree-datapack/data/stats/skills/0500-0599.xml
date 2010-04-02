@@ -1834,7 +1834,7 @@
       <effect name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="fireArmor">
         <mul order="0x30" stat="pDef" val="#pDef"/>
         <add order="0x40" stat="reflectDam" val="#reflectDam"/>
-        <mul order="0x30" stat="fireVuln" val="0.7"/>
+        <sub order="0x40" stat="fireRes" val="30"/>
       </effect>
     </for>
   </skill>

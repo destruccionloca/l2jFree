@@ -1709,7 +1709,7 @@
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
     <set name="magicLvl" val="78"/>
-    <set name="power" val="70"/> <!-- Base Land Rate -->
+    <set name="power" val="70"/> Base Land Rate
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="reuseDelay" val="6000"/>
