@@ -15,14 +15,13 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 
 public class RequestPetGetItem extends L2GameClientPacket
 {
@@ -56,11 +55,6 @@ public class RequestPetGetItem extends L2GameClientPacket
 		}
 
 		L2ItemInstance item = (L2ItemInstance) obj;
-		if (!MercTicketManager.getInstance().canPickUp(player, item))
-		{
-			sendAF();
-			return;
-		}
 
 		if (player.getPet() == null || player.getPet() instanceof L2SummonInstance)
 		{
@@ -71,12 +65,15 @@ public class RequestPetGetItem extends L2GameClientPacket
 		L2PetInstance pet = (L2PetInstance) player.getPet();
 		if (pet.isDead() || pet.isOutOfControl())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 
-		if (MercTicketManager.getInstance().isTicket(item.getItemId()))
-			player.leaveParty();
+		if (!GlobalRestrictions.canPickUp(player, item, pet))
+		{
+			sendAF();
+			return;
+		}
 
 		pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);
 	}

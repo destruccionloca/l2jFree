@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions.CombatState;
 
 /**
@@ -128,6 +129,12 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	
 	@DisabledRestriction
 	public boolean canStandUp(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public boolean canPickUp(L2PcInstance activeChar, L2ItemInstance item, L2PetInstance pet)
 	{
 		throw new AbstractMethodError();
 	}

@@ -39,6 +39,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.shot.ShotState;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
@@ -764,11 +765,8 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (player.isFlying() || !MercTicketManager.getInstance().canPickUp(player, this))
+		if (player.isFlying() || !GlobalRestrictions.canPickUp(player, this, null))
 			return;
-
-		if (player.isInParty() && MercTicketManager.getInstance().isTicket(getItemId()))
-			player.leaveParty(); // seriously, he asked for it.
 
 		player.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, this);
 	}

@@ -33,6 +33,7 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -61,6 +62,7 @@ public final class GlobalRestrictions
 		canUseItemHandler,
 		getCombatState,
 		canStandUp,
+		canPickUp,
 		// TODO
 		
 		isInsideZone,
@@ -191,6 +193,7 @@ public final class GlobalRestrictions
 		activate(new CursedWeaponRestriction());
 		activate(new DuelRestriction());
 		activate(new JailRestriction());
+		activate(new MercenaryTicketRestriction());
 		activate(new OlympiadRestriction());
 	}
 	
@@ -500,6 +503,15 @@ public final class GlobalRestrictions
 	{
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canStandUp.ordinal()])
 			if (!restriction.canStandUp(activeChar))
+				return false;
+		
+		return true;
+	}
+	
+	public static boolean canPickUp(L2PcInstance activeChar, L2ItemInstance item, L2PetInstance pet)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canPickUp.ordinal()])
+			if (!restriction.canPickUp(activeChar, item, pet))
 				return false;
 		
 		return true;

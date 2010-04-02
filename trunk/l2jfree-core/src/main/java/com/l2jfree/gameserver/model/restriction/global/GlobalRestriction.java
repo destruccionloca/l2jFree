@@ -25,6 +25,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions.CombatState;
 
 /**
@@ -57,6 +58,8 @@ public interface GlobalRestriction
 	public CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target);
 	
 	public boolean canStandUp(L2PcInstance activeChar);
+
+	public boolean canPickUp(L2PcInstance activeChar, L2ItemInstance item, L2PetInstance pet);
 	
 	// TODO
 	

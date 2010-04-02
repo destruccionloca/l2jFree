@@ -615,6 +615,7 @@ public class Instance
 
 	public void cancelTimer()
 	{
-		_checkTimeUpTask.cancel(false);
+		if (_checkTimeUpTask != null)
+			_checkTimeUpTask.cancel(false);
 	}
 }
