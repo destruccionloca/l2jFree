@@ -77,7 +77,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="669"/>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="multi_buff">
         <add order="0x40" stat="mCritRate" val="2"/>
         <mul order="0x30" stat="regMp" val="1.2"/>
         <mul order="0x30" stat="pAtk" val="1.1"/>
@@ -108,7 +108,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="669"/>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="maxMp" val="1.2"/>
         <mul order="0x30" stat="regHp" val="1.2"/>
         <add order="0x40" stat="mCritRate" val="2"/>
@@ -140,7 +140,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="669"/>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="multi_buff">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="multi_buff">
         <mul order="0x30" stat="maxHp" val="1.2"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
         <mul order="0x30" stat="mCritRate" val="1.2"/>
@@ -202,7 +202,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect count="1" name="Root" time="10" val="0" stackOrder="1" stackType="Root">
+      <effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root">
         <mul order="0x30" stat="rootVuln" val="0"/>
       </effect>
     </for>
@@ -265,7 +265,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="669"/>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="2" stackType="multi_buff">
+      <effect name="Buff" time="120" val="0" stackOrder="2" stackType="multi_buff">
         <mul order="0x30" stat="maxHp" val="1.2"/>
         <add order="0x40" stat="accCombat" val="4"/>
         <mul order="0x30" stat="pAtk" val="1.1"/>
@@ -328,7 +328,7 @@
     <table name="#magicLvl"> 70 75 80 82 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="100"/> <!-- Lands extremely often in retail -->
+    <set name="power" val="90"/> <!-- Lands extremely often in retail -->
     <set name="lvlDepend" val="2"/>
     <set name="reuseDelay" val="16000"/>
     <set name="hitTime" val="2000"/>
@@ -478,7 +478,7 @@
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="6000"/>
-    <!-- <set name="hitTime" val="830"/> -->
+    <!-- set name="hitTime" val="830"/ -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -520,7 +520,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="18000"/>
-    <!-- <set name="hitTime" val="830"/> -->
+    <!-- set name="hitTime" val="830"/ -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -598,7 +598,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="6000"/>
-    <!-- <set name="hitTime" val="830"/> -->
+    <!-- set name="hitTime" val="830"/ -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -620,7 +620,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="735" levels="1" name="Devil Spinning Weapon">
-    <set name="mpInitialConsume" val="22"/>
+    <set name="mpInitialConsume" val="21"/>
     <set name="mpConsume" val="87"/>
     <set name="power" val="162"/>
     <set name="isMagic" val="true"/>
@@ -636,7 +636,7 @@
   <skill id="736" levels="1" name="Devil Seed">
     <!-- This skill is wrong, needs core support! -->
     <set name="mpInitialConsume" val="16"/>
-    <set name="mpConsume" val="66"/>
+    <set name="mpConsume" val="65"/>
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="element" val="5"/> <!-- Dark -->
@@ -1167,7 +1167,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="666"/>
     <for>
-      <effect name="Buff" time="120" val="0">
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="song_of_windstorm">
         <mul order="0x30" stat="bowWpnVuln" val="0.7"/>
       </effect>
     </for>
@@ -1187,7 +1187,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="666"/>
     <for>
-      <effect name="Buff" time="15" val="0">
+      <effect name="Buff" time="15" val="0" stackOrder="1" stackType="dance_of_bladestorm">
         <mul order="0x30" stat="bowWpnVuln" val="0.01"/>
         <mul order="0x30" stat="mAtk" val="0.01"/>
       </effect>
@@ -1772,8 +1772,7 @@
   </skill>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="15" enchantLevels2="15">
     <table name="#ench1power"> 41 43 45 47 49 51 53 55 57 59 61 63 65 68 70 </table> <!-- Guess -->
-    <table name="#ench2Reuse"> 147500 145000 142500 140000 137500 135000 132500 130000 127500 125000
-      122500 120000 117500 115000 112500 </table> <!-- Guess -->
+    <table name="#ench2Reuse"> 147000 144000 141000 138000 135000 132000 129000 126000 123000 120000 117000 114000 110000 108000 105000 </table> <!-- Guess -->
     <set name="mpInitialConsume" val="11"/>
     <set name="mpConsume" val="46"/>
     <set name="isDebuff" val="true"/>
