@@ -425,7 +425,7 @@ public final class HellboundManager
 			new SpawnData(22352, 10496, 237369, -1968, 48018, 60, 60, 60),
 			new SpawnData(22352, 10269, 237058, -1976, 687, 60, 60, 60),
 			new SpawnData(22352, 5197, 235229, -3144, 24127, 60, 60, 60),
-			new SpawnData(22353, 7661, 240904, -2024, 25632, 7200, 7200, 14400)};
+			new SpawnData(22353, 7661, 240904, -2024, 25632, 7200, 7200, 14400) };
 	
 	private static final SpawnData[] SHADAI_SPAWNS = { new SpawnData(32347, 8864, 253160, -1933, 51999, 60, 60, 60) };
 	
