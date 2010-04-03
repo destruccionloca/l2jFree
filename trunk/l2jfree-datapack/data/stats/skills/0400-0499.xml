@@ -2309,16 +2309,12 @@
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
       <effect name="Buff" time="1200" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd">
-          <using kind="Crossbow"/>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="#ench1time" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="1.12">
-          <using kind="Crossbow"/>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="1.12"/>
       </effect>
     </enchant1for>
   </skill>

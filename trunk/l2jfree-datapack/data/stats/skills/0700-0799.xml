@@ -1041,17 +1041,16 @@
     <set name="triggeredLevel" val="1"/>
     <set name="activationChance" val="5"/>
     <set name="chanceType" val="ON_MELEE"/>
-    <cond>
-      <not>
-        <using kind="Bow,Crossbow"/>
-      </not>
-    </cond>
     <for>
       <add order="0x40" stat="pAtk" val="100">
-        <using kind="Sword,Blunt,Dagger,Pole,Fist,Dual Sword,Dual Fist,Big Sword,Big Blunt,Ancient,Rapier,Dual Dagger"/>
+        <not>
+          <using kind="Bow,Crossbow"/>
+        </not>
       </add>
       <mul order="0x30" stat="pAtkSpd" val="1.1">
-        <using kind="Sword,Blunt,Dagger,Pole,Fist,Dual Sword,Dual Fist,Big Sword,Big Blunt,Ancient,Rapier,Dual Dagger"/>
+        <not>
+          <using kind="Bow,Crossbow"/>
+        </not>
       </mul>
     </for>
   </skill>
