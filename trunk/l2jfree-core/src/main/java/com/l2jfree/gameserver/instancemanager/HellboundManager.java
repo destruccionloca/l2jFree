@@ -735,7 +735,7 @@ public final class HellboundManager
 	
 	public void decreaseTrustPoints(int amount)
 	{
-		_trustPoints -= amount;
+		_trustPoints = Math.max(0, _trustPoints - amount);
 		
 		revalidateCurrentLevel();
 	}

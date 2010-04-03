@@ -25,7 +25,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class AdminHellbound implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = { 
+	private static final String[] ADMIN_COMMANDS = {
+		"admin_set_hellbound_level",
 		"admin_add_trust_points",
 		"admin_remove_trust_points",
 		"admin_add_warpgate_points",
@@ -36,8 +37,26 @@ public final class AdminHellbound implements IAdminCommandHandler
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String cmd = st.nextToken();
 		String val = st.nextToken();
-		
-		if (cmd.equals("admin_add_trust_points"))
+
+		if (cmd.equals("admin_set_hellbound_level"))
+		{
+			int actualPoints = HellboundManager.getInstance().getTrustPoints();
+			int neededPoints = HellboundManager.getInstance().getNeededTrustPoints(Integer.valueOf(val));
+
+			if (actualPoints < neededPoints)
+			{
+				int pointsToAdd = neededPoints - actualPoints;
+				HellboundManager.getInstance().addTrustPoints(pointsToAdd);
+				activeChar.sendMessage("Added " + pointsToAdd + " trust points to Hellbound.");
+			}
+			else
+			{
+				int pointsToRemove = actualPoints - neededPoints;
+				HellboundManager.getInstance().decreaseTrustPoints(pointsToRemove);
+				activeChar.sendMessage("Removed " + pointsToRemove + " trust points from Hellbound.");
+			}
+		}
+		else if (cmd.equals("admin_add_trust_points"))
 		{
 			HellboundManager.getInstance().addTrustPoints(Integer.valueOf(val));
 			activeChar.sendMessage("Added " + val + " trust points to Hellbound.");
