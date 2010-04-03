@@ -9701,6 +9701,7 @@ UPDATE `etcitem` SET `skills_item` = '2403-1', `handler` = 'ItemSkills' WHERE `i
 -- Fix seed price (Psycho)
 UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10171';
 UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10172';
+UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10173';
 UPDATE `etcitem` SET `price` = '10' WHERE `item_id` = '10174';
 UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10197';
 UPDATE `etcitem` SET `price` = '5' WHERE `item_id` = '10198';
