@@ -206,8 +206,7 @@ public class L2AttackableAIScript extends QuestJython
 				{
 					try
 					{
-						if (L2Attackable.class.isAssignableFrom(
-								Class.forName("com.l2jfree.gameserver.model.actor.instance." + t.getType() + "Instance")))
+						if (t.isAssignableTo(L2Attackable.class))
 						{
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_ATTACK);
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_KILL);
@@ -218,9 +217,9 @@ public class L2AttackableAIScript extends QuestJython
 							ai.addEventId(t.getNpcId(), Quest.QuestEventType.ON_ARRIVED);
 						}
 					}
-					catch (ClassNotFoundException ex)
+					catch (RuntimeException e)
 					{
-						_log.warn("Class not found " + t.getType() + "Instance", ex);
+						_log.warn("", e);
 					}
 				}
 			}

@@ -24,9 +24,10 @@ public class TestL2NpcTemplate extends TestCase
 
     /**
      * fastidious test but necessary to test all setters
+     * @throws ClassNotFoundException
      *
      */
-    public void testCreationWithStatSet ()
+    public void testCreationWithStatSet () throws ClassNotFoundException
     {
         StatsSet set = new StatsSet();
         set.set("baseSTR",1);
@@ -112,9 +113,10 @@ public class TestL2NpcTemplate extends TestCase
     
     /**
      * fastidious test but necessary to test all setters
+     * @throws ClassNotFoundException
      *
      */
-    public void testCreationWithDefaultValueForSomeStats()
+    public void testCreationWithDefaultValueForSomeStats() throws ClassNotFoundException
     {
         StatsSet set = new StatsSet();
         set.set("baseSTR",1);

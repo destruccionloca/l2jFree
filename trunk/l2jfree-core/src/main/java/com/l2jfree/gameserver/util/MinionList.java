@@ -36,9 +36,7 @@ import com.l2jfree.gameserver.model.L2MinionData;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.OrfenInstance;
-import com.l2jfree.gameserver.model.actor.instance.OrfenInstance.Position;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
@@ -183,7 +181,7 @@ public class MinionList
 				switch (master.getNpcId())
 				{
 					case 29014: // Orfen
-						OrfenInstance orfen = (OrfenInstance) master; 
+						OrfenInstance orfen = (OrfenInstance) master;
 						switch (orfen.getPos())
 						{
 							case FIELD:

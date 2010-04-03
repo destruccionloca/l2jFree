@@ -28,7 +28,11 @@ import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.actor.L2Boss;
+import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
+import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2WyvernManagerInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -84,19 +88,19 @@ public class SpawnTable
 				template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
 				if (template1 != null)
 				{
-					if (template1.getType().equalsIgnoreCase("L2SiegeGuard"))
+					if (template1.isAssignableTo(L2SiegeGuard.class))
 					{
 						// Don't spawn siege guards
 					}
-					else if (template1.getType().endsWith("RaidBoss"))
+					else if (template1.isAssignableTo(L2Boss.class))
 					{
 						// Don't spawn raidbosses
 					}
-					else if (!Config.ALT_SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
+					else if (!Config.ALT_SPAWN_CLASS_MASTER && template1.isAssignableTo(L2ClassMasterInstance.class))
 					{
 						// Dont' spawn class masters
 					}
-					else if (!Config.ALT_SPAWN_WYVERN_MANAGER && template1.getType().equals("L2WyvernManager"))
+					else if (!Config.ALT_SPAWN_WYVERN_MANAGER && template1.isAssignableTo(L2WyvernManagerInstance.class))
 					{
 						// Dont' spawn wyvern managers
 					}
@@ -166,17 +170,21 @@ public class SpawnTable
 				template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
 				if (template1 != null)
 				{
-					if (template1.getType().equalsIgnoreCase("L2SiegeGuard"))
+					if (template1.isAssignableTo(L2SiegeGuard.class))
 					{
 						// Don't spawn siege guards
 					}
-					else if (template1.getType().endsWith("RaidBoss"))
+					else if (template1.isAssignableTo(L2Boss.class))
 					{
 						// Don't spawn raidbosses
 					}
-					else if (!Config.ALT_SPAWN_CLASS_MASTER && template1.getType().equals("L2ClassMaster"))
+					else if (!Config.ALT_SPAWN_CLASS_MASTER && template1.isAssignableTo(L2ClassMasterInstance.class))
 					{
 						// Dont' spawn class masters
+					}
+					else if (!Config.ALT_SPAWN_WYVERN_MANAGER && template1.isAssignableTo(L2WyvernManagerInstance.class))
+					{
+						// Dont' spawn wyvern managers
 					}
 					else
 					{

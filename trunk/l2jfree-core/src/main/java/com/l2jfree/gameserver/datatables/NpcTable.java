@@ -36,6 +36,8 @@ import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2MinionData;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.entity.faction.Faction;
 import com.l2jfree.gameserver.skills.Formulas;
@@ -618,7 +620,7 @@ public final class NpcTable
 	{
 		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
 		for (L2NpcTemplate t : _npcs)
-			if (t.getLevel() == lvl && "L2Monster".equals(t.getType()))
+			if (t.getLevel() == lvl && t.isAssignableTo(L2MonsterInstance.class))
 				list.add(t);
 		return list.toArray(new L2NpcTemplate[list.size()]);
 	}
@@ -627,7 +629,7 @@ public final class NpcTable
 	{
 		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
 		for (L2NpcTemplate t : _npcs)
-			if (t.getName().startsWith(letter) && "L2Npc".equals(t.getType()))
+			if (t.getName().startsWith(letter) && t.isAssignableTo(L2Npc.class))
 				list.add(t);
 		return list.toArray(new L2NpcTemplate[list.size()]);
 	}

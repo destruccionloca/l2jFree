@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
@@ -950,7 +951,7 @@ public class MercTicketManager
 			player.sendPacket(SystemMessageId.MERC_CAN_BE_ASSIGNED);
 			return;
 		}
-		else if (getTypeHired(c.getCastleId(), ticket.getItemId()) >= 
+		else if (getTypeHired(c.getCastleId(), ticket.getItemId()) >=
 			getTypeLimit(ticket.getItemId()))
 		{
 			player.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE);
@@ -1026,7 +1027,7 @@ public class MercTicketManager
 				return;
 			}
 			L2Npc cha = null;
-			if (temp.getType().endsWith("r"))
+			if (temp.isAssignableTo(L2SiegeTeleporterInstance.class))
 				cha = new L2SiegeTeleporterInstance(IdFactory.getInstance().getNextId(), temp);
 			else
 				cha = new L2SiegeGuardInstance(IdFactory.getInstance().getNextId(), temp);
@@ -1214,7 +1215,7 @@ public class MercTicketManager
 
 	/**
 	 * When {@link Config#MERCENARY_SAVING_DELAY} is above 0, this is used
-	 * to determine if saving is necessary at this very moment (called when 
+	 * to determine if saving is necessary at this very moment (called when
 	 * shutting down server by default). As the name says, if cancels the
 	 * update task.
 	 * @return whether there was a scheduled save task

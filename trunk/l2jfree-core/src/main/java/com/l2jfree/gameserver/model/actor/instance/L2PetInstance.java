@@ -856,7 +856,7 @@ public class L2PetInstance extends L2Summon
 		try
 		{
 			L2PetInstance pet;
-			if (template.getType().compareToIgnoreCase("L2BabyPet") == 0)
+			if (template.isAssignableTo(L2BabyPetInstance.class))
 				pet = new L2BabyPetInstance(IdFactory.getInstance().getNextId(), template, owner, control);
 			else
 				pet = new L2PetInstance(IdFactory.getInstance().getNextId(), template, owner, control);

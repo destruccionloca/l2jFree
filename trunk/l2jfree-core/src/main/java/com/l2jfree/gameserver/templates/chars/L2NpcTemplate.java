@@ -14,6 +14,7 @@
  */
 package com.l2jfree.gameserver.templates.chars;
 
+import java.lang.reflect.Constructor;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,8 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	private int									_npcId;
 	private int									_idTemplate;
-	private String								_type;
+	private final String						_type;
+	private final Class<?>						_clazz;
 	private String								_name;
 	private boolean								_serverSideName;
 	private String								_title;
@@ -202,19 +204,25 @@ public final class L2NpcTemplate extends L2CharTemplate
 			}
 		}
 	}
-
+	
 	/**
-	 * Constructor of L2Character.<BR><BR>
+	 * Constructor of L2Character.<BR>
 	 * 
 	 * @param set The StatsSet object to transfer data to the method
-	 * 
+	 * @throws ClassNotFoundException
 	 */
-	public L2NpcTemplate(StatsSet set)
+	public L2NpcTemplate(StatsSet set) throws ClassNotFoundException
 	{
 		super(set);
 		_npcId = set.getInteger("npcId");
 		_idTemplate = set.getInteger("idTemplate");
-		_type = set.getString("type").intern();
+		if (getNpcId() == 30995)
+			_type = "L2RaceManager";
+		else if (31046 <= getNpcId() && getNpcId() <= 31053)
+			_type = "L2SymbolMaker";
+		else
+			_type = set.getString("type").intern(); // implementing class name
+		_clazz = Class.forName("com.l2jfree.gameserver.model.actor.instance." + _type + "Instance");
 		_name = set.getString("name").intern();
 		_serverSideName = set.getBool("serverSideName");
 		_title = set.getString("title").intern();
@@ -911,15 +919,17 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		return _type;
 	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type)
+	
+	public boolean isAssignableTo(Class<?> clazz)
 	{
-		_type = type;
+		return clazz.isAssignableFrom(_clazz);
 	}
-
+	
+	public Constructor<?> getDefaultConstructor() throws NoSuchMethodException, SecurityException
+	{
+		return _clazz.getConstructor(Integer.TYPE, L2NpcTemplate.class);
+	}
+	
 	/**
 	 * @param factionName the nPCFactionName to set
 	 */

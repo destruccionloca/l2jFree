@@ -18,6 +18,8 @@ import java.lang.reflect.Constructor;
 
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
@@ -45,7 +47,7 @@ public class L2GroupSpawn extends L2Spawn
 
 		try
 		{
-			if (_template.getType().equalsIgnoreCase("L2Pet") || _template.getType().equalsIgnoreCase("L2Minion"))
+			if (_template.isAssignableTo(L2PetInstance.class) || _template.isAssignableTo(L2MinionInstance.class))
 				return null;
 
 			Object[] parameters = { IdFactory.getInstance().getNextId(), _template };

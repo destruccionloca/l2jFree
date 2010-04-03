@@ -29,7 +29,6 @@ public class MonsterRace
 {
 	private final static Log	_log	= LogFactory.getLog(MonsterRace.class);
 	private final L2Npc[]				_monsters;
-	private Constructor<?>		_constructor;
 	private int[][]				_speeds;
 	private final int[]				_first, _second;
 
@@ -67,9 +66,9 @@ public class MonsterRace
 			try
 			{
 				L2NpcTemplate template = NpcTable.getInstance().getTemplate(id + random);
-				_constructor = Class.forName("com.l2jfree.gameserver.model.actor.instance." + template.getType() + "Instance").getConstructors()[0];
+				Constructor<?> constructor = template.getDefaultConstructor();
 				int objectId = IdFactory.getInstance().getNextId();
-				_monsters[i] = (L2Npc) _constructor.newInstance(objectId, template);
+				_monsters[i] = (L2Npc)constructor.newInstance(objectId, template);
 			}
 			catch (Exception e)
 			{

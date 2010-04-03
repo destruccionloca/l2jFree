@@ -23,6 +23,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Boss;
+import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -222,7 +223,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		L2NpcTemplate template = NpcTable.getInstance().getTemplate(bossId);
 		if (template == null)
 			return null;
-		if (!template.getType().endsWith("RaidBoss"))
+		if (!template.isAssignableTo(L2RaidBossInstance.class))
 			return null;
 		return template;
 	}

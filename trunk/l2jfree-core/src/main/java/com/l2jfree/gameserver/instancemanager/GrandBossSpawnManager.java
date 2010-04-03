@@ -23,6 +23,7 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Boss;
+import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -227,10 +228,7 @@ public class GrandBossSpawnManager extends BossSpawnManager
 		L2NpcTemplate template = NpcTable.getInstance().getTemplate(bossId);
 		if (template == null)
 			return null;
-		if (!template.getType().equalsIgnoreCase("L2GrandBoss") && 
-				!template.getType().equalsIgnoreCase("QueenAnt") &&
-				!template.getType().equalsIgnoreCase("Zaken") &&
-				!template.getType().equalsIgnoreCase("Orfen"))
+		if (!template.isAssignableTo(L2GrandBossInstance.class))
 			return null;
 		return template;
 	}

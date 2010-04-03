@@ -224,9 +224,9 @@ public class L2SkillSummon extends L2Skill
 			_log.warn("Summon attempt for nonexisting NPC ID:" + _npcId + ", skill ID:" + getId());
 			return; // npcID doesn't exist
 		}
-		if (summonTemplate.getType().equalsIgnoreCase("L2SiegeSummon"))
+		if (summonTemplate.isAssignableTo(L2SiegeSummonInstance.class))
 			summon = new L2SiegeSummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);
-		else if (summonTemplate.getType().equalsIgnoreCase("L2MerchantSummon"))
+		else if (summonTemplate.isAssignableTo(L2MerchantSummonInstance.class))
 			summon = new L2MerchantSummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);
 		else
 			summon = new L2SummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);

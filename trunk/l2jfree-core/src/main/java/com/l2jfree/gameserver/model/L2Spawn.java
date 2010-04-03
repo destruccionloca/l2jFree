@@ -28,7 +28,12 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2DecoyInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2EffectPointInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2TrapInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
 
@@ -161,23 +166,13 @@ public class L2Spawn
 	{
 		// Set the _template of the L2Spawn
 		_template = mobTemplate;
-
-		// The Name of the L2Npc type managed by this L2Spawn
-		String implementationName = _template.getType(); // implementing class name
-
-		if (mobTemplate.getNpcId() == 30995)
-			implementationName = "L2RaceManager";
-
-		// if (mobTemplate.npcId == 8050)
-
-		if ((mobTemplate.getNpcId() >= 31046) && (mobTemplate.getNpcId() <= 31053))
-			implementationName = "L2SymbolMaker";
+		
 		try
 		{
 			// Create the generic constructor of L2Npc managed by this L2Spawn
-			_constructor = Class.forName("com.l2jfree.gameserver.model.actor.instance." + implementationName + "Instance").getConstructors()[0];
+			_constructor = _template.getDefaultConstructor();
 		}
-		catch (ClassNotFoundException e)
+		catch (NoSuchMethodException e)
 		{
 			_log.fatal("", e);
 		}
@@ -526,9 +521,9 @@ public class L2Spawn
 		try
 		{
 			// Check if the L2Spawn is not a L2Pet or L2Minion or L2Decoy spawn
-			if (_template.getType().equalsIgnoreCase("L2Pet") || _template.getType().equalsIgnoreCase("L2Minion")
-					|| _template.getType().equalsIgnoreCase("L2FlyMinion") || _template.getType().equalsIgnoreCase("L2Decoy")
-					|| _template.getType().equalsIgnoreCase("L2Trap") || _template.getType().equalsIgnoreCase("L2EffectPoint"))
+			if (_template.isAssignableTo(L2PetInstance.class) || _template.isAssignableTo(L2MinionInstance.class)
+					|| _template.isAssignableTo(L2DecoyInstance.class) || _template.isAssignableTo(L2TrapInstance.class)
+					|| _template.isAssignableTo(L2EffectPointInstance.class))
 			{
 				_currentCount++;
 				return mob;
