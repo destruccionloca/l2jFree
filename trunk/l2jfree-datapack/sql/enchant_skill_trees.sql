@@ -20865,6 +20865,8 @@ DROP FUNCTION IF EXISTS createSkillEnchant;
 DROP FUNCTION IF EXISTS createSkillEnchant2;
 DROP FUNCTION IF EXISTS deleteSkillEnchant;
 
+SET GLOBAL log_bin_trust_function_creators = 1;
+
 delimiter //
 CREATE FUNCTION createSkillEnchant(skillId INT, enchantType INT, baseLvl INT)
 	RETURNS TEXT
