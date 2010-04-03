@@ -2094,8 +2094,8 @@
   </skill>
   <skill id="391" levels="1" name="Clan Imperium">
     <!-- Grants the privilege of Command Channel formation. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <set name="minPledgeClass" val="4"/> <!-- Elder -->
   </skill>
