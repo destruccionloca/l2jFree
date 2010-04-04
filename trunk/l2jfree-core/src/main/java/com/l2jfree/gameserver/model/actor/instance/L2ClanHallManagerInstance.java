@@ -39,6 +39,8 @@ import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import com.l2jfree.gameserver.network.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 public class L2ClanHallManagerInstance extends L2MerchantInstance
 {
@@ -70,6 +72,12 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
+		if (player.getActiveEnchantItem() != null)
+		{
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " trying to use enchant exploit, ban this player!", IllegalPlayerAction.PUNISH_KICK);
+			return;
+		}
+
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         int condition = validateCondition(player);
         if (condition <= COND_ALL_FALSE)

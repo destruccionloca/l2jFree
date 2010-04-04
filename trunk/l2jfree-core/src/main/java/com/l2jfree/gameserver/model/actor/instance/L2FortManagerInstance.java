@@ -31,6 +31,8 @@ import com.l2jfree.gameserver.network.serverpackets.WareHouseDepositList;
 import com.l2jfree.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * Fortress Foreman implementation used for:
@@ -95,12 +97,18 @@ public class L2FortManagerInstance extends L2MerchantInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		int condition = validateCondition(player);
-
 		// BypassValidation Exploit plug.
 		if (player.getLastFolkNPC().getObjectId() != getObjectId())
 			return;
+
+		if (player.getActiveEnchantItem() != null)
+		{
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " trying to use enchant exploit, ban this player!", IllegalPlayerAction.PUNISH_KICK);
+			return;
+		}
+
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		int condition = validateCondition(player);
 
 		if (condition <= COND_ALL_FALSE || condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;

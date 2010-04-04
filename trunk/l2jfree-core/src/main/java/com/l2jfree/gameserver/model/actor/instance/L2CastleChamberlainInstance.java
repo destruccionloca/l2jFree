@@ -123,6 +123,12 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		if (player.getLastFolkNPC().getObjectId() != getObjectId())
 			return;
 
+		if (player.getActiveEnchantItem() != null)
+		{
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " trying to use enchant exploit, ban this player!", IllegalPlayerAction.PUNISH_KICK);
+			return;
+		}
+
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE)
