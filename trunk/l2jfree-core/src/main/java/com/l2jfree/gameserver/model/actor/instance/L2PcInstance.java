@@ -3470,13 +3470,10 @@ public final class L2PcInstance extends L2Playable
 
 		item.dropMe(this, getX() + Rnd.get(50) - 25, getY() + Rnd.get(50) - 25, getZ() + 20);
 
-		if (Config.AUTODESTROY_ITEM_AFTER > 0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
-		{
-			if ((item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM) || !item.isEquipable())
-				ItemsAutoDestroy.getInstance().addItem(item);
-		}
 		if (Config.DESTROY_DROPPED_PLAYER_ITEM)
 		{
+			ItemsAutoDestroy.tryAddItem(item);
+			
 			if (!item.isEquipable() || (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM))
 				item.setProtected(false);
 			else
@@ -3528,24 +3525,8 @@ public final class L2PcInstance extends L2Playable
 		// Destroy item droped from inventory by player when DESTROY_PLAYER_INVENTORY_DROP is set to true
 		if (Config.DESTROY_PLAYER_INVENTORY_DROP)
 		{
-			if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
-			{
-				if ((Config.AUTODESTROY_ITEM_AFTER > 0 && item.getItemType() != L2EtcItemType.HERB)
-						|| (Config.HERB_AUTO_DESTROY_TIME > 0 && item.getItemType() == L2EtcItemType.HERB))
-				{
-					// Check if item is equipable
-					if (item.isEquipable())
-					{
-						// Delete only when Configvalue DESTROY_EQUIPABLE_PLAYER_ITEM is set to true
-						if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM)
-							ItemsAutoDestroy.getInstance().addItem(item);
-					}
-					else
-					{
-						ItemsAutoDestroy.getInstance().addItem(item);
-					}
-				}
-			}
+			ItemsAutoDestroy.tryAddItem(item);
+			
 			item.setProtected(false);
 		}
 		// Avoids it from beeing removed by the auto item destroyer

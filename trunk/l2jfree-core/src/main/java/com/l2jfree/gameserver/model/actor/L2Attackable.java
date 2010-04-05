@@ -64,7 +64,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Math;
 import com.l2jfree.tools.random.Rnd;
@@ -1676,12 +1675,8 @@ public class L2Attackable extends L2Npc
 				ditem.dropMe(this, newX, newY, newZ);
 
 				// Add drop to auto destroy item task
-				if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
-				{
-					if ((Config.AUTODESTROY_ITEM_AFTER > 0 && ditem.getItemType() != L2EtcItemType.HERB)
-							|| (Config.HERB_AUTO_DESTROY_TIME > 0 && ditem.getItemType() == L2EtcItemType.HERB))
-						ItemsAutoDestroy.getInstance().addItem(ditem);
-				}
+				ItemsAutoDestroy.tryAddItem(ditem);
+				
 				ditem.setProtected(false);
 				// If stackable, end loop as entire count is included in 1 instance of item
 				if (ditem.isStackable() || !Config.MULTIPLE_ITEM_DROP)

@@ -51,7 +51,7 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 		}
 	}
 	
-	public final void startTask(T task)
+	public void startTask(T task)
 	{
 		writeLock();
 		try
@@ -66,7 +66,7 @@ public abstract class AbstractIterativePeriodicTaskManager<T> extends AbstractPe
 		}
 	}
 	
-	public final void stopTask(T task)
+	public void stopTask(T task)
 	{
 		writeLock();
 		try

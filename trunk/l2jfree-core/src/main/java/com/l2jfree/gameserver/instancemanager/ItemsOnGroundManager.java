@@ -31,7 +31,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 /**
  * This class manage all items on ground
@@ -124,14 +123,9 @@ public class ItemsOnGroundManager
 					_items.add(item);
 					count++;
 					// Add to ItemsAutoDestroy only items not protected
-					if (!Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+					if (result.getLong(8) > -1)
 					{
-						if (result.getLong(8) > -1)
-						{
-							if ((Config.AUTODESTROY_ITEM_AFTER > 0 && item.getItemType() != L2EtcItemType.HERB)
-									|| (Config.HERB_AUTO_DESTROY_TIME > 0 && item.getItemType() == L2EtcItemType.HERB))
-								ItemsAutoDestroy.getInstance().addItem(item);
-						}
+						ItemsAutoDestroy.tryAddItem(item);
 					}
 				}
 				result.close();

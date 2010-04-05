@@ -14,96 +14,82 @@
  */
 package com.l2jfree.gameserver;
 
-import javolution.util.FastList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
-public class ItemsAutoDestroy
+public final class ItemsAutoDestroy extends AbstractIterativePeriodicTaskManager<L2ItemInstance>
 {
-	protected static Log				_log	= LogFactory.getLog(ItemsAutoDestroy.class);
-	protected FastList<L2ItemInstance>	_items	= null;
-	protected static long				_sleep;
-
-	private ItemsAutoDestroy()
-	{
-		_items = new FastList<L2ItemInstance>();
-		_sleep = Config.AUTODESTROY_ITEM_AFTER * 1000;
-		if (_sleep == 0) // it should not happend as it is not called when AUTODESTROY_ITEM_AFTER = 0 but we never know..
-			_sleep = 3600000;
-		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new CheckItemsForDestroy(), 5000, 5000);
-		_log.info("ItemsAutoDestroy: initialized");
-	}
-
 	public static ItemsAutoDestroy getInstance()
 	{
-		return SingletonHolder._instance;
+		return SingletonHolder.INSTANCE;
 	}
-
-	public synchronized void addItem(L2ItemInstance item)
+	
+	private ItemsAutoDestroy()
+	{
+		super(5000);
+	}
+	
+	@Override
+	public void startTask(L2ItemInstance item)
 	{
 		item.setDropTime(System.currentTimeMillis());
-		_items.add(item);
+		
+		super.startTask(item);
 	}
-
-	public synchronized void removeItems()
+	
+	@Override
+	protected String getCalledMethodName()
 	{
-		if (_log.isDebugEnabled())
-			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items to check.");
-
-		if (_items.isEmpty())
-			return;
-
-		long curtime = System.currentTimeMillis();
-		for (L2ItemInstance item : _items)
+		return "removeItem()";
+	}
+	
+	@Override
+	protected void callTask(L2ItemInstance item)
+	{
+		if (item == null || item.getDropTime() == 0 || item.getLocation() != L2ItemInstance.ItemLocation.VOID)
 		{
-			if (item == null || item.getDropTime() == 0 || item.getLocation() != L2ItemInstance.ItemLocation.VOID)
-				_items.remove(item);
+			stopTask(item);
+		}
+		else if (System.currentTimeMillis() - item.getDropTime() > getDestroyTime(item))
+		{
+			L2World.getInstance().removeVisibleObject(item, item.getWorldRegion());
+			L2World.getInstance().removeObject(item);
+			stopTask(item);
+			if (Config.SAVE_DROPPED_ITEM)
+				ItemsOnGroundManager.getInstance().removeObject(item);
+		}
+	}
+	
+	private static int getDestroyTime(L2ItemInstance item)
+	{
+		return item.getItemType() == L2EtcItemType.HERB ? Config.HERB_AUTO_DESTROY_TIME : Config.AUTODESTROY_ITEM_AFTER;
+	}
+	
+	public static void tryAddItem(L2ItemInstance item)
+	{
+		if (Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+			return;
+		
+		if (getDestroyTime(item) > 0)
+		{
+			if (item.isEquipable())
+			{
+				if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM)
+					ItemsAutoDestroy.getInstance().startTask(item);
+			}
 			else
 			{
-				if (item.getItemType() == L2EtcItemType.HERB)
-				{
-					if ((curtime - item.getDropTime()) > Config.HERB_AUTO_DESTROY_TIME)
-					{
-						L2World.getInstance().removeVisibleObject(item, item.getWorldRegion());
-						L2World.getInstance().removeObject(item);
-						_items.remove(item);
-						if (Config.SAVE_DROPPED_ITEM)
-							ItemsOnGroundManager.getInstance().removeObject(item);
-					}
-				}
-				else if ((curtime - item.getDropTime()) > _sleep)
-				{
-					L2World.getInstance().removeVisibleObject(item, item.getWorldRegion());
-					L2World.getInstance().removeObject(item);
-					_items.remove(item);
-					if (Config.SAVE_DROPPED_ITEM)
-						ItemsOnGroundManager.getInstance().removeObject(item);
-				}
+				ItemsAutoDestroy.getInstance().startTask(item);
 			}
 		}
-
-		if (_log.isDebugEnabled())
-			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items remaining.");
 	}
-
-	protected class CheckItemsForDestroy implements Runnable
+	
+	private static final class SingletonHolder
 	{
-		public void run()
-		{
-			removeItems();
-		}
-	}
-
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final ItemsAutoDestroy _instance = new ItemsAutoDestroy();
+		public static final ItemsAutoDestroy INSTANCE = new ItemsAutoDestroy();
 	}
 }

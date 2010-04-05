@@ -1122,7 +1122,6 @@ public class Config extends L2Config
 	public static Pattern[]			FILTER_LIST = new Pattern[0];
 	public static int				AUTODESTROY_ITEM_AFTER;									// Time after which item will auto-destroy
 	public static int				HERB_AUTO_DESTROY_TIME;									// Auto destroy herb time
-	public static String			PROTECTED_ITEMS;
 	public static final Set<Integer> LIST_PROTECTED_ITEMS = new L2FastSet<Integer>();			// List of items that will not be destroyed
 	public static int				CHAR_STORE_INTERVAL;										// Interval that the gameserver will update and store character information
 	public static boolean			UPDATE_ITEMS_ON_CHAR_STORE;								// Update items owned by this char when storing the char on DB
@@ -1286,9 +1285,9 @@ public class Config extends L2Config
 			SERVER_PVP = Boolean.parseBoolean(optionsSettings.getProperty("ServerPvPEnabled", "true"));
 			SERVER_AGE_LIM = Integer.parseInt(optionsSettings.getProperty("ServerAgeLimitation", "15"));
 
-			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "600"));
+			AUTODESTROY_ITEM_AFTER = Integer.parseInt(optionsSettings.getProperty("AutoDestroyDroppedItemAfter", "600")) * 1000;
 			HERB_AUTO_DESTROY_TIME = Integer.parseInt(optionsSettings.getProperty("AutoDestroyHerbTime", "15")) * 1000;
-			PROTECTED_ITEMS = optionsSettings.getProperty("ListOfProtectedItems", "0");
+			String PROTECTED_ITEMS = optionsSettings.getProperty("ListOfProtectedItems", "0");
 			LIST_PROTECTED_ITEMS.clear();
 			for (String id : PROTECTED_ITEMS.trim().split(","))
 			{
