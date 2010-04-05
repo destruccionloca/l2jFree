@@ -1389,62 +1389,10 @@ public class L2Attackable extends L2Npc
 					{
 						if (_log.isDebugEnabled())
 							_log.info("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
-
+						
 						// Looting process
-						switch (item.getItemId())
-						{
-						// Adena / Seal stones
-						case 57:
-						case 5575:
-						case 6360:
-						case 6361:
-						case 6362:
-							if (isFlying())
-								player.doAutoLoot(this, item);
-							else if (Config.ALT_AUTO_LOOT_RAID && isRaid())
-								player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-							else if (Config.ALT_AUTO_LOOT && !isRaid())
-								player.doAutoLoot(this, item);
-							else
-								dropItem(player, item); // drop the item on the ground
-							break;
-
-						// Herbs
-						case 8600:
-						case 8608:
-						case 8601:
-						case 8609:
-						case 8602:
-						case 8610:
-						case 8603:
-						case 8611:
-						case 8604:
-						case 8612:
-						case 8605:
-						case 8613:
-						case 8606:
-						case 8614:
-						case 8607:
-							if (isFlying())
-								player.doAutoLoot(this, item);
-							else if (Config.ALT_AUTO_LOOT_HERBS)
-								player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-							else
-								dropItem(player, item); // drop the item on the ground
-							break;
-
-						default:
-							if (isFlying())
-								player.doAutoLoot(this, item);
-							else if (Config.ALT_AUTO_LOOT_RAID && isRaid())
-								player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-							else if (Config.ALT_AUTO_LOOT && !isRaid())
-								player.doAutoLoot(this, item);
-							else
-								dropItem(player, item); // drop the item on the ground
-							break;
-						}
-
+						player.doAutoLoot(this, item);
+						
 						// Broadcast message if RaidBoss was defeated
 						if (this instanceof L2Boss)
 						{
@@ -1467,10 +1415,8 @@ public class L2Attackable extends L2Npc
 
 			// Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
 			RewardItem item = new RewardItem(Config.CHAMPION_SPCL_ITEM, champqty);
-			if (Config.ALT_AUTO_LOOT || isFlying())
-				player.doAutoLoot(this, item);
-			else
-				dropItem(player, item);
+			
+			player.doAutoLoot(this, item);
 		}
 
 		//Instant Item Drop :>
@@ -1485,10 +1431,8 @@ public class L2Attackable extends L2Npc
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec) // && !_spec useless yet
 			{
 				RewardItem item = new RewardItem(8612, 1); // Herb of Warrior
-				if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-				else
-					dropItem(player, item);
+				
+				player.doAutoLoot(this, item);
 				_spec = true;
 			}
 			else
@@ -1516,11 +1460,8 @@ public class L2Attackable extends L2Npc
 							item = new RewardItem(10656, 1); // Herb of Critical Attack - Power
 							break;
 						}
-
-						if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-							player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-						else
-							dropItem(player, item);
+						
+						player.doAutoLoot(this, item);
 						break;
 					}
 				}
@@ -1529,10 +1470,8 @@ public class L2Attackable extends L2Npc
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec)
 			{
 				RewardItem item = new RewardItem(8613, 1); // Herb of Mystic
-				if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-				else
-					dropItem(player, item);
+				
+				player.doAutoLoot(this, item);
 				_spec = true;
 			}
 			else
@@ -1548,10 +1487,7 @@ public class L2Attackable extends L2Npc
 						else
 							item = new RewardItem(8609, 1); // Herb of Casting Speed
 
-						if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-							player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-						else
-							dropItem(player, item);
+						player.doAutoLoot(this, item);
 						break;
 					}
 				}
@@ -1560,10 +1496,8 @@ public class L2Attackable extends L2Npc
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec)
 			{
 				RewardItem item = new RewardItem(8614, 1); // Herb of Recovery
-				if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-				else
-					dropItem(player, item);
+				
+				player.doAutoLoot(this, item);
 				_mp = true;
 				_hp = true;
 				_spec = true;
@@ -1575,10 +1509,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_MP_HP_HERBS)
 				{
 					RewardItem item = new RewardItem(8600, 1); // Herb of Life
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 					_hp = true;
 				}
 			}
@@ -1588,10 +1520,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_GREATER_HERBS)
 				{
 					RewardItem item = new RewardItem(8601, 1); // Greater Herb of Life
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 					_hp = true;
 				}
 			}
@@ -1601,10 +1531,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_SUPERIOR_HERBS)
 				{
 					RewardItem item = new RewardItem(8602, 1); // Superior Herb of Life
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 				}
 			}
 			//mp - restore mp type
@@ -1614,10 +1542,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_MP_HP_HERBS)
 				{
 					RewardItem item = new RewardItem(8603, 1); // Herb of Manna
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 					_mp = true;
 				}
 			}
@@ -1627,10 +1553,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_GREATER_HERBS)
 				{
 					RewardItem item = new RewardItem(8604, 1); // Greater Herb of Mana
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 					_mp = true;
 				}
 			}
@@ -1640,10 +1564,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_SUPERIOR_HERBS)
 				{
 					RewardItem item = new RewardItem(8605, 1); // Superior Herb of Mana
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 				}
 			}
 			// speed enhance type
@@ -1651,20 +1573,16 @@ public class L2Attackable extends L2Npc
 			if (random < Config.RATE_DROP_COMMON_HERBS)
 			{
 				RewardItem item = new RewardItem(8611, 1); // Herb of Speed
-				if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-				else
-					dropItem(player, item);
+				
+				player.doAutoLoot(this, item);
 			}
 			// Enlarge Head type
 			random = Rnd.get(100);
 			if (random < Config.RATE_DROP_COMMON_HERBS)
 			{
 				RewardItem item = new RewardItem(10657, 1); // Herb of Doubt
-				if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-					player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-				else
-					dropItem(player, item);
+				
+				player.doAutoLoot(this, item);
 			}
 			// Vitality Herb
 			if (Config.ENABLE_VITALITY && Config.ENABLE_DROP_VITALITY_HERBS)
@@ -1673,10 +1591,8 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_VITALITY_HERBS)
 				{
 					RewardItem item = new RewardItem(13028, 1);
-					if ((Config.ALT_AUTO_LOOT && Config.ALT_AUTO_LOOT_HERBS) || isFlying())
-						player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
-					else
-						dropItem(player, item);
+					
+					player.doAutoLoot(this, item);
 				}
 			}
 		}
@@ -1729,14 +1645,8 @@ public class L2Attackable extends L2Npc
 			if (Rnd.get(L2DropData.MAX_CHANCE) < drop.chance)
 			{
 				RewardItem item = new RewardItem(drop.items[Rnd.get(drop.items.length)], Rnd.get(drop.min, drop.max));
-				if (isFlying())
-					player.doAutoLoot(this, item);
-				else if (Config.ALT_AUTO_LOOT_RAID && isRaid())
-					player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-				else if (Config.ALT_AUTO_LOOT && !isRaid())
-					player.doAutoLoot(this, item);
-				else
-					dropItem(player, item); // drop the item on the ground
+				
+				player.doAutoLoot(this, item);
 			}
 		}
 	}

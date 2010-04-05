@@ -4146,12 +4146,31 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void doAutoLoot(L2Attackable target, L2Attackable.RewardItem item)
 	{
-		if (isInParty())
+		if (!tryAutoLoot(target, item.getItemId()))
+			target.dropItem(this, item);
+		else if (isInParty())
 			getParty().distributeItem(this, item, false, target);
 		else if (item.getItemId() == 57)
 			addAdena("Loot", item.getCount(), target, true);
 		else
 			addItem("Loot", item.getItemId(), item.getCount(), target, true, false);
+	}
+	
+	private boolean tryAutoLoot(L2Attackable target, int itemId)
+	{
+		if (target.isFlying())
+			return true;
+		
+		if (ItemTable.isAdenaLikeItem(itemId))
+			return Config.ALT_AUTO_LOOT_ADENA;
+		
+		if (ItemTable.getInstance().getTemplate(itemId).getItemType() == L2EtcItemType.HERB)
+			return Config.ALT_AUTO_LOOT_HERBS;
+		
+		if (target.isRaid())
+			return Config.ALT_AUTO_LOOT_RAID;
+		
+		return Config.ALT_AUTO_LOOT;
 	}
 
 	/**
