@@ -1271,7 +1271,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="needCharges" val="5"/> <!-- 5 Charges are consumed -->
     <for>
-      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>
   </skill>
   <skill id="443" levels="1" name="Force Barrier">
@@ -1284,7 +1284,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="needCharges" val="4"/> <!-- 4 Charges are consumed -->
     <for>
-      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield"/>
+      <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>
   </skill>
   <skill id="444" levels="1" name="Festive Sweeper">
