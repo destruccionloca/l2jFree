@@ -578,7 +578,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#Weight" stackType="Weight">
+      <effect name="Buff" time="1200" val="0" stackOrder="#weightLimit" stackType="Weight">
         <add order="0x40" stat="weightLimit" val="#weightLimit"/>
       </effect>
     </for>
@@ -597,7 +597,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pd_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
@@ -616,7 +616,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -1359,7 +1359,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="#rate" stackType="pd_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="#pDef" stackType="pd_up">
         <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
