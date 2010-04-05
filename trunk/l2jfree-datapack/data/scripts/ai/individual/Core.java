@@ -14,10 +14,8 @@
  */
 package ai.individual;
 
-import java.util.List;
-
-import javolution.util.FastList;
-
+import javolution.util.FastMap;
+import javolution.util.FastSet;
 import ai.group_template.L2AttackableAIScript;
 
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -43,20 +41,12 @@ public class Core extends L2AttackableAIScript
 	//private static final int PERUM = 29012;
 	//private static final int PREMO = 29013;
 
-	private static boolean _FirstAttacked;
-	private static boolean _isAlive;
-
-	List<L2Attackable> Minions = new FastList<L2Attackable>();
+	private final FastMap<Integer, CoreStatus> _status = new FastMap<Integer, CoreStatus>().setShared(true);
 
 	public Core(int id, String name, String descr)
 	{
 		super(id, name, descr);
-
-		int[] mobs = {CORE, DEATH_KNIGHT, DOOM_WRAITH, SUSCEPTOR};
-		registerMobs(mobs);
-
-		_FirstAttacked = false;
-		_isAlive = false;
+		registerMobs(CORE, DEATH_KNIGHT, DOOM_WRAITH, SUSCEPTOR);
 	}
 
 	@Override
@@ -64,21 +54,28 @@ public class Core extends L2AttackableAIScript
 	{
 		if (npc.getNpcId() == CORE)
 		{
-			_isAlive = true;
+			CoreStatus status = new CoreStatus();
+			_status.put(npc.getObjectId(), status);
 			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS01_A"));
 			//Spawn minions
-			for (int i = 0; i < 5;i++)
+			FastSet<L2Attackable> minions = status.getMinions();
+			L2Attackable minion;
+			for (int i = 0; i < 5; i++)
 			{
 				int x = 16800 + i * 360;
-				Minions.add((L2Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + Rnd.get(40), false, 0));
-				Minions.add((L2Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + Rnd.get(40), false, 0));
+				minion = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
+				minions.add(minion);
+				minion = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
+				minions.add(minion);
 				int x2 = 16800 + i * 600;
-				Minions.add((L2Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + Rnd.get(40), false, 0));
+				minion = (L2Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
+				minions.add(minion);
 			}
 			for (int i = 0; i < 4; i++)
 			{
 				int x = 16800 + i * 450;
-				Minions.add((L2Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + Rnd.get(40), false, 0));
+				minion = (L2Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
+				minions.add(minion);
 			}
 		}
 		return null;
@@ -87,18 +84,30 @@ public class Core extends L2AttackableAIScript
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		if (event.equalsIgnoreCase("spawn_minion"))
+		if (event.contains("spawn_minion"))
 		{
-			Minions.add((L2Attackable) addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0));
-		}
-		else if (event.equalsIgnoreCase("despawn_minions"))
-		{
-			for (L2Attackable mob : Minions)
+			Integer oId = Integer.valueOf(event.split("_")[0]);
+			CoreStatus status = _status.get(oId);
+			if (event.contains("de"))
 			{
-				if (mob != null)
-					mob.decayMe();
+				for (FastSet.Record r = status.getMinions().head(), end = status.getMinions().tail();
+					(r = r.getNext()) != end;)
+					status.getMinions().valueOf(r).decayMe();
+				FastSet.recycle(status.getMinions());
 			}
-			Minions.clear();
+			else
+			{
+				for (FastMap.Entry<Integer, CoreStatus> entry = _status.head(), end = _status.tail();
+					(entry = entry.getNext()) != end;)
+				{
+					if (entry.getKey() == oId)
+					{
+						L2Attackable minion = (L2Attackable) addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0, npc.getInstanceId());
+						entry.getValue().getMinions().add(minion);
+						break;
+					}
+				}
+			}
 		}
 		return super.onAdvEvent(event, npc, player);
 	}
@@ -108,14 +117,15 @@ public class Core extends L2AttackableAIScript
 	{
 		if (npc.getNpcId() == CORE)
 		{
-			if (_FirstAttacked)
+			CoreStatus status = _status.get(npc.getObjectId());
+			if (status.isAttacked())
 			{
 				if (Rnd.get(100) == 0)
 					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "Removing intruders."));
 			}
 			else
 			{
-				_FirstAttacked = true;
+				status.setAttacked(true);
 				npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "A non-permitted target has been discovered."));
 				npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "Starting intruder removal system."));
 			}
@@ -129,23 +139,33 @@ public class Core extends L2AttackableAIScript
 		int npcId = npc.getNpcId();
 		if (npcId == CORE)
 		{
-			_isAlive = false;
+			CoreStatus status = _status.get(npc.getObjectId());
+			status.setAlive(false);
 			int objId = npc.getObjectId();
 			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS02_D"));
 			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "A fatal error has occurred."));
 			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "System is being shut down..."));
 			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "......"));
-			_FirstAttacked = false;
-			addSpawn(31842, 16502, 110165, -6394, 0, false, 900000);
-			addSpawn(31842, 18948, 110166, -6397 ,0, false, 900000);
+			status.setAttacked(false);
+			addSpawn(31842, 16502, 110165, -6394, 0, false, 900000, npc.getInstanceId());
+			addSpawn(31842, 18948, 110166, -6397, 0, false, 900000, npc.getInstanceId());
 
-			startQuestTimer("despawn_minions", 20000, null, null);
-			cancelQuestTimers("spawn_minion");
+			startQuestTimer(objId + "_despawn_minions", 20000, null, null);
+			cancelQuestTimers(objId + "_spawn_minion");
 		}
-		else if (_isAlive && Minions.contains(npc))
+		else
 		{
-			Minions.remove(npc);
-			startQuestTimer("spawn_minion", 60000, npc, null);
+			for (FastMap.Entry<Integer, CoreStatus> entry = _status.head(), end = _status.tail();
+				(entry = entry.getNext()) != end;)
+			{
+				CoreStatus status = entry.getValue();
+				if (status.isAlive() && status.getMinions().contains(npc))
+				{
+					status.getMinions().remove(npc);
+					startQuestTimer(entry.getKey() + "_spawn_minion", 60000, npc, null);
+					break;
+				}
+			}
 		}
 		return super.onKill(npc, killer, isPet);
 	}
@@ -154,5 +174,44 @@ public class Core extends L2AttackableAIScript
 	{
 		// now call the constructor (starts up the ai)
 		new Core(-1, "core", "ai");
+	}
+
+	public static class CoreStatus
+	{
+		private boolean _alive;
+		private boolean _attacked;
+		private final FastSet<L2Attackable> _minions;
+
+		public CoreStatus()
+		{
+			_alive = true;
+			_attacked = false;
+			_minions = FastSet.newInstance();
+		}
+
+		public final boolean isAlive()
+		{
+			return _alive;
+		}
+
+		public final void setAlive(boolean alive)
+		{
+			_alive = alive;
+		}
+
+		public final boolean isAttacked()
+		{
+			return _attacked;
+		}
+
+		public final void setAttacked(boolean attacked)
+		{
+			_attacked = attacked;
+		}
+
+		public final FastSet<L2Attackable> getMinions()
+		{
+			return _minions;
+		}
 	}
 }
