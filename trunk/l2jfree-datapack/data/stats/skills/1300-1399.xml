@@ -1166,9 +1166,9 @@
         <add order="0x40" stat="rEvas" val="4"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
         <mul order="0x30" stat="cAtk" val="1.2">
-        <add order="0x40" stat="absorbDam" val="5"/> <!-- recover 5% of standard short-range physical damage -->
           <player behind="true"/>
         </mul>
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- recover 5% of standard short-range physical damage -->
         <basemul order="0x30" stat="rCrit" val="0.2">
           <player behind="true"/>
         </basemul>
@@ -1182,9 +1182,9 @@
         <add order="0x40" stat="rEvas" val="4"/>
         <mul order="0x30" stat="pAtkSpd" val="1.2"/>
         <mul order="0x30" stat="cAtk" val="1.2">
-        <add order="0x40" stat="absorbDam" val="5"/> <!-- recover 5% of standard short-range physical damage -->
           <player behind="true"/>
         </mul>
+        <add order="0x40" stat="absorbDam" val="5"/> <!-- recover 5% of standard short-range physical damage -->
         <basemul order="0x30" stat="rCrit" val="0.2">
           <player behind="true"/>
         </basemul>

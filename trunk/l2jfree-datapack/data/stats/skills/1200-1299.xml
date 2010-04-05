@@ -1808,12 +1808,12 @@
     <set name="aggroPoints" val="560"/>
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <enchant1 name="mpInitialConsume" val="#ench1mpInitialConsume"/>
-    <enchant2for>
-      <mul order="0x30" stat="regCp" val="#ench2regCp"/>
-    </enchant2for>
     <cond msg="Usable when your remaining MP is below 25 percent.">
       <player mp="25"/>
     </cond>
+    <enchant2for>
+      <mul order="0x30" stat="regCp" val="#ench2regCp"/>
+    </enchant2for>
   </skill>
   <skill id="1272" levels="13" name="Word of Fear">
     <table name="#mpInitialConsume"> 23 25 28 30 31 33 34 35 36 37 38 39 40 </table>
