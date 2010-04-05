@@ -47,7 +47,7 @@ public class L2AttackableAIScript extends QuestJython
 	 * This is used to register all monsters contained in mobs for a particular script
 	 * @param mobs
 	 */
-	public void registerMobs(int[] mobs)
+	public void registerMobs(int... mobs)
 	{
 		for (int id : mobs)
 		{
