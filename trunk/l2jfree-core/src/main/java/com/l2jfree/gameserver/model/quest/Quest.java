@@ -1608,6 +1608,11 @@ public class Quest extends ManagedScript
 		return addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay, isSummonSpawn, 0);
 	}
 
+	public L2Npc addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffSet, int despawnDelay, int instanceId)
+	{
+		return addSpawn(npcId, x, y, z, heading, randomOffSet, despawnDelay, false, instanceId);
+	}
+
 	public L2Npc addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn, int instanceId)
 	{
 		L2Npc result = null;
