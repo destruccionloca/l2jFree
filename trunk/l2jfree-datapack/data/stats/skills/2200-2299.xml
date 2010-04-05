@@ -139,8 +139,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2213" levels="22" name="Escape - to X Town">
-    <table name="#itemConsumeId"> 7117 7118 7119 7120 7121 7122 7123 7124 7125 7126 7127 7128
-      7129 7130 7131 7132 7133 7134 7135 7618 7619 9647 </table>
+    <table name="#itemConsumeId"> 7117 7118 7119 7120 7121 7122 7123 7124 7125 7126 7127 7128 7129 7130 7131 7132 7133 7134 7135 7618 7619 9647 </table>
     <table name="#teleCoords">
       -84318,244579,-3730
       46934,51467,-2977
@@ -1022,8 +1021,7 @@
   <skill id="2279" levels="3" name="Herb of Mana">
     <!--
       Lvl 2 is Greater Herb of Mana
-      Lvl 3 is Superior Herb of Mana
-    -->
+      Lvl 3 is Superior Herb of Mana -->
     <table name="#power"> 12 18 100 </table>
     <set name="power" val="#power"/>
     <set name="hitTime" val="100"/>

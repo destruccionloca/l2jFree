@@ -355,8 +355,7 @@
   <skill id="3626" levels="1" name="Kabokula">
     <!--
       Description(s): Used when trapping a roaring Tyrannosaurus.
-      Has no effect for other actions. Consumes 1 Trap Stone.
-    -->
+      Has no effect for other actions. Consumes 1 Trap Stone. -->
     <set name="itemConsumeId" val="8764"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="magicLvl" val="77"/>
@@ -366,8 +365,7 @@
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
     <!-- FIXME: verify against implementation
-    <set name="coolTime" val="15000"/>
-    -->
+    <set name="coolTime" val="15000"/ -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
@@ -384,8 +382,7 @@
   <skill id="3627" levels="1" name="Tapirawa">
     <!--
       Description(s):
-      Used on a quivering Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
-    -->
+      Used on a quivering Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone. -->
     <set name="itemConsumeId" val="8764"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="magicLvl" val="77"/>
@@ -395,8 +392,7 @@
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
     <!-- FIXME: verify against implementation
-    <set name="coolTime" val="15000"/>
-    -->
+    <set name="coolTime" val="15000"/ -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>
@@ -413,8 +409,7 @@
   <skill id="3628" levels="1" name="Shabonoba">
     <!--
       Description(s):
-      Used on a struggling Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone.
-    -->
+      Used on a struggling Tyrannosaurus. Has no effect for other actions. Consumes 1 Trap Stone. -->
     <set name="itemConsumeId" val="8764"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="magicLvl" val="77"/>
@@ -424,8 +419,7 @@
     <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="25000"/>
     <!-- FIXME: verify against implementation
-    <set name="coolTime" val="15000"/>
-    -->
+    <set name="coolTime" val="15000"/ -->
     <set name="staticHitTime" val="true"/>
     <set name="staticReuse" val="true"/>
     <set name="skillType" val="FUSION"/>

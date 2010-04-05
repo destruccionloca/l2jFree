@@ -352,7 +352,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4 Hours -->
     <set name="transformId" val="105"/>
     <cond msgId="1509">
       <player olympiad="false"/>
@@ -574,7 +574,7 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
-        <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136 "/>
+        <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136"/>
         <player level="82"/>
       </and>
     </cond>
@@ -590,7 +590,7 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
-        <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136 "/>
+        <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136"/>
         <player level="82"/>
       </and>
     </cond>
@@ -606,7 +606,7 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
-        <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136 "/>
+        <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136"/>
         <player level="82"/>
       </and>
     </cond>

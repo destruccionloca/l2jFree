@@ -66,8 +66,7 @@
     <!--
       Lvl 1: Blue Crystal of Fantasy
       Lvl 2: Green Crystal of Fantasy
-      Lvl 3: Red Crystal of Fantasy
-    -->
+      Lvl 3: Red Crystal of Fantasy -->
     <table name="#power"> 50000 100000 200000 </table>
     <table name="#itemConsumeId"> 13386 13387 13388 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
@@ -88,8 +87,7 @@
     </cond>
   </skill>
   <skill id="2609" levels="20" name="Escape">
-    <table name="#itemConsumeId"> 13395 13396 13397 13398 13399 13400 13401 13402 13403 13404
-      13405 13406 13407 13408 13409 13410 13411 13412 13413 13414 </table>
+    <table name="#itemConsumeId"> 13395 13396 13397 13398 13399 13400 13401 13402 13403 13404 13405 13406 13407 13408 13409 13410 13411 13412 13413 13414 </table>
     <table name="#teleCoords">
       -84318,244579,-3730
       46934,51467,-2977

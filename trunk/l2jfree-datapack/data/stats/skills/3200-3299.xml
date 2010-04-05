@@ -678,8 +678,7 @@
   <skill id="3261" levels="1" name="Forgiveness">
     <!--
       Description(s): Gathers up your love and throws a heart to the target. Warning: If you send
-      love to a monster, you may be attacked from all sides.
-    -->
+      love to a monster, you may be attacked from all sides. -->
     <set name="hitTime" val="2500"/>
     <set name="mpConsume" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -693,8 +692,7 @@
   <skill id="3262" levels="1" name="Pardon">
     <!--
       Description(s): Gathers up your love and throws two hearts at the huge pig. There is a low
-      chance that the huge pig will transform into either a golden pig or a super huge pig.
-    -->
+      chance that the huge pig will transform into either a golden pig or a super huge pig. -->
     <set name="castRange" val="750"/>
     <set name="hitTime" val="3200"/>
     <set name="mpConsume" val="1"/>

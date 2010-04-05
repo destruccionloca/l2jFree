@@ -204,7 +204,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4 Hours -->
     <set name="transformId" val="102"/>
     <cond msgId="1509">
       <player olympiad="false"/>
@@ -216,12 +216,11 @@
   <skill id="3336" levels="1" name="Transform Buffalo">
     <!--
       Done by Skatershi
-      Description: Transform into a Yeti. There is no effect from the Mystery Potion while in Yeti form.
-    -->
+      Description: Transform into a Yeti. There is no effect from the Mystery Potion while in Yeti form. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4 Hours -->
     <set name="transformId" val="103"/>
     <cond msgId="1509">
       <player olympiad="false"/>
@@ -235,7 +234,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+    <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4 Hours -->
     <set name="transformId" val="104"/>
     <cond msgId="1509">
       <player olympiad="false"/>

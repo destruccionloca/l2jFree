@@ -590,7 +590,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="80"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="1000"/>

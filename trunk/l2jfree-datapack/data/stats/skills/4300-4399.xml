@@ -475,23 +475,23 @@
     </for>
   </skill>
   <skill id="4336" levels="5" name="Dark Attack Weak Point">
-    <table name="#Tab-darkRes"> 10 15 20 30 50 </table>
+    <table name="#darkRes"> 10 15 20 30 50 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <sub order="0x40" stat="darkRes" val="#Tab-darkRes"/>
+      <sub order="0x40" stat="darkRes" val="#darkRes"/>
     </for>
   </skill>
   <skill id="4337" levels="6" name="Resist Sacred Attack">
-    <table name="#Tab-holyRes"> 15 30 50 70 90 100 </table>
+    <table name="#holyRes"> 15 30 50 70 90 100 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <add order="0x40" stat="holyRes" val="#Tab-holyRes"/>
+      <add order="0x40" stat="holyRes" val="#holyRes"/>
     </for>
   </skill>
   <skill id="4338" levels="1" name="Adventurer's Life Cubic">
@@ -565,7 +565,7 @@
     </for>
   </skill>
   <skill id="4343" levels="3" name="Clan Hall: Decrease Weight">
-    <table name="#Weight"> 3000 6000 9000 </table>
+    <table name="#weightLimit"> 3000 6000 9000 </table>
     <table name="#mpInitialConsume"> 10 15 20 </table>
     <table name="#mpConsume"> 40 60 80 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -579,12 +579,12 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#Weight" stackType="Weight">
-        <add order="0x40" stat="weightLimit" val="#Weight"/>
+        <add order="0x40" stat="weightLimit" val="#weightLimit"/>
       </effect>
     </for>
   </skill>
   <skill id="4344" levels="3" name="Clan Hall: Shield">
-    <table name="#rate"> 1.08 1.12 1.15 </table>
+    <table name="#pDef"> 1.08 1.12 1.15 </table>
     <table name="#mpInitialConsume"> 10 15 20 </table>
     <table name="#mpConsume"> 40 60 80 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -598,12 +598,12 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pd_up">
-        <mul order="0x30" stat="pDef" val="#rate"/>
+        <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
   </skill>
   <skill id="4345" levels="3" name="Clan Hall: Might">
-    <table name="#rate"> 1.08 1.12 1.15 </table>
+    <table name="#pAtk"> 1.08 1.12 1.15 </table>
     <table name="#mpInitialConsume"> 10 15 20 </table>
     <table name="#mpConsume"> 40 60 80 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -617,7 +617,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
-        <mul order="0x30" stat="pAtk" val="#rate"/>
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
   </skill>
@@ -702,7 +702,7 @@
     </for>
   </skill>
   <skill id="4350" levels="4" name="Clan Hall: Resist Shock">
-    <table name="#vuln"> 0.85 0.8 0.7 0.6 </table>
+    <table name="#stunVuln"> 0.85 0.8 0.7 0.6 </table>
     <table name="#stack"> 15 20 30 40 </table>
     <table name="#mpInitialConsume"> 30 40 50 60 </table>
     <table name="#mpConsume"> 120 160 200 240 </table>
@@ -717,7 +717,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="ShockVuln">
-        <mul order="0x30" stat="stunVuln" val="#vuln"/>
+        <mul order="0x30" stat="stunVuln" val="#stunVuln"/>
       </effect>
     </for>
   </skill>
@@ -1302,23 +1302,23 @@
     </for>
   </skill>
   <skill id="4388" levels="6" name="Resist Paralysis Attacks">
-    <table name="#power"> 0.85 0.7 0.5 0.3 0.1 0 </table>
+    <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="paralyzeVuln" val="#power"/>
+      <mul order="0x30" stat="paralyzeVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="4389" levels="6" name="Resist Mental Attacks">
-    <table name="#power"> 0.85 0.7 0.5 0.3 0.1 0 </table>
+    <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="confusionVuln" val="#power"/>
+      <mul order="0x30" stat="confusionVuln" val="#vuln"/>
     </for>
   </skill>
   <skill id="4390" levels="1" name="NPC Abnormal Immunity">
@@ -1349,7 +1349,7 @@
     </for>
   </skill>
   <skill id="4392" levels="3" name="Shield">
-    <table name="#rate"> 1.08 1.12 1.15 </table>
+    <table name="#pDef"> 1.08 1.12 1.15 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -1360,7 +1360,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="#rate" stackType="pd_up">
-        <mul order="0x30" stat="pDef" val="#rate"/>
+        <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
   </skill>
