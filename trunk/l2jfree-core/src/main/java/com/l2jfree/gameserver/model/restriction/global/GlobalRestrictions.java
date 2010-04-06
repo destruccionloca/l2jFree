@@ -192,6 +192,7 @@ public final class GlobalRestrictions
 	{
 		activate(new CursedWeaponRestriction());
 		activate(new DuelRestriction());
+		activate(new EradicationRestriction());
 		activate(new JailRestriction());
 		activate(new MercenaryTicketRestriction());
 		activate(new OlympiadRestriction());

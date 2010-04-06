@@ -39,11 +39,6 @@ public final class EffectClanGate extends L2Effect
 		super(env, template);
 	}
 
-	public EffectClanGate(Env env, L2Effect effect)
-	{
-		super(env, effect);
-	}
-
 	@Override
 	public L2EffectType getEffectType()
 	{

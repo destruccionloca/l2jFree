@@ -51,6 +51,9 @@ public class Resurrect implements ISkillHandler
 			if (target == null)
 				continue;
 			
+			if (target.isEradicated())
+				continue;
+			
 			if (target instanceof L2PcInstance)
 			{
 				targetPlayer = (L2PcInstance) target;

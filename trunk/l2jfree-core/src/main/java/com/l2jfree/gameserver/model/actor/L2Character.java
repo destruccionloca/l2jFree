@@ -195,6 +195,7 @@ public abstract class L2Character extends L2Object
 	protected L2Effect 				_invulEffect               			= null;
 	protected boolean				_isDisarmed							= false;
 	protected boolean				_isMarked							= false;
+	protected boolean				_isEradicated						= false;
 	private final int[]					lastPosition						=
 																		{ 0, 0, 0 };
 	protected final CharLikeView	_view;
@@ -2481,6 +2482,16 @@ public abstract class L2Character extends L2Object
 	public final void setIsDisarmed(boolean value)
 	{
 		_isDisarmed = value;
+	}
+
+	public final boolean isEradicated()
+	{
+		return _isEradicated;
+	}
+
+	public final void setIsEradicated(boolean value)
+	{
+		_isEradicated = value;
 	}
 
 	/**
