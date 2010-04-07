@@ -346,8 +346,8 @@ public final class L2PcInstance extends L2Playable
 	private static final String DELETE_SKILL_REUSES				= "DELETE FROM character_skill_reuses WHERE charId=?";
 
 	// Character Character SQL String Definitions:
-	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,sex=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,trust_level=?,vitality_points=?,bookmarkslot=? WHERE charId=?";
-	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,trust_level,vitality_points,bookmarkslot FROM characters WHERE charId=?";
+	private static final String	UPDATE_CHARACTER				= "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,sex=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,fame=?,pvpkills=?,pkkills=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=?,vitality_points=?,bookmarkslot=? WHERE charId=?";
+	private static final String	RESTORE_CHARACTER				= "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level,vitality_points,bookmarkslot FROM characters WHERE charId=?";
 
 	// Character Subclass SQL String Definitions:
 	private static final String	RESTORE_CHAR_SUBCLASSES			= "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE charId=? ORDER BY class_index ASC";
@@ -722,8 +722,6 @@ public final class L2PcInstance extends L2Playable
 
 	// Self resurrect during siege
 	private boolean							_charmOfCourage			= false;
-
-	private int								_trustlevel				= 0;
 
 	private boolean							_hero					= false;
 	private boolean							_noble					= false;
@@ -6750,7 +6748,6 @@ public final class L2PcInstance extends L2Playable
 				player.setLvlJoinedAcademy(rset.getInt("lvl_joined_academy"));
 				player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
 				player.setDeathPenaltyBuffLevel(rset.getInt("death_penalty_level"));
-				player.setTrustLevel(rset.getInt("trust_level"));
 				player.setVitalityPoints(rset.getInt("vitality_points"), true);
 
 				// Add the L2PcInstance object in _allObjects
@@ -7147,10 +7144,9 @@ public final class L2PcInstance extends L2Playable
 			statement.setLong(47, getBanChatTimer());
 			statement.setString(48, getName());
 			statement.setLong(49, getDeathPenaltyBuffLevel());
-			statement.setLong(50, getTrustLevel());
-			statement.setInt(51, getVitalityPoints());
-			statement.setInt(52, getBookMarkSlot());
-		    statement.setInt(53, getObjectId());
+			statement.setInt(50, getVitalityPoints());
+			statement.setInt(51, getBookMarkSlot());
+		    statement.setInt(52, getObjectId());
 			statement.execute();
 			statement.close();
 		}
@@ -13293,32 +13289,6 @@ public final class L2PcInstance extends L2Playable
 	public final L2Summon getActingSummon()
 	{
 		return getPet();
-	}
-
-	public int getTrustLevel()
-	{
-		return _trustlevel;
-	}
-
-	public void setTrustLevel(int trustlevel)
-	{
-		_trustlevel = trustlevel;
-	}
-
-	public void increaseTrustLevel(int inc)
-	{
-		if((_trustlevel + inc)>=1000000)
-			_trustlevel = 1000000;
-		else
-			_trustlevel += inc;
-	}
-
-	public void decreaseTrustLevel(int inc)
-	{
-		if((_trustlevel - inc)<=0)
-			_trustlevel = 0;
-		else
-			_trustlevel -= inc;
 	}
 
 	/**
