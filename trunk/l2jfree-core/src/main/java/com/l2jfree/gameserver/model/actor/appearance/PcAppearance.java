@@ -15,9 +15,15 @@
 package com.l2jfree.gameserver.model.actor.appearance;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 
-public class PcAppearance
+public final class PcAppearance
 {
+	/** The default hexadecimal color of players' name (white is 0xFFFFFF) */
+	public static final int DEFAULT_NAME_COLOR = 0xFFFFFF;
+	/** The default hexadecimal color of players' title (light blue is 0xFFFF77) */
+	public static final int DEFAULT_TITLE_COLOR = 0xFFFF77;
+	
 	// =========================================================
 	// Data Field
 	private L2PcInstance _owner;
@@ -25,230 +31,166 @@ public class PcAppearance
 	private byte _hairColor;
 	private byte _hairStyle;
 	private boolean _sex; // Female true(1)
-	private boolean _displayName = true;
+	
 	/** true if the player is invisible */
 	private boolean _invisible = false;
-	private boolean _ghostmode = false;
+	
 	/** The current visisble name of this palyer, not necessarily the real one */
 	private String _visibleName;
 	/** The current visisble title of this palyer, not necessarily the real one */
 	private String _visibleTitle;
+	
 	/** The hexadecimal Color of players name (white is 0xFFFFFF) */
-	private int _nameColor = 0xFFFFFF;
+	private int _nameColor = DEFAULT_NAME_COLOR;
 	// No idea if this should be stored between sessions
 	private int _nickColor = -1;
 	/** The hexadecimal Color of players title (light blue is 0xFFFF77) */
-	private int _titleColor = 0xFFFF77;
-
+	private int _titleColor = DEFAULT_TITLE_COLOR;
+	
 	// =========================================================
 	// Constructor
-	public PcAppearance(byte face, byte hColor, byte hStyle, boolean sex) {
+	public PcAppearance(byte face, byte hColor, byte hStyle, boolean sex)
+	{
 		_face = face;
 		_hairColor = hColor;
 		_hairStyle = hStyle;
 		_sex = sex;
 	}
-
-	// =========================================================
-	// Method - Public
-
-	// =========================================================
-	// Method - Private
-
-	/**
-	 * @param visibleName
-	 *            The visibleName to set.
-	 */
-	public final void setVisibleName(String visibleName)
+	
+	public void setVisibleName(String visibleName)
 	{
 		_visibleName = visibleName;
 	}
-
-	/**
-	 * @return Returns the visibleName.
-	 */
-	public final String getVisibleName()
+	
+	public String getVisibleName()
 	{
-		if (_visibleName == null)
-		{
-			return getOwner().getName();
-		}
-		if (_displayName)
+		if (_visibleName != null)
 			return _visibleName;
-
-		return "";
+		
+		return _owner.getName();
 	}
-
-	/**
-	 * @param visibleTitle
-	 *            The visibleTitle to set.
-	 */
-	public final void setVisibleTitle(String visibleTitle)
+	
+	public void setVisibleTitle(String visibleTitle)
 	{
 		_visibleTitle = visibleTitle;
 	}
-
-	/**
-	 * @return Returns the visibleTitle.
-	 */
-	public final String getVisibleTitle()
+	
+	public String getVisibleTitle()
 	{
-		if (_visibleTitle == null)
-		{
-			return getOwner().getTitle();
-		}
-		if (_displayName)
+		if (_visibleTitle != null)
 			return _visibleTitle;
-
-		return "";
+		
+		return _owner.getTitle();
 	}
-
-	// =========================================================
-	// Property - Public
-	public final byte getFace()
+	
+	public byte getFace()
 	{
 		return _face;
 	}
-
-	/**
-	 * @param byte value
-	 */
-	public final void setFace(int value)
+	
+	public void setFace(int value)
 	{
-		_face = (byte) value;
+		_face = (byte)value;
 	}
-
-	public final byte getHairColor()
+	
+	public byte getHairColor()
 	{
 		return _hairColor;
 	}
-
-	/**
-	 * @param byte value
-	 */
-	public final void setHairColor(int value)
+	
+	public void setHairColor(int value)
 	{
-		_hairColor = (byte) value;
+		_hairColor = (byte)value;
 	}
-
-	public final byte getHairStyle()
+	
+	public byte getHairStyle()
 	{
 		return _hairStyle;
 	}
-
-	/**
-	 * @param byte value
-	 */
-	public final void setHairStyle(int value)
+	
+	public void setHairStyle(int value)
 	{
-		_hairStyle = (byte) value;
+		_hairStyle = (byte)value;
 	}
-
-	public final boolean getSex()
+	
+	public boolean getSex()
 	{
 		return _sex;
 	}
-
-	/**
-	 * @param boolean isfemale
-	 */
-	public final void setSex(boolean isfemale)
+	
+	public void setSex(boolean isfemale)
 	{
 		_sex = isfemale;
 	}
-
+	
 	public void setInvisible()
 	{
 		_invisible = true;
 	}
-
+	
 	public void setVisible()
 	{
 		_invisible = false;
 	}
-
+	
 	public boolean isInvisible()
 	{
 		return _invisible;
 	}
-
-	public void setGhostMode(boolean b)
-	{
-		_ghostmode = b;
-	}
-
-	public boolean isGhost()
-	{
-		return _ghostmode;
-	}
-
+	
 	public int getNameColor()
 	{
-		if (getNickColor() == -1)
-			return _nameColor;
-		else
-			return getNickColor();
+		final int value = GlobalRestrictions.getNameColor(_owner);
+		
+		if (value != -1)
+			return value;
+		
+		if (_nickColor != -1)
+			return _nickColor;
+		
+		return _nameColor;
 	}
-
+	
 	public void setNameColor(int nameColor)
 	{
 		_nameColor = nameColor;
 	}
-
+	
 	public void setNameColor(int red, int green, int blue)
 	{
-		_nameColor = (red & 0xFF) + ((green & 0xFF) << 8)
-				+ ((blue & 0xFF) << 16);
+		setNameColor((red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16));
 	}
-
+	
 	public int getTitleColor()
 	{
+		final int value = GlobalRestrictions.getTitleColor(_owner);
+		
+		if (value != -1)
+			return value;
+		
 		return _titleColor;
 	}
-
+	
 	public void setTitleColor(int titleColor)
 	{
 		_titleColor = titleColor;
 	}
-
+	
 	public void setTitleColor(int red, int green, int blue)
 	{
-		_titleColor = (red & 0xFF) + ((green & 0xFF) << 8)
-				+ ((blue & 0xFF) << 16);
+		setTitleColor((red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16));
 	}
-
-	/**
-	 * @param owner
-	 *            The owner to set.
-	 */
+	
 	public void setOwner(L2PcInstance owner)
 	{
 		_owner = owner;
 	}
-
-	/**
-	 * @return Returns the owner.
-	 */
-	public L2PcInstance getOwner()
-	{
-		return _owner;
-	}
-
-	public boolean getDisplayName()
-	{
-		return _displayName;
-	}
-
-	public void setDisplayName(boolean b)
-	{
-		_displayName = b;
-	}
-
+	
 	public int getNickColor()
 	{
 		return _nickColor;
 	}
-
+	
 	public void setNickColor(int color)
 	{
 		_nickColor = color;

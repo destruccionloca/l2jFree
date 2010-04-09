@@ -97,6 +97,14 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		TvTPlayerInfo info = activeChar.getPlayerInfo(TvTPlayerInfo.class);
+		
+		return info != null ? info._nameColorTvT : -1;
+	}
+	
+	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		if (activeChar.isInEvent(TvTPlayerInfo.class) && TvT._maxlvl == activeChar.getLevel() && !TvT._started)

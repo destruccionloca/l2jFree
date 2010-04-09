@@ -108,6 +108,12 @@ public final class AutomatedTvTRestriction extends AbstractRestriction
 	}
 	
 	@Override
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		return AutomatedTvT.isPlaying(activeChar) ? AutomatedTvT.getNameColor(activeChar) : -1;
+	}
+	
+	@Override
 	public Boolean isInsideZone(L2Character activeChar, byte zone)
 	{
 		if (activeChar instanceof L2Playable && AutomatedTvT.isPlaying(activeChar.getActingPlayer()))

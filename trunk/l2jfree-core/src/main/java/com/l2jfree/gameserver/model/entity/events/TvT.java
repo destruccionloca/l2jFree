@@ -64,7 +64,7 @@ public class TvT
 	{
 		/** TvT Engine parameters */
 		public String _teamNameTvT;
-		public int _originalNameColorTvT;
+		public int _nameColorTvT = -1;
 		public int _countTvTkills;
 		public int _countTvTdies;
 		public int _originalKarmaTvT;
@@ -723,7 +723,6 @@ public class TvT
 			int playerToAddIndex = Rnd.nextInt(_playersShuffle.size());
 			L2PcInstance player = null;
 			player = _playersShuffle.get(playerToAddIndex);
-			player.as(TvTPlayerInfo.class)._originalNameColorTvT = player.getAppearance().getNameColor();
 			player.as(TvTPlayerInfo.class)._originalKarmaTvT = player.getKarma();
 
 			_players.add(player);
@@ -745,7 +744,9 @@ public class TvT
 	{
 		for (L2PcInstance player : _players)
 		{
-			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player.as(TvTPlayerInfo.class)._teamNameTvT)));
+			final TvTPlayerInfo info = player.as(TvTPlayerInfo.class);
+			
+			info._nameColorTvT = _teamColors.get(_teams.indexOf(info._teamNameTvT));
 			player.setKarma(0);
 			player.broadcastUserInfo();
 		}
@@ -1449,7 +1450,6 @@ public class TvT
 				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					info._originalNameColorTvT = player.getAppearance().getNameColor();
 					info._originalKarmaTvT = player.getKarma();
 					info._countTvTkills = p.as(TvTPlayerInfo.class)._countTvTkills;
 					_players.remove(p); //removing old object id from list
@@ -1458,7 +1458,7 @@ public class TvT
 				}
 			}
 
-			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(info._teamNameTvT)));
+			info._nameColorTvT = _teamColors.get(_teams.indexOf(info._teamNameTvT));
 			player.setKarma(0);
 			player.broadcastUserInfo();
 			player.teleToLocation(_teamsX.get(_teams.indexOf(info._teamNameTvT)), _teamsY.get(_teams.indexOf(info._teamNameTvT)), _teamsZ.get(_teams
@@ -1479,7 +1479,7 @@ public class TvT
 		{
 			if (!_joining && player.isOnline() != 0)
 			{
-				player.getAppearance().setNameColor(info._originalNameColorTvT);
+				info._nameColorTvT = -1;
 				player.getAppearance().setVisibleTitle(null);
 				player.setKarma(info._originalKarmaTvT);
 				player.broadcastUserInfo();

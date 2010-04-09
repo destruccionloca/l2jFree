@@ -96,6 +96,14 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		CTFPlayerInfo info = activeChar.getPlayerInfo(CTFPlayerInfo.class);
+		
+		return info != null ? info._nameColorCTF : -1;
+	}
+	
+	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		if (activeChar.isInEvent(CTFPlayerInfo.class) && CTF._maxlvl == activeChar.getLevel() && !CTF._started)

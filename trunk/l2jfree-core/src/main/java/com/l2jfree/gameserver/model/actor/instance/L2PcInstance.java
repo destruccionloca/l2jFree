@@ -9075,8 +9075,8 @@ public final class L2PcInstance extends L2Playable
 
 	public void updateNameTitleColor()
 	{
-		int nameColor = 0xFFFFFF;
-		int titleColor = 0xFFFF77;
+		int nameColor = PcAppearance.DEFAULT_NAME_COLOR;
+		int titleColor = PcAppearance.DEFAULT_TITLE_COLOR;
 		
 		if (isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
 				&& getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)

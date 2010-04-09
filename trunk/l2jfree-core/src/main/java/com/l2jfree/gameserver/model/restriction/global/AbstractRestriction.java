@@ -139,6 +139,18 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		throw new AbstractMethodError();
 	}
 	
+	@DisabledRestriction
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public int getTitleColor(L2PcInstance activeChar)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	// TODO
 	
 	@DisabledRestriction

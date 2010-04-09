@@ -50,10 +50,6 @@ public class CharKnownList extends ObjectKnownList
 		if (!getActiveChar().isSameInstance(object))
 			return false;
 		
-		// check if the object is i a l2pcinstance in ghost mode
-		if (object instanceof L2PcInstance && ((L2PcInstance)object).getAppearance().isGhost())
-			return false;
-		
 		if (getKnownObjects().put(object.getObjectId(), object) != null)
 			return false;
 		

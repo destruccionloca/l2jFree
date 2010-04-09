@@ -74,7 +74,7 @@ public class CTF
 		/** CTF Engine parameters */
 		public String _teamNameCTF;
 		public String _teamNameHaveFlagCTF;
-		public int _originalNameColorCTF;
+		public int _nameColorCTF = -1;
 		public int _originalKarmaCTF;
 		public int _countCTFflags;
 		public boolean _haveFlagCTF;
@@ -1277,7 +1277,6 @@ public class CTF
 			int playerToAddIndex = Rnd.nextInt(_playersShuffle.size());
 			L2PcInstance player = null;
 			player = _playersShuffle.get(playerToAddIndex);
-			player.as(CTFPlayerInfo.class)._originalNameColorCTF = player.getAppearance().getNameColor();
 			player.as(CTFPlayerInfo.class)._originalKarmaCTF = player.getKarma();
 
 			_players.add(player);
@@ -1299,7 +1298,9 @@ public class CTF
 	{
 		for (L2PcInstance player : _players)
 		{
-			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player.as(CTFPlayerInfo.class)._teamNameCTF)));
+			final CTFPlayerInfo info = player.as(CTFPlayerInfo.class);
+			
+			info._nameColorCTF = _teamColors.get(_teams.indexOf(info._teamNameCTF));
 			player.setKarma(0);
 			player.broadcastUserInfo();
 		}
@@ -2024,7 +2025,6 @@ public class CTF
 				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					info._originalNameColorCTF = player.getAppearance().getNameColor();
 					info._originalKarmaCTF = player.getKarma();
 					info._countCTFflags = p.as(CTFPlayerInfo.class)._countCTFflags;
 					_players.remove(p); //removing old object id from list
@@ -2032,7 +2032,8 @@ public class CTF
 					break;
 				}
 			}
-			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(info._teamNameCTF)));
+			
+			info._nameColorCTF = _teamColors.get(_teams.indexOf(info._teamNameCTF));
 			player.setKarma(0);
 			player.broadcastUserInfo();
 			player.teleToLocation(_teamsX.get(_teams.indexOf(info._teamNameCTF)), _teamsY.get(_teams.indexOf(info._teamNameCTF)), _teamsZ.get(_teams
@@ -2055,7 +2056,7 @@ public class CTF
 		{
 			if (!_joining && player.isOnline() != 0)
 			{
-				player.getAppearance().setNameColor(info._originalNameColorCTF);
+				info._nameColorCTF = -1;
 				player.getAppearance().setVisibleTitle(null);
 				player.setKarma(info._originalKarmaCTF);
 				player.broadcastUserInfo();

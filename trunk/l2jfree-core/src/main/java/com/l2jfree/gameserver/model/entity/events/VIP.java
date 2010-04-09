@@ -61,7 +61,7 @@ public class VIP
 		public boolean _isVIP;
 		public boolean _isNotVIP;
 		public boolean _isTheVIP;
-		public int _originalNameColourVIP;
+		public int _nameColourVIP = -1;
 		public int _originalKarmaVIP;
 		
 		private VIPPlayerInfo(L2PcInstance player)
@@ -769,7 +769,7 @@ public class VIP
 		for (L2PcInstance player : _playersVIP)
 		{
 			final VIPPlayerInfo info = player.as(VIPPlayerInfo.class);
-			player.getAppearance().setNameColor(info._originalNameColourVIP);
+			info._nameColourVIP = -1;
 			player.setKarma(info._originalKarmaVIP);
 			player.broadcastUserInfo();
 			player.setPlayerInfo(null);
@@ -781,7 +781,7 @@ public class VIP
 		for (L2PcInstance player : _playersNotVIP)
 		{
 			final VIPPlayerInfo info = player.as(VIPPlayerInfo.class);
-			player.getAppearance().setNameColor(info._originalNameColourVIP);
+			info._nameColourVIP = -1;
 			player.setKarma(info._originalKarmaVIP);
 			player.broadcastUserInfo();
 			player.setPlayerInfo(null);
@@ -876,10 +876,12 @@ public class VIP
 	{
 		for (L2PcInstance player : _playersVIP)
 		{
-			if (player.as(VIPPlayerInfo.class)._isTheVIP)
-				player.getAppearance().setNameColor(255,255,0);
+			final VIPPlayerInfo info = player.as(VIPPlayerInfo.class);
+			
+			if (info._isTheVIP)
+				info._nameColourVIP = 0x00ffff;
 			else
-				player.getAppearance().setNameColor(255,0,0);
+				info._nameColourVIP = 0x0000ff;
 			
 			player.setKarma(0);
 			player.broadcastUserInfo();
@@ -890,7 +892,7 @@ public class VIP
 		}
 		for (L2PcInstance player : _playersNotVIP)
 		{
-			player.getAppearance().setNameColor(0,255,0);
+			player.as(VIPPlayerInfo.class)._nameColourVIP = 0x00ff00;
 			player.setKarma(0);
 			player.broadcastUserInfo();
 			if (Config.VIP_ON_START_REMOVE_ALL_EFFECTS)
@@ -1015,7 +1017,6 @@ public class VIP
 		activeChar.setPlayerInfo(info);
 		info._isVIP = true;
 		_playersVIP.add(activeChar);
-		info._originalNameColourVIP = activeChar.getAppearance().getNameColor();
 		info._originalKarmaVIP = activeChar.getKarma();
 		_savePlayers.add(activeChar.getName());
 	}
@@ -1038,7 +1039,6 @@ public class VIP
 		activeChar.setPlayerInfo(info);
 		info._isNotVIP = true;
 		_playersNotVIP.add(activeChar);
-		info._originalNameColourVIP = activeChar.getAppearance().getNameColor();
 		info._originalKarmaVIP = activeChar.getKarma();
 		_savePlayers.add(activeChar.getName());
 	}
@@ -1064,17 +1064,16 @@ public class VIP
 						final VIPPlayerInfo info = new VIPPlayerInfo(player);
 						player.setPlayerInfo(info);
 						info._isVIP = true;
-						info._originalNameColourVIP = player.getAppearance().getNameColor();
 						info._originalKarmaVIP = player.getKarma();
 						_playersVIP.remove(p); //removing old object id from list
 						_playersVIP.add(player); //adding new objectId to list
 						if(_theVIPName.equals(player.getName()))
 						{
-							player.getAppearance().setNameColor(255,255,0);
+							info._nameColourVIP = 0x00ffff;
 							info._isTheVIP = true;
 						}
 						else
-							player.getAppearance().setNameColor(255,0,0);
+							info._nameColourVIP = 0x0000ff;
 						player.setKarma(0);
 						player.broadcastUserInfo();
 						player.teleToLocation(_startX, _startY, _startZ);
@@ -1092,11 +1091,10 @@ public class VIP
 						final VIPPlayerInfo info = new VIPPlayerInfo(player);
 						player.setPlayerInfo(info);
 						info._isNotVIP = true;
-						info._originalNameColourVIP = player.getAppearance().getNameColor();
 						info._originalKarmaVIP = player.getKarma();
 						_playersNotVIP.remove(p); //removing old object id from list
 						_playersNotVIP.add(player); //adding new objectId to list
-						player.getAppearance().setNameColor(0,255,0);
+						info._nameColourVIP = 0x00ff00;
 						player.setKarma(0);
 						player.broadcastUserInfo();
 						player.teleToLocation(_endX, _endY, _endZ);

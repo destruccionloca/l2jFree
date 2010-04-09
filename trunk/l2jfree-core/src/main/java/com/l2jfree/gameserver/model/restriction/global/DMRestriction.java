@@ -84,6 +84,14 @@ public final class DMRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		DMPlayerInfo info = activeChar.getPlayerInfo(DMPlayerInfo.class);
+		
+		return info != null ? info._nameColorDM : -1;
+	}
+	
+	@Override
 	public void levelChanged(L2PcInstance activeChar)
 	{
 		if (activeChar.isInEvent(DMPlayerInfo.class) && DM._maxlvl == activeChar.getLevel() && !DM._started)

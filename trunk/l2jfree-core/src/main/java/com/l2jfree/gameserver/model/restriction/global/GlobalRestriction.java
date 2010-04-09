@@ -61,6 +61,10 @@ public interface GlobalRestriction
 
 	public boolean canPickUp(L2PcInstance activeChar, L2ItemInstance item, L2PetInstance pet);
 	
+	public int getNameColor(L2PcInstance activeChar);
+	
+	public int getTitleColor(L2PcInstance activeChar);
+	
 	// TODO
 	
 	public Boolean isInsideZone(L2Character activeChar, byte zone);

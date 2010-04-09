@@ -260,8 +260,9 @@ public final class AutomatedTvT
 		{
 			if (player == null)
 				continue;
-			eventPlayers.put(player.getObjectId(), new Participant(currTeam, player));
-			player.getAppearance().setNameColor(
+			Participant p = new Participant(currTeam, player);
+			eventPlayers.put(player.getObjectId(), p);
+			p.setNameColor(
 					(eventTeams[currTeam].getColorRed() & 0xFF) + (eventTeams[currTeam].getColorGreen() << 8) + (eventTeams[currTeam].getColorBlue() << 16));
 			player.setIsPetrified(true);
 			player.sendPacket(time);
@@ -373,7 +374,7 @@ public final class AutomatedTvT
 			checkEquipment(participant);
 			updatePlayerTitle(p);
 			int team = p.getTeam();
-			participant.getAppearance().setNameColor(
+			p.setNameColor(
 					(eventTeams[team].getColorRed() & 0xFF) + (eventTeams[team].getColorGreen() << 8) + (eventTeams[team].getColorBlue() << 16));
 			participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0], Config.AUTO_TVT_TEAM_LOCATIONS[team][1],
 					Config.AUTO_TVT_TEAM_LOCATIONS[team][2]);
@@ -481,6 +482,15 @@ public final class AutomatedTvT
 		if (p != null)
 			return p.getTeam();
 		else // re-check if it doesn't create problems
+			return -1;
+	}
+	
+	public static int getNameColor(L2PcInstance player)
+	{
+		Participant p = getInstance().eventPlayers.get(player.getObjectId());
+		if (p != null)
+			return p.getNameColor();
+		else
 			return -1;
 	}
 
@@ -734,7 +744,7 @@ public final class AutomatedTvT
 	private final void removeFromEvent(L2PcInstance player, Participant p)
 	{
 		player.getAppearance().setVisibleTitle(null);
-		player.getAppearance().setNameColor(p.getNameColor());
+		p.setNameColor(-1);
 		if (!player.isDead())
 		{
 			player.getStatus().setCurrentCp(player.getMaxCp());
@@ -753,7 +763,7 @@ public final class AutomatedTvT
 		private final int				team;
 		private final int				objectID;
 		private final Location			loc;
-		private final int				nameColor;
+		private int						nameColor = -1;
 		private volatile L2PcInstance	player;
 		private int						points;
 		private int						killsNoDeath;
@@ -763,7 +773,6 @@ public final class AutomatedTvT
 			this.team = team;
 			objectID = player.getObjectId();
 			loc = player.getLoc();
-			nameColor = player.getAppearance().getNameColor();
 			this.player = player;
 			points = 0;
 			killsNoDeath = 0;
@@ -797,6 +806,11 @@ public final class AutomatedTvT
 		public final int getNameColor()
 		{
 			return nameColor;
+		}
+		
+		public final void setNameColor(int nameColor)
+		{
+			this.nameColor = nameColor;
 		}
 
 		public final int getScore()

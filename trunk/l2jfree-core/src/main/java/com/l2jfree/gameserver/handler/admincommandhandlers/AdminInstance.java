@@ -32,8 +32,6 @@ public class AdminInstance implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{
 			"admin_setinstance",
-			"admin_ghoston",
-			"admin_ghostoff",
 			"admin_createinstance",
 			"admin_destroyinstance",
 			"admin_listinstances"					};
@@ -131,23 +129,7 @@ public class AdminInstance implements IAdminCommandHandler
 				activeChar.sendMessage("Use //destroyinstance id");
 			}
 		}
-
-		// set ghost mode on aka not appearing on any knownlist
-		// you will be invis to all players but you also dont get update packets ;)
-		// you will see snapshots (knownlist echoes?) if you port
-		// so kinda useless atm
-		// TODO: enable broadcast packets for ghosts
-		else if (command.startsWith("admin_ghoston"))
-		{
-			activeChar.getAppearance().setGhostMode(true);
-			activeChar.sendMessage("Ghost mode enabled");
-		}
-		// ghost mode off
-		else if (command.startsWith("admin_ghostoff"))
-		{
-			activeChar.getAppearance().setGhostMode(false);
-			activeChar.sendMessage("Ghost mode disabled");
-		}
+		
 		return true;
 	}
 

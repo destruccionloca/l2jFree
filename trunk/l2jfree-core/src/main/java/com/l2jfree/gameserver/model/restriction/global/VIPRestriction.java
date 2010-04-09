@@ -94,6 +94,14 @@ public final class VIPRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		VIPPlayerInfo info = activeChar.getPlayerInfo(VIPPlayerInfo.class);
+		
+		return info != null ? info._nameColourVIP: -1;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (VIP._savePlayers.contains(activeChar.getName()))

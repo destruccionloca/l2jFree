@@ -58,7 +58,7 @@ public class DM
 	public static final class DMPlayerInfo extends AbstractFunEventPlayerInfo
 	{
 		/** DM Engine parameters */
-		public int _originalNameColorDM;
+		public int _nameColorDM = -1;
 		public int _countDMkills;
 		public int _originalKarmaDM;
 		
@@ -252,10 +252,9 @@ public class DM
 		for (L2PcInstance player : _players)
 		{
 			final DMPlayerInfo info = player.as(DMPlayerInfo.class);
-			info._originalNameColorDM = player.getAppearance().getNameColor();
 			info._originalKarmaDM = player.getKarma();
 			info._countDMkills = 0;
-			player.getAppearance().setNameColor(_playerColors);
+			info._nameColorDM = _playerColors;
 			player.setKarma(0);
 			player.broadcastUserInfo();
 		}
@@ -266,7 +265,7 @@ public class DM
 		for (L2PcInstance player : _players)
 		{
 			final DMPlayerInfo info = player.as(DMPlayerInfo.class);
-			player.getAppearance().setNameColor(info._originalNameColorDM);
+			info._nameColorDM = -1;
 			player.setKarma(info._originalKarmaDM);
 			player.setPlayerInfo(null);
 			info._countDMkills = 0;
@@ -616,7 +615,6 @@ public class DM
 		_players.add(player);
 		final DMPlayerInfo info = new DMPlayerInfo(player);
 		player.setPlayerInfo(info);
-		info._originalNameColorDM = player.getAppearance().getNameColor();
 		info._originalKarmaDM = player.getKarma();
 		info._countDMkills = 0;
 		_savePlayers.add(player.getName());
@@ -659,7 +657,6 @@ public class DM
 				{
 					final DMPlayerInfo info = new DMPlayerInfo(player);
 					player.setPlayerInfo(info);
-					info._originalNameColorDM = player.getAppearance().getNameColor();
 					info._originalKarmaDM = player.getKarma();
 					info._countDMkills = p.as(DMPlayerInfo.class)._countDMkills;
 					_players.remove(p); //removing old object id from list
@@ -668,7 +665,7 @@ public class DM
 				}
 			}
 			
-			player.getAppearance().setNameColor(_playerColors);
+			player.as(DMPlayerInfo.class)._nameColorDM = _playerColors;
 			player.setKarma(0);
 			player.broadcastUserInfo();
 			player.teleToLocation(_playerX, _playerY , _playerZ, false);

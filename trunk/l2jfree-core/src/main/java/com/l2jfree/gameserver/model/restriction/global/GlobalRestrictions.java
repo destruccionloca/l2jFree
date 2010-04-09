@@ -63,6 +63,8 @@ public final class GlobalRestrictions
 		getCombatState,
 		canStandUp,
 		canPickUp,
+		getNameColor,
+		getTitleColor,
 		// TODO
 		
 		isInsideZone,
@@ -516,6 +518,32 @@ public final class GlobalRestrictions
 				return false;
 		
 		return true;
+	}
+	
+	public static int getNameColor(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.getNameColor.ordinal()])
+		{
+			final int value = restriction.getNameColor(activeChar);
+			
+			if (value != -1)
+				return value;
+		}
+		
+		return -1;
+	}
+	
+	public static int getTitleColor(L2PcInstance activeChar)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.getTitleColor.ordinal()])
+		{
+			final int value = restriction.getTitleColor(activeChar);
+			
+			if (value != -1)
+				return value;
+		}
+		
+		return -1;
 	}
 	
 	// TODO

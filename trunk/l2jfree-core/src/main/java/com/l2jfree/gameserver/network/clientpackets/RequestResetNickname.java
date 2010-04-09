@@ -21,30 +21,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class RequestResetNickname extends L2GameClientPacket
 {
-	private static final String	_C__D0_50_REQUESTRESETNICKNAME	= "[C] D0:50 RequestResetNickname";
-
+	private static final String _C__D0_50_REQUESTRESETNICKNAME = "[C] D0:50 RequestResetNickname";
+	
 	@Override
 	protected void readImpl()
 	{
 		// trigger packet
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
-
+		
 		if (player.getAppearance().getNickColor() != -1)
 		{
 			player.getAppearance().setNickColor(-1);
 			player.broadcastUserInfo();
 		}
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{
