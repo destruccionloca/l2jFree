@@ -139,4 +139,299 @@ public final class L2Properties extends Properties
 		
 		return property.trim();
 	}
+	
+	// ===================================================================================
+	
+	public boolean getBool(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Boolean value required, but not specified");
+		if (val instanceof Boolean)
+			return (Boolean)val;
+		try
+		{
+			return Boolean.parseBoolean((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Boolean value required, but found: " + val);
+		}
+	}
+	
+	public boolean getBool(String name, boolean deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Boolean)
+			return (Boolean)val;
+		try
+		{
+			return Boolean.parseBoolean((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Boolean value required, but found: " + val);
+		}
+	}
+	
+	public byte getByte(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Byte value required, but not specified");
+		if (val instanceof Number)
+			return ((Number)val).byteValue();
+		try
+		{
+			return Byte.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Byte value required, but found: " + val);
+		}
+	}
+	
+	public byte getByte(String name, byte deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).byteValue();
+		try
+		{
+			return Byte.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Byte value required, but found: " + val);
+		}
+	}
+	
+	public short getShort(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Short value required, but not specified");
+		if (val instanceof Number)
+			return ((Number)val).shortValue();
+		try
+		{
+			return Short.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Short value required, but found: " + val);
+		}
+	}
+	
+	public short getShort(String name, short deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).shortValue();
+		try
+		{
+			return Short.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Short value required, but found: " + val);
+		}
+	}
+	
+	public int getInteger(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Integer value required, but not specified");
+		if (val instanceof Number)
+			return ((Number)val).intValue();
+		try
+		{
+			return Integer.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Integer value required, but found: " + val);
+		}
+	}
+	
+	public int getInteger(String name, int deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).intValue();
+		try
+		{
+			return Integer.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Integer value required, but found: " + val);
+		}
+	}
+	
+	public long getLong(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Integer value required, but not specified");
+		if (val instanceof Number)
+			return ((Number)val).longValue();
+		try
+		{
+			return Long.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Integer value required, but found: " + val);
+		}
+	}
+	
+	public long getLong(String name, int deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).longValue();
+		try
+		{
+			return Long.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Integer value required, but found: " + val);
+		}
+	}
+	
+	public float getFloat(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Float value required, but not specified");
+		if (val instanceof Number)
+			return ((Number)val).floatValue();
+		try
+		{
+			return (float)Double.parseDouble((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Float value required, but found: " + val);
+		}
+	}
+	
+	public float getFloat(String name, float deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).floatValue();
+		try
+		{
+			return (float)Double.parseDouble((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Float value required, but found: " + val);
+		}
+	}
+	
+	public double getDouble(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Float value required, but not specified");
+		if (val instanceof Number)
+			return ((Number)val).doubleValue();
+		try
+		{
+			return Double.parseDouble((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Float value required, but found: " + val);
+		}
+	}
+	
+	public double getDouble(String name, float deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).doubleValue();
+		try
+		{
+			return Double.parseDouble((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Float value required, but found: " + val);
+		}
+	}
+	
+	public String getString(String name)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("String value required, but not specified");
+		return String.valueOf(val);
+	}
+	
+	public String getString(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		return String.valueOf(val);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass)
+	{
+		Object val = get(name);
+		if (val == null)
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName()
+					+ " required, but not specified");
+		if (enumClass.isInstance(val))
+			return (T)val;
+		try
+		{
+			return Enum.valueOf(enumClass, String.valueOf(val));
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: "
+					+ val);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, T deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			return deflt;
+		if (enumClass.isInstance(val))
+			return (T)val;
+		try
+		{
+			return Enum.valueOf(enumClass, String.valueOf(val));
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: "
+					+ val);
+		}
+	}
 }
