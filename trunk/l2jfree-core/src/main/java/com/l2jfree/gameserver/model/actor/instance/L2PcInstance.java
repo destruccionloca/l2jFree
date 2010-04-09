@@ -9075,44 +9075,52 @@ public final class L2PcInstance extends L2Playable
 
 	public void updateNameTitleColor()
 	{
+		int nameColor = 0xFFFFFF;
+		int titleColor = 0xFFFF77;
+		
+		if (isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
+				&& getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+		{
+			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
+				nameColor = Config.CLAN_LEADER_COLOR;
+			else
+				titleColor = Config.CLAN_LEADER_COLOR;
+		}
+		
+		if (Config.CHAR_VIP_COLOR_ENABLED)
+		{
+			if (isCharViP())
+				nameColor = Config.CHAR_VIP_COLOR;
+		}
+		
+		if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
+		{
+			if (isInOfflineMode())
+				nameColor = Config.OFFLINE_TRADE_COLOR_NAME;
+		}
+		
 		if (isGM())
 		{
 			if (Config.GM_NAME_COLOR_ENABLED)
 			{
 				if (getAccessLevel() >= 100)
-					getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
+					nameColor = Config.ADMIN_NAME_COLOR;
 				else if (getAccessLevel() >= 75)
-					getAppearance().setNameColor(Config.GM_NAME_COLOR);
+					nameColor = Config.GM_NAME_COLOR;
 			}
-			else
-			{
-				getAppearance().setNameColor(0xFFFFFF);
-			}
+			
 			if (Config.GM_TITLE_COLOR_ENABLED)
 			{
 				if (getAccessLevel() >= 100)
-					getAppearance().setTitleColor(Config.ADMIN_TITLE_COLOR);
+					titleColor = Config.ADMIN_TITLE_COLOR;
 				else if (getAccessLevel() >= 75)
-					getAppearance().setTitleColor(Config.GM_TITLE_COLOR);
-			}
-			else
-			{
-				getAppearance().setTitleColor(0xFFFF77);
+					titleColor = Config.GM_TITLE_COLOR;
 			}
 		}
-		else if (getClan() != null && isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
-				&& getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
-		{
-			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
-				getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
-			else
-				getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
-		}
-		else
-		{
-			getAppearance().setNameColor(0xFFFFFF);
-			getAppearance().setTitleColor(0xFFFF77);
-		}
+		
+		getAppearance().setTitleColor(titleColor);
+		getAppearance().setNameColor(nameColor);
+		
 		broadcastUserInfo();
 	}
 
@@ -14147,11 +14155,8 @@ public final class L2PcInstance extends L2Playable
 		if (getPet() != null)
 			getPet().unSummon(this);
 		
-		if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
-		{
-			getAppearance().setNameColor(Config.OFFLINE_TRADE_COLOR_NAME);
-			broadcastUserInfo();
-		}
+		// set name color if enabled
+		updateNameTitleColor();
 
 		new Disconnection(this).store().close(false);
 

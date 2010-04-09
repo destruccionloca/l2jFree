@@ -151,56 +151,26 @@ public class EnterWorld extends L2GameClientPacket
 		Announcements.getInstance().showAnnouncements(activeChar);
 		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
 
+		activeChar.updateNameTitleColor();
+
 		if (activeChar.isGM())
 		{
 			if (Config.SHOW_GM_LOGIN)
-			{
 				Announcements.getInstance().announceToAll("GM " + activeChar.getName() + " has logged on.");
-			}
-			else
-			{
-				if (Config.GM_STARTUP_INVISIBLE)
-					AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invisible");
-
-				if (Config.GM_STARTUP_SILENCE)
-					AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_silence");
-			}
-
+			
+			if (Config.GM_STARTUP_INVISIBLE)
+				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invisible");
+			
+			if (Config.GM_STARTUP_SILENCE)
+				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_silence");
+			
 			if (Config.GM_STARTUP_INVULNERABLE)
 				AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_invul on");
-
-			if (Config.GM_NAME_COLOR_ENABLED)
-			{
-				if (activeChar.getAccessLevel() >= 100)
-					activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
-				else if (activeChar.getAccessLevel() >= 75)
-					activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
-			}
-			if (Config.GM_TITLE_COLOR_ENABLED)
-			{
-				if (activeChar.getAccessLevel() >= 100)
-					activeChar.getAppearance().setTitleColor(Config.ADMIN_TITLE_COLOR);
-				else if (activeChar.getAccessLevel() >= 75)
-					activeChar.getAppearance().setTitleColor(Config.GM_TITLE_COLOR);
-			}
-
+			
 			if (Config.GM_STARTUP_AUTO_LIST)
 				GmListTable.addGm(activeChar, false);
 			else
 				GmListTable.addGm(activeChar, true);
-		}
-		else if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
-				&& activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
-		{
-			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
-				activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
-			else
-				activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_COLOR);
-		}
-		if (activeChar.isCharViP())
-		{
-			if (Config.CHAR_VIP_COLOR_ENABLED)
-				activeChar.getAppearance().setNameColor(Config.CHAR_VIP_COLOR);
 		}
 
 		Siege quickfix = SiegeManager.getInstance().getSiege(activeChar);
