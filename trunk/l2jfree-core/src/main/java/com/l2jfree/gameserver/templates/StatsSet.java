@@ -23,15 +23,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author mkizub
- * <BR>
- * This class is used in order to have a set of couples (key,value).<BR>
- * Methods deployed are accessors to the set (add/get value from its key) and addition of a whole set in the current one.
+ * @author mkizub <BR>
+ *         This class is used in order to have a set of couples (key,value).<BR>
+ *         Methods deployed are accessors to the set (add/get value from its key) and addition of a whole set in the current one.
  */
 public class StatsSet
 {
 	private static final Log _log = LogFactory.getLog(StatsSet.class);
-
+	
 	private final Map<String, Object> _set = new FastMap<String, Object>();
 	
 	protected Object get(String key)
@@ -51,20 +50,22 @@ public class StatsSet
 	
 	/**
 	 * Returns the set of values
+	 * 
 	 * @return HashMap
 	 */
 	public final Map<String, Object> getSet()
 	{
 		return _set;
 	}
-
+	
 	public final boolean contains(String name)
 	{
 		return _set.containsKey(name);
 	}
-
+	
 	/**
 	 * Add a set of couple values in the current set
+	 * 
 	 * @param newSet : StatsSet pointing out the list of couples to add in the current set
 	 */
 	public final void add(StatsSet newSet)
@@ -74,9 +75,10 @@ public class StatsSet
 			put(entry.getKey(), entry.getValue());
 		}
 	}
-
+	
 	/**
 	 * Return the boolean associated to the key put in parameter ("name")
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return boolean : value associated to the key
 	 */
@@ -86,20 +88,20 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Boolean value required, but not specified");
 		if (val instanceof Boolean)
-			return (Boolean) val;
+			return (Boolean)val;
 		try
 		{
-			return Boolean.parseBoolean((String) val);
+			return Boolean.parseBoolean((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Boolean value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Return the boolean associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Return the boolean associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : boolean designating the default value if value associated with the key is null
 	 * @return boolean : value of the key
@@ -110,20 +112,20 @@ public class StatsSet
 		if (val == null)
 			return deflt;
 		if (val instanceof Boolean)
-			return (Boolean) val;
+			return (Boolean)val;
 		try
 		{
-			return Boolean.parseBoolean((String) val);
+			return Boolean.parseBoolean((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Boolean value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : byte designating the default value if value associated with the key is null
 	 * @return byte : value associated to the key
@@ -134,19 +136,20 @@ public class StatsSet
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
-			return ((Number) val).byteValue();
+			return ((Number)val).byteValue();
 		try
 		{
-			return Byte.decode((String) val);
+			return Byte.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Byte value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns the byte associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return byte : value associated to the key
 	 */
@@ -156,20 +159,20 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Byte value required, but not specified");
 		if (val instanceof Number)
-			return ((Number) val).byteValue();
+			return ((Number)val).byteValue();
 		try
 		{
-			return Byte.decode((String) val);
+			return Byte.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Byte value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the short associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the short associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : short designating the default value if value associated with the key is null
 	 * @return short : value associated to the key
@@ -180,19 +183,20 @@ public class StatsSet
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
-			return ((Number) val).shortValue();
+			return ((Number)val).shortValue();
 		try
 		{
-			return Short.decode((String) val);
+			return Short.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Short value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns the short associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return short : value associated to the key
 	 */
@@ -202,19 +206,20 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Short value required, but not specified");
 		if (val instanceof Number)
-			return ((Number) val).shortValue();
+			return ((Number)val).shortValue();
 		try
 		{
-			return Short.decode((String) val);
+			return Short.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Short value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns the int associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return int : value associated to the key
 	 */
@@ -224,20 +229,20 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
 		if (val instanceof Number)
-			return ((Number) val).intValue();
+			return ((Number)val).intValue();
 		try
 		{
-			return Integer.decode((String) val);
+			return Integer.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Integer value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the int associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : int designating the default value if value associated with the key is null
 	 * @return int : value associated to the key
@@ -248,20 +253,20 @@ public class StatsSet
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
-			return ((Number) val).intValue();
+			return ((Number)val).intValue();
 		try
 		{
-			return Integer.decode((String) val);
+			return Integer.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Integer value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the int[] associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the int[] associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return int[] : value associated to the key
 	 */
@@ -272,12 +277,11 @@ public class StatsSet
 			throw new IllegalArgumentException("Integer value required, but not specified");
 		if (val instanceof Number)
 		{
-			int[] result =
-			{ ((Number) val).intValue() };
+			int[] result = { ((Number)val).intValue() };
 			return result;
 		}
 		int c = 0;
-		String[] vals = ((String) val).split(";");
+		String[] vals = ((String)val).split(";");
 		int[] result = new int[vals.length];
 		for (String v : vals)
 		{
@@ -292,9 +296,10 @@ public class StatsSet
 		}
 		return result;
 	}
-
+	
 	/**
 	 * Returns the long associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return long : value associated to the key
 	 */
@@ -304,43 +309,44 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
 		if (val instanceof Number)
-			return ((Number) val).longValue();
+			return ((Number)val).longValue();
 		try
 		{
-			return Long.decode((String) val);
+			return Long.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Integer value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the long associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the long associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : long designating the default value if value associated with the key is null
 	 * @return long : value associated to the key
 	 */
-	public final long getLong(String name, int deflt)
+	public final long getLong(String name, long deflt)
 	{
 		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
-			return ((Number) val).longValue();
+			return ((Number)val).longValue();
 		try
 		{
-			return Long.decode((String) val);
+			return Long.decode((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Integer value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns the float associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return float : value associated to the key
 	 */
@@ -350,20 +356,20 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Float value required, but not specified");
 		if (val instanceof Number)
-			return ((Number) val).floatValue();
+			return ((Number)val).floatValue();
 		try
 		{
-			return (float) Double.parseDouble((String) val);
+			return Float.parseFloat((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Float value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the float associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the float associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : float designating the default value if value associated with the key is null
 	 * @return float : value associated to the key
@@ -374,19 +380,20 @@ public class StatsSet
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
-			return ((Number) val).floatValue();
+			return ((Number)val).floatValue();
 		try
 		{
-			return (float) Double.parseDouble((String) val);
+			return Float.parseFloat((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Float value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns the double associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return double : value associated to the key
 	 */
@@ -396,43 +403,44 @@ public class StatsSet
 		if (val == null)
 			throw new IllegalArgumentException("Float value required, but not specified");
 		if (val instanceof Number)
-			return ((Number) val).doubleValue();
+			return ((Number)val).doubleValue();
 		try
 		{
-			return Double.parseDouble((String) val);
+			return Double.parseDouble((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Float value required, but found: " + val);
 		}
 	}
-
+	
 	/**
-	 * Returns the double associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the double associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : float designating the default value if value associated with the key is null
 	 * @return double : value associated to the key
 	 */
-	public final double getDouble(String name, float deflt)
+	public final double getDouble(String name, double deflt)
 	{
 		Object val = get(name);
 		if (val == null)
 			return deflt;
 		if (val instanceof Number)
-			return ((Number) val).doubleValue();
+			return ((Number)val).doubleValue();
 		try
 		{
-			return Double.parseDouble((String) val);
+			return Double.parseDouble((String)val);
 		}
 		catch (Exception e)
 		{
 			throw new IllegalArgumentException("Float value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns the String associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return String : value associated to the key
 	 */
@@ -443,10 +451,10 @@ public class StatsSet
 			throw new IllegalArgumentException("String value required, but not specified");
 		return String.valueOf(val);
 	}
-
+	
 	/**
-	 * Returns the String associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter
-	 * deflt.
+	 * Returns the String associated to the key put in parameter ("name"). If the value associated to the key is null, this method returns the value of the parameter deflt.
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param deflt : String designating the default value if value associated with the key is null
 	 * @return String : value associated to the key
@@ -461,6 +469,7 @@ public class StatsSet
 	
 	/**
 	 * Returns the String[] associated to the key put in parameter ("name").
+	 * 
 	 * @param name : String designating the key in the set
 	 * @return String[] : value associated to the key
 	 */
@@ -478,9 +487,10 @@ public class StatsSet
 			throw new IllegalArgumentException("String[] value required, but found: " + val);
 		}
 	}
-
+	
 	/**
 	 * Returns an enumeration of &lt;T&gt; from the set
+	 * 
 	 * @param <T> : Class of the enumeration returned
 	 * @param name : String designating the key in the set
 	 * @param enumClass : Class designating the class of the value associated with the key in the set
@@ -491,21 +501,24 @@ public class StatsSet
 	{
 		Object val = get(name);
 		if (val == null)
-			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + " required, but not specified");
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName()
+					+ " required, but not specified");
 		if (enumClass.isInstance(val))
-			return (T) val;
+			return (T)val;
 		try
 		{
 			return Enum.valueOf(enumClass, String.valueOf(val));
 		}
 		catch (Exception e)
 		{
-			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: " + val);
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: "
+					+ val);
 		}
 	}
-
+	
 	/**
 	 * Returns an enumeration of &lt;T&gt; from the set. If the enumeration is empty, the method returns the value of the parameter "deflt".
+	 * 
 	 * @param <T> : Class of the enumeration returned
 	 * @param name : String designating the key in the set
 	 * @param enumClass : Class designating the class of the value associated with the key in the set
@@ -519,19 +532,21 @@ public class StatsSet
 		if (val == null)
 			return deflt;
 		if (enumClass.isInstance(val))
-			return (T) val;
+			return (T)val;
 		try
 		{
 			return Enum.valueOf(enumClass, String.valueOf(val));
 		}
 		catch (Exception e)
 		{
-			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: " + val);
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: "
+					+ val);
 		}
 	}
-
+	
 	/**
 	 * Add the String hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : String corresponding to the value associated with the key
 	 */
@@ -542,6 +557,7 @@ public class StatsSet
 	
 	/**
 	 * Add the String[] hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : String[] corresponding to the value associated with the key
 	 */
@@ -549,9 +565,10 @@ public class StatsSet
 	{
 		put(name, value);
 	}
-
+	
 	/**
 	 * Add the boolean hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : boolean corresponding to the value associated with the key
 	 */
@@ -559,9 +576,10 @@ public class StatsSet
 	{
 		put(name, value);
 	}
-
+	
 	/**
 	 * Add the int hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : int corresponding to the value associated with the key
 	 */
@@ -569,10 +587,11 @@ public class StatsSet
 	{
 		put(name, value);
 	}
-
+	
 	/**
 	 * Safe version of "set". Expected values are within [min, max]<br>
 	 * Add the int hold in param "value" for the key "name"
+	 * 
 	 * @param name String designating the key in the set
 	 * @param value int corresponding to the value associated with the key
 	 */
@@ -580,7 +599,7 @@ public class StatsSet
 	{
 		if (min > max)
 			throw new InvalidParameterException("Illegal method call: minimum value > maximum value!");
-
+		
 		if (value < min || value >= max)
 		{
 			_log.warn("Incorrect value (" + value + ") while adding " + name + " to StatsSet. Action: " + reference);
@@ -593,9 +612,10 @@ public class StatsSet
 		else
 			set(name, value);
 	}
-
+	
 	/**
 	 * Add the double hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : double corresponding to the value associated with the key
 	 */
@@ -603,9 +623,10 @@ public class StatsSet
 	{
 		put(name, value);
 	}
-
+	
 	/**
 	 * Add the long hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : double corresponding to the value associated with the key
 	 */
@@ -613,9 +634,10 @@ public class StatsSet
 	{
 		put(name, value);
 	}
-
+	
 	/**
 	 * Add the Enum hold in param "value" for the key "name"
+	 * 
 	 * @param name : String designating the key in the set
 	 * @param value : Enum corresponding to the value associated with the key
 	 */

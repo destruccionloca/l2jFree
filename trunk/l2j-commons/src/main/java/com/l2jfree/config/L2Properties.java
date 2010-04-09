@@ -159,6 +159,23 @@ public final class L2Properties extends Properties
 		}
 	}
 	
+	public boolean getBool(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
+		if (val instanceof Boolean)
+			return (Boolean)val;
+		try
+		{
+			return Boolean.parseBoolean((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Boolean value required, but found: " + val);
+		}
+	}
+	
 	public boolean getBool(String name, boolean deflt)
 	{
 		Object val = get(name);
@@ -210,6 +227,23 @@ public final class L2Properties extends Properties
 		}
 	}
 	
+	public byte getByte(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
+		if (val instanceof Number)
+			return ((Number)val).byteValue();
+		try
+		{
+			return Byte.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Byte value required, but found: " + val);
+		}
+	}
+	
 	public short getShort(String name)
 	{
 		Object val = get(name);
@@ -232,6 +266,23 @@ public final class L2Properties extends Properties
 		Object val = get(name);
 		if (val == null)
 			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).shortValue();
+		try
+		{
+			return Short.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Short value required, but found: " + val);
+		}
+	}
+	
+	public short getShort(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
 		if (val instanceof Number)
 			return ((Number)val).shortValue();
 		try
@@ -278,6 +329,23 @@ public final class L2Properties extends Properties
 		}
 	}
 	
+	public int getInteger(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
+		if (val instanceof Number)
+			return ((Number)val).intValue();
+		try
+		{
+			return Integer.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Integer value required, but found: " + val);
+		}
+	}
+	
 	public long getLong(String name)
 	{
 		Object val = get(name);
@@ -295,11 +363,28 @@ public final class L2Properties extends Properties
 		}
 	}
 	
-	public long getLong(String name, int deflt)
+	public long getLong(String name, long deflt)
 	{
 		Object val = get(name);
 		if (val == null)
 			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).longValue();
+		try
+		{
+			return Long.decode((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Integer value required, but found: " + val);
+		}
+	}
+	
+	public long getLong(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
 		if (val instanceof Number)
 			return ((Number)val).longValue();
 		try
@@ -321,7 +406,7 @@ public final class L2Properties extends Properties
 			return ((Number)val).floatValue();
 		try
 		{
-			return (float)Double.parseDouble((String)val);
+			return Float.parseFloat((String)val);
 		}
 		catch (Exception e)
 		{
@@ -338,7 +423,24 @@ public final class L2Properties extends Properties
 			return ((Number)val).floatValue();
 		try
 		{
-			return (float)Double.parseDouble((String)val);
+			return Float.parseFloat((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Float value required, but found: " + val);
+		}
+	}
+	
+	public float getFloat(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
+		if (val instanceof Number)
+			return ((Number)val).floatValue();
+		try
+		{
+			return Float.parseFloat((String)val);
 		}
 		catch (Exception e)
 		{
@@ -363,11 +465,28 @@ public final class L2Properties extends Properties
 		}
 	}
 	
-	public double getDouble(String name, float deflt)
+	public double getDouble(String name, double deflt)
 	{
 		Object val = get(name);
 		if (val == null)
 			return deflt;
+		if (val instanceof Number)
+			return ((Number)val).doubleValue();
+		try
+		{
+			return Double.parseDouble((String)val);
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Float value required, but found: " + val);
+		}
+	}
+	
+	public double getDouble(String name, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
 		if (val instanceof Number)
 			return ((Number)val).doubleValue();
 		try
@@ -422,6 +541,25 @@ public final class L2Properties extends Properties
 		Object val = get(name);
 		if (val == null)
 			return deflt;
+		if (enumClass.isInstance(val))
+			return (T)val;
+		try
+		{
+			return Enum.valueOf(enumClass, String.valueOf(val));
+		}
+		catch (Exception e)
+		{
+			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: "
+					+ val);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, String deflt)
+	{
+		Object val = get(name);
+		if (val == null)
+			val = deflt;
 		if (enumClass.isInstance(val))
 			return (T)val;
 		try
