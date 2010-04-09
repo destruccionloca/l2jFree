@@ -20,6 +20,8 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.PrintStream;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,6 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.impl.Jdk14Logger;
 
+import com.l2jfree.config.ConfigProperty;
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.io.RedirectingOutputStream.BufferedRedirectingOutputStream;
 import com.l2jfree.lang.L2Math;
@@ -335,10 +338,36 @@ public abstract class L2Config
 			return "./config/" + getName().trim() + ".properties";
 		}
 		
+		protected Class<?>[] getAnnotatedClasses()
+		{
+			return new Class<?>[] { getClass().getEnclosingClass() };
+		}
+		
 		@Override
 		protected final void loadReader(BufferedReader reader) throws Exception
 		{
-			loadImpl(new L2Properties(reader));
+			final L2Properties properties = new L2Properties(reader);
+			
+			for (Class<?> cl : getAnnotatedClasses())
+			{
+				for (Field field : cl.getFields())
+				{
+					final ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+					
+					if (configProperty == null || !configProperty.loader().equals(getName()))
+						continue;
+					
+					if (!Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers()))
+					{
+						_log.warn("Invalid modifiers for " + field);
+						continue;
+					}
+					
+					field.set(null, properties.getProperty(field.getType(), configProperty));
+				}
+			}
+			
+			loadImpl(properties);
 		}
 		
 		protected abstract void loadImpl(L2Properties properties);

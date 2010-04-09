@@ -142,6 +142,56 @@ public final class L2Properties extends Properties
 	
 	// ===================================================================================
 	
+	@SuppressWarnings("unchecked")
+	public Object getProperty(Class<?> expectedType, ConfigProperty configProperty)
+	{
+		final String name = configProperty.name();
+		final String defaultValue = configProperty.value();
+		
+		if (expectedType == Boolean.class || expectedType == Boolean.TYPE)
+		{
+			return getBool(name, defaultValue);
+		}
+		else if (expectedType == Long.class || expectedType == Long.TYPE)
+		{
+			return getLong(name, defaultValue);
+		}
+		else if (expectedType == Integer.class || expectedType == Integer.TYPE)
+		{
+			return getInteger(name, defaultValue);
+		}
+		else if (expectedType == Short.class || expectedType == Short.TYPE)
+		{
+			return getShort(name, defaultValue);
+		}
+		else if (expectedType == Byte.class || expectedType == Byte.TYPE)
+		{
+			return getByte(name, defaultValue);
+		}
+		else if (expectedType == Double.class || expectedType == Double.TYPE)
+		{
+			return getDouble(name, defaultValue);
+		}
+		else if (expectedType == Float.class || expectedType == Float.TYPE)
+		{
+			return getFloat(name, defaultValue);
+		}
+		else if (expectedType == String.class)
+		{
+			return getString(name, defaultValue);
+		}
+		else if (expectedType.isEnum())
+		{
+			return getEnum(name, (Class<? extends Enum>)expectedType, defaultValue);
+		}
+		else
+		{
+			throw new IllegalStateException();
+		}
+	}
+	
+	// ===================================================================================
+	
 	public boolean getBool(String name)
 	{
 		Object val = get(name);
