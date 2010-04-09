@@ -194,31 +194,18 @@ public final class L2Properties extends Properties
 	
 	public boolean getBool(String name)
 	{
-		Object val = get(name);
-		if (val == null)
-			throw new IllegalArgumentException("Boolean value required, but not specified");
-		if (val instanceof Boolean)
-			return (Boolean)val;
-		try
-		{
-			return Boolean.parseBoolean((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Boolean value required, but found: " + val);
-		}
+		return getBool(name, null);
 	}
 	
 	public boolean getBool(String name, String deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name, deflt);
 		if (val == null)
-			val = deflt;
-		if (val instanceof Boolean)
-			return (Boolean)val;
+			throw new IllegalArgumentException("Boolean value required, but not specified");
+		
 		try
 		{
-			return Boolean.parseBoolean((String)val);
+			return Boolean.parseBoolean(val);
 		}
 		catch (Exception e)
 		{
@@ -228,14 +215,13 @@ public final class L2Properties extends Properties
 	
 	public boolean getBool(String name, boolean deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Boolean)
-			return (Boolean)val;
+		
 		try
 		{
-			return Boolean.parseBoolean((String)val);
+			return Boolean.parseBoolean(val);
 		}
 		catch (Exception e)
 		{
@@ -245,14 +231,18 @@ public final class L2Properties extends Properties
 	
 	public byte getByte(String name)
 	{
-		Object val = get(name);
+		return getByte(name, null);
+	}
+	
+	public byte getByte(String name, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Byte value required, but not specified");
-		if (val instanceof Number)
-			return ((Number)val).byteValue();
+		
 		try
 		{
-			return Byte.decode((String)val);
+			return Byte.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -262,31 +252,13 @@ public final class L2Properties extends Properties
 	
 	public byte getByte(String name, byte deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Number)
-			return ((Number)val).byteValue();
+		
 		try
 		{
-			return Byte.decode((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Byte value required, but found: " + val);
-		}
-	}
-	
-	public byte getByte(String name, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (val instanceof Number)
-			return ((Number)val).byteValue();
-		try
-		{
-			return Byte.decode((String)val);
+			return Byte.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -296,14 +268,18 @@ public final class L2Properties extends Properties
 	
 	public short getShort(String name)
 	{
-		Object val = get(name);
+		return getShort(name, null);
+	}
+	
+	public short getShort(String name, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Short value required, but not specified");
-		if (val instanceof Number)
-			return ((Number)val).shortValue();
+		
 		try
 		{
-			return Short.decode((String)val);
+			return Short.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -313,31 +289,13 @@ public final class L2Properties extends Properties
 	
 	public short getShort(String name, short deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Number)
-			return ((Number)val).shortValue();
+		
 		try
 		{
-			return Short.decode((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Short value required, but found: " + val);
-		}
-	}
-	
-	public short getShort(String name, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (val instanceof Number)
-			return ((Number)val).shortValue();
-		try
-		{
-			return Short.decode((String)val);
+			return Short.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -347,14 +305,18 @@ public final class L2Properties extends Properties
 	
 	public int getInteger(String name)
 	{
-		Object val = get(name);
+		return getInteger(name, null);
+	}
+	
+	public int getInteger(String name, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
-		if (val instanceof Number)
-			return ((Number)val).intValue();
+		
 		try
 		{
-			return Integer.decode((String)val);
+			return Integer.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -364,31 +326,13 @@ public final class L2Properties extends Properties
 	
 	public int getInteger(String name, int deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Number)
-			return ((Number)val).intValue();
+		
 		try
 		{
-			return Integer.decode((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Integer value required, but found: " + val);
-		}
-	}
-	
-	public int getInteger(String name, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (val instanceof Number)
-			return ((Number)val).intValue();
-		try
-		{
-			return Integer.decode((String)val);
+			return Integer.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -398,14 +342,18 @@ public final class L2Properties extends Properties
 	
 	public long getLong(String name)
 	{
-		Object val = get(name);
+		return getLong(name, null);
+	}
+	
+	public long getLong(String name, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Integer value required, but not specified");
-		if (val instanceof Number)
-			return ((Number)val).longValue();
+		
 		try
 		{
-			return Long.decode((String)val);
+			return Long.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -415,31 +363,13 @@ public final class L2Properties extends Properties
 	
 	public long getLong(String name, long deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Number)
-			return ((Number)val).longValue();
+		
 		try
 		{
-			return Long.decode((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Integer value required, but found: " + val);
-		}
-	}
-	
-	public long getLong(String name, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (val instanceof Number)
-			return ((Number)val).longValue();
-		try
-		{
-			return Long.decode((String)val);
+			return Long.decode(val);
 		}
 		catch (Exception e)
 		{
@@ -449,14 +379,18 @@ public final class L2Properties extends Properties
 	
 	public float getFloat(String name)
 	{
-		Object val = get(name);
+		return getFloat(name, null);
+	}
+	
+	public float getFloat(String name, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Float value required, but not specified");
-		if (val instanceof Number)
-			return ((Number)val).floatValue();
+		
 		try
 		{
-			return Float.parseFloat((String)val);
+			return Float.parseFloat(val);
 		}
 		catch (Exception e)
 		{
@@ -466,31 +400,13 @@ public final class L2Properties extends Properties
 	
 	public float getFloat(String name, float deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Number)
-			return ((Number)val).floatValue();
+		
 		try
 		{
-			return Float.parseFloat((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Float value required, but found: " + val);
-		}
-	}
-	
-	public float getFloat(String name, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (val instanceof Number)
-			return ((Number)val).floatValue();
-		try
-		{
-			return Float.parseFloat((String)val);
+			return Float.parseFloat(val);
 		}
 		catch (Exception e)
 		{
@@ -500,14 +416,18 @@ public final class L2Properties extends Properties
 	
 	public double getDouble(String name)
 	{
-		Object val = get(name);
+		return getDouble(name, null);
+	}
+	
+	public double getDouble(String name, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Float value required, but not specified");
-		if (val instanceof Number)
-			return ((Number)val).doubleValue();
+		
 		try
 		{
-			return Double.parseDouble((String)val);
+			return Double.parseDouble(val);
 		}
 		catch (Exception e)
 		{
@@ -517,31 +437,13 @@ public final class L2Properties extends Properties
 	
 	public double getDouble(String name, double deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (val instanceof Number)
-			return ((Number)val).doubleValue();
+		
 		try
 		{
-			return Double.parseDouble((String)val);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Float value required, but found: " + val);
-		}
-	}
-	
-	public double getDouble(String name, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (val instanceof Number)
-			return ((Number)val).doubleValue();
-		try
-		{
-			return Double.parseDouble((String)val);
+			return Double.parseDouble(val);
 		}
 		catch (Exception e)
 		{
@@ -551,29 +453,30 @@ public final class L2Properties extends Properties
 	
 	public String getString(String name)
 	{
-		Object val = get(name);
-		if (val == null)
-			throw new IllegalArgumentException("String value required, but not specified");
-		return String.valueOf(val);
+		return getString(name, null);
 	}
 	
 	public String getString(String name, String deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name, deflt);
 		if (val == null)
-			return deflt;
+			throw new IllegalArgumentException("String value required, but not specified");
+		
 		return String.valueOf(val);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass)
 	{
-		Object val = get(name);
+		return getEnum(name, enumClass, (String)null);
+	}
+	
+	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, String deflt)
+	{
+		String val = getProperty(name, deflt);
 		if (val == null)
 			throw new IllegalArgumentException("Enum value of type " + enumClass.getName()
 					+ " required, but not specified");
-		if (enumClass.isInstance(val))
-			return (T)val;
+		
 		try
 		{
 			return Enum.valueOf(enumClass, String.valueOf(val));
@@ -585,33 +488,12 @@ public final class L2Properties extends Properties
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, T deflt)
 	{
-		Object val = get(name);
+		String val = getProperty(name);
 		if (val == null)
 			return deflt;
-		if (enumClass.isInstance(val))
-			return (T)val;
-		try
-		{
-			return Enum.valueOf(enumClass, String.valueOf(val));
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + "required, but found: "
-					+ val);
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, String deflt)
-	{
-		Object val = get(name);
-		if (val == null)
-			val = deflt;
-		if (enumClass.isInstance(val))
-			return (T)val;
+		
 		try
 		{
 			return Enum.valueOf(enumClass, String.valueOf(val));
