@@ -271,7 +271,7 @@ public abstract class L2Config
 		try
 		{
 			loader.load();
-			return "'" + loader.getFileName() + "' reloaded!";
+			return "'" + loader.getName() + "' reloaded!";
 		}
 		catch (Exception e)
 		{
@@ -288,12 +288,27 @@ public abstract class L2Config
 	{
 		protected abstract String getName();
 		
-		protected String getFileName()
+		protected abstract void load() throws Exception;
+		
+		@Override
+		public final int hashCode()
 		{
-			return "./config/" + getName().trim() + ".properties";
+			return getClass().hashCode();
 		}
 		
-		protected void load() throws Exception
+		@Override
+		public final boolean equals(Object obj)
+		{
+			return getClass().equals(obj.getClass());
+		}
+	}
+	
+	protected static abstract class ConfigFileLoader extends ConfigLoader
+	{
+		protected abstract String getFileName();
+		
+		@Override
+		protected final void load() throws Exception
 		{
 			_log.info("loading '" + getFileName() + "'");
 			
@@ -309,25 +324,23 @@ public abstract class L2Config
 			}
 		}
 		
-		protected void loadReader(BufferedReader reader) throws Exception
+		protected abstract void loadReader(BufferedReader reader) throws Exception;
+	}
+	
+	protected static abstract class ConfigPropertiesLoader extends ConfigFileLoader
+	{
+		@Override
+		protected final String getFileName()
+		{
+			return "./config/" + getName().trim() + ".properties";
+		}
+		
+		@Override
+		protected final void loadReader(BufferedReader reader) throws Exception
 		{
 			loadImpl(new L2Properties(reader));
 		}
 		
-		protected void loadImpl(L2Properties properties) throws Exception
-		{
-		}
-		
-		@Override
-		public int hashCode()
-		{
-			return getClass().hashCode();
-		}
-		
-		@Override
-		public boolean equals(Object obj)
-		{
-			return getClass().equals(obj.getClass());
-		}
+		protected abstract void loadImpl(L2Properties properties);
 	}
 }

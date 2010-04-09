@@ -241,7 +241,7 @@ public class Config extends L2Config
 	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
 
 	// *******************************************************************************************
-	private static final class GeoConfig extends ConfigLoader
+	private static final class GeoConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -250,7 +250,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties geoSettings) throws Exception
+		protected void loadImpl(L2Properties geoSettings)
 		{
 			GEODATA					= Integer.parseInt(geoSettings.getProperty("GeoData", "0"));
 			GEODATA_CELLFINDING		= Boolean.parseBoolean(geoSettings.getProperty("CellPathFinding", "False"));
@@ -330,7 +330,7 @@ public class Config extends L2Config
 	public static int				CLAN_LEVEL_11_COST;
 
 	// *******************************************************************************************
-	private static final class ClansConfig extends ConfigLoader
+	private static final class ClansConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -339,7 +339,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties clansSettings) throws Exception
+		protected void loadImpl(L2Properties clansSettings)
 		{
 			ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
 			ALT_CLAN_JOIN_DAYS = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
@@ -425,7 +425,7 @@ public class Config extends L2Config
 	public static int			CHAMPION_SPCL_QTY;									// Amount of special champ drop items.
 
 	// *******************************************************************************************
-	private static final class ChampionsConfig extends ConfigLoader
+	private static final class ChampionsConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -434,7 +434,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties championsSettings) throws Exception
+		protected void loadImpl(L2Properties championsSettings)
 		{
 			CHAMPION_FREQUENCY = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
 			CHAMPION_PASSIVE = Boolean.parseBoolean(championsSettings.getProperty("ChampionPassive", "false"));
@@ -474,7 +474,7 @@ public class Config extends L2Config
 	// number
 
 	// *******************************************************************************************
-	private static final class LotteryConfig extends ConfigLoader
+	private static final class LotteryConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -483,7 +483,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties lotterySettings) throws Exception
+		protected void loadImpl(L2Properties lotterySettings)
 		{
 			ALT_LOTTERY_PRIZE = Long.parseLong(lotterySettings.getProperty("AltLotteryPrize", "50000"));
 			ALT_LOTTERY_TICKET_PRICE = Long.parseLong(lotterySettings.getProperty("AltLotteryTicketPrice", "2000"));
@@ -509,7 +509,7 @@ public class Config extends L2Config
 	public static int			WEDDING_DIVORCE_COSTS;
 
 	// *******************************************************************************************
-	private static final class WeddingConfig extends ConfigLoader
+	private static final class WeddingConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -518,7 +518,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties weddingSettings) throws Exception
+		protected void loadImpl(L2Properties weddingSettings)
 		{
 			WEDDING_PRICE = Integer.parseInt(weddingSettings.getProperty("WeddingPrice", "500000"));
 			WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(weddingSettings.getProperty("WeddingPunishInfidelity", "true"));
@@ -589,7 +589,7 @@ public class Config extends L2Config
 	public static double[]		PLAYER_XP_PERCENT_LOST;
 
 	// *******************************************************************************************
-	private static final class RatesConfig extends ConfigLoader
+	private static final class RatesConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -598,7 +598,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties ratesSettings) throws Exception
+		protected void loadImpl(L2Properties ratesSettings)
 		{
 			RATE_XP = Float.parseFloat(ratesSettings.getProperty("RateXp", "1."));
 			RATE_SP = Float.parseFloat(ratesSettings.getProperty("RateSp", "1."));
@@ -733,7 +733,7 @@ public class Config extends L2Config
 	public static int[]			AUGMENTATION_BLACKLIST;
 
 	// *******************************************************************************************
-	private static final class EnchantConfig extends ConfigLoader
+	private static final class EnchantConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -742,7 +742,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties enchantSettings) throws Exception
+		protected void loadImpl(L2Properties enchantSettings)
 		{
 			/* chance to enchant an item normal scroll */
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeapon", "65"));
@@ -821,7 +821,7 @@ public class Config extends L2Config
 	public static boolean			CURSED_WEAPON_NPC_INTERACT;
 
 	// *******************************************************************************************
-	private static final class PvPConfig extends ConfigLoader
+	private static final class PvPConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -830,7 +830,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties pvpSettings) throws Exception
+		protected void loadImpl(L2Properties pvpSettings)
 		{
 			/* KARMA SYSTEM */
 			KARMA_MIN_KARMA = Integer.parseInt(pvpSettings.getProperty("MinKarma", "240"));
@@ -984,7 +984,7 @@ public class Config extends L2Config
 
 	// *******************************************************************************************
 	// *******************************************************************************************
-	private static final class OtherConfig extends ConfigLoader
+	private static final class OtherConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -993,7 +993,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties otherSettings) throws Exception
+		protected void loadImpl(L2Properties otherSettings)
 		{
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
 			DEEPBLUE_DROP_RULES_RAID = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRulesRaid", "True"));
@@ -1260,7 +1260,7 @@ public class Config extends L2Config
 
 	public static String			HTML_CACHE_FILE;
 	// *******************************************************************************************
-	private static final class OptionsConfig extends ConfigLoader
+	private static final class OptionsConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -1269,7 +1269,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties optionsSettings) throws Exception
+		protected void loadImpl(L2Properties optionsSettings)
 		{
 			SERVER_LIST_BRACKET = Boolean.parseBoolean(optionsSettings.getProperty("ServerListBrackets", "false"));
 			SERVER_LIST_CLOCK = Boolean.parseBoolean(optionsSettings.getProperty("ServerListClock", "false"));
@@ -1699,7 +1699,7 @@ public class Config extends L2Config
 	// *******************************************************************************************
 	// *******************************************************************************************
 	// *******************************************************************************************
-	private static final class AltConfig extends ConfigLoader
+	private static final class AltConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -1708,7 +1708,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties altSettings) throws Exception
+		protected void loadImpl(L2Properties altSettings)
 		{
 			ALT_DEFAULT_RESTARTTOWN = Integer.parseInt(altSettings.getProperty("AltDefaultRestartTown", "0"));
 			ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
@@ -2019,7 +2019,7 @@ public class Config extends L2Config
 	public static boolean		GM_EVERYBODY_HAS_ADMIN_RIGHTS;
 
 	// *******************************************************************************************
-	private static final class GMAccessConfig extends ConfigLoader
+	private static final class GMAccessConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2028,7 +2028,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties gmSettings) throws Exception
+		protected void loadImpl(L2Properties gmSettings)
 		{
 			GM_ACCESSLEVEL = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
 			GM_MIN = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
@@ -2207,7 +2207,7 @@ public class Config extends L2Config
 	public static final Set<Integer> SIEGE_HOUR_LIST_MORNING = new L2FastSet<Integer>();
 	public static final Set<Integer> SIEGE_HOUR_LIST_AFTERNOON = new L2FastSet<Integer>();
 
-	private static final class SiegeConfig extends ConfigLoader
+	private static final class SiegeConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2216,7 +2216,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties siegeSettings) throws Exception
+		protected void loadImpl(L2Properties siegeSettings)
 		{
 			SIEGE_MAX_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerMaxClans", "500"));
 			SIEGE_MAX_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderMaxClans", "500"));
@@ -2320,7 +2320,7 @@ public class Config extends L2Config
 	public static int			FS_BLOOD_OATH_COUNT;
 	public static int			FS_BLOOD_OATH_FRQ;
 
-	private static final class FortSiegeConfig extends ConfigLoader
+	private static final class FortSiegeConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2329,7 +2329,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties fortSiegeSettings) throws Exception
+		protected void loadImpl(L2Properties fortSiegeSettings)
 		{
 			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
 			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
@@ -2443,7 +2443,7 @@ public class Config extends L2Config
 	public static final Map<String, Integer>	GM_COMMAND_PRIVILEGES	= new FastMap<String, Integer>();
 
 	// *******************************************************************************************
-	private static final class CommandPrivilegesConfig extends ConfigLoader
+	private static final class CommandPrivilegesConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2452,7 +2452,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties commandPrivileges) throws Exception
+		protected void loadImpl(L2Properties commandPrivileges)
 		{
 			for (Map.Entry<Object, Object> _command : commandPrivileges.entrySet())
 			{
@@ -2501,7 +2501,7 @@ public class Config extends L2Config
 	public static double		ALT_SIEGE_DUSK_GATES_MDEF_MULT;
 
 	// *******************************************************************************************
-	private static final class SevenSignsConfig extends ConfigLoader
+	private static final class SevenSignsConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2510,7 +2510,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties SevenSettings) throws Exception
+		protected void loadImpl(L2Properties SevenSettings)
 		{
 			ALT_GAME_CASTLE_DAWN = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDawn", "True"));
 			ALT_GAME_CASTLE_DUSK = Boolean.parseBoolean(SevenSettings.getProperty("AltCastleForDusk", "True"));
@@ -2592,7 +2592,7 @@ public class Config extends L2Config
 	public static int			CH_FRONT2_FEE;
 
 	// *******************************************************************************************
-	private static final class ClanHallConfig extends ConfigLoader
+	private static final class ClanHallConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2601,7 +2601,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties clanhallSettings) throws Exception
+		protected void loadImpl(L2Properties clanhallSettings)
 		{
 			CH_TELE_FEE_RATIO = Long.parseLong(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRatio", "604800000"));
 			CH_TELE1_FEE = Integer.parseInt(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "7000"));
@@ -2703,7 +2703,7 @@ public class Config extends L2Config
 	public static int			CS_SECURITY3_FEE;
 
 	// *******************************************************************************************
-	private static final class CastleConfig extends ConfigLoader
+	private static final class CastleConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2712,7 +2712,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties castleSettings) throws Exception
+		protected void loadImpl(L2Properties castleSettings)
 		{
 			CS_TELE_FEE_RATIO = Long.parseLong(castleSettings.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
 			CS_TELE1_FEE = Integer.parseInt(castleSettings.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
@@ -2827,7 +2827,7 @@ public class Config extends L2Config
 
 	// *******************************************************************************************
 	// *******************************************************************************************
-	private static final class FunEnginesConfig extends ConfigLoader
+	private static final class FunEnginesConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2836,7 +2836,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties funEnginesSettings) throws Exception
+		protected void loadImpl(L2Properties funEnginesSettings)
 		{
 			CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
 			CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
@@ -2950,7 +2950,7 @@ public class Config extends L2Config
 	public static String		IRC_TO_GAME_ME_DISPLAY;
 
 	// *******************************************************************************************
-	private static final class IRCConfig extends ConfigLoader
+	private static final class IRCConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -2959,7 +2959,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties ircSettings) throws Exception
+		protected void loadImpl(L2Properties ircSettings)
 		{
 			IRC_ENABLED = Boolean.parseBoolean(ircSettings.getProperty("Enable", "false"));
 			IRC_LOG_CHAT = Boolean.parseBoolean(ircSettings.getProperty("LogChat", "false"));
@@ -3080,7 +3080,7 @@ public class Config extends L2Config
 	public static int			LIT_TIME_LIMIT;
 
 	// *******************************************************************************************
-	private static final class BossConfig extends ConfigLoader
+	private static final class BossConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -3089,7 +3089,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties bossSettings) throws Exception
+		protected void loadImpl(L2Properties bossSettings)
 		{
 			// Queen Ant
 			NURSEANT_RESPAWN_DELAY = Integer.parseInt(bossSettings.getProperty("NurseAntRespawnDelay", "15"));
@@ -3328,7 +3328,7 @@ public class Config extends L2Config
 	public static final String	SAY_FILTER_FILE	= "./config/sayfilter.txt";
 
 	// *******************************************************************************************
-	private static final class SayFilterConfig extends ConfigLoader
+	private static final class SayFilterConfig extends ConfigFileLoader
 	{
 		@Override
 		protected String getFileName()
@@ -3382,7 +3382,7 @@ public class Config extends L2Config
 
 	// *******************************************************************************************
 	// *******************************************************************************************
-	private static final class ElayneConfig extends ConfigLoader
+	private static final class ElayneConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -3391,7 +3391,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties elayneSettings) throws Exception
+		protected void loadImpl(L2Properties elayneSettings)
 		{
 			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
 			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
@@ -3419,7 +3419,7 @@ public class Config extends L2Config
 	public static float			RATE_RECOVERY_ON_RECONNECT;
 
 	// *******************************************************************************************
-	private static final class VitalityConfig extends ConfigLoader
+	private static final class VitalityConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -3428,7 +3428,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties vitalitySettings) throws Exception
+		protected void loadImpl(L2Properties vitalitySettings)
 		{
 			ENABLE_VITALITY = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitality", "False"));
 			RECOVER_VITALITY_ON_RECONNECT = Boolean.parseBoolean(vitalitySettings.getProperty("RecoverVitalityOnReconnect", "True"));
@@ -3492,7 +3492,7 @@ public class Config extends L2Config
 	public static long AUTO_TVT_REVIVE_DELAY;
 	public static int AUTO_TVT_SPAWN_PROTECT;
 
-	private static final class AutoEventConfig extends ConfigLoader
+	private static final class AutoEventConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -3501,7 +3501,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties properties) throws Exception
+		protected void loadImpl(L2Properties properties)
 		{
 			AUTO_TVT_ENABLED = Boolean.parseBoolean(properties.getProperty("EnableAutoTvT", "false"));
 			
@@ -3628,7 +3628,7 @@ public class Config extends L2Config
 	// *******************************************************************************************
 	// FOR YOUR PRIVATE CONFIGS
 	// *******************************************************************************************
-	private static final class CustomConfig extends ConfigLoader
+	private static final class CustomConfig extends ConfigPropertiesLoader
 	{
 		@Override
 		protected String getName()
@@ -3637,7 +3637,7 @@ public class Config extends L2Config
 		}
 
 		@Override
-		protected void loadImpl(L2Properties customSettings) throws Exception
+		protected void loadImpl(L2Properties customSettings)
 		{
 		}
 	}
@@ -3760,15 +3760,15 @@ public class Config extends L2Config
 		{
 			return "all";
 		}
-
+		
 		private boolean _reloading = false;
-
+		
 		@Override
 		protected void load() throws Exception
 		{
 			if (_reloading)
 				return;
-
+			
 			_reloading = true;
 			try
 			{
