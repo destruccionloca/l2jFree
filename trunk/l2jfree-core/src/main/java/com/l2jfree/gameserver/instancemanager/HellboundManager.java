@@ -472,7 +472,7 @@ public final class HellboundManager
 		new SpawnHandler("Wounded Land guards spawned", WOUNDED_LAND_GUARDS_SPAWNS, 7, 7);
 		new SpawnHandler("Chimera/Celtus spawned", CHIMERA_SPAWNS, 7, 10);
 		new DoorHandler("Wounded passage", 20250002, 7, 10);
-		new SpawnHandler("Outpost Captain spawned", OUTPOST_CAPTAIN_SPAWNS, 8, 9);
+		new SpawnHandler("Outpost Captain spawned", OUTPOST_CAPTAIN_SPAWNS, 8, 8);
 		new DoorHandler("Iron Gate", 20250001, 9, 10);
 		new ShadaiSpawnHandler("Legendary Blacksmith Shadai spawned", SHADAI_SPAWNS, 9, 10);
 	}
