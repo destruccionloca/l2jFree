@@ -18,7 +18,7 @@ package com.l2jfree.mmocore.network;
  * @author KenM
  */
 public abstract class SendablePacket<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
-	extends AbstractPacket
+		extends AbstractPacket
 {
 	protected SendablePacket()
 	{
@@ -79,16 +79,44 @@ public abstract class SendablePacket<T extends MMOConnection<T, RP, SP>, RP exte
 		getByteBuffer().put(data);
 	}
 	
-	protected final void writeS(CharSequence charSequence)
+	/**
+	 * Same as {@link SendablePacket#writeS(CharSequence)}, except that <code>'\000'</code> won't be written automatically.<br>
+	 * So this way there is no need to concat multiple Strings into a single one.
+	 * 
+	 * @param charSequence
+	 */
+	@SuppressWarnings("unchecked")
+	protected final SP append(CharSequence charSequence)
 	{
-		if (charSequence == null)
-			charSequence = "";
+		putChars(charSequence);
 		
-		int length = charSequence.length();
-		for (int i = 0; i < length; i++)
-			getByteBuffer().putChar(charSequence.charAt(i));
+		return (SP)this;
+	}
+	
+	protected final void writeS(CharSequence... charSequences)
+	{
+		if (charSequences != null)
+			for (CharSequence charSequence : charSequences)
+				putChars(charSequence);
 		
 		getByteBuffer().putChar('\000');
+	}
+	
+	protected final void writeS(CharSequence charSequence)
+	{
+		putChars(charSequence);
+		
+		getByteBuffer().putChar('\000');
+	}
+	
+	private void putChars(CharSequence charSequence)
+	{
+		if (charSequence == null)
+			return;
+		
+		final int length = charSequence.length();
+		for (int i = 0; i < length; i++)
+			getByteBuffer().putChar(charSequence.charAt(i));
 	}
 	
 	protected abstract void write(T client) throws RuntimeException;

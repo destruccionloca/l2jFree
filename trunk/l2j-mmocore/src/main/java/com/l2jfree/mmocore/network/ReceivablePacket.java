@@ -24,7 +24,7 @@ import com.l2jfree.mmocore.network.SelectorThread.ErrorMode;
  * @author KenM
  */
 public abstract class ReceivablePacket<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
-	extends AbstractPacket implements Runnable
+		extends AbstractPacket implements Runnable
 {
 	protected ReceivablePacket()
 	{
