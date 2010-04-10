@@ -123,4 +123,113 @@ public final class TableOptimizer
 			L2DatabaseFactory.close(con);
 		}
 	}
+	
+	private static final ArrayList<CharacterRelatedTable> CHARACTER_RELATED_TABLES = new ArrayList<CharacterRelatedTable>();
+	private static final ArrayList<ItemRelatedTable> ITEM_RELATED_TABLES = new ArrayList<ItemRelatedTable>();
+	
+	public static Iterable<CharacterRelatedTable> getCharacterRelatedTables()
+	{
+		return CHARACTER_RELATED_TABLES;
+	}
+	
+	public static Iterable<ItemRelatedTable> getItemRelatedTables()
+	{
+		return ITEM_RELATED_TABLES;
+	}
+	
+	static
+	{
+		new CharacterRelatedTable("character_birthdays", "charId");
+		new CharacterRelatedTable("character_blocks", "charId");
+		new CharacterRelatedTable("character_effects", "charId");
+		new CharacterRelatedTable("character_friends", "charId1");
+		new CharacterRelatedTable("character_friends", "charId2");
+		new CharacterRelatedTable("character_hennas", "charId");
+		new CharacterRelatedTable("character_instance_time", "charId");
+		new CharacterRelatedTable("character_macroses", "charId");
+		new CharacterRelatedTable("character_quest_global_data", "charId");
+		new CharacterRelatedTable("character_quests", "charId");
+		new CharacterRelatedTable("character_raid_points", "charId");
+		new CharacterRelatedTable("character_recipebook", "charId");
+		new CharacterRelatedTable("character_recommend_data", "charId");
+		new CharacterRelatedTable("character_recommends", "charId");
+		new CharacterRelatedTable("character_recommends", "target_id");
+		new CharacterRelatedTable("character_shortcuts", "charId");
+		new CharacterRelatedTable("character_skill_reuses", "charId");
+		new CharacterRelatedTable("character_skills", "charId");
+		new CharacterRelatedTable("character_subclass_certification", "charId");
+		new CharacterRelatedTable("character_subclasses", "charId");
+		new CharacterRelatedTable("character_tpbookmark", "charId");
+		new CharacterRelatedTable("couples", "player1Id");
+		new CharacterRelatedTable("couples", "player2Id");
+		new CharacterRelatedTable("heroes", "charId");
+		new CharacterRelatedTable("olympiad_nobles", "charId");
+		new CharacterRelatedTable("seven_signs", "charId");
+		
+		new ItemRelatedTable("pets", "item_obj_id");
+		new ItemRelatedTable("item_attributes", "itemId");
+	}
+	
+	public static final class CharacterRelatedTable
+	{
+		private final String _deleteQuery;
+		private final String _cleanQuery;
+		
+		public CharacterRelatedTable(String tableName, String charId)
+		{
+			_deleteQuery = "DELETE FROM " + tableName + " WHERE " + tableName + "." + charId + "=?";
+			_cleanQuery = "DELETE FROM " + tableName + " WHERE " + tableName + "." + charId
+					+ " NOT IN (SELECT charId FROM characters)";
+			
+			CHARACTER_RELATED_TABLES.add(this);
+		}
+		
+		/**
+		 * @return DELETE FROM %tableName% WHERE %tableName%.%charId%=?;
+		 */
+		public String getDeleteQuery()
+		{
+			return _deleteQuery;
+		}
+		
+		/**
+		 * @return DELETE FROM %tableName% WHERE %tableName%.%charId% NOT IN (SELECT charId FROM characters)
+		 */
+		public String getCleanQuery()
+		{
+			return _cleanQuery;
+		}
+	}
+	
+	public static final class ItemRelatedTable
+	{
+		private final String _deleteQuery;
+		private final String _cleanQuery;
+		
+		public ItemRelatedTable(String tableName, String itemObjectId)
+		{
+			_deleteQuery = "DELETE FROM " + tableName + " WHERE " + tableName + "." + itemObjectId
+					+ " IN (SELECT object_id FROM items WHERE items.owner_id=?)";
+			_cleanQuery = "DELETE FROM " + tableName + " WHERE " + tableName + "." + itemObjectId
+					+ " NOT IN (SELECT object_id FROM items)";
+			
+			ITEM_RELATED_TABLES.add(this);
+		}
+		
+		/**
+		 * @return DELETE FROM %tableName% WHERE %tableName%.%itemObjectId% IN (SELECT object_id FROM items WHERE items.owner_id=?)
+		 */
+		public String getDeleteQuery()
+		{
+			return _deleteQuery;
+		}
+		
+		/**
+		 * @return DELETE FROM %tableName% WHERE %tableName%.%itemObjectId% NOT IN (SELECT object_id FROM items)
+		 */
+		public String getCleanQuery()
+		{
+			return _cleanQuery;
+		}
+	}
 }

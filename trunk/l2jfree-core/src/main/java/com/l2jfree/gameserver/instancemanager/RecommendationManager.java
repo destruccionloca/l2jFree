@@ -40,11 +40,9 @@ public final class RecommendationManager
 {
 	private static final String	ADD_RECOMMENDATION_INFO						= "INSERT INTO character_recommend_data (charId,lastUpdate) VALUES (?,?)";
 	private static final String	UPDATE_RECOMMENDATION_INFO					= "UPDATE character_recommend_data SET evaluationAble = ?,evaluationPoints = ?,lastUpdate=? WHERE charId=?";
-	private static final String	REMOVE_RECOMMENDATION_INFO					= "DELETE FROM character_recommend_data WHERE charId = ?";
 	private static final String	RESTORE_RECOMMENDATION_INFO					= "SELECT evaluationAble,evaluationPoints,lastUpdate FROM character_recommend_data WHERE charId=?";
 	private static final String	ADD_RECOMMENDATION_RESTRICTION				= "INSERT INTO character_recommends VALUES (?,?)";
 	private static final String	REMOVE_RECOMMENDATION_RESTRICTIONS			= "TRUNCATE TABLE character_recommends";
-	private static final String	REMOVE_RECOMMENDATION_RESTRICTIONS_PLAYER	= "DELETE FROM character_recommends WHERE charId=? OR target_id=?";
 	private static final String	RESTORE_RECOMMENDATION_RESTRICTIONS			= "SELECT target_id FROM character_recommends WHERE charId=?";
 
 	private static final Log	_log										= LogFactory.getLog(RecommendationManager.class);
@@ -216,36 +214,6 @@ public final class RecommendationManager
 		catch (SQLException e)
 		{
 			_log.error("Failed loading recommendation data for player " + player.getName() + "!", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
-
-	/**
-	 * Called to clean up player's evaluation data when a character is being deleted.
-	 * @param charId character's ID
-	 * @param con An open SQL connection
-	 * @param ps Reference
-	 */
-	public void onDelete(int charId, Connection con, PreparedStatement ps)
-	{
-		try
-		{
-			ps = con.prepareStatement(REMOVE_RECOMMENDATION_INFO);
-			ps.setInt(1, charId);
-			ps.executeUpdate();
-			ps.close();
-			ps = con.prepareStatement(REMOVE_RECOMMENDATION_RESTRICTIONS_PLAYER);
-			ps.setInt(1, charId);
-			ps.setInt(2, charId);
-			ps.executeUpdate();
-			ps.close();
-		}
-		catch (SQLException e)
-		{
-			_log.error("Failed deleting recommendation data for player " + charId + "!", e);
 		}
 		finally
 		{
