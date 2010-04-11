@@ -45,7 +45,6 @@ import com.l2jfree.loginserver.services.AccountsServices;
 import com.l2jfree.loginserver.services.exception.AccountBannedException;
 import com.l2jfree.loginserver.services.exception.AccountModificationException;
 import com.l2jfree.loginserver.services.exception.AccountWrongPasswordException;
-import com.l2jfree.loginserver.services.exception.HackingException;
 import com.l2jfree.loginserver.services.exception.IPRestrictedException;
 import com.l2jfree.loginserver.services.exception.MaintenanceException;
 import com.l2jfree.loginserver.services.exception.MaturityException;
@@ -76,7 +75,7 @@ public class LoginManager
 	{
 		private static final LoginManager INSTANCE = new LoginManager();
 	}
-	
+
 	public static LoginManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
@@ -265,7 +264,7 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password was wrong
 	 */
 	public AuthLoginResult tryAuthLogin(String account, String password, L2LoginClient client) throws AccountBannedException,
-			AccountWrongPasswordException, IPRestrictedException
+	AccountWrongPasswordException, IPRestrictedException
 	{
 		AuthLoginResult ret = AuthLoginResult.INVALID_PASSWORD;
 
@@ -330,11 +329,11 @@ public class LoginManager
 		}
 		return null;
 	}
-	
+
 	public String getHostForAccount(String account)
 	{
 		L2LoginClient client = getAuthedClient(account);
-		
+
 		return client != null ? client.getIp() : "-1";
 	}
 
@@ -354,7 +353,7 @@ public class LoginManager
 			//Some accounts, like GM ones, can always connect
 			if (age < gsi.getAgeLimitation())
 				throw new MaturityException(age, gsi.getAgeLimitation());
-            return (gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() || access >= Config.GM_MIN);
+			return (gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() || access >= Config.GM_MIN);
 		}
 		else
 			throw MaintenanceException.MAINTENANCE;
@@ -435,8 +434,8 @@ public class LoginManager
 	{
 		if (acc != null)
 			return acc.getAccessLevel() >= Config.GM_MIN;
-		else
-			return false;
+			else
+				return false;
 	}
 
 	/**
@@ -472,7 +471,7 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, L2LoginClient client) throws NoSuchAlgorithmException, UnsupportedEncodingException,
-			AccountModificationException, AccountBannedException, AccountWrongPasswordException, IPRestrictedException
+	AccountModificationException, AccountBannedException, AccountWrongPasswordException, IPRestrictedException
 	{
 		InetAddress address = client.getInetAddress();
 		if(BanManager.getInstance().isRestrictedAddress(address))
@@ -498,7 +497,7 @@ public class LoginManager
 	 * @throws AccountWrongPasswordException if the password is wrong
 	 */
 	public boolean loginValid(String user, String password, InetAddress address) throws NoSuchAlgorithmException, UnsupportedEncodingException,
-			AccountModificationException, AccountBannedException, AccountWrongPasswordException
+	AccountModificationException, AccountBannedException, AccountWrongPasswordException
 	{
 		_logLoginTries.info("User trying to connect  '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
 
