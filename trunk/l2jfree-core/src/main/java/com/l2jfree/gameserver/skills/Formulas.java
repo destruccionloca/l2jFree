@@ -2096,25 +2096,9 @@ public final class Formulas
 
 		double attack = 2 * actor.getMAtk(target, skill) * calcSkillVulnerability(actor, target, skill, type);
 		double d = (attack - defence) / (attack + defence);
-		if (target.isRaid())
-		{
-			switch (type)
-			{
-				case CONFUSION:
-				case MUTE:
-				case PARALYZE:
-				case ROOT:
-				case FEAR:
-				case SLEEP:
-				case STUN:
-				case DEBUFF:
-				case AGGDEBUFF:
-					if (d > 0 && Rnd.get(1000) == 1)
-						return true;
-					else
-						return false;
-			}
-		}
+		
+		if (target.isRaid() && !calcRaidAffected(type))
+			return false;
 
 		d += 0.5 * Rnd.nextGaussian();
 		return d > 0;
@@ -2287,24 +2271,8 @@ public final class Formulas
 		
 		final L2SkillType type = skill.getEffectType();
 		
-		// These skills should not work on RaidBoss
-		if (target.isRaid())
-		{
-			switch (type)
-			{
-				case CONFUSION:
-				case ROOT:
-				case STUN:
-				case MUTE:
-				case FEAR:
-				case DEBUFF:
-				case PARALYZE:
-				case SLEEP:
-				case AGGDEBUFF:
-				case AGGREDUCE_CHAR:
-					return false;
-			}
-		}
+		if (target.isRaid() && !calcRaidAffected(type))
+			return false;
 		
 		if (skill.ignoreResists())
 			return Rnd.get(100) < baseChance;
@@ -2356,24 +2324,8 @@ public final class Formulas
 		
 		final L2SkillType type = skill.getEffectType();
 		
-		// These skills should not work on RaidBoss
-		if (target.isRaid())
-		{
-			switch (type)
-			{
-				case CONFUSION:
-				case ROOT:
-				case STUN:
-				case MUTE:
-				case FEAR:
-				case DEBUFF:
-				case PARALYZE:
-				case SLEEP:
-				case AGGDEBUFF:
-				case AGGREDUCE_CHAR:
-					return false;
-			}
-		}
+		if (target.isRaid() && !calcRaidAffected(type))
+			return false;
 		
 		final double baseChance = skill.getEffectPower();
 		
@@ -2684,5 +2636,25 @@ public final class Formulas
 		}
 		
 		return 1.0;
+	}
+	
+	public static boolean calcRaidAffected(L2SkillType type)
+	{
+		switch (type)
+		{
+			case CONFUSION:
+			case ROOT:
+			case STUN:
+			case MUTE:
+			case FEAR:
+			case DEBUFF:
+			case PARALYZE:
+			case SLEEP:
+			case AGGDEBUFF:
+			case AGGREDUCE_CHAR:
+				if (Rnd.get(1000) == 1)
+					return true;
+		}
+		return false;
 	}
 }
