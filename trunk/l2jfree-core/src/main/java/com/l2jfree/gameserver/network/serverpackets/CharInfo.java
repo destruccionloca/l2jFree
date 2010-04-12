@@ -15,8 +15,10 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.view.DecoyView;
 import com.l2jfree.gameserver.model.actor.view.PcLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
@@ -28,12 +30,27 @@ public final class CharInfo extends L2GameServerPacket
 	private static final String _S__31_CHARINFO = "[S] 31 CharInfo [dddddsddd dddddddddddd dddddddd hhhh d hhhhhhhhhhhh d hhhh hhhhhhhhhhhhhhhh dddddd dddddddd ffff ddd s ddddd ccccccc h c d c h ddd cc d ccc ddddddddddd]";
 	
 	private final L2PcInstance _activeChar;
+	private final PcLikeView _view;
 	
 	public CharInfo(L2PcInstance cha)
 	{
-		cha.getView().refresh();
+		_view = cha.getView();
+		_view.refresh();
 		
 		_activeChar = cha;
+	}
+	
+	public CharInfo(L2Decoy decoy)
+	{
+		final int idTemplate = decoy.getTemplate().getIdTemplate();
+		
+		if (idTemplate <= 13070 || 13077 <= idTemplate)
+			throw new IllegalArgumentException("Using DecoyInfo packet with an unsupported decoy template");
+		
+		_view = decoy.getView();
+		_view.refresh();
+		
+		_activeChar = decoy.getOwner();
 	}
 	
 	@Override
@@ -45,16 +62,15 @@ public final class CharInfo extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		final PcLikeView view = _activeChar.getView();
 		final PcAppearance _appearance = _activeChar.getAppearance();
 		final PcInventory _inv = _activeChar.getInventory();
 		
 		writeC(0x31);
-		writeD(view.getX());
-		writeD(view.getY());
-		writeD(view.getZ());
-		writeD(0x00);
-		writeD(view.getObjectId());
+		writeD(_view.getX());
+		writeD(_view.getY());
+		writeD(_view.getZ());
+		writeD(0x00); // airship ID
+		writeD(_view.getObjectId());
 		writeS(_appearance.getVisibleName());
 		writeD(_activeChar.getRace().ordinal());
 		writeD(_appearance.getSex() ? 1 : 0);
@@ -124,25 +140,25 @@ public final class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
 		
-		writeD(view.getMAtkSpd());
-		writeD(view.getPAtkSpd());
+		writeD(_view.getMAtkSpd());
+		writeD(_view.getPAtkSpd());
 		
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
 		
-		writeD(view.getRunSpd()); // TODO: the order of the speeds should be confirmed
-		writeD(view.getWalkSpd());
-		writeD(view.getSwimRunSpd());
-		writeD(view.getSwimWalkSpd());
-		writeD(view.getFlRunSpd());
-		writeD(view.getFlWalkSpd());
-		writeD(view.getFlyRunSpd());
-		writeD(view.getFlyWalkSpd());
-		writeF(view.getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
-		writeF(view.getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
+		writeD(_view.getRunSpd()); // TODO: the order of the speeds should be confirmed
+		writeD(_view.getWalkSpd());
+		writeD(_view.getSwimRunSpd());
+		writeD(_view.getSwimWalkSpd());
+		writeD(_view.getFlRunSpd());
+		writeD(_view.getFlWalkSpd());
+		writeD(_view.getFlyRunSpd()); // fly run speed
+		writeD(_view.getFlyWalkSpd()); // fly walk speed
+		writeF(_view.getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
+		writeF(_view.getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
 		
-		writeF(view.getCollisionRadius());
-		writeF(view.getCollisionHeight());
+		writeF(_view.getCollisionRadius());
+		writeF(_view.getCollisionHeight());
 		
 		writeD(_appearance.getHairStyle());
 		writeD(_appearance.getHairColor());
@@ -215,17 +231,17 @@ public final class CharInfo extends L2GameServerPacket
 		writeD(_activeChar.getFishy());
 		writeD(_activeChar.getFishz());
 		
-		writeD(view.getNameColor());
+		writeD(_view.getNameColor());
 		
-		writeD(view.getHeading());
+		writeD(_view.getHeading());
 		
 		writeD(_activeChar.getPledgeClass());
 		writeD(_activeChar.getSubPledgeType());
 		
-		writeD(view.getTitleColor());
+		writeD(_view.getTitleColor());
 		
 		// Doesn't work with Zariche
-		writeD(view.getCursedWeaponLevel());
+		writeD(_view.getCursedWeaponLevel());
 		
 		if (_activeChar.getClan() != null)
 			writeD(_activeChar.getClan().getReputationScore());
@@ -233,7 +249,7 @@ public final class CharInfo extends L2GameServerPacket
 			writeD(0x00);
 		
 		// T1
-		writeD(view.getTransformationGraphicalId());
+		writeD(_view.getTransformationGraphicalId());
 		writeD(_activeChar.getAgathionId());
 		
 		// T2
@@ -260,8 +276,20 @@ public final class CharInfo extends L2GameServerPacket
 	{
 		if (activeChar == null)
 			return false;
-		if (_activeChar == activeChar)
-			return false;
+		
+		if (_view instanceof DecoyView)
+		{
+			// owner
+			if (_activeChar == activeChar)
+				return true;
+		}
+		else //if (_view instanceof PcView)
+		{
+			// self
+			if (_activeChar == activeChar)
+				return false;
+		}
+		
 		if (!activeChar.canSee(_activeChar))
 			return false;
 		

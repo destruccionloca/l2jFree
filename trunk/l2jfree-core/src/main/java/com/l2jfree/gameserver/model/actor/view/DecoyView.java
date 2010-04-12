@@ -32,9 +32,11 @@ public final class DecoyView extends CharView<L2Decoy> implements PcLikeView
 	{
 		super.refreshImpl();
 		
+		_ownerView = _activeChar.getOwner().getView();
+		_ownerView.refresh();
+		
 		final ObjectPosition position = _activeChar.getPosition();
 		
-		_ownerView = _activeChar.getOwner().getView();
 		_objectId = _activeChar.getObjectId();
 		_x = position.getX();
 		_y = position.getY();
@@ -117,13 +119,13 @@ public final class DecoyView extends CharView<L2Decoy> implements PcLikeView
 	@Override
 	public int getSwimRunSpd()
 	{
-		return 0x32;
+		return 0x32; // swim run speed (50)
 	}
 	
 	@Override
 	public int getSwimWalkSpd()
 	{
-		return 0x32;
+		return 0x32; // swim walk speed (50)
 	}
 	
 	@Override
