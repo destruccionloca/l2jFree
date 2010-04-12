@@ -19,4 +19,63 @@ package com.l2jfree.gameserver.model.actor.view;
  */
 public interface PcLikeView extends CharLikeView
 {
+	public int getObjectId();
+	
+	public int getX();
+	
+	public int getY();
+	
+	public int getZ();
+	
+	public int getHeading();
+	
+	public float getMovementSpeedMultiplier();
+	
+	public float getAttackSpeedMultiplier();
+	
+	public double getCollisionRadius();
+	
+	public double getCollisionHeight();
+	
+	public int getRunSpd();
+	
+	public int getWalkSpd();
+	
+	public int getSwimRunSpd();
+	
+	public int getSwimWalkSpd();
+	
+	public int getFlRunSpd();
+	
+	public int getFlWalkSpd();
+	
+	public int getFlyRunSpd();
+	
+	public int getFlyWalkSpd();
+	
+	public int getPAtk();
+	
+	public int getPDef();
+	
+	public int getPAtkSpd();
+	
+	public int getMAtk();
+	
+	public int getMDef();
+	
+	public int getMAtkSpd();
+	
+	public int getAccuracy();
+	
+	public int getEvasionRate();
+	
+	public int getCriticalHit();
+	
+	public int getCursedWeaponLevel();
+	
+	public int getTransformationGraphicalId();
+	
+	public int getNameColor();
+	
+	public int getTitleColor();
 }
