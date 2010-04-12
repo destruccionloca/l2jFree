@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
@@ -108,34 +107,8 @@ public class CharSelectionInfo extends L2GameServerPacket
 			for (int k = 0; k < 8; k++)
 				writeD(0x00);
 			
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIRALL));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_REAR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEAR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_NECK));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RFINGER));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LFINGER));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HEAD));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RHAND));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LHAND));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_GLOVES));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_CHEST));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEGS));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FEET));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BACK));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LRHAND));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR2));
-			
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RBRACELET));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LBRACELET));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO1));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO2));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO3));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO4));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO5));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO6));
-			if (Config.PACKET_FINAL) // verified
-				writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BELT));
+			for (int slot : L2GameServerPacket.getPaperdollSlots(true))
+				writeD(charInfoPackage.getPaperdollItemDisplayId(slot));
 			
 			writeD(charInfoPackage.getHairStyle());
 			writeD(charInfoPackage.getHairColor());
