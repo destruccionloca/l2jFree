@@ -79,64 +79,11 @@ public final class GMViewCharacterInfo extends L2GameServerPacket
 		writeD(_activeChar.getMaxLoad());
 		writeD(_activeChar.getPkKills());
 		
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIRALL));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_FEET));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR2));
-		// T1 new D's
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RBRACELET));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LBRACELET));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO1));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO2));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO3));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO4));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
-		writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
-		if (Config.PACKET_FINAL)
-			writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_BELT)); // T3 Unknown
-			
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
-		// T1 new D's
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO2));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO3));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
-		writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+		writePaperdollObjectIds(_inv, true);
+		writePaperdollItemDisplayIds(_inv, true);
+		
 		if (Config.PACKET_FINAL)
 		{
-			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_BELT)); // T3 Unknown
 			writeD(0); // T3 Unknown
 			writeD(0); // T3 Unknown
 		}

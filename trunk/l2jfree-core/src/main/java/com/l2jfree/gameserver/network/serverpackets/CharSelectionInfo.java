@@ -108,34 +108,34 @@ public class CharSelectionInfo extends L2GameServerPacket
 			for (int k = 0; k < 8; k++)
 				writeD(0x00);
 			
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIRALL));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_REAR));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEAR));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_NECK));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RFINGER));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LFINGER));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HEAD));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RHAND));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LHAND));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_GLOVES));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_CHEST));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEGS));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FEET));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BACK));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LRHAND));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR2));
 			
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO2));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO3));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
-			writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RBRACELET));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LBRACELET));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO1));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO2));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO3));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO4));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO5));
+			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DECO6));
 			if (Config.PACKET_FINAL) // verified
-				writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BELT));
+				writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BELT));
 			
 			writeD(charInfoPackage.getHairStyle());
 			writeD(charInfoPackage.getHairColor());

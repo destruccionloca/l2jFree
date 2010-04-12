@@ -465,9 +465,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeF(_pc.getStat().getAttackSpeedMultiplier());
 			writeF(_template.getCollisionRadius());
 			writeF(_template.getCollisionHeight());
-			writeD(_pc.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_RHAND)); // right hand weapon
+			writeD(_pc.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_RHAND)); // right hand weapon
 			writeD(0); // Chest
-			writeD(_pc.getInventory().getPaperdollItemId(Inventory.PAPERDOLL_LHAND)); // left hand weapon
+			writeD(_pc.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_LHAND)); // left hand weapon
 			writeC(1); // name above char 1=true ... ??
 			writeC(_pc.isRunning() ? 1 : 0);
 			writeC(_pc.isInCombat() ? 1 : 0);
