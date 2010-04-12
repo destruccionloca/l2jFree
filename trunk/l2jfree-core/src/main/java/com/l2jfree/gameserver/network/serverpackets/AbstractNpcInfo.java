@@ -15,16 +15,17 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
-import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
+import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.view.PcLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.skills.AbnormalEffect;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
@@ -292,50 +293,46 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	/**
 	 * Packet for Decoys
 	 */
-	public static class DecoyInfo extends AbstractNpcInfo
+	public static final class DecoyInfo extends L2GameServerPacket
 	{
 		private final L2Decoy _decoy;
-
+		
 		public DecoyInfo(L2Decoy cha)
 		{
-			super(cha);
+			final int idTemplate = cha.getTemplate().getIdTemplate();
+			
+			if (idTemplate <= 13070 || 13077 <= idTemplate)
+				throw new IllegalArgumentException("Using DecoyInfo packet with an unsupported decoy template");
+			
+			cha.getView().refresh();
+			
 			_decoy = cha;
-			_idTemplate = cha.getTemplate().getIdTemplate();
-			if (_idTemplate <= 13070 || _idTemplate >= 13077)
-			{
-				if (Config.ASSERT)
-					throw new AssertionError("Using DecoyInfo packet with an unsupported decoy template");
-				else
-					throw new IllegalArgumentException("Using DecoyInfo packet with an unsupported decoy template");
-			}
-			_heading = cha.getOwner().getHeading();
-			// _mAtkSpd = cha.getMAtkSpd(); on abstract constructor
-			_pAtkSpd = cha.getOwner().getPAtkSpd();
-			_runSpd = cha.getOwner().getStat().getRunSpeed();
-			_walkSpd = cha.getOwner().getStat().getWalkSpeed();
 		}
-
+		
 		@Override
 		protected void writeImpl()
 		{
-			L2PcInstance owner = _decoy.getOwner();
-			Inventory inv = owner.getInventory();
-
+			final L2PcInstance owner = _decoy.getOwner();
+			
+			final PcLikeView view = _decoy.getView();
+			final PcAppearance _appearance = owner.getAppearance();
+			final PcInventory inv = owner.getInventory();
+			
 			writeC(0x31);
-			writeD(_x);
-			writeD(_y);
-			writeD(_z);
+			writeD(view.getX());
+			writeD(view.getY());
+			writeD(view.getZ());
 			writeD(0x00); // airship ID
-			writeD(_decoy.getObjectId());
-			writeS(owner.getAppearance().getVisibleName());
+			writeD(view.getObjectId());
+			writeS(_appearance.getVisibleName());
 			writeD(owner.getRace().ordinal());
-			writeD(owner.getAppearance().getSex() ? 1 : 0);
-
+			writeD(_appearance.getSex() ? 1 : 0);
+			
 			if (owner.getClassIndex() == 0)
 				writeD(owner.getClassId().getId());
 			else
 				writeD(owner.getBaseClass());
-
+			
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
@@ -345,10 +342,11 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
-			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
-
+			
+			// T1 new d's
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
@@ -357,9 +355,11 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+			// end of t1 new d's
 			if (Config.PACKET_FINAL) // belt item ID
-				writeD(0x00); // CT 2.3
-
+				writeD(inv.getPaperdollItemId(Inventory.PAPERDOLL_BELT)); // CT 2.3
+				
+			// c6 new h's
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_UNDER));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HEAD));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
@@ -372,7 +372,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_HAIR2));
-
+			
+			// T1 new h's
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RBRACELET));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LBRACELET));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO1));
@@ -381,61 +382,42 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO4));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO5));
 			writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_DECO6));
+			// end of t1 new h's
 			if (Config.PACKET_FINAL)
 			{
 				// belt aug ID
-				writeD(0x00); // CT 2.3
+				writeD(inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_BELT)); // CT 2.3
 				writeD(0x00);
 				writeD(0x00);
 			}
-
+			
 			writeD(owner.getPvpFlag());
 			writeD(owner.getKarma());
-
-			writeD(_mAtkSpd);
-			writeD(_pAtkSpd);
-
+			
+			writeD(view.getMAtkSpd());
+			writeD(view.getPAtkSpd());
+			
 			writeD(owner.getPvpFlag());
 			writeD(owner.getKarma());
-
-			writeD(_runSpd);
-			writeD(_walkSpd);
+			
+			writeD(view.getRunSpd());
+			writeD(view.getWalkSpd());
 			writeD(0x32); // swim run speed (50)
 			writeD(0x32); // swim walk speed (50)
-			writeD(_runSpd);
-			writeD(_walkSpd);
-			writeD(_runSpd); // fly run speed
-			writeD(_walkSpd); // fly walk speed
-			writeF(owner.getStat().getMovementSpeedMultiplier()); //_activeChar.getProperMultiplier()
-			writeF(owner.getStat().getAttackSpeedMultiplier()); // _activeChar.getAttackSpeedMultiplier
-
-			L2Summon pet = _decoy.getPet();
-			L2Transformation trans;
-			if (owner.getMountType() != 0 && pet != null)
-			{
-				writeF(pet.getTemplate().getCollisionRadius());
-				writeF(pet.getTemplate().getCollisionHeight());
-			}
-			else if ((trans = owner.getTransformation()) != null)
-			{
-				writeF(trans.getCollisionRadius(owner));
-				writeF(trans.getCollisionHeight(owner));
-			}
-			else if (owner.getAppearance().getSex())
-			{
-				writeF(owner.getBaseTemplate().getFCollisionRadius());
-				writeF(owner.getBaseTemplate().getFCollisionHeight());
-			}
-			else
-			{
-				writeF(owner.getBaseTemplate().getCollisionRadius());
-				writeF(owner.getBaseTemplate().getCollisionHeight());
-			}
-
-			writeD(owner.getAppearance().getHairStyle());
-			writeD(owner.getAppearance().getHairColor());
-			writeD(owner.getAppearance().getFace());
-
+			writeD(view.getFlRunSpd());
+			writeD(view.getFlWalkSpd());
+			writeD(view.getFlyRunSpd()); // fly run speed
+			writeD(view.getFlyWalkSpd()); // fly walk speed
+			writeF(view.getMovementSpeedMultiplier()); //_activeChar.getProperMultiplier()
+			writeF(view.getAttackSpeedMultiplier()); // _activeChar.getAttackSpeedMultiplier
+			
+			writeF(view.getCollisionRadius());
+			writeF(view.getCollisionHeight());
+			
+			writeD(_appearance.getHairStyle());
+			writeD(_appearance.getHairColor());
+			writeD(_appearance.getFace());
+			
 			writeS(owner.getAppearance().getVisibleTitle());
 			
 			writeD(owner.getClanId());
@@ -445,75 +427,73 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			// In UserInfo leader rights and siege flags, but here found nothing??
 			// Therefore RelationChanged packet with that info is required
 			writeD(0);
-
+			
 			writeC(owner.isSitting() ? 0 : 1); // standing = 1 sitting = 0
 			writeC(owner.isRunning() ? 1 : 0); // running = 1 walking = 0
 			writeC(owner.isInCombat() ? 1 : 0);
 			writeC(owner.isAlikeDead() ? 1 : 0);
-
-			writeC(owner.getAppearance().isInvisible() ? 1 : 0); // invisible = 1 visible =0
-
+			
+			// If the character is invisible, the packet won't be sent
+			writeC(0);
+			
 			writeC(owner.getMountType()); // 1 on strider 2 on wyvern 3 on Great Wolf 0 no mount
 			writeC(owner.getPrivateStoreType()); // 1 - sellshop
-
+			
 			writeH(owner.getCubics().size());
 			for (int id : owner.getCubics().keySet())
 				writeH(id);
-
+			
 			writeC(owner.isLookingForParty());
-
+			
 			writeD(owner.getAbnormalEffect());
-
+			
 			writeC(owner.isFlying() ? 2 : 0);
 			writeH(owner.getEvalPoints()); // Blue value for name (0 = white, 255 = pure blue)
 			writeD(owner.getMountNpcId() + 1000000);
-
+			
 			writeD(owner.getClassId().getId());
 			writeD(0x00); //?
 			writeC(owner.isMounted() ? 0 : owner.getEnchantEffect());
-
+			
 			if (owner.getTeam() == 1)
 				writeC(0x01); // team circle around feet 1= Blue, 2 = red
 			else if (owner.getTeam() == 2)
 				writeC(0x02); // team circle around feet 1= Blue, 2 = red
 			else
 				writeC(0x00); // team circle around feet 1= Blue, 2 = red
-
+				
 			writeD(owner.getClanCrestLargeId());
 			writeC(owner.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
 			writeC((owner.isHero() || (owner.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
-
+			
 			writeC(owner.isFishing() ? 1 : 0); // 0x01: Fishing Mode (Cant be undone by setting back to 0)
 			writeD(owner.getFishx());
 			writeD(owner.getFishy());
 			writeD(owner.getFishz());
-
-			writeD(owner.getAppearance().getNameColor());
-
-			writeD(_heading);
-
+			
+			writeD(view.getNameColor());
+			
+			writeD(view.getHeading());
+			
 			writeD(owner.getPledgeClass());
 			writeD(owner.getSubPledgeType());
-
-			writeD(owner.getAppearance().getTitleColor());
-
-			if (owner.isCursedWeaponEquipped())
-				writeD(CursedWeaponsManager.getInstance().getLevel(owner.getCursedWeaponEquippedId()));
-			else
-				writeD(0x00);
-
+			
+			writeD(view.getTitleColor());
+			
+			writeD(view.getCursedWeaponLevel());
+			
 			// T1
 			if (owner.getClan() != null)
 				writeD(owner.getClan().getReputationScore());
 			else
 				writeD(0x00);
-
+			
 			// T1
-			writeD(0x00); // Can Decoys be transformed?
+			writeD(view.getTransformationGraphicalId()); // Can Decoys be transformed?
 			writeD(0x00); // Can Decoys have Agathions?
-
+			
 			writeD(0x00);
-
+			
 			if (Config.PACKET_FINAL)
 			{
 				// T2.3
@@ -523,13 +503,13 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 				writeD(0x00);
 			}
 		}
-
+		
 		@Override
 		public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
 		{
 			if (!activeChar.canSee(_decoy))
 				return false;
-
+			
 			return true;
 		}
 	}

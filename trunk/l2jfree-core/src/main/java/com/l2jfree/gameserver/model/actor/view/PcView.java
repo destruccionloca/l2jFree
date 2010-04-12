@@ -246,13 +246,13 @@ public final class PcView extends CharView<L2PcInstance> implements UniversalCha
 		return getWalkSpd();
 	}
 	
-	@Override
+	// ---
+	
 	public int getPAtk()
 	{
 		return _pAtk;
 	}
 	
-	@Override
 	public int getPDef()
 	{
 		return _pDef;
@@ -264,13 +264,11 @@ public final class PcView extends CharView<L2PcInstance> implements UniversalCha
 		return _pAtkSpd;
 	}
 	
-	@Override
 	public int getMAtk()
 	{
 		return _mAtk;
 	}
 	
-	@Override
 	public int getMDef()
 	{
 		return _mDef;
@@ -282,23 +280,22 @@ public final class PcView extends CharView<L2PcInstance> implements UniversalCha
 		return _mAtkSpd;
 	}
 	
-	@Override
 	public int getAccuracy()
 	{
 		return _accuracy;
 	}
 	
-	@Override
 	public int getEvasionRate()
 	{
 		return _evasionRate;
 	}
 	
-	@Override
 	public int getCriticalHit()
 	{
 		return _criticalHit;
 	}
+	
+	// ---
 	
 	@Override
 	public int getCursedWeaponLevel()

@@ -53,23 +53,13 @@ public interface PcLikeView extends CharLikeView
 	
 	public int getFlyWalkSpd();
 	
-	public int getPAtk();
-	
-	public int getPDef();
+	// --
 	
 	public int getPAtkSpd();
 	
-	public int getMAtk();
-	
-	public int getMDef();
-	
 	public int getMAtkSpd();
 	
-	public int getAccuracy();
-	
-	public int getEvasionRate();
-	
-	public int getCriticalHit();
+	// --
 	
 	public int getCursedWeaponLevel();
 	

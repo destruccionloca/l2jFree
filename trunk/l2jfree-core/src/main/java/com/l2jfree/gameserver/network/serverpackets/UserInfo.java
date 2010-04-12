@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.status.PcStatus;
-import com.l2jfree.gameserver.model.actor.view.PcLikeView;
+import com.l2jfree.gameserver.model.actor.view.PcView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.L2GameClient;
@@ -109,7 +109,7 @@ public final class UserInfo extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		final PcLikeView view = _activeChar.getView();
+		final PcView view = _activeChar.getView();
 		final PcAppearance _appearance = _activeChar.getAppearance();
 		final PcInventory _inv = _activeChar.getInventory();
 		final PcStat stat = _activeChar.getStat();

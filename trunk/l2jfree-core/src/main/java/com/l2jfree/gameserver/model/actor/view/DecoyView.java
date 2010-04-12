@@ -15,14 +15,178 @@
 package com.l2jfree.gameserver.model.actor.view;
 
 import com.l2jfree.gameserver.model.actor.L2Decoy;
+import com.l2jfree.gameserver.model.actor.position.ObjectPosition;
 
 /**
  * @author NB4L1
  */
-public final class DecoyView extends CharView<L2Decoy> implements /*PcLikeView*/CharLikeView
+public final class DecoyView extends CharView<L2Decoy> implements PcLikeView
 {
 	public DecoyView(L2Decoy activeChar)
 	{
 		super(activeChar);
+	}
+	
+	@Override
+	protected void refreshImpl()
+	{
+		super.refreshImpl();
+		
+		final ObjectPosition position = _activeChar.getPosition();
+		
+		_ownerView = _activeChar.getOwner().getView();
+		_objectId = _activeChar.getObjectId();
+		_x = position.getX();
+		_y = position.getY();
+		_z = position.getZ();
+	}
+	
+	private PcLikeView _ownerView;
+	
+	private int _objectId;
+	private int _x;
+	private int _y;
+	private int _z;
+	
+	@Override
+	public int getObjectId()
+	{
+		return _objectId;
+	}
+	
+	@Override
+	public int getX()
+	{
+		return _x;
+	}
+	
+	@Override
+	public int getY()
+	{
+		return _y;
+	}
+	
+	@Override
+	public int getZ()
+	{
+		return _z;
+	}
+	
+	@Override
+	public int getHeading()
+	{
+		return _ownerView.getHeading();
+	}
+	
+	@Override
+	public float getMovementSpeedMultiplier()
+	{
+		return _ownerView.getMovementSpeedMultiplier();
+	}
+	
+	@Override
+	public float getAttackSpeedMultiplier()
+	{
+		return _ownerView.getAttackSpeedMultiplier();
+	}
+	
+	@Override
+	public double getCollisionRadius()
+	{
+		return _ownerView.getCollisionRadius();
+	}
+	
+	@Override
+	public double getCollisionHeight()
+	{
+		return _ownerView.getCollisionHeight();
+	}
+	
+	@Override
+	public int getRunSpd()
+	{
+		return _ownerView.getRunSpd();
+	}
+	
+	@Override
+	public int getWalkSpd()
+	{
+		return _ownerView.getWalkSpd();
+	}
+	
+	@Override
+	public int getSwimRunSpd()
+	{
+		return 0x32;
+	}
+	
+	@Override
+	public int getSwimWalkSpd()
+	{
+		return 0x32;
+	}
+	
+	@Override
+	public int getFlRunSpd()
+	{
+		return _ownerView.getFlRunSpd();
+	}
+	
+	@Override
+	public int getFlWalkSpd()
+	{
+		return _ownerView.getFlWalkSpd();
+	}
+	
+	@Override
+	public int getFlyRunSpd()
+	{
+		return _ownerView.getFlyRunSpd();
+	}
+	
+	@Override
+	public int getFlyWalkSpd()
+	{
+		return _ownerView.getFlyWalkSpd();
+	}
+	
+	// ---
+	
+	@Override
+	public int getMAtkSpd()
+	{
+		return _ownerView.getMAtkSpd();
+	}
+	
+	@Override
+	public int getPAtkSpd()
+	{
+		return _ownerView.getPAtkSpd();
+	}
+	
+	// ---
+	
+	@Override
+	public int getCursedWeaponLevel()
+	{
+		return _ownerView.getCursedWeaponLevel();
+	}
+	
+	@Override
+	public int getTransformationGraphicalId()
+	{
+		return _ownerView.getTransformationGraphicalId();
+	}
+	
+	@Override
+	public int getNameColor()
+	{
+		return _ownerView.getNameColor();
+	}
+	
+	@Override
+	public int getTitleColor()
+	{
+		return _ownerView.getTitleColor();
 	}
 }
