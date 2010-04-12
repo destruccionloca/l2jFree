@@ -425,7 +425,7 @@ public abstract class L2Object implements L2Entity<Integer>
 	/**
 	 * @return reference to region this object is in
 	 */
-	public L2WorldRegion getWorldRegion()
+	public final L2WorldRegion getWorldRegion()
 	{
 		return getPosition().getWorldRegion();
 	}

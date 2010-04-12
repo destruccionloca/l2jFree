@@ -5812,12 +5812,12 @@ public abstract class L2Character extends L2Object
 	 *
 	 * @return The number of Buffs affecting this L2Character
 	 */
-	public int getBuffCount()
+	public final int getBuffCount()
 	{
 		return getEffects().getBuffCount();
 	}
 
-	public int getDanceCount(boolean dances, boolean songs)
+	public final int getDanceCount(boolean dances, boolean songs)
 	{
 		return getEffects().getDanceCount(dances, songs);
 	}
