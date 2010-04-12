@@ -17,7 +17,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
-
+import com.l2jfree.lang.Replaceable;
 
 /**
  *
@@ -125,13 +125,11 @@ import com.l2jfree.gameserver.network.L2GameClient;
 public final class NpcQuestHtmlMessage extends L2GameServerPacket
 {
 	private final int _npcObjId;
-	private StringBuilder _builder;
+	private Replaceable _replaceable;
 	private int _questId = 0;
 	
 	/**
-	 * 
 	 * @param npcObjId
-	 * @param text
 	 * @param questId
 	 */
 	public NpcQuestHtmlMessage(int npcObjId, int questId)
@@ -139,24 +137,25 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 		_npcObjId = npcObjId;
 		_questId = questId;
 	}
-
+	
 	@Override
 	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (activeChar != null)
-			activeChar.buildBypassCache(_builder);
+			activeChar.buildBypassCache(_replaceable);
 	}
-
+	
 	public void setHtml(CharSequence text)
 	{
-		_builder = new StringBuilder(text);
+		_replaceable = Replaceable.valueOf(text);
 	}
-
-	public void setHtml(StringBuilder text)
+	
+	@Override
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
 	{
-		_builder = text;
+		return _replaceable != null;
 	}
-
+	
 	public void setFile(String path)
 	{
 		String content = HtmCache.getInstance().getHtm(path);
@@ -170,40 +169,37 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 		
 		setHtml(content);
 	}
-
+	
 	public void replace(String pattern, String value)
 	{
-		value = NpcHtmlMessage.quoteReplacement(value);
-		
-		for (int index = 0; (index = _builder.indexOf(pattern, index)) != -1; index += value.length())
-			_builder.replace(index, index + pattern.length(), value);
+		_replaceable.replace(pattern, value);
 	}
-
+	
 	public void replace(String pattern, long value)
 	{
-		replace(pattern, String.valueOf(value));
+		_replaceable.replace(pattern, value);
 	}
-
+	
 	public void replace(String pattern, double value)
 	{
-		replace(pattern, String.valueOf(value));
+		_replaceable.replace(pattern, value);
 	}
-
+	
 	public void replace(String pattern, Object value)
 	{
-		replace(pattern, String.valueOf(value));
+		_replaceable.replace(pattern, value);
 	}
-
+	
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0x8d);
 		writeD(_npcObjId);
-		writeS(_builder);
+		writeS(_replaceable);
 		writeD(_questId);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
@@ -212,5 +208,4 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 	{
 		return "[S] FE:8D NpcQuestHtmlMessage";
 	}
-
 }

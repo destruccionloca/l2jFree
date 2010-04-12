@@ -305,6 +305,7 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.lang.Replaceable;
 import com.l2jfree.mmocore.network.InvalidPacketException;
 import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
@@ -499,7 +500,7 @@ public final class L2PcInstance extends L2Playable
 	private int								_pkKills;
 
 	/** The Siege state of the L2PcInstance */
-	private byte							_siegeState				= 0;
+	private byte							_siegeState				= SIEGE_STATE_NOT_INVOLVED;
 	private boolean							_isInSiege				= false;
 
 	private int								_lastCompassZone;																	// The last compass zone update send to the client
@@ -990,14 +991,14 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 
-		if (getSiegeState() != 0)
+		if (getSiegeState() != SIEGE_STATE_NOT_INVOLVED)
 		{
 			result |= RelationChanged.RELATION_INSIEGE;
 			if (getSiegeState() != target.getSiegeState())
 				result |= RelationChanged.RELATION_ENEMY;
 			else
 				result |= RelationChanged.RELATION_ALLY;
-			if (getSiegeState() == 1)
+			if (getSiegeState() == SIEGE_STATE_ATTACKER)
 				result |= RelationChanged.RELATION_ATTACKER;
 		}
 
@@ -1741,6 +1742,10 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _siegeState;
 	}
+	
+	public static final byte SIEGE_STATE_NOT_INVOLVED = 1;
+	public static final byte SIEGE_STATE_ATTACKER = 1;
+	public static final byte SIEGE_STATE_DEFENDER = 2;
 
 	@Override
 	public boolean revalidateZone(boolean force)
@@ -10981,39 +10986,39 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	public synchronized void buildBypassCache(final StringBuilder builder)
+	public synchronized void buildBypassCache(final Replaceable replaceable)
 	{
 		if (_validBypass != null)
 			_validBypass.clear();
-
+		
 		if (_validBypass2 != null)
 			_validBypass2.clear();
-
-		for (int i = 0; i < builder.length(); i++)
+		
+		for (int i = 0; i < replaceable.length(); i++)
 		{
-			int start = builder.indexOf("bypass -h", i);
-			int finish = builder.indexOf("\"", start);
-
+			int start = replaceable.indexOf("bypass -h", i);
+			int finish = replaceable.indexOf("\"", start);
+			
 			if (start < 0 || finish < 0)
 				break;
-
+			
 			start += 10;
 			i = start;
-			int finish2 = builder.indexOf("$", start);
-
+			int finish2 = replaceable.indexOf("$", start);
+			
 			if (0 < finish2 && finish2 < finish)
 			{
 				if (_validBypass2 == null)
 					_validBypass2 = new ArrayList<String>();
-
-				_validBypass2.add(builder.substring(start, finish2).trim());
+				
+				_validBypass2.add(replaceable.substring(start, finish2).trim());
 			}
 			else
 			{
 				if (_validBypass == null)
 					_validBypass = new ArrayList<String>();
-
-				_validBypass.add(builder.substring(start, finish).trim());
+				
+				_validBypass.add(replaceable.substring(start, finish).trim());
 			}
 		}
 	}
