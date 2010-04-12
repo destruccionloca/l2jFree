@@ -201,8 +201,8 @@ public class L2Npc extends L2Character
 	private int						_currentLHandId;						// normally this shouldn't change from the template, but there exist exceptions
 	private int						_currentRHandId;						// normally this shouldn't change from the template, but there exist exceptions
 
-	private int						_currentCollisionHeight;				// used for npc grow effect skills
-	private int						_currentCollisionRadius;				// used for npc grow effect skills
+	private double					_currentCollisionHeight;				// used for npc grow effect skills
+	private double					_currentCollisionRadius;				// used for npc grow effect skills
 
 	private boolean					_isKillable				= true;
 	private boolean					_questDropable			= true;
@@ -2832,22 +2832,22 @@ public class L2Npc extends L2Character
 		updateAbnormalEffect();
 	}
 
-	public void setCollisionHeight(int height)
+	public void setCollisionHeight(double height)
 	{
 		_currentCollisionHeight = height;
 	}
 
-	public void setCollisionRadius(int radius)
+	public void setCollisionRadius(double radius)
 	{
 		_currentCollisionRadius = radius;
 	}
 
-	public int getCollisionHeight()
+	public double getCollisionHeight()
 	{
 		return _currentCollisionHeight;
 	}
 
-	public int getCollisionRadius()
+	public double getCollisionRadius()
 	{
 		return _currentCollisionRadius;
 	}

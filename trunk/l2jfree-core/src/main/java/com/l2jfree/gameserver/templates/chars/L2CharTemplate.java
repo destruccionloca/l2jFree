@@ -99,10 +99,8 @@ public class L2CharTemplate
 	private int		baseMpConsumeRate;
 	private int		baseHpConsumeRate;
 
-	private double	collisionRadius;
-	private double	collisionHeight;
-	private double	fCollisionRadius;
-	private double	fCollisionHeight;
+	protected double	collisionRadius;
+	protected double	collisionHeight;
 
 	/**
 	 * Empty constructor (we have to use setter to initialize the object).
@@ -186,8 +184,6 @@ public class L2CharTemplate
 		// Geometry
 		collisionRadius = set.getDouble("collision_radius");
 		collisionHeight = set.getDouble("collision_height");
-		fCollisionRadius = set.getDouble("fcollision_radius");
-		fCollisionHeight = set.getDouble("fcollision_height");
 	}
 
 	/**
@@ -1087,22 +1083,6 @@ public class L2CharTemplate
 	}
 
 	/**
-	 * @return the collisionHeight
-	 */
-	public double getdCollisionHeight()
-	{
-		return collisionHeight;
-	}
-
-	/**
-	 * @return the fCollisionHeight
-	 */
-	public double getFCollisionHeight()
-	{
-		return fCollisionHeight;
-	}
-
-	/**
 	 * @param collisionHeight the collisionHeight to set
 	 */
 	public void setCollisionHeight(double _collisionHeight)
@@ -1116,22 +1096,6 @@ public class L2CharTemplate
 	public int getCollisionRadius()
 	{
 		return (int) collisionRadius;
-	}
-
-	/**
-	 * @return the collisionRadius
-	 */
-	public double getdCollisionRadius()
-	{
-		return collisionRadius;
-	}
-
-	/**
-	 * @return the fCollisionRadius
-	 */
-	public double getFCollisionRadius()
-	{
-		return fCollisionRadius;
 	}
 
 	/**

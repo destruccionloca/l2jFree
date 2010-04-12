@@ -49,7 +49,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	protected int _walkSpd;
 
 	protected int _rhand, _lhand, _chest;
-	protected int _collisionHeight, _collisionRadius;
+	protected double _collisionHeight, _collisionRadius;
 	protected String _name = "";
 	protected String _title = "";
 

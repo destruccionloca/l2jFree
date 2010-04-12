@@ -28,7 +28,7 @@ public final class ServerObjectInfo extends L2GameServerPacket
 	private final L2Npc _activeChar;
 	private final int _x, _y, _z, _heading;
 	private final int _idTemplate;
-	private final int _collisionHeight, _collisionRadius;
+	private final double _collisionHeight, _collisionRadius;
 
 	public ServerObjectInfo(L2Npc activeChar)
 	{

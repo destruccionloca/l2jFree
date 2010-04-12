@@ -170,6 +170,10 @@ public class L2PcTemplate extends L2CharTemplate
 	private float			lvlMpAdd;
 	private float			lvlMpMod;
 
+	// for female chars
+	private final double	fCollisionRadius;
+	private final double	fCollisionHeight;
+
 	private final List<PcTemplateItem> _items = new FastList<PcTemplateItem>();
 
 	public L2PcTemplate(StatsSet set)
@@ -192,6 +196,10 @@ public class L2PcTemplate extends L2CharTemplate
 		lvlCpMod = set.getFloat("lvlCpMod");
 		lvlMpAdd = set.getFloat("lvlMpAdd");
 		lvlMpMod = set.getFloat("lvlMpMod");
+
+		// Geometry
+		fCollisionRadius = set.getDouble("fcollision_radius");
+		fCollisionHeight = set.getDouble("fcollision_height");
 	}
 
 	/**
@@ -370,6 +378,38 @@ public class L2PcTemplate extends L2CharTemplate
 	public void setRace(Race _race)
 	{
 		race = _race;
+	}
+
+	/**
+	 * @return the collisionHeight
+	 */
+	public double getdCollisionHeight()
+	{
+		return collisionHeight;
+	}
+
+	/**
+	 * @return the fCollisionHeight
+	 */
+	public double getFCollisionHeight()
+	{
+		return fCollisionHeight;
+	}
+
+	/**
+	 * @return the collisionRadius
+	 */
+	public double getdCollisionRadius()
+	{
+		return collisionRadius;
+	}
+
+	/**
+	 * @return the fCollisionRadius
+	 */
+	public double getFCollisionRadius()
+	{
+		return fCollisionRadius;
 	}
 
 	/**

@@ -58,8 +58,8 @@ public final class PcView extends CharView<L2PcInstance> implements UniversalCha
 		{
 			final L2NpcTemplate template = NpcTable.getInstance().getTemplate(cha.getMountNpcId());
 			
-			_collisionRadius = template.getdCollisionRadius();
-			_collisionHeight = template.getdCollisionHeight();
+			_collisionRadius = template.getCollisionRadius();
+			_collisionHeight = template.getCollisionHeight();
 		}
 		else if (transformation != null && !transformation.isStance())
 		{
