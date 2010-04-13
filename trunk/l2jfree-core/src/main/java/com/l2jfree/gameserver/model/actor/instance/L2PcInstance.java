@@ -1743,7 +1743,7 @@ public final class L2PcInstance extends L2Playable
 		return _siegeState;
 	}
 	
-	public static final byte SIEGE_STATE_NOT_INVOLVED = 1;
+	public static final byte SIEGE_STATE_NOT_INVOLVED = 0;
 	public static final byte SIEGE_STATE_ATTACKER = 1;
 	public static final byte SIEGE_STATE_DEFENDER = 2;
 
