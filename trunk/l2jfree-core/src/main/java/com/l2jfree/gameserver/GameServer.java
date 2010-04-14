@@ -349,6 +349,7 @@ public class GameServer extends Config
 		if (Config.FISHERMAN_ENABLED)
 			FishermanManager.getInstance().engineInit();
 		Util.printSection("Spawns");
+		QueenAntManager.getInstance();
 		SpawnTable.getInstance();
 		for (Fort fort : FortManager.getInstance().getForts())
 			fort.getSpawnManager().initNpcs();
@@ -374,7 +375,6 @@ public class GameServer extends Config
 		AntharasManager.getInstance().init();
 		BaiumManager.getInstance().init();
 		BaylorManager.getInstance().init();
-		QueenAntManager.getInstance();
 		SailrenManager.getInstance().init();
 		ValakasManager.getInstance().init();
 		VanHalterManager.getInstance().init();
