@@ -207,6 +207,8 @@ echo Grand Boss Spawnlist
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/grandboss_spawnlist.sql
 echo Hellbound
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/hellbounds.sql
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/hb_naia_doorlist.sql
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/hb_naia_spawnlist.sql
 echo Henna
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/henna.sql
 echo Henna Trees
