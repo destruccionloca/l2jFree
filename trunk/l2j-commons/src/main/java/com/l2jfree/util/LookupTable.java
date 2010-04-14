@@ -68,6 +68,24 @@ public class LookupTable<T> implements Iterable<T>
 	
 	/**
 	 * @param key
+	 * @return true if contains given mapping
+	 */
+	public final boolean contains(final int key)
+	{
+		return get(key) != null;
+	}
+	
+	/**
+	 * @param key
+	 * @return true if contains given mapping
+	 */
+	public boolean containsKey(final int key)
+	{
+		return get(key) != null;
+	}
+	
+	/**
+	 * @param key
 	 * @param newValue
 	 */
 	public void set(final int key, final T newValue)
@@ -118,6 +136,20 @@ public class LookupTable<T> implements Iterable<T>
 		_offset = newOffset;
 		
 		_array[key + _offset] = newValue;
+	}
+	
+	/**
+	 * @param key
+	 * @param newValue
+	 * @return
+	 */
+	public final T put(final int key, final T newValue)
+	{
+		final T oldValue = get(key);
+		
+		set(key, newValue);
+		
+		return oldValue;
 	}
 	
 	/**
