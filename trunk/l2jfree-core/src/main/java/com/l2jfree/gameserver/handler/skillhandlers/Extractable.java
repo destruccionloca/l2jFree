@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.items.model.L2ExtractableSkill;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -34,12 +35,12 @@ import com.l2jfree.tools.random.Rnd;
 public class Extractable implements ISkillHandler
 {
 	protected static Log	_log						= LogFactory.getLog(Extractable.class);
-	
+
 	private static final L2SkillType[] SKILL_IDS =
 	{
 		L2SkillType.EXTRACTABLE
 	};
-	
+
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.ISkillHandler#useSkill(com.l2jfree.gameserver.model.actor.L2Character, com.l2jfree.gameserver.model.L2Skill, com.l2jfree.gameserver.model.actor.L2Character...)
@@ -67,7 +68,7 @@ public class Extractable implements ISkillHandler
 		for (L2ExtractableProductItem expi : exitem.getProductItemsArray())
 		{
 			int chance = expi.getChance();
-			
+
 			if (rndNum >= chanceFrom && rndNum <= chance + chanceFrom)
 			{
 				for (int i = 0; i < expi.getId().length; i++)
@@ -81,7 +82,7 @@ public class Extractable implements ISkillHandler
 				}
 				break;
 			}
-			
+
 			chanceFrom += chance;
 		}
 		if (player.isSubClassActive() && skill.getReuseDelay() > 0)
@@ -102,7 +103,7 @@ public class Extractable implements ISkillHandler
 			{
 				if (createItemID[i] <= 0)
 					return;
-						
+
 				if (ItemTable.getInstance().getTemplate(createItemID[i]) == null)
 				{
 					_log.warn("createItemID " + createItemID[i] + " doesn't have template!");
@@ -117,8 +118,8 @@ public class Extractable implements ISkillHandler
 					for (int j = 0; j < createAmount[i]; j++)
 						player.addItem("Extract", createItemID[i], 1, targets[0], false);
 				}
-				
-				if (createItemID[i] == 57)
+
+				if (createItemID[i] == PcInventory.ADENA_ID)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 					sm.addNumber(createAmount[i]);
@@ -134,7 +135,7 @@ public class Extractable implements ISkillHandler
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()

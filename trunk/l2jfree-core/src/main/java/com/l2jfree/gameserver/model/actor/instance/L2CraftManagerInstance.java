@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2RecipeInstance;
 import com.l2jfree.gameserver.model.L2RecipeList;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -43,7 +44,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2CraftManagerInstance extends L2NpcInstance
 {
-	public static final int ADENA_ID = 57;
 	public static final int ITEMS_PER_PAGE = 5;	// Items list size in craft and crystallize pages
 
 	public L2CraftManagerInstance(int objectId, L2NpcTemplate template)
@@ -104,9 +104,9 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			for (L2ItemInstance _item : _inventory.getItems())
 			{
 				if (!_item.isStackable() &&
-					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
-					_item.getItem().getCrystalCount() > 0 &&
-					!_item.isHeroItem())
+						_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
+						_item.getItem().getCrystalCount() > 0 &&
+						!_item.isHeroItem())
 				{
 					_items.add(_item.getObjectId());
 
@@ -187,9 +187,9 @@ public class L2CraftManagerInstance extends L2NpcInstance
 				int _crystalId = 1457 + _item.getItem().getCrystalType();
 
 				String _crystal = _item.getItem().getCrystalType()==1?"D":
-					  _item.getItem().getCrystalType()==2?"C":
-					  _item.getItem().getCrystalType()==3?"B":
-					  _item.getItem().getCrystalType()==4?"A":"S";
+					_item.getItem().getCrystalType()==2?"C":
+						_item.getItem().getCrystalType()==3?"B":
+							_item.getItem().getCrystalType()==4?"A":"S";
 
 				int _count =_item.getCrystalCount();
 
@@ -223,7 +223,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			player.sendPacket(npcReply);
 		}
 		else if (command.startsWith("BreakItem") &&Config.ALT_CRAFT_ALLOW_CRYSTALLIZE)
-		// Crystallize selected items
+			// Crystallize selected items
 		{
 			ArrayList<Integer> _itemsSelected = new ArrayList<Integer>();
 
@@ -238,7 +238,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 					int _itemObjId=Integer.parseInt(st.nextToken());
 
 					if ((_inventory.getItemByObjectId(_itemObjId)!=null)&&
-						(!_itemsSelected.contains(_itemObjId)))
+							(!_itemsSelected.contains(_itemObjId)))
 						_itemsSelected.add(_itemObjId);
 				}
 			}
@@ -263,11 +263,11 @@ public class L2CraftManagerInstance extends L2NpcInstance
 				L2ItemInstance _item = _inventory.getItemByObjectId(_itemsSelected.get(i));
 
 				if( _item!=null &&
-					_item.getOwnerId()==player.getObjectId() &&
-					!_item.isStackable() &&
-					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
-					_item.getItem().getCrystalCount() > 0 &&
-					i<_itemsSelected.size())
+						_item.getOwnerId()==player.getObjectId() &&
+						!_item.isStackable() &&
+						_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
+						_item.getItem().getCrystalCount() > 0 &&
+						i<_itemsSelected.size())
 				{
 					int _count =_crystals.get(_item.getItem().getCrystalType())+_item.getCrystalCount();
 
@@ -285,7 +285,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 					_itemsSelected.remove(i);
 			}
 
-			if (_inventory.getInventoryItemCount(ADENA_ID,0)<_priceTotal)
+			if (_inventory.getInventoryItemCount(PcInventory.ADENA_ID,0)<_priceTotal)
 			{
 				sendOutOfItems(player,Integer.toString(_priceTotal),"Adena");
 				return;
@@ -293,18 +293,18 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 			InventoryUpdate iu = new InventoryUpdate();
 
-			player.destroyItemByItemId("CraftManager", ADENA_ID, _priceTotal, player, true);
-			iu.addModifiedItem(player.getInventory().getItemByItemId(ADENA_ID));
+			player.destroyItemByItemId("CraftManager", PcInventory.ADENA_ID, _priceTotal, player, true);
+			iu.addModifiedItem(player.getInventory().getItemByItemId(PcInventory.ADENA_ID));
 
 			for (int i=0;i<_itemsSelected.size();i++)
 			{
 				L2ItemInstance _item = _inventory.getItemByObjectId(_itemsSelected.get(i));
 
 				if( _item!=null &&
-					_item.getOwnerId()==player.getObjectId() &&
-					!_item.isStackable() &&
-					_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
-					_item.getItem().getCrystalCount() > 0)
+						_item.getOwnerId()==player.getObjectId() &&
+						!_item.isStackable() &&
+						_item.getItem().getCrystalType() != L2Item.CRYSTAL_NONE &&
+						_item.getItem().getCrystalCount() > 0)
 				{
 
 					L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(_item.getLocationSlot());
@@ -339,7 +339,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			player.broadcastUserInfo();
 		}
 		else if (command.startsWith("Manufacture"))
-		// List recipes from player inventory
+			// List recipes from player inventory
 
 		{
 			int _pageId;
@@ -435,7 +435,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			player.sendPacket(npcReply);
 		}
 		else if (command.startsWith("CraftInfo"))
-		// Show information about choosen recipe
+			// Show information about choosen recipe
 		{
 			int _recipeObjId=0;
 			int _pageId=0;
@@ -465,7 +465,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
 
 			if(	_recipe.getOwnerId()==player.getObjectId() &&
-				_recipe.getItemType()==L2EtcItemType.RECEIPE)
+					_recipe.getItemType()==L2EtcItemType.RECEIPE)
 			{
 				int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * (_isConsumable?_recipeList.getCount():1) * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
 				if (_price==0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
@@ -514,16 +514,16 @@ public class L2CraftManagerInstance extends L2NpcInstance
 				replyMSG.append("<td width=220><font color=\"A2A0A2\">Ingredients</font></td>");
 				replyMSG.append("<td width=50><font color=\"A2A0A2\">Quantity</font></td></tr>");
 
-                L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();
+				L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();
 
-                for (L2RecipeInstance _recipeItem:_recipeItems)
+				for (L2RecipeInstance _recipeItem:_recipeItems)
 				{
 					L2ItemInstance _item = _inventory.getItemByItemId(_recipeItem.getItemId());
 
 					String _quantityState="<font color=\"55FF55\">"+_quantity*_recipeItem.getQuantity()+"</font>";
 
 					if ((_item==null)||(_item.getCount()<_quantity*_recipeItem.getQuantity()))
-					   _quantityState="<font color=\"FF5555\">"+(int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST)+"</font>";
+						_quantityState="<font color=\"FF5555\">"+(int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST)+"</font>";
 
 					replyMSG.append("<tr><td width=220>"+ItemTable.getInstance().getTemplate(_recipeItem.getItemId()).getName()+"</td>");
 					replyMSG.append("<td width=50>"+_quantityState+"</td></tr>");
@@ -537,7 +537,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			}
 		}
 		else if (command.startsWith("CraftItem") &&  (Config.ALT_CRAFT_ALLOW_CRAFT || Config.ALT_CRAFT_ALLOW_COMMON))
-		// Craft amount of items using selected recipe
+			// Craft amount of items using selected recipe
 		{
 			int _recipeObjId=0;
 			int _quantity=1;
@@ -562,14 +562,14 @@ public class L2CraftManagerInstance extends L2NpcInstance
 			boolean _isConsumable = ItemTable.getInstance().getTemplate(_recipeList.getItemId()).isConsumable();
 
 			if( _recipe.getOwnerId()==player.getObjectId() &&
-				_recipe.getItemType()==L2EtcItemType.RECEIPE &&
-				((_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_CRAFT)||(!_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_COMMON)))
+					_recipe.getItemType()==L2EtcItemType.RECEIPE &&
+					((_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_CRAFT)||(!_recipeList.isDwarvenRecipe()&&Config.ALT_CRAFT_ALLOW_COMMON)))
 			{
-                L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();
+				L2RecipeInstance[] _recipeItems = _recipeList.getRecipes();
 
-                boolean _enoughtMaterials=true;
+				boolean _enoughtMaterials=true;
 
-                for (L2RecipeInstance _recipeItem:_recipeItems)
+				for (L2RecipeInstance _recipeItem:_recipeItems)
 				{
 					L2ItemInstance _item = _inventory.getItemByItemId(_recipeItem.getItemId());
 					if ((_item==null)||(_item.getCount()<(int)(_quantity*_recipeItem.getQuantity()*Config.RATE_CRAFT_COST)))
@@ -579,7 +579,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 				int _price =(int)(Config.ALT_CRAFT_PRICE * _recipeList.getSuccessRate()/100 * _quantity * _recipeList.getCount() * ItemTable.getInstance().getTemplate(_recipeList.getItemId()).getReferencePrice());
 				if (_price==0) _price=Config.ALT_CRAFT_DEFAULT_PRICE;
 
-				if (_inventory.getInventoryItemCount(ADENA_ID,0)<_price)
+				if (_inventory.getInventoryItemCount(PcInventory.ADENA_ID,0)<_price)
 				{
 					sendOutOfItems(player,Integer.toString(_price),"Adena");
 					return;
@@ -604,8 +604,8 @@ public class L2CraftManagerInstance extends L2NpcInstance
 					iu.addModifiedItem(player.getInventory().getItemByItemId(_recipeItem.getItemId()));
 				}
 
-				player.destroyItemByItemId("CraftManager", ADENA_ID, _price, player, true);
-				iu.addModifiedItem(player.getInventory().getItemByItemId(ADENA_ID));
+				player.destroyItemByItemId("CraftManager", PcInventory.ADENA_ID, _price, player, true);
+				iu.addModifiedItem(player.getInventory().getItemByItemId(PcInventory.ADENA_ID));
 
 				if (_quantitySuccess>0)
 				{
@@ -633,13 +633,13 @@ public class L2CraftManagerInstance extends L2NpcInstance
 	public String getRecipeIcon(int grade)
 	{
 		return  "icon.etc_recipe_"+(
-		 grade==1?"blue":
-			grade==2?"yellow":
-				grade==3?"red":
-					grade==4?"violet":
-						grade==5?"black":"white")+"_i00";
+				grade==1?"blue":
+					grade==2?"yellow":
+						grade==3?"red":
+							grade==4?"violet":
+								grade==5?"black":"white")+"_i00";
 	}
-	
+
 	public String getCrystalIcon(int grade)
 	{
 		return  "icon.etc_crystal_"+(grade==1?"blue":
@@ -672,12 +672,12 @@ public class L2CraftManagerInstance extends L2NpcInstance
 		replyMSG.append(getName()+":<br>");
 
 		if (success==0)
-		replyMSG.append("I'm sorry, "+player.getName()+", but all attempts to create <font color=\"LEVEL\">"+itemname+"</font> failed. All your materials have been lost.");
+			replyMSG.append("I'm sorry, "+player.getName()+", but all attempts to create <font color=\"LEVEL\">"+itemname+"</font> failed. All your materials have been lost.");
 		else
-		if (failed==0)
-		replyMSG.append("Congratulations, "+player.getName()+", I created "+success+" <font color=\"LEVEL\">"+itemname+"</font> for you!");
-		else
-		replyMSG.append("Here you go, "+player.getName()+", "+success+" <font color=\"LEVEL\">"+itemname+"</font> successfully created, but "+failed+" broken while craft.");
+			if (failed==0)
+				replyMSG.append("Congratulations, "+player.getName()+", I created "+success+" <font color=\"LEVEL\">"+itemname+"</font> for you!");
+			else
+				replyMSG.append("Here you go, "+player.getName()+", "+success+" <font color=\"LEVEL\">"+itemname+"</font> successfully created, but "+failed+" broken while craft.");
 
 		replyMSG.append("</body></html>");
 

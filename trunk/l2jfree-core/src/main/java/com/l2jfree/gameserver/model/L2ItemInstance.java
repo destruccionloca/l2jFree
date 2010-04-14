@@ -38,6 +38,7 @@ import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.shot.ShotState;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -756,7 +757,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 				&& (getItem().getType2() != 4 || getItem().getType1() != 1) // Not Money or Shield Armor
 				&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
 				&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
-				&& (allowAdena || getItemId() != 57) // Not adena
+				&& (allowAdena || getItemId() != PcInventory.ADENA_ID) // Not adena
 				&& (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())
 				&& (!player.isCastingSimultaneouslyNow() || player.getLastSimultaneousSkillCast() == null || player.getLastSimultaneousSkillCast().getItemConsumeId() != getItemId())
 				&& (allowNonTradeable || isTradeable()));
@@ -1756,7 +1757,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		ItemsOnGroundManager.getInstance().removeObject(this);
 		
 		final int itemId = getItemId();
-		if (itemId == 57 || itemId == 6353)
+		if (itemId == PcInventory.ADENA_ID || itemId == 6353)
 		{
 			L2PcInstance pc = player.getActingPlayer();
 			if (pc != null)

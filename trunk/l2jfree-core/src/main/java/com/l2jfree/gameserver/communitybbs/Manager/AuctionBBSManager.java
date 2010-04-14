@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.GMAudit;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExMailArrived;
@@ -160,7 +161,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		for (LotList temp : getLots())
 			if (temp.lotId == lotId)
 				return temp;
-		
+
 		return new LotList();
 	}
 
@@ -218,7 +219,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			params = command.split(" ");
 			if(params.length!=8)
 				return;
-			
+
 			hours = Integer.parseInt(params[1]);
 			currency = Integer.parseInt(params[2]);
 			startingBid = Long.parseLong(params[3]);
@@ -257,7 +258,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			{
 				page = Integer.parseInt(params[1].replaceAll(",", ""));
 				hours = Integer.parseInt(params[2].replaceAll(",", ""));
-				currency = (params[3].equals("Adena") ? 57 : (params[3].equals("Ancient_Adena") ? 5575 : (params[3].equals(ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName().replace(' ', '_')) ? Config.AUCTION_SPECIAL_CURRENCY : Integer
+				currency = (params[3].equals("Adena") ? PcInventory.ADENA_ID : (params[3].equals("Ancient_Adena") ? PcInventory.ANCIENT_ADENA_ID : (params[3].equals(ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName().replace(' ', '_')) ? Config.AUCTION_SPECIAL_CURRENCY : Integer
 						.parseInt(params[3]))));
 				startingBid = Long.parseLong(params[4].replaceAll(",", ""));
 				increment = Long.parseLong(params[5].replaceAll(",", ""));
@@ -320,7 +321,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td fixWIDTH=350></td>");
 		html.append("<td>View Only:</td>");
 		html
-				.append("<td fixWIDTH=125><combobox width=115 var=Combo list=\"All;Ancient;Big Blunt;Big Sword;Blunt;Bow;Crossbow;Dagger;Dual Fist;Dual Sword;Etc;Fist;Heavy Armor;Light Armor;Robe Armor;Material;Other;Other Armor;PetCollar;Pet;Pole;Potion;Quest;Rapier;Receipe;Scroll;Seed;Shield;Shot;Sword\"></td>");
+		.append("<td fixWIDTH=125><combobox width=115 var=Combo list=\"All;Ancient;Big Blunt;Big Sword;Blunt;Bow;Crossbow;Dagger;Dual Fist;Dual Sword;Etc;Fist;Heavy Armor;Light Armor;Robe Armor;Material;Other;Other Armor;PetCollar;Pet;Pole;Potion;Quest;Rapier;Receipe;Scroll;Seed;Shield;Shot;Sword\"></td>");
 		html.append("<td><button value=\"Go\" action=\"Write Auction Sort _ Combo Combo Combo\" width=20 height=16 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("<td fixWIDTH=5></td>");
 		html.append("</tr>");
@@ -369,7 +370,7 @@ public class AuctionBBSManager extends BaseBBSManager
 					html.append("<td FIXWIDTH=100 align=center valign=center>"
 							+ (lot.buyNow.equals(0) || currentBid >= lot.buyNow ? "-" : (lot.ownerId.equals(activeChar.getObjectId()) || showEnded ? "Buy Now!" : "<a action=\"bypass _bbsauction_buy_now " + lot.lotId + "\">Buy Now!</a>"))
 							+ "</td>");
-					html.append("<td FIXWIDTH=60 align=center valign=center><img src=icon." + (lot.currency.equals(57) ? "etc_adena_i00" : (lot.currency.equals(5575) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON))
+					html.append("<td FIXWIDTH=60 align=center valign=center><img src=icon." + (lot.currency.equals(PcInventory.ADENA_ID) ? "etc_adena_i00" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON))
 							+ " width=32 height=20></td>");
 					html.append("<td FIXWIDTH=120 align=center valign=center>" + lot.endDateFormated + "</td>");
 					html.append("<td FIXWIDTH=5></td>");
@@ -464,7 +465,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=100 height=20 align=right>Current Bid:&nbsp;</td>");
 		html.append("<td FIXWIDTH=360 height=20 align=left>" + Util.formatAdena(getHighestBid(lotId)) + "</td>");//
 		html.append("<td FIXWIDTH=150 height=20 align=right>Currency:&nbsp;</td>");
-		html.append("<td FIXWIDTH=150 height=20 align=left><img src=icon." + (lot.currency.equals(57) ? "etc_adena_i00" : (lot.currency.equals(5575) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON))
+		html.append("<td FIXWIDTH=150 height=20 align=left><img src=icon." + (lot.currency.equals(PcInventory.ADENA_ID) ? "etc_adena_i00" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON))
 				+ " width=32 height=16></td>");
 		html.append("<td fixWIDTH=5 height=20></td>");
 		html.append("</tr>");
@@ -488,7 +489,7 @@ public class AuctionBBSManager extends BaseBBSManager
 			html.append("<td FIXWIDTH=85></td>");
 			html.append("<td FIXWIDTH=200 align=center>" + getCharName(bid.bidderId) + "</td>");
 			html.append("<td FIXWIDTH=200 align=center>(" + Util.formatAdena(bid.bidAmount.intValue()) + ") "
-					+ (lot.currency.equals(57) ? "Adena" : (lot.currency.equals(5575) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
+					+ (lot.currency.equals(PcInventory.ADENA_ID) ? "Adena" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
 			html.append("<td FIXWIDTH=200 align=center>" + bid.bidDateFormated + "</td>");
 			html.append("<td FIXWIDTH=85></td>");
 			html.append("</tr></table>");
@@ -503,7 +504,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		else
 		{
 			html.append("<td>Please enter a bid more than " + Util.formatAdena((bidCount != 0 ? (currentBid + lot.bidIncrement) : currentBid)) + " "
-					+ (lot.currency.equals(57) ? "Adena" : (lot.currency.equals(5575) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
+					+ (lot.currency.equals(PcInventory.ADENA_ID) ? "Adena" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
 			html.append("</tr><tr>");
 			html.append("<td><button value=\"Bid Window\" action=\"bypass _bbsauction_bid " + lot.lotId + "\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		}
@@ -547,7 +548,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=180>" + Util.formatAdena(lot.count.intValue()) + "</td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=100 align=right>Currency:</td>");
-		html.append("<td FIXWIDTH=180><img src=icon." + (lot.currency.equals(57) ? "etc_adena_i00" : (lot.currency.equals(5575) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON)) + " width=32 height=16></td>");
+		html.append("<td FIXWIDTH=180><img src=icon." + (lot.currency.equals(PcInventory.ADENA_ID) ? "etc_adena_i00" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON)) + " width=32 height=16></td>");
 		html.append("</tr></table>");
 		html.append("<br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=280><tr><td FIXWIDTH=280 height=20></td></tr></table>");
@@ -567,7 +568,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		else
 		{
 			html.append("<td>Please enter a bid more then " + Util.formatAdena((bidCount != 0 ? (currentBid + lot.bidIncrement) : currentBid)) + " "
-					+ (lot.currency.equals(57) ? "Adena" : (lot.currency.equals(5575) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
+					+ (lot.currency.equals(PcInventory.ADENA_ID) ? "Adena" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "Ancient Adena" : ItemTable.getInstance().getTemplate(Config.AUCTION_SPECIAL_CURRENCY).getName())) + "</td>");
 			html.append("<edit var=\"Value\" width=150 height=11 length=\"13\"><br>");
 			html.append("<button value=\"Place Bid\" action=\"bypass -h _bbsauction_bid " + lot.lotId + " " + lot.bidIncrement + " " + lot.currency + " $Value\" width=80 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		}
@@ -611,7 +612,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=280 height=30><edit var=\"BuyNow\" width=150 height=11 length=\"13\"></td>");
 		html.append("</tr><tr>");
 		html
-				.append("<td FIXWIDTH=280 height=30 align=right><button value=\"Continue to next page\" action=\"bypass _bbsauction_new_next 1 $Time $Currency $StartingBid $Increment $BuyNow\" width=175 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		.append("<td FIXWIDTH=280 height=30 align=right><button value=\"Continue to next page\" action=\"bypass _bbsauction_new_next 1 $Time $Currency $StartingBid $Increment $BuyNow\" width=175 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=280 height=20></td>");
 		html.append("</tr>");
@@ -734,7 +735,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=180>" + Util.formatAdena(lot.count.intValue()) + "</td>");
 		html.append("</tr><tr>");
 		html.append("<td FIXWIDTH=100 align=right>Currency:</td>");
-		html.append("<td FIXWIDTH=180><img src=icon." + (lot.currency.equals(57) ? "etc_adena_i00" : (lot.currency.equals(5575) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON)) + " width=32 height=16></td>");
+		html.append("<td FIXWIDTH=180><img src=icon." + (lot.currency.equals(PcInventory.ADENA_ID) ? "etc_adena_i00" : (lot.currency.equals(PcInventory.ANCIENT_ADENA_ID) ? "etc_ancient_adena_i00" : Config.AUCTION_SPECIAL_CURRENCY_ICON)) + " width=32 height=16></td>");
 		html.append("</tr></table>");
 		html.append("<br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=280><tr><td FIXWIDTH=280 height=20></td></tr></table>");
@@ -1047,9 +1048,9 @@ public class AuctionBBSManager extends BaseBBSManager
 					statement.setLong(4, System.currentTimeMillis());
 					statement.execute();
 					statement.close();
-					if (currency == 57)
+					if (currency == PcInventory.ADENA_ID)
 						activeChar.reduceAdena("Auction Bid", (int) bidAmount, activeChar, true);
-					else if (currency == 5575)
+					else if (currency == PcInventory.ANCIENT_ADENA_ID)
 						activeChar.reduceAncientAdena("Auction Bid", (int) bidAmount, activeChar, true);
 					else
 						activeChar.destroyItemByItemId("Auction Bid", currency, (int) bidAmount, activeChar, true);

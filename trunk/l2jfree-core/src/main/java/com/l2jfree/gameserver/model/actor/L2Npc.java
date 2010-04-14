@@ -85,6 +85,7 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.itemcontainer.NpcInventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -135,32 +136,32 @@ public class L2Npc extends L2Character
 	{
 		private static final int MIN_SOCIAL_INTERVAL = 6000;
 		private static final RandomAnimationTaskManager _instance = new RandomAnimationTaskManager();
-		
+
 		private static RandomAnimationTaskManager getInstance()
 		{
 			return _instance;
 		}
-		
+
 		private RandomAnimationTaskManager()
 		{
 			super(1000);
 			//super(MIN_SOCIAL_INTERVAL);
 		}
-		
+
 		@Override
 		protected void callTask(L2Npc npc)
 		{
 			if (!npc.tryBroadcastRandomAnimation(false, false))
 				stopTask(npc);
 		}
-		
+
 		@Override
 		protected String getCalledMethodName()
 		{
 			return "broadcastRandomAnimation()";
 		}
 	}
-	
+
 	/** The interaction distance of the L2Npc(is used as offset in MovetoLocation method) */
 	public static final int			INTERACTION_DISTANCE	= 150;
 
@@ -189,10 +190,10 @@ public class L2Npc extends L2Character
 
 	public String					_CTF_FlagTeamName;
 	public boolean					_isEventMobTvT = false, _isEventMobDM = false, _isEventMobCTF = false,
-			_isCTF_throneSpawn = false, _isCTF_Flag = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
+	_isCTF_throneSpawn = false, _isCTF_Flag = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
 	public boolean					_isEventMobTvTi			= false;
 	public boolean					_isEventMobSH			= false;
-	
+
 	private boolean					_isInTown				= false;
 	private int						_isSpoiledBy			= 0;
 
@@ -223,10 +224,10 @@ public class L2Npc extends L2Character
 	{
 		if (!isInActiveRegion() || !hasRandomAnimation())
 			return false;
-		
+
 		if (isMob() && getAI().getIntention() != AI_INTENTION_ACTIVE)
 			return false;
-		
+
 		if (_lastRandomAnimation + RandomAnimationTaskManager.MIN_SOCIAL_INTERVAL < System.currentTimeMillis()
 				&& !getKnownList().getKnownPlayers().isEmpty())
 		{
@@ -240,26 +241,26 @@ public class L2Npc extends L2Character
 					else // periodic
 						sa = new SocialAction(getObjectId(), Rnd.get(2, 3));
 					broadcastPacket(sa);
-					
+
 					int minWait = isMob() ? Config.MIN_MONSTER_ANIMATION : Config.MIN_NPC_ANIMATION;
 					int maxWait = isMob() ? Config.MAX_MONSTER_ANIMATION : Config.MAX_NPC_ANIMATION;
-					
+
 					_lastRandomAnimation = System.currentTimeMillis();
 					_randomAnimationDelay = Rnd.get(minWait, maxWait) * 1000;
 				}
 			}
 		}
-		
+
 		if (init)
 			RandomAnimationTaskManager.getInstance().startTask(this);
 		return true;
 	}
-	
+
 	public final void stopRandomAnimation()
 	{
 		RandomAnimationTaskManager.getInstance().stopTask(this);
 	}
-	
+
 	/**
 	 * Check if the server allows Random Animation.<BR><BR>
 	 */
@@ -357,43 +358,43 @@ public class L2Npc extends L2Character
 	{
 		return new NpcKnownList(this);
 	}
-	
+
 	@Override
 	public NpcKnownList getKnownList()
 	{
 		return (NpcKnownList)_knownList;
 	}
-	
+
 	@Override
 	protected CharLikeView initView()
 	{
 		return new NpcView(this);
 	}
-	
+
 	@Override
 	public NpcView getView()
 	{
 		return (NpcView)_view;
 	}
-	
+
 	@Override
 	protected CharStat initStat()
 	{
 		return new NpcStat(this);
 	}
-	
+
 	@Override
 	public NpcStat getStat()
 	{
 		return (NpcStat)_stat;
 	}
-	
+
 	@Override
 	protected CharStatus initStatus()
 	{
 		return new NpcStatus(this);
 	}
-	
+
 	@Override
 	public NpcStatus getStatus()
 	{
@@ -564,10 +565,10 @@ public class L2Npc extends L2Character
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
-		
+
 		if (!player.canChangeLockedTarget(this))
 			return false;
-		
+
 		// Restrict interactions during restart/shutdown
 		if (Shutdown.isActionDisabled(DisableType.NPC_ITERACTION))
 		{
@@ -581,7 +582,7 @@ public class L2Npc extends L2Character
 	public boolean canInteract(L2PcInstance player)
 	{
 		// TODO: NPC busy check etc...
-		
+
 		if (player.isCastingNow() || player.isCastingSimultaneouslyNow())
 			return false;
 		if (player.isDead() || player.isFakeDeath())
@@ -590,10 +591,10 @@ public class L2Npc extends L2Character
 			return false;
 		if (!isSameInstance(player))
 			return false;
-		
+
 		if (player.getPrivateStoreType() != 0)
 			return false;
-		
+
 		return isInsideRadius(player, INTERACTION_DISTANCE, true, false);
 	}
 
@@ -684,7 +685,7 @@ public class L2Npc extends L2Character
 						// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2Npc
 						// to display a social action of the L2Npc on their client
 						broadcastRandomAnimation(true);
-						
+
 						// Open a chat window on client with the text of the L2Npc
 						if (GlobalRestrictions.onAction(this, player))
 						{
@@ -713,7 +714,7 @@ public class L2Npc extends L2Character
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
-	
+
 	@Override
 	public int getMyTargetSelectedColor(L2PcInstance player)
 	{
@@ -722,7 +723,7 @@ public class L2Npc extends L2Character
 		else
 			return 0;
 	}
-	
+
 	/**
 	 * Manage and Display the GM console to modify the L2Npc (GM only).<BR><BR>
 	 *
@@ -771,7 +772,7 @@ public class L2Npc extends L2Character
 					className,
 					"<br1>Faction: ",
 					getFactionId() != null ? getFactionId() : "null",
-					"<br1>"
+							"<br1>"
 			);
 			StringUtil.append(html1,
 					"Coords ",
@@ -781,7 +782,7 @@ public class L2Npc extends L2Character
 					",",
 					String.valueOf(getZ()),
 					"<br1>"
-					);
+			);
 			if (getSpawn() != null)
 				StringUtil.append(html1,
 						"Spawn ",
@@ -844,11 +845,11 @@ public class L2Npc extends L2Character
 			html1.append("<br><center><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc " + getTemplate().getNpcId()
 					+ "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1></td>");
 			html1
-					.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><br1></tr>");
+			.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><br1></tr>");
 			html1.append("<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist " + getTemplate().getNpcId()
 					+ "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 			html1
-					.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
+			.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 			// [L2J_JP ADD START]
 			html1.append("<tr><td><button value=\"Show Skillist\" action=\"bypass -h admin_show_skilllist_npc " + getTemplate().getNpcId()
 					+ "\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td></td></tr>");
@@ -1430,7 +1431,7 @@ public class L2Npc extends L2Character
 				while (st.hasMoreTokens())
 				{
 					doorId = Integer.parseInt(st.nextToken());
-					
+
 					if (_doorTable.getDoor(doorId) != null) {
 						_doorTable.getDoor(doorId).openMe();
 						_doorTable.getDoor(doorId).onOpen();
@@ -1453,42 +1454,42 @@ public class L2Npc extends L2Character
 				int price = pen_clear_price[player.getExpertiseIndex()] * (int)Config.RATE_DROP_ADENA;
 				switch (cmdChoice)
 				{
-					case 1:
-						String filename = "data/html/default/30981-1.htm";
-						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-						html.setFile(filename);
-						html.replace("%objectId%", String.valueOf(getObjectId()));
-						html.replace("%dp_price%", String.valueOf(price));
-						player.sendPacket(html);
-						break;
-					case 2:
-						NpcHtmlMessage Reply = new NpcHtmlMessage(getObjectId());
-						TextBuilder replyMSG = new TextBuilder("<html><body>Black Judge:<br>");
+				case 1:
+					String filename = "data/html/default/30981-1.htm";
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setFile(filename);
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					html.replace("%dp_price%", String.valueOf(price));
+					player.sendPacket(html);
+					break;
+				case 2:
+					NpcHtmlMessage Reply = new NpcHtmlMessage(getObjectId());
+					TextBuilder replyMSG = new TextBuilder("<html><body>Black Judge:<br>");
 
-						if (player.getDeathPenaltyBuffLevel() > 0)
+					if (player.getDeathPenaltyBuffLevel() > 0)
+					{
+						if (player.getAdena() >= price)
 						{
-							if (player.getAdena() >= price)
-							{
-								if (!player.reduceAdena("DeathPenality", price, this, true))
-									return;
-								player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel() - 1);
-								player.sendPacket(SystemMessageId.DEATH_PENALTY_LIFTED);
-								player.sendEtcStatusUpdate();
+							if (!player.reduceAdena("DeathPenality", price, this, true))
 								return;
-							}
-
-							replyMSG.append("The wound you have received from death's touch is too deep to be healed for the money you have to give me. Find more money if you wish death's mark to be fully removed from you.");
-						}
-						else
-						{
-							replyMSG.append("You have no more death wounds that require healing.<br>");
-							replyMSG.append("Go forth and fight, both for this world and your own glory.");
+							player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel() - 1);
+							player.sendPacket(SystemMessageId.DEATH_PENALTY_LIFTED);
+							player.sendEtcStatusUpdate();
+							return;
 						}
 
-						replyMSG.append("</body></html>");
-						Reply.setHtml(replyMSG.toString());
-						player.sendPacket(Reply);
-						break;
+						replyMSG.append("The wound you have received from death's touch is too deep to be healed for the money you have to give me. Find more money if you wish death's mark to be fully removed from you.");
+					}
+					else
+					{
+						replyMSG.append("You have no more death wounds that require healing.<br>");
+						replyMSG.append("Go forth and fight, both for this world and your own glory.");
+					}
+
+					replyMSG.append("</body></html>");
+					Reply.setHtml(replyMSG.toString());
+					player.sendPacket(Reply);
+					break;
 				}
 			}
 			else if (command.startsWith("arena_info"))
@@ -1503,7 +1504,7 @@ public class L2Npc extends L2Character
 				htm.setHtml(FishermanManager.getInstance().showHtm(player.getObjectId()));
 				player.sendPacket(htm);
 			}
-			
+
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -1545,7 +1546,7 @@ public class L2Npc extends L2Character
 			return;
 
 		FastList<L2BuffTemplate> _templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
-		
+
 		if (_templateBuffs == null || _templateBuffs.size() == 0)
 			return;
 
@@ -1694,19 +1695,19 @@ public class L2Npc extends L2Character
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = String.valueOf(npcId);
-		
+
 		if (val != 0)
 			pom += "-" + val;
-		
+
 		String temp = "data/html/default/" + pom + ".htm";
-		
+
 		if (HtmCache.getInstance().pathExists(temp))
 			return temp;
-		
+
 		// If the file is not found, the standard message "I have nothing to say to you" is returned
 		return "data/html/npcdefault.htm";
 	}
-	
+
 	/**
 	 * Open a choose quest window on client with all quests available of the L2Npc.<BR><BR>
 	 *
@@ -2050,7 +2051,7 @@ public class L2Npc extends L2Character
 
 			InventoryUpdate iu = new InventoryUpdate();
 			iu.addItem(item);
-			L2ItemInstance adenaupdate = player.getInventory().getItemByItemId(57);
+			L2ItemInstance adenaupdate = player.getInventory().getItemByItemId(PcInventory.ADENA_ID);
 			iu.addModifiedItem(adenaupdate);
 			player.sendPacket(iu);
 
@@ -2204,8 +2205,8 @@ public class L2Npc extends L2Character
 		if (player.getLevel() > _highestLevel)
 		{
 			String content = "<html><body>Newbie Guide:<br>Only a <font color=\"LEVEL\">novice character of level "
-					+ _highestLevel
-					+ " or less</font> can receive my support magic.<br>Your novice character is the first one that you created and raised in this world.</body></html>";
+				+ _highestLevel
+				+ " or less</font> can receive my support magic.<br>Your novice character is the first one that you created and raised in this world.</body></html>";
 			insertObjectIdAndShowChatWindow(player, content);
 			return;
 		}
@@ -2702,20 +2703,20 @@ public class L2Npc extends L2Character
 		if (_spawn != null)
 			_spawn.decreaseCount(this);
 	}
-	
+
 	private boolean _champion;
-	
+
 	public final void setChampion(boolean champion)
 	{
 		_champion = champion;
 	}
-	
+
 	@Override
 	public final boolean isChampion()
 	{
 		return _champion;
 	}
-	
+
 	/**
 	 * Remove PROPERLY the L2Npc from the world.<BR><BR>
 	 *
@@ -2733,7 +2734,7 @@ public class L2Npc extends L2Character
 		abortAttack();
 		getStatus().stopHpMpRegeneration();
 		getEffects().stopAllEffects(true);
-		
+
 		L2WorldRegion region = getWorldRegion();
 
 		try
@@ -2749,7 +2750,7 @@ public class L2Npc extends L2Character
 		{
 			if (_fusionSkill != null)
 				abortCast();
-			
+
 			for (L2Character character : getKnownList().getKnownCharacters())
 				if (character.getFusionSkill() != null && character.getFusionSkill().getTarget() == this)
 					character.abortCast();
@@ -2851,19 +2852,19 @@ public class L2Npc extends L2Character
 	{
 		return _currentCollisionRadius;
 	}
-	
+
 	@Override
 	protected final CharShots initShots()
 	{
 		return new NpcShots(this);
 	}
-	
+
 	@Override
 	public final NpcShots getShots()
 	{
 		return (NpcShots)_shots;
 	}
-	
+
 	@Override
 	public NpcInventory getInventory()
 	{
@@ -2874,16 +2875,16 @@ public class L2Npc extends L2Character
 	{
 		return Config.CURSED_WEAPON_NPC_INTERACT || !player.isCursedWeaponEquipped();
 	}
-	
+
 	@Override
 	public void sendInfo(L2PcInstance activeChar)
 	{
 		if (Config.TEST_KNOWNLIST && activeChar.isGM())
 			activeChar.sendMessage("Knownlist, added NPC: " + getName());
-		
+
 		activeChar.sendPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new AbstractNpcInfo.NpcInfo(this));
 	}
-	
+
 	@Override
 	public void broadcastFullInfoImpl()
 	{
@@ -2916,7 +2917,7 @@ public class L2Npc extends L2Character
 		{
 		// Devastated Castle
 		case 35411: case 35412: case 35413: case 35414: case 35415: case 35416:
-		// Fortress of the Dead
+			// Fortress of the Dead
 		case 35629: case 35630: case 35631: case 35632: case 35633: case 35634: case 35635:
 		case 35636: case 35637:
 			return false;
@@ -2926,7 +2927,7 @@ public class L2Npc extends L2Character
 		return ((this instanceof L2MonsterInstance && !(this instanceof L2Boss)) || (this instanceof L2Boss && Config.CHAMPION_BOSS))
 		&& Config.CHAMPION_FREQUENCY > 0 && !getTemplate().isQuestMonster() && getLevel() >= Config.CHAMPION_MIN_LEVEL
 		&& getLevel() <= Config.CHAMPION_MAX_LEVEL;
- 	}
+	}
 
 	public int getQuestAttackStatus()
 	{

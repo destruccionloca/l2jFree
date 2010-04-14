@@ -24,9 +24,6 @@ import com.l2jfree.gameserver.model.actor.L2Npc;
 
 public class NpcInventory extends Inventory
 {
-	public static final int ADENA_ID = 57;
-	public static final int ANCIENT_ADENA_ID = 5575;
-
 	private final L2Npc _owner;
 
 	public NpcInventory(L2Npc owner)

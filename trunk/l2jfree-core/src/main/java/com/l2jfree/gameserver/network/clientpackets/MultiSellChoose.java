@@ -502,7 +502,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 			// load the ingredient from the template
 			MultiSellIngredient newIngredient = new MultiSellIngredient(ing);
 			
-			if (newIngredient.getItemId() == 57 && newIngredient.isTaxIngredient())
+			if (newIngredient.getItemId() == PcInventory.ADENA_ID && newIngredient.isTaxIngredient())
 			{
 				double taxRate = 0.0;
 				if (applyTaxes)
@@ -515,7 +515,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 				totalAdenaCount += _transactionTax;
 				continue; // do not yet add this adena amount to the list as non-taxIngredient adena might be entered later (order not guaranteed)
 			}
-			else if (ing.getItemId() == 57) // && !ing.isTaxIngredient()
+			else if (ing.getItemId() == PcInventory.ADENA_ID) // && !ing.isTaxIngredient()
 			{
 				totalAdenaCount += newIngredient.getItemCount();
 				continue; // do not yet add this adena amount to the list as taxIngredient adena might be entered later (order not guaranteed)
@@ -537,7 +537,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 		}
 		// Next add the adena amount, if any
 		if (totalAdenaCount > 0)
-			newEntry.addIngredient(new MultiSellIngredient(57, totalAdenaCount, false, false));
+			newEntry.addIngredient(new MultiSellIngredient(PcInventory.ADENA_ID, totalAdenaCount, false, false));
 		
 		// Now modify the enchantment level of products, if necessary
 		for (MultiSellIngredient ing : templateEntry.getProducts())

@@ -21,6 +21,7 @@ import javolution.text.TextBuilder;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -35,7 +36,7 @@ public final class L2UrnInstance extends L2NpcInstance
 	{
 		super(objectId, template);
 	}
-	
+
 	protected static int _ingredient1;
 	protected static int _ingCount1;
 	protected static int _ingredient2;
@@ -84,7 +85,7 @@ public final class L2UrnInstance extends L2NpcInstance
 		{
 			val = st.nextToken();
 		}
-		
+
 		if (actualCommand.equalsIgnoreCase("make_low"))
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -139,7 +140,7 @@ public final class L2UrnInstance extends L2NpcInstance
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				html.replace("%npcname%", getName());
 				player.sendPacket(html);
-				
+
 				return;
 			}
 
@@ -155,29 +156,29 @@ public final class L2UrnInstance extends L2NpcInstance
 			if (!val.isEmpty())
 			{
 				String w1 = val;
-					int ingId1 = Integer.parseInt(w1);
+				int ingId1 = Integer.parseInt(w1);
 				val = st.nextToken();
 				String x1 = val;
-					long ingCount1 = Long.parseLong(x1);
+				long ingCount1 = Long.parseLong(x1);
 				val = st.nextToken();
 				String y1 = val;
-					int ingId2 = Integer.parseInt(y1);
+				int ingId2 = Integer.parseInt(y1);
 				val = st.nextToken();
 				String z1 = val;
-					long ingCount2 = Long.parseLong(z1);
+				long ingCount2 = Long.parseLong(z1);
 				val = st.nextToken();
 				String go1 = val;
-					int prodId = Integer.parseInt(go1);
+				int prodId = Integer.parseInt(go1);
 				val = st.nextToken();
 				String go2 = val;
-					int tempSet = Integer.parseInt(go2);
+				int tempSet = Integer.parseInt(go2);
 				val = st.nextToken();
 				String go3 = val;
-					boolean mixLvl = Boolean.parseBoolean(go3);
+				boolean mixLvl = Boolean.parseBoolean(go3);
 				val = st.nextToken();
 				String prodName1 = val;
 				runUrnMix(player, ingId1, ingCount1, ingId2, ingCount2, prodId, tempSet, mixLvl, prodName1);
-				
+
 			}
 		}
 		else if (actualCommand.equalsIgnoreCase("urn_main"))
@@ -185,7 +186,7 @@ public final class L2UrnInstance extends L2NpcInstance
 			showMessageWindow(player);
 		}
 	}
-	
+
 	protected void runUrnMix(L2PcInstance player, int ingId1, long ingCount1, int ingId2, long ingCount2, int prodId, int tempSet, boolean mixLvl, String prodName2)
 	{
 		boolean correctMix1 = false;
@@ -226,43 +227,43 @@ public final class L2UrnInstance extends L2NpcInstance
 			showFailureWindow(player);
 		}
 	}
-	
+
 	public void takeUrnItems(L2PcInstance player, int itemId, long count)
 	{
 		// Get object item from player's inventory list
 		L2ItemInstance item = player.getInventory().getItemByItemId(itemId);
-		
+
 		if (item == null)
 			return;
-		
+
 		// Tests on count value in order not to have negative value
 		if (count < 0 || count > item.getCount())
 			count = item.getCount();
-		
+
 		// Destroy the quantity of items wanted
-		if (itemId == 57)
+		if (itemId == PcInventory.ADENA_ID)
 			player.reduceAdena("Quest", count, player, true);
 		else
 			player.destroyItemByItemId("Quest", itemId, count, player, true);
 	}
-	
+
 	public void giveUrnItems(L2PcInstance player, int itemId, long count, int enchantlevel)
 	{
 		if (count <= 0)
 			return;
 
 		// Set quantity of item
-		
+
 		// Add items to player's inventory
 		L2ItemInstance item = player.getInventory().addItem("Quest", itemId, count, player, player.getTarget());
-		
+
 		if (item == null)
 			return;
 		if (enchantlevel > 0)
 			item.setEnchantLevel(enchantlevel);
-		
+
 		// If item for reward is gold, send message of gold reward to client
-		if (itemId == 57)
+		if (itemId == PcInventory.ADENA_ID)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 			smsg.addItemNumber(count);
@@ -286,22 +287,22 @@ public final class L2UrnInstance extends L2NpcInstance
 			}
 		}
 	}
-	
+
 	public void playSound(L2PcInstance player, String sound)
 	{
 		player.sendPacket(new PlaySound(0, sound));
 	}
-	
+
 	public int getUrnItemsCount(L2PcInstance player, int itemId)
 	{
 		int count = 0;
-		
+
 		for (L2ItemInstance item: player.getInventory().getItems())
 			if (item.getItemId() == itemId)
 				count += item.getCount();
 		return count;
 	}
-	
+
 	protected boolean checkUrnSuccess(int urnTemperature)
 	{
 		int mixFail = Config.ALT_URN_TEMP_FAIL;
@@ -313,10 +314,10 @@ public final class L2UrnInstance extends L2NpcInstance
 
 		mixChance = (Rnd.get(100));
 		tempChance = (100 - (mixTemperature * mixFail));
-		
+
 		return (mixChance < tempChance);
 	}
-	
+
 	public void showSuccessWindow(L2PcInstance player, boolean urnLvl, String prodName3, int prodNum3)
 	{
 		String rankName = "";
@@ -338,14 +339,14 @@ public final class L2UrnInstance extends L2NpcInstance
 		{
 			urnEffect = "Black smoke billows forth from the urn and with a loud bang you are knocked to the floor.";
 		}
-		
+
 		if (urnLvl)
 		{
 			rankName = "Apprentice Alchemist";
 		}
 		else
 			rankName = "Master Alchemist";
-		
+
 		TextBuilder msg = new TextBuilder("<html><body>");
 		msg.append("%npcname%:<br><br>");
 		msg.append(urnEffect + "<BR>");
@@ -359,10 +360,10 @@ public final class L2UrnInstance extends L2NpcInstance
 
 		sendHtmlMessage(player, msg.toString());
 	}
-	
+
 	public void showFailureWindow(L2PcInstance player)
 	{
-		
+
 		TextBuilder msg = new TextBuilder("<html><body>");
 		msg.append("%npcname%:<br><br>");
 		msg.append("The contents burble and boil, smoke and steam rise from the urn.<BR>");
@@ -388,7 +389,7 @@ public final class L2UrnInstance extends L2NpcInstance
 
 		sendHtmlMessage(player, msg.toString());
 	}
-	
+
 	private void sendHtmlMessage(L2PcInstance player, String htmlMessage)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(1);

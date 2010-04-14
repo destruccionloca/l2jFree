@@ -14,33 +14,27 @@
  */
 package com.l2jfree.gameserver.handler.itemhandlers;
 
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.handler.IItemHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.SSQStatus;
 
-/**
- * Item Handler for Seven Signs Record
- * 
- * @author Tempy
- */
 public class SevenSignsRecord implements IItemHandler
 {
 	// All the item IDs that this handler knows.
-	private static final int[]	ITEM_IDS	=
-											{ 5707 };
+	private static final int[] ITEM_IDS = {
+		SevenSigns.RECORD_SEVEN_SIGNS_ID
+	};
 
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
-		L2PcInstance activeChar;
-
 		if (playable instanceof L2PcInstance)
-			activeChar = (L2PcInstance) playable;
-		else
-			return;
-
-		activeChar.sendPacket(new SSQStatus(activeChar, 1));
+		{
+			L2PcInstance player = playable.getActingPlayer();
+			player.sendPacket(new SSQStatus(player, 1));
+		}
 	}
 
 	public int[] getItemIds()

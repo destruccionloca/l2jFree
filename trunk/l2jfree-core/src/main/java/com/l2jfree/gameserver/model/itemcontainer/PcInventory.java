@@ -105,9 +105,9 @@ public class PcInventory extends Inventory
 		List<L2ItemInstance> list = new ArrayList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if ((!allowAdena && item.getItemId() == 57))
+			if ((!allowAdena && item.getItemId() == ADENA_ID))
 				continue;
-			if ((!allowAncientAdena && item.getItemId() == 5575))
+			if ((!allowAncientAdena && item.getItemId() == ANCIENT_ADENA_ID))
 				continue;
 			boolean isDuplicate = false;
 			for (L2ItemInstance litem : list)
@@ -140,9 +140,9 @@ public class PcInventory extends Inventory
 		List<L2ItemInstance> list = new ArrayList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if ((!allowAdena && item.getItemId() == 57))
+			if ((!allowAdena && item.getItemId() == ADENA_ID))
 				continue;
-			if ((!allowAncientAdena && item.getItemId() == 5575))
+			if ((!allowAncientAdena && item.getItemId() == ANCIENT_ADENA_ID))
 				continue;
 
 			boolean isDuplicate = false;

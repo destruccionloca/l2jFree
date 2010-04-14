@@ -78,7 +78,6 @@ public class SevenSigns
 	public static final int							PERIOD_MINOR_LENGTH			= 900000;
 	public static final int							PERIOD_MAJOR_LENGTH			= 604800000 - PERIOD_MINOR_LENGTH;
 
-	public static final int							ANCIENT_ADENA_ID			= 5575;
 	public static final int							RECORD_SEVEN_SIGNS_ID		= 5707;
 	public static final int							CERTIFICATE_OF_APPROVAL_ID	= 6388;
 	public static final int							RECORD_SEVEN_SIGNS_COST		= 500;
@@ -120,11 +119,11 @@ public class SevenSigns
 	protected int									_compWinner;
 	protected int									_previousWinner;
 
-	private final Map<Integer, StatsSet>					_signsPlayerData;
+	private final Map<Integer, StatsSet>			_signsPlayerData;
 
-	private final Map<Integer, Integer>					_signsSealOwners;
-	private final Map<Integer, Integer>					_signsDuskSealTotals;
-	private final Map<Integer, Integer>					_signsDawnSealTotals;
+	private final Map<Integer, Integer>				_signsSealOwners;
+	private final Map<Integer, Integer>				_signsDuskSealTotals;
+	private final Map<Integer, Integer>				_signsDawnSealTotals;
 
 	private static AutoSpawnInstance				_merchantSpawn;
 	private static AutoSpawnInstance				_blacksmithSpawn;

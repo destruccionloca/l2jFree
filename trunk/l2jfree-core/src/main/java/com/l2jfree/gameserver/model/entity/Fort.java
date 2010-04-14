@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
@@ -174,7 +175,7 @@ public class Fort extends Siegeable<FortSiege>
 					dbSave(newfc);
 					if (_cwh)
 					{
-						getOwnerClan().getWarehouse().destroyItemByItemId("CS_function_fee", 57, fee, null, null);
+						getOwnerClan().getWarehouse().destroyItemByItemId("CS_function_fee", PcInventory.ADENA_ID, fee, null, null);
 						if (_log.isDebugEnabled())
 							_log.warn("deducted " + fee + " adena from " + getName() + " owner's cwh for function id : " + getType());
 					}
@@ -579,7 +580,7 @@ public class Fort extends Siegeable<FortSiege>
 		if (_log.isDebugEnabled())
 			_log.warn("Called Fort.updateFunctions(int type, int lvl, int lease, long rate, boolean addNew) Owner : " + getOwnerId());
 		if (lease > 0)
-			if (!player.destroyItemByItemId("Consume", 57, lease, null, true))
+			if (!player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, lease, null, true))
 				return false;
 		if (addNew)
 		{
@@ -662,7 +663,7 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM fort_doorupgrade WHERE doorId IN (SELECT Id FROM fort_staticobjects WHERE fortId = ? AND objectType = ?)");
- 			statement.setInt(1, getFortId());
+			statement.setInt(1, getFortId());
 			statement.setInt(2, 0);
 			ResultSet rs = statement.executeQuery();
 
@@ -802,7 +803,7 @@ public class Fort extends Siegeable<FortSiege>
 				Collection<L2PcInstance> pls = L2World.getInstance().getAllPlayers();
 				for (L2PcInstance player : pls)
 				{
-						player.sendPacket(sm);
+					player.sendPacket(sm);
 				}
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory"));
@@ -894,7 +895,7 @@ public class Fort extends Siegeable<FortSiege>
 	{
 		if (_lastOwnedTime == 0)
 			return 0;
-		
+
 		return (int) ((System.currentTimeMillis() - _lastOwnedTime) / 1000);
 	}
 
@@ -924,7 +925,7 @@ public class Fort extends Siegeable<FortSiege>
 		{
 			_f.Engrave(_clan);
 		}
-		
+
 	}
 
 	/**

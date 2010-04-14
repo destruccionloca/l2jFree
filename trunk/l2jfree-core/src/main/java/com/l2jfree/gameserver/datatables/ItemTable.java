@@ -30,6 +30,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.items.model.Item;
@@ -40,6 +41,7 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.skills.SkillsEngine;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.item.L2ArmorType;
@@ -52,13 +54,13 @@ public final class ItemTable
 {
 	private static final Log _log = LogFactory.getLog(ItemTable.class);
 	private static final Log _logItems = LogFactory.getLog("item");
-	
+
 	private static final Map<String, Integer> _materials = new HashMap<String, Integer>();
 	private static final Map<String, Integer> _crystalTypes = new HashMap<String, Integer>();
 	private static final Map<String, L2WeaponType> _weaponTypes = new HashMap<String, L2WeaponType>();
 	private static final Map<String, L2ArmorType> _armorTypes = new HashMap<String, L2ArmorType>();
 	private static final Map<String, Integer> _slots = new HashMap<String, Integer>();
-	
+
 	static
 	{
 		_materials.put("paper", L2Item.MATERIAL_PAPER);
@@ -85,7 +87,7 @@ public final class ItemTable
 		_materials.put("dyestuff", L2Item.MATERIAL_DYESTUFF);
 		_materials.put("cobweb", L2Item.MATERIAL_COBWEB);
 		_materials.put("seed", L2Item.MATERIAL_SEED);
-		
+
 		_crystalTypes.put("s84", L2Item.CRYSTAL_S84);
 		_crystalTypes.put("s80", L2Item.CRYSTAL_S80);
 		_crystalTypes.put("s", L2Item.CRYSTAL_S);
@@ -94,7 +96,7 @@ public final class ItemTable
 		_crystalTypes.put("c", L2Item.CRYSTAL_C);
 		_crystalTypes.put("d", L2Item.CRYSTAL_D);
 		_crystalTypes.put("none", L2Item.CRYSTAL_NONE);
-		
+
 		_weaponTypes.put("blunt", L2WeaponType.BLUNT);
 		_weaponTypes.put("bow", L2WeaponType.BOW);
 		_weaponTypes.put("dagger", L2WeaponType.DAGGER);
@@ -113,7 +115,7 @@ public final class ItemTable
 		_weaponTypes.put("rapier", L2WeaponType.RAPIER);
 		_weaponTypes.put("ancient", L2WeaponType.ANCIENT_SWORD);
 		_weaponTypes.put("dualdagger", L2WeaponType.DUAL_DAGGER);
-		
+
 		_armorTypes.put("none", L2ArmorType.NONE);
 		_armorTypes.put("light", L2ArmorType.LIGHT);
 		_armorTypes.put("heavy", L2ArmorType.HEAVY);
@@ -153,69 +155,69 @@ public final class ItemTable
 		_slots.put("babypet", L2Item.SLOT_BABYPET);
 		_slots.put("none", L2Item.SLOT_NONE);
 	}
-	
+
 	/** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
 	private static final String[] SQL_ITEM_SELECTS = {
 		"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type,"
-			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, skills_item, handler FROM etcitem",
-		
+		+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, skills_item, handler FROM etcitem",
+
 		"SELECT item_id, name, bodypart, crystallizable, armor_type, weight,"
-			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
-			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, enchant4_skill, skills_item FROM armor",
-		
+		+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
+		+ " price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, enchant4_skill, skills_item FROM armor",
+
 		"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
-			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
-			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
-			+ " sellable,  dropable, destroyable, tradeable, depositable, skills_item, enchant4_skill,"
-			+ " skills_onCast, skills_onCrit, change_weaponId FROM weapon" };
-	
+		+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
+		+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
+		+ " sellable,  dropable, destroyable, tradeable, depositable, skills_item, enchant4_skill,"
+		+ " skills_onCast, skills_onCrit, change_weaponId FROM weapon" };
+
 	private static final String[] SQL_CUSTOM_ITEM_SELECTS = {
 		"SELECT item_id, item_display_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type,"
-			+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, skills_item, handler FROM custom_etcitem",
-		
+		+ " duration, time, price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, skills_item, handler FROM custom_etcitem",
+
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight,"
-			+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
-			+ " price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, enchant4_skill, skills_item FROM custom_armor",
-		
+		+ " material, crystal_type, avoid_modify, duration, time, p_def, m_def, mp_bonus,"
+		+ " price, crystal_count, sellable, dropable, destroyable, tradeable, depositable, enchant4_skill, skills_item FROM custom_armor",
+
 		"SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots,"
-			+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
-			+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
-			+ " sellable,  dropable, destroyable, tradeable, depositable, skills_item, enchant4_skill,"
-			+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
-	
+		+ " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify,"
+		+ " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, time, price, crystal_count,"
+		+ " sellable,  dropable, destroyable, tradeable, depositable, skills_item, enchant4_skill,"
+		+ " skills_onCast, skills_onCrit, change_weaponId FROM custom_weapon" };
+
 	private static final class SingletonHolder
 	{
 		private static ItemTable INSTANCE = new ItemTable();
 	}
-	
+
 	public static ItemTable getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	public static void reload()
 	{
 		SingletonHolder.INSTANCE = new ItemTable();
 	}
-	
+
 	private final L2Item[] _allTemplates;
-	
+
 	private ItemTable()
 	{
 		final Map<Integer, Item> itemData = new HashMap<Integer, Item>();
 		final Map<Integer, Item> armorData = new HashMap<Integer, Item>();
 		final Map<Integer, Item> weaponData = new HashMap<Integer, Item>();
-		
+
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			
+
 			for (String selectQuery : SQL_ITEM_SELECTS)
 			{
 				PreparedStatement statement = con.prepareStatement(selectQuery);
 				ResultSet rset = statement.executeQuery();
-				
+
 				while (rset.next())
 				{
 					if (selectQuery.endsWith("etcitem"))
@@ -234,7 +236,7 @@ public final class ItemTable
 						weaponData.put(newItem.id, newItem);
 					}
 				}
-				
+
 				rset.close();
 				statement.close();
 			}
@@ -247,17 +249,17 @@ public final class ItemTable
 		{
 			L2DatabaseFactory.close(con);
 		}
-		
+
 		con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			
+
 			for (String selectQuery : SQL_CUSTOM_ITEM_SELECTS)
 			{
 				PreparedStatement statement = con.prepareStatement(selectQuery);
 				ResultSet rset = statement.executeQuery();
-				
+
 				while (rset.next())
 				{
 					if (selectQuery.endsWith("etcitem"))
@@ -276,7 +278,7 @@ public final class ItemTable
 						weaponData.put(newItem.id, newItem);
 					}
 				}
-				
+
 				rset.close();
 				statement.close();
 			}
@@ -289,34 +291,34 @@ public final class ItemTable
 		{
 			L2DatabaseFactory.close(con);
 		}
-		
+
 		final List<L2Item> etcItems = SkillsEngine.loadItems(itemData);
 		_log.info("ItemTable: Loaded " + etcItems.size() + "/" + etcItems.size() + " Items.");
-		
+
 		final List<L2Item> armors = SkillsEngine.loadArmors(armorData);
 		_log.info("ItemTable: Loaded " + armors.size() + "/" + armorData.size() + " Armors.");
-		
+
 		final List<L2Item> weapons = SkillsEngine.loadWeapons(weaponData);
 		_log.info("ItemTable: Loaded " + weapons.size() + "/" + weaponData.size() + " Weapons.");
-		
+
 		int highestId = 0;
 		for (L2Item item : L2Collections.concatenatedIterable(armors, etcItems, weapons))
 			if (highestId < item.getItemId())
 				highestId = item.getItemId();
-		
+
 		_allTemplates = new L2Item[highestId + 1];
-		
+
 		for (L2Item item : L2Collections.concatenatedIterable(armors, etcItems, weapons))
 		{
 			L2Item old = _allTemplates[item.getItemId()];
-			
+
 			_allTemplates[item.getItemId()] = item;
-			
+
 			if (old != null)
 				_log.fatal("ItemTable: ID: " + old.getItemId() + " (" + old.getItemType() + " replaced with " + item.getItemType() + ")");
 		}
 	}
-	
+
 	/**
 	 * Returns object Item from the record of the database
 	 * 
@@ -332,11 +334,11 @@ public final class ItemTable
 		item.id = rset.getInt("item_id");
 		item.displayid = custom ? rset.getInt("item_display_id") : item.id;
 		item.name = rset.getString("name");
-		
+
 		item.set.set("item_id", item.id);
 		item.set.set("item_display_id", item.displayid);
 		item.set.set("name", item.name);
-		
+
 		// lets see if this is a shield
 		if (item.type == L2WeaponType.NONE)
 		{
@@ -374,13 +376,13 @@ public final class ItemTable
 		item.set.set("destroyable", Boolean.valueOf(rset.getString("destroyable")));
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
 		item.set.set("depositable", Boolean.valueOf(rset.getString("depositable")));
-		
+
 		item.set.set("skills_item", rset.getString("skills_item"));
 		item.set.set("enchant4_skill", rset.getString("enchant4_skill"));
 		item.set.set("skills_onCast", rset.getString("skills_onCast"));
 		item.set.set("skills_onCrit", rset.getString("skills_onCrit"));
 		item.set.set("change_weaponId", rset.getInt("change_weaponId"));
-		
+
 		if (item.type == L2WeaponType.PET)
 		{
 			item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
@@ -394,13 +396,13 @@ public final class ItemTable
 				item.set.set("type2", L2Item.TYPE2_PET_BABY);
 			else
 				item.set.set("type2", L2Item.TYPE2_PET_STRIDER);
-			
+
 			item.set.set("bodypart", L2Item.SLOT_R_HAND);
 		}
-		
+
 		return item;
 	}
-	
+
 	/**
 	 * Returns object Item from the record of the database
 	 * 
@@ -416,7 +418,7 @@ public final class ItemTable
 		item.id = rset.getInt("item_id");
 		item.displayid = custom ? rset.getInt("item_display_id") : item.id;
 		item.name = rset.getString("name");
-		
+
 		item.set.set("item_id", item.id);
 		item.set.set("item_display_id", item.displayid);
 		item.set.set("name", item.name);
@@ -431,12 +433,12 @@ public final class ItemTable
 		item.set.set("depositable", Boolean.valueOf(rset.getString("depositable")));
 		item.set.set("enchant4_skill", rset.getString("enchant4_skill"));
 		item.set.set("skills_item", rset.getString("skills_item"));
-		
+
 		if (bodypart == L2Item.SLOT_NECK || bodypart == L2Item.SLOT_HAIR || bodypart == L2Item.SLOT_HAIR2
-			|| bodypart == L2Item.SLOT_HAIRALL || (bodypart & L2Item.SLOT_L_EAR) != 0
-			|| (bodypart & L2Item.SLOT_L_FINGER) != 0
-			|| (bodypart & L2Item.SLOT_R_BRACELET) != 0
-			|| (bodypart & L2Item.SLOT_L_BRACELET) != 0 )
+				|| bodypart == L2Item.SLOT_HAIRALL || (bodypart & L2Item.SLOT_L_EAR) != 0
+				|| (bodypart & L2Item.SLOT_L_FINGER) != 0
+				|| (bodypart & L2Item.SLOT_R_BRACELET) != 0
+				|| (bodypart & L2Item.SLOT_L_BRACELET) != 0 )
 		{
 			item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
 			item.set.set("type2", L2Item.TYPE2_ACCESSORY);
@@ -446,7 +448,7 @@ public final class ItemTable
 			item.set.set("type1", L2Item.TYPE1_SHIELD_ARMOR);
 			item.set.set("type2", L2Item.TYPE2_SHIELD_ARMOR);
 		}
-		
+
 		item.set.set("weight", rset.getInt("weight"));
 		item.set.set("material", _materials.get(rset.getString("material")));
 		item.set.set("crystal_type", _crystalTypes.get(rset.getString("crystal_type")));
@@ -457,7 +459,7 @@ public final class ItemTable
 		item.set.set("m_def", rset.getInt("m_def"));
 		item.set.set("mp_bonus", rset.getInt("mp_bonus"));
 		item.set.set("price", rset.getInt("price"));
-		
+
 		if (item.type == L2ArmorType.PET)
 		{
 			if (bodypart == L2Item.SLOT_NECK)
@@ -471,29 +473,29 @@ public final class ItemTable
 				item.set.set("type1", L2Item.TYPE1_SHIELD_ARMOR);
 				switch (item.set.getInteger("bodypart"))
 				{
-					case L2Item.SLOT_WOLF:
-						item.set.set("type2", L2Item.TYPE2_PET_WOLF);
-						break;
-					case L2Item.SLOT_GREATWOLF:
-						item.set.set("type2", L2Item.TYPE2_PET_EVOLVEDWOLF);
-						break;
-					case L2Item.SLOT_HATCHLING:
-						item.set.set("type2", L2Item.TYPE2_PET_HATCHLING);
-						break;
-					case L2Item.SLOT_BABYPET:
-						item.set.set("type2", L2Item.TYPE2_PET_BABY);
-						break;
-					default:
-						item.set.set("type2", L2Item.TYPE2_PET_STRIDER);
-						break;
+				case L2Item.SLOT_WOLF:
+					item.set.set("type2", L2Item.TYPE2_PET_WOLF);
+					break;
+				case L2Item.SLOT_GREATWOLF:
+					item.set.set("type2", L2Item.TYPE2_PET_EVOLVEDWOLF);
+					break;
+				case L2Item.SLOT_HATCHLING:
+					item.set.set("type2", L2Item.TYPE2_PET_HATCHLING);
+					break;
+				case L2Item.SLOT_BABYPET:
+					item.set.set("type2", L2Item.TYPE2_PET_BABY);
+					break;
+				default:
+					item.set.set("type2", L2Item.TYPE2_PET_STRIDER);
+					break;
 				}
 				item.set.set("bodypart", L2Item.SLOT_CHEST);
 			}
 		}
-		
+
 		return item;
 	}
-	
+
 	/**
 	 * Returns object Item from the record of the database
 	 * 
@@ -507,7 +509,7 @@ public final class ItemTable
 		item.set = new StatsSet();
 		item.id = rset.getInt("item_id");
 		item.displayid = custom ? rset.getInt("item_display_id") : item.id;
-		
+
 		item.set.set("item_id", item.id);
 		item.set.set("item_display_id", item.displayid);
 		item.set.set("crystallizable", Boolean.valueOf(rset.getString("crystallizable")));
@@ -522,7 +524,7 @@ public final class ItemTable
 		item.set.set("depositable", Boolean.valueOf(rset.getString("depositable")));
 		item.set.set("skills_item", rset.getString("skills_item"));
 		item.set.set("handler", rset.getString("handler"));
-		
+
 		String itemType = rset.getString("item_type");
 		if (itemType.equals("none"))
 			item.type = L2EtcItemType.OTHER; // only for default
@@ -571,7 +573,7 @@ public final class ItemTable
 			_log.debug("unknown etcitem type:" + itemType);
 			item.type = L2EtcItemType.OTHER;
 		}
-		
+
 		String consume = rset.getString("consume_type");
 		if (consume.equals("asset"))
 		{
@@ -587,25 +589,25 @@ public final class ItemTable
 		{
 			item.set.set("stackable", false);
 		}
-		
+
 		int material = _materials.get(rset.getString("material"));
 		item.set.set("material", material);
-		
+
 		int crystal = _crystalTypes.get(rset.getString("crystal_type"));
 		item.set.set("crystal_type", crystal);
-		
+
 		int weight = rset.getInt("weight");
 		item.set.set("weight", weight);
 		item.name = rset.getString("name");
 		item.set.set("name", item.name);
-		
+
 		item.set.set("duration", rset.getInt("duration"));
 		item.set.set("time", rset.getInt("time"));
 		item.set.set("price", rset.getInt("price"));
-		
+
 		return item;
 	}
-	
+
 	/**
 	 * Returns the item corresponding to the item ID
 	 * 
@@ -616,25 +618,25 @@ public final class ItemTable
 	{
 		if (id < 0 || _allTemplates.length <= id)
 			return null;
-		
+
 		return _allTemplates[id];
 	}
-	
+
 	public <T extends L2Item> T getTemplate(int id, Class<T> clazz)
 	{
 		L2Item item = getTemplate(id);
-		
+
 		if (clazz.isInstance(item))
 			return clazz.cast(item);
 		else
 			return null;
 	}
-	
+
 	public L2Item[] getAllTemplates()
 	{
 		return _allTemplates;
 	}
-	
+
 	/**
 	 * Create the L2ItemInstance corresponding to the Item Identifier and quantitiy add logs the activity.<BR>
 	 * <BR>
@@ -658,9 +660,9 @@ public final class ItemTable
 	{
 		// Create and Init the L2ItemInstance corresponding to the Item Identifier
 		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
-		
+
 		final boolean isAdena = isAdenaLikeItem(itemId);
-		
+
 		if (process.equalsIgnoreCase("loot") && (isAdena ? !Config.ALT_AUTO_LOOT_ADENA : !Config.ALT_AUTO_LOOT))
 		{
 			long delay;
@@ -668,7 +670,7 @@ public final class ItemTable
 			if (reference instanceof L2Boss)
 			{
 				L2CommandChannel commandChannel = ((L2Boss)reference).getFirstCommandChannelAttacked();
-				
+
 				if (commandChannel != null && commandChannel.meetRaidWarCondition(reference))
 				{
 					item.setOwnerId(commandChannel.getChannelLeader().getObjectId());
@@ -685,20 +687,20 @@ public final class ItemTable
 				item.setOwnerId(actor.getObjectId());
 				delay = 15000;
 			}
-			
+
 			item.setItemLootShedule(ThreadPoolManager.getInstance().scheduleGeneral(new ResetOwner(item), delay));
 		}
-		
+
 		if (_log.isDebugEnabled())
 			_log.debug("ItemTable: Item created  oid:" + item.getObjectId() + " itemid:" + itemId);
-		
+
 		// Add the L2ItemInstance object to _allObjects of L2world
 		L2World.getInstance().storeObject(item);
-		
+
 		// Set Item parameters
 		if (item.isStackable() && count > 1)
 			item.setCount(count);
-		
+
 		if (Config.LOG_ITEMS && actor != null)
 		{
 			List<Object> param = new ArrayList<Object>();
@@ -708,15 +710,15 @@ public final class ItemTable
 			param.add(reference);
 			_logItems.info(param);
 		}
-		
+
 		return item;
 	}
-	
+
 	public L2ItemInstance createItem(String process, int itemId, long count, L2PcInstance actor)
 	{
 		return createItem(process, itemId, count, actor, null);
 	}
-	
+
 	/**
 	 * Returns a dummy (fr = factice) item.<BR>
 	 * <BR>
@@ -731,10 +733,10 @@ public final class ItemTable
 		L2Item item = getTemplate(itemId);
 		if (item == null)
 			return null;
-		
+
 		return new L2ItemInstance(0, item);
 	}
-	
+
 	/**
 	 * Destroys the L2ItemInstance.<BR>
 	 * <BR>
@@ -760,10 +762,10 @@ public final class ItemTable
 			item.setOwnerId(0);
 			item.setLocation(ItemLocation.VOID);
 			item.setLastChange(L2ItemInstance.REMOVED);
-			
+
 			L2World.getInstance().removeObject(item);
 			IdFactory.getInstance().releaseId(item.getObjectId());
-			
+
 			if (Config.LOG_ITEMS && actor != null)
 			{
 				List<Object> param = new ArrayList<Object>();
@@ -773,7 +775,7 @@ public final class ItemTable
 				param.add(reference);
 				_logItems.info(param);
 			}
-			
+
 			// if it's a pet control item, delete the pet as well
 			if (PetDataTable.isPetItem(item.getItemId()))
 			{
@@ -796,33 +798,33 @@ public final class ItemTable
 					L2DatabaseFactory.close(con);
 				}
 			}
-			
+
 			// delete augmentation data
 			item.removeAugmentation();
 		}
 	}
-	
+
 	private static final class ResetOwner implements Runnable
 	{
 		private final L2ItemInstance _item;
-		
+
 		private ResetOwner(L2ItemInstance item)
 		{
 			_item = item;
 		}
-		
+
 		public void run()
 		{
 			_item.setOwnerId(0);
 			_item.setItemLootShedule(null);
 		}
 	}
-	
+
 	public List<L2Item> findItemsByName(String search)
 	{
 		search = search.toLowerCase();
 		List<L2Item> returnVal = new FastList<L2Item>();
-		
+
 		if (!search.isEmpty())
 		{
 			for (L2Item temp : _allTemplates)
@@ -835,32 +837,32 @@ public final class ItemTable
 		}
 		return returnVal;
 	}
-	
+
 	public static boolean isAdenaLikeItem(int itemId)
 	{
 		switch (itemId)
 		{
-			case 57:
-			case 5575:
-			case 6360:
-			case 6361:
-			case 6362:
-				return true;
-			default:
-				return false;
+		case PcInventory.ADENA_ID:
+		case PcInventory.ANCIENT_ADENA_ID:
+		case SevenSigns.SEAL_STONE_BLUE_ID:
+		case SevenSigns.SEAL_STONE_GREEN_ID:
+		case SevenSigns.SEAL_STONE_RED_ID:
+			return true;
+		default:
+			return false;
 		}
 	}
-	
+
 	public static boolean isSealStone(int itemId)
 	{
 		switch (itemId)
 		{
-			case 6360:
-			case 6361:
-			case 6362:
-				return true;
-			default:
-				return false;
+		case SevenSigns.SEAL_STONE_BLUE_ID:
+		case SevenSigns.SEAL_STONE_GREEN_ID:
+		case SevenSigns.SEAL_STONE_RED_ID:
+			return true;
+		default:
+			return false;
 		}
 	}
 }

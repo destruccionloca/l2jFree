@@ -34,13 +34,13 @@ import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class Auction
 {
 	protected static Log _log = LogFactory.getLog(Auction.class);
 	private int _id								= 0;
-	private final int _adenaId						= 57;
 	private long _endDate;
 	private int _highestBidderId				= 0;
 	private String _highestBidderName			= "";
@@ -192,7 +192,7 @@ public class Auction
 		_highestBidderId = 0;
 		_highestBidderName = "";
 		_highestBidderMaxBid = 0;
-		
+
 		Connection con = null;
 		try
 		{
@@ -261,7 +261,7 @@ public class Auction
 			statement.setLong(1, _endDate);
 			statement.setInt(2, _id);
 			statement.execute();
-			
+
 			statement.close();
 		}
 		catch (Exception e)
@@ -284,7 +284,7 @@ public class Auction
 		if ((getHighestBidderId() > 0 && bid > getHighestBidderMaxBid())
 				|| (getHighestBidderId() == 0 && bid >= getStartingBid()))
 		{
-			if(takeItem(bidder, _adenaId, requiredAdena))
+			if(takeItem(bidder, PcInventory.ADENA_ID, requiredAdena))
 			{
 				updateInDB(bidder, bid);
 				bidder.getClan().setAuctionBiddedAt(_id, true);
@@ -296,28 +296,28 @@ public class Auction
 	}
 
 	/** Return Item in WHC
-	* @param Clan
-	* @param itemId
-	* @param quantity
-	* @param penalty
-	*/
+	 * @param Clan
+	 * @param itemId
+	 * @param quantity
+	 * @param penalty
+	 */
 	private void returnItem(String Clan, int itemId, int quantity, boolean penalty)
 	{
 		if (penalty)
 			quantity *= 0.9; //take 10% tax fee if needed
-		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", _adenaId, quantity, null, null);
+		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", PcInventory.ADENA_ID, quantity, null, null);
 	}
 
 	/** Take Item in WHC
-	* @param bidder
-	* @param itemId
-	* @param quantity
-	*/
+	 * @param bidder
+	 * @param itemId
+	 * @param quantity
+	 */
 	private boolean takeItem(L2PcInstance bidder, int itemId, int quantity)
 	{
 		if (bidder.getClan() != null && bidder.getClan().getWarehouse().getAdena() >= quantity)
 		{
-			bidder.getClan().getWarehouse().destroyItemByItemId("Auction", _adenaId, quantity, bidder, bidder);
+			bidder.getClan().getWarehouse().destroyItemByItemId("Auction", PcInventory.ADENA_ID, quantity, bidder, bidder);
 			return true;
 		}
 		bidder.sendPacket(SystemMessageId.NOT_ENOUGH_ADENA_IN_CWH);
@@ -393,11 +393,11 @@ public class Auction
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
-			
+
 			statement = con.prepareStatement("DELETE FROM auction_bid WHERE auctionId=?");
 			statement.setInt(1, getId());
 			statement.execute();
-			
+
 			statement.close();
 		}
 		catch (Exception e)
@@ -412,7 +412,7 @@ public class Auction
 		for (Bidder b : _bidders.values())
 		{
 			if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() == 0)
-				returnItem(b.getClanName(), _adenaId, b.getBid(), true); // 10 % tax
+				returnItem(b.getClanName(), PcInventory.ADENA_ID, b.getBid(), true); // 10 % tax
 			else
 			{
 				L2PcInstance bidder = L2World.getInstance().getPlayer(b.getName());
@@ -461,15 +461,15 @@ public class Auction
 			if (_highestBidderId == 0 && _sellerId > 0)
 			{
 				/** If seller haven't sell ClanHall, auction removed,
-				*  THIS MUST BE CONFIRMED */
+				 *  THIS MUST BE CONFIRMED */
 				int aucId = AuctionManager.getInstance().getAuctionIndex(_id);
 				AuctionManager.getInstance().getAuctions().remove(aucId);
 				return;
 			}
 			if (_sellerId > 0)
 			{
-				returnItem(_sellerClanName, _adenaId, _highestBidderMaxBid, true);
-				returnItem(_sellerClanName, _adenaId, ClanHallManager.getInstance().getClanHallById(_itemId).getLease(), false);
+				returnItem(_sellerClanName, PcInventory.ADENA_ID, _highestBidderMaxBid, true);
+				returnItem(_sellerClanName, PcInventory.ADENA_ID, ClanHallManager.getInstance().getClanHallById(_itemId).getLease(), false);
 			}
 			deleteAuctionFromDB();
 			L2Clan Clan = ClanTable.getInstance().getClanByName(_bidders.get(_highestBidderId).getClanName());
@@ -493,12 +493,12 @@ public class Auction
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement;
-			
+
 			statement = con.prepareStatement("DELETE FROM auction_bid WHERE auctionId=? AND bidderId=?");
 			statement.setInt(1, getId());
 			statement.setInt(2, bidder);
 			statement.execute();
-			
+
 			statement.close();
 		}
 		catch (Exception e)
@@ -510,7 +510,7 @@ public class Auction
 			L2DatabaseFactory.close(con);
 		}
 
-		returnItem(_bidders.get(bidder).getClanName(), _adenaId, _bidders.get(bidder).getBid(), true);
+		returnItem(_bidders.get(bidder).getClanName(), PcInventory.ADENA_ID, _bidders.get(bidder).getBid(), true);
 		ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0, true);
 		_bidders.clear();
 		loadBid();

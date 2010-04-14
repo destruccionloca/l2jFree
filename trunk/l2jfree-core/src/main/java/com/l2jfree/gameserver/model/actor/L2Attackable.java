@@ -54,6 +54,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.status.AttackableStatus;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.base.SoulCrystal;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.State;
@@ -307,7 +308,7 @@ public class L2Attackable extends L2Npc
 	{
 		return _absorbersList;
 	}
-	
+
 	/** Have this L2Attackable to reward Exp and SP on Die? **/
 	private boolean								_mustGiveExpSp;
 
@@ -354,13 +355,13 @@ public class L2Attackable extends L2Npc
 	{
 		return (AttackableKnownList) _knownList;
 	}
-	
+
 	@Override
 	protected L2CharacterAI initAI()
 	{
 		return new L2AttackableAI(new AIAccessor());
 	}
-	
+
 	public final void startCommandChannelTimer(L2Character attacker)
 	{
 		// CommandChannel
@@ -371,22 +372,22 @@ public class L2Attackable extends L2Npc
 			_commandChannelTimer = new CommandChannelTimer(attacker.getParty().getCommandChannel());
 			ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
 			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room, "",
-					"You have looting rights!"));
+			"You have looting rights!"));
 		}
 	}
-	
+
 	@Override
 	protected CharStatus initStatus()
 	{
 		return new AttackableStatus(this);
 	}
-	
+
 	@Override
 	public AttackableStatus getStatus()
 	{
 		return (AttackableStatus)_status;
 	}
-	
+
 	public synchronized void setMustRewardExpSp(boolean value)
 	{
 		_mustGiveExpSp = value;
@@ -883,10 +884,10 @@ public class L2Attackable extends L2Npc
 					quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
 		}
 
- 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
- 		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
- 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
- 	}
+		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
+		if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+	}
 
 	public void reduceHate(L2Character target, int amount)
 	{
@@ -1033,7 +1034,7 @@ public class L2Attackable extends L2Npc
 		result[0] = mostHated;
 		if (secondMostHated != null && getAttackByList().contains(secondMostHated))
 			result[1] = secondMostHated;
-		
+
 		return result;
 	}
 
@@ -1074,7 +1075,7 @@ public class L2Attackable extends L2Npc
 	private boolean shouldPunishDeepBlueDrops()
 	{
 		return (!isRaid() && Config.DEEPBLUE_DROP_RULES)
-			|| (isRaid() && Config.DEEPBLUE_DROP_RULES_RAID);
+		|| (isRaid() && Config.DEEPBLUE_DROP_RULES_RAID);
 	}
 
 	/**
@@ -1091,33 +1092,33 @@ public class L2Attackable extends L2Npc
 	{
 		// Get default drop chance
 		final long dropChance = calculateDropChance(drop.getChance(), drop, isSweep, levelModifier);
-		
+
 		return dropItem(dropChance, drop);
 	}
-	
+
 	private static boolean isBossJewel(int itemId)
 	{
 		switch (itemId)
 		{
-			case 6656: // Earring of Antharas
-			case 6657: // Necklace of Valakas
-			case 6658: // Ring of Baium
-			case 6659: // Zaken's Earring
-			case 6660: // Ring of Queen Ant
-			case 6661: // Earring of Orfen
-			case 6662: // Ring of Core
-			case 8191: // Frintezza's Necklace
-			case 10170: // Baylor's Earring
-			case 10314: // Beleth's Ring
-				return true;
-			default:
-				return false;
+		case 6656: // Earring of Antharas
+		case 6657: // Necklace of Valakas
+		case 6658: // Ring of Baium
+		case 6659: // Zaken's Earring
+		case 6660: // Ring of Queen Ant
+		case 6661: // Earring of Orfen
+		case 6662: // Ring of Core
+		case 8191: // Frintezza's Necklace
+		case 10170: // Baylor's Earring
+		case 10314: // Beleth's Ring
+			return true;
+		default:
+			return false;
 		}
 	}
-	
+
 	private long calculateDropChance(double chance, L2DropData drop, boolean isSweep, int levelModifier)
 	{
-		if (drop != null && drop.getItemId() == 57)
+		if (drop != null && drop.getItemId() == PcInventory.ADENA_ID)
 		{
 			if (this instanceof L2RaidBossInstance)
 				chance *= Config.RATE_DROP_ADENA_RAID;
@@ -1150,17 +1151,17 @@ public class L2Attackable extends L2Npc
 			else
 				chance *= Config.RATE_DROP_ITEMS;
 		}
-		
+
 		if (isChampion())
 		{
-			if (drop != null && drop.getItemId() == 57)
+			if (drop != null && drop.getItemId() == PcInventory.ADENA_ID)
 				chance *= Config.CHAMPION_ADENA;
 			else if (drop != null && ItemTable.isSealStone(drop.getItemId()))
 				chance *= Config.CHAMPION_SEALSTONE;
 			else
 				chance *= Config.CHAMPION_REWARDS;
 		}
-		
+
 		if (shouldPunishDeepBlueDrops())
 		{
 			if (levelModifier > 0)
@@ -1168,54 +1169,54 @@ public class L2Attackable extends L2Npc
 				// We should multiply by the server's drop rate, so we always get a low chance of drop for deep blue mobs.
 				// NOTE: This is valid only for adena drops! Others drops will still obey server's rate
 				chance /= 3;
-				if (drop != null && drop.getItemId() == 57 && Config.RATE_DROP_ITEMS != 0)
+				if (drop != null && drop.getItemId() == PcInventory.ADENA_ID && Config.RATE_DROP_ITEMS != 0)
 					chance /= Config.RATE_DROP_ITEMS;
 			}
-			
+
 			chance *= (100.0 - levelModifier) / 100.0;
 		}
-		
+
 		return (long)chance;
 	}
-	
+
 	private RewardItem dropItem(long dropChance, L2DropData drop)
 	{
 		if (dropChance <= 0)
 			return null;
-		
+
 		int multiplier = (int)(dropChance / L2DropData.MAX_CHANCE);
-		
+
 		dropChance %= L2DropData.MAX_CHANCE;
-		
+
 		// Check if the Item must be dropped
 		if (Rnd.get(L2DropData.MAX_CHANCE) < dropChance)
 			multiplier++;
-		
+
 		if (multiplier <= 0)
 			return null;
-		
+
 		// Get min and max Item quantity that can be dropped in one time
 		final int minCount = drop.getMinDrop();
 		final int maxCount = drop.getMaxDrop();
 		// Get the item quantity dropped
 		int itemCount;
-		
+
 		if (minCount == maxCount)
 			itemCount = minCount * multiplier;
 		else if (minCount < maxCount)
 			itemCount = Rnd.get(minCount * multiplier, maxCount * multiplier);
 		else
 			itemCount = multiplier;
-		
+
 		if (itemCount > 1 && !Config.MULTIPLE_ITEM_DROP && !ItemTable.getInstance().getTemplate(drop.getItemId()).isStackable())
 			itemCount = 1;
-		
+
 		if (itemCount > 0)
 			return new RewardItem(drop.getItemId(), itemCount);
 		else
 			return null;
 	}
-	
+
 	/**
 	 * Calculates quantity of items for specific drop CATEGORY according to
 	 * current situation <br>
@@ -1231,19 +1232,19 @@ public class L2Attackable extends L2Npc
 	{
 		if (categoryDrops == null)
 			return null;
-		
+
 		// Get default drop chance for the category (that's the sum of chances for all items in the category)
 		// keep track of the base category chance as it'll be used later, if an item is drop from the category.
 		// for everything else, use the total "categoryDropChance"
 		final long categoryDropChance = calculateDropChance(categoryDrops.getCategoryChance(), null, false, levelModifier);
-		
+
 		// Check if an Item from this category must be dropped
 		if (Rnd.get(L2DropData.MAX_CHANCE) < categoryDropChance)
 		{
 			L2DropData drop = categoryDrops.dropOne();
 			if (drop == null)
 				return null;
-			
+
 			// Now decide the quantity to drop based on the rates and penalties.  To get this value
 			// simply divide the modified categoryDropChance by the base category chance.  This
 			// results in a chance that will dictate the drops amounts: for each amount over 100
@@ -1255,12 +1256,12 @@ public class L2Attackable extends L2Npc
 			// chance to give a 4th time.
 			// At least 1 item will be dropped for sure.  So the chance will be adjusted to 100%
 			// if smaller.
-			
+
 			final long dropChance = calculateDropChance(drop.getChance(), drop, false, levelModifier);
-			
+
 			return dropItem(Math.max(dropChance, L2DropData.MAX_CHANCE), drop);
 		}
-		
+
 		return null;
 	}
 
@@ -1388,10 +1389,10 @@ public class L2Attackable extends L2Npc
 					{
 						if (_log.isDebugEnabled())
 							_log.info("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
-						
+
 						// Looting process
 						player.doAutoLoot(this, item);
-						
+
 						// Broadcast message if RaidBoss was defeated
 						if (this instanceof L2Boss)
 						{
@@ -1414,7 +1415,7 @@ public class L2Attackable extends L2Npc
 
 			// Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
 			RewardItem item = new RewardItem(Config.CHAMPION_SPCL_ITEM, champqty);
-			
+
 			player.doAutoLoot(this, item);
 		}
 
@@ -1430,7 +1431,7 @@ public class L2Attackable extends L2Npc
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec) // && !_spec useless yet
 			{
 				RewardItem item = new RewardItem(8612, 1); // Herb of Warrior
-				
+
 				player.doAutoLoot(this, item);
 				_spec = true;
 			}
@@ -1459,7 +1460,7 @@ public class L2Attackable extends L2Npc
 							item = new RewardItem(10656, 1); // Herb of Critical Attack - Power
 							break;
 						}
-						
+
 						player.doAutoLoot(this, item);
 						break;
 					}
@@ -1469,7 +1470,7 @@ public class L2Attackable extends L2Npc
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec)
 			{
 				RewardItem item = new RewardItem(8613, 1); // Herb of Mystic
-				
+
 				player.doAutoLoot(this, item);
 				_spec = true;
 			}
@@ -1495,7 +1496,7 @@ public class L2Attackable extends L2Npc
 			if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec)
 			{
 				RewardItem item = new RewardItem(8614, 1); // Herb of Recovery
-				
+
 				player.doAutoLoot(this, item);
 				_mp = true;
 				_hp = true;
@@ -1508,7 +1509,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_MP_HP_HERBS)
 				{
 					RewardItem item = new RewardItem(8600, 1); // Herb of Life
-					
+
 					player.doAutoLoot(this, item);
 					_hp = true;
 				}
@@ -1519,7 +1520,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_GREATER_HERBS)
 				{
 					RewardItem item = new RewardItem(8601, 1); // Greater Herb of Life
-					
+
 					player.doAutoLoot(this, item);
 					_hp = true;
 				}
@@ -1530,7 +1531,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_SUPERIOR_HERBS)
 				{
 					RewardItem item = new RewardItem(8602, 1); // Superior Herb of Life
-					
+
 					player.doAutoLoot(this, item);
 				}
 			}
@@ -1541,7 +1542,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_MP_HP_HERBS)
 				{
 					RewardItem item = new RewardItem(8603, 1); // Herb of Manna
-					
+
 					player.doAutoLoot(this, item);
 					_mp = true;
 				}
@@ -1552,7 +1553,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_GREATER_HERBS)
 				{
 					RewardItem item = new RewardItem(8604, 1); // Greater Herb of Mana
-					
+
 					player.doAutoLoot(this, item);
 					_mp = true;
 				}
@@ -1563,7 +1564,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_SUPERIOR_HERBS)
 				{
 					RewardItem item = new RewardItem(8605, 1); // Superior Herb of Mana
-					
+
 					player.doAutoLoot(this, item);
 				}
 			}
@@ -1572,7 +1573,7 @@ public class L2Attackable extends L2Npc
 			if (random < Config.RATE_DROP_COMMON_HERBS)
 			{
 				RewardItem item = new RewardItem(8611, 1); // Herb of Speed
-				
+
 				player.doAutoLoot(this, item);
 			}
 			// Enlarge Head type
@@ -1580,7 +1581,7 @@ public class L2Attackable extends L2Npc
 			if (random < Config.RATE_DROP_COMMON_HERBS)
 			{
 				RewardItem item = new RewardItem(10657, 1); // Herb of Doubt
-				
+
 				player.doAutoLoot(this, item);
 			}
 			// Vitality Herb
@@ -1590,7 +1591,7 @@ public class L2Attackable extends L2Npc
 				if (random < Config.RATE_DROP_VITALITY_HERBS)
 				{
 					RewardItem item = new RewardItem(13028, 1);
-					
+
 					player.doAutoLoot(this, item);
 				}
 			}
@@ -1644,7 +1645,7 @@ public class L2Attackable extends L2Npc
 			if (Rnd.get(L2DropData.MAX_CHANCE) < drop.chance)
 			{
 				RewardItem item = new RewardItem(drop.items[Rnd.get(drop.items.length)], Rnd.get(drop.min, drop.max));
-				
+
 				player.doAutoLoot(this, item);
 			}
 		}
@@ -1676,7 +1677,7 @@ public class L2Attackable extends L2Npc
 
 				// Add drop to auto destroy item task
 				ItemsAutoDestroy.tryAddItem(ditem);
-				
+
 				ditem.setProtected(false);
 				// If stackable, end loop as entire count is included in 1 instance of item
 				if (ditem.isStackable() || !Config.MULTIPLE_ITEM_DROP)
@@ -1821,7 +1822,7 @@ public class L2Attackable extends L2Npc
 	{
 		return _overhitAttacker;
 	}
-	
+
 	public void setOverhitAttacker(L2Character cha)
 	{
 		_overhitAttacker = cha;
@@ -1941,200 +1942,200 @@ public class L2Attackable extends L2Npc
 		if (maxAbsorbLevel > 10)
 			minAbsorbLevel = maxAbsorbLevel > 12 ? 12 : 10;
 
-		//Init some useful vars
-		boolean isSuccess = true;
-		boolean doLevelup = true;
-		boolean isBossMob = maxAbsorbLevel > 10;
+			//Init some useful vars
+			boolean isSuccess = true;
+			boolean doLevelup = true;
+			boolean isBossMob = maxAbsorbLevel > 10;
 
-		L2NpcTemplate.AbsorbCrystalType absorbType = getTemplate().getAbsorbType();
+			L2NpcTemplate.AbsorbCrystalType absorbType = getTemplate().getAbsorbType();
 
-		L2PcInstance killer = (attacker instanceof L2Summon) ? ((L2Summon) attacker).getOwner() : (L2PcInstance) attacker;
+			L2PcInstance killer = (attacker instanceof L2Summon) ? ((L2Summon) attacker).getOwner() : (L2PcInstance) attacker;
 
-		// If this mob is a boss, then skip some checkings
-		if (!isBossMob)
-		{
-			// Fail if this L2Attackable isn't absorbed or there's no one in its _absorbersList
-			if (!isAbsorbed() /*|| _absorbersList == null*/)
+			// If this mob is a boss, then skip some checkings
+			if (!isBossMob)
 			{
-				resetAbsorbList();
-				return;
-			}
-
-			// Fail if the killer isn't in the _absorbersList of this L2Attackable and mob is not boss
-			AbsorberInfo ai = _absorbersList.get(killer);
-			if (ai == null)
-				isSuccess = false;
-
-			// Check if the soul crystal was used when HP of this L2Attackable wasn't higher than half of it
-			if (ai != null && ai._absorbedHP > (getMaxHp() / 2.0))
-				isSuccess = false;
-
-			if (!isSuccess)
-			{
-				resetAbsorbList();
-				return;
-			}
-		}
-
-		// ********
-		String[] crystalNFO = null;
-
-		int dice = Rnd.get(100);
-		int crystalQTY = 0;
-		int crystalLVL = 0;
-		int crystalOLD = 0;
-		int crystalNEW = 0;
-
-		// ********
-		// Now we have four choices:
-		// 1- The Monster level is too low for the crystal. Nothing happens.
-		// 2- Everything is correct, but it failed. Nothing happens. (57.5%)
-		// 3- Everything is correct, the crystal level up. A sound event is played. (32.5%)
-
-		List<L2PcInstance> players;
-
-		if (absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY && killer.isInParty())
-			players = killer.getParty().getPartyMembers();
-		else if (absorbType == L2NpcTemplate.AbsorbCrystalType.PARTY_ONE_RANDOM && killer.isInParty())
-		{
-			// This is a naive method for selecting a random member.  It gets any random party member and
-			// then checks if the member has a valid crystal.  It does not select the random party member
-			// among those who have crystals, only.  However, this might actually be correct (same as retail).
-			players = Collections.singletonList(killer.getParty().getPartyMembers().get(Rnd.get(killer.getParty().getMemberCount())));
-		}
-		else
-			players = Collections.singletonList(killer);
-
-		for (L2PcInstance player : players)
-		{
-			if (player == null)
-				continue;
-			QuestState st = player.getQuestState("350_EnhanceYourWeapon");
-			if (st == null)
-				continue;
-			if (st.getState() != State.STARTED)
-				continue;
-
-			crystalQTY = 0;
-
-			L2ItemInstance[] inv = player.getInventory().getItems();
-			for (L2ItemInstance item : inv)
-			{
-				int itemId = item.getItemId();
-				for (int id : SoulCrystal.SoulCrystalTable)
+				// Fail if this L2Attackable isn't absorbed or there's no one in its _absorbersList
+				if (!isAbsorbed() /*|| _absorbersList == null*/)
 				{
-					// Find any of the 39 possible crystals.
-					if (id == itemId)
-					{
-						// Keep count but make sure the player has no more than 1 crystal
-						if (++crystalQTY > 1)
-						{
-							isSuccess = false;
-							break;
-						}
-
-						// Validate if the crystal has already leveled
-						if (id != SoulCrystal.RED_NEW_CRYSTAL && id != SoulCrystal.GRN_NEW_CYRSTAL && id != SoulCrystal.BLU_NEW_CRYSTAL)
-						{
-							try
-							{
-								if (item.getItem().getName().contains("Grade"))
-								{
-									// Split the name of the crystal into 'name' & 'level'
-									crystalNFO = item.getItem().getName().trim().replace(" Grade ", "-").split("-");
-									// Set Level to 13
-									crystalLVL = 13;
-								}
-								else
-								{
-									// Split the name of the crystal into 'name' & 'level'
-									crystalNFO = item.getItem().getName().trim().replace(" Stage ", "").split("-");
-									// Get Level
-									crystalLVL = Integer.parseInt(crystalNFO[1].trim());
-								}
-								// Allocate current and levelup ids' for higher level crystals
-								if (crystalLVL > 9)
-								{
-									for (int[] element : SoulCrystal.HighSoulConvert)
-									{
-										// Get the next stage above 10 using array.
-										if (id == element[0])
-										{
-											crystalNEW = element[1];
-											break;
-										}
-									}
-								}
-								else
-									crystalNEW = id + 1;
-							}
-							catch (NumberFormatException nfe)
-							{
-								_log.warn("An attempt to identify a soul crystal failed, " + "verify the names have not changed in etcitem " + "table.", nfe);
-
-								player.sendMessage("There has been an error handling your soul crystal." + " Please notify your server admin.");
-
-								isSuccess = false;
-								break;
-							}
-							catch (Exception e)
-							{
-								_log.warn(e.getMessage(), e);
-								isSuccess = false;
-								break;
-							}
-						}
-						else
-						{
-							crystalNEW = id + 1;
-						}
-
-						// Done
-						crystalOLD = id;
-						break;
-					}
+					resetAbsorbList();
+					return;
 				}
+
+				// Fail if the killer isn't in the _absorbersList of this L2Attackable and mob is not boss
+				AbsorberInfo ai = _absorbersList.get(killer);
+				if (ai == null)
+					isSuccess = false;
+
+				// Check if the soul crystal was used when HP of this L2Attackable wasn't higher than half of it
+				if (ai != null && ai._absorbedHP > (getMaxHp() / 2.0))
+					isSuccess = false;
+
 				if (!isSuccess)
-					break;
-			}
-
-			// If the crystal level is way too high for this mob, say that we can't increase it
-			if ((crystalLVL < minAbsorbLevel) || (crystalLVL >= maxAbsorbLevel))
-				doLevelup = false;
-
-			// The player doesn't have any crystals with him get to the next player.
-			if (crystalQTY != 1 || !isSuccess || !doLevelup)
-			{
-				// Too many crystals in inventory.
-				if (crystalQTY > 1)
 				{
-					player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION);
+					resetAbsorbList();
+					return;
 				}
-				// The soul crystal stage of the player is way too high
-				else if (!doLevelup && crystalQTY > 0)
-					player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_REFUSED);
-
-				crystalQTY = 0;
-				continue;
 			}
 
-			/* TODO: Confirm boss chance for crystal level up and for crystal breaking.
-			 * It is known that bosses with FULL_PARTY crystal level ups have 100% success rate, but this is not
-			 * the case for the other bosses (one-random or last-hit).
-			 * While not confirmed, it is most reasonable that crystals leveled up at bosses will never break.
-			 * Also, the chance to level up is guessed as around 70% if not higher.
-			 */
-			int chanceLevelUp = isBossMob ? 70 : SoulCrystal.LEVEL_CHANCE;
+			// ********
+			String[] crystalNFO = null;
 
-			// If succeeds or it is a full party absorb, level up the crystal.
-			if (((absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY) && doLevelup) || (dice <= chanceLevelUp))
+			int dice = Rnd.get(100);
+			int crystalQTY = 0;
+			int crystalLVL = 0;
+			int crystalOLD = 0;
+			int crystalNEW = 0;
+
+			// ********
+			// Now we have four choices:
+			// 1- The Monster level is too low for the crystal. Nothing happens.
+			// 2- Everything is correct, but it failed. Nothing happens. (57.5%)
+			// 3- Everything is correct, the crystal level up. A sound event is played. (32.5%)
+
+			List<L2PcInstance> players;
+
+			if (absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY && killer.isInParty())
+				players = killer.getParty().getPartyMembers();
+			else if (absorbType == L2NpcTemplate.AbsorbCrystalType.PARTY_ONE_RANDOM && killer.isInParty())
 			{
-				// Give staged crystal
-				exchangeCrystal(player, crystalOLD, crystalNEW, false);
+				// This is a naive method for selecting a random member.  It gets any random party member and
+				// then checks if the member has a valid crystal.  It does not select the random party member
+				// among those who have crystals, only.  However, this might actually be correct (same as retail).
+				players = Collections.singletonList(killer.getParty().getPartyMembers().get(Rnd.get(killer.getParty().getMemberCount())));
 			}
 			else
-				player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED);
-		}
+				players = Collections.singletonList(killer);
+
+			for (L2PcInstance player : players)
+			{
+				if (player == null)
+					continue;
+				QuestState st = player.getQuestState("350_EnhanceYourWeapon");
+				if (st == null)
+					continue;
+				if (st.getState() != State.STARTED)
+					continue;
+
+				crystalQTY = 0;
+
+				L2ItemInstance[] inv = player.getInventory().getItems();
+				for (L2ItemInstance item : inv)
+				{
+					int itemId = item.getItemId();
+					for (int id : SoulCrystal.SoulCrystalTable)
+					{
+						// Find any of the 39 possible crystals.
+						if (id == itemId)
+						{
+							// Keep count but make sure the player has no more than 1 crystal
+							if (++crystalQTY > 1)
+							{
+								isSuccess = false;
+								break;
+							}
+
+							// Validate if the crystal has already leveled
+							if (id != SoulCrystal.RED_NEW_CRYSTAL && id != SoulCrystal.GRN_NEW_CYRSTAL && id != SoulCrystal.BLU_NEW_CRYSTAL)
+							{
+								try
+								{
+									if (item.getItem().getName().contains("Grade"))
+									{
+										// Split the name of the crystal into 'name' & 'level'
+										crystalNFO = item.getItem().getName().trim().replace(" Grade ", "-").split("-");
+										// Set Level to 13
+										crystalLVL = 13;
+									}
+									else
+									{
+										// Split the name of the crystal into 'name' & 'level'
+										crystalNFO = item.getItem().getName().trim().replace(" Stage ", "").split("-");
+										// Get Level
+										crystalLVL = Integer.parseInt(crystalNFO[1].trim());
+									}
+									// Allocate current and levelup ids' for higher level crystals
+									if (crystalLVL > 9)
+									{
+										for (int[] element : SoulCrystal.HighSoulConvert)
+										{
+											// Get the next stage above 10 using array.
+											if (id == element[0])
+											{
+												crystalNEW = element[1];
+												break;
+											}
+										}
+									}
+									else
+										crystalNEW = id + 1;
+								}
+								catch (NumberFormatException nfe)
+								{
+									_log.warn("An attempt to identify a soul crystal failed, " + "verify the names have not changed in etcitem " + "table.", nfe);
+
+									player.sendMessage("There has been an error handling your soul crystal." + " Please notify your server admin.");
+
+									isSuccess = false;
+									break;
+								}
+								catch (Exception e)
+								{
+									_log.warn(e.getMessage(), e);
+									isSuccess = false;
+									break;
+								}
+							}
+							else
+							{
+								crystalNEW = id + 1;
+							}
+
+							// Done
+							crystalOLD = id;
+							break;
+						}
+					}
+					if (!isSuccess)
+						break;
+				}
+
+				// If the crystal level is way too high for this mob, say that we can't increase it
+				if ((crystalLVL < minAbsorbLevel) || (crystalLVL >= maxAbsorbLevel))
+					doLevelup = false;
+
+				// The player doesn't have any crystals with him get to the next player.
+				if (crystalQTY != 1 || !isSuccess || !doLevelup)
+				{
+					// Too many crystals in inventory.
+					if (crystalQTY > 1)
+					{
+						player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED_RESONATION);
+					}
+					// The soul crystal stage of the player is way too high
+					else if (!doLevelup && crystalQTY > 0)
+						player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_REFUSED);
+
+					crystalQTY = 0;
+					continue;
+				}
+
+				/* TODO: Confirm boss chance for crystal level up and for crystal breaking.
+				 * It is known that bosses with FULL_PARTY crystal level ups have 100% success rate, but this is not
+				 * the case for the other bosses (one-random or last-hit).
+				 * While not confirmed, it is most reasonable that crystals leveled up at bosses will never break.
+				 * Also, the chance to level up is guessed as around 70% if not higher.
+				 */
+				int chanceLevelUp = isBossMob ? 70 : SoulCrystal.LEVEL_CHANCE;
+
+				// If succeeds or it is a full party absorb, level up the crystal.
+				if (((absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY) && doLevelup) || (dice <= chanceLevelUp))
+				{
+					// Give staged crystal
+					exchangeCrystal(player, crystalOLD, crystalNEW, false);
+				}
+				else
+					player.sendPacket(SystemMessageId.SOUL_CRYSTAL_ABSORBING_FAILED);
+			}
 	}
 
 	private void exchangeCrystal(L2PcInstance player, int takeid, int giveid, boolean broke)
@@ -2349,9 +2350,9 @@ public class L2Attackable extends L2Npc
 		// hi-lvl mobs bonus
 		if (diff > 0)
 			count += diff;
-		
+
 		_harvestItems = new RewardItem[] {
-			new RewardItem(L2Manor.getInstance().getCropType(_seedType), count * Config.RATE_DROP_MANOR) };
+				new RewardItem(L2Manor.getInstance().getCropType(_seedType), count * Config.RATE_DROP_MANOR) };
 	}
 
 	public void setSeeded(boolean seeded)
@@ -2363,7 +2364,7 @@ public class L2Attackable extends L2Npc
 	{
 		return _seeder;
 	}
-	
+
 	public void setSeeder(L2PcInstance player)
 	{
 		_seeder = player;
@@ -2424,12 +2425,12 @@ public class L2Attackable extends L2Npc
 	private class CommandChannelTimer implements Runnable
 	{
 		private final L2CommandChannel _channel;
-		
+
 		public CommandChannelTimer(L2CommandChannel channel)
 		{
 			_channel = channel;
 		}
-		
+
 		/**
 		 * @see java.lang.Runnable#run()
 		 */

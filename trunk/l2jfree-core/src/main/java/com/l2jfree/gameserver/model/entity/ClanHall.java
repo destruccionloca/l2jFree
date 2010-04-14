@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
@@ -174,7 +175,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 						dbSave(newfc);
 						if (_cwh)
 						{
-							getOwnerClan().getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
+							getOwnerClan().getWarehouse().destroyItemByItemId("CH_function_fee", PcInventory.ADENA_ID, fee, null, null);
 							if (_log.isDebugEnabled())
 								_log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
 						}
@@ -517,7 +518,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 
 		if (lease > 0)
 		{
-			if (!player.destroyItemByItemId("Consume", 57, lease, null, true))
+			if (!player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, lease, null, true))
 				return false;
 		}
 
@@ -620,7 +621,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 					else
 						_paidUntil = System.currentTimeMillis() + _chRate;
 
-					getOwnerClan().getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
+					getOwnerClan().getWarehouse().destroyItemByItemId("CH_rental_fee", PcInventory.ADENA_ID, getLease(), null, null);
 					if (_log.isDebugEnabled())
 						_log.warn("deducted " + getLease() + " adena from " + getName() + " owner's cwh for ClanHall _paidUntil" + _paidUntil);
 					ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _paidUntil - System.currentTimeMillis());
@@ -710,7 +711,7 @@ public class ClanHall extends Siegeable<CCHSiege>
 		if (_siegeTimeRegistrationEndDate == null)
 			_siegeTimeRegistrationEndDate = Calendar.getInstance();
 		return _siegeTimeRegistrationEndDate;
- 	}
+	}
 
 	private final void loadSiegeData()
 	{

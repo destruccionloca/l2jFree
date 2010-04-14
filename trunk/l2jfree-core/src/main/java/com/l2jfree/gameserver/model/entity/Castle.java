@@ -86,8 +86,8 @@ public class Castle extends Siegeable<Siege>
 	private int							_nbArtifact								= 1;
 	private final Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
 	private final int[]					_gate									= { Integer.MIN_VALUE, 0, 0 };
-    private final Map<Integer,CastleFunction> _function;
-    private ScheduledFuture<?>			_taxUpdate								= null;
+	private final Map<Integer,CastleFunction> _function;
+	private ScheduledFuture<?>			_taxUpdate								= null;
 
 	/** Castle Functions */
 	public static final int FUNC_TELEPORT = 1;
@@ -166,7 +166,7 @@ public class Castle extends Siegeable<Siege>
 					dbSave(newfc);
 					if (_cwh)
 					{
-						ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CS_function_fee", 57, fee, null, null);
+						ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CS_function_fee", PcInventory.ADENA_ID, fee, null, null);
 						if (_log.isDebugEnabled())
 							_log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
 					}
@@ -236,9 +236,9 @@ public class Castle extends Siegeable<Siege>
 	/** Return function with id */
 	public CastleFunction getFunction(int type)
 	{
-    	if(_function.get(type) != null)
-        	return _function.get(type);
-        return null;
+		if(_function.get(type) != null)
+			return _function.get(type);
+		return null;
 	}
 
 	public void engrave(L2Clan clan, int objId)
@@ -371,9 +371,9 @@ public class Castle extends Siegeable<Siege>
 	public void removeUpgrade()
 	{
 		removeDoorUpgrade();
-        for (Map.Entry<Integer, CastleFunction> fc : _function.entrySet())
-        	removeFunction(fc.getKey());
-        _function.clear();
+		for (Map.Entry<Integer, CastleFunction> fc : _function.entrySet())
+			removeFunction(fc.getKey());
+		_function.clear();
 	}
 
 	public void removeOwner(L2Clan clan)
@@ -659,7 +659,7 @@ public class Castle extends Siegeable<Siege>
 				// Create list of the door default for use when respawning dead doors
 				_doorDefault.add(rs.getString("name") + ";" + rs.getInt("id") + ";" + rs.getInt("x") + ";" + rs.getInt("y") + ";" + rs.getInt("z") + ";" + rs.getInt("range_xmin") + ";" + rs.getInt("range_ymin") + ";"
 						+ rs.getInt("range_zmin") + ";" + rs.getInt("range_xmax") + ";" + rs.getInt("range_ymax") + ";" + rs.getInt("range_zmax") + ";" + rs.getInt("hp") + ";" + rs.getInt("pDef") + ";" + rs.getInt("mDef"));
-				
+
 				L2DoorInstance door = DoorTable.parseLine(_doorDefault.get(_doorDefault.size() - 1));
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				_doors.add(door);
@@ -709,7 +709,7 @@ public class Castle extends Siegeable<Siege>
 		{
 			L2DatabaseFactory.close(con);
 		}
-		*/
+		 */
 	}
 
 	private void removeDoorUpgrade()
@@ -719,7 +719,7 @@ public class Castle extends Siegeable<Siege>
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("DELETE FROM castle_doorupgrade WHERE doorId IN (SELECT id FROM castle_door WHERE castleId = ?)");
+			.prepareStatement("DELETE FROM castle_doorupgrade WHERE doorId IN (SELECT id FROM castle_door WHERE castleId = ?)");
 			statement.setInt(1, getCastleId());
 			statement.execute();
 			statement.close();
@@ -862,7 +862,7 @@ public class Castle extends Siegeable<Siege>
 		if (_siegeTimeRegistrationEndDate == null)
 			_siegeTimeRegistrationEndDate = Calendar.getInstance();
 		return _siegeTimeRegistrationEndDate;
- 	}
+	}
 
 	/** @return current tax percentage to be applied at midnight */
 	public final int getTaxPercent()
@@ -997,7 +997,7 @@ public class Castle extends Siegeable<Siege>
 				for (SeedProduction s : _production)
 				{
 					values[count++] = "(" + getCastleId() + "," + s.getId() + "," + s.getCanProduce() + "," + s.getStartProduce() + "," + s.getPrice() + ","
-							+ CastleManorManager.PERIOD_CURRENT + ")";
+					+ CastleManorManager.PERIOD_CURRENT + ")";
 				}
 				if (values.length > 0)
 				{
@@ -1020,7 +1020,7 @@ public class Castle extends Siegeable<Siege>
 				for (SeedProduction s : _productionNext)
 				{
 					values[count++] = "(" + getCastleId() + "," + s.getId() + "," + s.getCanProduce() + "," + s.getStartProduce() + "," + s.getPrice() + ","
-							+ CastleManorManager.PERIOD_NEXT + ")";
+					+ CastleManorManager.PERIOD_NEXT + ")";
 				}
 				if (values.length > 0)
 				{
@@ -1072,7 +1072,7 @@ public class Castle extends Siegeable<Siege>
 				for (SeedProduction s : prod)
 				{
 					values[count++] = "(" + getCastleId() + "," + s.getId() + "," + s.getCanProduce() + "," + s.getStartProduce() + "," + s.getPrice() + ","
-							+ period + ")";
+					+ period + ")";
 				}
 				if (values.length > 0)
 				{
@@ -1118,7 +1118,7 @@ public class Castle extends Siegeable<Siege>
 				for (CropProcure cp : _procure)
 				{
 					values[count++] = "(" + getCastleId() + "," + cp.getId() + "," + cp.getAmount() + "," + cp.getStartAmount() + "," + cp.getPrice() + ","
-							+ cp.getReward() + "," + CastleManorManager.PERIOD_CURRENT + ")";
+					+ cp.getReward() + "," + CastleManorManager.PERIOD_CURRENT + ")";
 				}
 				if (values.length > 0)
 				{
@@ -1140,7 +1140,7 @@ public class Castle extends Siegeable<Siege>
 				for (CropProcure cp : _procureNext)
 				{
 					values[count++] = "(" + getCastleId() + "," + cp.getId() + "," + cp.getAmount() + "," + cp.getStartAmount() + "," + cp.getPrice() + ","
-							+ cp.getReward() + "," + CastleManorManager.PERIOD_NEXT + ")";
+					+ cp.getReward() + "," + CastleManorManager.PERIOD_NEXT + ")";
 				}
 				if (values.length > 0)
 				{
@@ -1192,7 +1192,7 @@ public class Castle extends Siegeable<Siege>
 				for (CropProcure cp : proc)
 				{
 					values[count++] = "(" + getCastleId() + "," + cp.getId() + "," + cp.getAmount() + "," + cp.getStartAmount() + "," + cp.getPrice() + ","
-							+ cp.getReward() + "," + period + ")";
+					+ cp.getReward() + "," + period + ")";
 				}
 				if (values.length > 0)
 				{
@@ -1305,7 +1305,7 @@ public class Castle extends Siegeable<Siege>
 			}
 		}
 	}
-	
+
 	/** Load All Functions */
 	private void loadFunctions()
 	{
@@ -1366,7 +1366,7 @@ public class Castle extends Siegeable<Siege>
 		if (_log.isDebugEnabled())
 			_log.warn("Called Castle.updateFunctions(int type, int lvl, int lease, long rate, boolean addNew) Owner : "+getOwnerId());
 		if (lease > 0)
-			if (!player.destroyItemByItemId("Consume", 57, lease, null, true))
+			if (!player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, lease, null, true))
 				return false;
 		if (addNew)
 		{
@@ -1387,15 +1387,15 @@ public class Castle extends Siegeable<Siege>
 					_function.put(type,new CastleFunction(type, lvl, lease,0, rate, -1,false));
 				}
 				else
-	        	{
+				{
 					_function.get(type).setLease(lease);
 					_function.get(type).setLvl(lvl);
 					_function.get(type).dbSave(false);
-	        	}
+				}
 			}
 		}
 		return true;
- 	}
+	}
 
 	/**
 	 * Sets the portal's coordinates

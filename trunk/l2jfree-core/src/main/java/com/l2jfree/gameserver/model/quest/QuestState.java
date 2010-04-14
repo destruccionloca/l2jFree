@@ -49,6 +49,7 @@ import com.l2jfree.gameserver.network.serverpackets.TutorialEnableClientEvent;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowHtml;
 import com.l2jfree.gameserver.network.serverpackets.TutorialShowQuestionMark;
 import com.l2jfree.gameserver.skills.Stats;
+import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -656,16 +657,22 @@ public final class QuestState
 
 		if (itemId == PcInventory.ADENA_ID)
 			count = (long) (count * Config.RATE_QUESTS_REWARD_ADENA);
-		else
+		else if (!Config.COMPENSATE_QUEST_ITEM_REWARDS)
 			count = (long) (count * Config.RATE_QUESTS_REWARD_ITEMS);
 		
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem(Quest.QUEST, itemId, count, getPlayer(), getPlayer().getTarget());
-
 		if (item == null)
 			return;
-		if (enchantlevel > 0)
+		else if (enchantlevel > 0)
 			item.setEnchantLevel(enchantlevel);
+		else if (Config.COMPENSATE_QUEST_ITEM_REWARDS && !item.isStackable() &&
+				item.getItem().getType2() != L2Item.TYPE2_QUEST)
+		{
+			long price = item.getReferencePrice();
+			if (price > 0)
+				getPlayer().addAdena(Quest.QUEST, (long) (price * (count * Config.RATE_QUESTS_REWARD_ITEMS - count)), getPlayer().getTarget(), true);
+		}
 
 		// If item for reward is gold, send message of gold reward to client
 		if (itemId == PcInventory.ADENA_ID)

@@ -117,8 +117,14 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 		writeCompH(player.getDefenseElementValue(Elementals.DARK));
 	}
 	
-	private static final int[] PAPERDOLL_SLOTS_WITH_JEWELS = initPaperdollSlots(true);
-	private static final int[] PAPERDOLL_SLOTS_WITHOUT_JEWELS = initPaperdollSlots(false);
+	private static int[] PAPERDOLL_SLOTS_WITH_JEWELS;
+	private static int[] PAPERDOLL_SLOTS_WITHOUT_JEWELS;
+
+	public static final void init()
+	{
+		PAPERDOLL_SLOTS_WITH_JEWELS = initPaperdollSlots(true);
+		PAPERDOLL_SLOTS_WITHOUT_JEWELS = initPaperdollSlots(false);
+	}
 	
 	protected static int[] getPaperdollSlots(boolean writeJewels)
 	{

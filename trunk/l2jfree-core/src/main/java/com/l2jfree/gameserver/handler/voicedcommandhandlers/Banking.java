@@ -18,6 +18,7 @@ package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 
 /**
@@ -33,7 +34,7 @@ public class Banking implements IVoicedCommandHandler
 		"withdraw",
 		"deposit"
 	};
-	
+
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
@@ -42,7 +43,7 @@ public class Banking implements IVoicedCommandHandler
 	{
 		if (!Config.BANKING_SYSTEM_ENABLED)
 			return false;
-		
+
 		if (command.equalsIgnoreCase("bank"))
 		{
 			activeChar.sendMessage(".deposit (" + Config.BANKING_SYSTEM_ADENA + " Adena = " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar) / .withdraw (" + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar = " + Config.BANKING_SYSTEM_ADENA + " Adena)");
@@ -50,15 +51,15 @@ public class Banking implements IVoicedCommandHandler
 		}
 		else if (command.equalsIgnoreCase("deposit"))
 		{
-			if (activeChar.getInventory().getInventoryItemCount(57, 0) >= Config.BANKING_SYSTEM_ADENA)
+			if (activeChar.getInventory().getInventoryItemCount(PcInventory.ADENA_ID, 0) >= Config.BANKING_SYSTEM_ADENA)
 			{
 				InventoryUpdate iu = new InventoryUpdate();
 				activeChar.getInventory().reduceAdena("Goldbar", Config.BANKING_SYSTEM_ADENA, activeChar, null);
 				activeChar.getInventory().addItem("Goldbar", 3470, Config.BANKING_SYSTEM_GOLDBARS, activeChar, null);
-				
+
 				// No need to update every item in the inventory
 				//activeChar.getInventory().updateDatabase();
-				
+
 				activeChar.sendPacket(iu);
 				activeChar.sendMessage("Thank you, you now have " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar(s), and " + Config.BANKING_SYSTEM_ADENA + " less adena.");
 			}
@@ -75,10 +76,10 @@ public class Banking implements IVoicedCommandHandler
 				InventoryUpdate iu = new InventoryUpdate();
 				activeChar.getInventory().destroyItemByItemId("Adena", 3470, Config.BANKING_SYSTEM_GOLDBARS, activeChar, null);
 				activeChar.getInventory().addAdena("Adena", Config.BANKING_SYSTEM_ADENA, activeChar, null);
-				
+
 				// No need to update every item in the inventory
 				//activeChar.getInventory().updateDatabase();
-				
+
 				activeChar.sendPacket(iu);
 				activeChar.sendMessage("Thank you, you now have " + Config.BANKING_SYSTEM_ADENA + " Adena, and " + Config.BANKING_SYSTEM_GOLDBARS + " less Goldbar(s).");
 			}
@@ -88,10 +89,10 @@ public class Banking implements IVoicedCommandHandler
 			}
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()

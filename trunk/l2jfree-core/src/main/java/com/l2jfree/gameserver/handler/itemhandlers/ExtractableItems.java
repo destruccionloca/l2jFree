@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.items.model.L2ExtractableProductItem;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.tools.random.Rnd;
@@ -39,7 +40,7 @@ import com.l2jfree.tools.random.Rnd;
 public class ExtractableItems implements IItemHandler
 {
 	protected static Log	_log						= LogFactory.getLog(ExtractableItems.class);
-	
+
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -61,7 +62,7 @@ public class ExtractableItems implements IItemHandler
 		for (L2ExtractableProductItem expi : exitem.getProductItemsArray())
 		{
 			int chance = expi.getChance();
-			
+
 			if (rndNum >= chanceFrom && rndNum <= chance + chanceFrom)
 			{
 				createItemID = expi.getId();
@@ -77,10 +78,10 @@ public class ExtractableItems implements IItemHandler
 				}
 				break;
 			}
-			
+
 			chanceFrom += chance;
 		}
-		
+
 		if (createItemID[0] <= 0 || createItemID.length == 0 )
 		{
 			activeChar.sendPacket(SystemMessageId.NOTHING_INSIDE_THAT);
@@ -108,7 +109,7 @@ public class ExtractableItems implements IItemHandler
 					for (int j = 0; j < createAmount[i]; j++)
 						activeChar.addItem("Extract", createItemID[i], 1, activeChar, false);
 				}
-				if (createItemID[i] == 57)
+				if (createItemID[i] == PcInventory.ADENA_ID)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S1_ADENA);
 					sm.addNumber(createAmount[i]);

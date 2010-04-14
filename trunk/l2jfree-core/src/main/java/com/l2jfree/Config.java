@@ -42,6 +42,7 @@ import com.l2jfree.gameserver.GameServer.StartupHook;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.L2FastSet;
 
@@ -214,6 +215,7 @@ public class Config extends L2Config
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
 			PACKET_FINAL = Boolean.parseBoolean(serverSettings.getProperty("PacketFinal", "True"));
+			L2GameServerPacket.init();
 			STRICT_FINAL = Boolean.parseBoolean(serverSettings.getProperty("StrictFinal", "False"));
 			CONNECTION_FILTERING = Boolean.parseBoolean(serverSettings.getProperty("ConnectionFiltering", "True"));
 
@@ -589,6 +591,8 @@ public class Config extends L2Config
 	public static int			KARMA_RATE_DROP_EQUIP_WEAPON;
 	public static double[]		PLAYER_XP_PERCENT_LOST;
 
+	public static boolean		COMPENSATE_QUEST_ITEM_REWARDS;
+
 	// *******************************************************************************************
 	private static final class RatesConfig extends ConfigPropertiesLoader
 	{
@@ -689,6 +693,8 @@ public class Config extends L2Config
 				_log.warn("Error while loading Player XP percent lost");
 				e.printStackTrace();
 			}
+
+			COMPENSATE_QUEST_ITEM_REWARDS = Boolean.parseBoolean(ratesSettings.getProperty("AdenaInsteadOfMoreItems", "False"));
 		}
 	}
 
