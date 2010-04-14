@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.model.entity;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
@@ -57,7 +58,32 @@ import com.l2jfree.util.L2FastSet;
  */
 public class Instance
 {
-	private final static Log			_log				= LogFactory.getLog(Instance.class);
+	private final static Log _log = LogFactory.getLog(Instance.class);
+	
+	public interface InstanceFactory
+	{
+		public Instance createInstance(int instanceId, String template);
+		
+		public String[] getInstanceTemplates();
+	}
+	
+	private static final Map<String, InstanceFactory> _factories = new HashMap<String, InstanceFactory>();
+	
+	public static void registerInstanceFactory(InstanceFactory factory)
+	{
+		for (String template : factory.getInstanceTemplates())
+			_factories.put(template, factory);
+	}
+	
+	public static Instance createInstance(int id, String template)
+	{
+		final InstanceFactory factory = _factories.get(template);
+		
+		if (factory != null)
+			return factory.createInstance(id, template);
+		
+		return new Instance(id, template);
+	}
 
 	private final int					_id;
 	private int							_template;
@@ -81,6 +107,13 @@ public class Instance
 	{
 		_id = id;
 		_template = -1;
+	}
+	
+	public Instance(int id, String fileName)
+	{
+		this(id);
+		
+		loadInstanceTemplate(fileName);
 	}
 
 	public int getId()
@@ -339,7 +372,7 @@ public class Instance
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setValidating(false); // DTD isn't used
 			factory.setIgnoringComments(true);
-			// Such validation will not find element 'instance' 
+			// Such validation will not find element 'instance'
 			//SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			//factory.setSchema(sf.newSchema(new File(Config.DATAPACK_ROOT, "data/templates/instances.xsd")));
 			doc = factory.newDocumentBuilder().parse(xml);

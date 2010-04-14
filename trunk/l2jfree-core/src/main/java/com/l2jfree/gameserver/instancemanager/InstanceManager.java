@@ -21,6 +21,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javolution.io.UTF8StreamReader;
 import javolution.util.FastMap;
@@ -36,8 +37,9 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.util.L2FastSet;
+import com.l2jfree.util.LookupTable;
 
-/** 
+/**
  * @author evill33t, GodKratos
  * 
  */
@@ -48,11 +50,11 @@ public class InstanceManager
 	private final FastMap<Integer, Instance> _instanceList = new FastMap<Integer, Instance>();
 	private final FastMap<Integer, InstanceWorld> _instanceWorlds = new FastMap<Integer, InstanceWorld>();
 
-	private int _dynamic = 300000;
+	private final AtomicInteger _instanceIds = new AtomicInteger(300000);
 
 	// InstanceId Names
-	private final static Map<Integer, String> _instanceIdNames = new FastMap<Integer, String>();
-	private Map<Integer,Map<Integer,Long>> _playerInstanceTimes = new FastMap<Integer, Map<Integer,Long>>();
+	private final LookupTable<String> _instanceIdNames = new LookupTable<String>();
+	private final Map<Integer, Map<Integer, Long>> _playerInstanceTimes = new FastMap<Integer, Map<Integer, Long>>();
 	
 	private static final String ADD_INSTANCE_TIME = "INSERT INTO character_instance_time (charId,instanceId,time) values (?,?,?) ON DUPLICATE KEY UPDATE time=?";
 	private static final String RESTORE_INSTANCE_TIMES = "SELECT instanceId,time FROM character_instance_time WHERE charId=?";
@@ -265,19 +267,15 @@ public class InstanceManager
 		_log.info("Initializing InstanceManager");
 		loadInstanceNames();
 		_log.info("Loaded " + _instanceIdNames.size() + " instance names");
-		createWorld();
-	}
-
-	private void createWorld()
-	{
+		
 		Instance themultiverse = new Instance(-1);
 		themultiverse.setName("multiverse");
-		_instanceList.put(-1, themultiverse);
+		_instanceList.put(themultiverse.getId(), themultiverse);
 		_log.info("Multiverse Instance created");
 
 		Instance universe = new Instance(0);
 		universe.setName("universe");
-		_instanceList.put(0, universe);
+		_instanceList.put(universe.getId(), universe);
 		_log.info("Universe Instance created");
 	}
 
@@ -306,55 +304,38 @@ public class InstanceManager
 	{
 		return _instanceList;
 	}
-
+	
+	@Deprecated
 	public boolean createInstance(int id)
 	{
 		if (getInstance(id) != null)
 			return false;
-
+		
 		Instance instance = new Instance(id);
-		_instanceList.put(id, instance);
+		_instanceList.put(instance.getId(), instance);
 		return true;
 	}
-
+	
+	@Deprecated
 	public boolean createInstanceFromTemplate(int id, String template)
 	{
 		if (getInstance(id) != null)
 			return false;
-
-		Instance instance = new Instance(id);
-		_instanceList.put(id, instance);
-		instance.loadInstanceTemplate(template);
+		
+		Instance instance = Instance.createInstance(id, template);
+		_instanceList.put(instance.getId(), instance);
+		
 		return true;
 	}
-
+	
 	public int createDynamicInstance(String template)
 	{
-		while (getInstance(_dynamic) != null)
-		{
-			_dynamic++;
-			if (_dynamic == Integer.MAX_VALUE)
-			{
-				_log.warn("InstanceManager: More then " + (Integer.MAX_VALUE - 300000) + " instances created");
-				_dynamic = 300000;
-			}
-		}
-		Instance instance = new Instance(_dynamic);
-		_instanceList.put(_dynamic, instance);
-		if (template != null)
-		{
-			try
-			{
-				instance.loadInstanceTemplate(template);
-			}
-			catch (Exception e)
-			{
-				_log.warn("InstanceManager: Failed creating instance from template " + template + ", " + e.getMessage(), e);
-			}
-		}
-		return _dynamic;
+		Instance instance = Instance.createInstance(_instanceIds.incrementAndGet(), template);
+		_instanceList.put(instance.getId(), instance);
+		
+		return instance.getId();
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
