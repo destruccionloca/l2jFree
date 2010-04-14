@@ -18,7 +18,6 @@ import java.util.Date;
 
 import com.l2jfree.L2Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.versionning.Version;
 
@@ -30,19 +29,11 @@ public final class CoreInfo
 	private CoreInfo()
 	{
 	}
-
-	private static final Version			coreVersion		= new Version(GameServer.class);
-	private static final Version			commonsVersion	= new Version(L2Config.class);
-	private static final Version			mmocoreVersion	= new Version(SelectorThread.class);
-
-	private static final SystemMessage[]	info			=
-															{
-			SystemMessage.sendString(":__.     :_____:_____:_____:_____:_____:_____:"),
-			SystemMessage.sendString("|    |__|___   |__.     |     __|        |     __|     __|"),
-			SystemMessage.sendString("|         |   ___|   |     |     __|    ) _|     __|     __|"),
-			SystemMessage.sendString("|_____|_____|_____|__|    |__|__|_____|_____|"),
-			SystemMessage.sendString("l2jfree " + getVersionInfo() + ", gpl 3 license"), };
-
+	
+	private static final CoreVersion coreVersion = new CoreVersion(GameServer.class);
+	private static final CoreVersion commonsVersion = new CoreVersion(L2Config.class);
+	private static final CoreVersion mmocoreVersion = new CoreVersion(SelectorThread.class);
+	
 	public static void showStartupInfo()
 	{
 		System.out.println("");
@@ -58,34 +49,40 @@ public final class CoreInfo
 		System.out.println("                  \\ \\____/");
 		System.out.println("                   \\/___/  [starting version: " + coreVersion.getVersionNumber() + "]");
 	}
-
+	
 	public static final void versionInfo(L2PcInstance activeChar)
 	{
-		for (SystemMessage msg : info)
-			activeChar.sendPacket(msg);
+		activeChar.sendMessage(":__.     :_____:_____:_____:_____:_____:_____:");
+		activeChar.sendMessage("|    |__|___   |__.     |     __|        |     __|     __|");
+		activeChar.sendMessage("|         |   ___|   |     |     __|    ) _|     __|     __|");
+		activeChar.sendMessage("|_____|_____|_____|__|    |__|__|_____|_____|");
+		activeChar.sendMessage("l2jfree " + getVersionInfo() + ", gpl 3 license");
 	}
-
+	
 	public static String getVersionInfo()
 	{
-		return getVersionInfo(coreVersion);
+		return coreVersion.versionInfo;
 	}
-
+	
 	public static String[] getFullVersionInfo()
 	{
-		return new String[]
+		return new String[] {
+				"l2jfree-core :    " + coreVersion.fullVersionInfo,
+				"l2j-commons  :    " + commonsVersion.fullVersionInfo,
+				"l2j-mmocore  :    " + mmocoreVersion.fullVersionInfo };
+	}
+	
+	private static final class CoreVersion extends Version
+	{
+		public final String versionInfo;
+		public final String fullVersionInfo;
+		
+		public CoreVersion(Class<?> c)
 		{
-				"l2jfree-core :    " + getFullVersionInfo(coreVersion),
-				"l2j-commons  :    " + getFullVersionInfo(commonsVersion),
-				"l2j-mmocore  :    " + getFullVersionInfo(mmocoreVersion) };
-	}
-
-	private static String getVersionInfo(Version version)
-	{
-		return String.format("%-6s [ %4s ]", version.getVersionNumber(), version.getRevisionNumber());
-	}
-
-	private static String getFullVersionInfo(Version version)
-	{
-		return getVersionInfo(version) + " - " + version.getBuildJdk() + " - " + new Date(version.getBuildTime());
+			super(c);
+			
+			versionInfo = String.format("%-6s [ %4s ]", getVersionNumber(), getRevisionNumber());
+			fullVersionInfo = versionInfo + " - " + getBuildJdk() + " - " + new Date(getBuildTime());
+		}
 	}
 }
