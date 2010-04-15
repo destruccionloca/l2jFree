@@ -1700,6 +1700,9 @@ public class Config extends L2Config
 	public static boolean				ALT_MONSTER_HAVE_ENCHANTED_WEAPONS;
 	
 	public static boolean				ALT_KEEP_ITEM_BUFFS;
+	
+	public static boolean 				ALLOW_NAIA_MULTY_PARTY_INVASION;
+	public static int 					ALT_NAIA_ROOM_DURATION;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1943,6 +1946,9 @@ public class Config extends L2Config
 			ALT_MONSTER_HAVE_ENCHANTED_WEAPONS = Boolean.parseBoolean(altSettings.getProperty("AltEnableEnchantedWeaponOnMonsters", "false"));
 			
 			ALT_KEEP_ITEM_BUFFS = Boolean.parseBoolean(altSettings.getProperty("AltKeepItemBuffs", "false"));
+			
+			ALLOW_NAIA_MULTY_PARTY_INVASION = Boolean.parseBoolean(altSettings.getProperty("AllowNaiaMultiPartyInvasion", "false"));
+			ALT_NAIA_ROOM_DURATION = Integer.parseInt(altSettings.getProperty("AltNaiaRoomDuration", "5"));
 		}
 	}
 
