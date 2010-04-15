@@ -36,6 +36,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.Disconnection;
+import com.l2jfree.gameserver.network.L2GameSelectorThread;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
@@ -254,7 +255,7 @@ public final class Shutdown extends Thread
 		
 		try
 		{
-			GameServer.getSelectorThread().shutdown();
+			L2GameSelectorThread.getInstance().shutdown();
 		}
 		catch (Throwable t)
 		{

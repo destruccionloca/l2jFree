@@ -154,7 +154,6 @@ import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.Util;
-import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.status.Status;
 import com.l2jfree.util.concurrent.RunnableStatsManager;
 
@@ -163,7 +162,6 @@ public class GameServer extends Config
 	@SuppressWarnings("hiding")
 	private static final Log _log = LogFactory.getLog(GameServer.class);
 	private static final Calendar _serverStarted = Calendar.getInstance();
-	private static SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> _selectorThread;
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -483,11 +481,6 @@ public class GameServer extends Config
 	public interface StartupHook
 	{
 		public void onStartup();
-	}
-	
-	public static SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> getSelectorThread()
-	{
-		return _selectorThread;
 	}
 	
 	public static Calendar getStartedTime()
