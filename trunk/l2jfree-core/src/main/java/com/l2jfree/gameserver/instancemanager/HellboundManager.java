@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
+import com.l2jfree.gameserver.model.SpawnData;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2FastSet;
@@ -690,32 +691,7 @@ public final class HellboundManager
 	
 	private L2Npc spawnNpc(SpawnData spawnData)
 	{
-		return spawnNpc(spawnData, spawnData.respawnTime, spawnData.respawnMinDelay, spawnData.respawnMaxDelay);
-	}
-	
-	private static final class SpawnData
-	{
-		public final int npcId;
-		public final int x;
-		public final int y;
-		public final int z;
-		public final int heading;
-		public final int respawnTime;
-		public final int respawnMinDelay;
-		public final int respawnMaxDelay;
-		
-		private SpawnData(int npcId, int x, int y, int z, int heading, int respawnTime, int respawnMinDelay,
-				int respawnMaxDelay)
-		{
-			this.npcId = npcId;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-			this.heading = heading;
-			this.respawnTime = respawnTime;
-			this.respawnMinDelay = respawnMinDelay;
-			this.respawnMaxDelay = respawnMaxDelay;
-		}
+		return spawnNpc(spawnData, spawnData.respawnDelay, spawnData.respawnMinDelay, spawnData.respawnMaxDelay);
 	}
 	
 	public int getTrustPoints()

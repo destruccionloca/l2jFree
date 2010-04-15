@@ -120,6 +120,7 @@ import com.l2jfree.gameserver.instancemanager.grandbosses.QueenAntManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.SailrenManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.ValakasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.VanHalterManager;
+import com.l2jfree.gameserver.instancemanager.hellbound.TowerOfNaiaManager;
 import com.l2jfree.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
@@ -371,6 +372,7 @@ public class GameServer extends Config
 		FourSepulchersManager.getInstance().init();
 		Util.printSection("Hellbound");
 		HellboundManager.getInstance();
+		TowerOfNaiaManager.getInstance().init();
 		Util.printSection("Bosses");
 		AntharasManager.getInstance().init();
 		BaiumManager.getInstance().init();

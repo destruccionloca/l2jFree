@@ -615,12 +615,9 @@ public class Instance
 				}
 			}
 		}
-		if (_checkTimeUpTask != null)
-			_checkTimeUpTask.cancel(true);
-		if (remaining >= 10000)
-			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining), interval);
-		else
-			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), interval);
+		
+		cancelTimer();
+		scheduleCheckTimeUp(remaining, interval);
 	}
 
 	private class CheckTimeUp implements Runnable
@@ -650,5 +647,13 @@ public class Instance
 	{
 		if (_checkTimeUpTask != null)
 			_checkTimeUpTask.cancel(false);
+	}
+
+	protected void scheduleCheckTimeUp(int remaining, int interval)
+	{
+		if (remaining >= 10000)
+			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(remaining), interval);
+		else
+			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), interval);
 	}
 }
