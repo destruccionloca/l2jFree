@@ -1,7 +1,7 @@
 # Author: Psycho(killer1888) / L2jFree
 
 import sys
-from com.l2jfree.gameserver.instancemanager       import HellboundManager
+from com.l2jfree.gameserver.instancemanager.hellbound       import HellboundManager
 from com.l2jfree.gameserver.model.quest           import State
 from com.l2jfree.gameserver.model.quest           import QuestState
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest

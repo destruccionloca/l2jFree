@@ -1,7 +1,7 @@
 # Psycho(killer1888) / L2jFree
 import sys
 from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
-from com.l2jfree.gameserver.instancemanager       import HellboundManager
+from com.l2jfree.gameserver.instancemanager.hellbound       import HellboundManager
 
 qn = "9005_Hude"
 

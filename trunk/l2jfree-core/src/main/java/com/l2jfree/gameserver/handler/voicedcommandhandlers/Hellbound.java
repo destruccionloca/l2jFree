@@ -15,7 +15,7 @@
 package com.l2jfree.gameserver.handler.voicedcommandhandlers;
 
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
-import com.l2jfree.gameserver.instancemanager.HellboundManager;
+import com.l2jfree.gameserver.instancemanager.hellbound.HellboundManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
