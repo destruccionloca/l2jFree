@@ -79,7 +79,7 @@ public class LookupTable<T> implements Iterable<T>
 	 * @param key
 	 * @return true if contains given mapping
 	 */
-	public boolean containsKey(final int key)
+	public final boolean containsKey(final int key)
 	{
 		return get(key) != null;
 	}
@@ -148,6 +148,19 @@ public class LookupTable<T> implements Iterable<T>
 		final T oldValue = get(key);
 		
 		set(key, newValue);
+		
+		return oldValue;
+	}
+	
+	/**
+	 * @param key
+	 * @return
+	 */
+	public final T remove(final int key)
+	{
+		final T oldValue = get(key);
+		
+		set(key, null);
 		
 		return oldValue;
 	}
