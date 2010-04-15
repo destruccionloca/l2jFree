@@ -7,7 +7,7 @@
   <allowSummon val="false"/>
   <returnTeleport x="16430" y="244437" z="11618"/>
   <doorList>
-    <door doorId="18250001"/>
+	<door doorId="18250001"/>
 	<door doorId="18250002"/>
 	<door doorId="18250003"/>
 	<door doorId="18250004"/>
