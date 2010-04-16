@@ -713,39 +713,54 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5567" levels="1" name="Flame Armor">
-    <set name="power" val="20"/> <!-- Need retail value -->
+    <set name="power" val="80"/> <!-- Need retail value -->
+    <set name="isMagic" val="true"/>
+    <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="83"/>
+    <set name="elementPower" val="20"/>
+    <set name="element" val="0"/> <!-- Fire -->
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="skillType" val="PDAM"/>
+    <set name="skillType" val="DOT"/>
     <set name="target" val="TARGET_INITIATOR"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <for/>
+    <for>
+      <effect count="10" name="DamOverTime" val="173"/>
+    </for>
   </skill>
   <skill id="5568" levels="1" name="Frost Armor">
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="83"/>
+    <set name="elementPower" val="20"/>
+    <set name="element" val="1"/> <!-- Water -->
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_INITIATOR"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="15" val="0">
-        <sub order="0x40" stat="runSpd" val="20"/>
+      <effect name="Debuff" time="15" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+        <sub order="0x40" stat="runSpd" val="30"/>
       </effect>
     </for>
   </skill>
   <skill id="5569" levels="1" name="Hurricane Armor">
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="83"/>
+    <set name="elementPower" val="20"/>
+    <set name="element" val="2"/> <!-- Wind -->
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="target" val="TARGET_INITIATOR"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="15" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="0.85"/>
+      <effect name="Debuff" time="15" val="0" stackOrder="0.77" stackType="attack_time_up">
+        <mul order="0x30" stat="pAtkSpd" val="0.77"/>
       </effect>
     </for>
   </skill>
@@ -784,7 +799,11 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="15" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="1.32"/>
+        <mul order="0x30" stat="pAtkSpd" val="1.32">
+          <not>
+           <using kind="Bow,Crossbow"/>
+          </not>
+        </mul>
       </effect>
     </for>
   </skill>
@@ -1089,9 +1108,16 @@
     </for>
   </skill>
   <skill id="5596" levels="1" name="Flame">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="power" val="70"/>
+    <set name="hitTime" val="3000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DOT"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
+    <for>
+      <effect count="7" name="DamOverTime" time="1" val="365" abnormal="flame" stackOrder="11" stackType="Freezing"/>
+    </for>
   </skill>
   <skill id="5597" levels="1" name="Invalid Skill cancel">
     <set name="target" val="TARGET_NONE"/>
@@ -1099,13 +1125,27 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5598" levels="12" name="Flash Resistance">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#resist"> 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
+    <set name="magicLvl" val="1"/>
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="stunVuln" val="#resist"/>
+    </for>
   </skill>
   <skill id="5599" levels="12" name="Stun Resistance">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#resist"> 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
+    <set name="magicLvl" val="1"/>
+    <set name="power" val="0.0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="stunVuln" val="#resist"/>
+    </for>
   </skill>
 </list>
