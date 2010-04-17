@@ -20,9 +20,6 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.cache.CrestCache;
@@ -156,8 +153,6 @@ import com.l2jfree.util.concurrent.RunnableStatsManager;
 
 public class GameServer extends Config
 {
-	@SuppressWarnings("hiding")
-	private static final Log _log = LogFactory.getLog(GameServer.class);
 	private static final Calendar _serverStarted = Calendar.getInstance();
 	
 	public static void main(String[] args) throws Exception

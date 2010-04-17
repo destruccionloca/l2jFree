@@ -22,9 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.L2Registry;
 import com.l2jfree.loginserver.beans.Accounts;
@@ -38,8 +35,6 @@ import com.l2jfree.loginserver.services.exception.AccountModificationException;
  */
 public final class AccountManager extends Config
 {
-	@SuppressWarnings("hiding")
-	private static final Log _log = LogFactory.getLog(AccountManager.class);
 	private static final String[] CMD = {
 		"register", "change", "setlevel", "cancel", "list", "quit"
 	};
