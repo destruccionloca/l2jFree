@@ -1,4 +1,4 @@
--- Tower Of Naia Spawnlist
+-- Tower Of Naia spawn list
 -- author hex1r0
 DROP TABLE IF EXISTS `hb_naia_spawnlist`;
 CREATE TABLE `hb_naia_spawnlist` (

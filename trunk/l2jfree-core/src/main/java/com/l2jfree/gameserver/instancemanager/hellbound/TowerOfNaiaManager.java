@@ -63,6 +63,7 @@ public final class TowerOfNaiaManager
 			ROOMS.add(room);
 		}
 		Instance.registerInstanceFactory(new TowerOfNaiaInstance.NaiaFactory());
+		openEnteranceDoors(); // Open doors first, if Darion spawns close them
 		_log.info("TowerOfNaiaManager: Done.");
 	}
 	
@@ -81,6 +82,7 @@ public final class TowerOfNaiaManager
 	{
 		_instanceCount--;
 		InstanceManager.getInstance().destroyInstance(instanceId);
+		openDoors(new int[]	{ 18250024, 18250025 }); // Open doors to the Core of Naia
 	}
 	
 	public void prepareRoom(final int instanceId)
