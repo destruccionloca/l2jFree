@@ -16,8 +16,8 @@ package com.l2jfree.gameserver;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.net.ConnectException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.interfaces.RSAPublicKey;
@@ -302,7 +302,7 @@ public final class LoginServerThread extends NetworkThread
 					
 					if (decrypt == null)
 						break;
-						
+					
 					int packetType = decrypt[0] & 0xff;
 					
 					switch (packetType)
@@ -493,13 +493,13 @@ public final class LoginServerThread extends NetworkThread
 					}
 				}
 			}
-			catch (UnknownHostException e)
+			catch (ConnectException e)
 			{
-				_log.warn("", e);
+				_log.info(e);
 			}
 			catch (IOException e)
 			{
-				_log.info("Disconnected from Login, Trying to reconnect:", e);
+				_log.warn("", e);
 			}
 			catch (RuntimeException e)
 			{
@@ -508,6 +508,8 @@ public final class LoginServerThread extends NetworkThread
 			finally
 			{
 				close();
+				
+				_log.info("Disconnected from login, trying to reconnect!");
 			}
 			
 			try

@@ -123,19 +123,27 @@ public class GameServerThread extends NetworkThread
 		}
 		catch (IOException e)
 		{
-			String msg = "GameServer " + getServerInfo() + ": Connection lost: " + e.getMessage();
-			_log.info(msg, e);
-			broadcastToTelnet(msg);
+			_log.warn("", e);
+		}
+		catch (RuntimeException e)
+		{
+			_log.warn("", e);
 		}
 		finally
 		{
 			if (isAuthed())
 			{
 				getGameServerInfo().setDown();
-				_log.info("Server " + getServerInfo() + " is now set as disconnected");
 			}
+			
+			String msg = "Server " + getServerInfo() + " is now set as disconnected";
+			_log.info(msg);
+			broadcastToTelnet(msg);
+			
 			GameServerListener.getInstance().removeGameServer(this);
 			GameServerListener.getInstance().removeFloodProtection(getConnectionIp());
+			
+			close();
 		}
 	}
 	

@@ -14,11 +14,11 @@
  */
 package com.l2jfree.network;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -41,8 +41,8 @@ public abstract class NetworkThread extends Thread
 	}
 	
 	private Socket _connection;
-	private InputStream _in;
-	private OutputStream _out;
+	private BufferedInputStream _in;
+	private BufferedOutputStream _out;
 	private String _connectionIp;
 	/**
 	 * The BlowFish engine used to encrypt packets.<br>
@@ -57,7 +57,7 @@ public abstract class NetworkThread extends Thread
 		_connection = con;
 		_connectionIp = con.getInetAddress().getHostAddress();
 		
-		_in = con.getInputStream();
+		_in = new BufferedInputStream(con.getInputStream());
 		_out = new BufferedOutputStream(con.getOutputStream());
 		
 		_blowfish = new NewCrypt("_;v.]05-31!|+-%xT!^[$\00");
@@ -103,15 +103,30 @@ public abstract class NetworkThread extends Thread
 		}
 	}
 	
-	protected final byte[] read() throws IOException
+	protected final byte[] read()
 	{
-		final int lengthLo = _in.read();
-		final int lengthHi = _in.read();
-		final int length = lengthHi * 256 + lengthLo;
-		
-		if (lengthHi < 0 || _connection.isClosed())
+		int length = -1;
+		try
 		{
-			_log.info(getClass().getSimpleName() + ": the connection was terminated.");
+			final int lengthLo = _in.read();
+			final int lengthHi = _in.read();
+			
+			length = lengthHi * 256 + lengthLo;
+		}
+		catch (SocketException e)
+		{
+			_log.info(getClass().getSimpleName() + ": the connection was terminated: " + e);
+			return null;
+		}
+		catch (IOException e)
+		{
+			_log.warn(getClass().getSimpleName() + ": the connection was terminated.", e);
+			return null;
+		}
+		
+		if (length < 0)
+		{
+			_log.warn(getClass().getSimpleName() + ": the connection was terminated.");
 			return null;
 		}
 		
@@ -119,19 +134,41 @@ public abstract class NetworkThread extends Thread
 		
 		for (int receivedBytes = 0; receivedBytes < data.length;)
 		{
-			final int newBytes = _in.read(data, receivedBytes, data.length - receivedBytes);
+			int newBytes = -1;
+			try
+			{
+				newBytes = _in.read(data, receivedBytes, data.length - receivedBytes);
+			}
+			catch (SocketException e)
+			{
+				_log.info(getClass().getSimpleName() + ": incomplete packet received, closing connection: " + e);
+				return null;
+			}
+			catch (IOException e)
+			{
+				_log.warn(getClass().getSimpleName() + ": incomplete packet received, closing connection.", e);
+				return null;
+			}
 			
 			if (newBytes == -1)
 			{
-				_log.warn(getClass().getSimpleName() + ": Incomplete packet received, closing connection.");
+				_log.warn(getClass().getSimpleName() + ": incomplete packet received, closing connection.");
 				return null;
 			}
 			
 			receivedBytes += newBytes;
 		}
 		
-		// decrypt if we have a key
-		data = _blowfish.decrypt(data);
+		try
+		{
+			// decrypt if we have a key
+			data = _blowfish.decrypt(data);
+		}
+		catch (IOException e)
+		{
+			_log.warn("", e);
+			return null;
+		}
 		
 		if (!NewCrypt.verifyChecksum(data))
 		{
