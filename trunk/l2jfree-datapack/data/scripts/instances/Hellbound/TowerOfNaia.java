@@ -71,9 +71,9 @@ public class TowerOfNaia extends QuestJython
 	{
 		if (event.equalsIgnoreCase("startinstance"))
 		{
-			// TODO testme
-			if (_lock != null && _lock.getCurrentHp() < _lock.getMaxHp() * 0.1)
-			{
+			// TODO temp disabled
+			//if (_lock != null && _lock.getCurrentHp() < _lock.getMaxHp() * 0.1)
+			//{
 				if (player.isInParty())
 				{
 					final int instanceId = TowerOfNaiaManager.getInstance().startInstance();
@@ -86,10 +86,16 @@ public class TowerOfNaia extends QuestJython
 						}
 					}
 				}
-			}
-			// TODO testme
-			npc.doDie(null);
-			_lock.doDie(null);
+				else
+				{
+					player.sendMessage("You are not in party!");
+				}
+			//}
+			//else
+			//{
+				//player.sendMessage("Incorrect conditions!");
+				// TODO lock & controller should dissapear if incorrect conditions are met
+			//}
 			_areWardsSpawned = false;
 		}
 		else if (event.equalsIgnoreCase("startroom"))
@@ -103,15 +109,15 @@ public class TowerOfNaia extends QuestJython
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
-		if (npc.getNpcId() == TowerOfNaiaManager.ROOF_LOCK_ID)
-		{
-			// TODO testme
-			if (!_areWardsSpawned && npc.getCurrentHp() < npc.getMaxHp() * 0.2)
-			{
-				_areWardsSpawned = true;
-				addSpawn(TowerOfNaiaManager.WARD_ID, npc);
-			}
-		}
+//		if (npc.getNpcId() == TowerOfNaiaManager.ROOF_LOCK_ID)
+//		{
+//			// TODO testme
+//			if (!_areWardsSpawned && npc.getCurrentHp() < npc.getMaxHp() * 0.8)
+//			{
+//				_areWardsSpawned = true;
+//				addSpawn(TowerOfNaiaManager.WARD_ID, npc);
+//			}
+//		}
 		
 		return super.onAttack(npc, attacker, damage, isPet);
 	}

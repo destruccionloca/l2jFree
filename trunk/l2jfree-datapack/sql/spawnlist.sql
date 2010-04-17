@@ -40741,3 +40741,10 @@ INSERT INTO `spawnlist` VALUES
 
 -- Chimera/Celtus spawns are handled via HellboundManager and therefor not to be spawned via spawnlist (Psycho)
 DELETE FROM `spawnlist` WHERE `npc_templateid` IN (22349,22350,22351,22352,22353);
+
+-- Tower of Naia Wards are controlled by AI script (hex1r0)
+DELETE FROM `spawnlist` WHERE `npc_templateid` = 18493;
+
+-- Tower of Naia Roof Lock & Controller (hex1r0)
+INSERT INTO `spawnlist` VALUES (81165, '', 1, 18491, 16282, 244534, 11618, 0, 0, 33486, 60, 0, 0);
+INSERT INTO `spawnlist` VALUES (81166, '', 1, 18492, 16513, 244454, 11618, 0, 0, 64197, 60, 0, 0);

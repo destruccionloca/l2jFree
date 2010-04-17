@@ -227,7 +227,7 @@ INSERT IGNORE INTO `raidboss_spawnlist` VALUES
 -- (25540,1,0,0,0,0,43200,129600,0,3524173,9999), -- Demon Prince (85) -- stats to be done
 -- (25542,1,0,0,0,0,43200,129600,0,3524173,9999), -- Ranku (85) -- stats to be done
 -- (25544,1,0,0,0,0,43200,129600,0,2682423,9999), -- Tully (86) -- stats to be done
--- (25603,1,0,0,0,0,43200,129600,0,2308600,9999), -- Darion (87) -- stats to be done
+(25603,1,21928,243927,11093,0,43200,129600,0,2308600,9999), -- Darion (87) -- stats to be done (uncommented to test Naia)
 -- (25609,1,0,0,0,0,43200,129600,0,9999,9999), -- Epidos (?) -- stats to be done
 -- (25610,1,0,0,0,0,43200,129600,0,9999,9999), -- Epidos (?) -- stats to be done
 -- (25611,1,0,0,0,0,43200,129600,0,9999,9999), -- Epidos (?) -- stats to be done

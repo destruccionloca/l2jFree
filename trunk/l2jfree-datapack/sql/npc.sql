@@ -10094,3 +10094,9 @@ UPDATE `npc` SET `type` = 'Zaken' WHERE `id` = 29022;
 
 -- Orfen (hex1r0)
 UPDATE `npc` SET `type` = 'Orfen' WHERE `id` = 29014;
+
+-- Tower of Naia Ward (hex1r0) TODO: fix all Naia mob stats & skills
+UPDATE `npc` SET `type` =  'L2Monster' WHERE `id` = 18493;
+
+-- Tower of Naia Roof Lock (hex1r0)
+UPDATE `npc` SET `type` =  'L2Monster' WHERE `id` = 18491;

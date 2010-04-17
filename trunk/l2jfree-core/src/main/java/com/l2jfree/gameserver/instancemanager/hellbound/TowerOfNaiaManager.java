@@ -43,7 +43,7 @@ public final class TowerOfNaiaManager
 	public static final Location WAITING_ROOM_START_POINT = new Location(-47211, 246115, -9129);
 	
 	public static final int ROOF_LOCK_ID 				= 18491;
-	public static final int ROOF_CONTROLLER_ID 			= 18491;
+	public static final int ROOF_CONTROLLER_ID 			= 18492;
 	public static final int WARD_ID 					= 18493;
 	public static final int ROOM_CONTROLLER_ID 			= 18494; // Ingenious Contraption
 	public static final int DARION_ID 					= 25603;
