@@ -91,12 +91,7 @@ public final class Evolve
 		if (petSummon == null)
 			return false;
 
-		long normalExp = petSummon.getStat().getExpForLevel(petminlvl);
-		// check for non linear exp
-		if (petexp < normalExp)
-			petSummon.getStat().addExp(normalExp);
-		// make sure additional levels do not get lost
-		petSummon.getStat().addExp(petexp);
+		petSummon.getStat().setExp(petSummon.getExpForThisLevel());
 		petSummon.getStatus().setCurrentHp(petSummon.getMaxHp());
 		petSummon.getStatus().setCurrentMp(petSummon.getMaxMp());
 		petSummon.setCurrentFed(petSummon.getMaxFed());
