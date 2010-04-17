@@ -36,11 +36,11 @@ import com.l2jfree.util.ObjectPool;
 /**
  * @author NB4L1
  */
-public final class CharEffects
+public class CharEffects
 {
-	private static final Log _log = LogFactory.getLog(CharEffects.class);
+	protected static final Log _log = LogFactory.getLog(CharEffects.class);
 	
-	private final L2Character _owner;
+	protected final L2Character _owner;
 	
 	private L2Effect[] _toArray;
 	private List<L2Effect> _effects;
@@ -49,6 +49,11 @@ public final class CharEffects
 	public CharEffects(L2Character owner)
 	{
 		_owner = owner;
+	}
+	
+	protected L2Character getOwner()
+	{
+		return _owner;
 	}
 	
 	private boolean isEmpty()
@@ -82,7 +87,7 @@ public final class CharEffects
 		return e != null && e.isInUse() && (isDance && e.getSkill().isDance() || isSong && e.getSkill().isSong());
 	}
 	
-	public synchronized L2Effect[] getAllEffects()
+	public final synchronized L2Effect[] getAllEffects()
 	{
 		if (isEmpty())
 			return L2Effect.EMPTY_ARRAY;
@@ -93,7 +98,7 @@ public final class CharEffects
 		return _toArray;
 	}
 	
-	public synchronized L2Effect[] getAllEffects(String stackType)
+	public final synchronized L2Effect[] getAllEffects(String stackType)
 	{
 		if (isEmpty())
 			return L2Effect.EMPTY_ARRAY;
@@ -110,7 +115,7 @@ public final class CharEffects
 	 * @deprecated don't use it!
 	 */
 	@Deprecated
-	public synchronized void addEffect(L2Effect newEffect)
+	public final synchronized void addEffect(L2Effect newEffect)
 	{
 		if (_effects == null)
 			_effects = new ArrayList<L2Effect>(4);
@@ -194,7 +199,7 @@ public final class CharEffects
 	 * @deprecated don't use it!
 	 */
 	@Deprecated
-	public synchronized boolean removeEffect(L2Effect effect)
+	public final synchronized boolean removeEffect(L2Effect effect)
 	{
 		final int index = _effects.indexOf(effect);
 		if (index < 0)
@@ -310,7 +315,7 @@ public final class CharEffects
 	/**
 	 * For debugging purpose...
 	 */
-	public void printStackTrace(String[] stackTypes, L2Effect effect)
+	public final void printStackTrace(String[] stackTypes, L2Effect effect)
 	{
 		TextBuilder tb = TextBuilder.newInstance();
 		
@@ -327,32 +332,32 @@ public final class CharEffects
 		TextBuilder.recycle(tb);
 	}
 	
-	public synchronized L2Effect getFirstEffect(L2Skill skill)
+	public final synchronized L2Effect getFirstEffect(L2Skill skill)
 	{
 		return getFirstEffect(skill.getId());
 	}
 	
-	public synchronized boolean hasEffect(L2Skill skill)
+	public final synchronized boolean hasEffect(L2Skill skill)
 	{
 		return hasEffect(skill.getId());
 	}
 	
-	public synchronized void stopEffects(L2Skill skill)
+	public final synchronized void stopEffects(L2Skill skill)
 	{
 		stopEffects(skill.getId());
 	}
 	
-	public synchronized L2Effect getFirstEffect(int id)
+	public final synchronized L2Effect getFirstEffect(int id)
 	{
 		return getFirstEffect(id, true);
 	}
 	
-	public synchronized boolean hasEffect(int id)
+	public final synchronized boolean hasEffect(int id)
 	{
 		return getFirstEffect(id, false) != null;
 	}
 	
-	public synchronized void stopEffects(int id)
+	public final synchronized void stopEffects(int id)
 	{
 		for (L2Effect e; (e = getFirstEffect(id, false)) != null;)
 			e.exit();
@@ -381,17 +386,17 @@ public final class CharEffects
 		return notUsedEffect;
 	}
 	
-	public synchronized L2Effect getFirstEffect(L2EffectType tp)
+	public final synchronized L2Effect getFirstEffect(L2EffectType tp)
 	{
 		return getFirstEffect(tp, true);
 	}
 	
-	public synchronized boolean hasEffect(L2EffectType tp)
+	public final synchronized boolean hasEffect(L2EffectType tp)
 	{
 		return getFirstEffect(tp, false) != null;
 	}
 	
-	public synchronized void stopEffects(L2EffectType tp)
+	public final synchronized void stopEffects(L2EffectType tp)
 	{
 		for (L2Effect e; (e = getFirstEffect(tp, false)) != null;)
 			e.exit();
@@ -420,7 +425,7 @@ public final class CharEffects
 		return notUsedEffect;
 	}
 	
-	public synchronized int getBuffCount()
+	public final synchronized int getBuffCount()
 	{
 		if (isEmpty())
 			return 0;
@@ -438,7 +443,7 @@ public final class CharEffects
 		return buffCount;
 	}
 	
-	public synchronized int getDanceCount(boolean dances, boolean songs)
+	public final synchronized int getDanceCount(boolean dances, boolean songs)
 	{
 		if (isEmpty())
 			return 0;
@@ -456,7 +461,7 @@ public final class CharEffects
 		return danceCount;
 	}
 	
-	public synchronized void addPacket(EffectInfoPacketList list)
+	public final synchronized void addPacket(EffectInfoPacketList list)
 	{
 		if (isEmpty())
 			return;
@@ -472,12 +477,12 @@ public final class CharEffects
 	/**
 	 * Exits all effects in this CharEffectList
 	 */
-	public void stopAllEffects()
+	public final void stopAllEffects()
 	{
 		stopAllEffects(false);
 	}
 	
-	public synchronized void stopAllEffects(boolean stopEffectsThatLastThroughDeathToo)
+	public final synchronized void stopAllEffects(boolean stopEffectsThatLastThroughDeathToo)
 	{
 		if (isEmpty())
 			return;
@@ -503,12 +508,12 @@ public final class CharEffects
 		}
 	}
 	
-	public void stopAllEffectsExceptThoseThatLastThroughDeath()
+	public final void stopAllEffectsExceptThoseThatLastThroughDeath()
 	{
 		stopAllEffects(false);
 	}
 	
-	public synchronized void dispelBuff(int skillId, int skillLvl)
+	public final synchronized void dispelBuff(int skillId, int skillLvl)
 	{
 		for (L2Effect e : getAllEffects())
 		{
@@ -544,27 +549,27 @@ public final class CharEffects
 		}
 	}
 	
-	public synchronized L2Effect getFirstEffect(String stackType)
+	public final synchronized L2Effect getFirstEffect(String stackType)
 	{
 		return getFirstEffect(stackType, true);
 	}
 	
-	public synchronized L2Effect getFirstEffect(String[] stackTypes)
+	public final synchronized L2Effect getFirstEffect(String[] stackTypes)
 	{
 		return getFirstEffect(stackTypes, true);
 	}
 	
-	public synchronized boolean hasEffect(String stackType)
+	public final synchronized boolean hasEffect(String stackType)
 	{
 		return getFirstEffect(stackType, false) != null;
 	}
 	
-	public synchronized boolean hasEffect(String[] stackTypes)
+	public final synchronized boolean hasEffect(String[] stackTypes)
 	{
 		return getFirstEffect(stackTypes, false) != null;
 	}
 	
-	public synchronized void stopEffects(String stackType)
+	public final synchronized void stopEffects(String stackType)
 	{
 		if (isEmpty())
 			return;
@@ -575,7 +580,7 @@ public final class CharEffects
 			queue.stopAllEffects();
 	}
 	
-	public synchronized void stopEffects(String[] stackTypes)
+	public final synchronized void stopEffects(String[] stackTypes)
 	{
 		if (isEmpty())
 			return;

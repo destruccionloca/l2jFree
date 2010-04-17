@@ -146,6 +146,7 @@ import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
+import com.l2jfree.gameserver.model.actor.effects.PcEffects;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.PcKnownList;
 import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
@@ -316,7 +317,6 @@ import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
-import com.l2jfree.util.concurrent.ForEachExecutable;
 
 /**
  * This class represents all player characters in the world.
@@ -335,11 +335,6 @@ public final class L2PcInstance extends L2Playable
 	private static final String	UPDATE_CHARACTER_SKILL_LEVEL	= "UPDATE character_skills SET skill_level=? WHERE skill_id=? AND charId=? AND class_index=?";
 	private static final String	DELETE_SKILL_FROM_CHAR			= "DELETE FROM character_skills WHERE skill_id=? AND charId=? AND class_index=?";
 	private static final String	DELETE_CHAR_SKILLS				= "DELETE FROM character_skills WHERE charId=? AND class_index=?";
-
-	// Character Effect SQL String Definitions:
-	private static final String RESTORE_EFFECTS					= "SELECT skillId,skillLvl,count,remaining FROM character_effects WHERE charId=? AND classIndex=? ORDER BY buffIndex ASC";
-	private static final String ADD_EFFECT						= "INSERT INTO character_effects (charId,classIndex,buffIndex,skillId,skillLvl,count,remaining) VALUES (?,?,?,?,?,?,?)";
-	private static final String DELETE_EFFECTS					= "DELETE FROM character_effects WHERE charId=? AND classIndex=?";
 
 	// Character Skill Reuse SQL String Definitions:
 	private static final String RESTORE_SKILL_REUSES			= "SELECT skillId,reuseDelay,expiration FROM character_skill_reuses WHERE charId=?";
@@ -1151,7 +1146,19 @@ public final class L2PcInstance extends L2Playable
 	{
 		return (PcStatus)_status;
 	}
-
+	
+	@Override
+	protected PcEffects initEffects()
+	{
+		return new PcEffects(this);
+	}
+	
+	@Override
+	public PcEffects getEffects()
+	{
+		return (PcEffects)_effects;
+	}
+	
 	public final PcAppearance getAppearance()
 	{
 		return _appearance;
@@ -6777,7 +6784,7 @@ public final class L2PcInstance extends L2Playable
 			player.rewardSkills();
 
 			// Buff and status icons
-			player.restoreEffects();
+			player.getEffects().restoreEffects();
 			player.restoreSkillReuses();
 
 			player.stopEffects(L2EffectType.HEAL_OVER_TIME);
@@ -7073,7 +7080,7 @@ public final class L2PcInstance extends L2Playable
 		storeCharBase();
 		storeCharSub();
 		storePet();
-		storeEffect(storeActiveEffects);
+		getEffects().storeEffects(storeActiveEffects);
 		storeSkillReuses();
 		transformInsertInfo();
 
@@ -7201,57 +7208,7 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 
-	private void storeEffect(boolean storeEffects)
-	{
-		if (!Config.STORE_EFFECTS)
-			return;
 
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-
-			// Delete all current stored effects for char to avoid dupe
-			PreparedStatement statement = con.prepareStatement(DELETE_EFFECTS);
-			statement.setInt(1, getObjectId());
-			statement.setInt(2, getClassIndex());
-			statement.execute();
-			statement.close();
-
-			if (storeEffects)
-			{
-				int buffIndex = 0;
-
-				statement = con.prepareStatement(ADD_EFFECT);
-
-				// Store all effect data
-				for (L2Effect effect : getAllEffects())
-				{
-					if (effect != null && effect.canBeStoredInDb())
-					{
-						statement.setInt(1, getObjectId());
-						statement.setInt(2, getClassIndex());
-						statement.setInt(3, ++buffIndex);
-						statement.setInt(4, effect.getSkill().getId());
-						statement.setInt(5, effect.getSkill().getLevel());
-						statement.setInt(6, effect.getCount());
-						statement.setInt(7, effect.getPeriod() - effect.getTime());
-						statement.execute();
-					}
-				}
-
-				statement.close();
-			}
-		}
-		catch (Exception e)
-		{
-			_log.error("", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-	}
 
 	private void storeSkillReuses()
 	{
@@ -7659,58 +7616,6 @@ public final class L2PcInstance extends L2Playable
 		// Restore clan skills
 		if (_clan != null)
 			_clan.addSkillEffects(this, false);
-	}
-
-	/**
-	 * Retrieve from the database all skill effects of this L2PcInstance and add them to the player.<BR><BR>
-	 */
-	public void restoreEffects()
-	{
-		if (!Config.STORE_EFFECTS)
-			return;
-
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-
-			PreparedStatement statement = con.prepareStatement(RESTORE_EFFECTS);
-			statement.setInt(1, getObjectId());
-			statement.setInt(2, getClassIndex());
-
-			ResultSet rset = statement.executeQuery();
-
-			while (rset.next())
-			{
-				final int skillId = rset.getInt("skillId");
-				final int skillLvl = rset.getInt("skillLvl");
-				final int count = rset.getInt("count");
-				final int remaining = rset.getInt("remaining");
-
-				final L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
-				if (skill == null)
-					continue;
-
-				skill.getEffects(this, this, new ForEachExecutable<L2Effect>() {
-					@Override
-					public void execute(L2Effect e)
-					{
-						e.setTiming(count, remaining);
-					}
-				});
-			}
-
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.error("", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
 	}
 
 	private void restoreSkillReuses()
@@ -10085,11 +9990,7 @@ public final class L2PcInstance extends L2Playable
 				statement.close();
 
 				// Remove all effects info stored for this sub-class.
-				statement = con.prepareStatement(DELETE_EFFECTS);
-				statement.setInt(1, getObjectId());
-				statement.setInt(2, classIndex);
-				statement.execute();
-				statement.close();
+				getEffects().deleteEffects(con, classIndex);
 
 				// Remove all skill info stored for this sub-class.
 				statement = con.prepareStatement(DELETE_CHAR_SKILLS);
@@ -10324,7 +10225,7 @@ public final class L2PcInstance extends L2Playable
 			regiveTemporarySkills();
 			rewardSkills();
 
-			restoreEffects();
+			getEffects().restoreEffects();
 			updateEffectIcons();
 
 			// If player has quest "422: Repent Your Sins", remove it

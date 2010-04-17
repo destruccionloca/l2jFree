@@ -2942,14 +2942,14 @@ public abstract class L2Character extends L2Object
 	/** Map 32 bits (0x0000) containing all abnormal effect in progress */
 	private int				_AbnormalEffects;
 
-	private final CharEffects _effects;
+	protected final CharEffects _effects;
 
-	protected final CharEffects initEffects()
+	protected CharEffects initEffects()
 	{
 		return new CharEffects(this);
 	}
 
-	public final CharEffects getEffects()
+	public CharEffects getEffects()
 	{
 		return _effects;
 	}
