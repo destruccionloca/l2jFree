@@ -28,6 +28,7 @@ INSERT INTO `hb_naia_doorlist` VALUES (18250009, 0, 5);
 INSERT INTO `hb_naia_doorlist` VALUES (18250009, 1, 5);
 INSERT INTO `hb_naia_doorlist` VALUES (18250010, 0, 6);
 INSERT INTO `hb_naia_doorlist` VALUES (18250011, 0, 6);
+INSERT INTO `hb_naia_doorlist` VALUES (18250011, 1, 6);
 INSERT INTO `hb_naia_doorlist` VALUES (18250013, 0, 7);
 INSERT INTO `hb_naia_doorlist` VALUES (18250013, 1, 7);
 INSERT INTO `hb_naia_doorlist` VALUES (18250014, 0, 8);
