@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
@@ -341,7 +342,73 @@ public final class DoorTable
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Open list of doors in the instance
+	 */
+	public static void openInstanceDoors(final int instanceId, final int[] doorIds)
+	{
+		Instance instance = InstanceManager.getInstance().getInstance(instanceId);
+		if (instance == null || doorIds == null)
+			return;
+		
+		for (int i = 0; i < doorIds.length; i++)
+		{
+			L2DoorInstance door = instance.getDoor(doorIds[i]);
+			if (door != null)
+				door.openMe();
+		}
+	}
+	
+	/**
+	 * Close list of doors in the instance
+	 */
+	public static void closeInstanceDoors(final int instanceId, final int[] doorIds)
+	{
+		Instance instance = InstanceManager.getInstance().getInstance(instanceId);
+		if (instance == null || doorIds == null)
+			return;
+		
+		for (int i = 0; i < doorIds.length; i++)
+		{
+			L2DoorInstance door = instance.getDoor(doorIds[i]);
+			if (door != null)
+				door.closeMe();
+		}
+	}
+	
+	/**
+	 * Close list of doors
+	 */
+	public void closeDoors(final int[] doorIds)
+	{
+		if (doorIds == null)
+			return;
+		
+		for (int i = 0; i < doorIds.length; i++)
+		{
+			L2DoorInstance door = getDoor(doorIds[i]);
+			if (door != null)
+				door.closeMe();
+		}
+	}
+	
+	/**
+	 * Open list of doors
+	 */
+	public void openDoors(final int[] doorIds)
+	{
+		if (doorIds == null)
+			return;
+		
+		for (int i = 0; i < doorIds.length; i++)
+		{
+			L2DoorInstance door = getDoor(doorIds[i]);
+			if (door != null)
+				door.openMe();
+		}
+	}
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

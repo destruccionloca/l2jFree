@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.instancemanager.hellbound.TowerOfNaiaManager;
 import com.l2jfree.gameserver.model.L2Spawn;
@@ -143,7 +144,7 @@ public final class TowerOfNaiaRoom
 
 	public void prepare(final int instanceId)
 	{
-		TowerOfNaiaManager.getInstance().openInstanceDoors(instanceId, _preOpenDoorIds);
+		DoorTable.openInstanceDoors(instanceId, _preOpenDoorIds);
 		if (_ingeniousContraptionSpawnData != null)
 		{
 			spawnNpc(_ingeniousContraptionSpawnData, instanceId);
@@ -152,15 +153,15 @@ public final class TowerOfNaiaRoom
 
 	public void start(final int instanceId)
 	{
-		TowerOfNaiaManager.getInstance().closeInstanceDoors(instanceId, _preCloseDoorIds);
+		DoorTable.closeInstanceDoors(instanceId, _preCloseDoorIds);
 		for (SpawnData mob : _mobSpawnData)
 			spawnNpc(mob, instanceId);
 	}
 		
 	public void finish(final int instanceId)
 	{
-		TowerOfNaiaManager.getInstance().openInstanceDoors(instanceId, _postOpenDoorIds);
-		TowerOfNaiaManager.getInstance().closeInstanceDoors(instanceId, _postCloseDoorIds);
+		DoorTable.openInstanceDoors(instanceId, _postOpenDoorIds);
+		DoorTable.closeInstanceDoors(instanceId, _postCloseDoorIds);
 	}
 	
 	private L2Npc spawnNpc(final SpawnData spawnData, final int instanceId)

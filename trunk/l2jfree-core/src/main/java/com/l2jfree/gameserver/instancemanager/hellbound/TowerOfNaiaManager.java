@@ -23,7 +23,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.hellbound.TowerOfNaiaInstance;
 import com.l2jfree.gameserver.model.entity.hellbound.TowerOfNaiaRoom;
@@ -82,7 +81,7 @@ public final class TowerOfNaiaManager
 	{
 		_instanceCount--;
 		InstanceManager.getInstance().destroyInstance(instanceId);
-		openDoors(new int[]	{ 18250024, 18250025 }); // Open doors to the Core of Naia
+		DoorTable.getInstance().openDoors(new int[]	{ 18250024, 18250025 }); // Open doors to the Core of Naia
 	}
 	
 	public void prepareRoom(final int instanceId)
@@ -123,66 +122,12 @@ public final class TowerOfNaiaManager
 	
 	public void openEnteranceDoors()
 	{
-		openDoors(TOWER_ENTER_DOOR_IDS);
+		DoorTable.getInstance().openDoors(TOWER_ENTER_DOOR_IDS);
 	}
 	
 	public void closeEnteranceDoors()
 	{
-		closeDoors(TOWER_ENTER_DOOR_IDS);
-	}
-	
-	public static void closeDoors(final int[] doorIds)
-	{
-		if (doorIds == null)
-			return;
-		
-		for (int i = 0; i < doorIds.length; i++)
-		{
-			L2DoorInstance door = DoorTable.getInstance().getDoor(doorIds[i]);
-			if (door != null)
-				door.closeMe();
-		}
-	}
-	
-	public static void openDoors(final int[] doorIds)
-	{
-		if (doorIds == null)
-			return;
-		
-		for (int i = 0; i < doorIds.length; i++)
-		{
-			L2DoorInstance door = DoorTable.getInstance().getDoor(doorIds[i]);
-			if (door != null)
-				door.openMe();
-		}
-	}
-	
-	public void closeInstanceDoors(final int instanceId, final int[] doorIds)
-	{
-		TowerOfNaiaInstance instance = (TowerOfNaiaInstance) InstanceManager.getInstance().getInstance(instanceId);
-		if (instance == null || doorIds == null)
-			return;
-		
-		for (int i = 0; i < doorIds.length; i++)
-		{
-			L2DoorInstance door = instance.getDoor(doorIds[i]);
-			if (door != null)
-				door.closeMe();
-		}
-	}
-	
-	public void openInstanceDoors(final int instanceId, final int[] doorIds)
-	{
-		TowerOfNaiaInstance instance = (TowerOfNaiaInstance) InstanceManager.getInstance().getInstance(instanceId);
-		if (instance == null || doorIds == null)
-			return;
-		
-		for (int i = 0; i < doorIds.length; i++)
-		{
-			L2DoorInstance door = instance.getDoor(doorIds[i]);
-			if (door != null)
-				door.openMe();
-		}
+		DoorTable.getInstance().closeDoors(TOWER_ENTER_DOOR_IDS);
 	}
 	
 	private static final class SingletonHolder
