@@ -233,7 +233,9 @@ full_install()
 	$MYG < ../sql/global_tasks.sql &> /dev/null
 	$MYG < ../sql/gm_audit.sql &> /dev/null
 	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null
-	$MYG < ../sql/hellbounds_trees.sql &> /dev/null
+	$MYG < ../sql/hellbounds.sql &> /dev/null
+	$MYG < ../sql/hb_naia_doorlist &> /dev/null
+	$MYG < ../sql/hb_naia_spawnlist &> /dev/null
 	$MYG < ../sql/henna.sql &> /dev/null
 	$MYG < ../sql/henna_trees.sql &> /dev/null
 	$MYG < ../sql/heroes.sql &> /dev/null
