@@ -108,7 +108,7 @@ public final class TowerOfNaiaInstance extends Instance
 	{
 		for (L2Npc npc : getNpcs())
 		{
-			if (npc == null || npc.isDead())
+			if (npc == null || npc.isDead() || npc.isDecayed())
 				continue;
 			else
 				return false;

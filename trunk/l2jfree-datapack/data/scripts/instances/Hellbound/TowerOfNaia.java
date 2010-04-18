@@ -101,6 +101,7 @@ public class TowerOfNaia extends QuestJython
 		else if (event.equalsIgnoreCase("startroom"))
 		{
 			TowerOfNaiaManager.getInstance().startRoomInvasion(player.getInstanceId());
+			npc.decayMe();
 		}
 		
 		return super.onAdvEvent(event, npc, player);

@@ -102,7 +102,7 @@ public class Instance
 	private long						_emptyDestroyTime	= -1;
 	private long						_lastLeft			= -1;
 	private long						_instanceEndTime	= -1;
-
+	
 	public Instance(int id)
 	{
 		_id = id;
@@ -187,11 +187,12 @@ public class Instance
 	 */
 	public void setDuration(int duration)
 	{
-		if (_checkTimeUpTask != null)
-			_checkTimeUpTask.cancel(true);
-
-		_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration), 500);
-		_instanceEndTime = System.currentTimeMillis() + duration + 500;
+		cancelTimer();
+		if (duration > 0)
+		{
+			_checkTimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new CheckTimeUp(duration), 500);
+			_instanceEndTime = System.currentTimeMillis() + duration + 500;
+		}
 	}
 
 	/**
