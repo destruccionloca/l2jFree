@@ -93,4 +93,52 @@ public final class L2TransformSkillLearn
 	{
 		return _item_id;
 	}
+	
+	public static boolean isTransformSkill(int id)
+	{
+		switch (id)
+		{
+			case 541: // Transform Grail Apostle
+			case 542: // Transform Grail Apostle
+			case 543: // Transform Grail Apostle
+			case 544: // Transform Unicorn
+			case 545: // Transform Unicorn
+			case 546: // Transform Unicorn
+			case 547: // Transform Lilim Knight
+			case 548: // Transform Lilim Knight
+			case 549: // Transform Lilim Knight
+			case 550: // Transform Golem Guardian
+			case 551: // Transform Golem Guardian
+			case 552: // Transform Golem Guardian
+			case 553: // Transform Inferno Drake
+			case 554: // Transform Inferno Drake
+			case 555: // Transform Inferno Drake
+			case 556: // Transform Dragon Bomber
+			case 557: // Transform Dragon Bomber
+			case 558: // Transform Dragon Bomber
+			case 617: // Transform Onyx Beast
+			case 618: // Transform Death Blader
+			case 656: // Transform Divine Warrior
+			case 657: // Transform Divine Knight
+			case 658: // Transform Divine Rogue
+			case 659: // Transform Divine Wizard
+			case 660: // Transform Divine Summoner
+			case 661: // Transform Divine Healer
+			case 662: // Transform Divine Enchanter
+			case 663: // Transfomr Zaken
+			case 664: // Transform Anakim
+			case 665: // Transform Benom
+			case 666: // Transform Gordon
+			case 667: // Transform Ranku
+			case 668: // Transform Kiyachi
+			case 669: // Transform Demon Prince
+			case 670: // Transform Heretic
+			case 671: // Transform Vale Master
+			case 672: // Transform Saber Tooth Tiger |
+			case 673: // Transform Ol Mahum
+			case 674: // Transform Doll Blader
+				return true;
+		}
+		return false;
+	}
 }

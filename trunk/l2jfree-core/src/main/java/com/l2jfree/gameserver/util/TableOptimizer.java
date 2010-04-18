@@ -147,6 +147,7 @@ public final class TableOptimizer
 		new CharacterRelatedTable("character_hennas", "charId");
 		new CharacterRelatedTable("character_instance_time", "charId");
 		new CharacterRelatedTable("character_macroses", "charId");
+		new CharacterRelatedTable("character_mail", "charId");
 		new CharacterRelatedTable("character_quest_global_data", "charId");
 		new CharacterRelatedTable("character_quests", "charId");
 		new CharacterRelatedTable("character_raid_points", "charId");
@@ -163,7 +164,9 @@ public final class TableOptimizer
 		new CharacterRelatedTable("couples", "player1Id");
 		new CharacterRelatedTable("couples", "player2Id");
 		new CharacterRelatedTable("heroes", "charId");
+		new CharacterRelatedTable("obj_restrictions", "obj_Id");
 		new CharacterRelatedTable("olympiad_nobles", "charId");
+		new CharacterRelatedTable("olympiad_nobles_eom", "charId");
 		new CharacterRelatedTable("seven_signs", "charId");
 		
 		new ItemRelatedTable("pets", "item_obj_id");

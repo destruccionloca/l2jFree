@@ -91,4 +91,14 @@ public final class L2SkillLearn
 	{
 		return _costcount;
 	}
+	
+	public static boolean isSpecialSkill(int id)
+	{
+		switch (id)
+		{
+			case 932: // Star Stone
+				return true;
+		}
+		return false;
+	}
 }
