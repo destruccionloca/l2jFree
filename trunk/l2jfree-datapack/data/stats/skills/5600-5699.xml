@@ -885,9 +885,12 @@
     </for>
   </skill>
   <skill id="5665" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Sword of Stun (3829) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -899,9 +902,12 @@
     </for>
   </skill>
   <skill id="5666" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Rapier of Stun (3834) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -913,9 +919,12 @@
     </for>
   </skill>
   <skill id="5667" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Dual-Blade of Stun (3839) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -927,14 +936,28 @@
     </for>
   </skill>
   <skill id="5668" levels="1" name="Poison">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-  </skill>
-  <skill id="5669" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Dagger of Poison (3861) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="abnormalLvl" val="7"/>
+    <set name="skillType" val="POISON"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="200"/>
+    <for>
+      <effect count="10" name="DamOverTime" time="3" val="100" abnormal="poison"/>
+    </for>
+  </skill>
+  <skill id="5669" levels="1" name="Stun">
+    <!-- Masterwork Pole of Stun (3876) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
+    <set name="target" val="TARGET_ONE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -946,9 +969,12 @@
     </for>
   </skill>
   <skill id="5670" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Fist of Stun (3882) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -960,9 +986,12 @@
     </for>
   </skill>
   <skill id="5671" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Blunt of Stun (3885-1) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -974,9 +1003,12 @@
     </for>
   </skill>
   <skill id="5672" levels="1" name="Stun">
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <!-- Masterwork Blunt of Stun (3885-2) -->
+    <set name="power" val="50"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
+    <set name="magicLvl" val="80"/>
+    <set name="lvlDepend" val="1"/>
     <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="STUN"/>
@@ -1149,14 +1181,32 @@
   </skill>
   <skill id="5688" levels="1" name="PvP Weapon - Decrease Resist">
     <!-- Triggered from 3657 -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="power" val="80"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect count="1" name="Debuff" time="15" val="0">
+        <sub order="0x40" stat="waterRes" val="20"/>
+        <sub order="0x40" stat="fireRes" val="20"/>
+        <sub order="0x40" stat="windRes" val="20"/>
+        <sub order="0x40" stat="earthRes" val="20"/>
+        <sub order="0x40" stat="darkRes" val="20"/>
+        <sub order="0x40" stat="holyRes" val="20"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5689" levels="1" name="PvP Shield - Reflect Damage">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Triggered from 3658 -->
+    <set name="power" val="0"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <for>
+      <effect count="1" name="Buff" time="15" val="0">
+        <add order="0x40" stat="reflectDam" val="20"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5690" levels="1" name="PvP Armor - Damage Down">
     <set name="hitTime" val="100"/>
@@ -1186,6 +1236,7 @@
     </for>
   </skill>
   <skill id="5692" levels="1" name="PvP Armor - Heal">
+    <!-- Triggered from 3661 -->
     <set name="power" val="200"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HEAL"/>

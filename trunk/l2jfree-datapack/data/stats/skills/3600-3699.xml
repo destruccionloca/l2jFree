@@ -857,9 +857,14 @@
   </skill>
   <skill id="3658" levels="1" name="PvP Shield - Reflect Damage">
     <!-- Has a chance to reflect the enemy's attack when being attacked. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="activationChance" val="15"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="triggeredId" val="5689"/>
+    <set name="triggeredLevel" val="1"/>
+    <set name="pvpChanceOnly" val="true"/>
   </skill>
   <skill id="3659" levels="1" name="PvP Armor - Damage Down">
     <set name="activationChance" val="15"/>
@@ -882,9 +887,14 @@
     <set name="pvpChanceOnly" val="true"/>
   </skill>
   <skill id="3661" levels="1" name="PvP Armor - Heal">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="activationChance" val="15"/>
+    <set name="chanceType" val="ON_ATTACKED"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="triggeredId" val="5692"/>
+    <set name="triggeredLevel" val="1"/>
+    <set name="pvpChanceOnly" val="true"/>
   </skill>
   <skill id="3662" levels="1" name="PvP Armor - Speed Down">
     <set name="activationChance" val="15"/>
