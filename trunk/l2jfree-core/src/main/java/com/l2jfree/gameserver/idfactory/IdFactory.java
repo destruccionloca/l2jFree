@@ -64,7 +64,6 @@ public abstract class IdFactory
 			"UPDATE pets                  SET item_obj_id = ? WHERE item_obj_id = ?",
 			// Added by DaDummy
 			"UPDATE auction_bid          SET bidderId = ?      WHERE bidderId = ?",
-			"UPDATE auction_watch        SET charId = ?        WHERE charId = ?",
 			"UPDATE character_hennas     SET charId = ?        WHERE charId = ?",
 			"UPDATE clan_wars            SET clan1 = ?         WHERE clan1 = ?",
 			"UPDATE clan_wars            SET clan2 = ?         WHERE clan2 = ?",

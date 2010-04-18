@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS
 	auction,
 	auction_bid,
 	auction_lots,
-	auction_watch,
 	auto_announcements,
 	auto_chat,
 	auto_chat_text,

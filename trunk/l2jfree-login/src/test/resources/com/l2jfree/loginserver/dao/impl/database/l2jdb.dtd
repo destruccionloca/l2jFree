@@ -4,7 +4,6 @@
     armor*,
     auction*,
     auction_bid*,
-    auction_watch*,
     auto_chat*,
     auto_chat_text*,
     boxaccess*,
@@ -152,12 +151,6 @@
     maxBid CDATA #REQUIRED
     clan_name CDATA #REQUIRED
     time_bid CDATA #REQUIRED
->
-
-<!ELEMENT auction_watch EMPTY>
-<!ATTLIST auction_watch
-    charObjId CDATA #REQUIRED
-    auctionId CDATA #REQUIRED
 >
 
 <!ELEMENT auto_chat EMPTY>
