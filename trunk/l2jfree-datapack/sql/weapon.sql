@@ -3480,669 +3480,231 @@ UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Haste' WHERE `item_i
 UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Health' WHERE `item_id` = 11241;
 UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Focus' WHERE `item_id` = 11242;
 
--- Master work updates
-REPLACE INTO `weapon` VALUES
-(10870,'Great Sword - Lightning','lrhand','true',1930,1,1,'fine_steel','b',213,10,'bigsword',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10882,'3845-1'),
-(10871,'Great Sword - Lightning - Health','lrhand','true',1930,1,1,'fine_steel','b',213,10,'bigsword',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10883,'3013-1;3845-1'),
-(10872,'Great Sword - Lightning - Critical Damage','lrhand','true',1930,1,1,'fine_steel','b',213,10,'bigsword',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10884,'3023-5;3845-1'),
-(10873,'Great Sword - Lightning - Focus','lrhand','true',1930,1,1,'fine_steel','b',213,10,'bigsword',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10885,'3010-5;3845-1'),
-(10874,'Great Axe - Thunder','lrhand','true',1940,1,1,'fine_steel','b',175,10,'pole',8,-3,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3599-1;3873-1'),
-(10875,'Great Axe - Thunder - Anger','lrhand','true',1940,1,1,'fine_steel','b',175,10,'pole',8,-3,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3600-5;3873-1'),
-(10876,'Great Axe - Thunder - Critical Stun','lrhand','true',1940,1,1,'fine_steel','b',175,10,'pole',8,-3,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','3016-5-27',0,'3599-1;3873-1'),
-(10877,'Great Axe - Thunder - Light','lrhand','true',1940,1,1,'fine_steel','b',175,10,'pole',8,-3,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3599-1;3498-1;3873-1'),
-(10878,'Sword of Limit*Sword of Limit - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3042-11','','',0,'3835-1'),
-(10879,'Sword of Limit*Sword of Delusion - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3013-1','','',0,'3835-1'),
-(10880,'Sword of Limit*Sword of Nightmare - Destruction','lrhand','true',2130,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3044-11','','',0,'3835-1'),
-(10881,'Sword of Limit*Tsurugi - Destruction','lrhand','true',2120,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3045-1','','',0,'3835-1'),
-(10882,'Innominate Victory - Lightning','lrhand','true',1930,1,1,'fine_steel','b',190,15,'ancient',8,2,0,0,0,350,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10870,'3851-1'),
-(10883,'Innominate Victory - Lightning - Health','lrhand','true',1930,1,1,'fine_steel','b',190,15,'ancient',8,2,0,0,0,350,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10871,'3013-1;3851-1'),
-(10884,'Innominate Victory - Lightning - Critical Damage','lrhand','true',1930,1,1,'fine_steel','b',190,15,'ancient',8,2,0,0,0,350,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10872,'3023-5;3851-1'),
-(10885,'Innominate Victory - Lightning - Focus','lrhand','true',1930,1,1,'fine_steel','b',190,15,'ancient',8,2,0,0,0,350,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10873,'3010-5;3851-1'),
-(10886,'Dark Elven Long Bow - Concentration','lrhand','true',1720,3,1,'fine_steel','b',397,5,'bow',12,-3,0,0,0,227,8,100,-1,-1,6680500,891,'true','true','true','true','true','','','',10934,'3863-1'),
-(10887,'Dark Elven Long Bow - Concentration - Evasion','lrhand','true',1720,3,1,'fine_steel','b',397,5,'bow',12,-3,0,0,0,227,8,100,-1,-1,6680500,891,'true','true','true','true','true','','','',10935,'3009-5;3863-1'),
-(10888,'Dark Elven Long Bow - Concentration - Critical Bleed','lrhand','true',1720,3,1,'fine_steel','b',397,5,'bow',12,-3,0,0,0,227,8,100,-1,-1,6680500,891,'true','true','true','true','true','','','3055-2-24',10936,'3552-1;3863-1'),
-(10889,'Dark Elven Long Bow - Concentration - Miser','lrhand','true',1720,3,1,'fine_steel','b',397,5,'bow',12,-3,0,0,0,227,8,100,-1,-1,6680500,891,'true','true','true','true','true','','','',10937,'3863-1'),
-(10890,'Sword of Delusion*Sword of Delusion - Destruction','lrhand','true',2150,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3046-10','','',0,'3835-1'),
-(10891,'Sword of Delusion*Sword of Nightmare - Destruction','lrhand','true',2130,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3042-11','','',0,'3835-1'),
-(10892,'Sword of Delusion*Tsurugi - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3013-1','','',0,'3835-1'),
-(10893,'Sword of Valhalla - Nature','rhand','true',900,1,1,'fine_steel','b',140,10,'sword',8,0,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3852-1'),
-(10894,'Sword of Valhalla - Nature - Acumen','rhand','true',900,1,1,'fine_steel','b',140,10,'sword',8,0,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3047-1;3852-1'),
-(10895,'Sword of Valhalla - Nature - Magic Weakness','rhand','true',900,1,1,'fine_steel','b',140,10,'sword',8,0,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','1164-11-8','',0,'3852-1'),
-(10896,'Sword of Valhalla - Nature - Magic Regeneration','rhand','true',900,1,1,'fine_steel','b',140,10,'sword',8,0,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','1044-3-30','',0,'3852-1'),
-(10897,'Stormbringer*Samurai Long Sword - Destruction','lrhand','true',2150,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3046-10','','',0,'3835-1'),
-(10898,'Spell Breaker - Hail','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3889-1'),
-(10899,'Spell Breaker - Hail - Acumen','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3047-1;3889-1'),
-(10900,'Spell Breaker - Hail - Magic Mental Shield','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','1035-4-50','',0,'3889-1'),
-(10901,'Spell Breaker - Hail - Magic Hold','rhand','true',1620,1,1,'fine_steel','b',140,20,'blunt',4,4,0,0,0,379,0,122,-1,-1,6680500,891,'true','true','true','true','true','','3577-1-10','',0,'3552-1;3889-1'),
-(10902,'Arthro Nail - Destruction','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3879-1'),
-(10903,'Arthro Nail - Destruction - Critical Poison','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','3040-5-7',0,'3879-1'),
-(10904,'Arthro Nail - Destruction - Rsk. Evasion','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3030-5;3879-1'),
-(10905,'Arthro Nail - Destruction - Rsk. Haste','lrhand','true',1420,1,1,'fine_steel','b',213,5,'dualfist',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3034-5;3879-1'),
-(10906,'Ice Storm Hammer - Lightning','lrhand','true',1950,1,1,'fine_steel','b',213,20,'bigblunt',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3895-1'),
-(10907,'Ice Storm Hammer - Lightning - Focus','lrhand','true',1950,1,1,'fine_steel','b',213,20,'bigblunt',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3010-5;3895-1'),
-(10908,'Ice Storm Hammer - Lightning - Anger','lrhand','true',1950,1,1,'fine_steel','b',213,20,'bigblunt',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3012-5;3895-1'),
-(10909,'Ice Storm Hammer - Lightning - Critical Bleed','lrhand','true',1950,1,1,'fine_steel','b',213,20,'bigblunt',4,4,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','3052-2-42',0,'3895-1'),
-(10910,'Sword of Nightmare*Sword of Nightmare - Destruction','lrhand','true',2130,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3044-11','','',0,'3835-1'),
-(10911,'Sword of Nightmare*Tsurugi - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3045-1','','',0,'3835-1'),
-(10912,'Military Fleuret - Destruction','rhand','true',1370,1,1,'fine_steel','b',159,40,'rapier',10,-1,0,0,0,406,0,91,-1,-1,6680500,891,'true','true','true','true','true','3426-1','','',10930,'3830-1'),
-(10913,'Military Fleuret - Destruction - Guidance','rhand','true',1370,1,1,'fine_steel','b',159,40,'rapier',10,-1,0,0,0,406,0,91,-1,-1,6680500,891,'true','true','true','true','true','3426-1','','',10931,'3007-5;3830-1'),
-(10914,'Military Fleuret - Destruction - Focus','rhand','true',1370,1,1,'fine_steel','b',159,40,'rapier',10,-1,0,0,0,406,0,91,-1,-1,6680500,891,'true','true','true','true','true','3426-1','','',10932,'3010-5;3830-1'),
-(10915,'Military Fleuret - Destruction - Back Blow','rhand','true',1370,1,1,'fine_steel','b',159,40,'rapier',10,-1,0,0,0,406,0,91,-1,-1,6680500,891,'true','true','true','true','true','3426-1','','',10933,'3018-5;3830-1'),
-(10916,'Sprite\'s Staff - Hail','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,134,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3899-1'),
-(10917,'Sprite\'s Staff - Hail - Magic Regeneration','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,134,-1,-1,6680500,891,'true','true','true','true','true','','1044-3-30','',0,'3899-1'),
-(10918,'Sprite\'s Staff - Hail - Magic Mental Shield','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,134,-1,-1,6680500,891,'true','true','true','true','true','','1035-4-50','',0,'3899-1'),
-(10919,'Sprite\'s Staff - Hail - Magic Hold','lrhand','true',960,1,1,'fine_steel','b',170,20,'bigblunt',4,4,0,0,0,325,0,134,-1,-1,6680500,891,'true','true','true','true','true','','3577-1-10','',0,'3899-1'),
-(10920,'Tsurugi*Tsurugi - Destruction','lrhand','true',2120,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3044-11','','',0,'3835-1'),
-(10921,'Caliburs*Sword of Limit - Destruction','lrhand','true',2150,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3013-1','','',0,'3835-1'),
-(10922,'Caliburs*Sword of Delusion - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3044-11','','',0,'3835-1'),
-(10923,'Caliburs*Sword of Nightmare - Destruction','lrhand','true',2170,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3045-1','','',0,'3835-1'),
-(10924,'Caliburs*Tsurugi - Destruction','lrhand','true',2150,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3046-10','','',0,'3835-1'),
-(10925,'Caliburs*Caliburs - Destruction','lrhand','true',2140,1,1,'fine_steel','b',213,10,'dual',8,0,0,0,0,325,0,91,-1,-1,6680500,891,'true','true','true','true','true','3042-11','','',0,'3835-1'),
-(10926,'Kris - Confusion','rhand','true',980,1,1,'fine_steel','b',153,5,'dagger',12,-3,0,0,0,433,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3858-1'),
-(10927,'Kris - Confusion - Evasion','rhand','true',980,1,1,'fine_steel','b',153,5,'dagger',12,-3,0,0,0,433,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3009-5;3858-1'),
-(10928,'Kris - Confusion - Focus','rhand','true',980,1,1,'fine_steel','b',153,5,'dagger',12,-3,0,0,0,433,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3011-5;3858-1'),
-(10929,'Kris - Confusion - Back Blow','rhand','true',980,1,1,'fine_steel','b',153,5,'dagger',12,-3,0,0,0,433,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3019-5;3858-1'),
-(10930,'Keshanberk - Destruction','rhand','true',1370,1,1,'fine_steel','b',175,10,'sword',8,0,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10912,'3825-1'),
-(10931,'Keshanberk - Destruction - Guidance','rhand','true',1370,1,1,'fine_steel','b',175,10,'sword',8,0,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10913,'3007-5;3825-1'),
-(10932,'Keshanberk - Destruction - Focus','rhand','true',1370,1,1,'fine_steel','b',175,10,'sword',8,0,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10914,'3010-5;3825-1'),
-(10933,'Keshanberk - Destruction - Back Blow','rhand','true',1370,1,1,'fine_steel','b',175,10,'sword',8,0,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10915,'3018-5;3825-1'),
-(10934,'Peacemaker - Concentration','rhand','true',1720,2,1,'fine_steel','b',221,10,'crossbow',10,-1,0,0,0,303,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10886,'3868-1'),
-(10935,'Peacemaker - Concentration - Evasion','rhand','true',1720,2,1,'fine_steel','b',221,10,'crossbow',10,-1,0,0,0,303,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10887,'3009-5;3868-1'),
-(10936,'Peacemaker - Concentration - Critical Bleed','rhand','true',1720,2,1,'fine_steel','b',221,10,'crossbow',10,-1,0,0,0,303,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','3021-5-41',10888,'3868-1'),
-(10937,'Peacemaker - Concentration - Miser','rhand','true',1720,2,1,'fine_steel','b',221,10,'crossbow',10,-1,0,0,0,303,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',10889,'3868-1'),
-(10938,'Heavy War Axe - Earth','rhand','true',1620,1,1,'fine_steel','b',175,20,'blunt',4,4,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3884-1'),
-(10939,'Heavy War Axe - Earth - Anger','rhand','true',1620,1,1,'fine_steel','b',175,20,'blunt',4,4,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3012-5;3884-1'),
-(10940,'Heavy War Axe - Earth - Health','rhand','true',1620,1,1,'fine_steel','b',175,20,'blunt',4,4,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3013-1;3884-1'),
-(10941,'Heavy War Axe - Earth - Rsk. Focus','rhand','true',1620,1,1,'fine_steel','b',175,20,'blunt',4,4,0,0,0,379,0,91,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3027-5;3884-1'),
-(10942,'Hell Knife - Confusion','rhand','true',740,1,1,'fine_steel','b',122,5,'dagger',12,-3,0,0,0,433,0,122,-1,-1,6680500,891,'true','true','true','true','true','','','',0,'3858-1'),
-(10943,'Hell Knife - Confusion - Magic Regeneration','rhand','true',740,1,1,'fine_steel','b',122,5,'dagger',12,-3,0,0,0,433,0,122,-1,-1,6680500,891,'true','true','true','true','true','','1044-3-30','',0,'3858-1'),
-(10944,'Hell Knife - Confusion - Magic Mental Shield','rhand','true',740,1,1,'fine_steel','b',122,5,'dagger',12,-3,0,0,0,433,0,122,-1,-1,6680500,891,'true','true','true','true','true','','1035-4-50','',0,'3858-1'),
-(10945,'Hell Knife - Confusion - Magic Weakness','rhand','true',740,1,1,'fine_steel','b',122,5,'dagger',12,-3,0,0,0,433,0,122,-1,-1,6680500,891,'true','true','true','true','true','','1164-11-8','',0,'3858-1'),
-(10946,'Raid Sword*Samurai Long Sword - Destruction','lrhand','true',2130,1,1,'fine_steel','b',220,10,'dual',8,0,0,0,0,325,0,94,-1,-1,7340000,979,'true','true','true','true','true','','','',0,'3835-1'),
-(10947,'Shamshir*Samurai Long Sword - Destruction','lrhand','true',2110,1,1,'fine_steel','b',220,10,'dual',8,0,0,0,0,325,0,94,-1,-1,7340000,979,'true','true','true','true','true','3046-4','','',0,'3835-1'),
-(10948,'Spirit Sword*Samurai Long Sword - Destruction','lrhand','true',2110,1,1,'fine_steel','b',220,10,'dual',8,0,0,0,0,325,0,94,-1,-1,7340000,979,'true','true','true','true','true','3013-1','','',0,'3835-1'),
-(10949,'Katana*Samurai Long Sword - Destruction','lrhand','true',2130,1,1,'fine_steel','b',220,10,'dual',8,0,0,0,0,325,0,94,-1,-1,7340000,979,'true','true','true','true','true','3042-12','','',0,'3835-1'),
-(10950,'Sword of Limit*Samurai Long Sword - Destruction','lrhand','true',2100,1,1,'fine_steel','b',228,10,'dual',8,0,0,0,0,325,0,97,-1,-1,8729600,1164,'true','true','true','true','true','3046-4','','',0,'3835-1'),
-(10951,'Sword of Delusion*Samurai Long Sword - Destruction','lrhand','true',2110,1,1,'fine_steel','b',228,10,'dual',8,0,0,0,0,325,0,97,-1,-1,8729600,1164,'true','true','true','true','true','3042-13','','',0,'3835-1'),
-(10952,'Sword of Nightmare*Samurai Long Sword - Destruction','lrhand','true',2080,1,1,'fine_steel','b',228,10,'dual',8,0,0,0,0,325,0,97,-1,-1,8729600,1164,'true','true','true','true','true','3013-1','','',0,'3835-1'),
-(10953,'Tsurugi*Samurai Long Sword - Destruction','lrhand','true',2090,1,1,'fine_steel','b',228,10,'dual',8,0,0,0,0,325,0,97,-1,-1,8729600,1164,'true','true','true','true','true','3044-13','','',0,'3835-1'),
-(10954,'Caliburs*Samurai Long Sword - Destruction','lrhand','true',2120,1,1,'fine_steel','b',228,10,'dual',8,0,0,0,0,325,0,97,-1,-1,8729600,1164,'true','true','true','true','true','3045-1','','',0,'3835-1'),
-(10955,'Guardian Sword - Great Gale','lrhand','true',1930,1,1,'fine_steel','b',236,10,'bigsword',8,0,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',10963,'3840-1'),
-(10956,'Guardian Sword - Great Gale - Critical Drain','lrhand','true',1930,1,1,'fine_steel','b',236,10,'bigsword',8,0,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3022-6-33',10964,'3840-1'),
-(10957,'Guardian Sword - Great Gale - Health','lrhand','true',1930,1,1,'fine_steel','b',236,10,'bigsword',8,0,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',10965,'3013-1;3840-1'),
-(10958,'Guardian Sword - Great Gale - Critical Bleed','lrhand','true',1930,1,1,'fine_steel','b',236,10,'bigsword',8,0,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3055-2-24',10966,'3840-1'),
-(10959,'Sword of Damascus - Earth','rhand','true',1350,1,1,'fine_steel','b',194,10,'sword',8,0,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11001,'3826-1'),
-(10960,'Sword of Damascus - Earth - Focus','rhand','true',1350,1,1,'fine_steel','b',194,10,'sword',8,0,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11002,'3010-6;3826-1'),
-(10961,'Sword of Damascus - Earth - Critical Damage','rhand','true',1350,1,1,'fine_steel','b',194,10,'sword',8,0,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11003,'3023-3;3826-1'),
-(10962,'Sword of Damascus - Earth - Haste','rhand','true',1350,1,1,'fine_steel','b',194,10,'sword',8,0,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11004,'3036-5;3826-1'),
-(10963,'Dismantler - Great Gale','lrhand','true',1930,1,1,'fine_steel','b',210,15,'ancient',8,2,0,0,0,350,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',10955,'3846-1'),
-(10964,'Dismantler - Great Gale - Critical Drain','lrhand','true',1930,1,1,'fine_steel','b',210,15,'ancient',8,2,0,0,0,350,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3022-6-33',10956,'3846-1'),
-(10965,'Dismantler - Great Gale - Health','lrhand','true',1930,1,1,'fine_steel','b',210,15,'ancient',8,2,0,0,0,350,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',10957,'3013-1;3846-1'),
-(10966,'Dismantler - Great Gale - Critical Bleed','lrhand','true',1930,1,1,'fine_steel','b',210,15,'ancient',8,2,0,0,0,350,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3055-2-24',10958,'3846-1'),
-(10967,'Lance - Earth','lrhand','true',1920,1,1,'fine_steel','b',194,10,'pole',8,-3,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3599-1;3877-1'),
-(10968,'Lance - Earth - Anger','lrhand','true',1920,1,1,'fine_steel','b',194,10,'pole',8,-3,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3600-6;3877-1'),
-(10969,'Lance - Earth - Critical Stun','lrhand','true',1920,1,1,'fine_steel','b',194,10,'pole',8,-3,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3070-1-25',0,'3599-1;3877-1'),
-(10970,'Lance - Earth - Towering Blow','lrhand','true',1920,1,1,'fine_steel','b',194,10,'pole',8,-3,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3599-1;3877-1'),
-(10971,'Bellion Cestus - Great Gale','lrhand','true',1390,1,1,'fine_steel','b',236,5,'dualfist',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3880-1'),
-(10972,'Bellion Cestus - Great Gale - Critical Drain','lrhand','true',1390,1,1,'fine_steel','b',236,5,'dualfist',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3039-6-33',0,'3552-1;3880-1'),
-(10973,'Bellion Cestus - Great Gale - Critical Poison','lrhand','true',1390,1,1,'fine_steel','b',236,5,'dualfist',4,4,0,0,0,325,0,99,-1,-1,10090000,1346,'true','true','true','true','true','','','3040-6-6',0,'3880-1'),
-(10974,'Bellion Cestus - Great Gale - Rsk. Haste','lrhand','true',1390,1,1,'fine_steel','b',236,5,'dualfist',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3034-6;3880-1'),
-(10975,'Staff of Evil Spirits - Holy Spirit','lrhand','true',930,1,1,'fine_steel','b',189,20,'bigblunt',4,4,0,0,0,325,0,145,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3900-1'),
-(10976,'Staff of Evil Spirits - Holy Spirit - Magic Focus','lrhand','true',930,1,1,'fine_steel','b',189,20,'bigblunt',4,4,0,0,0,325,0,145,-1,-1,10091400,1346,'true','true','true','true','true','','1077-3-20','',0,'3552-1;3900-1'),
-(10977,'Staff of Evil Spirits - Holy Spirit - Blessed Body','lrhand','true',930,1,1,'fine_steel','b',189,20,'bigblunt',4,4,0,0,0,325,0,145,-1,-1,10091400,1346,'true','true','true','true','true','','1045-5-20','',0,'3900-1'),
-(10978,'Staff of Evil Spirits - Holy Spirit - Magic Poison','lrhand','true',930,1,1,'fine_steel','b',189,20,'bigblunt',4,4,0,0,0,325,0,145,-1,-1,10091400,1346,'true','true','true','true','true','','1168-6-6','',0,'3900-1'),
-(10979,'Deadman\'s Glory - Landslide','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3885-1'),
-(10980,'Deadman\'s Glory - Landslide - Anger','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3012-6;3885-1'),
-(10981,'Deadman\'s Glory - Landslide - Health','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10090000,1346,'true','true','true','true','true','','','',0,'3013-1;3885-1'),
-(10982,'Deadman\'s Glory - Landslide - Haste','rhand','true',1600,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3036-5;3885-1'),
-(10983,'Star Buster - Great Gale','lrhand','true',1930,1,1,'fine_steel','b',236,20,'bigblunt',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3896-1'),
-(10984,'Star Buster - Great Gale - Health','lrhand','true',1930,1,1,'fine_steel','b',236,20,'bigblunt',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3013-1;3896-1'),
-(10985,'Star Buster - Great Gale - Haste','lrhand','true',1930,1,1,'fine_steel','b',236,20,'bigblunt',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3036-5;3896-1'),
-(10986,'Star Buster - Great Gale - Rsk. Focus','lrhand','true',1930,1,1,'fine_steel','b',236,20,'bigblunt',4,4,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3027-6;3896-1'),
-(10987,'Samurai Long Sword*Samurai Long Sword - Landslide','lrhand','true',2080,1,1,'fine_steel','b',236,10,'dual',8,0,0,0,0,325,0,99,-1,-1,10091400,1346,'true','true','true','true','true','3045-12','','',0,'3836-1'),
-(10988,'Art of Battle Axe - Landslide','rhand','true',1570,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3885-1'),
-(10989,'Art of Battle Axe - Landslide - Health','rhand','true',1570,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3013-1;3885-1'),
-(10990,'Art of Battle Axe - Landslide - Rsk. Focus','rhand','true',1570,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3027-6;3885-1'),
-(10991,'Art of Battle Axe - Landslide - Haste','rhand','true',1570,1,1,'fine_steel','b',194,20,'blunt',4,4,0,0,0,379,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3036-5;3885-1'),
-(10992,'Demon Dagger - Great Gale','rhand','true',970,1,1,'fine_steel','b',170,5,'dagger',12,-3,0,0,0,433,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3859-1'),
-(10993,'Demon Dagger - Great Gale - Critical Bleed','rhand','true',970,1,1,'fine_steel','b',170,5,'dagger',12,-3,0,0,0,433,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3020-6-12',0,'3859-1'),
-(10994,'Demon Dagger - Great Gale - Critical Poison','rhand','true',970,1,1,'fine_steel','b',170,5,'dagger',12,-3,0,0,0,433,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','3041-6-3',0,'3859-1'),
-(10995,'Demon Dagger - Great Gale - Mortal Strike','rhand','true',970,1,1,'fine_steel','b',170,5,'dagger',12,-3,0,0,0,433,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3035-6;3859-1'),
-(10996,'Demon Dagger - Great Gale - Critical Damage','rhand','true',970,1,1,'fine_steel','b',170,5,'dagger',12,-3,0,0,0,433,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3043-6;3859-1'),
-(10997,'Kaim Vanul\'s Bones - Earth','rhand','true',1570,1,1,'fine_steel','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3884-1'),
-(10998,'Kaim Vanul\'s Bones - Earth - Mana Up','rhand','true',1570,1,1,'fine_steel','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3014-2;3884-1'),
-(10999,'Kaim Vanul\'s Bones - Earth - Magic Silence','rhand','true',1570,1,1,'fine_steel','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','3078-3-10','',0,'3884-1'),
-(11000,'Kaim Vanul\'s Bones - Earth - Conversion','rhand','true',1570,1,1,'fine_steel','b',155,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3048-1;3884-1'),
-(11001,'Colichemarde - Earth','rhand','true',1350,1,1,'fine_steel','b',176,40,'rapier',10,-1,0,0,0,406,0,99,-1,-1,10091400,1346,'true','true','true','true','true','3426-1','','',10959,'3831-1'),
-(11002,'Colichemarde - Earth - Focus','rhand','true',1350,1,1,'fine_steel','b',176,40,'rapier',10,-1,0,0,0,406,0,99,-1,-1,10091400,1346,'true','true','true','true','true','3426-1','','',10960,'3010-6;3831-1'),
-(11003,'Colichemarde - Earth - Critical Damage','rhand','true',1350,1,1,'fine_steel','b',176,40,'rapier',10,-1,0,0,0,406,0,99,-1,-1,10091400,1346,'true','true','true','true','true','3426-1','','',10961,'3023-3;3831-1'),
-(11004,'Colichemarde - Earth - Haste','rhand','true',1350,1,1,'fine_steel','b',176,40,'rapier',10,-1,0,0,0,406,0,99,-1,-1,10091400,1346,'true','true','true','true','true','3426-1','','',10962,'3037-6;3831-1'),
-(11005,'Wizard\'s Tear - On Fire','rhand','true',1350,1,1,'fine_steel','b',155,10,'sword',8,0,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3853-1'),
-(11006,'Wizard\'s Tear - On Fire - Acumen','rhand','true',1350,1,1,'fine_steel','b',155,10,'sword',8,0,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3047-1;3853-1'),
-(11007,'Wizard\'s Tear - On Fire - Magic Power','rhand','true',1350,1,1,'fine_steel','b',155,10,'sword',8,0,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3077-6;3853-1'),
-(11008,'Wizard\'s Tear - On Fire - Conversion','rhand','true',1350,1,1,'fine_steel','b',155,10,'sword',8,0,0,0,0,379,0,132,-1,-1,10091400,1346,'true','true','true','true','true','','','',0,'3048-1;3853-1'),
-(11009,'Bow of Peril - Earth','lrhand','true',1700,3,1,'fine_steel','b',400,5,'bow',12,-3,0,0,0,293,9,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11013,'3867-1'),
-(11010,'Bow of Peril - Earth - Guidance','lrhand','true',1700,3,1,'fine_steel','b',400,5,'bow',12,-3,0,0,0,293,9,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11014,'3008-6;3867-1'),
-(11011,'Bow of Peril - Earth - Quick Recovery','lrhand','true',1700,3,1,'fine_steel','b',400,5,'bow',12,-3,0,0,0,293,9,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11015,'3867-1'),
-(11012,'Bow of Peril - Earth - Cheap Shot','lrhand','true',1700,3,1,'fine_steel','b',400,5,'bow',12,-3,0,0,0,293,9,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11016,'3867-1'),
-(11013,'Hell Hound - Earth','rhand','true',1700,2,1,'fine_steel','b',245,10,'crossbow',10,-1,0,0,0,303,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11009,'3872-1'),
-(11014,'Hell Hound - Earth - Guidance','rhand','true',1700,2,1,'fine_steel','b',245,10,'crossbow',10,-1,0,0,0,303,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11010,'3008-6;3872-1'),
-(11015,'Hell Hound - Earth - Quick Recovery','rhand','true',1700,2,1,'fine_steel','b',245,10,'crossbow',10,-1,0,0,0,303,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11011,'3872-1'),
-(11016,'Hell Hound - Earth - Cheap Shot','rhand','true',1700,2,1,'fine_steel','b',245,10,'crossbow',10,-1,0,0,0,303,0,99,-1,-1,10091400,1346,'true','true','true','true','true','','','',11012,'3872-1'),
-(11017,'Dasparion\'s Staff - Hail','lrhand','true',920,1,1,'fine_steel','a',207,20,'bigblunt',4,4,0,0,0,325,0,157,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3899-2'),
-(11018,'Dasparion\'s Staff - Hail - Mana Up','lrhand','true',920,1,1,'fine_steel','a',207,20,'bigblunt',4,4,0,0,0,325,0,157,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3014-2;3899-2'),
-(11019,'Dasparion\'s Staff - Hail - Conversion','lrhand','true',920,1,1,'fine_steel','a',207,20,'bigblunt',4,4,0,0,0,325,0,157,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3048-2;3899-2'),
-(11020,'Dasparion\'s Staff - Hail - Acumen','lrhand','true',920,1,1,'fine_steel','a',207,20,'bigblunt',4,4,0,0,0,325,0,157,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3047-2;3899-2'),
-(11021,'Doomchanter - Concentration','rhand','true',1670,1,1,'fine_steel','a',270,10,'crossbow',10,-1,0,0,0,303,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11053,'3868-2'),
-(11022,'Doomchanter - Concentration - Light','rhand','true',1670,1,1,'fine_steel','a',270,10,'crossbow',10,-1,0,0,0,303,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11054,'3498-1;3868-2'),
-(11023,'Doomchanter - Concentration - Critical Bleed','rhand','true',1670,1,1,'fine_steel','a',270,10,'crossbow',10,-1,0,0,0,303,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3053-1-35',11055,'3552-1;3868-2'),
-(11024,'Doomchanter - Concentration - Mana Up','rhand','true',1670,1,1,'fine_steel','a',270,10,'crossbow',10,-1,0,0,0,303,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11056,'3014-2;3868-2'),
-(11025,'White Lightning - Destruction','rhand','true',1330,1,1,'fine_steel','a',193,40,'rapier',10,-1,0,0,0,406,0,107,-1,-1,14098000,1128,'true','true','true','true','true','3426-1','','',11058,'3830-2'),
-(11026,'White Lightning - Destruction - Critical Poison','rhand','true',1330,1,1,'fine_steel','a',193,40,'rapier',10,-1,0,0,0,406,0,107,-1,-1,14098000,1128,'true','true','true','true','true','3426-1','','3061-1-10',11059,'3552-1;3830-2'),
-(11027,'White Lightning - Destruction - Haste','rhand','true',1330,1,1,'fine_steel','a',193,40,'rapier',10,-1,0,0,0,406,0,107,-1,-1,14098000,1128,'true','true','true','true','true','3426-1','','',11060,'3068-2;3830-2'),
-(11028,'White Lightning - Destruction - Anger','rhand','true',1330,1,1,'fine_steel','a',193,40,'rapier',10,-1,0,0,0,406,0,107,-1,-1,14098000,1128,'true','true','true','true','true','3426-1','','',11061,'3057-2;3830-2'),
-(11029,'Meteor Shower - Earth','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3884-1'),
-(11030,'Meteor Shower - Earth - Focus','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3050-1;3884-1'),
-(11031,'Meteor Shower - Earth - Critical Bleed','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3052-1-42',0,'3552-1;3884-1'),
-(11032,'Meteor Shower - Earth - Rsk. Haste','rhand','true',1600,1,1,'fine_steel','a',213,20,'blunt',4,4,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3056-2;3884-1'),
-(11033,'Blood Tornado - Destruction','lrhand','true',1370,1,1,'fine_steel','a',259,5,'dualfist',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3879-2'),
-(11034,'Blood Tornado - Destruction - Haste','lrhand','true',1370,1,1,'fine_steel','a',259,5,'dualfist',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3068-2;3879-2'),
-(11035,'Blood Tornado - Destruction - Focus','lrhand','true',1370,1,1,'fine_steel','a',259,5,'dualfist',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3050-1;3879-2'),
-(11036,'Blood Tornado - Destruction - Anger','lrhand','true',1370,1,1,'fine_steel','a',259,5,'dualfist',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3058-1;3879-2'),
-(11037,'Bloody Orchid - Confusion','rhand','true',960,1,1,'fine_steel','a',186,5,'dagger',12,-3,0,0,0,433,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3858-2'),
-(11038,'Bloody Orchid - Confusion - Focus','rhand','true',960,1,1,'fine_steel','a',186,5,'dagger',12,-3,0,0,0,433,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3051-1;3858-2'),
-(11039,'Bloody Orchid - Confusion - Back Blow','rhand','true',960,1,1,'fine_steel','a',186,5,'dagger',12,-3,0,0,0,433,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3063-1;3858-2'),
-(11040,'Bloody Orchid - Confusion - Critical Bleed','rhand','true',960,1,1,'fine_steel','a',186,5,'dagger',12,-3,0,0,0,433,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3054-1-12',0,'3552-1;3858-2'),
-(11041,'Elemental Sword - Hail','rhand','true',830,1,1,'fine_steel','a',170,10,'sword',8,0,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3854-1'),
-(11042,'Elemental Sword - Hail - Magic Power','rhand','true',830,1,1,'fine_steel','a',170,10,'sword',8,0,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3073-1;3854-1'),
-(11043,'Elemental Sword - Hail - Magic Paralyze','rhand','true',830,1,1,'fine_steel','a',170,10,'sword',8,0,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','3075-1-5','',0,'3854-1'),
-(11044,'Elemental Sword - Hail - Empower','rhand','true',830,1,1,'fine_steel','a',170,10,'sword',8,0,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3072-1;3854-1'),
-(11045,'Spiritual Eye - Hail','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3889-2'),
-(11046,'Spiritual Eye - Hail - Mana Up','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3014-2;3889-2'),
-(11047,'Spiritual Eye - Hail - Magic Poison','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','1168-7-8','',0,'3552-1;3889-2'),
-(11048,'Spiritual Eye - Hail - Acumen','rhand','true',1550,1,1,'fine_steel','a',170,20,'blunt',4,4,0,0,0,379,0,143,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3047-2;3889-2'),
-(11049,'Infernal Master - Concentration','lrhand','true',1900,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11066,'3841-1'),
-(11050,'Infernal Master - Concentration - Haste','lrhand','true',1900,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11067,'3068-2;3841-1'),
-(11051,'Infernal Master - Concentration - Critical Damage','lrhand','true',1900,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11068,'3067-1;3841-1'),
-(11052,'Infernal Master - Concentration - Focus','lrhand','true',1900,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11069,'3050-2;3841-1'),
-(11053,'Carnage Bow - Concentration','lrhand','true',1670,2,1,'fine_steel','a',440,5,'bow',12,-3,0,0,0,293,9,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11021,'3863-2'),
-(11054,'Carnage Bow - Concentration - Light','lrhand','true',900,2,1,'fine_steel','a',440,5,'bow',12,-3,0,0,0,293,9,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11022,'3498-1;3863-2'),
-(11055,'Carnage Bow - Concentration - Critical Bleed','lrhand','true',1670,2,1,'fine_steel','a',440,5,'bow',12,-3,0,0,0,293,9,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3053-1-35',11023,'3552-1;3863-2'),
-(11056,'Carnage Bow - Concentration - Mana Up','lrhand','true',1670,2,1,'fine_steel','a',440,5,'bow',12,-3,0,0,0,293,9,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11024,'3014-2;3863-2'),
-(11057,'Keshanberk*Keshanberk - Destruction','lrhand','true',2080,1,1,'fine_steel','a',259,10,'dual',8,0,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','3045-17','','',0,'3835-2'),
-(11058,'Tallum Blade - Destruction','rhand','true',1330,1,1,'fine_steel','a',213,10,'sword',8,0,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11025,'3825-2'),
-(11059,'Tallum Blade - Destruction - Critical Poison','rhand','true',1330,1,1,'fine_steel','a',213,10,'sword',8,0,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3061-1-10',11026,'3552-1;3825-2'),
-(11060,'Tallum Blade - Destruction - Haste','rhand','true',1330,1,1,'fine_steel','a',213,10,'sword',8,0,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11027,'3068-2;3825-2'),
-(11061,'Tallum Blade - Destruction - Anger','rhand','true',1330,1,1,'fine_steel','a',213,10,'sword',8,0,0,0,0,379,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11028,'3057-1;3825-2'),
-(11062,'Destroyer Hammer - Lightning','lrhand','true',1910,1,1,'fine_steel','a',259,20,'bigblunt',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3895-2'),
-(11063,'Destroyer Hammer - Lightning - Health','lrhand','true',1910,1,1,'fine_steel','a',259,20,'bigblunt',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3013-3;3895-2'),
-(11064,'Destroyer Hammer - Lightning - Haste','lrhand','true',1910,1,1,'fine_steel','a',259,20,'bigblunt',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3068-2;3895-2'),
-(11065,'Destroyer Hammer - Lightning - Critical Drain','lrhand','true',1910,1,1,'fine_steel','a',259,20,'bigblunt',4,4,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3059-1-0',0,'3552-1;3895-2'),
-(11066,'Divine Pain - Concentration','lrhand','true',1900,1,1,'fine_steel','a',231,15,'ancient',8,2,0,0,0,350,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11049,'3847-1'),
-(11067,'Divine Pain - Concentration - Haste','lrhand','true',1900,1,1,'fine_steel','a',231,15,'ancient',8,2,0,0,0,350,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11050,'3068-2;3847-1'),
-(11068,'Divine Pain - Concentration - Critical Damage','lrhand','true',1900,1,1,'fine_steel','a',231,15,'ancient',8,2,0,0,0,350,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11051,'3067-1;3847-1'),
-(11069,'Divine Pain - Concentration - Focus','lrhand','true',1900,1,1,'fine_steel','a',231,15,'ancient',8,2,0,0,0,350,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',11052,'3050-2;3847-1'),
-(11070,'Halberd - Lightning','lrhand','true',1900,1,1,'fine_steel','a',213,10,'pole',8,-3,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3599-1;3874-1'),
-(11071,'Halberd - Lightning - Haste','lrhand','true',1900,1,1,'fine_steel','a',213,10,'pole',8,-3,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3601-8;3874-1'),
-(11072,'Halberd - Lightning - Critical Stun','lrhand','true',1900,1,1,'fine_steel','a',213,10,'pole',8,-3,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','3070-1-25',0,'3552-2;3874-1'),
-(11073,'Halberd - Lightning - Wide Blow','lrhand','true',1900,1,1,'fine_steel','a',213,10,'pole',8,-3,0,0,0,325,0,107,-1,-1,14098000,1128,'true','true','true','true','true','','','',0,'3552-2;3874-1'),
-(11074,'Keshanberk*Damascus - Destruction','lrhand','true',2080,1,1,'fine_steel','a',275,10,'dual',8,0,0,0,0,325,0,112,-1,-1,24100000,1485,'true','true','true','true','true','3013-3','','',0,'3835-2'),
-(11075,'Lacerator - Thunder','rhand','true',1320,1,1,'fine_steel','a',210,40,'rapier',10,-1,0,0,0,406,0,114,-1,-1,200000,1659,'true','true','true','true','true','3426-1','','',11080,'3832-1'),
-(11076,'Lacerator - Thunder - Critical Damage','rhand','true',1320,1,1,'fine_steel','a',210,40,'rapier',10,-1,0,0,0,406,0,114,-1,-1,27000000,1659,'true','true','true','true','true','3426-1','','',11081,'3067-2;3832-1'),
-(11077,'Lacerator - Thunder - Health','rhand','true',1320,1,1,'fine_steel','a',210,40,'rapier',10,-1,0,0,0,406,0,114,-1,-1,27000000,1659,'true','true','true','true','true','3426-1','','',11082,'3013-3;3832-1'),
-(11078,'Lacerator - Thunder - Rsk. Focus','rhand','true',1320,1,1,'fine_steel','a',210,40,'rapier',10,-1,0,0,0,406,0,114,-1,-1,27000000,1659,'true','true','true','true','true','3426-1','','',11083,'3071-2;3832-1'),
-(11079,'Damascus*Damascus - Lightning','lrhand','true',2080,1,1,'fine_steel','a',282,10,'dual',8,0,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','3046-17','','',0,'3838-1'),
-(11080,'Dark Legion - Thunder','rhand','true',1320,1,1,'fine_steel','a',232,10,'sword',8,0,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11075,'3827-1'),
-(11081,'Dark Legion - Thunder - Critical Damage','rhand','true',1320,1,1,'fine_steel','a',232,10,'sword',8,0,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11076,'3067-2;3827-1'),
-(11082,'Dark Legion - Thunder - Health','rhand','true',1320,1,1,'fine_steel','a',232,10,'sword',8,0,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11077,'3013-3;3827-1'),
-(11083,'Dark Legion - Thunder - Rsk. Focus','rhand','true',1320,1,1,'fine_steel','a',232,10,'sword',8,0,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11078,'3071-2;3827-1'),
-(11084,'Undertaker - Evil Spirit','lrhand','true',1840,1,1,'fine_steel','a',251,15,'ancient',8,2,0,0,0,350,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11096,'3848-1'),
-(11085,'Undertaker - Evil Spirit - Health','lrhand','true',1840,1,1,'fine_steel','a',251,15,'ancient',8,2,0,0,0,350,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11097,'3013-3;3848-1'),
-(11086,'Undertaker - Evil Spirit - Critical Bleed','lrhand','true',1840,1,1,'fine_steel','a',251,15,'ancient',8,2,0,0,0,350,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','3055-2-24',11098,'3552-1;3848-1'),
-(11087,'Undertaker - Evil Spirit - Critical Drain','lrhand','true',1840,1,1,'fine_steel','a',251,15,'ancient',8,2,0,0,0,350,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','3060-2-33',11099,'3552-1;3848-1'),
-(11088,'Doom Crusher - Thunder','lrhand','true',1900,1,1,'fine_steel','a',282,20,'bigblunt',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3894-1'),
-(11089,'Doom Crusher - Thunder - Health','lrhand','true',1900,1,1,'fine_steel','a',282,20,'bigblunt',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3013-3;3894-1'),
-(11090,'Doom Crusher - Thunder - Anger','lrhand','true',1900,1,1,'fine_steel','a',282,20,'bigblunt',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3057-2;3894-1'),
-(11091,'Doom Crusher - Thunder - Rsk. Haste','lrhand','true',1900,1,1,'fine_steel','a',282,20,'bigblunt',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3056-2;3894-1'),
-(11092,'Dragon Grinder - Earth','lrhand','true',1350,1,1,'fine_steel','a',282,5,'dualfist',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3881-1'),
-(11093,'Dragon Grinder - Earth - Rsk. Evasion','lrhand','true',1350,1,1,'fine_steel','a',282,5,'dualfist',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3069-1;3881-1'),
-(11094,'Dragon Grinder - Earth - Guidance','lrhand','true',1350,1,1,'fine_steel','a',282,5,'dualfist',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3065-1;3881-1'),
-(11095,'Dragon Grinder - Earth - Health','lrhand','true',1350,1,1,'fine_steel','a',282,5,'dualfist',4,4,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3013-3;3881-1'),
-(11096,'Dragon Slayer - Evil Spirit','lrhand','true',1840,1,1,'fine_steel','a',282,10,'bigsword',8,0,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11084,'3842-1'),
-(11097,'Dragon Slayer - Evil Spirit - Health','lrhand','true',1840,1,1,'fine_steel','a',282,10,'bigsword',8,0,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11085,'3013-3;3842-1'),
-(11098,'Dragon Slayer - Evil Spirit - Critical Bleed','lrhand','true',1840,1,1,'fine_steel','a',282,10,'bigsword',8,0,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','3055-2-24',11086,'3552-1;3842-1'),
-(11099,'Dragon Slayer - Evil Spirit - Critical Drain','lrhand','true',1840,1,1,'fine_steel','a',282,10,'bigsword',8,0,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','3060-2-33',11087,'3552-1;3842-1'),
-(11100,'Flaming Dragon Skull - Wisdom','rhand','true',1530,1,1,'fine_steel','a',186,20,'blunt',4,4,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3892-1'),
-(11101,'Flaming Dragon Skull - Wisdom - Acumen','rhand','true',1530,1,1,'fine_steel','a',186,20,'blunt',4,4,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3047-2;3892-1'),
-(11102,'Flaming Dragon Skull - Wisdom - Magic Power','rhand','true',1530,1,1,'fine_steel','a',186,20,'blunt',4,4,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3073-1;3892-1'),
-(11103,'Flaming Dragon Skull - Wisdom - Magic Silence','rhand','true',1530,1,1,'fine_steel','a',186,20,'blunt',4,4,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','3074-2-10','',0,'3552-1;3892-1'),
-(11104,'Branch of the Mother Tree - Nature','lrhand','true',900,1,1,'fine_steel','a',226,20,'bigblunt',4,4,0,0,0,325,0,167,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3901-1'),
-(11105,'Branch of the Mother Tree - Nature - Conversion','lrhand','true',900,1,1,'fine_steel','a',226,20,'bigblunt',4,4,0,0,0,325,0,167,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3048-2;3901-1'),
-(11106,'Branch of the Mother Tree - Nature - Magic Damage','lrhand','true',900,1,1,'fine_steel','a',226,20,'bigblunt',4,4,0,0,0,325,0,167,-1,-1,27000000,1659,'true','true','true','true','true','','3049-2-30','',0,'3552-1;3901-1'),
-(11107,'Branch of the Mother Tree - Nature - Acumen','lrhand','true',900,1,1,'fine_steel','a',226,20,'bigblunt',4,4,0,0,0,325,0,167,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3047-2;3901-1'),
-(11108,'Sword of Miracles - Holy Spirit','rhand','true',840,1,1,'fine_steel','a',186,10,'sword',8,0,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3856-1;3856-1'),
-(11109,'Sword of Miracles - Holy Spirit - Magic Power','rhand','true',840,1,1,'fine_steel','a',186,10,'sword',8,0,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3073-2;3856-1;3856-1'),
-(11110,'Sword of Miracles - Holy Spirit - Magic Silence','rhand','true',840,1,1,'fine_steel','a',186,10,'sword',8,0,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','3074-2-10','',0,'3552-1;3856-1;3856-1'),
-(11111,'Sword of Miracles - Holy Spirit - Acumen','rhand','true',840,1,1,'fine_steel','a',186,10,'sword',8,0,0,0,0,379,0,152,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3047-2;3856-1;3856-1'),
-(11112,'Reaper - Clairvoyance','rhand','true',1660,1,1,'fine_steel','a',294,10,'crossbow',10,-1,0,0,0,303,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11124,'3870-1'),
-(11113,'Reaper - Clairvoyance - Cheap Shot','rhand','true',1660,1,1,'fine_steel','a',294,10,'crossbow',10,-1,0,0,0,303,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11125,'3552-1;3870-1'),
-(11114,'Reaper - Clairvoyance - Quick Recovery','rhand','true',1660,1,1,'fine_steel','a',294,10,'crossbow',10,-1,0,0,0,303,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',11126,'3552-1;3870-1'),
-(11115,'Reaper - Clairvoyance - Critical Poison','rhand','true',1660,1,1,'fine_steel','a',294,10,'crossbow',10,-1,0,0,0,303,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','3062-2-18',11127,'3552-1;3870-1'),
-(11116,'Soul Separator - On Fire','rhand','true',950,1,1,'fine_steel','a',203,5,'dagger',12,-3,0,0,0,433,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3860-1'),
-(11117,'Soul Separator - On Fire - Guidance','rhand','true',950,1,1,'fine_steel','a',203,5,'dagger',12,-3,0,0,0,433,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3064-1;3860-1'),
-(11118,'Soul Separator - On Fire - Critical Damage','rhand','true',950,1,1,'fine_steel','a',203,5,'dagger',12,-3,0,0,0,433,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3066-1;3860-1'),
-(11119,'Soul Separator - On Fire - Rsk. Haste','rhand','true',950,1,1,'fine_steel','a',203,5,'dagger',12,-3,0,0,0,433,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3056-2;3860-1'),
-(11120,'Elysian - Great Gale','rhand','true',1580,1,1,'fine_steel','a',232,20,'blunt',4,4,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3886-1'),
-(11121,'Elysian - Great Gale - Health','rhand','true',1580,1,1,'fine_steel','a',232,20,'blunt',4,4,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3013-3;3886-1'),
-(11122,'Elysian - Great Gale - Anger','rhand','true',1580,1,1,'fine_steel','a',232,20,'blunt',4,4,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3057-2;3886-1'),
-(11123,'Elysian - Great Gale - Critical Drain','rhand','true',1580,1,1,'fine_steel','a',232,20,'blunt',4,4,0,0,0,379,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','3059-2-33',0,'3552-1;3886-1'),
-(11124,'Soul Bow - Clairvoyance','lrhand','true',1660,2,1,'fine_steel','a',528,5,'bow',12,-3,0,0,0,227,10,125,-1,-1,27000000,1659,'true','true','true','true','true','','','',11112,'3865-1;3870-1'),
-(11125,'Soul Bow - Clairvoyance - Cheap Shot','lrhand','true',1660,2,1,'fine_steel','a',528,5,'bow',12,-3,0,0,0,227,10,125,-1,-1,27000000,1659,'true','true','true','true','true','','','',11113,'3552-1;3865-1;3870-1'),
-(11126,'Soul Bow - Clairvoyance - Quick Recovery','lrhand','true',1660,2,1,'fine_steel','a',528,5,'bow',12,-3,0,0,0,227,10,125,-1,-1,27000000,1659,'true','true','true','true','true','','','',11114,'3552-1;3865-1;3870-1'),
-(11127,'Soul Bow - Clairvoyance - Critical Poison','lrhand','true',1660,2,1,'fine_steel','a',528,5,'bow',12,-3,0,0,0,227,10,125,-1,-1,27000000,1659,'true','true','true','true','true','','','3062-2-18',11115,'3552-1;3865-1;3870-1'),
-(11128,'Tallum Glaive - On Fire','lrhand','true',1840,1,1,'fine_steel','a',232,10,'pole',8,-3,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3599-1;3877-1'),
-(11129,'Tallum Glaive - On Fire - Guidance','lrhand','true',1840,1,1,'fine_steel','a',232,10,'pole',8,-3,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3602-8;3877-1'),
-(11130,'Tallum Glaive - On Fire - Health','lrhand','true',1840,1,1,'fine_steel','a',232,10,'pole',8,-3,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3013-4;3877-1'),
-(11131,'Tallum Glaive - On Fire - Wide Blow','lrhand','true',1840,1,1,'fine_steel','a',232,10,'pole',8,-3,0,0,0,325,0,114,-1,-1,27000000,1659,'true','true','true','true','true','','','',0,'3552-2;3877-1'),
-(11133,'Naga Storm - Molar','rhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3861-1'),
-(11134,'Naga Storm - Molar - Focus','rhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3051-1;3861-1'),
-(11135,'Naga Storm - Molar - Critical Damage','rhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3066-1;3861-1'),
-(11136,'Naga Storm - Molar - Back Blow','rhand','true',930,1,1,'fine_steel','a',220,5,'dagger',12,-3,0,0,0,433,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3019-6;3861-1'),
-(11137,'Daimon Crystal - Wisdom','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3902-1'),
-(11138,'Daimon Crystal - Wisdom - Mana Up','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3014-2;3902-1'),
-(11139,'Daimon Crystal - Wisdom - Acumen','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3047-2;3902-1'),
-(11140,'Daimon Crystal - Wisdom - Magic Mental Shield','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'true','true','true','true','true','','1035-2-50','',0,'3552-1;3902-1'),
-(11141,'Barakiel\'s Axe - On Fire','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3887-1'),
-(11142,'Barakiel\'s Axe - On Fire - Health','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3013-3;3887-1'),
-(11143,'Barakiel\'s Axe - On Fire - Haste','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3068-2;3887-1'),
-(11144,'Barakiel\'s Axe - On Fire - Focus','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3050-2;3887-1'),
-(11145,'Screaming Vengeance - Concentration','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11157,'3868-2'),
-(11146,'Screaming Vengeance - Concentration - Cheap Shot','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11158,'3552-1;3868-2'),
-(11147,'Screaming Vengeance - Concentration - Focus','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11159,'3050-2;3868-2'),
-(11148,'Screaming Vengeance - Concentration - Quick Recovery','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11160,'3552-1;3868-2'),
-(11149,'Behemoth\'s Tuning Fork - Destruction','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3897-1'),
-(11150,'Behemoth\'s Tuning Fork - Destruction - Focus','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3050-2;3897-1'),
-(11151,'Behemoth\'s Tuning Fork - Destruction - Health','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3013-3;3897-1'),
-(11152,'Behemoth\'s Tuning Fork - Destruction - Anger','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3057-2;3897-1'),
-(11153,'Bultgang - Earth','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11161,'3849-1'),
-(11154,'Bultgang - Earth - Focus','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11162,'3050-2;3849-1'),
-(11155,'Bultgang - Earth - Haste','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11163,'3068-2;3849-1'),
-(11156,'Bultgang - Earth - Health','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11164,'3013-3;3849-1'),
-(11157,'Shyeed\'s Bow - Concentration','lrhand','true',1640,2,1,'fine_steel','a',570,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'true','true','true','true','true','','','',11145,'3863-3'),
-(11158,'Shyeed\'s Bow - Concentration - Cheap Shot','lrhand','true',1640,2,1,'fine_steel','a',570,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'true','true','true','true','true','','','',11146,'3552-1;3863-3'),
-(11159,'Shyeed\'s Bow - Concentration - Focus','lrhand','true',1640,2,1,'fine_steel','a',570,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'true','true','true','true','true','','','',11147,'3050-2;3863-3'),
-(11160,'Shyeed\'s Bow - Concentration - Quick Recovery','lrhand','true',1640,2,1,'fine_steel','a',570,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'true','true','true','true','true','','','',11148,'3552-1;3863-3'),
-(11161,'Sword of Ipos - Earth','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11153,'3843-1'),
-(11162,'Sword of Ipos - Earth - Focus','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11154,'3050-2;3843-1'),
-(11163,'Sword of Ipos - Earth - Haste','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11155,'3068-2;3843-1'),
-(11164,'Sword of Ipos - Earth - Health','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11156,'3013-3;3843-1'),
-(11165,'Sobekk\'s Hurricane - Landslide','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3882-1'),
-(11166,'Sobekk\'s Hurricane - Landslide - Rsk. Haste','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3056-2;3882-1'),
-(11167,'Sobekk\'s Hurricane - Landslide - Haste','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3068-2;3882-1'),
-(11168,'Sobekk\'s Hurricane - Landslide - Critical Drain','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','3039-6-33',0,'3552-1;3882-1'),
-(11169,'Sirra\'s Blade - Landslide','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11173,'3829-1'),
-(11170,'Sirra\'s Blade - Landslide - Haste','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11174,'3068-2;3829-1'),
-(11171,'Sirra\'s Blade - Landslide - Health','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',11175,'3013-3;3829-1'),
-(11172,'Sirra\'s Blade - Landslide - Critical Poison','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','3061-3-15',11176,'3552-1;3829-1'),
-(11173,'Eclair Bijou - Landslide','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'true','true','true','true','true','3426-1','','',11169,'3834-1'),
-(11174,'Eclair Bijou - Landslide - Haste','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'true','true','true','true','true','3426-1','','',11170,'3068-2;3834-1'),
-(11175,'Eclair Bijou - Landslide - Health','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'true','true','true','true','true','3426-1','','',11171,'3013-3;3834-1'),
-(11176,'Eclair Bijou - Landslide - Critical Poison','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'true','true','true','true','true','3426-1','','3061-3-15',11172,'3552-1;3834-1'),
-(11177,'Tiphon\'s Spear - Landslide','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3599-1;3876-1'),
-(11178,'Tiphon\'s Spear - Landslide - Critical Stun','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','3070-2-25',0,'3552-2;3876-1'),
-(11179,'Tiphon\'s Spear - Landslide - Towering Blow','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3552-2;3876-1'),
-(11180,'Tiphon\'s Spear - Landslide - Wide Blow','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3552-2;3876-1'),
-(11181,'Tallum Blade*Damascus - Landslide','lrhand','true',1890,1,1,'fine_steel','a',305,10,'dual',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'true','true','true','true','true','3045-17','','',0,'3839-1'),
-(11182,'Themis\' Tongue - Cleverness','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3853-1'),
-(11183,'Themis\' Tongue - Cleverness - Mana Up','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3014-2;3853-1'),
-(11184,'Themis\' Tongue - Cleverness - Magic Mental Shield','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','1035-2-50','',0,'3552-1;3853-1'),
-(11185,'Themis\' Tongue - Cleverness - Magic Focus','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','1077-3-20','',0,'3552-1;3853-1'),
-(11186,'Cabrio\'s Hand - Cleverness','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3893-1'),
-(11187,'Cabrio\'s Hand - Cleverness - Conversion','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3048-3;3893-1'),
-(11188,'Cabrio\'s Hand - Cleverness - Mana Up','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','','',0,'3014-2;3893-1'),
-(11189,'Cabrio\'s Hand - Cleverness - Magic Silence','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'true','true','true','true','true','','3074-2-10','',0,'3552-1;3893-1'),
-(11190,'Gram - Thunder','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11239,'3850-1'),
-(11191,'Gram - Thunder - Haste','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11240,'3564-1;3850-1'),
-(11192,'Gram - Thunder - Health','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11241,'3013-3;3850-1'),
-(11193,'Gram - Thunder - Focus','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11242,'3566-1;3850-1'),
-(11194,'Demon Splinter - Thunder','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3883-1'),
-(11195,'Demon Splinter - Thunder - Focus','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3565-1;3883-1'),
-(11196,'Demon Splinter - Thunder - Health','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3013-3;3883-1'),
-(11197,'Demon Splinter - Thunder - Critical Stun','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','3571-1-27',0,'3552-1;3883-1'),
-(11198,'Draconic Bow - Earth','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11214,'3867-1'),
-(11199,'Draconic Bow - Earth - Cheap Shot','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11215,'3552-1;3867-1'),
-(11200,'Draconic Bow - Earth - Focus','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11216,'3567-1;3867-1'),
-(11201,'Draconic Bow - Earth - Critical Slow','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'true','true','true','true','true','','','3574-1-16',11217,'3552-1;3867-1'),
-(11202,'Dragon Hunter Axe - Thunder','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3894-1'),
-(11203,'Dragon Hunter Axe - Thunder - HP Regeneration','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3569-1;3894-1'),
-(11204,'Dragon Hunter Axe - Thunder - Health','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3013-3;3894-1'),
-(11205,'Dragon Hunter Axe - Thunder - HP Drain','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3568-1;3894-1'),
-(11206,'Laevateinn - Lightning','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'true','true','true','true','true','3426-1','','',11235,'3833-1'),
-(11207,'Laevateinn - Lightning - Haste','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'true','true','true','true','true','3426-1','','',11236,'3564-1;3833-1'),
-(11208,'Laevateinn - Lightning - Health','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'true','true','true','true','true','3426-1','','',11237,'3013-3;3833-1'),
-(11209,'Laevateinn - Lightning - Focus','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'true','true','true','true','true','3426-1','','',11238,'3566-1;3833-1'),
-(11210,'Basalt Battlehammer - Concentration','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3888-1'),
-(11211,'Basalt Battlehammer - Concentration - HP Drain','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3568-1;3888-1'),
-(11212,'Basalt Battlehammer - Concentration - Health','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3013-3;3888-1'),
-(11213,'Basalt Battlehammer - Concentration - HP Regeneration','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3569-1;3888-1'),
-(11214,'Sarunga - Earth','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11198,'3872-1'),
-(11215,'Sarunga - Earth - Cheap Shot','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11199,'3552-1;3872-1'),
-(11216,'Sarunga - Earth - Focus','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11200,'3567-1;3872-1'),
-(11217,'Sarunga - Earth - Critical Slow','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','3574-1-16',11201,'3552-1;3872-1'),
-(11218,'Saint Spear - Destruction','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3599-1;3878-1'),
-(11219,'Saint Spear - Destruction - Health','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3013-4;3878-1'),
-(11220,'Saint Spear - Destruction - Guidance','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3602-9;3878-1'),
-(11221,'Saint Spear - Destruction - Haste','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3601-9;3878-1'),
-(11222,'Arcana Mace - Nature','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3890-1'),
-(11223,'Arcana Mace - Nature - Acumen','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3047-2;3890-1'),
-(11224,'Arcana Mace - Nature - MP Regeneration','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3576-1;3890-1'),
-(11225,'Arcana Mace - Nature - Mana Up','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3014-2;3890-1'),
-(11226,'Angel Slayer - Concentration','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3862-1'),
-(11227,'Angel Slayer - Concentration - Critical Damage','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3572-1;3862-1'),
-(11228,'Angel Slayer - Concentration - HP Drain','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3568-1;3862-1'),
-(11229,'Angel Slayer - Concentration - Haste','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3564-1;3862-1'),
-(11230,'Imperial Staff - Nature','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3890-1'),
-(11231,'Imperial Staff - Nature - Empower','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3575-1;3890-1'),
-(11232,'Imperial Staff - Nature - MP Regeneration','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'true','true','true','true','true','','','',0,'3576-1;3890-1'),
-(11233,'Imperial Staff - Nature - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'true','true','true','true','true','','3577-1-20','',0,'3552-1;3890-1'),
-(11234,'Tallum Blade*Dark Legion\'s Edge - Lightning','lrhand','true',2080,1,1,'fine_steel','s',342,10,'dual',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','3570-1','','',0,'3838-1'),
-(11235,'Forgotten Blade - Lightning','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11206,'3828-1'),
-(11236,'Forgotten Blade - Lightning - Haste','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11207,'3564-1;3828-1'),
-(11237,'Forgotten Blade - Lightning - Health','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11208,'3013-3;3828-1'),
-(11238,'Forgotten Blade - Lightning - Focus','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11209,'3566-1;3828-1'),
-(11239,'Heaven\'s Divider - Thunder','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11190,'3844-1'),
-(11240,'Heaven\'s Divider - Thunder - Haste','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11191,'3564-1;3844-1'),
-(11241,'Heaven\'s Divider - Thunder - Health','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11192,'3013-3;3844-1'),
-(11242,'Heaven\'s Divider - Thunder - Focus','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'true','true','true','true','true','','','',11193,'3566-1;3844-1'),
-(11243,'Dynasty Ancient Sword - Great Gale','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11268,'3846-2'),
-(11244,'Dynasty Ancient Sword - Great Gale - Focus','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11269,'3566-2;3846-2'),
-(11245,'Dynasty Ancient Sword - Great Gale - Health','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11270,'3013-5;3846-2'),
-(11246,'Dynasty Ancient Sword - Great Gale - Light','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11271,'3498-1;3846-2'),
-(11247,'Dynasty Knife - Great Gale','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3859-2'),
-(11248,'Dynasty Knife - Great Gale - Focus','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3567-2;3859-2'),
-(11249,'Dynasty Knife - Great Gale - Evasion','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3009-7;3859-2'),
-(11250,'Dynasty Knife - Great Gale - Critical Damage','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3066-4;3859-2'),
-(11251,'Dynasty Dual Sword - Earth','lrhand','true',1520,1,1,'fine_steel','s80',405,10,'dual',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','3411-1','','',0,'3836-2'),
-(11252,'Dynasty Rapier - Earth','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'true','true','true','true','true','3426-1','','',11272,'3831-2'),
-(11253,'Dynasty Rapier - Earth - Focus','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'true','true','true','true','true','3426-1','','',11273,'3566-2;3831-2'),
-(11254,'Dynasty Rapier - Earth - Health','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'true','true','true','true','true','3426-1','','',11274,'3013-5;3831-2'),
-(11255,'Dynasty Rapier - Earth - Light','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'true','true','true','true','true','3426-1','','',11275,'3498-1;3831-2'),
-(11256,'Dynasty Mace - Earth','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3884-2'),
-(11257,'Dynasty Mace - Earth - Mana Up','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3014-3;3884-2'),
-(11258,'Dynasty Mace - Earth - Conversion','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3048-3;3884-2'),
-(11259,'Dynasty Mace - Earth - Acumen','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3047-2;3884-2'),
-(11260,'Dynasty Bagh-Nakh - Great Gale','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3880-2'),
-(11261,'Dynasty Bagh-Nakh - Great Gale - Rsk. Evasion','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3069-1;3880-2'),
-(11262,'Dynasty Bagh-Nakh - Great Gale - Focus','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3565-2;3880-2'),
-(11263,'Dynasty Bagh-Nakh - Great Gale - Haste','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3037-2;3880-2'),
-(11264,'Dynasty Bow - Great Gale','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11288,'3864-2'),
-(11265,'Dynasty Bow - Great Gale - Cheap Shot','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11289,'3552-1;3864-2'),
-(11266,'Dynasty Bow - Great Gale - Guidance','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11290,'3573-1;3864-2'),
-(11267,'Dynasty Bow - Great Gale - Focus','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11291,'3567-2;3864-2'),
-(11268,'Dynasty Blade - Great Gale','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11243,'3840-2'),
-(11269,'Dynasty Blade - Great Gale - Focus','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11244,'3566-2;3840-2'),
-(11270,'Dynasty Blade - Great Gale - Health','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11245,'3013-5;3840-2'),
-(11271,'Dynasty Blade - Great Gale - Light','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11246,'3498-1;3840-2'),
-(11272,'Dynasty Sword - Earth','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11252,'3826-2'),
-(11273,'Dynasty Sword - Earth - Focus','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11253,'3566-2;3826-2'),
-(11274,'Dynasty Sword - Earth - Health','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11254,'3013-5;3826-2'),
-(11275,'Dynasty Sword - Earth - Light','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11255,'3498-1;3826-2'),
-(11276,'Dynasty Staff - Holy Spirit','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3900-1'),
-(11277,'Dynasty Staff - Holy Spirit - Mana Up','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3014-3;3900-1'),
-(11278,'Dynasty Staff - Holy Spirit - Conversion','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3048-3;3900-1'),
-(11279,'Dynasty Staff - Holy Spirit - Acumen','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3047-2;3900-1'),
-(11280,'Dynasty Cudgel - Landslide','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3885-2'),
-(11281,'Dynasty Cudgel - Landslide - Anger','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3057-3;3885-2'),
-(11282,'Dynasty Cudgel - Landslide - Health','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3013-5;3885-2'),
-(11283,'Dynasty Cudgel - Landslide - Rsk. Focus','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3027-7;3885-2'),
-(11284,'Dynasty Crusher - Great Gale','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3896-2'),
-(11285,'Dynasty Crusher - Great Gale - Anger','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3057-3;3896-2'),
-(11286,'Dynasty Crusher - Great Gale - Health','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3013-5;3896-2'),
-(11287,'Dynasty Crusher - Great Gale - Rsk. Focus','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3027-7;3896-2'),
-(11288,'Dynasty Crossbow - Great Gale','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11264,'3869-2'),
-(11289,'Dynasty Crossbow - Great Gale - Cheap Shot','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11265,'3552-1;3869-2'),
-(11290,'Dynasty Crossbow - Great Gale - Guidance','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11266,'3573-1;3869-2'),
-(11291,'Dynasty Crossbow - Great Gale - Focus','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',11267,'3567-2;3869-2'),
-(11292,'Dynasty Phantom - Wisdom','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3857-1'),
-(11293,'Dynasty Phantom - Wisdom - Acumen','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3047-2;3857-1'),
-(11294,'Dynasty Phantom - Wisdom - Mana Up','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3014-3;3857-1'),
-(11295,'Dynasty Phantom - Wisdom - Conversion','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3048-3;3857-1'),
-(11296,'Dynasty Halberd - Earth','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3599-1;3877-2'),
-(11297,'Dynasty Halberd - Earth - Anger','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3600-10;3877-2'),
-(11298,'Dynasty Halberd - Earth - Critical Stun','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','3070-3-48',0,'3552-2;3877-2'),
-(11299,'Dynasty Halberd - Earth - Light','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'true','true','true','true','true','','','',0,'3599-1;3498-1;3877-2'),
-(11300,'Icarus Dual Sword - Destruction','lrhand','true',1520,1,1,'fine_steel','s80',442,10,'dual',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','3411-1','','',0,'3835-3'),
-(11301,'Icarus Disperser - Confusion','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3858-3'),
-(11302,'Icarus Disperser - Confusion - Focus','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3567-2;3858-3'),
-(11303,'Icarus Disperser - Confusion - Evasion','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3009-8;3858-3'),
-(11304,'Icarus Disperser - Confusion - Critical Damage','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3066-4;3858-3'),
-(11305,'Icarus Sawsword - Destruction','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11313,'3825-3'),
-(11306,'Icarus Sawsword - Destruction - Focus','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11314,'3566-2;3825-3'),
-(11307,'Icarus Sawsword - Destruction - Health','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11315,'3013-5;3825-3'),
-(11308,'Icarus Sawsword - Destruction - Light','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11316,'3498-1;3825-3'),
-(11309,'Icarus Shooter - Concentration','rhand','true',1580,1,1,'fine_steel','s80',400,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11321,'3868-4'),
-(11310,'Icarus Shooter - Concentration - Cheap Shot','rhand','true',1580,1,1,'fine_steel','s80',400,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11322,'3552-1;3868-4'),
-(11311,'Icarus Shooter - Concentration - Guidance','rhand','true',1580,1,1,'fine_steel','s80',400,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11323,'3573-1;3868-4'),
-(11312,'Icarus Shooter - Concentration - Focus','rhand','true',1580,1,1,'fine_steel','s80',400,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11324,'3567-2;3868-4'),
-(11313,'Icarus Stinger - Destruction','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'true','true','true','true','true','3426-1','','',11305,'3830-3'),
-(11314,'Icarus Stinger - Destruction - Focus','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'true','true','true','true','true','3426-1','','',11306,'3566-2;3830-3'),
-(11315,'Icarus Stinger - Destruction - Health','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'true','true','true','true','true','3426-1','','',11307,'3013-5;3830-3'),
-(11316,'Icarus Stinger - Destruction - Light','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'true','true','true','true','true','3426-1','','',11308,'3498-1;3830-3'),
-(11317,'Icarus Spirit - Nature','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3852-3'),
-(11318,'Icarus Spirit - Nature - Acumen','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3047-3;3852-3'),
-(11319,'Icarus Spirit - Nature - Mana Up','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3014-3;3852-3'),
-(11320,'Icarus Spirit - Nature - Conversion','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3048-3;3852-3'),
-(11321,'Icarus Spitter - Concentration','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11309,'3863-4'),
-(11322,'Icarus Spitter - Concentration - Cheap Shot','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11310,'3552-1;3863-4'),
-(11323,'Icarus Spitter - Concentration - Guidance','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11311,'3573-1;3863-4'),
-(11324,'Icarus Spitter - Concentration - Focus','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11312,'3567-2;3863-4'),
-(11325,'Icarus Wingblade - Lightning','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11341,'3851-2'),
-(11326,'Icarus Wingblade - Lightning - Focus','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11342,'3566-2;3851-2'),
-(11327,'Icarus Wingblade - Lightning - Health','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11343,'3013-5;3851-2'),
-(11328,'Icarus Wingblade - Lightning - Light','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11344,'3498-1;3851-2'),
-(11329,'Icarus Trident - Thunder','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3599-1;3873-2'),
-(11330,'Icarus Trident - Thunder - Anger','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3600-10;3873-2'),
-(11331,'Icarus Trident - Thunder - Critical Stun','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','3070-3-48',0,'3552-2;3873-2'),
-(11332,'Icarus Trident - Thunder - Light','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3599-1;3498-1;3873-2'),
-(11333,'Icarus Hammer - Earth','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3884-3'),
-(11334,'Icarus Hammer - Earth - Anger','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3057-3;3884-3'),
-(11335,'Icarus Hammer - Earth - Health','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3013-5;3884-3'),
-(11336,'Icarus Hammer - Earth - Rsk. Focus','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3027-7;3884-3'),
-(11337,'Icarus Hand - Destruction','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3879-3'),
-(11338,'Icarus Hand - Destruction - Rsk. Evasion','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3069-1;3879-3'),
-(11339,'Icarus Hand - Destruction - Focus','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3565-2;3879-3'),
-(11340,'Icarus Hand - Destruction - Haste','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3564-2;3879-3'),
-(11341,'Icarus Heavy Arms - Lightning','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11325,'3845-2'),
-(11342,'Icarus Heavy Arms - Lightning - Focus','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11326,'3566-2;3845-2'),
-(11343,'Icarus Heavy Arms - Lightning - Health','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11327,'3013-5;3845-2'),
-(11344,'Icarus Heavy Arms - Lightning - Light','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'true','true','true','true','true','','','',11328,'3498-1;3845-2'),
-(11345,'Icarus Hall - Hail','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3889-3'),
-(11346,'Icarus Hall - Hail - Mana Up','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3014-3;3889-3'),
-(11347,'Icarus Hall - Hail - Conversion','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3048-3;3889-3'),
-(11348,'Icarus Hall - Hail - Acumen','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'true','true','true','true','true','','','',0,'3047-3;3889-3'),
-(12855,'Daimon Crystal - Wisdom {PvP} - Mana Up','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3014-2;3654-1;3902-1'),
-(12856,'Daimon Crystal - Wisdom {PvP} - Acumen','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3047-2;3654-1;3902-1'),
-(12857,'Daimon Crystal - Wisdom {PvP} - Magic Mental Shield','lrhand','true',880,1,1,'fine_steel','a',245,20,'bigblunt',4,4,0,0,0,325,0,177,-1,-1,26970000,2157,'false','false','true','false','true','','1035-2-50','',0,'3552-1;3654-1;3902-1'),
-(12858,'Barakiel\'s Axe - On Fire {PvP} - Health','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3013-3;3887-1'),
-(12859,'Barakiel\'s Axe - On Fire {PvP} - Haste','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3068-2;3887-1'),
-(12860,'Barakiel\'s Axe - On Fire {PvP} - Focus','rhand','true',1550,1,1,'fine_steel','a',251,20,'blunt',4,4,0,0,0,379,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3050-2;3887-1'),
-(12861,'Screaming Vengeance - Concentration {PvP} - Cheap Shot','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12870,'3552-1;3655-1;3868-2'),
-(12862,'Screaming Vengeance - Concentration {PvP} - Focus','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12871,'3050-2;3655-1;3868-2'),
-(12863,'Screaming Vengeance - Concentration {PvP} - Quick Recovery','rhand','true',1640,1,1,'fine_steel','a',318,10,'crossbow',10,-1,0,0,0,303,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12872,'3552-1;3655-1;3868-2'),
-(12864,'Behemoth\'s Tuning Fork - Destruction {PvP} - Focus','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3050-2;3897-1'),
-(12865,'Behemoth\'s Tuning Fork - Destruction {PvP} - Health','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3013-3;3897-1'),
-(12866,'Behemoth\'s Tuning Fork - Destruction {PvP} - Anger','lrhand','true',1890,1,1,'fine_steel','a',305,20,'bigblunt',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3057-2;3897-1'),
-(12867,'Durendal - Earth {PvP} - Focus','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12873,'3050-2;3653-1;3849-1'),
-(12868,'Durendal - Earth {PvP} - Haste','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12874,'3068-2;3653-1;3849-1'),
-(12869,'Durendal - Earth {PvP} - Health','lrhand','true',1820,1,1,'fine_steel','a',272,15,'ancient',8,2,0,0,0,350,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12875,'3013-3;3653-1;3849-1'),
-(12870,'Shyeed\'s Bow - Concentration {PvP} - Cheap Shot','lrhand','true',1640,2,1,'fine_steel','a',571,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'false','false','true','false','true','','','',12861,'3552-1;3863-3'),
-(12871,'Shyeed\'s Bow - Concentration - {PvP} Focus','lrhand','true',1640,2,1,'fine_steel','a',571,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'false','false','true','false','true','','','',12862,'3050-2;3863-3'),
-(12872,'Shyeed\'s Bow - Concentration - {PvP} Quick Recovery','lrhand','true',1640,2,1,'fine_steel','a',571,5,'bow',12,-3,0,0,0,227,10,133,-1,-1,26970000,2157,'false','false','true','false','true','','','',12863,'3552-1;3863-3'),
-(12873,'Sword of Ipos - Earth {PvP} - Focus','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12867,'3050-2;3653-1;3843-1'),
-(12874,'Sword of Ipos - Earth {PvP} - Haste','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12868,'3068-2;3653-1;3843-1'),
-(12875,'Sword of Ipos - Earth {PvP} - Health','lrhand','true',1820,1,1,'fine_steel','a',305,10,'bigsword',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12869,'3013-3;3653-1;3843-1'),
-(12876,'Sobekk\'s Hurricane - Landslide {PvP} - Rsk. Haste','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3056-2;3882-1'),
-(12877,'Sobekk\'s Hurricane - Landslide {PvP} - Haste','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3068-2;3882-1'),
-(12878,'Sobekk\'s Hurricane - Landslide {PvP} - Critical Drain','lrhand','true',1330,1,1,'fine_steel','a',305,5,'dualfist',4,4,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','3039-6-33',0,'3552-1;3882-1'),
-(12879,'Sirra\'s Blade - Landslide {PvP} - Haste','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12882,'3068-2;3829-1'),
-(12880,'Sirra\'s Blade - Landslide {PvP} - Health','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',12883,'3013-3;3829-1'),
-(12881,'Sirra\'s Blade - Landslide {PvP} - Critical Poison','rhand','true',1300,1,1,'fine_steel','a',251,10,'sword',8,0,0,0,0,379,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','3061-3-15',12884,'3552-1;3829-1'),
-(12882,'Eclair Bijou - Landslide {PvP} - Haste','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'false','false','true','false','true','3426-1','','',12879,'3068-2;3650-1;3834-1'),
-(12883,'Eclair Bijou - Landslide {PvP} - Health','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'false','false','true','false','true','3426-1','','',12880,'3013-3;3650-1;3834-1'),
-(12884,'Eclair Bijou - Landslide {PvP} - Critical Poison','rhand','true',1300,1,1,'fine_steel','a',228,40,'rapier',10,-1,0,0,0,406,0,121,-1,-1,26970000,2157,'false','false','true','false','true','3426-1','','3061-3-15',12881,'3552-1;3650-1;3834-1'),
-(12885,'Tiphon\'s Spear - Landslide {PvP} - Critical Stun','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','3070-2-25',0,'3552-2;3876-1'),
-(12886,'Tiphon\'s Spear - Landslide {PvP} - Towering Blow','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3552-2;3876-1'),
-(12887,'Tiphon\'s Spear - Landslide {PvP} - Wide Blow','lrhand','true',1820,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3552-2;3876-1'),
-(12888,'Tallum Blade*Damascus - Landslide {PvP}','lrhand','true',1890,1,1,'fine_steel','a',305,10,'dual',8,0,0,0,0,325,0,121,-1,-1,26970000,2157,'false','false','true','false','true','3045-17','','',0,'3656-1;3839-1'),
-(12889,'Themis\' Tongue - Cleverness {PvP} - Mana Up','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3014-2;3853-1'),
-(12890,'Themis\' Tongue - Cleverness {PvP} - Magic Mental Shield','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'false','false','true','false','true','','1035-2-50','',0,'3552-1;3853-1'),
-(12891,'Themis\' Tongue - Cleverness {PvP} - Magic Focus','rhand','true',820,1,1,'fine_steel','a',202,10,'sword',8,0,0,0,0,379,0,161,-1,-1,26970000,2157,'false','false','true','false','true','','1077-3-20','',0,'3552-1;3853-1'),
-(12892,'Cabrio\'s Hand - Cleverness {PvP} - Conversion','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3048-3;3893-1'),
-(12893,'Cabrio\'s Hand - Cleverness {PvP} - Mana Up','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'false','false','true','false','true','','','',0,'3014-2;3893-1'),
-(12894,'Cabrio\'s Hand - Cleverness {PvP} - Magic Silence','rhand','true',1510,1,1,'fine_steel','a',202,20,'blunt',4,4,0,0,0,379,0,161,-1,-1,26970000,2157,'false','false','true','false','true','','3074-2-10','',0,'3552-1;3893-1'),
-(12895,'Gram - Thunder {PvP} - Haste','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12932,'3564-1;3653-1;3850-1'),
-(12896,'Gram - Thunder {PvP} - Health','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12933,'3013-3;3653-1;3850-1'),
-(12897,'Gram - Thunder {PvP} - Focus','lrhand','true',1800,1,1,'fine_steel','s',304,15,'ancient',8,2,0,0,0,350,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12934,'3566-1;3653-1;3850-1'),
-(12898,'Demon Splinter - Thunder {PvP} - Focus','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3565-1;3651-1;3652-1;3883-1'),
-(12899,'Demon Splinter - Thunder {PvP} - Health','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3013-3;3651-1;3652-1;3883-1'),
-(12900,'Demon Splinter - Thunder {PvP} - Critical Stun','lrhand','true',1350,1,1,'fine_steel','s',342,5,'dualfist',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','3571-1-27',0,'3552-1;3651-1;3652-1;3883-1'),
-(12901,'Draconic Bow - Earth {PvP} - Cheap Shot','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12913,'3552-1;3655-1;3867-1'),
-(12902,'Draconic Bow - Earth {PvP} - Focus','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12914,'3567-1;3655-1;3867-1'),
-(12903,'Draconic Bow - Earth {PvP} - Critical Slow','lrhand','true',1650,1,1,'fine_steel','s',581,5,'bow',12,-3,0,0,0,293,11,132,-1,-1,42759400,2052,'false','false','true','false','true','','','3574-1-16',12915,'3552-1;3655-1;3867-1'),
-(12904,'Dragon Hunter Axe - Thunder {PvP} - HP Regeneration','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3569-1;3653-1;3894-1'),
-(12905,'Dragon Hunter Axe - Thunder {PvP} - Health','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3013-3;3653-1;3894-1'),
-(12906,'Dragon Hunter Axe - Thunder {PvP} - HP Drain','lrhand','true',1820,1,1,'fine_steel','s',342,20,'bigblunt',4,4,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3568-1;3653-1;3894-1'),
-(12907,'Laevateinn - Lightning {PvP} - Haste','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'false','false','true','false','true','3426-1','','',12929,'3564-1;3650-1;3833-1'),
-(12908,'Laevateinn - Lightning {PvP} - Health','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'false','false','true','false','true','3426-1','','',12930,'3013-3;3650-1;3833-1'),
-(12909,'Laevateinn - Lightning {PvP} - Focus','rhand','true',1300,1,1,'fine_steel','s',255,40,'rapier',10,-1,0,0,0,406,0,132,-1,-1,42759400,2052,'false','false','true','false','true','3426-1','','',12931,'3566-1;3650-1;3833-1'),
-(12910,'Basalt Battlehammer - Concentration {PvP} - HP Drain','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3568-1;3650-1;3888-1'),
-(12911,'Basalt Battlehammer - Concentration {PvP} - Health','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3013-3;3650-1;3888-1'),
-(12912,'Basalt Battlehammer - Concentration {PvP} - HP Regeneration','rhand','true',1570,1,1,'fine_steel','s',281,20,'blunt',4,4,0,0,0,379,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3569-1;3650-1;3888-1'),
-(12913,'Sarunga - Earth {PvP} - Cheap Shot','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12901,'3552-1;3655-1;3872-1'),
-(12914,'Sarunga - Earth {PvP} - Focus','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12902,'3567-1;3655-1;3872-1'),
-(12915,'Sarunga - Earth {PvP} - Critical Slow','rhand','true',1600,1,1,'fine_steel','s',356,10,'crossbow',10,-1,0,0,0,303,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','3574-1-16',12903,'3552-1;3655-1;3872-1'),
-(12916,'Saint Spear - Destruction {PvP} - Health','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3013-4;3653-1;3878-1'),
-(12917,'Saint Spear - Destruction {PvP} - Guidance','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3602-9;3653-1;3878-1'),
-(12918,'Saint Spear - Destruction {PvP} - Haste','lrhand','true',1800,1,1,'fine_steel','s',281,10,'pole',8,-3,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3601-9;3653-1;3878-1'),
-(12919,'Arcana Mace - Nature {PvP} - Acumen','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3047-2;3654-1;3890-1'),
-(12920,'Arcana Mace - Nature {PvP} - MP Regeneration','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3576-1;3654-1;3890-1'),
-(12921,'Arcana Mace - Nature {PvP} - Mana Up','rhand','true',1300,1,1,'fine_steel','s',225,20,'blunt',4,4,0,0,0,379,0,175,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3014-2;3654-1;3890-1'),
-(12922,'Angel Slayer - Concentration {PvP} - Critical Damage','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3066-4;3651-1;3652-1;3862-1'),
-(12923,'Angel Slayer - Concentration {PvP} - HP Drain','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3568-1;3651-1;3652-1;3862-1'),
-(12924,'Angel Slayer - Concentration {PvP} - Haste','rhand','true',950,1,1,'fine_steel','s',246,5,'dagger',12,-3,0,0,0,433,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3564-1;3651-1;3652-1;3862-1'),
-(12925,'Imperial Staff - Nature {PvP} - Empower','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3575-1;3654-1;3890-1'),
-(12926,'Imperial Staff - Nature {PvP} - MP Regeneration','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'false','false','true','false','true','','','',0,'3576-1;3654-1;3890-1'),
-(12927,'Imperial Staff - Nature {PvP} - Magic Hold','lrhand','true',910,1,1,'fine_steel','s',274,20,'bigblunt',4,4,0,0,0,325,0,193,-1,-1,42759400,2052,'false','false','true','false','true','','3577-1-20','',0,'3552-1;3654-1;3890-1'),
-(12928,'Tallum Blade*Dark Legion - Lightning {PvP}','lrhand','true',2080,1,1,'fine_steel','s',342,10,'dual',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','3570-1','','',0,'3656-1;3838-1'),
-(12929,'Forgotten Blade - Lightning {PvP} - Haste','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12907,'3564-1;3650-1;3828-1'),
-(12930,'Forgotten Blade - Lightning {PvP} - Health','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12908,'3013-3;3650-1;3828-1'),
-(12931,'Forgotten Blade - Lightning {PvP} - Focus','rhand','true',1300,1,1,'fine_steel','s',281,10,'sword',8,0,0,0,0,379,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12909,'3566-1;3650-1;3828-1'),
-(12932,'Heavens Divider - Thunder {PvP} - Haste','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12895,'3564-1;3653-1;3844-1'),
-(12933,'Heavens Divider - Thunder {PvP} - Health','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12896,'3013-3;3653-1;3844-1'),
-(12934,'Heavens Divider - Thunder {PvP} - Focus','lrhand','true',1380,1,1,'fine_steel','s',342,10,'bigsword',8,0,0,0,0,325,0,132,-1,-1,42759400,2052,'false','false','true','false','true','','','',12897,'3566-1;3653-1;3844-1'),
-(12935,'Dynasty Ancient Sword - Great Gale {PvP} - Focus','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12954,'3566-2;3653-1;3846-2'),
-(12936,'Dynasty Ancient Sword - Great Gale {PvP} - Health','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12955,'3013-5;3653-1;3846-2'),
-(12937,'Dynasty Ancient Sword - Great Gale {PvP} - Light','lrhand','true',1800,1,1,'fine_steel','s80',361,15,'ancient',8,2,0,0,0,350,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12956,'3498-1;3653-1;3846-2'),
-(12938,'Dynasty Knife - Great Gale {PvP} - Focus','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3567-2;3651-1;3652-1;3859-2'),
-(12939,'Dynasty Knife - Great Gale {PvP} - Evasion','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3009-7;3651-1;3652-1;3859-2'),
-(12940,'Dynasty Knife - Great Gale {PvP} - Critical Damage','rhand','true',1520,1,1,'fine_steel','s80',291,5,'dagger',12,-3,0,0,0,433,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3066-4;3651-1;3652-1;3859-2'),
-(12941,'Dynasty Dual Sword - Earth {PvP}','lrhand','true',1520,1,1,'fine_steel','s80',405,10,'dual',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','3411-1','','',0,'3656-1;3836-2'),
-(12942,'Dynasty Rapier - Earth {PvP} - Focus','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'false','false','true','false','true','3426-1','','',12957,'3566-2;3650-1;3831-2'),
-(12943,'Dynasty Rapier - Earth {PvP} - Health','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'false','false','true','false','true','3426-1','','',12958,'3013-5;3650-1;3831-2'),
-(12944,'Dynasty Rapier - Earth {PvP} - Light','rhand','true',1280,1,1,'fine_steel','s80',302,40,'rapier',10,-1,0,0,0,406,0,151,-1,-1,74946000,3597,'false','false','true','false','true','3426-1','','',12959,'3498-1;3650-1;3831-2'),
-(12945,'Dynasty Mace - Earth {PvP} - Mana Up','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3014-3;3654-1;3884-2'),
-(12946,'Dynasty Mace - Earth {PvP} - Conversion','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3048-3;3654-1;3884-2'),
-(12947,'Dynasty Mace - Earth {PvP} - Acumen','rhand','true',1080,1,1,'fine_steel','s80',267,20,'blunt',4,4,0,0,0,379,0,202,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3047-2;3654-1;3884-2'),
-(12948,'Dynasty Bagh-Nakh - Great Gale {PvP} - Rsk. Evasion','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3069-1;3651-1;3652-1;3880-2'),
-(12949,'Dynasty Bagh-Nakh - Great Gale {PvP} - Focus','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3565-2;3651-1;3652-1;3880-2'),
-(12950,'Dynasty Bagh-Nakh - Great Gale {PvP} - Haste','lrhand','true',1550,1,1,'fine_steel','s80',405,5,'dualfist',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3068-3;3651-1;3652-1;3880-2'),
-(12951,'Dynasty Bow - Great Gale {PvP} - Cheap Shot','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12969,'3552-1;3655-1;3864-2'),
-(12952,'Dynasty Bow - Great Gale {PvP} - Guidance','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12970,'3573-1;3655-1;3864-2'),
-(12953,'Dynasty Bow - Great Gale {PvP} - Focus','lrhand','true',1520,1,1,'fine_steel','s80',654,5,'bow',12,-3,0,0,0,293,11,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12971,'3567-2;3655-1;3864-2'),
-(12954,'Dynasty Blade - Great Gale {PvP} - Focus','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12935,'3566-2;3653-1;3840-2'),
-(12955,'Dynasty Blade - Great Gale {PvP} - Health','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12936,'3013-5;3653-1;3840-2'),
-(12956,'Dynasty Blade - Great Gale {PvP} - Light','lrhand','true',1740,1,1,'fine_steel','s80',405,10,'bigsword',8,0,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12937,'3498-1;3653-1;3840-2'),
-(12957,'Dynasty Sword - Earth {PvP} - Focus','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12942,'3566-2;3650-1;3826-2'),
-(12958,'Dynasty Sword - Earth {PvP} - Health','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12943,'3013-5;3650-1;3826-2'),
-(12959,'Dynasty Sword - Earth {PvP} - Light','rhand','true',1520,1,1,'fine_steel','s80',333,10,'sword',8,0,0,0,0,379,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12944,'3498-1;3650-1;3826-2'),
-(12960,'Dynasty Staff - Holy Spirit {PvP} - Mana Up','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3014-3;3654-1;3900-1'),
-(12961,'Dynasty Staff - Holy Spirit {PvP} - Conversion','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3048-3;3654-1;3900-1'),
-(12962,'Dynasty Staff - Holy Spirit {PvP} - Acumen','lrhand','true',1080,1,1,'fine_steel','s80',325,20,'bigblunt',4,4,0,0,0,325,0,222,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3047-2;3654-1;3900-1'),
-(12963,'Dynasty Cudgel - Landslide {PvP} - Anger','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3057-3;3650-1;3885-2'),
-(12964,'Dynasty Cudgel - Landslide {PvP} - Health','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3013-5;3650-1;3885-2'),
-(12965,'Dynasty Cudgel - Landslide {PvP} - Rsk. Focus','rhand','true',1740,1,1,'fine_steel','s80',333,20,'blunt',4,4,0,0,0,379,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3027-7;3650-1;3885-2'),
-(12966,'Dynasty Crusher - Great Gale {PvP} - Anger','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3057-3;3653-1;3896-2'),
-(12967,'Dynasty Crusher - Great Gale {PvP} - Health','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3013-5;3653-1;3896-2'),
-(12968,'Dynasty Crusher - Great Gale {PvP} - Rsk. Focus','lrhand','true',1740,1,1,'fine_steel','s80',405,20,'bigblunt',4,4,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3027-7;3653-1;3896-2'),
-(12969,'Dynasty Crossbow - Great Gale {PvP} - Cheap Shot','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12951,'3552-1;3655-1;3869-2'),
-(12970,'Dynasty Crossbow - Great Gale {PvP} - Guidance','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12952,'3573-1;3655-1;3869-2'),
-(12971,'Dynasty Crossbow - Great Gale {PvP} - Focus','rhand','true',1580,1,1,'fine_steel','s80',401,10,'crossbow',10,-1,0,0,0,303,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',12953,'3567-2;3655-1;3869-2'),
-(12972,'Dynasty Phantom - Wisdom {PvP} - Acumen','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3047-2;3654-1;3857-1'),
-(12973,'Dynasty Phantom - Wisdom {PvP} - Mana Up','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3014-3;3654-1;3857-1'),
-(12974,'Dynasty Phantom - Wisdom {PvP} - Conversion','rhand','true',1520,1,1,'fine_steel','s80',267,10,'sword',8,0,0,0,0,379,0,202,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3048-3;3654-1;3857-1'),
-(12975,'Dynasty Halberd - Earth {PvP} - Anger','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3600-10;3653-1;3877-2'),
-(12976,'Dynasty Halberd - Earth {PvP} - Critical Stun','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','3070-3-48',0,'3552-2;3653-1;3877-2'),
-(12977,'Dynasty Halberd - Earth {PvP} - Light','lrhand','true',2010,1,1,'fine_steel','s80',333,10,'pole',8,-3,0,0,0,325,0,151,-1,-1,74946000,3597,'false','false','true','false','true','','','',0,'3599-1;3498-1;3653-1;3877-2'),
-(13034,'Sprite\'s Sword','lrhand','false',817,3,3,'fine_steel','d',107,10,'dual',8,0,0,0,0,325,0,72,-1,-1,0,0,'false','false','true','false','false','','','',0,''),
-(13035,'Enhanced Sprite\'s Sword','lrhand','false',817,3,3,'fine_steel','d',127,10,'dual',8,0,0,0,0,325,0,82,-1,-1,0,0,'false','false','true','false','false','','','',0,'8237-1'),
-(13036,'Sword of Ice and Fire','lrhand','false',817,3,3,'fine_steel','d',147,10,'dual',8,0,0,0,0,325,0,92,-1,-1,0,0,'false','false','true','false','false','','','',0,'8237-1;8238-1'),
-(13042,'Ancient Legacy Sword','lrhand','false',643,1,1,'fine_steel','a',259,10,'bigsword',8,0,0,0,0,325,0,143,-1,-1,0,0,'false','false','false','false','false','','','',0,'8250-1'),
-(13043,'Enhanced Ancient Legacy Sword','lrhand','false',643,1,1,'fine_steel','a',279,10,'bigsword',8,0,0,0,0,325,0,153,-1,-1,0,0,'false','false','false','false','false','','','',0,'8250-1;8242-1'),
-(13044,'Complete Ancient Legacy Sword','lrhand','false',643,1,1,'fine_steel','a',299,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,0,0,'false','false','false','false','false','','','',0,'8250-2;8242-1;8243-1'),
-(13052,'Spear of Silenos','lrhand','false',607,1,1,'fine_steel','a',251,10,'pole',8,-3,0,0,0,325,0,161,-1,-1,0,0,'false','false','false','false','false','','','',0,'3599-1;8239-1;8240-1;8241-1;5760-3'),
-(13053,'Enhanced Spear of Silenos','lrhand','false',607,1,1,'fine_steel','a',271,10,'pole',8,-3,0,0,0,325,0,171,-1,-1,0,0,'false','false','false','false','false','','','',0,'3599-1;8239-1;8240-2;8241-1;5760-5'),
-(13054,'Complete Spear of Silenos','lrhand','false',607,1,1,'fine_steel','a',291,10,'pole',8,-3,0,0,0,325,0,181,-1,-1,0,0,'false','false','false','false','false','','','',0,'3599-1;8239-1;8240-3;8241-1;5760-7'),
-(14412,'Icarus Dual Sword - Destruction {PvP}','lrhand','true',1520,1,1,'fine_steel','s80',442,10,'dual',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','3411-1','','',0,'3656-1;3835-3'),
-(14413,'Icarus Disperser - Confusion {PvP}','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3651-1;3652-1;3858-3'),
-(14414,'Icarus Disperser - Confusion {PvP} - Focus','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3567-2;3651-1;3652-1;3858-3'),
-(14415,'Icarus Disperser - Confusion {PvP} - Evasion','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3009-8;3651-1;3652-1;3858-3'),
-(14416,'Icarus Disperser - Confusion {PvP} - Critical Damage','rhand','true',1520,1,1,'fine_steel','s80',318,5,'dagger',12,-3,0,0,0,433,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3066-4;3651-1;3652-1;3858-3'),
-(14417,'Icarus Sawsword - Destruction {PvP}','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14425,'3650-1;3825-3'),
-(14418,'Icarus Sawsword - Destruction {PvP} - Focus','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14426,'3566-2;3650-1;3825-3'),
-(14419,'Icarus Sawsword - Destruction {PvP} - Health','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14427,'3013-5;3650-1;3825-3'),
-(14420,'Icarus Sawsword - Destruction {PvP} - Light','rhand','true',1520,1,1,'fine_steel','s80',363,10,'sword',8,0,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14428,'3498-1;3650-1;3825-3'),
-(14421,'Icarus Shooter - Concentration {PvP}','rhand','true',1580,1,1,'fine_steel','s80',422,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14433,'3655-1;3868-4'),
-(14422,'Icarus Shooter - Concentration {PvP} - Cheap Shot','rhand','true',1580,1,1,'fine_steel','s80',422,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14434,'3552-1;3655-1;3868-4'),
-(14423,'Icarus Shooter - Concentration {PvP} - Guidance','rhand','true',1580,1,1,'fine_steel','s80',422,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14435,'3573-1;3655-1;3868-4'),
-(14424,'Icarus Shooter - Concentration {PvP} - Focus','rhand','true',1580,1,1,'fine_steel','s80',422,10,'crossbow',10,-1,0,0,0,303,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3567-2;3655-1;3868-4'),
-(14425,'Icarus Stinger - Destruction {PvP}','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'false','false','true','false','true','3426-1','','',14417,'3650-1;3830-3'),
-(14426,'Icarus Stinger - Destruction {PvP} - Focus','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'false','false','true','false','true','3426-1','','',14418,'3566-2;3650-1;3830-3'),
-(14427,'Icarus Stinger - Destruction {PvP} - Health','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'false','false','true','false','true','3426-1','','',14419,'3013-5;3650-1;3830-3'),
-(14428,'Icarus Stinger - Destruction {PvP} - Light','rhand','true',1280,1,1,'fine_steel','s80',329,40,'rapier',10,-1,0,0,0,406,0,163,-1,-1,103439000,4965,'false','false','true','false','true','3426-1','','',14420,'3498-1;3650-1;3830-3'),
-(14429,'Icarus Spirit - Nature {PvP}','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3654-1;3852-3'),
-(14430,'Icarus Spirit - Nature {PvP} - Acumen','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3047-3;3654-1;3852-3'),
-(14431,'Icarus Spirit - Nature {PvP} - Mana Up','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3014-3;3654-1;3852-3'),
-(14432,'Icarus Spirit - Nature {PvP} - Conversion','rhand','true',1520,1,1,'fine_steel','s80',290,10,'sword',8,0,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3048-3;3654-1;3852-3'),
-(14433,'Icarus Spitter - Concentration {PvP}','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14421,'3655-1;3863-4'),
-(14434,'Icarus Spitter - Concentration {PvP} - Cheap Shot','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14422,'3552-1;3655-1;3863-4'),
-(14435,'Icarus Spitter - Concentration {PvP} - Guidance','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14423,'3573-1;3655-1;3863-4'),
-(14436,'Icarus Spitter - Concentration {PvP} - Focus','lrhand','true',1520,1,1,'fine_steel','s80',689,5,'bow',12,-3,0,0,0,293,11,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3567-2;3655-1;3863-4'),
-(14437,'Icarus Wingblade - Lightning {PvP}','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14453,'3653-1;3851-2'),
-(14438,'Icarus Wingblade - Lightning {PvP} - Focus','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14454,'3566-2;3653-1;3851-2'),
-(14439,'Icarus Wingblade - Lightning {PvP} - Health','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14455,'3013-5;3653-1;3851-2'),
-(14440,'Icarus Wingblade - Lightning {PvP} - Light','lrhand','true',1800,1,1,'fine_steel','s80',393,15,'ancient',8,2,0,0,0,350,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14456,'3498-1;3653-1;3851-2'),
-(14441,'Icarus Trident - Thunder {PvP}','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3599-1;3653-1;3873-2'),
-(14442,'Icarus Trident - Thunder {PvP} - Anger','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3600-10;3653-1;3873-2'),
-(14443,'Icarus Trident - Thunder {PvP} - Critical Stun','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','3070-3-48',0,'3552-2;3653-1;3873-2'),
-(14444,'Icarus Trident - Thunder {PvP} - Light','lrhand','true',2010,1,1,'fine_steel','s80',363,10,'pole',8,-3,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3599-1;3498-1;3653-1;3873-2'),
-(14445,'Icarus Hammer - Earth {PvP}','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3650-1;3884-3'),
-(14446,'Icarus Hammer - Earth {PvP} - Anger','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3057-3;3650-1;3884-3'),
-(14447,'Icarus Hammer - Earth {PvP} - Health','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3013-5;3650-1;3884-3'),
-(14448,'Icarus Hammer - Earth {PvP} - Rsk. Focus','rhand','true',1740,1,1,'fine_steel','s80',363,20,'blunt',4,4,0,0,0,379,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3027-7;3650-1;3884-3'),
-(14449,'Icarus Hand - Destruction {PvP}','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3651-1;3652-1;3879-3'),
-(14450,'Icarus Hand - Destruction {PvP} - Rsk. Evasion','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3069-1;3651-1;3652-1;3879-3'),
-(14451,'Icarus Hand - Destruction {PvP} - Focus','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3565-2;3651-1;3652-1;3879-3'),
-(14452,'Icarus Hand - Destruction {PvP} - Haste','lrhand','true',1550,1,1,'fine_steel','s80',442,5,'dualfist',4,4,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'8297-1;3651-1;3652-1;3879-3'),
-(14453,'Icarus Heavy Arms - Lightning {PvP}','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14437,'3653-1;3845-2'),
-(14454,'Icarus Heavy Arms - Lightning {PvP} - Focus','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14438,'3566-2;3653-1;3845-2'),
-(14455,'Icarus Heavy Arms - Lightning {PvP} - Health','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14439,'3013-5;3653-1;3845-2'),
-(14456,'Icarus Heavy Arms - Lightning {PvP} - Light','lrhand','true',1740,1,1,'fine_steel','s80',442,10,'bigsword',8,0,0,0,0,325,0,163,-1,-1,103439000,4965,'false','false','true','false','true','','','',14440,'3498-1;3653-1;3845-2'),
-(14457,'Icarus Hall - Hail {PvP}','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3654-1;3889-3'),
-(14458,'Icarus Hall - Hail {PvP} - Mana Up','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3014-3;3654-1;3889-3'),
-(14459,'Icarus Hall - Hail {PvP} - Conversion','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3048-3;3654-1;3889-3'),
-(14460,'Icarus Hall - Hail {PvP} - Acumen','rhand','true',1080,1,1,'fine_steel','s80',290,20,'blunt',4,4,0,0,0,379,0,217,-1,-1,103439000,4965,'false','false','true','false','true','','','',0,'3047-3;3654-1;3889-3'),
-(14526,'Dynasty Dual Daggers - Great Gale','lrhand','true',2150,1,1,'fine_steel','s80',304,10,'dualdagger',12,-3,0,0,0,433,0,157,-1,-1,87901000,4219,'true','true','true','true','true','3044-20','','',0,'3859-2'),
-(14527,'Icarus Dual Daggers - Confusion','lrhand','true',2100,1,1,'fine_steel','s80',332,10,'dualdagger',12,-3,0,0,0,433,0,169,-1,-1,121780000,5845,'true','true','true','true','true','3044-20','','',0,'3858-3'),
-(14528,'Dynasty Dual Daggers - Great Gale {PvP}','lrhand','true',2150,1,1,'fine_steel','s80',304,10,'dualdagger',12,-3,0,0,0,433,0,157,-1,-1,87901000,4219,'false','false','true','false','true','3044-20','','',0,'3651-1;3652-1;3859-2'),
-(14529,'Icarus Dual Daggers - Confusion {PvP}','lrhand','true',2100,1,1,'fine_steel','s80',332,10,'dualdagger',12,-3,0,0,0,433,0,169,-1,-1,121780000,5845,'false','false','true','false','true','3044-20','','',0,'3651-1;3652-1;3858-3'),
-(14558,'Dynasty Dual Daggers {PvP}','lrhand','true',2150,1,1,'fine_steel','s80',304,10,'dualdagger',12,-3,0,0,0,433,0,157,-1,-1,87901000,4219,'false','false','true','false','true','3044-20','','',0,'3651-1;3652-1');
+-- Masterwork Skills Update - Spire
+-- Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3825-1") where item_id IN (10931,10932,10933);
+UPDATE `weapon` SET `skills_item` = '3825-1' WHERE `item_id` = 10930; -- Keshanberk - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3825-2") where item_id IN (11059,11060,11061);
+UPDATE `weapon` SET `skills_item` = '3825-2' WHERE `item_id` = 11058; -- Tallum Blade - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3825-3") where item_id IN (11306,11307,11308,14417,14418,14419,14420);
+UPDATE `weapon` SET `skills_item` = '3825-3' WHERE `item_id` = 11305; -- Icarus Sawsword - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3830-1") where item_id IN (10913,10914,10915);
+UPDATE `weapon` SET `skills_item` = '3830-1' WHERE `item_id` = 10912; -- Military Fleuret - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3830-2") where item_id IN (11026,11027,11028);
+UPDATE `weapon` SET `skills_item` = '3830-2' WHERE `item_id` = 11025; -- White Lightning - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3830-3") where item_id IN (11314,11315,11316,14425,14426,14427,14428);
+UPDATE `weapon` SET `skills_item` = '3830-3' WHERE `item_id` = 11313; -- Icarus Stinger - Destruction
+UPDATE `weapon` SET `skills_item` = '3835-1' WHERE `item_id` IN (10878,10879,10880,10881,10890,10891,10892,10897,10910,10911,10920,
+ 10921,10922,10923,10924,10925,10946,10947,10948,10949,10950,10951,10952,10953,10954);
+UPDATE `weapon` SET `skills_item` = '3835-2' WHERE `item_id` IN (11057,11058);
+UPDATE `weapon` SET `skills_item` = '3835-3' WHERE `item_id` = 11300; -- Icarus Dual Sword - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3835-3") where item_id = 14412; -- Icarus Dual Sword - Destruction {PvP}
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3878-1") where item_id IN (11218,11219,11220,11221,12916,12917,12918);
+UPDATE `weapon` SET `skills_item` = '3879-1' WHERE `item_id` IN (10902,10903);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3879-1") where item_id IN (10904,10905);
+UPDATE `weapon` SET `skills_item` = '3879-2' WHERE `item_id` = 11033; -- Blood Tornado - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3879-2") where item_id IN (11034,11035,11036);
+UPDATE `weapon` SET `skills_item` = '3879-3' WHERE `item_id` = 11337; -- Icarus Hand - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3879-3") where item_id IN (11338,11339,11340,14449,14450,14451,14452);
+UPDATE `weapon` SET `skills_item` = '3897-1' WHERE `item_id` = 11149; -- Behemoth's Tuning Fork - Destruction
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3897-1") where item_id IN (11150,11151,11152,12864,12865,12866);
+
+-- Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3826-1") where item_id IN (10960,10961,10962);
+UPDATE `weapon` SET `skills_item` = '3826-1' WHERE `item_id` = 10959; -- Sword of Damascus - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3826-2") where item_id IN (11273,11274,11275,12957,12958,12959);
+UPDATE `weapon` SET `skills_item` = '3826-2' WHERE `item_id` = 11272; -- Dynasty Sword - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3831-1") where item_id IN (11002,11003,11004);
+UPDATE `weapon` SET `skills_item` = '3831-1' WHERE `item_id` = 11001; -- Colichemarde - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3831-2") where item_id IN (11253,11254,11255,12942,12943,12944);
+UPDATE `weapon` SET `skills_item` = '3831-2' WHERE `item_id` = 11252; -- Dynasty Rapier - Earth
+UPDATE `weapon` SET `skills_item` = '3836-2' WHERE `item_id` = 11251; -- Dynasty Dual Sword - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3836-2") where item_id = 12941;
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3843-1") where item_id IN (11162,11163,11164,12873,12874,12875);
+UPDATE `weapon` SET `skills_item` = '3843-1' WHERE `item_id` = 11161; -- Sword of Ipos - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3849-1") where item_id IN (11154,11155,11156,12867,12868,12869);
+UPDATE `weapon` SET `skills_item` = '3849-1' WHERE `item_id` = 11153; -- Bultgang - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3867-1") where item_id IN (11010,11199,11200,11201,12901,12902,12903);
+UPDATE `weapon` SET `skills_item` = '3867-1' WHERE `item_id` IN (11009,11011,11012,11198);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3872-1") where item_id IN (11014,11215,11216,11217,12913,12914,12915);
+UPDATE `weapon` SET `skills_item` = '3872-1' WHERE `item_id` IN (11013,11015,11016,11214);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3877-1") where item_id IN (10967,10968,10969,10970);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3877-2") where item_id IN (11296,11297,11298,11299,12975,12976,12977);
+UPDATE `weapon` SET `skills_item` = '3881-1' WHERE `item_id` = 11092; -- Dragon Grinder - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3881-1") where item_id IN (11093,11094,11095);
+UPDATE `weapon` SET `skills_item` = '3884-1' WHERE `item_id` IN (10938,10997,10999,11029);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3884-1") where item_id IN (10939,10940,10941,10998,11000,11030,11031,11032);
+UPDATE `weapon` SET `skills_item` = '3884-2' WHERE `item_id` = 11256; -- Dynasty Mace - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3884-2") where item_id IN (11257,11258,11259,12945,12946,12947);
+UPDATE `weapon` SET `skills_item` = '3884-3' WHERE `item_id` = 11333; -- Icarus Hammer - Earth
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3884-3") where item_id IN (11334,11335,11336,14445,14446,14447,14448);
+
+--  Thunder
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3827-1") where item_id IN (11081,11082,11083);
+UPDATE `weapon` SET `skills_item` = '3827-1' WHERE `item_id` = 11080; -- Dark Legion - Thunder
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3832-1") where item_id IN (11076,11077,11078);
+UPDATE `weapon` SET `skills_item` = '3832-1' WHERE `item_id` = 11075; -- Lacerator - Thunder
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3844-1") where item_id IN (11240,11241,11242,12932,12933,12934);
+UPDATE `weapon` SET `skills_item` = '3844-1' WHERE `item_id` = 11239; -- Heaven's Divider - Thunder
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3850-1") where item_id IN (11191,11192,11193,12895,12896,12897);
+UPDATE `weapon` SET `skills_item` = '3850-1' WHERE `item_id` = 11190; -- Gram - Thunder
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3873-1") where item_id IN (10874,10875,10876,10877);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3873-2") where item_id IN (11329,11330,11331,11332,14441,14442,14443,14444);
+UPDATE `weapon` SET `skills_item` = '3883-1' WHERE `item_id` = 11194; -- Demon Splinter - Thunder
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3833-1") where item_id IN (11195,11196,11197,12898,12899,12900);
+UPDATE `weapon` SET `skills_item` = '3894-1' WHERE `item_id` IN (11088,11202);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3894-1") where item_id IN (11089,11090,11091,11203,11204,11205,12904,12905,12906);
+
+-- Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3828-1") where item_id IN (11236,11237,11238,12929,12930,12931);
+UPDATE `weapon` SET `skills_item` = '3828-1' WHERE `item_id` = 11235; -- Forgotten Blade - Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3833-1") where item_id IN (11207,11208,11209,12907,12908,12909);
+UPDATE `weapon` SET `skills_item` = '3833-1' WHERE `item_id` = 11206; -- Laevateinn - Lightning
+UPDATE `weapon` SET `skills_item` = '3838-1' WHERE `item_id` IN (11079,11234);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3838-1") where item_id = 12928; -- Tallum Blade*Dark Legion - Lightning {PvP}
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3845-1") where item_id IN (10871,10872,10873);
+UPDATE `weapon` SET `skills_item` = '3845-1' WHERE `item_id` = 10870; -- Great Sword - Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3845-2") where item_id IN (11342,11343,11344,14453,14454,14455,14456);
+UPDATE `weapon` SET `skills_item` = '3845-2' WHERE `item_id` = 11341; -- Icarus Heavy Arms - Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3851-1") where item_id IN (10883,10884,10885);
+UPDATE `weapon` SET `skills_item` = '3851-1' WHERE `item_id` = 10882; -- Innominate Victory - Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3851-2") where item_id IN (11326,11327,11328,14437,14438,14439,14440);
+UPDATE `weapon` SET `skills_item` = '3851-2' WHERE `item_id` = 11325; -- Icarus Wingblade - Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3874-1") where item_id IN (11070,11071,11072,11073);
+UPDATE `weapon` SET `skills_item` = '3895-1' WHERE `item_id` IN (10906,10909);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3895-2") where item_id IN (10907,10908);
+UPDATE `weapon` SET `skills_item` = '3895-2' WHERE `item_id` = 11062; -- Destroyer Hammer - Lightning
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3895-2") where item_id IN (11063,11064,11065);
+
+-- Landslide
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3829-1") where item_id IN (11170,11171,11172,12879,12880,12881);
+UPDATE `weapon` SET `skills_item` = '3829-1' WHERE `item_id` = 11169; -- Sirra's Blade - Landslide
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3834-1") where item_id IN (11174,11175,11176,12882,12883,12884);
+UPDATE `weapon` SET `skills_item` = '3834-1' WHERE `item_id` = 11173; -- Eclair Bijou - Landslide
+UPDATE `weapon` SET `skills_item` = '3839-1' WHERE `item_id` IN (10987,11181);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3839-1") where item_id = 12888; -- Tallum Blade*Damascus - Landslide {PvP}
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3876-1") where item_id IN (11177,11178,11179,11180,12885,12886,12887);
+UPDATE `weapon` SET `skills_item` = '3882-1' WHERE `item_id` = 11165; -- Sobekk's Hurricane - Landslide
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3882-1") where item_id IN (11166,11167,11168,12876,12877,12878);
+UPDATE `weapon` SET `skills_item` = '3885-1' WHERE `item_id` IN (10979,10988);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3885-1") where item_id IN (10980,10981,10982,10989,10990,10991);
+UPDATE `weapon` SET `skills_item` = '3885-2' WHERE `item_id` = 11280; -- Dynasty Cudgel - Landslide
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3885-2") where item_id IN (11281,11282,11283,12963,12964,12965);
+
+-- Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3840-1") where item_id = 10957; -- Guardian Sword - Great Gale - Health
+UPDATE `weapon` SET `skills_item` = '3840-1' WHERE `item_id` IN (10955,10956,10958);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3840-2") where item_id IN (11269,11270,11271,12954,12955,12956);
+UPDATE `weapon` SET `skills_item` = '3840-2' WHERE `item_id` = 11268; -- Dynasty Blade - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3846-1") where item_id = 10965; -- Dismantler - Great Gale - Health
+UPDATE `weapon` SET `skills_item` = '3846-1' WHERE `item_id` IN (10963,10964,10966);
+UPDATE `weapon` SET `skills_item` = '3846-2' WHERE `item_id` = 11243; -- Dynasty Ancient Sword - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3846-2") where item_id IN (11244,11245,11246,12935,12936,12937);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3859-1") where item_id IN (10995,10996);
+UPDATE `weapon` SET `skills_item` = '3859-1' WHERE `item_id` IN (10992,10993,10994);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3859-2") where item_id IN (11248,11249,11250,12938,12939,12940,12428);
+UPDATE `weapon` SET `skills_item` = '3859-2' WHERE `item_id` IN (11247,14526);
+UPDATE `weapon` SET `skills_item` = '3864-2' WHERE `item_id` = 11264; -- Dynasty Bow - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3864-2") where item_id IN (11265,11266,11267,12951,12952,12953);
+UPDATE `weapon` SET `skills_item` = '3869-2' WHERE `item_id` = 11288; -- Dynasty Crossbow - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3869-2") where item_id IN (11289,11290,11291,12969,12970,12971);
+UPDATE `weapon` SET `skills_item` = '3880-1' WHERE `item_id` IN (10971,10973);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3880-1") where item_id IN (10972,10974);
+UPDATE `weapon` SET `skills_item` = '3880-2' WHERE `item_id` = 11260; -- Dynasty Bagh-Nakh - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3880-2") where item_id IN (11261,11262,11263,12948,12949,12950);
+UPDATE `weapon` SET `skills_item` = '3896-1' WHERE `item_id` = 10983; -- Star Buster - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3896-1") where item_id IN (10984,10985,10986);
+UPDATE `weapon` SET `skills_item` = '3896-2' WHERE `item_id` = 11284; -- Dynasty Crusher - Great Gale
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3896-2") where item_id IN (11285,11286,11287,12966,12967,12968);
+
+-- Concentration
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3841-1") where item_id IN (11050,11051,11052);
+UPDATE `weapon` SET `skills_item` = '3841-1' WHERE `item_id` = 11049; -- Infernal Master - Concentration
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3847-1") where item_id IN (11067,11068,11069);
+UPDATE `weapon` SET `skills_item` = '3847-1' WHERE `item_id` = 11066; -- Divine Pain - Concentration
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3862-1") where item_id IN (11227,11228,11229,12922,12923,12924);
+UPDATE `weapon` SET `skills_item` = '3863-1' WHERE `item_id` = 11226; -- Angel Slayer - Concentration
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3863-1") where item_id IN (10887,10888);
+UPDATE `weapon` SET `skills_item` = '3863-1' WHERE `item_id` IN (10886,10889);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3863-2") where item_id IN (11054,11055,11056);
+UPDATE `weapon` SET `skills_item` = '3863-2' WHERE `item_id` = 11053; -- Carnage Bow - Concentration
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3863-3") where item_id IN (11158,11159,11160,12870,12871,12872);
+UPDATE `weapon` SET `skills_item` = '3863-3' WHERE `item_id` = 11157; -- Shyeed's Bow - Concentration
+UPDATE `weapon` SET `skills_item` = '3868-1' WHERE `item_id` IN (10934,10936,10937);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3868-1") where item_id = 10935; -- Peacemaker - Concentration - Evasion
+UPDATE `weapon` SET `skills_item` = '3868-2' WHERE `item_id` IN (11021,11145);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3868-2") where item_id IN (11022,11023,11024,11146,11147,11148,12861,12862,12863);
+UPDATE `weapon` SET `skills_item` = '3888-1' WHERE `item_id` = 11210; -- Basalt Battlehammer - Concentration
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3888-1") where item_id IN (11211,11212,11213,12910,12911,12912);
+
+-- Evil Spirit
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3842-1") where item_id IN (11097,11098,11099);
+UPDATE `weapon` SET `skills_item` = '3842-1' WHERE `item_id` = 11096; -- Dragon Slayer - Evil Spirit
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3848-1") where item_id IN (11085,11086,11087);
+UPDATE `weapon` SET `skills_item` = '3848-1' WHERE `item_id` = 11084; -- Undertaker - Evil Spirit
+
+-- Nature
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-1") where item_id = 10894; -- Sword of Valhalla - Nature - Acumen
+UPDATE `weapon` SET `skills_item` = '3852-1' WHERE `item_id` IN (10893,10895,10896);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-3") where item_id IN (11318,11319,11320,14429,14430,14431,14432);
+UPDATE `weapon` SET `skills_item` = '3852-3' WHERE `item_id` = 11317; -- Icarus Spirit - Nature
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3890-3") where item_id IN (11223,11224,11225,11231,11232,11233,12919,12920,12921,12925,12926,12927);
+UPDATE `weapon` SET `skills_item` = '3890-1' WHERE `item_id` IN (11222,11230);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3901-1") where item_id = 11104; -- Branch of the Mother Tree - Nature
+UPDATE `weapon` SET `skills_item` = '3901-1' WHERE `item_id` IN (11105,11106,11107);
+
+-- Cleverness (Wizard Tear is not ON Fire Masterwork, it is Cleverness Masterwork)
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3853-1") where item_id IN (11006,11007,11008,11183,11184,11185,12889,12890,12891);
+UPDATE `weapon` SET `skills_item` = '3853-1' WHERE `item_id` IN (11005,11182);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3893-1") where item_id IN (11187,11188,11189,12892,12893,12894);
+UPDATE `weapon` SET `skills_item` = '3893-1' WHERE `item_id` = 11186; -- Cabrio's Hand - Cleverness
+
+-- Hail
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3854-1") where item_id IN (11042,11044);
+UPDATE `weapon` SET `skills_item` = '3854-1' WHERE `item_id` IN (11041,11043);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3889-1") where item_id IN (10899,10901);
+UPDATE `weapon` SET `skills_item` = '3889-1' WHERE `item_id` IN (10898,10900);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3889-2") where item_id IN (11045,11046,11047);
+UPDATE `weapon` SET `skills_item` = '3889-2' WHERE `item_id` = 11048; -- Spiritual Eye - Hail
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3889-3") where item_id IN (11346,11347,11348,14457,14458,14459,14460);
+UPDATE `weapon` SET `skills_item` = '3889-3' WHERE `item_id` = 11345; -- Icarus Hall - Hail
+UPDATE `weapon` SET `skills_item` = '3899-1' WHERE `item_id` IN (10916,10917,10918,10919);
+UPDATE `weapon` SET `skills_item` = '3899-2' WHERE `item_id` = 11017; -- Dasparion's Staff - Hail
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3899-2") where item_id IN (11018,11019,11020);
+
+-- Holy Spirit
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3856-1") where item_id IN (11109,11110,11111);
+UPDATE `weapon` SET `skills_item` = '3856-1' WHERE `item_id` = 11108; -- Sword of Miracles - Holy Spirit
+UPDATE `weapon` SET `skills_item` = '3900-1' WHERE `item_id` IN (10975,10977,10978,11276);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3900-1") where item_id IN (10976,11277,11278,11279,12960,12961,12962);
+
+-- Wisdom
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3857-1") where item_id IN (11293,11294,11295,12972,12973,12974);
+UPDATE `weapon` SET `skills_item` = '3857-1' WHERE `item_id` = 11292; -- Dynasty Phantom - Wisdom
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3892-1") where item_id IN (11101,11102,11103);
+UPDATE `weapon` SET `skills_item` = '3892-1' WHERE `item_id` = 11110; -- Flaming Dragon Skull - Wisdom
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3902-1") where item_id IN (11138,11139,11140,12855,12856,12857);
+UPDATE `weapon` SET `skills_item` = '3902-1' WHERE `item_id` = 11137; -- Daimon Crystal - Wisdom
+
+-- Confusion
+UPDATE `weapon` SET `skills_item` = '3858-1' WHERE `item_id` IN (10926,10942,10943,10944,10945);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3858-1") where item_id IN (10927,10928,10929);
+UPDATE `weapon` SET `skills_item` = '3858-2' WHERE `item_id` = 11037; -- Bloody Orchid - Confusion
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3858-2") where item_id IN (11038,11039,11040);
+UPDATE `weapon` SET `skills_item` = '3858-3' WHERE `item_id` IN (11301,14527);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3858-3") where item_id IN (11302,11303,11304,14413,14414,14415,14416,14529);
+
+-- On Fire
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3860-1") where item_id IN (11117,11118,11119);
+UPDATE `weapon` SET `skills_item` = '3860-1' WHERE `item_id` = 11116; -- Soul Separator - On Fire
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3875-1") where item_id IN (11128,11129,11130,11131);
+
+-- Molar
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3861-1") where item_id IN (11134,11135,11136);
+UPDATE `weapon` SET `skills_item` = '3861-1' WHERE `item_id` = 11133; -- Naga Storm - Molar
+
+-- Clairvoyance
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3865-1") where item_id IN (11125,11126,11127);
+UPDATE `weapon` SET `skills_item` = '3865-1' WHERE `item_id` = 11124; -- Soul Bow - Clairvoyance
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3870-1") where item_id IN (11113,11114,11115);
+UPDATE `weapon` SET `skills_item` = '3870-1' WHERE `item_id` = 11112; -- Reaper - Clairvoyance
