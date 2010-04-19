@@ -28,6 +28,9 @@ import java.nio.channels.FileChannel;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javolution.util.FastMap;
 
 import com.l2jfree.Config;
@@ -50,6 +53,9 @@ import com.l2jfree.util.LookupTable;
  */
 public final class GeoEngine extends GeoData
 {
+	
+	protected static final Log _log = LogFactory.getLog(GeoEngine.class);
+	
 	private final static byte _e = 1;
 	private final static byte _w = 2;
 	private final static byte _s = 4;
@@ -629,7 +635,8 @@ public final class GeoEngine extends GeoData
         final int distance2 = dx * dx + dy * dy;
 
         if (distance2 == 0)
-        	return destiny;
+        	return startpoint;
+        
         if (distance2 > 36100) // 190*190*16 = 3040 world coord
         {
             // Avoid too long check
@@ -745,9 +752,10 @@ public final class GeoEngine extends GeoData
             	}
             }
         }
-        if (z == startpoint.getZ()) // geodata hasn't modified Z in any coordinate, i.e. doesn't exist
+        //_log.info("Z:" + z + " des:" + destiny.getZ());
+        /*if (z == startpoint.getZ()) // geodata hasn't modified Z in any coordinate, i.e. doesn't exist
         	return destiny;
-        else
+        else*/
         	return new Location(destiny.getX(), destiny.getY(), (int) z);
     }
 
@@ -1287,6 +1295,10 @@ public final class GeoEngine extends GeoData
 	            layers--;
 	            index += 2;
 	        }
+//	        int some_height = nGetHeight(tx, ty, z);
+//	        int some_heignt2 = nGetHeight(tx, ty, tz);
+//	        _log.info("------------------------------------------");
+//	        _log.info("sh1:"+some_height+" sh2:"+some_heignt2+" tempz:"+tempz);
 		    NSWE = getInstanceNSWE(instanceId, NSWE, region, neededIndex);
 	        if (checkNSWE(NSWE, x, y, tx, ty))
 	        	return tempz;
