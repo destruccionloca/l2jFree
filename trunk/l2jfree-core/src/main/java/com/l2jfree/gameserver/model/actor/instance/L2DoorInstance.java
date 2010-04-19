@@ -87,6 +87,8 @@ public class L2DoorInstance extends L2Character
 	protected int				_autoActionDelay	= -1;
 	private ScheduledFuture<?>	_autoActionTask;
 
+	private boolean				_seedOfDestructionAttackableDoor = false;
+
 	/** This class may be created only by L2Character and only for AI */
 	public class AIAccessor extends L2Character.AIAccessor
 	{
@@ -358,6 +360,9 @@ public class L2DoorInstance extends L2Character
 		// Doors can't be attacked by NPCs
 		if (!(attacker instanceof L2Playable))
 			return false;
+
+		if (_seedOfDestructionAttackableDoor)
+			return true;
 
 		// Attackable only during siege by everyone (not owner)
 		boolean isCastle = (getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress());
@@ -701,5 +706,15 @@ public class L2DoorInstance extends L2Character
 			broadcastPacket(SystemMessageId.CASTLE_GATE_BROKEN_DOWN.getSystemMessage());
 
 		return true;
+	}
+
+	public void setIsSeedOfDestructionAttackableDoor(boolean val)
+	{
+		_seedOfDestructionAttackableDoor = val;
+	}
+
+	public boolean isSeedOfDestructionAttackableDoor()
+	{
+		return _seedOfDestructionAttackableDoor;
 	}
 }
