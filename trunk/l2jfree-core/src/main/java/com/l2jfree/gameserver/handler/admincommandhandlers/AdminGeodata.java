@@ -57,7 +57,7 @@ public class AdminGeodata implements IAdminCommandHandler
 		else if (command.equals("admin_geo_nswe"))
 		{
 			String result = "";
-			short nswe = GeoData.getInstance().getNSWE(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+			short nswe = GeoData.getInstance().getNSWE(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getInstanceId());
 			if ((nswe & 8) == 0)
 				result += " N";
 			if ((nswe & 4) == 0)

@@ -101,7 +101,7 @@ public class Fishing implements ISkillHandler
 
 		int z = water.getMaxZ(x, y, activeChar.getZ());
 
-		if (Config.GEODATA > 0 && !GeoData.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z)
+		if (Config.GEODATA > 0 && !GeoData.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z, activeChar.getInstanceId())
 				|| (Config.GEODATA == 0 && (Util.calculateDistance(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z, true) > d * 1.73)))
 		{
 			player.sendPacket(SystemMessageId.CANNOT_FISH_HERE);

@@ -240,6 +240,7 @@ public class Config extends L2Config
 
 	public static CorrectSpawnsZ	GEO_CORRECT_Z;			// Enable spawns' z-correction
 	public static boolean			ACCEPT_GEOEDITOR_CONN;	// Accept connection from geodata editor
+	public static boolean			DEGUG_DOOR_GEODATA;
 
 	// *******************************************************************************************
 	private static final class GeoConfig extends ConfigPropertiesLoader
@@ -259,6 +260,7 @@ public class Config extends L2Config
 			String correctZ			= geoSettings.getProperty("GeoCorrectZ", "ALL");
 			GEO_CORRECT_Z			= CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
 			ACCEPT_GEOEDITOR_CONN	= Boolean.parseBoolean(geoSettings.getProperty("AcceptGeoeditorConn", "False"));
+			DEGUG_DOOR_GEODATA		= Boolean.parseBoolean(geoSettings.getProperty("DebugDoorGeodata", "False"));
 		}
 	}
 

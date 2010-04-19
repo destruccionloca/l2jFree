@@ -96,14 +96,14 @@ public final class GeoPathFinding extends PathFinding
 			return null; //   cannot reach closest...
 
 		//return searchAStar(start, end);
-		return searchByClosest2(start, end);
+		return searchByClosest2(start, end, instanceId);
 	}
 
 	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#ReadNeighbors(short, short)
 	 */
 	@Override
-	public Node[] readNeighbors(Node n, int idx)
+	public Node[] readNeighbors(Node n, int idx, int instanceId)
 	{
 		int node_x = n.getNodeX();
 		int node_y = n.getNodeY();

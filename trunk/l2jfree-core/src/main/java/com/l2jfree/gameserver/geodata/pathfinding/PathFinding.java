@@ -44,9 +44,9 @@ public abstract class PathFinding
 	
 	public abstract Node[] findPath(int x, int y, int z, int tx, int ty, int tz, int instanceId);
 	
-	public abstract Node[] readNeighbors(Node n, int idx);
+	public abstract Node[] readNeighbors(Node n, int idx, int instanceId);
 	
-	public final Node[] search(Node start, Node end)
+	public final Node[] search(Node start, Node end, int instanceId)
 	{
 		// The simplest grid-based pathfinding.
 		// Drawback is not having higher cost for diagonal movement (means funny routes)
@@ -77,7 +77,7 @@ public abstract class PathFinding
 				{
 					i++;
 					visited.add(node);
-					node.attachNeighbors();
+					node.attachNeighbors(instanceId);
 					Node[] neighbors = node.getNeighbors();
 					if (neighbors == null)
 						continue;
@@ -101,7 +101,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final Node[] searchByClosest(Node start, Node end)
+	public final Node[] searchByClosest(Node start, Node end, int instanceId)
 	{
 		// Note: This is the version for cell-based calculation, harder
 		// on cpu than from block-based pathnode files. However produces better routes.
@@ -142,7 +142,7 @@ public abstract class PathFinding
 				
 				i++;
 				
-				node.attachNeighbors();
+				node.attachNeighbors(instanceId);
 				if (node.equals(end))
 				{
 					//path found! note that node z coordinate is updated only in attach
@@ -192,7 +192,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final Node[] searchByClosest2(Node start, Node end)
+	public final Node[] searchByClosest2(Node start, Node end, int instanceId)
 	{
 		// Always continues checking from the closest to target non-blocked
 		// node from to_visit list. There's extra length in path if needed
@@ -231,7 +231,7 @@ public abstract class PathFinding
 				{
 					i++;
 					visited.add(node);
-					node.attachNeighbors();
+					node.attachNeighbors(instanceId);
 					Node[] neighbors = node.getNeighbors();
 					if (neighbors == null)
 						continue;
@@ -270,7 +270,7 @@ public abstract class PathFinding
 		}
 	}
 	
-	public final Node[] searchAStar(Node start, Node end)
+	public final Node[] searchAStar(Node start, Node end, int instanceId)
 	{
 		// Not operational yet?
 		int start_x = start.getX();
@@ -309,7 +309,7 @@ public abstract class PathFinding
 				else
 				{
 					visited.add(node);
-					node.attachNeighbors();
+					node.attachNeighbors(instanceId);
 					for (Node n : node.getNeighbors())
 					{
 						if (!visited.contains(n) && !to_visit.contains(n))

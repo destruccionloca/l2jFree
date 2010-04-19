@@ -41,9 +41,9 @@ public abstract class Node
 		_cost = (short)cost;
 	}
 	
-	public final void attachNeighbors()
+	public final void attachNeighbors(int instanceId)
 	{
-		_neighbors = PathFinding.getInstance().readNeighbors(this, _neighborsIdx);
+		_neighbors = PathFinding.getInstance().readNeighbors(this, _neighborsIdx, instanceId);
 	}
 	
 	public final Node[] getNeighbors()

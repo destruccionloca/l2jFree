@@ -117,7 +117,7 @@ public class GeoData
 		return Math.abs(worldPosition.getZ() - cha.getZ()) < 1000;
 	}
 	
-	public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
+	public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
 		// If geo is off do simple check :]
 		// Don't allow casting on players on different dungeon lvls etc
@@ -140,7 +140,7 @@ public class GeoData
 	 * @param z
 	 * @return Geo NSWE (0-15)
 	 */
-	public short getNSWE(int x, int y, int z)
+	public short getNSWE(int x, int y, int z, int instanceId)
 	{
 		return 15;
 	}
@@ -188,7 +188,7 @@ public class GeoData
 		return false;
 	}
 	
-	public Node[] getNeighbors(Node n)
+	public Node[] getNeighbors(Node n, int instanceId)
 	{
 		return null;
 	}

@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2DoorAI;
 import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.geodata.GeoEngine;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
@@ -231,6 +232,13 @@ public class L2DoorInstance extends L2Character
 	public void setOpen(boolean open)
 	{
 		_open = open;
+		if (Config.GEODATA > 0)
+		{
+			if (open)
+				GeoEngine.getInstance().openDoorGeodata(getInstanceId(), getDoorId());
+			else
+				GeoEngine.getInstance().closeDoorGeodata(getInstanceId(), getDoorId());
+		}
 		getKnownList().updateKnownObjects();
 		broadcastFullInfo();
 	}

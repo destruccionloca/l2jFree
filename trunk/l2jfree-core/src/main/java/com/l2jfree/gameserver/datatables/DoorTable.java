@@ -27,6 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.geodata.GeoEngine;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
@@ -35,7 +36,6 @@ import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Instance;
-import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 
@@ -256,6 +256,8 @@ public final class DoorTable
 	{
 		_doorArray = null;
 		_doors.put(door.getDoorId(), door);
+		if (Config.GEODATA > 0)
+			GeoEngine.getInstance().initDoorGeodata(door);
 	}
 
 	private L2DoorInstance[] _doorArray;
@@ -268,78 +270,80 @@ public final class DoorTable
 		return _doorArray;
 	}
 
+	@Deprecated
 	public boolean checkIfDoorsBetween(Node start, Node end, int instanceId)
 	{
 		return checkIfDoorsBetween(start.getX(), start.getY(), start.getZ(), end.getX(), end.getY(), end.getZ(), instanceId);
 	}
 
+	@Deprecated
 	public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
-		L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
-
-		final L2DoorInstance[] allDoors;
-		if (instanceId > 0 && InstanceManager.getInstance().getInstance(instanceId) != null)
-			allDoors = InstanceManager.getInstance().getInstance(instanceId).getDoors();
-		else
-			allDoors = getDoors();
-
-		// there are quite many doors, maybe they should be splitted
-		for (L2DoorInstance doorInst : allDoors)
-		{
-			if (doorInst.getMapRegion() != region)
-				continue;
-
-			if (doorInst.getXMax() == 0)
-				continue;
-
-			// line segment goes through box
-			// first basic checks to stop most calculations short
-			// phase 1, x
-			if ((x <= doorInst.getXMax() && tx >= doorInst.getXMin()) || (tx <= doorInst.getXMax() && x >= doorInst.getXMin()))
-			{
-				//phase 2, y
-				if ((y <= doorInst.getYMax() && ty >= doorInst.getYMin()) || (ty <= doorInst.getYMax() && y >= doorInst.getYMin()))
-				{
-					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
-					// in some cases the direct line check (only) in the beginning isn't sufficient,
-					// when char z changes a lot along the path
-					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.isOpen())
-					{
-						int px1 = doorInst.getXMin();
-						int py1 = doorInst.getYMin();
-						int pz1 = doorInst.getZMin();
-						int px2 = doorInst.getXMax();
-						int py2 = doorInst.getYMax();
-						int pz2 = doorInst.getZMax();
-
-						int l = tx - x;
-						int m = ty - y;
-						int n = tz - z;
-
-						int dk;
-
-						if ((dk = (doorInst.getA() * l + doorInst.getB() * m + doorInst.getC() * n)) == 0) continue; // Parallel
-
-						float p = (float)(doorInst.getA() * x + doorInst.getB() * y + doorInst.getC() * z + doorInst.getD()) / (float)dk;
-
-						int fx = (int)(x - l * p);
-						int fy = (int)(y - m * p);
-						int fz = (int)(z - n * p);
-
-						if ((Math.min(x, tx) <= fx && fx <= Math.max(x, tx))
-							&& (Math.min(y, ty) <= fy && fy <= Math.max(y, ty))
-							&& (Math.min(z, tz) <= fz && fz <= Math.max(z, tz)))
-						{
-
-							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1))
-								&& ((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1))
-								&& ((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
-								return true; // Door between
-						}
-					}
-				}
-			}
-		}
+//		L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
+//
+//		final L2DoorInstance[] allDoors;
+//		if (instanceId > 0 && InstanceManager.getInstance().getInstance(instanceId) != null)
+//			allDoors = InstanceManager.getInstance().getInstance(instanceId).getDoors();
+//		else
+//			allDoors = getDoors();
+//
+//		// there are quite many doors, maybe they should be splitted
+//		for (L2DoorInstance doorInst : allDoors)
+//		{
+//			if (doorInst.getMapRegion() != region)
+//				continue;
+//
+//			if (doorInst.getXMax() == 0)
+//				continue;
+//
+//			// line segment goes through box
+//			// first basic checks to stop most calculations short
+//			// phase 1, x
+//			if ((x <= doorInst.getXMax() && tx >= doorInst.getXMin()) || (tx <= doorInst.getXMax() && x >= doorInst.getXMin()))
+//			{
+//				//phase 2, y
+//				if ((y <= doorInst.getYMax() && ty >= doorInst.getYMin()) || (ty <= doorInst.getYMax() && y >= doorInst.getYMin()))
+//				{
+//					// phase 3, basically only z remains but now we calculate it with another formula (by rage)
+//					// in some cases the direct line check (only) in the beginning isn't sufficient,
+//					// when char z changes a lot along the path
+//					if (doorInst.getStatus().getCurrentHp() > 0 && !doorInst.isOpen())
+//					{
+//						int px1 = doorInst.getXMin();
+//						int py1 = doorInst.getYMin();
+//						int pz1 = doorInst.getZMin();
+//						int px2 = doorInst.getXMax();
+//						int py2 = doorInst.getYMax();
+//						int pz2 = doorInst.getZMax();
+//
+//						int l = tx - x;
+//						int m = ty - y;
+//						int n = tz - z;
+//
+//						int dk;
+//
+//						if ((dk = (doorInst.getA() * l + doorInst.getB() * m + doorInst.getC() * n)) == 0) continue; // Parallel
+//
+//						float p = (float)(doorInst.getA() * x + doorInst.getB() * y + doorInst.getC() * z + doorInst.getD()) / (float)dk;
+//
+//						int fx = (int)(x - l * p);
+//						int fy = (int)(y - m * p);
+//						int fz = (int)(z - n * p);
+//
+//						if ((Math.min(x, tx) <= fx && fx <= Math.max(x, tx))
+//							&& (Math.min(y, ty) <= fy && fy <= Math.max(y, ty))
+//							&& (Math.min(z, tz) <= fz && fz <= Math.max(z, tz)))
+//						{
+//
+//							if (((fx >= px1 && fx <= px2) || (fx >= px2 && fx <= px1))
+//								&& ((fy >= py1 && fy <= py2) || (fy >= py2 && fy <= py1))
+//								&& ((fz >= pz1 && fz <= pz2) || (fz >= pz2 && fz <= pz1)))
+//								return true; // Door between
+//						}
+//					}
+//				}
+//			}
+//		}
 		return false;
 	}
 	

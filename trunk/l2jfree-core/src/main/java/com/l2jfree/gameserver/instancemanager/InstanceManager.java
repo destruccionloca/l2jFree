@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.geodata.GeoEngine;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.util.L2FastSet;
@@ -292,6 +293,8 @@ public class InstanceManager
 			temp.cancelTimer();
 			_instanceList.remove(instanceid);
 			_instanceWorlds.remove(instanceid);
+			if (Config.GEODATA > 0)
+				GeoEngine.getInstance().deleteInstanceGeodata(instanceid);
 		}
 	}
 

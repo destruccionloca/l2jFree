@@ -52,16 +52,16 @@ public final class CellPathFinding extends PathFinding
 		short gtz = GeoData.getInstance().getHeight(tx, ty, tz);
 		Node start = readNode(gx, gy, gz);
 		Node end = readNode(gtx, gty, gtz);
-		return searchByClosest(start, end);
+		return searchByClosest(start, end, instanceId);
 	}
 	
 	/**
 	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#ReadNeighbors(short, short)
 	 */
 	@Override
-	public Node[] readNeighbors(Node n, int idx)
+	public Node[] readNeighbors(Node n, int idx, int instanceId)
 	{
-		return GeoData.getInstance().getNeighbors(n);
+		return GeoData.getInstance().getNeighbors(n, instanceId);
 	}
 	
 	//Private
