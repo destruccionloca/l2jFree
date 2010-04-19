@@ -10102,5 +10102,5 @@ UPDATE `npc` SET `type` =  'L2Monster' WHERE `id` = 18493;
 UPDATE `npc` SET `type` =  'L2Monster' WHERE `id` = 18491;
 
 # Keltas (Spire)
-UPDATE `npc` SET `hp` = 309998, `mp` = 2011, `exp` = 449479, `sp` = 47956, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 9286, `pdef` = 991, `matk` = 4318, `mdef` = 1207, `level` = 84, `atkspd` = 278, `matkspd` = 333, `runspd` = 200, `walkspd` = 120 WHERE `id` = 22341;
+UPDATE `npc` SET `hp` = 309998, `mp` = 2011, `exp` = 449479, `sp` = 47956, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 9286, `pdef` = 991, `matk` = 4318, `mdef` = 1207, `level` = 84, `atkspd` = 278, `matkspd` = 333, `runspd` = 200, `walkspd` = 120, `hpreg` = 56.86, `mpreg` = 3.09 WHERE `id` = 22341;
 
