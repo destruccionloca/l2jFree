@@ -16,12 +16,14 @@ package com.l2jfree.gameserver.handler.skillhandlers;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.ISkillConditionChecker;
+import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
+import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillTeleport;
@@ -104,15 +106,29 @@ public class Recall extends ISkillConditionChecker
 			}
 			else
 			{
-				String recall = skill.getRecallType();
-				if (recall.equalsIgnoreCase("Castle"))
-					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Castle);
-				else if (recall.equalsIgnoreCase("ClanHall"))
-					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.ClanHall);
-				else if (recall.equalsIgnoreCase("Fortress"))
-					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Fortress);
-				else
-					loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Town);
+				if (target instanceof L2PcInstance && target.isInInstance())
+				{
+					Instance instance = InstanceManager.getInstance().getInstance(target.getInstanceId());
+					coords = instance.getReturnTeleport();
+
+					if (coords[0] == 0 && coords[1] == 0 && coords[2] == 0)
+						loc = null;
+					else
+						loc = new Location(coords[0], coords[1], coords[2]);
+				}
+
+				if (loc == null)
+				{
+					String recall = skill.getRecallType();
+					if (recall.equalsIgnoreCase("Castle"))
+						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Castle);
+					else if (recall.equalsIgnoreCase("ClanHall"))
+						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.ClanHall);
+					else if (recall.equalsIgnoreCase("Fortress"))
+						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Fortress);
+					else
+						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Town);
+				}
 			}
 			if (loc != null)
 			{
