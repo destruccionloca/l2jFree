@@ -1266,6 +1266,8 @@ public class Config extends L2Config
 	public static boolean			OPTIMIZE_DATABASE;
 
 	public static String			HTML_CACHE_FILE;
+
+	public static boolean			BAN_DUPLICATED_ITEM_OWNER;
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigPropertiesLoader
 	{
@@ -1478,6 +1480,8 @@ public class Config extends L2Config
 		    OPTIMIZE_DATABASE = Boolean.parseBoolean(optionsSettings.getProperty("OptimizeDatabaseTables", "True"));
 		    
 		    HTML_CACHE_FILE = optionsSettings.getProperty("HtmlCacheFile", "./html.cache");
+
+		    BAN_DUPLICATED_ITEM_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("BanDuplicatedItemOwner", "False"));
 		}
 	}
 

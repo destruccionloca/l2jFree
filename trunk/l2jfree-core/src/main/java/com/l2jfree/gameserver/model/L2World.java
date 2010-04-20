@@ -23,10 +23,14 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
+import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jfree.gameserver.util.IllegalPlayerAction;
+import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.concurrent.L2EntityMap;
@@ -106,7 +110,20 @@ public final class L2World
 		final L2Object oldObject = findObject(objectId);
 		
 		if (oldObject != null && oldObject != object)
+		{
 			_log.warn("[" + oldObject + "] replaced with [" + object + "] - objId: " + objectId + "!", new IllegalStateException());
+			if (Config.BAN_DUPLICATED_ITEM_OWNER)
+			{
+				if (object instanceof L2ItemInstance)
+				{
+					L2ItemInstance item = (L2ItemInstance) object;
+					int ownerId = item.getOwnerId();
+					L2PcInstance player = findPlayer(ownerId);
+					if (player != null)
+						Util.handleIllegalPlayerAction(player, "Duplicated item for player "+player.getName(), IllegalPlayerAction.PUNISH_KICKBAN);
+				}
+			}
+		}
 		
 		_objects.add(object);
 	}
