@@ -32692,7 +32692,7 @@ INSERT INTO `droplist` VALUES
 
 -- Keltas
 DELETE FROM `droplist` WHERE `mobId` = 22341;
-INSERT INTO `droplist` VALUES 
+INSERT INTO `droplist` VALUES
 (22341,57,64685,129494,0,700000),-- Adena
 (22341,9599,4,12,100,708000),-- Ancient Tome of the Demon
 (22341,9684,1,1,101,45313),-- Native Treasure
@@ -32712,3 +32712,24 @@ INSERT INTO `droplist` VALUES
 (22341,4042,1,3,-1,919845),-- Enria
 (22341,8717,1,1,-1,267916),-- Tiphon's Spear Edge
 (22341,960,1,1,-1,44153);-- Scroll: Enchant Armor (S)
+
+-- Hellinark
+DELETE FROM `droplist` WHERE `mobId` = 22326;
+INSERT INTO droplist VALUES
+(22326,57,287985,576519,0,700000),-- Adena
+(22326,9599,14,44,100,869600),-- Ancient Tome of the Demon
+(22326,5546,1,1,1,121534),-- Sword of Miracles Edge
+(22326,5529,1,1,1,110646),-- Dragon Slayer Edge
+(22326,5545,1,1,1,110646),-- Dark Legion's Edge Blade
+(22326,81,1,1,1,389),-- Dragon Slayer
+(22326,151,1,1,1,389),-- Sword of Miracles
+(22326,2500,1,1,1,389),-- Dark Legion\'s Edge
+(22326,1894,5,15,2,141569),-- Crafted Leather
+(22326,4044,16,48,2,42028),-- Thons
+(22326,4039,9,27,2,74717),-- Mold Glue
+(22326,4041,3,9,2,50121),-- Mold Hardener
+(22326,959,1,1,2,1614),-- Scroll: Enchant Weapon (S)
+(22326,9551,4,12,200,35864),-- Divine Stone
+(22326,4039,1,35,-1,910052),-- Mold Glue
+(22326,6704,1,15,-1,874614),-- Sealed Imperial Crusader Boots Design
+(22326,6901,1,1,-1,491428);-- Recipe: Shining Arrow (100%)
