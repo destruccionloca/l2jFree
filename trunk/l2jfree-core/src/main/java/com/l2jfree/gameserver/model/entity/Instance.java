@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -87,15 +88,13 @@ public class Instance
 
 	private final int					_id;
 	private int							_template;
-	private int							_tpx;
-	private int							_tpy;
-	private int							_tpz;
+	private Location					_tp;
 	private String						_name;
 	private final Set<Integer>			_players			= new L2FastSet<Integer>().setShared(true);
 	private final Set<L2Npc>			_npcs				= new L2FastSet<L2Npc>().setShared(true);
 	private final Map<Integer, L2DoorInstance> _doors		= new FastMap<Integer, L2DoorInstance>().setShared(true);
 	private L2DoorInstance[]			_doorArray;
-	private int[]						_spawnLoc;
+	private Location					_spawnLoc;
 	private boolean						_allowSummon		= true;
 	private boolean						_isPvPInstance		= false;
 	protected ScheduledFuture<?>		_checkTimeUpTask	= null;
@@ -138,15 +137,15 @@ public class Instance
 
 	public void setReturnTeleport(int tpx, int tpy, int tpz)
 	{
-		_tpx = tpx;
-		_tpy = tpy;
-		_tpz = tpz;
+		if (tpx == 0 && tpy == 0 && tpz == 0)
+			_tp = null;
+		else
+			_tp = new Location(tpx, tpy, tpz);
 	}
 
-	public int[] getReturnTeleport()
+	public Location getReturnTeleport()
 	{
-		int[] returnCoords = {_tpx,_tpy,_tpz};
-		return returnCoords;
+		return _tp;
 	}
 
 	/**
@@ -232,10 +231,10 @@ public class Instance
 			if (!player.isInMultiverse())
 				player.setInstanceId(0);
 			//player.sendPacket(SystemMessageId.INSTANCE_ZONE_DELETED_CANT_ACCESSED);
-			if (_tpx == 0 || _tpy == 0 || _tpz == 0)
+			if (_tp == null)
 				player.teleToLocation(TeleportWhereType.Town);
 			else
-				player.teleToLocation(_tpx, _tpy, _tpz);
+				player.teleToLocation(_tp);
 		}
 	}
 
@@ -314,18 +313,17 @@ public class Instance
 
 	/**
 	 * Returns the spawn location for this instance to be used when leaving the instance
-	 * @return int[3]
+	 * 
+	 * @return
 	 */
-	public int[] getSpawnLoc()
+	public Location getSpawnLoc()
 	{
 		return _spawnLoc;
 	}
-
-	public void setSpawnLoc(int[] loc)
+	
+	public void setSpawnLoc(Location loc)
 	{
-		if (loc == null || loc.length < 3)
-			return;
-		System.arraycopy(loc, 0, _spawnLoc, 0, 3);
+		_spawnLoc = loc;
 	}
 
 	public void removePlayers()
@@ -518,10 +516,11 @@ public class Instance
 			{
 				try
 				{
-					_spawnLoc = new int[3];
-					_spawnLoc[0] = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
-					_spawnLoc[1] = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
-					_spawnLoc[2] = Integer.parseInt(n.getAttributes().getNamedItem("z").getNodeValue());
+					int x = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
+					int y = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
+					int z = Integer.parseInt(n.getAttributes().getNamedItem("z").getNodeValue());
+					
+					_spawnLoc = new Location(x, y, z);
 				}
 				catch (Exception e)
 				{

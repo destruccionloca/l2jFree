@@ -286,8 +286,7 @@ public final class AutomatedTvT
 				player.untransform();
 			if (player.isDead())
 				player.setIsPendingRevive(true);
-			player.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][0], Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][1],
-					Config.AUTO_TVT_TEAM_LOCATIONS[currTeam][2]);
+			player.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[currTeam]);
 			if (Config.AUTO_TVT_START_RECOVER)
 			{
 				player.getStatus().setCurrentCp(player.getMaxCp());
@@ -376,8 +375,7 @@ public final class AutomatedTvT
 			int team = p.getTeam();
 			p.setNameColor(
 					(eventTeams[team].getColorRed() & 0xFF) + (eventTeams[team].getColorGreen() << 8) + (eventTeams[team].getColorBlue() << 16));
-			participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0], Config.AUTO_TVT_TEAM_LOCATIONS[team][1],
-					Config.AUTO_TVT_TEAM_LOCATIONS[team][2]);
+			participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team]);
 			break;
 		}
 	}
@@ -596,7 +594,7 @@ public final class AutomatedTvT
 	public final void revive(L2PcInstance participant, int team)
 	{
 		participant.setIsPendingRevive(true);
-		participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team][0], Config.AUTO_TVT_TEAM_LOCATIONS[team][1], Config.AUTO_TVT_TEAM_LOCATIONS[team][2]);
+		participant.teleToLocation(Config.AUTO_TVT_TEAM_LOCATIONS[team]);
 	}
 
 	public final void recover(L2PcInstance revived)
@@ -682,9 +680,9 @@ public final class AutomatedTvT
 			ps.setInt(1, loc.getHeading());
 			if (Config.AUTO_TVT_OVERRIDE_TELE_BACK)
 			{
-				ps.setInt(2, Config.AUTO_TVT_DEFAULT_TELE_BACK[0]);
-				ps.setInt(3, Config.AUTO_TVT_DEFAULT_TELE_BACK[1]);
-				ps.setInt(4, Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
+				ps.setInt(2, Config.AUTO_TVT_DEFAULT_TELE_BACK.getX());
+				ps.setInt(3, Config.AUTO_TVT_DEFAULT_TELE_BACK.getY());
+				ps.setInt(4, Config.AUTO_TVT_DEFAULT_TELE_BACK.getZ());
 			}
 			else
 			{
@@ -753,7 +751,7 @@ public final class AutomatedTvT
 		else
 			player.setIsPendingRevive(true);
 		if (Config.AUTO_TVT_OVERRIDE_TELE_BACK)
-			player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK[0], Config.AUTO_TVT_DEFAULT_TELE_BACK[1], Config.AUTO_TVT_DEFAULT_TELE_BACK[2]);
+			player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK);
 		else
 			player.teleToLocation(p.getLoc(), true);
 	}

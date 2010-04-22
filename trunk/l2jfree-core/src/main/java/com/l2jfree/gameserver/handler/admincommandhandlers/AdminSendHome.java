@@ -17,63 +17,43 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class AdminSendHome implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_sendhome" };
+	private static final String[] ADMIN_COMMANDS = { "admin_sendhome" };
+	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_sendhome"))
 		{
+			L2PcInstance targetPlayer;
 			if (command.split(" ").length > 1)
-				handleSendhome(activeChar, command.split(" ")[1]);
+			{
+				targetPlayer = L2World.getInstance().getPlayer(command.split(" ")[1]);
+			}
 			else
-				handleSendhome(activeChar);
+			{
+				L2Object target = activeChar.getTarget();
+				if (target == null)
+					targetPlayer = activeChar;
+				else
+					targetPlayer = L2Object.getActingPlayer(target);
+			}
+			
+			if (targetPlayer != null)
+				targetPlayer.teleToLocation(TeleportWhereType.Town);
+			else
+				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 		}
-
+		
 		return true;
 	}
-
+	
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
-	}
-
-	private void handleSendhome(L2PcInstance activeChar)
-	{
-		handleSendhome(activeChar, null);
-	}
-
-	private void handleSendhome(L2PcInstance activeChar, String player)
-	{
-		L2Object obj = activeChar.getTarget();
-
-		if (player != null)
-		{
-			L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-
-			if (plyr != null)
-			{
-				obj = plyr;
-			}
-		}
-
-		if (obj == null)
-			obj = activeChar;
-
-		if (obj instanceof L2Character)
-			doSendhome((L2Character) obj);
-		else
-			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-	}
-
-	private void doSendhome(L2Character targetChar)
-	{
-		targetChar.teleToLocation(TeleportWhereType.Town);
 	}
 }

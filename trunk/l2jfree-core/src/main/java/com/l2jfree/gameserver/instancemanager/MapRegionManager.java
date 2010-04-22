@@ -279,11 +279,11 @@ public final class MapRegionManager
 	}
 	
 	//TODO: Needs to be clean rewritten
-	public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
+	public Location getTeleToLocation(L2PcInstance activeChar, TeleportWhereType teleportWhere)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance)activeChar;
+			L2PcInstance player = activeChar;
 			L2Clan clan = player.getClan();
 			Castle castle = null;
 			Fort fort = null;
@@ -314,9 +314,9 @@ public final class MapRegionManager
 				Instance inst = InstanceManager.getInstance().getInstance(player.getInstanceId());
 				if (inst != null)
 				{
-					int[] coord = inst.getSpawnLoc();
-					if (coord != null && coord[0] != 0 && coord[1] != 0 && coord[2] != 0)
-						return new Location(coord[0], coord[1], coord[2]);
+					Location loc = inst.getSpawnLoc();
+					if (loc != null)
+						return loc;
 				}
 			}
 			

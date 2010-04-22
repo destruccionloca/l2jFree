@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameServer.StartupHook;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.L2FastSet;
@@ -3467,11 +3468,11 @@ public class Config extends L2Config
 	}
 
 	public static boolean AUTO_TVT_ENABLED;
-	public static int[][] AUTO_TVT_TEAM_LOCATIONS;
+	public static Location[] AUTO_TVT_TEAM_LOCATIONS;
 	public static boolean AUTO_TVT_TEAM_COLORS_RANDOM;
 	public static int[] AUTO_TVT_TEAM_COLORS;
 	public static boolean AUTO_TVT_OVERRIDE_TELE_BACK;
-	public static int[] AUTO_TVT_DEFAULT_TELE_BACK;
+	public static Location AUTO_TVT_DEFAULT_TELE_BACK;
 	public static int AUTO_TVT_REWARD_MIN_POINTS;
 	public static int[] AUTO_TVT_REWARD_IDS;
 	public static int[] AUTO_TVT_REWARD_COUNT;
@@ -3529,16 +3530,17 @@ public class Config extends L2Config
 				AutomatedTvT.startIfNecessary();
 			StringTokenizer coords;
 			StringTokenizer locations = new StringTokenizer(properties.getProperty("TvTTeamLocations", ""), ";");
-			AUTO_TVT_TEAM_LOCATIONS = new int[locations.countTokens()][3];
+			AUTO_TVT_TEAM_LOCATIONS = new Location[locations.countTokens()];
 			for (int i = 0; i < AUTO_TVT_TEAM_LOCATIONS.length; i++)
 			{
 				coords = new StringTokenizer(locations.nextToken(), ",");
 				if (coords.countTokens() == 3)
 				{
-					AUTO_TVT_TEAM_LOCATIONS[i] = new int[3];
-					AUTO_TVT_TEAM_LOCATIONS[i][0] = Integer.parseInt(coords.nextToken());
-					AUTO_TVT_TEAM_LOCATIONS[i][1] = Integer.parseInt(coords.nextToken());
-					AUTO_TVT_TEAM_LOCATIONS[i][2] = Integer.parseInt(coords.nextToken());
+					int x = Integer.parseInt(coords.nextToken());
+					int y = Integer.parseInt(coords.nextToken());
+					int z = Integer.parseInt(coords.nextToken());
+					
+					AUTO_TVT_TEAM_LOCATIONS[i] = new Location(x, y, z);
 				}
 				else
 					throw new IllegalArgumentException("Cannot parse TvTTeamLocations!");
@@ -3560,10 +3562,11 @@ public class Config extends L2Config
 			coords = new StringTokenizer(properties.getProperty("TvTTeleportSpecialLocation", ""), ",");
 			if (coords.countTokens() == 3)
 			{
-				AUTO_TVT_DEFAULT_TELE_BACK = new int[3];
-				AUTO_TVT_DEFAULT_TELE_BACK[0] = Integer.parseInt(coords.nextToken());
-				AUTO_TVT_DEFAULT_TELE_BACK[1] = Integer.parseInt(coords.nextToken());
-				AUTO_TVT_DEFAULT_TELE_BACK[2] = Integer.parseInt(coords.nextToken());
+				int x = Integer.parseInt(coords.nextToken());
+				int y = Integer.parseInt(coords.nextToken());
+				int z = Integer.parseInt(coords.nextToken());
+				
+				AUTO_TVT_DEFAULT_TELE_BACK = new Location(x, y, z);
 			}
 			else
 				throw new IllegalArgumentException("Cannot parse TvTTeleportSpecialLocation!");

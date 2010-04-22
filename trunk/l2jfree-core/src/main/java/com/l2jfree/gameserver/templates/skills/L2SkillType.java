@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.skills.l2skills.L2SkillFusion;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillLearnSkill;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillMount;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillPdam;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillRecall;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillRecover;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSignet;
@@ -96,7 +97,7 @@ public enum L2SkillType
 	MAKE_QUEST_DROPABLE,
 	MDOT,
 	MUTE,
-	RECALL(L2SkillTeleport.class),
+	RECALL(L2SkillRecall.class),
 	REFLECT, // should be depreacted
 	SUMMON_FRIEND,
 	SOULSHOT, // should be deprecated
@@ -162,7 +163,7 @@ public enum L2SkillType
 	NOTDONE,
 	TELEPORT(L2SkillTeleport.class),
 	CHANGE_APPEARANCE(L2SkillAppearance.class),
-	OPEN_DOOR, 
+	OPEN_DOOR,
 	ZAKEN_TELEPORT,
 	;
 

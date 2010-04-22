@@ -23,16 +23,16 @@ import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance.TeleportMode;
-import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.skills.l2skills.L2SkillRecall;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillTeleport;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public class Recall extends ISkillConditionChecker
 {
-	private static final L2SkillType[]	SKILL_IDS	= { L2SkillType.RECALL, L2SkillType.TELEPORT };
-
+	private static final L2SkillType[] SKILL_IDS = { L2SkillType.RECALL, L2SkillType.TELEPORT };
+	
 	@Override
 	public boolean checkConditions(L2Character activeChar, L2Skill skill)
 	{
@@ -54,30 +54,28 @@ public class Recall extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill);
 	}
 	
-	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
-		L2SkillTeleport skill = (L2SkillTeleport)skill0;
-		
 		if (activeChar instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) activeChar;
-
+			L2PcInstance player = (L2PcInstance)activeChar;
+			
 			if (!player.canTeleport(player.hasSkill(skill.getId()) ? TeleportMode.RECALL : TeleportMode.SCROLL_OF_ESCAPE, true))
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
-
+		
 		for (L2Character target : targets)
 		{
 			if (target == null)
 				continue;
-
+			
 			if (target instanceof L2PcInstance)
 			{
-				L2PcInstance targetChar = (L2PcInstance) target;
-
+				L2PcInstance targetChar = (L2PcInstance)target;
+				
 				if (!targetChar.canTeleport(TeleportMode.RECALL))
 				{
 					targetChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -85,63 +83,48 @@ public class Recall extends ISkillConditionChecker
 				}
 			}
 			
-			Location loc;
-			int[] coords = skill.getTeleportCoords();
-			if (coords != null)
-				loc = new Location(coords[0], coords[1], coords[2]);
-			else
-				loc = null;
-			
+			Location loc = null;
 			if (skill.getSkillType() == L2SkillType.TELEPORT)
 			{
+				loc = ((L2SkillTeleport)skill).getTeleportCoords();
+				
 				if (loc != null)
 				{
 					// target is not player OR player is not flying or flymounted
 					// TODO: add check for gracia continent coords
-					if (target instanceof L2PcInstance &&
-							(target.isFlying() || target.getActingPlayer().isFlyingMounted()))
+					if (target instanceof L2PcInstance
+							&& (target.isFlying() || ((L2PcInstance)target).isFlyingMounted()))
 						loc = null;
 					// verified on retail - nothing happens
 				}
 			}
-			else
+			else if (skill.getSkillType() == L2SkillType.RECALL && target instanceof L2PcInstance)
 			{
-				if (target instanceof L2PcInstance && target.isInInstance())
+				if (target.isInInstance())
 				{
-					Instance instance = InstanceManager.getInstance().getInstance(target.getInstanceId());
-					coords = instance.getReturnTeleport();
-
-					if (coords[0] == 0 && coords[1] == 0 && coords[2] == 0)
-						loc = null;
-					else
-						loc = new Location(coords[0], coords[1], coords[2]);
+					loc = InstanceManager.getInstance().getInstance(target.getInstanceId()).getReturnTeleport();
 				}
-
+				
 				if (loc == null)
 				{
-					String recall = skill.getRecallType();
-					if (recall.equalsIgnoreCase("Castle"))
-						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Castle);
-					else if (recall.equalsIgnoreCase("ClanHall"))
-						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.ClanHall);
-					else if (recall.equalsIgnoreCase("Fortress"))
-						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Fortress);
-					else
-						loc = MapRegionManager.getInstance().getTeleToLocation(target, TeleportWhereType.Town);
+					TeleportWhereType type = ((L2SkillRecall)skill).getRecallType();
+					
+					loc = MapRegionManager.getInstance().getTeleToLocation((L2PcInstance)target, type);
 				}
 			}
+			
 			if (loc != null)
 			{
 				if (skill.getId() != 5226)
 					target.setInstanceId(0);
-
+				
 				if (target instanceof L2PcInstance)
 					target.getActingPlayer().setIsIn7sDungeon(false);
 				target.teleToLocation(loc, true);
 			}
 		}
 	}
-
+	
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

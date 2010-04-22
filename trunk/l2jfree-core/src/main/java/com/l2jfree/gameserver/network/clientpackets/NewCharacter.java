@@ -34,6 +34,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -167,8 +168,8 @@ public class NewCharacter extends L2GameClientPacket
 		
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 		
-		int[] xyz = template.getStartingPosition();
-		newChar.getPosition().setXYZInvisible(xyz[0], xyz[1], xyz[2]);
+		Location startPos = template.getStartingPosition();
+		newChar.getPosition().setXYZInvisible(startPos.getX(), startPos.getY(), startPos.getZ());
 		newChar.setTitle("");
 		
 		newChar.setVitalityPoints(PcStat.MAX_VITALITY_POINTS, true);

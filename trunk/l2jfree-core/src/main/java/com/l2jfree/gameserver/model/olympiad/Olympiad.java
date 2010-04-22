@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -988,7 +989,7 @@ public final class Olympiad
 		}
 	}
 	
-	public FastList<L2PcInstance> getSpectators(int id)
+	public Set<L2PcInstance> getSpectators(int id)
 	{
 		try
 		{

@@ -14,105 +14,76 @@
  */
 package com.l2jfree.gameserver.model.olympiad;
 
-import javolution.util.FastList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.Set;
 
 import com.l2jfree.gameserver.datatables.DoorTable;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * @author GodKratos
  */
-
-public class OlympiadStadium
+public final class OlympiadStadium
 {
-	private static final Log _log = LogFactory.getLog(OlympiadStadium.class);
+	private boolean _freeToUse = true;
+	private final int[] _doorIds = new int[2];
+	private final Set<L2PcInstance> _spectators = new L2FastSet<L2PcInstance>().setShared(true);
+	public final Location player1Spawn;
+	public final Location player2Spawn;
+	public final Location buffer1Spawn;
+	public final Location buffer2Spawn;
 	
-	private boolean					_freeToUse	= true;
-	private static DoorTable		_doorTable;
-	private final int[]					_coords		= new int[3];
-	private final int[]					_doors		= new int[2];
-	private final FastList<L2PcInstance>	_spectators;
-
 	public boolean isFreeToUse()
 	{
 		return _freeToUse;
 	}
-
+	
 	public void setStadiaBusy()
 	{
 		_freeToUse = false;
 	}
-
+	
 	public void setStadiaFree()
 	{
 		_freeToUse = true;
 	}
-
-	public int[] getCoordinates()
-	{
-		return _coords;
-	}
-
-	public int[] getDoorID()
-	{
-		return _doors;
-	}
-
+	
 	public OlympiadStadium(int x, int y, int z, int d1, int d2)
 	{
-		_coords[0] = x;
-		_coords[1] = y;
-		_coords[2] = z;
-		_doors[0] = d1;
-		_doors[1] = d2;
-		_spectators = new FastList<L2PcInstance>();
+		_doorIds[0] = d1;
+		_doorIds[1] = d2;
+		
+		player1Spawn = new Location(x + 1200, y, z);
+		player2Spawn = new Location(x - 1200, y, z);
+		buffer1Spawn = new Location(x + 1100, y, z);
+		buffer2Spawn = new Location(x - 1100, y, z);
 	}
-
+	
 	public void openDoors()
 	{
-		_doorTable = DoorTable.getInstance();
-		try
-		{
-			_doorTable.getDoor(getDoorID()[0]).openMe();
-			_doorTable.getDoor(getDoorID()[1]).openMe();
-		}
-		catch (RuntimeException e)
-		{
-			_log.warn("", e);
-		}
+		DoorTable.getInstance().openDoors(_doorIds);
 	}
-
+	
 	public void closeDoors()
 	{
-		_doorTable = DoorTable.getInstance();
-		try
-		{
-			_doorTable.getDoor(getDoorID()[0]).closeMe();
-			_doorTable.getDoor(getDoorID()[1]).closeMe();
-		}
-		catch (Exception e)
-		{
-			_log.warn("", e);
-		}
+		DoorTable.getInstance().closeDoors(_doorIds);
 	}
-
+	
 	protected void addSpectator(int id, L2PcInstance spec, boolean storeCoords)
 	{
-		spec.enterOlympiadObserverMode(getCoordinates()[0] + 1200, getCoordinates()[1], getCoordinates()[2], id, storeCoords);
+		spec.enterOlympiadObserverMode(player1Spawn, id, storeCoords);
+		
 		_spectators.add(spec);
 	}
-
-	protected FastList<L2PcInstance> getSpectators()
+	
+	protected Set<L2PcInstance> getSpectators()
 	{
 		return _spectators;
 	}
-
+	
 	protected void removeSpectator(L2PcInstance spec)
 	{
-		if (_spectators != null && _spectators.contains(spec))
-			_spectators.remove(spec);
+		_spectators.remove(spec);
 	}
 }

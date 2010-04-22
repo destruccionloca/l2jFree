@@ -356,9 +356,9 @@ public final class DoorTable
 		if (instance == null || doorIds == null)
 			return;
 		
-		for (int i = 0; i < doorIds.length; i++)
+		for (int doorId : doorIds)
 		{
-			L2DoorInstance door = instance.getDoor(doorIds[i]);
+			L2DoorInstance door = instance.getDoor(doorId);
 			if (door != null)
 				door.openMe();
 		}
@@ -373,9 +373,9 @@ public final class DoorTable
 		if (instance == null || doorIds == null)
 			return;
 		
-		for (int i = 0; i < doorIds.length; i++)
+		for (int doorId : doorIds)
 		{
-			L2DoorInstance door = instance.getDoor(doorIds[i]);
+			L2DoorInstance door = instance.getDoor(doorId);
 			if (door != null)
 				door.closeMe();
 		}
@@ -389,12 +389,15 @@ public final class DoorTable
 		if (doorIds == null)
 			return;
 		
-		for (int i = 0; i < doorIds.length; i++)
-		{
-			L2DoorInstance door = getDoor(doorIds[i]);
-			if (door != null)
-				door.closeMe();
-		}
+		for (int doorId : doorIds)
+			closeDoor(doorId);
+	}
+	
+	public void closeDoor(int doorId)
+	{
+		L2DoorInstance door = getDoor(doorId);
+		if (door != null)
+			door.closeMe();
 	}
 	
 	/**
@@ -405,12 +408,15 @@ public final class DoorTable
 		if (doorIds == null)
 			return;
 		
-		for (int i = 0; i < doorIds.length; i++)
-		{
-			L2DoorInstance door = getDoor(doorIds[i]);
-			if (door != null)
-				door.openMe();
-		}
+		for (int doorId : doorIds)
+			openDoor(doorId);
+	}
+	
+	public void openDoor(int doorId)
+	{
+		L2DoorInstance door = getDoor(doorId);
+		if (door != null)
+			door.openMe();
 	}
 	
 	@SuppressWarnings("synthetic-access")

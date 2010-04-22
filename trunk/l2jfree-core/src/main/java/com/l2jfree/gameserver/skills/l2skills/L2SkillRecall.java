@@ -15,28 +15,22 @@
 package com.l2jfree.gameserver.skills.l2skills;
 
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.templates.StatsSet;
 
-public final class L2SkillTeleport extends L2Skill
+public final class L2SkillRecall extends L2Skill
 {
-	private final Location _teleportCoords;
+	private final TeleportWhereType _recallType;
 	
-	public L2SkillTeleport(StatsSet set)
+	public L2SkillRecall(StatsSet set)
 	{
 		super(set);
 		
-		String[] valuesSplit = set.getString("teleCoords").split(",");
-		
-		int x = Integer.parseInt(valuesSplit[0]);
-		int y = Integer.parseInt(valuesSplit[1]);
-		int z = Integer.parseInt(valuesSplit[2]);
-		
-		_teleportCoords = new Location(x, y, z);
+		_recallType = set.getEnum("recallType", TeleportWhereType.class, TeleportWhereType.Town);
 	}
 	
-	public final Location getTeleportCoords()
+	public final TeleportWhereType getRecallType()
 	{
-		return _teleportCoords;
+		return _recallType;
 	}
 }

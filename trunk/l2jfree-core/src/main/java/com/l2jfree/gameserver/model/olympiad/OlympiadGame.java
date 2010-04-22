@@ -21,13 +21,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.HeroSkillTable;
-import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -43,7 +43,6 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.StatsSet;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
  * @author GodKratos
@@ -81,7 +80,6 @@ public class OlympiadGame
 	public L2Spawn						_spawnOne;
 	public L2Spawn						_spawnTwo;
 	protected FastList<L2PcInstance>	_players;
-	private final int[]					_stadiumPort;
 	private int							x1, y1, z1, x2, y2, z2;
 	public final int					_stadiumID;
 	private SystemMessage				_sm;
@@ -96,7 +94,6 @@ public class OlympiadGame
 		_playerOneDisconnected = false;
 		_playerTwoDisconnected = false;
 		_type = type;
-		_stadiumPort = OlympiadManager.STADIUMS[id].getCoordinates();
 
 		if (list != null)
 		{
@@ -184,15 +181,12 @@ public class OlympiadGame
 		}
 	}
 
-	public L2Spawn SpawnBuffer(int xPos, int yPos, int zPos, int npcId)
+	public L2Spawn spawnBuffer(Location loc)
 	{
-		final L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
 		try
 		{
-			final L2Spawn spawn = new L2Spawn(template);
-			spawn.setLocx(xPos);
-			spawn.setLocy(yPos);
-			spawn.setLocz(zPos);
+			final L2Spawn spawn = new L2Spawn(OLY_BUFFER);
+			spawn.setLoc(loc);
 			spawn.setAmount(1);
 			spawn.setHeading(0);
 			spawn.setRespawnDelay(1);
@@ -202,6 +196,7 @@ public class OlympiadGame
 		}
 		catch (Exception e)
 		{
+			_log.warn("", e);
 			return null;
 		}
 	}
@@ -350,14 +345,16 @@ public class OlympiadGame
 
 			_gamestarted = true;
 
-			_playerOne.teleToLocation(_stadiumPort[0] + 1200, _stadiumPort[1], _stadiumPort[2], false);
-			_playerTwo.teleToLocation(_stadiumPort[0] - 1200, _stadiumPort[1], _stadiumPort[2], false);
+			final OlympiadStadium stadium = OlympiadManager.STADIUMS[_stadiumID];
+			
+			_playerOne.teleToLocation(stadium.player1Spawn, false);
+			_playerTwo.teleToLocation(stadium.player2Spawn, false);
 
 			_playerOne.sendPacket(ExOlympiadMode.INGAME);
 			_playerTwo.sendPacket(ExOlympiadMode.INGAME);
 
-			_spawnOne = SpawnBuffer(_stadiumPort[0] + 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
-			_spawnTwo = SpawnBuffer(_stadiumPort[0] - 1100, _stadiumPort[1], _stadiumPort[2], OLY_BUFFER);
+			_spawnOne = spawnBuffer(stadium.buffer1Spawn);
+			_spawnTwo = spawnBuffer(stadium.buffer2Spawn);
 
 			_playerOne.setIsInOlympiadMode(true);
 			_playerOne.setIsOlympiadStart(false);
@@ -910,7 +907,7 @@ public class OlympiadGame
 				player.sendPacket(sm);
 		}
 
-		if (toAll && OlympiadManager.STADIUMS[_stadiumID].getSpectators() != null)
+		if (toAll)
 		{
 			for (L2PcInstance spec : OlympiadManager.STADIUMS[_stadiumID].getSpectators())
 			{
@@ -1069,13 +1066,10 @@ class OlympiadGameTask implements Runnable
 				}
 			}
 
-			if (OlympiadManager.STADIUMS[_game._stadiumID].getSpectators() != null)
+			for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
 			{
-				for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
-				{
-					if (spec != null)
-						spec.sendPacket(ExOlympiadMatchEnd.PACKET);
-				}
+				if (spec != null)
+					spec.sendPacket(ExOlympiadMatchEnd.PACKET);
 			}
 
 			if (_game._spawnOne != null)
@@ -1162,15 +1156,12 @@ class OlympiadGameTask implements Runnable
 		
 		_game._playerOne.updateEffectIcons();
 		_game._playerTwo.updateEffectIcons();
-		if (OlympiadManager.STADIUMS[_game._stadiumID].getSpectators() != null)
+		for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
 		{
-			for (L2PcInstance spec : OlympiadManager.STADIUMS[_game._stadiumID].getSpectators())
+			if (spec != null)
 			{
-				if (spec != null)
-				{
-					spec.sendPacket(new ExOlympiadUserInfo(_game._playerOne));
-					spec.sendPacket(new ExOlympiadUserInfo(_game._playerTwo));
-				}
+				spec.sendPacket(new ExOlympiadUserInfo(_game._playerOne));
+				spec.sendPacket(new ExOlympiadUserInfo(_game._playerTwo));
 			}
 		}
 

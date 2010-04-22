@@ -47,7 +47,6 @@ import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
-import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.model.ChanceSkillList;
 import com.l2jfree.gameserver.model.FusionSkill;
 import com.l2jfree.gameserver.model.L2CharPosition;
@@ -74,7 +73,6 @@ import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.view.CharLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
-import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.Quest.QuestEventType;
@@ -587,11 +585,12 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	public void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
+	public final void teleToLocation(int x, int y, int z, boolean allowRandomOffset)
 	{
 		teleToLocation(x, y, z, getHeading(), allowRandomOffset);
 	}
-	public void teleToLocation(int x, int y, int z, int heading, boolean allowRandomOffset)
+	
+	public final void teleToLocation(int x, int y, int z, int heading, boolean allowRandomOffset)
 	{
 		// Restrict teleport during restart/shutdown
 		if (Shutdown.isActionDisabled(DisableType.TELEPORT))
@@ -641,24 +640,28 @@ public abstract class L2Character extends L2Object
 
 		revalidateZone(true);
 	}
-
-	public void teleToLocation(int x, int y, int z)
+	
+	public final void teleToLocation(int x, int y, int z)
 	{
 		teleToLocation(x, y, z, true);
 	}
-
-	public void teleToLocation(Location loc, boolean allowRandomOffset)
+	
+	public final void teleToLocation(Location loc)
+	{
+		teleToLocation(loc, true);
+	}
+	
+	public final void teleToLocation(Location loc, boolean allowRandomOffset)
 	{
 		int x = loc.getX();
 		int y = loc.getY();
 		int z = loc.getZ();
-
-		teleToLocation(x, y, z, allowRandomOffset);
-	}
-
-	public void teleToLocation(TeleportWhereType teleportWhere)
-	{
-		teleToLocation(MapRegionManager.getInstance().getTeleToLocation(this, teleportWhere), true);
+		int heading = loc.getHeading();
+		
+		if (heading == 0)
+			teleToLocation(x, y, z, allowRandomOffset);
+		else
+			teleToLocation(x, y, z, heading, allowRandomOffset);
 	}
 
 	/** ************************************-+ Fall Damage +-************************************** */

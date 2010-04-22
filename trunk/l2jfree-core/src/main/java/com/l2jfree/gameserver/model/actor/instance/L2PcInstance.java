@@ -93,6 +93,7 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
+import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
@@ -133,6 +134,7 @@ import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
+import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.MacroList;
 import com.l2jfree.gameserver.model.ShortCuts;
 import com.l2jfree.gameserver.model.TradeList;
@@ -8871,7 +8873,7 @@ public final class L2PcInstance extends L2Playable
 		updateInvisibilityStatus();
 	}
 
-	public void enterOlympiadObserverMode(int x, int y, int z, int id, boolean storeCoords)
+	public void enterOlympiadObserverMode(Location loc, int id, boolean storeCoords)
 	{
 		if (getPet() != null)
 			getPet().unSummon(this);
@@ -8902,7 +8904,7 @@ public final class L2PcInstance extends L2Playable
 		setTarget(null);
 		setIsInvul(true);
 		getAppearance().setInvisible();
-		teleToLocation(x, y, z, false);
+		teleToLocation(loc, false);
 		sendPacket(GMHide.ENABLE);
 		sendPacket(ExOlympiadMode.SPECTATE);
 		_observerMode = true;
@@ -10812,7 +10814,12 @@ public final class L2PcInstance extends L2Playable
 			onTeleported();
 		}
 	}
-
+	
+	public void teleToLocation(TeleportWhereType teleportWhere)
+	{
+		teleToLocation(MapRegionManager.getInstance().getTeleToLocation(this, teleportWhere), true);
+	}
+	
 	@Override
 	public void addExpAndSp(long addToExp, int addToSp)
 	{
@@ -11332,15 +11339,15 @@ public final class L2PcInstance extends L2Playable
 				if (inst != null)
 				{
 					inst.removePlayer(getObjectId());
-					final int[] spawn = inst.getSpawnLoc();
-					if (spawn != null && spawn[0] != 0 && spawn[1] != 0 && spawn[2] != 0)
+					final Location spawn = inst.getSpawnLoc();
+					if (spawn != null)
 					{
-						final int x = spawn[0] + Rnd.get(-30, 30);
-						final int y = spawn[1] + Rnd.get(-30, 30);
-						getPosition().setXYZ(x, y, spawn[2]);
+						final int x = spawn.getX() + Rnd.get(-30, 30);
+						final int y = spawn.getY() + Rnd.get(-30, 30);
+						getPosition().setXYZ(x, y, spawn.getZ());
 						if (getPet() != null) // dead pet
 						{
-							getPet().teleToLocation(x, y, spawn[2]);
+							getPet().teleToLocation(x, y, spawn.getZ());
 							// ??? unset pet's instance id, but not players
 							getPet().decayMe();
 							getPet().spawnMe();
