@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS `character_skill_reuses` (
   `reuseDelay` INT UNSIGNED NOT NULL,
   `expiration` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`charId`,`skillId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;

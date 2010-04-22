@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS `seven_signs` (
   `blue_stones` INT NOT NULL DEFAULT 0,
   `ancient_adena_amount` DECIMAL(20,0) NOT NULL DEFAULT 0,
   `contribution_score` DECIMAL(20,0) NOT NULL DEFAULT 0,
-  PRIMARY KEY  (`charId`)
+  PRIMARY KEY (`charId`)
 ) DEFAULT CHARSET=utf8;

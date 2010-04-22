@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `character_effects` (
   `count` INT UNSIGNED NOT NULL,
   `remaining` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`charId`,`classIndex`,`buffIndex`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;

@@ -9,4 +9,3 @@ CREATE TABLE IF NOT EXISTS `character_tpbookmark` (
   `name` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`charId`,`Id`)
 ) DEFAULT CHARSET=utf8;
-

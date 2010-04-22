@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `character_macroses` (
   `acronym` VARCHAR(4),
   `commands` VARCHAR(255),
   PRIMARY KEY (`charId`,`id`)
-)  DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
