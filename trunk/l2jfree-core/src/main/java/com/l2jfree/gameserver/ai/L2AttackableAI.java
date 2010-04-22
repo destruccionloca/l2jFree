@@ -19,7 +19,7 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 
-import java.util.List;
+import java.util.Set;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
@@ -519,7 +519,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					// following boss
 					L2MinionInstance minion;
 					L2MonsterInstance boss;
-					List<L2MinionInstance> minions;
+					Set<L2MinionInstance> minions;
 					if (_actor instanceof L2MonsterInstance)
 					{
 						boss = (L2MonsterInstance) _actor;

@@ -14,16 +14,10 @@
  */
 package com.l2jfree.gameserver.util;
 
-/**
- * 
- * @author luisantonioa
- * 
- */
-
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.apache.commons.logging.Log;
@@ -38,34 +32,30 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.OrfenInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.SingletonList;
-import com.l2jfree.util.SingletonMap;
+import com.l2jfree.util.L2FastSet;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
+ * @author luisantonioa
  */
-
-public class MinionList
+public final class MinionList
 {
 	private final static Log				_log			= LogFactory.getLog(L2MonsterInstance.class);
-
+	
 	/** List containing the current spawned minions for this L2MonsterInstance */
-	private final List<L2MinionInstance> minionReferences = new SingletonList<L2MinionInstance>();
-	private final Map<Long, Integer> _respawnTasks = new SingletonMap<Long,Integer>().setShared();
-	private final L2MonsterInstance			master;
-
+	private final Set<L2MinionInstance> minionReferences = new L2FastSet<L2MinionInstance>().setShared(true);
+	private final Map<L2MinionInstance, Long> _respawnTasks = new FastMap<L2MinionInstance, Long>().setShared(true);
+	private final L2MonsterInstance master;
+	
 	public MinionList(L2MonsterInstance pMaster)
 	{
 		master = pMaster;
 	}
-
+	
 	public int countSpawnedMinions()
 	{
 		return minionReferences.size();
 	}
-
+	
 	private int countSpawnedMinionsById(int minionId)
 	{
 		int count = 0;
@@ -79,22 +69,22 @@ public class MinionList
 
 		return count;
 	}
-
+	
 	public boolean hasMinions()
 	{
 		return !getSpawnedMinions().isEmpty();
 	}
-
-	public List<L2MinionInstance> getSpawnedMinions()
+	
+	public Set<L2MinionInstance> getSpawnedMinions()
 	{
 		return minionReferences;
 	}
-
+	
 	public void addSpawnedMinion(L2MinionInstance minion)
 	{
 		minionReferences.add(minion);
 	}
-
+	
 	public int lazyCountSpawnedMinionsGroups()
 	{
 		Set<Integer> seenGroups = new FastSet<Integer>();
@@ -106,55 +96,40 @@ public class MinionList
 		
 		return seenGroups.size();
 	}
-
+	
 	public void moveMinionToRespawnList(L2MinionInstance minion)
 	{
-		Long current = System.currentTimeMillis();
-		synchronized (minionReferences)
-		{
-			minionReferences.remove(minion);
-			if (_respawnTasks.get(current) == null)
-				_respawnTasks.put(current, minion.getNpcId());
-			else
-			{
-				// nice AoE
-				for (int i = 1; i < 30; i++)
-				{
-					if (_respawnTasks.get(current + i) == null)
-					{
-						_respawnTasks.put(current + i, minion.getNpcId());
-						break;
-					}
-				}
-			}
-		}
+		minionReferences.remove(minion);
+		
+		_respawnTasks.put(minion, System.currentTimeMillis());
 	}
-
+	
 	public void clearRespawnList()
 	{
 		_respawnTasks.clear();
 	}
-
+	
 	/**
 	 * Manage respawning of minions for this RaidBoss.<BR><BR>
 	 */
 	public void maintainMinions()
 	{
-		if (master == null || master.isAlikeDead())
+		if (master.isAlikeDead())
 			return;
-		Long current = System.currentTimeMillis();
-		if (_respawnTasks != null)
-			for (long deathTime : _respawnTasks.keySet())
+		
+		long current = System.currentTimeMillis();
+		
+		for (Map.Entry<L2MinionInstance, Long> entry : _respawnTasks.entrySet())
+		{
+			if (current - entry.getValue() > Config.RAID_MINION_RESPAWN_TIMER)
 			{
-				double delay = Config.RAID_MINION_RESPAWN_TIMER;
-				if ((current - deathTime) > delay)
-				{
-					spawnSingleMinion(_respawnTasks.get(deathTime), master.getInstanceId());
-					_respawnTasks.remove(deathTime);
-				}
+				spawnSingleMinion(entry.getKey().getNpcId(), master.getInstanceId());
+				
+				_respawnTasks.remove(entry.getKey());
 			}
+		}
 	}
-
+	
 	/**
 	 * Manage the spawn of all Minions of this RaidBoss.<BR><BR>
 	 * 
@@ -167,45 +142,42 @@ public class MinionList
 	 */
 	public void spawnMinions()
 	{
-		if (master == null || master.isAlikeDead())
+		if (master.isAlikeDead())
 			return;
+		
 		L2MinionData[] minions = master.getTemplate().getMinionData();
 		if (minions == null)
 			return;
-
-		synchronized (minionReferences)
+		
+		int minionCount = 0, minionId =	0, minionsToSpawn;
+		for (L2MinionData minion : minions)
 		{
-			int minionCount = 0, minionId =	0, minionsToSpawn;
-			for (L2MinionData minion : minions)
+			switch (master.getNpcId())
 			{
-				switch (master.getNpcId())
-				{
-					case 29014: // Orfen
-						OrfenInstance orfen = (OrfenInstance) master;
-						switch (orfen.getPos())
-						{
-							case FIELD:
-								minionCount = 4;
-								minionId = 29016;
-								break;
-							case NEST:
-								minionCount = minion.getAmount();
-								minionId = minion.getMinionId();
-								break;
-						}
-						break;
-					default:
-						minionCount = minion.getAmount();
-						minionId = minion.getMinionId();
-				}
-				
-
-				minionsToSpawn = Math.abs(minionCount - countSpawnedMinionsById(minionId));
-
-				for (int i = 0; i < minionsToSpawn; i++)
-				{
-					spawnSingleMinion(minionId, master.getInstanceId());
-				}
+				case 29014: // Orfen
+					OrfenInstance orfen = (OrfenInstance)master;
+					switch (orfen.getPos())
+					{
+						case FIELD:
+							minionCount = 4;
+							minionId = 29016;
+							break;
+						case NEST:
+							minionCount = minion.getAmount();
+							minionId = minion.getMinionId();
+							break;
+					}
+					break;
+				default:
+					minionCount = minion.getAmount();
+					minionId = minion.getMinionId();
+			}
+			
+			minionsToSpawn = minionCount - countSpawnedMinionsById(minionId);
+			
+			for (int i = 0; i < minionsToSpawn; i++)
+			{
+				spawnSingleMinion(minionId, master.getInstanceId());
 			}
 		}
 	}

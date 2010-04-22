@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
 import com.l2jfree.Config;
@@ -205,7 +205,7 @@ public class L2MonsterInstance extends L2Attackable
 		return true;
 	}
 
-	public List<L2MinionInstance> getSpawnedMinions()
+	public Set<L2MinionInstance> getSpawnedMinions()
 	{
 		if (_minionList == null)
 			return null;
