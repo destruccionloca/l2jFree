@@ -75,6 +75,8 @@
   <build>
     <defaultGoal>install</defaultGoal>
     <finalName>${project.artifactId}-${project.version}</finalName>
+    <resources/>
+    <testResources/>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

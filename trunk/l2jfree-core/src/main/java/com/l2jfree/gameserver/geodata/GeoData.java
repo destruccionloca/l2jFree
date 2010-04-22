@@ -21,6 +21,7 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.tools.geometry.Point3D;
 
@@ -51,6 +52,18 @@ public class GeoData
 			return GeoEngine.getInstance();
 		else
 			return SingletonHolder.INSTANCE;
+	}
+	
+	public void deleteInstanceGeodata(int instanceId)
+	{
+	}
+	
+	public void setDoorGeodataOpen(L2DoorInstance door, boolean open)
+	{
+	}
+	
+	public void initDoorGeodata(L2DoorInstance door)
+	{
 	}
 	
 	// Public Methods

@@ -27,6 +27,8 @@
     <defaultGoal>assembly:assembly</defaultGoal>
     <finalName>${project.artifactId}-${project.version}</finalName>
     <sourceDirectory>data/scripts</sourceDirectory>
+    <resources/>
+    <testResources/>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

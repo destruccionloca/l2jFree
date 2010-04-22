@@ -22,14 +22,11 @@ import java.io.FileReader;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javolution.util.FastMap;
 
@@ -51,15 +48,12 @@ import com.l2jfree.util.LookupTable;
  *
  * @author -Nemesiss-, hex1r0
  */
-public final class GeoEngine extends GeoData
+final class GeoEngine extends GeoData
 {
-	
-	protected static final Log _log = LogFactory.getLog(GeoEngine.class);
-	
-	private final static byte _e = 1;
-	private final static byte _w = 2;
-	private final static byte _s = 4;
-	private final static byte _n = 8;
+	private static final byte EAST = 1;
+	private static final byte WEST = 2;
+	private static final byte SOUTH = 4;
+	private static final byte NORTH = 8;
 	
 	private static final class SingletonHolder
 	{
@@ -71,47 +65,42 @@ public final class GeoEngine extends GeoData
 		return SingletonHolder.INSTANCE;
 	}
 	
-	private final LookupTable<MappedByteBuffer> _geodata 		= new LookupTable<MappedByteBuffer>();
-	private final LookupTable<IntBuffer> 		_geodataIndex 	= new LookupTable<IntBuffer>();
+	private final LookupTable<MappedByteBuffer>	_geodata 		= new LookupTable<MappedByteBuffer>();
+	private final LookupTable<int[]>			_geodataIndex	= new LookupTable<int[]>();
 	private BufferedOutputStream 				_geoBugsOut;
 	
-	private FastMap <Integer, FastMap<Long, Byte>> _instanceGeodata = new FastMap <Integer, FastMap<Long, Byte>>().setShared(true);
-	private FastMap	<Integer, FastMap<Long, Byte>> _doorGeodata		= new FastMap <Integer, FastMap<Long, Byte>>().setShared(true);
+	private final Map<Integer, Map<Long, Byte>> _instanceGeodata = new FastMap<Integer, Map<Long, Byte>>().setShared(true);
+	private final Map<Integer, Map<Long, Byte>> _doorGeodata = new FastMap<Integer, Map<Long, Byte>>();
 	
 	private GeoEngine()
 	{
 		nInitGeodata();
 	}
 	
+	@Override
 	public void deleteInstanceGeodata(int instanceId)
 	{
 		_instanceGeodata.remove(instanceId);
 	}
 	
-	public void openDoorGeodata(int instanceId, int doorId)
+	@Override
+	public void setDoorGeodataOpen(L2DoorInstance door, boolean open)
 	{
-		if (_doorGeodata.containsKey(doorId))
-		{
-			if (!_instanceGeodata.containsKey(instanceId))
-				_instanceGeodata.put(instanceId, new FastMap<Long, Byte>());
-			
-			for (Entry<Long, Byte> doorGeo : _doorGeodata.get(doorId).entrySet())
-				_instanceGeodata.get(instanceId).put(doorGeo.getKey(), doorGeo.getValue());
-		}
+		final Map<Long, Byte> doorGeodata = _doorGeodata.get(door.getDoorId());
+		
+		if (doorGeodata == null)
+			return;
+		
+		Map<Long, Byte> instanceGeodata = _instanceGeodata.get(door.getInstanceId());
+		
+		if (instanceGeodata == null)
+			_instanceGeodata.put(door.getInstanceId(), instanceGeodata = new FastMap<Long, Byte>());
+		
+		for (Entry<Long, Byte> doorGeo : doorGeodata.entrySet())
+			instanceGeodata.put(doorGeo.getKey(), open ? doorGeo.getValue() : (byte)0);
 	}
 	
-	public void closeDoorGeodata(int instanceId, int doorId)
-	{	
-		if (_doorGeodata.containsKey(doorId))
-		{
-			if (!_instanceGeodata.containsKey(instanceId))
-				_instanceGeodata.put(instanceId, new FastMap<Long, Byte>());
-			
-			for (Entry<Long, Byte> doorGeo : _doorGeodata.get(doorId).entrySet())
-				_instanceGeodata.get(instanceId).put(doorGeo.getKey(), (byte) 0);
-		}
-	}
-	
+	@Override
 	public void initDoorGeodata(L2DoorInstance door)
 	{
 		int minX = (door.getXMin() - L2World.MAP_MIN_X) >> 4;
@@ -120,6 +109,8 @@ public final class GeoEngine extends GeoData
 		int maxY = (door.getYMax() - L2World.MAP_MIN_Y) >> 4;
 		int z = door.getZMin();
 		
+		Map<Long, Byte> doorGeodata = _doorGeodata.get(door.getDoorId());
+		
 		for (int geoX = minX; geoX <= maxX; geoX++)
 		{
 			for (int geoY = minY; geoY <= maxY; geoY++)
@@ -127,19 +118,10 @@ public final class GeoEngine extends GeoData
 				if (isCellNearDoor(geoX, geoY, minX, maxX, minY, maxY))
 				{
 					short region = getRegionOffset(geoX, geoY);
-					int blockX = getBlock(geoX);
-					int blockY = getBlock(geoY);
 					int cellX, cellY;
 					short NSWE = 0;
 					
-					int index = 0;
-					// Geodata without index - it is just empty so index can be
-					// calculated on the fly
-					if (_geodataIndex.get(region) == null)
-						index = ((blockX << 8) + blockY) * 3;
-					// Get Index for current block of current region geodata
-					else
-						index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+					int index = getIndex(geoX, geoY, region);
 					// Buffer that Contains current Region GeoData
 					ByteBuffer geo = _geodata.get(region);
 					if (geo == null)
@@ -205,13 +187,16 @@ public final class GeoEngine extends GeoData
 							continue;
 					}
 					
-					if (!_doorGeodata.containsKey(door.getDoorId()))
-						_doorGeodata.put(door.getDoorId(), new FastMap<Long, Byte>());
-
-					_doorGeodata.get(door.getDoorId()).put(((long) region << 32) | neededIndex, (byte) NSWE);
+					if (doorGeodata == null)
+						_doorGeodata.put(door.getDoorId(), doorGeodata = new FastMap<Long, Byte>());
+					
+					doorGeodata.put(((long)region << 32) | neededIndex, (byte)NSWE);
 				}
 			}
 		}
+		
+		// to add it to the proper instance
+		setDoorGeodataOpen(door, door.isOpen());
 	}
 	
 	private boolean isCellNearDoor(int geoX, int geoY, int minX, int maxX, int minY, int maxY)
@@ -224,15 +209,15 @@ public final class GeoEngine extends GeoData
 		return false;
 	}
 	
-	private short getInstanceNSWE(int instanceId, short initialNSWE,  short region, int index)
+	private short getInstanceNSWE(int instanceId, short initialNSWE, short region, int index)
 	{
-		long key = ((long) region << 32) | index;
-		if (_instanceGeodata.containsKey(instanceId))
-	    {
-	    	FastMap<Long, Byte> instanceGeodata = _instanceGeodata.get(instanceId);
-	    	if (instanceGeodata != null && instanceGeodata.containsKey(key))
-    			return instanceGeodata.get(key);
-	    }
+		Map<Long, Byte> instanceGeodata = _instanceGeodata.get(instanceId);
+		if (instanceGeodata != null)
+		{
+			Byte NSWE = instanceGeodata.get(((long)region << 32) | index);
+			if (NSWE != null)
+				return NSWE;
+		}
 		return initialNSWE;
 	}
 
@@ -828,23 +813,24 @@ public final class GeoEngine extends GeoData
 	public void unloadGeodata(byte rx, byte ry)
 	{
 		short regionoffset = (short) ((rx << 5) + ry);
-		_geodataIndex.set(regionoffset, null);
-		_geodata.set(regionoffset, null);
+		_geodataIndex.remove(regionoffset);
+		_geodata.remove(regionoffset);
 	}
 	
 	@Override
 	public boolean loadGeodataFile(byte rx, byte ry)
 	{
 		String fname = "data/geodata/" + rx + "_" + ry + ".l2j";
-		short regionoffset = (short) ((rx << 5) + ry);
+		short regionoffset = (short)((rx << 5) + ry);
 		_log.info("Geo Engine: - Loading: " + fname + " -> region offset: " + regionoffset + "X: " + rx + " Y: " + ry);
 		File Geo = new File(Config.DATAPACK_ROOT, fname);
 		int size, index = 0, block = 0, flor = 0;
 		FileChannel roChannel = null;
-		try {
-	        // Create a read-only memory-mapped file
-	        roChannel = new RandomAccessFile(Geo, "r").getChannel();
-			size = (int) roChannel.size();
+		try
+		{
+			// Create a read-only memory-mapped file
+			roChannel = new RandomAccessFile(Geo, "r").getChannel();
+			size = (int)roChannel.size();
 			MappedByteBuffer geo;
 			if (Config.FORCE_GEODATA) //Force O/S to Loads this buffer's content into physical memory.
 				//it is not guarantee, because the underlying operating system may have paged out some of the buffer's data
@@ -852,56 +838,55 @@ public final class GeoEngine extends GeoData
 			else
 				geo = roChannel.map(FileChannel.MapMode.READ_ONLY, 0, size);
 			geo.order(ByteOrder.LITTLE_ENDIAN);
-
+			
 			if (size > 196608)
 			{
 				// Indexing geo files, so we will know where each block starts
-				IntBuffer indexs = IntBuffer.allocate(65536);
-				while(block < 65536)
-			    {
+				int[] indexs = new int[65536];
+				while (block < 65536)
+				{
 					byte type = geo.get(index);
-			        indexs.put(block,index);
+					indexs[block] = index;
 					block++;
 					index++;
-			        if(type == 0)
-			        	index += 2; // 1x short
-			        else if(type == 1)
-			        	index += 128; // 64 x short
-			        else
-			        {
-			            for (int b = 0; b < 64; b++)
-			            {
-			                byte layers = geo.get(index);
-			                index += (layers << 1) + 1;
-			                if (layers > flor)
-			                     flor = layers;
-			            }
-			        }
-			    }
-				_geodataIndex.set(regionoffset, indexs);
+					if (type == 0)
+						index += 2; // 1x short
+					else if (type == 1)
+						index += 128; // 64 x short
+					else
+					{
+						for (int b = 0; b < 64; b++)
+						{
+							byte layers = geo.get(index);
+							index += (layers << 1) + 1;
+							if (layers > flor)
+								flor = layers;
+						}
+					}
+				}
+				_geodataIndex.put(regionoffset, indexs);
 			}
-			_geodata.set(regionoffset,geo);
-
+			_geodata.put(regionoffset, geo);
+			
 			_log.info("Geo Engine: - Max Layers: " + flor + " Size: " + size + " Loaded: " + index);
-	    }
+		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
-			_log.warn("Failed to Load GeoFile at block: " + block + "\n");
+			_log.warn("Failed to Load GeoFile at block: " + block, e);
 			return false;
-	    }
-	    finally
-	    {
-	    	try
-	    	{
-	    		if (roChannel != null)
-	    			roChannel.close();
-	    	}
-	    	catch (Exception e)
-	    	{
-	    	}
-	    }
-	    return true;
+		}
+		finally
+		{
+			try
+			{
+				if (roChannel != null)
+					roChannel.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		return true;
 	}
 
 	//Geodata Methods
@@ -945,23 +930,12 @@ public final class GeoEngine extends GeoData
 	private short nGetType(int x, int y)
 	{
 	    short region = getRegionOffset(x, y);
-		int blockX = getBlock(x);
-		int blockY = getBlock(y);
-		int index = 0;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if (_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current geodata region
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		int index = getIndex(x, y, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if(_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return 0;
-		}
+		
 		return geo.get(index);
 	}
 	/**
@@ -973,23 +947,13 @@ public final class GeoEngine extends GeoData
 	private short nGetHeight(int geox, int geoy, int z)
 	{
 	    short region = getRegionOffset(geox, geoy);
-	    int blockX = getBlock(geox);
-		int blockY = getBlock(geoy);
 		int cellX, cellY, index;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if(_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		index = getIndex(geox, geoy, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return (short) z;
-		}
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		byte type = geo.get(index);
 		index++;
@@ -1048,23 +1012,13 @@ public final class GeoEngine extends GeoData
 	private short nGetUpperHeight(int geox, int geoy, int z)
 	{
 	    short region = getRegionOffset(geox, geoy);
-	    int blockX = getBlock(geox);
-		int blockY = getBlock(geoy);
 		int cellX, cellY, index;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if(_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		index = getIndex(geox, geoy, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if(_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return (short) z;
-		}
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		byte type = geo.get(index);
 		index++;
@@ -1125,24 +1079,14 @@ public final class GeoEngine extends GeoData
 	private short nGetSpawnHeight(int geox, int geoy, int zmin, int zmax, int spawnid)
 	{
 	    short region = getRegionOffset(geox, geoy);
-	    int blockX = getBlock(geox);
-		int blockY = getBlock(geoy);
 		int cellX, cellY, index;
 		short temph = Short.MIN_VALUE;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if(_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		index = getIndex(geox, geoy, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if(_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return (short) zmin;
-		}
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		byte type = geo.get(index);
 		index++;
@@ -1215,26 +1159,15 @@ public final class GeoEngine extends GeoData
 	private double nCanMoveNext(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
 	    short region = getRegionOffset(x, y);
-	    int blockX = getBlock(x);
-		int blockY = getBlock(y);
 		int cellX, cellY;
 	    short NSWE = 0;
 
-		int index = 0;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if (_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		int index = getIndex(x, y, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return z;
-		}
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		int neededIndex = index;
 		byte type = geo.get(index);
@@ -1319,26 +1252,15 @@ public final class GeoEngine extends GeoData
 	private boolean nLOS(int x, int y, int z, int inc_x, int inc_y, double inc_z, int tz, boolean debug, int instanceId)
 	{
 	    short region = getRegionOffset(x, y);
-	    int blockX = getBlock(x);
-		int blockY = getBlock(y);
 		int cellX, cellY;
 	    short NSWE = 0;
 
-		int index;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if (_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		int index = getIndex(x, y, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return true;
-		}
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		int neededIndex = index;
 		byte type = geo.get(index);
@@ -1469,26 +1391,15 @@ public final class GeoEngine extends GeoData
 	private short nGetNSWE(int x, int y, int z, int instanceId)
 	{
 		short region = getRegionOffset(x, y);
-	    int blockX = getBlock(x);
-		int blockY = getBlock(y);
 		int cellX, cellY;
 	    short NSWE = 0;
 
-		int index = 0;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if (_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		int index = getIndex(x, y, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return 15;
-		}
+		
 		//Read current block type: 0-flat,1-complex,2-multilevel
 		int neededIndex = index;
 		byte type = geo.get(index);
@@ -1565,25 +1476,13 @@ public final class GeoEngine extends GeoData
 		}
 		short z = n.getZ();
 		short region = getRegionOffset(x, y);
-	    int blockX = getBlock(x);
-		int blockY = getBlock(y);
 		int cellX, cellY;
 	    short NSWE = 0;
-		int index = 0;
-		//Geodata without index - it is just empty so index can be calculated on the fly
-		if (_geodataIndex.get(region) == null)
-			index = ((blockX << 8) + blockY) * 3;
-		//Get Index for current block of current region geodata
-		else
-			index = _geodataIndex.get(region).get((blockX << 8) + blockY);
+		int index = getIndex(x, y, region);
 		//Buffer that Contains current Region GeoData
 		ByteBuffer geo = _geodata.get(region);
 		if (geo == null)
-		{
-			if (_log.isDebugEnabled())
-				_log.warn("Geo Region - Region Offset: " + region + " dosnt exist!!");
 			return null;
-		}
 		
 		final Node[] Neighbors = new Node[4];
 		int arrayIndex = 0;
@@ -1728,30 +1627,44 @@ public final class GeoEngine extends GeoData
 	 * @return True if NSWE dont block given direction
 	 */
 	private boolean checkNSWE(short NSWE, int x, int y, int tx, int ty)
-    {
-        //Check NSWE
-	    if (NSWE == 15)
-	       return true;
-	    if (tx > x)//E
-	    {
-	    	if ((NSWE & _e) == 0)
-	            return false;
-	    }
-	    else if (tx < x)//W
-	    {
-	    	if ((NSWE & _w) == 0)
-	            return false;
-	    }
-	    if (ty > y)//S
-	    {
-	    	if ((NSWE & _s) == 0)
-	            return false;
-	    }
-	    else if (ty < y)//N
-	    {
-	    	if ((NSWE & _n) == 0)
-	            return false;
-	    }
-	    return true;
-    }
+	{
+		//Check NSWE
+		if (NSWE == 15)
+			return true;
+		if (tx > x)//E
+		{
+			if ((NSWE & EAST) == 0)
+				return false;
+		}
+		else if (tx < x)//W
+		{
+			if ((NSWE & WEST) == 0)
+				return false;
+		}
+		if (ty > y)//S
+		{
+			if ((NSWE & SOUTH) == 0)
+				return false;
+		}
+		else if (ty < y)//N
+		{
+			if ((NSWE & NORTH) == 0)
+				return false;
+		}
+		return true;
+	}
+	
+	private int getIndex(int x, int y, short region)
+	{
+		int blockX = getBlock(x);
+		int blockY = getBlock(y);
+		
+		final int[] tmp = _geodataIndex.get(region);
+		// geodata without index - it is just empty so index can be calculated on the fly
+		if (tmp == null)
+			return ((blockX << 8) + blockY) * 3;
+		// get index for current block of current geodata region
+		else
+			return tmp[(blockX << 8) + blockY];
+	}
 }

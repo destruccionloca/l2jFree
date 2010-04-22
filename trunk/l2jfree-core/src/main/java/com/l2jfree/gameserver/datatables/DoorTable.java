@@ -27,7 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.geodata.GeoEngine;
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.geodata.pathfinding.Node;
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
@@ -256,8 +256,7 @@ public final class DoorTable
 	{
 		_doorArray = null;
 		_doors.put(door.getDoorId(), door);
-		if (Config.GEODATA > 0)
-			GeoEngine.getInstance().initDoorGeodata(door);
+		GeoData.getInstance().initDoorGeodata(door);
 	}
 
 	private L2DoorInstance[] _doorArray;
