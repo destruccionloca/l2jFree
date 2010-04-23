@@ -50,7 +50,6 @@ public final class Evolve
 		}
 
 		L2ItemInstance item = null;
-		long petexp = currentPet.getStat().getExp();
 		String oldname = currentPet.getName();
 		int oldX = currentPet.getX();
 		int oldY = currentPet.getY();
