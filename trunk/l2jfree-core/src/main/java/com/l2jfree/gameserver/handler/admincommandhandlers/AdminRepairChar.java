@@ -25,16 +25,12 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class handles following admin commands: - delete = deletes target
- * 
- * @version $Revision: 1.1.2.6.2.3 $ $Date: 2005/04/11 10:05:59 $
- */
 public class AdminRepairChar implements IAdminCommandHandler
 {
 	private final static Log _log = LogFactory.getLog(AdminRepairChar.class);
 	
-	private static final String[] ADMIN_COMMANDS = { "admin_restore", "admin_repair" };
+	private static final String[] ADMIN_COMMANDS =
+		{ "admin_restore", "admin_repair" };
 	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -63,7 +59,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3503 WHERE charId=?");
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=17867, y=170259, z=-3450 WHERE charId=?");
 			statement.setInt(1, objId);
 			statement.execute();
 			statement.close();
@@ -82,7 +78,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 		}
 		catch (Exception e)
 		{
-			_log.warn("", e);
+			_log.warn("Could not repair character: ", e);
 		}
 		finally
 		{
