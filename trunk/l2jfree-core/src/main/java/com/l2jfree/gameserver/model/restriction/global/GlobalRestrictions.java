@@ -198,6 +198,7 @@ public final class GlobalRestrictions
 		activate(new JailRestriction());
 		activate(new MercenaryTicketRestriction());
 		activate(new OlympiadRestriction());
+		activate(new ProtectionBlessingRestriction());
 	}
 	
 	/**

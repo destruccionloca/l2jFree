@@ -45,27 +45,21 @@ public class AdminInstance implements IAdminCommandHandler
 		if (command.startsWith("admin_createinstance"))
 		{
 			String[] parts = command.split(" ");
-			if (parts.length < 2)
+			if (parts.length < 1)
 			{
-				activeChar.sendMessage("Example: //createinstance <id> <templatefile> - ids => 300000 are reserved for dynamic instances");
+				activeChar.sendMessage("Example: //createinstance <templatefile>");
 			}
 			else
 			{
 				try
 				{
-					int id = Integer.parseInt(parts[1]);
-					if (InstanceManager.getInstance().createInstanceFromTemplate(id, parts[2]) && id < 300000)
-					{
-						activeChar.sendMessage("Instance created");
-						return true;
-					}
-
-					activeChar.sendMessage("Failed to create instance");
+					int id = InstanceManager.getInstance().createDynamicInstance(parts[1]);
+					activeChar.sendMessage("Instance created: " + id);
 					return true;
 				}
 				catch (Exception e)
 				{
-					activeChar.sendMessage("Failed loading: " + parts[2]);
+					activeChar.sendMessage("Invalid request or missing file.");
 					return false;
 				}
 			}

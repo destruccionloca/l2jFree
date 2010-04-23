@@ -281,170 +281,167 @@ public final class MapRegionManager
 	//TODO: Needs to be clean rewritten
 	public Location getTeleToLocation(L2PcInstance activeChar, TeleportWhereType teleportWhere)
 	{
-		if (activeChar instanceof L2PcInstance)
+		L2PcInstance player = activeChar;
+		L2Clan clan = player.getClan();
+		Castle castle = null;
+		Fort fort = null;
+		ClanHall clanhall = null;
+		
+		if (player.isFlyingMounted() || player.isFlying()) // prevent flying players to teleport outside of gracia
 		{
-			L2PcInstance player = activeChar;
-			L2Clan clan = player.getClan();
-			Castle castle = null;
-			Fort fort = null;
-			ClanHall clanhall = null;
-			
-			if (player.isFlyingMounted() || player.isFlying()) // prevent flying players to teleport outside of gracia
+			if (player.isChaotic() && !player.isFlying())
+				return new Location(-186330, 242944, 2544);
+			else
+				getRestartLocation(player).getRandomRestartPoint(player);
+		}
+		
+		// Checking if in Dimensinal Gap
+		if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.getX(), player.getY(), player.getZ(), true)) // true -> ignore waiting room :)
+		{
+			if (player.isInParty() && player.getParty().isInDimensionalRift())
 			{
-				if (player.isChaotic() && !player.isFlying())
-					return new Location(-186330, 242944, 2544);
-				else
-					getRestartLocation(player).getRandomRestartPoint(player);
+				player.getParty().getDimensionalRift().usedTeleport(player);
 			}
 			
-			// Checking if in Dimensinal Gap
-			if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.getX(), player.getY(), player.getZ(), true)) // true -> ignore waiting room :)
+			return DimensionalRiftManager.getInstance().getWaitingRoomTeleport();
+		}
+		
+		// Checking if in an instance
+		if (player.isInInstance())
+		{
+			Instance inst = InstanceManager.getInstance().getInstance(player.getInstanceId());
+			if (inst != null)
 			{
-				if (player.isInParty() && player.getParty().isInDimensionalRift())
+				Location loc = inst.getSpawnLoc();
+				if (loc != null)
+					return loc;
+			}
+		}
+		
+		// Checking if in arena
+		L2Zone arena = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Arena, player.getX(), player.getY());
+		if (arena != null && arena.isInsideZone(player))
+		{
+			Location loc = arena.getRestartPoint(L2Zone.RestartType.OWNER);
+			if (loc == null)
+				loc = arena.getRandomLocation();
+			return loc;
+		}
+		
+		if (clan != null)
+		{
+			// If teleport to clan hall
+			if (teleportWhere == TeleportWhereType.ClanHall)
+			{
+				clanhall = ClanHallManager.getInstance().getClanHallByOwner(clan);
+				if (clanhall != null)
 				{
-					player.getParty().getDimensionalRift().usedTeleport(player);
-				}
-				
-				return DimensionalRiftManager.getInstance().getWaitingRoomTeleport();
-			}
-			
-			// Checking if in an instance
-			if (player.isInInstance())
-			{
-				Instance inst = InstanceManager.getInstance().getInstance(player.getInstanceId());
-				if (inst != null)
-				{
-					Location loc = inst.getSpawnLoc();
-					if (loc != null)
-						return loc;
-				}
-			}
-			
-			// Checking if in arena
-			L2Zone arena = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Arena, player.getX(), player.getY());
-			if (arena != null && arena.isInsideZone(player))
-			{
-				Location loc = arena.getRestartPoint(L2Zone.RestartType.OWNER);
-				if (loc == null)
-					loc = arena.getRandomLocation();
-				return loc;
-			}
-			
-			if (clan != null)
-			{
-				// If teleport to clan hall
-				if (teleportWhere == TeleportWhereType.ClanHall)
-				{
-					clanhall = ClanHallManager.getInstance().getClanHallByOwner(clan);
-					if (clanhall != null)
+					L2Zone zone = clanhall.getZone();
+					
+					if (zone != null)
 					{
-						L2Zone zone = clanhall.getZone();
-						
+						Location loc = zone.getRestartPoint(L2Zone.RestartType.OWNER);
+						if (loc == null)
+							loc = zone.getRandomLocation();
+						return loc;
+					}
+				}
+			}
+			
+			// If teleport to castle
+			if (teleportWhere == TeleportWhereType.Castle)
+				castle = CastleManager.getInstance().getCastleByOwner(clan);
+			
+			else if (teleportWhere == TeleportWhereType.Fortress)
+				fort = FortManager.getInstance().getFortByOwner(clan);
+			
+			// If Teleporting to castle or
+			if (castle != null && teleportWhere == TeleportWhereType.Castle)
+			{
+				L2Zone zone = castle.getZone();
+				if (zone != null)
+				{
+					if (castle.getSiege().getIsInProgress() && player.isChaotic())
+					{
+						// Karma player respawns out of siege zone (only during sieges ? o.O )
+						return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
+					}
+					
+					return zone.getRestartPoint(L2Zone.RestartType.OWNER);
+				}
+			}
+			else if (fort != null && teleportWhere == TeleportWhereType.Fortress)
+			{
+				L2Zone zone = fort.getZone();
+				if (zone != null)
+				{
+					// If is on castle with siege and player's clan is defender
+					if (fort.getSiege().getIsInProgress() && player.isChaotic())
+					{
+						// Karma player respawns out of siege zone (only during sieges ? o.O )
+						return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
+					}
+					
+					return zone.getRestartPoint(L2Zone.RestartType.OWNER);
+				}
+			}
+			else if (teleportWhere == TeleportWhereType.SiegeFlag)
+			{
+				Siege siege = SiegeManager.getInstance().getSiege(clan);
+				FortSiege fsiege = FortSiegeManager.getInstance().getSiege(clan);
+				
+				// Check if player's clan is attacker
+				if (siege != null && fsiege == null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
+				{
+					// Karma player respawns out of siege zone
+					if (player.isChaotic())
+					{
+						L2Zone zone = siege.getCastle().getZone();
 						if (zone != null)
 						{
-							Location loc = zone.getRestartPoint(L2Zone.RestartType.OWNER);
-							if (loc == null)
-								loc = zone.getRandomLocation();
-							return loc;
-						}
-					}
-				}
-				
-				// If teleport to castle
-				if (teleportWhere == TeleportWhereType.Castle)
-					castle = CastleManager.getInstance().getCastleByOwner(clan);
-				
-				else if (teleportWhere == TeleportWhereType.Fortress)
-					fort = FortManager.getInstance().getFortByOwner(clan);
-				
-				// If Teleporting to castle or
-				if (castle != null && teleportWhere == TeleportWhereType.Castle)
-				{
-					L2Zone zone = castle.getZone();
-					if (zone != null)
-					{
-						if (castle.getSiege().getIsInProgress() && player.isChaotic())
-						{
-							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
-						
-						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
+					// get nearest flag
+					L2Npc flag = siege.getClosestFlag(player);
+					// spawn to flag
+					if (flag != null)
+						return new Location(flag.getX(), flag.getY(), flag.getZ());
 				}
-				else if (fort != null && teleportWhere == TeleportWhereType.Fortress)
+				else if (siege == null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
 				{
-					L2Zone zone = fort.getZone();
-					if (zone != null)
+					// Karma player respawns out of siege zone
+					if (player.isChaotic())
 					{
-						// If is on castle with siege and player's clan is defender
-						if (fort.getSiege().getIsInProgress() && player.isChaotic())
+						L2Zone zone = fsiege.getFort().getZone();
+						if (zone != null)
 						{
-							// Karma player respawns out of siege zone (only during sieges ? o.O )
 							return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
 						}
-						
-						return zone.getRestartPoint(L2Zone.RestartType.OWNER);
 					}
-				}
-				else if (teleportWhere == TeleportWhereType.SiegeFlag)
-				{
-					Siege siege = SiegeManager.getInstance().getSiege(clan);
-					FortSiege fsiege = FortSiegeManager.getInstance().getSiege(clan);
-					
-					// Check if player's clan is attacker
-					if (siege != null && fsiege == null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
-					{
-						// Karma player respawns out of siege zone
-						if (player.isChaotic())
-						{
-							L2Zone zone = siege.getCastle().getZone();
-							if (zone != null)
-							{
-								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
-							}
-						}
-						// get nearest flag
-						L2Npc flag = siege.getClosestFlag(player);
-						// spawn to flag
-						if (flag != null)
-							return new Location(flag.getX(), flag.getY(), flag.getZ());
-					}
-					else if (siege == null && fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
-					{
-						// Karma player respawns out of siege zone
-						if (player.isChaotic())
-						{
-							L2Zone zone = fsiege.getFort().getZone();
-							if (zone != null)
-							{
-								return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
-							}
-						}
-						// Get nearest flag
-						L2Npc flag = fsiege.getClosestFlag(player);
-						// Spawn to flag
-						if (flag != null)
-							return new Location(flag.getX(), flag.getY(), flag.getZ());
-					}
+					// Get nearest flag
+					L2Npc flag = fsiege.getClosestFlag(player);
+					// Spawn to flag
+					if (flag != null)
+						return new Location(flag.getX(), flag.getY(), flag.getZ());
 				}
 			}
-			
-			// TeleportWhereType.Town, and other TeleportWhereTypes where the condition was not met
-			L2MapRegionRestart restart = getRestartLocation(player);
-			
-			Location loc = null;
-			
-			// Karma player land out of city
-			if (player.isChaotic())
-				loc = restart.getRandomChaoticRestartPoint(player);
-			
-			if (loc == null)
-				loc = restart.getRandomRestartPoint(player);
-			
-			if (loc != null)
-				return loc;
 		}
+		
+		// TeleportWhereType.Town, and other TeleportWhereTypes where the condition was not met
+		L2MapRegionRestart restart = getRestartLocation(player);
+		
+		Location loc = null;
+		
+		// Karma player land out of city
+		if (player.isChaotic())
+			loc = restart.getRandomChaoticRestartPoint(player);
+		
+		if (loc == null)
+			loc = restart.getRandomRestartPoint(player);
+		
+		if (loc != null)
+			return loc;
 		
 		// teleport to default town if nothing else will work
 		return getRestartPoint(Config.ALT_DEFAULT_RESTARTTOWN, activeChar.getActingPlayer());

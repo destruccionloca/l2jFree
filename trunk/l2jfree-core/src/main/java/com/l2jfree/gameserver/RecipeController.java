@@ -63,11 +63,13 @@ import com.l2jfree.tools.random.Rnd;
 
 public class RecipeController
 {
-	private final static Log									_log			= LogFactory.getLog(RecipeController.class);
+	private static final String RECIPES_FILE = "recipes.xml";
 
-	private final Map<Integer, L2RecipeList>							_lists;
-	protected static final Map<L2PcInstance, RecipeItemMaker>	_activeMakers	= Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
-	private static final String									RECIPES_FILE	= "recipes.xml";
+	private final static Log _log = LogFactory.getLog(RecipeController.class);
+	private static final Map<L2PcInstance, RecipeItemMaker> _activeMakers = Collections.synchronizedMap(new WeakHashMap<L2PcInstance, RecipeItemMaker>());
+
+	private final FastMap<Integer, L2RecipeList> _lists;
+	private int[] _itemIds;
 
 	public static RecipeController getInstance()
 	{
@@ -76,17 +78,22 @@ public class RecipeController
 
 	private RecipeController()
 	{
-		_lists = new FastMap<Integer, L2RecipeList>();
+		_lists = new FastMap<Integer, L2RecipeList>().setShared(true);
 
 		try
 		{
 			loadFromXML();
-			_log.info("RecipeController: Loaded " + _lists.size() + " recipes.");
+			_log.info("RecipeController: Loaded " + getRecipesCount() + " recipes.");
 		}
 		catch (Exception e)
 		{
 			_log.fatal("Failed loading recipe list", e);
 		}
+
+		_itemIds = new int[_lists.size()];
+		int i = 0;
+		for (L2RecipeList rec : _lists.values())
+			_itemIds[i++] = rec.getRecipeId();
 	}
 
 	public int getRecipesCount()
@@ -101,21 +108,19 @@ public class RecipeController
 
 	public L2RecipeList getRecipeByItemId(int itemId)
 	{
-		for (L2RecipeList find : _lists.values())
+		for (FastMap.Entry<Integer, L2RecipeList> entry = _lists.head(), end = _lists.tail();
+			(entry = entry.getNext()) != end;)
 		{
-			if (find.getRecipeId() == itemId)
-				return find;
+			L2RecipeList rl = entry.getValue();
+			if (rl.getRecipeId() == itemId)
+				return rl;
 		}
 		return null;
 	}
 
 	public int[] getAllItemIds()
 	{
-		int[] idList = new int[_lists.size()];
-		int i = 0;
-		for (L2RecipeList rec : _lists.values())
-			idList[i++] = rec.getRecipeId();
-		return idList;
+		return _itemIds;
 	}
 
 	public synchronized void requestBookOpen(L2PcInstance player, boolean isDwarvenCraft)

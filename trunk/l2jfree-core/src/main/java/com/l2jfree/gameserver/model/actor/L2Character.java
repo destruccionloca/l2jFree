@@ -4461,6 +4461,7 @@ public abstract class L2Character extends L2Object
 	 * @param offset
 	 *            The size of the interaction area of the L2Character targeted
 	 */
+	@SuppressWarnings("deprecation")
 	protected void moveToLocation(int x, int y, int z, int offset)
 	{
 		// Get the Move Speed of the L2Charcater
