@@ -15,9 +15,8 @@
 package com.l2jfree.gameserver.network;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 import java.util.Map;
 
@@ -33,6 +32,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.mmocore.network.IPacketHandler;
 import com.l2jfree.mmocore.network.SelectorConfig;
 import com.l2jfree.mmocore.network.SelectorThread;
+import com.l2jfree.mmocore.network.FloodManager.ErrorMode;
 import com.l2jfree.tools.util.HexUtil;
 
 public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket>
@@ -99,9 +99,9 @@ public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2G
 	// ==============================================
 	
 	@Override
-	protected L2GameClient createClient(Socket socket, SelectionKey key)
+	protected L2GameClient createClient(SocketChannel socketChannel) throws ClosedChannelException
 	{
-		return new L2GameClient(this, socket, key);
+		return new L2GameClient(this, socketChannel);
 	}
 	
 	@Override

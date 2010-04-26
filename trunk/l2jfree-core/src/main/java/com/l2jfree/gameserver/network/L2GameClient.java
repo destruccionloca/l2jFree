@@ -14,9 +14,9 @@
  */
 package com.l2jfree.gameserver.network;
 
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
+import java.nio.channels.ClosedChannelException;
+import java.nio.channels.SocketChannel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,9 +81,9 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 	private boolean _protocol;
 	
 	public L2GameClient(SelectorThread<L2GameClient, L2GameClientPacket, L2GameServerPacket> selectorThread,
-		Socket socket, SelectionKey key)
+			SocketChannel socketChannel) throws ClosedChannelException
 	{
-		super(selectorThread, socket, key);
+		super(selectorThread, socketChannel);
 	}
 	
 	private GameCrypt getCrypt()

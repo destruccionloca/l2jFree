@@ -15,9 +15,9 @@
 package com.l2jfree.loginserver;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
+import java.nio.channels.ClosedChannelException;
+import java.nio.channels.SocketChannel;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -74,9 +74,9 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	private boolean _card;
 	
 	public L2LoginClient(SelectorThread<L2LoginClient, L2LoginClientPacket, L2LoginServerPacket> selectorThread,
-		Socket socket, SelectionKey key)
+			SocketChannel socketChannel) throws ClosedChannelException
 	{
-		super(selectorThread, socket, key);
+		super(selectorThread, socketChannel);
 		
 		_ip = getInetAddress().getHostAddress();
 		

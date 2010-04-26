@@ -35,6 +35,8 @@ public final class SelectorConfig
 	
 	private ByteOrder BYTE_ORDER = ByteOrder.LITTLE_ENDIAN;
 	
+	private int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
+	
 	public SelectorConfig()
 	{
 	}
@@ -144,5 +146,15 @@ public final class SelectorConfig
 	int getSelectorSleepTime()
 	{
 		return SLEEP_TIME;
+	}
+	
+	public void setSelectorThreadCount(int threadCount)
+	{
+		THREAD_COUNT = threadCount;
+	}
+	
+	int getSelectorThreadCount()
+	{
+		return THREAD_COUNT;
 	}
 }

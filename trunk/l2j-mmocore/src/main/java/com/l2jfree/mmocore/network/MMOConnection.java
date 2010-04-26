@@ -18,8 +18,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.CancelledKeyException;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SelectionKey;
+import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
 
 import javolution.util.FastList;
@@ -30,6 +32,7 @@ import javolution.util.FastList;
 public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP extends ReceivablePacket<T, RP, SP>, SP extends SendablePacket<T, RP, SP>>
 {
 	private final SelectorThread<T, RP, SP> _selectorThread;
+	private final ReadWriteThread<T, RP, SP> _readWriteThread;
 	private final Socket _socket;
 	
 	private FastList<SP> _sendQueue;
@@ -42,11 +45,14 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	
 	private long _closeTimeout = -1;
 	
-	protected MMOConnection(SelectorThread<T, RP, SP> selectorThread, Socket socket, SelectionKey key)
+	protected MMOConnection(SelectorThread<T, RP, SP> selectorThread, SocketChannel socketChannel)
+			throws ClosedChannelException
 	{
 		_selectorThread = selectorThread;
-		_socket = socket;
-		_selectionKey = key;
+		_readWriteThread = getSelectorThread().getReadWriteThread();
+		_socket = socketChannel.socket();
+		_selectionKey = socketChannel.register(getReadWriteThread().getSelector(), SelectionKey.OP_READ);
+		_selectionKey.attach(this);
 	}
 	
 	public synchronized void sendPacket(SP sp)
@@ -68,6 +74,11 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	final SelectorThread<T, RP, SP> getSelectorThread()
 	{
 		return _selectorThread;
+	}
+	
+	private ReadWriteThread<T, RP, SP> getReadWriteThread()
+	{
+		return _readWriteThread;
 	}
 	
 	final SelectionKey getSelectionKey()
@@ -133,14 +144,14 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		{
 			// APPENDING FOR NULL
 			
-			_primaryWriteBuffer = getSelectorThread().getPooledBuffer();
+			_primaryWriteBuffer = getReadWriteThread().getPooledBuffer();
 			_primaryWriteBuffer.put(buf);
 		}
 		else
 		{
 			// PREPENDING ON EXISTING
 			
-			ByteBuffer temp = getSelectorThread().getPooledBuffer();
+			ByteBuffer temp = getReadWriteThread().getPooledBuffer();
 			temp.put(buf);
 			
 			int remaining = temp.remaining();
@@ -150,7 +161,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 			if (remaining >= _primaryWriteBuffer.remaining())
 			{
 				temp.put(_primaryWriteBuffer);
-				getSelectorThread().recycleBuffer(_primaryWriteBuffer);
+				getReadWriteThread().recycleBuffer(_primaryWriteBuffer);
 				_primaryWriteBuffer = temp;
 			}
 			else
@@ -174,7 +185,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 	{
 		_primaryWriteBuffer.flip();
 		dest.put(_primaryWriteBuffer);
-		getSelectorThread().recycleBuffer(_primaryWriteBuffer);
+		getReadWriteThread().recycleBuffer(_primaryWriteBuffer);
 		_primaryWriteBuffer = _secondaryWriteBuffer;
 		_secondaryWriteBuffer = null;
 	}
@@ -213,7 +224,7 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		_closeTimeout = System.currentTimeMillis() + 100;
 		
 		disableReadInterest();
-		getSelectorThread().closeConnection((T)this);
+		getReadWriteThread().closeConnection((T)this);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -230,25 +241,25 @@ public abstract class MMOConnection<T extends MMOConnection<T, RP, SP>, RP exten
 		_closeTimeout = System.currentTimeMillis() + 10000;
 		
 		disableReadInterest();
-		getSelectorThread().closeConnection((T)this);
+		getReadWriteThread().closeConnection((T)this);
 	}
 	
 	final void releaseBuffers()
 	{
 		if (_primaryWriteBuffer != null)
 		{
-			getSelectorThread().recycleBuffer(_primaryWriteBuffer);
+			getReadWriteThread().recycleBuffer(_primaryWriteBuffer);
 			_primaryWriteBuffer = null;
 			if (_secondaryWriteBuffer != null)
 			{
-				getSelectorThread().recycleBuffer(_secondaryWriteBuffer);
+				getReadWriteThread().recycleBuffer(_secondaryWriteBuffer);
 				_secondaryWriteBuffer = null;
 			}
 		}
 		
 		if (_readBuffer != null)
 		{
-			getSelectorThread().recycleBuffer(_readBuffer);
+			getReadWriteThread().recycleBuffer(_readBuffer);
 			_readBuffer = null;
 		}
 	}

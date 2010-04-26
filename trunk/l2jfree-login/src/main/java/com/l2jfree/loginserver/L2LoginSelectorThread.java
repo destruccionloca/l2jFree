@@ -15,9 +15,8 @@
 package com.l2jfree.loginserver;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.nio.channels.SelectionKey;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -33,6 +32,7 @@ import com.l2jfree.loginserver.serverpackets.L2LoginServerPacket;
 import com.l2jfree.mmocore.network.IPacketHandler;
 import com.l2jfree.mmocore.network.SelectorConfig;
 import com.l2jfree.mmocore.network.SelectorThread;
+import com.l2jfree.mmocore.network.FloodManager.ErrorMode;
 import com.l2jfree.tools.util.HexUtil;
 import com.l2jfree.util.concurrent.ExecuteWrapper;
 
@@ -90,9 +90,9 @@ public final class L2LoginSelectorThread extends
 	// ==============================================
 	
 	@Override
-	protected L2LoginClient createClient(Socket socket, SelectionKey key)
+	protected L2LoginClient createClient(SocketChannel socketChannel) throws ClosedChannelException
 	{
-		L2LoginClient client = new L2LoginClient(this, socket, key);
+		L2LoginClient client = new L2LoginClient(this, socketChannel);
 		client.sendPacket(new Init(client));
 		LoginManager.getInstance().addConnection(client);
 		return client;

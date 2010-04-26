@@ -18,7 +18,7 @@ import java.nio.BufferUnderflowException;
 
 import javolution.text.TextBuilder;
 
-import com.l2jfree.mmocore.network.SelectorThread.ErrorMode;
+import com.l2jfree.mmocore.network.FloodManager.ErrorMode;
 
 /**
  * @author KenM
