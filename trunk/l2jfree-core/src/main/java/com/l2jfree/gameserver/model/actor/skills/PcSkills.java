@@ -46,7 +46,7 @@ public final class PcSkills
 		
 		final Integer oldLevel = map.put(skill);
 		
-		checkSkill(skill);
+		checkStoredSkill(skill);
 		
 		if (oldLevel != null && oldLevel.intValue() == skill.getLevel())
 			return;
@@ -189,7 +189,7 @@ public final class PcSkills
 				if (skill == null)
 					continue;
 				
-				checkSkill(skill);
+				checkStoredSkill(skill);
 			}
 			
 			rset.close();
@@ -209,16 +209,16 @@ public final class PcSkills
 		return map;
 	}
 	
-	private void checkSkill(L2Skill skill)
+	private void checkStoredSkill(L2Skill skill)
 	{
 		if (getOwner().isGM() || Config.ALT_GAME_SKILL_LEARN)
 			return;
 		
 		if (getOwner().isTemporarySkill(skill))
-			_log.warn("Temporary skill " + skill + " was saved for " + this);
+			_log.warn("Temporary skill " + skill + " was saved for " + getOwner());
 		
-		if (getOwner().isStoredSkill(skill))
-			return;
+		if (!getOwner().isStoredSkill(skill))
+			_log.warn("Non-stored skill " + skill + " was saved for " + getOwner());
 	}
 	
 	private static final class SkillMap extends FastMap<Integer, Integer>
