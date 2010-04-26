@@ -480,7 +480,7 @@ public class SkillTreeTable
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha, ClassId classId)
 	{
 		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
-		Collection<L2SkillLearn> skills = getSkillTrees()[classId.ordinal()].values();
+		Collection<L2SkillLearn> skills = getAllowedSkills(classId);
 
 		if (skills == null)
 		{
@@ -526,7 +526,7 @@ public class SkillTreeTable
 	{
 		Map<Integer, L2Skill> skillsToAdd = new HashMap<Integer, L2Skill>();
 
-		for (L2SkillLearn temp : getSkillTrees()[activeChar.getClassId().ordinal()].values())
+		for (L2SkillLearn temp : getAllowedSkills(activeChar.getClassId()))
 		{
 			if (temp.getMinLevel() > activeChar.getLevel())
 				continue;
@@ -838,7 +838,7 @@ public class SkillTreeTable
 	public int getMinLevelForNewSkill(L2PcInstance cha, ClassId classId)
 	{
 		int minLevel = 0;
-		Collection<L2SkillLearn> skills = getSkillTrees()[classId.ordinal()].values();
+		Collection<L2SkillLearn> skills = getAllowedSkills(classId);
 
 		if (skills == null)
 		{

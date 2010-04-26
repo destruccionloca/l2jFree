@@ -34,6 +34,7 @@ import javolution.util.FastMap;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.l2jfree.config.ConfigProperty;
 import com.l2jfree.config.L2Properties;
@@ -1223,7 +1224,6 @@ public class Config extends L2Config
 	public static int				GRID_NEIGHBOR_TURNON_TIME;						// Grid Options
 	public static int				GRID_NEIGHBOR_TURNOFF_TIME;					// Grid Options
 	public static boolean			CHECK_SKILLS_ON_ENTER;							// Skill Tree check on EnterWorld
-	public static String			ALLOWED_SKILLS;								// List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
 	public static final Set<Integer> ALLOWED_SKILLS_LIST = new L2FastSet<Integer>();
 	public static boolean			CHAR_VIP_SKIP_SKILLS_CHECK;					// VIP Characters configuration
 	public static boolean			CHAR_VIP_COLOR_ENABLED;						// VIP Characters configuration
@@ -1430,10 +1430,9 @@ public class Config extends L2Config
 
 			CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(optionsSettings.getProperty("CheckSkillsOnEnter", "false"));
 
-			ALLOWED_SKILLS = optionsSettings
-					.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
+			String ALLOWED_SKILLS = optionsSettings.getProperty("AllowedSkills", ""); // List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
 			ALLOWED_SKILLS_LIST.clear();
-			for (String id : ALLOWED_SKILLS.trim().split(","))
+			for (String id : StringUtils.split(ALLOWED_SKILLS, ","))
 			{
 				ALLOWED_SKILLS_LIST.add(Integer.parseInt(id.trim()));
 			}

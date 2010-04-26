@@ -152,6 +152,8 @@ public final class PcEffects extends CharEffects
 		statement.setInt(2, classIndex);
 		statement.execute();
 		statement.close();
+		
+		_storedEffects.remove(classIndex);
 	}
 	
 	private ArrayList<StoredEffect> getEffectList()

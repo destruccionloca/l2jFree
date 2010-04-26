@@ -375,8 +375,7 @@ public class EnterWorld extends L2GameClientPacket
 		ObjectRestrictions.getInstance().resumeTasks(activeChar.getObjectId());
 
 		// check player skills
-		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-			activeChar.checkAllowedSkills();
+		activeChar.checkAllowedSkills();
 
 		// check for academy
 		activeChar.academyCheck(activeChar.getClassId().getId());

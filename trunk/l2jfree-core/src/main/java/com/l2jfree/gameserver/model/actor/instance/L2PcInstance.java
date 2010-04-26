@@ -112,6 +112,7 @@ import com.l2jfree.gameserver.model.BlockList;
 import com.l2jfree.gameserver.model.CursedWeapon;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.FishData;
+import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2Effect;
@@ -131,6 +132,7 @@ import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
+import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.L2Transformation;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
@@ -155,6 +157,7 @@ import com.l2jfree.gameserver.model.actor.reference.ClearableReference;
 import com.l2jfree.gameserver.model.actor.reference.ImmutableReference;
 import com.l2jfree.gameserver.model.actor.shot.CharShots;
 import com.l2jfree.gameserver.model.actor.shot.PcShots;
+import com.l2jfree.gameserver.model.actor.skills.PcSkills;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
 import com.l2jfree.gameserver.model.actor.status.CharStatus;
@@ -315,7 +318,6 @@ import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.L2Collections;
-import com.l2jfree.util.L2FastSet;
 import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
@@ -330,13 +332,6 @@ public final class L2PcInstance extends L2Playable
 {
 	@SuppressWarnings("hiding")
 	public static final L2PcInstance[] EMPTY_ARRAY = new L2PcInstance[0];
-
-	// Character Skill SQL String Definitions:
-	private static final String	RESTORE_SKILLS_FOR_CHAR			= "SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?";
-	private static final String	ADD_NEW_SKILL					= "INSERT INTO character_skills (charId,skill_id,skill_level,class_index) VALUES (?,?,?,?)";
-	private static final String	UPDATE_CHARACTER_SKILL_LEVEL	= "UPDATE character_skills SET skill_level=? WHERE skill_id=? AND charId=? AND class_index=?";
-	private static final String	DELETE_SKILL_FROM_CHAR			= "DELETE FROM character_skills WHERE skill_id=? AND charId=? AND class_index=?";
-	private static final String	DELETE_CHAR_SKILLS				= "DELETE FROM character_skills WHERE charId=? AND class_index=?";
 
 	// Character Skill Reuse SQL String Definitions:
 	private static final String RESTORE_SKILL_REUSES			= "SELECT skillId,reuseDelay,expiration FROM character_skill_reuses WHERE charId=?";
@@ -524,6 +519,7 @@ public final class L2PcInstance extends L2Playable
 	private PcWarehouse						_warehouse;
 	private PcFreight						_freight;
 	private List<PcFreight>					_depositedFreight;
+	private final PcSkills					_pcSkills = new PcSkills(this);
 
 	/** True if the L2PcInstance is sitting */
 	private boolean							_waitTypeSitting;
@@ -2567,7 +2563,7 @@ public final class L2PcInstance extends L2Playable
 				FortManager.getInstance().getFortByOwner(getClan()).removeResidentialSkills(this);
 		}
 	}
-
+	
 	/**
 	 * Return the Race object of the L2PcInstance.<BR><BR>
 	 */
@@ -7295,11 +7291,11 @@ public final class L2PcInstance extends L2Playable
 	{
 		// Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance
 		final L2Skill oldSkill = addSkill(newSkill);
-
+		
 		// Add or update a L2PcInstance skill in the character_skills table of the database
 		if (save)
-			storeSkill(newSkill, oldSkill, -1);
-
+			_pcSkills.storeSkill(newSkill, getClassIndex());
+		
 		return oldSkill;
 	}
 
@@ -7344,35 +7340,7 @@ public final class L2PcInstance extends L2Playable
 		// Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
 		L2Skill oldSkill = super.removeSkill(skill);
 
-		boolean shouldExistInDb = _storedSkillIds.remove(skill.getId());
-		boolean existsInDb = false;
-		boolean hasSkill = (oldSkill != null);
-
-		//if (oldSkill != null)
-		{
-			Connection con = null;
-			try
-			{
-				// Remove or update a L2PcInstance skill from the character_skills table of the database
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
-				statement.setInt(1, skill.getId());
-				statement.setInt(2, getObjectId());
-				statement.setInt(3, getClassIndex());
-				existsInDb = statement.executeUpdate() > 0;
-				statement.close();
-			}
-			catch (Exception e)
-			{
-				_log.error("Error could not delete skill: ", e);
-			}
-			finally
-			{
-				L2DatabaseFactory.close(con);
-			}
-		}
-
-		checkStoredSkillId(shouldExistInDb, existsInDb, hasSkill, oldSkill, skill);
+		_pcSkills.deleteSkill(skill);
 
 		if (transformId() > 0 || isCursedWeaponEquipped())
 			return oldSkill;
@@ -7391,161 +7359,32 @@ public final class L2PcInstance extends L2Playable
 	}
 
 	/**
-	 * Add or update a L2PcInstance skill in the character_skills table of the database.
-	 * <BR><BR>
-	 * If newClassIndex > -1, the skill will be stored with that class index, not the current one.
-	 */
-	private void storeSkill(L2Skill newSkill, L2Skill oldSkill, int newClassIndex)
-	{
-		if (newSkill == null/* || newSkill.getId() > 369 && newSkill.getId() < 392*/)
-			return;
-
-		int classIndex = _classIndex;
-
-		if (newClassIndex > -1)
-			classIndex = newClassIndex;
-
-		boolean shouldExistInDb = false;
-		boolean existsInDb = false;
-		boolean hasSkill = (oldSkill != null);
-
-		if (newClassIndex == -1) // check only for skills added normally (not because of subclass creation)
-			shouldExistInDb = !_storedSkillIds.add(newSkill.getId());
-
-		Connection con = null;
-
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-
-			if (oldSkill != null)
-			{
-				statement = con.prepareStatement(UPDATE_CHARACTER_SKILL_LEVEL);
-				statement.setInt(1, newSkill.getLevel());
-				statement.setInt(2, oldSkill.getId());
-				statement.setInt(3, getObjectId());
-				statement.setInt(4, classIndex);
-				existsInDb = statement.executeUpdate() > 0;
-				statement.close();
-			}
-			else
-			{
-				statement = con.prepareStatement(ADD_NEW_SKILL);
-				statement.setInt(1, getObjectId());
-				statement.setInt(2, newSkill.getId());
-				statement.setInt(3, newSkill.getLevel());
-				statement.setInt(4, classIndex);
-				statement.execute();
-				statement.close();
-			}
-		}
-		catch (Exception e)
-		{
-			_log.error("Error could not store char skills: ", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-
-		if (newClassIndex == -1) // check only for skills added normally (not because of subclass creation)
-			checkStoredSkillId(shouldExistInDb, existsInDb, hasSkill, oldSkill, newSkill);
-	}
-
-	/**
-	 * Contains skillIds stored in character_skills table for the current classIndex.<br>
-	 * It will help to determine which query should be/shouldn't be called for skill addition/removal.<br>
-	 * NOTE: Currently only for validation, but without any strict check.
-	 */
-	private final Set<Integer> _storedSkillIds = new L2FastSet<Integer>().setShared(true);
-
-	private void checkStoredSkillId(boolean shouldExistInDb, boolean existsInDb, boolean hasSkill, L2Skill oldSkill, L2Skill newSkill)
-	{
-		if (shouldExistInDb && existsInDb && hasSkill)
-		{
-			// normal saved skill
-		}
-		else if (!shouldExistInDb && !existsInDb && hasSkill)
-		{
-			// given skill
-		}
-		else if (!shouldExistInDb && !existsInDb && !hasSkill)
-		{
-			// not owned skill
-		}
-		else
-		{
-			StringBuilder sb = new StringBuilder();
-			sb.append("Invalid skill saving conditions - ");
-			sb.append("newSkill: ").append(newSkill).append(", ");
-			sb.append("oldSkill: ").append(oldSkill).append(", ");
-			sb.append("shouldExistInDb: ").append(shouldExistInDb).append(", ");
-			sb.append("existsInDb: ").append(existsInDb).append(", ");
-			sb.append("hasSkill: ").append(hasSkill);
-			_log.info(sb, new IllegalStateException());
-		}
-	}
-
-	/**
 	 * check player skills and remove unlegit ones (excludes hero, noblesse and cursed weapon skills)
 	 */
 	public void checkAllowedSkills()
 	{
-		if (isGM())
+		if (isGM() || !Config.CHECK_SKILLS_ON_ENTER || Config.ALT_GAME_SKILL_LEARN)
 			return;
-
+		
 		Set<Integer> skillTreeUIDs = SkillTreeTable.getInstance().getAllowedSkillUIDs(getClassId());
-
+		
 		skill_loop: for (L2Skill skill : getAllSkills())
 		{
 			int skillid = skill.getId();
-
-			if (getTransformation() != null && containsAllowedTransformSkill(skillid))
+			
+			if (isStoredSkill(skill, skillTreeUIDs))
 				continue;
-			// Loop through all skills in players skilltree
-			if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
+			
+			if (isTemporarySkill(skill))
 				continue;
-			// skills learned by L2SkillType.LEARN_SKILL
-			if (SkillTable.getInstance().isLearnedSkill(skill))
-				continue;
-			// Exclude noble skills
-			if (isNoble() && NobleSkillTable.isNobleSkill(skillid))
-				continue skill_loop;
-			// Exclude hero skills
-			if (isHero() && HeroSkillTable.isHeroSkill(skillid))
-				continue skill_loop;
-			// Exclude cursed weapon skills
-			if (isCursedWeaponEquipped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId).getSkillId())
-				continue skill_loop;
-			// Exclude clan skills
-			if (getClan() != null && (skillid >= 370 && skillid <= 391))
-				continue skill_loop;
-			// Exclude residential skills
-			if (getClan() != null && (getClan().getHasCastle() > 0 || getClan().getHasFort() > 0))
-				if (590 <= skillid && skillid <= 610)
-					continue skill_loop;
-			// Exclude seal of ruler / build siege hq
-			if (getClan() != null && getClan().getLeaderId() == getObjectId() && (skillid == 246 || skillid == 247))
-				continue skill_loop;
-			// Exclude fishing skills and common skills + dwarfen craft
-			if (skillid >= 1312 && skillid <= 1322)
-				continue skill_loop;
-			if (skillid >= 1368 && skillid <= 1373)
-				continue skill_loop;
-			// Exclude sa / enchant bonus / penality etc. skills
-			if (skillid >= 3000 && skillid < 7000)
-				continue skill_loop;
-			// Exclude Armor Set skills
-			if (skillid >= 8100 && skillid < 8400)
-				continue skill_loop;
+			
 			// Exclude Skills from AllowedSkills in options.properties
 			if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
 				continue skill_loop;
 			// Exclude VIP character
 			if (isCharViP() && Config.CHAR_VIP_SKIP_SKILLS_CHECK)
 				continue skill_loop;
-
+			
 			// Remove skill from ingame, but not from the database to avoid accidentally removal of skills
 			// if something failed loading and do a lil log message
 			removeSkill(skill, false);
@@ -7553,67 +7392,81 @@ public final class L2PcInstance extends L2Playable
 			_log.fatal("Cheater?! " + skill + " removed from " + getName() + " (" + getAccountName() + ")");
 		}
 	}
+	
+	public boolean isStoredSkill(L2Skill skill)
+	{
+		return isStoredSkill(skill, SkillTreeTable.getInstance().getAllowedSkillUIDs(getClassId()));
+	}
+	
+	private boolean isStoredSkill(L2Skill skill, Set<Integer> skillTreeUIDs)
+	{
+		int skillid = skill.getId();
+		
+		// Loop through all skills in players skilltree
+		if (skillTreeUIDs.contains(SkillTable.getSkillUID(skillid, SkillTable.getInstance().getNormalLevel(skill))))
+			return true;
+		
+		// skills learned by L2SkillType.LEARN_SKILL
+		if (SkillTable.getInstance().isLearnedSkill(skill))
+			return true;
+		
+		// Exclude fishing skills and common skills + dwarfen craft
+		if (skillid >= 1312 && skillid <= 1322)
+			return true;
+		if (skillid >= 1368 && skillid <= 1373)
+			return true;
+		
+		if (L2CertificationSkillsLearn.isCertificationSkill(skillid))
+			return true;
+		if (L2TransformSkillLearn.isTransformSkill(skillid))
+			return true;
+		if (L2SkillLearn.isSpecialSkill(skillid))
+			return true;
+		
+		return false;
+	}
+	
+	public boolean isTemporarySkill(L2Skill skill)
+	{
+		int skillid = skill.getId();
+		
+		if (getTransformation() != null && containsAllowedTransformSkill(skillid))
+			return true;
+		// Exclude noble skills
+		if (isNoble() && NobleSkillTable.isNobleSkill(skillid))
+			return true;
+		// Exclude hero skills
+		if (isHero() && HeroSkillTable.isHeroSkill(skillid))
+			return true;
+		// Exclude cursed weapon skills
+		if (isCursedWeaponEquipped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId).getSkillId())
+			return true;
+		// Exclude clan skills
+		if (getClan() != null && (skillid >= 370 && skillid <= 391))
+			return true;
+		// Exclude residential skills
+		if (getClan() != null && (getClan().getHasCastle() > 0 || getClan().getHasFort() > 0))
+			if (590 <= skillid && skillid <= 610)
+				return true;
+		// Exclude seal of ruler / build siege hq
+		if (getClan() != null && getClan().getLeaderId() == getObjectId() && (skillid == 246 || skillid == 247))
+			return true;
+		// Exclude sa / enchant bonus / penality etc. skills
+		if (skillid >= 3000 && skillid < 7000)
+			return true;
+		// Exclude Armor Set skills
+		if (skillid >= 8100 && skillid < 8400)
+			return true;
+		
+		return false;
+	}
 
 	/**
 	 * Retrieve from the database all skills of this L2PcInstance and add them to _skills.<BR><BR>
 	 */
 	private void restoreSkills()
 	{
-		_storedSkillIds.clear();
-
-		List<L2Skill> tmp = new ArrayList<L2Skill>();
-
-		Connection con = null;
-		try
-		{
-			// Retrieve all skills of this L2PcInstance from the database
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement(RESTORE_SKILLS_FOR_CHAR);
-			statement.setInt(1, getObjectId());
-			statement.setInt(2, getClassIndex());
-			ResultSet rset = statement.executeQuery();
-
-			// Go though the recordset of this SQL query
-			while (rset.next())
-			{
-				int id = rset.getInt("skill_id");
-				int level = rset.getInt("skill_level");
-
-				/*
-				if (id > 9000 && id < 9007)
-					continue; // Fake skills for base stats
-				 */
-
-				// Create a L2Skill object for each record
-				L2Skill skill = SkillTable.getInstance().getInfo(id, level);
-
-				if (skill == null)
-					continue;
-
-				tmp.add(skill);
-
-				_storedSkillIds.add(skill.getId());
-			}
-
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.error("Could not restore character skills: ", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-
-		L2Skill[] skills = tmp.toArray(new L2Skill[tmp.size()]);
-
-		Arrays.sort(skills, SKILL_LIST_COMPARATOR);
-
-		// Add the L2Skill object to the L2Character _skills and its Func objects to the calculator set of the L2Character
-		for (L2Skill skill : skills)
-			super.addSkill(skill);
+		_pcSkills.restoreSkills();
 
 		// Restore clan skills
 		if (_clan != null)
@@ -9515,43 +9368,38 @@ public final class L2PcInstance extends L2Playable
 		return (_alliedVarkaKetra > 0);
 	}
 
-	private final Comparator<L2Skill> SKILL_LIST_COMPARATOR = new Comparator<L2Skill>() {
+	public final Comparator<L2Skill> SKILL_LIST_COMPARATOR = new Comparator<L2Skill>() {
 		@Override
 		public int compare(L2Skill s1, L2Skill s2)
 		{
 			int o1 = getOrder(s1);
 			int o2 = getOrder(s2);
-
+			
 			if (o1 != o2)
 				return (o1 < o2) ? -1 : 1;
-
+			
 			int so1 = getSubOrder(s1);
 			int so2 = getSubOrder(s2);
-
+			
 			if (so1 != so2)
 				return (so1 < so2) ? -1 : 1;
-
+			
 			return s1.getId().compareTo(s2.getId());
 		}
-
+		
 		private int getOrder(L2Skill s)
 		{
 			if (s.getSkillType() == L2SkillType.NOTDONE)
 				return 10;
-
+			
 			if (isTransformationDisabledSkill(s))
 				return 9;
-
-			/*
-			if (s.getId() > 9000 && s.getId() < 9007)
-				return 7;
-			 */
-
+			
 			// TODO: add other ordering conditions, if there is any other useful :)
-
+			
 			return 0;
 		}
-
+		
 		private int getSubOrder(L2Skill s)
 		{
 			if (s.isPositive())
@@ -9566,29 +9414,22 @@ public final class L2PcInstance extends L2Playable
 	public L2Skill[] getSortedAllSkills(boolean isGM)
 	{
 		L2Skill[] array = getAllSkills();
-
+		
 		for (int i = 0; i < array.length; i++)
 		{
 			L2Skill s = array[i];
-
+			
 			if (s == null)
 				continue;
-
+			
 			if (!isGM)
 			{
-				/* These skills don't exist any longer?!
-				if (s.getId() > 9000 && s.getId() < 9007)
-				{
-					array[i] = null;
-					continue; // Fake skills to change base stats
-				}
-				 */
 				if (!s.canSendToClient())
 				{
 					array[i] = null;
 					continue;
 				}
-
+				
 				// Hide skills when transformed if they are not passive
 				if (isTransformationDisabledSkill(s))
 				{
@@ -9596,32 +9437,32 @@ public final class L2PcInstance extends L2Playable
 					continue;
 				}
 			}
-
+			
 			if (s.getSkillType() == L2SkillType.NOTDONE)
 			{
 				switch (Config.SEND_NOTDONE_SKILLS)
 				{
-				case 1:
-				{
-					array[i] = null;
-					continue;
-				}
-				case 2:
-				{
-					if (!isGM)
+					case 1:
 					{
 						array[i] = null;
 						continue;
 					}
-				}
+					case 2:
+					{
+						if (!isGM)
+						{
+							array[i] = null;
+							continue;
+						}
+					}
 				}
 			}
 		}
-
+		
 		array = L2Arrays.compact(array);
-
+		
 		Arrays.sort(array, SKILL_LIST_COMPARATOR);
-
+		
 		return array;
 	}
 
@@ -9868,21 +9709,21 @@ public final class L2PcInstance extends L2Playable
 	{
 		if (!_subclassLock.tryLock())
 			return false;
-
+		
 		try
 		{
 			if (getTotalSubClasses() == Config.ALT_MAX_SUBCLASS || classIndex == 0)
 				return false;
-
+			
 			if (getSubClasses().containsKey(classIndex))
 				return false;
-
+			
 			// Note: Never change _classIndex in any method other than setActiveClass().
-
+			
 			SubClass newClass = new SubClass();
 			newClass.setClassId(classId);
 			newClass.setClassIndex(classIndex);
-
+			
 			Connection con = null;
 			try
 			{
@@ -9907,42 +9748,41 @@ public final class L2PcInstance extends L2Playable
 			{
 				L2DatabaseFactory.close(con);
 			}
-
+			
 			// Commit after database INSERT incase exception is thrown.
 			getSubClasses().put(newClass.getClassIndex(), newClass);
-
+			
 			if (_log.isDebugEnabled())
 				_log.info(getName() + " added class ID " + classId + " as a sub class at index " + classIndex + ".");
-
+			
 			ClassId subTemplate = ClassId.values()[classId];
-			Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
-
+			Iterable<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
+			
 			if (skillTree == null)
 				return true;
-
+			
 			final Map<Integer, L2Skill> skills = new FastMap<Integer, L2Skill>();
-
+			
 			for (L2SkillLearn skillInfo : skillTree)
 			{
 				if (skillInfo.getMinLevel() <= 40)
 				{
 					final L2Skill prevSkill = skills.get(skillInfo.getId());
 					final L2Skill newSkill = SkillTable.getInstance().getInfo(skillInfo.getId(), skillInfo.getLevel());
-
+					
 					if (prevSkill != null && prevSkill.getLevel() >= newSkill.getLevel())
 						continue;
-
+					
 					skills.put(newSkill.getId(), newSkill);
 				}
 			}
-
-
-			for (L2Skill newSkill : skills.values())
-				storeSkill(newSkill, null, classIndex);
-
+			
+			for (L2Skill skill : skills.values())
+				_pcSkills.storeSkill(skill, classIndex);
+			
 			if (_log.isDebugEnabled())
 				_log.info(getName() + " was given " + getAllSkills().length + " skills for their new sub class.");
-
+			
 			return true;
 		}
 		finally
@@ -9995,11 +9835,7 @@ public final class L2PcInstance extends L2Playable
 				getEffects().deleteEffects(con, classIndex);
 
 				// Remove all skill info stored for this sub-class.
-				statement = con.prepareStatement(DELETE_CHAR_SKILLS);
-				statement.setInt(1, getObjectId());
-				statement.setInt(2, classIndex);
-				statement.execute();
-				statement.close();
+				_pcSkills.deleteSkills(con, classIndex);
 
 				// Remove all basic info stored about this sub-class.
 				statement = con.prepareStatement(DELETE_CHAR_SUBCLASS);
@@ -10819,7 +10655,7 @@ public final class L2PcInstance extends L2Playable
 	{
 		teleToLocation(MapRegionManager.getInstance().getTeleToLocation(this, teleportWhere), true);
 	}
-	
+
 	@Override
 	public void addExpAndSp(long addToExp, int addToSp)
 	{

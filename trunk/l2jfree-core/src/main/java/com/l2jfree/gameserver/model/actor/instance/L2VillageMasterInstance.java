@@ -563,8 +563,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 					player.sendPacket(SystemMessageId.ADD_NEW_SUBCLASS); // Subclass added.
 					
 					// check player skills
-					if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-						player.checkAllowedSkills();
+					player.checkAllowedSkills();
 				}
 				else
 				{
