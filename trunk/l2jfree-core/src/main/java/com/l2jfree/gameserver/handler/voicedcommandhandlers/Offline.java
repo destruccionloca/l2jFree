@@ -38,6 +38,7 @@ public class Offline implements IVoicedCommandHandler
 		//$FALL-THROUGH$
 		case L2PcInstance.STORE_PRIVATE_SELL:
 		case L2PcInstance.STORE_PRIVATE_BUY:
+		case L2PcInstance.STORE_PRIVATE_PACKAGE_SELL:
 		{
 			if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
 			{
