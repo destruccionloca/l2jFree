@@ -3648,10 +3648,10 @@ UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-1") where item_id
 UPDATE `weapon` SET `skills_item` = '3852-1' WHERE `item_id` IN (10893,10895,10896);
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-3") where item_id IN (11318,11319,11320,14429,14430,14431,14432);
 UPDATE `weapon` SET `skills_item` = '3852-3' WHERE `item_id` = 11317; -- Icarus Spirit - Nature
-UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3890-3") where item_id IN (11223,11224,11225,11231,11232,11233,12919,12920,12921,12925,12926,12927);
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3890-1") where item_id IN (11223,11224,11225,11231,11232,11233,12919,12920,12921);
 UPDATE `weapon` SET `skills_item` = '3890-1' WHERE `item_id` IN (11222,11230);
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3901-1") where item_id = 11104; -- Branch of the Mother Tree - Nature
-UPDATE `weapon` SET `skills_item` = '3901-1' WHERE `item_id` IN (11105,11106,11107);
+UPDATE `weapon` SET `skills_item` = '3901-1' WHERE `item_id` IN (11105,11106,11107,12925,12926,12927);
 
 -- Cleverness (Wizard Tear is not ON Fire Masterwork, it is Cleverness Masterwork)
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3853-1") where item_id IN (11006,11007,11008,11183,11184,11185,12889,12890,12891);
