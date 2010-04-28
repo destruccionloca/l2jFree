@@ -18,45 +18,56 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.handler.IVoicedCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class Offline implements IVoicedCommandHandler
 {
-	private static final String[] VOICED_COMMANDS = { "offline" };
-
+	private static final String[] VOICED_COMMANDS =
+		{ "offline" };
+	
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (!Config.ALLOW_OFFLINE_TRADE)
 			return false;
-
+		
 		switch (activeChar.getPrivateStoreType())
 		{
-		case L2PcInstance.STORE_PRIVATE_MANUFACTURE:
-		{
-			if (!Config.ALLOW_OFFLINE_TRADE_CRAFT)
-				break;
-		}
-		//$FALL-THROUGH$
-		case L2PcInstance.STORE_PRIVATE_SELL:
-		case L2PcInstance.STORE_PRIVATE_BUY:
-		case L2PcInstance.STORE_PRIVATE_PACKAGE_SELL:
-		{
-			if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
+			case L2PcInstance.STORE_PRIVATE_MANUFACTURE:
 			{
-				activeChar.enterOfflineMode();
-				return true;
+				if (!Config.ALLOW_OFFLINE_TRADE_CRAFT)
+					break;
 			}
-			else
+				//$FALL-THROUGH$
+			case L2PcInstance.STORE_PRIVATE_SELL:
+			case L2PcInstance.STORE_PRIVATE_BUY:
+			case L2PcInstance.STORE_PRIVATE_PACKAGE_SELL:
 			{
-				activeChar.sendMessage("You must be in a peace zone to use offline mode!");
-				return true;
+				if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
+				{
+					if (Config.OFFLINE_TRADE_PRICE > 0
+							&& activeChar.getInventory().destroyItemByItemId("offlinetrade", Config.OFFLINE_TRADE_PRICE_ITEM, Config.OFFLINE_TRADE_PRICE, null,
+									null) != null)
+					{
+						activeChar.enterOfflineMode();
+					}
+					else
+					{
+						activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+					}
+					return true;
+				}
+				else
+				{
+					activeChar.sendMessage("You must be in a peace zone to use offline mode!");
+					return true;
+				}
 			}
 		}
-		}
-
+		
 		activeChar.sendMessage("You must be in trade mode to use offline mode!");
 		return true;
 	}
-
+	
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

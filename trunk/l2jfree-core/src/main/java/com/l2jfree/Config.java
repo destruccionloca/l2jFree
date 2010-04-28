@@ -1251,11 +1251,15 @@ public class Config extends L2Config
 	public static String			AUCTION_INCLUDED_ITEMS;
 	public static final Set<Integer> AUCTION_INCLUDED_ITEMS_LIST = new L2FastSet<Integer>();
 	
-	public static boolean			ALLOW_OFFLINE_TRADE;
-	public static boolean			ALLOW_OFFLINE_TRADE_CRAFT;
-	public static boolean			ALLOW_OFFLINE_TRADE_COLOR_NAME;
-	public static int				OFFLINE_TRADE_COLOR_NAME;
-	public static boolean			ALLOW_OFFLINE_TRADE_PROTECTION;
+	// *******************************************************************************************
+	// offline trade
+	public static boolean 			ALLOW_OFFLINE_TRADE;
+	public static boolean 			ALLOW_OFFLINE_TRADE_CRAFT;
+	public static boolean 			ALLOW_OFFLINE_TRADE_COLOR_NAME;
+	public static int 				OFFLINE_TRADE_COLOR_NAME;
+	public static boolean 			ALLOW_OFFLINE_TRADE_PROTECTION;
+	public static long 				OFFLINE_TRADE_PRICE;
+	public static int 				OFFLINE_TRADE_PRICE_ITEM;
 	public static boolean 			ENABLE_OFFLINE_TRADERS_RESTORE;
 	
 	public static boolean			ENTERWORLD_QUEUING;
@@ -1465,12 +1469,17 @@ public class Config extends L2Config
 			{
 				AUCTION_INCLUDED_ITEMS_LIST.add(Integer.parseInt(id.trim()));
 			}
+			
+			// *******************************************************************************************
+			// offline trade
 		    ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTrade", "false"));
 		    ALLOW_OFFLINE_TRADE_CRAFT = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeCraft", "true"));
 		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeColorName", "true"));
 		    OFFLINE_TRADE_COLOR_NAME = Integer.decode("0x" + optionsSettings.getProperty("OfflineTradeColorName", "999999"));
 		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeProtection", "true"));
 		    ENABLE_OFFLINE_TRADERS_RESTORE = Boolean.parseBoolean(optionsSettings.getProperty("EnableOfflineTradersRestore", "false"));
+		    OFFLINE_TRADE_PRICE = Long.parseLong(optionsSettings.getProperty("OfflineTradePrice", "0"));
+			OFFLINE_TRADE_PRICE_ITEM = Integer.parseInt(optionsSettings.getProperty("OfflineTradePriceItem", "57"));
 
 		    ENTERWORLD_QUEUING = Boolean.parseBoolean(optionsSettings.getProperty("DiscreteStarterPackets", "false"));
 		    ENTERWORLD_TICK = Integer.parseInt(optionsSettings.getProperty("StarterPacketTick", "100"));
