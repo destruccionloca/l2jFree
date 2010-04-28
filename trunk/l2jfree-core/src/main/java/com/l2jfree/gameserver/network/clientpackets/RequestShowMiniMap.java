@@ -22,7 +22,7 @@ import com.l2jfree.gameserver.network.serverpackets.ShowMiniMap;
  * 
  * @version $Revision: 1 $ $Date: 2005/04/10 00:17:44 $
  */
-public class RequestShowMiniMap extends L2GameClientPacket
+public final class RequestShowMiniMap extends L2GameClientPacket
 {
 	private static final String	_C__cd_REQUESTSHOWMINIMAP	= "[C] cd RequestShowMiniMap";
 
@@ -33,7 +33,7 @@ public class RequestShowMiniMap extends L2GameClientPacket
 	}
 
 	@Override
-	protected final void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)

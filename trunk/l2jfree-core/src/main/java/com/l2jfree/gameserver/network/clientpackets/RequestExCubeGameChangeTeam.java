@@ -33,7 +33,7 @@ public final class RequestExCubeGameChangeTeam extends L2GameClientPacket
 	}
 	
 	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
 		//L2PcInstance activeChar = getClient().getActiveChar();
 		

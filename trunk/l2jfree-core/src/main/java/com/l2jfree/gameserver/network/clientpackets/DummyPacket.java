@@ -28,7 +28,7 @@ public class DummyPacket extends L2GameClientPacket
     }
 
 	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
 		_log.warn("DummyPacket " + _packetId + " received.");
 	}

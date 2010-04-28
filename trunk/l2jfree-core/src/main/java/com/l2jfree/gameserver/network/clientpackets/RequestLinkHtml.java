@@ -36,7 +36,7 @@ public final class RequestLinkHtml extends L2GameClientPacket
 	}
 	
 	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance actor = getClient().getActiveChar();
 		if (actor == null)

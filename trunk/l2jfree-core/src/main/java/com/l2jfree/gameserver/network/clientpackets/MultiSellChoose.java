@@ -75,7 +75,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 	}
 	
 	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
 		if (_amount < 1 || _amount > 5000)
 			return;

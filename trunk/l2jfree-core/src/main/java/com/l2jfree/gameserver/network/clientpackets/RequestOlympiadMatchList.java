@@ -33,11 +33,6 @@ public class RequestOlympiadMatchList extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-		if (activeChar.inObserverMode())
-			Olympiad.sendMatchList(activeChar);
 	}
 
 	/* (non-Javadoc)
@@ -46,6 +41,11 @@ public class RequestOlympiadMatchList extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		if (activeChar.inObserverMode())
+			Olympiad.sendMatchList(activeChar);
 	}
 
 	/* (non-Javadoc)

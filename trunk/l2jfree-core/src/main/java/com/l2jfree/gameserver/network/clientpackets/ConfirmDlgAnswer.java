@@ -36,7 +36,7 @@ public class ConfirmDlgAnswer extends L2GameClientPacket
     }
 
     @Override
-    public void runImpl()
+    protected void runImpl()
     {
         L2PcInstance cha = getActiveChar();
         if (cha == null)

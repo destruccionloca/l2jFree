@@ -37,7 +37,7 @@ public final class RequestPackageSendableItemList extends L2GameClientPacket
 	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
 		sendPacket(new PackageSendableList(getClient().getActiveChar(), _objectID));
 	}

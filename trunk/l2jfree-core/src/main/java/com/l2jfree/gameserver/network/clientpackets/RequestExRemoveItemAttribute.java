@@ -31,13 +31,13 @@ public class RequestExRemoveItemAttribute extends L2GameClientPacket
 	private int _objectId;
 
 	@Override
-	public void readImpl()
+	protected void readImpl()
 	{
 		_objectId = readD();
 	}
 
 	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
