@@ -146,6 +146,7 @@ import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
 import com.l2jfree.gameserver.util.DynamicExtension;
+import com.l2jfree.gameserver.util.OfflineTradeManager;
 import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.status.Status;
@@ -426,6 +427,12 @@ public class GameServer extends Config
 		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 			GeoEditorListener.getInstance();
+		
+		if (Config.ENABLE_OFFLINE_TRADERS_RESTORE)
+		{
+			Util.printSection("Offline Trade");
+			OfflineTradeManager.getInstance().restore();
+		}
 		
 		Util.printSection("l2jfree-core");
 		for (String line : CoreInfo.getFullVersionInfo())

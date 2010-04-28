@@ -1250,12 +1250,14 @@ public class Config extends L2Config
 	public static final Set<Integer> AUCTION_EXCLUDED_ITEMS_LIST = new L2FastSet<Integer>();
 	public static String			AUCTION_INCLUDED_ITEMS;
 	public static final Set<Integer> AUCTION_INCLUDED_ITEMS_LIST = new L2FastSet<Integer>();
+	
 	public static boolean			ALLOW_OFFLINE_TRADE;
 	public static boolean			ALLOW_OFFLINE_TRADE_CRAFT;
 	public static boolean			ALLOW_OFFLINE_TRADE_COLOR_NAME;
 	public static int				OFFLINE_TRADE_COLOR_NAME;
 	public static boolean			ALLOW_OFFLINE_TRADE_PROTECTION;
-
+	public static boolean 			ENABLE_OFFLINE_TRADERS_RESTORE;
+	
 	public static boolean			ENTERWORLD_QUEUING;
 	public static int				ENTERWORLD_TICK;
 	public static int				ENTERWORLD_PPT;
@@ -1468,6 +1470,7 @@ public class Config extends L2Config
 		    ALLOW_OFFLINE_TRADE_COLOR_NAME = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeColorName", "true"));
 		    OFFLINE_TRADE_COLOR_NAME = Integer.decode("0x" + optionsSettings.getProperty("OfflineTradeColorName", "999999"));
 		    ALLOW_OFFLINE_TRADE_PROTECTION = Boolean.parseBoolean(optionsSettings.getProperty("AllowOfflineTradeProtection", "true"));
+		    ENABLE_OFFLINE_TRADERS_RESTORE = Boolean.parseBoolean(optionsSettings.getProperty("EnableOfflineTradersRestore", "false"));
 
 		    ENTERWORLD_QUEUING = Boolean.parseBoolean(optionsSettings.getProperty("DiscreteStarterPackets", "false"));
 		    ENTERWORLD_TICK = Integer.parseInt(optionsSettings.getProperty("StarterPacketTick", "100"));

@@ -40,6 +40,7 @@ import com.l2jfree.gameserver.network.L2GameSelectorThread;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
+import com.l2jfree.gameserver.util.OfflineTradeManager;
 
 /**
  * This class provides the functions for shutting down and restarting the server It closes all open clientconnections
@@ -155,6 +156,8 @@ public final class Shutdown extends Thread
 		
 		if (Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("Server is " + _mode.getText() + " NOW!");
+		
+		OfflineTradeManager.getInstance().store();
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{

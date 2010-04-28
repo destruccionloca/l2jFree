@@ -308,6 +308,8 @@ full_install()
 	$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/version.sql &> /dev/null
 	$MYG < ../sql/vip.sql &> /dev/null
+	$MYG < ../sql/offline_traders.sql &> /dev/null
+	$MYG < ../sql/offline_traders_items.sql &> /dev/null
 }
 
 # Database update

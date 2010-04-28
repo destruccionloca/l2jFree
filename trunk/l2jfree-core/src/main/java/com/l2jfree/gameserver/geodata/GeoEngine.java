@@ -46,7 +46,6 @@ import com.l2jfree.util.LookupTable;
 /**
  * @authors -Nemesiss-, hex1r0
  */
-@SuppressWarnings("deprecation") // TODO: replace checkIfDoorsBetween
 final class GeoEngine extends GeoData
 {
 	private static final byte EAST 			= 1;
