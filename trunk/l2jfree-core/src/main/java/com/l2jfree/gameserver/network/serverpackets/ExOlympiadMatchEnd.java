@@ -17,19 +17,20 @@ package com.l2jfree.gameserver.network.serverpackets;
 public class ExOlympiadMatchEnd extends StaticPacket
 {
 	private static final String _S__EXOLYMPIADMATCHEND = "[S] FE:2D ExOlympiadMatchEnd ch";
+	
 	public static final ExOlympiadMatchEnd PACKET = new ExOlympiadMatchEnd();
-
+	
 	private ExOlympiadMatchEnd()
 	{
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xFE);
 		writeH(0x2D);
 	}
-
+	
 	@Override
 	public String getType()
 	{
