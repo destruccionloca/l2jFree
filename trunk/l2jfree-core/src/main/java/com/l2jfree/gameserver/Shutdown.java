@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver;
 
-import java.sql.SQLException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
