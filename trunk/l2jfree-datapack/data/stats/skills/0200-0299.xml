@@ -275,6 +275,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="CONT"/>
     <set name="operateType" val="OP_TOGGLE"/>
+    <set name="dispelOnAttack" val="true"/>
     <for>
       <!--
         retail value: 5MP/sec; stat update every 3 sec

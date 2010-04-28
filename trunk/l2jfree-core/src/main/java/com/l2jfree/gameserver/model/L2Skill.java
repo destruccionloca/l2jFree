@@ -294,6 +294,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_isSuicideAttack;
 	private final boolean			_canBeReflected;
 	private final boolean			_canBeDispeled;
+	private final boolean			_dispelOnAction;
+	private final boolean			_dispelOnAttack;
 	private final int				_afterEffectId;
 	private final int				_afterEffectLvl;
 
@@ -470,6 +472,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_flyCourse = set.getFloat("flyCourse", 0);
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_canBeDispeled = set.getBool("canBeDispeled", true);
+		_dispelOnAction = set.getBool("dispelOnAction", false);
+		_dispelOnAttack = set.getBool("dispelOnAttack", false);
 		_attribute = set.getString("attribute", "");
 		_ignoreShield = set.getBool("ignoreShld", false);
 		_sendToClient = set.getBool("sendToClient", true);
@@ -3789,7 +3793,13 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			final L2Effect e = et.getEffect(env);
 			if (e != null)
 				if (executable != null)
+				{
 					executable.execute(e);
+					if (this.isDispeledOnAction())
+						effected.setHasActionDispellingSkills(true);
+					if (this.isDispeledOnAttack())
+						effected.setHasAttackDispellingSkills(true);
+				}
 		}
 	}
 
@@ -4019,6 +4029,16 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public boolean canBeDispeled()
 	{
 		return _canBeDispeled;
+	}
+	
+	public boolean isDispeledOnAction()
+	{
+		return _dispelOnAction;
+	}
+	
+	public boolean isDispeledOnAttack()
+	{
+		return _dispelOnAttack;
 	}
 
 	public final int getAfterEffectId()

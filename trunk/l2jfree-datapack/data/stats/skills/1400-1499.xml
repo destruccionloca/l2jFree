@@ -527,6 +527,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <set name="dispelOnAttack" val="true"/>
     <for>
       <effect name="Invincible" time="10" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>
@@ -756,6 +757,7 @@
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="900"/>
+    <set name="dispelOnAttack" val="true"/>
     <for>
       <effect name="Invincible" time="30" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>
@@ -2527,6 +2529,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <set name="dispelOnAttack" val="true"/>
     <for>
       <effect name="Invincible" time="8" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>

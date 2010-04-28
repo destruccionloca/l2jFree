@@ -221,6 +221,8 @@ public abstract class L2Character extends L2Object
 	private boolean					_isRaid								= false;
 	private boolean					_isFlying;
 
+	private volatile boolean		_hasActionDispellingSkills			= false;
+	private volatile boolean		_hasAttackDispellingSkills			= false;
 
 	/**
 	 * Objects known by this object
@@ -3722,9 +3724,15 @@ public abstract class L2Character extends L2Object
 		 */
 		public void doAttack(L2Character target)
 		{
-			// stop invul effect if exist
-			if (getInvulEffect() != null)
-				getInvulEffect().exit();
+			if (L2Character.this.hasAttackDispellingSkills())
+			{
+				for (L2Effect effect : getEffects().getAllEffects())
+				{
+					if (effect != null && effect.getSkill().isDispeledOnAttack())
+						effect.exit();
+				}
+				L2Character.this.setHasAttackDispellingSkills(false);
+			}
 			
 			if (L2Character.this != target)
 				L2Character.this.doAttack(target);
@@ -3736,9 +3744,15 @@ public abstract class L2Character extends L2Object
 		 */
 		public void doCast(L2Skill skill)
 		{
-			// stop invul effect if exist
-			if (getInvulEffect() != null)
-				getInvulEffect().exit();
+			if (L2Character.this.hasAttackDispellingSkills())
+			{
+				for (L2Effect effect : getEffects().getAllEffects())
+				{
+					if (effect != null && effect.getSkill().isDispeledOnAttack())
+						effect.exit();
+				}
+				L2Character.this.setHasAttackDispellingSkills(false);
+			}
 			
 			L2Character.this.doCast(skill);
 		}
@@ -4369,6 +4383,15 @@ public abstract class L2Character extends L2Object
 		{
 			getKnownList().addKnownObject(newTarget);
 			newTarget.getKnownList().addKnownObject(this);
+			if (hasActionDispellingSkills())
+			{
+				for (L2Effect effect : getEffects().getAllEffects())
+				{
+					if (effect != null && effect.getSkill().isDispeledOnAction())
+						effect.exit();
+				}
+				setHasActionDispellingSkills(false);
+			}
 		}
 
 		_target = newTarget;
@@ -5696,6 +5719,26 @@ public abstract class L2Character extends L2Object
 		}
 
 		return oldSkill;
+	}
+	
+	public boolean hasActionDispellingSkills()
+	{
+		return _hasActionDispellingSkills;
+	}
+	
+	public boolean hasAttackDispellingSkills()
+	{
+		return _hasAttackDispellingSkills;
+	}
+	
+	public void setHasActionDispellingSkills(boolean value)
+	{
+		_hasActionDispellingSkills = value;
+	}
+	
+	public void setHasAttackDispellingSkills(boolean value)
+	{
+		_hasAttackDispellingSkills = value;
 	}
 
 	protected void skillChanged(L2Skill removed, L2Skill added)

@@ -921,6 +921,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="10000"/>
+    <set name="dispelOnAttack" val="true"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>

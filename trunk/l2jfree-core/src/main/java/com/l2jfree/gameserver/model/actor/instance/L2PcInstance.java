@@ -405,66 +405,54 @@ public final class L2PcInstance extends L2Playable
 		protected AIAccessor()
 		{
 		}
-
+		
 		public L2PcInstance getPlayer()
 		{
 			return L2PcInstance.this;
 		}
-
+		
 		public void doPickupItem(L2Object object)
 		{
 			L2PcInstance.this.doPickupItem(object);
 		}
-
+		
 		public void doInteract(L2Character target)
 		{
 			L2PcInstance.this.doInteract(target);
 		}
-
+		
 		@Override
 		public void doAttack(L2Character target)
 		{
-			if (getAppearance().isInvisible())
-				getEffects().stopEffects(L2EffectType.HIDE);
-
 			super.doAttack(target);
-
+			
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
 			setRecentFakeDeath(false);
-
-			if (isSilentMoving())
-				getEffects().stopEffects(L2EffectType.SILENT_MOVE);
 		}
-
+		
 		@Override
 		public void doCast(L2Skill skill)
 		{
-			if (getAppearance().isInvisible())
-				getEffects().stopEffects(L2EffectType.HIDE);
-
 			super.doCast(skill);
-
+			
 			// Cancel the recent fake-death protection instantly if the player attacks or casts spells
 			setRecentFakeDeath(false);
 			if (skill == null)
 				return;
 			if (!skill.isOffensive())
 				return;
-
-			if (isSilentMoving())
-				getEffects().stopEffects(L2EffectType.SILENT_MOVE);
-
+			
 			switch (skill.getTargetType())
 			{
-			case TARGET_GROUND:
-				return;
-			default:
-			{
-				for (L2CubicInstance cubic : getCubics().values())
-					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-						cubic.doAction();
-			}
-			break;
+				case TARGET_GROUND:
+					return;
+				default:
+				{
+					for (L2CubicInstance cubic : getCubics().values())
+						if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+							cubic.doAction();
+				}
+					break;
 			}
 		}
 	}

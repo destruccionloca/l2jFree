@@ -328,6 +328,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="dispelOnAttack" val="true"/>
     <for>
       <effect count="1" name="Invincible" time="5400" val="0" special="invulnerable"/>
     </for>
