@@ -10106,3 +10106,7 @@ UPDATE `npc` SET `hp` = 309998, `mp` = 2011, `exp` = 449479, `sp` = 47956, `str`
 
 # Eye of Argos (Psycho)
 UPDATE `npc` SET `collision_radius` = 149 WHERE `id` = 31683;
+
+-- Red Strider collision_height fix
+UPDATE `npc` SET `collision_height` = 31, WHERE `id` = IN (16038, 16039, 16040);
+

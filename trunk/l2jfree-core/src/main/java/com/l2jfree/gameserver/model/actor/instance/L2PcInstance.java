@@ -5860,7 +5860,6 @@ public final class L2PcInstance extends L2Playable
 
 			abortAttack();
 			refreshExpertisePenalty();
-			broadcastUserInfo();
 
 			// This can be 0 if the user pressed the right mousebutton twice very fast
 			if (unequipped.length > 0)
@@ -5879,6 +5878,7 @@ public final class L2PcInstance extends L2Playable
 				}
 				sendPacket(sm);
 			}
+			broadcastFullInfoImpl();
 		}
 
 		if (!shield)
@@ -5899,7 +5899,6 @@ public final class L2PcInstance extends L2Playable
 
 			abortAttack();
 			refreshExpertisePenalty();
-			broadcastUserInfo();
 
 			// This can be 0 if the user pressed the right mousebutton twice very fast
 			if (unequipped.length > 0)
@@ -5918,6 +5917,7 @@ public final class L2PcInstance extends L2Playable
 				}
 				sendPacket(sm);
 			}
+			broadcastFullInfoImpl();
 		}
 
 		return true;
@@ -6114,7 +6114,7 @@ public final class L2PcInstance extends L2Playable
 			setMountObjectID(controlItemObjId);
 			broadcastPacket(mount);
 			// Notify self and others about speed change
-			broadcastUserInfo();
+			broadcastFullInfoImpl();
 			if (useFood)
 				startFeed(npcId);
 			return true;
