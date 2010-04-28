@@ -38,16 +38,16 @@ public final class DatabaseBackupManager
 {
 	private static final Log _log = LogFactory.getLog(DatabaseBackupManager.class);
 	
-	private int BUFFER = 10485760;
+	private static final int BUFFER = 10 * 1024 * 1024;
 	
 	public static DatabaseBackupManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
 	
-	public DatabaseBackupManager()
+	private DatabaseBackupManager()
 	{
-		_log.info("DatabaseBackupManager: initialization...");
+		_log.info("DatabaseBackupManager: initialized.");
 	}
 	
 	public void makeBackup()
@@ -56,10 +56,10 @@ public final class DatabaseBackupManager
 		try
 		{
 			_log.info("DatabaseBackupManager: dumping `" + Config.DATABASE_BACKUP_DATABASE_NAME + "` ...");
-
+			
 			Process run = Runtime.getRuntime().exec(
 							"mysqldump" +
-							" --user=" + Config.DATABASE_BACKUP_USER + 
+							" --user=" + Config.DATABASE_BACKUP_USER +
 							" --password=" + Config.DATABASE_BACKUP_PASSWORD +
 							" --compact --complete-insert --extended-insert --skip-comments --skip-triggers " +
 							Config.DATABASE_BACKUP_DATABASE_NAME);
@@ -81,23 +81,17 @@ public final class DatabaseBackupManager
 			// Generate backup file name
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss");
 			String fileName = Config.DATAPACK_ROOT.getAbsolutePath() + Config.DATABASE_BACKUP_SAVE_PATH
-					+ dateFormat.format(new Date(System.currentTimeMillis())) + (Config.DATABASE_BACKUP_MAKE_ZIP ? ".zip" : ".sql");
+					+ dateFormat.format(new Date()) + (Config.DATABASE_BACKUP_MAKE_ZIP ? ".zip" : ".sql");
 			
-			File destinationFile = new File(fileName);
-			FileOutputStream destinationFileStream = new FileOutputStream(destinationFile);
-			ZipOutputStream zipStream = null;
-			
-			if (Config.DATABASE_BACKUP_MAKE_ZIP)
-			{
-				zipStream = new ZipOutputStream(new BufferedOutputStream(destinationFileStream));
-				zipStream.setMethod(ZipOutputStream.DEFLATED);
-				zipStream.setLevel(Deflater.BEST_COMPRESSION);
-			}
+			BufferedOutputStream destinationFileStream = new BufferedOutputStream(new FileOutputStream(fileName));
 			
 			_log.info("DatabaseBackupManager: saving dump to [ " + fileName + " ] ...");
 			
 			if (Config.DATABASE_BACKUP_MAKE_ZIP)
 			{
+				ZipOutputStream zipStream = new ZipOutputStream(destinationFileStream);
+				zipStream.setMethod(ZipOutputStream.DEFLATED);
+				zipStream.setLevel(Deflater.BEST_COMPRESSION);
 				zipStream.putNextEntry(new ZipEntry(Config.DATABASE_BACKUP_DATABASE_NAME + ".sql"));
 				zipStream.write(data);
 				zipStream.close();
