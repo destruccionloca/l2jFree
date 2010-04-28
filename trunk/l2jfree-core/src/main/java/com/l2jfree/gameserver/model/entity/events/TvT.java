@@ -73,6 +73,12 @@ public class TvT
 		{
 			super(player);
 		}
+		
+		@Override
+		public boolean isInFunEvent()
+		{
+			return TvT._started;
+		}
 	}
 	
 	private final static Log			_log					= LogFactory.getLog(TvT.class);

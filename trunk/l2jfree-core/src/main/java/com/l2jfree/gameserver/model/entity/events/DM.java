@@ -66,6 +66,12 @@ public class DM
 		{
 			super(player);
 		}
+		
+		@Override
+		public boolean isInFunEvent()
+		{
+			return DM._started;
+		}
 	}
 	
 	private final static Log _log = LogFactory.getLog(DM.class);

@@ -178,14 +178,7 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.entity.events.AbstractFunEventPlayerInfo;
 import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
-import com.l2jfree.gameserver.model.entity.events.CTF;
-import com.l2jfree.gameserver.model.entity.events.DM;
-import com.l2jfree.gameserver.model.entity.events.TvT;
-import com.l2jfree.gameserver.model.entity.events.VIP;
 import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
-import com.l2jfree.gameserver.model.entity.events.DM.DMPlayerInfo;
-import com.l2jfree.gameserver.model.entity.events.TvT.TvTPlayerInfo;
-import com.l2jfree.gameserver.model.entity.events.VIP.VIPPlayerInfo;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
@@ -3828,7 +3821,9 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isInFunEvent()
 	{
-		return ((TvT._started && isInEvent(TvTPlayerInfo.class)) || (DM._started && isInEvent(DMPlayerInfo.class)) || (CTF._started && isInEvent(CTFPlayerInfo.class)) || (VIP._started && isInEvent(VIPPlayerInfo.class)) && !isGM() || _inEventTvTi);
+		final AbstractFunEventPlayerInfo info = _playerInfoForEvents;
+		
+		return (info != null ? info.isInFunEvent() : false) ||_inEventTvTi;
 	}
 
 	/**

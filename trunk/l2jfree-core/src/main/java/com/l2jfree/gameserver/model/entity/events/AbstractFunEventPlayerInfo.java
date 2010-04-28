@@ -35,4 +35,6 @@ public abstract class AbstractFunEventPlayerInfo
 	{
 		return _player;
 	}
+	
+	public abstract boolean isInFunEvent();
 }

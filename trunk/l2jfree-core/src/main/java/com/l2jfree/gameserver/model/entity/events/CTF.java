@@ -84,6 +84,12 @@ public class CTF
 		{
 			super(player);
 		}
+		
+		@Override
+		public boolean isInFunEvent()
+		{
+			return CTF._started;
+		}
 	}
 	
 	private final static Log	_log	= LogFactory.getLog(CTF.class);

@@ -68,6 +68,12 @@ public class VIP
 		{
 			super(player);
 		}
+		
+		@Override
+		public boolean isInFunEvent()
+		{
+			return VIP._started;
+		}
 	}
 	
 	private final static Log _log = LogFactory.getLog(VIP.class);
