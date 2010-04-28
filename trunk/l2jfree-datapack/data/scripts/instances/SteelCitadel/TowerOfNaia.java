@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package instances.Hellbound;
+package instances.SteelCitadel;
 
 import com.l2jfree.gameserver.instancemanager.hellbound.TowerOfNaiaManager;
 import com.l2jfree.gameserver.model.actor.L2Npc;

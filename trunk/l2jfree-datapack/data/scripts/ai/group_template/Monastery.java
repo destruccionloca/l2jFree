@@ -25,7 +25,6 @@ import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
@@ -129,12 +128,11 @@ public class Monastery extends L2AttackableAIScript
 						result.add((L2Playable) obj);
 				}
 			}
-    		if (!result.isEmpty() && result.size() != 0)
+    		if (!result.isEmpty())
     		{
-    			Object[] characters = result.toArray();
-    			for (Object obj : characters)
+    			for (L2Playable obj : result)
     			{
-    	    		L2Playable target = (L2Playable) (obj instanceof L2PcInstance ? obj : ((L2Summon) obj).getOwner());
+    	    		L2PcInstance target = obj.getActingPlayer();
     	    		if (target.getActiveWeaponInstance() != null && !npc.isInCombat() && npc.getTarget() == null)
     	    		{
     	    			npc.setTarget(target);
