@@ -56,11 +56,11 @@ public final class PcSkills
 		if (skill == null)
 			return;
 		
-		final SkillMap map = getSkillMap();
+		final SkillMap map = getSkillMap(classIndex);
 		
 		final Integer oldLevel = map.put(skill);
 		
-		checkStoredSkill(skill);
+		checkStoredSkill(skill, classIndex);
 		
 		if (oldLevel != null && oldLevel.intValue() == skill.getLevel())
 			return;
@@ -173,7 +173,12 @@ public final class PcSkills
 	
 	private SkillMap getSkillMap()
 	{
-		SkillMap map = _storedSkills.get(getOwner().getClassIndex());
+		return getSkillMap(getOwner().getClassIndex());
+	}
+	
+	private SkillMap getSkillMap(int classIndex)
+	{
+		SkillMap map = _storedSkills.get(classIndex);
 		
 		if (map != null)
 			return map;
@@ -188,7 +193,7 @@ public final class PcSkills
 			PreparedStatement statement = con
 					.prepareStatement("SELECT skill_id,skill_level FROM character_skills WHERE charId=? AND class_index=?");
 			statement.setInt(1, getOwner().getObjectId());
-			statement.setInt(2, getOwner().getClassIndex());
+			statement.setInt(2, classIndex);
 			
 			ResultSet rset = statement.executeQuery();
 			
@@ -203,7 +208,7 @@ public final class PcSkills
 				if (skill == null)
 					continue;
 				
-				checkStoredSkill(skill);
+				checkStoredSkill(skill, classIndex);
 			}
 			
 			rset.close();
@@ -218,14 +223,14 @@ public final class PcSkills
 			L2DatabaseFactory.close(con);
 		}
 		
-		_storedSkills.set(getOwner().getClassIndex(), map);
+		_storedSkills.set(classIndex, map);
 		
 		return map;
 	}
 	
-	private void checkStoredSkill(L2Skill skill)
+	private void checkStoredSkill(L2Skill skill, int classIndex)
 	{
-		if (getOwner().isGM() || Config.ALT_GAME_SKILL_LEARN)
+		if (getOwner().isGM() || Config.ALT_GAME_SKILL_LEARN || getOwner().getClassIndex() != classIndex)
 			return;
 		
 		if (getOwner().isTemporarySkill(skill))
