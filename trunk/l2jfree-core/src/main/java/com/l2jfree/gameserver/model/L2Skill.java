@@ -3793,13 +3793,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			final L2Effect e = et.getEffect(env);
 			if (e != null)
 				if (executable != null)
-				{
 					executable.execute(e);
-					if (this.isDispeledOnAction())
-						effected.setHasActionDispellingSkills(true);
-					if (this.isDispeledOnAttack())
-						effected.setHasAttackDispellingSkills(true);
-				}
 		}
 	}
 

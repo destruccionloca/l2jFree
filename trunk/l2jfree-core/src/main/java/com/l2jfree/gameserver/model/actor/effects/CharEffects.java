@@ -513,7 +513,7 @@ public class CharEffects
 		stopAllEffects(false);
 	}
 	
-	public final synchronized void dispelBuff(int skillId, int skillLvl)
+	public final void dispelBuff(int skillId, int skillLvl)
 	{
 		for (L2Effect e : getAllEffects())
 		{
@@ -535,6 +535,30 @@ public class CharEffects
 			stopStackedEffects(e);
 			
 			e.exit(); // just to be sure
+		}
+	}
+	
+	public final void dispelOnAction()
+	{
+		for (L2Effect e : getAllEffects())
+		{
+			if (e == null)
+				continue;
+			
+			if (e.getSkill().isDispeledOnAction())
+				e.exit();
+		}
+	}
+	
+	public final void dispelOnAttack()
+	{
+		for (L2Effect e : getAllEffects())
+		{
+			if (e == null)
+				continue;
+			
+			if (e.getSkill().isDispeledOnAttack())
+				e.exit();
 		}
 	}
 	
