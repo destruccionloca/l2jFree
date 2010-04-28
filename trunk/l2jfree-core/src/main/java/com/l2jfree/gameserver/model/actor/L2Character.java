@@ -3724,6 +3724,15 @@ public abstract class L2Character extends L2Object
 		 */
 		public void doAttack(L2Character target)
 		{
+			if (L2Character.this.hasActionDispellingSkills())
+			{
+				for (L2Effect effect : getEffects().getAllEffects())
+				{
+					if (effect != null && effect.getSkill().isDispeledOnAction())
+						effect.exit();
+				}
+				L2Character.this.setHasActionDispellingSkills(false);
+			}
 			if (L2Character.this.hasAttackDispellingSkills())
 			{
 				for (L2Effect effect : getEffects().getAllEffects())
@@ -3744,6 +3753,15 @@ public abstract class L2Character extends L2Object
 		 */
 		public void doCast(L2Skill skill)
 		{
+			if (L2Character.this.hasActionDispellingSkills())
+			{
+				for (L2Effect effect : getEffects().getAllEffects())
+				{
+					if (effect != null && effect.getSkill().isDispeledOnAction())
+						effect.exit();
+				}
+				L2Character.this.setHasActionDispellingSkills(false);
+			}
 			if (L2Character.this.hasAttackDispellingSkills())
 			{
 				for (L2Effect effect : getEffects().getAllEffects())
