@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver;
 
+import java.sql.SQLException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,6 +42,7 @@ import com.l2jfree.gameserver.network.L2GameSelectorThread;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
+import com.l2jfree.gameserver.util.DatabaseBackupManager;
 import com.l2jfree.gameserver.util.OfflineTradeManager;
 
 /**
@@ -282,6 +285,9 @@ public final class Shutdown extends Thread
 		{
 			t.printStackTrace();
 		}
+		
+		if (Config.DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN)
+			DatabaseBackupManager.getInstance().makeBackup();
 		
 		if (_mode == ShutdownMode.RESTART)
 			Runtime.getRuntime().halt(2);

@@ -1270,6 +1270,16 @@ public class Config extends L2Config
 
 	public static int				RETARGET_BLOCKING_PERIOD;
 
+	// *******************************************************************************************
+	// Database Backup Settings
+	public static boolean 			DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP;
+	public static boolean 			DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN;
+	public static String 			DATABASE_BACKUP_USER;
+	public static String 			DATABASE_BACKUP_PASSWORD;
+	public static String 			DATABASE_BACKUP_DATABASE_NAME;
+	public static String 			DATABASE_BACKUP_SAVE_PATH;
+	public static boolean 			DATABASE_BACKUP_MAKE_ZIP;
+	
 	public static boolean			OPTIMIZE_DATABASE;
 
 	public static String			HTML_CACHE_FILE;
@@ -1489,6 +1499,16 @@ public class Config extends L2Config
 
 		    RETARGET_BLOCKING_PERIOD = Integer.parseInt(optionsSettings.getProperty("CannotRetargetFor", "400"));
 
+			// *******************************************************************************************
+			// Database Backup Settings
+			DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeBackupOnStartup", "false"));
+			DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN	= Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeBackupOnShutdown", "false"));
+			DATABASE_BACKUP_USER = optionsSettings.getProperty("DatabaseBackupUser", "root");
+			DATABASE_BACKUP_PASSWORD = optionsSettings.getProperty("DatabaseBackupPassword", "");
+			DATABASE_BACKUP_DATABASE_NAME = optionsSettings.getProperty("DatabaseBackupDatabaseName", "l2jfree");
+			DATABASE_BACKUP_SAVE_PATH = optionsSettings.getProperty("DatabaseBackupSavePath", "/backups/database/");
+			DATABASE_BACKUP_MAKE_ZIP = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeZip", "true"));
+		    
 		    OPTIMIZE_DATABASE = Boolean.parseBoolean(optionsSettings.getProperty("OptimizeDatabaseTables", "True"));
 		    
 		    HTML_CACHE_FILE = optionsSettings.getProperty("HtmlCacheFile", "./html.cache");

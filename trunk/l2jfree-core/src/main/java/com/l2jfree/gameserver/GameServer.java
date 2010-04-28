@@ -145,6 +145,7 @@ import com.l2jfree.gameserver.taskmanager.PacketBroadcaster;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
 import com.l2jfree.gameserver.taskmanager.tasks.TaskManager;
 import com.l2jfree.gameserver.threadmanager.DeadlockDetector;
+import com.l2jfree.gameserver.util.DatabaseBackupManager;
 import com.l2jfree.gameserver.util.DynamicExtension;
 import com.l2jfree.gameserver.util.OfflineTradeManager;
 import com.l2jfree.gameserver.util.TableOptimizer;
@@ -165,6 +166,9 @@ public class GameServer extends Config
 		Config.load();
 		
 		Util.printSection("Database");
+		if (Config.DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP)
+			DatabaseBackupManager.getInstance().makeBackup();
+		
 		L2DatabaseFactory.getInstance();
 		Util.printSection("World");
 		L2World.getInstance();
