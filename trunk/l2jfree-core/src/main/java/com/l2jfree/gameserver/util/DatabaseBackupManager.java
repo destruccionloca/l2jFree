@@ -14,11 +14,12 @@
  */
 package com.l2jfree.gameserver.util;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.Deflater;
@@ -37,11 +38,13 @@ public final class DatabaseBackupManager
 {
 	private static final Log _log = LogFactory.getLog(DatabaseBackupManager.class);
 	
+	private static final int BUFFER = 10 * 1024 * 1024;
+	
 	public static DatabaseBackupManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private DatabaseBackupManager()
 	{
 		_log.info("DatabaseBackupManager: initialized.");
@@ -84,11 +87,17 @@ public final class DatabaseBackupManager
 		
 		try
 		{
-			BufferedInputStream bis = new BufferedInputStream(run.getInputStream());
-			byte[] data = new byte[bis.available()];
-			bis.read(data);
+			BufferedReader br = new BufferedReader(new InputStreamReader(run.getInputStream()));
+			StringBuffer buffer = new StringBuffer();
+
+			char[] cbuf = new char[BUFFER];
+			int count;
+			while ((count = br.read(cbuf, 0, BUFFER)) != -1)
+				buffer.append(cbuf, 0, count);
+
+			br.close();
 			
-			_log.info("DatabaseBackupManager: dumping `" + Config.DATABASE_BACKUP_DATABASE_NAME + "` ...");
+			byte[] data = buffer.toString().getBytes();
 			
 			// Generate backup file name
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss");
