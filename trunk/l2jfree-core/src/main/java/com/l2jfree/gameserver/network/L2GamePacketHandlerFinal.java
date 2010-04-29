@@ -954,7 +954,7 @@ public final class L2GamePacketHandlerFinal implements
 								break;
 							case 0x51:
 								int id3 = 0;
-								if (buf.remaining() >= 2)
+								if (buf.remaining() >= 4)
 								{
 									id3 = buf.getInt() & 0xffffffff;
 								}

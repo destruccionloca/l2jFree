@@ -16,41 +16,37 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- *  @author ShanSoft
- *  @structure chdSdS
- */
 public final class RequestSaveBookMarkSlot extends L2GameClientPacket
 {
-	private static final String	_C__51_REQUESTSAVEBOOKMARKSLOT	= "[C] 51 RequestSaveBookMarkSlot";
-
-	private int					icon;
-	private String				name, tag;
-
+	private static final String	_C__REQUESTSAVEBOOKMARKSLOT	= "[C] D0:51:01 RequestSaveBookMarkSlot chd[sds]";
+	
+	private String _name, _tag;
+	private int _icon;
+	
 	@Override
 	protected void readImpl()
 	{
-		readH();
-		name = readS();
-		icon = readD();
-		tag = readS();
+		_name = readS();
+		_icon = readD();
+		_tag = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
-		activeChar.teleportBookmarkAdd(activeChar.getX(), activeChar.getY(), activeChar.getZ(), icon, tag, name);
-
+		
+		activeChar.teleportBookmarkAdd(activeChar.getX(), activeChar.getY(), activeChar.getZ(),
+				_icon, _tag, _name);
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{
-		return _C__51_REQUESTSAVEBOOKMARKSLOT;
+		return _C__REQUESTSAVEBOOKMARKSLOT;
 	}
 }

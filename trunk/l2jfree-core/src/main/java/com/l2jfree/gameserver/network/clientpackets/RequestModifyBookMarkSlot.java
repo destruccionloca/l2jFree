@@ -16,42 +16,35 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-
-/**
- *  @author ShanSoft
- *  @structure chddSdS
- */
 public final class RequestModifyBookMarkSlot extends L2GameClientPacket
 {
-	private static final String _C__51_REQUESTMODIFYBOOKMARKSLOT = "[C] 51 RequestModifyBookMarkSlot";
-
-	private int id,icon;
-	private String name,tag;
-
+	private static final String _C__REQUESTMODIFYBOOKMARKSLOT = "[C] D0:51:02 RequestModifyBookMarkSlot chd[dsds]";
+	
+	private int _id, _icon;
+	private String _name, _tag;
+	
 	@Override
 	protected void readImpl()
 	{
-
-		readH();
-		id = readD();
-		name = readS();
-		icon = readD();
-		tag = readS();
-		
+		_id = readD();
+		_name = readS();
+		_icon = readD();
+		_tag = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-		activeChar.teleportBookmarkModify(id, icon, tag, name);
+		
+		activeChar.teleportBookmarkModify(_id, _icon, _tag, _name);
 	}
-
+	
 	@Override
 	public String getType()
 	{
-		return _C__51_REQUESTMODIFYBOOKMARKSLOT;
+		return _C__REQUESTMODIFYBOOKMARKSLOT;
 	}
 }
