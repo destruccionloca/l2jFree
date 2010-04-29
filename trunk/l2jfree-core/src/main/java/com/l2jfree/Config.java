@@ -1279,6 +1279,7 @@ public class Config extends L2Config
 	public static String 			DATABASE_BACKUP_DATABASE_NAME;
 	public static String 			DATABASE_BACKUP_SAVE_PATH;
 	public static boolean 			DATABASE_BACKUP_MAKE_ZIP;
+	public static String			DATABASE_BACKUP_MYSQLDUMP_PATH;
 	
 	public static boolean			OPTIMIZE_DATABASE;
 
@@ -1508,7 +1509,8 @@ public class Config extends L2Config
 			DATABASE_BACKUP_DATABASE_NAME = optionsSettings.getProperty("DatabaseBackupDatabaseName", "l2jfree");
 			DATABASE_BACKUP_SAVE_PATH = optionsSettings.getProperty("DatabaseBackupSavePath", "/backups/database/");
 			DATABASE_BACKUP_MAKE_ZIP = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeZip", "true"));
-		    
+			DATABASE_BACKUP_MYSQLDUMP_PATH = optionsSettings.getProperty("DatabaseBackupMysqldumpPath", ".");
+			
 		    OPTIMIZE_DATABASE = Boolean.parseBoolean(optionsSettings.getProperty("OptimizeDatabaseTables", "True"));
 		    
 		    HTML_CACHE_FILE = optionsSettings.getProperty("HtmlCacheFile", "./html.cache");
