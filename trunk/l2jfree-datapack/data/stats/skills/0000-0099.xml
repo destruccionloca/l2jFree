@@ -1149,8 +1149,7 @@
     </for>
   </skill>
   <skill id="67" levels="7" name="Summon Life Cubic" enchantLevels1="30">
-    <!-- enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-    <table name="#ench1power"> 1850 1855 1860 1865 1870 1880 1885 1890 1895 1900 1905 1910 1915 1920 1925 1930 1935 1940 1945 1950 1955 1960 1965 1970 1975 1980 1985 1990 1995 2000 </table --> <!-- Unknown enchant bonuses -->
+    <table name="#ench1power"> 1850 1855 1860 1865 1870 1880 1885 1890 1895 1900 1905 1910 1915 1920 1925 1930 1935 1940 1945 1950 1955 1960 1965 1970 1975 1980 1985 1990 1995 2000 </table> <!-- Unknown enchant bonuses -->
     <table name="#mpInitialConsume"> 8 9 10 11 12 13 13 </table>
     <table name="#mpConsume"> 30 35 40 44 48 51 54 </table>
     <table name="#itemConsumeCount"> 6 7 8 9 11 12 13 </table>
@@ -1172,7 +1171,7 @@
     <set name="activationchance" val="0"/> <!-- this is hard coded in core, because of hp check -->
     <set name="summonTotalLifeTime" val="900000"/>
     <set name="isCubic" val="true"/>
-    <!-- enchant1 name="power" val="#ench1power"/ -->
+    <enchant1 name="power" val="#ench1power"/>
   </skill>
   <skill id="69" levels="25" name="Sacrifice" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
     <table name="#ench1power"> 1177 1183 1190 1196 1203 1209 1216 1222 1228 1235 1241 1248 1254 1261 1267 1274 1280 1287 1293 1300 1306 1313 1319 1326 1332 1339 1345 1351 1358 1364 </table>
