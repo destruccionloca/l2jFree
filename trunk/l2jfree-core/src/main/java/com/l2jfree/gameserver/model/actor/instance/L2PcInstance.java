@@ -13558,7 +13558,10 @@ public final class L2PcInstance extends L2Playable
 			return true;
 
 		final L2PcInstance player = cha.getActingPlayer();
-
+		
+		if (player == this)
+			return true;
+		
 		if (player != null)
 		{
 			if (player.getAppearance().isInvisible())
@@ -13567,11 +13570,16 @@ public final class L2PcInstance extends L2Playable
 			if (player.inObserverMode())
 				return false;
 		}
-		/* Are traps invisible for other chars than owner?
-		else if (cha instanceof L2Trap)
+		
+		// Are traps invisible for other chars than owner?
+		if (cha instanceof L2Trap)
 		{
+			final L2Trap trap = (L2Trap)cha;
+			
+			if (!trap.isDetected())
+				return false;
 		}
-		 */
+		
 		return true;
 	}
 

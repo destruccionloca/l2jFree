@@ -231,8 +231,8 @@ public final class CharInfo extends L2GameServerPacket
 		if (_view instanceof DecoyView)
 		{
 			// owner
-			if (_activeChar == activeChar)
-				return true;
+			//if (_activeChar == activeChar)
+			//	return true;
 		}
 		else //if (_view instanceof PcView)
 		{

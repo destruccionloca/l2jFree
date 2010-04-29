@@ -209,5 +209,6 @@ public class L2Trap extends L2Character
 	@Override
 	public void broadcastFullInfoImpl()
 	{
+		broadcastPacket(new AbstractNpcInfo.TrapInfo(this));
 	}
 }
