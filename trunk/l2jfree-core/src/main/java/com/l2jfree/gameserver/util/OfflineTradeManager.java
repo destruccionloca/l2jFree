@@ -106,6 +106,7 @@ public final class OfflineTradeManager
 				{
 					case L2PcInstance.STORE_PRIVATE_PACKAGE_SELL:
 						p.getSellList().setPackaged(true);
+					//$FALL-THROUGH$
 					case L2PcInstance.STORE_PRIVATE_SELL:
 						p.getSellList().setTitle(msg);
 						p.tryOpenPrivateSellStore(p.getSellList().isPackaged());
@@ -161,7 +162,7 @@ public final class OfflineTradeManager
 				{
 					if (p.isInOfflineMode())
 					{
-						final int privateStoreType = p.getPrivateStoreType();					
+						final int privateStoreType = p.getPrivateStoreType();
 						TradeList tradeList = null;
 						L2ManufactureList manufactureList = null;
 						
@@ -234,7 +235,7 @@ public final class OfflineTradeManager
 									st.setString(3, "");
 								break;
 							default:
-								st.setString(3, "");	
+								st.setString(3, "");
 						}
 						
 						st.execute();

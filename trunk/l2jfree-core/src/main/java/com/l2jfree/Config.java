@@ -1271,21 +1271,18 @@ public class Config extends L2Config
 	public static int				RETARGET_BLOCKING_PERIOD;
 
 	// *******************************************************************************************
-	// Database Backup Settings
 	public static boolean 			DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP;
 	public static boolean 			DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN;
-	public static String 			DATABASE_BACKUP_USER;
-	public static String 			DATABASE_BACKUP_PASSWORD;
 	public static String 			DATABASE_BACKUP_DATABASE_NAME;
 	public static String 			DATABASE_BACKUP_SAVE_PATH;
-	public static boolean 			DATABASE_BACKUP_MAKE_ZIP;
+	public static boolean 			DATABASE_BACKUP_COMPRESSION;
 	public static String			DATABASE_BACKUP_MYSQLDUMP_PATH;
 	
 	public static boolean			OPTIMIZE_DATABASE;
 
 	public static String			HTML_CACHE_FILE;
 
-	public static boolean			BAN_DUPLICATED_ITEM_OWNER;
+	public static boolean			BAN_DUPLICATE_ITEM_OWNER;
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigPropertiesLoader
 	{
@@ -1502,20 +1499,18 @@ public class Config extends L2Config
 
 			// *******************************************************************************************
 			// Database Backup Settings
-			DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeBackupOnStartup", "false"));
-			DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN	= Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeBackupOnShutdown", "false"));
-			DATABASE_BACKUP_USER = optionsSettings.getProperty("DatabaseBackupUser", "root");
-			DATABASE_BACKUP_PASSWORD = optionsSettings.getProperty("DatabaseBackupPassword", "");
-			DATABASE_BACKUP_DATABASE_NAME = optionsSettings.getProperty("DatabaseBackupDatabaseName", "l2jfree");
-			DATABASE_BACKUP_SAVE_PATH = optionsSettings.getProperty("DatabaseBackupSavePath", "/backups/database/");
-			DATABASE_BACKUP_MAKE_ZIP = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeZip", "true"));
+			DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeBackupOnStartup", "False"));
+			DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN	= Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupMakeBackupOnShutdown", "False"));
+			DATABASE_BACKUP_DATABASE_NAME = optionsSettings.getProperty("DatabaseBackupDatabaseName", "l2jdb");
+			DATABASE_BACKUP_SAVE_PATH = optionsSettings.getProperty("DatabaseBackupSavePath", "/backup/database/");
+			DATABASE_BACKUP_COMPRESSION = Boolean.parseBoolean(optionsSettings.getProperty("DatabaseBackupCompression", "True"));
 			DATABASE_BACKUP_MYSQLDUMP_PATH = optionsSettings.getProperty("DatabaseBackupMysqldumpPath", ".");
 			
 		    OPTIMIZE_DATABASE = Boolean.parseBoolean(optionsSettings.getProperty("OptimizeDatabaseTables", "True"));
 		    
 		    HTML_CACHE_FILE = optionsSettings.getProperty("HtmlCacheFile", "./html.cache");
 
-		    BAN_DUPLICATED_ITEM_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("BanDuplicatedItemOwner", "False"));
+		    BAN_DUPLICATE_ITEM_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("BanDuplicateItemOwner", "False"));
 		}
 	}
 

@@ -249,6 +249,7 @@ public final class PcSkills
 			return put(skill.getId(), skill.getLevel());
 		}
 		
+		@SuppressWarnings("unused")
 		public Integer get(L2Skill skill)
 		{
 			return get(skill.getId());

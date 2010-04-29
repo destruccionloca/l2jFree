@@ -14,12 +14,14 @@
  */
 package com.l2jfree.gameserver.util;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.Deflater;
@@ -32,19 +34,17 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 
 /**
+ * Database backup utility, directly dependent on mysqldump tool.
  * @author hex1r0
+ * @author savormix
  */
 public final class DatabaseBackupManager
 {
 	private static final Log _log = LogFactory.getLog(DatabaseBackupManager.class);
+	private static final int BUFFER_SIZE = 5 * 1024 * 1024;
 	
-	private static final int BUFFER = 10 * 1024 * 1024;
+	private ByteBuffer _buf;
 	
-	public static DatabaseBackupManager getInstance()
-	{
-		return SingletonHolder.INSTANCE;
-	}
-
 	private DatabaseBackupManager()
 	{
 		_log.info("DatabaseBackupManager: initialized.");
@@ -52,89 +52,92 @@ public final class DatabaseBackupManager
 	
 	public void makeBackup()
 	{
-		try
+		File f = new File(Config.DATAPACK_ROOT, Config.DATABASE_BACKUP_SAVE_PATH);
+		if (!f.mkdirs() && !f.exists())
 		{
-			new File(Config.DATAPACK_ROOT.getAbsolutePath() + Config.DATABASE_BACKUP_SAVE_PATH).mkdirs();
-		}
-		catch (SecurityException e)
-		{
-			_log.warn("DatabaseBackupManager: You don't have privileges to create directory for backups!");
+			_log.warn("Could not create folder " + f.getAbsolutePath());
 			return;
 		}
 		
-		_log.info("DatabaseBackupManager: dumping `" + Config.DATABASE_BACKUP_DATABASE_NAME + "` ...");
+		_log.info("DatabaseBackupManager: backing up `" + Config.DATABASE_BACKUP_DATABASE_NAME + "`...");
 		
 		Process run = null;
 		try
 		{
-			run = Runtime.getRuntime().exec(Config.DATABASE_BACKUP_MYSQLDUMP_PATH + "/" +
-						"mysqldump" +
-						" --user=" + Config.DATABASE_BACKUP_USER + 
-						" --password=" + Config.DATABASE_BACKUP_PASSWORD +
-						" --compact --complete-insert --extended-insert --skip-comments --skip-triggers " +
-						Config.DATABASE_BACKUP_DATABASE_NAME);
+			run = Runtime.getRuntime().exec("mysqldump" +
+						" --user=" + Config.DATABASE_LOGIN +
+						" --password=" + Config.DATABASE_PASSWORD +
+						" --compact --complete-insert --default-character-set=utf8 --extended-insert --lock-tables --quick --skip-triggers " +
+						Config.DATABASE_BACKUP_DATABASE_NAME, null, new File(Config.DATABASE_BACKUP_MYSQLDUMP_PATH));
 		}
-		catch (SecurityException e)
+		catch (Exception e)
 		{
-			_log.warn("DatabaseBackupManager: You dont have privileges to execute mysqldump!");
-			return;
 		}
-		catch (IOException e)
+		finally
 		{
-			_log.warn("DatabaseBackupManager: Can't find mysqldump!");
-			return;
+			if (run == null)
+			{
+				_log.warn("Could not execute mysqldump!");
+				return;
+			}
 		}
 		
 		try
 		{
-			BufferedReader br = new BufferedReader(new InputStreamReader(run.getInputStream()));
-			StringBuffer buffer = new StringBuffer();
-
-			char[] cbuf = new char[BUFFER];
-			int count;
-			while ((count = br.read(cbuf, 0, BUFFER)) != -1)
-				buffer.append(cbuf, 0, count);
-
-			br.close();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+			Date time = new Date();
 			
-			byte[] data = buffer.toString().getBytes();
-			
-			// Generate backup file name
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss");
-			String fileName = Config.DATAPACK_ROOT.getAbsolutePath() + Config.DATABASE_BACKUP_SAVE_PATH
-					+ dateFormat.format(new Date()) + (Config.DATABASE_BACKUP_MAKE_ZIP ? ".zip" : ".sql");
-			
-			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
-			
-			_log.info("DatabaseBackupManager: saving dump to [ " + fileName + " ] ...");
-			
-			if (Config.DATABASE_BACKUP_MAKE_ZIP)
+			File bf = new File(f, sdf.format(time) + (Config.DATABASE_BACKUP_COMPRESSION ? ".zip" : ".sql"));
+			if (!bf.createNewFile())
+				throw new IOException("Cannot create backup file: " + bf.getCanonicalPath());
+			_buf = ByteBuffer.allocateDirect(BUFFER_SIZE);
+			ReadableByteChannel input = Channels.newChannel(new BufferedInputStream(run.getInputStream()));
+			FileOutputStream out = new FileOutputStream(bf);
+			WritableByteChannel dest;
+			if (Config.DATABASE_BACKUP_COMPRESSION)
 			{
-				ZipOutputStream zipStream = new ZipOutputStream(bos);
-				zipStream.setMethod(ZipOutputStream.DEFLATED);
-				zipStream.setLevel(Deflater.BEST_COMPRESSION);
-				zipStream.putNextEntry(new ZipEntry(Config.DATABASE_BACKUP_DATABASE_NAME + ".sql"));
-				zipStream.write(data);
-				zipStream.close();
+				ZipOutputStream dflt = new ZipOutputStream(out);
+				dflt.setMethod(ZipOutputStream.DEFLATED);
+				dflt.setLevel(Deflater.BEST_COMPRESSION);
+				dflt.setComment("L2JFree Schema Backup Utility\r\n\r\nBackup date: " +
+						new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS z").format(time));
+				dflt.putNextEntry(new ZipEntry(Config.DATABASE_BACKUP_DATABASE_NAME + ".sql"));
+				dest = Channels.newChannel(dflt);
 			}
 			else
+				dest = out.getChannel();
+			int read, written;
+			while ((read = input.read(_buf)) != -1)
 			{
-				bos.write(data);
-				bos.close();
+				_buf.flip();
+				for (written = 0; written < read;)
+					written += dest.write(_buf); // avoid empty statement
+				_buf.rewind();
 			}
+			input.close();
+			dest.close();
+			run.waitFor();
 			
-			_log.info("DatabaseBackupManager: Done.");
-			_log.info("DatabaseBackupManager: File size:		" + Double.valueOf((double) data.length / 1024 / 1024) + " 		MB.");
-			_log.info("DatabaseBackupManager: Packed size:		" + Double.valueOf((double) (new File(fileName).length()) / 1024 / 1024) + "		MB.");
+			_log.info("DatabaseBackupManager: Schema `" + Config.DATABASE_BACKUP_DATABASE_NAME +
+					"` backed up successfully in " + (System.currentTimeMillis() - time.getTime()) / 1000 + " s.");
 		}
 		catch (Exception e)
 		{
 			_log.warn("DatabaseBackupManager: Could not make backup: ", e);
 		}
+		finally
+		{
+			_buf = null;
+		}
+	}
+	
+	public static DatabaseBackupManager getInstance()
+	{
+		return SingletonHolder._instance;
 	}
 	
 	private static final class SingletonHolder
 	{
-		public static final DatabaseBackupManager INSTANCE = new DatabaseBackupManager();
+		public static final DatabaseBackupManager _instance = new DatabaseBackupManager();
 	}
 }

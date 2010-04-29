@@ -16,38 +16,35 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- *  @author ShanSoft
- *  Packets Structure: chdd
- */
 public final class RequestTeleportBookMark extends L2GameClientPacket
 {
-	private static final String	_C__51_REQUESTTELEPORTBOOKMARK	= "[C] 51 RequestTeleportBookMark";
-
-	private int					id;
-
+	private static final String	_C__REQUESTTELEPORTBOOKMARK	= "[C] D0:51:04 RequestTeleportBookMark ch[dd]";
+	
+	private int _id;
+	//private int _unk;
+	
 	@Override
 	protected void readImpl()
 	{
-		readH();
-		id = readD();
+		_id = readD();
+		/*_unk = */readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
-		activeChar.teleportBookmarkGo(id);
-
+		
+		activeChar.teleportBookmarkGo(_id);
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{
-		return _C__51_REQUESTTELEPORTBOOKMARK;
+		return _C__REQUESTTELEPORTBOOKMARK;
 	}
 }

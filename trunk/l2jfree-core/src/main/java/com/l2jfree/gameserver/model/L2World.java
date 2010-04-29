@@ -24,7 +24,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -112,15 +111,15 @@ public final class L2World
 		if (oldObject != null && oldObject != object)
 		{
 			_log.warn("[" + oldObject + "] replaced with [" + object + "] - objId: " + objectId + "!", new IllegalStateException());
-			if (Config.BAN_DUPLICATED_ITEM_OWNER)
+			if (Config.BAN_DUPLICATE_ITEM_OWNER)
 			{
+				// this does generate a standalone duplicate item!
 				if (object instanceof L2ItemInstance)
 				{
 					L2ItemInstance item = (L2ItemInstance) object;
-					int ownerId = item.getOwnerId();
-					L2PcInstance player = findPlayer(ownerId);
+					L2PcInstance player = findPlayer(item.getOwnerId());
 					if (player != null)
-						Util.handleIllegalPlayerAction(player, "Duplicated item for player "+player.getName(), IllegalPlayerAction.PUNISH_KICKBAN);
+						Util.handleIllegalPlayerAction(player, "Duplicate item detected for " + player, IllegalPlayerAction.PUNISH_KICKBAN);
 				}
 			}
 		}

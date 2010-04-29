@@ -166,9 +166,6 @@ public class GameServer extends Config
 		Config.load();
 		
 		Util.printSection("Database");
-		if (Config.DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP)
-			DatabaseBackupManager.getInstance().makeBackup();
-		
 		L2DatabaseFactory.getInstance();
 		Util.printSection("World");
 		L2World.getInstance();
@@ -188,6 +185,8 @@ public class GameServer extends Config
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 		if (Config.OPTIMIZE_DATABASE)
 			TableOptimizer.optimize();
+		if (Config.DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP)
+			DatabaseBackupManager.getInstance().makeBackup();
 		Class.forName(RunnableStatsManager.class.getName());
 		ThreadPoolManager.getInstance();
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)
