@@ -4,7 +4,7 @@ import sys
 from com.l2jfree.gameserver.ai                          import CtrlIntention
 from com.l2jfree.gameserver.datatables                  import ItemTable
 from com.l2jfree.gameserver.instancemanager             import InstanceManager
-from com.l2jfree.gameserver.instancemanager             import HellboundManager
+from com.l2jfree.gameserver.instancemanager.hellbound   import HellboundManager
 from com.l2jfree.gameserver.model                       import L2CharPosition
 from com.l2jfree.gameserver.model                       import L2World
 from com.l2jfree.gameserver.model.entity                import Instance
