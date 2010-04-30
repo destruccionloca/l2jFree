@@ -475,7 +475,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="dispelOnAttack" val="true"/>
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <for>
       <effect name="SilentMove" abnormal="stealth" time="120" val="0" stackOrder="1" stackType="stealth">

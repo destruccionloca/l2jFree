@@ -24,26 +24,28 @@ import com.l2jfree.gameserver.model.quest.jython.QuestJython;
  */
 public class TowerOfNaia extends QuestJython
 {
+	@SuppressWarnings("unused")
 	private L2Npc 		_lock = null;
+	@SuppressWarnings("unused")
 	private boolean 	_areWardsSpawned = false;
-	
+
 	public TowerOfNaia(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
-		
+
 		addAttackId(TowerOfNaiaManager.ROOF_LOCK_ID);
-		
+
 		addSpawnId(TowerOfNaiaManager.ROOF_LOCK_ID);
 		addSpawnId(TowerOfNaiaManager.DARION_ID);
-		
+
 		addKillId(TowerOfNaiaManager.DARION_ID);
-		
+
 		addStartNpc(TowerOfNaiaManager.ROOF_CONTROLLER_ID);
 		addStartNpc(TowerOfNaiaManager.ROOM_CONTROLLER_ID);
 		addTalkId(TowerOfNaiaManager.ROOF_CONTROLLER_ID);
 		addTalkId(TowerOfNaiaManager.ROOM_CONTROLLER_ID);
 	}
-	
+
 	@Override
 	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
@@ -51,10 +53,10 @@ public class TowerOfNaia extends QuestJython
 			TowerOfNaiaManager.getInstance().openEnteranceDoors();
 		else
 			TowerOfNaiaManager.getInstance().notifyMobKilled(npc.getInstanceId());
-		
+
 		return super.onKill(npc, killer, isPet);
 	}
-	
+
 	@Override
 	public String onSpawn(L2Npc npc)
 	{
@@ -62,10 +64,10 @@ public class TowerOfNaia extends QuestJython
 			_lock = npc;
 		else if (npc.getNpcId() == TowerOfNaiaManager.DARION_ID)
 			TowerOfNaiaManager.getInstance().closeEnteranceDoors();
-		
+
 		return super.onSpawn(npc);
 	}
-	
+
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -74,27 +76,27 @@ public class TowerOfNaia extends QuestJython
 			// TODO temp disabled
 			//if (_lock != null && _lock.getCurrentHp() < _lock.getMaxHp() * 0.1)
 			//{
-				if (player.isInParty())
+			if (player.isInParty())
+			{
+				final int instanceId = TowerOfNaiaManager.getInstance().startInstance();
+				if (instanceId != Integer.MIN_VALUE)
 				{
-					final int instanceId = TowerOfNaiaManager.getInstance().startInstance();
-					if (instanceId != Integer.MIN_VALUE)
+					for (L2PcInstance partyMember : player.getParty().getPartyMembers())
 					{
-						for (L2PcInstance partyMember : player.getParty().getPartyMembers())
-						{
-							partyMember.teleToLocation(TowerOfNaiaManager.WAITING_ROOM_START_POINT, true);
-							partyMember.setInstanceId(instanceId);
-						}
+						partyMember.teleToLocation(TowerOfNaiaManager.WAITING_ROOM_START_POINT, true);
+						partyMember.setInstanceId(instanceId);
 					}
 				}
-				else
-				{
-					player.sendMessage("You are not in party!");
-				}
+			}
+			else
+			{
+				player.sendMessage("You are not in party!");
+			}
 			//}
 			//else
 			//{
-				//player.sendMessage("Incorrect conditions!");
-				// TODO lock & controller should dissapear if incorrect conditions are met
+			//player.sendMessage("Incorrect conditions!");
+			// TODO lock & controller should dissapear if incorrect conditions are met
 			//}
 			_areWardsSpawned = false;
 		}
@@ -103,26 +105,26 @@ public class TowerOfNaia extends QuestJython
 			TowerOfNaiaManager.getInstance().startRoomInvasion(player.getInstanceId());
 			npc.decayMe();
 		}
-		
+
 		return super.onAdvEvent(event, npc, player);
 	}
-	
+
 	@Override
 	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
-//		if (npc.getNpcId() == TowerOfNaiaManager.ROOF_LOCK_ID)
-//		{
-//			// TODO testme
-//			if (!_areWardsSpawned && npc.getCurrentHp() < npc.getMaxHp() * 0.8)
-//			{
-//				_areWardsSpawned = true;
-//				addSpawn(TowerOfNaiaManager.WARD_ID, npc);
-//			}
-//		}
-		
+		//		if (npc.getNpcId() == TowerOfNaiaManager.ROOF_LOCK_ID)
+		//		{
+		//			// TODO testme
+		//			if (!_areWardsSpawned && npc.getCurrentHp() < npc.getMaxHp() * 0.8)
+		//			{
+		//				_areWardsSpawned = true;
+		//				addSpawn(TowerOfNaiaManager.WARD_ID, npc);
+		//			}
+		//		}
+
 		return super.onAttack(npc, attacker, damage, isPet);
 	}
-	
+
 	public static void main(String[] args)
 	{
 		new TowerOfNaia(-1, "TowerOfNaia", "TowerOfNaia");
