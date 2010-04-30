@@ -25,7 +25,6 @@ import com.l2jfree.tools.random.Rnd;
 /**
  * @author Psychokiller1888
  */
-
 public class L2FortSupportUnitInstance extends L2MerchantInstance
 {
 	protected static final int COND_ALL_FALSE = 0;
@@ -37,7 +36,7 @@ public class L2FortSupportUnitInstance extends L2MerchantInstance
         super(objectId, template);
     }
 
-	private static final int[] TalismanIds =
+	private static final int[] _talismanIds =
 	{
 		9914,9915,9917,9918,9919,9920,9921,9922,9923,9924, 
 		9926,9927,9928,9930,9931,9932,9933,9934,9935,9936, 
@@ -61,13 +60,6 @@ public class L2FortSupportUnitInstance extends L2MerchantInstance
 			catch (NumberFormatException nfe){}
 			showChatWindow(player, val);
 		}
-    	else if (command.startsWith("shirt"))
-        {
-        	String filename = "data/html/fortress/na.htm";
-            NpcHtmlMessage html = new NpcHtmlMessage(1);
-            html.setFile(filename);
-            player.sendPacket(html);
-        }
         else if (command.startsWith("skills"))
         {
         	String filename = "data/html/fortress/na.htm";
@@ -77,7 +69,7 @@ public class L2FortSupportUnitInstance extends L2MerchantInstance
         }
 		else if (command.equalsIgnoreCase("ExchangeKE"))
 		{
-			int item = TalismanIds[Rnd.get(TalismanIds.length)];
+			int item = _talismanIds[Rnd.get(_talismanIds.length)];
 
 			if (player.destroyItemByItemId("FortSupportUnit", 9912, 10, this, false))
 			{
