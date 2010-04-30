@@ -15,9 +15,11 @@
 package com.l2jfree.gameserver.util;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -91,7 +93,8 @@ public final class DatabaseBackupManager
 			if (!bf.createNewFile())
 				throw new IOException("Cannot create backup file: " + bf.getCanonicalPath());
 			_buf = ByteBuffer.allocateDirect(BUFFER_SIZE);
-			ReadableByteChannel input = Channels.newChannel(new BufferedInputStream(run.getInputStream()));
+			ReadableByteChannel input = Channels.newChannel(new BufferedInputStream(run.getInputStream(),
+					BUFFER_SIZE));
 			FileOutputStream out = new FileOutputStream(bf);
 			WritableByteChannel dest;
 			if (Config.DATABASE_BACKUP_COMPRESSION)
@@ -106,20 +109,32 @@ public final class DatabaseBackupManager
 			}
 			else
 				dest = out.getChannel();
-			int read, written;
+			int read, written = 0;
 			while ((read = input.read(_buf)) != -1)
 			{
 				_buf.flip();
-				for (written = 0; written < read;)
+				for (;written < read;)
 					written += dest.write(_buf); // avoid empty statement
 				_buf.rewind();
 			}
 			input.close();
 			dest.close();
-			run.waitFor();
 			
-			_log.info("DatabaseBackupManager: Schema `" + Config.DATABASE_BACKUP_DATABASE_NAME +
-					"` backed up successfully in " + (System.currentTimeMillis() - time.getTime()) / 1000 + " s.");
+			if (written == 0)
+			{
+				bf.delete();
+				BufferedReader br = new BufferedReader(new InputStreamReader(run.getErrorStream()));
+				String line;
+				while ((line = br.readLine()) != null)
+					_log.warn("DatabaseBackupManager: " + line);
+				br.close();
+			}
+			else
+				_log.info("DatabaseBackupManager: Schema `" + Config.DATABASE_BACKUP_DATABASE_NAME +
+						"` backed up successfully in " + (System.currentTimeMillis() - time.getTime()) / 1000 +
+						" s.");
+			
+			run.waitFor();
 		}
 		catch (Exception e)
 		{

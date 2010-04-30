@@ -4856,17 +4856,20 @@ public final class L2PcInstance extends L2Playable
 						continue;
 
 					if (itemDrop.isEquipped())
-					{
 						// Set proper chance according to Item type of equipped Item
 						itemDropPercent = itemDrop.getItem().getType2() == L2Item.TYPE2_WEAPON ? dropEquipWeapon : dropEquip;
-						getInventory().unEquipItemInSlotAndRecord(itemDrop.getLocationSlot());
-					}
 					else
 						itemDropPercent = dropItem; // Item in inventory
 
 					// NOTE: Each time an item is dropped, the chance of another item being dropped gets lesser (dropCount * 2)
 					if (Rnd.get(100) < itemDropPercent)
 					{
+						if (itemDrop.isEquipped())
+						{
+							getInventory().unEquipItemInSlotAndRecord(itemDrop.getLocationSlot());
+							// must be sent explicitly to avoid visible garbage
+							sendPacket(new UserInfo(this));
+						}
 						dropItem("DieDrop", itemDrop, killer, true);
 
 						if (isKarmaDrop)
