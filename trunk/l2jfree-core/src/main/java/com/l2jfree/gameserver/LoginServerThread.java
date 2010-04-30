@@ -414,7 +414,12 @@ public final class LoginServerThread extends NetworkThread
 							{
 								ArrayList<String> playerList = new ArrayList<String>();
 								for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+								{
+									if (player.getClient() == null)
+										continue;
+									
 									playerList.add(player.getAccountName());
+								}
 								sendPacket(new PlayerInGame(playerList.toArray(new String[playerList.size()])));
 							}
 							break;
