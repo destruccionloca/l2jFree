@@ -654,7 +654,7 @@ final class GeoEngine extends GeoData
 					nextY += inc_y;
 					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
 					if (nextZ == Integer.MIN_VALUE)
-						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, previousZ);
 				}
 				else
 				{
@@ -663,7 +663,7 @@ final class GeoEngine extends GeoData
 					nextX += inc_x;
 					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
 					if (nextZ == Integer.MIN_VALUE)
-						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, previousZ);
 				}
 			}
 		}
@@ -688,7 +688,7 @@ final class GeoEngine extends GeoData
 					nextY += inc_y;
 					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
 					if (nextZ == Integer.MIN_VALUE)
-						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, previousZ);
 				}
 				else
 				{
@@ -697,11 +697,11 @@ final class GeoEngine extends GeoData
 					nextY += inc_y;
 					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
 					if (nextZ == Integer.MIN_VALUE)
-						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, previousZ);
 				}
 			}
 		}
-		return new Location((targetX << 4) + L2World.MAP_MIN_X, (targetY << 4) + L2World.MAP_MIN_Y, (int) nextZ);
+		return new Location((targetX << 4) + L2World.MAP_MIN_X, (targetY << 4) + L2World.MAP_MIN_Y, nextZ);
 	}
 	
 	private byte sign(int x)
