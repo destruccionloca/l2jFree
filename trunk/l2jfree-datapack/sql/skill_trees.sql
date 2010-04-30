@@ -16285,3 +16285,9 @@ INSERT INTO `skill_trees` VALUES
 
 -- Enuma Elish SP Fix
 UPDATE `skill_trees` SET `sp` = 32000000 WHERE `class_id` = 131 AND `skill_id` = 526 AND `level` = 1;
+
+-- Major Heal Level 11 Fix - Bishop
+UPDATE `skill_trees` SET `min_level` = 75 WHERE `class_id` = 16 AND `skill_id` = 1401 AND `level` = 11;
+
+INSERT INTO `skill_trees` VALUES
+(30,1401,11,'Major Heal',1050000,75); -- Major Heal Level 11 Fix - Elven Elder
