@@ -594,9 +594,6 @@ final class GeoEngine extends GeoData
 		return true;
 	}
 	
-    /*
-	 * MoveCheck
-	 */
 	private Location moveCheck(Location startpoint, Location destiny, int x, int y, double z, int tx, int ty, int tz, int instanceId)
 	{
 		int dx = (tx - x);
@@ -629,52 +626,43 @@ final class GeoEngine extends GeoData
 		dx = Math.abs(dx);
 		dy = Math.abs(dy);
 		
-        //gm.sendMessage("MoveCheck: from X: "+x+ "Y: "+y+ "--->> X: "+tx+" Y: "+ty);
+		int previousX;
+		int previousY;
+		double previousZ;
 		
-		// next_* are used in NcanMoveNext check from x,y
-		int next_x = x;
-		int next_y = y;
-		double tempz = z;
+		int nextX = x;
+		int nextY = y;
+		double nextZ = z;
 		
-		// creates path to the target, using only x or y direction
-		// calculation stops when next_* == target
-		if (dx >= dy)// dy/dx <= 1
+		if (dx >= dy) // dy/dx <= 1
 		{
 			int delta_A = 2 * dy;
 			int d = delta_A - dx;
 			int delta_B = delta_A - 2 * dx;
-			
 			for (int i = 0; i <= dx; i++)
 			{
-				int x0 = x;
-				int y0 = y;
-				x = next_x;
-				y = next_y;
+				previousX = x;
+				previousY = y;
+				previousZ = z;
+				x = nextX;
+				y = nextY;
+				z = nextZ;
 				if (d > 0)
 				{
 					d += delta_B;
-					next_x += inc_x;
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz, instanceId);
-					if (tempz == Double.MIN_VALUE)
-						return new Location((x0 << 4) + L2World.MAP_MIN_X, (y0 << 4) + L2World.MAP_MIN_Y, (int) z);
-					else
-						z = tempz;
-					next_y += inc_y;
-					tempz = nCanMoveNext(next_x, y, (int) z, next_x, next_y, tz, instanceId);
-					if (tempz == Double.MIN_VALUE)
-						return new Location((x0 << 4) + L2World.MAP_MIN_X, (y0 << 4) + L2World.MAP_MIN_Y, (int) z);
-					else
-						z = tempz;
+					nextX += inc_x;
+					nextY += inc_y;
+					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
+					if (nextZ == Double.MIN_VALUE)
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 				else
 				{
 					d += delta_A;
-					next_x += inc_x;
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz, instanceId);
-					if (tempz == Double.MIN_VALUE)
-						return new Location((x0 << 4) + L2World.MAP_MIN_X, (y0 << 4) + L2World.MAP_MIN_Y, (int) z);
-					else
-						z = tempz;
+					nextX += inc_x;
+					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
+					if (nextZ == Double.MIN_VALUE)
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 			}
 		}
@@ -685,39 +673,32 @@ final class GeoEngine extends GeoData
 			int delta_B = delta_A - 2 * dy;
 			for (int i = 0; i <= dy; i++)
 			{
-				int x0 = x;
-				int y0 = y;
-				x = next_x;
-				y = next_y;
+				previousX = x;
+				previousY = y;
+				previousZ = z;
+				x = nextX;
+				y = nextY;
+				z = nextZ;
 				if (d > 0)
 				{
 					d += delta_B;
-					next_y += inc_y;
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz, instanceId);
-					if (tempz == Double.MIN_VALUE)
-						return new Location((x0 << 4) + L2World.MAP_MIN_X, (y0 << 4) + L2World.MAP_MIN_Y, (int) z);
-					else
-						z = tempz;
-					next_x += inc_x;
-					tempz = nCanMoveNext(x, next_y, (int) z, next_x, next_y, tz, instanceId);
-					if (tempz == Double.MIN_VALUE)
-						return new Location((x0 << 4) + L2World.MAP_MIN_X, (y0 << 4) + L2World.MAP_MIN_Y, (int) z);
-					else
-						z = tempz;
+					nextX += inc_x;
+					nextY += inc_y;
+					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
+					if (nextZ == Double.MIN_VALUE)
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 				else
 				{
 					d += delta_A;
-					next_y += inc_y;
-					tempz = nCanMoveNext(x, y, (int) z, next_x, next_y, tz, instanceId);
-					if (tempz == Double.MIN_VALUE)
-						return new Location((x0 << 4) + L2World.MAP_MIN_X, (y0 << 4) + L2World.MAP_MIN_Y, (int) z);
-					else
-						z = tempz;
+					nextY += inc_y;
+					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
+					if (nextZ == Double.MIN_VALUE)
+						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 			}
 		}
-		return new Location(destiny.getX(), destiny.getY(), (int) z);
+		return new Location((nextX << 4) + L2World.MAP_MIN_X, (nextY << 4) + L2World.MAP_MIN_Y, (int) nextZ);
 	}
 	
 	private byte sign(int x)
@@ -1195,7 +1176,7 @@ final class GeoEngine extends GeoData
 					index += 2;
 				}
 				NSWE = getInstanceNSWE(instanceId, NSWE, region, neededIndex);
-				return checkNSWE(NSWE, x, y, tx, ty) ? height : Double.MIN_VALUE;
+				return checkNSWE(NSWE, x, y, tx, ty) ? tempz : Double.MIN_VALUE;
 				
 			default:
 				return z;
