@@ -307,16 +307,14 @@ final class GeoEngine extends GeoData
 	@Override
 	public boolean canMoveFromToTarget(int x, int y, int z, int tx, int ty, int tz, int instanceId)
 	{
-		Location destiny = moveCheck(x, y, z, tx, ty, tz, instanceId);
-		return (destiny.getX() == tx && destiny.getY() == ty && destiny.getZ() == tz);
+		Location destination = moveCheck(x, y, z, tx, ty, tz, instanceId);
+		return (destination.getX() == tx && destination.getY() == ty && destination.getZ() == tz);
 	}
 	
 	@Override
-	public Location moveCheck(int x, int y, int z, int tx, int ty, int tz, int instanceId)
+	public Location moveCheck(int x, int y, int z, int targetX, int targetY, int targetZ, int instanceId)
 	{
-		Location startpoint = new Location(x, y, z);
-		Location destiny = new Location(tx, ty, tz);
-        return moveCheck(startpoint, destiny, (x - L2World.MAP_MIN_X) >> 4, (y - L2World.MAP_MIN_Y) >> 4, z, (tx - L2World.MAP_MIN_X) >> 4, (ty - L2World.MAP_MIN_Y) >> 4, tz, instanceId);
+        return nMoveCheck((x - L2World.MAP_MIN_X) >> 4, (y - L2World.MAP_MIN_Y) >> 4, z, (targetX - L2World.MAP_MIN_X) >> 4, (targetY - L2World.MAP_MIN_Y) >> 4, targetZ, instanceId);
 	}
 	
 	@Override
@@ -594,27 +592,28 @@ final class GeoEngine extends GeoData
 		return true;
 	}
 	
-	private Location moveCheck(Location startpoint, Location destiny, int x, int y, double z, int tx, int ty, int tz, int instanceId)
+	private Location nMoveCheck(int x, int y, int z, int targetX, int targetY, int targetZ, int instanceId)
 	{
-		int dx = (tx - x);
-		int dy = (ty - y);
+		int dx = (targetX - x);
+		int dy = (targetY - y);
 		final int distance2 = dx * dx + dy * dy;
 		
 		if (distance2 == 0)
-			return startpoint;
+			return new Location(x, y, z);
 		
+		// TODO review this
 		if (distance2 > 36100) // 190*190*16 = 3040 world coord
 		{
 			// Avoid too long check
 			// Currently we calculate a middle point
 			// for wyvern users and otherwise for comfort
 			double divider = Math.sqrt((double) 30000 / distance2);
-			tx = x + (int) (divider * dx);
-			ty = y + (int) (divider * dy);
-			int dz = (tz - startpoint.getZ());
-			tz = startpoint.getZ() + (int) (divider * dz);
-			dx = (tx - x);
-			dy = (ty - y);
+			targetX = x + (int) (divider * dx);
+			targetY = y + (int) (divider * dy);
+			int dz = (int) (targetZ - z);
+			targetZ = (int) (z + (int) (divider * dz));
+			dx = (targetX - x);
+			dy = (targetY - y);
 			// return startpoint;
 		}
 		
@@ -628,11 +627,11 @@ final class GeoEngine extends GeoData
 		
 		int previousX;
 		int previousY;
-		double previousZ;
+		int previousZ;
 		
 		int nextX = x;
 		int nextY = y;
-		double nextZ = z;
+		int nextZ = z;
 		
 		if (dx >= dy) // dy/dx <= 1
 		{
@@ -650,18 +649,20 @@ final class GeoEngine extends GeoData
 				if (d > 0)
 				{
 					d += delta_B;
+					
 					nextX += inc_x;
 					nextY += inc_y;
-					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
-					if (nextZ == Double.MIN_VALUE)
+					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
+					if (nextZ == Integer.MIN_VALUE)
 						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 				else
 				{
 					d += delta_A;
+					
 					nextX += inc_x;
-					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
-					if (nextZ == Double.MIN_VALUE)
+					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
+					if (nextZ == Integer.MIN_VALUE)
 						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 			}
@@ -682,23 +683,25 @@ final class GeoEngine extends GeoData
 				if (d > 0)
 				{
 					d += delta_B;
+					
 					nextX += inc_x;
 					nextY += inc_y;
-					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
-					if (nextZ == Double.MIN_VALUE)
+					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
+					if (nextZ == Integer.MIN_VALUE)
 						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 				else
 				{
 					d += delta_A;
+					
 					nextY += inc_y;
-					nextZ = nCanMoveNext(x, y, (int) z, nextX, nextY, (int) nextZ, instanceId);
-					if (nextZ == Double.MIN_VALUE)
+					nextZ = nCanMoveNext(x, y, z, nextX, nextY, instanceId);
+					if (nextZ == Integer.MIN_VALUE)
 						return new Location((previousX << 4) + L2World.MAP_MIN_X, (previousY << 4) + L2World.MAP_MIN_Y, (int) previousZ);
 				}
 			}
 		}
-		return new Location((nextX << 4) + L2World.MAP_MIN_X, (nextY << 4) + L2World.MAP_MIN_Y, (int) nextZ);
+		return new Location((targetX << 4) + L2World.MAP_MIN_X, (targetY << 4) + L2World.MAP_MIN_Y, (int) nextZ);
 	}
 	
 	private byte sign(int x)
@@ -1112,7 +1115,7 @@ final class GeoEngine extends GeoData
 	 * @param tz
 	 * @return True if char can move to (tx,ty,tz)
 	 */
-	private double nCanMoveNext(int x, int y, int z, int tx, int ty, int tz, int instanceId)
+	private int nCanMoveNext(int x, int y, int z, int tx, int ty, int instanceId)
 	{
 		short region = getRegionOffset(x, y);
 		int cellX, cellY, index, neededIndex;
@@ -1138,7 +1141,7 @@ final class GeoEngine extends GeoData
 				height = (short) (height & 0x0fff0);
 				height = (short) (height >> 1); // height / 2
 				NSWE = getInstanceNSWE(instanceId, NSWE, region, index);
-				return checkNSWE(NSWE, x, y, tx, ty) ? height : Double.MIN_VALUE;
+				return checkNSWE(NSWE, x, y, tx, ty) ? height : Integer.MIN_VALUE;
 				
 			case MULTILEVEL:
 				cellX = getCell(x);
@@ -1176,7 +1179,7 @@ final class GeoEngine extends GeoData
 					index += 2;
 				}
 				NSWE = getInstanceNSWE(instanceId, NSWE, region, neededIndex);
-				return checkNSWE(NSWE, x, y, tx, ty) ? tempz : Double.MIN_VALUE;
+				return checkNSWE(NSWE, x, y, tx, ty) ? tempz : Integer.MIN_VALUE;
 				
 			default:
 				return z;
