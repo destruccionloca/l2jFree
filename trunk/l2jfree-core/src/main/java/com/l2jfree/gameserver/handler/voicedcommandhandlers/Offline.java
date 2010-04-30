@@ -44,15 +44,16 @@ public class Offline implements IVoicedCommandHandler
 			{
 				if (activeChar.isInsideZone(L2Zone.FLAG_PEACE) || activeChar.isGM())
 				{
-					if (Config.OFFLINE_TRADE_PRICE > 0
-							&& activeChar.getInventory().destroyItemByItemId("offlinetrade", Config.OFFLINE_TRADE_PRICE_ITEM, Config.OFFLINE_TRADE_PRICE, null,
-									null) != null)
+					if (Config.OFFLINE_TRADE_PRICE > 0)
 					{
-						activeChar.enterOfflineMode();
+						if(activeChar.getInventory().destroyItemByItemId("offlinetrade", Config.OFFLINE_TRADE_PRICE_ITEM, Config.OFFLINE_TRADE_PRICE, null,	null) != null)
+							activeChar.enterOfflineMode();
+						else
+							activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 					}
 					else
 					{
-						activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+						activeChar.enterOfflineMode();
 					}
 					return true;
 				}
