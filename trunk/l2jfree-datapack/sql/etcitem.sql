@@ -9803,3 +9803,7 @@ UPDATE `etcitem` SET `skills_item` = '2945-1' WHERE `item_id` = 13719;
 UPDATE `etcitem` SET `skills_item` = '2946-1' WHERE `item_id` = 13720;
 UPDATE `etcitem` SET `skills_item` = '2947-1' WHERE `item_id` = 13721;
 
+-- Caravaner\'s Remedy and Certificates
+UPDATE `etcitem` SET `dropable` = 'false', `tradeable`= 'false' WHERE `item_id` = '9702';
+UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (9850,9851,9852);
+UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` IN (9850,9851,9852);
