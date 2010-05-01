@@ -429,7 +429,7 @@ INSERT INTO `merchant_shopids` VALUES
 (300510,'gm'),
 -- (9157,'gm'),
 
--- Castle 
+-- Castle
 (335103, '35103'),
 (335145, '35145'),
 (335187, '35187'),
@@ -677,8 +677,8 @@ INSERT INTO `merchant_shopids` VALUES
 ('9983', 'gm'), -- Icarus PVP Weapons
 ('9984', 'gm'), -- S PVP Weapons
 ('9985', 'gm'), -- A PVP Weapons
-('9986', 'gm'), -- [reserved]
-('9987', 'gm'), -- [reserved]
+('9986', 'gm'), -- Hair Accessory Part 2
+('9987', 'gm'), -- Territory Jewels
 ('9988', 'gm'), -- Territory Items
 ('9989', 'gm'), -- Fortress Misc
 ('9990', 'gm'), -- Territory Weapons
@@ -686,8 +686,8 @@ INSERT INTO `merchant_shopids` VALUES
 ('9992', 'gm'), -- Territory Flags
 ('9993', 'gm'), -- Seeds
 ('9994', 'gm'), -- Castle Guards
-('9995', 'gm'), -- [reserved]
-('9996', 'gm'), -- [reserved]
+('9995', 'gm'), -- Magic Clip
+('9996', 'gm'), -- Magic Ornament
 ('9997', 'gm'), -- A Weapons
 ('9998', 'gm'), -- S Weapons
 ('9999', 'gm'), -- Masterwork Jewels
