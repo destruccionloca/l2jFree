@@ -25100,51 +25100,8 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10253,0,9923,55),
 (13882,0,9923,56);
 
-DELETE FROM `merchant_buylists` WHERE `shop_id` IN (9986,9987,9995,9996);
+DELETE FROM `merchant_buylists` WHERE `shop_id` IN (9987,9995,9996);
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
--- (GM-Shop) Hair Accessory Part 2
-(20666,0,9986,1), -- Valkyrie Hat
-(20667,0,9986,2), -- Valkyrie Hat
-(20668,0,9986,3), -- Tiger Hat
-(20669,0,9986,4), -- Tiger Hat
-(20670,0,9986,5), -- Maid Hairband
-(20671,0,9986,6), -- Maid Hairband
-(20672,0,9986,7), -- Baby Panda Hat
-(20673,0,9986,8), -- Baby Panda Hat
-(20674,0,9986,9), -- Bamboo Panda Hat
-(20675,0,9986,10), -- Bamboo Panda Hat
-(20676,0,9986,11), -- Sexy Panda Hat
-(20677,0,9986,12), -- Sexy Panda Hat
-(20678,0,9986,13), -- Gate Keeper Hat
-(20679,0,9986,14), -- Gate Keeper Hat
-(20711,0,9986,15), -- Jack O\'Lantern Mask - Event
-(20712,0,9986,16), -- Mask of Giant Hercules - Event
-(20713,0,9986,17), -- Mask of Silent Scream - Event
-(20714,0,9986,18), -- Spirit of Wrath Mask - Event
-(20715,0,9986,19), -- Undecaying Corpse Mask - Event
-(20716,0,9986,20), -- Planet X235 Alien Mask - Event
-(20718,0,9986,21), -- Shiny Mask of Giant Hercules - Event
-(20719,0,9986,22), -- Shiny Mask of Silent Scream - Event
-(20720,0,9986,23), -- Shiny Spirit of Wrath Mask - Event
-(20721,0,9986,24), -- Shiny Undecaying Corpse Mask - Event
-(20722,0,9986,25), -- Shiny Planet X235 Alien Mask - Event
-(20723,0,9986,26), -- Golden Jack O\'Lantern Mask
-(20724,0,9986,27), -- Golden Jack O\'Lantern Mask
-(20725,0,9986,28), -- Red Flame of Valakas
-(20743,0,9986,29), -- Shiny Mask of Giant Hercules
-(20744,0,9986,30), -- Shiny Mask of Silent Scream
-(20745,0,9986,31), -- Shiny Spirit of Wrath Mast
-(20746,0,9986,32), -- Shiny Undecaying Corpse Mask
-(20747,0,9986,33), -- Shiny Planet X235 Alien Mask
-(20789,0,9986,34), -- Rocket Gun Hat Continuous Fireworks
-(20790,0,9986,35), -- Yellow Paper Hat Blessed Body - 7 day limited period
-(20791,0,9986,36), -- Pink Paper Mask Set Blessed Soul - 7 day limited period
-(20792,0,9986,37), -- Flavorful Cheese Hat
-(20793,0,9986,38), -- Sweet Cheese Hat
-(20794,0,9986,39), -- Flavorful Cheese Hat Scent of Flavorful Cheese - 7 day limited period
-(20795,0,9986,40), -- Sweet Cheese Hat Scent of Sweet Cheese - 7 day limited period
-(20897,0,9986,41), -- Purple Paper Mask Blessed Soul - 7 day limited period
-
 -- (GM-Shop) Territory Jewels
 ('14592','0','9987','1'), -- Gludio Earth Protection Ring
 ('14664','0','9987','2'), -- Gludio Protection Earring
