@@ -599,7 +599,7 @@ final class GeoEngine extends GeoData
 		final int distance2 = dx * dx + dy * dy;
 		
 		if (distance2 == 0)
-			return new Location(x, y, z);
+			return new Location((x << 4) + L2World.MAP_MIN_X, (y << 4) + L2World.MAP_MIN_Y, z);
 		
 		// TODO review this
 		if (distance2 > 36100) // 190*190*16 = 3040 world coord
@@ -638,7 +638,7 @@ final class GeoEngine extends GeoData
 			int delta_A = 2 * dy;
 			int d = delta_A - dx;
 			int delta_B = delta_A - 2 * dx;
-			for (int i = 0; i <= dx; i++)
+			for (int i = 0; i < dx; i++)
 			{
 				previousX = x;
 				previousY = y;
@@ -672,7 +672,7 @@ final class GeoEngine extends GeoData
 			int delta_A = 2 * dx;
 			int d = delta_A - dy;
 			int delta_B = delta_A - 2 * dy;
-			for (int i = 0; i <= dy; i++)
+			for (int i = 0; i < dy; i++)
 			{
 				previousX = x;
 				previousY = y;
@@ -1117,73 +1117,88 @@ final class GeoEngine extends GeoData
 	 */
 	private int nCanMoveNext(int x, int y, int z, int tx, int ty, int instanceId)
 	{
-		short region = getRegionOffset(x, y);
-		int cellX, cellY, index, neededIndex;
+		short region;
+		int cellX, cellY, index, nsweIndex;
 		short NSWE = NSWE_NONE;
+		int sourceX, sourceY, targetX, targetY;
+		int targetZ = z;
 		
-		neededIndex = index = getIndex(x, y, region);
-		ByteBuffer regionGeo = _geodata.get(region);
-		if (regionGeo == null)
-			return z;
-		
-		byte type = regionGeo.get(index++);
-		switch (type)
+		for (int i = 0; i < 2; i++)
 		{
-			case FLAT:
-				return regionGeo.getShort(index);
+			sourceX = (i == 0 ? x : tx);
+			sourceY = (i == 0 ? y : ty);
+			targetX = (i == 0 ? tx : x);
+			targetY = (i == 0 ? ty : y);
+			
+			region = getRegionOffset(sourceX, sourceY);
+			nsweIndex = index = getIndex(sourceX, sourceY, region);
+			ByteBuffer regionGeo = _geodata.get(region);
+			if (regionGeo == null)
+				return z;
+			
+			byte type = regionGeo.get(index++);
+			switch (type)
+			{
+				case FLAT:
+					targetZ = regionGeo.getShort(index);
+					break;
 				
-			case COMPLEX:
-				cellX = getCell(x);
-				cellY = getCell(y);
-				index += ((cellX << 3) + cellY) << 1;
-				short height = regionGeo.getShort(index);
-				NSWE = (short) (height & 0x0F);
-				height = (short) (height & 0x0fff0);
-				height = (short) (height >> 1); // height / 2
-				NSWE = getInstanceNSWE(instanceId, NSWE, region, index);
-				return checkNSWE(NSWE, x, y, tx, ty) ? height : Integer.MIN_VALUE;
-				
-			case MULTILEVEL:
-				cellX = getCell(x);
-				cellY = getCell(y);
-				int offset = (cellX << 3) + cellY;
-				while (offset > 0) // iterates (too many times?) to get to layer count
-				{
-					byte lc = regionGeo.get(index);
-					index += (lc << 1) + 1;
-					offset--;
-				}
-				byte layers = regionGeo.get(index++);
-				height = -1;
-				if (layers <= 0 || layers > 125)
-				{
-					_log.warn("Broken geofile (case3), region: " + region + " - invalid layer count: " + layers + " at: " + x + " " + y);
-					return z;
-				}
-				short tempz = Short.MIN_VALUE;
-				while (layers > 0)
-				{
-					height = regionGeo.getShort(index);
+				case COMPLEX:
+					cellX = getCell(sourceX);
+					cellY = getCell(sourceY);
+					index += ((cellX << 3) + cellY) << 1;
+					short height = regionGeo.getShort(index);
+					NSWE = (short) (height & 0x0F);
 					height = (short) (height & 0x0fff0);
 					height = (short) (height >> 1); // height / 2
-					
-					// searches the closest layer to current z coordinate
-					if ((z - tempz) * (z - tempz) > (z - height) * (z - height))
-					{
-						tempz = height;
-						NSWE = regionGeo.getShort(index);
-						NSWE = (short) (NSWE & 0x0F);
-						neededIndex = index;
-					}
-					layers--;
-					index += 2;
-				}
-				NSWE = getInstanceNSWE(instanceId, NSWE, region, neededIndex);
-				return checkNSWE(NSWE, x, y, tx, ty) ? tempz : Integer.MIN_VALUE;
+					NSWE = getInstanceNSWE(instanceId, NSWE, region, index);
+					targetZ = checkNSWE(NSWE, sourceX, sourceY, targetX, targetY) ? height : Integer.MIN_VALUE;
+					break;
 				
-			default:
-				return z;
+				case MULTILEVEL:
+					cellX = getCell(sourceX);
+					cellY = getCell(sourceY);
+					int offset = (cellX << 3) + cellY;
+					while (offset > 0) // iterates (too many times?) to get to
+										// layer count
+					{
+						byte lc = regionGeo.get(index);
+						index += (lc << 1) + 1;
+						offset--;
+					}
+					byte layers = regionGeo.get(index++);
+					height = -1;
+					if (layers <= 0 || layers > 125)
+					{
+						_log.warn("Broken geofile (case3), region: " + region + " - invalid layer count: " + layers + " at: " + sourceX + " " + sourceY);
+						return z;
+					}
+					short tempz = Short.MIN_VALUE;
+					while (layers > 0)
+					{
+						height = regionGeo.getShort(index);
+						height = (short) (height & 0x0fff0);
+						height = (short) (height >> 1); // height / 2
+						
+						// searches the closest layer to current z coordinate
+						if ((z - tempz) * (z - tempz) > (z - height) * (z - height))
+						{
+							tempz = height;
+							NSWE = regionGeo.getShort(index);
+							NSWE = (short) (NSWE & 0x0F);
+							nsweIndex = index;
+						}
+						layers--;
+						index += 2;
+					}
+					NSWE = getInstanceNSWE(instanceId, NSWE, region, nsweIndex);
+					targetZ = checkNSWE(NSWE, sourceX, sourceY, targetX, targetY) ? tempz : Integer.MIN_VALUE;
+			}
+			
+			if (targetZ == Integer.MIN_VALUE)
+				return targetZ;
 		}
+		return targetZ;
 	}
 	
 	/**
