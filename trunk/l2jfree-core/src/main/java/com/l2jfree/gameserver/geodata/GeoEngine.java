@@ -120,7 +120,7 @@ final class GeoEngine extends GeoData
 		{
 			for (int geoY = minY; geoY <= maxY; geoY++)
 			{
-				if (isCellNearDoor(geoX, geoY, minX, maxX, minY, maxY))
+				if (geoX >= minX && geoX <= maxX && geoY >= minY && geoY <= maxY)
 				{
 					short region = getRegionOffset(geoX, geoY);
 					int cellX, cellY, index, neededIndex;
@@ -135,6 +135,7 @@ final class GeoEngine extends GeoData
 						continue;
 					}
 					
+					short tempz = Short.MIN_VALUE;
 					byte type = regionGeo.get(index++);
 					switch (type)
 					{
@@ -142,8 +143,11 @@ final class GeoEngine extends GeoData
 							cellX = getCell(geoX);
 							cellY = getCell(geoY);
 							index += ((cellX << 3) + cellY) << 1;
-							NSWE = (short) (regionGeo.getShort(index) & 0x0F);
+							short height = regionGeo.getShort(index);
+							NSWE = (short) (height & 0x0F);
 							neededIndex = index;
+							tempz = (short) (height & 0x0fff0);
+							tempz = (short) (tempz >> 1);
 							break;
 						
 						case MULTILEVEL:
@@ -157,13 +161,13 @@ final class GeoEngine extends GeoData
 								offset--;
 							}
 							byte layers = regionGeo.get(index++);
-							short height = -1;
+							height = -1;
 							if (layers <= 0 || layers > 125)
 							{
 								_log.warn("Broken geofile (case5), region: " + region + " - invalid layer count: " + layers + " at: " + geoX + " " + geoY);
 								continue;
 							}
-							short tempz = Short.MIN_VALUE;
+						
 							while (layers > 0)
 							{
 								height = regionGeo.getShort(index);
@@ -186,6 +190,10 @@ final class GeoEngine extends GeoData
 							continue;
 					}
 					
+					// skip blocks that are above door
+					if (tempz > (door.getZMax() + door.getZMin()) / 2)
+						continue;
+					
 					if (doorGeodata == null)
 						_doorGeodata.put(door.getDoorId(), doorGeodata = new FastMap<Long, Byte>());
 					
@@ -196,16 +204,6 @@ final class GeoEngine extends GeoData
 		
 		// to add it to the proper instance
 		setDoorGeodataOpen(door, door.isOpen());
-	}
-	
-	private boolean isCellNearDoor(int geoX, int geoY, int minX, int maxX, int minY, int maxY)
-	{
-		for (int ax = geoX; ax < geoX + 16; ax++)
-			for (int ay = geoY; ay < geoY + 16; ay++)
-				if (geoX >= minX && geoX <= maxX && geoY >= minY && geoY <= maxY)
-					return true;
-		
-		return false;
 	}
 	
 	private short getInstanceNSWE(int instanceId, short initialNSWE, short region, int index)
