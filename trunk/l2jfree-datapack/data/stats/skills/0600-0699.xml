@@ -1439,6 +1439,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
+    <set name="aggroPoints" val="630"/>
   </skill>
   <skill id="699" levels="1" name="Divine Healer Battle Heal">
     <!-- Restores HP by 826 power. -->

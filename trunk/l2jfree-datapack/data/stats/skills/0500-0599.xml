@@ -656,8 +656,10 @@
     <table name="#ench3npcId"> 13071 13072 13073 13074 13075 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 13076 </table>
     <table name="#mpInitialConsume"> 15 19 22 25 26 27 </table>
     <table name="#mpConsume"> 60 75 88 98 104 110 </table>
+    <table name="#magicLvl"> 43 52 60 66 70 74 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="reuseDelay" val="600000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>

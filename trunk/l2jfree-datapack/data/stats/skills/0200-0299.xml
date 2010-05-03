@@ -1343,16 +1343,16 @@
     <enchant3 name="elementPower" val="#ench3ElementPower"/>
     <enchant3 name="element" val="3"/> <!-- Earth -->
     <for>
-      <effect name="Spoil" val="0"/>
+      <effect name="Spoil" noicon="1" val="0"/>
     </for>
     <enchant1for>
-      <effect name="Debuff" time="15" val="0" stackOrder="23" stackType="attack_time_up">
+      <effect name="Debuff" time="15" val="0" effectPower="#ench1power" effectType="DEBUFF" stackOrder="23" stackType="attack_time_up">
         <mul order="0x30" stat="pAtkSpd" val="0.77"/>
       </effect>
     </enchant1for>
     <enchant2for>
       <!-- Retail Values CT2.3: 118HP * 3 Sec -->
-      <effect count="5" name="DamOverTime" time="3" val="354"/>
+      <effect count="5" name="DamOverTime" time="3" val="354" effectPower="#ench2power" effectType="DOT"/>
     </enchant2for>
   </skill>
   <skill id="255" levels="15" name="Power Smash">
