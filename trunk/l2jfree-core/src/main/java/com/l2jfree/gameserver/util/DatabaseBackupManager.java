@@ -131,8 +131,7 @@ public final class DatabaseBackupManager
 			}
 			else
 				_log.info("DatabaseBackupManager: Schema `" + Config.DATABASE_BACKUP_DATABASE_NAME +
-						"` backed up successfully in " + (System.currentTimeMillis() - time.getTime()) / 1000 +
-						" s.");
+						"` backed up successfully in " + (System.currentTimeMillis() - time.getTime()) / 1000 + " s.");
 			
 			run.waitFor();
 		}

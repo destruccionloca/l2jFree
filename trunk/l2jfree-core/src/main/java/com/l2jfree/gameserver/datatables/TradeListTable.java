@@ -153,7 +153,7 @@ public class TradeListTable
 			rset1.close();
 			statement1.close();
 
-			_log.info("TradeListTable: Loaded " + _lists.size() + (custom ? " custom " : " ") + " Buylists.");
+			_log.info("TradeListTable: Loaded " + _lists.size() + (custom ? " custom " : " ") + "buylists.");
 			/*
 			 *  Restore Task for reinitialize count of buy item
 			 */
@@ -179,13 +179,13 @@ public class TradeListTable
 			}
 			catch (Exception e)
 			{
-				_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "Could not restore Timer for Item count.", e);
+				_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "could not restore Timer for Item count.", e);
 			}
 		}
 		catch (Exception e)
 		{
 			// problem with initializing buylists, go to next one
-			_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "Buylists could not be initialized.", e);
+			_log.warn("TradeListTable:" + (custom ? " custom " : " ") + "buylists could not be initialized.", e);
 		}
 		finally
 		{

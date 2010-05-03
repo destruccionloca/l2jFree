@@ -18,7 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 
@@ -68,8 +67,9 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		{
 			if (Config.BAN_CLIENT_EMULATORS)
 			{
-				Util.handleIllegalPlayerAction(activeChar, "Bot usage for movement!", IllegalPlayerAction.PUNISH_KICKBAN);
-				sendPacket(ActionFailed.STATIC_PACKET);
+				Util.handleIllegalPlayerAction(activeChar, "Bot usage for movement! " + activeChar,
+						IllegalPlayerAction.PUNISH_KICKBAN);
+				sendAF();
 				return;
 			}
 			else
@@ -95,20 +95,20 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 		{
 			if (activeChar.getTeleMode() == 1)
 				activeChar.setTeleMode(0);
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
 		}
 		
 		if (activeChar.isAlikeDead())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 			return;
 		}
 		
 		if (_moveMovement == 0 && Config.GEODATA == 0) // cursor movement without geodata movement check is disabled
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 		}
 		else
 		{
@@ -118,13 +118,13 @@ public final class MoveBackwardToLocation extends L2GameClientPacket
 			// Can't move if character is confused, or trying to move a huge distance
 			if (activeChar.isOutOfControl() || ((dx * dx + dy * dy) > 98010000)) // 9900*9900
 			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				sendAF();
 				return;
 			}
 			
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
 				new L2CharPosition(_targetX, _targetY, _targetZ, 0));
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendAF();
 		}
 	}
 	
