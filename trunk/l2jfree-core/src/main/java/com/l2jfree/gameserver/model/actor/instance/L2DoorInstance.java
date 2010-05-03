@@ -698,6 +698,8 @@ public class L2DoorInstance extends L2Character
 
 		if (isEnemy())
 			broadcastPacket(SystemMessageId.CASTLE_GATE_BROKEN_DOWN.getSystemMessage());
+		
+		GeoData.getInstance().setDoorGeodataOpen(this, true);
 
 		return true;
 	}
