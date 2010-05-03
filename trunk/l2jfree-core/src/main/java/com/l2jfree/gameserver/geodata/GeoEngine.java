@@ -584,6 +584,7 @@ final class GeoEngine extends GeoData
 		return true;
 	}
 	
+	@Override
 	public Location moveCheck(int x, int y, int z, int targetX, int targetY, int targetZ, int instanceId)
 	{
 		int geoX = (x - L2World.MAP_MIN_X) >> 4;
@@ -607,8 +608,8 @@ final class GeoEngine extends GeoData
 			double divider = Math.sqrt((double) 30000 / distance2);
 			geoTargetX = geoX + (int) (divider * dx);
 			geoTargetY = geoY + (int) (divider * dy);
-			int dz = (int) (targetZ - z);
-			targetZ = (int) (z + (int) (divider * dz));
+			int dz = (targetZ - z);
+			targetZ = (z + (int) (divider * dz));
 			dx = (geoTargetX - geoX);
 			dy = (geoTargetY - geoY);
 			// return startpoint;
