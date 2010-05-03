@@ -39,6 +39,8 @@ public final class ItemSkills implements IItemHandler
 			return;
 		}
 		
+		activeChar.getEffects().dispelOnAction();
+		
 		for (SkillInfo skillInfo : item.getEtcItem().getSkillInfos())
 		{
 			L2Skill itemSkill = skillInfo.getSkill();
@@ -80,9 +82,9 @@ public final class ItemSkills implements IItemHandler
 				{
 					// seems a more logical way to call skills, as it contains more checks, like isCastingNow()
 					playable.useMagic(itemSkill, false, false);
-					//playable.stopMove(null);
-					//if (!playable.isCastingNow())
-					//	playable.doCast(itemSkill);
+					// playable.stopMove(null);
+					// if (!playable.isCastingNow())
+					// playable.doCast(itemSkill);
 				}
 				
 				activeChar.disableSkill(skillId, itemSkill.getReuseDelay());

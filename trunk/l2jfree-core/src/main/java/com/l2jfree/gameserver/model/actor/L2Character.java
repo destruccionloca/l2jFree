@@ -4366,7 +4366,6 @@ public abstract class L2Character extends L2Object
 		{
 			getKnownList().addKnownObject(newTarget);
 			newTarget.getKnownList().addKnownObject(this);
-			getEffects().dispelOnAction();
 		}
 
 		_target = newTarget;
