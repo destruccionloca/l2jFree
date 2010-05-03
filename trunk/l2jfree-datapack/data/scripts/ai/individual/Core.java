@@ -67,8 +67,8 @@ public class Core extends L2AttackableAIScript
 				minions.add(minion);
 				minion = (L2Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
 				minions.add(minion);
-				int x2 = 16800 + i * 600;
-				minion = (L2Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
+				x = 16800 + i * 600;
+				minion = (L2Attackable) addSpawn(DOOM_WRAITH, x, 109300, npc.getZ(), 280 + Rnd.get(40), false, 0, npc.getInstanceId());
 				minions.add(minion);
 			}
 			for (int i = 0; i < 4; i++)
@@ -172,7 +172,6 @@ public class Core extends L2AttackableAIScript
 
 	public static void main(String[] args)
 	{
-		// now call the constructor (starts up the ai)
 		new Core(-1, "core", "ai");
 	}
 
