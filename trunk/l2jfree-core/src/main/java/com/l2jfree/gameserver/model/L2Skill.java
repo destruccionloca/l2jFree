@@ -1631,6 +1631,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 						case HEAL_PERCENT:
 						case MANARECHARGE:
 						case MANAHEAL:
+						case RECOVER:
 						case NEGATE:
 						case CANCEL:
 						case CANCEL_DEBUFF:
