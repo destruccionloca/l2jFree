@@ -16,57 +16,59 @@ package village_master;
 
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.quest.jython.QuestJython;
 
 /**
  * @author savormix
  *
  */
-public final class Biotin extends QuestJython
+public final class Thifiell extends QuestJython
 {
-	private static final String BIOTIN_OCCUPATION = "30031_biotin_occupation_change";
+	private static final String THIFIELL_OCCUPATION = "30358_thifiell_occupation_change";
 
 	//Quest NPCs
-	private static final int BIOTIN = 30031;
+	private static final int THIFIELL = 30358;
 
-	public Biotin(int questId, String name, String descr)
+	public Thifiell(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
-		addStartNpc(BIOTIN);
-		addTalkId(BIOTIN);
+		addStartNpc(THIFIELL);
+		addTalkId(THIFIELL);
 	}
 
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		if (event.contains("-01") || event.contains("-02") || event.contains("-03") || event.contains("-04") ||
-				event.contains("-05"))
-			return event;
-		else
+		if (event.contains("-11") || event.contains("-12") || event.contains("-13"))
 			return null;
+		else
+			return event;
 	}
 
 	@Override
 	public String onTalk(L2Npc npc, L2PcInstance talker)
 	{
+		if (talker.getRace() != Race.Darkelf)
+			return "30358-11.htm";
 		switch (talker.getClassId())
 		{
-		case HumanWizard:
-		case Cleric:
-			return "30031-06.htm";
-		case Sorceror:
-		case Necromancer:
-		case Warlock:
-		case Bishop:
-		case Prophet:
-			return "30031-07.htm";
+		case DarkFighter:
+			return "30358-01.htm";
+		case DarkMystic:
+			return "30358-02.htm";
+		case DarkWizard:
+		case ShillienOracle:
+		case PalusKnight:
+		case Assassin:
+			return "30358-12.htm";
 		default:
-			return "30031-08.htm";
+			return "30358-13.htm";
 		}
 	}
 
 	public static void main(String[] args)
 	{
-		new Biotin(-1, BIOTIN_OCCUPATION, "village_master");
+		new Thifiell(-1, THIFIELL_OCCUPATION, "village_master");
 	}
 }
