@@ -148,6 +148,7 @@ class Quest(JQuest):
             st.giveItems(BOOK6, 1)
         elif event == "32510-01.htm":
             st.playSound("ItemSound.quest_finish")
+            st.setState(State.COMPLETED)
             st.giveItems(PSOE, 1)
             st.giveItems(PAILAKA_RING, 1)
             st.giveItems(PAILAKA_EARRING, 1)
