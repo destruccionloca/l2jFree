@@ -278,8 +278,7 @@
     <for>
       <!--
         retail value: 5MP/sec; stat update every 3 sec
-        Verified by slyce - Interlude - 12th Aug 2007
-      -->
+        Verified by slyce - Interlude - 12th Aug 2007 -->
       <effect count="0x7fffffff" name="SilentMove" abnormal="stealth" time="3" val="15" stackOrder="1" stackType="stealth">
         <mul order="0x30" stat="runSpd" val="0.6"/>
       </effect>
@@ -2322,7 +2321,7 @@
   <skill id="283" levels="7" name="Summon Dark Panther" enchantLevels1="30">
     <table name="#ench1expPenalty"> 0.14 0.13 0.12 0.11 0.1 0.09 0.08 0.07 0.06 0.05 0.04 0.03 0.02 0.01 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </table>
     <table name="#enchantNpcIds"> 14806 14807 14808 14809 14810 14811 14812 14813 14814 14815 14816 14817 14818 14819 14820 14821 14822 14823 14824 14825 14826 14827 14828 14829 14830 14831 14832 14833 14834 14835 </table>
-    <enchant1 name="npcId" val="#enchantNpcIds"/>
+    <table name="#npcIds"> 14799 14800 14801 14802 14803 14804 14805 </table>
     <table name="#mpInitialConsume"> 14 18 21 23 25 26 27 </table>
     <table name="#mpConsume"> 56 70 86 92 98 104 110 </table>
     <table name="#itemConsumeCount"> 1 3 3 2 4 4 4 </table>
@@ -2344,9 +2343,9 @@
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <!-- Summon-specific -->
-    <table name="#npcIds"> 14799 14800 14801 14802 14803 14804 14805 </table>
     <set name="npcId" val="#npcIds"/>
     <set name="expPenalty" val="0.15"/> <!-- 15 percent of acquired Exp will also be consumed. -->
+    <enchant1 name="npcId" val="#enchantNpcIds"/>
     <enchant1 name="expPenalty" val="#ench1expPenalty"/> <!-- percent of earned Exp will be consumed -->
   </skill>
   <skill id="284" levels="40" name="Hurricane Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">

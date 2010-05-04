@@ -381,7 +381,6 @@
     </for>
   </skill>
   <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
-    <!-- Client description do not contains blowRate. -->
     <table name="#ench1power"> 3685 3718 3751 3784 3817 3850 3883 3916 3949 3982 4014 4047 4080 4113 4146 4179 4212 4245 4278 4311 4343 4376 4409 4442 4475 4508 4541 4574 4607 4640 </table>
     <table name="#ench2mpConsume"> 70 69 68 67 66 64 63 62 61 60 58 57 56 55 54 52 51 50 49 48 46 45 44 43 42 40 39 38 37 36 </table>
     <table name="#enchElementPower"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 </table>
@@ -390,8 +389,6 @@
     <table name="#power"> 1832 2091 2272 2460 2653 2850 3050 3252 3453 3653 </table>
     <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
     <table name="#rCrit"> 0.1 0.1 0.1 0.15 0.15 0.2 0.2 0.25 0.25 0.3 </table>
-    <!-- Client description do not contains blowRate. -->
-    <!-- <table name="#blowRate"> 1.1 1.1 1.1 1.15 1.15 1.2 1.2 1.25 1.25 1.3 </table> -->
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -422,8 +419,6 @@
     <for>
       <effect self="1" name="Buff" time="15" val="0">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
-        <!-- Client description does not contains blowRate. -->
-        <!-- mul order="0x30" stat="blowRate" val="#blowRate"/ -->
       </effect>
     </for>
   </skill>
@@ -432,8 +427,6 @@
     <table name="#ench2time"> 124 128 132 136 140 144 148 152 156 160 164 168 172 176 180 184 188 192 196 200 204 208 212 216 220 224 228 232 236 240 </table>
     <table name="#mpConsume"> 27 31 34 </table>
     <table name="#rCrit"> 0.1 0.15 0.2 </table>
-    <!-- Client description do not contains blowRate. -->
-    <!-- table name="#blowRate"> 1.1 1.15 1.2 </table -->
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="150000"/>
@@ -444,22 +437,16 @@
     <for>
       <effect name="Buff" time="120" val="0">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
-        <!-- Client description do not contains blowRate. -->
-        <!-- mul order="0x30" stat="blowRate" val="#blowRate"/ -->
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="120" val="0">
         <mul order="0x30" stat="rCrit" val="#ench1rCrit"/>
-        <!-- Client description do not contains blowRate. -->
-        <!-- mul order="0x30" stat="blowRate" val="#blowRate"/ -->
       </effect>
     </enchant1for>
     <enchant2for>
       <effect name="Buff" time="#ench2time" val="0">
         <mul order="0x30" stat="rCrit" val="1.2"/>
-        <!-- Client description do not contains blowRate. -->
-        <!-- mul order="0x30" stat="blowRate" val="#blowRate"/ -->
       </effect>
     </enchant2for>
   </skill>
@@ -713,9 +700,9 @@
   <skill id="421" levels="5" name="Fell Swoop" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1atkCountMax"> 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8 </table>
     <table name="#ench2time"> 124 128 132 136 140 144 148 152 156 160 164 168 172 176 180 184 188 192 196 200 204 208 212 216 220 224 228 232 236 240 </table>
-    <set name="weaponsAllowed" val="64"/> <!-- Pole -->
     <table name="#mpConsume"> 27 29 31 33 34 </table>
     <table name="#atkCountMax"> 1 2 3 4 5 </table>
+    <set name="weaponsAllowed" val="64"/> <!-- Pole -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="2000"/>
@@ -959,9 +946,9 @@
   </skill>
   <skill id="432" levels="1" name="Assassination" enchantLevels1="15" enchantLevels2="15">
     <!-- Client description do not contains blowRate. -->
-    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <table name="#ench1pAtk"> 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
     <table name="#ench2rCrit"> 1.032 1.034 1.036 1.038 1.04 1.042 1.044 1.046 1.048 1.05 1.052 1.054 1.056 1.058 1.06 </table>
+    <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -1291,8 +1278,7 @@
   </skill>
   <skill id="444" levels="1" name="Festive Sweeper">
     <!--
-      Description(s): When used on nearby corpses that are in a Spoil state, extra items may be obtained.
-    -->
+      Description(s): When used on nearby corpses that are in a Spoil state, extra items may be obtained. -->
     <!-- by Sephiroth -->
     <set name="mpConsume" val="12"/>
     <set name="skillRadius" val="85"/>
@@ -1331,8 +1317,7 @@
   </skill>
   <skill id="447" levels="1" name="Counterattack">
     <!--
-      Description(s): For 10 seconds, transfers damage from close range physical attacks and skills back to the opponent.
-    -->
+      Description(s): For 10 seconds, transfers damage from close range physical attacks and skills back to the opponent. -->
     <set name="mpConsume" val="29"/>
     <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="500"/>
@@ -1657,8 +1642,7 @@
     <!--
       By Darki699 Description(s):
       Lvl 1 - Uses Focused Force to escape from an immobile state. Level 2 Focused Force charge required.
-      Lvl 2 - Uses Focused Force to escape from a slow or immobile state. Level 3 Focused Force charge required.
-    -->
+      Lvl 2 - Uses Focused Force to escape from a slow or immobile state. Level 3 Focused Force charge required. -->
     <table name="#mpConsume"> 33 37 </table>
     <table name="#numCharges"> 2 3 </table> <!-- 2 3 Charges are consumed -->
     <set name="mpConsume" val="#mpConsume"/>
@@ -1810,8 +1794,7 @@
   <skill id="467" levels="23" name="Soul Mastery">
     <!--
       Description(s): Absorbs a soul. x or more Exp is
-      needed to absorb a soul. Maximum of x souls can be absorbed.
-    -->
+      needed to absorb a soul. Maximum of x souls can be absorbed. -->
     <table name="#activationChance"> 0 0 0 15 15 15 15 15 20 20 20 20 20 20 25 25 25 25 25 25 30 30 30 </table>
     <table name="#expNeeded"> 73 147 220 294 385 486 614 777 960 1109 1269 1440 1622 1815 2018 2160 2306 2457 2613 2774 2940 3110 3285 </table>
     <table name="#num_souls"> 5 8 10 12 14 16 18 20 21 22 23 24 25 26 27 28 29 30 32 34 36 38 40 </table>
@@ -1827,8 +1810,7 @@
   </skill>
   <skill id="468" levels="9" name="Fallen Attack">
     <!--
-      Description(s): Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 20-56.
-    -->
+      Description(s): Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 20-56. -->
     <table name="#mpConsume"> 9 9 10 11 12 13 16 16 17 </table>
     <table name="#power"> 30 32 35 46 51 55 71 78 84 </table>
     <table name="#magicLvl"> 3 4 5 8 9 10 13 14 15 </table>
