@@ -93,6 +93,8 @@ public class Elixir implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+		
+		activeChar.getEffects().dispelOnAction();
 
 		int itemId = item.getItemId();
 
