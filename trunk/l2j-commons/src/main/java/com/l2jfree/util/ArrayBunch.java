@@ -12,15 +12,12 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.tools.task;
+package com.l2jfree.util;
 
 /**
- * @author mkizub
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * @author NB4L1
  */
-public enum TaskPriority {
-	PR_NORMAL, PR_HIGH, PR_URGENT;
-
+public abstract class ArrayBunch<E> extends AbstractBunch<E>
+{
+	// TODO: implement
 }

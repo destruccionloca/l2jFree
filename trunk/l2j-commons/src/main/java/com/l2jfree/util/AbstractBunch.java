@@ -14,12 +14,29 @@
  */
 package com.l2jfree.util;
 
-import java.util.List;
+import java.lang.reflect.Array;
 
 /**
  * @author NB4L1
  */
-public abstract class L2FastList<E> extends L2FastCollection<E> implements List<E>
+@SuppressWarnings("unchecked")
+public abstract class AbstractBunch<E> implements Bunch<E>
 {
-	// TODO: implement
+	@Override
+	public boolean isEmpty()
+	{
+		return size() == 0;
+	}
+	
+	@Override
+	public Object[] moveToArray()
+	{
+		return moveToArray(new Object[size()]);
+	}
+	
+	@Override
+	public <T> T[] moveToArray(Class<T> clazz)
+	{
+		return moveToArray((T[])Array.newInstance(clazz, size()));
+	}
 }

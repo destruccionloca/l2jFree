@@ -14,12 +14,12 @@
  */
 package com.l2jfree.util;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author NB4L1
  */
-public abstract class L2FastList<E> extends L2FastCollection<E> implements List<E>
+public abstract class L2FastMap<K, V> implements Map<K, V>
 {
 	// TODO: implement
 }

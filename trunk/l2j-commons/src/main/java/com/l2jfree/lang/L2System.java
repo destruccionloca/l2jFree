@@ -46,7 +46,7 @@ public final class L2System
 		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - ZERO);
 	}
 	*/
-	
+
 	/**
 	 * Copy of HashMap.hash().
 	 */
@@ -54,5 +54,10 @@ public final class L2System
 	{
 		h ^= (h >>> 20) ^ (h >>> 12);
 		return h ^ (h >>> 7) ^ (h >>> 4);
+	}
+	
+	public static boolean equals(Object o1, Object o2)
+	{
+		return o1 == null ? o2 == null : o1.equals(o2);
 	}
 }

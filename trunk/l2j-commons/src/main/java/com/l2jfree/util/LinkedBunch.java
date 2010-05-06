@@ -20,6 +20,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.lang.L2System;
 import com.l2jfree.util.L2Collections.Filter;
 
 /**
@@ -157,7 +158,7 @@ public final class LinkedBunch<E> extends AbstractNode implements Bunch<E>
 	{
 		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
-			if (equals(value, valueOf(node)))
+			if (L2System.equals(value, valueOf(node)))
 			{
 				node = delete(node);
 			}
@@ -211,7 +212,7 @@ public final class LinkedBunch<E> extends AbstractNode implements Bunch<E>
 	{
 		for (AbstractNode node = this; (node = node.getNext()) != null;)
 		{
-			if (equals(value, valueOf(node)))
+			if (L2System.equals(value, valueOf(node)))
 				return true;
 		}
 		
@@ -285,11 +286,6 @@ public final class LinkedBunch<E> extends AbstractNode implements Bunch<E>
 		clear();
 		
 		return list;
-	}
-	
-	private boolean equals(E o1, E o2)
-	{
-		return o1 == null ? o2 == null : o1 == o2 || o1.equals(o2);
 	}
 	
 	public LinkedBunch<E> cleanByFilter(Filter<E> filter)

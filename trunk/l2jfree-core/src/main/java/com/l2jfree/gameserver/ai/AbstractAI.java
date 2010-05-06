@@ -45,6 +45,7 @@ import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.lang.L2System;
 
 /**
  * Mother class of all objects AI in the world.<BR>
@@ -441,11 +442,6 @@ public abstract class AbstractAI implements Ctrl
 		}
 	}
 	
-	private static boolean equals(Object o1, Object o2)
-	{
-		return o1 == null ? o2 == null : o1.equals(o2);
-	}
-	
 	private IntentionCommand _nextIntention = null;
 	
 	private final void saveNextIntention(CtrlIntention intention, Object arg0, Object arg1)
@@ -453,9 +449,9 @@ public abstract class AbstractAI implements Ctrl
 		if (_actor instanceof L2Playable)
 			if (((L2Playable)_actor).getSkillQueueProtectionTime() > System.currentTimeMillis())
 				if (intention == AI_INTENTION_CAST)
-					if (equals(intention, _intention))
-						if (equals(arg0, _intentionArg0))
-							if (equals(arg1, _intentionArg1))
+					if (L2System.equals(intention, _intention))
+						if (L2System.equals(arg0, _intentionArg0))
+							if (L2System.equals(arg1, _intentionArg1))
 								return;
 		
 		_nextIntention = new IntentionCommand(intention, arg0, arg1);

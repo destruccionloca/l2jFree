@@ -304,6 +304,7 @@ import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.lang.L2System;
 import com.l2jfree.lang.Replaceable;
 import com.l2jfree.mmocore.network.InvalidPacketException;
 import com.l2jfree.sql.SQLQuery;
@@ -7289,8 +7290,8 @@ public final class L2PcInstance extends L2Playable
 	protected void skillChanged(L2Skill removed, L2Skill added)
 	{
 		super.skillChanged(removed, added);
-
-		if (removed == null ? added != null : !removed.equals(added))
+		
+		if (!L2System.equals(removed, added))
 			sendSkillList();
 	}
 
