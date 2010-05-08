@@ -254,6 +254,8 @@ public class CharStatus
 				if (getActiveChar().isImmobileUntilAttacked())
 					getActiveChar().stopImmobileUntilAttacked(true);
 			}
+			
+			getActiveChar().getEffects().dispelOnAction();
 		}
 		
 		if (value > 0) // Reduce Hp if any, and Hp can't be negative
