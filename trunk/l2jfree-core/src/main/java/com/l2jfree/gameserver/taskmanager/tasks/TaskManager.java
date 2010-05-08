@@ -107,21 +107,22 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 					}
 					case TYPE_GLOBAL_TASK:
 					{
-						long interval = Long.parseLong(_params[0]) * 86400000;
+						int days = Integer.parseInt(_params[0]);
+						long interval = days * 86400000;
 						String[] hour = _params[1].split(":");
 						
-						Calendar check = Calendar.getInstance();
-						check.setTimeInMillis(_lastActivation + interval);
-						
 						Calendar min = Calendar.getInstance();
+						min.setTimeInMillis(_lastActivation);
 						min.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour[0]));
 						min.set(Calendar.MINUTE, Integer.parseInt(hour[1]));
 						min.set(Calendar.SECOND, Integer.parseInt(hour[2]));
 						
-						long delay = min.getTimeInMillis() - System.currentTimeMillis();
+						while (min.getTimeInMillis() < System.currentTimeMillis())
+						{
+							min.add(Calendar.DAY_OF_YEAR, days);
+						}
 						
-						if (check.after(min) || delay < 0)
-							delay += interval;
+						long delay = min.getTimeInMillis() - System.currentTimeMillis();
 						
 						_scheduled = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, interval);
 						break;
@@ -140,21 +141,12 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 		
 		public void run()
 		{
-			try
-			{
-				_task.onTimeElapsed(this, getParams());
-			}
-			catch (Exception e)
-			{
-				_log.warn(this, e);
-			}
-			
 			Connection con = null;
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement = con
-					.prepareStatement("UPDATE global_tasks SET last_activation=? WHERE id=?");
+						.prepareStatement("UPDATE global_tasks SET last_activation=? WHERE id=?");
 				statement.setLong(1, _lastActivation = System.currentTimeMillis());
 				statement.setInt(2, _id);
 				statement.executeUpdate();
@@ -167,6 +159,15 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 			finally
 			{
 				L2DatabaseFactory.close(con);
+			}
+			
+			try
+			{
+				_task.onTimeElapsed(this, getParams());
+			}
+			catch (Exception e)
+			{
+				_log.warn(this, e);
 			}
 			
 			if (_type == TYPE_SHEDULED || _type == TYPE_TIME)
@@ -259,7 +260,7 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 	}
 	
 	static boolean addUniqueTask(String task, TaskTypes type, String param1, String param2, String param3,
-		long lastActivation)
+			long lastActivation)
 	{
 		Connection con = null;
 		try
@@ -302,7 +303,7 @@ public final class TaskManager extends HandlerRegistry<String, TaskHandler>
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
 			PreparedStatement statement = con
-				.prepareStatement("INSERT INTO global_tasks (task,type,last_activation,param1,param2,param3) VALUES(?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO global_tasks (task,type,last_activation,param1,param2,param3) VALUES(?,?,?,?,?,?)");
 			statement.setString(1, task);
 			statement.setString(2, type.toString());
 			statement.setLong(3, lastActivation);
