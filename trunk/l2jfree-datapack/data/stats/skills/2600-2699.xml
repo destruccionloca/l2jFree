@@ -753,7 +753,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2673" levels="1" name="Gludio Elf Mercenary">
@@ -772,7 +772,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2674" levels="1" name="Gludio Dark Elf Mercenary">
@@ -791,7 +791,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2675" levels="1" name="Gludio Orc Mercenary">
@@ -810,7 +810,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2676" levels="1" name="Gludio Dwarf Mercenary">
@@ -829,7 +829,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2677" levels="1" name="Gludio Kamael Mercenary">
@@ -848,7 +848,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2678" levels="1" name="Gludio Royal Guard Captain">
@@ -867,7 +867,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2679" levels="1" name="Gludio Archer Captain">
@@ -886,7 +886,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2680" levels="1" name="Gludio Magic Leader">
@@ -905,7 +905,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2681" levels="1" name="Gludio Kamael Guard Captain">
@@ -924,7 +924,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2682" levels="1" name="Gludio Knight of Dawn">
@@ -943,7 +943,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2683" levels="1" name="Gludio Fortress Captain">
@@ -962,7 +962,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2684" levels="1" name="Dion Human Mercenary">
@@ -981,7 +981,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2685" levels="1" name="Dion Elf Mercenary">
@@ -1000,7 +1000,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2686" levels="1" name="Dion Dark Elf Mercenary">
@@ -1019,7 +1019,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2687" levels="1" name="Dion Orc Mercenary">
@@ -1038,7 +1038,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2688" levels="1" name="Dion Dwarf Mercenary">
@@ -1057,7 +1057,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2689" levels="1" name="Dion Kamael Mercenary">
@@ -1076,7 +1076,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2690" levels="1" name="Dion Royal Guard Captain">
@@ -1095,7 +1095,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2691" levels="1" name="Dion Archer Captain">
@@ -1114,7 +1114,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2692" levels="1" name="Dion Magic Leader">
@@ -1133,7 +1133,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2693" levels="1" name="Dion Kamael Guard Captain">
@@ -1152,7 +1152,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2694" levels="1" name="Dion Knight of Dawn">
@@ -1171,7 +1171,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2695" levels="1" name="Dion Fortress Captain">
@@ -1190,7 +1190,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2696" levels="1" name="Giran Human Mercenary">
@@ -1209,7 +1209,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2697" levels="1" name="Giran Elf Mercenary">
@@ -1228,7 +1228,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2698" levels="1" name="Giran Dark Elf Mercenary">
@@ -1247,7 +1247,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
   <skill id="2699" levels="1" name="Giran Orc Mercenary">
@@ -1266,7 +1266,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect count="1" name="Transformation" time="1800" val="0"/>
+      <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
     </for>
   </skill>
 </list>
