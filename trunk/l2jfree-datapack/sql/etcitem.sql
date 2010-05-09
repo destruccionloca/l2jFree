@@ -9804,6 +9804,34 @@ UPDATE `etcitem` SET `skills_item` = '2946-1' WHERE `item_id` = 13720;
 UPDATE `etcitem` SET `skills_item` = '2947-1' WHERE `item_id` = 13721;
 
 -- Caravaner\'s Remedy and Certificates
-UPDATE `etcitem` SET `dropable` = 'false', `tradeable`= 'false' WHERE `item_id` = '9702';
+UPDATE `etcitem` SET `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` = '9702';
 UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (9850,9851,9852);
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` IN (9850,9851,9852);
+
+-- Greater Elixir (Spire)
+UPDATE `etcitem` SET `handler` = 'Elixir', `item_type` = 'potion', `material` = 'liquid' WHERE `item_id` BETWEEN 14682 AND 14699;
+UPDATE `etcitem` SET `crystal_type` = 'none' WHERE `item_id` IN (14682,14688,14694);
+UPDATE `etcitem` SET `crystal_type` = 'd' WHERE `item_id` IN (14683,14689,14695);
+UPDATE `etcitem` SET `crystal_type` = 'c' WHERE `item_id` IN (14684,14690,14696);
+UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` IN (14685,14691,14697);
+UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` IN (14686,14692,14698);
+UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` IN (14687,14693,14699);
+UPDATE `etcitem` SET `skills_item` = '2860-1' WHERE `item_id` = 14682;
+UPDATE `etcitem` SET `skills_item` = '2860-2' WHERE `item_id` = 14683;
+UPDATE `etcitem` SET `skills_item` = '2860-3' WHERE `item_id` = 14684;
+UPDATE `etcitem` SET `skills_item` = '2860-4' WHERE `item_id` = 14685;
+UPDATE `etcitem` SET `skills_item` = '2860-5' WHERE `item_id` = 14686;
+UPDATE `etcitem` SET `skills_item` = '2860-6' WHERE `item_id` = 14687;
+UPDATE `etcitem` SET `skills_item` = '2861-1' WHERE `item_id` = 14688;
+UPDATE `etcitem` SET `skills_item` = '2861-2' WHERE `item_id` = 14689;
+UPDATE `etcitem` SET `skills_item` = '2861-3' WHERE `item_id` = 14690;
+UPDATE `etcitem` SET `skills_item` = '2861-4' WHERE `item_id` = 14691;
+UPDATE `etcitem` SET `skills_item` = '2861-5' WHERE `item_id` = 14692;
+UPDATE `etcitem` SET `skills_item` = '2861-6' WHERE `item_id` = 14693;
+UPDATE `etcitem` SET `skills_item` = '2862-1' WHERE `item_id` = 14694;
+UPDATE `etcitem` SET `skills_item` = '2862-2' WHERE `item_id` = 14695;
+UPDATE `etcitem` SET `skills_item` = '2862-3' WHERE `item_id` = 14696;
+UPDATE `etcitem` SET `skills_item` = '2862-4' WHERE `item_id` = 14697;
+UPDATE `etcitem` SET `skills_item` = '2862-5' WHERE `item_id` = 14698;
+UPDATE `etcitem` SET `skills_item` = '2862-6' WHERE `item_id` = 14699;
+
