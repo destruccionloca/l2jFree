@@ -276,6 +276,9 @@ public class L2Party
 	 */
 	public boolean addPartyMember(L2PcInstance player)
 	{
+		if (getPartyMembers().contains(player))
+			return false;
+
 		if (Config.MAX_PARTY_LEVEL_DIFFERENCE > 0)
 		{
 			int _min = _partyLvl;
