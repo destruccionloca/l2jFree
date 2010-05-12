@@ -101,7 +101,7 @@ public class ServerDB
 			_log.fine("Database Connection FAILED");
 			throw new SQLException("could not init DB connection: " + e);
 		}
-		System.out.println("TanisDB: Dtabase imported correctly.");
+		System.out.println("TanisDB: Database imported correctly.");
 	}
 
 	// =========================================================

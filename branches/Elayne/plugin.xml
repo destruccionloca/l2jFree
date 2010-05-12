@@ -67,8 +67,9 @@
       </property>
       <property name="aboutImage" value="icons/Smale.gif">
       </property>
-      <property name="aboutText"
-        value="Elayne L2Dragonlance Information Tool.&#x0A;&#x0A;Version: 1.0.0&#x0A;&#x0A;(c) Copyright: L2Dragonlance, polbat02, Eclipse.org and others. 2007-2008. All rights reserved.&#x0A;Visit: http://l2dragonlance.org">
+      <property
+            name="aboutText"
+            value="Elayne L2Dragonlance Information Tool.&#x0A;&#x0A;Version: 1.0.0&#x0A;&#x0A;(c) Copyright: L2Dragonlance, polbat02, Eclipse.org and others. 2007-2008. All rights reserved.&#x0A;Visit: http://l2dragonlance.org">
       </property>
       <property name="windowImages"
         value="icons/alt16.gif,icons/alt32.gif">

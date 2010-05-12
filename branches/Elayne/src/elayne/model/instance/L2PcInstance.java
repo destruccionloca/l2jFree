@@ -25,7 +25,7 @@ import elayne.util.connector.ServerDB;
 
 public class L2PcInstance extends L2GroupEntry
 {
-	private static final String RESTORE_CHARACTER = "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, newbie, nobless, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally,clan_join_expiry_time,clan_create_expiry_time,death_penalty_level FROM characters WHERE char_name=?";
+	private static final String RESTORE_CHARACTER = "SELECT account_name, charId, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, fame, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time, clan_create_expiry_time, charViP, death_penalty_level, trust_level, vitality_points, bookmarkslot FROM characters WHERE char_name=?";
 	private static final String RESTORE_CHARACTER_HENNAS = "SELECT symbol_id, slot, class_index FROM `character_hennas` WHERE `charId` =?";
 
 	// =========================================================
@@ -695,7 +695,8 @@ public class L2PcInstance extends L2GroupEntry
 				}
 				clanId = rset.getInt("clanid");
 				subPledge = (rset.getInt("subpledge"));
-				lastRecomDate = (rset.getLong("last_recom_date"));
+				// TODO
+				lastRecomDate = 0;
 				race = rset.getInt("race");
 				online = rset.getInt("online");
 				deleteTime = (rset.getLong("deletetime"));
@@ -704,8 +705,10 @@ public class L2PcInstance extends L2GroupEntry
 				currentHp = rset.getDouble("curHp");
 				currentCp = rset.getDouble("curCp");
 				currentMp = rset.getDouble("curMp");
-				recHave = (rset.getInt("rec_have"));
-				recLeft = (rset.getInt("rec_left"));
+				// TODO
+				recHave = 0;
+				recLeft = 0;
+
 				baseClass = (rset.getInt("base_class"));
 				apprentice = (rset.getInt("apprentice"));
 				sponsor = (rset.getInt("sponsor"));
@@ -856,7 +859,7 @@ public class L2PcInstance extends L2GroupEntry
 		if (getPlayerSkillsByClass(class_index) != null && !getPlayerSkillsByClass(class_index).isEmpty())
 			return;
 
-		final String SQL = "SELECT skill_id, skill_level, skill_name FROM character_skills WHERE charId=? AND class_index=?";
+		final String SQL = "SELECT skill_id, skill_level FROM character_skills WHERE charId=? AND class_index=?";
 		java.sql.Connection con = null;
 		FastList<L2SkillEntry> skills = new FastList<L2SkillEntry>();
 		try
@@ -870,7 +873,9 @@ public class L2PcInstance extends L2GroupEntry
 			{
 				int skillId = rset.getInt("skill_id");
 				int skill_level = rset.getInt("skill_level");
-				String skill_name = rset.getString("skill_name");
+				// TODO
+				//String skill_name = rset.getString("skill_name");
+				String skill_name = "No name yet";
 
 				skills.add(new L2SkillEntry(skillId, skill_level, skill_name, class_index, folder));
 			}

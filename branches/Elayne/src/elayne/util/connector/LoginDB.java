@@ -94,7 +94,7 @@ public class LoginDB
 			_log.fine("Database Connection FAILED");
 			throw new SQLException("could not init DB connection: " + e);
 		}
-		System.out.println("LoginDB: Dtabase imported correctly.");
+		System.out.println("LoginDB: Database imported correctly.");
 	}
 
 	// =========================================================
