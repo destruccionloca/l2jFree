@@ -28,6 +28,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javolution.text.TextBuilder;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -198,7 +200,7 @@ public final class ModuleTester extends Config
 						array = L2Arrays.compact(array);
 					}
 					
-					StringBuilder sb = new StringBuilder();
+					TextBuilder sb = TextBuilder.newInstance();
 					
 					for (int i = 0; i < array.length; i++)
 					{
@@ -211,6 +213,7 @@ public final class ModuleTester extends Config
 						sb.append(',');
 					
 					result.add(sb.toString());
+					TextBuilder.recycle(sb);
 				}
 				catch (RuntimeException e)
 				{
@@ -251,7 +254,7 @@ public final class ModuleTester extends Config
 			for (int i = 0; i < list.size(); i++)
 			{
 				String line = list.get(i);
-				StringBuilder sb = new StringBuilder();
+				TextBuilder sb = TextBuilder.newInstance();
 				
 				for (int k = 0; k < line.length() && line.charAt(k) == ' '; k++)
 					sb.append(' ');
@@ -266,6 +269,7 @@ public final class ModuleTester extends Config
 				sb.append(line);
 				
 				list.set(i, sb.toString());
+				TextBuilder.recycle(sb);
 			}
 			
 			final ArrayList<String> result = new ArrayList<String>(list.size());
@@ -311,7 +315,7 @@ public final class ModuleTester extends Config
 						final Matcher m = Pattern.compile("#ench(ant)?[0-9_]*").matcher(val);
 						m.find();
 						
-						final StringBuilder sb = new StringBuilder();
+						final TextBuilder sb = TextBuilder.newInstance();
 						
 						sb.append(val.substring(0, m.start()));
 						sb.append(m.group());
@@ -325,6 +329,7 @@ public final class ModuleTester extends Config
 						
 						if (!val.equals(expected))
 							map.put(val, expected);
+						TextBuilder.recycle(sb);
 					}
 				}
 			}

@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.taskmanager;
 
 import java.util.Map;
 
+import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.model.actor.L2Boss;
@@ -155,9 +156,9 @@ public final class DecayTaskManager extends AbstractPeriodicTaskManager
 	public String getStats()
 	{
 		readLock();
+		final TextBuilder sb = TextBuilder.newInstance();
 		try
 		{
-			final StringBuilder sb = new StringBuilder();
 			sb.append("============= DecayTask Manager Report ============").append("\r\n");
 			sb.append("Tasks count: ").append(_decayTasks.size()).append("\r\n");
 			sb.append("Tasks dump:").append("\r\n");
@@ -168,11 +169,13 @@ public final class DecayTaskManager extends AbstractPeriodicTaskManager
 				sb.append(actor.getClass().getSimpleName()).append("/").append(actor.getName()).append("\r\n");
 			}
 			
-			return sb.toString();
+			String res = sb.toString();
+			return res;
 		}
 		finally
 		{
 			readUnlock();
+			TextBuilder.recycle(sb);
 		}
 	}
 	

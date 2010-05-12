@@ -17,6 +17,8 @@ package com.l2jfree.gameserver.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javolution.text.TextBuilder;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -1517,7 +1519,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		{
 			if (_weaponDependancyMessage == null)
 			{
-				StringBuilder sb = new StringBuilder();
+				TextBuilder sb = TextBuilder.newInstance();
+				sb.append(getName());
+				sb.append(" can only be used with weapons of type ");
 				for (L2WeaponType wt : L2WeaponType.VALUES)
 				{
 					if ((wt.mask() & weaponsAllowed) != 0)
@@ -1530,8 +1534,8 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 				}
 				sb.append(".");
 
-				_weaponDependancyMessage = getName() + " can only be used with weapons of type " + sb.toString();
-				_weaponDependancyMessage = _weaponDependancyMessage.intern();
+				_weaponDependancyMessage = sb.toString().intern();
+				TextBuilder.recycle(sb);
 			}
 
 			if (activeChar instanceof L2PcInstance)

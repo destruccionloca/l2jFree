@@ -14,18 +14,18 @@
  */
 package com.l2jfree.gameserver;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.LineNumberReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
-import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,10 +51,10 @@ import com.l2jfree.gameserver.script.DateRange;
  */
 public class Announcements
 {
-	private final static Log		_log					= LogFactory.getLog(Announcements.class);
+	private final static Log _log = LogFactory.getLog(Announcements.class);
 
-	private final List<String>			_announcements			= new FastList<String>();
-	private final List<List<Object>>		_eventAnnouncements		= new FastList<List<Object>>();
+	private final List<String> _announcements = new ArrayList<String>();
+	private final List<List<Object>> _eventAnnouncements = new ArrayList<List<Object>>();
 
 	private Announcements()
 	{
@@ -88,13 +88,13 @@ public class Announcements
 			activeChar.sendPacket(cs);
 		}
 
+		Date currentDate = new Date();
 		for (int i = 0; i < _eventAnnouncements.size(); i++)
 		{
 			List<Object> entry = _eventAnnouncements.get(i);
 
 			DateRange validDateRange = (DateRange) entry.get(0);
 			String[] msg = (String[]) entry.get(1);
-			Date currentDate = new Date();
 
 			if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 			{
@@ -108,9 +108,10 @@ public class Announcements
 
 	public void addEventAnnouncement(DateRange validDateRange, String[] msg)
 	{
-		FastList<Object> entry = new FastList<Object>();
+		ArrayList<Object> entry = new ArrayList<Object>();
 		entry.add(validDateRange);
 		entry.add(msg);
+		entry.trimToSize();
 		_eventAnnouncements.add(entry);
 	}
 
@@ -119,15 +120,19 @@ public class Announcements
 		String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setHtml(content);
-		TextBuilder replyMSG = new TextBuilder("<br>");
+		TextBuilder replyMSG = TextBuilder.newInstance();
+		replyMSG.append("<br>");
 		for (int i = 0; i < _announcements.size(); i++)
 		{
-			replyMSG.append("<table width=260><tr><td width=220>" + _announcements.get(i) + "</td><td width=40>");
-			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i
-					+ "\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
+			replyMSG.append("<table width=260><tr><td width=220>");
+			replyMSG.append(_announcements.get(i));
+			replyMSG.append("</td><td width=40><button value=\"Delete\" action=\"bypass -h admin_del_announcement ");
+			replyMSG.append(i);
+			replyMSG.append("\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
 		}
 		adminReply.replace("%announces%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
+		TextBuilder.recycle(replyMSG);
 	}
 
 	public void addAnnouncement(String text)
@@ -144,12 +149,12 @@ public class Announcements
 
 	private void readFromDisk(File file)
 	{
-		LineNumberReader lnr = null;
+		BufferedReader lnr = null;
 		try
 		{
 			int i = 0;
 			String line = null;
-			lnr = new LineNumberReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+			lnr = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 			while ((line = lnr.readLine()) != null)
 			{
 				StringTokenizer st = new StringTokenizer(line, "\n\r");

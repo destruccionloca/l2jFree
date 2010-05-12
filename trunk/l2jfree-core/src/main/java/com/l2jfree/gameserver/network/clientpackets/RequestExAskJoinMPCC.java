@@ -121,6 +121,9 @@ public class RequestExAskJoinMPCC extends L2GameClientPacket
 
 	private final boolean canCreateCC(L2PcInstance creator)
 	{
+		if (creator == null)
+			return false;
+
 		for (L2Skill s : creator.getClan().getAllSkills())
 			if (s.getId() == 391 && s.checkCondition(creator, creator))
 				return true;

@@ -531,25 +531,33 @@ public final class PetitionManager
 			return;
 
 		Petition currPetition = getPendingPetitions().get(petitionId);
-		TextBuilder htmlContent = new TextBuilder("<html><body>");
+		TextBuilder htmlContent = TextBuilder.newInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm z");
 
-		htmlContent.append("<center><br><font color=\"LEVEL\">Petition #" + currPetition.getId() + "</font><br1>");
-		htmlContent.append("<img src=\"L2UI.SquareGray\" width=\"200\" height=\"1\"></center><br>");
-		htmlContent.append("Submit Time: " + dateFormat.format(new Date(currPetition.getSubmitTime())) + "<br1>");
-		htmlContent.append("Petitioner: " + currPetition.getPetitioner().getName() + "<br1>");
-		htmlContent.append("Petition Type: " + currPetition.getTypeAsString() + "<br>" + currPetition.getContent() + "<br>");
-		htmlContent.append("<center><button value=\"Accept\" action=\"bypass -h admin_accept_petition " + currPetition.getId() + "\""
-				+ "width=\"50\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1>");
-		htmlContent.append("<button value=\"Reject\" action=\"bypass -h admin_reject_petition " + currPetition.getId() + "\" "
-				+ "width=\"50\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br>");
-		htmlContent.append("<button value=\"Back\" action=\"bypass -h admin_view_petitions\" width=\"40\" height=\"15\" back=\"L2UI_ct1.button_df\" "
-				+ "fore=\"L2UI_ct1.button_df\"></center>");
-		htmlContent.append("</body></html>");
+		htmlContent.append("<html><body><center><br><font color=\"LEVEL\">Petition #");
+		htmlContent.append(currPetition.getId());
+		htmlContent.append("</font><br1><img src=\"L2UI.SquareGray\" width=\"200\" height=\"1\"></center><br>");
+		htmlContent.append("Submit Time: ");
+		htmlContent.append(dateFormat.format(new Date(currPetition.getSubmitTime())));
+		htmlContent.append("<br1>Petitioner: ");
+		htmlContent.append(currPetition.getPetitioner().getName());
+		htmlContent.append("<br1>Petition Type: ");
+		htmlContent.append(currPetition.getTypeAsString());
+		htmlContent.append("<br>");
+		htmlContent.append(currPetition.getContent());
+		htmlContent.append("<br><center><button value=\"Accept\" action=\"bypass -h admin_accept_petition ");
+		htmlContent.append(currPetition.getId());
+		htmlContent.append("\"width=\"50\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1>");
+		htmlContent.append("<button value=\"Reject\" action=\"bypass -h admin_reject_petition ");
+		htmlContent.append(currPetition.getId());
+		htmlContent.append("\" width=\"50\" height=\"15\" back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br>");
+		htmlContent.append("<button value=\"Back\" action=\"bypass -h admin_view_petitions\" width=\"40\" height=\"15\" back=\"L2UI_ct1.button_df\" ");
+		htmlContent.append("fore=\"L2UI_ct1.button_df\"></center></body></html>");
 
-		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
+		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(petitionId);
 		htmlMsg.setHtml(htmlContent.toString());
 		activeChar.sendPacket(htmlMsg);
+		TextBuilder.recycle(htmlContent);
 	}
 
 	@SuppressWarnings("synthetic-access")

@@ -774,11 +774,10 @@ public class AuctionBBSManager extends BaseBBSManager
 	private void showComfirmationPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = new TextBuilder("<html><body>");
-
+		TextBuilder html = TextBuilder.newInstance();
+		html.append("<html><body>");
 		html.append("<title>Auction Comfirmation Window</title>");
 		html.append("Congrats! Your item is now up for auction!");
-
 		html.append("</body></html>");
 		nhm.setHtml(html.toString());
 		activeChar.sendPacket(nhm);
@@ -786,16 +785,17 @@ public class AuctionBBSManager extends BaseBBSManager
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+
+		TextBuilder.recycle(html);
 	}
 
 	private void showBuyNowComfirmationPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = new TextBuilder("<html><body>");
-
+		TextBuilder html = TextBuilder.newInstance();
+		html.append("<html><body>");
 		html.append("<title>Auction Buy Now Comfirmation Window</title>");
 		html.append("Congrats! You have won the auction by default, the auction will soon be processed.");
-
 		html.append("</body></html>");
 		nhm.setHtml(html.toString());
 		activeChar.sendPacket(nhm);
@@ -803,6 +803,8 @@ public class AuctionBBSManager extends BaseBBSManager
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+
+		TextBuilder.recycle(html);
 	}
 
 	private void addAuction(L2PcInstance activeChar, int hours, int currency, long statingBid, long increment, long buyNow, long count, int objectId)

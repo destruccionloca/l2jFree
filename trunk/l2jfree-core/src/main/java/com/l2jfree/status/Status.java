@@ -100,7 +100,7 @@ public class Status extends Thread
 
 	private String generateRandomPassword(int length)
 	{
-		TextBuilder password = new TextBuilder();
+		TextBuilder password = TextBuilder.newInstance();
 		String lowerChar = "qwertyuiopasdfghjklzxcvbnm";
 		String upperChar = "QWERTYUIOPASDFGHJKLZXCVBNM";
 		String digits = "1234567890";
@@ -120,6 +120,8 @@ public class Status extends Thread
 				break;
 			}
 		}
-		return password.toString();
+		String pass = password.toString();
+		TextBuilder.recycle(password);
+		return pass;
 	}
 }
