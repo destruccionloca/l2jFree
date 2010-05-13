@@ -19,6 +19,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
 import elayne.application.Activator;
+import elayne.datatables.SkillsTable;
 import elayne.instancemanager.ClansManager;
 import elayne.model.L2CharacterPresence;
 import elayne.util.connector.ServerDB;
@@ -871,9 +872,8 @@ public class L2PcInstance extends L2GroupEntry
 			{
 				int skillId = rset.getInt("skill_id");
 				int skill_level = rset.getInt("skill_level");
-				// TODO
-				//String skill_name = rset.getString("skill_name");
-				String skill_name = "No name yet";
+
+				String skill_name = SkillsTable.getInstance().getSkillName(skillId);
 
 				skills.add(new L2SkillEntry(skillId, skill_level, skill_name, class_index, folder));
 			}

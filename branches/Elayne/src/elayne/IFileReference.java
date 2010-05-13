@@ -11,6 +11,7 @@ public interface IFileReference
 	public static final String ARMORS_FILE = "data/armors.xml";
 	public static final String ETC_ITEMS_FILE = "data/etcitem.xml";
 	public static final String WEAPONS_FILE = "data/weapons.xml";
+	public static final String SKILLS_FILE = "data/skills.xml";
 
 	// HENNAS
 	public static final String HENNA_FILE = "data/henna.txt";

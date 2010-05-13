@@ -22,6 +22,7 @@ import elayne.datatables.GetBannedPlayers;
 import elayne.datatables.GetOnlinePlayers;
 import elayne.datatables.HennaTable;
 import elayne.datatables.ItemTable;
+import elayne.datatables.SkillsTable;
 import elayne.datatables.WeaponTable;
 import elayne.model.ConnectionDetails;
 import elayne.preferences.LoginPreferencePage;
@@ -111,6 +112,10 @@ public class Session implements IAdaptable
 						// GET GENERAL ITEM INFORMATION
 						monitor.subTask("Getting General Items Information...");
 						DetailedItemTable.getInstance().load();
+
+						// GET SKILLS
+						monitor.subTask("Getting Skills...");
+						SkillsTable.getInstance().load();
 
 						// GET CHARACTER TEMPLATES
 						monitor.subTask("Getting Character Templates...");
