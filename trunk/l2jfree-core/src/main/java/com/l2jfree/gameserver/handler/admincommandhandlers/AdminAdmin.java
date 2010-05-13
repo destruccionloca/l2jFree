@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,6 +52,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.PetInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * This class handles following admin commands:
@@ -504,9 +503,9 @@ public class AdminAdmin implements IAdminCommandHandler
 
 	public void showConfigPage2(L2PcInstance activeChar)
 	{
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(activeChar.getObjectId());
 
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
+		L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 		replyMSG
 				.append("<center><table width=270><tr><td width=60><button value=\"Admin\" action=\"bypass -h admin_admin\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td width=150><font color=\"LEVEL\">Config Server Panel</font></td><td width=60><button value=\"Panel1\" action=\"bypass -h admin_config_server\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table></center><br>");
 		replyMSG.append("<center><table width=260>");
@@ -547,7 +546,7 @@ public class AdminAdmin implements IAdminCommandHandler
 						+ "</td><td><edit var=\"menu_command2\" width=40 height=15></td><td><button value=\"Set\" action=\"bypass -h admin_set CoordSynchronize $menu_command2\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG.append("</table></body></html>");
 
-		adminReply.setHtml(replyMSG.toString());
+		adminReply.setHtml(replyMSG.moveToString());
 		activeChar.sendPacket(adminReply);
 	}
 
@@ -555,7 +554,7 @@ public class AdminAdmin implements IAdminCommandHandler
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
+		L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 		replyMSG
 				.append("<center><table width=270><tr><td width=60><button value=\"Admin\" action=\"bypass -h admin_admin\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td width=150><font color=\"LEVEL\">Config Server Panel</font></td><td width=60><button value=\"Panel2\" action=\"bypass -h admin_config_server2\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table></center><br>");
 		replyMSG.append("<center><table width=260>");
@@ -629,7 +628,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				+ "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 		replyMSG.append("</table></body></html>");
 
-		adminReply.setHtml(replyMSG.toString());
+		adminReply.setHtml(replyMSG.moveToString());
 		activeChar.sendPacket(adminReply);
 	}
 

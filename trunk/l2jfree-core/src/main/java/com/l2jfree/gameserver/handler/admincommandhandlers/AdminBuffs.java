@@ -16,18 +16,16 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class AdminBuffs implements IAdminCommandHandler
 {
-	
 	private static final String[] ADMIN_COMMANDS =
 	{
 		"admin_getbuffs",
@@ -42,32 +40,25 @@ public class AdminBuffs implements IAdminCommandHandler
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
 			command = st.nextToken();
+			L2PcInstance target;
 			
 			if (st.hasMoreTokens())
 			{
-				L2PcInstance player = null;
 				String playername = st.nextToken();
+				target = L2World.getInstance().getPlayer(playername);
 				
-				try
+				if (target != null)
 				{
-					player = L2World.getInstance().getPlayer(playername);
-				}
-				catch (Exception e)
-				{
-				}
-				
-				if (player != null)
-				{
-					showBuffs(player, activeChar);
+					showBuffs(target, activeChar);
 					return true;
 				}
 
 				activeChar.sendMessage("The player " + playername + " is not online");
 				return false;
 			}
-			else if ((activeChar.getTarget() != null) && (activeChar.getTarget() instanceof L2PcInstance))
+			else if ((target = activeChar.getTarget(L2PcInstance.class)) != null)
 			{
-				showBuffs((L2PcInstance) activeChar.getTarget(), activeChar);
+				showBuffs(target, activeChar);
 				return true;
 			}
 			else
@@ -79,7 +70,6 @@ public class AdminBuffs implements IAdminCommandHandler
 			try
 			{
 				StringTokenizer st = new StringTokenizer(command, " ");
-				
 				st.nextToken();
 				String playername = st.nextToken();
 				int SkillId = Integer.parseInt(st.nextToken());
@@ -119,7 +109,7 @@ public class AdminBuffs implements IAdminCommandHandler
 				for (L2Character knownChar : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 				{
 					if ((knownChar instanceof L2PcInstance) && !(knownChar.equals(activeChar)))
-						knownChar.stopAllEffects();
+						knownChar.stopAllEffectsExceptThoseThatLastThroughDeath();
 				}
 				
 				activeChar.sendMessage("All effects canceled within raidus " + radius);
@@ -133,7 +123,6 @@ public class AdminBuffs implements IAdminCommandHandler
 		}
 		else
 			return true;
-		
 	}
 	
 	public String[] getAdminCommandList()
@@ -143,9 +132,9 @@ public class AdminBuffs implements IAdminCommandHandler
 	
 	public void showBuffs(L2PcInstance player, L2PcInstance activeChar)
 	{
-		TextBuilder html = new TextBuilder();
-		html.append("<html><center><font color=\"LEVEL\">Effects of "
-		        + player.getName() + "</font><center><br>");
+		L2TextBuilder html = L2TextBuilder.newInstance("<html><center><font color=\"LEVEL\">Effects of ");
+		html.append(player.getName());
+		html.append("</font><center><br>");
 		
 		L2Effect[] effects = player.getAllEffects();
 		
@@ -156,49 +145,42 @@ public class AdminBuffs implements IAdminCommandHandler
 		{
 			if (e != null)
 			{
-				html.append("<tr><td>"
-				        + e.getSkill().getName()
-				        + "</td><td><button value=\"Remove\" action=\"bypass -h admin_stopbuff "
-				        + player.getName()
-				        + " "
-				        + String.valueOf(e.getSkill().getId())
-				        + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+				html.append("<tr><td>");
+				html.append(e.getSkill().getName());
+				html.append("</td><td><button value=\"Remove\" action=\"bypass -h admin_stopbuff ");
+				html.append(player.getName());
+				html.append(' ');
+				html.append(e.getSkill().getId());
+				html.append("\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
 			}
 		}
 		
 		html.append("</table><br>");
-		html.append("<button value=\"Remove All\" action=\"bypass -h admin_stopallbuffs "
-		        + player.getName()
-		        + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+		html.append("<button value=\"Remove All\" action=\"bypass -h admin_stopallbuffs ");
+		html.append(player.getName());
+		html.append("\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 		html.append("</html>");
 		
-		NpcHtmlMessage ms = new NpcHtmlMessage(1);
-		ms.setHtml(html.toString());
-		
+		NpcHtmlMessage ms = new NpcHtmlMessage(activeChar.getObjectId());
+		ms.setHtml(html.moveToString());
 		activeChar.sendPacket(ms);
 	}
 	
-	private void removeBuff(L2PcInstance remover, String playername, int SkillId)
+	private void removeBuff(L2PcInstance remover, String playername, int skillId)
 	{
-		L2PcInstance player = null;
-		try
-		{
-			player = L2World.getInstance().getPlayer(playername);
-		}
-		catch (Exception e)
-		{
-		}
-		
-		if ((player != null) && (SkillId > 0))
+		L2PcInstance player = L2World.getInstance().getPlayer(playername);
+		if (player != null && skillId > 0)
 		{
 			L2Effect[] effects = player.getAllEffects();
 			
 			for (L2Effect e : effects)
 			{
-				if ((e != null) && (e.getSkill().getId() == SkillId))
+				if (e == null)
+					continue;
+				else if (e.getId() == skillId)
 				{
 					e.exit();
-					remover.sendMessage("Removed " + e.getSkill().getName() + " level " + e.getSkill().getLevel() + " from " + playername);
+					remover.sendMessage("Removed " + e.getSkill().getName() + " level " + e.getLevel() + " from " + playername);
 				}
 			}
 			showBuffs(player, remover);
@@ -207,18 +189,10 @@ public class AdminBuffs implements IAdminCommandHandler
 	
 	private void removeAllBuffs(L2PcInstance remover, String playername)
 	{
-		L2PcInstance player = null;
-		try
-		{
-			player = L2World.getInstance().getPlayer(playername);
-		}
-		catch (Exception e)
-		{
-		}
-		
+		L2PcInstance player = L2World.getInstance().getPlayer(playername);
 		if (player != null)
 		{
-			player.stopAllEffects();
+			player.stopAllEffectsExceptThoseThatLastThroughDeath();
 			remover.sendMessage("Removed all effects from " + playername);
 			showBuffs(player, remover);
 		}
@@ -227,5 +201,4 @@ public class AdminBuffs implements IAdminCommandHandler
 			remover.sendMessage("The player " + playername + " is not online");
 		}
 	}
-	
 }

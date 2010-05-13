@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.handler.admincommandhandlers;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
@@ -29,6 +27,7 @@ import com.l2jfree.gameserver.model.actor.L2Attackable.AggroInfo;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.lang.L2TextBuilder;
 
 
 public class AdminAI implements IAdminCommandHandler
@@ -55,13 +54,19 @@ public class AdminAI implements IAdminCommandHandler
 			String param1 = ai.getIntentionArg1() == null ? "--" : ai.getIntentionArg1().toString();
 
 			NpcHtmlMessage html = new NpcHtmlMessage(target.getObjectId());
-			TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">AI Information</font></center><br><br>");
+			L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body><center><font color=\"LEVEL\">AI Information</font></center><br><br>");
 
 			html1.append("<font color=\"LEVEL\">Intention</font>");
 			html1.append("<table border=\"0\" width=\"100%\">");
-			html1.append("<tr><td>Intention:</td><td>" + intention.toString() + "</td></tr>");
-			html1.append("<tr><td>Parameter0:</td><td>" + param0 + "</td></tr>");
-			html1.append("<tr><td>Parameter1:</td><td>" + param1 + "</td></tr>");
+			html1.append("<tr><td>Intention:</td><td>");
+			html1.append(intention.toString());
+			html1.append("</td></tr>");
+			html1.append("<tr><td>Parameter0:</td><td>");
+			html1.append(param0);
+			html1.append("</td></tr>");
+			html1.append("<tr><td>Parameter1:</td><td>");
+			html1.append(param1);
+			html1.append("</td></tr>");
 			html1.append("</table><br><br>");
 
 			if (target instanceof L2Attackable)
@@ -72,7 +77,13 @@ public class AdminAI implements IAdminCommandHandler
 				{
 					L2Character attacker = entry.getKey();
 					AggroInfo a = entry.getValue();
-					html1.append("<tr><td>"+attacker.getName()+"</td><td>" + a.getHate() + " ("+a.getDamage()+")</td></tr>");
+					html1.append("<tr><td>");
+					html1.append(attacker.getName());
+					html1.append("</td><td>");
+					html1.append(a.getHate());
+					html1.append(" (");
+					html1.append(a.getDamage());
+					html1.append(")</td></tr>");
 				}
 				html1.append("</table><br><br>");
 			}
@@ -80,7 +91,7 @@ public class AdminAI implements IAdminCommandHandler
 			html1.append("<button value=\"Refresh\" action=\"bypass -h admin_show_ai\" width=60 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 
 			html1.append("</body></html>");
-			html.setHtml(html1.toString());
+			html.setHtml(html1.moveToString());
 			activeChar.sendPacket(html);
 		}
 

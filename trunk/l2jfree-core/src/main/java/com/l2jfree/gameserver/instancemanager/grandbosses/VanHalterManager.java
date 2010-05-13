@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager.grandbosses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -91,8 +92,8 @@ public class VanHalterManager extends BossLair
 	protected List<L2Npc>			_triolRevelation			= new FastList<L2Npc>();
 	protected List<L2Npc>			_guardOfAltar				= new FastList<L2Npc>();
 	protected Map<Integer, L2Npc>	_cameraMarker				= new FastMap<Integer, L2Npc>();
-	protected List<L2DoorInstance>			_doorOfAltar				= new FastList<L2DoorInstance>();
-	protected List<L2DoorInstance>			_doorOfSacrifice			= new FastList<L2DoorInstance>();
+	protected List<L2DoorInstance>	_doorOfAltar				= new FastList<L2DoorInstance>();
+	protected List<L2DoorInstance>	_doorOfSacrifice			= new FastList<L2DoorInstance>();
 	protected L2Npc					_ritualOffering				= null;
 	protected L2Npc					_ritualSacrifice			= null;
 	protected L2RaidBossInstance			_vanHalter					= null;
@@ -228,10 +229,10 @@ public class VanHalterManager extends BossLair
 			_timeUpTask.cancel(false);
 		_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER);
 
-		// Set bleeding to palyers.
+		// Set bleeding to players.
 		if (_setBleedTask != null)
 			_setBleedTask.cancel(false);
-		_setBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
+		_setBleedTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Bleeding(), 2000, 2000);
 
 		// Check state of High Priestess van Halter.
 		_log.info("VanHalterManager : State of High Priestess van Halter is " + _state.getState() + ".");
@@ -1143,36 +1144,36 @@ public class VanHalterManager extends BossLair
 
 		for (L2Npc tr : _triolRevelation)
 		{
-			if (!tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()).iterator().hasNext() || tr.isDead())
+			if (tr.isDead())
+				continue;
+			Iterable<L2PcInstance> seen = tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange());
+			if (!seen.iterator().hasNext())
 				continue;
 
-			List<L2PcInstance> bpc = new FastList<L2PcInstance>();
-
-			for (L2PcInstance pc : tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()))
+			ArrayList<L2PcInstance> bpc = new ArrayList<L2PcInstance>();
+			for (L2PcInstance pc : seen)
 			{
-				if (pc.getFirstEffect(bleed) == null)
+				if (!pc.getEffects().hasEffect(bleed))
 				{
 					bleed.getEffects(tr, pc);
-					tr.broadcastPacket(new MagicSkillUse(tr, pc, bleed.getId(), 12, 1, 1));
+					tr.broadcastPacket(new MagicSkillUse(tr, pc, bleed.getId(), 12, bleed.getHitTime(),
+							bleed.getReuseDelay()));
 				}
-
 				bpc.add(pc);
 			}
-			_bleedingPlayers.remove(tr.getNpcId());
+			bpc.trimToSize();
 			_bleedingPlayers.put(tr.getNpcId(), bpc);
 		}
 	}
 
 	public void removeBleeding(int npcId)
 	{
-		if (_bleedingPlayers.get(npcId) == null)
+		List<L2PcInstance> list = _bleedingPlayers.remove(npcId);
+		if (list == null)
 			return;
-		for (L2PcInstance pc : (FastList<L2PcInstance>) _bleedingPlayers.get(npcId))
-		{
+		for (L2PcInstance pc : list)
 			if (pc.getFirstEffect(L2EffectType.DMG_OVER_TIME) != null)
 				pc.stopEffects(L2EffectType.DMG_OVER_TIME);
-		}
-		_bleedingPlayers.remove(npcId);
 	}
 
 	private class Bleeding implements Runnable
@@ -1180,10 +1181,6 @@ public class VanHalterManager extends BossLair
 		public void run()
 		{
 			addBleeding();
-
-			if (_setBleedTask != null)
-				_setBleedTask.cancel(false);
-			_setBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
 		}
 	}
 
