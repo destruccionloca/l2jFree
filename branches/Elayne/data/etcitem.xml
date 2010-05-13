@@ -17571,50 +17571,50 @@
     price="0" sellable="true" item_type="none" />
   <item id="10276" name="Battle Manual - Soul Shock"
     weight="120" price="0" sellable="true" item_type="none" />
-  <item id="10328 name=" Stolen Cargo " weight="0" price="0"
+  <item id="10328" name="Stolen Cargo" weight="0" price="0"
     sellable="true" item_type="quest" />
-  <item id="10329 name=" Hate Crystal " weight="0" price="0"
+  <item id="10329" name="Hate Crystal" weight="0" price="0" 
     sellable="true" item_type="quest" />
-  <item id="10330 name=" Old Treasure Map " weight="0"
+  <item id="10330" name="Old Treasure Map" weight="0" 
     price="0" sellable="true" item_type="quest" />
-  <item id="10331 name=" Sonin '' s Credentials " weight="0"
+  <item id="10331" name="Sonin '' s Credentials" weight="0" 
     price="0" sellable="true" item_type="quest" />
-  <item id="10332 name=" Pano '' s Credentials " weight="0"
+  <item id="10332" name="Pano '' s Credentials" weight="0" 
     price="0" sellable="true" item_type="quest" />
-  <item id="10333 name=" Alex '' s Credentials " weight="0"
+  <item id="10333" name="Alex '' s Credentials" weight="0" 
     price="0" sellable="true" item_type="quest" />
-  <item id="10334 name=" Badge - Temple Executor " weight="0"
+  <item id="10334" name="Badge - Temple Executor" weight="0" 
     price="0" sellable="true" item_type="quest" />
-  <item id="10335 name=" Giants '' Experimental Tool Fragment "
+  <item id="10335" name="Giants '' Experimental Tool Fragment"
     weight="0" price="0" sellable="true" item_type="quest" />
-  <item id="10336 name=" Giants '' Experimental Tool " weight="0"
+  <item id="10336" name="Giants '' Experimental Tool" weight="0"
     price="0" sellable="true" item_type="quest" />
-  <item id="10337 name=" Giants '' Technology Report " weight="0"
+  <item id="10337" name="Giants '' Technology Report" weight="0"
     price="0" sellable="true" item_type="quest" />
-  <item id="10338 name=" Rouke '' s Report " weight="0" price="0"
+  <item id="10338" name="Rouke '' s Report" weight="0" price="0"
     sellable="true" item_type="quest" />
-  <item id="10339 name=" Badge - Temple Missionary " weight="0"
+  <item id="10339" name="Badge - Temple Missionary" weight="0"
     price="0" sellable="true" item_type="none" />
-  <item id="10340 name=" Report Fragment " weight="0"
+  <item id="10340" name="Report Fragment" weight="0"
     price="0" sellable="true" item_type="quest" />
-  <item id="10341 name=" Temple Manifesto " weight="0"
+  <item id="10341" name="Temple Manifesto" weight="0"
     price="0" sellable="true" item_type="quest" />
-  <item id="10342 name=" Relics of the Dark Elf Trainee "
+  <item id="10342" name="Relics of the Dark Elf Trainee"
     weight="0" price="0" sellable="true" item_type="quest" />
-  <item id="10343 name=" Angus '' Recommendation " weight="0"
+  <item id="10343" name="Angus '' Recommendation" weight="0"
     price="0" sellable="true" item_type="quest" />
-  <item id="10344 name=" Pupina '' s Recommendation " weight="0"
+  <item id="10344" name="Pupina '' s Recommendation" weight="0"
     price="0" sellable="true" item_type="quest" />
-  <item id="10345 name=" Records Chest Key Fragment "
+  <item id="10345" name="Records Chest Key Fragment"
     weight="0" price="0" sellable="true" item_type="quest" />
-  <item id="10346 name=" Records Chest " weight="0" price="0"
+  <item id="10346" name="Records Chest" weight="0" price="0"
     sellable="true" item_type="quest" />
-  <item id="10347 name=" Dark Crystal " weight="0" price="0"
+  <item id="10347" name="Dark Crystal" weight="0" price="0"
     sellable="true" item_type="quest" />
-  <item id="10348 name=" Dark Oxide " weight="0" price="0"
+  <item id="10348" name="Dark Oxide" weight="0" price="0"
     sellable="true" item_type="quest" />
-  <item id="10349 name=" Cryptogram of the Goddess Sword "
+  <item id="10349" name="Cryptogram of the Goddess Sword"
     weight="0" price="0" sellable="true" item_type="quest" />
-  <item id="10350 name=" Predecessor '' s Report " weight="0"
+  <item id="10350" name="Predecessor '' s Report" weight="0"
     price="0" sellable="true" item_type="quest" />
 </list>
