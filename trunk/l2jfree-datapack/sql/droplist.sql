@@ -32733,3 +32733,11 @@ INSERT INTO droplist VALUES
 (22326,4039,1,35,-1,910052),-- Mold Glue
 (22326,6704,1,15,-1,874614),-- Sealed Imperial Crusader Boots Design
 (22326,6901,1,1,-1,491428);-- Recipe: Shining Arrow (100%)
+
+-- Drop Fixes (Spire)
+UPDATE `droplist` SET `chance` = '463503' WHERE `mobId` = 25263 AND `itemId` = 5543;-- Dasparion\'s Staff Edge
+UPDATE `droplist` SET `chance` = '380816' WHERE `mobId` = 25369 AND `itemId` = 955;-- Scroll: Enchant Weapon (Grade D)
+UPDATE `droplist` SET `chance` = '217072' WHERE `mobId` = 25352 AND `itemId` = 2039;-- Bich\'Hwa Edge
+UPDATE `droplist` SET `chance` = '209179' WHERE `mobId` = 25383 AND `itemId` = 2052;-- Mithril Dagger Blade
+UPDATE `droplist` SET `chance` = '145719' WHERE `mobId` = 21309 AND `itemId` = 1344;-- Mithril Arrow
+
