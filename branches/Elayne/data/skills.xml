@@ -1529,7 +1529,7 @@
   <skill id="21037" name="Release Seal on Agathion - Pegasus"/>
   <skill id="21038" name="Release Seal on Agathion - Yellow-robed Tojigong"/>
   <skill id="21039" name="Release Seal on Agathion - Blue-robed Tojigong"/>
-  <skill id="21040" name="Release Seal on Agathion - Yellow-robed Tojigong"/>
+  <skill id="21040" name="Release Seal on Agathion - Green-robed Tojigong"/>
   <skill id="21041" name="Release Seal on Agathion - Bugbear"/>
   <skill id="21042" name="Baguette's Blessing"/>
   <skill id="21043" name="Agathion Seal Cancel - Red Sumo Wrestler"/>
@@ -2087,6 +2087,37 @@
   <skill id="23066" name="Daewoonso Agathion Special Skill - New Year's Gift Ability"/>
   <skill id="23067" name="Pomona Agathion Cute Trick"/>
   <skill id="23068" name="Pomona Agathion Special Skill - Mental Shield Ability"/>
+  <skill id="23069" name="Threatening Roar"/>
+  <skill id="23070" name="Red Flame"/>
+  <skill id="23071" name="Blue Flame"/>
+  <skill id="23072" name="Eva's Wrath"/>
+  <skill id="23073" name="Switch Mode"/>
+  <skill id="23074" name="Icy Air Explosion"/>
+  <skill id="23075" name="Flame Shock"/>
+  <skill id="23076" name="Weaver Agathion Cute Trick"/>
+  <skill id="23077" name="Weaver Agathion Special Skill - Power of the Golden Calf"/>
+  <skill id="23078" name="Weaver Agathion Special Skill - Flute Sound"/>
+  <skill id="23079" name="Chon-chon Agathion Cute Trick"/>
+  <skill id="23080" name="Chon-chon Agathion Special Skill - Great Warrior Soul Power"/>
+  <skill id="23081" name="Tang-tang Agathion Cute Trick"/>
+  <skill id="23082" name="Tang-tang Agathion Special Skill - Great Wizard Soul Power"/>
+  <skill id="23083" name="Dancing Kid Agathion Cute Trick"/>
+  <skill id="23084" name="Dancing Kid Agathion Special Skill - Great Adventurer Soul Power"/>
+  <skill id="23085" name="Monkey King Agathion Cute Trick"/>
+  <skill id="23086" name="Monkey King Agathion Special Skill - Great Wizard Soul Power"/>
+  <skill id="23087" name="Utanka Agathion Cute Trick"/>
+  <skill id="23088" name="Utanka Agathion Special Skill - Great Warrior Soul Power"/>
+  <skill id="23089" name="Bonus B Agathion Cute Trick"/>
+  <skill id="23090" name="Bonus B Agathion Special Skill - Great Adventurer Soul Power"/>
+  <skill id="23091" name="Trick of Halloween Children"/>
+  <skill id="23092" name="Jack O'Lantern Card"/>
+  <skill id="23093" name="Rotten Jack O'Lantern Card"/>
+  <skill id="23094" name="Jack O'Lantern Card - Confirm Skill"/>
+  <skill id="23095" name="Rotten Jack O'Lantern Card - Confirm Skill"/>
+  <skill id="23096" name="Halloween Defeat"/>
+  <skill id="23097" name="First Consecutive Win"/>
+  <skill id="23098" name="2nd Consecutive Win"/>
+  <skill id="23099" name="Third Consecutive Win"/>
   <skill id="23100" name="Fourth Consecutive Win"/>
   <skill id="23101" name="5th Consecutive Win"/>
   <skill id="23102" name="6th Consecutive Win"/>
@@ -2202,7 +2233,7 @@
   <skill id="2446" name="Anti-magic Armor"/>
   <skill id="2447" name="Seed of Revenge"/>
   <skill id="2448" name="Hell Scream"/>
-  <skill id="2449" name="Song of Wind Strom"/>
+  <skill id="2449" name="Song of Wind Storm"/>
   <skill id="2450" name="Dance of Blade Storm"/>
   <skill id="2451" name="Sixth Sense"/>
   <skill id="2452" name="Expose Weak Point"/>
@@ -2418,7 +2449,7 @@
   <skill id="2663" name="Combat of Pa'agrio"/>
   <skill id="2664" name="Critical of Pa'agrio"/>
   <skill id="2665" name="Condition of Pa'agrio"/>
-  <skill id="2666" name="Duel Blow"/>
+  <skill id="2666" name="Dual Blow"/>
   <skill id="2667" name="Spirit of the Cat"/>
   <skill id="2668" name="Spirit of the Phantom"/>
   <skill id="2669" name="Spirit of the Unicorn"/>
@@ -3712,7 +3743,7 @@
   <skill id="3888" name="Blunt Weapon of Guidance"/>
   <skill id="3889" name="Blunt Weapon of Empower"/>
   <skill id="3890" name="Blunt Weapon of Mana Boost"/>
-  <skill id="3891" name="Blunt Weapon of Boost HP"/>
+  <skill id="3891" name="Sword Weapon of Boost HP"/>
   <skill id="3892" name="Blunt Weapon of Clarity"/>
   <skill id="3893" name="Blunt Weapon of Mana Regeneration"/>
   <skill id="3894" name="Two-handed Blunt Weapon of Critical Power"/>
@@ -5391,7 +5422,7 @@
   <skill id="5571" name="Mutual Response"/>
   <skill id="5572" name="Warrior Ability - Haste"/>
   <skill id="5573" name="Knight Ability - Defense"/>
-  <skill id="5574" name="Rogue Ability - Critical Chance"/>
+  <skill id="5574" name="Log Ability - Critical Chance"/>
   <skill id="5575" name="Wizard Ability - Mana Steel"/>
   <skill id="5576" name="Enchanter Ability - Barrier"/>
   <skill id="5577" name="Healer Ability - Heal"/>
@@ -6371,9 +6402,4 @@
   <skill id="9008" name="Custom Mana Potion"/>
   <skill id="9009" name="Grade Penalty - Weapon"/>
   <skill id="9010" name="Grade Penalty - Armor"/>
-  <skill id="9901" name="Blessed Scroll of Resurrection for Karma players"/>
-  <skill id="9903" name="Mana Drug"/>
-  <skill id="9904" name="Mana potion"/>
-  <skill id="9905" name="Capture Town War Flag"/>
-  <skill id="9906" name="Raise Town War Headquarter"/>
 </list>
