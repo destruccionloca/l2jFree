@@ -82,7 +82,7 @@ public class GetOnlinePlayers
 		for (L2CharacterBriefEntry player : players)
 		{
 			int gmOnline = player.getAccessLevel();
-			if (gmOnline >= 100)
+			if (gmOnline >= 75)
 			{
 				online = true;
 				break;
@@ -135,7 +135,7 @@ public class GetOnlinePlayers
 	{
 		if (!gmsOnline())
 		{
-			showMessage("No Gms Online at this momment.", view);
+			showMessage("No Gms online at this moment.", view);
 			showPlayers(view);
 		}
 		else
@@ -162,7 +162,7 @@ public class GetOnlinePlayers
 				int accesslevel = player.getAccessLevel();
 				int sex = player.getSex();
 				int clanId = player.getClanId();
-				if (accesslevel >= 100)
+				if (accesslevel >= 75)
 					gms.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
 				else
 					playergroup.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
