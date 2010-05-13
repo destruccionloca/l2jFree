@@ -3963,7 +3963,7 @@
     weight="1520" price="0" sellable="true"
     weapon_type="sword" />
   <item id="10441" name="Icarus Spirit - Mana Up"
-    weight=" 1520" price="0" sellable="true"
+    weight="1520" price="0" sellable="true"
     weapon_type="sword" />
   <item id="10442" name="Icarus Spirit - Conversion"
     weight="1520" price="0" sellable="true"
@@ -4023,7 +4023,7 @@
     weight="1280" price="0" sellable="true"
     weapon_type="dagger" />
   <item id="10462" name="Icarus Stinger - Health"
-    weight=" 1280" price="0" sellable="true"
+    weight="1280" price="0" sellable="true"
     weapon_type="dagger" />
   <item id="10463" name="Icarus Stinger - Light"
     weight="1280" price="0" sellable="true"
