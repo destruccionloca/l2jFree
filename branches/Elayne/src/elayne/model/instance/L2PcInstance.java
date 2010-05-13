@@ -623,25 +623,29 @@ public class L2PcInstance extends L2GroupEntry
 	{
 		if (presence == L2CharacterPresence.DWARF_MALE)
 			return IImageKeys.DWARF_MALE;
-		if (presence == L2CharacterPresence.DWARF_FEMALE)
+		else if (presence == L2CharacterPresence.DWARF_FEMALE)
 			return IImageKeys.DWARF_FEMALE;
-		if (presence == L2CharacterPresence.DARK_ELF_MALE)
+		else if (presence == L2CharacterPresence.DARK_ELF_MALE)
 			return IImageKeys.DARK_ELF_MALE;
-		if (presence == L2CharacterPresence.DARK_ELF_FEMALE)
+		else if (presence == L2CharacterPresence.DARK_ELF_FEMALE)
 			return IImageKeys.DARK_ELF_FEMALE;
-		if (presence == L2CharacterPresence.HUMAN_MALE)
+		else if (presence == L2CharacterPresence.HUMAN_MALE)
 			return IImageKeys.HUMAN_MALE;
-		if (presence == L2CharacterPresence.HUMAN_FEMALE)
+		else if (presence == L2CharacterPresence.HUMAN_FEMALE)
 			return IImageKeys.HUMAN_FEMALE;
-		if (presence == L2CharacterPresence.ELF_MALE)
+		else if (presence == L2CharacterPresence.ELF_MALE)
 			return IImageKeys.ELF_MALE;
-		if (presence == L2CharacterPresence.ELF_FEMALE)
+		else if (presence == L2CharacterPresence.ELF_FEMALE)
 			return IImageKeys.ELF_FEMALE;
-		if (presence == L2CharacterPresence.ORC_MALE)
+		else if (presence == L2CharacterPresence.ORC_MALE)
 			return IImageKeys.ORC_MALE;
-		if (presence == L2CharacterPresence.ORC_FEMALE)
+		else if (presence == L2CharacterPresence.ORC_FEMALE)
 			return IImageKeys.ORC_FEMALE;
-		return IImageKeys.DWARF_MALE; // FIXME: Temporary fix for Missing KAMAEL Images.
+		else if (presence == L2CharacterPresence.KAMAEL_MALE)
+			return IImageKeys.DWARF_MALE;
+		else if (presence == L2CharacterPresence.KAMAEL_FEMALE)
+			return IImageKeys.DWARF_FEMALE;
+		return IImageKeys.DWARF_MALE; // TODO Fin Kamael images
 	}
 
 	/**
@@ -695,8 +699,6 @@ public class L2PcInstance extends L2GroupEntry
 				}
 				clanId = rset.getInt("clanid");
 				subPledge = (rset.getInt("subpledge"));
-				// TODO
-				lastRecomDate = 0;
 				race = rset.getInt("race");
 				online = rset.getInt("online");
 				deleteTime = (rset.getLong("deletetime"));
@@ -705,10 +707,6 @@ public class L2PcInstance extends L2GroupEntry
 				currentHp = rset.getDouble("curHp");
 				currentCp = rset.getDouble("curCp");
 				currentMp = rset.getDouble("curMp");
-				// TODO
-				recHave = 0;
-				recLeft = 0;
-
 				baseClass = (rset.getInt("base_class"));
 				apprentice = (rset.getInt("apprentice"));
 				sponsor = (rset.getInt("sponsor"));
@@ -896,41 +894,49 @@ public class L2PcInstance extends L2GroupEntry
 		{
 			presence = L2CharacterPresence.DWARF_MALE;
 		}
-		if ((gender == 1) && (race == 4))
+		else if ((gender == 1) && (race == 4))
 		{
 			presence = L2CharacterPresence.DWARF_FEMALE;
 		}
-		if ((gender == 0) && (race == 2))
+		else if ((gender == 0) && (race == 2))
 		{
 			presence = L2CharacterPresence.DARK_ELF_MALE;
 		}
-		if ((gender == 1) && (race == 2))
+		else if ((gender == 1) && (race == 2))
 		{
 			presence = L2CharacterPresence.DARK_ELF_FEMALE;
 		}
-		if ((gender == 0) && (race == 0))
+		else if ((gender == 0) && (race == 0))
 		{
 			presence = L2CharacterPresence.HUMAN_MALE;
 		}
-		if ((gender == 1) && (race == 0))
+		else if ((gender == 1) && (race == 0))
 		{
 			presence = L2CharacterPresence.HUMAN_FEMALE;
 		}
-		if ((gender == 0) && (race == 1))
+		else if ((gender == 0) && (race == 1))
 		{
 			presence = L2CharacterPresence.ELF_MALE;
 		}
-		if ((gender == 1) && (race == 1))
+		else if ((gender == 1) && (race == 1))
 		{
 			presence = L2CharacterPresence.ELF_FEMALE;
 		}
-		if ((gender == 0) && (race == 3))
+		else if ((gender == 0) && (race == 3))
 		{
 			presence = L2CharacterPresence.ORC_MALE;
 		}
-		if ((gender == 1) && (race == 3))
+		else if ((gender == 1) && (race == 3))
 		{
 			presence = L2CharacterPresence.ORC_FEMALE;
+		}
+		else if ((gender == 0) && (race == 5))
+		{
+			presence = L2CharacterPresence.KAMAEL_MALE;
+		}
+		else if ((gender == 1) && (race == 5))
+		{
+			presence = L2CharacterPresence.KAMAEL_FEMALE;
 		}
 	}
 

@@ -22,6 +22,10 @@ public class L2CharacterPresence
 
 	public static final L2CharacterPresence HUMAN_MALE = new L2CharacterPresence("Human Male");
 
+	public static final L2CharacterPresence KAMAEL_FEMALE = new L2CharacterPresence("Kamael Female");
+
+	public static final L2CharacterPresence KAMAEL_MALE = new L2CharacterPresence("Kamael Male");
+
 	public static final L2CharacterPresence MALE_ONLINE = new L2CharacterPresence("Male Online");
 
 	public static final L2CharacterPresence ORC_FEMALE = new L2CharacterPresence("Orc Female");
