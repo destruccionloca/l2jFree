@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 
-import elayne.ations.RequestItemEnchant; 
+import elayne.actions.RequestItemEnchant;
 
 /**
  * This class represents a new Dialog that is prompted by the

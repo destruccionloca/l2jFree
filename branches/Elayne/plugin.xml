@@ -69,7 +69,7 @@
       </property>
       <property
             name="aboutText"
-            value="Elayne L2Dragonlance Information Tool.&#x0A;&#x0A;Version: 1.0.0&#x0A;&#x0A;(c) Copyright: L2Dragonlance, polbat02, Eclipse.org and others. 2007-2008. All rights reserved.&#x0A;Visit: http://l2dragonlance.org">
+            value="Elayne L2Dragonlance Information Tool.&#x0A;&#x0A;Version: 1.0.0&#x0A;&#x0A;(c) Copyright: L2Dragonlance, polbat02, Eclipse.org and others. 2007-2008. All rights reserved.&#x0A;Visit: http://l2dragonlance.org&#x0A;&#x0A;Rework for L2jFree by L2jfree&#x0A;Visit: http://www.l2jfree.com">
       </property>
       <property name="windowImages"
         value="icons/alt16.gif,icons/alt32.gif">

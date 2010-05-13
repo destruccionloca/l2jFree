@@ -19,8 +19,8 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.ViewPart;
 
-import elayne.ations.RequestClanPlayerKick;
-import elayne.ations.RequestPlayerInformation;
+import elayne.actions.RequestClanPlayerKick;
+import elayne.actions.RequestPlayerInformation;
 import elayne.instancemanager.ClansManager;
 import elayne.model.L2AdapterFactory;
 import elayne.model.L2Character;

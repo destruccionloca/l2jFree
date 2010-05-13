@@ -23,9 +23,9 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.part.ViewPart;
 
+import elayne.actions.RequestClanInformation;
+import elayne.actions.RequestPlayerInformation;
 import elayne.application.Activator;
-import elayne.ations.RequestClanInformation;
-import elayne.ations.RequestPlayerInformation;
 import elayne.datatables.CharTemplateTable;
 import elayne.dialogs.SearchDialog;
 import elayne.model.instance.L2CharacterBriefEntry;

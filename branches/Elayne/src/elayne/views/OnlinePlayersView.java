@@ -23,9 +23,9 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
+import elayne.actions.RequestPlayerInformation;
+import elayne.actions.util.ActionWaiter;
 import elayne.application.Activator;
-import elayne.ations.RequestPlayerInformation;
-import elayne.ations.util.ActionWaiter;
 import elayne.datatables.GetOnlinePlayers;
 import elayne.model.L2AdapterFactory;
 import elayne.model.L2Character;

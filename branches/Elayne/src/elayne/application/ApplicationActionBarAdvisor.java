@@ -18,14 +18,14 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
-import elayne.ations.RequestSearch;
-import elayne.ations.RequestServerAnnouncement;
-import elayne.ations.RequestServerInstanceReload;
-import elayne.ations.RequestServerPMToOnlineGms;
-import elayne.ations.RequestServerRestart;
-import elayne.ations.ShowBannedPlayersView;
-import elayne.ations.ShowConsoleView;
-import elayne.ations.ShowOnlinePlayersView;
+import elayne.actions.RequestSearch;
+import elayne.actions.RequestServerAnnouncement;
+import elayne.actions.RequestServerInstanceReload;
+import elayne.actions.RequestServerPMToOnlineGms;
+import elayne.actions.RequestServerRestart;
+import elayne.actions.ShowBannedPlayersView;
+import elayne.actions.ShowConsoleView;
+import elayne.actions.ShowOnlinePlayersView;
 
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor
 {

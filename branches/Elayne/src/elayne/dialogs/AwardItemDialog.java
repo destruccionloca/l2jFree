@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
 
-import elayne.ations.RequestItemAward;
+import elayne.actions.RequestItemAward;
 import elayne.datatables.ArmorTable;
 import elayne.datatables.ItemTable;
 import elayne.datatables.WeaponTable;
