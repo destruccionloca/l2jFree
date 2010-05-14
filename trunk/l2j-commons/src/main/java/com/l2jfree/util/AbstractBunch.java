@@ -16,16 +16,41 @@ package com.l2jfree.util;
 
 import java.lang.reflect.Array;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author NB4L1
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractBunch<E> implements Bunch<E>
 {
+	protected static final Log _log = LogFactory.getLog(AbstractBunch.class);
+	
 	@Override
 	public boolean isEmpty()
 	{
 		return size() == 0;
+	}
+	
+	@Override
+	public Bunch<E> addAll(Iterable<? extends E> c)
+	{
+		if (c != null)
+			for (E e : c)
+				add(e);
+		
+		return this;
+	}
+	
+	@Override
+	public Bunch<E> addAll(E[] array)
+	{
+		if (array != null)
+			for (E e : array)
+				add(e);
+		
+		return this;
 	}
 	
 	@Override

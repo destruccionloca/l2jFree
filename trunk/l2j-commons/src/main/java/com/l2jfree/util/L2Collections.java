@@ -25,6 +25,8 @@ import java.util.NoSuchElementException;
 import java.util.RandomAccess;
 import java.util.Set;
 
+import javolution.util.FastList;
+
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -617,7 +619,7 @@ public final class L2Collections
 	}
 	
 	public static <T> Iterable<T> concatenatedIterable(Iterable<? extends T> iterable1,
-		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+			Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
 		return new ConcatenatedIterable<T>(iterable1, iterable2, iterable3);
 	}
@@ -633,7 +635,7 @@ public final class L2Collections
 	}
 	
 	public static <T> Iterator<T> concatenatedIterator(Iterable<? extends T> iterable1,
-		Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
+			Iterable<? extends T> iterable2, Iterable<? extends T> iterable3)
 	{
 		return new ConcatenatedIterator<T>(iterable1, iterable2, iterable3);
 	}
@@ -720,6 +722,20 @@ public final class L2Collections
 		}
 	};
 	
+	private static final ObjectPool<FastList> FAST_LISTS = new ObjectPool<FastList>() {
+		@Override
+		protected void reset(FastList list)
+		{
+			list.clear();
+		}
+		
+		@Override
+		protected FastList create()
+		{
+			return new FastList();
+		}
+	};
+	
 	private static final ObjectPool<L2FastSet> L2_FAST_SETS = new ObjectPool<L2FastSet>() {
 		@Override
 		protected void reset(L2FastSet list)
@@ -742,6 +758,16 @@ public final class L2Collections
 	public static void recycle(ArrayList arrayList)
 	{
 		ARRAY_LISTS.store(arrayList);
+	}
+	
+	public static <T> FastList<T> newFastList()
+	{
+		return FAST_LISTS.get();
+	}
+	
+	public static void recycle(FastList fastList)
+	{
+		FAST_LISTS.store(fastList);
 	}
 	
 	public static <T> L2FastSet<T> newL2FastSet()

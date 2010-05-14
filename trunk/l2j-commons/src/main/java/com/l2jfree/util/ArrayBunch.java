@@ -14,10 +14,25 @@
  */
 package com.l2jfree.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * An implementation of {@link AbstractListBunch} backed by an {@link ArrayList}.
+ * 
  * @author NB4L1
  */
-public abstract class ArrayBunch<E> extends AbstractBunch<E>
+public final class ArrayBunch<E> extends AbstractListBunch<E>
 {
-	// TODO: implement
+	@Override
+	protected List<E> initList()
+	{
+		return L2Collections.newArrayList();
+	}
+	
+	@Override
+	protected void recycleList(List<E> list)
+	{
+		L2Collections.recycle((ArrayList<E>)list);
+	}
 }
