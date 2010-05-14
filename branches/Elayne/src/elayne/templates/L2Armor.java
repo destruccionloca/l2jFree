@@ -2,50 +2,50 @@ package elayne.templates;
 
 public class L2Armor
 {
-	private int itemId;
-	private String name;
-	private int weight;
-	private int price;
-	private String sellable;
-	private String type;
+	private final int _itemId;
+	private final String _name;
+	private final int _weight;
+	private final int _price;
+	private final String _sellable;
+	private final String _type;
 
 	public L2Armor(int itemId, String name, int weight, int price, String sellable, String type)
 	{
-		this.itemId = itemId;
-		this.name = name;
-		this.weight = weight;
-		this.price = price;
-		this.sellable = sellable;
-		this.type = type;
+		_itemId = itemId;
+		_name = name;
+		_weight = weight;
+		_price = price;
+		_sellable = sellable;
+		_type = type;
 	}
 
 	public int getId()
 	{
-		return itemId;
+		return _itemId;
 	}
 
 	public String getName()
 	{
-		return name;
+		return _name;
 	}
 
 	public int getWeight()
 	{
-		return weight;
+		return _weight;
 	}
 
 	public int getPrice()
 	{
-		return price;
+		return _price;
 	}
 
 	public String getSellable()
 	{
-		return sellable;
+		return _sellable;
 	}
 
 	public String getType()
 	{
-		return type;
+		return _type;
 	}
 }

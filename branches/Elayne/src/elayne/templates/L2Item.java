@@ -2,50 +2,50 @@ package elayne.templates;
 
 public class L2Item
 {
-	private int id;
-	private String name;
-	private int weight;
-	private int price;
-	private String sellable;
-	private String type;
+	private final int _id;
+	private final String _name;
+	private final int _weight;
+	private final int _price;
+	private final String _sellable;
+	private final String _type;
 
 	public L2Item(int id, String name, int weight, int price, String sellable, String type)
 	{
-		this.id = id;
-		this.name = name;
-		this.weight = weight;
-		this.price = price;
-		this.sellable = sellable;
-		this.type = type;
+		_id = id;
+		_name = name;
+		_weight = weight;
+		_price = price;
+		_sellable = sellable;
+		_type = type;
 	}
 
 	public int getId()
 	{
-		return id;
+		return _id;
 	}
 
 	public String getName()
 	{
-		return name;
+		return _name;
 	}
 
 	public int getWeight()
 	{
-		return weight;
+		return _weight;
 	}
 
 	public int getPrice()
 	{
-		return price;
+		return _price;
 	}
 
 	public String sellable()
 	{
-		return sellable;
+		return _sellable;
 	}
 
 	public String getType()
 	{
-		return type;
+		return _type;
 	}
 }

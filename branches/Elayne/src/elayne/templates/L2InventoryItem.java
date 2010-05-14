@@ -2,53 +2,53 @@ package elayne.templates;
 
 public class L2InventoryItem
 {
-	private int id;
-	private int objectId;
-	private int enchantLevel;
-	private String location;
-	private int amount;
+	private final int _id;
+	private final int _objectId;
+	private int _enchantLevel;
+	private final String _location;
+	private int _amount;
 
 	public L2InventoryItem(int id, int objectId, int enchantLevel, String location, int amount)
 	{
-		this.id = id;
-		this.objectId = objectId;
-		this.enchantLevel = enchantLevel;
-		this.location = location;
-		this.amount = amount;
+		_id = id;
+		_objectId = objectId;
+		_enchantLevel = enchantLevel;
+		_location = location;
+		_amount = amount;
 	}
 
 	public int getId()
 	{
-		return id;
+		return _id;
 	}
 
 	public int getObjectId()
 	{
-		return objectId;
+		return _objectId;
 	}
 
 	public int getEnchantLevel()
 	{
-		return enchantLevel;
+		return _enchantLevel;
 	}
 
 	public int setEnchantLevel(int newEnchant)
 	{
-		return this.enchantLevel = newEnchant;
+		return _enchantLevel = newEnchant;
 	}
 
 	public String getLocation()
 	{
-		return location;
+		return _location;
 	}
 
 	public int getAmount()
 	{
-		return amount;
+		return _amount;
 	}
 
 	public void setAmount(int newAmount)
 	{
-		this.amount = newAmount;
+		_amount = newAmount;
 	}
 }
