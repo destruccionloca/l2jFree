@@ -3,8 +3,6 @@ package elayne.datatables;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -111,10 +109,23 @@ public class SkillsTable
 					{
 						if ("skill".equalsIgnoreCase(d.getNodeName()))
 						{
+							int skillEnch1 = 0;
+							int skillEnch2 = 0;
+							int skillEnch3 = 0;
+
 							NamedNodeMap attrs = d.getAttributes();
 							int skillId = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
+							int skillLevels = Integer.parseInt(attrs.getNamedItem("levels").getNodeValue());
 							String name = attrs.getNamedItem("name").getNodeValue();
-							skills.put(skillId, new L2Skill(skillId, name));
+
+							if (attrs.getNamedItem("enchantLevels1") != null)
+								skillEnch1 = Integer.parseInt(attrs.getNamedItem("enchantLevels1").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels2") != null)
+								skillEnch2 = Integer.parseInt(attrs.getNamedItem("enchantLevels2").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels3") != null)
+								skillEnch3 = Integer.parseInt(attrs.getNamedItem("enchantLevels3").getNodeValue());
+							
+							skills.put(skillId, new L2Skill(skillId, name, skillLevels, skillEnch1, skillEnch2, skillEnch3));
 							loaded++;
 						}
 					}

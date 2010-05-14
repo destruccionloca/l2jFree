@@ -19,7 +19,6 @@ public abstract class L2GroupEntry extends L2Character
 {
 	// ====================================
 	// DATA FIELD
-	@SuppressWarnings("unchecked")
 	protected List<L2Character> entries;
 	protected String name;
 	protected L2GroupEntry parent;

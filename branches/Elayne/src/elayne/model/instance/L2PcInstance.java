@@ -168,7 +168,6 @@ public class L2PcInstance extends L2GroupEntry
 	private L2CharacterEntry onlineTimeLabel;
 	private L2CharacterEntry pkLabel;
 	private int pks = 0;
-	@SuppressWarnings("unused")
 	private L2CharacterPresence presence;
 	private L2CharacterEntry pvpLabel;
 	private int pvps = 0;

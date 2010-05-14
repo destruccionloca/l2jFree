@@ -69,6 +69,7 @@ public class Application implements IApplication
 		});
 	}
 
+	@SuppressWarnings("deprecation")
 	private boolean login(final Session session)
 	{
 		boolean firstTry = true;

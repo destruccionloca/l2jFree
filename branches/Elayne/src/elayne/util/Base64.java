@@ -338,7 +338,6 @@ public class Base64
 	 * @see Base64#DONT_BREAK_LINES
 	 * @since 2.0
 	 */
-	@SuppressWarnings("null")
 	public static String encodeObject(java.io.Serializable serializableObject, int options)
 	{
 		// Streams
@@ -492,7 +491,6 @@ public class Base64
 	 * @see Base64#DONT_BREAK_LINES
 	 * @since 2.0
 	 */
-	@SuppressWarnings("null")
 	public static String encodeBytes(byte[] source, int off, int len, int options)
 	{
 		// Isolate options
@@ -791,7 +789,6 @@ public class Base64
 	 * @return the decoded data
 	 * @since 1.4
 	 */
-	@SuppressWarnings("null")
 	public static byte[] decode(String s)
 	{
 		byte[] bytes;
@@ -884,7 +881,6 @@ public class Base64
 	 * @return The decoded and deserialized object
 	 * @since 1.5
 	 */
-	@SuppressWarnings("null")
 	public static Object decodeToObject(String encodedObject)
 	{
 		// Decode and gunzip if necessary

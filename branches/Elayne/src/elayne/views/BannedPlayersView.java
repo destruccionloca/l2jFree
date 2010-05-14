@@ -78,22 +78,19 @@ public class BannedPlayersView extends ViewPart
 		fillLocalToolBar(bars.getToolBarManager());
 	}
 
-	private void fillLocalPullDown(@SuppressWarnings("unused")
-	IMenuManager manager)
+	private void fillLocalPullDown(IMenuManager manager)
 	{
 	// manager.add(addBannedPlayer);
 	// manager.add(new Separator());
 	}
 
-	private void fillContextMenu(@SuppressWarnings("unused")
-	IMenuManager manager)
+	private void fillContextMenu(IMenuManager manager)
 	{
 	// manager.add(addBannedPlayer);
 	// Other plug-ins can contribute there actions here
 	}
 
-	private void fillLocalToolBar(@SuppressWarnings("unused")
-	IToolBarManager manager)
+	private void fillLocalToolBar(IToolBarManager manager)
 	{
 	// manager.add(addBannedPlayer);
 	}

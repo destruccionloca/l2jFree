@@ -7,6 +7,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
 import elayne.application.Activator;
+import elayne.datatables.SkillsTable;
 import elayne.model.instance.L2CharacterBriefEntry;
 import elayne.model.instance.L2CharacterEntry;
 import elayne.model.instance.L2ClanEntry;
@@ -17,6 +18,7 @@ import elayne.model.instance.L2PcInstance;
 import elayne.model.instance.L2RegularGroup;
 import elayne.model.instance.L2SkillEntry;
 import elayne.model.instance.L2SubClass;
+import elayne.templates.L2Skill;
 
 /**
  * This class defines how things will be shown in the user Interface depending
@@ -251,7 +253,25 @@ public class L2AdapterFactory implements IAdapterFactory
 		public String getLabel(Object o)
 		{
 			L2SkillEntry entry = ((L2SkillEntry) o);
-			return entry.getName() + " - Level: " + entry.getSkillLevel();
+
+			int skillLevel = entry.getSkillLevel();
+			String enchantInfo = "";
+
+			if (skillLevel > 100)
+			{
+				final int route = skillLevel / 100;
+				final int enchantLevel = skillLevel % 100;
+
+				L2Skill skill = SkillsTable.getInstance().getSkill(entry.getSkillId());
+				if (skill != null)
+					skillLevel = skill.getSkillMaxLevel();
+				else
+					skillLevel = 0;
+
+				enchantInfo = " - Enchant: " + enchantLevel + " Route: " + route;
+			}
+
+			return entry.getName() + " - Level: " + skillLevel + "" + enchantInfo;
 		}
 
 		public Object getParent(Object o)
