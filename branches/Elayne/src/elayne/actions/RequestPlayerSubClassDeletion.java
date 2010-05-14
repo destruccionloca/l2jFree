@@ -130,7 +130,7 @@ public class RequestPlayerSubClassDeletion extends ElayneAction
 		if (sendConfirmationMessage("Remove Sub Class", "Are you sure that you want to remove the " + group.getName() + " sub class from the player " + player.getName() + "?"))
 		{
 			// DELETE THE SUB CLASS HERE!
-			if (modifySubClass(group.classIndex, player.getObjectId()))
+			if (modifySubClass(group.getClassIndex(), player.getObjectId()))
 			{
 				player.getSubs().remove(group);
 				System.out.println("RequestDeleteSubClass: Removed Sub Class " + group.getName());

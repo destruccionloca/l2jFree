@@ -6,24 +6,26 @@ import elayne.datatables.CharTemplateTable;
 
 public class L2SubClass extends L2GroupEntry
 {
-	public int classId, level, classIndex;
+	private final int _classId;
+	private final int _level;
+	private final int _classIndex;
 
 	public L2SubClass(int classId, int level, int classIndex)
 	{
 		super(null, CharTemplateTable.getInstance().getClassNameById(classId));
-		this.classId = classId;
-		this.level = level;
-		this.classIndex = classIndex;
+		_classId = classId;
+		_level = level;
+		_classIndex = classIndex;
 	}
 
 	public int getClassId()
 	{
-		return classId;
+		return _classId;
 	}
 
 	public int getClassIndex()
 	{
-		return classIndex;
+		return _classIndex;
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class L2SubClass extends L2GroupEntry
 
 	public int getLevel()
 	{
-		return level;
+		return _level;
 	}
 
 	@Override

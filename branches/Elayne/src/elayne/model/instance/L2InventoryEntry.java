@@ -6,44 +6,45 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import elayne.IImageKeys;
 import elayne.application.Activator;
 import elayne.datatables.DetailedItemTable;
+import elayne.templates.L2PictureLocation;
 
 public class L2InventoryEntry extends L2GroupEntry
 {
-	private int amount;
+	private int _amount;
 
-	private int enchantLevel;
+	private int _enchantLevel;
 
-	private final L2GroupEntry group;
+	private final L2GroupEntry _group;
 
-	public final int itemId;
+	public final int _itemId;
 
-	private String location;
+	private String _location;
 
-	public final String name;
+	public final String _name;
 
-	private int objectId;
+	private int _objectId;
 
-	private final L2PcInstance playerInfo;
+	private final L2PcInstance _playerInfo;
 
-	public final String type;
+	public final String _type;
 
 	public L2InventoryEntry(L2GroupEntry group, L2PcInstance player, String name, String type, int itemId, int enchantLevel, int amount, String location, int objectId)
 	{
 		super(group, name);
-		this.group = group;
-		this.playerInfo = player;
-		this.name = name;
-		this.type = type;
-		this.itemId = itemId;
-		this.enchantLevel = enchantLevel;
-		this.amount = amount;
-		this.location = location;
-		this.objectId = objectId;
+		_group = group;
+		_playerInfo = player;
+		_name = name;
+		_type = type;
+		_itemId = itemId;
+		_enchantLevel = enchantLevel;
+		_amount = amount;
+		_location = location;
+		_objectId = objectId;
 	}
 
 	public int getAmount()
 	{
-		return amount;
+		return _amount;
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public void setAmount(int newAmount)
 	{
-		this.amount = newAmount;
+		_amount = newAmount;
 	}
 	
 	/**
@@ -61,7 +62,7 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public void setEnchantLevel(int newEnchantlevel)
 	{
-		this.enchantLevel = newEnchantlevel;
+		_enchantLevel = newEnchantlevel;
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public int getEnchantLevel()
 	{
-		return enchantLevel;
+		return _enchantLevel;
 	}
 
 	@Override
@@ -77,8 +78,11 @@ public class L2InventoryEntry extends L2GroupEntry
 	{
 		if (getItemId() != 0)
 		{
-			String pic_loc = DetailedItemTable.getInstance().getItem(getItemId()).getPicLocation();
-			ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, "icons/" + pic_loc + ".png");
+			String path = IImageKeys.PIC_NOT_FOUND;
+			L2PictureLocation pic_loc = DetailedItemTable.getInstance().getItem(getItemId());
+			if (pic_loc != null)
+				path = "icons/"+pic_loc.getPicLocation()+".png";
+			ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, path);
 			if (image != null)
 				return image;
 		}
@@ -90,7 +94,7 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public int getItemId()
 	{
-		return itemId;
+		return _itemId;
 	}
 
 	/**
@@ -99,7 +103,7 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public String getLocation()
 	{
-		return location;
+		return _location;
 	}
 
 	/**
@@ -123,10 +127,10 @@ public class L2InventoryEntry extends L2GroupEntry
 	public String getName()
 	{
 		if (getAmount() > 1)
-			return getAmount() + " " + name + " " + getLocName();
+			return getAmount() + " " + _name + " " + getLocName();
 		if (getEnchantLevel() > 0)
-			return "+" + getEnchantLevel() + " " + name + " " + getLocName();
-		return name + " " + getLocName();
+			return "+" + getEnchantLevel() + " " + _name + " " + getLocName();
+		return _name + " " + getLocName();
 	}
 
 	/**
@@ -135,13 +139,13 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public int getObjectId()
 	{
-		return objectId;
+		return _objectId;
 	}
 
 	@Override
 	public L2GroupEntry getParent()
 	{
-		return group;
+		return _group;
 	}
 
 	/**
@@ -150,7 +154,7 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public L2PcInstance getPlayerInfo()
 	{
-		return playerInfo;
+		return _playerInfo;
 	}
 
 	/**
@@ -158,6 +162,6 @@ public class L2InventoryEntry extends L2GroupEntry
 	 */
 	public String getType()
 	{
-		return type;
+		return _type;
 	}
 }

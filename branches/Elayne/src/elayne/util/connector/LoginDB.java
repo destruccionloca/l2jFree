@@ -57,7 +57,7 @@ public class LoginDB
 			_source.setAcquireRetryDelay(500);
 			_source.setCheckoutTimeout(0);
 			_source.setAcquireIncrement(5);
-			_source.setAutomaticTestTable("connection_test_table");
+			_source.setAutomaticTestTable("elayne_test_table");
 			_source.setTestConnectionOnCheckin(false);
 			_source.setIdleConnectionTestPeriod(3600);
 			_source.setMaxIdleTime(0);
@@ -94,7 +94,7 @@ public class LoginDB
 			_log.fine("Database Connection FAILED");
 			throw new SQLException("could not init DB connection: " + e);
 		}
-		System.out.println("LoginDB: Database imported correctly.");
+		System.out.println("LoginDB: Connection working.");
 	}
 
 	// =========================================================

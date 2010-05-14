@@ -59,7 +59,7 @@ public class ServerDB
 			_source.setAcquireIncrement(5); // if pool is exhausted, get 5 more connections at a time cause there is a "long" delay on acquire
 			// connection so taking more than one connection at once will make connection pooling more effective.
 			//This "connection_test_table" is automatically created if not already there
-			_source.setAutomaticTestTable("connection_test_table");
+			_source.setAutomaticTestTable("elayne_test_table");
 			_source.setTestConnectionOnCheckin(false);
 			// testing OnCheckin used with IdleConnectionTestPeriod is faster than testing on checkout
 			_source.setIdleConnectionTestPeriod(3600); // test idle connection every 60 seconds.
@@ -101,7 +101,7 @@ public class ServerDB
 			_log.fine("Database Connection FAILED");
 			throw new SQLException("could not init DB connection: " + e);
 		}
-		System.out.println("TanisDB: Database imported correctly.");
+		System.out.println("ServerDB: Connection working.");
 	}
 
 	// =========================================================

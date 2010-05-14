@@ -9,12 +9,12 @@ import elayne.application.Activator;
 public class L2SkillsGroup extends L2GroupEntry
 {
 
-	private L2GroupEntry subclassGroup;
+	private L2GroupEntry _subclassGroup;
 
 	public L2SkillsGroup(L2PcInstance parent, String name, L2GroupEntry subclassGroup)
 	{
 		super(parent, name);
-		this.subclassGroup = subclassGroup;
+		_subclassGroup = subclassGroup;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class L2SkillsGroup extends L2GroupEntry
 
 	public L2GroupEntry getSubClassGroup()
 	{
-		return subclassGroup;
+		return _subclassGroup;
 	}
 
 	public void restore()
