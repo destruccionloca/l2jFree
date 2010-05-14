@@ -171,7 +171,7 @@ public class HennaTable
 					i++;
 				}
 			}
-			System.out.println("HennaTable: A total of " + i + " Hennas have been loaded.");
+			System.out.println("HennaTable: "+i+" hennas loaded correctly.");
 		}
 		catch (IOException e1)
 		{
