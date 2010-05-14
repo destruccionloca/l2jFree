@@ -45,3 +45,10 @@ The files are the following:
 		- Price of the item.
 		- Boolean that tells us if the item can or can't be sold.
 		- A string defining the weapon type (sword, blunt, bow...).
+
+7- skills.xml
+	- Contains infos about all known skills on L2jfree server. Containing:
+		- Skill Id
+		- Skill name
+		- Skill max levels
+		- Skill Enchants

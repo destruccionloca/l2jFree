@@ -16,7 +16,7 @@ import elayne.util.ThreadPoolManager;
 public class ActionWaiter
 {
 	/** The action that will need to wait on command. */
-	private Action action;
+	private Action _action;
 
 	/**
 	 * A temporary tool tip used to inform the user that a certain action is
@@ -30,7 +30,7 @@ public class ActionWaiter
 	/** Constructor */
 	public ActionWaiter(Action action)
 	{
-		this.action = action;
+		_action = action;
 	}
 
 	/**
@@ -48,13 +48,13 @@ public class ActionWaiter
 	public void actionWait(int seconds)
 	{
 		final long time = seconds * 1000L;
-		action.setEnabled(false);
+		_action.setEnabled(false);
 		isEnabled = false;
-		System.out.println("Action " + action.getText() + " disabled for " + seconds + " seconds.");
+		System.out.println("Action " + _action.getText() + " disabled for " + seconds + " seconds.");
 		// Save the tool tip text to set it again on enable.
-		toolTip = action.getToolTipText();
+		toolTip = _action.getToolTipText();
 		// Set a new temporal tool tip text.
-		action.setToolTipText("Action temporally disabled to avoid server flooding.");
+		_action.setToolTipText("Action temporally disabled to avoid server flooding.");
 		// Schedule a timer to enable the action again.
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
@@ -71,10 +71,10 @@ public class ActionWaiter
 	 */
 	public void enableAction()
 	{
-		action.setEnabled(true);
+		_action.setEnabled(true);
 		isEnabled = true;
-		action.setToolTipText(toolTip);
-		System.out.println("ActionWaiter: Action " + action.getId() + " Enabled.");
+		_action.setToolTipText(toolTip);
+		System.out.println("ActionWaiter: Action " + _action.getId() + " Enabled.");
 	}
 
 	/** Returns the current status of the action */

@@ -112,6 +112,11 @@ public class SkillsTable
 							int skillEnch1 = 0;
 							int skillEnch2 = 0;
 							int skillEnch3 = 0;
+							int skillEnch4 = 0;
+							int skillEnch5 = 0;
+							int skillEnch6 = 0;
+							int skillEnch7 = 0;
+							int skillEnch8 = 0;
 
 							NamedNodeMap attrs = d.getAttributes();
 							int skillId = Integer.parseInt(attrs.getNamedItem("id").getNodeValue());
@@ -124,8 +129,18 @@ public class SkillsTable
 								skillEnch2 = Integer.parseInt(attrs.getNamedItem("enchantLevels2").getNodeValue());
 							if (attrs.getNamedItem("enchantLevels3") != null)
 								skillEnch3 = Integer.parseInt(attrs.getNamedItem("enchantLevels3").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels4") != null)
+								skillEnch4 = Integer.parseInt(attrs.getNamedItem("enchantLevels4").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels5") != null)
+								skillEnch5 = Integer.parseInt(attrs.getNamedItem("enchantLevels5").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels6") != null)
+								skillEnch6 = Integer.parseInt(attrs.getNamedItem("enchantLevels6").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels7") != null)
+								skillEnch7 = Integer.parseInt(attrs.getNamedItem("enchantLevels7").getNodeValue());
+							if (attrs.getNamedItem("enchantLevels8") != null)
+								skillEnch8 = Integer.parseInt(attrs.getNamedItem("enchantLevels8").getNodeValue());
 							
-							skills.put(skillId, new L2Skill(skillId, name, skillLevels, skillEnch1, skillEnch2, skillEnch3));
+							skills.put(skillId, new L2Skill(skillId, name, skillLevels, skillEnch1, skillEnch2, skillEnch3, skillEnch4, skillEnch5, skillEnch6, skillEnch7, skillEnch8));
 							loaded++;
 						}
 					}

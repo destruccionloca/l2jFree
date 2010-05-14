@@ -1,23 +1,23 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-  <skill id="1" levels="37" name="Triple Slash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1" levels="37" name="Triple Slash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="2" levels="19" name="Confusion"/>
   <skill id="3" levels="9" name="Power Strike"/>
   <skill id="4" levels="2" name="Dash"/>
-  <skill id="5" levels="31" name="Double Sonic Slash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="6" levels="37" name="Sonic Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="7" levels="28" name="Sonic Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="5" levels="31" name="Double Sonic Slash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="6" levels="37" name="Sonic Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="7" levels="28" name="Sonic Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="8" levels="8" name="Sonic Focus"/>
-  <skill id="9" levels="34" name="Sonic Buster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="9" levels="34" name="Sonic Buster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="10" levels="8" name="Summon Storm Cubic" enchantLevels1="30"/>
   <skill id="11" levels="12" name="Trick"/>
   <skill id="12" levels="14" name="Switch"/>
   <skill id="13" levels="1" name="Summon Siege Golem" enchantLevels1="30"/>
   <skill id="15" levels="52" name="Charm"/>
   <skill id="16" levels="24" name="Mortal Blow"/>
-  <skill id="17" levels="34" name="Force Burst" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="17" levels="34" name="Force Burst" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="18" levels="37" name="Aura of Hate" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="19" levels="37" name="Double Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="19" levels="37" name="Double Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30"/>
   <skill id="21" levels="3" name="Poison Recovery"/>
   <skill id="22" levels="7" name="Summon Vampiric Cubic" enchantLevels1="30"/>
   <skill id="24" levels="31" name="Burst Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
@@ -25,11 +25,11 @@
   <skill id="27" levels="14" name="Unlock"/>
   <skill id="28" levels="49" name="Aggression" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="29" levels="24" name="Iron Punch"/>
-  <skill id="30" levels="37" name="Backstab" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="30" levels="37" name="Backstab" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30"/>
   <skill id="33" levels="8" name="Summon Phantom Cubic" enchantLevels1="30"/>
   <skill id="34" levels="3" name="Bandage"/>
-  <skill id="35" levels="28" name="Force Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="36" levels="37" name="Whirlwind" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="35" levels="28" name="Force Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="36" levels="37" name="Whirlwind" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="42" levels="1" name="Sweeper" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="44" levels="3" name="Remedy"/>
   <skill id="45" levels="9" name="Divine Heal"/>
@@ -38,14 +38,14 @@
   <skill id="49" levels="26" name="Holy Strike" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="50" levels="8" name="Focused Force"/>
   <skill id="51" levels="1" name="Lure" enchantLevels1="30"/>
-  <skill id="54" levels="49" name="Force Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="54" levels="49" name="Force Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="56" levels="24" name="Power Shot"/>
-  <skill id="58" levels="55" name="Elemental Heal" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="58" levels="55" name="Elemental Heal" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="60" levels="1" name="Fake Death"/>
   <skill id="61" levels="3" name="Cure Bleeding"/>
   <skill id="65" levels="13" name="Horror"/>
   <skill id="67" levels="7" name="Summon Life Cubic" enchantLevels1="30"/>
-  <skill id="69" levels="25" name="Sacrifice" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="69" levels="25" name="Sacrifice" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="70" levels="53" name="Drain Health" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="72" levels="3" name="Iron Will" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="75" levels="1" name="Detect Insect Weakness"/>
@@ -61,19 +61,19 @@
   <skill id="87" levels="1" name="Detect Animal Weakness"/>
   <skill id="88" levels="1" name="Detect Dragon Weakness"/>
   <skill id="91" levels="2" name="Defense Aura"/>
-  <skill id="92" levels="52" name="Shield Stun" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="92" levels="52" name="Shield Stun" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30"/>
   <skill id="94" levels="2" name="Rage" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="95" levels="20" name="Cripple" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="96" levels="6" name="Bleed" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="97" levels="11" name="Sanctuary" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="97" levels="11" name="Sanctuary" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="98" levels="5" name="Sword Symphony"/>
   <skill id="99" levels="2" name="Rapid Shot" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="100" levels="15" name="Stun Attack" enchantLevels1="30"/>
-  <skill id="101" levels="40" name="Stunning Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="101" levels="40" name="Stunning Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="102" levels="16" name="Entangle" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="103" levels="4" name="Corpse Plague"/>
   <skill id="104" levels="1" name="Detect Plant Weakness"/>
-  <skill id="105" levels="24" name="Freezing Strike" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="105" levels="24" name="Freezing Strike" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="106" levels="14" name="Veil"/>
   <skill id="107" levels="9" name="Holy Aura" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="109" levels="1" name="Ogre Spirit Totem"/>
@@ -114,7 +114,7 @@
   <skill id="173" levels="2" name="Acrobatics"/>
   <skill id="176" levels="3" name="Frenzy"/>
   <skill id="181" levels="1" name="Revival"/>
-  <skill id="190" levels="37" name="Fatal Strike" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="190" levels="37" name="Fatal Strike" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30"/>
   <skill id="191" levels="6" name="Focus Mind" enchantLevels1="30"/>
   <skill id="193" levels="7" name="Critical Power" enchantLevels1="30"/>
   <skill id="194" levels="1" name="Lucky"/>
@@ -126,7 +126,7 @@
   <skill id="208" levels="52" name="Bow Mastery" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="209" levels="45" name="Dagger Mastery" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="210" levels="45" name="Fist Weapon Mastery" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="211" levels="10" name="Boost HP" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="211" levels="10" name="Boost HP" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="212" levels="8" name="Fast HP Recovery" enchantLevels1="30"/>
   <skill id="213" levels="8" name="Boost Mana" enchantLevels1="30"/>
   <skill id="214" levels="1" name="Mana Recovery"/>
@@ -164,10 +164,10 @@
   <skill id="257" levels="45" name="Sword/Blunt Weapon Mastery"/>
   <skill id="258" levels="33" name="Light Armor Mastery" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="259" levels="33" name="Heavy Armor Mastery" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="260" levels="37" name="Hammer Crush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="261" levels="22" name="Triple Sonic Slash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="262" levels="37" name="Holy Blessing" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="263" levels="37" name="Deadly Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="260" levels="37" name="Hammer Crush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30"/>
+  <skill id="261" levels="22" name="Triple Sonic Slash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="262" levels="37" name="Holy Blessing" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="263" levels="37" name="Deadly Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30"/>
   <skill id="264" levels="1" name="Song of Earth" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="265" levels="1" name="Song of Life" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="266" levels="1" name="Song of Water" enchantLevels1="30" enchantLevels2="30"/>
@@ -185,10 +185,10 @@
   <skill id="278" levels="6" name="Summon Viper Cubic" enchantLevels1="30"/>
   <skill id="279" levels="5" name="Lightning Strike" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="280" levels="37" name="Burning Fist" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="281" levels="37" name="Soul Breaker" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="281" levels="37" name="Soul Breaker" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="282" levels="1" name="Puma Spirit Totem"/>
   <skill id="283" levels="7" name="Summon Dark Panther" enchantLevels1="30"/>
-  <skill id="284" levels="40" name="Hurricane Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="284" levels="40" name="Hurricane Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="285" levels="27" name="Higher Mana Gain" enchantLevels1="30"/>
   <skill id="286" levels="3" name="Provoke"/>
   <skill id="287" levels="3" name="Lionheart"/>
@@ -217,8 +217,8 @@
   <skill id="311" levels="1" name="Dance of Protection" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="312" levels="20" name="Vicious Stance" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="314" levels="16" name="Fatal Counter" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="315" levels="16" name="Crush of Doom" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="314" levels="16" name="Fatal Counter" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="315" levels="16" name="Crush of Doom" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="316" levels="1" name="Aegis"/>
   <skill id="317" levels="5" name="Focus Attack"/>
   <skill id="318" levels="1" name="Aegis Stance" enchantLevels1="30"/>
@@ -246,8 +246,8 @@
   <skill id="340" levels="1" name="Riposte Stance"/>
   <skill id="341" levels="1" name="Touch of Life" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="342" levels="1" name="Touch of Death" enchantLevels1="15" enchantLevels2="15"/>
-  <skill id="343" levels="1" name="Lethal Shot" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="344" levels="1" name="Lethal Blow" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="343" levels="1" name="Lethal Shot" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15"/>
+  <skill id="344" levels="1" name="Lethal Blow" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15"/>
   <skill id="345" levels="1" name="Sonic Rage"/>
   <skill id="346" levels="1" name="Raging Force"/>
   <skill id="347" levels="1" name="Earthquake" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
@@ -255,7 +255,7 @@
   <skill id="349" levels="1" name="Song of Renewal" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="350" levels="1" name="Physical Mirror"/>
   <skill id="351" levels="1" name="Magical Mirror"/>
-  <skill id="352" levels="1" name="Shield Bash" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="352" levels="1" name="Shield Bash" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15"/>
   <skill id="353" levels="1" name="Shield Slam" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
   <skill id="354" levels="1" name="Hamstring Shot" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="355" levels="1" name="Focus Death" enchantLevels1="15" enchantLevels2="15"/>
@@ -272,7 +272,7 @@
   <skill id="366" levels="1" name="Dance of Shadows" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="367" levels="1" name="Dance of Medusa" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="368" levels="1" name="Vengeance" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="369" levels="1" name="Evade Shot" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="369" levels="1" name="Evade Shot" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15" enchantLevels8="15"/>
   <skill id="370" levels="3" name="Clan Body"/>
   <skill id="371" levels="3" name="Clan Spirituality"/>
   <skill id="372" levels="3" name="Clan Essence"/>
@@ -303,16 +303,16 @@
   <skill id="397" levels="1" name="none"/>
   <skill id="398" levels="1" name="none"/>
   <skill id="399" levels="1" name="none"/>
-  <skill id="400" levels="10" name="Tribunal" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="400" levels="10" name="Tribunal" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="401" levels="10" name="Judgment" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="402" levels="10" name="Arrest" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="403" levels="10" name="Shackle" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="404" levels="5" name="Mass Shackling" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="405" levels="10" name="Banish Undead" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="406" levels="3" name="Angelic Icon" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="405" levels="10" name="Banish Undead" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="406" levels="3" name="Angelic Icon" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="407" levels="10" name="Psycho Symphony"/>
   <skill id="408" levels="10" name="Demonic Blade Dance"/>
-  <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="409" levels="10" name="Critical Blow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="410" levels="3" name="Mortal Strike" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="411" levels="3" name="Stealth" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="412" levels="10" name="Sand Bomb" enchantLevels1="30" enchantLevels2="30"/>
@@ -353,7 +353,7 @@
   <skill id="447" levels="1" name="Counterattack"/>
   <skill id="448" levels="1" name="Summon Swoop Cannon" enchantLevels1="30"/>
   <skill id="449" levels="4" name="Summon Attractive Cubic" enchantLevels1="30"/>
-  <skill id="450" levels="10" name="Banish Seraph" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="450" levels="10" name="Banish Seraph" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="451" levels="2" name="Sonic Move"/>
   <skill id="452" levels="5" name="Shock Stomp" enchantLevels1="30"/>
   <skill id="453" levels="1" name="Escape Shackle"/>
@@ -380,7 +380,7 @@
   <skill id="474" levels="45" name="Rapier Mastery" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="475" levels="1" name="Strike Back"/>
   <skill id="476" levels="15" name="Dark Strike"/>
-  <skill id="477" levels="37" name="Dark Smash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="477" levels="37" name="Dark Smash" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="478" levels="15" name="Double Thrust"/>
   <skill id="479" levels="1" name="Hard March"/>
   <skill id="480" levels="1" name="Dark Blade"/>
@@ -395,22 +395,22 @@
   <skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="491" levels="1" name="Not In Use"/>
   <skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="493" levels="28" name="Storm Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="494" levels="37" name="Shoulder Charge" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="496" levels="31" name="Slashing Blade" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="497" levels="16" name="Crush of Pain" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="493" levels="28" name="Storm Assault" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="494" levels="37" name="Shoulder Charge" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="496" levels="31" name="Slashing Blade" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="497" levels="16" name="Crush of Pain" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="498" levels="12" name="Contagion" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="499" levels="3" name="Courage"/>
   <skill id="500" levels="2" name="True Berserker" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="501" levels="12" name="Violent Temper" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="502" levels="5" name="Life to Soul" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="503" levels="3" name="Scorn"/>
-  <skill id="504" levels="37" name="Triple Thrust" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="505" levels="28" name="Shining Edge" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="506" levels="4" name="Checkmate" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="507" levels="37" name="Twin Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="508" levels="31" name="Rising Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="504" levels="37" name="Triple Thrust" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="505" levels="28" name="Shining Edge" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="506" levels="4" name="Checkmate" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="507" levels="37" name="Twin Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
+  <skill id="508" levels="31" name="Rising Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30"/>
   <skill id="509" levels="34" name="Bleeding Shot" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="510" levels="5" name="Deadly Roulette" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="511" levels="1" name="Temptation"/>
@@ -424,11 +424,11 @@
   <skill id="519" levels="1" name="Quiver of Bolts: A-Grade"/>
   <skill id="520" levels="1" name="Quiver of Bolts: S-Grade"/>
   <skill id="521" levels="8" name="Sharpshooting" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="522" levels="4" name="Real Target" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="522" levels="4" name="Real Target" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="523" levels="7" name="Imbue Dark Seed"/>
   <skill id="524" levels="1" name="Cure Dark Seed"/>
   <skill id="525" levels="6" name="Decoy" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="526" levels="1" name="Enuma Elish" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
   <skill id="527" levels="1" name="Iron Shield"/>
   <skill id="528" levels="1" name="Shield of Faith" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
   <skill id="529" levels="1" name="Song of Elemental" enchantLevels1="15" enchantLevels2="15"/>
@@ -528,7 +528,7 @@
   <skill id="624" levels="1" name="Remove Trap"/>
   <skill id="625" levels="1" name="Soul Gathering" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="626" levels="4" name="Critical Sense" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="627" levels="40" name="Soul Shock" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="627" levels="40" name="Soul Shock" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="628" levels="1" name="Warp"/>
   <skill id="629" levels="1" name="Rabbit Magic Eye"/>
   <skill id="630" levels="1" name="Rabbit Tornado"/>
@@ -693,7 +693,7 @@
   <skill id="790" levels="1" name="Wild Shot"/>
   <skill id="791" levels="1" name="Lightning Shock"/>
   <skill id="792" levels="1" name="Betrayal Mark"/>
-  <skill id="793" levels="1" name="Rush Impact" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="793" levels="1" name="Rush Impact" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15" enchantLevels6="15" enchantLevels7="15" enchantLevels8="15"/>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="795" levels="1" name="Divine Knight Brandish"/>
   <skill id="796" levels="1" name="Divine Knight Explosion Attack"/>
@@ -939,7 +939,7 @@
   <skill id="1159" levels="22" name="Curse Death Link" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1160" levels="15" name="Slow" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="1163" levels="14" name="Curse Discord"/>
-  <skill id="1164" levels="19" name="Curse: Weakness" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1164" levels="19" name="Curse: Weakness" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1167" levels="6" name="Poisonous Cloud" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="1168" levels="7" name="Curse: Poison"/>
   <skill id="1169" levels="14" name="Curse Fear" enchantLevels1="30" enchantLevels2="30"/>
@@ -977,15 +977,15 @@
   <skill id="1227" levels="18" name="Summon Mirage the Unicorn" enchantLevels1="30"/>
   <skill id="1228" levels="18" name="Summon Silhouette" enchantLevels1="30"/>
   <skill id="1229" levels="18" name="Chant of Life" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1230" levels="28" name="Prominence" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1230" levels="28" name="Prominence" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1231" levels="28" name="Aura Flare" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1232" levels="3" name="Blazing Skin" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1232" levels="3" name="Blazing Skin" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1233" levels="4" name="Decay"/>
-  <skill id="1234" levels="28" name="Vampiric Claw" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1235" levels="28" name="Hydro Blast" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1236" levels="19" name="Frost Bolt" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1237" levels="17" name="Ice Dagger" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1238" levels="3" name="Freezing Skin" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1234" levels="28" name="Vampiric Claw" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="1235" levels="28" name="Hydro Blast" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="1236" levels="19" name="Frost Bolt" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="1237" levels="17" name="Ice Dagger" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="1238" levels="3" name="Freezing Skin" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1239" levels="28" name="Hurricane" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="1240" levels="3" name="Guidance" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1242" levels="3" name="Death Whisper" enchantLevels1="30" enchantLevels2="30"/>
@@ -1083,11 +1083,11 @@
   <skill id="1336" levels="1" name="Curse of Doom" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="1337" levels="1" name="Curse of Abyss" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="1338" levels="1" name="Arcane Chaos" enchantLevels1="15" enchantLevels2="15"/>
-  <skill id="1339" levels="1" name="Fire Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="1340" levels="1" name="Ice Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="1341" levels="1" name="Wind Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="1342" levels="1" name="Light Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="1343" levels="1" name="Dark Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="1339" levels="1" name="Fire Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
+  <skill id="1340" levels="1" name="Ice Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
+  <skill id="1341" levels="1" name="Wind Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
+  <skill id="1342" levels="1" name="Light Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
+  <skill id="1343" levels="1" name="Dark Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
   <skill id="1344" levels="1" name="Mass Warrior Bane"/>
   <skill id="1345" levels="1" name="Mass Mage Bane"/>
   <skill id="1346" levels="1" name="Warrior Servitor" enchantLevels1="15" enchantLevels2="15"/>
@@ -1141,12 +1141,12 @@
   <skill id="1394" levels="10" name="Trance" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1395" levels="10" name="Erase" enchantLevels1="30"/>
   <skill id="1396" levels="10" name="Magical Backfire" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1397" levels="3" name="Clarity" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1397" levels="3" name="Clarity" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1398" levels="10" name="Mana Burn" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1399" levels="5" name="Mana Storm" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1400" levels="10" name="Turn Undead" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1400" levels="10" name="Turn Undead" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1401" levels="11" name="Major Heal" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1402" levels="5" name="Major Group Heal" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1402" levels="5" name="Major Group Heal" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1403" levels="1" name="Summon Friend"/>
   <skill id="1404" levels="1" name="Word of Invitation"/>
   <skill id="1405" levels="4" name="Divine Inspiration"/>
@@ -1180,21 +1180,21 @@
   <skill id="1433" levels="10" name="Abyssal Blaze"/>
   <skill id="1434" levels="4" name="Dark Explosion"/>
   <skill id="1435" levels="10" name="Death Mark" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1436" levels="30" name="Soul of Pain" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1437" levels="26" name="Dark Flame" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
-  <skill id="1438" levels="9" name="Annihilation Circle" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1436" levels="30" name="Soul of Pain" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
+  <skill id="1437" levels="26" name="Dark Flame" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30"/>
+  <skill id="1438" levels="9" name="Annihilation Circle" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1439" levels="5" name="Curse of Divinity"/>
   <skill id="1440" levels="5" name="Steal Divinity"/>
   <skill id="1441" levels="2" name="Soul to Empower"/>
   <skill id="1442" levels="3" name="Protection from Darkness" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1444" levels="1" name="Pride of Kamael" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
+  <skill id="1444" levels="1" name="Pride of Kamael" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30"/>
   <skill id="1445" levels="18" name="Surrender to the Unholy" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30"/>
   <skill id="1446" levels="11" name="Shadow Bind" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1447" levels="9" name="Voice Bind" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1448" levels="1" name="Blink" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1449" levels="1" name="Transfer Soul"/>
-  <skill id="1450" levels="1" name="Chain Lightning" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="1450" levels="1" name="Chain Lightning" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
   <skill id="1451" levels="1" name="Fire Vortex Buster" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
   <skill id="1452" levels="1" name="Count of Fire" enchantLevels1="15" enchantLevels2="15"/>
   <skill id="1453" levels="1" name="Ice Vortex Crusher" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
@@ -1213,8 +1213,8 @@
   <skill id="1466" levels="1" name="Earth Weapon"/>
   <skill id="1467" levels="1" name="Meteor"/>
   <skill id="1468" levels="1" name="Star Fall"/>
-  <skill id="1469" levels="1" name="Leopold" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
-  <skill id="1470" levels="1" name="Prahnah" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="1469" levels="1" name="Leopold" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
+  <skill id="1470" levels="1" name="Prahnah" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
   <skill id="1471" levels="1" name="Death Beam"/>
   <skill id="1472" levels="1" name="Soul Sucking"/>
   <skill id="1473" levels="1" name="Change Weapon"/>
@@ -1256,7 +1256,7 @@
   <skill id="1509" levels="1" name="Seal of Limit"/>
   <skill id="1510" levels="1" name="Soul Cleanse"/>
   <skill id="1511" levels="8" name="Curse of Life Flow" enchantLevels1="30" enchantLevels2="30"/>
-  <skill id="1512" levels="1" name="Soul Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
+  <skill id="1512" levels="1" name="Soul Vortex" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15"/>
   <skill id="1513" levels="1" name="Soul Vortex Extinction" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
   <skill id="1514" levels="1" name="Soul Barrier" enchantLevels1="30" enchantLevels2="30"/>
   <skill id="1515" levels="1" name="Lightning Barrier" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15"/>
