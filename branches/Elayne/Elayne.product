@@ -8,13 +8,14 @@
       <text>
          Elayne L2Dragonlance Information Tool.
 
-Version: 1.0.0
-
-(c) Copyright: L2Dragonlance, polbat02, Eclipse.org and others. 2007-2008. All rights reserved.
-Visit: http://l2dragonlance.org
+Version: 2.0.0
 
 Rework for L2jFree by L2jfree
 Visit: http://www.l2jfree.com
+
+
+(c) Copyright: L2Dragonlance, polbat02, Eclipse.org and others. 2007-2008. All rights reserved.
+Visit: http://l2dragonlance.org
       </text>
    </aboutInfo>
 
@@ -48,6 +49,7 @@ Visit: http://www.l2jfree.com
 
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="Elayne"/>

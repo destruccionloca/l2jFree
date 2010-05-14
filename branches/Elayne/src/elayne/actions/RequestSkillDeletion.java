@@ -25,8 +25,8 @@ public class RequestSkillDeletion extends ElayneAction
 	public RequestSkillDeletion(IWorkbenchWindow window, TreeViewer treeViewer)
 	{
 		super(window, treeViewer);
-		setId(ID);
-		setNewId("Delete Skill");
+		setNewId(ID);
+		setText("Delete Skill");
 		setToolTipText("Delete a skill from a player");
 		ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.DELETE_SKILL);
 		setImageDescriptor(image);
