@@ -121,7 +121,7 @@ public class ArmorTable
 			return;
 		}
 
-		int charged = 0;
+		int loaded = 0;
 		Document doc;
 		try
 		{
@@ -142,12 +142,12 @@ public class ArmorTable
 							String sellable = attrs.getNamedItem("sellable").getNodeValue();
 							String armor_type = attrs.getNamedItem("armor_type").getNodeValue();
 							armors.put(itemId, new L2Armor(itemId, name, weight, price, sellable, armor_type));
-							charged++;
+							loaded++;
 						}
 					}
 				}
 			}
-			System.out.println("ArmorTable: " + charged + " armors charged correctly.");
+			System.out.println("ArmorTable: " + loaded + " armors loaded correctly.");
 		}
 		catch (SAXException e)
 		{

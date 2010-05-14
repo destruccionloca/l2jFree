@@ -94,7 +94,7 @@ public class DetailedItemTable
 			return;
 		}
 
-		int charged = 0;
+		int loaded = 0;
 		Document doc;
 		try
 		{
@@ -113,12 +113,12 @@ public class DetailedItemTable
 							String grade = attrs.getNamedItem("grade").getNodeValue();
 							String picloc = attrs.getNamedItem("picloc").getNodeValue();
 							items.put(itemId, new L2PictureLocation(itemId, name, grade, picloc));
-							charged++;
+							loaded++;
 						}
 					}
 				}
 			}
-			System.out.println("DetailedItemTable: " + charged + " general Items charged correctly.");
+			System.out.println("DetailedItemTable: " + loaded + " general Items loaded correctly.");
 		}
 		catch (SAXException e)
 		{

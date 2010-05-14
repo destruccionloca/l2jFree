@@ -104,7 +104,7 @@ public class ItemTable
 			return;
 		}
 
-		int charged = 0;
+		int loaded = 0;
 		Document doc;
 		try
 		{
@@ -125,12 +125,12 @@ public class ItemTable
 							String sellable = attrs.getNamedItem("sellable").getNodeValue();
 							String item_type = attrs.getNamedItem("item_type").getNodeValue();
 							items.put(itemId, new L2Item(itemId, name, weight, price, sellable, item_type));
-							charged++;
+							loaded++;
 						}
 					}
 				}
 			}
-			System.out.println("ItemTable: " + charged + " items charged correctly.");
+			System.out.println("ItemTable: " + loaded + " items loaded correctly.");
 		}
 		catch (SAXException e)
 		{

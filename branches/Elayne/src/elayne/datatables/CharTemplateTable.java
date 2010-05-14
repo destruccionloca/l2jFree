@@ -96,7 +96,7 @@ public class CharTemplateTable
 			return;
 		}
 
-		int charged = 0;
+		int loaded = 0;
 		Document doc;
 		try
 		{
@@ -126,12 +126,12 @@ public class CharTemplateTable
 								}
 							}
 							templates.put(className, template);
-							charged++;
+							loaded++;
 						}
 					}
 				}
 			}
-			System.out.println("CharTemplateTable: " + charged + " templates charged correctly.");
+			System.out.println("CharTemplateTable: " + loaded + " templates loaded correctly.");
 		}
 		catch (SAXException e)
 		{

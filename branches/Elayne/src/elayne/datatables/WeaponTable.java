@@ -105,7 +105,7 @@ public class WeaponTable
 			return;
 		}
 
-		int charged = 0;
+		int loaded = 0;
 		Document doc;
 		try
 		{
@@ -126,12 +126,12 @@ public class WeaponTable
 							String sellable = attrs.getNamedItem("sellable").getNodeValue();
 							String weapon_type = attrs.getNamedItem("weapon_type").getNodeValue();
 							weapons.put(itemId, new L2Weapon(itemId, name, weight, price, sellable, weapon_type));
-							charged++;
+							loaded++;
 						}
 					}
 				}
 			}
-			System.out.println("WeaponTable: " + charged + " weapons charged correctly.");
+			System.out.println("WeaponTable: " + loaded + " weapons loaded correctly.");
 		}
 		catch (SAXException e)
 		{
