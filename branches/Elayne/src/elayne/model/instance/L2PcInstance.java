@@ -120,12 +120,15 @@ public class L2PcInstance extends L2GroupEntry
 	private long clanCreateExpTime = 0;
 	private int clanId = 0;
 	private long clanJoinExpTime = 0;
-	@SuppressWarnings("unused")
+	private double maxCp = 0;
 	private double currentCp = 0;
-	@SuppressWarnings("unused")
+	private double maxHp = 0;
 	private double currentHp = 0;
-	@SuppressWarnings("unused")
+	private double maxMp = 0;
 	private double currentMp = 0;
+	private L2CharacterEntry cpLabel;
+	private L2CharacterEntry hpLabel;
+	private L2CharacterEntry mpLabel;
 	private int deathPenaltyBuffLevel = 0;
 	private L2CharacterEntry deathPenaltyLabel;
 	@SuppressWarnings("unused")
@@ -271,6 +274,18 @@ public class L2PcInstance extends L2GroupEntry
 			// SP:
 			spLabel = new L2CharacterEntry(stats, "SP: ", player.getSp());
 			stats.addEntry(spLabel);
+
+			// CP:
+			cpLabel = new L2CharacterEntry(stats, "CP: ", (int)player.getCurrentCp() + "/" + (int)player.getMaxCp());
+			stats.addEntry(cpLabel);
+
+			// HP:
+			hpLabel = new L2CharacterEntry(stats, "HP: ", (int)player.getCurrentHp() + "/" + (int)player.getMaxHp());
+			stats.addEntry(hpLabel);
+
+			// MP:
+			mpLabel = new L2CharacterEntry(stats, "MP: ", (int)player.getCurrentMp() + "/" + (int)player.getMaxMp());
+			stats.addEntry(mpLabel);
 
 			// KARMA:
 			karmaLabel = new L2CharacterEntry(stats, "Karma: ", player.getKarma());
@@ -559,6 +574,36 @@ public class L2PcInstance extends L2GroupEntry
 		return sp;
 	}
 
+	public double getCurrentCp()
+	{
+		return currentCp;
+	}
+
+	public double getCurrentHp()
+	{
+		return currentHp;
+	}
+
+	public double getCurrentMp()
+	{
+		return currentMp;
+	}
+
+	public double getMaxCp()
+	{
+		return maxCp;
+	}
+
+	public double getMaxHp()
+	{
+		return maxHp;
+	}
+
+	public double getMaxMp()
+	{
+		return maxMp;
+	}
+
 	private void getSubClassesId(boolean isUpdate)
 	{
 		if (isUpdate)
@@ -704,6 +749,9 @@ public class L2PcInstance extends L2GroupEntry
 				deleteTime = (rset.getLong("deletetime"));
 				title = (rset.getString("title"));
 				accesLevel = (rset.getInt("accesslevel"));
+				maxHp = rset.getDouble("maxHp");
+				maxCp = rset.getDouble("maxCp");
+				maxMp = rset.getDouble("maxMp");
 				currentHp = rset.getDouble("curHp");
 				currentCp = rset.getDouble("curCp");
 				currentMp = rset.getDouble("curMp");

@@ -16,14 +16,16 @@ public class L2CharacterEntry extends L2Character
 	private static final int TYPE_INT = 2;
 	private static final int TYPE_LONG = 1;
 	private static final int TYPE_STRING = 3;
+	private static final int TYPE_DOUBLE = 4;
 	// =======================================
 	// DATA FIELD
-	private String field = null;
-	private final L2GroupEntry group;
-	private int ifield;
-	private long lfield;
-	private String name;
-	private int type = 0;
+	private String _field = null;
+	private final L2GroupEntry _group;
+	private int _ifield;
+	private long _lfield;
+	private double _dfield;
+	private String _name;
+	private int _type = 0;
 
 	// =======================================
 	// CONSTRUCTOR
@@ -35,10 +37,10 @@ public class L2CharacterEntry extends L2Character
 	 */
 	public L2CharacterEntry(L2GroupEntry group, String name, int field)
 	{
-		this.group = group;
-		this.name = name;
-		this.ifield = field;
-		type = TYPE_INT;
+		_group = group;
+		_name = name;
+		_ifield = field;
+		_type = TYPE_INT;
 	}
 
 	/**
@@ -49,10 +51,10 @@ public class L2CharacterEntry extends L2Character
 	 */
 	public L2CharacterEntry(L2GroupEntry group, String name, long field)
 	{
-		this.group = group;
-		this.name = name;
-		this.lfield = field;
-		type = TYPE_LONG;
+		_group = group;
+		_name = name;
+		_lfield = field;
+		_type = TYPE_LONG;
 	}
 
 	/**
@@ -63,10 +65,24 @@ public class L2CharacterEntry extends L2Character
 	 */
 	public L2CharacterEntry(L2GroupEntry group, String name, String field)
 	{
-		this.group = group;
-		this.name = name;
-		this.field = field;
-		type = TYPE_STRING;
+		_group = group;
+		_name = name;
+		_field = field;
+		_type = TYPE_STRING;
+	}
+
+	/**
+	 * Defines a new {@link L2CharacterEntry} and saves it's basic information.
+	 * @param group
+	 * @param name
+	 * @param field
+	 */
+	public L2CharacterEntry(L2GroupEntry group, String name, double field)
+	{
+		_group = group;
+		_name = name;
+		_dfield = field;
+		_type = TYPE_DOUBLE;
 	}
 
 	// =======================================
@@ -74,17 +90,19 @@ public class L2CharacterEntry extends L2Character
 	@Override
 	public String getName()
 	{
-		if (type == TYPE_LONG)
-			return name + " " + lfield;
-		if (type == TYPE_INT)
-			return name + " " + ifield;
-		return name + " " + field;
+		if (_type == TYPE_LONG)
+			return _name + " " + _lfield;
+		else if (_type == TYPE_INT)
+			return _name + " " + _ifield;
+		else if (_type == TYPE_DOUBLE)
+			return _name + " " + _dfield;
+		return _name + " " + _field;
 	}
 
 	@Override
 	public L2GroupEntry getParent()
 	{
-		return group;
+		return _group;
 	}
 
 	/**
@@ -93,7 +111,7 @@ public class L2CharacterEntry extends L2Character
 	 */
 	public void setField(int field)
 	{
-		this.ifield = field;
+		_ifield = field;
 	}
 
 	/**
@@ -102,7 +120,7 @@ public class L2CharacterEntry extends L2Character
 	 */
 	public void setField(long field)
 	{
-		this.lfield = field;
+		_lfield = field;
 	}
 
 	/**
@@ -111,6 +129,15 @@ public class L2CharacterEntry extends L2Character
 	 */
 	public void setField(String field)
 	{
-		this.field = field;
+		_field = field;
+	}
+
+	/**
+	 * Refreshes a field.
+	 * @param field
+	 */
+	public void setField(double field)
+	{
+		_dfield = field;
 	}
 }
