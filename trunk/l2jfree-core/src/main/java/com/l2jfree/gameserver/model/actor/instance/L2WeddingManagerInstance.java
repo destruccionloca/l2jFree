@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.util.Util;
 
 /**
  * @author evill33t & squeezed
@@ -124,6 +125,23 @@ public class L2WeddingManagerInstance extends L2Npc
         }
         else if (command.startsWith("AcceptWedding"))
         {
+        	if (Config.WEDDING_FORMALWEAR && (!player.isWearingFormalWear() || !ptarget.isWearingFormalWear()))
+        	{
+                player.setMaryRequest(false);
+                player.setMaryAccepted(false);
+                ptarget.setMaryRequest(false);
+                ptarget.setMaryAccepted(false);
+
+        		player.sendMessage("A shame, you tried to foul us by exchanging your wedding dress!");
+        		ptarget.sendMessage("A shame, you tried to foul us by exchanging your wedding dress!");
+
+				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+						+ " tried to marry without wedding dress.", Config.DEFAULT_PUNISH);
+				Util.handleIllegalPlayerAction(ptarget, "Warning!! Character " + ptarget.getName() + " of account " + ptarget.getAccountName()
+						+ " tried to marry without wedding dress.", Config.DEFAULT_PUNISH);
+        		return;
+        	}
+
             // Accept the wedding request
             player.setMaryAccepted(true);
             Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
