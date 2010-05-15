@@ -31,7 +31,7 @@ public class RequestPlayerInformation extends ElayneAction
 	@SuppressWarnings("unused")
 	private final static String newLine = "\n";
 
-	private String name = "";
+	private String _name = "";
 
 	/**
 	 * CONSTRUCTOR<br>
@@ -69,7 +69,7 @@ public class RequestPlayerInformation extends ElayneAction
 	{
 		if (treeViewer == null)
 		{
-			openNewPlayerInvoView(name);
+			openNewPlayerInvoView(_name);
 			return;
 		}
 		// Get the selected object in the viewer.
@@ -101,7 +101,7 @@ public class RequestPlayerInformation extends ElayneAction
 	 */
 	public void setName(String name)
 	{
-		this.name = name;
+		_name = name;
 	}
 
 	private void showPage()

@@ -22,7 +22,7 @@ import elayne.util.connector.ServerDB;
 public class L2Inventory extends L2GroupEntry
 {
 
-	private static final String RESTORE_CHARACTER_ITEMS = "SELECT object_id, item_id, count, enchant_level, loc FROM `items` WHERE `owner_id` =?  LIMIT 0,290";
+	private static final String RESTORE_CHARACTER_ITEMS = "SELECT object_id, item_id, count, enchant_level, loc FROM `items` WHERE `owner_id` =? ORDER BY loc LIMIT 0,290";
 
 	/**
 	 * ALL ITEMS IN THE INV: Key = Item Id, Object = Item itself
