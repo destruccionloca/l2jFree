@@ -90,6 +90,8 @@ public interface GlobalRestriction
 	
 	public void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone);
 	
+	public void instanceChanged(L2PcInstance activeChar, int oldInstance, int newInstance);
+	
 	public boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command);
 	
 	public boolean onAction(L2Npc npc, L2PcInstance activeChar);

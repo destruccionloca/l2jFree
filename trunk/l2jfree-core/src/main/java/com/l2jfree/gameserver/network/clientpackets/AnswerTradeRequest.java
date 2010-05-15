@@ -95,7 +95,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
     		sendAF();
         }
 	}
-
+    
     private final void clearRequestStatus(L2PcInstance player, L2PcInstance partner)
     {
     	if (player != null)
@@ -103,7 +103,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
     	if (partner != null)
     		partner.onTransactionResponse();
     }
-
+    
 	@Override
 	public String getType()
 	{

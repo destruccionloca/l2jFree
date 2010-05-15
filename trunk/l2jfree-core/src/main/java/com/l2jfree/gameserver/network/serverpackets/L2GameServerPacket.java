@@ -120,7 +120,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 	private static final int[] PAPERDOLL_SLOTS_WITH_JEWELS = initPaperdollSlots(true);
 	private static final int[] PAPERDOLL_SLOTS_WITHOUT_JEWELS = initPaperdollSlots(false);
 	
-	protected static int[] getPaperdollSlots(boolean writeJewels)
+	public static int[] getPaperdollSlots(boolean writeJewels)
 	{
 		return writeJewels ? PAPERDOLL_SLOTS_WITH_JEWELS : PAPERDOLL_SLOTS_WITHOUT_JEWELS;
 	}

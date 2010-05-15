@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.model.actor.knownlist.ObjectKnownList;
 import com.l2jfree.gameserver.model.actor.poly.ObjectPoly;
 import com.l2jfree.gameserver.model.actor.position.ObjectPosition;
 import com.l2jfree.gameserver.model.entity.Instance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.lang.L2Entity;
 import com.l2jfree.lang.L2Integer;
@@ -464,6 +465,7 @@ public abstract class L2Object implements L2Entity<Integer>
 					if (inst != null)
 						inst.addPlayer(getObjectId());
 				}
+				GlobalRestrictions.instanceChanged(getActingPlayer(), _instanceId, instanceId);
 			}
 		}
 		else if (this instanceof L2Npc)

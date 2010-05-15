@@ -82,6 +82,7 @@ public final class GlobalRestrictions
 		onBypassFeedback,
 		onAction,
 		useVoicedCommand,
+		instanceChanged,
 		// TODO
 		;
 		
@@ -199,6 +200,7 @@ public final class GlobalRestrictions
 		activate(new MercenaryTicketRestriction());
 		activate(new OlympiadRestriction());
 		activate(new ProtectionBlessingRestriction());
+		activate(new UnequipRestriction());
 	}
 	
 	/**
@@ -675,6 +677,12 @@ public final class GlobalRestrictions
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.isInsideZoneStateChanged.ordinal()])
 			restriction.isInsideZoneStateChanged(activeChar, zone, isInsideZone);
+	}
+	
+	public static void instanceChanged(L2PcInstance activeChar, int oldInstance, int newInstance)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.instanceChanged.ordinal()])
+			restriction.instanceChanged(activeChar, oldInstance, newInstance);
 	}
 	
 	public static boolean onBypassFeedback(L2Npc npc, L2PcInstance activeChar, String command)

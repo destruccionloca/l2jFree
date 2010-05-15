@@ -234,5 +234,11 @@ public abstract class AbstractRestriction implements GlobalRestriction
 		throw new AbstractMethodError();
 	}
 	
+	@DisabledRestriction
+	public void instanceChanged(L2PcInstance activeChar, int oldInstance, int newInstance)
+	{
+		throw new AbstractMethodError();
+	}
+	
 	// TODO
 }
