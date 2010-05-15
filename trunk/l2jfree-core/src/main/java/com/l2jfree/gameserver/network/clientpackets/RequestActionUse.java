@@ -446,6 +446,7 @@ public class RequestActionUse extends L2GameClientPacket
 		case 1046: // Strider - Roar
 			useSkill(5585);
 			break;
+		// CT2.3
 		case 1047: // Divine Beast - Bite
 			useSkill(5580);
 			break;
@@ -489,37 +490,37 @@ public class RequestActionUse extends L2GameClientPacket
 			useSkill(5654);
 			break;
 		case 1061:
-			useSkill(5745);
+			useSkill(5745); // Death blow
 			break;
 		case 1062:
-			useSkill(5746);
+			useSkill(5746); // Double attack
 			break;
 		case 1063:
-			useSkill(5747);
+			useSkill(5747); // Spin attack
 			break;
 		case 1064:
-			useSkill(5748);
+			useSkill(5748); // Meteor Shower
 			break;
 		case 1065:
-			useSkill(5753);
+			useSkill(5753); // Awakening
 			break;
 		case 1066:
-			useSkill(5749);
+			useSkill(5749); // Thunder Bolt
 			break;
 		case 1067:
-			useSkill(5750);
+			useSkill(5750); // Flash
 			break;
 		case 1068:
-			useSkill(5751);
+			useSkill(5751); // Lightning Wave
 			break;
 		case 1069:
-			useSkill(5752);
+			useSkill(5752); // Flare
 			break;
 		case 1070:
 			useSkill(5771); // Buff control
 			break;
 		case 1071:
-			useSkill(5761);
+			useSkill(5761); // Power Strike
 			break;
 		case 1072:
 			useSkill(6046); // Piercing attack
