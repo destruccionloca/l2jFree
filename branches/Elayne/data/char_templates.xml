@@ -1,930 +1,930 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
   <template ClassId="0" ClassName="Human Fighter">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="1" ClassName="Warrior">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="2" ClassName="Gladiator">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="3" ClassName="Warlord">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="4" ClassName="Human Knight">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="5" ClassName="Paladin">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="6" ClassName="Dark Avenger">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="7" ClassName="Rogue">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="8" ClassName="Treasure Hunter">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="9" ClassName="Hawkeye">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="10" ClassName="Human Mage">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="11" ClassName="Human Wizard">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="12" ClassName="Sorcerer">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="13" ClassName="Necromancer">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="14" ClassName="Warlock">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="15" ClassName="Cleric">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="16" ClassName="Bishop">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="17" ClassName="Human Prophet">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="18" ClassName="Elf Fighter">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="19" ClassName="Elf Knight">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="20" ClassName="Temple Knight">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="21" ClassName="Swordsinger">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="22" ClassName="Scout">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="23" ClassName="Plains Walker">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="24" ClassName="Silver Ranger">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="25" ClassName="Elf Mage">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="26" ClassName="Elf Wizard">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="27" ClassName="Spellsinger">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="28" ClassName="Elemental Summoner">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="29" ClassName="Oracle">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="30" ClassName="Elder">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="31" ClassName="DE Fighter">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="32" ClassName="Palus Knight">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="33" ClassName="Shillien Knight">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="34" ClassName="Bladedancer">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="35" ClassName="Assassin">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="36" ClassName="Abyss Walker">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="37" ClassName="Phantom Ranger">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="38" ClassName="DE Mage">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="39" ClassName="DE Wizard">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="40" ClassName="Spell Howler">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="41" ClassName="Phantom Summoner">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="42" ClassName="Shillien Oracle">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="43" ClassName="Shillien Elder">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="44" ClassName="Orc Fighter">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="45" ClassName="Raider">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="46" ClassName="Destroyer">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="47" ClassName="Monk">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="48" ClassName="Tyrant">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="49" ClassName="Orc Mage">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="27" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="31" />
-    <stat name="WIT" val="15" />
-    <stat name="MEN" val="42" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="27"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="31"/>
+    <stat name="WIT" val="15"/>
+    <stat name="MEN" val="42"/>
   </template>
   <template ClassId="50" ClassName="Shaman">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="27" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="31" />
-    <stat name="WIT" val="15" />
-    <stat name="MEN" val="42" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="27"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="31"/>
+    <stat name="WIT" val="15"/>
+    <stat name="MEN" val="42"/>
   </template>
   <template ClassId="51" ClassName="Overlord">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="27" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="31" />
-    <stat name="WIT" val="15" />
-    <stat name="MEN" val="42" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="27"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="31"/>
+    <stat name="WIT" val="15"/>
+    <stat name="MEN" val="42"/>
   </template>
   <template ClassId="52" ClassName="Warcryer">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="27" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="31" />
-    <stat name="WIT" val="15" />
-    <stat name="MEN" val="42" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="27"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="31"/>
+    <stat name="WIT" val="15"/>
+    <stat name="MEN" val="42"/>
   </template>
   <template ClassId="53" ClassName="Dwarf Fighter">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="54" ClassName="Scavenger">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="55" ClassName="Bounty Hunter">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="56" ClassName="Artisan">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="57" ClassName="Warsmith">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="88" ClassName="Duelist">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="89" ClassName="DreadNought">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="90" ClassName="Phoenix Knight">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="91" ClassName="Hell Knight">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="92" ClassName="Sagittarius">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="93" ClassName="Adventurer">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="43" />
-    <stat name="DEX" val="30" />
-    <stat name="_INT" val="21" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="43"/>
+    <stat name="DEX" val="30"/>
+    <stat name="_INT" val="21"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="94" ClassName="Archmage">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="95" ClassName="Soultaker">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="96" ClassName="Arcana Lord">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="97" ClassName="Cardinal">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="98" ClassName="Hierophant">
-    <stat name="RaceId" val="0" />
-    <stat name="STR" val="22" />
-    <stat name="CON" val="27" />
-    <stat name="DEX" val="21" />
-    <stat name="_INT" val="41" />
-    <stat name="WIT" val="20" />
-    <stat name="MEN" val="39" />
+    <stat name="RaceId" val="0"/>
+    <stat name="STR" val="22"/>
+    <stat name="CON" val="27"/>
+    <stat name="DEX" val="21"/>
+    <stat name="_INT" val="41"/>
+    <stat name="WIT" val="20"/>
+    <stat name="MEN" val="39"/>
   </template>
   <template ClassId="99" ClassName="Eva Templar">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="100" ClassName="Sword Muse">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="101" ClassName="Wind Rider">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="102" ClassName="Moonlight Sentinel">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="36" />
-    <stat name="CON" val="36" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="23" />
-    <stat name="WIT" val="14" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="36"/>
+    <stat name="CON" val="36"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="23"/>
+    <stat name="WIT" val="14"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="103" ClassName="Mystic Muse">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="104" ClassName="Elemental Master">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="105" ClassName="Eva Saint">
-    <stat name="RaceId" val="1" />
-    <stat name="STR" val="21" />
-    <stat name="CON" val="25" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="37" />
-    <stat name="WIT" val="23" />
-    <stat name="MEN" val="40" />
+    <stat name="RaceId" val="1"/>
+    <stat name="STR" val="21"/>
+    <stat name="CON" val="25"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="37"/>
+    <stat name="WIT" val="23"/>
+    <stat name="MEN" val="40"/>
   </template>
   <template ClassId="106" ClassName="Shillien Templar">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="107" ClassName="Spectral Dancer">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="108" ClassName="Ghost Hunter">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="109" ClassName="Ghost Sentinel">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="32" />
-    <stat name="DEX" val="34" />
-    <stat name="_INT" val="25" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="26" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="32"/>
+    <stat name="DEX" val="34"/>
+    <stat name="_INT" val="25"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="26"/>
   </template>
   <template ClassId="110" ClassName="Storm Screamer">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="111" ClassName="Spectral Master">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="112" ClassName="Shillen Saint">
-    <stat name="RaceId" val="2" />
-    <stat name="STR" val="23" />
-    <stat name="CON" val="24" />
-    <stat name="DEX" val="23" />
-    <stat name="_INT" val="44" />
-    <stat name="WIT" val="19" />
-    <stat name="MEN" val="37" />
+    <stat name="RaceId" val="2"/>
+    <stat name="STR" val="23"/>
+    <stat name="CON" val="24"/>
+    <stat name="DEX" val="23"/>
+    <stat name="_INT" val="44"/>
+    <stat name="WIT" val="19"/>
+    <stat name="MEN" val="37"/>
   </template>
   <template ClassId="113" ClassName="Titan">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="114" ClassName="Grand Khauatari">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="40" />
-    <stat name="CON" val="47" />
-    <stat name="DEX" val="26" />
-    <stat name="_INT" val="18" />
-    <stat name="WIT" val="12" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="40"/>
+    <stat name="CON" val="47"/>
+    <stat name="DEX" val="26"/>
+    <stat name="_INT" val="18"/>
+    <stat name="WIT" val="12"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="115" ClassName="Dominator">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="27" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="31" />
-    <stat name="WIT" val="15" />
-    <stat name="MEN" val="42" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="27"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="31"/>
+    <stat name="WIT" val="15"/>
+    <stat name="MEN" val="42"/>
   </template>
   <template ClassId="116" ClassName="Doomcryer">
-    <stat name="RaceId" val="3" />
-    <stat name="STR" val="27" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="24" />
-    <stat name="_INT" val="31" />
-    <stat name="WIT" val="15" />
-    <stat name="MEN" val="42" />
+    <stat name="RaceId" val="3"/>
+    <stat name="STR" val="27"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="24"/>
+    <stat name="_INT" val="31"/>
+    <stat name="WIT" val="15"/>
+    <stat name="MEN" val="42"/>
   </template>
   <template ClassId="117" ClassName="Fortune Seeker">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="118" ClassName="Maestro">
-    <stat name="RaceId" val="4" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="45" />
-    <stat name="DEX" val="29" />
-    <stat name="_INT" val="20" />
-    <stat name="WIT" val="10" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="4"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="45"/>
+    <stat name="DEX" val="29"/>
+    <stat name="_INT" val="20"/>
+    <stat name="WIT" val="10"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="123" ClassName="Male Soldier">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="33" />
-    <stat name="_INT" val="29" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="33"/>
+    <stat name="_INT" val="29"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="124" ClassName="Female Soldier">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="125" ClassName="Trooper">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="33" />
-    <stat name="_INT" val="29" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="33"/>
+    <stat name="_INT" val="29"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="126" ClassName="Warder">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="127" ClassName="Berserker">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="33" />
-    <stat name="_INT" val="29" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="33"/>
+    <stat name="_INT" val="29"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="128" ClassName="Male Soulbreaker">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="33" />
-    <stat name="_INT" val="29" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="33"/>
+    <stat name="_INT" val="29"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="129" ClassName="Female Soulbreaker">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="130" ClassName="Arbalester">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="131" ClassName="Doombringer">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="33" />
-    <stat name="_INT" val="29" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="33"/>
+    <stat name="_INT" val="29"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="132" ClassName="Male Soulhound">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="41" />
-    <stat name="CON" val="31" />
-    <stat name="DEX" val="33" />
-    <stat name="_INT" val="29" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="25" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="41"/>
+    <stat name="CON" val="31"/>
+    <stat name="DEX" val="33"/>
+    <stat name="_INT" val="29"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="25"/>
   </template>
   <template ClassId="133" ClassName="Female Soulhound">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="134" ClassName="Trickster">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="135" ClassName="Inspector">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
   <template ClassId="136" ClassName="Judicator">
-    <stat name="RaceId" val="5" />
-    <stat name="STR" val="39" />
-    <stat name="CON" val="30" />
-    <stat name="DEX" val="35" />
-    <stat name="_INT" val="28" />
-    <stat name="WIT" val="11" />
-    <stat name="MEN" val="27" />
+    <stat name="RaceId" val="5"/>
+    <stat name="STR" val="39"/>
+    <stat name="CON" val="30"/>
+    <stat name="DEX" val="35"/>
+    <stat name="_INT" val="28"/>
+    <stat name="WIT" val="11"/>
+    <stat name="MEN" val="27"/>
   </template>
 </list>
