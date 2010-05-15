@@ -310,6 +310,7 @@ import com.l2jfree.mmocore.network.InvalidPacketException;
 import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.tools.util.HexUtil;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.L2Collections;
 import com.l2jfree.util.LinkedBunch;
@@ -370,6 +371,10 @@ public final class L2PcInstance extends L2Playable
 	// Creation day
 	private static final String	GET_CREATION_DATE				= "SELECT lastClaim,birthDate FROM character_birthdays WHERE charId=?";
 	private static final String	CLAIM_CREATION_DAY				= "UPDATE character_birthdays SET lastClaim=? WHERE charId=?";
+	
+	// Name / Title Colors
+	private static final String	RESTORE_COLORS					= "SELECT name_color, title_color FROM character_name_title_colors WHERE char_id=?";
+	private static final String	UPDATE_COLORS					= "REPLACE INTO character_name_title_colors VALUES(?,?,?)";
 
 	public static final int		REQUEST_TIMEOUT					= 15;
 
@@ -6933,6 +6938,8 @@ public final class L2PcInstance extends L2Playable
 		restoreRecipeBook(true);
 
 		restoreCreationDate();
+		
+		restoreNameTitleColors();
 	}
 
 	/**
@@ -7068,6 +7075,7 @@ public final class L2PcInstance extends L2Playable
 		getEffects().storeEffects(storeActiveEffects);
 		storeSkillReuses();
 		transformInsertInfo();
+		storeNameTitleColors();
 
 		if (Config.UPDATE_ITEMS_ON_CHAR_STORE || items)
 			getInventory().updateDatabase();
@@ -8827,9 +8835,9 @@ public final class L2PcInstance extends L2Playable
 
 	public void updateNameTitleColor()
 	{
-		int nameColor = PcAppearance.DEFAULT_NAME_COLOR;
-		int titleColor = PcAppearance.DEFAULT_TITLE_COLOR;
-
+		int nameColor = getAppearance().getNameColor();
+		int titleColor = getAppearance().getTitleColor();
+		
 		if (isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
 				&& getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
 		{
@@ -14094,7 +14102,66 @@ public final class L2PcInstance extends L2Playable
 		else
 			throw new IllegalStateException();
 	}
-
+	
+	private final void restoreNameTitleColors()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(RESTORE_COLORS);
+			statement.setInt(1, getObjectId());
+			ResultSet result = statement.executeQuery();
+			if (result.next())
+			{
+				getAppearance().setNameColor(Util.reverseRGBChanels(Integer.decode("0x" + result.getString(1))));
+				getAppearance().setTitleColor(Util.reverseRGBChanels(Integer.decode("0x" + result.getString(2))));
+			}
+			else
+			{
+				getAppearance().setNameColor(PcAppearance.DEFAULT_NAME_COLOR);
+				getAppearance().setTitleColor(PcAppearance.DEFAULT_TITLE_COLOR);
+			}
+			result.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			getAppearance().setNameColor(PcAppearance.DEFAULT_NAME_COLOR);
+			getAppearance().setTitleColor(PcAppearance.DEFAULT_TITLE_COLOR);
+			
+			_log.error("Could not load character name/title colors!", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		updateNameTitleColor();
+	}
+	
+	private final void storeNameTitleColors()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement(UPDATE_COLORS);
+			statement.setInt(1, getObjectId());
+			statement.setString(2, HexUtil.fillHex(Util.reverseRGBChanels(getAppearance().getNameColor()), 6));
+			statement.setString(3, HexUtil.fillHex(Util.reverseRGBChanels(getAppearance().getTitleColor()), 6));
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Could not store character name/title colors!", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+	
 	private final void restoreCreationDate()
 	{
 		Connection con = null;

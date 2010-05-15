@@ -189,6 +189,7 @@ full_install()
 	$MYG < ../sql/char_creation_items.sql &> /dev/null
 	$MYG < ../sql/char_templates.sql &> /dev/null
 	$MYG < ../sql/character_birthdays.sql &> /dev/null
+	$MYG < ../sql/character_name_title_colors.sql &> /dev/null
 	$MYG < ../sql/character_friends.sql &> /dev/null
 	$MYG < ../sql/character_hennas.sql &> /dev/null
 	$MYG < ../sql/character_instance_time.sql &> /dev/null

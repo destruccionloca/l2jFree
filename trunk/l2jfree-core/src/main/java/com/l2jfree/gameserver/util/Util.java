@@ -441,6 +441,11 @@ public final class Util
 		return result;
 	}
 	
+	public static int reverseRGBChanels(int rgbColor)
+	{
+		return (Integer.reverseBytes(rgbColor) >> 8) & 0xFFFFFF;
+	}
+	
 	/**
 	 * Returns a number formatted with "," delimiter
 	 * 

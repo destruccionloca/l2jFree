@@ -29,6 +29,7 @@ DROP TABLE IF EXISTS
 	character_hennas,
 	character_instance_time,
 	character_macroses,
+	character_name_title_colors,
 	character_quest_global_data,
 	character_quests,
 	character_raid_points,
