@@ -197,14 +197,24 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2215" levels="4" name="Item - Quest Special Box">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#itemConsumeId">7614 7615 7616 7617</table>
+    <set name="itemConsumeId" val="#itemConsumeId"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="COREDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="2216" levels="4" name="Item - Quest Special Fish">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <table name="#itemConsumeId">7610 7611 7612 7613</table>
+    <set name="itemConsumeId" val="#itemConsumeId"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="COREDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
   </skill>
   <skill id="2217" levels="5" name="Item - Quest Treasure Box">
     <table name="#itemConsumeId"> 7629 7630 7631 7632 7633 </table>
