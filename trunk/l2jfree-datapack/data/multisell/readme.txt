@@ -137,6 +137,7 @@ of this directory a little bit.
 36114001.xml -> Tanor Fortress Support Unit Captain - magic related products (hear/face gear)
 36114002.xml -> Tanor Fortress Support Unit Captain - bracelets
 36114003.xml -> Tanor Fortress Support Unit Captain - t-shirts
+36114004.xml -> Fortress Support Unit Captain - enchanted t-shirts
 
 32326001.xml -> Yang - Elemental potions
 32326002.xml -> Yang - Elemental stones
@@ -145,6 +146,7 @@ of this directory a little bit.
 356551001.xml -> Castle Merchant: Magic related products (hear/face gear)
 356551002.xml -> Castle Merchant: Bracelets
 356551003.xml -> Castle Merchant: T-Shirts
+356551004.xml -> Trade Shirt for Enchanted Shirt in castle
 364790001.xml -> Reputation Manager: PvP weapons, armors enhancement
 364790002.xml -> Reputation Manager: Removal of PvP enhancement
 364790003.xml -> Reputation Manager: Consumables
