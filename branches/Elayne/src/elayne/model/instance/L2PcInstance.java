@@ -102,103 +102,106 @@ public class L2PcInstance extends L2GroupEntry
 
 	// =========================================================
 	// Data Field
-	private int accesLevel = 0;
-	private L2CharacterEntry accessLevelLabel;
-	private String account = "";
-	private L2AccountInfoGroup accountInformation = null;
-	private L2CharacterEntry accountLabel;
-	private int activeClassId = 0;
-	private L2CharacterEntry actualClassLabel;
-	@SuppressWarnings("unused")
-	private int allianceWithVarkaKetra = 0;
-	@SuppressWarnings("unused")
-	private int apprentice = 0;
-	private int baseClass = 0;
-	private L2CharacterEntry baseClassLabel;
+	private int								_accesLevel 				= 0;
+	private L2CharacterEntry 				_accessLevelLabel;
+	private String							_account 					= "";
+	private L2AccountInfoGroup 				_accountInformation 		= null;
+	private L2CharacterEntry 				_accountLabel;
+	private int 							_activeClassId 				= 0;
+	private L2CharacterEntry 				_actualClassLabel;
+	private int 							_baseClass 					= 0;
+	private L2CharacterEntry 				_baseClassLabel;
 	/** The clan of the player */
-	private L2Clan clan = null;
-	private long clanCreateExpTime = 0;
-	private int clanId = 0;
-	private long clanJoinExpTime = 0;
-	private double maxCp = 0;
-	private double currentCp = 0;
-	private double maxHp = 0;
-	private double currentHp = 0;
-	private double maxMp = 0;
-	private double currentMp = 0;
-	private L2CharacterEntry cpLabel;
-	private L2CharacterEntry hpLabel;
-	private L2CharacterEntry mpLabel;
-	private int deathPenaltyBuffLevel = 0;
-	private L2CharacterEntry deathPenaltyLabel;
-	@SuppressWarnings("unused")
-	private long deleteTime = 0;
-	@SuppressWarnings("unused")
-	private long expBeforeDeath = 0;
-	private long experience = 0;
-	private L2CharacterEntry expLabel;
-	@SuppressWarnings("unused")
-	private byte face = 0;
-	private int gender = 0;
-	@SuppressWarnings("unused")
-	private byte hairColor = 0;
-	@SuppressWarnings("unused")
-	private byte hairStyle = 0;
-	private boolean hasNewClan;
-	@SuppressWarnings("unused")
-	private int heading = 0;
-	private FastMap<Integer, L2HennaGroup> hennaMap = new FastMap<Integer, L2HennaGroup>();
-	private boolean inJail = false;
+	private L2Clan 							_clan 						= null;
+	private long 							_clanCreateExpTime 			= 0;
+	private int 							_clanId 					= 0;
+	private long 							_clanJoinExpTime 			= 0;
+	private double 							_maxCp 						= 0;
+	private double 							_currentCp 					= 0;
+	private double 							_maxHp 						= 0;
+	private double 							_currentHp 					= 0;
+	private double 							_maxMp 						= 0;
+	private double 							_currentMp 					= 0;
+	private L2CharacterEntry 				_cpLabel;
+	private L2CharacterEntry 				_hpLabel;
+	private L2CharacterEntry 				_mpLabel;
+	private int 							_deathPenaltyBuffLevel 		= 0;
+	private L2CharacterEntry 				_deathPenaltyLabel;
+	private long 							_experience 				= 0;
+	private L2CharacterEntry 				_expLabel;
+	private int 							_gender 					= 0;
+	private boolean 						_hasNewClan;
+	private FastMap<Integer, L2HennaGroup> 	_hennaMap 					= new FastMap<Integer, L2HennaGroup>();
+	private boolean 						_inJail 					= false;
 	/** The Inventory of the player */
-	private L2Inventory inventory;
+	private L2Inventory 					_inventory;
+	public long 							_jailTimer 					= 0;
+	private int 							_karma 						= 0;
+	private L2CharacterEntry 				_karmaLabel;
+	private byte 							_level 						= 0;
+	private L2CharacterEntry 				_levelLabel;
+	private int 							_noble 						= 0;
+	private int 							_objectId 					= 0;
+	private int 							_online;
+	private long 							_onlineTime 				= 0;
+	private L2CharacterEntry 				_onlineTimeLabel;
+	private L2CharacterEntry 				_pkLabel;
+	private int 							_pks 						= 0;
+	private L2CharacterPresence 			_presence;
+	private L2CharacterEntry 				_pvpLabel;
+	private int 							_pvps 						= 0;
+	private int 							_race 						= 0;
+	private L2SkillsGroup 					_skills 					= null;
+	private FastMap<Integer, FastList<L2SkillEntry>> _skillsMap 		= new FastMap<Integer, FastList<L2SkillEntry>>();
+	private int 							_sp 						= 0;
+	private L2CharacterEntry 				_spLabel;
+	private L2SubClassGroup 				_subclasses 				= null;
+	private FastList<L2SubClass> 			_subs 						= new FastList<L2SubClass>();
+
+
+	// Following variables are not yet used.
 	@SuppressWarnings("unused")
-	private boolean isIn7sDungeon = false;
-	public long jailTimer = 0;
-	private int karma = 0;
-	private L2CharacterEntry karmaLabel;
+	private int 							_allianceWithVarkaKetra 	= 0;
 	@SuppressWarnings("unused")
-	private long lastAccess = 0;
+	private int 							_apprentice 				= 0;
 	@SuppressWarnings("unused")
-	private long lastRecomDate = 0;
-	private byte level = 0;
-	private L2CharacterEntry levelLabel;
+	private long 							_deleteTime 				= 0;
 	@SuppressWarnings("unused")
-	private int lvlJoinedAcademy = 0;
-	private int noble = 0;
-	private int objectId = 0;
-	private int online;
-	private long onlineTime = 0;
-	private L2CharacterEntry onlineTimeLabel;
-	private L2CharacterEntry pkLabel;
-	private int pks = 0;
-	private L2CharacterPresence presence;
-	private L2CharacterEntry pvpLabel;
-	private int pvps = 0;
-	private int race = 0;
+	private long 							_expBeforeDeath 			= 0;
 	@SuppressWarnings("unused")
-	private int recHave = 0;
+	private byte 							_face 						= 0;
 	@SuppressWarnings("unused")
-	private int recLeft = 0;
-	private L2SkillsGroup skills = null;
-	private FastMap<Integer, FastList<L2SkillEntry>> skillsMap = new FastMap<Integer, FastList<L2SkillEntry>>();
-	private int sp = 0;
-	private L2CharacterEntry spLabel;
+	private byte 							_hairColor 					= 0;
 	@SuppressWarnings("unused")
-	private int sponsor = 0;
-	private L2SubClassGroup subclasses = null;
+	private byte 							_hairStyle 					= 0;
 	@SuppressWarnings("unused")
-	private int subPledge = 0;
-	private FastList<L2SubClass> subs = new FastList<L2SubClass>();
+	private boolean 						_isIn7sDungeon 				= false;
 	@SuppressWarnings("unused")
-	private String title = "";
+	private long 							_lastAccess 				= 0;
 	@SuppressWarnings("unused")
-	private int wantsPeace = 0;
+	private long 							_lastRecomDate 				= 0;
 	@SuppressWarnings("unused")
-	private int x = 0;
+	private int 							_lvlJoinedAcademy 			= 0;
 	@SuppressWarnings("unused")
-	private int y = 0;
+	private int 							_recHave 					= 0;
 	@SuppressWarnings("unused")
-	private int z = 0;
+	private int 							_recLeft 					= 0;
+	@SuppressWarnings("unused")
+	private int 							_sponsor 					= 0;
+	@SuppressWarnings("unused")
+	private int 							_subPledge 					= 0;	
+	@SuppressWarnings("unused")
+	private String 							_title 						= "";
+	@SuppressWarnings("unused")
+	private int 							_wantsPeace 				= 0;
+	@SuppressWarnings("unused")
+	private int 							_x 							= 0;
+	@SuppressWarnings("unused")
+	private int 							_y 							= 0;
+	@SuppressWarnings("unused")
+	private int 							_z 							= 0;
+	@SuppressWarnings("unused")
+	private int 							_heading 					= 0;
 
 	/**
 	 * Constructor - Defines a new player.
@@ -243,10 +246,10 @@ public class L2PcInstance extends L2GroupEntry
 		}
 		catch (InterruptedException e)
 		{}
-		if (hasNewClan)
+		if (_hasNewClan)
 		{
-			ClansManager.getInstance().addClan(clan);
-			hasNewClan = false;
+			ClansManager.getInstance().addClan(_clan);
+			_hasNewClan = false;
 		}
 	}
 
@@ -260,64 +263,64 @@ public class L2PcInstance extends L2GroupEntry
 		try
 		{
 			// ACCOUNT:
-			accountLabel = new L2CharacterEntry(stats, "Account:", player.getAccount());
-			stats.addEntry(accountLabel);
+			_accountLabel = new L2CharacterEntry(stats, "Account:", player.getAccount());
+			stats.addEntry(_accountLabel);
 
 			// LEVEL:
-			levelLabel = new L2CharacterEntry(stats, "Level: ", player.getLevel());
-			stats.addEntry(levelLabel);
+			_levelLabel = new L2CharacterEntry(stats, "Level: ", player.getLevel());
+			stats.addEntry(_levelLabel);
 
 			// EXP:
-			expLabel = new L2CharacterEntry(stats, "Exp: ", player.getExperience());
-			stats.addEntry(expLabel);
+			_expLabel = new L2CharacterEntry(stats, "Exp: ", player.getExperience());
+			stats.addEntry(_expLabel);
 
 			// SP:
-			spLabel = new L2CharacterEntry(stats, "SP: ", player.getSp());
-			stats.addEntry(spLabel);
+			_spLabel = new L2CharacterEntry(stats, "SP: ", player.getSp());
+			stats.addEntry(_spLabel);
 
 			// CP:
-			cpLabel = new L2CharacterEntry(stats, "CP: ", (int)player.getCurrentCp() + "/" + (int)player.getMaxCp());
-			stats.addEntry(cpLabel);
+			_cpLabel = new L2CharacterEntry(stats, "CP: ", (int)player.getCurrentCp() + "/" + (int)player.getMaxCp());
+			stats.addEntry(_cpLabel);
 
 			// HP:
-			hpLabel = new L2CharacterEntry(stats, "HP: ", (int)player.getCurrentHp() + "/" + (int)player.getMaxHp());
-			stats.addEntry(hpLabel);
+			_hpLabel = new L2CharacterEntry(stats, "HP: ", (int)player.getCurrentHp() + "/" + (int)player.getMaxHp());
+			stats.addEntry(_hpLabel);
 
 			// MP:
-			mpLabel = new L2CharacterEntry(stats, "MP: ", (int)player.getCurrentMp() + "/" + (int)player.getMaxMp());
-			stats.addEntry(mpLabel);
+			_mpLabel = new L2CharacterEntry(stats, "MP: ", (int)player.getCurrentMp() + "/" + (int)player.getMaxMp());
+			stats.addEntry(_mpLabel);
 
 			// KARMA:
-			karmaLabel = new L2CharacterEntry(stats, "Karma: ", player.getKarma());
-			stats.addEntry(karmaLabel);
+			_karmaLabel = new L2CharacterEntry(stats, "Karma: ", player.getKarma());
+			stats.addEntry(_karmaLabel);
 
 			// PVP KILLS:
-			pvpLabel = new L2CharacterEntry(stats, "PvPs: ", player.getPvP());
-			stats.addEntry(pvpLabel);
+			_pvpLabel = new L2CharacterEntry(stats, "PvPs: ", player.getPvP());
+			stats.addEntry(_pvpLabel);
 
 			// PK KILLS:
-			pkLabel = new L2CharacterEntry(stats, "PKs: ", player.getPks());
-			stats.addEntry(pkLabel);
+			_pkLabel = new L2CharacterEntry(stats, "PKs: ", player.getPks());
+			stats.addEntry(_pkLabel);
 
 			// ONLINE TIME:
-			onlineTimeLabel = new L2CharacterEntry(stats, "Online Time in Hours: ", player.getOnlineTime());
-			stats.addEntry(onlineTimeLabel);
+			_onlineTimeLabel = new L2CharacterEntry(stats, "Online Time in Hours: ", player.getOnlineTime());
+			stats.addEntry(_onlineTimeLabel);
 
 			// CLASS:
-			actualClassLabel = new L2CharacterEntry(stats, "Active Class:", player.getActiveclass());
-			stats.addEntry(actualClassLabel);
+			_actualClassLabel = new L2CharacterEntry(stats, "Active Class:", player.getActiveclass());
+			stats.addEntry(_actualClassLabel);
 
 			// BASE CLASS:
-			baseClassLabel = new L2CharacterEntry(stats, "Base Class:", player.getBaseClass());
-			stats.addEntry(baseClassLabel);
+			_baseClassLabel = new L2CharacterEntry(stats, "Base Class:", player.getBaseClass());
+			stats.addEntry(_baseClassLabel);
 
 			// ACCESSLEVEL:
-			accessLevelLabel = new L2CharacterEntry(stats, "Accesslevel:", player.getAccessLevel());
-			stats.addEntry(accessLevelLabel);
+			_accessLevelLabel = new L2CharacterEntry(stats, "Accesslevel:", player.getAccessLevel());
+			stats.addEntry(_accessLevelLabel);
 
 			// DEATH PENALTY:
-			deathPenaltyLabel = new L2CharacterEntry(stats, "Death Penalty:", player.getDeathPenalty());
-			stats.addEntry(deathPenaltyLabel);
+			_deathPenaltyLabel = new L2CharacterEntry(stats, "Death Penalty:", player.getDeathPenalty());
+			stats.addEntry(_deathPenaltyLabel);
 		}
 		catch (Exception e)
 		{
@@ -341,41 +344,41 @@ public class L2PcInstance extends L2GroupEntry
 		addStatsEntries(stats, this);
 
 		// ADD ACCOUNT INFO GROUP
-		accountInformation = new L2AccountInfoGroup(this);
-		accountInformation.restore();
+		_accountInformation = new L2AccountInfoGroup(this);
+		_accountInformation.restore();
 
 		// ADD INVENTORY GROUP.
-		inventory = new L2Inventory(this, "Inventory");
-		inventory.restore();
+		_inventory = new L2Inventory(this, "Inventory");
+		_inventory.restore();
 
 		// ADD SUBS GROUP
 		getSubClassesId(isUpdate);
 		if (getSubs().size() > 0)
 		{
-			subclasses = new L2SubClassGroup(this, "Sub Classes");
-			subclasses.restore();
+			_subclasses = new L2SubClassGroup(this, "Sub Classes");
+			_subclasses.restore();
 		}
 
 		// ADD SKILLS GROUP
-		skills = new L2SkillsGroup(this, "Skill", null);
-		skills.restore();
+		_skills = new L2SkillsGroup(this, "Skill", null);
+		_skills.restore();
 
 		// ADD HENNA GROUP
-		if (hennaMap.get(0).getEntries().length > 0)
-			addEntry(hennaMap.get(0));
+		if (_hennaMap.get(0).getEntries().length > 0)
+			addEntry(_hennaMap.get(0));
 
 		// ADD CLAN GROUP
 		if (getClanId() != 0)
 		{
-			clan = null;
+			_clan = null;
 			if (ClansManager.getInstance().isKnownClan(getClanId()))
-				clan = ClansManager.getInstance().getClan(getClanId());
+				_clan = ClansManager.getInstance().getClan(getClanId());
 			else
 			{
-				clan = new L2Clan(getClanId(), "Clan", null);
-				hasNewClan = true;
+				_clan = new L2Clan(getClanId(), "Clan", null);
+				_hasNewClan = true;
 			}
-			addEntry(clan);
+			addEntry(_clan);
 		}
 
 		setPresence(getRace(), getGenderValue());
@@ -383,12 +386,12 @@ public class L2PcInstance extends L2GroupEntry
 
 	public int getAccessLevel()
 	{
-		return accesLevel;
+		return _accesLevel;
 	}
 
 	public String getAccount()
 	{
-		return account;
+		return _account;
 	}
 
 	public String getActiveclass() throws SQLException
@@ -400,7 +403,7 @@ public class L2PcInstance extends L2GroupEntry
 		{
 			con = ServerDB.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, activeClassId);
+			statement.setInt(1, _activeClassId);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
@@ -425,7 +428,7 @@ public class L2PcInstance extends L2GroupEntry
 		{
 			con = ServerDB.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, baseClass);
+			statement.setInt(1, _baseClass);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
@@ -443,22 +446,22 @@ public class L2PcInstance extends L2GroupEntry
 
 	public L2Clan getClan()
 	{
-		return clan;
+		return _clan;
 	}
 
 	public long getclanCreateExpTime()
 	{
-		return clanCreateExpTime;
+		return _clanCreateExpTime;
 	}
 
 	public int getClanId()
 	{
-		return clanId;
+		return _clanId;
 	}
 
 	public long getClanJoinExpTime()
 	{
-		return clanJoinExpTime;
+		return _clanJoinExpTime;
 	}
 
 	/**
@@ -473,12 +476,12 @@ public class L2PcInstance extends L2GroupEntry
 
 	public int getDeathPenaltybuffLevel()
 	{
-		return deathPenaltyBuffLevel;
+		return _deathPenaltyBuffLevel;
 	}
 
 	public long getExperience()
 	{
-		return experience;
+		return _experience;
 	}
 
 	/**
@@ -487,9 +490,9 @@ public class L2PcInstance extends L2GroupEntry
 	public String getGender()
 	{
 		String str = "";
-		if (gender == 0)
+		if (_gender == 0)
 			str = "Male";
-		else if (gender == 1)
+		else if (_gender == 1)
 			str = "Female";
 		else
 			str = "Error! Warn the developers!";
@@ -498,12 +501,12 @@ public class L2PcInstance extends L2GroupEntry
 
 	public int getGenderValue()
 	{
-		return gender;
+		return _gender;
 	}
 
 	public L2HennaGroup getHennaGroup(int classIndex)
 	{
-		return hennaMap.get(classIndex);
+		return _hennaMap.get(classIndex);
 	}
 
 	@Override
@@ -515,100 +518,100 @@ public class L2PcInstance extends L2GroupEntry
 
 	public L2Inventory getInventory()
 	{
-		return inventory;
+		return _inventory;
 	}
 
 	public int getKarma()
 	{
-		return karma;
+		return _karma;
 	}
 
 	public int getLevel()
 	{
-		return level;
+		return _level;
 	}
 
 	public int getObjectId()
 	{
-		return objectId;
+		return _objectId;
 	}
 
 	public int getOnline()
 	{
-		return online;
+		return _online;
 	}
 
 	public long getOnlineTime()
 	{
-		long onlinetimeH = Math.round(((double) onlineTime / 60 / 60) - 0.5);
+		long onlinetimeH = Math.round(((double) _onlineTime / 60 / 60) - 0.5);
 		return onlinetimeH;
 	}
 
 	public int getPks()
 	{
-		return pks;
+		return _pks;
 	}
 
 	public FastList<L2SkillEntry> getPlayerSkillsByClass(int classIndex)
 	{
-		return skillsMap.get(classIndex);
+		return _skillsMap.get(classIndex);
 	}
 
 	public L2CharacterPresence getPresence()
 	{
-		return presence;
+		return _presence;
 	}
 
 	public int getPvP()
 	{
-		return pvps;
+		return _pvps;
 	}
 
 	public int getRace()
 	{
-		return race;
+		return _race;
 	}
 
 	public int getSp()
 	{
-		return sp;
+		return _sp;
 	}
 
 	public double getCurrentCp()
 	{
-		return currentCp;
+		return _currentCp;
 	}
 
 	public double getCurrentHp()
 	{
-		return currentHp;
+		return _currentHp;
 	}
 
 	public double getCurrentMp()
 	{
-		return currentMp;
+		return _currentMp;
 	}
 
 	public double getMaxCp()
 	{
-		return maxCp;
+		return _maxCp;
 	}
 
 	public double getMaxHp()
 	{
-		return maxHp;
+		return _maxHp;
 	}
 
 	public double getMaxMp()
 	{
-		return maxMp;
+		return _maxMp;
 	}
 
 	private void getSubClassesId(boolean isUpdate)
 	{
 		if (isUpdate)
-			subs.clear();
-		if (!subs.isEmpty())
+			_subs.clear();
+		if (!_subs.isEmpty())
 			return;
 		String sql = "SELECT class_id, level, class_index FROM `character_subclasses` WHERE charId=?";
 		java.sql.Connection con = null;
@@ -618,12 +621,12 @@ public class L2PcInstance extends L2GroupEntry
 			if (con != null)
 			{
 				PreparedStatement statement = con.prepareStatement(sql);
-				statement.setInt(1, objectId);
+				statement.setInt(1, _objectId);
 				ResultSet rset = statement.executeQuery();
 				int i = 0;
 				while (rset.next())
 				{
-					subs.add(new L2SubClass(rset.getInt("class_id"), rset.getInt("level"), rset.getInt("class_index")));
+					_subs.add(new L2SubClass(rset.getInt("class_id"), rset.getInt("level"), rset.getInt("class_index")));
 					i++;
 				}
 				rset.close();
@@ -646,22 +649,22 @@ public class L2PcInstance extends L2GroupEntry
 
 	public FastList<L2SubClass> getSubs()
 	{
-		return subs;
+		return _subs;
 	}
 
 	public boolean isInJail()
 	{
-		return inJail;
+		return _inJail;
 	}
 
 	public int isNoble()
 	{
-		return noble;
+		return _noble;
 	}
 
 	public boolean isOnline()
 	{
-		return (online == 1);
+		return (_online == 1);
 	}
 
 	private String presenceToKey(L2CharacterPresence presence)
@@ -690,7 +693,7 @@ public class L2PcInstance extends L2GroupEntry
 			return IImageKeys.DWARF_MALE;
 		else if (presence == L2CharacterPresence.KAMAEL_FEMALE)
 			return IImageKeys.DWARF_FEMALE;
-		return IImageKeys.DWARF_MALE; // TODO Fin Kamael images
+		return IImageKeys.DWARF_MALE; // TODO Find Kamael images
 	}
 
 	/**
@@ -707,70 +710,70 @@ public class L2PcInstance extends L2GroupEntry
 			con = ServerDB.getInstance().getConnection();
 
 			PreparedStatement statement = con.prepareStatement(RESTORE_CHARACTER);
-			statement.setString(1, name);
+			statement.setString(1, _name);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				objectId = rset.getInt("charId");
-				activeClassId = rset.getInt("classid");
-				gender = rset.getInt("sex");
-				face = rset.getByte("face");
-				hairColor = rset.getByte("hairColor");
-				hairStyle = rset.getByte("hairStyle");
-				account = rset.getString("account_name");
-				name = rset.getString("char_name");
-				lastAccess = rset.getLong("lastAccess");
-				experience = rset.getLong("exp");
-				expBeforeDeath = (rset.getLong("expBeforeDeath"));
-				level = (rset.getByte("level"));
-				sp = rset.getInt("sp");
-				wantsPeace = (rset.getInt("wantspeace"));
-				heading = (rset.getInt("heading"));
-				karma = (rset.getInt("karma"));
-				pvps = (rset.getInt("pvpkills"));
-				pks = (rset.getInt("pkkills"));
-				onlineTime = (rset.getLong("onlinetime"));
-				noble = (rset.getInt("nobless"));
-				clanJoinExpTime = (rset.getLong("clan_join_expiry_time"));
-				if (clanJoinExpTime < System.currentTimeMillis())
+				_objectId = rset.getInt("charId");
+				_activeClassId = rset.getInt("classid");
+				_gender = rset.getInt("sex");
+				_face = rset.getByte("face");
+				_hairColor = rset.getByte("hairColor");
+				_hairStyle = rset.getByte("hairStyle");
+				_account = rset.getString("account_name");
+				_lastAccess = rset.getLong("lastAccess");
+				_experience = rset.getLong("exp");
+				_expBeforeDeath = (rset.getLong("expBeforeDeath"));
+				_level = (rset.getByte("level"));
+				_sp = rset.getInt("sp");
+				_wantsPeace = (rset.getInt("wantspeace"));
+				_heading = (rset.getInt("heading"));
+				_karma = (rset.getInt("karma"));
+				_pvps = (rset.getInt("pvpkills"));
+				_pks = (rset.getInt("pkkills"));
+				_onlineTime = (rset.getLong("onlinetime"));
+				_noble = (rset.getInt("nobless"));
+				_clanJoinExpTime = (rset.getLong("clan_join_expiry_time"));
+				if (_clanJoinExpTime < System.currentTimeMillis())
 				{
-					clanJoinExpTime = 0;
+					_clanJoinExpTime = 0;
 				}
 
-				clanCreateExpTime = (rset.getLong("clan_create_expiry_time"));
-				if (clanCreateExpTime < System.currentTimeMillis())
+				_clanCreateExpTime = (rset.getLong("clan_create_expiry_time"));
+				if (_clanCreateExpTime < System.currentTimeMillis())
 				{
-					clanCreateExpTime = 0;
+					_clanCreateExpTime = 0;
 				}
-				clanId = rset.getInt("clanid");
-				subPledge = (rset.getInt("subpledge"));
-				race = rset.getInt("race");
-				online = rset.getInt("online");
-				deleteTime = (rset.getLong("deletetime"));
-				title = (rset.getString("title"));
-				accesLevel = (rset.getInt("accesslevel"));
-				maxHp = rset.getDouble("maxHp");
-				maxCp = rset.getDouble("maxCp");
-				maxMp = rset.getDouble("maxMp");
-				currentHp = rset.getDouble("curHp");
-				currentCp = rset.getDouble("curCp");
-				currentMp = rset.getDouble("curMp");
-				baseClass = (rset.getInt("base_class"));
-				apprentice = (rset.getInt("apprentice"));
-				sponsor = (rset.getInt("sponsor"));
-				lvlJoinedAcademy = (rset.getInt("lvl_joined_academy"));
-				isIn7sDungeon = ((rset.getInt("isin7sdungeon") == 1) ? true : false);
-				inJail = ((rset.getInt("in_jail") == 1) ? true : false);
-				jailTimer = 0;
-				if (inJail)
-					jailTimer = (rset.getLong("jail_timer"));
 
-				allianceWithVarkaKetra = (rset.getInt("varka_ketra_ally"));
+				_clanId = rset.getInt("clanid");
+				_subPledge = (rset.getInt("subpledge"));
+				_race = rset.getInt("race");
+				_online = rset.getInt("online");
+				_deleteTime = (rset.getLong("deletetime"));
+				_title = (rset.getString("title"));
+				_accesLevel = (rset.getInt("accesslevel"));
+				_maxHp = rset.getDouble("maxHp");
+				_maxCp = rset.getDouble("maxCp");
+				_maxMp = rset.getDouble("maxMp");
+				_currentHp = rset.getDouble("curHp");
+				_currentCp = rset.getDouble("curCp");
+				_currentMp = rset.getDouble("curMp");
+				_baseClass = (rset.getInt("base_class"));
+				_apprentice = (rset.getInt("apprentice"));
+				_sponsor = (rset.getInt("sponsor"));
+				_lvlJoinedAcademy = (rset.getInt("lvl_joined_academy"));
+				_isIn7sDungeon = ((rset.getInt("isin7sdungeon") == 1) ? true : false);
+				_inJail = ((rset.getInt("in_jail") == 1) ? true : false);
+				_jailTimer = 0;
+				if (_inJail)
+					_jailTimer = (rset.getLong("jail_timer"));
 
-				deathPenaltyBuffLevel = (rset.getInt("death_penalty_level"));
-				x = rset.getInt("x");
-				y = rset.getInt("y");
-				z = rset.getInt("z");
+				_allianceWithVarkaKetra = (rset.getInt("varka_ketra_ally"));
+
+				_deathPenaltyBuffLevel = (rset.getInt("death_penalty_level"));
+				_x = rset.getInt("x");
+				_y = rset.getInt("y");
+				_z = rset.getInt("z");
 			}
 
 			rset.close();
@@ -786,7 +789,7 @@ public class L2PcInstance extends L2GroupEntry
 			{
 				if (con != null)
 					con.close();
-				System.out.println("L2PcInstance: Player " + name + " imported correctly.");
+				System.out.println("L2PcInstance: Player " + _name + " imported correctly.");
 			}
 			catch (Exception e)
 			{
@@ -805,19 +808,19 @@ public class L2PcInstance extends L2GroupEntry
 			statement.setInt(1, getObjectId());
 			ResultSet rset = statement.executeQuery();
 			L2HennaGroup group0 = new L2HennaGroup(this, "Hennas");
-			hennaMap.put(0, group0);
+			_hennaMap.put(0, group0);
 			L2HennaGroup group1 = new L2HennaGroup(this, "Hennas");
-			hennaMap.put(1, group1);
+			_hennaMap.put(1, group1);
 			L2HennaGroup group2 = new L2HennaGroup(this, "Hennas");
-			hennaMap.put(2, group2);
+			_hennaMap.put(2, group2);
 			L2HennaGroup group3 = new L2HennaGroup(this, "Hennas");
-			hennaMap.put(3, group3);
+			_hennaMap.put(3, group3);
 			while (rset.next())
 			{
 				int symbolId = rset.getInt("symbol_id");
 				int slot = rset.getInt("slot");
 				int classIndex = rset.getInt("class_index");
-				hennaMap.get(classIndex).addEntry(new L2HennaEntry(hennaMap.get(classIndex), symbolId, slot, classIndex));
+				_hennaMap.get(classIndex).addEntry(new L2HennaEntry(_hennaMap.get(classIndex), symbolId, slot, classIndex));
 			}
 			rset.close();
 			statement.close();
@@ -842,8 +845,8 @@ public class L2PcInstance extends L2GroupEntry
 
 	public void setAccessLevel(int accessLevel)
 	{
-		this.accesLevel = accessLevel;
-		accessLevelLabel.setField(accessLevel);
+		_accesLevel = accessLevel;
+		_accessLevelLabel.setField(accessLevel);
 	}
 
 	/**
@@ -852,23 +855,23 @@ public class L2PcInstance extends L2GroupEntry
 	 */
 	public void setAccount(String account)
 	{
-		this.account = account;
-		accountLabel.setField(account);
+		_account = account;
+		_accountLabel.setField(account);
 	}
 
 	public void setClan(L2Clan clan)
 	{
-		this.clan = clan;
+		_clan = clan;
 	}
 
 	public void setClanId(int i)
 	{
-		this.clanId = i;
+		_clanId = i;
 	}
 
 	public void setInJail(boolean inJail)
 	{
-		this.inJail = inJail;
+		_inJail = inJail;
 	}
 
 	/**
@@ -878,26 +881,26 @@ public class L2PcInstance extends L2GroupEntry
 	 */
 	public void setKarma(int karma)
 	{
-		this.karma = karma;
-		karmaLabel.setField(karma);
+		_karma = karma;
+		_karmaLabel.setField(karma);
 	}
 
 	public void setNoble(int noble)
 	{
-		this.noble = noble;
+		_noble = noble;
 	}
 
 	public void setOnline(boolean isOnline)
 	{
 		if (!isOnline)
-			this.online = 0;
+			_online = 0;
 		else
-			this.online = 1;
+			_online = 1;
 	}
 
 	public void setParent(L2GroupEntry parentGroup)
 	{
-		this.parent = parentGroup;
+		_parent = parentGroup;
 	}
 
 	public void setPlayerSkills(int class_index, L2SkillsGroup folder)
@@ -924,7 +927,7 @@ public class L2PcInstance extends L2GroupEntry
 
 				skills.add(new L2SkillEntry(skillId, skill_level, skill_name, class_index, folder));
 			}
-			skillsMap.put(class_index, skills);
+			_skillsMap.put(class_index, skills);
 			rset.close();
 			statement.close();
 			con.close();
@@ -939,51 +942,51 @@ public class L2PcInstance extends L2GroupEntry
 	{
 		if ((gender == 0) && (race == 4))
 		{
-			presence = L2CharacterPresence.DWARF_MALE;
+			_presence = L2CharacterPresence.DWARF_MALE;
 		}
 		else if ((gender == 1) && (race == 4))
 		{
-			presence = L2CharacterPresence.DWARF_FEMALE;
+			_presence = L2CharacterPresence.DWARF_FEMALE;
 		}
 		else if ((gender == 0) && (race == 2))
 		{
-			presence = L2CharacterPresence.DARK_ELF_MALE;
+			_presence = L2CharacterPresence.DARK_ELF_MALE;
 		}
 		else if ((gender == 1) && (race == 2))
 		{
-			presence = L2CharacterPresence.DARK_ELF_FEMALE;
+			_presence = L2CharacterPresence.DARK_ELF_FEMALE;
 		}
 		else if ((gender == 0) && (race == 0))
 		{
-			presence = L2CharacterPresence.HUMAN_MALE;
+			_presence = L2CharacterPresence.HUMAN_MALE;
 		}
 		else if ((gender == 1) && (race == 0))
 		{
-			presence = L2CharacterPresence.HUMAN_FEMALE;
+			_presence = L2CharacterPresence.HUMAN_FEMALE;
 		}
 		else if ((gender == 0) && (race == 1))
 		{
-			presence = L2CharacterPresence.ELF_MALE;
+			_presence = L2CharacterPresence.ELF_MALE;
 		}
 		else if ((gender == 1) && (race == 1))
 		{
-			presence = L2CharacterPresence.ELF_FEMALE;
+			_presence = L2CharacterPresence.ELF_FEMALE;
 		}
 		else if ((gender == 0) && (race == 3))
 		{
-			presence = L2CharacterPresence.ORC_MALE;
+			_presence = L2CharacterPresence.ORC_MALE;
 		}
 		else if ((gender == 1) && (race == 3))
 		{
-			presence = L2CharacterPresence.ORC_FEMALE;
+			_presence = L2CharacterPresence.ORC_FEMALE;
 		}
 		else if ((gender == 0) && (race == 5))
 		{
-			presence = L2CharacterPresence.KAMAEL_MALE;
+			_presence = L2CharacterPresence.KAMAEL_MALE;
 		}
 		else if ((gender == 1) && (race == 5))
 		{
-			presence = L2CharacterPresence.KAMAEL_FEMALE;
+			_presence = L2CharacterPresence.KAMAEL_FEMALE;
 		}
 	}
 
@@ -992,7 +995,7 @@ public class L2PcInstance extends L2GroupEntry
 	 */
 	public L2AccountInfoGroup getAccountInformation()
 	{
-		return accountInformation;
+		return _accountInformation;
 	}
 
 	/**
@@ -1001,6 +1004,6 @@ public class L2PcInstance extends L2GroupEntry
 	 */
 	public void setAccountInformation(L2AccountInfoGroup accountInformation)
 	{
-		this.accountInformation = accountInformation;
+		_accountInformation = accountInformation;
 	}
 }

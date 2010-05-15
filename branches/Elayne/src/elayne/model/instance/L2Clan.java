@@ -285,7 +285,7 @@ public class L2Clan extends L2GroupEntry
 	@Override
 	public L2GroupEntry getParent()
 	{
-		return parent;
+		return _parent;
 	}
 
 	/**
@@ -440,6 +440,6 @@ public class L2Clan extends L2GroupEntry
 
 	public void setParent(L2GroupEntry parent)
 	{
-		this.parent = parent;
+		_parent = parent;
 	}
 }

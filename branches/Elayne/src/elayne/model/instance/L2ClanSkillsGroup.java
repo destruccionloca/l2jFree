@@ -23,6 +23,6 @@ public class L2ClanSkillsGroup extends L2GroupEntry
 	@Override
 	public L2Clan getParent()
 	{
-		return (L2Clan) parent;
+		return (L2Clan) _parent;
 	}
 }

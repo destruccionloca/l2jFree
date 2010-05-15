@@ -50,7 +50,7 @@ public class L2SubClassGroup extends L2GroupEntry
 	@Override
 	public L2PcInstance getParent()
 	{
-		return (L2PcInstance) parent;
+		return (L2PcInstance) _parent;
 	}
 
 	public void restore()

@@ -26,7 +26,7 @@ public class L2SkillsGroup extends L2GroupEntry
 	@Override
 	public L2PcInstance getParent()
 	{
-		return (L2PcInstance) parent;
+		return (L2PcInstance) _parent;
 	}
 
 	public L2GroupEntry getSubClassGroup()

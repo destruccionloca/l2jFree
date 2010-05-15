@@ -27,13 +27,13 @@ public class L2Inventory extends L2GroupEntry
 	/**
 	 * ALL ITEMS IN THE INV: Key = Item Id, Object = Item itself
 	 */
-	private FastMap<Integer, L2InventoryItem> all_items = new FastMap<Integer, L2InventoryItem>();
+	private FastMap<Integer, L2InventoryItem> _all_items = new FastMap<Integer, L2InventoryItem>();
 
-	private L2RegularGroup weapons;
+	private L2RegularGroup _weapons;
 
-	private L2RegularGroup armors;
+	private L2RegularGroup _armors;
 
-	private L2RegularGroup items;
+	private L2RegularGroup _items;
 
 	public L2Inventory(L2PcInstance parent, String name)
 	{
@@ -48,23 +48,23 @@ public class L2Inventory extends L2GroupEntry
 
 	public Set<Integer> getInventoryObjectsId()
 	{
-		return all_items.keySet();
+		return _all_items.keySet();
 	}
 
 	public Collection<L2InventoryItem> getAllItems()
 	{
-		return all_items.values();
+		return _all_items.values();
 	}
 
 	public FastMap<Integer, L2InventoryItem> getItemsMap()
 	{
-		return all_items;
+		return _all_items;
 	}
 
 	@Override
 	public L2PcInstance getParent()
 	{
-		return (L2PcInstance) parent;
+		return (L2PcInstance) _parent;
 	}
 
 	public boolean isArmor(L2InventoryItem item)
@@ -87,15 +87,15 @@ public class L2Inventory extends L2GroupEntry
 		restoreItems(getParent().getObjectId());
 
 		// WEAPONS --> Define a new Player Group in which we will include all the Weapon type of items.
-		weapons = new L2RegularGroup(this, "Weapons");
+		_weapons = new L2RegularGroup(this, "Weapons");
 		// Add the new Player Group in the entry (which is an instance of a Player Group).
-		addEntry(weapons);
+		addEntry(_weapons);
 		// ARMORS --> Read on Weapons for Comments.
-		armors = new L2RegularGroup(this, "Armors");
-		addEntry(armors);
+		_armors = new L2RegularGroup(this, "Armors");
+		addEntry(_armors);
 		// ITEMS --> Read on Weapons for Comments.
-		items = new L2RegularGroup(this, "Items");
-		addEntry(items);
+		_items = new L2RegularGroup(this, "Items");
+		addEntry(_items);
 
 		for (L2InventoryItem item : getAllItems())
 		{
@@ -103,30 +103,28 @@ public class L2Inventory extends L2GroupEntry
 			{
 				L2Weapon weapon = WeaponTable.getInstance().getWeapon(item.getId());
 
-				L2InventoryEntry pie = new L2InventoryEntry(weapons, getParent(), weapon.getName(), "Weapon", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId());
-				weapons.addEntry(pie);
+				L2InventoryEntry pie = new L2InventoryEntry(_weapons, getParent(), weapon.getName(), "Weapon", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId());
+				_weapons.addEntry(pie);
 			}
 
 			else if (isArmor(item))
 			{
-				L2InventoryEntry pie = new L2InventoryEntry(armors, getParent(), ArmorTable.getInstance().getArmor(item.getId()).getName(), "Armor", item.getId(), item.getEnchantLevel(), 1, item
-										.getLocation(), item.getObjectId());
-				armors.addEntry(pie);
+				L2InventoryEntry pie = new L2InventoryEntry(_armors, getParent(), ArmorTable.getInstance().getArmor(item.getId()).getName(), "Armor", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId());
+				_armors.addEntry(pie);
 			}
 			else if (isItem(item))
 			{
-				L2InventoryEntry pie = new L2InventoryEntry(items, getParent(), ItemTable.getInstance().getItem(item.getId()).getName(), "Item", item.getId(), 0, item.getAmount(), item.getLocation(),
-										item.getObjectId());
-				items.addEntry(pie);
+				L2InventoryEntry pie = new L2InventoryEntry(_items, getParent(), ItemTable.getInstance().getItem(item.getId()).getName(), "Item", item.getId(), 0, item.getAmount(), item.getLocation(), item.getObjectId());
+				_items.addEntry(pie);
 			}
 		}
 
-		if (weapons.getEntries().length == 0)
-			removeEntry(weapons);
-		if (armors.getEntries().length == 0)
-			removeEntry(armors);
-		if (items.getEntries().length == 0)
-			removeEntry(items);
+		if (_weapons.getEntries().length == 0)
+			removeEntry(_weapons);
+		if (_armors.getEntries().length == 0)
+			removeEntry(_armors);
+		if (_items.getEntries().length == 0)
+			removeEntry(_items);
 		if (getEntries().length != 0)
 		{
 			getParent().addEntry(this);
@@ -134,14 +132,14 @@ public class L2Inventory extends L2GroupEntry
 		else
 		{
 			getParent().removeEntry(this);
-			System.out.println("The player " + getParent().getName() + " has an empty inventory is empty.");
+			System.out.println("The player " + getParent().getName() + " has an empty inventory.");
 		}
 
 	}
 
 	public void restoreItems(int objectId)
 	{
-		if (!all_items.isEmpty())
+		if (!_all_items.isEmpty())
 			return;
 		java.sql.Connection con = null;
 		try
@@ -160,18 +158,18 @@ public class L2Inventory extends L2GroupEntry
 				if (WeaponTable.getInstance().isWeapon(itemId)) // This is a Weapon instance
 				{
 					L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, 1);
-					all_items.put(object_id, item);
+					_all_items.put(object_id, item);
 				}
 				else if (ArmorTable.getInstance().isArmor(itemId)) // This is an Armor instance
 				{
 					L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, 1);
-					all_items.put(object_id, item);
+					_all_items.put(object_id, item);
 				}
 				else if (ItemTable.getInstance().isItem(itemId)) // This is an Item instance
 				{
 					int amount = rset.getInt("count");
 					L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, amount);
-					all_items.put(object_id, item);
+					_all_items.put(object_id, item);
 				}
 				results++;
 			}
@@ -201,31 +199,31 @@ public class L2Inventory extends L2GroupEntry
 
 	public L2RegularGroup getWeapons()
 	{
-		return weapons;
+		return _weapons;
 	}
 
 	public void setWeapons(L2RegularGroup weapons)
 	{
-		this.weapons = weapons;
+		_weapons = weapons;
 	}
 
 	public L2RegularGroup getArmors()
 	{
-		return armors;
+		return _armors;
 	}
 
 	public void setArmors(L2RegularGroup armors)
 	{
-		this.armors = armors;
+		_armors = armors;
 	}
 
 	public void setItems(L2RegularGroup items)
 	{
-		this.items = items;
+		_items = items;
 	}
 
 	public L2RegularGroup getEtcItems()
 	{
-		return items;
+		return _items;
 	}
 }

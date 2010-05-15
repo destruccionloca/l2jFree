@@ -42,11 +42,11 @@ public class L2SubClass extends L2GroupEntry
 	@Override
 	public L2SubClassGroup getParent()
 	{
-		return (L2SubClassGroup) parent;
+		return (L2SubClassGroup) _parent;
 	}
 
 	public void setParent(L2SubClassGroup parent)
 	{
-		this.parent = parent;
+		_parent = parent;
 	}
 }

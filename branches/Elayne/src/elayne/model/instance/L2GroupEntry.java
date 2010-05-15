@@ -19,9 +19,9 @@ public abstract class L2GroupEntry extends L2Character
 {
 	// ====================================
 	// DATA FIELD
-	protected List<L2Character> entries;
-	protected String name;
-	protected L2GroupEntry parent;
+	protected List<L2Character> _entries;
+	protected String _name;
+	protected L2GroupEntry _parent;
 
 	// ====================================
 	// CONSTRUCTOR
@@ -33,8 +33,8 @@ public abstract class L2GroupEntry extends L2Character
 	 */
 	public L2GroupEntry(L2GroupEntry parent, String name)
 	{
-		this.name = name;
-		this.parent = parent;
+		_name = name;
+		_parent = parent;
 	}
 
 	// ====================================
@@ -47,9 +47,9 @@ public abstract class L2GroupEntry extends L2Character
 	 */
 	public void addEntry(L2Character entry)
 	{
-		if (entries == null)
-			entries = new ArrayList<L2Character>(5);
-		entries.add(entry);
+		if (_entries == null)
+			_entries = new ArrayList<L2Character>(5);
+		_entries.add(entry);
 	}
 
 	/**
@@ -58,16 +58,16 @@ public abstract class L2GroupEntry extends L2Character
 	 */
 	public void clearEntries()
 	{
-		if (entries != null && !entries.isEmpty())
+		if (_entries != null && !_entries.isEmpty())
 		{
-			entries.clear();
-			entries = null;
+			_entries.clear();
+			_entries = null;
 		}
 	}
 
 	public final String getClearName()
 	{
-		return name;
+		return _name;
 	}
 
 	/**
@@ -77,8 +77,8 @@ public abstract class L2GroupEntry extends L2Character
 	 */
 	public L2Character[] getEntries()
 	{
-		if (entries != null)
-			return entries.toArray(new L2Character[entries.size()]);
+		if (_entries != null)
+			return _entries.toArray(new L2Character[_entries.size()]);
 		return new L2Character[0];
 	}
 
@@ -91,13 +91,13 @@ public abstract class L2GroupEntry extends L2Character
 	@Override
 	public String getName()
 	{
-		return name;
+		return _name;
 	}
 
 	@Override
 	public L2GroupEntry getParent()
 	{
-		return parent;
+		return _parent;
 	}
 
 	/**
@@ -108,11 +108,11 @@ public abstract class L2GroupEntry extends L2Character
 	 */
 	public void removeEntry(L2Character entry)
 	{
-		if (entries != null)
+		if (_entries != null)
 		{
-			entries.remove(entry);
-			if (entries.isEmpty())
-				entries = null;
+			_entries.remove(entry);
+			if (_entries.isEmpty())
+				_entries = null;
 		}
 	}
 
@@ -125,6 +125,6 @@ public abstract class L2GroupEntry extends L2Character
 	 */
 	public void setName(String name)
 	{
-		this.name = name;
+		_name = name;
 	}
 }

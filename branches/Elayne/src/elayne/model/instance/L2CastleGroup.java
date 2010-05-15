@@ -103,12 +103,12 @@ public class L2CastleGroup extends L2GroupEntry
 	@Override
 	public String getName()
 	{
-		return name + " Castle";
+		return _name + " Castle";
 	}
 
 	@Override
 	public L2Clan getParent()
 	{
-		return (L2Clan) parent;
+		return (L2Clan) _parent;
 	}
 }

@@ -206,7 +206,7 @@ public class RequestClanPlayerKick extends ElayneAction
 						if (deletePlayerFromClan(player.getObjectId()))
 						{
 							ClansManager.getInstance().removeClanMemberFromKnownClan(clan, player);
-							System.out.println("Removed player " + player.getName() + "from the clan " + clan.getName() + ".");
+							System.out.println("Removed player " + player.getName() + " from the clan " + clan.getName() + ".");
 						}
 					}
 				}

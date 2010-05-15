@@ -18,13 +18,13 @@ import elayne.util.connector.LoginDB;
 public class L2AccountInfoGroup extends L2GroupEntry
 {
 	private static final String RESTORE_ACCOUNT = "SELECT password, accessLevel, lastIP, lastServerId FROM `accounts` WHERE `login` =?";
-	private int accessLevel;
-	private String encryptedPass;
-	private String lastIp;
-	private int lastServerId;
-	private String login;
-	private L2PcInstance parent;
-	private L2CharacterEntry encryptedPasswordEntry;
+	private int _accessLevel;
+	private String _encryptedPass;
+	private String _lastIp;
+	private int _lastServerId;
+	private String _login;
+	private L2PcInstance _parent;
+	private L2CharacterEntry _encryptedPasswordEntry;
 
 	/**
 	 * Constructor defining ONLY an {@link L2PcInstance} which will be the
@@ -34,7 +34,7 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	public L2AccountInfoGroup(L2PcInstance parent)
 	{
 		super(parent, "Account Information");
-		this.parent = parent;
+		_parent = parent;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 */
 	public int getAccessLevel()
 	{
-		return accessLevel;
+		return _accessLevel;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 */
 	public String getEncryptedPass()
 	{
-		return encryptedPass;
+		return _encryptedPass;
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 */
 	public String getLastIp()
 	{
-		return lastIp;
+		return _lastIp;
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 
 	public int getLastServer()
 	{
-		return lastServerId;
+		return _lastServerId;
 	}
 
 	/**
@@ -87,13 +87,13 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 */
 	public String getLogin()
 	{
-		return login;
+		return _login;
 	}
 
 	@Override
 	public L2PcInstance getParent()
 	{
-		return parent;
+		return _parent;
 	}
 
 	/**
@@ -115,17 +115,17 @@ public class L2AccountInfoGroup extends L2GroupEntry
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				login = getParent().getAccount();
-				encryptedPass = rset.getString("password");
-				accessLevel = rset.getInt("accessLevel");
-				lastIp = rset.getString("lastIP");
-				lastServerId = rset.getInt("lastServerId");
-				addEntry(new L2CharacterEntry(this, "Account:", login));
-				encryptedPasswordEntry = new L2CharacterEntry(this, "Encrypted Password:", encryptedPass);
-				addEntry(encryptedPasswordEntry);
-				addEntry(new L2CharacterEntry(this, "Access Level:", accessLevel));
-				addEntry(new L2CharacterEntry(this, "Last Ip:", lastIp));
-				addEntry(new L2CharacterEntry(this, "Last Server:", lastServerId));
+				_login = getParent().getAccount();
+				_encryptedPass = rset.getString("password");
+				_accessLevel = rset.getInt("accessLevel");
+				_lastIp = rset.getString("lastIP");
+				_lastServerId = rset.getInt("lastServerId");
+				addEntry(new L2CharacterEntry(this, "Account:", _login));
+				_encryptedPasswordEntry = new L2CharacterEntry(this, "Encrypted Password:", _encryptedPass);
+				addEntry(_encryptedPasswordEntry);
+				addEntry(new L2CharacterEntry(this, "Access Level:", _accessLevel));
+				addEntry(new L2CharacterEntry(this, "Last Ip:", _lastIp));
+				addEntry(new L2CharacterEntry(this, "Last Server:", _lastServerId));
 			}
 			rset.close();
 			statement.close();
@@ -155,7 +155,7 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 */
 	public L2CharacterEntry getEncryptedPasswordEntry()
 	{
-		return encryptedPasswordEntry;
+		return _encryptedPasswordEntry;
 	}
 
 	/**
@@ -164,6 +164,6 @@ public class L2AccountInfoGroup extends L2GroupEntry
 	 */
 	public void setEncryptedPasswordEntry(String newPass)
 	{
-		encryptedPasswordEntry.setField(newPass);
+		_encryptedPasswordEntry.setField(newPass);
 	}
 }
