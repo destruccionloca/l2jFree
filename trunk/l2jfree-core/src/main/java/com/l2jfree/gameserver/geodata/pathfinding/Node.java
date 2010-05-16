@@ -76,7 +76,7 @@ public abstract class Node
 	@Override
 	public final int hashCode()
 	{
-		return L2System.hash((getNodeX() << 20) + (getNodeY() << 8) + getZ());
+		return L2System.hash((getZ() << 24) + (getNodeX() << 12) + (getNodeY() << 0));
 	}
 	
 	@Override
