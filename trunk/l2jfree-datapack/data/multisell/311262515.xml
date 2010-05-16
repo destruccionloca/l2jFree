@@ -3,19 +3,19 @@
 <list maintainEnchantment="true" xmlns="http://www.l2jfree.com"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
-  <!-- Dynasty Earings  -->
+  <!-- Dynasty Earings -->
   <item id="1">
     <production id="9455" count="1"/>
     <ingredient id="9452" count="1"/>
     <ingredient id="5575" count="9882489"/>
   </item>
-  <!-- Dynasty Necklace  -->
+  <!-- Dynasty Necklace -->
   <item id="2">
     <production id="9456" count="1"/>
     <ingredient id="9453" count="1"/>
     <ingredient id="5575" count="13176652"/>
   </item>
-  <!-- Dynasty Rings  -->
+  <!-- Dynasty Rings -->
   <item id="3">
     <production id="9457" count="1"/>
     <ingredient id="9454" count="1"/>
