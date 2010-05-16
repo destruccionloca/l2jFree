@@ -30,7 +30,17 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	// =======================================
 	// INSTANCE
 	/** The static instance of this Manager */
-	private static ClansManager _instance;
+	private static ClansManager 		_instance;
+	/** Map of all the clans represented in this instance */
+	private FastMap<Integer, L2Clan> 	_clanMap 	= new FastMap<Integer, L2Clan>();
+	/** List in which the root groups are stored */
+	private FastList<L2GroupEntry> 		_rootGroup 	= new FastList<L2GroupEntry>();
+	/** The root Group of this Manager */
+	L2RootSession 						_session 	= new L2RootSession();
+	/**
+	 * The Viewer in which this class will be visually represented
+	 */
+	private TreeViewer 					_viewer;
 
 	/**
 	 * @return the only instance of this Class.
@@ -42,23 +52,12 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 		return _instance;
 	}
 
-	/** Map of all the clans represented in this instance */
-	private FastMap<Integer, L2Clan> clanMap = new FastMap<Integer, L2Clan>();
-	/** List in which the root groups are stored */
-	private FastList<L2GroupEntry> rootGroup = new FastList<L2GroupEntry>();
-	/** The root Group of this Manager */
-	L2RootSession session = new L2RootSession();
-	/**
-	 * The Viewer in which this class will be visually represented
-	 */
-	private TreeViewer viewer;
-
 	/**
 	 * Private Constructor that defines this Content provider.
 	 */
 	private ClansManager()
 	{
-		rootGroup.add(session.getRoot());
+		_rootGroup.add(_session.getRoot());
 	}
 
 	/**
@@ -72,17 +71,17 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	{
 		if (!isKnownClan(clan.getId()))
 		{
-			clanMap.put(clan.getId(), clan);
-			clan.setParent(session.getRoot());
+			_clanMap.put(clan.getId(), clan);
+			clan.setParent(_session.getRoot());
 		}
 		if (!containsGroup(clan.getName()))
 		{
-			session.getRoot().addEntry(clan);
-			if (viewer != null)
+			_session.getRoot().addEntry(clan);
+			if (_viewer != null)
 			{
-				viewer.refresh();
-				viewer.collapseToLevel(session.getRoot(), 2);
-				viewer.expandToLevel(2);
+				_viewer.refresh();
+				_viewer.collapseToLevel(_session.getRoot(), 2);
+				_viewer.expandToLevel(2);
 			}
 		}
 	}
@@ -95,7 +94,7 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	 */
 	public boolean containsGroup(String name)
 	{
-		for (L2Character cha : session.getRoot().getEntries())
+		for (L2Character cha : _session.getRoot().getEntries())
 		{
 			if (cha.getName().toLowerCase().equals(name.toLowerCase()))
 				return true;
@@ -109,7 +108,7 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	/** Returns all known clans */
 	public Collection<L2Clan> getAllClans()
 	{
-		return clanMap.values();
+		return _clanMap.values();
 	}
 
 	public Object[] getChildren(Object parentElement)
@@ -126,12 +125,12 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	 */
 	public L2Clan getClan(int id)
 	{
-		return clanMap.get(id);
+		return _clanMap.get(id);
 	}
 
 	public Object[] getElements(Object inputElement)
 	{
-		return rootGroup.toArray();
+		return _rootGroup.toArray();
 	}
 
 	public Object getParent(Object element)
@@ -144,7 +143,7 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	/** @return -> the root group of this instance. */
 	public L2GroupEntry getRoot()
 	{
-		return session.getRoot();
+		return _session.getRoot();
 	}
 
 	public boolean hasChildren(Object element)
@@ -162,14 +161,14 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	/** Returns true if the clan map contains the given Id */
 	public boolean isKnownClan(int id)
 	{
-		return clanMap.containsKey(id);
+		return _clanMap.containsKey(id);
 	}
 
 	/** Refreshes the Tree Viewer */
 	public void refreshViewer()
 	{
-		if (viewer != null)
-			viewer.refresh();
+		if (_viewer != null)
+			_viewer.refresh();
 	}
 
 	/**
@@ -193,11 +192,11 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 		if (isKnownClan(clan.getId()))
 		{
 			clan.setParent(null);
-			session.getRoot().removeEntry(clan);
-			if (viewer != null)
-				viewer.refresh();
+			_session.getRoot().removeEntry(clan);
+			if (_viewer != null)
+				_viewer.refresh();
 			if (isRemovedFromServer)
-				clanMap.remove(clan);
+				_clanMap.remove(clan);
 		}
 		if (isRemovedFromServer)
 		{
@@ -283,6 +282,6 @@ public class ClansManager implements IStructuredContentProvider, ITreeContentPro
 	/** Sets a viewer to this input provider. */
 	public void setViewer(TreeViewer viewer)
 	{
-		this.viewer = viewer;
+		_viewer = viewer;
 	}
 }

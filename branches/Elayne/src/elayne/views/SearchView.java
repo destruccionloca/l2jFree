@@ -40,11 +40,11 @@ public class SearchView extends ViewPart
 
 	private static final String SQL_HEROES = "SELECT c.account_name, c.char_name, c.level, h.class_id FROM heroes h, characters c WHERE played = 1 AND charId=char_id LIMIT 0,1000";
 	public static final String ID = "elayne.views.search";
-	public Composite parent = null;
-	private Table table;
-	private FastList<L2CharacterBriefEntry> players = new FastList<L2CharacterBriefEntry>();
-	private RequestPlayerInformation actionShowInfo;
-	private RequestClanInformation actionClanInfo;
+	public Composite _parent = null;
+	private Table _table;
+	private FastList<L2CharacterBriefEntry> _players = new FastList<L2CharacterBriefEntry>();
+	private RequestPlayerInformation _actionShowInfo;
+	private RequestClanInformation _actionClanInfo;
 
 	/*
 	 * (non-Javadoc)
@@ -53,9 +53,9 @@ public class SearchView extends ViewPart
 	@Override
 	public void createPartControl(Composite parent)
 	{
-		this.parent = parent;
-		actionShowInfo = new RequestPlayerInformation(getSite().getWorkbenchWindow(), null);
-		actionClanInfo = new RequestClanInformation(getSite().getWorkbenchWindow());
+		_parent = parent;
+		_actionShowInfo = new RequestPlayerInformation(getSite().getWorkbenchWindow(), null);
+		_actionClanInfo = new RequestClanInformation(getSite().getWorkbenchWindow());
 		drawTable();
 	}
 
@@ -113,19 +113,19 @@ public class SearchView extends ViewPart
 			fillTable();
 		}
 
-		if (!isClanSearch(searchType) && table != null)
+		if (!isClanSearch(searchType) && _table != null)
 		{
-			table.setVisible(true);
-			table.addMouseListener(new MouseListener()
+			_table.setVisible(true);
+			_table.addMouseListener(new MouseListener()
 			{
 				public void mouseDoubleClick(MouseEvent e)
 				{
-					if (table.getSelection().length == 1)
+					if (_table.getSelection().length == 1)
 					{
-						TableItem item = table.getSelection()[0];
+						TableItem item = _table.getSelection()[0];
 						String playerName = item.getText(0);
-						actionShowInfo.setName(playerName);
-						actionShowInfo.run();
+						_actionShowInfo.setName(playerName);
+						_actionShowInfo.run();
 					}
 				}
 
@@ -138,19 +138,19 @@ public class SearchView extends ViewPart
 		}
 		else
 		{
-			table.setVisible(true);
-			table.addMouseListener(new MouseListener()
+			_table.setVisible(true);
+			_table.addMouseListener(new MouseListener()
 			{
 				public void mouseDoubleClick(MouseEvent e)
 				{
-					if (table.getSelection().length == 1)
+					if (_table.getSelection().length == 1)
 					{
-						TableItem item = table.getSelection()[0];
+						TableItem item = _table.getSelection()[0];
 						int clanId = Integer.valueOf(item.getText(0));
 						String clanName = item.getText(1);
-						actionClanInfo.setClanId(clanId);
-						actionClanInfo.setClanName(clanName);
-						actionClanInfo.run();
+						_actionClanInfo.setClanId(clanId);
+						_actionClanInfo.setClanName(clanName);
+						_actionClanInfo.run();
 					}
 				}
 
@@ -167,19 +167,19 @@ public class SearchView extends ViewPart
 	{
 		String[] titles = { "Player Name", "Account", "Level", "Sex" };
 
-		table = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		_table = new Table(_parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		table.setLayoutData(data);
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
+		_table.setLayoutData(data);
+		_table.setLinesVisible(true);
+		_table.setHeaderVisible(true);
 		for (int i = 0; i < titles.length; i++)
 		{
-			TableColumn column = new TableColumn(table, SWT.NONE);
+			TableColumn column = new TableColumn(_table, SWT.NONE);
 			column.setText(titles[i]);
 		}
-		for (L2CharacterBriefEntry player : players)
+		for (L2CharacterBriefEntry player : _players)
 		{
-			TableItem item = new TableItem(table, SWT.NONE);
+			TableItem item = new TableItem(_table, SWT.NONE);
 			item.setText(0, player.getName());
 			item.setText(1, player.getAccount());
 			item.setText(2, String.valueOf(player.getLevel()));
@@ -192,13 +192,13 @@ public class SearchView extends ViewPart
 		}
 		for (int i = 0; i < titles.length; i++)
 		{
-			table.getColumn(i).pack();
+			_table.getColumn(i).pack();
 		}
 	}
 
 	private void getPlayersByName(String nameToLookFor)
 	{
-		players.clear();
+		_players.clear();
 		java.sql.Connection con = null;
 		try
 		{
@@ -215,7 +215,7 @@ public class SearchView extends ViewPart
 				int accesslevel = rset.getInt("accesslevel");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
 			}
 			rset.close();
 			statement.close();
@@ -229,7 +229,7 @@ public class SearchView extends ViewPart
 
 	private void getPlayersByTitle(String titleToLookFor)
 	{
-		players.clear();
+		_players.clear();
 		java.sql.Connection con = null;
 		try
 		{
@@ -246,7 +246,7 @@ public class SearchView extends ViewPart
 				int accesslevel = rset.getInt("accesslevel");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
 			}
 			rset.close();
 			statement.close();
@@ -260,7 +260,7 @@ public class SearchView extends ViewPart
 
 	private void getPlayersByAccount(String accountToLookFor)
 	{
-		players.clear();
+		_players.clear();
 		java.sql.Connection con = null;
 		try
 		{
@@ -277,7 +277,7 @@ public class SearchView extends ViewPart
 				int accesslevel = rset.getInt("accesslevel");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
 			}
 			rset.close();
 			statement.close();
@@ -291,7 +291,7 @@ public class SearchView extends ViewPart
 
 	private void getPlayersByObjectId(int objectId)
 	{
-		players.clear();
+		_players.clear();
 		java.sql.Connection con = null;
 		try
 		{
@@ -308,7 +308,7 @@ public class SearchView extends ViewPart
 				int accesslevel = rset.getInt("accesslevel");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
 			}
 			rset.close();
 			statement.close();
@@ -322,7 +322,7 @@ public class SearchView extends ViewPart
 
 	private void getClanByName(String nameToLookFor)
 	{
-		players.clear();
+		_players.clear();
 		ArrayList<String[]> values = new ArrayList<String[]>();
 		java.sql.Connection con = null;
 		try
@@ -351,19 +351,19 @@ public class SearchView extends ViewPart
 
 		String[] titles = { "Clan Id", "Clan Name", "Ally Name", "Clan Level" };
 
-		table = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		_table = new Table(_parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		table.setLayoutData(data);
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
+		_table.setLayoutData(data);
+		_table.setLinesVisible(true);
+		_table.setHeaderVisible(true);
 		for (int i = 0; i < titles.length; i++)
 		{
-			TableColumn column = new TableColumn(table, SWT.NONE);
+			TableColumn column = new TableColumn(_table, SWT.NONE);
 			column.setText(titles[i]);
 		}
 		for (String[] clanData : values)
 		{
-			TableItem item = new TableItem(table, SWT.NONE);
+			TableItem item = new TableItem(_table, SWT.NONE);
 			item.setText(0, clanData[0]);
 			item.setText(1, clanData[1]);
 			if (clanData[2] == null || clanData[2].equals(""))
@@ -374,7 +374,7 @@ public class SearchView extends ViewPart
 		}
 		for (int i = 0; i < titles.length; i++)
 		{
-			table.getColumn(i).pack();
+			_table.getColumn(i).pack();
 		}
 	}
 
@@ -385,7 +385,7 @@ public class SearchView extends ViewPart
 	 */
 	private void getHeroes()
 	{
-		players.clear();
+		_players.clear();
 		ArrayList<String[]> values = new ArrayList<String[]>();
 		java.sql.Connection con = null;
 		try
@@ -414,19 +414,19 @@ public class SearchView extends ViewPart
 
 		String[] titles = { "Name", "Account", "Level", "Heroe of the Class" };
 
-		table = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		_table = new Table(_parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		table.setLayoutData(data);
-		table.setLinesVisible(true);
-		table.setHeaderVisible(true);
+		_table.setLayoutData(data);
+		_table.setLinesVisible(true);
+		_table.setHeaderVisible(true);
 		for (int i = 0; i < titles.length; i++)
 		{
-			TableColumn column = new TableColumn(table, SWT.NONE);
+			TableColumn column = new TableColumn(_table, SWT.NONE);
 			column.setText(titles[i]);
 		}
 		for (String[] dt : values)
 		{
-			TableItem item = new TableItem(table, SWT.NONE);
+			TableItem item = new TableItem(_table, SWT.NONE);
 			item.setText(0, dt[0]);
 			item.setText(1, dt[1]);
 			item.setText(2, dt[2]);
@@ -434,7 +434,7 @@ public class SearchView extends ViewPart
 		}
 		for (int i = 0; i < titles.length; i++)
 		{
-			table.getColumn(i).pack();
+			_table.getColumn(i).pack();
 		}
 	}
 

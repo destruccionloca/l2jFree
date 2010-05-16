@@ -187,7 +187,7 @@ public class L2AdapterFactory implements IAdapterFactory
 				int level = ((L2SubClass) group).getLevel();
 				return group.getName() + " - Level: " + level;
 			}
-			if (group instanceof L2PcInstance)
+			else if (group instanceof L2PcInstance)
 			{
 				if (((L2PcInstance) group).getLevel() > -1)
 				{
@@ -285,17 +285,17 @@ public class L2AdapterFactory implements IAdapterFactory
 	{
 		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2GroupEntry)
 			return groupAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2CharacterEntry)
+		else if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2CharacterEntry)
 			return entryAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2ClanEntry)
+		else if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2ClanEntry)
 			return clanEntryAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2SkillEntry)
+		else if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2SkillEntry)
 			return skillAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2ClanSkillEntry)
+		else if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2ClanSkillEntry)
 			return clanSkillAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2CharacterBriefEntry)
+		else if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2CharacterBriefEntry)
 			return briefAdapter;
-		if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2HennaEntry)
+		else if (adapterType == IWorkbenchAdapter.class && adaptableObject instanceof L2HennaEntry)
 			return hennaAdapter;
 		return null;
 	}

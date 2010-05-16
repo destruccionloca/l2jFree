@@ -21,7 +21,7 @@ public class RequestServerInstanceReload extends ElayneAction
 	public static final int SPAWNS = 9;
 	public static final int TELEPORTS = 8;
 	public static final int ZONES = 7;
-	private int actionId;
+	private int _actionId;
 
 	/**
 	 * Reloads something in-game.
@@ -33,7 +33,7 @@ public class RequestServerInstanceReload extends ElayneAction
 	public RequestServerInstanceReload(IWorkbenchWindow window, int actionId)
 	{
 		super(window);
-		this.actionId = actionId;
+		_actionId = actionId;
 		setNewId(ID);
 		setText();
 	}
@@ -45,9 +45,9 @@ public class RequestServerInstanceReload extends ElayneAction
 		{
 			try
 			{
-				if (actionId > 0 && actionId <= 9)
+				if (_actionId > 0 && _actionId <= 9)
 				{
-					RemoteAdministrationClient.getInstance().reload(actionId);
+					RemoteAdministrationClient.getInstance().reload(_actionId);
 					System.out.println("Reload complete.");
 				}
 			}
@@ -67,7 +67,7 @@ public class RequestServerInstanceReload extends ElayneAction
 
 	private String setText()
 	{
-		switch (actionId)
+		switch (_actionId)
 		{
 			case 1:
 				setText("Reload Multisell Stores");
@@ -94,7 +94,7 @@ public class RequestServerInstanceReload extends ElayneAction
 				setToolTipText("Reload every instance managers through RMI.");
 				break;
 			case 7:
-				setText("Rload Zones");
+				setText("Reload Zones");
 				setToolTipText("Reload all the zones through RMI.");
 				break;
 			case 8:

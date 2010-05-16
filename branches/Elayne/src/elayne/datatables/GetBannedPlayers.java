@@ -63,10 +63,10 @@ public class GetBannedPlayers
 		}
 		if (view != null)
 		{
-			view.session = new L2RootSession();
+			view._session = new L2RootSession();
 			// Empty Group that acts as the Father of all
 			// other groups.
-			L2GroupEntry root = view.session.getRoot();
+			L2GroupEntry root = view._session.getRoot();
 
 			// Add dummy group
 			L2GroupEntry bannedGroup = new L2RegularGroup(root, "Banned Players");

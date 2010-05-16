@@ -26,11 +26,11 @@ import elayne.util.connector.ServerDB;
 public class RequestClanPlayerKick extends ElayneAction
 {
 
-	private static final String attClanLeader = "Attention!! This player is the leader of this Clan. Kicking him from the clan will make the clan disappear! Are you sure you want to continue?";
+	private static final String ATTCLANLEADER = "Attention!! This player is the leader of this Clan. Kicking him from the clan will make the clan disappear! Are you sure you want to continue?";
 	private static final String ID = "requestClanPalayerKick";
-	private static final String removeAprentice = "UPDATE characters SET apprentice=0 WHERE apprentice=?";
-	private static final String removePlayerFromClan = "UPDATE characters SET clanid=0, title=?, clan_join_expiry_time=?, clan_create_expiry_time=?, clan_privs=0, wantspeace=0, subpledge=0, lvl_joined_academy=0, apprentice=0, sponsor=0 WHERE charId=?";
-	private static final String removeSponsor = "UPDATE characters SET sponsor=0 WHERE sponsor=?";
+	private static final String REMOVEAPPRENTICE = "UPDATE characters SET apprentice=0 WHERE apprentice=?";
+	private static final String REMOVEPLAYERFROMCLAN = "UPDATE characters SET clanid=0, title=?, clan_join_expiry_time=?, clan_create_expiry_time=?, clan_privs=0, wantspeace=0, subpledge=0, lvl_joined_academy=0, apprentice=0, sponsor=0 WHERE charId=?";
+	private static final String REMOVESPONSOR = "UPDATE characters SET sponsor=0 WHERE sponsor=?";
 
 	/**
 	 * @param window
@@ -51,7 +51,7 @@ public class RequestClanPlayerKick extends ElayneAction
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement(removePlayerFromClan);
+			PreparedStatement statement = con.prepareStatement(REMOVEPLAYERFROMCLAN);
 			statement.setString(1, "");
 			statement.setLong(2, 0);
 			statement.setLong(3, 0);
@@ -59,12 +59,12 @@ public class RequestClanPlayerKick extends ElayneAction
 			statement.execute();
 			statement.close();
 
-			statement = con.prepareStatement(removeAprentice);
+			statement = con.prepareStatement(REMOVEAPPRENTICE);
 			statement.setInt(1, objectId);
 			statement.execute();
 			statement.close();
 
-			statement = con.prepareStatement(removeSponsor);
+			statement = con.prepareStatement(REMOVESPONSOR);
 			statement.setInt(1, objectId);
 			statement.execute();
 			statement.close();
@@ -82,7 +82,9 @@ public class RequestClanPlayerKick extends ElayneAction
 					con.close();
 			}
 			catch (Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
@@ -161,7 +163,9 @@ public class RequestClanPlayerKick extends ElayneAction
 					con.close();
 			}
 			catch (Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
@@ -173,7 +177,7 @@ public class RequestClanPlayerKick extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2CharacterBriefEntry player = ((L2CharacterBriefEntry) obj);
 		if (player.getParent().getParent() instanceof L2Clan)
 		{
@@ -194,7 +198,7 @@ public class RequestClanPlayerKick extends ElayneAction
 					// Course of action in case the player selected is the clan leader.
 					if (clan.getLeaderId() == player.getObjectId())
 					{
-						if (sendConfirmationMessage("Remove Clan", attClanLeader))
+						if (sendConfirmationMessage("Remove Clan", ATTCLANLEADER))
 						{
 							// Remove this clan from the saved Clans.
 							if (removeClan(clan.getName(), String.valueOf(clan.getId())))
@@ -224,10 +228,10 @@ public class RequestClanPlayerKick extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2CharacterBriefEntry
-									&& ((L2CharacterBriefEntry) selection.getFirstElement()).getParent().getName().equals("Clan Members"));
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2CharacterBriefEntry
+									&& ((L2CharacterBriefEntry) _selection.getFirstElement()).getParent().getName().equals("Clan Members"));
 		}
 		// Not enable the action.
 		else

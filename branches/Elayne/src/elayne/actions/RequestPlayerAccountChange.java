@@ -103,11 +103,11 @@ public class RequestPlayerAccountChange extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
 			// Open up a new Change Custom Value Dialog where the value is Account.
-			ChangeCustomValueDialog r = new ChangeCustomValueDialog(window.getShell(), "Account");
+			ChangeCustomValueDialog r = new ChangeCustomValueDialog(_window.getShell(), "Account");
 			int code = r.open();
 			if (code == Window.CANCEL)
 				return;
@@ -144,7 +144,7 @@ public class RequestPlayerAccountChange extends ElayneAction
 					else if (updatePlayerAccount(account, objectId))
 					{
 						player.setAccount(account);
-						treeViewer.refresh();
+						_treeViewer.refresh();
 						sendMessage("Account Changed Successfully. \n" + "Please keep in mind that this player is no longer in this account. \n "
 												+ "It's only kept here to in case you want to work on it a bit longer.");
 					}
@@ -168,9 +168,9 @@ public class RequestPlayerAccountChange extends ElayneAction
 		if (incoming instanceof IStructuredSelection)
 		{
 			// Remember the selection for later usage.
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		// Not enable the action.
 		else

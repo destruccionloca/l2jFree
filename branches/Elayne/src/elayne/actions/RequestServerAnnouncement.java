@@ -43,7 +43,7 @@ public class RequestServerAnnouncement extends ElayneAction
 	{
 		if (isRMIConnected())
 		{
-			AnnouncementDialog ad = new AnnouncementDialog(window.getShell());
+			AnnouncementDialog ad = new AnnouncementDialog(_window.getShell());
 			int code = ad.open();
 			if (code == Window.CANCEL)
 				return;

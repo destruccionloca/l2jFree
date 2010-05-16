@@ -43,13 +43,13 @@ public class LoginPreferencePage extends FieldEditorPreferencePage implements IW
 	public static final String RMI_SERVER_PORT = "prefs_rmi_server_port";
 	public static final String AUTO_LOGIN_RMI = "prefs_auto_login_rmi";
 
-	private ScopedPreferenceStore preferences;
+	private ScopedPreferenceStore _preferences;
 
 	public LoginPreferencePage()
 	{
 		super(GRID);
-		this.preferences = new ScopedPreferenceStore(new ConfigurationScope(), Activator.PLUGIN_ID);
-		setPreferenceStore(preferences);
+		_preferences = new ScopedPreferenceStore(new ConfigurationScope(), Activator.PLUGIN_ID);
+		setPreferenceStore(_preferences);
 		setDescription("Login Preferences used by the program to connect to the Server." + newline + "This preferences will determine which login db and which server database should be "
 								+ "checked upon login and runtime of the software.");
 	}
@@ -106,7 +106,7 @@ public class LoginPreferencePage extends FieldEditorPreferencePage implements IW
 	{
 		try
 		{
-			preferences.save();
+			_preferences.save();
 		}
 		catch (IOException e)
 		{

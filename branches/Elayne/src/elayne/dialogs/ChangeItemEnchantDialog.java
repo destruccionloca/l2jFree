@@ -22,14 +22,14 @@ import elayne.actions.RequestItemEnchant;
 public class ChangeItemEnchantDialog extends Dialog
 {
 	/** The old enchant */
-	private int actualEnchant;
+	private int _actualEnchant;
 	/** The new enchant */
-	private int changeLevel;
+	private int _changeLevel;
 	/**
 	 * The spinner that is used by the user to place in the new enchant for a
 	 * certain item
 	 */
-	private Spinner spinner;
+	private Spinner _spinner;
 
 	/**
 	 * Defines a new instance of {@link ChangeItemEnchantDialog}.
@@ -39,7 +39,7 @@ public class ChangeItemEnchantDialog extends Dialog
 	public ChangeItemEnchantDialog(Shell parentShell, int actualEnchant)
 	{
 		super(parentShell);
-		this.actualEnchant = actualEnchant;
+		_actualEnchant = actualEnchant;
 	}
 
 	@Override
@@ -71,16 +71,16 @@ public class ChangeItemEnchantDialog extends Dialog
 		userIdLabel.setText("Enchant:");
 		userIdLabel.setLayoutData(new GridData(GridData.END, GridData.CENTER, false, false));
 
-		spinner = new Spinner(composite, SWT.BORDER);
-		spinner.setMinimum(0);
-		spinner.setMaximum(Integer.MAX_VALUE);
-		spinner.setSelection(actualEnchant);
-		spinner.setIncrement(1);
-		spinner.setPageIncrement(100);
-		spinner.pack();
+		_spinner = new Spinner(composite, SWT.BORDER);
+		_spinner.setMinimum(0);
+		_spinner.setMaximum(Integer.MAX_VALUE);
+		_spinner.setSelection(_actualEnchant);
+		_spinner.setIncrement(1);
+		_spinner.setPageIncrement(100);
+		_spinner.pack();
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
 		gridData.widthHint = convertHeightInCharsToPixels(20);
-		spinner.setLayoutData(gridData);
+		_spinner.setLayoutData(gridData);
 
 		return composite;
 	}
@@ -90,13 +90,13 @@ public class ChangeItemEnchantDialog extends Dialog
 	 */
 	public int getNewChangeLevel()
 	{
-		return changeLevel;
+		return _changeLevel;
 	}
 
 	@Override
 	protected void okPressed()
 	{
-		setNewChangeLevel(spinner.getSelection());
+		setNewChangeLevel(_spinner.getSelection());
 		super.okPressed();
 	}
 
@@ -106,6 +106,6 @@ public class ChangeItemEnchantDialog extends Dialog
 	 */
 	private void setNewChangeLevel(int selection)
 	{
-		changeLevel = selection;
+		_changeLevel = selection;
 	}
 }

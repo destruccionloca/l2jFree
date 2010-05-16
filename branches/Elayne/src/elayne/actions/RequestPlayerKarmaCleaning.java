@@ -24,7 +24,7 @@ import elayne.util.connector.ServerDB;
  */
 public class RequestPlayerKarmaCleaning extends ElayneAction
 {
-	private final static String ID = "requestPlayerKarmaCleaning";
+	private static final String ID = "requestPlayerKarmaCleaning";
 
 	/**
 	 * @param window
@@ -46,7 +46,7 @@ public class RequestPlayerKarmaCleaning extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
 			L2PcInstance player = ((L2PcInstance) obj);
@@ -66,7 +66,7 @@ public class RequestPlayerKarmaCleaning extends ElayneAction
 				if (setKarma(0, player.getObjectId()))
 				{
 					player.setKarma(0);
-					treeViewer.refresh();
+					_treeViewer.refresh();
 					sendMessage("Karma Cleared from the player " + player.getName());
 					return;
 				}
@@ -84,8 +84,8 @@ public class RequestPlayerKarmaCleaning extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		else
 			setEnabled(false);

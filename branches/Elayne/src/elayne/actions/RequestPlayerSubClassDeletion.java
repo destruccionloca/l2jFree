@@ -92,6 +92,7 @@ public class RequestPlayerSubClassDeletion extends ElayneAction
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			return false;
 		}
 		finally
@@ -102,7 +103,9 @@ public class RequestPlayerSubClassDeletion extends ElayneAction
 					con.close();
 			}
 			catch (Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
@@ -114,7 +117,7 @@ public class RequestPlayerSubClassDeletion extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2SubClass group = (L2SubClass) obj;
 		if (group == null)
 			return;
@@ -137,7 +140,7 @@ public class RequestPlayerSubClassDeletion extends ElayneAction
 
 				group.getParent().removeEntry(group);
 
-				treeViewer.refresh();
+				_treeViewer.refresh();
 			}
 		}
 	}
@@ -152,8 +155,8 @@ public class RequestPlayerSubClassDeletion extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2SubClass);
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2SubClass);
 		}
 		else
 			setEnabled(false);

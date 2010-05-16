@@ -62,11 +62,11 @@ public class RequestItemEnchant extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2InventoryEntry pie = ((L2InventoryEntry) obj);
 		// Define a new ChangeItemEnchantDialog and open it.
 		// The dialog will make the user choose the new enchant for the selected item.
-		ChangeItemEnchantDialog rit = new ChangeItemEnchantDialog(window.getShell(), pie.getEnchantLevel());
+		ChangeItemEnchantDialog rit = new ChangeItemEnchantDialog(_window.getShell(), pie.getEnchantLevel());
 		int code = rit.open();
 		if (code == Window.CANCEL)
 			return;
@@ -122,11 +122,11 @@ public class RequestItemEnchant extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			boolean isItemEntry = selection.size() == 1 && selection.getFirstElement() instanceof L2InventoryEntry;
+			_selection = (IStructuredSelection) incoming;
+			boolean isItemEntry = _selection.size() == 1 && _selection.getFirstElement() instanceof L2InventoryEntry;
 			if (isItemEntry)
 			{
-				L2InventoryEntry item = (L2InventoryEntry) selection.getFirstElement();
+				L2InventoryEntry item = (L2InventoryEntry) _selection.getFirstElement();
 				int id = item.getItemId();
 				if(ItemTable.getInstance().isItem(id))
 					setEnabled(false);
@@ -169,7 +169,9 @@ public class RequestItemEnchant extends ElayneAction
 					con.close();
 			}
 			catch (Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

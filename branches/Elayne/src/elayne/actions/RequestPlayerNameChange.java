@@ -33,7 +33,7 @@ import elayne.util.connector.ServerDB;
 public class RequestPlayerNameChange extends ElayneAction
 {
 	/** ID of the action */
-	public final static String ID = "requestPlayerNameChange";
+	public static final String ID = "requestPlayerNameChange";
 
 	/**
 	 * @param window
@@ -129,10 +129,10 @@ public class RequestPlayerNameChange extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
-			ChangeCustomValueDialog r = new ChangeCustomValueDialog(window.getShell(), "Name");
+			ChangeCustomValueDialog r = new ChangeCustomValueDialog(_window.getShell(), "Name");
 			int code = r.open();
 			if (code == Window.CANCEL)
 				return;
@@ -171,7 +171,7 @@ public class RequestPlayerNameChange extends ElayneAction
 					else if (updatePlayerName(name, objectId))
 					{
 						player.setName(name);
-						treeViewer.refresh();
+						_treeViewer.refresh();
 						sendMessage("Name Changed Successfully.");
 					}
 				}
@@ -194,9 +194,9 @@ public class RequestPlayerNameChange extends ElayneAction
 		if (incoming instanceof IStructuredSelection)
 		{
 			// Remember the selection for later usage.
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		// Not enable the action.
 		else

@@ -107,10 +107,10 @@ public class GetOnlinePlayers
 	 */
 	public void showPlayers(OnlinePlayersView view)
 	{
-		view.session = new L2RootSession();
+		view._session = new L2RootSession();
 		// Empty Group that acts as the Father of all other
 		// groups.
-		L2GroupEntry root = view.session.getRoot();
+		L2GroupEntry root = view._session.getRoot();
 
 		// Add dummy group
 		L2RegularGroup onlinePlayers = new L2RegularGroup(root, "Online Players (" + players.size() + ")");
@@ -140,10 +140,10 @@ public class GetOnlinePlayers
 		}
 		else
 		{
-			view.session = new L2RootSession();
+			view._session = new L2RootSession();
 			// Empty Group that acts as the Father of all
 			// other groups.
-			L2GroupEntry root = view.session.getRoot();
+			L2GroupEntry root = view._session.getRoot();
 
 			// GMS Group
 			L2RegularGroup gms = new L2RegularGroup(root, "GMs");
@@ -185,11 +185,11 @@ public class GetOnlinePlayers
 	 */
 	public void sortOnlinePlayersByGender(OnlinePlayersView view)
 	{
-		view.session = new L2RootSession();
+		view._session = new L2RootSession();
 		// Empty Group that acts as the Father of all other
 		// groups.
 		// This Group is Invisible to users.
-		L2GroupEntry root = view.session.getRoot();
+		L2GroupEntry root = view._session.getRoot();
 
 		// Males Group
 		L2RegularGroup males = new L2RegularGroup(root, "Males");
@@ -229,10 +229,10 @@ public class GetOnlinePlayers
 	 */
 	public void sortOnlinePlayersByLevel(OnlinePlayersView view)
 	{
-		view.session = new L2RootSession();
+		view._session = new L2RootSession();
 		// Empty Group that acts as the Father of all other
 		// groups.
-		L2GroupEntry root = view.session.getRoot();
+		L2GroupEntry root = view._session.getRoot();
 
 		// Add dummy group
 		L2RegularGroup onlinePlayers = new L2RegularGroup(root, "Groups of Players");
@@ -289,10 +289,10 @@ public class GetOnlinePlayers
 	 */
 	public void sortOnlinePlayersByName(OnlinePlayersView view)
 	{
-		view.session = new L2RootSession();
+		view._session = new L2RootSession();
 		// Empty Group that acts as the Father of all other
 		// groups.
-		L2GroupEntry root = view.session.getRoot();
+		L2GroupEntry root = view._session.getRoot();
 
 		// Add dummy group
 		L2RegularGroup onlinePlayers = new L2RegularGroup(root, "Groups of Players");

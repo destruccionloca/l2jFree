@@ -36,7 +36,7 @@ public class RequestPlayerRefresh extends ElayneAction
 	@Override
 	public void run()
 	{
-		final L2PcInstance player = (L2PcInstance) selection.getFirstElement();
+		final L2PcInstance player = (L2PcInstance) _selection.getFirstElement();
 		for (L2Character entry : player.getEntries())
 			player.removeEntry(entry);
 		getTreeViewer().refresh();
@@ -69,7 +69,7 @@ public class RequestPlayerRefresh extends ElayneAction
 		}
 		catch (InterruptedException e)
 		{
-
+			e.printStackTrace();
 		}
 		getTreeViewer().refresh();
 		waiter.actionWait(120);
@@ -82,8 +82,8 @@ public class RequestPlayerRefresh extends ElayneAction
 			setEnabled(false);
 		else if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		else
 			setEnabled(false);

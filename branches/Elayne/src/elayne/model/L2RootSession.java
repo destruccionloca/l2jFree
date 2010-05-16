@@ -14,7 +14,7 @@ import elayne.model.instance.L2RegularGroup;
 public class L2RootSession
 {
 	/** The root group itself */
-	private L2GroupEntry rootGroup;
+	private L2GroupEntry _rootGroup;
 
 	/**
 	 * Constructor
@@ -28,7 +28,7 @@ public class L2RootSession
 	 */
 	public L2GroupEntry getCleanRoot()
 	{
-		return rootGroup;
+		return _rootGroup;
 	}
 
 	/**
@@ -37,8 +37,8 @@ public class L2RootSession
 	 */
 	public L2GroupEntry getRoot()
 	{
-		if (rootGroup == null)
-			rootGroup = new L2RegularGroup(null, "Root Group");
-		return rootGroup;
+		if (_rootGroup == null)
+			_rootGroup = new L2RegularGroup(null, "Root Group");
+		return _rootGroup;
 	}
 }

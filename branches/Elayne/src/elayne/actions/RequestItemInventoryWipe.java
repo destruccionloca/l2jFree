@@ -49,7 +49,7 @@ public class RequestItemInventoryWipe extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2PcInstance player = null;
 		if (obj instanceof L2Inventory)
 			player = ((L2Inventory) obj).getParent();
@@ -83,7 +83,7 @@ public class RequestItemInventoryWipe extends ElayneAction
 					}
 				}
 				wipeInventory(player.getObjectId());
-				treeViewer.refresh();
+				_treeViewer.refresh();
 			}
 		}
 	}
@@ -98,9 +98,9 @@ public class RequestItemInventoryWipe extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && (selection.getFirstElement() instanceof L2PcInstance || selection.getFirstElement() instanceof L2Inventory));
+			setEnabled(_selection.size() == 1 && (_selection.getFirstElement() instanceof L2PcInstance || _selection.getFirstElement() instanceof L2Inventory));
 		}
 		// Not enable the action.
 		else

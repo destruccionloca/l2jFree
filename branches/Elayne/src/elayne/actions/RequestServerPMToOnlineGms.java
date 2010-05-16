@@ -32,7 +32,7 @@ public class RequestServerPMToOnlineGms extends ElayneAction
 	{
 		if (isRMIConnected())
 		{
-			MessageDialog msg = new MessageDialog(window.getShell());
+			MessageDialog msg = new MessageDialog(_window.getShell());
 			int code = msg.open();
 			if (code == Window.CANCEL)
 				return;

@@ -8,7 +8,8 @@ package elayne.model;
 public class ConnectionDetails
 {
 	/** Login Details */
-	private String userId, password;
+	private final String _userId;
+	private final String _password;
 
 	/**
 	 * Constructor that defines a new user in this session.
@@ -17,14 +18,14 @@ public class ConnectionDetails
 	 */
 	public ConnectionDetails(String userId, String password)
 	{
-		this.userId = userId;
-		this.password = password;
+		_userId = userId;
+		_password = password;
 	}
 
 	/** Returns a the password of this user */
 	public String getPassword()
 	{
-		return password;
+		return _password;
 	}
 
 	public String getResource()
@@ -35,6 +36,6 @@ public class ConnectionDetails
 	/** Returns the user Id of this user */
 	public String getUserId()
 	{
-		return userId;
+		return _userId;
 	}
 }

@@ -56,7 +56,7 @@ public class RequestSkillDeletion extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2SkillEntry pse = ((L2SkillEntry) obj);
 		if (sendConfirmationMessage("Remove Skill", "Are you sure that you want to delete the skill " + pse.getName() + " from this player?"))
 		{
@@ -88,7 +88,7 @@ public class RequestSkillDeletion extends ElayneAction
 				if (skills.contains(pse))
 					System.out.println("The player Still contains the skill! oO!");
 				sendMessage("Skill removed correctly.");
-				treeViewer.refresh();
+				_treeViewer.refresh();
 			}
 		}
 	}
@@ -98,9 +98,9 @@ public class RequestSkillDeletion extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2SkillEntry);
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2SkillEntry);
 		}
 		// Not enable the action.
 		else

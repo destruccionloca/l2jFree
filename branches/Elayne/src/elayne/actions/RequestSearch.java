@@ -65,7 +65,7 @@ public class RequestSearch extends ElayneAction
 			if (searchType != 0)
 				prefs.putInt(GeneralPreferencePage.SEARCH_TYPE, searchType);
 
-			IWorkbenchPage page = window.getActivePage();
+			IWorkbenchPage page = _window.getActivePage();
 			try
 			{
 				IViewPart view = page.findView(SearchView.ID);

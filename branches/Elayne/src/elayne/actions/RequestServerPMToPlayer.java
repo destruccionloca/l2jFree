@@ -35,7 +35,7 @@ public class RequestServerPMToPlayer extends ElayneAction
 	{
 		if (isRMIConnected())
 		{
-			MessageDialog msg = new MessageDialog(window.getShell());
+			MessageDialog msg = new MessageDialog(_window.getShell());
 			int code = msg.open();
 			if (code == Window.CANCEL)
 				return;
@@ -49,7 +49,7 @@ public class RequestServerPMToPlayer extends ElayneAction
 				}
 				try
 				{
-					L2PcInstance player = (L2PcInstance) selection.getFirstElement();
+					L2PcInstance player = (L2PcInstance) _selection.getFirstElement();
 					if (player.isOnline())
 					{
 						int result = RemoteAdministrationClient.getInstance().sendPrivateMessage(player.getName(), message);
@@ -80,8 +80,8 @@ public class RequestServerPMToPlayer extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance && ((L2PcInstance) selection.getFirstElement()).isOnline());
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance && ((L2PcInstance) _selection.getFirstElement()).isOnline());
 		}
 		else
 			setEnabled(false);

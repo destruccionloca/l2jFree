@@ -23,9 +23,9 @@ import elayne.model.L2RootSession;
 public class BannedPlayersView extends ViewPart
 {
 	public static final String ID = "Elayne.views.banned";
-	private TreeViewer treeViewer;
-	public L2RootSession session;
-	private IAdapterFactory adapterFactory = new L2AdapterFactory();
+	private TreeViewer _treeViewer;
+	public L2RootSession _session;
+	private IAdapterFactory _adapterFactory = new L2AdapterFactory();
 
 	public BannedPlayersView()
 	{
@@ -39,17 +39,17 @@ public class BannedPlayersView extends ViewPart
 		GetBannedPlayers.getInstance().getBannedPlayers(this, false);
 
 		// DEFINE A NEW TREE VIEWER.
-		treeViewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
+		_treeViewer = new TreeViewer(parent, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL);
 
-		Platform.getAdapterManager().registerAdapters(adapterFactory, L2Character.class);
+		Platform.getAdapterManager().registerAdapters(_adapterFactory, L2Character.class);
 
-		getSite().setSelectionProvider(treeViewer);
+		getSite().setSelectionProvider(_treeViewer);
 
-		treeViewer.setLabelProvider(new WorkbenchLabelProvider());
+		_treeViewer.setLabelProvider(new WorkbenchLabelProvider());
 
-		treeViewer.setContentProvider(new BaseWorkbenchContentProvider());
+		_treeViewer.setContentProvider(new BaseWorkbenchContentProvider());
 
-		treeViewer.setInput(session.getRoot());
+		_treeViewer.setInput(_session.getRoot());
 
 		hookContextMenu();
 		contributeToActionBars();
@@ -66,9 +66,9 @@ public class BannedPlayersView extends ViewPart
 				BannedPlayersView.this.fillContextMenu(manager);
 			}
 		});
-		Menu menu = menuMgr.createContextMenu(treeViewer.getControl());
-		treeViewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuMgr, treeViewer);
+		Menu menu = menuMgr.createContextMenu(_treeViewer.getControl());
+		_treeViewer.getControl().setMenu(menu);
+		getSite().registerContextMenu(menuMgr, _treeViewer);
 	}
 
 	private void contributeToActionBars()
@@ -98,13 +98,13 @@ public class BannedPlayersView extends ViewPart
 	@Override
 	public void setFocus()
 	{
-		treeViewer.getControl().setFocus();
+		_treeViewer.getControl().setFocus();
 	}
 
 	@Override
 	public void dispose()
 	{
-		Platform.getAdapterManager().unregisterAdapters(adapterFactory);
+		Platform.getAdapterManager().unregisterAdapters(_adapterFactory);
 		super.dispose();
 	}
 }

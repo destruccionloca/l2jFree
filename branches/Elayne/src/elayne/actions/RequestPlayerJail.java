@@ -30,7 +30,7 @@ public class RequestPlayerJail extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
 			L2PcInstance player = ((L2PcInstance) obj);
@@ -75,12 +75,12 @@ public class RequestPlayerJail extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 
 			if (isEnabled())
-				setLabels((L2PcInstance) selection.getFirstElement());
+				setLabels((L2PcInstance) _selection.getFirstElement());
 		}
 		else
 			setEnabled(false);

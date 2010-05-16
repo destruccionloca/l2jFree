@@ -17,12 +17,12 @@ import elayne.views.PlayerInfoView;
  */
 public class ShowPlayerInfoView extends Action implements IWorkbenchAction
 {
-	public final static String ID = "elayne.actions.showPlayerInfoView";
-	private final IWorkbenchWindow window;
+	public static final String ID = "elayne.actions.showPlayerInfoView";
+	private final IWorkbenchWindow _window;
 
 	public ShowPlayerInfoView(IWorkbenchWindow window)
 	{
-		this.window = window;
+		_window = window;
 		setId(ID);
 		setText("&Player Details");
 		setToolTipText("Show the details of the last player browsed for.");
@@ -35,7 +35,7 @@ public class ShowPlayerInfoView extends Action implements IWorkbenchAction
 	@Override
 	public void run()
 	{
-		IWorkbenchPage page = window.getActivePage();
+		IWorkbenchPage page = _window.getActivePage();
 		try
 		{
 			page.showView(PlayerInfoView.ID);

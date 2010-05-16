@@ -16,12 +16,12 @@ import elayne.views.BannedPlayersView;
  */
 public class ShowBannedPlayersView extends Action implements IWorkbenchAction
 {
-	public final static String ID = "elayne.actions.showBannedPlayersView";
-	private final IWorkbenchWindow window;
+	public static final String ID = "elayne.actions.showBannedPlayersView";
+	private final IWorkbenchWindow _window;
 
 	public ShowBannedPlayersView(IWorkbenchWindow window)
 	{
-		this.window = window;
+		_window = window;
 		setId(ID);
 		setText("&Banned Players");
 		setToolTipText("Show Banned Players");
@@ -35,7 +35,7 @@ public class ShowBannedPlayersView extends Action implements IWorkbenchAction
 	@Override
 	public void run()
 	{
-		IWorkbenchPage page = window.getActivePage();
+		IWorkbenchPage page = _window.getActivePage();
 		try
 		{
 			page.showView(BannedPlayersView.ID);

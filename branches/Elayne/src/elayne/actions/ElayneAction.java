@@ -46,21 +46,21 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 * This is the current selection of the treeViewer or, if no treeViewer is
 	 * defined, the selection of some object in the window.
 	 */
-	protected IStructuredSelection selection;
+	protected IStructuredSelection _selection;
 
 	/**
 	 * The viewer that triggers the actions.<br>
 	 * This {@link TreeViewer} is refreshed on demand and calls this action on
 	 * every defined action like {@link DoubleClickEvent} and others...
 	 */
-	protected TreeViewer treeViewer;
+	protected TreeViewer _treeViewer;
 
 	/**
 	 * This {@link IWorkbenchWindow} is the window on which the selection
 	 * service will be registered and the window on which most of the actions
 	 * will take place.
 	 */
-	protected IWorkbenchWindow window;
+	protected IWorkbenchWindow _window;
 
 	/**
 	 * Defines a new action saving the window. Also registers a selection
@@ -69,7 +69,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	public ElayneAction(IWorkbenchWindow window)
 	{
-		this.window = window;
+		_window = window;
 		window.getSelectionService().addSelectionListener(this);
 	}
 
@@ -81,17 +81,17 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	public ElayneAction(IWorkbenchWindow window, TreeViewer treeViewer)
 	{
-		this.window = window;
-		this.treeViewer = treeViewer;
+		_window = window;
+		_treeViewer = treeViewer;
 		window.getSelectionService().addSelectionListener(this);
 	}
 
 	public void dispose()
 	{
-		window.getSelectionService().removeSelectionListener(this);
-		window = null;
-		treeViewer = null;
-		selection = null;
+		_window.getSelectionService().removeSelectionListener(this);
+		_window = null;
+		_treeViewer = null;
+		_selection = null;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	public IStructuredSelection getSelection()
 	{
-		return selection;
+		return _selection;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	public TreeViewer getTreeViewer()
 	{
-		return treeViewer;
+		return _treeViewer;
 	}
 
 	/**
@@ -118,7 +118,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	public IWorkbenchWindow getWindow()
 	{
-		return window;
+		return _window;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	protected boolean sendConfirmationMessage(String title, String message)
 	{
-		return MessageDialog.openConfirm(window.getShell(), title, message);
+		return MessageDialog.openConfirm(_window.getShell(), title, message);
 	}
 
 	/**
@@ -154,7 +154,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	protected boolean sendConfirmationMessageWithNoLabel(String title, String message)
 	{
-		MessageDialog dialog = new MessageDialog(window.getShell(), title, null, message, MessageDialog.QUESTION, new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0);
+		MessageDialog dialog = new MessageDialog(_window.getShell(), title, null, message, MessageDialog.QUESTION, new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0);
 		return dialog.open() == 0;
 	}
 
@@ -164,7 +164,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	protected void sendError(String errorMessage)
 	{
-		MessageDialog.openError(window.getShell(), "Error", errorMessage);
+		MessageDialog.openError(_window.getShell(), "Error", errorMessage);
 	}
 
 	/**
@@ -173,7 +173,7 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	protected void sendMessage(String message)
 	{
-		MessageDialog.openInformation(window.getShell(), "Information", message);
+		MessageDialog.openInformation(_window.getShell(), "Information", message);
 	}
 
 	/**
@@ -182,6 +182,6 @@ public abstract class ElayneAction extends Action implements ISelectionListener,
 	 */
 	protected void setNewId(String id)
 	{
-		this.setId("elayne.actions." + id);
+		setId("elayne.actions." + id);
 	}
 }

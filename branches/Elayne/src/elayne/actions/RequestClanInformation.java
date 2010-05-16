@@ -23,8 +23,8 @@ public class RequestClanInformation extends ElayneAction
 {
 
 	private static final String ID = "requestClanInformation";
-	private int id;
-	private String name;
+	private int _id;
+	private String _name;
 
 	/**
 	 * Defines a new {@link RequestClanInformation} action.
@@ -74,7 +74,7 @@ public class RequestClanInformation extends ElayneAction
 	{
 		try
 		{
-			openClanInfoView(id, name);
+			openClanInfoView(_id, _name);
 		}
 		catch (Exception e)
 		{
@@ -88,12 +88,12 @@ public class RequestClanInformation extends ElayneAction
 
 	public void setClanId(int id)
 	{
-		this.id = id;
+		_id = id;
 	}
 
 	public void setClanName(String name)
 	{
-		this.name = name;
+		_name = name;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class RequestClanInformation extends ElayneAction
 	 */
 	private void showPage()
 	{
-		IWorkbenchPage page = window.getActivePage();
+		IWorkbenchPage page = _window.getActivePage();
 		try
 		{
 			page.showView(ClanInfoView.ID);

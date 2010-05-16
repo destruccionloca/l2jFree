@@ -28,7 +28,17 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 {
 	// =======================================
 	// INSTANCE
-	private static PlayersManager _instance;
+	private static PlayersManager 				_instance;
+	/** Map containing all the players known in the server */
+	private FastMap<String, L2PcInstance> 		_playerMap 	= new FastMap<String, L2PcInstance>();
+	/** List of root groups */
+	private FastList<L2GroupEntry> 				_rootGroup 	= new FastList<L2GroupEntry>();
+	/** The root Group of this Manager */
+	L2RootSession 								_session 	= new L2RootSession();
+	/**
+	 * The Viewer in which this class will be visually represented
+	 */
+	private TreeViewer 							_viewer;
 
 	/**
 	 * @return the only instance of this class.
@@ -40,23 +50,12 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 		return _instance;
 	}
 
-	/** Map containing all the players known in the server */
-	private FastMap<String, L2PcInstance> playerMap = new FastMap<String, L2PcInstance>();
-	/** List of root groups */
-	private FastList<L2GroupEntry> rootGroup = new FastList<L2GroupEntry>();
-	/** The root Group of this Manager */
-	L2RootSession session = new L2RootSession();
-	/**
-	 * The Viewer in which this class will be visually represented
-	 */
-	private TreeViewer viewer;
-
 	/**
 	 * Private constructor that defines a this content provider.
 	 */
 	private PlayersManager()
 	{
-		rootGroup.add(session.getRoot());
+		_rootGroup.add(_session.getRoot());
 	}
 
 	/**
@@ -67,17 +66,17 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 	{
 		if (!isKnownPlayer(player.getName()))
 		{
-			playerMap.put(player.getName().toLowerCase(), player);
-			player.setParent(session.getRoot());
+			_playerMap.put(player.getName().toLowerCase(), player);
+			player.setParent(_session.getRoot());
 		}
 		if (!containsGroup(player.getName()))
 		{
-			session.getRoot().addEntry(player);
-			if (viewer != null)
+			_session.getRoot().addEntry(player);
+			if (_viewer != null)
 			{
-				viewer.refresh();
-				viewer.collapseToLevel(session.getRoot(), 2);
-				viewer.expandToLevel(2);
+				_viewer.refresh();
+				_viewer.collapseToLevel(_session.getRoot(), 2);
+				_viewer.expandToLevel(2);
 			}
 		}
 	}
@@ -91,7 +90,7 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 	 */
 	public boolean containsGroup(String name)
 	{
-		for (L2Character cha : session.getRoot().getEntries())
+		for (L2Character cha : _session.getRoot().getEntries())
 		{
 			if (cha.getName().toLowerCase().equals(name.toLowerCase()))
 				return true;
@@ -106,7 +105,7 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 
 	public Collection<L2PcInstance> getAllPlayers()
 	{
-		return playerMap.values();
+		return _playerMap.values();
 	}
 
 	public Object[] getChildren(Object parentElement)
@@ -118,7 +117,7 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 
 	public Object[] getElements(Object inputElement)
 	{
-		return rootGroup.toArray();
+		return _rootGroup.toArray();
 	}
 
 	public Object getParent(Object element)
@@ -130,12 +129,12 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 
 	public L2PcInstance getPlayer(String name)
 	{
-		return playerMap.get(name.toLowerCase());
+		return _playerMap.get(name.toLowerCase());
 	}
 
 	public L2GroupEntry getRoot()
 	{
-		return session.getRoot();
+		return _session.getRoot();
 	}
 
 	public boolean hasChildren(Object element)
@@ -155,7 +154,7 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 	 */
 	public boolean isKnownPlayer(String name)
 	{
-		return playerMap.containsKey(name.toLowerCase());
+		return _playerMap.containsKey(name.toLowerCase());
 	}
 
 	/**
@@ -163,8 +162,8 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 	 */
 	public void refreshViewer()
 	{
-		if (viewer != null)
-			viewer.refresh();
+		if (_viewer != null)
+			_viewer.refresh();
 	}
 
 	/**
@@ -178,18 +177,18 @@ public class PlayersManager implements IStructuredContentProvider, ITreeContentP
 		if (isKnownPlayer(player.getName()))
 		{
 			player.setParent(null);
-			session.getRoot().removeEntry(player);
-			if (viewer != null)
-				viewer.refresh();
+			_session.getRoot().removeEntry(player);
+			if (_viewer != null)
+				_viewer.refresh();
 			if (removeFromKnownPlayers)
-				playerMap.remove(player);
+				_playerMap.remove(player);
 		}
 	}
 
 	/** Setter for the viewer. */
 	public void setViewer(TreeViewer viewer)
 	{
-		this.viewer = viewer;
+		_viewer = viewer;
 	}
 
 	/**

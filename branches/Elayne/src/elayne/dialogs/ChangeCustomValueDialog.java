@@ -17,23 +17,23 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ChangeCustomValueDialog extends Dialog
 {
-	private Text accountId;
-	private boolean changeConfirmed;
-	private Button confirmChange;
-	private String newValue;
-	private String value;
+	private Text _accountId;
+	private boolean _changeConfirmed;
+	private Button _confirmChange;
+	private String _newValue;
+	private String _value;
 
 	public ChangeCustomValueDialog(Shell parentShell, String value)
 	{
 		super(parentShell);
-		this.value = value;
+		_value = value;
 	}
 
 	@Override
 	protected void configureShell(Shell newShell)
 	{
 		super.configureShell(newShell);
-		newShell.setText("Change " + value);
+		newShell.setText("Change " + _value);
 	}
 
 	@Override
@@ -51,34 +51,34 @@ public class ChangeCustomValueDialog extends Dialog
 		composite.setLayout(layout);
 
 		Label confirmText = new Label(composite, SWT.NONE);
-		confirmText.setText("Which " + value + " would you like to give to this Character?");
+		confirmText.setText("Which " + _value + " would you like to give to this Character?");
 		confirmText.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 2, 1));
 
 		Label userIdLabel = new Label(composite, SWT.NONE);
-		userIdLabel.setText("&New " + value + ":");
+		userIdLabel.setText("&New " + _value + ":");
 		userIdLabel.setLayoutData(new GridData(GridData.END, GridData.CENTER, false, false));
 
-		accountId = new Text(composite, SWT.BORDER);
+		_accountId = new Text(composite, SWT.BORDER);
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
 
 		gridData.widthHint = convertHeightInCharsToPixels(20);
-		accountId.setLayoutData(gridData);
+		_accountId.setLayoutData(gridData);
 
-		confirmChange = new Button(composite, SWT.CHECK);
-		confirmChange.setText("Are you sure you want to change this player's " + value + "?");
-		confirmChange.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, true, 2, 1));
+		_confirmChange = new Button(composite, SWT.CHECK);
+		_confirmChange.setText("Are you sure you want to change this player's " + _value + "?");
+		_confirmChange.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, true, true, 2, 1));
 
 		return composite;
 	}
 
 	public boolean getChangeConfirmmed()
 	{
-		return changeConfirmed;
+		return _changeConfirmed;
 	}
 
 	public String getNewValue()
 	{
-		return newValue;
+		return _newValue;
 	}
 
 	@Override
@@ -91,11 +91,11 @@ public class ChangeCustomValueDialog extends Dialog
 
 	private void setChangeConfirmed()
 	{
-		changeConfirmed = confirmChange.getSelection();
+		_changeConfirmed = _confirmChange.getSelection();
 	}
 
 	private void setNewValue()
 	{
-		newValue = accountId.getText();
+		_newValue = _accountId.getText();
 	}
 }

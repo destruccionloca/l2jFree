@@ -25,11 +25,11 @@ import elayne.views.PlayerInfoView;
 public class RequestPlayerInformation extends ElayneAction
 {
 	/** ID of the action */
-	public final static String ID = "requestPlayerInformation";
+	public static final String ID = "requestPlayerInformation";
 
 	/** New line in a text field or text area. */
 	@SuppressWarnings("unused")
-	private final static String newLine = "\n";
+	private static final String _newLine = "\n";
 
 	private String _name = "";
 
@@ -67,13 +67,13 @@ public class RequestPlayerInformation extends ElayneAction
 	@Override
 	public void run()
 	{
-		if (treeViewer == null)
+		if (_treeViewer == null)
 		{
 			openNewPlayerInvoView(_name);
 			return;
 		}
 		// Get the selected object in the viewer.
-		ISelection selectedObject = treeViewer.getSelection();
+		ISelection selectedObject = _treeViewer.getSelection();
 		// Define an Object casted from the selection.
 		// This Object will later be used to define which action we need to run.
 		Object obj = ((IStructuredSelection) selectedObject).getFirstElement();
@@ -106,7 +106,7 @@ public class RequestPlayerInformation extends ElayneAction
 
 	private void showPage()
 	{
-		IWorkbenchPage page = window.getActivePage();
+		IWorkbenchPage page = _window.getActivePage();
 		try
 		{
 			page.showView(PlayerInfoView.ID);

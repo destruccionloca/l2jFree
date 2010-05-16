@@ -28,7 +28,7 @@ public class ClearPlayerFromTreeViewer extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2PcInstance player = ((L2PcInstance) obj);
 		PlayersManager.getInstance().removePlayer(player, false);
 	}
@@ -38,8 +38,8 @@ public class ClearPlayerFromTreeViewer extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		else
 			setEnabled(false);

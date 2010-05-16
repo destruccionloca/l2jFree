@@ -38,17 +38,15 @@ import elayne.util.connector.ServerDB;
 public class Session implements IAdaptable
 {
 
-	private ConnectionDetails connectionDetails;
-
-	private static Session INSTANCE;
-
-	private boolean isAllowedUser = false;
+	private ConnectionDetails _connectionDetails;
+	private static Session _instance;
+	private boolean _isAllowedUser = false;
 
 	public static Session getInstance()
 	{
-		if (INSTANCE == null)
-			INSTANCE = new Session();
-		return INSTANCE;
+		if (_instance == null)
+			_instance = new Session();
+		return _instance;
 	}
 
 	private Session()
@@ -64,17 +62,17 @@ public class Session implements IAdaptable
 
 	public boolean getIsAllowedUser()
 	{
-		return isAllowedUser;
+		return _isAllowedUser;
 	}
 
 	public ConnectionDetails getConnectionDetails()
 	{
-		return connectionDetails;
+		return _connectionDetails;
 	}
 
 	public void setConnectionDetails(ConnectionDetails connectionDetails)
 	{
-		this.connectionDetails = connectionDetails;
+		_connectionDetails = connectionDetails;
 	}
 
 	/**
@@ -91,7 +89,7 @@ public class Session implements IAdaptable
 			{
 				if (selectAccount(monitor))
 				{
-					if (isAllowedUser)
+					if (_isAllowedUser)
 					{
 						// TANIS SERVER CONNECTION
 						monitor.subTask("Conecting to Server database...");
@@ -203,7 +201,7 @@ public class Session implements IAdaptable
 			 */
 			if (acl >= 100)
 			{
-				isAllowedUser = true;
+				_isAllowedUser = true;
 				return true;
 			}
 		}

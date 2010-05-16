@@ -90,10 +90,10 @@ public class RequestAccountPasswordChange extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
-			ChangeCustomValueDialog r = new ChangeCustomValueDialog(window.getShell(), "Password");
+			ChangeCustomValueDialog r = new ChangeCustomValueDialog(_window.getShell(), "Password");
 			int code = r.open();
 			if (code == Window.CANCEL)
 				return;
@@ -149,8 +149,8 @@ public class RequestAccountPasswordChange extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		else
 			setEnabled(false);

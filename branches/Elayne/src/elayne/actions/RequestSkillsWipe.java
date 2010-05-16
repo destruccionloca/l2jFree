@@ -35,7 +35,7 @@ public class RequestSkillsWipe extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2SkillEntry pse = ((L2SkillEntry) obj);
 		if (sendConfirmationMessage("Wipe Skills", "Are you sure that you want to wipe this player's skills (from this class only)?"))
 		{
@@ -65,7 +65,7 @@ public class RequestSkillsWipe extends ElayneAction
 				// L2PcInstance
 				player.getPlayerSkillsByClass(class_index).clear();
 
-				treeViewer.refresh();
+				_treeViewer.refresh();
 			}
 		}
 	}
@@ -75,9 +75,9 @@ public class RequestSkillsWipe extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2SkillEntry);
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2SkillEntry);
 		}
 		// Not enable the action.
 		else

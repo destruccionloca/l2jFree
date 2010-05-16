@@ -19,12 +19,12 @@ public class RequestServerRestart extends ElayneAction
 	private static final String ID = "requestServerRestart";
 	public static final int SERVER_RESTART = 1;
 	public static final int SERVER_SHUT_DOWN = 2;
-	private int procedure;
+	private int _procedure;
 
 	public RequestServerRestart(IWorkbenchWindow window, int procedure)
 	{
 		super(window);
-		this.procedure = procedure;
+		_procedure = procedure;
 		setNewId(setId());
 		setText(setText());
 		setToolTipText(setToolTipText());
@@ -38,24 +38,24 @@ public class RequestServerRestart extends ElayneAction
 		{
 			try
 			{
-				switch (procedure)
+				switch (_procedure)
 				{
 					case 1:
-						if (sendConfirmationMessageWithNoLabel("Server Restart", "Are you sure that you want to restart the server? If that is so, the server will be restarting in 5 minutes."))
+						if (sendConfirmationMessageWithNoLabel("Server Restart", "Are you sure you want to restart the server? If yes, the server will restart in 5 minutes."))
 						{
 							RemoteAdministrationClient.getInstance().scheduleServerRestart(300);
 							System.out.println("The server will be restarting in 300 seconds.");
 							break;
 						}
 					case 2:
-						if (sendConfirmationMessageWithNoLabel("Server Shut Down", "Are you sure that you want to shut down the server? If that is so, the server will be shutting down in 5 minutes."))
+						if (sendConfirmationMessageWithNoLabel("Server Shutdown", "Are you sure you want to shut down the server? If yes, the server will shut down in 5 minutes."))
 						{
 							RemoteAdministrationClient.getInstance().scheduleServerShutDown(300);
 							System.out.println("The server will be shuting down in 300 seconds.");
 							break;
 						}
 					case 3:
-						if (sendConfirmationMessageWithNoLabel("Abort Server Restart", "Are you sure that you want to abort a server restart procedure?"))
+						if (sendConfirmationMessageWithNoLabel("Abort Server Restart", "Are you sure you want to abort the restart procedure?"))
 						{
 							RemoteAdministrationClient.getInstance().abortServerRestart();
 							System.out.println("Server Restart aborted.");
@@ -79,44 +79,44 @@ public class RequestServerRestart extends ElayneAction
 
 	private String setId()
 	{
-		if (procedure == 1)
+		if (_procedure == 1)
 			return "requestServerRestart";
-		if (procedure == 2)
+		else if (_procedure == 2)
 			return "requestServerShutDown";
-		if (procedure == 3)
+		else if (_procedure == 3)
 			return "requestServerRestartAbort";
 		return ID;
 	}
 
 	private ImageDescriptor setImageDescriptor()
 	{
-		if (procedure == 1)
+		if (_procedure == 1)
 			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.SERVER_RESTART);
-		if (procedure == 2)
+		else if (_procedure == 2)
 			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.SERVER_SHUT_DOWN);
-		if (procedure == 3)
+		else if (_procedure == 3)
 			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.ABORT_SERVER_RESTART);
 		return null;
 	}
 
 	private String setText()
 	{
-		if (procedure == 1)
+		if (_procedure == 1)
 			return "Server Restart";
-		if (procedure == 2)
-			return "Server Shut Down";
-		if (procedure == 3)
+		else if (_procedure == 2)
+			return "Server Shutdown";
+		else if (_procedure == 3)
 			return "Abort Server Restart";
 		return null;
 	}
 
 	private String setToolTipText()
 	{
-		if (procedure == 1)
+		if (_procedure == 1)
 			return "Issues a server restart through RMI.";
-		if (procedure == 2)
+		else if (_procedure == 2)
 			return "Issues a server shutdown through RMI.";
-		if (procedure == 3)
+		else if (_procedure == 3)
 			return "Aborts a server restart through RMI.";
 		return null;
 	}

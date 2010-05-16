@@ -32,16 +32,16 @@ public class L2CharacterPresence
 
 	public static final L2CharacterPresence ORC_MALE = new L2CharacterPresence("Orc Male");
 
-	private String value;
+	private String _value;
 
 	private L2CharacterPresence(String value)
 	{
-		this.value = value;
+		_value = value;
 	}
 
 	@Override
 	public String toString()
 	{
-		return value;
+		return _value;
 	}
 }

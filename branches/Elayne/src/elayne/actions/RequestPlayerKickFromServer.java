@@ -37,7 +37,7 @@ public class RequestPlayerKickFromServer extends ElayneAction
 			{
 				try
 				{
-					L2PcInstance player = (L2PcInstance) selection.getFirstElement();
+					L2PcInstance player = (L2PcInstance) _selection.getFirstElement();
 					if (player.isOnline())
 					{
 						int result = RemoteAdministrationClient.getInstance().kickPlayerFromServer(player.getName());
@@ -68,8 +68,8 @@ public class RequestPlayerKickFromServer extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance && ((L2PcInstance) selection.getFirstElement()).isOnline());
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance && ((L2PcInstance) _selection.getFirstElement()).isOnline());
 		}
 		else
 			setEnabled(false);

@@ -72,7 +72,7 @@ public class RequestItemAward extends ElayneAction
 		// Prompt a new AwardItemDialog to get the user to select which item needs to be added into
 		// the inventory of a certain player, and in which amount. Only etc items can have an amount
 		// different than 1, this could be changed later on...
-		AwardItemDialog r = new AwardItemDialog(window.getShell());
+		AwardItemDialog r = new AwardItemDialog(_window.getShell());
 		int code = r.open();
 		if (code == Window.CANCEL)
 			return;
@@ -120,11 +120,11 @@ public class RequestItemAward extends ElayneAction
 			if (sendConfirmationMessage("Confirm", "Are you sure that you want to award this player with " + amount + " " + itemName + "(s)?"))
 			{
 				L2PcInstance player = null;
-				if (selection.getFirstElement() instanceof L2PcInstance)
-					player = ((L2PcInstance) selection.getFirstElement());
+				if (_selection.getFirstElement() instanceof L2PcInstance)
+					player = ((L2PcInstance) _selection.getFirstElement());
 
-				else if (selection.getFirstElement() instanceof L2Inventory)
-					player = ((L2Inventory) selection.getFirstElement()).getParent();
+				else if (_selection.getFirstElement() instanceof L2Inventory)
+					player = ((L2Inventory) _selection.getFirstElement()).getParent();
 
 				try
 				{
@@ -194,7 +194,7 @@ public class RequestItemAward extends ElayneAction
 				}
 				catch (RemoteException e)
 				{
-					System.out.println("");
+					e.printStackTrace();
 				}
 			}
 			else
@@ -207,8 +207,8 @@ public class RequestItemAward extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && (selection.getFirstElement() instanceof L2PcInstance || selection.getFirstElement() instanceof L2Inventory));
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && (_selection.getFirstElement() instanceof L2PcInstance || _selection.getFirstElement() instanceof L2Inventory));
 		}
 		else
 			setEnabled(false);

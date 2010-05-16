@@ -37,7 +37,7 @@ public class RequestPlayerTeleport extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
 			L2PcInstance player = ((L2PcInstance) obj);
@@ -64,9 +64,9 @@ public class RequestPlayerTeleport extends ElayneAction
 		if (incoming instanceof IStructuredSelection)
 		{
 			// Remember the selection for later usage.
-			selection = (IStructuredSelection) incoming;
+			_selection = (IStructuredSelection) incoming;
 
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		// Not enable the action.
 		else

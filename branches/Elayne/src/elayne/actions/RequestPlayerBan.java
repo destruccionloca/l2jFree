@@ -44,13 +44,13 @@ public class RequestPlayerBan extends ElayneAction
 	public static final int BAN_ACCOUNT = 2;
 	public static final int BAN_ALL_ACCOUNTS = 3;
 	public static final int BAN_PLAYER = 1;
-	public final static String ID = "requestPlayerBan";
+	public static final String ID = "requestPlayerBan";
 	public static final int UN_BAN_ACCOUNT = 5;
 	public static final int UN_BAN_ALL_ACCOUNTS = 6;
 
 	public static final int UN_BAN_PLAYER = 4;
 
-	private int banActionId = 0;
+	private int _banActionId = 0;
 
 	/**
 	 * Starts a new Ban / UnBan action. See {@link RequestPlayerBan} for more
@@ -62,7 +62,7 @@ public class RequestPlayerBan extends ElayneAction
 	public RequestPlayerBan(IWorkbenchWindow window, TreeViewer treeViewer, int banAction)
 	{
 		super(window, treeViewer);
-		this.banActionId = banAction;
+		_banActionId = banAction;
 		setNewId(ID);
 		setText(this.toString());
 		setToolTipText(getToolTipText());
@@ -219,54 +219,66 @@ public class RequestPlayerBan extends ElayneAction
 	 */
 	private String getConfirmationDialogText(L2PcInstance player)
 	{
-		if (banActionId == 1)
-			return "Are you sure that you want to ban the player " + player.getName() + "?";
-		else if (banActionId == 2)
-			return "Are you sure that you want to ban the account " + player.getAccount() + "?";
-		else if (banActionId == 3)
-			return "Are you sure that you want to ban all the accounts of the player " + player.getName() + "?";
-		else if (banActionId == 4)
-			return "Are you sure that you want to un ban the player " + player.getName() + "?";
-		else if (banActionId == 5)
-			return "Are you sure that you want to un ban the account " + player.getAccount() + "?";
-		else if (banActionId == 6)
-			return "Are you sure that you want to un ban all the accounts of the player " + player.getName() + "?";
-		return "";
+		switch (_banActionId)
+		{
+			case 1:
+				return "Are you sure you want to ban the player " + player.getName() + "?";
+			case 2:
+				return "Are you sure you want to ban the account " + player.getAccount() + "?";
+			case 3:
+				return "Are you sure you want to ban all the accounts of the player " + player.getName() + "?";
+			case 4:
+				return "Are you sure you want to unban the player " + player.getName() + "?";
+			case 5:
+				return "Are you sure you want to unban the account " + player.getAccount() + "?";
+			case 6:
+				return "Are you sure you want to unban all the accounts of the player " + player.getName() + "?";
+			default:
+				return "";
+		}
 	}
 
 	private ImageDescriptor getDescriptor()
 	{
-		if (banActionId == 1)
-			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BAN_PLAYER);
-		else if (banActionId == 2)
-			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BAN_ACCOUNT);
-		else if (banActionId == 3)
-			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BAN_ALL_ACCOUNTS);
-		else if (banActionId == 4)
-			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.UN_BAN_PLAYER);
-		else if (banActionId == 5)
-			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.UN_BAN_ACCOUNT);
-		else if (banActionId == 6)
-			return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.UN_BAN_ALL_ACCOUNTS);
-		return null;
+		switch (_banActionId)
+		{
+			case 1:
+				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BAN_PLAYER);
+			case 2:
+				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BAN_ACCOUNT);
+			case 3:
+				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BAN_ALL_ACCOUNTS);
+			case 4:
+				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.UN_BAN_PLAYER);
+			case 5:
+				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.UN_BAN_ACCOUNT);
+			case 6:
+				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.UN_BAN_ALL_ACCOUNTS);
+			default:
+				return null;
+		}
 	}
 
 	@Override
 	public String getToolTipText()
 	{
-		if (banActionId == 1)
-			return "Ban a player from the server.";
-		else if (banActionId == 2)
-			return "Ban the account of the selected player.";
-		else if (banActionId == 3)
-			return "Ban all the accounts of the selected player.";
-		else if (banActionId == 4)
-			return "Un-Ban a player from the server.";
-		else if (banActionId == 5)
-			return "Un-Ban the account of the selected player.";
-		else if (banActionId == 6)
-			return "Un-Ban all the accounts of the selected player.";
-		return super.getToolTipText();
+		switch (_banActionId)
+		{
+			case 1:
+				return "Ban a player from the server.";
+			case 2:
+				return "Ban selected player's account.";
+			case 3:
+				return "Ban all the selected player's accounts.";
+			case 4:
+				return "Unban a player from the server.";
+			case 5:
+				return "Unban selected player's account.";
+			case 6:
+				return "Unban all the selected player's accounts.";
+			default:
+				return super.getToolTipText();
+		}
 	}
 
 	/*
@@ -276,13 +288,13 @@ public class RequestPlayerBan extends ElayneAction
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		if (obj instanceof L2PcInstance)
 		{
 			L2PcInstance player = ((L2PcInstance) obj);
 			if (sendConfirmationMessage("Ban Player", getConfirmationDialogText(player)))
 			{
-				switch (banActionId)
+				switch (_banActionId)
 				{
 					case 1:
 						/*
@@ -301,7 +313,7 @@ public class RequestPlayerBan extends ElayneAction
 							}
 							catch (RemoteException e)
 							{
-								System.out.println("RequestBanPlayer: An error ocurred while kicking player from the server" + "to proceed the Ban Action: " + e.getMessage());
+								System.out.println("RequestBanPlayer: An error ocurred while kicking player from the server" + "Error: " + e.getMessage());
 								e.printStackTrace();
 							}
 						}
@@ -328,20 +340,20 @@ public class RequestPlayerBan extends ElayneAction
 						if (unBanPlayer(player.getObjectId()))
 						{
 							player.setAccessLevel(0);
-							sendMessage("The Player " + player.getName() + " has been un banned.");
+							sendMessage("The Player " + player.getName() + " has been unbanned.");
 							break;
 						}
 					case 5:
 						if (unBanAccount(player.getAccount()))
 						{
-							sendMessage("The Account " + player.getAccount() + " has been un banned.");
+							sendMessage("The Account " + player.getAccount() + " has been unbanned.");
 							break;
 						}
 					case 6:
 						String ips = accountIP(player.getAccount());
 						if (unBanAllAccounts(ips))
 						{
-							sendMessage("All the accounts of the ip " + ips + " have been un banned.");
+							sendMessage("All the accounts of the ip " + ips + " have been unbanned.");
 							break;
 						}
 				}
@@ -359,8 +371,8 @@ public class RequestPlayerBan extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			setEnabled(selection.size() == 1 && selection.getFirstElement() instanceof L2PcInstance);
+			_selection = (IStructuredSelection) incoming;
+			setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof L2PcInstance);
 		}
 		else
 			setEnabled(false);
@@ -369,19 +381,23 @@ public class RequestPlayerBan extends ElayneAction
 	@Override
 	public String toString()
 	{
-		if (banActionId == 1)
-			return "Ban Player";
-		else if (banActionId == 2)
-			return "Ban Account";
-		else if (banActionId == 3)
-			return "Ban All Accounts";
-		else if (banActionId == 4)
-			return "Un Ban Player";
-		else if (banActionId == 5)
-			return "Un Ban Account";
-		else if (banActionId == 6)
-			return "Un Ban All Accounts";
-		return super.toString();
+		switch (_banActionId)
+		{
+			case 1:
+				return "Ban Player";
+			case 2:
+				return "Ban Account";
+			case 3:
+				return "Ban all Accounts";
+			case 4:
+				return "Unban Player";
+			case 5:
+				return "Unban Account";
+			case 6:
+				return "Unban all Accounts";
+			default:
+				return super.toString();
+		}
 	}
 
 	private boolean unBanAccount(String account)

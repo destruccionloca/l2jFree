@@ -16,12 +16,12 @@ import elayne.views.OnlinePlayersView;
  */
 public class ShowOnlinePlayersView extends Action implements IWorkbenchAction
 {
-	public final static String ID = "elayne.actions.showOnlinePlayersView";
-	private final IWorkbenchWindow window;
+	public static final String ID = "elayne.actions.showOnlinePlayersView";
+	private final IWorkbenchWindow _window;
 
 	public ShowOnlinePlayersView(IWorkbenchWindow window)
 	{
-		this.window = window;
+		_window = window;
 		setId(ID);
 		setText("&Online Players");
 		setToolTipText("Show the players that are currentlly playing");
@@ -34,7 +34,7 @@ public class ShowOnlinePlayersView extends Action implements IWorkbenchAction
 	@Override
 	public void run()
 	{
-		IWorkbenchPage page = window.getActivePage();
+		IWorkbenchPage page = _window.getActivePage();
 		try
 		{
 			page.showView(OnlinePlayersView.ID);

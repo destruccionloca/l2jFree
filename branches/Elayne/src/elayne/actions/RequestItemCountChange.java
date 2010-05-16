@@ -51,22 +51,29 @@ public class RequestItemCountChange extends ElayneAction
 	private boolean isPetItem(int itemId)
 	{
 		return (itemId == 2375 // Wolf
-								|| itemId == 9882 // Great Wolf
-								|| itemId == 4425 // Sin Eater
-								|| itemId == 3500 || itemId == 3501 || itemId == 3502 // HatcLings
-								|| itemId == 4422 || itemId == 4423 || itemId == 4424 // StriDers
-								|| itemId == 8663 // WyverN
-								|| itemId == 6648 || itemId == 6649 || itemId == 6650); // Babies
+				|| itemId == 9882 || itemId == 10163 || itemId == 10307 // Great Wolf
+				|| itemId == 10426 || itemId == 10611 //Fenrir 
+				|| itemId == 4425 // Sin Eater
+				|| itemId == 3500 || itemId == 3501 || itemId == 3502 // Hatchlings
+				|| itemId == 4422 || itemId == 4423 || itemId == 4424 || itemId == 10308 || itemId == 10309
+				|| itemId == 10310 // Striders
+				|| itemId == 8663 // Wyvern
+				|| itemId == 6648 || itemId == 6649 || itemId == 6650 // Babies
+				|| itemId == 10311 || itemId == 10312 || itemId == 10313 // Improved Babies
+				|| itemId == 13017 || itemId == 13018 || itemId == 13019 || itemId == 13020 || itemId == 13303 
+				|| itemId == 13304 || itemId == 13305 || itemId == 13306 || itemId == 13548 || itemId == 13549 
+				|| itemId == 13550 || itemId == 13551 || itemId == 14601 || itemId == 14602 || itemId == 14603 
+				|| itemId == 14604); // Korean pets
 	}
 
 	@Override
 	public void run()
 	{
-		Object obj = selection.getFirstElement();
+		Object obj = _selection.getFirstElement();
 		L2InventoryEntry pie = ((L2InventoryEntry) obj);
 		// Define a new ChangeItemCountDialog and open it.
 		// The dialog will make the user choose the new amount for the selected item.
-		ChangeItemCountDialog rit = new ChangeItemCountDialog(window.getShell(), pie.getAmount());
+		ChangeItemCountDialog rit = new ChangeItemCountDialog(_window.getShell(), pie.getAmount());
 		int code = rit.open();
 		if (code == Window.CANCEL)
 			return;
@@ -122,11 +129,11 @@ public class RequestItemCountChange extends ElayneAction
 	{
 		if (incoming instanceof IStructuredSelection)
 		{
-			selection = (IStructuredSelection) incoming;
-			boolean isItemEntry = selection.size() == 1 && selection.getFirstElement() instanceof L2InventoryEntry;
+			_selection = (IStructuredSelection) incoming;
+			boolean isItemEntry = _selection.size() == 1 && _selection.getFirstElement() instanceof L2InventoryEntry;
 			if (isItemEntry)
 			{
-				L2InventoryEntry item = (L2InventoryEntry) selection.getFirstElement();
+				L2InventoryEntry item = (L2InventoryEntry) _selection.getFirstElement();
 				int id = item.getItemId();
 				setEnabled(ItemTable.getInstance().isItem(id));
 			}
@@ -170,7 +177,9 @@ public class RequestItemCountChange extends ElayneAction
 					con.close();
 			}
 			catch (Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

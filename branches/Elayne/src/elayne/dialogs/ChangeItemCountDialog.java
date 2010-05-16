@@ -22,14 +22,14 @@ import elayne.actions.RequestItemCountChange;
 public class ChangeItemCountDialog extends Dialog
 {
 	/** The old amount */
-	private int actualAmount;
+	private int _actualAmount;
 	/** The new amount */
-	private int changeLevel;
+	private int _changeLevel;
 	/**
 	 * The spinner that is used by the user to place in the new amount for a
 	 * certain item
 	 */
-	private Spinner spinner;
+	private Spinner _spinner;
 
 	/**
 	 * Defines a new instance of {@link ChangeItemCountDialog}.
@@ -39,7 +39,7 @@ public class ChangeItemCountDialog extends Dialog
 	public ChangeItemCountDialog(Shell parentShell, int actualAmount)
 	{
 		super(parentShell);
-		this.actualAmount = actualAmount;
+		_actualAmount = actualAmount;
 	}
 
 	@Override
@@ -71,16 +71,16 @@ public class ChangeItemCountDialog extends Dialog
 		userIdLabel.setText("Amount:");
 		userIdLabel.setLayoutData(new GridData(GridData.END, GridData.CENTER, false, false));
 
-		spinner = new Spinner(composite, SWT.BORDER);
-		spinner.setMinimum(0);
-		spinner.setMaximum(Integer.MAX_VALUE);
-		spinner.setSelection(actualAmount);
-		spinner.setIncrement(1);
-		spinner.setPageIncrement(100);
-		spinner.pack();
+		_spinner = new Spinner(composite, SWT.BORDER);
+		_spinner.setMinimum(0);
+		_spinner.setMaximum(Integer.MAX_VALUE);
+		_spinner.setSelection(_actualAmount);
+		_spinner.setIncrement(1);
+		_spinner.setPageIncrement(100);
+		_spinner.pack();
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
 		gridData.widthHint = convertHeightInCharsToPixels(20);
-		spinner.setLayoutData(gridData);
+		_spinner.setLayoutData(gridData);
 
 		return composite;
 	}
@@ -90,13 +90,13 @@ public class ChangeItemCountDialog extends Dialog
 	 */
 	public int getNewChangeLevel()
 	{
-		return changeLevel;
+		return _changeLevel;
 	}
 
 	@Override
 	protected void okPressed()
 	{
-		setNewChangeLevel(spinner.getSelection());
+		setNewChangeLevel(_spinner.getSelection());
 		super.okPressed();
 	}
 
@@ -106,6 +106,6 @@ public class ChangeItemCountDialog extends Dialog
 	 */
 	private void setNewChangeLevel(int selection)
 	{
-		changeLevel = selection;
+		_changeLevel = selection;
 	}
 }

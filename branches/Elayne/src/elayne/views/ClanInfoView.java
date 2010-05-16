@@ -28,10 +28,10 @@ import elayne.model.L2Character;
 public class ClanInfoView extends ViewPart
 {
 	public static final String ID = "elayne.views.clanView";
-	private TreeViewer viewer;
-	private IAdapterFactory adapterFactory = new L2AdapterFactory();
-	private Action actionShowInfo;
-	private RequestClanPlayerKick actionKickPlayerFromClan;
+	private TreeViewer _viewer;
+	private IAdapterFactory _adapterFactory = new L2AdapterFactory();
+	private Action _actionShowInfo;
+	private RequestClanPlayerKick _actionKickPlayerFromClan;
 
 	public ClanInfoView()
 	{}
@@ -41,34 +41,34 @@ public class ClanInfoView extends ViewPart
 	{
 		// Empty Group that acts as the Father of all other
 		// groups.
-		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		viewer.setContentProvider(ClansManager.getInstance());
-		viewer.setLabelProvider(new WorkbenchLabelProvider());
-		ClansManager.getInstance().setViewer(viewer);
-		Platform.getAdapterManager().registerAdapters(adapterFactory, L2Character.class);
-		getSite().setSelectionProvider(viewer);
-		viewer.setInput(getViewSite());
+		_viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		_viewer.setContentProvider(ClansManager.getInstance());
+		_viewer.setLabelProvider(new WorkbenchLabelProvider());
+		ClansManager.getInstance().setViewer(_viewer);
+		Platform.getAdapterManager().registerAdapters(_adapterFactory, L2Character.class);
+		getSite().setSelectionProvider(_viewer);
+		_viewer.setInput(getViewSite());
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
 		hookDoubleClickAction();
 		setFocus();
-		viewer.refresh();
+		_viewer.refresh();
 	}
 
 	private void makeActions()
 	{
-		actionShowInfo = new RequestPlayerInformation(getSite().getWorkbenchWindow(), viewer);
-		actionKickPlayerFromClan = new RequestClanPlayerKick(getSite().getWorkbenchWindow(), viewer);
+		_actionShowInfo = new RequestPlayerInformation(getSite().getWorkbenchWindow(), _viewer);
+		_actionKickPlayerFromClan = new RequestClanPlayerKick(getSite().getWorkbenchWindow(), _viewer);
 	}
 
 	private void hookDoubleClickAction()
 	{
-		viewer.addDoubleClickListener(new IDoubleClickListener()
+		_viewer.addDoubleClickListener(new IDoubleClickListener()
 		{
 			public void doubleClick(DoubleClickEvent event)
 			{
-				actionShowInfo.run();
+				_actionShowInfo.run();
 			}
 		});
 	}
@@ -84,9 +84,9 @@ public class ClanInfoView extends ViewPart
 				ClanInfoView.this.fillContextMenu(manager);
 			}
 		});
-		Menu menu = menuMgr.createContextMenu(viewer.getControl());
-		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuMgr, viewer);
+		Menu menu = menuMgr.createContextMenu(_viewer.getControl());
+		_viewer.getControl().setMenu(menu);
+		getSite().registerContextMenu(menuMgr, _viewer);
 	}
 
 	private void contributeToActionBars()
@@ -109,20 +109,20 @@ public class ClanInfoView extends ViewPart
 	private void fillActions(IMenuManager manager)
 	{
 		// ADD FINAL MENU TO THE MANAGER
-		manager.add(actionKickPlayerFromClan);
+		manager.add(_actionKickPlayerFromClan);
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
 	private void fillLocalToolBar(IToolBarManager manager)
 	{
-		manager.add(actionKickPlayerFromClan);
+		manager.add(_actionKickPlayerFromClan);
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
 	@Override
 	public void setFocus()
 	{
-		viewer.getControl().setFocus();
+		_viewer.getControl().setFocus();
 	}
 
 }
