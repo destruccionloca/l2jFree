@@ -39,7 +39,7 @@ public class AdminBBSManager extends BaseBBSManager
 		}
 		if (command.startsWith("admin_bbs"))
 		{
-			separateAndSend("<html><body><br><br><center>This Page is only an exemple :)<br><br>command=" + command + "</center></body></html>", activeChar);
+			separateAndSend("<html><body><br><br><center>This Page is only an example :)<br><br>command=" + command + "</center></body></html>", activeChar);
 		}
 		else
 		{
