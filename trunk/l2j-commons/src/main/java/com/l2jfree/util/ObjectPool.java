@@ -107,7 +107,7 @@ public abstract class ObjectPool<E> extends AbstractObjectPool<E>
 	@Override
 	public void store(E e)
 	{
-		if (getCurrentSize() >= getMaximumSize())
+		if (e == null || getCurrentSize() >= getMaximumSize())
 			return;
 		
 		reset(e);
