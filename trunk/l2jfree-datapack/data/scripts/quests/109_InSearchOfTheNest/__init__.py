@@ -66,7 +66,7 @@ class Quest (JQuest) :
                     if cond == 1 :
                         htmltext = "32015-01.htm"
                     elif cond == 2 :
-                        htmltext = "<html><body>This is nothing else here. Maybe you should take that memo to Pierce?</body></html>"#again, custom, see note above
+                        htmltext = "<html><body>(Beneath the corpse you find a memo. You should take it to Mercenary Captain Pierce?</body></html>"
                 elif npcId == Pierce :
                     if cond == 1 :
                         htmltext = "<html><body>Mercenary Captain Pierce:<br>Please find my scout!</body></html>"#custom
