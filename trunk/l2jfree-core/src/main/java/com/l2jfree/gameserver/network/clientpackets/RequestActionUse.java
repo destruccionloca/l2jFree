@@ -348,7 +348,7 @@ public class RequestActionUse extends L2GameClientPacket
 			if (target instanceof L2DoorInstance)
 				useSkill(4079);
 			break;
-		case 1001:
+		case 1001: // Sin Eater - Ultimate Bombastic Buster
 			break;
 		case 1003: // Wind Hatchling/Strider - Wild Stun
 			useSkill(4710);
@@ -447,16 +447,16 @@ public class RequestActionUse extends L2GameClientPacket
 			useSkill(5585);
 			break;
 		// CT2.3
-		case 1047: // Divine Beast - Bite
+		case 1047: // Bite (Divine Beast)
 			useSkill(5580);
 			break;
-		case 1048: // Divine Beast - Stun Attack
+		case 1048: // Stun Attack (Divine Beast)
 			useSkill(5581);
 			break;
-		case 1049: // Divine Beast - Fire Breath
+		case 1049: // Fire Breath (Divine Beast)
 			useSkill(5582);
 			break;
-		case 1050: // Divine Beast - Roar
+		case 1050: // Roar (Divine Beast)
 			useSkill(5583);
 			break;
 		case 1051: // Bless the Body (Feline Queen)
@@ -489,86 +489,86 @@ public class RequestActionUse extends L2GameClientPacket
 		case 1060: // Guidance (Nightshade)
 			useSkill(5654);
 			break;
-		case 1061:
-			useSkill(5745); // Death blow
+		case 1061: // Death Blow
+			useSkill(5745);
 			break;
-		case 1062:
-			useSkill(5746); // Double attack
+		case 1062: // Double Attack
+			useSkill(5746);
 			break;
-		case 1063:
-			useSkill(5747); // Spin attack
+		case 1063: // Spin Attack
+			useSkill(5747);
 			break;
-		case 1064:
-			useSkill(5748); // Meteor Shower
+		case 1064: // Meteor Shower
+			useSkill(5748);
 			break;
-		case 1065:
-			useSkill(5753); // Awakening
+		case 1065: // Awakening
+			useSkill(5753);
 			break;
-		case 1066:
-			useSkill(5749); // Thunder Bolt
+		case 1066: // Thunder Bolt
+			useSkill(5749);
 			break;
-		case 1067:
-			useSkill(5750); // Flash
+		case 1067: // Flash
+			useSkill(5750);
 			break;
-		case 1068:
-			useSkill(5751); // Lightning Wave
+		case 1068: // Lightning Wave
+			useSkill(5751);
 			break;
-		case 1069:
-			useSkill(5752); // Flare
+		case 1069: // Flare
+			useSkill(5752);
 			break;
-		case 1070:
-			useSkill(5771); // Buff control
+		case 1070: // Buff Control
+			useSkill(5771);
 			break;
-		case 1071:
-			useSkill(5761); // Power Strike
+		case 1071: // Power Strike
+			useSkill(5761);
 			break;
-		case 1072:
-			useSkill(6046); // Piercing attack
+		case 1072: // Piercing Attack
+			useSkill(6046);
 			break;
-		case 1073:
-			useSkill(6047); // Whirlwind
+		case 1073: // Whirlwind
+			useSkill(6047);
 			break;
-		case 1074:
-			useSkill(6048); // Lance Smash
+		case 1074: // Lance Smash
+			useSkill(6048);
 			break;
-		case 1075:
-			useSkill(6049); // Battle Cry
+		case 1075: // Battle Cry
+			useSkill(6049);
 			break;
-		case 1076:
-			useSkill(6050); // Power Smash
+		case 1076: // Power Smash
+			useSkill(6050);
 			break;
-		case 1077:
-			useSkill(6051); // Energy Burst
+		case 1077: // Energy Burst
+			useSkill(6051);
 			break;
-		case 1078:
-			useSkill(6052); // Shockwave
+		case 1078: // Shockwave
+			useSkill(6052);
 			break;
-		case 1079:
-			useSkill(6053); // Howl
+		case 1079: // Howl
+			useSkill(6053);
 			break;
-		case 1080:
-			useSkill(6041); // Phoenix Rush
+		case 1080: // Rush (Phoenix)
+			useSkill(6041);
 			break;
-		case 1081:
-			useSkill(6042); // Phoenix Cleanse
+		case 1081: // Cleanse (Phoenix)
+			useSkill(6042);
 			break;
-		case 1082:
-			useSkill(6043); // Phoenix Flame Feather
+		case 1082: // Flame Feather (Phoenix)
+			useSkill(6043);
 			break;
-		case 1083:
-			useSkill(6044); // Phoenix Flame Beak
+		case 1083: // Flame Beak (Phoenix)
+			useSkill(6044);
 			break;
-		case 1084:
-			useSkill(6054); // Switch State
+		case 1084: // Switch State
+			useSkill(6054);
 			break;
-		case 1086:
-			useSkill(6094); // Panther Cancel
+		case 1086: // Cancel (Panther)
+			useSkill(6094);
 			break;
-		case 1087:
-			useSkill(6095); // Panther Dark Claw
+		case 1087: // Dark Claw (Panther)
+			useSkill(6095);
 			break;
-		case 1088:
-			useSkill(6096); // Panther Fatal Claw
+		case 1088: // Fatal Claw (Panther)
+			useSkill(6096);
 			break;
 		// CT2.3 Social Packets
 		case 12:
