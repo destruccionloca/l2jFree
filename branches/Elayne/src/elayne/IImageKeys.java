@@ -40,6 +40,7 @@ public interface IImageKeys
 	public static final String EXIT = "icons/door_out.png";
 	public static final String FEMALE_ONLINE = "icons/female.png";
 	public static final String FOLDER = "icons/folder_user.png";
+	public static final String FORTRESS = "icons/fortress.png";
 	public static final String GENERAL = "icons/alt16.gif";
 	public static final String GROUP = "icons/lock.png";
 	public static final String HENNA_CON = "icons/conn.png";

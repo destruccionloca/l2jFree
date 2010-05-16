@@ -19,6 +19,7 @@ import elayne.datatables.ArmorTable;
 import elayne.datatables.CharTemplateTable;
 import elayne.datatables.ClanhallTable;
 import elayne.datatables.DetailedItemTable;
+import elayne.datatables.FortressTable;
 import elayne.datatables.GetBannedPlayers;
 import elayne.datatables.GetOnlinePlayers;
 import elayne.datatables.HennaTable;
@@ -92,47 +93,39 @@ public class Session implements IAdaptable
 				{
 					if (_isAllowedUser)
 					{
-						// TANIS SERVER CONNECTION
 						monitor.subTask("Conecting to Server database...");
 						ServerDB.getInstance();
 
-						// GET ITEMS
 						monitor.subTask("Getting Items...");
 						ItemTable.getInstance().load();
 
-						// GET ARMORS
 						monitor.subTask("Getting Armors...");
 						ArmorTable.getInstance().load();
 
-						// GET WEAPONS
 						monitor.subTask("Getting Weapons...");
 						WeaponTable.getInstance().load();
 
-						// GET GENERAL ITEM INFORMATION
 						monitor.subTask("Getting General Items Information...");
 						DetailedItemTable.getInstance().load();
 
-						// GET SKILLS
 						monitor.subTask("Getting Skills...");
 						SkillsTable.getInstance().load();
 
-						// GET CHARACTER TEMPLATES
 						monitor.subTask("Getting Character Templates...");
 						CharTemplateTable.getInstance().load();
 
-						// GET CLANHALLS
 						monitor.subTask("Getting clanhalls...");
 						ClanhallTable.getInstance().load();
 
-						// GET HENNA TEMPLATES
+						monitor.subTask("Getting fortresses...");
+						FortressTable.getInstance().load();
+
 						monitor.subTask("Getting Henna Templates...");
 						HennaTable.getInstance().restore();
 
-						// GET ONLINE PLAYERS
 						monitor.subTask("Getting Online Players...");
 						GetOnlinePlayers.getInstance().getOnlinePlayers(null, true);
 
-						// GET BANNED PLAYERS
 						monitor.subTask("Getting Banned Players...");
 						GetBannedPlayers.getInstance().getBannedPlayers(null, true);
 

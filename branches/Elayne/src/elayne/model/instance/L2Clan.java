@@ -12,7 +12,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import elayne.IImageKeys;
 import elayne.application.Activator;
 import elayne.datatables.ClanhallTable;
+import elayne.datatables.FortressTable;
 import elayne.templates.L2Clanhall;
+import elayne.templates.L2Fortress;
 import elayne.util.connector.ServerDB;
 
 /**
@@ -66,8 +68,10 @@ public class L2Clan extends L2GroupEntry
 	private L2ClanSkillsGroup _skillsGroup;
 
 	private L2ClanhallGroup _clanhall = null;
-	private boolean _hasClanhall = false;
 	private int _clanhallId = 0;
+
+	private L2FortressGroup _fortress = null;
+	private int _fortressId = 0;
 
 	/**
 	 * Constructor that defines a new clan.
@@ -106,6 +110,7 @@ public class L2Clan extends L2GroupEntry
 		// it.
 		if (getHasCastle())
 		{
+			System.out.println("L2Clan: Clan "+_clanId+" has a castle.");
 			restoreCastle();
 		}
 
@@ -125,11 +130,20 @@ public class L2Clan extends L2GroupEntry
 
 		if (_clanhallId > 0)
 		{
-			setHasClanhall(true);
+			System.out.println("L2Clan: Clan "+_clanId+" has a clanhall.");
 			L2Clanhall clanhall = ClanhallTable.getInstance().getClanhall(_clanhallId);
-
-			_clanhall = new L2ClanhallGroup(this, clanhall.getClanhallId(), clanhall.getName(), clanhall.getLease(), clanhall.getDesc(), clanhall.getLocation(), clanhall.getGrade());
+			setClanhall(new L2ClanhallGroup(this, clanhall.getClanhallId(), clanhall.getName(), clanhall.getLease(), clanhall.getDesc(), clanhall.getLocation(), clanhall.getGrade()));
 			addEntry(_clanhall);
+		}
+
+		_fortressId = FortressTable.getInstance().getClanFort(_clanId);
+
+		if (_fortressId > 0)
+		{
+			System.out.println("L2Clan: Clan "+_clanId+" has a fortress.");
+			L2Fortress fort = FortressTable.getInstance().getFortress(_fortressId);
+			setFortress(new L2FortressGroup(this, fort.getFortId(), fort.getName(), fort.getTime(), fort.getType(), fort.getState(), fort.getCastleId()));
+			addEntry(_fortress);
 		}
 	}
 
@@ -459,13 +473,13 @@ public class L2Clan extends L2GroupEntry
 		return _clanhall;
 	}
 
-	public void setHasClanhall(boolean hasClanhall)
+	public void setFortress(L2FortressGroup fortress)
 	{
-		_hasClanhall = hasClanhall;
+		_fortress = fortress;
 	}
 
-	public boolean getHasClanhall()
+	public L2FortressGroup getFortress()
 	{
-		return _hasClanhall;
+		return _fortress;
 	}
 }

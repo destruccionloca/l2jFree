@@ -57,6 +57,8 @@ public class ClanhallTable
 	public void load() throws IOException
 	{
 		int loaded = 0;
+		int free = 0;
+		int rented = 0;
 
 		Connection con = null;
 		try
@@ -74,6 +76,11 @@ public class ClanhallTable
 				String location = rset.getString("location");
 				int grade = rset.getInt("grade");
 
+				if (ownerId == 0)
+					free++;
+				else
+					rented++;
+
 				_clanhalls.put(id, new L2Clanhall(id, name, ownerId, lease, desc, location, grade));
 				loaded++;
 			}
@@ -82,7 +89,8 @@ public class ClanhallTable
 		}
 		catch (Exception e)
 		{
-			System.out.println("Clanhall table: Exception while getting clanhalls:" + e.toString());
+			System.out.println("Clanhall table: Exception while getting clanhalls: " + e.toString());
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -94,7 +102,7 @@ public class ClanhallTable
 			{
 				e.printStackTrace();
 			}
-			System.out.println("ClanhallTable: " + loaded + " clanhalls loaded correctly.");
+			System.out.println("ClanhallTable: " + loaded + " clanhalls loaded successfully, " + free + " free, " + rented + " rented.");
 		}
 	}
 }
