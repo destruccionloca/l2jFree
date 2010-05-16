@@ -41,7 +41,7 @@ public class SkillsTable
 	}
 
 	/**
-	 * Map containing all the information of the loaded armors.
+	 * Map containing all the information of the loaded skillss.
 	 */
 	private FastMap<Integer, L2Skill> skills = new FastMap<Integer, L2Skill>();
 

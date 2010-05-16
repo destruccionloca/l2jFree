@@ -163,7 +163,7 @@ public class PlayerInfoView extends ViewPart
 		banMenu.add(_banAllAccounts);
 
 		// UN BAN RELATED MENU
-		MenuManager unBanMenu = new MenuManager("&Un Ban Player", "un ban player");
+		MenuManager unBanMenu = new MenuManager("&Unban Player", "unban player");
 		unBanMenu.add(_unBanPlayer);
 		unBanMenu.add(_unBanAccount);
 		unBanMenu.add(_unBanAllAccounts);

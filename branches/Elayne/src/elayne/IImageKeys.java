@@ -21,6 +21,7 @@ public interface IImageKeys
 	public static final String CHANGE_NAME = "icons/textfield_rename.png";
 	public static final String CHANGE_PASSWORD = "icons/textfield_key.png";
 	public static final String CLAN_GROUP = "icons/etc_bloodpledge_point_i00.png";
+	public static final String CLANHALL = "icons/clanhall.png";
 	public static final String CLAN_MEMBERS_GROUP = "icons/action041.png";
 	public static final String CLEAR_KARMA = "icons/pill_go.png";
 	public static final String DARK_ELF_FEMALE = "icons/darkelf_female.gif";

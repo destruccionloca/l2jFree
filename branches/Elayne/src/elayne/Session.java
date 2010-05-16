@@ -17,6 +17,7 @@ import com.sun.jmx.snmp.daemon.CommunicationException;
 import elayne.application.Activator;
 import elayne.datatables.ArmorTable;
 import elayne.datatables.CharTemplateTable;
+import elayne.datatables.ClanhallTable;
 import elayne.datatables.DetailedItemTable;
 import elayne.datatables.GetBannedPlayers;
 import elayne.datatables.GetOnlinePlayers;
@@ -119,8 +120,12 @@ public class Session implements IAdaptable
 						monitor.subTask("Getting Character Templates...");
 						CharTemplateTable.getInstance().load();
 
+						// GET CLANHALLS
+						monitor.subTask("Getting clanhalls...");
+						ClanhallTable.getInstance().load();
+
 						// GET HENNA TEMPLATES
-						monitor.subTask("GEtting Henna Templates...");
+						monitor.subTask("Getting Henna Templates...");
 						HennaTable.getInstance().restore();
 
 						// GET ONLINE PLAYERS

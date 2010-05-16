@@ -11,6 +11,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
 import elayne.application.Activator;
+import elayne.datatables.ClanhallTable;
+import elayne.templates.L2Clanhall;
 import elayne.util.connector.ServerDB;
 
 /**
@@ -63,6 +65,10 @@ public class L2Clan extends L2GroupEntry
 	/** The group containing this clan's skills */
 	private L2ClanSkillsGroup _skillsGroup;
 
+	private L2ClanhallGroup _clanhall = null;
+	private boolean _hasClanhall = false;
+	private int _clanhallId = 0;
+
 	/**
 	 * Constructor that defines a new clan.
 	 * @param clan_id
@@ -113,6 +119,17 @@ public class L2Clan extends L2GroupEntry
 		{
 			member.setParent(_clanMembersGroup);
 			_clanMembersGroup.addEntry(member);
+		}
+
+		_clanhallId = ClanhallTable.getInstance().getClanCH(_clanId);
+
+		if (_clanhallId > 0)
+		{
+			setHasClanhall(true);
+			L2Clanhall clanhall = ClanhallTable.getInstance().getClanhall(_clanhallId);
+
+			_clanhall = new L2ClanhallGroup(this, clanhall.getClanhallId(), clanhall.getName(), clanhall.getLease(), clanhall.getDesc(), clanhall.getLocation(), clanhall.getGrade());
+			addEntry(_clanhall);
 		}
 	}
 
@@ -430,5 +447,25 @@ public class L2Clan extends L2GroupEntry
 	public void setParent(L2GroupEntry parent)
 	{
 		_parent = parent;
+	}
+
+	public void setClanhall(L2ClanhallGroup clanhall)
+	{
+		_clanhall = clanhall;
+	}
+
+	public L2ClanhallGroup getClanhall()
+	{
+		return _clanhall;
+	}
+
+	public void setHasClanhall(boolean hasClanhall)
+	{
+		_hasClanhall = hasClanhall;
+	}
+
+	public boolean getHasClanhall()
+	{
+		return _hasClanhall;
 	}
 }
