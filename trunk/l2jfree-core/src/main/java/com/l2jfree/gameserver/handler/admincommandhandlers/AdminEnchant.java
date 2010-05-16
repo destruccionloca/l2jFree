@@ -157,7 +157,7 @@ public class AdminEnchant implements IAdminCommandHandler
 		}
 		else
 		{
-			// for bows and double handed weapons
+			// for bows/crossbows and double handed weapons
 			parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
 			if (parmorInstance != null && parmorInstance.getLocationSlot() == Inventory.PAPERDOLL_LRHAND)
 				itemInstance = parmorInstance;
