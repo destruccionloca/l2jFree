@@ -2149,13 +2149,13 @@ public enum SystemMessageId
 	CHAT_DISABLED(346),
 
 	/**
-	 * ID: 347<BR>
+	 * ID: 347<br>
 	 * Console Message: Incorrect item count.
 	 */
 	INCORRECT_ITEM_COUNT(347),
 
 	/**
-	 * ID: 348<BR>
+	 * ID: 348<br>
 	 * Console Message: Incorrect item price.
 	 */
 	INCORRECT_ITEM_PRICE(348),
