@@ -695,7 +695,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 							{
 								int fee;
 								if (_log.isDebugEnabled())
-									_log.warn("Mp editing invoked");
+									_log.warn("Hp editing invoked");
 								val = st.nextToken();
 								NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 								html.setFile("data/html/chamberlain/functions-apply_confirmed.htm");
