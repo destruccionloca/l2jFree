@@ -142,9 +142,9 @@ RADAR={
 25484:[43160,220463,-3680],   #Zaken's Mate Tillion (lv50)
 25493:[83174,254428,-10873],  #Eva's Spirit Niniel (lv55)
 25496:[88300,258000,-10200],  #Fafurion's Envoy Pingolpin (lv52)
-#25509:[,,,],                 #Dark Shaman Varangka (53) - not spawned yet
-#25512:[,,,],                 #Gigantic Chaos Golem (52) - not spawned yet
-#29060:[,,,],                 #Captain Of The Ice Queen's Royal Guard (59) - not spawned yet
+25509:[74103,-101917,-967],   #Dark Shaman Varangka (53)
+25512:[96298,-111435,-3335],  #Gigantic Chaos Golem (52)
+#29060:[,,,],                 #Captain Of The Ice Queen's Royal Guard (59) - (Spawn by Quest)
 
 #lvl60 list
 25016:[76787,245775,-10376],  #The 3rd Underwater Guardian (lv60)
@@ -168,7 +168,7 @@ RADAR={
 25467:[186192,61472,-4160],   #Gorgolos (lv64)
 25470:[186896,56276,-4576],   #Utenus, the Last Titan (lv66)
 25478:[168288,28368,-3632],   #Hisilrome, Priest of Shilen (lv65)
-#29056:[,,,],                 #Ice Fairy Sirra (60) - not spawned yet
+#29056:[,,,],                 #Ice Fairy Sirra (60) - (Spawn by Quest)
 
 #lvl70 list
 25035:[180968,12035,-2720],   #Shilen's Messenger Cabrio (lv70)
@@ -203,31 +203,31 @@ RADAR={
 25453:[156704,-6096,-4185],   #Minas Anor (lv70)
 25523:[168641,-60417,-3888],  #Plague Golem (lvl73)
 25524:[144143,-5731,-4722],   #Flamestone Giant (lvl76)
-#25296:[,,,],                 #Icicle Emperor Bumpalump (lvl74) - quest spawn
-#25290:[,,,],                 #Daimon The White-Eyed (lvl78) - quest spawn - not spawned yet
+#25296:[,,,],                 #Icicle Emperor Bumpalump (lvl74) - (Spawn by Quest)
+#25290:[,,,],                 #Daimon The White-Eyed (lvl78) - (Spawn by Quest)
 
 #lvl80 list
-25283:[185060,-9622,-5104],
-25286:[185065,-12612,-5104],
-25299:[148154,-73782,-4364],
-25302:[145553,-81651,-5464],
-25305:[144997,-84948,-5712],
-25306:[142368,-82512,-6487],
-25309:[115537,-39046,-1940],
-25312:[109296,-36103,-648],
-25315:[105654,-42995,-1240],
-25316:[105452,-36775,-1050],
-25319:[185700,-106066,-6184],
-25514:[79635,-55612,-5980],
-25517:[112793,-76080,286],
-25527:[3776,-6768,-3276],
-25539:[-17475,253163,-3432],
-25623:[-192361,254528,1598],
-25624:[-174600,219711,4424],
-25625:[-181989,208968,4424],
-25626:[-252898,235845,5343],
-29062:[-16373,-53562,-10197],
-29065:[26528,-8244,-2007]
+25283:[185060,-9622,-5104],   #Lilith (80) - (Spawn by Seven Signs)
+25286:[185065,-12612,-5104],  #Anakim (80) - (Spawn by Seven Signs)
+25299:[148154,-73782,-4364],  #Ketra's Hero Hekaton (80)
+25302:[145553,-81651,-5464],  #Ketra's Commander Tayr (84)
+25305:[144997,-84948,-5712],  #Ketra's Chief Brakki (87)
+25306:[142368,-82512,-6487],  #Soul Of Fire Nastron (87) - (Spawn by Quest)
+25309:[115537,-39046,-1940],  #Varka's Hero Shadith (80)
+25312:[109296,-36103,-648],   #Varka's Commander Mos (84)
+25315:[105654,-42995,-1240],  #Varka's Chief Horus (87)
+25316:[105452,-36775,-1050],  #Soul Of Water Ashutar (87) - (Spawn by Quest)
+25319:[185700,-106066,-6184], #Ember (85)
+25514:[79635,-55612,-5980],   #Queen Shyeed (80)
+25517:[112793,-76080,286],    #Master Anays (87) - (Spawn by Quest)
+25527:[3776,-6768,-3276],     #Uruka (80)
+25539:[-17475,253163,-3432],  #Typhoon (84)
+25623:[-192361,254528,1598],  #Valdstone (80)
+25624:[-174600,219711,4424],  #Rok (83)
+25625:[-181989,208968,4424],  #Enira (85)
+25626:[-252898,235845,5343],  #Dius (85)
+29062:[-16373,-53562,-10197], #Andreas Van Halter (80) - (Spawn by Quest)
+29065:[26528,-8244,-2007]     #Sailren (80)
 }
 
 class Quest (JQuest) :
