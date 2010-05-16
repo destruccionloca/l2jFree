@@ -10,9 +10,9 @@ public class L2ClanEntry extends L2Character
 {
 	// ================================
 	// DATA FIELD
-	private String field;
-	private String name;
-	private L2Clan parent;
+	private String _field;
+	private String _name;
+	private L2Clan _parent;
 
 	// ================================
 	// CONSTRUCTOR
@@ -25,25 +25,25 @@ public class L2ClanEntry extends L2Character
 	public L2ClanEntry(L2Clan parent, String name, String field)
 	{
 		super();
-		this.parent = parent;
-		this.name = name;
-		this.field = field;
+		_parent = parent;
+		_name = name;
+		_field = field;
 	}
 
 	@Override
 	public String getName()
 	{
-		return name + ": " + field;
+		return _name + ": " + _field;
 	}
 
 	@Override
 	public L2Clan getParent()
 	{
-		return parent;
+		return _parent;
 	}
 
 	public void setField(String field)
 	{
-		this.field = field;
+		_field = field;
 	}
 }

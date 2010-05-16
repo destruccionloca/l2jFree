@@ -50,7 +50,9 @@ public class L2PcInstance extends L2GroupEntry
 			statement.close();
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		if (con != null)
 			con.close();
 		return str;
@@ -413,7 +415,9 @@ public class L2PcInstance extends L2GroupEntry
 			statement.close();
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		if (con != null)
 			con.close();
 		return str;
@@ -438,7 +442,9 @@ public class L2PcInstance extends L2GroupEntry
 			statement.close();
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		if (con != null)
 			con.close();
 		return str;
@@ -634,7 +640,9 @@ public class L2PcInstance extends L2GroupEntry
 			}
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		if (con != null)
 			try
 			{

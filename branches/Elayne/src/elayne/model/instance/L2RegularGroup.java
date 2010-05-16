@@ -18,7 +18,7 @@ import elayne.application.Activator;
  */
 public class L2RegularGroup extends L2GroupEntry
 {
-	private String picLoc;
+	private String _picLoc;
 
 	/**
 	 * Constructor: Defines a new {@link L2RegularGroup}.
@@ -40,15 +40,15 @@ public class L2RegularGroup extends L2GroupEntry
 	public L2RegularGroup(L2GroupEntry parent, String name, String picLoc)
 	{
 		super(parent, name);
-		this.picLoc = picLoc;
+		_picLoc = picLoc;
 	}
 
 	@Override
 	public ImageDescriptor getImageDescriptor()
 	{
-		if (picLoc != null)
+		if (_picLoc != null)
 		{
-			ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, picLoc);
+			ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, _picLoc);
 			if (image != null && image.getImageData() != null)
 				return image;
 		}

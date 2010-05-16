@@ -23,45 +23,45 @@ public class L2Clan extends L2GroupEntry
 	// ==================================================
 	// DATA FIELD
 	/** The Clan's Ally Crest Id */
-	private int ally_crest_id;
+	private int _allyCrestId;
 	/** The Clan's Ally Id */
-	private int ally_id;
+	private int _allyId;
 	/** The Clan's Ally Name */
-	private String ally_name;
+	private String _allyName;
 	/** The Clan's Ally Penalty EXPIRY Time */
-	private int ally_penalty_expiry_time;
+	private int _allyPenaltyExpiryTime;
 	/** The Clan's Ally Penalty Type */
-	private String ally_penalty_type;
+	private String _allyPenaltyType;
 	/** The Clan's auction bid */
-	private int auction_bid_at;
+	private int _auctionBidAt;
 	/** The castle of the clan if any */
-	private L2CastleGroup castle = null;
+	private L2CastleGroup _castle = null;
 	/** The Clan's Char penalty EXPIRY time */
-	private int char_penalty_expiry_time;
+	private long _charPenaltyExpiryTime;
 	/** The Clan ObjectId */
-	private int clan_id;
+	private int _clanId;
 	/** The Clan Level */
-	private int clan_level;
+	private int _clanLevel;
 	/** The Clan Reputation Score */
-	private int clan_reputation_score;
+	private int _clanReputationScore;
 	/** List of members that this clan has */
-	private FastList<L2CharacterBriefEntry> clanMembers = new FastList<L2CharacterBriefEntry>();
+	private FastList<L2CharacterBriefEntry> _clanMembers = new FastList<L2CharacterBriefEntry>();
 	/** The group containing the clan members of this clan */
-	private L2RegularGroup clanMembersGroup;
+	private L2RegularGroup _clanMembersGroup;
 	/** The Clan's Crest Id */
-	private int crest_id;
+	private int _crestId;
 	/** The Clan's Large Crest Id */
-	private int crest_large_id;
+	private int _crestLargeId;
 	/** The Clan's Dissolving EXPIRY time */
-	private int dissolving_expiry_time;
+	private int _dissolvingExpiryTime;
 	/**
 	 * Id of the castle that this clan owns. If = 0, the clan has no Castle.
 	 */
-	private int has_castle;
+	private int _hasCastle;
 	/** The Clan's Leader Id */
-	private int leader_id;
+	private int _leaderId;
 	/** The group containing this clan's skills */
-	private L2ClanSkillsGroup skillsGroup;
+	private L2ClanSkillsGroup _skillsGroup;
 
 	/**
 	 * Constructor that defines a new clan.
@@ -69,10 +69,10 @@ public class L2Clan extends L2GroupEntry
 	 * @param name
 	 * @param parent
 	 */
-	public L2Clan(int clan_id, String name, L2GroupEntry parent)
+	public L2Clan(int clanId, String name, L2GroupEntry parent)
 	{
 		super(parent, name);
-		this.clan_id = clan_id;
+		_clanId = clanId;
 		fillEntries();
 	}
 
@@ -107,61 +107,61 @@ public class L2Clan extends L2GroupEntry
 
 		// Add a group of players that will contain the
 		// Clan Members...
-		clanMembersGroup = new L2RegularGroup(this, "Clan Members");
-		addEntry(clanMembersGroup);
+		_clanMembersGroup = new L2RegularGroup(this, "Clan Members");
+		addEntry(_clanMembersGroup);
 		for (L2CharacterBriefEntry member : getClanMembers())
 		{
-			member.setParent(clanMembersGroup);
-			clanMembersGroup.addEntry(member);
+			member.setParent(_clanMembersGroup);
+			_clanMembersGroup.addEntry(member);
 		}
 	}
 
 	/** The Clan's Ally Crest Id */
 	public int getAllyCrestId()
 	{
-		return ally_crest_id;
+		return _allyCrestId;
 	}
 
 	/** The Clan's Ally Id */
 	public int getAllyId()
 	{
-		return ally_id;
+		return _allyId;
 	}
 
 	/** The Clan's Ally Name */
 	public String getAllyName()
 	{
-		return ally_name;
+		return _allyName;
 	}
 
 	/** The Clan's Ally Penalty EXPIRY Time */
 	public int getAllyPenaltyExpiryTime()
 	{
-		return ally_penalty_expiry_time;
+		return _allyPenaltyExpiryTime;
 	}
 
 	/** The Clan's Ally Penalty Type */
 	public String getAllyPenaltyType()
 	{
-		return ally_penalty_type;
+		return _allyPenaltyType;
 	}
 
 	/** The Clan's auction bid */
 	public int getAuctionBidAt()
 	{
-		return auction_bid_at;
+		return _auctionBidAt;
 	}
 
 	/** Returns the castle of this can. May be null. */
 	public L2CastleGroup getCastle()
 	{
-		return castle;
+		return _castle;
 	}
 
 	/** The Clan's Char penalty EXPIRY time */
-	public int getCharPenaltyExpiryTime()
+	public long getCharPenaltyExpiryTime()
 	{
-		return char_penalty_expiry_time;
+		return _charPenaltyExpiryTime;
 	}
 
 	/**
@@ -169,8 +169,8 @@ public class L2Clan extends L2GroupEntry
 	 */
 	public FastList<L2CharacterBriefEntry> getClanMembers()
 	{
-		if (!clanMembers.isEmpty())
-			return clanMembers;
+		if (!_clanMembers.isEmpty())
+			return _clanMembers;
 		FastList<L2CharacterBriefEntry> members = new FastList<L2CharacterBriefEntry>();
 
 		try
@@ -208,7 +208,7 @@ public class L2Clan extends L2GroupEntry
 				con.close();
 			// SAVE THE MEMBERS TO NOT HAVE TO CONNECT TO
 			// DATABASE AGAIN.
-			clanMembers = members;
+			_clanMembers = members;
 		}
 		catch (Exception e)
 		{
@@ -219,31 +219,31 @@ public class L2Clan extends L2GroupEntry
 
 	public L2RegularGroup getClanMembersGroup()
 	{
-		return clanMembersGroup;
+		return _clanMembersGroup;
 	}
 
 	/** The Clan Reputation Score */
 	public int getClanReputationScore()
 	{
-		return clan_reputation_score;
+		return _clanReputationScore;
 	}
 
 	/** The Clan's Crest Id */
 	public int getCrestId()
 	{
-		return crest_id;
+		return _crestId;
 	}
 
 	/** The Clan's Large Crest Id */
 	public int getCrestLargeId()
 	{
-		return crest_large_id;
+		return _crestLargeId;
 	}
 
 	/** The Clan's Dissolving EXPIRY time */
 	public int getDissolvingExpiryTime()
 	{
-		return dissolving_expiry_time;
+		return _dissolvingExpiryTime;
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class L2Clan extends L2GroupEntry
 	 */
 	public boolean getHasCastle()
 	{
-		return (has_castle != 0);
+		return (_hasCastle != 0);
 	}
 
 	/**
@@ -261,7 +261,7 @@ public class L2Clan extends L2GroupEntry
 	 */
 	public int getId()
 	{
-		return clan_id;
+		return _clanId;
 	}
 
 	@Override
@@ -273,13 +273,13 @@ public class L2Clan extends L2GroupEntry
 	/** The Clan's Leader Id */
 	public int getLeaderId()
 	{
-		return leader_id;
+		return _leaderId;
 	}
 
 	/** The Clan Level */
 	public int getLevel()
 	{
-		return clan_level;
+		return _clanLevel;
 	}
 
 	@Override
@@ -300,46 +300,33 @@ public class L2Clan extends L2GroupEntry
 		{
 			con = ServerDB.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, clan_id);
+			statement.setInt(1, _clanId);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				// Get the Clan Name
 				setName(rset.getString("clan_name"));
-				// Get the Clan Level
-				clan_level = rset.getInt("clan_level");
-				// Get the Reputation Score.
-				clan_reputation_score = rset.getInt("reputation_score");
-				// Does the clan have a Castle?
-				has_castle = rset.getInt("hasCastle");
-				// Get the Ally Id
-				ally_id = rset.getInt("ally_id");
-				// Get the Ally Name
-				ally_name = rset.getString("ally_name");
-				// Get the Leader Id
-				leader_id = rset.getInt("leader_id");
-				// Get the Crest id
-				crest_id = rset.getInt("crest_id");
-				// Get the Crest Large Id
-				crest_large_id = rset.getInt("crest_large_id");
-				// Get the ally crest id
-				ally_crest_id = rset.getInt("ally_crestId");
-				// Get the auction bid
-				auction_bid_at = rset.getInt("auction_bid_at");
-				// Get the Ally EXPIRY time
-				ally_penalty_expiry_time = rset.getInt("ally_penalty_expiry_time");
-				// Get the Ally penalty type
-				ally_penalty_type = rset.getString("ally_penalty_type");
-				// Get the Penalty EXPIRY Time from a character (kicking and such...)
-				char_penalty_expiry_time = rset.getInt("char_penalty_expiry_time");
-				// Get the Dissolving EXPIRY time
-				dissolving_expiry_time = rset.getInt("dissolving_expiry_time");
+				_clanLevel = rset.getInt("clan_level");
+				_clanReputationScore = rset.getInt("reputation_score");
+				_hasCastle = rset.getInt("hasCastle");
+				_allyId = rset.getInt("ally_id");
+				_allyName = rset.getString("ally_name");
+				_leaderId = rset.getInt("leader_id");
+				_crestId = rset.getInt("crest_id");
+				_crestLargeId = rset.getInt("crest_large_id");
+				_allyCrestId = rset.getInt("ally_crest_id");
+				_auctionBidAt = rset.getInt("auction_bid_at");
+				_allyPenaltyExpiryTime = rset.getInt("ally_penalty_expiry_time");
+				_allyPenaltyType = rset.getString("ally_penalty_type");
+				_charPenaltyExpiryTime = rset.getLong("char_penalty_expiry_time");
+				_dissolvingExpiryTime = rset.getInt("dissolving_expiry_time");
 			}
 			rset.close();
 			statement.close();
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		finally
 		{
 			if (con != null)
@@ -360,30 +347,30 @@ public class L2Clan extends L2GroupEntry
 	 */
 	public void restoreCastle()
 	{
-		String sql = "SELECT id, name, taxPercent, treasury,  siegeDate, siegeDayOfWeek, siegeHourOfDay FROM `castle` WHERE `id` =?";
+		String sql = "SELECT id, name, taxPercent, treasury, siegeDate FROM `castle` WHERE `id` =?";
 		java.sql.Connection con = null;
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, has_castle);
+			statement.setInt(1, _hasCastle);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
-				String castle_name = rset.getString("name");
+				String castleName = rset.getString("name");
 				int taxPercent = rset.getInt("taxPercent");
 				int treasury = rset.getInt("treasury");
 				long siegeDate = rset.getLong("siegeDate");
-				int siegeDayOfWeek = rset.getInt("siegeDayOfWeek");
-				int siegeHourOfDay = rset.getInt("siegeHourOfDay");
-				castle = new L2CastleGroup(this, castle_name, taxPercent, treasury, siegeDate, siegeDayOfWeek, siegeHourOfDay);
-				this.addEntry(castle);
+				_castle = new L2CastleGroup(this, castleName, taxPercent, treasury, siegeDate);
+				addEntry(_castle);
 			}
 			rset.close();
 			statement.close();
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		if (con != null)
 			try
 			{
@@ -400,28 +387,30 @@ public class L2Clan extends L2GroupEntry
 	 */
 	public void restoreSkills()
 	{
-		skillsGroup = new L2ClanSkillsGroup(this, "Clan Skills");
-		this.addEntry(skillsGroup);
+		_skillsGroup = new L2ClanSkillsGroup(this, "Clan Skills");
+		addEntry(_skillsGroup);
 		String sql = "SELECT skill_id, skill_level, skill_name FROM `clan_skills` WHERE `clan_id` =?";
 		java.sql.Connection con = null;
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, clan_id);
+			statement.setInt(1, _clanId);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
 			{
 				int skillId = rset.getInt("skill_id");
 				int skillLevel = rset.getInt("skill_level");
 				String skillName = rset.getString("skill_name");
-				skillsGroup.addEntry(new L2ClanSkillEntry(skillId, skillLevel, skillName, skillsGroup));
+				_skillsGroup.addEntry(new L2ClanSkillEntry(skillId, skillLevel, skillName, _skillsGroup));
 			}
 			rset.close();
 			statement.close();
 		}
 		catch (Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		if (con != null)
 			try
 			{
@@ -431,9 +420,9 @@ public class L2Clan extends L2GroupEntry
 			{
 				e.printStackTrace();
 			}
-		if (skillsGroup.getEntries().length == 0)
+		if (_skillsGroup.getEntries().length == 0)
 		{
-			removeEntry(skillsGroup);
+			removeEntry(_skillsGroup);
 			System.out.println("The Clan " + getName() + " has no Clan Skills.");
 		}
 	}

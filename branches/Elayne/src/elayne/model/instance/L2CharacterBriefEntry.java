@@ -22,15 +22,15 @@ public class L2CharacterBriefEntry extends L2Character
 {
 	// ===================================
 	// DATA FIELD
-	private int accesslevel;
-	private String account;
-	private int clanId;
-	private boolean isOnline = false;
-	private int level;
-	private String name;
-	private int objectId;
-	private L2GroupEntry parent;
-	private int sex;
+	private int _accesslevel;
+	private String _account;
+	private int _clanId;
+	private boolean _isOnline = false;
+	private int _level;
+	private String _name;
+	private int _objectId;
+	private L2GroupEntry _parent;
+	private int _sex;
 
 	// ===================================
 	// CONSTRUCTOR
@@ -49,15 +49,15 @@ public class L2CharacterBriefEntry extends L2Character
 	 */
 	public L2CharacterBriefEntry(int objectId, int level, String name, String account, int online, int accesslevel, int sex, int clanId)
 	{
-		this.objectId = objectId;
-		this.level = level;
-		this.name = name;
-		this.account = account;
+		_objectId = objectId;
+		_level = level;
+		_name = name;
+		_account = account;
 		if (online == 1)
-			isOnline = true;
-		this.accesslevel = accesslevel;
-		this.sex = sex;
-		this.clanId = clanId;
+			_isOnline = true;
+		_accesslevel = accesslevel;
+		_sex = sex;
+		_clanId = clanId;
 	}
 
 	// ===================================
@@ -65,47 +65,47 @@ public class L2CharacterBriefEntry extends L2Character
 	/** Returns the access level of this playerEntry */
 	public int getAccessLevel()
 	{
-		return accesslevel;
+		return _accesslevel;
 	}
 
 	/** Returns the account of this playerEntry */
 	public String getAccount()
 	{
-		return account;
+		return _account;
 	}
 
 	public int getClanId()
 	{
-		return clanId;
+		return _clanId;
 	}
 
 	/** Returns the level of this playerEntry */
 	public int getLevel()
 	{
-		return level;
+		return _level;
 	}
 
 	@Override
 	public String getName()
 	{
-		return name;
+		return _name;
 	}
 
 	public int getObjectId()
 	{
-		return objectId;
+		return _objectId;
 	}
 
 	@Override
 	public L2GroupEntry getParent()
 	{
-		return parent;
+		return _parent;
 	}
 
 	/** Returns the sex of this playerEntry */
 	public int getSex()
 	{
-		return sex;
+		return _sex;
 	}
 
 	/**
@@ -113,12 +113,12 @@ public class L2CharacterBriefEntry extends L2Character
 	 */
 	public boolean isOnline()
 	{
-		return isOnline;
+		return _isOnline;
 	}
 
 	/** Defines a new parent for this playerEntry */
 	public void setParent(L2GroupEntry parent)
 	{
-		this.parent = parent;
+		_parent = parent;
 	}
 }

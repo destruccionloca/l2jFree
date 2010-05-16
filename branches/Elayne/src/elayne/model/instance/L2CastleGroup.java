@@ -24,12 +24,12 @@ public class L2CastleGroup extends L2GroupEntry
 
 	// ====================================
 	// DATA FIELD
-	private Calendar siegeDate;
-	private L2ClanEntry siegeDateEntry;
-	private int taxPercent;
-	private L2ClanEntry taxRateEntry;
-	private int treasury;
-	private L2ClanEntry treasuryEntry;
+	private Calendar _siegeDate;
+	private L2ClanEntry _siegeDateEntry;
+	private int _taxPercent;
+	private L2ClanEntry _taxRateEntry;
+	private int _treasury;
+	private L2ClanEntry _treasuryEntry;
 
 	/**
 	 * Constructor:<br>
@@ -45,13 +45,13 @@ public class L2CastleGroup extends L2GroupEntry
 	 * @param siegeDayOfWeek --> Day of the siege in a human readable label.
 	 * @param siegeHourOfDay --> Hour of the siege in a human readable label.
 	 */
-	public L2CastleGroup(L2Clan parent, String name, int taxPercent, int treasury, long siegeDate, int siegeDayOfWeek, int siegeHourOfDay)
+	public L2CastleGroup(L2Clan parent, String name, int taxPercent, int treasury, long siegeDate)
 	{
 		super(parent, name);
-		this.taxPercent = taxPercent;
-		this.treasury = treasury;
-		this.siegeDate = Calendar.getInstance();
-		this.siegeDate.setTimeInMillis(siegeDate);
+		_taxPercent = taxPercent;
+		_treasury = treasury;
+		_siegeDate = Calendar.getInstance();
+		_siegeDate.setTimeInMillis(siegeDate);
 
 		fillEntries();
 	}
@@ -65,18 +65,18 @@ public class L2CastleGroup extends L2GroupEntry
 	{
 		if (labelId.equals(TAX_RATE_LABEL))
 		{
-			taxPercent = Integer.valueOf(newValue);
-			taxRateEntry.setField(newValue);
+			_taxPercent = Integer.valueOf(newValue);
+			_taxRateEntry.setField(newValue);
 		}
 		else if (labelId.equals(TREASURY_LABEL))
 		{
-			treasury = Integer.valueOf(newValue);
-			treasuryEntry.setField(newValue);
+			_treasury = Integer.valueOf(newValue);
+			_treasuryEntry.setField(newValue);
 		}
 		else if (labelId.equals(SIEGE_DATE))
 		{
-			siegeDate.setTimeInMillis(Integer.valueOf(newValue));
-			siegeDateEntry.setField(String.valueOf(siegeDate.getTime()));
+			_siegeDate.setTimeInMillis(Integer.valueOf(newValue));
+			_siegeDateEntry.setField(String.valueOf(_siegeDate.getTime()));
 		}
 	}
 
@@ -86,12 +86,12 @@ public class L2CastleGroup extends L2GroupEntry
 	 */
 	private void fillEntries()
 	{
-		taxRateEntry = new L2ClanEntry(getParent(), TAX_RATE_LABEL, String.valueOf(taxPercent));
-		addEntry(taxRateEntry);
-		treasuryEntry = new L2ClanEntry(getParent(), TREASURY_LABEL, String.valueOf(treasury) + " Adenas");
-		addEntry(treasuryEntry);
-		siegeDateEntry = new L2ClanEntry(getParent(), SIEGE_DATE, String.valueOf(siegeDate.getTime()));
-		addEntry(siegeDateEntry);
+		_taxRateEntry = new L2ClanEntry(getParent(), TAX_RATE_LABEL, String.valueOf(_taxPercent));
+		addEntry(_taxRateEntry);
+		_treasuryEntry = new L2ClanEntry(getParent(), TREASURY_LABEL, String.valueOf(_treasury) + " Adenas");
+		addEntry(_treasuryEntry);
+		_siegeDateEntry = new L2ClanEntry(getParent(), SIEGE_DATE, String.valueOf(_siegeDate.getTime()));
+		addEntry(_siegeDateEntry);
 	}
 
 	@Override

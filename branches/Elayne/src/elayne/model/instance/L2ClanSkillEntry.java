@@ -4,49 +4,49 @@ import elayne.model.L2Character;
 
 public class L2ClanSkillEntry extends L2Character
 {
-	private int class_index;
-	private final L2ClanSkillsGroup parentSkillsGroup;
-	private int skillId;
-	private int skillLevel;
-	private String skillName;
+	private int _classIndex;
+	private final L2ClanSkillsGroup _parentSkillsGroup;
+	private int _skillId;
+	private int _skillLevel;
+	private String _skillName;
 
 	public L2ClanSkillEntry(int skillId, int skillLevel, String skillName, L2ClanSkillsGroup parentSkillsGroup)
 	{
-		this.skillId = skillId;
-		this.skillLevel = skillLevel;
-		this.skillName = skillName;
-		this.parentSkillsGroup = parentSkillsGroup;
+		_skillId = skillId;
+		_skillLevel = skillLevel;
+		_skillName = skillName;
+		_parentSkillsGroup = parentSkillsGroup;
 	}
 
 	public int getClassIndex()
 	{
-		return class_index;
+		return _classIndex;
 	}
 
 	@Override
 	public String getName()
 	{
-		return skillName;
+		return _skillName;
 	}
 
 	@Override
 	public L2ClanSkillsGroup getParent()
 	{
-		return parentSkillsGroup;
+		return _parentSkillsGroup;
 	}
 
 	public int getSkillId()
 	{
-		return skillId;
+		return _skillId;
 	}
 
 	public int getSkillLevel()
 	{
-		return skillLevel;
+		return _skillLevel;
 	}
 
 	public String getSkillName()
 	{
-		return skillName;
+		return _skillName;
 	}
 }
