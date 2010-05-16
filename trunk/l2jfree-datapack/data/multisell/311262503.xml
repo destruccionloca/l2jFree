@@ -107,4 +107,12 @@
     <ingredient id="5575" count="8577000"/>
     <production id="13884" count="1"/>
   </item>
+  <!-- Common Tallum Blade*Dark Legion's Edge -->
+  <item id="14">
+    <ingredient id="11957" count="1"/>
+    <ingredient id="11964" count="1"/>
+    <ingredient id="5126" count="1"/>
+    <ingredient id="5575" count="3600000"/>
+    <production id="12003" count="1"/>
+  </item>
 </list>
