@@ -29,11 +29,13 @@ public class Yeti2 extends L2Transformation
 	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
+		addSkill(player, 5437, 1); // Dissonance
 	}
 	
 	@Override
 	public void removeSkills(L2PcInstance player)
 	{
+		removeSkill(player, 5437); // Dissonance
 	}
 	
 	public static void main(String[] args)
