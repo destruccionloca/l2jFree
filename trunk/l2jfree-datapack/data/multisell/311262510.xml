@@ -703,7 +703,7 @@
     <ingredient id="5577" count="1"/>
     <ingredient id="2133" count="147"/>
   </item>
-  <!-- Dasparion's Staff - Hail  - Conversion -->
+  <!-- Dasparion's Staff - Hail - Conversion -->
   <item id="101">
     <production id="11019" count="1"/>
     <ingredient id="11017" count="1"/>
@@ -731,7 +731,7 @@
     <ingredient id="5578" count="1"/>
     <ingredient id="2133" count="157"/>
   </item>
-  <!-- Meteor Shower - Hearth - Rsk. Haste -->
+  <!-- Meteor Shower - Earth - Rsk. Haste -->
   <item id="105">
     <production id="11032" count="1"/>
     <ingredient id="11029" count="1"/>
