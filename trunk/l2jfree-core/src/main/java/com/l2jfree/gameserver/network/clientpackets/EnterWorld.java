@@ -37,7 +37,6 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -252,17 +251,7 @@ public class EnterWorld extends L2GameClientPacket
 
 		L2Clan clan = activeChar.getClan();
 		if (clan != null)
-		{
-			PledgeSkillList response = new PledgeSkillList(clan);
-			L2Skill[] skills = clan.getAllSkills();
-			for (L2Skill s : skills)
-			{
-				if (s == null)
-					continue;
-				response.addSkill(s.getId(), s.getLevel());
-			}
-			sendPacket(response);
-		}
+			sendPacket(new PledgeSkillList(clan));
 
 		sendPacket(new ExStorageMaxCount(activeChar));
 		sendPacket(new QuestList(activeChar));

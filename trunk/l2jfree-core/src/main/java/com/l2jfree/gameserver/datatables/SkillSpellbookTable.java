@@ -29,9 +29,9 @@ import com.l2jfree.gameserver.model.L2Skill;
 
 public class SkillSpellbookTable
 {
-	private final static Log					_log	= LogFactory.getLog(SkillTreeTable.class);
+	private final static Log _log = LogFactory.getLog(SkillTreeTable.class);
 
-	private static FastMap<Integer, Integer>	_skillSpellbooks;
+	private final FastMap<Integer, Integer>	_skillSpellbooks;
 
 	public static SkillSpellbookTable getInstance()
 	{
@@ -40,7 +40,7 @@ public class SkillSpellbookTable
 
 	private SkillSpellbookTable()
 	{
-		_skillSpellbooks = new FastMap<Integer, Integer>();
+		_skillSpellbooks = new FastMap<Integer, Integer>().setShared(true);
 
 		if (!Config.ALT_SP_BOOK_NEEDED)
 			return;

@@ -14,55 +14,23 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.Vector;
-
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 
-
-/**
- * Format: (ch) d [dd]
- *
- * @author  -Wooden-
- */
 public class PledgeSkillList extends L2GameServerPacket
 {
-	private static final String _S__FE_39_PLEDGESKILLLIST = "[S] FE:39 PledgeSkillList";
+	private static final String _S__PLEDGESKILLLIST = "[S] FE:3A PledgeSkillList chd0[dd]";
 	private final L2Clan _clan;
-	private final Vector<Skill> _skill;
-    
-    // Really strange place to put this code ??
-    class Skill
-    {
-        public int id;
-        public int level;
-        Skill ( int pId, int pLevel)
-        {
-            id = pId;
-            level = pLevel;
-        }
-        
-    }
     
 	public PledgeSkillList(L2Clan clan)
 	{
 		_clan = clan;
-        _skill = new Vector<Skill>();
 	}
-
-    public void addSkill (int id, int level)
-    {
-        _skill.add(new Skill(id,level));
-    }
     
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl()
 	{
 		L2Skill[] skills = _clan.getAllSkills();
-
 		writeC(0xfe);
 		writeH(0x3a);
 		writeD(skills.length);
@@ -73,13 +41,10 @@ public class PledgeSkillList extends L2GameServerPacket
 			writeD(sk.getLevel());
 		}
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{
-		return _S__FE_39_PLEDGESKILLLIST;
+		return _S__PLEDGESKILLLIST;
 	}
 }

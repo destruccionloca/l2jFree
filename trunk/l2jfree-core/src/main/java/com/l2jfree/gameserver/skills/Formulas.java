@@ -1406,7 +1406,7 @@ public final class Formulas
 		double damage = attacker.getPAtk(target);
 		damage += calcValakasAttribute(attacker, target, skill);
 		
-		if (skill != null)
+		if (skill != null && skill.getPower() > 0)
 		{
 			double skillPower = skill.getPower(attacker);
 			if (attacker instanceof L2Playable && target instanceof L2Playable)
