@@ -68,7 +68,7 @@ class Quest (JQuest) :
           htmltext = None
        else :
           htmltext = "Incorrect item count"
-     return htmltext    
+     return htmltext
 
  def onTalk (self,npc,player):
      htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
@@ -131,6 +131,7 @@ QUEST.addStartNpc(HILDA)
 
 QUEST.addTalkId(VULCAN)
 QUEST.addTalkId(ROONEY)
+QUEST.addTalkId(HILDA)
 
 for mob in DROPLIST.keys() :
   QUEST.addKillId(mob)
