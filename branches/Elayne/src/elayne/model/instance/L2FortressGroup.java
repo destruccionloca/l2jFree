@@ -5,6 +5,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
 import elayne.application.Activator;
+import elayne.datatables.CastleTable;
+import elayne.templates.L2Castle;
 
 /**
  * @author Psycho(killer1888) / L2jFree
@@ -32,7 +34,7 @@ public class L2FortressGroup extends L2GroupEntry
 	private L2ClanEntry _typeEntry;
 	private String _state;
 	private L2ClanEntry _stateEntry;
-	private int _castle;
+	private String _castle;
 	private L2ClanEntry _castleEntry;
 
 	public L2FortressGroup(L2Clan parent, int id, String name, String time, int type, String state, int castle)
@@ -43,9 +45,19 @@ public class L2FortressGroup extends L2GroupEntry
 		_time = time;
 		_type = type;
 		_state = state;
-		_castle = castle;
+		
+		setCastle(castle);
 
 		fillEntries();
+	}
+
+	private void setCastle(int castleId)
+	{
+		L2Castle castle = CastleTable.getInstance().getCastle(castleId);
+		if (castle != null)
+			_castle = castle.getName();
+		else
+			_castle = "Unknown";
 	}
 
 	/**
@@ -82,7 +94,7 @@ public class L2FortressGroup extends L2GroupEntry
 		}
 		else if (labelId.equals(CASTLE_LABEL))
 		{
-			_castle = Integer.valueOf(newValue);
+			_castle = newValue;
 			_castleEntry.setField(newValue);
 		}
 	}

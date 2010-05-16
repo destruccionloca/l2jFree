@@ -16,6 +16,7 @@ import com.sun.jmx.snmp.daemon.CommunicationException;
 
 import elayne.application.Activator;
 import elayne.datatables.ArmorTable;
+import elayne.datatables.CastleTable;
 import elayne.datatables.CharTemplateTable;
 import elayne.datatables.ClanhallTable;
 import elayne.datatables.DetailedItemTable;
@@ -113,6 +114,9 @@ public class Session implements IAdaptable
 
 						monitor.subTask("Getting Character Templates...");
 						CharTemplateTable.getInstance().load();
+
+						monitor.subTask("Getting castles...");
+						CastleTable.getInstance().load();
 
 						monitor.subTask("Getting clanhalls...");
 						ClanhallTable.getInstance().load();

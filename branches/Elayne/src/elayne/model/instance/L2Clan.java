@@ -11,8 +11,10 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
 import elayne.application.Activator;
+import elayne.datatables.CastleTable;
 import elayne.datatables.ClanhallTable;
 import elayne.datatables.FortressTable;
+import elayne.templates.L2Castle;
 import elayne.templates.L2Clanhall;
 import elayne.templates.L2Fortress;
 import elayne.util.connector.ServerDB;
@@ -38,8 +40,6 @@ public class L2Clan extends L2GroupEntry
 	private String _allyPenaltyType;
 	/** The Clan's auction bid */
 	private int _auctionBidAt;
-	/** The castle of the clan if any */
-	private L2CastleGroup _castle = null;
 	/** The Clan's Char penalty EXPIRY time */
 	private long _charPenaltyExpiryTime;
 	/** The Clan ObjectId */
@@ -58,10 +58,6 @@ public class L2Clan extends L2GroupEntry
 	private int _crestLargeId;
 	/** The Clan's Dissolving EXPIRY time */
 	private int _dissolvingExpiryTime;
-	/**
-	 * Id of the castle that this clan owns. If = 0, the clan has no Castle.
-	 */
-	private int _hasCastle;
 	/** The Clan's Leader Id */
 	private int _leaderId;
 	/** The group containing this clan's skills */
@@ -72,6 +68,10 @@ public class L2Clan extends L2GroupEntry
 
 	private L2FortressGroup _fortress = null;
 	private int _fortressId = 0;
+
+	private boolean _hasCastle = false;
+	private L2CastleGroup _castle = null;
+	private int _castleId = 0;
 
 	/**
 	 * Constructor that defines a new clan.
@@ -106,14 +106,6 @@ public class L2Clan extends L2GroupEntry
 		// Add The Number Of Members.
 		addEntry(new L2ClanEntry(this, "Total Members", String.valueOf(getClanMembers().size())));
 
-		// If this clan has a castle, restore it and show
-		// it.
-		if (getHasCastle())
-		{
-			System.out.println("L2Clan: Clan "+_clanId+" has a castle.");
-			restoreCastle();
-		}
-
 		restoreSkills();
 
 		// Add a group of players that will contain the
@@ -126,8 +118,15 @@ public class L2Clan extends L2GroupEntry
 			_clanMembersGroup.addEntry(member);
 		}
 
-		_clanhallId = ClanhallTable.getInstance().getClanCH(_clanId);
+		if (getHasCastle())
+		{
+			System.out.println("L2Clan: Clan "+_clanId+" has a castle.");
+			L2Castle castle = CastleTable.getInstance().getCastle(_castleId);
+			setCastle(new L2CastleGroup(this, castle.getName(), castle.getTax(), castle.getTreasury(), castle.getSiegeDate()));
+			addEntry(_castle);
+		}
 
+		_clanhallId = ClanhallTable.getInstance().getClanCH(_clanId);
 		if (_clanhallId > 0)
 		{
 			System.out.println("L2Clan: Clan "+_clanId+" has a clanhall.");
@@ -137,7 +136,6 @@ public class L2Clan extends L2GroupEntry
 		}
 
 		_fortressId = FortressTable.getInstance().getClanFort(_clanId);
-
 		if (_fortressId > 0)
 		{
 			System.out.println("L2Clan: Clan "+_clanId+" has a fortress.");
@@ -145,6 +143,11 @@ public class L2Clan extends L2GroupEntry
 			setFortress(new L2FortressGroup(this, fort.getFortId(), fort.getName(), fort.getTime(), fort.getType(), fort.getState(), fort.getCastleId()));
 			addEntry(_fortress);
 		}
+	}
+
+	private void setCastle(L2CastleGroup castle)
+	{
+		_castle = castle;
 	}
 
 	/** The Clan's Ally Crest Id */
@@ -283,7 +286,7 @@ public class L2Clan extends L2GroupEntry
 	 */
 	public boolean getHasCastle()
 	{
-		return (_hasCastle != 0);
+		return _hasCastle;
 	}
 
 	/**
@@ -338,7 +341,7 @@ public class L2Clan extends L2GroupEntry
 				setName(rset.getString("clan_name"));
 				_clanLevel = rset.getInt("clan_level");
 				_clanReputationScore = rset.getInt("reputation_score");
-				_hasCastle = rset.getInt("hasCastle");
+				_castleId = rset.getInt("hasCastle");
 				_allyId = rset.getInt("ally_id");
 				_allyName = rset.getString("ally_name");
 				_leaderId = rset.getInt("leader_id");
@@ -350,6 +353,14 @@ public class L2Clan extends L2GroupEntry
 				_allyPenaltyType = rset.getString("ally_penalty_type");
 				_charPenaltyExpiryTime = rset.getLong("char_penalty_expiry_time");
 				_dissolvingExpiryTime = rset.getInt("dissolving_expiry_time");
+
+				if (_castleId > 0)
+				{
+					_hasCastle = true;
+					L2Castle castle = CastleTable.getInstance().getCastle(_castleId);
+					if (castle != null)
+						castle.setOwner(_clanId);
+				}
 			}
 			rset.close();
 			statement.close();
@@ -370,47 +381,6 @@ public class L2Clan extends L2GroupEntry
 					e.printStackTrace();
 				}
 		}
-	}
-
-	/**
-	 * Restores a Castle for this clan and adds the proper children to this
-	 * class.
-	 */
-	public void restoreCastle()
-	{
-		String sql = "SELECT id, name, taxPercent, treasury, siegeDate FROM `castle` WHERE `id` =?";
-		java.sql.Connection con = null;
-		try
-		{
-			con = ServerDB.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, _hasCastle);
-			ResultSet rset = statement.executeQuery();
-			while (rset.next())
-			{
-				String castleName = rset.getString("name");
-				int taxPercent = rset.getInt("taxPercent");
-				int treasury = rset.getInt("treasury");
-				long siegeDate = rset.getLong("siegeDate");
-				_castle = new L2CastleGroup(this, castleName, taxPercent, treasury, siegeDate);
-				addEntry(_castle);
-			}
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		if (con != null)
-			try
-			{
-				con.close();
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
 	}
 
 	/**
