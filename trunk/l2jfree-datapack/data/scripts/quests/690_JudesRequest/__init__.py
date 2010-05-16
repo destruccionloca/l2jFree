@@ -42,7 +42,7 @@ class Quest (JQuest) :
 				htmltext = "32356-01.htm"
 				return htmltext
 			elif id == State.STARTED and st.getQuestItemsCount(EVIL_WEAPON) >= 5:
-				htmltext = "32356-03.htm"	   
+				htmltext = "32356-03.htm"
 				return htmltext
 		else :
 			htmltext = "32356-01a.htm"
