@@ -191,7 +191,7 @@ public class L2AdapterFactory implements IAdapterFactory
 			{
 				if (((L2PcInstance) group).getLevel() > -1)
 				{
-					return group.getName() + " - Account: " + ((L2PcInstance) group).getAccount() + " - Level: " + ((L2PcInstance) group).getLevel();
+					return group.getName() + " - Account: " + ((L2PcInstance) group).getAccount() + " - Level: " + ((L2PcInstance) group).getLevel() + " (" + ((L2PcInstance) group).getOnlineStatus() + ")";
 				}
 			}
 			return group.getName();

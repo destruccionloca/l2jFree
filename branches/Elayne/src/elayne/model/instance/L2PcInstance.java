@@ -264,63 +264,48 @@ public class L2PcInstance extends L2GroupEntry
 	{
 		try
 		{
-			// ACCOUNT:
 			_accountLabel = new L2CharacterEntry(stats, "Account:", player.getAccount());
 			stats.addEntry(_accountLabel);
 
-			// LEVEL:
 			_levelLabel = new L2CharacterEntry(stats, "Level: ", player.getLevel());
 			stats.addEntry(_levelLabel);
 
-			// EXP:
 			_expLabel = new L2CharacterEntry(stats, "Exp: ", player.getExperience());
 			stats.addEntry(_expLabel);
 
-			// SP:
 			_spLabel = new L2CharacterEntry(stats, "SP: ", player.getSp());
 			stats.addEntry(_spLabel);
 
-			// CP:
 			_cpLabel = new L2CharacterEntry(stats, "CP: ", (int)player.getCurrentCp() + "/" + (int)player.getMaxCp());
 			stats.addEntry(_cpLabel);
 
-			// HP:
 			_hpLabel = new L2CharacterEntry(stats, "HP: ", (int)player.getCurrentHp() + "/" + (int)player.getMaxHp());
 			stats.addEntry(_hpLabel);
 
-			// MP:
 			_mpLabel = new L2CharacterEntry(stats, "MP: ", (int)player.getCurrentMp() + "/" + (int)player.getMaxMp());
 			stats.addEntry(_mpLabel);
 
-			// KARMA:
 			_karmaLabel = new L2CharacterEntry(stats, "Karma: ", player.getKarma());
 			stats.addEntry(_karmaLabel);
 
-			// PVP KILLS:
 			_pvpLabel = new L2CharacterEntry(stats, "PvPs: ", player.getPvP());
 			stats.addEntry(_pvpLabel);
 
-			// PK KILLS:
 			_pkLabel = new L2CharacterEntry(stats, "PKs: ", player.getPks());
 			stats.addEntry(_pkLabel);
 
-			// ONLINE TIME:
 			_onlineTimeLabel = new L2CharacterEntry(stats, "Online Time in Hours: ", player.getOnlineTime());
 			stats.addEntry(_onlineTimeLabel);
 
-			// CLASS:
 			_actualClassLabel = new L2CharacterEntry(stats, "Active Class:", player.getActiveclass());
 			stats.addEntry(_actualClassLabel);
 
-			// BASE CLASS:
 			_baseClassLabel = new L2CharacterEntry(stats, "Base Class:", player.getBaseClass());
 			stats.addEntry(_baseClassLabel);
 
-			// ACCESSLEVEL:
 			_accessLevelLabel = new L2CharacterEntry(stats, "Accesslevel:", player.getAccessLevel());
 			stats.addEntry(_accessLevelLabel);
 
-			// DEATH PENALTY:
 			_deathPenaltyLabel = new L2CharacterEntry(stats, "Death Penalty:", player.getDeathPenalty());
 			stats.addEntry(_deathPenaltyLabel);
 		}
@@ -545,6 +530,14 @@ public class L2PcInstance extends L2GroupEntry
 	public int getOnline()
 	{
 		return _online;
+	}
+
+	public String getOnlineStatus()
+	{
+		if (_online == 1)
+			return "Online";
+		else
+			return "Offline";
 	}
 
 	public long getOnlineTime()
