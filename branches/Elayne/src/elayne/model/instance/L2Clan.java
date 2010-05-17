@@ -140,7 +140,7 @@ public class L2Clan extends L2GroupEntry
 		{
 			System.out.println("L2Clan: Clan "+_clanId+" has a fortress.");
 			L2Fortress fort = FortressTable.getInstance().getFortress(_fortressId);
-			setFortress(new L2FortressGroup(this, fort.getFortId(), fort.getName(), fort.getTime(), fort.getType(), fort.getState(), fort.getCastleId()));
+			setFortress(new L2FortressGroup(this, fort.getFortId(), fort.getName(), fort.getTime(), fort.getType(), fort.getState(), fort.getOwningCastleName()));
 			addEntry(_fortress);
 		}
 	}

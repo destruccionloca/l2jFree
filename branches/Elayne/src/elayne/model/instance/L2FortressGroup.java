@@ -5,8 +5,6 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import elayne.IImageKeys;
 import elayne.application.Activator;
-import elayne.datatables.CastleTable;
-import elayne.templates.L2Castle;
 
 /**
  * @author Psycho(killer1888) / L2jFree
@@ -34,10 +32,10 @@ public class L2FortressGroup extends L2GroupEntry
 	private L2ClanEntry _typeEntry;
 	private String _state;
 	private L2ClanEntry _stateEntry;
-	private String _castle;
-	private L2ClanEntry _castleEntry;
+	private String _castleName;
+	private L2ClanEntry _castleNameEntry;
 
-	public L2FortressGroup(L2Clan parent, int id, String name, String time, int type, String state, int castle)
+	public L2FortressGroup(L2Clan parent, int id, String name, String time, int type, String state, String castleName)
 	{
 		super(parent, "Fortress");
 		_id = id;
@@ -45,19 +43,9 @@ public class L2FortressGroup extends L2GroupEntry
 		_time = time;
 		_type = type;
 		_state = state;
-		
-		setCastle(castle);
+		_castleName = castleName;
 
 		fillEntries();
-	}
-
-	private void setCastle(int castleId)
-	{
-		L2Castle castle = CastleTable.getInstance().getCastle(castleId);
-		if (castle != null)
-			_castle = castle.getName();
-		else
-			_castle = "Unknown";
 	}
 
 	/**
@@ -94,8 +82,8 @@ public class L2FortressGroup extends L2GroupEntry
 		}
 		else if (labelId.equals(CASTLE_LABEL))
 		{
-			_castle = newValue;
-			_castleEntry.setField(newValue);
+			_castleName = newValue;
+			_castleNameEntry.setField(newValue);
 		}
 	}
 
@@ -115,8 +103,8 @@ public class L2FortressGroup extends L2GroupEntry
 		addEntry(_typeEntry);
 		_stateEntry = new L2ClanEntry(getParent(), STATE_LABEL, _state);
 		addEntry(_stateEntry);
-		_castleEntry = new L2ClanEntry(getParent(), CASTLE_LABEL, String.valueOf(_castle));
-		addEntry(_castleEntry);
+		_castleNameEntry = new L2ClanEntry(getParent(), CASTLE_LABEL, _castleName);
+		addEntry(_castleNameEntry);
 	}
 
 	@Override

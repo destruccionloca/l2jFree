@@ -73,6 +73,7 @@ public class CastleTable
 		}
 		finally
 		{
+			// TODO filling clan names in object directly here and not after
 			try 
 			{
 				con.close();

@@ -15,14 +15,16 @@ public class L2Fortress
 	private final int _type;
 	private String _state;
 	private final int _castleId;
+	private final String _castleName;
 
-	public L2Fortress(int id, String name, long time, int owner, int type, int state, int castleId)
+	public L2Fortress(int id, String name, long time, int owner, int type, int state, int castleId, String castleName)
 	{
 		_id = id;
 		_name = name;
 		_owner = owner;
 		_type = type;
 		_castleId = castleId;
+		_castleName = castleName;
 
 		setTime(time);
 		setState(state);
@@ -82,5 +84,10 @@ public class L2Fortress
 	public String getTime()
 	{
 		return String.valueOf(_time.getTime());
+	}
+
+	public String getOwningCastleName()
+	{
+		return _castleName;
 	}
 }

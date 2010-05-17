@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import javolution.util.FastMap;
 
+import elayne.templates.L2Castle;
 import elayne.templates.L2Fortress;
 import elayne.util.connector.ServerDB;
 
@@ -81,7 +82,12 @@ public class FortressTable
 				else
 					taken++;
 
-				_fortresses.put(id, new L2Fortress(id, name, time, owner, type, state, castleId));
+				String castleName = "Unknown";
+				L2Castle castle = CastleTable.getInstance().getCastle(castleId);
+				if (castle!= null)
+					castleName = castle.getName();
+
+				_fortresses.put(id, new L2Fortress(id, name, time, owner, type, state, castleId, castleName));
 				loaded++;
 			}
 			rset.close();
