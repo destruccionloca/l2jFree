@@ -39,7 +39,7 @@
     <ingredient id="5172" count="1"/>
     <production id="5183" count="1"/>
   </item>
-  <!-- Blood Panze Coat -->
+  <!-- Blood Panzer Coat -->
   <item id="7">
     <ingredient id="57" count="245000"/>
     <ingredient id="5184" count="1"/>
@@ -99,7 +99,7 @@
     <ingredient id="5177" count="1"/>
     <production id="5187" count="1"/>
   </item>
-  <!-- Assult Alcorn -->
+  <!-- Assault Alicorn -->
   <item id="17">
     <ingredient id="57" count="170000"/>
     <ingredient id="5188" count="1"/>
@@ -123,7 +123,7 @@
     <ingredient id="5179" count="1"/>
     <production id="5189" count="1"/>
   </item>
-  <!-- Ohpdian Lance -->
+  <!-- Ophidian Lance -->
   <item id="21">
     <ingredient id="57" count="365000"/>
     <ingredient id="5190" count="1"/>

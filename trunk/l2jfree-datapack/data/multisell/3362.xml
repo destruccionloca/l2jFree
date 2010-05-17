@@ -8,8 +8,8 @@
     <ingredient id="3488" count="1"/>
     <production id="2435" count="1"/>
   </item>
+  <!-- Demon Stockings -->
   <item id="2">
-    <!-- Demon Stockings -->
     <ingredient id="3497" count="1"/>
     <ingredient id="3492" count="1"/>
     <production id="472" count="1"/>
