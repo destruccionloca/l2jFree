@@ -31,32 +31,6 @@ public class L2PcInstance extends L2GroupEntry
 
 	// =========================================================
 	// METHOD - STATIC
-	@SuppressWarnings("unused")
-	private static String getClanName(int clanId) throws SQLException
-	{
-		String str = "";
-		String sql = "SELECT clan_name FROM `clan_data` WHERE clan_id=" + clanId;
-		java.sql.Connection con = null;
-		try
-		{
-			con = ServerDB.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement(sql);
-			ResultSet rset = statement.executeQuery();
-			while (rset.next())
-			{
-				str = rset.getString("clan_name");
-			}
-			rset.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		if (con != null)
-			con.close();
-		return str;
-	}
 
 	/**
 	 * Return if a player exists or not in the characters table.
@@ -347,7 +321,7 @@ public class L2PcInstance extends L2GroupEntry
 		}
 
 		// ADD SKILLS GROUP
-		_skills = new L2SkillsGroup(this, "Skill", null);
+		_skills = new L2SkillsGroup(this, "Skills", null);
 		_skills.restore();
 
 		// ADD HENNA GROUP
