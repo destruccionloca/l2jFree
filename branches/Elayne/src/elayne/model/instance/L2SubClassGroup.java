@@ -79,7 +79,8 @@ public class L2SubClassGroup extends L2GroupEntry
 					sub.removeEntry(skills);
 
 				// ADD HENNA GROUP
-				if (getParent().getHennaGroup(sub.getClassIndex()).getEntries().length > 0)
+				L2HennaGroup hennaGroup = getParent().getHennaGroup(sub.getClassIndex());
+				if (hennaGroup != null && hennaGroup.getEntries().length > 0)
 					sub.addEntry(getParent().getHennaGroup(sub.getClassIndex()));
 			}
 			System.out.println("L2SubClassGroup: Restored " + subNum + " sub classes.");

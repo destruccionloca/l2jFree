@@ -237,7 +237,7 @@ public class L2PcInstance extends L2GroupEntry
 					}
 					catch (Exception e)
 					{
-						throw new InvocationTargetException(e);
+						e.printStackTrace();
 					}
 				}
 			});
