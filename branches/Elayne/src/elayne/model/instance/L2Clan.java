@@ -94,16 +94,10 @@ public class L2Clan extends L2GroupEntry
 		restore();
 		getClanMembers();
 
-		// Add the Clan Name
 		addEntry(new L2ClanEntry(this, "Clan Name", getName()));
-
-		// Add the Clan Level
 		addEntry(new L2ClanEntry(this, "Clan Level", String.valueOf(getLevel())));
-
-		// Add The Clan Reputation Score.
+		addEntry(new L2ClanEntry(this, "Clan Leader", getClanLeader()));
 		addEntry(new L2ClanEntry(this, "Reputation Score", String.valueOf(getClanReputationScore())));
-
-		// Add The Number Of Members.
 		addEntry(new L2ClanEntry(this, "Total Members", String.valueOf(getClanMembers().size())));
 
 		restoreSkills();
@@ -143,6 +137,16 @@ public class L2Clan extends L2GroupEntry
 			setFortress(new L2FortressGroup(this, fort.getFortId(), fort.getName(), fort.getTime(), fort.getType(), fort.getState(), fort.getOwningCastleName()));
 			addEntry(_fortress);
 		}
+	}
+
+	private String getClanLeader()
+	{
+		for (L2CharacterBriefEntry character : _clanMembers)
+		{
+			if (character.getObjectId() == _leaderId)
+				return character.getName();
+		}
+		return "Unknown";
 	}
 
 	private void setCastle(L2CastleGroup castle)
@@ -205,11 +209,10 @@ public class L2Clan extends L2GroupEntry
 	{
 		if (!_clanMembers.isEmpty())
 			return _clanMembers;
-		FastList<L2CharacterBriefEntry> members = new FastList<L2CharacterBriefEntry>();
 
 		try
 		{
-			String sql = "SELECT charId, account_name, char_name, online, level, accesslevel, sex, clanid FROM `characters` WHERE `clanid` =?";
+			String sql = "SELECT charId, account_name, char_name, online, level, accesslevel, sex, clanid FROM `characters` WHERE `clanid` =? ORDER BY char_name";
 			java.sql.Connection con = null;
 			try
 			{
@@ -227,12 +230,11 @@ public class L2Clan extends L2GroupEntry
 					int accessLevel = rset.getInt("accesslevel");
 					int sex = rset.getInt("sex");
 					int clanId = rset.getInt("clanid");
-					L2CharacterBriefEntry member = new L2CharacterBriefEntry(objId, level, name, account, online, accessLevel, sex, clanId);
-					members.add(member);
+					_clanMembers.add(new L2CharacterBriefEntry(objId, level, name, account, online, accessLevel, sex, clanId));
 				}
 				rset.close();
 				statement.close();
-				System.out.println("L2Clan: " + members.size() + " members found in the clan " + getId() + ".");
+				System.out.println("L2Clan: " + _clanMembers.size() + " members found in the clan " + getId() + ".");
 			}
 			catch (Exception e)
 			{
@@ -240,15 +242,12 @@ public class L2Clan extends L2GroupEntry
 			}
 			if (con != null)
 				con.close();
-			// SAVE THE MEMBERS TO NOT HAVE TO CONNECT TO
-			// DATABASE AGAIN.
-			_clanMembers = members;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return members;
+		return _clanMembers;
 	}
 
 	public L2RegularGroup getClanMembersGroup()

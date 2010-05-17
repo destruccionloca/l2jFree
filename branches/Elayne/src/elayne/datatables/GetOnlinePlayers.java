@@ -48,7 +48,7 @@ public class GetOnlinePlayers
 			try
 			{
 				con = ServerDB.getInstance().getConnection();
-				String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `online` = '1'";
+				String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `online` = '1' ORDER BY char_name";
 				PreparedStatement statement = con.prepareStatement(previous);
 				ResultSet rset = statement.executeQuery();
 				while (rset.next())
