@@ -174,7 +174,7 @@ public class FrintezzaManager extends BossLair
 		frintezzaSpawn = createNewSpawn(29045, 174240, -89805, -5022, 16048, _intervalOfBoss);
 
 		// weak Scarlet Van Halisha.
-		scarletSpawnWeak = createNewSpawn(29046, 173203, -88484, -3513, 48028, _intervalOfBoss);
+		scarletSpawnWeak = createNewSpawn(29046, 147725, -56517, -2780, 48028, _intervalOfBoss);
 
 		// Strong Scarlet Van Halisha -> x , y , z , heading, and Hp are set when the morph actually
 		// happens.
