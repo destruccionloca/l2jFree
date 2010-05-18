@@ -167,9 +167,20 @@ public class L2Inventory extends L2GroupEntry
 				}
 				else if (ItemTable.getInstance().isItem(itemId)) // This is an Item instance
 				{
-					int amount = rset.getInt("count");
-					L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, amount);
-					_all_items.put(object_id, item);
+					int amount = 0;
+					try
+					{
+						amount = rset.getInt("count");
+					}
+					catch (Exception e)
+					{
+						System.out.println("L2Inventory: Amount to big for itemId: "+itemId);
+					}
+					finally
+					{
+						L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, amount);
+						_all_items.put(object_id, item);
+					}
 				}
 				results++;
 			}
