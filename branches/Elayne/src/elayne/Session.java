@@ -210,6 +210,7 @@ public class Session implements IAdaptable
 		catch (Exception e)
 		{
 			System.out.println("Exception while connecting to server. Is the server online?");
+			e.printStackTrace();
 		}
 		return false;
 	}
