@@ -2,6 +2,7 @@ package elayne.model.instance;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -17,9 +18,10 @@ import elayne.util.connector.LoginDB;
  */
 public class L2AccountInfoGroup extends L2GroupEntry
 {
-	private static final String RESTORE_ACCOUNT = "SELECT password, accessLevel, lastIP, lastServerId FROM `accounts` WHERE `login` =?";
+	private static final String RESTORE_ACCOUNT = "SELECT password, lastactive, accessLevel, lastIP, lastServerId FROM `accounts` WHERE `login` =?";
 	private int _accessLevel;
 	private String _encryptedPass;
+	private long _lastActive;
 	private String _lastIp;
 	private int _lastServerId;
 	private String _login;
@@ -90,6 +92,14 @@ public class L2AccountInfoGroup extends L2GroupEntry
 		return _login;
 	}
 
+	public String getLastActive(long timestamp)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(timestamp);
+
+		return String.valueOf(cal.getTime());
+	}
+
 	@Override
 	public L2PcInstance getParent()
 	{
@@ -117,15 +127,18 @@ public class L2AccountInfoGroup extends L2GroupEntry
 			{
 				_login = getParent().getAccount();
 				_encryptedPass = rset.getString("password");
+				_lastActive = rset.getLong("lastactive");
 				_accessLevel = rset.getInt("accessLevel");
 				_lastIp = rset.getString("lastIP");
 				_lastServerId = rset.getInt("lastServerId");
+
 				addEntry(new L2CharacterEntry(this, "Account:", _login));
 				_encryptedPasswordEntry = new L2CharacterEntry(this, "Encrypted Password:", _encryptedPass);
 				addEntry(_encryptedPasswordEntry);
 				addEntry(new L2CharacterEntry(this, "Access Level:", _accessLevel));
 				addEntry(new L2CharacterEntry(this, "Last Ip:", _lastIp));
 				addEntry(new L2CharacterEntry(this, "Last Server:", _lastServerId));
+				addEntry(new L2CharacterEntry(this, "Last Active:", getLastActive(_lastActive)));
 			}
 			rset.close();
 			statement.close();

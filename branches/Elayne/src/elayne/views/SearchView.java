@@ -113,6 +113,11 @@ public class SearchView extends ViewPart
 			getPlayersByObjectId(objectId);
 			fillTable();
 		}
+		else if (searchType == SearchDialog.SEARCH_BY_LAST_ACTIVE)
+		{
+			System.out.println("Coming soon, it'm tired for today, will finish tomorrow...");
+			return;
+		}
 
 		if (!isClanSearch(searchType) && _table != null)
 		{

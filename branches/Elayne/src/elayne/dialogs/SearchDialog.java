@@ -34,6 +34,7 @@ public class SearchDialog extends Dialog
 	public static final int SEARCH_BY_NAME = 1;
 	public static final int SEARCH_BY_OBJECT_ID = 4;
 	public static final int SEARCH_BY_TITLE = 2;
+	public static final int SEARCH_BY_LAST_ACTIVE = 8;
 	public static final int SEARCH_CLAN_BY_ID = 6;
 	public static final int SEARCH_CLAN_BY_NAME = 5;
 	public static final int SEARCH_FOR_HEROES = 7;
@@ -51,6 +52,7 @@ public class SearchDialog extends Dialog
 	private Button searchPlayerByName;
 	private Button searchPlayerByObjectId;
 	private Button searchPlayerByTitle;
+	private Button searchPlayerByLastActive;
 	private int searchType;
 
 	/**
@@ -96,6 +98,8 @@ public class SearchDialog extends Dialog
 						searchType = SEARCH_BY_ACCOUNT;
 					else if (searchPlayerByObjectId.getSelection())
 						searchType = SEARCH_BY_OBJECT_ID;
+					else if (searchPlayerByLastActive.getSelection())
+						searchType = SEARCH_BY_LAST_ACTIVE;
 					searchInput = playerSearchInputText.getText();
 
 					if (playerSearchInputText.getText().equals(""))
@@ -103,7 +107,7 @@ public class SearchDialog extends Dialog
 						MessageDialog.openError(getShell(), "Invalid Search", "The search field must not be left blank.");
 						return;
 					}
-					if (playerSearchInputText.getText().length() < 3)
+					if (playerSearchInputText.getText().length() < 3 && searchType != SEARCH_BY_LAST_ACTIVE)
 					{
 						MessageDialog.openError(getShell(), "Invalid Search", "The search field must have at least 3 characters");
 						return;
@@ -141,12 +145,12 @@ public class SearchDialog extends Dialog
 
 		playerTab = new TabItem(tabFolder, SWT.NONE);
 		playerTab.setText("Player Search");
-		playerTab.setToolTipText("This tab allows you to search for players in the server.");
+		playerTab.setToolTipText("Search online or offline players the server.");
 		playerTab.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.HUMAN_MALE).createImage());
 
 		clanTab = new TabItem(tabFolder, SWT.NONE);
 		clanTab.setText("Clan Search");
-		clanTab.setToolTipText("This tab allows you to search for clans in the server.");
+		clanTab.setToolTipText("Search for a clan on the server.");
 		clanTab.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.CLAN_GROUP).createImage());
 
 		fillPlayerSearch(playerTab, tabFolder);
@@ -243,6 +247,10 @@ public class SearchDialog extends Dialog
 		searchPlayerByObjectId = new Button(limitToGroup, SWT.RADIO);
 		searchPlayerByObjectId.setText("Search player by object id");
 		searchPlayerByObjectId.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false, 1, 1));
+
+		searchPlayerByLastActive = new Button(limitToGroup, SWT.RADIO);
+		searchPlayerByLastActive.setText("Not connected since (Month input)");
+		searchPlayerByLastActive.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false, 1, 1));
 	}
 
 	public String getSearchInput()
