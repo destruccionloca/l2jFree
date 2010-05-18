@@ -30,7 +30,6 @@ import com.l2jfree.gameserver.templates.skills.L2EffectType;
 /**
  * @authors Forsaiken, Sami
  */
-
 public final class EffectSignet extends L2Effect
 {
 	private L2Skill _skill;
@@ -55,6 +54,7 @@ public final class EffectSignet extends L2Effect
 		else if (getSkill() instanceof L2SkillSignetCasttime)
 			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime)getSkill()).effectId, getLevel());
 		_actor = (L2EffectPointInstance)getEffected();
+		_actor.setInstanceId(getEffector().getInstanceId());
 		return true;
 	}
 	
