@@ -127,9 +127,7 @@ public class L2Inventory extends L2GroupEntry
 		if (_items.getEntries().length == 0)
 			removeEntry(_items);
 		if (getEntries().length != 0)
-		{
 			getParent().addEntry(this);
-		}
 		else
 		{
 			getParent().removeEntry(this);
