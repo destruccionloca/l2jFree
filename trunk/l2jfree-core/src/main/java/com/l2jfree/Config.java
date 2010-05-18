@@ -3479,7 +3479,7 @@ public class Config extends L2Config
 		@Override
 		protected void loadImpl(L2Properties vitalitySettings)
 		{
-			ENABLE_VITALITY = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitality", "False"));
+			ENABLE_VITALITY = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitality", "True"));
 			RECOVER_VITALITY_ON_RECONNECT = Boolean.parseBoolean(vitalitySettings.getProperty("RecoverVitalityOnReconnect", "True"));
 			ENABLE_VITALITY_CHAMPION = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitalityOnChampion", "False"));
 			ENABLE_DROP_VITALITY_HERBS = Boolean.parseBoolean(vitalitySettings.getProperty("EnableVitalityHerbs", "True"));
