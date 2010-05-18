@@ -4,7 +4,7 @@
   <item id="13687" name="Knight's Cloak">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/>
+        <player pledgeClass="3"/> <!-- Knight -->
         <player castle="-1"/>
         <or>
           <player active_skill_id="8284"/> <!-- Vesper Noble Breastplate -->
@@ -20,7 +20,7 @@
   <item id="13688" name="Knight's Cloak - Light Armor exclusive">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/>
+        <player pledgeClass="3"/> <!-- Knight -->
         <player castle="-1"/>
         <not>
           <player race="Kamael"/>
@@ -39,7 +39,7 @@
   <item id="13689" name="Knight's Cloak - Robe exclusive">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/>
+        <player pledgeClass="3"/> <!-- Knight -->
         <player castle="-1"/>
         <or>
           <player active_skill_id="8288"/> <!-- Vesper Noble Tunic -->
@@ -55,7 +55,7 @@
   <item id="13690" name="Knight's Cloak - Kamael exclusive">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/>
+        <player pledgeClass="3"/> <!-- Knight -->
         <player castle="-1"/>
         <player race="Kamael"/>
         <or>

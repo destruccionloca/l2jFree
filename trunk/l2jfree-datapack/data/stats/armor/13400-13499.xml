@@ -93,6 +93,7 @@
   <item id="13444" name="Vesper Stockings">
     <for>
       <add order="0x10" stat="pDef" val="78"/>
+      <add order="0x40" stat="maxMp" val="415"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -147,6 +148,7 @@
   <item id="13454" name="Vesper Noble Stockings">
     <for>
       <add order="0x10" stat="pDef" val="78"/>
+      <add order="0x40" stat="maxMp" val="415"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
