@@ -9835,3 +9835,5 @@ UPDATE `etcitem` SET `skills_item` = '2862-4' WHERE `item_id` = 14697;
 UPDATE `etcitem` SET `skills_item` = '2862-5' WHERE `item_id` = 14698;
 UPDATE `etcitem` SET `skills_item` = '2862-6' WHERE `item_id` = 14699;
 
+-- Book of Secret (Pailaka 1)
+UPDATE `etcitem` SET `handler` = 'Book' WHERE `item_id` IN (13130, 13131, 13132, 13133, 13134, 13135, 13136);
