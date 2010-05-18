@@ -309,13 +309,13 @@
   </item>
   <item id="9452" name="Sealed Dynasty Earring">
     <for>
-      <add order="0x10" stat="mDef" val="79"/>
+      <add order="0x10" stat="mDef" val="71"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>
   </item>
   <item id="9453" name="Sealed Dynasty Necklace">
     <for>
-      <add order="0x10" stat="mDef" val="106"/>
+      <add order="0x10" stat="mDef" val="95"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>
   </item>
@@ -327,14 +327,14 @@
   </item>
   <item id="9455" name="Dynasty Earrings">
     <for>
-      <add order="0x10" stat="mDef" val="90"/>
+      <add order="0x10" stat="mDef" val="79"/>
       <add order="0x40" stat="maxMp" val="35"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>
   </item>
   <item id="9456" name="Dynasty Necklace">
     <for>
-      <add order="0x10" stat="mDef" val="120"/>
+      <add order="0x10" stat="mDef" val="106"/>
       <add order="0x40" stat="maxMp" val="46"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>

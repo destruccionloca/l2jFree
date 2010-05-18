@@ -595,7 +595,7 @@
   </item>
   <item id="11599" name="Dynasty Necklace">
     <for>
-      <add order="0x10" stat="mDef" val="120"/>
+      <add order="0x10" stat="mDef" val="106"/>
       <add order="0x40" stat="maxMp" val="46"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>
