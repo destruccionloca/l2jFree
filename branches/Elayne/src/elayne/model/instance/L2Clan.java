@@ -14,6 +14,7 @@ import elayne.application.Activator;
 import elayne.datatables.CastleTable;
 import elayne.datatables.ClanhallTable;
 import elayne.datatables.FortressTable;
+import elayne.datatables.LeaderTable;
 import elayne.templates.L2Castle;
 import elayne.templates.L2Clanhall;
 import elayne.templates.L2Fortress;
@@ -230,7 +231,9 @@ public class L2Clan extends L2GroupEntry
 					int accessLevel = rset.getInt("accesslevel");
 					int sex = rset.getInt("sex");
 					int clanId = rset.getInt("clanid");
-					_clanMembers.add(new L2CharacterBriefEntry(objId, level, name, account, online, accessLevel, sex, clanId));
+					boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+					_clanMembers.add(new L2CharacterBriefEntry(objId, level, name, account, online, accessLevel, sex, clanId, isLeader));
 				}
 				rset.close();
 				statement.close();

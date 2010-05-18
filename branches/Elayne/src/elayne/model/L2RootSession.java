@@ -38,7 +38,7 @@ public class L2RootSession
 	public L2GroupEntry getRoot()
 	{
 		if (_rootGroup == null)
-			_rootGroup = new L2RegularGroup(null, "Root Group");
+			_rootGroup = new L2RegularGroup(null, "List");
 		return _rootGroup;
 	}
 }

@@ -93,7 +93,7 @@ public class RemoteAdministrationClient
 		// Get the player information from the server.
 		player = ra.getPlayerInformation(rmiPassword, playerName);
 		// Once we have the required information define the L2CharacterBriefEntry.
-		bp = new L2CharacterBriefEntry(player.getObjectId(), player.getLevel(), player.getName(), player.getAccount(), player.online(), player.getAccessLevel(), player.getSex(), player.getClanId());
+		bp = new L2CharacterBriefEntry(player.getObjectId(), player.getLevel(), player.getName(), player.getAccount(), player.online(), player.getAccessLevel(), player.getSex(), player.getClanId(), player.isLeader());
 		return bp;
 	}
 

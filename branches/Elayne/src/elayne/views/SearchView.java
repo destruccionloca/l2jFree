@@ -27,6 +27,7 @@ import elayne.actions.RequestClanInformation;
 import elayne.actions.RequestPlayerInformation;
 import elayne.application.Activator;
 import elayne.datatables.CharTemplateTable;
+import elayne.datatables.LeaderTable;
 import elayne.dialogs.SearchDialog;
 import elayne.model.instance.L2CharacterBriefEntry;
 import elayne.preferences.GeneralPreferencePage;
@@ -165,7 +166,7 @@ public class SearchView extends ViewPart
 
 	private void fillTable()
 	{
-		String[] titles = { "Player Name", "Account", "Level", "Sex" };
+		String[] titles = { "Player Name", "Account", "Level", "Sex", "Online" };
 
 		_table = new Table(_parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -189,6 +190,10 @@ public class SearchView extends ViewPart
 			else
 				sex = "Female";
 			item.setText(3, sex);
+			String online = "No";
+			if (player.isOnline())
+				online = "Yes";
+			item.setText(4, online);
 		}
 		for (int i = 0; i < titles.length; i++)
 		{
@@ -203,7 +208,7 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `char_name` LIKE '%" + nameToLookFor + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE `char_name` LIKE '%" + nameToLookFor + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
@@ -213,9 +218,12 @@ public class SearchView extends ViewPart
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
 				int accesslevel = rset.getInt("accesslevel");
+				int online = rset.getInt("online");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, online, accesslevel, sex, clanId, isLeader));
 			}
 			rset.close();
 			statement.close();
@@ -234,7 +242,7 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `title` LIKE '%" + titleToLookFor + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE `title` LIKE '%" + titleToLookFor + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
@@ -244,9 +252,12 @@ public class SearchView extends ViewPart
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
 				int accesslevel = rset.getInt("accesslevel");
+				int online = rset.getInt("online");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, online, accesslevel, sex, clanId, isLeader));
 			}
 			rset.close();
 			statement.close();
@@ -265,7 +276,7 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `account_name` LIKE '%" + accountToLookFor + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE `account_name` LIKE '%" + accountToLookFor + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
@@ -275,9 +286,12 @@ public class SearchView extends ViewPart
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
 				int accesslevel = rset.getInt("accesslevel");
+				int online = rset.getInt("online");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, online, accesslevel, sex, clanId, isLeader));
 			}
 			rset.close();
 			statement.close();
@@ -296,7 +310,7 @@ public class SearchView extends ViewPart
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT charId, account_name, char_name, level, accesslevel, sex, clanid FROM `characters` WHERE `obj_Id` LIKE '%" + objectId + "%' LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE `obj_Id` LIKE '%" + objectId + "%' LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
@@ -306,9 +320,12 @@ public class SearchView extends ViewPart
 				String name = rset.getString("char_name");
 				int level = rset.getInt("level");
 				int accesslevel = rset.getInt("accesslevel");
+				int online = rset.getInt("online");
 				int sex = rset.getInt("sex");
 				int clanId = rset.getInt("clanid");
-				_players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, online, accesslevel, sex, clanId, isLeader));
 			}
 			rset.close();
 			statement.close();

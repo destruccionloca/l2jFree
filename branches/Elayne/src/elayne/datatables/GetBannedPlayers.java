@@ -49,7 +49,9 @@ public class GetBannedPlayers
 					int accesslevel = rset.getInt("accesslevel");
 					int sex = rset.getInt("sex");
 					int clanId = rset.getInt("clanid");
-					players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+					boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+					players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 				}
 				rset.close();
 				statement.close();

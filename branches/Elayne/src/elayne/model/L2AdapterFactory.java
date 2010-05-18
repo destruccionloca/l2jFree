@@ -45,9 +45,17 @@ public class L2AdapterFactory implements IAdapterFactory
 			if (entry.getAccessLevel() < 0)
 				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.BANNED_PLAYER);
 			else if (entry.isOnline())
-				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.ONLINE);
+			{
+				if (entry.isLeader())
+					return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.ONLINE_LEADER);
+				else
+					return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.ONLINE);
+			}
 			else
-				return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.OFFLINE);
+				if (entry.isLeader())
+					return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.OFFLINE_LEADER);
+				else
+					return AbstractUIPlugin.imageDescriptorFromPlugin(Activator.PLUGIN_ID, IImageKeys.OFFLINE);
 		}
 
 		public String getLabel(Object o)

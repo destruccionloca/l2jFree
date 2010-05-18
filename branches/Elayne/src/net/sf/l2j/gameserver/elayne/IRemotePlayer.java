@@ -31,4 +31,6 @@ public interface IRemotePlayer extends Remote
 	public int getSex() throws RemoteException;
 
 	public int getClanId() throws RemoteException;
+
+	public boolean isLeader() throws RemoteException;
 }

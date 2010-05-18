@@ -60,7 +60,9 @@ public class GetOnlinePlayers
 					int accesslevel = rset.getInt("accesslevel");
 					int sex = rset.getInt("sex");
 					int clanId = rset.getInt("clanid");
-					players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+
+					boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+					players.add(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 				}
 				rset.close();
 				statement.close();
@@ -162,10 +164,13 @@ public class GetOnlinePlayers
 				int accesslevel = player.getAccessLevel();
 				int sex = player.getSex();
 				int clanId = player.getClanId();
+
+				boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
 				if (accesslevel >= 75)
-					gms.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+					gms.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 				else
-					playergroup.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+					playergroup.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 				i++;
 			}
 			for (L2Character entry : root.getEntries())
@@ -208,10 +213,12 @@ public class GetOnlinePlayers
 			int accesslevel = player.getAccessLevel();
 			int sex = player.getSex();
 			int clanId = player.getClanId();
+			boolean isLeader = player.isLeader();
+
 			if (sex == 0)
-				males.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				males.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else
-				female.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				female.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 		}
 		for (L2Character entry : root.getEntries())
 		{
@@ -263,18 +270,20 @@ public class GetOnlinePlayers
 			int accesslevel = player.getAccessLevel();
 			int sex = player.getSex();
 			int clanId = player.getClanId();
+			boolean isLeader = player.isLeader();
+
 			if (level >= 0 && level < 10)
-				l10.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				l10.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (level >= 10 && level < 40)
-				l40.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				l40.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (level >= 40 && level < 60)
-				l60.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				l60.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (level >= 60 && level < 75)
-				l75.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				l75.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (level >= 75)
-				l80.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				l80.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else
-				onlinePlayers.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				onlinePlayers.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 		}
 		l10.setName(l10.getName() + ": (" + l10.getEntries().length + " players)");
 		l40.setName(l40.getName() + ": (" + l40.getEntries().length + " players)");
@@ -359,60 +368,64 @@ public class GetOnlinePlayers
 			int accesslevel = player.getAccessLevel();
 			int sex = player.getSex();
 			int clanId = player.getClanId();
+			boolean isLeader = player.isLeader();
+
 			if (name.toLowerCase().startsWith("a"))
-				a.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				a.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("b"))
-				b.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				b.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("c"))
-				c.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				c.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("d"))
-				d.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				d.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("e"))
-				e.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				e.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("f"))
-				f.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
-			else if (name.toLowerCase().startsWith("g"))
-				g.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				f.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("h"))
-				h.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				h.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
+			else if (name.toLowerCase().startsWith("g"))
+				g.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
+			else if (name.toLowerCase().startsWith("h"))
+				h.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("i"))
-				i.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				i.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("j"))
-				j.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				j.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("k"))
-				k.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				k.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("l"))
-				l.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				l.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("n"))
-				n.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				n.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("m"))
-				m.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				m.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("o"))
-				o.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				o.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("p"))
-				p.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				p.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("q"))
-				q.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				q.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("r"))
-				r.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				r.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("s"))
-				s.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				s.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("t"))
-				t.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				t.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("u"))
-				u.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				u.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("v"))
-				v.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				v.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("w"))
-				w.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				w.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("x"))
-				x.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				x.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("y"))
-				y.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				y.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else if (name.toLowerCase().startsWith("z"))
-				z.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				z.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 			else
-				onlinePlayers.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId));
+				onlinePlayers.addEntry(new L2CharacterBriefEntry(objId, level, name, account, 1, accesslevel, sex, clanId, isLeader));
 		}
 
 		for (L2Character entry : onlinePlayers.getEntries())

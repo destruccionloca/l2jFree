@@ -31,6 +31,7 @@ public class L2CharacterBriefEntry extends L2Character
 	private int _objectId;
 	private L2GroupEntry _parent;
 	private int _sex;
+	private boolean _isLeader;
 
 	// ===================================
 	// CONSTRUCTOR
@@ -47,7 +48,7 @@ public class L2CharacterBriefEntry extends L2Character
 	 * {@link OnlinePlayersView}.
 	 * @param sex --> The sex of this player.
 	 */
-	public L2CharacterBriefEntry(int objectId, int level, String name, String account, int online, int accesslevel, int sex, int clanId)
+	public L2CharacterBriefEntry(int objectId, int level, String name, String account, int online, int accesslevel, int sex, int clanId, boolean isLeader)
 	{
 		_objectId = objectId;
 		_level = level;
@@ -58,6 +59,7 @@ public class L2CharacterBriefEntry extends L2Character
 		_accesslevel = accesslevel;
 		_sex = sex;
 		_clanId = clanId;
+		_isLeader = isLeader;
 	}
 
 	// ===================================
@@ -114,6 +116,11 @@ public class L2CharacterBriefEntry extends L2Character
 	public boolean isOnline()
 	{
 		return _isOnline;
+	}
+
+	public boolean isLeader()
+	{
+		return _isLeader;
 	}
 
 	/** Defines a new parent for this playerEntry */

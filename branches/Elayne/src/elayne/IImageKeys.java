@@ -61,7 +61,9 @@ public interface IImageKeys
 	public static final String MALE_ONLINE = "icons/male.png";
 	public static final String NAME = "icons/book.png";
 	public static final String OFFLINE = "icons/status_offline.png";
+	public static final String OFFLINE_LEADER = "icons/user_red.png";
 	public static final String ONLINE = "icons/status_online.png";
+	public static final String ONLINE_LEADER = "icons/user_green.png";
 	public static final String ONLINE_GROUP = "icons/group.png";
 	public static final String ORC_FEMALE = "icons/orc_female.gif";
 	public static final String ORC_MALE = "icons/orc_male.gif";

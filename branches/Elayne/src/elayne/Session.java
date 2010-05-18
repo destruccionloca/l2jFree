@@ -25,6 +25,7 @@ import elayne.datatables.GetBannedPlayers;
 import elayne.datatables.GetOnlinePlayers;
 import elayne.datatables.HennaTable;
 import elayne.datatables.ItemTable;
+import elayne.datatables.LeaderTable;
 import elayne.datatables.SkillsTable;
 import elayne.datatables.WeaponTable;
 import elayne.model.ConnectionDetails;
@@ -126,6 +127,9 @@ public class Session implements IAdaptable
 
 						monitor.subTask("Getting Henna Templates...");
 						HennaTable.getInstance().restore();
+
+						monitor.subTask("Getting Leaders...");
+						LeaderTable.getInstance().load();
 
 						monitor.subTask("Getting Online Players...");
 						GetOnlinePlayers.getInstance().getOnlinePlayers(null, true);
