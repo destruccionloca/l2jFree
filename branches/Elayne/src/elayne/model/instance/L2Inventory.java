@@ -16,6 +16,7 @@ import elayne.datatables.ArmorTable;
 import elayne.datatables.ItemTable;
 import elayne.datatables.WeaponTable;
 import elayne.templates.L2InventoryItem;
+import elayne.templates.L2Item;
 import elayne.templates.L2Weapon;
 import elayne.util.connector.ServerDB;
 
@@ -27,7 +28,7 @@ public class L2Inventory extends L2GroupEntry
 	/**
 	 * ALL ITEMS IN THE INV: Key = Item Id, Object = Item itself
 	 */
-	private FastMap<Integer, L2InventoryItem> _all_items = new FastMap<Integer, L2InventoryItem>();
+	private FastMap<Integer, L2InventoryItem> _allItems = new FastMap<Integer, L2InventoryItem>();
 
 	private L2RegularGroup _weapons;
 
@@ -48,17 +49,17 @@ public class L2Inventory extends L2GroupEntry
 
 	public Set<Integer> getInventoryObjectsId()
 	{
-		return _all_items.keySet();
+		return _allItems.keySet();
 	}
 
 	public Collection<L2InventoryItem> getAllItems()
 	{
-		return _all_items.values();
+		return _allItems.values();
 	}
 
 	public FastMap<Integer, L2InventoryItem> getItemsMap()
 	{
-		return _all_items;
+		return _allItems;
 	}
 
 	@Override
@@ -103,18 +104,18 @@ public class L2Inventory extends L2GroupEntry
 			{
 				L2Weapon weapon = WeaponTable.getInstance().getWeapon(item.getId());
 
-				L2InventoryEntry pie = new L2InventoryEntry(_weapons, getParent(), weapon.getName(), "Weapon", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId());
+				L2InventoryEntry pie = new L2InventoryEntry(_weapons, getParent(), weapon.getName(), "Weapon", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId(), item.getType());
 				_weapons.addEntry(pie);
 			}
 
 			else if (isArmor(item))
 			{
-				L2InventoryEntry pie = new L2InventoryEntry(_armors, getParent(), ArmorTable.getInstance().getArmor(item.getId()).getName(), "Armor", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId());
+				L2InventoryEntry pie = new L2InventoryEntry(_armors, getParent(), ArmorTable.getInstance().getArmor(item.getId()).getName(), "Armor", item.getId(), item.getEnchantLevel(), 1, item.getLocation(), item.getObjectId(), item.getType());
 				_armors.addEntry(pie);
 			}
 			else if (isItem(item))
 			{
-				L2InventoryEntry pie = new L2InventoryEntry(_items, getParent(), ItemTable.getInstance().getItem(item.getId()).getName(), "Item", item.getId(), 0, item.getAmount(), item.getLocation(), item.getObjectId());
+				L2InventoryEntry pie = new L2InventoryEntry(_items, getParent(), ItemTable.getInstance().getItem(item.getId()).getName(), "Item", item.getId(), 0, item.getAmount(), item.getLocation(), item.getObjectId(), item.getType());
 				_items.addEntry(pie);
 			}
 		}
@@ -139,7 +140,7 @@ public class L2Inventory extends L2GroupEntry
 
 	public void restoreItems(int objectId)
 	{
-		if (!_all_items.isEmpty())
+		if (!_allItems.isEmpty())
 			return;
 		java.sql.Connection con = null;
 		try
@@ -155,18 +156,24 @@ public class L2Inventory extends L2GroupEntry
 				int enchant = rset.getInt("enchant_level");
 				String location = rset.getString("loc");
 				int object_id = rset.getInt("object_id");
+
 				if (WeaponTable.getInstance().isWeapon(itemId)) // This is a Weapon instance
 				{
-					L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, 1);
-					_all_items.put(object_id, item);
+					L2InventoryItem invItem = new L2InventoryItem(itemId, object_id, enchant, location, 1, "");
+					_allItems.put(object_id, invItem);
 				}
 				else if (ArmorTable.getInstance().isArmor(itemId)) // This is an Armor instance
 				{
-					L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, 1);
-					_all_items.put(object_id, item);
+					L2InventoryItem invItem = new L2InventoryItem(itemId, object_id, enchant, location, 1, "");
+					_allItems.put(object_id, invItem);
 				}
 				else if (ItemTable.getInstance().isItem(itemId)) // This is an Item instance
 				{
+					String type = "";
+					L2Item item = ItemTable.getInstance().getItem(itemId);
+					if (item != null)
+						type = (item.getType().equals("quest")) ? "(Quest Item)" : "";
+
 					int amount = 0;
 					try
 					{
@@ -178,14 +185,14 @@ public class L2Inventory extends L2GroupEntry
 					}
 					finally
 					{
-						L2InventoryItem item = new L2InventoryItem(itemId, object_id, enchant, location, amount);
-						_all_items.put(object_id, item);
+						L2InventoryItem invItem = new L2InventoryItem(itemId, object_id, enchant, location, amount, type);
+						_allItems.put(object_id, invItem);
 					}
 				}
 				results++;
 			}
 
-			System.out.println("L2Inventory: " + results + " Items found in the inventory of the objectId: " + objectId);
+			System.out.println("L2Inventory: " + results + " items found in the inventory of the objectId: " + objectId);
 			results = 0;
 			rset.close();
 			statement.close();

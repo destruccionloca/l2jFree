@@ -123,8 +123,8 @@ public class ItemTable
 							int weight = Integer.parseInt(attrs.getNamedItem("weight").getNodeValue());
 							int price = Integer.parseInt(attrs.getNamedItem("price").getNodeValue());
 							String sellable = attrs.getNamedItem("sellable").getNodeValue();
-							String item_type = attrs.getNamedItem("item_type").getNodeValue();
-							items.put(itemId, new L2Item(itemId, name, weight, price, sellable, item_type));
+							String itemType = attrs.getNamedItem("item_type").getNodeValue();
+							items.put(itemId, new L2Item(itemId, name, weight, price, sellable, itemType));
 							loaded++;
 						}
 					}

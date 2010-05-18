@@ -7,14 +7,16 @@ public class L2InventoryItem
 	private int _enchantLevel;
 	private final String _location;
 	private int _amount;
+	private String _type;
 
-	public L2InventoryItem(int id, int objectId, int enchantLevel, String location, int amount)
+	public L2InventoryItem(int id, int objectId, int enchantLevel, String location, int amount, String type)
 	{
 		_id = id;
 		_objectId = objectId;
 		_enchantLevel = enchantLevel;
 		_location = location;
 		_amount = amount;
+		_type = type;
 	}
 
 	public int getId()
@@ -50,5 +52,10 @@ public class L2InventoryItem
 	public void setAmount(int newAmount)
 	{
 		_amount = newAmount;
+	}
+
+	public String getType()
+	{
+		return _type;
 	}
 }

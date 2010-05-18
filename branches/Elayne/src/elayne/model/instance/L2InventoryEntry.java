@@ -28,7 +28,9 @@ public class L2InventoryEntry extends L2GroupEntry
 
 	public final String _type;
 
-	public L2InventoryEntry(L2GroupEntry group, L2PcInstance player, String name, String type, int itemId, int enchantLevel, int amount, String location, int objectId)
+	public final String _itemType;
+
+	public L2InventoryEntry(L2GroupEntry group, L2PcInstance player, String name, String type, int itemId, int enchantLevel, int amount, String location, int objectId, String itemType)
 	{
 		super(group, name);
 		_group = group;
@@ -40,6 +42,7 @@ public class L2InventoryEntry extends L2GroupEntry
 		_amount = amount;
 		_location = location;
 		_objectId = objectId;
+		_itemType = itemType;
 	}
 
 	public int getAmount()
@@ -127,10 +130,10 @@ public class L2InventoryEntry extends L2GroupEntry
 	public String getName()
 	{
 		if (getAmount() > 1)
-			return getAmount() + " " + _name + " " + getLocName();
+			return getAmount() + " " + _name + " " + getLocName() + " " + getItemType();
 		if (getEnchantLevel() > 0)
-			return "+" + getEnchantLevel() + " " + _name + " " + getLocName();
-		return _name + " " + getLocName();
+			return "+" + getEnchantLevel() + " " + _name + " " + getLocName() + " " + getItemType();
+		return _name + " " + getLocName() + " " + getItemType();
 	}
 
 	/**
@@ -163,5 +166,10 @@ public class L2InventoryEntry extends L2GroupEntry
 	public String getType()
 	{
 		return _type;
+	}
+
+	public String getItemType()
+	{
+		return _itemType;
 	}
 }

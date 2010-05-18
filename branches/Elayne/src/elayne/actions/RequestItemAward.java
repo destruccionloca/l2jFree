@@ -166,25 +166,29 @@ public class RequestItemAward extends ElayneAction
 						if (type == 1)
 						{
 							L2Weapon weapon = WeaponTable.getInstance().getWeapon(id);
-							L2InventoryEntry pie = new L2InventoryEntry(inventory.getWeapons(), player, weapon.getName(), "Weapon", id, 0, 1, "INVENTORY", objectId);
+							L2InventoryEntry pie = new L2InventoryEntry(inventory.getWeapons(), player, weapon.getName(), "Weapon", id, 0, 1, "INVENTORY", objectId, "");
 							inventory.getWeapons().addEntry(pie);
-							inventory.getItemsMap().put(objectId, new L2InventoryItem(id, objectId, 1, "INVENTORY", amount));
+							inventory.getItemsMap().put(objectId, new L2InventoryItem(id, objectId, 1, "INVENTORY", amount, ""));
 						}
 						// Armors:
 						else if (type == 2)
 						{
 							L2Armor armor = ArmorTable.getInstance().getArmor(id);
-							L2InventoryEntry pie = new L2InventoryEntry(inventory.getArmors(), player, armor.getName(), "Armor", id, 0, 1, "INVENTORY", objectId);
+							L2InventoryEntry pie = new L2InventoryEntry(inventory.getArmors(), player, armor.getName(), "Armor", id, 0, 1, "INVENTORY", objectId, "");
 							inventory.getArmors().addEntry(pie);
-							inventory.getItemsMap().put(objectId, new L2InventoryItem(id, objectId, 1, "INVENTORY", amount));
+							inventory.getItemsMap().put(objectId, new L2InventoryItem(id, objectId, 1, "INVENTORY", amount, ""));
 						}
 						// etc Items:
 						else if (type == 3)
 						{
+							String itemType = "";
 							L2Item item = ItemTable.getInstance().getItem(id);
-							L2InventoryEntry pie = new L2InventoryEntry(inventory.getEtcItems(), player, item.getName(), "Item", id, 0, 1, "INVENTORY", objectId);
+							if (item != null)
+								itemType = (item.getType().equals("quest")) ? "(Quest Item)" : "";
+
+							L2InventoryEntry pie = new L2InventoryEntry(inventory.getEtcItems(), player, item.getName(), "Item", id, 0, 1, "INVENTORY", objectId, itemType);
 							inventory.getEtcItems().addEntry(pie);
-							inventory.getItemsMap().put(objectId, new L2InventoryItem(id, objectId, 1, "INVENTORY", amount));
+							inventory.getItemsMap().put(objectId, new L2InventoryItem(id, objectId, 1, "INVENTORY", amount, itemType));
 						}
 
 						PlayersManager.getInstance().refreshViewer();
