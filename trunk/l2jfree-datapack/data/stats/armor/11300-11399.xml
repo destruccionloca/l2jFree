@@ -168,6 +168,7 @@
   <item id="11378" name="Stockings of Zubei">
     <for>
       <add order="0x10" stat="pDef" val="49"/>
+      <add order="0x40" stat="maxMp" val="216"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>

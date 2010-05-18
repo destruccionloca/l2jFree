@@ -29,13 +29,19 @@
     <for/>
   </item>
   <item id="10470" name="Shadow Item - Red Crescent">
-    <for/>
+    <for>
+      <add order="0x10" stat="mDef" val="24"/>
+    </for>
   </item>
   <item id="10471" name="Shadow Item - Ring of Devotion">
-    <for/>
+    <for>
+      <add order="0x10" stat="mDef" val="16"/>
+    </for>
   </item>
   <item id="10472" name="Shadow Item - Necklace of Devotion">
-    <for/>
+    <for>
+      <add order="0x10" stat="mDef" val="32"/>
+    </for>
   </item>
   <item id="10487" name="Dynasty Jeweled Leather Armor - Force Master">
     <cond msgId="1518">

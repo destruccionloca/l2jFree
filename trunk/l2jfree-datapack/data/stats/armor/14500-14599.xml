@@ -108,6 +108,7 @@
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="147"/>
+      <add order="0x40" stat="maxMp" val="718"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>
@@ -130,6 +131,9 @@
     </for>
   </item>
   <item id="14592" name="Gludio Earth Protection Ring">
+    <cond msgId="1518">
+      <player castle="1"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -138,6 +142,9 @@
     </for>
   </item>
   <item id="14593" name="Dion Water Protection Ring">
+    <cond msgId="1518">
+      <player castle="2"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -146,6 +153,9 @@
     </for>
   </item>
   <item id="14594" name="Giran Fire Protection Ring">
+    <cond msgId="1518">
+      <player castle="3"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -154,6 +164,9 @@
     </for>
   </item>
   <item id="14595" name="Oren Earth Protection Ring">
+    <cond msgId="1518">
+      <player castle="4"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -162,6 +175,9 @@
     </for>
   </item>
   <item id="14596" name="Aden Divinity Protection Ring">
+    <cond msgId="1518">
+      <player castle="5"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -170,6 +186,9 @@
     </for>
   </item>
   <item id="14597" name="Innadril Divinity Protection Ring">
+    <cond msgId="1518">
+      <player castle="6"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -178,6 +197,9 @@
     </for>
   </item>
   <item id="14598" name="Goddard Dark Protection Ring">
+    <cond msgId="1518">
+      <player castle="7"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>
@@ -186,6 +208,9 @@
     </for>
   </item>
   <item id="14599" name="Rune Wind Protection Ring">
+    <cond msgId="1518">
+      <player castle="8"/>
+    </cond>
     <for>
       <add order="0x10" stat="mDef" val="42"/>
       <add order="0x40" stat="maxMp" val="17"/>

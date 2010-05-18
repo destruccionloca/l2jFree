@@ -80,7 +80,7 @@
   </item>
   <item id="7850" name="Clan Oath Helm">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="37"/>
@@ -89,7 +89,7 @@
   </item>
   <item id="7851" name="Clan Oath Armor">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="158"/>
@@ -98,7 +98,7 @@
   </item>
   <item id="7852" name="Clan Oath Gauntlets - Heavy Armor">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="24"/>
@@ -107,7 +107,7 @@
   </item>
   <item id="7853" name="Clan Oath Sabaton - Heavy Armor">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="24"/>
@@ -116,7 +116,7 @@
   </item>
   <item id="7854" name="Clan Oath Brigandine">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="119"/>
@@ -125,7 +125,7 @@
   </item>
   <item id="7855" name="Clan Oath Leather Gloves - Light Armor">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="24"/>
@@ -134,7 +134,7 @@
   </item>
   <item id="7856" name="Clan Oath Boots - Light Armor">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="24"/>
@@ -143,7 +143,7 @@
   </item>
   <item id="7857" name="Clan Oath Aketon">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="79"/>
@@ -153,7 +153,7 @@
   </item>
   <item id="7858" name="Clan Oath Padded Gloves - Robe">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="24"/>
@@ -162,7 +162,7 @@
   </item>
   <item id="7859" name="Clan Oath Sandals - Robe">
     <cond msgId="1518">
-      <player pledgeClass="1"/>
+      <player pledgeClass="1"/> <!-- Vassal / Academy -->
     </cond>
     <for>
       <add order="0x10" stat="pDef" val="24"/>
