@@ -31,7 +31,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
-import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.util.ArrayBunch;
 import com.l2jfree.util.concurrent.L2EntityMap;
 import com.l2jfree.util.concurrent.L2ReadWriteEntityMap;
 
@@ -352,7 +352,7 @@ public final class L2World
 		final int y = object.getY();
 		final int sqRadius = radius * radius;
 		
-		LinkedBunch<L2Object> result = new LinkedBunch<L2Object>();
+		ArrayBunch<L2Object> result = new ArrayBunch<L2Object>();
 		
 		for (L2WorldRegion region : selfRegion.getSurroundingRegions())
 		{
@@ -406,7 +406,7 @@ public final class L2World
 		final int z = object.getZ();
 		final int sqRadius = radius * radius;
 		
-		LinkedBunch<L2Object> result = new LinkedBunch<L2Object>();
+		ArrayBunch<L2Object> result = new ArrayBunch<L2Object>();
 		
 		for (L2WorldRegion region : selfRegion.getSurroundingRegions())
 		{
@@ -453,7 +453,7 @@ public final class L2World
 		if (selfRegion == null)
 			return L2Playable.EMPTY_ARRAY;
 		
-		LinkedBunch<L2Playable> result = new LinkedBunch<L2Playable>();
+		ArrayBunch<L2Playable> result = new ArrayBunch<L2Playable>();
 		
 		for (L2WorldRegion region : selfRegion.getSurroundingRegions())
 		{

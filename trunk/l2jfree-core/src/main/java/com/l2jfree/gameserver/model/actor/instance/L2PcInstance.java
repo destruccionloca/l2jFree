@@ -311,9 +311,9 @@ import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
 import com.l2jfree.tools.util.HexUtil;
+import com.l2jfree.util.ArrayBunch;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.L2Collections;
-import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.SingletonList;
 import com.l2jfree.util.SingletonMap;
 
@@ -1431,7 +1431,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public Quest[] getAllActiveQuests()
 	{
-		LinkedBunch<Quest> quests = new LinkedBunch<Quest>();
+		ArrayBunch<Quest> quests = new ArrayBunch<Quest>();
 
 		for (QuestState qs : _quests.values())
 		{

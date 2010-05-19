@@ -70,8 +70,8 @@ import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.lang.L2Integer;
 import com.l2jfree.lang.L2System;
+import com.l2jfree.util.ArrayBunch;
 import com.l2jfree.util.L2Arrays;
-import com.l2jfree.util.LinkedBunch;
 import com.l2jfree.util.concurrent.ForEachExecutable;
 
 public class L2Skill implements FuncOwner, IChanceSkillTrigger
@@ -1606,7 +1606,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		if (targets != null)
 			return targets.toArray(new L2Character[targets.size()]);
 		
-		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
+		ArrayBunch<L2Character> targetList = new ArrayBunch<L2Character>();
 		try
 		{
 			// Get the target type of the skill
@@ -3132,7 +3132,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	// [L2J_JP ADD SANDMAN START]
 	public final L2Character[] getAreaTargetList(L2Character activeChar)
 	{
-		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
+		ArrayBunch<L2Character> targetList = new ArrayBunch<L2Character>();
 		L2Object target;
 		L2PcInstance tgOwner;
 		L2Clan acClan;
@@ -3324,7 +3324,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 */
 	public final L2Character[] getMultiFaceTargetList(L2Character activeChar)
 	{
-		LinkedBunch<L2Character> targetList = new LinkedBunch<L2Character>();
+		ArrayBunch<L2Character> targetList = new ArrayBunch<L2Character>();
 		L2Object target;
 		L2Object FirstTarget;
 		L2PcInstance tgOwner;

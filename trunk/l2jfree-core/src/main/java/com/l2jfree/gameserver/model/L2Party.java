@@ -51,7 +51,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.Stats;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.util.ArrayBunch;
 
 /**
  * This class ...
@@ -613,7 +613,7 @@ public class L2Party
 	 */
 	public L2PcInstance[] getPartyMembersWithoutLeader()
 	{
-		LinkedBunch<L2PcInstance> list = new LinkedBunch<L2PcInstance>();
+		ArrayBunch<L2PcInstance> list = new ArrayBunch<L2PcInstance>();
 		
 		for (L2PcInstance player : getPartyMembers())
 			if (!isLeader(player))

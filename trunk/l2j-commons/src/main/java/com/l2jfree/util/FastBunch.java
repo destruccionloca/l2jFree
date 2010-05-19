@@ -23,7 +23,7 @@ import javolution.util.FastList;
  * 
  * @author NB4L1
  */
-public final class LinkedBunch<E> extends AbstractListBunch<E>
+public final class FastBunch<E> extends AbstractListBunch<E>
 {
 	@Override
 	protected List<E> initList()

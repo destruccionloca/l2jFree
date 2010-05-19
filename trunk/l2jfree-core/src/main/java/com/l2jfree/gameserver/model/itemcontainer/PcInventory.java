@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
-import com.l2jfree.util.LinkedBunch;
+import com.l2jfree.util.ArrayBunch;
 
 public class PcInventory extends Inventory
 {
@@ -167,7 +167,7 @@ public class PcInventory extends Inventory
 	*/
 	public L2ItemInstance[] getAllItemsByItemId(int itemId)
 	{
-		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
+		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
 			if (item.getItemId() == itemId)
@@ -183,7 +183,7 @@ public class PcInventory extends Inventory
 	*/
 	public L2ItemInstance[] getAllItemsByItemId(int itemId, int enchantment)
 	{
-		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
+		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
 			if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment))
@@ -213,7 +213,7 @@ public class PcInventory extends Inventory
 	 */
 	public L2ItemInstance[] getAugmentedItems()
 	{
-		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
+		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
 			if (item != null && item.isAugmented())
@@ -228,7 +228,7 @@ public class PcInventory extends Inventory
 	 */
 	public L2ItemInstance[] getElementItems()
 	{
-		LinkedBunch<L2ItemInstance> list = new LinkedBunch<L2ItemInstance>();
+		ArrayBunch<L2ItemInstance> list = new ArrayBunch<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
 			if (item != null && item.getElementals() != null)
@@ -243,7 +243,7 @@ public class PcInventory extends Inventory
 	 */
 	public TradeList.TradeItem[] getAvailableItems(TradeList tradeList)
 	{
-		LinkedBunch<TradeList.TradeItem> list = new LinkedBunch<TradeList.TradeItem>();
+		ArrayBunch<TradeList.TradeItem> list = new ArrayBunch<TradeList.TradeItem>();
 		for (L2ItemInstance item : _items)
 		{
 			if (item.isAvailable(getOwner(), false, false))

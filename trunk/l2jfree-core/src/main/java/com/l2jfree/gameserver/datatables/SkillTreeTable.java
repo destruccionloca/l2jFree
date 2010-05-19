@@ -41,8 +41,8 @@ import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
+import com.l2jfree.util.ArrayBunch;
 import com.l2jfree.util.L2Collections;
-import com.l2jfree.util.LinkedBunch;
 
 @SuppressWarnings("unchecked")
 public class SkillTreeTable
@@ -479,7 +479,7 @@ public class SkillTreeTable
 
 	public L2SkillLearn[] getAvailableSkills(L2PcInstance cha, ClassId classId)
 	{
-		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
+		ArrayBunch<L2SkillLearn> result = new ArrayBunch<L2SkillLearn>();
 		Collection<L2SkillLearn> skills = getAllowedSkills(classId);
 
 		if (skills == null)
@@ -588,7 +588,7 @@ public class SkillTreeTable
 
 	public L2SkillLearn[] getAvailableSpecialSkills(L2PcInstance cha)
 	{
-		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
+		ArrayBunch<L2SkillLearn> result = new ArrayBunch<L2SkillLearn>();
 		
 		L2Skill[] oldSkills = cha.getAllSkills();
 		
@@ -622,7 +622,7 @@ public class SkillTreeTable
 	
 	public L2SkillLearn[] getAvailableFishingSkills(L2PcInstance cha)
 	{
-		LinkedBunch<L2SkillLearn> result = new LinkedBunch<L2SkillLearn>();
+		ArrayBunch<L2SkillLearn> result = new ArrayBunch<L2SkillLearn>();
 
 		//if (skills == null)
 		//{
@@ -689,7 +689,7 @@ public class SkillTreeTable
 	
 	public L2PledgeSkillLearn[] getAvailablePledgeSkills(L2PcInstance cha)
 	{
-		LinkedBunch<L2PledgeSkillLearn> result = new LinkedBunch<L2PledgeSkillLearn>();
+		ArrayBunch<L2PledgeSkillLearn> result = new ArrayBunch<L2PledgeSkillLearn>();
 		List<L2PledgeSkillLearn> skills = _pledgeSkillTrees;
 
 		if (skills == null)
@@ -732,7 +732,7 @@ public class SkillTreeTable
 
 	public L2TransformSkillLearn[] getAvailableTransformSkills(L2PcInstance cha)
 	{
-		LinkedBunch<L2TransformSkillLearn> result = new LinkedBunch<L2TransformSkillLearn>();
+		ArrayBunch<L2TransformSkillLearn> result = new ArrayBunch<L2TransformSkillLearn>();
 		List<L2TransformSkillLearn> skills = _transformSkillTrees;
 
 		if (skills == null)
@@ -778,7 +778,7 @@ public class SkillTreeTable
 
 	public L2CertificationSkillsLearn[] getAvailableCertificationSkills(L2PcInstance cha)
 	{
-		LinkedBunch<L2CertificationSkillsLearn> result = new LinkedBunch<L2CertificationSkillsLearn>();
+		ArrayBunch<L2CertificationSkillsLearn> result = new ArrayBunch<L2CertificationSkillsLearn>();
 		List<L2CertificationSkillsLearn> skills = _certificationSkillsTrees;
 
 		if (skills == null)
