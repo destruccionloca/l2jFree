@@ -148,4 +148,18 @@ public final class L2ReadWriteEntityMap<T extends L2Entity<Integer>> extends L2E
 			_read.unlock();
 		}
 	}
+	
+	@Override
+	public T[] toArray(Class<T> clazz)
+	{
+		_read.lock();
+		try
+		{
+			return super.toArray(clazz);
+		}
+		finally
+		{
+			_read.unlock();
+		}
+	}
 }

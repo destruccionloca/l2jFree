@@ -78,4 +78,10 @@ public final class L2SynchronizedEntityMap<T extends L2Entity<Integer>> extends 
 	{
 		return super.toArray(array);
 	}
+	
+	@Override
+	public synchronized T[] toArray(Class<T> clazz)
+	{
+		return super.toArray(clazz);
+	}
 }

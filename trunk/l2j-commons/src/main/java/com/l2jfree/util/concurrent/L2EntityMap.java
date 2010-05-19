@@ -114,6 +114,17 @@ public abstract class L2EntityMap<T extends L2Entity<Integer>>
 			return _map.values().toArray(array);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public T[] toArray(Class<T> clazz)
+	{
+		T[] array = (T[])Array.newInstance(clazz, _map.size());
+		
+		if (_map.isEmpty() && array.length == 0)
+			return array;
+		else
+			return _map.values().toArray(array);
+	}
+	
 	protected Iterator<T> iterator()
 	{
 		return _map.values().iterator();

@@ -428,12 +428,12 @@ public final class L2WorldRegion
 	
 	public L2Object[] getVisibleObjects()
 	{
-		return _objects.toArray(new L2Object[_objects.size()]);
+		return _objects.toArray(L2Object.class);
 	}
 	
 	public L2Playable[] getVisiblePlayables()
 	{
-		return _playables.toArray(new L2Playable[_playables.size()]);
+		return _playables.toArray(L2Playable.class);
 	}
 	
 	public String getName()

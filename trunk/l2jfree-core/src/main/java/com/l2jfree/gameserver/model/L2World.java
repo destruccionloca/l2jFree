@@ -183,7 +183,7 @@ public final class L2World
 	
 	public L2Object[] getAllVisibleObjects()
 	{
-		return _objects.toArray(new L2Object[_objects.size()]);
+		return _objects.toArray(L2Object.class);
 	}
 	
 	/**
