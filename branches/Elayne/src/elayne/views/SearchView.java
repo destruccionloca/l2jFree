@@ -115,8 +115,19 @@ public class SearchView extends ViewPart
 		}
 		else if (searchType == SearchDialog.SEARCH_BY_LAST_ACTIVE)
 		{
-			System.out.println("Coming soon, it'm tired for today, will finish tomorrow...");
-			return;
+			int month = 0;
+			try
+			{
+				month = Integer.valueOf(searchInput);
+			}
+			catch (NumberFormatException e)
+			{
+				System.out.println("SearchView: Wrong values inserted in the search Field.");
+				MessageDialog.openError(getSite().getShell(), "Invalid Search", "The Search field must be filled up with numbers.");
+				return;
+			}
+			getPlayersByLastActive(month);
+			fillTable();
 		}
 
 		if (!isClanSearch(searchType) && _table != null)
@@ -316,6 +327,41 @@ public class SearchView extends ViewPart
 		{
 			con = ServerDB.getInstance().getConnection();
 			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE `obj_Id` LIKE '%" + objectId + "%' LIMIT 0,200";
+			PreparedStatement statement = con.prepareStatement(previous);
+			ResultSet rset = statement.executeQuery();
+			while (rset.next())
+			{
+				int objId = rset.getInt("charId");
+				String account = rset.getString("account_name");
+				String name = rset.getString("char_name");
+				int level = rset.getInt("level");
+				int accesslevel = rset.getInt("accesslevel");
+				int online = rset.getInt("online");
+				int sex = rset.getInt("sex");
+				int clanId = rset.getInt("clanid");
+				boolean isLeader = LeaderTable.getInstance().isLeader(objId);
+
+				_players.add(new L2CharacterBriefEntry(objId, level, name, account, online, accesslevel, sex, clanId, isLeader));
+			}
+			rset.close();
+			statement.close();
+			con.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private void getPlayersByLastActive(int month)
+	{
+		_players.clear();
+		long lastActive = System.currentTimeMillis() - Long.valueOf(month * 30 * 24 * 60 * 60 * 1000);
+		java.sql.Connection con = null;
+		try
+		{
+			con = ServerDB.getInstance().getConnection();
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE account_name IN ((SELECT login FROM accounts WHERE `lastActive` < '" + lastActive + "')) LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
