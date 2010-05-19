@@ -356,12 +356,12 @@ public class SearchView extends ViewPart
 	private void getPlayersByLastActive(int month)
 	{
 		_players.clear();
-		long lastActive = System.currentTimeMillis() - Long.valueOf(month * 30 * 24 * 60 * 60 * 1000);
+		long lastActive = System.currentTimeMillis() - (month * 2592000000L);
 		java.sql.Connection con = null;
 		try
 		{
 			con = ServerDB.getInstance().getConnection();
-			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE account_name IN ((SELECT login FROM accounts WHERE `lastActive` < '" + lastActive + "')) LIMIT 0,200";
+			String previous = "SELECT charId, account_name, char_name, level, accesslevel, online, sex, clanid FROM `characters` WHERE account_name IN ((SELECT login FROM accounts WHERE `lastActive` < " + lastActive + ")) LIMIT 0,200";
 			PreparedStatement statement = con.prepareStatement(previous);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
