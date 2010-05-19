@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -30,6 +28,7 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.lang.L2Entity;
 import com.l2jfree.lang.L2Integer;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * Mother class of all objects in the world wich ones is it possible to interact (PC, NPC, Item...)<BR>
@@ -520,7 +519,7 @@ public abstract class L2Object implements L2Entity<Integer>
 	@Override
 	public String toString()
 	{
-		TextBuilder tb = TextBuilder.newInstance();
+		L2TextBuilder tb = L2TextBuilder.newInstance();
 		tb.append("(");
 		tb.append(getClass().getSimpleName());
 		tb.append(") ");
@@ -528,14 +527,7 @@ public abstract class L2Object implements L2Entity<Integer>
 		tb.append(" - ");
 		tb.append(getName());
 		
-		try
-		{
-			return tb.toString();
-		}
-		finally
-		{
-			TextBuilder.recycle(tb);
-		}
+		return tb.moveToString();
 	}
 	
 	/**

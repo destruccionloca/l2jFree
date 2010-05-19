@@ -25,8 +25,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -42,6 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.script.DateRange;
+import com.l2jfree.lang.L2TextBuilder;
 
 
 /**
@@ -120,7 +119,7 @@ public class Announcements
 		String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setHtml(content);
-		TextBuilder replyMSG = TextBuilder.newInstance();
+		L2TextBuilder replyMSG = L2TextBuilder.newInstance();
 		replyMSG.append("<br>");
 		for (int i = 0; i < _announcements.size(); i++)
 		{
@@ -130,9 +129,8 @@ public class Announcements
 			replyMSG.append(i);
 			replyMSG.append("\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
 		}
-		adminReply.replace("%announces%", replyMSG.toString());
+		adminReply.replace("%announces%", replyMSG.moveToString());
 		activeChar.sendPacket(adminReply);
-		TextBuilder.recycle(replyMSG);
 	}
 
 	public void addAnnouncement(String text)

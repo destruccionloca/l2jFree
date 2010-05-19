@@ -26,7 +26,6 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +43,7 @@ import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class RegionBBSManager extends BaseBBSManager
 {
@@ -107,7 +107,7 @@ public class RegionBBSManager extends BaseBBSManager
 	 */
 	private void showOldCommunityPI(L2PcInstance activeChar, String name)
 	{
-		final TextBuilder htmlCode = TextBuilder.newInstance();
+		final L2TextBuilder htmlCode = L2TextBuilder.newInstance();
 		htmlCode.append("<html><body><br>");
 		htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=1></td></tr><tr><td FIXWIDTH=15></td><td>");
 		L2PcInstance player = L2World.getInstance().getPlayer(name);
@@ -199,7 +199,7 @@ public class RegionBBSManager extends BaseBBSManager
 
 		if (ar1.equals("PM"))
 		{
-			final TextBuilder htmlCode = TextBuilder.newInstance();
+			final L2TextBuilder htmlCode = L2TextBuilder.newInstance();
 			htmlCode.append("<html><body><br>");
 			htmlCode.append("<table border=0><tr><td FIXWIDTH=15></td><td align=center>L2J Community Board<img src=\"sek.cbui355\" width=610 height=1></td></tr><tr><td FIXWIDTH=15></td><td>");
 
@@ -523,7 +523,7 @@ public class RegionBBSManager extends BaseBBSManager
 
 			final List<L2PcInstance> onlinePlayers = _players.subList(fromIndex, toIndex);
 
-			final TextBuilder htmlCode = TextBuilder.newInstance();
+			final L2TextBuilder htmlCode = L2TextBuilder.newInstance();
 			htmlCode.append("<html><body><br>");
 			htmlCode.append("<table width=600>");
 			{
@@ -739,14 +739,7 @@ public class RegionBBSManager extends BaseBBSManager
 
 			htmlCode.append("</body></html>");
 
-			try
-			{
-				return htmlCode.toString();
-			}
-			finally
-			{
-				TextBuilder.recycle(htmlCode);
-			}
+			return htmlCode.moveToString();
 		}
 	}
 

@@ -21,6 +21,8 @@ import java.util.logging.LogRecord;
 
 import javolution.text.TextBuilder;
 
+import com.l2jfree.lang.L2TextBuilder;
+
 /**
  * @author NB4L1
  */
@@ -31,20 +33,13 @@ public abstract class L2LogFormatter extends Formatter
 	@Override
 	public final String format(LogRecord record)
 	{
-		TextBuilder tb = TextBuilder.newInstance();
+		L2TextBuilder tb = L2TextBuilder.newInstance();
 		
 		format0(record, tb);
 		
 		appendNewline(tb);
 		
-		try
-		{
-			return tb.toString();
-		}
-		finally
-		{
-			TextBuilder.recycle(tb);
-		}
+		return tb.moveToString();
 	}
 	
 	protected abstract void format0(LogRecord record, TextBuilder tb);

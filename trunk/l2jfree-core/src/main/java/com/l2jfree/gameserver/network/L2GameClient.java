@@ -21,7 +21,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -44,6 +43,7 @@ import com.l2jfree.gameserver.threadmanager.FIFORunnableQueue;
 import com.l2jfree.gameserver.util.TableOptimizer;
 import com.l2jfree.gameserver.util.TableOptimizer.CharacterRelatedTable;
 import com.l2jfree.gameserver.util.TableOptimizer.ItemRelatedTable;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.mmocore.network.MMOConnection;
 import com.l2jfree.mmocore.network.SelectorThread;
 import com.l2jfree.tools.security.BlowFishKeygen;
@@ -360,7 +360,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 	@Override
 	public String toString()
 	{
-		TextBuilder tb = TextBuilder.newInstance();
+		L2TextBuilder tb = L2TextBuilder.newInstance();
 		
 		tb.append("[State: ").append(getState());
 		
@@ -378,11 +378,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 		
 		tb.append("]");
 		
-		final String toString = tb.toString();
-		
-		TextBuilder.recycle(tb);
-		
-		return toString;
+		return tb.moveToString();
 	}
 	
 	public boolean isProtocolOk()

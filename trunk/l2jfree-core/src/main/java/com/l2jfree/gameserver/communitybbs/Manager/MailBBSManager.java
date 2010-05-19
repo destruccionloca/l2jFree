@@ -20,7 +20,6 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import org.apache.commons.lang.StringUtils;
@@ -36,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExMailArrived;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * 
@@ -242,7 +242,7 @@ public class MailBBSManager extends BaseBBSManager
 		maxIndex = (page == 1 ? page * 14 : (page * 15) - 1);
 		minIndex = maxIndex - 14;
 		
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=810><tr><td width=10></td><td width=800 height=30 align=left>");
@@ -326,7 +326,7 @@ public class MailBBSManager extends BaseBBSManager
 	
 	private void showLetterView(L2PcInstance activeChar, UpdateMail letter)
 	{
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=770><tr><td width=10></td><td height=30 width=760 align=left>");
@@ -395,7 +395,7 @@ public class MailBBSManager extends BaseBBSManager
 		maxIndex = (page == 1 ? page * 14 : (page * 15) - 1);
 		minIndex = maxIndex - 14;
 		
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=810><tr><td width=10></td><td width=800 height=30 align=left>");
@@ -485,7 +485,7 @@ public class MailBBSManager extends BaseBBSManager
 		maxIndex = (page == 1 ? page * 14 : (page * 15) - 1);
 		minIndex = maxIndex - 14;
 		
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=810><tr><td width=10></td><td width=800 height=30 align=left>");
@@ -575,7 +575,7 @@ public class MailBBSManager extends BaseBBSManager
 		maxIndex = (page == 1 ? page * 14 : (page * 15) - 1);
 		minIndex = maxIndex - 14;
 		
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=810><tr><td width=10></td><td width=800 height=30 align=left>");
@@ -661,7 +661,7 @@ public class MailBBSManager extends BaseBBSManager
 	
 	private void showWriteView(L2PcInstance activeChar)
 	{
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=770><tr><td width=10></td><td height=30 width=760 align=left>");
@@ -703,7 +703,7 @@ public class MailBBSManager extends BaseBBSManager
 	
 	private void showWriteView(L2PcInstance activeChar, String parcipientName, UpdateMail letter)
 	{
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0 width=770><tr><td width=10></td><td height=30 width=760 align=left>");
@@ -741,15 +741,9 @@ public class MailBBSManager extends BaseBBSManager
 		html.append("<td FIXWIDTH=400></td>");
 		html.append("</tr></table>");
 		html.append("</body></html>");
-		try
-		{
-			send1001(html.toString(), activeChar);
-			send1002(activeChar, " ", "Re: " + letter.subject, "0");
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		
+		send1001(html.moveToString(), activeChar);
+		send1002(activeChar, " ", "Re: " + letter.subject, "0");
 	}
 
 	private void sendLetter(String recipients, String subject, String message, L2PcInstance activeChar)

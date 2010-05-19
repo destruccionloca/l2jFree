@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -27,6 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * @author evill33t
@@ -102,7 +102,7 @@ public class UpdateBBSManager extends BaseBBSManager
 	{
 		if (command.equals("_bbsupdate_notes"))
 		{
-			final TextBuilder tb = TextBuilder.newInstance();
+			final L2TextBuilder tb = L2TextBuilder.newInstance();
 			tb.append("<html><body><br>");
 
 			tb.append("<table border=0 cellspacing=0 cellpadding=2 bgcolor=808080 width=770>");
@@ -133,7 +133,7 @@ public class UpdateBBSManager extends BaseBBSManager
 			st.nextToken();
 			int id = Integer.parseInt(st.nextToken());
 			UpdateItem it = getDetails(id);
-			final TextBuilder tb = TextBuilder.newInstance();
+			final L2TextBuilder tb = L2TextBuilder.newInstance();
 			tb.append("<html><body><table border=0 cellspacing=0 cellpadding=2 width=770><tr><td FIXWIDTH=5></td><td><br>");
 			tb.append(it.udate).append(" ").append(it.introduction).append("<br><br>");
 			tb.append(it.text);

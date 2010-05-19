@@ -16,10 +16,10 @@ package com.l2jfree.util.concurrent;
 
 import java.util.concurrent.TimeUnit;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * @author NB4L1
@@ -73,16 +73,14 @@ public class ExecuteWrapper implements Runnable
 			
 			if (runtimeInMillisec > maximumRuntimeInMillisecWithoutWarning)
 			{
-				TextBuilder tb = TextBuilder.newInstance();
+				L2TextBuilder tb = L2TextBuilder.newInstance();
 				
 				tb.append(clazz);
 				tb.append(" - execution time: ");
 				tb.append(runtimeInMillisec);
 				tb.append("msec");
 				
-				_log.warn(tb);
-				
-				TextBuilder.recycle(tb);
+				_log.warn(tb.moveToString());
 			}
 		}
 	}

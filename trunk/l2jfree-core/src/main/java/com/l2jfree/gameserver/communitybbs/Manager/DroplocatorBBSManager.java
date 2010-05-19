@@ -14,9 +14,8 @@
  */
 package com.l2jfree.gameserver.communitybbs.Manager;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class DroplocatorBBSManager extends BaseBBSManager
 {
@@ -25,7 +24,7 @@ public class DroplocatorBBSManager extends BaseBBSManager
 	{
 		if (command.equals("_bbsdroplocator_search"))
 		{
-			final TextBuilder content = TextBuilder.newInstance();
+			final L2TextBuilder content = L2TextBuilder.newInstance();
 			content.append("<html><body><br>");
 			content.append("<table border=0 cellspacing=0 cellpadding=2 bgcolor=808080 width=770>");
 			content.append("<tr>");
@@ -37,14 +36,8 @@ public class DroplocatorBBSManager extends BaseBBSManager
 			content.append("</tr></table>");
 			content.append("<table border=0 cellspacing=0 cellpadding=2 width=770>");
 			
-			try
-			{
-				// FIXME: i guess something is missing from here :D
-			}
-			finally
-			{
-				TextBuilder.recycle(content);
-			}
+			// FIXME: i guess something is missing from here :D
+			content.moveToString();
 		}
 	}
 

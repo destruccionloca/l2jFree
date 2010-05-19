@@ -18,13 +18,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2Config;
 import com.l2jfree.config.L2Properties;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 public class Status extends Thread
@@ -100,7 +99,7 @@ public class Status extends Thread
 
 	private String generateRandomPassword(int length)
 	{
-		TextBuilder password = TextBuilder.newInstance();
+		L2TextBuilder password = L2TextBuilder.newInstance();
 		String lowerChar = "qwertyuiopasdfghjklzxcvbnm";
 		String upperChar = "QWERTYUIOPASDFGHJKLZXCVBNM";
 		String digits = "1234567890";
@@ -120,8 +119,6 @@ public class Status extends Thread
 				break;
 			}
 		}
-		String pass = password.toString();
-		TextBuilder.recycle(password);
-		return pass;
+		return password.moveToString();
 	}
 }

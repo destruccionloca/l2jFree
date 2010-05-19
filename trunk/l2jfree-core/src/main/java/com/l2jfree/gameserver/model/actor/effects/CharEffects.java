@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
@@ -31,6 +30,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.util.ObjectPool;
 
 /**
@@ -317,7 +317,7 @@ public class CharEffects
 	 */
 	public final void printStackTrace(String[] stackTypes, L2Effect effect)
 	{
-		TextBuilder tb = TextBuilder.newInstance();
+		L2TextBuilder tb = L2TextBuilder.newInstance();
 		
 		tb.append(_owner);
 		
@@ -327,9 +327,7 @@ public class CharEffects
 		if (effect != null)
 			tb.append(" -> ").append(effect.getSkill().toString());
 		
-		_log.warn(tb, new IllegalStateException());
-		
-		TextBuilder.recycle(tb);
+		_log.warn(tb.moveToString(), new IllegalStateException());
 	}
 	
 	public final synchronized L2Effect getFirstEffect(L2Skill skill)

@@ -16,12 +16,11 @@ package com.l2jfree.gameserver.communitybbs.Manager;
 
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class ClanBBSManager extends BaseBBSManager
 {
@@ -122,7 +121,7 @@ public class ClanBBSManager extends BaseBBSManager
 				{
 					if (activeChar.isClanLeader())
 					{
-						final TextBuilder html = TextBuilder.newInstance();
+						final L2TextBuilder html = L2TextBuilder.newInstance();
 						html.append("<html>");
 						html.append("<body><br><br>");
 						html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
@@ -162,19 +161,13 @@ public class ClanBBSManager extends BaseBBSManager
 						html.append("</center>");
 						html.append("</body>");
 						html.append("</html>");
-						try
-						{
-							send1001(html.toString(), activeChar);
-							send1002(activeChar, activeChar.getClan().getNoticeForBBS(), " ", "0");
-						}
-						finally
-						{
-							TextBuilder.recycle(html);
-						}
+						
+						send1001(html.moveToString(), activeChar);
+						send1002(activeChar, activeChar.getClan().getNoticeForBBS(), " ", "0");
 					}
 					else
 					{
-						final TextBuilder html = TextBuilder.newInstance();
+						final L2TextBuilder html = L2TextBuilder.newInstance();
 						html.append("<html>");
 						html.append("<body><br><br>");
 						html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
@@ -203,15 +196,9 @@ public class ClanBBSManager extends BaseBBSManager
 						html.append("</center>");
 						html.append("</body>");
 						html.append("</html>");
-						try
-						{
-							send1001(html.toString(), activeChar);
-							send1002(activeChar);
-						}
-						finally
-						{
-							TextBuilder.recycle(html);
-						}
+						
+						send1001(html.moveToString(), activeChar);
+						send1002(activeChar);
 					}
 				}
 			}
@@ -232,7 +219,7 @@ public class ClanBBSManager extends BaseBBSManager
 			index = 1;
 		}
 		//header
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html><body><br><br><center>");
 		html.append("<br1><br1><table border=0 cellspacing=0 cellpadding=0>");
 		html.append("<tr><td FIXWIDTH=15>&nbsp;</td>");
@@ -369,7 +356,7 @@ public class ClanBBSManager extends BaseBBSManager
 			}
 			else
 			{
-				final TextBuilder html = TextBuilder.newInstance();
+				final L2TextBuilder html = L2TextBuilder.newInstance();
 				html.append("<html><body><center><br><br>");
 				html.append("<br1><br1><table border=0 cellspacing=0 cellpadding=0>");
 				html.append("<tr><td FIXWIDTH=15>&nbsp;</td>");

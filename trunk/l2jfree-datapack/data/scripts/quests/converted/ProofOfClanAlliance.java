@@ -14,7 +14,6 @@
  */
 package quests.converted;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -34,6 +33,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -507,16 +507,14 @@ public final class ProofOfClanAlliance extends QuestJython
 
 	private static final String buildReply(L2Npc npc, int answer)
 	{
-		TextBuilder tb = TextBuilder.newInstance();
+		L2TextBuilder tb = L2TextBuilder.newInstance();
 		tb.append(npc.getNpcId());
 		tb.append('-');
 		if (answer < 10)
 			tb.append('0');
 		tb.append(answer);
 		tb.append(".htm");
-		String rep = tb.toString();
-		TextBuilder.recycle(tb);
-		return rep;
+		return tb.moveToString();
 	}
 
 	public static void main(String[] args)
@@ -620,7 +618,7 @@ public final class ProofOfClanAlliance extends QuestJython
 		@Override
 		public String toString()
 		{
-			TextBuilder tb = TextBuilder.newInstance();
+			L2TextBuilder tb = L2TextBuilder.newInstance();
 			tb.append("Questing clan ");
 			tb.append(getClan().getName());
 			tb.append(", leader ");
@@ -639,9 +637,7 @@ public final class ProofOfClanAlliance extends QuestJython
 					tb.append("OFF");
 				tb.append(')');
 			}
-			String qc = tb.toString();
-			TextBuilder.recycle(tb);
-			return qc;
+			return tb.moveToString();
 		}
 	}
 

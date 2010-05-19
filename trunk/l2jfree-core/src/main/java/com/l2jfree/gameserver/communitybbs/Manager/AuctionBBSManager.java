@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -304,7 +303,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		minIndex = maxIndex - 9;
 		getLotsBiddedOn(activeChar);
 
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 
@@ -416,7 +415,7 @@ public class AuctionBBSManager extends BaseBBSManager
 		if (currentBid == 0)
 			currentBid = lot.startingBid;
 
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 
@@ -774,37 +773,33 @@ public class AuctionBBSManager extends BaseBBSManager
 	private void showComfirmationPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = TextBuilder.newInstance();
+		L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html><body>");
 		html.append("<title>Auction Comfirmation Window</title>");
 		html.append("Congrats! Your item is now up for auction!");
 		html.append("</body></html>");
-		nhm.setHtml(html.toString());
+		nhm.setHtml(html.moveToString());
 		activeChar.sendPacket(nhm);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-
-		TextBuilder.recycle(html);
 	}
 
 	private void showBuyNowComfirmationPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-		TextBuilder html = TextBuilder.newInstance();
+		L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html><body>");
 		html.append("<title>Auction Buy Now Comfirmation Window</title>");
 		html.append("Congrats! You have won the auction by default, the auction will soon be processed.");
 		html.append("</body></html>");
-		nhm.setHtml(html.toString());
+		nhm.setHtml(html.moveToString());
 		activeChar.sendPacket(nhm);
 
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-
-		TextBuilder.recycle(html);
 	}
 
 	private void addAuction(L2PcInstance activeChar, int hours, int currency, long statingBid, long increment, long buyNow, long count, int objectId)

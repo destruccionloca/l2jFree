@@ -20,7 +20,6 @@ import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SocketChannel;
 import java.util.Map;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +29,7 @@ import com.l2jfree.gameserver.CoreInfo;
 import com.l2jfree.gameserver.LoginServerThread;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.mmocore.network.IPacketHandler;
 import com.l2jfree.mmocore.network.SelectorConfig;
 import com.l2jfree.mmocore.network.SelectorThread;
@@ -79,7 +79,7 @@ public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2G
 		if (!Config.PACKET_HANDLER_DEBUG)
 			return;
 		
-		TextBuilder sb = TextBuilder.newInstance();
+		L2TextBuilder sb = L2TextBuilder.newInstance();
 		sb.append("Unknown Packet: ");
 		
 		for (int i = 0; i < opcodes.length; i++)
@@ -90,8 +90,7 @@ public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2G
 			sb.append("0x").append(Integer.toHexString(opcodes[i]));
 		}
 		sb.append(", Client: ").append(client);
-		_log.info(sb);
-		TextBuilder.recycle(sb);
+		_log.info(sb.moveToString());
 		
 		byte[] array = new byte[buf.remaining()];
 		buf.get(array);

@@ -22,11 +22,10 @@ import java.security.interfaces.RSAPrivateKey;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.loginserver.beans.SessionKey;
 import com.l2jfree.loginserver.clientpackets.L2LoginClientPacket;
 import com.l2jfree.loginserver.crypt.LoginCrypt;
@@ -302,7 +301,7 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 	@Override
 	public String toString()
 	{
-		TextBuilder tb = TextBuilder.newInstance();
+		L2TextBuilder tb = L2TextBuilder.newInstance();
 		
 		tb.append("[State: ").append(getState());
 		
@@ -316,11 +315,7 @@ public final class L2LoginClient extends MMOConnection<L2LoginClient, L2LoginCli
 		
 		tb.append("]");
 		
-		final String toString = tb.toString();
-		
-		TextBuilder.recycle(tb);
-		
-		return toString;
+		return tb.moveToString();
 	}
 	
 	@Override

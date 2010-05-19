@@ -20,7 +20,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.communitybbs.bb.Forum;
@@ -28,6 +27,7 @@ import com.l2jfree.gameserver.communitybbs.bb.Post;
 import com.l2jfree.gameserver.communitybbs.bb.Topic;
 import com.l2jfree.gameserver.communitybbs.bb.Post.CPost;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class PostBBSManager extends BaseBBSManager
 {
@@ -173,7 +173,7 @@ public class PostBBSManager extends BaseBBSManager
 	 */
 	private void showHtmlEditPost(Topic topic, L2PcInstance activeChar, Forum forum, Post p)
 	{
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
@@ -218,16 +218,10 @@ public class PostBBSManager extends BaseBBSManager
 		html.append("</center>");
 		html.append("</body>");
 		html.append("</html>");
-		try
-		{
-			send1001(html.toString(), activeChar);
-			send1002(activeChar, p.getCPost(0).postTxt, topic.getName(), DateFormat.getInstance().format(
+		
+		send1001(html.moveToString(), activeChar);
+		send1002(activeChar, p.getCPost(0).postTxt, topic.getName(), DateFormat.getInstance().format(
 				new Date(topic.getDate())));
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
 	}
 
 	/**
@@ -241,7 +235,7 @@ public class PostBBSManager extends BaseBBSManager
 		Post p = getGPosttByTopic(topic);
 		Locale locale = Locale.getDefault();
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html><body><br><br>");
 		html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
 		html.append("<a action=\"bypass _bbshome\">HOME</a>&nbsp;>&nbsp;<a action=\"bypass _bbsmemo\">Memo Form</a>");

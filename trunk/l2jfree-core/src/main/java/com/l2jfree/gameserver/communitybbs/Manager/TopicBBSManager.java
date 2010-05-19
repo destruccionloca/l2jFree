@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -29,6 +28,7 @@ import com.l2jfree.gameserver.communitybbs.bb.Post;
 import com.l2jfree.gameserver.communitybbs.bb.Topic;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class TopicBBSManager extends BaseBBSManager
 {
@@ -251,7 +251,7 @@ public class TopicBBSManager extends BaseBBSManager
 	 */
 	private void showMemoNewTopics(Forum forum, L2PcInstance activeChar)
 	{
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html>");
 		html.append("<body><br><br>");
 		html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
@@ -297,15 +297,9 @@ public class TopicBBSManager extends BaseBBSManager
 		html.append("</center>");
 		html.append("</body>");
 		html.append("</html>");
-		try
-		{
-			send1001(html.toString(), activeChar);
-			send1002(activeChar);
-		}
-		finally
-		{
-			TextBuilder.recycle(html);
-		}
+		
+		send1001(html.moveToString(), activeChar);
+		send1002(activeChar);
 	}
 
 	/**
@@ -334,7 +328,7 @@ public class TopicBBSManager extends BaseBBSManager
 	private void showMemoTopics(Forum forum, L2PcInstance activeChar, int index)
 	{
 		forum.vload();
-		final TextBuilder html = TextBuilder.newInstance();
+		final L2TextBuilder html = L2TextBuilder.newInstance();
 		html.append("<html><body><br><br>");
 		html.append("<table border=0 width=610><tr><td width=10></td><td width=600 align=left>");
 		html.append("<a action=\"bypass _bbshome\">HOME</a>&nbsp;>&nbsp;<a action=\"bypass _bbsmemo\">Memo Form</a>");

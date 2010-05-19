@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.instancemanager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -531,7 +530,7 @@ public final class PetitionManager
 			return;
 
 		Petition currPetition = getPendingPetitions().get(petitionId);
-		TextBuilder htmlContent = TextBuilder.newInstance();
+		L2TextBuilder htmlContent = L2TextBuilder.newInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm z");
 
 		htmlContent.append("<html><body><center><br><font color=\"LEVEL\">Petition #");
@@ -555,9 +554,8 @@ public final class PetitionManager
 		htmlContent.append("fore=\"L2UI_ct1.button_df\"></center></body></html>");
 
 		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(petitionId);
-		htmlMsg.setHtml(htmlContent.toString());
+		htmlMsg.setHtml(htmlContent.moveToString());
 		activeChar.sendPacket(htmlMsg);
-		TextBuilder.recycle(htmlContent);
 	}
 
 	@SuppressWarnings("synthetic-access")
