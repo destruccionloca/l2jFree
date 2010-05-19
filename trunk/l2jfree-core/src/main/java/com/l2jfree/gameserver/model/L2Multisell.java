@@ -233,8 +233,7 @@ public final class L2Multisell
 		// now add the adena, if any.
 		if (adenaAmount > 0)
 		{
-			newEntry.addIngredient(new MultiSellIngredient(PcInventory.ADENA_ID, adenaAmount, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0, 0/*guess*/,
-				false, false));
+			newEntry.addIngredient(new MultiSellIngredient(PcInventory.ADENA_ID, adenaAmount));
 		}
 		// Now modify the enchantment level of products, if necessary
 		for (MultiSellIngredient ing : templateEntry.getProducts())
@@ -358,6 +357,11 @@ public final class L2Multisell
 			_windVal, _earthVal, _holyVal, _darkVal;
 		private long _itemCount;
 		private boolean _isTaxIngredient, _maintainIngredient;
+		
+		public MultiSellIngredient(int itemId, long itemCount)
+		{
+			this(itemId, itemCount, false, false);
+		}
 		
 		public MultiSellIngredient(int itemId, long itemCount, boolean isTaxIngredient, boolean maintainIngredient)
 		{
@@ -682,6 +686,7 @@ public final class L2Multisell
 	{
 		MultiSellListContainer list = new MultiSellListContainer();
 		
+		int entryId = 1;
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 		{
 			if ("list".equalsIgnoreCase(n.getNodeName()))
@@ -705,7 +710,7 @@ public final class L2Multisell
 				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
 					{
-						MultiSellEntry e = parseEntry(d);
+						MultiSellEntry e = parseEntry(d, entryId++);
 						list.addEntry(e);
 					}
 				}
@@ -715,9 +720,9 @@ public final class L2Multisell
 		return list;
 	}
 	
-	private MultiSellEntry parseEntry(Node n)
+	private MultiSellEntry parseEntry(Node n, int entryId)
 	{
-		int entryId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
+		//int entryId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 		
 		Node first = n.getFirstChild();
 		MultiSellEntry entry = new MultiSellEntry(entryId);
@@ -753,7 +758,7 @@ public final class L2Multisell
 				int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 				long count = Long.parseLong(n.getAttributes().getNamedItem("count").getNodeValue());
 				
-				MultiSellIngredient e = new MultiSellIngredient(id, count, false, false);
+				MultiSellIngredient e = new MultiSellIngredient(id, count);
 				entry.addProduct(e);
 				
 				validateItemId(id);

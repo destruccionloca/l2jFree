@@ -537,7 +537,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 		}
 		// Next add the adena amount, if any
 		if (totalAdenaCount > 0)
-			newEntry.addIngredient(new MultiSellIngredient(PcInventory.ADENA_ID, totalAdenaCount, false, false));
+			newEntry.addIngredient(new MultiSellIngredient(PcInventory.ADENA_ID, totalAdenaCount));
 		
 		// Now modify the enchantment level of products, if necessary
 		for (MultiSellIngredient ing : templateEntry.getProducts())
