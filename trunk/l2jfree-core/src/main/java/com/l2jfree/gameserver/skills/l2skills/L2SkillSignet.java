@@ -30,14 +30,19 @@ import com.l2jfree.tools.geometry.Point3D;
  */
 public final class L2SkillSignet extends L2Skill
 {
-	private final int	_effectNpcId;
-	public int	effectId;
+	private final int _effectNpcId;
+	private final int _effectId;
 
 	public L2SkillSignet(StatsSet set)
 	{
 		super(set);
 		_effectNpcId = set.getInteger("effectNpcId", -1);
-		effectId = set.getInteger("effectId", -1);
+		_effectId = set.getInteger("effectId", -1);
+	}
+
+	public int getSignetEffectId()
+	{
+		return _effectId;
 	}
 
 	@Override
@@ -70,6 +75,7 @@ public final class L2SkillSignet extends L2Skill
 		getEffects(caster, effectPoint);
 
 		effectPoint.setIsInvul(true);
+		effectPoint.setInstanceId(caster.getInstanceId());
 		effectPoint.spawnMe(x, y, z);
 	}
 }

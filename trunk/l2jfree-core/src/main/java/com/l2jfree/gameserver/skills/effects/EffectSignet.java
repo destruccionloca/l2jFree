@@ -50,11 +50,10 @@ public final class EffectSignet extends L2Effect
 	protected boolean onStart()
 	{
 		if (getSkill() instanceof L2SkillSignet)
-			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet)getSkill()).effectId, getLevel());
+			_skill = SkillTable.getInstance().getInfo(((L2SkillSignet)getSkill()).getSignetEffectId(), getLevel());
 		else if (getSkill() instanceof L2SkillSignetCasttime)
 			_skill = SkillTable.getInstance().getInfo(((L2SkillSignetCasttime)getSkill()).effectId, getLevel());
 		_actor = (L2EffectPointInstance)getEffected();
-		_actor.setInstanceId(getEffector().getInstanceId());
 		return true;
 	}
 	
