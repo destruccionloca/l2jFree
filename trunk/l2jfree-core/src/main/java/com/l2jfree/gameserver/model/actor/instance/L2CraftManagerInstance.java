@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.RecipeController;
 import com.l2jfree.gameserver.datatables.ItemTable;
@@ -652,13 +650,13 @@ public class L2CraftManagerInstance extends L2NpcInstance
 	{
 		NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
+		L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 		replyMSG.append(getName()+":<br>");
 		replyMSG.append("Come back later, when you have "+count+" of "+itemname+".");
 		replyMSG.append("</body></html>");
 
-		npcReply.setHtml(replyMSG.toString());
+		npcReply.setHtml(replyMSG.moveToString());
 
 		player.sendPacket(npcReply);
 	}
@@ -667,7 +665,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 	{
 		NpcHtmlMessage npcReply = new NpcHtmlMessage(1);
 
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
+		L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 		replyMSG.append(getName()+":<br>");
 
@@ -681,7 +679,7 @@ public class L2CraftManagerInstance extends L2NpcInstance
 
 		replyMSG.append("</body></html>");
 
-		npcReply.setHtml(replyMSG.toString());
+		npcReply.setHtml(replyMSG.moveToString());
 
 		player.sendPacket(npcReply);
 	}

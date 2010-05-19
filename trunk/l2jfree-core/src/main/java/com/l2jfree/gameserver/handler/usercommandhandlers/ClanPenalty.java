@@ -16,11 +16,10 @@ package com.l2jfree.gameserver.handler.usercommandhandlers;
 
 import java.text.SimpleDateFormat;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.gameserver.handler.IUserCommandHandler;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * Support for clan penalty user command.
@@ -38,7 +37,7 @@ public class ClanPenalty implements IUserCommandHandler
 	{
 		boolean penalty = false;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		TextBuilder htmlContent = new TextBuilder("<html><body>");
+		L2TextBuilder htmlContent = L2TextBuilder.newInstance("<html><body>");
 		htmlContent.append("<center><table width=270 border=0 bgcolor=111111>");
 		htmlContent.append("<tr><td width=170>Penalty</td>");
 		htmlContent.append("<td width=100 align=center>Expiration Date</td></tr>");
@@ -75,7 +74,7 @@ public class ClanPenalty implements IUserCommandHandler
 		htmlContent.append("</center></body></html>");
 
 		NpcHtmlMessage penaltyHtml = new NpcHtmlMessage(0);
-		penaltyHtml.setHtml(htmlContent.toString());
+		penaltyHtml.setHtml(htmlContent.moveToString());
 		activeChar.sendPacket(penaltyHtml);
 
 		return true;

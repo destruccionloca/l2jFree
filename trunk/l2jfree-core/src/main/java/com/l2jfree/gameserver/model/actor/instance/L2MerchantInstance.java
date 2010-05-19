@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
@@ -33,6 +31,7 @@ import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.ShopPreviewList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * This class ...
@@ -205,7 +204,7 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
 	{
 	    if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().getNpcId())) return;
 	
-	    TextBuilder html1 = new TextBuilder("<html><body>Pet Manager:<br>");
+	    L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body>Pet Manager:<br>");
 	    html1.append("You can rent a wyvern or strider for adena.<br>My prices:<br1>");
 	    html1.append("<table border=0><tr><td>Ride</td></tr>");
 	    html1.append("<tr><td>Wyvern</td><td>Strider</td></tr>");
@@ -216,7 +215,7 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
 	    html1.append("</table>");
 	    html1.append("</body></html>");
 	
-	    insertObjectIdAndShowChatWindow(player, html1.toString());
+	    insertObjectIdAndShowChatWindow(player, html1.moveToString());
 	}
 	
 	public void tryRentPet(L2PcInstance player, int val)
@@ -274,7 +273,7 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
             }
 
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-            TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
+            L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body><table border=0>");
             html1.append("<tr><td>Current Target:</td></tr>");
             html1.append("<tr><td><br></td></tr>");
 
@@ -321,7 +320,7 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
 
             html1.append("</body></html>");
 
-            html.setHtml(html1.toString());
+            html.setHtml(html1.moveToString());
             player.sendPacket(html);
         }
         player.sendPacket(ActionFailed.STATIC_PACKET);

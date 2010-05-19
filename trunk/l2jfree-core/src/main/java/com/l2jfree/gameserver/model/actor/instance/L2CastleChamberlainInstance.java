@@ -20,8 +20,6 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -47,6 +45,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.IllegalPlayerAction;
 import com.l2jfree.gameserver.util.Util;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * Castle Chamberlains implementation used for: - tax rate control - regional
@@ -1707,7 +1706,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						}
 					}
 					*/
-					TextBuilder tList = new TextBuilder(list.size() * 50);
+					L2TextBuilder tList = L2TextBuilder.newInstance(list.size() * 50);
 					for (Integer hour : list)
 					{
 						tList.append(SET_TIME[0]);
@@ -1718,7 +1717,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 						tList.append(ampm);
 						tList.append(SET_TIME[3]);
 					}
-					ret.replace("%links%", tList.toString());
+					ret.replace("%links%", tList.moveToString());
 			}
 			return ret;
 		}

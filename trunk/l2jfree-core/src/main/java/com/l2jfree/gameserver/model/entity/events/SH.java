@@ -22,8 +22,6 @@ package com.l2jfree.gameserver.model.entity.events;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,6 +41,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class SH
 {
@@ -227,7 +226,7 @@ public class SH
 		try
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 			replyMSG.append("<title>Scavanger Hunt Event</title>");
 			replyMSG.append("<table width=\"300\"><tr>");
@@ -266,7 +265,7 @@ public class SH
 			replyMSG.append("</tr></table>");
 
 			replyMSG.append("</body></html>");
-			adminReply.setHtml(replyMSG.toString());
+			adminReply.setHtml(replyMSG.moveToString());
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order

@@ -22,8 +22,6 @@ package com.l2jfree.gameserver.model.entity.events.TvTInstanced;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,6 +34,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 public class TVTInstance
@@ -566,7 +565,7 @@ public class TVTInstance
 				boolean bg = false;
 
 				NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-				TextBuilder replyMSG = new TextBuilder("");
+				L2TextBuilder replyMSG = L2TextBuilder.newInstance("");
 
 				replyMSG.append("<html><body>");
 				replyMSG.append("<title>Team vs Team Instanced</title>");
@@ -596,7 +595,7 @@ public class TVTInstance
 				replyMSG.append("</tr></table>");
 				replyMSG.append("</body></html>");
 
-				nhm.setHtml(replyMSG.toString());
+				nhm.setHtml(replyMSG.moveToString());
 				player.sendPacket(nhm);
 
 				// Send a Server->Client ActionFailed to the L2PcInstance in

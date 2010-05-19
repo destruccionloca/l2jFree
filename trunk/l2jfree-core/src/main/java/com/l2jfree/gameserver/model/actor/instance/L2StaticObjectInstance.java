@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -37,6 +35,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ShowTownMap;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.lang.L2TextBuilder;
 
 /**
  * @author godson
@@ -260,7 +259,7 @@ public class L2StaticObjectInstance extends L2Character
 			player.sendPacket(su);
 			
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
+			L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body><table border=0>");
 			html1.append("<tr><td>S.Y.L. Says:</td></tr>");
 			html1.append("<tr><td>X: " + getX() + "</td></tr>");
 			html1.append("<tr><td>Y: " + getY() + "</td></tr>");
@@ -274,7 +273,7 @@ public class L2StaticObjectInstance extends L2Character
 			html1.append("<tr><td><br></td></tr>");
 			html1.append("</table></body></html>");
 			
-			html.setHtml(html1.toString());
+			html.setHtml(html1.moveToString());
 			player.sendPacket(html);
 		}
 		else

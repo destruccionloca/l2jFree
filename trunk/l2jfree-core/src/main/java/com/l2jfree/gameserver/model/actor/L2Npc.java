@@ -19,7 +19,6 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import java.text.DateFormat;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 
 import com.l2jfree.Config;
@@ -118,6 +117,7 @@ import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.StringUtil;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -877,7 +877,7 @@ public class L2Npc extends L2Character
 			}
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder html1 = new TextBuilder("<html><body>");
+			L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body>");
 
 			html1.append("<br><center><font color=\"LEVEL\">[Combat Stats]</font></center>");
 			html1.append("<table border=0 width=\"100%\">");
@@ -931,7 +931,7 @@ public class L2Npc extends L2Character
 			html1.append("</table>");
 			html1.append("</body></html>");
 
-			html.setHtml(html1.toString());
+			html.setHtml(html1.moveToString());
 			player.sendPacket(html);
 		}
 
@@ -1067,10 +1067,10 @@ public class L2Npc extends L2Character
 								player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
 
 								NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
-								TextBuilder replyMSG = new TextBuilder("<html><body>");
+								L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 								replyMSG.append("Congratulations, the evolution suceeded.");
 								replyMSG.append("</body></html>");
-								adminReply.setHtml(replyMSG.toString());
+								adminReply.setHtml(replyMSG.moveToString());
 								player.sendPacket(adminReply);
 							}
 							else
@@ -1090,12 +1090,12 @@ public class L2Npc extends L2Character
 					else
 					{
 						NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
-						TextBuilder replyMSG = new TextBuilder("<html><body>");
+						L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 						replyMSG.append("You will need 20.000.000 and have the pet summoned for the ceremony ...");
 						replyMSG.append("</body></html>");
 
-						adminReply.setHtml(replyMSG.toString());
+						adminReply.setHtml(replyMSG.moveToString());
 						player.sendPacket(adminReply);
 					}
 				}
@@ -1156,12 +1156,12 @@ public class L2Npc extends L2Character
 								ThreadPoolManager.getInstance().scheduleGeneral(new DestroyTemporalSummon(summon, player), 6000);
 								player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
 								NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
-								TextBuilder replyMSG = new TextBuilder("<html><body>");
+								L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 								replyMSG.append("Congratulations, the evolution suceeded.");
 								replyMSG.append("</body></html>");
 
-								adminReply.setHtml(replyMSG.toString());
+								adminReply.setHtml(replyMSG.moveToString());
 								player.sendPacket(adminReply);
 							}
 							else
@@ -1181,12 +1181,12 @@ public class L2Npc extends L2Character
 					else
 					{
 						NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
-						TextBuilder replyMSG = new TextBuilder("<html><body>");
+						L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 
 						replyMSG.append("You will need 6.000.000 and have the pet summoned for the ceremony ...");
 						replyMSG.append("</body></html>");
 
-						adminReply.setHtml(replyMSG.toString());
+						adminReply.setHtml(replyMSG.moveToString());
 						player.sendPacket(adminReply);
 					}
 				}
@@ -1464,7 +1464,7 @@ public class L2Npc extends L2Character
 					break;
 				case 2:
 					NpcHtmlMessage Reply = new NpcHtmlMessage(getObjectId());
-					TextBuilder replyMSG = new TextBuilder("<html><body>Black Judge:<br>");
+					L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>Black Judge:<br>");
 
 					if (player.getDeathPenaltyBuffLevel() > 0)
 					{
@@ -1487,7 +1487,7 @@ public class L2Npc extends L2Character
 					}
 
 					replyMSG.append("</body></html>");
-					Reply.setHtml(replyMSG.toString());
+					Reply.setHtml(replyMSG.moveToString());
 					player.sendPacket(Reply);
 					break;
 				}
@@ -1720,7 +1720,7 @@ public class L2Npc extends L2Character
 	 */
 	public void showQuestChooseWindow(L2PcInstance player, Quest[] quests)
 	{
-		TextBuilder sb = new TextBuilder();
+		L2TextBuilder sb = L2TextBuilder.newInstance();
 		sb.append("<html><body>");
 		for (Quest q : quests)
 		{
@@ -1740,7 +1740,7 @@ public class L2Npc extends L2Character
 		sb.append("</body></html>");
 
 		// Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2Npc
-		insertObjectIdAndShowChatWindow(player, sb.toString());
+		insertObjectIdAndShowChatWindow(player, sb.moveToString());
 	}
 
 	/**

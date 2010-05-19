@@ -27,8 +27,6 @@ import java.sql.SQLException;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Future;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,6 +58,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.RadarControl;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 public class CTF
@@ -119,7 +118,7 @@ public class CTF
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-			TextBuilder replyMSG = new TextBuilder("<html><body><center>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body><center>");
 			replyMSG.append("CTF Flag<br><br>");
 			replyMSG.append("<font color=\"00FF00\">" + teamName + "'s Flag</font><br1>");
 			if (eventPlayer.as(CTFPlayerInfo.class)._teamNameCTF != null && eventPlayer.as(CTFPlayerInfo.class)._teamNameCTF.equals(teamName))
@@ -133,7 +132,7 @@ public class CTF
 			else
 				replyMSG.append("CTF match is not in progress yet.<br>Wait for a GM to start the event<br>");
 			replyMSG.append("</center></body></html>");
-			adminReply.setHtml(replyMSG.toString());
+			adminReply.setHtml(replyMSG.moveToString());
 			eventPlayer.sendPacket(adminReply);
 		}
 		catch (Exception e)
@@ -1377,11 +1376,11 @@ public class CTF
 					player.addItem("CTF Event: " + _eventName, _rewardId, _rewardAmount, player, true, true);
 
 					NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-					TextBuilder replyMSG = new TextBuilder("");
+					L2TextBuilder replyMSG = L2TextBuilder.newInstance("");
 
 					replyMSG.append("<html><body>Your team wins the event. Look in your inventory for the reward.</body></html>");
 
-					nhm.setHtml(replyMSG.toString());
+					nhm.setHtml(replyMSG.moveToString());
 					player.sendPacket(nhm);
 
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
@@ -1730,7 +1729,7 @@ public class CTF
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 			replyMSG.append("CTF Match<br><br><br>");
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("   ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br>");
@@ -1823,7 +1822,7 @@ public class CTF
 			}
 
 			replyMSG.append("</body></html>");
-			adminReply.setHtml(replyMSG.toString());
+			adminReply.setHtml(replyMSG.moveToString());
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet

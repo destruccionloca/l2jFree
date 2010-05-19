@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.SkillTable;
@@ -37,6 +35,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.StringUtil;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class L2NpcInstance extends L2Npc
 {
@@ -72,12 +71,12 @@ public class L2NpcInstance extends L2Npc
 		if (getTemplate().getTeachInfo() == null)
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder sb = new TextBuilder();
+			L2TextBuilder sb = L2TextBuilder.newInstance();
 			sb.append("<html><body>");
 			sb.append("I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:"
 					+ npcId + ", Your classId:" + player.getClassId().getId() + "<br>");
 			sb.append("</body></html>");
-			html.setHtml(sb.toString());
+			html.setHtml(sb.moveToString());
 			player.sendPacket(html);
 
 			return;

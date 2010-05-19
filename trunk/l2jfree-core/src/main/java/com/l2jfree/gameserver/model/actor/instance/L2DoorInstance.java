@@ -16,8 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.concurrent.ScheduledFuture;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -50,6 +48,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
 import com.l2jfree.lang.L2Math;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class L2DoorInstance extends L2Character
 {
@@ -518,7 +517,7 @@ public class L2DoorInstance extends L2Character
 			sendInfo(player);
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
+			L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body><table border=0>");
 			html1.append("<tr><td>S.Y.L. Says:</td></tr>");
 			html1.append("<tr><td>Current HP  " + getStatus().getCurrentHp() + "</td></tr>");
 			html1.append("<tr><td>Max HP      " + getMaxHp() + "</td></tr>");
@@ -548,7 +547,7 @@ public class L2DoorInstance extends L2Character
 					.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			html1.append("</tr></table></body></html>");
 
-			html.setHtml(html1.toString());
+			html.setHtml(html1.moveToString());
 			player.sendPacket(html);
 		}
 		else

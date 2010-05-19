@@ -25,8 +25,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,6 +49,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2TextBuilder;
 import com.l2jfree.tools.random.Rnd;
 
 public class TvT
@@ -842,11 +841,11 @@ public class TvT
 					_playerWon = 1;
 
 					NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-					TextBuilder replyMSG = new TextBuilder("");
+					L2TextBuilder replyMSG = L2TextBuilder.newInstance("");
 
 					replyMSG.append("<html><body>Your team wins the event. Look in your inventory for the reward.</body></html>");
 
-					nhm.setHtml(replyMSG.toString());
+					nhm.setHtml(replyMSG.moveToString());
 					player.sendPacket(nhm);
 
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
@@ -1160,7 +1159,7 @@ public class TvT
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 			replyMSG.append("TvT Match<br><br><br>");
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
@@ -1254,7 +1253,7 @@ public class TvT
 				}
 			}
 			replyMSG.append("</body></html>");
-			adminReply.setHtml(replyMSG.toString());
+			adminReply.setHtml(replyMSG.moveToString());
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet

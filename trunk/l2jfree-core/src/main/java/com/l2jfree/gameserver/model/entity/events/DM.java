@@ -24,8 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javolution.text.TextBuilder;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,6 +45,7 @@ import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.lang.L2TextBuilder;
 
 public class DM
 {
@@ -333,11 +332,11 @@ public class DM
 			_topPlayer.sendPacket(su);
 
 			NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-			TextBuilder replyMSG = new TextBuilder("");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("");
 
 			replyMSG.append("<html><body>You won the event. Look in your inventory for the reward.</body></html>");
 
-			nhm.setHtml(replyMSG.toString());
+			nhm.setHtml(replyMSG.moveToString());
 			_topPlayer.sendPacket(nhm);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
@@ -561,7 +560,7 @@ public class DM
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-			TextBuilder replyMSG = new TextBuilder("<html><body>");
+			L2TextBuilder replyMSG = L2TextBuilder.newInstance("<html><body>");
 			replyMSG.append("DM Match<br><br><br>");
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("	... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
@@ -602,7 +601,7 @@ public class DM
 			}
 			
 			replyMSG.append("</body></html>");
-			adminReply.setHtml(replyMSG.toString());
+			adminReply.setHtml(replyMSG.moveToString());
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet

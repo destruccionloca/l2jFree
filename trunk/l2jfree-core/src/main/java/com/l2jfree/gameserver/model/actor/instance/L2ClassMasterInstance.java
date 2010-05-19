@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
@@ -271,13 +269,13 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 				player.sendPacket(SystemMessageId.CLASS_TRANSFER);
 
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder sb = new TextBuilder();
+			L2TextBuilder sb = L2TextBuilder.newInstance();
 			sb.append("<html><body>");
 			sb.append(getName() + ":<br>");
 			sb.append("<br>");
 			sb.append("You have now become a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");
 			sb.append("</body></html>");
-			html.setHtml(sb.toString());
+			html.setHtml(sb.moveToString());
 			player.sendPacket(html);
 
 			// Update the overloaded status of the L2PcInstance
