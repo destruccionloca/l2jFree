@@ -453,21 +453,16 @@ public class AdminTeleport implements IAdminCommandHandler
 
 	private void teleportCharacter(L2PcInstance activeChar, String Cords)
 	{
-		L2Object target = activeChar.getTarget();
-		L2PcInstance player = null;
-		if (target instanceof L2PcInstance)
-		{
-			player = (L2PcInstance) target;
-		}
-		else
+		L2PcInstance target = activeChar.getTarget(L2PcInstance.class);
+		if (target == null)
 		{
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
 
-		if (player == activeChar)
+		if (target == activeChar)
 		{
-			player.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
+			target.sendPacket(SystemMessageId.CANNOT_USE_ON_YOURSELF);
 		}
 		else
 		{
@@ -480,10 +475,16 @@ public class AdminTeleport implements IAdminCommandHandler
 				int y = Integer.parseInt(y1);
 				String z1 = st.nextToken();
 				int z = Integer.parseInt(z1);
-				teleportCharacter(player, x, y, z, player.getInstanceId());
+				int instance;
+				if (activeChar.isInMultiverse())
+					instance = target.getInstanceId();
+				else
+					instance = activeChar.getInstanceId();
+				teleportCharacter(target, x, y, z, instance);
 			}
-			catch (NoSuchElementException nsee)
+			catch (Exception e)
 			{
+				activeChar.sendMessage("Failed parsing coordinates!");
 			}
 		}
 	}
@@ -512,7 +513,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		{
 			// move to targets instance
 			activeChar.setInstanceId(target.getInstanceId());
-			activeChar.sendMessage("Switched to instance "+target.getInstanceId()+".");
+			activeChar.sendMessage("Switched to instance " + target.getInstanceId() + ".");
 		}
 
 		L2PcInstance player = (L2PcInstance) target;
