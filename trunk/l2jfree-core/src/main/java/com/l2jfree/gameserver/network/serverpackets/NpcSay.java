@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 
 /**
- *
  * @author Kerberos
  */
 public final class NpcSay extends L2GameServerPacket
@@ -28,7 +27,7 @@ public final class NpcSay extends L2GameServerPacket
 	private final int _textType;
 	private final int _npcId;
 	private final String _text;
-
+	
 	public NpcSay(int objectId, int messageType, int npcId, String text)
 	{
 		_objectId = objectId;
@@ -36,15 +35,12 @@ public final class NpcSay extends L2GameServerPacket
 		_npcId = 1000000 + npcId;
 		_text = text;
 	}
-
+	
 	public NpcSay(L2Npc npc, String text)
 	{
-		_objectId = npc.getObjectId();
-		_textType = 0;
-		_npcId = 1000000 + npc.getNpcId();
-		_text = text;
+		this(npc.getObjectId(), 0, npc.getNpcId(), text);
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -54,7 +50,7 @@ public final class NpcSay extends L2GameServerPacket
 		writeD(_npcId);
 		writeS(_text);
 	}
-
+	
 	@Override
 	public String getType()
 	{

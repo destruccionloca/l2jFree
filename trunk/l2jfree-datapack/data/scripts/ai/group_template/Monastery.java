@@ -61,7 +61,7 @@ public class Monastery extends L2AttackableAIScript
     		if (player.getActiveWeaponInstance() != null)
     		{
     			npc.setTarget(player);
-    			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), TEXT[0]));
+    			npc.broadcastPacket(new NpcSay(npc, TEXT[0]));
     			switch (npc.getNpcId())
     			{
     				case 22124:
@@ -102,7 +102,7 @@ public class Monastery extends L2AttackableAIScript
     			{
     				if (obj.equals(npc))
     				{
-    					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), TEXT[Rnd.get(2) + 1].replace("name", caster.getName())));
+    					npc.broadcastPacket(new NpcSay(npc, TEXT[Rnd.get(2) + 1].replace("name", caster.getName())));
 	    				((L2Attackable) npc).addDamageHate(caster, 0, 999);
 	    				//npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, caster);
 	    				break;
@@ -136,7 +136,7 @@ public class Monastery extends L2AttackableAIScript
     	    		if (target.getActiveWeaponInstance() != null && !npc.isInCombat() && npc.getTarget() == null)
     	    		{
     	    			npc.setTarget(target);
-    	    			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), TEXT[0]));
+    	    			npc.broadcastPacket(new NpcSay(npc, TEXT[0]));
     	    			switch (npc.getNpcId())
     	    			{
     	    				case 22124:

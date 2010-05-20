@@ -66,8 +66,8 @@ public class OrfenAI extends L2AttackableAI
 		OrfenInstance actor = (OrfenInstance) _actor;
 		double distance = Util.calculateDistance(actor, attacker, true);
 		if (distance > 300D && Rnd.get(100) < 10)
-		{	
-			actor.broadcastPacket(new NpcSay(actor.getObjectId(), 0, actor.getNpcId(), OrfenInstance.MESSAGES[Rnd.get(OrfenInstance.MESSAGES.length)].replace("%s", attacker.getName())));
+		{
+			actor.broadcastPacket(new NpcSay(actor, OrfenInstance.MESSAGES[Rnd.get(OrfenInstance.MESSAGES.length)].replace("%s", attacker.getName())));
 			attacker.teleToLocation(actor.getLoc(), true);
 		}
 	}

@@ -401,8 +401,6 @@ public class FeedableBeasts extends L2AttackableAIScript
 			L2TamedBeastInstance nextNpc = new L2TamedBeastInstance(IdFactory.getInstance().getNextId(), template, player, FOODSKILL.get(food), npc.getX(), npc.getY(), npc.getZ());
 			nextNpc.setRunning();
 
-			int objectId = nextNpc.getObjectId();
-
 			QuestState st = player.getQuestState("20_BringUpWithLove");
 			if (st != null)
 			{
@@ -418,23 +416,23 @@ public class FeedableBeasts extends L2AttackableAIScript
 			int rand = Rnd.get(20);
 			if (rand == 0)
 			{
-				npc.broadcastPacket(new NpcSay(objectId,0,nextNpc.getNpcId(), player.getName()+", will you show me your hideaway?"));
+				npc.broadcastPacket(new NpcSay(nextNpc, player.getName()+", will you show me your hideaway?"));
 			}
 			else if (rand == 1)
 			{
-				npc.broadcastPacket(new NpcSay(objectId,0,nextNpc.getNpcId(), player.getName()+", whenever I look at spice, I think about you."));
+				npc.broadcastPacket(new NpcSay(nextNpc, player.getName()+", whenever I look at spice, I think about you."));
 			}
 			else if (rand == 2)
 			{
-				npc.broadcastPacket(new NpcSay(objectId,0,nextNpc.getNpcId(), player.getName()+", you do not need to return to the village. I will give you strength"));
+				npc.broadcastPacket(new NpcSay(nextNpc, player.getName()+", you do not need to return to the village. I will give you strength"));
 			}
 			else if (rand == 3)
 			{
-				npc.broadcastPacket(new NpcSay(objectId,0,nextNpc.getNpcId(), "Thanks, "+player.getName()+".  I hope I can help you"));
+				npc.broadcastPacket(new NpcSay(nextNpc, "Thanks, "+player.getName()+".  I hope I can help you"));
 			}
 			else if (rand == 4)
 			{
-				npc.broadcastPacket(new NpcSay(objectId,0,nextNpc.getNpcId(), player.getName()+", what can I do to help you?"));
+				npc.broadcastPacket(new NpcSay(nextNpc, player.getName()+", what can I do to help you?"));
 			}
 		}
 		else
@@ -545,7 +543,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			// rare random talk...
 			if (Rnd.get(20) == 0 )
 			{
-				npc.broadcastPacket(new NpcSay(objectId, 0, npc.getNpcId(), TEXT[growthLevel][Rnd.get(TEXT[growthLevel].length)]));
+				npc.broadcastPacket(new NpcSay(npc, TEXT[growthLevel][Rnd.get(TEXT[growthLevel].length)]));
 			}
 
 			if (growthLevel > 0 && _FeedInfo.get(objectId) != caster.getObjectId())
@@ -567,7 +565,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			if (skillId == beast.getFoodType())
 			{
 				beast.onReceiveFood();
-				beast.broadcastPacket(new NpcSay(objectId, 0, npcId, TAMED_TEXT[Rnd.get(TAMED_TEXT.length)]));
+				beast.broadcastPacket(new NpcSay(npc, TAMED_TEXT[Rnd.get(TAMED_TEXT.length)]));
 			}
 		}
 		return super.onSkillSee(npc,caster,skill,targets,isPet);

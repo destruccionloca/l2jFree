@@ -178,7 +178,7 @@ public class FleeingClanMembers extends L2AttackableAIScript
 					index = i5 / 7;
 				else if (i5 < 95)
 					index = (i5 - 77) / 2 + 11;
-				npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), ATTACKED[index]));
+				npc.broadcastPacket(new NpcSay(npc, ATTACKED[index]));
 				if (DEBUG)
 					_log.info("onAttack(): fleeing with message " + index);
 				myself.setFleeingStatus(L2Attackable.FLEEING_STARTED);

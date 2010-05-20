@@ -89,7 +89,7 @@ public class SagasSuperClass extends QuestJython
 
 	public void AutoChat(L2Npc npc, String text)
 	{
-		npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text));
+		npc.broadcastPacket(new NpcSay(npc, text));
 	}
 
 	public void AddSpawn(QuestState st, L2Npc mob)

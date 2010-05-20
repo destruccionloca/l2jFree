@@ -210,7 +210,7 @@ public class PrisonGuards extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet) 
+	public String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		if (_guards.containsKey(npc))
 			startQuestTimer("Respawn", 20000, npc, null);
@@ -223,7 +223,7 @@ public class PrisonGuards extends L2AttackableAIScript
 		if (fromAttack)
 		{
 			String msg = (npc.getNpcId() == GUARD1 ? "It's not easy to obtain." : "You're out of your mind comming here...");
-			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), msg));
+			npc.broadcastPacket(new NpcSay(npc, msg));
 		}
 
 		L2Skill skill = SkillTable.getInstance().getInfo(effectId, isSpell ? 9 : 1);

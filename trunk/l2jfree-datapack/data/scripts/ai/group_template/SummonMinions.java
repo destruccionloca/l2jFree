@@ -178,7 +178,7 @@ public class SummonMinions extends L2AttackableAIScript
 						minions = null;
 						if (npcId == 20767)
 						{
-							npc.broadcastPacket(new NpcSay(npcObjId, 0, npcId, "Come out, you children of darkness!"));
+							npc.broadcastPacket(new NpcSay(npc, "Come out, you children of darkness!"));
 						}
 						break;
 					}

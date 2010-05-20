@@ -321,7 +321,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 			if (!_activeChar.isVisible())
 				return;
 
-			broadcastPacket(new NpcSay(getObjectId(), 0, getNpcId(), "forgive me!!"));
+			broadcastPacket(new NpcSay(L2SepulcherMonsterInstance.this, "forgive me!!"));
 		}
 	}
 
@@ -343,7 +343,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 				return;
 
 			FourSepulchersManager.getInstance().spawnKeyBox(_activeChar);
-			broadcastPacket(new NpcSay(getObjectId(), 0, getNpcId(), "Many thanks for rescue me."));
+			broadcastPacket(new NpcSay(L2SepulcherMonsterInstance.this, "Many thanks for rescue me."));
 			if (_victimShout != null)
 			{
 				_victimShout.cancel(true);
