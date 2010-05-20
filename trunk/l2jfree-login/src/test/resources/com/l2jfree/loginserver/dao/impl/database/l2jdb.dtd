@@ -742,7 +742,6 @@
     loc_data CDATA #IMPLIED
     price_sell CDATA #IMPLIED
     price_buy CDATA #IMPLIED
-    time_of_use CDATA #IMPLIED
     custom_type1 CDATA #IMPLIED
     custom_type2 CDATA #IMPLIED
 >
