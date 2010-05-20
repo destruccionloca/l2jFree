@@ -676,7 +676,7 @@
     </enchant1for>
   </skill>
   <skill id="137" levels="4" name="Critical Chance" enchantLevels1="30">
-    <table name="#ench1rCrit"> 0.5 0.5 0.51 0.51 0.51 0.52 0.52 0.52 0.53 0.53 0.53 0.54 0.54 0.54 0.55 0.55 0.55 0.56 0.56 0.56 0.57 0.57 0.57 0.58 0.58 0.58 0.59 0.59 0.59 0.60 </table>
+    <table name="#ench1rCrit"> 0.5 0.5 0.51 0.51 0.51 0.52 0.52 0.52 0.53 0.53 0.53 0.54 0.54 0.54 0.55 0.55 0.55 0.56 0.56 0.56 0.57 0.57 0.57 0.58 0.58 0.58 0.59 0.59 0.59 0.6 </table>
     <table name="#rCrit"> 0.2 0.3 0.4 0.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

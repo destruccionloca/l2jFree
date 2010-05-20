@@ -387,6 +387,7 @@
     <!-- CT2.2 retail confirmed -->
     <!-- Needs to be verified "Is enchantable but no stats for the +Power NpcId versions">
     <table name="#enchantNpcIds"> 13041 13042 13043 13044 13045 13046 13047 13048 13049 13050 13051 13052 13053 13054 13055 13056 13057 13058 13059 13060 13061 13062 13063 13064 13065 13066 13067 13068 13069 13070 </table -->
+    <table name="#ench1triggerSkillLvl"> 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16 17 17 17 18 18 18 19 19 19 20 </table>
     <table name="#ench2reuseDelay"> 44500 44000 43500 43000 42500 42000 41500 41000 40500 40000 39500 39000 38500 38000 37500 37000 36500 36000 35500 35000 34500 34000 33500 33000 32500 32000 31500 31000 30500 30000 </table>
     <table name="#triggerSkillLvl"> 1 2 3 4 5 6 7 8 9 </table>
     <set name="mpConsume" val="50"/>
@@ -401,12 +402,14 @@
     <set name="triggerSkillLvl" val="#triggerSkillLvl"/>
     <set name="summonTotalLifeTime" val="30000"/>
     <set name="trapNpcId" val="13037"/>
+    <enchant1 name="triggerSkillLvl" val="#ench1triggerSkillLvl"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   </skill>
   <skill id="515" levels="6" name="Poison Trap" enchantLevels1="30" enchantLevels2="30">
     <!-- Needs retail value corrections -->
     <!-- Needs to be verified "Is enchantable but no stats for the +Power NpcId versions">
     <table name="#enchantNpcIds"> 13041 13042 13043 13044 13045 13046 13047 13048 13049 13050 13051 13052 13053 13054 13055 13056 13057 13058 13059 13060 13061 13062 13063 13064 13065 13066 13067 13068 13069 13070 </table -->
+    <table name="#ench1triggerSkillLvl"> 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16 17 </table>
     <table name="#ench2reuseDelay"> 44500 44000 43500 43000 42500 42000 41500 41000 40500 40000 39500 39000 38500 38000 37500 37000 36500 36000 35500 35000 34500 34000 33500 33000 32500 32000 31500 31000 30500 30000 </table>
     <table name="#triggerSkillLvl"> 1 2 3 4 5 6 </table>
     <set name="mpConsume" val="50"/>
@@ -421,12 +424,14 @@
     <set name="triggerSkillLvl" val="#triggerSkillLvl"/>
     <set name="summonTotalLifeTime" val="30000"/>
     <set name="trapNpcId" val="13037"/>
+    <enchant1 name="triggerSkillLvl" val="#ench1triggerSkillLvl"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   </skill>
   <skill id="516" levels="6" name="Slow Trap" enchantLevels1="30" enchantLevels2="30">
     <!-- Needs retail value corrections -->
     <!-- Needs to be verified "Is enchantable but no stats for the +Power NpcId versions">
     <table name="#enchantNpcIds"> 13041 13042 13043 13044 13045 13046 13047 13048 13049 13050 13051 13052 13053 13054 13055 13056 13057 13058 13059 13060 13061 13062 13063 13064 13065 13066 13067 13068 13069 13070 </table -->
+    <table name="#ench1triggerSkillLvl"> 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16 17 </table>
     <table name="#ench2reuseDelay"> 44500 44000 43500 43000 42500 42000 41500 41000 40500 40000 39500 39000 38500 38000 37500 37000 36500 36000 35500 35000 34500 34000 33500 33000 32500 32000 31500 31000 30500 30000 </table>
     <table name="#triggerSkillLvl"> 1 2 3 4 5 6 </table>
     <set name="mpConsume" val="50"/>
@@ -441,12 +446,14 @@
     <set name="triggerSkillLvl" val="#triggerSkillLvl"/>
     <set name="summonTotalLifeTime" val="30000"/>
     <set name="trapNpcId" val="13037"/>
+    <enchant1 name="triggerSkillLvl" val="#ench1triggerSkillLvl"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   </skill>
   <skill id="517" levels="5" name="Flash Trap" enchantLevels1="30" enchantLevels2="30">
     <!-- Needs retail value corrections -->
     <!-- Needs to be verified "Is enchantable but no stats for the +Power NpcId versions">
     <table name="#enchantNpcIds"> 13041 13042 13043 13044 13045 13046 13047 13048 13049 13050 13051 13052 13053 13054 13055 13056 13057 13058 13059 13060 13061 13062 13063 13064 13065 13066 13067 13068 13069 13070 </table -->
+    <table name="#ench1triggerSkillLvl"> 6 6 7 7 7 8 8 8 9 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 </table>
     <table name="#ench2reuseDelay"> 44500 44000 43500 43000 42500 42000 41500 41000 40500 40000 39500 39000 38500 38000 37500 37000 36500 36000 35500 35000 34500 34000 33500 33000 32500 32000 31500 31000 30500 30000 </table>
     <table name="#triggerSkillLvl"> 1 2 3 4 5 </table>
     <set name="mpConsume" val="50"/>
@@ -461,12 +468,14 @@
     <set name="triggerSkillLvl" val="#triggerSkillLvl"/>
     <set name="summonTotalLifeTime" val="30000"/>
     <set name="trapNpcId" val="13037"/>
+    <enchant1 name="triggerSkillLvl" val="#ench1triggerSkillLvl"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   </skill>
   <skill id="518" levels="8" name="Binding Trap" enchantLevels1="30" enchantLevels2="30">
     <!-- Needs retail value corrections -->
     <!-- Needs to be verified "Is enchantable but no stats for the +Power NpcId versions">
     <table name="#enchantNpcIds"> 13041 13042 13043 13044 13045 13046 13047 13048 13049 13050 13051 13052 13053 13054 13055 13056 13057 13058 13059 13060 13061 13062 13063 13064 13065 13066 13067 13068 13069 13070 </table -->
+    <table name="#ench1triggerSkillLvl"> 9 9 10 10 10 11 11 11 12 12 12 13 13 13 14 14 14 15 15 15 16 16 16 17 17 17 18 18 18 19 </table>
     <table name="#ench2reuseDelay"> 44500 44000 43500 43000 42500 42000 41500 41000 40500 40000 39500 39000 38500 38000 37500 37000 36500 36000 35500 35000 34500 34000 33500 33000 32500 32000 31500 31000 30500 30000 </table>
     <table name="#triggerSkillLvl"> 1 2 3 4 5 6 7 8 </table>
     <set name="mpConsume" val="50"/>
@@ -481,6 +490,7 @@
     <set name="triggerSkillLvl" val="#triggerSkillLvl"/>
     <set name="summonTotalLifeTime" val="30000"/>
     <set name="trapNpcId" val="13037"/>
+    <enchant1 name="triggerSkillLvl" val="#ench1triggerSkillLvl"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   </skill>
   <skill id="519" levels="1" name="Quiver of Bolts: A-Grade">

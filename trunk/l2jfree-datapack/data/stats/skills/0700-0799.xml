@@ -838,7 +838,7 @@
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
-      <effect count="5" name="Fear" time="2" val="0" stackOrder="1" stackType="Fear"/>
+      <effect count="5" name="Fear" time="2" val="0" stackOrder="1" stackType="Fear" effectPower="60" effectType="FEAR"/>
     </for>
   </skill>
   <skill id="748" levels="1" name="Saber Tooth Tiger Sprint">
@@ -1279,7 +1279,7 @@
     <set name="power" val="5750"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="60000"/> <!-- Guess -->
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="80"/> <!-- Guess -->
@@ -1297,7 +1297,7 @@
     <set name="power" val="4312"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="45000"/> <!-- Guess -->
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="100"/>
@@ -1315,7 +1315,7 @@
     <set name="power" val="6037"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="75000"/> <!-- Guess -->
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="3000"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="80"/> <!-- Guess -->
@@ -1394,7 +1394,7 @@
     <set name="magicLvl" val="83"/>
     <set name="power" val="5750"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="21000"/>
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="skillRadius" val="150"/>
@@ -1769,6 +1769,10 @@
       <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </for>
+    <enchant3for>
+      <effect name="Stun" time="9" val="0" effectPower="#ench3effectPower" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
+    </enchant3for>
   </skill>
   <skill id="794" levels="1" name="Mass Disarm" enchantLevels1="15" enchantLevels2="15">
     <table name="#ench1power"> 41 43 45 47 49 51 53 55 57 59 61 63 65 68 70 </table> <!-- Guess -->

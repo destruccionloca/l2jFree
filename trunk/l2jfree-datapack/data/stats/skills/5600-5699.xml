@@ -174,10 +174,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5623" levels="1" name="Weakened Magic Force">
-  <!--
-    Used by NPCs:
-    32483
-   -->
+  <!-- Used by NPCs: 32483 -->
     <set name="activateRate" val="80"/>
     <set name="hitTime" val="1000"/>
     <set name="reuseDelay" val="6000"/>
@@ -195,10 +192,7 @@
   </skill>
   <skill id="5624" levels="1" name="Soul Confinement">
   <!-- The soul is confined, making it impossible to move, but in addition, damage is not incurred. Effect 1. -->
-  <!--
-    Used by NPCs:
-    18578
-   -->
+  <!-- Used by NPCs: 18578 -->
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
@@ -216,10 +210,7 @@
   </skill>
   <skill id="5625" levels="1" name="Soul Confinement">
   <!-- The soul is confined, making it impossible to move, but in addition, damage is not incurred. Effect 1. -->
-  <!--
-    Used by NPCs:
-    18564
-   -->
+  <!-- Used by NPCs: 18564 -->
     <set name="isMagic" val="true"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="2000"/>
@@ -1089,11 +1080,18 @@
     </for>
   </skill>
   <skill id="5680" levels="1" name="Oblivion Trap">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <for>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
+    </for>
   </skill>
   <skill id="5681" levels="1" name="PvP Weapon - CP Drain">
+    <!-- Triggered from 3650 -->
     <!-- Needs to be verified -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
@@ -1104,17 +1102,19 @@
     <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="5682" levels="1" name="PvP Weapon - Cancel">
+    <!-- Triggered from 3651 -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="100"/>
     <set name="isDebuff" val="true"/>
     <set name="maxNegated" val="2"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="25"/> <!-- Base Land Rate -->
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="skillType" val="CANCEL"/>
     <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="5683" levels="1" name="PvP Weapon - Ignore Shield Defense">
+    <!-- Triggered from 3652 -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="100"/>
@@ -1130,6 +1130,7 @@
     </for>
   </skill>
   <skill id="5684" levels="1" name="PvP Weapon - Attack Chance">
+    <!-- Triggered from 3653 -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="100"/>
@@ -1139,6 +1140,7 @@
     <set name="target" val="TARGET_ONE"/>
   </skill>
   <skill id="5685" levels="1" name="PvP Weapon - Casting">
+    <!-- Triggered from 3654 -->
     <set name="hitTime" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -1150,6 +1152,7 @@
     </for>
   </skill>
   <skill id="5686" levels="1" name="PvP Weapon - Rapid Fire">
+    <!-- Triggered from 3655 -->
     <set name="hitTime" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -1163,6 +1166,7 @@
     </for>
   </skill>
   <skill id="5687" levels="1" name="PvP Weapon - Decrease Range">
+    <!-- Triggered from 3656 -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="100"/>
@@ -1209,6 +1213,7 @@
     </for>
   </skill>
   <skill id="5690" levels="1" name="PvP Armor - Damage Down">
+    <!-- Triggered from 3659 -->
     <set name="hitTime" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
@@ -1223,6 +1228,7 @@
     </for>
   </skill>
   <skill id="5691" levels="1" name="PvP Armor - Critical Down">
+    <!-- Triggered from 3660 -->
     <set name="hitTime" val="100"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->
@@ -1243,6 +1249,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5693" levels="1" name="PvP Armor - Speed Down">
+    <!-- Triggered from 3662 -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="100"/>
@@ -1260,6 +1267,7 @@
     </for>
   </skill>
   <skill id="5694" levels="1" name="PvP Armor - Mirage">
+    <!-- Triggered from 3663 -->
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <set name="hitTime" val="100"/>
@@ -1278,14 +1286,13 @@
   <skill id="5696" levels="1" name="Dizziness">
     <!--
       "The after-effects of poisoning temporarily appear, decreasing Speed and Atk. Spd."
-      note: painkiller after skill
-    -->
+      note: painkiller after skill -->
     <set name="magicLvl" val="60"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isMagic" val="true"/>
-    <!-- TODO: while in effect, cannot recveive any other invul type skills, such as celestial shield-->
+    <!-- TODO: while in effect, cannot recveive any other invul type skills, such as celestial shield -->
     <for>
       <effect name="Buff" time="10" val="0">
         <mul order="0x30" stat="runSpd" val="0.8"/>
@@ -1316,8 +1323,7 @@
     Lvl 4 - Kamaloka (Labyrinth of the Abyss) 59
     Lvl 5 - Kamaloka (Labyrinth of the Abyss) 69
     Lvl 6 - Kamaloka (Labyrinth of the Abyss) 78
-    Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81
-   -->
+    Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81 -->
     <!-- Guessed values, need retail information -->
     <table name="#magicLvl"> 29 39 49 59 69 78 81 </table>
     <table name="#power"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>

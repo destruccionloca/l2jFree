@@ -324,6 +324,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="80"/>
+    <set name="aggroPoints" val="#power"/>
   </skill>
   <skill id="823" levels="3" name="Strengthen Golem">
     <!-- Done by _DS_ -->
@@ -559,6 +560,7 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="aggroPoints" val="100"/>
   </skill>
   <skill id="834" levels="1" name="Blood Pact">
     <set name="mpInitialConsume" val="10"/>
@@ -575,7 +577,7 @@
     <for>
       <effect name="Buff" time="120" val="0">
         <mul order="0x30" stat="maxHp" val="1.1"/>
-        <mul order="0x30" stat="regHp" val="1.1"/>
+        <add order="0x40" stat="regHp" val="10"/>
       </effect>
     </for>
   </skill>
@@ -608,7 +610,7 @@
     <set name="mpConsume" val="40"/>
     <set name="hitTime" val="3000"/>
     <set name="summonTotalLifeTime" val="30000"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="45000"/>
     <set name="staticReuse" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON_TRAP"/>
@@ -1128,7 +1130,7 @@
   <skill id="874" levels="1" name="Magic Leader Flame Strike">
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="32"/>
-    <set name="power" val="13"/>
+    <set name="power" val="113"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="200"/>
     <set name="element" val="0"/> <!-- Fire -->
