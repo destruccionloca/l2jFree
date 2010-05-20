@@ -178,7 +178,7 @@ public class Core extends L2AttackableAIScript
 		{
 			_alive = true;
 			_attacked = false;
-			_minions = new L2FastSet().setShared(true);
+			_minions = new L2FastSet<L2Attackable>().setShared(true);
 		}
 
 		public final boolean isAlive()
