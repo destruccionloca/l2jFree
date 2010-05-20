@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.entity;
 
+import java.util.Set;
+
 import javolution.util.FastList;
 
 import org.apache.commons.logging.Log;
@@ -38,6 +40,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.util.L2FastSet;
 
 public class Duel
 {
@@ -60,7 +63,7 @@ public class Duel
 	private int _countdown=4;
 	private boolean _finished=false;
 
-	private FastList<PlayerCondition> _playerConditions;
+	private Set<PlayerCondition> _playerConditions;
 
 	public static enum DuelResultEnum
 	{
@@ -86,7 +89,7 @@ public class Duel
 		if (_partyDuel) _duelEndTime += 300*1000;
 		else _duelEndTime += 120*1000;
 
-		_playerConditions = new FastList<PlayerCondition>();
+		_playerConditions = new L2FastSet<PlayerCondition>().setShared(true);
 
 		setFinished(false);
 
@@ -458,10 +461,8 @@ public class Duel
 		if (abnormalDuelEnd) return;
 
 		// restore player conditions
-		for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
-		{
-			e.getValue().restoreCondition();
-		}
+		for (PlayerCondition pc : _playerConditions)
+			pc.restoreCondition();
 	}
 
 	/**
@@ -910,22 +911,22 @@ public class Duel
 		// if hes either playerA or playerB cancel the duel and port the players back
 		if (player == _playerA || player == _playerB)
 		{
-			for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
+			for (PlayerCondition pc : _playerConditions)
 			{
-				e.getValue().teleportBack();
-				e.getValue().getPlayer().setIsInDuel(0);
+				pc.teleportBack();
+				pc.getPlayer().setIsInDuel(0);
 			}
 
 			_playerA = null; _playerB = null;
 		}
 		else // teleport the player back & delete his PlayerCondition record
 		{
-			for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
+			for (PlayerCondition pc : _playerConditions)
 			{
-				if (e.getValue().getPlayer() == player)
+				if (pc.getPlayer() == player)
 				{
-					e.getValue().teleportBack();
-					_playerConditions.remove(e.getValue());
+					pc.teleportBack();
+					_playerConditions.remove(pc);
 					break;
 				}
 			}
@@ -935,11 +936,11 @@ public class Duel
 
 	public void onBuff(L2PcInstance player, L2Effect debuff)
 	{
-		for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
+		for (PlayerCondition pc : _playerConditions)
 		{
-			if (e.getValue().getPlayer() == player)
+			if (pc.getPlayer() == player)
 			{
-				e.getValue().registerDebuff(debuff);
+				pc.registerDebuff(debuff);
 				return;
 			}
 		}

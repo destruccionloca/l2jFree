@@ -1199,7 +1199,6 @@ public class MercTicketManager
 			L2World.getInstance().removeObject(pos);
 			save(true, pos.getX(), pos.getY(), pos.getZ());
 		}
-		FastList.recycle(posts);
 	}
 
 	/**

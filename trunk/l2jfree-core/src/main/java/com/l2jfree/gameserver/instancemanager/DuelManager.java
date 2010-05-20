@@ -14,7 +14,9 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-import javolution.util.FastList;
+import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,7 +44,7 @@ public class DuelManager
 	
 	// =========================================================
 	// Data Field
-	private final FastList<Duel>	_duels;
+	private final Map<Integer, Duel> _duels = new FastMap<Integer, Duel>().setShared(true);
 	private int				_currentDuelId	= 0x90;
 
 	// =========================================================
@@ -50,13 +52,12 @@ public class DuelManager
 	private DuelManager()
 	{
 		_log.info("Initializing DuelManager");
-		_duels = new FastList<Duel>();
 	}
 
 	// =========================================================
 	// Method - Private
 
-	private int getNextDuelId()
+	private synchronized int getNextDuelId()
 	{
 		// In case someone wants to run the server forever :)
 		if (++_currentDuelId >= 2147483640)
@@ -69,12 +70,7 @@ public class DuelManager
 
 	public Duel getDuel(int duelId)
 	{
-		for (FastList.Node<Duel> e = _duels.head(), end = _duels.tail(); (e = e.getNext()) != end;)
-		{
-			if (e.getValue().getId() == duelId)
-				return e.getValue();
-		}
-		return null;
+		return _duels.get(duelId);
 	}
 
 	public void addDuel(L2PcInstance playerA, L2PcInstance playerB, int partyDuel)
@@ -161,12 +157,12 @@ public class DuelManager
 		}
 
 		Duel duel = new Duel(playerA, playerB, partyDuel, getNextDuelId());
-		_duels.add(duel);
+		_duels.put(duel.getId(), duel);
 	}
 
 	public void removeDuel(Duel duel)
 	{
-		_duels.remove(duel);
+		_duels.remove(duel.getId());
 	}
 
 	public void doSurrender(L2PcInstance player)

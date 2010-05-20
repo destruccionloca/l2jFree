@@ -98,7 +98,6 @@ public class SiegeGuardManager
 			if (spawn.getLastSpawn() != null)
 				spawn.getLastSpawn().doDie(spawn.getLastSpawn());
 		}
-		FastList.recycle(getSiegeGuardSpawn());
 	}
 
 	/**
