@@ -84,7 +84,7 @@ public final class ObjectRestrictions
 					addRestriction(objId, type);
 					break;
 				default:
-					timedAddRestriction(objId, type, delay, message);
+					timedRemoveRestriction(objId, type, delay, message);
 					break;
 				}
 				count++;
@@ -337,39 +337,7 @@ public final class ObjectRestrictions
 	 */
 	public void timedRemoveRestriction(Integer objId, AvailableRestriction restriction, long delay, String message)
 	{
-		new TimedRestrictionAction(objId, restriction, TimedRestrictionType.REMOVE, delay, message);
-	}
-
-	/**
-	 * Schedules a new AddRestriction event without info message
-	 * 
-	 * @param owner
-	 * @param restriction
-	 * @param delay
-	 * @throws RestrictionBindClassException
-	 */
-	public void timedAddRestriction(L2PcInstance owner, AvailableRestriction restriction, long delay)
-	{
-		timedAddRestriction(owner, restriction, delay, null);
-	}
-
-	/**
-	 * Schedules a new AddRestriction event with info message
-	 * 
-	 * @param owner
-	 * @param restriction
-	 * @param delay
-	 * @param message
-	 * @throws RestrictionBindClassException
-	 */
-	public void timedAddRestriction(L2PcInstance owner, AvailableRestriction restriction, long delay, String message)
-	{
-		timedAddRestriction(owner.getObjectId(), restriction, delay, message);
-	}
-
-	private void timedAddRestriction(Integer objId, AvailableRestriction restriction, long delay, String message)
-	{
-		new TimedRestrictionAction(objId, restriction, TimedRestrictionType.ADD, delay, message);
+		new TimedRestrictionAction(objId, restriction, delay, message);
 	}
 
 	/**
@@ -446,26 +414,19 @@ public final class ObjectRestrictions
 			paused.activate();
 	}
 
-	private static enum TimedRestrictionType
-	{
-		REMOVE, ADD
-	}
-
 	private final class TimedRestrictionAction implements Runnable
 	{
 		private final Integer				_objId;
 		private final AvailableRestriction	_restriction;
-		private final TimedRestrictionType	_type;
 		private final long					_delay;
 		private final String				_message;
 		private final long					_starttime	= System.currentTimeMillis();
 		private final ScheduledFuture<?>	_task;
 
-		private TimedRestrictionAction(Integer objId, AvailableRestriction restriction, TimedRestrictionType type, long delay, String message)
+		private TimedRestrictionAction(Integer objId, AvailableRestriction restriction, long delay, String message)
 		{
 			_objId = objId;
 			_restriction = restriction;
-			_type = type;
 			_delay = delay;
 			_message = message;
 
@@ -478,15 +439,7 @@ public final class ObjectRestrictions
 		{
 			removeTask(getObjectId(), this);
 
-			switch (getType())
-			{
-			case ADD:
-				addRestriction(getObjectId(), getRestriction());
-				break;
-			case REMOVE:
-				removeRestriction(getObjectId(), getRestriction());
-				break;
-			}
+			removeRestriction(getObjectId(), getRestriction());
 
 			if (getMessage() != null)
 			{
@@ -514,11 +467,6 @@ public final class ObjectRestrictions
 		private AvailableRestriction getRestriction()
 		{
 			return _restriction;
-		}
-
-		private TimedRestrictionType getType()
-		{
-			return _type;
 		}
 
 		private String getMessage()
@@ -567,15 +515,7 @@ public final class ObjectRestrictions
 
 		private void activate()
 		{
-			switch (getAction().getType())
-			{
-			case ADD:
-				timedAddRestriction(getAction().getObjectId(), getAction().getRestriction(), getRemainingTime(), getAction().getMessage());
-				break;
-			case REMOVE:
-				timedRemoveRestriction(getAction().getObjectId(), getAction().getRestriction(), getRemainingTime(), getAction().getMessage());
-				break;
-			}
+			timedRemoveRestriction(getAction().getObjectId(), getAction().getRestriction(), getRemainingTime(), getAction().getMessage());
 		}
 	}
 }
