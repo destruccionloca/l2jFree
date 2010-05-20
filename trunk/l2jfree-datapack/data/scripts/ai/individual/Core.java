@@ -14,8 +14,10 @@
  */
 package ai.individual;
 
+import java.util.Map;
+
 import javolution.util.FastMap;
-import javolution.util.FastSet;
+
 import ai.group_template.L2AttackableAIScript;
 
 import com.l2jfree.gameserver.model.actor.L2Attackable;
@@ -24,6 +26,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * Core AI
@@ -58,7 +61,7 @@ public class Core extends L2AttackableAIScript
 			_status.put(npc.getObjectId(), status);
 			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS01_A"));
 			//Spawn minions
-			FastSet<L2Attackable> minions = status.getMinions();
+			L2FastSet<L2Attackable> minions = status.getMinions();
 			L2Attackable minion;
 			for (int i = 0; i < 5; i++)
 			{
@@ -90,23 +93,14 @@ public class Core extends L2AttackableAIScript
 			CoreStatus status = _status.get(oId);
 			if (event.contains("de"))
 			{
-				for (FastSet.Record r = status.getMinions().head(), end = status.getMinions().tail();
-					(r = r.getNext()) != end;)
-					status.getMinions().valueOf(r).decayMe();
-				FastSet.recycle(status.getMinions());
+				for (L2Attackable attackable : status.getMinions())
+					attackable.decayMe();
+				status.getMinions().clear();
 			}
 			else
 			{
-				for (FastMap.Entry<Integer, CoreStatus> entry = _status.head(), end = _status.tail();
-					(entry = entry.getNext()) != end;)
-				{
-					if (entry.getKey() == oId)
-					{
-						L2Attackable minion = (L2Attackable) addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0, npc.getInstanceId());
-						entry.getValue().getMinions().add(minion);
-						break;
-					}
-				}
+				L2Attackable minion = (L2Attackable) addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), false, 0, npc.getInstanceId());
+				status.getMinions().add(minion);
 			}
 		}
 		return super.onAdvEvent(event, npc, player);
@@ -121,13 +115,13 @@ public class Core extends L2AttackableAIScript
 			if (status.isAttacked())
 			{
 				if (Rnd.get(100) == 0)
-					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "Removing intruders."));
+					npc.broadcastPacket(new NpcSay(npc, "Removing intruders."));
 			}
 			else
 			{
 				status.setAttacked(true);
-				npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "A non-permitted target has been discovered."));
-				npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "Starting intruder removal system."));
+				npc.broadcastPacket(new NpcSay(npc, "A non-permitted target has been discovered."));
+				npc.broadcastPacket(new NpcSay(npc, "Starting intruder removal system."));
 			}
 		}
 		return super.onAttack(npc, attacker, damage, isPet);
@@ -143,9 +137,9 @@ public class Core extends L2AttackableAIScript
 			status.setAlive(false);
 			int objId = npc.getObjectId();
 			npc.broadcastPacket(new PlaySound(1, npc, 10000, "BS02_D"));
-			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "A fatal error has occurred."));
-			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "System is being shut down..."));
-			npc.broadcastPacket(new NpcSay(objId, 0, npcId, "......"));
+			npc.broadcastPacket(new NpcSay(npc, "A fatal error has occurred."));
+			npc.broadcastPacket(new NpcSay(npc, "System is being shut down..."));
+			npc.broadcastPacket(new NpcSay(npc, "......"));
 			status.setAttacked(false);
 			addSpawn(31842, 16502, 110165, -6394, 0, false, 900000, npc.getInstanceId());
 			addSpawn(31842, 18948, 110166, -6397, 0, false, 900000, npc.getInstanceId());
@@ -155,8 +149,7 @@ public class Core extends L2AttackableAIScript
 		}
 		else
 		{
-			for (FastMap.Entry<Integer, CoreStatus> entry = _status.head(), end = _status.tail();
-				(entry = entry.getNext()) != end;)
+			for (Map.Entry<Integer, CoreStatus> entry : _status.entrySet())
 			{
 				CoreStatus status = entry.getValue();
 				if (status.isAlive() && status.getMinions().contains(npc))
@@ -179,13 +172,13 @@ public class Core extends L2AttackableAIScript
 	{
 		private boolean _alive;
 		private boolean _attacked;
-		private final FastSet<L2Attackable> _minions;
+		private final L2FastSet<L2Attackable> _minions;
 
 		public CoreStatus()
 		{
 			_alive = true;
 			_attacked = false;
-			_minions = FastSet.newInstance();
+			_minions = new L2FastSet().setShared(true);
 		}
 
 		public final boolean isAlive()
@@ -208,7 +201,7 @@ public class Core extends L2AttackableAIScript
 			_attacked = attacked;
 		}
 
-		public final FastSet<L2Attackable> getMinions()
+		public final L2FastSet<L2Attackable> getMinions()
 		{
 			return _minions;
 		}

@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javolution.util.FastList;
 
@@ -29,6 +29,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExMultiPartyCommandChannelIn
 import com.l2jfree.gameserver.network.serverpackets.ExOpenMPCC;
 import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.util.L2FastSet;
 
 /**
  *
@@ -36,7 +37,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class L2CommandChannel
 {
-	private List<L2Party> _partys = null;
+	private Set<L2Party> _partys = null;
 	private L2PcInstance _commandLeader = null;
 	private int _channelLvl;
 
@@ -47,7 +48,7 @@ public class L2CommandChannel
 	public L2CommandChannel(L2PcInstance leader)
 	{
 		_commandLeader = leader;
-		_partys = FastList.newInstance();
+		_partys = new L2FastSet<L2Party>().setShared(true);
 		_partys.add(leader.getParty());
 		_channelLvl = leader.getParty().getLevel();
 		leader.getParty().setCommandChannel(this);
@@ -170,7 +171,7 @@ public class L2CommandChannel
 	}
 
 	/** @return list of Parties in Command Channel */
-	public List<L2Party> getPartys()
+	public Set<L2Party> getPartys()
 	{
 		return _partys;
 	}

@@ -51,7 +51,7 @@ public class SiegeGuardManager
 	public SiegeGuardManager(Castle castle)
 	{
 		_castle = castle;
-		_siegeGuardSpawn = FastList.newInstance();
+		_siegeGuardSpawn = new FastList<L2Spawn>();
 		_spawnId = Integer.MIN_VALUE;
 	}
 
@@ -98,6 +98,7 @@ public class SiegeGuardManager
 			if (spawn.getLastSpawn() != null)
 				spawn.getLastSpawn().doDie(spawn.getLastSpawn());
 		}
+		getSiegeGuardSpawn().clear();
 	}
 
 	/**

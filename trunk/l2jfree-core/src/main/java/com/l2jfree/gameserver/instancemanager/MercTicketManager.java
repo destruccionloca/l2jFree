@@ -801,7 +801,7 @@ public class MercTicketManager
 		FastList<L2ItemInstance> posts = _positions.get(castle);
 		if (posts == null)
 		{
-			posts = FastList.newInstance();
+			posts = new FastList<L2ItemInstance>();
 			_positions.put(castle, posts);
 		}
 		return posts;
@@ -1199,6 +1199,7 @@ public class MercTicketManager
 			L2World.getInstance().removeObject(pos);
 			save(true, pos.getX(), pos.getY(), pos.getZ());
 		}
+		posts.clear();
 	}
 
 	/**
