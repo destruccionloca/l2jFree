@@ -13,5 +13,5 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`object_id`),
   KEY `key_owner_id` (`owner_id`),
   KEY `key_loc` (`loc`),
-  KEY `key_item_id` (`item_id`),
+  KEY `key_item_id` (`item_id`)
 ) DEFAULT CHARSET=utf8;
