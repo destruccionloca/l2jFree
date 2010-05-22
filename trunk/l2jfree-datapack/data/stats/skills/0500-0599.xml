@@ -116,7 +116,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1500"/>
     <set name="coolTime" val="720"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -152,7 +152,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="condition" val="16"/> <!-- Crit -->
     <set name="reuseDelay" val="3000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1500"/>
     <set name="coolTime" val="720"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BLOW"/>

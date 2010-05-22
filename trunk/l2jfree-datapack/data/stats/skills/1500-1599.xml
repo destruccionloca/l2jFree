@@ -179,7 +179,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="300"/>
-    <set name="reuseDelay" val="3000000"/>
+    <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="isMagic" val="true"/>
