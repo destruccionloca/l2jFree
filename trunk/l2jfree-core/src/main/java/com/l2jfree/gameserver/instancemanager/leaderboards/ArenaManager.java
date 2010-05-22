@@ -240,41 +240,56 @@ public class ArenaManager
 		LineNumberReader lnr = null;
 		String lineId = "";
 		ArenaRank rank = null;
+		File file = new File(Config.DATAPACK_ROOT, "data/arena.dat");
+
 		try
 		{
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(new File(Config.DATAPACK_ROOT, "data/arena.dat"))));
-			while ((line = lnr.readLine()) != null)
-			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
-					continue;
-
-				lineId = line;
-				line = line.replaceAll(" ", "");
-
-				String t[] = line.split(":");
-
-				int owner = Integer.parseInt(t[0]);
-				rank = new ArenaRank();
-
-				rank.kills = Integer.parseInt(t[1].split("-")[0]);
-				rank.death = Integer.parseInt(t[1].split("-")[1]);
-
-				rank.name = t[2];
-
-				_ranks.put(owner, rank);
-			}
+			boolean created = file.createNewFile();
+			if (created)
+				_log.info("ArenaManager: arena.dat was not existing and has been created.");
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
-			_log.warn("ArenaManager.engineInit() >> last line parsed is \n[" + lineId + "]\n", e);
+			e.printStackTrace();
 		}
 		finally
 		{
-			IOUtils.closeQuietly(lnr);
-		}
+			try
+			{
+				lnr = new LineNumberReader(new BufferedReader(new FileReader(file)));
+				while ((line = lnr.readLine()) != null)
+				{
+					if (line.trim().length() == 0 || line.startsWith("#"))
+						continue;
+	
+					lineId = line;
+					line = line.replaceAll(" ", "");
+	
+					String t[] = line.split(":");
+	
+					int owner = Integer.parseInt(t[0]);
+					rank = new ArenaRank();
+	
+					rank.kills = Integer.parseInt(t[1].split("-")[0]);
+					rank.death = Integer.parseInt(t[1].split("-")[1]);
+	
+					rank.name = t[2];
+	
+					_ranks.put(owner, rank);
+				}
+			}
+			catch (Exception e)
+			{
+				_log.warn("ArenaManager.engineInit() >> last line parsed is \n[" + lineId + "]\n", e);
+			}
+			finally
+			{
+				IOUtils.closeQuietly(lnr);
+			}
 
-		startSaveTask();
-		_log.info("ArenaManager: Loaded " + _ranks.size() + " player(s).");
+			startSaveTask();
+			_log.info("ArenaManager: Loaded " + _ranks.size() + " player(s).");
+		}
 	}
 
 	public void saveData()

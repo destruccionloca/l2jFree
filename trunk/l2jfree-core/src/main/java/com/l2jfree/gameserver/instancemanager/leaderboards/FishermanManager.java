@@ -243,38 +243,56 @@ public class FishermanManager
 		LineNumberReader lnr = null;
 		String lineId = "";
 		FishRank rank = null;
+		File file = new File(Config.DATAPACK_ROOT, "data/fish.dat");
+
 		try
 		{
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(new File(Config.DATAPACK_ROOT, "data/fish.dat"))));
-			while ((line = lnr.readLine()) != null)
-			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
-					continue;
-
-				lineId = line;
-				line = line.replaceAll(" ", "");
-
-				String t[] = line.split(":");
-
-				int owner = Integer.parseInt(t[0]);
-				rank = new FishRank();
-
-				rank.cought = Integer.parseInt(t[1].split("-")[0]);
-				rank.escaped = Integer.parseInt(t[1].split("-")[1]);
-
-				rank.name = t[2];
-
-				_ranks.put(owner, rank);
-			}
+			boolean created = file.createNewFile();
+			if (created)
+				_log.info("FishManager: fish.dat was not existing and has been created.");
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
-			_log.warn("FishManager.engineInit() >> last line parsed is \n[" + lineId + "]\n", e);
+			e.printStackTrace();
 		}
-		finally { IOUtils.closeQuietly(lnr); }
+		finally
+		{
+			try
+			{
+				lnr = new LineNumberReader(new BufferedReader(new FileReader(file)));
+				while ((line = lnr.readLine()) != null)
+				{
+					if (line.trim().length() == 0 || line.startsWith("#"))
+						continue;
+	
+					lineId = line;
+					line = line.replaceAll(" ", "");
+	
+					String t[] = line.split(":");
+	
+					int owner = Integer.parseInt(t[0]);
+					rank = new FishRank();
+	
+					rank.cought = Integer.parseInt(t[1].split("-")[0]);
+					rank.escaped = Integer.parseInt(t[1].split("-")[1]);
+	
+					rank.name = t[2];
+	
+					_ranks.put(owner, rank);
+				}
+			}
+			catch (Exception e)
+			{
+				_log.warn("FishManager.engineInit() >> last line parsed is \n[" + lineId + "]\n", e);
+			}
+			finally
+			{
+				IOUtils.closeQuietly(lnr);
+			}
 
-		startSaveTask();
-		_log.info("FishManager: Loaded " + _ranks.size() + " player(s).");
+			startSaveTask();
+			_log.info("FishManager: Loaded " + _ranks.size() + " player(s).");
+		}
 	}
 
 	public void saveData()
