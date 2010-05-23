@@ -197,7 +197,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2215" levels="4" name="Item - Quest Special Box">
-    <table name="#itemConsumeId">7614 7615 7616 7617</table>
+    <table name="#itemConsumeId"> 7614 7615 7616 7617 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
@@ -207,7 +207,7 @@
     <set name="effectRange" val="-1"/>
   </skill>
   <skill id="2216" levels="4" name="Item - Quest Special Fish">
-    <table name="#itemConsumeId">7610 7611 7612 7613</table>
+    <table name="#itemConsumeId"> 7610 7611 7612 7613 </table>
     <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>

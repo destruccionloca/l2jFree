@@ -990,7 +990,7 @@
   <skill id="342" levels="1" name="Touch of Death" enchantLevels1="15" enchantLevels2="15">
     <table name="#ench1hpConsume"> 652 634 617 599 581 564 546 528 511 493 476 458 440 423 405 </table>
     <table name="#ench2power"> 80 81 81 82 83 83 84 85 85 86 87 87 88 89 90 </table>
-    <set name="power" val="80"/><!-- Base Land Rate -->
+    <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="magicLvl" val="78"/>
     <set name="hpConsume" val="669"/>
     <set name="isDebuff" val="true"/>

@@ -405,7 +405,7 @@
   </skill>
   <skill id="3845" levels="2" name="Two-handed Sword of Critical Chance">
     <!-- Increases Critical Rate of Masterwork Two-handed Weapon. -->
-    <table name="#rCrit">10 30</table>
+    <table name="#rCrit"> 10 30 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -780,7 +780,7 @@
     </for>
   </skill>
   <skill id="3885" levels="2" name="Blunt Weapon of Stun">
-		<table name="#triggeredId"> 5671 5672 </table>
+    <table name="#triggeredId"> 5671 5672 </table>
     <set name="activationChance" val="5"/>
     <set name="chanceType" val="ON_HIT"/>
     <set name="magicLvl" val="80"/>
