@@ -3422,11 +3422,8 @@ public class Config extends L2Config
 	// *******************************************************************************************
 	public static final String ELAYNE_FILE = "./config/elayne.properties";
 	// *******************************************************************************************
-	@ConfigProperty(loader = "elayne", name = "AllowRMIServer", value = "False")
 	public static boolean ALLOW_RMI_SERVER;
-	@ConfigProperty(loader = "elayne", name = "RMIServerPassword", value = "******")
 	public static String RMI_SERVER_PASSWORD;
-	@ConfigProperty(loader = "elayne", name = "RMIServerPort", value = "1099")
 	public static int RMI_SERVER_PORT;
 	
 	// *******************************************************************************************
@@ -3442,9 +3439,9 @@ public class Config extends L2Config
 		@Override
 		protected void loadImpl(L2Properties elayneSettings)
 		{
-			//ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
-			//RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
-			//RMI_SERVER_PORT = Integer.parseInt(elayneSettings.getProperty("RMIServerPort", "1099"));
+			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer", "False"));
+			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "");
+			RMI_SERVER_PORT = Integer.parseInt(elayneSettings.getProperty("RMIServerPort", "1099"));
 		}
 	}
 	

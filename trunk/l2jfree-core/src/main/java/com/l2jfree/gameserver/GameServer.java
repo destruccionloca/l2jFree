@@ -60,6 +60,7 @@ import com.l2jfree.gameserver.datatables.StaticObjects;
 import com.l2jfree.gameserver.datatables.SummonItemsData;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.datatables.TradeListTable;
+import com.l2jfree.gameserver.elayne.RemoteAdministrationImpl;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.geodata.pathfinding.PathFinding;
 import com.l2jfree.gameserver.geoeditorcon.GeoEditorListener;
@@ -401,6 +402,9 @@ public class GameServer extends Config
 		VoicedCommandHandler.getInstance();
 		ChatHandler.getInstance();
 		SkillTargetHandler.getInstance();
+
+		Util.printSection("Elayne");
+		RemoteAdministrationImpl.getInstance().startServer();
 		
 		Util.printSection("Misc");
 		ObjectRestrictions.getInstance();
