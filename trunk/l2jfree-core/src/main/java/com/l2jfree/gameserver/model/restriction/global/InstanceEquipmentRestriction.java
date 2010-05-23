@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 /**
  * @author savormix
  */
-public final class UnequipRestriction extends AbstractRestriction
+public final class InstanceEquipmentRestriction extends AbstractRestriction
 {
 	@Override
 	public void instanceChanged(L2PcInstance activeChar, int oldInstance, int newInstance)

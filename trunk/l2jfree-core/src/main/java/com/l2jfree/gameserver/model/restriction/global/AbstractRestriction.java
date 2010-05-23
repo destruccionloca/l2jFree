@@ -122,6 +122,18 @@ public abstract class AbstractRestriction implements GlobalRestriction
 	}
 	
 	@DisabledRestriction
+	public boolean canDropItem(L2PcInstance player, int itemId, L2ItemInstance item)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
+	public boolean canDestroyItem(L2PcInstance player, int itemId, L2ItemInstance item)
+	{
+		throw new AbstractMethodError();
+	}
+	
+	@DisabledRestriction
 	public CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target)
 	{
 		throw new AbstractMethodError();

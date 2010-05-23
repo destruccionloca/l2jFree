@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.util.FloodProtector;
@@ -38,24 +39,11 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  */
 public class RequestDestroyItem extends L2GameClientPacket
 {
-	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
+	private static final String _C__REQUESTDESTROYITEM = "[C] 60 RequestDestroyItem c[dq]";
 
 	private int _objectId;
 	private long _count;
 
-	/**
-	 * packet type id 0x1f
-	 * 
-	 * sample
-	 * 
-	 * 59
-	 * 0b 00 00 40		// object id
-	 * 01 00 00 00		// count ??
-	 * 
-	 * 
-	 * format:		cdd
-	 * @param decrypt
-	 */
     @Override
     protected void readImpl()
     {
@@ -66,7 +54,7 @@ public class RequestDestroyItem extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
 		else if (!FloodProtector.tryPerformAction(activeChar, Protected.TRANSACTION))
@@ -141,6 +129,12 @@ public class RequestDestroyItem extends L2GameClientPacket
 			//_count = itemToRemove.getCount();
 		}
 
+		if (!GlobalRestrictions.canDestroyItem(activeChar, itemId, itemToRemove))
+		{
+			sendAF();
+			return;
+		}
+
 		if (itemToRemove.isEquipped())
 		{
 			L2ItemInstance[] unequiped =
@@ -198,6 +192,6 @@ public class RequestDestroyItem extends L2GameClientPacket
 	@Override
     public String getType()
 	{
-		return _C__59_REQUESTDESTROYITEM;
+		return _C__REQUESTDESTROYITEM;
 	}
 }

@@ -55,6 +55,10 @@ public interface GlobalRestriction
 	public boolean canUseItemHandler(Class<? extends IItemHandler> clazz, int itemId, L2Playable activeChar,
 			L2ItemInstance item, L2PcInstance player);
 	
+	public boolean canDropItem(L2PcInstance player, int itemId, L2ItemInstance item);
+	
+	public boolean canDestroyItem(L2PcInstance player, int itemId, L2ItemInstance item);
+	
 	public CombatState getCombatState(L2PcInstance activeChar, L2PcInstance target);
 	
 	public boolean canStandUp(L2PcInstance activeChar);

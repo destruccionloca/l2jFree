@@ -22,6 +22,7 @@ import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
+import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -48,16 +49,6 @@ public class RequestDropItem extends L2GameClientPacket
 	private int					_y;
 	private int					_z;
 
-	/**
-	 * packet type id 0x12
-	 *
-	 * sample
-	 *
-	 * 12 09 00 00 40 // object id 01 00 00 00 // count ?? fd e7 fe ff // x e5
-	 * eb 03 00 // y bb f3 ff ff // z
-	 *
-	 * format: cdd ddd
-	 */
 	@Override
 	protected void readImpl()
 	{
@@ -71,7 +62,7 @@ public class RequestDropItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null || activeChar.isDead())
 			return;
 
@@ -101,8 +92,13 @@ public class RequestDropItem extends L2GameClientPacket
 			Util.handleIllegalPlayerAction(activeChar, "[RequestDropItem] count > 1 but item is not stackable! ban! oid: " + _objectId + " owner: " + activeChar.getName(), IllegalPlayerAction.PUNISH_KICK);
 			return;
 		}
-		else if (!canDrop(item))
+		else if (!canDrop(item)) // TODO: merge to restriction
 			return;
+		else if (!GlobalRestrictions.canDestroyItem(activeChar, item.getItemId(), item))
+		{
+			sendAF();
+			return;
+		}
 
 		if (_log.isDebugEnabled())
 			_log.debug("requested drop item " + _objectId + "(" + item.getCount() + ") at " + _x + "/" + _y + "/" + _z);

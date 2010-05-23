@@ -60,6 +60,8 @@ public final class GlobalRestrictions
 		canRequestRevive,
 		canTeleport,
 		canUseItemHandler,
+		canDropItem,
+		canDestroyItem,
 		getCombatState,
 		canStandUp,
 		canPickUp,
@@ -200,7 +202,7 @@ public final class GlobalRestrictions
 		activate(new MercenaryTicketRestriction());
 		activate(new OlympiadRestriction());
 		activate(new ProtectionBlessingRestriction());
-		activate(new UnequipRestriction());
+		activate(new InstanceEquipmentRestriction());
 	}
 	
 	/**
@@ -461,6 +463,24 @@ public final class GlobalRestrictions
 		
 		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canUseItemHandler.ordinal()])
 			if (!restriction.canUseItemHandler(clazz, itemId, activeChar, item, player))
+				return false;
+		
+		return true;
+	}
+	
+	public static boolean canDropItem(L2PcInstance activeChar, int itemId, L2ItemInstance item)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canDropItem.ordinal()])
+			if (!restriction.canDropItem(activeChar, itemId, item))
+				return false;
+		
+		return true;
+	}
+	
+	public static boolean canDestroyItem(L2PcInstance activeChar, int itemId, L2ItemInstance item)
+	{
+		for (GlobalRestriction restriction : _restrictions[RestrictionMode.canDestroyItem.ordinal()])
+			if (!restriction.canDestroyItem(activeChar, itemId, item))
 				return false;
 		
 		return true;
