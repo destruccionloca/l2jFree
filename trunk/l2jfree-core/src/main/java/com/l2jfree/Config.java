@@ -36,7 +36,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.l2jfree.config.ConfigProperty;
 import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.GameServer;
 import com.l2jfree.gameserver.GameServer.StartupHook;

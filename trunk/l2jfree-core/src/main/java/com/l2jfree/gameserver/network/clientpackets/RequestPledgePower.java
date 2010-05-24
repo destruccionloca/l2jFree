@@ -14,13 +14,14 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ManagePledgePower;
 
 public class RequestPledgePower extends L2GameClientPacket
 {
-    private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePower";
+    private static final String _C__REQUESTPLEDGEPOWER = "[C] CC RequestPledgePower c[ddd]";
     
     private int _rank;
     private int _action;
@@ -32,37 +33,32 @@ public class RequestPledgePower extends L2GameClientPacket
         _rank = readD();
         _action = readD();
         if (_action == 2)
-        {
             _privs = readD();
-        }
-        else _privs = 0;
+        else
+        	_privs = 0;
     }
-
+    
     @Override
     protected void runImpl()
     {
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
-        if(_action == 2)
+        L2PcInstance player = getActiveChar();
+        if (player == null)
+        	return;
+        L2Clan clan = player.getClan();
+        if (_action == 2)
         {
-        	if(player.getClan() != null && player.isClanLeader())
-        	{
-                    player.getClan().setRankPrivs(_rank, _privs);
-        	}
+        	if (L2Clan.checkPrivileges(player, L2Clan.CP_CL_MANAGE_RANKS))
+        		clan.setRankPrivs(_rank, _privs);
+        	else
+        		sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
         }
         else
-        {
-            ManagePledgePower mpp = new ManagePledgePower(getClient().getActiveChar().getClan(), _action, _rank);
-            player.sendPacket(mpp);
-        }
+            sendPacket(new ManagePledgePower(clan, _action, _rank));
     }
     
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-     */
     @Override
     public String getType()
     {
-        return _C__C0_REQUESTPLEDGEPOWER;
+        return _C__REQUESTPLEDGEPOWER;
     }
 }

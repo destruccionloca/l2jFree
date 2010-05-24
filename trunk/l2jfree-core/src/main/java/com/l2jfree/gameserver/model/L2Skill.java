@@ -464,7 +464,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_lethalEffect2 = set.getInteger("lethal2", 0);
 		_directHpDmg = set.getBool("dmgDirectlyToHp", false);
 		_nextDanceCost = set.getInteger("nextDanceCost", 0);
-		_sSBoost = set.getFloat("SSBoost", 1.f);
+		_sSBoost = set.getFloat("SSBoost", 2);
 
 		_aggroPoints = set.getInteger("aggroPoints", 0);
 

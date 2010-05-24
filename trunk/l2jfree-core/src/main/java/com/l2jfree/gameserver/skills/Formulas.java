@@ -1405,26 +1405,22 @@ public final class Formulas
 		
 		double damage = attacker.getPAtk(target);
 		damage += calcValakasAttribute(attacker, target, skill);
+		// apply ss boost to pAtk
+		if (ss)
+			damage *= 2;
 		
-		if (skill != null && skill.getPower() > 0)
+		if (skill != null)
 		{
 			double skillPower = skill.getPower(attacker);
 			if (attacker instanceof L2Playable && target instanceof L2Playable)
 				skillPower *= skill.getPvpPowerMultiplier();
 			float ssBoost = skill.getSSBoost();
-			
-			if (ss)
-			{
-				if (ssBoost > 0)
-					skillPower *= ssBoost;
-				else
-					skillPower *= 2;
-			}
+			// apply ss boost to skill
+			if (ss && ssBoost > 0)
+				skillPower *= ssBoost;
 			
 			damage += skillPower;
 		}
-		else if (ss)
-			damage *= 2;
 		
 		double defence = target.getPDef(attacker);
 		

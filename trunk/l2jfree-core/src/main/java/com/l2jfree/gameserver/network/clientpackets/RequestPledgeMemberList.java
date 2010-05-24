@@ -18,46 +18,31 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.5.4.2 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestPledgeMemberList extends L2GameClientPacket
 {
-	private static final String _C__3C_REQUESTPLEDGEMEMBERLIST = "[C] 3C RequestPledgeMemberList";
+	private static final String _C__REQUESTPLEDGEMEMBERLIST = "[C] 4D RequestPledgeMemberList c";
 	
-	/**
-	 * packet type id 0x3c
-	 * format:		c
-	 * @param rawPacket
-	 */
     @Override
     protected void readImpl()
     {
         // trigger
     }
-
+    
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		L2PcInstance activeChar = getActiveChar();
+		if (activeChar == null)
+			return;
 		
 		L2Clan clan = activeChar.getClan();
 		if (clan != null)
-		{
-			PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan);
-			activeChar.sendPacket(pm);
-		}
+			activeChar.sendPacket(new PledgeShowMemberListAll(clan));
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{
-		return _C__3C_REQUESTPLEDGEMEMBERLIST;
+		return _C__REQUESTPLEDGEMEMBERLIST;
 	}
 }

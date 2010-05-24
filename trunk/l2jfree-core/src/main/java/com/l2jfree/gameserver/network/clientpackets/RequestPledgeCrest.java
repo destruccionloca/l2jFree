@@ -14,57 +14,41 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-
 import com.l2jfree.gameserver.cache.CrestCache;
 import com.l2jfree.gameserver.network.serverpackets.PledgeCrest;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.4.4.4 $ $Date: 2005/03/27 15:29:30 $
- */
 public class RequestPledgeCrest extends L2GameClientPacket
 {
-	private static final String _C__68_REQUESTPLEDGECREST = "[C] 68 RequestPledgeCrest";
+	private static final String _C__REQUESTPLEDGECREST = "[C] 67 RequestPledgeCrest c[d]";
 	
 	private int _crestId;
 	
-	/**
-	 * packet type id 0x68 format: cd
-	 * 
-	 */
     @Override
     protected void readImpl()
 	{
 		_crestId = readD();
 	}
-
+    
     @Override
     protected void runImpl()
 	{
 		if (_crestId == 0)
 		    return;
-		if (_log.isDebugEnabled()) _log.debug("crestid " + _crestId + " requested");
+		
+		if (_log.isDebugEnabled())
+			_log.debug("Clan crest " + _crestId + " requested.");
         
         byte[] data = CrestCache.getInstance().getPledgeCrest(_crestId);
         
 		if (data != null)
-		{
-			PledgeCrest pc = new PledgeCrest(_crestId, data);
-			sendPacket(pc);
-		}
-		else
-		{
-			if (_log.isDebugEnabled()) _log.debug("crest is missing:" + _crestId);
-		}
+			sendPacket(new PledgeCrest(_crestId, data));
+		else if (_log.isDebugEnabled())
+			_log.debug("Clan crest is missing: " + _crestId);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+    
 	@Override
 	public String getType()
 	{
-		return _C__68_REQUESTPLEDGECREST;
+		return _C__REQUESTPLEDGECREST;
 	}
 }
