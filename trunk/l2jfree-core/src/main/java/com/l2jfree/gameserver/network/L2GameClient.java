@@ -518,20 +518,21 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 	private void sendPacketImpl(L2GameServerPacket sp)
 	{
 		final long begin = System.nanoTime();
+		final L2PcInstance activeChar = getActiveChar();
 		
 		try
 		{
 			if (isDisconnected())
 				return;
 			
-			if (!sp.canBeSentTo(this, getActiveChar()))
+			if (!sp.canBeSentTo(this, activeChar))
 				return;
 			
-			sp.prepareToSend(this, getActiveChar());
+			sp.prepareToSend(this, activeChar);
 			
 			super.sendPacket(sp);
 			
-			sp.packetSent(this, getActiveChar());
+			sp.packetSent(this, activeChar);
 		}
 		finally
 		{

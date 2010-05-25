@@ -31,6 +31,7 @@ import com.l2jfree.gameserver.model.restriction.AvailableRestriction;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.AbnormalEffect;
@@ -109,7 +110,7 @@ public class Wedding implements IVoicedCommandHandler
 		return true;
 	}
 
-	public boolean engage(L2PcInstance activeChar)
+	public boolean engage(final L2PcInstance activeChar)
 	{
 		// Check target
 		if (activeChar.getTarget() == null)
@@ -159,7 +160,7 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 
-		L2PcInstance ptarget = (L2PcInstance) activeChar.getTarget();
+		final L2PcInstance ptarget = (L2PcInstance) activeChar.getTarget();
 
 		// Check if player target himself
 		if (ptarget.getObjectId() == activeChar.getObjectId())
@@ -180,7 +181,7 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 
-		if (ptarget.isEngageRequest())
+		if (ptarget.hasActiveConfirmDlg())
 		{
 			activeChar.sendMessage("Player already asked by someone else.");
 			return false;
@@ -199,8 +200,23 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 
-		ptarget.setEngageRequest(true, activeChar.getObjectId());
 		ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1);
+		dlg.addAnswerHandler(new AnswerHandler() {
+			@Override
+			public void handle(boolean answer)
+			{
+				if (!Config.ALLOW_WEDDING)
+					return;
+				
+				if (answer)
+				{
+					CoupleManager.getInstance().createCouple(activeChar, ptarget);
+					activeChar.sendMessage("Engage accepted.");
+				}
+				else
+					activeChar.sendMessage("Engage declined.");
+			}
+		});
 		ptarget.sendPacket(dlg.addString(activeChar.getName() + " is asking to engage you. Do you want to start a new relationship?"));
 		return true;
 	}

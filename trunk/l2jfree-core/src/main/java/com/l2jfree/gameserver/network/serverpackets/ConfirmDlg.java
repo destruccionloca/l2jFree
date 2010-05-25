@@ -14,19 +14,23 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
 
 /**
  * Format: c dd[d s/d/dd/ddd] dd
  * 
  * @author kombat
  */
-public class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
+public final class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
 {
 	private static final String _S__F3_CONFIRMDLG = "[S] f3 ConfirmDlg";
 	
 	private int _time = 0;
 	private int _requesterId = 0;
+	private AnswerHandler _answerHandler;
 	
 	public ConfirmDlg(SystemMessageId messageId)
 	{
@@ -55,6 +59,24 @@ public class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
 	{
 		_requesterId = id;
 		return this;
+	}
+	
+	public ConfirmDlg addAnswerHandler(AnswerHandler answerHandler)
+	{
+		_answerHandler = answerHandler;
+		return this;
+	}
+	
+	@Override
+	public boolean canBeSentTo(L2GameClient client, L2PcInstance activeChar)
+	{
+		return activeChar != null && _answerHandler != null;
+	}
+	
+	@Override
+	public void prepareToSend(L2GameClient client, L2PcInstance activeChar)
+	{
+		activeChar.setAnswerHandler(_answerHandler);
 	}
 	
 	@Override

@@ -2440,12 +2440,14 @@ public final class Formulas
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
-	public static double calculateSkillResurrectRestorePercent(final double baseRestorePercent, int casterWIT)
+	public static double calculateSkillResurrectRestorePercent(L2Skill skill, L2Character caster)
 	{
+		final double baseRestorePercent = skill.getPower();
+		
 		if (baseRestorePercent == 0 || baseRestorePercent == 100)
 			return baseRestorePercent;
 		
-		double restorePercent = baseRestorePercent * WITbonus[casterWIT];
+		double restorePercent = baseRestorePercent * WITbonus[caster.getStat().getWIT()];
 		
 		if(restorePercent - baseRestorePercent > 20.0)
 			restorePercent += 20.0;

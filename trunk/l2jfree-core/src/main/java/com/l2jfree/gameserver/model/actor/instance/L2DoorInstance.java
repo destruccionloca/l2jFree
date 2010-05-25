@@ -43,6 +43,7 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
@@ -474,15 +475,7 @@ public class L2DoorInstance extends L2Character
 				}
 				else
 				{
-					player.gatesRequest(this);
-					if (!isOpen())
-					{
-						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE));
-					}
-					else
-					{
-						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE));
-					}
+					askGateOpenClose(player);
 				}
 			}
 			else if (player.getClan() != null && getFort() != null && player.getClanId() == getFort().getOwnerId() && isUnlockable() && !getFort().getSiege().getIsInProgress())
@@ -493,17 +486,35 @@ public class L2DoorInstance extends L2Character
 				}
 				else
 				{
-					player.gatesRequest(this);
-					if (!isOpen())
-					{
-						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE));
-					}
-					else
-					{
-						player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE));
-					}
+					askGateOpenClose(player);
 				}
 			}
+		}
+	}
+	
+	private void askGateOpenClose(L2PcInstance player)
+	{
+		if (!isOpen())
+		{
+			player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_OPEN_THE_GATE).addAnswerHandler(new AnswerHandler() {
+				@Override
+				public void handle(boolean answer)
+				{
+					if (answer)
+						openMe();
+				}
+			}));
+		}
+		else
+		{
+			player.sendPacket(new ConfirmDlg(SystemMessageId.WOULD_YOU_LIKE_TO_CLOSE_THE_GATE).addAnswerHandler(new AnswerHandler() {
+				@Override
+				public void handle(boolean answer)
+				{
+					if (answer)
+						closeMe();
+				}
+			}));
 		}
 	}
 

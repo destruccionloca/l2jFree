@@ -37,12 +37,15 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeTeleporterInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
+import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -101,7 +104,6 @@ public class MercTicketManager
 	private final FastMap<Integer, Integer> _typeLimit;
 	private final FastMap<Integer, MercInfo> _mercenaries;
 	private final FastMap<Integer, FastList<L2ItemInstance>> _positions;
-	private final FastMap<Integer, Integer> _requests;
 	private volatile ScheduledFuture<?> _update;
 	private int[] _handlerIds;
 
@@ -113,7 +115,6 @@ public class MercTicketManager
 		fillMercenaries();
 		_positions = new FastMap<Integer, FastList<L2ItemInstance>>();
 		fillPositions();
-		_requests = new FastMap<Integer, Integer>();
 		_update = null;
 	}
 
@@ -870,11 +871,23 @@ public class MercTicketManager
 	 * @param player The castle owning clan member
 	 * @param merc The mercenary posting ticket
 	 */
-	public final void reqPosition(L2PcInstance player, L2ItemInstance merc)
+	public final void reqPosition(final L2PcInstance player, final L2ItemInstance merc)
 	{
 		if (player == null || merc == null)
 			return;
-		_requests.put(player.getObjectId(), merc.getObjectId());
+		
+		final ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION);
+		dlg.addItemName(merc);
+		dlg.addAnswerHandler(new AnswerHandler() {
+			@Override
+			public void handle(boolean answer)
+			{
+				if (answer)
+					addPosition(player, merc.getObjectId());
+			}
+		});
+		
+		player.sendPacket(dlg);
 	}
 
 	/**
@@ -896,11 +909,8 @@ public class MercTicketManager
 	 * <LI>A non-dawn mercenary is positioned <I>(when Seal of Strife is unclaimed)</I></LI>
 	 * @param player which confirmed mercenary positioning
 	 */
-	public final void addPosition(L2PcInstance player)
+	public final void addPosition(L2PcInstance player, Integer itemObjId)
 	{
-		Integer itemObjId = _requests.remove(player.getObjectId());
-		if (itemObjId == null) // request already done
-			return;
 		L2ItemInstance ticket = player.getInventory().getItemByObjectId(itemObjId);
 		if (ticket == null)
 			return;

@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
 import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -205,12 +206,12 @@ public class SummonFriend implements ISkillHandler
 		targetChar.teleToLocation(summonerChar.getX(), summonerChar.getY(), summonerChar.getZ(), true);
 	}
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
+	public void useSkill(L2Character activeChar, final L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return; // currently not implemented for others
 
-		L2PcInstance activePlayer = (L2PcInstance) activeChar;
+		final L2PcInstance activePlayer = (L2PcInstance) activeChar;
 		if (!checkSummonerStatus(activePlayer))
 			return;
 
@@ -222,14 +223,14 @@ public class SummonFriend implements ISkillHandler
 			if (activeChar == element)
 				continue;
 
-			L2PcInstance target = (L2PcInstance) element;
+			final L2PcInstance target = (L2PcInstance) element;
 
 			if (!checkTargetStatus(target, activePlayer))
 				continue;
 
 			if (!Util.checkIfInRange(0, activeChar, target, false))
 			{
-				if (!target.teleportRequest(activePlayer, skill))
+				if (target.hasActiveConfirmDlg())
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.C1_ALREADY_SUMMONED);
 					sm.addString(target.getName());
@@ -245,12 +246,19 @@ public class SummonFriend implements ISkillHandler
 					confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 					confirm.addTime(30000);
 					confirm.addRequesterId(activePlayer.getCharId());
+					confirm.addAnswerHandler(new AnswerHandler() {
+						@Override
+						public void handle(boolean answer)
+						{
+							if (answer)
+								teleToTarget(target, activePlayer, skill);
+						}
+					});
 					target.sendPacket(confirm);
 				}
 				else
 				{
 					teleToTarget(target, activePlayer, skill);
-					target.teleportRequest(null, null);
 				}
 			}
 		}

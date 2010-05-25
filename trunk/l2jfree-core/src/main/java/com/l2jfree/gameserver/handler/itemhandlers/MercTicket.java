@@ -19,8 +19,6 @@ import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ConfirmDlg;
 
 public class MercTicket implements IItemHandler
 {
@@ -28,9 +26,8 @@ public class MercTicket implements IItemHandler
 	{
 		L2PcInstance player = playable.getActingPlayer();
 		MercTicketManager.getInstance().reqPosition(player, item);
-		player.sendPacket(new ConfirmDlg(SystemMessageId.PLACE_S1_CURRENT_LOCATION_DIRECTION).addItemName(item));
 	}
-
+	
 	public int[] getItemIds()
 	{
 		return MercTicketManager.getInstance().getItemIds();

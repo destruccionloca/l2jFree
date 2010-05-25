@@ -80,11 +80,9 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminEditChar;
-import com.l2jfree.gameserver.handler.skillhandlers.SummonFriend;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeCastle;
 import com.l2jfree.gameserver.handler.skillhandlers.TakeFort;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
-import com.l2jfree.gameserver.instancemanager.CoupleManager;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
 import com.l2jfree.gameserver.instancemanager.DuelManager;
@@ -201,6 +199,7 @@ import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.CameraMode;
@@ -781,8 +780,6 @@ public final class L2PcInstance extends L2Playable
 	private boolean							_maried					= false;
 	private int								_partnerId				= 0;
 	private int								_coupleId				= 0;
-	private boolean							_engagerequest			= false;
-	private int								_engageid				= 0;
 	private boolean							_maryrequest			= false;
 	private boolean							_maryaccepted			= false;
 
@@ -10430,20 +10427,19 @@ public final class L2PcInstance extends L2Playable
 		stopEffects(L2EffectType.CHARMOFCOURAGE);
 		updateEffectIcons();
 		_reviveRequested = false;
-		_revivePower = 0;
-
+		
 		if (isMounted())
 			startFeed(_mountNpcId);
-
+		
 		if (isInParty() && getParty().isInDimensionalRift())
 		{
 			if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
 				getParty().getDimensionalRift().memberRessurected(this);
 		}
-
+		
 		GlobalRestrictions.playerRevived(this);
 	}
-
+	
 	@Override
 	public void doRevive(double revivePower)
 	{
@@ -10452,7 +10448,7 @@ public final class L2PcInstance extends L2Playable
 		restoreExp(revivePower);
 		doRevive();
 	}
-
+	
 	public void reviveRequest(L2PcInstance reviver, L2Skill skill)
 	{
 		if (_reviveRequested || _revivePetRequested)
@@ -10463,30 +10459,46 @@ public final class L2PcInstance extends L2Playable
 		if (isDead())
 		{
 			_reviveRequested = true;
+			
+			final double revivePower;
 			if (isPhoenixBlessed())
-				_revivePower = 100;
+				revivePower = 100;
 			else if (skill != null)
-				_revivePower = Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+				revivePower = Formulas.calculateSkillResurrectRestorePercent(skill, reviver);
 			else
-				_revivePower = 0;
-
-			int restoreExp = (int) Math.round((getExpBeforeDeath() - getExp()) * _revivePower / 100);
-
+				revivePower = 0;
+			
+			int restoreExp = (int)Math.round((getExpBeforeDeath() - getExp()) * revivePower / 100);
+			
 			if (getCharmOfCourage())
 			{
 				ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESURRECT_USING_CHARM_OF_COURAGE);
 				dlg.addTime(60000);
+				dlg.addAnswerHandler(new AnswerHandler() {
+					@Override
+					public void handle(boolean answer)
+					{
+						reviveAnswer(answer, revivePower);
+					}
+				});
 				sendPacket(dlg);
 				return;
 			}
-
+			
 			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP);
 			dlg.addPcName(reviver);
 			dlg.addString(String.valueOf(restoreExp));
+			dlg.addAnswerHandler(new AnswerHandler() {
+				@Override
+				public void handle(boolean answer)
+				{
+					reviveAnswer(answer, revivePower);
+				}
+			});
 			sendPacket(dlg);
 		}
 	}
-
+	
 	public void revivePetRequest(L2PcInstance reviver, L2Skill skill)
 	{
 		if (_reviveRequested || _revivePetRequested)
@@ -10494,76 +10506,83 @@ public final class L2PcInstance extends L2Playable
 			reviver.sendPacket(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED); // Resurrection is already been proposed.
 			return;
 		}
-
+		
 		if (getPet().isDead() && getPet() instanceof L2PetInstance)
 		{
 			_revivePetRequested = true;
+			
+			final double revivePower;
 			if (skill != null)
-				_revivePetPower = Formulas.calculateSkillResurrectRestorePercent(skill.getPower(), reviver.getStat().getWIT());
+				revivePower = Formulas.calculateSkillResurrectRestorePercent(skill, reviver);
 			else
-				_revivePetPower = 0;
-
-			int restoreExp = (int) Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * _revivePetPower / 100);
-
+				revivePower = 0;
+			
+			int restoreExp = (int)Math.round((((L2PetInstance)getPet()).getExpBeforeDeath() - getPet().getStat().getExp()) * revivePower / 100);
+			
 			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_C1_FOR_S2_XP);
+			dlg.addAnswerHandler(new AnswerHandler() {
+				@Override
+				public void handle(boolean answer)
+				{
+					reviveAnswer(answer, revivePower);
+				}
+			});
 			sendPacket(dlg.addPcName(reviver).addString("" + restoreExp));
 		}
 	}
-
-	public void reviveAnswer(int answer)
+	
+	public void reviveAnswer(boolean answer, double revivePower)
 	{
-		if (!((_reviveRequested && isDead()) || (_revivePetRequested && getPet() != null && getPet().isDead())))
+		if (!(_reviveRequested && isDead() || _revivePetRequested && getPet() != null && getPet().isDead()))
 			return;
 		// If character refuses a PhoenixBless autoress, cancel all buffs he had
-		if (answer == 0 && isPhoenixBlessed() && isDead() && _reviveRequested)
+		if (!answer && isPhoenixBlessed() && isDead() && _reviveRequested)
 		{
 			stopPhoenixBlessing(true);
 			stopAllEffectsExceptThoseThatLastThroughDeath();
 		}
-
-		if (answer == 1)
+		
+		if (answer)
 		{
 			if (_reviveRequested)
 			{
-				if (_revivePower != 0)
-					doRevive(_revivePower);
+				if (revivePower != 0)
+					doRevive(revivePower);
 				else
 					doRevive();
 			}
 			else if (_revivePetRequested && getPet() != null)
 			{
-				if (_revivePower != 0)
-					getPet().doRevive(_revivePower);
+				if (revivePower != 0)
+					getPet().doRevive(revivePower);
 				else
 					getPet().doRevive();
 			}
 		}
 		_reviveRequested = false;
-		_revivePower = 0;
+		_revivePetRequested = false;
 	}
-
+	
 	public boolean isReviveRequested()
 	{
 		return _reviveRequested;
 	}
-
+	
 	public boolean isPetReviveRequested()
 	{
 		return _revivePetRequested;
 	}
-
+	
 	public void removeReviving()
 	{
 		_reviveRequested = false;
-		_revivePower = 0;
 	}
-
+	
 	public void removePetReviving()
 	{
 		_revivePetRequested = false;
-		_revivePetPower = 0;
 	}
-
+	
 	public void onActionRequest()
 	{
 		setProtection(false);
@@ -11847,17 +11866,6 @@ public final class L2PcInstance extends L2Playable
 		_maried = state;
 	}
 
-	public boolean isEngageRequest()
-	{
-		return _engagerequest;
-	}
-
-	public void setEngageRequest(boolean state, int playerid)
-	{
-		_engagerequest = state;
-		_engageid = playerid;
-	}
-
 	public void setMaryRequest(boolean state)
 	{
 		_maryrequest = state;
@@ -11878,11 +11886,6 @@ public final class L2PcInstance extends L2Playable
 		return _maryaccepted;
 	}
 
-	public int getEngageId()
-	{
-		return _engageid;
-	}
-
 	public int getPartnerId()
 	{
 		return _partnerId;
@@ -11901,34 +11904,6 @@ public final class L2PcInstance extends L2Playable
 	public void setCoupleId(int coupleId)
 	{
 		_coupleId = coupleId;
-	}
-
-	public void engageAnswer(int answer)
-	{
-		if (!_engagerequest)
-			return;
-		else if (_engageid == 0)
-			return;
-		else
-		{
-			L2Object obj = getKnownList().getKnownObject(_engageid);
-			setEngageRequest(false, 0);
-			if (obj instanceof L2PcInstance)
-			{
-				L2PcInstance ptarget = (L2PcInstance) obj;
-				if (answer == 1)
-				{
-					CoupleManager.getInstance().createCouple(ptarget, L2PcInstance.this);
-					ptarget.sendMessage("Engage accepted.");
-				}
-				else
-					ptarget.sendMessage("Engage declined.");
-			}
-			else
-			{
-				sendMessage("Too far away.");
-			}
-		}
 	}
 
 	public void setClientRevision(int clientrev)
@@ -12073,9 +12048,7 @@ public final class L2PcInstance extends L2Playable
 	private boolean				_combatFlagEquipped		= false;
 
 	private boolean				_reviveRequested		= false;
-	private double				_revivePower			= 0;
 	private boolean				_revivePetRequested		= false;
-	private double				_revivePetPower			= 0;
 
 	private double				_cpUpdateIncCheck		= .0;
 	private double				_cpUpdateDecCheck		= .0;
@@ -13062,57 +13035,6 @@ public final class L2PcInstance extends L2Playable
 	public int getFame()
 	{
 		return _fame;
-	}
-
-	/*
-	 * Function for skill Summon Friend or Gate Chant.
-	 */
-	// Summon friend
-	private L2PcInstance _summonRequestTarget;
-	private L2Skill _summonRequestSkill = null;
-
-	/** Request Teleport **/
-	public boolean teleportRequest(L2PcInstance requester, L2Skill skill)
-	{
-		if (_summonRequestTarget != null && requester != null)
-			return false;
-		_summonRequestTarget = requester;
-		_summonRequestSkill = skill;
-		return true;
-	}
-
-	/** Action teleport **/
-	public void teleportAnswer(int answer, int requesterId)
-	{
-		if (_summonRequestTarget == null)
-			return;
-		if (answer == 1 && _summonRequestTarget.getCharId() == requesterId)
-		{
-			SummonFriend.teleToTarget(this, _summonRequestTarget, _summonRequestSkill);
-		}
-		_summonRequestTarget = null;
-		_summonRequestSkill = null;
-	}
-
-	// Open/Close Gates
-	private L2DoorInstance _gatesRequestTarget = null;
-
-	public void gatesRequest(L2DoorInstance door)
-	{
-		_gatesRequestTarget = door;
-	}
-
-	public void gatesAnswer(int answer, int type)
-	{
-		if (_gatesRequestTarget == null)
-			return;
-
-		if (answer == 1 && getTarget() == _gatesRequestTarget && type == 1)
-			_gatesRequestTarget.openMe();
-		else if (answer == 1 && getTarget() == _gatesRequestTarget && type == 0)
-			_gatesRequestTarget.closeMe();
-
-		_gatesRequestTarget = null;
 	}
 
 	private ScheduledFuture<?> _autoSaveTask;
@@ -14401,5 +14323,21 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(new TutorialShowHtml(msg));
 			break;
 		}
+	}
+	
+	private AnswerHandler _answerHandler;
+	
+	public AnswerHandler setAnswerHandler(AnswerHandler nextHandler)
+	{
+		final AnswerHandler previousHandler = _answerHandler;
+		
+		_answerHandler = nextHandler;
+		
+		return previousHandler;
+	}
+	
+	public boolean hasActiveConfirmDlg()
+	{
+		return _answerHandler != null;
 	}
 }
