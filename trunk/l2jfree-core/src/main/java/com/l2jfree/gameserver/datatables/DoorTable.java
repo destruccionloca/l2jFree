@@ -176,9 +176,11 @@ public final class DoorTable
 			if (rangeZMin > rangeZMax)
 				_log.fatal("Error in door data, ZMin > ZMax, ID:" + id);
 
-			int collisionRadius = 0; // (max) radius for movement checks
+			int collisionRadius; // (max) radius for movement checks
 			if (rangeXMax - rangeXMin > rangeYMax - rangeYMin)
 				collisionRadius = rangeYMax - rangeYMin;
+			else
+				collisionRadius = rangeXMax - rangeXMin;
 
 			StatsSet npcDat = new StatsSet();
 			npcDat.set("npcId", id);
@@ -231,7 +233,6 @@ public final class DoorTable
 			door = new L2DoorInstance(IdFactory.getInstance().getNextId(), template, id, name, unlockable);
 			door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
 			door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y, z));
-			template.setCollisionRadius(Math.min(x - rangeXMin, y - rangeYMin));
 			door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 			door.setOpen(startOpen);
 			door.getPosition().setXYZInvisible(x, y, z);
