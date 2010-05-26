@@ -72,8 +72,8 @@ INSERT INTO `skill_residential` VALUES
 (119,595,1), -- Aaru Fort Residence Clarity
 (120,591,1), -- Demon Fort Residence Spirit
 (120,594,1), -- Demon Fort Residence Moral
-(121,590,1), -- Monastic For Residence Body
-(121,593,1); -- Monastic For Residence Health
+(121,590,1), -- Monastic Fort Residence Body
+(121,593,1); -- Monastic Fort Residence Health
 
 --
 -- L2J-Free Add-ons
@@ -102,8 +102,8 @@ INSERT INTO `skill_residential` VALUES
 (7,590,1), -- Goddard Castle Residence Body
 -- Fort
 (107,598,1), -- Bayou Fort Residence Empower
-(110,597,1), -- Swamp Fort Residence Shield
-(110,600,1), -- Swamp Fort Residence Guidance
+(110,597,1), -- Marshland/Swamp Fort Residence Shield
+(110,600,1), -- Marshland/Swamp Fort Residence Guidance
 (112,601,1), -- Floran Fort Residence Agility
 (112,607,1), -- Floran Fort Residence Freedom
 (113,606,1); -- Cloud Mountain Fort Residence Fortitude

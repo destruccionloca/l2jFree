@@ -3708,3 +3708,6 @@ UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3865-1") where item_id
 UPDATE `weapon` SET `skills_item` = '3865-1' WHERE `item_id` = 11124; -- Soul Bow - Clairvoyance
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3870-1") where item_id IN (11113,11114,11115);
 UPDATE `weapon` SET `skills_item` = '3870-1' WHERE `item_id` = 11112; -- Reaper - Clairvoyance
+
+-- s80 Bigblunt attack speed 325 (Spire)
+UPDATE `weapon` SET `atk_speed` = '325' WHERE `item_id` IN (10252,10527,10528,10529,10530,10531,10532);
