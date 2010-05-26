@@ -252,3 +252,8 @@ INSERT INTO `fort_staticobjects` VALUES
 (121,22150007,'Gate_of_fort',72010,-95351,-1456,0,0,0,0,0,0,67884,644,518,'true','true',0),
 (121,22150008,'Gate_of_fort',71795,-92905,-1477,0,0,0,0,0,0,67884,644,518,'false','false',0),
 (121,22150500,'Monastic_flagpole',72173,-94761,-506,0,0,0,0,0,0,0,0,0,'false','false',1);
+
+-- L2JFree add-ons
+-- supposedly fixes shooting through gates
+UPDATE `fort_staticobjects` SET `range_xmin` = `x` - 1, `range_ymin` = `y` - 1, `range_zmin` = `z` - 1,
+`range_xmax` = `x` + 1, `range_ymax` = `y` + 1, `range_zmax` = `z` + 1;
