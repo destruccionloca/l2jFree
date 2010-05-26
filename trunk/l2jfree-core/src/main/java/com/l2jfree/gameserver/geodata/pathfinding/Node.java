@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.geodata.pathfinding;
 
-import com.l2jfree.lang.L2System;
-
 /**
  * @author -Nemesiss-
  */
@@ -76,7 +74,14 @@ public abstract class Node
 	@Override
 	public final int hashCode()
 	{
-		return L2System.hash((getZ() << 24) + (getNodeX() << 12) + (getNodeY() << 0));
+		//return L2System.hash((getZ() << 24) + (getNodeX() << 12) + (getNodeY() << 0));
+		
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + getNodeX();
+		result = prime * result + getNodeY();
+		result = prime * result + getZ();
+		return result;
 	}
 	
 	@Override
