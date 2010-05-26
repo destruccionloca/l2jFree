@@ -2701,11 +2701,11 @@ public final class L2PcInstance extends L2Playable
 		}
 		if (!(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImmobilized() || (!force && isTryingToSitOrStandup())))
 		{
-			_lastSitStandRequest = System.currentTimeMillis();
 			breakAttack();
 			_waitTypeSitting = true;
 			getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
 			broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_SITTING));
+			_lastSitStandRequest = System.currentTimeMillis();
 		}
 	}
 
@@ -2724,7 +2724,6 @@ public final class L2PcInstance extends L2Playable
 
 		if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!isTryingToSitOrStandup() || force))
 		{
-			_lastSitStandRequest = System.currentTimeMillis();
 			if (_relax)
 			{
 				setRelax(false);
@@ -2733,6 +2732,7 @@ public final class L2PcInstance extends L2Playable
 			_waitTypeSitting = false;
 			getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
+			_lastSitStandRequest = System.currentTimeMillis();
 		}
 	}
 
