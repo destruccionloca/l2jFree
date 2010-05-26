@@ -4651,7 +4651,10 @@ public final class L2PcInstance extends L2Playable
 				if (pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember())
 				{
 					if ((_clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId())) || (isInSiege() && pk.isInSiege()))
+					{
 						bothWayClanWarKill = true;
+						clanWarKill = true;
+					}
 					else if (_clan.isAtWarWith(pk.getClanId()))
 						clanWarKill = true;
 				}
