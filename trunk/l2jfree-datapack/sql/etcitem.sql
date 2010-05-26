@@ -7454,7 +7454,7 @@ INSERT INTO `etcitem` VALUES
 (10297,'Transform Sealbook - Venom','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (10298,'Transform Sealbook - Gordon','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (10299,'Transform Sealbook - Ranku','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(10300,'Transform Sealbook  - Kechi','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
+(10300,'Transform Sealbook - Kechi','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (10301,'Transform Sealbook - Demon Prince','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (10302,'Transform Sealbook - Heretic','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (10303,'Transform Sealbook - Vale Master','false','spellbook',120,'stackable','wood','none',-1,-1,0,0,'true','true','true','true','true','none',''),
@@ -9440,12 +9440,12 @@ INSERT INTO `etcitem` VALUES
 (22076,'Blessed Spiritshot - S grade','false','shot',1,'stackable','paper','s',-1,-1,0,0,'false','false','true','false','true','BlessedSpiritShot','26054-1'),
 (22077,'Spiritshot - D grade','false','shot',1,'stackable','paper','d',-1,-1,0,0,'false','false','true','false','true','SpiritShot','26055-1'),
 (22078,'Spiritshot - C grade','false','shot',1,'stackable','paper','c',-1,-1,0,0,'false','false','true','false','true','SpiritShot','26056-1'),
-(22079,'Spiritshot -  B grade','false','shot',1,'stackable','paper','b',-1,-1,0,0,'false','false','true','false','true','SpiritShot','26057-1'),
+(22079,'Spiritshot - B grade','false','shot',1,'stackable','paper','b',-1,-1,0,0,'false','false','true','false','true','SpiritShot','26057-1'),
 (22080,'Spiritshot - A grade','false','shot',1,'stackable','paper','a',-1,-1,0,0,'false','false','true','false','true','SpiritShot','26058-1'),
 (22081,'Spiritshot - S grade','false','shot',1,'stackable','paper','s',-1,-1,0,0,'false','false','true','false','true','SpiritShot','26059-1'),
 (22082,'Soulshot - D-Grade','false','shot',1,'stackable','paper','d',-1,-1,0,0,'false','false','true','false','true','SoulShots','26060-1'),
 (22083,'Soulshot - C-Grade','false','shot',1,'stackable','paper','c',-1,-1,0,0,'false','false','true','false','true','SoulShots','26061-1'),
-(22084,'Soulshot -  B grade','false','shot',1,'stackable','paper','b',-1,-1,0,0,'false','false','true','false','true','SoulShots','26062-1'),
+(22084,'Soulshot - B grade','false','shot',1,'stackable','paper','b',-1,-1,0,0,'false','false','true','false','true','SoulShots','26062-1'),
 (22085,'Soulshot - A-Grade','false','shot',1,'stackable','paper','a',-1,-1,0,0,'false','false','true','false','true','SoulShots','26063-1'),
 (22086,'Soulshot - S grade','false','shot',1,'stackable','paper','s',-1,-1,0,0,'false','false','true','false','true','SoulShots','26064-1'),
 (22087,'A Scroll Bundle of Fighter','false','none',100,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26065-1'),
@@ -9462,12 +9462,12 @@ INSERT INTO `etcitem` VALUES
 (22098,'Blessed Spiritshot Pack - S grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26068-5'),
 (22099,'Spiritshot Pack - D grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-1'),
 (22100,'Spiritshot Pack - C grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-2'),
-(22101,'Spiritshot Pack -  B grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-3'),
+(22101,'Spiritshot Pack - B grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-3'),
 (22102,'Spiritshot Pack - A grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-4'),
 (22103,'Spiritshot Pack - S grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-5'),
 (22104,'Soulshot Pack - D grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-1'),
 (22105,'Soulshot Pack - C grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-2'),
-(22106,'Soulshot Pack -  B grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-3'),
+(22106,'Soulshot Pack - B grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-3'),
 (22107,'Soulshot Pack - A grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-4'),
 (22108,'Soulshot Pack - S grade','false','none',500,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-5'),
 (22109,'Blessed Spiritshot Large Pack - D grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26068-6'),
@@ -9477,12 +9477,12 @@ INSERT INTO `etcitem` VALUES
 (22113,'Blessed Spiritshot Large Pack - S grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26068-10'),
 (22114,'Spiritshot Large Pack - D grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-6'),
 (22115,'Spiritshot Large Pack - C grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-7'),
-(22116,'Spiritshot Large Pack -  B grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-8'),
+(22116,'Spiritshot Large Pack - B grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-8'),
 (22117,'Spiritshot Large Pack - A grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-9'),
 (22118,'Spiritshot Large Pack - S grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26069-10'),
 (22119,'Soulshot Large Pack - D grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-6'),
 (22120,'Soulshot Large Pack - C grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-7'),
-(22121,'Soulshot Large Pack -  B grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-8'),
+(22121,'Soulshot Large Pack - B grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-8'),
 (22122,'Soulshot Large Pack - A grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-9'),
 (22123,'Soulshot Large Pack - S grade','false','none',1000,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26070-10'),
 (22124,'Wrapped daisy hairpin','false','none',1,'stackable','paper','none',-1,-1,0,0,'false','false','true','false','true','ItemSkills','26071-1'),
@@ -9569,6 +9569,7 @@ UPDATE `etcitem` SET `skills_item` = '2075-1' WHERE `item_id` = 4678;
 UPDATE `etcitem` SET `skills_item` = '2076-1' WHERE `item_id` = 4679;
 UPDATE `etcitem` SET `handler` = 'ItemSkills' WHERE `item_id` IN (4677,4678,4679);
 UPDATE `etcitem` SET `skills_item` = '2499-2' WHERE `item_id` = 10412;
+UPDATE `etcitem` SET `consume_type` = 'normal' WHERE `item_id` IN (10480,10481,10482);
 
 -- Emergency Dressing skills
 UPDATE `etcitem` SET `skills_item` = '2045-1' WHERE `item_id` = 1834;
@@ -9577,114 +9578,114 @@ UPDATE `etcitem` SET `skills_item` = '2045-1' WHERE `item_id` = 1834;
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false' WHERE `item_id` IN (9593,9594,9595,9596,9597,9598);
 
 -- Disguise Scrolls by Spire
-UPDATE `etcitem` SET `skills_item` = '2672-1', `handler` = 'ItemSkills' WHERE `item_id` = '13569';  -- Gludio Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2673-1', `handler` = 'ItemSkills' WHERE `item_id` = '13570';  -- Gludio Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2674-1', `handler` = 'ItemSkills' WHERE `item_id` = '13571';  -- Gludio Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2675-1', `handler` = 'ItemSkills' WHERE `item_id` = '13572';  -- Gludio Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2676-1', `handler` = 'ItemSkills' WHERE `item_id` = '13573';  -- Gludio Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2677-1', `handler` = 'ItemSkills' WHERE `item_id` = '13574';  -- Gludio Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2678-1', `handler` = 'ItemSkills' WHERE `item_id` = '13575';  -- Gludio Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2679-1', `handler` = 'ItemSkills' WHERE `item_id` = '13576';  -- Gludio Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2680-1', `handler` = 'ItemSkills' WHERE `item_id` = '13577';  -- Gludio Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2681-1', `handler` = 'ItemSkills' WHERE `item_id` = '13578';  -- Gludio Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2682-1', `handler` = 'ItemSkills' WHERE `item_id` = '13579';  -- Gludio Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2683-1', `handler` = 'ItemSkills' WHERE `item_id` = '13580';  -- Gludio Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2684-1', `handler` = 'ItemSkills' WHERE `item_id` = '13581';  -- Dion Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2685-1', `handler` = 'ItemSkills' WHERE `item_id` = '13582';  -- Dion Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2686-1', `handler` = 'ItemSkills' WHERE `item_id` = '13583';  -- Dion Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2687-1', `handler` = 'ItemSkills' WHERE `item_id` = '13584';  -- Dion Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2688-1', `handler` = 'ItemSkills' WHERE `item_id` = '13585';  -- Dion Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2689-1', `handler` = 'ItemSkills' WHERE `item_id` = '13586';  -- Dion Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2690-1', `handler` = 'ItemSkills' WHERE `item_id` = '13587';  -- Dion Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2691-1', `handler` = 'ItemSkills' WHERE `item_id` = '13588';  -- Dion Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2692-1', `handler` = 'ItemSkills' WHERE `item_id` = '13589';  -- Dion Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2693-1', `handler` = 'ItemSkills' WHERE `item_id` = '13590';  -- Dion Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2694-1', `handler` = 'ItemSkills' WHERE `item_id` = '13591';  -- Dion Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2695-1', `handler` = 'ItemSkills' WHERE `item_id` = '13592';  -- Dion Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2696-1', `handler` = 'ItemSkills' WHERE `item_id` = '13593';  -- Giran Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2697-1', `handler` = 'ItemSkills' WHERE `item_id` = '13594';  -- Giran Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2698-1', `handler` = 'ItemSkills' WHERE `item_id` = '13595';  -- Giran Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2699-1', `handler` = 'ItemSkills' WHERE `item_id` = '13596';  -- Giran Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2700-1', `handler` = 'ItemSkills' WHERE `item_id` = '13597';  -- Giran Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2701-1', `handler` = 'ItemSkills' WHERE `item_id` = '13598';  -- Giran Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2702-1', `handler` = 'ItemSkills' WHERE `item_id` = '13599';  -- Giran Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2703-1', `handler` = 'ItemSkills' WHERE `item_id` = '13600';  -- Giran Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2704-1', `handler` = 'ItemSkills' WHERE `item_id` = '13601';  -- Giran Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2705-1', `handler` = 'ItemSkills' WHERE `item_id` = '13602';  -- Giran Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2706-1', `handler` = 'ItemSkills' WHERE `item_id` = '13603';  -- Giran Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2707-1', `handler` = 'ItemSkills' WHERE `item_id` = '13604';  -- Giran Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2708-1', `handler` = 'ItemSkills' WHERE `item_id` = '13605';  -- Oren Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2709-1', `handler` = 'ItemSkills' WHERE `item_id` = '13606';  -- Oren Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2710-1', `handler` = 'ItemSkills' WHERE `item_id` = '13607';  -- Oren Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2711-1', `handler` = 'ItemSkills' WHERE `item_id` = '13608';  -- Oren Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2712-1', `handler` = 'ItemSkills' WHERE `item_id` = '13609';  -- Oren Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2713-1', `handler` = 'ItemSkills' WHERE `item_id` = '13610';  -- Oren Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2714-1', `handler` = 'ItemSkills' WHERE `item_id` = '13611';  -- Oren Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2715-1', `handler` = 'ItemSkills' WHERE `item_id` = '13612';  -- Oren Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2716-1', `handler` = 'ItemSkills' WHERE `item_id` = '13613';  -- Oren Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2717-1', `handler` = 'ItemSkills' WHERE `item_id` = '13614';  -- Oren Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2718-1', `handler` = 'ItemSkills' WHERE `item_id` = '13615';  -- Oren Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2719-1', `handler` = 'ItemSkills' WHERE `item_id` = '13616';  -- Oren Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2720-1', `handler` = 'ItemSkills' WHERE `item_id` = '13617';  -- Aden Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2721-1', `handler` = 'ItemSkills' WHERE `item_id` = '13618';  -- Aden Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2722-1', `handler` = 'ItemSkills' WHERE `item_id` = '13619';  -- Aden Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2723-1', `handler` = 'ItemSkills' WHERE `item_id` = '13620';  -- Aden Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2724-1', `handler` = 'ItemSkills' WHERE `item_id` = '13621';  -- Aden Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2725-1', `handler` = 'ItemSkills' WHERE `item_id` = '13622';  -- Aden Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2726-1', `handler` = 'ItemSkills' WHERE `item_id` = '13623';  -- Aden Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2727-1', `handler` = 'ItemSkills' WHERE `item_id` = '13624';  -- Aden Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2728-1', `handler` = 'ItemSkills' WHERE `item_id` = '13625';  -- Aden Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2729-1', `handler` = 'ItemSkills' WHERE `item_id` = '13626';  -- Aden Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2730-1', `handler` = 'ItemSkills' WHERE `item_id` = '13627';  -- Aden Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2731-1', `handler` = 'ItemSkills' WHERE `item_id` = '13628';  -- Aden Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2732-1', `handler` = 'ItemSkills' WHERE `item_id` = '13629';  -- Innadril Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2733-1', `handler` = 'ItemSkills' WHERE `item_id` = '13630';  -- Innadril Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2734-1', `handler` = 'ItemSkills' WHERE `item_id` = '13631';  -- Innadril Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2735-1', `handler` = 'ItemSkills' WHERE `item_id` = '13632';  -- Innadril Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2736-1', `handler` = 'ItemSkills' WHERE `item_id` = '13633';  -- Innadril Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2737-1', `handler` = 'ItemSkills' WHERE `item_id` = '13634';  -- Innadril Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2738-1', `handler` = 'ItemSkills' WHERE `item_id` = '13635';  -- Innadril Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2739-1', `handler` = 'ItemSkills' WHERE `item_id` = '13636';  -- Innadril Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2740-1', `handler` = 'ItemSkills' WHERE `item_id` = '13637';  -- Innadril Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2741-1', `handler` = 'ItemSkills' WHERE `item_id` = '13638';  -- Innadril Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2742-1', `handler` = 'ItemSkills' WHERE `item_id` = '13639';  -- Innadril Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2743-1', `handler` = 'ItemSkills' WHERE `item_id` = '13640';  -- Innadril Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2744-1', `handler` = 'ItemSkills' WHERE `item_id` = '13641';  -- Goddard Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2745-1', `handler` = 'ItemSkills' WHERE `item_id` = '13642';  -- Goddard Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2746-1', `handler` = 'ItemSkills' WHERE `item_id` = '13643';  -- Goddard Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2747-1', `handler` = 'ItemSkills' WHERE `item_id` = '13644';  -- Goddard Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2748-1', `handler` = 'ItemSkills' WHERE `item_id` = '13645';  -- Goddard Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2749-1', `handler` = 'ItemSkills' WHERE `item_id` = '13646';  -- Goddard Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2750-1', `handler` = 'ItemSkills' WHERE `item_id` = '13647';  -- Goddard Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2751-1', `handler` = 'ItemSkills' WHERE `item_id` = '13648';  -- Goddard Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2752-1', `handler` = 'ItemSkills' WHERE `item_id` = '13649';  -- Goddard Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2753-1', `handler` = 'ItemSkills' WHERE `item_id` = '13650';  -- Goddard Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2754-1', `handler` = 'ItemSkills' WHERE `item_id` = '13651';  -- Goddard Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2755-1', `handler` = 'ItemSkills' WHERE `item_id` = '13652';  -- Goddard Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2756-1', `handler` = 'ItemSkills' WHERE `item_id` = '13653';  -- Rune Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2757-1', `handler` = 'ItemSkills' WHERE `item_id` = '13654';  -- Rune Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2758-1', `handler` = 'ItemSkills' WHERE `item_id` = '13655';  -- Rune Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2759-1', `handler` = 'ItemSkills' WHERE `item_id` = '13656';  -- Rune Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2760-1', `handler` = 'ItemSkills' WHERE `item_id` = '13657';  -- Rune Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2761-1', `handler` = 'ItemSkills' WHERE `item_id` = '13658';  -- Rune Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2762-1', `handler` = 'ItemSkills' WHERE `item_id` = '13659';  -- Rune Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2763-1', `handler` = 'ItemSkills' WHERE `item_id` = '13660';  -- Rune Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2764-1', `handler` = 'ItemSkills' WHERE `item_id` = '13661';  -- Rune Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2765-1', `handler` = 'ItemSkills' WHERE `item_id` = '13662';  -- Rune Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2766-1', `handler` = 'ItemSkills' WHERE `item_id` = '13663';  -- Rune Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2767-1', `handler` = 'ItemSkills' WHERE `item_id` = '13664';  -- Rune Fortress Captain
-UPDATE `etcitem` SET `skills_item` = '2768-1', `handler` = 'ItemSkills' WHERE `item_id` = '13665';  -- Schuttgart Human Mercenary
-UPDATE `etcitem` SET `skills_item` = '2769-1', `handler` = 'ItemSkills' WHERE `item_id` = '13666';  -- Schuttgart Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2770-1', `handler` = 'ItemSkills' WHERE `item_id` = '13667';  -- Schuttgart Dark Elf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2771-1', `handler` = 'ItemSkills' WHERE `item_id` = '13668';  -- Schuttgart Orc Mercenary
-UPDATE `etcitem` SET `skills_item` = '2772-1', `handler` = 'ItemSkills' WHERE `item_id` = '13669';  -- Schuttgart Dwarf Mercenary
-UPDATE `etcitem` SET `skills_item` = '2773-1', `handler` = 'ItemSkills' WHERE `item_id` = '13670';  -- Schuttgart Kamael Mercenary
-UPDATE `etcitem` SET `skills_item` = '2774-1', `handler` = 'ItemSkills' WHERE `item_id` = '13671';  -- Schuttgart Royal Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2775-1', `handler` = 'ItemSkills' WHERE `item_id` = '13672';  -- Schuttgart Archer Captain
-UPDATE `etcitem` SET `skills_item` = '2776-1', `handler` = 'ItemSkills' WHERE `item_id` = '13673';  -- Schuttgart Magic Leader
-UPDATE `etcitem` SET `skills_item` = '2777-1', `handler` = 'ItemSkills' WHERE `item_id` = '13674';  -- Schuttgart Kamael Guard Captain
-UPDATE `etcitem` SET `skills_item` = '2778-1', `handler` = 'ItemSkills' WHERE `item_id` = '13675';  -- Schuttgart Knight of Dawn
-UPDATE `etcitem` SET `skills_item` = '2779-1', `handler` = 'ItemSkills' WHERE `item_id` = '13676';  -- Schuttgart Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2672-1', `handler` = 'ItemSkills' WHERE `item_id` = '13569'; -- Gludio Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2673-1', `handler` = 'ItemSkills' WHERE `item_id` = '13570'; -- Gludio Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2674-1', `handler` = 'ItemSkills' WHERE `item_id` = '13571'; -- Gludio Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2675-1', `handler` = 'ItemSkills' WHERE `item_id` = '13572'; -- Gludio Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2676-1', `handler` = 'ItemSkills' WHERE `item_id` = '13573'; -- Gludio Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2677-1', `handler` = 'ItemSkills' WHERE `item_id` = '13574'; -- Gludio Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2678-1', `handler` = 'ItemSkills' WHERE `item_id` = '13575'; -- Gludio Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2679-1', `handler` = 'ItemSkills' WHERE `item_id` = '13576'; -- Gludio Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2680-1', `handler` = 'ItemSkills' WHERE `item_id` = '13577'; -- Gludio Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2681-1', `handler` = 'ItemSkills' WHERE `item_id` = '13578'; -- Gludio Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2682-1', `handler` = 'ItemSkills' WHERE `item_id` = '13579'; -- Gludio Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2683-1', `handler` = 'ItemSkills' WHERE `item_id` = '13580'; -- Gludio Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2684-1', `handler` = 'ItemSkills' WHERE `item_id` = '13581'; -- Dion Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2685-1', `handler` = 'ItemSkills' WHERE `item_id` = '13582'; -- Dion Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2686-1', `handler` = 'ItemSkills' WHERE `item_id` = '13583'; -- Dion Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2687-1', `handler` = 'ItemSkills' WHERE `item_id` = '13584'; -- Dion Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2688-1', `handler` = 'ItemSkills' WHERE `item_id` = '13585'; -- Dion Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2689-1', `handler` = 'ItemSkills' WHERE `item_id` = '13586'; -- Dion Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2690-1', `handler` = 'ItemSkills' WHERE `item_id` = '13587'; -- Dion Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2691-1', `handler` = 'ItemSkills' WHERE `item_id` = '13588'; -- Dion Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2692-1', `handler` = 'ItemSkills' WHERE `item_id` = '13589'; -- Dion Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2693-1', `handler` = 'ItemSkills' WHERE `item_id` = '13590'; -- Dion Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2694-1', `handler` = 'ItemSkills' WHERE `item_id` = '13591'; -- Dion Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2695-1', `handler` = 'ItemSkills' WHERE `item_id` = '13592'; -- Dion Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2696-1', `handler` = 'ItemSkills' WHERE `item_id` = '13593'; -- Giran Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2697-1', `handler` = 'ItemSkills' WHERE `item_id` = '13594'; -- Giran Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2698-1', `handler` = 'ItemSkills' WHERE `item_id` = '13595'; -- Giran Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2699-1', `handler` = 'ItemSkills' WHERE `item_id` = '13596'; -- Giran Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2700-1', `handler` = 'ItemSkills' WHERE `item_id` = '13597'; -- Giran Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2701-1', `handler` = 'ItemSkills' WHERE `item_id` = '13598'; -- Giran Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2702-1', `handler` = 'ItemSkills' WHERE `item_id` = '13599'; -- Giran Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2703-1', `handler` = 'ItemSkills' WHERE `item_id` = '13600'; -- Giran Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2704-1', `handler` = 'ItemSkills' WHERE `item_id` = '13601'; -- Giran Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2705-1', `handler` = 'ItemSkills' WHERE `item_id` = '13602'; -- Giran Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2706-1', `handler` = 'ItemSkills' WHERE `item_id` = '13603'; -- Giran Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2707-1', `handler` = 'ItemSkills' WHERE `item_id` = '13604'; -- Giran Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2708-1', `handler` = 'ItemSkills' WHERE `item_id` = '13605'; -- Oren Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2709-1', `handler` = 'ItemSkills' WHERE `item_id` = '13606'; -- Oren Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2710-1', `handler` = 'ItemSkills' WHERE `item_id` = '13607'; -- Oren Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2711-1', `handler` = 'ItemSkills' WHERE `item_id` = '13608'; -- Oren Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2712-1', `handler` = 'ItemSkills' WHERE `item_id` = '13609'; -- Oren Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2713-1', `handler` = 'ItemSkills' WHERE `item_id` = '13610'; -- Oren Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2714-1', `handler` = 'ItemSkills' WHERE `item_id` = '13611'; -- Oren Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2715-1', `handler` = 'ItemSkills' WHERE `item_id` = '13612'; -- Oren Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2716-1', `handler` = 'ItemSkills' WHERE `item_id` = '13613'; -- Oren Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2717-1', `handler` = 'ItemSkills' WHERE `item_id` = '13614'; -- Oren Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2718-1', `handler` = 'ItemSkills' WHERE `item_id` = '13615'; -- Oren Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2719-1', `handler` = 'ItemSkills' WHERE `item_id` = '13616'; -- Oren Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2720-1', `handler` = 'ItemSkills' WHERE `item_id` = '13617'; -- Aden Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2721-1', `handler` = 'ItemSkills' WHERE `item_id` = '13618'; -- Aden Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2722-1', `handler` = 'ItemSkills' WHERE `item_id` = '13619'; -- Aden Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2723-1', `handler` = 'ItemSkills' WHERE `item_id` = '13620'; -- Aden Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2724-1', `handler` = 'ItemSkills' WHERE `item_id` = '13621'; -- Aden Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2725-1', `handler` = 'ItemSkills' WHERE `item_id` = '13622'; -- Aden Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2726-1', `handler` = 'ItemSkills' WHERE `item_id` = '13623'; -- Aden Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2727-1', `handler` = 'ItemSkills' WHERE `item_id` = '13624'; -- Aden Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2728-1', `handler` = 'ItemSkills' WHERE `item_id` = '13625'; -- Aden Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2729-1', `handler` = 'ItemSkills' WHERE `item_id` = '13626'; -- Aden Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2730-1', `handler` = 'ItemSkills' WHERE `item_id` = '13627'; -- Aden Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2731-1', `handler` = 'ItemSkills' WHERE `item_id` = '13628'; -- Aden Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2732-1', `handler` = 'ItemSkills' WHERE `item_id` = '13629'; -- Innadril Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2733-1', `handler` = 'ItemSkills' WHERE `item_id` = '13630'; -- Innadril Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2734-1', `handler` = 'ItemSkills' WHERE `item_id` = '13631'; -- Innadril Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2735-1', `handler` = 'ItemSkills' WHERE `item_id` = '13632'; -- Innadril Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2736-1', `handler` = 'ItemSkills' WHERE `item_id` = '13633'; -- Innadril Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2737-1', `handler` = 'ItemSkills' WHERE `item_id` = '13634'; -- Innadril Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2738-1', `handler` = 'ItemSkills' WHERE `item_id` = '13635'; -- Innadril Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2739-1', `handler` = 'ItemSkills' WHERE `item_id` = '13636'; -- Innadril Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2740-1', `handler` = 'ItemSkills' WHERE `item_id` = '13637'; -- Innadril Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2741-1', `handler` = 'ItemSkills' WHERE `item_id` = '13638'; -- Innadril Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2742-1', `handler` = 'ItemSkills' WHERE `item_id` = '13639'; -- Innadril Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2743-1', `handler` = 'ItemSkills' WHERE `item_id` = '13640'; -- Innadril Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2744-1', `handler` = 'ItemSkills' WHERE `item_id` = '13641'; -- Goddard Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2745-1', `handler` = 'ItemSkills' WHERE `item_id` = '13642'; -- Goddard Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2746-1', `handler` = 'ItemSkills' WHERE `item_id` = '13643'; -- Goddard Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2747-1', `handler` = 'ItemSkills' WHERE `item_id` = '13644'; -- Goddard Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2748-1', `handler` = 'ItemSkills' WHERE `item_id` = '13645'; -- Goddard Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2749-1', `handler` = 'ItemSkills' WHERE `item_id` = '13646'; -- Goddard Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2750-1', `handler` = 'ItemSkills' WHERE `item_id` = '13647'; -- Goddard Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2751-1', `handler` = 'ItemSkills' WHERE `item_id` = '13648'; -- Goddard Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2752-1', `handler` = 'ItemSkills' WHERE `item_id` = '13649'; -- Goddard Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2753-1', `handler` = 'ItemSkills' WHERE `item_id` = '13650'; -- Goddard Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2754-1', `handler` = 'ItemSkills' WHERE `item_id` = '13651'; -- Goddard Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2755-1', `handler` = 'ItemSkills' WHERE `item_id` = '13652'; -- Goddard Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2756-1', `handler` = 'ItemSkills' WHERE `item_id` = '13653'; -- Rune Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2757-1', `handler` = 'ItemSkills' WHERE `item_id` = '13654'; -- Rune Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2758-1', `handler` = 'ItemSkills' WHERE `item_id` = '13655'; -- Rune Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2759-1', `handler` = 'ItemSkills' WHERE `item_id` = '13656'; -- Rune Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2760-1', `handler` = 'ItemSkills' WHERE `item_id` = '13657'; -- Rune Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2761-1', `handler` = 'ItemSkills' WHERE `item_id` = '13658'; -- Rune Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2762-1', `handler` = 'ItemSkills' WHERE `item_id` = '13659'; -- Rune Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2763-1', `handler` = 'ItemSkills' WHERE `item_id` = '13660'; -- Rune Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2764-1', `handler` = 'ItemSkills' WHERE `item_id` = '13661'; -- Rune Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2765-1', `handler` = 'ItemSkills' WHERE `item_id` = '13662'; -- Rune Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2766-1', `handler` = 'ItemSkills' WHERE `item_id` = '13663'; -- Rune Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2767-1', `handler` = 'ItemSkills' WHERE `item_id` = '13664'; -- Rune Fortress Captain
+UPDATE `etcitem` SET `skills_item` = '2768-1', `handler` = 'ItemSkills' WHERE `item_id` = '13665'; -- Schuttgart Human Mercenary
+UPDATE `etcitem` SET `skills_item` = '2769-1', `handler` = 'ItemSkills' WHERE `item_id` = '13666'; -- Schuttgart Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2770-1', `handler` = 'ItemSkills' WHERE `item_id` = '13667'; -- Schuttgart Dark Elf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2771-1', `handler` = 'ItemSkills' WHERE `item_id` = '13668'; -- Schuttgart Orc Mercenary
+UPDATE `etcitem` SET `skills_item` = '2772-1', `handler` = 'ItemSkills' WHERE `item_id` = '13669'; -- Schuttgart Dwarf Mercenary
+UPDATE `etcitem` SET `skills_item` = '2773-1', `handler` = 'ItemSkills' WHERE `item_id` = '13670'; -- Schuttgart Kamael Mercenary
+UPDATE `etcitem` SET `skills_item` = '2774-1', `handler` = 'ItemSkills' WHERE `item_id` = '13671'; -- Schuttgart Royal Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2775-1', `handler` = 'ItemSkills' WHERE `item_id` = '13672'; -- Schuttgart Archer Captain
+UPDATE `etcitem` SET `skills_item` = '2776-1', `handler` = 'ItemSkills' WHERE `item_id` = '13673'; -- Schuttgart Magic Leader
+UPDATE `etcitem` SET `skills_item` = '2777-1', `handler` = 'ItemSkills' WHERE `item_id` = '13674'; -- Schuttgart Kamael Guard Captain
+UPDATE `etcitem` SET `skills_item` = '2778-1', `handler` = 'ItemSkills' WHERE `item_id` = '13675'; -- Schuttgart Knight of Dawn
+UPDATE `etcitem` SET `skills_item` = '2779-1', `handler` = 'ItemSkills' WHERE `item_id` = '13676'; -- Schuttgart Fortress Captain
 UPDATE `etcitem` SET `item_type` = 'scroll' WHERE `item_id` BETWEEN 13569 AND 13685; -- Disguise Scrolls
 
 -- Water dragon Scale and claws (Psycho) 
@@ -9837,3 +9838,148 @@ UPDATE `etcitem` SET `skills_item` = '2862-6' WHERE `item_id` = 14699;
 
 -- Book of Secret (Pailaka 1)
 UPDATE `etcitem` SET `handler` = 'Book' WHERE `item_id` IN (13130, 13131, 13132, 13133, 13134, 13135, 13136);
+
+-- Various updates (Spire)
+UPDATE `etcitem` SET `price` = '167' WHERE `item_id` = '7736';
+UPDATE `etcitem` SET `price` = '163' WHERE `item_id` = '7743';
+UPDATE `etcitem` SET `price` = '167' WHERE `item_id` = '7745';
+UPDATE `etcitem` SET `price` = '198' WHERE `item_id` = '7746';
+UPDATE `etcitem` SET `price` = '202' WHERE `item_id` = '7747';
+UPDATE `etcitem` SET `price` = '197' WHERE `item_id` = '7748';
+UPDATE `etcitem` SET `price` = '210' WHERE `item_id` = '7749';
+UPDATE `etcitem` SET `price` = '213' WHERE `item_id` = '7750';
+UPDATE `etcitem` SET `price` = '216' WHERE `item_id` = '7751';
+UPDATE `etcitem` SET `price` = '218' WHERE `item_id` = '7752';
+UPDATE `etcitem` SET `price` = '221' WHERE `item_id` = '7753';
+UPDATE `etcitem` SET `price` = '224' WHERE `item_id` = '7754';
+UPDATE `etcitem` SET `price` = '226' WHERE `item_id` = '7755';
+UPDATE `etcitem` SET `price` = '284' WHERE `item_id` = '7758';
+UPDATE `etcitem` SET `price` = '290' WHERE `item_id` = '7759';
+UPDATE `etcitem` SET `price` = '297' WHERE `item_id` = '7760';
+UPDATE `etcitem` SET `price` = '304' WHERE `item_id` = '7761';
+UPDATE `etcitem` SET `price` = '311' WHERE `item_id` = '7762';
+UPDATE `etcitem` SET `price` = '318' WHERE `item_id` = '7763';
+UPDATE `etcitem` SET `price` = '325' WHERE `item_id` = '7764';
+UPDATE `etcitem` SET `price` = '332' WHERE `item_id` = '7765';
+UPDATE `etcitem` SET `price` = '388' WHERE `item_id` = '7766';
+UPDATE `etcitem` SET `price` = '396' WHERE `item_id` = '7767';
+UPDATE `etcitem` SET `price` = '408' WHERE `item_id` = '7768';
+UPDATE `etcitem` SET `price` = '420' WHERE `item_id` = '7769';
+UPDATE `etcitem` SET `price` = '429' WHERE `item_id` = '7770';
+UPDATE `etcitem` SET `price` = '438' WHERE `item_id` = '7771';
+UPDATE `etcitem` SET `price` = '447' WHERE `item_id` = '7772';
+UPDATE `etcitem` SET `price` = '465' WHERE `item_id` = '7774';
+UPDATE `etcitem` SET `price` = '474' WHERE `item_id` = '7775';
+UPDATE `etcitem` SET `price` = '545' WHERE `item_id` = '7776';
+UPDATE `etcitem` SET `price` = '556' WHERE `item_id` = '7777';
+UPDATE `etcitem` SET `price` = '567' WHERE `item_id` = '7778';
+UPDATE `etcitem` SET `price` = '579' WHERE `item_id` = '7779';
+UPDATE `etcitem` SET `price` = '639' WHERE `item_id` = '7780';
+UPDATE `etcitem` SET `price` = '651' WHERE `item_id` = '7781';
+UPDATE `etcitem` SET `price` = '663' WHERE `item_id` = '7782';
+UPDATE `etcitem` SET `price` = '676' WHERE `item_id` = '7783';
+UPDATE `etcitem` SET `price` = '688' WHERE `item_id` = '7784';
+UPDATE `etcitem` SET `price` = '701' WHERE `item_id` = '7785';
+UPDATE `etcitem` SET `price` = '789' WHERE `item_id` = '7786';
+UPDATE `etcitem` SET `price` = '804' WHERE `item_id` = '7787';
+UPDATE `etcitem` SET `price` = '858' WHERE `item_id` = '7788';
+UPDATE `etcitem` SET `price` = '874' WHERE `item_id` = '7789';
+UPDATE `etcitem` SET `price` = '891' WHERE `item_id` = '7790';
+UPDATE `etcitem` SET `price` = '907' WHERE `item_id` = '7791';
+UPDATE `etcitem` SET `price` = '925' WHERE `item_id` = '7792';
+UPDATE `etcitem` SET `price` = '944' WHERE `item_id` = '7793';
+UPDATE `etcitem` SET `price` = '962' WHERE `item_id` = '7794';
+UPDATE `etcitem` SET `price` = '981' WHERE `item_id` = '7795';
+UPDATE `etcitem` SET `price` = '1000' WHERE `item_id` = '7796';
+UPDATE `etcitem` SET `price` = '1020' WHERE `item_id` = '7797';
+UPDATE `etcitem` SET `price` = '1041' WHERE `item_id` = '7798';
+UPDATE `etcitem` SET `price` = '1062' WHERE `item_id` = '7799';
+UPDATE `etcitem` SET `price` = '1083' WHERE `item_id` = '7800';
+UPDATE `etcitem` SET `price` = '1155' WHERE `item_id` = '7801';
+UPDATE `etcitem` SET `price` = '1179' WHERE `item_id` = '7802';
+UPDATE `etcitem` SET `price` = '1202' WHERE `item_id` = '7803';
+UPDATE `etcitem` SET `price` = '1226' WHERE `item_id` = '7804';
+UPDATE `etcitem` SET `price` = '1251' WHERE `item_id` = '7805';
+UPDATE `etcitem` SET `price` = '1276' WHERE `item_id` = '7806';
+UPDATE `etcitem` SET `price` = '5000' WHERE `item_id` = '8201';
+UPDATE `etcitem` SET `item_type` = 'none' WHERE `item_id` = '8202';
+UPDATE `etcitem` SET `price` = '28000' WHERE `item_id` = '8303';
+UPDATE `etcitem` SET `price` = '28000' WHERE `item_id` = '8304';
+UPDATE `etcitem` SET `price` = '86000' WHERE `item_id` = '8319';
+UPDATE `etcitem` SET `price` = '262000' WHERE `item_id` = '8323';
+UPDATE `etcitem` SET `price` = '262000' WHERE `item_id` = '8324';
+UPDATE `etcitem` SET `price` = '138' WHERE `item_id` = '8403';
+UPDATE `etcitem` SET `price` = '141' WHERE `item_id` = '8404';
+UPDATE `etcitem` SET `price` = '153' WHERE `item_id` = '8405';
+UPDATE `etcitem` SET `price` = '167' WHERE `item_id` = '8406';
+UPDATE `etcitem` SET `price` = '187' WHERE `item_id` = '8407';
+UPDATE `etcitem` SET `price` = '208' WHERE `item_id` = '8408';
+UPDATE `etcitem` SET `price` = '225' WHERE `item_id` = '8409';
+UPDATE `etcitem` SET `price` = '248' WHERE `item_id` = '8410';
+UPDATE `etcitem` SET `price` = '285' WHERE `item_id` = '8412';
+UPDATE `etcitem` SET `price` = '295' WHERE `item_id` = '8413';
+UPDATE `etcitem` SET `price` = '325' WHERE `item_id` = '8415';
+UPDATE `etcitem` SET `price` = '340' WHERE `item_id` = '8416';
+UPDATE `etcitem` SET `price` = '355' WHERE `item_id` = '8417';
+UPDATE `etcitem` SET `price` = '375' WHERE `item_id` = '8419';
+UPDATE `etcitem` SET `price` = '395' WHERE `item_id` = '8421';
+UPDATE `etcitem` SET `price` = '400' WHERE `item_id` = '8422';
+UPDATE `etcitem` SET `price` = '415' WHERE `item_id` = '8424';
+UPDATE `etcitem` SET `price` = '420' WHERE `item_id` = '8426';
+UPDATE `etcitem` SET `price` = '425' WHERE `item_id` = '8427';
+UPDATE `etcitem` SET `price` = '431' WHERE `item_id` = '8428';
+UPDATE `etcitem` SET `price` = '435' WHERE `item_id` = '8429';
+UPDATE `etcitem` SET `price` = '447' WHERE `item_id` = '8431';
+UPDATE `etcitem` SET `price` = '452' WHERE `item_id` = '8432';
+UPDATE `etcitem` SET `price` = '540' WHERE `item_id` = '8433';
+UPDATE `etcitem` SET `price` = '553' WHERE `item_id` = '8434';
+UPDATE `etcitem` SET `price` = '568' WHERE `item_id` = '8435';
+UPDATE `etcitem` SET `price` = '608' WHERE `item_id` = '8438';
+UPDATE `etcitem` SET `price` = '663' WHERE `item_id` = '8442';
+UPDATE `etcitem` SET `price` = '776' WHERE `item_id` = '8443';
+UPDATE `etcitem` SET `price` = '792' WHERE `item_id` = '8444';
+UPDATE `etcitem` SET `price` = '816' WHERE `item_id` = '8445';
+UPDATE `etcitem` SET `price` = '840' WHERE `item_id` = '8446';
+UPDATE `etcitem` SET `price` = '858' WHERE `item_id` = '8447';
+UPDATE `etcitem` SET `price` = '875' WHERE `item_id` = '8448';
+UPDATE `etcitem` SET `price` = '893' WHERE `item_id` = '8449';
+UPDATE `etcitem` SET `price` = '910' WHERE `item_id` = '8450';
+UPDATE `etcitem` SET `price` = '930' WHERE `item_id` = '8451';
+UPDATE `etcitem` SET `price` = '948' WHERE `item_id` = '8452';
+UPDATE `etcitem` SET `price` = '1090' WHERE `item_id` = '8453';
+UPDATE `etcitem` SET `price` = '1111' WHERE `item_id` = '8454';
+UPDATE `etcitem` SET `price` = '1133' WHERE `item_id` = '8455';
+UPDATE `etcitem` SET `price` = '1157' WHERE `item_id` = '8456';
+UPDATE `etcitem` SET `price` = '1277' WHERE `item_id` = '8457';
+UPDATE `etcitem` SET `price` = '1301' WHERE `item_id` = '8458';
+UPDATE `etcitem` SET `price` = '1351' WHERE `item_id` = '8460';
+UPDATE `etcitem` SET `price` = '1376' WHERE `item_id` = '8461';
+UPDATE `etcitem` SET `price` = '1402' WHERE `item_id` = '8462';
+UPDATE `etcitem` SET `price` = '1577' WHERE `item_id` = '8463';
+UPDATE `etcitem` SET `price` = '1715' WHERE `item_id` = '8465';
+UPDATE `etcitem` SET `price` = '1747' WHERE `item_id` = '8466';
+UPDATE `etcitem` SET `price` = '1781' WHERE `item_id` = '8467';
+UPDATE `etcitem` SET `price` = '1814' WHERE `item_id` = '8468';
+UPDATE `etcitem` SET `price` = '1849' WHERE `item_id` = '8469';
+UPDATE `etcitem` SET `price` = '1887' WHERE `item_id` = '8470';
+UPDATE `etcitem` SET `price` = '1923' WHERE `item_id` = '8471';
+UPDATE `etcitem` SET `price` = '1961' WHERE `item_id` = '8472';
+UPDATE `etcitem` SET `price` = '2000' WHERE `item_id` = '8473';
+UPDATE `etcitem` SET `price` = '2039' WHERE `item_id` = '8474';
+UPDATE `etcitem` SET `price` = '2081' WHERE `item_id` = '8475';
+UPDATE `etcitem` SET `price` = '2123' WHERE `item_id` = '8476';
+UPDATE `etcitem` SET `price` = '2166' WHERE `item_id` = '8477';
+UPDATE `etcitem` SET `price` = '2309' WHERE `item_id` = '8478';
+UPDATE `etcitem` SET `price` = '2357' WHERE `item_id` = '8479';
+UPDATE `etcitem` SET `price` = '2403' WHERE `item_id` = '8480';
+UPDATE `etcitem` SET `price` = '2452' WHERE `item_id` = '8481';
+UPDATE `etcitem` SET `price` = '2502' WHERE `item_id` = '8482';
+UPDATE `etcitem` SET `price` = '2552' WHERE `item_id` = '8483';
+UPDATE `etcitem` SET `price` = '706000' WHERE `item_id` BETWEEN 8690 AND 8701;
+UPDATE `etcitem` SET `price` = '706000' WHERE `item_id` BETWEEN 8704 AND 8711;
+UPDATE `etcitem` SET `price` = '82400' WHERE `item_id` BETWEEN 8712 AND 8722;
+UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '1493000' WHERE `item_id` IN (9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983);
+UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '243700' WHERE `item_id` IN (9985,9988);
+UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '324920' WHERE `item_id` IN (9986,9989);
+UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '162460' WHERE `item_id` IN (9987,9990);
+UPDATE `etcitem` SET `price` = '2068800' WHERE `item_id` BETWEEN 10373 AND 10396;
