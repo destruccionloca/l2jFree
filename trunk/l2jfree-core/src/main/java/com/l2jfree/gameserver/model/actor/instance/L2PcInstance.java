@@ -4638,6 +4638,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			L2PcInstance pk = killer.getActingPlayer();
 
+			boolean bothWayClanWarKill = false;
 			boolean clanWarKill = false;
 			boolean playerKill = false;
 
@@ -4647,9 +4648,13 @@ public final class L2PcInstance extends L2Playable
 
 			else if (pk != null)
 			{
-				clanWarKill = pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember() &&
-				((_clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId()))
-						|| (isInSiege() && pk.isInSiege()));
+				if (pk.getClan() != null && getClan() != null && !isAcademyMember() && !pk.isAcademyMember())
+				{
+					if ((_clan.isAtWarWith(pk.getClanId()) && pk.getClan().isAtWarWith(getClanId())) || (isInSiege() && pk.isInSiege()))
+						bothWayClanWarKill = true;
+					else if (_clan.isAtWarWith(pk.getClanId()))
+						clanWarKill = true;
+				}
 				playerKill = true;
 			}
 
@@ -4661,16 +4666,14 @@ public final class L2PcInstance extends L2Playable
 				ArenaManager.getInstance().onDeath(getObjectId(), getName());
 			}
 
-			if (clanWarKill && pk != null)
+			if (bothWayClanWarKill && pk != null)
 			{
-				if (getClan().getReputationScore() > 0) // When your reputation score is 0 or below, the other clan cannot acquire any reputation points
-				{
+				// When your reputation score is 0 or below, the other clan cannot acquire any reputation points
+				if (getClan().getReputationScore() > 0)
 					pk.getClan().setReputationScore(pk.getClan().getReputationScore() + Config.REPUTATION_SCORE_PER_KILL, true);
-				}
-				if (pk.getClan().getReputationScore() > 0) // When the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
-				{
+				// When the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
+				if (pk.getClan().getReputationScore() > 0)
 					_clan.setReputationScore(_clan.getReputationScore() - Config.REPUTATION_SCORE_PER_KILL, true);
-				}
 			}
 
 			if (!srcInPvP)
@@ -4687,9 +4690,7 @@ public final class L2PcInstance extends L2Playable
 							// NOTE: deathPenalty +- Exp will update karma
 							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-							{
 								deathPenalty(clanWarKill, playerKill, charmOfCourage, killer instanceof L2SiegeGuard);
-							}
 						}
 						else
 						{
