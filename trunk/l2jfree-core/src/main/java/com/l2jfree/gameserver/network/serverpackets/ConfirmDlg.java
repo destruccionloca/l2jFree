@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.clientpackets.ConfirmDlgAnswer.AnswerHandler;
+import com.l2jfree.tools.random.Rnd;
 
 /**
  * Format: c dd[d s/d/dd/ddd] dd
@@ -29,7 +30,7 @@ public final class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
 	private static final String _S__F3_CONFIRMDLG = "[S] f3 ConfirmDlg";
 	
 	private int _time = 0;
-	private int _requesterId = 0;
+	private final int _requesterId = Rnd.get(Integer.MAX_VALUE);
 	private AnswerHandler _answerHandler;
 	
 	public ConfirmDlg(SystemMessageId messageId)
@@ -55,15 +56,16 @@ public final class ConfirmDlg extends AbstractSystemMessage<ConfirmDlg>
 		return this;
 	}
 	
-	public ConfirmDlg addRequesterId(int id)
-	{
-		_requesterId = id;
-		return this;
-	}
+	//public ConfirmDlg addRequesterId(int id)
+	//{
+	//	_requesterId = id;
+	//	return this;
+	//}
 	
 	public ConfirmDlg addAnswerHandler(AnswerHandler answerHandler)
 	{
 		_answerHandler = answerHandler;
+		_answerHandler.setRequesterId(_requesterId);
 		return this;
 	}
 	

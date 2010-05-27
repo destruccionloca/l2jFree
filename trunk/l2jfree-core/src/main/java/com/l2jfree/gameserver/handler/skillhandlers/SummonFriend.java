@@ -245,7 +245,7 @@ public class SummonFriend implements ISkillHandler
 					confirm.addCharName(activeChar);
 					confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 					confirm.addTime(30000);
-					confirm.addRequesterId(activePlayer.getCharId());
+					//confirm.addRequesterId(activePlayer.getCharId());
 					confirm.addAnswerHandler(new AnswerHandler() {
 						@Override
 						public void handle(boolean answer)

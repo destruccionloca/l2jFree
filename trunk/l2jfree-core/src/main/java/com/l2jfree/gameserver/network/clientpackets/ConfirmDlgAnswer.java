@@ -43,7 +43,13 @@ public final class ConfirmDlgAnswer extends L2GameClientPacket
 		final AnswerHandler handler = cha.setAnswerHandler(null);
 		
 		if (handler != null)
-			handler.handle(_answer != 0);
+		{
+			if (handler._requesterId == _requesterId)
+				handler.handle(_answer != 0);
+			else
+				throw new InvalidPacketException("Wrong requesterId for " + getType() + ": messageId=" + _messageId
+						+ ", answer=" + _answer + ", requesterId=" + _requesterId);
+		}
 		else
 			throw new InvalidPacketException("Missing handler for " + getType() + ": messageId=" + _messageId
 					+ ", answer=" + _answer + ", requesterId=" + _requesterId);
@@ -57,8 +63,15 @@ public final class ConfirmDlgAnswer extends L2GameClientPacket
 		return _C__CONFIRMDLG;
 	}
 	
-	public interface AnswerHandler
+	public static abstract class AnswerHandler
 	{
-		public void handle(boolean answer);
+		public abstract void handle(boolean answer);
+		
+		private int _requesterId;
+		
+		public final void setRequesterId(int requesterId)
+		{
+			_requesterId = requesterId;
+		}
 	}
 }
