@@ -22,7 +22,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [WAREHOUSE_MANIFEST, GROCERY_STORE_MANIFEST]
- 
+
  def onAdvEvent (self,event,npc, player) :
      htmltext = event
      st = player.getQuestState(qn)
