@@ -37,6 +37,7 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.handler.IAdminCommandHandler;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
+import com.l2jfree.gameserver.instancemanager.TransformationManager;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -51,6 +52,7 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -291,8 +293,11 @@ public class AdminEditChar implements IAdminCommandHandler
 					player.store();
 					if (player != activeChar)
 						player.sendMessage("A GM changed your class to " + newclass);
-					player.broadcastUserInfo();
 					activeChar.sendMessage(player.getName() + " changed to " + newclass);
+
+					// Quickly transform them to force the client to reload the character textures
+					TransformationManager.getInstance().transformPlayer(105, player);
+					ThreadPoolManager.getInstance().scheduleGeneral(new Untransform(player), 200);
 				}
 				else
 					activeChar.sendMessage("Usage: //setclass <valid_new_classid>");
@@ -413,9 +418,10 @@ public class AdminEditChar implements IAdminCommandHandler
 			}
 			player.getAppearance().setSex(player.getAppearance().getSex() ? false : true);
 			player.sendMessage("Your gender has been changed by a GM");
-			player.broadcastUserInfo();
-			player.decayMe();
-			player.spawnMe(player.getX(), player.getY(), player.getZ());
+
+			// Quickly transform them to force the client to reload the character textures
+			TransformationManager.getInstance().transformPlayer(105, player);
+			ThreadPoolManager.getInstance().scheduleGeneral(new Untransform(player), 200);
 		}
 		else if (command.startsWith("admin_setcolor"))
 		{
@@ -924,5 +930,21 @@ public class AdminEditChar implements IAdminCommandHandler
 		adminReply.replace("%multibox%", String.valueOf(multibox));
 		adminReply.replace("%results%", results.toString());
 		activeChar.sendPacket(adminReply);
+	}
+
+	private final class Untransform implements Runnable
+	{
+		private final L2PcInstance _player;
+
+		private Untransform(L2PcInstance player)
+		{
+			_player = player;
+		}
+
+		public void run()
+		{
+			_player.untransform();
+			_player.broadcastUserInfo();
+		}
 	}
 }
