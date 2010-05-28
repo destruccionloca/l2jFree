@@ -6615,8 +6615,8 @@ INSERT INTO `npc` VALUES
 (31388,31388,'Mina',0,'',0,'NPC.a_traderB_FHuman',8,24.5,70,'female','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
 (31389,31389,'Dorian',0,'',0,'NPC.e_elmore_guard_Mhuman',8,23.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,297,0,0,50,120,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
 (31390,31390,'Dummy - Boy A',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
-(31391,31391,'Dummy  - Boy B',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
-(31392,31392,'Dummy  - Boy C',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
+(31391,31391,'Dummy - Boy B',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
+(31392,31392,'Dummy - Boy C',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
 (31393,31393,'Dummy - Boy D',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
 (31394,31394,'Dummy - Boy E',0,'Ch4 Test',0,'NPC.a_traderA_MHuman',10,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
 (31395,31395,'Dummy - Lady F',0,'Ch4 Test',0,'NPC.a_teleporter_FHuman',8,25,70,'female','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,'NULL',0,1,0,'LAST_HIT',0,0,0,'fighter','false'),
@@ -10082,10 +10082,10 @@ UPDATE `npc` SET `hp` = 4735, `mp` = 1751, `exp` = 0, `sp` = 0, `patk` = 2038, `
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 18466;
 
 -- Body Destroyer has special AI (hex1r0)
-UPDATE `npc` SET `type` =  'SCBodyDestroyer' WHERE `id` = 22363;
+UPDATE `npc` SET `type` = 'SCBodyDestroyer' WHERE `id` = 22363;
 
 -- Queen Ant and & family :) (hex1r0)
-UPDATE `npc` SET `type` = 'QueenAntLarva', `walkspd` =  '0', `runspd` = '0' WHERE `id` = 29002;
+UPDATE `npc` SET `type` = 'QueenAntLarva', `walkspd` = '0', `runspd` = '0' WHERE `id` = 29002;
 UPDATE `npc` SET `type` = 'QueenAnt' WHERE `id` = 29001;
 UPDATE `npc` SET `type` = 'QueenAntNurse' WHERE `id` = 29003;
 
@@ -10096,10 +10096,10 @@ UPDATE `npc` SET `type` = 'Zaken' WHERE `id` = 29022;
 UPDATE `npc` SET `type` = 'Orfen' WHERE `id` = 29014;
 
 -- Tower of Naia Ward (hex1r0) TODO: fix all Naia mob stats & skills
-UPDATE `npc` SET `type` =  'L2Monster' WHERE `id` = 18493;
+UPDATE `npc` SET `type` = 'L2Monster' WHERE `id` = 18493;
 
 -- Tower of Naia Roof Lock (hex1r0)
-UPDATE `npc` SET `type` =  'L2Monster' WHERE `id` = 18491;
+UPDATE `npc` SET `type` = 'L2Monster' WHERE `id` = 18491;
 
 # Keltas (Spire)
 UPDATE `npc` SET `hp` = 309998, `mp` = 2011, `exp` = 449479, `sp` = 47956, `str` = 40, `con` = 43, `dex` = 30, `int` = 21, `wit` = 20, `men` = 20, `patk` = 9286, `pdef` = 991, `matk` = 4318, `mdef` = 1207, `level` = 84, `atkspd` = 278, `matkspd` = 333, `runspd` = 200, `walkspd` = 120, `hpreg` = 56.86, `mpreg` = 3.09 WHERE `id` = 22341;
@@ -10110,3 +10110,12 @@ UPDATE `npc` SET `collision_radius` = 149 WHERE `id` = 31683;
 -- Red Strider collision_height fix
 UPDATE `npc` SET `collision_height` = 31 WHERE `id` IN (16038, 16039, 16040);
 
+# Gender (Spire)
+UPDATE `npc` SET sex='female' WHERE class LIKE '%_FHuman%';
+UPDATE `npc` SET sex='female' WHERE class LIKE '%_FElf%';
+UPDATE `npc` SET sex='female' WHERE class LIKE '%_FDarkElf%';
+UPDATE `npc` SET sex='female' WHERE class LIKE '%_FDwarf';
+UPDATE `npc` SET sex='female' WHERE class LIKE '%_FOrc%';
+
+-- Atraiban's Top Disciple (Spire)
+UPDATE `npc` SET `patk` = '3242' WHERE `id` = 25030;
