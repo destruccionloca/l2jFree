@@ -944,7 +944,6 @@ public class AdminEditChar implements IAdminCommandHandler
 		public void run()
 		{
 			_player.untransform();
-			_player.broadcastUserInfo();
 		}
 	}
 }
