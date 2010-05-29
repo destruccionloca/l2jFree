@@ -447,11 +447,13 @@ public final class HellboundManager
 	
 	private HellboundManager()
 	{
+		initializeStageHandlers();
+		
 		_log.info("Hellbound: initialized");
 		
 		loadTrustPoints();
 		loadWarpgates();
-		revalidateCurrentLevel();
+		recalculateShadaiSpawn();
 		
 		_log.info("Hellbound: Current points: " + getTrustPoints());
 		_log.info("Hellbound: Current level: " + getCurrentLevel());
@@ -459,7 +461,10 @@ public final class HellboundManager
 		_log.info("Hellbound: Warpgates are " + (isWarpgateActive() ? "open" : "closed"));
 		
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(new SaveToDB(), 15 * 60 * 1000, 15 * 60 * 1000);
-		
+	}
+	
+	private void initializeStageHandlers()
+	{
 		new SpawnHandler("Kief and Buron spawned in Harbor", KIEF_BURON_HARBOR_SPAWNS, 1, 4);
 		new SpawnHandler("Bad Natives spawned", BAD_NATIVES_SPAWNS, 1, 4);
 		new SpawnHandler("Quarry slaves spawned", QUARRY_SLAVES, 1, 5);

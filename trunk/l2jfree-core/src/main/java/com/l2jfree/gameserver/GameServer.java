@@ -276,6 +276,7 @@ public class GameServer extends Config
 		Util.printSection("SevenSigns");
 		SevenSigns.getInstance();
 		SevenSignsFestival.getInstance();
+		
 		Util.printSection("Entities and zones");
 		Class.forName(CrownManager.class.getName());
 		TownManager.getInstance();
@@ -298,9 +299,23 @@ public class GameServer extends Config
 		for (CCHSiege siege : CCHManager.getInstance().getSieges())
 			siege.correctSiegeDateTime();
 		PartyRoomManager.getInstance();
+		
+		Util.printSection("Spawns");
+		QueenAntManager.getInstance();
+		SpawnTable.getInstance();
+		for (Fort fort : FortManager.getInstance().getForts())
+			fort.getSpawnManager().initNpcs();
+		DayNightSpawnManager.getInstance().notifyChangeMode();
+		RaidBossSpawnManager.getInstance();
+		GrandBossSpawnManager.getInstance();
+		RaidPointsManager.init();
+		AutoChatHandler.getInstance();
+		AutoSpawnManager.getInstance();
+		
 		Util.printSection("Quests");
 		QuestManager.getInstance();
 		TransformationManager.getInstance();
+		
 		Util.printSection("Events/ScriptEngine");
 		try
 		{
@@ -344,22 +359,14 @@ public class GameServer extends Config
 			ArenaManager.getInstance().engineInit();
 		if (Config.FISHERMAN_ENABLED)
 			FishermanManager.getInstance().engineInit();
-		Util.printSection("Spawns");
-		QueenAntManager.getInstance();
-		SpawnTable.getInstance();
-		for (Fort fort : FortManager.getInstance().getForts())
-			fort.getSpawnManager().initNpcs();
-		DayNightSpawnManager.getInstance().notifyChangeMode();
-		RaidBossSpawnManager.getInstance();
-		GrandBossSpawnManager.getInstance();
-		RaidPointsManager.init();
-		AutoChatHandler.getInstance();
-		AutoSpawnManager.getInstance();
+		
 		Util.printSection("Economy");
 		TradeListTable.getInstance();
 		CastleManorManager.getInstance();
 		L2Manor.getInstance();
 		AuctionManager.getInstance();
+		RecipeController.getInstance();
+		
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
 		Util.printSection("Dungeons");
