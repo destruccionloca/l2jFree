@@ -285,7 +285,7 @@ public final class Shutdown extends Thread
 		}
 		
 		if (Config.DATABASE_BACKUP_MAKE_BACKUP_ON_SHUTDOWN)
-			DatabaseBackupManager.getInstance().makeBackup();
+			DatabaseBackupManager.makeBackup();
 		
 		if (_mode == ShutdownMode.RESTART)
 			Runtime.getRuntime().halt(2);

@@ -187,7 +187,7 @@ public class GameServer extends Config
 		if (Config.OPTIMIZE_DATABASE)
 			TableOptimizer.optimize();
 		if (Config.DATABASE_BACKUP_MAKE_BACKUP_ON_STARTUP)
-			DatabaseBackupManager.getInstance().makeBackup();
+			DatabaseBackupManager.makeBackup();
 		Class.forName(RunnableStatsManager.class.getName());
 		ThreadPoolManager.getInstance();
 		if (Config.DEADLOCKCHECK_INTERVAL > 0)

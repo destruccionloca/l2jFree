@@ -37,22 +37,17 @@ import com.l2jfree.Config;
 
 /**
  * Database backup utility, directly dependent on mysqldump tool.
+ * 
  * @author hex1r0
  * @author savormix
  */
 public final class DatabaseBackupManager
 {
 	private static final Log _log = LogFactory.getLog(DatabaseBackupManager.class);
+	
 	private static final int BUFFER_SIZE = 5 * 1024 * 1024;
 	
-	private ByteBuffer _buf;
-	
-	private DatabaseBackupManager()
-	{
-		_log.info("DatabaseBackupManager: initialized.");
-	}
-	
-	public void makeBackup()
+	public static void makeBackup()
 	{
 		File f = new File(Config.DATAPACK_ROOT, Config.DATABASE_BACKUP_SAVE_PATH);
 		if (!f.mkdirs() && !f.exists())
@@ -92,7 +87,6 @@ public final class DatabaseBackupManager
 			File bf = new File(f, sdf.format(time) + (Config.DATABASE_BACKUP_COMPRESSION ? ".zip" : ".sql"));
 			if (!bf.createNewFile())
 				throw new IOException("Cannot create backup file: " + bf.getCanonicalPath());
-			_buf = ByteBuffer.allocateDirect(BUFFER_SIZE);
 			ReadableByteChannel input = Channels.newChannel(new BufferedInputStream(run.getInputStream(),
 					BUFFER_SIZE));
 			FileOutputStream out = new FileOutputStream(bf);
@@ -109,13 +103,15 @@ public final class DatabaseBackupManager
 			}
 			else
 				dest = out.getChannel();
-			int read, written = 0;
-			while ((read = input.read(_buf)) != -1)
+			
+			ByteBuffer buf = ByteBuffer.allocateDirect(BUFFER_SIZE);
+			int written = 0;
+			while (input.read(buf) != -1)
 			{
-				_buf.flip();
-				for (;written < read;)
-					written += dest.write(_buf); // avoid empty statement
-				_buf.rewind();
+				buf.flip();
+				while (buf.hasRemaining())
+					written += dest.write(buf);
+				buf.rewind();
 			}
 			input.close();
 			dest.close();
@@ -139,19 +135,5 @@ public final class DatabaseBackupManager
 		{
 			_log.warn("DatabaseBackupManager: Could not make backup: ", e);
 		}
-		finally
-		{
-			_buf = null;
-		}
-	}
-	
-	public static DatabaseBackupManager getInstance()
-	{
-		return SingletonHolder._instance;
-	}
-	
-	private static final class SingletonHolder
-	{
-		public static final DatabaseBackupManager _instance = new DatabaseBackupManager();
 	}
 }
