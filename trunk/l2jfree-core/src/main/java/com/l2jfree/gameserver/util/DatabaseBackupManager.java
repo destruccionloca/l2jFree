@@ -14,16 +14,13 @@
  */
 package com.l2jfree.gameserver.util;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.Deflater;
@@ -44,8 +41,6 @@ import com.l2jfree.Config;
 public final class DatabaseBackupManager
 {
 	private static final Log _log = LogFactory.getLog(DatabaseBackupManager.class);
-	
-	private static final int BUFFER_SIZE = 5 * 1024 * 1024;
 	
 	public static void makeBackup()
 	{
@@ -87,10 +82,8 @@ public final class DatabaseBackupManager
 			File bf = new File(f, sdf.format(time) + (Config.DATABASE_BACKUP_COMPRESSION ? ".zip" : ".sql"));
 			if (!bf.createNewFile())
 				throw new IOException("Cannot create backup file: " + bf.getCanonicalPath());
-			ReadableByteChannel input = Channels.newChannel(new BufferedInputStream(run.getInputStream(),
-					BUFFER_SIZE));
-			FileOutputStream out = new FileOutputStream(bf);
-			WritableByteChannel dest;
+			InputStream input = run.getInputStream();
+			OutputStream out = new FileOutputStream(bf);
 			if (Config.DATABASE_BACKUP_COMPRESSION)
 			{
 				ZipOutputStream dflt = new ZipOutputStream(out);
@@ -99,22 +92,19 @@ public final class DatabaseBackupManager
 				dflt.setComment("L2JFree Schema Backup Utility\r\n\r\nBackup date: " +
 						new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS z").format(time));
 				dflt.putNextEntry(new ZipEntry(Config.DATABASE_BACKUP_DATABASE_NAME + ".sql"));
-				dest = Channels.newChannel(dflt);
+				out = dflt;
 			}
-			else
-				dest = out.getChannel();
 			
-			ByteBuffer buf = ByteBuffer.allocateDirect(BUFFER_SIZE);
+			byte[] buf = new byte[4096];
 			int written = 0;
-			while (input.read(buf) != -1)
+			for (int read; (read = input.read(buf)) != -1;)
 			{
-				buf.flip();
-				while (buf.hasRemaining())
-					written += dest.write(buf);
-				buf.rewind();
+				out.write(buf, 0, read);
+				
+				written += read;
 			}
 			input.close();
-			dest.close();
+			out.close();
 			
 			if (written == 0)
 			{
