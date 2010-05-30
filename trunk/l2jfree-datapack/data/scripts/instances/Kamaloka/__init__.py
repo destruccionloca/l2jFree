@@ -4,6 +4,7 @@ import sys
 from java.lang                                     import System
 from com.l2jfree.gameserver.instancemanager        import InstanceManager
 from com.l2jfree.gameserver.model                  import L2World
+from com.l2jfree.gameserver.model                  import Location
 from com.l2jfree.gameserver.model.actor            import L2Character
 from com.l2jfree.gameserver.model.actor            import L2Summon
 from com.l2jfree.gameserver.model.entity           import Instance
@@ -301,8 +302,8 @@ class Kamaloka(JQuest):
 		elif npcId == MATHIAS:
 			htmltext = "start-mathias.htm"
 		elif npcId == DEVICE:
-			returnCoords = InstanceManager.getInstance().getInstance(player.getInstanceId()).getReturnTeleport()
-			KamaInfo = [0,0,0,0,0,0,returnCoords[0],returnCoords[1],returnCoords[2]]
+			returnLocation = InstanceManager.getInstance().getInstance(player.getInstanceId()).getReturnTeleport()
+			KamaInfo = [0,0,0,0,0,0,returnLocation.getX(),returnLocation.getY(),returnLocation.getZ()]
 			teleportplayer(self,player,KamaInfo,0)
 			return
 		return htmltext
