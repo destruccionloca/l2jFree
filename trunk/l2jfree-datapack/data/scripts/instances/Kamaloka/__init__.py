@@ -314,7 +314,8 @@ class Kamaloka(JQuest):
 			playerList = InstanceManager.getInstance().getInstance(player.getInstanceId()).getPlayers()
 			for member in playerList.toArray():
 				member = L2World.getInstance().findPlayer(member)
-				saveEntry(self,member)
+				if member != None:
+					saveEntry(self,member)
 			if player.getInstanceId() != 0:
 				instance = InstanceManager.getInstance().getInstance(npc.getInstanceId())
 				if instance != None:
