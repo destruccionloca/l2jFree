@@ -117,7 +117,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		{
 			case 0:
 			{
-				if (trainer instanceof L2TransformManagerInstance && !L2CertificationSkillsLearn.isCertificationSkill(_id)) // Transformation skills
+				if (trainer instanceof L2TransformManagerInstance && L2TransformSkillLearn.isTransformSkill(_id)) // Transformation skills
 				{
 					int costid = 0;
 					// Skill Learn bug Fix
@@ -165,9 +165,9 @@ public class RequestAquireSkill extends L2GameClientPacket
 				}
 				else if (trainer instanceof L2TransformManagerInstance && L2CertificationSkillsLearn.isCertificationSkill(_id)) // Certification skills
 				{
-					if (player.isSubclassActive())
+					if (player.isSubClassActive())
 					{
-						requestFailed(SystemMessageId.SKILL_NOT_FOR_SUBCLASS();
+						requestFailed(SystemMessageId.SKILL_NOT_FOR_SUBCLASS);
 						return;
 					}
 
@@ -494,7 +494,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		}
 		else if (trainer instanceof L2FishermanInstance)
 			((L2FishermanInstance)trainer).showSkillList(player, true);
-		else if (trainer instanceof L2TransformManagerInstance && !L2CertificationSkillsLearn.isCertificationSkill(_id))
+		else if (trainer instanceof L2TransformManagerInstance && L2TransformSkillLearn.isTransformSkill(_id))
 			((L2TransformManagerInstance) trainer).showTransformSkillList(player, true);
 		else if (trainer instanceof L2TransformManagerInstance && L2CertificationSkillsLearn.isCertificationSkill(_id))
 			((L2TransformManagerInstance) trainer).showCertificationSkillsList(player, true);

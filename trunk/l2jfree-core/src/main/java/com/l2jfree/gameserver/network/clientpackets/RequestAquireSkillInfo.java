@@ -90,7 +90,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 
 		if (_skillType == 0)
 		{
-			if (trainer instanceof L2TransformManagerInstance && !L2CertificationSkillsLearn.isCertificationSkill(_id))
+			if (trainer instanceof L2TransformManagerInstance && L2TransformSkillLearn.isTransformSkill(_id))
 			{
 				int itemId = 0;
 				L2TransformSkillLearn[] skillst = SkillTreeTable.getInstance().getAvailableTransformSkills(activeChar);
