@@ -94,18 +94,9 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 					{
 						if (L2CertificationSkillsLearn.isCertificationSkill(skill.getId()))
 							player.removeSkill(skill);
-
-						switch (skill.getId())
-						{
-							case 656: // Transform Divine Warrior
-							case 657: // Transform Divine Knight
-							case 658: // Transform Divine Rogue
-							case 659: // Transform Divine Wizard
-							case 660: // Transform Divine Summoner
-							case 661: // Transform Divine Healer
-							case 662: // Transform Divine Enchanter
-								player.removeSkill(skill);
-						}
+						
+						if (L2TransformSkillLearn.isDivineTransformSkill(skill.getId()))
+							player.removeSkill(skill);
 					}
 					
 					for (int itemId : subclassItemIds)

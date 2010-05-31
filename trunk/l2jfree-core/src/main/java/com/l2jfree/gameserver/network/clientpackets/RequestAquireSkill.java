@@ -165,12 +165,6 @@ public class RequestAquireSkill extends L2GameClientPacket
 				}
 				else if (trainer instanceof L2TransformManagerInstance && L2CertificationSkillsLearn.isCertificationSkill(_id)) // Certification skills
 				{
-					if (player.isSubClassActive())
-					{
-						requestFailed(SystemMessageId.SKILL_NOT_FOR_SUBCLASS);
-						return;
-					}
-
 					int costid = 0;
 					L2CertificationSkillsLearn[] skillss = SkillTreeTable.getInstance().getAvailableCertificationSkills(player);
 

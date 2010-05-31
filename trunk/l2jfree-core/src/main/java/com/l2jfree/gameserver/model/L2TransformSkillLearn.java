@@ -141,4 +141,21 @@ public final class L2TransformSkillLearn
 		}
 		return false;
 	}
+	
+	public static boolean isDivineTransformSkill(int id)
+	{
+		switch (id)
+		{
+			case 656: // Transform Divine Warrior
+			case 657: // Transform Divine Knight
+			case 658: // Transform Divine Rogue
+			case 659: // Transform Divine Wizard
+			case 660: // Transform Divine Summoner
+			case 661: // Transform Divine Healer
+			case 662: // Transform Divine Enchanter
+				return true;
+			default:
+				return false;
+		}
+	}
 }

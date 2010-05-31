@@ -747,6 +747,10 @@ public class SkillTreeTable
 
 		for (L2TransformSkillLearn temp : skills)
 		{
+			if (cha.isSubClassActive())
+				if (L2TransformSkillLearn.isDivineTransformSkill(temp.getId()))
+					continue;
+			
 			if (temp.getMinLevel() <= cha.getLevel() && (temp.getRace() == cha.getRace().ordinal() || temp.getRace() == -1))
 			{
 				boolean knownSkill = false;
@@ -788,7 +792,10 @@ public class SkillTreeTable
 			_log.warn("No certification skills defined!");
 			return new L2CertificationSkillsLearn[0];
 		}
-	
+		
+		if (cha.isSubClassActive())
+			return new L2CertificationSkillsLearn[0];
+		
 		L2Skill[] oldSkills = cha.getAllSkills();
 		
 		for (L2CertificationSkillsLearn temp : skills)
