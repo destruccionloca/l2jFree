@@ -88,6 +88,13 @@ public final class L2CertificationSkillsLearn
 			case 653: // Rogue Ability - Critical Chance
 			case 654: // Wizard Ability - Mana Steal
 			case 655: // Enchanter Ability - Barrier
+			case 656: // Transform Divine Warrior
+			case 657: // Transform Divine Knight
+			case 658: // Transform Divine Rogue
+			case 659: // Transform Divine Wizard
+			case 660: // Transform Divine Summoner
+			case 661: // Transform Divine Healer
+			case 662: // Transform Divine Enchanter
 			case 799: // Master Ability - Defense
 			case 800: // Master Ability - Magic Defense
 			case 801: // Warrior Ability - Boost CP

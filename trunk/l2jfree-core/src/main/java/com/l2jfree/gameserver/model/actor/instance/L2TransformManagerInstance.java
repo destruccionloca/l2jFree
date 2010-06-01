@@ -94,9 +94,6 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 					{
 						if (L2CertificationSkillsLearn.isCertificationSkill(skill.getId()))
 							player.removeSkill(skill);
-						
-						if (L2TransformSkillLearn.isDivineTransformSkill(skill.getId()))
-							player.removeSkill(skill);
 					}
 					
 					for (int itemId : subclassItemIds)

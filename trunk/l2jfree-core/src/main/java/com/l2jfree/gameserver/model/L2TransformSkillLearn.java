@@ -118,13 +118,6 @@ public final class L2TransformSkillLearn
 			case 558: // Transform Dragon Bomber
 			case 617: // Transform Onyx Beast
 			case 618: // Transform Death Blader
-			case 656: // Transform Divine Warrior
-			case 657: // Transform Divine Knight
-			case 658: // Transform Divine Rogue
-			case 659: // Transform Divine Wizard
-			case 660: // Transform Divine Summoner
-			case 661: // Transform Divine Healer
-			case 662: // Transform Divine Enchanter
 			case 663: // Transfomr Zaken
 			case 664: // Transform Anakim
 			case 665: // Transform Benom
@@ -140,22 +133,5 @@ public final class L2TransformSkillLearn
 				return true;
 		}
 		return false;
-	}
-	
-	public static boolean isDivineTransformSkill(int id)
-	{
-		switch (id)
-		{
-			case 656: // Transform Divine Warrior
-			case 657: // Transform Divine Knight
-			case 658: // Transform Divine Rogue
-			case 659: // Transform Divine Wizard
-			case 660: // Transform Divine Summoner
-			case 661: // Transform Divine Healer
-			case 662: // Transform Divine Enchanter
-				return true;
-			default:
-				return false;
-		}
 	}
 }
