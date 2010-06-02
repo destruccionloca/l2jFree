@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.model.actor;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 
 import java.text.DateFormat;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javolution.util.FastList;
@@ -1545,9 +1546,9 @@ public class L2Npc extends L2Character
 		if (player == null)
 			return;
 
-		FastList<L2BuffTemplate> _templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
+		List<L2BuffTemplate> _templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId).getBuffs();
 
-		if (_templateBuffs == null || _templateBuffs.size() == 0)
+		if (_templateBuffs.size() == 0)
 			return;
 
 		L2Playable receiver = (servitor ? player.getPet() : player);

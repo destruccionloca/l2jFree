@@ -21,98 +21,85 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-/**
- * <p>Format: (c) Sd
- * <ul>
- * <li>S: content</li>
- * <li>d: type</li>
- * </ul></p>
- * @author -Wooden-, TempyIncursion
- *
- */
 public class RequestPetition extends L2GameClientPacket
 {
-	private static final String _C__7F_RequestPetition = "[C] 7F RequestPetition";
+	private static final String _C__REQUESTPETITION = "[C] 89 RequestPetition c[sd]";
 	
 	private String _content;
-	private int _type;       // 1 = on : 0 = off;
-
+	private int _on;
+	
     @Override
     protected void readImpl()
     {
         _content = readS();
-        _type    = readD();
+        _on = readD()/* != 0*/;
     }
-
+    
     @Override
     protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();
+		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
-		if (!GmListTable.isGmOnline(false))
+		
+		if (!GmListTable.isAnyGmOnline(false))
 		{
-			activeChar.sendPacket(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW);
+			sendPacket(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW);
 			return;
 		}
-
+		
 		if (!PetitionManager.getInstance().isPetitioningAllowed())
 		{
-			activeChar.sendPacket(SystemMessageId.GAME_CLIENT_UNABLE_TO_CONNECT_TO_PETITION_SERVER);
+			sendPacket(SystemMessageId.GAME_CLIENT_UNABLE_TO_CONNECT_TO_PETITION_SERVER);
 			return;
 		}
-
+		
 		if (PetitionManager.getInstance().isPlayerPetitionPending(activeChar))
 		{
-			activeChar.sendPacket(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME);
+			sendPacket(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME);
 			return;
 		}
-
+		
 		if (PetitionManager.getInstance().getPendingPetitionCount() == Config.MAX_PETITIONS_PENDING)
 		{
-			activeChar.sendPacket(SystemMessageId.PETITION_UNAVAILABLE);
+			sendPacket(SystemMessageId.PETITION_UNAVAILABLE);
 			return;
 		}
-
+		
 		int totalPetitions = PetitionManager.getInstance().getPlayerTotalPetitionCount(activeChar) + 1;
-
 		if (totalPetitions > Config.MAX_PETITIONS_PER_PLAYER)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.WE_HAVE_RECEIVED_S1_PETITIONS_TODAY);
 			sm.addNumber(totalPetitions);
-			activeChar.sendPacket(sm);
+			sendPacket(sm);
 			return;
 		}
-
+		
 		if (_content.length() > 255)
 		{
-			activeChar.sendPacket(SystemMessageId.PETITION_MAX_CHARS_255);
+			sendPacket(SystemMessageId.PETITION_MAX_CHARS_255);
 			return;
 		}
-
-		int petitionId = PetitionManager.getInstance().submitPetition(activeChar, _content, _type);
-
+		
+		int petitionId = PetitionManager.getInstance().submitPetition(activeChar, _content, _on);
+		
 		SystemMessage sm = new SystemMessage(SystemMessageId.PETITION_ACCEPTED_RECENT_NO_S1);
 		sm.addNumber(petitionId);
-		activeChar.sendPacket(sm);
-
+		sendPacket(sm);
+		
 		sm = new SystemMessage(SystemMessageId.SUBMITTED_YOU_S1_TH_PETITION_S2_LEFT);
 		sm.addNumber(totalPetitions);
 		sm.addNumber(Config.MAX_PETITIONS_PER_PLAYER - totalPetitions);
-		activeChar.sendPacket(sm);
-
+		sendPacket(sm);
+		
 		sm = new SystemMessage(SystemMessageId.S1_PETITION_ON_WAITING_LIST);
 		sm.addNumber(PetitionManager.getInstance().getPendingPetitionCount());
-		activeChar.sendPacket(sm);
+		sendPacket(sm);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
+    
 	 @Override
 	public String getType()
 	{
-		return _C__7F_RequestPetition;
+		return _C__REQUESTPETITION;
 	}
 }

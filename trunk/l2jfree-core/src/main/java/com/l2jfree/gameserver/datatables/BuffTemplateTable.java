@@ -17,190 +17,216 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.model.base.Experience;
 import com.l2jfree.gameserver.templates.StatsSet;
 import com.l2jfree.gameserver.templates.skills.L2BuffTemplate;
 
 /**
  * This class represents the buff templates list
- * 
- * Author: G1ta0
- * 
+ * @author G1ta0
  */
-
 public class BuffTemplateTable
 {
-	private final static Log			_log	= LogFactory.getLog(BuffTemplateTable.class);
-
+	private final static Log _log = LogFactory.getLog(BuffTemplateTable.class);
+	
 	/** The table containing all buff templates */
-	private final FastList<L2BuffTemplate>	_buffs;
-
-	public static BuffTemplateTable getInstance()
-	{
-		return SingletonHolder._instance;
-	}
-
+	private final FastMap<Integer, TemplateList> _templates;
+	
 	/**
 	 * Create and Load the buff templates from SQL Table buff_templates
 	 */
 	private BuffTemplateTable()
 	{
-		_buffs = new FastList<L2BuffTemplate>();
+		_templates = new FastMap<Integer, TemplateList>().setShared(true);
 		reloadBuffTemplates();
 	}
-
+	
 	/**
 	 * Read and Load the buff templates from SQL Table buff_templates
 	 */
 	public void reloadBuffTemplates()
 	{
-		_buffs.clear();
-
+		_templates.clear();
+		
 		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM buff_templates ORDER BY id, skill_order");
 			ResultSet rset = statement.executeQuery();
-
-			int _buffTemplates = 0;
-			int templateId = -1;
-
+			
 			while (rset.next())
 			{
-				StatsSet Buff = new StatsSet();
-
-				if (templateId != rset.getInt("id"))
-					_buffTemplates++;
-				templateId = rset.getInt("id");
-
-				Buff.set("id", templateId);
-				Buff.set("name", rset.getString("name"));
-				Buff.set("skillId", rset.getInt("skill_id"));
-				Buff.set("skillLevel", rset.getInt("skill_level"));
-				Buff.set("skillOrder", rset.getInt("skill_order"));
-				Buff.set("forceCast", rset.getInt("skill_force"));
-				Buff.set("minLevel", rset.getInt("char_min_level"));
-				Buff.set("maxLevel", rset.getInt("char_max_level"));
-				Buff.set("race", rset.getInt("char_race"));
-				Buff.set("class", rset.getInt("char_class"));
-				Buff.set("faction", rset.getInt("char_faction"));
-				Buff.set("adena", rset.getInt("price_adena"));
-				Buff.set("points", rset.getInt("price_points"));
-
+				StatsSet buff = new StatsSet();
+				
+				int templateId = rset.getInt("id");
+				buff.set("id", templateId);
+				buff.set("name", rset.getString("name"));
+				buff.set("skillId", rset.getInt("skill_id"));
+				buff.set("skillLevel", rset.getInt("skill_level"));
+				buff.set("skillOrder", rset.getInt("skill_order"));
+				buff.set("forceCast", rset.getInt("skill_force"));
+				buff.set("minLevel", rset.getInt("char_min_level"));
+				buff.set("maxLevel", rset.getInt("char_max_level"));
+				buff.set("race", rset.getInt("char_race"));
+				buff.set("class", rset.getInt("char_class"));
+				buff.set("faction", rset.getInt("char_faction"));
+				buff.set("adena", rset.getInt("price_adena"));
+				buff.set("points", rset.getInt("price_points"));
+				
 				// Add this buff template to the buff template list
-				L2BuffTemplate template = new L2BuffTemplate(Buff);
-				if (template.getSkill() == null)
+				L2BuffTemplate template = new L2BuffTemplate(buff);
+				if (template.getSkill() != null)
 				{
-					_log.warn("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
+					TemplateList list = getBuffTemplate(templateId);
+					if (list == TemplateList.EMPTY_LIST)
+					{
+						list = new TemplateList(templateId, template.getName());
+						_templates.put(templateId, list);
+					}
+					list.add(template);
 				}
 				else
-					_buffs.add(template);
+					_log.warn("Skill doesn't exist: " + template.getSkillId() + " Lv" + template.getSkillLevel(),
+							new IllegalArgumentException());
 			}
-
-			_log.info("BuffTemplateTable: Loaded " + _buffTemplates + " Buff Templates.");
-
+			
 			rset.close();
 			statement.close();
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error while loading buff templates " + e.getMessage(), e);
+			_log.warn("Could not completely load buff templates!", e);
 		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
+			_log.info("BuffTemplateTable: Loaded " + _templates.size() + " buff templates.");
 		}
 	}
-
+	
 	/**
 	 * @return Returns the buffs of template by template Id
 	 */
-	public FastList<L2BuffTemplate> getBuffTemplate(int Id)
+	public TemplateList getBuffTemplate(int id)
 	{
-		FastList<L2BuffTemplate> _templateBuffs = new FastList<L2BuffTemplate>();
-
-		for (L2BuffTemplate _bt : _buffs)
-		{
-			if (_bt.getId() == Id)
-			{
-				_templateBuffs.add(_bt);
-			}
-		}
-
-		return _templateBuffs;
+		TemplateList list = _templates.get(id);
+		if (list == null)
+			return TemplateList.EMPTY_LIST;
+		else
+			return list;
 	}
-
+	
 	/**
 	 * @return Returns the template Id by template Name
 	 */
-	public int getTemplateIdByName(String _name)
+	public int getTemplateIdByName(String name)
 	{
-
-		int _id = 0;
-
-		for (L2BuffTemplate _bt : _buffs)
+		for (TemplateList list : _templates.values())
 		{
-			if (_bt.getName().equals(_name))
-			{
-				_id = _bt.getId();
-				break;
-			}
+			if (list.getName().equals(name))
+				return list.getId();
 		}
-
-		return _id;
+		return -1;
 	}
-
+	
 	/**
 	 * @return Returns the lowest char level for Buff template
 	 */
-	public int getLowestLevel(int Id)
+	public int getLowestLevel(int templateId)
 	{
-		int _lowestLevel = 255;
-
-		for (L2BuffTemplate _bt : _buffs)
-		{
-			if ((_bt.getId() == Id) && (_lowestLevel > _bt.getMinLevel()))
-			{
-				_lowestLevel = _bt.getMinLevel();
-			}
-		}
-
-		return _lowestLevel;
+		return getBuffTemplate(templateId).getLvlMin();
 	}
-
+	
 	/**
-	 * @return Returns the lowest char level for Buff template
+	 * @return Returns the highest char level for Buff template
 	 */
-	public int getHighestLevel(int Id)
+	public int getHighestLevel(int templateId)
 	{
-		int _highestLevel = 0;
-
-		for (L2BuffTemplate _bt : _buffs)
-		{
-			if ((_bt.getId() == Id) && (_highestLevel < _bt.getMaxLevel()))
-			{
-				_highestLevel = _bt.getMaxLevel();
-			}
-		}
-
-		return _highestLevel;
+		return getBuffTemplate(templateId).getLvlMax();
 	}
-
+	
 	/**
-	 * @return Returns the buff templates list
+	 * @return Returns the buff templates
 	 */
-	public FastList<L2BuffTemplate> getBuffTemplateTable()
+	public FastMap<Integer, TemplateList> getBuffTemplateTable()
 	{
-		return _buffs;
+		return _templates;
 	}
-
+	
+	public static class TemplateList
+	{
+		private static final TemplateList EMPTY_LIST = new TemplateList(0, "<<<Empty>>>");
+		
+		private final int _id;
+		private final String _name;
+		private int _lvlMin;
+		private int _lvlMax;
+		private final List<L2BuffTemplate> _buffs;
+		
+		private TemplateList(int id, String name)
+		{
+			_id = id;
+			_name = name;
+			_lvlMin = Experience.MAX_LEVEL;
+			_lvlMax = 0;
+			_buffs = new ArrayList<L2BuffTemplate>();
+		}
+		
+		private void add(L2BuffTemplate bt)
+		{
+			if (bt == null || bt.getId() != getId() || !bt.getName().equals(getName()))
+			{
+				_log.warn("", new IllegalArgumentException());
+				return;
+			}
+			getBuffs().add(bt);
+			if (bt.getMinLevel() < getLvlMin())
+				_lvlMin = bt.getMinLevel();
+			if (bt.getMaxLevel() > getLvlMax())
+				_lvlMax = bt.getMaxLevel();
+		}
+		
+		public final int getId()
+		{
+			return _id;
+		}
+		
+		public final String getName()
+		{
+			return _name;
+		}
+		
+		public final int getLvlMin()
+		{
+			return _lvlMin;
+		}
+		
+		public final int getLvlMax()
+		{
+			return _lvlMax;
+		}
+		
+		public final List<L2BuffTemplate> getBuffs()
+		{
+			return _buffs;
+		}
+	}
+	
+	public static BuffTemplateTable getInstance()
+	{
+		return SingletonHolder._instance;
+	}
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

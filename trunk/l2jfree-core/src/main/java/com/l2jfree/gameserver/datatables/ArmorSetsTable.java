@@ -33,15 +33,11 @@ public final class ArmorSetsTable
 {
 	private static final Log _log = LogFactory.getLog(ArmorSetsTable.class);
 	
-	private final FastMap<Integer, L2ArmorSet> _armorSets = new FastMap<Integer, L2ArmorSet>();
-	
-	public static ArmorSetsTable getInstance()
-	{
-		return SingletonHolder._instance;
-	}
+	private final FastMap<Integer, L2ArmorSet> _armorSets;
 	
 	private ArmorSetsTable()
 	{
+		_armorSets = new FastMap<Integer, L2ArmorSet>().setShared(true);
 		loadData();
 	}
 	
@@ -75,18 +71,17 @@ public final class ArmorSetsTable
 						enchant6skill, mwork_legs, mwork_head, mwork_gloves, mwork_feet, mwork_shield));
 			}
 			
-			_log.info("ArmorSetsTable: Loaded " + _armorSets.size() + " armor sets.");
-			
 			rset.close();
 			statement.close();
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error while loading armor sets ", e);
+			_log.warn("Could not completely load armor sets!", e);
 		}
 		finally
 		{
 			L2DatabaseFactory.close(con);
+			_log.info("ArmorSetsTable: Loaded " + _armorSets.size() + " armor sets.");
 		}
 	}
 	
@@ -98,6 +93,11 @@ public final class ArmorSetsTable
 	public L2ArmorSet getSet(int chestId)
 	{
 		return _armorSets.get(chestId);
+	}
+	
+	public static ArmorSetsTable getInstance()
+	{
+		return SingletonHolder._instance;
 	}
 	
 	@SuppressWarnings("synthetic-access")
