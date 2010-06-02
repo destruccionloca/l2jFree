@@ -15,10 +15,12 @@
 package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
+import com.l2jfree.gameserver.model.entity.ClanHall;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.skills.Env;
 
@@ -52,8 +54,9 @@ final class ConditionSiegeZone extends Condition
 		L2Character target = _self ? env.player : env.target;
 		Castle castle = CastleManager.getInstance().getCastle(target);
 		Fort fort = FortManager.getInstance().getFort(target);
+		ClanHall ch = ClanHallManager.getInstance().getClanHall(target);
 		
-		if (castle == null && fort == null)
+		if (castle == null && fort == null && (ch == null || ch.getSiege() == null))
 		{
 			if ((_value & COND_NOT_ZONE) != 0)
 				return true;
@@ -62,8 +65,10 @@ final class ConditionSiegeZone extends Condition
 		}
 		if (castle != null)
 			return checkIfOk(target, castle, _value);
-		else
+		else if (fort != null)
 			return checkIfOk(target, fort, _value);
+		else
+			return checkIfOk(target, ch, _value);
 	}
 	
 	public static boolean checkIfOk(L2Character activeChar, Castle castle, int value)
@@ -122,4 +127,31 @@ final class ConditionSiegeZone extends Condition
 		return false;
 	}
 	
+	public static boolean checkIfOk(L2Character activeChar, ClanHall ch, int value)
+	{
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+			return false;
+		
+		L2PcInstance player = activeChar.getActingPlayer();
+		
+		if (ch == null || ch.getSiege() == null)
+		{
+			if ((value & COND_NOT_ZONE) != 0)
+				return true;
+		}
+		else if (!ch.getSiege().getIsInProgress())
+		{
+			if ((value & COND_NOT_ZONE) != 0)
+				return true;
+		}
+		else if (ch.getSiege().getAttackerClan(player.getClan()) != null && (value & COND_CAST_ATTACK) != 0)
+			return true;
+		else if (ch.getSiege().getDefenderClan(player.getClan()) != null && (value & COND_CAST_DEFEND) != 0)
+			return true;
+		else if (ch.getSiege().getAttackerClan(player.getClan()) == null
+			&& ch.getSiege().getDefenderClan(player.getClan()) == null && (value & COND_CAST_NEUTRAL) != 0)
+			return true;
+		
+		return false;
+	}
 }

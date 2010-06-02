@@ -28,6 +28,8 @@ import com.l2jfree.gameserver.model.entity.CCHSiege;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.skills.l2skills.L2SkillSiegeFlag;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
@@ -49,10 +51,21 @@ public class SiegeFlag extends ISkillConditionChecker
 		
 		final L2PcInstance player = (L2PcInstance) activeChar;
 		
-		if (!SiegeManager.checkIfOkToPlaceFlag(player, false) && !FortSiegeManager.checkIfOkToPlaceFlag(player, false))
+		if (player.isInsideZone(L2Zone.FLAG_NO_HQ))
+		{
+			player.sendPacket(SystemMessageId.NOT_SET_UP_BASE_HERE);
 			return false;
-		else if (player.isInsideZone(L2Zone.FLAG_NO_HQ))
+		}
+		// awful idea
+		else if (!SiegeManager.checkIfOkToPlaceFlag(player, true) &&
+				!FortSiegeManager.checkIfOkToPlaceFlag(player, true) &&
+				!CCHManager.checkIfOkToPlaceFlag(player, true))
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(skill);
+			player.sendPacket(sm);
 			return false;
+		}
 		
 		return super.checkConditions(activeChar, skill);
 	}

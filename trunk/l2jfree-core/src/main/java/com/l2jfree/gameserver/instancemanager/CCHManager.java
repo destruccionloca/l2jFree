@@ -77,7 +77,7 @@ public final class CCHManager
 		else if (clan == null || clan.getLeaderId() != player.getObjectId() || siege.getAttackerClan(clan) == null)
 			sm = SystemMessageId.CANNOT_USE_ON_YOURSELF;
 		else if (hideout == null || !hideout.checkIfInZoneHeadQuarters(player))
-			sm = SystemMessageId.ONLY_DURING_SIEGE;
+			sm = SystemMessageId.NOT_SET_UP_BASE_HERE; // message?
 		else if (hideout.getSiege().getAttackerClan(clan).getNumFlags() >= Config.SIEGE_FLAG_MAX_COUNT)
 			sm = SystemMessageId.NOT_ANOTHER_HEADQUARTERS;
 		else
