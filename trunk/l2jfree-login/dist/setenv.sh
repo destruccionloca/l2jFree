@@ -1,4 +1,4 @@
-# VERSION=1.3.0
+# VERSION=1.4.0-SNAPSHOT
 
 # Hibernate and associated jars
 # CLASSPATH=${CLASSPATH}:./lib/antlr-2.7.6.jar

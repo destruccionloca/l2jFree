@@ -1,4 +1,4 @@
-REM SET VERSION=1.3.0
+REM SET VERSION=1.4.0-SNAPSHOT
 
 REM Hibernate and associated jars
 REM SET CLASSPATH=%CLASSPATH%;./lib/antlr-2.7.6.jar

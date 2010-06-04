@@ -1,4 +1,4 @@
-# VERSION=1.3.0
+# VERSION=1.4.0-SNAPSHOT
 
 # CLASSPATH=${CLASSPATH}:./lib/l2j-mmocore-${VERSION}.jar
 
