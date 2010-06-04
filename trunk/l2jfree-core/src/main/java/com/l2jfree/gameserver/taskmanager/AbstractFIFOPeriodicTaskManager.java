@@ -26,6 +26,8 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 {
 	private final L2FastSet<T> _queue = new L2FastSet<T>();
 	
+	private final L2FastSet<T> _activeTasks = new L2FastSet<T>();
+	
 	protected AbstractFIFOPeriodicTaskManager(int period)
 	{
 		super(period);
@@ -57,36 +59,22 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 		}
 	}
 	
-	private final T getFirst()
-	{
-		writeLock();
-		try
-		{
-			return _queue.getFirst();
-		}
-		finally
-		{
-			writeUnlock();
-		}
-	}
-	
-	private final void remove(T t)
-	{
-		writeLock();
-		try
-		{
-			_queue.remove(t);
-		}
-		finally
-		{
-			writeUnlock();
-		}
-	}
-	
 	@Override
 	public final void run()
 	{
-		for (T task; (task = getFirst()) != null;) // don't remove just read
+		writeLock();
+		try
+		{
+			_activeTasks.addAll(_queue);
+			
+			_queue.clear();
+		}
+		finally
+		{
+			writeUnlock();
+		}
+		
+		for (T task; (task = _activeTasks.removeFirst()) != null;)
 		{
 			final long begin = System.nanoTime();
 			
@@ -101,8 +89,6 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 			finally
 			{
 				RunnableStatsManager.handleStats(task.getClass(), getCalledMethodName(), System.nanoTime() - begin);
-				
-				remove(task); // so this way re-queueing will be avoided
 			}
 		}
 	}
