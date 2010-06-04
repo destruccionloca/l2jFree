@@ -42,7 +42,7 @@ public final class RequestRefine extends AbstractRefinePacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemStoneItemObjId = readD();
-		_gemStoneCount = readCompQ();
+		_gemStoneCount = readQ();
 	}
 
 	@Override

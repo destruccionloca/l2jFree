@@ -53,8 +53,8 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
-			long cnt = readCompQ();
-			long price = readCompQ();
+			long cnt = readQ();
+			long price = readQ();
 
 			if (itemId < 1 || cnt < 1 || price < 0)
 			{

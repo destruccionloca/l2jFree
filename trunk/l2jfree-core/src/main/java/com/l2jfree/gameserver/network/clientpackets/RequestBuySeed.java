@@ -67,7 +67,7 @@ public class RequestBuySeed extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
-			long cnt = readCompQ();
+			long cnt = readQ();
 			if (cnt < 1)
 			{
 				_seeds = null;

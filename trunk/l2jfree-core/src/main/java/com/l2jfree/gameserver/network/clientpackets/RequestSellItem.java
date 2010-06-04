@@ -81,7 +81,7 @@ public class RequestSellItem extends L2GameClientPacket
 		{
 			int objectId = readD();
 			int itemId = readD();
-			long cnt = readCompQ();
+			long cnt = readQ();
 			if (objectId < 1 || itemId < 1 || cnt < 1)
 			{
 				_items = null;

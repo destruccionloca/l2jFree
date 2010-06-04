@@ -38,7 +38,7 @@ public final class RequestConfirmGemStone extends AbstractRefinePacket
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 		_gemstoneItemObjId = readD();
-		_gemStoneCount= readCompQ();
+		_gemStoneCount= readQ();
 	}
 
 	@Override

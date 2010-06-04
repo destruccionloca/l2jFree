@@ -57,8 +57,8 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int objectId = readD();
-			long cnt = readCompQ();
-			long price = readCompQ();
+			long cnt = readQ();
+			long price = readQ();
 
 			if (objectId < 1 || cnt < 1 || price < 0)
 			{

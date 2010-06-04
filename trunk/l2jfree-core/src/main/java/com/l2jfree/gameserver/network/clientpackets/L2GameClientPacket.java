@@ -19,7 +19,6 @@ import java.nio.BufferUnderflowException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -88,13 +87,5 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient, 
 	protected final void sendAF()
 	{
 		sendPacket(ActionFailed.STATIC_PACKET);
-	}
-	
-	protected final long readCompQ()
-	{
-		if (Config.PACKET_FINAL)
-			return readQ();
-		else
-			return readD();
 	}
 }

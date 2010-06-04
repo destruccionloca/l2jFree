@@ -58,7 +58,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 		{
 			readD(); //service
 			int itemId = readD();
-			long cnt = readCompQ();
+			long cnt = readQ();
 			if (itemId < 1 || cnt < 1)
 			{
 				_items = null;

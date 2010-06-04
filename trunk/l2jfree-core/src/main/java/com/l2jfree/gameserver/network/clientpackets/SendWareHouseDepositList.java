@@ -59,7 +59,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int objId = readD();
-			long cnt = readCompQ();
+			long cnt = readQ();
 
 			if (objId < 1 || cnt < 0)
 			{

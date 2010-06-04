@@ -58,7 +58,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 		for(int i = 0; i < count; i++)
 		{
 			int id = readD(); //this is some id sent in PackageSendableList
-			long cnt = readCompQ();
+			long cnt = readQ();
 			_items[i] = new Item(id, cnt);
 		}
 	}

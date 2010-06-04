@@ -40,7 +40,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	{
 		_id = readD();
 		_recipeId = readD();
-		/*_unknown = */readCompQ();
+		/*_unknown = */readQ();
 	}
 
 	@Override

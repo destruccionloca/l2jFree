@@ -25,8 +25,8 @@ public final class RequestWithDrawPremiumItem extends L2GameClientPacket
 	@Override
 	protected void readImpl()
 	{
-		_unk1 = readCompQ();
-		_unk2 = readCompQ();
+		_unk1 = readQ();
+		_unk2 = readQ();
 	}
 
 	@Override

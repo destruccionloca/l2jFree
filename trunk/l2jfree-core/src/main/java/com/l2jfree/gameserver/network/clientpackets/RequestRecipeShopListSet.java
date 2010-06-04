@@ -49,7 +49,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int id = readD();
-			long cost = readCompQ();
+			long cost = readQ();
 			if (cost < 0)
 			{
 				_items = null;

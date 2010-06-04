@@ -39,7 +39,7 @@ public class RequestGetItemFromPet extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_objectId = readD();
-		_amount = readCompQ();
+		_amount = readQ();
 		_unknown = readD();// = 0 for most trades
 	}
 

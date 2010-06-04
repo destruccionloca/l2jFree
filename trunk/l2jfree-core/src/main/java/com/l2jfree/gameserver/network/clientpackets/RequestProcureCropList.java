@@ -62,7 +62,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			int objId = readD();
 			int itemId = readD();
 			int manorId = readD();
-			long cnt = readCompQ();
+			long cnt = readQ();
 			if (objId < 1 || itemId < 1 || manorId < 0 || cnt < 0)
 			{
 				_items = null;

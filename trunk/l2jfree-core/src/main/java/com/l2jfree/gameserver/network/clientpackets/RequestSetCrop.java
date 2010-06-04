@@ -65,8 +65,8 @@ public class RequestSetCrop extends L2GameClientPacket
 		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
-			long sales = readCompQ();
-			long price = readCompQ();
+			long sales = readQ();
+			long price = readQ();
 			int type = readC();
 			if (itemId < 1 || sales < 0 || price < 0)
 			{

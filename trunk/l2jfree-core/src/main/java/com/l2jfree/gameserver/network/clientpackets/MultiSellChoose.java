@@ -54,7 +54,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 	{
 		_listId = readD();
 		_entryId = readD();
-		_amount = readCompQ();
+		_amount = readQ();
 		readH();
 		readD();
 		readD();
