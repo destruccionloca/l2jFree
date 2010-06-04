@@ -39,7 +39,7 @@ public abstract class ExclusiveTask implements Runnable
 		this(false);
 	}
 	
-	public synchronized boolean isScheduled()
+	public synchronized final boolean isScheduled()
 	{
 		return _future != null && !_future.isDone();
 	}
@@ -67,6 +67,7 @@ public abstract class ExclusiveTask implements Runnable
 		_future = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, delay, period);
 	}
 	
+	@Override
 	public void run()
 	{
 		if (tryLock())
@@ -87,32 +88,44 @@ public abstract class ExclusiveTask implements Runnable
 	private synchronized boolean tryLock()
 	{
 		if (_returnIfAlreadyRunning)
-			return !_isRunning;
+		{
+			if (_isRunning)
+				return false;
+			
+			_isRunning = true;
+			return true;
+		}
 		
 		_currentThread = Thread.currentThread();
+		notifyAll();
 		
-		for (;;)
+		while (_isRunning)
 		{
 			try
 			{
-				notifyAll();
-				
-				if (_currentThread != Thread.currentThread())
-					return false;
-				
-				if (!_isRunning)
-					return true;
-				
 				wait();
 			}
 			catch (InterruptedException e)
 			{
 			}
+			
+			if (_currentThread != Thread.currentThread())
+				return false;
 		}
+		
+		_isRunning = true;
+		return true;
 	}
 	
 	private synchronized void unlock()
 	{
+		if (_returnIfAlreadyRunning)
+		{
+			_isRunning = false;
+			return;
+		}
+		
 		_isRunning = false;
+		notifyAll();
 	}
 }
