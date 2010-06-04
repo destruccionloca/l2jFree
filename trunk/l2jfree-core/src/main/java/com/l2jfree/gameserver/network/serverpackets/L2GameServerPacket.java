@@ -19,7 +19,6 @@ import gnu.trove.TIntArrayList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.Elementals;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
@@ -67,15 +66,6 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 		return true;
 	}
 	
-	//TODO: HACK TO BYPASS THE EXPLOIT CHECKS WHICH CAN BE REMOVED NOW
-	protected final void writeCompH(int value)
-	{
-		if (Config.PACKET_FINAL)
-			writeH(value);
-		else
-			writeD(value);
-	}
-	
 	public interface ElementalOwner
 	{
 		public byte getAttackElementType();
@@ -87,25 +77,25 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 	
 	protected final void writeElementalInfo(ElementalOwner owner)
 	{
-		writeCompH(owner.getAttackElementType());
-		writeCompH(owner.getAttackElementPower());
+		writeH(owner.getAttackElementType());
+		writeH(owner.getAttackElementPower());
 		for (byte i = 0; i < 6; i++)
 		{
-			writeCompH(owner.getElementDefAttr(i));
+			writeH(owner.getElementDefAttr(i));
 		}
 	}
 	
 	protected final void writePlayerElementAttribute(L2PcInstance player)
 	{
 		byte attackAttribute = player.getAttackElement();
-		writeCompH(attackAttribute);
-		writeCompH(player.getAttackElementValue(attackAttribute));
-		writeCompH(player.getDefenseElementValue(Elementals.FIRE));
-		writeCompH(player.getDefenseElementValue(Elementals.WATER));
-		writeCompH(player.getDefenseElementValue(Elementals.WIND));
-		writeCompH(player.getDefenseElementValue(Elementals.EARTH));
-		writeCompH(player.getDefenseElementValue(Elementals.HOLY));
-		writeCompH(player.getDefenseElementValue(Elementals.DARK));
+		writeH(attackAttribute);
+		writeH(player.getAttackElementValue(attackAttribute));
+		writeH(player.getDefenseElementValue(Elementals.FIRE));
+		writeH(player.getDefenseElementValue(Elementals.WATER));
+		writeH(player.getDefenseElementValue(Elementals.WIND));
+		writeH(player.getDefenseElementValue(Elementals.EARTH));
+		writeH(player.getDefenseElementValue(Elementals.HOLY));
+		writeH(player.getDefenseElementValue(Elementals.DARK));
 	}
 	
 	private static final int[] PAPERDOLL_SLOTS_WITH_JEWELS = initPaperdollSlots(true);
