@@ -67,7 +67,7 @@ public class AcquireSkillInfo extends L2GameServerPacket
         {
 			writeD(temp.type);
 			writeD(temp.itemId);
-			writeCompQ(temp.count);
+			writeQ(temp.count);
 			writeD(temp.unk);
         }
     }

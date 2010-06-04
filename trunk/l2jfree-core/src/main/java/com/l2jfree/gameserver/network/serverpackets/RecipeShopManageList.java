@@ -90,7 +90,7 @@ public class RecipeShopManageList extends L2GameServerPacket
 			{
 				writeD(item.getRecipeId());
 				writeD(0x00);
-				writeCompQ(item.getCost());
+				writeQ(item.getCost());
 			}
 		}
 	}

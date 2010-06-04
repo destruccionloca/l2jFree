@@ -73,7 +73,7 @@ public class SellList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x06);
-		writeCompQ(_money);
+		writeQ(_money);
 		writeD(0x00);
 		writeH(_selllist.size());
 
@@ -83,14 +83,14 @@ public class SellList extends L2GameServerPacket
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
 
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
 			writeH(0x00);
 			writeH(item.getCustomType2());
-			writeCompQ(item.getItem().getReferencePrice() / 2);
+			writeQ(item.getItem().getReferencePrice() / 2);
 
 			writeElementalInfo(item); //8x h or d
 		}

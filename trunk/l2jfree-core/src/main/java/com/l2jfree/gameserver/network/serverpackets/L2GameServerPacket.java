@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.clientpackets.L2GameClientPacket;
-import com.l2jfree.lang.L2Math;
 import com.l2jfree.mmocore.network.SendablePacket;
 
 /**
@@ -69,14 +68,6 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 	}
 	
 	//TODO: HACK TO BYPASS THE EXPLOIT CHECKS WHICH CAN BE REMOVED NOW
-	protected final void writeCompQ(long value)
-	{
-		if (Config.PACKET_FINAL)
-			writeQ(value);
-		else
-			writeD(L2Math.limit(Integer.MIN_VALUE, value, Integer.MAX_VALUE));
-	}
-	
 	protected final void writeCompH(int value)
 	{
 		if (Config.PACKET_FINAL)

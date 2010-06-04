@@ -50,7 +50,7 @@ public final class ExRpItemLink extends L2GameServerPacket
 		// guessing xD
 		writeD(_item.getObjectId());
 		writeD(_item.getItemDisplayId());
-		writeCompQ(_item.getCount());
+		writeQ(_item.getCount());
 		writeH(_item.getItem().getType2());
 		writeD(_item.getItem().getBodyPart());
 		writeH(_item.getEnchantLevel());

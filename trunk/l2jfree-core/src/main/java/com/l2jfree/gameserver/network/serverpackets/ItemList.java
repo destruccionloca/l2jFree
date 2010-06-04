@@ -102,7 +102,7 @@ public class ItemList extends L2GameServerPacket
 			writeD(temp.getItemDisplayId());
 			// writeD(0x00);
 			writeD(temp.getLocationSlot());
-			writeCompQ(temp.getCount());
+			writeQ(temp.getCount());
 			writeH(temp.getItem().getType2());	// item type2
 			writeH(temp.getCustomType1());	// item type3
 			writeH(temp.isEquipped() ? 0x01 : 0x00);

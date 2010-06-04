@@ -38,11 +38,11 @@ public class HennaItemDrawInfo extends L2GameServerPacket
 		writeC(0xe4);
 		writeD(_henna.getSymbolId()); // symbol ID
 		writeD(_henna.getItemId()); // item ID of dye
-		writeCompQ(_henna.getAmount()); // total amount of dye required
-		writeCompQ(_henna.getPrice()); // total amount of adena required to draw this symbol
+		writeQ(_henna.getAmount()); // total amount of dye required
+		writeQ(_henna.getPrice()); // total amount of adena required to draw this symbol
 		//able to draw or not 0 is false and 1 is true
 		writeD(HennaTreeTable.getInstance().isDrawable(_activeChar, _henna.getSymbolId()));
-		writeCompQ(_activeChar.getAdena());
+		writeQ(_activeChar.getAdena());
 		PcStat stats = _activeChar.getStat();
 		writeD(stats.getINT()); //current INT
 		writeC(stats.getINT() + _henna.getStatINT()); //equip INT

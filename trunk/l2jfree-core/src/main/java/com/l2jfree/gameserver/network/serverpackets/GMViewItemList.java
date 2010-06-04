@@ -57,7 +57,7 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
 			writeD(temp.getLocationSlot()); // T1
-			writeCompQ(temp.getCount());
+			writeQ(temp.getCount());
 			writeH(temp.getItem().getType2());
 			writeH(temp.getCustomType1());
 			writeH(temp.isEquipped() ? 0x01 : 0x00);

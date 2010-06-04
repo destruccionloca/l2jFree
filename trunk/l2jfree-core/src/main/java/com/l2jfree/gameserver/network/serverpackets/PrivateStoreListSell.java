@@ -45,7 +45,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		writeC(0xa1);
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
-		writeCompQ(_playerAdena);
+		writeQ(_playerAdena);
 
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
@@ -53,13 +53,13 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());
 			writeH(item.getCustomType2());
 			writeD(item.getItem().getBodyPart());
-			writeCompQ(item.getPrice()); //your price
-			writeCompQ(item.getItem().getReferencePrice()); //store price
+			writeQ(item.getPrice()); //your price
+			writeQ(item.getItem().getReferencePrice()); //store price
 
 			writeElementalInfo(item); //8x h or d
 		}

@@ -99,8 +99,8 @@ public class SSQStatus extends L2GameServerPacket
 				writeC(SevenSigns.getInstance().getPlayerCabal(_activeChar));
 				writeC(SevenSigns.getInstance().getPlayerSeal(_activeChar));
 
-				writeCompQ(SevenSigns.getInstance().getPlayerStoneContrib(_activeChar)); // Seal Stones Turned-In
-				writeCompQ(SevenSigns.getInstance().getPlayerAdenaCollect(_activeChar)); // Ancient Adena to Collect
+				writeQ(SevenSigns.getInstance().getPlayerStoneContrib(_activeChar)); // Seal Stones Turned-In
+				writeQ(SevenSigns.getInstance().getPlayerAdenaCollect(_activeChar)); // Ancient Adena to Collect
 
 				double dawnStoneScore = SevenSigns.getInstance().getCurrentStoneScore(SevenSigns.CABAL_DAWN);
 				int dawnFestivalScore = SevenSigns.getInstance().getCurrentFestivalScore(SevenSigns.CABAL_DAWN);
@@ -150,16 +150,16 @@ public class SSQStatus extends L2GameServerPacket
 				}
 
 				/* DUSK */
-				writeCompQ(duskStoneScoreProp); // Seal Stone Score
-				writeCompQ(duskFestivalScore); // Festival Score
-				writeCompQ(duskTotalScore); // Total Score
+				writeQ(duskStoneScoreProp); // Seal Stone Score
+				writeQ(duskFestivalScore); // Festival Score
+				writeQ(duskTotalScore); // Total Score
 
 				writeC(duskPercent); // Dusk %
 
 				/* DAWN */
-				writeCompQ(dawnStoneScoreProp); // Seal Stone Score
-				writeCompQ(dawnFestivalScore); // Festival Score
-				writeCompQ(dawnTotalScore); // Total Score
+				writeQ(dawnStoneScoreProp); // Seal Stone Score
+				writeQ(dawnFestivalScore); // Festival Score
+				writeQ(dawnTotalScore); // Total Score
 
 				writeC(dawnPercent); // Dawn %
 				break;
@@ -178,7 +178,7 @@ public class SSQStatus extends L2GameServerPacket
 					int dawnScore = SevenSignsFestival.getInstance().getHighestScore(SevenSigns.CABAL_DAWN, i);
 
 					// Dusk Score \\
-					writeCompQ(duskScore);
+					writeQ(duskScore);
 
 					StatsSet highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(SevenSigns.CABAL_DUSK, i);
 					String[] partyMembers = highScoreData.getString("members").split(",");
@@ -196,7 +196,7 @@ public class SSQStatus extends L2GameServerPacket
 					}
 
 					// Dawn Score \\
-					writeCompQ(dawnScore);
+					writeQ(dawnScore);
 
 					highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(SevenSigns.CABAL_DAWN, i);
 					partyMembers = highScoreData.getString("members").split(",");

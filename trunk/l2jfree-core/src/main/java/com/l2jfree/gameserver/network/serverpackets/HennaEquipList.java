@@ -48,7 +48,7 @@ public final class HennaEquipList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xee);
-		writeCompQ(_player.getAdena());
+		writeQ(_player.getAdena());
 		writeD(3); //available equip slot
 		writeD(_hennas.length);
 
@@ -61,15 +61,15 @@ public final class HennaEquipList extends L2GameServerPacket
 			{
 				writeD(element.getSymbolId()); //symbol ID
 				writeD(element.getItemId()); //item ID of dye
-				writeCompQ(element.getAmount()); //amount of dye required
-				writeCompQ(element.getPrice()); //amount of adena required
+				writeQ(element.getAmount()); //amount of dye required
+				writeQ(element.getPrice()); //amount of adena required
 			}
 			else
 			{
 				writeD(0x00);
 				writeD(0x00);
-				writeCompQ(0x00);
-				writeCompQ(0x00);
+				writeQ(0x00);
+				writeQ(0x00);
 			}
 
 			// Makes no difference in current gracia final client

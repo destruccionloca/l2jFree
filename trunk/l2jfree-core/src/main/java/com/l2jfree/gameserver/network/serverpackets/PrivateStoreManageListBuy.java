@@ -45,7 +45,7 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		writeC(0xbd);
 		//section 1
 		writeD(_objId);
-		writeCompQ(_playerAdena);
+		writeQ(_playerAdena);
 
 		//section2
 		writeD(_itemList.length); // inventory items for potential buy
@@ -53,8 +53,8 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		{
 			writeD(item.getItemDisplayId());
 			writeH(0); //show enchant lvl as 0, as you can't buy enchanted weapons
-			writeCompQ(item.getCount());
-			writeCompQ(item.getReferencePrice());
+			writeQ(item.getCount());
+			writeQ(item.getReferencePrice());
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
@@ -68,14 +68,14 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		{
 			writeD(item.getItem().getItemDisplayId());
 			writeH(0);
-			writeCompQ(item.getCount());
-			writeCompQ(item.getItem().getReferencePrice());
+			writeQ(item.getCount());
+			writeQ(item.getItem().getReferencePrice());
 
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-			writeCompQ(item.getPrice());//your price
-			writeCompQ(item.getItem().getReferencePrice());//fixed store price
+			writeQ(item.getPrice());//your price
+			writeQ(item.getItem().getReferencePrice());//fixed store price
 
 			writeElementalInfo(item); //8x h or d
 		}

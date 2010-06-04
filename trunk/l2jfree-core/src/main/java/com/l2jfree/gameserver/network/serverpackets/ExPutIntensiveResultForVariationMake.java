@@ -49,7 +49,7 @@ public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 		writeD(_refinerItemObjId);
 		writeD(_lifestoneItemId);
 		writeD(_gemstoneItemId);
-		writeCompQ(_gemstoneCount);
+		writeQ(_gemstoneCount);
 		writeD(_unk2);
 	}
 

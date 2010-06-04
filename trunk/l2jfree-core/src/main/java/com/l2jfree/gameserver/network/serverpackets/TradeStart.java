@@ -53,7 +53,7 @@ public class TradeStart extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(item.getItem().getType2()); // item type2
 			writeH(0x00); // ?
 

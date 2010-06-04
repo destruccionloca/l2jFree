@@ -55,7 +55,7 @@ public class SellListProcure extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xEf);
-		writeCompQ(_money); // money
+		writeQ(_money); // money
 		writeD(0x00); // lease ?
 		writeH(_sellList.size()); // list size
 
@@ -64,10 +64,10 @@ public class SellListProcure extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeCompQ(_sellList.get(item)); // count
+			writeQ(_sellList.get(item)); // count
 			writeH(item.getItem().getType2());
 			writeH(0); // unknown
-			writeCompQ(0); // price, u shouldnt get any adena for crops, only raw materials
+			writeQ(0); // price, u shouldnt get any adena for crops, only raw materials
 		}
 	}
 

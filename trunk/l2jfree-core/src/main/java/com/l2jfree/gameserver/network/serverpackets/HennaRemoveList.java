@@ -44,7 +44,7 @@ public class HennaRemoveList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xe6);
-		writeCompQ(_player.getAdena());
+		writeQ(_player.getAdena());
 		writeD(0x00);
 		writeD(getHennaUsedSlots());
 

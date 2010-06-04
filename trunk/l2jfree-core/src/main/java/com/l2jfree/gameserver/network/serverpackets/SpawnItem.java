@@ -74,7 +74,7 @@ public final class SpawnItem extends L2GameServerPacket
 		writeD(_z);
 		// only show item count if it is a stackable item
 		writeD(_stackable);
-		writeCompQ(_count);
+		writeQ(_count);
 		writeD(0x00); //c2
 	}
 

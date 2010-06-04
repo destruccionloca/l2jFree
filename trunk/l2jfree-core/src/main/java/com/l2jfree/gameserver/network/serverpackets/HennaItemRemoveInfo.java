@@ -38,11 +38,11 @@ public class HennaItemRemoveInfo extends L2GameServerPacket
 		writeC(0xe7);
 		writeD(_henna.getSymbolId()); //symbol ID
 		writeD(_henna.getItemId()); //item ID of dye
-		writeCompQ(0x00); // total amount of dye required
-		writeCompQ(_henna.getPrice() / 5); //total amount of adena required to remove symbol
+		writeQ(0x00); // total amount of dye required
+		writeQ(_henna.getPrice() / 5); //total amount of adena required to remove symbol
 		//able to remove or not 0 is false and 1 is true
 		writeD(HennaTreeTable.getInstance().isDrawable(_activeChar, _henna.getSymbolId()));
-		writeCompQ(_activeChar.getAdena());
+		writeQ(_activeChar.getAdena());
 		PcStat stats = _activeChar.getStat();
 		writeD(stats.getINT()); //current INT
 		writeC(stats.getINT() + _henna.getStatINT()); //equip INT

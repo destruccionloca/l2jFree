@@ -65,7 +65,7 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 		 * 0x04-Warehouse
 		 */
 		writeH(_whType);
-		writeCompQ(_activeCharAdena);
+		writeQ(_activeCharAdena);
 		writeH(_items.length);
 
 		for (L2ItemInstance item : _items)
@@ -73,7 +73,7 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());

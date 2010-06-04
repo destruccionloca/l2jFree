@@ -62,7 +62,7 @@ public class WareHouseDepositList extends L2GameServerPacket
 		// 0x03-Castle Warehouse
 		// 0x04-Warehouse
 		writeH(_whType);
-		writeCompQ(_playerAdena);
+		writeQ(_playerAdena);
 		final int count = _items.size();
 		if (_log.isDebugEnabled())
 			_log.debug("count:" + count);
@@ -73,7 +73,7 @@ public class WareHouseDepositList extends L2GameServerPacket
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());

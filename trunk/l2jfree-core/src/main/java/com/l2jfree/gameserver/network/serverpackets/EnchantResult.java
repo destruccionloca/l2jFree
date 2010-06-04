@@ -35,7 +35,7 @@ public class EnchantResult extends L2GameServerPacket
 		writeC(0x87);
 		writeD(_result);
 		writeD(_crystal);
-		writeCompQ(_count);
+		writeQ(_count);
 	}
 
 	/* (non-Javadoc)

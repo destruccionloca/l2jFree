@@ -53,7 +53,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		//section 1
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0); // Package sell
-		writeCompQ(_playerAdena);
+		writeQ(_playerAdena);
 
 		//section2
 		writeD(_itemList.length); //for potential sells
@@ -62,12 +62,12 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(item.getCustomType2());
 			writeD(item.getItem().getBodyPart());
-			writeCompQ(item.getPrice()); //store price
+			writeQ(item.getPrice()); //store price
 
 			writeElementalInfo(item); //8x h or d
 		}
@@ -79,13 +79,13 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());//enchant lvl
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
-			writeCompQ(item.getPrice());//your price
-			writeCompQ(item.getItem().getReferencePrice()); //store price
+			writeQ(item.getPrice());//your price
+			writeQ(item.getItem().getReferencePrice()); //store price
 
 			writeElementalInfo(item); //8x h or d
 		}

@@ -57,7 +57,7 @@ public final class BuyList extends L2GameServerPacket
 	{
 		writeC(0x07);
 		// current money
-		writeCompQ(_money);
+		writeQ(_money);
 		writeD(_listId);
 		writeH(_list.length);
 
@@ -68,7 +68,7 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
 				writeD(item.getItemDisplayId());
-				writeCompQ(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
+				writeQ(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
 				writeH(item.getItem().getType2()); // item type2
 				writeH(item.getCustomType1()); // custom type1
 				writeD(item.getItem().getBodyPart());
@@ -76,9 +76,9 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getCustomType2()); // custom type2
 				writeH(0x00);
 				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
-					writeCompQ((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
+					writeQ((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
 				else
-					writeCompQ((long) (item.getPriceToSell() * _taxRate));
+					writeQ((long) (item.getPriceToSell() * _taxRate));
 				writeElementalInfo(item);
 			}
 		}

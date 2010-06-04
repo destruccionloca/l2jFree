@@ -44,7 +44,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 	{
 		writeC(0x9b);
 		writeS(_playerName);
-		writeCompQ(_money);
+		writeQ(_money);
 		writeH(_items.length);
 
 		for (L2ItemInstance item : _items)
@@ -53,7 +53,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			if (item.getItem().isEquipable())

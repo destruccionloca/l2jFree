@@ -67,10 +67,10 @@ public final class ExItemAuctionInfo extends L2GameServerPacket
 		else
 			writeC(_auction._state);
 		writeD(_auction._id); // auction ID
-		writeCompQ(_auction._bid); // current bid
+		writeQ(_auction._bid); // current bid
 		writeD(timeLeft); // time left in seconds
 		writeD(_auction._template.getItemId()); // item ID
-		writeCompQ(_auction._count); // count
+		writeQ(_auction._count); // count
 
 		writeH(_auction._template.getItem().getType2());
 		writeH(_auction._template.getCustomType1());

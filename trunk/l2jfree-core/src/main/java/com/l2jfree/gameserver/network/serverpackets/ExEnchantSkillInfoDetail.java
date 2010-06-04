@@ -54,7 +54,7 @@ public class ExEnchantSkillInfoDetail extends L2GameServerPacket
 		writeD(0);
 		writeQ(0);
 		writeD(0);
-		writeCompQ(_itemCount); // Count
+		writeQ(_itemCount); // Count
 		writeD(0);
 		writeD(_itemId); // ItemId Required
 		writeD(0);

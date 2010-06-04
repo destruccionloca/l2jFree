@@ -608,7 +608,7 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 		* 0x03-Castle Warehouse
 		* 0x04-Warehouse */
 		writeH(_whType);
-		writeCompQ(_playerAdena);
+		writeQ(_playerAdena);
 		writeH(_objects.length);
 		
 		for (L2WarehouseItem item : _objects)
@@ -616,7 +616,7 @@ public final class SortedWareHouseWithdrawalList extends L2GameServerPacket
 			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); //unconfirmed, works
-			writeCompQ(item.getCount()); //unconfirmed, works
+			writeQ(item.getCount()); //unconfirmed, works
 			writeH(item.getItem().getType2()); // item type2 //unconfirmed, works
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart()); // ?

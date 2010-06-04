@@ -108,10 +108,10 @@ public class ExShowSeedSetting extends L2GameServerPacket
 			writeD((int) _seedData[i * 12 + 6]); // min seed price
 			writeD((int) _seedData[i * 12 + 7]); // max seed price
 
-			writeCompQ(_seedData[i * 12 + 8]); // today sales
-			writeCompQ(_seedData[i * 12 + 9]); // today price
-			writeCompQ(_seedData[i * 12 + 10]); // next sales
-			writeCompQ(_seedData[i * 12 + 11]); // next price
+			writeQ(_seedData[i * 12 + 8]); // today sales
+			writeQ(_seedData[i * 12 + 9]); // today price
+			writeQ(_seedData[i * 12 + 10]); // next sales
+			writeQ(_seedData[i * 12 + 11]); // next price
 		}
 	}
 

@@ -150,7 +150,7 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 		@Override
 		protected void write2(AbstractSystemMessage sm)
 		{
-			sm.writeCompQ(_number);
+			sm.writeQ(_number);
 		}
 	}
 	

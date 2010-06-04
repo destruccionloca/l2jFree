@@ -112,12 +112,12 @@ public class ExShowCropSetting extends L2GameServerPacket
 			writeD((int) _cropData[i * 14 + 6]); // min crop price
 			writeD((int) _cropData[i * 14 + 7]); // max crop price
 
-			writeCompQ(_cropData[i * 14 + 8]); // today buy
-			writeCompQ(_cropData[i * 14 + 9]); // today price
+			writeQ(_cropData[i * 14 + 8]); // today buy
+			writeQ(_cropData[i * 14 + 9]); // today price
 			writeC((int) _cropData[i * 14 + 10]); // today reward
 			
-			writeCompQ(_cropData[i * 14 + 11]); // next buy
-			writeCompQ(_cropData[i * 14 + 12]); // next price
+			writeQ(_cropData[i * 14 + 11]); // next buy
+			writeQ(_cropData[i * 14 + 12]); // next price
 			writeC((int) _cropData[i * 14 + 13]); // next reward
 		}
 	}

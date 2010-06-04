@@ -52,14 +52,14 @@ public class PackageSendableList extends L2GameServerPacket
 		writeC(0xd2);
 
 		writeD(_targetPlayerObjId);
-		writeCompQ(_playerAdena);
+		writeQ(_playerAdena);
 		writeD(_items.size());
 		for (L2ItemInstance item : _items) // format inside the for taken from SellList part use should be about the same
 		{
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-			writeCompQ(item.getCount());
+			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());

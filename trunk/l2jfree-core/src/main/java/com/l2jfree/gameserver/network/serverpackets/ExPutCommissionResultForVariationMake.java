@@ -50,7 +50,7 @@ public class ExPutCommissionResultForVariationMake extends L2GameServerPacket
 		writeH(0x55);
 		writeD(_gemstoneObjId);
 		writeD(_itemId);
-		writeCompQ(_gemstoneCount);
+		writeQ(_gemstoneCount);
 		writeD(_unk1);
 		writeD(_unk2);
 		writeD(_unk3);
