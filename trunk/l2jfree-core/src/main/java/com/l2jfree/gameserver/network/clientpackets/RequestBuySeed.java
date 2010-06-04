@@ -45,8 +45,7 @@ public class RequestBuySeed extends L2GameClientPacket
 {
 	private static final String	_C__C4_REQUESTBUYSEED	= "[C] C4 RequestBuySeed";
 
-	private static final int BATCH_LENGTH = 8; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 12;
+	private static final int BATCH_LENGTH = 12; // length of the one item
 
 	private int					_manorId;
 	private Seed[]				_seeds = null;
@@ -59,7 +58,7 @@ public class RequestBuySeed extends L2GameClientPacket
 		int count = readD();
 		if (count <= 0
 				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+				|| count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -117,7 +116,7 @@ public class RequestBuySeed extends L2GameClientPacket
 
 			if (totalPrice > MAX_ADENA)
 			{
-				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED); 
+				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
 

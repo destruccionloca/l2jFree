@@ -1539,7 +1539,7 @@ public class Quest extends ManagedScript
 		//Send message to client if message not empty
 		if (content != null && player != null)
 		{
-			if (questId > 0 && questId < 20000 && Config.PACKET_FINAL)
+			if (questId > 0 && questId < 20000)
 			{
 				NpcQuestHtmlMessage npcReply = new NpcQuestHtmlMessage(5, questId);
 				npcReply.setHtml(content);

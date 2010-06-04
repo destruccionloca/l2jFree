@@ -175,12 +175,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(_npc.isFlying() ? 1 : 0); // C6
 			writeD(0x00);
 			writeD(0x00);// CT1.5 Pet form and skills
-			if (Config.PACKET_FINAL)
-			{
-				writeC(0x01);
-				writeC(0x01);
-				writeD(_npc.getSpecialEffect());
-			}
+			writeC(0x01);
+			writeC(0x01);
+			writeD(_npc.getSpecialEffect());
 		}
 
 		@Override
@@ -268,12 +265,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);  // C6
 			writeD(0x00);
 			writeD(0);//CT1.5 Pet form and skills
-			if (Config.PACKET_FINAL)
-			{
-				writeC(0x01);
-				writeC(0x01);
-				writeD(0x00);
-			}
+			writeC(0x01);
+			writeC(0x01);
+			writeD(0x00);
 		}
 
 		@Override
@@ -402,12 +396,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);  // C6
 			writeD(0x00);
 			writeD(_form);//CT1.5 Pet form and skills
-			if (Config.PACKET_FINAL)
-			{
-				writeC(0x01);
-				writeC(0x01);
-				writeD(0x00);
-			}
+			writeC(0x01);
+			writeC(0x01);
+			writeD(0x00);
 		}
 
 		@Override
@@ -501,12 +492,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);
 			writeD(0x00);
-			if (Config.PACKET_FINAL)
-			{
-				writeC(0x01);
-				writeC(0x01);
-				writeD(0x00);
-			}
+			writeC(0x01);
+			writeC(0x01);
+			writeD(0x00);
 		}
 
 		@Override

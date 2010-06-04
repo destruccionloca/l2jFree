@@ -39,8 +39,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 
 	private int					_objectID;
 
-	private static final int BATCH_LENGTH = 8; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 12;
+	private static final int BATCH_LENGTH = 12; // length of the one item
 
 	private Item[] _items = null;
 
@@ -51,7 +50,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 		int count = readD();
 		if (count < 0
 				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+				|| count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

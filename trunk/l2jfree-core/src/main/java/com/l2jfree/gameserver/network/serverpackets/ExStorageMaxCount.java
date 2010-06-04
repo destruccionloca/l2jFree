@@ -72,8 +72,7 @@ public class ExStorageMaxCount extends L2GameServerPacket
 		writeD(_privateBuy);
 		writeD(_receipeD);
 		writeD(_recipe);
-		if (Config.PACKET_FINAL)
-			writeD(_inventoryExtraSlots); //belt inventory slots increase count
+		writeD(_inventoryExtraSlots); //belt inventory slots increase count
 	}
 
 	/* (non-Javadoc)

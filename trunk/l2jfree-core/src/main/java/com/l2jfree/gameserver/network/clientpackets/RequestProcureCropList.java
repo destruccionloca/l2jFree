@@ -43,8 +43,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 {
 	private static final String	_C__D0_09_REQUESTPROCURECROPLIST	= "[C] D0:09 RequestProcureCropList";
 
-	private static final int	BATCH_LENGTH						= 16;									// length of the one item
-	private static final int	BATCH_LENGTH_FINAL					= 20;
+	private static final int	BATCH_LENGTH						= 20;									// length of the one item
 
 	private Crop[]				_items								= null;
 
@@ -52,7 +51,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 	protected void readImpl()
 	{
 		int count = readD();
-		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

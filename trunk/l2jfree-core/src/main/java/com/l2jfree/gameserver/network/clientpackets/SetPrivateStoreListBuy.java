@@ -35,8 +35,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 {
 	private static final String	_C__91_SETPRIVATESTORELISTBUY	= "[C] 91 SetPrivateStoreListBuy";
 
-	private static final int	BATCH_LENGTH					= 12;								// length of the one item
-	private static final int	BATCH_LENGTH_FINAL				= 40;
+	private static final int	BATCH_LENGTH					= 40;								// length of the one item
 
 	private Item[]				_items							= null;
 
@@ -44,7 +43,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 	protected void readImpl()
 	{
 		int count = readD();
-		if (count < 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count < 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}
@@ -63,13 +62,12 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 				_items = null;
 				return;
 			}
-			if (Config.PACKET_FINAL)
-			{
-				readC(); // FE
-				readD(); // FF 00 00 00
-				readD(); // 00 00 00 00
-				readB(new byte[7]); // Completely Unknown
-			}
+			
+			readC(); // FE
+			readD(); // FF 00 00 00
+			readD(); // 00 00 00 00
+			readB(new byte[7]); // Completely Unknown
+			
 			_items[i] = new Item(itemId, cnt, price);
 		}
 	}

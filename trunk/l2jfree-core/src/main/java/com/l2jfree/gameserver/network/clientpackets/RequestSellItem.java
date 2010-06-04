@@ -41,8 +41,7 @@ public class RequestSellItem extends L2GameClientPacket
 {
 	private static final String	_C__1E_REQUESTSELLITEM	= "[C] 1E RequestSellItem";
 
-	private static final int	BATCH_LENGTH			= 12;						// length of the one item
-	private static final int	BATCH_LENGTH_FINAL		= 16;
+	private static final int	BATCH_LENGTH			= 16;						// length of the one item
 
 	private int					_listId;
 	private Item[]				_items					= null;
@@ -72,7 +71,7 @@ public class RequestSellItem extends L2GameClientPacket
 	{
 		_listId = readD();
 		int count = readD();
-		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

@@ -32,8 +32,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 {
 	private static final String	_C__B2_RequestRecipeShopListSet	= "[C] b2 RequestRecipeShopListSet";
 
-	private static final int	BATCH_LENGTH					= 8;									// length of the one item
-	private static final int	BATCH_LENGTH_FINAL				= 12;
+	private static final int	BATCH_LENGTH					= 12;									// length of the one item
 
 	private Recipe[]			_items							= null;
 
@@ -41,7 +40,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket
 	protected void readImpl()
 	{
 		int count = readD();
-		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

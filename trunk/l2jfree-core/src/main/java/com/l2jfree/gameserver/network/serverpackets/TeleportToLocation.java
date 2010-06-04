@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 
 /**
@@ -54,11 +53,8 @@ public class TeleportToLocation extends L2GameServerPacket
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
-		if(Config.PACKET_FINAL)
-		{
-			writeD(0x00); // isValidation ??
-			writeD(_heading); // nYaw
-		}
+		writeD(0x00); // isValidation ??
+		writeD(_heading); // nYaw
 	}
 
 	/* (non-Javadoc)

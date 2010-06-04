@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
@@ -77,8 +76,7 @@ public class CharSelected extends L2GameServerPacket
 
 		writeB(new byte[64]);
 
-		if (Config.PACKET_FINAL)
-			writeD(0x00);
+		writeD(0x00);
 	}
 
 	/* (non-Javadoc)

@@ -34,8 +34,7 @@ import com.l2jfree.gameserver.templates.item.L2Item;
 
 public class RequestBuyProcure extends L2GameClientPacket
 {
-	private static final int BATCH_LENGTH = 12; // length of the one item
-	private static final int BATCH_LENGTH_FINAL = 16;
+	private static final int BATCH_LENGTH = 16; // length of the one item
 
 	private static final String	_C__C3_REQUESTBUYPROCURE	= "[C] C3 RequestBuyProcure";
 	//private int _listId;
@@ -49,7 +48,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 		int count = readD();
 		if (count <= 0
 				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+				|| count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

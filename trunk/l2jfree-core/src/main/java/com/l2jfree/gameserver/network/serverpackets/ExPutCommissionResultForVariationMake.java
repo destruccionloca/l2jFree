@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 
 /**
  * Format: (ch)ddddd
@@ -54,8 +53,7 @@ public class ExPutCommissionResultForVariationMake extends L2GameServerPacket
 		writeCompQ(_gemstoneCount);
 		writeD(_unk1);
 		writeD(_unk2);
-		if(Config.PACKET_FINAL)
-			writeD(_unk3);
+		writeD(_unk3);
 	}
 
 	/**

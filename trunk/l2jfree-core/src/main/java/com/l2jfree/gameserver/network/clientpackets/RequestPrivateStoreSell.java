@@ -37,8 +37,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 {
 	private static final String	_C__96_REQUESTPRIVATESTORESELL	= "[C] 96 RequestPrivateStoreSell";
 
-	private static final int	BATCH_LENGTH					= 20;								// length of the one item
-	private static final int	BATCH_LENGTH_FINAL				= 28;
+	private static final int	BATCH_LENGTH					= 28;								// length of the one item
 
 	private int					_storePlayerId;
 	private ItemRequest[]		_items							= null;
@@ -48,7 +47,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 	{
 		_storePlayerId = readD();
 		int count = readD();
-		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

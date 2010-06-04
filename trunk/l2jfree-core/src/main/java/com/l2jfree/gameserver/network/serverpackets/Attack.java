@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -52,7 +51,7 @@ public final class Attack extends L2GameServerPacket
 				return HITFLAG_MISS;
 			int flags = 0;
 			if (soulshot)
-				flags = HITFLAG_USESS | Attack.this._ssGrade;
+				flags = HITFLAG_USESS | _ssGrade;
 			if (crit)
 				flags |= HITFLAG_CRIT;
 			// dirty fix for lags on olympiad
@@ -144,12 +143,9 @@ public final class Attack extends L2GameServerPacket
 			}
 		}
 
-		if (Config.PACKET_FINAL)
-		{
-			writeD(_tx);
-			writeD(_ty);
-			writeD(_tz);
-		}
+		writeD(_tx);
+		writeD(_ty);
+		writeD(_tz);
 	}
 
 	@Override

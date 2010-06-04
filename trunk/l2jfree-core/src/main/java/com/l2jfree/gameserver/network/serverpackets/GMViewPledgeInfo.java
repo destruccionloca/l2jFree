@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -59,8 +58,7 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 		writeS(_clan.getAllyName()); //c2
 		writeD(_clan.getAllyCrestId()); //c2
 		writeD(_clan.isAtWar() ? 1 : 0); //c3
-		if (Config.PACKET_FINAL)
-			writeD(0x00);
+		writeD(0x00);
 		
 		L2ClanMember[] members = _clan.getMembers();
 		writeD(members.length);

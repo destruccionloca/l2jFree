@@ -55,20 +55,17 @@ public final class MultiSellChoose extends L2GameClientPacket
 		_listId = readD();
 		_entryId = readD();
 		_amount = readCompQ();
-		if (Config.PACKET_FINAL)
-		{
-			readH();
-			readD();
-			readD();
-			readH(); // elemental attributes
-			readH();// elemental attributes
-			readH();// elemental attributes
-			readH();// elemental attributes
-			readH();// elemental attributes
-			readH();// elemental attributes
-			readH();// elemental attributes
-			readH();// elemental attributes
-		}
+		readH();
+		readD();
+		readD();
+		readH(); // elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
+		readH();// elemental attributes
 		_enchantment = _entryId % 100000;
 		_entryId = _entryId / 100000;
 		_transactionTax = 0; // initialize tax amount to 0...

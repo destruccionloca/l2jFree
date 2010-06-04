@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellEntry;
 import com.l2jfree.gameserver.model.L2Multisell.MultiSellIngredient;
@@ -58,30 +57,15 @@ public final class MultiSellList extends L2GameServerPacket
 				writeC(ent.stackable());
 				writeH(0x00); // C6
 				writeD(0x00); // C6
-				if (Config.PACKET_FINAL)
-				{
-					writeD(0x00); // T1
-					writeH(65534); // T1
-					writeH(0x00); // T1
-					writeH(0x00); // T1
-					writeH(0x00); // T1
-					writeH(0x00); // T1
-					writeH(0x00); // T1
-					writeH(0x00); // T1
-					writeH(0x00); // T1
-				}
-				else
-				{
-					writeD(-2); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-					writeD(0x00); // T1
-				}
+				writeD(0x00); // T1
+				writeH(65534); // T1
+				writeH(0x00); // T1
+				writeH(0x00); // T1
+				writeH(0x00); // T1
+				writeH(0x00); // T1
+				writeH(0x00); // T1
+				writeH(0x00); // T1
+				writeH(0x00); // T1
 				writeH(ent.getProducts().size());
 				writeH(ent.getIngredients().size());
 				
@@ -107,28 +91,14 @@ public final class MultiSellList extends L2GameServerPacket
 					writeH(i.getEnchantmentLevel()); //enchtant lvl
 					writeD(i.getAugmentId()); // C6
 					writeD(i.getManaLeft()); // C6
-					if (Config.PACKET_FINAL)
-					{
-						writeH(i.getElementId()); // T1 element id
-						writeH(i.getElementVal()); // T1 element power
-						writeH(i.getFireVal()); // T1 fire
-						writeH(i.getWaterVal()); // T1 water
-						writeH(i.getWindVal()); // T1 wind
-						writeH(i.getEarthVal()); // T1 earth
-						writeH(i.getHolyVal()); // T1 holy
-						writeH(i.getDarkVal()); // T1 dark
-					}
-					else
-					{
-						writeD(-2); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-					}
+					writeH(i.getElementId()); // T1 element id
+					writeH(i.getElementVal()); // T1 element power
+					writeH(i.getFireVal()); // T1 fire
+					writeH(i.getWaterVal()); // T1 water
+					writeH(i.getWindVal()); // T1 wind
+					writeH(i.getEarthVal()); // T1 earth
+					writeH(i.getHolyVal()); // T1 holy
+					writeH(i.getDarkVal()); // T1 dark
 				}
 				
 				for (MultiSellIngredient i : ent.getIngredients())
@@ -151,28 +121,14 @@ public final class MultiSellList extends L2GameServerPacket
 					writeH(i.getEnchantmentLevel()); //Enchant Level
 					writeD(i.getAugmentId()); // C6
 					writeD(i.getManaLeft()); // C6
-					if (Config.PACKET_FINAL)
-					{
-						writeH(i.getElementId()); // T1
-						writeH(i.getElementVal()); // T1
-						writeH(i.getFireVal()); // T1
-						writeH(i.getWaterVal()); // T1
-						writeH(i.getWindVal()); // T1
-						writeH(i.getEarthVal()); // T1
-						writeH(i.getHolyVal()); // T1
-						writeH(i.getDarkVal()); // T1
-					}
-					else
-					{
-						writeD(-2); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-						writeD(0x00); // T1
-					}
+					writeH(i.getElementId()); // T1
+					writeH(i.getElementVal()); // T1
+					writeH(i.getFireVal()); // T1
+					writeH(i.getWaterVal()); // T1
+					writeH(i.getWindVal()); // T1
+					writeH(i.getEarthVal()); // T1
+					writeH(i.getHolyVal()); // T1
+					writeH(i.getDarkVal()); // T1
 				}
 			}
 		}

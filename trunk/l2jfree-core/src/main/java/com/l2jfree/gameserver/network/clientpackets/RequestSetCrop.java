@@ -45,8 +45,7 @@ public class RequestSetCrop extends L2GameClientPacket
 {
 	private static final String	_C__D0_0B_REQUESTSETCROP	= "[C] D0:0B RequestSetCrop";
 
-	private static final int	BATCH_LENGTH				= 13;							// length of the one item
-	private static final int	BATCH_LENGTH_FINAL			= 21;							// length of the one item
+	private static final int	BATCH_LENGTH				= 21;							// length of the one item
 
 	private int					_manorId;
 
@@ -57,7 +56,7 @@ public class RequestSetCrop extends L2GameClientPacket
 	{
 		_manorId = readD();
 		int count = readD();
-		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * (Config.PACKET_FINAL ? BATCH_LENGTH_FINAL : BATCH_LENGTH) != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}

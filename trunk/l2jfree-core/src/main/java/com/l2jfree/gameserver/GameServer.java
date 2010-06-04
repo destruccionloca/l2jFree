@@ -291,8 +291,7 @@ public class GameServer extends Config
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();
 		DoorTable.getInstance().setCommanderDoors();
-		if (Config.PACKET_FINAL)
-			AirShipManager.getInstance();
+		AirShipManager.getInstance();
 		// make sure that all the scheduled siege dates are in the Seal Validation period
 		for (Castle castle : CastleManager.getInstance().getCastles().values())
 			castle.getSiege().correctSiegeDateTime();

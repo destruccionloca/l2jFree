@@ -82,11 +82,8 @@ public final class CharInfo extends L2GameServerPacket
 		writePaperdollItemDisplayIds(_inv, false);
 		writePaperdollAugmentationIds(_inv, false);
 		
-		if (Config.PACKET_FINAL)
-		{
-			writeD(0x00);
-			writeD(0x00);
-		}
+		writeD(0x00);
+		writeD(0x00);
 		
 		writeD(_activeChar.getPvpFlag());
 		writeD(_activeChar.getKarma());
@@ -206,14 +203,11 @@ public final class CharInfo extends L2GameServerPacket
 		// T2
 		writeD(0x00);
 		
-		if (Config.PACKET_FINAL)
-		{
-			// T2.3
-			writeD(_activeChar.getSpecialEffect());
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-		}
+		// T2.3
+		writeD(_activeChar.getSpecialEffect());
+		writeD(0x00);
+		writeD(0x00);
+		writeD(0x00);
 	}
 	
 	@Override

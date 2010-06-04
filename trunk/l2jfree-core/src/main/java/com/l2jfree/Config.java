@@ -127,8 +127,6 @@ public class Config extends L2Config
 	public static int			MIN_PROTOCOL_REVISION;																// protocol revision
 	public static int			MAX_PROTOCOL_REVISION;
 	public static File			DATAPACK_ROOT;																		// Datapack root directory
-	public static boolean		PACKET_FINAL;
-	public static boolean		STRICT_FINAL;
 	public static boolean		CONNECTION_FILTERING;
 	// not to be loaded from file
 	public static boolean		DISABLE_ALL_CHAT					= false;
@@ -214,8 +212,6 @@ public class Config extends L2Config
 			SAFE_REBOOT_DISABLE_TRANSACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableTransaction", "False"));
 			SAFE_REBOOT_DISABLE_PC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisablePcIteraction", "False"));
 			SAFE_REBOOT_DISABLE_NPC_ITERACTION = Boolean.parseBoolean(serverSettings.getProperty("SafeRebootDisableNpcIteraction", "False"));
-			PACKET_FINAL = Boolean.parseBoolean(serverSettings.getProperty("PacketFinal", "True"));
-			STRICT_FINAL = Boolean.parseBoolean(serverSettings.getProperty("StrictFinal", "False"));
 			CONNECTION_FILTERING = Boolean.parseBoolean(serverSettings.getProperty("ConnectionFiltering", "True"));
 
 			EXTENDED_LOG_LEVEL = Level.parse(serverSettings.getProperty("ExtendedLogLevel", "OFF"));

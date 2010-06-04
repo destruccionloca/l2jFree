@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.stat.PcStat;
@@ -82,11 +81,8 @@ public final class GMViewCharacterInfo extends L2GameServerPacket
 		writePaperdollObjectIds(_inv, true);
 		writePaperdollItemDisplayIds(_inv, true);
 		
-		if (Config.PACKET_FINAL)
-		{
-			writeD(0); // T3 Unknown
-			writeD(0); // T3 Unknown
-		}
+		writeD(0); // T3 Unknown
+		writeD(0); // T3 Unknown
 		
 		// c6 new h's
 		writeH(0x00);
@@ -142,9 +138,8 @@ public final class GMViewCharacterInfo extends L2GameServerPacket
 		writeH(0x00);
 		writeH(0x00);
 		// end of T1 new h's
-		if (Config.PACKET_FINAL)
-			writeD(0x00); // T3 Unknown
-			
+		writeD(0x00); // T3 Unknown
+		
 		writeD(view.getPAtk());
 		writeD(view.getPAtkSpd());
 		writeD(view.getPDef());

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.network;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.util.LookupTable;
 
@@ -12401,10 +12400,10 @@ public enum SystemMessageId
 	S1S_REMAINING_MANA_IS_NOW_0(1982),
 
 	/**
-	 * ID: 1983<br>
+	 * ID: 1987<br>
 	 * Message: $s1
 	 */
-	S1(Config.PACKET_FINAL ? 1987 : 1983),
+	S1(1987),
 
 	/**
 	 * ID: 1984<br>

@@ -157,8 +157,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 		slots.add(Inventory.PAPERDOLL_DECO4);
 		slots.add(Inventory.PAPERDOLL_DECO5);
 		slots.add(Inventory.PAPERDOLL_DECO6);
-		if (Config.PACKET_FINAL)
-			slots.add(Inventory.PAPERDOLL_BELT); // CT2.3
+		slots.add(Inventory.PAPERDOLL_BELT); // CT2.3
 		
 		return slots.toNativeArray();
 	}

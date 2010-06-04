@@ -36,10 +36,7 @@ public class ProtocolVersion extends L2GameClientPacket
 		readB(b);
 		_log.info(HexUtil.printData(b));
 		*/
-		if (Config.STRICT_FINAL)
-			skip(260);
-		else
-			skipAll();
+		skip(260);
 	}
 
 	@Override

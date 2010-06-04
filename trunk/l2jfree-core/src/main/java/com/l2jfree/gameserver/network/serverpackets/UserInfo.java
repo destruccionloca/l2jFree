@@ -92,11 +92,8 @@ public final class UserInfo extends L2GameServerPacket
 	@Override
 	public void packetSent(L2GameClient client, L2PcInstance activeChar)
 	{
-		if (Config.PACKET_FINAL)
-		{
-			_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
-			_activeChar.sendPacket(new ExVitalityPointInfo(_activeChar.getVitalityPoints()));
-		}
+		_activeChar.sendPacket(new ExBrExtraUserInfo(_activeChar));
+		_activeChar.sendPacket(new ExVitalityPointInfo(_activeChar.getVitalityPoints()));
 	}
 	
 	@Override
@@ -120,7 +117,7 @@ public final class UserInfo extends L2GameServerPacket
 		writeD(view.getY());
 		writeD(view.getZ());
 		// heading from CT2.3 no longer used inside userinfo, here is now vehicle id (boat,airship)
-		writeD((_activeChar.isInAirShip() && Config.PACKET_FINAL) ? _activeChar.getAirShip().getObjectId() : 0x00);
+		writeD(_activeChar.isInAirShip() ? _activeChar.getAirShip().getObjectId() : 0x00);
 		writeD(view.getObjectId());
 		writeS(_appearance.getVisibleName());
 		writeD(_activeChar.getRace().ordinal());
@@ -153,11 +150,8 @@ public final class UserInfo extends L2GameServerPacket
 		writePaperdollItemDisplayIds(_inv, true);
 		writePaperdollAugmentationIds(_inv, true);
 		
-		if (Config.PACKET_FINAL)
-		{
-			writeD(_inv.getMaxTalismanCount()); // CT2.3
-			writeD(_inv.getCloakStatus()); // CT2.3
-		}
+		writeD(_inv.getMaxTalismanCount()); // CT2.3
+		writeD(_inv.getCloakStatus()); // CT2.3
 		
 		writeD(view.getPAtk());
 		writeD(view.getPAtkSpd());
@@ -284,13 +278,10 @@ public final class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getFame()); // Fame
 		writeD(0x01); // Unknown
 		writeD(_activeChar.getVitalityPoints());
-		if (Config.PACKET_FINAL)
-		{
-			writeD(_activeChar.getSpecialEffect());
-			writeD(0x00); // CT2.3
-			writeD(0x00); // CT2.3
-			writeD(0x00); // CT2.3
-		}
+		writeD(_activeChar.getSpecialEffect());
+		writeD(0x00); // CT2.3
+		writeD(0x00); // CT2.3
+		writeD(0x00); // CT2.3
 	}
 	
 	@Override
