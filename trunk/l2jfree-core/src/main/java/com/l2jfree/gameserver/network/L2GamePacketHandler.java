@@ -38,10 +38,10 @@ import com.l2jfree.mmocore.network.IPacketHandler;
  * 
  * @author KenM
  */
-public final class L2GamePacketHandlerFinal implements
+public final class L2GamePacketHandler implements
 	IPacketHandler<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
-	private static final Log _log = LogFactory.getLog(L2GamePacketHandlerFinal.class);
+	private static final Log _log = LogFactory.getLog(L2GamePacketHandler.class);
 	
 	public L2GameClientPacket handlePacket(ByteBuffer buf, L2GameClient client, final int opcode)
 	{

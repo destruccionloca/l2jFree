@@ -49,10 +49,7 @@ public final class L2GameSelectorThread extends SelectorThread<L2GameClient, L2G
 			
 			try
 			{
-				if (Config.PACKET_FINAL)
-					INSTANCE = new L2GameSelectorThread(sc, new L2GamePacketHandlerFinal());
-				else
-					INSTANCE = new L2GameSelectorThread(sc, new L2GamePacketHandler());
+				INSTANCE = new L2GameSelectorThread(sc, new L2GamePacketHandler());
 			}
 			catch (Exception e)
 			{
