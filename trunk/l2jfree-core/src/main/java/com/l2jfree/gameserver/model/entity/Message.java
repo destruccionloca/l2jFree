@@ -15,6 +15,7 @@ import java.util.concurrent.ScheduledFuture;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.idfactory.IdFactory;
+import com.l2jfree.gameserver.instancemanager.MailManager;
 import com.l2jfree.gameserver.model.itemcontainer.Mail;
 import com.l2jfree.tools.random.Rnd;
 
