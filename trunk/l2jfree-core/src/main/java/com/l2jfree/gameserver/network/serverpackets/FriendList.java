@@ -14,70 +14,67 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 /**
+ * Support for "Chat with Friends" dialog. This packet is sent only at login.
+ * Format: cd (dSdd) d:
+ * Total Friend Count d:
+ * Player Object ID S:
+ * Friend Name d:
+ * Online/Offline d:
+ * Unknown (0 if offline)
+ * 
  * @author Tempy
  */
-public final class FriendList extends L2GameServerPacket
+public class FriendList extends L2GameServerPacket
 {
-	private static final String _S__FA_FRIENDLIST = "[S] 75 FriendList";
 	
-	private final List<FriendStatus> _friends = new ArrayList<FriendStatus>();
+	private static final String	_S__FA_FRIENDLIST	= "[S] 75 FriendList";
+	private Set<Integer>		_friends;
 	
-	public FriendList(L2PcInstance owner)
+	// TODO review this
+	public FriendList(L2PcInstance character)
 	{
-		for (Integer objId : owner.getFriendList().getFriendIds())
-			_friends.add(new FriendStatus(objId));
+		_friends = (Set<Integer>) character.getFriendList().getFriendIds();
 	}
 	
-	private static final class FriendStatus
-	{
-		private final int _objId;
-		private final String _name;
-		private final boolean _online;
-		
-		private FriendStatus(int objId)
-		{
-			_objId = objId;
-			_name = CharNameTable.getInstance().getByObjectId(objId);
-			_online = L2World.getInstance().findPlayer(objId) != null;
-		}
-		
-		private int getObjId()
-		{
-			return _objId;
-		}
-		
-		private String getName()
-		{
-			return _name;
-		}
-		
-		private boolean isOnline()
-		{
-			return _online;
-		}
-	}
+	// public void runImpl()
+	// {
+	// if (getClient() != null && getClient().getActiveChar() != null)
+	// {
+	// _activeChar = getClient().getActiveChar();
+	// _friends = _activeChar.getFriendList();
+	// }
+	// }
 	
 	@Override
-	protected void writeImpl()
+	protected final void writeImpl()
 	{
 		writeC(0x75);
-		writeD(_friends.size());
-		
-		for (FriendStatus fs : _friends)
+		if (_friends != null)
 		{
-			writeD(0x00030b7a); // character id
-			writeS(fs.getName());
-			writeD(fs.isOnline() ? 0x01 : 0x00); // online
-			writeD(fs.isOnline() ? fs.getObjId() : 0x00); // object id if online
+			writeD(_friends.size());
+			for (Integer objId : _friends)
+			{
+				String name = CharNameTable.getInstance().getByObjectId(objId);
+				L2PcInstance player = L2World.getInstance().findPlayer(objId);
+				boolean online = false;
+				if (player.isOnline() == 1)
+					online = true;
+				
+				writeD(objId); // character id
+				writeS(name);
+				writeD(online ? 0x01 : 0x00); // online
+				writeD(online ? objId : 0x00); // object id if online
+			}
 		}
+		else
+			writeD(0);
 	}
 	
 	@Override
