@@ -85,6 +85,13 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient, L2
 		}
 	}
 	
+	protected final void writeEnchantEffectInfo()
+	{
+		writeH(0x00); // Enchant effect 1
+		writeH(0x00); // Enchant effect 2
+		writeH(0x00); // Enchant effect 3
+	}
+	
 	protected final void writePlayerElementAttribute(L2PcInstance player)
 	{
 		byte attackAttribute = player.getAttackElement();
