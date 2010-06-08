@@ -14,40 +14,32 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.gameserver.network.serverpackets.PackageSendableList;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.ItemList;
 
-/**
- * Format: (c)d
- * d: char object id (?)
- * @author  -Wooden-
- */
-public final class RequestPackageSendableItemList extends L2GameClientPacket
+public class RequestBuySellUIClose extends L2GameClientPacket
 {
-	private static final String _C_9E_REQUESTPACKAGESENDABLEITEMLIST = "[C] 9E RequestPackageSendableItemList";
-	private int _objectID;
-	
+	private static final String	_C__D0_76_REQUESTBUYSELLUICLOSE	= "[C] D0:76 RequestBuySellUIClose";
 	
 	@Override
-    protected void readImpl()
+	protected void readImpl()
 	{
-		_objectID = readD();
+		// trigger
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
+	
 	@Override
 	protected void runImpl()
 	{
-		sendPacket(new PackageSendableList(getClient().getActiveChar(), _objectID));
+		final L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null || activeChar.isInventoryDisabled())
+			return;
+		
+		activeChar.sendPacket(new ItemList(activeChar, true));
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.BasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{
-		return _C_9E_REQUESTPACKAGESENDABLEITEMLIST;
+		return _C__D0_76_REQUESTBUYSELLUICLOSE;
 	}
 }
