@@ -14,41 +14,28 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
-/**
- * @author Kerberos
- */
-public class ExBrExtraUserInfo extends L2GameServerPacket
+public final class CSShowComBoard extends L2GameServerPacket
 {
-	private final int	_charObjId;
-	private final int	_val;
+	private static final String	_S__6E_SHOWBOARD	= "[S] 7b ShowBoard";
 	
-	protected ExBrExtraUserInfo(L2PcInstance player)
+	private final byte[]		_html;
+	
+	public CSShowComBoard(final byte[] html)
 	{
-		_charObjId = player.getObjectId();
-		_val = player.getAfroHaircutId();
+		_html = html;
 	}
 	
-	/**
-	 * This packet should belong to Quest windows, not UserInfo in T3.
-	 */
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
-		writeC(0xfe);
-		writeH(0xbe);
-		writeD(_charObjId); // object id of player
-		writeD(_val); // afro hair cut
+		writeC(0x7b);
+		writeC(0x01); // c4 1 to show community 00 to hide
+		writeB(_html);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return "[S] FE:8D ExBrExtraUserInfo";
+		return _S__6E_SHOWBOARD;
 	}
 }

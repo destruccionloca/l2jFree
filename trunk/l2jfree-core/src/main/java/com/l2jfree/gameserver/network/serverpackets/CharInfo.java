@@ -26,10 +26,10 @@ import com.l2jfree.gameserver.skills.AbnormalEffect;
 
 public final class CharInfo extends L2GameServerPacket
 {
-	private static final String _S__31_CHARINFO = "[S] 31 CharInfo [dddddsddd dddddddddddd dddddddd hhhh d hhhhhhhhhhhh d hhhh hhhhhhhhhhhhhhhh dddddd dddddddd ffff ddd s ddddd ccccccc h c d c h ddd cc d ccc ddddddddddd]";
+	private static final String	_S__31_CHARINFO	= "[S] 31 CharInfo [dddddsddd dddddddddddd dddddddd hhhh d hhhhhhhhhhhh d hhhh hhhhhhhhhhhhhhhh dddddd dddddddd ffff ddd s ddddd ccccccc h c d c h ddd cc d ccc ddddddddddd]";
 	
-	private final L2PcInstance _activeChar;
-	private final PcLikeView _view;
+	private final L2PcInstance	_activeChar;
+	private final PcLikeView	_view;
 	
 	public CharInfo(L2PcInstance cha)
 	{
@@ -121,16 +121,26 @@ public final class CharInfo extends L2GameServerPacket
 			writeS(_appearance.getVisibleTitle());
 		}
 		
-		writeD(_activeChar.getClanId());
-		writeD(_activeChar.getClanCrestId());
-		writeD(_activeChar.getAllyId());
-		writeD(_activeChar.getAllyCrestId());
+		if (!_activeChar.isCursedWeaponEquipped())
+		{
+			writeD(_activeChar.getClanId());
+			writeD(_activeChar.getClanCrestId());
+			writeD(_activeChar.getAllyId());
+			writeD(_activeChar.getAllyCrestId());
+		}
+		else
+		{
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+		}
 		// In UserInfo leader rights and siege flags, but here found nothing??
 		// Therefore RelationChanged packet with that info is required
 		writeD(0);
 		
-		writeC(_activeChar.isSitting() ? 0 : 1); // standing = 1  sitting = 0
-		writeC(_activeChar.isRunning() ? 1 : 0); // running = 1   walking = 0
+		writeC(_activeChar.isSitting() ? 0 : 1); // standing = 1 sitting = 0
+		writeC(_activeChar.isRunning() ? 1 : 0); // running = 1 walking = 0
 		writeC(_activeChar.isInCombat() ? 1 : 0);
 		writeC(_activeChar.isAlikeDead() ? 1 : 0);
 		
@@ -138,7 +148,7 @@ public final class CharInfo extends L2GameServerPacket
 		writeC(0);
 		
 		writeC(_activeChar.getMountType()); // 1-on Strider, 2-on Wyvern, 3-on Great Wolf, 0-no mount
-		writeC(_activeChar.getPrivateStoreType()); //  1 - sellshop
+		writeC(_activeChar.getPrivateStoreType()); // 1 - sellshop
 		
 		writeH(_activeChar.getCubics().size());
 		for (int id : _activeChar.getCubics().keySet())
@@ -156,25 +166,25 @@ public final class CharInfo extends L2GameServerPacket
 		}
 		
 		writeC(_activeChar.isFlying() ? 2 : 0);
-		writeH(_activeChar.getEvalPoints()); //Blue value for name (0 = white, 255 = pure blue)
+		writeH(_activeChar.getEvalPoints()); // Blue value for name (0 = white, 255 = pure blue)
 		writeD(_activeChar.getMountNpcId() + 1000000);
 		
 		writeD(_activeChar.getClassId().getId());
-		writeD(0x00); //?
+		writeD(0x00); // ?
 		writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
 		
 		if (_activeChar.getTeam() == 1)
-			writeC(0x01); //team circle around feet 1= Blue, 2 = red
+			writeC(0x01); // team circle around feet 1= Blue, 2 = red
 		else if (_activeChar.getTeam() == 2)
-			writeC(0x02); //team circle around feet 1= Blue, 2 = red
+			writeC(0x02); // team circle around feet 1= Blue, 2 = red
 		else
-			writeC(0x00); //team circle around feet 1= Blue, 2 = red
+			writeC(0x00); // team circle around feet 1= Blue, 2 = red
 			
 		writeD(_activeChar.getClanCrestLargeId());
 		writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
 		writeC((_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
 		
-		writeC(_activeChar.isFishing() ? 1 : 0); //0x01: Fishing Mode (Cant be undone by setting back to 0)
+		writeC(_activeChar.isFishing() ? 1 : 0); // 0x01: Fishing Mode (Cant be undone by setting back to 0)
 		writeD(_activeChar.getFishx());
 		writeD(_activeChar.getFishy());
 		writeD(_activeChar.getFishz());
@@ -225,10 +235,11 @@ public final class CharInfo extends L2GameServerPacket
 		if (_view instanceof DecoyView)
 		{
 			// owner
-			//if (_activeChar == activeChar)
-			//	return true;
+			// if (_activeChar == activeChar)
+			// return true;
 		}
-		else //if (_view instanceof PcView)
+		else
+		// if (_view instanceof PcView)
 		{
 			// self
 			if (_activeChar == activeChar)

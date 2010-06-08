@@ -14,41 +14,29 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-
 /**
- * @author Kerberos
+ * @author JIV
  */
-public class ExBrExtraUserInfo extends L2GameServerPacket
+public class ExEnchantSkillResult extends L2GameServerPacket
 {
-	private final int	_charObjId;
-	private final int	_val;
+	private final boolean	_enchanted;
 	
-	protected ExBrExtraUserInfo(L2PcInstance player)
+	public ExEnchantSkillResult(boolean enchanted)
 	{
-		_charObjId = player.getObjectId();
-		_val = player.getAfroHaircutId();
+		_enchanted = enchanted;
 	}
 	
-	/**
-	 * This packet should belong to Quest windows, not UserInfo in T3.
-	 */
-	@Override
-	protected final void writeImpl()
-	{
-		writeC(0xfe);
-		writeH(0xbe);
-		writeD(_charObjId); // object id of player
-		writeD(_val); // afro hair cut
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return "[S] FE:8D ExBrExtraUserInfo";
+		return "[S] FE:A7 ExEnchantSkillResult";
+	}
+	
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0xa7);
+		writeD(_enchanted ? 1 : 0);
 	}
 }

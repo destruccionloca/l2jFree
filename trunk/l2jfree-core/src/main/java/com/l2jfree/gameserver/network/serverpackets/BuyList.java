@@ -22,12 +22,12 @@ import com.l2jfree.gameserver.model.L2TradeList;
 
 public final class BuyList extends L2GameServerPacket
 {
-	private static final String	_S__07_BUYLIST	= "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
-	private final int					_listId;
+	private static final String		_S__07_BUYLIST	= "[S] 07 BuyList [ddh (hdddhhdhhhdddddddd)]";
+	private final int				_listId;
 	private final L2ItemInstance[]	_list;
 	private final long				_money;
-	private double				_taxRate		= 1.;
-
+	private double					_taxRate		= 1.;
+	
 	public BuyList(L2TradeList list, long currentMoney)
 	{
 		_listId = list.getListId();
@@ -35,7 +35,7 @@ public final class BuyList extends L2GameServerPacket
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
 	}
-
+	
 	public BuyList(L2TradeList list, long currentMoney, double taxRate)
 	{
 		_listId = list.getListId();
@@ -44,14 +44,17 @@ public final class BuyList extends L2GameServerPacket
 		_money = currentMoney;
 		_taxRate = taxRate;
 	}
-
+	
 	public BuyList(List<L2ItemInstance> lst, int listId, long currentMoney)
 	{
 		_listId = listId;
 		_list = lst.toArray(new L2ItemInstance[lst.size()]);
 		_money = currentMoney;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
+	 */
 	@Override
 	protected final void writeImpl()
 	{
@@ -60,7 +63,7 @@ public final class BuyList extends L2GameServerPacket
 		writeQ(_money);
 		writeD(_listId);
 		writeH(_list.length);
-
+		
 		for (L2ItemInstance item : _list)
 		{
 			if (item.getCount() > 0 || item.getCount() == -1)
@@ -75,18 +78,18 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getEnchantLevel()); // enchant level
 				writeH(item.getCustomType2()); // custom type2
 				writeH(0x00);
-				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
+				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)// Config.RATE_SIEGE_GUARDS_PRICE-//'
 					writeQ((long) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * _taxRate));
 				else
 					writeQ((long) (item.getPriceToSell() * _taxRate));
 				writeElementalInfo(item);
+				writeEnchantEffectInfo();
 			}
 		}
 	}
-
+	
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

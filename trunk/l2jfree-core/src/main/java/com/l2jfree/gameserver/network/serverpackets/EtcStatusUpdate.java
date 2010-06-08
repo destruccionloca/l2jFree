@@ -23,37 +23,32 @@ import com.l2jfree.gameserver.network.L2GameClient;
  */
 public final class EtcStatusUpdate extends StaticPacket
 {
-	private static final String _S__F9_ETCSTATUSUPDATE = "[S] f9 EtcStatusUpdate [dddddddd]";
+	private static final String			_S__F9_ETCSTATUSUPDATE	= "[S] f9 EtcStatusUpdate [dddddddd]";
 	
-	public static final EtcStatusUpdate STATIC_PACKET = new EtcStatusUpdate();
+	public static final EtcStatusUpdate	STATIC_PACKET			= new EtcStatusUpdate();
 	
 	private EtcStatusUpdate()
 	{
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		if (activeChar == null)
 			return;
 		
-		writeC(0xF9); //several icons to a separate line (0 = disabled)
+		writeC(0xF9); // several icons to a separate line (0 = disabled)
 		writeD(activeChar.getCharges());
 		writeD(activeChar.getWeightPenalty());
 		writeD(activeChar.getMessageRefusal() || activeChar.isChatBanned() ? 1 : 0);
 		writeD(activeChar.isInsideZone(L2Zone.FLAG_DANGER) ? 1 : 0);
-		writeD(activeChar.getExpertisePenalty());
+		writeD(activeChar.getExpertiseWeaponPenalty()); // Weapon Grade Penalty [1-4]
+		writeD(activeChar.getExpertiseArmorPenalty()); // Armor Grade Penalty [1-4]
 		writeD(activeChar.getCharmOfCourage() ? 1 : 0); // 1 = charm of courage (allows resurrection on the same spot upon death on the siege battlefield)
 		writeD(activeChar.getDeathPenaltyBuffLevel());
 		writeD(activeChar.getSouls());
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
