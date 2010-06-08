@@ -27,7 +27,7 @@ import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
  */
 public final class BuyListSeed extends L2GameServerPacket
 {
-	private static final String	_S__E8_BUYLISTSEED	= "[S] e9 BuyListSeed";
+	private static final String	_S__E9_BUYLISTSEED	= "[S] e9 BuyListSeed";
 	
 	private final int			_manorId;
 	private List<Seed>			_list				= null;
@@ -80,7 +80,7 @@ public final class BuyListSeed extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__E8_BUYLISTSEED;
+		return _S__E9_BUYLISTSEED;
 	}
 	
 	private class Seed
