@@ -20,13 +20,13 @@ import com.l2jfree.lang.Replaceable;
 
 public final class NpcHtmlMessage extends AbstractNpcHtmlMessage
 {
-	private static final String _S__1B_NPCHTMLMESSAGE = "[S] 0f NpcHtmlMessage";
+	private static final String	_S__1B_NPCHTMLMESSAGE	= "[S] 0f NpcHtmlMessage";
 	
 	// d S
 	// d is usually 0, S is the html text starting with <html> and ending with </html>
-	private final int _npcObjId;
-	private Replaceable _replaceable;
-	private int _itemId = 0;
+	private final int			_npcObjId;
+	private Replaceable			_replaceable;
+	private int					_itemId					= 0;
 	
 	public NpcHtmlMessage(int npcObjId, int itemId)
 	{

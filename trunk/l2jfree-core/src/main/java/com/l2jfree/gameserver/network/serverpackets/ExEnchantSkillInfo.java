@@ -14,104 +14,97 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.List;
+
 import javolution.util.FastList;
 
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
-import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
 
 public final class ExEnchantSkillInfo extends L2GameServerPacket
 {
-    private static final String _S__FE_18_EXENCHANTSKILLINFO = "[S] FE:2a ExEnchantSkillInfo";
-    private final FastList<SkillEnchantDetailElement> _routes;
-    
-    private final int _id;
-    private final EnchantSkillType _type;
-    private final int _xpSpCostMultiplier;
-    
-    public ExEnchantSkillInfo(EnchantSkillType type, int id)
-    {
-        _routes = new FastList<SkillEnchantDetailElement>();
-        _id = id;
-        _type = type;
-        _xpSpCostMultiplier = (type == EnchantSkillType.SAFE ? SkillTreeTable.SAFE_ENCHANT_COST_MULTIPLIER : SkillTreeTable.NORMAL_ENCHANT_COST_MULTIPLIER);
-    }
-    
-    private static class SkillEnchantDetailElement
-    {
-        public final int _level;
-        public final int _rate;
-        public final int _spCost;
-        public final int _expCost;
-        
-        public SkillEnchantDetailElement(int level, int rate, int spCost, int expCost)
-        {
-            _level = level;
-            _rate = rate;
-            _spCost = spCost;
-            _expCost = expCost;
-        }
-        
-        public SkillEnchantDetailElement(L2PcInstance cha, EnchantSkillDetail esd)
-        {
-            this(esd.getLevel(), esd.getRate(cha), esd.getSpCost(), esd.getExp());
-        }
-        
-        public SkillEnchantDetailElement(int rate, EnchantSkillDetail esd)
-        {
-            this(esd.getLevel(), rate, esd.getSpCost(), esd.getExp());
-        }
-    }
-
-    
-    public void addEnchantSkillDetail(L2PcInstance cha, EnchantSkillDetail esd)
-    {
-        _routes.add(new SkillEnchantDetailElement(cha, esd));
-    }
-    
-    public void addEnchantSkillDetail(int rate, EnchantSkillDetail esd)
-    {
-        _routes.add(new SkillEnchantDetailElement(rate, esd));
-    }
-    
-    public void addEnchantSkillDetail(int level, int rate, int spCost, int expCost)
-    {
-        _routes.add(new SkillEnchantDetailElement(level, rate, spCost, expCost));
-    }
-
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x2a);
-
-        writeD(_type.ordinal()); // safe enchant
-        writeD(_routes.size());
-        
-        for (SkillEnchantDetailElement sede : _routes)
-        {
-            writeD(_id);
-            writeD(sede._level);
-            writeD(sede._rate);
-            writeD(sede._spCost * _xpSpCostMultiplier);
-            writeQ(sede._expCost * _xpSpCostMultiplier);
-            writeQ(0); // required item count
-            writeD(0); // req type?
-            writeD(0); // required itemId
-            writeD(0); // ?
-        }
-    }
-
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__FE_18_EXENCHANTSKILLINFO;
-    }
+	private static final String	_S__FE_18_EXENCHANTSKILLINFO	= "[S] FE:2a ExEnchantSkillInfo";
+	private FastList<Integer>	_routes;															// skill lvls for each route
+																									
+	private final int			_id;
+	private final int			_lvl;
+	private boolean				_maxEnchanted					= false;
+	
+	public ExEnchantSkillInfo(int id, int lvl)
+	{
+		_routes = new FastList<Integer>();
+		_id = id;
+		_lvl = lvl;
+		
+		L2EnchantSkillLearn enchantLearn = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_id);
+		// do we have this skill?
+		if (enchantLearn != null)
+		{
+			// skill already enchanted?
+			if (_lvl > 100)
+			{
+				int route = (_lvl / 100) - 1;
+				if (_lvl % 100 >= enchantLearn.getEnchantRoutes()[route].size())
+					_maxEnchanted = true;
+				
+				// get detail for next level
+				EnchantSkillDetail esd = enchantLearn.getEnchantSkillDetail(_lvl);
+				
+				// if it exists add it
+				if (esd != null)
+				{
+					_routes.add(esd.getLevel()); // current enchant add firts
+				}
+				
+				int diff = (_lvl % 100) - 1; // indexed form 0
+				
+				for (List<EnchantSkillDetail> esd1 : enchantLearn.getEnchantRoutes())
+				{
+					if (esd1 == null)
+						continue;
+					if (esd1.get(0).getLevel() == _lvl) // skip current
+						continue;
+					// add other levels of all routes - same lvl as enchanted
+					// lvl
+					_routes.add(esd1.get(diff).getLevel());
+				}
+				
+			}
+			else
+			// not already enchanted
+			{
+				for (List<EnchantSkillDetail> esd : enchantLearn.getEnchantRoutes())
+				{
+					if (esd == null)
+						continue;
+					// add first level (+1) of all routes
+					_routes.add(esd.get(0).getLevel());
+				}
+			}
+		}
+	}
+	
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x2a);
+		writeD(_id);
+		writeD(_lvl);
+		writeD(_maxEnchanted ? 0 : 1);
+		writeD(_lvl > 100 ? 1 : 0); // enchanted?
+		writeD(_routes.size());
+		
+		for (Integer level : _routes)
+		{
+			writeD(level);
+		}
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _S__FE_18_EXENCHANTSKILLINFO;
+	}
 }

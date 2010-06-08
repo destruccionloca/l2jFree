@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.lang.Replaceable;
 
 /**
- *
  * the HTML parser in the client knowns these standard and non-standard tags and attributes
  * VOLUMN
  * UNKNOWN
@@ -118,15 +117,12 @@ import com.l2jfree.lang.Replaceable;
  * LINK
  * HREF
  * ACTION
- *
- *
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
 public final class NpcQuestHtmlMessage extends L2GameServerPacket
 {
-	private final int _npcObjId;
-	private Replaceable _replaceable;
-	private int _questId = 0;
+	private final int	_npcObjId;
+	private Replaceable	_replaceable;
+	private int			_questId	= 0;
 	
 	/**
 	 * @param npcObjId
@@ -200,9 +196,6 @@ public final class NpcQuestHtmlMessage extends L2GameServerPacket
 		writeD(_questId);
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
