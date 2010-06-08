@@ -14,15 +14,16 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class GMViewSkillInfo extends L2GameServerPacket
 {
-	private static final String _S__91_GMViewSkillInfo = "[S] 91 GMViewSkillInfo";
+	private static final String	_S__91_GMViewSkillInfo	= "[S] 91 GMViewSkillInfo";
 	
-	private final L2PcInstance _activeChar;
-	private final L2Skill[] _skills;
+	private final L2PcInstance	_activeChar;
+	private final L2Skill[]		_skills;
 	
 	public GMViewSkillInfo(L2PcInstance activeChar)
 	{
@@ -37,12 +38,19 @@ public final class GMViewSkillInfo extends L2GameServerPacket
 		writeS(_activeChar.getName());
 		writeD(_skills.length);
 		
+		boolean isDisabled = false;
+		L2Clan clan = _activeChar.getClan();
+		if (clan != null)
+			isDisabled = clan.getReputationScore() < 0;
+		
 		for (L2Skill skill : _skills)
 		{
 			writeD(skill.isPassive() ? 1 : 0);
 			writeD(skill.getLevel());
 			writeD(skill.getDisplayId());
-			writeC(0x00); //c5
+			// FIXME
+			writeC(/* isDisabled && skill.isClanSkill() ? 1 : */0);
+			writeC(skill.isEnchantable());
 		}
 	}
 	

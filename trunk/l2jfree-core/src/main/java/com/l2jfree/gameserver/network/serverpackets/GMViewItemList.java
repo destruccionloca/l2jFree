@@ -17,20 +17,13 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-
-/**
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class GMViewItemList extends L2GameServerPacket
 {
-	private static final String _S__AD_GMVIEWITEMLIST = "[S] 94 GMViewItemList";
-	private final L2ItemInstance[] _items;
-	private final L2PcInstance _cha;
-	private final String _playerName;
-
-
-
+	private static final String		_S__AD_GMVIEWITEMLIST	= "[S] 94 GMViewItemList";
+	private final L2ItemInstance[]	_items;
+	private final L2PcInstance		_cha;
+	private final String			_playerName;
+	
 	public GMViewItemList(L2PcInstance cha)
 	{
 		_items = cha.getInventory().getItems();
@@ -51,7 +44,7 @@ public class GMViewItemList extends L2GameServerPacket
 		{
 			if (temp == null || temp.getItem() == null)
 				continue;
-
+			
 			writeH(temp.getItem().getType1());
 			
 			writeD(temp.getObjectId());
@@ -73,17 +66,15 @@ public class GMViewItemList extends L2GameServerPacket
 				writeD(0x00);
 			}
 			writeD(temp.getMana());
-
+			
 			// T1
 			writeElementalInfo(temp);
 			// T2
 			writeD(temp.isTimeLimitedItem() ? (int) (temp.getRemainingTime() / 1000) : -1);
+			writeEnchantEffectInfo();
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

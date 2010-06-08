@@ -16,21 +16,15 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 
-/**
- * Sdh(h dddhh [dhhh] d) Sdh ddddd ddddd ddddd ddddd
- * 
- * @version $Revision: 1.1.2.1.2.5 $ $Date: 2007/11/26 16:10:05 $
- */
 public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 {
-	private static final String	_S__95_GMViewWarehouseWithdrawList	= "[S] 95 GMViewWarehouseWithdrawList";
+	private static final String		_S__95_GMViewWarehouseWithdrawList	= "[S] 95 GMViewWarehouseWithdrawList";
 	private final L2ItemInstance[]	_items;
-	private final String				_playerName;
+	private final String			_playerName;
 	private final L2PcInstance		_activeChar;
 	private final long				_money;
-
+	
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{
 		_activeChar = cha;
@@ -38,7 +32,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 		_playerName = _activeChar.getName();
 		_money = _activeChar.getAdena();
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -46,51 +40,41 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 		writeS(_playerName);
 		writeQ(_money);
 		writeH(_items.length);
-
+		
 		for (L2ItemInstance item : _items)
 		{
 			writeH(item.getItem().getType1());
-
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
 			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
-			if (item.getItem().isEquipable())
+			
+			writeD(item.getItem().getBodyPart());
+			writeH(item.getEnchantLevel());
+			writeH(0x00);
+			writeH(item.getCustomType2());
+			writeD(item.getObjectId());
+			
+			if (item.isAugmented())
 			{
-				writeD(item.getItem().getBodyPart());
-				writeH(item.getEnchantLevel());
-
-				if (item.getItem() instanceof L2Weapon)
-				{
-					writeH(((L2Weapon) item.getItem()).getSoulShotCount());
-					writeH(((L2Weapon) item.getItem()).getSpiritShotCount());
-				}
-				else
-				{
-					writeH(0x00);
-					writeH(0x00);
-				}
-
-				if (item.isAugmented())
-				{
-					writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
-					writeD(item.getAugmentation().getAugmentationId() >> 16);
-				}
-				else
-				{
-					writeQ(0);
-				}
-				writeD(item.getObjectId());
-				writeElementalInfo(item);
+				writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
+				writeD(item.getAugmentation().getAugmentationId() >> 16);
 			}
-
+			else
+			{
+				writeQ(0);
+			}
+			writeD(item.getObjectId());
+			writeElementalInfo(item);
+			
 			writeD(item.getMana());
 			// T2
 			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1);
+			writeEnchantEffectInfo();
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{

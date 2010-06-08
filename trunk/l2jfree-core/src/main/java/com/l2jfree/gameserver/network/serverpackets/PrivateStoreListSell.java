@@ -17,11 +17,6 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.2.2.3.2.6 $ $Date: 2005/03/27 15:29:57 $
- */
 public class PrivateStoreListSell extends L2GameServerPacket
 {
 	private static final String			_S__B4_PRIVATESTORELISTSELL	= "[S] 9b PrivateStoreListSell";
@@ -29,7 +24,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 	private final long					_playerAdena;
 	private final boolean				_packageSale;
 	private final TradeList.TradeItem[]	_items;
-
+	
 	// player's private shop
 	public PrivateStoreListSell(L2PcInstance player, L2PcInstance storePlayer)
 	{
@@ -38,7 +33,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		_items = storePlayer.getSellList().getItems();
 		_packageSale = storePlayer.getSellList().isPackaged();
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -46,7 +41,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		writeD(_objId);
 		writeD(_packageSale ? 1 : 0);
 		writeQ(_playerAdena);
-
+		
 		writeD(_items.length);
 		for (TradeList.TradeItem item : _items)
 		{
@@ -58,16 +53,14 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeH(item.getEnchant());
 			writeH(item.getCustomType2());
 			writeD(item.getItem().getBodyPart());
-			writeQ(item.getPrice()); //your price
-			writeQ(item.getItem().getReferencePrice()); //store price
-
-			writeElementalInfo(item); //8x h or d
+			writeQ(item.getPrice()); // your price
+			writeQ(item.getItem().getReferencePrice()); // store price
+			
+			writeElementalInfo(item); // 8x h or d
+			writeEnchantEffectInfo();
 		}
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

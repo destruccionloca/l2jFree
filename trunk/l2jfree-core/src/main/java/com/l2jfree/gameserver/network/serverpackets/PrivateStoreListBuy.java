@@ -17,19 +17,14 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.7.2.2.2.3 $ $Date: 2005/03/27 15:29:39 $
- */
 public class PrivateStoreListBuy extends L2GameServerPacket
 {
-	//	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
-	private static final String		_S__BE_PRIVATESTORELISTBUY	= "[S] be PrivateStoreListBuy";
-	private final int						_objId;
+	// private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
+	private static final String			_S__BE_PRIVATESTORELISTBUY	= "[S] be PrivateStoreListBuy";
+	private final int					_objId;
 	private final long					_playerAdena;
 	private final TradeList.TradeItem[]	_items;
-
+	
 	public PrivateStoreListBuy(L2PcInstance player, L2PcInstance storePlayer)
 	{
 		_objId = storePlayer.getObjectId();
@@ -37,38 +32,34 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 		storePlayer.getSellList().updateItems(); // Update SellList for case inventory content has changed
 		_items = storePlayer.getBuyList().getAvailableItems(player.getInventory());
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xbe);
 		writeD(_objId);
 		writeQ(_playerAdena);
-
+		
 		writeD(_items.length);
-
+		
 		for (TradeList.TradeItem item : _items)
 		{
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
 			writeH(item.getEnchant());
-			writeQ(item.getCount()); //give max possible sell amount
+			writeQ(item.getCount()); // give max possible sell amount
 			writeQ(item.getItem().getReferencePrice());
 			writeH(0);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-			writeQ(item.getPrice());//buyers price
+			writeQ(item.getPrice());// buyers price
 			writeQ(item.getStoreCount()); // maximum possible tradecount
-
-			writeElementalInfo(item); //8x h or d
+			
+			writeElementalInfo(item); // 8x h or d
+			writeEnchantEffectInfo();
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{
