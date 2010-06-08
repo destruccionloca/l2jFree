@@ -78,7 +78,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	/** Enumeration of locations for item */
 	public static enum ItemLocation
 	{
-		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, FREIGHT, NPC
+		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, NPC, REFUND, MAIL
 	}
 	
 	/** ID of the owner */
@@ -375,7 +375,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public int getLocationSlot()
 	{
 		if (Config.ASSERT)
-			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.FREIGHT || _loc == ItemLocation.INVENTORY;
+			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.REFUND || _loc == ItemLocation.INVENTORY;
 		
 		return _locData;
 	}

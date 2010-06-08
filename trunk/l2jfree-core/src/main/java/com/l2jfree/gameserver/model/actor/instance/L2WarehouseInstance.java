@@ -316,7 +316,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("WithdrawF"))
 		{
-			if (Config.ALLOW_FREIGHT)
+			if (Config.ALLOW_REFUND)
 			{
 				if (Config.ENABLE_WAREHOUSESORTING_FREIGHT)
 				{
@@ -340,7 +340,7 @@ public final class L2WarehouseInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("WithdrawSortedF"))
 		{
-			if (Config.ALLOW_FREIGHT)
+			if (Config.ALLOW_REFUND)
 			{
 				if (param.length > 2)
 					showWithdrawWindowFreight(player, WarehouseListType.valueOf(param[1]), SortedWareHouseWithdrawalList.getOrder(param[2]));
@@ -352,14 +352,14 @@ public final class L2WarehouseInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("DepositF"))
 		{
-			if (Config.ALLOW_FREIGHT)
+			if (Config.ALLOW_REFUND)
 			{
 				showDepositWindowFreight(player);
 			}
 		}
 		else if (command.startsWith("FreightChar"))
 		{
-			if (Config.ALLOW_FREIGHT && param.length > 1)
+			if (Config.ALLOW_REFUND && param.length > 1)
 				showDepositWindowFreight(player, Integer.parseInt(param[1]));
 		}
 		else

@@ -17361,6 +17361,342 @@ public enum SystemMessageId
 	 * Console Message: $2 unit(s) of the item $s1% is required.
 	 */
 	S2_UNITS_OF_S1_REQUIRED(2961),
+	/**
+	 * ID: 2966<br>
+	 * Message: This is a Payment Request transaction. Please attach the item.
+	 */
+	PAYMENT_REQUEST_NO_ITEM(2966),
+	
+	/**
+	 * ID: 2968<br>
+	 * Message: The mail limit (240) has been exceeded and this cannot be forwarded.
+	 */
+	CANT_FORWARD_MAIL_LIMIT_EXCEEDED(2968),
+	
+	/**
+	 * ID: 2969<br>
+	 * Message: The previous mail was forwarded less than 1 minute ago and this cannot be forwarded.
+	 */
+	CANT_FORWARD_LESS_THAN_MINUTE(2969),
+	
+	/**
+	 * ID: 2970<br>
+	 * Message: You cannot forward in a non-peace zone.
+	 */
+	CANT_FORWARD_NOT_IN_PEACE_ZONE(2970),
+	
+	/**
+	 * ID: 2971<br>
+	 * Message: You cannot forward during exchange.
+	 */
+	CANT_FORWARD_DURING_EXCHANGE(2971),
+	
+	/**
+	 * ID: 2972<br>
+	 * Message: You cannot forward because the private shop or workshop is in progress.
+	 */
+	CANT_FORWARD_PRIVATE_STORE(2972),
+	
+	/**
+	 * ID: 2973<br>
+	 * Message: You cannot forward during an item enhancement or attribute enhancement.
+	 */
+	CANT_FORWARD_DURING_ENCHANT(2973),
+	
+	/**
+	 * ID: 2974<br>
+	 * Message: The item that you're trying to send cannot be forwarded because it isn't proper.
+	 */
+	CANT_FORWARD_BAD_ITEM(2974),
+	
+	/**
+	 * ID: 2975<br>
+	 * Message: You cannot forward because you don't have enough adena.
+	 */
+	CANT_FORWARD_NO_ADENA(2975),
+	
+	/**
+	 * ID: 2976<br>
+	 * Message: You cannot receive in a non-peace zone location.
+	 */
+	CANT_RECEIVE_NOT_IN_PEACE_ZONE(2976),
+	
+	/**
+	 * ID: 2977<br>
+	 * Message: You cannot receive during an exchange.
+	 */
+	CANT_RECEIVE_DURING_EXCHANGE(2977),
+	
+	/**
+	 * ID: 2978<br>
+	 * Message: You cannot receive because the private shop or workshop is in progress.
+	 */
+	CANT_RECEIVE_PRIVATE_STORE(2978),
+	
+	/**
+	 * ID: 2979<br>
+	 * Message: You cannot receive during an item enhancement or attribute enhancement.
+	 */
+	CANT_RECEIVE_DURING_ENCHANT(2979),
+	
+	/**
+	 * ID: 2980<br>
+	 * Message: You cannot receive because you don't have enough adena.
+	 */
+	CANT_RECEIVE_NO_ADENA(2980),
+	
+	/**
+	 * ID: 2981<br>
+	 * Message: You cannot receive because your inventory is full.
+	 */
+	CANT_RECEIVE_INVENTORY_FULL(2981),
+	
+	/**
+	 * ID: 2982<br>
+	 * Message: You cannot cancel in a non-peace zone location.
+	 */
+	CANT_CANCEL_NOT_IN_PEACE_ZONE(2982),
+	
+	/**
+	 * ID: 2983<br>
+	 * Message: You cannot cancel during an exchange.
+	 */
+	CANT_CANCEL_DURING_EXCHANGE(2983),
+	
+	/**
+	 * ID: 2984<br>
+	 * Message: You cannot cancel because the private shop or workshop is in progress.
+	 */
+	CANT_CANCEL_PRIVATE_STORE(2984),
+	
+	/**
+	 * ID: 2985<br>
+	 * Message: You cannot cancel during an item enhancement or attribute enhancement.
+	 */
+	CANT_CANCEL_DURING_ENCHANT(2985),
+	
+	/**
+	 * ID: 2988<br>
+	 * Message: You could not cancel receipt because your inventory is full.
+	 */
+	CANT_CANCEL_INVENTORY_FULL(2988),
+	
+	/**
+	 * ID: 3002<br>
+	 * Message: When the recipient doesn't exist or the character is deleted, sending mail is not possible.
+	 */
+	RECIPIENT_NOT_EXIST(3002),
+	
+	/**
+	 * ID: 3008<br>
+	 * Message: The mail has arrived.
+	 */
+	MAIL_ARRIVED(3008),
+	
+	/**
+	 * ID: 3009<br>
+	 * Message: Mail successfully sent.
+	 */
+	MAIL_SUCCESSFULLY_SENT(3009),
+	
+	/**
+	 * ID: 3010<br>
+	 * Message: Mail successfully returned.
+	 */
+	MAIL_SUCCESSFULLY_RETURNED(3010),
+	
+	/**
+	 * ID: 3011<br>
+	 * Message: Mail successfully cancelled.
+	 */
+	MAIL_SUCCESSFULLY_CANCELLED(3011),
+	
+	/**
+	 * ID: 3012<br>
+	 * Message: Mail successfully received.
+	 */
+	MAIL_SUCCESSFULLY_RECEIVED(3012),
+	
+	/**
+	 * ID: 3013<br>
+	 * Message: $c1 has successfuly enchanted a +$s2 $s3.
+	 */
+	C1_SUCCESSFULY_ENCHANTED_A_S2_S3(3013),
+	
+	/**
+	 * ID: 3014<br>
+	 * Message: Do you wish to erase the selected mail ?
+	 */
+	DO_YOU_WISH_TO_ERASE_MAIL(3014),
+	
+	/**
+	 * ID: 3015<br>
+	 * Message: Please select the mail to be deleted.
+	 */
+	PLEASE_SELECT_MAIL_TO_BE_DELETED(3015),
+	
+	/**
+	 * ID: 3016<br>
+	 * Message: Item selection is possible up to 8.
+	 */
+	ITEM_SELECTION_POSSIBLE_UP_TO_8(3016),
+	
+	/**
+	 * ID: 3019<br>
+	 * Message: You cannot send mail to yourself.
+	 */
+	YOU_CANT_SEND_MAIL_TO_YOURSELF(3019),
+	
+	/**
+	 * ID: 3020<br>
+	 * Message: When not entering the amount for the payment request, you cannot send any mail.
+	 */
+	PAYMENT_AMOUNT_NOT_ENTERED(3020),
+	
+	/**
+	 * ID: 3025<br>
+	 * Message: Payment of $s1 Adena was completed by $s2.
+	 */
+	PAYMENT_OF_S1_ADENA_COMPLETED_BY_S2(3025),
+	
+	/**
+	 * ID: 3026<br>
+	 * Message: You cannot use the skill enhancing function on this level. You can use the corresponding function on levels higher than 76Lv .
+	 */
+	YOU_CANNOT_USE_SKILL_ENCHANT_ON_THIS_LEVEL(3026),
+	
+	/**
+	 * ID: 3027<br>
+	 * Message: You cannot use the skill enhancing function in this class. You can use corresponding function when completing the third class change.
+	 */
+	YOU_CANNOT_USE_SKILL_ENCHANT_IN_THIS_CLASS(3027),
+	
+	/**
+	 * ID: 3028<br>
+	 * Message: "You cannot use the skill enhancing function in this class. You can use the skill enhancing function under off-battle status, and cannot use the
+	 * function while transforming, battling and on-board.
+	 */
+	YOU_CANNOT_USE_SKILL_ENCHANT_ATTACKING_TRANSFORMED_BOAT(3028),
+	
+	/**
+	 * ID: 3029<br>
+	 * Message: $s1 returned the mail.
+	 */
+	S1_RETURNED_MAIL(3029),
+	
+	/**
+	 * ID: 3030<br>
+	 * Message: You cannot cancel sent mail since the recipient received it.
+	 */
+	YOU_CANT_CANCEL_RECEIVED_MAIL(3030),
+	
+	/**
+	 * ID: 3059<br>
+	 * Message: $s1 did not receive it during the waiting time, so it was returned automatically.
+	 */
+	S1_NOT_RECEIVE_DURING_WAITING_TIME_MAIL_RETURNED(3059),
+	
+	/**
+	 * ID: 3062<br>
+	 * Message: Do you want to pay $s1 Adena ?
+	 */
+	DO_YOU_WANT_TO_PAY_S1_ADENA(3062),
+	
+	/**
+	 * ID: 3063<br>
+	 * Message: Do you really want to forward ?
+	 */
+	DO_YOU_WANT_TO_FORWARD(3063),
+	
+	/**
+	 * ID: 3064<br>
+	 * Message: There is an unread mail.
+	 */
+	UNREAD_MAIL(3064),
+	
+	/**
+	 * ID: 3066<br>
+	 * Message: You cannot use the mail function outside the Peace Zone.
+	 */
+	CANT_USE_MAIL_OUTSIDE_PEACE_ZONE(3066),
+	
+	/**
+	 * ID: 3067<br>
+	 * Message: $s1 cancelled the sent mail.
+	 */
+	S1_CANCELLED_MAIL(3067),
+	
+	/**
+	 * ID: 3068<br>
+	 * Message: The mail was returned due to the exceeded waiting time.
+	 */
+	MAIL_RETURNED(3068),
+	
+	/**
+	 * ID: 3069<br>
+	 * Message: Do you really want to cancel the transaction ?
+	 */
+	DO_YOU_WANT_TO_CANCEL_TRANSACTION(3069),
+	
+	/**
+	 * ID: 3072<br>
+	 * Message: $s1 acquired the attached item to your mail.
+	 */
+	S1_ACQUIRED_ATTACHED_ITEM(3072),
+	
+	/**
+	 * ID: 3073<br>
+	 * Message: You have acquired $s2 $s1.
+	 */
+	YOU_ACQUIRED_S2_S1(3073),
+	
+	/**
+	 * ID: 3074<br>
+	 * Message: The allowed length for recipient exceeded.
+	 */
+	ALLOWED_LENGTH_FOR_RECIPIENT_EXCEEDED(3074),
+	
+	/**
+	 * ID: 3075<br>
+	 * Message: The allowed length for a title exceeded.
+	 */
+	ALLOWED_LENGTH_FOR_TITLE_EXCEEDED(3075),
+	
+	/**
+	 * ID: 3077<br>
+	 * Message: The mail limit (240) of the opponent's character has been exceeded and this cannot be forwarded.
+	 */
+	MAIL_LIMIT_EXCEEDED(3077),
+	
+	/**
+	 * ID: 3078<br>
+	 * Message: You're making a request for payment. Do you want to proceed ?
+	 */
+	YOU_MAKING_PAYMENT_REQUEST(3078),
+	
+	/**
+	 * ID: 3079<br>
+	 * Message: There are items in the Pet Inventory so you cannot register as an individual store or drop items. Please empty the items in the Pet Inventory.
+	 */
+	ITEMS_IN_PET_INVENTORY(3079),
+	
+	/**
+	 * ID: 3080<br>
+	 * Message: You cannot reset the Skill Link because there is not enough Adena.
+	 */
+	CANNOT_RESET_SKILL_LINK_BECAUSE_NOT_ENOUGH_ADENA(3080),
+	
+	/**
+	 * ID: 3081<br>
+	 * Message: You cannot receive it because you are under condition that the opponent cannot acquire any Adena for payment
+	 */
+	YOU_CANNOT_RECEIVE_CONDITION_OPPONENT_CANT_ACQUIRE_ADENA(3081),
+	
+	/**
+	 * ID: 3082<br>
+	 * Message: You cannot send mail to any character that has blocked you.
+	 */
+	YOU_CANNOT_SEND_MAIL_TO_CHAR_BLOCK_YOU(3082),
 
 	/**
 	 * ID: 6001<BR>

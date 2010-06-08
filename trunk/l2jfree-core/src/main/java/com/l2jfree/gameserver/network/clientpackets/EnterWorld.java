@@ -61,6 +61,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExNotifyBirthDay;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
+import com.l2jfree.gameserver.network.serverpackets.FriendStatusPacket;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -502,17 +503,20 @@ public class EnterWorld extends L2GameClientPacket
 	/**
 	 * @param activeChar
 	 */
+	
+	// TODO review
 	private void notifyFriends(L2PcInstance cha)
 	{
 		SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
 		sm.addPcName(cha);
 
+		FriendStatusPacket pkt = new FriendStatusPacket(cha.getObjectId());
 		for (Integer objId : cha.getFriendList().getFriendIds())
 		{
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend != null)
 			{
-				friend.sendPacket(new FriendList(friend));
+				friend.sendPacket(pkt);
 				friend.sendPacket(sm);
 			}
 		}

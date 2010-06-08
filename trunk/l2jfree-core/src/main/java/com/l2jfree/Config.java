@@ -1157,7 +1157,7 @@ public class Config extends L2Config
 	public static boolean			ALLOW_GUARDS;												// Allow guards against aggressive monsters
 
 	public static boolean			ALLOW_DISCARDITEM;
-	public static boolean			ALLOW_FREIGHT;
+	public static boolean			ALLOW_REFUND;
 	public static boolean			ALLOW_WAREHOUSE;
 	public static boolean			ENABLE_WAREHOUSESORTING_CLAN;								// Warehouse Sorting Clan
 	public static boolean			ENABLE_WAREHOUSESORTING_PRIVATE;							// Warehouse Sorting Privat
@@ -1337,7 +1337,7 @@ public class Config extends L2Config
 			ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingFreight", "False"));
 			WAREHOUSE_CACHE = Boolean.parseBoolean(optionsSettings.getProperty("WarehouseCache", "False"));
 			WAREHOUSE_CACHE_TIME = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
-			ALLOW_FREIGHT = Boolean.parseBoolean(optionsSettings.getProperty("AllowFreight", "True"));
+			ALLOW_REFUND = Boolean.parseBoolean(optionsSettings.getProperty("AllowFreight", "True"));
 			ALLOW_WEAR = Boolean.parseBoolean(optionsSettings.getProperty("AllowWear", "False"));
 			WEAR_DELAY = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));
 			WEAR_PRICE = Integer.parseInt(optionsSettings.getProperty("WearPrice", "10"));
@@ -1588,11 +1588,12 @@ public class Config extends L2Config
 	public static boolean				ALT_CASTLE_CROWN;															// Alternative gaming - Castle Crown can be equiped only by castle lord - default True
 	public static boolean				ALT_CASTLE_CIRCLETS;														// Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
 
-	public static boolean				ALT_STRICT_HERO_SYSTEM;													// Strict Hero Mode
+	public static boolean				ALT_STRICT_HERO_SYSTEM;														// Strict Hero Mode
 	public static boolean				ALT_STRICT_SEVENSIGNS;														// Strict Seven Signs
-	public static boolean				ALT_SP_BOOK_NEEDED;														// Spell Book needed to learn skill
+	public static boolean				ALT_SP_BOOK_NEEDED;															// Spell Book needed to learn skill
 	public static boolean				ALT_LIFE_CRYSTAL_NEEDED;													// Clan Item needed to learn clan skills
 	public static boolean				ALT_ES_SP_BOOK_NEEDED;														// Spell Book needet to enchant skill
+	public static boolean				ALT_EPILOGUE_ENCHANT_SYSTEM;												// Requires adena but do not require exp
 	public static boolean				DIVINE_SP_BOOK_NEEDED;
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
@@ -1628,6 +1629,8 @@ public class Config extends L2Config
 	public static boolean				ALT_AUTO_LOOT_RAID;
 	public static boolean				ALT_AUTO_LOOT_ADENA;
 	public static boolean				ALT_AUTO_LOOT_HERBS;
+	public static int 					ALT_LOOT_RAIDS_PRIVILEGE_INTERVAL;
+	public static int 					ALT_LOOT_RAIDS_PRIVILEGE_CC_SIZE;
 	public static boolean				ALT_SPAWN_SIEGE_GUARD;														// Config for spawn siege guards
 	public static int					ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 	public static int					ALT_TIME_OF_OPENING_A_DOOR;
@@ -1733,6 +1736,7 @@ public class Config extends L2Config
 	
 	public static boolean 				ALLOW_NAIA_MULTY_PARTY_INVASION;
 	public static int 					ALT_NAIA_ROOM_DURATION;
+	public static boolean				ALT_SHOW_CREST_WITHOUT_QUEST;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1810,11 +1814,14 @@ public class Config extends L2Config
 			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "false"));
 			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
 			ALT_ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));
+			ALT_EPILOGUE_ENCHANT_SYSTEM = Boolean.parseBoolean(altSettings.getProperty("AltEpilogueEnchantSystem", "true"));
 			DIVINE_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("DivineInspirationSpBookNeeded", "true"));
 			ALT_AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "true"));
 			ALT_AUTO_LOOT_RAID = Boolean.parseBoolean(altSettings.getProperty("AutoLootRaid", "true"));
 			ALT_AUTO_LOOT_ADENA = Boolean.parseBoolean(altSettings.getProperty("AutoLootAdena", "true"));
 			ALT_AUTO_LOOT_HERBS = Boolean.parseBoolean(altSettings.getProperty("AutoLootHerbs", "true"));
+			ALT_LOOT_RAIDS_PRIVILEGE_INTERVAL = Integer.parseInt(altSettings.getProperty("RaidLootRightsInterval", "900")) * 1000;
+			ALT_LOOT_RAIDS_PRIVILEGE_CC_SIZE = Integer.parseInt(altSettings.getProperty("RaidLootRightsCCSize", "45"));
 			ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
 			ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
 			ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
@@ -1979,6 +1986,7 @@ public class Config extends L2Config
 			
 			ALLOW_NAIA_MULTY_PARTY_INVASION = Boolean.parseBoolean(altSettings.getProperty("AllowNaiaMultiPartyInvasion", "false"));
 			ALT_NAIA_ROOM_DURATION = Integer.parseInt(altSettings.getProperty("AltNaiaRoomDuration", "5"));
+			ALT_SHOW_CREST_WITHOUT_QUEST = Boolean.parseBoolean(altSettings.getProperty("AltShowCrestWithoutQuest", "false"));
 		}
 	}
 
@@ -3937,7 +3945,7 @@ public class Config extends L2Config
 			CHAMPION_SPCL_QTY = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("AllowFreight"))
-			ALLOW_FREIGHT = Boolean.parseBoolean(pValue);
+			ALLOW_REFUND = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowWarehouse"))
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowWear"))

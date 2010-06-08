@@ -1057,6 +1057,14 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	{
 		return _staticHitTime || isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED;
 	}
+	
+	/**
+	 * @return Returns true if skill can be enchanted
+	 */
+	public final boolean isEnchantable()
+	{
+		return SkillTable.getInstance().getMaxLevel(getId()) > 100 ? true : false;
+	}
 
 	/**
 	 * @return Returns the mpConsume.

@@ -44,6 +44,8 @@ public class PetDataTable
 	public final static int											RED_STRIDER_WIND_ID			= 16038;
 	public final static int											RED_STRIDER_STAR_ID			= 16039;
 	public final static int											RED_STRIDER_TWILIGHT_ID		= 16040;
+	public final static int											GUARDIAN_STRIDER_ID			= 16068;
+
 
 	public final static int											WYVERN_ID					= 12621;
 
@@ -270,6 +272,7 @@ public class PetDataTable
 			case RED_STRIDER_WIND_ID:
 			case RED_STRIDER_STAR_ID:
 			case RED_STRIDER_TWILIGHT_ID:
+			case GUARDIAN_STRIDER_ID:
 				return true;
 		}
 		return false;

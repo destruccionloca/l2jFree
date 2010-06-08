@@ -34,7 +34,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -180,8 +179,8 @@ import com.l2jfree.gameserver.model.entity.events.CTF.CTFPlayerInfo;
 import com.l2jfree.gameserver.model.entity.faction.FactionMember;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
-import com.l2jfree.gameserver.model.itemcontainer.PcFreight;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
+import com.l2jfree.gameserver.model.itemcontainer.PcRefund;
 import com.l2jfree.gameserver.model.itemcontainer.PcWarehouse;
 import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
@@ -503,8 +502,7 @@ public final class L2PcInstance extends L2Playable
 	private long							_deleteTimer;
 	private PcInventory						_inventory;
 	private PcWarehouse						_warehouse;
-	private PcFreight						_freight;
-	private List<PcFreight>					_depositedFreight;
+	private PcRefund 						_refund;
 	private final PcSkills					_pcSkills = new PcSkills(this);
 
 	/** True if the L2PcInstance is sitting */
@@ -1077,7 +1075,7 @@ public final class L2PcInstance extends L2Playable
 		getInventory().restore();
 		if (!Config.WAREHOUSE_CACHE)
 			getWarehouse();
-		getFreight();
+		
 		startVitalityTask();
 	}
 
@@ -1961,7 +1959,7 @@ public final class L2PcInstance extends L2Playable
 		return (int)(calcStat(Stats.MAX_LOAD, 69000, this, null) * Config.ALT_WEIGHT_LIMIT);
 	}
 
-	public int getWeaponPenalty()
+	public int getExpertiseWeaponPenalty()
 	{
 		return _weaponGradePenalty;
 	}
@@ -1971,7 +1969,7 @@ public final class L2PcInstance extends L2Playable
 		_weaponGradePenalty = level;
 	}
 
-	public int getArmorPenalty()
+	public int getExpertiseArmorPenalty()
 	{
 		return _armorPenalty;
 	}
@@ -1981,9 +1979,10 @@ public final class L2PcInstance extends L2Playable
 		_armorPenalty = level;
 	}
 
+	@Deprecated
 	public boolean getExpertisePenalty()
 	{
-		return getWeaponPenalty() > 0 || getArmorPenalty() > 0;
+		return getExpertiseWeaponPenalty() > 0 || getExpertiseArmorPenalty() > 0;
 	}
 
 	@Override
@@ -1998,12 +1997,13 @@ public final class L2PcInstance extends L2Playable
 		_curWeightPenalty = value;
 	}
 
+	// TODO we had this done before l2j, does this work correctly?
 	public void refreshExpertisePenalty()
 	{
 		if (!Config.ALT_GRADE_PENALTY)
 			return;
 
-		int wpnPenalty = 0;
+		int weaponPenalty = 0;
 		int armorPenalty = 0;
 		boolean sendUpdate = false;
 
@@ -2014,20 +2014,20 @@ public final class L2PcInstance extends L2Playable
 				continue;
 
 			if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-				wpnPenalty = (item.getItem().getCrystalType() - getExpertiseIndex());
+				weaponPenalty = (item.getItem().getCrystalType() - getExpertiseIndex());
 			else
 				armorPenalty++;
 		}
 
 		L2Skill skill = getKnownSkill(9009);
 		int skillLevel = skill == null ? 0 : skill.getLevel();
-		if (wpnPenalty > 4)
-			wpnPenalty = 4;
-		if (getWeaponPenalty() != wpnPenalty || skillLevel != wpnPenalty)
+		if (weaponPenalty > 4)
+			weaponPenalty = 4;
+		if (getExpertiseWeaponPenalty() != weaponPenalty || skillLevel != weaponPenalty)
 		{
-			setWeaponPenalty(wpnPenalty);
-			if (wpnPenalty > 0)
-				super.addSkill(9009, wpnPenalty);
+			setWeaponPenalty(weaponPenalty);
+			if (weaponPenalty > 0)
+				super.addSkill(9009, weaponPenalty);
 			else
 				super.removeSkill(skill);
 			sendUpdate = true;
@@ -2037,7 +2037,7 @@ public final class L2PcInstance extends L2Playable
 		skillLevel = skill == null ? 0 : skill.getLevel();
 		if (armorPenalty > 5)
 			armorPenalty = 5;
-		if (getArmorPenalty() != armorPenalty || skillLevel != armorPenalty)
+		if (getExpertiseArmorPenalty() != armorPenalty || skillLevel != armorPenalty)
 		{
 			setArmorPenalty(armorPenalty);
 			if (armorPenalty > 0)
@@ -2760,7 +2760,7 @@ public final class L2PcInstance extends L2Playable
 
 		return _warehouse;
 	}
-
+	
 	/**
 	 * Free memory used by Warehouse
 	 */
@@ -2770,82 +2770,38 @@ public final class L2PcInstance extends L2Playable
 			_warehouse.deleteMe();
 		_warehouse = null;
 	}
-
+	
 	/**
-	 * Return the PcFreight object of the L2PcInstance.<BR><BR>
+	 * Returns true if refund list is not empty
 	 */
-	public PcFreight getFreight()
+	public boolean hasRefund()
 	{
-		if (_freight == null)
-		{
-			_freight = new PcFreight(this);
-			_freight.restore();
-		}
-
-		return _freight;
+		return _refund != null && _refund.getSize() > 0 && Config.ALLOW_REFUND;
 	}
-
+	
 	/**
-	 * Free memory used by Freight
+	 * Returns refund object or create new if not exist
 	 */
-	public void clearFreight()
+	public PcRefund getRefund()
 	{
-		if (_freight != null)
-			_freight.deleteMe();
-		_freight = null;
+		if (_refund == null)
+			_refund = new PcRefund(this);
+		return _refund;
 	}
-
+	
 	/**
-	 * Return deposited PcFreight object for the objectId
-	 * or create new if not exist
+	 * Clear refund
 	 */
-	public PcFreight getDepositedFreight(int objectId)
+	public void clearRefund()
 	{
-		if (_depositedFreight == null)
-			_depositedFreight = new FastList<PcFreight>();
-		else
-		{
-			for (PcFreight freight : _depositedFreight)
-			{
-				if (freight != null && freight.getOwnerId() == objectId)
-					return freight;
-			}
-		}
-
-		PcFreight freight = new PcFreight(null);
-		freight.doQuickRestore(objectId);
-		_depositedFreight.add(freight);
-		return freight;
+		if (_refund != null)
+			_refund.deleteMe();
+		_refund = null;
 	}
-
+	
 	/**
-	 * Clear memory used by deposited freight
-	 */
-	public void clearDepositedFreight()
-	{
-		if (_depositedFreight == null)
-			return;
-
-		for (PcFreight freight : _depositedFreight)
-		{
-			if (freight != null)
-			{
-				try
-				{
-					freight.deleteMe();
-				}
-				catch (Exception e)
-				{
-					_log.fatal("clearDepositedFreight()", e);
-				}
-			}
-		}
-		_depositedFreight.clear();
-		_depositedFreight = null;
-	}
-
-	/**
-	 * Return the Identifier of the L2PcInstance.<BR><BR>
+	 * Return the Identifier of the L2PcInstance.<BR>
+	 * <BR>
 	 */
 	public int getCharId()
 	{
@@ -11237,26 +11193,16 @@ public final class L2PcInstance extends L2Playable
 
 		if (Config.WAREHOUSE_CACHE)
 			WarehouseCacheManager.getInstance().remove(this);
-
-		// Update database with items in its freight and remove them from the world
+		
 		try
 		{
-			clearFreight();
+			clearRefund();
 		}
 		catch (Exception e)
 		{
 			_log.fatal(e.getMessage(), e);
 		}
-
-		try
-		{
-			clearDepositedFreight();
-		}
-		catch (Exception e)
-		{
-			_log.fatal(e.getMessage(), e);
-		}
-
+		
 		// Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI
 		try
 		{
