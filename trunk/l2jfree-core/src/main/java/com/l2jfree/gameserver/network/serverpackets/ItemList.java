@@ -14,16 +14,10 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-
 /**
- * 
- *
- * sample
- * 
  * 27
  * 00 00
  * 01 00        // item count
@@ -39,19 +33,16 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  * 00 00        // always 0 ??
  * 00 00        // always 0 ??
  * 
- 
  * format   h (h dddhhhh hh)    revision 377
  * format   h (h dddhhhd hh)    revision 415
  * format   h (h dddhhhd hhhhd)  729
- * 
- * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
  */
 public class ItemList extends L2GameServerPacket
 {
-	private static final String _S__11_ITEMLIST = "[S] 11 ItemList";
-	private final L2ItemInstance[] _items;
-	private final boolean _showWindow;
-
+	private static final String		_S__11_ITEMLIST	= "[S] 11 ItemList";
+	private final L2ItemInstance[]	_items;
+	private final boolean			_showWindow;
+	
 	public ItemList(L2PcInstance cha, boolean showWindow)
 	{
 		_items = cha.getInventory().getItems();
@@ -62,7 +53,7 @@ public class ItemList extends L2GameServerPacket
 			showDebug();
 		}
 	}
-
+	
 	public ItemList(L2ItemInstance[] items, boolean showWindow)
 	{
 		_items = items;
@@ -77,8 +68,7 @@ public class ItemList extends L2GameServerPacket
 	{
 		for (L2ItemInstance temp : _items)
 		{
-			_log.info("item:" + temp.getItem().getName() +
-					" type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
+			_log.info("item:" + temp.getItem().getName() + " type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
 		}
 	}
 	
@@ -90,7 +80,7 @@ public class ItemList extends L2GameServerPacket
 		
 		int count = _items.length;
 		writeH(count);
-
+		
 		for (L2ItemInstance temp : _items)
 		{
 			if (temp == null || temp.getItem() == null)
@@ -103,14 +93,14 @@ public class ItemList extends L2GameServerPacket
 			// writeD(0x00);
 			writeD(temp.getLocationSlot());
 			writeQ(temp.getCount());
-			writeH(temp.getItem().getType2());	// item type2
-			writeH(temp.getCustomType1());	// item type3
+			writeH(temp.getItem().getType2()); // item type2
+			writeH(temp.getCustomType1()); // item type3
 			writeH(temp.isEquipped() ? 0x01 : 0x00);
 			writeD(temp.getItem().getBodyPart());
-
-			writeH(temp.getEnchantLevel());	// enchant level
-			//race tickets
-			writeH(temp.getCustomType2());	// item type3
+			
+			writeH(temp.getEnchantLevel()); // enchant level
+			// race tickets
+			writeH(temp.getCustomType2()); // item type3
 			
 			if (temp.isAugmented())
 				writeD(temp.getAugmentation().getAugmentationId());
@@ -122,13 +112,11 @@ public class ItemList extends L2GameServerPacket
 			// T1
 			writeElementalInfo(temp);
 			// T2
-			writeD(temp.isTimeLimitedItem() ? (int) (temp.getRemainingTime()/1000) : -1);
+			writeD(temp.isTimeLimitedItem() ? (int) (temp.getRemainingTime() / 1000) : -1);
+			writeEnchantEffectInfo();
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

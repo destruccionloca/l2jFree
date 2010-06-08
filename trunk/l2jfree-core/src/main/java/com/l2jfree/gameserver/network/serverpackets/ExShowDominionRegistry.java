@@ -14,54 +14,77 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.Calendar;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.entity.Castle;
+
+/**
+ * format: dSSSdddddddd (dd(d))
+ * 
+ * @author GodKratos
+ */
 public class ExShowDominionRegistry extends L2GameServerPacket
 {
-	private static final String _S__EXSHOWDOMINIONREGISTRY = "[S] FE:90 ExShowDominionRegistry ch[dsssdddddddd (dd (d))]";
-	private final int _territoryId;
-	private final int _clanReqCnt = 0x00;
-	private final int _mercReqCnt = 0x00;
-	private final int _warTime = (int) (System.currentTimeMillis() / 1000);
-	private final int _currentTime = (int) (System.currentTimeMillis() / 1000);
-	private final int _clanTerrId;
-	private final int _playerTerrId;
-	private final boolean _canRequest = false;
-
-	public ExShowDominionRegistry(int terrId, int clanTerrId, int playerTerrId)
+	private final int	_territoryId;
+	private final int	_clanReq		= 0x00;
+	private final int	_mercReq		= 0x00;
+	private String		_clanName		= "";
+	private String		_clanLeader		= "";
+	private String		_allyName		= "";
+	private final int	_warTime		= (int) (Calendar.getInstance().getTimeInMillis() / 1000);
+	private final int	_currentTime	= (int) (Calendar.getInstance().getTimeInMillis() / 1000);
+	
+	public ExShowDominionRegistry(int castleId)
 	{
-		_territoryId = terrId;
-		_clanTerrId = clanTerrId;
-		_playerTerrId = playerTerrId;
+		_territoryId = 0x50 + castleId;
+		int owner = CastleManager.getInstance().getCastleById(castleId).getOwnerId();
+		if (owner != 0)
+		{
+			L2Clan clan = ClanTable.getInstance().getClan(owner);
+			if (clan != null)
+			{
+				_clanName = clan.getName();
+				_clanLeader = clan.getLeaderName();
+				_allyName = clan.getAllyName();
+			}
+		}
 	}
-
-    @Override
-    protected void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x90);
-
-        writeD(_territoryId); // Current Territory Id
-        writeS("No Clan");    // Owners Clan
-        writeS("No Owner");   // Owner Clan Leader
-        writeS("No Ally");    // Owner Alliance
-        writeD(_clanReqCnt); // Clan Request
-        writeD(_mercReqCnt); // Merc Request
-        writeD(_warTime); // War Time
-        writeD(_currentTime); // Current Time
-        writeD(_clanTerrId); // Clan's Merc. Request
-        writeD(_playerTerrId); // Player's Merc. Request
-        writeD(_canRequest); // Is request period
-        writeD(0x09); // Territory Count
-        for (int i = 0; i < 9; i++)
-        {
-        	writeD(0x51 + i); // Territory Id
-        	writeD(0x01);     // Emblem Count
-        	writeD(0x51 + i); // Emblem ID - should be in for loop for emblem count
-        }
-    }
-
-    @Override
-    public String getType()
-    {
-        return _S__EXSHOWDOMINIONREGISTRY;
-    }
+	
+	@Override
+	public String getType()
+	{
+		return "[S] FE:90 ExShowDominionRegistry";
+	}
+	
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x90);
+		writeD(_territoryId); // Current Territory Id
+		writeS(_clanName); // Owners Clan
+		writeS(_clanLeader); // Owner Clan Leader
+		writeS(_allyName); // Owner Alliance
+		writeD(_clanReq); // Clan Request
+		writeD(_mercReq); // Merc Request
+		writeD(_warTime); // War Time
+		writeD(_currentTime); // Current Time
+		writeD(0x00); // unknown
+		writeD(0x00); // unknown
+		writeD(0x01); // unknown
+		Map<Integer, Castle> castles = CastleManager.getInstance().getCastles();
+		writeD(castles.size());
+		for (Entry<Integer, Castle> set : castles.entrySet())
+		{
+			Castle castle = set.getValue();
+			writeD(0x50 + castle.getCastleId()); // Territory Id
+			writeD(0x01); // Emblem Count
+			writeD(0x50 + castle.getCastleId()); // Emblem ID - should be in for loop for emblem count
+		}
+	}
 }

@@ -14,47 +14,66 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.l2jfree.gameserver.datatables.ClanTable;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
+import com.l2jfree.gameserver.model.entity.Castle;
+
 /**
  * A reply packet sent after clients sends RequestDominionInfo.
+ * 
  * @author savormix
  */
 public class ExReplyDominionInfo extends L2GameServerPacket
 {
-	private static final String _S__FE_92_EXREPLYDOMINIONINFO = "[S] FE:92 ExReplyDominionInfo";
-	private static final String[] DOM = {
-		"gludio_dominion", "dion_dominion", "giran_dominion", "oren_dominion",
-		"aden_dominion", "innadrile_dominion", "godad_dominion", "rune_dominion",
-		"schuttgart_dominion"
-	};
-
-	private final int _warTime;
-
+	private static final String		_S__FE_92_EXREPLYDOMINIONINFO	= "[S] FE:92 ExReplyDominionInfo";
+	
+	private final int				_warTime;
+	
 	public ExReplyDominionInfo()
 	{
 		_warTime = (int) (System.currentTimeMillis() / 1000);
 	}
-
-    @Override
-    protected void writeImpl()
-    {
-        writeC(0xfe);
-        writeH(0x92);
-
-        writeD(0x09); // territory count
-        for (int i = 0; i < 9; i++)
-        {
-        	writeD(0x51 + i); // territory ID
-        	writeS(DOM[i]); // special string
-        	writeS("No Clan"); // owner clan
-        	writeD(0x01); // emblem count
-        	writeD(0x51 + i); // emblem IDs (currently each ward has own emblem)
-        	writeD(_warTime); // next battle date
-        }
-    }
-
-    @Override
-    public String getType()
-    {
-        return _S__FE_92_EXREPLYDOMINIONINFO;
-    }
+	
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x92);
+		
+		Map<Integer, Castle> castles = CastleManager.getInstance().getCastles();
+		writeD(castles.size());// territory count
+		for (Entry<Integer, Castle> set : castles.entrySet())
+		{
+			Castle castle = set.getValue();
+			writeD(0x50 + castle.getCastleId()); // territory ID
+			writeS(castle.getName().toLowerCase() + "_dominion"); // special string
+			if (castle.getOwnerId() > 0)
+			{
+				if (ClanTable.getInstance().getClan(castle.getOwnerId()) != null)
+					writeS(ClanTable.getInstance().getClan(castle.getOwnerId()).getName()); // owner clan
+				else
+				{
+					_log.warn("Castle owner with no name! Castle: " + castle.getName() 
+							+ " has an OwnerId = " + castle.getOwnerId()
+							+ " who does not have a  name!");
+					writeS("");
+				}
+			}
+			else
+				writeS("");
+			
+			writeD(1); // emblem count
+			writeD(0x50 + castle.getCastleId()); // emblem IDs (currently each ward has own emblem)
+			writeD(_warTime); // next battle date
+		}
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _S__FE_92_EXREPLYDOMINIONINFO;
+	}
 }

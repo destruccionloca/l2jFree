@@ -17,31 +17,24 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
 /**
- *
- * @author  KenM
+ * @author KenM
  */
 public final class ExRpItemLink extends L2GameServerPacket
 {
-	private final static String S_FE_6C_EXPRPITEMLINK = "[S] FE:6C ExRpItemLink";
-	private final L2ItemInstance _item;
+	private final static String		S_FE_6C_EXPRPITEMLINK	= "[S] FE:6C ExRpItemLink";
+	private final L2ItemInstance	_item;
 	
 	public ExRpItemLink(L2ItemInstance item)
 	{
 		_item = item;
 	}
 	
-	/**
-	 * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
 		return S_FE_6C_EXPRPITEMLINK;
 	}
-
-	/**
-	 * @see com.l2jfree.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-	 */
+	
 	@Override
 	protected void writeImpl()
 	{
@@ -54,12 +47,13 @@ public final class ExRpItemLink extends L2GameServerPacket
 		writeH(_item.getItem().getType2());
 		writeD(_item.getItem().getBodyPart());
 		writeH(_item.getEnchantLevel());
-		writeH(_item.getCustomType2());  // item type3
+		writeH(_item.getCustomType2()); // item type3
 		writeH(0x00); // ??
 		writeD(_item.isAugmented() ? _item.getAugmentation().getAugmentationId() : 0x00);
 		writeD(_item.getMana());
-
+		
 		// T1
 		writeElementalInfo(_item);
+		writeEnchantEffectInfo();
 	}
 }

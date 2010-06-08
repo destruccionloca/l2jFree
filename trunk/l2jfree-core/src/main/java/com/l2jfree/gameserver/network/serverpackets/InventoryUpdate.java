@@ -20,9 +20,7 @@ import java.util.List;
 import com.l2jfree.gameserver.model.ItemInfo;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 
-
 /**
- * 
  * 37                // Packet Identifier <BR>
  * 01 00             // Number of ItemInfo Trame of the Packet <BR><BR>
  * 
@@ -45,13 +43,12 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
  * @version $Revision: 1.3.2.2.2.4 $ $Date: 2005/03/27 15:29:39 $
  * Rebuild 23.2.2006 by Advi
  */
-
 public class InventoryUpdate extends L2GameServerPacket
 {
-	private static final String _S__37_INVENTORYUPDATE = "[S] 27 InventoryUpdate";
-
-    private List<ItemInfo> _items;
-
+	private static final String	_S__37_INVENTORYUPDATE	= "[S] 27 InventoryUpdate";
+	
+	private List<ItemInfo>		_items;
+	
 	public InventoryUpdate()
 	{
 		_items = new ArrayList<ItemInfo>();
@@ -60,10 +57,7 @@ public class InventoryUpdate extends L2GameServerPacket
 			showDebug();
 		}
 	}
-
-	/**
-	 * @param items
-	 */
+	
 	public InventoryUpdate(List<ItemInfo> items)
 	{
 		_items = items;
@@ -72,23 +66,55 @@ public class InventoryUpdate extends L2GameServerPacket
 			showDebug();
 		}
 	}
-
-	public void addItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item)); }
-	public void addNewItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 1)); }
-	public void addModifiedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 2)); }
-	public void addRemovedItem(L2ItemInstance item) { if (item != null) _items.add(new ItemInfo(item, 3)); }
-	public void addItems(List<L2ItemInstance> items) { if (items != null) for (L2ItemInstance item : items) if (item != null) _items.add(new ItemInfo(item)); }
-	public void addEquipItems(L2ItemInstance[] items) { if (items != null) for (L2ItemInstance item : items) if (item != null) _items.add(new ItemInfo(item, 2)); }
-
+	
+	public void addItem(L2ItemInstance item)
+	{
+		if (item != null)
+			_items.add(new ItemInfo(item));
+	}
+	
+	public void addNewItem(L2ItemInstance item)
+	{
+		if (item != null)
+			_items.add(new ItemInfo(item, 1));
+	}
+	
+	public void addModifiedItem(L2ItemInstance item)
+	{
+		if (item != null)
+			_items.add(new ItemInfo(item, 2));
+	}
+	
+	public void addRemovedItem(L2ItemInstance item)
+	{
+		if (item != null)
+			_items.add(new ItemInfo(item, 3));
+	}
+	
+	public void addItems(List<L2ItemInstance> items)
+	{
+		if (items != null)
+			for (L2ItemInstance item : items)
+				if (item != null)
+					_items.add(new ItemInfo(item));
+	}
+	
+	public void addEquipItems(L2ItemInstance[] items)
+	{
+		if (items != null)
+			for (L2ItemInstance item : items)
+				if (item != null)
+					_items.add(new ItemInfo(item, 2));
+	}
+	
 	private void showDebug()
 	{
 		for (ItemInfo item : _items)
 		{
-			_log.debug("oid:" + Integer.toHexString(item.getObjectId()) +
-					" item:" + item.getItem().getName()+" last change:" + item.getChange());
+			_log.debug("oid:" + Integer.toHexString(item.getObjectId()) + " item:" + item.getItem().getName() + " last change:" + item.getChange());
 		}
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -99,7 +125,6 @@ public class InventoryUpdate extends L2GameServerPacket
 		{
 			writeH(item.getChange());               // Update type : 01-add, 02-modify, 03-remove
 			writeH(item.getItem().getType1());      // Item Type 1 : 00-weapon/ring/earring/necklace, 01-armor/shield, 04-item/questitem/adena
-
 			writeD(item.getObjectId());             // ObjectId
 			writeD(item.getItem().getItemDisplayId());     // ItemId
 			writeD(item.getLocation());             // T1
@@ -118,6 +143,8 @@ public class InventoryUpdate extends L2GameServerPacket
 
 			// T2
 			writeD(item.getTime());
+			
+			writeEnchantEffectInfo();
 		}
 		_items.clear();
 		_items = null;
