@@ -1331,7 +1331,7 @@
     <set name="effectRange" val="900"/>
     <enchant1 name="power" val="#ench1power"/>
     <for>
-      <effect name="Root" time="15" val="0" stackOrder="1" stackType="Root" abnormal="root"/>
+      <effect name="Root" time="30" val="0" stackOrder="1" stackType="Root" abnormal="root"/>
     </for>
     <enchant2for>
       <effect name="Root" time="#ench2time" val="0" stackOrder="1" stackType="Root" abnormal="root"/>
