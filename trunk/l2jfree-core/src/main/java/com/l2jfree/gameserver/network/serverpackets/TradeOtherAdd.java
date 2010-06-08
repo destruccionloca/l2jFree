@@ -17,28 +17,25 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.TradeList;
 
 /**
- * This class ...
- * 
  * @author Yme
- * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class TradeOtherAdd extends L2GameServerPacket
 {
-	private static final String	_S__31_TRADEOTHERADD	= "[S] 21 TradeOtherAdd";
+	private static final String			_S__31_TRADEOTHERADD	= "[S] 21 TradeOtherAdd";
 	private final TradeList.TradeItem	_item;
-
+	
 	public TradeOtherAdd(TradeList.TradeItem item)
 	{
 		_item = item;
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x1b);
-
+		
 		writeH(1); // item count
-
+		
 		writeH(_item.getItem().getType1()); // item type1
 		writeD(_item.getObjectId());
 		writeD(_item.getItem().getItemDisplayId());
@@ -50,15 +47,11 @@ public class TradeOtherAdd extends L2GameServerPacket
 		writeH(_item.getEnchant()); // enchant level
 		writeH(0x00);
 		writeH(_item.getCustomType2());
-
-		writeElementalInfo(_item); //8x h or d
+		
+		writeElementalInfo(_item); // 8x h or d
+		writeEnchantEffectInfo();
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

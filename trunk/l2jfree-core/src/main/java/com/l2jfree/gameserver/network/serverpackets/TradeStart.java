@@ -20,33 +20,28 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
- */
 public class TradeStart extends L2GameServerPacket
 {
-	private static final String		_S__2E_TRADESTART	= "[S] 1E TradeStart";
+	private static final String			_S__2E_TRADESTART	= "[S] 1E TradeStart";
 	private final L2PcInstance			_activeChar;
 	private final List<L2ItemInstance>	_itemList;
-
+	
 	public TradeStart(L2PcInstance player)
 	{
 		_activeChar = player;
 		_itemList = _activeChar.getInventory().getAvailableItems(true, (_activeChar.isGM() && Config.GM_TRADE_RESTRICTED_ITEMS));
 	}
-
+	
 	@Override
 	protected final void writeImpl()
-	{//0x2e TradeStart   d h (h dddhh dhhh)
+	{
 		if (_activeChar.getActiveTradeList() == null || _activeChar.getActiveTradeList().getPartner() == null)
 			return;
-
+		
 		writeC(0x14);
 		writeD(_activeChar.getActiveTradeList().getPartner().getObjectId());
-		//writeD((_char != null || _char.getTransactionRequester() != null)? _char.getTransactionRequester().getObjectId() : 0);
-
+		// writeD((_char != null || _char.getTransactionRequester() != null)? _char.getTransactionRequester().getObjectId() : 0);
+		
 		writeH(_itemList.size());
 		for (L2ItemInstance item : _itemList)
 		{
@@ -61,16 +56,12 @@ public class TradeStart extends L2GameServerPacket
 			writeH(item.getEnchantLevel()); // enchant level
 			writeH(0x00);
 			writeH(item.getCustomType2());
-
-			writeElementalInfo(item); //8x h or d
+			
+			writeElementalInfo(item); // 8x h or d
+			writeEnchantEffectInfo();
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

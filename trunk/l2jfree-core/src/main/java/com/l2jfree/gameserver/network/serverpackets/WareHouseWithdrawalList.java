@@ -17,30 +17,25 @@ package com.l2jfree.gameserver.network.serverpackets;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * 0x42 WarehouseWithdrawalList dh (h dddhh dhhh d)
- * 
- * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/29 23:15:10 $
- */
 public class WareHouseWithdrawalList extends L2GameServerPacket
 {
-	public static final int		PRIVATE							= 1;
-	public static final int		CLAN							= 4;
-	public static final int		CASTLE							= 3;															//not sure
-	public static final int		FREIGHT							= 1;
+	public static final int			PRIVATE							= 1;
+	public static final int			CLAN							= 4;
+	public static final int			CASTLE							= 3;								// not sure
+	public static final int			FREIGHT							= 1;
 	
-	private static final String	_S__54_WAREHOUSEWITHDRAWALLIST	= "[S] 42 WareHouseWithdrawalList";
+	private static final String		_S__54_WAREHOUSEWITHDRAWALLIST	= "[S] 42 WareHouseWithdrawalList";
 	
 	private final L2PcInstance		_activeChar;
 	private final long				_activeCharAdena;
 	private final L2ItemInstance[]	_items;
-	private final int					_whType;
-
+	private final int				_whType;
+	
 	public WareHouseWithdrawalList(L2PcInstance player, int type)
 	{
 		_activeChar = player;
 		_whType = type;
-
+		
 		_activeCharAdena = _activeChar.getAdena();
 		if (_activeChar.getActiveWarehouse() == null)
 		{
@@ -50,24 +45,24 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 		}
 		else
 			_items = _activeChar.getActiveWarehouse().getItems();
-
+		
 		if (_log.isDebugEnabled())
 			for (L2ItemInstance item : _items)
 				_log.info("item:" + item.getItem().getName() + " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x42);
-		/*
-		 * 0x01-Private Warehouse 0x02-Clan Warehouse 0x03-Castle Warehouse
-		 * 0x04-Warehouse
-		 */
+		// 0x01-Private Warehouse
+		// 0x02-Clan Warehouse
+		// 0x03-Castle Warehouse
+		// 0x04-Warehouse
 		writeH(_whType);
 		writeQ(_activeCharAdena);
 		writeH(_items.length);
-
+		
 		for (L2ItemInstance item : _items)
 		{
 			writeH(item.getItem().getType1());
@@ -88,21 +83,15 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			}
 			else
 				writeQ(0x00);
-
-			writeElementalInfo(item); //8x h or d
-
+			
+			writeElementalInfo(item); // 8x h or d
 			writeD(item.getMana());
-
 			// T2
 			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1);
+			writeEnchantEffectInfo();
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{
