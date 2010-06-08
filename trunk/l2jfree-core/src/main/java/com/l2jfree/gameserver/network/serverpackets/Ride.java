@@ -19,67 +19,59 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class Ride extends L2GameServerPacket
 {
-    private static final String _S__8c_Ride = "[S] 8C Ride";
-    public static final int ACTION_MOUNT = 1;
-    public static final int ACTION_DISMOUNT = 0;
-    private final int _id;
-    private final int _bRide;
-    private final int _rideType;
-    private final int _rideClassID;
-    private final int _x, _y, _z;
-
-    /**
-     * 0x86 UnknownPackets         dddd
-     * @param _
-     */
-
-    public Ride(L2PcInstance cha, boolean mount, int npcId)
-    {
-        _id = cha.getObjectId();
-        _bRide = mount ? 1 : 0;
-        _rideClassID = npcId + 1000000; // npcID
-
-        _x = cha.getX();
-        _y = cha.getY();
-        _z = cha.getZ();
-
-        // 1 for Strider ; 2 for wyvern
-        if (PetDataTable.isStrider(npcId))
-            _rideType = 1;
-        else if (PetDataTable.isWyvern(npcId))
-            _rideType = 2;
-        else if (PetDataTable.isEvolvedWolf(npcId))
-            _rideType = 3;
-        else if (PetDataTable.isTransformationPet(npcId))
-            _rideType = 4;
-        else
-            _rideType = 0;
-    }
-
-    public int getMountType()
-    {
-        return _rideType;
-    }
-
-    @Override
-    protected final void writeImpl()
-    {
-        writeC(0x8c);
-        writeD(_id);
-        writeD(_bRide);
-        writeD(_rideType);
-        writeD(_rideClassID);
-        writeD(_x);
-        writeD(_y);
-        writeD(_z);
-    }
-
-    /* (non-Javadoc)
-     * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__8c_Ride;
-    }
+	private static final String	_S__8c_Ride		= "[S] 8C Ride";
+	public static final int		ACTION_MOUNT	= 1;
+	public static final int		ACTION_DISMOUNT	= 0;
+	private final int			_id;
+	private final int			_bRide;
+	private final int			_rideType;
+	private final int			_rideClassID;
+	private final int			_x, _y, _z;
+	
+	public Ride(L2PcInstance cha, boolean mount, int npcId)
+	{
+		_id = cha.getObjectId();
+		_bRide = mount ? 1 : 0;
+		_rideClassID = npcId + 1000000; // npcID
+		
+		_x = cha.getX();
+		_y = cha.getY();
+		_z = cha.getZ();
+		
+		// 1 for Strider ; 2 for wyvern
+		if (PetDataTable.isStrider(npcId))
+			_rideType = 1;
+		else if (PetDataTable.isWyvern(npcId))
+			_rideType = 2;
+		else if (PetDataTable.isEvolvedWolf(npcId))
+			_rideType = 3;
+		else if (PetDataTable.isTransformationPet(npcId))
+			_rideType = 4;
+		else
+			_rideType = 0;
+	}
+	
+	public int getMountType()
+	{
+		return _rideType;
+	}
+	
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x8c);
+		writeD(_id);
+		writeD(_bRide);
+		writeD(_rideType);
+		writeD(_rideClassID);
+		writeD(_x);
+		writeD(_y);
+		writeD(_z);
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _S__8c_Ride;
+	}
 }

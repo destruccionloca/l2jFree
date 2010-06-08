@@ -16,28 +16,25 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 public class RestartResponse extends L2GameServerPacket
 {
-	private static final String _S__RESTARTRESPONSE = "[S] 71 RestartResponse c[ds]";
-	public static final RestartResponse PACKET = new RestartResponse();
-
-	private final String _message;
-
-	private RestartResponse()
+	private static final String			_S__RESTARTRESPONSE	= "[S] 71 RestartResponse c[ds]";
+	
+	public static final RestartResponse	PACKET_SUCCESS				= new RestartResponse(true);
+	public static final RestartResponse	PACKET_FAILED				= new RestartResponse(false);
+	
+	private boolean						_result;
+	
+	private RestartResponse(boolean result)
 	{
-		_message = "ok merong~ khaha";
+		 _result = result;
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x71);
-
-		writeD(0x01); // 1 - OK
-		writeS(_message);
+		writeD(_result ? 1 : 0);
 	}
-
-	/* (non-Javadoc)
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{

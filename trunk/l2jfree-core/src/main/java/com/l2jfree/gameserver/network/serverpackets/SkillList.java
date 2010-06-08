@@ -15,19 +15,19 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.L2GameClient;
-import com.l2jfree.gameserver.templates.skills.L2SkillType;
 
 public final class SkillList extends L2GameServerPacket
 {
-	private static final String _S__6D_SKILLLIST = "[S] 58 SkillList";
+	private static final String	_S__6D_SKILLLIST	= "[S] 58 SkillList";
 	
-	private final L2Skill[] _skills;
+	private final L2Skill[]		_skills;
+	//private final L2PcInstance	_activeChar;
 	
 	public SkillList(L2PcInstance activeChar)
 	{
+		//_activeChar = activeChar;
 		_skills = activeChar.getSortedAllSkills(activeChar.isGM() && !activeChar.isSubClassActive());
 	}
 	
@@ -49,10 +49,9 @@ public final class SkillList extends L2GameServerPacket
 			writeD(s.isPassive() ? 1 : 0);
 			writeD(s.getLevel());
 			writeD(s.getDisplayId());
-			// as currently this isn't used in retail?
-			// it will serve us better like this
-			writeC(s.getSkillType() == L2SkillType.NOTDONE
-					|| s.getTargetType() == SkillTargetType.TARGET_NONE);
+			// FIXME
+			writeC(/*s.isClanSkill() && _activeChar.getClan().getReputationScore() <*/ 0);
+			writeC(s.isEnchantable());
 		}
 	}
 	

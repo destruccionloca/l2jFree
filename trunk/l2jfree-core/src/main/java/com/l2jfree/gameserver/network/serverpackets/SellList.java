@@ -20,20 +20,15 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.4.2.3.2.4 $ $Date: 2005/03/27 15:29:39 $
- */
 public class SellList extends L2GameServerPacket
 {
-	private static final String			_S__10_SELLLIST	= "[S] 10 SellList";
+	private static final String				_S__10_SELLLIST	= "[S] 10 SellList";
 	
-	private final L2PcInstance			_activeChar;
-	private final L2MerchantInstance	_lease;
+	private final L2PcInstance				_activeChar;
+	private final L2MerchantInstance		_lease;
 	private final long						_money;
 	private final FastList<L2ItemInstance>	_selllist		= new FastList<L2ItemInstance>();
-
+	
 	public SellList(L2PcInstance player)
 	{
 		_activeChar = player;
@@ -41,7 +36,7 @@ public class SellList extends L2GameServerPacket
 		_money = _activeChar.getAdena();
 		doLease();
 	}
-
+	
 	public SellList(L2PcInstance player, L2MerchantInstance lease)
 	{
 		_activeChar = player;
@@ -49,7 +44,7 @@ public class SellList extends L2GameServerPacket
 		_money = _activeChar.getAdena();
 		doLease();
 	}
-
+	
 	private void doLease()
 	{
 		if (_lease == null)
@@ -68,7 +63,7 @@ public class SellList extends L2GameServerPacket
 			}
 		}
 	}
-
+	
 	@Override
 	protected final void writeImpl()
 	{
@@ -76,13 +71,13 @@ public class SellList extends L2GameServerPacket
 		writeQ(_money);
 		writeD(0x00);
 		writeH(_selllist.size());
-
+		
 		for (L2ItemInstance item : _selllist)
 		{
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
-
+			
 			writeQ(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
@@ -91,16 +86,12 @@ public class SellList extends L2GameServerPacket
 			writeH(0x00);
 			writeH(item.getCustomType2());
 			writeQ(item.getItem().getReferencePrice() / 2);
-
-			writeElementalInfo(item); //8x h or d
+			
+			writeElementalInfo(item); // 8x h or d
+			writeEnchantEffectInfo();
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.l2jfree.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
+	
 	@Override
 	public String getType()
 	{
