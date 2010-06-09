@@ -18,33 +18,33 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ExPutIntensiveResultForVariationMake;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Fromat(ch) dd
- * @author  -Wooden-
+ * 
+ * @author -Wooden-
  */
 public class RequestConfirmRefinerItem extends AbstractRefinePacket
 {
-	private static final String _C__D0_2A_REQUESTCONFIRMREFINERITEM = "[C] D0:2A RequestConfirmRefinerItem";
-
-	private int _targetItemObjId;
-	private int _refinerItemObjId;
-
+	private static final String	_C__D0_2A_REQUESTCONFIRMREFINERITEM	= "[C] D0:2A RequestConfirmRefinerItem";
+	
+	private int					_targetItemObjId;
+	private int					_refinerItemObjId;
+	
 	@Override
 	protected void readImpl()
 	{
 		_targetItemObjId = readD();
 		_refinerItemObjId = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		L2ItemInstance targetItem = activeChar.getInventory().getItemByObjectId(_targetItemObjId);
 		L2ItemInstance refinerItem = activeChar.getInventory().getItemByObjectId(_refinerItemObjId);
 		if (targetItem == null || refinerItem == null)
@@ -52,7 +52,7 @@ public class RequestConfirmRefinerItem extends AbstractRefinePacket
 			requestFailed(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return;
 		}
-
+		
 		if (!isValid(activeChar))
 		{
 			sendAF();
@@ -63,22 +63,18 @@ public class RequestConfirmRefinerItem extends AbstractRefinePacket
 			requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
-
+		
 		final int refinerItemId = refinerItem.getItem().getItemId();
 		final int grade = targetItem.getItem().getItemGrade();
 		final LifeStone ls = getLifeStone(refinerItemId);
 		final int gemStoneId = getGemStoneId(grade);
 		final int gemStoneCount = getGemStoneCount(grade, ls.getGrade());
-		SystemMessage sm = new SystemMessage(SystemMessageId.REQUIRES_S1_S2);
-		sm.addItemNumber(gemStoneCount);
-		sm.addItemName(gemStoneId);
-
+		
 		sendPacket(new ExPutIntensiveResultForVariationMake(_refinerItemObjId, refinerItemId, gemStoneId, gemStoneCount));
-		sendPacket(sm);
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

@@ -18,9 +18,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class RequestDeleteBookMarkSlot extends L2GameClientPacket
 {
-	private static final String _C__REQUESTDELETEBOOKMARKSLOT = "[C] D0:51:03 RequestDeleteBookMarkSlot chd[d]";
+	private static final String	_C__REQUESTDELETEBOOKMARKSLOT	= "[C] D0:51:03 RequestDeleteBookMarkSlot chd[d]";
 	
-	private int _id;
+	private int					_id;
 	
 	@Override
 	protected void readImpl()

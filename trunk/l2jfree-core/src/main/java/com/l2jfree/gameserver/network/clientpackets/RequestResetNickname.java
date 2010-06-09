@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class RequestResetNickname extends L2GameClientPacket
 {
-	private static final String _C__D0_50_REQUESTRESETNICKNAME = "[C] D0:50 RequestResetNickname";
+	private static final String	_C__D0_50_REQUESTRESETNICKNAME	= "[C] D0:50 RequestResetNickname";
 	
 	@Override
 	protected void readImpl()

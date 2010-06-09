@@ -25,11 +25,12 @@ import com.l2jfree.gameserver.network.SystemMessageId;
  */
 public class RequestChangeNicknameColor extends L2GameClientPacket
 {
-	private static final String _C__D0_4F_REQUESTCHANGENICKNAMECOLOR = "[C] D0:4F RequestChangeNicknameColor";
-	public static final int COLOR_NAME_1 = 13021;
-	public static final int COLOR_NAME_2 = 13307;
-	private static final int[] COLOR_CHOICES = {
+	private static final String	_C__D0_4F_REQUESTCHANGENICKNAMECOLOR	= "[C] D0:4F RequestChangeNicknameColor";
+	public static final int		COLOR_NAME_1							= 13021;
+	public static final int		COLOR_NAME_2							= 13307;
 	// colors harvested from client, do not modify
+	private static final int[]	COLOR_CHOICES							=
+																		{
 			0x9292fc, // pink
 			0x7c49fc, // rose pink
 			0x98f8fc, // lemon yellow
@@ -39,22 +40,22 @@ public class RequestChangeNicknameColor extends L2GameClientPacket
 			0xa2a800, // peacock green
 			0x7797ad, // yellow ochre
 			0x4a669d, // chocolate
-			0x999a9a // silver
-	};
+			0x999a9a  // silver
+																		};
 	
 	// Name Color
-	private int _color;
+	private int					_color;
 	// Ennoble = fail translated entitle (see a dictionary)
-	private String _title;
+	private String				_title;
 	
-	//private int				_unk;
+	// private int _unk;
 	
 	@Override
 	protected void readImpl()
 	{
 		_color = readD();
 		_title = readS();
-		/*_unk = */readD(); // 202611200 ???
+		/* _unk = */readD(); // 202611200 ???
 	}
 	
 	@Override

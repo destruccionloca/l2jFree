@@ -25,40 +25,43 @@ import com.l2jfree.gameserver.network.serverpackets.ExCursedWeaponLocation.Curse
 
 /**
  * Format: (ch)
- * @author  -Wooden-
+ * 
+ * @author -Wooden-
  */
 public class RequestCursedWeaponLocation extends L2GameClientPacket
 {
-    private static final String _C__D0_23_REQUESTCURSEDWEAPONLOCATION = "[C] D0:23 RequestCursedWeaponLocation";
-
-    @Override
-    protected void readImpl()
-    {
-    }
-
-    @Override
-    protected void runImpl()
-    {
-        L2Character activeChar = getClient().getActiveChar();
-        if (activeChar == null) return;
-
-        Location loc = null;
-        FastList<CursedWeaponInfo> list = new FastList<CursedWeaponInfo>();
-        for (CursedWeapon cw : CursedWeaponsManager.getInstance().getCursedWeapons())
-        {
-            if (!cw.isActive()) continue;
-            loc = cw.getCurrentLocation();
-            if (loc != null)
-                list.add(new CursedWeaponInfo(loc, cw.getItemId(), cw.isActivated() ? 1 : 0));
-        }
-        loc = null;
-
-        sendPacket(new ExCursedWeaponLocation(list));
-    }
-
-    @Override
-    public String getType()
-    {
-        return _C__D0_23_REQUESTCURSEDWEAPONLOCATION;
-    }
+	private static final String	_C__D0_23_REQUESTCURSEDWEAPONLOCATION	= "[C] D0:23 RequestCursedWeaponLocation";
+	
+	@Override
+	protected void readImpl()
+	{
+	}
+	
+	@Override
+	protected void runImpl()
+	{
+		L2Character activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		
+		Location loc = null;
+		FastList<CursedWeaponInfo> list = new FastList<CursedWeaponInfo>();
+		for (CursedWeapon cw : CursedWeaponsManager.getInstance().getCursedWeapons())
+		{
+			if (!cw.isActive())
+				continue;
+			loc = cw.getCurrentLocation();
+			if (loc != null)
+				list.add(new CursedWeaponInfo(loc, cw.getItemId(), cw.isActivated() ? 1 : 0));
+		}
+		loc = null;
+		
+		sendPacket(new ExCursedWeaponLocation(list));
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _C__D0_23_REQUESTCURSEDWEAPONLOCATION;
+	}
 }

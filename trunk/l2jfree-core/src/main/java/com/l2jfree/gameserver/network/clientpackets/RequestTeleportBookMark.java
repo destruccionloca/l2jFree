@@ -20,7 +20,7 @@ public final class RequestTeleportBookMark extends L2GameClientPacket
 {
 	private static final String	_C__REQUESTTELEPORTBOOKMARK	= "[C] D0:51:04 RequestTeleportBookMark chd[d]";
 	
-	private int _id;
+	private int					_id;
 	
 	@Override
 	protected void readImpl()

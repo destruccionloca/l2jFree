@@ -21,32 +21,34 @@ import com.l2jfree.gameserver.network.serverpackets.ExPutItemResultForVariationM
 
 /**
  * Format:(ch) d
- * @author  -Wooden-
+ * 
+ * @author -Wooden-
  */
 public final class RequestConfirmTargetItem extends AbstractRefinePacket
 {
-	private static final String _C__D0_29_REQUESTCONFIRMTARGETITEM = "[C] D0:29 RequestConfirmTargetItem";
-
-	private int _itemObjId;
-
+	private static final String	_C__D0_29_REQUESTCONFIRMTARGETITEM	= "[C] D0:29 RequestConfirmTargetItem";
+	
+	private int					_itemObjId;
+	
 	@Override
 	protected void readImpl()
 	{
 		_itemObjId = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) return;
+		if (activeChar == null)
+			return;
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_itemObjId);
 		if (item == null)
 		{
 			requestFailed(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return;
 		}
-
+		
 		if (!isValid(activeChar))
 		{
 			sendAF();
@@ -61,13 +63,12 @@ public final class RequestConfirmTargetItem extends AbstractRefinePacket
 				requestFailed(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
-
+		
 		sendPacket(new ExPutItemResultForVariationMake(_itemObjId));
-		sendPacket(SystemMessageId.SELECT_THE_CATALYST_FOR_AUGMENTATION);
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{
