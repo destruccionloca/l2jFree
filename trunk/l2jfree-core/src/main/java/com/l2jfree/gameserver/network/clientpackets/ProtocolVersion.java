@@ -24,21 +24,22 @@ import com.l2jfree.gameserver.network.serverpackets.KeyPacket;
 public class ProtocolVersion extends L2GameClientPacket
 {
 	private static final String	_C__PROTOCOLVERSION	= "[C] 0E ProtocolVersion c[unk] (changes often)";
-
+	
 	private int					_version;
-
+	
 	@Override
 	protected void readImpl()
 	{
 		_version = readD();
-		/* A block of bytes
-		byte[] b = new byte[260];
-		readB(b);
-		_log.info(HexUtil.printData(b));
-		*/
+		
+		// A block of bytes
+		// byte[] b = new byte[260];
+		// readB(b);
+		// _log.info(HexUtil.printData(b));
+		
 		skip(260);
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
@@ -79,7 +80,7 @@ public class ProtocolVersion extends L2GameClientPacket
 			client.setProtocolOk(true);
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{

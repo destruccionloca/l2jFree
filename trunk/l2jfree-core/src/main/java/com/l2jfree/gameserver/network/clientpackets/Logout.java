@@ -19,30 +19,30 @@ import com.l2jfree.gameserver.network.Disconnection;
 
 public final class Logout extends L2GameClientPacket
 {
-	private static final String _C__09_LOGOUT = "[C] 09 Logout";
-
+	private static final String	_C__09_LOGOUT	= "[C] 09 Logout";
+	
 	@Override
 	protected void readImpl()
 	{
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		// this method sends an information message to the player
 		if (!activeChar.canLogout(false))
 		{
 			sendAF();
 			return;
 		}
-
+		
 		new Disconnection(getClient(), activeChar).defaultSequence(false);
 	}
-
+	
 	@Override
 	public String getType()
 	{
