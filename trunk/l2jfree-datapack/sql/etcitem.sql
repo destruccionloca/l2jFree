@@ -9983,3 +9983,7 @@ UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '243700' WHERE `item_id` 
 UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '324920' WHERE `item_id` IN (9986,9989);
 UPDATE `etcitem` SET `item_type` = 'recipe', `price` = '162460' WHERE `item_id` IN (9987,9990);
 UPDATE `etcitem` SET `price` = '2068800' WHERE `item_id` BETWEEN 10373 AND 10396;
+
+-- Mutated Kaneus (Spire)
+UPDATE `etcitem` SET `item_type` = 'quest', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` BETWEEN 13830 AND 13840;
+
