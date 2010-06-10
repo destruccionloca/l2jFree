@@ -247,7 +247,8 @@ public class EnterWorld extends L2GameClientPacket
 				quest.notifyEnterWorld(activeChar);
 		}
 		
-		notifyFriends(activeChar);
+		// FIXME
+		// notifyFriends(activeChar);
 		notifyClanMembers(activeChar);
 		notifySponsorOrApprentice(activeChar);
 		
