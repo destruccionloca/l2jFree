@@ -38,6 +38,8 @@ import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
+import com.l2jfree.gameserver.network.communityserver.writepackets.WorldInfo;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
@@ -195,6 +197,8 @@ public class ClanTable
 		player.sendPacket(new UserInfo(player));
 		player.sendPacket(new PledgeShowMemberListUpdate(player));
 		player.sendPacket(SystemMessageId.CLAN_CREATED);
+		
+		CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, clan, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 		return clan;
 	}
 

@@ -949,8 +949,7 @@ public class SkillTreeTable
 		return Integer.MAX_VALUE;
 	}
 
-	@Deprecated
-	public int getEnchantSkillExpCost(L2Skill skill)
+	public int getEnchantSkillAdenaCost(L2Skill skill)
 	{
 		L2EnchantSkillLearn enchantSkillLearn = _enchantSkillTrees.get(skill.getId());
 		if (enchantSkillLearn != null)
@@ -958,7 +957,7 @@ public class SkillTreeTable
 			EnchantSkillDetail esd = enchantSkillLearn.getEnchantSkillDetail(skill.getLevel());
 			if (esd != null)
 			{
-				return esd.getExpCost();
+				return esd.getAdenaCost();
 			}
 		}
 
