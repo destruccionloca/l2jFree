@@ -585,10 +585,10 @@ public final class L2GamePacketHandler implements
 						// RequestSkillCoolTime
 						break;
 					case 0xa7:
-						msg = new RequestPackageSendableItemList();
+						//msg = new RequestPackageSendableItemList();
 						break;
 					case 0xa8:
-						msg = new RequestPackageSend();
+						//msg = new RequestPackageSend();
 						break;
 					case 0xa9:
 						msg = new RequestBlock();
@@ -1045,7 +1045,7 @@ public final class L2GamePacketHandler implements
 							case 0x63:
 								msg = new RequestSeedPhase();
 								break;
-							case 0x65:
+							/*case 0x65:
 								msg = new BrGamePoint();
 								break;
 							case 0x66:
@@ -1056,6 +1056,45 @@ public final class L2GamePacketHandler implements
 								break;
 							case 0x68:
 								msg = new BrBuyProduct();
+								break;*/
+							case 0x65:
+								msg = new RequestPostItemList();
+								break;
+							case 0x66:
+								msg = new RequestSendPost();
+								break;
+							case 0x67:
+								msg = new RequestReceivedPostList();
+								break;
+							case 0x68:
+								msg = new RequestDeleteReceivedPost();
+								break;
+							case 0x69:
+								msg = new RequestReceivedPost();
+								break;
+							case 0x6A:
+								msg = new RequestPostAttachment();
+								break;
+							case 0x6B:
+								msg = new RequestRejectPostAttachment();
+								break;
+							case 0x6C:
+								msg = new RequestSentPostList();
+								break;
+							case 0x6D:
+								msg = new RequestDeleteSentPost();
+								break;
+							case 0x6E:
+								msg = new RequestSentPost();
+								break;
+							case 0x6F:
+								msg = new RequestCancelPost();
+								break;
+							case 0x75:
+								msg = new RequestRefundItem();
+								break;
+							case 0x76:
+								msg = new RequestBuySellUIClose();
 								break;
 							default:
 								printDebug(buf, client, opcode, id2);
