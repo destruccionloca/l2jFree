@@ -21,32 +21,32 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class RequestWithdrawAlly extends L2GameClientPacket
 {
-    private static final String _C__REQUESTWITHDRAWALLY = "[C] 8E RequestWithdrawAlly c";
-
-    @Override
-    protected void readImpl()
-    {
-    	// trigger packet
-    }
-
-    @Override
-    protected void runImpl()
-    {
-        L2PcInstance player = getActiveChar();
-        if (player == null)
-        	return;
-        else if (player.getClan() == null)
-        {
+	private static final String	_C__REQUESTWITHDRAWALLY	= "[C] 8E RequestWithdrawAlly c";
+	
+	@Override
+	protected void readImpl()
+	{
+		// trigger packet
+	}
+	
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getActiveChar();
+		if (player == null)
+			return;
+		else if (player.getClan() == null)
+		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-            return;
-        }
-        else if (!player.isClanLeader())
+			return;
+		}
+		else if (!player.isClanLeader())
 		{
 			requestFailed(SystemMessageId.ONLY_CLAN_LEADER_WITHDRAW_ALLY);
 			return;
 		}
-
-        L2Clan clan = player.getClan();
+		
+		L2Clan clan = player.getClan();
 		if (clan.getAllyId() == 0)
 		{
 			requestFailed(SystemMessageId.NO_CURRENT_ALLIANCES);
@@ -57,26 +57,28 @@ public class RequestWithdrawAlly extends L2GameClientPacket
 			requestFailed(SystemMessageId.ALLIANCE_LEADER_CANT_WITHDRAW);
 			return;
 		}
-
+		
 		long currentTime = System.currentTimeMillis();
-        clan.setAllyId(0);
-        clan.setAllyName(null);
-        clan.setAllyCrestId(0);
-        clan.setAllyPenaltyExpiryTime(
-        		currentTime + Config.ALT_ALLY_JOIN_DAYS_WHEN_LEAVED * 86400000L,
-        		L2Clan.PENALTY_TYPE_CLAN_LEAVED);
-        clan.updateClanInDB();
-        sendPacket(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE);
-
+		clan.setAllyId(0);
+		clan.setAllyName(null);
+		clan.setAllyCrestId(0);
+		clan.setAllyPenaltyExpiryTime(currentTime + Config.ALT_ALLY_JOIN_DAYS_WHEN_LEAVED * 86400000L, L2Clan.PENALTY_TYPE_CLAN_LEAVED);
+		clan.updateClanInDB();
+		
+		// notify CB server about the change
+		CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, clan, WorldInfo.TYPE_UPDATE_CLAN_DATA));
+		
+		sendPacket(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE);
+		
 		sendAF();
-
+		
 		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
 			member.broadcastUserInfo();
-    }
-
-    @Override
-    public String getType()
-    {
-        return _C__REQUESTWITHDRAWALLY;
-    }
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _C__REQUESTWITHDRAWALLY;
+	}
 }

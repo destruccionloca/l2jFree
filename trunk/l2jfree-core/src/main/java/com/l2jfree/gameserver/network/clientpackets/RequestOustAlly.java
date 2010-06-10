@@ -22,31 +22,31 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class RequestOustAlly extends L2GameClientPacket
 {
-    private static final String _C__REQUESTOUSTALLY = "[C] 8F RequestOustAlly c[s]";
-
-    private String _clanName;
-
-    @Override
-    protected void readImpl()
-    {
-        _clanName = readS();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-        if (_clanName == null)
-            return;
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null)
-        	return;
-
-        L2Clan leaderClan = player.getClan();
+	private static final String	_C__REQUESTOUSTALLY	= "[C] 8F RequestOustAlly c[s]";
+	
+	private String				_clanName;
+	
+	@Override
+	protected void readImpl()
+	{
+		_clanName = readS();
+	}
+	
+	@Override
+	protected void runImpl()
+	{
+		if (_clanName == null)
+			return;
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+		
+		L2Clan leaderClan = player.getClan();
 		if (leaderClan == null)
-        {
+		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-            return;
-        }
+			return;
+		}
 		else if (leaderClan.getAllyId() == 0)
 		{
 			requestFailed(SystemMessageId.NO_CURRENT_ALLIANCES);
@@ -57,48 +57,48 @@ public class RequestOustAlly extends L2GameClientPacket
 			requestFailed(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 			return;
 		}
-
+		
 		L2Clan clan = ClanTable.getInstance().getClanByName(_clanName);
-        if (clan == null)
-        {
-        	requestFailed(SystemMessageId.CLAN_DOESNT_EXISTS);
+		if (clan == null)
+		{
+			requestFailed(SystemMessageId.CLAN_DOESNT_EXISTS);
 			return;
-        }
-        else if (clan.getClanId() == leaderClan.getClanId())
-        {
+		}
+		else if (clan.getClanId() == leaderClan.getClanId())
+		{
 			requestFailed(SystemMessageId.ALLIANCE_LEADER_CANT_WITHDRAW);
 			return;
-        }
-        else if (clan.getAllyId() != leaderClan.getAllyId())
-        {
-        	requestFailed(SystemMessageId.DIFFERENT_ALLIANCE);
+		}
+		else if (clan.getAllyId() != leaderClan.getAllyId())
+		{
+			requestFailed(SystemMessageId.DIFFERENT_ALLIANCE);
 			return;
-        }
-
+		}
+		
 		long currentTime = System.currentTimeMillis();
-        leaderClan.setAllyPenaltyExpiryTime(
-        		currentTime + Config.ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED * 86400000L,
-        		L2Clan.PENALTY_TYPE_DISMISS_CLAN);
+		leaderClan.setAllyPenaltyExpiryTime(currentTime + Config.ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED * 86400000L, L2Clan.PENALTY_TYPE_DISMISS_CLAN);
 		leaderClan.updateClanInDB();
-
-        clan.setAllyId(0);
-        clan.setAllyName(null);
-        clan.setAllyCrestId(0);
-        clan.setAllyPenaltyExpiryTime(
-        		currentTime + Config.ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED * 86400000L,
-        		L2Clan.PENALTY_TYPE_CLAN_DISMISSED);
-        clan.updateClanInDB();
-        sendPacket(SystemMessageId.YOU_HAVE_EXPELED_A_CLAN);
-
+		
+		clan.setAllyId(0);
+		clan.setAllyName(null);
+		clan.setAllyCrestId(0);
+		clan.setAllyPenaltyExpiryTime(currentTime + Config.ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED * 86400000L, L2Clan.PENALTY_TYPE_CLAN_DISMISSED);
+		clan.updateClanInDB();
+		
+		// notify CB server about the change
+		CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, clan, WorldInfo.TYPE_UPDATE_CLAN_DATA));
+		
+		sendPacket(SystemMessageId.YOU_HAVE_EXPELED_A_CLAN);
+		
 		sendAF();
-
+		
 		for (L2PcInstance member : player.getClan().getOnlineMembers(0))
 			member.broadcastUserInfo();
-    }
-
-    @Override
-    public String getType()
-    {
-        return _C__REQUESTOUSTALLY;
-    }
+	}
+	
+	@Override
+	public String getType()
+	{
+		return _C__REQUESTOUSTALLY;
+	}
 }

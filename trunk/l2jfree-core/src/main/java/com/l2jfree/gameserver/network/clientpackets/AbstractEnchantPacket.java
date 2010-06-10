@@ -28,17 +28,17 @@ import com.l2jfree.gameserver.templates.item.L2WeaponType;
 
 public abstract class AbstractEnchantPacket extends L2GameClientPacket
 {
-	public static final Map<Integer, EnchantScroll> _scrolls = new FastMap<Integer, EnchantScroll>();
-	public static final Map<Integer, EnchantItem> _supports = new FastMap<Integer, EnchantItem>();
-
+	public static final Map<Integer, EnchantScroll>	_scrolls	= new FastMap<Integer, EnchantScroll>();
+	public static final Map<Integer, EnchantItem>	_supports	= new FastMap<Integer, EnchantItem>();
+	
 	public static class EnchantItem
 	{
-		protected final boolean _isWeapon;
-		protected final int _grade;
-		protected final int _maxEnchantLevel;
-		protected final int _chanceAdd;
-		protected final int[] _itemIds;
-
+		protected final boolean	_isWeapon;
+		protected final int		_grade;
+		protected final int		_maxEnchantLevel;
+		protected final int		_chanceAdd;
+		protected final int[]	_itemIds;
+		
 		public EnchantItem(boolean wep, int type, int level, int chance, int[] itemIds)
 		{
 			_isWeapon = wep;
@@ -50,12 +50,12 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 			if (_itemIds != null)
 				Arrays.sort(_itemIds);
 		}
-
+		
 		public EnchantItem(boolean wep, int type, int level, int chance)
 		{
 			this(wep, type, level, chance, null);
 		}
-
+		
 		/*
 		 * Return true if support item can be used for this item
 		 */
@@ -65,7 +65,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 				return false;
 			
 			int type2 = enchantItem.getItem().getType2();
-
+			
 			// checking scroll type and configured maximum enchant level
 			switch (type2)
 			{
@@ -76,35 +76,33 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 					if ((Config.ENCHANT_MAX_WEAPON > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_WEAPON) && enchantItem.getItemId() != 13539)
 						return false;
 					break;
-					// armor scrolls can enchant only accessory and armors
+				// armor scrolls can enchant only accessory and armors
 				case L2Item.TYPE2_SHIELD_ARMOR:
-					if (_isWeapon
-							|| (Config.ENCHANT_MAX_ARMOR > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_ARMOR))
+					if (_isWeapon || (Config.ENCHANT_MAX_ARMOR > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_ARMOR))
 						return false;
 					break;
 				case L2Item.TYPE2_ACCESSORY:
-					if (_isWeapon
-							|| (Config.ENCHANT_MAX_JEWELRY > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_JEWELRY))
+					if (_isWeapon || (Config.ENCHANT_MAX_JEWELRY > 0 && enchantItem.getEnchantLevel() >= Config.ENCHANT_MAX_JEWELRY))
 						return false;
 					break;
 				default:
 					return false;
 			}
-
+			
 			// check for crystal types
 			if (_grade != enchantItem.getItem().getCrystalGrade())
 				return false;
-
+			
 			// check for maximum enchant level
 			if (_maxEnchantLevel != 0 && enchantItem.getEnchantLevel() >= _maxEnchantLevel)
 				return false;
-
+			
 			if (_itemIds != null && Arrays.binarySearch(_itemIds, enchantItem.getItemId()) < 0)
 				return false;
-
+			
 			return true;
 		}
-
+		
 		/*
 		 * return chance increase
 		 */
@@ -113,29 +111,27 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 			return _chanceAdd;
 		}
 	}
-
+	
 	public static final class EnchantScroll extends EnchantItem
 	{
-		private final boolean _isBlessed;
-		private final boolean _isCrystal;
-		private final boolean _isSafe;
-
-		public EnchantScroll(boolean wep, boolean bless, boolean crystal,
-				boolean safe, int type, int level, int chance)
+		private final boolean	_isBlessed;
+		private final boolean	_isCrystal;
+		private final boolean	_isSafe;
+		
+		public EnchantScroll(boolean wep, boolean bless, boolean crystal, boolean safe, int type, int level, int chance)
 		{
 			this(wep, bless, crystal, safe, type, level, chance, null);
 		}
-
-		public EnchantScroll(boolean wep, boolean bless, boolean crystal,
-				boolean safe, int type, int level, int chance, int[] itemIds)
+		
+		public EnchantScroll(boolean wep, boolean bless, boolean crystal, boolean safe, int type, int level, int chance, int[] itemIds)
 		{
 			super(wep, type, level, chance, itemIds);
-
+			
 			_isBlessed = bless;
 			_isCrystal = crystal;
 			_isSafe = safe;
 		}
-
+		
 		/*
 		 * Return true for blessed scrolls
 		 */
@@ -143,7 +139,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		{
 			return _isBlessed;
 		}
-
+		
 		/*
 		 * Return true for crystal scrolls
 		 */
@@ -151,7 +147,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		{
 			return _isCrystal;
 		}
-
+		
 		/*
 		 * Return true for safe-enchant scrolls (enchant level will remain on failure)
 		 */
@@ -159,36 +155,36 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		{
 			return _isSafe;
 		}
-
+		
 		public final boolean isValid(L2ItemInstance enchantItem, EnchantItem supportItem)
 		{
 			// blessed scrolls can't use support items
 			if (supportItem != null && (!supportItem.isValid(enchantItem) || isBlessed()))
-					return false;
-
+				return false;
+			
 			return isValid(enchantItem);
 		}
-
+		
 		public final int getChance(L2ItemInstance enchantItem, EnchantItem supportItem, L2PcInstance player)
 		{
 			if (!isValid(enchantItem, supportItem))
 				return -1;
-
+			
 			int itemLevel = enchantItem.getEnchantLevel();
-
+			
 			boolean fullBody = enchantItem.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR;
 			if (itemLevel < Config.ENCHANT_SAFE_MAX || (fullBody && itemLevel < Config.ENCHANT_SAFE_MAX_FULL))
 				return 100;
-
+			
 			boolean isAccessory = enchantItem.getItem().getType2() == L2Item.TYPE2_ACCESSORY;
 			int chance = 0;
-
+			
 			if (_isBlessed)
 			{
 				// blessed scrolls does not use support items
 				if (supportItem != null)
 					return -1;
-
+				
 				if (_isWeapon)
 					chance = Config.BLESSED_ENCHANT_CHANCE_WEAPON;
 				else if (isAccessory)
@@ -205,12 +201,12 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 				else
 					chance = Config.ENCHANT_CHANCE_ARMOR;
 			}
-
+			
 			chance += _chanceAdd;
-
+			
 			if (supportItem != null)
 				chance += supportItem.getChanceAdd();
-
+			
 			if (player.getRace() == Race.Dwarf && Config.ENCHANT_DWARF_SYSTEM)
 			{
 				int charlevel = player.getLevel();
@@ -219,13 +215,13 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 				else if (charlevel >= 40 && itemLevel <= Config.ENCHANT_DWARF_2_ENCHANTLEVEL)
 					chance = chance + Config.ENCHANT_DWARF_2_CHANCE;
 				else if (charlevel >= 76 && itemLevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
-						chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
+					chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
 			}
-
+			
 			return chance;
 		}
 	}
-
+	
 	static
 	{
 		// itemId, (isWeapon, isBlessed, isCrystal, isSafe, grade, max enchant level, chance increase, allowed item IDs)
@@ -276,10 +272,11 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		_scrolls.put(22019, new EnchantScroll(true, false, false, false, L2Item.CRYSTAL_A, 0, 100));
 		_scrolls.put(22020, new EnchantScroll(false, false, false, false, L2Item.CRYSTAL_B, 0, 100));
 		_scrolls.put(22021, new EnchantScroll(false, false, false, false, L2Item.CRYSTAL_A, 0, 100));
-
+		
 		// Master Yogi's Scroll Enchant Weapon (event)
-		_scrolls.put(13540, new EnchantScroll(true, false, false, false, L2Item.CRYSTAL_NONE, 0, 0, new int[]{ 13539 }));
-
+		_scrolls.put(13540, new EnchantScroll(true, false, false, false, L2Item.CRYSTAL_NONE, 0, 0, new int[]
+		{ 13539 }));
+		
 		// itemId, (isWeapon, grade, max enchant level, chance increase)
 		_supports.put(12362, new EnchantItem(true, L2Item.CRYSTAL_D, 9, 20));
 		_supports.put(12363, new EnchantItem(true, L2Item.CRYSTAL_C, 9, 18));
@@ -302,7 +299,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		_supports.put(14710, new EnchantItem(false, L2Item.CRYSTAL_A, 9, 18));
 		_supports.put(14711, new EnchantItem(false, L2Item.CRYSTAL_S, 9, 15));
 	}
-
+	
 	/**
 	 * Return enchant template for scroll
 	 */
@@ -310,7 +307,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 	{
 		return _scrolls.get(scroll.getItemId());
 	}
-
+	
 	/**
 	 * Return enchant template for support item
 	 */
@@ -318,7 +315,7 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 	{
 		return _supports.get(item.getItemId());
 	}
-
+	
 	/**
 	 * Return true if item can be enchanted
 	 */
@@ -342,20 +339,19 @@ public abstract class AbstractEnchantPacket extends L2GameClientPacket
 		// apprentice and travelers weapons
 		if (item.getItemId() >= 7816 && item.getItemId() <= 7831)
 			return false;
-
+		
 		switch (item.getItem().getBodyPart())
 		{
 			// bracelets
 			case L2Item.SLOT_L_BRACELET:
 			case L2Item.SLOT_R_BRACELET:
-			// cloaks
+				// cloaks
 			case L2Item.SLOT_BACK:
 				return false;
 		}
-
+		
 		// only items in inventory and equipped can be enchanted
-		if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY
-				&& item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL)
+		if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY && item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL)
 			return false;
 		
 		return true;

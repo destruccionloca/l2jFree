@@ -28,23 +28,23 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 public final class Action extends L2GameClientPacket
 {
 	private static final String	_C__ACTION	= "[C] 1F Action c[ddddc]";
-
+	
 	private int					_objectId;
-//	private int					_originX;
-//	private int					_originY;
-//	private int					_originZ;
+	// private int _originX;
+	// private int _originY;
+	// private int _originZ;
 	private boolean				_shift;
-
+	
 	@Override
 	protected void readImpl()
 	{
 		_objectId = readD(); // Target object Identifier
-		/*_originX =*/ readD();
-		/*_originY =*/ readD();
-		/*_originZ =*/ readD();
+		/* _originX = */readD();
+		/* _originY = */readD();
+		/* _originZ = */readD();
 		_shift = (readC() == 1);
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
@@ -53,18 +53,18 @@ public final class Action extends L2GameClientPacket
 			_log.debug("Action shift: " + _shift);
 			_log.debug("ObjectID: " + _objectId);
 		}
-
+		
 		// Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		if (activeChar.inObserverMode())
 		{
 			requestFailed(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
 			return;
 		}
-
+		
 		final L2Object obj;
 		// Get object from target
 		if (activeChar.getTargetId() == _objectId)
@@ -75,7 +75,7 @@ public final class Action extends L2GameClientPacket
 		}
 		else
 			obj = L2World.getInstance().findObject(_objectId);
-
+		
 		if (obj == null)
 		{
 			// pressing e.g. pickup many times quickly would get you here
@@ -91,13 +91,13 @@ public final class Action extends L2GameClientPacket
 				return;
 			}
 		}
-
+		
 		if (!activeChar.isSameInstance(obj))
 		{
 			sendAF();
 			return;
 		}
-
+		
 		if (activeChar.getActiveRequester() == null)
 		{
 			L2Character target = obj.getActingCharacter();
@@ -106,10 +106,10 @@ public final class Action extends L2GameClientPacket
 			else
 				obj.onActionShift(activeChar);
 		}
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

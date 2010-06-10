@@ -34,7 +34,7 @@ import com.l2jfree.mmocore.network.ReceivablePacket;
  */
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
-	protected static final Log _log = LogFactory.getLog(L2GameClientPacket.class);
+	protected static final Log	_log	= LogFactory.getLog(L2GameClientPacket.class);
 	
 	protected L2GameClientPacket()
 	{
