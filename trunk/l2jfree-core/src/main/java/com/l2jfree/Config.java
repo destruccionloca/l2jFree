@@ -1278,6 +1278,9 @@ public class Config extends L2Config
 	public static String			HTML_CACHE_FILE;
 
 	public static boolean			BAN_DUPLICATE_ITEM_OWNER;
+	
+	public static boolean			ALLOW_MAIL;
+	public static boolean			ALLOW_ATTACHMENTS;
 	// *******************************************************************************************
 	private static final class OptionsConfig extends ConfigPropertiesLoader
 	{
@@ -1506,6 +1509,9 @@ public class Config extends L2Config
 		    HTML_CACHE_FILE = optionsSettings.getProperty("HtmlCacheFile", "./html.cache");
 
 		    BAN_DUPLICATE_ITEM_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("BanDuplicateItemOwner", "False"));
+		    
+			ALLOW_MAIL = Boolean.parseBoolean(optionsSettings.getProperty("AllowMail", "True"));
+			ALLOW_ATTACHMENTS = Boolean.parseBoolean(optionsSettings.getProperty("AllowAttachments", "True"));
 		}
 	}
 
@@ -1593,7 +1599,6 @@ public class Config extends L2Config
 	public static boolean				ALT_SP_BOOK_NEEDED;															// Spell Book needed to learn skill
 	public static boolean				ALT_LIFE_CRYSTAL_NEEDED;													// Clan Item needed to learn clan skills
 	public static boolean				ALT_ES_SP_BOOK_NEEDED;														// Spell Book needet to enchant skill
-	public static boolean				ALT_EPILOGUE_ENCHANT_SYSTEM;												// Requires adena but do not require exp
 	public static boolean				DIVINE_SP_BOOK_NEEDED;
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
@@ -1814,7 +1819,6 @@ public class Config extends L2Config
 			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "false"));
 			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
 			ALT_ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));
-			ALT_EPILOGUE_ENCHANT_SYSTEM = Boolean.parseBoolean(altSettings.getProperty("AltEpilogueEnchantSystem", "true"));
 			DIVINE_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("DivineInspirationSpBookNeeded", "true"));
 			ALT_AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "true"));
 			ALT_AUTO_LOOT_RAID = Boolean.parseBoolean(altSettings.getProperty("AutoLootRaid", "true"));

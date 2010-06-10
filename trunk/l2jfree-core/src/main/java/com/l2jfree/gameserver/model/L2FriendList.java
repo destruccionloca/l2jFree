@@ -26,6 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 /**
  * @author G1ta0
  */
+// TODO sync according to l2j rework
 public final class L2FriendList
 {
 	private final L2PcInstance _owner;
