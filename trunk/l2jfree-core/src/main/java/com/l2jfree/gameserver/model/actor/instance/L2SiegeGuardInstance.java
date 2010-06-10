@@ -38,8 +38,6 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 /**
  * This class represents all guards in the world. It inherits all methods from
  * L2Attackable and adds some more such as tracking PK's or custom interactions.
- * 
- * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
  */
 public class L2SiegeGuardInstance extends L2SiegeGuard
 {

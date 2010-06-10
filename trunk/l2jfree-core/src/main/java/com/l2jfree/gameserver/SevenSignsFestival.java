@@ -1116,7 +1116,7 @@ public class SevenSignsFestival implements SpawnListener
 		{
 			if (player.getClan() != null)
 			{
-				player.getClan().setReputationScore(player.getClan().getReputationScore() + Config.FESTIVAL_WIN_POINTS, true);
+				player.getClan().addReputationScore(Config.FESTIVAL_WIN_POINTS, true);
 				SystemMessage sm = new SystemMessage(
 						SystemMessageId.CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_FESTIVAL_PARTY_GAINED_S2_REPUTATION);
 				sm.addString(partyMemberName);
@@ -1142,7 +1142,7 @@ public class SevenSignsFestival implements SpawnListener
 						L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
 						if (clan != null)
 						{
-							clan.setReputationScore(clan.getReputationScore() + Config.FESTIVAL_WIN_POINTS, true);
+							clan.addReputationScore(Config.FESTIVAL_WIN_POINTS, true);
 							SystemMessage sm = new SystemMessage(
 									SystemMessageId.CLAN_MEMBER_C1_WAS_IN_HIGHEST_RANKED_FESTIVAL_PARTY_GAINED_S2_REPUTATION);
 							sm.addString(partyMemberName);

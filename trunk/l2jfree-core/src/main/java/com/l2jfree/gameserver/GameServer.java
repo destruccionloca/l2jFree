@@ -97,6 +97,7 @@ import com.l2jfree.gameserver.instancemanager.GrandBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.InstanceManager;
 import com.l2jfree.gameserver.instancemanager.IrcManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
+import com.l2jfree.gameserver.instancemanager.MailManager;
 import com.l2jfree.gameserver.instancemanager.MapRegionManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.instancemanager.PartyRoomManager;
@@ -134,6 +135,7 @@ import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameSelectorThread;
+import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
@@ -220,6 +222,7 @@ public class GameServer extends Config
 		Class.forName(NobleSkillTable.class.getName());
 		Class.forName(HeroSkillTable.class.getName());
 		ResidentialSkillTable.getInstance();
+		
 		Util.printSection("Items");
 		Class.forName(ShotTable.class.getName());
 		ItemTable.getInstance();
@@ -368,12 +371,15 @@ public class GameServer extends Config
 		
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
+		
 		Util.printSection("Dungeons");
 		DimensionalRiftManager.getInstance();
 		FourSepulchersManager.getInstance().init();
+		
 		Util.printSection("Hellbound");
 		HellboundManager.getInstance();
 		TowerOfNaiaManager.getInstance().init();
+		
 		Util.printSection("Bosses");
 		AntharasManager.getInstance().init();
 		BaiumManager.getInstance().init();
@@ -400,6 +406,7 @@ public class GameServer extends Config
 			_log.warn("DynamicExtension could not be loaded and initialized", ex);
 		}
 		AutomatedTvT.getInstance();
+		
 		Util.printSection("Handlers");
 		ItemHandler.getInstance();
 		SkillHandler.getInstance();
@@ -423,6 +430,11 @@ public class GameServer extends Config
 		MerchantPriceConfigTable.getInstance().updateReferences();
 		CastleManager.getInstance().activateInstances();
 		FortManager.getInstance().activateInstances();
+		
+		if  (Config.ALLOW_MAIL)
+		 	MailManager.getInstance();
+		
+		CommunityServerThread.initialize();
 		
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		
