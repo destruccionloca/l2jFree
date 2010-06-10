@@ -19,6 +19,8 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
+import com.l2jfree.gameserver.network.communityserver.writepackets.WorldInfo;
 
 public class RequestOustAlly extends L2GameClientPacket
 {

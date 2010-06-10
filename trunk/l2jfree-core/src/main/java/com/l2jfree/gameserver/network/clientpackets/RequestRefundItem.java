@@ -15,13 +15,17 @@
 package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.List;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -36,10 +40,8 @@ import com.l2jfree.gameserver.util.Util;
 public final class RequestRefundItem extends L2GameClientPacket
 {
 	private static final String	_C__D0_75_REQUESTREFUNDITEM	= "[C] D0:75 RequestRefundItem";
-	private static final Logger	_log						= Logger.getLogger(RequestRefundItem.class.getName());
+	private static final Log	_log						= LogFactory.getLog(RequestRefundItem.class);
 	
-	private static final int	BATCH_LENGTH				= 4;													// length of the one item
-																													
 	private int					_listId;
 	private int[]				_items						= null;
 	
@@ -84,12 +86,11 @@ public final class RequestRefundItem extends L2GameClientPacket
 		}
 		
 		L2Object target = player.getTarget();
+		// FIXME ?
 		if (!player.isGM()
 				&& (target == null // No target (ie GM Shop)
 						|| !(target instanceof L2MerchantInstance || target instanceof L2MerchantSummonInstance)
-						|| player.getInstanceId() != target.getInstanceId() || !player.isInsideRadius(target, INTERACTION_DISTANCE, true, false))) // Distance
-		// is too
-		// far
+						|| player.getInstanceId() != target.getInstanceId() || !player.isInsideRadius(target, L2Npc.INTERACTION_DISTANCE, true, false)))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -112,12 +113,12 @@ public final class RequestRefundItem extends L2GameClientPacket
 			List<L2TradeList> lists;
 			if (merchant instanceof L2MerchantInstance)
 			{
-				lists = TradeController.getInstance().getBuyListByNpcId(((L2MerchantInstance) merchant).getNpcId());
+				lists = TradeListTable.getInstance().getBuyListByNpcId(((L2MerchantInstance) merchant).getNpcId());
 				taxRate = ((L2MerchantInstance) merchant).getMpc().getTotalTaxRate();
 			}
 			else
 			{
-				lists = TradeController.getInstance().getBuyListByNpcId(((L2MerchantSummonInstance) merchant).getNpcId());
+				lists = TradeListTable.getInstance().getBuyListByNpcId(((L2MerchantSummonInstance) merchant).getNpcId());
 				taxRate = 50;
 			}
 			
@@ -136,10 +137,10 @@ public final class RequestRefundItem extends L2GameClientPacket
 				}
 			}
 			else
-				list = TradeController.getInstance().getBuyList(_listId);
+				list = TradeListTable.getInstance().getBuyList(_listId);
 		}
 		else
-			list = TradeController.getInstance().getBuyList(_listId);
+			list = TradeListTable.getInstance().getBuyList(_listId);
 		
 		if (list == null)
 		{
@@ -223,7 +224,7 @@ public final class RequestRefundItem extends L2GameClientPacket
 					player.getLastFolkNPC());
 			if (item == null)
 			{
-				_log.warning("Error refunding object for char " + player.getName() + " (newitem == null)");
+				_log.warn("Error refunding object for char " + player.getName() + " (newitem == null)");
 				continue;
 			}
 		}
@@ -235,10 +236,6 @@ public final class RequestRefundItem extends L2GameClientPacket
 		player.sendPacket(new ExBuySellListPacket(player, list, taxRate, true));
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see com.l2jserver.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{

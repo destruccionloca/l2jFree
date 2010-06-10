@@ -29,6 +29,8 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
+import com.l2jfree.gameserver.network.communityserver.writepackets.RequestShowCommunityBoard;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;

@@ -274,6 +274,7 @@ public class SkillTreeTable
 				int minSkillLvl = skilltree3.getInt("min_skill_lvl");
 				int sp = skilltree3.getInt("sp");
 				int exp = skilltree3.getInt("exp");
+				int adena = skilltree3.getInt("adena");
 				byte rate76 = skilltree3.getByte("success_rate76");
 				byte rate77 = skilltree3.getByte("success_rate77");
 				byte rate78 = skilltree3.getByte("success_rate78");
@@ -294,7 +295,7 @@ public class SkillTreeTable
 					skill = new L2EnchantSkillLearn(id, baseLvl);
 					_enchantSkillTrees.put(id, skill);
 				}
-				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, sp, exp, rate76, rate77, rate78, rate79, rate80, rate81, rate82, rate83, rate84, rate85);
+				EnchantSkillDetail esd = new EnchantSkillDetail(lvl, minSkillLvl, adena, sp, exp, rate76, rate77, rate78, rate79, rate80, rate81, rate82, rate83, rate84, rate85);
 				skill.addEnchantDetail(esd);
 			}
 
@@ -948,6 +949,7 @@ public class SkillTreeTable
 		return Integer.MAX_VALUE;
 	}
 
+	@Deprecated
 	public int getEnchantSkillExpCost(L2Skill skill)
 	{
 		L2EnchantSkillLearn enchantSkillLearn = _enchantSkillTrees.get(skill.getId());
@@ -956,7 +958,7 @@ public class SkillTreeTable
 			EnchantSkillDetail esd = enchantSkillLearn.getEnchantSkillDetail(skill.getLevel());
 			if (esd != null)
 			{
-				return esd.getExp();
+				return esd.getExpCost();
 			}
 		}
 

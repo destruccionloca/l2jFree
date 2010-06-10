@@ -16778,6 +16778,19 @@ public enum SystemMessageId
 	YOU_REQUESTED_C1_TO_BE_FRIEND(2911),
 	
 	/**
+	 * ID: 2912<br>
+	 * Message: You've invited $c1 to join your clan.
+	 */
+	INVITED_C1_TO_CLAN(2912),
+	
+	/**
+	 * ID: 2913<BR>
+	 * Console Message: Clan $s1 has succeeded in capturing $s2's territory ward.<BR>
+	 * Screen Message: $s2 ward is captured!
+	 */
+	CLAN_S1_CAPTURED_S2_WARD(2913),
+	
+	/**
 	 * ID: 2914<br>
 	 * Message: The territory war will begin in 20 minutes! Territory related functions (ie: battlefield channel, Disguise Scrolls, Transformations, etc...) can
 	 * now be used.
@@ -16789,6 +16802,207 @@ public enum SystemMessageId
 	 * Message: You cannot enter a Seed while in a flying transformation state.
 	 */
 	YOU_CANNOT_ENTER_SEED_IN_FLYING_TRANSFORM(2924),
+	BC_ENDS_3(2925),
+	
+	/**
+	 * ID: 2926<BR>
+	 * Console Message: Block Checker will end in 2 seconds!!!!<BR>
+	 * Screen Message: Block Checker will end in 2 seconds!
+	 */
+	BC_ENDS_2(2926),
+	
+	/**
+	 * ID: 2927<BR>
+	 * Console Message: Block Checker will end in 1 second!!!!!<BR>
+	 * Screen Message: Block Checker will end in 1 second!
+	 */
+	BC_ENDS_1(2927),
+	
+	/**
+	 * ID: 2928<BR>
+	 * Console Message: The $c1 team has won.<BR>
+	 * Screen Message: Victory goes to the $c1 team!
+	 */
+	TEAM_C1_WON(2928),
+	
+	/**
+	 * ID: 2929<BR>
+	 * Console Message: Your request cannot be processed because there's no enough
+	 * available memory on your graphic card. Please try again after reducing the
+	 * resolution.
+	 */
+	// NOT_ENOUGH_GRAPHICS_MEMORY_REDUCE_RESOLUTION(2929),
+	
+	/**
+	 * ID: 2930<BR>
+	 * Console Message: A graphic card internal error has occurred. Please install the
+	 * latest version of the graphic card driver and try again.
+	 */
+	// INSTALL_LATEST_DRIVERS(2930),
+	
+	/**
+	 * ID: 2931<BR>
+	 * Console Message: The system file may have been damaged. After ending the game,
+	 * please check the file using the Lineage II auto update.
+	 */
+	// SYSTEM_FILE_DAMAGED(2931),
+	
+	/**
+	 * ID: 2932<BR>
+	 * Console Message: $s1 adena
+	 */
+	S1_ADENA(2932),
+	
+	/**
+	 * ID: 2933<BR>
+	 * Console Message: Thomas D. Turkey has appeared. Please save Santa.
+	 */
+	// UNNAMED_2933(2933),
+	
+	/**
+	 * ID: 2934<BR>
+	 * Console Message: You have defeated Thomas D. Turkey and rescued Santa.
+	 */
+	// UNNAMED_2934(2934),
+	
+	/**
+	 * ID: 2935<BR>
+	 * Console Message: You failed to rescue Santa, and Thomas D. Turkey has disappeared.
+	 */
+	// UNNAMED_2935(2935),
+	
+	/**
+	 * ID: 2936<BR>
+	 * Console Message: The disguise scroll cannot be used because it is meant for use
+	 * in a different territory.
+	 */
+	CANT_DISGUISE_WRONG_TERRITORY(2936),
+	
+	/**
+	 * ID: 2937<BR>
+	 * Console Message: A territory owning clan member cannot use a disguise scroll.
+	 */
+	CANT_DISGUISE_OWNING_TERRITORY(2937),
+	
+	/**
+	 * ID: 2938<BR>
+	 * Console Message: The disguise scroll cannot be used while you are engaged in
+	 * a private store or manufacture workshop.
+	 */
+	CANT_DISGUISE_WITH_SHOP(2938),
+	
+	/**
+	 * ID: 2939<BR>
+	 * Console Message: A disguise cannot be used when you are in a chaotic state.
+	 */
+	CANT_DISGUISE_WITH_KARMA(2939),
+	
+	/**
+	 * ID: 2940<BR>
+	 * Console Message: You can increase the chance to enchant the item. Press the
+	 * Start button below to begin.
+	 */
+	// CAN_INCREASE_ENCHANT_CHANCE(2940),
+	
+	/**
+	 * ID: 2941<BR>
+	 * Console Message: The request cannot be completed because the requirements are
+	 * not met. In order to participate in a team match, all team members must have an
+	 * Olympiad score of 1 or more.
+	 */
+	CANNOT_PARTICIPATE_IN_TEAM_OLYMPIAD_MATCH(2941),
+	
+	/**
+	 * ID: 2942<BR>
+	 * Console Message: The first gift's remaining resupply time is $s1 hour(s)
+	 * $s2 minute(s) $s3 second(s). (If you resummon the Agathion at the gift supply
+	 * time, the supply time can take an additional 10 minutes.)
+	 */
+	FIRST_GIFT_RESUPPLY_TIME_S1_HOURS_S2_MINUTES_S3_SECONDS(2942),
+	
+	/**
+	 * ID: 2943<BR>
+	 * Console Message: The first gift's remaining resupply time is $s1 minute(s)
+	 * $s2 second(s). (If you resummon the Agathion at the gift supply time, the
+	 * supply time can take an additional 10 minutes.)
+	 */
+	FIRST_GIFT_RESUPPLY_TIME_S1_MINUTES_S2_SECONDS(2943),
+	
+	/**
+	 * ID: 2944<BR>
+	 * Console Message: The first gift's remaining resupply time is $s1 second(s).
+	 * (If you resummon the Agathion at the gift supply time, the supply time can
+	 * take an additional 10 minutes.)
+	 */
+	FIRST_GIFT_RESUPPLY_TIME_S1_SECONDS(2944),
+	
+	/**
+	 * ID: 2945<BR>
+	 * Console Message: The second gift's remaining resupply time is $s1 hour(s)
+	 * $s2 minute(s) $s3 second(s). (If you resummon the Agathion at the gift supply
+	 * time, the supply time can take an additional 1 hour 10 minutes.)
+	 */
+	SECOND_GIFT_RESUPPLY_TIME_S1_HOURS_S2_MINUTES_S3_SECONDS(2945),
+	
+	/**
+	 * ID: 2946<BR>
+	 * Console Message: The second gift's remaining resupply time is $s1 minute(s)
+	 * $s2 second(s). (If you resummon the Agathion at the gift supply time, the supply
+	 * time can take an additional 1 hour 10 minutes.)
+	 */
+	SECOND_GIFT_RESUPPLY_TIME_S1_MINUTES_S2_SECONDS(2946),
+	
+	/**
+	 * ID: 2947<BR>
+	 * Console Message: The second gift's remaining resupply time is $s1 second(s).
+	 * (If you resummon the Agathion at the gift supply time, the supply time can take
+	 * an additional 1 hour 10 minutes.)
+	 */
+	SECOND_GIFT_RESUPPLY_TIME_S1_SECONDS(2947),
+	
+	/**
+	 * ID: 2955<BR>
+	 * Console Message: The territory war exclusive disguise and transformation can be
+	 * used 20 minutes before the start of the territory war to 10 minutes after its end.
+	 */
+	DISGUISE_USAGE(2955),
+	
+	/**
+	 * ID: 2956<BR>
+	 * Console Message: A user participating in the Olympiad cannot witness the battle.
+	 */
+	OLYMPIAD_PARTICIPANT_CANT_OBSERVE(2956),
+	
+	/**
+	 * ID: 2957<br>
+	 * Message: Characters with a February 29 creation date will receive a gift on
+	 * February 28.
+	 */
+	CHARACTERS_CREATED_FEB_29_WILL_RECEIVE_GIFT_FEB_28(2957),
+	
+	/**
+	 * ID: 2958<BR>
+	 * Console Message: An Agathion has already been summoned.
+	 */
+	AGATHION_ALREADY_SUMMONED(2958),
+	
+	/**
+	 * ID: 2959<BR>
+	 * Console Message: Your account has been temporarily restricted...
+	 */
+	// ILLEGAL_USE38(2959),
+	
+	/**
+	 * ID: 2960<BR>
+	 * Console Message: The item $s1% is required.
+	 */
+	ITEM_S1_REQUIRED(2960),
+	
+	/**
+	 * ID: 2961<BR>
+	 * Console Message: $2 unit(s) of the item $s1% is required.
+	 */
+	S2_UNITS_OF_S1_REQUIRED(2961),
 	
 	/**
 	 * ID: 2966<br>

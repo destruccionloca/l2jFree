@@ -1195,6 +1195,7 @@ public class Config extends L2Config
 	public static int				COMMUNITY_TYPE;								// Community Board
 	public static boolean			BBS_SHOW_PLAYERLIST;
 	public static String			BBS_DEFAULT;
+	public static boolean			ENABLE_COMMUNITY_BOARD;
 	public static boolean			SHOW_LEVEL_COMMUNITYBOARD;
 	public static boolean			SHOW_STATUS_COMMUNITYBOARD;
 	public static int				NAME_PAGE_SIZE_COMMUNITYBOARD;
@@ -1373,6 +1374,7 @@ public class Config extends L2Config
 			COMMUNITY_TYPE = Integer.parseInt(optionsSettings.getProperty("CommunityType", "1"));
 			BBS_SHOW_PLAYERLIST = Boolean.parseBoolean(optionsSettings.getProperty("BBSShowPlayerList", "false"));
 			BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
+			ENABLE_COMMUNITY_BOARD = Boolean.parseBoolean(optionsSettings.getProperty("EnableCommunityBoard", "false"));
 			MAIL_STORE_DELETED_LETTERS = Boolean.parseBoolean(optionsSettings.getProperty("MailStoreDeletedLetters", "False"));
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
 			SHOW_STATUS_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
