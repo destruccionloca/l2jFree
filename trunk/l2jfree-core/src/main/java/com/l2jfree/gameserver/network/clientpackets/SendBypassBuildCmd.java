@@ -24,27 +24,27 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 public final class SendBypassBuildCmd extends L2GameClientPacket
 {
 	private static final String	_C__SENDBYPASSBUILDCMD	= "[C] 74 SendBypassBuildCmd c[s]";
-
+	
 	private String				_command;
-
+	
 	@Override
 	protected void readImpl()
 	{
 		_command = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		AdminCommandHandler.getInstance().useAdminCommand(activeChar, "admin_" + _command);
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{
