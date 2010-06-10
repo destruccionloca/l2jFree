@@ -22,12 +22,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class RequestAutoSoulShot extends L2GameClientPacket
 {
-	private static final String _C__CF_REQUESTAUTOSOULSHOT = "[C] CF RequestAutoSoulShot";
-
-	// format  cd
-	private int _shotId;
-	private int _type; // 1 = on, 0 = off
-
+	private static final String	_C__CF_REQUESTAUTOSOULSHOT	= "[C] CF RequestAutoSoulShot";
+	
+	// format cd
+	private int					_shotId;
+	private int					_type;														// 1 = on, 0 = off
+																							
 	/**
 	 * packet type id 0xcf
 	 * format: chdd
@@ -38,20 +38,20 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 		_shotId = readD();
 		_type = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		if (!Config.ALT_AUTO_FISHING_SHOT && ShotTable.isFishingShot(_shotId))
 		{
 			sendAF();
 			return;
 		}
-
+		
 		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null && !activeChar.isDead())
 		{
 			if (_type == 1)
@@ -59,7 +59,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				L2ItemInstance shot = activeChar.getInventory().getItemByItemId(_shotId);
 				if (shot == null)
 					return;
-
+				
 				if (ShotTable.isBeastShot(_shotId))
 				{
 					L2Summon summon = activeChar.getPet();
@@ -80,10 +80,10 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				activeChar.getShots().removeAutoSoulShot(_shotId);
 			}
 		}
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

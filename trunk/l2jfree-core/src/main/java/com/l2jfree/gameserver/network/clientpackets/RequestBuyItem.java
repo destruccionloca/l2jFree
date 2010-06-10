@@ -42,18 +42,16 @@ import com.l2jfree.gameserver.util.Util;
 /**
  * This class represents a packet sent by the client when the player confirms his item
  * selection in a general shop (not exchange shop)
- * 
- * @version $Revision: 1.12.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestBuyItem extends L2GameClientPacket
 {
 	private static final String	_C__1F_REQUESTBUYITEM	= "[C] 1F RequestBuyItem";
-
-	private static final int BATCH_LENGTH = 12; // length of the one item
-
+	
+	private static final int	BATCH_LENGTH			= 12;						// length of the one item
+																					
 	private int					_listId;
-	private Item[]				_items = null;
-
+	private Item[]				_items					= null;
+	
 	/**
 	 * packet type id 0x1f<br>
 	 * <br>
@@ -75,21 +73,19 @@ public class RequestBuyItem extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_listId = readD();
-
+		
 		int count = readD();
-		if (count <= 0
-				|| count > Config.MAX_ITEM_IN_PACKET
-				|| count * BATCH_LENGTH != getByteBuffer().remaining())
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
 		{
 			return;
 		}
-
+		
 		_items = new Item[count];
 		for (int i = 0; i < count; i++)
 		{
 			int itemId = readD();
 			long cnt = readQ();
-				
+			
 			if (itemId < 1 || cnt < 1)
 			{
 				_items = null;
@@ -98,20 +94,20 @@ public class RequestBuyItem extends L2GameClientPacket
 			_items[i] = new Item(itemId, cnt);
 		}
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-
+		
 		if (_items == null)
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
+		
 		final L2Merchant merchant = player.getTarget(L2Merchant.class);
 		final String htmlFolder;
 		if (merchant instanceof L2FishermanInstance)
@@ -129,27 +125,28 @@ public class RequestBuyItem extends L2GameClientPacket
 		
 		int npcId = -1;
 		L2TradeList list = null;
-
+		
 		if (merchant != null)
 		{
 			npcId = merchant.getTemplate().getNpcId();
-
+			
 			List<L2TradeList> lists = TradeListTable.getInstance().getBuyListByNpcId(npcId);
 			/*
-			if (lists == null)
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-						+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
-				return;
-			}
-			*/
+			 * if (lists == null)
+			 * {
+			 * sendPacket(ActionFailed.STATIC_PACKET);
+			 * Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+			 * + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+			 * return;
+			 * }
+			 */
 
 			if (!player.isGM())
 			{
 				if (lists == null)
 				{
-					Util.handleIllegalPlayerAction(player, "Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+							+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
 					return;
 				}
 				for (L2TradeList tradeList : lists)
@@ -163,7 +160,7 @@ public class RequestBuyItem extends L2GameClientPacket
 		}
 		else
 			list = TradeListTable.getInstance().getBuyList(_listId);
-
+		
 		if (list == null)
 		{
 			if (!player.isGM())
@@ -177,7 +174,7 @@ public class RequestBuyItem extends L2GameClientPacket
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
+		
 		if (list.isGm() && !player.isGM())
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -185,9 +182,9 @@ public class RequestBuyItem extends L2GameClientPacket
 					+ " sent a modified packet to buy from gmshop.", Config.DEFAULT_PUNISH);
 			return;
 		}
-
+		
 		_listId = list.getListId();
-
+		
 		if (_listId > 1000000) // lease
 		{
 			if (npcId != -1 && npcId != _listId / 100)
@@ -196,21 +193,21 @@ public class RequestBuyItem extends L2GameClientPacket
 				return;
 			}
 		}
-
+		
 		double taxRate = 1.0;
 		if (merchant instanceof L2MerchantInstance && ((L2MerchantInstance) merchant).getIsInTown())
 			taxRate = ((L2MerchantInstance) merchant).getCastle().getTaxRate();
-
+		
 		long taxedPriceTotal = 0;
 		long taxTotal = 0;
-
+		
 		// Check for buylist validity and calculates summary values
 		long slots = 0;
 		long weight = 0;
 		for (Item i : _items)
 		{
 			long price = -1;
-
+			
 			if (!list.containsItemId(i.getItemId()))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -218,21 +215,21 @@ public class RequestBuyItem extends L2GameClientPacket
 						+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
 				return;
 			}
-
+			
 			L2Item template = ItemTable.getInstance().getTemplate(i.getItemId());
 			if (template == null)
 				continue;
-
+			
 			if (!template.isStackable() && i.getCount() > 1)
 			{
-				//Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
-				//		+ " tried to purchase invalid quantity of items at the same time.", Config.DEFAULT_PUNISH);
+				// Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName()
+				// + " tried to purchase invalid quantity of items at the same time.", Config.DEFAULT_PUNISH);
 				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
-
+			
 			price = list.getPriceForItemId(i.getItemId());
-
+			
 			for (int item : MercTicketManager.getInstance().getItemIds())
 			{
 				if (i.getItemId() == item)
@@ -241,14 +238,14 @@ public class RequestBuyItem extends L2GameClientPacket
 					break;
 				}
 			}
-
+			
 			if (price < 0)
 			{
 				_log.warn("Error, no price found .. wrong buylist?");
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-
+			
 			if (price == 0 && !player.isGM() && Config.ONLY_GM_ITEMS_FREE)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -261,7 +258,7 @@ public class RequestBuyItem extends L2GameClientPacket
 				requestFailed(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				return;
 			}
-
+			
 			long stackPrice = price * i.getCount();
 			long taxedPrice = (long) (stackPrice * taxRate);
 			long tax = taxedPrice - stackPrice;
@@ -272,49 +269,49 @@ public class RequestBuyItem extends L2GameClientPacket
 			}
 			taxedPriceTotal += taxedPrice;
 			taxTotal += tax;
-
+			
 			weight += i.getCount() * template.getWeight();
 			if (!template.isStackable())
 				slots += i.getCount();
 			else if (player.getInventory().getItemByItemId(i.getItemId()) == null)
 				slots++;
 		}
-
+		
 		if ((weight >= Integer.MAX_VALUE) || (weight < 0) || !player.getInventory().validateWeight((int) weight))
 		{
 			requestFailed(SystemMessageId.WEIGHT_LIMIT_EXCEEDED);
 			return;
 		}
-
+		
 		if ((slots >= Integer.MAX_VALUE) || (slots < 0) || !player.getInventory().validateCapacity((int) slots))
 		{
 			requestFailed(SystemMessageId.SLOTS_FULL);
 			return;
 		}
-
+		
 		if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
 		{
-			if ((taxedPriceTotal < 0) || !player.reduceAdena("Buy", taxedPriceTotal, (L2Character)merchant, false))
+			if ((taxedPriceTotal < 0) || !player.reduceAdena("Buy", taxedPriceTotal, (L2Character) merchant, false))
 			{
 				requestFailed(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
 				return;
 			}
 		}
-
+		
 		if (!player.isGM())
 		{
-			//  Charge buyer and add tax to castle treasury if not owned by npc clan
+			// Charge buyer and add tax to castle treasury if not owned by npc clan
 			if (merchant instanceof L2MerchantInstance && ((L2MerchantInstance) merchant).getIsInTown()
 					&& ((L2MerchantInstance) merchant).getCastle().getOwnerId() > 0)
-				((L2MerchantInstance)merchant).getCastle().addToTreasury(taxTotal);
+				((L2MerchantInstance) merchant).getCastle().addToTreasury(taxTotal);
 		}
-		//  Check if player is GM and buying from GM shop or have proper access level
+		// Check if player is GM and buying from GM shop or have proper access level
 		else if (list.isGm() && (player.getAccessLevel() < Config.GM_CREATE_ITEM))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
 		}
-
+		
 		// Proceed the purchase
 		for (Item i : _items)
 		{
@@ -325,7 +322,7 @@ public class RequestBuyItem extends L2GameClientPacket
 						+ " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
 				return;
 			}
-
+			
 			if (list.countDecrease(i.getItemId()))
 			{
 				if (!list.decreaseCount(i.getItemId(), i.getCount()))
@@ -334,11 +331,11 @@ public class RequestBuyItem extends L2GameClientPacket
 					return;
 				}
 			}
-
+			
 			// Add item to Inventory and adjust update packet
-			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", i.getItemId(), i.getCount(), player, (L2Character)merchant);
+			player.getInventory().addItem(list.isGm() ? "GMShop" : "Buy", i.getItemId(), i.getCount(), player, (L2Character) merchant);
 		}
-
+		
 		if (merchant != null)
 		{
 			String html = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.getTemplate().getNpcId() + "-bought.htm");
@@ -351,13 +348,14 @@ public class RequestBuyItem extends L2GameClientPacket
 				boughtMsg = null;
 			}
 		}
-
+		
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-		sendPacket(su); su = null;
+		sendPacket(su);
+		su = null;
 		sendPacket(new ItemList(player, true));
 	}
-
+	
 	private boolean canShop(L2PcInstance player, L2Merchant target)
 	{
 		if (player.isGM())
@@ -381,29 +379,29 @@ public class RequestBuyItem extends L2GameClientPacket
 		
 		return true;
 	}
-
+	
 	private class Item
 	{
-		private final int _itemId;
-		private final long _count;
+		private final int	_itemId;
+		private final long	_count;
 		
 		public Item(int id, long num)
 		{
 			_itemId = id;
 			_count = num;
 		}
-
+		
 		public int getItemId()
 		{
 			return _itemId;
 		}
-
+		
 		public long getCount()
 		{
 			return _count;
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{
