@@ -24,23 +24,23 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class RequestExOustFromMPCC extends L2GameClientPacket
 {
-	private static final String _C__D0_0F_REQUESTEXOUSTFROMMPCC = "[C] D0:0F RequestExOustFromMPCC";
-
-	private String _name;
-
+	private static final String	_C__D0_0F_REQUESTEXOUSTFROMMPCC	= "[C] D0:0F RequestExOustFromMPCC";
+	
+	private String				_name;
+	
 	@Override
 	protected void readImpl()
 	{
 		_name = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		if (!activeChar.isInParty() || !activeChar.getParty().isInCommandChannel())
 		{
 			requestFailed(SystemMessageId.NO_USER_INVITED_TO_COMMAND_CHANNEL);
@@ -51,26 +51,26 @@ public class RequestExOustFromMPCC extends L2GameClientPacket
 			requestFailed(SystemMessageId.CANT_USE_COMMAND_CHANNEL);
 			return;
 		}
-
+		
 		L2PcInstance target = L2World.getInstance().getPlayer(_name);
 		if (target == null || !target.isInParty() || !target.getParty().isInCommandChannel())
 		{
 			requestFailed(SystemMessageId.INCORRECT_TARGET);
 			return;
 		}
-
+		
 		target.getParty().getCommandChannel().removeParty(target.getParty());
-
+		
 		SystemMessage sm = SystemMessageId.DISMISSED_FROM_COMMAND_CHANNEL.getSystemMessage();
 		target.getParty().broadcastToPartyMembers(sm);
-
+		
 		sm = new SystemMessage(SystemMessageId.C1_PARTY_DISMISSED_FROM_COMMAND_CHANNEL);
 		sm.addString(target.getParty().getPartyMembers().get(0).getName());
 		sendPacket(sm);
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

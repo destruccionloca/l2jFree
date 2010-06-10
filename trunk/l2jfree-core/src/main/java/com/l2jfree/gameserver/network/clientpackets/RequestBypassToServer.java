@@ -28,38 +28,37 @@ import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.mmocore.network.InvalidPacketException;
 
 /**
  * This class represents a packet sent when player clicks a link in the chat dialog.
  * In HTML files it is <a action="bypass -h command"/>
- * 
- * @version $Revision: 1.12.4.5 $ $Date: 2005/04/11 10:06:11 $
  */
 public class RequestBypassToServer extends L2GameClientPacket
 {
 	private static final String	_C__21_REQUESTBYPASSTOSERVER	= "[C] 21 RequestBypassToServer";
-
+	
 	// S
 	private String				_command;
-
+	
 	@Override
 	protected void readImpl()
 	{
 		_command = readS();
 	}
-
+	
 	@Override
 	protected void runImpl() throws InvalidPacketException
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		if (_command.startsWith("admin_"))
 			AdminCommandHandler.getInstance().useAdminCommand(activeChar, _command);
 		else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
@@ -71,7 +70,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("npc_"))
 		{
 			activeChar.validateBypass(_command);
-
+			
 			int endOfId = _command.indexOf('_', 5);
 			String id;
 			if (endOfId > 0)
@@ -81,20 +80,20 @@ public class RequestBypassToServer extends L2GameClientPacket
 			try
 			{
 				int objectId = Integer.parseInt(id);
-
+				
 				L2Npc npc = activeChar.getTarget(L2Npc.class, objectId);
-
+				
 				if (npc != null && endOfId > 0 && activeChar.isInsideRadius(npc, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
 					String realCommand = _command.substring(endOfId + 1);
-
+					
 					if (GlobalRestrictions.onBypassFeedback(npc, activeChar, realCommand))
 					{
 					}
 					else
 						npc.onBypassFeedback(activeChar, realCommand);
 				}
-
+				
 				sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			catch (NumberFormatException nfe)
@@ -104,7 +103,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 		else if (_command.startsWith("summon_"))
 		{
 			activeChar.validateBypass(_command);
-
+			
 			int endOfId = _command.indexOf('_', 8);
 			String id;
 			if (endOfId > 0)
@@ -114,9 +113,9 @@ public class RequestBypassToServer extends L2GameClientPacket
 			try
 			{
 				int objectId = Integer.parseInt(id);
-
+				
 				L2MerchantSummonInstance summon = activeChar.getTarget(L2MerchantSummonInstance.class, objectId);
-
+				
 				if (summon != null && endOfId > 0 && activeChar.isInsideRadius(summon, L2Npc.INTERACTION_DISTANCE, false, false))
 				{
 					summon.onBypassFeedback(activeChar, _command.substring(endOfId + 1));
@@ -127,19 +126,19 @@ public class RequestBypassToServer extends L2GameClientPacket
 			{
 			}
 		}
-		//  Draw a Symbol
+		// Draw a Symbol
 		else if (_command.equals("menu_select?ask=-16&reply=1"))
 		{
 			activeChar.validateBypass(_command);
-
+			
 			L2Object object = activeChar.getTarget();
 			if (object instanceof L2Npc)
 				((L2Npc) object).onBypassFeedback(activeChar, _command);
 		}
 		else if (_command.equals("menu_select?ask=-16&reply=2"))
 		{
-			//activeChar.validateBypass(_command); // FIXME: shouldn't we validate here too?
-
+			// activeChar.validateBypass(_command); // FIXME: shouldn't we validate here too?
+			
 			L2Object object = activeChar.getTarget();
 			if (object instanceof L2Npc)
 				((L2Npc) object).onBypassFeedback(activeChar, _command);
@@ -147,22 +146,38 @@ public class RequestBypassToServer extends L2GameClientPacket
 		// Navigate throught Manor windows
 		else if (_command.startsWith("manor_menu_select?"))
 		{
-			//activeChar.validateBypass(_command); // FIXME: shouldn't we validate here too?
-
+			// activeChar.validateBypass(_command); // FIXME: shouldn't we validate here too?
+			
 			L2Object object = activeChar.getTarget();
 			if (object instanceof L2Npc)
 				((L2Npc) object).onBypassFeedback(activeChar, _command);
 		}
 		else if (_command.startsWith("bbs_"))
-			CommunityBoard.handleCommands(getClient(), _command);
+		{
+			if (Config.ENABLE_COMMUNITY_BOARD)
+			{
+				if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), _command)))
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+			}
+			else
+				CommunityBoard.handleCommands(getClient(), _command);
+		}
 		else if (_command.startsWith("_bbs"))
-			CommunityBoard.handleCommands(getClient(), _command);
+		{
+			if (Config.ENABLE_COMMUNITY_BOARD)
+			{
+				if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), _command)))
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+			}
+			else
+				CommunityBoard.handleCommands(getClient(), _command);
+		}
 		else if (_command.startsWith("_maillist_0_1_0_"))
 			CommunityBoard.handleCommands(getClient(), _command);
 		else if (_command.startsWith("Quest "))
 		{
 			activeChar.validateBypass(_command);
-
+			
 			String p = _command.substring(6).trim();
 			int idx = p.indexOf(' ');
 			if (idx < 0)
@@ -172,14 +187,10 @@ public class RequestBypassToServer extends L2GameClientPacket
 		}
 		else if (_command.startsWith("OlympiadArenaChange"))
 			Olympiad.bypassChangeArena(_command, activeChar);
-		else if (_command.startsWith("_herolist"))
-		{
-			activeChar.sendPacket(new ExHeroList());
-		}
-
+		
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	private void comeHere(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
@@ -190,15 +201,15 @@ public class RequestBypassToServer extends L2GameClientPacket
 			temp.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(activeChar.getX(), activeChar.getY(), activeChar.getZ(), 0));
 		}
 	}
-
+	
 	private void playerHelp(L2PcInstance activeChar, String path)
 	{
 		if (path.indexOf("..") != -1)
 			return;
-
+		
 		StringTokenizer st = new StringTokenizer(path);
 		String[] cmd = st.nextToken().split("#");
-
+		
 		if (cmd.length > 1)
 		{
 			int itemId = 0;
@@ -218,7 +229,7 @@ public class RequestBypassToServer extends L2GameClientPacket
 			activeChar.sendPacket(html);
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{
