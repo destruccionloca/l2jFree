@@ -148,7 +148,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 			return;
 		}
 		
-		// decrease sp & maybe exp
+		// decrease sp
 		boolean check = player.getStat().removeExpAndSp(0, requiredSp, false);
 		
 		// maybe destroy book

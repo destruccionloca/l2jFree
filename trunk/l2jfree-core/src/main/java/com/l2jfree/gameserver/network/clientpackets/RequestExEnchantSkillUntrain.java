@@ -25,8 +25,12 @@ import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
+import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfo;
+import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
+import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillResult;
 import com.l2jfree.gameserver.network.serverpackets.ShortCutRegister;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
@@ -37,120 +41,128 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
  * h: (subid) 0x33
  * d: skill id
  * d: skill lvl
+ * 
  * @author -Wooden-
- *
  */
 public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 {
-	private int _skillId;
-	private int _skillLvl;
-
+	private int	_skillId;
+	private int	_skillLvl;
+	
 	@Override
-    protected void readImpl()
+	protected void readImpl()
 	{
 		_skillId = readD();
 		_skillLvl = readD();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-
+		
 		L2Npc trainer = player.getLastFolkNPC();
 		if (!(trainer instanceof L2NpcInstance))
 			return;
-
+		
 		if (!trainer.canInteract(player) && !player.isGM())
 		{
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
 		}
-
+		
 		if (player.getLevel() < 76)
 		{
 			requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
 			return;
 		}
-
+		
 		if (player.getClassId().level() < 3)
 		{
 			requestFailed(SystemMessageId.NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION);
 			return;
 		}
-
-		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
-		if (skill == null)
-		{
-			requestFailed(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
-			return;
-		}
-
-		/*
-		int npcid = trainer.getNpcId();
-
-		if (!skill.canTeachBy(npcid) || !skill.getCanLearn(player.getClassId()))
-		{
-			if (!Config.ALT_GAME_SKILL_LEARN)
-			{
-				sendPacket(ActionFailed.STATIC_PACKET);
-				Util.handleIllegalPlayerAction(player, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
-				return;
-			}
-		}
-		*/
-
-		int reqItemId = SkillTreeTable.UNTRAIN_ENCHANT_BOOK;
-
+		
 		L2EnchantSkillLearn s = SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(_skillId);
 		if (s == null)
 		{
 			requestFailed(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 			return;
 		}
+		
+		if (_skillLvl % 100 == 0)
+			_skillLvl = s.getBaseLevel();
+		
+		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
+		if (skill == null)
+		{
+			requestFailed(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
+			return;
+		}
+		
+		/*
+		 * int npcid = trainer.getNpcId();
+		 * if (!skill.canTeachBy(npcid) || !skill.getCanLearn(player.getClassId()))
+		 * {
+		 * if (!Config.ALT_GAME_SKILL_LEARN)
+		 * {
+		 * sendPacket(ActionFailed.STATIC_PACKET);
+		 * Util.handleIllegalPlayerAction(player, "Client "+getClient()+" tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+		 * return;
+		 * }
+		 * }
+		 */
 
+		int reqItemId = SkillTreeTable.UNTRAIN_ENCHANT_BOOK;
+		
 		int currentLevel = player.getSkillLevel(_skillId);
 		if (currentLevel - 1 != _skillLvl && (currentLevel % 100 != 1 || _skillLvl != s.getBaseLevel()))
 		{
 			requestFailed(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 			return;
 		}
-
+		
 		EnchantSkillDetail esd = s.getEnchantSkillDetail(currentLevel);
 		int requiredSp = esd.getSpCost();
-		int requiredExp = esd.getExp();
-		//int rate = esd.getRate(player);
-
+		int requiredAdena = esd.getAdenaCost();
+		
 		L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-		if (Config.ALT_ES_SP_BOOK_NEEDED && spb == null) //if (Config.ES_SP_BOOK_NEEDED && usesBook)  dissabled till official info - will request book for each untrain
+		if (Config.ALT_ES_SP_BOOK_NEEDED && spb == null) // if (Config.ES_SP_BOOK_NEEDED && usesBook) dissabled till official info - will request book for each
+		// untrain
 		{
 			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_UNTRAIN_SKILL_ENCHANT);
 			return;
 		}
-
+		
+		if (player.getInventory().getAdena() < requiredAdena)
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.YOU_DONT_HAVE_ALL_OF_THE_ITEMS_NEEDED_TO_ENCHANT_THAT_SKILL));
+			return;
+		}
+		
 		boolean check = true;
-		if (Config.ALT_ES_SP_BOOK_NEEDED) //if (Config.ES_SP_BOOK_NEEDED && usesBook)  dissabled till official info - will request book for each untrain
+		if (Config.ALT_ES_SP_BOOK_NEEDED) // if (Config.ES_SP_BOOK_NEEDED && usesBook) dissabled till official info - will request book for each untrain
 			check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
+		
 		check &= player.getStat().addSp((requiredSp * 8) / 10);
-
+		check &= player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, requiredAdena, trainer, true);
+		
 		if (!check)
 		{
 			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_UNTRAIN_SKILL_ENCHANT);
 			return;
 		}
-
-		if (_skillLvl % 100 == 0)
-			_skillLvl = s.getBaseLevel();
-
+		
 		player.addSkill(skill, true);
-
+		sendPacket(new ExEnchantSkillResult(true));
+		
 		if (_log.isDebugEnabled())
-			_log.info("Learned skill ID: "+_skillId+" Level: "+_skillLvl+" for "+requiredSp+" SP, "+requiredExp+" EXP.");
-
+			_log.info("Learned skill ID: " + _skillId + " Level: " + _skillLvl + " for " + requiredSp + " SP, " + requiredAdena + " EXP.");
+		
 		sendPacket(new UserInfo(player));
-
+		
 		SystemMessage sm;
 		if (_skillLvl > 100)
 		{
@@ -164,18 +176,22 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 			sm.addSkillName(_skillId);
 			sendPacket(sm);
 		}
-
-		((L2NpcInstance)trainer).showEnchantUntrainSkillList(player, player.getClassId());
+		// FIXME ?
+		// player.sendSkillList();
+		sendPacket(new ExEnchantSkillInfo(_skillId, player.getSkillLevel(_skillId)));
+		sendPacket(new ExEnchantSkillInfoDetail(0, _skillId, player.getSkillLevel(_skillId) + 1, player));
+		
+		((L2NpcInstance) trainer).showEnchantUntrainSkillList(player, player.getClassId());
 		updateSkillShortcuts(player);
-
+		
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	private void updateSkillShortcuts(L2PcInstance player)
 	{
 		// update all the shortcuts to this skill
 		L2ShortCut[] allShortCuts = player.getAllShortCuts();
-
+		
 		for (L2ShortCut sc : allShortCuts)
 		{
 			if (sc.getId() == _skillId && sc.getType() == L2ShortCut.TYPE_SKILL)
@@ -186,7 +202,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 			}
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{
