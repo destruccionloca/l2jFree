@@ -20,17 +20,16 @@ import com.l2jfree.gameserver.network.serverpackets.EnchantResult;
 
 /**
  * @author evill33t
- * 
  */
 public class RequestExCancelEnchantItem extends L2GameClientPacket
 {
-	private static final String	_C__D0_81_REQUESTEXCANCELENCHANTITEM	= "[C] D0 51 RequestExCancelEnchantItem";
-
+	private static final String	_C__D0_81_REQUESTEXCANCELENCHANTITEM	= "[C] D0 4E RequestExCancelEnchantItem";
+	
 	@Override
 	protected void readImpl()
 	{
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
@@ -42,7 +41,7 @@ public class RequestExCancelEnchantItem extends L2GameClientPacket
 			activeChar.setActiveEnchantItem(null);
 		}
 	}
-
+	
 	@Override
 	public String getType()
 	{
