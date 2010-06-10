@@ -28,20 +28,18 @@ import com.l2jfree.mmocore.network.IPacketHandler;
 /**
  * Stateful Packet Handler<BR>
  * The Stateful approach prevents the server from handling inconsistent packets, examples:<BR>
- * <li>Clients sends a MoveToLocation packet without having a character attached. (Potential errors handling the
- * packet).</li>
+ * <ul>
+ * <li>Clients sends a MoveToLocation packet without having a character attached. (Potential errors handling the packet).</li>
  * <li>Clients sends a RequestAuthLogin being already authed. (Potential exploit).</li>
- * <BR>
- * <BR>
+ * </ul>
  * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all
  * these states.
  * 
  * @author KenM
  */
-public final class L2GamePacketHandler implements
-	IPacketHandler<L2GameClient, L2GameClientPacket, L2GameServerPacket>
+public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L2GameClientPacket, L2GameServerPacket>
 {
-	private static final Log _log = LogFactory.getLog(L2GamePacketHandler.class);
+	private static final Log	_log	= LogFactory.getLog(L2GamePacketHandler.class);
 	
 	public L2GameClientPacket handlePacket(ByteBuffer buf, L2GameClient client, final int opcode)
 	{
@@ -116,7 +114,7 @@ public final class L2GamePacketHandler implements
 								// most probably using L2NET
 								break;
 							case 0x3d: // client definitely sends it right now, enable if supposed to be
-								//msg = new RequestAllFortressInfo();
+								// msg = new RequestAllFortressInfo();
 								break;
 							case 0x5a:
 								int id3 = 0;
@@ -372,7 +370,7 @@ public final class L2GamePacketHandler implements
 						msg = new RequestPledgeMemberList();
 						break;
 					case 0x4f:
-						//RequestMagicList
+						// RequestMagicList
 						break;
 					case 0x50:
 						msg = new RequestSkillList();
@@ -443,7 +441,7 @@ public final class L2GamePacketHandler implements
 					case 0x6d:
 						// RequestSendMsnChatLog
 						break;
-					case 0x6e: //RequestReload
+					case 0x6e: // RequestReload
 						msg = new RequestRecordInfo();
 						break;
 					case 0x6f:
@@ -579,16 +577,16 @@ public final class L2GamePacketHandler implements
 						msg = new RequestPrivateStoreSell();
 						break;
 					case 0xa0:
-						//SendTimeCheckPacket
+						// SendTimeCheckPacket
 						break;
 					case 0xa6:
 						// RequestSkillCoolTime
 						break;
 					case 0xa7:
-						//msg = new RequestPackageSendableItemList();
+						// msg = new RequestPackageSendableItemList();
 						break;
 					case 0xa8:
-						//msg = new RequestPackageSend();
+						// msg = new RequestPackageSend();
 						break;
 					case 0xa9:
 						msg = new RequestBlock();
@@ -1045,18 +1043,18 @@ public final class L2GamePacketHandler implements
 							case 0x63:
 								msg = new RequestSeedPhase();
 								break;
-							/*case 0x65:
-								msg = new BrGamePoint();
-								break;
-							case 0x66:
-								msg = new BrProductList();
-								break;
-							case 0x67:
-								msg = new BrProductInfo();
-								break;
-							case 0x68:
-								msg = new BrBuyProduct();
-								break;*/
+							// case 0x65:
+							// msg = new BrGamePoint();
+							// break;
+							// case 0x66:
+							// msg = new BrProductList();
+							// break;
+							// case 0x67:
+							// msg = new BrProductInfo();
+							// break;
+							// case 0x68:
+							// msg = new BrBuyProduct();
+							// break;
 							case 0x65:
 								msg = new RequestPostItemList();
 								break;
