@@ -7594,7 +7594,7 @@ public enum SystemMessageId
 	 * ID: 1221<br>
 	 * Message: Are you sure you wish to return it?
 	 */
-	RETURN_CONFIRM(1221),
+	// RETURN_CONFIRM(1221),
 	
 	/**
 	 * ID: 1222<br>
@@ -7606,19 +7606,19 @@ public enum SystemMessageId
 	 * ID: 1223<br>
 	 * Message: We depart for Talking Island in five minutes.
 	 */
-	DEPART_FOR_TALKING_5_MINUTES(1223),
+	// DEPART_FOR_TALKING_5_MINUTES(1223),
 	
 	/**
 	 * ID: 1224<br>
 	 * Message: We depart for Talking Island in one minute.
 	 */
-	DEPART_FOR_TALKING_1_MINUTE(1224),
+	// DEPART_FOR_TALKING_1_MINUTE(1224),
 	
 	/**
 	 * ID: 1225<br>
 	 * Message: All aboard for Talking Island
 	 */
-	DEPART_FOR_TALKING(1225),
+	// DEPART_FOR_TALKING(1225),
 	
 	/**
 	 * ID: 1226<br>
@@ -7679,19 +7679,19 @@ public enum SystemMessageId
 	 * ID: 1235<br>
 	 * Message: Do you wish to delete all your friends?
 	 */
-	ALL_FRIENDS_DELETE_CONFIRM(1235),
+	// ALL_FRIENDS_DELETE_CONFIRM(1235),
 	
 	/**
 	 * ID: 1236<br>
 	 * Message: Please enter security card number.
 	 */
-	ENTER_SECURITY_CARD_NUMBER(1236),
+	// ENTER_SECURITY_CARD_NUMBER(1236),
 	
 	/**
 	 * ID: 1237<br>
 	 * Message: Please enter the card number for number $s1.
 	 */
-	ENTER_CARD_NUMBER_FOR_S1(1237),
+	// ENTER_CARD_NUMBER_FOR_S1(1237),
 	
 	/**
 	 * ID: 1238<br>
@@ -7705,7 +7705,7 @@ public enum SystemMessageId
 	 * Message: The keyboard security module has failed to load. Please exit the
 	 * game and try again.
 	 */
-	KEYBOARD_MODULE_FAILED_LOAD(1239),
+	// KEYBOARD_MODULE_FAILED_LOAD(1239),
 	
 	/**
 	 * ID: 1240<br>
@@ -7724,20 +7724,20 @@ public enum SystemMessageId
 	 * Message: Users who have not verified their age may not log in between the
 	 * hours if 10:00 p.m. and 6:00 a.m.
 	 */
-	NOT_VERIFIED_AGE_NO_LOGIN(1242),
+	// NOT_VERIFIED_AGE_NO_LOGIN(1242),
 	
 	/**
 	 * ID: 1243<br>
 	 * Message: The security card number is invalid.
 	 */
-	SECURITY_CARD_NUMBER_INVALID(1243),
+	// SECURITY_CARD_NUMBER_INVALID(1243),
 	
 	/**
 	 * ID: 1244<br>
 	 * Message: Users who have not verified their age may not log in between the
 	 * hours if 10:00 p.m. and 6:00 a.m. Logging off now
 	 */
-	NOT_VERIFIED_AGE_LOG_OFF(1244),
+	// NOT_VERIFIED_AGE_LOG_OFF(1244),
 	
 	/**
 	 * ID: 1245<br>
@@ -7774,7 +7774,7 @@ public enum SystemMessageId
 	 * Message: Do you really want to surrender? If you surrender during an
 	 * alliance war, your Exp will drop the same as if you were to die once.
 	 */
-	SURRENDER_ALLY_WAR_CONFIRM(1250),
+	// SURRENDER_ALLY_WAR_CONFIRM(1250),
 	
 	/**
 	 * ID: 1251<br>
@@ -7782,46 +7782,46 @@ public enum SystemMessageId
 	 * /allydismiss command, you will not be able to accept another clan to your
 	 * alliance for one day.
 	 */
-	DISMISS_ALLY_CONFIRM(1251),
+	// DISMISS_ALLY_CONFIRM(1251),
 	
 	/**
 	 * ID: 1252<br>
 	 * Message: Are you sure you want to surrender? Exp penalty will be the same
 	 * as death.
 	 */
-	SURRENDER_CONFIRM1(1252),
+	// SURRENDER_CONFIRM1(1252),
 	
 	/**
 	 * ID: 1253<br>
 	 * Message: Are you sure you want to surrender? Exp penalty will be the same
 	 * as death and you will not be allowed to participate in clan war.
 	 */
-	SURRENDER_CONFIRM2(1253),
+	// SURRENDER_CONFIRM2(1253),
 	
 	/**
 	 * ID: 1254<br>
 	 * Message: Thank you for submitting feedback.
 	 */
-	THANKS_FOR_FEEDBACK(1254),
+	// THANKS_FOR_FEEDBACK(1254),
 	
 	/**
 	 * ID: 1255<br>
 	 * Message: GM consultation has begun.
 	 */
-	GM_CONSULTATION_BEGUN(1255),
+	// GM_CONSULTATION_BEGUN(1255),
 	
 	/**
 	 * ID: 1256<br>
 	 * Message: Please write the name after the command.
 	 */
-	PLEASE_WRITE_NAME_AFTER_COMMAND(1256),
+	// PLEASE_WRITE_NAME_AFTER_COMMAND(1256),
 	
 	/**
 	 * ID: 1257<br>
 	 * Message: The special skill of a servitor or pet cannot be registerd as a
 	 * macro.
 	 */
-	PET_SKILL_NOT_AS_MACRO(1257),
+	// PET_SKILL_NOT_AS_MACRO(1257),
 	
 	/**
 	 * ID: 1258<br>
@@ -16163,40 +16163,40 @@ public enum SystemMessageId
 	 * ID: 2706<BR>
 	 * Console Message: You cannot enter because you do not meet the requirements.
 	 */
-	CANNOT_ENTER_MATCH(2706),
+	// CANNOT_ENTER_MATCH(2706),
 	
 	/**
 	 * ID: 2707<BR>
 	 * Console Message: You cannot make another request for 10 seconds after cancelling
 	 * a match registration.
 	 */
-	CANT_ATTEMPT_REGISTRATION_AFTER_CANCELLATION(2707),
+	// CANT_ATTEMPT_REGISTRATION_AFTER_CANCELLATION(2707),
 	
 	/**
 	 * ID: 2708<BR>
 	 * Console Message: You cannot register while possessing a cursed weapon.
 	 */
-	CANT_REGISTER_WITH_CURSED_WEAPON(2708),
+	// CANT_REGISTER_WITH_CURSED_WEAPON(2708),
 	
 	/**
 	 * ID: 2709<BR>
 	 * Console Message: Applicants for the Olympiad, Underground Coliseum, or Kratei's Cube
 	 * matches cannot register.
 	 */
-	PVP_MATCH_PARTICIPANTS_CANT_REGISTER(2709),
+	// PVP_MATCH_PARTICIPANTS_CANT_REGISTER(2709),
 	
 	/**
 	 * ID: 2710<br>
 	 * Message: Current location: $s1, $s2, $s3 (near the Keucereus clan association
 	 * location)
 	 */
-	LOC_KEUCEREUS_S1_S2_S3(2710),
+	// LOC_KEUCEREUS_S1_S2_S3(2710),
 	
 	/**
 	 * ID: 2711<br>
 	 * Message: Current location: $s1, $s2, $s3 (inside the Seed of Infinity)
 	 */
-	LOC_IN_SEED_INFINITY_S1_S2_S3(2711),
+	// LOC_IN_SEED_INFINITY_S1_S2_S3(2711),
 	
 	/**
 	 * ID: 2712<br>
@@ -16292,7 +16292,7 @@ public enum SystemMessageId
 	 * Console Message: You cannot purchase the airship because you do not meet the
 	 * requirements.
 	 */
-	CANT_PURCHASE_AIRSHIP(2726),
+	// CANT_PURCHASE_AIRSHIP(2726),
 	
 	/**
 	 * ID: 2727<br>
@@ -16310,13 +16310,13 @@ public enum SystemMessageId
 	 * ID: 2729<BR>
 	 * Console Message: You cannot control the target while transformed.
 	 */
-	CANNOT_CONTROL_TRANSFORMED(2729),
+	// CANNOT_CONTROL_TRANSFORMED(2729),
 	
 	/**
 	 * ID: 2730<BR>
 	 * Console Message: You cannot control the target while you are petrified.
 	 */
-	CANNOT_CONTROL_PETRIFIED(2730),
+	// CANNOT_CONTROL_PETRIFIED(2730),
 	
 	/**
 	 * ID: 2731<BR>
