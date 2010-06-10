@@ -18,10 +18,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class RequestModifyBookMarkSlot extends L2GameClientPacket
 {
-	private static final String _C__REQUESTMODIFYBOOKMARKSLOT = "[C] D0:51:02 RequestModifyBookMarkSlot chd[dsds]";
+	private static final String	_C__REQUESTMODIFYBOOKMARKSLOT	= "[C] D0:51:02 RequestModifyBookMarkSlot chd[dsds]";
 	
-	private int _id, _icon;
-	private String _name, _tag;
+	private int					_id, _icon;
+	private String				_name, _tag;
 	
 	@Override
 	protected void readImpl()

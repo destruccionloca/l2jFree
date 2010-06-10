@@ -22,23 +22,23 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public final class RequestFriendInvite extends L2GameClientPacket
 {
-	private static final String _C__5E_REQUESTFRIENDINVITE = "[C] 5E RequestFriendInvite";
-
-	private String _name;
-
+	private static final String	_C__5E_REQUESTFRIENDINVITE	= "[C] 5E RequestFriendInvite";
+	
+	private String				_name;
+	
 	@Override
 	protected void readImpl()
 	{
 		_name = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar == null)
 			return;
-
+		
 		L2PcInstance friend = L2World.getInstance().getPlayer(_name);
 		if (friend == null || (friend.getAppearance().isInvisible() && friend.isGM()))
 			sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
@@ -51,15 +51,15 @@ public final class RequestFriendInvite extends L2GameClientPacket
 		else
 		{
 			activeChar.onTransactionRequest(friend);
-
+			
 			friend.sendPacket(new SystemMessage(SystemMessageId.C1_REQUESTED_TO_BECOME_FRIENDS).addPcName(activeChar));
 			friend.sendPacket(new FriendAddRequest(activeChar.getName()));
-			sendPacket(new SystemMessage(SystemMessageId.REQUESTED_C1_ON_FRIENDS_LIST).addPcName(friend));
+			sendPacket(new SystemMessage(SystemMessageId.YOU_REQUESTED_C1_TO_BE_FRIEND).addPcName(friend));
 		}
-
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

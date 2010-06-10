@@ -23,8 +23,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public final class RequestFriendList extends L2GameClientPacket
 {
-	private static final String _C__60_REQUESTFRIENDLIST = "[C] 60 RequestFriendList";
-
+	private static final String	_C__60_REQUESTFRIENDLIST	= "[C] 60 RequestFriendList";
+	
 	/**
 	 * packet type id 0x60
 	 * format: c
@@ -33,15 +33,16 @@ public final class RequestFriendList extends L2GameClientPacket
 	protected void readImpl()
 	{
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar == null) return;
-
+		if (activeChar == null)
+			return;
+		
 		sendPacket(SystemMessageId.FRIEND_LIST_HEADER);
-
+		
 		SystemMessage sm;
 		for (Integer objId : activeChar.getFriendList().getFriendIds())
 		{
@@ -58,11 +59,11 @@ public final class RequestFriendList extends L2GameClientPacket
 			}
 			sendPacket(sm);
 		}
-
+		
 		sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
-
+	
 	@Override
 	public String getType()
 	{
