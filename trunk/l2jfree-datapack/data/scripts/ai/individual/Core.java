@@ -112,16 +112,19 @@ public class Core extends L2AttackableAIScript
 		if (npc.getNpcId() == CORE)
 		{
 			CoreStatus status = _status.get(npc.getObjectId());
-			if (status.isAttacked())
+			if (status != null)
 			{
-				if (Rnd.get(100) == 0)
-					npc.broadcastPacket(new NpcSay(npc, "Removing intruders."));
-			}
-			else
-			{
-				status.setAttacked(true);
-				npc.broadcastPacket(new NpcSay(npc, "A non-permitted target has been discovered."));
-				npc.broadcastPacket(new NpcSay(npc, "Starting intruder removal system."));
+				if (status.isAttacked())
+				{
+					if (Rnd.get(100) == 0)
+						npc.broadcastPacket(new NpcSay(npc, "Removing intruders."));
+				}
+				else
+				{
+					status.setAttacked(true);
+					npc.broadcastPacket(new NpcSay(npc, "A non-permitted target has been discovered."));
+					npc.broadcastPacket(new NpcSay(npc, "Starting intruder removal system."));
+				}
 			}
 		}
 		return super.onAttack(npc, attacker, damage, isPet);
