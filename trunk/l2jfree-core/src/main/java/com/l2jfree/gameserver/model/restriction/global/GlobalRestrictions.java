@@ -613,9 +613,7 @@ public final class GlobalRestrictions
 				damage *= target.calcStat(Stats.PVP_PHYS_SKILL_DEF, 1, activeChar, skill);
 			}
 		}
-		
-		// +20% damage from behind attacks, +5% from side attacks
-		damage *= Formulas.calcPositionRate(activeChar, target);
+
 		damage *= Formulas.calcElemental(activeChar, target, skill);
 		damage *= Formulas.calcSoulBonus(activeChar, skill);
 		

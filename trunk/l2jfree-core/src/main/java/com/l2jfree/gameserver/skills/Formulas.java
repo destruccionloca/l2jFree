@@ -1522,6 +1522,9 @@ public final class Formulas
 		else if (attacker instanceof L2Npc)
 			damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
 
+		// +20% damage from behind attacks, +5% from side attacks
+		damage *= calcPositionRate(attacker, target);
+
 		return GlobalRestrictions.calcDamage(attacker, target, damage, skill);
 	}
 
