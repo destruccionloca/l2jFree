@@ -28,13 +28,9 @@ import com.l2jfree.gameserver.model.actor.instance.L2MerchantSummonInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
-import com.l2jfree.gameserver.network.communityserver.writepackets.RequestShowCommunityBoard;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.GMViewPledgeInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.mmocore.network.InvalidPacketException;
 
 /**
@@ -158,8 +154,8 @@ public class RequestBypassToServer extends L2GameClientPacket
 		{
 			if (Config.ENABLE_COMMUNITY_BOARD)
 			{
-				if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), _command)))
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+				// if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), _command)))
+				// activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
 			}
 			else
 				CommunityBoard.handleCommands(getClient(), _command);
@@ -168,8 +164,8 @@ public class RequestBypassToServer extends L2GameClientPacket
 		{
 			if (Config.ENABLE_COMMUNITY_BOARD)
 			{
-				if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), _command)))
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+				// if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), _command)))
+				// activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
 			}
 			else
 				CommunityBoard.handleCommands(getClient(), _command);

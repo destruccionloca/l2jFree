@@ -18,8 +18,6 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.communitybbs.CommunityBoard;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
-import com.l2jfree.gameserver.network.communityserver.writepackets.RequestShowCommunityBoard;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestShowBoard extends L2GameClientPacket
@@ -51,9 +49,9 @@ public class RequestShowBoard extends L2GameClientPacket
 			if (activeChar == null)
 				return;
 			
-			if (CommunityServerThread.getInstance().isAuthed())
-				CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), "_bbshome"), true);
-			else
+			// if (CommunityServerThread.getInstance().isAuthed())
+			// CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), "_bbshome"), true);
+			// else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
 		}
 		else

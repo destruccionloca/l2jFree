@@ -19,8 +19,6 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
-import com.l2jfree.gameserver.network.communityserver.writepackets.WorldInfo;
 
 public class RequestOustAlly extends L2GameClientPacket
 {
@@ -88,7 +86,7 @@ public class RequestOustAlly extends L2GameClientPacket
 		clan.updateClanInDB();
 		
 		// notify CB server about the change
-		CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, clan, WorldInfo.TYPE_UPDATE_CLAN_DATA));
+		// CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, clan, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 		
 		sendPacket(SystemMessageId.YOU_HAVE_EXPELED_A_CLAN);
 		

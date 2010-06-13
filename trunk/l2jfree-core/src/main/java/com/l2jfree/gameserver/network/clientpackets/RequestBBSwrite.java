@@ -17,11 +17,7 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.communitybbs.CommunityBoard;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
-import com.l2jfree.gameserver.network.communityserver.writepackets.RequestCommunityBoardWrite;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Format SSSSSS
@@ -62,9 +58,9 @@ public class RequestBBSwrite extends L2GameClientPacket
 			if (activeChar == null)
 				return;
 			
-			if (!CommunityServerThread.getInstance().sendPacket(
-					new RequestCommunityBoardWrite(activeChar.getObjectId(), _url, _arg1, _arg2, _arg3, _arg4, _arg5)))
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+			// if (!CommunityServerThread.getInstance().sendPacket(
+			// new RequestCommunityBoardWrite(activeChar.getObjectId(), _url, _arg1, _arg2, _arg3, _arg4, _arg5)))
+			// activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
 		}
 		else
 			CommunityBoard.handleWriteCommands(getClient(), _url, _arg1, _arg2, _arg3, _arg4, _arg5);
