@@ -305,6 +305,11 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_sendToClient;
 	private final float				_pvpPowerMulti;
 
+	// Talisman Id this skill belongs to
+	private final int				_talismanManaConsumeOnSkill;
+	// Amount of mana consumed on talisman when using this skill. On official, it's ALWAYS equal to the skill reuse in minute
+	private final int				_belongingTalismanId;
+
 	public L2Skill(StatsSet set)
 	{
 		_id = L2Integer.valueOf(set.getInteger("skill_id"));
@@ -479,6 +484,9 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_ignoreShield = set.getBool("ignoreShld", false);
 		_sendToClient = set.getBool("sendToClient", true);
 		_pvpPowerMulti = set.getFloat("pvpPowerMulti", 1);
+
+		_belongingTalismanId = set.getInteger("talismanId", 0);
+		_talismanManaConsumeOnSkill = set.getInteger("talismanManaConsume", 0);
 	}
 	
 	private int initMagicLevel(StatsSet set)
@@ -4084,6 +4092,22 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 			return this;
 		
 		return getTriggeredSkill().getTriggeredSkill();
+	}
+
+	/**
+	 * @return Returns how much mana is consummed on the talisman when it's skill is used.
+	 */
+	public final int getTalismanManaConsumeOnSkill()
+	{
+		return _talismanManaConsumeOnSkill;
+	}
+
+	/**
+	 * @return Returns the talisman id this skill uses.
+	 */
+	public final int getBelongingTalismanId()
+	{
+		return _belongingTalismanId;
 	}
 	
 	@Override

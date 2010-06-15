@@ -1936,6 +1936,41 @@ public abstract class L2Character extends L2Object
 				return false;
 			}
 		}
+
+		// Check if it's a talisman skill and handle it's mana consumption in case it is
+		if (skill.getBelongingTalismanId() > 0)
+		{
+			Inventory inv = getInventory();
+			L2ItemInstance talisman = null;
+			int belongingTalismanId = skill.getBelongingTalismanId();
+			boolean found = false;
+
+			for (int i = inv.PAPERDOLL_DECO1; i < inv.PAPERDOLL_DECO1 + inv.getMaxTalismanCount(); i++)
+			{
+				talisman = inv.getPaperdollItem(i);
+				if (talisman != null)
+				{
+					if (talisman.getItemId() == belongingTalismanId)
+					{
+						if (talisman.getMana() >= skill.getTalismanManaConsumeOnSkill())
+						{
+							talisman.consumeMana(skill.getTalismanManaConsumeOnSkill());
+							found = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (!found)
+			{
+				// Custom message, just to avoid thousands of player reporting their talisman skills are not working
+				// There's no such message on offi
+				sendMessage("Your talisman doesn't have enough mana left to use this skill...");
+				return false;
+			}
+		}
+
 		return true;
 	}
 

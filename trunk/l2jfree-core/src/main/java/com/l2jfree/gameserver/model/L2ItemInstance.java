@@ -1086,6 +1086,19 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	{
 		return _mana;
 	}
+
+	public void consumeMana(int amount)
+	{
+		_mana -= amount;
+
+		final L2PcInstance player = L2World.getInstance().getPlayer(getOwnerId());
+		if (player != null)
+		{
+			InventoryUpdate iu = new InventoryUpdate();
+			iu.addModifiedItem(this);
+			player.sendPacket(iu);
+		}
+	}
 	
 	/**
 	 * Decreases the mana of this shadow item, sends a inventory update schedules a new consumption task if non is running optionally one could force a new task
