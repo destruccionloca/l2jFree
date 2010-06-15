@@ -101,6 +101,12 @@ public final class TvTiRestriction extends AbstractFunEventRestriction
 	}
 	
 	@Override
+	public int getNameColor(L2PcInstance activeChar)
+	{
+		return activeChar._inEventTvTi ? activeChar._nameColorTvTi : -1;
+	}
+	
+	@Override
 	public void playerLoggedIn(L2PcInstance activeChar)
 	{
 		if (TvTIMain.isPlayerInList(activeChar))

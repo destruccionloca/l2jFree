@@ -308,7 +308,6 @@ import com.l2jfree.mmocore.network.InvalidPacketException;
 import com.l2jfree.sql.SQLQuery;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.tools.util.HexUtil;
 import com.l2jfree.util.ArrayBunch;
 import com.l2jfree.util.L2Arrays;
 import com.l2jfree.util.L2Collections;
@@ -370,10 +369,6 @@ public final class L2PcInstance extends L2Playable
 	private static final String	GET_CREATION_DATE				= "SELECT lastClaim,birthDate FROM character_birthdays WHERE charId=?";
 	private static final String	CLAIM_CREATION_DAY				= "UPDATE character_birthdays SET lastClaim=? WHERE charId=?";
 	
-	// Name / Title Colors
-	private static final String	RESTORE_COLORS					= "SELECT name_color, title_color FROM character_name_title_colors WHERE char_id=?";
-	private static final String	UPDATE_COLORS					= "REPLACE INTO character_name_title_colors VALUES(?,?,?)";
-
 	public static final int		REQUEST_TIMEOUT					= 15;
 
 	public static final int		STORE_PRIVATE_NONE				= 0;
@@ -672,7 +667,7 @@ public final class L2PcInstance extends L2Playable
 	private boolean							_observerMode			= false;
 
 	/** TvT Instanced Engine parameters */
-	public int								_originalNameColorTvTi, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
+	public int								_nameColorTvTi = -1, _originalKarmaTvTi, _countTvTiKills = 0, _countTvTITeamKills = 0;
 	public boolean							_inEventTvTi			= false, _isSitForcedTvTi = false, _joiningTvTi = false;
 
 	public int								_telemode				= 0;
@@ -1143,7 +1138,12 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _appearance;
 	}
-
+	
+	public void updateNameTitleColor()
+	{
+		getAppearance().updateNameTitleColor();
+	}
+	
 	@Override
 	public void setTitle(String value)
 	{
@@ -6896,7 +6896,7 @@ public final class L2PcInstance extends L2Playable
 
 		restoreCreationDate();
 		
-		restoreNameTitleColors();
+		getAppearance().restoreNameTitleColors();
 	}
 
 	/**
@@ -7032,7 +7032,7 @@ public final class L2PcInstance extends L2Playable
 		getEffects().storeEffects(storeActiveEffects);
 		storeSkillReuses();
 		transformInsertInfo();
-		storeNameTitleColors();
+		getAppearance().storeNameTitleColors();
 
 		if (Config.UPDATE_ITEMS_ON_CHAR_STORE || items)
 			getInventory().updateDatabase();
@@ -8787,57 +8787,6 @@ public final class L2PcInstance extends L2Playable
 		Olympiad.removeSpectator(_olympiadGameId, this);
 		_olympiadGameId = -1;
 		_observerMode = false;
-		broadcastUserInfo();
-	}
-
-	public void updateNameTitleColor()
-	{
-		int nameColor = getAppearance().getNameColor();
-		int titleColor = getAppearance().getTitleColor();
-		
-		if (isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED
-				&& getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
-		{
-			if (Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
-				nameColor = Config.CLAN_LEADER_COLOR;
-			else
-				titleColor = Config.CLAN_LEADER_COLOR;
-		}
-
-		if (Config.CHAR_VIP_COLOR_ENABLED)
-		{
-			if (isCharViP())
-				nameColor = Config.CHAR_VIP_COLOR;
-		}
-
-		if (Config.ALLOW_OFFLINE_TRADE_COLOR_NAME)
-		{
-			if (isInOfflineMode())
-				nameColor = Config.OFFLINE_TRADE_COLOR_NAME;
-		}
-
-		if (isGM())
-		{
-			if (Config.GM_NAME_COLOR_ENABLED)
-			{
-				if (getAccessLevel() >= 100)
-					nameColor = Config.ADMIN_NAME_COLOR;
-				else if (getAccessLevel() >= 75)
-					nameColor = Config.GM_NAME_COLOR;
-			}
-
-			if (Config.GM_TITLE_COLOR_ENABLED)
-			{
-				if (getAccessLevel() >= 100)
-					titleColor = Config.ADMIN_TITLE_COLOR;
-				else if (getAccessLevel() >= 75)
-					titleColor = Config.GM_TITLE_COLOR;
-			}
-		}
-
-		getAppearance().setTitleColor(titleColor);
-		getAppearance().setNameColor(nameColor);
-
 		broadcastUserInfo();
 	}
 
@@ -13932,106 +13881,47 @@ public final class L2PcInstance extends L2Playable
 
 		return subClassType;
 	}
-
+	
 	private final long[] _floodProtectors = new long[FloodProtector.Protected.VALUES_LENGTH];
-
+	
 	public long[] getFloodProtectors()
 	{
 		return _floodProtectors;
 	}
-
+	
 	private AbstractFunEventPlayerInfo _playerInfoForEvents;
-
+	
 	public <T extends AbstractFunEventPlayerInfo> void setPlayerInfo(T info)
 	{
 		if (_playerInfoForEvents != null && info != null)
 			throw new IllegalStateException();
-
+		
 		_playerInfoForEvents = info;
 	}
-
+	
 	public <T extends AbstractFunEventPlayerInfo> T getPlayerInfo(Class<T> clazz)
 	{
 		final AbstractFunEventPlayerInfo info = _playerInfoForEvents;
-
+		
 		if (clazz.isInstance(info))
 			return clazz.cast(info);
 		else
 			return null;
 	}
-
+	
 	public <T extends AbstractFunEventPlayerInfo> boolean isInEvent(Class<T> clazz)
 	{
 		return clazz.isInstance(_playerInfoForEvents);
 	}
-
+	
 	public <T extends AbstractFunEventPlayerInfo> T as(Class<T> clazz)
 	{
 		final AbstractFunEventPlayerInfo info = _playerInfoForEvents;
-
+		
 		if (clazz.isInstance(info))
 			return clazz.cast(info);
 		else
 			throw new IllegalStateException();
-	}
-	
-	private final void restoreNameTitleColors()
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement(RESTORE_COLORS);
-			statement.setInt(1, getObjectId());
-			ResultSet result = statement.executeQuery();
-			if (result.next())
-			{
-				getAppearance().setNameColor(Util.reverseRGBChanels(Integer.decode("0x" + result.getString(1))));
-				getAppearance().setTitleColor(Util.reverseRGBChanels(Integer.decode("0x" + result.getString(2))));
-			}
-			else
-			{
-				getAppearance().setNameColor(PcAppearance.DEFAULT_NAME_COLOR);
-				getAppearance().setTitleColor(PcAppearance.DEFAULT_TITLE_COLOR);
-			}
-			result.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			getAppearance().setNameColor(PcAppearance.DEFAULT_NAME_COLOR);
-			getAppearance().setTitleColor(PcAppearance.DEFAULT_TITLE_COLOR);
-			
-			_log.error("Could not load character name/title colors!", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
-		updateNameTitleColor();
-	}
-	
-	private final void storeNameTitleColors()
-	{
-		Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con.prepareStatement(UPDATE_COLORS);
-			statement.setInt(1, getObjectId());
-			statement.setString(2, HexUtil.fillHex(Util.reverseRGBChanels(getAppearance().getNameColor()), 6));
-			statement.setString(3, HexUtil.fillHex(Util.reverseRGBChanels(getAppearance().getTitleColor()), 6));
-			statement.executeUpdate();
-			statement.close();
-		}
-		catch (Exception e)
-		{
-			_log.error("Could not store character name/title colors!", e);
-		}
-		finally
-		{
-			L2DatabaseFactory.close(con);
-		}
 	}
 	
 	private final void restoreCreationDate()

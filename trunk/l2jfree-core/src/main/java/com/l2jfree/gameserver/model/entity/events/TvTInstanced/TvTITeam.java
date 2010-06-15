@@ -84,8 +84,7 @@ public class TvTITeam
 			{
 				case 0:
 					player._countTvTiKills = 0;
-					player._originalNameColorTvTi = player.getAppearance().getNameColor();
-					player.getAppearance().setNameColor(_teamColor);
+					player._nameColorTvTi = _teamColor;
 					player.getAppearance().setVisibleTitle("Kills: 0");
 					player._originalKarmaTvTi = player.getKarma();
 					player.setKarma(0);
@@ -94,7 +93,7 @@ public class TvTITeam
 					player.broadcastUserInfo();
 					break;
 				case 1:
-					player.getAppearance().setNameColor(player._originalNameColorTvTi);
+					player._nameColorTvTi = -1;
 					player.getAppearance().setVisibleTitle(null);
 					player.setKarma(player._originalKarmaTvTi);
 					player.setKarmaFlag(0);
@@ -219,7 +218,7 @@ public class TvTITeam
 	public void removePlayer(L2PcInstance player)
 	{
 		player._inEventTvTi = false;
-		player.getAppearance().setNameColor(player._originalNameColorTvTi);
+		player._nameColorTvTi = -1;
 		player.getAppearance().setVisibleTitle(null);
 		player.setKarma(player._originalKarmaTvTi);
 		_players.remove(player);

@@ -135,7 +135,6 @@ import com.l2jfree.gameserver.model.entity.events.AutomatedTvT;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.network.L2GameSelectorThread;
-import com.l2jfree.gameserver.network.communityserver.CommunityServerThread;
 import com.l2jfree.gameserver.script.faenor.FaenorScriptEngine;
 import com.l2jfree.gameserver.scripting.CompiledScriptCache;
 import com.l2jfree.gameserver.scripting.L2ScriptEngineManager;
@@ -434,7 +433,7 @@ public class GameServer extends Config
 		if  (Config.ALLOW_MAIL)
 		 	MailManager.getInstance();
 		
-		CommunityServerThread.initialize();
+		//CommunityServerThread.initialize();
 		
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		

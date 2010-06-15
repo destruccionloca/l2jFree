@@ -347,14 +347,13 @@ public class TvTIMain
 					// check by name incase player got new objectId
 					else if (p.getName().equals(player.getName()))
 					{
-						player._originalNameColorTvTi = player.getAppearance().getNameColor();
 						player._originalKarmaTvTi = player.getKarma();
 						player._inEventTvTi = true;
 						t.getPlayers().remove(p); // Removing old object id from
 													// list
 						t.getPlayers().add(player); // Adding new objectId to
 													// list
-						player.getAppearance().setNameColor(t.getTeamColor());
+						player._nameColorTvTi = t.getTeamColor();
 						player.setKarma(0);
 						player.broadcastUserInfo();
 						player.setInstanceId(i.getInstanceId());
@@ -419,7 +418,7 @@ public class TvTIMain
 				if (t.getPlayers().contains(player))
 				{
 					p = player;
-					player.getAppearance().setNameColor(player._originalNameColorTvTi);
+					player._nameColorTvTi = -1;
 					player.getAppearance().setVisibleTitle(null);
 					player.setKarma(player._originalKarmaTvTi);
 					player.setKarmaFlag(0);
