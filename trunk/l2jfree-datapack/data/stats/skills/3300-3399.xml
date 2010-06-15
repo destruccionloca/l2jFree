@@ -115,10 +115,21 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3321" levels="1" name="Blue Talisman of Evasion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpConsume" val="50"/>
     <set name="hitTime" val="4000"/>
+    <set name="reuseDelay" val="360000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="talismanId" val="9930"/>
+    <set name="talismanManaConsume" val="6"/>
+    <for>
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_blue">
+        <add order="0x40" stat="rEvas" val="5"/>
+      </effect>
+    </for>
   </skill>
   <skill id="3322" levels="1" name="Brass Bracelet">
     <set name="target" val="TARGET_NONE"/>
@@ -179,25 +190,47 @@
     <set name="hitTime" val="3000"/>
   </skill>
   <skill id="3332" levels="1" name="Orange Talisman - Hot Springs Recovery">
-    <!-- Create 1 Hot Springs Recovery with the power of the Talisman. Consumes 16 Soul Ores. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="20000"/>
+    <set name="itemConsumeId" val="1785"/>
+    <set name="itemConsumeCount" val="16"/>
+    <set name="mpConsume" val="50"/>
+    <set name="hitTime" val="100"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="negateId" val="4551,4552,4553,4554"/>
+    <set name="talismanId" val="9952"/>
+    <set name="talismanManaConsume" val="1"/>
   </skill>
   <skill id="3333" levels="1" name="Orange Talisman - A Grade Elixir of Life">
-    <!-- Create 1 Elixir of Life A with power of the Talisman. Consumes 50 Soul Ores. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="20000"/>
+    <set name="mpConsume" val="50"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="10000"/>
+    <set name="skillType" val="CREATE_ITEM"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="itemConsumeId" val="1785"/>
+    <set name="itemConsumeCount" val="50"/>
+    <set name="create_item_id" val="8626"/>
+    <set name="create_item_count" val="1"/>
+    <set name="talismanId" val="9953"/>
+    <set name="talismanManaConsume" val="1"/>
   </skill>
   <skill id="3334" levels="1" name="Orange Talisman - A Grade Elixir of Mental Strength">
-    <!-- Create 1 Elixir of Mental Strength A with the power of the Talisman. Consumes 57 Soul Ores. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="20000"/>
+    <set name="mpConsume" val="50"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="10000"/>
+    <set name="skillType" val="CREATE_ITEM"/>
+    <set name="reuseDelay" val="10000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="itemConsumeId" val="1785"/>
+    <set name="itemConsumeCount" val="57"/>
+    <set name="create_item_id" val="8632"/>
+    <set name="create_item_count" val="1"/>
+    <set name="talismanId" val="9954"/>
+    <set name="talismanManaConsume" val="1"/>
   </skill>
   <skill id="3335" levels="1" name="Transform Yeti">
     <!-- Done by Skatershi - Description: Transforms into Yeti. -->

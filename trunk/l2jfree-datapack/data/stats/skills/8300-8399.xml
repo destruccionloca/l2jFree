@@ -121,17 +121,41 @@
   </skill>
   <skill id="8308" levels="1" name="Red Talisman - Guardian of the Territory">
   <!-- Immediately recovers 1200 CP and increases Max CP to 1200. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
+    <set name="mpConsume" val="50"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="power" val="1200"/>
+    <set name="hitTime" val="1200"/>
+    <set name="reuseDelay" val="360000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="talismanId" val="14604"/>
+    <set name="talismanManaConsume" val="6"/>
+    <for>
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_red">
+        <add order="0x40" stat="maxCp" val="1200"/>
+      </effect>
+    </for>
   </skill>
   <skill id="8309" levels="1" name="Red Talisman - Territory Convoy">
   <!-- Immediately recovers 800 CP and increases Max CP to 800. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
+    <set name="mpConsume" val="50"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="power" val="800"/>
+    <set name="hitTime" val="1200"/>
+    <set name="reuseDelay" val="360000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="talismanId" val="14605"/>
+    <set name="talismanManaConsume" val="6"/>
+    <for>
+      <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_red">
+        <add order="0x40" stat="maxCp" val="800"/>
+      </effect>
+    </for>
   </skill>
   <skill id="8310" levels="1" name="Arcana Sigil">
     <set name="operateType" val="OP_PASSIVE"/>
