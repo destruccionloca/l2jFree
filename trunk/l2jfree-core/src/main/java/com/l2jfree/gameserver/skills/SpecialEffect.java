@@ -29,7 +29,7 @@ public enum SpecialEffect
 	S_PINK_AFFRO("pinkafro", 0x000020),
 	S_BLACK_AFFRO("blackafro", 0x000040),
 	S_UNKNOWN8("unknown8", 0x000080),
-	S_UNKNOWN9("unknown9", 0x000100);
+	STIGMA_SHILIEN("stigmashilien", 0x000100);
 	
 	private final int _mask;
 	private final String _name;

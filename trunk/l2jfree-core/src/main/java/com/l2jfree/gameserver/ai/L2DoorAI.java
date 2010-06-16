@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
 
@@ -162,7 +162,7 @@ public class L2DoorAI extends L2CharacterAI
 	{
 		if (o instanceof L2Attackable)
 		{
-			if (o instanceof L2SiegeGuard)
+			if (o instanceof L2DefenderInstance)
 				return true;
 			switch (((L2Attackable) o).getNpcId())
 			{

@@ -329,7 +329,7 @@ public class Hero
 				L2Clan clan = player.getClan();
 				if (clan != null)
 				{
-					clan.setReputationScore(clan.getReputationScore() + Config.HERO_POINTS, true);
+					clan.addReputationScore(Config.HERO_POINTS, true);
 					SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
 					sm.addString(name);
 					sm.addNumber(Config.HERO_POINTS);
@@ -358,7 +358,7 @@ public class Hero
 							L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
 							if (clan != null)
 							{
-								clan.setReputationScore(clan.getReputationScore() + Config.HERO_POINTS, true);
+								clan.addReputationScore(Config.HERO_POINTS, true);
 								SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_C1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
 								sm.addString(name);
 								sm.addNumber(Config.HERO_POINTS);

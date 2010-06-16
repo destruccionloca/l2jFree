@@ -32,6 +32,7 @@ import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemChatChannelId;
 import com.l2jfree.gameserver.network.serverpackets.CreatureSay;
@@ -399,6 +400,8 @@ public class AutoChatHandler implements SpawnListener
 		{
 			int objectId = npcInst.getObjectId();
 			AutoChatDefinition chatDef = new AutoChatDefinition(this, npcInst, chatTexts, chatDelay);
+			if (npcInst instanceof L2DefenderInstance)
+				chatDef.setRandomChat(true);
 
 			_chatDefinitions.put(objectId, chatDef);
 			return objectId;

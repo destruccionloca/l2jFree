@@ -306,6 +306,10 @@ public abstract class IdFactory
 			rset.next();
 			count += rset.getInt(1);
 			
+			rset = statement.executeQuery("SELECT COUNT(*) FROM messages");
+			rset.next();
+			count += rset.getInt(1);
+			
 			final TIntArrayList temp = new TIntArrayList(count);
 			
 			rset = statement.executeQuery("SELECT charId FROM characters");
@@ -327,6 +331,12 @@ public abstract class IdFactory
 			}
 			
 			rset = statement.executeQuery("SELECT object_id FROM itemsonground");
+			while (rset.next())
+			{
+				temp.add(rset.getInt(1));
+			}
+			
+			rset = statement.executeQuery("SELECT messageId FROM messages");
 			while (rset.next())
 			{
 				temp.add(rset.getInt(1));

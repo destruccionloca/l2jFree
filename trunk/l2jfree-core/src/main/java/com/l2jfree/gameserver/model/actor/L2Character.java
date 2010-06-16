@@ -1941,16 +1941,14 @@ public abstract class L2Character extends L2Object
 		if (skill.getBelongingTalismanId() > 0)
 		{
 			Inventory inv = getInventory();
-			L2ItemInstance talisman = null;
-			int belongingTalismanId = skill.getBelongingTalismanId();
 			boolean found = false;
-
-			for (int i = inv.PAPERDOLL_DECO1; i < inv.PAPERDOLL_DECO1 + inv.getMaxTalismanCount(); i++)
+			
+			for (int i = Inventory.PAPERDOLL_DECO1; i < Inventory.PAPERDOLL_DECO1 + inv.getMaxTalismanCount(); i++)
 			{
-				talisman = inv.getPaperdollItem(i);
+				L2ItemInstance talisman = inv.getPaperdollItem(i);
 				if (talisman != null)
 				{
-					if (talisman.getItemId() == belongingTalismanId)
+					if (talisman.getItemId() == skill.getBelongingTalismanId())
 					{
 						if (talisman.getMana() >= skill.getTalismanManaConsumeOnSkill())
 						{
@@ -1961,7 +1959,7 @@ public abstract class L2Character extends L2Object
 					}
 				}
 			}
-
+			
 			if (!found)
 			{
 				// Custom message, just to avoid thousands of player reporting their talisman skills are not working
@@ -1970,7 +1968,7 @@ public abstract class L2Character extends L2Object
 				return false;
 			}
 		}
-
+		
 		return true;
 	}
 

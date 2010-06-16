@@ -104,7 +104,7 @@ public class L2FameManagerInstance extends L2Npc
 			if (player.getFame() >= 1000 && player.getClassId().level() >= 2 && player.getClan() != null && player.getClan().getLevel() >= 5)
 			{
 				player.setFame(player.getFame() - 1000);
-				player.getClan().setReputationScore(player.getClan().getReputationScore() + 50, true);
+				player.getClan().addReputationScore(50, true);
 				player.sendPacket(SystemMessageId.ACQUIRED_50_CLAN_FAME_POINTS);
 				html.setFile("data/html/famemanager/"+getNpcId()+"-5.htm");
 			}

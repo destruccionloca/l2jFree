@@ -295,6 +295,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	private final boolean			_isSuicideAttack;
 	private final boolean			_canBeReflected;
 	private final boolean			_canBeDispeled;
+	// TODO: 1.4.0
+	private final boolean			_isClanSkill;
+	// TODO: 1.4.0
+	private final boolean			_removedOnAnyActionExceptMove;
 	private final boolean			_dispelOnAction;
 	private final boolean			_dispelOnAttack;
 	private final int				_afterEffectId;
@@ -478,6 +482,10 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 		_flyCourse = set.getFloat("flyCourse", 0);
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_canBeDispeled = set.getBool("canBeDispeled", true);
+		// TODO: 1.4.0
+		_isClanSkill = set.getBool("isClanSkill", false);
+		// TODO: 1.4.0
+		_removedOnAnyActionExceptMove = set.getBool("removedOnAnyActionExceptMove", false);
 		_dispelOnAction = set.getBool("dispelOnAction", false);
 		_dispelOnAttack = set.getBool("dispelOnAttack", false);
 		_attribute = set.getString("attribute", "");
@@ -4042,6 +4050,21 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public boolean canBeDispeled()
 	{
 		return _canBeDispeled;
+	}
+	
+	// TODO: 1.4.0
+	public boolean isClanSkill()
+	{
+		return _isClanSkill;
+	}
+	
+	/**
+	 * Return true if skill effects should be removed on any action except movement
+	 */
+	// TODO: 1.4.0
+	public final boolean isRemovedOnAnyActionExceptMove()
+	{
+		return _removedOnAnyActionExceptMove;
 	}
 	
 	public boolean isDispeledOnAction()

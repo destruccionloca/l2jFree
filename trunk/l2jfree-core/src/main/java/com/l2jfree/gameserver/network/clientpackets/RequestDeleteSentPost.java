@@ -39,9 +39,8 @@ public final class RequestDeleteSentPost extends L2GameClientPacket
 	protected void readImpl()
 	{
 		int count = readD();
-		// FIXME
-		// if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != _buf.remaining())
-		// return;
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
+			return;
 		
 		_msgIds = new int[count];
 		for (int i = 0; i < count; i++)

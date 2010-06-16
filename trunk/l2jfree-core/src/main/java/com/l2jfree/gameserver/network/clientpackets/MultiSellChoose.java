@@ -254,8 +254,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 			{
 				case -200: // Clan Reputation Score
 				{
-					int repLeft = (int) (player.getClan().getReputationScore() - (e.getItemCount() * _amount));
-					player.getClan().setReputationScore(repLeft, true);
+					player.getClan().takeReputationScore((int)(e.getItemCount() * _amount), true);
 					sendPacket(new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber((int) (e.getItemCount() * _amount)));
 					break;
 				}
@@ -395,7 +394,7 @@ public final class MultiSellChoose extends L2GameClientPacket
 			{
 				case -200: // Clan Reputation Score - now not supported
 				{
-					// player.getClan().setReputationScore((int)(player.getClan().getReputationScore() + e.getItemCount() * _amount), true);
+					// player.getClan().addReputationScore((int)(e.getItemCount() * _amount), true);
 					break;
 				}
 				case -300: // Player Fame

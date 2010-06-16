@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.L2GameClient;
 import com.l2jfree.gameserver.network.L2GameSelectorThread;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.L2GameClient.GameClientState;
 import com.l2jfree.gameserver.network.gameserverpackets.AuthRequest;
 import com.l2jfree.gameserver.network.gameserverpackets.BlowFishKey;
@@ -52,6 +53,7 @@ import com.l2jfree.gameserver.network.loginserverpackets.PlayerAuthResponse;
 import com.l2jfree.gameserver.network.loginserverpackets.PlayerLoginAttempt;
 import com.l2jfree.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jfree.gameserver.network.serverpackets.LoginFail;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.network.NetworkThread;
 import com.l2jfree.network.ServerStatus;
 import com.l2jfree.network.ServerStatusAttributes;
@@ -470,12 +472,20 @@ public final class LoginServerThread extends NetworkThread
 							L2GameClient client = _accountsInGameServer.get(kp.getAccount());
 							
 							if (client != null)
+							{
+								// FIXME: won't be sent because closeNow() clears the packet queue
+								client.sendPacket(new SystemMessage(SystemMessageId.ANOTHER_LOGIN_WITH_ACCOUNT));
 								client.closeNow();
+							}
 							
 							WaitingClient wc = _waitingClients.get(kp.getAccount());
 							
 							if (wc != null)
+							{
+								// FIXME: won't be sent because closeNow() clears the packet queue
+								wc.gameClient.sendPacket(new SystemMessage(SystemMessageId.ANOTHER_LOGIN_WITH_ACCOUNT));
 								wc.gameClient.closeNow();
+							}
 							
 							L2PcInstance.disconnectIfOnline(kp.getAccount());
 							break;

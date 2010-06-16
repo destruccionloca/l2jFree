@@ -904,9 +904,9 @@ public class Fort extends Siegeable<FortSiege>
 		if (owner != null)
 		{
 			if (removePoints)
-				owner.setReputationScore(owner.getReputationScore() - Config.LOOSE_FORT_POINTS, true);
+				owner.takeReputationScore(Config.LOOSE_FORT_POINTS, true);
 			else
-				owner.setReputationScore(owner.getReputationScore() + Config.TAKE_FORT_POINTS, true);
+				owner.addReputationScore(Config.TAKE_FORT_POINTS, true);
 		}
 	}
 

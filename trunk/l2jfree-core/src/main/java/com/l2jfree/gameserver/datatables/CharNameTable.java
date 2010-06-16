@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.lang.L2Integer;
 import com.l2jfree.util.L2Collections;
 
@@ -48,11 +49,18 @@ public final class CharNameTable
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement statement = con.prepareStatement("SELECT charId, account_name, char_name FROM characters");
+			PreparedStatement statement = con.prepareStatement("SELECT charId, account_name, char_name, accesslevel FROM characters");
 			ResultSet rset = statement.executeQuery();
 			
 			while (rset.next())
-				update(rset.getInt("charId"), rset.getString("account_name"), rset.getString("char_name"));
+			{
+				final int objectId = rset.getInt("charId");
+				final String accountName =rset.getString("account_name");
+				final String name = rset.getString("char_name");
+				final int accessLevel = rset.getInt("accesslevel");
+				
+				update(objectId, accountName, name, accessLevel);
+			}
 			
 			rset.close();
 			statement.close();
@@ -83,13 +91,25 @@ public final class CharNameTable
 		return characterInfo == null ? null : characterInfo._objectId;
 	}
 	
-	public void update(int objectId, String accountName, String name)
+	public int getAccessLevelById(Integer objectId)
+	{
+		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
+		
+		return characterInfo == null ? 0 : characterInfo._accessLevel;
+	}
+	
+	public void update(L2PcInstance player)
+	{
+		update(player.getObjectId(), player.getAccountName(), player.getName(), player.getAccessLevel());
+	}
+	
+	public void update(int objectId, String accountName, String name, int accessLevel)
 	{
 		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
 		if (characterInfo == null)
 			characterInfo = new CharacterInfo(objectId);
 		
-		characterInfo.updateNames(accountName, name);
+		characterInfo.updateNames(accountName, name, accessLevel);
 	}
 	
 	private class CharacterInfo
@@ -98,6 +118,7 @@ public final class CharNameTable
 		
 		private String _accountName;
 		private String _name;
+		private int _accessLevel;
 		
 		private CharacterInfo(int objectId)
 		{
@@ -108,7 +129,7 @@ public final class CharNameTable
 				_log.warn("CharNameTable: Duplicated objectId: [" + this + "] - [" + characterInfo + "]");
 		}
 		
-		private void updateNames(String accountName, String name)
+		private void updateNames(String accountName, String name, int accessLevel)
 		{
 			_accountName = accountName;
 			
@@ -120,6 +141,8 @@ public final class CharNameTable
 			CharacterInfo characterInfo = _mapByName.put(_name.toLowerCase(), this);
 			if (characterInfo != null)
 				_log.warn("CharNameTable: Duplicated hashName: [" + this + "] - [" + characterInfo + "]");
+			
+			_accessLevel = accessLevel;
 		}
 		
 		@Override

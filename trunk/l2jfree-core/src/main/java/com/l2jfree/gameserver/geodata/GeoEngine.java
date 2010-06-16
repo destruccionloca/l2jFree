@@ -36,7 +36,7 @@ import com.l2jfree.gameserver.geodata.pathfinding.cellnodes.CellPathFinding;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
+import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.tools.geometry.Point3D;
@@ -261,18 +261,18 @@ final class GeoEngine extends GeoData
 		// Because of layer selection in LOS algorithm (it selects -45 there
 		// and some layers can be very close...) do not change this without
 		// changing the LOS code.
-    	// Basically the +45 is character height. Raid bosses are naturally higher,
+		// Basically the +45 is character height. Raid bosses are naturally higher,
 		// dwarves shorter, but this should work relatively well.
 		// If this is going to be improved, use e.g.
 		// ((L2Character)cha).getTemplate().collisionHeight
 		int z = cha.getZ() + 45;
-		if (cha instanceof L2SiegeGuard)
-    		z += 30; // well they don't move closer to balcony fence at the moment :(
+		if (cha instanceof L2DefenderInstance)
+			z += 30; // well they don't move closer to balcony fence at the moment :(
 		int z2 = target.getZ() + 45;
 		if (target instanceof L2DoorInstance)
 			return true; // door coordinates are hinge coords..
-		if (target instanceof L2SiegeGuard)
-    		z2 += 30; // well they don't move closer to balcony fence at the moment :(
+		if (target instanceof L2DefenderInstance)
+			z2 += 30; // well they don't move closer to balcony fence at the moment :(
 		if (z >= z2)
 			return canSeeTarget(cha.getX(), cha.getY(), z, target.getX(), target.getY(), z2, cha.getInstanceId());
 		else
@@ -1279,7 +1279,7 @@ final class GeoEngine extends GeoData
 				// Check if LOS goes under a layer/floor
 				// clearly under layer but not too much under
 				// lowerheight here only for geodata bug checking, layers very close? maybe could be removed
-				if ((z - upperHeight) < -10 && (z - upperHeight) > inc_z - 10 && (z - lowerHeight) > 40)
+				if ((z - upperHeight) < -10 && (z - upperHeight) > inc_z - 20 && (z - lowerHeight) > 40)
 					return false;
 				
 				// or there's a fence/wall ahead when we're not on highest layer

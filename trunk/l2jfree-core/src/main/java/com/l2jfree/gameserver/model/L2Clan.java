@@ -477,6 +477,7 @@ public class L2Clan
 		sm.addString(newLeader.getName());
 		broadcastToOnlineMembers(sm);
 		sm = null;
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 
 		CrownManager.checkCrowns(exLeader);
 		CrownManager.checkCrowns(newLeader);
@@ -527,6 +528,8 @@ public class L2Clan
 		//player.sendPacket(new UserInfo(player));
 		// Crest update
 		player.broadcastUserInfo();
+		// notify CB server about the change
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 	}
 
 	public void updateClanMember(L2PcInstance player)
@@ -534,8 +537,10 @@ public class L2Clan
 		L2ClanMember member = new L2ClanMember(player);
 		if (player.isClanLeader())
 			setLeader(member);
-
+		
 		addClanMember(member);
+		// notify CB server about the change
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 	}
 
 	public L2ClanMember getClanMember(String name)
@@ -640,6 +645,8 @@ public class L2Clan
 			removeMemberInDatabase(exMember, clanJoinExpiryTime, getLeaderId() == objectId ? System.currentTimeMillis() + Config.ALT_CLAN_CREATE_DAYS
 					* 86400000L : 0);
 		}
+		// notify CB server about the change
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 	}
 
 	public L2ClanMember[] getMembers()
@@ -911,7 +918,30 @@ public class L2Clan
 	{
 		return (id != 0 && _members.containsKey(id));
 	}
-
+	
+	public void updateClanScoreInDB()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = con.prepareStatement("UPDATE clan_data SET reputation_score=? WHERE clan_id=?");
+			statement.setInt(1, getReputationScore());
+			statement.setInt(2, getClanId());
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+	
 	public void updateClanInDB()
 	{
 		Connection con = null;
@@ -937,7 +967,7 @@ public class L2Clan
 		}
 		catch (Exception e)
 		{
-			_log.error("Error while saving new clan leader.", e);
+			_log.error("Error while saving clan.", e);
 		}
 		finally
 		{
@@ -1668,7 +1698,7 @@ public class L2Clan
 
 			if (subPledgeType != -1)
 			{
-				setReputationScore(getReputationScore() - neededRepu, true);
+				takeReputationScore(neededRepu, true);
 			}
 
 			if (_log.isDebugEnabled())
@@ -1908,8 +1938,18 @@ public class L2Clan
 		}
 		return id;
 	}
-
-	public void setReputationScore(int value, boolean save)
+	
+	public synchronized void addReputationScore(int value, boolean save)
+	{
+		setReputationScore(getReputationScore() + value, save);
+	}
+	
+	public synchronized void takeReputationScore(int value, boolean save)
+	{
+		setReputationScore(getReputationScore() - value, save);
+	}
+	
+	private void setReputationScore(int value, boolean save)
 	{
 		if (_reputationScore >= 0 && value < 0)
 		{
@@ -1946,12 +1986,13 @@ public class L2Clan
 			_reputationScore = 100000000;
 		if (_reputationScore < -100000000)
 			_reputationScore = -100000000;
+		broadcastToOnlineMembers(new PledgeShowInfoUpdate(this));
 		if (save)
-			updateClanInDB();
+			updateClanScoreInDB();
 
 		broadcastClanStatus();
 	}
-
+	
 	public int getReputationScore()
 	{
 		return _reputationScore;
@@ -2261,6 +2302,8 @@ public class L2Clan
 		player.sendPacket(new UserInfo(player));
 
 		player.sendMessage("Alliance " + allyName + " has been created.");
+		// notify CB server about the change
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 	}
 
 	public void dissolveAlly(L2PcInstance player)
@@ -2292,6 +2335,9 @@ public class L2Clan
 				clan.setAllyName(null);
 				clan.setAllyPenaltyExpiryTime(0, 0);
 				clan.updateClanInDB();
+				// notify CB server about the change
+				//CommunityServerThread.getInstance().sendPacket(
+				//		new WorldInfo(null, clan, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 			}
 		}
 
@@ -2302,6 +2348,8 @@ public class L2Clan
 
 		// The clan leader should take the XP penalty of a full death.
 		player.deathPenalty(false, false, false);
+		// notify CB server about the change
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 	}
 
 	public boolean levelUpClan(L2PcInstance player)
@@ -2421,7 +2469,7 @@ public class L2Clan
 			// Upgrade to 6
 			if (getReputationScore() >= Config.CLAN_LEVEL_6_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SIX)
 			{
-				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_6_COST, true);
+				takeReputationScore(Config.CLAN_LEVEL_6_COST, true);
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 				sm.addNumber(Config.CLAN_LEVEL_6_COST);
 				player.sendPacket(sm);
@@ -2434,7 +2482,7 @@ public class L2Clan
 			// Upgrade to 7
 			if (getReputationScore() >= Config.CLAN_LEVEL_7_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_SEVEN)
 			{
-				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_7_COST, true);
+				takeReputationScore(Config.CLAN_LEVEL_7_COST, true);
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 				sm.addNumber(Config.CLAN_LEVEL_7_COST);
 				player.sendPacket(sm);
@@ -2447,7 +2495,7 @@ public class L2Clan
 			// Upgrade to 8
 			if (getReputationScore() >= Config.CLAN_LEVEL_8_COST && getMembersCount() >= Config.MEMBER_FOR_LEVEL_EIGHT)
 			{
-				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_8_COST, true);
+				takeReputationScore(Config.CLAN_LEVEL_8_COST, true);
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 				sm.addNumber(Config.CLAN_LEVEL_8_COST);
 				player.sendPacket(sm);
@@ -2463,7 +2511,7 @@ public class L2Clan
 				// itemId 9910 == Blood Oath
 				if (player.destroyItemByItemId("ClanLvl", 9910, 150, player.getTarget(), false))
 				{
-					setReputationScore(getReputationScore() - Config.CLAN_LEVEL_9_COST, true);
+					takeReputationScore(Config.CLAN_LEVEL_9_COST, true);
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 					sm.addNumber(Config.CLAN_LEVEL_9_COST);
 					player.sendPacket(sm);
@@ -2484,7 +2532,7 @@ public class L2Clan
 				// itemId 9911 == Blood Alliance
 				if (player.destroyItemByItemId("ClanLvl", 9911, 5, player.getTarget(), false))
 				{
-					setReputationScore(getReputationScore() - Config.CLAN_LEVEL_10_COST, true);
+					takeReputationScore(Config.CLAN_LEVEL_10_COST, true);
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 					sm.addNumber(Config.CLAN_LEVEL_10_COST);
 					player.sendPacket(sm);
@@ -2504,7 +2552,7 @@ public class L2Clan
 			if (getReputationScore() >= Config.CLAN_LEVEL_11_COST &&
 					getMembersCount() >= Config.MEMBER_FOR_LEVEL_ELEVEN)
 			{
-				setReputationScore(getReputationScore() - Config.CLAN_LEVEL_11_COST, true);
+				takeReputationScore(Config.CLAN_LEVEL_11_COST, true);
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 				sm.addNumber(Config.CLAN_LEVEL_11_COST);
 				player.sendPacket(sm);
@@ -2588,6 +2636,8 @@ public class L2Clan
 		 */
 		//clan.broadcastToOnlineMembers(new PledgeStatusChanged(clan));
 		//clan.broadcastClanStatus();
+		// notify CB server about the change
+		//CommunityServerThread.getInstance().sendPacket(new WorldInfo(null, this, WorldInfo.TYPE_UPDATE_CLAN_DATA));
 	}
 
 	public List<L2PcInstance> getOnlineAllyMembers()

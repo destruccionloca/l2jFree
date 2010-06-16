@@ -59,8 +59,6 @@ public class SummonItemsData
 			factory.setIgnoringComments(true);
 			doc = factory.newDocumentBuilder().parse(file);
 
-			int itemID = 0, npcID = 0;
-			byte summonType = 0;
 			Node a;
 			for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 			{
@@ -70,6 +68,11 @@ public class SummonItemsData
 					{
 						if ("item".equalsIgnoreCase(d.getNodeName()))
 						{
+							int itemID = 0, npcID = 0;
+							byte summonType = 0;
+							// TODO: 1.4.0
+							int despawn = -1;
+							
 							a = d.getAttributes().getNamedItem("id");
 							if (a == null) throw new Exception("Error in summon item defenition!");
 							itemID = Integer.parseInt(a.getNodeValue());
@@ -88,8 +91,15 @@ public class SummonItemsData
 									if (a == null) throw new Exception("Not defined summon type for summon item id=" + itemID + "!");
 									summonType = Byte.parseByte(a.getNodeValue());
 								}
+								// TODO: 1.4.0
+								else if ("despawn".equalsIgnoreCase(e.getNodeName()))
+								{
+									a = e.getAttributes().getNamedItem("val");
+									if (a == null) throw new Exception("Not defined despawn for summon item id=" + itemID + "!");
+									despawn = Integer.parseInt(a.getNodeValue());
+								}
 							}
-							L2SummonItem summonitem = new L2SummonItem(itemID, npcID, summonType);
+							L2SummonItem summonitem = new L2SummonItem(itemID, npcID, summonType, despawn);
 							_summonitems.put(itemID, summonitem);
 						}
 					}

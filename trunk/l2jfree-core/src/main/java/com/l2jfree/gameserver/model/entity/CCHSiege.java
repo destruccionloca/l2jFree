@@ -172,7 +172,7 @@ public final class CCHSiege extends AbstractSiege
 				if (_hideout.getOwnerId() <= 0)
 				{
 					L2Clan c = ClanTable.getInstance().getClan(_oldOwner);
-					c.setReputationScore(c.getReputationScore() - calculateRepChange(null, c), true);
+					c.takeReputationScore(calculateRepChange(null, c), true);
 					c.broadcastToOnlineMembers(SystemMessageId.CLAN_LOST_CONTESTED_CLAN_HALL_AND_300_POINTS.getSystemMessage());
 				}
 				else if (_hideout.getOwnerId() != _oldOwner)
@@ -180,11 +180,11 @@ public final class CCHSiege extends AbstractSiege
 					L2Clan old = ClanTable.getInstance().getClan(_oldOwner);
 					L2Clan owner = _hideout.getOwnerClan();
 					int pts = calculateRepChange(owner, old);
-					old.setReputationScore(old.getReputationScore() - pts, true);
+					old.takeReputationScore(pts, true);
 					sm = new SystemMessage(SystemMessageId.OPPOSING_CLAN_CAPTURED_CLAN_HALL_AND_YOUR_CLAN_LOSES_S1_POINTS);
 					sm.addNumber(pts);
 					old.broadcastToOnlineMembers(sm);
-					owner.setReputationScore(owner.getReputationScore() + pts, true);
+					owner.addReputationScore(pts, true);
 					sm = new SystemMessage(SystemMessageId.CLAN_CAPTURED_CONTESTED_CLAN_HALL_AND_S1_POINTS_DEDUCTED_FROM_OPPONENT);
 					sm.addNumber(pts);
 					owner.broadcastToOnlineMembers(sm);
@@ -194,7 +194,7 @@ public final class CCHSiege extends AbstractSiege
 			{
 				L2Clan c = _hideout.getOwnerClan();
 				int pts = calculateRepChange(c, null);
-				c.setReputationScore(c.getReputationScore() + pts, true);
+				c.addReputationScore(pts, true);
 				sm = new SystemMessage(SystemMessageId.CLAN_ACQUIRED_CONTESTED_CLAN_HALL_AND_S1_REPUTATION_POINTS);
 				sm.addNumber(pts);
 				c.broadcastToOnlineMembers(sm);

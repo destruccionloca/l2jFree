@@ -358,7 +358,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 					requestFailed(SystemMessageId.ACQUIRE_SKILL_FAILED_BAD_CLAN_REP_SCORE);
 					return;
 				}
-				player.getClan().setReputationScore(player.getClan().getReputationScore() - repCost, true);
+				player.getClan().takeReputationScore(repCost, true);
 				player.getClan().addNewSkill(skill);
 				
 				if (_log.isDebugEnabled())

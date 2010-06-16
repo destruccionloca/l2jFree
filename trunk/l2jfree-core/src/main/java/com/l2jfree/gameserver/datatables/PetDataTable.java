@@ -17,19 +17,18 @@ package com.l2jfree.gameserver.datatables;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import javolution.util.FastMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.model.L2PetData;
-import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 
 public class PetDataTable
 {
-	private final static Log										_log						= LogFactory.getLog(L2PetInstance.class);
+	private final static Log										_log						= LogFactory.getLog(PetDataTable.class);
 
 	public final static int											PET_WOLF_ID					= 12077;
 
@@ -69,38 +68,38 @@ public class PetDataTable
 	public final static int											TAWNY_MANED_LION_ID			= 13146;
 	public final static int											STEAM_SLEDGE				= 13147;
 
-	private static FastMap<Integer, FastMap<Integer, L2PetData>>	petTable;
-
 	public final static int[]										EMPTY_INT					= { 0 };
 
 	public static PetDataTable getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-
+	
+	private final Map<Integer, Map<Integer, L2PetData>> _petTable;
+	
 	private PetDataTable()
 	{
-		petTable = new FastMap<Integer, FastMap<Integer, L2PetData>>();
+		_petTable = new HashMap<Integer, Map<Integer, L2PetData>>();
 	}
-
+	
 	public void loadPetsData()
 	{
 		Connection con = null;
-
+		
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
+			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con
 					.prepareStatement("SELECT typeID, level, expMax, hpMax, mpMax, patk, pdef, matk, mdef, acc, evasion, crit, speed, atk_speed, cast_speed, feedMax, feedbattle, feednormal, loadMax, hpregen, mpregen, owner_exp_taken FROM pets_stats");
 			ResultSet rset = statement.executeQuery();
-
+			
 			int petId, petLevel;
-
+			
 			while (rset.next())
 			{
 				petId = rset.getInt("typeID");
 				petLevel = rset.getInt("level");
-
+				
 				//build the petdata for this level
 				L2PetData petData = new L2PetData();
 				petData.setPetID(petId);
@@ -125,14 +124,14 @@ public class PetDataTable
 				petData.setPetRegenHP(rset.getInt("hpregen"));
 				petData.setPetRegenMP(rset.getInt("mpregen"));
 				petData.setOwnerExpTaken(rset.getFloat("owner_exp_taken"));
-
-				// if its the first data for this petid, we initialize its level FastMap
-				if (!petTable.containsKey(petId))
-					petTable.put(petId, new FastMap<Integer, L2PetData>());
-
-				petTable.get(petId).put(petLevel, petData);
+				
+				// if its the first data for this petid, we initialize its level
+				if (!_petTable.containsKey(petId))
+					_petTable.put(petId, new HashMap<Integer, L2PetData>());
+				
+				_petTable.get(petId).put(petLevel, petData);
 			}
-
+			
 			rset.close();
 			statement.close();
 		}
@@ -145,40 +144,20 @@ public class PetDataTable
 			L2DatabaseFactory.close(con);
 		}
 
-		_log.info("PetDataTable: loaded " + petTable.size() + " pets.");
-	}
-
-	public void addPetData(L2PetData petData)
-	{
-		FastMap<Integer, L2PetData> h = petTable.get(petData.getPetID());
-
-		if (h == null)
-		{
-			FastMap<Integer, L2PetData> statTable = new FastMap<Integer, L2PetData>();
-			statTable.put(petData.getPetLevel(), petData);
-			petTable.put(petData.getPetID(), statTable);
-			return;
-		}
-
-		h.put(petData.getPetLevel(), petData);
-	}
-
-	public void addPetData(L2PetData[] petLevelsList)
-	{
-		for (L2PetData finalElement : petLevelsList)
-			addPetData(finalElement);
+		_log.info("PetDataTable: loaded " + _petTable.size() + " pets.");
 	}
 
 	public L2PetData getPetData(int petID, int petLevel)
 	{
-		try
+		Map<Integer, L2PetData> petDatas = _petTable.get(petID);
+		
+		if (petDatas == null)
 		{
-			return petTable.get(petID).get(petLevel);
-		}
-		catch (NullPointerException npe)
-		{
+			_log.warn("Missing L2PetData for petID: " + petID);
 			return null;
 		}
+		
+		return petDatas.get(petLevel);
 	}
 
 	public static int getPetIdByItemId(int itemId)
@@ -336,6 +315,7 @@ public class PetDataTable
 		RED_STRIDER_WIND(RED_STRIDER_WIND_ID, 10308, new int[] {5168,5169}, true),
 		RED_STRIDER_STAR(RED_STRIDER_STAR_ID, 10309, new int[] {5168,5169}, true),
 		RED_STRIDER_TWILIGHT(RED_STRIDER_TWILIGHT_ID, 10310, new int[] {5168,5169}, true),
+		GUARDIAN_STRIDER(GUARDIAN_STRIDER_ID, 14819, new int[] { 5168, 5169 }, true),
 		
 		WYVERN(WYVERN_ID, 5249, new int[] {6316}, true),
 

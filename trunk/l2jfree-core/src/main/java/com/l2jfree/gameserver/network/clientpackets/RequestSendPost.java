@@ -73,9 +73,9 @@ public final class RequestSendPost extends L2GameClientPacket
 		_text = readS();
 		
 		int attachCount = readD();
-		// FIXME
-		// if (attachCount < 0 || attachCount > Config.MAX_ITEM_IN_PACKET || attachCount * BATCH_LENGTH + 8 != _buf.remaining())
-		// return;
+		if (attachCount < 0 || attachCount > Config.MAX_ITEM_IN_PACKET
+				|| attachCount * BATCH_LENGTH + 8 != getByteBuffer().remaining())
+			return;
 		
 		if (attachCount > 0)
 		{
@@ -219,7 +219,7 @@ public final class RequestSendPost extends L2GameClientPacket
 		// if (accessLevel == null)
 		// accessLevel = AccessLevels._userAccessLevel;
 		// }
-		//		
+		//
 		// if (accessLevel.isGm() && !activeChar.getAccessLevel().isGm())
 		// {
 		// SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_MAIL_GM_C1);

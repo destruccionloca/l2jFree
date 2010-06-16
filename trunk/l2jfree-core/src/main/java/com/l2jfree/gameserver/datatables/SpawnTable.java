@@ -29,9 +29,9 @@ import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.instancemanager.DayNightSpawnManager;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Boss;
-import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.instance.L2ClassMasterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2WyvernManagerInstance;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
@@ -88,7 +88,7 @@ public class SpawnTable
 				template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
 				if (template1 != null)
 				{
-					if (template1.isAssignableTo(L2SiegeGuard.class))
+					if (template1.isAssignableTo(L2DefenderInstance.class))
 					{
 						// Don't spawn siege guards
 					}
@@ -170,7 +170,7 @@ public class SpawnTable
 				template1 = NpcTable.getInstance().getTemplate(rset.getInt("npc_templateid"));
 				if (template1 != null)
 				{
-					if (template1.isAssignableTo(L2SiegeGuard.class))
+					if (template1.isAssignableTo(L2DefenderInstance.class))
 					{
 						// Don't spawn siege guards
 					}

@@ -17,6 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javolution.util.FastList;
@@ -115,10 +116,7 @@ public class ItemsOnGroundManager
 					item.setEnchantLevel(result.getInt(4));
 					item.getPosition().setXYZ(result.getInt(5), result.getInt(6), result.getInt(7));
 					item.setDropTime(result.getLong(8));
-					if (result.getLong(8) == -1)
-						item.setProtected(true);
-					else
-						item.setProtected(false);
+					item.setProtected(result.getLong(8) == -1);
 					L2World.getInstance().addVisibleObject(item);
 					_items.add(item);
 					count++;
@@ -163,11 +161,6 @@ public class ItemsOnGroundManager
 		_items.remove(item);
 	}
 
-	public void saveInDb()
-	{
-		new StoreInDb().run();
-	}
-
 	public void cleanUp()
 	{
 		_items.clear();
@@ -198,31 +191,41 @@ public class ItemsOnGroundManager
 		@Override
 		public void run()
 		{
-			if (!Config.SAVE_DROPPED_ITEM)
-				return;
-
-			emptyTable();
-
-			if (_items.isEmpty() && _log.isDebugEnabled())
-			{
-				_log.warn("ItemsOnGroundManager: nothing to save...");
-				return;
-			}
-
+			saveInDb();
+		}
+	}
+	
+	public synchronized void saveInDb()
+	{
+		if (!Config.SAVE_DROPPED_ITEM)
+			return;
+		
+		emptyTable();
+		
+		if (_items.isEmpty() && _log.isDebugEnabled())
+		{
+			_log.warn("ItemsOnGroundManager: nothing to save...");
+			return;
+		}
+		
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			final PreparedStatement statement = con
+					.prepareStatement("INSERT INTO itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) VALUES(?,?,?,?,?,?,?,?,?)");
+			
 			for (L2ItemInstance item : _items)
 			{
 				if (item == null)
 					continue;
-
+				
 				if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
 					continue; // Cursed Items not saved to ground, prevent double save
-
-				Connection con = null;
+				
 				try
 				{
-					con = L2DatabaseFactory.getInstance().getConnection(con);
-					PreparedStatement statement = con
-							.prepareStatement("INSERT INTO itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) VALUES(?,?,?,?,?,?,?,?,?)");
 					statement.setInt(1, item.getObjectId());
 					statement.setInt(2, item.getItemId());
 					statement.setLong(3, item.getCount());
@@ -230,30 +233,29 @@ public class ItemsOnGroundManager
 					statement.setInt(5, item.getX());
 					statement.setInt(6, item.getY());
 					statement.setInt(7, item.getZ());
-
-					if (item.isProtected())
-						statement.setLong(8, -1); // Item will be protected
-					else
-						statement.setLong(8, item.getDropTime()); // Item will be added to ItemsAutoDestroy
-					if (item.isEquipable())
-						statement.setLong(9, 1); // Set equipable
-					else
-						statement.setLong(9, 0);
+					statement.setLong(8, item.isProtected() ? -1 : item.getDropTime()); // protected : added to ItemsAutoDestroy
+					statement.setLong(9, item.isEquipable() ? 1 : 0);
 					statement.execute();
-					statement.close();
 				}
 				catch (Exception e)
 				{
 					_log.fatal("error while inserting into table ItemsOnGround " + e, e);
 				}
-				finally
-				{
-					L2DatabaseFactory.close(con);
-				}
 			}
-			if (_log.isDebugEnabled())
-				_log.warn("ItemsOnGroundManager: " + _items.size() + " items on ground saved");
+			
+			statement.close();
 		}
+		catch (SQLException e)
+		{
+			_log.warn("", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+		
+		if (_log.isDebugEnabled())
+			_log.warn("ItemsOnGroundManager: " + _items.size() + " items on ground saved");
 	}
 
 	@SuppressWarnings("synthetic-access")

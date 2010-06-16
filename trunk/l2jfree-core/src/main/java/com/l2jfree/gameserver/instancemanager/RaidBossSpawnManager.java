@@ -83,7 +83,7 @@ public class RaidBossSpawnManager extends BossSpawnManager
 		}
 		catch (SQLException e)
 		{
-			_log.warn("RaidBossSpawnManager: Couldnt load raidboss_spawnlist table");
+			_log.warn("RaidBossSpawnManager: Couldnt load raidboss_spawnlist table", e);
 		}
 		catch (Exception e)
 		{

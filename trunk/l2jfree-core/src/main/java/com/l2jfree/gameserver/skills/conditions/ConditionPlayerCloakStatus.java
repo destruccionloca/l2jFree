@@ -12,24 +12,26 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model.actor;
+package com.l2jfree.gameserver.skills.conditions;
 
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.skills.Env;
 
-/**
- * @author NB4L1
- */
-public abstract class L2SiegeGuard extends L2Guard
+final class ConditionPlayerCloakStatus extends Condition
 {
-	public L2SiegeGuard(int objectId, L2NpcTemplate template)
+	private final int _val;
+	
+	ConditionPlayerCloakStatus(int val)
 	{
-		super(objectId, template);
+		_val = val;
 	}
 	
 	@Override
-	public int getMyTargetSelectedColor(L2PcInstance player)
+	boolean testImpl(Env env)
 	{
-		return player.getLevel() - getLevel();
+		if (!(env.player instanceof L2PcInstance))
+			return false;
+		
+		return ((L2PcInstance)env.player).getInventory().getCloakStatus() >= _val;
 	}
 }

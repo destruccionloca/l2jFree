@@ -37,9 +37,10 @@ import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2World;
+import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
+import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeTeleporterInstance;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -1038,7 +1039,7 @@ public class MercTicketManager
 			if (temp.isAssignableTo(L2SiegeTeleporterInstance.class))
 				cha = new L2SiegeTeleporterInstance(IdFactory.getInstance().getNextId(), temp);
 			else
-				cha = new L2SiegeGuardInstance(IdFactory.getInstance().getNextId(), temp);
+				cha = new L2DefenderInstance(IdFactory.getInstance().getNextId(), temp);
 			final L2Npc merc = cha;
 			merc.getStatus().setCurrentHpMp(merc.getMaxHp(), merc.getMaxMp());
 			merc.setDecayed(false);

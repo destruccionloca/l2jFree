@@ -527,7 +527,7 @@ public class PcStat extends PlayableStat
 			level = 2;
 		else if (_vitalityPoints <= VITALITY_LEVELS[3])
 			level = 3;
-		else 
+		else
 			level = 4;
 
 		if (!quiet && level != _vitalityLevel)

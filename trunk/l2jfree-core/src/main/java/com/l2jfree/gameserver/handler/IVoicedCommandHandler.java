@@ -28,10 +28,10 @@ public interface IVoicedCommandHandler
 	 * 
 	 * @param command
 	 * @param activeChar
-	 * @param target
+	 * @param params
 	 * @return <code>true</code> if handler was triggered by the call, <code>false</code> otherwise
 	 */
-	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target);
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params);
 	
 	/**
 	 * this method is called at initialization to register all the handlers automatically

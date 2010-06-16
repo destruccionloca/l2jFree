@@ -97,7 +97,7 @@ public final class L2ClanTraderInstance extends L2Npc
 			{
 				player.destroyItemByItemId("exchange", itemId, itemCount, player, true);
 
-				player.getClan().setReputationScore(player.getClan().getReputationScore() + reputation, true);
+				player.getClan().addReputationScore(reputation, true);
 				player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
 
 				player.sendMessage("Your clan has added " + reputation + " points to its clan reputation score.");

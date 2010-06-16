@@ -1286,22 +1286,22 @@ public class Castle extends Siegeable<Siege>
 			if (_formerOwner != ClanTable.getInstance().getClan(getOwnerId()))
 			{
 				int maxreward = Math.max(0, _formerOwner.getReputationScore());
-				_formerOwner.setReputationScore(_formerOwner.getReputationScore() - Config.LOOSE_CASTLE_POINTS, true);
+				_formerOwner.takeReputationScore(Config.LOOSE_CASTLE_POINTS, true);
 				L2Clan owner = ClanTable.getInstance().getClan(getOwnerId());
 				if (owner != null)
 				{
-					owner.setReputationScore(owner.getReputationScore() + Math.min(Config.TAKE_CASTLE_POINTS, maxreward), true);
+					owner.addReputationScore(Math.min(Config.TAKE_CASTLE_POINTS, maxreward), true);
 				}
 			}
 			else
-				_formerOwner.setReputationScore(_formerOwner.getReputationScore() + Config.CASTLE_DEFENDED_POINTS, true);
+				_formerOwner.addReputationScore(Config.CASTLE_DEFENDED_POINTS, true);
 		}
 		else
 		{
 			L2Clan owner = ClanTable.getInstance().getClan(getOwnerId());
 			if (owner != null)
 			{
-				owner.setReputationScore(owner.getReputationScore() + Config.TAKE_CASTLE_POINTS, true);
+				owner.addReputationScore(Config.TAKE_CASTLE_POINTS, true);
 			}
 		}
 	}

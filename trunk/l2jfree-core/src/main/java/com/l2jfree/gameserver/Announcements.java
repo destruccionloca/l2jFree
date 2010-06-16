@@ -127,7 +127,7 @@ public class Announcements
 			replyMSG.append(_announcements.get(i));
 			replyMSG.append("</td><td width=40><button value=\"Delete\" action=\"bypass -h admin_del_announcement ");
 			replyMSG.append(i);
-			replyMSG.append("\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
+			replyMSG.append("\" width=60 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
 		}
 		adminReply.replace("%announces%", replyMSG.moveToString());
 		activeChar.sendPacket(adminReply);

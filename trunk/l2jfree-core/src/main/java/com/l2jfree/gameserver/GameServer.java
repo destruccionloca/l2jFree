@@ -178,7 +178,6 @@ public class GameServer extends Config
 		IrcCommandHandler.getInstance();
 		MapRegionManager.getInstance();
 		Announcements.getInstance();
-		AutoAnnouncements.getInstance();
 		if (!IdFactory.getInstance().isInitialized())
 		{
 			_log.fatal("Could not read object IDs from DB. Please Check Your Data.");
@@ -285,7 +284,7 @@ public class GameServer extends Config
 		ClanHallManager.getInstance();
 		DoorTable.getInstance();
 		CastleManager.getInstance().loadInstances();
-		SiegeManager.getInstance();
+		SiegeManager.getInstance().getSieges();
 		FortManager.getInstance().loadInstances();
 		CCHManager.getInstance();
 		FortSiegeManager.getInstance();
@@ -430,8 +429,8 @@ public class GameServer extends Config
 		CastleManager.getInstance().activateInstances();
 		FortManager.getInstance().activateInstances();
 		
-		if  (Config.ALLOW_MAIL)
-		 	MailManager.getInstance();
+		if (Config.ALLOW_MAIL)
+			MailManager.getInstance();
 		
 		//CommunityServerThread.initialize();
 		
@@ -470,6 +469,8 @@ public class GameServer extends Config
 		
 		_log.info("Maximum number of connected players: " + Config.MAXIMUM_ONLINE_USERS);
 		_log.info("Server loaded in " + ((System.currentTimeMillis() - serverLoadStart) / 1000) + " seconds.");
+		
+		AutoAnnouncements.getInstance();
 		
 		onStartup();
 		

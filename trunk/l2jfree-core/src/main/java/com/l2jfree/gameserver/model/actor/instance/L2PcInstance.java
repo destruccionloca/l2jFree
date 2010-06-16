@@ -143,7 +143,6 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Decoy;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.L2Trap;
 import com.l2jfree.gameserver.model.actor.appearance.PcAppearance;
@@ -2080,11 +2079,11 @@ public final class L2PcInstance extends L2Playable
 		if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && ClassId.values()[Id].getLevel() == ClassLevel.Third)
 		{
 			if (getLvlJoinedAcademy() <= 16)
-				_clan.setReputationScore(_clan.getReputationScore() + Config.JOIN_ACADEMY_MAX_REP_SCORE, true);
+				_clan.addReputationScore(Config.JOIN_ACADEMY_MAX_REP_SCORE, true);
 			else if (getLvlJoinedAcademy() >= 39)
-				_clan.setReputationScore(_clan.getReputationScore() + Config.JOIN_ACADEMY_MIN_REP_SCORE, true);
+				_clan.addReputationScore(Config.JOIN_ACADEMY_MIN_REP_SCORE, true);
 			else
-				_clan.setReputationScore(_clan.getReputationScore() + (Config.JOIN_ACADEMY_MAX_REP_SCORE - (getLvlJoinedAcademy() - 16) * 20), true);
+				_clan.addReputationScore((Config.JOIN_ACADEMY_MAX_REP_SCORE - (getLvlJoinedAcademy() - 16) * 20), true);
 			setLvlJoinedAcademy(0);
 
 			// Oust pledge member from the academy, cuz he has finished his 2nd class transfer
@@ -4629,10 +4628,10 @@ public final class L2PcInstance extends L2Playable
 			{
 				// When your reputation score is 0 or below, the other clan cannot acquire any reputation points
 				if (getClan().getReputationScore() > 0)
-					pk.getClan().setReputationScore(pk.getClan().getReputationScore() + Config.REPUTATION_SCORE_PER_KILL, true);
+					pk.getClan().addReputationScore(Config.REPUTATION_SCORE_PER_KILL, true);
 				// When the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
 				if (pk.getClan().getReputationScore() > 0)
-					_clan.setReputationScore(_clan.getReputationScore() - Config.REPUTATION_SCORE_PER_KILL, true);
+					_clan.takeReputationScore(Config.REPUTATION_SCORE_PER_KILL, true);
 			}
 
 			if (!srcInPvP)
@@ -4649,7 +4648,7 @@ public final class L2PcInstance extends L2Playable
 							// NOTE: deathPenalty +- Exp will update karma
 							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-								deathPenalty(clanWarKill, playerKill, charmOfCourage, killer instanceof L2SiegeGuard);
+								deathPenalty(clanWarKill, playerKill, charmOfCourage, killer instanceof L2DefenderInstance);
 						}
 						else
 						{
@@ -6366,6 +6365,8 @@ public final class L2PcInstance extends L2Playable
 		_accessLevel = level;
 		if (_accessLevel >= Config.GM_MIN)
 			setIsGM(true);
+		
+		CharNameTable.getInstance().update(this);
 	}
 
 	public void setAccountAccesslevel(int level)
@@ -6528,16 +6529,19 @@ public final class L2PcInstance extends L2Playable
 	public static void disconnectIfOnline(int objectId)
 	{
 		L2PcInstance onlinePlayer = L2World.getInstance().findPlayer(objectId);
-
+		
 		if (onlinePlayer == null)
 			onlinePlayer = L2World.getInstance().getPlayer(CharNameTable.getInstance().getByObjectId(objectId));
-
+		
 		if (onlinePlayer == null)
 			return;
-
+		
 		if (!onlinePlayer.isInOfflineMode())
 			_log.warn("Avoiding duplicate character! Disconnecting online character (" + onlinePlayer.getName() + ")");
-
+		
+		// FIXME: won't be sent because client.close() clears the packet queue
+		onlinePlayer.sendPacket(SystemMessageId.ANOTHER_LOGIN_WITH_ACCOUNT);
+		
 		new Disconnection(onlinePlayer).defaultSequence(true);
 	}
 
@@ -10838,7 +10842,25 @@ public final class L2PcInstance extends L2Playable
 	{
 		_inAirShipPosition = pt;
 	}
-
+	
+	/**
+	 * Manages logout task<BR>
+	 */
+	public void logout()
+	{
+		logout(true);
+	}
+	
+	/**
+	 * Manages logout task<BR>
+	 * 
+	 * @param closeClient
+	 */
+	public void logout(boolean closeClient)
+	{
+		new Disconnection(this).defaultSequence(!closeClient);
+	}
+	
 	/**
 	 * Manage the delete task of a L2PcInstance (Leave Party, Unsummon pet, Save its inventory in the database, Remove it from the world...).<BR><BR>
 	 *
@@ -13013,8 +13035,8 @@ public final class L2PcInstance extends L2Playable
 	public void setName(String name)
 	{
 		super.setName(name);
-
-		CharNameTable.getInstance().update(getObjectId(), getAccountName(), getName());
+		
+		CharNameTable.getInstance().update(this);
 	}
 
 	// =========================================================================================

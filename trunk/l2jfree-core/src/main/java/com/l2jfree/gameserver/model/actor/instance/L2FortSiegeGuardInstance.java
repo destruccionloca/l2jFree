@@ -21,7 +21,6 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Playable;
-import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.FortSiegeGuardKnownList;
@@ -29,7 +28,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2FortSiegeGuardInstance extends L2SiegeGuard
+public class L2FortSiegeGuardInstance extends L2DefenderInstance
 {
 	public L2FortSiegeGuardInstance(int objectId, L2NpcTemplate template)
 	{

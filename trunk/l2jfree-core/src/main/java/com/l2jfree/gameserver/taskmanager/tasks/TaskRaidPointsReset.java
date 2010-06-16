@@ -84,7 +84,7 @@ final class TaskRaidPointsReset extends TaskHandler
 								break;
 						}
 						
-						c.setReputationScore(c.getReputationScore() + reputation, true);
+						c.addReputationScore(reputation, true);
 					}
 				}
 			}

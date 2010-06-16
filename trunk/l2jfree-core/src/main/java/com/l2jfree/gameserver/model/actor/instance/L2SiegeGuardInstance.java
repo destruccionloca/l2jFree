@@ -26,7 +26,6 @@ import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.L2SiegeGuard;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.SiegeGuardKnownList;
 import com.l2jfree.gameserver.model.entity.FortSiege;
@@ -39,7 +38,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
  * This class represents all guards in the world. It inherits all methods from
  * L2Attackable and adds some more such as tracking PK's or custom interactions.
  */
-public class L2SiegeGuardInstance extends L2SiegeGuard
+public class L2SiegeGuardInstance extends L2DefenderInstance
 {
 	public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)
 	{

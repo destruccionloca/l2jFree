@@ -63,7 +63,7 @@ public class L2Party
 {
 	private static final double[] BONUS_EXP_SP = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
 
-	private CopyOnWriteArrayList<L2PcInstance> _members = null;
+	private final CopyOnWriteArrayList<L2PcInstance> _members = new CopyOnWriteArrayList<L2PcInstance>();
 	private boolean _pendingInvitation = false;
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
@@ -122,10 +122,8 @@ public class L2Party
 	 * returns all party members
 	 * @return
 	 */
-	public synchronized List<L2PcInstance> getPartyMembers()
+	public List<L2PcInstance> getPartyMembers()
 	{
-		if (_members == null)
-			_members = new CopyOnWriteArrayList<L2PcInstance>();
 		return _members;
 	}
 
@@ -274,7 +272,7 @@ public class L2Party
 	 * adds new member to party
 	 * @param player
 	 */
-	public boolean addPartyMember(L2PcInstance player)
+	public synchronized boolean addPartyMember(L2PcInstance player)
 	{
 		if (getPartyMembers().contains(player))
 			return false;
@@ -425,7 +423,7 @@ public class L2Party
 		removePartyMember(player, false);
 	}
 
-	public void removePartyMember(L2PcInstance player, boolean oust)
+	public synchronized void removePartyMember(L2PcInstance player, boolean oust)
 	{
 		if (getPartyMembers().contains(player))
 		{
@@ -522,7 +520,7 @@ public class L2Party
 					if (player.isFestivalParticipant())
 						SevenSignsFestival.getInstance().updateParticipants(player, this);
 				}
-				_members = null;
+				getPartyMembers().clear();
 			}
 			else
 			{
@@ -1016,6 +1014,6 @@ public class L2Party
 
 	public synchronized L2PcInstance getLeader()
 	{
-		return _members == null ? null : _members.get(0);
+		return getPartyMembers().isEmpty() ? null : getPartyMembers().get(0);
 	}
 }

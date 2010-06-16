@@ -50,9 +50,9 @@ public enum AbnormalEffect
 	UNKNOWN_27("unknown27", 0x4000000),
 	INVULNERABLE("invulnerable", 0x8000000),
 	VITALITY("vitality", 0x10000000),
-	UNKNOWN_30("unknown30", 0x20000000),
+	REAL_TARGET("realtarget", 0x20000000),
 	DEATH_MARK("deathmark", 0x40000000),
-	UNKNOWN_32("unknown32", 0x80000000),
+	SKULL_FEAR("skull_fear", 0x80000000),
 	CONFUSED("confused", 0x000020); // same with "fear"?
 	
 	private final int _mask;

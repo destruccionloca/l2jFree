@@ -386,6 +386,11 @@ public abstract class ConditionParser
 			}
 			return new ConditionPlayerInstanceId(array);
 		}
+		else if ("cloakStatus".equalsIgnoreCase(nodeName))
+		{
+			int val = Integer.valueOf(nodeValue);
+			return new ConditionPlayerCloakStatus(val);
+		}
 		throw new IllegalStateException("Invalid attribute at <player>: " + nodeName + "='" + nodeValue + "'");
 	}
 	

@@ -12,48 +12,24 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.l2jfree.gameserver.model;
+package com.l2jfree.gameserver.model.actor.instance;
+
+import com.l2jfree.gameserver.model.actor.L2Guard;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
- * @author -Nemesiss-
+ * @author NB4L1
  */
-public class L2SummonItem
+public class L2DefenderInstance extends L2Guard
 {
-	private final int _itemId;
-	private final int _npcId;
-	private final byte _type;
-	private final int _despawnDelay;
-	
-	public L2SummonItem(int itemId, int npcId, byte type, int despawnDelay)
+	public L2DefenderInstance(int objectId, L2NpcTemplate template)
 	{
-		_itemId = itemId;
-		_npcId = npcId;
-		_type = type;
-		_despawnDelay = despawnDelay;
+		super(objectId, template);
 	}
 	
-	public int getItemId()
+	@Override
+	public int getMyTargetSelectedColor(L2PcInstance player)
 	{
-		return _itemId;
-	}
-	
-	public int getNpcId()
-	{
-		return _npcId;
-	}
-	
-	public byte getType()
-	{
-		return _type;
-	}
-	
-	public boolean isPetSummon()
-	{
-		return _type == 1 || _type == 2;
-	}
-	
-	public int getDespawnDelay()
-	{
-		return _despawnDelay;
+		return player.getLevel() - getLevel();
 	}
 }
