@@ -168,7 +168,6 @@ import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Duel;
 import com.l2jfree.gameserver.model.entity.Fort;
-import com.l2jfree.gameserver.model.entity.FortSiege;
 import com.l2jfree.gameserver.model.entity.GrandBossState;
 import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
@@ -4648,7 +4647,7 @@ public final class L2PcInstance extends L2Playable
 							// NOTE: deathPenalty +- Exp will update karma
 							// Penalty is lower if the player is at war with the pk (war has to be declared)
 							if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-								deathPenalty(clanWarKill, playerKill, charmOfCourage, killer instanceof L2DefenderInstance);
+								deathPenalty(clanWarKill, playerKill, charmOfCourage, killer instanceof L2DefenderInstance );
 						}
 						else
 						{
@@ -7828,21 +7827,9 @@ public final class L2PcInstance extends L2Playable
 					return true;
 			}
 		}
-		else if (attacker instanceof L2SiegeGuardInstance)
+		else if (attacker instanceof L2DefenderInstance)
 		{
-			if (getClan() != null)
-			{
-				Siege siege = SiegeManager.getInstance().getSiege(this);
-				return (siege != null && siege.checkIsAttacker(getClan()));
-			}
-		}
-		else if (attacker instanceof L2FortSiegeGuardInstance)
-		{
-			if (getClan() != null)
-			{
-				FortSiege siege = FortSiegeManager.getInstance().getSiege(this);
-				return (siege != null && siege.checkIsAttacker(getClan()));
-			}
+			return ((L2DefenderInstance)attacker).shouldAttack(this);
 		}
 
 		return false;

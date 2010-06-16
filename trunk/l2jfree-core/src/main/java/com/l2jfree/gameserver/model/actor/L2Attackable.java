@@ -2454,7 +2454,25 @@ public class L2Attackable extends L2Npc
 			}
 		}
 	}
-
+	
+	public void returnHome()
+	{
+		final int allowedDistance = getMaxAllowedDistanceFromHome();
+		
+		if (getSpawn() != null && !isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), allowedDistance, false))
+		{
+			setisReturningToSpawnPoint(true);
+			clearAggroList();
+			
+			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn()));
+		}
+	}
+	
+	protected int getMaxAllowedDistanceFromHome()
+	{
+		return 0;
+	}
+	
 	/*
 	 * Return vitality points decrease (if positive)
 	 * or increase (if negative) based on damage.

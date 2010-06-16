@@ -17,10 +17,8 @@ package com.l2jfree.gameserver.model.actor.instance;
 import javolution.util.FastList;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager.SiegeSpawn;
-import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -28,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
+public class L2FortCommanderInstance extends L2DefenderInstance
 {
 	private boolean _canTalk;
 
@@ -86,20 +84,10 @@ public class L2FortCommanderInstance extends L2FortSiegeGuardInstance
 		return true;
 	}
 
-	/**
-	 * This method forces guard to return to home location previously set
-	 *
-	 */
 	@Override
-	public void returnHome()
+	protected int getMaxAllowedDistanceFromHome()
 	{
-		if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 200, false))
-		{
-			setisReturningToSpawnPoint(true);
-			clearAggroList();
-			if (hasAI())
-				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
-		}
+		return 200;
 	}
 
 	@Override

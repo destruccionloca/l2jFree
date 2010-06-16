@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.gameserver.ai.CtrlIntention;
-import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -123,18 +122,10 @@ public final class L2GuardInstance extends L2Guard
 		return attacker instanceof L2MonsterInstance;
 	}
 	
-	/**
-	 * Notify the L2GuardInstance to return to its home location (AI_INTENTION_MOVE_TO) and clear its _aggroList.<BR>
-	 * <BR>
-	 */
-	public void returnHome()
+	@Override
+	protected int getMaxAllowedDistanceFromHome()
 	{
-		if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 150, false))
-		{
-			clearAggroList();
-			
-			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn()));
-		}
+		return 150;
 	}
 	
 	/**

@@ -88,6 +88,12 @@ public abstract class L2Object implements L2Entity<Integer>
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
+	// TODO: 1.4.0
+	public void onAction(L2PcInstance player, boolean interact)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
+	
 	/**
 	 * @param player
 	 */

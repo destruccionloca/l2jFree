@@ -27,15 +27,14 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Summon;
+import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
-
 
 /**
  * This class manages AI of L2Attackable.<BR><BR>
@@ -145,7 +144,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private boolean autoAttackCondition(L2Character target)
 	{
 		// Check if the target isn't another guard, folk or a door
-		if (target == null || target instanceof L2SiegeGuardInstance || target instanceof L2NpcInstance || target instanceof L2DoorInstance)
+		if (target == null || target instanceof L2DefenderInstance  || target instanceof L2NpcInstance || target instanceof L2DoorInstance)
 			return false;
 
 		// Check if the target isn't invulnerable
@@ -317,8 +316,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			}
 
 		}
-		// Order to the L2SiegeGuardInstance to return to its home location because there's no target to attack
-		((L2SiegeGuardInstance) _actor).returnHome();
+		// Order to the L2DefenderInstance to return to its home location because there's no target to attack
+		((L2DefenderInstance) _actor).returnHome();
 	}
 
 	/**
@@ -480,7 +479,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 		L2Skill[] skills = null;
 		double dist_2 = 0;
 		int range = 0;
-		L2SiegeGuardInstance sGuard = (L2SiegeGuardInstance) _actor;
+		L2DefenderInstance sGuard = (L2DefenderInstance) _actor;
 		L2Character attackTarget = getAttackTarget();
 
 		if (attackTarget != null) {
@@ -782,7 +781,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				if (!_actor.isRunning())
 					_actor.setRunning();
 
-				L2SiegeGuardInstance sGuard = (L2SiegeGuardInstance) _actor;
+				L2DefenderInstance sGuard = (L2DefenderInstance) _actor;
 				double homeX = target.getX() - sGuard.getSpawn().getLocx();
 				double homeY = target.getY() - sGuard.getSpawn().getLocy();
 
