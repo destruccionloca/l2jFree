@@ -35,6 +35,7 @@ import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2MinionData;
+import com.l2jfree.gameserver.model.L2NpcAIData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
@@ -315,6 +316,60 @@ public final class NpcTable
 			{
 				_log.fatal("Error loading minion data: ", e);
 			}
+			
+			// -------------------------------------------------------------------
+			// NPC AI Attributes & Data ...
+			
+			try
+			{
+				PreparedStatement statement10 = con.prepareStatement("SELECT * FROM npcAIData ORDER BY npc_id");
+				ResultSet NpcAIDataTable = statement10.executeQuery();
+				int cont = 0;
+				
+				while (NpcAIDataTable.next())
+				{
+					int npc_id = NpcAIDataTable.getInt("npc_id");
+					L2NpcTemplate npcDat = _npcs.get(npc_id);
+					if (npcDat == null)
+					{
+						_log.warn("NPCTable: AI Data Error with id : " + npc_id);
+						continue;
+					}
+					L2NpcAIData npcAIDat = new L2NpcAIData();
+					
+					npcAIDat.setPrimaryAttack(NpcAIDataTable.getInt("primary_attack"));
+					npcAIDat.setSkillChance(NpcAIDataTable.getInt("skill_chance"));
+					npcAIDat.setCanMove(NpcAIDataTable.getInt("canMove"));
+					npcAIDat.setSoulShot(NpcAIDataTable.getInt("soulshot"));
+					npcAIDat.setSpiritShot(NpcAIDataTable.getInt("spiritshot"));
+					npcAIDat.setSoulShotChance(NpcAIDataTable.getInt("sschance"));
+					npcAIDat.setSpiritShotChance(NpcAIDataTable.getInt("spschance"));
+					npcAIDat.setIsChaos(NpcAIDataTable.getInt("ischaos"));
+					npcAIDat.setShortRangeSkill(NpcAIDataTable.getInt("minrangeskill"));
+					npcAIDat.setShortRangeChance(NpcAIDataTable.getInt("minrangechance"));
+					npcAIDat.setLongRangeSkill(NpcAIDataTable.getInt("maxrangeskill"));
+					npcAIDat.setLongRangeChance(NpcAIDataTable.getInt("maxrangechance"));
+					// npcAIDat.setSwitchRangeChance(NpcAIDataTable.getInt("rangeswitchchance"));
+					npcAIDat.setClan(NpcAIDataTable.getString("clan"));
+					npcAIDat.setEnemyClan(NpcAIDataTable.getString("enemyClan"));
+					npcAIDat.setEnemyRange(NpcAIDataTable.getInt("enemyRange"));
+					npcAIDat.setDodge(NpcAIDataTable.getInt("dodge"));
+					// npcAIDat.setBaseShldRate(NpcAIDataTable.getInt("baseShldRate"));
+					// npcAIDat.setBaseShldDef(NpcAIDataTable.getInt("baseShldDef"));
+					
+					// npcDat.addAIData(npcAIDat);
+					npcDat.setAIData(npcAIDat);
+					cont++;
+				}
+				
+				NpcAIDataTable.close();
+				statement10.close();
+				_log.info("NPC AI Data Table: Loaded " + cont + " AI Data.");
+			}
+			catch (Exception e)
+			{
+				_log.fatal("NPCTable: Error reading NPC AI Data: ", e);
+			}
 		}
 		catch (Exception e)
 		{
@@ -369,6 +424,7 @@ public final class NpcTable
 			npcDat.set("rhand", NpcData.getInt("rhand"));
 			npcDat.set("lhand", NpcData.getInt("lhand"));
 			npcDat.set("armor", NpcData.getInt("armor"));
+			npcDat.set("enchant", NpcData.getInt("enchant"));
 			npcDat.set("baseWalkSpd", NpcData.getInt("walkspd"));
 			npcDat.set("baseRunSpd", NpcData.getInt("runspd"));
 

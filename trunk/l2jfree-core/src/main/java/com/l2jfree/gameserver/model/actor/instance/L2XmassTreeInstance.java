@@ -20,63 +20,58 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
+import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.tools.random.Rnd;
 
 /**
  * @author Drunkard Zabb0x Lets drink2code!
  */
 public class L2XmassTreeInstance extends L2Npc
 {
-	private final ScheduledFuture<?>	_aiTask;
-
-	class XmassAI implements Runnable
+	public static final int SPECIAL_TREE_ID = 13007;
+	
+	private ScheduledFuture<?> _aiTask;
+	
+	private final class XmassAI implements Runnable
 	{
-		private final L2XmassTreeInstance	_caster;
-
-		protected XmassAI(L2XmassTreeInstance caster)
-		{
-			_caster = caster;
-		}
-
 		public void run()
 		{
-			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+			final L2Skill skill = SkillTable.getInstance().getInfo(2139, 1);
+			
+			if (skill == null || isInsideZone(L2Zone.FLAG_PEACE))
 			{
-				int i = Rnd.nextInt(3);
-				handleCast(player, (4262 + i));
+				_aiTask.cancel(false);
+				_aiTask = null;
+				return;
 			}
-		}
-
-		private boolean handleCast(L2PcInstance player, int skillId)
-		{
-			L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
-
-			if (player.getFirstEffect(skill) == null)
-			{
-				setTarget(player);
-				doCast(skill);
-
-				MagicSkillUse msu = new MagicSkillUse(_caster, player, skill.getId(), 1, skill.getHitTime(), 0);
-				broadcastPacket(msu);
-				return true;
-			}
-			return false;
+			
+			for (L2PcInstance player : getKnownList().getKnownPlayersInRadius(200))
+				if (player.getFirstEffect(skill.getId()) == null)
+					skill.getEffects(player, player);
 		}
 	}
-
+	
 	public L2XmassTreeInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-		_aiTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new XmassAI(this), 3000, 3000);
+		
+		if (template.getNpcId() == SPECIAL_TREE_ID)
+			_aiTask = ThreadPoolManager.getInstance().scheduleAtFixedRate(new XmassAI(), 3000, 3000);
 	}
-
+	
 	@Override
 	public void deleteMe()
 	{
 		if (_aiTask != null)
 			_aiTask.cancel(true);
+		
 		super.deleteMe();
+	}
+	
+	@Override
+	public void onAction(L2PcInstance player, boolean interact)
+	{
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }
