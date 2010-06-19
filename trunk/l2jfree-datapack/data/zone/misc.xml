@@ -245,4 +245,24 @@
       <point x="-16100" y="-36925"/>
     </shape>
   </zone>
+  <!-- Seed of Infinity landing zone -->
+  <zone id="22" name="SoI Landing Zone">
+    <settings landing="true"/>
+    <shape type="Poly" zMin="4279" zMax="4418">
+      <point x="-213199" y="209831"/>
+      <point x="-212853" y="209473"/>
+      <point x="-212463" y="209818"/>
+      <point x="-212825" y="210193"/>
+    </shape>
+  </zone>
+  <!-- Seed of Destruction landing zone -->
+  <zone id="23" name="SoD Landing Zone">
+    <settings landing="true"/>
+    <shape type="Poly" zMin="4360" zMax="4499">
+      <point x="-246791" y="251922"/>
+      <point x="-246884" y="252024"/>
+      <point x="-246826" y="252074"/>
+      <point x="-246741" y="251988"/>
+    </shape>
+  </zone>
 </list>
