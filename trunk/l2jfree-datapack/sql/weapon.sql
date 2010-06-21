@@ -3480,6 +3480,15 @@ UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Haste' WHERE `item_i
 UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Health' WHERE `item_id` = 11241;
 UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Focus' WHERE `item_id` = 11242;
 
+-- Wrong name, should be Nature and not Wisdom, leading to wrong MW skill on next update - Psycho
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature' WHERE `item_id` = 1292;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Acumen' WHERE `item_id` = 11293;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Mana Up' WHERE `item_id` = 11294;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Conversion' WHERE `item_id` = 11295;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature {PvP} - Acumen' WHERE `item_id` = 12972;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature {PvP} - Mana Up' WHERE `item_id` = 12973;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature {PvP} - Conversion' WHERE `item_id` = 12974;
+
 -- Masterwork Skills Update - Spire
 -- Destruction
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3825-1") where item_id IN (10931,10932,10933);
@@ -3644,6 +3653,8 @@ UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3848-1") where item_id
 UPDATE `weapon` SET `skills_item` = '3848-1' WHERE `item_id` = 11084; -- Undertaker - Evil Spirit
 
 -- Nature
+UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-2") where item_id IN (11293,11294,11295,12972,12973,12974);
+UPDATE `weapon` SET `skills_item` = '3852-2' WHERE `item_id` = 11292; -- Dynasty Phantom - Nature
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-1") where item_id = 10894; -- Sword of Valhalla - Nature - Acumen
 UPDATE `weapon` SET `skills_item` = '3852-1' WHERE `item_id` IN (10893,10895,10896);
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3852-3") where item_id IN (11318,11319,11320,14429,14430,14431,14432);
@@ -3679,8 +3690,6 @@ UPDATE `weapon` SET `skills_item` = '3900-1' WHERE `item_id` IN (10975,10977,109
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3900-1") where item_id IN (10976,11277,11278,11279,12960,12961,12962);
 
 -- Wisdom
-UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3857-1") where item_id IN (11293,11294,11295,12972,12973,12974);
-UPDATE `weapon` SET `skills_item` = '3857-1' WHERE `item_id` = 11292; -- Dynasty Phantom - Wisdom
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3892-1") where item_id IN (11101,11102,11103);
 UPDATE `weapon` SET `skills_item` = '3892-1' WHERE `item_id` = 11110; -- Flaming Dragon Skull - Wisdom
 UPDATE `weapon` SET `skills_item` = CONCAT(skills_item, ";3902-1") where item_id IN (11138,11139,11140,12855,12856,12857);
