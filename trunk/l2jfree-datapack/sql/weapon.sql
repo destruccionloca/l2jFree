@@ -3481,7 +3481,7 @@ UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Health' WHERE `item_
 UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Focus' WHERE `item_id` = 11242;
 
 -- Wrong name, should be Nature and not Wisdom, leading to wrong MW skill on next update - Psycho
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature' WHERE `item_id` = 1292;
+UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature' WHERE `item_id` = 11292;
 UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Acumen' WHERE `item_id` = 11293;
 UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Mana Up' WHERE `item_id` = 11294;
 UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Conversion' WHERE `item_id` = 11295;
