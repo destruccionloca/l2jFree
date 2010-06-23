@@ -71,7 +71,7 @@
   </skill>
   <skill id="502" levels="5" name="Life to Soul" enchantLevels1="30" enchantLevels2="30">
     <!-- CT2.2 retail confirmed -->
-    <table name="#ench1num_souls"> 6 6 6 6 7 7 7 8 8 8 8 9 9 10 10 10 10 11 11 11 12 12 12 13 13 13 14 14 15 15 </table>
+    <table name="#ench1num_souls"> 6 7 7 8 8 9 9 10 10 11 11 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 20 21 </table>
     <table name="#ench2hpConsume"> 323 318 312 307 301 296 290 285 279 274 268 263 257 252 247 241 236 230 225 219 214 208 203 197 192 186 181 175 170 165 </table>
     <table name="#hpConsume"> 193 237 279 311 328 </table>
     <table name="#num_souls"> 1 2 3 4 5 </table>
@@ -525,7 +525,7 @@
   </skill>
   <skill id="521" levels="8" name="Sharpshooting" enchantLevels1="30" enchantLevels2="30">
     <table name="#ench1pAtk"> 211 213 214 215 217 218 220 221 223 224 226 227 228 230 231 233 234 236 237 239 240 241 243 244 246 247 249 250 252 253 </table>
-    <!-- table name="#ench1accCombat"> 6 6 6 6 6 6 6 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 10 </table -->
+    <table name="#ench1accCombat"> 6 6 6 6 6 6 6 7 7 7 7 7 7 7 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 10 </table>
     <table name="#ench2mpConsume"> 33 33 32 32 32 31 31 30 30 29 29 28 28 28 27 27 26 26 25 25 25 24 24 23 23 22 22 21 20 20 </table>
     <table name="#ench2time"> 124 128 132 136 140 144 148 152 156 160 164 168 172 176 180 184 188 192 196 200 204 208 212 216 220 224 228 232 236 240 </table>
     <table name="#mpConsume"> 28 29 30 31 32 33 34 34 </table>
@@ -553,7 +553,7 @@
     <enchant1for>
       <effect name="ImmobileBuff" time="120" val="0">
         <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
-        <add order="0x40" stat="accCombat" val="6"/> <!-- Needs fix, should be #ench1accCombat -->
+        <add order="0x40" stat="accCombat" val="#ench1accCombat"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
         <add order="0x40" stat="pAtkRange" val="200"/>
       </effect>
@@ -592,34 +592,34 @@
     <set name="castRange" val="#castRange"/>
     <set name="effectRange" val="#effectRange"/>
     <for>
-      <effect name="Debuff" time="30" val="0" abnormal="unknown30">
+      <effect name="Debuff" time="30" val="0" abnormal="realtarget">
         <mul order="0x30" stat="bowWpnVuln" val="#bowWpnVuln"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="#crossbowWpnVuln"/>
       </effect>
     </for>
     <enchant1for>
-      <effect name="Debuff" time="30" val="0" abnormal="unknown30">
+      <effect name="Debuff" time="30" val="0" abnormal="realtarget">
         <mul order="0x30" stat="bowWpnVuln" val="1.24"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="1.4"/>
         <mul order="0x30" stat="pDef" val="#ench1pDef"/>
       </effect>
     </enchant1for>
     <enchant2for>
-      <effect name="Debuff" time="30" val="0" abnormal="unknown30">
+      <effect name="Debuff" time="30" val="0" abnormal="realtarget">
         <mul order="0x30" stat="bowWpnVuln" val="1.24"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="1.4"/>
         <mul order="0x30" stat="pAtk" val="#ench2pAtk"/>
       </effect>
     </enchant2for>
     <enchant3for>
-      <effect name="Debuff" time="30" val="0" abnormal="unknown30">
+      <effect name="Debuff" time="30" val="0" abnormal="realtarget">
         <mul order="0x30" stat="bowWpnVuln" val="1.24"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="1.4"/>
         <mul order="0x30" stat="mDef" val="#ench3mDef"/>
       </effect>
     </enchant3for>
     <enchant4for>
-      <effect name="Debuff" time="30" val="0" abnormal="unknown30">
+      <effect name="Debuff" time="30" val="0" abnormal="realtarget">
         <mul order="0x30" stat="bowWpnVuln" val="1.24"/>
         <mul order="0x30" stat="crossbowWpnVuln" val="1.4"/>
         <mul order="0x30" stat="mAtk" val="#ench4mAtk"/>
@@ -731,7 +731,7 @@
     <set name="target" val="TARGET_PARTY"/>
     <enchant3 name="reuseDelay" val="#ench3reuseDelay"/>
     <for>
-      <effect name="Buff" time="15" val="0" stackOrder="1" stackType="pd_up_special">
+      <effect name="Buff" time="15" val="0" stackOrder="1" stackType="pd_up_special_party">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
       </effect>
@@ -740,13 +740,13 @@
       -->
     </for>
     <enchant1for>
-      <effect name="Buff" time="15" val="0" stackOrder="1" stackType="pd_up_special">
+      <effect name="Buff" time="15" val="0" stackOrder="1" stackType="pd_up_special_party">
         <add order="0x40" stat="pDef" val="#ench1pDef"/>
         <add order="0x40" stat="mDef" val="#ench1mDef"/>
       </effect>
     </enchant1for>
     <enchant2for>
-      <effect name="Buff" time="#ench2time" val="0" stackOrder="1" stackType="pd_up_special">
+      <effect name="Buff" time="#ench2time" val="0" stackOrder="1" stackType="pd_up_special_party">
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
       </effect>
@@ -902,7 +902,7 @@
     <set name="magicLvl" val="79"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="15000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1800"/>
     <set name="skillType" val="SPOIL"/>
     <set name="skillRadius" val="100"/> <!-- Guess -->
     <set name="target" val="TARGET_AREA"/>
@@ -910,7 +910,9 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
+      <effect name="Spoil" time="10" val="0"/>
       <effect name="DamOverTime" time="30" val="74"/>
+      <!-- effect name="ChanceSkillTrigger" time="10" noicon="1" val="0" triggeredId="5043" triggeredLevel="1" chanceType="ON_MELEE"/ -->
     </for>
   </skill>
   <skill id="538" levels="1" name="Final Form">
@@ -1851,6 +1853,7 @@
     <set name="skillRadius" val="40"/>
     <set name="activateRate" val="30"/>
     <set name="skillType" val="PDAM"/>
+    <set name="effectType" val="BLEED"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>

@@ -74,7 +74,7 @@
   </skill>
   <skill id="209" levels="45" name="Dagger Mastery" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1pAtk"> 116.84 117.78 118.72 119.66 120.6 121.54 122.48 123.42 124.36 125.3 126.24 127.18 128.12 129.06 130 130.94 131.88 132.82 133.76 134.7 135.64 136.58 137.52 138.46 139.4 140.34 141.28 142.22 143.16 144.1 </table>
-    <table name="#ench2rCrit"> 0.0019 0.0029 0.0039 0.0048 0.0058 0.0068 0.0077 0.0087 0.0097 0.0106 0.0116 0.0126 0.0135 0.0145 0.0155 0.0164 0.0174 0.0184 0.0193 0.0203 0.0213 0.0222 0.0232 0.0242 0.0251 0.0261 0.0271 0.028 0.029 0.03 </table>
+    <table name="#ench2rCrit"> 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 </table>
     <table name="#ench3cAtkAdd"> 113 127 141 155 169 183 196 210 224 238 252 266 279 293 307 321 335 349 362 376 390 404 418 432 445 459 473 487 501 515 </table>
     <table name="#triggeredId"> 0 0 0 0 0 0 0 0 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 5603 </table>
     <table name="#pAtk"> 3.6 6 7.4 9 10.8 12.8 15.1 17.6 20.3 21.8 23.4 25 26.6 28.4 30.2 32.1 34.1 36.1 38.2 40.4 42.7 45 47.4 49.9 52.4 55 57.7 60.4 63.2 66.1 69 71.9 74.9 78 81.1 84.2 87.3 90.5 93.7 96.8 100 103.2 106.4 109.6 112.8 </table>
@@ -100,15 +100,15 @@
       <add order="0x40" stat="pAtk" val="112.8">
         <using kind="Dagger,Dual Dagger"/>
       </add>
-      <basemul order="0x30" stat="rCrit" val="#ench2rCrit">
+      <add order="0x40" stat="rCrit" val="#ench2rCrit">
         <using kind="Dagger,Dual Dagger"/>
-      </basemul>
+      </add>
     </enchant2for>
     <enchant3for>
       <add order="0x40" stat="pAtk" val="112.8">
         <using kind="Dagger,Dual Dagger"/>
       </add>
-      <add order="0x40" stat="cAtkAdd" val="#ench3cAtkAdd">
+      <add order="0x40" stat="rCrit" val="#ench3cAtkAdd">
         <using kind="Dagger,Dual Dagger"/>
       </add>
     </enchant3for>
@@ -2307,7 +2307,7 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="magicLvl" val="40"/>
     <set name="mpInitialConsume" val="18"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

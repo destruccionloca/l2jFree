@@ -367,7 +367,7 @@
     </enchant1for>
     <enchant2for>
       <effect name="ImmobileBuff" time="#ench2time" val="0">
-        <add order="0x40" stat="pAtk" val="199"/> <!-- TODO: should be 260? -->
+        <add order="0x40" stat="pAtk" val="199"/>
         <add order="0x40" stat="accCombat" val="6"/>
         <basemul order="0x30" stat="rCrit" val="0.2"/>
         <add order="0x40" stat="pAtkRange" val="200"/>
@@ -551,7 +551,7 @@
     </enchant2for>
   </skill>
   <skill id="320" levels="10" name="Wrath" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1power"> 30 31 32 33 34 35 36 37 38 39 39 40 41 42 43 44 45 46 47 48 48 49 50 51 52 53 54 55 56 57 </table>
+    <table name="#ench1power"> 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 </table>
     <table name="#ench2mpConsume"> 74 73 72 71 70 69 68 67 66 65 64 63 62 61 60 59 58 57 56 55 54 53 52 51 49 48 47 46 45 44 </table>
     <table name="#mpConsume"> 66 67 68 69 70 71 72 73 74 75 </table>
     <table name="#magicLvl"> 65 66 67 68 69 70 71 72 73 74 </table>
@@ -602,7 +602,7 @@
       <effect self="1" name="Buff" time="15" val="0" stackOrder="40" stackType="speed_up_special">
         <add order="0x40" stat="runSpd" val="40"/>
       </effect>
-      <effect name="Bluff" val="0"/>
+      <effect name="Bluff" val="0" effectPower="40" effectType="STUN"/>
     </for>
   </skill>
   <skill id="322" levels="6" name="Shield Fortress" enchantLevels1="30" enchantLevels2="30">
@@ -973,14 +973,14 @@
     <set name="aggroPoints" val="811"/>
     <enchant1 name="hpConsume" val="#ench1hpConsume"/>
     <for>
-      <effect count="40" name="HealOverTime" time="3" val="150" stackOrder="1" stackType="touch">
+      <effect count="40" name="HealOverTime" time="3" val="150" stackOrder="2" stackType="touch">
         <mul order="0x30" stat="cancelVuln" val="0"/>
         <mul order="0x30" stat="debuffVuln" val="0.7"/>
         <mul order="0x30" stat="gainHp" val="1.3"/>
       </effect>
     </for>
     <enchant2for>
-      <effect count="#ench2count" name="HealOverTime" time="3" val="150" stackOrder="1" stackType="touch">
+      <effect count="#ench2count" name="HealOverTime" time="3" val="150" stackOrder="2" stackType="touch">
         <mul order="0x30" stat="cancelVuln" val="0"/>
         <mul order="0x30" stat="debuffVuln" val="0.7"/>
         <mul order="0x30" stat="gainHp" val="1.3"/>
@@ -1233,7 +1233,7 @@
   </skill>
   <skill id="352" levels="1" name="Shield Bash" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15" enchantLevels4="15" enchantLevels5="15">
     <table name="#ench1power"> 80 81 81 82 83 83 84 85 85 86 87 87 88 89 90 </table>
-    <table name="#enchvuln"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 </table> <!-- Guess -->
+    <table name="#enchRes"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 </table> <!-- Guess -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="mpConsume" val="18"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
@@ -1254,32 +1254,32 @@
     </for>
      <enchant2for>
       <effect name="Stun" time="2" val="0" stackOrder="1" stackType="Stun">
-        <sub order="0x40" stat="fireRes" val="#enchvuln"/>
+        <sub order="0x40" stat="fireRes" val="#enchRes"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant2for>
     <enchant3for>
       <effect name="Stun" time="2" val="0" stackOrder="1" stackType="Stun">
-        <sub order="0x40" stat="waterRes" val="#enchvuln"/>
+        <sub order="0x40" stat="waterRes" val="#enchRes"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant3for>
     <enchant4for>
       <effect name="Stun" time="2" val="0" stackOrder="1" stackType="Stun">
-        <sub order="0x40" stat="windRes" val="#enchvuln"/>
+        <sub order="0x40" stat="windRes" val="#enchRes"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant4for>
     <enchant5for>
       <effect name="Stun" time="2" val="0" stackOrder="1" stackType="Stun">
-        <sub order="0x40" stat="earthRes" val="#enchvuln"/>
+        <sub order="0x40" stat="earthRes" val="#enchRes"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant5for>
    </skill>
   <skill id="353" levels="1" name="Shield Slam" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
     <table name="#ench1power"> 40 41 41 42 43 43 44 45 45 46 47 47 48 49 50 </table>
-    <table name="#enchvuln"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 </table> <!-- Guess -->
+    <table name="#enchRes"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 </table> <!-- Guess -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="mpConsume" val="35"/>
     <set name="power" val="40"/> <!-- Base Land Rate -->
@@ -1300,13 +1300,13 @@
     </for>
     <enchant2for>
       <effect name="PhysicalMute" time="60" val="0">
-        <sub order="0x40" stat="holyRes" val="#enchvuln"/>
+        <sub order="0x40" stat="holyRes" val="#enchRes"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant2for>
     <enchant3for>
       <effect name="PhysicalMute" time="60" val="0">
-        <sub order="0x40" stat="darkRes" val="#enchvuln"/>
+        <sub order="0x40" stat="darkRes" val="#enchRes"/>
       </effect>
       <effect name="RemoveTarget" noicon="1" val="0"/>
     </enchant3for>
@@ -1810,8 +1810,8 @@
   </skill>
   <skill id="368" levels="1" name="Vengeance" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
     <table name="#ench1power"> 8454 8770 9087 9403 9720 10036 10353 10669 10985 11302 11618 11935 12251 12568 12884 </table>
-    <table name="#ench2Penalty"> 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.3 0.31 0.32 0.33 0.34 0.35 </table> <!-- Guess -->
-    <table name="#ench3Reuse"> 880000 860000 840000 820000 800000 780000 760000 740000 720000 700000 680000 660000 640000 620000 600000 </table> <!-- Guess -->
+    <table name="#ench2decreasePenalty"> 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.3 0.31 0.32 0.33 0.34 0.35 </table> <!-- Guess -->
+    <table name="#ench3reuseDelay"> 880000 860000 840000 820000 800000 780000 760000 740000 720000 700000 680000 660000 640000 620000 600000 </table> <!-- Guess -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="mpConsume" val="35"/>
     <set name="power" val="7987"/>
@@ -1823,7 +1823,7 @@
     <set name="skillType" val="AGGDAMAGE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <enchant1 name="power" val="#ench1power"/>
-    <enchant3 name="reuseDelay" val="#ench3Reuse"/>
+    <enchant3 name="reuseDelay" val="#ench3reuseDelay"/>
     <for>
       <effect self="1" name="ImmobileBuff" time="30" val="0" stackOrder="3" stackType="pd_up_special">
         <add order="0x40" stat="pDef" val="5400"/>
@@ -1837,7 +1837,7 @@
         <add order="0x40" stat="pDef" val="5400"/>
         <add order="0x40" stat="mDef" val="4050"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
-        <mul order="0x30" stat="runSpd" val="#ench2Penalty"/>
+        <mul order="0x30" stat="runSpd" val="#ench2decreasePenalty"/>
       </effect>
       <effect name="TargetMe" time="3" val="0"/>
     </enchant2for>

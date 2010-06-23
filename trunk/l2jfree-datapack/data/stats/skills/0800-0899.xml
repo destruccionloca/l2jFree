@@ -125,7 +125,6 @@
     <set name="transformId" val="312"/>
     <for>
       <effect name="Transformation" time="21600" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
         <mul order="0x30" stat="sDef" val="0.5"/>
       </effect>
     </for>
@@ -141,7 +140,6 @@
     <set name="transformId" val="313"/>
     <for>
       <effect name="Transformation" time="21600" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
         <mul order="0x30" stat="sDef" val="0.5"/>
       </effect>
     </for>
@@ -157,7 +155,6 @@
     <set name="transformId" val="314"/>
     <for>
       <effect name="Transformation" time="21600" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
         <mul order="0x30" stat="sDef" val="0.5"/>
       </effect>
     </for>
@@ -173,7 +170,6 @@
     <set name="transformId" val="315"/>
     <for>
       <effect name="Transformation" time="21600" val="0">
-        <mul order="0x30" stat="pDef" val="0.83"/>
         <mul order="0x30" stat="sDef" val="0.5"/>
       </effect>
     </for>
@@ -295,13 +291,14 @@
     <set name="chanceType" val="ON_EVADED_HIT"/>
   </skill>
   <skill id="821" levels="1" name="Shadow Step">
+    <!-- NOTE: Retail hitTime is 100 but changed to 500 to match retail animation -->
     <set name="magicLvl" val="72"/>
     <set name="mpInitialConsume" val="10"/>
     <set name="mpConsume" val="40"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="INSTANT_JUMP"/>
     <set name="reuseDelay" val="75000"/>
-    <set name="hitTime" val="100"/>
+    <set name="hitTime" val="500"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
@@ -529,8 +526,8 @@
     <set name="mpInitialConsume" val="24"/>
     <set name="mpConsume" val="97"/>
     <set name="target" val="TARGET_SELF"/>
-    <set name="hitTime" val="15000"/>
     <set name="reuseDelay" val="75000"/>
+    <set name="hitTime" val="15000"/>
     <set name="skillType" val="SUMMON"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <!-- Summon-specific -->

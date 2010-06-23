@@ -831,23 +831,23 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="78"/>
-    <set name="target" val="TARGET_FRONT_AREA"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="skillRadius" val="600"/>
     <set name="overHit" val="true"/>
-    <set name="reuseDelay" val="5000"/> <!-- no reuse -->
+    <set name="reuseDelay" val="13000"/>
     <set name="hitTime" val="800"/>
+    <set name="target" val="TARGET_FRONT_AREA"/>
+    <set name="skillRadius" val="600"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="flyType" val="CHARGE"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
-    <set name="flyType" val="CHARGE"/>
     <set name="flyRadius" val="400"/>
     <set name="isDebuff" val="true"/>
     <set name="effectType" val="DEBUFF"/>
     <set name="effectPower" val="80"/>
     <for>
-       <effect count="1" name="EnemyCharge" time="1" val="0"/>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="952" levels="5" name="Collector's Experience">
@@ -866,7 +866,7 @@
   </skill>
   <skill id="953" levels="1" name="Life to Soul">
     <table name="#hpConsume"> 328 </table>
-    <table name="#charges"> 5 </table>
+    <table name="#num_souls"> 5 </table>
     <set name="hpConsume" val="#hpConsume"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="20000"/>
@@ -875,6 +875,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="-1"/>
     <set name="effectRange" val="-1"/>
-    <set name="num_souls" val="#charges"/>
+    <set name="num_souls" val="#num_souls"/>
   </skill>
 </list>
