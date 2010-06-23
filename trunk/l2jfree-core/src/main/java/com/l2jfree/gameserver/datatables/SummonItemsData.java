@@ -94,6 +94,7 @@ public class SummonItemsData
 								// TODO: 1.4.0
 								else if ("despawn".equalsIgnoreCase(e.getNodeName()))
 								{
+									// if (summonType == 0)
 									a = e.getAttributes().getNamedItem("val");
 									if (a == null) throw new Exception("Not defined despawn for summon item id=" + itemID + "!");
 									despawn = Integer.parseInt(a.getNodeValue());

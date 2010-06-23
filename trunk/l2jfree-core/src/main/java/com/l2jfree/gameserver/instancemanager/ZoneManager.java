@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.entity.Castle;
@@ -170,7 +171,14 @@ public final class ZoneManager
 	
 	public final L2Zone isInsideZone(L2Zone.ZoneType zt, int x, int y)
 	{
-		return L2World.getInstance().getRegion(x, y).getZone(zt, x, y);
+		final L2WorldRegion region = L2World.getInstance().getRegion(x, y);
+		
+		for (L2Zone zone : region.getZones())
+			if (zone.getType() == zt)
+				if (zone.isInsideZone(x, y))
+					return zone;
+		
+		return null;
 	}
 	
 	/**
@@ -183,6 +191,40 @@ public final class ZoneManager
 	public L2Zone getZoneById(int uniqueId)
 	{
 		return _uniqueZones.get(uniqueId);
+	}
+	
+	/**
+	 * Returns zone from where the object is located by type
+	 * 
+	 * @param object
+	 * @param type
+	 * @return zone
+	 */
+	public <T extends L2Zone> T getZone(L2Object object, Class<T> type)
+	{
+		return getZone(object.getX(), object.getY(), object.getZ(), type);
+	}
+	
+	/**
+	 * Returns zone from given coordinates
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param type
+	 * @return zone
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends L2Zone> T getZone(int x, int y, int z, Class<T> type)
+	{
+		final L2WorldRegion region = L2World.getInstance().getRegion(x, y);
+		
+		for (L2Zone zone : region.getZones())
+			if (zone.getClass().equals(type))
+				if (zone.isInsideZone(x, y, z))
+					return (T)zone;
+		
+		return null;
 	}
 	
 	@SuppressWarnings("synthetic-access")

@@ -48,7 +48,8 @@ import com.l2jfree.util.L2Collections;
 public class SkillTreeTable
 {
 	public static final int									NORMAL_ENCHANT_COST_MULTIPLIER	= 1;
-	public static final int									SAFE_ENCHANT_COST_MULTIPLIER	= 3;
+	public static final int									SAFE_ENCHANT_COST_MULTIPLIER	= 5;
+	public static final int									ADENA_XP_DIV					= 3; // TODO magic number
 
 	public static final int									NORMAL_ENCHANT_BOOK				= 6622;
 	public static final int									SAFE_ENCHANT_BOOK				= 9627;

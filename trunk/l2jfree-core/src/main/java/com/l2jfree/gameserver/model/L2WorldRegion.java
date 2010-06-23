@@ -108,16 +108,6 @@ public final class L2WorldRegion
 		return false;
 	}
 	
-	public L2Zone getZone(L2Zone.ZoneType zt, int x, int y)
-	{
-		for (L2Zone z : _zones)
-			if (z.getType() == zt)
-				if (z.isInsideZone(x, y))
-					return z;
-		
-		return null;
-	}
-	
 	public void onDie(L2Character character)
 	{
 		for (L2Zone z : _zones)

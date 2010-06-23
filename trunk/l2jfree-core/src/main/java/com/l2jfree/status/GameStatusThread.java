@@ -339,32 +339,34 @@ public final class GameStatusThread extends Thread
 				else if (_usrCommand.equals("status"))
 				{
 					int max = LoginServerThread.getInstance().getMaxPlayer();
-
+					
 					int playerCount = L2World.getInstance().getAllPlayersCount();
 					int objectCount = L2World.getInstance().getAllVisibleObjectsCount();
-
+					
 					int itemCount = 0;
 					int itemVoidCount = 0;
 					int monsterCount = 0;
 					int minionCount = 0;
 					int minionsGroupCount = 0;
 					int npcCount = 0;
+					int charCount = 0;
 					int pcCount = 0;
+					int detachedCount = 0;
 					int doorCount = 0;
 					int summonCount = 0;
 					int AICount = 0;
-
+					
 					for (L2Object obj : L2World.getInstance().getAllVisibleObjects())
 					{
 						if (obj == null)
 							continue;
 						if (obj instanceof L2Character)
-							if (((L2Character) obj).hasAI())
+							if (((L2Character)obj).hasAI())
 								AICount++;
-
+						
 						if (obj instanceof L2ItemInstance)
 						{
-							if (((L2ItemInstance) obj).getLocation() == L2ItemInstance.ItemLocation.VOID)
+							if (((L2ItemInstance)obj).getLocation() == L2ItemInstance.ItemLocation.VOID)
 								itemVoidCount++;
 							else
 								itemCount++;
@@ -372,22 +374,31 @@ public final class GameStatusThread extends Thread
 						else if (obj instanceof L2MonsterInstance)
 						{
 							monsterCount++;
-							minionCount += ((L2MonsterInstance) obj).getTotalSpawnedMinionsInstances();
-							minionsGroupCount += ((L2MonsterInstance) obj).getTotalSpawnedMinionsGroups();
+							minionCount += ((L2MonsterInstance)obj).getTotalSpawnedMinionsInstances();
+							minionsGroupCount += ((L2MonsterInstance)obj).getTotalSpawnedMinionsGroups();
 						}
 						else if (obj instanceof L2Npc)
 							npcCount++;
 						else if (obj instanceof L2PcInstance)
+						{
 							pcCount++;
+							
+							if (((L2PcInstance)obj).isInOfflineMode())
+								detachedCount++;
+						}
 						else if (obj instanceof L2Summon)
 							summonCount++;
 						else if (obj instanceof L2DoorInstance)
 							doorCount++;
+						else if (obj instanceof L2Character)
+							charCount++;
 					}
+					
 					_print.println("Server Status: ");
 					_print.println("  --->  Player Count: " + playerCount + "/" + max);
+					_print.println("  ---> Offline Count: " + detachedCount + "/" + playerCount);
 					_print.println("  +-->  Object Count: " + objectCount);
-					_print.println("  +-->	  AI Count: " + AICount);
+					_print.println("  +-->      AI Count: " + AICount);
 					_print.println("  +.... L2Item(Void): " + itemVoidCount);
 					_print.println("  +.......... L2Item: " + itemCount);
 					_print.println("  +....... L2Monster: " + monsterCount);
@@ -397,10 +408,11 @@ public final class GameStatusThread extends Thread
 					_print.println("  +............ L2Pc: " + pcCount);
 					_print.println("  +........ L2Summon: " + summonCount);
 					_print.println("  +.......... L2Door: " + doorCount);
+					_print.println("  +.......... L2Char: " + charCount);
 					_print.println("  --->   Ingame Time: " + GameTimeController.getInstance().getFormattedGameTime());
 					_print.println("  ---> Server Uptime: " + getUptime(_uptime));
-					_print.println("  --->	  GM Count: " + getOnlineGMS());
-					_print.println("  --->	   Threads: " + Thread.activeCount());
+					_print.println("  --->      GM Count: " + getOnlineGMS());
+					_print.println("  --->       Threads: " + Thread.activeCount());
 					_print.println("  RAM Used: " + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576));
 					_print.flush();
 				}
