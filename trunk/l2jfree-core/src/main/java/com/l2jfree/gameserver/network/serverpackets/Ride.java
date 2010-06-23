@@ -47,8 +47,10 @@ public class Ride extends L2GameServerPacket
 			_rideType = 3;
 		else if (PetDataTable.isTransformationPet(npcId))
 			_rideType = 4;
-		else
+		else if (npcId == 0)
 			_rideType = 0;
+		else
+			throw new IllegalArgumentException("Unsupported mount NpcId: " + npcId);
 	}
 	
 	public int getMountType()

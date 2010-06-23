@@ -91,6 +91,9 @@ public abstract class Func
 				return false;
 		}
 		
+		if (env.skill != null && env.skill.isDisabled(env.player))
+			return false;
+		
 		if (condition != null && !condition.test(env))
 			return false;
 		

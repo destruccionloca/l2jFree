@@ -39,7 +39,7 @@ public final class SkillList extends L2GameServerPacket
 	}
 	
 	@Override
-	protected void writeImpl()
+	protected void writeImpl(L2GameClient client, L2PcInstance activeChar)
 	{
 		writeC(0x5f);
 		writeD(_skills.length);
@@ -49,8 +49,7 @@ public final class SkillList extends L2GameServerPacket
 			writeD(s.isPassive() ? 1 : 0);
 			writeD(s.getLevel());
 			writeD(s.getDisplayId());
-			// FIXME
-			writeC(/*s.isClanSkill() && _activeChar.getClan().getReputationScore() <*/ 0);
+			writeC(s.isDisabled(activeChar));
 			writeC(s.isEnchantable());
 		}
 	}

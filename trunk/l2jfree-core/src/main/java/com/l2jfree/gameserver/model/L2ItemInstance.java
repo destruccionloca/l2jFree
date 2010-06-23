@@ -890,7 +890,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 			PreparedStatement statement = con.prepareStatement("SELECT augAttributes,augSkillId,augSkillLevel,elemType,elemValue FROM item_attributes WHERE itemId=?");
 			statement.setInt(1, getObjectId());
 			ResultSet rs = statement.executeQuery();
-			rs = statement.executeQuery();
 			if (rs.next())
 			{
 				int aug_attributes = rs.getInt(1);

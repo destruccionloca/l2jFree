@@ -14,8 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import java.util.logging.Logger;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.instancemanager.MailManager;
@@ -31,34 +29,34 @@ import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.util.FloodProtector;
+import com.l2jfree.gameserver.util.FloodProtector.Protected;
 
 /**
  * @author Migi, DS
  */
 public final class RequestSendPost extends L2GameClientPacket
 {
-	private static final String	_C__D0_66_REQUESTSENDPOST	= "[C] D0:66 RequestSendPost";
-	private static final Logger	_log						= Logger.getLogger(RequestSendPost.class.getName());
+	private static final String _C__D0_66_REQUESTSENDPOST = "[C] D0:66 RequestSendPost";
 	
-	private static final int	BATCH_LENGTH				= 12;													// length of the one item
-																													
-	private static final int	MAX_RECV_LENGTH				= 16;
-	private static final int	MAX_SUBJ_LENGTH				= 128;
-	private static final int	MAX_TEXT_LENGTH				= 512;
-	private static final int	MAX_ATTACHMENTS				= 8;
-	private static final int	INBOX_SIZE					= 240;
-	private static final int	OUTBOX_SIZE					= 240;
+	private static final int BATCH_LENGTH = 12; // length of the one item
 	
-	private static final int	MESSAGE_FEE					= 100;
-	private static final int	MESSAGE_FEE_PER_SLOT		= 1000;												// 100 adena message fee + 1000 per each
-	// item slot
+	private static final int MAX_RECV_LENGTH = 16;
+	private static final int MAX_SUBJ_LENGTH = 128;
+	private static final int MAX_TEXT_LENGTH = 512;
+	private static final int MAX_ATTACHMENTS = 8;
+	private static final int INBOX_SIZE = 240;
+	private static final int OUTBOX_SIZE = 240;
 	
-	private String				_receiver;
-	private boolean				_isCod;
-	private String				_subject;
-	private String				_text;
-	private AttachmentItem		_items[]					= null;
-	private long				_reqAdena;
+	private static final int MESSAGE_FEE = 100;
+	private static final int MESSAGE_FEE_PER_SLOT = 1000; // 100 adena message fee + 1000 per each item slot
+	
+	private String _receiver;
+	private boolean _isCod;
+	private String _subject;
+	private String _text;
+	private AttachmentItem _items[] = null;
+	private long _reqAdena;
 	
 	public RequestSendPost()
 	{
@@ -105,12 +103,12 @@ public final class RequestSendPost extends L2GameClientPacket
 		final L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		// FIXME
-		// if (!activeChar.getFloodProtectors().getSendMail().tryPerformAction("sendmail"))
-		// {
-		// activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_FORWARD_LESS_THAN_MINUTE));
-		// return;
-		// }
+		
+		if (!FloodProtector.tryPerformAction(activeChar, Protected.SEND_MAIL))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_FORWARD_LESS_THAN_MINUTE));
+			return;
+		}
 		
 		if (!Config.ALLOW_ATTACHMENTS)
 		{
@@ -119,7 +117,7 @@ public final class RequestSendPost extends L2GameClientPacket
 			_reqAdena = 0;
 		}
 		
-		// FIXME
+		// FIXME: 1.4.0
 		// if (!activeChar.getAccessLevel().allowTransaction())
 		// {
 		// activeChar.sendMessage("Transactions are disable for your Access Level.");
@@ -204,7 +202,7 @@ public final class RequestSendPost extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANT_SEND_MAIL_TO_YOURSELF));
 			return;
 		}
-		// FIXME
+		// FIXME: 1.4.0
 		// L2AccessLevel accessLevel;
 		// final int level = CharNameTable.getInstance().getAccessLevelById(receiverId);
 		// if (level == AccessLevels._masterAccessLevelNum)
@@ -297,14 +295,15 @@ public final class RequestSendPost extends L2GameClientPacket
 			L2ItemInstance oldItem = player.checkItemManipulation(i.getObjectId(), i.getCount(), "attach");
 			if (oldItem == null || !oldItem.isTradeable() || oldItem.isEquipped())
 			{
-				_log.warning("Error adding attachment for char " + player.getName() + " (olditem == null)");
+				_log.warn("Error adding attachment for char " + player.getName() + " (olditem == null)");
 				return false;
 			}
 			
-			final L2ItemInstance newItem = player.getInventory().transferItem("SendMail", i.getObjectId(), i.getCount(), attachments, player, null);
+			final L2ItemInstance newItem = player.getInventory().transferItem("SendMail", i.getObjectId(),
+					i.getCount(), attachments, player, null);
 			if (newItem == null)
 			{
-				_log.warning("Error adding attachment for char " + player.getName() + " (newitem == null)");
+				_log.warn("Error adding attachment for char " + player.getName() + " (newitem == null)");
 				continue;
 			}
 			newItem.setLocation(newItem.getLocation(), msg.getId());
@@ -334,8 +333,8 @@ public final class RequestSendPost extends L2GameClientPacket
 	
 	private class AttachmentItem
 	{
-		private final int	_objectId;
-		private final long	_count;
+		private final int _objectId;
+		private final long _count;
 		
 		public AttachmentItem(int id, long num)
 		{

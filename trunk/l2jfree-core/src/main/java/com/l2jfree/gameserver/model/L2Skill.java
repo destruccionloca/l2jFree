@@ -1079,7 +1079,7 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	 */
 	public final boolean isEnchantable()
 	{
-		return SkillTable.getInstance().getMaxLevel(getId()) > 100 ? true : false;
+		return SkillTreeTable.getInstance().getSkillEnchantmentBySkillId(getId()) != null;
 	}
 
 	/**
@@ -4056,6 +4056,25 @@ public class L2Skill implements FuncOwner, IChanceSkillTrigger
 	public boolean isClanSkill()
 	{
 		return _isClanSkill;
+	}
+	
+	public boolean isDisabled(L2Character cha)
+	{
+		if (getSkillType() == L2SkillType.NOTDONE || getTargetType() == SkillTargetType.TARGET_NONE)
+			return true;
+		
+		if (isClanSkill())
+		{
+			if (cha instanceof L2PcInstance)
+			{
+				L2Clan clan = ((L2PcInstance)cha).getClan();
+				
+				if (clan == null || clan.getReputationScore() < 0)
+					return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	/**

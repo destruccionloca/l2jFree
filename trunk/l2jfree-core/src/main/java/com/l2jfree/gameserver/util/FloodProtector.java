@@ -38,7 +38,8 @@ public final class FloodProtector
 		SUBCLASS(500),
 		DROPITEM(500),
 		MULTISELL(500),
-		TRANSACTION(500);
+		TRANSACTION(500),
+		SEND_MAIL(60000);
 		
 		private final int _reuseDelay;
 		

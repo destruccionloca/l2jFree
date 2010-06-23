@@ -7038,7 +7038,10 @@ public final class L2PcInstance extends L2Playable
 		getAppearance().storeNameTitleColors();
 
 		if (Config.UPDATE_ITEMS_ON_CHAR_STORE || items)
+		{
 			getInventory().updateDatabase();
+			getWarehouse().updateDatabase();
+		}
 	}
 
 	private void storeCharBase()

@@ -172,6 +172,16 @@ public class RequestBypassToServer extends L2GameClientPacket
 		}
 		else if (_command.startsWith("_maillist_0_1_0_"))
 			CommunityBoard.handleCommands(getClient(), _command);
+		else if (_command.startsWith("_mail"))
+		{
+			// if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), "_bbsmail")))
+			// activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+		}
+		else if (_command.startsWith("_friend"))
+		{
+			// if (!CommunityServerThread.getInstance().sendPacket(new RequestShowCommunityBoard(activeChar.getObjectId(), "_bbsfriend")))
+			// activeChar.sendPacket(new SystemMessage(SystemMessageId.CB_OFFLINE));
+		}
 		else if (_command.startsWith("Quest "))
 		{
 			activeChar.validateBypass(_command);
