@@ -20,17 +20,17 @@ import com.l2jfree.gameserver.datatables.CharNameTable;
 import com.l2jfree.gameserver.instancemanager.FriendListManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.FriendList;
+import com.l2jfree.gameserver.network.serverpackets.FriendPacket;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.FriendPacket.FriendAction;
 
 /**
  * @author G1ta0
  */
-// TODO sync according to l2j rework
 public final class L2FriendList
 {
-	private final L2PcInstance _owner;
-	private final Set<Integer> _set;
+	private final L2PcInstance	_owner;
+	private final Set<Integer>	_set;
 	
 	public L2FriendList(L2PcInstance owner)
 	{
@@ -61,10 +61,10 @@ public final class L2FriendList
 			_owner.sendPacket(SystemMessageId.YOU_HAVE_SUCCEEDED_INVITING_FRIEND);
 			
 			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ADDED_TO_FRIENDS).addPcName(friend));
-			_owner.sendPacket(new FriendList(_owner));
+			_owner.sendPacket(new FriendPacket(FriendAction.ADD_FRIEND, friend.getObjectId()));
 			
 			friend.sendPacket(new SystemMessage(SystemMessageId.C1_JOINED_AS_FRIEND).addPcName(_owner));
-			friend.sendPacket(new FriendList(friend));
+			friend.sendPacket(new FriendPacket(FriendAction.ADD_FRIEND, _owner.getObjectId()));
 		}
 		else
 			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
@@ -78,16 +78,14 @@ public final class L2FriendList
 		{
 			name = CharNameTable.getInstance().getByObjectId(objId);
 			
-			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
-				.addString(name));
-			_owner.sendPacket(new FriendList(_owner));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST).addString(name));
+			_owner.sendPacket(new FriendPacket(FriendAction.REMOVE_FRIEND, objId));
 			
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend != null)
 			{
-				friend.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST)
-					.addPcName(_owner));
-				friend.sendPacket(new FriendList(friend));
+				friend.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST).addPcName(_owner));
+				friend.sendPacket(new FriendPacket(FriendAction.REMOVE_FRIEND, _owner.getObjectId()));
 			}
 		}
 		else
