@@ -424,7 +424,8 @@ public final class NpcTable
 			npcDat.set("rhand", NpcData.getInt("rhand"));
 			npcDat.set("lhand", NpcData.getInt("lhand"));
 			npcDat.set("armor", NpcData.getInt("armor"));
-			npcDat.set("enchant", NpcData.getInt("enchant"));
+			// FIXME sql side is missing
+			//npcDat.set("enchant", NpcData.getInt("enchant"));
 			npcDat.set("baseWalkSpd", NpcData.getInt("walkspd"));
 			npcDat.set("baseRunSpd", NpcData.getInt("runspd"));
 

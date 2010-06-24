@@ -36,7 +36,7 @@ public class PetNameTable
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con .prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
+			PreparedStatement statement = con.prepareStatement("SELECT name FROM pets p, items i WHERE p.item_obj_id = i.object_id AND name=? AND i.item_id=?");
 			statement.setString(1, name);
 			statement.setString(2, Integer.toString(PetDataTable.getItemIdByPetId(petNpcId)));
 			ResultSet rset = statement.executeQuery();

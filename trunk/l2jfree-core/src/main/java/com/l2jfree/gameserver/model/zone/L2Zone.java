@@ -180,6 +180,7 @@ public class L2Zone implements FuncOwner
 	private int _clanhallId;
 	private int _townId;
 	private int _fortId;
+	private boolean _isSiegeActive;
 	
 	private PvpSettings _pvp;
 	private Boss _boss;
@@ -1341,5 +1342,15 @@ public class L2Zone implements FuncOwner
 	protected void parseCondition(Node n) throws Exception
 	{
 		throw new IllegalStateException("This zone shouldn't have conditions!");
+	}
+
+	public boolean isSiegeActive()
+	{
+		return _isSiegeActive;
+	}
+	
+	public void setSiegeActive(boolean isSiegeActive)
+	{
+		_isSiegeActive = isSiegeActive;
 	}
 }

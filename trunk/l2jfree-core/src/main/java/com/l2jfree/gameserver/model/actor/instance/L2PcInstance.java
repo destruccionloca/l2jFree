@@ -471,6 +471,10 @@ public final class L2PcInstance extends L2Playable
 
 	/** The Siege state of the L2PcInstance */
 	private byte							_siegeState				= SIEGE_STATE_NOT_INVOLVED;
+	
+	/** The id of castle/fort which the L2PcInstance is registered for siege */
+	private int								_siegeSide				= 0;
+	
 	private boolean							_isInSiege				= false;
 
 	private int								_lastCompassZone;																	// The last compass zone update send to the client
@@ -1726,6 +1730,23 @@ public final class L2PcInstance extends L2Playable
 	public byte getSiegeState()
 	{
 		return _siegeState;
+	}
+
+	public void setSiegeSide(int val)
+	{
+		_siegeSide = val;
+	}
+	
+	public boolean isRegisteredOnThisSiegeField(int val)
+	{
+		if (_siegeSide != val && (_siegeSide < 81 || _siegeSide > 89))
+			return false;
+		return true;
+	}
+	
+	public int getSiegeSide()
+	{
+		return _siegeSide;
 	}
 	
 	public static final byte SIEGE_STATE_NOT_INVOLVED = 0;
