@@ -37,20 +37,10 @@ public class FriendList extends L2GameServerPacket
 	private static final String	_S__FA_FRIENDLIST	= "[S] 75 FriendList";
 	private Set<Integer>		_friends;
 	
-	// TODO review this
 	public FriendList(L2PcInstance character)
 	{
 		_friends = (Set<Integer>) character.getFriendList().getFriendIds();
 	}
-	
-	// public void runImpl()
-	// {
-	// if (getClient() != null && getClient().getActiveChar() != null)
-	// {
-	// _activeChar = getClient().getActiveChar();
-	// _friends = _activeChar.getFriendList();
-	// }
-	// }
 	
 	@Override
 	protected final void writeImpl()
@@ -59,18 +49,17 @@ public class FriendList extends L2GameServerPacket
 		if (_friends != null)
 		{
 			writeD(_friends.size());
+			
 			for (Integer objId : _friends)
 			{
 				String name = CharNameTable.getInstance().getByObjectId(objId);
 				L2PcInstance player = L2World.getInstance().findPlayer(objId);
-				boolean online = false;
-				if (player.isOnline() == 1)
-					online = true;
+				boolean isOnline = (player != null && player.isOnline() == 1) ? true : false;
 				
-				writeD(objId); // character id
+				writeD(objId);
 				writeS(name);
-				writeD(online ? 0x01 : 0x00); // online
-				writeD(online ? objId : 0x00); // object id if online
+				writeD(isOnline ? 0x01 : 0x00); // online
+				writeD(isOnline ? objId : 0x00); // object id if online
 			}
 		}
 		else

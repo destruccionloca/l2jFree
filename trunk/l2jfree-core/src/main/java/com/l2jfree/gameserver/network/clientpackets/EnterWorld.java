@@ -247,8 +247,7 @@ public class EnterWorld extends L2GameClientPacket
 				quest.notifyEnterWorld(activeChar);
 		}
 		
-		// FIXME
-		// notifyFriends(activeChar);
+		notifyFriends(activeChar);
 		notifyClanMembers(activeChar);
 		notifySponsorOrApprentice(activeChar);
 		
@@ -336,18 +335,16 @@ public class EnterWorld extends L2GameClientPacket
 		
 		activeChar.queryGameGuard();
 		
-		// FIXME
 		sendPacket(new FriendList(activeChar));
 		
-		// sendPacket(new FriendList());
-		// SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
-		// sm.addString(activeChar.getName());
-		// for (int id : activeChar.getFriendList())
-		// {
-		// L2Object obj = L2World.getInstance().findObject(id);
-		// if (obj != null)
-		// obj.sendPacket(sm);
-		// }
+		// Send "Friend has logged in" message to all player friends
+		SystemMessage sm0 = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN).addString(activeChar.getName());
+		for (int objectId : activeChar.getFriendList().getFriendIds())
+		{
+			L2PcInstance player = L2World.getInstance().findPlayer(objectId);
+			if (player != null)
+				player.sendPacket(sm0);
+		}
 		
 		if (Config.SHOW_LICENSE)
 			CoreInfo.versionInfo(activeChar);
@@ -533,25 +530,14 @@ public class EnterWorld extends L2GameClientPacket
 		}
 	}
 	
-	/**
-	 * @param activeChar
-	 */
-	
-	// TODO review
 	private void notifyFriends(L2PcInstance cha)
 	{
-		SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
-		sm.addPcName(cha);
-		
 		FriendStatusPacket pkt = new FriendStatusPacket(cha.getObjectId());
 		for (Integer objId : cha.getFriendList().getFriendIds())
 		{
 			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
 			if (friend != null)
-			{
 				friend.sendPacket(pkt);
-				friend.sendPacket(sm);
-			}
 		}
 	}
 	

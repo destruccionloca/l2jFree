@@ -30,18 +30,19 @@ import com.l2jfree.gameserver.model.L2World;
  */
 public class FriendPacket extends L2GameServerPacket
 {
-	// private static Logger _log = Logger.getLogger(FriendList.class.getName());
 	private static final String	_S__FA_FRIENDLIST	= "[S] 76 FriendPacket";
-	private final boolean		_action, _online;
+	
+	public static enum FriendAction
+	{
+		ADD_FRIEND, REMOVE_FRIEND
+	}
+	
+	private final FriendAction	_action;
+	private final boolean		_online;
 	private final int			_objid;
 	private final String		_name;
 	
-	/**
-	 * @param action
-	 *            -
-	 *            true for adding, false for remove
-	 */
-	public FriendPacket(boolean action, int objId)
+	public FriendPacket(FriendAction action, int objId)
 	{
 		_action = action;
 		_objid = objId;
@@ -53,7 +54,7 @@ public class FriendPacket extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x76);
-		writeD(_action ? 1 : 3); // 1-add 3-remove
+		writeD(_action == FriendAction.ADD_FRIEND ? 1 : 3); // 1-add 3-remove
 		writeD(_objid);
 		writeS(_name);
 		writeD(_online ? 1 : 0);
