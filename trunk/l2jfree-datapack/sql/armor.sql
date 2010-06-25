@@ -2684,9 +2684,3 @@ UPDATE `armor` SET `skills_item` = '8225-1;3663-1' WHERE `item_id` = 10832; -- D
 UPDATE `armor` SET `skills_item` = '8226-1;3663-1' WHERE `item_id` = 10833; -- Dynasty Jewel Leather Armor {PvP} - Weapon Master
 UPDATE `armor` SET `skills_item` = '8228-1;3663-1' WHERE `item_id` = 10834; -- Dynasty Jewel Leather Armor {PvP} - Enchanter
 UPDATE `armor` SET `skills_item` = '8227-1;3663-1' WHERE `item_id` = 10835; -- Dynasty Jewel Leather Armor {PvP} - Summoner
-UPDATE `armor` SET `skills_item` = '8301-1;3662-1' WHERE `item_id` = 14520; -- Vesper Breastplate {PvP}
-UPDATE `armor` SET `skills_item` = '8303-1;3663-1' WHERE `item_id` = 14521; -- Vesper Leather Breastplate {PvP}
-UPDATE `armor` SET `skills_item` = '8305-1;3660-1' WHERE `item_id` = 14522; -- Vesper Tunic {PvP}
-UPDATE `armor` SET `skills_item` = '8302-1;3662-1' WHERE `item_id` = 14523; -- Vesper Noble Breastplate {PvP}
-UPDATE `armor` SET `skills_item` = '8304-1;3663-1' WHERE `item_id` = 14524; -- Vesper Noble Leather Breastplate {PvP}
-UPDATE `armor` SET `skills_item` = '8306-1;3660-1' WHERE `item_id` = 14525; -- Vesper Breastplate {PvP}
