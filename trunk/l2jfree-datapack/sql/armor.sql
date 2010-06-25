@@ -2639,3 +2639,54 @@ UPDATE `armor` SET `skills_item` = '8262-1' WHERE `item_id` IN (14053,14066);
 
 -- Adventurer's Hat - Event
 UPDATE `armor` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` = 10250;
+
+-- PvP Armors (Spire)
+UPDATE `armor` SET `skills_item` = '8193-1;3662-1' WHERE `item_id` = 10793; -- Armor of Nightmare {PvP}
+UPDATE `armor` SET `skills_item` = '8194-1;3662-1' WHERE `item_id` = 10794; -- Majestic Plate Armor {PvP}
+UPDATE `armor` SET `skills_item` = '8195-1;3663-1' WHERE `item_id` = 10795; -- Leather Armor of Nightmare {PvP}
+UPDATE `armor` SET `skills_item` = '8196-1;3663-1' WHERE `item_id` = 10796; -- Majestic Leather Armor {PvP}
+UPDATE `armor` SET `skills_item` = '8197-1;3660-1' WHERE `item_id` = 10797; -- Robe of Nightmare {PvP}
+UPDATE `armor` SET `skills_item` = '8198-1;3660-1' WHERE `item_id` = 10798; -- Majestic Robe {PvP}
+UPDATE `armor` SET `skills_item` = '8199-1;3662-1' WHERE `item_id` = 10799; -- Imperial Crusader Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8200-1;3663-1' WHERE `item_id` = 10800; -- Draconic Leather Armor {PvP}
+UPDATE `armor` SET `skills_item` = '8201-1;3660-1' WHERE `item_id` = 10801; -- Major Arcana Robe {PvP}
+UPDATE `armor` SET `skills_item` = '8202-1;3662-1' WHERE `item_id` = 10802; -- Dynasty Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8203-1;3662-1' WHERE `item_id` = 10803; -- Dynasty Breastplate {PvP} - Shield Master
+UPDATE `armor` SET `skills_item` = '8204-1;3662-1' WHERE `item_id` = 10804; -- Dynasty Breastplate {PvP} - Weapon Master
+UPDATE `armor` SET `skills_item` = '8205-1;3662-1' WHERE `item_id` = 10805; -- Dynasty Breastplate {PvP} - Force Master
+UPDATE `armor` SET `skills_item` = '8206-1;3662-1' WHERE `item_id` = 10806; -- Dynasty Breastplate {PvP} - Bard
+UPDATE `armor` SET `skills_item` = '8207-1;3663-1' WHERE `item_id` = 10807; -- Dynasty Leather Armor {PvP}
+UPDATE `armor` SET `skills_item` = '8208-1;3663-1' WHERE `item_id` = 10808; -- Dynasty Leather Armor {PvP} - Dagger Master
+UPDATE `armor` SET `skills_item` = '8209-1;3663-1' WHERE `item_id` = 10809; -- Dynasty Leather Armor {PvP} - Bow Master
+UPDATE `armor` SET `skills_item` = '8210-1;3660-1' WHERE `item_id` = 10810; -- Dynasty Tunic {PvP}
+UPDATE `armor` SET `skills_item` = '8211-1;3660-1' WHERE `item_id` = 10811; -- Dynasty Tunic {PvP} - Healer
+UPDATE `armor` SET `skills_item` = '8212-1;3660-1' WHERE `item_id` = 10812; -- Dynasty Tunic {PvP} - Enchanter
+UPDATE `armor` SET `skills_item` = '8213-1;3660-1' WHERE `item_id` = 10813; -- Dynasty Tunic {PvP} - Summoner
+UPDATE `armor` SET `skills_item` = '8214-1;3660-1' WHERE `item_id` = 10814; -- Dynasty Tunic {PvP} - Wizard
+UPDATE `armor` SET `skills_item` = '8215-1;3663-1' WHERE `item_id` = 10815; -- Dynasty Leather Armor {PvP} - Force Master
+UPDATE `armor` SET `skills_item` = '8216-1;3663-1' WHERE `item_id` = 10816; -- Dynasty Leather Armor {PvP} - Weapon Master
+UPDATE `armor` SET `skills_item` = '8217-1;3663-1' WHERE `item_id` = 10817; -- Dynasty Leather Armor {PvP} - Enchanter
+UPDATE `armor` SET `skills_item` = '8218-1;3663-1' WHERE `item_id` = 10818; -- Dynasty Leather Armor {PvP} - Summoner
+-- UPDATE `armor` SET `skills_item` = '????-1;3662-1' WHERE `item_id` = 10819; -- Dynasty Platinum Breastplate {PvP} - (No skill in xml - could use 3806-2)
+UPDATE `armor` SET `skills_item` = '8219-1;3662-1' WHERE `item_id` = 10820; -- Dynasty Platinum Breastplate {PvP} - Shield Master
+UPDATE `armor` SET `skills_item` = '8220-1;3662-1' WHERE `item_id` = 10821; -- Dynasty Platinum Breastplate {PvP} - Weapon Master
+UPDATE `armor` SET `skills_item` = '8221-1;3662-1' WHERE `item_id` = 10822; -- Dynasty Platinum Breastplate {PvP} - Force Master
+UPDATE `armor` SET `skills_item` = '8222-1;3662-1' WHERE `item_id` = 10823; -- Dynasty Platinum Breastplate {PvP} - Bard
+-- UPDATE `armor` SET `skills_item` = '????-1;3663-1' WHERE `item_id` = 10824; -- Dynasty Jewel Leather Armor {PvP} - (No skill in xml - could use 3805-2)
+UPDATE `armor` SET `skills_item` = '8223-1;3663-1' WHERE `item_id` = 10825; -- Dynasty Jewel Leather Armor {PvP} - Dagger Master
+UPDATE `armor` SET `skills_item` = '8224-1;3663-1' WHERE `item_id` = 10826; -- Dynasty Jewel Leather Armor {PvP} - Bow Master
+-- UPDATE `armor` SET `skills_item` = '????-1;3660-1' WHERE `item_id` = 10827; -- Dynasty Silver Satin Tunic {PvP} - (No skill in xml - could use 3804-2)
+UPDATE `armor` SET `skills_item` = '8229-1;3660-1' WHERE `item_id` = 10828; -- Dynasty Silver Satin Tunic {PvP} - Healer
+UPDATE `armor` SET `skills_item` = '8230-1;3660-1' WHERE `item_id` = 10829; -- Dynasty Silver Satin Tunic {PvP} - Enchanter
+UPDATE `armor` SET `skills_item` = '8231-1;3660-1' WHERE `item_id` = 10830; -- Dynasty Silver Satin Tunic {PvP} - Summoner
+UPDATE `armor` SET `skills_item` = '8232-1;3660-1' WHERE `item_id` = 10831; -- Dynasty Silver Satin Tunic {PvP} - Wizard
+UPDATE `armor` SET `skills_item` = '8225-1;3663-1' WHERE `item_id` = 10832; -- Dynasty Jewel Leather Armor {PvP} - Force Master
+UPDATE `armor` SET `skills_item` = '8226-1;3663-1' WHERE `item_id` = 10833; -- Dynasty Jewel Leather Armor {PvP} - Weapon Master
+UPDATE `armor` SET `skills_item` = '8228-1;3663-1' WHERE `item_id` = 10834; -- Dynasty Jewel Leather Armor {PvP} - Enchanter
+UPDATE `armor` SET `skills_item` = '8227-1;3663-1' WHERE `item_id` = 10835; -- Dynasty Jewel Leather Armor {PvP} - Summoner
+UPDATE `armor` SET `skills_item` = '8301-1;3662-1' WHERE `item_id` = 14520; -- Vesper Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8303-1;3663-1' WHERE `item_id` = 14521; -- Vesper Leather Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8305-1;3660-1' WHERE `item_id` = 14522; -- Vesper Tunic {PvP}
+UPDATE `armor` SET `skills_item` = '8302-1;3662-1' WHERE `item_id` = 14523; -- Vesper Noble Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8304-1;3663-1' WHERE `item_id` = 14524; -- Vesper Noble Leather Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8306-1;3660-1' WHERE `item_id` = 14525; -- Vesper Breastplate {PvP}
