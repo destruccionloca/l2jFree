@@ -1371,7 +1371,7 @@ INSERT INTO `armor` VALUES
 (10513,'Striped Mithril Shirt - MP','underwear','true','none',130,'wood','s',0,-1,-1,30,0,0,2540000,122,'true','true','true','true','true','3482-1',''),
 (10514,'Striped Mithril Shirt - CP','underwear','true','none',130,'wood','s',0,-1,-1,30,0,0,2540000,122,'true','true','true','true','true','3483-1',''),
 (10518,'Red Talisman - Life Force','talisman','false','none',150,'wood','none',0,70,-1,0,0,0,0,0,'false','false','true','false','true','','3429-1'),
-(10519,'White Talisman -  Earth','talisman','false','none',150,'wood','none',0,80,-1,0,0,0,0,0,'false','false','true','false','true','','3434-1'),
+(10519,'White Talisman - Earth','talisman','false','none',150,'wood','none',0,80,-1,0,0,0,0,0,'false','false','true','false','true','','3434-1'),
 (10533,'Blue Talisman - Attack Power','talisman','false','none',150,'wood','none',0,65,-1,0,0,0,0,0,'false','false','true','false','true','','3487-1'),
 (10534,'Blue Talisman - Shield Defense','talisman','false','none',150,'wood','none',0,65,-1,0,0,0,0,0,'false','false','true','false','true','','3488-1'),
 (10535,'Yellow Talisman - Defense Power','talisman','false','none',150,'wood','none',0,60,-1,0,0,0,0,0,'false','false','true','false','true','','3490-1'),
@@ -2684,7 +2684,7 @@ UPDATE `armor` SET `skills_item` = '8225-1;3663-1' WHERE `item_id` = 10832; -- D
 UPDATE `armor` SET `skills_item` = '8226-1;3663-1' WHERE `item_id` = 10833; -- Dynasty Jewel Leather Armor {PvP} - Weapon Master
 UPDATE `armor` SET `skills_item` = '8228-1;3663-1' WHERE `item_id` = 10834; -- Dynasty Jewel Leather Armor {PvP} - Enchanter
 UPDATE `armor` SET `skills_item` = '8227-1;3663-1' WHERE `item_id` = 10835; -- Dynasty Jewel Leather Armor {PvP} - Summoner
-UPDATE `armor` SET `skills_item` = '8301-1' WHERE  `item_id` = 14520; -- Vesper Breastplate {PvP}
+UPDATE `armor` SET `skills_item` = '8301-1' WHERE `item_id` = 14520; -- Vesper Breastplate {PvP}
 UPDATE `armor` SET `skills_item` = '8303-1' WHERE `item_id` = 14521; -- Vesper Leather Breastplate {PvP}
 UPDATE `armor` SET `skills_item` = '8305-1' WHERE `item_id` = 14522; -- Vesper Tunic {PvP}
 UPDATE `armor` SET `skills_item` = '8302-1' WHERE `item_id` = 14523; -- Vesper Noble Breastplate {PvP}
