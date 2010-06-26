@@ -157,8 +157,9 @@ public final class Shutdown extends Thread
 		
 		if (Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("Server is " + _mode.getText() + " NOW!");
-		
-		OfflineTradeManager.getInstance().store();
+
+		if (Config.ENABLE_OFFLINE_TRADERS_RESTORE)
+			OfflineTradeManager.getInstance().store();
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
