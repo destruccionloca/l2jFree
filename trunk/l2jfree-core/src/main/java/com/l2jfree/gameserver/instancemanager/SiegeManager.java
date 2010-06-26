@@ -313,7 +313,7 @@ public class SiegeManager
 				{
 					_spawnParams = siegeSettings.getProperty(castle.getName() + "ControlTower" + Integer.toString(i), "");
 
-					if (_spawnParams.length() == 0)
+					if (_spawnParams.isEmpty())
 						break;
 
 					st = new StringTokenizer(_spawnParams.trim(), ",");
@@ -339,7 +339,7 @@ public class SiegeManager
 				{
 					_spawnParams = siegeSettings.getProperty(castle.getName() + "Artefact" + Integer.toString(i), "");
 
-					if (_spawnParams.length() == 0)
+					if (_spawnParams.isEmpty())
 						break;
 
 					st = new StringTokenizer(_spawnParams.trim(), ",");
@@ -392,16 +392,12 @@ public class SiegeManager
 
 	public final FastList<SiegeSpawn> getArtefactSpawnList(int _castleId)
 	{
-		if (_artefactSpawnList.containsKey(_castleId))
-			return _artefactSpawnList.get(_castleId);
-		return null;
+		return _artefactSpawnList.get(_castleId);
 	}
 
 	public final FastList<SiegeSpawn> getControlTowerSpawnList(int _castleId)
 	{
-		if (_controlTowerSpawnList.containsKey(_castleId))
-			return _controlTowerSpawnList.get(_castleId);
-		return null;
+		return _controlTowerSpawnList.get(_castleId);
 	}
 
 	public final SiegeSpawn getFlameControlTowerSpawn(int castleId, boolean east)

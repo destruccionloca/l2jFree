@@ -1817,7 +1817,7 @@ public class Config extends L2Config
 			ALT_IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
 			ALT_FAME_FOR_DEAD_PLAYERS = Boolean.parseBoolean(altSettings.getProperty("FameForDeadPlayers", "true"));
 			//ALT_FAIL_FAKEDEATH = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
-			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
+			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "True"));
 			ALT_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "false"));
 			ALT_LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
 			ALT_ES_SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded", "true"));

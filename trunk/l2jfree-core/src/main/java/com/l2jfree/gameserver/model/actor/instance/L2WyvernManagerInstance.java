@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -40,6 +39,12 @@ public class L2WyvernManagerInstance extends L2Npc
         {
             if (!isOwnerClan(player))
             	return;
+
+            if (!Config.ALT_FLYING_WYVERN_IN_SIEGE && isInSiege())
+            {
+                player.sendMessage("You cannot ride wyvern during siege.");
+                return;
+            }
 
             if ((SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE) == SevenSigns.CABAL_DUSK) && SevenSigns.getInstance().isSealValidationPeriod())
             {
@@ -112,32 +117,7 @@ public class L2WyvernManagerInstance extends L2Npc
     }
 
 	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-
-		player.setLastFolkNPC(this);
-
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			else
-				showMessageWindow(player);
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
-	private void showMessageWindow(L2PcInstance player)
+	public void showChatWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		
@@ -164,6 +144,11 @@ public class L2WyvernManagerInstance extends L2Npc
 	protected boolean isOwnerClan(L2PcInstance player)
 	{
 		return true;
+	}
+	
+	protected boolean isInSiege()
+	{
+		return false;
 	}
 	
 	private boolean isCastleManager()

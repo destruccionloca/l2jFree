@@ -35,4 +35,10 @@ public class L2CastleWyvernManagerInstance extends L2WyvernManagerInstance
 		}
 		return false;
 	}
+
+	@Override
+	protected boolean isInSiege()
+	{
+		return getCastle().getSiege().getIsInProgress();
+	}
 }

@@ -4106,20 +4106,25 @@ public final class L2PcInstance extends L2Playable
 			addItem("Loot", item.getItemId(), item.getCount(), target, true, false);
 	}
 
-	private boolean tryAutoLoot(L2Attackable target, int itemId)
+	public static boolean tryAutoLoot(L2Object reference, int itemId)
 	{
-		if (target.isFlying())
-			return true;
-
+		if (reference instanceof L2Character)
+		{
+			L2Character cha = (L2Character)reference;
+			
+			if (cha.isFlying())
+				return true;
+			
+			if (cha.isRaid())
+				return Config.ALT_AUTO_LOOT_RAID;
+		}
+		
 		if (ItemTable.isAdenaLikeItem(itemId))
 			return Config.ALT_AUTO_LOOT_ADENA;
-
+		
 		if (ItemTable.getInstance().getTemplate(itemId).getItemType() == L2EtcItemType.HERB)
 			return Config.ALT_AUTO_LOOT_HERBS;
-
-		if (target.isRaid())
-			return Config.ALT_AUTO_LOOT_RAID;
-
+		
 		return Config.ALT_AUTO_LOOT;
 	}
 

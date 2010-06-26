@@ -39,7 +39,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
-import com.l2jfree.gameserver.model.actor.L2Boss;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.skills.SkillsEngine;
@@ -438,7 +438,7 @@ public final class ItemTable
 				|| bodypart == L2Item.SLOT_HAIRALL || (bodypart & L2Item.SLOT_L_EAR) != 0
 				|| (bodypart & L2Item.SLOT_L_FINGER) != 0
 				|| (bodypart & L2Item.SLOT_R_BRACELET) != 0
-				|| (bodypart & L2Item.SLOT_L_BRACELET) != 0 )
+				|| (bodypart & L2Item.SLOT_L_BRACELET) != 0 || (bodypart & L2Item.SLOT_BACK) != 0)
 		{
 			item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
 			item.set.set("type2", L2Item.TYPE2_ACCESSORY);
@@ -661,34 +661,25 @@ public final class ItemTable
 		// Create and Init the L2ItemInstance corresponding to the Item Identifier
 		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
 
-		final boolean isAdena = isAdenaLikeItem(itemId);
-
-		if (process.equalsIgnoreCase("loot") && (isAdena ? !Config.ALT_AUTO_LOOT_ADENA : !Config.ALT_AUTO_LOOT))
+		if (process.equalsIgnoreCase("loot") && !L2PcInstance.tryAutoLoot(reference, itemId)) // means it won't be auto-looted
 		{
-			long delay;
-			// if in CommandChannel and was killing a World/RaidBoss
-			if (reference instanceof L2Boss)
+			L2CommandChannel commandChannel = null;
+			if (reference instanceof L2Attackable) // loot privilege for raids
 			{
-				L2CommandChannel commandChannel = ((L2Boss)reference).getFirstCommandChannelAttacked();
-
-				if (commandChannel != null && commandChannel.meetRaidWarCondition(reference))
-				{
-					item.setOwnerId(commandChannel.getChannelLeader().getObjectId());
-					delay = 300000;
-				}
-				else
-				{
-					item.setOwnerId(actor.getObjectId());
-					delay = 15000;
-				}
+				commandChannel = ((L2Attackable)reference).getFirstCommandChannelAttacked();
+			}
+			
+			if (commandChannel != null)
+			{
+				item.setOwnerId(commandChannel.getChannelLeader().getObjectId());
+				item.setItemLootShedule(ThreadPoolManager.getInstance().schedule(new ResetOwner(item),
+						Config.ALT_LOOT_RAIDS_PRIVILEGE_INTERVAL));
 			}
 			else
 			{
 				item.setOwnerId(actor.getObjectId());
-				delay = 15000;
+				item.setItemLootShedule(ThreadPoolManager.getInstance().schedule(new ResetOwner(item), 15000));
 			}
-
-			item.setItemLootShedule(ThreadPoolManager.getInstance().scheduleGeneral(new ResetOwner(item), delay));
 		}
 
 		if (_log.isDebugEnabled())
