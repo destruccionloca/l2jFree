@@ -1311,7 +1311,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
