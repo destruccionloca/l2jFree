@@ -1,7 +1,8 @@
 # Psycho(killer1888) / L2jFree
 import sys
-from com.l2jfree.gameserver.model.quest.jython    import QuestJython as JQuest
-from com.l2jfree.gameserver.instancemanager.hellbound       import HellboundManager
+from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
+from com.l2jfree.gameserver.instancemanager.hellbound   import HellboundManager
+from com.l2jfree.gameserver.network.serverpackets       import SystemMessage
 
 qn = "9005_Hude"
 
@@ -30,7 +31,10 @@ class Quest (JQuest) :
 		if not st: return
 		if event == "tradeall":
 			item = player.getInventory().getItemByItemId(BADGE)
-			if item.getCount()>=10:
+			if not item:
+				player.sendPacket(SystemMessage.sendString("You don't have any Darion Badges in your Inventory."))	
+				return
+			if item.getCount() >= 10:
 				for step in range(10,item.getCount(),10):
 					player.destroyItemByItemId("Hude", BADGE, 10, player, True)
 					i = Rnd.get(len(HUDE_ITEMS))
@@ -41,7 +45,7 @@ class Quest (JQuest) :
 			if not item:
 				player.sendPacket(SystemMessage.sendString("You must have 10 Darion Badges in your Inventory."))	
 				return
-			elif item.getCount()<10:
+			elif item.getCount() < 10:
 				player.sendPacket(SystemMessage.sendString("You must have 10 Darion Badges in your Inventory."))	
 				return
 			else:
