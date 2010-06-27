@@ -3,6 +3,7 @@ import sys
 from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
 from com.l2jfree.gameserver.instancemanager.hellbound   import HellboundManager
 from com.l2jfree.gameserver.network.serverpackets       import SystemMessage
+from com.l2jfree.tools.random                           import Rnd
 
 qn = "9005_Hude"
 
