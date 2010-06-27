@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -28,29 +27,6 @@ public final class L2ClanTraderInstance extends L2Npc
 	public L2ClanTraderInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-	}
-
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-
-		player.setLastFolkNPC(this);
-
-		if (this != player.getTarget())
-		{
-			player.setTarget(this);
-		}
-		else
-		{
-			if (!canInteract(player))
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			else
-				showMessageWindow(player);
-		}
-
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -123,7 +99,8 @@ public final class L2ClanTraderInstance extends L2Npc
 		player.sendPacket(html);
 	}
 
-	private void showMessageWindow(L2PcInstance player)
+	@Override
+	public void showChatWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/clantrader/" + getNpcId() + "-no.htm";

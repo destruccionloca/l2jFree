@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.util;
 
+import com.l2jfree.lang.L2TextBuilder;
+
 /**
  * String utilities optimized for the best performance.
  * 
@@ -207,16 +209,16 @@ public final class StringUtil
 	 * 
 	 * @see StringUtil
 	 */
-	public static String concat(final String... strings)
+	public static String concat(final Object... strings)
 	{
-		final StringBuilder sbString = new StringBuilder(getLength(strings));
+		final L2TextBuilder tb = L2TextBuilder.newInstance(getLength(strings));
 		
-		for (final String string : strings)
+		for (final Object string : strings)
 		{
-			sbString.append(string);
+			tb.append(string);
 		}
 		
-		return sbString.toString();
+		return tb.moveToString();
 	}
 	
 	/**
@@ -233,12 +235,12 @@ public final class StringUtil
 	 * 
 	 * @see StringUtil
 	 */
-	public static StringBuilder startAppend(final int sizeHint, final String... strings)
+	public static StringBuilder startAppend(final int sizeHint, final Object... strings)
 	{
 		final int length = getLength(strings);
 		final StringBuilder sbString = new StringBuilder(sizeHint > length ? sizeHint : length);
 		
-		for (final String string : strings)
+		for (final Object string : strings)
 		{
 			sbString.append(string);
 		}
@@ -256,11 +258,11 @@ public final class StringUtil
 	 * 
 	 * @see StringUtil
 	 */
-	public static void append(final StringBuilder sbString, final String... strings)
+	public static void append(final StringBuilder sbString, final Object... strings)
 	{
 		sbString.ensureCapacity(sbString.length() + getLength(strings));
 		
-		for (final String string : strings)
+		for (final Object string : strings)
 		{
 			sbString.append(string);
 		}
@@ -274,16 +276,17 @@ public final class StringUtil
 	 * 
 	 * @return total length of all the strings
 	 */
-	private static int getLength(final String[] strings)
+	private static int getLength(final Object... objs)
 	{
 		int length = 0;
 		
-		for (final String string : strings)
+		for (int i = 0; i < objs.length; i++)
 		{
-			if (string == null)
-				length += 4;
-			else
-				length += string.length();
+			final String string = String.valueOf(objs[i]);
+			
+			length += string.length();
+			
+			objs[i] = string;
 		}
 		
 		return length;

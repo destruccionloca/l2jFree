@@ -225,10 +225,10 @@ public class L2DefenderInstance extends L2Guard
 			player.setTarget(this);
 			
 			// Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
- 			StatusUpdate su = new StatusUpdate(getObjectId());
- 			su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
- 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
- 			player.sendPacket(su);
+			StatusUpdate su = new StatusUpdate(getObjectId());
+			su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
+			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
+			player.sendPacket(su);
 		}
 		else if (interact)
 		{

@@ -178,7 +178,7 @@ public final class QuestState
 	 * @param val : String pointing out the value of the variable for quest
 	 * @return String (equal to parameter "val")
 	 */
-	String setInternal(String var, String val)
+	public String setInternal(String var, String val)
     {
 		if (_vars == null)
 			_vars = new FastMap<String, String>();

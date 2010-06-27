@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.CharTemplateTable;
 import com.l2jfree.gameserver.datatables.ItemTable;
+import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -544,6 +545,10 @@ public final class L2ClassMasterInstance extends L2NpcInstance
 			player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
 		else
 			player.setBaseClass(player.getActiveClass());
+
+		Quest q = QuestManager.getInstance().getQuest("SkillTransfer");
+		if (q != null)
+			q.startQuestTimer("givePormanders", 1, null, player);
 
 		player.broadcastUserInfo();
 		return true;

@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.model.L2TeleportLocation;
@@ -44,7 +43,7 @@ public class L2DoormenInstance extends L2NpcInstance
 	{
 		if (command.startsWith("Chat"))
 		{
-			showMessageWindow(player);
+			showChatWindow(player);
 		}
 		else if (command.startsWith("open_doors"))
 		{
@@ -75,63 +74,21 @@ public class L2DoormenInstance extends L2NpcInstance
 			super.onBypassFeedback(player, command);
 	}
 	
-	/**
-	 * this is called when a player interacts with this NPC
-	 * 
-	 * @param player
-	 */
 	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-		
-		player.setLastFolkNPC(this);
-		
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the
-			// L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to
-		// avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-	
-	public void showMessageWindow(L2PcInstance player)
+	public void showChatWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		
 		if (!isOwnerClan(player))
-		{
 			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-no.htm");
-		}
 		// TODO: maybe this should be removed
 		else if (isUnderSiege())
-		{
 			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + "-busy.htm");
-		}
 		else
-		{
 			html.setFile("data/html/doormen/" + getTemplate().getNpcId() + ".htm");
-		}
+		
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}

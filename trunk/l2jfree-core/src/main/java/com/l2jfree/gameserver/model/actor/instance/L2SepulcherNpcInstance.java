@@ -15,10 +15,7 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.Future;
-
-import javolution.util.FastMap;
 
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
@@ -44,8 +41,6 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class L2SepulcherNpcInstance extends L2Npc
 {
-	protected static Map<Integer, Integer>	_hallGateKeepers			= new FastMap<Integer, Integer>();
-
 	protected Future<?>						_closeTask					= null;
 	protected Future<?>						_spawnNextMysteriousBoxTask	= null;
 	protected Future<?>						_spawnMonsterTask			= null;
@@ -98,7 +93,7 @@ public class L2SepulcherNpcInstance extends L2Npc
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player))
 			return;
@@ -123,7 +118,7 @@ public class L2SepulcherNpcInstance extends L2Npc
 				player.sendPacket(su);
 			}
 		}
-		else
+		else if (interact)
 		{
 			// Check if the player is attackable (without a forced attack) and
 			// isn't dead

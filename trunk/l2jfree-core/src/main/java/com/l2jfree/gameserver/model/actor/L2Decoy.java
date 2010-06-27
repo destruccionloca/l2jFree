@@ -57,8 +57,12 @@ public abstract class L2Decoy extends L2Character
 	}
 	
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
+		// Aggression target lock effect
+		if (!player.canChangeLockedTarget(this))
+			return;
+		
 		player.setTarget(this);
 	}
 	

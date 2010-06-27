@@ -32,7 +32,6 @@ import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.restriction.global.AutomatedTvTRestriction;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
@@ -271,15 +270,8 @@ public final class AutomatedTvT
 				player.getParty().removePartyMember(player);
 			if (Config.AUTO_TVT_START_CANCEL_BUFFS)
 				player.stopAllEffects();
-			if (Config.AUTO_TVT_START_CANCEL_CUBICS && !player.getCubics().isEmpty())
-			{
-				for (L2CubicInstance cubic : player.getCubics().values())
-				{
-					cubic.stopAction();
-					cubic.cancelDisappear();
-				}
-				player.getCubics().clear();
-			}
+			if (Config.AUTO_TVT_START_CANCEL_CUBICS)
+				player.stopCubics();
 			if (Config.AUTO_TVT_START_CANCEL_SERVITORS && player.getPet() != null)
 				player.getPet().unSummon();
 			if (Config.AUTO_TVT_START_CANCEL_TRANSFORMATION && player.isTransformed())

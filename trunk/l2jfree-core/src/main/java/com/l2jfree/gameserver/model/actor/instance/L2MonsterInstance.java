@@ -246,10 +246,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
-		if (!(attacker instanceof L2MonsterInstance))
-		{
-			super.addDamageHate(attacker, damage, aggro);
-		}
+		super.addDamageHate(attacker, damage, aggro);
 	}
 
 	@Override

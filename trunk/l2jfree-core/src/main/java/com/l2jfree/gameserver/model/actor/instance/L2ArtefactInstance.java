@@ -32,9 +32,9 @@ public final class L2ArtefactInstance extends L2Npc
 	 * Constructor of L2ArtefactInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
 	 *
 	 * <B><U> Actions</U> :</B><BR><BR>
-	 * <li>Call the L2Character constructor to set the _template of the L2ArtefactInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR) </li>
+	 * <li>Call the L2Character constructor to set the _template of the L2ArtefactInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li>
 	 * <li>Set the name of the L2ArtefactInstance</li>
-	 * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it </li><BR><BR>
+	 * <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li>
 	 *
 	 * @param objectId Identifier of the object to initialized
 	 * @param L2NpcTemplate Template to apply to the NPC
@@ -42,6 +42,13 @@ public final class L2ArtefactInstance extends L2Npc
     public L2ArtefactInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
+    }
+
+    @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+        getCastle().registerArtefact(this);
     }
 
     @Override
@@ -57,16 +64,16 @@ public final class L2ArtefactInstance extends L2Npc
 	 * <B><U> Actions</U> :</B><BR><BR>
 	 * <li>Set the L2NpcInstance as target of the L2PcInstance player (if necessary)</li>
 	 * <li>Send a Server->Client packet MyTargetSelected to the L2PcInstance player (display the select window)</li>
-	 * <li>Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client </li><BR><BR>
+	 * <li>Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client</li>
 	 *
 	 * <B><U> Example of use </U> :</B><BR><BR>
-	 * <li> Client packet : Action, AttackRequest</li><BR><BR>
+	 * <li>Client packet : Action, AttackRequest</li>
 	 *
 	 * @param player The L2PcInstance that start an action on the L2ArtefactInstance
 	 *
 	 */
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player)) return;
 
@@ -75,7 +82,7 @@ public final class L2ArtefactInstance extends L2Npc
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!canInteract(player))

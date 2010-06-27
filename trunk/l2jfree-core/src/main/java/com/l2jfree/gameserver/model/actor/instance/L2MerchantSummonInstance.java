@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.BuyList;
+import com.l2jfree.gameserver.network.serverpackets.ExBuySellListPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
@@ -126,7 +126,7 @@ public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merc
     }
 	
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (player.isOutOfControl())
 		{
@@ -140,7 +140,7 @@ public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merc
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!isInsideRadius(player, 150, false, false))
@@ -194,8 +194,7 @@ public class L2MerchantSummonInstance extends L2SummonInstance implements L2Merc
 
 		if (list != null && list.getNpcId() == getNpcId())
 		{
-			BuyList bl = new BuyList(list, player.getAdena(), taxRate);
-			player.sendPacket(bl);
+			player.sendPacket(new ExBuySellListPacket(player, list, taxRate, false));
 		}
 		else
 		{

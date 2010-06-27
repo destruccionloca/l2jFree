@@ -156,8 +156,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 				}
 			}
 			
-			PetItemList pil = new PetItemList(pet);
-			activeChar.sendPacket(pil);
+			activeChar.sendPacket(new PetItemList(pet));
 			
 			pet.broadcastFullInfo();
 		}

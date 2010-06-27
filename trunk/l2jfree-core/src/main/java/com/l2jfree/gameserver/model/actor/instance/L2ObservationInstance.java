@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -48,7 +47,8 @@ public final class L2ObservationInstance extends L2Npc
 			catch (Exception e)
 			{
 			}
-			showMessageWindow(player, val);
+			
+			showChatWindow(player, val);
 		}
 		else if (command.startsWith("observeSiege"))
 		{
@@ -92,7 +92,8 @@ public final class L2ObservationInstance extends L2Npc
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	public void showMessageWindow(L2PcInstance player, int val)
+	@Override
+	public void showChatWindow(L2PcInstance player, int val)
 	{
 		String filename = null;
 
@@ -115,24 +116,5 @@ public final class L2ObservationInstance extends L2Npc
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
-	}
-
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-
-		if (this != player.getTarget())
-		{
-			player.setTarget(this);
-		}
-		else
-		{
-			if (!canInteract(player))
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			else
-				showMessageWindow(player, 0);
-		}
 	}
 }

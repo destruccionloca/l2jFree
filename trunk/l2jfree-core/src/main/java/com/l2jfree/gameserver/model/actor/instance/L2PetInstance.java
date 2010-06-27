@@ -278,7 +278,7 @@ public class L2PetInstance extends L2Summon
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		// Aggression target lock effect
 		if (!player.canChangeLockedTarget(this))
@@ -302,7 +302,7 @@ public class L2PetInstance extends L2Summon
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 			player.sendPacket(su);
 		}
-		else
+		else if (interact)
 		{
 			player.sendPacket(new ValidateLocation(this));
 

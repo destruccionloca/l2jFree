@@ -16,7 +16,7 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.gameserver.ai.CtrlIntention;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -34,43 +34,15 @@ public class L2FortSiegeNpcInstance extends L2NpcWalkerInstance
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
-	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
-
+		
 		String par = "";
-		if (st.countTokens() >= 1) {par = st.nextToken();}
-
+		if (st.countTokens() >= 1)
+			par = st.nextToken();
+		
 		if (actualCommand.equalsIgnoreCase("Chat"))
 		{
 			int val = 0;
@@ -78,18 +50,39 @@ public class L2FortSiegeNpcInstance extends L2NpcWalkerInstance
 			{
 				val = Integer.parseInt(par);
 			}
-			catch (IndexOutOfBoundsException ioobe){}
-			catch (NumberFormatException nfe){}
+			catch (IndexOutOfBoundsException ioobe)
+			{
+			}
+			catch (NumberFormatException nfe)
+			{
+			}
+			
 			showMessageWindow(player, val);
 		}
 		else if (actualCommand.equalsIgnoreCase("register"))
 		{
-			if (getFort().getSiege().registerAttacker(player, false))
+			if ((player.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.REGISTERED_TO_S1_FORTRESS_BATTLE);
-				sm.addString(getFort().getName());
-				player.sendPacket(sm);
+				if (getFort().getSiege().registerAttacker(player, false))
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.REGISTERED_TO_S1_FORTRESS_BATTLE);
+					sm.addString(getFort().getName());
+					player.sendPacket(sm);
+					showMessageWindow(player, 7);
+				}
 			}
+			else
+				showMessageWindow(player, 10);
+		}
+		else if (actualCommand.equalsIgnoreCase("unregister"))
+		{
+			if ((player.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE)
+			{
+				getFort().getSiege().removeSiegeClan(player);
+				showMessageWindow(player, 8);
+			}
+			else
+				showMessageWindow(player, 10);
 		}
 		else
 		{
@@ -97,7 +90,8 @@ public class L2FortSiegeNpcInstance extends L2NpcWalkerInstance
 		}
 	}
 
-	private void showMessageWindow(L2PcInstance player)
+	@Override
+	public void showChatWindow(L2PcInstance player)
 	{
 		showMessageWindow(player, 0);
 	}

@@ -17,10 +17,10 @@ package com.l2jfree.gameserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Future;
 
-import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +36,9 @@ public final class AutoAnnouncements
 		return SingletonHolder._instance;
 	}
 	
-	private final List<AutoAnnouncer> _announcers = new FastList<AutoAnnouncer>();
+	private final Map<Integer, AutoAnnouncer> _announcers = new FastMap<Integer, AutoAnnouncer>().setShared(true);
+	
+	private volatile int _nextId = 1;
 	
 	private AutoAnnouncements()
 	{
@@ -45,7 +47,7 @@ public final class AutoAnnouncements
 	
 	public void reload()
 	{
-		for (AutoAnnouncer exec : _announcers)
+		for (AutoAnnouncer exec : _announcers.values())
 			exec.cancel();
 		
 		_announcers.clear();
@@ -68,17 +70,20 @@ public final class AutoAnnouncements
 			conn = L2DatabaseFactory.getInstance().getConnection();
 			
 			PreparedStatement statement =
-				conn.prepareStatement("SELECT initial, delay, cycle, memo FROM auto_announcements");
+				conn.prepareStatement("SELECT id, initial, delay, cycle, memo FROM auto_announcements");
 			ResultSet data = statement.executeQuery();
 			
 			while (data.next())
 			{
+				final int id = data.getInt("id");
 				final long initial = data.getLong("initial");
 				final long delay = data.getLong("delay");
 				final int repeat = data.getInt("cycle");
 				final String[] memo = data.getString("memo").split("\n");
 				
-				_announcers.add(new AutoAnnouncer(memo, repeat, initial, delay));
+				_announcers.put(id, new AutoAnnouncer(memo, repeat, initial, delay));
+				
+				_nextId = Math.max(_nextId, id + 1);
 			}
 			
 			data.close();
@@ -96,40 +101,100 @@ public final class AutoAnnouncements
 		_log.info("AutoAnnoucements: Loaded " + _announcers.size() + " Auto Annoucement Data.");
 	}
 	
+	public void addAutoAnnounce(long initial, long delay, int repeat, String memo)
+	{
+		final int id = _nextId++;
+		
+		Connection conn = null;
+		try
+		{
+			conn = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = conn
+					.prepareStatement("INSERT INTO auto_announcements (id, initial, delay, cycle, memo) VALUES (?,?,?,?,?)");
+			statement.setInt(1, id);
+			statement.setLong(2, initial);
+			statement.setLong(3, delay);
+			statement.setInt(4, repeat);
+			statement.setString(5, memo);
+			statement.execute();
+			statement.close();
+			
+			_announcers.put(id, new AutoAnnouncer(memo.split("\n"), repeat, initial, delay));
+		}
+		catch (Exception e)
+		{
+			_log.warn("AutoAnnoucements: Failed to add announcements data.", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(conn);
+		}
+	}
+	
+	public void deleteAutoAnnounce(int id)
+	{
+		final AutoAnnouncer announcer = _announcers.remove(id);
+		
+		if (announcer == null)
+			return;
+		
+		announcer.cancel();
+		
+		Connection conn = null;
+		try
+		{
+			conn = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM auto_announcements WHERE id = ?");
+			statement.setInt(1, id);
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("AutoAnnoucements: Failed to delete announcements data.", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(conn);
+		}
+	}
+	
 	private final class AutoAnnouncer implements Runnable
 	{
-		private final String[] memo;
-		private final Future<?> task;
+		private final String[] _memo;
+		private final Future<?> _task;
 		
-		private int repeat;
+		private int _repeat = -1;
 		
 		private AutoAnnouncer(String[] memo, int repeat, long initial, long delay)
 		{
-			this.memo = memo;
+			_memo = memo;
 			
 			if (repeat > 0)
-				this.repeat = repeat;
+				_repeat = repeat;
 			else
-				this.repeat = -1;
+				_repeat = -1;
 			
-			task = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initial * 1000, delay * 1000);
+			_task = ThreadPoolManager.getInstance().scheduleAtFixedRate(this, initial * 1000, delay * 1000);
 		}
 		
 		private void cancel()
 		{
-			task.cancel(false);
+			_task.cancel(false);
 		}
 		
 		@Override
 		public void run()
 		{
-			for (String text : memo)
+			for (String text : _memo)
 				announce(text);
 			
-			if (repeat > 0)
-				repeat--;
+			if (_repeat > 0)
+				_repeat--;
 			
-			if (repeat == 0)
+			if (_repeat == 0)
 				cancel();
 		}
 	}

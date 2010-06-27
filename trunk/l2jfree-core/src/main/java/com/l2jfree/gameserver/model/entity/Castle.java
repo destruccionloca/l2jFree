@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -42,12 +43,14 @@ import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Manor;
+import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.zone.L2SiegeDangerZone;
 import com.l2jfree.gameserver.network.serverpackets.PlaySound;
 import com.l2jfree.gameserver.network.serverpackets.PledgeShowInfoUpdate;
+import com.l2jfree.util.L2FastSet;
 
 public class Castle extends Siegeable<Siege>
 {
@@ -83,7 +86,8 @@ public class Castle extends Siegeable<Siege>
 	private int							_taxPercentNew							= 0;
 	private double						_taxRate								= 1.0;
 	private long						_treasury								= 0;
-	private int							_nbArtifact								= 1;
+	private boolean						_showNpcCrest							= false;
+	private final Set<L2ArtefactInstance>	_artefacts								= new L2FastSet<L2ArtefactInstance>();
 	private final Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
 	private final int[]					_gate									= { Integer.MIN_VALUE, 0, 0 };
 	private final Map<Integer,CastleFunction> _function;
@@ -221,8 +225,8 @@ public class Castle extends Siegeable<Siege>
 	{
 		super(castleId);
 		_castleId = castleId;
-		if (_castleId == 7 || castleId == 9) // Goddard and Schuttgart
-			_nbArtifact = 2;
+		//if (_castleId == 7 || castleId == 9) // Goddard and Schuttgart
+		//	_nbArtifact = 2;
 
 		load();
 		loadDoor();
@@ -241,15 +245,19 @@ public class Castle extends Siegeable<Siege>
 		return null;
 	}
 
-	public void engrave(L2Clan clan, int objId)
+	public synchronized void engrave(L2Clan clan, L2ArtefactInstance target)
 	{
-		_engrave.put(objId, clan.getClanId());
-		if (_engrave.size() == _nbArtifact)
+		if (!_artefacts.contains(target))
+			return;
+		
+		_engrave.put(target.getObjectId(), clan.getClanId());
+		
+		if (_engrave.size() == _artefacts.size())
 		{
 			boolean rst = true;
-			for (int id : _engrave.values())
+			for (int clanId : _engrave.values())
 			{
-				if (id != clan.getClanId())
+				if (clanId != clan.getClanId())
 					rst = false;
 			}
 			if (rst)
@@ -434,6 +442,7 @@ public class Castle extends Siegeable<Siege>
 		}
 
 		updateOwnerInDB(clan); // Update in database
+		setShowNpcCrest(false);
 
 		// if clan have fortress, remove it
 		if (clan != null && clan.getHasFort() > 0)
@@ -600,6 +609,8 @@ public class Castle extends Siegeable<Siege>
 				}
 				else
 					_taxPercentNew = _taxPercent;
+				
+				_showNpcCrest = rs.getBoolean("showNpcCrest");
 			}
 
 			rs.close();
@@ -884,6 +895,20 @@ public class Castle extends Siegeable<Siege>
 	public final long getTreasury()
 	{
 		return _treasury;
+	}
+
+	public final boolean getShowNpcCrest()
+	{
+		return _showNpcCrest;
+	}
+
+	public final void setShowNpcCrest(boolean showNpcCrest)
+	{
+		if (_showNpcCrest != showNpcCrest)
+		{
+			_showNpcCrest = showNpcCrest;
+			updateShowNpcCrest();
+		}
 	}
 
 	public List<SeedProduction> getSeedProduction(int period)
@@ -1306,6 +1331,29 @@ public class Castle extends Siegeable<Siege>
 		}
 	}
 
+	public void updateShowNpcCrest()
+	{
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			
+			PreparedStatement statement = con.prepareStatement("UPDATE castle SET showNpcCrest = ? WHERE id = ?");
+			statement.setString(1, String.valueOf(getShowNpcCrest()));
+			statement.setInt(2, getCastleId());
+			statement.execute();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.info("Error saving showNpcCrest for castle " + getName() + ": ", e);
+		}
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
+	}
+
 	/** Load All Functions */
 	private void loadFunctions()
 	{
@@ -1592,5 +1640,22 @@ public class Castle extends Siegeable<Siege>
 	{
 		// TODO
 		return false;
+	}
+		
+	/**
+	 * Register Artefact to castle
+	 * 
+	 * @param artefact
+	 */
+	public void registerArtefact(L2ArtefactInstance artefact)
+	{
+		if (_log.isDebugEnabled())
+			_log.debug("ArtefactId: " + artefact.getObjectId() + " is registered to " + getName() + " castle.");
+		_artefacts.add(artefact);
+	}
+	
+	public Set<L2ArtefactInstance> getArtefacts()
+	{
+		return _artefacts;
 	}
 }

@@ -85,7 +85,7 @@ public abstract class L2Object implements L2Entity<Integer>
 	 */
 	public void onAction(L2PcInstance player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		onAction(player, true);
 	}
 	
 	// TODO: 1.4.0

@@ -172,7 +172,7 @@ public class Say2 extends L2GameClientPacket
 		// Say Filter implementation
 		if (Config.USE_SAY_FILTER)
 			for (Pattern pattern : Config.FILTER_LIST)
-				_text = pattern.matcher(_text).replaceAll("-_-");
+				_text = pattern.matcher(_text).replaceAll(Config.SAY_FILTER_CHARS);
 		
 		if (VoicedCommandHandler.getInstance().useVoicedCommand(_text, activeChar))
 		{

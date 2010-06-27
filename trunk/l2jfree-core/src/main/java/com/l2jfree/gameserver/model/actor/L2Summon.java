@@ -19,6 +19,7 @@ import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2SummonAI;
 import com.l2jfree.gameserver.geodata.GeoData;
+import com.l2jfree.gameserver.handler.AdminCommandHandler;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
@@ -55,6 +56,7 @@ import com.l2jfree.gameserver.network.serverpackets.PetStatusShow;
 import com.l2jfree.gameserver.network.serverpackets.PetStatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
+import com.l2jfree.gameserver.network.serverpackets.ValidateLocation;
 import com.l2jfree.gameserver.network.serverpackets.EffectInfoPacket.EffectInfoPacketList;
 import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
 import com.l2jfree.gameserver.taskmanager.LeakTaskManager;
@@ -200,7 +202,7 @@ public abstract class L2Summon extends L2Playable
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		// Aggression target lock effect
 		if (!player.canChangeLockedTarget(this))
@@ -223,8 +225,10 @@ public abstract class L2Summon extends L2Playable
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 			player.sendPacket(su);
 		}
-		else if (player.getTarget() == this)
+		else if (interact)
 		{
+			player.sendPacket(new ValidateLocation(this));
+			
 			if (isAutoAttackable(player))
 			{
 				if (GeoData.getInstance().canSeeTarget(player, this))
@@ -242,6 +246,25 @@ public abstract class L2Summon extends L2Playable
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);
 			}
 		}
+	}
+	
+	@Override
+	public void onActionShift(L2PcInstance player)
+	{
+		if (player == null)
+			return;
+		
+		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+		{
+			if (player.getTarget() != this)
+			{
+				// Set the target of the L2PcInstance player
+				player.setTarget(this);
+			}
+			
+			AdminCommandHandler.getInstance().useAdminCommand(player, "admin_summon_info");
+		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
 	@Override

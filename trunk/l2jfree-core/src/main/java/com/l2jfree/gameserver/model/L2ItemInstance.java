@@ -78,7 +78,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	/** Enumeration of locations for item */
 	public static enum ItemLocation
 	{
-		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, NPC, REFUND, MAIL
+		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, REFUND, MAIL
 	}
 	
 	/** ID of the owner */
@@ -375,8 +375,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	public int getLocationSlot()
 	{
 		if (Config.ASSERT)
-			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.REFUND || _loc == ItemLocation.INVENTORY;
-		
+			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.INVENTORY || _loc == ItemLocation.MAIL;
 		return _locData;
 	}
 	
@@ -764,7 +763,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (player.isFlying() || !GlobalRestrictions.canPickUp(player, this, null))
 			return;
@@ -1291,6 +1290,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		boolean shouldBeInDb = true;
 		shouldBeInDb &= (_ownerId != 0);
 		shouldBeInDb &= (_loc != ItemLocation.VOID);
+		shouldBeInDb &= (_loc != ItemLocation.REFUND);
 		shouldBeInDb &= (_count != 0 || _loc == ItemLocation.LEASE);
 		
 		if (_existsInDb)
@@ -1303,7 +1303,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		}
 		else
 		{
-			if (shouldBeInDb && _loc != ItemLocation.NPC)
+			if (shouldBeInDb)
 				return UpdateMode.INSERT;
 		}
 		

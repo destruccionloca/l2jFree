@@ -1,8 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.model.entity;
 
@@ -24,28 +32,28 @@ import com.l2jfree.tools.random.Rnd;
  */
 public class Message
 {
-	private static final int	EXPIRATION					= 360;		// 15 days
-	private static final int	COD_EXPIRATION				= 12;		// 12 hours
-																		
-	private static final int	UNLOAD_ATTACHMENTS_INTERVAL	= 900000;	// 15-30 mins
-																		
-	// post state
-	public static final int		DELETED						= 0;
-	public static final int		READED						= 1;
-	public static final int		REJECTED					= 2;
+	private static final int EXPIRATION = 360; // 15 days
+	private static final int COD_EXPIRATION = 12; // 12 hours
 	
-	private final int			_messageId, _senderId, _receiverId;
-	private final long			_expiration;
-	private String				_senderName					= null;
-	private String				_receiverName				= null;
-	private final String		_subject, _content;
-	private boolean				_unread, _fourStars, _news;
-	private boolean				_deletedBySender;
-	private boolean				_deletedByReceiver;
-	private long				_reqAdena;
-	private boolean				_hasAttachments;
-	private Mail				_attachments				= null;
-	private ScheduledFuture<?>	_unloadTask					= null;
+	private static final int UNLOAD_ATTACHMENTS_INTERVAL = 900000; // 15-30 mins
+	
+	// post state
+	public static final int DELETED = 0;
+	public static final int READED = 1;
+	public static final int REJECTED = 2;
+	
+	private final int _messageId, _senderId, _receiverId;
+	private final long _expiration;
+	private String _senderName = null;
+	private String _receiverName = null;
+	private final String _subject, _content;
+	private boolean _unread, _fourStars, _news;
+	private boolean _deletedBySender;
+	private boolean _deletedByReceiver;
+	private final long _reqAdena;
+	private boolean _hasAttachments;
+	private Mail _attachments = null;
+	private ScheduledFuture<?> _unloadTask = null;
 	
 	/*
 	 * Constructor for restoring from DB.
@@ -196,7 +204,7 @@ public class Message
 	
 	public final int getExpirationSeconds()
 	{
-		return (int) (_expiration / 1000);
+		return (int)(_expiration / 1000);
 	}
 	
 	public final boolean isUnread()
@@ -321,7 +329,7 @@ public class Message
 	
 	class AttachmentsUnloadTask implements Runnable
 	{
-		private Message	_msg;
+		private Message _msg;
 		
 		AttachmentsUnloadTask(Message msg)
 		{

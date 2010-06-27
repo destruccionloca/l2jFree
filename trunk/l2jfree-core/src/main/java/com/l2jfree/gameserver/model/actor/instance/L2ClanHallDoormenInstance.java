@@ -93,7 +93,7 @@ public class L2ClanHallDoormenInstance extends L2DoormenInstance
 	}
 
 	@Override
-	public void showMessageWindow(L2PcInstance player)
+	public void showChatWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 

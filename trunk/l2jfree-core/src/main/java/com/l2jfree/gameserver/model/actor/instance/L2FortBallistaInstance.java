@@ -59,7 +59,7 @@ public class L2FortBallistaInstance extends L2Npc
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player))
 			return;
@@ -70,7 +70,7 @@ public class L2FortBallistaInstance extends L2Npc
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			if (isAutoAttackable(player) && !isAlikeDead())
 			{

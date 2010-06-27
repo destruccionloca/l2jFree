@@ -1123,6 +1123,7 @@ public class Config extends L2Config
 	public static boolean			SHOW_HTML_GM;
 	public static int				LEVEL_HTML_NEWBIE;											// Show newbie html when player's level is < to define level
 	public static boolean			USE_SAY_FILTER;											// Config for use chat filter
+	public static String			SAY_FILTER_CHARS;
 	public static Pattern[]			FILTER_LIST = new Pattern[0];
 	public static int				AUTODESTROY_ITEM_AFTER;									// Time after which item will auto-destroy
 	public static int				HERB_AUTO_DESTROY_TIME;									// Auto destroy herb time
@@ -1428,6 +1429,7 @@ public class Config extends L2Config
 			SHOW_HTML_GM = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLGm", "False"));
 			LEVEL_HTML_NEWBIE = Integer.parseInt(optionsSettings.getProperty("LevelShowHTMLNewbie", "10"));
 			USE_SAY_FILTER = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
+			SAY_FILTER_CHARS = optionsSettings.getProperty("SayFilterChars", "^_^");
 
 			CHAR_VIP_SKIP_SKILLS_CHECK = Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
 			CHAR_VIP_COLOR_ENABLED = Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
@@ -1744,6 +1746,11 @@ public class Config extends L2Config
 	public static boolean 				ALLOW_NAIA_MULTY_PARTY_INVASION;
 	public static int 					ALT_NAIA_ROOM_DURATION;
 	public static boolean				ALT_SHOW_CREST_WITHOUT_QUEST;
+	
+	public static boolean				ANTIFEED_ENABLE;
+	public static boolean				ANTIFEED_DUALBOX;
+	public static boolean				ANTIFEED_DISCONNECTED_AS_DUALBOX;
+	public static int					ANTIFEED_INTERVAL;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1993,6 +2000,11 @@ public class Config extends L2Config
 			ALLOW_NAIA_MULTY_PARTY_INVASION = Boolean.parseBoolean(altSettings.getProperty("AllowNaiaMultiPartyInvasion", "false"));
 			ALT_NAIA_ROOM_DURATION = Integer.parseInt(altSettings.getProperty("AltNaiaRoomDuration", "5"));
 			ALT_SHOW_CREST_WITHOUT_QUEST = Boolean.parseBoolean(altSettings.getProperty("AltShowCrestWithoutQuest", "false"));
+			
+			ANTIFEED_ENABLE = Boolean.parseBoolean(altSettings.getProperty("AntiFeedEnable", "false"));
+			ANTIFEED_DUALBOX = Boolean.parseBoolean(altSettings.getProperty("AntiFeedDualbox", "true"));
+			ANTIFEED_DISCONNECTED_AS_DUALBOX = Boolean.parseBoolean(altSettings.getProperty("AntiFeedDisconnectedAsDualbox", "true"));
+			ANTIFEED_INTERVAL = 1000 * Integer.parseInt(altSettings.getProperty("AntiFeedInterval", "120"));
 		}
 	}
 
@@ -4301,6 +4313,15 @@ public class Config extends L2Config
 			ALT_CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowManaPotions"))
 			ALT_MANA_POTIONS = Boolean.parseBoolean(pValue);
+
+		else if (pName.equalsIgnoreCase("AntiFeedEnable"))
+			ANTIFEED_ENABLE = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AntiFeedDualbox"))
+			ANTIFEED_DUALBOX = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AntiFeedDisconnectedAsDualbox"))
+			ANTIFEED_DISCONNECTED_AS_DUALBOX = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AntiFeedInterval"))
+			ANTIFEED_INTERVAL = 1000 * Integer.parseInt(pValue);
 
 		// PvP settings
 		else if (pName.equalsIgnoreCase("MinKarma"))

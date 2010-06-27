@@ -3742,6 +3742,7 @@ public final class L2PcInstance extends L2Playable
 		{
 			if (player != this)
 				player.sendPacket(new ValidateLocation(this));
+			
 			// Check if this L2PcInstance has a Private Store
 			if (getPrivateStoreType() != 0)
 			{
@@ -4719,15 +4720,7 @@ public final class L2PcInstance extends L2Playable
 		//if (getPet() != null) getPet().unSummon(this);
 
 		// Unsummon Cubics
-		if (!_cubics.isEmpty())
-		{
-			for (L2CubicInstance cubic : _cubics.values())
-			{
-				cubic.stopAction();
-				cubic.cancelDisappear();
-			}
-			_cubics.clear();
-		}
+		stopCubics();
 
 		if (_fusionSkill != null)
 			abortCast();
@@ -8508,6 +8501,20 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _cubics;
 	}
+	
+	public void stopCubics()
+	{
+		if (!getCubics().isEmpty())
+		{
+			for (L2CubicInstance cubic : getCubics().values())
+			{
+				cubic.stopAction();
+				cubic.cancelDisappear();
+			}
+			
+			getCubics().clear();
+		}
+	}
 
 	/**
 	 * Add a L2CubicInstance to the L2PcInstance _cubics.<BR><BR>
@@ -8703,16 +8710,7 @@ public final class L2PcInstance extends L2Playable
 		if (getPet() != null)
 			getPet().unSummon(this);
 
-		if (!getCubics().isEmpty())
-		{
-			for (L2CubicInstance cubic : getCubics().values())
-			{
-				cubic.stopAction();
-				cubic.cancelDisappear();
-			}
-
-			getCubics().clear();
-		}
+		stopCubics();
 
 		if (getParty() != null)
 			getParty().removePartyMember(this);
@@ -9957,16 +9955,7 @@ public final class L2PcInstance extends L2Playable
 			if (getPet() instanceof L2SummonInstance)
 				getPet().unSummon(this);
 
-			if (!getCubics().isEmpty())
-			{
-				for (L2CubicInstance cubic : getCubics().values())
-				{
-					cubic.stopAction();
-					cubic.cancelDisappear();
-				}
-
-				getCubics().clear();
-			}
+			stopCubics();
 
 			abortCast();
 

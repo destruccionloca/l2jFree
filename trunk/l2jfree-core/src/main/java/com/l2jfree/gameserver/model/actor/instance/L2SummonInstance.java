@@ -254,6 +254,7 @@ public class L2SummonInstance extends L2Summon
 				{
 					_summon.getOwner().sendPacket(new SetSummonRemainTime(maxTime, (int) newTimeRemaining));
 					_summon.lastShowntimeRemaining = (int) newTimeRemaining;
+					_summon.updateEffectIcons();
 				}
 			}
 			catch (Exception e)

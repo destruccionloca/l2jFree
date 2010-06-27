@@ -122,7 +122,7 @@ public final class L2SiegeFlagInstance extends L2Npc
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if(!_player.canBeTargetedByAtSiege(player) && Config.SIEGE_ONLY_REGISTERED)
 			return;
@@ -142,7 +142,7 @@ public final class L2SiegeFlagInstance extends L2Npc
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
 			player.sendPacket(su);
 		}
-		else
+		else if (interact)
 		{
 			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100)
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);

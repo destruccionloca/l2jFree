@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.ShowTownMap;
 import com.l2jfree.gameserver.network.serverpackets.StaticObject;
 import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
-import com.l2jfree.lang.L2TextBuilder;
+import com.l2jfree.gameserver.util.StringUtil;
 
 /**
  * @author godson
@@ -197,7 +197,7 @@ public class L2StaticObjectInstance extends L2Character
 	 * @param player
 	 */
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (_type < 0)
 			_log.info("L2StaticObjectInstance: StaticObject with invalid type! StaticObjectId: " + getStaticObjectId());
@@ -207,7 +207,7 @@ public class L2StaticObjectInstance extends L2Character
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!player.isInsideRadius(this, INTERACTION_DISTANCE, false, false))
@@ -259,21 +259,16 @@ public class L2StaticObjectInstance extends L2Character
 			player.sendPacket(su);
 			
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body><table border=0>");
-			html1.append("<tr><td>S.Y.L. Says:</td></tr>");
-			html1.append("<tr><td>X: " + getX() + "</td></tr>");
-			html1.append("<tr><td>Y: " + getY() + "</td></tr>");
-			html1.append("<tr><td>Z: " + getZ() + "</td></tr>");
-			html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");
-			html1.append("<tr><td>Static Object ID: " + getStaticObjectId() + "</td></tr>");
-			html1.append("<tr><td>Mesh Index: " + getMeshIndex() + "</td></tr>");
-			html1.append("<tr><td><br></td></tr>");
-			
-			html1.append("<tr><td>Class: " + getClass().getName() + "</td></tr>");
-			html1.append("<tr><td><br></td></tr>");
-			html1.append("</table></body></html>");
-			
-			html.setHtml(html1.moveToString());
+			final String html1 = StringUtil
+					.concat(
+							"<html><body><center><font color=\"LEVEL\">Static Object Info</font></center><br><table border=0><tr><td>Coords X,Y,Z: </td><td>",
+							String.valueOf(getX()), ", ", String.valueOf(getY()), ", ", String.valueOf(getZ()),
+							"</td></tr><tr><td>Object ID: </td><td>", String.valueOf(getObjectId()),
+							"</td></tr><tr><td>Static Object ID: </td><td>", String.valueOf(getStaticObjectId()),
+							"</td></tr><tr><td>Mesh Index: </td><td>", String.valueOf(getMeshIndex()),
+							"</td></tr><tr><td><br></td></tr><tr><td>Class: </td><td>", getClass().getSimpleName(),
+							"</td></tr></table></body></html>");
+			html.setHtml(html1);
 			player.sendPacket(html);
 		}
 		else

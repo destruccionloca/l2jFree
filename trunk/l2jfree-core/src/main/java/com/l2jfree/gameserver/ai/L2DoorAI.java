@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
-import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DefenderInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.threadmanager.FIFOExecutableQueue;
 
@@ -230,7 +230,7 @@ public class L2DoorAI extends L2CharacterAI
 			getActor().getKnownList().updateKnownObjects();
 
 			for (L2Object obj : getActor().getKnownList().getKnownObjects().values())
-			{
+			{// getKnownDefenders
 				if (isGuarding(obj))
 				{
 					L2Attackable guard = (L2Attackable) obj;

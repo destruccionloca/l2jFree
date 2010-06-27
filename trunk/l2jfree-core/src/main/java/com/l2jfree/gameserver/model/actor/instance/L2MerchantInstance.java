@@ -24,13 +24,14 @@ import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.L2Merchant;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.BuyList;
+import com.l2jfree.gameserver.network.serverpackets.ExBuySellListPacket;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SellList;
 import com.l2jfree.gameserver.network.serverpackets.SetupGauge;
 import com.l2jfree.gameserver.network.serverpackets.ShopPreviewList;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.util.StringUtil;
 import com.l2jfree.lang.L2TextBuilder;
 
 /**
@@ -114,10 +115,7 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
         L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 
         if (list != null && list.getNpcId()== getNpcId())
-        {
-            BuyList bl = new BuyList(list, player.getAdena(), taxRate);
-            player.sendPacket(bl);
-        }
+            player.sendPacket(new ExBuySellListPacket(player, list, taxRate, false));
         else
         {
             _log.warn("possible client hacker: " + player.getName()
@@ -128,6 +126,7 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
         player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
+    @Deprecated // FIXME 1.4.0 was removed at l2jserver 3696
     protected final void showSellWindow(L2PcInstance player)
     {
         if (_log.isDebugEnabled()) _log.debug("Showing selllist");
@@ -152,9 +151,15 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
             int val = Integer.parseInt(st.nextToken());
             showBuyWindow(player, val);
         }
-        else if (actualCommand.equalsIgnoreCase("Sell"))
+        else if (actualCommand.equalsIgnoreCase("BuyShadowItem"))
         {
-            showSellWindow(player);
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+            if (player.getLevel() >= 40)
+                html.setFile("data/html/merchant/shadow_item.htm");
+            else
+                html.setFile("data/html/merchant/shadow_item-lowlevel.htm");
+            html.replace("%objectId%", String.valueOf(getObjectId()));
+            player.sendPacket(html);
         }
         else if (actualCommand.equalsIgnoreCase("RentPet"))
         {
@@ -257,72 +262,60 @@ public class L2MerchantInstance extends L2NpcInstance implements L2Merchant
 		player.startRentPet(time);
 	}
 
-    @Override
-    public final void onActionShift(L2PcInstance player)
-    {
-        if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
-        {
-            player.setTarget(this);
-
-            if (isAutoAttackable(player))
-            {
-                StatusUpdate su = new StatusUpdate(getObjectId());
-                su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
-                su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
-                player.sendPacket(su);
-            }
-
-            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-            L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body><table border=0>");
-            html1.append("<tr><td>Current Target:</td></tr>");
-            html1.append("<tr><td><br></td></tr>");
-
-            html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");
-            html1.append("<tr><td>Template ID: " + getTemplate().getNpcId() + "</td></tr>");
-            html1.append("<tr><td><br></td></tr>");
-
-            html1.append("<tr><td>HP: " + getStatus().getCurrentHp() + "</td></tr>");
-            html1.append("<tr><td>MP: " + getStatus().getCurrentMp() + "</td></tr>");
-            html1.append("<tr><td>Level: " + getLevel() + "</td></tr>");
-            html1.append("<tr><td><br></td></tr>");
-
-            String className = getClass().getName().substring(44);
-            html1.append("<tr><td>Class: " + className + "</td></tr>");
-            html1.append("<tr><td><br></td></tr>");
-
-            //changed by terry 2005-02-22 21:45
-            html1.append("</table><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc "
-                + getTemplate().getNpcId()
-                + "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
-            html1.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-            html1.append("<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist "
-                + getTemplate().getNpcId()
-                + "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-            html1.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-            html1.append("</table>");
-
-            if (player.isGM())
-            {
-                html1.append("<button value=\"View Shop\" action=\"bypass -h admin_showShop "
-                    + getTemplate().getNpcId()
-                    + "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></br>");
-                html1.append("<button value=\"View Custom Shop\" action=\"bypass -h admin_showCustomShop "
-                    + getTemplate().getNpcId()
-                    + "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></br>");
-                html1.append("<button value=\"Lease next week\" action=\"bypass -h npc_" + getObjectId()
-                    + "_Lease\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-                html1.append("<button value=\"Abort current leasing\" action=\"bypass -h npc_"
-                    + getObjectId()
-                    + "_Lease next\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-                html1.append("<button value=\"Manage items\" action=\"bypass -h npc_" + getObjectId()
-                    + "_Lease manage\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-            }
-
-            html1.append("</body></html>");
-
-            html.setHtml(html1.moveToString());
-            player.sendPacket(html);
-        }
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-    }
+	@Override
+	public final void onActionShift(L2PcInstance player)
+	{
+		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+		{
+			player.setTarget(this);
+			
+			if (isAutoAttackable(player))
+			{
+				StatusUpdate su = new StatusUpdate(getObjectId());
+				su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
+				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
+				player.sendPacket(su);
+			}
+			
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			final StringBuilder html1 = StringUtil
+					.startAppend(
+							2000,
+							"<html><body><center><font color=\"LEVEL\">Merchant Info</font></center><br><table border=0><tr><td>Object ID: </td><td>",
+							String.valueOf(getObjectId()),
+							"</td></tr><tr><td>Template ID: </td><td>",
+							String.valueOf(getTemplate().getNpcId()),
+							"</td></tr><tr><td><br></td></tr><tr><td>HP: </td><td>",
+							String.valueOf(getCurrentHp()),
+							"</td></tr><tr><td>MP: </td><td>",
+							String.valueOf(getCurrentMp()),
+							"</td></tr><tr><td>Level: </td><td>",
+							String.valueOf(getLevel()),
+							"</td></tr><tr><td><br></td></tr><tr><td>Class: </td><td>",
+							getClass().getSimpleName(),
+							"</td></tr><tr><td><br></td></tr></table><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc ",
+							String.valueOf(getTemplate().getNpcId()),
+							"\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"
+									+ "<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>"
+									+ "<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist ",
+							String.valueOf(getTemplate().getNpcId()),
+							"\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>"
+									+ "<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>"
+									+ "<tr><td><button value=\"View Shop\" action=\"bypass -h admin_showShop ", String
+									.valueOf(getTemplate().getNpcId()),
+							"\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
+			
+			/**
+			 * Lease doesn't work at all for now!!! StringUtil.append(html1, "<button value=\"Lease next week\" action=\"bypass -h npc_", String.valueOf(getObjectId()), "_Lease\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">" + "<button value=\"Abort current
+			 * leasing\" action=\"bypass -h npc_", String.valueOf(getObjectId()), "_Lease next\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">" + "<button value=\"Manage items\" action=\"bypass -h npc_", String.valueOf(getObjectId()), "_Lease manage\" width=100
+			 * height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">" );
+			 */
+			
+			html1.append("</body></html>");
+			
+			html.setHtml(html1.toString());
+			player.sendPacket(html);
+		}
+		player.sendPacket(ActionFailed.STATIC_PACKET);
+	}
 }

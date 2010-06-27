@@ -202,7 +202,7 @@ public final class L2GuardInstance extends L2Guard
 	 * @param player The L2PcInstance that start an action on the L2GuardInstance
 	 */
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player))
 			return;
@@ -216,7 +216,7 @@ public final class L2GuardInstance extends L2Guard
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Check if the L2PcInstance is in the _aggroList of the L2GuardInstance
 			if (containsTarget(player))

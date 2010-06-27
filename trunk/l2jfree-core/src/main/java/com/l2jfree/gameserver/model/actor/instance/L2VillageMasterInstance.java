@@ -32,13 +32,13 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 import com.l2jfree.gameserver.model.base.ClassId;
-import com.l2jfree.gameserver.model.base.ClassType;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
@@ -59,7 +59,7 @@ import com.l2jfree.gameserver.util.FloodProtector.Protected;
  * 
  * @version $Revision: 1.4.2.3.2.8 $ $Date: 2005/03/29 23:15:15 $
  */
-public final class L2VillageMasterInstance extends L2NpcInstance
+public class L2VillageMasterInstance extends L2NpcInstance
 {
 	/**
 	 * @param template
@@ -214,31 +214,13 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 			switch (cmdChoice)
 			{
 			case 0: // Subclass change menu
-				if (Config.ALT_GAME_SUBCLASS_EVERYWHERE)
-					html.setFile("data/html/villagemaster/SubClass.htm");
-				else if (getVillageMasterRace() == Race.Kamael)
-				{
-					if (player.getRace() == Race.Kamael)
-						html.setFile("data/html/villagemaster/SubClass.htm");
-					else
-						html.setFile("data/html/villagemaster/SubClass_NoKamael.htm");
-				}
-				else
-				{
-					if (player.getRace() != Race.Kamael)
-						html.setFile("data/html/villagemaster/SubClass.htm");
-					else
-						html.setFile("data/html/villagemaster/SubClass_NoOther.htm");
-				}
+				html.setFile(getSubClassMenu(player.getRace()));
 				break;
 			case 1: // Add Subclass - Initial
 				// Avoid giving player an option to add a new sub class, if they have three already.
 				if (player.getTotalSubClasses() >= Config.ALT_MAX_SUBCLASS)
 				{
-					if (player.getRace() != Race.Kamael)
-						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
-					else
-						html.setFile("data/html/villagemaster/SubClass_Fail_Kamael.htm");
+					html.setFile(getSubClassFail());
 					break;
 				}
 
@@ -405,32 +387,8 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				 *
 				 * If they both exist, remove both unique items and continue with adding the sub-class.
 				 */
-				if (!Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS && allowAddition)
-				{
-					QuestState qs = player.getQuestState("234_FatesWhisper");
-					if (qs == null || !qs.isCompleted())
-					{
-						allowAddition = false;
-					}
-
-					if (player.getRace() != Race.Kamael)
-					{
-						qs = player.getQuestState("235_MimirsElixir");
-						if (qs == null || !qs.isCompleted())
-						{
-							allowAddition = false;
-						}
-					}
-					//Kamael have different quest than 235
-					else
-					{
-						qs = player.getQuestState("236_SeedsOfChaos");
-						if (qs == null || !qs.isCompleted())
-						{
-							allowAddition = false;
-						}
-					}
-				}
+				if (allowAddition && !Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
+					allowAddition = checkQuests(player);
 
 				if (allowAddition && isValidNewSubClass(player, paramOne))
 				{
@@ -441,14 +399,11 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 
 					html.setFile("data/html/villagemaster/SubClass_AddOk.htm");
 
-					player.sendPacket(SystemMessageId.CLASS_TRANSFER); // Transfer to new class.
+					player.sendPacket(SystemMessageId.ADD_NEW_SUBCLASS); // Subclass added.
 				}
 				else
 				{
-					if (player.getRace() != Race.Kamael)
-						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
-					else
-						html.setFile("data/html/villagemaster/SubClass_Fail_Kamael.htm");
+					html.setFile(getSubClassFail());
 				}
 				break;
 			case 5: // Change Class - Action
@@ -554,7 +509,9 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				}
 				else if (player.modifySubClass(paramOne, paramTwo))
 				{
+					player.abortCast();
 					player.stopAllEffectsExceptThoseThatLastThroughDeath(); // all effects from old subclass stopped!
+					player.stopCubics();
 					player.setActiveClass(paramOne);
 
 					html.setFile("data/html/villagemaster/SubClass_ModifyOk.htm");
@@ -793,7 +750,7 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 				return;
 			}
 		}
-		if (SiegeManager.getInstance().checkIfInZone(player))
+		if (SiegeManager.getInstance().checkIfInZone(player) || player.isInsideZone(L2Zone.FLAG_SIEGE))
 		{
 			player.sendPacket(SystemMessageId.CANNOT_DISSOLVE_WHILE_IN_SIEGE);
 			return;
@@ -1207,10 +1164,20 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		return false;
 	}
 	
+	protected boolean checkVillageMasterRace(ClassId pclass)
+	{
+		return true;
+	}
+	
+	protected boolean checkVillageMasterTeachType(ClassId pclass)
+	{
+		return true;
+	}
+	
 	/*
 	 * Returns true if this classId allowed for master
 	 */
-	private final boolean checkVillageMaster(int classId)
+	public final boolean checkVillageMaster(int classId)
 	{
 		return checkVillageMaster(ClassId.values()[classId]);
 	}
@@ -1218,39 +1185,43 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 	/*
 	 * Returns true if this PlayerClass is allowed for master
 	 */
-	private final boolean checkVillageMaster(ClassId pclass)
+	public final boolean checkVillageMaster(ClassId pclass)
 	{
 		if (Config.ALT_GAME_SUBCLASS_EVERYWHERE)
 			return true;
-
-		final Race npcRace = getVillageMasterRace();
-
-		switch (npcRace)
-		{
-			// If the master is human or light elf, ensure that fighter-type
-			// masters only teach fighter classes, and priest-type masters
-			// only teach priest classes etc.
-			case Human:
-			case Elf:
-				final ClassType npcTeachType = getVillageMasterTeachType();
-				if (!pclass.isOfType(npcTeachType))
-					return false;
-				// Remove any non-human or light elf classes.
-				else if (!pclass.isOfRace(Race.Human) && !pclass.isOfRace(Race.Elf))
-					return false;
-				break;
-			// If the master is not human and not light elf,
-			// then remove any classes not of the same race as the master.
-			default:
-				if (!pclass.isOfRace(npcRace))
-					return false;
-		}
-		return true;
+		
+		return checkVillageMasterRace(pclass) && checkVillageMasterTeachType(pclass);
 	}
 
 	private static final String formatClassForDisplay(ClassId classId)
 	{
 		return CharTemplateTable.getClassNameById(classId.getId());
+	}
+
+	protected String getSubClassMenu(Race pRace)
+	{
+		if (Config.ALT_GAME_SUBCLASS_EVERYWHERE || pRace != Race.Kamael)
+			return "data/html/villagemaster/SubClass.htm";
+		
+		return "data/html/villagemaster/SubClass_NoOther.htm";
+	}
+
+	protected String getSubClassFail()
+	{
+		return "data/html/villagemaster/SubClass_Fail.htm";
+	}
+
+	protected boolean checkQuests(L2PcInstance player)
+	{
+		QuestState qs = player.getQuestState("234_FatesWhisper");
+		if (qs == null || !qs.isCompleted())
+			return false;
+		
+		qs = player.getQuestState("235_MimirsElixir");
+		if (qs == null || !qs.isCompleted())
+			return false;
+		
+		return true;
 	}
 
 	/*
@@ -1377,41 +1348,6 @@ public final class L2VillageMasterInstance extends L2NpcInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	public final Race getVillageMasterRace()
-	{
-		String npcClass = getTemplate().getJClass().toLowerCase();
-
-		if (npcClass.indexOf("human") > -1)
-			return Race.Human;
-
-		if (npcClass.indexOf("darkelf") > -1)
-			return Race.Darkelf;
-
-		if (npcClass.indexOf("elf") > -1)
-			return Race.Elf;
-
-		if (npcClass.indexOf("orc") > -1)
-			return Race.Orc;
-
-		if (npcClass.indexOf("dwarf") > -1)
-			return Race.Dwarf;
-
-		return Race.Kamael;
-	}
-
-	public final ClassType getVillageMasterTeachType()
-	{
-		String npcClass = getTemplate().getJClass().toLowerCase();
-
-		if (npcClass.indexOf("sanctuary") > -1 || npcClass.indexOf("clergyman") > -1 || npcClass.indexOf("temple") > -1)
-			return ClassType.Priest;
-
-		if (npcClass.indexOf("mageguild") > -1 || npcClass.indexOf("patriarch") > -1)
-			return ClassType.Mystic;
-
-		return ClassType.Fighter;
-	}
-	
 	private static final Iterator<SubClass> iterSubClasses(L2PcInstance player)
 	{
 		return player.getSubClasses().values().iterator();
