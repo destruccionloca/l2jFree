@@ -775,7 +775,7 @@
   </item>
   <item id="11790" name="Common Item - Elemental Bow">
     <for>
-      <set val="252" order="0x08" stat="pAtk"/>
+      <set val="277" order="0x08" stat="pAtk"/>
       <set val="75" order="0x08" stat="mAtk"/>
       <set val="12" order="0x08" stat="rCrit"/>
       <add val="-3" order="0x10" stat="accCombat"/>
