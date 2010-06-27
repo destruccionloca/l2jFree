@@ -75,6 +75,7 @@ import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRepairChar;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRes;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminRide;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminSHEngine;
+import com.l2jfree.gameserver.handler.admincommandhandlers.AdminSeedOfDestruction;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminSendHome;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminShop;
 import com.l2jfree.gameserver.handler.admincommandhandlers.AdminShutdown;
@@ -164,6 +165,7 @@ public final class AdminCommandHandler extends HandlerRegistry<String, IAdminCom
 		register(new AdminRes());
 		register(new AdminRide());
 		register(new AdminSHEngine());
+		register(new AdminSeedOfDestruction());
 		register(new AdminSendHome());
 		register(new AdminShop());
 		register(new AdminShutdown());

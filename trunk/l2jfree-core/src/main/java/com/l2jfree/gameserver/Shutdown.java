@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.instancemanager.MercTicketManager;
 import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
+import com.l2jfree.gameserver.instancemanager.SeedOfDestructionManager;
 import com.l2jfree.gameserver.instancemanager.hellbound.HellboundManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.ArenaManager;
 import com.l2jfree.gameserver.instancemanager.leaderboards.FishermanManager;
@@ -227,6 +228,9 @@ public final class Shutdown extends Thread
 
 		HellboundManager.getInstance().saveToDB();
 		System.out.println("HellboundManager: Current state saved.");
+
+		SeedOfDestructionManager.getInstance().saveToDB();
+		System.out.println("SeedOfDestructionManager: Current state saved.");
 		
 		SQLQueue.getInstance().run();
 		System.out.println("Data saved. All players disconnected, " + _mode.getText() + ".");

@@ -106,6 +106,7 @@ import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.RaidBossSpawnManager;
 import com.l2jfree.gameserver.instancemanager.RaidPointsManager;
 import com.l2jfree.gameserver.instancemanager.RecommendationManager;
+import com.l2jfree.gameserver.instancemanager.SeedOfDestructionManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
 import com.l2jfree.gameserver.instancemanager.TransformationManager;
@@ -377,6 +378,9 @@ public class GameServer extends Config
 		Util.printSection("Hellbound");
 		HellboundManager.getInstance();
 		TowerOfNaiaManager.getInstance().init();
+
+		Util.printSection("Gracia");
+		SeedOfDestructionManager.getInstance();
 		
 		Util.printSection("Bosses");
 		AntharasManager.getInstance().init();
