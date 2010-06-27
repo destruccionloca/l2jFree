@@ -47,10 +47,7 @@ public final class PersistentProperties
 				final String propertyName = rs.getString("property_name");
 				final String propertyValue = rs.getString("property_value");
 				
-				Map<String, String> properties = _propertiesByClassNames.get(className);
-				
-				if (properties == null)
-					_propertiesByClassNames.put(className, properties = new HashMap<String, String>());
+				final Map<String, String> properties = getProperties(className, true);
 				
 				properties.put(propertyName, propertyValue);
 			}
@@ -78,9 +75,26 @@ public final class PersistentProperties
 		_log.info("PersistentProperties: " + propertyCount + " properties loaded for " + classCount + " classes.");
 	}
 	
+	private Map<String, String> getProperties(String className, boolean force)
+	{
+		Map<String, String> properties = _propertiesByClassNames.get(className);
+		
+		if (properties == null && force)
+			_propertiesByClassNames.put(className, properties = new HashMap<String, String>());
+		
+		return properties;
+	}
+	
+	public synchronized void setProperty(Class<?> clazz, String propertyName, String propertyValue)
+	{
+		final Map<String, String> properties = getProperties(clazz.getName(), true);
+		
+		properties.put(propertyName, propertyValue);
+	}
+	
 	public synchronized String getProperty(Class<?> clazz, String propertyName)
 	{
-		final Map<String, String> properties = _propertiesByClassNames.get(clazz.getName());
+		final Map<String, String> properties = getProperties(clazz.getName(), false);
 		
 		if (properties == null)
 			return null;
