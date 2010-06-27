@@ -6,7 +6,6 @@
       <set val="49" order="0x08" stat="pAtk"/>
       <set val="26" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -42,7 +41,6 @@
       <set val="32" order="0x08" stat="pAtk"/>
       <set val="35" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -60,7 +58,6 @@
       <set val="32" order="0x08" stat="pAtk"/>
       <set val="35" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -69,7 +66,6 @@
       <set val="32" order="0x08" stat="pAtk"/>
       <set val="35" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -87,7 +83,6 @@
       <set val="40" order="0x08" stat="pAtk"/>
       <set val="26" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -105,7 +100,6 @@
       <set val="32" order="0x08" stat="pAtk"/>
       <set val="35" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -132,7 +126,6 @@
       <set val="32" order="0x08" stat="pAtk"/>
       <set val="35" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -186,7 +179,6 @@
       <set val="49" order="0x08" stat="pAtk"/>
       <set val="26" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -213,7 +205,6 @@
       <set val="51" order="0x08" stat="pAtk"/>
       <set val="32" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -276,7 +267,6 @@
       <set val="51" order="0x08" stat="pAtk"/>
       <set val="32" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -285,7 +275,6 @@
       <set val="51" order="0x08" stat="pAtk"/>
       <set val="32" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -294,7 +283,6 @@
       <set val="41" order="0x08" stat="pAtk"/>
       <set val="43" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -348,7 +336,6 @@
       <set val="51" order="0x08" stat="pAtk"/>
       <set val="32" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -456,7 +443,6 @@
       <set val="43" order="0x08" stat="pAtk"/>
       <set val="45" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -465,7 +451,6 @@
       <set val="43" order="0x08" stat="pAtk"/>
       <set val="45" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -474,7 +459,6 @@
       <set val="43" order="0x08" stat="pAtk"/>
       <set val="45" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -483,7 +467,6 @@
       <set val="73" order="0x08" stat="pAtk"/>
       <set val="37" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -564,7 +547,6 @@
       <set val="78" order="0x08" stat="pAtk"/>
       <set val="39" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -591,7 +573,6 @@
       <set val="64" order="0x08" stat="pAtk"/>
       <set val="39" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -636,7 +617,6 @@
       <set val="64" order="0x08" stat="pAtk"/>
       <set val="39" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -645,7 +625,6 @@
       <set val="51" order="0x08" stat="pAtk"/>
       <set val="52" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -663,7 +642,6 @@
       <set val="51" order="0x08" stat="pAtk"/>
       <set val="52" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -672,7 +650,6 @@
       <set val="83" order="0x08" stat="pAtk"/>
       <set val="41" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -681,7 +658,6 @@
       <set val="83" order="0x08" stat="pAtk"/>
       <set val="41" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -690,7 +666,6 @@
       <set val="83" order="0x08" stat="pAtk"/>
       <set val="41" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -699,7 +674,6 @@
       <set val="83" order="0x08" stat="pAtk"/>
       <set val="41" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -717,7 +691,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -744,7 +717,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -753,7 +725,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -762,7 +733,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -771,7 +741,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -807,7 +776,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -816,7 +784,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -825,7 +792,6 @@
       <set val="63" order="0x08" stat="pAtk"/>
       <set val="63" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -843,7 +809,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -852,7 +817,6 @@
       <set val="96" order="0x08" stat="pAtk"/>
       <set val="47" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>

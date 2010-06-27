@@ -151,7 +151,6 @@
       <set val="202" order="0x08" stat="pAtk"/>
       <set val="161" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -162,7 +161,6 @@
       <set val="202" order="0x08" stat="pAtk"/>
       <set val="161" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -173,7 +171,6 @@
       <set val="202" order="0x08" stat="pAtk"/>
       <set val="161" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -250,7 +247,6 @@
       <set val="78" order="0x08" stat="pAtk"/>
       <set val="39" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -330,7 +326,6 @@
       <set val="122" order="0x08" stat="pAtk"/>
       <set val="68" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -443,7 +438,7 @@
   <item id="8843" name="Shadow Item: Pa'agrian Hammer">
     <for>
       <set val="135" order="0x08" stat="pAtk"/>
-      <set val="101" order="0x08" stat="mAtk"/>
+      <set val="111" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -489,7 +484,6 @@
       <set val="175" order="0x08" stat="pAtk"/>
       <set val="78" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -524,7 +518,6 @@
       <set val="175" order="0x08" stat="pAtk"/>
       <set val="91" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -533,7 +526,6 @@
       <set val="140" order="0x08" stat="pAtk"/>
       <set val="122" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -569,7 +561,6 @@
       <set val="213" order="0x08" stat="pAtk"/>
       <set val="91" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -587,7 +578,6 @@
       <set val="213" order="0x08" stat="pAtk"/>
       <set val="107" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -641,7 +631,6 @@
       <set val="259" order="0x08" stat="pAtk"/>
       <set val="107" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -659,7 +648,6 @@
       <set val="259" order="0x08" stat="pAtk"/>
       <set val="107" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>

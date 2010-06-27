@@ -14,7 +14,6 @@
       <set val="396" order="0x08" stat="pAtk"/>
       <set val="176" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -25,7 +24,6 @@
       <set val="396" order="0x08" stat="pAtk"/>
       <set val="176" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -36,7 +34,6 @@
       <set val="396" order="0x08" stat="pAtk"/>
       <set val="176" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -47,7 +44,6 @@
       <set val="482" order="0x08" stat="pAtk"/>
       <set val="176" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -58,7 +54,6 @@
       <set val="482" order="0x08" stat="pAtk"/>
       <set val="176" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -69,7 +64,6 @@
       <set val="482" order="0x08" stat="pAtk"/>
       <set val="176" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -80,7 +74,6 @@
       <set val="317" order="0x08" stat="pAtk"/>
       <set val="234" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -91,7 +84,6 @@
       <set val="317" order="0x08" stat="pAtk"/>
       <set val="234" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -102,7 +94,6 @@
       <set val="317" order="0x08" stat="pAtk"/>
       <set val="234" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>

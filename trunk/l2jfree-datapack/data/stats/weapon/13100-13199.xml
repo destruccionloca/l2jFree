@@ -15,7 +15,6 @@
       <set val="31" order="0x08" stat="pAtk"/>
       <set val="21" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -33,7 +32,6 @@
       <set val="25" order="0x08" stat="pAtk"/>
       <set val="28" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -49,7 +47,7 @@
   <item id="13158" name="Limited time - Mage Staff - 60 minutes limited period">
     <for>
       <set val="30" order="0x08" stat="pAtk"/>
-      <set val="28" order="0x08" stat="mAtk"/>
+      <set val="31" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
@@ -87,7 +85,6 @@
       <set val="25" order="0x08" stat="pAtk"/>
       <set val="28" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
     </for>
   </item>
@@ -96,7 +93,6 @@
       <set val="107" order="0x08" stat="pAtk"/>
       <set val="51" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -107,7 +103,6 @@
       <set val="112" order="0x08" stat="pAtk"/>
       <set val="54" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -149,7 +144,7 @@
   <item id="13168" name="Limited time - Staff of Life - 60 minutes limited period">
     <for>
       <set val="74" order="0x08" stat="pAtk"/>
-      <set val="72" order="0x08" stat="mAtk"/>
+      <set val="79" order="0x08" stat="mAtk"/>
       <set val="4" order="0x08" stat="rCrit"/>
       <add val="4" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
@@ -217,7 +212,6 @@
       <set val="92" order="0x08" stat="pAtk"/>
       <set val="54" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -261,7 +255,6 @@
       <set val="156" order="0x08" stat="pAtk"/>
       <set val="83" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -360,7 +353,6 @@
       <set val="190" order="0x08" stat="pAtk"/>
       <set val="83" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -404,7 +396,6 @@
       <set val="125" order="0x08" stat="pAtk"/>
       <set val="111" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
@@ -437,7 +428,6 @@
       <set val="194" order="0x08" stat="pAtk"/>
       <set val="99" order="0x08" stat="mAtk"/>
       <set val="8" order="0x08" stat="rCrit"/>
-      <add val="0" order="0x10" stat="accCombat"/>
       <set val="379" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
