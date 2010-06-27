@@ -17,10 +17,7 @@ package com.l2jfree.gameserver.instancemanager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -29,16 +26,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
-import com.l2jfree.gameserver.Announcements;
-import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
-import com.l2jfree.gameserver.model.SpawnData;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.tools.random.Rnd;
-import com.l2jfree.util.L2FastSet;
 
 /**
  * @author Psycho(killer1888) / L2jfree
@@ -47,12 +40,12 @@ import com.l2jfree.util.L2FastSet;
 public final class SeedOfDestructionManager
 {
 	private static final Log 	_log = LogFactory.getLog(SeedOfDestructionManager.class);
-	private Map<String,Long> _variables = new FastMap<String,Long>();
+	private final Map<String,Long> _variables = new FastMap<String,Long>();
 	private final int[] 		DOORLIST = {12240001,12240002,12240003,12240004,12240005,12240006,12240007,12240008,12240009,12240010,12240011,12240012,12240013,12240014,12240015,12240016,12240017,12240018,12240019,12240020,12240021,12240022,12240023,12240024,12240025,12240026,12240027,12240028,12240029,12240030,12240031};
-	private int					_tiatKilled = 0;
-	private FastList<L2Npc> _energySeeds = new FastList<L2Npc>();
-	private L2Npc _tiat = null;
-	private FastList<L2Npc> _dimensionMovingDevices = new FastList<L2Npc>();
+	private final int					_tiatKilled = 0;
+	private final FastList<L2Npc> _energySeeds = new FastList<L2Npc>();
+	private final L2Npc _tiat = null;
+	private final FastList<L2Npc> _dimensionMovingDevices = new FastList<L2Npc>();
 
 	private final int[]			ENERGY_SEEDS = {18678,18679,18680,18681,18682,18683};
 

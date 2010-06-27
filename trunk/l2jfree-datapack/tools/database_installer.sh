@@ -306,6 +306,7 @@ full_install()
 	$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 	$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/obj_restrictions.sql &> /dev/null
+	$MYG < ../sql/persistent_properties.sql &> /dev/null
 	$MYG < ../sql/tvt.sql &> /dev/null
 	$MYG < ../sql/tvt_teams.sql &> /dev/null
 	$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 

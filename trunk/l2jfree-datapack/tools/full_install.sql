@@ -132,6 +132,7 @@ DROP TABLE IF EXISTS
 	hellbounds,
 	lastimperialtomb_spawnlist,
 	obj_restrictions,
+	persistent_properties,
 	offline_traders,
 	offline_traders_items,
 	petitions,
