@@ -19,19 +19,9 @@ public final class PersistentProperties
 {
 	private static final Log _log = LogFactory.getLog(PersistentProperties.class);
 	
-	private static final class SingletonHolder
-	{
-		private static final PersistentProperties INSTANCE = new PersistentProperties();
-	}
+	private static final Map<String, Map<String, String>> _propertiesByClassNames = new HashMap<String, Map<String, String>>();
 	
-	public static PersistentProperties getInstance()
-	{
-		return SingletonHolder.INSTANCE;
-	}
-	
-	private final Map<String, Map<String, String>> _propertiesByClassNames = new HashMap<String, Map<String, String>>();
-	
-	private PersistentProperties()
+	static
 	{
 		Connection con = null;
 		try
@@ -75,7 +65,7 @@ public final class PersistentProperties
 		_log.info("PersistentProperties: " + propertyCount + " properties loaded for " + classCount + " classes.");
 	}
 	
-	private Map<String, String> getProperties(String className, boolean force)
+	private static Map<String, String> getProperties(String className, boolean force)
 	{
 		Map<String, String> properties = _propertiesByClassNames.get(className);
 		
@@ -85,14 +75,14 @@ public final class PersistentProperties
 		return properties;
 	}
 	
-	public synchronized void setProperty(Class<?> clazz, String propertyName, String propertyValue)
+	public synchronized static void setProperty(Class<?> clazz, String propertyName, Object propertyValue)
 	{
 		final Map<String, String> properties = getProperties(clazz.getName(), true);
 		
-		properties.put(propertyName, propertyValue);
+		properties.put(propertyName, String.valueOf(propertyValue));
 	}
 	
-	public synchronized String getProperty(Class<?> clazz, String propertyName)
+	public synchronized static String getProperty(Class<?> clazz, String propertyName)
 	{
 		final Map<String, String> properties = getProperties(clazz.getName(), false);
 		
@@ -102,14 +92,14 @@ public final class PersistentProperties
 		return properties.get(propertyName);
 	}
 	
-	public synchronized String getProperty(Class<?> clazz, String propertyName, String defaultValue)
+	public synchronized static String getProperty(Class<?> clazz, String propertyName, String defaultValue)
 	{
 		final String propertyValue = getProperty(clazz, propertyName);
 		
 		return propertyValue == null ? defaultValue : propertyValue;
 	}
 	
-	public synchronized void store()
+	public synchronized static void store()
 	{
 		Connection con = null;
 		try

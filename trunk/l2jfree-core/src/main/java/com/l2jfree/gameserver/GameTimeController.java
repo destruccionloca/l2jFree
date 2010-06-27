@@ -14,17 +14,10 @@
  */
 package com.l2jfree.gameserver;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,8 +48,6 @@ public final class GameTimeController
 	
 	private GameTimeController()
 	{
-		new File("data/serial").mkdirs();
-		
 		final Calendar cal = loadData();
 		
 		if (cal != null)
@@ -79,27 +70,29 @@ public final class GameTimeController
 		_log.info("GameTimeController: Initialized.");
 	}
 	
-	private GregorianCalendar loadData()
+	private Calendar loadData()
 	{
 		if (!Config.DATETIME_SAVECAL)
 			return null;
 		
-		ObjectInputStream is = null;
 		try
 		{
-			is = new ObjectInputStream(new FileInputStream("data/serial/clock.dat"));
+			final String time = PersistentProperties.getProperty(GameTimeController.class, "currentTime");
 			
-			return (GregorianCalendar)is.readObject();
+			if (time == null)
+				return null;
+			
+			final Calendar cal = Calendar.getInstance();
+			
+			cal.setTimeInMillis(Long.parseLong(time));
+			
+			return cal;
 		}
 		catch (Exception e)
 		{
 			_log.warn("", e);
 			
 			return null;
-		}
-		finally
-		{
-			IOUtils.closeQuietly(is);
 		}
 	}
 	
@@ -108,21 +101,7 @@ public final class GameTimeController
 		if (!Config.DATETIME_SAVECAL)
 			return;
 		
-		ObjectOutputStream os = null;
-		try
-		{
-			os = new ObjectOutputStream(new FileOutputStream("data/serial/clock.dat"));
-			
-			os.writeObject(_calendar);
-		}
-		catch (IOException e)
-		{
-			_log.warn("", e);
-		}
-		finally
-		{
-			IOUtils.closeQuietly(os);
-		}
+		PersistentProperties.setProperty(GameTimeController.class, "currentTime", _calendar.getTimeInMillis());
 	}
 	
 	private static final SimpleDateFormat FORMAT1 = new SimpleDateFormat("hh:mm a");
@@ -169,16 +148,15 @@ public final class GameTimeController
 				if (newHour == Config.ALT_TIME_IN_A_DAY_OF_OPEN_A_DOOR)
 				{
 					DoorTable.getInstance().getDoor(21240006).openMe();
-
-					ThreadPoolManager.getInstance().schedule(new Runnable()
-					{
+					
+					ThreadPoolManager.getInstance().schedule(new Runnable() {
 						public void run()
 						{
 							DoorTable.getInstance().getDoor(21240006).closeMe();
 						}
 					}, Config.ALT_TIME_OF_OPENING_A_DOOR * 60 * 1000);
 				}
-
+				
 				// Blacksmith Shadai
 				if (newHour == 0 || newHour == Config.DATETIME_SUNRISE)
 				{
@@ -206,7 +184,7 @@ public final class GameTimeController
 					if (oldYear != newYear)
 					{
 						Announcements.getInstance().announceToAll(
-							"A new year has begun, good luck to all in the year " + newYear);
+								"A new year has begun, good luck to all in the year " + newYear);
 					}
 				}
 				

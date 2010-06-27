@@ -170,7 +170,7 @@ public class GameServer extends Config
 		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
-		PersistentProperties.getInstance();
+		Class.forName(PersistentProperties.class.getName());
 		Util.printSection("World");
 		L2World.getInstance();
 		if (Config.IS_TELNET_ENABLED)

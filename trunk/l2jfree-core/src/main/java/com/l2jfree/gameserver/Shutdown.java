@@ -232,7 +232,7 @@ public final class Shutdown extends Thread
 		SeedOfDestructionManager.getInstance().saveToDB();
 		System.out.println("SeedOfDestructionManager: Current state saved.");
 		
-		PersistentProperties.getInstance().store();
+		PersistentProperties.store();
 		
 		SQLQueue.getInstance().run();
 		System.out.println("Data saved. All players disconnected, " + _mode.getText() + ".");
