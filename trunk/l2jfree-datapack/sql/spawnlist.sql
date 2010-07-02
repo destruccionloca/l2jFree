@@ -40748,3 +40748,12 @@ DELETE FROM `spawnlist` WHERE `npc_templateid` = 18493;
 -- Tower of Naia Roof Lock & Controller (hex1r0)
 INSERT INTO `spawnlist` VALUES (81165, '', 1, 18491, 16282, 244534, 11618, 0, 0, 33486, 60, 0, 0);
 INSERT INTO `spawnlist` VALUES (81166, '', 1, 18492, 16513, 244454, 11618, 0, 0, 64197, 60, 0, 0);
+
+-- Underground Coliseum Managers (Psycho)
+DELETE FROM `spawnlist` WHERE `npc_templateId` IN (32377,32513,32514,32515,32516);
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES
+(105024, '', 1, 32513, -84637, -45360, -10733, 0, 0, 55640, 60, 0, 0),
+(105057, '', 1, 32516, -86353, -50590, -10732, 0, 0, 3355, 60, 0, 0),
+(105068, '', 1, 32515, -81904, -53909, -10736, 0, 0, 16690, 60, 0, 0),
+(105110, '', 1, 32514, -77410, -50656, -10733, 0, 0, 29190, 60, 0, 0),
+(105116, '', 1, 32377, -79119, -45441, -10736, 0, 0, 40662, 60, 0, 0);
