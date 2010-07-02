@@ -113,9 +113,12 @@
   </skill>
   <skill id="3206" levels="10" name="Item Skill: Music">
     <!-- Description(s): Lvl 1-10 - Active: Plays music. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="3207" levels="10" name="Item Skill: Heal">
     <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
@@ -588,9 +591,7 @@
   </skill>
   <skill id="3253" levels="10" name="Item Skill: Acrobatics">
     <!--
-      Description(s): Lvl 1-10 - Passive: Increases the height from which you can
-      jump without sustaining damage when equipped.
-    -->
+      Description(s): Lvl 1-10 - Passive: Increases the height from which you can jump without sustaining damage when equipped. -->
     <table name="#fallVuln"> 0.97 0.94 0.91 0.88 0.85 0.82 0.79 0.76 0.73 0.7 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -602,8 +603,7 @@
   </skill>
   <skill id="3254" levels="10" name="Item Skill: Iron Body">
     <!--
-      Description(s): Lvl 1-10 - Passive: Raises resistance to damage from falling when equipped.
-    -->
+      Description(s): Lvl 1-10 - Passive: Raises resistance to damage from falling when equipped. -->
     <table name="#fallVuln"> 0.96 0.92 0.88 0.84 0.8 0.76 0.72 0.68 0.64 0.6 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -875,7 +875,7 @@
     <set name="talismanManaConsume" val="6"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="talisman_blue">
-        <add order="0x40" stat="rShld" val="54.7" />
+        <add order="0x40" stat="rShld" val="54.7"/>
       </effect>
     </for>
   </skill>
@@ -1163,9 +1163,15 @@
     <set name="talismanManaConsume" val="1"/>
   </skill>
   <skill id="3293" levels="1" name="Yellow Talisman of Power">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
+    <for>
+      <add order="0x40" stat="pAtk" val="10"/> <!-- increase P. Atk. +10 -->
+    </for>
   </skill>
   <skill id="3294" levels="1" name="Yellow Talisman of Arcane Power">
     <set name="mpInitialConsume" val="10"/>
@@ -1190,14 +1196,26 @@
     </for>
   </skill>
   <skill id="3296" levels="1" name="Yellow Talisman - Magic Resistance">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
+    <for>
+      <add order="0x40" stat="mDef" val="15"/> <!-- increase M. Def. +15 -->
+    </for>
   </skill>
   <skill id="3297" levels="1" name="Yellow Talisman of Accuracy">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="mpInitialConsume" val="10"/>
+    <set name="mpConsume" val="40"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <set name="hitTime" val="4000"/>
+    <for>
+      <add order="0x40" stat="accCombat" val="1"/> <!-- increase Accuracy +1 -->
+    </for>
   </skill>
   <skill id="3298" levels="1" name="Yellow Talisman of Evasion">
     <set name="mpInitialConsume" val="10"/>
@@ -1211,8 +1229,12 @@
     </for>
   </skill>
   <skill id="3299" levels="1" name="Yellow Talisman of Critical Power">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <!-- Guessing : Critical Damage +50 -->
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="cAtkAdd" val="30"/>
+    </for>
   </skill>
 </list>

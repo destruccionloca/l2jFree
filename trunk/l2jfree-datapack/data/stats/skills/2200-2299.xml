@@ -467,11 +467,25 @@
     </cond>
   </skill>
   <skill id="2234" levels="1" name="Soul Breaking Arrow">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="mpConsume" val="72"/>
+    <set name="magicLvl" val="76"/>
+    <set name="power" val="1210"/>
+    <set name="lvlDepend" val="1"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="ignoreShld" val="true"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="2000"/>
-    <set name="staticHitTime" val="true"/>
+    <set name="coolTime" val="1332"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <set name="weaponsAllowed" val="32"/> <!-- Bow -->
+    <for>
+      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect name="RemoveTarget" noicon="1" val="0" effectPower="50" effectType="DEBUFF"/>
+    </for>
   </skill>
   <skill id="2235" levels="1" name="Anteroom Door Key">
     <set name="target" val="TARGET_UNLOCKABLE"/>
