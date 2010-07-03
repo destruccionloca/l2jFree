@@ -133,7 +133,7 @@
     <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x40" stat="critVuln" val="0.95"/>
+      <mul order="0x30" stat="critVuln" val="0.95"/>
     </for>
   </skill>
   <skill id="3317" levels="1" name="Yellow Talisman of Critical Reduction">
@@ -144,7 +144,7 @@
     <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x40" stat="critVuln" val="0.95"/>
+      <mul order="0x30" stat="critVuln" val="0.95"/>
     </for>
   </skill>
   <skill id="3318" levels="1" name="Flag Display">
