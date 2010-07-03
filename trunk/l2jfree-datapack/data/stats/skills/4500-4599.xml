@@ -2,78 +2,91 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="4500" levels="1" name="Treasure Chest - Level 27">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4501" levels="1" name="Treasure Chest - Level 29">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4502" levels="1" name="Treasure Chest - Level 31">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4503" levels="1" name="Treasure Chest - Level 32">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4504" levels="1" name="Treasure Chest - Level 33">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4505" levels="1" name="Treasure Chest - Level 35">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4506" levels="1" name="Treasure Chest - Level 39">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4507" levels="1" name="Treasure Chest - Level 42">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4508" levels="1" name="Treasure Chest - Level 43">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4509" levels="1" name="Treasure Chest - Level 45">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4510" levels="1" name="Treasure Chest - Level 47">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4511" levels="1" name="Treasure Chest - Level 49">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4512" levels="1" name="Treasure Chest - Level 52">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
@@ -722,6 +735,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_ONE"/>
+    <for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </for>
   </skill>
   <skill id="4557" levels="1" name="Dispel Hot Spring Disease B_D">
     <set name="castRange" val="600"/>
@@ -734,6 +750,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_ONE"/>
+    <for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </for>
   </skill>
   <skill id="4558" levels="1" name="Dispel Hot Spring Disease C_D">
     <set name="castRange" val="600"/>
@@ -746,6 +765,9 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="NEGATE"/>
     <set name="target" val="TARGET_ONE"/>
+    <for>
+      <effect name="Negate" val="0" noicon="1" effectType="NEGATE"/>
+    </for>
   </skill>
   <skill id="4559" levels="1" name="Hot Spring Illusion">
     <set name="magicLvl" val="75"/>
@@ -1153,7 +1175,7 @@
   <skill id="4579" levels="12" name="Bleed">
     <table name="#mpInitialConsume"> 5 8 11 15 19 24 28 30 31 33 33 34 </table>
     <table name="#mpConsume"> 20 32 44 60 79 96 113 120 127 132 134 136 </table>
-    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
@@ -1171,7 +1193,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -1227,7 +1249,7 @@
   <skill id="4582" levels="12" name="Poison">
     <table name="#mpInitialConsume"> 4 7 10 14 18 23 27 28 30 31 32 32 </table>
     <table name="#mpConsume"> 19 31 43 58 75 92 108 115 121 125 128 130 </table>
-    <table name="#dmg"> 36 54 72 93 114 132 144 144 150 150 153 153 </table>
+    <table name="#dot"> 36 54 72 93 114 132 144 144 150 150 153 153 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
@@ -1246,7 +1268,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="#dot" abnormal="poison"/>
     </for>
   </skill>
   <skill id="4583" levels="12" name="Decrease Speed">
@@ -1604,7 +1626,7 @@
   <skill id="4596" levels="12" name="Bleed">
     <table name="#mpInitialConsume"> 5 9 13 17 22 27 32 34 36 37 38 38 </table>
     <table name="#mpConsume"> 23 37 52 70 90 110 129 138 144 150 153 155 </table>
-    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
@@ -1623,7 +1645,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -1631,7 +1653,7 @@
   <skill id="4597" levels="12" name="Bleed">
     <table name="#mpInitialConsume"> 4 6 9 12 16 20 23 24 26 27 27 28 </table>
     <table name="#mpConsume"> 16 27 37 50 65 80 93 99 104 108 110 112 </table>
-    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
@@ -1650,7 +1672,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -1658,7 +1680,7 @@
   <skill id="4598" levels="12" name="Bleed">
     <table name="#mpInitialConsume"> 4 6 9 12 16 20 23 24 26 27 27 28 </table>
     <table name="#mpConsume"> 16 27 37 50 65 80 93 99 104 108 110 112 </table>
-    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#abnormalLvl"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
     <set name="abnormalLvl" val="#abnormalLvl"/>
@@ -1678,7 +1700,7 @@
     <set name="castRange" val="1000"/>
     <set name="effectRange" val="1500"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>

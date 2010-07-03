@@ -7,24 +7,37 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="3401" levels="1" name="Dynasty Resistance Necklace">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="derangementVuln" val="0.91"/> <!-- Fear Resistance +9 -->
+    </for>
   </skill>
   <skill id="3402" levels="1" name="Dynasty Resistance Ring">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="derangementVuln" val="0.96"/> <!-- Fear Resistance +4 -->
+    </for>
   </skill>
   <skill id="3403" levels="1" name="Dynasty Resistance Earring">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="derangementVuln" val="0.94"/> <!-- Fear Resistance +6 -->
+    </for>
   </skill>
   <skill id="3404" levels="1" name="Mystery Effect">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="magicLvl" val="1"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <for>
+      <effect name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
+    </for>
   </skill>
   <skill id="3405" levels="1" name="Large Firecracker Effect">
     <set name="target" val="TARGET_SELF"/>
@@ -196,9 +209,12 @@
     </for>
   </skill>
   <skill id="3419" levels="1" name="Magic Immunity">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="magicDamVul" val="1.05"/>
+    </for>
   </skill>
   <skill id="3420" levels="1" name="Dynasty Leather Armor - Summoner">
     <!-- Done by DJ MELERIX -->
@@ -253,8 +269,7 @@
     <!--
       Rapier +4 Skill
       Description: A critical attack will have a chance to increase P. Atk., M. Atk., and healing power,
-      and decrease MP consumption during skill use, for you and your party members.
-    -->
+      and decrease MP consumption during skill use, for you and your party members. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>

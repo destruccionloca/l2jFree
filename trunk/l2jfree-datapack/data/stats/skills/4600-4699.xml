@@ -170,6 +170,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
+    <set name="effectType" val="POISON"/>
     <set name="hitTime" val="1800"/>
     <set name="lvlDepend" val="1"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -346,7 +347,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="4615" levels="12" name="Bleed">
-    <table name="#dmg"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#mpInitialConsume"> 3 6 8 11 14 18 21 22 24 24 25 25 </table>
     <table name="#mpConsume"> 15 24 34 46 59 73 85 91 96 99 101 102 </table>
@@ -366,7 +367,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -1091,7 +1092,7 @@
     <set name="target" val="TARGET_AURA"/>
   </skill>
   <skill id="4653" levels="12" name="NPC Corpse Life Drain">
-    <table name="#drain"> 131 201 271 351 451 551 651 691 731 751 771 781 </table>
+    <table name="#absorbAbs"> 131 201 271 351 451 551 651 691 731 751 771 781 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
     <table name="#mpInitialConsume"> 2 4 5 7 9 11 13 13 14 15 15 15 </table>
     <table name="#mpConsume"> 10 16 21 28 36 44 52 55 58 60 61 62 </table>
@@ -1107,7 +1108,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <set name="absorbPart" val="0"/> <!-- no damage, it's dead -->
-    <set name="absorbAbs" val="#drain"/> <!-- absorbs absolute value -->
+    <set name="absorbAbs" val="#absorbAbs"/> <!-- absorbs absolute value -->
   </skill>
   <skill id="4654" levels="12" name="NPC Death Link">
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
@@ -1506,7 +1507,7 @@
     <table name="#Power"> 8 17 25 33 42 50 58 67 75 83 92 100 </table> <!-- Base Land Rate -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="#Power"/>
+    <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="CANCEL"/>
     <set name="hitTime" val="2000"/>
@@ -1523,7 +1524,7 @@
     <table name="#Power"> 8 17 25 33 42 50 58 67 75 83 92 100 </table> <!-- Base Land Rate -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="#Power"/>
+    <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="CANCEL"/>
     <set name="hitTime" val="2000"/>
@@ -1540,7 +1541,7 @@
     <table name="#Power"> 8 17 25 33 42 50 58 67 75 83 92 100 </table> <!-- Base Land Rate -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="#Power"/>
+    <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="CANCEL"/>
     <set name="hitTime" val="2000"/>
@@ -1557,7 +1558,7 @@
     <table name="#Power"> 8 17 25 33 42 50 58 67 75 83 92 100 </table> <!-- Base Land Rate -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="#Power"/>
+    <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="CANCEL"/>
     <set name="hitTime" val="2000"/>
@@ -1574,7 +1575,7 @@
     <table name="#Power"> 8 17 25 33 42 50 58 67 75 83 92 100 </table> <!-- Base Land Rate -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="power" val="#Power"/>
+    <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="CANCEL"/>
     <set name="hitTime" val="2000"/>

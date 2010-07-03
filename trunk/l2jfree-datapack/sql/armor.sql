@@ -2690,3 +2690,27 @@ UPDATE `armor` SET `skills_item` = '8305-1' WHERE `item_id` = 14522; -- Vesper T
 UPDATE `armor` SET `skills_item` = '8302-1' WHERE `item_id` = 14523; -- Vesper Noble Breastplate {PvP}
 UPDATE `armor` SET `skills_item` = '8304-1' WHERE `item_id` = 14524; -- Vesper Noble Leather Breastplate {PvP}
 UPDATE `armor` SET `skills_item` = '8306-1' WHERE `item_id` = 14525; -- Vesper Breastplate {PvP}
+
+-- Dynasty Resistance Accessories (Spire)
+UPDATE `armor` SET `skills_item` = '3367-1' WHERE `item_id` = 9458; -- Dynasty Earrings - Stun Resistance
+UPDATE `armor` SET `skills_item` = '3365-1' WHERE `item_id` = 9459; -- Dynasty Necklace - Stun Resistance
+UPDATE `armor` SET `skills_item` = '3366-1' WHERE `item_id` = 9460; -- Dynasty Ring - Stun Resistance
+UPDATE `armor` SET `skills_item` = '3379-1' WHERE `item_id` = 9461; -- Dynasty Earrings - Poison Resistance
+UPDATE `armor` SET `skills_item` = '3377-1' WHERE `item_id` = 9462; -- Dynasty Necklace - Poison Resistance
+UPDATE `armor` SET `skills_item` = '3378-1' WHERE `item_id` = 9463; -- Dynasty Ring - Poison Resistance
+UPDATE `armor` SET `skills_item` = '3373-1' WHERE `item_id` = 9464; -- Dynasty Earrings - Bleeding Resistance
+UPDATE `armor` SET `skills_item` = '3371-1' WHERE `item_id` = 9465; -- Dynasty Necklace - Bleeding Resistance
+UPDATE `armor` SET `skills_item` = '3372-1' WHERE `item_id` = 9466; -- Dynasty Ring - Bleeding Resistance
+UPDATE `armor` SET `skills_item` = '3397-1' WHERE `item_id` = 9467; -- Dynasty Earrings - Sleep Resistance
+UPDATE `armor` SET `skills_item` = '3395-1' WHERE `item_id` = 9468; -- Dynasty Necklace - Sleep Resistance
+UPDATE `armor` SET `skills_item` = '3396-1' WHERE `item_id` = 9469; -- Dynasty Ring - Sleep Resistance
+UPDATE `armor` SET `skills_item` = '3385-1' WHERE `item_id` = 9470; -- Dynasty Earrings - Paralysis Resistance
+UPDATE `armor` SET `skills_item` = '3383-1' WHERE `item_id` = 9471; -- Dynasty Necklace - Paralysis Resistance
+UPDATE `armor` SET `skills_item` = '3384-1' WHERE `item_id` = 9472; -- Dynasty Ring - Paralysis Resistance
+UPDATE `armor` SET `skills_item` = '3391-1' WHERE `item_id` = 9473; -- Dynasty Earrings - Hold Resistance
+UPDATE `armor` SET `skills_item` = '3389-1' WHERE `item_id` = 9474; -- Dynasty Necklace - Hold Resistance
+UPDATE `armor` SET `skills_item` = '3390-1' WHERE `item_id` = 9475; -- Dynasty Ring - Hold Resistance
+UPDATE `armor` SET `skills_item` = '3403-1' WHERE `item_id` = 9476; -- Dynasty Earrings - Fear Resistance
+UPDATE `armor` SET `skills_item` = '3401-1' WHERE `item_id` = 9477; -- Dynasty Necklace - Fear Resistance
+UPDATE `armor` SET `skills_item` = '3402-1' WHERE `item_id` = 9478; -- Dynasty Ring - Fear Resistance
+

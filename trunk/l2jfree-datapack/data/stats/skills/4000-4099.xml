@@ -1373,7 +1373,7 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="4088" levels="12" name="Bleed">
-    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#mpInitialConsume"> 2 4 5 7 10 12 14 15 16 16 16 17 </table>
     <table name="#mpConsume"> 10 16 22 30 40 48 56 60 64 66 67 68 </table>
     <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
@@ -1395,7 +1395,7 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>

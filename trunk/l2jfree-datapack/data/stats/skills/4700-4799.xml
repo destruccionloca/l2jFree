@@ -226,7 +226,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BLOW"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="10000"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -322,18 +322,21 @@
     <set name="aggroPoints" val="#aggroPoints"/>
   </skill>
   <skill id="4714" levels="1" name="Twilight Dragon">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4715" levels="1" name="Wind Dragon">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4716" levels="1" name="Star Dragon">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="35"/>
@@ -576,7 +579,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -594,7 +597,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -612,7 +615,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -630,7 +633,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -648,7 +651,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -934,7 +937,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -952,7 +955,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -970,7 +973,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -988,7 +991,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -1006,7 +1009,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit -->
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -1464,8 +1467,9 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HEAL"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1481,8 +1485,9 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HEAL"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1498,8 +1503,9 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HEAL"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1515,8 +1521,9 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HEAL"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1532,8 +1539,9 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HEAL"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1548,8 +1556,9 @@
     <table name="#mpConsume"> 34 55 79 107 138 165 191 200 206 209 209 210 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HOT"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1568,8 +1577,9 @@
     <table name="#mpConsume"> 34 55 79 107 138 165 191 200 206 209 209 210 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HOT"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1588,8 +1598,9 @@
     <table name="#mpConsume"> 34 55 79 107 138 165 191 200 206 209 209 210 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HOT"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1608,8 +1619,9 @@
     <table name="#mpConsume"> 34 55 79 107 138 165 191 200 206 209 209 210 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HOT"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1628,8 +1640,9 @@
     <table name="#mpConsume"> 34 55 79 107 138 165 191 200 206 209 209 210 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="skillType" val="HOT"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1654,60 +1667,70 @@
     </for>
   </skill>
   <skill id="4790" levels="1" name="Raid Boss - Level 23">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4791" levels="1" name="Raid Boss - Level 30">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4792" levels="1" name="Raid Boss - Level 42">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4793" levels="1" name="Raid Boss - Level 55">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4794" levels="1" name="Raid Boss - Level 50">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4795" levels="1" name="Raid Boss - Level 60">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4796" levels="1" name="Raid Boss - Level 25">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4797" levels="1" name="Raid Boss - Level 34">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4798" levels="1" name="Raid Boss - Level 34">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="4799" levels="1" name="Raid Boss - Level 49">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="magicLvl" val="1"/>

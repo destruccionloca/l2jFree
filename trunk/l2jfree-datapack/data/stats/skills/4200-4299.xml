@@ -85,7 +85,7 @@
     </for>
   </skill>
   <skill id="4204" levels="12" name="Bleed">
-    <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 102 102 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 102 102 </table>
     <table name="#mpInitialConsume"> 3 5 7 10 13 16 19 20 21 22 23 23 </table>
     <table name="#mpConsume"> 13 23 31 42 53 66 77 82 86 89 92 92 </table>
     <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
@@ -103,7 +103,7 @@
     <set name="castRange" val="750"/>
     <set name="effectRange" val="1250"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleed">
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
@@ -194,7 +194,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="hitTime" val="2000"/>
     <set name="reuseDelay" val="8000"/>
     <set name="skillType" val="HEAL"/>
@@ -212,7 +212,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="2000"/>
     <set name="skillType" val="HOT"/>
@@ -232,7 +232,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -251,7 +251,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -270,7 +270,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -289,7 +289,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_CLAN"/>
     <set name="hitTime" val="1500"/>
     <set name="skillType" val="REFLECT"/>
     <set name="operateType" val="OP_ACTIVE"/>
