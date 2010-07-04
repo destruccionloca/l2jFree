@@ -60,7 +60,6 @@ public class Config extends L2Config
 
 	/** Accept new game server ? */
 	public static boolean		ACCEPT_NEW_GAMESERVER;
-	public static boolean		RESERVE_HOST_ON_LOGIN		= false;
 
 	public static boolean		AUTO_CREATE_ACCOUNTS;
 	public static int			GM_MIN;

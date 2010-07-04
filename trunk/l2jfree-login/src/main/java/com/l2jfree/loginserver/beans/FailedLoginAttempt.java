@@ -35,7 +35,7 @@ public class FailedLoginAttempt
 
 	public void increaseCounter(String password)
 	{
-		if (!_lastPassword.equals(password))
+		if (_lastPassword == null || password == null || !_lastPassword.equals(password))
 		{
 			// check if theres a long time since last wrong try
 			if (System.currentTimeMillis() - _lastAttempTime < 300 * 1000)

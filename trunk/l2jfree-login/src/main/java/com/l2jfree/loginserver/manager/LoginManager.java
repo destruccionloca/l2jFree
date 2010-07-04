@@ -518,9 +518,15 @@ public class LoginManager
 		if (acc == null)
 		{
 			if (handleAccountNotFound(user, address, hash))
+			{
+				handleGoodLogin(user, address);
 				return true;
+			}
 			else
+			{
+				handleBadLogin(user, password, address);
 				throw new AccountWrongPasswordException(user);
+			}
 		}
 		// If account is found
 		// check ban state
@@ -531,6 +537,7 @@ public class LoginManager
 			// check the account is not ban
 			if (acc.getAccessLevel() < 0)
 			{
+				handleBadLogin(user, password, address);
 				throw new AccountBannedException(user);
 			}
 			try
@@ -542,7 +549,6 @@ public class LoginManager
 					acc.setLastIp(address.getHostAddress());
 				}
 				_service.addOrUpdateAccount(acc);
-				handleGoodLogin(user, address);
 			}
 			// If password are different
 			// -------------------------
@@ -552,7 +558,8 @@ public class LoginManager
 				throw e;
 			}
 		}
-
+		
+		handleGoodLogin(user, address);
 		return true;
 	}
 
@@ -566,7 +573,7 @@ public class LoginManager
 		// of users that mistype their passwords once every day :)
 		if (address != null)
 		{
-			_hackProtection.remove(address.getHostAddress());
+			_hackProtection.remove(address);
 		}
 		if (_logLogin.isDebugEnabled())
 			_logLogin.debug("login successfull for '" + user + "' " + (address == null ? "null" : address.getHostAddress()));
