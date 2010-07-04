@@ -45,6 +45,8 @@ import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.restriction.global.OlympiadRestriction;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMatchEnd;
+import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.StatsSet;
@@ -1630,10 +1632,25 @@ public final class Olympiad
 		int id = Integer.parseInt(commands[1]);
 		int arena = getSpectatorArena(player);
 		if (arena >= 0)
+		{
 			Olympiad.removeSpectator(arena, player);
+			player.sendPacket(ExOlympiadMatchEnd.PACKET);
+		}
 		else
 			return;
 		Olympiad.addSpectator(id, player, false);
+		
+		OlympiadGame game = OlympiadManager.getInstance().getOlympiadGame(id);
+		if (game != null)
+		{
+			if (game._playerOne == null || !game._playerOne.isInOlympiadMode() || !game._playerOne.isOlympiadStart())
+				return;
+			if (game._playerTwo == null || !game._playerTwo.isInOlympiadMode() || !game._playerTwo.isOlympiadStart())
+				return;
+			
+			player.sendPacket(new ExOlympiadUserInfo(game._playerOne, 1));
+			player.sendPacket(new ExOlympiadUserInfo(game._playerTwo, 2));
+		}
 	}
 
 	@SuppressWarnings("synthetic-access")

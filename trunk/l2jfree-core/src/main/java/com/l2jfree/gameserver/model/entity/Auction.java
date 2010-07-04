@@ -70,7 +70,7 @@ public class Auction
 
 	public class Bidder
 	{
-		private final String _name;
+		private final String _name; // TODO replace with objid
 		private final String _clanName;
 		private int _bid;
 		private final Calendar _timeBid;

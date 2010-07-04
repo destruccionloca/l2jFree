@@ -245,6 +245,9 @@ public class Instance
 
 	public void removeNpc(L2Npc npc)
 	{
+		if (npc.getSpawn() != null)
+			npc.getSpawn().stopRespawn();
+		// npc.deleteMe();
 		_npcs.remove(npc);
 	}
 
@@ -507,7 +510,7 @@ public class Instance
 						}
 						else
 						{
-							_log.warn("Instance: Data missing in NPC table for ID: " + npcTemplate + " in Instance " + getId());
+							_log.warn("Instance: Data missing in NPC table for ID: " + npcId + " in Instance " + getId());
 						}
 					}
 				}

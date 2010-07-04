@@ -163,27 +163,27 @@ public class FortSiege extends AbstractSiege
 		}
 	}
 
-	public class ScheduleSuspicoiusMerchantSpawn implements Runnable
+	public class ScheduleSuspiciousMerchantSpawn implements Runnable
 	{
 		private final Fort _fortInst;
 		
-		public ScheduleSuspicoiusMerchantSpawn(Fort pFort)
+		public ScheduleSuspiciousMerchantSpawn(Fort pFort)
 		{
 			_fortInst = pFort;
 		}
 		
 		public void run()
 		{
-			if (!getIsInProgress())
+			if (getIsInProgress())
 				return;
 			
 			try
 			{
 				_fortInst.getSpawnManager().spawnSuspiciousMerchant();
 			}
-			catch (Exception e)
+			catch (RuntimeException e)
 			{
-				_log.warn("Exception: ScheduleSuspicoiusMerchantSpawn() for Fort: "+_fortInst.getName()+" " + e.getMessage(), e);
+				_log.warn("Exception: ScheduleSuspicoiusMerchantSpawn() for Fort: " + _fortInst.getName() + " " + e.getMessage(), e);
 			}
 		}
 	}
@@ -249,25 +249,33 @@ public class FortSiege extends AbstractSiege
 	{
 		if (getIsInProgress())
 		{
-			announceToPlayer(new SystemMessage(SystemMessageId.THE_FORTRESS_BATTLE_OF_S1_HAS_FINISHED), getFort().getFortId(), true);
-
+			announceToPlayer(new SystemMessage(SystemMessageId.THE_FORTRESS_BATTLE_OF_S1_HAS_FINISHED), getFort()
+					.getFortId(), true);
+			
 			removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
 			unSpawnFlags();
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, TeleportWhereType.Town);
 			_isInProgress = false; // Flag so that siege instance can be started
+			getZone().setSiegeActive(false);
 			getZone().updateSiegeStatus();
+			
 			saveFortSiege(); // Save fort specific data
 			clearSiegeClan(); // Clear siege clan from db
 			removeCommanders(); // Remove commander from this fort
+			
 			getFort().getSpawnManager().spawnNpcCommanders(); // Spawn NPC commanders
 			getSiegeGuardManager().unspawnSiegeGuard(); // Remove all spawned siege guard from this fort
 			getFort().resetDoors(); // Respawn door to fort
+			
 			updatePlayerSiegeStateFlags(true);
-			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSuspicoiusMerchantSpawn(getFort()), Config.FORTSIEGE_MERCHANT_DELAY*60*1000); // Prepare 3hr task for suspicious merchant respawn
+			
+			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleSuspiciousMerchantSpawn(getFort()),
+					Config.FORTSIEGE_MERCHANT_DELAY * 60 * 1000); // Prepare 3hr task for suspicious merchant respawn
 			if (_siegeEnd != null)
 				_siegeEnd.cancel(false);
 			if (_siegeRestore != null)
 				_siegeRestore.cancel(false);
+			
 			if (getFort().getOwnerClan() != null && getFort().getFlagPole().getMeshIndex() == 0)
 				getFort().setVisibleFlag(true);
 		}
@@ -283,28 +291,31 @@ public class FortSiege extends AbstractSiege
 			if (_siegeStartTask != null) // used admin command "admin_startfortsiege"
 				_siegeStartTask.cancel(false);
 			_siegeStartTask = null;
-
-			if (getAttackerClans().size() <= 0)
-			{
+			
+			if (getAttackerClans().isEmpty())
 				return;
-			}
+			
 			_isInProgress = true; // Flag so that same siege instance cannot be started again
-
+			
 			loadSiegeClan(); // Load siege clan from db
 			updatePlayerSiegeStateFlags(false);
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, TeleportWhereType.Town); // Teleport to the closest town
+			
 			getFort().getSpawnManager().despawnNpcCommanders(); // Despawn NPC commanders
 			spawnCommanders(); // Spawn commanders
 			getFort().resetDoors(); // Spawn door
 			spawnSiegeGuard(); // Spawn siege guard
 			getFort().setVisibleFlag(false);
-
+			
+			getZone().setSiegeActive(true);
 			getZone().updateSiegeStatus();
-
+			
 			// Schedule a task to prepare auto siege end
-			_siegeEnd = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(getFort()), Config.FORTSIEGE_LENGTH_MINUTES*60*1000); // Prepare auto end task
-
-			announceToPlayer(new SystemMessage(SystemMessageId.THE_FORTRESS_BATTLE_S1_HAS_BEGUN), getFort().getFortId(), true);
+			_siegeEnd = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(getFort()),
+					Config.FORTSIEGE_LENGTH_MINUTES * 60 * 1000); // Prepare auto end task
+			
+			announceToPlayer(new SystemMessage(SystemMessageId.THE_FORTRESS_BATTLE_S1_HAS_BEGUN),
+					getFort().getFortId(), true);
 			saveFortSiege();
 		}
 	}
@@ -380,9 +391,15 @@ public class FortSiege extends AbstractSiege
 			for (L2PcInstance member : clan.getOnlineMembers(0))
 			{
 				if (clear)
-					member.setSiegeState((byte) 0);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_NOT_INVOLVED);
+					member.setSiegeSide(0);
+				}
 				else
-					member.setSiegeState((byte) 1);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_ATTACKER);
+					member.setSiegeSide(getFort().getFortId());
+				}
 				member.broadcastUserInfo();
 			}
 		}
@@ -392,9 +409,15 @@ public class FortSiege extends AbstractSiege
 			for (L2PcInstance member : clan.getOnlineMembers(0))
 			{
 				if (clear)
-					member.setSiegeState((byte) 0);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_NOT_INVOLVED);
+					member.setSiegeSide(0);
+				}
 				else
-					member.setSiegeState((byte) 2);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_DEFENDER);
+					member.setSiegeSide(getFort().getFortId());
+				}
 				member.broadcastUserInfo();
 			}
 		}
@@ -462,7 +485,7 @@ public class FortSiege extends AbstractSiege
 			{
 				_siegeStartTask.cancel(true);
 				_siegeStartTask = null;
-				ThreadPoolManager.getInstance().executeTask(new ScheduleSuspicoiusMerchantSpawn(getFort()));
+				ThreadPoolManager.getInstance().executeTask(new ScheduleSuspiciousMerchantSpawn(getFort()));
 			}
 		}
 		catch (Exception e)
@@ -655,7 +678,7 @@ public class FortSiege extends AbstractSiege
 				{
 					_siegeStartTask.cancel(true);
 					_siegeStartTask = null;
-					ThreadPoolManager.getInstance().executeTask(new ScheduleSuspicoiusMerchantSpawn(getFort()));
+					ThreadPoolManager.getInstance().executeTask(new ScheduleSuspiciousMerchantSpawn(getFort()));
 				}
 			}
 		}
