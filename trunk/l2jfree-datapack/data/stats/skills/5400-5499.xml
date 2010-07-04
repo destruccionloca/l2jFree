@@ -187,7 +187,7 @@
   </skill>
   <skill id="5423" levels="12" name="Poison">
     <!-- This skill is custom made... Must be corrected -->
-    <table name="#dmg"> 93 114 132 144 144 150 150 153 153 156 156 160 </table>
+    <table name="#dot"> 93 114 132 144 144 150 150 153 153 156 156 160 </table>
     <table name="#mpConsume"> 35 45 55 65 69 73 83 77 78 82 85 88 </table>
     <table name="#power"> 2 3 4 5 6 7 8 9 10 11 12 13 </table>
     <table name="#magicLvl"> 40 45 50 55 60 65 70 75 80 85 90 95 </table>
@@ -203,12 +203,12 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="#dot" abnormal="poison"/>
     </for>
   </skill>
   <skill id="5424" levels="12" name="Bleed">
     <!-- This skill is custom made... Must be corrected -->
-    <table name="#dmg"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
+    <table name="#dot"> 27 39 51 66 81 93 102 102 105 105 108 108 </table>
     <table name="#mpConsume"> 22 34 48 64 83 102 119 127 133 138 140 143 </table>
     <table name="#power"> 2 3 4 5 6 7 8 9 10 11 12 13 </table>
     <table name="#magicLvl"> 40 45 50 55 60 65 70 75 80 85 90 95 </table>
@@ -224,7 +224,7 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <for>
-      <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleed"/>
+      <effect count="7" name="DamOverTime" time="3" val="#dot" abnormal="bleed"/>
     </for>
   </skill>
   <skill id="5425" levels="1" name="Iron Shield">
@@ -282,14 +282,27 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5430" levels="1" name="Spoil Bomb">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- TODO: Needs core-side support for TimeSkillTrigger effect -->
+    <set name="weaponsAllowed" val="15"/> <!-- Sword/Blunt/Shield -->
+    <set name="mpConsume" val="72"/>
+    <set name="magicLvl" val="79"/>
+    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="reuseDelay" val="15000"/>
+    <set name="hitTime" val="1800"/>
+    <set name="skillType" val="SPOIL"/>
+    <set name="skillRadius" val="100"/> <!-- Guess -->
+    <set name="target" val="TARGET_AREA"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
+    <for>
+      <effect name="Spoil" time="10" val="0"/>
+      <effect name="DamOverTime" time="30" val="74"/>
+      <!-- effect name="ChanceSkillTrigger" time="10" noicon="1" val="0" triggeredId="5043" triggeredLevel="1" chanceType="ON_MELEE"/ -->
+    </for>
   </skill>
   <skill id="5431" levels="1" name="Slow">
-    <!--
-      Description(s): Condition causing target to temporarily decrease attack speed and casting speed.
-    -->
+    <!-- Description(s): Condition causing target to temporarily decrease attack speed and casting speed. -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -378,10 +391,10 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="power" val="700"/> <!-- ??? -->
+    <set name="power" val="700"/> <!-- Guess -->
     <set name="hitTime" val="1000"/>
     <set name="coolTime" val="720"/>
-    <set name="reuseDelay" val="10000"/> <!-- ??? -->
+    <set name="reuseDelay" val="10000"/> <!-- Guess -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -389,7 +402,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="5443" levels="4" name="Cry of the Wolf">
-    <table name="#magicLvl"> 60 61 62 63 </table> <!-- ??? -->
+    <table name="#magicLvl"> 60 61 62 63 </table> <!-- Guess -->
     <table name="#mpConsume"> 55 61 66 71 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -409,7 +422,7 @@
     </for>
   </skill>
   <skill id="5444" levels="2" name="Maul">
-    <table name="#magicLvl"> 65 70 </table> <!-- ??? -->
+    <table name="#magicLvl"> 65 70 </table> <!-- Guess -->
     <table name="#mpConsume"> 66 71 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -417,7 +430,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="power" val="1"/>
     <set name="hitTime" val="1000"/>
-    <set name="reuseDelay" val="10000"/> <!-- ??? -->
+    <set name="reuseDelay" val="10000"/> <!-- Guess -->
     <set name="coolTime" val="720"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
@@ -438,8 +451,9 @@
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="aggroPoints" val="495"/>
     <for>
-      <effect name="Buff" time="90" val="0"> <!-- ??? stackOrder="1" stackType="berserk" -->
+      <effect name="Buff" time="90" val="0" stackOrder="1" stackType="berserk">
         <mul order="0x30" stat="mAtk" val="1.16"/>
         <mul order="0x30" stat="pAtk" val="1.08"/>
         <mul order="0x30" stat="mDef" val="0.84"/>
@@ -460,17 +474,18 @@
     <set name="target" val="TARGET_SELF"/>
   </skill>
   <skill id="5447" levels="7" name="Paralysis">
-    <table name="#dmg"> 76 76 76 76 83 83 83 </table>
+    <!-- Imbue Dark Seed effect -->
+    <table name="#dot"> 76 76 76 76 83 83 83 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="5"/> <!-- Dark -->
     <set name="skillType" val="PARALYZE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="80"/> <!-- Guessing -->
+    <set name="power" val="100"/> <!-- Base Land Rate -->
     <set name="isDebuff" val="true"/>
     <set name="castRange" val="40"/>
     <for>
       <effect name="Paralyze" time="20" val="0"/>
-      <effect count="5" name="DamOverTime" time="3" val="#dmg" abnormal="poison" noicon="1"/>
+      <effect count="5" name="DamOverTime" time="3" val="#dot" abnormal="poison" noicon="1"/>
     </for>
   </skill>
   <skill id="5448" levels="1" name="Obilivion">
@@ -537,7 +552,7 @@
     </for>
   </skill>
   <skill id="5453" levels="4" name="Mental Impoverish">
-    <table name="#mp"> 0.95 0.90 0.85 0.75 </table>
+    <table name="#gainMp"> 0.95 0.90 0.85 0.75 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="MANADAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -547,7 +562,7 @@
     <set name="effectRange" val="1400"/>
     <for>
       <effect name="Debuff" time="30" val="0" noicon="1">
-        <mul order="0x30" stat="gainMp" val="#mp"/>
+        <mul order="0x30" stat="gainMp" val="#gainMp"/>
       </effect>
     </for>
   </skill>
@@ -706,51 +721,61 @@
     <set name="effectRange" val="800"/>
   </skill>
   <skill id="5469" levels="1" name="Raid Boss - Level 22">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5470" levels="1" name="Raid Boss - Level 81">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5471" levels="1" name="Raid Boss - Level 82">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5472" levels="1" name="Raid Boss - Level 83">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5473" levels="1" name="Raid Boss - Level 83">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5474" levels="1" name="Raid Boss - Level 84">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5475" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5476" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5477" levels="1" name="Raid Boss - Level 86">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5478" levels="1" name="Raid Boss - Level 83">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="PASSIVE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -880,9 +905,17 @@
     <set name="magicLvl" val="87"/>
     <set name="abnormalLvl" val="10"/>
     <set name="hitTime" val="3000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="BLEED"/>
+    <set name="lvlDepend" val="1"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <for>
+      <effect count="7" name="DamOverTime" time="3" val="66" abnormal="bleed">
+        <mul order="0x30" stat="runSpd" val="0.8"/>
+      </effect>
+    </for>
   </skill>
   <!-- GRAND BOSS 29118,29119 (Beleth) -->
   <skill id="5496" levels="1" name="Dark Fireball">
@@ -900,13 +933,22 @@
   <!-- GRAND BOSS 29118,29119 (Beleth) -->
   <skill id="5497" levels="1" name="Horn of Rising Darkness">
     <!-- Cannot move and HP decreases temporarily due to the stun and bleeding. Effect 1. -->
-    <set name="magicLvl" val="87"/>
-    <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="1000"/>
-    <set name="effectRange" val="1500"/>
+    <set name="mpConsume" val="22"/>
+    <set name="power" val="50"/>
+    <set name="isDebuff" val="true"/>
+    <set name="hitTime" val="2000"/>
+    <set name="isMagic" val="true"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="STUN"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="effectType" val="BLEED"/>
+    <set name="castRange" val="500"/>
+    <set name="effectPower" val="50"/>
+    <set name="effectRange" val="1000"/>
+    <for>
+      <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
+      <effect count="7" name="DamOverTime" time="3" val="27" abnormal="bleed"/>
+    </for>
   </skill>
   <!-- GRAND BOSS 29118,29119 (Beleth) -->
   <skill id="5498" levels="1" name="Self-Destruct">
