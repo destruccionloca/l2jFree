@@ -11728,11 +11728,6 @@ public final class L2PcInstance extends L2Playable
 		return pblim;
 	}
 
-	public int getFreightLimit()
-	{
-		return Config.FREIGHT_SLOTS + (int) getStat().calcStat(Stats.FREIGHT_LIM, 0, null, null);
-	}
-
 	public int getDwarfRecipeLimit()
 	{
 		int recdlim = Config.ALT_DWARF_RECIPE_LIMIT;

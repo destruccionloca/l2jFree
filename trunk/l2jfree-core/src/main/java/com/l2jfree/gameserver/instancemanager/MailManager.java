@@ -12,10 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.ThreadPoolManager;
@@ -32,9 +34,9 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public class MailManager
 {
-	private static Logger			_log		= Logger.getLogger(MailManager.class.getName());
+	private static final Log _log = LogFactory.getLog(MailManager.class);
 	
-	private Map<Integer, Message>	_messages	= new FastMap<Integer, Message>();
+	private final Map<Integer, Message> _messages = new FastMap<Integer, Message>();
 	
 	public static MailManager getInstance()
 	{
@@ -51,14 +53,12 @@ public class MailManager
 	{
 		int readed = 0;
 		Connection con = null;
-		PreparedStatement stmt1 = null;
-		PreparedStatement stmt2 = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			stmt1 = con.prepareStatement("SELECT * FROM messages ORDER BY expiration");
-			stmt2 = con.prepareStatement("SELECT * FROM attachments WHERE messageId = ?");
+			PreparedStatement stmt1 = con.prepareStatement("SELECT * FROM messages ORDER BY expiration");
+			PreparedStatement stmt2 = con.prepareStatement("SELECT * FROM attachments WHERE messageId = ?");
 			
 			ResultSet rset1 = stmt1.executeQuery();
 			while (rset1.next())
@@ -76,37 +76,22 @@ public class MailManager
 				if (expiration < System.currentTimeMillis())
 					ThreadPoolManager.getInstance().scheduleGeneral(new MessageDeletionTask(msgId), 10000);
 				else
-					ThreadPoolManager.getInstance().scheduleGeneral(new MessageDeletionTask(msgId), expiration - System.currentTimeMillis());
+					ThreadPoolManager.getInstance().scheduleGeneral(new MessageDeletionTask(msgId),
+							expiration - System.currentTimeMillis());
 			}
+			
+			stmt1.close();
+			stmt2.close();
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error loading from database:" + e.toString());
+			_log.warn("Mail Manager: Error loading from database:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt1.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				stmt2.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
+		
 		_log.info("Mail Manager: Successfully loaded " + readed + " messages.");
 	}
 	
@@ -176,46 +161,33 @@ public class MailManager
 		_messages.put(msg.getId(), msg);
 		
 		Connection con = null;
-		PreparedStatement stmt = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			stmt = Message.getStatement(msg, con);
+			PreparedStatement stmt = Message.getStatement(msg, con);
 			stmt.execute();
 			stmt.close();
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error saving message:" + e.toString());
+			_log.warn("Mail Manager: Error saving message:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 		
 		final L2PcInstance receiver = L2World.getInstance().getPlayer(msg.getReceiverId());
 		if (receiver != null)
 			receiver.sendPacket(new ExNoticePostArrived(true));
 		
-		ThreadPoolManager.getInstance().scheduleGeneral(new MessageDeletionTask(msg.getId()), msg.getExpiration() - System.currentTimeMillis());
+		ThreadPoolManager.getInstance().scheduleGeneral(new MessageDeletionTask(msg.getId()),
+				msg.getExpiration() - System.currentTimeMillis());
 	}
 	
 	class MessageDeletionTask implements Runnable
 	{
-		final int	_msgId;
+		final int _msgId;
 		
 		public MessageDeletionTask(int msgId)
 		{
@@ -254,7 +226,7 @@ public class MailManager
 				}
 				catch (Exception e)
 				{
-					_log.warning("Mail Manager: Error returning items:" + e.toString());
+					_log.warn("Mail Manager: Error returning items:", e);
 				}
 			}
 			deleteMessageInDb(msg.getId());
@@ -265,34 +237,21 @@ public class MailManager
 	public final void markAsReadInDb(int msgId)
 	{
 		Connection con = null;
-		PreparedStatement stmt = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			stmt = con.prepareStatement("UPDATE messages SET isUnread = 'false' WHERE messageId = ?");
+			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET isUnread = 'false' WHERE messageId = ?");
 			stmt.setInt(1, msgId);
 			stmt.execute();
+			stmt.close();
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error marking as read message:" + e.toString());
+			_log.warn("Mail Manager: Error marking as read message:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	
@@ -300,12 +259,11 @@ public class MailManager
 	public final void markAsDeletedBySenderInDb(int msgId)
 	{
 		Connection con = null;
-		PreparedStatement stmt = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			stmt = con.prepareStatement("UPDATE messages SET isDeletedBySender = 'true' WHERE messageId = ?");
+			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET isDeletedBySender = 'true' WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -314,24 +272,11 @@ public class MailManager
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error marking as deleted by sender message:" + e.toString());
+			_log.warn("Mail Manager: Error marking as deleted by sender message:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	
@@ -339,12 +284,11 @@ public class MailManager
 	public final void markAsDeletedByReceiverInDb(int msgId)
 	{
 		Connection con = null;
-		PreparedStatement stmt = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			stmt = con.prepareStatement("UPDATE messages SET isDeletedByReceiver = 'true' WHERE messageId = ?");
+			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET isDeletedByReceiver = 'true' WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -353,24 +297,11 @@ public class MailManager
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error marking as deleted by receiver message:" + e.toString());
+			_log.warn("Mail Manager: Error marking as deleted by receiver message:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	
@@ -378,12 +309,11 @@ public class MailManager
 	public final void removeAttachmentsInDb(int msgId)
 	{
 		Connection con = null;
-		PreparedStatement stmt = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			stmt = con.prepareStatement("UPDATE messages SET hasAttachments = 'false' WHERE messageId = ?");
+			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET hasAttachments = 'false' WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -392,24 +322,11 @@ public class MailManager
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error removing attachments in message:" + e.toString());
+			_log.warn("Mail Manager: Error removing attachments in message:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	
@@ -417,12 +334,11 @@ public class MailManager
 	public final void deleteMessageInDb(int msgId)
 	{
 		Connection con = null;
-		PreparedStatement stmt = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			stmt = con.prepareStatement("DELETE FROM messages WHERE messageId = ?");
+			PreparedStatement stmt = con.prepareStatement("DELETE FROM messages WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -431,24 +347,11 @@ public class MailManager
 		}
 		catch (SQLException e)
 		{
-			_log.warning("Mail Manager: Error deleting message:" + e.toString());
+			_log.warn("Mail Manager: Error deleting message:", e);
 		}
 		finally
 		{
-			try
-			{
-				stmt.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 		
 		_messages.remove(msgId);
@@ -458,6 +361,6 @@ public class MailManager
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
-		protected static final MailManager	_instance	= new MailManager();
+		protected static final MailManager _instance = new MailManager();
 	}
 }

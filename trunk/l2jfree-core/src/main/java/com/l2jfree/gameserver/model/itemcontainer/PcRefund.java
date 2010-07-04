@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
  */
 public class PcRefund extends ItemContainer
 {
-	private L2PcInstance	_owner;
+	private final L2PcInstance _owner;
 	
 	public PcRefund(L2PcInstance owner)
 	{

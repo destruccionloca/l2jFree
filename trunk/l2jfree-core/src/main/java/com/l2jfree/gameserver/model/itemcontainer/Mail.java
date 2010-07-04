@@ -1,8 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.model.itemcontainer;
 
@@ -19,10 +27,10 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 /**
  * @author DS
  */
-public class Mail extends ItemContainer
+public final class Mail extends ItemContainer
 {
-	private final int	_ownerId;
-	private int			_messageId;
+	private final int _ownerId;
+	private int _messageId;
 	
 	public Mail(int objectId, int messageId)
 	{
@@ -102,16 +110,14 @@ public class Mail extends ItemContainer
 		}
 	}
 	
-	@SuppressWarnings("null")
 	@Override
 	public void restore()
 	{
 		Connection con = null;
-		PreparedStatement statement = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			statement = con
+			PreparedStatement statement = con
 					.prepareStatement("SELECT object_id, item_id, count, enchant_level, loc, loc_data, custom_type1, custom_type2, mana_left, time FROM items WHERE owner_id=? AND loc=? AND loc_data=?");
 			statement.setInt(1, getOwnerId());
 			statement.setString(2, getBaseLocation().name());
@@ -143,20 +149,7 @@ public class Mail extends ItemContainer
 		}
 		finally
 		{
-			try
-			{
-				statement.close();
-			}
-			catch (Exception e)
-			{
-			}
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 	

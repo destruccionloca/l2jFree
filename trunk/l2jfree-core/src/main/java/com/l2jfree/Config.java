@@ -977,7 +977,6 @@ public class Config extends L2Config
 	public static int				WAREHOUSE_SLOTS_NO_DWARF;								// Warehouse slots limits
 	public static int				WAREHOUSE_SLOTS_DWARF;									// Warehouse slots limits
 	public static int				WAREHOUSE_SLOTS_CLAN;									// Warehouse slots limits
-	public static int				FREIGHT_SLOTS;											// Freight slots limits
 	public static int				INVENTORY_MAXIMUM_NO_DWARF;							// Inventory slots limits
 	public static int				INVENTORY_MAXIMUM_DWARF;								// Inventory slots limits
 	public static int				INVENTORY_MAXIMUM_GM;									// Inventory slots limits
@@ -1019,7 +1018,6 @@ public class Config extends L2Config
 			WAREHOUSE_SLOTS_NO_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForNoDwarf", "100"));
 			WAREHOUSE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForDwarf", "120"));
 			WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
-			FREIGHT_SLOTS = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
 			MAX_ITEM_IN_PACKET = Math.max(INVENTORY_MAXIMUM_NO_DWARF, Math.max(INVENTORY_MAXIMUM_DWARF, INVENTORY_MAXIMUM_GM));
 
 			/* if different from 100 (ie 100%) heal rate is modified acordingly */
@@ -4041,8 +4039,6 @@ public class Config extends L2Config
 			WAREHOUSE_SLOTS_DWARF = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("MaximumWarehouseSlotsForClan"))
 			WAREHOUSE_SLOTS_CLAN = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("MaximumFreightSlots"))
-			FREIGHT_SLOTS = Integer.parseInt(pValue);
 
 		else if (pName.equalsIgnoreCase("EnchantChanceWeapon"))
 			ENCHANT_CHANCE_WEAPON = Integer.parseInt(pValue);
