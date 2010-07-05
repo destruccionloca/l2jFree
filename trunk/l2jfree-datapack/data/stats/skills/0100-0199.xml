@@ -184,12 +184,12 @@
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <enchant4 name="elementPower" val="#ench4ElementPower"/>
     <for>
-      <effect name="Debuff" time="30" val="0" effectPower="60" effectType="DEBUFF" stackOrder="0.7" stackType="RunSpeedDown">
+      <effect name="Debuff" time="60" val="0" effectPower="60" effectType="DEBUFF" stackOrder="0.7" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </for>
     <enchant3for>
-      <effect name="Debuff" time="30" val="0" effectPower="#ench3effectPower" effectType="DEBUFF" stackOrder="0.7" stackType="RunSpeedDown">
+      <effect name="Debuff" time="60" val="0" effectPower="#ench3effectPower" effectType="DEBUFF" stackOrder="0.7" stackType="RunSpeedDown">
         <mul order="0x30" stat="runSpd" val="0.8"/>
       </effect>
     </enchant3for>
@@ -264,7 +264,7 @@
   <skill id="110" levels="2" name="Ultimate Defense" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1time"> 30 31 32 32 33 34 35 35 36 37 38 38 39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 </table>
     <table name="#ench2reuseDelay"> 890000 880000 870000 860000 850000 840000 830000 820000 810000 800000 790000 780000 770000 760000 750000 740000 730000 720000 710000 700000 690000 680000 670000 660000 650000 640000 630000 620000 610000 600000 </table>
-    <table name="#ench3Penalty"> 0.2 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.3 0.31 0.32 0.33 0.34 0.35 0.36 0.37 0.38 0.39 0.4 0.41 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 </table> <!-- Guess -->
+    <table name="#ench3runSpdPenalty"> 0.2 0.21 0.22 0.23 0.24 0.25 0.26 0.27 0.28 0.29 0.3 0.31 0.32 0.33 0.34 0.35 0.36 0.37 0.38 0.39 0.4 0.41 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 </table> <!-- Guess -->
     <table name="#mpConsume"> 10 21 </table>
     <table name="#pDef"> 1800 3600 </table>
     <table name="#mDef"> 1350 2700 </table>
@@ -303,7 +303,7 @@
         <add order="0x40" stat="pDef" val="3600"/>
         <add order="0x40" stat="mDef" val="2700"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
-        <mul order="0x30" stat="runSpd" val="#ench3Penalty"/>
+        <mul order="0x30" stat="runSpd" val="#ench3runSpdPenalty"/>
       </effect>
     </enchant3for>
   </skill>
@@ -314,13 +314,13 @@
     <table name="#pSkillEvas"> 25 40 </table>
     <table name="#rEvas"> 20 25 </table>
     <table name="#aggroPoints"> 268 523 </table>
-    <set name="aggroPoints" val="#aggroPoints"/>
     <set name="reuseDelay" val="900000"/>
     <set name="hitTime" val="1000"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
+    <set name="aggroPoints" val="#aggroPoints"/>
     <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
     <for>
       <effect name="Buff" time="30" val="0" stackOrder="#rEvas" stackType="avoid_up_special">
@@ -468,7 +468,7 @@
   </skill>
   <skill id="121" levels="6" name="Battle Roar" enchantLevels1="30" enchantLevels2="30">
     <!-- @Calculation@ (#power / 100 ) * (100 * #maxHp) = ~#maxHp -->
-    <table name="#ench1Reuse"> 147500 145000 142500 140000 137500 135000 132500 130000 127500 125000 122500 120000 117500 115000 112500 110000 107500 105000 102500 100000 97500 95000 92500 90000 87500 85000 82500 80000 77500 75000 </table>
+    <table name="#ench1reuseDelay"> 147500 145000 142500 140000 137500 135000 132500 130000 127500 125000 122500 120000 117500 115000 112500 110000 107500 105000 102500 100000 97500 95000 92500 90000 87500 85000 82500 80000 77500 75000 </table>
     <table name="#ench2pAtk"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48 50 52 54 56 58 60 </table> <!-- Guess -->
     <table name="#mpConsume"> 13 18 22 27 30 33 </table>
     <table name="#maxHp"> 1.1 1.15 1.2 1.25 1.3 1.35 </table>
@@ -482,7 +482,7 @@
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
-    <enchant1 name="reuseDelay" val="#ench1Reuse"/>
+    <enchant1 name="reuseDelay" val="#ench1reuseDelay"/>
     <for>
       <effect name="Buff" time="600" val="0" stackOrder="#maxHp" stackType="max_hp_up">
         <mul order="0x30" stat="maxHp" val="#maxHp"/>
@@ -595,8 +595,8 @@
     <set name="lvlDepend" val="1"/>
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="3000"/>
     <set name="isDebuff" val="true"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="POISON"/>
     <set name="target" val="TARGET_ONE"/>
@@ -660,7 +660,7 @@
     </enchant1for>
   </skill>
   <skill id="134" levels="1" name="Toughness" enchantLevels1="30">
-    <table name="#ench1vuln"> 0.79 0.79 0.79 0.78 0.78 0.78 0.77 0.77 0.77 0.76 0.76 0.76 0.76 0.75 0.75 0.75 0.74 0.74 0.74 0.73 0.73 0.73 0.73 0.72 0.72 0.72 0.71 0.71 0.71 0.7 </table>
+    <table name="#ench1Vuln"> 0.79 0.79 0.79 0.78 0.78 0.78 0.77 0.77 0.77 0.76 0.76 0.76 0.76 0.75 0.75 0.75 0.74 0.74 0.74 0.73 0.73 0.73 0.73 0.72 0.72 0.72 0.71 0.71 0.71 0.7 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -670,9 +670,9 @@
       <mul order="0x30" stat="poisonVuln" val="0.8"/>
     </for>
     <enchant1for>
-      <mul order="0x30" stat="rootVuln" val="#ench1vuln"/>
-      <mul order="0x30" stat="sleepVuln" val="#ench1vuln"/>
-      <mul order="0x30" stat="poisonVuln" val="#ench1vuln"/>
+      <mul order="0x30" stat="rootVuln" val="#ench1Vuln"/>
+      <mul order="0x30" stat="sleepVuln" val="#ench1Vuln"/>
+      <mul order="0x30" stat="poisonVuln" val="#ench1Vuln"/>
     </enchant1for>
   </skill>
   <skill id="137" levels="4" name="Critical Chance" enchantLevels1="30">

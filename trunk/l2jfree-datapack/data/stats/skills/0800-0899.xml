@@ -189,7 +189,7 @@
     <set name="skillRadius" val="150"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="17000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="11000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -210,7 +210,7 @@
     <set name="skillRadius" val="150"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="17000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="11000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -230,7 +230,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="20000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -252,7 +252,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="20000"/> <!-- Guess - need retail confirmation -->
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -316,7 +316,7 @@
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_SUMMON"/>
     <set name="reuseDelay" val="2000"/>
-    <set name="hitTime" val="2000"/>
+    <set name="hitTime" val="2500"/>
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
@@ -552,8 +552,8 @@
     <set name="mpInitialConsume" val="18"/>
     <set name="mpConsume" val="75"/>
     <set name="power" val="100"/>
-    <set name="hitTime" val="1000"/>
     <set name="reuseDelay" val="900000"/>
+    <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HEAL_PERCENT"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -743,40 +743,58 @@
     <set name="mpConsume" val="24"/>
     <set name="itemConsumeId" val="2132"/>
     <set name="itemConsumeCount" val="120"/>
-    <set name="target" val="TARGET_CLAN"/>
+    <set name="target" val="TARGET_SELF"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="4000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="skillType" val="SIEGEFLAG"/>
     <set name="skillRadius" val="900"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isOutpost" val="true"/>
   </skill>
   <skill id="845" levels="1" name="Outpost Demolition">
   <!-- Demolishes an outpost. After demolition, a new outpost can be constructed. -->
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="4000"/>
-    <set name="target" val="TARGET_SELF"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="100"/>
+    <set name="effectRange" val="600"/>
+    <cond msgId="109">
+      <target npcId="36590"/>
+    </cond>
   </skill>
   <skill id="846" levels="1" name="Possess Ward">
     <!-- Possesses the territory ward, decreasing various battle abilities. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="pAtkSpd" val="0.1"/>
+      <mul order="0x30" stat="mAtkSpd" val="0.1"/>
+      <mul order="0x30" stat="runSpd" val="0.5"/>
+    </for>
   </skill>
   <skill id="847" levels="1" name="Ward Transport">
   <!-- With an opposing ward in hand, go back to your outpost and use this skill to move the ward back to your castle. -->
     <set name="reuseDelay" val="180000"/>
     <set name="hitTime" val="180000"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
     <set name="castRange" val="85"/>
     <set name="effectRange" val="850"/>
+    <cond msgId="109">
+      <target npcId="36590"/>
+    </cond>
   </skill>
   <skill id="848" levels="1" name="Gludio Territory Benefaction">
     <set name="target" val="TARGET_SELF"/>
@@ -1043,7 +1061,7 @@
     <set name="mpInitialConsume" val="1"/>
     <set name="mpConsume" val="6"/>
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
-    <set name="power" val="84"/>
+    <set name="power" val="4684"/>
     <set name="magicLvl" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
@@ -1059,7 +1077,7 @@
     <set name="mpInitialConsume" val="1"/>
     <set name="mpConsume" val="6"/>
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
-    <set name="power" val="84"/>
+    <set name="power" val="5684"/>
     <set name="magicLvl" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
@@ -1074,7 +1092,7 @@
   <skill id="871" levels="1" name="Royal Guard Captain Might">
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="28"/>
-    <table name="#rate"> 1.15 </table>
+    <table name="#pAtk"> 1.15 </table>
     <table name="#aggroPoints"> 379 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="2000"/>
@@ -1086,8 +1104,8 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
-        <mul order="0x30" stat="pAtk" val="#rate"/>
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
   </skill>
@@ -1095,7 +1113,7 @@
     <set name="mpInitialConsume" val="3"/>
     <set name="mpConsume" val="12"/>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
-    <set name="power" val="65"/>
+    <set name="power" val="4870"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
@@ -1107,7 +1125,7 @@
     <set name="effectRange" val="1200"/>
   </skill>
   <skill id="873" levels="1" name="Archer Captain Rapid Shot">
-    <table name="#rate"> 1.12 </table>
+    <table name="#pAtkSpd"> 1.12 </table>
     <table name="#aggroPoints"> 549 </table>
     <set name="mpInitialConsume" val="5"/>
     <set name="mpConsume" val="20"/>
@@ -1119,8 +1137,8 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate">
-        <mul order="0x30" stat="pAtkSpd" val="#rate"/>
+      <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtkSpd">
+        <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
       </effect>
     </for>
   </skill>
@@ -1198,7 +1216,7 @@
     <set name="mpInitialConsume" val="1"/>
     <set name="mpConsume" val="6"/>
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
-    <set name="power" val="84"/>
+    <set name="power" val="5684"/>
     <set name="magicLvl" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="overHit" val="true"/>
@@ -1213,7 +1231,7 @@
   <skill id="879" levels="1" name="Knight of Dawn Curse Fear">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="56"/>
-    <set name="power" val="20"/>
+    <set name="power" val="60"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="4000"/>
     <set name="isDebuff" val="true"/>
@@ -1228,8 +1246,8 @@
     </for>
   </skill>
   <skill id="880" levels="1" name="Knight of Dawn Ultimate Defense">
-    <table name="#pDef"> 3600 </table>
-    <table name="#mDef"> 2700 </table>
+    <table name="#pDef"> 4200 </table>
+    <table name="#mDef"> 3600 </table>
     <table name="#aggroPoints"> 438 </table>
     <set name="mpInitialConsume" val="4"/>
     <set name="mpConsume" val="16"/>
@@ -1250,7 +1268,7 @@
   <skill id="881" levels="1" name="Fortress Captain Twister">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="56"/>
-    <set name="power" val="23"/>
+    <set name="power" val="117"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="2"/> <!-- Wind -->
     <set name="elementPower" val="20"/>
@@ -1265,7 +1283,7 @@
   <skill id="882" levels="1" name="Fortress Captain Blaze">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="56"/>
-    <set name="power" val="23"/>
+    <set name="power" val="117"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="element" val="0"/> <!-- Fire -->
     <set name="elementPower" val="20"/>
@@ -1280,7 +1298,7 @@
   <skill id="883" levels="1" name="Fortress Captain Seal of Binding">
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="56"/>
-    <set name="power" val="40"/>
+    <set name="power" val="90"/>
     <set name="lvlDepend" val="2"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillRadius" val="200"/>
@@ -1333,7 +1351,7 @@
     <set name="skillType" val="PDAM"/>
     <set name="target" val="TARGET_AURA"/>
     <for>
-      <effect name="Stun" time="2" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect name="Stun" time="2" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun" special="redglow"/>
       <effect self="1" name="Warp" val="0" noicon="1"/>
     </for>
   </skill>
@@ -1356,7 +1374,7 @@
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
+      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun" special="redglow"/>
     </for>
   </skill>
   <skill id="887" levels="11" name="Sky Clutch">
@@ -1381,7 +1399,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect name="Root" time="9" val="0" effectPower="50" effectType="ROOT" stackOrder="1" stackType="Root"/>
+      <effect name="Root" time="9" val="0" effectPower="50" effectType="ROOT" stackOrder="1" stackType="Root" special="redglow2"/>
     </for>
   </skill>
   <skill id="888" levels="11" name="Energy Storm">
