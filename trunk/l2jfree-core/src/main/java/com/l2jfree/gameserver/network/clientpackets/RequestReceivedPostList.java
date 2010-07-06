@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
  */
 public final class RequestReceivedPostList extends L2GameClientPacket
 {
-	private static final String	_C__D0_67_REQUESTRECEIVEDPOSTLIST	= "[C] D0:67 RequestReceivedPostList";
+	private static final String _C__D0_67_REQUESTRECEIVEDPOSTLIST = "[C] D0:67 RequestReceivedPostList";
 	
 	@Override
 	protected void readImpl()

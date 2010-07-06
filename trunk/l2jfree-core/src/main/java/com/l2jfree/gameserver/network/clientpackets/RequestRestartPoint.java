@@ -73,6 +73,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 			Siege siege = null;
 			FortSiege fsiege = null;
 			CCHSiege csiege = null;
+			int instanceId = 0;
 			
 			if (activeChar.isInJail())
 				_requestedPointType = 27;
@@ -198,6 +199,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 					}
 					if (activeChar.isGM())
 						activeChar.restoreExp(100.0);
+					instanceId = activeChar.getInstanceId();
 					loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
 					break;
 				
@@ -205,7 +207,6 @@ public class RequestRestartPoint extends L2GameClientPacket
 					if (!activeChar.isInJail())
 						return;
 					loc = L2JailZone.JAIL_LOCATION;
-					
 					break;
 				
 				default: // 0
@@ -218,7 +219,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 					break;
 			}
 			// Teleport and revive
-			activeChar.setInstanceId(0);
+			activeChar.setInstanceId(instanceId);
 			activeChar.setIsIn7sDungeon(false);
 			activeChar.setIsPendingRevive(true);
 			activeChar.teleToLocation(loc, true);

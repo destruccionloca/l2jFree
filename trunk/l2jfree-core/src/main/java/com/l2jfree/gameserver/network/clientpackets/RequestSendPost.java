@@ -117,12 +117,11 @@ public final class RequestSendPost extends L2GameClientPacket
 			_reqAdena = 0;
 		}
 		
-		// FIXME: 1.4.0
-		// if (!activeChar.getAccessLevel().allowTransaction())
-		// {
-		// activeChar.sendMessage("Transactions are disable for your Access Level.");
-		// return;
-		// }
+		if (!activeChar.allowTransaction())
+		{
+			activeChar.sendMessage("Transactions are disable for your Access Level.");
+			return;
+		}
 		
 		if (!activeChar.isInsideZone(L2Zone.FLAG_PEACE))
 		{
@@ -190,7 +189,7 @@ public final class RequestSendPost extends L2GameClientPacket
 			}
 		}
 		
-		final int receiverId = CharNameTable.getInstance().getByName(_receiver);
+		final int receiverId = CharNameTable.getInstance().getObjectIdByName(_receiver);
 		if (receiverId < 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.RECIPIENT_NOT_EXIST));

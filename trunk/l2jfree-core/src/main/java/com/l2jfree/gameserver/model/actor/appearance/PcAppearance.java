@@ -57,6 +57,7 @@ public final class PcAppearance
 	private int _nameColor = DEFAULT_NAME_COLOR;
 	private int _visibleNameColor = -1;
 	// No idea if this should be stored between sessions
+	// TODO 1.4.0 title or name color? how should it exactly behave?
 	private int _nickColor = -1;
 	/** The hexadecimal Color of players title (light blue is 0xFFFF77) */
 	private int _titleColor = DEFAULT_TITLE_COLOR;

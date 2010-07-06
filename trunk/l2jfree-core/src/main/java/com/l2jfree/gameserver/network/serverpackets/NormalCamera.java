@@ -14,7 +14,7 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-public class NormalCamera extends L2GameServerPacket
+public class NormalCamera extends StaticPacket
 {
 	private static final String _S__NORMALCAMERA = "[S] D7 NormalCamera c";
 	public static final NormalCamera PACKET = new NormalCamera();

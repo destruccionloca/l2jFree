@@ -22,9 +22,9 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class RequestOustAlly extends L2GameClientPacket
 {
-	private static final String	_C__REQUESTOUSTALLY	= "[C] 8F RequestOustAlly c[s]";
+	private static final String _C__REQUESTOUSTALLY = "[C] 8F RequestOustAlly c[s]";
 	
-	private String				_clanName;
+	private String _clanName;
 	
 	@Override
 	protected void readImpl()

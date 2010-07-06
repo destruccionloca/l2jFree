@@ -68,7 +68,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
-		else if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		else if (!player.allowTransaction())
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;

@@ -96,7 +96,7 @@ public final class BlockListManager
 		return set;
 	}
 	
-	public synchronized void insert(L2PcInstance listOwner, L2PcInstance blocked)
+	public synchronized void insert(L2PcInstance listOwner, String name)
 	{
 		Connection con = null;
 		try
@@ -105,7 +105,7 @@ public final class BlockListManager
 			
 			PreparedStatement statement = con.prepareStatement(INSERT_QUERY);
 			statement.setInt(1, listOwner.getObjectId());
-			statement.setString(2, blocked.getName());
+			statement.setString(2, name);
 			
 			statement.execute();
 			

@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.ExReplyDominionInfo;
  */
 public final class RequestDominionInfo extends L2GameClientPacket
 {
-	private static final String	_C__D0_58_REQUESTDOMINIONINFO	= "[C] D0:58 RequestDominionInfo";
+	private static final String _C__D0_58_REQUESTDOMINIONINFO = "[C] D0:58 RequestDominionInfo";
 	
 	@Override
 	protected void readImpl()

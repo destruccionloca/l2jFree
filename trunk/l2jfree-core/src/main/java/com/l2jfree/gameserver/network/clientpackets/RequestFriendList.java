@@ -50,7 +50,7 @@ public final class RequestFriendList extends L2GameClientPacket
 			if (friend == null)
 			{
 				sm = new SystemMessage(SystemMessageId.S1_OFFLINE);
-				sm.addString(CharNameTable.getInstance().getByObjectId(objId));
+				sm.addString(CharNameTable.getInstance().getNameByObjectId(objId));
 			}
 			else
 			{

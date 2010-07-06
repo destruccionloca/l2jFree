@@ -19,11 +19,12 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 {
-	private static final String		_S__95_GMViewWarehouseWithdrawList	= "[S] 95 GMViewWarehouseWithdrawList";
-	private final L2ItemInstance[]	_items;
-	private final String			_playerName;
-	private final L2PcInstance		_activeChar;
-	private final long				_money;
+	private static final String _S__95_GMViewWarehouseWithdrawList = "[S] 9b GMViewWarehouseWithdrawList";
+	
+	private final L2ItemInstance[] _items;
+	private final String _playerName;
+	private final L2PcInstance _activeChar;
+	private final long _money;
 	
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{
@@ -63,14 +64,14 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 			}
 			else
 			{
-				writeQ(0);
+				writeQ(0x00);
 			}
-			writeD(item.getObjectId());
+			
 			writeElementalInfo(item);
 			
 			writeD(item.getMana());
 			// T2
-			writeD(item.isTimeLimitedItem() ? (int) (item.getRemainingTime() / 1000) : -1);
+			writeD(item.isTimeLimitedItem() ? (int)(item.getRemainingTime() / 1000) : -1);
 			writeEnchantEffectInfo();
 		}
 	}

@@ -164,7 +164,7 @@ public class Message
 			if (_fourStars)
 				return "****";
 			
-			_senderName = CharNameTable.getInstance().getByObjectId(_senderId);
+			_senderName = CharNameTable.getInstance().getNameByObjectId(_senderId);
 			if (_senderName == null)
 				_senderName = "";
 		}
@@ -175,7 +175,7 @@ public class Message
 	{
 		if (_receiverName == null)
 		{
-			_receiverName = CharNameTable.getInstance().getByObjectId(_receiverId);
+			_receiverName = CharNameTable.getInstance().getNameByObjectId(_receiverId);
 			if (_receiverName == null)
 				_receiverName = "";
 		}

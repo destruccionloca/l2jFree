@@ -45,6 +45,8 @@ public class CharEffects
 	private L2Effect[] _toArray;
 	private List<L2Effect> _effects;
 	private Map<String, StackQueue> _stackedEffects;
+	// FIXME 1.4.0
+	private volatile int _numOfEffectsRemovingOnAnyAction = 0;
 	
 	public CharEffects(L2Character owner)
 	{
@@ -134,6 +136,8 @@ public class CharEffects
 				break;
 		}
 		
+		if (newEffect.getSkill().isRemovedOnAnyActionExceptMove())
+			_numOfEffectsRemovingOnAnyAction++;
 		_effects.add(index, newEffect);
 		_toArray = null;
 		
@@ -212,6 +216,9 @@ public class CharEffects
 			if (queue != null)
 				queue.remove(effect);
 		}
+		
+		if (effect.getSkill().isRemovedOnAnyActionExceptMove())
+			_numOfEffectsRemovingOnAnyAction--;
 		_effects.remove(index);
 		_toArray = null;
 		
@@ -557,6 +564,25 @@ public class CharEffects
 			
 			if (e.getSkill().isDispeledOnAttack())
 				e.exit();
+		}
+	}
+	
+	// FIXME 1.4.0
+	/**
+	 * Exits all buffs effects of the skills with "removedOnAnyAction" set. Called on any action except movement (attack, cast).
+	 */
+	public final void stopEffectsOnAction()
+	{
+		if (_numOfEffectsRemovingOnAnyAction > 0)
+		{
+			for (L2Effect e : getAllEffects())
+			{
+				if (e == null)
+					continue;
+				
+				if (e.getSkill().isRemovedOnAnyActionExceptMove())
+					e.exit();
+			}
 		}
 	}
 	

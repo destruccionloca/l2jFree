@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.ExHeroList;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -265,6 +266,9 @@ public class L2OlympiadManagerInstance extends L2Npc
 				case 3:
 					int id = Integer.parseInt(command.substring(11));
 					Olympiad.addSpectator(id, player, true);
+					break;
+				case 4:
+					player.sendPacket(new ExHeroList());
 					break;
 				default:
 					_log.warn("Olympiad System: Couldnt send packet for request " + val);

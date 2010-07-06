@@ -49,7 +49,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 		if (parts.length != 2)
 			return;
 		
-		final Integer objId = CharNameTable.getInstance().getByName(parts[1]);
+		final Integer objId = CharNameTable.getInstance().getObjectIdByName(parts[1]);
 		
 		if (objId == 0)
 			return;

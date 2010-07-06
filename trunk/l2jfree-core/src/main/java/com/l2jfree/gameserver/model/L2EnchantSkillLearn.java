@@ -18,6 +18,7 @@ import java.util.List;
 
 import javolution.util.FastTable;
 
+import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class L2EnchantSkillLearn
@@ -145,6 +146,8 @@ public final class L2EnchantSkillLearn
 		public int getAdenaCost()
 		{
 			return _adenaCost;
+			// FIXME 1.4.0
+			//return _expCost / SkillTreeTable.ADENA_XP_DIV;
 		}
 		
 		public int getSpCost()

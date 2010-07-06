@@ -24,6 +24,7 @@ import javolution.util.FastMap;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ItemsAutoDestroy;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -40,10 +41,12 @@ import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Manor;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
@@ -261,6 +264,18 @@ public class L2Attackable extends L2Npc
 		_canReturnToSpawnPoint = value;
 	}
 
+	private boolean _seeThroughSilentMove = false;
+	
+	public boolean canSeeThroughSilentMove()
+	{
+		return _seeThroughSilentMove;
+	}
+	
+	public void setSeeThroughSilentMove(boolean val)
+	{
+		_seeThroughSilentMove = val;
+	}
+	
 	/** Table containing all Items that a Dwarf can Sweep on this L2Attackable */
 	private RewardItem[]						_sweepItems;
 
@@ -294,6 +309,7 @@ public class L2Attackable extends L2Npc
 	 **/
 	private L2CommandChannel					_firstCommandChannelAttacked	= null;
 	private CommandChannelTimer					_commandChannelTimer			= null;
+	private long								_commandChannelLastAttack		= 0;
 
 	/** True if a Soul Crystal was successfuly used on the L2Attackable */
 	private boolean								_absorbed;
@@ -364,15 +380,32 @@ public class L2Attackable extends L2Npc
 
 	public final void startCommandChannelTimer(L2Character attacker)
 	{
-		// CommandChannel
-		if (_commandChannelTimer == null && attacker != null && isRaid() && attacker.isInParty() && attacker.getParty().isInCommandChannel()
+		if (isRaid() && !(this instanceof L2MinionInstance) && attacker != null && attacker.getParty() != null
+				&& attacker.getParty().isInCommandChannel()
 				&& attacker.getParty().getCommandChannel().meetRaidWarCondition(this))
 		{
-			_firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
-			_commandChannelTimer = new CommandChannelTimer(attacker.getParty().getCommandChannel());
-			ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
-			_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room, "",
-			"You have looting rights!"));
+			if (_firstCommandChannelAttacked == null) // looting right isn't set
+			{
+				synchronized (this)
+				{
+					if (_firstCommandChannelAttacked == null)
+					{
+						_firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
+						if (_firstCommandChannelAttacked != null)
+						{
+							_commandChannelTimer = new CommandChannelTimer();
+							_commandChannelLastAttack = System.currentTimeMillis();
+							ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 10000); // check for last attack
+							_firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0,
+									SystemChatChannelId.Chat_Party_Room, "", "You have looting rights!")); // TODO: retail msg
+						}
+					}
+				}
+			}
+			else if (attacker.getParty().getCommandChannel().equals(_firstCommandChannelAttacked)) // is in same channel
+			{
+				_commandChannelLastAttack = System.currentTimeMillis(); // update last attack time
+			}
 		}
 	}
 
@@ -822,6 +855,9 @@ public class L2Attackable extends L2Npc
 	 */
 	public void addDamage(L2Character attacker, int damage, L2Skill skill)
 	{
+		if (attacker == null)
+			return;
+		
 		// Notify the L2Attackable AI with EVT_ATTACKED
 		if (!isDead())
 		{
@@ -832,8 +868,14 @@ public class L2Attackable extends L2Npc
 				{
 					Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK);
 					if (quests != null)
-						for (Quest quest: quests)
+						for (Quest quest : quests)
 							quest.notifyAttack(this, player, damage, attacker instanceof L2Summon, skill);
+				}
+				// for now hard code damage hate caused by an L2Attackable
+				else
+				{
+					getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
+					addDamageHate(attacker, damage, (damage * 100) / (getLevel() + 7));
 				}
 			}
 			catch (Exception e)
@@ -862,6 +904,7 @@ public class L2Attackable extends L2Npc
 		if (attacker == null)
 			return;
 
+		L2PcInstance targetPlayer = attacker.getActingPlayer();
 		// Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
 		AggroInfo ai = getAggroListRP().get(attacker);
 		if (ai == null)
@@ -873,15 +916,23 @@ public class L2Attackable extends L2Npc
 			ai._hate = 0;
 		}
 		ai._damage += damage;
-		ai._hate += aggro;
-
-		L2PcInstance targetPlayer = attacker.getActingPlayer();
+		// traps does not cause aggro
+		// making this hack because not possible to determine if damage made by trap
+		// so just check for triggered trap here
+		if (targetPlayer == null || targetPlayer.getTrap() == null || !targetPlayer.getTrap().isTriggered())
+			ai._hate += aggro;
+		
 		if (targetPlayer != null && aggro == 0)
 		{
 			Quest[] quests = getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
 			if (quests != null)
-				for (Quest quest: quests)
+				for (Quest quest : quests)
 					quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
+		}
+		else if (targetPlayer == null && aggro == 0)
+		{
+			aggro = 1;
+			ai._hate++;
 		}
 
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
@@ -1038,6 +1089,29 @@ public class L2Attackable extends L2Npc
 		return result;
 	}
 
+	public List<L2Character> getHateList()
+	{
+		if (getAggroList().isEmpty() || isAlikeDead())
+			return null;
+		List<L2Character> result = new FastList<L2Character>();
+		
+		synchronized (getAggroList())
+		{
+			for (Map.Entry<L2Character, AggroInfo> entry : getAggroList().entrySet())
+			{
+				L2Character attacker = entry.getKey();
+				AggroInfo ai = entry.getValue();
+				if (ai == null)
+					continue;
+				if (attacker.isAlikeDead() || !getKnownList().knowsObject(attacker) || !attacker.isVisible())
+					ai._hate = 0;
+				result.add(attacker);
+			}
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Return the hate level of the L2Attackable against this L2Character
 	 * contained in _aggroList.<BR>
@@ -1328,11 +1402,8 @@ public class L2Attackable extends L2Npc
 	 */
 	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
 	{
-		if (lastAttacker == null)
-			return;
-
-		L2PcInstance player = lastAttacker.getActingPlayer();
-
+		L2PcInstance player = L2Object.getActingPlayer(lastAttacker);
+		
 		if (player == null)
 			return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
 
@@ -1625,14 +1696,8 @@ public class L2Attackable extends L2Npc
 	 */
 	public void doEventDrop(L2Character lastAttacker)
 	{
-		L2PcInstance player = null;
-		if (lastAttacker instanceof L2PcInstance)
-			player = (L2PcInstance) lastAttacker;
-		else if (lastAttacker instanceof L2Summon)
-			player = ((L2Summon) lastAttacker).getOwner();
-		else if (lastAttacker instanceof L2Trap)
-			player = ((L2Trap) lastAttacker).getOwner();
-
+		L2PcInstance player = L2Object.getActingPlayer(lastAttacker);
+		
 		if (player == null)
 			return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
 
@@ -2421,37 +2486,29 @@ public class L2Attackable extends L2Npc
 	{
 		_firstCommandChannelAttacked = firstCommandChannelAttacked;
 	}
-
+	
+	public long getCommandChannelLastAttack()
+	{
+		return _commandChannelLastAttack;
+	}
+	
+	public void setCommandChannelLastAttack(long channelLastAttack)
+	{
+		_commandChannelLastAttack = channelLastAttack;
+	}
+	
 	private class CommandChannelTimer implements Runnable
 	{
-		private final L2CommandChannel _channel;
-
-		public CommandChannelTimer(L2CommandChannel channel)
-		{
-			_channel = channel;
-		}
-
-		/**
-		 * @see java.lang.Runnable#run()
-		 */
 		public void run()
 		{
-			setCommandChannelTimer(null);
-			setFirstCommandChannelAttacked(null);
-			for (L2Character player : getAggroListRP().keySet())
+			if ((System.currentTimeMillis() - getCommandChannelLastAttack()) > Config.ALT_LOOT_RAIDS_PRIVILEGE_INTERVAL)
 			{
-				if (player.isInParty() && player.getParty().isInCommandChannel())
-				{
-					if (player.getParty().getCommandChannel().equals(_channel))
-					{
-						// if a player which is in first attacked CommandChannel, restart the timer ;)
-						setCommandChannelTimer(this);
-						setFirstCommandChannelAttacked(_channel);
-						ThreadPoolManager.getInstance().scheduleGeneral(this, 300000); // 5 min
-						break;
-					}
-				}
+				setCommandChannelTimer(null);
+				setFirstCommandChannelAttacked(null);
+				setCommandChannelLastAttack(0);
 			}
+			else
+				ThreadPoolManager.getInstance().scheduleGeneral(this, 10000); // 10sec
 		}
 	}
 	

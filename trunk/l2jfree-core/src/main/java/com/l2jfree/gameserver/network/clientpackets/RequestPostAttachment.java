@@ -38,9 +38,9 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestPostAttachment extends L2GameClientPacket
 {
-	private static final String	_C__D0_6A_REQUESTPOSTATTACHMENT	= "[C] D0:6A RequestPostAttachment";
+	private static final String _C__D0_6A_REQUESTPOSTATTACHMENT = "[C] D0:6A RequestPostAttachment";
 	
-	private int					_msgId;
+	private int _msgId;
 	
 	@Override
 	protected void readImpl()
@@ -58,15 +58,15 @@ public final class RequestPostAttachment extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		// FIXME
+		// FIXME 1.4.0
 		// if (!activeChar.getFloodProtectors().getTransaction().tryPerformAction("getattach"))
 		// return;
 		
-		// if (!activeChar.getAccessLevel().allowTransaction())
-		// {
-		// activeChar.sendMessage("Transactions are disabled for your Access Level");
-		// return;
-		// }
+		if (!activeChar.allowTransaction())
+		{
+			activeChar.sendMessage("Transactions are disabled for your Access Level");
+			return;
+		}
 		
 		if (!activeChar.isInsideZone(L2Zone.FLAG_PEACE))
 		{

@@ -72,11 +72,11 @@ public final class L2FriendList
 	
 	public void remove(String name)
 	{
-		Integer objId = CharNameTable.getInstance().getByName(name);
+		Integer objId = CharNameTable.getInstance().getObjectIdByName(name);
 		
 		if (objId != null && FriendListManager.getInstance().remove(_owner.getObjectId(), objId))
 		{
-			name = CharNameTable.getInstance().getByObjectId(objId);
+			name = CharNameTable.getInstance().getNameByObjectId(objId);
 			
 			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST).addString(name));
 			_owner.sendPacket(new FriendPacket(FriendAction.REMOVE_FRIEND, objId));

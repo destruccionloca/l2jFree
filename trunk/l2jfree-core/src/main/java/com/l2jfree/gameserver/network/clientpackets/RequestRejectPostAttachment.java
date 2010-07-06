@@ -30,9 +30,9 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestRejectPostAttachment extends L2GameClientPacket
 {
-	private static final String	_C__D0_6B_REQUESTREJECTPOSTATTACHMENT	= "[C] D0:6B RequestRejectPostAttachment";
+	private static final String _C__D0_6B_REQUESTREJECTPOSTATTACHMENT = "[C] D0:6B RequestRejectPostAttachment";
 	
-	private int					_msgId;
+	private int _msgId;
 	
 	@Override
 	protected void readImpl()
@@ -50,9 +50,9 @@ public final class RequestRejectPostAttachment extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		// FIXME
-		// if (!activeChar.getFloodProtectors().getTransaction().tryPerformAction("rejectattach"))
-		// return;
+		// FIXME 1.4.0
+		//if (!activeChar.getFloodProtectors().getTransaction().tryPerformAction("rejectattach"))
+		//	return;
 		
 		if (!activeChar.isInsideZone(L2Zone.FLAG_PEACE))
 		{

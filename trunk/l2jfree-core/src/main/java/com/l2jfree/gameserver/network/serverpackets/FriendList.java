@@ -35,7 +35,7 @@ public class FriendList extends L2GameServerPacket
 {
 	
 	private static final String	_S__FA_FRIENDLIST	= "[S] 75 FriendList";
-	private Set<Integer>		_friends;
+	private final Set<Integer>		_friends;
 	
 	public FriendList(L2PcInstance character)
 	{
@@ -52,7 +52,7 @@ public class FriendList extends L2GameServerPacket
 			
 			for (Integer objId : _friends)
 			{
-				String name = CharNameTable.getInstance().getByObjectId(objId);
+				String name = CharNameTable.getInstance().getNameByObjectId(objId);
 				L2PcInstance player = L2World.getInstance().findPlayer(objId);
 				boolean isOnline = (player != null && player.isOnline() == 1) ? true : false;
 				

@@ -60,7 +60,7 @@ public final class CharacterSelected extends L2GameClientPacket
 			return;
 		}
 		
-		if( (cha.getAccessLevel() < 0) || (Config.SERVER_GMONLY && cha.getAccessLevel()<=0))
+		if (cha.getAccessLevel() < 0 || Config.SERVER_GMONLY && cha.getAccessLevel() <= 0)
 		{
 			new Disconnection(getClient(), cha).defaultSequence(false);
 			return;

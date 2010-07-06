@@ -61,7 +61,7 @@ public class L2FortSiegeNpcInstance extends L2NpcWalkerInstance
 		}
 		else if (actualCommand.equalsIgnoreCase("register"))
 		{
-			if ((player.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE)
+			if (L2Clan.checkPrivileges(player, L2Clan.CP_CS_MANAGE_SIEGE))
 			{
 				if (getFort().getSiege().registerAttacker(player, false))
 				{
@@ -76,7 +76,7 @@ public class L2FortSiegeNpcInstance extends L2NpcWalkerInstance
 		}
 		else if (actualCommand.equalsIgnoreCase("unregister"))
 		{
-			if ((player.getClanPrivileges() & L2Clan.CP_CS_MANAGE_SIEGE) == L2Clan.CP_CS_MANAGE_SIEGE)
+			if (L2Clan.checkPrivileges(player, L2Clan.CP_CS_MANAGE_SIEGE))
 			{
 				getFort().getSiege().removeSiegeClan(player);
 				showMessageWindow(player, 8);

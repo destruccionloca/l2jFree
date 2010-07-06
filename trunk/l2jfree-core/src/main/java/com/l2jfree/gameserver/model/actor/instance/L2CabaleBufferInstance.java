@@ -35,7 +35,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 public class L2CabaleBufferInstance extends L2Npc
 {
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player)) return;
 
@@ -44,7 +44,7 @@ public class L2CabaleBufferInstance extends L2Npc
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 		}
-		else
+		else if (interact)
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!canInteract(player))

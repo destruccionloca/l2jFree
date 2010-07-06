@@ -22,7 +22,6 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
@@ -37,6 +36,7 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowCropInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowCropSetting;
+import com.l2jfree.gameserver.network.serverpackets.ExShowDominionRegistry;
 import com.l2jfree.gameserver.network.serverpackets.ExShowManorDefaultInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSeedInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExShowSeedSetting;
@@ -81,38 +81,6 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcId%", String.valueOf(getNpcId()));
 		player.sendPacket(html);
-	}
-
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-
-		player.setLastFolkNPC(this);
-
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to
-		// avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -197,6 +165,13 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				}
 				else
 					getCastle().getSiege().listRegisterClan(player);
+			}
+			else if (actualCommand.equals("list_territory_clans"))
+			{
+				if (!validatePrivileges(player, L2Clan.CP_CS_MANAGE_SIEGE))
+					return;
+
+				player.sendPacket(new ExShowDominionRegistry(getCastle().getCastleId()));
 			}
 			else if (actualCommand.equals("receive_report"))
 			{
@@ -535,7 +510,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				}
 				else if (val.equals("back"))
 				{
-					showMessageWindow(player);
+					showChatWindow(player);
 				}
 				else
 				{
@@ -1219,7 +1194,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 				}
 				else if (val.equals("back"))
 				{
-					showMessageWindow(player);
+					showChatWindow(player);
 				}
 				else
 				{
@@ -1616,7 +1591,8 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 		}
 	}
 
-	private void showMessageWindow(L2PcInstance player)
+	@Override
+	public void showChatWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/chamberlain/chamberlain-no.htm";
@@ -1764,7 +1740,7 @@ public class L2CastleChamberlainInstance extends L2MerchantInstance
 
 	private boolean validatePrivileges(L2PcInstance player, int privilege)
 	{
-		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CS_DISMISS))
+		if (!L2Clan.checkPrivileges(player, privilege))
 		{
 			player.sendPacket(NO_AUTH);
 			return false;

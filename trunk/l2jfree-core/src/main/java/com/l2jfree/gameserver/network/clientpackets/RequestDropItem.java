@@ -73,7 +73,7 @@ public class RequestDropItem extends L2GameClientPacket
 			requestFailed(SystemMessageId.FUNCTION_INACCESSIBLE_NOW);
 			return;
 		}
-		else if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		else if (!activeChar.allowTransaction())
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_DROP_ITEMS);
 			return;

@@ -16,6 +16,7 @@ package com.l2jfree.gameserver.network.serverpackets;
 
 import java.util.Arrays;
 
+import com.l2jfree.gameserver.datatables.CharNameTable.ICharacterInfo;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Skill;
@@ -364,6 +365,11 @@ public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> ext
 	public T addPcName(L2PcInstance pc)
 	{
 		return addString(pc.getAppearance().getVisibleName());
+	}
+	
+	public T addPcName(ICharacterInfo info)
+	{
+		return addString(info.getName());
 	}
 	
 	public T addNpcName(L2Npc npc)

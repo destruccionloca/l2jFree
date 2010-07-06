@@ -700,7 +700,7 @@ public final class GameStatusThread extends Thread
 						}
 						else
 						{
-							Integer playerId = CharNameTable.getInstance().getByName(playername);
+							Integer playerId = CharNameTable.getInstance().getObjectIdByName(playername);
 							if (playerId != null)
 							{
 								java.sql.Connection con = null;

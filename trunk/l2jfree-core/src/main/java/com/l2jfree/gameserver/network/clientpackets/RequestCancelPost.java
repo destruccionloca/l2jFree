@@ -36,9 +36,9 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestCancelPost extends L2GameClientPacket
 {
-	private static final String	_C__D0_6F_REQUESTCANCELPOSTATTACHMENT	= "[C] D0:6F RequestCancelPostAttachment";
+	private static final String _C__D0_6F_REQUESTCANCELPOSTATTACHMENT = "[C] D0:6F RequestCancelPostAttachment";
 	
-	private int					_msgId;
+	private int _msgId;
 	
 	@Override
 	protected void readImpl()
@@ -53,7 +53,7 @@ public final class RequestCancelPost extends L2GameClientPacket
 		if (activeChar == null || !Config.ALLOW_MAIL || !Config.ALLOW_ATTACHMENTS)
 			return;
 		
-		// FIXME
+		// FIXME 1.4.0
 		// if (!activeChar.getFloodProtectors().getTransaction().tryPerformAction("cancelpost"))
 		// return;
 		

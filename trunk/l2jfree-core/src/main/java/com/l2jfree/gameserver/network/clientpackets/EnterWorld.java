@@ -49,7 +49,6 @@ import com.l2jfree.gameserver.model.entity.Instance;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
-import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
@@ -58,9 +57,9 @@ import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.Die;
 import com.l2jfree.gameserver.network.serverpackets.ExBasicActionList;
+import com.l2jfree.gameserver.network.serverpackets.ExBirthdayPopup;
 import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExNoticePostArrived;
-import com.l2jfree.gameserver.network.serverpackets.ExNotifyBirthDay;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
 import com.l2jfree.gameserver.network.serverpackets.FriendStatusPacket;
@@ -260,12 +259,12 @@ public class EnterWorld extends L2GameClientPacket
 		
 		activeChar.broadcastUserInfo();
 		
-		if (Olympiad.getInstance().playerInStadia(activeChar))
-		{
-			activeChar.doRevive();
-			activeChar.teleToLocation(TeleportWhereType.Town);
-			activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium.");
-		}
+		//if (Olympiad.getInstance().playerInStadia(activeChar))
+		//{
+		//	activeChar.doRevive();
+		//	activeChar.teleToLocation(TeleportWhereType.Town);
+		//	activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium.");
+		//}
 		
 		activeChar.revalidateZone(true);
 		activeChar.sendEtcStatusUpdate();
@@ -330,6 +329,10 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		
 		for (L2ItemInstance i : activeChar.getInventory().getItems())
+			if (i.isTimeLimitedItem())
+				i.scheduleLifeTimeTask();
+		
+		for (L2ItemInstance i : activeChar.getWarehouse().getItems())
 			if (i.isTimeLimitedItem())
 				i.scheduleLifeTimeTask();
 		
@@ -476,13 +479,15 @@ public class EnterWorld extends L2GameClientPacket
 		ExBasicActionList.sendTo(activeChar);
 		
 		int daysLeft = activeChar.canReceiveAnnualPresent();
-		if (daysLeft < 8 && daysLeft != -1)
+		// FIXME 1.4.0
+		//int daysLeft = activeChar.checkBirthDay();
+		if (daysLeft == 0)
 		{
-			if (daysLeft == 0)
-				sendPacket(ExNotifyBirthDay.PACKET);
-			else
-				sendPacket(new SystemMessage(SystemMessageId.S1_DAYS_UNTIL_BIRTHDAY).addNumber(daysLeft));
+			sendPacket(ExBirthdayPopup.PACKET);
+			sendPacket(SystemMessageId.YOUR_BIRTHDAY_GIFT_HAS_ARRIVED);
 		}
+		else if (daysLeft < 8 && daysLeft != -1)
+			sendPacket(new SystemMessage(SystemMessageId.THERE_ARE_S1_DAYS_UNTIL_YOUR_CHARACTERS_BIRTHDAY).addNumber(daysLeft));
 		
 		L2ClassMasterInstance.showQuestionMark(activeChar);
 		

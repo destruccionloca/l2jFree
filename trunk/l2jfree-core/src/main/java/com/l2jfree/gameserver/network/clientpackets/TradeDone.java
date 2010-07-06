@@ -14,7 +14,6 @@
  */
 package com.l2jfree.gameserver.network.clientpackets;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.Shutdown;
 import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.model.L2World;
@@ -48,6 +47,13 @@ public class TradeDone extends L2GameClientPacket
 			return;
 		}
 		
+		// FIXME 1.4.0
+		//if (!player.getFloodProtectors().getTransaction().tryPerformAction("trade"))
+		//{
+		//	player.sendMessage("You trading too fast.");
+		//	return;
+		//}
+		
 		TradeList trade = player.getActiveTradeList();
 		if (trade == null)
 		{
@@ -75,7 +81,7 @@ public class TradeDone extends L2GameClientPacket
 				return;
 			}
 			
-			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+			if (!player.allowTransaction())
 			{
 				player.cancelActiveTrade();
 				requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);

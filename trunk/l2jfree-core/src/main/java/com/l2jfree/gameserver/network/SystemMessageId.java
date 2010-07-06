@@ -15220,7 +15220,7 @@ public enum SystemMessageId
 	 * Message: There are $s1 days until your character's birthday. On that day, you
 	 * can obtain a special gift from the Gatekeeper in any village.
 	 */
-	S1_DAYS_UNTIL_BIRTHDAY(2449),
+	THERE_ARE_S1_DAYS_UNTIL_YOUR_CHARACTERS_BIRTHDAY(2449),
 	
 	/**
 	 * ID: 2450<br>

@@ -965,14 +965,14 @@ public class MailBBSManager extends BaseBBSManager
 		if(charId==100100)
 			return "Auction";
 		
-		String name = CharNameTable.getInstance().getByObjectId(charId);
+		String name = CharNameTable.getInstance().getNameByObjectId(charId);
 		
 		return name == null ? "No Name" : name;
 	}
 
 	private int getCharId(String charName)
 	{
-		Integer objId = CharNameTable.getInstance().getByName(charName);
+		Integer objId = CharNameTable.getInstance().getObjectIdByName(charName);
 		
 		return objId == null ? 0 : objId;
 	}

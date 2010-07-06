@@ -75,6 +75,7 @@ import com.l2jfree.gameserver.datatables.PetDataTable;
 import com.l2jfree.gameserver.datatables.RecordTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
+import com.l2jfree.gameserver.datatables.CharNameTable.ICharacterInfo;
 import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.handler.ItemHandler;
 import com.l2jfree.gameserver.handler.SkillHandler;
@@ -318,7 +319,7 @@ import com.l2jfree.util.SingletonMap;
  *
  * @version $Revision: 1.66.2.41.2.33 $ $Date: 2005/04/11 10:06:09 $
  */
-public final class L2PcInstance extends L2Playable
+public final class L2PcInstance extends L2Playable implements ICharacterInfo
 {
 	@SuppressWarnings("hiding")
 	public static final L2PcInstance[] EMPTY_ARRAY = new L2PcInstance[0];
@@ -6399,6 +6400,11 @@ public final class L2PcInstance extends L2Playable
 	{
 		return _accessLevel;
 	}
+	
+	public boolean allowTransaction()
+	{
+		return !(Config.GM_DISABLE_TRANSACTION && Config.GM_TRANSACTION_MIN <= getAccessLevel() && getAccessLevel() <= Config.GM_TRANSACTION_MAX);
+	}
 
 	@Override
 	public double getLevelMod()
@@ -6549,7 +6555,7 @@ public final class L2PcInstance extends L2Playable
 		L2PcInstance onlinePlayer = L2World.getInstance().findPlayer(objectId);
 		
 		if (onlinePlayer == null)
-			onlinePlayer = L2World.getInstance().getPlayer(CharNameTable.getInstance().getByObjectId(objectId));
+			onlinePlayer = L2World.getInstance().getPlayer(CharNameTable.getInstance().getNameByObjectId(objectId));
 		
 		if (onlinePlayer == null)
 			return;

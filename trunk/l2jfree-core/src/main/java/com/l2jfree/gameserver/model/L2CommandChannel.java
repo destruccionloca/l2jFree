@@ -18,7 +18,7 @@ import java.util.Set;
 
 import javolution.util.FastList;
 
-import com.l2jfree.gameserver.model.actor.L2Attackable;
+import com.l2jfree.Config;
 import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -214,6 +214,7 @@ public class L2CommandChannel
 		return _commandLeader;
 	}
 
+	// FIXME 1.4.0 decide which one should be used
 	/**
 	 * Queen Ant, Core, Orfen, Zaken: MemberCount > 36<br>
 	 * Baium: MemberCount > 56<br>
@@ -228,6 +229,7 @@ public class L2CommandChannel
 	{
 		if (!(obj instanceof L2Boss))
 			return false;
+		/*
 		int npcId = ((L2Attackable)obj).getNpcId();
 		switch (npcId)
 		{
@@ -247,5 +249,7 @@ public class L2CommandChannel
 			default: // normal Raidboss
 				return (getMemberCount() > 18);
 		}
+		 */
+		return (getMemberCount() >= Config.ALT_LOOT_RAIDS_PRIVILEGE_CC_SIZE);
 	}
 }

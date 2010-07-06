@@ -103,8 +103,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 			return;
 		}
 
-		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (warehouse instanceof ClanWarehouse && !player.allowTransaction())
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;

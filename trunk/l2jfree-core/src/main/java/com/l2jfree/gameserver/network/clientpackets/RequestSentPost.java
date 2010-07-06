@@ -29,9 +29,9 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestSentPost extends L2GameClientPacket
 {
-	private static final String	_C__D0_6E_REQUESTSENTPOST	= "[C] D0:6E RequestSentPost";
+	private static final String _C__D0_6E_REQUESTSENTPOST = "[C] D0:6E RequestSentPost";
 	
-	private int					_msgId;
+	private int _msgId;
 	
 	@Override
 	protected void readImpl()

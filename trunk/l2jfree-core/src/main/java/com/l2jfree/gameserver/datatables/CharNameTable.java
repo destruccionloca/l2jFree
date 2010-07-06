@@ -25,8 +25,11 @@ import javolution.util.FastMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jfree.lang.L2Integer;
 import com.l2jfree.util.L2Collections;
 
@@ -55,7 +58,7 @@ public final class CharNameTable
 			while (rset.next())
 			{
 				final int objectId = rset.getInt("charId");
-				final String accountName =rset.getString("account_name");
+				final String accountName = rset.getString("account_name");
 				final String name = rset.getString("char_name");
 				final int accessLevel = rset.getInt("accesslevel");
 				
@@ -77,23 +80,37 @@ public final class CharNameTable
 		_log.info("CharNameTable: Loaded " + _mapByObjectId.size() + " character names.");
 	}
 	
-	public String getByObjectId(Integer objectId)
+	public String getNameByObjectId(Integer objectId)
 	{
 		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
 		
 		return characterInfo == null ? null : characterInfo._name;
 	}
 	
-	public Integer getByName(String name)
+	public String getNameByName(String name)
+	{
+		CharacterInfo characterInfo = _mapByName.get(name.toLowerCase());
+		
+		return characterInfo == null ? null : characterInfo._name;
+	}
+	
+	public Integer getObjectIdByName(String name)
 	{
 		CharacterInfo characterInfo = _mapByName.get(name.toLowerCase());
 		
 		return characterInfo == null ? null : characterInfo._objectId;
 	}
 	
-	public int getAccessLevelById(Integer objectId)
+	public int getAccessLevelByObjectId(Integer objectId)
 	{
 		CharacterInfo characterInfo = _mapByObjectId.get(objectId);
+		
+		return characterInfo == null ? 0 : characterInfo._accessLevel;
+	}
+	
+	public int getAccessLevelByName(String name)
+	{
+		CharacterInfo characterInfo = _mapByName.get(name.toLowerCase());
 		
 		return characterInfo == null ? 0 : characterInfo._accessLevel;
 	}
@@ -112,13 +129,84 @@ public final class CharNameTable
 		characterInfo.updateNames(accountName, name, accessLevel);
 	}
 	
-	private class CharacterInfo
+	public ICharacterInfo getICharacterInfoByObjectId(Integer objectId)
+	{
+		final L2PcInstance player = L2World.getInstance().getPlayer(objectId);
+		
+		if (player != null)
+			return player;
+		
+		return _mapByObjectId.get(objectId);
+	}
+	
+	public ICharacterInfo getICharacterInfoByName(String name)
+	{
+		final L2PcInstance player = L2World.getInstance().getPlayer(name);
+		
+		if (player != null)
+			return player;
+		
+		return _mapByName.get(name.toLowerCase());
+	}
+	
+	public interface ICharacterInfo
+	{
+		public Integer getObjectId();
+		
+		public String getAccountName();
+		
+		public String getName();
+		
+		public int getAccessLevel();
+		
+		public boolean isGM();
+		
+		public void sendPacket(L2GameServerPacket gsp);
+	}
+	
+	private class CharacterInfo implements ICharacterInfo
 	{
 		private final Integer _objectId;
 		
 		private String _accountName;
 		private String _name;
 		private int _accessLevel;
+		
+		@Override
+		public Integer getObjectId()
+		{
+			return _objectId;
+		}
+		
+		@Override
+		public String getAccountName()
+		{
+			return _accountName;
+		}
+		
+		@Override
+		public String getName()
+		{
+			return _name;
+		}
+		
+		@Override
+		public int getAccessLevel()
+		{
+			return _accessLevel;
+		}
+		
+		@Override
+		public boolean isGM()
+		{
+			return getAccessLevel() >= Config.GM_MIN;
+		}
+		
+		@Override
+		public void sendPacket(L2GameServerPacket gsp)
+		{
+			// do nothing
+		}
 		
 		private CharacterInfo(int objectId)
 		{
@@ -154,7 +242,7 @@ public final class CharNameTable
 	
 	public boolean doesCharNameExist(String name)
 	{
-		return getByName(name) != null;
+		return getObjectIdByName(name) != null;
 	}
 	
 	public int accountCharNumber(String account)

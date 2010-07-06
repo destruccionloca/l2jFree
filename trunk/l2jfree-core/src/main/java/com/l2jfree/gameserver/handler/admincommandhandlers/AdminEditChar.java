@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager;
 import com.l2jfree.gameserver.communitybbs.Manager.RegionBBSManager.PlayerStateOnCommunity;
@@ -52,7 +53,6 @@ import com.l2jfree.gameserver.network.serverpackets.SocialAction;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.util.Util;
 
 /**
@@ -361,7 +361,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					player = (L2PcInstance)target;
 					oldName = player.getName();
 					
-					if (CharNameTable.getInstance().getByName(val) != null)
+					if (CharNameTable.getInstance().getObjectIdByName(val) != null)
 					{
 						activeChar.sendMessage("Player with name already exists!");
 						return false;

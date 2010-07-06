@@ -107,8 +107,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			return;
 		}
 
-		if (!isPrivate && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (!isPrivate && !player.allowTransaction())
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;

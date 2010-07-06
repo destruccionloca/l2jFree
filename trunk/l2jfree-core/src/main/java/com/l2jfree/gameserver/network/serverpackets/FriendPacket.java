@@ -46,7 +46,7 @@ public class FriendPacket extends L2GameServerPacket
 	{
 		_action = action;
 		_objid = objId;
-		_name = CharNameTable.getInstance().getByObjectId(objId);
+		_name = CharNameTable.getInstance().getNameByObjectId(objId);
 		_online = L2World.getInstance().getPlayer(objId) != null;
 	}
 	

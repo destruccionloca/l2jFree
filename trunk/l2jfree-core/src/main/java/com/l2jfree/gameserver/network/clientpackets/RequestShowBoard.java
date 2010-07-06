@@ -20,7 +20,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
-public class RequestShowBoard extends L2GameClientPacket
+public final class RequestShowBoard extends L2GameClientPacket
 {
 	private static final String	_C__57_REQUESTSHOWBOARD	= "[C] 57 RequestShowBoard";
 	

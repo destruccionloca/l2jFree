@@ -30,9 +30,9 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestReceivedPost extends L2GameClientPacket
 {
-	private static final String	_C__D0_69_REQUESTRECEIVEDPOST	= "[C] D0:69 RequestReceivedPost";
+	private static final String _C__D0_69_REQUESTRECEIVEDPOST = "[C] D0:69 RequestReceivedPost";
 	
-	private int					_msgId;
+	private int _msgId;
 	
 	@Override
 	protected void readImpl()

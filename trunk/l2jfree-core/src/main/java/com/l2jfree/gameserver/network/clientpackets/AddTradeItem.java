@@ -79,8 +79,7 @@ public class AddTradeItem extends L2GameClientPacket
             return;
         }
 
-        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-            && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+        if (!player.allowTransaction())
         {
         	trade.getPartner().sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
         	requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);

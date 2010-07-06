@@ -49,6 +49,7 @@ public class SkillTreeTable
 {
 	public static final int									NORMAL_ENCHANT_COST_MULTIPLIER	= 1;
 	public static final int									SAFE_ENCHANT_COST_MULTIPLIER	= 5;
+	// FIXME 1.4.0
 	public static final int									ADENA_XP_DIV					= 3; // TODO magic number
 
 	public static final int									NORMAL_ENCHANT_BOOK				= 6622;

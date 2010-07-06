@@ -29,11 +29,11 @@ import com.l2jfree.gameserver.util.Util;
  */
 public final class RequestDeleteReceivedPost extends L2GameClientPacket
 {
-	private static final String	_C__D0_68_REQUESTDELETERECEIVEDPOST	= "[C] D0:68 RequestDeleteReceivedPost";
+	private static final String _C__D0_68_REQUESTDELETERECEIVEDPOST = "[C] D0:68 RequestDeleteReceivedPost";
 	
-	private static final int	BATCH_LENGTH						= 4;										// length of the one item
-																												
-	int[]						_msgIds								= null;
+	private static final int BATCH_LENGTH = 4; // length of the one item
+	
+	private int[] _msgIds;
 	
 	@Override
 	protected void readImpl()

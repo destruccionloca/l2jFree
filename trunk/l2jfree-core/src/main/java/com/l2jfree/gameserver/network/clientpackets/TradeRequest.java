@@ -56,7 +56,7 @@ public class TradeRequest extends L2GameClientPacket
 			return;
 		}
 
-		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (!player.allowTransaction())
 		{
 			requestFailed(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
 			return;

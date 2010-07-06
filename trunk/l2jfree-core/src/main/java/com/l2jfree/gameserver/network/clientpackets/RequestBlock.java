@@ -72,6 +72,11 @@ public final class RequestBlock extends L2GameClientPacket
 				activeChar.getBlockList().setBlockingAll(false);
 				break;
 			}
+			default:
+			{
+				_log.info("Invalid type: " + _type);
+				break;
+			}
 		}
 		
 		sendAF();

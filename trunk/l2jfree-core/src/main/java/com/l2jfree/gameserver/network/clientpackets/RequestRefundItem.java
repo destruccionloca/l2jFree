@@ -16,9 +16,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
@@ -39,20 +36,20 @@ import com.l2jfree.gameserver.util.Util;
 
 public final class RequestRefundItem extends L2GameClientPacket
 {
-	private static final String	_C__D0_75_REQUESTREFUNDITEM	= "[C] D0:75 RequestRefundItem";
-	private static final Log	_log						= LogFactory.getLog(RequestRefundItem.class);
+	private static final String _C__D0_75_REQUESTREFUNDITEM = "[C] D0:75 RequestRefundItem";
 	
-	private int					_listId;
-	private int[]				_items						= null;
+	private static final int BATCH_LENGTH = 4; // length of the one item
+	
+	private int _listId;
+	private int[] _items;
 	
 	@Override
 	protected void readImpl()
 	{
 		_listId = readD();
 		final int count = readD();
-		// FIXME
-		// if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != _buf.remaining())
-		// return;
+		if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != getByteBuffer().remaining())
+			return;
 		
 		_items = new int[count];
 		for (int i = 0; i < count; i++)
@@ -66,7 +63,7 @@ public final class RequestRefundItem extends L2GameClientPacket
 		if (player == null)
 			return;
 		
-		// FIXME
+		// FIXME 1.4.0
 		// if (!player.getFloodProtectors().getTransaction().tryPerformAction("refund"))
 		// {
 		// player.sendMessage("You using refund too fast.");

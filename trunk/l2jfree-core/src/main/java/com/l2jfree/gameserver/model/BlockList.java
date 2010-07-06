@@ -16,6 +16,8 @@ package com.l2jfree.gameserver.model;
 
 import java.util.Set;
 
+import com.l2jfree.gameserver.datatables.CharNameTable;
+import com.l2jfree.gameserver.datatables.CharNameTable.ICharacterInfo;
 import com.l2jfree.gameserver.instancemanager.BlockListManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -39,19 +41,16 @@ public final class BlockList
 	
 	public void add(String name)
 	{
-		L2PcInstance player = L2World.getInstance().getPlayer(name);
-		if (player == null)
+		final ICharacterInfo player = CharNameTable.getInstance().getICharacterInfoByName(name);
+		if (player == null || player.getObjectId() == _owner.getObjectId())
 		{
-			_owner.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+			_owner.sendPacket(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST);
 			return;
 		}
 		
 		if (player.isGM())
 		{
-			if (player.getAppearance().isInvisible())
-				_owner.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-			else
-				_owner.sendPacket(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
+			_owner.sendPacket(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
 			return;
 		}
 		
@@ -59,7 +58,7 @@ public final class BlockList
 		{
 			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_WAS_ADDED_TO_YOUR_IGNORE_LIST).addPcName(player));
 			player.sendPacket(new SystemMessage(SystemMessageId.C1_HAS_ADDED_YOU_TO_IGNORE_LIST).addPcName(_owner));
-			BlockListManager.getInstance().insert(_owner, player);
+			BlockListManager.getInstance().insert(_owner, player.getName());
 		}
 		else
 			_owner.sendMessage(player.getName() + " was already on your Ignore List.");

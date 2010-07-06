@@ -15,13 +15,20 @@
 package com.l2jfree.gameserver.network.serverpackets;
 
 /**
+ * This packet pops up a birthday cake icon on the left hand side
+ * of the screen. After clicking the icon, you get a confirm dialog
+ * saying your birthday present has arrived and that you may receive
+ * it at any Gatekeeper.
+ * @author savormix
  * @author Gnat
  */
-public class ExBirthdayPopup extends L2GameServerPacket
+public class ExBirthdayPopup extends StaticPacket
 {
-	private static final String	_S__FE_8F_EXBIRTHDAYPOPUP	= "[S] FE:8F ExBirthdayPopup";
+	private static final String _S__FE_8F_EXBIRTHDAYPOPUP = "[S] FE:8F ExBirthdayPopup ch";
 	
-	public ExBirthdayPopup()
+	public static final ExBirthdayPopup PACKET = new ExBirthdayPopup();
+	
+	private ExBirthdayPopup()
 	{
 	}
 	

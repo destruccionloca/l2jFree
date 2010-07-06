@@ -77,7 +77,7 @@ public class AnswerTradeRequest extends L2GameClientPacket
 	        	return;
 	        }
 	        
-	        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+	        if (!player.allowTransaction())
 	        {
 	        	partner.sendPacket(SystemMessageId.CANT_TRADE_WITH_TARGET);
 	            sendPacket(SystemMessageId.ACCOUNT_CANT_TRADE_ITEMS);
