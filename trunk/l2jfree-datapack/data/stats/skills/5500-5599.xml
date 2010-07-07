@@ -764,7 +764,7 @@
       </effect>
     </for>
   </skill>
-  <skill id="5570" levels="1" name="Excessive Royalty">
+  <skill id="5570" levels="1" name="Excessive Loyalty">
     <set name="magicLvl" val="81"/>
     <set name="target" val="TARGET_PET"/>
     <set name="skillType" val="BUFF"/>
@@ -792,6 +792,7 @@
     <set name="effectRange" val="900"/>
   </skill>
   <skill id="5572" levels="1" name="Warrior Ability - Haste">
+    <!-- NOTE: Description says "Excludes damage caused by a skill or ranged attack" but is client typo -->
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
@@ -799,11 +800,7 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="15" val="0">
-        <mul order="0x30" stat="pAtkSpd" val="1.32">
-          <not>
-           <using kind="Bow,Crossbow"/>
-          </not>
-        </mul>
+        <mul order="0x30" stat="pAtkSpd" val="1.32"/>
       </effect>
     </for>
   </skill>
@@ -815,8 +812,8 @@
     <set name="effectRange" val="900"/>
     <for>
       <effect name="Buff" time="15" val="0">
-        <mul order="0x30" stat="pDef" val="1.20"/>
-        <mul order="0x30" stat="mDef" val="1.20"/>
+        <mul order="0x30" stat="pDef" val="1.2"/>
+        <mul order="0x30" stat="mDef" val="1.2"/>
       </effect>
     </for>
   </skill>
@@ -954,7 +951,7 @@
   <skill id="5586" levels="3" name="Pet Might">
     <table name="#mpInitialConsume"> 1 2 3 </table>
     <table name="#mpConsume"> 4 8 14 </table>
-    <table name="#rate"> 1.08 1.12 1.15 </table>
+    <table name="#pAtk"> 1.08 1.12 1.15 </table>
     <table name="#aggroPoints"> 121 204 379 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -968,15 +965,15 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="120" val="0" stackOrder="#rate" stackType="pa_up">
-        <mul order="0x30" stat="pAtk" val="#rate"/>
+      <effect name="Buff" time="120" val="0" stackOrder="#pAtk" stackType="pa_up">
+        <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
   </skill>
   <skill id="5587" levels="3" name="Pet Shield">
     <table name="#mpInitialConsume"> 1 2 4 </table>
     <table name="#mpConsume"> 4 9 16 </table>
-    <table name="#rate"> 1.08 1.12 1.15 </table>
+    <table name="#pDef"> 1.08 1.12 1.15 </table>
     <table name="#aggroPoints"> 121 243 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -990,8 +987,8 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="120" val="0" stackOrder="#rate" stackType="pd_up">
-        <mul order="0x30" stat="pDef" val="#rate"/>
+      <effect name="Buff" time="120" val="0" stackOrder="#pDef" stackType="pd_up">
+        <mul order="0x30" stat="pDef" val="#pDef"/>
       </effect>
     </for>
   </skill>
@@ -1078,10 +1075,18 @@
     </for>
   </skill>
   <skill id="5593" levels="1" name="Vampiric Mana Burn">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="29"/>
+    <set name="mpConsume" val="118"/>
+    <set name="power" val="135"/>
+    <set name="reuseDelay" val="36000"/>
     <set name="hitTime" val="1000"/>
+    <set name="coolTime" val="666"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="MANADAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="900"/>
+    <set name="effectRange" val="1400"/>
+    <set name="isMagic" val="true"/>
   </skill>
   <skill id="5594" levels="1" name="Poison">
     <set name="power" val="70"/>
@@ -1125,7 +1130,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5598" levels="12" name="Flash Resistance">
-    <table name="#resist"> 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
+    <table name="#stunVuln"> 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
     <set name="magicLvl" val="1"/>
     <set name="power" val="0.0"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1133,11 +1138,11 @@
     <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="stunVuln" val="#resist"/>
+      <mul order="0x30" stat="stunVuln" val="#stunVuln"/>
     </for>
   </skill>
   <skill id="5599" levels="12" name="Stun Resistance">
-    <table name="#resist"> 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
+    <table name="#stunVuln"> 0.9 0.9 0.8 0.8 0.8 0.7 0.7 0.7 0.6 0.6 0.6 0.5 </table>
     <set name="magicLvl" val="1"/>
     <set name="power" val="0.0"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1145,7 +1150,7 @@
     <set name="hitTime" val="0"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="stunVuln" val="#resist"/>
+      <mul order="0x30" stat="stunVuln" val="#stunVuln"/>
     </for>
   </skill>
 </list>

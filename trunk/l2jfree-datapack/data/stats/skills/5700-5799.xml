@@ -9,8 +9,7 @@
     Lvl 4 - Kamaloka (Labyrinth of the Abyss) 59
     Lvl 5 - Kamaloka (Labyrinth of the Abyss) 69
     Lvl 6 - Kamaloka (Labyrinth of the Abyss) 78
-    Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81
-   -->
+    Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81 -->
     <!-- Guessed values, need retail information -->
     <table name="#magicLvl"> 29 39 49 59 69 78 81 </table>
     <table name="#mDef"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
@@ -33,8 +32,7 @@
     Lvl 4 - Kamaloka (Labyrinth of the Abyss) 59
     Lvl 5 - Kamaloka (Labyrinth of the Abyss) 69
     Lvl 6 - Kamaloka (Labyrinth of the Abyss) 78
-    Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81
-   -->
+    Lvl 7 - Kamaloka (Labyrinth of the Abyss) 81 -->
     <!-- Guessed values, need retail information -->
     <table name="#magicLvl"> 29 39 49 59 69 78 81 </table>
     <table name="#pAtk"> 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
@@ -53,8 +51,7 @@
   <!--
     Used by NPCs:
     18608 - Lv1
-    18620 - Lv2
-   -->
+    18620 - Lv2 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -63,8 +60,7 @@
   <skill id="5703" levels="2" name="Adiantum Water Strike Deflect">
   <!--
     Used by NPCs:
-    18620 - Lv2
-   -->
+    18620 - Lv2 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -90,8 +86,7 @@
   <skill id="5705" levels="1" name="Fire Trap">
   <!--
     Used by NPCs:
-    18617
-   -->
+    18617 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -100,11 +95,10 @@
   <!-- HP decreased momentarily by poison. The body is paralyzed after a set amount of time. Effect 7. -->
   <!--
     Used by NPCs:
-    18624 18625 18626 18627
-   -->
+    18624 18625 18626 18627 -->
     <table name="#magicLvl"> 61 </table>
     <table name="#abnormalLvl"> 7 </table>
-    <table name="#DamOverTime"> 177 </table>
+    <table name="#dot"> 177 </table>
     <set name="mpInitialConsume" val="11"/>
     <set name="mpConsume" val="45"/>
     <set name="target" val="TARGET_ONE"/>
@@ -117,7 +111,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="abnormalLvl" val="#abnormalLvl"/>
     <for>
-      <effect count="10" name="DamOverTime" time="3" val="#DamOverTime" abnormal="poison"/>
+      <effect count="10" name="DamOverTime" time="3" val="#dot" abnormal="poison"/>
     </for>
   </skill>
   <!-- Triggered when 5706 effect ends (100%) -->
@@ -205,13 +199,13 @@
   <!-- Effect of 5712. -->
   <skill id="5713" levels="5" name="Energy Ditch">
   <!-- Lv1: Receiving the follower's magic power. Increases HP regeneration. -->
-    <table name="#hp"> 2 4 6 10 15 </table>
+    <table name="#regHp"> 2 4 6 10 15 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Buff" time="60" val="0">
-        <mul order="0x30" stat="regHp" val="#hp"/>
+        <mul order="0x30" stat="regHp" val="#regHp"/>
       </effect>
     </for>
   </skill>
@@ -231,8 +225,7 @@
   <!-- Incurring continuous flame damage and has decreased moving speed. -->
   <!--
     Used by NPCs:
-    18660
-   -->
+    18660 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -241,8 +234,7 @@
   <skill id="5716" levels="1" name="Stun">
   <!--
     Used by NPCs:
-    18660
-   -->
+    18660 -->
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="isDebuff" val="true"/>
@@ -259,8 +251,7 @@
   <skill id="5717" levels="1" name="Fire Breath">
   <!--
     Used by NPCs:
-    18660
-   -->
+    18660 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -270,8 +261,7 @@
   <!-- P. Def. is decreased and P. Atk. is greatly increased because of rage. -->
   <!--
     Used by NPCs:
-    18660
-   -->
+    18660 -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -286,8 +276,7 @@
   <!--
     Used by NPCs:
     18580 - Lv2 18582 - Lv2
-    18585 - Lv3
-   -->
+    18585 - Lv3 -->
     <table name="#mpInitialConsume"> 12 14 15 16 16 16 </table>
     <table name="#mpConsume"> 48 56 60 64 66 67 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -304,8 +293,7 @@
   <!--
     Used by NPCs:
     18580 - Lv2 18582 - Lv2
-    18585 - Lv3
-   -->
+    18585 - Lv3 -->
     <table name="#mpInitialConsume"> 12 14 15 16 16 16 </table>
     <table name="#mpConsume"> 48 56 60 64 66 67 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -586,8 +574,7 @@
   <skill id="5745" levels="12" name="Death Blow">
   <!--
     Used by NPCs:
-    16044 - Lv1 16045 - Lv1 16052 - Lv1 16053 - Lv1
-   -->
+    16044 - Lv1 16045 - Lv1 16052 - Lv1 16053 - Lv1 -->
     <table name="#power"> 183 419 875 1665 2885 4544 6503 7503 8447 9280 9948 10466 </table>
     <table name="#mpInitialConsume"> 7 12 16 22 29 36 42 45 47 49 50 51 </table>
     <table name="#mpConsume"> 29 48 67 91 118 145 169 181 190 197 201 204 </table>
@@ -608,8 +595,7 @@
   <skill id="5746" levels="12" name="Double Attack">
   <!--
     Used by NPCs:
-    16044 - Lv1 16052 - Lv1 16053 - Lv1
-   -->
+    16044 - Lv1 16052 - Lv1 16053 - Lv1 -->
     <table name="#power"> 137 314 656 1249 2164 3408 4878 5627 6335 6960 7461 7850 </table>
     <table name="#mpInitialConsume"> 3 5 7 9 12 15 17 19 20 20 21 21 </table>
     <table name="#mpConsume"> 12 20 28 38 49 60 71 76 80 82 84 85 </table>
@@ -628,8 +614,7 @@
   <skill id="5747" levels="12" name="Spin Attack">
   <!--
     Used by NPCs:
-    16044 - Lv1 16052 - Lv1 16053 - Lv1
-   -->
+    16044 - Lv1 16052 - Lv1 16053 - Lv1 -->
     <table name="#power"> 55 126 263 500 866 1364 1951 2251 2534 2784 2985 3140 </table>
     <table name="#mpInitialConsume"> 2 4 5 7 10 12 14 15 16 16 16 17 </table>
     <table name="#mpConsume"> 10 16 22 30 40 48 56 60 64 66 67 68 </table>
@@ -731,9 +716,27 @@
     <set name="effectRange" val="1400"/>
   </skill>
   <skill id="5753" levels="1" name="Awakening">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="52"/>
+    <set name="mpConsume" val="208"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="hitTime" val="1500"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <set name="effectRange" val="-1"/>
+    <for>
+      <effect name="Buff" time="1200" count="1" val="0">
+       <mul order="0x30" stat="pAtk" val="1.08"/>
+       <mul order="0x30" stat="mAtk" val="1.16"/>
+       <mul order="0x30" stat="pAtkSpd" val="1.08"/>
+       <add order="0x40" stat="runSpd" val="8"/>
+       <mul order="0x30" stat="pDef" val="0.92"/>
+       <mul order="0x30" stat="mDef" val="0.84"/>
+       <sub order="0x40" stat="rEvas" val="4"/>
+      </effect>
+    </for>
   </skill>
   <skill id="5754" levels="1" name="Presentation - Adiantum Round Fighter">
     <set name="target" val="TARGET_NONE"/>
@@ -771,9 +774,15 @@
     <set name="hitTime" val="9700"/>
   </skill>
   <skill id="5760" levels="9" name="Critical Hit">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <table name="#maxCharges"> 1 2 3 4 5 6 7 8 9 </table>
+    <set name="mpConsume" val="5"/>
+    <set name="hpConsume" val="20"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="hitTime" val="900"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="needCharges" val="1"/>
+    <set name="maxCharges" val="#maxCharges"/>
   </skill>
   <skill id="5761" levels="2" name="Power Strike">
     <table name="#power"> 250 320 </table>
@@ -938,8 +947,7 @@
   <skill id="5780" levels="9" name="Agathion Collection">
   <!--
     Lv1: Summons a Sprite to collect the essence of the Seeds of Infinity and Destruction.
-    Lv2: The summoned Sprite collects the essence of the Seeds of Infinity and Destruction.
-   -->
+    Lv2: The summoned Sprite collects the essence of the Seeds of Infinity and Destruction. -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
     <set name="reuseDelay" val="20000"/>
