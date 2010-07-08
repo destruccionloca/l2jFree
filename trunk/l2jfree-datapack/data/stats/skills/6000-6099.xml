@@ -255,10 +255,22 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6041" levels="1" name="Phoenix Rush">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpConsume" val="90"/>
+    <set name="magicLvl" val="83"/>
+    <set name="power" val="2160"/> <!-- Guess -->
+    <set name="SSBoost" val="2.0"/>
+    <set name="element" val="0"/> <!-- Fire -->
+    <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="800"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="PDAM"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <for>
+      <effect name="EnemyCharge" val="0" noicon="1"/>
+    </for>
   </skill>
   <skill id="6042" levels="1" name="Phoenix Cleanse">
     <!-- Done by DJ MELERIX -->
@@ -428,131 +440,157 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6062" levels="1" name="Raid Boss - Level 82">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6063" levels="1" name="Raid Boss - Level 84">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6064" levels="1" name="Raid Boss - Level 84">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6065" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6066" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6067" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6068" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6069" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6070" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6071" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6072" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6073" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6074" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6075" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6076" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6077" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6078" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6079" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6080" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6081" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6082" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6083" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6084" levels="1" name="Raid Boss - Level 80">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6085" levels="1" name="Raid Boss - Level 83">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6086" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="6087" levels="1" name="Raid Boss - Level 85">
+    <!-- This Skill Is Only For Description In The Client -->
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -569,57 +607,84 @@
     <set name="hitTime" val="3500"/>
   </skill>
   <skill id="6090" levels="1" name="Lightning Strike">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lightning Strike effect -->
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="skillType" val="PARALYZE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <for>
+      <effect name="Paralyze" time="10" val="0"/>
+    </for>
   </skill>
   <skill id="6091" levels="1" name="Anger">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Anchor effect -->
+    <set name="isDebuff" val="true"/>
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="skillType" val="PARALYZE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="40"/>
+    <for>
+      <effect name="Paralyze" time="10" val="0" noicon="1"/>
+    </for>
   </skill>
   <skill id="6092" levels="1" name="Lightning Shock">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Lightning Shock effect -->
+    <set name="isDebuff" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="skillType" val="PARALYZE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <for>
+      <effect name="Paralyze" time="9" val="0"/>
+    </for>
   </skill>
   <skill id="6093" levels="1" name="Panther Hide">
-  <!-- Allows one to stay hidden. Movement speed is decreased by 10%. The effect is canceled if any action other than movement is initiated. -->
-    <set name="mpInitialConsume" val="8"/>
-    <set name="mpConsume" val="33"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <!-- Allows one to stay hidden. Movement speed is decreased by 10%. The effect is canceled if any action other than movement is initiated. -->
+    <set name="mpConsume" val="37"/>
+    <set name="reuseDelay" val="180000"/>
+    <set name="hitTime" val="500"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="dispelOnAction" val="true"/>
+    <for>
+      <effect count="1" name="Hide" time="30" val="0">
+        <mul order="0x30" stat="runSpd" val="0.9"/>
+      </effect>
+    </for>
   </skill>
   <skill id="6094" levels="11" name="Panther Cancel">
     <!-- Done by DJ MELERIX -->
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1000"/>
-    <set name="maxNegated" val="3"/> <!-- TODO: maxNegated amount needs to be verified, because in PTS maxNegated is upto 3, but in Live appears to be upto 2 -->
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="reuseDelay" val="60000"/>
+    <set name="hitTime" val="1000"/>
+    <set name="maxNegated" val="3"/> <!-- TODO: maxNegated amount needs to be verified, because in PTS maxNegated is upto 3, but in Live appears to be upto 2 -->
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="CANCEL"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
   </skill>
   <skill id="6095" levels="15" name="Panther Dark Claw">
     <!-- Done by DJ MELERIX -->
     <table name="#power"> 469 758 1136 1327 1525 1727 1925 2020 2067 2112 2156 2200 2241 2282 2320 </table>
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1000"/>
-    <set name="lvlDepend" val="2"/>
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
-    <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="#power"/>
     <set name="reuseDelay" val="10000"/>
+    <set name="power" val="#power"/>
+    <set name="hitTime" val="1000"/>
+    <set name="lvlDepend" val="2"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="PDAM"/>
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
     <for>
       <effect name="Debuff" time="30" val="0" effectPower="80" effectType="WEAKNESS">
         <sub order="0x40" stat="darkRes" val="25"/>
@@ -629,17 +694,17 @@
   <skill id="6096" levels="13" name="Panther Fatal Claw">
     <!-- Done by DJ MELERIX -->
     <table name="#power"> 3408 3980 4575 5180 5773 6060 6199 6335 6468 6598 6723 6844 6960 </table>
-    <set name="castRange" val="40"/>
-    <set name="effectRange" val="400"/>
-    <set name="hitTime" val="1000"/>
     <set name="mpInitialConsume" val="8"/>
     <set name="mpConsume" val="33"/>
-    <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="PDAM"/>
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="40"/>
+    <set name="effectRange" val="400"/>
   </skill>
   <skill id="6097" levels="1" name="Scissors">
     <set name="target" val="TARGET_NONE"/>
