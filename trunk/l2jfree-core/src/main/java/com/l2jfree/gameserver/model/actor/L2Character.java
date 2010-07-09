@@ -220,6 +220,7 @@ public abstract class L2Character extends L2Object
 
 	private boolean					_isRaid								= false;
 	private boolean					_isFlying;
+	private boolean 				_isUsingPathFinding	
 
 	/**
 	 * Objects known by this object
@@ -4640,7 +4641,7 @@ public abstract class L2Character extends L2Object
 			{
 				// Path calculation
 				// Overrides previous movement check
-				if(this instanceof L2Playable || isInCombat() || this instanceof L2MinionInstance)
+				if(this instanceof L2Playable || isInCombat() || this instanceof L2MinionInstance || isUsingPathFinding())
 				{
 
 					m.geoPath = PathFinding.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, getInstanceId());
@@ -7080,5 +7081,15 @@ public abstract class L2Character extends L2Object
 
 	public void sendResistedAgainstMagicWeaklyMessage(L2Character attacker)
 	{
+	}
+
+	public boolean isUsingPathFinding()
+	{
+		return _isUsingPathFinding;
+	}
+
+	public void setIsUsingPathFinding(boolean choice)
+	{
+		_isUsingPathFinding = choice;
 	}
 }
