@@ -592,6 +592,10 @@ final class GeoEngine extends GeoData
 		int geoTargetX = (targetX - L2World.MAP_MIN_X) >> 4;
 		int geoTargetY = (targetY - L2World.MAP_MIN_Y) >> 4;
 		
+		// allow (x,y) movements in same cell
+		if (geoX == geoTargetX && geoY == geoTargetY)
+			return new Location(targetX, targetY, z);
+		
 		int dx = (geoTargetX - geoX);
 		int dy = (geoTargetY - geoY);
 		final int distance2 = dx * dx + dy * dy;
