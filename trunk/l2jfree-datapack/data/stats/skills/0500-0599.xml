@@ -1544,7 +1544,7 @@
     <set name="effectRange" val="40"/>
     <set name="skillRadius" val="200"/>
     <for>
-      <effect name="Buff" val="0" time="60" stackOrder="200" stackType="gravitycontrol">
+      <effect name="Debuff" val="0" time="60" stackOrder="200" stackType="gravitycontrol">
         <mul order="0x30" stat="pAtkSpd" val="0.9"/>
         <sub order="0x40" stat="runSpd" val="35"/>
       </effect>

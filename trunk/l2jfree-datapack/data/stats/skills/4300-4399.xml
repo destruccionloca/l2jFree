@@ -277,7 +277,7 @@
     <set name="castRange" val="1500"/>
     <set name="effectRange" val="2000"/>
     <for>
-      <effect name="Buff" time="30" val="0" stackOrder="0.34" stackType="pDefDown">
+      <effect name="Debuff" time="30" val="0" stackOrder="0.34" stackType="pDefDown">
         <mul order="0x30" stat="pDef" val="0.34"/>
       </effect>
     </for>

@@ -988,7 +988,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="Buff" time="15" val="0" stackOrder="#pAtk" stackType="pAtkDown">
+      <effect name="Debuff" time="15" val="0" stackOrder="#pAtk" stackType="pAtkDown">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -1011,7 +1011,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="isDebuff" val="true"/>
     <for>
-      <effect name="Buff" time="15" val="0" stackOrder="#mAtk" stackType="ma_up">
+      <effect name="Debuff" time="15" val="0" stackOrder="#mAtk" stackType="ma_up">
         <mul order="0x30" stat="mAtk" val="#mAtk"/>
       </effect>
     </for>

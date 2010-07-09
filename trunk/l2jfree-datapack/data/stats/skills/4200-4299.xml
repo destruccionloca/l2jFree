@@ -143,7 +143,7 @@
     <set name="castRange" val="750"/>
     <set name="effectRange" val="1250"/>
     <for>
-      <effect name="Buff" time="30" val="0">
+      <effect name="Debuff" time="30" val="0">
         <sub order="0x40" stat="maxMp" val="#maxMp"/>
       </effect>
     </for>
