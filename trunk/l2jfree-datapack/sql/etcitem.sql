@@ -9987,3 +9987,32 @@ UPDATE `etcitem` SET `price` = '2068800' WHERE `item_id` BETWEEN 10373 AND 10396
 -- Mutated Kaneus (Spire)
 UPDATE `etcitem` SET `item_type` = 'quest', `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` BETWEEN 13830 AND 13840;
 
+-- Transform Sealbook (Spire)
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '617-1' WHERE (item_id='9648');-- Onyx Beast
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '618-1' WHERE (item_id='9648');-- Death Blader
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '541-1' WHERE (item_id='9648');-- Grail Apostle
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '544-1' WHERE (item_id='9648');-- Unicorn
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '547-1' WHERE (item_id='9648');-- Lilim Knight
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '550-1' WHERE (item_id='9648');-- Golem Guardian
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '553-1' WHERE (item_id='9648');-- Inferno Drake
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '556-1' WHERE (item_id='9648');-- Dragon Bomber
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '657-1' WHERE (item_id='10288');-- Divine Knight
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '656-1' WHERE (item_id='10289');-- Divine Warrior
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '658-1' WHERE (item_id='10290');-- Divine Rogue
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '661-1' WHERE (item_id='10291');-- Divine Healer
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '659-1' WHERE (item_id='10292');-- Divine Wizard
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '662-1' WHERE (item_id='10293');-- Divine Enchanter
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '660-1' WHERE (item_id='10294');-- Divine Summoner
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '663-1' WHERE (item_id='10295');-- Zaken
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '664-1' WHERE (item_id='10296');-- Anakim
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '665-1' WHERE (item_id='10297');-- Venom
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '666-1' WHERE (item_id='10298');-- Gordon
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '667-1' WHERE (item_id='10299');-- Ranku
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '668-1' WHERE (item_id='10300');-- Kechi
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '669-1' WHERE (item_id='10301');-- Demon Prince
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '670-1' WHERE (item_id='10302');-- Heretic
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '671-1' WHERE (item_id='10303');-- Vale Master
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '672-1' WHERE (item_id='10304');-- Saber Tooth Tiger
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '673-1' WHERE (item_id='10305');-- Oel Mahum
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '674-1' WHERE (item_id='10306');-- Doll Blader
+
