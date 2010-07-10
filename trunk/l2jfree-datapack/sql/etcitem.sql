@@ -9989,13 +9989,13 @@ UPDATE `etcitem` SET `item_type` = 'quest', `sellable` = 'false', `dropable` = '
 
 -- Transform Sealbook (Spire)
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '617-1' WHERE (item_id='9648');-- Onyx Beast
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '618-1' WHERE (item_id='9648');-- Death Blader
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '541-1' WHERE (item_id='9648');-- Grail Apostle
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '544-1' WHERE (item_id='9648');-- Unicorn
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '547-1' WHERE (item_id='9648');-- Lilim Knight
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '550-1' WHERE (item_id='9648');-- Golem Guardian
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '553-1' WHERE (item_id='9648');-- Inferno Drake
-UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '556-1' WHERE (item_id='9648');-- Dragon Bomber
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '618-1' WHERE (item_id='9649');-- Death Blader
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '541-1' WHERE (item_id='9650');-- Grail Apostle
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '544-1' WHERE (item_id='9651');-- Unicorn
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '547-1' WHERE (item_id='9652');-- Lilim Knight
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '550-1' WHERE (item_id='9653');-- Golem Guardian
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '553-1' WHERE (item_id='9654');-- Inferno Drake
+UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '556-1' WHERE (item_id='9655');-- Dragon Bomber
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '657-1' WHERE (item_id='10288');-- Divine Knight
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '656-1' WHERE (item_id='10289');-- Divine Warrior
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '658-1' WHERE (item_id='10290');-- Divine Rogue
