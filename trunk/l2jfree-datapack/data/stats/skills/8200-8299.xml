@@ -93,7 +93,8 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="2"/> <!-- Str +2 -->
+      <add order="0x10" stat="STR" val="1"/> <!-- Str +1 -->
+      <add order="0x10" stat="DEX" val="1"/> <!-- Dex +1 -->
       <mul order="0x30" stat="pAtk" val="1.054"/> <!-- P. Atk. +5.4% -->
       <add order="0x40" stat="maxHp" val="492"/> <!-- HP +492 -->
       <add order="0x40" stat="darkRes" val="8"/> <!-- Resistance to Darkness attacks +8 -->
@@ -394,7 +395,8 @@
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <sub order="0x10" stat="CON" val="2"/> <!-- Con -2 -->
-      <add order="0x10" stat="STR" val="2"/> <!-- Str +2 -->
+      <add order="0x10" stat="STR" val="1"/> <!-- Str +1 -->
+      <add order="0x10" stat="DEX" val="1"/> <!-- Dex +1 -->
       <mul order="0x30" stat="pAtk" val="1.066"/> <!-- P. Atk. +6.6% -->
       <add order="0x40" stat="maxHp" val="492"/> <!-- Max. HP +492 -->
       <add order="0x40" stat="darkRes" val="8"/> <!-- Resistance to Darkness attacks +8 -->
@@ -705,7 +707,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0">
+      <effect name="Transformation" time="3600" val="0"> <!-- Transformation lasts 60 minutes -->
         <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
       </effect>
     </for>
@@ -728,7 +730,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="3600" val="0"/>
+      <effect name="Transformation" time="3600" val="0"/> <!-- Transformation lasts 60 minutes -->
     </for>
   </skill>
   <skill id="8247" levels="1" name="Mount Light Purple Maned Horse">
@@ -740,7 +742,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0">
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
         <mul order="0x30" stat="runSpd" val="1.5"/> <!-- Run Speed +50 -->
       </effect>
     </for>
@@ -758,7 +760,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="8250" levels="2" name="Summon Tigress">
-    <table name="#npc"> 14916 14917 </table>
+    <table name="#npcId"> 14916 14917 </table>
     <set name="mpInitialConsume" val="23"/>
     <set name="mpConsume" val="93"/>
     <set name="target" val="TARGET_SELF"/>
@@ -768,7 +770,7 @@
     <set name="hitTime" val="15000"/>
     <set name="isMagic" val="true"/>
     <!-- Summon-specific -->
-    <set name="npcId" val="#npc"/>
+    <set name="npcId" val="#npcId"/>
     <set name="summonTotalLifeTime" val="5400000"/>
     <set name="isCubic" val="false"/>
   </skill>
@@ -863,7 +865,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0">
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
         <mul order="0x30" stat="runSpd" val="1.5"/> <!-- Run Speed +50 -->
       </effect>
     </for>
@@ -877,7 +879,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="1800" val="0">
+      <effect name="Transformation" time="1800" val="0"> <!-- Transformation lasts 30 minutes -->
         <mul order="0x30" stat="runSpd" val="1.5"/> <!-- Run Speed +50 -->
       </effect>
     </for>
@@ -976,13 +978,19 @@
   <!-- Stuns certain monsters within the Tumor of Death and the Seed of Infinity, causing them to become immobile or lose their target. -->
     <set name="mpInitialConsume" val="16"/>
     <set name="mpConsume" val="66"/>
-    <set name="reuseDelay" val="1000"/>
-    <set name="hitTime" val="1000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="reuseDelay" val="8000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="isDebuff" val="true"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="STUN"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
+    <for>
+      <effect count="1" name="Stun" time="2" val="0" stackOrder="1" stackType="Stun"/>
+      <effect name="ImmobileBuff" time="120" val="0"/>
+      <effect name="RemoveTarget" noicon="1" val="0"/>
+    </for>
   </skill>
   <skill id="8277" levels="1" name="Transform Native">
     <set name="target" val="TARGET_SELF"/>
@@ -993,7 +1001,7 @@
       <player olympiad="false"/>
     </cond>
     <for>
-      <effect name="Transformation" time="-1" val="0"/>
+      <effect name="Transformation" time="-1" val="0"/> <!-- Transformation have unlimited time -->
     </for>
   </skill>
   <skill id="8278" levels="1" name="Transform Guard of Dawn">
@@ -1010,22 +1018,36 @@
   </skill>
   <skill id="8279" levels="1" name="Blessing of Fire">
   <!-- Blessing of fire. Fire attribute is bestowed on physical attacks. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="100"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="element" val="0"/> <!-- Fire -->
+    <for>
+      <effect name="Buff" time="600" val="0" stackOrder="1" stackType="ElementPwr">
+        <add order="0x40" stat="firePower" val="20"/>
+      </effect>
+    </for>
   </skill>
   <skill id="8280" levels="1" name="Blessing of Earth">
   <!-- Blessing of earth. Earth attribute is bestowed on physical attacks. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="100"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="element" val="3"/> <!-- Earth -->
+    <for>
+      <effect name="Buff" time="600" val="0" stackOrder="1" stackType="ElementPwr">
+        <add order="0x40" stat="earthPower" val="20"/>
+      </effect>
+    </for>
   </skill>
   <skill id="8281" levels="1" name="Inventory Slot Add">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="magicLvl" val="76"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <add order="0x40" stat="inventoryLimit" val="10"/>
+    </for>
   </skill>
   <skill id="8282" levels="1" name="Cloak Slot Add">
     <set name="target" val="TARGET_NONE"/>
@@ -1294,8 +1316,12 @@
     </for>
   </skill>
   <skill id="8299" levels="1" name="Arcana Sigil">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
+    <for>
+      <mul order="0x30" stat="cancelVuln" val="0.6"/>
+      <add order="0x40" stat="mDef" val="2"/>
+    </for>
   </skill>
 </list>
