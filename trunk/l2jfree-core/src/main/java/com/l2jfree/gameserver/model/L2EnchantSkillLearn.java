@@ -18,7 +18,6 @@ import java.util.List;
 
 import javolution.util.FastTable;
 
-import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public final class L2EnchantSkillLearn

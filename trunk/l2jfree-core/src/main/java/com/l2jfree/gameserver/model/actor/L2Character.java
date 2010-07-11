@@ -220,7 +220,7 @@ public abstract class L2Character extends L2Object
 
 	private boolean					_isRaid								= false;
 	private boolean					_isFlying;
-	private boolean 				_isUsingPathFinding	
+	private boolean 				_isUsingPathFinding;
 
 	/**
 	 * Objects known by this object
