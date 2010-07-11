@@ -92,9 +92,11 @@ public final class L2NpcTemplate extends L2CharTemplate
 	private int									_factionRange;
 	private int									_absorbLevel;
 	private AbsorbCrystalType					_absorbType;
+	// FIXME 1.4.0
 	private short								_ss;
 	private short								_bss;
 	private short								_ssRate;
+	// FIXME 1.4.
 	private int									_npcFaction;
 	private String								_npcFactionName;
 	private String								_jClass;

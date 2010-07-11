@@ -53,6 +53,7 @@ import com.l2jfree.gameserver.model.L2DropCategory;
 import com.l2jfree.gameserver.model.L2DropData;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Multisell;
+import com.l2jfree.gameserver.model.L2NpcAIData;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2WorldRegion;
@@ -70,6 +71,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2TeleporterInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2TrainerInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2WarehouseInstance;
 import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jfree.gameserver.model.actor.knownlist.NpcKnownList;
@@ -84,7 +86,6 @@ import com.l2jfree.gameserver.model.actor.view.NpcView;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Town;
-import com.l2jfree.gameserver.model.itemcontainer.NpcInventory;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.quest.Quest;
@@ -169,8 +170,6 @@ public class L2Npc extends L2Character
 	/** The L2Spawn object that manage this L2Npc */
 	private L2Spawn					_spawn;
 
-	private NpcInventory			_inventory				= null;
-
 	/** The flag to specify if this L2Npc is busy */
 	private boolean					_isBusy					= false;
 
@@ -202,6 +201,7 @@ public class L2Npc extends L2Character
 	private int						_randomAnimationDelay;
 	private int						_currentLHandId;						// normally this shouldn't change from the template, but there exist exceptions
 	private int						_currentRHandId;						// normally this shouldn't change from the template, but there exist exceptions
+	private int						_currentEnchant;						// normally this shouldn't change from the template, but there exist exceptions
 
 	private double					_currentCollisionHeight;				// used for npc grow effect skills
 	private double					_currentCollisionRadius;				// used for npc grow effect skills
@@ -212,10 +212,308 @@ public class L2Npc extends L2Character
 	// In case quests are going to use non-L2Attackables in the future
 	private int						_questAttackStatus;
 	private L2PcInstance			_questFirstAttacker;
+	
+	// AI Recall
+	public int getSoulShot()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getSoulShot();
+	}
+	
+	public int getSpiritShot()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getSpiritShot();
+	}
+	
+	public int getSoulShotChance()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getSoulShotChance();
+	}
+	
+	public int getSpiritShotChance()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getSpiritShotChance();
+	}
+	
+	public int getEnemyRange()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getEnemyRange();
+	}
+	
+	public String getEnemyClan()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null || AI.getEnemyClan() == null || "".equals(AI.getEnemyClan()))
+			return "none";
+		else
+			return AI.getEnemyClan();
+	}
+	
+	public String getClan()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null || AI.getClan() == null || "".equals(AI.getClan()))
+			return "none";
+		else
+			return AI.getClan();
+	}
+	
+	// GET THE PRIMARY ATTACK
+	public int getPrimaryAttack()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getPrimaryAttack();
+	}
+	
+	public int getSkillChance()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 20;
+		else
+			return AI.getSkillChance();
+	}
+	
+	public int getCanMove()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getCanMove();
+	}
+	
+	public int getIsChaos()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getIsChaos();
+	}
+	
+	public int getCanDodge()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getDodge();
+	}
+	
+	public int getSSkillChance()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getShortRangeChance();
+	}
+	
+	public int getLSkillChance()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getLongRangeChance();
+	}
+	
+	public int getSwitchRangeChance()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null)
+			return 0;
+		else
+			return AI.getSwitchRangeChance();
+	}
+	
+	public boolean hasLSkill()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null || AI.getLongRangeSkill() == 0)
+			return false;
+		else
+			return true;
+	}
+	
+	public boolean hasSSkill()
+	{
+		L2NpcAIData AI = getTemplate().getAIDataStatic();
+		
+		if (AI == null || AI.getShortRangeSkill() == 0)
+			return false;
+		else
+			return true;
+	}
+	
 
-	// doesn't affect damage at all (retail)
-	private int						_weaponEnchant			= 0;
-
+	public FastList<L2Skill> getLrangeSkill()
+	{
+		FastList<L2Skill> skilldata = new FastList<L2Skill>();
+		boolean hasLrange = false;
+		L2NpcTemplate npcData = getTemplate();
+		L2NpcAIData AI = npcData.getAIDataStatic();
+		
+		if (AI == null || AI.getLongRangeSkill() == 0)
+			return null;
+		
+		switch (AI.getLongRangeSkill())
+		{
+			case -1:
+			{
+				L2Skill[] skills = null;
+				skills = getAllSkills();
+				if (skills != null)
+					for (L2Skill sk : skills)
+					{
+						if (sk == null || sk.getSkillType() == L2SkillType.PASSIVE
+								|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
+						{
+							continue;
+						}
+						if (sk.getCastRange() >= 200)
+						{
+							skilldata.add(sk);
+							hasLrange = true;
+						}
+					}
+				break;
+			}
+			case 1:
+			{
+				if (npcData._universalskills != null)
+					for (L2Skill sk : npcData._universalskills)
+					{
+						if (sk.getCastRange() >= 200)
+						{
+							skilldata.add(sk);
+							hasLrange = true;
+						}
+					}
+				break;
+			}
+			default:
+			{
+				for (L2Skill sk : getAllSkills())
+				{
+					if (sk.getId() == AI.getLongRangeSkill())
+					{
+						skilldata.add(sk);
+						hasLrange = true;
+					}
+				}
+			}
+		}
+		
+		if (hasLrange)
+			return skilldata;
+		else
+			return null;
+	}
+	
+	public FastList<L2Skill> getSrangeSkill()
+	{
+		FastList<L2Skill> skilldata = new FastList<L2Skill>();
+		boolean hasSrange = false;
+		L2NpcTemplate npcData = getTemplate();
+		L2NpcAIData AI = npcData.getAIDataStatic();
+		
+		if (AI == null || AI.getShortRangeSkill() == 0)
+			return null;
+		
+		switch (AI.getShortRangeSkill())
+		{
+			case -1:
+			{
+				L2Skill[] skills = null;
+				skills = getAllSkills();
+				if (skills != null)
+					for (L2Skill sk : skills)
+					{
+						if (sk == null || sk.getSkillType() == L2SkillType.PASSIVE
+								|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
+						{
+							continue;
+						}
+						if (sk.getCastRange() <= 200)
+						{
+							skilldata.add(sk);
+							hasSrange = true;
+						}
+					}
+				break;
+			}
+			case 1:
+			{
+				if (npcData._universalskills != null)
+					for (L2Skill sk : npcData._universalskills)
+					{
+						if (sk.getCastRange() <= 200)
+						{
+							skilldata.add(sk);
+							hasSrange = true;
+						}
+					}
+				break;
+			}
+			default:
+			{
+				for (L2Skill sk : getAllSkills())
+				{
+					if (sk.getId() == AI.getShortRangeSkill())
+					{
+						skilldata.add(sk);
+						hasSrange = true;
+					}
+				}
+			}
+		}
+		
+		if (hasSrange)
+			return skilldata;
+		else
+			return null;
+	}
+	
 	public final void broadcastRandomAnimation(boolean force)
 	{
 		tryBroadcastRandomAnimation(force, true);
@@ -336,6 +634,18 @@ public class L2Npc extends L2Character
 		// Initialize the "current" equipment
 		_currentLHandId = getTemplate().getLhand();
 		_currentRHandId = getTemplate().getRhand();
+		
+		// FIXME 1.4.0
+		//if (getRightHandItem() > 0 && Config.ALT_MONSTER_HAVE_ENCHANTED_WEAPONS)
+		if (Config.ENABLE_RANDOM_ENCHANT_EFFECT)
+		{
+			_currentEnchant = Rnd.get(4, 21);
+		}
+		else
+		{
+			_currentEnchant = getTemplate().getEnchantEffect();
+		}
+		
 		// initialize the "current" collisions
 		_currentCollisionHeight = getTemplate().getCollisionHeight();
 		_currentCollisionRadius = getTemplate().getCollisionRadius();
@@ -349,9 +659,6 @@ public class L2Npc extends L2Character
 		// Set the name and the title of the L2Character
 		setName(template.getName());
 		setTitle(template.getTitle());
-
-		if ((template.getSS() > 0 || template.getBSS() > 0) && template.getSSRate() > 0)
-			_inventory = new NpcInventory(this);
 	}
 
 	@Override
@@ -492,6 +799,11 @@ public class L2Npc extends L2Character
 	{
 		return _currentRHandId;
 	}
+	
+	public int getEnchantEffect()
+	{
+		return _currentEnchant;
+	}
 
 	/**
 	 * Return True if this L2Npc has drops that can be sweeped.<BR><BR>
@@ -627,7 +939,7 @@ public class L2Npc extends L2Character
 	 *
 	 */
 	@Override
-	public void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player, boolean interact)
 	{
 		if (!canTarget(player))
 			return;
@@ -655,7 +967,7 @@ public class L2Npc extends L2Character
 					player.sendPacket(su);
 				}
 			}
-			else
+			else if (interact)
 			{
 				// Check if the player is attackable (without a forced attack) and isn't dead
 				if (isAutoAttackable(player) && !isAlikeDead())
@@ -700,20 +1012,18 @@ public class L2Npc extends L2Character
 							if ((qlst != null) && qlst.length == 1)
 								qlst[0].notifyFirstTalk(this, player);
 							else
-								showChatWindow(player, 0);
+								showChatWindow(player);
 						}
-						player.sendPacket(ActionFailed.STATIC_PACKET);
 					}
 				}
-				else
-					player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 		catch (Exception e)
 		{
 			_log.error("", e);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
+		
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -751,113 +1061,118 @@ public class L2Npc extends L2Character
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
+			
 			// Check if the player is attackable (without a forced attack)
 			if (isAutoAttackable(player))
 			{
 				// Send a Server->Client packet StatusUpdate of the L2Npc to the L2PcInstance to update its HP bar
 				StatusUpdate su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
+				su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
 				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 				player.sendPacket(su);
 			}
-
+			
 			// Send a Server->Client NpcHtmlMessage() containing the GM console about this L2Npc
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			String className = getClass().getSimpleName();
-
 			final StringBuilder html1 = StringUtil.startAppend(500,
-					"<html><body><center><font color=\"LEVEL\">NPC Information</font></center>" +
-					"<br>" +
-					"Instance Type: ",
-					className,
-					"<br1>Faction: ",
-					getFactionId() != null ? getFactionId() : "null",
-							"<br1>"
-			);
-			StringUtil.append(html1,
-					"Coords ",
-					String.valueOf(getX()),
-					",",
-					String.valueOf(getY()),
-					",",
-					String.valueOf(getZ()),
-					"<br1>"
-			);
+					"<html><body><center><font color=\"LEVEL\">NPC Info</font></center><br>" + "Instance Type: ",
+					getClass().getSimpleName(), "<br1>Faction: ", getFactionId() != null ? getFactionId() : "null");
+			
+			StringUtil.append(html1, "<br1>Coords: ", String.valueOf(getX()), ", ", String.valueOf(getY()), ",", String
+					.valueOf(getZ()));
 			if (getSpawn() != null)
-				StringUtil.append(html1,
-						"Spawn ",
-						String.valueOf(getSpawn().getLocx()),
-						",",
-						String.valueOf(getSpawn().getLocy()),
-						",",
-						String.valueOf(getSpawn().getLocz()),
-						" Loc ID: ",
-						String.valueOf(getSpawn().getLocation()),
-						"<br1>",
-						"Distance from spawn 2D ",
+				StringUtil.append(html1, "<br1>Spawn: ", String.valueOf(getSpawn().getLocx()), ", ", String
+						.valueOf(getSpawn().getLocy()), ", ", String.valueOf(getSpawn().getLocz()), " ; Loc ID: ",
+						String.valueOf(getSpawn().getLocation()), "<br1>Distance from spawn 2D: ",
 						String.valueOf((int)Math.sqrt(getPlanDistanceSq(getSpawn().getLocx(), getSpawn().getLocy()))),
-						" 3D ",
-						String.valueOf((int)Math.sqrt(getDistanceSq(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz()))),
-						"<br1>"
-				);
-
+						" ; 3D: ", String.valueOf((int)Math.sqrt(getDistanceSq(getSpawn().getLocx(), getSpawn()
+								.getLocy(), getSpawn().getLocz()))));
+			
 			if (this instanceof L2ControllableMobInstance)
-				html1.append("Mob Group: " + MobGroupTable.getInstance().getGroupForMob((L2ControllableMobInstance) this).getGroupId() + "<br>");
+			{
+				StringUtil.append(html1, "<br1>Mob Group: ", String.valueOf(MobGroupTable.getInstance().getGroupForMob(
+						(L2ControllableMobInstance)this).getGroupId()), "<br>");
+			}
 			else
-				html1.append("Respawn Time: " + (getSpawn() != null ? (getSpawn().getRespawnDelay() / 1000) + "  Seconds<br>" : "?  Seconds<br>"));
-
-			html1.append("<table border=\"0\" width=\"100%\">");
-			html1.append("<tr><td>Object ID</td><td>" + getObjectId() + "</td><td>NPC ID</td><td>" + getTemplate().getNpcId() + "</td></tr>");
-			html1.append("<tr><td>Castle</td><td>" + getCastle().getCastleId() + "</td><td>AI </td><td>"
-					+ (hasAI() ? getAI().getIntention() : "NULL") + "</td></tr>");
-			html1.append("<tr><td>Level</td><td>" + getLevel() + "</td><td>Aggro</td><td>"
-					+ ((this instanceof L2Attackable) ? getAggroRange() : 0) + "</td></tr>");
-			html1.append("</table><br>");
-
-			html1.append("<font color=\"LEVEL\">Combat</font>");
-			html1.append("<table border=\"0\" width=\"100%\">");
-			html1.append("<tr><td>Current HP</td><td>" + getStatus().getCurrentHp() + "</td><td>Current MP</td><td>" + getStatus().getCurrentMp()
-					+ "</td></tr>");
-			html1.append("<tr><td>Max.HP</td><td>" + (int) (getMaxHp() / getStat().calcStat(Stats.MAX_HP, 1, this, null)) + "*"
-					+ getStat().calcStat(Stats.MAX_HP, 1, this, null) + "</td><td>Max.MP</td><td>" + getMaxMp() + "</td></tr>");
-			html1.append("<tr><td>P.Atk.</td><td>" + getPAtk(null) + "</td><td>M.Atk.</td><td>" + getMAtk(null, null) + "</td></tr>");
-			html1.append("<tr><td>P.Def.</td><td>" + getPDef(null) + "</td><td>M.Def.</td><td>" + getMDef(null, null) + "</td></tr>");
-			html1.append("<tr><td>Accuracy</td><td>" + getAccuracy() + "</td><td>Evasion</td><td>" + getEvasionRate() + "</td></tr>");
-			html1.append("<tr><td>Critical</td><td>" + getCriticalHit() + "</td><td>Speed</td><td>" + getRunSpeed() + "</td></tr>");
-			html1.append("<tr><td>Atk.Speed</td><td>" + getPAtkSpd() + "</td><td>Cast.Speed</td><td>" + getMAtkSpd() + "</td></tr>");
-			html1.append("<tr><td>Race</td><td>" + getTemplate().getRace() + "</td><td></td><td></td></tr>");
-			html1.append("</table><br>");
-
-			html1.append("<font color=\"LEVEL\">Basic Stats</font>");
-			html1.append("<table border=\"0\" width=\"100%\">");
-			html1.append("<tr><td>STR</td><td>" + getStat().getSTR() + "</td><td>DEX</td><td>" + getStat().getDEX() + "</td><td>CON</td><td>"
-					+ getStat().getCON() + "</td></tr>");
-			html1.append("<tr><td>INT</td><td>" + getINT() + "</td><td>WIT</td><td>" + getStat().getWIT() + "</td><td>MEN</td><td>" + getStat().getMEN()
-					+ "</td></tr>");
-			html1.append("</table>");
-
-			html1.append("<font color=\"LEVEL\">Quest Info</font>");
-			html1.append("<table border=\"0\" width=\"100%\">");
-			html1.append("<tr><td>Quest attack status:</td><td>" + getQuestAttackStatus() + "</td></tr>");
-			html1.append("<tr><td>Quest attacker:</td><td>" + getQuestFirstAttacker() + "</td></tr>");
-			html1.append("</table>");
-
-			html1.append("<br><center><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc " + getTemplate().getNpcId()
-					+ "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1></td>");
-			html1
-			.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><br1></tr>");
-			html1.append("<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist " + getTemplate().getNpcId()
-					+ "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-			html1
-			.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
-			// [L2J_JP ADD START]
-			html1.append("<tr><td><button value=\"Show Skillist\" action=\"bypass -h admin_show_skilllist_npc " + getTemplate().getNpcId()
-					+ "\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td></td></tr>");
-			// [L2J_JP ADD END]
-			html1.append("</table></center><br>");
-			html1.append("</body></html>");
-
+			{
+				StringUtil.append(html1, "<br1>Respawn Time: ", (getSpawn() != null ? String.valueOf(getSpawn()
+						.getRespawnDelay() / 1000) : "?"), "  Seconds<br>");
+			}
+			
+			StringUtil
+					.append(
+							html1,
+							"<table border=\"0\" width=\"100%\">" + "<tr><td>Level</td><td>",
+							String.valueOf(getLevel()),
+							"</td><td>    </td><td>NPC ID</td><td>",
+							String.valueOf(getTemplate().getNpcId()),
+							"</td></tr>"
+									+ "<tr><td>Aggro</td><td>"
+									+ String.valueOf((this instanceof L2Attackable) ? ((L2Attackable)this)
+											.getAggroRange() : 0),
+							"</td><td>    </td><td>Object ID</td><td>",
+							String.valueOf(getObjectId()),
+							"</td></tr>" + "<tr><td>Castle</td><td>",
+							String.valueOf(getCastle().getCastleId()),
+							"</td><td>    </td><td>AI </td><td>",
+							(hasAI() ? String.valueOf(getAI().getIntention().name()) : "NULL"),
+							"</td></tr>" + "</table><br>" + "<font color=\"LEVEL\">Combat</font>"
+									+ "<table border=\"0\" width=\"100%\">" + "<tr><td>Current HP</td><td>",
+							String.valueOf(getCurrentHp()),
+							"</td><td>Current MP</td><td>",
+							String.valueOf(getCurrentMp()),
+							"</td></tr>" + "<tr><td>Max.HP</td><td>",
+							String.valueOf((int)(getMaxHp() / getStat().calcStat(Stats.MAX_HP, 1, this, null))),
+							"*",
+							String.valueOf((int)(getStat().calcStat(Stats.MAX_HP, 1, this, null))),
+							"</td><td>Max.MP</td><td>",
+							String.valueOf(getMaxMp()),
+							"</td></tr>" + "<tr><td>P.Atk.</td><td>",
+							String.valueOf(getPAtk(null)),
+							"</td><td>M.Atk.</td><td>",
+							String.valueOf(getMAtk(null, null)),
+							"</td></tr>" + "<tr><td>P.Def.</td><td>",
+							String.valueOf(getPDef(null)),
+							"</td><td>M.Def.</td><td>",
+							String.valueOf(getMDef(null, null)),
+							"</td></tr>" + "<tr><td>Accuracy</td><td>" + String.valueOf(getAccuracy()),
+							"</td><td>Evasion</td><td>",
+							String.valueOf(getEvasionRate()),
+							"</td></tr>" + "<tr><td>Critical</td><td>",
+							String.valueOf(getCriticalHit()),
+							"</td><td>Speed</td><td>",
+							String.valueOf(getRunSpeed()),
+							"</td></tr>" + "<tr><td>Atk.Speed</td><td>",
+							String.valueOf(getPAtkSpd()),
+							"</td><td>Cast.Speed</td><td>",
+							String.valueOf(getMAtkSpd()),
+							"</td></tr>" + "</table><br>" + "<font color=\"LEVEL\">Basic Stats</font>"
+									+ "<table border=\"0\" width=\"100%\">" + "<tr><td>STR</td><td>",
+							String.valueOf(getStat().getSTR()),
+							"</td><td>DEX</td><td>",
+							String.valueOf(getStat().getDEX()),
+							"</td><td>CON</td><td>",
+							String.valueOf(getStat().getCON()),
+							"</td></tr>" + "<tr><td>INT</td><td>",
+							String.valueOf(getINT()),
+							"</td><td>WIT</td><td>",
+							String.valueOf(getStat().getWIT()),
+							"</td><td>MEN</td><td>",
+							String.valueOf(getStat().getMEN()),
+							"</td></tr>"
+									+ "</table>"
+									+ "<br><center><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc ",
+							String.valueOf(getTemplate().getNpcId()),
+							"\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1></td>"
+									+ "<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><br1></tr>"
+									+ "<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist ",
+							String.valueOf(getTemplate().getNpcId()),
+							"\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>"
+									+ "<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>"
+									+ "<tr><td><button value=\"Show SkillList\" action=\"bypass -h admin_show_skilllist_npc ",
+							String.valueOf(getTemplate().getNpcId()),
+							"\" width=100 height=20 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td></td></tr></table></center><br></body></html>");
+			
 			html.setHtml(html1.toString());
 			player.sendPacket(html);
 		}
@@ -866,46 +1181,49 @@ public class L2Npc extends L2Character
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
+			
 			// Check if the player is attackable (without a forced attack)
 			if (isAutoAttackable(player))
 			{
 				// Send a Server->Client packet StatusUpdate of the L2Npc to the L2PcInstance to update its HP bar
 				StatusUpdate su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
+				su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp());
 				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 				player.sendPacket(su);
 			}
-
+			
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			L2TextBuilder html1 = L2TextBuilder.newInstance("<html><body>");
-
-			html1.append("<br><center><font color=\"LEVEL\">[Combat Stats]</font></center>");
-			html1.append("<table border=0 width=\"100%\">");
-			html1.append("<tr><td>Max.HP</td><td>" + (int) (getMaxHp() / getStat().calcStat(Stats.MAX_HP, 1, this, null)) + "*"
-					+ (int) getStat().calcStat(Stats.MAX_HP, 1, this, null) + "</td><td>Max.MP</td><td>" + getMaxMp() + "</td></tr>");
-			html1.append("<tr><td>P.Atk.</td><td>" + getPAtk(null) + "</td><td>M.Atk.</td><td>" + getMAtk(null, null) + "</td></tr>");
-			html1.append("<tr><td>P.Def.</td><td>" + getPDef(null) + "</td><td>M.Def.</td><td>" + getMDef(null, null) + "</td></tr>");
-			html1.append("<tr><td>Accuracy</td><td>" + getAccuracy() + "</td><td>Evasion</td><td>" + getEvasionRate() + "</td></tr>");
-			html1.append("<tr><td>Critical</td><td>" + getCriticalHit() + "</td><td>Speed</td><td>" + getRunSpeed() + "</td></tr>");
-			html1.append("<tr><td>Atk.Speed</td><td>" + getPAtkSpd() + "</td><td>Cast.Speed</td><td>" + getMAtkSpd() + "</td></tr>");
-			html1.append("<tr><td>Race</td><td>" + getTemplate().getRace() + "</td><td></td><td></td></tr>");
-			html1.append("</table>");
-
-			html1.append("<br><center><font color=\"LEVEL\">[Basic Stats]</font></center>");
-			html1.append("<table border=0 width=\"100%\">");
-			html1.append("<tr><td>STR</td><td>" + getStat().getSTR() + "</td><td>DEX</td><td>" + getStat().getDEX() + "</td><td>CON</td><td>"
-					+ getStat().getCON() + "</td></tr>");
-			html1.append("<tr><td>INT</td><td>" + getINT() + "</td><td>WIT</td><td>" + getStat().getWIT() + "</td><td>MEN</td><td>" + getStat().getMEN()
-					+ "</td></tr>");
-			html1.append("</table>");
-
-			html1.append("<br><center><font color=\"LEVEL\">[Drop Info]</font></center>");
-			html1.append("<br>Rates legend: <font color=\"ff0000\">50%+</font> <font color=\"00ff00\">30%+</font> <font color=\"0000ff\">less than 30%</font>");
-			html1.append("<table border=0 width=\"100%\">");
-
+			final StringBuilder html1 = StringUtil.startAppend(1000, "<html><body>"
+					+ "<br><center><font color=\"LEVEL\">[Combat Stats]</font></center>"
+					+ "<table border=0 width=\"100%\">" + "<tr><td>Max.HP</td><td>", String
+					.valueOf((int)(getMaxHp() / getStat().calcStat(Stats.MAX_HP, 1, this, null))), "*", String
+					.valueOf((int)getStat().calcStat(Stats.MAX_HP, 1, this, null)), "</td><td>Max.MP</td><td>", String
+					.valueOf(getMaxMp()), "</td></tr>" + "<tr><td>P.Atk.</td><td>", String.valueOf(getPAtk(null)),
+					"</td><td>M.Atk.</td><td>", String.valueOf(getMAtk(null, null)), "</td></tr>"
+							+ "<tr><td>P.Def.</td><td>", String.valueOf(getPDef(null)), "</td><td>M.Def.</td><td>",
+					String.valueOf(getMDef(null, null)), "</td></tr>" + "<tr><td>Accuracy</td><td>", String
+							.valueOf(getAccuracy()), "</td><td>Evasion</td><td>", String.valueOf(getEvasionRate()),
+					"</td></tr>" + "<tr><td>Critical</td><td>", String.valueOf(getCriticalHit()),
+					"</td><td>Speed</td><td>", String.valueOf(getRunSpeed()), "</td></tr>"
+							+ "<tr><td>Atk.Speed</td><td>", String.valueOf(getPAtkSpd()),
+					"</td><td>Cast.Speed</td><td>", String.valueOf(getMAtkSpd()), "</td></tr>"
+							+ "<tr><td>Race</td><td>", getTemplate().getRace().toString(),
+					"</td><td></td><td></td></tr>" + "</table>"
+							+ "<br><center><font color=\"LEVEL\">[Basic Stats]</font></center>"
+							+ "<table border=0 width=\"100%\">" + "<tr><td>STR</td><td>", String.valueOf(getStat()
+							.getSTR()), "</td><td>DEX</td><td>", String.valueOf(getStat().getDEX()),
+					"</td><td>CON</td><td>", String.valueOf(getStat().getCON()), "</td></tr>" + "<tr><td>INT</td><td>",
+					String.valueOf(getINT()), "</td><td>WIT</td><td>", String.valueOf(getStat().getWIT()),
+					"</td><td>MEN</td><td>", String.valueOf(getStat().getMEN()), "</td></tr>" + "</table>");
+			
 			if (getTemplate().getDropData() != null)
 			{
+				StringUtil
+						.append(
+								html1,
+								"<br><center><font color=\"LEVEL\">[Drop Info]</font></center>"
+										+ "<br>Rates legend: <font color=\"ff0000\">50%+</font> <font color=\"00ff00\">30%+</font> <font color=\"0000ff\">less than 30%</font>"
+										+ "<table border=0 width=\"100%\">");
 				for (L2DropCategory cat : getTemplate().getDropData())
 				{
 					for (L2DropData drop : cat.getAllDrops())
@@ -913,29 +1231,29 @@ public class L2Npc extends L2Character
 						final L2Item item = ItemTable.getInstance().getTemplate(drop.getItemId());
 						if (item == null)
 							continue;
-
-						String name = item.getName();
-
+						
+						final String color;
+						
 						if (drop.getChance() >= 500000)
-							html1.append("<tr><td><font color=\"ff0000\">" + name + "</font></td><td>"
-									+ (drop.isQuestDrop() ? "Quest" : (cat.isSweep() ? "Sweep" : "Drop")) + "</td></tr>");
+							color = "ff0000";
 						else if (drop.getChance() >= 300000)
-							html1.append("<tr><td><font color=\"00ff00\">" + name + "</font></td><td>"
-									+ (drop.isQuestDrop() ? "Quest" : (cat.isSweep() ? "Sweep" : "Drop")) + "</td></tr>");
+							color = "00ff00";
 						else
-							html1.append("<tr><td><font color=\"0000ff\">" + name + "</font></td><td>"
-									+ (drop.isQuestDrop() ? "Quest" : (cat.isSweep() ? "Sweep" : "Drop")) + "</td></tr>");
+							color = "0000ff";
+						
+						StringUtil.append(html1, "<tr><td><font color=\"", color, "\">", item.getName(),
+								"</font></td><td>",
+								(drop.isQuestDrop() ? "Quest" : (cat.isSweep() ? "Sweep" : "Drop")), "</td></tr>");
 					}
 				}
+				html1.append("</table>");
 			}
-
-			html1.append("</table>");
 			html1.append("</body></html>");
-
-			html.setHtml(html1.moveToString());
+			
+			html.setHtml(html1.toString());
 			player.sendPacket(html);
 		}
-
+		
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -2341,95 +2659,10 @@ public class L2Npc extends L2Character
 		int sealAvariceOwner = SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_AVARICE);
 		int sealGnosisOwner = SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_GNOSIS);
 		int playerCabal = SevenSigns.getInstance().getPlayerCabal(player);
-		boolean isSealValidationPeriod = SevenSigns.getInstance().isSealValidationPeriod();
 		int compWinner = SevenSigns.getInstance().getCabalHighestScore();
 
 		switch (npcId)
 		{
-		case 31078:
-		case 31079:
-		case 31080:
-		case 31081:
-		case 31082: // Dawn Priests
-		case 31083:
-		case 31084:
-		case 31168:
-		case 31692:
-		case 31694:
-		case 31997:
-			switch (playerCabal)
-			{
-			case SevenSigns.CABAL_DAWN:
-				if (isSealValidationPeriod)
-					if (compWinner == SevenSigns.CABAL_DAWN)
-						if (compWinner != sealGnosisOwner)
-							filename += "dawn_priest_2c.htm";
-						else
-							filename += "dawn_priest_2a.htm";
-					else
-						filename += "dawn_priest_2b.htm";
-				else
-					filename += "dawn_priest_1b.htm";
-				break;
-			case SevenSigns.CABAL_DUSK:
-				if (isSealValidationPeriod)
-					filename += "dawn_priest_3b.htm";
-				else
-					filename += "dawn_priest_3a.htm";
-				break;
-			default:
-				if (isSealValidationPeriod)
-					if (compWinner == SevenSigns.CABAL_DAWN)
-						filename += "dawn_priest_4.htm";
-					else
-						filename += "dawn_priest_2b.htm";
-				else
-					filename += "dawn_priest_1a.htm";
-				break;
-			}
-			break;
-		case 31085:
-		case 31086:
-		case 31087:
-		case 31088: // Dusk Priest
-		case 31089:
-		case 31090:
-		case 31091:
-		case 31169:
-		case 31693:
-		case 31695:
-		case 31998:
-			switch (playerCabal)
-			{
-			case SevenSigns.CABAL_DUSK:
-				if (isSealValidationPeriod)
-					if (compWinner == SevenSigns.CABAL_DUSK)
-						if (compWinner != sealGnosisOwner)
-							filename += "dusk_priest_2c.htm";
-						else
-							filename += "dusk_priest_2a.htm";
-					else
-						filename += "dusk_priest_2b.htm";
-				else
-					filename += "dusk_priest_1b.htm";
-				break;
-			case SevenSigns.CABAL_DAWN:
-				if (isSealValidationPeriod)
-					filename += "dusk_priest_3b.htm";
-				else
-					filename += "dusk_priest_3a.htm";
-				break;
-			default:
-				if (isSealValidationPeriod)
-					if (compWinner == SevenSigns.CABAL_DUSK)
-						filename += "dusk_priest_4.htm";
-					else
-						filename += "dusk_priest_2b.htm";
-				else
-					filename += "dusk_priest_1a.htm";
-				break;
-			}
-			break;
 		case 31127: //
 		case 31128: //
 		case 31129: // Dawn Festival Guides
@@ -2558,11 +2791,11 @@ public class L2Npc extends L2Character
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 
-		//String word = "npc-"+npcId+(val>0 ? "-"+val : "" )+"-dialog-append";
-
 		if (this instanceof L2MerchantInstance)
+		{
 			if (Config.LIST_PET_RENT_NPC.contains(npcId))
 				html.replace("_Quest", "_RentPet\">Rent Pet</a><br><a action=\"bypass -h npc_%objectId%_Quest");
+		}
 
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		if (this instanceof L2FestivalGuideInstance)
@@ -2662,8 +2895,7 @@ public class L2Npc extends L2Character
 	@Override
 	public void onSpawn()
 	{
-		if (_inventory != null)
-			_inventory.reset();
+		getShots().reset();
 
 		super.onSpawn();
 
@@ -2834,6 +3066,12 @@ public class L2Npc extends L2Character
 		updateAbnormalEffect();
 	}
 
+	public void setEnchant(int newEnchantValue)
+	{
+		_currentEnchant = newEnchantValue;
+		updateAbnormalEffect();
+	}
+
 	public void setCollisionHeight(double height)
 	{
 		_currentCollisionHeight = height;
@@ -2866,12 +3104,6 @@ public class L2Npc extends L2Character
 		return (NpcShots)_shots;
 	}
 
-	@Override
-	public NpcInventory getInventory()
-	{
-		return _inventory;
-	}
-
 	private boolean cwCheck(L2PcInstance player)
 	{
 		return Config.CURSED_WEAPON_NPC_INTERACT || !player.isCursedWeaponEquipped();
@@ -2890,6 +3122,47 @@ public class L2Npc extends L2Character
 	public void broadcastFullInfoImpl()
 	{
 		broadcastPacket(getRunSpeed() == 0 ? new ServerObjectInfo(this) : new AbstractNpcInfo.NpcInfo(this));
+	}
+	
+	public void showNoTeachHtml(L2PcInstance player)
+	{
+		int npcId = getNpcId();
+		String html = null;
+		
+		if (this instanceof L2WarehouseInstance)
+			html = HtmCache.getInstance().getHtm("data/html/warehouse/" + npcId + "-noteach.htm");
+		else if (this instanceof L2TrainerInstance)
+			html = HtmCache.getInstance().getHtm("data/html/trainer/" + npcId + "-noteach.htm");
+		
+		if (html == null)
+		{
+			_log.warn("Npc " + npcId + " missing noTeach html!");
+			NpcHtmlMessage msg = new NpcHtmlMessage(getObjectId());
+			msg.setHtml("<html><body>I cannot teach you any skills.<br>You must find your current class teachers.</body></html>");
+			player.sendPacket(msg);
+			return;
+		}
+		else
+		{
+			NpcHtmlMessage noTeachMsg = new NpcHtmlMessage(getObjectId());
+			noTeachMsg.setHtml(html);
+			noTeachMsg.replace("%objectId%", String.valueOf(getObjectId()));
+			player.sendPacket(noTeachMsg);
+		}
+	}
+	
+	public void scheduleDespawn(long delay)
+	{
+		ThreadPoolManager.getInstance().scheduleGeneral(new DespawnTask(), delay);
+	}
+	
+	private final class DespawnTask implements Runnable
+	{
+		@Override
+		public void run()
+		{
+			deleteMe();
+		}
 	}
 
 	public void setKillable(boolean b)
@@ -2948,15 +3221,5 @@ public class L2Npc extends L2Character
 	public void setQuestFirstAttacker(L2PcInstance attacker)
 	{
 		_questFirstAttacker = attacker;
-	}
-
-	public int getWeaponEnchantLevel()
-	{
-		return _weaponEnchant;
-	}
-
-	public void setWeaponEnchantLevel(int level)
-	{
-		_weaponEnchant = level;
 	}
 }

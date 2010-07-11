@@ -15,7 +15,6 @@
 package com.l2jfree.gameserver.model.actor.instance;
 
 import com.l2jfree.Config;
-import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
@@ -425,33 +424,6 @@ public class L2NpcInstance extends L2Npc
 		{
 			// This class dont know any other commands, let forward the command to the parent class
 			super.onBypassFeedback(player, command);
-		}
-	}
-	
-	private void showNoTeachHtml(L2PcInstance player)
-	{
-		int npcId = getNpcId();
-		String html = null;
-		
-		if (this instanceof L2WarehouseInstance)
-			html = HtmCache.getInstance().getHtm("data/html/warehouse/" + npcId + "-noteach.htm");
-		else if (this instanceof L2TrainerInstance)
-			html = HtmCache.getInstance().getHtm("data/html/trainer/" + npcId + "-noteach.htm");
-		
-		if (html == null)
-		{
-			_log.warn("Npc " + npcId + " missing noTeach html!");
-			NpcHtmlMessage msg = new NpcHtmlMessage(getObjectId());
-			msg.setHtml("<html><body>I cannot teach you any skills.<br>You must find your current class teachers.</body></html>");
-			player.sendPacket(msg);
-			return;
-		}
-		else
-		{
-			NpcHtmlMessage noTeachMsg = new NpcHtmlMessage(getObjectId());
-			noTeachMsg.setHtml(html);
-			noTeachMsg.replace("%objectId%", String.valueOf(getObjectId()));
-			player.sendPacket(noTeachMsg);
 		}
 	}
 }

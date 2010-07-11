@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 
-import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -102,9 +101,6 @@ public class L2MonsterInstance extends L2Attackable
 	public void onSpawn()
 	{
 		super.onSpawn();
-
-		if (getRightHandItem() > 0 && Config.ALT_MONSTER_HAVE_ENCHANTED_WEAPONS)
-			setWeaponEnchantLevel(Rnd.get(16));
 
 		if (_minionList != null)
 			deleteSpawnedMinions();

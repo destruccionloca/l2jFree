@@ -41,7 +41,6 @@ import com.l2jfree.gameserver.model.actor.stat.SummonStat;
 import com.l2jfree.gameserver.model.actor.view.CharLikeView;
 import com.l2jfree.gameserver.model.actor.view.SummonView;
 import com.l2jfree.gameserver.model.base.Experience;
-import com.l2jfree.gameserver.model.itemcontainer.PetInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AbstractNpcInfo;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -535,12 +534,6 @@ public abstract class L2Summon extends L2Playable
 	}
 
 	public L2Weapon getActiveWeapon()
-	{
-		return null;
-	}
-
-	@Override
-	public PetInventory getInventory()
 	{
 		return null;
 	}

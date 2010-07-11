@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.shot;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2jfree.gameserver.templates.item.L2Weapon;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -32,6 +31,9 @@ public final class NpcShots extends CharShots
 	
 	private byte _soulshotRandom = 0;
 	private byte _blessedSpiritshotRandom = 0;
+	
+	private int _soulshotamount = 0;
+	private int _spiritshotamount = 0;
 	
 	public NpcShots(L2Npc activeChar)
 	{
@@ -66,13 +68,13 @@ public final class NpcShots extends CharShots
 	@Override
 	protected boolean canChargeSoulshot(L2ItemInstance consume)
 	{
-		if (getActiveChar().getTemplate().getSSRate() <= _soulshotRandom)
+		if (getActiveChar().getSoulShotChance() <= _soulshotRandom)
 			return false;
 		
-		L2Weapon weapon = getActiveChar().getActiveWeaponItem();
-		
-		if (getActiveChar().getInventory().destroyItemByItemId("Consume", 1835, weapon.getSoulShotCount(), null, null) == null)
+		if (_soulshotamount <= 0)
 			return false;
+		
+		_soulshotamount--;
 		
 		getActiveChar().broadcastPacket(new MagicSkillUse(getActiveChar(), 2039, 1, 0, 0)); // No Grade
 		return true;
@@ -81,13 +83,13 @@ public final class NpcShots extends CharShots
 	@Override
 	protected boolean canChargeBlessedSpiritshot(L2ItemInstance consume)
 	{
-		if (getActiveChar().getTemplate().getSSRate() <= _blessedSpiritshotRandom)
+		if (getActiveChar().getSpiritShotChance() <= _blessedSpiritshotRandom)
 			return false;
 		
-		L2Weapon weapon = getActiveChar().getActiveWeaponItem();
-		
-		if (getActiveChar().getInventory().destroyItemByItemId("Consume", 3947, weapon.getSpiritShotCount(), null, null) == null)
+		if (_spiritshotamount <= 0)
 			return false;
+		
+		_spiritshotamount--;
 		
 		getActiveChar().broadcastPacket(new MagicSkillUse(getActiveChar(), 2061, 1, 0, 0)); // No Grade
 		return true;
@@ -131,5 +133,11 @@ public final class NpcShots extends CharShots
 		super.useBlessedSpiritshotCharge();
 		
 		_shouldRecalculateBlessedSpiritshot = true;
+	}
+	
+	public void reset()
+	{
+		_soulshotamount = getActiveChar().getSoulShot();
+		_spiritshotamount = getActiveChar().getSpiritShot();
 	}
 }

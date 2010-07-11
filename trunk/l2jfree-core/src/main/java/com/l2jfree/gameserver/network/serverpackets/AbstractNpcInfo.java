@@ -124,7 +124,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			}
 			
 			// npc crest of owning clan/ally of castle
-			if (cha instanceof L2NpcInstance && cha.isInsideZone(L2Zone.FLAG_TOWN) 
+			if (cha instanceof L2NpcInstance && cha.isInsideZone(L2Zone.FLAG_TOWN)
 					&& (Config.ALT_SHOW_CREST_WITHOUT_QUEST || cha.getCastle().isCrestVisible())
 					&& cha.getCastle().getOwnerId() != 0)
 			{
@@ -190,7 +190,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
-			writeD(_npc.getWeaponEnchantLevel()); // C4
+			writeD(_npc.getEnchantEffect()); // C4
 			writeD(_npc.isFlying() ? 1 : 0); // C6
 			writeD(0x00);
 			writeD(0x00);// CT1.5 Pet form and skills
