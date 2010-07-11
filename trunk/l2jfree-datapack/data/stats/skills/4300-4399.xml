@@ -891,6 +891,7 @@
     <table name="#rCrit"> 0.2 0.25 0.3 </table>
     <table name="#mpInitialConsume"> 60 90 120 </table>
     <table name="#mpConsume"> 240 360 480 </table>
+    <table name="#stack"> 20 25 30 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -901,7 +902,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#rCrit" stackType="critical_prob_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
       </effect>
     </for>

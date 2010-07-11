@@ -425,10 +425,10 @@
     </for>
   </skill>
   <skill id="410" levels="3" name="Mortal Strike" enchantLevels1="30" enchantLevels2="30">
-    <table name="#ench1rCrit"> 1.2 1.2 1.21 1.21 1.21 1.22 1.22 1.22 1.23 1.23 1.23 1.24 1.24 1.24 1.25 1.25 1.25 1.26 1.26 1.26 1.27 1.27 1.27 1.28 1.28 1.28 1.29 1.29 1.29 1.3 </table>
+    <table name="#ench1blowRate"> 1.2 1.2 1.21 1.21 1.21 1.22 1.22 1.22 1.23 1.23 1.23 1.24 1.24 1.24 1.25 1.25 1.25 1.26 1.26 1.26 1.27 1.27 1.27 1.28 1.28 1.28 1.29 1.29 1.29 1.3 </table>
     <table name="#ench2time"> 124 128 132 136 140 144 148 152 156 160 164 168 172 176 180 184 188 192 196 200 204 208 212 216 220 224 228 232 236 240 </table>
     <table name="#mpConsume"> 27 31 34 </table>
-    <table name="#rCrit"> 0.1 0.15 0.2 </table>
+    <table name="#blowRate"> 1.1 1.15 1.2 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="150000"/>
@@ -438,12 +438,12 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <for>
       <effect name="Buff" time="120" val="0">
-        <basemul order="0x30" stat="rCrit" val="#rCrit"/>
+        <mul order="0x30" stat="blowRate" val="#blowRate"/>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="120" val="0">
-        <mul order="0x30" stat="rCrit" val="#ench1rCrit"/>
+        <mul order="0x30" stat="blowRate" val="#ench1blowRate"/>
       </effect>
     </enchant1for>
     <enchant2for>
@@ -804,7 +804,7 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="34"/>
     <set name="magicLvl" val="74"/>
-    <set name="reuseDelay" val="35000"/>
+    <set name="reuseDelay" val="30000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -949,22 +949,22 @@
   <skill id="432" levels="1" name="Assassination" enchantLevels1="15" enchantLevels2="15">
     <!-- Client description do not contains blowRate. -->
     <table name="#ench1pAtk"> 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 </table>
-    <table name="#ench2rCrit"> 1.032 1.034 1.036 1.038 1.04 1.042 1.044 1.046 1.048 1.05 1.052 1.054 1.056 1.058 1.06 </table>
+    <table name="#ench2lethalRate"> 1.032 1.034 1.036 1.038 1.04 1.042 1.044 1.046 1.048 1.05 1.052 1.054 1.056 1.058 1.06 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
       <add order="0x40" stat="pAtk" val="70"/>
-      <mul order="0x30" stat="rCrit" val="1.03"/>
+      <mul order="0x30" stat="lethalRate" val="1.03"/>
     </for>
     <enchant1for>
       <add order="0x40" stat="pAtk" val="#ench1pAtk"/>
-      <mul order="0x30" stat="rCrit" val="1.03"/>
+      <mul order="0x30" stat="lethalRate" val="1.03"/>
     </enchant1for>
     <enchant2for>
       <add order="0x40" stat="pAtk" val="70"/>
-      <mul order="0x30" stat="rCrit" val="#ench2rCrit"/>
+      <mul order="0x30" stat="lethalRate" val="#ench2lethalRate"/>
     </enchant2for>
   </skill>
   <skill id="433" levels="1" name="Arcane Roar" enchantLevels1="15" enchantLevels2="15">
@@ -1233,7 +1233,6 @@
     <enchant1 name="power" val="#ench1power"/>
   </skill>
   <skill id="441" levels="1" name="Force Meditation">
-    <!-- Done by Ritsu -->
     <set name="negateId" val="441"/>
     <set name="reuseDelay" val="900000"/>
     <set name="hitTime" val="2000"/>
@@ -1293,7 +1292,7 @@
     <!-- For 1 minute, provides a chance to cancel the target of an attacking enemy. -->
     <set name="mpConsume" val="43"/>
     <set name="magicLvl" val="79"/>
-    <set name="reuseDelay" val="300000"/>
+    <set name="reuseDelay" val="150000"/>
     <set name="hitTime" val="2000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
@@ -2332,7 +2331,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="flyType" val="CHARGE"/>
-    <set name="reuseDelay" val="9000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="800"/>
     <set name="isDebuff" val="true"/>
     <set name="lvlDepend" val="2"/>
@@ -2431,7 +2430,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1500"/>
     <set name="coolTime" val="720"/>
     <set name="target" val="TARGET_AREA"/>

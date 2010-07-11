@@ -544,12 +544,24 @@
     </cond>
   </skill>
   <skill id="2239" levels="1" name="Petrification Scroll">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="itemConsumeId" val="8379"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="100"/>
+    <set name="isDebuff" val="true"/>
+    <set name="isMagic" val="true"/>
+    <set name="hitTime" val="4000"/>
+    <set name="staticHitTime" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="PARALYZE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="castRange" val="600"/>
+    <set name="effectRange" val="1100"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
+    <for>
+      <effect name="Petrify" time="20" val="0" stackOrder="20" stackType="turn_stone"/>
+    </for>
   </skill>
   <skill id="2240" levels="1" name="Hot Spring Nectar">
     <set name="target" val="TARGET_NONE"/>
@@ -1133,7 +1145,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="1.29" stackType="critical_prob_up">
+      <effect name="Buff" time="300" val="0" stackOrder="29" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
     </for>

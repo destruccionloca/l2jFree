@@ -342,7 +342,7 @@
     <table name="#pAtkRange"> 50 50 100 100 150 150 200 200 </table>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="reuseDelay" val="60000"/>
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -422,7 +422,7 @@
     <set name="ignoreShld" val="true"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="6000"/>
+    <set name="reuseDelay" val="7000"/>
     <set name="hitTime" val="1620"/>
     <set name="coolTime" val="1080"/>
     <set name="skillType" val="PDAM"/>
@@ -837,7 +837,7 @@
     </enchant2for>
   </skill>
   <skill id="336" levels="1" name="Arcane Wisdom" enchantLevels1="15">
-    <table name="#ench1MagicalMpConsumeRate"> 0.7 0.7 0.69 0.69 0.69 0.68 0.68 0.68 0.67 0.67 0.67 0.66 0.66 0.66 0.65 </table>
+    <table name="#ench1MpConsumeRate"> 0.7 0.7 0.69 0.69 0.69 0.68 0.68 0.68 0.67 0.67 0.67 0.66 0.66 0.66 0.65 </table>
     <set name="magicLvl" val="78"/>
     <set name="mpInitialConsume" val="36"/>
     <set name="target" val="TARGET_SELF"/>
@@ -853,7 +853,7 @@
     <enchant1for>
       <effect count="0x7fffffff" name="DamOverTime" time="3" val="150">
         <mul order="0x30" stat="mAtkSpd" val="0.9"/>
-        <mul order="0x30" stat="MagicalMpConsumeRate" val="#ench1MagicalMpConsumeRate"/>
+        <mul order="0x30" stat="MagicalMpConsumeRate" val="#ench1MpConsumeRate"/>
       </effect>
     </enchant1for>
   </skill>
@@ -1022,7 +1022,7 @@
     <set name="mpConsume" val="153"/>
     <set name="magicLvl" val="76"/>
     <set name="power" val="5132"/>
-    <set name="reuseDelay" val="7000"/>
+    <set name="reuseDelay" val="8000"/>
     <set name="hitTime" val="4000"/>
     <set name="overHit" val="true"/>
     <set name="baseCritRate" val="15"/>
@@ -1054,7 +1054,7 @@
     <set name="mpConsume" val="77"/>
     <set name="magicLvl" val="76"/>
     <set name="power" val="5773"/>
-    <set name="reuseDelay" val="5000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1800"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="1.05"/>
@@ -1321,7 +1321,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>
@@ -1854,7 +1854,7 @@
     <set name="magicLvl" val="78"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="300000"/>
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="4000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>

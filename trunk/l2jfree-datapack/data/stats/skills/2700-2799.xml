@@ -1532,6 +1532,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="945"/>
+        </not>
         <player class_id_restriction="94, 95, 96, 97, 98, 103, 104, 105, 110, 111, 112, 115, 116"/>
         <player level="81"/>
       </and>
@@ -1548,6 +1551,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="946"/>
+        </not>
         <player class_id_restriction="92, 102, 109"/>
         <player level="81"/>
       </and>
@@ -1564,6 +1570,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1540"/>
+        </not>
         <player class_id_restriction="97, 98, 105, 112, 115, 116"/>
         <player level="81"/>
       </and>
@@ -1580,6 +1589,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="947"/>
+        </not>
         <player class_id_restriction="117"/>
         <player level="83"/>
       </and>
@@ -1596,6 +1608,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="948"/>
+        </not>
         <player class_id_restriction="131"/>
         <player level="83"/>
       </and>
@@ -1612,6 +1627,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1541"/>
+        </not>
         <player class_id_restriction="95"/>
         <player level="83"/>
       </and>
@@ -1628,6 +1646,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1542"/>
+        </not>
         <player class_id_restriction="98"/>
         <player level="83"/>
       </and>
@@ -1644,6 +1665,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="949"/>
+        </not>
         <player class_id_restriction="115"/>
         <player level="83"/>
       </and>
@@ -1660,6 +1684,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1543"/>
+        </not>
         <player class_id_restriction="116"/>
         <player level="83"/>
       </and>
@@ -1676,6 +1703,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="840"/>
+        </not>
         <player race="Kamael"/>
         <player level="75"/>
       </and>
@@ -1691,7 +1721,12 @@
     <set name="hitTime" val="1500"/>
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
-      <player level="75"/>
+      <and>
+        <not>
+          <player active_skill_id="841"/>
+        </not>
+        <player level="75"/>
+      </and>
     </cond>
   </skill>
   <skill id="2791" levels="1" name="Aura Bird - Owl">
@@ -1704,7 +1739,12 @@
     <set name="hitTime" val="1500"/>
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
-      <player level="75"/>
+      <and>
+        <not>
+          <player active_skill_id="842"/>
+        </not>
+        <player level="75"/>
+      </and>
     </cond>
   </skill>
   <skill id="2792" levels="2" name="Stone of Stamina">

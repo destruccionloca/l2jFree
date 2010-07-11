@@ -53,13 +53,24 @@
   </skill>
   <skill id="703" levels="1" name="Sacrifice Healer">
     <!-- Regenerate party member's HP and MP by sacrificing yourself. Usable only when MP is under 10 percent. -->
-    <set name="hitTime" val="4000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="isMagic" val="true"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="castRange" val="600"/>
-    <set name="effectRange" val="1100"/>
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when MP becomes 10 percent or lower.">
+      <player mp="10"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <mul order="0x30" stat="regHp" val="14.0"/>
+        <mul order="0x30" stat="regMp" val="11.0"/>
+      </effect>
+    </for>
   </skill>
   <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
     <set name="itemConsumeId" val="3031"/>
@@ -209,11 +220,29 @@
   </skill>
   <skill id="709" levels="1" name="Sacrifice Enchanter">
     <!-- Increase all the party member's abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="isMagic" val="true"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when MP becomes 10 percent or lower.">
+      <player mp="10"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <mul order="0x30" stat="maxHp" val="1.25"/>
+        <mul order="0x30" stat="maxMp" val="1.25"/>
+        <mul order="0x30" stat="maxCp" val="1.25"/>
+        <mul order="0x30" stat="gainHp" val="1.25"/>
+        <add order="0x40" stat="rCrit" val="35"/>
+        <add order="0x40" stat="runSpd" val="6"/>
+        <add order="0x40" stat="rEvas" val="2"/>
+      </effect>
+    </for>
   </skill>
   <skill id="710" levels="1" name="Divine Summoner Summon Divine Beast">
     <!-- Summons the divine beast. Consumes 2 Crystals: A grade - when summoning, and consumes additional 1 Crystal - A grade per hour. -->
@@ -297,11 +326,26 @@
   </skill>
   <skill id="714" levels="1" name="Sacrifice Summoner">
     <!-- Increase the party member's critical abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
     <set name="hitTime" val="2000"/>
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="isMagic" val="true"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when MP becomes 10 percent or lower.">
+      <player mp="10"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <add order="0x40" stat="rCrit" val="100"/>
+        <mul order="0x30" stat="blowRate" val="1.11"/>
+        <mul order="0x30" stat="mCritRate" val="1.15"/>
+        <mul order="0x30" stat="cAtk" val="1.25"/>
+      </effect>
+    </for>
   </skill>
   <skill id="715" levels="4" name="Zaken Energy Drain">
     <table name="#mpInitialConsume"> 12 13 14 14 </table>
@@ -328,7 +372,7 @@
     <table name="#magicLvl"> 70 75 80 82 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="90"/> <!-- Lands extremely often in retail -->
+    <set name="power" val="80"/>
     <set name="lvlDepend" val="2"/>
     <set name="reuseDelay" val="16000"/>
     <set name="hitTime" val="2000"/>
@@ -981,7 +1025,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect count="1" name="Buff" time="300" val="0" stackOrder="1.30" stackType="critical_prob_up">
+      <effect count="1" name="Buff" time="300" val="0" stackOrder="30" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.30"/>
       </effect>
     </for>
@@ -1373,7 +1417,7 @@
     <set name="magicLvl" val="83"/>
     <set name="overHit" val="true"/>
     <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="CHARGEDAM"/>
@@ -1686,7 +1730,7 @@
     <set name="magicLvl" val="83"/>
     <set name="lvlDepend" val="1"/>
     <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="6000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_AURA"/>
     <set name="skillType" val="PDAM"/>
@@ -1711,7 +1755,7 @@
     <set name="power" val="70"/> Base Land Rate
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="6000"/>
+    <set name="reuseDelay" val="11000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="1000"/>

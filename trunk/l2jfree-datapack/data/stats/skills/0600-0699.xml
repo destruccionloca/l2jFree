@@ -1210,10 +1210,24 @@
     </for>
   </skill>
   <skill id="679" levels="1" name="Sacrifice Warrior">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <!-- Sacrifices oneself to increase the P. Atk. of all party members by 20% for 30 seconds. Available only when HP is under 30%. -->
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when HP becomes 30 percent or lower.">
+      <player hp="30"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <mul order="0x30" stat="pAtk" val="1.35"/>
+      </effect>
+    </for>
   </skill>
   <skill id="680" levels="1" name="Divine Knight Hate">
     <!-- Stimulates the attacking desire of the enemy by 6752 Power. -->
@@ -1315,10 +1329,24 @@
     </for>
   </skill>
   <skill id="685" levels="1" name="Sacrifice Knight">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <!-- Increases the P. Def. of the party members by sacrificing yourself. Available only when HP is under 30 percent. -->
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when HP becomes 30 percent or lower.">
+      <player hp="30"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <mul order="0x30" stat="pDef" val="1.35"/> <!-- Guess-->
+      </effect>
+    </for>
   </skill>
   <skill id="686" levels="1" name="Divine Rogue Stun Shot">
     <!-- Shoots arrows that inflict both damage and shock to the enemy in order to cancel target state. Momentarily stuns target. Over-hit is possible. Power 2323. -->
@@ -1426,10 +1454,24 @@
     </for>
   </skill>
   <skill id="691" levels="1" name="Sacrifice Rogue">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <!-- Increase party member's Evasion by sacrificing yourself. Available only when HP is under 30 percent. -->
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when HP becomes 30 percent or lower.">
+      <player hp="30"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <add order="0x40" stat="rEvas" val="6"/>
+      </effect>
+    </for>
   </skill>
   <skill id="692" levels="1" name="Divine Wizard Holy Flare">
     <!-- Attacks a contacted target with non-attribute attack. Temporarily decreases your magic attack power during PvP. Power 102. -->
@@ -1538,10 +1580,24 @@
     </for>
   </skill>
   <skill id="697" levels="1" name="Sacrifice Wizard">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="2500"/>
+    <!-- Increase party member's magic power by sacrificing yourself. Usable only when MP is under 10 percent. -->
+    <!-- Triggers skill 5602 -->
+    <set name="magicLvl" val="74"/>
+    <set name="reuseDelay" val="70000"/>
+    <set name="hitTime" val="2000"/>
+    <set name="coolTime" val="1332"/>
+    <set name="target" val="TARGET_PARTY"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="skillRadius" val="1000"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <cond msg="Only works when MP becomes 10 percent or lower.">
+      <player mp="10"/>
+    </cond>
+    <for>
+      <effect name="Buff" count="1" time="30" val="0">
+        <mul order="0x30" stat="mAtk" val="1.35"/>
+      </effect>
+    </for>
   </skill>
   <skill id="698" levels="1" name="Divine Healer Major Heal">
     <!-- Restores HP by 946 power. -->

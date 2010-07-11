@@ -816,7 +816,7 @@
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="reuseDelay" val="1000"/>
+    <set name="reuseDelay" val="13000"/>
     <set name="hitTime" val="1000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="PDAM"/>

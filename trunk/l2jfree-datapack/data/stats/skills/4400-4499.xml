@@ -71,6 +71,7 @@
   <skill id="4404" levels="3" name="Focus">
     <!-- by DrLecter -->
     <table name="#rCrit"> 0.2 0.25 0.3 </table>
+    <table name="#stack"> 20 25 30 </table>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="100"/>
     <set name="skillType" val="BUFF"/>
@@ -80,7 +81,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="#rCrit" stackType="critical_prob_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="#stack" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
       </effect>
     </for>
@@ -1079,36 +1080,90 @@
     <set name="effectRange" val="1000"/>
   </skill>
   <skill id="4478" levels="1" name="Ice Fairy Aqua Splash">
+    <set name="mpInitialConsume" val="4"/>
+    <set name="mpConsume" val="18"/>
+    <set name="magicLvl" val="60"/>
+    <set name="power" val="46"/> <!-- Guess -->
+    <set name="target" val="TARGET_AREA"/>
+    <set name="skillRadius" val="200"/>
+    <set name="hitTime" val="3000"/>
+    <set name="skillType" val="MDAM"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="element" val="1"/> <!-- Water -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3300"/>
+    <set name="elementPower" val="20"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="700"/>
+    <set name="effectRange" val="1200"/>
   </skill>
   <skill id="4479" levels="1" name="Ice Fairy Resist Cold">
     <!-- Description(s): Increases resistance to cold attacks. Effect 4. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="reuseDelay" val="6000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="magicLvl" val="1"/>
     <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="4000"/>
+    <for>
+      <add order="0x40" stat="waterRes" val="70"/> <!-- Guess -->
+    </for>
   </skill>
   <skill id="4480" levels="1" name="Ice Fairy Curse Gloom">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="1200"/>
+    <set name="mpInitialConsume" val="23"/>
+    <set name="mpConsume" val="93"/>
+    <set name="power" val="80"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="15000"/>
+    <set name="hitTime" val="1500"/>
+    <set name="isDebuff" val="true"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="1000"/>
+    <set name="effectRange" val="1500"/>
+    <for>
+      <effect name="Debuff" time="15" val="0" stackOrder="1" stackType="matkdebuff">
+        <mul order="0x30" stat="mDef" val="0.77"/>
+      </effect>
+    </for>
   </skill>
   <skill id="4481" levels="1" name="Ice Fairy Hex">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="mpInitialConsume" val="23"/>
+    <set name="mpConsume" val="93"/>
+    <set name="magicLvl" val="60"/>
+    <set name="power" val="80"/> <!-- Guess -->
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="1200"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="1000"/>
+    <set name="effectRange" val="1500"/>
+    <for>
+      <effect name="Debuff" time="15" val="0" stackOrder="0.77" stackType="pDefDown">
+        <mul order="0x30" stat="pDef" val="0.77"/>
+      </effect>
+    </for>
   </skill>
   <skill id="4482" levels="1" name="Ice Fairy Silence">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="100"/>
+    <set name="mpInitialConsume" val="15"/>
+    <set name="mpConsume" val="60"/>
+    <set name="magicLvl" val="80"/>
+    <set name="power" val="40"/> <!-- Guess -->
+    <set name="lvlDepend" val="1"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="reuseDelay" val="60000"/>
+    <set name="hitTime" val="1500"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="isDebuff" val="true"/>
+    <set name="castRange" val="1000"/>
+    <set name="effectRange" val="1500"/>
+    <for>
+      <effect name="PhysicalMute" time="30" val="0"/>
+    </for>
   </skill>
   <skill id="4483" levels="12" name="Hold">
     <table name="#mpInitialConsume"> 4 7 10 14 18 22 26 27 29 30 30 31 </table>
@@ -1253,10 +1308,24 @@
   </skill>
   <skill id="4491" levels="12" name="Holy Weapon">
     <!-- Description(s): Makes sacred attacks. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
-    <set name="hitTime" val="3200"/>
+    <table name="#mpConsume"> 41 66 93 127 164 202 236 252 265 274 280 283 </table>
+    <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+    <set name="magicLvl" val="#magicLvl"/>
+    <set name="mpConsume" val="#mpConsume"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="element" val="4"/> <!-- Holy -->
+    <set name="reuseDelay" val="2000"/>
+    <set name="hitTime" val="4000"/>
+    <set name="skillType" val="BUFF"/>
+    <set name="isMagic" val="true"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="400"/>
+    <set name="effectRange" val="900"/>
+    <for>
+      <effect name="Buff" time="1200" val="0" stackOrder="1" stackType="ElementPwr">
+        <add order="0x40" stat="holyPower" val="20"/>
+      </effect>
+    </for>
   </skill>
   <skill id="4492" levels="12" name="Enlarging Head Curse">
     <table name="#mpInitialConsume"> 2 4 5 7 10 12 14 15 16 16 16 17 </table>

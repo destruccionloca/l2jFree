@@ -1718,7 +1718,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="6000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="HEAL"/>
     <set name="isMagic" val="true"/>
@@ -2700,7 +2700,7 @@
     <set name="itemConsumeCount" val="120"/>
     <set name="itemConsumeId" val="1460"/>
     <set name="itemConsumeSteps" val="60"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="300000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON"/>

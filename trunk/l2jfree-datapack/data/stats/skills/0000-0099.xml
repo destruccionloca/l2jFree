@@ -279,7 +279,7 @@
     <set name="isMagic" val="true"/>
     <set name="itemConsumeId" val="1458"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="6000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON"/>
@@ -534,7 +534,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="itemConsumeId" val="1458"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="6000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON"/>
@@ -633,7 +633,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="6000"/>
     <set name="hitTime" val="700"/>
     <set name="coolTime" val="200"/>
     <set name="staticReuse" val="true"/>
@@ -671,7 +671,7 @@
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1600"/>
     <set name="coolTime" val="296"/>
     <set name="target" val="TARGET_ONE"/>
@@ -729,7 +729,7 @@
     <set name="itemConsumeId" val="1458"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
     <set name="isMagic" val="true"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="6000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON"/>
@@ -961,7 +961,7 @@
     <set name="power" val="#power"/>
     <set name="element" val="4"/> <!-- Holy -->
     <set name="elementPower" val="20"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="1000"/>
     <set name="hitTime" val="1900"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MDAM"/>
@@ -1158,7 +1158,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="itemConsumeId" val="1458"/>
     <set name="itemConsumeCount" val="#itemConsumeCount"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="6000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="SUMMON"/>
@@ -1280,7 +1280,7 @@
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpInitialConsume" val="13"/>
     <set name="magicLvl" val="28"/>
-    <set name="reuseDelay" val="22500"/>
+    <set name="reuseDelay" val="22000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1335,7 +1335,7 @@
   </skill>
   <skill id="80" levels="1" name="Detect Beast Weakness">
     <set name="mpInitialConsume" val="24"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1442,7 +1442,7 @@
     <set name="lvlDepend" val="1"/>
     <set name="power" val="1"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="1830"/>
     <set name="coolTime" val="167"/>
     <set name="target" val="TARGET_AURA"/>
@@ -1492,7 +1492,7 @@
   </skill>
   <skill id="87" levels="1" name="Detect Animal Weakness">
     <set name="mpInitialConsume" val="18"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1506,7 +1506,7 @@
   </skill>
   <skill id="88" levels="1" name="Detect Dragon Weakness">
     <set name="mpInitialConsume" val="27"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

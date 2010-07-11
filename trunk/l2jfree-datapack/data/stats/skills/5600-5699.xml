@@ -670,6 +670,7 @@
     <table name="#rCrit"> 0.25 0.3 </table>
     <table name="#mpInitialConsume"> 8 10 </table>
     <table name="#mpConsume"> 31 38 </table>
+    <table name="#stack"> 25 30 </table>
     <set name="aggroPoints" val="#aggroPoints"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -682,7 +683,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#rCrit" stackType="critical_prob_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
       </effect>
     </for>

@@ -141,7 +141,7 @@
   <skill id="104" levels="1" name="Detect Plant Weakness">
     <set name="mpInitialConsume" val="21"/>
     <set name="magicLvl" val="46"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -224,7 +224,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="lvlDepend" val="2"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="2000"/>
     <set name="isDebuff" val="true"/>
     <set name="target" val="TARGET_AREA_UNDEAD"/>
@@ -596,7 +596,7 @@
     <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="isMagic" val="true"/>
     <set name="isDebuff" val="true"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="3000"/>
     <set name="skillType" val="POISON"/>
     <set name="target" val="TARGET_ONE"/>
@@ -614,7 +614,7 @@
     <table name="#mpConsume"> 21 25 </table>
     <table name="#aggroPoints"> 438 523 </table>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -640,7 +640,7 @@
     <table name="#aggroPoints"> 379 467 549 </table>
     <set name="weaponsAllowed" val="32"/> <!-- Bow -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1500"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

@@ -222,7 +222,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="hitTime" val="3000"/>
     <set name="reuseDelay" val="15000"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="power" val="70"/> <!-- Base Land Rate -->
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="DEBUFF"/>
     <set name="magicLvl" val="#magicLvl"/>
@@ -829,7 +829,7 @@
     <table name="#magicLvl"> 40 52 62 70 </table>
     <table name="#mpInitialConsume"> 3 4 5 6 </table>
     <table name="#mpConsume"> 14 19 23 26 </table>
-    <table name="#vuln"> 1.16 1.24 1.32 1.4 </table>
+    <table name="#Vuln"> 1.16 1.24 1.32 1.4 </table>
     <table name="#castRange"> 600 700 800 900 </table>
     <table name="#effectRange"> 1100 1200 1300 1400 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -847,19 +847,19 @@
     <set name="effectRange" val="#effectRange"/>
     <for>
       <effect name="Debuff" time="30" val="0" special="stigmashilien">
-        <mul order="0x30" stat="swordWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="bigSwordWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="bluntWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="bigBluntWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="daggerWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="dualDaggerWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="poleWpnVuln" val="#vuln"/>
-        <!-- mul order="0x30" stat="fistWpnVuln" val="#vuln"/ -->
-        <mul order="0x30" stat="dualFistWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="dualWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="rapierWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="ancientWpnVuln" val="#vuln"/>
-        <mul order="0x30" stat="petWpnVuln" val="#vuln"/>
+        <mul order="0x30" stat="swordWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="bigSwordWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="bluntWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="bigBluntWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="daggerWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="dualDaggerWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="poleWpnVuln" val="#Vuln"/>
+        <!-- mul order="0x30" stat="fistWpnVuln" val="#Vuln"/ -->
+        <mul order="0x30" stat="dualFistWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="dualWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="rapierWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="ancientWpnVuln" val="#Vuln"/>
+        <mul order="0x30" stat="petWpnVuln" val="#Vuln"/>
       </effect>
     </for>
   </skill>

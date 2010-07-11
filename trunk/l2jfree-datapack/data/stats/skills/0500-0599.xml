@@ -91,7 +91,7 @@
     <table name="#skillRadius"> 80 160 240 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="power" val="#power"/>
-    <set name="reuseDelay" val="3000"/>
+    <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_FRONT_AREA"/>
@@ -354,7 +354,7 @@
     <set name="mpConsume" val="44"/>
     <set name="magicLvl" val="49"/>
     <set name="power" val="500"/>
-    <set name="reuseDelay" val="10000"/>
+    <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="AGGDAMAGE"/>
@@ -535,7 +535,7 @@
     <table name="#aggroPoints"> 566 582 597 611 624 635 646 655 </table>
     <set name="weaponsAllowed" val="65536"/> <!-- Crossbow -->
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="reuseDelay" val="10000"/>
+    <set name="reuseDelay" val="75000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -635,11 +635,13 @@
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="itemConsumeId" val="10112"/>
     <set name="itemConsumeCount" val="1"/>
-    <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="element" val="5"/> <!-- Dark -->
+    <set name="elementPower" val="20"/>
+    <set name="reuseDelay" val="15000"/>
     <set name="hitTime" val="1000"/>
-    <set name="skillType" val="DEBUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="skillType" val="DEBUFF"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="effectId" val="5447"/>
@@ -689,7 +691,7 @@
     <set name="SSBoost" val="2.0"/>
     <set name="power" val="6060"/>
     <set name="reuseDelay" val="75000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1080"/>
     <set name="overHit" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="target" val="TARGET_FRONT_AREA"/>

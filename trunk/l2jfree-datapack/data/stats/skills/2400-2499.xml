@@ -8,17 +8,33 @@
     <set name="hitTime" val="500"/>
   </skill>
   <skill id="2401" levels="1" name="Lesser Battlefield Mana Potion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="500"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="MANAHEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="180000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <player SiegeZone="126"/>
+    </cond>
   </skill>
   <skill id="2402" levels="1" name="Lesser Battlefield CP Potion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="1000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="COMBATPOINTHEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="180000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isPotion" val="true"/>
+    <cond msgId="113" addName="1">
+      <player SiegeZone="126"/>
+    </cond>
   </skill>
   <skill id="2403" levels="1" name="Spring CP Potion">
-    <set name="power" val="50"/>
+    <set name="power" val="1000"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="COMBATPOINTHEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -79,7 +95,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="0.25" stackType="critical_prob_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="25" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.25"/>
       </effect>
     </for>
@@ -424,7 +440,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="1.5" stackType="critical_prob_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="50" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
     </for>
@@ -574,6 +590,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="755"/>
+        </not>
         <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136"/>
         <player level="82"/>
       </and>
@@ -590,6 +609,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="756"/>
+        </not>
         <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136"/>
         <player level="82"/>
       </and>
@@ -606,6 +628,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="757"/>
+        </not>
         <player class_id_restriction="88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134, 136"/>
         <player level="82"/>
       </and>
@@ -622,6 +647,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="758"/>
+        </not>
         <player class_id_restriction="88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 106, 107, 108, 109, 113, 114, 117, 118, 131, 132, 133, 134"/>
         <player level="81"/>
       </and>
@@ -638,6 +666,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="759"/>
+        </not>
         <player class_id_restriction="88, 89, 90, 91, 92, 93, 99, 100, 101, 102, 106, 107, 108, 109, 113, 114, 117, 118, 131, 132, 133, 134"/>
         <player level="81"/>
       </and>
@@ -654,6 +685,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="760"/>
+        </not>
         <player class_id_restriction="90, 91, 99, 106"/>
         <player level="81"/>
       </and>
@@ -670,6 +704,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="761"/>
+        </not>
         <player class_id_restriction="91"/>
         <player level="81"/>
       </and>
@@ -686,6 +723,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="763"/>
+        </not>
         <player class_id_restriction="91"/>
         <player level="81"/>
       </and>
@@ -702,6 +742,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="764"/>
+        </not>
         <player class_id_restriction="100"/>
         <player level="76"/>
       </and>
@@ -719,6 +762,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="765"/>
+        </not>
         <player class_id_restriction="107"/>
         <player level="76"/>
       </and>
@@ -735,6 +781,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="766"/>
+        </not>
         <player class_id_restriction="90, 91, 93, 99, 100, 101, 106, 107, 108, 132, 133, 134"/>
         <player level="81"/>
       </and>
@@ -751,6 +800,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="767"/>
+        </not>
         <player class_id_restriction="88, 89, 93, 101, 108, 113, 114, 117, 118, 131, 132, 133"/>
         <player level="81"/>
       </and>
@@ -767,6 +819,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="768"/>
+        </not>
         <player class_id_restriction="93"/>
         <player level="81"/>
       </and>
@@ -783,6 +838,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="769"/>
+        </not>
         <player class_id_restriction="101"/>
         <player level="81"/>
       </and>
@@ -799,6 +857,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="770"/>
+        </not>
         <player class_id_restriction="108"/>
         <player level="81"/>
       </and>
@@ -815,6 +876,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="771"/>
+        </not>
         <player class_id_restriction="92"/>
         <player level="81"/>
       </and>
@@ -831,6 +895,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="772"/>
+        </not>
         <player class_id_restriction="102"/>
         <player level="81"/>
       </and>
@@ -847,6 +914,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="773"/>
+        </not>
         <player class_id_restriction="109"/>
         <player level="81"/>
       </and>
@@ -863,6 +933,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="774"/>
+        </not>
         <player class_id_restriction="89"/>
         <player level="81"/>
       </and>
@@ -879,6 +952,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="775"/>
+        </not>
         <player class_id_restriction="88"/>
         <player level="81"/>
       </and>
@@ -895,6 +971,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="776"/>
+        </not>
         <player class_id_restriction="114"/>
         <player level="81"/>
       </and>
@@ -911,6 +990,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="777"/>
+        </not>
         <player class_id_restriction="113"/>
         <player level="81"/>
       </and>
@@ -927,6 +1009,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="778"/>
+        </not>
         <player class_id_restriction="118"/>
         <player level="81"/>
       </and>
@@ -943,6 +1028,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1492"/>
+        </not>
         <player class_id_restriction="94"/>
         <player level="81"/>
       </and>
@@ -959,6 +1047,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1493"/>
+        </not>
         <player class_id_restriction="103"/>
         <player level="81"/>
       </and>
@@ -975,6 +1066,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1494"/>
+        </not>
         <player class_id_restriction="110"/>
         <player level="81"/>
       </and>
@@ -991,6 +1085,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1495"/>
+        </not>
         <player class_id_restriction="95"/>
         <player level="81"/>
       </and>
@@ -1007,12 +1104,15 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1496"/>
+        </not>
         <player class_id_restriction="96, 104, 111"/>
         <player level="81"/>
       </and>
     </cond>
   </skill>
-  <skill id="2469" levels="1" name="Excessive Royalty">
+  <skill id="2469" levels="1" name="Excessive Loyalty">
     <set name="itemConsumeId" val="10577"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1023,6 +1123,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1497"/>
+        </not>
         <player class_id_restriction="96, 104, 111"/>
         <player level="81"/>
       </and>
@@ -1039,6 +1142,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1498"/>
+        </not>
         <player class_id_restriction="96, 104, 111"/>
         <player level="81"/>
       </and>
@@ -1056,6 +1162,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1499"/>
+        </not>
         <player class_id_restriction="17, 98"/>
         <player level="70"/>
       </and>
@@ -1073,6 +1182,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1500"/>
+        </not>
         <player class_id_restriction="43, 112"/>
         <player level="70"/>
       </and>
@@ -1090,6 +1202,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1501"/>
+        </not>
         <player class_id_restriction="17, 98"/>
         <player level="70"/>
       </and>
@@ -1107,6 +1222,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1502"/>
+        </not>
         <player class_id_restriction="43, 112"/>
         <player level="70"/>
       </and>
@@ -1124,6 +1242,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1503"/>
+        </not>
         <player class_id_restriction="30, 105"/>
         <player level="70"/>
       </and>
@@ -1141,6 +1262,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1504"/>
+        </not>
         <player class_id_restriction="30, 105"/>
         <player level="70"/>
       </and>
@@ -1157,6 +1281,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1505"/>
+        </not>
         <player class_id_restriction="97"/>
         <player level="81"/>
       </and>
@@ -1173,6 +1300,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1506"/>
+        </not>
         <player class_id_restriction="105"/>
         <player level="81"/>
       </and>
@@ -1189,6 +1319,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1507"/>
+        </not>
         <player class_id_restriction="112"/>
         <player level="81"/>
       </and>
@@ -1205,6 +1338,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1508"/>
+        </not>
         <player class_id_restriction="112"/>
         <player level="81"/>
       </and>
@@ -1221,6 +1357,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1509"/>
+        </not>
         <player class_id_restriction="115"/>
         <player level="81"/>
       </and>
@@ -1237,6 +1376,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="784"/>
+        </not>
         <player class_id_restriction="90"/>
         <player level="81"/>
       </and>
@@ -1253,6 +1395,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="786"/>
+        </not>
         <player class_id_restriction="99"/>
         <player level="81"/>
       </and>
@@ -1269,6 +1414,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="788"/>
+        </not>
         <player class_id_restriction="106"/>
         <player level="81"/>
       </and>
@@ -1315,6 +1463,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="790"/>
+        </not>
         <player class_id_restriction="134"/>
         <player level="81"/>
       </and>
@@ -1331,6 +1482,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="791"/>
+        </not>
         <player class_id_restriction="132, 133"/>
         <player level="81"/>
       </and>
@@ -1451,7 +1605,10 @@
     <set name="create_item_count" val="1"/>
     <set name="soulConsumeCount" val="5"/>
     <cond msgId="113" addName="1">
-      <player flyMounted="False"/>
+      <and>
+        <player flyMounted="False"/>
+        <player race="Kamael"/>
+      </and>
     </cond>
   </skill>
   <skill id="2499" levels="2" name="Bottle of Full Soul">
@@ -1461,7 +1618,10 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="num_souls" val="#souls"/>
     <cond msgId="113" addName="1">
-      <player flyMounted="False"/>
+      <and>
+        <player flyMounted="False"/>
+        <player race="Kamael"/>
+      </and>
     </cond>
   </skill>
 </list>

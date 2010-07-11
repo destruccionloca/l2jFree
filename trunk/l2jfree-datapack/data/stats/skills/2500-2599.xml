@@ -70,6 +70,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1517"/>
+        </not>
         <player class_id_restriction="52, 116"/>
         <player level="70"/>
       </and>
@@ -86,6 +89,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1518"/>
+        </not>
         <player class_id_restriction="52, 116"/>
         <player level="72"/>
       </and>
@@ -102,6 +108,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="1519"/>
+        </not>
         <player class_id_restriction="52, 116"/>
         <player level="74"/>
       </and>
@@ -262,6 +271,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="818"/>
+        </not>
         <player class_id_restriction="36, 108"/>
         <player level="74"/>
       </and>
@@ -278,6 +290,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="819"/>
+        </not>
         <player class_id_restriction="23, 101"/>
         <player level="74"/>
       </and>
@@ -294,6 +309,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="820"/>
+        </not>
         <player class_id_restriction="8, 93"/>
         <player level="74"/>
       </and>
@@ -310,6 +328,9 @@
     <set name="staticHitTime" val="true"/>
     <cond msgId="113" addName="1">
       <and>
+        <not>
+          <player active_skill_id="821"/>
+        </not>
         <player class_id_restriction="8, 93, 23, 101, 36, 108"/>
         <player level="72"/>
       </and>
@@ -889,29 +910,74 @@
     </cond>
   </skill>
   <skill id="2572" levels="1" name="Pathfinder's Reward">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13003"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2573" levels="1" name="Pathfinder's Reward">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13004"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2574" levels="1" name="Pathfinder's Reward">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13005"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2575" levels="1" name="Pathfinder's Reward">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13006"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2576" levels="1" name="Pathfinder's Reward">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="13007"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="EXTRACTABLE"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="castRange" val="-1"/>
+    <cond msgId="129">
+      <and>
+        <player invSize="10"/>
+        <player weight="80"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2577" levels="1" name="Instant Defense">
     <set name="itemConsumeId" val="13032"/>
@@ -926,7 +992,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Invincible" time="5" val="0" stackOrder="1" stackType="Instant_Shield"/>
+      <effect name="Invincible" time="5" val="0" stackOrder="1" stackType="Instant_Shield" special="invulnerable"/>
     </for>
   </skill>
   <skill id="2578" levels="1" name="Cure Poison Paralyze">

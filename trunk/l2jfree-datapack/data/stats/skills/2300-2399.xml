@@ -68,12 +68,21 @@
   </skill>
   <skill id="2305" levels="1" name="Primeval Potion">
     <!-- Improves resistance to various poisons and anesthetics that originate on the Primeval Isle. -->
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeId" val="8786"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="NEGATE"/>
+    <set name="negateStats" val="POISON"/>
+    <set name="operateType" val="OP_ACTIVE"/>
     <cond msgId="113" addName="1">
       <player flyMounted="False"/>
     </cond>
+    <for>
+      <effect name="Buff" time="1200" val="0">
+        <mul order="0x30" stat="poisonVuln" val="0.7"/>
+        <mul order="0x30" stat="bleedVuln" val="0.7"/>
+      </effect>
+    </for>
   </skill>
   <skill id="2306" levels="3" name="Primeval Crystals">
     <!--
@@ -175,7 +184,7 @@
       <player flyMounted="False"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="1.3" stackType="critical_prob_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="30" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.3"/>
       </effect>
     </for>
@@ -824,6 +833,8 @@
   </skill>
   <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
     <!-- Done by Skatershi Description: Transform into an Onyx Beast. -->
+    <set name="itemConsumeId" val="10131"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -838,6 +849,8 @@
   </skill>
   <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
     <!-- Done by Skatershi Description: Transform into a Death Blader. -->
+    <set name="itemConsumeId" val="10132"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -852,6 +865,8 @@
   </skill>
   <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
     <!-- Done by Skatershi Description: Transform into an apostle Grail. -->
+    <set name="itemConsumeId" val="10133"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -866,6 +881,8 @@
   </skill>
   <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
     <!-- Done by Skatershi Description: Transform into a Unicorn. -->
+    <set name="itemConsumeId" val="10134"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -880,6 +897,8 @@
   </skill>
   <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
     <!-- Done by Skatershi Description: Transform into a Lilim Knight. -->
+    <set name="itemConsumeId" val="10135"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -894,6 +913,8 @@
   </skill>
   <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
     <!-- Done by Skatershi Description: Transform into a Golem Guardian. -->
+    <set name="itemConsumeId" val="10136"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -908,6 +929,8 @@
   </skill>
   <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
     <!-- Done by Skatershi Description: Transform into an Inferno Drake. -->
+    <set name="itemConsumeId" val="10137"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -922,6 +945,8 @@
   </skill>
   <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
     <!-- Done by Skatershi Description: Transform into a Dragon Bomber. -->
+    <set name="itemConsumeId" val="10138"/>
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -1034,7 +1059,7 @@
     </cond>
     <for>
       <effect name="Buff" time="3600" val="0">
-        <mul order="0x30" stat="gainHp" val="0.08"/>
+        <mul order="0x30" stat="gainHp" val="1.08"/>
       </effect>
     </for>
   </skill>
@@ -1059,7 +1084,7 @@
       <player SiegeZone="126"/>
     </cond>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="0.25" stackType="critical_prob_up">
+      <effect name="Buff" time="3600" val="0" stackOrder="20" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="0.2"/>
       </effect>
     </for>
@@ -1156,9 +1181,14 @@
     </for>
   </skill>
   <skill id="2395" levels="1" name="Lesser Battlefield Healing Potion">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
-    <set name="operateType" val="OP_PASSIVE"/>
+    <set name="itemConsumeCount" val="1"/>
+    <set name="power" val="2000"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="HEAL"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="reuseDelay" val="180000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="isPotion" val="true"/>
     <cond msgId="113" addName="1">
       <player SiegeZone="126"/>
     </cond>
