@@ -1866,6 +1866,9 @@
   <skill id="5395" levels="3" name="NPC Clan Buff - Super Might Haste">
     <table name="#pAtk"> 1.04 1.07 1.1 </table>
     <table name="#mpConsume"> 54 62 69 </table>
+    <table name="#itemConsumeCount"> 1 2 3 </table>
+    <set name="itemConsumeId" val="3031"/>
+    <set name="itemConsumeCount" val="#itemConsumeCount"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="2000"/>
     <set name="hitTime" val="4000"/>
