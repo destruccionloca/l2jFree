@@ -45,7 +45,7 @@ public abstract class PlayableStat extends CharStat
 		if (value < 0 && getLevel() <= minimumLevel && (getExp() + value) <= getExpForLevel(minimumLevel))
 			return true;
 
-		if ((getExp() + value) < 0 || getExp() == (getExpForLevel(Experience.MAX_LEVEL) - 1))
+		if ((getExp() + value) < 0 || (value > 0 && getExp() == (getExpForLevel(Experience.MAX_LEVEL) - 1)))
 			return true;
 		
 		if (getExp() + value >= getExpForLevel(Experience.MAX_LEVEL))
@@ -144,7 +144,10 @@ public abstract class PlayableStat extends CharStat
 		
 		getActiveChar().getStatus().setCurrentHp(getActiveChar().getStat().getMaxHp());
 		getActiveChar().getStatus().setCurrentMp(getActiveChar().getStat().getMaxMp());
-
+		//if (getActiveChar() instanceof L2PcInstance)
+		//	CommunityServerThread.getInstance().sendPacket(
+		//			new WorldInfo((L2PcInstance)getActiveChar(), null, WorldInfo.TYPE_UPDATE_PLAYER_DATA));
+		
 		return true;
 	}
 
@@ -203,6 +206,18 @@ public abstract class PlayableStat extends CharStat
 		// TODO: check if sharks/fish should be affected ;)
 		if (_activeChar.isInsideZone(L2Zone.FLAG_WATER))
 			val *= L2Zone.WATER_MOVE_SPEED_BONUS;
+
+		// FIXME 1.4.0
+		/*
+		// TODO: get value from zone ;)
+		if (_activeChar.isInsideZone(L2Zone.FLAG_SWAMP))
+		{
+			L2SwampZone zone = ZoneManager.getInstance().getZone(getActiveChar(), L2SwampZone.class);
+			int bonus = zone == null ? 0 : zone.getMoveBonus();
+			double dbonus = bonus / 100.0; // %
+			val += val * dbonus;
+		}
+		*/
 
 		return val;
 	}

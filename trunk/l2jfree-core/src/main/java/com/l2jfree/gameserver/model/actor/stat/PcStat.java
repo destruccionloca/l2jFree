@@ -43,7 +43,7 @@ public class PcStat extends PlayableStat
 	private float _vitalityPoints = 1;
 	private byte _vitalityLevel = 0;
 
-	public static final int VITALITY_LEVELS[] = {240, 1800, 14600, 18200, 20000};
+	public static final int VITALITY_LEVELS[] = { 240, 2000, 13000, 17000, 20000 };
 	public static final int MAX_VITALITY_POINTS = VITALITY_LEVELS[4];
 	public static final int MIN_VITALITY_POINTS = 1;
 	
@@ -589,31 +589,26 @@ public class PcStat extends PlayableStat
 				if (stat < 0) // is vitality gained ?
 					points = -points;
 			}
-
-			if (level >= 79)
-	    		points *= 2;
-	    	else if (level >= 76)
-	    		points += points / 2;
-
-	    	if (points > 0)
-	    	{
-	    		// vitality increased
-	    		points *= Config.RATE_VITALITY_GAIN;
-	    	}
-	    	else
-	    	{
-	    		// vitality decreased
-	    		points *= Config.RATE_VITALITY_LOST;
-	    	}
+			
+			if (points > 0)
+			{
+				// vitality increased
+				points *= Config.RATE_VITALITY_GAIN;
+			}
+			else
+			{
+				// vitality decreased
+				points *= Config.RATE_VITALITY_LOST;
+			}
 		}
 
 		if (points > 0)
 		{
-	    	points = Math.min(_vitalityPoints + points, MAX_VITALITY_POINTS);
+			points = Math.min(_vitalityPoints + points, MAX_VITALITY_POINTS);
 		}
 		else
 		{
-	    	points = Math.max(_vitalityPoints + points, MIN_VITALITY_POINTS);
+			points = Math.max(_vitalityPoints + points, MIN_VITALITY_POINTS);
 		}
 
 		if (points == _vitalityPoints)
@@ -621,5 +616,13 @@ public class PcStat extends PlayableStat
 
 		_vitalityPoints = points;
 		updateVitalityLevel(quiet);
+	}
+	
+	/**
+	 * @return the _vitalityLevel
+	 */
+	public byte getVitalityLevel()
+	{
+		return _vitalityLevel;
 	}
 }

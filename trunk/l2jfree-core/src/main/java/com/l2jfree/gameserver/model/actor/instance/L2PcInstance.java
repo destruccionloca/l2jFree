@@ -34,6 +34,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -8519,6 +8520,36 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			}
 			
 			getCubics().clear();
+		}
+	}
+	
+	public final void stopCubicsByOthers()
+	{
+		// Remove invalid cubics
+		if (!getCubics().isEmpty())
+		{
+			FastList<Integer> allowedList = new FastList<Integer>();
+			
+			for (L2Skill skill : getAllSkills())
+			{
+				if (skill instanceof L2SkillSummon && ((L2SkillSummon) skill).isCubic())
+				{
+					int npcId = ((L2SkillSummon) skill).getNpcId();
+					if (npcId != 0)
+						allowedList.add(npcId);
+				}
+			}
+			
+			for (L2CubicInstance cubic : getCubics().values())
+			{
+				if (!allowedList.contains(cubic.getId()))
+				//FIXME 1.4.0
+				//if (cubic.givenByOther())
+				{
+					cubic.stopAction();
+					delCubic(cubic.getId());
+				}
+			}
 		}
 	}
 

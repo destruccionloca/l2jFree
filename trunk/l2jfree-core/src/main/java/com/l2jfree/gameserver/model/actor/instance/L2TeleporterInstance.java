@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
+import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.NpcTable;
 import com.l2jfree.gameserver.datatables.TeleportLocationTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
@@ -31,6 +32,7 @@ import com.l2jfree.gameserver.model.restriction.ObjectRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 /**
@@ -68,44 +70,18 @@ public final class L2TeleporterInstance extends L2Npc
 
 		if (actualCommand.equalsIgnoreCase("goto"))
 		{
-			int npcId = getTemplate().getNpcId();
+			int npcId = getNpcId();
 
 			switch (npcId)
 			{
-			case 31095: //
-			case 31096: //
-			case 31097: //
-			case 31098: // Enter Necropolises
-			case 31099: //
-			case 31100: //
-			case 31101: //
-			case 31102: //
-
-			case 31114: //
-			case 31115: //
-			case 31116: // Enter Catacombs
-			case 31117: //
-			case 31118: //
-			case 31119: //
-				player.setIsIn7sDungeon(true);
-				break;
-			case 31103: //
-			case 31104: //
-			case 31105: //
-			case 31106: // Exit Necropolises
-			case 31107: //
-			case 31108: //
-			case 31109: //
-			case 31110: //
-
-			case 31120: //
-			case 31121: //
-			case 31122: // Exit Catacombs
-			case 31123: //
-			case 31124: //
-			case 31125: //
-				player.setIsIn7sDungeon(false);
-				break;
+				case 32534: // Seed of Infinity
+				case 32539:
+					if (player.isFlyingMounted())
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_ENTER_SEED_IN_FLYING_TRANSFORM));
+						return;
+					}
+					break;
 			}
 
 			if (st.countTokens() <= 0)
@@ -122,15 +98,42 @@ public final class L2TeleporterInstance extends L2Npc
 			{
 				int minPrivilegeLevel = 0; // NOTE: Replace 0 with highest level when privilege level is implemented
 				if (st.countTokens() >= 1)
-				{
 					minPrivilegeLevel = Integer.parseInt(st.nextToken());
-				}
+				
 				if (10 >= minPrivilegeLevel) // NOTE: Replace 10 with privilege level of player
 					doTeleport(player, whereTo);
 				else
 					player.sendMessage("You don't have the sufficient access level to teleport there.");
 				return;
 			}
+		}
+		else if (command.startsWith("Chat"))
+		{
+			Calendar cal = Calendar.getInstance();
+			int val = 0;
+			try
+			{
+				val = Integer.parseInt(command.substring(5));
+			}
+			catch (IndexOutOfBoundsException ioobe)
+			{
+			}
+			catch (NumberFormatException nfe)
+			{
+			}
+			
+			if (val == 1 && player.getLevel() < 41)
+			{
+				showNewbieHtml(player);
+				return;
+			}
+			else if (val == 1 && cal.get(Calendar.HOUR_OF_DAY) >= 20 && cal.get(Calendar.HOUR_OF_DAY) <= 23
+					&& (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7))
+			{
+				showHalfPriceHtml(player);
+				return;
+			}
+			showChatWindow(player, val);
 		}
 		else if (actualCommand.equals("birthday"))
 		{
@@ -182,6 +185,40 @@ public final class L2TeleporterInstance extends L2Npc
 			pom = npcId + "-" + val;
 
 		return "data/html/teleporter/" + pom + ".htm";
+	}
+
+	private void showNewbieHtml(L2PcInstance player)
+	{
+		if (player == null)
+			return;
+		
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		
+		String filename = "data/html/teleporter/free/" + getTemplate().getNpcId() + ".htm";
+		if (!HtmCache.getInstance().pathExists(filename))
+			filename = "data/html/teleporter/" + getTemplate().getNpcId() + "-1.htm";
+		
+		html.setFile(filename);
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		html.replace("%npcname%", getName());
+		player.sendPacket(html);
+	}
+
+	private void showHalfPriceHtml(L2PcInstance player)
+	{
+		if (player == null)
+			return;
+		
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		
+		String filename = "data/html/teleporter/half/" + getNpcId() + ".htm";
+		if (!HtmCache.getInstance().pathExists(filename))
+			filename = "data/html/teleporter/" + getNpcId() + "-1.htm";
+		
+		html.setFile(filename);
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		html.replace("%npcname%", getName());
+		player.sendPacket(html);
 	}
 
 	@Override

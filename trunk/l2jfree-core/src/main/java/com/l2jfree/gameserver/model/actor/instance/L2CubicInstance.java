@@ -602,7 +602,7 @@ public class L2CubicInstance
 		if (owner == target)
 			return true;
 
-		// Temporary MAX_MAGIC_RANGE check until real behavior of cubics is known/coded	
+		// Temporary MAX_MAGIC_RANGE check until real behavior of cubics is known/coded
 		return Util.checkIfInRange(MAX_MAGIC_RANGE, owner, target, true);
 	}
 

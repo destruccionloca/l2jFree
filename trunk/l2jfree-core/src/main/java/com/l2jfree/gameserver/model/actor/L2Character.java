@@ -189,7 +189,7 @@ public abstract class L2Character extends L2Object
 	// timed out
 	protected boolean				_isTeleporting						= false;
 	protected boolean				_isInvul							= false;
-	protected L2Effect 				_invulEffect               			= null;
+	private L2Effect				_invulEffect						= null;
 	protected boolean				_isDisarmed							= false;
 	protected boolean				_isMarked							= false;
 	protected boolean				_isEradicated						= false;
@@ -2676,11 +2676,6 @@ public abstract class L2Character extends L2Object
 	public boolean isInvul()
 	{
 		return _isInvul || _invulEffect != null || _isTeleporting || GlobalRestrictions.isInvul(null, this, null, false);
-	}
-
-	public L2Effect getInvulEffect()
-	{
-		return _invulEffect;
 	}
 
 	public boolean isUndead()

@@ -222,6 +222,8 @@ public class Duel
 				// players need to be teleportet first
 				//TODO: stadia manager needs a function to return an unused stadium for duels currently only teleports to the same stadium
 				_duel.teleportPlayers(149485, 46718, -3413);
+				// FIXME 1.4.0
+				//_duel.teleportPlayers(-83760, -238825, -3331);
 
 				// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical..)
 				ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);

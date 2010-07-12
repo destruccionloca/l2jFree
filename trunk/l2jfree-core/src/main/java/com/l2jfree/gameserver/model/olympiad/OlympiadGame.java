@@ -29,7 +29,6 @@ import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.Location;
 import com.l2jfree.gameserver.model.actor.L2Summon;
-import com.l2jfree.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PetInstance;
 import com.l2jfree.gameserver.model.olympiad.Olympiad.COMP_TYPE;
@@ -41,7 +40,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.skills.l2skills.L2SkillSummon;
 import com.l2jfree.gameserver.templates.StatsSet;
 
 /**
@@ -256,30 +254,9 @@ public class OlympiadGame
 						summon.unSummon(player);
 				}
 
-				// Remove invalid cubics
-				if (player.getCubics() != null && Config.ALT_OLY_REMOVE_CUBICS)
-				{
-					FastList<Integer> allowedList = new FastList<Integer>();
-
-					for (L2Skill skill : player.getAllSkills())
-					{
-						if (skill instanceof L2SkillSummon && ((L2SkillSummon) skill).isCubic())
-						{
-							int npcId = ((L2SkillSummon) skill).getNpcId();
-							if (npcId != 0)
-								allowedList.add(npcId);
-						}
-					}
-					
-					for (L2CubicInstance cubic : player.getCubics().values())
-					{
-						if (!allowedList.contains((cubic.getId())))
-						{
-							cubic.stopAction();
-							player.delCubic(cubic.getId());
-						}
-					}
-				}
+				// stop any cubic that has been given by other player.
+				if (Config.ALT_OLY_REMOVE_CUBICS)
+					player.stopCubicsByOthers();
 
 				// Remove player from his party
 				if (player.getParty() != null)
@@ -347,15 +324,6 @@ public class OlympiadGame
 
 			final OlympiadStadium stadium = OlympiadManager.STADIUMS[_stadiumID];
 			
-			_playerOne.teleToLocation(stadium.player1Spawn, false);
-			_playerTwo.teleToLocation(stadium.player2Spawn, false);
-
-			_playerOne.sendPacket(ExOlympiadMode.INGAME);
-			_playerTwo.sendPacket(ExOlympiadMode.INGAME);
-
-			_spawnOne = spawnBuffer(stadium.buffer1Spawn);
-			_spawnTwo = spawnBuffer(stadium.buffer2Spawn);
-
 			_playerOne.setIsInOlympiadMode(true);
 			_playerOne.setIsOlympiadStart(false);
 			_playerOne.setOlympiadSide(1);
@@ -365,6 +333,17 @@ public class OlympiadGame
 			_playerTwo.setIsOlympiadStart(false);
 			_playerTwo.setOlympiadSide(2);
 			_playerTwo.olyBuff = 5;
+			
+			_playerOne.setInstanceId(0);
+			_playerOne.teleToLocation(stadium.player1Spawn, false);
+			_playerTwo.setInstanceId(0);
+			_playerTwo.teleToLocation(stadium.player2Spawn, false);
+			
+			_playerOne.sendPacket(ExOlympiadMode.INGAME);
+			_playerTwo.sendPacket(ExOlympiadMode.INGAME);
+			
+			_spawnOne = spawnBuffer(stadium.buffer1Spawn);
+			_spawnTwo = spawnBuffer(stadium.buffer2Spawn);
 			
 			_gameIsStarted = false;
 		}
@@ -418,14 +397,17 @@ public class OlympiadGame
 		{
 			try
 			{
-				if (player.isDead() == true)
+				if (Olympiad.getInstance().playerInStadia(player))
 				{
-					player.setIsDead(false);
+					if (player.isDead())
+						player.setIsDead(false);
+					
+					player.getStatus().startHpMpRegeneration();
+					player.getStatus().setCurrentCp(player.getMaxCp());
+					player.getStatus().setCurrentHp(player.getMaxHp());
+					player.getStatus().setCurrentMp(player.getMaxMp());
 				}
-				player.getStatus().startHpMpRegeneration();
-				player.getStatus().setCurrentCp(player.getMaxCp());
-				player.getStatus().setCurrentHp(player.getMaxHp());
-				player.getStatus().setCurrentMp(player.getMaxMp());
+				
 				player.setIsInOlympiadMode(false);
 				player.setIsOlympiadStart(false);
 				player.setOlympiadSide(-1);
@@ -708,9 +690,9 @@ public class OlympiadGame
 		_sm3 = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS);
 
 		// if players crashed, search if they've relogged
-		_playerOne = L2World.getInstance().getPlayer(_playerOneName);
+		_playerOne = L2World.getInstance().getPlayer(_playerOneID);
 		_players.set(0, _playerOne);
-		_playerTwo = L2World.getInstance().getPlayer(_playerTwoName);
+		_playerTwo = L2World.getInstance().getPlayer(_playerTwoID);
 		_players.set(1, _playerTwo);
 
 		String winner = "draw";
@@ -975,9 +957,9 @@ class OlympiadGameTask implements Runnable
 
 	protected boolean checkDefaulted()
 	{
-		_game._playerOne = L2World.getInstance().getPlayer(_game._playerOneName);
+		_game._playerOne = L2World.getInstance().getPlayer(_game._playerOneID);
 		_game._players.set(0, _game._playerOne);
-		_game._playerTwo = L2World.getInstance().getPlayer(_game._playerTwoName);
+		_game._playerTwo = L2World.getInstance().getPlayer(_game._playerTwoID);
 		_game._players.set(1, _game._playerTwo);
 
 		for (int i = 0; i < 2; i++)

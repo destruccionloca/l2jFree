@@ -1,8 +1,16 @@
 /*
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details. You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.l2jfree.gameserver.instancemanager;
 
@@ -48,7 +56,6 @@ public class MailManager
 		load();
 	}
 	
-	@SuppressWarnings("null")
 	private void load()
 	{
 		int readed = 0;
@@ -155,7 +162,6 @@ public class MailManager
 		return outbox;
 	}
 	
-	@SuppressWarnings("null")
 	public void sendMessage(Message msg)
 	{
 		_messages.put(msg.getId(), msg);
@@ -233,7 +239,6 @@ public class MailManager
 		}
 	}
 	
-	@SuppressWarnings("null")
 	public final void markAsReadInDb(int msgId)
 	{
 		Connection con = null;
@@ -255,7 +260,6 @@ public class MailManager
 		}
 	}
 	
-	@SuppressWarnings("null")
 	public final void markAsDeletedBySenderInDb(int msgId)
 	{
 		Connection con = null;
@@ -263,7 +267,8 @@ public class MailManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET isDeletedBySender = 'true' WHERE messageId = ?");
+			PreparedStatement stmt = con
+					.prepareStatement("UPDATE messages SET isDeletedBySender = 'true' WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -280,7 +285,6 @@ public class MailManager
 		}
 	}
 	
-	@SuppressWarnings("null")
 	public final void markAsDeletedByReceiverInDb(int msgId)
 	{
 		Connection con = null;
@@ -288,7 +292,8 @@ public class MailManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET isDeletedByReceiver = 'true' WHERE messageId = ?");
+			PreparedStatement stmt = con
+					.prepareStatement("UPDATE messages SET isDeletedByReceiver = 'true' WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -305,7 +310,6 @@ public class MailManager
 		}
 	}
 	
-	@SuppressWarnings("null")
 	public final void removeAttachmentsInDb(int msgId)
 	{
 		Connection con = null;
@@ -313,7 +317,8 @@ public class MailManager
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			
-			PreparedStatement stmt = con.prepareStatement("UPDATE messages SET hasAttachments = 'false' WHERE messageId = ?");
+			PreparedStatement stmt = con
+					.prepareStatement("UPDATE messages SET hasAttachments = 'false' WHERE messageId = ?");
 			
 			stmt.setInt(1, msgId);
 			
@@ -330,7 +335,6 @@ public class MailManager
 		}
 	}
 	
-	@SuppressWarnings("null")
 	public final void deleteMessageInDb(int msgId)
 	{
 		Connection con = null;

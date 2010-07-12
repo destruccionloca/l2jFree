@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -35,41 +34,6 @@ public class L2FameManagerInstance extends L2Npc
 		super(objectId, template);
 	}
 	
-	/**
-	 * this is called when a player interacts with this NPC
-	 * @param player
-	 */
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-
-		player.setLastFolkNPC(this);
-
-		// Check if the L2PcInstance already target the L2Npc
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2Npc
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -101,17 +65,22 @@ public class L2FameManagerInstance extends L2Npc
 		else if (actualCommand.equalsIgnoreCase("CRP"))
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(1);
-			if (player.getFame() >= 1000 && player.getClassId().level() >= 2 && player.getClan() != null && player.getClan().getLevel() >= 5)
+			if (player.getClan() != null && player.getClan().getLevel() >= 5)
 			{
-				player.setFame(player.getFame() - 1000);
-				player.getClan().addReputationScore(50, true);
-				player.sendPacket(SystemMessageId.ACQUIRED_50_CLAN_FAME_POINTS);
-				html.setFile("data/html/famemanager/"+getNpcId()+"-5.htm");
+				if (player.getFame() >= 1000 && player.getClassId().level() >= 2)
+				{
+					player.setFame(player.getFame() - 1000);
+					player.sendPacket(new UserInfo(player));
+					player.getClan().addReputationScore(50, true);
+					player.sendPacket(SystemMessageId.ACQUIRED_50_CLAN_FAME_POINTS);
+					html.setFile("data/html/famemanager/" + getNpcId() + "-5.htm");
+				}
+				else
+					html.setFile("data/html/famemanager/" + getNpcId() + "-lowfame.htm");
 			}
 			else
-			{
-				html.setFile("data/html/famemanager/"+getNpcId()+"-lowfame.htm");
-			}
+				html.setFile("data/html/famemanager/" + getNpcId() + "-noclan.htm");
+			
 			sendHtmlMessage(player, html);
 		}
 		else
@@ -124,13 +93,15 @@ public class L2FameManagerInstance extends L2Npc
 		player.sendPacket(html);
 	}
 
-	private void showMessageWindow(L2PcInstance player)
+	@Override
+	public void showChatWindow(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/famemanager/"+getNpcId()+"-lowfame.htm";
 		
 		if (player.getFame() > 0)
 			filename = "data/html/famemanager/"+getNpcId()+".htm";
+		
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
