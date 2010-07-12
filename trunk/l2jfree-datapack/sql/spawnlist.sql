@@ -40757,3 +40757,10 @@ INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `l
 (105068, '', 1, 32515, -81904, -53909, -10736, 0, 0, 16690, 60, 0, 0),
 (105110, '', 1, 32514, -77410, -50656, -10733, 0, 0, 29190, 60, 0, 0),
 (105116, '', 1, 32377, -79119, -45441, -10736, 0, 0, 40662, 60, 0, 0);
+
+-- Officer Edric (Psycho)
+INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `locy`, `locz`, `randomx`, `randomy`, `heading`, `respawn_delay`, `loc_id`, `periodOfDay`) VALUES
+(NULL, '', 1, 32527, -248525, 250048, 4307, 0, 0, 25873, 60, 0, 0);
+
+-- Star stones respawn (Psycho)
+UPDATE `spawnlist` SET `respawn_delay` = '180' WHERE `npc_templateid` IN (18684,18685,18687,18688,18689,18690,18691,18692);

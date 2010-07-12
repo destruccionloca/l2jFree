@@ -603,7 +603,7 @@
     <set name="staticReuse" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="target" val="TARGET_SELF"/>
+    <set name="target" val="TARGET_ONE"/>
     <set name="castRange" val="100"/>
     <set name="effectRange" val="600"/>
     <cond msgId="113" addName="1">
