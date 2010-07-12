@@ -40763,4 +40763,4 @@ INSERT INTO `spawnlist` (`id`, `location`, `count`, `npc_templateid`, `locx`, `l
 (NULL, '', 1, 32527, -248525, 250048, 4307, 0, 0, 25873, 60, 0, 0);
 
 -- Star stones respawn (Psycho)
-UPDATE `spawnlist` SET `respawn_delay` = '180' WHERE `npc_templateid` IN (18684,18685,18687,18688,18689,18690,18691,18692);
+UPDATE `spawnlist` SET `respawn_delay` = '180' WHERE `npc_templateid` IN (18684,18685,18686,18687,18688,18689,18690,18691,18692);

@@ -26,7 +26,7 @@ import com.l2jfree.tools.random.Rnd;
 public class StarStone extends L2AttackableAIScript
 {
 	private static final int[] NPC_IDS = {
-		18684,18685,18687,18688,18689,18690,18691,18692
+		18684,18685,18686,18687,18688,18689,18690,18691,18692
 	};
 
 	public StarStone(int questId, String name, String descr)
