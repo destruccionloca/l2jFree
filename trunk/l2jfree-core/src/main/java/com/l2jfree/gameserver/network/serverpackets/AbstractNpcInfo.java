@@ -50,7 +50,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 	 */
 	protected int				_walkSpd;
 	
-	protected int				_rhand, _lhand, _chest, _enchantEffect;
+	protected int				_rhand, _lhand, _chest;
 	protected double			_collisionHeight, _collisionRadius;
 	protected String			_name			= "";
 	protected String			_title			= "";
@@ -125,7 +125,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			
 			// npc crest of owning clan/ally of castle
 			if (cha instanceof L2NpcInstance && cha.isInsideZone(L2Zone.FLAG_TOWN)
-					&& (Config.ALT_SHOW_CREST_WITHOUT_QUEST || cha.getCastle().isCrestVisible())
+					&& (Config.ALT_SHOW_CREST_WITHOUT_QUEST || cha.getCastle().getShowNpcCrest())
 					&& cha.getCastle().getOwnerId() != 0)
 			{
 				int townId = TownManager.getInstance().getTown(_x, _y, _z).getTownId();
@@ -222,7 +222,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			_lhand = 0;
 			_collisionHeight = _trap.getTemplate().getCollisionHeight();
 			_collisionRadius = _trap.getTemplate().getCollisionRadius();
-			_title = cha.getOwner() !=  null  ? cha.getOwner().getName() :  "";
+			_name = cha.getName();
+			_title = cha.getOwner() != null ? cha.getOwner().getName() : "";
 			_runSpd = _trap.getStat().getRunSpeed();
 			_walkSpd = _trap.getStat().getWalkSpeed();
 		}
@@ -266,8 +267,8 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeS(_title);
 			writeD(0x00); // title color 0 = client default
 			
-			writeD(0x00); // pvp flag
-			writeD(0x00); // karma
+			writeD(_trap.getPvpFlag());
+			writeD(_trap.getKarma());
 			
 			writeD(_trap.getAbnormalEffect()); // C2
 			writeD(0x00); // clan id
@@ -407,11 +408,10 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			writeC(0000); // C2
 			
 			writeC(_summon.getTeam());
+			
 			writeF(_collisionRadius);
 			writeF(_collisionHeight);
-			// FIXME
-			// writeD(_summon.getWeaponEnchantLevel()); // C4
-			writeD(0x00); // C4
+			writeD(_summon.getTemplate().getEnchantEffect()); // C4
 			writeD(0x00); // C6
 			writeD(0x00);
 			writeD(_form); // CT1.5 Pet form and skills

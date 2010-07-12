@@ -22,7 +22,6 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
 
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.AuctionManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.TownManager;
@@ -32,8 +31,8 @@ import com.l2jfree.gameserver.model.entity.Auction;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.entity.Auction.Bidder;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public final class L2AuctioneerInstance extends L2Npc
@@ -50,36 +49,6 @@ public final class L2AuctioneerInstance extends L2Npc
 	}
 
 	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player)) return;
-
-		player.setLastFolkNPC(this);
-
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
-	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		int condition = validateCondition(player);
@@ -90,7 +59,11 @@ public final class L2AuctioneerInstance extends L2Npc
 		}
 		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 		{
-			player.sendMessage("Busy because of siege.");
+			String filename = "data/html/auction/auction-busy.htm";
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile(filename);
+			html.replace("%objectId%", String.valueOf(getObjectId()));
+			player.sendPacket(html);
 			return;
 		}
 		else if (condition == COND_REGULAR)
@@ -100,9 +73,7 @@ public final class L2AuctioneerInstance extends L2Npc
 
 			String val = "";
 			if (st.countTokens() >= 1)
-			{
 				val = st.nextToken();
-			}
 
 			if (actualCommand.equalsIgnoreCase("auction"))
 			{
@@ -165,6 +136,7 @@ public final class L2AuctioneerInstance extends L2Npc
 			{
 				if (val.isEmpty())
 					return;
+				
 				if(_log.isDebugEnabled())
 					_log.warn("bidding show successful");
 
@@ -172,8 +144,10 @@ public final class L2AuctioneerInstance extends L2Npc
 				{
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 					int auctionId = Integer.parseInt(val);
+					
 					if(_log.isDebugEnabled())
 						_log.warn("auction test started");
+					
 					String filename = "data/html/auction/AgitAuctionInfo.htm";
 					Auction a = AuctionManager.getInstance().getAuction(auctionId);
 
@@ -197,16 +171,14 @@ public final class L2AuctioneerInstance extends L2Npc
 						html.replace("%AGIT_LINK_RE%", "bypass -h npc_"+getObjectId()+"_bid1 "+a.getId());
 					}
 					else
-					{
 						_log.warn("Auctioneer Auction null for AuctionId : "+auctionId);
-					}
+					
 					player.sendPacket(html);
 				}
 				catch (Exception e)
 				{
 					player.sendMessage("Invalid auction!");
 				}
-
 				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("bid"))
@@ -233,22 +205,22 @@ public final class L2AuctioneerInstance extends L2Npc
 				{
 					player.sendMessage("Invalid auction!");
 				}
-
 				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("bid1"))
 			{
 				if (player.getClan() == null || player.getClan().getLevel() < 2)
 				{
-					player.sendMessage("Your clan's level needs to be at least 2, before you can bid in an auction");
+					player.sendPacket(new SystemMessage(SystemMessageId.AUCTION_ONLY_CLAN_LEVEL_2_HIGHER));
 					return;
 				}
 
 				if (val.isEmpty())
 					return;
+				
 				if ((player.getClan().getAuctionBiddedAt() > 0 && player.getClan().getAuctionBiddedAt() != Integer.parseInt(val)) || player.getClan().getHasHideout() > 0)
 				{
-					player.sendMessage("You can't bid at more than one auction");
+					player.sendPacket(new SystemMessage(SystemMessageId.ALREADY_SUBMITTED_BID));
 					return;
 				}
 
@@ -283,6 +255,7 @@ public final class L2AuctioneerInstance extends L2Npc
 				int start;
 				int i = 1;
 				double npage = Math.ceil((float)auctions.size() / limit);
+				
 				if (val.isEmpty())
 				{
 					start = 1;
@@ -292,13 +265,16 @@ public final class L2AuctioneerInstance extends L2Npc
 					start = limit * (Integer.parseInt(val) - 1) + 1;
 					limit *= Integer.parseInt(val);
 				}
+				
 				if (_log.isDebugEnabled()) _log.warn("cmd list: auction test started");
 				String items = "";
 				items += "<table width=280 border=0><tr>";
 				for (int j = 1; j <= npage; j++)
 					items+= "<td><center><a action=\"bypass -h npc_"+getObjectId()+"_list "+j+"\"> Page "+j+" </a></center></td>";
+				
 				items += "</tr></table>" +
 						"<table width=280 border=0>";
+				
 				for (Auction a : auctions)
 				{
 					if (i > limit)
@@ -314,14 +290,15 @@ public final class L2AuctioneerInstance extends L2Npc
 					{
 						i++;
 					}
+					
 					items+="<tr>" +
 								"<td>"+ClanHallManager.getInstance().getClanHallById(a.getItemId()).getLocation()+"</td>" +
 								"<td><a action=\"bypass -h npc_"+getObjectId()+"_bidding "+a.getId()+"\">"+a.getItemName()+"</a></td>" +
 								"<td>"+format.format(a.getEndDate())+"</td>" +
 								"<td>"+a.getStartingBid()+"</td>" +
 							"</tr>";
-					
 				}
+				
 				items+= "</table>";
 				String filename = "data/html/auction/AgitAuctionList.htm";
 
@@ -344,8 +321,10 @@ public final class L2AuctioneerInstance extends L2Npc
 				}
 				else
 					auctionId = Integer.parseInt(val);
+				
 				if (_log.isDebugEnabled())
 					_log.warn("cmd bidlist: auction test started");
+				
 				String biders = "";
 				Map<Integer, Bidder> bidders = AuctionManager.getInstance().getAuction(auctionId).getBidders();
 				for (Bidder b : bidders.values())
@@ -391,9 +370,8 @@ public final class L2AuctioneerInstance extends L2Npc
 						html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_start");
 					}
 					else
-					{
 						_log.warn("Auctioneer Auction null for AuctionBiddedAt : "+player.getClan().getAuctionBiddedAt());
-					}
+					
 					player.sendPacket(html);
 					return;
 				}
@@ -422,9 +400,8 @@ public final class L2AuctioneerInstance extends L2Npc
 						html.replace("%objectId%", String.valueOf(getObjectId()));
 					}
 					else
-					{
 						_log.warn("Auctioneer Auction null for getHasHideout : "+player.getClan().getHasHideout());
-					}
+					
 					player.sendPacket(html);
 					return;
 				}
@@ -450,6 +427,16 @@ public final class L2AuctioneerInstance extends L2Npc
 					player.sendPacket(html);
 					return;
 				}
+				else if (player.getClan() != null && player.getClan().getHasHideout() == 0)
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.NO_OFFERINGS_OWN_OR_MADE_BID_FOR));
+					return;
+				}
+				else if (player.getClan() == null)
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_PARTICIPATE_IN_AN_AUCTION));
+					return;
+				}
 			}
 			else if (actualCommand.equalsIgnoreCase("cancelBid"))
 			{
@@ -469,7 +456,7 @@ public final class L2AuctioneerInstance extends L2Npc
 				if (AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt()) != null)
 				{
 					AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt()).cancelBid(player.getClanId());
-					player.sendMessage("You have succesfully canceled your bidding at the auction");
+					player.sendPacket(new SystemMessage(SystemMessageId.CANCELED_BID));
 				}
 				return;
 			}
@@ -477,7 +464,11 @@ public final class L2AuctioneerInstance extends L2Npc
 			{
 				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CH_AUCTION))
 				{
-					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+					String filename = "data/html/auction/not_authorized.htm";
+					NpcHtmlMessage html = new NpcHtmlMessage(1);
+					html.setFile(filename);
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
 					return;
 				}
 				String filename = "data/html/auction/AgitSaleCancel.htm";
@@ -513,7 +504,11 @@ public final class L2AuctioneerInstance extends L2Npc
 			{
 				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CH_AUCTION))
 				{
-					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+					String filename = "data/html/auction/not_authorized.htm";
+					NpcHtmlMessage html = new NpcHtmlMessage(1);
+					html.setFile(filename);
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
 					return;
 				}
 				String filename = "data/html/auction/AgitSale1.htm";
@@ -530,7 +525,11 @@ public final class L2AuctioneerInstance extends L2Npc
 			{
 				if (!L2Clan.checkPrivileges(player, L2Clan.CP_CH_AUCTION))
 				{
-					player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+					String filename = "data/html/auction/not_authorized.htm";
+					NpcHtmlMessage html = new NpcHtmlMessage(1);
+					html.setFile(filename);
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					player.sendPacket(html);
 					return;
 				}
 				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -549,9 +548,8 @@ public final class L2AuctioneerInstance extends L2Npc
 					html.replace("npc_%objectId%_bid1", "npc_"+getObjectId()+"_bid1 "+a.getId());
 				}
 				else
-				{
 					_log.warn("Auctioneer Auction null for AuctionBiddedAt : "+player.getClan().getAuctionBiddedAt());
-				}
+				
 				player.sendPacket(html);
 				}
 				catch (Exception e)
@@ -572,7 +570,7 @@ public final class L2AuctioneerInstance extends L2Npc
 			}
 			else if (actualCommand.equalsIgnoreCase("start"))
 			{
-				showMessageWindow(player);
+				showChatWindow(player);
 				return;
 			}
 		}
@@ -580,7 +578,8 @@ public final class L2AuctioneerInstance extends L2Npc
 			super.onBypassFeedback(player, command);
 	}
 
-	public void showMessageWindow(L2PcInstance player)
+	@Override
+	public void showChatWindow(L2PcInstance player)
 	{
 		String filename = "data/html/auction/auction-no.htm";
 

@@ -547,8 +547,7 @@ public class L2VillageMasterInstance extends L2NpcInstance
 
 			if (player.isSubClassActive())
 			{
-				QuestState qs = player.getQuestState("136_MoreThanMeetsTheEye");
-				if (qs == null || !qs.isCompleted())
+				if (!L2TransformManagerInstance.canTransform(player))
 				{
 					player.sendMessage("You must have completed the More than meets the eye quest for receiving certifications.");
 					return;

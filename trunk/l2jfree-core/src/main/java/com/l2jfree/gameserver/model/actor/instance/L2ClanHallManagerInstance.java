@@ -228,7 +228,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                 }
                 else if (val.equalsIgnoreCase("back"))
                 {
-                    showMessageWindow(player);
+                    showChatWindow(player);
                 }
                 else
                 {
@@ -1296,7 +1296,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                         sendHtmlMessage(player, html);
                     }
                     else if (val.equalsIgnoreCase("back"))
-                        showMessageWindow(player);
+                        showChatWindow(player);
                     else
                     {
                         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -1411,41 +1411,6 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         }
     }
 
-    /**
-     * this is called when a player interacts with this NPC
-     * @param player
-     */
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (!canTarget(player))
-            return;
-
-        player.setLastFolkNPC(this);
-
-        // Check if the L2PcInstance already target the L2NpcInstance
-        if (this != player.getTarget())
-        {
-            // Set the target of the L2PcInstance player
-            player.setTarget(this);
-        }
-        else
-        {
-            // Calculate the distance between the L2PcInstance and the L2NpcInstance
-            if (!canInteract(player))
-            {
-                // Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-                //player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-            }
-            else
-            {
-                showMessageWindow(player);
-            }
-        }
-        // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-        player.sendPacket(ActionFailed.STATIC_PACKET);
-    }
-
     private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
     {
         html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -1454,7 +1419,8 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         player.sendPacket(html);
     }
     
-    private void showMessageWindow(L2PcInstance player)
+    @Override
+    public void showChatWindow(L2PcInstance player)
     {
         player.sendPacket(ActionFailed.STATIC_PACKET);
         String filename = "data/html/clanHallManager/chamberlain-no.htm";

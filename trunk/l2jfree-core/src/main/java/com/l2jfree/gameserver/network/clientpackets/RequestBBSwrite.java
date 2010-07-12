@@ -24,7 +24,7 @@ import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
  * 
  * @author -Wooden-
  */
-public class RequestBBSwrite extends L2GameClientPacket
+public final class RequestBBSwrite extends L2GameClientPacket
 {
 	private static final String	_C__22_REQUESTBBSWRITE	= "[C] 22 RequestBBSwrite";
 	private String				_url;

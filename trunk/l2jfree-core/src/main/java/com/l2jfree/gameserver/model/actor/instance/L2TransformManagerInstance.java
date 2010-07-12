@@ -18,6 +18,7 @@ import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2CertificationSkillsLearn;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2TransformSkillLearn;
 import com.l2jfree.gameserver.model.quest.QuestState;
@@ -32,7 +33,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
 public class L2TransformManagerInstance extends L2MerchantInstance
 {
-    /**
+	/**
 	 * @param objectId
 	 * @param template
 	 */
@@ -59,15 +60,37 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 	{
 		if (command.startsWith("TransformSkillList"))
 		{
-			player.setSkillLearningClassId(player.getClassId());
-			showTransformSkillList(player, false);
+			if (canTransform(player))
+			{
+				player.setSkillLearningClassId(player.getClassId());
+				showTransformSkillList(player, false);
+			}
+			else
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/default/" + getNpcId() + "-cantlearn.htm");
+				player.sendPacket(html);
+			}
+		}
+		else if (command.startsWith("BuyTransform"))
+		{
+			if (canTransform(player))
+			{
+				L2Multisell.getInstance()
+						.separateAndSend(32323001, player, getNpcId(), false, getCastle().getTaxRate());
+			}
+			else
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/default/" + getNpcId() + "-cantbuy.htm");
+				player.sendPacket(html);
+			}
 		}
 		else if (command.startsWith("CertificationSkills"))
 		{
 			if (!player.isSubClassActive())
 			{
-				QuestState qs = player.getQuestState("136_MoreThanMeetsTheEye");
-				if (qs == null || !qs.isCompleted())
+				if (!canTransform(player))
 				{
 					player.sendMessage("You must have completed the More than meets the eye quest for receiving these special skills.");
 					return;
@@ -126,9 +149,16 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 			}
 		}
 		else
-		{
 			super.onBypassFeedback(player, command);
-		}
+	}
+	
+	public static boolean canTransform(L2PcInstance player)
+	{
+		QuestState st = player.getQuestState("136_MoreThanMeetsTheEye");
+		if (st != null && st.getState() == State.COMPLETED)
+			return true;
+		
+		return false;
 	}
 
 	/**
@@ -140,43 +170,41 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 		L2TransformSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableTransformSkills(player);
 		AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.Usual);
 		int counts = 0;
-
-		for (L2TransformSkillLearn s: skills)
+		
+		for (L2TransformSkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 			if (sk == null)
 				continue;
-
+			
 			counts++;
-
+			
 			asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), s.getSpCost(), 0);
 		}
-
+		
 		if (counts == 0)
 		{
 			int minlevel = SkillTreeTable.getInstance().getMinLevelForNewTransformSkill(player);
-
+			
 			if (minlevel > 0)
 			{
 				// No more skills to learn, come back when you level.
-				SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1);
+				SystemMessage sm = new SystemMessage(
+						SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_COME_BACK_WHEN_REACHED_S1);
 				sm.addNumber(minlevel);
 				player.sendPacket(sm);
 			}
 			else
-			{
-				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setHtml("<html><body>You've learned all skills.<br></body></html>");
-				player.sendPacket(html);
-			}
-            if (closable)
-            	player.sendPacket(AcquireSkillDone.PACKET);
+				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
+			
+			if (closable)
+				player.sendPacket(AcquireSkillDone.PACKET);
 		}
 		else
 		{
 			player.sendPacket(asl);
 		}
-
+		
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
@@ -227,11 +255,7 @@ public class L2TransformManagerInstance extends L2MerchantInstance
 	{
 		if (player == null)
 			return false;
-
-		String _questName = "136_MoreThanMeetsTheEye";
-		QuestState qs = player.getQuestState(_questName);
-		if (qs == null)
-			return false;
-		return State.getStateName(qs.getState()) == "Completed";
+		
+		return canTransform(player);
 	}
 }

@@ -17,7 +17,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
-import com.l2jfree.gameserver.model.L2EnchantSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2SkillLearn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -28,12 +27,9 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillDone;
 import com.l2jfree.gameserver.network.serverpackets.AcquireSkillList;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
-import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
-import com.l2jfree.gameserver.util.StringUtil;
 import com.l2jfree.lang.L2TextBuilder;
 
 public class L2NpcInstance extends L2Npc
@@ -124,213 +120,6 @@ public class L2NpcInstance extends L2Npc
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
-	/**
-	 * this displays EnchantSkillList to the player.
-	 * @param player
-	 */
-	public void showEnchantSkillList(L2PcInstance player, boolean isSafeEnchant)
-	{
-		if (_log.isDebugEnabled())
-			_log.debug("EnchantSkillList activated on: " + getObjectId());
-		
-		int npcId = getTemplate().getNpcId();
-
-		if (getTemplate().getTeachInfo() == null)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			final String sb = StringUtil.concat(
-					"<html><body>" +
-					"I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:",
-					String.valueOf(npcId),
-					", Your classId:",
-					String.valueOf(player.getClassId().getId()),
-					"<br>" +
-					"</body></html>"
-			);
-			html.setHtml(sb);
-			player.sendPacket(html);
-			return;
-		}
-
-		if (!getTemplate().canTeach(player.getClassId()))
-		{
-			showNoTeachHtml(player);
-			return;
-		}
-
-		if (player.getClassId().level() < 3)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setHtml(
-					"<html><body>Enchant A Skill:<br>" +
-					"Only characters who have changed their occupation three times are allowed to enchant a skill." +
-					"</body></html>");
-			player.sendPacket(html);
-			return;
-		}
-
-		int playerLevel = player.getLevel();
-		if (playerLevel >= 76)
-		{
-			ExEnchantSkillList esl = new ExEnchantSkillList(isSafeEnchant ? EnchantSkillType.SAFE : EnchantSkillType.NORMAL);
-			L2Skill[] charSkills = player.getAllSkills();
-			int counts = 0;
-
-			for  (L2Skill skill : charSkills)
-			{
-				L2EnchantSkillLearn enchantLearn = SkillTreeTable.getInstance().getSkillEnchantmentForSkill(skill);
-				if (enchantLearn != null)
-				{
-					esl.addSkill(skill.getId(), skill.getLevel());
-					counts++;
-				}
-			}
-
-			if (counts == 0)
-				player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
-			else
-				player.sendPacket(esl);
-		}
-		else
-			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
-
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
-	/**
-	 * Show the list of enchanted skills for changing enchantment route
-	 * 
-	 * @param player
-	 * @param classId
-	 */
-	public void showEnchantChangeSkillList(L2PcInstance player)
-	{
-		if (_log.isDebugEnabled())
-			_log.info("Enchanted Skill List activated on: " + getObjectId());
-
-		int npcId = getTemplate().getNpcId();
-
-		if (getTemplate().getTeachInfo() == null)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			final String sb = StringUtil.concat(
-					"<html><body>" +
-					"I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:",
-					String.valueOf(npcId),
-					", Your classId:",
-					String.valueOf(player.getClassId().getId()),
-					"<br>" +
-					"</body></html>"
-			);
-			html.setHtml(sb);
-			player.sendPacket(html);
-			return;
-		}
-
-		if (!getTemplate().canTeach(player.getClassId()))
-		{
-			showNoTeachHtml(player);
-			return;
-		}
-
-		if (player.getClassId().level() < 3)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setHtml(
-					"<html><body>Enchant A Skill:<br>" +
-					"Only characters who have changed their occupation three times are allowed to enchant a skill." +
-					"</body></html>");
-			player.sendPacket(html);
-			return;
-		}
-
-		int playerLevel = player.getLevel();
-		if (playerLevel >= 76)
-		{
-			ExEnchantSkillList esl = new ExEnchantSkillList(EnchantSkillType.CHANGE_ROUTE);
-			L2Skill[] charSkills = player.getAllSkills();
-			for  (L2Skill skill : charSkills)
-			{
-				// is enchanted?
-				if (skill.getLevel() > 100)
-					esl.addSkill(skill.getId(), skill.getLevel());
-			}
-
-			player.sendPacket(esl);
-		}
-		else
-			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
-
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
-	/**
-	 * Show the list of enchanted skills for untraining
-	 * 
-	 * @param player
-	 * @param classId
-	 */
-	public void showEnchantUntrainSkillList(L2PcInstance player, ClassId classId)
-	{
-		if (_log.isDebugEnabled())
-			_log.info("Enchanted Skill List activated on: " + getObjectId());
-
-		int npcId = getTemplate().getNpcId();
-
-		if (getTemplate().getTeachInfo() == null)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			final String sb = StringUtil.concat(
-					"<html><body>" +
-					"I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:",
-					String.valueOf(npcId),
-					", Your classId:",
-					String.valueOf(player.getClassId().getId()),
-					"<br>" +
-					"</body></html>"
-			);
-			html.setHtml(sb);
-			player.sendPacket(html);
-			return;
-		}
-
-		if (!getTemplate().canTeach(classId))
-		{
-			showNoTeachHtml(player);
-			return;
-		}
-
-		if (player.getClassId().level() < 3)
-		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setHtml(
-					"<html><body>Enchant A Skill:<br>" +
-					"Only characters who have changed their occupation three times are allowed to enchant a skill." +
-					"</body></html>");
-			player.sendPacket(html);
-			return;
-		}
-
-		int playerLevel = player.getLevel();
-		if (playerLevel >= 76)
-		{
-			ExEnchantSkillList esl = new ExEnchantSkillList(EnchantSkillType.UNTRAIN);
-			L2Skill[] charSkills = player.getAllSkills();
-			for  (L2Skill skill : charSkills)
-			{
-				// is enchanted?
-				if (skill.getLevel() > 100)
-					esl.addSkill(skill.getId(), skill.getLevel());
-			}
-
-			player.sendPacket(esl);
-		}
-		else
-			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
-
-		player.sendPacket(ActionFailed.STATIC_PACKET);
-	}
-
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -412,18 +201,7 @@ public class L2NpcInstance extends L2Npc
 				showSkillList(player, player.getClassId(), false);
 			}
 		}
-		else if (command.startsWith("EnchantSkillList"))
-			showEnchantSkillList(player, false);
-		else if (command.startsWith("SafeEnchantSkillList"))
-			showEnchantSkillList(player, true);
-		else if (command.startsWith("ChangeEnchantSkillList"))
-			showEnchantChangeSkillList(player);
-		else if (command.startsWith("UntrainEnchantSkillList"))
-			showEnchantUntrainSkillList(player, player.getClassId());
 		else
-		{
-			// This class dont know any other commands, let forward the command to the parent class
 			super.onBypassFeedback(player, command);
-		}
 	}
 }

@@ -1635,13 +1635,7 @@ public class Castle extends Siegeable<Siege>
 		}
 		finally { L2DatabaseFactory.close(con); }
 	}
-
-	public boolean isCrestVisible()
-	{
-		// TODO
-		return false;
-	}
-		
+	
 	/**
 	 * Register Artefact to castle
 	 * 
