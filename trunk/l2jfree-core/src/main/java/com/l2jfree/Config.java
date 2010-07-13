@@ -1256,6 +1256,7 @@ public class Config extends L2Config
 	public static long 				OFFLINE_TRADE_PRICE;
 	public static int 				OFFLINE_TRADE_PRICE_ITEM;
 	public static boolean 			ENABLE_OFFLINE_TRADERS_RESTORE;
+	public static boolean 			KICK_OFFLINE_EMPTY_TRADERS;
 	
 	public static boolean			ENTERWORLD_QUEUING;
 	public static int				ENTERWORLD_TICK;
@@ -1488,6 +1489,7 @@ public class Config extends L2Config
 		    ENABLE_OFFLINE_TRADERS_RESTORE = Boolean.parseBoolean(optionsSettings.getProperty("EnableOfflineTradersRestore", "false"));
 		    OFFLINE_TRADE_PRICE = Long.parseLong(optionsSettings.getProperty("OfflineTradePrice", "0"));
 			OFFLINE_TRADE_PRICE_ITEM = Integer.parseInt(optionsSettings.getProperty("OfflineTradePriceItem", "57"));
+			KICK_OFFLINE_EMPTY_TRADERS = Boolean.parseBoolean(optionsSettings.getProperty("KickOfflineEmptyTraders", "false"));
 
 		    ENTERWORLD_QUEUING = Boolean.parseBoolean(optionsSettings.getProperty("DiscreteStarterPackets", "false"));
 		    ENTERWORLD_TICK = Integer.parseInt(optionsSettings.getProperty("StarterPacketTick", "100"));

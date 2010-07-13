@@ -24,6 +24,7 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.TradeList;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.Disconnection;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.util.FloodProtector;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
@@ -145,6 +146,8 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
+			if (storePlayer.isInOfflineMode() && Config.KICK_OFFLINE_EMPTY_TRADERS)
+				new Disconnection(storePlayer).defaultSequence(false);
 		}
 
 		sendAF();
