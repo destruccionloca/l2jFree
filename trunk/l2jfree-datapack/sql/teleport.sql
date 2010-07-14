@@ -958,3 +958,8 @@ DELETE FROM teleport WHERE id = 20004;
 INSERT INTO teleport VALUES ('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0);
 
 UPDATE `teleport` SET `loc_x` = '17724',`loc_y` = '114004',`loc_z` = '-11667' WHERE `id` = 24;
+
+-- Seed of Destruction Temporary Teleporter (Psycho)
+INSERT INTO teleport VALUES ('Main Square',70500,-245823,220494,-12110,0,0);
+INSERT INTO teleport VALUES ('Fortress of Destruction',70501,-251426,213810,-12090,0,0);
+INSERT INTO teleport VALUES ('Jinryong''s Room',70502,-250073,207304,-11970,0,0);
