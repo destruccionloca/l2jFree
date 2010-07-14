@@ -65,7 +65,7 @@ public final class PersistentProperties
 		_log.info("PersistentProperties: " + propertyCount + " properties loaded for " + classCount + " classes.");
 	}
 	
-	private static Map<String, String> getProperties(String className, boolean force)
+	public static Map<String, String> getProperties(String className, boolean force)
 	{
 		Map<String, String> properties = _propertiesByClassNames.get(className);
 		
