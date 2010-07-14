@@ -233,7 +233,6 @@ full_install()
 	$MYG < ../sql/games.sql &> /dev/null
 	$MYG < ../sql/global_tasks.sql &> /dev/null
 	$MYG < ../sql/gm_audit.sql &> /dev/null
-	$MYG < ../sql/gracia_instances.sql &> /dev/null
 	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null
 	$MYG < ../sql/hellbounds.sql &> /dev/null
 	$MYG < ../sql/hb_naia_doorlist.sql &> /dev/null
@@ -353,7 +352,6 @@ update_db()
 			$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
 			$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 			$MYG < ../sql/fort_siege_guards.sql &> /dev/null
-			$MYG < ../sql/gracia_instances.sql &> /dev/null
 			$MYG < ../sql/hellbounds.sql &> /dev/null
 			$MYG < ../sql/henna.sql &> /dev/null
 			$MYG < ../sql/henna_trees.sql &> /dev/null

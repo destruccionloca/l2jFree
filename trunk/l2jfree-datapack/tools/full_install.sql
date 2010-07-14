@@ -125,7 +125,6 @@ DROP TABLE IF EXISTS
 	ctf_teams,
 	dm,
 	gm_audit,
-	gracia_instances,
 	grandboss_intervallist,
 	grandboss_spawnlist,
 	hb_naia_doorlist,
