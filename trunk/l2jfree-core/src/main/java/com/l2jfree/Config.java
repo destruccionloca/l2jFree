@@ -952,6 +952,8 @@ public class Config extends L2Config
 	public static int				STARTING_SP;
 	public static boolean			DEEPBLUE_DROP_RULES;									// Deep Blue Mobs' Drop Rules Enabled
 	public static boolean			DEEPBLUE_DROP_RULES_RAID;								// Deep Blue Mobs' Drop Rules Enabled
+	public static int				MIN_NPC_LVL_DMG_PENALTY;
+	public static int				MIN_NPC_LVL_MAGIC_PENALTY;
 	public static int				UNSTUCK_INTERVAL;
 	public static int				TELEPORT_WATCHDOG_TIMEOUT;
 	public static int				PLAYER_SPAWN_PROTECTION;								// Player Protection control
@@ -1000,6 +1002,8 @@ public class Config extends L2Config
 		{
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
 			DEEPBLUE_DROP_RULES_RAID = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRulesRaid", "True"));
+			MIN_NPC_LVL_DMG_PENALTY = otherSettings.getInteger("MinNPCLevelForDmgPenalty", 78);
+			MIN_NPC_LVL_MAGIC_PENALTY = otherSettings.getInteger("MinNPCLevelForMagicPenalty", 78);
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 
 			GREAT_WOLF_MOUNT_LEVEL = Integer.parseInt(otherSettings.getProperty("GreatWolfMountLevel", "70"));

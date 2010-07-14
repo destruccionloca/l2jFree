@@ -25,10 +25,12 @@ import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
+import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2SiegeClan;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -46,6 +48,10 @@ import com.l2jfree.gameserver.model.entity.Fort;
 import com.l2jfree.gameserver.model.entity.Siege;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
+import com.l2jfree.gameserver.model.zone.L2CastleZone;
+import com.l2jfree.gameserver.model.zone.L2ClanhallZone;
+import com.l2jfree.gameserver.model.zone.L2FortZone;
+import com.l2jfree.gameserver.model.zone.L2MothertreeZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.skills.conditions.ConditionPlayerState;
@@ -66,39 +72,44 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class Formulas
 {
+	private static final Log _log = LogFactory.getLog(Formulas.class);
+	
+	// level difference reductions
+	private static final int MAGIC_FAIL_RATE = 3;
+	public static final double DAMAGE_REDUCTION = 0.66;
+	
 	/** Regen Task period */
-	protected static final Log		_log							= LogFactory.getLog(L2Character.class);
-	private static final int		HP_REGENERATE_PERIOD			= 3000;											// 3 secs
-
-	public static final byte		SHIELD_DEFENSE_FAILED			= 0;												// no shield defense
-	public static final byte		SHIELD_DEFENSE_SUCCEED			= 1;												// normal shield defense
-	public static final byte		SHIELD_DEFENSE_PERFECT_BLOCK	= 2;												// perfect block
-
-	public static final byte		SKILL_REFLECT_FAILED			= 0;												// no reflect
-	public static final byte		SKILL_REFLECT_SUCCEED			= 1;												// normal reflect, some damage reflected some other not
-	public static final byte		SKILL_REFLECT_VENGEANCE			= 2;												// 100% of the damage affect both
-
-	private static final byte		MELEE_ATTACK_RANGE				= 40;
-
-	public static int				MAX_STAT_VALUE					= 100;
-
-	private static final double[]	STRCompute						= new double[] { 1.036, 34.845 };					//{1.016, 28.515}; for C1
-	private static final double[]	INTCompute						= new double[] { 1.020, 31.375 };					//{1.020, 31.375}; for C1
-	private static final double[]	DEXCompute						= new double[] { 1.009, 19.360 };					//{1.009, 19.360}; for C1
-	private static final double[]	WITCompute						= new double[] { 1.050, 20.000 };					//{1.050, 20.000}; for C1
-	private static final double[]	CONCompute						= new double[] { 1.030, 27.632 };					//{1.015, 12.488}; for C1
-	private static final double[]	MENCompute						= new double[] { 1.010, -0.060 };					//{1.010, -0.060}; for C1
-
-	protected static final double[]	WITbonus						= new double[MAX_STAT_VALUE];
-	protected static final double[]	MENbonus						= new double[MAX_STAT_VALUE];
-	protected static final double[]	INTbonus						= new double[MAX_STAT_VALUE];
-	protected static final double[]	STRbonus						= new double[MAX_STAT_VALUE];
-	protected static final double[]	DEXbonus						= new double[MAX_STAT_VALUE];
-	protected static final double[]	CONbonus						= new double[MAX_STAT_VALUE];
-
-	protected static final double[]	sqrtMENbonus					= new double[MAX_STAT_VALUE];
-	protected static final double[]	sqrtCONbonus					= new double[MAX_STAT_VALUE];
-
+	private static final int HP_REGENERATE_PERIOD = 3000; // 3 secs
+	
+	public static final byte SHIELD_DEFENSE_FAILED = 0; // no shield defense
+	public static final byte SHIELD_DEFENSE_SUCCEED = 1; // normal shield defense
+	public static final byte SHIELD_DEFENSE_PERFECT_BLOCK = 2; // perfect block
+	
+	public static final byte SKILL_REFLECT_FAILED = 0; // no reflect
+	public static final byte SKILL_REFLECT_SUCCEED = 1; // normal reflect, some damage reflected some other not
+	public static final byte SKILL_REFLECT_VENGEANCE = 2; // 100% of the damage affect both
+	
+	private static final byte MELEE_ATTACK_RANGE = 40;
+	
+	public static final int MAX_STAT_VALUE = 100;
+	
+	private static final double[] STRCompute = new double[] { 1.036, 34.845 }; //{1.016, 28.515}; for C1
+	private static final double[] INTCompute = new double[] { 1.020, 31.375 }; //{1.020, 31.375}; for C1
+	private static final double[] DEXCompute = new double[] { 1.009, 19.360 }; //{1.009, 19.360}; for C1
+	private static final double[] WITCompute = new double[] { 1.050, 20.000 }; //{1.050, 20.000}; for C1
+	private static final double[] CONCompute = new double[] { 1.030, 27.632 }; //{1.015, 12.488}; for C1
+	private static final double[] MENCompute = new double[] { 1.010, -0.060 }; //{1.010, -0.060}; for C1
+	
+	protected static final double[] WITbonus = new double[MAX_STAT_VALUE];
+	protected static final double[] MENbonus = new double[MAX_STAT_VALUE];
+	protected static final double[] INTbonus = new double[MAX_STAT_VALUE];
+	protected static final double[] STRbonus = new double[MAX_STAT_VALUE];
+	protected static final double[] DEXbonus = new double[MAX_STAT_VALUE];
+	protected static final double[] CONbonus = new double[MAX_STAT_VALUE];
+	
+	protected static final double[] sqrtMENbonus = new double[MAX_STAT_VALUE];
+	protected static final double[] sqrtCONbonus = new double[MAX_STAT_VALUE];
+	
 	// These values are 100% matching retail tables, no need to change and no need add
 	// calculation into the stat bonus when accessing (not efficient),
 	// better to have everything precalculated and use values directly (saves CPU)
@@ -116,7 +127,7 @@ public final class Formulas
 			CONbonus[i] = Math.floor(Math.pow(CONCompute[0], i - CONCompute[1]) * 100 + .5d) / 100;
 		for (int i = 0; i < MENbonus.length; i++)
 			MENbonus[i] = Math.floor(Math.pow(MENCompute[0], i - MENCompute[1]) * 100 + .5d) / 100;
-
+		
 		// precompute  square root values
 		for (int i = 0; i < sqrtCONbonus.length; i++)
 			sqrtCONbonus[i] = Math.sqrt(CONbonus[i]);
@@ -1122,10 +1133,13 @@ public final class Formulas
 					init *= siegeModifier;
 			}
 
-			if (player.isInsideZone(L2Zone.FLAG_CLANHALL) && player.getClan() != null)
+			if (player.isInsideZone(L2Zone.FLAG_CLANHALL) && player.getClan() != null
+					&& player.getClan().getHasHideout() > 0)
 			{
+				L2ClanhallZone zone = ZoneManager.getInstance().getZone(player, L2ClanhallZone.class);
+				int posChIndex = zone == null ? -1 : zone.getClanhallId();
 				int clanHallIndex = player.getClan().getHasHideout();
-				if (clanHallIndex > 0)
+				if (clanHallIndex > 0 && clanHallIndex == posChIndex)
 				{
 					ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
 					if (clansHall != null)
@@ -1136,12 +1150,19 @@ public final class Formulas
 
 			// Mother Tree effect is calculated at last
 			if (player.isInsideZone(L2Zone.FLAG_MOTHERTREE))
-				hpRegenBonus += 2;
-
-			if (player.isInsideZone(L2Zone.FLAG_CASTLE) && player.getClan() != null)
 			{
+				L2MothertreeZone zone = ZoneManager.getInstance().getZone(player, L2MothertreeZone.class);
+				int hpBonus = zone == null ? 0 : zone.getHpRegenBonus();
+				hpRegenBonus += hpBonus;
+			}
+
+			if (player.isInsideZone(L2Zone.FLAG_CASTLE) && player.getClan() != null
+					&& player.getClan().getHasCastle() > 0)
+			{
+				L2CastleZone zone = ZoneManager.getInstance().getZone(player, L2CastleZone.class);
+				int posCastleIndex = zone == null ? -1 : zone.getCastleId();
 				int castleIndex = player.getClan().getHasCastle();
-				if (castleIndex > 0)
+				if (castleIndex > 0 && castleIndex == posCastleIndex)
 				{
 					Castle castle = CastleManager.getInstance().getCastleById(castleIndex);
 					if (castle != null)
@@ -1150,10 +1171,13 @@ public final class Formulas
 				}
 			}
 
-			if (player.isInsideZone(L2Zone.FLAG_FORT) && player.getClan() != null)
+			if (player.isInsideZone(L2Zone.FLAG_FORT) && player.getClan() != null
+					&& player.getClan().getHasFort() > 0)
 			{
+				L2FortZone zone = ZoneManager.getInstance().getZone(player, L2FortZone.class);
+				int posFortIndex = zone == null ? -1 : zone.getFortId();
 				int fortIndex = player.getClan().getHasFort();
-				if (fortIndex > 0)
+				if (fortIndex > 0 && fortIndex == posFortIndex)
 				{
 					Fort fort = FortManager.getInstance().getFortById(fortIndex);
 					if (fort != null)
@@ -1232,14 +1256,21 @@ public final class Formulas
 			if (SevenSignsFestival.getInstance().isFestivalInProgress() && player.isFestivalParticipant())
 				init *= calcFestivalRegenModifier(player);
 
-			// Mother Tree effect is calculated at last
+			// Mother Tree effect is calculated at last'
 			if (player.isInsideZone(L2Zone.FLAG_MOTHERTREE))
-				mpRegenBonus += 2;
-
-			if (player.isInsideZone(L2Zone.FLAG_CASTLE) && player.getClan() != null)
 			{
+				L2MothertreeZone zone = ZoneManager.getInstance().getZone(player, L2MothertreeZone.class);
+				int mpBonus = zone == null ? 0 : zone.getMpRegenBonus();
+				mpRegenBonus += mpBonus;
+			}
+
+			if (player.isInsideZone(L2Zone.FLAG_CASTLE) && player.getClan() != null
+					&& player.getClan().getHasCastle() > 0)
+			{
+				L2CastleZone zone = ZoneManager.getInstance().getZone(player, L2CastleZone.class);
+				int posCastleIndex = zone == null ? -1 : zone.getCastleId();
 				int castleIndex = player.getClan().getHasCastle();
-				if (castleIndex > 0)
+				if (castleIndex > 0 && castleIndex == posCastleIndex)
 				{
 					Castle castle = CastleManager.getInstance().getCastleById(castleIndex);
 					if (castle != null)
@@ -1248,10 +1279,13 @@ public final class Formulas
 				}
 			}
 
-			if (player.isInsideZone(L2Zone.FLAG_FORT) && player.getClan() != null)
+			if (player.isInsideZone(L2Zone.FLAG_FORT) && player.getClan() != null
+					&& player.getClan().getHasFort() > 0)
 			{
+				L2FortZone zone = ZoneManager.getInstance().getZone(player, L2FortZone.class);
+				int posFortIndex = zone == null ? -1 : zone.getFortId();
 				int fortIndex = player.getClan().getHasFort();
-				if (fortIndex > 0)
+				if (fortIndex > 0 && fortIndex == posFortIndex)
 				{
 					Fort fort = FortManager.getInstance().getFortById(fortIndex);
 					if (fort != null)
@@ -1260,10 +1294,13 @@ public final class Formulas
 				}
 			}
 
-			if (player.isInsideZone(L2Zone.FLAG_CLANHALL) && player.getClan() != null)
+			if (player.isInsideZone(L2Zone.FLAG_CLANHALL) && player.getClan() != null
+					&& player.getClan().getHasHideout() > 0)
 			{
+				L2ClanhallZone zone = ZoneManager.getInstance().getZone(player, L2ClanhallZone.class);
+				int posChIndex = zone == null ? -1 : zone.getClanhallId();
 				int clanHallIndex = player.getClan().getHasHideout();
-				if (clanHallIndex > 0)
+				if (clanHallIndex > 0 && clanHallIndex == posChIndex)
 				{
 					ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
 					if (clansHall != null)
@@ -2388,6 +2425,12 @@ public final class Formulas
 		double rate = Math.round(Math.pow(1.3, lvlDifference) * 100);
 		rate = attacker.getStat().calcStat(Stats.MAGIC_FAIL_RATE, rate, target, skill);
 
+		if (target instanceof L2Attackable && !target.isRaid() && !target.isRaidMinion())
+			if (target.getLevel() >= Config.MIN_NPC_LVL_MAGIC_PENALTY)
+				if (attacker.getActingPlayer() != null)
+					if (target.getLevel() - attacker.getActingPlayer().getLevel() >= 3)
+						rate *= Formulas.MAGIC_FAIL_RATE;
+		
 		return (Rnd.get(10000) > (int) rate);
 	}
 

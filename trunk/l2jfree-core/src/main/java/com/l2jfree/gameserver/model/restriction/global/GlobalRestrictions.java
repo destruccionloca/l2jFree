@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
+import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.L2Playable;
@@ -613,7 +614,13 @@ public final class GlobalRestrictions
 				damage *= target.calcStat(Stats.PVP_PHYS_SKILL_DEF, 1, activeChar, skill);
 			}
 		}
-
+		
+		if (target instanceof L2Attackable && !target.isRaid() && !target.isRaidMinion())
+			if (target.getLevel() >= Config.MIN_NPC_LVL_DMG_PENALTY)
+				if (activeChar.getActingPlayer() != null)
+					if (target.getLevel() - activeChar.getActingPlayer().getLevel() >= 2)
+						damage *= Formulas.DAMAGE_REDUCTION;
+		
 		damage *= Formulas.calcElemental(activeChar, target, skill);
 		damage *= Formulas.calcSoulBonus(activeChar, skill);
 		
