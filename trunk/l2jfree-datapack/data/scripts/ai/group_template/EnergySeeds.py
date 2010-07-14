@@ -1,9 +1,11 @@
 # Author: Psycho(killer1888) / L2jFree
 
 import sys
-from com.l2jfree.gameserver.instancemanager import SeedOfDestructionManager
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
-from com.l2jfree.tools.random import Rnd
+from com.l2jfree.gameserver.instancemanager             import SeedOfDestructionManager
+from com.l2jfree.gameserver.model.quest.jython          import QuestJython as JQuest
+from com.l2jfree.gameserver.network.serverpackets       import SystemMessage
+from com.l2jfree.gameserver.network                     import SystemMessageId
+from com.l2jfree.tools.random                           import Rnd
 
 STONES = {
 18678 : 14016,
@@ -45,8 +47,12 @@ class EnergySeeds(JQuest) :
                 chance = Rnd.get(100)
                 if chance > 40:
                     caster.addItem("Energy Seed", itemId, Rnd.get(1,2), caster, True, True)
+                    sm = SystemMessage(SystemMessageId.STARSTONE_COLLECTED)
+                else:
+                    sm = SystemMessage(SystemMessageId.STARSTONE_COLLECTION_FAILED)
                 self.startQuestTimer("respawn", Rnd.get(60000,7200000), npc, None)
                 npc.decayMe()
+                caster.sendPacket(sm)
         return
 
 QUEST = EnergySeeds(-1, "EnergySeeds", "ai")

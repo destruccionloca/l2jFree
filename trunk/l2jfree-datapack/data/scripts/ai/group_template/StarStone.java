@@ -18,6 +18,8 @@ import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -65,12 +67,19 @@ public class StarStone extends L2AttackableAIScript
 				case 18692:
 					itemId = 14011;
 					break;
+				default:
+					return null;
 			}
 
 			int amount = Rnd.get(0,2);
 
 			if (amount > 0)
+			{
 				caster.addItem("Star Stone", itemId, amount, caster, true, true);
+				caster.sendPacket(new SystemMessage(SystemMessageId.STARSTONE_COLLECTED));
+			}
+			else
+				caster.sendPacket(new SystemMessage(SystemMessageId.STARSTONE_COLLECTION_FAILED));
 			npc.doDie(caster);
 		}
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
