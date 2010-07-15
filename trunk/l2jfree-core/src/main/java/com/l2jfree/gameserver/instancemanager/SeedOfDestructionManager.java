@@ -14,18 +14,10 @@
  */
 package com.l2jfree.gameserver.instancemanager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.config.L2Properties;
 import com.l2jfree.gameserver.PersistentProperties;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.DoorTable;
@@ -33,25 +25,23 @@ import com.l2jfree.gameserver.datatables.SpawnTable;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.tools.random.Rnd;
+import com.l2jfree.util.L2FastSet;
 
 /**
  * @author Psycho(killer1888) / L2jfree
  */
-
 public final class SeedOfDestructionManager
 {
-	private static final Log 	_log = LogFactory.getLog(SeedOfDestructionManager.class);
-	private Map<String,String> _variables = new FastMap<String,String>();
-	private final int[] 		DOORLIST = {12240001,12240002,12240003,12240004,12240005,12240006,12240007,12240008,12240009,12240010,12240011,12240012,12240013,12240014,12240015,12240016,12240017,12240018,12240019,12240020,12240021,12240022,12240023,12240024,12240025,12240026,12240027,12240028,12240029,12240030,12240031};
-	private final int					_tiatKilled = 0;
-	private final FastList<L2Npc> _energySeeds = new FastList<L2Npc>();
-	private final FastList<L2Npc> _teleporters = new FastList<L2Npc>();
-	private final L2Npc _tiat = null;
-	private final FastList<L2Npc> _dimensionMovingDevices = new FastList<L2Npc>();
-
-	private final int[]			ENERGY_SEEDS = {18678,18679,18680,18681,18682,18683};
-
-	private final int[][]		ENERGY_SEED_SPAWN = {
+	private static final Log _log = LogFactory.getLog(SeedOfDestructionManager.class);
+	
+	private static final int[] DOORLIST = { 12240001, 12240002, 12240003, 12240004, 12240005, 12240006, 12240007,
+			12240008, 12240009, 12240010, 12240011, 12240012, 12240013, 12240014, 12240015, 12240016, 12240017,
+			12240018, 12240019, 12240020, 12240021, 12240022, 12240023, 12240024, 12240025, 12240026, 12240027,
+			12240028, 12240029, 12240030, 12240031 };
+	
+	private static final int[] ENERGY_SEEDS = { 18678, 18679, 18680, 18681, 18682, 18683 };
+	
+	private static final int[][] ENERGY_SEED_SPAWN = {
 			{-242237, 217879, -12394},
 			{-241649, 217719, -12394},
 			{-241922, 218489, -12397},
@@ -118,17 +108,47 @@ public final class SeedOfDestructionManager
 			{-250115, 216490, -12260},
 			{-250370, 215831, -12216},
 			{-252856, 216348, -12258}};
-
+	
 	public static SeedOfDestructionManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-
+	
+	//private final int _tiatKilled = 0;
+	private final L2FastSet<L2Npc> _energySeeds = new L2FastSet<L2Npc>().setShared(true);
+	private final L2FastSet<L2Npc> _teleporters = new L2FastSet<L2Npc>().setShared(true);
+	//private final L2Npc _tiat = null;
+	private final L2FastSet<L2Npc> _dimensionMovingDevices = new L2FastSet<L2Npc>().setShared(true);
+	
+	private long _state;
+	private long _tiatKills;
+	private long _defenseSwitch;
+	
 	private SeedOfDestructionManager()
 	{
-		loadVariables();
+		L2Properties props = PersistentProperties.getProperties(SeedOfDestructionManager.class);
+		
+		_state = props.getLong("sod_state", 1);
+		_tiatKills = props.getLong("sod_tiatKills", 0);
+		_defenseSwitch = props.getLong("sod_defenseSwitch", 0);
+		
+		PersistentProperties.addStoreListener(new PersistentProperties.StoreListener() {
+			public void update()
+			{
+				final L2Properties properties = new L2Properties();
+				
+				properties.setProperty("sod_state", _state);
+				properties.setProperty("sod_tiatKills", _tiatKills);
+				properties.setProperty("sod_defenseSwitch", _defenseSwitch);
+				
+				PersistentProperties.setProperties(SeedOfDestructionManager.class, properties);
+				
+				System.out.println("SeedOfDestructionManager: Current state saved.");
+			}
+		});
+		
 		String state = "";
-
+		
 		if (getState() == 1)
 			state = "attack";
 		else if (getState() == 2)
@@ -141,59 +161,60 @@ public final class SeedOfDestructionManager
 			state = "hunting ground";
 			startHuntingGround();
 		}
-
-		_log.info("Seed of Destruction: initialized (currently in "+state+" state).");
-		_log.info("Seed of Destruction: Tiat killed "+getTiatKilled()+" times.");
+		
+		_log.info("Seed of Destruction: initialized (currently in " + state + " state).");
+		_log.info("Seed of Destruction: Tiat killed " + getTiatKilled() + " times.");
 	}
-
+	
 	public void startDefenseMode()
 	{
 		_dimensionMovingDevices.add(spawnNpc(18702, -251433, 218130, -12336, 48643, 60, 60, 60));
 		_dimensionMovingDevices.add(spawnNpc(18702, -252047, 218130, -12336, 48643, 60, 60, 60));
 		_dimensionMovingDevices.add(spawnNpc(18702, -250819, 218130, -12336, 48643, 60, 60, 60));
 	}
-
+	
 	protected class SwitchToDefenseMode implements Runnable
 	{
 		public void run()
 		{
 			_log.info("Seed of Destruction: Defense mode started.");
-
+			
 			setTiatKilled(0);
 			setHuntingGroundTimer(0);
 			setState(2);
 			startDefenseMode();
-
+			
 			for (L2Npc seed : _energySeeds)
 			{
 				seed.getSpawn().stopRespawn();
 				seed.deleteMe();
 			}
-
+			
 			for (L2Npc npc : _teleporters)
 			{
 				npc.deleteMe();
 			}
-
+			
 			for (int doorId : DOORLIST)
 			{
 				DoorTable.getInstance().getDoor(doorId).openMe();
 			}
-
+			
 			_energySeeds.clear();
 			_teleporters.clear();
 		}
 	}
-
-	private L2Npc spawnNpc(int npcId, int x, int y, int z, int heading, int respawnTime, int respawnMinDelay, int respawnMaxDelay)
+	
+	private L2Npc spawnNpc(int npcId, int x, int y, int z, int heading, int respawnTime, int respawnMinDelay,
+			int respawnMaxDelay)
 	{
 		final L2Spawn spawnDat = new L2Spawn(npcId);
 		spawnDat.setLocx(x);
 		spawnDat.setLocy(y);
 		spawnDat.setLocz(z);
 		spawnDat.setAmount(1);
-		spawnDat.setHeading(0);
-		spawnDat.setRespawnDelay(heading);
+		spawnDat.setHeading(heading);
+		spawnDat.setRespawnDelay(respawnTime);
 		spawnDat.setRespawnMinDelay(respawnMinDelay);
 		spawnDat.setRespawnMaxDelay(respawnMaxDelay);
 		spawnDat.startRespawn();
@@ -203,124 +224,81 @@ public final class SeedOfDestructionManager
 		
 		return spawnDat.doSpawn();
 	}
-
-	private final class SaveToDB implements Runnable
-	{
-		public void run()
-		{
-			try
-			{
-				for (String key: _variables.keySet())
-				{
-					PersistentProperties.setProperty(SeedOfDestructionManager.class, key, _variables.get(key));
-				}
-			}
-			catch (Exception e)
-			{
-				_log.error("Could not save Seed of Destruction variables", e);
-			}
-			finally
-			{
-				_log.info("Seed of Destruction manager: Saved.");
-			}
-		}
-	}
-
-	private void loadVariables()
-	{
-		try
-		{
-			_variables = PersistentProperties.getProperties("SeedOfDestructionManager", true);
-		}
-		catch (Exception e)
-		{
-			_log.error("Could not load Seed of Destruction variables", e);
-		}
-	}
-
+	
 	public long getState()
 	{
-		return Long.valueOf(_variables.get("sod_state"));
+		return _state;
 	}
-
+	
 	public long getTiatKilled()
 	{
-		return Long.valueOf(_variables.get("sod_tiatKills"));
+		return _tiatKills;
 	}
-
+	
 	public void setState(long state)
 	{
 		//1 = attack, 2 = defense, else Hunting ground
-		_variables.put("sod_state", String.valueOf(state));
-	}
-
-	public void increaseTiatKills()
-	{
-		_variables.put("sod_tiatKills", String.valueOf(Integer.valueOf(_variables.get("sod_tiatKills")) + 1));
-
-		if (Integer.valueOf(_variables.get("sod_tiatKills")) >= 10)
-			startHuntingGround();
-	}
-
-	public void setTiatKilled(int kills)
-	{
-		_variables.put("sod_tiatKills", String.valueOf(Integer.valueOf(_variables.get("sod_tiatKills")) + kills));
-
-		if (Integer.valueOf(_variables.get("sod_tiatKills")) >= 10)
-			startHuntingGround();
-	}
-
-	public void setHuntingGroundTimer(long time)
-	{
-		_variables.put("sod_defenseSwitch", String.valueOf(time));
-	}
-
-	public long getHuntingGroundTimer()
-	{
-		return Long.valueOf(_variables.get("sod_defenseSwitch"));
+		_state = state;
 	}
 	
-	public void saveToDB()
+	public void increaseTiatKills()
 	{
-		new SaveToDB().run();
+		setTiatKilled(_tiatKills + 1);
 	}
-
+	
+	public void setTiatKilled(long kills)
+	{
+		_tiatKills = kills;
+		
+		if (_tiatKills >= 10)
+			startHuntingGround();
+	}
+	
+	public void setHuntingGroundTimer(long time)
+	{
+		_defenseSwitch = time;
+	}
+	
+	public long getHuntingGroundTimer()
+	{
+		return _defenseSwitch;
+	}
+	
 	public void runDefenseMode()
 	{
 		new SwitchToDefenseMode().run();
 	}
-
+	
 	public void startHuntingGround()
 	{
 		_log.info("Seed of Destruction: Hunting ground started.");
 		setState(3);
-
+		
 		long timer = 0;
 		if (getHuntingGroundTimer() == 0)
 		{
-			timer = 12*60*60*1000;
+			timer = 12 * 60 * 60 * 1000;
 			setHuntingGroundTimer(System.currentTimeMillis() + timer);
 		}
 		else
 			timer = getHuntingGroundTimer() - System.currentTimeMillis();
-
+		
 		for (int doorId : DOORLIST)
 		{
 			DoorTable.getInstance().getDoor(doorId).openMe();
 		}
-
+		
 		for (int[] spawnLocs : ENERGY_SEED_SPAWN)
 		{
-			_energySeeds.add(spawnNpc(ENERGY_SEEDS[Rnd.get(ENERGY_SEEDS.length)], spawnLocs[0], spawnLocs[1], spawnLocs[2], 0, 60, 60, 7200));
+			_energySeeds.add(spawnNpc(ENERGY_SEEDS[Rnd.get(ENERGY_SEEDS.length)], spawnLocs[0], spawnLocs[1],
+					spawnLocs[2], 0, 60, 60, 7200));
 		}
-
+		
 		_teleporters.add(spawnNpc(32602, -245815, 220218, -12110, 14954, 60, 60, 60));
 		_teleporters.add(spawnNpc(32602, -251426, 213635, -12088, 50977, 60, 60, 60));
 		_teleporters.add(spawnNpc(32602, -250165, 207229, -11969, 29169, 60, 60, 60));
-
-		ThreadPoolManager.getInstance().scheduleGeneral(new SwitchToDefenseMode(), timer);
-
-		return;
+		
+		ThreadPoolManager.getInstance().schedule(new SwitchToDefenseMode(), timer);
 	}
 	
 	private static final class SingletonHolder

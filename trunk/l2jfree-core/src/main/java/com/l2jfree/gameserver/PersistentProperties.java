@@ -5,12 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.L2DatabaseFactory;
+import com.l2jfree.config.L2Properties;
 
 /**
  * @author NB4L1
@@ -37,9 +40,9 @@ public final class PersistentProperties
 				final String propertyName = rs.getString("property_name");
 				final String propertyValue = rs.getString("property_value");
 				
-				final Map<String, String> properties = getProperties(className, true);
+				final Map<String, String> map = getInnerMap(className, true);
 				
-				properties.put(propertyName, propertyValue);
+				map.put(propertyName, propertyValue);
 			}
 			
 			rs.close();
@@ -65,31 +68,64 @@ public final class PersistentProperties
 		_log.info("PersistentProperties: " + propertyCount + " properties loaded for " + classCount + " classes.");
 	}
 	
-	public static Map<String, String> getProperties(String className, boolean force)
+	@Deprecated
+	private synchronized static Map<String, String> getInnerMap(String className, boolean force)
 	{
-		Map<String, String> properties = _propertiesByClassNames.get(className);
+		Map<String, String> map = _propertiesByClassNames.get(className);
 		
-		if (properties == null && force)
-			_propertiesByClassNames.put(className, properties = new HashMap<String, String>());
+		if (map == null && force)
+			_propertiesByClassNames.put(className, map = new HashMap<String, String>());
 		
-		return properties;
+		return map;
 	}
 	
 	public synchronized static void setProperty(Class<?> clazz, String propertyName, Object propertyValue)
 	{
-		final Map<String, String> properties = getProperties(clazz.getName(), true);
+		final Map<String, String> map = getInnerMap(clazz.getName(), true);
 		
-		properties.put(propertyName, String.valueOf(propertyValue));
+		map.put(propertyName, String.valueOf(propertyValue));
+	}
+	
+	public synchronized static void setProperties(Class<?> clazz, L2Properties properties)
+	{
+		final Map<String, String> map = getInnerMap(clazz.getName(), true);
+		
+		map.clear();
+		
+		for (Map.Entry<Object, Object> entry : properties.entrySet())
+		{
+			map.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+		}
+	}
+	
+	public synchronized static void clearProperty(Class<?> clazz, String propertyName)
+	{
+		final Map<String, String> map = getInnerMap(clazz.getName(), false);
+		
+		if (map == null)
+			return;
+		
+		map.remove(propertyName);
+	}
+	
+	public synchronized static void clearProperties(Class<?> clazz)
+	{
+		final Map<String, String> map = getInnerMap(clazz.getName(), false);
+		
+		if (map == null)
+			return;
+		
+		map.clear();
 	}
 	
 	public synchronized static String getProperty(Class<?> clazz, String propertyName)
 	{
-		final Map<String, String> properties = getProperties(clazz.getName(), false);
+		final Map<String, String> map = getInnerMap(clazz.getName(), false);
 		
-		if (properties == null)
+		if (map == null)
 			return null;
 		
-		return properties.get(propertyName);
+		return map.get(propertyName);
 	}
 	
 	public synchronized static String getProperty(Class<?> clazz, String propertyName, String defaultValue)
@@ -99,8 +135,40 @@ public final class PersistentProperties
 		return propertyValue == null ? defaultValue : propertyValue;
 	}
 	
+	public synchronized static L2Properties getProperties(Class<?> clazz)
+	{
+		final Map<String, String> map = getInnerMap(clazz.getName(), true);
+		
+		final L2Properties properties = new L2Properties();
+		
+		for (Map.Entry<String, String> entry : map.entrySet())
+		{
+			final String propertyName = entry.getKey();
+			final String propertyValue = entry.getValue();
+			
+			properties.setProperty(propertyName, propertyValue);
+		}
+		
+		return properties;
+	}
+	
+	public interface StoreListener
+	{
+		public void update();
+	}
+	
+	private static final Set<StoreListener> _storeListeners = new HashSet<StoreListener>();
+	
+	public synchronized static void addStoreListener(StoreListener listener)
+	{
+		_storeListeners.add(listener);
+	}
+	
 	public synchronized static void store()
 	{
+		for (StoreListener listener : _storeListeners)
+			listener.update();
+		
 		Connection con = null;
 		try
 		{

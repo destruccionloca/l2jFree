@@ -142,6 +142,13 @@ public final class L2Properties extends Properties
 	
 	// ===================================================================================
 	
+	public synchronized Object setProperty(String key, Object value)
+	{
+		return setProperty(key, String.valueOf(value));
+	}
+	
+	// ===================================================================================
+	
 	@SuppressWarnings("unchecked")
 	public Object getProperty(Class<?> expectedType, ConfigProperty configProperty)
 	{
