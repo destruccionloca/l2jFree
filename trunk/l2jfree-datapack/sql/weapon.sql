@@ -3585,18 +3585,12 @@ UPDATE `weapon` SET change_weaponId = "0", sellable = "false", dropable = "false
 
 --
 -- L2jFree addons
--- TODO: have to be reviewed (last review 16 DEC 09)
+-- TODO: have to be reviewed (last review 16 JULY 10 (Psycho))
 --
-
--- GreatWolf weapons fixes
-UPDATE `weapon` SET `crystallizable` = 'false' WHERE `item_id` IN (9656,9657,9658,9659,9660,9661);
-UPDATE `weapon` SET `material` = 'steel' WHERE `item_id` IN (9656,9657,9658,9659,9660,9661);
 
 -- Wedding System part
 UPDATE `weapon` SET `skills_item` = '3260-1;3261-1;3262-1' WHERE `item_id` IN (9140,9141);
 
--- Fix for SEVERE Cannot find onCast skill (0,0) for weapon item 8143
-UPDATE `weapon` SET `skills_item` = '',`skills_onCast` = '3577-1-10' WHERE `item_id` = 8143;
 
 -- Add Skills to Kamael Hero Weapons by DrunkenDave
 UPDATE `weapon` SET `skills_onCrit` = '3594-1-7' WHERE `item_id` = 9390;
@@ -3604,7 +3598,6 @@ UPDATE `weapon` SET `skills_onCrit` = '3594-1-7' WHERE `item_id` = 9390;
 -- Weapon update by Spire
 # Update Weapon Weights
 UPDATE `weapon` SET `crystal_count` = '0' WHERE `item_id` = 6919;
-UPDATE `weapon` SET `crystal_count` = '1346' WHERE `item_id` = 10981;
 
 # Shield def on Sealed IC Shield
 UPDATE `weapon` SET `shield_def` = '290' WHERE `item_id` = 12302;
@@ -3622,10 +3615,6 @@ UPDATE `weapon` SET `weight` = '320' WHERE `item_id` = 2915;
 UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 7014;
 UPDATE `weapon` SET `weight` = '480' WHERE `item_id` = 8210;
 
--- Crystal Count Fix
-UPDATE `weapon` SET `crystal_count` = '1346' WHERE `item_id` = 10973;
-UPDATE `weapon` SET `crystal_count` = '1346' WHERE `item_id` = 10981;
-
 -- Santa Claus' Blessed Weapon
 -- Weapon conversion
 UPDATE `weapon` SET `change_weaponId` = 14632 WHERE `item_id` = 14621; -- Sirra Blade -> Eclair Bijou
@@ -3640,25 +3629,6 @@ UPDATE `weapon` SET `skills_item` = '8319-1' WHERE `item_id` IN (14627,14633);
 UPDATE `weapon` SET `skills_item` = '8320-1' WHERE `item_id` = 14628;
 UPDATE `weapon` SET `skills_item` = '8321-1' WHERE `item_id` IN (14629,14630,14631);
 UPDATE `weapon` SET `skills_item` = '8322-1' WHERE `item_id` = 14674;
-
--- Weapon Names
-UPDATE `weapon` SET `name` = 'Durendal {PvP} - Focus' WHERE `item_id` = 10703;
-UPDATE `weapon` SET `name` = 'Durendal {PvP} - Haste' WHERE `item_id` = 10704;
-UPDATE `weapon` SET `name` = 'Durendal {PvP} - Health' WHERE `item_id` = 10705;
-UPDATE `weapon` SET `name` = 'Tallum Blade*Dark Legion\'s Edge - Lightning' WHERE `item_id` = 11234;
-UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder' WHERE `item_id` = 11239;
-UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Haste' WHERE `item_id` = 11240;
-UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Health' WHERE `item_id` = 11241;
-UPDATE `weapon` SET `name` = 'Heaven\'s Divider - Thunder - Focus' WHERE `item_id` = 11242;
-
--- Wrong name, should be Nature and not Wisdom, leading to wrong MW skill on next update - Psycho
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature' WHERE `item_id` = 11292;
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Acumen' WHERE `item_id` = 11293;
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Mana Up' WHERE `item_id` = 11294;
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature - Conversion' WHERE `item_id` = 11295;
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature {PvP} - Acumen' WHERE `item_id` = 12972;
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature {PvP} - Mana Up' WHERE `item_id` = 12973;
-UPDATE `weapon` SET `name` =  'Dynasty Phantom - Nature {PvP} - Conversion' WHERE `item_id` = 12974;
 
 -- Masterwork Skills Update - Spire
 -- Destruction
