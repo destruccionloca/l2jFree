@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `custom_npc` (
   `rhand` DECIMAL(8,0) DEFAULT NULL,
   `lhand` DECIMAL(8,0) DEFAULT NULL,
   `armor` DECIMAL(1,0) DEFAULT NULL,
+  `enchant` INT NOT NULL default 0,  
   `walkspd` DECIMAL(3,0) DEFAULT NULL,
   `runspd` DECIMAL(3,0) DEFAULT NULL,
   `faction_id` VARCHAR(40) DEFAULT NULL,

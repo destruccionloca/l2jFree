@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `custom_armor` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(120) NOT NULL DEFAULT '',
+  `additionalname` varchar(120) NOT NULL default '',
   `bodypart` VARCHAR(15) NOT NULL DEFAULT 'none',
   `crystallizable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `armor_type` VARCHAR(5) NOT NULL DEFAULT 'none',

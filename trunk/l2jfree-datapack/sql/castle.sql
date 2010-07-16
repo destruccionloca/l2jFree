@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `castle` (
   `siegeDate` BIGINT UNSIGNED NOT NULL DEFAULT 0,
   `regTimeOver` ENUM('true','false') DEFAULT 'true' NOT NULL,
   `regTimeEnd` BIGINT UNSIGNED NOT NULL DEFAULT 0,
+  `showNpcCrest` enum('true','false') DEFAULT 'false' NOT NULL,
   PRIMARY KEY (`name`),
   KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;

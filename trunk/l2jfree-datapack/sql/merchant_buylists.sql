@@ -4003,105 +4003,9 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (877,-1,3029400,6),
 (878,-1,3029400,7),
 (890,-1,3029400,8),
-(1294,-1,3029401,0),
-(1095,-1,3029401,1),
-(1048,-1,3029401,2),
-(1050,-1,3029401,3),
-(1051,-1,3029401,4),
-(1049,-1,3029401,5),
-(1152,-1,3029401,6),
-(1054,-1,3029401,7),
-(1058,-1,3029401,8),
-(1099,-1,3029401,9),
-(1098,-1,3029401,10),
-(1056,-1,3029401,11),
-(1055,-1,3029401,12),
-(1053,-1,3029401,13),
-(1052,-1,3029401,14),
-(1097,-1,3029401,15),
-(1096,-1,3029401,16),
-(1386,-1,3029401,17),
-(1514,-1,3029401,18),
-(1372,-1,3029401,19),
-(1667,-1,3029401,20),
-(1671,-1,3029401,21),
-(1669,-1,3029401,22),
-(1403,-1,3029401,23),
-(1405,-1,3029401,24),
-(1370,-1,3029401,25),
-(1401,-1,3029401,26),
-(4916,-1,3029401,27),
-(1411,-1,3029401,28),
-(1513,-1,3029401,29),
-(1399,-1,3029401,30),
-(1515,-1,3029401,31),
-(1371,-1,3029401,32),
-(1383,-1,3029401,33),
-(1377,-1,3029401,34),
-(1512,-1,3029401,35),
-(1379,-1,3029401,36),
-(1415,-1,3029401,37),
-(1388,-1,3029401,38),
-(1517,-1,3029401,39),
-(4908,-1,3029401,40),
-(1417,-1,3029401,41),
-(1400,-1,3029401,42),
-(1418,-1,3029401,43),
-(1668,-1,3029401,44),
-(1670,-1,3029401,45),
-(1404,-1,3029401,46),
-(4906,-1,3029401,47),
-(1402,-1,3029401,48),
-(1391,-1,3029401,49),
-(1410,-1,3029401,50),
-(1398,-1,3029401,51),
-(1389,-1,3029401,52),
-(1378,-1,3029401,53),
-(1414,-1,3029401,54),
-(1385,-1,3029401,55),
-(4910,-1,3029401,56),
-(1394,-1,3029401,57),
-(1516,-1,3029401,58),
-(1529,-1,3029401,59),
-(1525,-1,3029401,60),
-(1527,-1,3029401,61),
-(1524,-1,3029401,62),
-(1531,-1,3029401,63),
-(1522,-1,3029401,64),
-(1526,-1,3029401,65),
-(1534,-1,3029401,66),
-(1537,-1,3029401,67),
-(1856,-1,3029401,68),
-(1523,-1,3029401,69),
-(1521,-1,3029401,70),
-(1535,-1,3029401,71),
-(1532,-1,3029401,72),
-(1536,-1,3029401,73),
-(1533,-1,3029401,74),
-(1528,-1,3029401,75),
-(1518,-1,3029401,76),
-(1519,-1,3029401,77),
-(3038,-1,3029401,78),
-(10025,-1,3029401,79),
-(10026,-1,3029401,80),
-(10073,-1,3029401,81),
-(10072,-1,3029401,82),
-(10027,-1,3029401,83),
-(10028,-1,3029401,84),
-(10029,-1,3029401,85),
-(10031,-1,3029401,86),
-(10032,-1,3029401,87),
-(10180,-1,3029401,88),
-(10181,-1,3029401,89),
-(10070,-1,3029401,90),
-(10074,-1,3029401,91),
-(10033,-1,3029401,92),
-(10078,-1,3029401,93),
-(10058,-1,3029401,94),
-(10077,-1,3029401,95),
-(10085,-1,3029401,96),
-(10094,-1,3029401,97),
-(10275,-1,3029401,98),
+(12312,-1,3029401,0),
+(12311,-1,3029401,1),
+(12313,-1,3029401,2),
 (1835,-1,3030100,0),
 (2509,-1,3030100,1),
 (3947,-1,3030100,2),
@@ -8175,105 +8079,6 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (2130,-1,3127400,6),
 (2131,-1,3127400,7),
 (2132,-1,3127400,8),
-(1294,-1,3128400,0),
-(1095,-1,3128400,1),
-(1048,-1,3128400,2),
-(1050,-1,3128400,3),
-(1051,-1,3128400,4),
-(1049,-1,3128400,5),
-(1152,-1,3128400,6),
-(1054,-1,3128400,7),
-(1058,-1,3128400,8),
-(1099,-1,3128400,9),
-(1098,-1,3128400,10),
-(1056,-1,3128400,11),
-(1055,-1,3128400,12),
-(1053,-1,3128400,13),
-(1052,-1,3128400,14),
-(1097,-1,3128400,15),
-(1096,-1,3128400,16),
-(1386,-1,3128400,17),
-(1514,-1,3128400,18),
-(1372,-1,3128400,19),
-(1667,-1,3128400,20),
-(1671,-1,3128400,21),
-(1669,-1,3128400,22),
-(1403,-1,3128400,23),
-(1405,-1,3128400,24),
-(1370,-1,3128400,25),
-(1401,-1,3128400,26),
-(4916,-1,3128400,27),
-(1411,-1,3128400,28),
-(1513,-1,3128400,29),
-(1399,-1,3128400,30),
-(1515,-1,3128400,31),
-(1371,-1,3128400,32),
-(1383,-1,3128400,33),
-(1377,-1,3128400,34),
-(1512,-1,3128400,35),
-(1379,-1,3128400,36),
-(1415,-1,3128400,37),
-(1388,-1,3128400,38),
-(1517,-1,3128400,39),
-(4908,-1,3128400,40),
-(1417,-1,3128400,41),
-(1400,-1,3128400,42),
-(1418,-1,3128400,43),
-(1668,-1,3128400,44),
-(1670,-1,3128400,45),
-(1404,-1,3128400,46),
-(4906,-1,3128400,47),
-(1402,-1,3128400,48),
-(1391,-1,3128400,49),
-(1410,-1,3128400,50),
-(1398,-1,3128400,51),
-(1389,-1,3128400,52),
-(1378,-1,3128400,53),
-(1414,-1,3128400,54),
-(1385,-1,3128400,55),
-(4910,-1,3128400,56),
-(1394,-1,3128400,57),
-(1516,-1,3128400,58),
-(3944,-1,3128400,59),
-(1412,-1,3128400,60),
-(1413,-1,3128400,61),
-(1387,-1,3128400,62),
-(1390,-1,3128400,63),
-(1408,-1,3128400,64),
-(1392,-1,3128400,65),
-(1407,-1,3128400,66),
-(1409,-1,3128400,67),
-(1416,-1,3128400,68),
-(1406,-1,3128400,69),
-(1397,-1,3128400,70),
-(1384,-1,3128400,71),
-(1380,-1,3128400,72),
-(1382,-1,3128400,73),
-(1381,-1,3128400,74),
-(10025,-1,3128400,75),
-(10026,-1,3128400,76),
-(10073,-1,3128400,77),
-(10072,-1,3128400,78),
-(10027,-1,3128400,79),
-(10028,-1,3128400,80),
-(10029,-1,3128400,81),
-(10031,-1,3128400,82),
-(10032,-1,3128400,83),
-(10180,-1,3128400,84),
-(10181,-1,3128400,85),
-(10070,-1,3128400,86),
-(10074,-1,3128400,87),
-(10033,-1,3128400,88),
-(10078,-1,3128400,89),
-(10058,-1,3128400,90),
-(10077,-1,3128400,91),
-(10085,-1,3128400,92),
-(10094,-1,3128400,93),
-(10275,-1,3128400,94),
-(10276,-1,3128400,95),
-(10075,-1,3128400,96),
-(10079,-1,3128400,97),
-(10076,-1,3128400,98),
 (2,-1,3130000,0),
 (218,-1,3130000,1),
 (272,-1,3130000,2),
@@ -9972,126 +9777,6 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (2130,-1,3131900,6),
 (2131,-1,3131900,7),
 (2132,-1,3131900,8),
-(1294,-1,3133800,0),
-(1095,-1,3133800,1),
-(1048,-1,3133800,2),
-(1050,-1,3133800,3),
-(1051,-1,3133800,4),
-(1049,-1,3133800,5),
-(1152,-1,3133800,6),
-(1054,-1,3133800,7),
-(1058,-1,3133800,8),
-(1099,-1,3133800,9),
-(1098,-1,3133800,10),
-(1056,-1,3133800,11),
-(1055,-1,3133800,12),
-(1053,-1,3133800,13),
-(1052,-1,3133800,14),
-(1097,-1,3133800,15),
-(1096,-1,3133800,16),
-(1386,-1,3133800,17),
-(1514,-1,3133800,18),
-(1372,-1,3133800,19),
-(1667,-1,3133800,20),
-(1671,-1,3133800,21),
-(1669,-1,3133800,22),
-(1403,-1,3133800,23),
-(1405,-1,3133800,24),
-(1370,-1,3133800,25),
-(1401,-1,3133800,26),
-(4916,-1,3133800,27),
-(1411,-1,3133800,28),
-(1513,-1,3133800,29),
-(1399,-1,3133800,30),
-(1515,-1,3133800,31),
-(1371,-1,3133800,32),
-(1383,-1,3133800,33),
-(1377,-1,3133800,34),
-(1512,-1,3133800,35),
-(1379,-1,3133800,36),
-(1415,-1,3133800,37),
-(1388,-1,3133800,38),
-(1517,-1,3133800,39),
-(4908,-1,3133800,40),
-(1417,-1,3133800,41),
-(1400,-1,3133800,42),
-(1418,-1,3133800,43),
-(1668,-1,3133800,44),
-(1670,-1,3133800,45),
-(1404,-1,3133800,46),
-(4906,-1,3133800,47),
-(1402,-1,3133800,48),
-(1391,-1,3133800,49),
-(1410,-1,3133800,50),
-(1398,-1,3133800,51),
-(1389,-1,3133800,52),
-(1378,-1,3133800,53),
-(1414,-1,3133800,54),
-(1385,-1,3133800,55),
-(4910,-1,3133800,56),
-(1394,-1,3133800,57),
-(1516,-1,3133800,58),
-(3944,-1,3133800,59),
-(1412,-1,3133800,60),
-(1413,-1,3133800,61),
-(1387,-1,3133800,62),
-(1390,-1,3133800,63),
-(1408,-1,3133800,64),
-(1392,-1,3133800,65),
-(1407,-1,3133800,66),
-(1409,-1,3133800,67),
-(1416,-1,3133800,68),
-(1406,-1,3133800,69),
-(1397,-1,3133800,70),
-(1384,-1,3133800,71),
-(1380,-1,3133800,72),
-(1382,-1,3133800,73),
-(1381,-1,3133800,74),
-(10025,-1,3133800,75),
-(10026,-1,3133800,76),
-(10073,-1,3133800,77),
-(10072,-1,3133800,78),
-(10027,-1,3133800,79),
-(10028,-1,3133800,80),
-(10029,-1,3133800,81),
-(10031,-1,3133800,82),
-(10032,-1,3133800,83),
-(10180,-1,3133800,84),
-(10181,-1,3133800,85),
-(10070,-1,3133800,86),
-(10074,-1,3133800,87),
-(10033,-1,3133800,88),
-(10078,-1,3133800,89),
-(10058,-1,3133800,90),
-(10077,-1,3133800,91),
-(10085,-1,3133800,92),
-(10094,-1,3133800,93),
-(10275,-1,3133800,94),
-(10276,-1,3133800,95),
-(10075,-1,3133800,96),
-(10079,-1,3133800,97),
-(10076,-1,3133800,98),
-(1529,-1,3133900,0),
-(1525,-1,3133900,1),
-(1527,-1,3133900,2),
-(1524,-1,3133900,3),
-(1531,-1,3133900,4),
-(1522,-1,3133900,5),
-(1526,-1,3133900,6),
-(1534,-1,3133900,7),
-(1537,-1,3133900,8),
-(1856,-1,3133900,9),
-(1523,-1,3133900,10),
-(1521,-1,3133900,11),
-(1535,-1,3133900,12),
-(1532,-1,3133900,13),
-(1536,-1,3133900,14),
-(1533,-1,3133900,15),
-(1528,-1,3133900,16),
-(1518,-1,3133900,17),
-(1519,-1,3133900,18),
-(1520,-1,3133900,19),
-(1530,-1,3133900,20),
 (7904,-1,3135100,0),
 (8924,-1,3135100,1),
 (8925,-1,3135100,2),
@@ -16843,7 +16528,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8615,52500,423,11);
 
 -- Clan Hall Item Creation
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES 
 (6902,12900,135445,1,-1,0),
 (6316,300,135445,2,-1,0),
 (1829,500,135445,3,5,1),
@@ -18524,52 +18209,43 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,tim
 (7013,29000,335586,33,1,1);
 
 -- Castles Item Creation
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 (6316,-1,351001,1),
 (6838,-1,351001,2),
 (7015,-1,351001,3),
 (9607,-1,351001,4),
-(13686,-1,351001,5),
 (6316,-1,351421,1),
 (6835,-1,351421,2),
 (7015,-1,351421,3),
 (9608,-1,351421,4),
-(13686,-1,351421,5),
 (6316,-1,351841,1),
 (6839,-1,351841,2),
 (7015,-1,351841,3),
 (9609,-1,351841,4),
-(13686,-1,351841,5),
 (6316,-1,352261,1),
 (6837,-1,352261,2),
 (7015,-1,352261,3),
 (9610,-1,352261,4),
-(13686,-1,352261,5),
 (6316,-1,352741,1),
 (6840,-1,352741,2),
 (7015,-1,352741,3),
 (9611,-1,352741,4),
-(13686,-1,352741,5),
 (6316,-1,353161,1),
 (6834,-1,353161,2),
 (7015,-1,353161,3),
 (9612,-1,353161,4),
-(13686,-1,353161,5),
 (6316,-1,353631,1),
 (6836,-1,353631,2),
 (7015,-1,353631,3),
 (9613,-1,353631,4),
-(13686,-1,353631,5),
 (6316,-1,355091,1),
 (8182,-1,355091,2),
 (7015,-1,355091,3),
 (9614,-1,355091,4),
-(13686,-1,355091,5),
 (6316,-1,355551,1),
 (8183,-1,355551,2),
 (7015,-1,355551,3),
-(9615,-1,355551,4),
-(13686,-1,355551,5);
+(9615,-1,355551,4);
 
 -- Harvester
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,`currentCount`, time, savetimer) VALUES
@@ -18585,14 +18261,15 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,`cu
 (5125,575,335512,1,-1,-1,0,0),
 (5125,575,335558,1,-1,-1,0,0),
 (5125,575,335644,1,-1,-1,0,0),
-(5125,575,335645,1,-1,-1,0,0);
+(5125,575,335645,1,-1,-1,0,0),
+(5125,575,336456,1,-1,-1,0,0);
 
 -- Quest 381: Sandra's Album
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES
 (5900,10000,7,18,1,3);
 
 -- GM SHOP START BUYLISTS (99xx range)--
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Forgotten Scrolls
 (10549,0,9901,1),
 (10550,0,9901,2),
@@ -18709,7 +18386,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (14226,0,9901,113),
 (14227,0,9901,114);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Life Stones
 (8723,0,9902,1),
 (8724,0,9902,2),
@@ -18837,21 +18514,21 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (7916,0,9903,47),
 (7917,0,9903,48);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Giant Codex
 (6622,0,9904,1),
 (9625,0,9904,2),
 (9626,0,9904,3),
 (9627,0,9904,4);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Divine Inspiration Books
 (8618,0,9905,1),
 (8619,0,9905,2),
 (8620,0,9905,3),
 (8621,0,9905,4);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Transform Sealbooks
 (9648,0,9906,1),
 (9649,0,9906,2),
@@ -18881,7 +18558,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10305,0,9906,26),
 (10306,0,9906,27);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S84 Vesper Weapons
 (13457,0,9907,1),
 (13458,0,9907,2),
@@ -18940,7 +18617,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (14155,0,9907,54),
 (14156,0,9907,55);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S84 Vesper Jewels
 (14165,0,9908,1),
 (14163,0,9908,2),
@@ -18949,7 +18626,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (14160,0,9908,5),
 (14161,0,9908,6);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Cloaks
 (13687,0,9909,1),
 (13688,0,9909,2),
@@ -18968,7 +18645,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13893,0,9909,14),
 (14603,0,9909,15);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Belts
 (13894,0,9910,1),
 (13895,0,9910,2),
@@ -19025,7 +18702,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (14556,0,9910,62),
 (14557,0,9910,63);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Magic Pins
 (13695,0,9911,1),
 (13696,0,9911,2),
@@ -19066,7 +18743,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13916,0,9911,37),
 (13917,0,9911,38);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Magic Pouches
 (13704,0,9912,1),
 (13705,0,9912,2),
@@ -19107,7 +18784,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13936,0,9912,37),
 (13937,0,9912,38);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Shirts
 (9577,0,9913,1),
 (9578,0,9913,2),
@@ -19151,15 +18828,15 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13391,0,9913,40),
 (13392,0,9913,41);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Bracelets
-(9589,0,9914,1), -- Iron Bracelet
-(9590,0,9914,2), -- Bronze Bracelet
-(9591,0,9914,3), -- Steel Bracelet
-(9592,0,9914,4), -- Mithril Bracelet
-(10209,0,9914,5), -- Enhanced Steel Bracelet
-(10210,0,9914,6), -- Enhanced Mithril Bracelet
-(13295,0,9914,7), -- Pailaka Bracelet
+(9589,0,9914,1),
+(9590,0,9914,2),
+(9591,0,9914,3),
+(9592,0,9914,4),
+(10209,0,9914,5),
+(10210,0,9914,6),
+(13295,0,9914,7),
 (9607,0,9914,8),
 (9608,0,9914,9),
 (9609,0,9914,10),
@@ -19190,7 +18867,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13546,0,9914,35),  -- Steam Sledge Mounting Bracelet
 (13547,0,9914,36);  -- Tawny-Maned Lion Mounting Bracelet
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Talisman
 (9923,0,9915,1),
 (9922,0,9915,2),
@@ -19275,7 +18952,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (9941,0,9915,81),
 (9934,0,9915,82);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Currency
 (57,0,9916,1),
 (5575,0,9916,2),
@@ -19289,7 +18966,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (14720,0,9916,10),
 (14721,0,9916,11);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Boss Jewels
 (6660,0,9917,1),
 (6662,0,9917,2),
@@ -19302,7 +18979,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10170,0,9917,9),
 (10314,0,9917,10);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Pets
 (3500,0,9918,1),
 (3501,0,9918,2),
@@ -19320,26 +18997,28 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10308,0,9918,14),
 (10309,0,9918,15),
 (10310,0,9918,16),
-(2375,0,9918,17),
-(10426,0,9918,18),
-(10611,0,9918,19),
-(10307,0,9918,20),
-(10661,0,9918,21),
-(10662,0,9918,22),
-(10663,0,9918,23),
-(13017,0,9918,24),  -- White Weasel Hunting Helper Necklace
-(13018,0,9918,25),  -- Fairy Princess Hunting Helper Necklace
-(13019,0,9918,26),  -- Wild Beast Fighter Hunting Helper Necklace
-(13020,0,9918,27),  -- Fox Shaman Hunting Helper Necklace
-(13548,0,9918,28),  -- Toy Knight Hunting Helper Necklace
-(13549,0,9918,29),  -- Soul Monk Hunting Helper Necklace
-(13550,0,9918,30),  -- Owl Monk Hunting Helper Necklace
-(14061,0,9918,31),  -- Toy Knight Summon Bracelet
-(14062,0,9918,32),  -- Spirit Shaman Summon Bracelet
-(14063,0,9918,33),  -- Owl Monk Summon Bracelet
-(14064,0,9918,34);  -- Turtle Ascetic Summon Bracelet
+(10426,0,9918,17),
+(10611,0,9918,18),
+(10307,0,9918,19),
+(2375,0,9918,20),
+(14828,0,9918,21),  -- Deinonychus
+(14819,0,9918,22),  -- Guardian Strider
+(13017,0,9918,23),  -- White Weasel Hunting Helper Necklace
+(13018,0,9918,24),  -- Fairy Princess Hunting Helper Necklace
+(13019,0,9918,25),  -- Wild Beast Fighter Hunting Helper Necklace
+(13020,0,9918,26),  -- Fox Shaman Hunting Helper Necklace
+(14061,0,9918,27),  -- Toy Knight Summon Bracelet
+(14062,0,9918,28),  -- Spirit Shaman Summon Bracelet
+(14063,0,9918,29),  -- Owl Monk Summon Bracelet
+(14064,0,9918,30),  -- Turtle Ascetic Summon Bracelet
+(13548,0,9918,31),  -- Toy Knight Hunting Helper Necklace
+(13549,0,9918,32),  -- Soul Monk Hunting Helper Necklace
+(13550,0,9918,33),  -- Owl Monk Hunting Helper Necklace
+(13551,0,9918,34),  -- Turtle Ascetic Hunting Helper Necklace
+(20760,0,9918,35),  -- Rudolph Necklace - Event
+(20761,0,9918,36);  -- Rudolph Necklace
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Castle Circlets
 (6834,0,9919,1),
 (6835,0,9919,2),
@@ -19369,7 +19048,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13487,0,9919,26),
 (13506,0,9919,27);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Hair Accessory
 (5808,0,9920,1),
 (6394,0,9920,2),
@@ -19601,13 +19280,13 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (22171,0,9920,228),
 (22172,0,9920,229);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Fly Transform Books
 (13552,0,9921,1),
 (13553,0,9921,2),
 (13554,0,9921,3);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Fishing Potions
 (8193,0,9922,1),
 (8194,0,9922,2),
@@ -19620,7 +19299,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8201,0,9922,9),
 (8202,0,9922,10);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Dynasty Weapons
 (9377,0,9923,1),
 (9378,0,9923,2),
@@ -19674,7 +19353,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10004,0,9923,53),
 (13882,0,9923,54);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Icarus Weapons
 (10215,0,9924,1),
 (10216,0,9924,2),
@@ -19727,7 +19406,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10469,0,9924,49),
 (13883,0,9924,50);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Monster Weapons
 (13061,0,9925,1),
 (13061,0,9925,2),
@@ -19807,7 +19486,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13845,0,9925,76), -- Attribute Master Yin\'s Sword
 (13881,0,9925,77); -- Attribute Master Yang\'s Sword
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Sigils
 (13885,0,9926,1),
 (10121,0,9926,2),
@@ -19823,7 +19502,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10119,0,9926,12),
 (12813,0,9926,13);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Red SA Crystals
 (4629,0,9927,1),
 (4630,0,9927,2),
@@ -19883,7 +19562,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10161,0,9927,53),
 (10162,0,9927,54);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Potions
 (1060,0,9928,1),
 (1061,0,9928,2),
@@ -19934,7 +19613,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (20393,0,9928,47),
 (20394,0,9928,48);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Elixirs
 (8634,0,9929,1),
 (8635,0,9929,2),
@@ -19980,7 +19659,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (14717,0,9929,41),
 (14718,0,9929,42);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Recovery Scrolls
 (8594,0,9930,1),
 (8595,0,9930,2),
@@ -20041,7 +19720,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8519,0,9930,53),
 (8520,0,9930,54);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) D Enchant Scrolls
 (955,0,9931,1),
 (956,0,9931,2),
@@ -20100,7 +19779,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (22020,0,9931,51),
 (22021,0,9931,52);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Pet Gear
 (2505,0,9932,0),
 (3439,0,9932,1),
@@ -20185,7 +19864,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (12751,0,9932,80),
 (12752,0,9932,81);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S80 Dynasty Recipes
 (9482,0,9933,1),
 (9483,0,9933,2),
@@ -20246,7 +19925,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10115,0,9933,57),
 (10116,0,9933,58);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S80 Dynasty Parts
 (9616,0,9934,1),
 (9617,0,9934,2),
@@ -20278,7 +19957,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (9993,0,9934,28),
 (10114,0,9934,29);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S80 Icarus Recipes
 (10373,0,9935,1),
 (10374,0,9935,2),
@@ -20305,7 +19984,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10395,0,9935,23),
 (10396,0,9935,24);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S80 Icarus Parts
 (10397,0,9936,1),
 (10398,0,9936,2),
@@ -20319,7 +19998,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (10406,0,9936,10),
 (10407,0,9936,11);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Craft Materials
 (1864,0,9937,1),
 (1865,0,9937,2),
@@ -20373,7 +20052,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (9629,0,9937,50),
 (9630,0,9937,51);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Shots
 (1835,0,9938,1),
 (1463,0,9938,2),
@@ -20439,7 +20118,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (6646,0,9938,62),
 (6647,0,9938,63);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Crystals / Gemstones
 (1458,0,9939,1),
 (1459,0,9939,2),
@@ -20452,7 +20131,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (2133,0,9939,9),
 (2134,0,9939,10);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S Grade Parts
 (6688,0,9940,1),
 (6689,0,9940,2),
@@ -20483,7 +20162,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (6714,0,9940,27),
 (13099,0,9940,28);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) S Grade Recipes
 (6847,0,9941,1),
 (6848,0,9941,2),
@@ -20544,7 +20223,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13100,0,9941,57),
 (13101,0,9941,58);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) A Grade Recipes
 (5434,0,9942,1),
 (5435,0,9942,2),
@@ -20661,7 +20340,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8710,0,9942,113),
 (8711,0,9942,114);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) A Grade Parts
 (5529,0,9943,1),
 (5532,0,9943,2),
@@ -20722,7 +20401,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (8721,0,9943,57),
 (8722,0,9943,58);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Other Circlets
 (9391,0,9944,1),
 (9392,0,9944,2),
@@ -20755,7 +20434,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (13511,0,9944,29),
 (13512,0,9944,30);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Buff Scrolls (event)
 (9146,0,9945,1),
 (9147,0,9945,2),
@@ -20781,7 +20460,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (22050,0,9945,22),
 (22051,0,9945,23);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) B Grade Recipes
 (4126,0,9946,1),
 (4127,0,9946,2),
@@ -20858,7 +20537,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (4198,0,9946,73),
 (4199,0,9946,74);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) B Grade Keymats
 (4049,0,9947,1),
 (4050,0,9947,2),
@@ -20934,7 +20613,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (4120,0,9947,72),
 (4121,0,9947,73);
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 -- (GM-Shop) Dyes
 (4445,0,9948,1),
 (4446,0,9948,2),
@@ -22898,9 +22577,49 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (12893,0,9985,85), -- Cabrio\'s Hand - Cleverness - Mana Up
 (12894,0,9985,86); -- Cabrio\'s Hand - Cleverness - Magic Silence
 
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
--- (GM-Shop) [reserved]
-(1,0,9986,1);
+INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
+-- (GM-Shop) Hair Accessory Part 2
+(20666,0,9986,1), -- Valkyrie Hat
+(20667,0,9986,2), -- Valkyrie Hat
+(20668,0,9986,3), -- Tiger Hat
+(20669,0,9986,4), -- Tiger Hat
+(20670,0,9986,5), -- Maid Hairband
+(20671,0,9986,6), -- Maid Hairband
+(20672,0,9986,7), -- Baby Panda Hat
+(20673,0,9986,8), -- Baby Panda Hat
+(20674,0,9986,9), -- Bamboo Panda Hat
+(20675,0,9986,10), -- Bamboo Panda Hat
+(20676,0,9986,11), -- Sexy Panda Hat
+(20677,0,9986,12), -- Sexy Panda Hat
+(20678,0,9986,13), -- Gate Keeper Hat
+(20679,0,9986,14), -- Gate Keeper Hat
+(20711,0,9986,15), -- Jack O\'Lantern Mask - Event
+(20712,0,9986,16), -- Mask of Giant Hercules - Event
+(20713,0,9986,17), -- Mask of Silent Scream - Event
+(20714,0,9986,18), -- Spirit of Wrath Mask - Event
+(20715,0,9986,19), -- Undecaying Corpse Mask - Event
+(20716,0,9986,20), -- Planet X235 Alien Mask - Event
+(20718,0,9986,21), -- Shiny Mask of Giant Hercules - Event
+(20719,0,9986,22), -- Shiny Mask of Silent Scream - Event
+(20720,0,9986,23), -- Shiny Spirit of Wrath Mask - Event
+(20721,0,9986,24), -- Shiny Undecaying Corpse Mask - Event
+(20722,0,9986,25), -- Shiny Planet X235 Alien Mask - Event
+(20723,0,9986,26), -- Golden Jack O\'Lantern Mask
+(20724,0,9986,27), -- Golden Jack O\'Lantern Mask
+(20725,0,9986,28), -- Red Flame of Valakas
+(20743,0,9986,29), -- Shiny Mask of Giant Hercules
+(20744,0,9986,30), -- Shiny Mask of Silent Scream
+(20745,0,9986,31), -- Shiny Spirit of Wrath Mast
+(20746,0,9986,32), -- Shiny Undecaying Corpse Mask
+(20747,0,9986,33), -- Shiny Planet X235 Alien Mask
+(20789,0,9986,34), -- Rocket Gun Hat Continuous Fireworks
+(20790,0,9986,35), -- Yellow Paper Hat Blessed Body - 7 day limited period
+(20791,0,9986,36), -- Pink Paper Mask Set Blessed Soul - 7 day limited period
+(20792,0,9986,37), -- Flavorful Cheese Hat
+(20793,0,9986,38), -- Sweet Cheese Hat
+(20794,0,9986,39), -- Flavorful Cheese Hat Scent of Flavorful Cheese - 7 day limited period
+(20795,0,9986,40), -- Sweet Cheese Hat Scent of Sweet Cheese - 7 day limited period
+(20897,0,9986,41); -- Purple Paper Mask Blessed Soul - 7 day limited period
 
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 -- (GM-Shop) [reserved]
@@ -23648,7 +23367,7 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 (11516,0,10003,2),
 (11515,0,10003,3),
 (11524,0,10003,4),
-(11525,0,10003,5),
+(11525,0,10003,5), 
 (11527,0,10003,6), -- Dynasty Heavy
 (11512,0,10003,7),
 (11513,0,10003,8),
@@ -23664,1439 +23383,4 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
 -- GM SHOP END --
 
 
---
--- L2J-Free Add-ons
---
-
--- Edit: Left these here in case you wanna add them to the new GMShop
--- L2J-Free GMShop Add-ons (IL/CT1/CT1.5)
--- By Skatershi
-
--- Interlude Spellbook
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(8616,0,71040,0),
-(8617,0,71040,1),
-(8877,0,71040,2),
-(8878,0,71040,3),
-(8879,0,71040,4),
-(8880,0,71040,5),
-(8881,0,71040,6),
-(8882,0,71040,7),
-(8883,0,71040,9),
-(8884,0,71040,10),
-(8885,0,71040,11),
-(8886,0,71040,12),
-(8887,0,71040,13),
-(8888,0,71040,14),
-(8889,0,71040,15),
-(8890,0,71040,16),
-(8891,0,71040,17),
-(8892,0,71040,18),
-(8893,0,71040,19),
-(8894,0,71040,20),
-(8895,0,71040,21),
-(8896,0,71040,22),
-(8897,0,71040,23),
-(8898,0,71040,24),
-(8899,0,71040,25),
-(8900,0,71040,26),
-(8901,0,71040,27),
-(8902,0,71040,28),
-(8903,0,71040,29),
-(8904,0,71040,30),
-(8905,0,71040,31),
-(8906,0,71040,32),
-(8907,0,71040,33),
-(8908,0,71040,34);
-
--- Interlude Recipes
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(8690,0,71041,0),
-(8691,0,71041,1),
-(8692,0,71041,2),
-(8693,0,71041,3),
-(8694,0,71041,4),
-(8695,0,71041,5),
-(8696,0,71041,6),
-(8697,0,71041,7),
-(8698,0,71041,9),
-(8699,0,71041,10),
-(8700,0,71041,11),
-(8701,0,71041,12),
-(8702,0,71041,13),
-(8703,0,71041,14),
-(8704,0,71041,15),
-(8705,0,71041,16),
-(8706,0,71041,17),
-(8707,0,71041,18),
-(8708,0,71041,19),
-(8709,0,71041,20),
-(8710,0,71041,21),
-(8711,0,71041,22),
-(8640,0,71041,23),
-(8641,0,71041,24),
-(8642,0,71041,25),
-(8643,0,71041,26),
-(8644,0,71041,27),
-(8645,0,71041,28),
-(8646,0,71041,29),
-(8647,0,71041,30),
-(8648,0,71041,31),
-(8649,0,71041,32),
-(8650,0,71041,33),
-(8651,0,71041,34),
-(8652,0,71041,35),
-(8653,0,71041,36),
-(8654,0,71041,37),
-(8655,0,71041,38),
-(8656,0,71041,39),
-(8657,0,71041,40);
-
--- CT1 Battle Manuals
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10025,0,71042,1),
-(10026,0,71042,2),
-(10027,0,71042,3),
-(10028,0,71042,4),
-(10029,0,71042,5),
-(10030,0,71042,6),
-(10031,0,71042,7),
-(10032,0,71042,8),
-(10033,0,71042,9),
-(10034,0,71042,10),
-(10035,0,71042,11),
-(10036,0,71042,12),
-(10037,0,71042,13),
-(10038,0,71042,14),
-(10039,0,71042,15),
-(10040,0,71042,16),
-(10041,0,71042,17),
-(10042,0,71042,18),
-(10043,0,71042,19),
-(10044,0,71042,20),
-(10045,0,71042,21),
-(10046,0,71042,22),
-(10047,0,71042,23),
-(10048,0,71042,24),
-(10049,0,71042,25),
-(10050,0,71042,26),
-(10051,0,71042,27),
-(10052,0,71042,28),
-(10053,0,71042,29),
-(10054,0,71042,31),
-(10055,0,71042,32),
-(10056,0,71042,33),
-(10057,0,71042,34),
-(10058,0,71042,35),
-(10059,0,71042,36),
-(10060,0,71042,37),
-(10061,0,71042,38),
-(10062,0,71042,39),
-(10063,0,71042,40),
-(10064,0,71042,41),
-(10065,0,71042,42),
-(10066,0,71042,43),
-(10067,0,71042,44),
-(10068,0,71042,45),
-(10069,0,71042,46),
-(10070,0,71042,47),
-(10071,0,71042,48),
-(10072,0,71042,49),
-(10073,0,71042,50),
-(10074,0,71042,51),
-(10075,0,71042,52),
-(10076,0,71042,53),
-(10077,0,71042,54),
-(10078,0,71042,55),
-(10079,0,71042,56),
-(10080,0,71042,57),
-(10081,0,71042,58),
-(10082,0,71042,59),
-(10083,0,71042,60),
-(10084,0,71042,61),
-(10085,0,71042,62),
-(10086,0,71042,63),
-(10087,0,71042,64),
-(10088,0,71042,65),
-(10089,0,71042,66),
-(10090,0,71042,67),
-(10091,0,71042,68),
-(10092,0,71042,69),
-(10093,0,71042,70),
-(10094,0,71042,71),
-(10095,0,71042,72),
-(10096,0,71042,73),
-(10097,0,71042,74),
-(10098,0,71042,75),
-(10180,0,71042,76),
-(10181,0,71042,77),
-(10182,0,71042,78),
-(10183,0,71042,79),
-(10184,0,71042,80),
-(10185,0,71042,81),
-(10186,0,71042,82),
-(10187,0,71042,83),
-(10188,0,71042,84),
-(10189,0,71042,85),
-(10190,0,71042,86),
-(10191,0,71042,87),
-(10192,0,71042,88),
-(10193,0,71042,89),
-(10194,0,71042,90),
-(10195,0,71042,91),
-(10196,0,71042,92),
--- CT1.5 Battle Manuals
-(10596,0,71042,93),
-(10597,0,71042,94),
-(10598,0,71042,95),
-(10599,0,71042,96),
-(10600,0,71042,97),
-(10601,0,71042,98),
-(10602,0,71042,99),
-(10603,0,71042,100),
-(10604,0,71042,101),
-(10605,0,71042,102);
-
--- CT1 Spellbooks
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10099,0,71043,1),
-(10100,0,71043,2),
-(10101,0,71043,3),
-(10102,0,71043,4),
-(10103,0,71043,5),
-(10104,0,71043,6),
-(10107,0,71043,7),
-(10108,0,71043,8),
-(10109,0,71043,9),
-(10110,0,71043,10),
-(10111,0,71043,11),
-(10105,0,71043,12),
-(10106,0,71043,13);
-
--- CT1 Recipes
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9482,0,71044,1),
-(9483,0,71044,2),
-(9484,0,71044,3),
-(9485,0,71044,4),
-(9486,0,71044,5),
-(9487,0,71044,6),
-(9488,0,71044,7),
-(9489,0,71044,8),
-(9490,0,71044,9),
-(9491,0,71044,10),
-(9492,0,71044,11),
-(9493,0,71044,12),
-(9494,0,71044,13),
-(9495,0,71044,14),
-(9496,0,71044,15),
-(9497,0,71044,16),
-(9498,0,71044,17),
-(9499,0,71044,18),
-(9500,0,71044,19),
-(9501,0,71044,20),
-(9502,0,71044,21),
-(9503,0,71044,22),
-(9504,0,71044,23),
-(9505,0,71044,24),
-(9506,0,71044,25),
-(9507,0,71044,26),
-(9508,0,71044,27),
-(9509,0,71044,28),
-(9510,0,71044,29),
-(9511,0,71044,30),
-(9512,0,71044,31),
-(9513,0,71044,32),
--- CT1.5 Recipes & Materials
-(10373,0,71044,33), -- Recipes
-(10374,0,71044,34),
-(10375,0,71044,35),
-(10376,0,71044,36),
-(10377,0,71044,37),
-(10378,0,71044,38),
-(10379,0,71044,39),
-(10380,0,71044,40),
-(10381,0,71044,41),
-(10544,0,71044,42),
-(10545,0,71044,43),
-(10397,0,71044,44), -- Materials
-(10398,0,71044,45),
-(10399,0,71044,46),
-(10400,0,71044,47),
-(10401,0,71044,48),
-(10402,0,71044,49),
-(10403,0,71044,50),
-(10404,0,71044,51),
-(10405,0,71044,52),
-(10546,0,71044,53),
-(10547,0,71044,54);
-
--- CT1 Transformation Scrolls
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10131,0,71045,1),
-(10132,0,71045,2),
-(10133,0,71045,3),
-(10134,0,71045,4),
-(10135,0,71045,5),
-(10136,0,71045,6),
-(10137,0,71045,7),
-(10138,0,71045,8),
-(10141,0,71045,9),
-(10142,0,71045,10),
-(10274,0,71045,11),
-(9897,0,71045,12),
--- CT1.5 Transformation Scrolls
-(10279,0,71045,13),
-(10288,0,71045,14),
-(10289,0,71045,15),
-(10290,0,71045,16),
-(10291,0,71045,17),
-(10292,0,71045,18),
-(10293,0,71045,19),
-(10294,0,71045,20),
-(10295,0,71045,21),
-(10296,0,71045,22),
-(10297,0,71045,23),
-(10298,0,71045,24),
-(10299,0,71045,25),
-(10300,0,71045,26),
-(10301,0,71045,27),
-(10302,0,71045,28),
-(10303,0,71045,29),
-(10304,0,71045,30),
-(10305,0,71045,31),
-(10306,0,71045,32);
-
--- CT1 Shadow Items
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9840,0,71046,0),
-(9841,0,71046,1),
-(9842,0,71046,2),
-(9843,0,71046,3),
-(9844,0,71046,4),
-(9845,0,71046,5),
-(9846,0,71046,6),
-(9847,0,71046,7),
-(9848,0,71046,8),
-(10005,0,71046,9),
-(10006,0,71046,10),
-(10007,0,71046,11),
-(10008,0,71046,12),
-(10009,0,71046,13),
-(10010,0,71046,14),
-(10011,0,71046,15),
-(10125,0,71046,16),
--- CT1.5 Shadow Items
-(10315,0,71046,17),
-(10321,0,71046,18),
-(10470,0,71046,19),
-(10471,0,71046,20),
-(10472,0,71046,21),
-(10620,0,71046,22),
-(10621,0,71046,23),
-(10622,0,71046,24),
-(10623,0,71046,25),
-(10624,0,71046,26),
-(10625,0,71046,27),
-(10626,0,71046,28),
-(10627,0,71046,29),
-(10628,0,71046,30),
-(10629,0,71046,31),
-(10630,0,71046,32),
-(10631,0,71046,33),
-(10474,0,71046,34),
-(10475,0,71046,35),
-(10476,0,71046,36),
-(10477,0,71046,37),
-(10478,0,71046,38),
-(10479,0,71046,39),
-(10473,0,71046,40);
-
--- CT1 Bracelet
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9589,0,71047,0),
-(9590,0,71047,1),
-(9591,0,71047,2),
-(9592,0,71047,3),
-(9605,0,71047,4),
-(9606,0,71047,5),
-(9607,0,71047,6),
-(9608,0,71047,7),
-(9609,0,71047,8),
-(9610,0,71047,9),
-(9611,0,71047,10),
-(9612,0,71047,11),
-(9613,0,71047,12),
-(9614,0,71047,13),
-(9615,0,71047,14),
-(10139,0,71047,15),
-(10018,0,71047,16),
-(9909,0,71047,17),
-(10209,0,71047,18),
-(10210,0,71047,19),
-(10273,0,71047,20),
--- CT1.5 Bracelet
-(10607,0,71047,21),
-(10316,0,71047,22),
-(10317,0,71047,23),
-(10318,0,71047,24),
-(10319,0,71047,25),
-(10320,0,71047,26),
-(10322,0,71047,27),
-(10323,0,71047,28),
-(10324,0,71047,29),
-(10325,0,71047,30),
-(10326,0,71047,31),
-(10606,0,71047,32);
-
--- CT1 Special Jewels
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9899,0,71048,0),
-(9900,0,71048,1),
-(9677,0,71048,2),
-(10140,0,71048,3),
-(10211,0,71048,4),
--- CT1.5 Special Jewels
-(10611,0,71048,5);
-
--- CT1 Talisman
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9914,0,71049,1),
-(9915,0,71049,2),
-(9916,0,71049,3),
-(9917,0,71049,4),
-(9918,0,71049,5),
-(9919,0,71049,6),
-(9920,0,71049,7),
-(9921,0,71049,8),
-(9922,0,71049,9),
-(9923,0,71049,10),
-(9924,0,71049,11),
-(9925,0,71049,12),
-(9926,0,71049,13),
-(9927,0,71049,14),
-(9928,0,71049,15),
-(9929,0,71049,16),
-(9930,0,71049,17),
-(9931,0,71049,18),
-(9932,0,71049,19),
-(9933,0,71049,20),
-(9934,0,71049,21),
-(9935,0,71049,22),
-(9936,0,71049,23),
-(9937,0,71049,24),
-(9938,0,71049,25),
-(9939,0,71049,26),
-(9940,0,71049,27),
-(9941,0,71049,28),
-(9942,0,71049,29),
-(9943,0,71049,30),
-(9944,0,71049,31),
-(9945,0,71049,32),
-(9946,0,71049,33),
-(9947,0,71049,34),
-(9948,0,71049,35),
-(9949,0,71049,36),
-(9950,0,71049,37),
-(9951,0,71049,38),
-(9952,0,71049,39),
-(9953,0,71049,40),
-(9954,0,71049,41),
-(9955,0,71049,42),
-(9956,0,71049,43),
-(9957,0,71049,44),
-(9958,0,71049,45),
-(9959,0,71049,46),
-(9960,0,71049,47),
-(9961,0,71049,48),
-(9962,0,71049,49),
-(9963,0,71049,50),
-(9964,0,71049,51),
-(9965,0,71049,52),
-(9966,0,71049,53),
--- CT1.5 Talisman
-(10416,0,71049,54),
-(10417,0,71049,55),
-(10418,0,71049,56),
-(10419,0,71049,57),
-(10420,0,71049,58),
-(10421,0,71049,59),
-(10422,0,71049,60),
-(10423,0,71049,61),
-(10424,0,71049,62),
-(10518,0,71049,63),
-(10519,0,71049,64),
-(10533,0,71049,65),
-(10534,0,71049,66),
-(10535,0,71049,67),
-(10536,0,71049,68),
-(10537,0,71049,69),
-(10538,0,71049,70),
-(10539,0,71049,71),
-(10540,0,71049,72),
-(10541,0,71049,73),
-(10542,0,71049,74),
-(10543,0,71049,75);
-
--- CT1 Hair Accessories
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9391,0,71050,1),
-(9392,0,71050,2),
-(9393,0,71050,3),
-(9394,0,71050,4),
-(9395,0,71050,5),
-(9396,0,71050,6),
-(9397,0,71050,7),
-(9398,0,71050,8),
-(9399,0,71050,9),
-(9400,0,71050,10),
-(9401,0,71050,11),
-(9402,0,71050,12),
-(9403,0,71050,13),
-(9404,0,71050,14),
-(9405,0,71050,15),
-(9406,0,71050,16),
-(9407,0,71050,17),
-(9408,0,71050,18),
-(9409,0,71050,19),
-(9410,0,71050,20),
-(9411,0,71050,21),
-(9412,0,71050,22),
-(9413,0,71050,23),
-(9414,0,71050,24),
-(9415,0,71050,25),
-(10169,0,71050,26),
-(10175,0,71050,27),
-(10176,0,71050,28),
-(10177,0,71050,29),
-(10240,0,71050,30),
-(10241,0,71050,31),
-(10242,0,71050,32),
-(10243,0,71050,33),
-(10244,0,71050,34),
-(10245,0,71050,35),
-(10246,0,71050,36),
-(10247,0,71050,37),
-(10248,0,71050,38),
-(10249,0,71050,39),
-(10250,0,71050,40),
-(10251,0,71050,41),
--- CT1.5 Hair Accessories
-(10613,0,71050,42),
-(10614,0,71050,43),
-(10615,0,71050,44),
-(10616,0,71050,45),
-(10617,0,71050,46),
-(10618,0,71050,47),
-(10619,0,71050,48);
-
--- CT1.5 Weapons (Monster Only)
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10277,0,71051,0),
-(10278,0,71051,1),
-(10548,0,71051,2);
-
--- CT1.5 Shirt
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10491,0,71052,0),
-(10492,0,71052,1),
-(10493,0,71052,2),
-(10494,0,71052,3),
-(10495,0,71052,4),
-(10496,0,71052,5),
-(10497,0,71052,6),
-(10498,0,71052,7),
-(10499,0,71052,8),
-(10500,0,71052,9),
-(10501,0,71052,10),
-(10502,0,71052,11),
-(10503,0,71052,12),
-(10504,0,71052,13),
-(10505,0,71052,14),
-(10506,0,71052,15),
-(10507,0,71052,16),
-(10508,0,71052,17),
-(10509,0,71052,18),
-(10510,0,71052,19),
-(10511,0,71052,20),
-(10512,0,71052,21),
-(10513,0,71052,22),
-(10514,0,71052,23);
-
--- CT1.5 Forgotten Scrolls
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10549,0,71053,0),
-(10550,0,71053,1),
-(10551,0,71053,2),
-(10552,0,71053,3),
-(10553,0,71053,4),
-(10554,0,71053,5),
-(10555,0,71053,6),
-(10556,0,71053,7),
-(10557,0,71053,8),
-(10558,0,71053,9),
-(10559,0,71053,10),
-(10560,0,71053,11),
-(10561,0,71053,12),
-(10562,0,71053,13),
-(10563,0,71053,14),
-(10564,0,71053,15),
-(10565,0,71053,16),
-(10566,0,71053,17),
-(10567,0,71053,18),
-(10568,0,71053,19),
-(10569,0,71053,20),
-(10570,0,71053,21),
-(10571,0,71053,22),
-(10572,0,71053,23),
-(10573,0,71053,24),
-(10574,0,71053,25),
-(10575,0,71053,26),
-(10576,0,71053,27),
-(10577,0,71053,28),
-(10578,0,71053,29),
-(10579,0,71053,30),
-(10580,0,71053,31),
-(10581,0,71053,32),
-(10582,0,71053,33),
-(10583,0,71053,34),
-(10584,0,71053,35),
-(10585,0,71053,36),
-(10586,0,71053,37),
-(10587,0,71053,38),
-(10588,0,71053,39),
-(10589,0,71053,40),
-(10590,0,71053,41),
-(10591,0,71053,42),
-(10592,0,71053,43),
-(10593,0,71053,44),
-(10594,0,71053,45),
-(10595,0,71053,46);
-
--- CT1.5 Others
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(10409,0,71054,0),
-(10410,0,71054,1),
-(10411,0,71054,2),
-(10412,0,71054,3),
-(10413,0,71054,4),
-(10427,0,71054,5),
-(10428,0,71054,6),
-(10429,0,71054,7),
-(10430,0,71054,8),
-(10431,0,71054,9),
-(10432,0,71054,10),
-(10433,0,71054,11),
-(10480,0,71054,12),
-(10481,0,71054,13),
-(10482,0,71054,14),
-(10483,0,71054,15),
-(10484,0,71054,16),
-(10485,0,71054,17),
-(10486,0,71054,18),
-(10612,0,71054,19),
-(10280,0,71054,20),
-(10281,0,71054,21),
-(10282,0,71054,22),
-(10283,0,71054,23),
-(10284,0,71054,24),
-(10285,0,71054,25),
-(10286,0,71054,26),
-(10287,0,71054,27),
-(10632,0,71054,28),
-(10608,0,71054,29),
-(10609,0,71054,30),
-(10610,0,71054,31),
-(10640,0,71054,32),
-(10641,0,71054,33),
-(10521,0,71054,34),
-(10522,0,71054,35),
-(10523,0,71054,36),
-(10524,0,71054,37),
-(10525,0,71054,38),
-(10526,0,71054,39);
--- IL/CT1/CT1.5 GM Shop End
-
-UPDATE `merchant_buylists` SET `price` = `price` * 1.20;
-
--- PetManager addons
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
-(9656,4411200,89,40),
-(9657,8170800,89,41),
-(9658,15309600,89,42),
-(9662,2252400,89,43),
-(9663,4344000,89,44),
-(9664,8551200,89,45),
-(9668,1200,89,46),
-(10515,12000,89,47),
-(10516,24000,89,48),
-(10517,60000,89,49),
-(10425,1200,89,50),
-(9656,4411200,90,40),
-(9657,8170800,90,41),
-(9658,15309600,90,42),
-(9662,2252400,90,43),
-(9663,4344000,90,44),
-(9664,8551200,90,45),
-(9668,1200,90,46),
-(10515,12000,90,47),
-(10516,24000,90,48),
-(10517,60000,90,49),
-(10425,1200,90,50),
-(9656,4411200,91,40),
-(9657,8170800,91,41),
-(9658,15309600,91,42),
-(9662,2252400,91,43),
-(9663,4344000,91,44),
-(9664,8551200,91,45),
-(9668,1200,91,46),
-(10515,12000,91,47),
-(10516,24000,91,48),
-(10517,60000,91,49),
-(10425,1200,91,50),
-(9656,4411200,92,52),
-(9657,8170800,92,53),
-(9658,15309600,92,54),
-(9659,25390800,92,55),
-(9660,45302400,92,56),
-(9661,82365600,92,57),
-(9662,2252400,92,58),
-(9663,4344000,92,59),
-(9664,8551200,92,60),
-(9665,15075600,92,61),
-(9666,29083200,92,62),
-(9667,58654800,92,63),
-(9668,1200,92,64),
-(10515,12000,92,65),
-(10516,24000,92,66),
-(10517,60000,92,67),
-(10425,1200,92,68),
-(9656,4411200,93,40),
-(9657,8170800,93,41),
-(9658,15309600,93,42),
-(9662,2252400,93,43),
-(9663,4344000,93,44),
-(9664,8551200,93,45),
-(9668,1200,93,46),
-(10515,12000,93,47),
-(10516,24000,93,48),
-(10517,60000,93,49),
-(10425,1200,93,50),
-(9656,4411200,94,40),
-(9657,8170800,94,41),
-(9658,15309600,94,42),
-(9662,2252400,94,43),
-(9663,4344000,94,44),
-(9664,8551200,94,45),
-(9668,1200,94,46),
-(10515,12000,94,47),
-(10516,24000,94,48),
-(10517,60000,94,49),
-(10425,1200,94,50),
-(9656,4411200,104,40),
-(9657,8170800,104,41),
-(9658,15309600,104,42),
-(9662,2252400,104,43),
-(9663,4344000,104,44),
-(9664,8551200,104,45),
-(9668,1200,104,46),
-(10515,12000,104,47),
-(10516,24000,104,48),
-(10517,60000,104,49),
-(10425,1200,104,50),
-(9656,4411200,118,52),
-(9657,8170800,118,53),
-(9658,15309600,118,54),
-(9659,25390800,118,55),
-(9660,45302400,118,56),
-(9661,82365600,118,57),
-(9662,2252400,118,58),
-(9663,4344000,118,59),
-(9664,8551200,118,60),
-(9665,15075600,118,61),
-(9666,29083200,118,62),
-(9667,58654800,118,63),
-(9668,1200,118,64),
-(10515,12000,118,65),
-(10516,24000,118,66),
-(10517,60000,118,67),
-(10425,1200,118,68),
-(9656,4411200,136,52),
-(9657,8170800,136,53),
-(9658,15309600,136,54),
-(9659,25390800,136,55),
-(9660,45302400,136,56),
-(9661,82365600,136,57),
-(9662,2252400,136,58),
-(9663,4344000,136,59),
-(9664,8551200,136,60),
-(9665,15075600,136,61),
-(9666,29083200,136,62),
-(9667,58654800,136,63),
-(9668,1200,136,64),
-(10515,12000,136,65),
-(10516,24000,136,66),
-(10517,60000,136,67),
-(10425,1200,136,68),
-(9656,4411200,168,52),
-(9657,8170800,168,53),
-(9658,15309600,168,54),
-(9659,25390800,168,55),
-(9660,45302400,168,56),
-(9661,82365600,168,57),
-(9662,2252400,168,58),
-(9663,4344000,168,59),
-(9664,8551200,168,60),
-(9665,15075600,168,61),
-(9666,29083200,168,62),
-(9667,58654800,168,63),
-(9668,1200,168,64),
-(10515,12000,168,65),
-(10516,24000,168,66),
-(10517,60000,168,67),
-(10425,1200,168,68),
-(9656,4411200,5710,52),
-(9657,8170800,5710,53),
-(9658,15309600,5710,54),
-(9659,25390800,5710,55),
-(9660,45302400,5710,56),
-(9661,82365600,5710,57),
-(9662,2252400,5710,58),
-(9663,4344000,5710,59),
-(9664,8551200,5710,60),
-(9665,15075600,5710,61),
-(9666,29083200,5710,62),
-(9667,58654800,5710,63),
-(9668,1200,5710,64),
-(10515,12000,5710,65),
-(10516,24000,5710,66),
-(10517,60000,5710,67),
-(10425,1200,5710,68);
-
--- Full mercenary shops as of 2008-02-16
-DELETE FROM `merchant_buylists` WHERE `shop_id` IN (351021,351441,351861,352281,352761,353651,355111,355571);
-INSERT IGNORE INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
--- Mercenary Managers
--- Gludio, Greenspan (35102/1)
--- Mercenaries (3960-3969)
-(3960,30000,351021,1),
-(3961,40000,351021,2),
-(3962,50000,351021,3),
-(3963,150000,351021,4),
-(3964,150000,351021,5),
-(3965,30000,351021,6),
-(3966,40000,351021,7),
-(3967,50000,351021,8),
-(3968,150000,351021,9),
-(3969,150000,351021,10),
--- Greater Mercenaries (6038-6047)
-(6038,60000,351021,11),
-(6039,80000,351021,12),
-(6040,100000,351021,13),
-(6041,300000,351021,14),
-(6042,300000,351021,15),
-(6043,60000,351021,16),
-(6044,80000,351021,17),
-(6045,100000,351021,18),
-(6046,300000,351021,19),
-(6047,300000,351021,20),
--- Dawn Mercenaries (6115-6124)
-(6115,120000,351021,21),
-(6116,160000,351021,22),
-(6117,200000,351021,23),
-(6118,600000,351021,24),
-(6119,600000,351021,25),
-(6120,120000,351021,26),
-(6121,160000,351021,27),
-(6122,200000,351021,28),
-(6123,600000,351021,29),
-(6124,600000,351021,30),
--- Greater Recruits (6175-6184)
-(6175,30000,351021,31),
-(6176,40000,351021,32),
-(6177,50000,351021,33),
-(6178,150000,351021,34),
-(6179,150000,351021,35),
-(6180,30000,351021,36),
-(6181,40000,351021,37),
-(6182,50000,351021,38),
-(6183,150000,351021,39),
-(6184,150000,351021,40),
--- Recruits (6235-6244)
-(6235,15000,351021,41),
-(6236,20000,351021,42),
-(6237,25000,351021,43),
-(6238,75000,351021,44),
-(6239,75000,351021,45),
-(6240,15000,351021,46),
-(6241,20000,351021,47),
-(6242,25000,351021,48),
-(6243,75000,351021,49),
-(6244,75000,351021,50),
--- Nephilim (6295,6296)
-(6295,1200000,351021,51),
-(6296,1200000,351021,52),
--- Teleporters
-(3970,1200000,351021,53),
-(3971,1200000,351021,54),
-(3972,1200000,351021,55),
--- Dion, Sanford (35144/1)
--- Mercenaries (3973-3982)
-(3973,30000,351441,1),
-(3974,40000,351441,2),
-(3975,50000,351441,3),
-(3976,150000,351441,4),
-(3977,150000,351441,5),
-(3978,30000,351441,6),
-(3979,40000,351441,7),
-(3980,50000,351441,8),
-(3981,150000,351441,9),
-(3982,150000,351441,10),
--- Greater Mercenaries (6051-6060)
-(6051,60000,351441,11),
-(6052,80000,351441,12),
-(6053,100000,351441,13),
-(6054,300000,351441,14),
-(6055,300000,351441,15),
-(6056,60000,351441,16),
-(6057,80000,351441,17),
-(6058,100000,351441,18),
-(6059,300000,351441,19),
-(6060,300000,351441,20),
--- Dawn Mercenaries (6125-6134)
-(6125,120000,351441,21),
-(6126,160000,351441,22),
-(6127,200000,351441,23),
-(6128,600000,351441,24),
-(6129,600000,351441,25),
-(6130,120000,351441,26),
-(6131,160000,351441,27),
-(6132,200000,351441,28),
-(6133,600000,351441,29),
-(6134,600000,351441,30),
--- Greater Recruits (6185-6194)
-(6185,30000,351441,31),
-(6186,40000,351441,32),
-(6187,50000,351441,33),
-(6188,150000,351441,34),
-(6189,150000,351441,35),
-(6190,30000,351441,36),
-(6191,40000,351441,37),
-(6192,50000,351441,38),
-(6193,150000,351441,39),
-(6194,150000,351441,40),
--- Recruits (6245-6254)
-(6245,15000,351441,41),
-(6246,20000,351441,42),
-(6247,25000,351441,43),
-(6248,75000,351441,44),
-(6249,75000,351441,45),
-(6250,15000,351441,46),
-(6251,20000,351441,47),
-(6252,25000,351441,48),
-(6253,75000,351441,49),
-(6254,75000,351441,50),
--- Nephilim (6297,6298)
-(6297,1200000,351441,51),
-(6298,1200000,351441,52),
--- Teleporters
-(3983,1200000,351441,53),
-(3984,1200000,351441,54),
-(3985,1200000,351441,55),
--- Giran, Arvid (35186/1)
--- Mercenaries (3986-3995)
-(3986,30000,351861,1),
-(3987,40000,351861,2),
-(3988,50000,351861,3),
-(3989,150000,351861,4),
-(3990,150000,351861,5),
-(3991,30000,351861,6),
-(3992,40000,351861,7),
-(3993,50000,351861,8),
-(3994,150000,351861,9),
-(3995,150000,351861,10),
--- Greater Mercenaries (6064-6073)
-(6064,60000,351861,11),
-(6065,80000,351861,12),
-(6066,200000,351861,13),
-(6067,300000,351861,14),
-(6068,300000,351861,15),
-(6069,60000,351861,16),
-(6070,80000,351861,17),
-(6071,100000,351861,18),
-(6072,300000,351861,19),
-(6073,300000,351861,20),
--- Dawn Mercenaries (6135-6144)
-(6135,120000,351861,21),
-(6136,160000,351861,22),
-(6137,200000,351861,23),
-(6138,600000,351861,24),
-(6139,600000,351861,25),
-(6140,120000,351861,26),
-(6141,160000,351861,27),
-(6142,200000,351861,28),
-(6143,600000,351861,29),
-(6144,600000,351861,30),
--- Greater Recruits (6195-6204)
-(6195,30000,351861,31),
-(6196,40000,351861,32),
-(6197,50000,351861,33),
-(6198,150000,351861,34),
-(6199,150000,351861,35),
-(6200,30000,351861,36),
-(6201,40000,351861,37),
-(6202,50000,351861,38),
-(6203,150000,351861,39),
-(6204,150000,351861,40),
--- Recruits (6255-6264)
-(6255,15000,351861,41),
-(6256,20000,351861,42),
-(6257,25000,351861,43),
-(6258,75000,351861,44),
-(6259,75000,351861,45),
-(6260,15000,351861,46),
-(6261,20000,351861,47),
-(6262,25000,351861,48),
-(6263,75000,351861,49),
-(6264,75000,351861,50),
--- Nephilim (6299,6300)
-(6299,1200000,351861,51),
-(6300,1200000,351861,52),
--- Teleporters
-(3996,1200000,351861,53),
-(3997,1200000,351861,54),
-(3998,1200000,351861,55),
--- Oren, Morrison (35228/1)
--- Mercenaries (3999-4008)
-(3999,30000,352281,1),
-(4000,40000,352281,2),
-(4001,50000,352281,3),
-(4002,150000,352281,4),
-(4003,150000,352281,5),
-(4004,30000,352281,6),
-(4005,40000,352281,7),
-(4006,50000,352281,8),
-(4007,150000,352281,9),
-(4008,150000,352281,10),
--- Greater Mercenaries (6077-6086)
-(6077,60000,352281,11),
-(6078,80000,352281,12),
-(6079,100000,352281,13),
-(6080,300000,352281,14),
-(6081,300000,352281,15),
-(6082,60000,352281,16),
-(6083,80000,352281,17),
-(6084,100000,352281,18),
-(6085,300000,352281,19),
-(6086,300000,352281,20),
--- Dawn Mercenaries (6145-6154)
-(6145,120000,352281,21),
-(6146,160000,352281,22),
-(6147,200000,352281,23),
-(6148,600000,352281,24),
-(6149,600000,352281,25),
-(6150,120000,352281,26),
-(6151,160000,352281,27),
-(6152,200000,352281,28),
-(6153,600000,352281,29),
-(6154,600000,352281,30),
--- Greater Recruits (6205-6214)
-(6205,30000,352281,31),
-(6206,40000,352281,32),
-(6207,50000,352281,33),
-(6208,150000,352281,34),
-(6209,150000,352281,35),
-(6210,30000,352281,36),
-(6211,40000,352281,37),
-(6212,50000,352281,38),
-(6213,150000,352281,39),
-(6214,150000,352281,40),
--- Recruits (6265-6274)
-(6265,15000,352281,41),
-(6266,20000,352281,42),
-(6267,25000,352281,43),
-(6268,75000,352281,44),
-(6269,75000,352281,45),
-(6270,15000,352281,46),
-(6271,20000,352281,47),
-(6272,25000,352281,48),
-(6273,75000,352281,49),
-(6274,75000,352281,50),
--- Nephilim (6301,6302)
-(6301,1200000,352281,51),
-(6302,1200000,352281,52),
--- Teleporters
-(4009,1200000,352281,53),
-(4010,1200000,352281,54),
-(4011,1200000,352281,55),
--- Aden, Eldon (35276/1)
--- Mercenaries (4012-4021)
-(4012,30000,352761,1),
-(4013,40000,352761,2),
-(4014,50000,352761,3),
-(4015,150000,352761,4),
-(4016,150000,352761,5),
-(4017,30000,352761,6),
-(4018,40000,352761,7),
-(4019,50000,352761,8),
-(4020,150000,352761,9),
-(4021,150000,352761,10),
--- Greater Mercenaries (6090-6099)
-(6090,60000,352761,11),
-(6091,80000,352761,12),
-(6092,100000,352761,13),
-(6093,300000,352761,14),
-(6094,300000,352761,15),
-(6095,60000,352761,16),
-(6096,80000,352761,17),
-(6097,100000,352761,18),
-(6098,300000,352761,19),
-(6099,300000,352761,20),
--- Dawn Mercenaries (6155-6164)
-(6155,120000,352761,21),
-(6156,160000,352761,22),
-(6157,200000,352761,23),
-(6158,600000,352761,24),
-(6159,600000,352761,25),
-(6160,120000,352761,26),
-(6161,160000,352761,27),
-(6162,200000,352761,28),
-(6163,600000,352761,29),
-(6164,600000,352761,30),
--- Greater Recruits (6215-6224)
-(6215,30000,352761,31),
-(6216,40000,352761,32),
-(6217,50000,352761,33),
-(6218,150000,352761,34),
-(6219,150000,352761,35),
-(6220,30000,352761,36),
-(6221,40000,352761,37),
-(6222,50000,352761,38),
-(6223,150000,352761,39),
-(6224,150000,352761,40),
--- Recruits (6275-6284)
-(6275,15000,352761,41),
-(6276,20000,352761,42),
-(6277,25000,352761,43),
-(6278,75000,352761,44),
-(6279,75000,352761,45),
-(6280,15000,352761,46),
-(6281,20000,352761,47),
-(6282,25000,352761,48),
-(6283,75000,352761,49),
-(6284,75000,352761,50),
--- Nephilim (6303,6304)
-(6303,1200000,352761,51),
-(6304,1200000,352761,52),
--- Teleporters
-(4022,1200000,352761,53),
-(4023,1200000,352761,54),
-(4024,1200000,352761,55),
-(4025,1200000,352761,56),
-(4026,1200000,352761,57),
--- Innadril, Solinus (35318/1)
--- Mercenaries (5205-5214)
-(5205,30000,353181,1),
-(5206,40000,353181,2),
-(5207,50000,353181,3),
-(5208,150000,353181,4),
-(5209,150000,353181,5),
-(5210,30000,353181,6),
-(5211,40000,353181,7),
-(5212,50000,353181,8),
-(5213,150000,353181,9),
-(5214,150000,353181,10),
--- Greater Mercenaries (6105-6114)
-(6105,60000,353181,11),
-(6106,90000,353181,12),
-(6107,200000,353181,13),
-(6108,300000,353181,14),
-(6109,300000,353181,15),
-(6110,60000,353181,16),
-(6111,80000,353181,17),
-(6112,100000,353181,18),
-(6113,300000,353181,19),
-(6114,300000,353181,20),
--- Dawn Mercenaries (6165-6174)
-(6165,120000,353181,21),
-(6166,160000,353181,22),
-(6167,200000,353181,23),
-(6168,600000,353181,24),
-(6169,600000,353181,25),
-(6170,120000,353181,26),
-(6171,160000,353181,27),
-(6172,200000,353181,28),
-(6173,600000,353181,29),
-(6174,600000,353181,30),
--- Greater Recruits (6225-6234)
-(6225,30000,353181,31),
-(6226,40000,353181,32),
-(6227,50000,353181,33),
-(6228,150000,353181,34),
-(6229,150000,353181,35),
-(6230,30000,353181,36),
-(6231,40000,353181,37),
-(6232,50000,353181,38),
-(6233,150000,353181,39),
-(6234,150000,353181,40),
--- Recruits (6285-6294)
-(6285,15000,353181,41),
-(6286,20000,353181,42),
-(6287,25000,353181,43),
-(6288,75000,353181,44),
-(6289,75000,353181,45),
-(6290,15000,353181,46),
-(6291,20000,353181,47),
-(6292,25000,353181,48),
-(6293,75000,353181,49),
-(6294,75000,353181,50),
--- Nephilim (6305,6306)
-(6305,1200000,353181,51),
-(6306,1200000,353181,52),
--- Teleporters
-(5215,1200000,353181,53),
-(5218,1200000,353181,54),
-(5219,1200000,353181,55),
--- Goddard, Rowell (35365/1)
--- Mercenaries (6779-6788)
-(6779,30000,353651,1),
-(6780,40000,353651,2),
-(6781,50000,353651,3),
-(6782,150000,353651,4),
-(6783,150000,353651,5),
-(6784,30000,353651,6),
-(6785,40000,353651,7),
-(6786,50000,353651,8),
-(6787,150000,353651,9),
-(6788,150000,353651,10),
--- Greater Mercenaries (6792-6801)
-(6792,60000,353651,11),
-(6793,90000,353651,12),
-(6794,200000,353651,13),
-(6795,300000,353651,14),
-(6796,300000,353651,15),
-(6797,60000,353651,16),
-(6798,80000,353651,17),
-(6799,100000,353651,18),
-(6800,300000,353651,19),
-(6801,300000,353651,20),
--- Dawn Mercenaries (6802-6811)
-(6802,120000,353651,21),
-(6803,160000,353651,22),
-(6804,200000,353651,23),
-(6805,600000,353651,24),
-(6806,600000,353651,25),
-(6807,120000,353651,26),
-(6808,160000,353651,27),
-(6809,200000,353651,28),
-(6810,600000,353651,29),
-(6811,600000,353651,30),
--- Greater Recruits (6812-6821)
-(6812,30000,353651,31),
-(6813,40000,353651,32),
-(6814,50000,353651,33),
-(6815,150000,353651,34),
-(6816,150000,353651,35),
-(6817,30000,353651,36),
-(6818,40000,353651,37),
-(6819,50000,353651,38),
-(6820,150000,353651,39),
-(6821,150000,353651,40),
--- Recruits (6822-6831)
-(6822,15000,353651,41),
-(6823,20000,353651,42),
-(6824,25000,353651,43),
-(6825,75000,353651,44),
-(6826,75000,353651,45),
-(6827,15000,353651,46),
-(6828,20000,353651,47),
-(6829,25000,353651,48),
-(6830,75000,353651,49),
-(6831,75000,353651,50),
--- Nephilim (6832,6833)
-(6832,1200000,353651,51),
-(6833,1200000,353651,52),
--- Teleporters
-(6789,1200000,353651,53),
-(6790,1200000,353651,54),
-(6791,1200000,353651,55),
--- Rune, Gompus (35511/1)
--- Mercenaries (7973-7982)
-(7973,30000,355111,1),
-(7974,40000,355111,2),
-(7975,50000,355111,3),
-(7976,150000,355111,4),
-(7977,150000,355111,5),
-(7978,30000,355111,6),
-(7979,40000,355111,7),
-(7980,50000,355111,8),
-(7981,150000,355111,9),
-(7982,150000,355111,10),
--- Greater Mercenaries (7988-7997)
-(7988,60000,355111,11),
-(7989,80000,355111,12),
-(7990,100000,355111,13),
-(7991,300000,355111,14),
-(7992,300000,355111,15),
-(7993,60000,355111,16),
-(7994,80000,355111,17),
-(7995,100000,355111,18),
-(7996,300000,355111,19),
-(7997,300000,355111,20),
--- Dawn Mercenaries (7998-8007)
-(7998,120000,355111,21),
-(7999,160000,355111,22),
-(8000,200000,355111,23),
-(8001,600000,355111,24),
-(8002,600000,355111,25),
-(8003,120000,355111,26),
-(8004,160000,355111,27),
-(8005,200000,355111,28),
-(8006,600000,355111,29),
-(8007,600000,355111,30),
--- Greater Recruits (8008-8017)
-(8008,30000,355111,31),
-(8009,40000,355111,32),
-(8010,50000,355111,33),
-(8011,150000,355111,34),
-(8012,150000,355111,35),
-(8013,30000,355111,36),
-(8014,40000,355111,37),
-(8015,50000,355111,38),
-(8016,150000,355111,39),
-(8017,150000,355111,40),
--- Recruits (8018-8027)
-(8018,15000,355111,41),
-(8019,20000,355111,42),
-(8020,25000,355111,43),
-(8021,75000,355111,44),
-(8022,75000,355111,45),
-(8023,15000,355111,46),
-(8024,20000,355111,47),
-(8025,25000,355111,48),
-(8026,75000,355111,49),
-(8027,75000,355111,50),
--- Nephilim (8028,8029)
-(8028,1200000,355111,51),
-(8029,1200000,355111,52),
--- Teleporters
-(7983,1200000,355111,53),
-(7984,1200000,355111,54),
-(7985,1200000,355111,55),
-(7986,1200000,355111,56),
-(7987,1200000,355111,57),
--- Schuttgart, Kendrew (35228/1)
--- Mercenaries (7918-7927)
-(7918,30000,355571,1),
-(7919,40000,355571,2),
-(7920,50000,355571,3),
-(7921,150000,355571,4),
-(7922,150000,355571,5),
-(7923,30000,355571,6),
-(7924,40000,355571,7),
-(7925,50000,355571,8),
-(7926,150000,355571,9),
-(7927,150000,355571,10),
--- Greater Mercenaries (7931-7940)
-(7931,60000,355571,11),
-(7932,80000,355571,12),
-(7933,100000,355571,13),
-(7934,300000,355571,14),
-(7935,300000,355571,15),
-(7936,60000,355571,16),
-(7937,80000,355571,17),
-(7938,100000,355571,18),
-(7939,300000,355571,19),
-(7940,300000,355571,20),
--- Dawn Mercenaries (7941-7950)
-(7941,120000,355571,21),
-(7942,160000,355571,22),
-(7943,200000,355571,23),
-(7944,600000,355571,24),
-(7945,600000,355571,25),
-(7946,120000,355571,26),
-(7947,160000,355571,27),
-(7948,200000,355571,28),
-(7949,600000,355571,29),
-(7950,600000,355571,30),
--- Greater Recruits (7951-7960)
-(7951,30000,355571,31),
-(7952,40000,355571,32),
-(7953,50000,355571,33),
-(7954,150000,355571,34),
-(7955,150000,355571,35),
-(7956,30000,355571,36),
-(7957,40000,355571,37),
-(7958,50000,355571,38),
-(7959,150000,355571,39),
-(7960,150000,355571,40),
--- Recruits (7961-7970)
-(7961,15000,355571,41),
-(7962,20000,355571,42),
-(7963,25000,355571,43),
-(7964,75000,355571,44),
-(7965,75000,355571,45),
-(7966,15000,355571,46),
-(7967,20000,355571,47),
-(7968,25000,355571,48),
-(7969,75000,355571,49),
-(7970,75000,355571,50),
--- Nephilim (7971,7972)
-(7971,1200000,355571,51),
-(7972,1200000,355571,52),
--- Teleporters
-(7928,1200000,355571,53),
-(7929,1200000,355571,54);
-
-INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES
--- S84 Vesper Weapons With SA
-(14157,0,9907,56),
-(14158,0,9907,57),
-(14159,0,9907,58),
-
--- (GM-Shop) Belts
-(14922,0,9910,64),
-(14923,0,9910,65),
-(14924,0,9910,66),
-(14925,0,9910,67),
-(14926,0,9910,68),
-(14927,0,9910,69),
-(14928,0,9910,70),
-(14929,0,9910,71),
-(14930,0,9910,72),
-(14931,0,9910,73),
-(14932,0,9910,74),
-(14933,0,9910,75),
-(14934,0,9910,76),
-(14935,0,9910,77),
-(14936,0,9910,78),
-(14937,0,9910,79),
-(14938,0,9910,80),
-(14939,0,9910,81),
-(14940,0,9910,82),
-(14941,0,9910,83),
-(14942,0,9910,84),
-(14943,0,9910,85),
-(14944,0,9910,86),
-(14945,0,9910,87),
-(14946,0,9910,88),
-(14947,0,9910,89),
-(14948,0,9910,90),
-(14949,0,9910,91),
-(14950,0,9910,92),
-(14951,0,9910,93),
-(14952,0,9910,94),
-(14953,0,9910,95),
-(14954,0,9910,96),
-(14955,0,9910,97),
-(14956,0,9910,98),
-(14957,0,9910,99),
-(14958,0,9910,100),
-(14959,0,9910,101),
-(14960,0,9910,102),
-(14961,0,9910,103),
-
--- (GM-Shop) Dynasty Weapons
-(10253,0,9923,55),
-(13882,0,9923,56);
-
+-- L2JFree addons

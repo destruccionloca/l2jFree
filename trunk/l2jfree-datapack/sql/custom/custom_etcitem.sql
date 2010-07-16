@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `custom_etcitem` (
   `item_id` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
   `name` VARCHAR(100) NOT NULL DEFAULT '',
+  `additionalname` varchar(100) NOT NULL default '', 
   `crystallizable` VARCHAR(5) NOT NULL DEFAULT 'false',
   `item_type` VARCHAR(14) NOT NULL DEFAULT 'none',
   `weight` MEDIUMINT(5) NOT NULL DEFAULT 0,
