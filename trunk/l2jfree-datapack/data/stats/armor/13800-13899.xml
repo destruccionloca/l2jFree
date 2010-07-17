@@ -80,6 +80,8 @@
         <or>
           <player active_skill_id="8286"/> <!-- Vesper Noble Leather Breastplate -->
           <player active_skill_id="8304"/> <!-- Vesper Noble Leather Breastplate {PvP} -->
+          <player active_skill_id="8285"/> <!-- Vesper Leather Breastplate -->
+          <player active_skill_id="8303"/> <!-- Vesper Leather Breastplate {PvP} -->
         </or>
       </and>
     </cond>
@@ -93,6 +95,8 @@
       <or>
         <player active_skill_id="8284"/> <!-- Vesper Noble Breastplate -->
         <player active_skill_id="8302"/> <!-- Vesper Noble Breastplate {PvP} -->
+        <player active_skill_id="8283"/> <!-- Vesper Breastplate -->
+        <player active_skill_id="8301"/> <!-- Vesper Breastplate {PvP} -->
       </or>
     </cond>
     <for>
@@ -109,6 +113,8 @@
         <or>
           <player active_skill_id="8286"/> <!-- Vesper Noble Leather Breastplate -->
           <player active_skill_id="8304"/> <!-- Vesper Noble Leather Breastplate {PvP} -->
+          <player active_skill_id="8285"/> <!-- Vesper Leather Breastplate -->
+          <player active_skill_id="8303"/> <!-- Vesper Leather Breastplate {PvP} -->
         </or>
       </and>
     </cond>
@@ -122,6 +128,8 @@
       <or>
         <player active_skill_id="8288"/> <!-- Vesper Noble Tunic -->
         <player active_skill_id="8306"/> <!-- Vesper Noble Tunic {PvP} -->
+        <player active_skill_id="8287"/> <!-- Vesper Tunic -->
+        <player active_skill_id="8305"/> <!-- Vesper Tunic {PvP} -->
       </or>
     </cond>
     <for>

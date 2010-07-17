@@ -39,7 +39,7 @@
   </item>
   <item id="506" name="Shining Dragon Helmet">
     <for>
-      <add order="0x10" stat="pDef" val="69"/>
+      <add order="0x10" stat="pDef" val="67"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>

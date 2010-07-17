@@ -186,6 +186,8 @@
     <for/>
   </item>
   <item id="9899" name="Weight Loss Ring">
-    <for/>
+    <for>
+      <add order="0x10" stat="mDef" val="24"/>
+    </for>
   </item>
 </list>

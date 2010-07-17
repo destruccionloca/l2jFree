@@ -78,7 +78,7 @@
   </item>
   <item id="10140" name="Blessed Ring of Escape">
     <for>
-      <add order="0x10" stat="mDef" val="49"/>
+      <add order="0x10" stat="mDef" val="24"/>
       <enchant order="0x0C" stat="mDef" val="0"/>
     </for>
   </item>

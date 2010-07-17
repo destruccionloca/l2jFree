@@ -74,6 +74,7 @@
   <item id="14115" name="Sealed Vesper Stockings">
     <for>
       <add order="0x10" stat="pDef" val="74"/>
+      <add order="0x40" stat="maxMp" val="415"/>
       <enchant order="0x0C" stat="pDef" val="0"/>
     </for>
   </item>

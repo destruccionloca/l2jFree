@@ -165,51 +165,99 @@
     </for>
   </item>
   <item id="13472" name="Circlet of Innadril Valor">
+    <cond msgId="1518">
+      <player castle="6"/>
+    </cond>
     <for/>
   </item>
   <item id="13473" name="Circlet of Aden Valor">
+    <cond msgId="1518">
+      <player castle="5"/>
+    </cond>
     <for/>
   </item>
   <item id="13474" name="Circlet of Dion Valor">
+    <cond msgId="1518">
+      <player castle="2"/>
+    </cond>
     <for/>
   </item>
   <item id="13475" name="Circlet of Dion Sniper">
+    <cond msgId="1518">
+      <player castle="2"/>
+    </cond>
     <for/>
   </item>
   <item id="13476" name="Circlet of Innadril Sniper">
+    <cond msgId="1518">
+      <player castle="6"/>
+    </cond>
     <for/>
   </item>
   <item id="13477" name="Circlet of Oren Sniper">
+    <cond msgId="1518">
+      <player castle="4"/>
+    </cond>
     <for/>
   </item>
   <item id="13478" name="Circlet of Gludio Sage">
+    <cond msgId="1518">
+      <player castle="1"/>
+    </cond>
     <for/>
   </item>
   <item id="13479" name="Circlet of Rune Sage">
+    <cond msgId="1518">
+      <player castle="8"/>
+    </cond>
     <for/>
   </item>
   <item id="13480" name="Circlet of Giran Sage">
+    <cond msgId="1518">
+      <player castle="3"/>
+    </cond>
     <for/>
   </item>
   <item id="13481" name="Circlet of Goddard Combat">
+    <cond msgId="1518">
+      <player castle="7"/>
+    </cond>
     <for/>
   </item>
   <item id="13482" name="Circlet of Schuttgart Combat">
+    <cond msgId="1518">
+      <player castle="9"/>
+    </cond>
     <for/>
   </item>
   <item id="13483" name="Circlet of Oren Combat">
+    <cond msgId="1518">
+      <player castle="4"/>
+    </cond>
     <for/>
   </item>
   <item id="13484" name="Circlet of Gludio Silence">
+    <cond msgId="1518">
+      <player castle="1"/>
+    </cond>
     <for/>
   </item>
   <item id="13485" name="Circlet of Schuttgart Silence">
+    <cond msgId="1518">
+      <player castle="9"/>
+    </cond>
     <for/>
   </item>
   <item id="13486" name="Circlet of Aden Unity">
+    <cond msgId="1518">
+      <player castle="5"/>
+    </cond>
     <for/>
   </item>
   <item id="13487" name="Circlet of Rune Silence">
+    <cond msgId="1518">
+      <player castle="8"/>
+    </cond>
     <for/>
   </item>
   <item id="13488" name="Birthday Hat">
