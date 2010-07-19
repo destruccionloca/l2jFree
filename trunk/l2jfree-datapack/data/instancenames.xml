@@ -112,10 +112,10 @@
   <instance id="108" name="Pailaka (Rune Castle)"/>
   <instance id="109" name="Pailaka (Rune Castle)"/>
   <instance id="110" name="Seed of Destruction"/>
-  <instance id="111" name="Secret Oracle of Dawn"/>
-  <instance id="112" name="Disciple's Necropolis (Elmore-Aden)"/>
-  <instance id="113" name="Disciple's Necropolis (Elmore-Aden)"/>
-  <instance id="114" name="Disciple's Necropolis (Elmore-Aden)"/>
+  <instance id="111" name="Sanctum of the Lords of Dawn"/>
+  <instance id="112" name="Disciple's Necropolis (past)"/>
+  <instance id="113" name="Hideout of the Dawn"/>
+  <instance id="114" name="Cavern of the Pirate Captain (nightmare)"/>
   <instance id="115" name="Seed of Infinity (Hall of Suffering)"/>
   <instance id="116" name="Seed of Infinity (Hall of Suffering)"/>
   <instance id="117" name="Secret Area in the Keucereus Fortress"/>
@@ -128,4 +128,11 @@
   <instance id="124" name="Seed of Destruction (Soldier's Mounted Troop)"/>
   <instance id="125" name="Seed of Destruction (Warrior's Mounted Troop)"/>
   <instance id="126" name="Seed of Destruction (Great Warrior's Mounted Troop)"/>
+  <instance id="127" name="Chamber of Delusion (Eastern Seal)"/>
+  <instance id="128" name="Chamber of Delusion (Western Seal)"/>
+  <instance id="129" name="Chamber of Delusion (Southern Seal)"/>
+  <instance id="130" name="Chamber of Delusion (Northern Seal)"/>
+  <instance id="131" name="Chamber of Delusion (Great Seal)"/>
+  <instance id="132" name="Chamber of Delusion (Tower of Seal)"/>
+  <instance id="133" name="Cavern of the Pirate Captain (daydream)"/>
 </instances_list>

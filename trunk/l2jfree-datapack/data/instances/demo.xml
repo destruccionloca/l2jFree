@@ -3,6 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.l2jfree.com ../templates/instances.xsd">
   <activityTime val="5"/>
+  <emptyDestroyTime val="5"/>
   <timeDelay val="24"/>
   <spawnList>
     <spawn npcId="20556" x="82352" y="148608" z="-3468" heading="0"/>

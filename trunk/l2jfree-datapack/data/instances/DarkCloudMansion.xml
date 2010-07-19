@@ -5,7 +5,7 @@
   <activityTime val="30"/>
   <timeDelay val="24"/>
   <allowSummon val="false"/>
-  <emptyDestroyTime val="60"/>
+  <emptyDestroyTime val="30"/>
   <returnTeleport x="139408" y="150805" z="-3108"/>
   <doorList>
     <door doorId="24230001"/>

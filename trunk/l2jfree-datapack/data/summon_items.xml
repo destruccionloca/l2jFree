@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE list SYSTEM "templates/pet_call_items.dtd">
-<list> <!-- summonType: 0 = static, 1 = pet, 2 = wyvern -->
+<list> <!-- summonType: 0 = Static, 1 = Pet, 2 = Wyvern -->
   <!-- Static -->
   <!-- Christmas Tree -->
   <item id="5560">
@@ -18,7 +18,7 @@
     <npcId val="12077"/>
     <summonType val="1"/>
   </item>
-  <!-- Black Wolf -->
+  <!-- Evolved Wolf -->
   <item id="9882">
     <npcId val="16025"/>
     <summonType val="1"/>
@@ -201,6 +201,11 @@
   <!-- Turtle Ascetic -->
   <item id="14064">
     <npcId val="16053"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Deinonychus -->
+  <item id="14828">
+    <npcId val="16067"/>
     <summonType val="1"/>
   </item>
   <!-- Custom! -->
