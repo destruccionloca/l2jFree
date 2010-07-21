@@ -1,5 +1,5 @@
 # Script is used for preventing displaying html for npcs that dont have html on retail
-# Visit http://forum.l2jdp.com for more details.
+# Visit http://www.l2jdp.com/forum/ for more details.
 import sys
 from com.l2jfree.gameserver.model.quest import Quest as JQuest
 from com.l2jfree.gameserver.network.serverpackets import ActionFailed
@@ -30,10 +30,10 @@ NO_NAME_NPC_3       = 32620
 NO_NAME_NPC_4       = 32621
 
 NPCs = [RED_STAR_STONE_1, RED_STAR_STONE_2, RED_STAR_STONE_3, BLUE_STAR_STONE_1,
-	    BLUE_STAR_STONE_2, BLUE_STAR_STONE_3, GREEN_STAR_STONE_1, GREEN_STAR_STONE_2, GREEN_STAR_STONE_3,
-	    MERCENARY_CENTRY, ALICE_DE_CATRINA, PATROL_1, PATROL_2, PATROL_3, PATROL_4,
-	    HESTUI_GUARD, GARDEN_SCULPTURE, ICE_FAIRY_SCULPTURE, STRANGE_MACHINE, NO_NAME_NPC_1,
-	    NO_NAME_NPC_2, NO_NAME_NPC_3, NO_NAME_NPC_4]
+		BLUE_STAR_STONE_2, BLUE_STAR_STONE_3, GREEN_STAR_STONE_1, GREEN_STAR_STONE_2, GREEN_STAR_STONE_3,
+		MERCENARY_CENTRY, ALICE_DE_CATRINA, PATROL_1, PATROL_2, PATROL_3, PATROL_4,
+		HESTUI_GUARD, GARDEN_SCULPTURE, ICE_FAIRY_SCULPTURE, STRANGE_MACHINE, NO_NAME_NPC_1,
+		NO_NAME_NPC_2, NO_NAME_NPC_3, NO_NAME_NPC_4]
 
 class Quest(JQuest) :
     def __init__(self,id,name,descr):

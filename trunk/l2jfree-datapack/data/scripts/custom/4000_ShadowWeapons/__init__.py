@@ -31,7 +31,7 @@ class Quest (JQuest) :
       #let's assume character had both c & d-grade coupons, we'll confirm later
       multisell=306893003
       if not has_d :
-         #if s/he had c-grade only...
+         #if s/he had c-grade only
          multisell=306893002
       elif not has_c :
          #or d-grade only.

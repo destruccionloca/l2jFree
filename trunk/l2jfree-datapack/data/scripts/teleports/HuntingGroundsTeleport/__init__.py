@@ -1,6 +1,6 @@
 # By Deniska Spectr
 import sys
-from com.l2jfree.gameserver                    import SevenSigns
+from com.l2jfree.gameserver                      import SevenSigns
 from com.l2jfree.gameserver.model.quest          import State
 from com.l2jfree.gameserver.model.quest          import QuestState
 from com.l2jfree.gameserver.model.quest.jython   import QuestJython as JQuest

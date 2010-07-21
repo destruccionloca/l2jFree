@@ -2,7 +2,7 @@
 import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest import Quest as JQuest
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "1003_Survivor"
 

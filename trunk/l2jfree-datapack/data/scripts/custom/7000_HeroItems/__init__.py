@@ -5,6 +5,7 @@ from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.datatables import ItemTable
 qn = "7000_HeroItems"
+MONUMENTS=[31690]+range(31769,31773)
 
 # NPCs : Monuments to heroes
 MON_HUMAN   = 31690

@@ -47,7 +47,7 @@ public class IOPRace extends Quest
 		if (player.getLevel() < 78)
 			return "32349-notavailable.htm";
 		else if ((_player != -1) && (_player == player.getObjectId()) && (st.getQuestItemsCount(STAMP) == 4))
-			return "32349-return.htm"; // retail text missing
+			return "32349-return.htm";
 		else if (_player != -1)
 			return "32349-notavailable.htm";
 
@@ -104,7 +104,7 @@ public class IOPRace extends Quest
 			_player = -1;
 			return null;
 		}
-		else if (event.equalsIgnoreCase("finish")) // this is probably custom
+		else if (event.equalsIgnoreCase("finish"))
 		{
 			if (_player == player.getObjectId())
 			{
