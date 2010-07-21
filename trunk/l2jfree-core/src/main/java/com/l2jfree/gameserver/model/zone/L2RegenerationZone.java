@@ -27,6 +27,8 @@ public class L2RegenerationZone extends L2DangerZone
 	@Override
 	protected void checkForDamage(L2Character character)
 	{
+		super.checkForDamage(character);
+		
 		if (getHPDamagePerSecond() > 0)
 			character.getStatus().increaseHp(getHPDamagePerSecond());
 		

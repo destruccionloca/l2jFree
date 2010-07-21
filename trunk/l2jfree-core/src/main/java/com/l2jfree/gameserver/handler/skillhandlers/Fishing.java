@@ -23,6 +23,7 @@ import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
+import com.l2jfree.gameserver.model.zone.L2WaterZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
@@ -90,7 +91,7 @@ public class Fishing implements ISkillHandler
 		int x = activeChar.getX() + dx;
 		int y = activeChar.getY() + dy;
 
-		L2Zone water = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Water, x, y);
+		L2WaterZone water = ZoneManager.getInstance().isInsideZone(L2WaterZone.class, x, y);
 
 		// Float must be in water
 		if (water == null)

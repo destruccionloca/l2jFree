@@ -14,20 +14,53 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import org.w3c.dom.Node;
+
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.base.Race;
-import com.l2jfree.gameserver.network.SystemMessageId;
 
 public class L2MothertreeZone extends L2Zone
 {
+	private int _mpRegen;
+	private int _hpRegen;
+	
+	@Override
+	protected void parseSettings(Node n) throws Exception
+	{
+		Node hpRegen = n.getAttributes().getNamedItem("HpRegenBonus");
+		Node mpRegen = n.getAttributes().getNamedItem("MpRegenBonus");
+		
+		_hpRegen = (hpRegen != null) ? Integer.parseInt(hpRegen.getNodeValue()) : 0;
+		_mpRegen = (mpRegen != null) ? Integer.parseInt(mpRegen.getNodeValue()) : 0;
+		
+		super.parseSettings(n);
+	}
+	
+	/**
+	 * @return the _mpRegen
+	 */
+	public int getMpRegenBonus()
+	{
+		return _mpRegen;
+	}
+	
+	/**
+	 * @return the _hpRegen
+	 */
+	public int getHpRegenBonus()
+	{
+		return _hpRegen;
+	}
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_MOTHERTREE, true);
-			character.sendPacket(SystemMessageId.ENTER_SHADOW_MOTHER_TREE);
+			// TODO 1.4.0 add msgId at DP
+			//character.sendPacket(SystemMessageId.ENTER_SHADOW_MOTHER_TREE);
 		}
 		
 		super.onEnter(character);
@@ -39,12 +72,14 @@ public class L2MothertreeZone extends L2Zone
 		if (character instanceof L2PcInstance)
 		{
 			character.setInsideZone(FLAG_MOTHERTREE, false);
-			character.sendPacket(SystemMessageId.EXIT_SHADOW_MOTHER_TREE);
+			// TODO 1.4.0 add msgId at DP
+			//character.sendPacket(SystemMessageId.EXIT_SHADOW_MOTHER_TREE);
 		}
 		
 		super.onExit(character);
 	}
 	
+	// FIXME 1.4.0 add support for affectedRace
 	@Override
 	protected boolean checkConstantConditions(L2Character character)
 	{
@@ -59,6 +94,7 @@ public class L2MothertreeZone extends L2Zone
 		return super.checkConstantConditions(character);
 	}
 	
+	// FIXME 1.4.0 add support for affectedRace
 	@Override
 	protected boolean checkDynamicConditions(L2Character character)
 	{

@@ -67,7 +67,7 @@ public class L2FortDoormenInstance extends L2DoormenInstance
 	@Override
 	protected final boolean isUnderSiege()
 	{
-		return getFort().getZone().isSiegeActive();
+		return getFort().getSiege().getIsInProgress();
 	}
 	*/
 }

@@ -15,7 +15,8 @@
 package com.l2jfree.gameserver.instancemanager;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -32,7 +33,6 @@ import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.model.zone.L2Zone.ZoneType;
 import com.l2jfree.gameserver.util.Util;
 
 public final class ZoneManager
@@ -44,7 +44,7 @@ public final class ZoneManager
 		return SingletonHolder._instance;
 	}
 	
-	private final L2Zone[][] _zones = new L2Zone[ZoneType.values().length][];
+	private L2Zone[] _zones = new L2Zone[0];
 	private final FastMap<Integer, L2Zone> _uniqueZones = new FastMap<Integer, L2Zone>();
 	
 	private ZoneManager()
@@ -67,7 +67,7 @@ public final class ZoneManager
 		for (Castle c : CastleManager.getInstance().getCastles().values())
 			c.getSiege().onZoneReload();
 		
-		Arrays.fill(_zones, null);
+		_zones = new L2Zone[0];
 		
 		// Remove registered unique zones
 		_uniqueZones.clear();
@@ -111,6 +111,7 @@ public final class ZoneManager
 	protected int parseDocument(Document doc)
 	{
 		int zoneCount = 0;
+		List<L2Zone> zones = new ArrayList<L2Zone>();
 		
 		// Get the world regions
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
@@ -134,10 +135,7 @@ public final class ZoneManager
 						else if (id > 0)
 							_uniqueZones.put(id, zone);
 						
-						if (_zones[zone.getType().ordinal()] == null)
-							_zones[zone.getType().ordinal()] = new L2Zone[] { zone };
-						else
-							_zones[zone.getType().ordinal()] = (L2Zone[])ArrayUtils.add(_zones[zone.getType().ordinal()], zone);
+						zones.add(zone);
 						
 						// Register the zone to any intersecting world region
 						int ax, ay, bx, by;
@@ -161,22 +159,26 @@ public final class ZoneManager
 				}
 			}
 		}
+		
+		_zones = (L2Zone[])ArrayUtils.addAll(_zones, zones.toArray(new L2Zone[zones.size()]));
+		
 		return zoneCount;
 	}
 	
-	public L2Zone[][] getZones()
+	public L2Zone[] getZones()
 	{
 		return _zones;
 	}
 	
-	public final L2Zone isInsideZone(L2Zone.ZoneType zt, int x, int y)
+	@SuppressWarnings("unchecked")
+	public final <T extends L2Zone> T isInsideZone(Class<T> type, int x, int y)
 	{
 		final L2WorldRegion region = L2World.getInstance().getRegion(x, y);
 		
 		for (L2Zone zone : region.getZones())
-			if (zone.getType() == zt)
+			if (type.isInstance(zone))
 				if (zone.isInsideZone(x, y))
-					return zone;
+					return (T)zone;
 		
 		return null;
 	}
@@ -220,7 +222,7 @@ public final class ZoneManager
 		final L2WorldRegion region = L2World.getInstance().getRegion(x, y);
 		
 		for (L2Zone zone : region.getZones())
-			if (zone.getClass().equals(type))
+			if (type.isInstance(zone))
 				if (zone.isInsideZone(x, y, z))
 					return (T)zone;
 		

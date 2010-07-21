@@ -1046,7 +1046,7 @@ public enum SystemMessageId
 	 * ID: 167<br>
 	 * Message: $c1 is already on your friend list.
 	 */
-	C1_ALREADY_ON_LIST(167),
+	C1_ALREADY_ON_FRIENDS_LIST(167),
 	
 	/**
 	 * ID: 168<br>

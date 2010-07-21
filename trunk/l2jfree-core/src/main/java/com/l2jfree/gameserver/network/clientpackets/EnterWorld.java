@@ -62,7 +62,6 @@ import com.l2jfree.gameserver.network.serverpackets.ExGetBookMarkInfoPacket;
 import com.l2jfree.gameserver.network.serverpackets.ExNoticePostArrived;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
-import com.l2jfree.gameserver.network.serverpackets.FriendStatusPacket;
 import com.l2jfree.gameserver.network.serverpackets.HennaInfo;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -246,7 +245,7 @@ public class EnterWorld extends L2GameClientPacket
 				quest.notifyEnterWorld(activeChar);
 		}
 		
-		notifyFriends(activeChar);
+		activeChar.notifyFriends();
 		notifyClanMembers(activeChar);
 		notifySponsorOrApprentice(activeChar);
 		
@@ -532,17 +531,6 @@ public class EnterWorld extends L2GameClientPacket
 			L2PcInstance partner = L2World.getInstance().getPlayer(cha.getPartnerId());
 			if (partner != null)
 				partner.sendMessage("Your Partner " + cha.getName() + " has logged in.");
-		}
-	}
-	
-	private void notifyFriends(L2PcInstance cha)
-	{
-		FriendStatusPacket pkt = new FriendStatusPacket(cha.getObjectId());
-		for (Integer objId : cha.getFriendList().getFriendIds())
-		{
-			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
-			if (friend != null)
-				friend.sendPacket(pkt);
 		}
 	}
 	

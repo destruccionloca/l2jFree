@@ -103,10 +103,10 @@ public class L2DefenderInstance extends L2Guard
 		final Fort fortress = getFort();
 		
 		// Check if siege is in progress
-		if (fortress != null && fortress.getZone().isSiegeActive())
+		if (fortress != null && fortress.getSiege().getIsInProgress())
 			return fortress.getFortId();
 		
-		if (castle != null && castle.getZone().isSiegeActive())
+		if (castle != null && castle.getSiege().getIsInProgress())
 			return castle.getCastleId();
 		
 		return -1;

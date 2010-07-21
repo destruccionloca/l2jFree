@@ -3367,6 +3367,14 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
+	 * Exits all buffs effects of the skills with "removedOnAnyAction" set. Called on any action except movement (attack, cast).
+	 */
+	public final void stopEffectsOnAction()
+	{
+		_effects.stopEffectsOnAction();
+	}
+	
+	/**
 	 * Stop a specified/all Fake Death abnormal L2Effect.<BR>
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
@@ -3609,6 +3617,8 @@ public abstract class L2Character extends L2Object
 			ae |= AbnormalEffect.MUTED.getMask();
 		if (isPhysicalMuted())
 			ae |= AbnormalEffect.MUTED.getMask();
+		if (isAfraid())
+			ae |= AbnormalEffect.SKULL_FEAR.getMask();
 		return ae;
 	}
 

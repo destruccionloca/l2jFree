@@ -43,7 +43,7 @@ public class L2CastleZone extends SiegeableEntityZone
 
 		if (character instanceof L2PcInstance)
 		{
-			L2PcInstance player = (L2PcInstance) character;
+			L2PcInstance player = (L2PcInstance)character;
 			L2Clan clan = player.getClan();
 			if (clan != null)
 			{

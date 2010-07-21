@@ -689,6 +689,8 @@ public final class GlobalRestrictions
 	
 	public static void isInsideZoneStateChanged(L2Character activeChar, byte zone, boolean isInsideZone)
 	{
+		final L2PcInstance player = activeChar instanceof L2PcInstance ? (L2PcInstance)activeChar : null;
+		
 		switch (zone)
 		{
 			case L2Zone.FLAG_PVP:
@@ -697,6 +699,21 @@ public final class GlobalRestrictions
 					activeChar.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 				else
 					activeChar.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
+			}
+			case L2Zone.FLAG_DANGER:
+			{
+				if (player != null)
+					player.sendEtcStatusUpdate();
+			}
+			case L2Zone.FLAG_NOWYVERN:
+			{
+				if (player != null && player.getMountType() == 2)
+				{
+					if (isInsideZone)
+						player.enteredNoWyvernZone();
+					else
+						player.exitedNoWyvernZone();
+				}
 			}
 		}
 		

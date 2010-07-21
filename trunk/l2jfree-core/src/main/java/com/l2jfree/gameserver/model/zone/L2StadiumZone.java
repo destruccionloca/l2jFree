@@ -35,6 +35,6 @@ public class L2StadiumZone extends L2Zone
 		character.setInsideZone(FLAG_PVP, false);
 		character.setInsideZone(FLAG_NOWYVERN, false);
 		
-		super.onEnter(character);
+		super.onExit(character);
 	}
 }

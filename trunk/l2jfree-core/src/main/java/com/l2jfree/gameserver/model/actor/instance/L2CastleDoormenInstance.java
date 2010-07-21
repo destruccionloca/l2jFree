@@ -69,6 +69,6 @@ public class L2CastleDoormenInstance extends L2DoormenInstance
 	@Override
 	protected final boolean isUnderSiege()
 	{
-		return !Config.SIEGE_GATE_CONTROL && getCastle().getZone().isSiegeActive();
+		return !Config.SIEGE_GATE_CONTROL && getCastle().getSiege().getIsInProgress();
 	}
 }

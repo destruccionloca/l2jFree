@@ -25,7 +25,7 @@ import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.entity.Town;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
-import com.l2jfree.gameserver.model.zone.L2Zone;
+import com.l2jfree.gameserver.model.zone.L2TownZone;
 
 public class TownManager
 {
@@ -38,7 +38,7 @@ public class TownManager
 
 	private FastMap<Integer, Town>	_towns;
 
-	public void registerTown(L2Zone zone)
+	public void registerTown(L2TownZone zone)
 	{
 		Town t = new Town(zone);
 		t.registerZone(zone);

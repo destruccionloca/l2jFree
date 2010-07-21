@@ -218,9 +218,11 @@ import com.l2jfree.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExPrivateStoreSetWholeMsg;
 import com.l2jfree.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import com.l2jfree.gameserver.network.serverpackets.ExSpawnEmitter;
+import com.l2jfree.gameserver.network.serverpackets.ExStartScenePlayer;
 import com.l2jfree.gameserver.network.serverpackets.ExStorageMaxCount;
 import com.l2jfree.gameserver.network.serverpackets.ExVitalityPointInfo;
 import com.l2jfree.gameserver.network.serverpackets.FriendList;
+import com.l2jfree.gameserver.network.serverpackets.FriendStatusPacket;
 import com.l2jfree.gameserver.network.serverpackets.GMHide;
 import com.l2jfree.gameserver.network.serverpackets.GameGuardQuery;
 import com.l2jfree.gameserver.network.serverpackets.GetOnVehicle;
@@ -6746,6 +6748,10 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 				// Set Teleport Bookmark Slot
 				player.setBookMarkSlot(rset.getInt("BookmarkSlot"));
+				
+				// FIXME 1.4.0
+				// character creation Time
+				//player.setCreateTime(rset.getLong("createTime"));
 			}
 
 			rset.close();
@@ -9606,12 +9612,17 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			dismount();
 		}
 	}
-
+	
 	public void enteredNoWyvernZone()
+	{
+		enteredNoWyvernZone(5000);
+	}
+
+	public void enteredNoWyvernZone(int delay)
 	{
 		sendPacket(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
 
-		_dismountTask = ThreadPoolManager.getInstance().scheduleGeneral(new L2PcInstance.dismount(), 5000);
+		_dismountTask = ThreadPoolManager.getInstance().schedule(new L2PcInstance.dismount(), delay);
 	}
 
 	public void exitedNoWyvernZone()
@@ -9992,14 +10003,13 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			if (getPet() instanceof L2SummonInstance)
 				getPet().unSummon(this);
 
-			stopCubics();
-
 			abortCast();
 
 			for (L2Skill oldSkill : getAllSkills())
 				super.removeSkill(oldSkill);
 
 			stopAllEffectsExceptThoseThatLastThroughDeath();
+			stopCubics();
 
 			restoreRecipeBook(false);
 
@@ -10016,9 +10026,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			// If player has quest "422: Repent Your Sins", remove it
 			QuestState st = getQuestState("422_RepentYourSins");
 			if (st != null)
-			{
 				st.exitQuest(true);
-			}
 
 			for (int i = 0; i < 3; i++)
 				_henna[i] = null;
@@ -10044,9 +10052,6 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 			// Clear resurrect xp calculation
 			setExpBeforeDeath(0);
-
-			//getMacroses().restore();
-			//getMacroses().sendUpdate();
 
 			getShortCuts().restore();
 			sendPacket(new ShortCutInit(this));
@@ -11275,6 +11280,8 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 		RegionBBSManager.changeCommunityBoard(this, PlayerStateOnCommunity.NONE);
 
+		notifyFriends();
+		
 		//getClearableReference().clear();
 		LeakTaskManager.getInstance().add(this);
 
@@ -11293,11 +11300,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	{
 		final HashSet<L2Zone> set = new HashSet<L2Zone>();
 
-		for (L2Zone[] zones : ZoneManager.getInstance().getZones())
-			if (zones != null)
-				for (L2Zone zone : zones)
-					if (zone.getCharactersInside().contains(this))
-						set.add(zone);
+		for (L2Zone zone : ZoneManager.getInstance().getZones())
+			if (zone.getCharactersInside().contains(this))
+				set.add(zone);
 
 		return set;
 	}
@@ -12901,6 +12906,11 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	{
 		return getStat().getVitalityPoints();
 	}
+	
+	public int getVitalityLevel()
+	{
+		return getStat().getVitalityLevel();
+	}
 
 	public void setVitalityPoints(int points, boolean quiet)
 	{
@@ -13046,6 +13056,11 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			if (equippedItem != null && !equippedItem.getItem().checkCondition(this, false))
 			{
 				getInventory().unEquipItemInSlotAndRecord(i);
+				
+				InventoryUpdate iu = new InventoryUpdate();
+				iu.addModifiedItem(equippedItem);
+				sendPacket(iu);
+				
 				if (equippedItem.isWear())
 					continue;
 
@@ -14100,6 +14115,50 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		else
 			return -1;
 	}
+	
+	
+	/**
+	 * @return number of days to char birthday.<BR>
+	 *         <BR>
+	 */
+	// FIXME: 1.4.0
+	/*
+	public int checkBirthDay()
+	{
+		QuestState _state = getQuestState("CharacterBirthday");
+		Calendar now = Calendar.getInstance();
+		Calendar birth = Calendar.getInstance();
+		now.setTimeInMillis(System.currentTimeMillis());
+		birth.setTimeInMillis(_creationTime);
+		
+		if (_state != null && _state.getInt("Birthday") > now.get(Calendar.YEAR))
+			return -1;
+		
+		// "Characters with a February 29 creation date will receive a gift on February 28."
+		if (birth.get(Calendar.DAY_OF_MONTH) == 29 && birth.get(Calendar.MONTH) == 1)
+			birth.add(Calendar.HOUR_OF_DAY, -24);
+		
+		if (now.get(Calendar.MONTH) == birth.get(Calendar.MONTH)
+				&& now.get(Calendar.DAY_OF_MONTH) == birth.get(Calendar.DAY_OF_MONTH)
+				&& now.get(Calendar.YEAR) != birth.get(Calendar.YEAR))
+		{
+			return 0;
+		}
+		else
+		{
+			int i;
+			for (i = 1; i < 6; i++)
+			{
+				now.add(Calendar.HOUR_OF_DAY, 24);
+				if (now.get(Calendar.MONTH) == birth.get(Calendar.MONTH)
+						&& now.get(Calendar.DAY_OF_MONTH) == birth.get(Calendar.DAY_OF_MONTH)
+						&& now.get(Calendar.YEAR) != birth.get(Calendar.YEAR))
+					return i;
+			}
+		}
+		return -1;
+	}
+	*/
 
 	public final void saveLastTarget(int objectId)
 	{
@@ -14238,5 +14297,39 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	public boolean hasActiveConfirmDlg()
 	{
 		return _answerHandler != null;
+	}
+	
+	public void showQuestMovie(int id)
+	{
+		abortAttack();
+		abortCast();
+		stopMove(null);
+		sendPacket(new ExStartScenePlayer(id));
+	}
+	
+	public boolean isAllowedToEnchantSkills()
+	{
+		if (isLocked())
+			return false;
+		if (isTransformed())
+			return false;
+		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
+			return false;
+		if (isCastingNow() || isCastingSimultaneouslyNow())
+			return false;
+		if (isInBoat() || isInAirShip())
+			return false;
+		return true;
+	}
+	
+	public void notifyFriends()
+	{
+		FriendStatusPacket pkt = new FriendStatusPacket(getObjectId());
+		for (Integer objId : getFriendList().getFriendIds())
+		{
+			L2PcInstance friend = L2World.getInstance().findPlayer(objId);
+			if (friend != null)
+				friend.sendPacket(pkt);
+		}
 	}
 }

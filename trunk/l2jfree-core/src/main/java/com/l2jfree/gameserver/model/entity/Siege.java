@@ -59,6 +59,7 @@ import com.l2jfree.gameserver.threadmanager.ExclusiveTask;
 import com.l2jfree.gameserver.util.Broadcast;
 import com.l2jfree.util.L2FastSet;
 
+// TODO: 1.4.0 compare l2jserver's and l2jfree's flame tower implementations
 public class Siege extends AbstractSiege
 {
 	private final static Log _log = LogFactory.getLog(Siege.class);
@@ -430,7 +431,7 @@ public class Siege extends AbstractSiege
 				_controlTowerMaxCount = 0;
 				spawnControlTower(getCastle().getCastleId());
 				updatePlayerSiegeStateFlags(false);
-
+				
 				announceToParticipants(SystemMessageId.TEMPORARY_ALLIANCE.getSystemMessage());
 			}
 		}
@@ -457,6 +458,7 @@ public class Siege extends AbstractSiege
 			}
 
 			_isInProgress = true; // Flag so that same siege instance cannot be started again
+			
 			loadSiegeClan(); // Load siege clan from db
 			updatePlayerSiegeStateFlags(false);
 			teleportPlayer(Siege.TeleportWhoType.Attacker, TeleportWhereType.Town); // Teleport to the closest town
@@ -548,9 +550,15 @@ public class Siege extends AbstractSiege
 			for (L2PcInstance member : clan.getOnlineMembers(0))
 			{
 				if (clear)
-					member.setSiegeState((byte)0);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_NOT_INVOLVED);
+					member.setSiegeSide(0);
+				}
 				else
-					member.setSiegeState((byte)1);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_ATTACKER);
+					member.setSiegeSide(getCastle().getCastleId());
+				}
 				member.revalidateZone(true);
 				member.broadcastUserInfo();
 			}
@@ -563,9 +571,15 @@ public class Siege extends AbstractSiege
 			for (L2PcInstance member : clan.getOnlineMembers(0))
 			{
 				if (clear)
-					member.setSiegeState((byte)0);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_NOT_INVOLVED);
+					member.setSiegeSide(0);
+				}
 				else
-					member.setSiegeState((byte)2);
+				{
+					member.setSiegeState(L2PcInstance.SIEGE_STATE_DEFENDER);
+					member.setSiegeSide(getCastle().getCastleId());
+				}
 				member.revalidateZone(true);
 				member.broadcastUserInfo();
 			}
@@ -1168,10 +1182,10 @@ public class Siege extends AbstractSiege
 		// Remove all instance of control tower for this castle
 		for (L2ControlTowerInstance ct : _controlTowers)
 			if (ct != null)
-				ct.decayMe();
+				ct.deleteMe();
 		for (L2FlameControlTowerInstance fct : _flameTowers)
 			if (fct != null)
-				fct.decayMe();
+				fct.deleteMe();
 
 		_controlTowers.clear();
 		_flameTowers.clear();
@@ -1536,7 +1550,7 @@ public class Siege extends AbstractSiege
 	{
 		return _controlTowerCount;
 	}
-
+	
 	/**
 	 * Returns all zones in the given castle side
 	 * @param side Inner/Eastern = true, Outer/Western = false

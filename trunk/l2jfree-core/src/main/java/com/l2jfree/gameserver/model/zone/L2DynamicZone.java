@@ -29,6 +29,23 @@ import com.l2jfree.gameserver.skills.conditions.ConditionParser;
 
 public class L2DynamicZone extends L2Zone
 {
+	private boolean _buffRepeat; // Used for buffs and debuffs
+	
+	@Override
+	protected void parseSettings(Node n) throws Exception
+	{
+		Node buffRepeat = n.getAttributes().getNamedItem("buffRepeat");
+		
+		_buffRepeat = (buffRepeat != null) && Boolean.parseBoolean(buffRepeat.getNodeValue());
+		
+		super.parseSettings(n);
+	}
+	
+	public final boolean isRepeatingBuff()
+	{
+		return _buffRepeat;
+	}
+	
 	private ScheduledFuture<?> _task;
 	private Condition _cond;
 	

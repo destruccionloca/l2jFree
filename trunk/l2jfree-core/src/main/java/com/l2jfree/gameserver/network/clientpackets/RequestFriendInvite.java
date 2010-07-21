@@ -40,12 +40,8 @@ public final class RequestFriendInvite extends L2GameClientPacket
 			return;
 		
 		L2PcInstance friend = L2World.getInstance().getPlayer(_name);
-		if (friend == null || (friend.getAppearance().isInvisible() && friend.isGM()))
-			sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-		else if (friend == activeChar)
-			sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
-		else if (activeChar.getFriendList().contains(friend))
-			sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
+		if (!activeChar.getFriendList().canAddAsFriend(friend))
+			return;
 		else if (friend.isProcessingRequest())
 			sendPacket(new SystemMessage(SystemMessageId.C1_IS_BUSY_TRY_LATER).addPcName(friend));
 		else

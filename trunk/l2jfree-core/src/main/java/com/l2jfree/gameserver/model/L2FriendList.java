@@ -29,8 +29,8 @@ import com.l2jfree.gameserver.network.serverpackets.FriendPacket.FriendAction;
  */
 public final class L2FriendList
 {
-	private final L2PcInstance	_owner;
-	private final Set<Integer>	_set;
+	private final L2PcInstance _owner;
+	private final Set<Integer> _set;
 	
 	public L2FriendList(L2PcInstance owner)
 	{
@@ -38,9 +38,14 @@ public final class L2FriendList
 		_set = FriendListManager.getInstance().getFriendList(owner.getObjectId());
 	}
 	
+	public boolean contains(Integer objectId)
+	{
+		return _set.contains(objectId);
+	}
+	
 	public boolean contains(L2PcInstance player)
 	{
-		return player != null && _set.contains(player.getObjectId());
+		return player != null && contains(player.getObjectId());
 	}
 	
 	public Iterable<Integer> getFriendIds()
@@ -48,13 +53,28 @@ public final class L2FriendList
 		return _set;
 	}
 	
+	public boolean canAddAsFriend(L2PcInstance friend)
+	{
+		if (friend == null || friend.isOnline() == 0 || friend.getAppearance().isInvisible())
+			_owner.sendPacket(SystemMessageId.THE_USER_YOU_REQUESTED_IS_NOT_IN_GAME);
+		else if (friend == _owner)
+			_owner.sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_OWN_FRIEND_LIST);
+		else if (BlockList.isBlocked(_owner, friend))
+			_owner.sendMessage(friend.getName() + " is already on your Ignore List.");
+		else if (BlockList.isBlocked(friend, _owner))
+			_owner.sendMessage("You are in target's Ignore List.");
+		else if (contains(friend))
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_FRIENDS_LIST).addPcName(friend));
+		else
+			return true;
+		
+		return false;
+	}
+	
 	public void add(L2PcInstance friend)
 	{
-		if (_owner == friend)
-		{
-			_owner.sendPacket(SystemMessageId.YOU_CANNOT_ADD_YOURSELF_TO_YOUR_OWN_FRIENDS_LIST);
+		if (!canAddAsFriend(friend))
 			return;
-		}
 		
 		if (FriendListManager.getInstance().insert(_owner.getObjectId(), friend.getObjectId()))
 		{
@@ -67,7 +87,7 @@ public final class L2FriendList
 			friend.sendPacket(new FriendPacket(FriendAction.ADD_FRIEND, _owner.getObjectId()));
 		}
 		else
-			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_LIST).addPcName(friend));
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_FRIENDS_LIST).addPcName(friend));
 	}
 	
 	public void remove(String name)

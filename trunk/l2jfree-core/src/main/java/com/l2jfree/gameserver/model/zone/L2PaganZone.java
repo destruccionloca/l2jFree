@@ -23,7 +23,7 @@ public class L2PaganZone extends L2Zone
 {
 	private static final int MARK = 8064;
 	private static final int FADED_MARK = 8065;
-
+	
 	@Override
 	protected void onEnter(L2Character character)
 	{
@@ -35,5 +35,7 @@ public class L2PaganZone extends L2Zone
 				character.getActingPlayer().sendPacket(new SystemMessage(SystemMessageId.EARNED_S1).addItemName(FADED_MARK));
 			}
 		}
+		
+		super.onEnter(character);
 	}
 }

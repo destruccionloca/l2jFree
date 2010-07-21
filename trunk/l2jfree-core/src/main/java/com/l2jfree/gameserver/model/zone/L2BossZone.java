@@ -14,6 +14,8 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import org.w3c.dom.Node;
+
 import com.l2jfree.gameserver.instancemanager.FourSepulchersManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.AntharasManager;
 import com.l2jfree.gameserver.instancemanager.grandbosses.BaiumManager;
@@ -28,6 +30,40 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class L2BossZone extends L2Zone
 {
+	public static enum Boss
+	{
+		ANAKIM,
+		ANTHARAS,
+		BAIUM,
+		BAYLOR,
+		FOURSEPULCHERS,
+		FRINTEZZA,
+		LASTIMPERIALTOMB,
+		LILITH,
+		SAILREN,
+		SUNLIGHTROOM,
+		VALAKAS,
+		VANHALTER,
+		ZAKEN
+	}
+	
+	private Boss _boss;
+	
+	@Override
+	protected void parseSettings(Node n) throws Exception
+	{
+		Node boss = n.getAttributes().getNamedItem("boss");
+		
+		_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
+		
+		super.parseSettings(n);
+	}
+	
+	public final Boss getBoss()
+	{
+		return _boss;
+	}
+	
 	@Override
 	protected void register()
 	{

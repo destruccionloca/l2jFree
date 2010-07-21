@@ -256,7 +256,6 @@ public class FortSiege extends AbstractSiege
 			unSpawnFlags();
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, TeleportWhereType.Town);
 			_isInProgress = false; // Flag so that siege instance can be started
-			getZone().setSiegeActive(false);
 			getZone().updateSiegeStatus();
 			
 			saveFortSiege(); // Save fort specific data
@@ -307,7 +306,6 @@ public class FortSiege extends AbstractSiege
 			spawnSiegeGuard(); // Spawn siege guard
 			getFort().setVisibleFlag(false);
 			
-			getZone().setSiegeActive(true);
 			getZone().updateSiegeStatus();
 			
 			// Schedule a task to prepare auto siege end

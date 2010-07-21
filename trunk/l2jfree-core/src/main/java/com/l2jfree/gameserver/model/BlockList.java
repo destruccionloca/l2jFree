@@ -48,6 +48,12 @@ public final class BlockList
 			return;
 		}
 		
+		if (_owner.getFriendList().contains(player.getObjectId()))
+		{
+			_owner.sendPacket(new SystemMessage(SystemMessageId.C1_ALREADY_ON_FRIENDS_LIST).addPcName(player));
+			return;
+		}
+		
 		if (player.isGM())
 		{
 			_owner.sendPacket(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM);
@@ -76,7 +82,7 @@ public final class BlockList
 			_owner.sendMessage(name + " wasn't on your Ignore List.");
 	}
 	
-	private boolean contains(L2PcInstance player)
+	public boolean contains(L2PcInstance player)
 	{
 		if (player == null || player.isGM())
 			return false;
@@ -103,8 +109,9 @@ public final class BlockList
 	{
 		_owner.sendPacket(SystemMessageId.BLOCK_LIST_HEADER);
 		
+		int i = 1;
 		for (String name : _set)
-			_owner.sendMessage(name);
+			_owner.sendMessage((i++) + ". " + name);
 		
 		_owner.sendMessage("");
 	}

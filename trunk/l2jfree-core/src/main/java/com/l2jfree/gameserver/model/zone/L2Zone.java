@@ -55,46 +55,6 @@ public class L2Zone implements FuncOwner
 {
 	protected static final Log _log = LogFactory.getLog(L2Zone.class);
 	
-	public static enum ZoneType
-	{
-		Arena,
-		Boss,
-		Castle,
-		CastleTeleport,
-		Clanhall,
-		CoreBarrier,
-		Damage,
-		Danger,
-		Dynamic,
-		Default,
-		DefenderSpawn,
-		Fishing,
-		Fort,
-		HeadQuarters,
-		Jail,
-		Mothertree,
-		NoHQ,
-		Pagan,
-		Regeneration,
-		Siege,
-		SiegeDanger,
-		Stadium,
-		Town,
-		Water,
-		Script;
-		
-		private String getZoneClassName()
-		{
-			switch (this)
-			{
-				case Default:
-					return "L2Zone";
-				default:
-					return "L2" + name() + "Zone";
-			}
-		}
-	}
-	
 	// Overridden by siege zones, jail zone and town zones
 	public static enum PvpSettings
 	{
@@ -116,23 +76,6 @@ public class L2Zone implements FuncOwner
 		PC,
 		NPC,
 		ALL
-	}
-	
-	public static enum Boss
-	{
-		ANAKIM,
-		ANTHARAS,
-		BAIUM,
-		BAYLOR,
-		FOURSEPULCHERS,
-		FRINTEZZA,
-		LASTIMPERIALTOMB,
-		LILITH,
-		SAILREN,
-		SUNLIGHTROOM,
-		VALAKAS,
-		VANHALTER,
-		ZAKEN
 	}
 	
 	public static final byte FLAG_PVP = 0;
@@ -167,7 +110,6 @@ public class L2Zone implements FuncOwner
 	
 	private int _id;
 	private String _name;
-	private ZoneType _type;
 	private boolean _enabled;
 	
 	private Shape[] _shapes;
@@ -180,10 +122,7 @@ public class L2Zone implements FuncOwner
 	private int _clanhallId;
 	private int _townId;
 	private int _fortId;
-	private boolean _isSiegeActive;
-	
 	private PvpSettings _pvp;
-	private Boss _boss;
 	private Affected _affected = Affected.ALL;
 
 	/** Can't logout (including back to character selection menu); can't use SoE? */
@@ -201,11 +140,8 @@ public class L2Zone implements FuncOwner
 	private SystemMessage _onExitMsg;
 	
 	private int _abnormal;
-	private int _hpDamage;
-	private int _mpDamage;
 	
 	private boolean _exitOnDeath;
-	private boolean _buffRepeat; // Used for buffs and debuffs
 	
 	protected L2Skill[] _applyEnter;
 	private L2Skill[] _applyExit;
@@ -245,11 +181,6 @@ public class L2Zone implements FuncOwner
 		return _name;
 	}
 	
-	public final ZoneType getType()
-	{
-		return _type;
-	}
-	
 	public final String getClassName()
 	{
 		return getClass().getSimpleName();
@@ -273,40 +204,6 @@ public class L2Zone implements FuncOwner
 	public final int getFortId()
 	{
 		return _fortId;
-	}
-	
-	public final Boss getBoss()
-	{
-		return _boss;
-	}
-	
-	/**
-	 * <B>Get HP damage over time</B> (<I>per cycle</I>)<BR><BR>
-	 * <U>The interval is not necessarily one second</U>.
-	 * Default interval is 3000 ms.
-	 * @return HP amount to be subtracted
-	 * @see #getMPDamagePerSecond()
-	 */
-	public final int getHPDamagePerSecond()
-	{
-		return _hpDamage;
-	}
-	
-	/**
-	 * <B>Get MP damage over time</B> (<I>per cycle</I>)<BR><BR>
-	 * <U>The interval is not necessarily one second</U>.
-	 * Default interval is 3000 ms.
-	 * @return HP amount to be subtracted
-	 * @see #getHPDamagePerSecond()
-	 */
-	public final int getMPDamagePerSecond()
-	{
-		return _mpDamage;
-	}
-	
-	public final boolean isRepeatingBuff()
-	{
-		return _buffRepeat;
 	}
 	
 	public final boolean isPeace()
@@ -515,14 +412,8 @@ public class L2Zone implements FuncOwner
 				character.setInsideZone(FLAG_PEACE, true);
 		}
 		
-		if (_noWyvern && player != null)
-		{
+		if (_noWyvern)
 			character.setInsideZone(FLAG_NOWYVERN, true);
-			
-			if (player.getMountType() == 2)
-				player.enteredNoWyvernZone();
-		}
-		
 		if (_noEscape)
 			character.setInsideZone(FLAG_NOESCAPE, true);
 		if (_noPrivateStore)
@@ -578,14 +469,8 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_PEACE, false);
 		}
 		
-		if (_noWyvern && player != null)
-		{
+		if (_noWyvern)
 			character.setInsideZone(FLAG_NOWYVERN, false);
-			
-			if (player.getMountType() == 2)
-				player.exitedNoWyvernZone();
-		}
-		
 		if (_noEscape)
 			character.setInsideZone(FLAG_NOESCAPE, false);
 		if (_noPrivateStore)
@@ -1012,7 +897,7 @@ public class L2Zone implements FuncOwner
 	public static L2Zone parseZone(Node zn)
 	{
 		Integer id = -1;
-		ZoneType type = null;
+		String type = null;
 		String name;
 		Boolean enabled;
 		L2Zone zone = null;
@@ -1024,11 +909,11 @@ public class L2Zone implements FuncOwner
 			Node nn = zn.getAttributes().getNamedItem("name");
 			Node en = zn.getAttributes().getNamedItem("enabled");
 			
-			type = (tn != null) ? ZoneType.valueOf(tn.getNodeValue()) : ZoneType.Default;
+			type = (tn != null) ? tn.getNodeValue() : "";
 			name = (nn != null) ? nn.getNodeValue() : id.toString();
 			enabled = (en != null) ? Boolean.parseBoolean(en.getNodeValue()) : true;
 			
-			Class<?> clazz = Class.forName("com.l2jfree.gameserver.model.zone." + type.getZoneClassName());
+			Class<?> clazz = Class.forName("com.l2jfree.gameserver.model.zone.L2" + type + "Zone");
 			Constructor<?> constructor = clazz.getConstructor();
 			zone = (L2Zone)constructor.newInstance();
 		}
@@ -1039,7 +924,6 @@ public class L2Zone implements FuncOwner
 		}
 		
 		zone._id = id;
-		zone._type = type;
 		zone._name = name;
 		zone._enabled = enabled;
 		
@@ -1218,7 +1102,7 @@ public class L2Zone implements FuncOwner
 		_maxPlayers = (maxPlayers != null) ? Integer.parseInt(maxPlayers.getNodeValue()) : -1;
 	}
 	
-	private void parseSettings(Node n) throws Exception
+	protected void parseSettings(Node n) throws Exception
 	{
 		Node pvp = n.getAttributes().getNamedItem("pvp");
 		Node noWyvern = n.getAttributes().getNamedItem("noWyvern");
@@ -1226,13 +1110,9 @@ public class L2Zone implements FuncOwner
 		Node noEscape = n.getAttributes().getNamedItem("noEscape");
 		Node noPrivateStore = n.getAttributes().getNamedItem("noPrivateStore");
 		Node noSummon = n.getAttributes().getNamedItem("noSummon"); // Forbids summon friend skills.
-		Node boss = n.getAttributes().getNamedItem("boss");
 		Node affected = n.getAttributes().getNamedItem("affected");
-		Node buffRepeat = n.getAttributes().getNamedItem("buffRepeat");
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
-		Node hpDamage = n.getAttributes().getNamedItem("hpDamage");
-		Node mpDamage = n.getAttributes().getNamedItem("mpDamage");
 		Node noHeal = n.getAttributes().getNamedItem("noHeal");
 		Node uniqueId = n.getAttributes().getNamedItem("questZoneId");
 		
@@ -1242,13 +1122,9 @@ public class L2Zone implements FuncOwner
 		_noEscape = (noEscape != null) && Boolean.parseBoolean(noEscape.getNodeValue());
 		_noPrivateStore = (noPrivateStore != null) && Boolean.parseBoolean(noPrivateStore.getNodeValue());
 		_noSummon = (noSummon != null) && Boolean.parseBoolean(noSummon.getNodeValue());
-		_boss = (boss != null) ? Boss.valueOf(boss.getNodeValue().toUpperCase()) : null;
 		_affected = (affected != null) ? Affected.valueOf(affected.getNodeValue().toUpperCase()) : Affected.PLAYABLE;
-		_buffRepeat = (buffRepeat != null) && Boolean.parseBoolean(buffRepeat.getNodeValue());
 		_abnormal = (abnorm != null) ? Integer.decode("0x" + abnorm.getNodeValue()) : 0;
 		_exitOnDeath = (exitOnDeath != null) && Boolean.parseBoolean(exitOnDeath.getNodeValue());
-		_hpDamage = (hpDamage != null) ? Integer.parseInt(hpDamage.getNodeValue()) : 0;
-		_mpDamage = (mpDamage != null) ? Integer.parseInt(mpDamage.getNodeValue()) : 0;
 		_noHeal = (noHeal != null) && Boolean.parseBoolean(noHeal.getNodeValue());
 		_uniqueId = (uniqueId != null) ? Integer.parseInt(uniqueId.getNodeValue()) : 0;
 	}
@@ -1342,15 +1218,5 @@ public class L2Zone implements FuncOwner
 	protected void parseCondition(Node n) throws Exception
 	{
 		throw new IllegalStateException("This zone shouldn't have conditions!");
-	}
-
-	public boolean isSiegeActive()
-	{
-		return _isSiegeActive;
-	}
-	
-	public void setSiegeActive(boolean isSiegeActive)
-	{
-		_isSiegeActive = isSiegeActive;
 	}
 }

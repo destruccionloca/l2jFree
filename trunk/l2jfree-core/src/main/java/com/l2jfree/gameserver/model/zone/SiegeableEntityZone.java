@@ -14,9 +14,14 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
+import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.ClanHallManager;
 import com.l2jfree.gameserver.instancemanager.FortManager;
+import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.entity.AbstractSiege;
 import com.l2jfree.gameserver.model.entity.Castle;
 import com.l2jfree.gameserver.model.entity.ClanHall;
@@ -93,7 +98,27 @@ public abstract class SiegeableEntityZone extends L2Zone
 		if (_entity.getSiege() != null)
 			return _entity.getSiege().getIsInProgress();
 		else
-		// TODO: Not siegeable, but rather contested differently
+			// TODO: Not siegeable, but rather contested differently
 			return false;
+	}
+	
+	public static final int DEATH_SYNDROME = 5660;
+	
+	protected final void applyDeathSyndrome(L2Character character)
+	{
+		// debuff participants only if they die inside siege zone
+		if (character instanceof L2PcInstance && isSiegeInProgress())
+		{
+			int lvl;
+			L2Effect effect = character.getFirstEffect(DEATH_SYNDROME);
+			if (effect != null)
+				lvl = Math.min(effect.getLevel() + 1, SkillTable.getInstance().getMaxLevel(DEATH_SYNDROME));
+			else
+				lvl = 1;
+			
+			L2Skill skill = SkillTable.getInstance().getInfo(DEATH_SYNDROME, lvl);
+			if (skill != null)
+				skill.getEffects(character, character);
+		}
 	}
 }

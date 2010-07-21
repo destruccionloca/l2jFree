@@ -14,21 +14,18 @@
  */
 package com.l2jfree.gameserver.model.zone;
 
-import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
-import com.l2jfree.gameserver.model.L2Effect;
+import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import com.l2jfree.gameserver.model.entity.AbstractSiege;
 import com.l2jfree.gameserver.model.entity.Fort;
 
 public class L2SiegeZone extends SiegeableEntityZone
 {
-	public static final int DEATH_SYNDROME = 5660;
-
 	@Override
 	protected void register() throws Exception
 	{
@@ -47,12 +44,15 @@ public class L2SiegeZone extends SiegeableEntityZone
 		
 		if (character instanceof L2PcInstance)
 		{
-			L2PcInstance pc = (L2PcInstance) character;
-			if (pc.getClan() != null
-				&& (_entity.getSiege().checkIsAttacker(pc.getClan())
-				|| _entity.getSiege().checkIsDefender(pc.getClan())))
+			L2PcInstance pc = (L2PcInstance)character;
+			L2Clan clan = pc.getClan();
+			if (clan != null)
 			{
-				pc.setIsInSiege(true);
+				AbstractSiege s = getSiege();
+				if (s.checkIsAttacker(clan) || s.checkIsDefender(clan))
+				{
+					pc.setIsInSiege(true);
+				}
 			}
 		}
 		
@@ -67,8 +67,9 @@ public class L2SiegeZone extends SiegeableEntityZone
 		character.setInsideZone(FLAG_NOSUMMON, false);
 		
 		if (character instanceof L2SiegeSummonInstance)
+		{
 			((L2SiegeSummonInstance)character).unSummon();
-		
+		}
 		else if (character instanceof L2PcInstance)
 		{
 			final L2PcInstance activeChar = (L2PcInstance)character;
@@ -120,20 +121,8 @@ public class L2SiegeZone extends SiegeableEntityZone
 	@Override
 	protected void onDieInside(L2Character character)
 	{
-		// debuff participants only if they die inside siege zone
-		if (character instanceof L2PcInstance && isSiegeInProgress())
-		{
-			int lvl;
-			L2Effect effect = character.getFirstEffect(DEATH_SYNDROME);
-			if (effect != null)
-				lvl = Math.min(effect.getLevel() + 1, SkillTable.getInstance().getMaxLevel(DEATH_SYNDROME));
-			else
-				lvl = 1;
-
-			L2Skill skill = SkillTable.getInstance().getInfo(DEATH_SYNDROME, lvl);
-			if (skill != null)
-				skill.getEffects(character, character);
-		}
+		applyDeathSyndrome(character);
+		
 		super.onDieInside(character);
 	}
 }

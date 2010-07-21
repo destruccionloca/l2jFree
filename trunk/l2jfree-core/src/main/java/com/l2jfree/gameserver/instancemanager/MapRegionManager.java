@@ -50,6 +50,7 @@ import com.l2jfree.gameserver.model.mapregion.L2MapRegion;
 import com.l2jfree.gameserver.model.mapregion.L2MapRegionRestart;
 import com.l2jfree.gameserver.model.mapregion.L2SpecialMapRegion;
 import com.l2jfree.gameserver.model.mapregion.TeleportWhereType;
+import com.l2jfree.gameserver.model.zone.L2ArenaZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.util.L2Collections;
@@ -307,7 +308,7 @@ public final class MapRegionManager
 		}
 		
 		// Checking if in arena
-		L2Zone arena = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Arena, player.getX(), player.getY());
+		L2ArenaZone arena = ZoneManager.getInstance().isInsideZone(L2ArenaZone.class, player.getX(), player.getY());
 		if (arena != null && arena.isInsideZone(player))
 		{
 			Location loc = arena.getRestartPoint(L2Zone.RestartType.OWNER);
