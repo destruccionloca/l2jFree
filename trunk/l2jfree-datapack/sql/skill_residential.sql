@@ -104,7 +104,7 @@ INSERT INTO `skill_residential` VALUES
 (107,598,1), -- Bayou Fort Residence Empower
 (110,597,1), -- Marshland/Swamp Fort Residence Shield
 (110,600,1), -- Marshland/Swamp Fort Residence Guidance
-(112,601,1), -- Floran Fort Residence Agility
+(112,600,1), -- Floran Fort Residence Agility
 (112,607,1), -- Floran Fort Residence Freedom
 (113,606,1); -- Cloud Mountain Fort Residence Fortitude
 
