@@ -105,6 +105,7 @@ public class FourSepulchersManager extends BossLair
 																	{ 25339, 175591, -72744, -7215, 49317 } }, };
 
 	protected Map<Integer, Boolean>			_archonSpawned			= new FastMap<Integer, Boolean>();
+	protected Map<Integer, Boolean>			_shadowSpawned			= new FastMap<Integer, Boolean>();
 	protected Map<Integer, Boolean>			_hallInUse				= new FastMap<Integer, Boolean>();
 	protected Map<Integer, int[]>			_startHallSpawns		= new FastMap<Integer, int[]>();
 	protected Map<Integer, Integer>			_hallGateKeepers		= new FastMap<Integer, Integer>();
@@ -255,6 +256,15 @@ public class FourSepulchersManager extends BossLair
 			for (int npcId : npcIdSet)
 			{
 				_archonSpawned.put(npcId, false);
+			}
+		}
+
+		if (!_shadowSpawned.isEmpty())
+		{
+			Set<Integer> npcIds = _shadowSpawned.keySet();
+			for (int npcId : npcIds)
+			{
+				_shadowSpawned.put(npcId, false);
 			}
 		}
 	}
@@ -770,6 +780,7 @@ public class FourSepulchersManager extends BossLair
 		L2NpcTemplate template;
 
 		_shadowSpawns.clear();
+		_shadowSpawned.clear();
 
 		for (int i = 0; i <= 3; i++)
 		{
@@ -787,6 +798,7 @@ public class FourSepulchersManager extends BossLair
 					SpawnTable.getInstance().addNewSpawn(spawnDat, false);
 					int keyNpcId = gateKeeper[i];
 					_shadowSpawns.put(keyNpcId, spawnDat);
+					_shadowSpawned.put(keyNpcId, false);
 				}
 				catch (Exception e)
 				{
@@ -1333,11 +1345,16 @@ public class FourSepulchersManager extends BossLair
 		if (!isAttackTime())
 			return;
 
+		boolean status = _shadowSpawned.get(npcId);
+		if (status)
+			return;
+
 		L2Spawn spawnDat = _shadowSpawns.get(npcId);
 		if (spawnDat != null)
 		{
 			L2SepulcherMonsterInstance mob = (L2SepulcherMonsterInstance) spawnDat.doSpawn();
 			spawnDat.stopRespawn();
+			_shadowSpawned.put(npcId, true);
 
 			if (mob != null)
 			{
