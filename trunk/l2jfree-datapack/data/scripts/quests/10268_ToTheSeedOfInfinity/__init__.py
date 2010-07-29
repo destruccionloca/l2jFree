@@ -12,7 +12,7 @@ qn = "10268_ToTheSeedOfInfinity"
 
 #NPCs
 Keucereus = 32548
-Tepios = 32530
+Tepios = 32603
 
 #items
 Introduction = 13811

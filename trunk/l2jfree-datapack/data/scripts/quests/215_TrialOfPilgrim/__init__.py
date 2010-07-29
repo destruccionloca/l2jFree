@@ -149,7 +149,7 @@ class Quest (JQuest) :
    elif npcId == 30550 and cond==7 :
       htmltext = "30550-02.htm"
    elif npcId == 30650 and cond==7 and st.getQuestItemsCount(TAG_OF_RUMOR) :
-      htmltext = st.showHtmlFile("30650-01.htm").replace("RequiredAdena", str(100000*int(Config.RATE_DROP_ADENA)))
+      htmltext = st.showHtmlFile("30650-01.htm").replace("RequiredAdena", str(100000))
    elif npcId == 30650 and cond>=9 and st.getQuestItemsCount(GREY_BADGE) and st.getQuestItemsCount(BOOK_OF_GERALD) :
       htmltext = "30650-04.htm"
       st.rewardItems(ADENA,100000)

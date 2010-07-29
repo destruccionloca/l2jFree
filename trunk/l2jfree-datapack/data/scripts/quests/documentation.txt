@@ -14,7 +14,7 @@ of the script.
 
 Jython quest scripts essentially inherit from the Java class com.l2jfree.gameserver.model.quest.Quest
 Developers who are comfortable with Java may read the source code for this class, as provided by the
-l2jserver project (www.l2jserver.com) for full details and available functions.  Alternatively, one
+l2jfree project (www.l2jfree.com) for full details and available functions.  Alternatively, one
 may read forward in this documentation.
 
 

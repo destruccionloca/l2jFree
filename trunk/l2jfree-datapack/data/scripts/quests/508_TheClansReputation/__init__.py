@@ -115,7 +115,7 @@ class Quest (JQuest) :
         elif count == 1 :
            htmltext = "30868-"+str(raid)+"b.htm"
            st.takeItems(item,1)
-           clan.setReputationScore(clan.getReputationScore()+CLAN_POINTS_REWARD,True)
+           clan.addReputationScore(CLAN_POINTS_REWARD,True)
            player.sendPacket(SystemMessage(1777).addNumber(CLAN_POINTS_REWARD))
            clan.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
   return htmltext

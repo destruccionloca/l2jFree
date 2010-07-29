@@ -12,7 +12,6 @@ qn = "136_MoreThanMeetsTheEye"
 HARDIN=30832
 ERRICKIN=30701
 CLAYTON=30464
-AVANTGARDE=32323
 
 # ITEM
 ECTOPLASM=9787
@@ -117,15 +116,6 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_middle")
    return htmltext
 
- def onFirstTalk (self,npc,player):
-   st = player.getQuestState(qn)
-   npcId = npc.getNpcId()
-   if npcId == AVANTGARDE and st:
-     if st.getState() == State.COMPLETED :
-          return "32323-00.htm"
-   npc.showChatWindow(player)
-   return None
-
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return
@@ -160,7 +150,6 @@ QUEST.addStartNpc(HARDIN)
 QUEST.addTalkId(HARDIN)
 QUEST.addTalkId(ERRICKIN)
 QUEST.addTalkId(CLAYTON)
-QUEST.addFirstTalkId(AVANTGARDE)
 
 for mob in DROPLIST.keys() :
   QUEST.addKillId(mob)

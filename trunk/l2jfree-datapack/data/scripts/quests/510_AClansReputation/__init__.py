@@ -61,7 +61,7 @@ class Quest (JQuest) :
            htmltext = "31331-7.htm" # custom html
            st.takeItems(Claw,-1)
            reward = int(CLAN_POINTS_REWARD * count)
-           clan.setReputationScore(clan.getReputationScore()+reward,True)
+           clan.addReputationScore(reward,True)
            player.sendPacket(SystemMessage(1777).addNumber(reward))
            clan.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
   return htmltext
