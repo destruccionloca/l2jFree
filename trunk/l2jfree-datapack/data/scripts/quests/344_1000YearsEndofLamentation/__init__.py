@@ -153,6 +153,8 @@ class Quest (JQuest) :
         elif rewards(st,npcId) :
            htmltext=str(npcId)+"-01.htm"
            st.playSound("ItemSound.quest_middle")
+           st.set("cond","1")
+           st.unset("mission")
      return htmltext
 
  def onKill(self,npc,player,isPet):
