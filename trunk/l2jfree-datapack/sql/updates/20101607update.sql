@@ -1,6 +1,6 @@
----- Sync L2j 6776
+---- Sync L2jdp 6776
 
----- 2001118
+---- 20100118
 ALTER TABLE  `castle` ADD `showNpcCrest` enum('true','false') DEFAULT 'false' NOT  NULL AFTER `regTimeEnd`;
 
 ---- 20091202
