@@ -582,7 +582,7 @@
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
-    <set name="power" val="80"/> <!-- Needs to be checked -->
+    <set name="power" val="80"/> <!-- Guess -->
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
