@@ -760,7 +760,7 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="20"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="100000"/>
+    <set name="reuseDelay" val="10000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="CONFUSE_MOB_ONLY"/>
     <set name="isMagic" val="true"/>

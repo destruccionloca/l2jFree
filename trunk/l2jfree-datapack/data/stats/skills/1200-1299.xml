@@ -609,8 +609,8 @@
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="1500"/>
-    <set name="hitTime" val="1000"/>
+    <set name="reuseDelay" val="1000"/>
+    <set name="hitTime" val="1500"/>
     <set name="skillType" val="MDAM"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -2421,7 +2421,7 @@
     <set name="elementPower" val="20"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="MDAM"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="isMagic" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="500"/>

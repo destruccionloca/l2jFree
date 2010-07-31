@@ -76,7 +76,7 @@
   <item id="13889" name="Holy Spirit's Cloak - Kamael exclusive">
     <cond msgId="2453">
       <and>
-        <player race="Kamael"/>
+        <player race="Kamael"/> <!-- Kamael exclusive cloak --> 
         <or>
           <player active_skill_id="8286"/> <!-- Vesper Noble Leather Breastplate -->
           <player active_skill_id="8304"/> <!-- Vesper Noble Leather Breastplate {PvP} -->
