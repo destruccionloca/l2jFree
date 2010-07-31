@@ -58,7 +58,7 @@
     <cond msgId="2453">
       <and>
         <not>
-          <player race="Kamael"/> <!-- Kamael exclusive cloak --> 
+          <player race="Kamael"/>
         </not>
         <or>
           <player active_skill_id="3352"/> <!-- Dynasty Leather Armor - Dagger Master -->
