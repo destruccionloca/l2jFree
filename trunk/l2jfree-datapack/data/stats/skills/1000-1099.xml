@@ -1546,7 +1546,7 @@
     <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="reuseDelay" val="4000"/>
+    <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="4000"/>
     <set name="skillType" val="FEAR"/>
     <set name="isMagic" val="true"/>

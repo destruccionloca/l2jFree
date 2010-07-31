@@ -1760,7 +1760,7 @@
     <table name="#ench2mpConsume"> 85 84 82 81 78 78 77 74 74 72 70 69 68 66 65 </table>
     <set name="mpInitialConsume" val="22"/>
     <set name="mpConsume" val="87"/>
-    <set name="power" val="80"/> <!-- Base Land Rate -->
+    <set name="power" val="80"/>
     <set name="magicLvl" val="79"/>
     <set name="lvlDepend" val="1"/>
     <set name="isMagic" val="true"/>

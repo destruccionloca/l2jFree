@@ -197,8 +197,6 @@
     <set name="castRange" val="500"/>
     <set name="effectRange" val="1000"/>
     <set name="baseCritRate" val="15"/>
-    <!-- charge values -->
-    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -210,6 +208,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="2"/> <!-- Requires a sword, blunt weapon or dualsword weapon whose 2nd energy stage has been recharged. -->
+    </cond>
   </skill>
   <skill id="8" levels="8" name="Sonic Focus">
     <table name="#maxCharges"> 1 2 3 4 5 6 7 8 </table>
@@ -226,6 +227,11 @@
     <!-- Can be charged up to level 8 -->
     <set name="giveCharges" val="1"/>
     <set name="maxCharges" val="#maxCharges"/>
+    <cond msgId="113" addName="1">
+      <not>
+        <player Charges="#maxCharges"/>
+      </not>
+    </cond>
   </skill>
   <skill id="9" levels="34" name="Sonic Buster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 461 465 469 474 478 482 486 490 494 498 502 506 511 515 519 523 527 531 535 539 543 548 552 556 560 564 568 572 576 581 </table>
@@ -254,8 +260,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
-    <!-- charge values -->
-    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -267,6 +271,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="2"/> <!-- Requires a sword, blunt weapon or dualsword weapon whose 2nd energy stage has been recharged. -->
+    </cond>
   </skill>
   <skill id="10" levels="8" name="Summon Storm Cubic" enchantLevels1="30">
     <table name="#ench1power"> 1980 1985 1990 1995 2000 2005 2010 2015 2020 2025 2030 2035 2040 2045 2050 2055 2060 2065 2070 2075 2080 2085 2090 2095 2100 2105 2110 2115 2120 2125 </table> <!-- Need Verify -->
@@ -420,8 +427,6 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
-    <!-- charge values -->
-    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant1 name="power" val="#ench1power"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant3 name="elementPower" val="#enchElementPower"/>
@@ -433,6 +438,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="1"/> <!-- Requires a hand-to-hand weapon whose 1st energy stage has been recharged. -->
+    </cond>
   </skill>
   <skill id="18" levels="37" name="Aura of Hate" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
     <table name="#ench1power"> 6591 6601 6611 6621 6631 6642 6652 6662 6672 6682 6692 6703 6713 6723 6733 6743 6753 6764 6774 6784 6794 6804 6814 6825 6835 6845 6855 6865 6875 6886 </table>
@@ -795,9 +803,10 @@
     <enchant5 name="element" val="2"/> <!-- Wind -->
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
-    <!-- charge values -->
-    <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="1"/> <!-- Requires a hand-to-hand weapon whose 1st energy stage has been recharged. -->
+    </cond>
   </skill>
   <skill id="36" levels="37" name="Whirlwind" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 2763 2788 2813 2837 2862 2887 2911 2936 2961 2985 3010 3035 3059 3084 3109 3133 3158 3183 3207 3232 3257 3281 3306 3331 3355 3380 3405 3429 3454 3479 </table>
@@ -990,6 +999,11 @@
     <!-- charge values -->
     <set name="giveCharges" val="1"/>
     <set name="maxCharges" val="#maxCharges"/>
+    <cond msgId="113" addName="1">
+      <not>
+        <player Charges="#maxCharges"/>
+      </not>
+    </cond>
   </skill>
   <skill id="51" levels="1" name="Lure" enchantLevels1="30">
     <table name="#ench1mpConsume"> 43 43 43 42 42 42 41 41 41 40 40 40 39 39 39 38 38 38 37 37 37 36 36 36 35 35 35 34 34 34 </table>
