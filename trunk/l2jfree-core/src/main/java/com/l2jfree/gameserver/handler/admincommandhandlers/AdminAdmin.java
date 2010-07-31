@@ -126,14 +126,14 @@ public class AdminAdmin implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_silence"))
 		{
-			if (activeChar.getMessageRefusal()) // already in message refusal mode
+			if (activeChar.isSilenceMode()) // already in message refusal mode
 			{
 				activeChar.setMessageRefusal(false);
 				activeChar.sendPacket(SystemMessageId.MESSAGE_ACCEPTANCE_MODE);
 			}
 			else
 			{
-				activeChar.setMessageRefusal(true);
+				activeChar.setSilenceMode(true);
 				activeChar.sendPacket(SystemMessageId.MESSAGE_REFUSAL_MODE);
 			}
 
@@ -403,6 +403,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					activeChar
 							.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers|siege|fortsiege|chsiege|door>");
 				}
+				activeChar.sendMessage("WARNING: There are several known issues regarding this feature. Reloading server data during runtime is STRONGLY NOT RECOMMENDED for live servers, just for developing environments.");
 			}
 			catch (Exception e)
 			{

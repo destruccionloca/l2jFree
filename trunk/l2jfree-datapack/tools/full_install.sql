@@ -28,6 +28,7 @@ DROP TABLE IF EXISTS
 	character_quests,
 	character_raid_points,
 	character_recipebook,
+	character_recipshoplist,
 	character_recommends,
 	character_shortcuts,
 	character_skills,

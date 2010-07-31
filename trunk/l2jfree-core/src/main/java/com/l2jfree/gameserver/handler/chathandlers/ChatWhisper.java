@@ -50,7 +50,7 @@ public class ChatWhisper implements IChatHandler
 
 		if (receiver != null)
 		{
-			if ((!receiver.getMessageRefusal() && !BlockList.isBlocked(receiver, activeChar)) || activeChar.isGM())
+			if ((!receiver.isSilenceMode() && !BlockList.isBlocked(receiver, activeChar)) || activeChar.isGM())
 			{
 				if (receiver.isInOfflineMode())
 				{

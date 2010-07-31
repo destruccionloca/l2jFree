@@ -2,6 +2,7 @@ import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree import Config
 
 qn = "255_Tutorial"
 
@@ -124,9 +125,12 @@ TCLc = {
     }
 class Quest (JQuest) :
 
-    def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+    def __init__(self,id,name,descr):
+        JQuest.__init__(self,id,name,descr)
 
     def onAdvEvent(self,event,npc,player):
+        if Config.DISABLE_TUTORIAL :
+            return
         st = player.getQuestState(qn)
         classId = int(st.getPlayer().getClassId().getId())
         string = event[0:2]

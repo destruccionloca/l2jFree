@@ -7,6 +7,7 @@ from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.network.serverpackets import PlaySound
+from com.l2jfree import Config
 
 qn = "999_T1Tutorial"
 qnTutorial = "255_Tutorial"
@@ -72,9 +73,12 @@ TALKS={
 
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+ def __init__(self,id,name,descr):
+    JQuest.__init__(self,id,name,descr)
 
  def onAdvEvent(self,event,npc,player):
+    if Config.DISABLE_TUTORIAL :
+        return
     st = player.getQuestState(qn)
     if not st: return
     htmltext = event

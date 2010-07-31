@@ -197,6 +197,7 @@ full_install()
 	$MYG < ../sql/character_quest_global_data.sql &> /dev/null
 	$MYG < ../sql/character_quests.sql &> /dev/null
 	$MYG < ../sql/character_recipebook.sql &> /dev/null
+	$MYG < ../sql/character_recipeshoplist.sql &> /dev/null
 	$MYG < ../sql/character_recommend_data.sql &> /dev/null
 	$MYG < ../sql/character_recommends.sql &> /dev/null
 	$MYG < ../sql/character_shortcuts.sql &> /dev/null
