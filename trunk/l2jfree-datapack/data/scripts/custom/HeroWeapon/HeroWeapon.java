@@ -41,6 +41,7 @@ public class HeroWeapon extends Quest
 		}
 	}
 
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		QuestState st = player.getQuestState(getName());
@@ -53,12 +54,13 @@ public class HeroWeapon extends Quest
 		return null;
 	}
 
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
 		QuestState st = player.getQuestState(getName());
 		if (st == null)
-			newQuestState(player);
+			st = newQuestState(player);
 
 		if (player.isHero())
 		{
@@ -92,9 +94,9 @@ public class HeroWeapon extends Quest
 
 	private static boolean contains(int[] array, int obj)
 	{
-		for (int i = 0; i < array.length; i++)
+		for (int element : array)
 		{
-			if (array[i] == obj)
+			if (element == obj)
 				return true;
 		}
 

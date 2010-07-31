@@ -16,9 +16,9 @@ package teleports.OracleTeleport;
 
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
-import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.quest.State;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
@@ -104,6 +104,7 @@ public class OracleTeleport extends Quest
 		}
 	}
 
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
@@ -205,6 +206,7 @@ public class OracleTeleport extends Quest
 		return htmltext;
 	}
 
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
@@ -318,9 +320,9 @@ public class OracleTeleport extends Quest
 
 	private static boolean contains(int[] array, int obj)
 	{
-		for (int i = 0; i < array.length; i++)
+		for (int element : array)
 		{
-			if (array[i] == obj)
+			if (element == obj)
 				return true;
 		}
 

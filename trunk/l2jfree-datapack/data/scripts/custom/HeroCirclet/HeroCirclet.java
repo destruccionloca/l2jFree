@@ -36,12 +36,13 @@ public class HeroCirclet extends Quest
 		}
 	}
 
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
 		QuestState st = player.getQuestState(getName());
 		if (st == null)
-			newQuestState(player);
+			st = newQuestState(player);
 
 		if (player.isHero())
 		{

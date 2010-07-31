@@ -43,6 +43,7 @@ public class HuntingGroundsTeleport extends Quest
 		}
 	}
 
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
@@ -144,9 +145,9 @@ public class HuntingGroundsTeleport extends Quest
 
 	private static boolean contains(int[] array, int obj)
 	{
-		for (int i = 0; i < array.length; i++)
+		for (int element : array)
 		{
-			if (array[i] == obj)
+			if (element == obj)
 				return true;
 		}
 

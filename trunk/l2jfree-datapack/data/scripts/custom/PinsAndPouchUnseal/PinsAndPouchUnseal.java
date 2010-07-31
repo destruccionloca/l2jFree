@@ -19,7 +19,7 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
-import com.l2jfree.util.Rnd;
+import com.l2jfree.tools.random.Rnd;
 
 public class PinsAndPouchUnseal extends Quest
 {
@@ -57,6 +57,7 @@ public class PinsAndPouchUnseal extends Quest
 		}
 	}
 
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
@@ -85,7 +86,7 @@ public class PinsAndPouchUnseal extends Quest
 			{
 				if (st.getQuestItemsCount(57) > price)
 				{
-					htmltext = "";	
+					htmltext = "";
 					st.takeItems(57, price);
 					st.takeItems(itemIds[0], 1);
 					int rand = Rnd.get(100);
@@ -111,6 +112,7 @@ public class PinsAndPouchUnseal extends Quest
 		return htmltext;
 	}
 
+	@Override
 	public String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";

@@ -21,7 +21,7 @@ import com.l2jfree.gameserver.model.quest.QuestState;
 
 public class MithrilMines extends Quest
 {
-	private static final int[][] data = 
+	private static final int[][] data =
 	{
 		{171946, -173352, 3440},
 		{175499, -181586, -904},
@@ -41,6 +41,7 @@ public class MithrilMines extends Quest
 		addTalkId(npcId);
 	}
 	
+	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
@@ -60,6 +61,7 @@ public class MithrilMines extends Quest
 		return htmltext;
 	}
 
+	@Override
 	public String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";

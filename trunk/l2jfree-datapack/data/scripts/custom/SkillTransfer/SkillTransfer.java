@@ -136,6 +136,7 @@ public class SkillTransfer extends Quest
 		}
 	};
 
+	@Override
 	public final String onAcquireSkillList(L2Npc npc, L2PcInstance player)
 	{
 		if (player == null)
@@ -148,10 +149,10 @@ public class SkillTransfer extends Quest
 			AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.SkillType.unk4);
 			int[][] skillsList = SKILL_TRANSFER_TREE[index];
 
-			for (int i = 0; i < skillsList.length; i++)
+			for (int[] element : skillsList)
 			{
-				int skillId = skillsList[i][0];
-				int skillLevel = skillsList[i][1];
+				int skillId = element[0];
+				int skillLevel = element[1];
 				if (player.getSkillLevel(skillId) >= skillLevel)
 					continue;
 
@@ -169,6 +170,7 @@ public class SkillTransfer extends Quest
 		return null;
 	}
 
+	@Override
 	public final String onAcquireSkill(L2Npc npc, L2PcInstance player, L2Skill skill)
 	{
 		if (player == null || skill == null)
@@ -179,9 +181,9 @@ public class SkillTransfer extends Quest
 		{
 			int[][] skillsList = SKILL_TRANSFER_TREE[index];
 			
-			for (int i = 0; i < skillsList.length; i++)
+			for (int[] element : skillsList)
 			{
-				if (skill.getId() == skillsList[i][0] && skill.getLevel() <= skillsList[i][1])
+				if (skill.getId() == element[0] && skill.getLevel() <= element[1])
 				{
 					final int itemId = PORMANDERS[index][0];
 					if (player.getInventory().getItemByItemId(itemId) != null)
@@ -200,6 +202,7 @@ public class SkillTransfer extends Quest
 		return "false";
 	}
 
+	@Override
 	public final String onAcquireSkillInfo(L2Npc npc, L2PcInstance player, L2Skill skill)
 	{
 		if (player == null || skill == null)
@@ -211,9 +214,9 @@ public class SkillTransfer extends Quest
 			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), 0, 4);
 			int[][] skillsList = SKILL_TRANSFER_TREE[index];
 			
-			for (int i = 0; i < skillsList.length; i++)
+			for (int[] element : skillsList)
 			{
-				if (skill.getId() == skillsList[i][0])
+				if (skill.getId() == element[0])
 				{
 					asi.addRequirement(99, PORMANDERS[index][0], 1, 50);
 					player.sendPacket(asi);
@@ -225,6 +228,7 @@ public class SkillTransfer extends Quest
 		return null;
 	}
 
+	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = "";
@@ -271,9 +275,9 @@ public class SkillTransfer extends Quest
 
 					for (L2Skill skill : player.getAllSkills())
 					{
-						for (int i = 0; i < skillsList.length; i++)
+						for (int[] element : skillsList)
 						{
-							if (skill.getId() == skillsList[i][0])
+							if (skill.getId() == element[0])
 							{
 								if (!found)
 									found = true;
@@ -300,6 +304,7 @@ public class SkillTransfer extends Quest
 		return htmltext;
 	}
 
+	@Override
 	public final String onEnterWorld(L2PcInstance player)
 	{
 		givePormanders(null, player);
@@ -328,6 +333,7 @@ public class SkillTransfer extends Quest
 		}
 	}
 
+	@Override
 	public final String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		return "main.htm";

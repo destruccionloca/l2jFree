@@ -33,7 +33,6 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2BossZone;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.model.zone.L2Zone.ZoneType;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExShowScreenMessage;
 import com.l2jfree.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -67,7 +66,7 @@ public class IceFairySirra extends L2AttackableAIScript
 
 	private void init0()
 	{
-		L2Zone zone = ZoneManager.getInstance().isInsideZone(ZoneType.Boss, 105546, 127892);
+		L2Zone zone = ZoneManager.getInstance().isInsideZone(L2BossZone.class, 105546, 127892);
 		//_freyasZone = GrandBossManager.getInstance().getZone(105546, -127892, -2768);
 		//if (_freyasZone == null)
 		if (!(zone instanceof L2BossZone))
