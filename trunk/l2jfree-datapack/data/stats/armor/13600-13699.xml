@@ -4,8 +4,8 @@
   <item id="13687" name="Knight's Cloak">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/> <!-- Knight -->
-        <player castle="-1"/>
+        <player pledgeClass="5"/> <!-- Baron -->
+        <player castle="-1"/> <!-- owns a castle -->
         <or>
           <player active_skill_id="8284"/> <!-- Vesper Noble Breastplate -->
           <player active_skill_id="8302"/> <!-- Vesper Noble Breastplate {PvP} -->
@@ -20,7 +20,7 @@
   <item id="13688" name="Knight's Cloak - Light Armor exclusive">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/> <!-- Knight -->
+        <player pledgeClass="5"/> <!-- Baron -->
         <player castle="-1"/> <!-- owns a castle -->
         <not>
           <player race="Kamael"/>
@@ -39,7 +39,7 @@
   <item id="13689" name="Knight's Cloak - Robe exclusive">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/> <!-- Knight -->
+        <player pledgeClass="5"/> <!-- Baron -->
         <player castle="-1"/> <!-- owns a castle -->
         <or>
           <player active_skill_id="8288"/> <!-- Vesper Noble Tunic -->
@@ -55,7 +55,7 @@
   <item id="13690" name="Knight's Cloak - Kamael exclusive">
     <cond msgId="2453">
       <and>
-        <player pledgeClass="3"/> <!-- Knight -->
+        <player pledgeClass="5"/> <!-- Baron -->
         <player castle="-1"/> <!-- owns a castle -->
         <player race="Kamael"/> <!-- Kamael exclusive cloak -->
         <or>

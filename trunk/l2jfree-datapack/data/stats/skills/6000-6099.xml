@@ -627,7 +627,7 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="castRange" val="40"/>
     <for>
-      <effect name="Paralyze" time="10" val="0" noicon="1"/>
+      <effect name="Paralyze" time="10" val="0"/>
     </for>
   </skill>
   <skill id="6092" levels="1" name="Lightning Shock">

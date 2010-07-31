@@ -1323,11 +1323,14 @@
     </for>
   </skill>
   <skill id="5697" levels="4" name="Seal">
-    <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="DEBUFF"/>
+    <!-- Imbue Seed of Destruction effect -->
+    <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="power" val="100"/> <!-- Base Land Rate -->
+    <set name="skillType" val="MUTE"/>
+    <set name="target" val="TARGET_ONE"/>
     <for>
-      <effect count="1" name="Mute" time="10" val="0" stackOrder="1" stackType="silence"/>
+      <effect name="SilenceMagicPhysical" time="10" val="0"/>
     </for>
   </skill>
   <skill id="5698" levels="7" name="Bless the Blood">
