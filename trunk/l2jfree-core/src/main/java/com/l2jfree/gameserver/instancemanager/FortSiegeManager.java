@@ -180,7 +180,8 @@ public class FortSiegeManager
 
 				for (int i = 1; i < 5; i++)
 				{
-					String _spawnParams = siegeSettings.getProperty(fort.getName() + "Commander" + Integer.toString(i), "");
+					String fortName = fort.getName();
+					String _spawnParams = siegeSettings.getProperty(fortName.replaceAll(" ", "") + "Commander" + Integer.toString(i), "");
 
 					if (_spawnParams.length() == 0)
 						break;
