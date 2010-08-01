@@ -10588,3 +10588,5 @@ UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '672-1' WHERE (item_i
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '673-1' WHERE (item_id='10305');-- Oel Mahum
 UPDATE etcitem SET handler = 'ItemSkills', `skills_item` = '674-1' WHERE (item_id='10306');-- Doll Blader
 
+-- Prison Gate Key (Psycho)
+UPDATE `etcitem` SET `handler` = 'ItemSkills', `skills_item` = '2360-1' WHERE `item_id` =10015;
