@@ -133,7 +133,7 @@ of this directory a little bit.
 
 350980012.xml -> BlackSmith Lahm
 
-36142001.xml -> Dragonspine fortress buylist
+36142001.xml -> Suspicious Merchant
 36114001.xml -> Tanor Fortress Support Unit Captain - magic related products (hear/face gear)
 36114002.xml -> Tanor Fortress Support Unit Captain - bracelets
 36114003.xml -> Tanor Fortress Support Unit Captain - t-shirts
@@ -208,3 +208,9 @@ of this directory a little bit.
 364980001.xml -> Territory Manager - Schuttgart
 
 326580001.xml -> S80 Armors / Jewels - Delusion Chamber
+3122800.xml -> Heavy Medal Event - No collector level
+3122801.xml -> Heavy Medal Event - Rabbit
+3122802.xml -> Heavy Medal Event - Hyena
+3122803.xml -> Heavy Medal Event - Fox
+3122804.xml -> Heavy Medal Event - Wolf
+
