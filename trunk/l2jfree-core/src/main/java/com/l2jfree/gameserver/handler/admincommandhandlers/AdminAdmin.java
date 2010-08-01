@@ -41,6 +41,7 @@ import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.instancemanager.ZoneManager;
 import com.l2jfree.gameserver.model.L2Multisell;
+import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2SummonInstance;
@@ -452,7 +453,7 @@ public class AdminAdmin implements IAdminCommandHandler
 		else if (command.startsWith("admin_debug"))
 		{
 			_log.info("A GM requested debug information for player " + command.substring(12));
-			L2Object targetChar = activeChar.getTarget(); 
+			L2Object targetChar = activeChar.getTarget();
 			if(targetChar != null)
 				targetChar.onActionShift(activeChar);
 		}

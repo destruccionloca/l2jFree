@@ -27,37 +27,23 @@ public class Zariche extends L2Transformation
 	}
 	
 	@Override
-	public void onTransform(L2PcInstance player)
+	public void transformedSkills(L2PcInstance player)
 	{
 		// Set charachter name to transformed name
 		player.getAppearance().setVisibleName("Zariche");
 		player.getAppearance().setVisibleTitle("");
 		
-		// give transformation skills
-		transformedSkills(player);
-	}
-	
-	@Override
-	public void transformedSkills(L2PcInstance player)
-	{
 		addSkill(player, 3630, 1); // Void Burst
 		addSkill(player, 3631, 1); // Void Flow
 	}
 	
 	@Override
-	public void onUntransform(L2PcInstance player)
+	public void removeSkills(L2PcInstance player)
 	{
 		// set character back to true name.
 		player.getAppearance().setVisibleName(null);
 		player.getAppearance().setVisibleTitle(null);
 		
-		// remove transformation skills
-		removeSkills(player);
-	}
-	
-	@Override
-	public void removeSkills(L2PcInstance player)
-	{
 		removeSkill(player, 3630); // Void Burst
 		removeSkill(player, 3631); // Void Flow
 	}

@@ -106,9 +106,12 @@ public abstract class L2Transformation
 	}
 	
 	// Scriptable Events
-	public void onTransform(L2PcInstance player)
+	public final void onTransform(L2PcInstance player)
 	{
-		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+		if (player.getTransformationId() != getId())
+			return;
+		
+		if (player.isCursedWeaponEquipped() && getId() != TRANSFORM_ZARICHE && getId() != TRANSFORM_AKAMANAH)
 			return;
 		
 		if (isStance())
@@ -123,8 +126,8 @@ public abstract class L2Transformation
 		// transformation dispelling skills
 		switch (getId())
 		{
-			case 301: // Zariche
-			case 302: // Akamanah
+			case TRANSFORM_ZARICHE: // Zariche
+			case TRANSFORM_AKAMANAH: // Akamanah
 				// can't be dispelled
 				break;
 			
@@ -136,6 +139,7 @@ public abstract class L2Transformation
 			case 106: // LightPurpleManedHorse
 			case 109: // TawnyManedLion
 			case 110: // SteamBeatle
+			case 123: // GuardianStrider
 				addSkill(player, 839, 1); // Dismount
 				break;
 			
@@ -150,8 +154,8 @@ public abstract class L2Transformation
 		// negative passive skills
 		switch (getId())
 		{
-			case 301: // Zariche
-			case 302: // Akamanah
+			case TRANSFORM_ZARICHE: // Zariche
+			case TRANSFORM_AKAMANAH: // Akamanah
 				// doesn't have
 				break;
 			
@@ -168,6 +172,12 @@ public abstract class L2Transformation
 				addSkill(player, 5437, 2); // Dissonance
 				break;
 			
+			case 102: // Yeti
+			case 103: // Buffalo
+			case 323: // Yeti2
+				addSkill(player, 5437, 1); // Dissonance
+				break;
+			
 			default:
 				addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
 				break;
@@ -176,7 +186,7 @@ public abstract class L2Transformation
 	
 	protected abstract void transformedSkills(L2PcInstance player);
 	
-	public void onUntransform(L2PcInstance player)
+	public final void onUntransform(L2PcInstance player)
 	{
 		// remove transformation skills
 		removeSkills(player);
@@ -197,6 +207,7 @@ public abstract class L2Transformation
 			case 106: // LightPurpleManedHorse
 			case 109: // TawnyManedLion
 			case 110: // SteamBeatle
+			case 123: // GuardianStrider
 				removeSkill(player, 839); // Dismount
 				break;
 			
@@ -226,6 +237,12 @@ public abstract class L2Transformation
 			case 114: // SnowKing
 			case 115: // ScareCrow
 			case 116: // TinGolem
+				removeSkill(player, 5437); // Dissonance
+				break;
+			
+			case 102: // Yeti
+			case 103: // Buffalo
+			case 323: // Yeti2
 				removeSkill(player, 5437); // Dissonance
 				break;
 			
