@@ -190,7 +190,7 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="11000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1070"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="ignoreShld" val="true"/>
@@ -211,7 +211,7 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="11000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1070"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="ignoreShld" val="true"/>
@@ -231,7 +231,7 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1620"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="ignoreShld" val="true"/>
@@ -253,7 +253,7 @@
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="reuseDelay" val="4000"/>
-    <set name="hitTime" val="1000"/>
+    <set name="hitTime" val="1730"/>
     <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="ignoreShld" val="true"/>

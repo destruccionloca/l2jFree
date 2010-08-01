@@ -27,6 +27,32 @@ public class VanguardPaladin extends L2Transformation
 	}
 	
 	@Override
+	public void onTransform(L2PcInstance player)
+	{
+		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+			return;
+
+		// Update transformation ID into database and player instance variables.
+		player.transformInsertInfo();
+
+		addSkill(player, 838, 1); // Switch Stance
+		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
+
+		// give transformation skills
+		transformedSkills(player);
+	}
+
+	@Override
+	public void onUntransform(L2PcInstance player)
+	{
+		removeSkill(player, 838); // Switch Stance
+		removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
+
+		// remove transformation skills
+		removeSkills(player);
+	}
+
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		if (player.getLevel() > 43)
@@ -35,9 +61,11 @@ public class VanguardPaladin extends L2Transformation
 			addSkill(player, 293, level); // Two handed mastery
 			addSkill(player, 814, level); // Full Swing
 			addSkill(player, 816, level); // Power Divide
+			addSkill(player, 856, level); // Boost Morale
+			addSkill(player, 857, level); // Guillotine Attack
 		}
 		
-		player.addTransformAllowedSkill(new int[] { 28, 18, 406, 400, 196, 197 });
+		player.addTransformAllowedSkill(new int[] {18,28,196,197,293,400,406,814,816,838,956,957,5491});
 	}
 	
 	@Override
@@ -46,6 +74,8 @@ public class VanguardPaladin extends L2Transformation
 		removeSkill(player, 293); // Two handed mastery
 		removeSkill(player, 814); // Full Swing
 		removeSkill(player, 816); // Power Divide
+		removeSkill(player, 856); // Boost Morale
+		removeSkill(player, 857); // Guillotine Attack
 	}
 	
 	public static void main(String[] args)

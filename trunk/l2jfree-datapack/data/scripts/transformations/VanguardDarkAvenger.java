@@ -27,6 +27,32 @@ public class VanguardDarkAvenger extends L2Transformation
 	}
 	
 	@Override
+	public void onTransform(L2PcInstance player)
+	{
+		if (player.getTransformationId() != getId() || player.isCursedWeaponEquipped())
+			return;
+
+		// Update transformation ID into database and player instance variables.
+		player.transformInsertInfo();
+
+		addSkill(player, 838, 1); // Switch Stance
+		addSkill(player, 5491, 1); // Decrease Bow/Crossbow Attack Speed
+
+		// give transformation skills
+		transformedSkills(player);
+	}
+
+	@Override
+	public void onUntransform(L2PcInstance player)
+	{
+		removeSkill(player, 838); // Switch Stance
+		removeSkill(player, 5491); // Decrease Bow/Crossbow Attack Speed
+
+		// remove transformation skills
+		removeSkills(player);
+	}
+
+	@Override
 	public void transformedSkills(L2PcInstance player)
 	{
 		if (player.getLevel() > 43)
@@ -35,9 +61,11 @@ public class VanguardDarkAvenger extends L2Transformation
 			addSkill(player, 144, level); // Dual Weapon Mastery
 			addSkill(player, 815, level); // Blade Hurricane
 			addSkill(player, 817, level); // Double Strike
+			addSkill(player, 856, level); // Boost Morale
+			addSkill(player, 858, level); // Triple Blade Slash
 		}
 		
-		player.addTransformAllowedSkill(new int[] { 28, 18, 283, 65, 401, 86 });
+		player.addTransformAllowedSkill(new int[] {18,28,65,86,144,283,401,815,817,838,956,958,5491});
 	}
 	
 	@Override
@@ -46,6 +74,8 @@ public class VanguardDarkAvenger extends L2Transformation
 		removeSkill(player, 144); // Dual Weapon Mastery
 		removeSkill(player, 815); // Blade Hurricane
 		removeSkill(player, 817); // Double Strike
+		removeSkill(player, 856); // Boost Morale
+		removeSkill(player, 858); // Triple Blade Slash
 	}
 	
 	public static void main(String[] args)
