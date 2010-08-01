@@ -138,7 +138,7 @@ public class SummonItems implements IItemHandler
 			activeChar.sendMessage("Created " + npcTemplate.getName() + " at x: " + spawn.getLocx() + " y: " + spawn.getLocy() + " z: " + spawn.getLocz());
 			break;
 		case 1: // Pet Summons
-			Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, 2046, 1, 5000, 0), 2000);
+			Broadcast.toSelfAndKnownPlayers(activeChar, new MagicSkillUse(activeChar, activeChar, 2046, 1, 5000, 0));
 
 			activeChar.sendPacket(SystemMessageId.SUMMON_A_PET);
 

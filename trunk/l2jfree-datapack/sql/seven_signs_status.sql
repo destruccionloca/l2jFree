@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `seven_signs_status` (
   `current_cycle` INT(10) NOT NULL DEFAULT 1,
   `festival_cycle` INT(10) NOT NULL DEFAULT 1,
   `active_period` INT(10) NOT NULL DEFAULT 1,
-  `date` INT(10) NOT NULL DEFAULT 1,
+  `date` DECIMAL(20,0) NOT NULL DEFAULT 1,
   `previous_winner` INT(10) NOT NULL DEFAULT 0,
   `dawn_stone_score` DECIMAL(20,0) NOT NULL DEFAULT 0,
   `dawn_festival_score` INT(10) NOT NULL DEFAULT 0,
