@@ -22,12 +22,9 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
-import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
-import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfo;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
 import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillResult;
@@ -46,8 +43,8 @@ import com.l2jfree.gameserver.network.serverpackets.UserInfo;
  */
 public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 {
-	private int	_skillId;
-	private int	_skillLvl;
+	private int _skillId;
+	private int _skillLvl;
 	
 	@Override
 	protected void readImpl()
@@ -63,6 +60,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		if (player == null)
 			return;
 		
+		/*
 		L2Npc trainer = player.getLastFolkNPC();
 		if (!(trainer instanceof L2NpcInstance))
 			return;
@@ -72,16 +70,23 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
 		}
+		*/
 		
 		if (player.getLevel() < 76)
 		{
-			requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
+			requestFailed(SystemMessageId.YOU_CANNOT_USE_SKILL_ENCHANT_ON_THIS_LEVEL);
 			return;
 		}
 		
-		if (player.getClassId().level() < 3)
+		if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
 		{
-			requestFailed(SystemMessageId.NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION);
+			requestFailed(SystemMessageId.YOU_CANNOT_USE_SKILL_ENCHANT_IN_THIS_CLASS);
+			return;
+		}
+		
+		if (!player.isAllowedToEnchantSkills())
+		{
+			requestFailed(SystemMessageId.YOU_CANNOT_USE_SKILL_ENCHANT_ATTACKING_TRANSFORMED_BOAT);
 			return;
 		}
 		
@@ -129,10 +134,9 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		int requiredAdena = esd.getAdenaCost();
 		
 		L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-		if (Config.ALT_ES_SP_BOOK_NEEDED && spb == null) // if (Config.ES_SP_BOOK_NEEDED && usesBook) dissabled till official info - will request book for each
-		// untrain
+		if (Config.ALT_ES_SP_BOOK_NEEDED && spb == null)
 		{
-			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_UNTRAIN_SKILL_ENCHANT);
+			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_OF_THE_ITEMS_NEEDED_TO_ENCHANT_THAT_SKILL);
 			return;
 		}
 		
@@ -143,23 +147,24 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 		}
 		
 		boolean check = true;
-		if (Config.ALT_ES_SP_BOOK_NEEDED) // if (Config.ES_SP_BOOK_NEEDED && usesBook) dissabled till official info - will request book for each untrain
-			check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
+		if (Config.ALT_ES_SP_BOOK_NEEDED)
+			check &= player.destroyItem("Consume", spb.getObjectId(), 1, player, true);
 		
-		check &= player.getStat().addSp((requiredSp * 8) / 10);
-		check &= player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, requiredAdena, trainer, true);
+		check &= player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, requiredAdena, player, true);
 		
 		if (!check)
 		{
-			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_UNTRAIN_SKILL_ENCHANT);
+			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_OF_THE_ITEMS_NEEDED_TO_ENCHANT_THAT_SKILL);
 			return;
 		}
+		
+		player.getStat().addSp((int)(requiredSp * 0.8));
 		
 		player.addSkill(skill, true);
 		sendPacket(new ExEnchantSkillResult(true));
 		
 		if (_log.isDebugEnabled())
-			_log.info("Learned skill ID: " + _skillId + " Level: " + _skillLvl + " for " + requiredSp + " SP, " + requiredAdena + " EXP.");
+			_log.info("Learned skill ID: " + _skillId + " Level: " + _skillLvl + " for " + requiredSp + " SP, " + requiredAdena + " Adena.");
 		
 		sendPacket(new UserInfo(player));
 		
@@ -176,15 +181,14 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 			sm.addSkillName(_skillId);
 			sendPacket(sm);
 		}
-		// FIXME ?
-		// player.sendSkillList();
+		
+		player.sendSkillList();
+		
 		sendPacket(new ExEnchantSkillInfo(_skillId, player.getSkillLevel(_skillId)));
-		sendPacket(new ExEnchantSkillInfoDetail(0, _skillId, player.getSkillLevel(_skillId) + 1, player));
+		sendPacket(new ExEnchantSkillInfoDetail(ExEnchantSkillInfoDetail.TYPE_UNTRAIN_ENCHANT, _skillId, player
+				.getSkillLevel(_skillId) - 1, player));
 		
-		((L2NpcInstance) trainer).showEnchantUntrainSkillList(player, player.getClassId());
 		updateSkillShortcuts(player);
-		
-		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
 	private void updateSkillShortcuts(L2PcInstance player)

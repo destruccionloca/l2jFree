@@ -27,20 +27,20 @@ import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
  */
 public class ExEnchantSkillInfoDetail extends L2GameServerPacket
 {
-	private static final int	TYPE_NORMAL_ENCHANT		= 0;
-	private static final int	TYPE_SAFE_ENCHANT		= 1;
-	private static final int	TYPE_UNTRAIN_ENCHANT	= 2;
-	private static final int	TYPE_CHANGE_ENCHANT		= 3;
+	public static final int TYPE_NORMAL_ENCHANT = 0;
+	public static final int TYPE_SAFE_ENCHANT = 1;
+	public static final int TYPE_UNTRAIN_ENCHANT = 2;
+	public static final int TYPE_CHANGE_ENCHANT = 3;
 	
-	private int					bookId					= 0;
-	private int					reqCount				= 0;
-	private int					multi					= 1;
-	private final int			_type;
-	private final int			_skillid;
-	private final int			_skilllvl;
-	private final int			_chance;
-	private int					_sp;
-	private final int			_adenacount;
+	private int bookId = 0;
+	private int reqCount = 0;
+	private int multi = 1;
+	private final int _type;
+	private final int _skillid;
+	private final int _skilllvl;
+	private final int _chance;
+	private int _sp;
+	private final int _adenacount;
 	
 	public ExEnchantSkillInfoDetail(int type, int skillid, int skilllvl, L2PcInstance ply)
 	{
@@ -83,7 +83,7 @@ public class ExEnchantSkillInfoDetail extends L2GameServerPacket
 		_chance = esd.getRate(ply);
 		_sp = esd.getSpCost();
 		if (type == TYPE_UNTRAIN_ENCHANT)
-			_sp = (int) (0.8 * _sp);
+			_sp = (int)(0.8 * _sp);
 		_adenacount = esd.getAdenaCost() * multi;
 		_type = type;
 		_skillid = skillid;

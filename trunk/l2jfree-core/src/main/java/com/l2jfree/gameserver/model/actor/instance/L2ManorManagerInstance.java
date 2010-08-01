@@ -16,7 +16,6 @@ package com.l2jfree.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
-import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -36,58 +35,6 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 	public L2ManorManagerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-	}
-	
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (!canTarget(player))
-			return;
-		
-		player.setLastFolkNPC(this);
-		
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget())
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-		}
-		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				// If player is a lord of this manor, alternative message from NPC
-				if (CastleManorManager.getInstance().isDisabled())
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/npcdefault.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					html.replace("%npcname%", getName());
-					player.sendPacket(html);
-				}
-				else if (!player.isGM() // Player is not GM
-						&& getCastle() != null && getCastle().getCastleId() > 0 // Verification of castle
-						&& player.getClan() != null // Player have clan
-						&& getCastle().getOwnerId() == player.getClanId() // Player's clan owning the castle
-						&& player.isClanLeader() // Player is clan leader of clan (then he is the lord)
-				)
-				{
-					showMessageWindow(player, "manager-lord.htm");
-				}
-				else
-				{
-					showMessageWindow(player, "manager.htm");
-				}
-			}
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
 	@Override
@@ -159,7 +106,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 			StringTokenizer st = new StringTokenizer(command, " ");
 			st.nextToken(); // discard first
 			String filename = "manor_client_help00" + st.nextToken() + ".htm";
-			showMessageWindow(player, filename);
+			showChatWindow(player, filename);
 		}
 		else
 		{
@@ -179,7 +126,26 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 		return "data/html/manormanager/manager.htm";
 	}
 	
-	private void showMessageWindow(L2PcInstance player, String filename)
+	@Override
+	public void showChatWindow(L2PcInstance player)
+	{
+		if (CastleManorManager.getInstance().isDisabled())
+		{
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile("data/html/npcdefault.htm");
+			html.replace("%objectId%", String.valueOf(getObjectId()));
+			html.replace("%npcname%", getName());
+			player.sendPacket(html);
+		}
+		else if (!player.isGM() && getCastle() != null && getCastle().getCastleId() > 0 && player.getClan() != null
+				&& getCastle().getOwnerId() == player.getClanId() && player.isClanLeader())
+			showChatWindow(player, "manager-lord.htm");
+		else
+			showChatWindow(player, "manager.htm");
+	}
+	
+	@Override
+	public void showChatWindow(L2PcInstance player, String filename)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(getHtmlPath() + filename);

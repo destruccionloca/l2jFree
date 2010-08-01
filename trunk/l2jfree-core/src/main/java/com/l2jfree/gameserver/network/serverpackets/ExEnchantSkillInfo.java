@@ -24,12 +24,13 @@ import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
 
 public final class ExEnchantSkillInfo extends L2GameServerPacket
 {
-	private static final String	_S__FE_18_EXENCHANTSKILLINFO	= "[S] FE:2a ExEnchantSkillInfo";
-	private FastList<Integer>	_routes;															// skill lvls for each route
-																									
-	private final int			_id;
-	private final int			_lvl;
-	private boolean				_maxEnchanted					= false;
+	private static final String _S__FE_18_EXENCHANTSKILLINFO = "[S] FE:2a ExEnchantSkillInfo";
+	
+	private final FastList<Integer> _routes; // skill lvls for each route
+	
+	private final int _id;
+	private final int _lvl;
+	private boolean _maxEnchanted = false;
 	
 	public ExEnchantSkillInfo(int id, int lvl)
 	{

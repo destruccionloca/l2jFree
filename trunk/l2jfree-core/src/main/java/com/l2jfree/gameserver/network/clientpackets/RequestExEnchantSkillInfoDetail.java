@@ -32,9 +32,9 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfoDetail;
  */
 public final class RequestExEnchantSkillInfoDetail extends L2GameClientPacket
 {
-	private int	_type;
-	private int	_skillId;
-	private int	_skillLvl;
+	private int _type;
+	private int _skillId;
+	private int _skillLvl;
 	
 	@Override
 	protected void readImpl()

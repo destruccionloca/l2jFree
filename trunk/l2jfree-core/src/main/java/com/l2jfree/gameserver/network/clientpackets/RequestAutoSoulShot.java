@@ -19,19 +19,16 @@ import com.l2jfree.gameserver.datatables.ShotTable;
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.network.SystemMessageId;
 
 public final class RequestAutoSoulShot extends L2GameClientPacket
 {
-	private static final String	_C__CF_REQUESTAUTOSOULSHOT	= "[C] CF RequestAutoSoulShot";
+	private static final String _C__CF_REQUESTAUTOSOULSHOT = "[C] CF RequestAutoSoulShot";
 	
 	// format cd
-	private int					_shotId;
-	private int					_type;														// 1 = on, 0 = off
-																							
-	/**
-	 * packet type id 0xcf
-	 * format: chdd
-	 */
+	private int _shotId;
+	private int _type; // 1 = on : 0 = off;
+	
 	@Override
 	protected void readImpl()
 	{
@@ -68,6 +65,8 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 						activeChar.getShots().addAutoSoulShot(_shotId);
 						summon.rechargeShot();
 					}
+					else
+						activeChar.sendPacket(SystemMessageId.NO_SERVITOR_CANNOT_AUTOMATE_USE);
 				}
 				else if (activeChar.getActiveWeaponItem() != null)
 				{

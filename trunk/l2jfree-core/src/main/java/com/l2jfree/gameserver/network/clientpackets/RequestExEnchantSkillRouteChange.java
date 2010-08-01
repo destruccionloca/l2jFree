@@ -22,8 +22,6 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2ShortCut;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2EnchantSkillLearn.EnchantSkillDetail;
-import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
@@ -47,9 +45,9 @@ import com.l2jfree.tools.random.Rnd;
  */
 public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 {
-	private int	_skillId;
-	private int	_skillLvl;
-	
+	private int _skillId;
+	private int _skillLvl;
+
 	@Override
 	protected void readImpl()
 	{
@@ -64,6 +62,7 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 		if (player == null)
 			return;
 		
+		/*
 		final L2Npc trainer = player.getLastFolkNPC();
 		if (!(trainer instanceof L2NpcInstance))
 			return;
@@ -73,14 +72,22 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
 		}
-		else if (player.getLevel() < 76)
+		*/
+		
+		if (player.getLevel() < 76)
 		{
-			requestFailed(SystemMessageId.YOU_DONT_MEET_SKILL_LEVEL_REQUIREMENTS);
+			requestFailed(SystemMessageId.YOU_CANNOT_USE_SKILL_ENCHANT_ON_THIS_LEVEL);
 			return;
 		}
-		else if (player.getClassId().level() < 3)
+		else if (player.getClassId().level() < 3) // requires to have 3rd class quest completed
 		{
-			requestFailed(SystemMessageId.NOT_COMPLETED_QUEST_FOR_SKILL_ACQUISITION);
+			requestFailed(SystemMessageId.YOU_CANNOT_USE_SKILL_ENCHANT_IN_THIS_CLASS);
+			return;
+		}
+		
+		if (!player.isAllowedToEnchantSkills())
+		{
+			requestFailed(SystemMessageId.YOU_CANNOT_USE_SKILL_ENCHANT_ATTACKING_TRANSFORMED_BOAT);
 			return;
 		}
 		
@@ -159,13 +166,13 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 		
 		// maybe destroy book
 		if (Config.ALT_ES_SP_BOOK_NEEDED)
-			check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
+			check &= player.destroyItem("Consume", spb.getObjectId(), 1, player, true);
 		
-		check &= player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, requiredAdena, trainer, true);
+		check &= player.destroyItemByItemId("Consume", PcInventory.ADENA_ID, requiredAdena, player, true);
 		
 		if (!check)
 		{
-			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_ITENS_NEEDED_TO_CHANGE_SKILL_ENCHANT_ROUTE);
+			requestFailed(SystemMessageId.YOU_DONT_HAVE_ALL_OF_THE_ITEMS_NEEDED_TO_ENCHANT_THAT_SKILL);
 			return;
 		}
 		
@@ -182,7 +189,8 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 		}
 		
 		if (_log.isDebugEnabled())
-			_log.info("Learned skill ID: " + _skillId + " Level: " + _skillLvl + " for " + requiredSp + " SP, " + requiredAdena + " EXP.");
+			_log.info("Learned skill ID: " + _skillId + " Level: " + _skillLvl + " for " + requiredSp + " SP, "
+					+ requiredAdena + " Adena.");
 		
 		sendPacket(new UserInfo(player));
 		
@@ -200,12 +208,12 @@ public final class RequestExEnchantSkillRouteChange extends L2GameClientPacket
 			sm.addNumber(levelPenalty);
 			sendPacket(sm);
 		}
-		// FIXME ?
-		// player.sendSkillList();
-		sendPacket(new ExEnchantSkillInfo(_skillId, player.getSkillLevel(_skillId)));
-		sendPacket(new ExEnchantSkillInfoDetail(0, _skillId, player.getSkillLevel(_skillId) + 1, player));
 		
-		((L2NpcInstance) trainer).showEnchantChangeSkillList(player);
+		player.sendSkillList();
+		
+		sendPacket(new ExEnchantSkillInfo(_skillId, player.getSkillLevel(_skillId)));
+		sendPacket(new ExEnchantSkillInfoDetail(ExEnchantSkillInfoDetail.TYPE_CHANGE_ENCHANT, _skillId, player.getSkillLevel(_skillId), player));
+		
 		updateSkillShortcuts(player);
 		
 		sendPacket(ActionFailed.STATIC_PACKET);

@@ -14,172 +14,153 @@
  */
 package com.l2jfree.gameserver.model.actor.instance;
 
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.L2Playable;
 import com.l2jfree.gameserver.model.actor.L2Trap;
-import com.l2jfree.gameserver.model.actor.knownlist.CharKnownList;
-import com.l2jfree.gameserver.model.actor.knownlist.TrapKnownList;
+import com.l2jfree.gameserver.model.olympiad.Olympiad;
 import com.l2jfree.gameserver.model.zone.L2Zone;
-import com.l2jfree.gameserver.network.serverpackets.SocialAction;
-import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
-import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
-import com.l2jfree.gameserver.templates.chars.L2CharTemplate;
+import com.l2jfree.gameserver.network.SystemMessageId;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 
-public final class L2TrapInstance extends L2Trap implements Runnable
+public final class L2TrapInstance extends L2Trap
 {
-	private static final class TrapTaskManager extends AbstractIterativePeriodicTaskManager<L2TrapInstance>
+	private L2PcInstance _owner;
+	private boolean _isInArena = false;
+	
+	public L2TrapInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, int lifeTime, L2Skill skill)
 	{
-		private static final TrapTaskManager _instance = new TrapTaskManager();
-		
-		private static TrapTaskManager getInstance()
-		{
-			return _instance;
-		}
-		
-		private TrapTaskManager()
-		{
-			super(1000);
-		}
-		
-		@Override
-		protected void callTask(L2TrapInstance task)
-		{
-			task.run();
-		}
-		
-		@Override
-		protected String getCalledMethodName()
-		{
-			return "run()";
-		}
-	}
-	
-	private final L2Skill _skill;
-	
-	private int _totalLifeTime;
-	private int _timeRemaining;
-	private boolean _isDetected;
-	
-	public L2TrapInstance(int objectId, L2CharTemplate template, L2PcInstance owner, int lifeTime, L2Skill skill)
-	{
-		super(objectId, template, owner);
-		
-		_skill = skill;
-		
-		_totalLifeTime = lifeTime == 0 ? 30000 : lifeTime;
-		_timeRemaining = _totalLifeTime;
-		
-		TrapTaskManager.getInstance().startTask(this);
+		super(objectId, template, lifeTime, skill);
+		_owner = owner;
 	}
 	
 	@Override
-	public boolean doDie(L2Character killer)
+	public L2PcInstance getOwner()
 	{
-		if (!super.doDie(killer))
+		return _owner;
+	}
+	
+	@Override
+	public L2PcInstance getActingPlayer()
+	{
+		return _owner;
+	}
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		_isInArena = isInsideZone(L2Zone.FLAG_PVP) && !isInsideZone(L2Zone.FLAG_SIEGE);
+	}
+	
+	@Override
+	public void deleteMe()
+	{
+		if (_owner != null)
+		{
+			_owner.setTrap(null);
+			_owner = null;
+		}
+		super.deleteMe();
+	}
+	
+	@Override
+	public void unSummon()
+	{
+		if (_owner != null)
+		{
+			_owner.setTrap(null);
+			_owner = null;
+		}
+		super.unSummon();
+	}
+	
+	@Override
+	public int getKarma()
+	{
+		return _owner != null ? _owner.getKarma() : 0;
+	}
+	
+	@Override
+	public byte getPvpFlag()
+	{
+		return _owner != null ? _owner.getPvpFlag() : 0;
+	}
+	
+	@Override
+	public void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
+	{
+		if (miss || _owner == null)
+			return;
+		
+		if (_owner.isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance)target).isInOlympiadMode()
+				&& ((L2PcInstance)target).getOlympiadGameId() == _owner.getOlympiadGameId())
+		{
+			Olympiad.getInstance().notifyCompetitorDamage(getOwner(), damage, getOwner().getOlympiadGameId());
+		}
+		
+		final SystemMessage sm;
+		
+		if (target.isInvul() && !(target instanceof L2NpcInstance))
+			sm = SystemMessageId.ATTACK_WAS_BLOCKED.getSystemMessage();
+		else
+		{
+			sm = new SystemMessage(SystemMessageId.C1_GAVE_C2_DAMAGE_OF_S3);
+			sm.addCharName(this);
+			sm.addCharName(target);
+			sm.addNumber(damage);
+		}
+		_owner.sendPacket(sm);
+	}
+	
+	@Override
+	public boolean canSee(L2Character cha)
+	{
+		if (_owner == null || cha == null)
 			return false;
 		
-		_totalLifeTime = 0;
-		DecayTaskManager.getInstance().addDecayTask(this);
+		if (cha == _owner)
+			return true;
+		
+		if (_owner.isInParty() && cha.isInParty()
+				&& _owner.getParty().getPartyLeaderOID() == cha.getParty().getPartyLeaderOID())
+			return true;
+		
+		return false;
+	}
+	
+	@Override
+	public void setDetected(L2Character detector)
+	{
+		if (_isInArena)
+		{
+			super.setDetected(detector);
+			return;
+		}
+		
+		if (_owner == null || (_owner.getPvpFlag() == 0 && _owner.getKarma() == 0))
+			return;
+		
+		super.setDetected(detector);
+	}
+	
+	@Override
+	protected boolean checkTarget(L2Character target)
+	{
+		if (!L2Skill.checkForAreaOffensiveSkills(this, target, getSkill(), _isInArena))
+			return false;
+		
+		if (_isInArena)
+			return true;
+		
+		// trap not attack non-flagged players
+		if (target instanceof L2Playable)
+		{
+			final L2PcInstance player = target.getActingPlayer();
+			if (player == null || (player.getPvpFlag() == 0 && player.getKarma() == 0))
+				return false;
+		}
+		
 		return true;
-	}
-	
-	@Override
-	protected CharKnownList initKnownList()
-	{
-		return new TrapKnownList(this);
-	}
-	
-	@Override
-	public TrapKnownList getKnownList()
-	{
-		return (TrapKnownList)_knownList;
-	}
-	
-	public void run()
-	{
-		_timeRemaining -= 1000;
-		
-		if (_timeRemaining < _totalLifeTime - 15000)
-			broadcastPacket(new SocialAction(getObjectId(), 2));
-		
-		if (_timeRemaining < 0)
-		{
-			L2Character trg;
-			
-			switch (_skill.getTargetType())
-			{
-				case TARGET_AURA:
-				case TARGET_FRONT_AURA:
-				case TARGET_BEHIND_AURA:
-					trg = L2TrapInstance.this;
-					break;
-				default:
-					trg = getRandomTarget();
-					break;
-			}
-			
-			if (trg != null)
-			{
-				setTarget(trg);
-				doCast(_skill);
-				
-				ThreadPoolManager.getInstance().schedule(new Runnable() {
-					@Override
-					public void run()
-					{
-						unSummon(getOwner());
-						
-						final L2Character[] targetList = _skill.getTargetList(L2TrapInstance.this);
-						
-						if (targetList != null)
-							for (L2Character attacked : targetList)
-								if (attacked instanceof L2Attackable)
-									((L2Attackable)attacked).addDamage(getOwner(), 1);
-					}
-				}, _skill.getHitTime() + 2000);
-			}
-			else
-			{
-				unSummon(getOwner());
-			}
-		}
-	}
-	
-	private L2Character getRandomTarget()
-	{
-		for (L2Character trg : getKnownList().getKnownCharactersInRadius(_skill.getSkillRadius()))
-		{
-			if (trg == getOwner() || trg.isInsideZone(L2Zone.FLAG_PEACE))
-				continue;
-			
-			if (trg.getParty() != null && trg.getParty() == getOwner().getParty())
-				continue;
-			
-			return trg;
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public void unSummon(L2PcInstance owner)
-	{
-		TrapTaskManager.getInstance().stopTask(this);
-		
-		super.unSummon(owner);
-	}
-	
-	@Override
-	public void setDetected()
-	{
-		_isDetected = true;
-	}
-	
-	@Override
-	public boolean isDetected()
-	{
-		return _isDetected;
 	}
 }

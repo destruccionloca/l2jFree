@@ -43,6 +43,11 @@ public class L2SkillTrap extends L2SkillSummon
 		_trapNpcId = set.getInteger("trapNpcId");
 	}
 	
+	public int getTriggerSkillId()
+	{
+		return _triggerSkillId;
+	}
+	
 	/**
 	 * @see com.l2jfree.gameserver.model.L2Skill#useSkill(com.l2jfree.gameserver.model.actor.L2Character, com.l2jfree.gameserver.model.actor.L2Character...)
 	 */
@@ -51,32 +56,33 @@ public class L2SkillTrap extends L2SkillSummon
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;
-
+		
 		if (_trapNpcId == 0)
 			return;
-
-		L2PcInstance activeChar = (L2PcInstance) caster;
-
-		if (activeChar.getTrap() != null)
-			return;
-
+		
+		L2PcInstance activeChar = (L2PcInstance)caster;
+		
 		if (activeChar.inObserverMode())
 			return;
-
+		
 		if (activeChar.isMounted())
 			return;
-
+		
 		if (_triggerSkillId == 0 || _triggerSkillLvl == 0)
 			return;
-
+		
+		L2Trap trap = activeChar.getTrap();
+		if (trap != null)
+			trap.unSummon();
+		
 		L2Skill skill = SkillTable.getInstance().getInfo(_triggerSkillId, _triggerSkillLvl);
-
+		
 		if (skill == null)
 			return;
-
-		L2Trap trap;
+		
 		L2NpcTemplate TrapTemplate = NpcTable.getInstance().getTemplate(_trapNpcId);
-		trap = new L2TrapInstance(IdFactory.getInstance().getNextId(), TrapTemplate, activeChar, getTotalLifeTime(), skill);
+		trap = new L2TrapInstance(IdFactory.getInstance().getNextId(), TrapTemplate, activeChar, getTotalLifeTime(),
+				skill);
 		trap.getStatus().setCurrentHp(trap.getMaxHp());
 		trap.getStatus().setCurrentMp(trap.getMaxMp());
 		trap.setIsInvul(true);

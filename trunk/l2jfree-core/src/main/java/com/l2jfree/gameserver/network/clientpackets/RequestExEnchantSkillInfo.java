@@ -17,8 +17,6 @@ package com.l2jfree.gameserver.network.clientpackets;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.datatables.SkillTreeTable;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.actor.L2Npc;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.ActionFailed;
@@ -35,10 +33,10 @@ import com.l2jfree.gameserver.network.serverpackets.ExEnchantSkillInfo;
  */
 public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 {
-	private static final String	_C__D0_06_REQUESTEXENCHANTSKILLINFO	= "[C] D0:06 RequestExEnchantSkillInfo";
+	private static final String _C__D0_06_REQUESTEXENCHANTSKILLINFO = "[C] D0:06 RequestExEnchantSkillInfo";
 	
-	private int					_skillId;
-	private int					_skillLvl;
+	private int _skillId;
+	private int _skillLvl;
 	
 	@Override
 	protected void readImpl()
@@ -54,6 +52,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
+		/*
 		final L2Npc trainer = activeChar.getLastFolkNPC();
 		if (!(trainer instanceof L2NpcInstance))
 			return;
@@ -63,6 +62,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 			requestFailed(SystemMessageId.TOO_FAR_FROM_NPC);
 			return;
 		}
+		*/
 		
 		if (activeChar.getLevel() < 76)
 		{
@@ -101,7 +101,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 		if (playerSkillLvl == -1 || playerSkillLvl != _skillLvl)
 			return;
 		
-		activeChar.sendPacket(new ExEnchantSkillInfo(_skillId, _skillLvl));
+		sendPacket(new ExEnchantSkillInfo(_skillId, _skillLvl));
 		sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	

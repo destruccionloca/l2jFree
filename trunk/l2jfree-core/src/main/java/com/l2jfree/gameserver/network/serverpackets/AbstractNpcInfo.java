@@ -296,6 +296,9 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			if (!activeChar.canSee(_trap))
 				return false;
 			
+			if (!_trap.isTriggered() && !_trap.canSee(activeChar))
+				return false;
+			
 			return true;
 		}
 	}
