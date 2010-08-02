@@ -145,7 +145,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private boolean autoAttackCondition(L2Character target)
 	{
 		// Check if the target isn't another guard, folk or a door
-		if (target == null || target instanceof L2DefenderInstance  || target instanceof L2NpcInstance || target instanceof L2DoorInstance)
+		if (target == null || target instanceof L2DefenderInstance || target instanceof L2NpcInstance
+				|| target instanceof L2DoorInstance || target.isAlikeDead())
 			return false;
 
 		// Check if the target isn't invulnerable

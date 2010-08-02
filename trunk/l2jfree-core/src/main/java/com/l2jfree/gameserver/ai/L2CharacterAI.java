@@ -26,11 +26,13 @@ import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 
 import java.util.ArrayList;
 
+import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
+import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -47,6 +49,7 @@ import com.l2jfree.gameserver.skills.SkillUsageRequest;
 import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Weapon;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.geometry.Point3D;
 import com.l2jfree.util.L2Collections;
@@ -1376,5 +1379,195 @@ public class L2CharacterAI extends AbstractAI
 			isSlower = target.getRunSpeed() < actor.getRunSpeed() - 3;
 			isMagicResistant = target.getMDef(null, null) * 1.2 > actor.getMAtk(null, null);
 		}
+	}
+	
+	public boolean canAura(L2Skill sk)
+	{
+		if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AURA
+				|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AURA
+				|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AURA)
+		{
+			for (L2Object target : _actor.getKnownList().getKnownCharactersInRadius(sk.getSkillRadius()))
+			{
+				if (target == getAttackTarget())
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean canAOE(L2Skill sk)
+	{
+		if (sk.getSkillType() != L2SkillType.NEGATE || sk.getSkillType() != L2SkillType.CANCEL)
+		{
+			if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AURA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AURA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AURA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_MULTIFACE)
+			{
+				boolean canCast = true;
+				for (L2Character target : _actor.getKnownList().getKnownCharactersInRadius(sk.getSkillRadius()))
+				{
+					if (!GeoData.getInstance().canSeeTarget(_actor, target))
+						continue;
+					if (target instanceof L2Attackable)
+					{
+						L2Npc targets = ((L2Npc)target);
+						L2Npc actors = ((L2Npc)_actor);
+						
+						if (targets.getEnemyClan() == null || actors.getClan() == null
+								|| !targets.getEnemyClan().equals(actors.getClan())
+								|| ("none".equals(actors.getClan()) && actors.getIsChaos() == 0))
+							continue;
+					}
+					L2Effect[] effects = target.getAllEffects();
+					for (int i = 0; effects != null && i < effects.length; i++)
+					{
+						L2Effect effect = effects[i];
+						if (effect.getSkill() == sk)
+						{
+							canCast = false;
+							break;
+						}
+					}
+				}
+				if (canCast)
+					return true;
+			}
+			else if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA)
+			{
+				boolean canCast = true;
+				for (L2Character target : getAttackTarget().getKnownList().getKnownCharactersInRadius(
+						sk.getSkillRadius()))
+				{
+					if (!GeoData.getInstance().canSeeTarget(_actor, target) || target == null)
+						continue;
+					if (target instanceof L2Attackable)
+					{
+						L2Npc targets = ((L2Npc)target);
+						L2Npc actors = ((L2Npc)_actor);
+						if (targets.getEnemyClan() == null || actors.getClan() == null
+								|| !targets.getEnemyClan().equals(actors.getClan())
+								|| (("none".equals(actors.getClan())) && actors.getIsChaos() == 0))
+							continue;
+					}
+					L2Effect[] effects = target.getAllEffects();
+					if (effects.length > 0)
+						canCast = true;
+				}
+				if (canCast)
+					return true;
+			}
+		}
+		else
+		{
+			if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AURA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AURA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AURA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_MULTIFACE)
+			{
+				boolean canCast = false;
+				for (L2Character target : _actor.getKnownList().getKnownCharactersInRadius(sk.getSkillRadius()))
+				{
+					if (!GeoData.getInstance().canSeeTarget(_actor, target))
+						continue;
+					if (target instanceof L2Attackable)
+					{
+						L2Npc targets = ((L2Npc)target);
+						L2Npc actors = ((L2Npc)_actor);
+						if (targets.getEnemyClan() == null || actors.getClan() == null
+								|| !targets.getEnemyClan().equals(actors.getClan())
+								|| (actors.getClan() == null && actors.getIsChaos() == 0))
+							continue;
+					}
+					L2Effect[] effects = target.getAllEffects();
+					if (effects.length > 0)
+						canCast = true;
+				}
+				if (canCast)
+					return true;
+			}
+			else if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA
+					|| sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA)
+			{
+				boolean canCast = true;
+				for (L2Character target : getAttackTarget().getKnownList().getKnownCharactersInRadius(
+						sk.getSkillRadius()))
+				{
+					if (!GeoData.getInstance().canSeeTarget(_actor, target))
+						continue;
+					if (target instanceof L2Attackable)
+					{
+						L2Npc targets = ((L2Npc)target);
+						L2Npc actors = ((L2Npc)_actor);
+						if (targets.getEnemyClan() == null || actors.getClan() == null
+								|| !targets.getEnemyClan().equals(actors.getClan())
+								|| (actors.getClan() == null && actors.getIsChaos() == 0))
+							continue;
+					}
+					L2Effect[] effects = target.getAllEffects();
+					for (int i = 0; effects != null && i < effects.length; i++)
+					{
+						L2Effect effect = effects[i];
+						if (effect.getSkill() == sk)
+						{
+							canCast = false;
+							break;
+						}
+					}
+				}
+				if (canCast)
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean canParty(L2Skill sk)
+	{
+		if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
+		{
+			int count = 0;
+			int ccount = 0;
+			for (L2Character target : _actor.getKnownList().getKnownCharactersInRadius(sk.getSkillRadius()))
+			{
+				if (!(target instanceof L2Attackable) || !GeoData.getInstance().canSeeTarget(_actor, target))
+				{
+					continue;
+				}
+				L2Npc targets = ((L2Npc)target);
+				L2Npc actors = ((L2Npc)_actor);
+				if (actors.getFactionId() != null && targets.getFactionId().equals(actors.getFactionId()))
+				{
+					count++;
+					L2Effect[] effects = target.getAllEffects();
+					for (int i = 0; effects != null && i < effects.length; i++)
+					{
+						L2Effect effect = effects[i];
+						if (effect.getSkill() == sk)
+						{
+							ccount++;
+							break;
+						}
+					}
+				}
+			}
+			if (ccount < count)
+				return true;
+			
+		}
+		return false;
+	}
+	
+	public boolean isParty(L2Skill sk)
+	{
+		if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
+		{
+			return true;
+		}
+		return false;
 	}
 }

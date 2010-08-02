@@ -947,6 +947,9 @@ public class Config extends L2Config
 	public static double			RAID_MINION_RESPAWN_TIMER;								// Raid Boss Minin Spawn Timer
 	public static float				RAID_MIN_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss minimum time respawn
 	public static float				RAID_MAX_RESPAWN_MULTIPLIER;							// Mulitplier for Raid boss maximum time respawn
+	public static int				RAID_CHAOS_TIME;
+	public static int				GRAND_CHAOS_TIME;
+	public static int				MINION_CHAOS_TIME;
 	public static long				STARTING_ADENA;										// Amount of adenas when starting a new character
 	public static byte				STARTING_LEVEL;
 	public static int				STARTING_SP;
@@ -1040,6 +1043,10 @@ public class Config extends L2Config
 
 			RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMinRespawnMultiplier", "1.0"));
 			RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
+
+			RAID_CHAOS_TIME = Integer.parseInt(otherSettings.getProperty("RaidChaosTime", "10"));
+			GRAND_CHAOS_TIME = Integer.parseInt(otherSettings.getProperty("GrandChaosTime", "10"));
+			MINION_CHAOS_TIME = Integer.parseInt(otherSettings.getProperty("MinionChaosTime", "10"));
 
 			STARTING_ADENA = Long.parseLong(otherSettings.getProperty("StartingAdena", "100"));
 			STARTING_LEVEL = Byte.parseByte(otherSettings.getProperty("StartingLevel", "1"));

@@ -59,13 +59,13 @@ public final class CursedWeaponRestriction extends AbstractRestriction
 		if (target_.isCursedWeaponEquipped() && attacker_.getLevel() < 21)
 		{
 			if (sendMessage)
-				attacker_.sendMessage("You can't attack a cursed player while you are under level 21.");
+				attacker_.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return true;
 		}
 		else if (attacker_.isCursedWeaponEquipped() && target_.getLevel() < 21)
 		{
 			if (sendMessage)
-				attacker_.sendMessage("You can't attack a newbie player while you are holding a cursed weapon.");
+				attacker_.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			return true;
 		}
 		

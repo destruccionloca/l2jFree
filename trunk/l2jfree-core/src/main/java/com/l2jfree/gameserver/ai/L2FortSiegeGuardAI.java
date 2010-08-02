@@ -150,8 +150,9 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 			return false;
 
 		// Check if the target isn't another guard, folk or a door
-		if (target instanceof L2DefenderInstance || target instanceof L2FortBallistaInstance
-				|| target instanceof L2NpcInstance || target instanceof L2DoorInstance || target instanceof L2Playable)
+		if (target instanceof L2DefenderInstance || target instanceof L2NpcInstance
+				|| target instanceof L2DoorInstance || target.isAlikeDead() || target instanceof L2FortBallistaInstance
+				|| target instanceof L2FortCommanderInstance || target instanceof L2Playable)
 		{
 			L2PcInstance player = null;
 			if (target instanceof L2PcInstance)
@@ -501,7 +502,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 		L2Skill[] skills = null;
 		double dist_2 = 0;
 		int range = 0;
-		L2DefenderInstance  sGuard = (L2DefenderInstance ) _actor;
+		L2DefenderInstance sGuard = (L2DefenderInstance) _actor;
 		L2Character attackTarget = getAttackTarget();
 
 		if (attackTarget != null)

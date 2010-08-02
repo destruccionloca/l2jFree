@@ -17,8 +17,8 @@ package com.l2jfree.gameserver.ai;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static com.l2jfree.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 
+import java.util.Collection;
 import java.util.Set;
 
 import com.l2jfree.Config;
@@ -27,6 +27,7 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Boss;
 import com.l2jfree.gameserver.model.actor.L2Character;
@@ -37,15 +38,18 @@ import com.l2jfree.gameserver.model.actor.instance.L2ChestInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2FriendlyMobInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MinionInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2MonsterInstance;
-import com.l2jfree.gameserver.model.actor.instance.L2NpcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jfree.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jfree.gameserver.model.quest.Quest;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
-import com.l2jfree.gameserver.taskmanager.DecayTaskManager;
+import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
+import com.l2jfree.gameserver.templates.skills.L2EffectType;
+import com.l2jfree.gameserver.templates.skills.L2SkillType;
 import com.l2jfree.gameserver.util.Util;
 import com.l2jfree.tools.random.Rnd;
 
@@ -82,24 +86,27 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 	}
 	
-	private static final int	RANDOM_WALK_RATE			= 30;					// confirmed
+	private static final int RANDOM_WALK_RATE = 30;
 	// private static final int MAX_DRIFT_RANGE = 300;
-	private static final int	MAX_ATTACK_TIMEOUT			= 300;					// int ticks, i.e. 30 seconds
-
+	private static final int MAX_ATTACK_TIMEOUT = 300;
+	
 	/** The delay after which the attacked is stopped */
-	private int					_attackTimeout;
-
+	private int	_attackTimeout;
+	
 	/** The L2Attackable aggro counter */
-	private int					_globalAggro;
-
+	private int	_globalAggro;
+	
 	/** The flag used to indicate that a thinking action is in progress */
 	private volatile boolean _thinking; // to prevent recursive thinking
-
-	/** For attack AI, analysis of mob and its targets */
-	private final SelfAnalysis _selfAnalysis = new SelfAnalysis();
-	private final TargetAnalysis _mostHatedAnalysis = new TargetAnalysis();
-	private final TargetAnalysis _secondMostHatedAnalysis = new TargetAnalysis();
-
+	
+	private String _clan;
+	private String _enemyClan;
+	
+	private int _timePass = 0;
+	private int _chaosTime = 0;
+	private final L2NpcTemplate _skillRender;
+	private int _lastBuffTick;
+	
 	/**
 	 * Constructor of L2AttackableAI.<BR><BR>
 	 * 
@@ -109,19 +116,28 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	public L2AttackableAI(L2Character.AIAccessor accessor)
 	{
 		super(accessor);
-
-		_selfAnalysis.init(_actor);
+		L2Attackable me = getActor();
+		_skillRender = me.getTemplate();
+		// _selfAnalysis.init(_actor);
 		_attackTimeout = Integer.MAX_VALUE;
 		_globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
+		if (!"none".equals(me.getEnemyClan()))
+			setEnemyClan(me.getEnemyClan());
 	}
-
+	
+	@Override
+	public L2Attackable getActor()
+	{
+		return (L2Attackable) _actor;
+	}
+	
 	@Override
 	public void run()
 	{
 		// Launch actions corresponding to the Event Think
 		notifyEvent(CtrlEvent.EVT_THINK);
 	}
-
+	
 	/**
 	 * Return True if the target is autoattackable (depends on the actor type).<BR><BR>
 	 * 
@@ -156,10 +172,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 */
 	private boolean autoAttackCondition(L2Character target)
 	{
-		if (target == null || !(_actor instanceof L2Attackable))
+		if (target == null)
 			return false;
-		L2Attackable me = (L2Attackable) _actor;
-
+		
+		L2Attackable me = getActor();
+		
+		if (target instanceof L2Attackable)
+		{
+			setClan(((L2Attackable) target).getClan());
+		}
+		
 		// Check if the target isn't invulnerable
 		if (target.isInvul())
 		{
@@ -169,21 +191,21 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 
 		// Check if the target isn't a Folk or a Door
-		if (target instanceof L2NpcInstance || target instanceof L2DoorInstance)
+		if (target instanceof L2DoorInstance)
 			return false;
 
 		// Check if the target isn't dead, is in the Aggro range and is at the same height
-		if (target.isAlikeDead() || !me.isInsideRadius(target, me.getAggroRange(), false, false) || Math.abs(_actor.getZ() - target.getZ()) > 300)
+		if (target.isAlikeDead()
+				|| (target instanceof L2PcInstance && !me.isInsideRadius(target, me.getAggroRange(), false, false))
+				|| Math.abs(_actor.getZ() - target.getZ()) > 300
+				|| (target instanceof L2Summon && !me.isInsideRadius(target, me.getAggroRange(), false, false)))
 			return false;
-
-		if (_selfAnalysis.cannotMoveOnLand && !target.isInsideZone(L2Zone.FLAG_WATER))
-			return false;
-
+		
 		// Check if the target is a L2Playable
 		if (target instanceof L2Playable)
 		{
-			// Check if the AI isn't a Raid Boss and the target isn't in silent move mode
-			if (!(me instanceof L2Boss) && ((L2Playable) target).isSilentMoving())
+			// Check if the AI isn't a Raid Boss, can See Silent Moving players and the target isn't in silent move mode
+			if (!(me.isRaid()) && !(me.canSeeThroughSilentMove()) && ((L2Playable)target).isSilentMoving())
 				return false;
 		}
 
@@ -206,18 +228,22 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			else if (me.getFactionId() == "ketra" && player.isAlliedWithKetra())
 				return false;
 			
-			//if player is disguised beleth faction ignores him
+			// if player is disguised beleth faction ignores him
 			if (me.getFactionId() == "beleth" && player.isTransformed() && player.getTransformationId() == 101)
 				return false;
 			
-			//event playere are also ignored
-			if(player.isInFunEvent())
+			// event players are also ignored
+			if (player.isInFunEvent())
 				return false;
-				
+			
 			// check if the target is within the grace period for JUST getting up from fake death
 			if (player.isRecentFakeDeath())
 				return false;
+			
+			// if (_selfAnalysis.cannotMoveOnLand && !target.isInsideZone(L2Zone.FLAG_WATER))
+			// return false;
 		}
+		
 		// Check if the target is a L2Summon
 		if (target instanceof L2Summon)
 		{
@@ -246,31 +272,54 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			//  return ((L2Summon)target).getKarma() > 0;
 
 			// Check if the L2MonsterInstance target is aggressive
-			if (target instanceof L2MonsterInstance)
+			if (target instanceof L2MonsterInstance && Config.ALLOW_GUARDS)
 				return (((L2MonsterInstance) target).isAggressive() && GeoData.getInstance().canSeeTarget(me, target));
 
 			return false;
 		}
 		else if (_actor instanceof L2FriendlyMobInstance)
 		{ // the actor is a L2FriendlyMobInstance
-
-			// Check if the actor is a L2FriendlyMobInstance
-
+			
 			// Check if the target isn't another L2Npc
 			if (target instanceof L2Npc)
 				return false;
 
 			// Check if the L2PcInstance target has karma (=PK)
 			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
-				// Los Check
-				return GeoData.getInstance().canSeeTarget(me, target);
+				return GeoData.getInstance().canSeeTarget(me, target); // Los Check
 			return false;
 		}
 		else
-		{ //The actor is a L2MonsterInstance
+		{
+			if (target instanceof L2Attackable)
+			{
+				if ("none".equals(((L2Attackable) _actor).getEnemyClan())
+						|| "none".equals(((L2Attackable) target).getClan()))
+					return false;
+				
+				if (me.getEnemyClan().equals(((L2Attackable) target).getClan()))
+				{
+					if (_actor.isInsideRadius(target, me.getEnemyRange(), false, false))
+					{
+						return GeoData.getInstance().canSeeTarget(_actor, target);
+					}
+					else
+						return false;
+				}
+				if (((L2Attackable) _actor).getIsChaos() > 0
+						&& me.isInsideRadius(target, me.getIsChaos(), false, false))
+				{
+					if (me.getFactionId() != null
+							&& me.getFactionId().equals(((L2Attackable) target).getFactionId()))
+					{
+						return false;
+					}
+					// Los Check
+					return GeoData.getInstance().canSeeTarget(me, target);
+				}
+			}
 
-			// Check if the target isn't another L2Npc
-			if (target instanceof L2Npc)
+			if (target instanceof L2Attackable || target instanceof L2Npc)
 				return false;
 
 			// depending on config, do not allow mobs to attack _new_ players in peacezones,
@@ -329,7 +378,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// Check if actor is not dead
 			if (!_actor.isAlikeDead())
 			{
-				L2Attackable npc = (L2Attackable) _actor;
+				L2Attackable npc = getActor();
 
 				// If its _knownPlayer isn't empty set the Intention to AI_INTENTION_ACTIVE
 				if (!npc.getKnownList().getKnownPlayers().isEmpty())
@@ -376,29 +425,17 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 
 		// self and buffs
-		if (_selfAnalysis.lastBuffTick + 100 < GameTimeController.getGameTicks())
+		
+		if (_lastBuffTick + 30 < GameTimeController.getGameTicks())
 		{
-			for (L2Skill sk : _selfAnalysis.buffSkills)
-			{
-				if (_actor.getFirstEffect(sk.getId()) == null)
-				{
-					if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
-						continue;
-					if (_actor.isSkillDisabled(sk.getId()))
-						continue;
-					// no clan buffs here?
-					if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN)
-						continue;
-					L2Object OldTarget = _actor.getTarget();
-					_actor.setTarget(_actor);
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					// forcing long reuse delay so if cast get interrupted or there would be several buffs, doesn't cast again
-					_selfAnalysis.lastBuffTick = GameTimeController.getGameTicks();
-					_actor.setTarget(OldTarget);
-				}
-			}
+			if (getSkillRender().hasBuffSkill())
+				for (L2Skill sk : getSkillRender()._buffskills)
+					if (cast(sk))
+						break;
+			
+			_lastBuffTick = GameTimeController.getGameTicks();
 		}
+		
 		// Manage the Attack Intention : Stop current Attack (if necessary), Start a new Attack and Launch Think Event
 		super.onIntentionAttack(target);
 	}
@@ -415,7 +452,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 */
 	protected void thinkActive()
 	{
-		L2Attackable npc = (L2Attackable) _actor;
+		L2Attackable npc = getActor();
 
 		// Update every 1s the _globalAggro counter to come close to 0
 		if (_globalAggro != 0)
@@ -440,9 +477,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (_globalAggro >= 0)
 		{
 			// Get all visible objects inside its Aggro Range
-			//L2Object[] objects = L2World.getInstance().getVisibleObjects(_actor, ((L2Npc)_actor).getAggroRange());
-			// Go through visible objects
-			for (L2Object obj : npc.getKnownList().getKnownObjects().values())
+			Collection<L2Object> objs = _actor.getKnownList().getKnownObjects().values();
+			for (L2Object obj : objs)
 			{
 				if (!(obj instanceof L2Character))
 					continue;
@@ -460,27 +496,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (!(targetPlayer.isFestivalParticipant()))
 						continue;
 				}
-
-				/*
-				 * Temporarily adding this commented code as a concept to be used eventually.
-				 * However, the way it is written below will NOT work correctly.  The NPC
-				 * should only notify Aggro Range Enter when someone enters the range from outside.
-				 * Instead, the below code will keep notifying even while someone remains within
-				 * the range.  Perhaps we need a short knownlist of range = aggroRange for just
-				 * people who are actively within the npc's aggro range?...(Fulminus)
-				// notify AI that a playable instance came within aggro range
-				if ((obj instanceof L2PcInstance) || (obj instanceof L2Summon))
-				{
-				    if ( !((L2Character)obj).isAlikeDead()
-				            && !npc.isInsideRadius(obj, npc.getAggroRange(), true, false) )
-				    {
-				        L2PcInstance targetPlayer = (obj instanceof L2PcInstance)? (L2PcInstance) obj: ((L2Summon) obj).getOwner();
-				        if (npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER) !=null)
-				            for (Quest quest: npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER))
-				                quest.notifyAggroRangeEnter(npc, targetPlayer, (obj instanceof L2Summon));
-				    }
-				}
-				*/
+				
 				// TODO: The AI Script ought to handle aggro behaviors in onSee.  Once implemented, aggro behaviors ought
 				// to be removed from here.  (Fulminus)
 				// For each L2Character check if the target is autoattackable
@@ -602,52 +618,20 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 			else if (Rnd.nextInt(RANDOM_WALK_RATE) == 0)
 			{
-				// self and clan buffs
-				for (L2Skill sk : _selfAnalysis.buffSkills)
-				{
-					if (_actor.getFirstEffect(sk.getId()) == null)
-					{
-						// if clan buffs, don't buff every time
-						if (sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF && Rnd.nextInt(2) != 0)
-							continue;
-						if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
-							continue;
-						if (_actor.isSkillDisabled(sk.getId()))
-							continue;
-						L2Object OldTarget = _actor.getTarget();
-						_actor.setTarget(_actor);
-						clientStopMoving(null);
-						_accessor.doCast(sk);
-						_actor.setTarget(OldTarget);
-						return;
-					}
-				}
+				if (getSkillRender().hasBuffSkill())
+					for (L2Skill sk : getSkillRender()._buffskills)
+						if (cast(sk))
+							return;
 			}
 		}
 		// Order to the L2MonsterInstance to random walk (1/100)
 		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0
 				&& !_actor.isNoRndWalk())
 		{
-			// self and clan buffs
-			for (L2Skill sk : _selfAnalysis.buffSkills)
-			{
-				if (_actor.getFirstEffect(sk.getId()) == null)
-				{
-					// if clan buffs, don't buff every time
-					if (sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF && Rnd.nextInt(2) != 0)
-						continue;
-					if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
-						continue;
-					if (_actor.isSkillDisabled(sk.getId()))
-						continue;
-					L2Object OldTarget = _actor.getTarget();
-					_actor.setTarget(_actor);
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_actor.setTarget(OldTarget);
-					return;
-				}
-			}
+			if (getSkillRender().hasBuffSkill())
+				for (L2Skill sk : getSkillRender()._buffskills)
+					if (cast(sk))
+						return;
 			
 			if (_actor instanceof L2Boss
 					|| _actor instanceof L2MinionInstance
@@ -722,13 +706,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 
+		if (_actor.isCastingNow())
+			return;
+
 		L2Character originalAttackTarget = getAttackTarget();
 		// Check if target is dead or if timeout is expired to stop this attack
 		if (originalAttackTarget == null || originalAttackTarget.isAlikeDead() || _attackTimeout < GameTimeController.getGameTicks())
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			if (originalAttackTarget != null)
-				((L2Attackable) _actor).stopHating(originalAttackTarget);
+				getActor().stopHating(originalAttackTarget);
 
 			// Set the AI Intention to AI_INTENTION_ACTIVE
 			setIntention(AI_INTENTION_ACTIVE);
@@ -738,9 +725,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 
 		// Handle all L2Object of its Faction inside the Faction Range
-		if (((L2Npc) _actor).getFactionId() != null)
+		L2Attackable me = getActor();
+		if (me.getFactionId() != null)
 		{
-			String faction_id = ((L2Npc) _actor).getFactionId();
+			String faction_id = me.getFactionId();
 
 			// Go through all L2Object that belong to its faction
 			for (L2Object obj : _actor.getKnownList().getKnownObjects().values())
@@ -785,92 +773,27 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								if (quests != null)
 								{
 									for (Quest quest : quests)
-										quest.notifyFactionCall(npc, (L2Npc) _actor, player, (originalAttackTarget instanceof L2Summon));
+										quest.notifyFactionCall(npc, me, player, (originalAttackTarget instanceof L2Summon));
 								}
 							}
-						}
-						// heal or resurrect friends
-						if (_selfAnalysis.hasHealOrResurrect && !_actor.isAttackingDisabled() && npc.getStatus().getCurrentHp() < npc.getMaxHp() * 0.6
-								&& _actor.getStatus().getCurrentHp() > _actor.getMaxHp() / 2 && _actor.getStatus().getCurrentMp() > _actor.getMaxMp() / 2
-
-						)
-						{
-							if (npc.isDead() && _actor instanceof L2MinionInstance)
+							else if (npc instanceof L2Attackable && getAttackTarget() != null
+									&& npc.getAI().getIntention() != CtrlIntention.AI_INTENTION_ATTACK)
 							{
-								if (((L2MinionInstance) _actor).getLeader() == npc)
-								{
-									for (L2Skill sk : _selfAnalysis.resurrectSkills)
-									{
-										if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
-											continue;
-										if (_actor.isSkillDisabled(sk.getId()))
-											continue;
-										if (!Util.checkIfInRange(sk.getCastRange(), _actor, npc, true))
-											continue;
-
-										if (10 >= Rnd.get(100)) // chance
-											continue;
-										if (!GeoData.getInstance().canSeeTarget(_actor, npc))
-											break;
-
-										L2Object OldTarget = _actor.getTarget();
-										_actor.setTarget(npc);
-										// would this ever be fast enough for the decay not to run?
-										// giving some extra seconds
-										DecayTaskManager.getInstance().cancelDecayTask(npc);
-										DecayTaskManager.getInstance().addDecayTask(npc);
-										clientStopMoving(null);
-										_accessor.doCast(sk);
-										_actor.setTarget(OldTarget);
-										return;
-									}
-								}
+								((L2Attackable) npc).addDamageHate(getAttackTarget(), 0, me.getHating(getAttackTarget()));
+								npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getAttackTarget());
 							}
-							else if (npc.isInCombat())
-							{
-								for (L2Skill sk : _selfAnalysis.healSkills)
-								{
-									if (_actor.getStatus().getCurrentMp() < sk.getMpConsume())
-										continue;
-									if (_actor.isSkillDisabled(sk.getId()))
-										continue;
-									if (!Util.checkIfInRange(sk.getCastRange(), _actor, npc, true))
-										continue;
-
-									int chance = 4;
-									if (_actor instanceof L2MinionInstance)
-									{
-										// minions support boss
-										if (((L2MinionInstance) _actor).getLeader() == npc)
-											chance = 6;
-										else
-											chance = 3;
-									}
-									if (npc instanceof L2Boss)
-										chance = 6;
-									if (chance >= Rnd.get(100)) // chance
-										continue;
-									if (!GeoData.getInstance().canSeeTarget(_actor, npc))
-										break;
-
-									L2Object OldTarget = _actor.getTarget();
-									_actor.setTarget(npc);
-									clientStopMoving(null);
-									_accessor.doCast(sk);
-									_actor.setTarget(OldTarget);
-									return;
-								}
-							}
+							
 						}
 					}
 				}
 			}
 		}
-
+		
+		// Return when Attack been disable
 		if (_actor.isAttackingDisabled())
 			return;
 
-		switch (((L2Attackable) _actor).getFleeingStatus())
+		switch (me.getFleeingStatus())
 		{
 		// 10 million
 		case L2Attackable.FLEEING_STARTED:
@@ -879,357 +802,49 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return;
 		}
 
-		// Get 2 most hated chars
-		L2Character[] hated = ((L2Attackable) _actor).get2MostHated();
-		if (_actor.isConfused())
-		{
-			if (hated != null)
-				hated[0] = originalAttackTarget; // effect handles selection
-			else
-				hated = new L2Character[] { originalAttackTarget, null };
-		}
+		/*
+		 * if(_actor.getTarget() == null || this.getAttackTarget() == null || this.getAttackTarget().isDead() || ctarget == _actor) AggroReconsider();
+		 */
 
-		if (hated == null || hated[0] == null)
+		// ----------------------------------------------------------------
+		// ------------------------------------------------------------------------------
+		// Initialize data
+		double dist = 0;
+		int dist2 = 0;
+		int range = 0;
+		L2Character MostHate = me.getMostHated();
+		// L2Character ctarget = (L2Character)_actor.getTarget();
+		try
+		{
+			setAttackTarget(MostHate);
+			_actor.setTarget(MostHate);
+			dist = Math.sqrt(_actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY()));
+			dist2 = (int) dist;
+			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius()
+					+ getAttackTarget().getTemplate().getCollisionRadius();
+			if (getAttackTarget().isMoving())
+			{
+				range = range + 50;
+				if (_actor.isMoving())
+					range = range + 50;
+			}
+		}
+		catch (NullPointerException e)
 		{
 			setIntention(AI_INTENTION_ACTIVE);
 			return;
 		}
-		if (hated[0] != originalAttackTarget)
-		{
-			setAttackTarget(hated[0]);
-		}
-		_mostHatedAnalysis.update(_actor, hated[0]);
-		_secondMostHatedAnalysis.update(_actor, hated[1]);
-
-		// Get all information needed to choose between physical or magical attack
-		_actor.setTarget(_mostHatedAnalysis.character);
-		double dist2 = _actor.getPlanDistanceSq(_mostHatedAnalysis.character.getX(), _mostHatedAnalysis.character.getY());
-		int combinedCollision = _actor.getTemplate().getCollisionRadius() + _mostHatedAnalysis.character.getTemplate().getCollisionRadius();
-		int range = _actor.getPhysicalAttackRange() + combinedCollision;
-
-		// Reconsider target next round if _actor hasn't got hits in for last 14 seconds
-		if (!_actor.isMuted() && _attackTimeout - 160 < GameTimeController.getGameTicks() && _secondMostHatedAnalysis.character != null)
-		{
-			if (Util.checkIfInRange(900, _actor, hated[1], true))
-			{
-				// take off 2* the amount the aggro is larger than second most
-				((L2Attackable) _actor).reduceHate(hated[0], 2 * (((L2Attackable) _actor).getHating(hated[0]) - ((L2Attackable) _actor).getHating(hated[1])));
-				// Calculate a new attack timeout
-				_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-			}
-		}
-		// Reconsider target during next round if actor is rooted and cannot reach mostHated but can
-		// reach secondMostHated
-		if (_actor.isRooted() && _secondMostHatedAnalysis.character != null)
-		{
-			if (_selfAnalysis.isMage
-					&& dist2 > _selfAnalysis.maxCastRange * _selfAnalysis.maxCastRange
-					&& _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY()) < _selfAnalysis.maxCastRange
-							* _selfAnalysis.maxCastRange)
-			{
-				((L2Attackable) _actor).reduceHate(hated[0], 1 + (((L2Attackable) _actor).getHating(hated[0]) - ((L2Attackable) _actor).getHating(hated[1])));
-			}
-			else if (dist2 > range * range
-					&& _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY()) < range * range)
-			{
-				((L2Attackable) _actor).reduceHate(hated[0], 1 + (((L2Attackable) _actor).getHating(hated[0]) - ((L2Attackable) _actor).getHating(hated[1])));
-			}
-		}
-
-		// Considering, if bigger range will be attempted
-		if ((dist2 < 10000 + combinedCollision * combinedCollision)
-				&& !_selfAnalysis.isFighter && !_selfAnalysis.isBalanced
-				&& (_selfAnalysis.hasLongRangeSkills || _selfAnalysis.isArcher || _selfAnalysis.isHealer)
-				&& (_mostHatedAnalysis.isBalanced || _mostHatedAnalysis.isFighter)
-				&& (_mostHatedAnalysis.character.isRooted() || _mostHatedAnalysis.isSlower)
-				&& (Config.GEODATA==2 ? 20 : 12) >= Rnd.get(100) // chance
-		)
-		{
-			int posX = _actor.getX();
-			int posY = _actor.getY();
-			int posZ = _actor.getZ();
-			double distance = Math.sqrt(dist2); // This way, we only do the sqrt if we need it
-
-			int signx = -1;
-			int signy = -1;
-			if (_actor.getX() > _mostHatedAnalysis.character.getX())
-				signx = 1;
-			if (_actor.getY() > _mostHatedAnalysis.character.getY())
-				signy = 1;
-			posX += Math.round((float) ((signx * ((range / 2) + (Rnd.get(range)))) - distance));
-			posY += Math.round((float) ((signy * ((range / 2) + (Rnd.get(range)))) - distance));
-			setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
-			return;
-		}
-
-		// Cannot see target, needs to go closer, currently just goes to range 300 if mage
-		if ((dist2 > 96100 + combinedCollision * combinedCollision) // 310
-				&& _selfAnalysis.hasLongRangeSkills
-				&& !GeoData.getInstance().canSeeTarget(_actor, _mostHatedAnalysis.character))
-		{
-			if (!(_selfAnalysis.isMage && _actor.isMuted()))
-			{
-				moveToPawn(_mostHatedAnalysis.character, 300);
-				return;
-			}
-		}
-
-		if (_mostHatedAnalysis.character.isMoving())
-			range += 50;
-		// Check if the actor is far from target
-		if (dist2 > range * range)
-		{
-			if (!_actor.isMuted() && (_selfAnalysis.hasLongRangeSkills || _selfAnalysis.healSkills.length > 0))
-			{
-				// check for long ranged skills and heal/buff skills
-				if (!_mostHatedAnalysis.isCanceled)
-				{
-					for (L2Skill sk : _selfAnalysis.cancelSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (dist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= 8)
-						{
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_mostHatedAnalysis.isCanceled = true;
-							_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-							return;
-						}
-					}
-				}
-				if (_selfAnalysis.lastDebuffTick + 60 < GameTimeController.getGameTicks())
-				{
-					for (L2Skill sk : _selfAnalysis.debuffSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (dist2 > castRange * castRange))
-							continue;
-						int chance = 8;
-						if (_selfAnalysis.isFighter && _mostHatedAnalysis.isMage)
-							chance = 3;
-						if (_selfAnalysis.isFighter && _mostHatedAnalysis.isArcher)
-							chance = 12;
-						if (_selfAnalysis.isMage && !_mostHatedAnalysis.isMage)
-							chance = 10;
-						if (_selfAnalysis.isHealer)
-							chance = 12;
-						if (_mostHatedAnalysis.isMagicResistant)
-							chance /= 2;
-
-						if (Rnd.nextInt(100) <= chance)
-						{
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_selfAnalysis.lastDebuffTick = GameTimeController.getGameTicks();
-							_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-							return;
-						}
-					}
-				}
-				if (!_mostHatedAnalysis.character.isMuted())
-				{
-					int chance = 8;
-					if (!(_mostHatedAnalysis.isMage || _mostHatedAnalysis.isBalanced))
-						chance = 3;
-					for (L2Skill sk : _selfAnalysis.muteSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (dist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= chance)
-						{
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-							return;
-						}
-					}
-				}
-				if (_secondMostHatedAnalysis.character != null && !_secondMostHatedAnalysis.character.isMuted()
-						&& (_secondMostHatedAnalysis.isMage || _secondMostHatedAnalysis.isBalanced))
-				{
-					double secondHatedDist2 = _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY());
-					for (L2Skill sk : _selfAnalysis.muteSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (secondHatedDist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= 2)
-						{
-							_actor.setTarget(_secondMostHatedAnalysis.character);
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_actor.setTarget(_mostHatedAnalysis.character);
-							return;
-						}
-					}
-				}
-				if (!_mostHatedAnalysis.character.isSleeping())
-				{
-					for (L2Skill sk : _selfAnalysis.sleepSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (dist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= (_selfAnalysis.isHealer ? 10 : 1))
-						{
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-							return;
-						}
-					}
-				}
-				if (_secondMostHatedAnalysis.character != null && !_secondMostHatedAnalysis.character.isSleeping())
-				{
-					double secondHatedDist2 = _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY());
-					for (L2Skill sk : _selfAnalysis.sleepSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (secondHatedDist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= (_selfAnalysis.isHealer ? 10 : 3))
-						{
-							_actor.setTarget(_secondMostHatedAnalysis.character);
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_actor.setTarget(_mostHatedAnalysis.character);
-							return;
-						}
-					}
-				}
-				if (!_mostHatedAnalysis.character.isRooted())
-				{
-					for (L2Skill sk : _selfAnalysis.rootSkills)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (dist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= (_mostHatedAnalysis.isSlower ? 3 : 8))
-						{
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-							return;
-						}
-					}
-				}
-				if (!_mostHatedAnalysis.character.isAttackingDisabled())
-				{
-					for (L2Skill sk : _selfAnalysis.generalDisablers)
-					{
-						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-								|| (dist2 > castRange * castRange))
-							continue;
-						if (Rnd.nextInt(100) <= ((_selfAnalysis.isFighter && _actor.isRooted()) ? 15 : 7))
-						{
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-							return;
-						}
-					}
-				}
-				if (_actor.getStatus().getCurrentHp() < _actor.getMaxHp() * 0.4)
-				{
-					for (L2Skill sk : _selfAnalysis.healSkills)
-					{
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk))
-							continue;
-						int chance = 7;
-						if (_mostHatedAnalysis.character.isAttackingDisabled())
-							chance += 10;
-						if (_secondMostHatedAnalysis.character == null || _secondMostHatedAnalysis.character.isAttackingDisabled())
-							chance += 10;
-						if (Rnd.nextInt(100) <= chance)
-						{
-							_actor.setTarget(_actor);
-							clientStopMoving(null);
-							_accessor.doCast(sk);
-							_actor.setTarget(_mostHatedAnalysis.character);
-							return;
-						}
-					}
-				}
-
-				// chance decision for launching long range skills
-				int castingChance = 5;
-				if (_selfAnalysis.isMage || _selfAnalysis.isHealer)
-					castingChance = 50; // mages
-				if (_selfAnalysis.isBalanced)
-				{
-					if (!_mostHatedAnalysis.isFighter) // advance to mages
-						castingChance = 15;
-					else
-						castingChance = 25; // stay away from fighters
-				}
-				if (_selfAnalysis.isFighter)
-				{
-					if (_mostHatedAnalysis.isMage)
-						castingChance = 3;
-					else
-						castingChance = 7;
-					if (_actor.isRooted())
-						castingChance = 20; // doesn't matter if no success first round
-				}
-				for (L2Skill sk : _selfAnalysis.generalSkills)
-				{
-					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-							|| (dist2 > castRange * castRange))
-						continue;
-
-					if (Rnd.nextInt(100) <= castingChance)
-					{
-						clientStopMoving(null);
-						_accessor.doCast(sk);
-						_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-						return;
-					}
-				}
-			}
-
-			// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
-			if (_selfAnalysis.isMage && !_actor.isMuted())
-			{
-				// mages stay a bit further away if not muted or low mana
-				if ((_actor.getMaxMp() / 3) < _actor.getStatus().getCurrentMp())
-				{
-					range = _selfAnalysis.maxCastRange;
-					if (dist2 < range * range) // don't move backwards here
-						return;
-				}
-			}
-			// healers do not even follow
-			if (_selfAnalysis.isHealer)
-					return;
-
-			if (_mostHatedAnalysis.character.isMoving())
-				range -= 100;
-			if (range < 5)
-				range = 5;
-			moveToPawn(_mostHatedAnalysis.character, range);
-			return;
-		}
-
-		// **************************************************
+		// ------------------------------------------------------
 		// In case many mobs are trying to hit from same place, move a bit,
 		// circling around the target
-		if (Rnd.nextInt(100) <= 33) // check it once per 3 seconds
+		if (!_actor.isRooted() && Rnd.nextInt(100) <= 33) // check it once per 3 seconds
 		{
-			for (L2Object nearby : _actor.getKnownList().getKnownCharactersInRadius(10))
+			int combinedCollision = _actor.getTemplate().getCollisionRadius()
+					+ getAttackTarget().getTemplate().getCollisionRadius();
+			int collision = _actor.getTemplate().getCollisionRadius();
+			for (L2Object nearby : _actor.getKnownList().getKnownCharactersInRadius(collision))
 			{
-				if (nearby instanceof L2Attackable && nearby != _mostHatedAnalysis.character)
+				if (nearby instanceof L2Attackable && nearby != getAttackTarget())
 				{
 					int diffx = Rnd.get(combinedCollision, combinedCollision + 40);
 					if (Rnd.get(10) < 5)
@@ -1237,262 +852,1600 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					int diffy = Rnd.get(combinedCollision, combinedCollision + 40);
 					if (Rnd.get(10) < 5)
 						diffy = -diffy;
-					moveTo(_mostHatedAnalysis.character.getX() + diffx, _mostHatedAnalysis.character.getY() + diffy, _mostHatedAnalysis.character.getZ());
+					moveTo(getAttackTarget().getX() + diffx, getAttackTarget().getY() + diffy, getAttackTarget().getZ());
 					return;
 				}
 			}
 		}
-
-		// Calculate a new attack timeout.
-		_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-
-		// check for close combat skills && heal/buff skills
-
-		if (!_mostHatedAnalysis.isCanceled)
+		// Dodge if its needed
+		if (!_actor.isRooted() && me.getCanDodge() > 0)
 		{
-			for (L2Skill sk : _selfAnalysis.cancelSkills)
+			if (Rnd.get(100) <= me.getCanDodge())
 			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (dist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= 8)
+				// Micht: kepping this one otherwise we should do 2 sqrt
+				double distance2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
+				if (Math.sqrt(distance2) <= (60 + _actor.getTemplate().getCollisionRadius() + getAttackTarget()
+						.getTemplate().getCollisionRadius()))
 				{
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_mostHatedAnalysis.isCanceled = true;
-					return;
-				}
-			}
-		}
-		if (_selfAnalysis.lastDebuffTick + 60 < GameTimeController.getGameTicks())
-		{
-			for (L2Skill sk : _selfAnalysis.debuffSkills)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (dist2 > castRange * castRange))
-					continue;
-				int chance = 5;
-				if (_selfAnalysis.isFighter && _mostHatedAnalysis.isMage)
-					chance = 3;
-				if (_selfAnalysis.isFighter && _mostHatedAnalysis.isArcher)
-					chance = 3;
-				if (_selfAnalysis.isMage && !_mostHatedAnalysis.isMage)
-					chance = 4;
-				if (_selfAnalysis.isHealer)
-					chance = 12;
-				if (_mostHatedAnalysis.isMagicResistant)
-					chance /= 2;
-				if (sk.getCastRange() < 200)
-					chance += 3;
-				if (Rnd.nextInt(100) <= chance)
-				{
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_selfAnalysis.lastDebuffTick = GameTimeController.getGameTicks();
-					return;
-				}
-			}
-		}
-		if (!_mostHatedAnalysis.character.isMuted() && (_mostHatedAnalysis.isMage || _mostHatedAnalysis.isBalanced))
-		{
-			for (L2Skill sk : _selfAnalysis.muteSkills)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (dist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= 7)
-				{
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					return;
-				}
-			}
-		}
-		if (_secondMostHatedAnalysis.character != null && !_secondMostHatedAnalysis.character.isMuted()
-				&& (_secondMostHatedAnalysis.isMage || _secondMostHatedAnalysis.isBalanced))
-		{
-			double secondHatedDist2 = _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY());
-			for (L2Skill sk : _selfAnalysis.muteSkills)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (secondHatedDist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= 3)
-				{
-					_actor.setTarget(_secondMostHatedAnalysis.character);
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_actor.setTarget(_mostHatedAnalysis.character);
-					return;
-				}
-			}
-		}
-		if (!_mostHatedAnalysis.character.isSleeping() && _selfAnalysis.isHealer)
-		{
-			for (L2Skill sk : _selfAnalysis.sleepSkills)
-			{
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk) || (dist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= 10)
-				{
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-					return;
-				}
-			}
-		}
-		if (_secondMostHatedAnalysis.character != null && !_secondMostHatedAnalysis.character.isSleeping())
-		{
-			double secondHatedDist2 = _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY());
-			for (L2Skill sk : _selfAnalysis.sleepSkills)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (secondHatedDist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= (_selfAnalysis.isHealer ? 10 : 4))
-				{
-					_actor.setTarget(_secondMostHatedAnalysis.character);
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_actor.setTarget(_mostHatedAnalysis.character);
-					return;
-				}
-			}
-		}
-		if (!_mostHatedAnalysis.character.isRooted() && _mostHatedAnalysis.isFighter && !_selfAnalysis.isFighter)
-		{
-			for (L2Skill sk : _selfAnalysis.rootSkills)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (dist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= (_selfAnalysis.isHealer ? 10 : 4))
-				{
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					return;
-				}
-			}
-		}
-		if (!_mostHatedAnalysis.character.isAttackingDisabled())
-		{
-			for (L2Skill sk : _selfAnalysis.generalDisablers)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-						|| (dist2 > castRange * castRange))
-					continue;
-				if (Rnd.nextInt(100) <= ((sk.getCastRange() < 200) ? 10 : 7))
-				{
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					return;
-				}
-			}
-		}
-		if (_actor.getStatus().getCurrentHp() < _actor.getMaxHp() * (_selfAnalysis.isHealer ? 0.7 : 0.4))
-		{
-			for (L2Skill sk : _selfAnalysis.healSkills)
-			{
-				if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-					continue;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk))
-					continue;
-				int chance = (_selfAnalysis.isHealer ? 15 : 7);
-				if (_mostHatedAnalysis.character.isAttackingDisabled())
-					chance += 10;
-				if (_secondMostHatedAnalysis.character == null || _secondMostHatedAnalysis.character.isAttackingDisabled())
-					chance += 10;
-				if (Rnd.nextInt(100) <= chance)
-				{
-					_actor.setTarget(_actor);
-					clientStopMoving(null);
-					_accessor.doCast(sk);
-					_actor.setTarget(_mostHatedAnalysis.character);
-					return;
-				}
-			}
-		}
-		for (L2Skill sk : _selfAnalysis.generalSkills)
-		{
-			if ((_actor.isMuted() && sk.isMagic()) || (_actor.isPhysicalMuted() && !sk.isMagic()))
-				continue;
-			int castRange = sk.getCastRange() + combinedCollision;
-			if (_actor.isSkillDisabled(sk.getId()) || _actor.getStatus().getCurrentMp() < _actor.getStat().getMpConsume(sk)
-					|| (dist2 > castRange * castRange))
-				continue;
-
-			// chance decision for launching general skills in melee fight
-			// close range skills should be higher, long range lower
-			int castingChance = 5;
-			if (_selfAnalysis.isMage || _selfAnalysis.isHealer)
-			{
-				if (sk.getCastRange() < 200)
-					castingChance = 35;
-				else
-					castingChance = 25; // mages
-			}
-			if (_selfAnalysis.isBalanced)
-			{
-				if (sk.getCastRange() < 200)
-					castingChance = 12;
-				else
-				{
-					if (_mostHatedAnalysis.isMage) // hit mages
-						castingChance = 2;
+					// Diasable the RND for increasing the performance
+					// int chance = 60;
+					// if (chance >= Rnd.get(100))
+					// {
+					int posX = _actor.getX();
+					int posY = _actor.getY();
+					int posZ = _actor.getZ();
+					/*
+					 * if (Rnd.get(1) > 0) posX =((L2Attackable) _actor).getSpawn().getLocx() + Rnd.get(100); else posX = ((L2Attackable) _actor).getSpawn().getLocx() - Rnd.get(100); if (Rnd.get(1) > 0) posY = ((L2Attackable) _actor).getSpawn().getLocy() + Rnd.get(100); else
+					 * posY =((L2Attackable) _actor).getSpawn().getLocy() - Rnd.get(100); setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
+					 */
+					if (Rnd.get(1) > 0)
+						posX = posX + Rnd.get(100);
 					else
-						castingChance = 5;
-				}
-			}
-			if (_selfAnalysis.isFighter)
-			{
-				if (sk.getCastRange() < 200)
-					castingChance = 12;
-				else
-				{
-					if (_mostHatedAnalysis.isMage)
-						castingChance = 1;
+						posX = posX - Rnd.get(100);
+					
+					if (Rnd.get(1) > 0)
+						posY = posY + Rnd.get(100);
 					else
-						castingChance = 3;
+						posY = posY - Rnd.get(100);
+					
+					setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
+					return;
+					// }
 				}
 			}
+		}
 
-			if (Rnd.nextInt(100) <= castingChance)
+		// ------------------------------------------------------------------------------
+		// BOSS/Raid Minion Target Reconsider
+		if (_actor.isRaid() || _actor.isRaidMinion())
+		{
+			_chaosTime++;
+			if (_actor instanceof L2RaidBossInstance && !((L2MonsterInstance) _actor).hasMinions())
 			{
-				clientStopMoving(null);
-				_accessor.doCast(sk);
+				if (_chaosTime > Config.RAID_CHAOS_TIME)
+					if (Rnd.get(100) <= 100 - (_actor.getCurrentHp() * 100 / _actor.getMaxHp()))
+					{
+						aggroReconsider();
+						_chaosTime = 0;
+					}
+			}
+			else if (_actor instanceof L2RaidBossInstance && ((L2MonsterInstance)_actor).hasMinions())
+			{
+				if (_chaosTime > Config.RAID_CHAOS_TIME)
+					if (Rnd.get(100) <= 100 - (_actor.getCurrentHp() * 200 / _actor.getMaxHp()))
+					{
+						aggroReconsider();
+						_chaosTime = 0;
+					}
+			}
+			else if (_actor instanceof L2GrandBossInstance)
+			{
+				if (_chaosTime > Config.GRAND_CHAOS_TIME)
+					if (Rnd.get(100) <= 100 - (_actor.getCurrentHp() * 300 / _actor.getMaxHp()))
+					{
+						aggroReconsider();
+						_chaosTime = 0;
+					}
+			}
+			else
+			{
+				if (_chaosTime > Config.MINION_CHAOS_TIME)
+					if (Rnd.get(100) <= 100 - (_actor.getCurrentHp() * 200 / _actor.getMaxHp()))
+					{
+						aggroReconsider();
+						_chaosTime = 0;
+					}
+			}
+		}
+		
+		if (getSkillRender().hasSkill())
+		{
+			// -------------------------------------------------------------------------------
+			// Heal Condition
+			if (getSkillRender().hasHealSkill() && getSkillRender()._healskills != null)
+			{
+				double percentage = _actor.getCurrentHp() / _actor.getMaxHp() * 100;
+				if (_actor instanceof L2MinionInstance)
+				{
+					L2Character leader = ((L2MinionInstance)_actor).getLeader();
+					if (leader != null && !leader.isDead()
+							&& Rnd.get(100) > (leader.getCurrentHp() / leader.getMaxHp() * 100))
+						for (L2Skill sk : getSkillRender()._healskills)
+						{
+							if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
+								continue;
+							if ((sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId())
+									|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted())))
+							{
+								continue;
+							}
+							if (!Util.checkIfInRange((sk.getCastRange() + _actor.getTemplate().getCollisionRadius() + leader
+									.getTemplate().getCollisionRadius()), _actor, leader, false)
+									&& !isParty(sk) && !_actor.isMovementDisabled())
+							{
+								moveToPawn(leader, sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+										+ leader.getTemplate().getCollisionRadius());
+							}
+							if (GeoData.getInstance().canSeeTarget(_actor, leader))
+							{
+								clientStopMoving(null);
+								_actor.setTarget(leader);
+								clientStopMoving(null);
+								_actor.doCast(sk);
+								return;
+							}
+						}
+				}
+				if (Rnd.get(100) < (100 - percentage) / 3)
+					for (L2Skill sk : getSkillRender()._healskills)
+					{
+						if ((sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId()) || (sk
+								.isMagic() && _actor.isMuted()))
+								|| (!sk.isMagic() && _actor.isPhysicalMuted()))
+						{
+							continue;
+						}
+						clientStopMoving(null);
+						_actor.setTarget(_actor);
+						_actor.doCast(sk);
+						return;
+					}
+				for (L2Skill sk : getSkillRender()._healskills)
+				{
+					if ((sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId()) || (sk
+							.isMagic() && _actor.isMuted()))
+							|| (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
+						for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
+								sk.getCastRange() + _actor.getTemplate().getCollisionRadius()))
+						{
+							if (!(obj instanceof L2Attackable) || obj.isDead())
+								continue;
+							
+							L2Attackable targets = ((L2Attackable)obj);
+							if (me.getFactionId() != targets.getFactionId()
+									&& me.getFactionId() != null)
+								continue;
+							percentage = targets.getCurrentHp() / targets.getMaxHp() * 100;
+							if (Rnd.get(100) < (100 - percentage) / 10)
+							{
+								if (GeoData.getInstance().canSeeTarget(_actor, targets))
+								{
+									clientStopMoving(null);
+									_actor.setTarget(obj);
+									_actor.doCast(sk);
+									return;
+								}
+							}
+						}
+					if (isParty(sk))
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return;
+					}
+				}
+			}
+			// -------------------------------------------------------------------------------
+			// Res Skill Condition
+			if (getSkillRender().hasResSkill())
+			{
+				if (_actor instanceof L2MinionInstance)
+				{
+					L2Character leader = ((L2MinionInstance)_actor).getLeader();
+					if (leader != null && leader.isDead())
+						for (L2Skill sk : getSkillRender()._resskills)
+						{
+							if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
+								continue;
+							if ((sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId())
+									|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted())))
+							{
+								continue;
+							}
+							if (!Util.checkIfInRange((sk.getCastRange() + _actor.getTemplate().getCollisionRadius() + leader
+									.getTemplate().getCollisionRadius()), _actor, leader, false)
+									&& !isParty(sk) && !_actor.isRooted())
+							{
+								moveToPawn(leader, sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+										+ leader.getTemplate().getCollisionRadius());
+							}
+							if (GeoData.getInstance().canSeeTarget(_actor, leader))
+							{
+								clientStopMoving(null);
+								_actor.setTarget(((L2MinionInstance) _actor).getLeader());
+								_actor.doCast(sk);
+								return;
+							}
+						}
+				}
+				for (L2Skill sk : getSkillRender()._resskills)
+				{
+					if ((sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId()) || (sk
+							.isMagic() && _actor.isMuted()))
+							|| (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
+						for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
+								sk.getCastRange() + _actor.getTemplate().getCollisionRadius()))
+						{
+							if (!(obj instanceof L2Attackable) || !obj.isDead())
+								continue;
+							
+							L2Attackable targets = ((L2Attackable)obj);
+							if (me.getFactionId() != targets.getFactionId()
+									&& me.getFactionId() != null)
+								continue;
+							if (Rnd.get(100) < 10)
+							{
+								if (GeoData.getInstance().canSeeTarget(_actor, targets))
+								{
+									clientStopMoving(null);
+									_actor.setTarget(obj);
+									_actor.doCast(sk);
+									return;
+								}
+							}
+						}
+					if (isParty(sk))
+					{
+						clientStopMoving(null);
+						L2Object target = getAttackTarget();
+						_actor.setTarget(_actor);
+						_actor.doCast(sk);
+						_actor.setTarget(target);
+						return;
+					}
+				}
+			}
+		}
+
+		// -------------------------------------------------------------------------------
+		// Immobilize Condition
+		if ((_actor.isRooted() && (dist > range || getAttackTarget().isMoving()))
+				|| (dist > range && getAttackTarget().isMoving()))
+		{
+			movementDisable();
+			return;
+		}
+		setTimePass(0);
+		// --------------------------------------------------------------------------------
+		// Skill Use
+		if (getSkillRender().hasSkill())
+		{
+			if (Rnd.get(100) <= me.getSkillChance())
+			{
+				L2Skill skills = getSkillRender()._generalskills.get(Rnd.nextInt(getSkillRender()._generalskills.size()));
+				if (cast(skills))
+					return;
+				for (L2Skill sk : getSkillRender()._generalskills)
+					if (cast(sk))
+						return;
+			}
+			
+			// --------------------------------------------------------------------------------
+			// Long/Short Range skill Usage
+			if (me.hasLSkill() || me.hasSSkill())
+			{
+				if (me.hasSSkill() && dist2 <= 150 && Rnd.get(100) <= me.getSSkillChance())
+				{
+					sSkillRender();
+					if (getSkillRender()._Srangeskills != null)
+						for (L2Skill sk : getSkillRender()._Srangeskills)
+							if (cast(sk))
+								return;
+				}
+				if (me.hasLSkill() && dist2 >= 300 && Rnd.get(100) <= me.getSSkillChance())
+				{
+					lSkillRender();
+					if (getSkillRender()._Lrangeskills != null)
+						for (L2Skill sk : getSkillRender()._Lrangeskills)
+							if (cast(sk))
+								return;
+				}
+				
+			}
+		}
+		
+		// --------------------------------------------------------------------------------
+		// Starts Melee or Primary Skill
+		if (dist2 > range || !GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+		{
+			if (_actor.isRooted())
+			{
+				targetReconsider();
+				return;
+			}
+			else
+			{
+				if (getAttackTarget().isMoving())
+					range -= 100;
+				if (range < 5)
+					range = 5;
+				moveToPawn(getAttackTarget(), range);
 				return;
 			}
 		}
-
-		// Finally, physical attacks
-		if (!_selfAnalysis.isHealer)
+		else
 		{
-			clientStopMoving(null);
-			_accessor.doAttack(_mostHatedAnalysis.character);
+			melee(me.getPrimaryAttack());
 		}
+	}
+	
+	private void melee(int type)
+	{
+		if (type != 0)
+		{
+			switch (type)
+			{
+				case -1:
+				{
+					if (getSkillRender()._generalskills != null)
+						for (L2Skill sk : getSkillRender()._generalskills)
+							if (cast(sk))
+								return;
+					break;
+				}
+				case 1:
+				{
+					if (getSkillRender().hasAtkSkill())
+						for (L2Skill sk : getSkillRender()._atkskills)
+							if (cast(sk))
+								return;
+					break;
+				}
+				default:
+				{
+					if (getSkillRender()._generalskills != null)
+						for (L2Skill sk : getSkillRender()._generalskills)
+							if (sk.getId() == getActor().getPrimaryAttack())
+								if (cast(sk))
+									return;
+				}
+					break;
+			}
+		}
+		
+		_accessor.doAttack(getAttackTarget());
+	}
+	
+	private boolean cast(L2Skill sk)
+	{
+		if (sk == null)
+			return false;
+		if (sk.getMpConsume() >= _actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId())
+				|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
+			return false;
+		L2Attackable me = getActor();
+		if (getAttackTarget() == null)
+			if (me.getMostHated() != null)
+				setAttackTarget(me.getMostHated());
+		if (getAttackTarget() == null)
+			return false;
+		double dist = Math.sqrt(_actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY()));
+		double dist2 = dist + getAttackTarget().getTemplate().getCollisionRadius();
+		double range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius()
+				+ getAttackTarget().getTemplate().getCollisionRadius();
+		double srange = sk.getCastRange() + _actor.getTemplate().getCollisionRadius();
+		if (getAttackTarget().isMoving())
+			dist2 = dist2 - 400;
+		
+		switch (sk.getSkillType())
+		{
+			case BUFF:
+			case REFLECT:
+			{
+				if (_actor.getFirstEffect(sk) == null)
+				{
+					clientStopMoving(null);
+					// L2Object target = getAttackTarget();
+					_actor.setTarget(_actor);
+					_actor.doCast(sk);
+					// _actor.setTarget(target);
+					return true;
+				}
+				// ----------------------------------------
+				// If actor already have buff, start looking at others same faction mob to cast
+				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
+					return false;
+				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
+				{
+					L2Character target = effectTargetReconsider(sk, true);
+					if (target != null)
+					{
+						clientStopMoving(null);
+						L2Object targets = getAttackTarget();
+						_actor.setTarget(target);
+						_actor.doCast(sk);
+						_actor.setTarget(targets);
+						return true;
+					}
+				}
+				if (canParty(sk))
+				{
+					clientStopMoving(null);
+					L2Object targets = getAttackTarget();
+					_actor.setTarget(_actor);
+					_actor.doCast(sk);
+					_actor.setTarget(targets);
+					return true;
+				}
+				break;
+			}
+			case HEAL:
+			case HOT:
+			case HEAL_PERCENT:
+			case HEAL_STATIC:
+			case BALANCE_LIFE:
+			{
+				double percentage = _actor.getCurrentHp() / _actor.getMaxHp() * 100;
+				if (_actor instanceof L2MinionInstance && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
+				{
+					L2Character leader = ((L2MinionInstance)_actor).getLeader();
+					if (leader != null && !leader.isDead()
+							&& Rnd.get(100) > (leader.getCurrentHp() / leader.getMaxHp() * 100))
+					{
+						if (!Util.checkIfInRange((sk.getCastRange() + _actor.getTemplate().getCollisionRadius() + leader
+								.getTemplate().getCollisionRadius()), _actor, leader, false)
+								&& !isParty(sk) && !_actor.isRooted())
+						{
+							moveToPawn(leader, sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ leader.getTemplate().getCollisionRadius());
+						}
+						if (GeoData.getInstance().canSeeTarget(_actor, leader))
+						{
+							clientStopMoving(null);
+							_actor.setTarget(leader);
+							_actor.doCast(sk);
+							return true;
+						}
+					}
+				}
+				if (Rnd.get(100) < (100 - percentage) / 3)
+				{
+					clientStopMoving(null);
+					_actor.setTarget(_actor);
+					_actor.doCast(sk);
+					return true;
+				}
+				
+				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
+				{
+					for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
+							sk.getCastRange() + _actor.getTemplate().getCollisionRadius()))
+					{
+						if (!(obj instanceof L2Attackable) || obj.isDead())
+							continue;
+						L2Attackable targets = ((L2Attackable)obj);
+						if (me.getFactionId() != targets.getFactionId()
+								&& me.getFactionId() != null)
+							continue;
+						percentage = targets.getCurrentHp() / targets.getMaxHp() * 100;
+						if (Rnd.get(100) < (100 - percentage) / 10)
+						{
+							if (GeoData.getInstance().canSeeTarget(_actor, targets))
+							{
+								clientStopMoving(null);
+								_actor.setTarget(obj);
+								_actor.doCast(sk);
+								return true;
+							}
+						}
+					}
+				}
+				if (isParty(sk))
+				{
+					for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
+							sk.getSkillRadius() + _actor.getTemplate().getCollisionRadius()))
+					{
+						if (!(obj instanceof L2Attackable))
+						{
+							continue;
+						}
+						L2Npc targets = (L2Npc) obj;
+						L2Npc actors = me;
+						if (actors.getFactionId() != null && targets.getFactionId().equals(actors.getFactionId()))
+						{
+							if (obj.getCurrentHp() < obj.getMaxHp() && Rnd.get(100) <= 20)
+							{
+								clientStopMoving(null);
+								_actor.setTarget(_actor);
+								_actor.doCast(sk);
+								return true;
+							}
+						}
+					}
+				}
+				break;
+			}
+			case RESURRECT:
+			{
+				if (!isParty(sk))
+				{
+					if (_actor instanceof L2MinionInstance && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
+					{
+						L2Character leader = ((L2MinionInstance) _actor).getLeader();
+						if (leader != null && leader.isDead())
+							if (!Util.checkIfInRange((sk.getCastRange() + _actor.getTemplate().getCollisionRadius() + leader
+									.getTemplate().getCollisionRadius()), _actor, leader, false)
+									&& !isParty(sk) && !_actor.isRooted())
+							{
+								moveToPawn(leader, sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+										+ leader.getTemplate().getCollisionRadius());
+							}
+						if (GeoData.getInstance().canSeeTarget(_actor, leader))
+						{
+							clientStopMoving(null);
+							_actor.setTarget(((L2MinionInstance) _actor).getLeader());
+							_actor.doCast(sk);
+							return true;
+						}
+					}
+					
+					for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
+							sk.getCastRange() + _actor.getTemplate().getCollisionRadius()))
+					{
+						if (!(obj instanceof L2Attackable) || !obj.isDead())
+							continue;
+						
+						L2Attackable targets = ((L2Attackable) obj);
+						if (me.getFactionId() != targets.getFactionId()
+								&& me.getFactionId() != null)
+							continue;
+						if (Rnd.get(100) < 10)
+						{
+							if (GeoData.getInstance().canSeeTarget(_actor, targets))
+							{
+								clientStopMoving(null);
+								_actor.setTarget(obj);
+								_actor.doCast(sk);
+								return true;
+							}
+						}
+					}
+				}
+				else if (isParty(sk))
+				{
+					for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(
+							sk.getSkillRadius() + _actor.getTemplate().getCollisionRadius()))
+					{
+						if (!(obj instanceof L2Attackable))
+						{
+							continue;
+						}
+						L2Npc targets = (L2Npc) obj;
+						L2Npc actors = me;
+						if (actors.getFactionId() != null && actors.getFactionId().equals(targets.getFactionId()))
+						{
+							if (obj.getCurrentHp() < obj.getMaxHp() && Rnd.get(100) <= 20)
+							{
+								clientStopMoving(null);
+								_actor.setTarget(_actor);
+								_actor.doCast(sk);
+								return true;
+							}
+						}
+					}
+				}
+				break;
+			}
+			case DEBUFF:
+			case WEAKNESS:
+			case POISON:
+			case DOT:
+			case MDOT:
+			case BLEED:
+			{
+				if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !canAOE(sk)
+						&& !getAttackTarget().isDead() && dist2 <= srange)
+				{
+					if (getAttackTarget().getFirstEffect(sk) == null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (canAOE(sk))
+				{
+					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return true;
+					}
+					if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
+							&& !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				{
+					L2Character target = effectTargetReconsider(sk, false);
+					if (target != null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				break;
+			}
+			case SLEEP:
+			{
+				if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				{
+					if (getAttackTarget() != null && !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						if (dist2 > range || getAttackTarget().isMoving())
+						{
+							if (getAttackTarget().getFirstEffect(sk) == null)
+							{
+								clientStopMoving(null);
+								// _actor.setTarget(getAttackTarget());
+								_actor.doCast(sk);
+								return true;
+							}
+						}
+					}
+					
+					L2Character target = effectTargetReconsider(sk, false);
+					if (target != null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (canAOE(sk))
+				{
+					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return true;
+					}
+					if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
+							&& !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				break;
+			}
+			case ROOT:
+			case STUN:
+			case PARALYZE:
+			{
+				if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !canAOE(sk) && dist2 <= srange)
+				{
+					if (getAttackTarget().getFirstEffect(sk) == null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (canAOE(sk))
+				{
+					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return true;
+					}
+					else if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
+							&& !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				{
+					L2Character target = effectTargetReconsider(sk, false);
+					if (target != null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				break;
+			}
+			case MUTE:
+			case FEAR:
+			{
+				if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !canAOE(sk) && dist2 <= srange)
+				{
+					if (getAttackTarget().getFirstEffect(sk) == null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (canAOE(sk))
+				{
+					if (sk.getTargetType() == SkillTargetType.TARGET_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return true;
+					}
+					if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
+							&& !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				else if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				{
+					L2Character target = effectTargetReconsider(sk, false);
+					if (target != null)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				break;
+			}
+			case CANCEL:
+			case NEGATE:
+			{
+				if (sk.getTargetType() == SkillTargetType.TARGET_ONE)
+				{
+					if (getAttackTarget().getFirstEffect(L2EffectType.BUFF) != null
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
+							&& !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return true;
+					}
+					L2Character target = effectTargetReconsider(sk, false);
+					if (target != null)
+					{
+						clientStopMoving(null);
+						L2Object targets = getAttackTarget();
+						_actor.setTarget(target);
+						_actor.doCast(sk);
+						_actor.setTarget(targets);
+						return true;
+					}
+				}
+				else if (canAOE(sk))
+				{
+					if ((sk.getTargetType() == SkillTargetType.TARGET_AURA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AURA || sk.getTargetType() == SkillTargetType.TARGET_FRONT_AURA)
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return true;
+					}
+					else if ((sk.getTargetType() == SkillTargetType.TARGET_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_BEHIND_AREA
+							|| sk.getTargetType() == SkillTargetType.TARGET_FRONT_AREA || sk.getTargetType() == SkillTargetType.TARGET_MULTIFACE)
+							&& GeoData.getInstance().canSeeTarget(_actor, getAttackTarget())
+							&& !getAttackTarget().isDead() && dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+				}
+				break;
+			}
+			case PDAM:
+			case MDAM:
+			case BLOW:
+			case DRAIN:
+			case CHARGEDAM:
+			case DEATHLINK:
+			case CPDAM:
+			case MANADAM:
+			{
+				if (!canAura(sk))
+				{
+					if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !getAttackTarget().isDead()
+							&& dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+					else
+					{
+						L2Character target = skillTargetReconsider(sk);
+						if (target != null)
+						{
+							clientStopMoving(null);
+							L2Object targets = getAttackTarget();
+							_actor.setTarget(target);
+							_actor.doCast(sk);
+							_actor.setTarget(targets);
+							return true;
+						}
+					}
+				}
+				else
+				{
+					clientStopMoving(null);
+					_actor.doCast(sk);
+					return true;
+				}
+				break;
+			}
+			default:
+			{
+				if (!canAura(sk))
+				{
+					if (GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()) && !getAttackTarget().isDead()
+							&& dist2 <= srange)
+					{
+						clientStopMoving(null);
+						_actor.doCast(sk);
+						return true;
+					}
+					else
+					{
+						L2Character target = skillTargetReconsider(sk);
+						if (target != null)
+						{
+							clientStopMoving(null);
+							L2Object targets = getAttackTarget();
+							_actor.setTarget(target);
+							_actor.doCast(sk);
+							_actor.setTarget(targets);
+							return true;
+						}
+					}
+				}
+				else
+				{
+					clientStopMoving(null);
+					// L2Object targets = getAttackTarget();
+					// _actor.setTarget(_actor);
+					_actor.doCast(sk);
+					// _actor.setTarget(targets);
+					return true;
+				}
+			}
+			break;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * This AI task will start when ACTOR cannot move and attack range larger than distance
+	 */
+	private void movementDisable()
+	{
+		double dist = 0;
+		double dist2 = 0;
+		int range = 0;
+		try
+		{
+			if (_actor.getTarget() == null)
+				_actor.setTarget(getAttackTarget());
+			dist = Math.sqrt(_actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY()));
+			dist2 = dist;
+			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius()
+					+ getAttackTarget().getTemplate().getCollisionRadius();
+			if (getAttackTarget().isMoving())
+			{
+				dist = dist - 30;
+				if (_actor.isMoving())
+					dist = dist - 50;
+			}
+		}
+		catch (NullPointerException e)
+		{
+			setIntention(AI_INTENTION_ACTIVE);
+			return;
+		}
+		
+		// Check if activeChar has any skill
+		if (getSkillRender().hasSkill())
+		{
+			// -------------------------------------------------------------
+			// Try to stop the target or disable the target as priority
+			if (getSkillRender().hasImmobiliseSkill())
+			{
+				for (L2Skill sk : getSkillRender()._immobiliseskills)
+				{
+					if (sk.getMpConsume() >= _actor.getCurrentMp()
+							|| _actor.isSkillDisabled(sk.getId())
+							|| (sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ getAttackTarget().getTemplate().getCollisionRadius() <= dist2 && !canAura(sk))
+									|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (!GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+						continue;
+					if (getAttackTarget().getFirstEffect(sk) == null)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return;
+					}
+				}
+			}
+			// -------------------------------------------------------------
+			// Same as Above, but with Mute/FEAR etc....
+			if (getSkillRender().hasCOTSkill())
+			{
+				for (L2Skill sk : getSkillRender()._cotskills)
+				{
+					if (sk.getMpConsume() >= _actor.getCurrentMp()
+							|| _actor.isSkillDisabled(sk.getId())
+							|| (sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ getAttackTarget().getTemplate().getCollisionRadius() <= dist2 && !canAura(sk))
+									|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (!GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+						continue;
+					if (getAttackTarget().getFirstEffect(sk) == null)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return;
+					}
+				}
+			}
+			// -------------------------------------------------------------
+			if (getSkillRender().hasDebuffSkill() && Rnd.get(10) <= 2)
+			{
+				for (L2Skill sk : getSkillRender()._debuffskills)
+				{
+					if (sk.getMpConsume() >= _actor.getCurrentMp()
+							|| _actor.isSkillDisabled(sk.getId())
+							|| (sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ getAttackTarget().getTemplate().getCollisionRadius() <= dist2 && !canAura(sk))
+							|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (!GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+						continue;
+					if (getAttackTarget().getFirstEffect(sk) == null)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return;
+					}
+				}
+			}
+			// -------------------------------------------------------------
+			// Some side effect skill like CANCEL or NEGATE
+			if (getSkillRender().hasNegativeSkill() && Rnd.get(10) == 1)
+			{
+				for (L2Skill sk : getSkillRender()._negativeskills)
+				{
+					if (sk.getMpConsume() >= _actor.getCurrentMp()
+							|| _actor.isSkillDisabled(sk.getId())
+							|| (sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ getAttackTarget().getTemplate().getCollisionRadius() <= dist2 && !canAura(sk))
+							|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (!GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+						continue;
+					if (getAttackTarget().getFirstEffect(L2EffectType.BUFF) != null)
+					{
+						clientStopMoving(null);
+						// L2Object target = getAttackTarget();
+						// _actor.setTarget(_actor);
+						_actor.doCast(sk);
+						// _actor.setTarget(target);
+						return;
+					}
+				}
+			}
+			// -------------------------------------------------------------
+			// Start ATK SKILL when nothing can be done
+			if (getSkillRender().hasAtkSkill())
+			{
+				for (L2Skill sk : getSkillRender()._atkskills)
+				{
+					if (sk.getMpConsume() >= _actor.getCurrentMp()
+							|| _actor.isSkillDisabled(sk.getId())
+							|| (sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ getAttackTarget().getTemplate().getCollisionRadius() <= dist2 && !canAura(sk))
+							|| (sk.isMagic() && _actor.isMuted()) || (!sk.isMagic() && _actor.isPhysicalMuted()))
+					{
+						continue;
+					}
+					if (!GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+						continue;
+					clientStopMoving(null);
+					// L2Object target = getAttackTarget();
+					// _actor.setTarget(_actor);
+					_actor.doCast(sk);
+					// _actor.setTarget(target);
+					return;
+				}
+			}
+			// -------------------------------------------------------------
+			// if there is no ATK skill to use, then try Universal skill
+			/*
+			 * if(getSkillRender().hasUniversalSkill()) { for(L2Skill sk:getSkillRender()._universalskills) { if(sk.getMpConsume()>=_actor.getCurrentMp() || _actor.isSkillDisabled(sk.getId()) ||(sk.getCastRange()+ _actor.getTemplate().collisionRadius + getAttackTarget().getTemplate().collisionRadius <=
+			 * dist2 && !canAura(sk)) ||(sk.isMagic()&&_actor.isMuted()) ||(!sk.isMagic()&&_actor.isPhysicalMuted())) { continue; } if(!GeoData.getInstance().canSeeTarget(_actor,getAttackTarget())) continue; clientStopMoving(null); L2Object target = getAttackTarget(); //_actor.setTarget(_actor);
+			 * _actor.doCast(sk); //_actor.setTarget(target); return; } }
+			 */
+		}
+		// timepass = timepass + 1;
+		if (_actor.isRooted())
+		{
+			// setTimePass(0);
+			targetReconsider();
+			
+			return;
+		}
+		// else if (timepass >= 5)
+		// {
+		// setTimePass(0);
+		// aggroReconsider();
+		// return;
+		// }
+		
+		if (dist > range || !GeoData.getInstance().canSeeTarget(_actor, getAttackTarget()))
+		{
+			if (getAttackTarget().isMoving())
+				range -= 100;
+			if (range < 5)
+				range = 5;
+			moveToPawn(getAttackTarget(), range);
+			return;
+			
+		}
+		
+		melee(getActor().getPrimaryAttack());
+		return;
+	}
+	
+	private L2Character effectTargetReconsider(L2Skill sk, boolean positive)
+	{
+		if (sk == null)
+			return null;
+		if (sk.getSkillType() != L2SkillType.NEGATE || sk.getSkillType() != L2SkillType.CANCEL)
+		{
+			if (!positive)
+			{
+				double dist = 0;
+				double dist2 = 0;
+				int range = 0;
+				L2Attackable actor = getActor();
+				
+				if (actor.getAttackByList() != null)
+					for (L2Character obj : actor.getAttackByList())
+					{
+						if (obj == null || obj.isDead() || !GeoData.getInstance().canSeeTarget(_actor, obj)
+								|| obj == getAttackTarget())
+							continue;
+						try
+						{
+							_actor.setTarget(getAttackTarget());
+							dist = Math.sqrt(_actor.getPlanDistanceSq(obj.getX(), obj.getY()));
+							dist2 = dist;
+							range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+									+ obj.getTemplate().getCollisionRadius();
+							if (obj.isMoving())
+								dist2 = dist2 - 70;
+						}
+						catch (NullPointerException e)
+						{
+							continue;
+						}
+						if (dist2 <= range)
+						{
+							if (getAttackTarget().getFirstEffect(sk) == null)
+								return obj;
+						}
+					}
+				
+				// ----------------------------------------------------------------------
+				// If there is nearby Target with aggro, start going on random target that is attackable
+				for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(range))
+				{
+					if (obj == null || obj.isDead() || !GeoData.getInstance().canSeeTarget(_actor, obj))
+						continue;
+					try
+					{
+						_actor.setTarget(getAttackTarget());
+						dist = Math.sqrt(_actor.getPlanDistanceSq(obj.getX(), obj.getY()));
+						dist2 = dist;
+						range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+								+ obj.getTemplate().getCollisionRadius();
+						if (obj.isMoving())
+							dist2 = dist2 - 70;
+					}
+					catch (NullPointerException e)
+					{
+						continue;
+					}
+					if (obj instanceof L2Attackable)
+					{
+						if (actor.getEnemyClan() != null
+								&& (getActor().getEnemyClan().equals(((L2Attackable) obj).getClan()))
+								&& !"none".equals(getActor().getEnemyClan()))
+						{
+							if (dist2 <= range)
+							{
+								if (getAttackTarget().getFirstEffect(sk) == null)
+									return obj;
+							}
+						}
+					}
+					if (obj instanceof L2PcInstance || obj instanceof L2Summon)
+					{
+						if (dist2 <= range)
+						{
+							if (getAttackTarget().getFirstEffect(sk) == null)
+								return obj;
+						}
+					}
+				}
+			}
+			else if (positive)
+			{
+				double dist = 0;
+				double dist2 = 0;
+				int range = 0;
+				for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(range))
+				{
+					if (!(obj instanceof L2Attackable) || obj.isDead()
+							|| !GeoData.getInstance().canSeeTarget(_actor, obj))
+						continue;
+					
+					L2Attackable targets = (L2Attackable) obj;
+					if (getActor().getFactionId() != targets.getFactionId()
+							&& getActor().getFactionId() != null)
+						continue;
+					
+					try
+					{
+						_actor.setTarget(getAttackTarget());
+						dist = Math.sqrt(_actor.getPlanDistanceSq(obj.getX(), obj.getY()));
+						dist2 = dist;
+						range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+								+ obj.getTemplate().getCollisionRadius();
+						if (obj.isMoving())
+							dist2 = dist2 - 70;
+					}
+					catch (NullPointerException e)
+					{
+						continue;
+					}
+					if (dist2 <= range)
+					{
+						if (obj.getFirstEffect(sk) == null)
+							return obj;
+					}
+				}
+			}
+			return null;
+		}
+		else
+		{
+			double dist = 0;
+			double dist2 = 0;
+			int range = 0;
+			range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+					+ getAttackTarget().getTemplate().getCollisionRadius();
+			for (L2Character obj : _actor.getKnownList().getKnownCharactersInRadius(range))
+			{
+				if (obj == null || obj.isDead() || !GeoData.getInstance().canSeeTarget(_actor, obj))
+					continue;
+				try
+				{
+					_actor.setTarget(getAttackTarget());
+					dist = Math.sqrt(_actor.getPlanDistanceSq(obj.getX(), obj.getY()));
+					dist2 = dist;
+					range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+							+ obj.getTemplate().getCollisionRadius();
+					if (obj.isMoving())
+						dist2 = dist2 - 70;
+				}
+				catch (NullPointerException e)
+				{
+					continue;
+				}
+				if (obj instanceof L2Attackable)
+				{
+					if (getActor().getEnemyClan() != null
+							&& (getActor().getEnemyClan().equals(((L2Attackable) obj).getClan()))
+							&& !"none".equals(getActor().getEnemyClan()))
+					{
+						if (dist2 <= range)
+						{
+							if (getAttackTarget().getFirstEffect(L2EffectType.BUFF) != null)
+								return obj;
+						}
+					}
+				}
+				if (obj instanceof L2PcInstance || obj instanceof L2Summon)
+				{
+					if (dist2 <= range)
+					{
+						if (getAttackTarget().getFirstEffect(L2EffectType.BUFF) != null)
+							return obj;
+					}
+				}
+			}
+			return null;
+		}
+	}
+	
+	private L2Character skillTargetReconsider(L2Skill sk)
+	{
+		double dist = 0;
+		double dist2 = 0;
+		int range = 0;
+		L2Attackable actor = getActor();
+		if (actor.getHateList() != null)
+			for (L2Character obj : actor.getHateList())
+			{
+				if (obj == null || !GeoData.getInstance().canSeeTarget(_actor, obj) || obj.isDead())
+					continue;
+				try
+				{
+					_actor.setTarget(getAttackTarget());
+					dist = Math.sqrt(_actor.getPlanDistanceSq(obj.getX(), obj.getY()));
+					dist2 = dist;
+					range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+							+ getAttackTarget().getTemplate().getCollisionRadius();
+					// if(obj.isMoving())
+					// dist2 = dist2 - 40;
+				}
+				catch (NullPointerException e)
+				{
+					continue;
+				}
+				if (dist2 <= range)
+				{
+					return obj;
+				}
+			}
+		
+		if (!(_actor instanceof L2GuardInstance))
+		{
+			Collection<L2Object> objs = _actor.getKnownList().getKnownObjects().values();
+			for (L2Object target : objs)
+			{
+				try
+				{
+					_actor.setTarget(getAttackTarget());
+					dist = Math.sqrt(_actor.getPlanDistanceSq(target.getX(), target.getY()));
+					dist2 = dist;
+					range = sk.getCastRange() + _actor.getTemplate().getCollisionRadius()
+							+ getAttackTarget().getTemplate().getCollisionRadius();
+					// if(obj.isMoving())
+					// dist2 = dist2 - 40;
+				}
+				catch (NullPointerException e)
+				{
+					continue;
+				}
+				L2Character obj = null;
+				if (target instanceof L2Character)
+					obj = (L2Character)target;
+				if (obj == null || !GeoData.getInstance().canSeeTarget(_actor, obj) || dist2 > range)
+					continue;
+				if (obj instanceof L2PcInstance)
+				{
+					return obj;
+				}
+				if (obj instanceof L2Attackable)
+				{
+					L2Attackable trg = (L2Attackable) obj;
+					if (actor.getEnemyClan() != null
+							&& (actor.getEnemyClan().equals(trg.getClan()))
+							&& !"none".equals(actor.getEnemyClan()))
+					{
+						return obj;
+					}
+					if (actor.getIsChaos() != 0)
+					{
+						if (trg.getFactionId() != null
+								&& trg.getFactionId().equals(actor.getFactionId()))
+							continue;
+						else
+							return obj;
+					}
+				}
+				if (obj instanceof L2Summon)
+				{
+					return obj;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private void targetReconsider()
+	{
+		double dist = 0;
+		double dist2 = 0;
+		int range = 0;
+		L2Attackable actor = getActor();
+		L2Character MostHate = actor.getMostHated();
+		if (actor.getHateList() != null)
+		{
+			for (L2Character obj : actor.getHateList())
+			{
+				if (obj == null || !GeoData.getInstance().canSeeTarget(_actor, obj) || obj.isDead() || obj != MostHate
+						|| obj == _actor)
+					continue;
+				try
+				{
+					dist = Math.sqrt(_actor.getPlanDistanceSq(obj.getX(), obj.getY()));
+					dist2 = dist;
+					range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius()
+							+ obj.getTemplate().getCollisionRadius();
+					if (obj.isMoving())
+						dist2 = dist2 - 70;
+				}
+				catch (NullPointerException e)
+				{
+					continue;
+				}
+				
+				if (dist2 <= range)
+				{
+					if (MostHate != null)
+						actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+					else
+						actor.addDamageHate(obj, 2000, 2000);
+					_actor.setTarget(obj);
+					setAttackTarget(obj);
+					return;
+				}
+			}
+		}
+		if (!(_actor instanceof L2GuardInstance))
+		{
+			Collection<L2Object> objs = _actor.getKnownList().getKnownObjects().values();
+			for (L2Object target : objs)
+			{
+				L2Character obj = null;
+				if (target instanceof L2Character)
+					obj = (L2Character) target;
+				
+				if (obj == null || !GeoData.getInstance().canSeeTarget(_actor, obj) || obj.isDead() || obj != MostHate
+						|| obj == _actor || obj == getAttackTarget())
+					continue;
+				if (obj instanceof L2PcInstance)
+				{
+					if (MostHate != null)
+						actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+					else
+						actor.addDamageHate(obj, 2000, 2000);
+					_actor.setTarget(obj);
+					setAttackTarget(obj);
+				}
+				else if (obj instanceof L2Attackable)
+				{
+					L2Attackable trg = (L2Attackable) obj;
+					if (actor.getEnemyClan() != null
+							&& (actor.getEnemyClan().equals(trg.getClan()))
+							&& !"none".equals(actor.getEnemyClan()))
+					{
+						actor.addDamageHate(obj, 0, actor.getHating(MostHate));
+						_actor.setTarget(obj);
+					}
+					if (actor.getIsChaos() != 0)
+					{
+						if (trg.getFactionId() != null
+								&& trg.getFactionId().equals(actor.getFactionId()))
+							continue;
+						else
+						{
+							if (MostHate != null)
+								actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+							else
+								actor.addDamageHate(obj, 2000, 2000);
+							_actor.setTarget(obj);
+							setAttackTarget(obj);
+						}
+					}
+				}
+				else if (obj instanceof L2Summon)
+				{
+					if (MostHate != null)
+						actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+					else
+						actor.addDamageHate(obj, 2000, 2000);
+					_actor.setTarget(obj);
+					setAttackTarget(obj);
+				}
+			}
+		}
+	}
+	
+	@SuppressWarnings("null")
+	private void aggroReconsider()
+	{
+		L2Attackable actor = getActor();
+		L2Character MostHate = actor.getMostHated();
+		
+		if (actor.getHateList() != null)
+		{
+			int rand = Rnd.get(actor.getHateList().size());
+			int count = 0;
+			for (L2Character obj : actor.getHateList())
+			{
+				if (count < rand)
+				{
+					count++;
+					continue;
+				}
+				
+				if (obj == null || !GeoData.getInstance().canSeeTarget(_actor, obj) || obj.isDead()
+						|| obj == getAttackTarget() || obj == actor)
+					continue;
+				
+				try
+				{
+					_actor.setTarget(getAttackTarget());
+				}
+				catch (NullPointerException e)
+				{
+					continue;
+				}
+				if (MostHate != null)
+					actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+				else
+					actor.addDamageHate(obj, 2000, 2000);
+				_actor.setTarget(obj);
+				setAttackTarget(obj);
+				return;
+				
+			}
+		}
+		
+		if (!(_actor instanceof L2GuardInstance))
+		{
+			Collection<L2Object> objs = _actor.getKnownList().getKnownObjects().values();
+			for (L2Object target : objs)
+			{
+				L2Character obj = null;
+				if (target instanceof L2Character)
+					obj = (L2Character)target;
+				else
+					continue;
+				if (obj == null || !GeoData.getInstance().canSeeTarget(_actor, obj) || obj.isDead() || obj != MostHate
+						|| obj == _actor)
+					continue;
+				if (obj instanceof L2PcInstance)
+				{
+					if (MostHate != null && !MostHate.isDead())
+						actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+					else
+						actor.addDamageHate(obj, 2000, 2000);
+					_actor.setTarget(obj);
+					setAttackTarget(obj);
+				}
+				else if (obj instanceof L2Attackable)
+				{
+					L2Attackable trg = (L2Attackable) obj;
+					if (actor.getEnemyClan() != null
+							&& (actor.getEnemyClan().equals(trg.getClan()))
+							&& !"none".equals(actor.getEnemyClan()))
+					{
+						if (MostHate != null)
+							actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+						else
+							actor.addDamageHate(obj, 2000, 2000);
+						_actor.setTarget(obj);
+					}
+					if (actor.getIsChaos() != 0)
+					{
+						if (trg.getFactionId() != null
+								&& trg.getFactionId().equals(actor.getFactionId()))
+							continue;
+						else
+						{
+							if (MostHate != null)
+								actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+							else
+								actor.addDamageHate(obj, 2000, 2000);
+							_actor.setTarget(obj);
+							setAttackTarget(obj);
+						}
+					}
+				}
+				else if (obj instanceof L2Summon)
+				{
+					if (MostHate != null)
+						actor.addDamageHate(obj, actor.getHating(MostHate), actor.getHating(MostHate));
+					else
+						actor.addDamageHate(obj, 2000, 2000);
+					_actor.setTarget(obj);
+					setAttackTarget(obj);
+				}
+			}
+		}
+	}
+
+	private void lSkillRender()
+	{
+		if (getSkillRender()._Lrangeskills == null)
+			getSkillRender()._Lrangeskills = getActor().getLrangeSkill();
+	}
+	
+	private void sSkillRender()
+	{
+		if (getSkillRender()._Srangeskills == null)
+			getSkillRender()._Srangeskills = getActor().getSrangeSkill();
 	}
 
 	/**
@@ -1501,8 +2454,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtThink()
 	{
-		// Check if the thinking action is already in progress
-		if (_thinking || _actor.isCastingNow() || _actor.isAllSkillsDisabled())
+		// Check if the actor can't use skills and if a thinking action isn't already in progress
+		if (_thinking || _actor.isAllSkillsDisabled())
 			return;
 
 		// Start thinking action
@@ -1551,24 +2504,21 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			_globalAggro = 0;
 
 		// Add the attacker to the _aggroList of the actor
-		if (!_actor.isCoreAIDisabled())
-			((L2Attackable) _actor).addDamageHate(attacker, 0, 1);
+		getActor().addDamageHate(attacker, 0, 1);
 
 		// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 		if (!_actor.isRunning())
 			_actor.setRunning();
 
 		// Set the Intention to AI_INTENTION_ATTACK
-		if (getIntention() != AI_INTENTION_ATTACK && !_actor.isCoreAIDisabled())
+		if (getIntention() != AI_INTENTION_ATTACK)
 		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 		}
-		else if (((L2Attackable) _actor).getMostHated() != getAttackTarget() && !_actor.isCoreAIDisabled())
+		else if (getActor().getMostHated() != getAttackTarget())
 		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
 		}
-		else if (getIntention() != AI_INTENTION_INTERACT && _actor.isCoreAIDisabled())
-			setIntention(CtrlIntention.AI_INTENTION_INTERACT, attacker);
 
 		super.onEvtAttacked(attacker);
 	}
@@ -1587,7 +2537,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtAggression(L2Character target, int aggro)
 	{
-		L2Attackable me = (L2Attackable) _actor;
+		L2Attackable me = getActor();
 
 		if (target != null)
 		{
@@ -1619,15 +2569,74 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		_globalAggro = value;
 	}
 	
+	/**
+	 * @param clan The clan to set.
+	 */
+	public void setClan(String clan)
+	{
+		_clan = clan;
+	}
+	
+	/**
+	 * @return Returns the clan.
+	 */
+	public String getClan()
+	{
+		return _clan;
+	}
+	
+	/**
+	 * @param enemyClan
+	 *            The enemyClan to set.
+	 */
+	public void setEnemyClan(String enemyClan)
+	{
+		_enemyClan = enemyClan;
+	}
+	
+	/**
+	 * @return Returns the enemyClan.
+	 */
+	public String getEnemyClan()
+	{
+		return _enemyClan;
+	}
+	
+	/**
+	 * @param timepass
+	 *            The timepass to set.
+	 */
+	public void setTimePass(int timePass)
+	{
+		_timePass = timePass;
+	}
+	
+	/**
+	 * @return Returns the timepass.
+	 */
+	public int getTimePass()
+	{
+		return _timePass;
+	}
+	
+	/**
+	 * @return the NPC template
+	 */
+	public L2NpcTemplate getSkillRender()
+	{
+		return _skillRender;
+	}
+
 	@Override
 	public void removeReferencesOf(L2Playable playable)
 	{
 		super.removeReferencesOf(playable);
-		
+		/*
 		if (_mostHatedAnalysis.character == playable)
 			_mostHatedAnalysis.update(getActor(), null);
 		
 		if (_secondMostHatedAnalysis.character == playable)
 			_secondMostHatedAnalysis.update(getActor(), null);
+		*/
 	}
 }

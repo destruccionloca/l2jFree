@@ -26,7 +26,7 @@ import com.l2jfree.gameserver.model.actor.L2Character.AIAccessor;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2StaticObjectInstance;
 
-public class L2PlayerAI extends L2CharacterAI
+public class L2PlayerAI extends L2PlayableAI
 {
 	private volatile boolean _thinking; // to prevent recursive thinking
 	
@@ -38,7 +38,7 @@ public class L2PlayerAI extends L2CharacterAI
 	@Override
 	public L2PcInstance getActor()
 	{
-		return (L2PcInstance)_actor;
+		return (L2PcInstance) _actor;
 	}
 	
 	@Override
