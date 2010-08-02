@@ -4,6 +4,7 @@ import sys
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jfree.tools.random import Rnd
 
 qn = "234_FatesWhisper"
 
@@ -21,7 +22,7 @@ CRYSTAL_B = 1460
 BLOOD_STAINED_CLOTH = 14361
 WHITE_CLOTH = 14362
 
-#Leorin, Cliff, Ferris, Zenkin, Kaspar, Kernon's Chest, Golkonda's Chest, Hallate's Chest, Cabrio's "Coffer of the Dead"
+#Reorin, Cliff, Ferris, Zenkin, Kaspar, Kernon's Chest, Golkonda's Chest, Hallate's Chest, Cabrio's "Coffer of the Dead"
 NPC=[31002,30182,30847,30178,30833,31028,31029,31030,31027]
 
 CHEST_SPAWNS = {
@@ -30,10 +31,9 @@ CHEST_SPAWNS = {
   25126:31029, # Golkonda, the Longhorn General
   25220:31030  # Death Lord Hallate
   }
-  
+
 #mobId=[cond,dropId,rate]
 DROPLIST={
-29020: [7,RED_PIPETTE_KNIFE,100],
 20823: [8,BLOOD_STAINED_CLOTH,80],
 20826: [8,BLOOD_STAINED_CLOTH,80],
 20827: [8,BLOOD_STAINED_CLOTH,80],
@@ -67,7 +67,7 @@ class Quest (JQuest) :
   def __init__(self,id,name,descr):
     JQuest.__init__(self,id,name,descr)
     self.questItemIds = [BLOOD_STAINED_CLOTH,WHITE_CLOTH,PIPETTE_KNIFE,RED_PIPETTE_KNIFE]
-  
+
   def onAdvEvent (self,event,npc, player) :
     htmltext = event
     st = player.getQuestState(qn)
@@ -107,6 +107,7 @@ class Quest (JQuest) :
       htmltext = "30833-01b2.htm"
       st.giveItems(WHITE_CLOTH,30)
       st.set("cond","8")
+    ## FINAL ITEM EXCHANGE SECTION
     elif event.startswith("selectBGrade_"):
       if st.getInt("bypass") :
           return
@@ -129,7 +130,7 @@ class Quest (JQuest) :
           st.unset("bypass")
           st.unset("weaponId")
         else:
-          htmltext = st.showHtmlFile("31002-15.htm").replace("%weaponname%",Weapons[st.getInt("weaponId")])   
+          htmltext = st.showHtmlFile("31002-15.htm").replace("%weaponname%",Weapons[st.getInt("weaponId")])
       else:
         htmltext="<html><body>Maestro Reorin:<br>Are you trying to cheat me?!  What happenned to the weapon you were about to give me for the neutralization of Infernum's evil aura?</body></html>"
         #st.exitQuest(1)
@@ -142,7 +143,7 @@ class Quest (JQuest) :
 
     npcId = npc.getNpcId()
     id = st.getState()
-    
+
     # first time when a player join the quest
     if id == State.CREATED:
       if player.getLevel() >= 75:
@@ -154,6 +155,7 @@ class Quest (JQuest) :
     # if quest is already State.COMPLETED
     elif id == State.COMPLETED:
       return "<html><body>This quest has already been completed.</body></html>"
+
     # if quest is accepted and in progress
     elif id == State.STARTED:
       cond =st.getInt("cond")
@@ -180,7 +182,7 @@ class Quest (JQuest) :
           st.takeItems(INFERNIUM_VARNISH,1)
           htmltext = "31002-07.htm"
           st.set("cond","4")
-        # waiting for Leorin's Hammer
+        # waiting for Reorin's Hammer
         elif cond == 4 and not st.getQuestItemsCount(REORINS_HAMMER) :
           htmltext = "31002-07b.htm"
         elif cond == 4 :  # got Reorin's Hammer!  Go to the next step (Reorin's Mold)
@@ -225,7 +227,7 @@ class Quest (JQuest) :
       elif npcId == NPC[2] and cond==4 and not st.getQuestItemsCount(REORINS_HAMMER) :
         htmltext = "30847-01.htm"  # go to trader Zenkin
         st.giveItems(REORINS_HAMMER,1)
-      # I already told you I don't have it!  
+      # I already told you I don't have it!
       elif npcId == NPC[2] and cond>=4 :
         htmltext = "30847-02.htm"  # go to trader Zenkin
       ## ZENKIN
@@ -242,8 +244,11 @@ class Quest (JQuest) :
           htmltext = "30833-01.htm"  # go to Magister Hanellin,etc. Get Baium's Blood with the pipette
         #revisit after you've gotten the mold: What are you still doing here?
         if cond > 9 :
-          htmltext = "30833-04.htm"  # Have you given the mold to Leorin, yet?
+          htmltext = "30833-04.htm"  # Have you given the mold to Reorin, yet?
         # revisit before getting the blood: remind "go get the blood"
+        if cond==7 and st.getQuestItemsCount(PIPETTE_KNIFE) and not st.getQuestItemsCount(RED_PIPETTE_KNIFE) :
+          htmltext = "30833-02.htm"  # go to Magister Hanellin,etc. Get Baium's Blood with the pipette
+        # got the blood and I'm ready to proceed
         if cond==7 and not st.getQuestItemsCount(PIPETTE_KNIFE) and st.getQuestItemsCount(RED_PIPETTE_KNIFE) :
           htmltext = "30833-03.htm"  # great! Here is your mold for Reorin
           st.takeItems(RED_PIPETTE_KNIFE,1)
@@ -280,18 +285,17 @@ class Quest (JQuest) :
           htmltext = "31030-01.htm"
         elif npcId == NPC[7] :
           htmltext = "<html><body>This chest looks empty</body></html>"
-    return htmltext    
+    return htmltext
 
   def onAttack (self, npc, player, damage, isPet, skill):
     st = player.getQuestState(qn)
     if not st : return 
     if st.getState() != State.STARTED : return 
+    if isPet : return
 
-    npcId = npc.getNpcId()
-    value,dropId,chance = DROPLIST[npcId]
-    if value == st.getInt("cond") and npcId==29020 :
-      if player.getActiveWeaponItem() and player.getActiveWeaponItem().getItemId() == PIPETTE_KNIFE and st.getQuestItemsCount(dropId) == 0:
-        st.giveItems(dropId,1)
+    if st.getInt("cond") == 7 and npc.getNpcId() == 29020 :
+      if player.getActiveWeaponItem() and player.getActiveWeaponItem().getItemId() == PIPETTE_KNIFE and st.getQuestItemsCount(RED_PIPETTE_KNIFE) == 0:
+        st.giveItems(RED_PIPETTE_KNIFE,1)
         st.takeItems(PIPETTE_KNIFE,1)
         st.playSound("Itemsound.quest_itemget")
     return
@@ -332,7 +336,7 @@ class Quest (JQuest) :
               st.playSound("Itemsound.quest_itemget")
               if st.getQuestItemsCount(dropId) >= 30:
                  st.set("cond","9")
-    return 
+    return
 
 
 QUEST    = Quest(234,qn,"Fate's Whisper")
@@ -341,7 +345,7 @@ QUEST.addStartNpc(NPC[0])
 
 for npcId in NPC:
   QUEST.addTalkId(npcId)
-  
+
 for mobId in DROPLIST.keys() :
   QUEST.addKillId(mobId)
 

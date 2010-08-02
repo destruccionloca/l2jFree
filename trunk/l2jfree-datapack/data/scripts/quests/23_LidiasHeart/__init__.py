@@ -1,15 +1,11 @@
 #  Created by Skeleton, Rewritten by Eyerobot
 import sys
-from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 from com.l2jfree.gameserver.network.serverpackets import NpcSay
 
 qn = "23_LidiasHeart"
-
-#QUEST LEVEL
-QLVL = 64
 
 # ~~~~~~ npcId list: ~~~~~~
 Innocentin          = 31328
@@ -29,15 +25,11 @@ SilverSpear        = 7150
 Adena              = 57
 # ~~~~~~~~~~~~~~~~~~~~~~~
 
-#GHOST TIMER
-GHOST_TIMER = 10000
+class Quest (JQuest) :
 
-
-class Quest (JQuest) : 
-
-    def __init__(self,id,name,descr):  
+    def __init__(self,id,name,descr):
        JQuest.__init__(self,id,name,descr)
-       self.questItemIds = [MapForestofDeadman,SilverKey,LidiaHairPin,LidiaDiary,SilverSpear] 
+       self.questItemIds = [SilverKey,LidiaHairPin,LidiaDiary,SilverSpear]
 
     def onAdvEvent (self,event,npc,player) :
         st = player.getQuestState(qn)
@@ -75,7 +67,7 @@ class Quest (JQuest) :
             ghost = st.addSpawn(GhostofvonHellmann,51432,-54570,-3136,1800000)
             ghost.broadcastPacket(NpcSay(ghost.getObjectId(),0,ghost.getNpcId(),"Who awoke me?"))
         elif event == "31523-05.htm":
-            st.startQuestTimer("ghost_timer",GHOST_TIMER)
+            st.startQuestTimer("ghost_timer",10000)
         elif event == "ghost_timer":
             st.set("cond","8")
             htmltext = "31523-06.htm"
@@ -100,7 +92,7 @@ class Quest (JQuest) :
             if state == State.CREATED :
                 st2 = st.getPlayer().getQuestState("22_TragedyInVonHellmannForest")
                 if st2 :
-                    if st2.getState() == State.COMPLETED and player.getLevel() >= QLVL:
+                    if st2.getState() == State.COMPLETED and player.getLevel() >= 64:
                         htmltext = "31328-01.htm" # previous quest finished, call 31328-02.htm
                     else:
                         htmltext = "31328-00.htm" # requirements not met
@@ -113,7 +105,7 @@ class Quest (JQuest) :
             elif cond == 6 :
                 htmltext = "31328-19.htm"
         elif npcId == BrokenBookshelf:
-            if cond == 2 : 
+            if cond == 2 :
                 if st.getQuestItemsCount(SilverKey) != 0:
                     htmltext = "31526-00.htm"
                     st.playSound("ItemSound.quest_middle")
@@ -148,7 +140,7 @@ class Quest (JQuest) :
                 htmltext = "31523-06.htm"
         elif npcId == Violet:
             if cond == 8 :
-                htmltext = "31386-01.htm" # send to box 
+                htmltext = "31386-01.htm" # send to box
                 st.playSound("ItemSound.quest_middle")
                 st.set("cond","9")
             elif cond == 9 :

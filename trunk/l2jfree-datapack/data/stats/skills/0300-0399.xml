@@ -1358,19 +1358,19 @@
     <set name="aggroPoints" val="669"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
-        <mul order="0x30" stat="rCrit" val="0.7"/> <!-- Critical -30% -->
-        <mul order="0x30" stat="blowRate" val="1.6"/> <!-- Blow land rate +60% -->
-        <mul order="0x30" stat="cAtk" val="0.7"> <!-- Critical Damage from front -30% -->
+        <basemul order="0x30" stat="rCrit" val="-0.3"/> <!-- Decreases critical attack rate by 30% -->
+        <mul order="0x30" stat="blowRate" val="1.6"/> <!-- Increases blow land rate by 60% -->
+        <mul order="0x30" stat="cAtk" val="0.7"> <!-- Decreases frontal critical damage by 30% -->
           <player front="true"/>
         </mul>
-        <mul order="0x30" stat="cAtk" val="1.9"> <!-- Critical Damage from back +90% -->
+        <mul order="0x30" stat="cAtk" val="1.9"> <!-- Increases rear critical damage by 90% -->
           <player behind="true"/>
         </mul>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
-        <mul order="0x30" stat="rCrit" val="0.7"/>
+        <basemul order="0x30" stat="rCrit" val="-0.3"/>
         <mul order="0x30" stat="blowRate" val="#ench1blowRate"/>
         <mul order="0x30" stat="cAtk" val="0.7">
           <player front="true"/>
@@ -1382,7 +1382,7 @@
     </enchant1for>
     <enchant2for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
-        <mul order="0x30" stat="rCrit" val="0.7"/>
+        <basemul order="0x30" stat="rCrit" val="-0.3"/>
         <mul order="0x30" stat="blowRate" val="1.6"/>
         <mul order="0x30" stat="cAtk" val="0.7">
           <player front="true"/>
@@ -1395,8 +1395,8 @@
   </skill>
   <skill id="356" levels="1" name="Focus Chance" enchantLevels1="15" enchantLevels2="15">
     <!-- Client description do not contains blowRate. -->
-    <table name="#ench1rCrit"> 1.603 1.606 1.609 1.613 1.616 1.619 1.623 1.626 1.629 1.633 1.636 1.639 1.643 1.646 1.649 </table>
-    <table name="#ench2rCrit"> 1.303 1.306 1.31 1.313 1.316 1.32 1.323 1.326 1.33 1.333 1.336 1.34 1.343 1.346 1.35 </table>
+    <table name="#ench1rCrit"> 0.603 0.606 0.609 0.613 0.616 0.619 0.623 0.626 0.629 0.633 0.636 0.639 0.643 0.646 0.649 </table>
+    <table name="#ench2rCrit"> 0.303 0.306 0.31 0.313 0.316 0.32 0.323 0.326 0.33 0.333 0.336 0.34 0.343 0.346 0.35 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="36"/>
     <set name="magicLvl" val="78"/>
@@ -1408,50 +1408,50 @@
     <set name="aggroPoints" val="669"/>
     <for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
-        <mul order="0x30" stat="rCrit" val="0.7"> <!-- Critical Chance from front -30% -->
+        <basemul order="0x30" stat="rCrit" val="-0.3"> <!-- Decreases frontal critical attack rate by 30% -->
           <player front="true"/>
-        </mul>
-        <mul order="0x30" stat="rCrit" val="1.3"> <!-- Critical Chance from side +30% -->
+        </basemul>
+        <basemul order="0x30" stat="rCrit" val="0.3"> <!-- Increase side critical attack rate by 30% -->
           <and>
             <player front="false"/>
             <player behind="false"/>
           </and>
-        </mul>
-        <mul order="0x30" stat="rCrit" val="1.6"> <!-- Critical Chance from back +60% -->
+        </basemul>
+        <basemul order="0x30" stat="rCrit" val="0.6"> <!-- Increase rear critical attack rate by 60% -->
           <player behind="true"/>
-        </mul>
+        </basemul>
       </effect>
     </for>
     <enchant1for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
-        <mul order="0x30" stat="rCrit" val="0.7">
+        <basemul order="0x30" stat="rCrit" val="-0.3"> <!-- Critical Chance from front -30% -->
           <player front="true"/>
-        </mul>
-        <mul order="0x30" stat="rCrit" val="1.3">
+        </basemul>
+        <basemul order="0x30" stat="rCrit" val="0.3"> <!-- Critical Chance from side +30% -->
           <and>
             <player front="false"/>
             <player behind="false"/>
           </and>
-        </mul>
-        <mul order="0x30" stat="rCrit" val="#ench1rCrit">
+        </basemul>
+        <basemul order="0x30" stat="rCrit" val="#ench1rCrit"> <!-- Increase rear critical attack rate -->
           <player behind="true"/>
-        </mul>
+        </basemul>
       </effect>
     </enchant1for>
     <enchant2for>
       <effect name="Buff" time="120" val="0" stackOrder="1" stackType="focus">
-        <mul order="0x30" stat="rCrit" val="0.7">
+        <basemul order="0x30" stat="rCrit" val="-0.3"> <!-- Critical Chance from front -30% -->
           <player front="true"/>
-        </mul>
-        <mul order="0x30" stat="rCrit" val="#ench2rCrit">
+        </basemul>
+        <basemul order="0x30" stat="rCrit" val="#ench2rCrit"> <!-- Increase front/ behind critical attack rate -->
           <and>
             <player front="false"/>
             <player behind="false"/>
           </and>
-        </mul>
-        <mul order="0x30" stat="rCrit" val="1.6">
+        </basemul>
+        <basemul order="0x30" stat="rCrit" val="0.6"> <!-- Increase rear critical attack rate by 60% -->
           <player behind="true"/>
-        </mul>
+        </basemul>
       </effect>
     </enchant2for>
   </skill>
