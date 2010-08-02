@@ -33,6 +33,7 @@ public class ChatAll implements IChatHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#getChatType()
 	 */
+	@Override
 	public SystemChatChannelId[] getChatTypes()
 	{
 		return _chatTypes;
@@ -41,6 +42,7 @@ public class ChatAll implements IChatHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#useChatHandler(com.l2jfree.gameserver.character.player.L2PcInstance, com.l2jfree.gameserver.network.enums.SystemChatChannelId, java.lang.String)
 	 */
+	@Override
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
 		String name = (activeChar.isGM() && Config.GM_NAME_HAS_BRACELETS)? "[GM]" + activeChar.getAppearance().getVisibleName() : activeChar.getAppearance().getVisibleName();

@@ -37,6 +37,7 @@ public class AdminRide implements IAdminCommandHandler
 			"admin_unride_horse",
 			"admin_unride",						};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_ride"))
@@ -82,6 +83,7 @@ public class AdminRide implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

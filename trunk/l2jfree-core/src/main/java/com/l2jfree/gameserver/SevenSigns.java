@@ -30,8 +30,8 @@ import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.datatables.SkillTable;
 import com.l2jfree.gameserver.instancemanager.AutoSpawnManager;
-import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.AutoSpawnManager.AutoSpawnInstance;
+import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.model.AutoChatHandler;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -1307,6 +1307,7 @@ public class SevenSigns
 	 */
 	protected class SevenSignsPeriodChange implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			/*

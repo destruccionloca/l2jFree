@@ -27,6 +27,7 @@ public class CombatPointHeal implements ISkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.COMBATPOINTHEAL, L2SkillType.CPHEAL_PERCENT };
 	
+	@Override
 	public void useSkill(L2Character actChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, actChar, skill, targets);
@@ -55,6 +56,7 @@ public class CombatPointHeal implements ISkillHandler
 		}
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

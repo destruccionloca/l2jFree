@@ -41,8 +41,8 @@ import com.l2jfree.gameserver.model.CombatFlag;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2SiegeClan;
-import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.L2SiegeClan.SiegeClanType;
+import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2DoorInstance;
@@ -75,6 +75,7 @@ public class FortSiege extends AbstractSiege
 			_fortInst = pFort;
 		}
 
+		@Override
 		public void run()
 		{
 			if (!getIsInProgress())
@@ -102,6 +103,7 @@ public class FortSiege extends AbstractSiege
 			_time = time;
 		}
 
+		@Override
 		public void run()
 		{
 			if (getIsInProgress())
@@ -172,6 +174,7 @@ public class FortSiege extends AbstractSiege
 			_fortInst = pFort;
 		}
 		
+		@Override
 		public void run()
 		{
 			if (getIsInProgress())
@@ -197,6 +200,7 @@ public class FortSiege extends AbstractSiege
 			_fortInst = pFort;
 		}
 		
+		@Override
 		public void run()
 		{
 			if (!getIsInProgress())

@@ -71,9 +71,7 @@ public final class AutomatedTvT
 
 	public static final AutomatedTvT getInstance()
 	{
-		if (instance == null)
-			instance = new AutomatedTvT();
-		return instance;
+		return SingletonHolder._instance;
 	}
 
 	/**
@@ -746,6 +744,12 @@ public final class AutomatedTvT
 			player.teleToLocation(Config.AUTO_TVT_DEFAULT_TELE_BACK);
 		else
 			player.teleToLocation(p.getLoc(), true);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AutomatedTvT _instance = new AutomatedTvT();
 	}
 
 	private class Participant

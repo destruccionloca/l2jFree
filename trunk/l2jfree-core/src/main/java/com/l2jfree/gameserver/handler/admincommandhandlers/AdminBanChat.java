@@ -37,6 +37,7 @@ public final class AdminBanChat implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_banchat", "admin_unbanchat" };
 	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		L2PcInstance targetPlayer = null;
@@ -98,6 +99,7 @@ public final class AdminBanChat implements IAdminCommandHandler
 		return true;
 	}
 	
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

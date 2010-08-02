@@ -149,7 +149,7 @@ public final class L2Properties extends Properties
 	
 	// ===================================================================================
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object getProperty(Class<?> expectedType, ConfigProperty configProperty)
 	{
 		final String name = configProperty.name();

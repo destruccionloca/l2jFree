@@ -47,6 +47,7 @@ public class AdminFortSiege implements IAdminCommandHandler
 			"admin_setfort",
 			"admin_removefort"						};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
@@ -178,6 +179,7 @@ public class AdminFortSiege implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

@@ -24,6 +24,7 @@ public class IrcAnnounce implements IIrcCommandHandler
 {
 	private static final String[]	IRC_COMMANDS	= { "!announce" };
 
+	@Override
 	public boolean useIrcCommand(String command, String gm, String target, boolean authed)
 	{
 		if (!authed)
@@ -36,6 +37,7 @@ public class IrcAnnounce implements IIrcCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getIrcCommandList()
 	{
 		return IRC_COMMANDS;

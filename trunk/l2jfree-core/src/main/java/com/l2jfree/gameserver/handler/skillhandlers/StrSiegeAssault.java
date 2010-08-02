@@ -45,6 +45,7 @@ public final class StrSiegeAssault extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill);
 	}
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -60,6 +61,7 @@ public final class StrSiegeAssault extends ISkillConditionChecker
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

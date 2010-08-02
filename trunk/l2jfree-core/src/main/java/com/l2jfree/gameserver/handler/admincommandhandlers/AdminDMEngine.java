@@ -54,6 +54,7 @@ public class AdminDMEngine implements IAdminCommandHandler
 			"admin_dmevent_save",
 			"admin_dmevent_load"					};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_dmevent"))
@@ -164,6 +165,7 @@ public class AdminDMEngine implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

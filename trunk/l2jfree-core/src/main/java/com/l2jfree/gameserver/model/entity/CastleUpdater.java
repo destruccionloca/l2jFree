@@ -39,6 +39,7 @@ public class CastleUpdater implements Runnable
 		_runCount = runCount;
 	}
 	
+	@Override
 	public void run()
 	{
 		// Move current castle treasury to clan warehouse every 2 hour

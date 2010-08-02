@@ -264,6 +264,7 @@ public final class Locator {
 			return urls;
 		}
 		File[] matches = location.listFiles(new FilenameFilter() {
+			@Override
 			public boolean accept(File dir, String name) {
 				for (int i = 0; i < extensions.length; ++i) {
 					if (name.toLowerCase().endsWith(extensions[i])) {

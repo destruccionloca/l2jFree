@@ -901,6 +901,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class SpawnRoom1Mobs1st implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			L2Npc mob;
@@ -924,6 +925,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class SpawnRoom1Mobs2nd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			L2Npc mob;
@@ -938,6 +940,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class SpawnRoom1Mobs3rd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			L2Npc mob;
@@ -952,6 +955,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class SpawnRoom1Mobs4th implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			L2Npc mob;
@@ -966,6 +970,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class OpenRoom2InsideDoors implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			closeRoom2OutsideDoors();
@@ -975,6 +980,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class SpawnRoom2OutsideMobs implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			for (L2Spawn spawn : LastImperialTombSpawnlist.getInstance().getRoom2OutsideSpawnList())
@@ -1006,6 +1012,7 @@ public class LastImperialTombManager extends BossLair
 			_remaining = remaining;
 		}
 
+		@Override
 		public void run()
 		{
 			doAnnouncementRegstrationInfo(_npc, _remaining);
@@ -1014,6 +1021,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class Invade implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			doInvade();
@@ -1029,6 +1037,7 @@ public class LastImperialTombManager extends BossLair
 			_remaining = remaining;
 		}
 
+		@Override
 		public void run()
 		{
 			doCheckTimeUp(_remaining);
@@ -1037,6 +1046,7 @@ public class LastImperialTombManager extends BossLair
 
 	private class TimeUp implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			cleanUpTomb();
@@ -1051,6 +1061,7 @@ public class LastImperialTombManager extends BossLair
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					cleanUpTomb();

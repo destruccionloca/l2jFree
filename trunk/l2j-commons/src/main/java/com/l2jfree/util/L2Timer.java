@@ -29,6 +29,7 @@ public final class L2Timer extends Timer
 		super(name, true);
 		
 		scheduleAtFixedRate(new Runnable() {
+			@Override
 			public void run()
 			{
 				purge();

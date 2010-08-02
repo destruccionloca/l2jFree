@@ -38,6 +38,7 @@ public class AdminBan implements IAdminCommandHandler
 		"admin_ban", "admin_unban", "admin_ban_select", "admin_banbychar"
 	};
 
+	@Override
 	@SuppressWarnings("null")
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -155,6 +156,7 @@ public class AdminBan implements IAdminCommandHandler
 		gm.sendPacket(html);
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

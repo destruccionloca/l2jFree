@@ -21,8 +21,8 @@ import com.l2jfree.gameserver.instancemanager.FriendListManager;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.FriendPacket;
-import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.FriendPacket.FriendAction;
+import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author G1ta0

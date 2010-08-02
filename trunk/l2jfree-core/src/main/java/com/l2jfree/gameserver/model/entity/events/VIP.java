@@ -475,6 +475,7 @@ public class VIP
 		
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				_joining = false;
@@ -518,6 +519,7 @@ public class VIP
 		
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				_joining = false;
@@ -545,6 +547,7 @@ public class VIP
 			
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					teleportPlayers();
@@ -556,6 +559,7 @@ public class VIP
 					
 					ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
+						@Override
 						public void run()
 						{
 							Announcements.getInstance().announceToAll("VIP event has started. " + _teamName + "'s VIP must get to the starter city and talk with " + getNPCName(_endNPC, null) + ". The opposing team must kill the VIP. All players except the VIP will respawn at their current locations.");
@@ -564,6 +568,7 @@ public class VIP
 							
 							ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 							{
+								@Override
 								public void run()
 								{
 									endEventTime();
@@ -745,6 +750,7 @@ public class VIP
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				for (L2PcInstance player : _playersVIP)

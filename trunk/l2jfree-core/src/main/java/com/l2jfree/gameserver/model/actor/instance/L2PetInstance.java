@@ -32,10 +32,10 @@ import com.l2jfree.gameserver.idfactory.IdFactory;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.instancemanager.ItemsOnGroundManager;
 import com.l2jfree.gameserver.model.L2ItemInstance;
+import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2PetData;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Summon;
 import com.l2jfree.gameserver.model.actor.stat.CharStat;
@@ -111,6 +111,7 @@ public class L2PetInstance extends L2Summon
 
 	class FeedTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			try

@@ -37,6 +37,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
 
 	protected static int			state			= -1;
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equalsIgnoreCase("admin_mons"))
@@ -46,6 +47,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
@@ -112,6 +114,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
 			activeChar = pActiveChar;
 		}
 
+		@Override
 		public void run()
 		{
 			//int[][] speeds1 = MonsterRace.getInstance().getSpeeds();
@@ -145,6 +148,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
 			activeChar = pActiveChar;
 		}
 
+		@Override
 		public void run()
 		{
 			DeleteObject obj = null;

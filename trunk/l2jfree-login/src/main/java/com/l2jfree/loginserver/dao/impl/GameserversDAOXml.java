@@ -126,6 +126,7 @@ public class GameserversDAOXml implements GameserversDAO
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public Gameservers getGameserverByServerId(int id)
 	{
 		return serverNames.get(id);
@@ -134,6 +135,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createGameserver(Gameservers)
 	 */
+	@Override
 	public int createGameserver(Gameservers obj)
 	{
 		serverNames.put(obj.getServerId(), obj);
@@ -143,6 +145,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdate(Gameservers)
 	 */
+	@Override
 	public void createOrUpdate(Gameservers obj)
 	{
 		createGameserver(obj);
@@ -152,6 +155,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
 	 */
+	@Override
 	public void createOrUpdateAll(Collection<?> entities)
 	{
 		Iterator<?> it = entities.iterator();
@@ -164,6 +168,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#getAllGameservers()
 	 */
+	@Override
 	public List<Gameservers> getAllGameservers()
 	{
 		if (serverNames == null)
@@ -174,6 +179,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameservers(Gameservers)
 	 */
+	@Override
 	public void removeGameserver(Gameservers obj)
 	{
 		serverNames.remove(obj.getServerId());
@@ -183,6 +189,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAccountById(java.io.Serializable)
 	 */
+	@Override
 	public void removeGameserverByServerId(int id)
 	{
 		serverNames.remove(id);
@@ -191,6 +198,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
 	 */
+	@Override
 	public void removeAll(Collection<?> entities)
 	{
 		Iterator<?> it = entities.iterator();
@@ -203,6 +211,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#update(java.lang.Object)
 	 */
+	@Override
 	public void update(Object obj)
 	{
 		Gameservers gs = (Gameservers) obj;
@@ -213,6 +222,7 @@ public class GameserversDAOXml implements GameserversDAO
 	/* (non-Javadoc)
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll()
 	 */
+	@Override
 	public void removeAll()
 	{
 		serverNames.clear();

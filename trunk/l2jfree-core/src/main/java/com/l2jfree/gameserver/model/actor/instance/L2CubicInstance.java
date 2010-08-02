@@ -508,6 +508,7 @@ public class L2CubicInstance
 			// Run task
 		}
 
+		@Override
 		public void run()
 		{
 			if (_owner.isDead() || _owner.isOnline() == 0)
@@ -688,6 +689,7 @@ public class L2CubicInstance
 	private class Heal implements Runnable
 	{
 		// Run task
+		@Override
 		public void run()
 		{
 			if (_owner.isDead() && _owner.isOnline() == 0)
@@ -734,6 +736,7 @@ public class L2CubicInstance
 		}
 
 		// Run task
+		@Override
 		public void run()
 		{
 			stopAction();

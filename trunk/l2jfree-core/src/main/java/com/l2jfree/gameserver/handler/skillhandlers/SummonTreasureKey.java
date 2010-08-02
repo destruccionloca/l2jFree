@@ -30,6 +30,7 @@ public class SummonTreasureKey implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.SUMMON_TREASURE_KEY };
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -67,6 +68,7 @@ public class SummonTreasureKey implements ISkillHandler
 			player.addItem("Skill", item_id, Rnd.get(2, 3), player, false);
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

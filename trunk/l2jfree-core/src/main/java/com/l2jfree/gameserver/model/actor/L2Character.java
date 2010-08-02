@@ -35,8 +35,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.Shutdown.DisableType;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -54,10 +54,10 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
-import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
@@ -73,8 +73,8 @@ import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.view.CharLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.quest.Quest;
-import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.quest.Quest.QuestEventType;
+import com.l2jfree.gameserver.model.quest.QuestState;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.Disconnection;
@@ -770,6 +770,7 @@ public abstract class L2Character extends L2Object
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				L2Character.this.enableAllSkills();
@@ -830,6 +831,7 @@ public abstract class L2Character extends L2Object
 			_fallHeight = fallHeight;
 		}
 
+		@Override
 		public void run()
 		{
 			isFalling(true, _fallHeight);
@@ -2808,6 +2810,7 @@ public abstract class L2Character extends L2Object
 			_miss = miss;
 		}
 
+		@Override
 		public void run()
 		{
 			onHitTimer(_hitTarget, _damage, _crit, _miss, 1.0);
@@ -2877,6 +2880,7 @@ public abstract class L2Character extends L2Object
 			_magicEnv = magicEnv;
 		}
 
+		@Override
 		public void run()
 		{
 			try
@@ -2904,6 +2908,7 @@ public abstract class L2Character extends L2Object
 			_magicEnv = magicEnv;
 		}
 
+		@Override
 		public void run()
 		{
 			try
@@ -2931,6 +2936,7 @@ public abstract class L2Character extends L2Object
 			_magicEnv = magicEnv;
 		}
 
+		@Override
 		public void run()
 		{
 			try
@@ -2959,6 +2965,7 @@ public abstract class L2Character extends L2Object
 			_evt = evt;
 		}
 
+		@Override
 		public void run()
 		{
 			getAI().notifyEvent(_evt, null);
@@ -6257,6 +6264,7 @@ public abstract class L2Character extends L2Object
 			_skillId = skillId;
 		}
 		
+		@Override
 		public void run()
 		{
 			enableSkill(_skillId);
@@ -6890,6 +6898,7 @@ public abstract class L2Character extends L2Object
 			_skill = skill;
 		}
 
+		@Override
 		public void run()
 		{
 			broadcastPacket(new FlyToLocation(L2Character.this, _flyTarget, _skill.getFlyType()));
@@ -6908,6 +6917,7 @@ public abstract class L2Character extends L2Object
 			_skill = skill;
 		}
 
+		@Override
 		public void run()
 		{
 			doSimultaneousCast(_skill);

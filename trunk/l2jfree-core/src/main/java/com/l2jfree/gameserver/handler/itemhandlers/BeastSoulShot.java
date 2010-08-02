@@ -29,6 +29,7 @@ public final class BeastSoulShot implements IItemHandler
 	private static final int[]	ITEM_IDS	=
 											{ 6645, 20332 };
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (playable instanceof L2Summon)
@@ -52,6 +53,7 @@ public final class BeastSoulShot implements IItemHandler
 		}
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

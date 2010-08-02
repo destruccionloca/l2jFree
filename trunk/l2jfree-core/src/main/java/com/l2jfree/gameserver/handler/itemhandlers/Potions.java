@@ -60,6 +60,7 @@ public class Potions implements IItemHandler
 			10148
 	};
 	
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar; // use activeChar only for L2PcInstance checks where cannot be used PetInstance
@@ -294,6 +295,7 @@ public class Potions implements IItemHandler
 		return false;
 	}
 	
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

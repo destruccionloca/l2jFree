@@ -30,6 +30,7 @@ public class AdminCamera implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_camera", "admin_camset", };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_camera"))
@@ -72,6 +73,7 @@ public class AdminCamera implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

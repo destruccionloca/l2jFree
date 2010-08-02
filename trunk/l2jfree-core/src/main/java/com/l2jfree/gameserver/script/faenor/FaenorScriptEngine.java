@@ -71,6 +71,7 @@ public class FaenorScriptEngine extends ScriptEngine
 
 		FileFilter fileFilter = new FileFilter()
 		{
+			@Override
 			public boolean accept(File file)
 			{
 				return file.getName().endsWith(".zip");

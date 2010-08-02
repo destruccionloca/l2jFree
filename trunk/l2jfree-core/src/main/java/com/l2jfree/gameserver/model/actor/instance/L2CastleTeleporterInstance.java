@@ -97,6 +97,7 @@ public final class L2CastleTeleporterInstance extends L2Npc
 
 	class oustAllPlayers implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of " + getCastle().getName()

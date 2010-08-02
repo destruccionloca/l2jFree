@@ -127,6 +127,7 @@ public class Lottery
 			// Do nothing
 		}
 
+		@Override
 		public void run()
 		{
 			if (restoreLotteryData())
@@ -264,6 +265,7 @@ public class Lottery
 			// Do nothing
 		}
 
+		@Override
 		public void run()
 		{
 			if (_log.isDebugEnabled())
@@ -281,6 +283,7 @@ public class Lottery
 			// Do nothing
 		}
 
+		@Override
 		public void run()
 		{
 			if (_log.isDebugEnabled())

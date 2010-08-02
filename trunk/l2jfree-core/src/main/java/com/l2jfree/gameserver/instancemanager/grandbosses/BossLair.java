@@ -63,6 +63,7 @@ public abstract class BossLair extends Entity
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					setUnspawn();

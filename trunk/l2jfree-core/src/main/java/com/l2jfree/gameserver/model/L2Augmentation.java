@@ -91,11 +91,13 @@ public final class L2Augmentation
 			_active = false;
 		}
 		
+		@Override
 		public String getFuncOwnerName()
 		{
 			return null;
 		}
 		
+		@Override
 		public L2Skill getFuncOwnerSkill()
 		{
 			return null;

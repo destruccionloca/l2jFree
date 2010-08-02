@@ -22,6 +22,7 @@ public class Mail implements IVoicedCommandHandler
 {
 	private static final String[]	VOICED_COMMANDS	= { "mail" };
 
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.equals("mail"))
@@ -32,6 +33,7 @@ public class Mail implements IVoicedCommandHandler
 		return false;
 	}
 
+	@Override
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

@@ -152,6 +152,7 @@ public class CharKnownList extends ObjectKnownList
 		return L2Collections.filteredIterable(L2Character.class, getKnownObjects().values(),
 			new L2Collections.Filter<L2Character>()
 			{
+				@Override
 				public boolean accept(L2Character obj)
 				{
 					return Util.checkIfInRange(radius, getActiveChar(), obj, true);
@@ -174,6 +175,7 @@ public class CharKnownList extends ObjectKnownList
 		return L2Collections.filteredIterable(L2PcInstance.class, getKnownPlayers().values(),
 			new L2Collections.Filter<L2PcInstance>()
 			{
+				@Override
 				public boolean accept(L2PcInstance player)
 				{
 					return Util.checkIfInRange(radius, getActiveChar(), player, true);

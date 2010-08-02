@@ -32,7 +32,7 @@ import com.l2jfree.tools.random.Rnd;
 /**
  * @author NB4L1
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public final class L2Collections
 {
 	private static final Object[] EMPTY_ARRAY = new Object[0];
@@ -41,46 +41,55 @@ public final class L2Collections
 	{
 		private static final ListIterator<Object> INSTANCE = new EmptyListIterator();
 		
+		@Override
 		public boolean hasNext()
 		{
 			return false;
 		}
 		
+		@Override
 		public Object next()
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public boolean hasPrevious()
 		{
 			return false;
 		}
 		
+		@Override
 		public Object previous()
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public int nextIndex()
 		{
 			return 0;
 		}
 		
+		@Override
 		public int previousIndex()
 		{
 			return -1;
 		}
 		
+		@Override
 		public void add(Object obj)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public void set(Object obj)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public void remove()
 		{
 			throw new UnsupportedOperationException();
@@ -91,65 +100,78 @@ public final class L2Collections
 	{
 		private static final Collection<Object> INSTANCE = new EmptyCollection();
 		
+		@Override
 		public boolean add(Object e)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public boolean addAll(Collection<? extends Object> c)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public void clear()
 		{
 		}
 		
+		@Override
 		public boolean contains(Object o)
 		{
 			return false;
 		}
 		
+		@Override
 		public boolean containsAll(Collection<?> c)
 		{
 			return false;
 		}
 		
+		@Override
 		public boolean isEmpty()
 		{
 			return true;
 		}
 		
+		@Override
 		public Iterator<Object> iterator()
 		{
 			return emptyListIterator();
 		}
 		
+		@Override
 		public boolean remove(Object o)
 		{
 			return false;
 		}
 		
+		@Override
 		public boolean removeAll(Collection<?> c)
 		{
 			return false;
 		}
 		
+		@Override
 		public boolean retainAll(Collection<?> c)
 		{
 			return false;
 		}
 		
+		@Override
 		public int size()
 		{
 			return 0;
 		}
 		
+		@Override
 		public Object[] toArray()
 		{
 			return EMPTY_ARRAY;
 		}
 		
+		@Override
 		public <T> T[] toArray(T[] a)
 		{
 			if (a.length != 0)
@@ -174,51 +196,61 @@ public final class L2Collections
 	{
 		private static final List<Object> INSTANCE = new EmptyList();
 		
+		@Override
 		public void add(int index, Object element)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public boolean addAll(int index, Collection<? extends Object> c)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public Object get(int index)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public int indexOf(Object o)
 		{
 			return -1;
 		}
 		
+		@Override
 		public int lastIndexOf(Object o)
 		{
 			return -1;
 		}
 		
+		@Override
 		public ListIterator<Object> listIterator()
 		{
 			return emptyListIterator();
 		}
 		
+		@Override
 		public ListIterator<Object> listIterator(int index)
 		{
 			return emptyListIterator();
 		}
 		
+		@Override
 		public Object remove(int index)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public Object set(int index, Object element)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public List<Object> subList(int fromIndex, int toIndex)
 		{
 			throw new UnsupportedOperationException();
@@ -229,60 +261,72 @@ public final class L2Collections
 	{
 		private static final Map<Object, Object> INSTANCE = new EmptyMap();
 		
+		@Override
 		public void clear()
 		{
 		}
 		
+		@Override
 		public boolean containsKey(Object key)
 		{
 			return false;
 		}
 		
+		@Override
 		public boolean containsValue(Object value)
 		{
 			return false;
 		}
 		
+		@Override
 		public Set<Map.Entry<Object, Object>> entrySet()
 		{
 			return emptySet();
 		}
 		
+		@Override
 		public Object get(Object key)
 		{
 			return null;
 		}
 		
+		@Override
 		public boolean isEmpty()
 		{
 			return true;
 		}
 		
+		@Override
 		public Set<Object> keySet()
 		{
 			return emptySet();
 		}
 		
+		@Override
 		public Object put(Object key, Object value)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public void putAll(Map<? extends Object, ? extends Object> m)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public Object remove(Object key)
 		{
 			return null;
 		}
 		
+		@Override
 		public int size()
 		{
 			return 0;
 		}
 		
+		@Override
 		public Collection<Object> values()
 		{
 			return emptyCollection();
@@ -299,45 +343,54 @@ public final class L2Collections
 	{
 		private static final Bunch<Object> INSTANCE = new EmptyBunch();
 		
+		@Override
 		public Bunch<Object> add(Object e)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public Bunch<Object> addAll(Iterable<? extends Object> c)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public Bunch<Object> addAll(Object[] array)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public void clear()
 		{
 		}
 		
+		@Override
 		public boolean contains(Object o)
 		{
 			return false;
 		}
 		
+		@Override
 		public Object get(int index)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public boolean isEmpty()
 		{
 			return true;
 		}
 		
+		@Override
 		public Object[] moveToArray()
 		{
 			return EMPTY_ARRAY;
 		}
 		
+		@Override
 		public <T> T[] moveToArray(T[] array)
 		{
 			if (array.length != 0)
@@ -346,31 +399,37 @@ public final class L2Collections
 			return array;
 		}
 		
+		@Override
 		public <T> T[] moveToArray(Class<T> clazz)
 		{
 			return (T[])Array.newInstance(clazz, 0);
 		}
 		
+		@Override
 		public List<Object> moveToList(List<Object> list)
 		{
 			return list;
 		}
 		
+		@Override
 		public Bunch<Object> remove(Object o)
 		{
 			return this;
 		}
 		
+		@Override
 		public Object remove(int index)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public Object set(int index, Object value)
 		{
 			throw new UnsupportedOperationException();
 		}
 		
+		@Override
 		public int size()
 		{
 			return 0;
@@ -457,6 +516,7 @@ public final class L2Collections
 			_clazz = clazz;
 		}
 		
+		@Override
 		public Iterator<E> iterator()
 		{
 			return filteredIterator(_clazz, _iterable, _filter);
@@ -480,11 +540,13 @@ public final class L2Collections
 			step();
 		}
 		
+		@Override
 		public boolean hasNext()
 		{
 			return _next != null;
 		}
 		
+		@Override
 		public E next()
 		{
 			if (!hasNext())
@@ -516,6 +578,7 @@ public final class L2Collections
 			_next = null;
 		}
 		
+		@Override
 		public void remove()
 		{
 			throw new UnsupportedOperationException();
@@ -548,6 +611,7 @@ public final class L2Collections
 			_converter = converter;
 		}
 		
+		@Override
 		public Iterator<T> iterator()
 		{
 			return convertingIterator(_iterable, _converter);
@@ -569,11 +633,13 @@ public final class L2Collections
 			step();
 		}
 		
+		@Override
 		public boolean hasNext()
 		{
 			return _next != null;
 		}
 		
+		@Override
 		public T next()
 		{
 			if (!hasNext())
@@ -607,6 +673,7 @@ public final class L2Collections
 			_next = null;
 		}
 		
+		@Override
 		public void remove()
 		{
 			throw new UnsupportedOperationException();
@@ -654,6 +721,7 @@ public final class L2Collections
 			_iterables = iterables;
 		}
 		
+		@Override
 		public Iterator<E> iterator()
 		{
 			return concatenatedIterator(_iterables);
@@ -674,6 +742,7 @@ public final class L2Collections
 			validateIterator();
 		}
 		
+		@Override
 		public boolean hasNext()
 		{
 			validateIterator();
@@ -681,6 +750,7 @@ public final class L2Collections
 			return _iterator != null && _iterator.hasNext();
 		}
 		
+		@Override
 		public E next()
 		{
 			if (!hasNext())
@@ -702,6 +772,7 @@ public final class L2Collections
 			}
 		}
 		
+		@Override
 		public void remove()
 		{
 			throw new UnsupportedOperationException();

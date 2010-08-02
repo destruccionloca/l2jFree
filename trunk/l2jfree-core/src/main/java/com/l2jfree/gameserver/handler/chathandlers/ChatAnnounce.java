@@ -32,6 +32,7 @@ public class ChatAnnounce implements IChatHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#getChatType()
 	 */
+	@Override
 	public SystemChatChannelId[] getChatTypes()
 	{
 		return _chatTypes;
@@ -40,6 +41,7 @@ public class ChatAnnounce implements IChatHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#useChatHandler(com.l2jfree.gameserver.character.player.L2PcInstance, java.lang.String, com.l2jfree.gameserver.network.enums.SystemChatChannelId, java.lang.String)
 	 */
+	@Override
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
 		String charName = "";

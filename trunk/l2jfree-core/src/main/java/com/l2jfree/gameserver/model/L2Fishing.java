@@ -54,6 +54,7 @@ public class L2Fishing implements Runnable
 	private final boolean			_isUpperGrade;
 	private int				_lureType;
 
+	@Override
 	public void run()
 	{
 		if (_fisher == null)

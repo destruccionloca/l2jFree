@@ -28,6 +28,7 @@ public class BeastSpice implements IItemHandler
 	private static final int[]	ITEM_IDS	=
 											{ 6643, 6644 };
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -52,6 +53,7 @@ public class BeastSpice implements IItemHandler
 		}
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

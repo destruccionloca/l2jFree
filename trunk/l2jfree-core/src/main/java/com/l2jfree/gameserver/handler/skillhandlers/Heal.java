@@ -34,6 +34,7 @@ public class Heal implements ISkillHandler
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.HEAL, L2SkillType.HEAL_PERCENT,
 			L2SkillType.HEAL_STATIC, L2SkillType.HEAL_MOB, L2SkillType.RECOVER };
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		SkillHandler.getInstance().useSkill(L2SkillType.BUFF, activeChar, skill, targets);
@@ -144,6 +145,7 @@ public class Heal implements ISkillHandler
 		}
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

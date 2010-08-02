@@ -263,16 +263,19 @@ public class L2WarehouseItem implements ElementalOwner
 		return _manaLeft;
 	}
 
+	@Override
 	public byte getAttackElementType()
 	{
 		return _elemAtkType;
 	}
 
+	@Override
 	public int getAttackElementPower()
 	{
 		return _elemAtkPower;
 	}
 
+	@Override
 	public int getElementDefAttr(byte i)
 	{
 		return _elemDefAttr[i];

@@ -31,9 +31,9 @@ import com.l2jfree.gameserver.ai.L2CharacterAI;
 import com.l2jfree.gameserver.ai.L2FortSiegeGuardAI;
 import com.l2jfree.gameserver.ai.L2SiegeGuardAI;
 import com.l2jfree.gameserver.datatables.EventDroplist;
+import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.datatables.ItemTable;
 import com.l2jfree.gameserver.datatables.SkillTable;
-import com.l2jfree.gameserver.datatables.EventDroplist.DateDrop;
 import com.l2jfree.gameserver.instancemanager.CursedWeaponsManager;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2CommandChannel;
@@ -2499,6 +2499,7 @@ public class L2Attackable extends L2Npc
 	
 	private class CommandChannelTimer implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			if ((System.currentTimeMillis() - getCommandChannelLastAttack()) > Config.ALT_LOOT_RAIDS_PRIVILEGE_INTERVAL)

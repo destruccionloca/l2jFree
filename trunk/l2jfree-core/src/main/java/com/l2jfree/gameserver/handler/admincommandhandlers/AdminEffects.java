@@ -104,6 +104,7 @@ public class AdminEffects implements IAdminCommandHandler
 			"admin_atmosphere_menu",
 			"admin_give_souls"						};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -764,6 +765,7 @@ public class AdminEffects implements IAdminCommandHandler
 		activeChar.sendMessage("Playing " + sound + ".");
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

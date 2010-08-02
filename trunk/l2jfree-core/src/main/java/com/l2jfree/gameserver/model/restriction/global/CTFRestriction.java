@@ -146,6 +146,7 @@ public final class CTFRestriction extends AbstractFunEventRestriction
 			}
 			
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+				@Override
 				public void run()
 				{
 					int x = CTF._teamsX.get(CTF._teams.indexOf(targetInfo._teamNameCTF));

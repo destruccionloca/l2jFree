@@ -29,6 +29,7 @@ public class Detection implements ISkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.DETECTION };
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		final boolean hasParty;
@@ -69,6 +70,7 @@ public class Detection implements ISkillHandler
 		}
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

@@ -40,6 +40,7 @@ public class AdminPetition implements IAdminCommandHandler
 			"admin_add_peti_chat"
 													};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		L2Object targetChar = activeChar.getTarget();
@@ -126,6 +127,7 @@ public class AdminPetition implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

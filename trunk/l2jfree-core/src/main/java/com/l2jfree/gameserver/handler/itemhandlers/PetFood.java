@@ -40,6 +40,7 @@ public class PetFood implements IItemHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.instance.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
@@ -124,6 +125,7 @@ public class PetFood implements IItemHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#getItemIds()
 	 */
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

@@ -29,6 +29,7 @@ public class TransformDispel implements ISkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.TRANSFORMDISPEL };
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -48,6 +49,7 @@ public class TransformDispel implements ISkillHandler
 		}
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

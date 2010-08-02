@@ -26,6 +26,7 @@ public class Report implements IVoicedCommandHandler
 {
 	private static final String[]	VOICED_COMMANDS	= { "report" };
 
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.equals("report"))
@@ -34,6 +35,7 @@ public class Report implements IVoicedCommandHandler
 		return false;
 	}
 
+	@Override
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

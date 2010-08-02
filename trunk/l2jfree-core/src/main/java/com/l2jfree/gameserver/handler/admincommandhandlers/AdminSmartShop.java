@@ -75,6 +75,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 	// Any number will do as long as it can be divided by 3, for viewing sake =P
 	private static int				_itemsPerView	= 9;
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!command.startsWith("admin_smartshop"))
@@ -133,6 +134,7 @@ public class AdminSmartShop implements IAdminCommandHandler
 
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

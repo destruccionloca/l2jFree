@@ -70,6 +70,7 @@ public abstract class BossSpawnManager
 			bossId = npcId;
 		}
 
+		@Override
 		public void run()
 		{
 			L2Boss raidboss = null;

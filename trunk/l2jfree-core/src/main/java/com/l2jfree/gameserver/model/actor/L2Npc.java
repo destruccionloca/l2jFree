@@ -26,8 +26,8 @@ import com.l2jfree.Config;
 import com.l2jfree.gameserver.SevenSigns;
 import com.l2jfree.gameserver.SevenSignsFestival;
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.Shutdown.DisableType;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.cache.HtmCache;
 import com.l2jfree.gameserver.datatables.BuffTemplateTable;
@@ -577,6 +577,7 @@ public class L2Npc extends L2Character
 			_oldSpawn = spawn;
 		}
 
+		@Override
 		public void run()
 		{
 			try
@@ -603,6 +604,7 @@ public class L2Npc extends L2Character
 			_player = player;
 		}
 
+		@Override
 		public void run()
 		{
 			_summon.unSummon(_player);

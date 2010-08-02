@@ -112,6 +112,7 @@ public abstract class L2Boss extends L2MonsterInstance
 			_minionList.spawnMinions();
 		
 		_maintenanceTask  = ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable() {
+			@Override
 			public void run()
 			{
 				checkAndReturnToSpawn();

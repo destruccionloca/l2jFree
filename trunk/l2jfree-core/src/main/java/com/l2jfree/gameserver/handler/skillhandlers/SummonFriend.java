@@ -206,6 +206,7 @@ public class SummonFriend implements ISkillHandler
 		targetChar.teleToLocation(summonerChar.getX(), summonerChar.getY(), summonerChar.getZ(), true);
 	}
 
+	@Override
 	public void useSkill(L2Character activeChar, final L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -264,6 +265,7 @@ public class SummonFriend implements ISkillHandler
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

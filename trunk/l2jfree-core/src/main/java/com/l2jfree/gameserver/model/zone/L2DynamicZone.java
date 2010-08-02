@@ -97,6 +97,7 @@ public class L2DynamicZone extends L2Zone
 	
 	private final class ZoneTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			// Timer turns off if zone is empty

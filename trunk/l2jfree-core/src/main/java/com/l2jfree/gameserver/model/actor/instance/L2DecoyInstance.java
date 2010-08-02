@@ -90,7 +90,8 @@ public class L2DecoyInstance extends L2Decoy
             _Decoy = Decoy;
         }
         
-        public void run()
+        @Override
+		public void run()
         {
             double newTimeRemaining;
             _Decoy.decTimeRemaining(1000);
@@ -113,7 +114,8 @@ public class L2DecoyInstance extends L2Decoy
             _skill = Hate;
         }
         
-        public void run()
+        @Override
+		public void run()
         {
             _activeChar.setTarget(_activeChar);
             _activeChar.doCast(_skill);

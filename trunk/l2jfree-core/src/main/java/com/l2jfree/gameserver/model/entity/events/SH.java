@@ -102,6 +102,7 @@ public class SH
 	public static void autoEnd(int minuts)
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+			@Override
 			public void run()
 			{
 				endEvent();

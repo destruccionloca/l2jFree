@@ -72,6 +72,7 @@ public final class FusionSkill implements Runnable
 		_geoCheckTask.cancel(true);
 	}
 	
+	@Override
 	public void run()
 	{
 		if (!Util.checkIfInRange(_skill.getCastRange(), _caster, _target, true))

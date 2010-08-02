@@ -41,6 +41,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient, L
 {
 	private static final Log	_log	= LogFactory.getLog(L2GamePacketHandler.class);
 	
+	@Override
 	public L2GameClientPacket handlePacket(ByteBuffer buf, L2GameClient client, final int opcode)
 	{
 		L2GameClientPacket msg = null;

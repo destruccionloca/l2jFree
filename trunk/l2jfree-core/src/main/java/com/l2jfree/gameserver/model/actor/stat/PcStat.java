@@ -504,6 +504,7 @@ public class PcStat extends PlayableStat
 		return value;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean summonShouldHaveAttackElemental(L2Summon pet)
 	{
 		return getActiveChar().getClassId().isSummoner() && pet instanceof L2SummonInstance && !pet.isDead() && !getActiveChar().getExpertisePenalty();

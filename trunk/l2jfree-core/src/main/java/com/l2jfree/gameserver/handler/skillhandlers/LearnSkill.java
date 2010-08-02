@@ -26,6 +26,7 @@ public class LearnSkill implements ISkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.LEARN_SKILL };
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

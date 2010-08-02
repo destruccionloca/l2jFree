@@ -29,8 +29,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.L2DatabaseFactory;
 import com.l2jfree.gameserver.LoginServerThread;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.LoginServerThread.SessionKey;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.model.CharSelectInfoPackage;
 import com.l2jfree.gameserver.model.L2Clan;
@@ -440,6 +440,7 @@ public final class L2GameClient extends MMOConnection<L2GameClient, L2GameClient
 			ThreadPoolManager.getInstance().schedule(this, Config.ENTERWORLD_TICK);
 		}
 		
+		@Override
 		public void run()
 		{
 			synchronized (L2GameClient.this)

@@ -71,6 +71,7 @@ public class Elixir implements IItemHandler
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#useItem(com.l2jfree.gameserver.model.actor.L2Playable, com.l2jfree.gameserver.model.L2ItemInstance)
 	 */
+	@Override
 	public synchronized void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar; // use activeChar only for L2PcInstance checks where cannot be used PetInstance
@@ -203,6 +204,7 @@ public class Elixir implements IItemHandler
 	 * 
 	 * @see com.l2jfree.gameserver.handler.IItemHandler#getItemIds()
 	 */
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

@@ -87,6 +87,7 @@ public class AdminTvTiEngine implements IAdminCommandHandler
 
 	private static final int		REQUIRED_LEVEL	= 100;
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
@@ -399,6 +400,7 @@ public class AdminTvTiEngine implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

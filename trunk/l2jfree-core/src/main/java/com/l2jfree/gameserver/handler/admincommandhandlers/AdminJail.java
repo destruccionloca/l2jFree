@@ -38,6 +38,7 @@ public class AdminJail implements IAdminCommandHandler
 {
 	private static final String[]	ADMIN_COMMANDS	= { "admin_jail", "admin_unjail" };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -172,6 +173,7 @@ public class AdminJail implements IAdminCommandHandler
 		}
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

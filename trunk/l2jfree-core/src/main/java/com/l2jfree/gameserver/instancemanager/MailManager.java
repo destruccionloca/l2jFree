@@ -200,6 +200,7 @@ public class MailManager
 			_msgId = msgId;
 		}
 		
+		@Override
 		public void run()
 		{
 			final Message msg = getMessage(_msgId);

@@ -47,6 +47,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 			"admin_vip_notvipreward",
 			"admin_vip_notviprewardamount",		};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_vip"))
@@ -363,6 +364,7 @@ public class AdminVIPEngine implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

@@ -64,6 +64,7 @@ class OlympiadManager implements Runnable
 		return SingletonHolder._instance;
 	}
 
+	@Override
 	public synchronized void run()
 	{
 		if (Olympiad.getInstance().isOlympiadEnd())

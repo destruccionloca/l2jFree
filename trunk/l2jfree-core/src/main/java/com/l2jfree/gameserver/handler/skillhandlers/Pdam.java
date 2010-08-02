@@ -33,6 +33,7 @@ public final class Pdam implements ISkillHandler
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.PDAM, L2SkillType.FATALCOUNTER, L2SkillType.BLOW,
 		L2SkillType.CHARGEDAM };
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
 		// support for Double Shot, etc
@@ -143,6 +144,7 @@ public final class Pdam implements ISkillHandler
 			weapon.useSoulshotCharge();
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

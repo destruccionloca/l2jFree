@@ -40,6 +40,7 @@ public class GiveVitality implements ISkillHandler
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

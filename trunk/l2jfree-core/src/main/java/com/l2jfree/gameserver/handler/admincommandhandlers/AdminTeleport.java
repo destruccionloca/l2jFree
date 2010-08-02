@@ -87,6 +87,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			"admin_teleto",
 			"admin_instant_move"					};
 	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_bookmark"))// L2J_JP ADD
@@ -291,6 +292,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

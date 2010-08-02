@@ -74,6 +74,7 @@ public class Book implements IItemHandler
 			13135,
 			13136								};
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -102,6 +103,7 @@ public class Book implements IItemHandler
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

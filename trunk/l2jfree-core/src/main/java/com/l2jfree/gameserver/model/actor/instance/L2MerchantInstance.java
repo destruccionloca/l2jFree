@@ -18,8 +18,8 @@ import java.util.StringTokenizer;
 
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable;
-import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.datatables.MerchantPriceConfigTable.MerchantPriceConfig;
+import com.l2jfree.gameserver.datatables.TradeListTable;
 import com.l2jfree.gameserver.model.L2Multisell;
 import com.l2jfree.gameserver.model.L2TradeList;
 import com.l2jfree.gameserver.model.actor.L2Merchant;

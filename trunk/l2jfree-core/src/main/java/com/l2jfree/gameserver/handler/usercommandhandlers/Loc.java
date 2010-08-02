@@ -30,6 +30,7 @@ public class Loc implements IUserCommandHandler
 	private static final int[]	COMMAND_IDS	=
 											{ 0 };
 
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		L2MapRegionRestart restart = null;
@@ -93,6 +94,7 @@ public class Loc implements IUserCommandHandler
 		return true;
 	}
 
+	@Override
 	public int[] getUserCommandList()
 	{
 		return COMMAND_IDS;

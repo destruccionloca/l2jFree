@@ -40,6 +40,11 @@ public class L2TextBuilder extends TextBuilder
 		super(str);
 	}
 	
+	/**
+	 * Returns the String representation of this object and recycles it.
+	 * This builder is empty when the result is returned.
+	 * @return the built String
+	 */
 	public String moveToString()
 	{
 		final String value = toString();

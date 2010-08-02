@@ -882,6 +882,7 @@ public class VanHalterManager extends BossLair
 
 	private class LockUpDoorOfAltar implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			closeDoorOfAltar(false);
@@ -923,6 +924,7 @@ public class VanHalterManager extends BossLair
 
 	private class OpenDoorOfAltar implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			openDoorOfAltar(true);
@@ -953,6 +955,7 @@ public class VanHalterManager extends BossLair
 
 	private class CloseDoorOfAltar implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			closeDoorOfAltar(true);
@@ -1067,6 +1070,7 @@ public class VanHalterManager extends BossLair
 
 	private class CallRoyalGuardHelper implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			spawnRoyalGuardHepler();
@@ -1089,6 +1093,7 @@ public class VanHalterManager extends BossLair
 
 	private class HalterEscape implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			if (_royalGuardHepler.size() <= Config.HPH_CALLROYALGUARDHELPERCOUNT && !_vanHalter.isDead())
@@ -1178,6 +1183,7 @@ public class VanHalterManager extends BossLair
 
 	private class Bleeding implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			addBleeding();
@@ -1254,6 +1260,7 @@ public class VanHalterManager extends BossLair
 	// Interval.
 	private class Interval implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			setupAltar();
@@ -1335,6 +1342,7 @@ public class VanHalterManager extends BossLair
 	// Time up.
 	private class TimeUp implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			enterInterval();
@@ -1353,6 +1361,7 @@ public class VanHalterManager extends BossLair
 			_taskId = taskId;
 		}
 
+		@Override
 		public void run()
 		{
 			_vanHalter.setHeading(16384);

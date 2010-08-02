@@ -29,6 +29,7 @@ public class BallistaBomb implements ISkillHandler
 		L2SkillType.BALLISTA
 	};
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance) || targets.length == 0)
@@ -48,6 +49,7 @@ public class BallistaBomb implements ISkillHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

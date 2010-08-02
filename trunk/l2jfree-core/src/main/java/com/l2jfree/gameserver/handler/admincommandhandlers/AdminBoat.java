@@ -24,6 +24,7 @@ public class AdminBoat implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_boat" };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		L2BoatInstance boat = activeChar.getBoat();
@@ -78,6 +79,7 @@ public class AdminBoat implements IAdminCommandHandler
 		cha.sendMessage("Usage: //boat [cycle|reload]");
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

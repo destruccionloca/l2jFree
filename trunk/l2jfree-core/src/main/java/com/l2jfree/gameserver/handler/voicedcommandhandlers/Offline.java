@@ -25,6 +25,7 @@ public class Offline implements IVoicedCommandHandler
 	private static final String[] VOICED_COMMANDS =
 		{ "offline" };
 	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (!Config.ALLOW_OFFLINE_TRADE)
@@ -69,6 +70,7 @@ public class Offline implements IVoicedCommandHandler
 		return true;
 	}
 	
+	@Override
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

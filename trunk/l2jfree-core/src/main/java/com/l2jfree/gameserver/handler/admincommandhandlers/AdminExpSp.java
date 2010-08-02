@@ -39,6 +39,7 @@ public class AdminExpSp implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_add_exp_sp_to_character", "admin_add_exp_sp", "admin_remove_exp_sp" };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_add_exp_sp"))
@@ -71,6 +72,7 @@ public class AdminExpSp implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

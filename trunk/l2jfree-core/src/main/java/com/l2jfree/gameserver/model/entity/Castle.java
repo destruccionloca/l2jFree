@@ -37,10 +37,10 @@ import com.l2jfree.gameserver.datatables.ClanTable;
 import com.l2jfree.gameserver.datatables.DoorTable;
 import com.l2jfree.gameserver.instancemanager.CastleManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager;
-import com.l2jfree.gameserver.instancemanager.CrownManager;
-import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.CropProcure;
 import com.l2jfree.gameserver.instancemanager.CastleManorManager.SeedProduction;
+import com.l2jfree.gameserver.instancemanager.CrownManager;
+import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.model.L2Clan;
 import com.l2jfree.gameserver.model.L2Manor;
 import com.l2jfree.gameserver.model.actor.instance.L2ArtefactInstance;
@@ -149,6 +149,7 @@ public class Castle extends Siegeable<Siege>
 			{
 				_cwh = cwh;
 			}
+			@Override
 			public void run()
 			{
 				if (getOwnerId() <= 0)

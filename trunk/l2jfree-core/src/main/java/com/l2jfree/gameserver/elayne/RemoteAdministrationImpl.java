@@ -115,6 +115,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#getOnlineUsersCount()
 	 */
+	@Override
 	public int getOnlineUsersCount(String password) throws RemoteException
 	{
 		if (!password.equals(_pass))
@@ -125,6 +126,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#getPlayerInformation(java.lang.String)
 	 */
+	@Override
 	public IRemotePlayer getPlayerInformation(String password, String playerName) throws RemoteException
 	{
 		if (!password.equals(_pass))
@@ -138,6 +140,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#announceToAll(java.lang.String)
 	 */
+	@Override
 	public void announceToAll(String password, String announcement) throws RemoteException
 	{
 		if (!password.equals(_pass))
@@ -148,6 +151,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#abortServerRestart()
 	 */
+	@Override
 	public void abortServerRestart(String password) throws RemoteException
 	{
 		if (password.equals(_pass))
@@ -157,6 +161,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#kickPlayerFromServer(java.lang.String)
 	 */
+	@Override
 	public int kickPlayerFromServer(String password, String playerName) throws RemoteException
 	{
 		if (password.equals(_pass))
@@ -177,6 +182,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#reload(int)
 	 */
+	@Override
 	public void reload(String password, int reloadProcedure) throws RemoteException
 	{
 		if (password.equals(_pass))
@@ -221,6 +227,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#scheduleServerRestart(int)
 	 */
+	@Override
 	public void scheduleServerRestart(String password, int secondsUntilRestart) throws RemoteException
 	{
 		if (password.equals(_pass))
@@ -230,6 +237,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#scheduleServerShutDown(int)
 	 */
+	@Override
 	public void scheduleServerShutDown(String password, int secondsUntilShutDown) throws RemoteException
 	{
 		if (password.equals(_pass))
@@ -240,6 +248,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#sendMessageToGms(java.lang.String)
 	 */
+	@Override
 	public int sendMessageToGms(String password, String message) throws RemoteException
 	{
 		if (!password.equals(_pass))
@@ -252,6 +261,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#sendPrivateMessage(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public int sendPrivateMessage(String password, String player, String message) throws RemoteException
 	{
 		if (!password.equals(_pass))
@@ -270,6 +280,7 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemoteAdministration#getOnlinePlayersDetails(java.lang.String)
 	 */
+	@Override
 	public FastMap<String, IRemotePlayer> getOnlinePlayersDetails(String rmiPassword) throws RemoteException
 	{
 		if (!rmiPassword.equals(_pass))

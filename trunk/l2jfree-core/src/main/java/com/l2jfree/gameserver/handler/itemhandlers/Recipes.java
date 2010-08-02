@@ -39,6 +39,7 @@ public class Recipes implements IItemHandler
 		ITEM_IDS = RecipeController.getInstance().getAllItemIds();
 	}
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -114,6 +115,7 @@ public class Recipes implements IItemHandler
 		}
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

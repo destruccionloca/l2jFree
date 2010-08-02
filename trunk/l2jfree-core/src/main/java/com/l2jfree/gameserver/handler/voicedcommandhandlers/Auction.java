@@ -27,6 +27,7 @@ public class Auction implements IVoicedCommandHandler
 {
 	private static final String[]	VOICED_COMMANDS	= { "auction" };
 
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.equals("auction"))
@@ -37,6 +38,7 @@ public class Auction implements IVoicedCommandHandler
 		return false;
 	}
 
+	@Override
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

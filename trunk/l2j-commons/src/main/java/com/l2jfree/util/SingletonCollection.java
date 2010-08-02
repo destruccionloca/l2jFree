@@ -48,6 +48,7 @@ public abstract class SingletonCollection<E, C extends Collection<E>> implements
 	
 	protected abstract C initCollection();
 	
+	@Override
 	public final boolean add(E e)
 	{
 		init();
@@ -55,6 +56,7 @@ public abstract class SingletonCollection<E, C extends Collection<E>> implements
 		return _collection.add(e);
 	}
 	
+	@Override
 	public final boolean addAll(Collection<? extends E> c)
 	{
 		init();
@@ -62,56 +64,67 @@ public abstract class SingletonCollection<E, C extends Collection<E>> implements
 		return _collection.addAll(c);
 	}
 	
+	@Override
 	public final void clear()
 	{
 		_collection.clear();
 	}
 	
+	@Override
 	public final boolean contains(Object o)
 	{
 		return _collection.contains(o);
 	}
 	
+	@Override
 	public final boolean containsAll(Collection<?> c)
 	{
 		return _collection.containsAll(c);
 	}
 	
+	@Override
 	public final boolean isEmpty()
 	{
 		return _collection.isEmpty();
 	}
 	
+	@Override
 	public final Iterator<E> iterator()
 	{
 		return _collection.iterator();
 	}
 	
+	@Override
 	public final boolean remove(Object o)
 	{
 		return _collection.remove(o);
 	}
 	
+	@Override
 	public final boolean removeAll(Collection<?> c)
 	{
 		return _collection.removeAll(c);
 	}
 	
+	@Override
 	public final boolean retainAll(Collection<?> c)
 	{
 		return _collection.retainAll(c);
 	}
 	
+	@Override
 	public final int size()
 	{
 		return _collection.size();
 	}
 	
+	@Override
 	public final Object[] toArray()
 	{
 		return _collection.toArray();
 	}
 	
+	@Override
 	public final <T> T[] toArray(T[] a)
 	{
 		return _collection.toArray(a);

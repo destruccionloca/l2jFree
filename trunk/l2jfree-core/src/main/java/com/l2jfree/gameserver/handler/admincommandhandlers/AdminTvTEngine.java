@@ -66,6 +66,7 @@ public class AdminTvTEngine implements IAdminCommandHandler
 			"admin_tvt_maxplayers",
 			"admin_tvtkick"						};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_tvt"))
@@ -247,6 +248,7 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

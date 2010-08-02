@@ -22,8 +22,8 @@ import javolution.util.FastList;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager;
-import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.instancemanager.DimensionalRiftManager.DimensionalRiftRoom;
+import com.l2jfree.gameserver.instancemanager.QuestManager;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -337,6 +337,7 @@ public class DimensionalRift
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					for(L2PcInstance p : _party.getPartyMembers())
@@ -366,6 +367,7 @@ public class DimensionalRift
 		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					for (L2PcInstance p : _party.getPartyMembers())

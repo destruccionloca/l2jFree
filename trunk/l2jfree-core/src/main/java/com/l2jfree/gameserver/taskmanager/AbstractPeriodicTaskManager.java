@@ -20,8 +20,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.l2jfree.gameserver.GameServer;
-import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.GameServer.StartupHook;
+import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.tools.random.Rnd;
 
 /**
@@ -72,5 +72,6 @@ abstract class AbstractPeriodicTaskManager implements Runnable, StartupHook
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(this, 1000 + Rnd.get(_period), Rnd.get(_period - 5, _period + 5));
 	}
 	
+	@Override
 	public abstract void run();
 }

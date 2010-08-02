@@ -33,6 +33,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public Accounts getAccountById(String id)
 	{
 		Accounts account = (Accounts) get(Accounts.class, id);
@@ -44,6 +45,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#createAccount(java.lang.Object)
 	 */
+	@Override
 	public String createAccount(Object obj)
 	{
 		return (String) save(obj);
@@ -52,6 +54,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#createOrUpdate(java.lang.Object)
 	 */
+	@Override
 	public void createOrUpdate(Object obj)
 	{
 		saveOrUpdate(obj);
@@ -61,6 +64,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#createOrUpdateAll(java.util.Collection)
 	 */
+	@Override
 	public void createOrUpdateAll(Collection<?> entities)
 	{
 		saveOrUpdateAll(entities);
@@ -70,6 +74,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#getAllAccounts()
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Accounts> getAllAccounts()
 	{
@@ -79,6 +84,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#removeAccount(java.lang.Object)
 	 */
+	@Override
 	public void removeAccount(Object obj)
 	{
 		delete(obj);
@@ -88,6 +94,7 @@ public class AccountsDAOHib extends BaseRootDAOHib implements AccountsDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.AccountsDAO#removeAccountById(java.io.Serializable)
 	 */
+	@Override
 	public void removeAccountById(String login)
 	{
 		removeObject(Accounts.class, login);

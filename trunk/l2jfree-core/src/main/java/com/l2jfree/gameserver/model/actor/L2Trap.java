@@ -261,6 +261,7 @@ public class L2Trap extends L2Character
 	
 	private class TrapTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			try
@@ -325,6 +326,7 @@ public class L2Trap extends L2Character
 	
 	private class TriggerTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			try
@@ -341,6 +343,7 @@ public class L2Trap extends L2Character
 	
 	private class UnsummonTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			unSummon();

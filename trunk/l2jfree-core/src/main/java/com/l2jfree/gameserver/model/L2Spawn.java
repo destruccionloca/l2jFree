@@ -124,6 +124,7 @@ public class L2Spawn
 			_oldNpc = pOldNpc;
 		}
 		
+		@Override
 		public void run()
 		{
 			try

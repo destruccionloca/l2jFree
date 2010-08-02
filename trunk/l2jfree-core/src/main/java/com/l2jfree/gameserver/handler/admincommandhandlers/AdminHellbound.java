@@ -32,6 +32,7 @@ public final class AdminHellbound implements IAdminCommandHandler
 		"admin_add_warpgate_points",
 		"admin_remove_warpgate_points" };
 	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
@@ -80,6 +81,7 @@ public final class AdminHellbound implements IAdminCommandHandler
 		return true;
 	}
 	
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

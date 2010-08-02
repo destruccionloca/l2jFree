@@ -41,6 +41,7 @@ public class ExtractableItems implements IItemHandler
 {
 	protected static Log	_log						= LogFactory.getLog(ExtractableItems.class);
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -127,6 +128,7 @@ public class ExtractableItems implements IItemHandler
 		activeChar.destroyItemByItemId("Extract", itemID, 1, activeChar.getTarget(), true);
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ExtractableItemsData.getInstance().itemIDs();

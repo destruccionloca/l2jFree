@@ -41,6 +41,7 @@ public class AdminVitality implements IAdminCommandHandler
 		"admin_get_vitality"
 	};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ENABLE_VITALITY)
@@ -114,6 +115,7 @@ public class AdminVitality implements IAdminCommandHandler
 		}
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

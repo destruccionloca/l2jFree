@@ -63,6 +63,7 @@ public abstract class SQLQueryQueue implements Runnable
 		}
 	}
 	
+	@Override
 	public final synchronized void run()
 	{
 		if (_queue.isEmpty())

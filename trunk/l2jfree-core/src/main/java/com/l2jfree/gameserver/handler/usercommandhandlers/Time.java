@@ -22,12 +22,14 @@ public class Time implements IUserCommandHandler
 {
 	private static final int[] COMMAND_IDS = { 77 };
 	
+	@Override
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		activeChar.sendMessage("The current date is " + GameTimeController.getInstance().getFormattedGameTime());
 		return true;
 	}
 	
+	@Override
 	public int[] getUserCommandList()
 	{
 		return COMMAND_IDS;

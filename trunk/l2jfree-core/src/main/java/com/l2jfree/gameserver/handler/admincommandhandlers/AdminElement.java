@@ -36,6 +36,7 @@ public class AdminElement implements IAdminCommandHandler
 		"admin_setls"
 	};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		int armorType = -1;
@@ -81,6 +82,7 @@ public class AdminElement implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

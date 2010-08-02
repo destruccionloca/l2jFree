@@ -700,11 +700,13 @@ public final class GlobalRestrictions
 				else
 					activeChar.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 			}
+			//$FALL-THROUGH$
 			case L2Zone.FLAG_DANGER:
 			{
 				if (player != null)
 					player.sendEtcStatusUpdate();
 			}
+			//$FALL-THROUGH$
 			case L2Zone.FLAG_NOWYVERN:
 			{
 				if (player != null && player.getMountType() == 2)

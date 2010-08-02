@@ -1,4 +1,6 @@
-<?xml version='1.0' encoding='utf-8'?>
-<servers_list>
-	<server sqlDPId="200" dir="Bartz" />
+<?xml version="1.0" encoding="UTF-8"?>
+<servers_list xmlns="http://www.l2jfree.com"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.l2jfree.com ../templates/top.xsd">
+	<server sqlDPId="200" dir="bartz" />
 </servers_list>

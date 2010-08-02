@@ -37,6 +37,7 @@ public final class SingletonList<E> extends SingletonCollection<E, List<E>> impl
 		return FastList.newInstance();
 	}
 	
+	@Override
 	public void add(int index, E element)
 	{
 		init();
@@ -44,6 +45,7 @@ public final class SingletonList<E> extends SingletonCollection<E, List<E>> impl
 		_collection.add(index, element);
 	}
 	
+	@Override
 	public boolean addAll(int index, Collection<? extends E> c)
 	{
 		init();
@@ -51,41 +53,49 @@ public final class SingletonList<E> extends SingletonCollection<E, List<E>> impl
 		return _collection.addAll(index, c);
 	}
 	
+	@Override
 	public E get(int index)
 	{
 		return _collection.get(index);
 	}
 	
+	@Override
 	public int indexOf(Object o)
 	{
 		return _collection.indexOf(o);
 	}
 	
+	@Override
 	public int lastIndexOf(Object o)
 	{
 		return _collection.lastIndexOf(o);
 	}
 	
+	@Override
 	public ListIterator<E> listIterator()
 	{
 		return _collection.listIterator();
 	}
 	
+	@Override
 	public ListIterator<E> listIterator(int index)
 	{
 		return _collection.listIterator(index);
 	}
 	
+	@Override
 	public E remove(int index)
 	{
 		return _collection.remove(index);
 	}
 	
+	@Override
 	public E set(int index, E element)
 	{
 		return _collection.set(index, element);
 	}
 	
+	@Override
 	public List<E> subList(int fromIndex, int toIndex)
 	{
 		return _collection.subList(fromIndex, toIndex);

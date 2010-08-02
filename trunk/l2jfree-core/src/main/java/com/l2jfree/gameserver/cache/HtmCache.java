@@ -26,8 +26,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javolution.util.FastMap;
 
@@ -47,6 +47,7 @@ public final class HtmCache
 	private static final Log _log = LogFactory.getLog(HtmCache.class);
 	
 	private static final FileFilter HTM_FILTER = new FileFilter() {
+		@Override
 		public boolean accept(File file)
 		{
 			return file.isDirectory() || file.getName().endsWith(".htm") || file.getName().endsWith(".html");

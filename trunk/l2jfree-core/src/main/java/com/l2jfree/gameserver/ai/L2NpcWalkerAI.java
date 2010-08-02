@@ -108,6 +108,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		return _route[_currentPos];
 	}
 	
+	@Override
 	public void run()
 	{
 		notifyEvent(CtrlEvent.EVT_THINK);

@@ -26,12 +26,14 @@ public final class FishShots implements IItemHandler
 {
 	private static final int[] ITEM_IDS = { 6535, 6536, 6537, 6538, 6539, 6540 };
 	
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (playable instanceof L2PcInstance)
 			playable.getShots().chargeFishshot(item);
 	}
 	
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

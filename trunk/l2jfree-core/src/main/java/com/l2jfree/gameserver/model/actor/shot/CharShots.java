@@ -57,6 +57,7 @@ public abstract class CharShots implements Runnable
 		return ShotState.getEmptyInstance();
 	}
 	
+	@Override
 	public void run()
 	{
 		rechargeShots();

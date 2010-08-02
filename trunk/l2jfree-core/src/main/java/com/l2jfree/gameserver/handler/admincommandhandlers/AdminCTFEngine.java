@@ -68,6 +68,7 @@ public class AdminCTFEngine implements IAdminCommandHandler
 			"admin_ctf_minplayers",
 			"admin_ctf_maxplayers"					};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		try
@@ -289,6 +290,7 @@ public class AdminCTFEngine implements IAdminCommandHandler
 		}
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

@@ -45,10 +45,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.network.serverpackets.SpawnItem;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
@@ -970,6 +970,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		return _elementals;
 	}
 
+	@Override
 	public byte getAttackElementType()
 	{
 		if (isWeapon() && _elementals != null)
@@ -977,6 +978,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		return -2;
 	}
 
+	@Override
 	public int getAttackElementPower()
 	{
 		if (isWeapon() && _elementals != null)
@@ -984,6 +986,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		return 0;
 	}
 
+	@Override
 	public int getElementDefAttr(byte element)
 	{
 		if (isArmor() && _elementals != null && _elementals.getElement() == element)
@@ -1058,6 +1061,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	 */
 	private class ScheduleConsumeManaTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			// decrease mana
@@ -1263,6 +1267,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 	
 	private final SQLQuery UPDATE_DATABASE_QUERY = new SQLQuery()
 	{
+		@Override
 		public void execute(Connection con)
 		{
 			switch (getUpdateMode(true))
@@ -1704,6 +1709,7 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 
 	private class ScheduleLifeTimeTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			endOfLife();

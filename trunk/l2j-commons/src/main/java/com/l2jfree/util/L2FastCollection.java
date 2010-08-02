@@ -89,6 +89,7 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return modified;
 	}
 	
+	@Override
 	public boolean addAll(Collection<? extends E> c)
 	{
 		return addAll((Iterable<? extends E>)c);
@@ -156,6 +157,7 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return true;
 	}
 	
+	@Override
 	public boolean containsAll(Collection<?> c)
 	{
 		return containsAll((Iterable<? extends E>)c);
@@ -206,6 +208,7 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return true;
 	}
 	
+	@Override
 	public boolean removeAll(Collection<?> c)
 	{
 		boolean modified = false;
@@ -223,6 +226,7 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return modified;
 	}
 	
+	@Override
 	public boolean retainAll(Collection<?> c)
 	{
 		boolean modified = false;
@@ -240,11 +244,13 @@ public abstract class L2FastCollection<E> implements Collection<E>
 		return modified;
 	}
 	
+	@Override
 	public Object[] toArray()
 	{
 		return toArray(new Object[size()]);
 	}
 	
+	@Override
 	public <T> T[] toArray(T[] array)
 	{
 		int size = size();

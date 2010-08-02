@@ -49,6 +49,7 @@ public class Continuous implements ICubicSkillHandler
 			L2SkillType.AGGDEBUFF,
 			L2SkillType.FUSION			};
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2PcInstance player = null;
@@ -165,6 +166,7 @@ public class Continuous implements ICubicSkillHandler
 		}
 	}
 
+	@Override
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)
 	{
 		for (L2Character target : targets)
@@ -187,6 +189,7 @@ public class Continuous implements ICubicSkillHandler
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

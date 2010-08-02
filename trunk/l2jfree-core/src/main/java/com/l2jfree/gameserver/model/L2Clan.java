@@ -2288,7 +2288,7 @@ public class L2Clan
 			player.sendPacket(SystemMessageId.INCORRECT_ALLIANCE_NAME);
 			return;
 		}
-		if (ClanTable.getInstance().isAllyExists(allyName))
+		if (ClanTable.getInstance().isAlliance(allyName))
 		{
 			player.sendPacket(SystemMessageId.ALLIANCE_ALREADY_EXISTS);
 			return;

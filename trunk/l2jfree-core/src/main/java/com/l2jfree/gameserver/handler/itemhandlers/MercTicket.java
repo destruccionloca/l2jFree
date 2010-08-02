@@ -22,12 +22,14 @@ import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
 public class MercTicket implements IItemHandler
 {
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		L2PcInstance player = playable.getActingPlayer();
 		MercTicketManager.getInstance().reqPosition(player, item);
 	}
 	
+	@Override
 	public int[] getItemIds()
 	{
 		return MercTicketManager.getInstance().getItemIds();

@@ -70,6 +70,7 @@ public class SiegeFlag extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill);
 	}
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
 		L2SkillSiegeFlag skill = (L2SkillSiegeFlag)skill0;
@@ -123,6 +124,7 @@ public class SiegeFlag extends ISkillConditionChecker
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

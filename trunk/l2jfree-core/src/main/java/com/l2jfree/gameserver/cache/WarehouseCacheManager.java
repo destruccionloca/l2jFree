@@ -56,6 +56,7 @@ public final class WarehouseCacheManager implements Runnable
 		_cache.remove(player);
 	}
 	
+	@Override
 	public synchronized void run()
 	{
 		for (Map.Entry<L2PcInstance, Long> entry : _cache.entrySet())

@@ -186,6 +186,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	{
 		private final List<L2Skill> _currentBuffs = new ArrayList<L2Skill>();
 		
+		@Override
 		public void run()
 		{
 			final L2BabyPetInstance _baby = L2BabyPetInstance.this;

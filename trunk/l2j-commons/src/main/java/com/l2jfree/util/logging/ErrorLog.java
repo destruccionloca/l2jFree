@@ -44,6 +44,7 @@ public final class ErrorLog
 	
 	public static final class Filter implements java.util.logging.Filter
 	{
+		@Override
 		public boolean isLoggable(LogRecord record)
 		{
 			return record.getLevel().intValue() > Level.INFO.intValue() || record.getThrown() != null;

@@ -24,12 +24,14 @@ public final class SoulShots implements IItemHandler
 	private static final int[]	ITEM_IDS	=
 											{ 5789, 1835, 1463, 1464, 1465, 1466, 1467, 22082, 22083, 22084, 22085, 22086 };
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (playable instanceof L2PcInstance)
 			playable.getShots().chargeSoulshot(item);
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

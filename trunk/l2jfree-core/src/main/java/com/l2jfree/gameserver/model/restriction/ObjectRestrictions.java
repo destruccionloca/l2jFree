@@ -435,6 +435,7 @@ public final class ObjectRestrictions
 			addTask(objId, this);
 		}
 
+		@Override
 		public void run()
 		{
 			removeTask(getObjectId(), this);

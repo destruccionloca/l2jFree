@@ -27,6 +27,7 @@ public class VersionInfo  implements IVoicedCommandHandler
 	private static final String[]	VOICED_COMMANDS	=
 													{ "version" };
 
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.startsWith("version"))
@@ -36,6 +37,7 @@ public class VersionInfo  implements IVoicedCommandHandler
 		}
 		return false;
 	}
+	@Override
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

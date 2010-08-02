@@ -35,6 +35,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_itemcreate", "admin_create_item", "admin_clear_inventory" };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_itemcreate"))
@@ -80,6 +81,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

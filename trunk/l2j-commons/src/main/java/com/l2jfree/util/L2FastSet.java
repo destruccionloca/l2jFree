@@ -17,8 +17,8 @@ package com.l2jfree.util;
 import java.util.Iterator;
 import java.util.Set;
 
-import javolution.util.FastMap;
 import javolution.util.FastCollection.Record;
+import javolution.util.FastMap;
 
 /**
  * @author NB4L1
@@ -88,36 +88,43 @@ public class L2FastSet<E> extends L2FastCollection<E> implements Set<E>
 		_map.remove(value);
 	}
 	
+	@Override
 	public boolean add(E value)
 	{
 		return _map.put(value, NULL) == null;
 	}
 	
+	@Override
 	public void clear()
 	{
 		_map.clear();
 	}
 	
+	@Override
 	public boolean contains(Object o)
 	{
 		return _map.containsKey(o);
 	}
 	
+	@Override
 	public boolean isEmpty()
 	{
 		return _map.isEmpty();
 	}
 	
+	@Override
 	public Iterator<E> iterator()
 	{
 		return _map.keySet().iterator();
 	}
 	
+	@Override
 	public boolean remove(Object o)
 	{
 		return _map.remove(o) != null;
 	}
 	
+	@Override
 	public int size()
 	{
 		return _map.size();

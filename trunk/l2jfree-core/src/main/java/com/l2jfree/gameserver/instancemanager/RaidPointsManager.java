@@ -171,6 +171,7 @@ public final class RaidPointsManager
 		final Entry<Integer, Integer>[] entries = pointsByOwnerId.entrySet().toArray(new Entry[pointsByOwnerId.size()]);
 
 		Arrays.sort(entries, new Comparator<Map.Entry<Integer, Integer>>() {
+			@Override
 			public int compare(Map.Entry<Integer, Integer> entry, Map.Entry<Integer, Integer> entry1)
 			{
 				return entry.getValue().equals(entry1.getValue()) ? 0 : entry.getValue() < entry1.getValue() ? 1 : -1;

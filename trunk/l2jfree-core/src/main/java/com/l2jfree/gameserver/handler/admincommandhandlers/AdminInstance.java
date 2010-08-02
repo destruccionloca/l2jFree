@@ -36,6 +36,7 @@ public class AdminInstance implements IAdminCommandHandler
 			"admin_destroyinstance",
 			"admin_listinstances"					};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -127,6 +128,7 @@ public class AdminInstance implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

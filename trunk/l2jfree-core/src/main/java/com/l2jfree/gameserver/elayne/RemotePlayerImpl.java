@@ -36,6 +36,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#getAccessLevel()
 	 */
+	@Override
 	public int getAccessLevel() throws RemoteException
 	{
 		return _player.getAccessLevel();
@@ -44,6 +45,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#getAccount()
 	 */
+	@Override
 	public String getAccount() throws RemoteException
 	{
 		return _player.getAccountName();
@@ -52,6 +54,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#getLevel()
 	 */
+	@Override
 	public int getLevel() throws RemoteException
 	{
 		return _player.getLevel();
@@ -60,6 +63,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#getName()
 	 */
+	@Override
 	public String getName() throws RemoteException
 	{
 		return _player.getName();
@@ -68,6 +72,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#getObjectId()
 	 */
+	@Override
 	public int getObjectId() throws RemoteException
 	{
 		return _player.getObjectId();
@@ -76,6 +81,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#getSex()
 	 */
+	@Override
 	public int getSex() throws RemoteException
 	{
 		if (_player.getAppearance().getSex())
@@ -86,6 +92,7 @@ public class RemotePlayerImpl implements IRemotePlayer
 	/**
 	 * @see com.l2jfree.gameserver.elayne.IRemotePlayer#online()
 	 */
+	@Override
 	public int online() throws RemoteException
 	{
 		return _player.isOnline();

@@ -280,6 +280,7 @@ public final class L2AirShipInstance extends L2Character
 			_airShip = instance;
 		}
 		
+		@Override
 		public void run()
 		{
 			_airShip.begin();
@@ -301,6 +302,7 @@ public final class L2AirShipInstance extends L2Character
 			_airShip = instance;
 		}
 		
+		@Override
 		public void run()
 		{
 			_airShip._easi = null;

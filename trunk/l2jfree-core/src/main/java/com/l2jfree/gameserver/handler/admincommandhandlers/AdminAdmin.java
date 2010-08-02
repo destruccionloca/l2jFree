@@ -101,6 +101,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			"admin_debug"
 													};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.startsWith("admin_admin"))
@@ -461,6 +462,7 @@ public class AdminAdmin implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

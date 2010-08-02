@@ -40,6 +40,7 @@ public class ChatShout implements IChatHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#getChatType()
 	 */
+	@Override
 	public SystemChatChannelId[] getChatTypes()
 	{
 		return _chatTypes;
@@ -48,6 +49,7 @@ public class ChatShout implements IChatHandler
 	/**
 	 * @see com.l2jfree.gameserver.handler.IChatHandler#useChatHandler(com.l2jfree.gameserver.character.player.L2PcInstance, com.l2jfree.gameserver.network.enums.SystemChatChannelId, java.lang.String)
 	 */
+	@Override
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
 		if (!FloodProtector.tryPerformAction(activeChar, Protected.GLOBAL_CHAT) && !activeChar.isGM())

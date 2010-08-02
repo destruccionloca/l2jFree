@@ -27,6 +27,7 @@ public class GiveSp implements ISkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = {L2SkillType.GIVE_SP};
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		for (L2Character target : targets)
@@ -39,6 +40,7 @@ public class GiveSp implements ISkillHandler
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

@@ -60,6 +60,7 @@ public class AdminMenu implements IAdminCommandHandler
 			"admin_ban_menu",
 			"admin_unban_menu"						};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command);
@@ -204,6 +205,7 @@ public class AdminMenu implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

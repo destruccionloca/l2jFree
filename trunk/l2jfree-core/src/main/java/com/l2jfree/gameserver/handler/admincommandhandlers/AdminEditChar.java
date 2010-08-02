@@ -107,6 +107,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			"admin_sethero",
 			"admin_manualhero"							};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_current_player"))
@@ -518,6 +519,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
@@ -911,6 +913,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		
 		List<String> keys = new ArrayList<String>(dualboxIPs.keySet());
 		Collections.sort(keys, new Comparator<String>() {
+			@Override
 			public int compare(String left, String right)
 			{
 				return dualboxIPs.get(left).compareTo(dualboxIPs.get(right));
@@ -941,6 +944,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			_player = player;
 		}
 
+		@Override
 		public void run()
 		{
 			_player.untransform();

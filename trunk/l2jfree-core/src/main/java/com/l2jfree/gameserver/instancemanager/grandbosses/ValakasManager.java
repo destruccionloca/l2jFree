@@ -222,6 +222,7 @@ public class ValakasManager extends BossLair
 			_valakas = valakas;
 		}
 
+		@Override
 		public void run()
 		{
 			SocialAction sa = null;
@@ -532,6 +533,7 @@ public class ValakasManager extends BossLair
 	// At end of activity time.
 	private class ActivityTimeEnd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			setUnspawn();
@@ -624,6 +626,7 @@ public class ValakasManager extends BossLair
 	// At end of interval.
 	private class IntervalEnd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			_state.setState(GrandBossState.StateEnum.NOTSPAWN);
@@ -644,6 +647,7 @@ public class ValakasManager extends BossLair
 	// Do spawn teleport cube.
 	private class CubeSpawn implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			spawnCube();
@@ -660,6 +664,7 @@ public class ValakasManager extends BossLair
 			_boss = boss;
 		}
 
+		@Override
 		public void run()
 		{
 			_boss.setIsImmobilized(false);
@@ -686,6 +691,7 @@ public class ValakasManager extends BossLair
 			_pos = pos;
 		}
 
+		@Override
 		public void run()
 		{
 			_npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
@@ -718,6 +724,7 @@ public class ValakasManager extends BossLair
 			_valakas = valakas;
 		}
 
+		@Override
 		public void run()
 		{
 			_valakas.getSpawn().stopRespawn();

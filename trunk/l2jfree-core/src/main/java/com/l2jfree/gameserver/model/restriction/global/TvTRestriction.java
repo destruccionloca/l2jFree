@@ -164,6 +164,7 @@ public final class TvTRestriction extends AbstractFunEventRestriction
 					+ " seconds!");
 			
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+				@Override
 				public void run()
 				{
 					int x = TvT._teamsX.get(TvT._teams.indexOf(targetInfo._teamNameTvT));

@@ -77,6 +77,7 @@ public class Disablers implements ICubicSkillHandler
 			L2SkillType.DISARM,
 			L2SkillType.STEAL_BUFF						};
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		L2SkillType type = skill.getSkillType();
@@ -554,6 +555,7 @@ public class Disablers implements ICubicSkillHandler
 		}
 	}
 
+	@Override
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)
 	{
 		if (_log.isDebugEnabled())
@@ -751,6 +753,7 @@ public class Disablers implements ICubicSkillHandler
 		}
 	};
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

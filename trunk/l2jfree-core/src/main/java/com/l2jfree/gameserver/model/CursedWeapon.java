@@ -228,6 +228,7 @@ public class CursedWeapon
 		{
 		}
 
+		@Override
 		public void run()
 		{
 			if (System.currentTimeMillis() >= getEndTime())
@@ -287,6 +288,7 @@ public class CursedWeapon
 
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					TransformationManager.getInstance().transformPlayer(_transformId, _player);

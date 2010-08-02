@@ -55,6 +55,7 @@ public final class UseItem extends L2GameClientPacket
 			activeChar = character;
 		}
 
+		@Override
 		public void run()
 		{
 			// Equip or unEquip

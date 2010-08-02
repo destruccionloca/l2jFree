@@ -620,11 +620,13 @@ public abstract class L2Item implements FuncOwner
 		return _name;
 	}
 	
+	@Override
 	public final String getFuncOwnerName()
 	{
 		return getName();
 	}
 	
+	@Override
 	public final L2Skill getFuncOwnerSkill()
 	{
 		return null;

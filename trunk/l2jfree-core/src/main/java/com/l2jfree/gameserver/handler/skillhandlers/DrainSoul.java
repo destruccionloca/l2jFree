@@ -42,12 +42,14 @@ public final class DrainSoul extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill, target);
 	}
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		// This is just a dummy skill handler for the soul crystal skill,
 		// since the Soul Crystal item handler already does everything.
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

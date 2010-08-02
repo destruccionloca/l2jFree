@@ -14,9 +14,6 @@
  */
 package com.l2jfree.gameserver.network.serverpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.entity.Message;
 import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
@@ -27,7 +24,6 @@ import com.l2jfree.gameserver.model.itemcontainer.ItemContainer;
 public class ExShowSentPost extends L2GameServerPacket
 {
 	private static final String	_S__FE_AD_EXSHOWSENTPOST	= "[S] FE:AD ExShowSentPost";
-	private static final Log	_log							= LogFactory.getLog(ExShowSentPost.class);
 	
 	private Message				_msg;
 	private L2ItemInstance[]	_items						= null;

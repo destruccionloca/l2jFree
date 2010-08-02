@@ -369,6 +369,7 @@ public class FrintezzaManager extends BossLair
 			_taskId = taskId;
 		}
 
+		@Override
 		public void run()
 		{
 			switch (_taskId)
@@ -632,6 +633,7 @@ public class FrintezzaManager extends BossLair
 
 	private class Music implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			if (frintezza == null)
@@ -823,6 +825,7 @@ public class FrintezzaManager extends BossLair
 			_currentTime = currentTimeOfSong;
 		}
 
+		@Override
 		public void run()
 		{
 			if (frintezza == null)
@@ -1024,6 +1027,7 @@ public class FrintezzaManager extends BossLair
 			_char = character;
 		}
 		
+		@Override
 		public void run()
 		{
 			if (_char != null)
@@ -1049,6 +1053,7 @@ public class FrintezzaManager extends BossLair
 			_skill = skill;
 		}
 
+		@Override
 		public void run()
 		{
 			try
@@ -1112,6 +1117,7 @@ public class FrintezzaManager extends BossLair
 			_effected = target;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_effected == null)
@@ -1185,6 +1191,7 @@ public class FrintezzaManager extends BossLair
 			_aggroDamage = hate;
 		}
 
+		@Override
 		public void run()
 		{
 			// If the monster is deleted, return.
@@ -1455,6 +1462,7 @@ public class FrintezzaManager extends BossLair
 			_mob = mob;
 		}
 
+		@Override
 		public void run()
 		{
 			int demonId = checkRespawnTime(_mob);
@@ -1763,6 +1771,7 @@ public class FrintezzaManager extends BossLair
 			_range = range;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_caster == null || _caster.isDead())
@@ -1817,6 +1826,7 @@ public class FrintezzaManager extends BossLair
 			_mob = mob;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_mob == null || _mob.isDead() || getPlayersInside().isEmpty())
@@ -1855,6 +1865,7 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class Unspawn implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			setUnspawn();
@@ -1890,6 +1901,7 @@ public class FrintezzaManager extends BossLair
 	 */
 	private class ActivityTimeEnd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			setUnspawn();
@@ -2017,6 +2029,7 @@ public class FrintezzaManager extends BossLair
 
 	private class IntervalEnd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			_state.setState(GrandBossState.StateEnum.NOTSPAWN);
@@ -2038,6 +2051,7 @@ public class FrintezzaManager extends BossLair
 			_boss = boss;
 		}
 
+		@Override
 		public void run()
 		{
 			_boss.setIsImmobilized(false);
@@ -2062,6 +2076,7 @@ public class FrintezzaManager extends BossLair
 			_pos = pos;
 		}
 
+		@Override
 		public void run()
 		{
 			_npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);

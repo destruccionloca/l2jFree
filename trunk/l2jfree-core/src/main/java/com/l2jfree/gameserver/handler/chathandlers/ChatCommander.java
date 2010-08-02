@@ -31,11 +31,13 @@ public class ChatCommander implements IChatHandler
 	private final SystemChatChannelId[]	_chatTypes	=
 							{ SystemChatChannelId.Chat_Commander, SystemChatChannelId.Chat_Inner_Partymaster };
 
+	@Override
 	public SystemChatChannelId[] getChatTypes()
 	{
 		return _chatTypes;
 	}
 
+	@Override
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
 		if (activeChar == null)

@@ -81,6 +81,7 @@ public class CastleManager implements InstanceListManager
 		loadInstances();
 	}
 
+	@Override
 	public void loadInstances()
 	{
 		Connection con = null;
@@ -242,10 +243,12 @@ public class CastleManager implements InstanceListManager
 		}
 	}
 
+	@Override
 	public void updateReferences()
 	{
 	}
 
+	@Override
 	public void activateInstances()
 	{
 		for (final Castle castle : _castles.values())

@@ -183,6 +183,7 @@ public class Duel
 			_duel = duel;
 		}
 
+		@Override
 		public void run()
 		{
 			DuelResultEnum status =_duel.checkEndDuelCondition();
@@ -212,6 +213,7 @@ public class Duel
 			_duel = duel;
 		}
 
+		@Override
 		public void run()
 		{
 			// start/continue countdown
@@ -247,6 +249,7 @@ public class Duel
 			_result = result;
 		}
 
+		@Override
 		public void run()
 		{
 			_duel.endDuel(_result);

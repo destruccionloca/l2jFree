@@ -28,6 +28,7 @@ import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 
 public final class ItemSkills implements IItemHandler
 {
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar = playable.getActingPlayer();
@@ -92,6 +93,7 @@ public final class ItemSkills implements IItemHandler
 		}
 	}
 	
+	@Override
 	public int[] getItemIds()
 	{
 		return null;

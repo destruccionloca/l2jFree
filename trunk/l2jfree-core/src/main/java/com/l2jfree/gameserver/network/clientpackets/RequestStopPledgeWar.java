@@ -24,34 +24,29 @@ import com.l2jfree.gameserver.taskmanager.AttackStanceTaskManager;
 
 public class RequestStopPledgeWar extends L2GameClientPacket
 {
-	private static final String	_C__4F_REQUESTSTOPPLEDGEWAR	= "[C] 4F RequestStopPledgeWar";
-
-	private String				_pledgeName;
-
+	private static final String	_C__REQUESTSTOPPLEDGEWAR = "[C] 05 RequestStopPledgeWar c[s]";
+	
+	private String _pledgeName;
+	
 	@Override
 	protected void readImpl()
 	{
 		_pledgeName = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
 		L2Clan clan = player.getClan();
-		if (clan == null)
-		{
-			requestFailed(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER);
-			return;
-		}
-		else if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
+		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
 		{
 			requestFailed(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
 			return;
 		}
-
+		
 		L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
 		if (warClan == null)
 		{
@@ -63,7 +58,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 			requestFailed(new SystemMessage(SystemMessageId.NO_CLAN_WAR_AGAINST_CLAN_S1).addString(warClan.getName()));
 			return;
 		}
-
+		
 		for (L2ClanMember member : clan.getMembers())
 		{
 			if (member == null || member.getPlayerInstance() == null)
@@ -74,36 +69,15 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 				return;
 			}
 		}
-
-		//_log.info("RequestStopPledgeWar: By leader: " + playerClan.getLeaderName() + " of clan: "
-		//	+ playerClan.getName() + " to clan: " + _pledgeName);
-
-		//        L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());
-		//        if(leader != null && leader.isOnline() == 0)
-		//        {
-		//            player.sendMessage("Clan leader isn't online.");
-		//            player.sendPacket(new ActionFailed());
-		//            return;
-		//        }
-
-		//        if (leader.isProcessingRequest())
-		//        {
-		//            SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
-		//            sm.addString(leader.getName());
-		//            player.sendPacket(sm);
-		//            return;
-		//        }
-
-		ClanTable.getInstance().deleteclanswars(clan.getClanId(), warClan.getClanId());
-
+		
+		ClanTable.getInstance().deleteClanWars(clan.getClanId(), warClan.getClanId());
+		
 		sendAF();
-		//        player.onTransactionRequest(leader);
-		//        leader.sendPacket(new StopPledgeWar(_clan.getName(),player.getName()));
 	}
-
+	
 	@Override
 	public String getType()
 	{
-		return _C__4F_REQUESTSTOPPLEDGEWAR;
+		return _C__REQUESTSTOPPLEDGEWAR;
 	}
 }

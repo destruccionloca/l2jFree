@@ -27,6 +27,7 @@ public class IrcKick implements IIrcCommandHandler
 {
 	private static final String[]	IRC_COMMANDS	= { "!kick", "!kick_nongm", "!ban" };
 
+	@Override
 	public boolean useIrcCommand(String command, String gm, String target, boolean authed)
 	{
 		if (!authed)
@@ -114,6 +115,7 @@ public class IrcKick implements IIrcCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getIrcCommandList()
 	{
 		return IRC_COMMANDS;

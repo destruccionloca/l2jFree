@@ -23,23 +23,23 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 
 public class RequestStartPledgeWar extends L2GameClientPacket
 {
-	private static final String	_C__REQUESTSTARTPLEDGEWAR	= "[C] 03 RequestStartPledgewar c[s]";
-
-	private String				_pledgeName;
-
+	private static final String	_C__REQUESTSTARTPLEDGEWAR = "[C] 03 RequestStartPledgewar c[s]";
+	
+	private String _pledgeName;
+	
 	@Override
 	protected void readImpl()
 	{
 		_pledgeName = readS();
 	}
-
+	
 	@Override
 	protected void runImpl()
 	{
-		L2PcInstance player = getClient().getActiveChar();
+		L2PcInstance player = getActiveChar();
 		if (player == null)
 			return;
-
+		
 		L2Clan clan = player.getClan();
 		if (!L2Clan.checkPrivileges(player, L2Clan.CP_CL_PLEDGE_WAR))
 		{
@@ -51,7 +51,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
 			requestFailed(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
 			return;
 		}
-
+		
 		L2Clan warClan = ClanTable.getInstance().getClanByName(_pledgeName);
 		if (warClan == null)
 		{
@@ -80,45 +80,12 @@ public class RequestStartPledgeWar extends L2GameClientPacket
 			sendAF();
 			return;
 		}
-
-		//_log.warn("RequestStartPledgeWar, leader: " + clan.getLeaderName() + " clan: " + _clan.getName());
-
-		//        L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());
-
-		//        if(leader == null)
-		//            return;
-
-		//        if(leader != null && leader.isOnline() == 0)
-		//        {
-		//            player.sendMessage("Clan leader isn't online.");
-		//            player.sendPacket(new ActionFailed());
-		//            return;
-		//        }
-
-		//        if (leader.isProcessingRequest())
-		//        {
-		//            SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
-		//            sm.addString(leader.getName());
-		//            player.sendPacket(sm);
-		//            return;
-		//        }
-
-		//        if (leader.isTransactionInProgress())
-		//        {
-		//            SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
-		//            sm.addString(leader.getName());
-		//            player.sendPacket(sm);
-		//            return;
-		//        }
-
-		//        leader.setTransactionRequester(player);
-		//        player.setTransactionRequester(leader);
-		//        leader.sendPacket(new StartPledgeWar(_clan.getName(),player.getName()));
-		ClanTable.getInstance().storeclanswars(clan.getClanId(), warClan.getClanId());
-
+		
+		ClanTable.getInstance().storeClanWars(clan.getClanId(), warClan.getClanId());
+		
 		sendAF();
 	}
-
+	
 	@Override
 	public String getType()
 	{

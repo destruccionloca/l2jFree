@@ -294,6 +294,7 @@ public class BaiumManager extends BossLair
 		_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(baium, 3), 15000);
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+			@Override
 			public void run()
 			{
 				Earthquake eq = new Earthquake(baium.getX(), baium.getY(), baium.getZ(), 40, 5);
@@ -324,6 +325,7 @@ public class BaiumManager extends BossLair
 	// At end of activity time.
 	private class ActivityTimeEnd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			if (_state.getState().equals(GrandBossState.StateEnum.DEAD))
@@ -446,6 +448,7 @@ public class BaiumManager extends BossLair
 	// At end of interval.
 	private class IntervalEnd implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			_state.setState(GrandBossState.StateEnum.NOTSPAWN);
@@ -470,6 +473,7 @@ public class BaiumManager extends BossLair
 	// Do spawn teleport cube.
 	private class CubeSpawn implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			spawnCube();
@@ -488,6 +492,7 @@ public class BaiumManager extends BossLair
 			_action = actionId;
 		}
 
+		@Override
 		public void run()
 		{
 			SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
@@ -505,6 +510,7 @@ public class BaiumManager extends BossLair
 			_boss = boss;
 		}
 
+		@Override
 		public void run()
 		{
 			_boss.setIsImmobilized(false);
@@ -531,6 +537,7 @@ public class BaiumManager extends BossLair
 			_pos = pos;
 		}
 
+		@Override
 		public void run()
 		{
 			_npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
@@ -540,6 +547,7 @@ public class BaiumManager extends BossLair
 	// Call Arcangels
 	private class CallArchAngel implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			spawnArchangels();
@@ -558,6 +566,7 @@ public class BaiumManager extends BossLair
 			_boss = boss;
 		}
 
+		@Override
 		public void run()
 		{
 			L2Skill skill = SkillTable.getInstance().getInfo(4136, 1);
@@ -589,6 +598,7 @@ public class BaiumManager extends BossLair
 
 	private class CheckLastAttack implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			if (_state.getState().equals(GrandBossState.StateEnum.ALIVE))

@@ -30,7 +30,7 @@ import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.lang.L2Math;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AbstractSystemMessage<T extends AbstractSystemMessage> extends L2GameServerPacket
 {
 	protected static abstract class Element

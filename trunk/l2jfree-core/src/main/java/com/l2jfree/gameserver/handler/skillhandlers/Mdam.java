@@ -28,6 +28,7 @@ public final class Mdam implements ICubicSkillHandler
 {
 	private static final L2SkillType[] SKILL_IDS = { L2SkillType.MDAM, L2SkillType.DEATHLINK };
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (activeChar.isAlikeDead())
@@ -81,6 +82,7 @@ public final class Mdam implements ICubicSkillHandler
 		}
 	}
 	
+	@Override
 	public void useCubicSkill(L2CubicInstance activeCubic, L2Skill skill, L2Character... targets)
 	{
 		for (L2Character target : targets)
@@ -135,6 +137,7 @@ public final class Mdam implements ICubicSkillHandler
 		}
 	}
 	
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

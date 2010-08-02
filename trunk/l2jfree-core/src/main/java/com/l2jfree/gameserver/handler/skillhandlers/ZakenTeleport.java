@@ -30,6 +30,7 @@ public class ZakenTeleport implements ISkillHandler
 	private static final L2SkillType[] SKILL_IDS =
 		{ L2SkillType.ZAKEN_TELEPORT };
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill0, L2Character... targets)
 	{
 		for (L2Character c : activeChar.getKnownList().getKnownCharacters())

@@ -35,6 +35,7 @@ public class L2XmassTreeInstance extends L2Npc
 	
 	private final class XmassAI implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			final L2Skill skill = SkillTable.getInstance().getInfo(2139, 1);

@@ -26,9 +26,9 @@ import com.l2jfree.gameserver.model.itemcontainer.PcInventory;
 import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2jfree.gameserver.network.serverpackets.ItemList;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
-import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.templates.item.L2EtcItemType;
 import com.l2jfree.gameserver.templates.item.L2Item;
 import com.l2jfree.util.ArrayBunch;
@@ -153,16 +153,19 @@ public class TradeList
 			return _price;
 		}
 
+		@Override
 		public byte getAttackElementType()
 		{
 			return _elemAtkType;
 		}
 
+		@Override
 		public int getAttackElementPower()
 		{
 			return _elemAtkPower;
 		}
 
+		@Override
 		public int getElementDefAttr(byte i)
 		{
 			return _elemDefAttr[i];

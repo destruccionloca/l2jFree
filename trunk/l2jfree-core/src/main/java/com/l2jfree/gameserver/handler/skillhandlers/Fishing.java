@@ -39,6 +39,7 @@ public class Fishing implements ISkillHandler
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.FISHING };
 
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -148,6 +149,7 @@ public class Fishing implements ISkillHandler
 		player.startFishing(x, y, z + 10);
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

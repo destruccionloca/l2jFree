@@ -29,7 +29,7 @@ import java.util.Set;
  * This class is used to show how you can sort a java.uti.Map for values. This also takes care of null and duplicate
  * values present in the map.
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ValueSortMap
 {
 	public Map<Integer, Integer> sortThis(Map<Integer, Integer> map, boolean asc)

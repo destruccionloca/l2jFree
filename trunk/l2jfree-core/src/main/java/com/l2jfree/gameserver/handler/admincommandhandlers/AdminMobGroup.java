@@ -53,6 +53,7 @@ public class AdminMobGroup implements IAdminCommandHandler
 			"admin_mobgroup_attackgrp",
 			"admin_mobgroup_invul"					};
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_mobmenu"))
@@ -535,6 +536,7 @@ public class AdminMobGroup implements IAdminCommandHandler
 		activeChar.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

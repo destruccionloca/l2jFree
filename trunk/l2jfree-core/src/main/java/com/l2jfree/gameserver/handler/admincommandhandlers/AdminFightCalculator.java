@@ -40,6 +40,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_fight_calculator", "admin_fight_calculator_show", "admin_fcs", };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		try
@@ -57,6 +58,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		return true;
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

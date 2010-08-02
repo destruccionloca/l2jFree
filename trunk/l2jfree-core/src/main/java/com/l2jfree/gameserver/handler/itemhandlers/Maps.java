@@ -27,6 +27,7 @@ public final class Maps implements IItemHandler
 {
 	private static final int[] ITEM_IDS = { 1665, 1863 };
 	
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
@@ -35,6 +36,7 @@ public final class Maps implements IItemHandler
 		((L2PcInstance)playable).sendPacket(new ShowMiniMap(item.getItemId()));
 	}
 	
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

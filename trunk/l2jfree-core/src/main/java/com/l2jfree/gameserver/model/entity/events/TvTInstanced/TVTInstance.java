@@ -156,6 +156,7 @@ public class TVTInstance
 		announceToInstance("Teleporting to team spawn in 20 seconds!");
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+			@Override
 			public void run()
 			{
 				for (TvTITeam t : _teams)
@@ -241,6 +242,7 @@ public class TVTInstance
 		announceToInstance("Teleporting to team spawn in 20 seconds!");
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+			@Override
 			public void run()
 			{
 				for (TvTITeam t : _teams)
@@ -338,6 +340,7 @@ public class TVTInstance
 		for (TvTITeam t : _teams)
 			t.setUserData(1);
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+			@Override
 			public void run()
 			{
 				for (TvTITeam t : _teams)
@@ -364,6 +367,7 @@ public class TVTInstance
 		{
 		}
 
+		@Override
 		public void run()
 		{
 			if (_joinTime > 0)

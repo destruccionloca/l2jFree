@@ -133,6 +133,7 @@ public final class SeedOfDestructionManager
 		_defenseSwitch = props.getLong("sod_defenseSwitch", 0);
 		
 		PersistentProperties.addStoreListener(new PersistentProperties.StoreListener() {
+			@Override
 			public void update()
 			{
 				final L2Properties properties = new L2Properties();
@@ -175,6 +176,7 @@ public final class SeedOfDestructionManager
 	
 	protected class SwitchToDefenseMode implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			_log.info("Seed of Destruction: Defense mode started.");

@@ -34,6 +34,7 @@ public class AdminDelete implements IAdminCommandHandler
 	private static final String[]	ADMIN_COMMANDS	=
 													{ "admin_delete" };
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_delete"))
@@ -43,6 +44,7 @@ public class AdminDelete implements IAdminCommandHandler
 
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

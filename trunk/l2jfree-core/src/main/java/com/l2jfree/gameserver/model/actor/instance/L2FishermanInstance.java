@@ -51,7 +51,8 @@ public class L2FishermanInstance extends L2MerchantInstance
         return "data/html/fisherman/" + pom + ".htm";
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("FishSkillList"))

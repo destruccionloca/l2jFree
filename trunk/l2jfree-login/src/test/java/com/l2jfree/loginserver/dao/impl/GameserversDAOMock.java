@@ -44,6 +44,7 @@ public class GameserversDAOMock implements GameserversDAO
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public Gameservers getGameserverByServerId(int id)
 	{
 		if (!referential.containsKey(id))
@@ -56,6 +57,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createGameserver(java.lang.Object)
 	 */
+	@Override
 	public int createGameserver(Gameservers obj)
 	{
 		referential.put(obj.getServerId(), obj);
@@ -65,6 +67,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdate(java.lang.Object)
 	 */
+	@Override
 	public void createOrUpdate(Gameservers obj)
 	{
 		createGameserver(obj);
@@ -74,6 +77,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#createOrUpdateAll(java.util.Collection)
 	 */
+	@Override
 	public void createOrUpdateAll(Collection<?> entities)
 	{
 		Iterator<?> it = entities.iterator();
@@ -86,6 +90,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#getAlGameservers()
 	 */
+	@Override
 	public List<Gameservers> getAllGameservers()
 	{
 		return new ArrayList<Gameservers>(referential.values());
@@ -94,6 +99,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserver(java.lang.Object)
 	 */
+	@Override
 	public void removeGameserver(Gameservers obj)
 	{
 		referential.remove(obj.getServerId());
@@ -103,6 +109,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeGameserverById(java.io.Serializable)
 	 */
+	@Override
 	public void removeGameserverByServerId(int id)
 	{
 		referential.remove(id);
@@ -111,6 +118,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#removeAll(java.util.Collection)
 	 */
+	@Override
 	public void removeAll(Collection<?> entities)
 	{
 		Iterator<?> it = entities.iterator();
@@ -123,6 +131,7 @@ public class GameserversDAOMock implements GameserversDAO
 	/**
 	 * @see com.l2jfree.loginserver.dao.GameserversDAO#update(java.lang.Object)
 	 */
+	@Override
 	public void update(Object obj)
 	{
 		Gameservers acc = (Gameservers) obj;
@@ -131,6 +140,7 @@ public class GameserversDAOMock implements GameserversDAO
 
 	}
 
+	@Override
 	public void removeAll()
 	{
 		referential.clear();

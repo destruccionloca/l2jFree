@@ -29,6 +29,7 @@ public final class AdminSeedOfDestruction implements IAdminCommandHandler
 		"admin_set_sod_state",
 		"admin_set_tiat_kills" };
 	
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
@@ -58,6 +59,7 @@ public final class AdminSeedOfDestruction implements IAdminCommandHandler
 		return true;
 	}
 	
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;

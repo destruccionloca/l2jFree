@@ -126,6 +126,7 @@ public final class DMRestriction extends AbstractFunEventRestriction
 					+ " seconds!");
 			
 			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+				@Override
 				public void run()
 				{
 					target.teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);

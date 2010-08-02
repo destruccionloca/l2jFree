@@ -26,11 +26,11 @@ import com.l2jfree.gameserver.instancemanager.FortManager;
 import com.l2jfree.gameserver.instancemanager.FortSiegeManager;
 import com.l2jfree.gameserver.instancemanager.SiegeManager;
 import com.l2jfree.gameserver.model.L2Clan;
+import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 import com.l2jfree.gameserver.model.L2ClanMember;
 import com.l2jfree.gameserver.model.L2PledgeSkillLearn;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.L2World;
-import com.l2jfree.gameserver.model.L2Clan.SubPledge;
 import com.l2jfree.gameserver.model.base.ClassId;
 import com.l2jfree.gameserver.model.base.Race;
 import com.l2jfree.gameserver.model.base.SubClass;
@@ -51,8 +51,8 @@ import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
 import com.l2jfree.gameserver.network.serverpackets.UserInfo;
 import com.l2jfree.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jfree.gameserver.util.FloodProtector;
-import com.l2jfree.gameserver.util.StringUtil;
 import com.l2jfree.gameserver.util.FloodProtector.Protected;
+import com.l2jfree.gameserver.util.StringUtil;
 
 /**
  * This class ...

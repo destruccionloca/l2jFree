@@ -592,7 +592,7 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
-      <mul order="0x30" stat="sleepVuln" val="#sleepVuln/>
+      <mul order="0x30" stat="sleepVuln" val="#sleepVuln"/>
     </for>
   </skill>
   <skill id="4439" levels="5" name="Greater Resist Hold">

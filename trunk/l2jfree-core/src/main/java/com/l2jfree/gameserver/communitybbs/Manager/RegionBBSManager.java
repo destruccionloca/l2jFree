@@ -489,6 +489,7 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 
 				Collections.sort(_players, new Comparator<L2PcInstance>() {
+					@Override
 					public int compare(L2PcInstance p1, L2PcInstance p2)
 					{
 						final int value = getPlayerState(p1).compareTo(getPlayerState(p2));

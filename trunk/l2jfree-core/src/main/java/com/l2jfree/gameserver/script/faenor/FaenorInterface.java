@@ -40,6 +40,7 @@ public class FaenorInterface implements EngineInterface
 	/**
 	 * Adds a new Quest Drop to an NPC
 	 */
+	@Override
 	public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states)
 	{
 		L2NpcTemplate npc = NpcTable.getInstance().getTemplate(npcID);
@@ -65,6 +66,7 @@ public class FaenorInterface implements EngineInterface
 	 * @param drop
 	 * @param sweep
 	 */
+	@Override
 	public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep)
 	{
 		if (sweep)
@@ -93,16 +95,19 @@ public class FaenorInterface implements EngineInterface
 	 * @param drop
 	 * @param category
 	 */
+	@Override
 	public void addDrop(L2NpcTemplate npc, L2DropData drop, int category)
 	{
 		npc.addDropData(drop, category);
 	}
 	
+	@Override
 	public void addEventDrop(int[] items, int[] count, double chance, DateRange range)
 	{
 		EventDroplist.getInstance().addGlobalDrop(items, count, (int)(chance * L2DropData.MAX_CHANCE), range);
 	}
 	
+	@Override
 	public void onPlayerLogin(String[] message, DateRange validDateRange)
 	{
 		Announcements.getInstance().addEventAnnouncement(validDateRange, message);

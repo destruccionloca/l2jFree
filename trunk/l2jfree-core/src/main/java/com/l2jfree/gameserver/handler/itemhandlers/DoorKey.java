@@ -36,6 +36,7 @@ public class DoorKey implements IItemHandler
 
 	public static final int		INTERACTION_DISTANCE	= 100;
 
+	@Override
 	public void useItem(L2Playable playable, L2ItemInstance item)
 	{
 
@@ -78,6 +79,7 @@ public class DoorKey implements IItemHandler
 		}
 	}
 
+	@Override
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;

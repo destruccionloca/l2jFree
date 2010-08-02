@@ -60,41 +60,49 @@ public final class SingletonMap<K, V> implements Map<K, V>
 		return this;
 	}
 	
+	@Override
 	public void clear()
 	{
 		_map.clear();
 	}
 	
+	@Override
 	public boolean containsKey(Object key)
 	{
 		return _map.containsKey(key);
 	}
 	
+	@Override
 	public boolean containsValue(Object value)
 	{
 		return _map.containsValue(value);
 	}
 	
+	@Override
 	public Set<Entry<K, V>> entrySet()
 	{
 		return _map.entrySet();
 	}
 	
+	@Override
 	public V get(Object key)
 	{
 		return _map.get(key);
 	}
 	
+	@Override
 	public boolean isEmpty()
 	{
 		return _map.isEmpty();
 	}
 	
+	@Override
 	public Set<K> keySet()
 	{
 		return _map.keySet();
 	}
 	
+	@Override
 	public V put(K key, V value)
 	{
 		init();
@@ -102,6 +110,7 @@ public final class SingletonMap<K, V> implements Map<K, V>
 		return _map.put(key, value);
 	}
 	
+	@Override
 	public void putAll(Map<? extends K, ? extends V> m)
 	{
 		init();
@@ -109,16 +118,19 @@ public final class SingletonMap<K, V> implements Map<K, V>
 		_map.putAll(m);
 	}
 	
+	@Override
 	public V remove(Object key)
 	{
 		return _map.remove(key);
 	}
 	
+	@Override
 	public int size()
 	{
 		return _map.size();
 	}
 	
+	@Override
 	public Collection<V> values()
 	{
 		return _map.values();

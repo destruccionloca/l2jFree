@@ -64,6 +64,7 @@ public class Sweep extends ISkillConditionChecker
 		return super.checkConditions(activeChar, skill, target);
 	}
 	
+	@Override
 	public void useSkill(L2Character activeChar, L2Skill tmpSkill, L2Character... targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
@@ -135,6 +136,7 @@ public class Sweep extends ISkillConditionChecker
 		}
 	}
 
+	@Override
 	public L2SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

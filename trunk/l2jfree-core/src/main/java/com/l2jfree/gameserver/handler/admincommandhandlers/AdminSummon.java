@@ -32,11 +32,13 @@ public class AdminSummon implements IAdminCommandHandler
 	public static final String[]	ADMIN_COMMANDS	=
 													{ "admin_summon" };
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
 	}
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		int id;

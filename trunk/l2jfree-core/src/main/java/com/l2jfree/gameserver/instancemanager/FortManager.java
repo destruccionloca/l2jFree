@@ -115,6 +115,7 @@ public class FortManager implements InstanceListManager
 
 	// =========================================================
 	// Method - Private
+	@Override
 	public void loadInstances()
 	{
 		_log.info("Initializing FortManager");
@@ -562,10 +563,12 @@ public class FortManager implements InstanceListManager
 		return _envoyCastles.get(npcId);
 	}
 
+	@Override
 	public void updateReferences()
 	{
 	}
 
+	@Override
 	public void activateInstances()
 	{
 		for (final Fort fort : _forts)

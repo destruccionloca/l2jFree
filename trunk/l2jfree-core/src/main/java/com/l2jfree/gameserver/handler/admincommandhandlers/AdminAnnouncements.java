@@ -58,6 +58,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 															};
 	private static ScheduledFuture<?>	_chatReEnable		= null;
 
+	@Override
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("admin_list_announcements"))
@@ -181,6 +182,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 		Announcements.getInstance().announceToAll(SystemMessageId.CHAT_ENABLED);
 	}
 
+	@Override
 	public String[] getAdminCommandList()
 	{
 		return ADMIN_COMMANDS;
