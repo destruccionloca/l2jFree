@@ -41,8 +41,8 @@ class Quest (JQuest) :
 		return htmltext
 
 	def onTalk (self,npc,player) :
-		htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 
-		st = player.getQuestState(qn) 
+		htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+		st = player.getQuestState(qn)
 		if not st : return htmltext
 
 		npcId = npc.getNpcId()
@@ -72,6 +72,7 @@ class Quest (JQuest) :
 				st.rewardItems(ADENA,65000)
 				st.takeItems(EVIDENCE_OF_MIGRATION,10)
 				st.setState(State.COMPLETED)
+				st.unset("cond")
 				st.exitQuest(False)
 				st.playSound("ItemSound.quest_finish")
 				reset = Calendar.getInstance()

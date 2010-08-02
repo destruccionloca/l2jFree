@@ -346,7 +346,7 @@
     <enchant1 name="lethal1" val="#ench1lethal1"/>
     <enchant1 name="lethal2" val="#ench1lethal2"/>
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
-    <cond msg="Can be used when HP is below 10 percent.">
+    <cond msgId="113" addName="1">
       <player hp="10"/>
     </cond>
   </skill>
@@ -888,7 +888,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="skillType" val="BUFF"/>
     <set name="target" val="TARGET_SELF"/>
-    <cond msg="Available to use when CP is more than 80 percent.">
+    <cond msgId="113" addName="1">
       <not>
         <player cp="80"/>
       </not>

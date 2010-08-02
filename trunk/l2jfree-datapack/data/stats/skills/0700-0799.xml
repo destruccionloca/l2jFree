@@ -1404,6 +1404,9 @@
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>
     <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
+    <cond msgId="113" addName="1">
+      <player Charges="2"/> <!-- Need to recharge 2nd stage of Sword Energy. -->
+    </cond>
     <for>
       <effect name="Disarm" time="5" val="0"/>
     </for>
@@ -1426,6 +1429,9 @@
     <set name="effectRange" val="400"/>
     <set name="baseCritRate" val="15"/>
     <set name="needCharges" val="2"/> <!-- 2 Charges are consumed -->
+    <cond msgId="113" addName="1">
+      <player Charges="2"/> <!-- Chi Energy Stage 2 Recharge needed. -->
+    </cond>
     <for>
       <effect count="8" name="DamOverTime" val="212" effectPower="40" effectType="DOT"/>
     </for>

@@ -1809,7 +1809,7 @@
     <set name="aggroPoints" val="560"/>
     <enchant1 name="mpConsume" val="#ench1mpConsume"/>
     <enchant1 name="mpInitialConsume" val="#ench1mpInitialConsume"/>
-    <cond msg="Usable when your remaining MP is below 25 percent.">
+    <cond msgId="113" addName="1">
       <player mp="25"/>
     </cond>
     <enchant2for>

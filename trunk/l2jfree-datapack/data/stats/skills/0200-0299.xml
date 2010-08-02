@@ -346,7 +346,6 @@
   <skill id="225" levels="3" name="Acrobatic Move">
     <table name="#rEvas"> 4 5 6 </table>
     <set name="target" val="TARGET_SELF"/>
-    <set name="condition" val="1"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
     <for>
@@ -1679,7 +1678,6 @@
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="condition" val="128"/>
     <set name="reuseDelay" val="5000"/>
     <set name="hitTime" val="1670"/>
     <set name="coolTime" val="133"/>
@@ -1702,6 +1700,9 @@
     <enchant5 name="element" val="2"/> <!-- Wind -->
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
+    <cond msgId="113" addName="1">
+      <player Charges="4"/> <!-- Need to recharge 4th stage of Sword Energy. -->
+    </cond>
   </skill>
   <skill id="262" levels="37" name="Holy Blessing" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30">
     <table name="#ench1power"> 550 553 556 560 563 566 570 573 576 579 583 586 589 593 596 599 603 606 609 613 616 619 622 626 629 632 636 639 642 646 </table>
@@ -2368,7 +2369,6 @@
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="ignoreShld" val="true"/>
-    <set name="condition" val="128"/>
     <set name="reuseDelay" val="4000"/>
     <set name="hitTime" val="1360"/>
     <set name="coolTime" val="440"/>
@@ -2392,6 +2392,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="2"/> <!-- Requires a hand-to-hand weapon recharged to its 2nd energy stage. -->
+    </cond>
   </skill>
   <skill id="285" levels="27" name="Higher Mana Gain" enchantLevels1="30">
     <table name="#ench1gainMp"> 82 83 83 84 84 85 85 86 86 87 87 88 88 89 89 90 90 91 91 92 92 93 93 94 94 95 95 96 96 97 </table> <!-- Guess -->

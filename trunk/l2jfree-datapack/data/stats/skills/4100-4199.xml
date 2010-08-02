@@ -1193,7 +1193,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit --> 
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>
@@ -1399,7 +1399,7 @@
     <set name="power" val="#power"/>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
-    <set name="condition" val="16"/>
+    <set name="condition" val="16"/> <!-- Crit --> 
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="830"/>
     <set name="coolTime" val="660"/>

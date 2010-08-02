@@ -110,7 +110,6 @@
     <set name="power" val="#power"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="condition" val="128"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1730"/>
     <set name="coolTime" val="167"/>
@@ -133,6 +132,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="3"/> <!-- Requires a dualsword weapon whose 3rd energy stage has been recharged. -->
+    </cond>
   </skill>
   <skill id="6" levels="37" name="Sonic Blaster" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 1843 1860 1876 1893 1909 1925 1942 1958 1975 1991 2008 2024 2041 2057 2074 2090 2107 2123 2139 2156 2172 2189 2205 2222 2238 2255 2271 2288 2304 2321 </table>
@@ -149,7 +151,6 @@
     <set name="target" val="TARGET_ONE"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
-    <set name="condition" val="128"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1900"/>
     <set name="skillType" val="CHARGEDAM"/>
@@ -170,6 +171,9 @@
     <enchant6 name="elementPower" val="#enchElementPower"/>
     <enchant6 name="element" val="3"/> <!-- Earth -->
     <enchant7 name="pvpPowerMulti" val="#ench7duel"/>
+    <cond msgId="113" addName="1">
+      <player Charges="2"/> <!-- Requires a dualsword, sword or blunt weapon weapon whose 2nd energy stage has been recharged. -->
+    </cond>
   </skill>
   <skill id="7" levels="28" name="Sonic Storm" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30" enchantLevels4="30" enchantLevels5="30" enchantLevels6="30" enchantLevels7="30">
     <table name="#ench1power"> 461 465 469 474 478 482 486 490 494 498 502 506 511 515 519 523 527 531 535 539 543 548 552 556 560 564 568 572 576 581 </table>
@@ -186,7 +190,6 @@
     <set name="itemConsumeId" val="5589"/>
     <set name="itemConsumeCount" val="3"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="condition" val="128"/>
     <set name="overHit" val="true"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1900"/>
@@ -416,7 +419,6 @@
     <set name="itemConsumeCount" val="2"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
-    <set name="condition" val="128"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="780"/>
     <set name="coolTime" val="217"/>
@@ -699,7 +701,7 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
-    <set name="condition" val="24"/>
+    <set name="condition" val="24"/> <!-- Behind/Crit -->
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="1.33"/>
     <set name="reuseDelay" val="3000"/>
@@ -1036,7 +1038,6 @@
     <set name="mpConsume" val="#mpConsume"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
-    <set name="condition" val="128"/>
     <set name="reuseDelay" val="4000"/>
     <set name="SSBoost" val="2.0"/>
     <set name="hitTime" val="1900"/>
