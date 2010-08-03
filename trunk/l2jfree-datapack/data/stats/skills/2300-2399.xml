@@ -2,7 +2,6 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="2300" levels="1" name="Hair Style Change Potion">
-    <set name="itemConsumeId" val="8673"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="500"/>
@@ -15,7 +14,6 @@
     </cond>
   </skill>
   <skill id="2301" levels="1" name="Hair Style Change Potion">
-    <set name="itemConsumeId" val="8674"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="500"/>
@@ -28,7 +26,6 @@
     </cond>
   </skill>
   <skill id="2302" levels="1" name="Hair Style Change Potion">
-    <set name="itemConsumeId" val="8675"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="500"/>
@@ -41,7 +38,6 @@
     </cond>
   </skill>
   <skill id="2303" levels="1" name="Hair Style Change Potion">
-    <set name="itemConsumeId" val="8676"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="500"/>
@@ -54,7 +50,6 @@
     </cond>
   </skill>
   <skill id="2304" levels="1" name="Hair Style Change Potion">
-    <set name="itemConsumeId" val="8677"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="500"/>
@@ -68,7 +63,6 @@
   </skill>
   <skill id="2305" levels="1" name="Primeval Potion">
     <!-- Improves resistance to various poisons and anesthetics that originate on the Primeval Isle. -->
-    <set name="itemConsumeId" val="8786"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
@@ -91,8 +85,6 @@
       Lvl 2 Name - Green Primeval Crystal
       Lvl 3 Name - Red Primeval Crystal -->
     <table name="#power"> 50000 100000 200000 </table>
-    <table name="#itemConsumeId"> 8954 8955 8956 </table>
-    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="hitTime" val="200"/>
     <set name="staticHitTime" val="true"/>
@@ -125,7 +117,6 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="2309" levels="1" name="Pig Chest">
-    <set name="itemConsumeId" val="9144"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
@@ -139,7 +130,6 @@
     </cond>
   </skill>
   <skill id="2310" levels="1" name="Scroll of Guidance - Event Use">
-    <set name="itemConsumeId" val="9146"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -156,7 +146,6 @@
     </for>
   </skill>
   <skill id="2311" levels="1" name="Scroll of Death Whisper - Event Use">
-    <set name="itemConsumeId" val="9147"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -173,7 +162,6 @@
     </for>
   </skill>
   <skill id="2312" levels="1" name="Scroll of Focus - Event Use">
-    <set name="itemConsumeId" val="9148"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -190,7 +178,6 @@
     </for>
   </skill>
   <skill id="2313" levels="1" name="Scroll of Acumen - Event Use">
-    <set name="itemConsumeId" val="9149"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -207,7 +194,6 @@
     </for>
   </skill>
   <skill id="2314" levels="1" name="Scroll of Haste - Event Use">
-    <set name="itemConsumeId" val="9150"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -224,7 +210,6 @@
     </for>
   </skill>
   <skill id="2315" levels="1" name="Scroll of Agility - Event Use">
-    <set name="itemConsumeId" val="9151"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -241,7 +226,6 @@
     </for>
   </skill>
   <skill id="2316" levels="1" name="Scroll of Empower - Event Use">
-    <set name="itemConsumeId" val="9152"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -258,7 +242,6 @@
     </for>
   </skill>
   <skill id="2317" levels="1" name="Scroll of Might - Event Use">
-    <set name="itemConsumeId" val="9153"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -275,7 +258,6 @@
     </for>
   </skill>
   <skill id="2318" levels="1" name="Scroll of Wind Walk - Event Use">
-    <set name="itemConsumeId" val="9154"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -292,7 +274,6 @@
     </for>
   </skill>
   <skill id="2319" levels="1" name="Scroll of Shield - Event Use">
-    <set name="itemConsumeId" val="9155"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="4000"/>
@@ -309,7 +290,6 @@
     </for>
   </skill>
   <skill id="2320" levels="1" name="Blessed Scroll of Escape - Event Use">
-    <set name="itemConsumeId" val="9156"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="200"/>
@@ -394,7 +374,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="2335" levels="1" name="Fire Resist Potion">
-    <set name="itemConsumeId" val="9997"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -411,7 +390,6 @@
     </for>
   </skill>
   <skill id="2336" levels="1" name="Water Resist Potion">
-    <set name="itemConsumeId" val="9998"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -428,7 +406,6 @@
     </for>
   </skill>
   <skill id="2337" levels="1" name="Wind Resist Potion">
-    <set name="itemConsumeId" val="10000"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -445,7 +422,6 @@
     </for>
   </skill>
   <skill id="2338" levels="1" name="Earth Resist Potion">
-    <set name="itemConsumeId" val="9999"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -462,7 +438,6 @@
     </for>
   </skill>
   <skill id="2339" levels="1" name="Holy Resist Potion">
-    <set name="itemConsumeId" val="10002"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -479,7 +454,6 @@
     </for>
   </skill>
   <skill id="2340" levels="1" name="Unholy Resist Potion">
-    <set name="itemConsumeId" val="10001"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
@@ -496,7 +470,6 @@
     </for>
   </skill>
   <skill id="2341" levels="1" name="Caravan's Secret Medicine">
-    <set name="itemConsumeId" val="9702"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="hitTime" val="100"/>
     <set name="target" val="TARGET_SELF"/>
@@ -511,7 +484,6 @@
     </for>
   </skill>
   <skill id="2342" levels="1" name="Ballista Bomb">
-    <set name="itemConsumeId" val="9688"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="BALLISTA"/>
@@ -673,6 +645,7 @@
     <set name="effectRange" val="400"/>
   </skill>
   <skill id="2360" levels="1" name="Water Dragon Claw">
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
@@ -684,8 +657,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="itemConsumeId" val="9700"/>
-    <set name="itemConsumeCount" val="1"/>
     <cond msgId="109" addName="1">
       <and>
         <player flyMounted="False"/>
@@ -721,7 +692,6 @@
     <set name="staticHitTime" val="true"/>
   </skill>
   <skill id="2364" levels="1" name="Blessed Scroll of Fortress Return">
-    <set name="itemConsumeId" val="10130"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="200"/>
@@ -734,7 +704,6 @@
     </cond>
   </skill>
   <skill id="2365" levels="1" name="Scroll of Fortress Return">
-    <set name="itemConsumeId" val="10129"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="20000"/>
@@ -772,6 +741,7 @@
     </cond>
   </skill>
   <skill id="2368" levels="1" name="Spirit of the Lake">
+    <set name="itemConsumeCount" val="1"/>
     <set name="power" val="10000"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="hitTime" val="8000"/>
@@ -780,8 +750,6 @@
     <set name="reuseDelay" val="8000"/> <!-- unknown -->
     <set name="skillType" val="AGGREDUCE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="itemConsumeId" val="9689"/>
-    <set name="itemConsumeCount" val="1"/>
     <set name="castRange" val="600"/>
     <set name="effectRange" val="1100"/>
     <cond msgId="113" addName="1">
@@ -795,6 +763,7 @@
     </for>
   </skill>
   <skill id="2369" levels="1" name="Water Dragon Scale">
+    <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="skillRadius" val="500"/>
     <set name="skillType" val="DUMMY"/>
@@ -806,8 +775,6 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
-    <set name="itemConsumeId" val="9691"/>
-    <set name="itemConsumeCount" val="1"/>
     <cond msgId="109" addName="1">
       <and>
       <player flyMounted="False"/>
@@ -817,7 +784,6 @@
   </skill>
   <skill id="2370" levels="1" name="Scroll of Transformation - Pig">
     <!-- Done by Skatershi Description: Transform into a cute pig. -->
-    <set name="itemConsumeId" val="9897"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -833,7 +799,6 @@
   </skill>
   <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
     <!-- Done by Skatershi Description: Transform into an Onyx Beast. -->
-    <set name="itemConsumeId" val="10131"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -849,7 +814,6 @@
   </skill>
   <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
     <!-- Done by Skatershi Description: Transform into a Death Blader. -->
-    <set name="itemConsumeId" val="10132"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -865,7 +829,6 @@
   </skill>
   <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
     <!-- Done by Skatershi Description: Transform into an apostle Grail. -->
-    <set name="itemConsumeId" val="10133"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -881,7 +844,6 @@
   </skill>
   <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
     <!-- Done by Skatershi Description: Transform into a Unicorn. -->
-    <set name="itemConsumeId" val="10134"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -897,7 +859,6 @@
   </skill>
   <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
     <!-- Done by Skatershi Description: Transform into a Lilim Knight. -->
-    <set name="itemConsumeId" val="10135"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -913,7 +874,6 @@
   </skill>
   <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
     <!-- Done by Skatershi Description: Transform into a Golem Guardian. -->
-    <set name="itemConsumeId" val="10136"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -929,7 +889,6 @@
   </skill>
   <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
     <!-- Done by Skatershi Description: Transform into an Inferno Drake. -->
-    <set name="itemConsumeId" val="10137"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -945,7 +904,6 @@
   </skill>
   <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
     <!-- Done by Skatershi Description: Transform into a Dragon Bomber. -->
-    <set name="itemConsumeId" val="10138"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1138,7 +1096,6 @@
     </for>
   </skill>
   <skill id="2392" levels="1" name="Blessed Scroll of Battlefield Escape">
-    <set name="itemConsumeId" val="10149"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="hitTime" val="200"/>
@@ -1150,7 +1107,6 @@
     </cond>
   </skill>
   <skill id="2393" levels="1" name="Blessed Scroll of Battlefield Resurrection">
-    <set name="itemConsumeId" val="10150"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="power" val="100"/>
     <set name="target" val="TARGET_CORPSE_PLAYER"/>
@@ -1166,7 +1122,6 @@
   </skill>
   <skill id="2394" levels="1" name="Scroll of Battlefield Transformation">
     <!-- Done by Skatershi Description: Transform into a Pixy. -->
-    <set name="itemConsumeId" val="10151"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1195,7 +1150,6 @@
   </skill>
   <skill id="2396" levels="1" name="Mental Potion">
     <!-- by Z0mbie! -->
-    <set name="itemConsumeId" val="10155"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1223,7 +1177,6 @@
   </skill>
   <skill id="2398" levels="1" name="Instant Haste Potion">
     <!-- Done by DJ MELERIX -->
-    <set name="itemConsumeId" val="10157"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>

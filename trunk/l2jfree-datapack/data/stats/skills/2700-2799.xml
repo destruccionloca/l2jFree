@@ -4,7 +4,6 @@
   <skill id="2700" levels="1" name="Giran Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13597"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -23,7 +22,6 @@
   <skill id="2701" levels="1" name="Giran Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13598"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -42,7 +40,6 @@
   <skill id="2702" levels="1" name="Giran Royal Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13599"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -61,7 +58,6 @@
   <skill id="2703" levels="1" name="Giran Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13600"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -80,7 +76,6 @@
   <skill id="2704" levels="1" name="Giran Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13601"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -99,7 +94,6 @@
   <skill id="2705" levels="1" name="Giran Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13602"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -118,7 +112,6 @@
   <skill id="2706" levels="1" name="Giran Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13603"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -137,7 +130,6 @@
   <skill id="2707" levels="1" name="Giran Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13604"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -156,7 +148,6 @@
   <skill id="2708" levels="1" name="Oren Human Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13605"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -175,7 +166,6 @@
   <skill id="2709" levels="1" name="Oren Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13606"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -194,7 +184,6 @@
   <skill id="2710" levels="1" name="Oren Dark Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13607"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -213,7 +202,6 @@
   <skill id="2711" levels="1" name="Oren Orc Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13608"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -232,7 +220,6 @@
   <skill id="2712" levels="1" name="Oren Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13609"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -251,7 +238,6 @@
   <skill id="2713" levels="1" name="Oren Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13610"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -270,7 +256,6 @@
   <skill id="2714" levels="1" name="Oren Royal Guard Captain"> <!-- Transformation lasts 30 minutes -->
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13611"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -289,7 +274,6 @@
   <skill id="2715" levels="1" name="Oren Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13612"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -308,7 +292,6 @@
   <skill id="2716" levels="1" name="Oren Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13613"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -327,7 +310,6 @@
   <skill id="2717" levels="1" name="Oren Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13614"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -346,7 +328,6 @@
   <skill id="2718" levels="1" name="Oren Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13615"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -365,7 +346,6 @@
   <skill id="2719" levels="1" name="Oren Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13616"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -384,7 +364,6 @@
   <skill id="2720" levels="1" name="Aden Human Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13617"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -403,7 +382,6 @@
   <skill id="2721" levels="1" name="Aden Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13618"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -422,7 +400,6 @@
   <skill id="2722" levels="1" name="Aden Dark Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13619"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -441,7 +418,6 @@
   <skill id="2723" levels="1" name="Aden Orc Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13620"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -460,7 +436,6 @@
   <skill id="2724" levels="1" name="Aden Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13621"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -479,7 +454,6 @@
   <skill id="2725" levels="1" name="Aden Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13622"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -498,7 +472,6 @@
   <skill id="2726" levels="1" name="Aden Royal Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13623"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -517,7 +490,6 @@
   <skill id="2727" levels="1" name="Aden Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13624"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -536,7 +508,6 @@
   <skill id="2728" levels="1" name="Aden Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13625"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -555,7 +526,6 @@
   <skill id="2729" levels="1" name="Aden Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13626"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -574,7 +544,6 @@
   <skill id="2730" levels="1" name="Aden Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13627"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -593,7 +562,6 @@
   <skill id="2731" levels="1" name="Aden Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13628"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -612,7 +580,6 @@
   <skill id="2732" levels="1" name="Innadril Human Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13629"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -631,7 +598,6 @@
   <skill id="2733" levels="1" name="Innadril Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13630"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -650,7 +616,6 @@
   <skill id="2734" levels="1" name="Innadril Dark Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13631"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -669,7 +634,6 @@
   <skill id="2735" levels="1" name="Innadril Orc Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13632"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -688,7 +652,6 @@
   <skill id="2736" levels="1" name="Innadril Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13633"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -707,7 +670,6 @@
   <skill id="2737" levels="1" name="Innadril Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13634"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -726,7 +688,6 @@
   <skill id="2738" levels="1" name="Innadril Royal Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13635"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -745,7 +706,6 @@
   <skill id="2739" levels="1" name="Innadril Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13636"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -764,7 +724,6 @@
   <skill id="2740" levels="1" name="Innadril Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13637"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -783,7 +742,6 @@
   <skill id="2741" levels="1" name="Innadril Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13638"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -802,7 +760,6 @@
   <skill id="2742" levels="1" name="Innadril Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13639"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -821,7 +778,6 @@
   <skill id="2743" levels="1" name="Innadril Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13640"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -840,7 +796,6 @@
   <skill id="2744" levels="1" name="Goddard Human Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13641"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -859,7 +814,6 @@
   <skill id="2745" levels="1" name="Goddard Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13642"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -878,7 +832,6 @@
   <skill id="2746" levels="1" name="Goddard Dark Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13643"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -897,7 +850,6 @@
   <skill id="2747" levels="1" name="Goddard Orc Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13644"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -916,7 +868,6 @@
   <skill id="2748" levels="1" name="Goddard Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13645"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -935,7 +886,6 @@
   <skill id="2749" levels="1" name="Goddard Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13646"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -954,7 +904,6 @@
   <skill id="2750" levels="1" name="Goddard Royal Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13647"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -973,7 +922,6 @@
   <skill id="2751" levels="1" name="Goddard Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13648"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -992,7 +940,6 @@
   <skill id="2752" levels="1" name="Goddard Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13649"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1011,7 +958,6 @@
   <skill id="2753" levels="1" name="Goddard Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13650"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1030,7 +976,6 @@
   <skill id="2754" levels="1" name="Goddard Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13651"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1049,7 +994,6 @@
   <skill id="2755" levels="1" name="Goddard Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13652"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1068,7 +1012,6 @@
   <skill id="2756" levels="1" name="Rune Human Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13653"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1087,7 +1030,6 @@
   <skill id="2757" levels="1" name="Rune Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13654"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1106,7 +1048,6 @@
   <skill id="2758" levels="1" name="Rune Dark Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13655"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1125,7 +1066,6 @@
   <skill id="2759" levels="1" name="Rune Orc Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13656"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1144,7 +1084,6 @@
   <skill id="2760" levels="1" name="Rune Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13657"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1163,7 +1102,6 @@
   <skill id="2761" levels="1" name="Rune Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13658"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1182,7 +1120,6 @@
   <skill id="2762" levels="1" name="Rune Royal Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13659"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1201,7 +1138,6 @@
   <skill id="2763" levels="1" name="Rune Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13660"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1220,7 +1156,6 @@
   <skill id="2764" levels="1" name="Rune Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13661"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1239,7 +1174,6 @@
   <skill id="2765" levels="1" name="Rune Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13662"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1258,7 +1192,6 @@
   <skill id="2766" levels="1" name="Rune Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13663"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1277,7 +1210,6 @@
   <skill id="2767" levels="1" name="Rune Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13664"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1296,7 +1228,6 @@
   <skill id="2768" levels="1" name="Schuttgart Human Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13665"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1315,7 +1246,6 @@
   <skill id="2769" levels="1" name="Schuttgart Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13666"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1334,7 +1264,6 @@
   <skill id="2770" levels="1" name="Schuttgart Dark Elf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13667"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1353,7 +1282,6 @@
   <skill id="2771" levels="1" name="Schuttgart Orc Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13668"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1372,7 +1300,6 @@
   <skill id="2772" levels="1" name="Schuttgart Dwarf Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13669"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1391,7 +1318,6 @@
   <skill id="2773" levels="1" name="Schuttgart Kamael Mercenary">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13670"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1410,7 +1336,6 @@
   <skill id="2774" levels="1" name="Schuttgart Royal Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13671"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1429,7 +1354,6 @@
   <skill id="2775" levels="1" name="Schuttgart Archer Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13672"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1448,7 +1372,6 @@
   <skill id="2776" levels="1" name="Schuttgart Magic Leader">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13673"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1467,7 +1390,6 @@
   <skill id="2777" levels="1" name="Schuttgart Kamael Guard Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13674"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1486,7 +1408,6 @@
   <skill id="2778" levels="1" name="Schuttgart Knight of Dawn">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13675"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1505,7 +1426,6 @@
   <skill id="2779" levels="1" name="Schuttgart Fortress Captain">
     <set name="mpInitialConsume" val="6"/>
     <set name="mpConsume" val="24"/>
-    <set name="itemConsumeId" val="13676"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
@@ -1522,7 +1442,6 @@
     </for>
   </skill>
   <skill id="2780" levels="1" name="Magician's Will">
-    <set name="itemConsumeId" val="14219"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1541,7 +1460,6 @@
     </cond>
   </skill>
   <skill id="2781" levels="1" name="Silent Mind">
-    <set name="itemConsumeId" val="14220"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1560,7 +1478,6 @@
     </cond>
   </skill>
   <skill id="2782" levels="1" name="Turn Stone">
-    <set name="itemConsumeId" val="14221"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1579,7 +1496,6 @@
     </cond>
   </skill>
   <skill id="2783" levels="1" name="Lucky Strike">
-    <set name="itemConsumeId" val="14222"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1598,7 +1514,6 @@
     </cond>
   </skill>
   <skill id="2784" levels="1" name="Eye for Eye">
-    <set name="itemConsumeId" val="14223"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1617,7 +1532,6 @@
     </cond>
   </skill>
   <skill id="2785" levels="1" name="Curse of Desparion">
-    <set name="itemConsumeId" val="14224"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1636,7 +1550,6 @@
     </cond>
   </skill>
   <skill id="2786" levels="1" name="Counter Critical">
-    <set name="itemConsumeId" val="14225"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1655,7 +1568,6 @@
     </cond>
   </skill>
   <skill id="2787" levels="1" name="Onslaught of Pa'agrio">
-    <set name="itemConsumeId" val="14226"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1674,7 +1586,6 @@
     </cond>
   </skill>
   <skill id="2788" levels="1" name="Great Fury">
-    <set name="itemConsumeId" val="14227"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1693,7 +1604,6 @@
     </cond>
   </skill>
   <skill id="2789" levels="1" name="Final Flying Form">
-    <set name="itemConsumeId" val="13552"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1712,7 +1622,6 @@
     </cond>
   </skill>
   <skill id="2790" levels="1" name="Aura Bird - Falcon">
-    <set name="itemConsumeId" val="13553"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1730,7 +1639,6 @@
     </cond>
   </skill>
   <skill id="2791" levels="1" name="Aura Bird - Owl">
-    <set name="itemConsumeId" val="13554"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="LEARN_SKILL"/>
@@ -1749,8 +1657,6 @@
   </skill>
   <skill id="2792" levels="2" name="Stone of Stamina">
     <table name="#power"> 700 20000 </table> <!-- Need Fix -->
-    <table name="#itemConsumeId"> 14038 14039 </table>
-    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1765,8 +1671,6 @@
   </skill>
   <skill id="2793" levels="2" name="Stone of Mana">
     <table name="#power"> 500 20000 </table> <!-- Need Fix -->
-    <table name="#itemConsumeId"> 14040 14041 </table>
-    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1781,8 +1685,6 @@
   </skill>
   <skill id="2794" levels="2" name="Stone of Recovery">
     <table name="#power"> 500 20000 </table> <!-- Need Fix -->
-    <table name="#itemConsumeId"> 14042 14043 </table>
-    <set name="itemConsumeId" val="#itemConsumeId"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1796,7 +1698,6 @@
     </cond>
   </skill>
   <skill id="2795" levels="1" name="Stone of Destruction">
-    <set name="itemConsumeId" val="14044"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1813,7 +1714,6 @@
     </for>
   </skill>
   <skill id="2796" levels="1" name="Stone of Invincibility">
-    <set name="itemConsumeId" val="14045"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1830,7 +1730,6 @@
     </for>
   </skill>
   <skill id="2797" levels="1" name="Stone of Great Speed">
-    <set name="itemConsumeId" val="14046"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1849,7 +1748,6 @@
     </for>
   </skill>
   <skill id="2798" levels="1" name="Stone of Speed">
-    <set name="itemConsumeId" val="14047"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
@@ -1866,7 +1764,6 @@
     </for>
   </skill>
   <skill id="2799" levels="1" name="Stone of Concentration">
-    <set name="itemConsumeId" val="14048"/>
     <set name="itemConsumeCount" val="1"/>
     <set name="isPotion" val="true"/>
     <set name="magicLvl" val="1"/>
