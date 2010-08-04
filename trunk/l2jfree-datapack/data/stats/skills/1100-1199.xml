@@ -936,6 +936,7 @@
         <mul order="0x30" stat="pAtkSpd" val="0.5"/>
         <mul order="0x30" stat="runSpd" val="0.5"/>
         <mul order="0x30" stat="mAtkSpd" val="0.5"/>
+      </effect>
     </for>
   </skill>
   <skill id="1171" levels="19" name="Blazing Circle" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
