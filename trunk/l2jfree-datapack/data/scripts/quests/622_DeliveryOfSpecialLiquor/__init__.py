@@ -9,24 +9,24 @@ qn = "622_DeliveryOfSpecialLiquor"
 #NPC
 LIETTA = 31267
 JEREMY = 31521
-PULIN = 31543
-NAFF = 31544
+PULIN  = 31543
+NAFF   = 31544
 CROCUS = 31545
-KUBER = 31546
+KUBER  = 31546
 BEORIN = 31547
 
 #QUEST ITEMS
 SPECIAL_DRINK = 7197
-FEE_OF_DRINK = 7198
+FEE_OF_DRINK  = 7198
 
 #REWARDS
 ADENA = 57
 HASTE_POTION = 734
 
 #Chance to get an S-grade random recipe instead of just adena and haste potion
-RPCHANCE=10
+RPCHANCE = 10
 #Change this value to 1 if you wish 100% recipes, default 70%
-ALT_RP100=0
+ALT_RP100 = 0
 
 #MESSAGES
 default="<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"

@@ -7,9 +7,9 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "619_RelicsOfTheOldEmpire"
 
-RELICS = 7254
+RELICS   = 7254
 ENTRANCE = 7075
-GHOST = 31538
+GHOST    = 31538
 MOBS = [ 21396,21397,21398,21399,21400,21401,21402,21403,21404,21405,21406,21407,21408,21409,21410,21411,21412,21413,21414, \
 21415,21416,21417,21418,21419,21420,21421,21422,21423,21424,21425,21426,21427,21428,21429,21430,21431,21432,21433,21434,21798, \
 21799,21800,18120,18121,18122,18123,18124,18125,18126,18127,18128,18129,18130,18131,18132,18133,18134,18135,18136,18137,18138, \
@@ -36,7 +36,7 @@ class Quest (JQuest) :
      htmltext = event
      relics = st.getQuestItemsCount(RELICS)
      if event == "31538-03.htm" :
-       if st.getPlayer().getLevel() >= 75 :
+       if st.getPlayer().getLevel() >= 74 :
           st.set("cond","1")
           st.setState(State.STARTED)
           st.playSound("ItemSound.quest_accept")
@@ -66,7 +66,7 @@ class Quest (JQuest) :
         relics = st.getQuestItemsCount(RELICS)
         entrance = st.getQuestItemsCount(ENTRANCE)
         if id==State.CREATED:
-           if player.getLevel() >= 75 :
+           if player.getLevel() >= 74 :
               htmltext="31538-01.htm"
            else :
               htmltext="31538-02.htm"
@@ -88,7 +88,7 @@ class Quest (JQuest) :
        if st.getState() == State.STARTED :
          numItems, chance = divmod(100*Config.RATE_DROP_QUEST,100)
          if st.getRandom(100) < chance :
-           numItems += 1
+            numItems += 1
          st.giveItems(RELICS,int(numItems))
          st.playSound("ItemSound.quest_itemget")
          if st.getRandom(100) < (5*Config.RATE_DROP_QUEST) :

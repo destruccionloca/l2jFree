@@ -9,16 +9,16 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "432_BirthdayPartySong"
 
 MELODY_MAESTRO_OCTAVIA_ID = 31043
-RED_CRYSTALS_ID = 7541
+RED_CRYSTALS_ID           = 7541
 ROUGH_HEWN_ROCK_GOLEMS_ID = 21103
-BIRTHDAY_ECHO_CRYSTAL_ID = 7061
+BIRTHDAY_ECHO_CRYSTAL_ID  = 7061
 
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [RED_CRYSTALS_ID]
- 
+
  def onEvent (self,event,st) :
      htmltext = event
      cond = st.getInt("cond")
@@ -34,7 +34,7 @@ class Quest (JQuest) :
          st.exitQuest(1)
          st.playSound("ItemSound.quest_finish")
      return htmltext
- 
+
  def onTalk (self,npc,player):
      htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
      st = player.getQuestState(qn)
@@ -50,7 +50,7 @@ class Quest (JQuest) :
      elif cond == 2 :
          htmltext = "31043-04.htm"
      return htmltext
- 
+
  def onKill(self,npc,player,isPet):
      st = player.getQuestState(qn)
      if not st : return 
@@ -69,7 +69,7 @@ class Quest (JQuest) :
                  st.playSound("ItemSound.quest_itemget")
              st.giveItems(RED_CRYSTALS_ID,int(numItems))
      return
- 
+
 QUEST       = Quest(432,qn,"Birthday Party Song")
 
 QUEST.addStartNpc(31043)

@@ -1,4 +1,4 @@
-# Stolen Dignity version 0.1 
+# Stolen Dignity version 0.1
 # by DrLecter
 import sys
 from com.l2jfree import Config
@@ -19,7 +19,7 @@ SI_ORE = 6363
 
 #Rewards
 REWARDS=[5529]+range(5532,5540)+range(5541,5549)+[8331]+range(8341,8343)+[8346]+[8349]+range(8712,8723)
- 
+
 #Messages
 default   = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
 error_1   = "Low_level.htm"
@@ -69,7 +69,7 @@ MAX = 100
 #templates
 number  = ["second","third","fourth","fifth","sixth"]
 header  = "<html><body>Warehouse Freightman Romp:<br><br>"
-link    = "<a action=\"bypass -h Quest 386_StolenDignity "
+link    = "<a action=\"bypass -h Quest 386_StolenDignity"
 middle  = "<br><br>Your selection thus far: <br><br><table border=1 width=120 hieght=64>"
 footer  = "</table></body></html>"
 loser   = "Wow! How unlucky can you get? Your choices are highlighted in red below. As you can see, your choices didn't make a single line! Losing this badly is actually quite rare!<br><br>You look so sad, I feel bad for you... Wait here...<br><br>.<br><br>.<br><br>.<br><br>Take this... I hope it will bring you better luck in the future.<br><br>"
@@ -192,7 +192,7 @@ class Quest (JQuest) :
       if st.getQuestItemsCount(SI_ORE) >= REQUIRED_ORE :
          htmltext = bingo
       else :
-         htmltext = starting2 
+         htmltext = starting2
    return htmltext
 
  def onKill(self,npc,player,isPet):
@@ -209,11 +209,10 @@ class Quest (JQuest) :
            st.playSound("ItemSound.quest_middle")
         else :
            st.playSound("ItemSound.quest_itemget")
-     return  
+     return
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
-
 
 # Quest NPC starter initialization
 QUEST.addStartNpc(WK_ROMP)

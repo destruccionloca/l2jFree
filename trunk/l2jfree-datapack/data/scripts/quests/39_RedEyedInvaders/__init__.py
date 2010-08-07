@@ -11,13 +11,13 @@ qn = "39_RedEyedInvaders"
 
 #NPC
 BABENCO = 30334
-BATHIS = 30332
+BATHIS  = 30332
 
 #MOBS
-M_LIZARDMAN = 20919
+M_LIZARDMAN       = 20919
 M_LIZARDMAN_SCOUT = 20920
 M_LIZARDMAN_GUARD = 20921
-ARANEID = 20925
+ARANEID           = 20925
 
 #QUEST DROPS
 BLACK_BONE_NECKLACE,RED_BONE_NECKLACE,INCENSE_POUCH,GEM_OF_MAILLE = range(7178,7182)
@@ -32,8 +32,8 @@ DROPLIST={ARANEID:[GEM_OF_MAILLE,30,INCENSE_POUCH,"5"],
 }
 #REWARDS
 GREEN_COLORED_LURE_HG = 6521
-BABY_DUCK_RODE = 6529
-FISHING_SHOT_NG = 6535
+BABY_DUCK_RODE        = 6529
+FISHING_SHOT_NG       = 6535
 
 def drop(partyMember,array) :
     item,max,item2,condition = array
@@ -51,7 +51,7 @@ def drop(partyMember,array) :
     else:
         st.playSound("ItemSound.quest_itemget")
     return
-    
+
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
@@ -71,14 +71,14 @@ class Quest (JQuest) :
     elif event == "30332-3.htm" :
      if st.getQuestItemsCount(BLACK_BONE_NECKLACE) == st.getQuestItemsCount(RED_BONE_NECKLACE) == 100 and cond == 3:
        st.takeItems(BLACK_BONE_NECKLACE,100)
-       st.takeItems(RED_BONE_NECKLACE,100)       
+       st.takeItems(RED_BONE_NECKLACE,100)
        st.set("cond","4")
      else :
        htmltext = "You don't have required items"
     elif event == "30332-5.htm" :
      if st.getQuestItemsCount(INCENSE_POUCH) == st.getQuestItemsCount(GEM_OF_MAILLE) == 30 and cond == 5 :
        st.takeItems(INCENSE_POUCH,30)
-       st.takeItems(GEM_OF_MAILLE,30)  
+       st.takeItems(GEM_OF_MAILLE,30)
        st.rewardItems(GREEN_COLORED_LURE_HG,int(60))
        st.giveItems(BABY_DUCK_RODE,int(1))
        st.rewardItems(FISHING_SHOT_NG,int(500))

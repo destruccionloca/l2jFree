@@ -9,17 +9,17 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "431_WeddingMarch"
 
 MELODY_MAESTRO_KANTABILON_ID = 31042
-SILVER_CRYSTAL_ID = 7540
-LIENRIKS_ID = 20786
-LIENRIKS_LAD_ID = 20787
-WEDDING_ECHO_CRYSTAL_ID = 7062
+SILVER_CRYSTAL_ID            = 7540
+LIENRIKS_ID                  = 20786
+LIENRIKS_LAD_ID              = 20787
+WEDDING_ECHO_CRYSTAL_ID      = 7062
 
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [SILVER_CRYSTAL_ID]
- 
+
  def onEvent (self,event,st) :
      htmltext = event
      cond = st.getInt("cond")
@@ -35,7 +35,7 @@ class Quest (JQuest) :
          st.playSound("ItemSound.quest_finish")
          st.exitQuest(1)
      return htmltext
- 
+
  def onTalk (self,npc,player):
      htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
      st = player.getQuestState(qn)
@@ -52,16 +52,16 @@ class Quest (JQuest) :
      elif cond == 2 :
          htmltext = "31042-04.htm"
      return htmltext
- 
+
  def onKill(self,npc,player,isPet):
      partyMember = self.getRandomPartyMember(player,"1")
      if not partyMember : return
-     st = partyMember.getQuestState(qn) 
+     st = partyMember.getQuestState(qn)
      count = st.getQuestItemsCount(SILVER_CRYSTAL_ID)
      if st.getInt("cond") == 1 and count < 50 :
         chance = 100 * Config.RATE_DROP_QUEST
         numItems, chance = divmod(chance,100)
-        if st.getRandom(100) < chance : 
+        if st.getRandom(100) < chance :
            numItems += 1
         if numItems :
            if count + numItems >= 50 :
@@ -72,7 +72,7 @@ class Quest (JQuest) :
               st.playSound("ItemSound.quest_itemget")
            st.giveItems(SILVER_CRYSTAL_ID,int(numItems))
      return
- 
+
 QUEST       = Quest(431,qn,"Wedding March")
 
 QUEST.addStartNpc(31042)

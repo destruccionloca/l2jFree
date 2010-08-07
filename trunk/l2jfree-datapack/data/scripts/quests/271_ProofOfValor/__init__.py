@@ -1,13 +1,14 @@
 # Made by Mr. - Version 0.3 by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "271_ProofOfValor"
 
-KASHA_WOLF_FANG = 1473
-NECKLACE_OF_VALOR = 1507
+KASHA_WOLF_FANG     = 1473
+NECKLACE_OF_VALOR   = 1507
 NECKLACE_OF_COURAGE = 1506
 
 class Quest (JQuest) :
@@ -66,11 +67,11 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return 
-   if st.getState() != State.STARTED : return 
-   
+   if st.getState() != State.STARTED : return
+
    count = st.getQuestItemsCount(KASHA_WOLF_FANG)
    if count < 50 :
-      numItems, chance = divmod(125,100)
+      numItems, chance = divmod(125*Config.RATE_DROP_QUEST,100)
       if st.getRandom(100) <= chance :
          numItems += 1
       numItems = int(numItems)

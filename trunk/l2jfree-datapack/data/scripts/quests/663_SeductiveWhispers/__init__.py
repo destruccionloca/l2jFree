@@ -1,5 +1,6 @@
 # by minlexx
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -108,7 +109,7 @@ class Quest (JQuest) :
            htmltext = htmltext.replace("MYPRIZE","1,284,000 adena, 2 B-grade Enchant Weapon Scrolls, 2 B-grade Enchat Armor Scrolls")
          if round == 8: # reached round 8; give prizes and restart game
            round = 0
-           st.rewardItems(ADENA,2384000)
+           st.giveItems(ADENA,2384000)
            st.giveItems(EWA,1) # Scroll: Enchant Weapon A
            st.giveItems(EAA,2) # Scroll: Enchant Armor A
            htmltext = "Wilbert_PlayWonRound8.htm"
@@ -167,15 +168,18 @@ class Quest (JQuest) :
    elif npcId == WILBERT and id == State.STARTED :
        htmltext = "Wilbert_QuestInProgress.htm"
    return htmltext
- 
+
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return
    if st.getState() != State.STARTED : return
    npcId = npc.getNpcId()
    if npcId in MOBS:
-     if st.getRandom(100) < DROP_CHANCE:
-       st.giveItems(SPIRIT_BEAD,1)
+     numItems, chance = divmod(DROP_CHANCE*Config.RATE_DROP_QUEST,100)
+     if st.getRandom(100) < chance :
+       numItems += 1
+     if numItems:
+       st.giveItems(SPIRIT_BEAD,int(numItems))
        st.playSound("ItemSound.quest_itemget")
    return
 

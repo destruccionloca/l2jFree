@@ -1,25 +1,26 @@
 #quest by zerghase
 import sys
-from com.l2jfree import Config 
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "44_HelpTheSon"
 
-LUNDY=30827
-DRIKUS=30505
+LUNDY  = 30827
+DRIKUS = 30505
 
-WORK_HAMMER=168
-GEMSTONE_FRAGMENT=7552
-GEMSTONE=7553
-PET_TICKET=7585
+WORK_HAMMER       = 168
+GEMSTONE_FRAGMENT = 7552
+GEMSTONE          = 7553
+PET_TICKET        = 7585
 
-MAILLE_GUARD=20921
-MAILLE_SCOUT=20920
-MAILLE_LIZARDMAN=20919
+MAILLE_GUARD     = 20921
+MAILLE_SCOUT     = 20920
+MAILLE_LIZARDMAN = 20919
 
 MAX_COUNT=30
+MIN_LEVEL=24
 
 class Quest (JQuest) :
   def onEvent(self, event, st):
@@ -56,7 +57,7 @@ class Quest (JQuest) :
     npcId=npc.getNpcId()
     id=st.getState()
     if id==State.CREATED:
-      if player.getLevel()>=24:
+      if player.getLevel()>=MIN_LEVEL:
         htmltext="30827-00.htm"
       else:
         st.exitQuest(1)
@@ -88,24 +89,24 @@ class Quest (JQuest) :
 
   def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)
-    if not st : return 
+    if not st : return
     if st.getState() != State.STARTED : return 
     npcId = npc.getNpcId()
     cond=st.getInt("cond")
     if cond==2:
       numItems,chance = divmod(100*Config.RATE_QUESTS_REWARD_ITEMS,100)
       if st.getRandom(100) < chance :
-        numItems = numItems +1  
+        numItems = numItems +1
       pieces=st.getQuestItemsCount(GEMSTONE_FRAGMENT)
       if pieces + numItems >= MAX_COUNT :
         numItems = MAX_COUNT - pieces
         if numItems != 0 :
           st.playSound("ItemSound.quest_middle")
           st.set("cond", "3")
-      else :  
+      else :
         st.playSound("ItemSound.quest_itemget")
       st.giveItems(GEMSTONE_FRAGMENT,int(numItems))
-    return     
+    return
 
 QUEST=Quest(44,qn,"Help The Son!")
 

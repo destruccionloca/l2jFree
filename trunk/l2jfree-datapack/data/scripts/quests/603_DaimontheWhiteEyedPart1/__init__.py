@@ -4,9 +4,9 @@ import sys
 from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest 
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
-qn = "603_DaimontheWhiteEyedPart1" 
+qn = "603_DaimontheWhiteEyedPart1"
 
 #Npcs
 EYE = 31683
@@ -14,16 +14,16 @@ TABLE1,TABLE2,TABLE3,TABLE4,TABLE5 = range(31548,31553)
 #Items
 EVIL_SPIRIT,BROKEN_CRYSTAL,U_SUMMON = range (7190,7193)
 #Mobs
-BUFFALO = 21299
+BUFFALO      = 21299
 BANDERSNATCH = 21297
-GRENDEL = 21304
+GRENDEL      = 21304
 #Chance
 DROP_CHANCE = 100
 
 class Quest (JQuest) :
  def __init__(self,id,name,descr):
- 	JQuest.__init__(self,id,name,descr)
- 	self.questItemIds = [EVIL_SPIRIT,BROKEN_CRYSTAL]
+    JQuest.__init__(self,id,name,descr)
+    self.questItemIds = [EVIL_SPIRIT,BROKEN_CRYSTAL]
 
  def onEvent (self,event,st) :
    cond = st.getInt("cond")
@@ -139,7 +139,7 @@ class Quest (JQuest) :
          if st.getInt("cond") == 7 and count < 200 :
             chance = DROP_CHANCE * Config.RATE_DROP_QUEST
             numItems, chance = divmod(chance,100)
-            if st.getRandom(100) < chance : 
+            if st.getRandom(100) < chance :
                numItems += 1
             if numItems :
                if count + numItems >= 200 :
@@ -147,7 +147,7 @@ class Quest (JQuest) :
                   st.playSound("ItemSound.quest_middle")
                   st.set("cond","8")
                else:
-                  st.playSound("ItemSound.quest_itemget")   
+                  st.playSound("ItemSound.quest_itemget")
                st.giveItems(EVIL_SPIRIT,int(numItems))
      return
 

@@ -1,14 +1,15 @@
 # Linnaeus Special Bait - a seamless merge from Next and DooMita contributions
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "53_LinnaeusSpecialBait"
 
-LINNAEUS = 31577
-CRIMSON_DRAKE = 20670
-CRIMSON_DRAKE_HEART = 7624
+LINNAEUS             = 31577
+CRIMSON_DRAKE        = 20670
+CRIMSON_DRAKE_HEART  = 7624
 FLAMING_FISHING_LURE = 7613
 #Drop chance
 CHANCE = 50
@@ -46,7 +47,7 @@ class Quest (JQuest):
            st.takeItems(CRIMSON_DRAKE_HEART, 100)
            st.rewardItems(FLAMING_FISHING_LURE,4)
            st.exitQuest(False)
-           st.unset("cond") # we dont need it in db if quest is already completed
+           st.unset("cond") # we dont need it in db if quest is already State.COMPLETED
            st.playSound("ItemSound.quest_finish")
         else :
            htmltext = "31577-5.htm"
@@ -79,7 +80,7 @@ class Quest (JQuest):
      if st :
         count = st.getQuestItemsCount(CRIMSON_DRAKE_HEART)
         if st.getInt("cond") == 1 and count < 100 :
-           chance = 33
+           chance = 33*Config.RATE_DROP_QUEST
            numItems, chance = divmod(chance,100)
            if st.getRandom(100) < chance :
               numItems += 1

@@ -9,54 +9,54 @@ qn = "385_YokeofthePast"
 ANCIENT_SCROLL = 5902
 
 CHANCE={
-    21208:7,  #Hallowed Watchman 
+    21208:7,  #Hallowed Watchman
     21209:8,  #Hallowed Seer
     21210:11, #Vault Guardian
-    21211:11, #Vault Seer 
+    21211:11, #Vault Seer
     #21212 has not spawn
-    21213:14, #Hallowed Monk 
-    21214:19, #Vault Sentinel 
-    21215:19, #Vault Monk 
+    21213:14, #Hallowed Monk
+    21214:19, #Vault Sentinel
+    21215:19, #Vault Monk
     #21216 has not spawn
-    21217:24, #Hallowed Priest 
+    21217:24, #Hallowed Priest
     21218:30, #Vault Overlord
-    21219:30, #Vault Priest 
+    21219:30, #Vault Priest
     #21220 has not spawn
-    21221:37, #Sepulcher Inquisitor 
-    21222:46, #Sepulcher Archon 
+    21221:37, #Sepulcher Inquisitor
+    21222:46, #Sepulcher Archon
     21223:45, #Sepulcher Inquisitor
-    21224:50, #Sepulcher Guardian 
-    21225:54, #Sepulcher Sage 
-    21226:66, #Sepulcher Guardian 
-    21227:64, #Sepulcher Sage 
-    21228:70, #Sepulcher Guard 
-    21229:75, #Sepulcher Preacher 
-    21230:91, #Sepulcher Guard 
-    21231:86, #Sepulcher Preacher 
+    21224:50, #Sepulcher Guardian
+    21225:54, #Sepulcher Sage
+    21226:66, #Sepulcher Guardian
+    21227:64, #Sepulcher Sage
+    21228:70, #Sepulcher Guard
+    21229:75, #Sepulcher Preacher
+    21230:91, #Sepulcher Guard
+    21231:86, #Sepulcher Preacher
     #21232 has not spawn
-    #21233 has not spawn 
+    #21233 has not spawn
     #21234 has not spawn
-    #21235 has not spawn 
-    21236:12, #Barrow Sentinel 
-    21237:14, #Barrow Monk 
-    21238:19, #Grave Sentinel 
-    21239:19, #Grave Monk 
-    21240:22, #Barrow Overlord 
-    21241:24, #Barrow Priest 
+    #21235 has not spawn
+    21236:12, #Barrow Sentinel
+    21237:14, #Barrow Monk
+    21238:19, #Grave Sentinel
+    21239:19, #Grave Monk
+    21240:22, #Barrow Overlord
+    21241:24, #Barrow Priest
     21242:30, #Grave Overlord
-    21243:30, #Grave Priest 
-    21244:34, #Crypt Archon 
+    21243:30, #Grave Priest
+    21244:34, #Crypt Archon
     21245:37, #Crypt Inquisitor
-    21246:46, #Tomb Archon 
-    21247:45, #Tomb Inquisitor 
-    21248:50, #Crypt Guardian 
+    21246:46, #Tomb Archon
+    21247:45, #Tomb Inquisitor
+    21248:50, #Crypt Guardian
     21249:54, #Crypt Sage
     21250:99, #Tomb Guardian
-    21251:64, #Tomb Sage 	
-    21252:70, #Crypt Guard 
-    21253:75, #Crypt Preacher 
-    21254:91, #Tomb Guard 
-    21255:86  #Tomb Preacher 
+    21251:64, #Tomb Sage
+    21252:70, #Crypt Guard
+    21253:75, #Crypt Preacher
+    21254:91, #Tomb Guard
+    21255:86  #Tomb Preacher
 }
 MAX = 100
 

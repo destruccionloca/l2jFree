@@ -1,7 +1,9 @@
 #Guardians of the Holy Grail made by Bloodshed
 import sys
-from com.l2jfree.gameserver.model.quest        import State
-from com.l2jfree.gameserver.model.quest        import QuestState
+import sys
+from com.l2jfree import Config
+from com.l2jfree.gameserver.model.quest import State
+from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "639_GuardiansOfTheHolyGrail"
@@ -9,15 +11,18 @@ qn = "639_GuardiansOfTheHolyGrail"
 #NPCS
 DOMINIC = 31350
 GREMORY = 32008
-GRAIL = 32028
+GRAIL   = 32028
 
 #MONSTERS
 MONSTERS = range(22122,22136)
 
 #ITEMS
-WATER_BOTTLE = 8070
+WATER_BOTTLE      = 8070
 HOLY_WATER_BOTTLE = 8071
-SCRIPTURES = 8069
+SCRIPTURES        = 8069
+
+# Drop Chance
+DROP_CHANCE = 30
 
 class Quest (JQuest) :
 
@@ -39,7 +44,7 @@ class Quest (JQuest) :
     elif event == "31350-08.htm" :
       QI = st.getQuestItemsCount(SCRIPTURES)
       st.takeItems(SCRIPTURES,-1)
-      st.giveItems(57,1625*QI)
+      st.rewardItems(57,1625*QI)
     elif event == "32008-05.htm" :
       st.set("cond","2")
       st.playSound("ItemSound.quest_middle")
@@ -55,10 +60,10 @@ class Quest (JQuest) :
       st.takeItems(HOLY_WATER_BOTTLE,-1)
     elif event == "32008-08a.htm" :
       st.takeItems(SCRIPTURES,4000)
-      st.giveItems(959,1)
+      st.rewardItems(959,1)
     elif event == "32008-08b.htm" :
       st.takeItems(SCRIPTURES,400)
-      st.giveItems(960,1)
+      st.rewardItems(960,1)
     return htmltext
 
   def onTalk (self, npc, player) :
@@ -101,18 +106,13 @@ class Quest (JQuest) :
   def onKill(self, npc, player, isPet) :
     partyMember = self.getRandomPartyMemberState(player, State.STARTED)
     if not partyMember: return
-
     st = partyMember.getQuestState(qn)
     if not st : return
-
-    chance = 30
-    drop = st.getRandom(100)
-    qty,chance = divmod(chance,100)
-    if drop < chance :
-        qty += 1
-    qty = int(qty)
-    if qty :
-        st.giveItems(SCRIPTURES,qty)
+    numItems, chance = divmod(DROP_CHANCE * Config.RATE_DROP_QUEST,100)
+    if st.getRandom(100) < chance :
+        numItems += 1
+    if numItems :
+        st.giveItems(SCRIPTURES,int(numItems))
         st.playSound("ItemSound.quest_itemget")
     return
 

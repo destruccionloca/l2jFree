@@ -10,16 +10,16 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "628_HuntGoldenRam"
 
 #Npcs
-KAHMAN = 31554
+KAHMAN      = 31554
 ABERCROMBIE = 31555
-SELINA = 31556
+SELINA      = 31556
 
 #Items
-CHITIN = 7248   #Splinter Stakato Chitin
-CHITIN2 = 7249  #Needle Stakato Chitin
-RECRUIT = 7246  #Golden Ram Badge - Recruit
-SOLDIER = 7247  #Golden Ram Badge - Soldier
-GOLDEN_RAM_COIN = 7251 #Golden Ram Coin
+CHITIN          = 7248  #Splinter Stakato Chitin
+CHITIN2         = 7249  #Needle Stakato Chitin
+RECRUIT         = 7246  #Golden Ram Badge - Recruit
+SOLDIER         = 7247  #Golden Ram Badge - Soldier
+GOLDEN_RAM_COIN = 7251  #Golden Ram Coin
 
 #chances
 MAX=100
@@ -162,7 +162,7 @@ class Quest (JQuest) :
                        st.playSound("ItemSound.quest_itemget")
                    st.giveItems(item,int(numItems))
    return
-           
+
 QUEST       = Quest(628,qn,"Hunt of the Golden Ram Mercenary Force")
 
 QUEST.addStartNpc(KAHMAN)

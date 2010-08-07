@@ -190,7 +190,7 @@ class Quest (JQuest):
   def __init__(self,id,name,descr):
     JQuest.__init__(self,id,name,descr)
     self.questItemIds = [3499]+range(3816,3832)
-  
+
   def onEvent (self,event,st):
     id   = st.getState()
     progress = st.getInt("progress")
@@ -426,7 +426,7 @@ class Quest (JQuest):
              else :
                 return "420_mymyu_5.htm"
        elif id == State.STARTED and cond >= 5:
-          if progress < 14 and st.getQuestItemsCount(JUICE) == 1  :
+          if progress < 14 and st.getQuestItemsCount(JUICE) == 1 :
              return "420_mymyu_7.htm"
           elif progress == 22 :
              return "420_mymyu_11.htm"
@@ -477,7 +477,7 @@ class Quest (JQuest):
               return check_eggs(st,"shamhai",progress)
           elif progress in [ 19,20 ] and st.getQuestItemsCount(SH_EGG) == 1 :
               return "420_shamhai_5.htm"
-    return "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    return "<html><body>I have nothing to say to you</body></html>"
 
   def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)

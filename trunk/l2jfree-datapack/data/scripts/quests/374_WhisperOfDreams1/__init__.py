@@ -1,4 +1,4 @@
-# Whisper of Dreams, part 1 version 0.1 
+# Whisper of Dreams, part 1 version 0.1
 # by DrLecter
 import sys
 from com.l2jfree import Config
@@ -15,7 +15,7 @@ DROP_RATE   = 50*Config.RATE_DROP_QUEST
 DROP_MAX = 100 #in % unless you change this
 #Mysterious Stone drop rate
 DROP_RATE_2 = 1*Config.RATE_DROP_QUEST
-DROP_MAX_2 = 1000 # default: ~ 1/1000
+DROP_MAX_2  = 500 # default: ~ 1/500
 #Rewards
 SHOP_LIST={
 5485:["etc_leather_yellow_i00",4,10450,"Sealed Tallum Tunic Textures"    ],# 4xTallum Tunic Textures: 10450a
@@ -24,6 +24,8 @@ SHOP_LIST={
 5488:["etc_leather_gray_i00",  2,18050,"Sealed Majestic Robe Fabrics"   ],
 5489:["etc_leather_gray_i00",  6,15550,"Sealed Tallum Stockings Fabrics"] 
 }
+
+ADENA_X=int(Config.RATE_DROP_ITEMS_ID.get(57))
 
 #Quest items
 CB_TOOTH, DW_LIGHT, SEALD_MSTONE, MSTONE = range(5884,5888)
@@ -41,16 +43,16 @@ def render_shop() :
     for i in SHOP_LIST.keys() :
        html += "<tr><td width=35 height=45><img src=icon."+SHOP_LIST[i][0]+" width=32 height=32 align=left></td><td width=365 valign=top><table border=0 width=100%>"
        html += "<tr><td><a action=\"bypass -h Quest 374_WhisperOfDreams1 "+str(i)+"\"><font color=\"FFFFFF\">"+SHOP_LIST[i][3]+" x"+str(SHOP_LIST[i][1])+"</font></a></td></tr>"
-       html += "<tr><td><a action=\"bypass -h Quest 374_WhisperOfDreams1 "+str(i)+"\"><font color=\"B09878\">"+str(SHOP_LIST[i][2])+" adena</font></a></td></tr></table></td></tr>"
+       html += "<tr><td><a action=\"bypass -h Quest 374_WhisperOfDreams1 "+str(i)+"\"><font color=\"B09878\">"+str(SHOP_LIST[i][2]*ADENA_X)+" adena</font></a></td></tr></table></td></tr>"
     html += "</table></body></html>"
     return html
- 
+
 class Quest (JQuest) :
  
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [CB_TOOTH, DW_LIGHT]
- 
+
  def onEvent (self,event,st) :
     id = st.getState() 
     htmltext = event
@@ -151,7 +153,7 @@ class Quest (JQuest) :
          else :
             st.playSound("ItemSound.quest_itemget")
          st.giveItems(item,int(numItems))
-     return  
+     return
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)

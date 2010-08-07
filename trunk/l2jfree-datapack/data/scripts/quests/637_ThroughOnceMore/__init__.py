@@ -9,7 +9,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "637_ThroughOnceMore"
 
 #Drop rate
-DROP_CHANCE=90
+DROP_CHANCE = 90
 #Npc
 FLAURON = 32010
 #Items
@@ -73,7 +73,7 @@ class Quest (JQuest) :
        if count < 10 :
           chance = DROP_CHANCE * Config.RATE_DROP_QUEST
           numItems, chance = divmod(int(chance),100)
-          if st.getRandom(100) < chance : 
+          if st.getRandom(100) < chance :
              numItems += 1
           if numItems :
              if count + numItems >= 10 :

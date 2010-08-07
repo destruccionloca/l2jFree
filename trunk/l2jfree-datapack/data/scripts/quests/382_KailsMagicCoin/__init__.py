@@ -17,7 +17,7 @@ ROYAL_MEMBERSHIP = 5898
 VERGARA = 30687
 
 #MOBs and CHANCES
-MOBS={21017:[5961],21019:[5962],21020:[5963],21022:[5961,5962,5963]}
+MOBS = {21017:[5961],21019:[5962],21020:[5963],21022:[5961,5962,5963]}
 CHANCE = 10
 MAX = 100
 
@@ -59,7 +59,7 @@ class Quest (JQuest) :
   def onKill(self,npc,player,isPet):
       st = player.getQuestState(qn)
       if not st : return 
-      if st.getState() != State.STARTED : return 
+      if st.getState() != State.STARTED : return
       numItems,chance = divmod(CHANCE*Config.RATE_DROP_QUEST,MAX)
       if st.getQuestItemsCount(ROYAL_MEMBERSHIP) :
          if st.getRandom(MAX) < chance :

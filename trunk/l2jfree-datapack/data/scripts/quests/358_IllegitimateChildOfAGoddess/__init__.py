@@ -1,4 +1,4 @@
-# Illegitimate Child Of A Goddess version 0.1 
+# Illegitimate Child Of A Goddess version 0.1
 # by DrLecter
 import sys
 from com.l2jfree import Config
@@ -82,8 +82,8 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
      st = player.getQuestState(qn)
      if not st : return 
-     if st.getState() != State.STARTED : return 
-   
+     if st.getState() != State.STARTED : return
+
      count = st.getQuestItemsCount(SN_SCALE)
      numItems, chance = divmod(DROP_RATE,100)
      if st.getRandom(100) < chance :

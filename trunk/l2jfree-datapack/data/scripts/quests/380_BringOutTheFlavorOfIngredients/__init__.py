@@ -11,8 +11,8 @@ qn = "380_BringOutTheFlavorOfIngredients"
 ROLLANT = 30069
 
 #MOBS
-DIRE_WOLF = 20205
-KADIF_WEREWOLF = 20206
+DIRE_WOLF        = 20205
+KADIF_WEREWOLF   = 20206
 GIANT_MIST_LEECH = 20225
 
 #ITEMS
@@ -100,8 +100,8 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return 
-   if st.getState() != State.STARTED : return 
-   
+   if st.getState() != State.STARTED : return
+
    if st.getInt("cond") == 1 :
       chance,item,max = DROPLIST[npc.getNpcId()]
       numItems,chance = divmod(chance*Config.RATE_DROP_QUEST,100)

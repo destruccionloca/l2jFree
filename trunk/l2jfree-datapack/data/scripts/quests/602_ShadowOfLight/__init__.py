@@ -31,7 +31,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    htmltext = event
    if event == "31683-1.htm" :
-     if st.getPlayer().getLevel() >= 68 : 
+     if st.getPlayer().getLevel() >= 68 :
         st.set("cond","1")
         st.setState(State.STARTED)
         st.playSound("ItemSound.quest_accept")
@@ -76,7 +76,7 @@ class Quest (JQuest) :
      if not partyMember: return
      st = partyMember.getQuestState(qn)
      if st :
-        if st.getState() == State.STARTED :  
+        if st.getState() == State.STARTED :
            count = st.getQuestItemsCount(EYE_OF_DARKNESS)
            chance = CHANCE[npc.getNpcId()]*Config.RATE_DROP_QUEST
            numItems, chance = divmod(chance,100)
@@ -95,6 +95,7 @@ class Quest (JQuest) :
 QUEST       = Quest(602,qn,"Shadow Of Light")
 
 QUEST.addStartNpc(EYE_OF_ARGOS)
+
 QUEST.addTalkId(EYE_OF_ARGOS)
 
 for i in MOBS :

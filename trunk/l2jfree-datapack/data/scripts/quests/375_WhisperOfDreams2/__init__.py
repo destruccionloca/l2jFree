@@ -1,11 +1,11 @@
-# Whisper of Dreams, part 2 version 0.1 
+# Whisper of Dreams, part 2 version 0.1
 # by DrLecter
 import sys
 from com.l2jfree                        import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
- 
+
 #Quest info
 QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 375,"WhisperOfDreams2","Whisper of Dreams, part 2"
 qn = "375_WhisperOfDreams2"
@@ -25,25 +25,25 @@ default = "<html><body>You are either not on a quest that involves this NPC, or 
 
 #NPCs
 MANAKIA = 30515
- 
+
 #Mobs & Drop
 DROPLIST = {20624:[CH_SKULL,"awaitSkull"],20629:[K_HORN,"awaitHorn"]}
- 
+
 class Quest (JQuest) :
- 
+
  def __init__(self,id,name,descr):
      JQuest.__init__(self,id,name,descr)
      self.questItemIds = [CH_SKULL, K_HORN]
- 
+
  def onEvent (self,event,st) :
     htmltext = event
     if event == "30515-6.htm" :
        if st.getQuestItemsCount(MSTONE):
-         ### do not take the item.  Players must remove it manually if they wish.
+         ### do not take the item. Players must remove it manually if they wish.
          ### However, if the players choose not to delete the item, they ARE ALLOWED
          ### to abort the quest and restart it later without having to redo Part 1!
          ### to abort the quest and restart it later without having to redo Part 1!
-         #st.takeItems(MSTONE,1)  
+         #st.takeItems(MSTONE,1)
          st.setState(State.STARTED)
          st.set("awaitSkull","1")
          st.set("awaitHorn","1")
@@ -58,7 +58,7 @@ class Quest (JQuest) :
        st.set("awaitSkull","1")
        st.set("awaitHorn","1")
     return htmltext
- 
+
  def onTalk (self,npc,player):
    htmltext = default
    st = player.getQuestState(qn)
@@ -86,7 +86,7 @@ class Quest (JQuest) :
       else :
          htmltext = "30515-5.htm"
    return htmltext
- 
+
  def onKill(self,npc,player,isPet) :
     npcId = npc.getNpcId()
     item, partyCond  = DROPLIST[npcId]
@@ -94,22 +94,22 @@ class Quest (JQuest) :
     if not partyMember: return
     st = partyMember.getQuestState(qn)
     if st :
-       count = st.getQuestItemsCount(item)
-       if st.getInt("cond") == 1 and count < 100 :
-          chance = 75 * Config.RATE_DROP_QUEST
-          numItems, chance = divmod(chance,100)
-          if st.getRandom(100) < chance :
-             numItems += 1
-          if numItems :
-             if count + numItems >= 100 :
-                numItems = 100 - count
-                st.playSound("ItemSound.quest_middle")
-                st.unset(partyCond)
-             else :
-                st.playSound("ItemSound.quest_itemget")
-             st.giveItems(item,int(numItems))
-    return  
- 
+      count = st.getQuestItemsCount(item)
+      if st.getInt("cond") == 1 and count < 100 :
+        chance = 75 * Config.RATE_DROP_QUEST
+        numItems, chance = divmod(chance,100)
+        if st.getRandom(100) < chance :
+           numItems += 1
+        if numItems :
+           if count + numItems >= 100 :
+              numItems = 100 - count
+              st.playSound("ItemSound.quest_middle")
+              st.unset(partyCond)
+           else:
+              st.playSound("ItemSound.quest_itemget")
+           st.giveItems(item,int(numItems))
+    return
+
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
 

@@ -22,7 +22,6 @@ ANCIENT_GARGOYLE, VEGUS = 21018,27316
 GARGOYLE_CHANCE = 5*Config.RATE_DROP_QUEST
 VEGUS_CHANCE = 100*Config.RATE_DROP_QUEST
 
-
 class Quest (JQuest) :
 
   def __init__(self,id,name,descr):
@@ -94,8 +93,8 @@ class Quest (JQuest) :
   def onKill(self,npc,player,isPet):
       st = player.getQuestState(qn)
       if not st : return 
-      if st.getState() != State.STARTED : return 
-   
+      if st.getState() != State.STARTED : return
+
       npcId = npc.getNpcId()
       album = st.getQuestItemsCount(COIN_ALBUM)
       coin = st.getQuestItemsCount(KAILS_COIN)

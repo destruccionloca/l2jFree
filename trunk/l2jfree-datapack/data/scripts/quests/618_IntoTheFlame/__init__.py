@@ -97,8 +97,8 @@ class Quest (JQuest) :
                st.playSound("ItemSound.quest_middle")
                st.set("cond","3")
             else:
-               st.playSound("ItemSound.quest_itemget")   
-            st.giveItems(VACUALITE_ORE,int(numItems)) 
+               st.playSound("ItemSound.quest_itemget")
+            st.giveItems(VACUALITE_ORE,int(numItems))
       return
 
 QUEST       = Quest(618,qn,"Into the Flame")

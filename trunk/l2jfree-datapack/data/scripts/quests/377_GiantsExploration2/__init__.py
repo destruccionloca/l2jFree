@@ -1,4 +1,4 @@
-# Exploration of Giants Cave, part 2 version 0.1 
+# Exploration of Giants Cave, part 2 version 0.1
 # by DrLecter
 import sys
 from com.l2jfree import Config
@@ -51,7 +51,7 @@ class Quest (JQuest) :
      self.questItemIds = [DICT2]
 
  def onEvent (self,event,st) :
-    id = st.getState() 
+    id = st.getState()
     htmltext = event
     if event == "yes" :
        htmltext = starting
@@ -116,7 +116,7 @@ class Quest (JQuest) :
      if int(numItems) != 0 :
         st.giveItems(ANC_BOOK,int(numItems))
         st.playSound("ItemSound.quest_itemget")
-     return  
+     return
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)

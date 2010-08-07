@@ -22,8 +22,8 @@ REWARDS = [8690,8692,8694,8696,8698,8700,8702,8704,8706,8708,8710]
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
- 	JQuest.__init__(self,id,name,descr)
- 	self.questItemIds = [DINOSAUR_TISSUE, DINOSAUR_EGG]
+    JQuest.__init__(self,id,name,descr)
+    self.questItemIds = [DINOSAUR_TISSUE, DINOSAUR_EGG]
 
  def onAdvEvent (self,event,npc, player) :
     htmltext = event

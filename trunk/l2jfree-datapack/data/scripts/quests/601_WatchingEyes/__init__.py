@@ -80,7 +80,7 @@ class Quest (JQuest) :
        if st.getInt("cond") == 1 and count < 100 :
          chance = DROP_CHANCE * Config.RATE_DROP_QUEST
          numItems, chance = divmod(chance,100)
-         if st.getRandom(100) < chance : 
+         if st.getRandom(100) < chance :
            numItems = numItems + 1
          if numItems :
            if count + numItems >= 100 :
@@ -88,13 +88,14 @@ class Quest (JQuest) :
              st.playSound("ItemSound.quest_middle")
              st.set("cond","2")
            else:
-             st.playSound("ItemSound.quest_itemget")   
-           st.giveItems(PROOF_OF_AVENGER,int(numItems))       
+             st.playSound("ItemSound.quest_itemget")
+           st.giveItems(PROOF_OF_AVENGER,int(numItems))
    return
 
 QUEST       = Quest(601,qn,"Watching Eyes")
 
 QUEST.addStartNpc(EYE_OF_ARGOS)
+
 QUEST.addTalkId(EYE_OF_ARGOS)
 
 for i in MOBS :

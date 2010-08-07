@@ -43,7 +43,7 @@ DROPLIST={
 20160:[1,1,67,29,UNDEAD_ASH],      #Neer Crawler
 20171:[1,1,76,31,UNDEAD_ASH],      #Specter
 20197:[1,1,89,25,UNDEAD_ASH],      #Sorrow Maiden
-20200:[1,1,60,28,UNDEAD_ASH],      #Strain  
+20200:[1,1,60,28,UNDEAD_ASH],      #Strain
 20201:[1,1,70,29,UNDEAD_ASH],      #Ghoul
 20202:[1,0,60,24,UNDEAD_ASH],      #Dead Seeker (not official Monster for this Quest)
 20198:[1,1,60,35,UNDEAD_ASH],      #Neer Ghoul Berserker
@@ -456,7 +456,7 @@ class Quest (JQuest) :
       return f_more_help
     elif event == "r_exit":
       return r_exit
-    
+
   def onTalk (self,npc,player):
     htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
@@ -548,7 +548,7 @@ class Quest (JQuest) :
           return m_box
         else:
           return m_no_box
-          
+
   def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)
     if not st : return 
@@ -570,7 +570,7 @@ class Quest (JQuest) :
       if random2<chanceBox :
         st.giveItems(CARGO_BOX1,1)
         if not random1<chancePartItem:
-          st.playSound("ItemSound.quest_itemget") 
+          st.playSound("ItemSound.quest_itemget")
     return
 
 QUEST       = Quest(333,qn,"BlackLionHunt")

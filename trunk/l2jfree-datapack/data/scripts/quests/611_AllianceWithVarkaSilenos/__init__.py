@@ -50,6 +50,24 @@ Chance = {
   21347:649
 }
 
+Chance_molar = {
+  21339:568,
+  21340:568,
+  21324:500,
+  21336:529,
+  21331:529,
+  21342:578,
+  21327:510,
+  21334:539,
+  21343:548,
+  21329:519,
+  21328:522,
+  21338:558,
+  21345:713,
+  21332:664,
+  21347:638
+}
+
 #Quest Items
 Varka_Badge_Soldier, Varka_Badge_Officer, Varka_Badge_Captain = [7216, 7217, 7218]
 Ketra_Alliance_One, Ketra_Alliance_Two, Ketra_Alliance_Three, \
@@ -68,13 +86,13 @@ One ={
   4:[Varka_Alliance_Three,300,Ketra_Badge_Soldier],
   5:[Varka_Alliance_Four,400,Ketra_Badge_Soldier]
 }
-Two ={   
+Two ={
   2:[Varka_Alliance_One,100,Ketra_Badge_Officer],
   3:[Varka_Alliance_Two,200,Ketra_Badge_Officer],
   4:[Varka_Alliance_Three,300,Ketra_Badge_Officer],
   5:[Varka_Alliance_Four,400,Ketra_Badge_Officer]
 }
-Three ={   
+Three ={
   3:[Varka_Alliance_Two,100,Ketra_Badge_Captain],
   4:[Varka_Alliance_Three,200,Ketra_Badge_Captain],
   5:[Varka_Alliance_Four,200,Ketra_Badge_Captain]
@@ -144,7 +162,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
    JQuest.__init__(self,id,name,descr)
-   self.questItemIds = [Ketra_Badge_Soldier, Ketra_Badge_Officer, Ketra_Badge_Captain, Varka_Alliance_One, Varka_Alliance_Two, Varka_Alliance_Three, Varka_Alliance_Four, Varka_Alliance_Five]
+   self.questItemIds = [Ketra_Badge_Soldier, Ketra_Badge_Officer, Ketra_Badge_Captain]
 
  def onEvent (self,event,st) :
    cond = st.getInt("cond")
@@ -318,7 +336,6 @@ class Quest (JQuest) :
     return htmltext
 
  def onKill(self,npc,player,isPet):
-   if npc.getInstanceId() != 0: return
    partyMember = self.getRandomPartyMemberState(player,State.STARTED)
    if not partyMember: return
    st = partyMember.getQuestState(qn)
@@ -327,6 +344,7 @@ class Quest (JQuest) :
           npcId = npc.getNpcId()
           cond = st.getInt("cond")
           id = st.getInt("id")
+          st2 = partyMember.getQuestState("612_WarWithKetraOrcs")
           if not partyMember.isAlliedWithKetra() :
               if (npcId in Ketra_One) or (npcId in Ketra_Two) or (npcId in Ketra_Three):
                   item = 0
@@ -341,7 +359,17 @@ class Quest (JQuest) :
                     if st.getQuestItemsCount(drop) == MAX :
                       item = 0
                   chance = Chance[npcId]
-                  if id == 2 and item != 0 :
+      #This is support for quest 612: War With Ketra Orcs. Basically, if the person has both this quest and 612, then they only get one quest item, 50% chance for 612 quest item and 50% chance for this quest's item
+                  if st2 :
+                      if (st.getRandom(2) == 1 or item == 0) and npcId in Chance_molar.keys() :
+                          item = 57
+                          MAX = 100
+                          drop = Molar
+                          chance = Chance_molar[npcId]
+                          giveReward(st,item,chance,MAX,drop)
+                      elif id == 2 and item != 0 :
+                          giveReward(st,item,chance,MAX,drop)
+                  elif id == 2 and item != 0 :
                       giveReward(st,item,chance,MAX,drop)
               elif npcId in Varka_Silenos :
                   party = partyMember.getParty()

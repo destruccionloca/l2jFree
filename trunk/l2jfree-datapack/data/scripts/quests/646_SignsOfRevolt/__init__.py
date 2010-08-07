@@ -17,9 +17,9 @@ MOBS = range(22029,22046) + [22047,22049]
 CURSED_DOLL = 8087
 #REWARDS
 REWARDS = {
-    "1" : [1880 , 9 ], #Steel
+    "1" : [1880 , 9 ],  #Steel
     "2" : [1881 , 12 ], #CBP
-    "3" : [1882 , 20], #Leather
+    "3" : [1882 , 20],  #Leather
     "4" : [57 , 21600], #Adena
     }
 

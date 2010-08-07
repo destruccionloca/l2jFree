@@ -12,10 +12,10 @@ HARLAN = 30074
 
 #MOBS
 ENKU_CHAMPION = 20291
-ENKU_SHAMAN = 20292
+ENKU_SHAMAN   = 20292
 
 #ITEMS
-LEAF = 5893
+LEAF  = 5893
 STONE = 5894
 
 MOB = {
@@ -80,8 +80,8 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return 
-   if st.getState() != State.STARTED : return 
-   
+   if st.getState() != State.STARTED : return
+
    npcId = npc.getNpcId()
    numItems,chance = divmod(100*Config.RATE_DROP_QUEST,100)
    item,count = MOB[npcId]

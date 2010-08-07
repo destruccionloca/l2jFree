@@ -101,24 +101,24 @@ class Quest (JQuest) :
        else:
           if st.getRandom(SPECIAL)>=amount :
             st.rewardItems(ADENA,amount*60)
-            st.takeItems(ARTICLES_DEAD_HEROES,-1) 
-            random = st.getRandom(1000) 
-            if random < 10 : 
-                htmltext = "30754-12.htm" 
-                st.giveItems(OLD_KEY,1) 
-                st.set("cond","2") 
-            elif random < 20 : 
-                htmltext = "30754-13.htm" 
-                st.giveItems(OLD_HILT,1) 
-                st.set("cond","2") 
-            elif random < 30 : 
-                htmltext = "30754-14.htm" 
-                st.giveItems(OLD_TOTEM,1) 
-                st.set("cond","2") 
-            elif random < 40 : 
-                htmltext = "30754-15.htm" 
-                st.giveItems(CRUCIFIX,1) 
-                st.set("cond","2") 
+            st.takeItems(ARTICLES_DEAD_HEROES,-1)
+            random = st.getRandom(1000)
+            if random < 10 :
+                htmltext = "30754-12.htm"
+                st.giveItems(OLD_KEY,1)
+                st.set("cond","2")
+            elif random < 20 :
+                htmltext = "30754-13.htm"
+                st.giveItems(OLD_HILT,1)
+                st.set("cond","2")
+            elif random < 30 :
+                htmltext = "30754-14.htm"
+                st.giveItems(OLD_TOTEM,1)
+                st.set("cond","2")
+            elif random < 40 :
+                htmltext = "30754-15.htm"
+                st.giveItems(CRUCIFIX,1)
+                st.set("cond","2")
           else :
               htmltext = "30754-16.htm"
               st.set("cond","1")

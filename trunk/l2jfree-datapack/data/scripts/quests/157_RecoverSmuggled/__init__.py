@@ -1,5 +1,6 @@
 # Made by Mr. - Version 0.3 by DrLecter
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -7,7 +8,7 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "157_RecoverSmuggled"
 
 ADAMANTITE_ORE = 1024
-BUCKLER = 20
+BUCKLER        = 20
 
 class Quest (JQuest) :
 
@@ -61,7 +62,7 @@ class Quest (JQuest) :
    adamantite = st.getQuestItemsCount(ADAMANTITE_ORE)
    if st.getInt("cond") == 1 and adamantite < 20 :
        npcId = npc.getNpcId()
-       numItems, chance = divmod(40,100)
+       numItems, chance = divmod(40*Config.RATE_DROP_QUEST,100)
        if st.getRandom(100) <= chance :
           numItems += 1
        numItems = int(numItems)

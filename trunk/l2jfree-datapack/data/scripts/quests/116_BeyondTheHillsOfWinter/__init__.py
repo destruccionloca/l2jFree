@@ -54,7 +54,7 @@ class Quest (JQuest) :
 		elif event == "32052-01.htm" :
 			htmltext = "32052-01.htm"
 		elif event == "materials" :
-			st.giveItems(SS,1740)
+			st.giveItems(SS,1650)
 			st.takeItems(SGOODS, -1)
 			st.playSound("ItemSound.quest_itemget")
 			st.addExpAndSp(82792,4981)

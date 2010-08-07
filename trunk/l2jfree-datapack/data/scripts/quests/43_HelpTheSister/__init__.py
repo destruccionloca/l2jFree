@@ -1,24 +1,25 @@
 #quest by zerghase
 import sys
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "43_HelpTheSister"
 
-COOPER=30829
-GALLADUCCI=30097
+COOPER     = 30829
+GALLADUCCI = 30097
 
-CRAFTED_DAGGER=220
-MAP_PIECE=7550
-MAP=7551
-PET_TICKET=7584
+CRAFTED_DAGGER = 220
+MAP_PIECE      = 7550
+MAP            = 7551
+PET_TICKET     = 7584
 
-SPECTER=20171
-SORROW_MAIDEN=20197
+SPECTER       = 20171
+SORROW_MAIDEN = 20197
 
-MAX_COUNT=30
-MIN_LEVEL=26
+MAX_COUNT = 30
+MIN_LEVEL = 26
 
 class Quest (JQuest) :
   def onEvent(self, event, st):
@@ -90,30 +91,29 @@ class Quest (JQuest) :
     st = player.getQuestState(qn)
     if not st : return 
     if st.getState() != State.STARTED : return
-    
+
     npcId = npc.getNpcId()
     cond=st.getInt("cond")
     if cond==2:
-      numItems,chance = divmod(100,100)
+      numItems,chance = divmod(100*Config.RATE_DROP_QUEST,100)
       if st.getRandom(100) < chance :
-        numItems = numItems +1  
+        numItems = numItems +1
       pieces=st.getQuestItemsCount(MAP_PIECE)
       if pieces + numItems >= MAX_COUNT :
         numItems = MAX_COUNT - pieces
         if numItems != 0:
           st.playSound("ItemSound.quest_middle")
           st.set("cond", "3")
-      else :  
+      else :
         st.playSound("ItemSound.quest_itemget")
       st.giveItems(MAP_PIECE,int(numItems))
-    return     
+    return
 
 QUEST=Quest(43,qn,"Help The Sister!")
 
 QUEST.addStartNpc(COOPER)
 
 QUEST.addTalkId(COOPER)
-
 QUEST.addTalkId(GALLADUCCI)
 
 QUEST.addKillId(SPECTER)

@@ -2,10 +2,10 @@
 # this script is part of the Official L2J Datapack Project.
 # Visit http://www.l2jdp.com/forum for more details.
 import sys
-from com.l2jfree                        import Config
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
-from com.l2jfree.gameserver.model.quest import Quest as JQuest
+from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 
 qn = "640_TheZeroHour"
 
@@ -71,7 +71,7 @@ class Quest (JQuest) :
                 else :
                     htmltext = "31554-10.htm"
             else :
-                htmltext = "31554-00.htm" 
+                htmltext = "31554-00.htm"
         elif st.getQuestItemsCount(Fang) >= 1 :
             htmltext = "31554-04.htm"
         else :

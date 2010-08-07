@@ -113,11 +113,11 @@ class Quest (JQuest) :
     #solo part
     st = player.getQuestState(qn)
     if st:
-       cond=st.getInt("cond")
-       random = st.getRandom(100)
-       if cond == 2 and random <=10:
-          st.giveItems(Hemocyte,1)
-          st.playSound("ItemSound.quest_itemget")
+        cond=st.getInt("cond")
+        random = st.getRandom(100)
+        if cond == 2 and random <=10:
+            st.giveItems(Hemocyte,1)
+            st.playSound("ItemSound.quest_itemget")
     return
 
 QUEST = Quest(648,qn,"An Ice Merchant's Dream")

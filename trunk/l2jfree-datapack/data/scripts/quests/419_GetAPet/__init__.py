@@ -190,7 +190,7 @@ class Quest (JQuest):
 
     if id == State.COMPLETED: st.setState(State.CREATED)
     if npcId == PET_MANAGER_MARTIN :
-      if id == State.CREATED  :
+      if id == State.CREATED :
          if player.getLevel() < 15 :
             st.exitQuest(1)
             return "419_low_level.htm"
@@ -220,7 +220,7 @@ class Quest (JQuest):
       st = player.getQuestState(qn)
       if not st : return
       if st.getState() != State.STARTED : return
-   
+
       npcId = npc.getNpcId()
       collected = getCount_proof(st)
       if collected < REQUIRED_SPIDER_LEGS:

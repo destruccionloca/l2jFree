@@ -7,11 +7,11 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "652_AnAgedExAdventurer"
 #Npc
 TANTAN = 32012
-SARA = 30180
+SARA   = 30180
 
 #Items
-SOULSHOT_C = 1464
-ADENA = 57
+SOULSHOT_C      = 1464
+ADENA           = 57
 ENCHANT_ARMOR_D = 956
 
 class Quest (JQuest) :

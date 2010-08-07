@@ -1,6 +1,6 @@
 # Made by Mr. Have fun! - Version 0.3 by DrLecter
 import sys
-from com.l2jfree import Config 
+from com.l2jfree import Config
 from com.l2jfree.gameserver.model.quest import State
 from com.l2jfree.gameserver.model.quest import QuestState
 from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
@@ -63,10 +63,10 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return 
-   if st.getState() != State.STARTED : return 
+   if st.getState() != State.STARTED : return
    
    count = st.getQuestItemsCount(WOLF_PELT)
-   numItems, chance = divmod(100,100)
+   numItems, chance = divmod(100*Config.RATE_DROP_QUEST,100)
    if st.getRandom(100) <chance :
      numItems = numItems + 1
    if count+numItems>=40 :
