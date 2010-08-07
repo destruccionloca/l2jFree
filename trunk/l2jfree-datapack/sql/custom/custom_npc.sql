@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `custom_npc` (
+CREATE TABLE IF NOT EXISTS `custom_npc`(
   `id` DECIMAL(11,0) NOT NULL DEFAULT 0,
   `idTemplate` INT(11) NOT NULL DEFAULT 0,
   `name` VARCHAR(200) DEFAULT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `custom_npc` (
   `collision_height` DECIMAL(5,2) DEFAULT NULL,
   `level` DECIMAL(2,0) DEFAULT NULL,
   `sex` VARCHAR(6) DEFAULT NULL,
-  `type` VARCHAR(21) DEFAULT NULL,
+  `type` VARCHAR(22) DEFAULT NULL,
   `attackrange` INT(11) DEFAULT NULL,
   `hp` DECIMAL(8,0) DEFAULT NULL,
   `mp` DECIMAL(8,0) DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `custom_npc` (
   `rhand` DECIMAL(8,0) DEFAULT NULL,
   `lhand` DECIMAL(8,0) DEFAULT NULL,
   `armor` DECIMAL(1,0) DEFAULT NULL,
-  `enchant` INT NOT NULL default 0,  
+  `enchant` INT(11) NOT NULL default '0',
   `walkspd` DECIMAL(3,0) DEFAULT NULL,
   `runspd` DECIMAL(3,0) DEFAULT NULL,
   `faction_id` VARCHAR(40) DEFAULT NULL,
