@@ -37,15 +37,9 @@ CREATE TABLE IF NOT EXISTS `custom_npc`(
   `enchant` INT(11) NOT NULL default '0',
   `walkspd` DECIMAL(3,0) DEFAULT NULL,
   `runspd` DECIMAL(3,0) DEFAULT NULL,
-  `faction_id` VARCHAR(40) DEFAULT NULL,
-  `faction_range` DECIMAL(4,0) DEFAULT NULL,
   `isUndead` INT(11) DEFAULT 0,
   `absorb_level` DECIMAL(2,0) DEFAULT 0,
   `absorb_type` enum('FULL_PARTY','LAST_HIT','PARTY_ONE_RANDOM') DEFAULT 'LAST_HIT' NOT NULL,
-  `soulshot_count` int(4) DEFAULT 0,
-  `spiritshot_count` int(4) DEFAULT 0,
-  `ss_rate` INT(3) DEFAULT 0,
-  `AI` VARCHAR(8) DEFAULT "fighter",
   `drop_herbs` enum('true','false') DEFAULT 'false' NOT NULL,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;

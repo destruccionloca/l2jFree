@@ -2641,7 +2641,7 @@ INSERT INTO `armor` VALUES
 (15297,'Goddard Dark Royal Guard Ring','','none','false','none',150,'wood','none',0,-1,-1,0,60,23,0,0,'false','false','false','false','false','',''),
 (15298,'Rune Wind Royal Guard Ring','','none','false','none',150,'wood','none',0,-1,-1,0,60,23,0,0,'false','false','false','false','false','',''),
 (15299,'Schuttgart Dark Royal Guard Ring','','none','false','none',150,'wood','none',0,-1,-1,0,60,23,0,0,'false','false','false','false','false','',''),
-(15312,'Dawn\'s Bracelet','','none','false','none',15,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','false','false','false','',''),
+(15312,'Dawn\'s Bracelet','','lbracelet','false','none',15,'wood','s',0,-1,-1,0,0,0,0,0,'false','false','false','false','false','','8337-1'),
 (15351,'Seal Removal Bracelet_Towbat','','none','false','none',5,'wood','none',0,-1,-1,0,0,0,0,0,'false','false','false','false','false','',''),
 (15383,'Weaver\'s Multi-colored Clothes','7 Day Limited Period','none','false','none',0,'wood','none',0,-1,10080,0,0,0,0,0,'false','false','false','false','false','',''),
 (15384,'Weaver\'s Multi-colored Clothes','30 Day Limited Period','none','false','none',0,'wood','none',0,-1,43200,0,0,0,0,0,'false','false','false','false','false','',''),
