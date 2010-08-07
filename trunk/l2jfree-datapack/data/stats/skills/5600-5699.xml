@@ -1108,7 +1108,7 @@
     <set name="castRange" val="900"/>
     <set name="effectRange" val="1400"/>
     <for>
-      <effect name="RemoveTarget" noicon="1" val="0"/>
+      <effect name="RemoveTarget" val="0" noicon="1"/>
     </for>
   </skill>
   <skill id="5681" levels="1" name="PvP Weapon - CP Drain">
