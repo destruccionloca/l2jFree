@@ -20,7 +20,6 @@ import com.l2jfree.gameserver.ai.L2AttackableAI;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Spawn;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
-import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jfree.gameserver.network.serverpackets.NpcSay;
@@ -189,10 +188,10 @@ public class FleeingClanMembers extends L2AttackableAIScript
 	}
 
 	@Override
-	public String onArrived(L2Character character)
+	public void onArrived(L2Npc character)
 	{
 		if (!(character instanceof L2Attackable))
-			return null;
+			return;
 
 		if (DEBUG)
 			_log.info("onArrived()");
@@ -241,7 +240,6 @@ public class FleeingClanMembers extends L2AttackableAIScript
 			}
 			break;
 		}
-		return null;
 	}
 
 	@Override

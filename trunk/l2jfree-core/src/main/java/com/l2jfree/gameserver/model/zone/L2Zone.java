@@ -375,7 +375,7 @@ public class L2Zone implements FuncOwner
 	{
 		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
 		
-		Quest[] quests = getQuestByEvent(Quest.QuestEventType.ON_ENTER_ZONE);
+		Quest[] quests = getQuestByEvent(Quest.QuestZoneEventType.ON_ENTER_ZONE);
 		if (quests != null)
 		{
 			for (Quest quest : quests)
@@ -433,7 +433,7 @@ public class L2Zone implements FuncOwner
 	{
 		final L2PcInstance player = character instanceof L2PcInstance ? (L2PcInstance)character : null;
 		
-		Quest[] quests = getQuestByEvent(Quest.QuestEventType.ON_EXIT_ZONE);
+		Quest[] quests = getQuestByEvent(Quest.QuestZoneEventType.ON_EXIT_ZONE);
 		if (quests != null)
 		{
 			for (Quest quest : quests)
@@ -845,10 +845,10 @@ public class L2Zone implements FuncOwner
 		return null;
 	}
 	
-	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)
+	public void addQuestEvent(Quest.QuestZoneEventType EventType, Quest q)
 	{
 		if (_questEvents == null)
-			_questEvents = new Quest[Quest.QuestEventType.values().length][];
+			_questEvents = new Quest[Quest.QuestZoneEventType.values().length][];
 		
 		Quest[] questByEvents = _questEvents[EventType.ordinal()];
 		
@@ -863,7 +863,7 @@ public class L2Zone implements FuncOwner
 		_questEvents[EventType.ordinal()] = questByEvents;
 	}
 	
-	public Quest[] getQuestByEvent(Quest.QuestEventType EventType)
+	public Quest[] getQuestByEvent(Quest.QuestZoneEventType EventType)
 	{
 		if (_questEvents == null)
 			return null;

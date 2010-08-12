@@ -164,13 +164,11 @@ public class Quest extends ManagedScript
 		ON_AGGRO_RANGE_ENTER(true), // a person came within the Npc/Mob's range
 		ON_SPELL_FINISHED(true), // on spell finished action when npc finish casting skill
 		ON_SKILL_LEARN(false), // control the AcquireSkill dialog from quest script
-		ON_ENTER_ZONE(true), // on zone enter
-		ON_EXIT_ZONE(true), // on zone exit
 		ON_ARRIVED(true); // on
 		
 		// control whether this event type is allowed for the same npc template in multiple quests
 		// or if the npc must be registered in at most one quest for the specified event
-		private boolean	_allowMultipleRegistration;
+		private final boolean	_allowMultipleRegistration;
 
 		QuestEventType(boolean allowMultipleRegistration)
 		{
@@ -181,6 +179,12 @@ public class Quest extends ManagedScript
 		{
 			return _allowMultipleRegistration;
 		}
+	}
+	
+	public static enum QuestZoneEventType
+	{
+		ON_ENTER_ZONE, // on zone enter
+		ON_EXIT_ZONE; // on zone exit
 	}
 
 	/**
@@ -361,6 +365,7 @@ public class Quest extends ManagedScript
 	}
 
 	// these are methods to call from java
+	// called by L2NpcTemplate
 	public final boolean notifyAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
 	{
 		String res = null;
@@ -375,6 +380,7 @@ public class Quest extends ManagedScript
 		return showResult(attacker, res);
 	}
 
+	// called by L2PcInstance
 	public final boolean notifyDeath(L2Character killer, L2Character victim, QuestState qs)
 	{
 		String res = null;
@@ -389,6 +395,7 @@ public class Quest extends ManagedScript
 		return showResult(qs.getPlayer(), res);
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifySpellFinished(L2Npc instance, L2PcInstance player, L2Skill skill)
 	{
 		String res = null;
@@ -403,6 +410,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifySpawn(L2Npc npc)
 	{
 		try
@@ -417,6 +425,7 @@ public class Quest extends ManagedScript
 		return false;
 	}
 
+	// called by L2NpcTemplate, L2PcInstance
 	public final boolean notifyEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String res = null;
@@ -431,6 +440,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 	
+	// called by EnterWorld
 	public final boolean notifyEnterWorld(L2PcInstance player)
 	{
 		String res = null;
@@ -445,6 +455,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 	
+	// called by L2NpcTemplate
 	public final boolean notifyKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		String res = null;
@@ -459,6 +470,7 @@ public class Quest extends ManagedScript
 		return showResult(killer, res);
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifyTalk(L2Npc npc, QuestState qs)
 	{
 		String res = null;
@@ -475,6 +487,7 @@ public class Quest extends ManagedScript
 	}
 
 	// override the default NPC dialogs when a quest defines this for the given NPC
+	// called by L2NpcTemplate
 	public final boolean notifyFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		String res = null;
@@ -499,6 +512,7 @@ public class Quest extends ManagedScript
 		return true;
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifyAcquireSkillList(L2Npc npc, L2PcInstance player)
 	{
 		String res = null;
@@ -513,6 +527,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 	
+	// called by L2NpcTemplate
 	public final boolean notifyAcquireSkillInfo(L2Npc npc, L2PcInstance player, L2Skill skill)
 	{
 		String res = null;
@@ -527,6 +542,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifyAcquireSkill(L2Npc npc, L2PcInstance player, L2Skill skill)
 	{
 		String res = null;
@@ -545,6 +561,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 	
+	// called by L2NpcTemplate
 	public final boolean notifySkillSee(L2Npc npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		String res = null;
@@ -559,6 +576,7 @@ public class Quest extends ManagedScript
 		return showResult(caster, res);
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifyFactionCall(L2Npc npc, L2Npc caller, L2PcInstance attacker, boolean isPet)
 	{
 		String res = null;
@@ -573,6 +591,7 @@ public class Quest extends ManagedScript
 		return showResult(attacker, res);
 	}
 
+	// called by L2NpcTemplate
 	public final boolean notifyAggroRangeEnter(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		String res = null;
@@ -587,6 +606,7 @@ public class Quest extends ManagedScript
 		return showResult(player, res);
 	}
 	
+	// called by L2Zone
 	public final boolean notifyEnterZone(L2Character character, L2Zone zone)
 	{
 		L2PcInstance player = character.getActingPlayer();
@@ -605,6 +625,7 @@ public class Quest extends ManagedScript
 		return true;
 	}
 	
+	// called by L2Zone
 	public final boolean notifyExitZone(L2Character character, L2Zone zone)
 	{
 		L2PcInstance player = character.getActingPlayer();
@@ -623,22 +644,17 @@ public class Quest extends ManagedScript
 		return true;
 	}
 	
-	public final boolean notifyMoveFinished(L2Character character)
+	// called by L2NpcTemplate
+	public final void notifyArrived(L2Npc npc)
 	{
-		L2PcInstance player = character.getActingPlayer();
-		String res = null;
 		try
 		{
-			res = onArrived(character);
+			onArrived(npc);
 		}
 		catch (Exception e)
 		{
-			if (player != null)
-				return showError(player, e);
+			_log.warn("", e);
 		}
-		if (player != null)
-			return showResult(player, res);
-		return true;
 	}
 	
 	// these are methods that java calls to invoke scripts
@@ -778,9 +794,9 @@ public class Quest extends ManagedScript
 		return null;
 	}
 	
-	public String onArrived(L2Character character)
+	public void onArrived(L2Npc npc)
 	{
-		return null;
+		// ...
 	}
 	
 	/**
@@ -1265,6 +1281,16 @@ public class Quest extends ManagedScript
 	}
 
 	/**
+	 * Add the NPC to the AcquireSkill dialog
+	 * @param npcId
+	 * @return L2NpcTemplate : NPC
+	 */
+	public L2NpcTemplate addAcquireSkillId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_SKILL_LEARN);
+	}
+
+	/**
 	 * Add this quest to the list of quests that the passed mob will respond to for Attack Events.<BR><BR>
 	 * @param attackId
 	 * @return int : attackId
@@ -1346,7 +1372,7 @@ public class Quest extends ManagedScript
 			L2Zone zone = ZoneManager.getInstance().getZoneById(zoneId);
 			if (zone != null)
 			{
-				zone.addQuestEvent(Quest.QuestEventType.ON_ENTER_ZONE, this);
+				zone.addQuestEvent(Quest.QuestZoneEventType.ON_ENTER_ZONE, this);
 			}
 			return zone;
 		}
@@ -1364,7 +1390,7 @@ public class Quest extends ManagedScript
 			L2Zone zone = ZoneManager.getInstance().getZoneById(zoneId);
 			if (zone != null)
 			{
-				zone.addQuestEvent(Quest.QuestEventType.ON_EXIT_ZONE, this);
+				zone.addQuestEvent(Quest.QuestZoneEventType.ON_EXIT_ZONE, this);
 			}
 			return zone;
 		}
@@ -1373,6 +1399,11 @@ public class Quest extends ManagedScript
 			_log.warn("", e);
 			return null;
 		}
+	}
+	
+	public L2NpcTemplate addArrivedId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_ARRIVED);
 	}
 	
 	// returns a random party member's L2PcInstance for the passed player's party

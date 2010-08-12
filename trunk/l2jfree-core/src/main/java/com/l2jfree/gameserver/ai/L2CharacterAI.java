@@ -30,9 +30,9 @@ import com.l2jfree.gameserver.geodata.GeoData;
 import com.l2jfree.gameserver.model.L2CharPosition;
 import com.l2jfree.gameserver.model.L2Effect;
 import com.l2jfree.gameserver.model.L2ItemInstance;
-import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Skill;
+import com.l2jfree.gameserver.model.L2ItemInstance.ItemLocation;
 import com.l2jfree.gameserver.model.actor.L2Attackable;
 import com.l2jfree.gameserver.model.actor.L2Character;
 import com.l2jfree.gameserver.model.actor.L2Npc;
@@ -677,7 +677,7 @@ public class L2CharacterAI extends AbstractAI
 			quests = ((L2Npc) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
 		if (quests != null)
 			for (Quest quest: quests)
-				quest.notifyMoveFinished(_actor);
+				quest.notifyArrived((L2Npc)_actor);
 
 		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)
