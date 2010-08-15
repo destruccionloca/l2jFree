@@ -2,7 +2,7 @@
 <!DOCTYPE list SYSTEM "../../templates/skills.dtd">
 <list>
   <skill id="23000" levels="1" name="Majo Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -14,7 +14,7 @@
     </cond>
   </skill>
   <skill id="23001" levels="1" name="Gold Majo Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -26,7 +26,7 @@
     </cond>
   </skill>
   <skill id="23002" levels="1" name="Black Majo Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -38,8 +38,7 @@
     </cond>
   </skill>
   <skill id="23003" levels="1" name="Plaipitak Agathion Cute Trick">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -135,7 +134,7 @@
     </cond>
   </skill>
   <skill id="23010" levels="1" name="Baby Panda Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -147,7 +146,7 @@
     </cond>
   </skill>
   <skill id="23011" levels="1" name="Bamboo Panda Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -159,8 +158,7 @@
     </cond>
   </skill>
   <skill id="23012" levels="1" name="Sexy Panda Agathion Cute Trick">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -221,7 +219,7 @@
     <set name="reuseDelay" val="3600000"/>
     <set name="staticReuse" val="true"/>
     <cond msgId="2292">
-      <player agathionId="1504"/>
+      <player agathionId="16033"/>
     </cond>
     <for>
       <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
@@ -268,9 +266,14 @@
     </for>
   </skill>
   <skill id="23019" levels="3" name="Scissors,Rock,Paper">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="target" val="TARGET_ONE"/>
+    <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <set name="stayAfterDeath" val="true"/>
+    <set name="canBeDispeled" val="false"/>
+    <for>
+      <effect name="ImmobileBuff" time="10" val="0"/>
+    </for>
   </skill>
   <skill id="23020" levels="1" name="Challenge the Turkey">
     <set name="target" val="TARGET_NONE"/>
@@ -282,7 +285,7 @@
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
-  <skill id="23022" levels="10" name="First Wink">
+  <skill id="23022" levels="10" name="First Win">
     <set name="target" val="TARGET_NONE"/>
     <set name="skillType" val="NOTDONE"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -311,7 +314,7 @@
   </skill>
   <skill id="23025" levels="1" name="Charming Cupid Agathion Cute Trick">
     <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -323,7 +326,7 @@
     </cond>
   </skill>
   <skill id="23026" levels="1" name="Naughty Cupid Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -338,7 +341,7 @@
     <!-- Needs to be verified -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="DUMMY"/>
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="staticReuse" val="true"/>
     <set name="hitTime" val="3000"/>
     <set name="staticHitTime" val="true"/>
@@ -348,7 +351,7 @@
     </cond>
   </skill>
   <skill id="23028" levels="1" name="Black Maneki Neko Agathion Cute Trick I">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -360,7 +363,7 @@
     </cond>
   </skill>
   <skill id="23029" levels="1" name="Brown Maneki Neko Agathion Cute Trick I">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -408,11 +411,13 @@
       <player agathionId="1512"/>
     </cond>
     <for>
-      <effect name="Buff" time="300" val="0" stackOrder="1" stackType="none"/>
+      <effect name="Buff" time="300" val="0" abnormal="vitality" stackOrder="10" stackType="energy_up">
+        <sub order="0x40" stat="vitalityConsumeRate" val="10"/>
+      </effect>
     </for>
   </skill>
   <skill id="23033" levels="1" name="One-Eyed Bat Drove Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -460,7 +465,7 @@
     </for>
   </skill>
   <skill id="23036" levels="1" name="Pegasus Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -502,7 +507,7 @@
     </cond>
   </skill>
   <skill id="23039" levels="1" name="Yellow-Robed Tojigong Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -514,7 +519,7 @@
     </cond>
   </skill>
   <skill id="23040" levels="1" name="Blue-Robed Tojigong Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -526,7 +531,7 @@
     </cond>
   </skill>
   <skill id="23041" levels="1" name="Green-Robed Tojigong Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -539,10 +544,10 @@
   </skill>
   <skill id="23042" levels="1" name="Yellow-robed Tojigong Agathion Special Skill - Ability of Greater Heal">
     <!-- Recovers HP by 444 and increases HP Recovery by 30 for 15 seconds. Reuse Delay 4 hours -->
+    <set name="power" val="444"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="HEAL"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="power" val="100"/>
     <set name="hitTime" val="5000"/>
     <set name="staticHitTime" val="true"/>
     <set name="reuseDelay" val="14400000"/>
@@ -552,7 +557,7 @@
       <player agathionId="1515"/>
     </cond>
     <for>
-      <effect count="5" name="HealOverTime" val="15" stackOrder="15" stackType="LifeForce">
+      <effect name="Buff" time="15" val="0" stackOrder="1" stackType="hp_regen_up">
         <mul order="0x30" stat="regHp" val="1.3"/>
       </effect>
     </for>
@@ -591,12 +596,12 @@
     </cond>
     <for>
       <effect name="Buff" time="300" val="0">
-        <add order="0x40" stat="regMp" val="1.3"/>
+        <mul order="0x30" stat="regMp" val="1.03"/>
       </effect>
     </for>
   </skill>
   <skill id="23045" levels="1" name="Bugbear Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -608,7 +613,7 @@
     </cond>
   </skill>
   <skill id="23046" levels="1" name="White Maneki Neko Agathion Cute Trick II">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -620,7 +625,7 @@
     </cond>
   </skill>
   <skill id="23047" levels="1" name="Black Maneki Neko Agathion Cute Trick II">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -632,7 +637,7 @@
     </cond>
   </skill>
   <skill id="23048" levels="1" name="Brown Maneki Neko Agathion Cute Trick II">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -644,7 +649,7 @@
     </cond>
   </skill>
   <skill id="23049" levels="1" name="Red Sumo Wrestler Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -656,7 +661,7 @@
     </cond>
   </skill>
   <skill id="23050" levels="1" name="Blue Sumo Wrestler Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -668,7 +673,7 @@
     </cond>
   </skill>
   <skill id="23051" levels="1" name="Great Sumo Match Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -680,7 +685,7 @@
     </cond>
   </skill>
   <skill id="23052" levels="1" name="Button-Eyed Bear Doll Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -692,7 +697,7 @@
     </cond>
   </skill>
   <skill id="23053" levels="1" name="God of Fortune Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -704,7 +709,7 @@
     </cond>
   </skill>
   <skill id="23054" levels="1" name="Dryad Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -716,7 +721,7 @@
     </cond>
   </skill>
   <skill id="23055" levels="1" name="Wonboso Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -728,7 +733,7 @@
     </cond>
   </skill>
   <skill id="23056" levels="1" name="Daewoonso Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -773,7 +778,7 @@
     </cond>
     <for>
       <effect name="Buff" time="300" val="0" stackOrder="1" stackType="magic_critical_up">
-        <add order="0x40" stat="mCritRate" val="1"/>
+        <basemul order="0x30" stat="mCritRate" val="0.02"/>
       </effect>
     </for>
   </skill>
@@ -897,7 +902,7 @@
     </cond>
   </skill>
   <skill id="23067" levels="1" name="Pomona Agathion Cute Trick">
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -910,7 +915,7 @@
   </skill>
   <skill id="23068" levels="1" name="Pomona Agathion Special Skill - Mental Shield Ability">
     <!-- Increases resistance to hold/sleep/abnormal mental attacks by 50 for 10 minutes. Reuse Delay 1 hours -->
-    <table name="#vuln"> 0.5 </table>
+    <table name="#Vuln"> 0.5 </table>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
@@ -922,10 +927,9 @@
     </cond>
     <for>
       <effect name="Buff" time="600" val="0" stackOrder="50" stackType="MentalShield">
-        <mul order="0x30" stat="rootVuln" val="#vuln"/>
-        <mul order="0x30" stat="sleepVuln" val="#vuln"/>
-        <mul order="0x30" stat="confusionVuln" val="#vuln"/>
-        <mul order="0x30" stat="derangementVuln" val="#vuln"/>
+        <mul order="0x30" stat="rootVuln" val="#Vuln"/>
+        <mul order="0x30" stat="sleepVuln" val="#Vuln"/>
+        <mul order="0x30" stat="derangementVuln" val="#Vuln"/>
       </effect>
     </for>
   </skill>
@@ -972,9 +976,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23076" levels="1" name="Weaver Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1528"/>
+    </cond>
   </skill>
   <skill id="23077" levels="1" name="Weaver Agathion Special Skill - Power of the Golden Calf">
     <!-- For 20 minutes, receives help from the Golden Calf. Increases party members' Max HP by 60%, Max MP by 60%, Max CP by 60%, physical P. Def. by 30%, magic M. Def. by 30%, moving speed by 30, and physical P. Atk. by 20%. Decreases MP consumption during skill use by 10%. Reuse delay 5 minutes. Consumes 1 Girl's Soul Ore during skill use. -->
@@ -989,9 +1000,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23079" levels="1" name="Chon-chon Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1529"/>
+    </cond>
   </skill>
   <skill id="23080" levels="1" name="Chon-chon Agathion Special Skill - Great Warrior Soul Power">
     <!-- For five minutes, the Great Spirit increases critical attack damage by 20%, P.Atk. by 10% and moving speed by 20%.  Decreases the MP consumption of skills by 5%. -->
@@ -1000,9 +1018,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23081" levels="1" name="Tang-tang Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1530"/>
+    </cond>
   </skill>
   <skill id="23082" levels="1" name="Tang-tang Agathion Special Skill - Great Wizard Soul Power">
     <!-- For five minutes, the Great Spirit increases the casting speed by 20%, M.Atk. by 20%, M.Def. by 20% . Increases the probability of critical hits with magic attacks by 2% -->
@@ -1011,9 +1036,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23083" levels="1" name="Dancing Kid Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1531"/>
+    </cond>
   </skill>
   <skill id="23084" levels="1" name="Dancing Kid Agathion Special Skill - Great Adventurer Soul Power">
     <!-- For five minutes, the Great Spirit increases maximum HP by 20%, maximum MP by 20%, MP recovery bonus by 20%, HP recovery bonus by 20% and moving speed by 20% -->
@@ -1022,9 +1054,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23085" levels="1" name="Monkey King Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1532"/>
+    </cond>
   </skill>
   <skill id="23086" levels="1" name="Monkey King Agathion Special Skill - Great Wizard Soul Power">
     <!-- For five minutes, the Great Spirit increases the casting speed by 20%, M.Atk. by 20%, M.Def. by 20% . Increases the probability of critical magic attacks by 2% -->
@@ -1033,9 +1072,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23087" levels="1" name="Utanka Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1533"/>
+    </cond>
   </skill>
   <skill id="23088" levels="1" name="Utanka Agathion Special Skill - Great Warrior Soul Power">
     <!-- For five minutes, the Great Spirit increases critical attack damage by 20%, P.Atk. by 10% and P.Def. by 20%.  Bestows the ability to recover HP equal to 5% of the melee damage -->
@@ -1044,9 +1090,16 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="23089" levels="1" name="Bonus B Agathion Cute Trick">
-    <set name="target" val="TARGET_NONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="reuseDelay" val="300000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticReuse" val="true"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="DUMMY"/>
     <set name="operateType" val="OP_ACTIVE"/>
+    <cond msgId="2292">
+      <player agathionId="1534"/>
+    </cond>
   </skill>
   <skill id="23090" levels="1" name="Bonus B Agathion Special Skill - Great Adventurer Soul Power">
     <!-- For five minutes, the Great Spirit increases maximum HP by 20%, maximum MP by 20%, MP recovery bonus by 20%, HP recovery bonus by 20% and moving speed by 20% -->

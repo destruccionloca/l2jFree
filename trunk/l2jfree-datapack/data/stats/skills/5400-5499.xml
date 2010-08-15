@@ -101,8 +101,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
   </skill>
   <skill id="5413" levels="1" name="Performing Agathion - Beast Farm">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -114,8 +113,7 @@
     </cond>
   </skill>
   <skill id="5414" levels="1" name="Performing Agathion - Rainbow Clan Hall">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -127,8 +125,7 @@
     </cond>
   </skill>
   <skill id="5415" levels="1" name="Performing Agathion - Castle">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -140,8 +137,7 @@
     </cond>
   </skill>
   <skill id="5416" levels="1" name="Dark Cloud Mansion">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>

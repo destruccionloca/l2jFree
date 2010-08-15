@@ -378,8 +378,7 @@
     <set name="operateType" val="OP_PASSIVE"/>
   </skill>
   <skill id="5535" levels="1" name="Little Angel Cuteness Trick">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -391,8 +390,7 @@
     </cond>
   </skill>
   <skill id="5536" levels="1" name="Little Devil Cuteness Trick">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
@@ -404,8 +402,7 @@
     </cond>
   </skill>
   <skill id="5537" levels="1" name="Rudolph Cuteness Trick">
-    <!-- Needs to be verified -->
-    <set name="reuseDelay" val="20000"/>
+    <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
