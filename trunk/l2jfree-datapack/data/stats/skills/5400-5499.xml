@@ -458,6 +458,7 @@
   </skill>
   <skill id="5447" levels="7" name="Paralysis">
     <!-- Imbue Dark Seed effect -->
+    <set name="ignoreResists" val="true"/>
     <set name="isDebuff" val="true"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="power" val="100"/> <!-- Base Land Rate -->

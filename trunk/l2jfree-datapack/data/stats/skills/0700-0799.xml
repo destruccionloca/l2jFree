@@ -52,24 +52,21 @@
     <set name="effectRange" val="1100"/>
   </skill>
   <skill id="703" levels="1" name="Sacrifice Healer">
-    <!-- Regenerate party member's HP and MP by sacrificing yourself. Usable only when MP is under 10 percent. -->
-    <!-- Triggers skill 5602 -->
     <set name="magicLvl" val="74"/>
-    <set name="reuseDelay" val="70000"/>
+    <set name="reuseDelay" val="1800000"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="BUFF"/>
     <set name="skillRadius" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <cond msg="Only works when MP becomes 10 percent or lower.">
-      <player mp="10"/>
+    <cond msgId="113" addName="1">
+      <not>
+        <player mp="10"/>
+      </not>
     </cond>
     <for>
-      <effect name="Buff" count="1" time="30" val="0">
-        <mul order="0x30" stat="regHp" val="14.0"/>
-        <mul order="0x30" stat="regMp" val="11.0"/>
-      </effect>
+      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT"/>
     </for>
   </skill>
   <skill id="704" levels="1" name="Divine Enchanter Water Spirit">
@@ -219,28 +216,31 @@
     </for>
   </skill>
   <skill id="709" levels="1" name="Sacrifice Enchanter">
-    <!-- Increase all the party member's abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
-    <!-- Triggers skill 5602 -->
     <set name="magicLvl" val="74"/>
-    <set name="reuseDelay" val="70000"/>
+    <set name="reuseDelay" val="1800000"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="BUFF"/>
     <set name="skillRadius" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <cond msg="Only works when MP becomes 10 percent or lower.">
+    <cond msgId="113" addName="1">
       <player mp="10"/>
     </cond>
     <for>
-      <effect name="Buff" count="1" time="30" val="0">
-        <mul order="0x30" stat="maxHp" val="1.25"/>
-        <mul order="0x30" stat="maxMp" val="1.25"/>
-        <mul order="0x30" stat="maxCp" val="1.25"/>
-        <mul order="0x30" stat="gainHp" val="1.25"/>
-        <add order="0x40" stat="rCrit" val="35"/>
-        <add order="0x40" stat="runSpd" val="6"/>
-        <add order="0x40" stat="rEvas" val="2"/>
+      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x50" stat="limitHp" val="0.1"/>
+      </effect>
+      <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
+        <mul order="0x30" stat="pAtk" val="1.2"/> <!-- Guess -->
+        <mul order="0x30" stat="mAtk" val="1.2"/> <!-- Guess -->
+        <mul order="0x30" stat="pDef" val="1.2"/> <!-- Guess -->
+        <mul order="0x30" stat="mDef" val="1.2"/> <!-- Guess -->
+        <add order="0x40" stat="accCombat" val="2"/>
+        <basemul order="0x30" stat="rCrit" val="0.2"/> <!-- Guess -->
+        <mul order="0x30" stat="runSpd" val="1.2"/> <!-- Guess -->
+        <mul order="0x30" stat="pAtkSpd" val="1.2"/> <!-- Guess -->
+        <mul order="0x30" stat="mAtkSpd" val="1.15"/>
       </effect>
     </for>
   </skill>
@@ -325,25 +325,24 @@
     <set name="aggroPoints" val="780"/>
   </skill>
   <skill id="714" levels="1" name="Sacrifice Summoner">
-    <!-- Increase the party member's critical abilities by sacrificing yourself. Usable only when MP is under 10 percent. -->
-    <!-- Triggers skill 5602 -->
     <set name="magicLvl" val="74"/>
-    <set name="reuseDelay" val="70000"/>
+    <set name="reuseDelay" val="1800000"/>
     <set name="hitTime" val="2000"/>
     <set name="coolTime" val="1332"/>
     <set name="target" val="TARGET_PARTY"/>
     <set name="skillType" val="BUFF"/>
     <set name="skillRadius" val="1000"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <cond msg="Only works when MP becomes 10 percent or lower.">
+    <cond msgId="113" addName="1">
       <player mp="10"/>
     </cond>
     <for>
-      <effect name="Buff" count="1" time="30" val="0">
-        <add order="0x40" stat="rCrit" val="100"/>
-        <mul order="0x30" stat="blowRate" val="1.11"/>
-        <mul order="0x30" stat="mCritRate" val="1.15"/>
-        <mul order="0x30" stat="cAtk" val="1.25"/>
+      <effect self="1" name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="5602" triggeredLevel="1" chanceType="ON_EXIT">
+        <mul order="0x50" stat="limitHp" val="0.1"/>
+      </effect>
+      <effect name="Buff" count="1" time="30" val="0" stackOrder="1" stackType="transform_sacrifice">
+        <basemul order="0x30" stat="rCrit" val="0.2"/> <!-- Guess -->
+        <mul order="0x30" stat="cAtk" val="1.2"/> <!-- Guess -->
       </effect>
     </for>
   </skill>
@@ -1730,7 +1729,6 @@
     <set name="soulMaxConsumeCount" val="5"/>
   </skill>
   <skill id="791" levels="1" name="Lightning Shock">
-    <!-- TODO: Needs core-side support for ChanceSkillTrigger effect -->
     <set name="mpInitialConsume" val="10"/>
     <set name="mpConsume" val="41"/>
     <set name="power" val="1510"/>
@@ -1746,8 +1744,7 @@
     <set name="soulMaxConsumeCount" val="5"/>
     <set name="SSBoost" val="2.0"/>
     <for>
-      <effect name="Stun" time="9" val="0" effectPower="50" effectType="STUN" stackOrder="1" stackType="Stun"/>
-      <!-- effect name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="6092" triggeredLevel="1" chanceType="ON_EXIT" effectPower="40" effectType="PARALYZE"/ -->
+      <effect name="ChanceSkillTrigger" noicon="1" val="0" triggeredId="6092" triggeredLevel="1" chanceType="ON_EXIT" effectPower="40" effectType="PARALYZE"/>
     </for>
   </skill>
   <skill id="792" levels="1" name="Betrayal Mark">

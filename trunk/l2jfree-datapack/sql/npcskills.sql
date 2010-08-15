@@ -33994,6 +33994,13 @@ INSERT INTO `npcskills` VALUES
 (18620,5704,1),
 (18620,5755,1);
 
+-- Epic Dawn Quest
+INSERT INTO `npcskills` VALUES
+('27343','5975','3'),
+('27343','5976','3'),
+('27343','4416','9'),
+('27343','5467','1');
+
 -- L2jFree addons
 
 -- Skills shown in client; 100% accuracy
