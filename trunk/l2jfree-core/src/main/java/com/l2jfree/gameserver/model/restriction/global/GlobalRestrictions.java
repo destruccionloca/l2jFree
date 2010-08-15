@@ -240,7 +240,7 @@ public final class GlobalRestrictions
 			return true;
 		}
 		
-		if (activeChar.getMountType() == 2 && activeChar.isInsideZone(L2Zone.FLAG_NOWYVERN))
+		if (activeChar.getMountType() == 2 && activeChar.isInsideZone(L2Zone.FLAG_NOLANDING))
 		{
 			// TODO: msg
 			return true;
@@ -707,7 +707,7 @@ public final class GlobalRestrictions
 					player.sendEtcStatusUpdate();
 			}
 			//$FALL-THROUGH$
-			case L2Zone.FLAG_NOWYVERN:
+			case L2Zone.FLAG_NOLANDING:
 			{
 				if (player != null && player.getMountType() == 2)
 				{

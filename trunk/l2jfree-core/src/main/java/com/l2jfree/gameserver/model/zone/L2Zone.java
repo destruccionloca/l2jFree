@@ -18,9 +18,9 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.Map.Entry;
 
 import javolution.util.FastMap;
 
@@ -78,17 +78,27 @@ public class L2Zone implements FuncOwner
 		ALL
 	}
 	
+	/**
+	 * In area where players do not get flagged when attacking each other.
+	 * System messages are automatically sent when state changes.
+	 */
 	public static final byte FLAG_PVP = 0;
 	public static final byte FLAG_PEACE = 1;
 	public static final byte FLAG_SIEGE = 2;
 	public static final byte FLAG_MOTHERTREE = 3;
 	public static final byte FLAG_CLANHALL = 4;
 	public static final byte FLAG_NOESCAPE = 5;
-	public static final byte FLAG_NOWYVERN = 6;
+	public static final byte FLAG_NOLANDING = 6;
 	public static final byte FLAG_NOSTORE = 7;
 	public static final byte FLAG_WATER = 8;
 	public static final byte FLAG_FISHING = 9;
 	public static final byte FLAG_JAIL = 10;
+	/**
+	 * In olympiad stadium
+	 * @see com.l2jfree.gameserver.model.zone.L2StadiumZone
+	 * @see com.l2jfree.gameserver.model.L2Skill#getMultiFaceTargetList(L2Character)
+	 * @see com.l2jfree.gameserver.model.olympiad.Olympiad#playerInStadia(L2PcInstance)
+	 */
 	public static final byte FLAG_STADIUM = 11;
 	public static final byte FLAG_SUNLIGHTROOM = 12;
 	public static final byte FLAG_DANGER = 13;
@@ -99,7 +109,7 @@ public class L2Zone implements FuncOwner
 	public static final byte FLAG_LANDING = 18;
 	public static final byte FLAG_TOWN = 19;
 	public static final byte FLAG_SCRIPT = 20;
-	public static final byte FLAG_NO_HQ = 21;
+	public static final byte FLAG_NOHQ = 21;
 	public static final byte FLAG_SIZE = 22;
 	
 	/**
@@ -107,6 +117,7 @@ public class L2Zone implements FuncOwner
 	 * Tested on CT1 and CT1.5 NA retail
 	 */
 	public static final double WATER_MOVE_SPEED_BONUS = 0.55;
+	public static final int WYVERN_DISMOUNT_DELAY = 5000;
 	
 	private int _id;
 	private String _name;
@@ -127,8 +138,8 @@ public class L2Zone implements FuncOwner
 
 	/** Can't logout (including back to character selection menu); can't use SoE? */
 	private boolean _noEscape;
-	/** Can't use wyvern */
-	private boolean _noWyvern;
+	private boolean _noLanding;
+	private int _dismountDelay;
 	/** Fly transform zone (gracia) */
 	private boolean _landing;
 	private boolean _noPrivateStore;
@@ -240,6 +251,11 @@ public class L2Zone implements FuncOwner
 	protected final int[] getRemoveEnter()
 	{
 		return _removeEnter;
+	}
+	
+	protected final int getDismountDelay()
+	{
+		return _dismountDelay;
 	}
 	
 	private final FastMap<L2Character, Boolean> _charactersInside = new FastMap<L2Character, Boolean>().setShared(true);
@@ -412,8 +428,8 @@ public class L2Zone implements FuncOwner
 				character.setInsideZone(FLAG_PEACE, true);
 		}
 		
-		if (_noWyvern)
-			character.setInsideZone(FLAG_NOWYVERN, true);
+		if (_noLanding)
+			character.setInsideZone(FLAG_NOLANDING, true);
 		if (_noEscape)
 			character.setInsideZone(FLAG_NOESCAPE, true);
 		if (_noPrivateStore)
@@ -469,8 +485,8 @@ public class L2Zone implements FuncOwner
 			character.setInsideZone(FLAG_PEACE, false);
 		}
 		
-		if (_noWyvern)
-			character.setInsideZone(FLAG_NOWYVERN, false);
+		if (_noLanding)
+			character.setInsideZone(FLAG_NOLANDING, true);
 		if (_noEscape)
 			character.setInsideZone(FLAG_NOESCAPE, false);
 		if (_noPrivateStore)
@@ -1105,7 +1121,8 @@ public class L2Zone implements FuncOwner
 	protected void parseSettings(Node n) throws Exception
 	{
 		Node pvp = n.getAttributes().getNamedItem("pvp");
-		Node noWyvern = n.getAttributes().getNamedItem("noWyvern");
+		Node noLanding = n.getAttributes().getNamedItem("noWyvern");
+		Node dismountDelay = n.getAttributes().getNamedItem("dismountDelay");
 		Node landing = n.getAttributes().getNamedItem("landing");
 		Node noEscape = n.getAttributes().getNamedItem("noEscape");
 		Node noPrivateStore = n.getAttributes().getNamedItem("noPrivateStore");
@@ -1117,7 +1134,11 @@ public class L2Zone implements FuncOwner
 		Node uniqueId = n.getAttributes().getNamedItem("questZoneId");
 		
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
-		_noWyvern = (noWyvern != null) && Boolean.parseBoolean(noWyvern.getNodeValue());
+		_noLanding = (noLanding != null) && Boolean.parseBoolean(noLanding.getNodeValue());
+		if (_noLanding && dismountDelay != null)
+			_dismountDelay = Integer.parseInt(dismountDelay.getNodeValue()) * 1000;
+		else
+			_dismountDelay = WYVERN_DISMOUNT_DELAY;
 		_landing = (landing != null) && Boolean.parseBoolean(landing.getNodeValue());
 		_noEscape = (noEscape != null) && Boolean.parseBoolean(noEscape.getNodeValue());
 		_noPrivateStore = (noPrivateStore != null) && Boolean.parseBoolean(noPrivateStore.getNodeValue());

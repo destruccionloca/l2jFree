@@ -15,13 +15,15 @@
 package com.l2jfree.gameserver.model.zone;
 
 import com.l2jfree.gameserver.model.actor.L2Character;
+import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
 
-public class L2NoHQZone extends L2Zone
+public class L2NoLandingZone extends L2Zone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.setInsideZone(FLAG_NOHQ, true);
+		if (character instanceof L2PcInstance)
+			character.getActingPlayer().enteredNoWyvernZone(getDismountDelay());
 		
 		super.onEnter(character);
 	}
@@ -29,7 +31,8 @@ public class L2NoHQZone extends L2Zone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.setInsideZone(FLAG_NOHQ, false);
+		if (character instanceof L2PcInstance)
+			character.getActingPlayer().exitedNoWyvernZone();
 		
 		super.onExit(character);
 	}

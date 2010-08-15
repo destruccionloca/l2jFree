@@ -835,6 +835,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			_player = player;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_player == null)
@@ -913,6 +914,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		return player;
 	}
 
+	@Override
 	public String getAccountName()
 	{
 		if (getClient() == null)
@@ -4005,6 +4007,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
+		@Override
 		public void run()
 		{
 			L2GameClient client = getClient();
@@ -6203,7 +6206,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		}
 		else if (isMounted())
 		{
-			if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOWYVERN))
+			if (getMountType() == 2 && isInsideZone(L2Zone.FLAG_NOLANDING))
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				sendPacket(SystemMessageId.NO_DISMOUNT_HERE);
@@ -6374,6 +6377,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	/**
 	 * Return True if the L2PcInstance is a GM.<BR><BR>
 	 */
+	@Override
 	public boolean isGM()
 	{
 		return _isGm;
@@ -6399,6 +6403,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	/**
 	 * Return the _accessLevel of the L2PcInstance.<BR><BR>
 	 */
+	@Override
 	public int getAccessLevel()
 	{
 		return _accessLevel;
@@ -6467,6 +6472,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		RecordTable.getInstance().update();
 
 		SQLQueue.getInstance().add(new SQLQuery() {
+			@Override
 			public void execute(Connection con)
 			{
 				try
@@ -8417,10 +8423,10 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		return _mountType > 0;
 	}
 
-	public boolean checkCanLand()
+	public boolean checkLandingState()
 	{
 		// Check if char is in a no landing zone
-		if (isInsideZone(L2Zone.FLAG_NOWYVERN))
+		if (isInsideZone(L2Zone.FLAG_NOLANDING))
 			return false;
 
 		// If this is a castle that is currently being sieged, and the rider is NOT a castle owner
@@ -8504,6 +8510,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	class InventoryEnable implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			_inventoryDisabled = false;
@@ -8639,6 +8646,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	class WarnUserTakeBreak implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			sendPacket(SystemMessageId.PLAYING_FOR_LONG_TIME);
@@ -8647,6 +8655,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	class RentPetTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			stopRentPet();
@@ -8655,6 +8664,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	class WaterTask implements Runnable
 	{
+		@Override
 		@SuppressWarnings("deprecation")
 		public void run()
 		{
@@ -8687,6 +8697,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			_isUpperGrade = isUpperGrade;
 		}
 
+		@Override
 		public void run()
 		{
 			if (System.currentTimeMillis() >= _endTaskTime)
@@ -9464,6 +9475,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	/** Section for mounted pets */
 	class FeedTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			try
@@ -9607,6 +9619,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	public class dismount implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			dismount();
@@ -9615,7 +9628,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 	
 	public void enteredNoWyvernZone()
 	{
-		enteredNoWyvernZone(5000);
+		enteredNoWyvernZone(L2Zone.WYVERN_DISMOUNT_DELAY);
 	}
 
 	public void enteredNoWyvernZone(int delay)
@@ -10105,7 +10118,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		if (_taskRentPet != null)
 		{
 			// If the rent of a wyvern expires while over a flying zone, tp to down before unmounting
-			if (getMountType() == 2 && !checkCanLand())
+			if (getMountType() == 2 && !checkLandingState())
 				teleToLocation(TeleportWhereType.Town);
 
 			if (dismount()) // This should always be true now, since we teleported already
@@ -12018,6 +12031,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	private class JailTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			setInJail(false, 0);
@@ -12206,6 +12220,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	public class ChargeTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			clearCharges();
@@ -12359,6 +12374,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	private class SoulTask implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			clearSouls();
@@ -12424,6 +12440,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 			_value = value;
 		}
 
+		@Override
 		public void run()
 		{
 			if (isDead() && !Config.ALT_FAME_FOR_DEAD_PLAYERS)
@@ -13020,6 +13037,7 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 
 	private final class AutoSave implements Runnable
 	{
+		@Override
 		public void run()
 		{
 			long period = Config.CHAR_STORE_INTERVAL * 60000L;
