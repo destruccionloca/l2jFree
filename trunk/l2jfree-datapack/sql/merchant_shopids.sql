@@ -692,11 +692,15 @@ INSERT INTO `merchant_shopids` VALUES
 ('10000', 'gm'), -- Masterwork Armor B
 ('10001', 'gm'), -- Masterwork Armor A
 ('10002', 'gm'), -- Masterwork Armor S
-('10003', 'gm'); -- Masterwork Armor S80
+('10003', 'gm'), -- Masterwork Armor S80
+('10004', 'gm'), -- Agathions
+('10005', 'gm'), -- Mounts
+('10006', 'gm'); -- Event Masks
 
 -- L2J-Free Add-ons
--- Edit: Left these here in case you wanna add them to the new GMShop
--- GM Shop Addition bySkatershi
+-- Edit: Left these here in case you wanna add them to the new GM Shop
+-- GM Shop Addition by Skatershi
+
 INSERT INTO `merchant_shopids` VALUES
 (71040, 'gm'), -- Interlude Spellbooks
 (71041, 'gm'), -- Interlude Recipes

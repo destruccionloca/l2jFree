@@ -388,6 +388,7 @@
     <set name="magicLvl" val="80"/>
     <set name="mpInitialConsume" val="42"/>
     <set name="mpConsume" val="171"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="5000"/> <!-- Guessing -->
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_ONE"/>
@@ -441,6 +442,7 @@
     <set name="magicLvl" val="80"/>
     <set name="mpInitialConsume" val="42"/>
     <set name="mpConsume" val="171"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="4000"/> <!-- Guess -->
     <set name="SSBoost" val="2.0"/>
     <set name="target" val="TARGET_ONE"/>
@@ -503,6 +505,7 @@
     <set name="magicLvl" val="80"/>
     <set name="mpInitialConsume" val="42"/>
     <set name="mpConsume" val="171"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="4000"/> <!-- Guessing -->
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="8000"/>

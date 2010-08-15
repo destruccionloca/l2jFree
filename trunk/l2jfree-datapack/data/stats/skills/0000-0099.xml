@@ -14,6 +14,7 @@
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>
@@ -66,6 +67,7 @@
     <table name="#power"> 30 32 35 46 61 65 71 78 84 </table>
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
@@ -106,6 +108,7 @@
     <table name="#power"> 918 971 1025 1081 1140 1200 1262 1327 1393 1461 1531 1603 1677 1753 1830 1908 1988 2070 2153 2237 2322 2408 2494 2581 2669 2757 2846 2934 3022 3109 3196 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="SSBoost" val="2.0"/>
@@ -246,6 +249,7 @@
     <table name="#power"> 111 118 124 132 139 147 155 163 172 181 190 199 209 219 229 240 251 262 273 284 296 308 320 332 344 357 369 382 394 407 420 432 445 457 </table>
     <set name="weaponsAllowed" val="18956"/> <!-- Dual Sword/Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="itemConsumeId" val="5589"/>
@@ -388,8 +392,9 @@
     <table name="#power"> 73 80 88 115 126 137 178 193 210 268 291 314 367 396 427 494 531 571 656 703 752 859 916 977 </table>
     <table name="#magicLvl"> 3 4 5 8 9 10 13 14 15 18 19 20 22 23 24 26 27 28 30 31 32 34 35 36 </table>
     <set name="weaponsAllowed" val="16"/> <!-- Dagger -->
-    <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
+    <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="1.05"/>
@@ -413,6 +418,7 @@
     <table name="#power"> 129 137 145 153 162 171 181 190 200 211 222 233 244 256 268 280 293 305 318 332 345 359 373 387 402 416 431 445 460 475 489 504 519 533 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="itemConsumeId" val="5589"/>
@@ -677,6 +683,7 @@
     <table name="#power"> 34 38 41 54 59 64 83 91 98 125 136 147 171 185 199 231 248 267 307 328 351 401 428 456 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="overHit" val="true"/>
@@ -699,6 +706,7 @@
     <table name="#magicLvl"> 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="condition" val="24"/> <!-- Behind/Crit -->
@@ -1371,6 +1379,7 @@
     <table name="#power"> 4580 6332 9132 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="hpConsume" val="#hpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>

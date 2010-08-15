@@ -35,6 +35,7 @@
     <table name="#mpConsume"> 73 93 113 131 150 172 183 194 204 </table>
     <table name="#magicLvl"> 28 36 43 49 55 62 66 70 74 </table>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="target" val="TARGET_AREA"/>
     <set name="skillRadius" val="200"/>
@@ -417,6 +418,7 @@
     <table name="#hpConsume"> 208 212 212 217 221 225 229 233 237 240 244 248 251 255 258 261 </table>
     <set name="weaponsAllowed" val="18432"/> <!-- Big Sword/Big Blunt -->
     <set name="hpConsume" val="#hpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>
@@ -581,6 +583,7 @@
     <table name="#power"> 2751 2850 2950 3050 3151 3252 3353 3453 3553 3653 </table>
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="condition" val="16"/> <!-- Crit -->
@@ -992,6 +995,7 @@
     <table name="#ench2power"> 80 81 81 82 83 83 84 85 85 86 87 87 88 89 90 </table>
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="magicLvl" val="78"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="hpConsume" val="669"/>
     <set name="isDebuff" val="true"/>
     <set name="lvlDepend" val="1"/>
@@ -1052,6 +1056,7 @@
     <table name="#ench7duel"> 1.01 1.02 1.02 1.03 1.04 1.04 1.05 1.06 1.06 1.07 1.08 1.08 1.09 1.1 1.11 </table> <!-- Need Verify -->
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpConsume" val="77"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="76"/>
     <set name="power" val="5773"/>
     <set name="reuseDelay" val="4000"/>
@@ -1083,6 +1088,7 @@
     <set name="magicLvl" val="78"/>
     <set name="hpConsume" val="50"/>
     <set name="mpConsume" val="5"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="overHit" val="true"/>
     <set name="hitTime" val="1500"/>
@@ -1101,6 +1107,7 @@
     <set name="magicLvl" val="78"/>
     <set name="hpConsume" val="50"/>
     <set name="mpConsume" val="5"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="overHit" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="hitTime" val="1500"/>
@@ -1150,6 +1157,7 @@
   <skill id="348" levels="1" name="Spoil Crush">
     <set name="weaponsAllowed" val="16392"/> <!-- Blunt/Big Blunt -->
     <set name="mpConsume" val="70"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="76"/>
     <set name="overHit" val="true"/>
     <set name="power" val="5"/>
@@ -1238,6 +1246,7 @@
     <table name="#enchRes"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 </table> <!-- Guess -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="mpConsume" val="18"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="80"/> <!-- Base Land Rate -->
     <set name="magicLvl" val="77"/>
     <set name="lvlDepend" val="2"/>
@@ -1284,6 +1293,7 @@
     <table name="#enchRes"> 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 </table> <!-- Guess -->
     <set name="weaponsAllowed" val="2"/> <!-- Shield -->
     <set name="mpConsume" val="35"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="40"/> <!-- Base Land Rate -->
     <set name="magicLvl" val="77"/>
     <set name="lvlDepend" val="1"/>
@@ -1656,6 +1666,7 @@
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="35"/>
     <set name="hpConsume" val="338"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="3077"/>
     <set name="magicLvl" val="77"/>
     <set name="lvlDepend" val="1"/>

@@ -372,6 +372,7 @@
     <table name="#mpConsume"> 55 61 66 71 </table>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="SSBoost" val="2.0"/>
     <set name="power" val="700"/> <!-- Guess -->
     <set name="hitTime" val="1000"/>

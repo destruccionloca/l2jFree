@@ -450,6 +450,7 @@
     <table name="#power"> 42 46 49 57 62 67 77 83 89 103 110 117 134 143 152 </table>
     <set name="weaponsAllowed" val="1024"/> <!-- Dual Fist -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="lvlDepend" val="2"/>
@@ -1018,6 +1019,7 @@
     <table name="#power"> 738 784 833 884 937 992 1049 1109 1171 1236 1302 1371 1443 1516 1592 1670 1750 1832 1917 2003 2091 2181 2272 2366 2460 2556 2653 2751 2850 2950 3050 3151 3252 3353 3453 3553 3653 </table>
     <set name="weaponsAllowed" val="18444"/> <!-- Sword/Big Sword/Blunt/Big Blunt -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="magicLvl" val="#magicLvl"/>
     <set name="power" val="#power"/>
     <set name="ignoreShld" val="true"/>

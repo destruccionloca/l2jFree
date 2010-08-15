@@ -25,6 +25,7 @@
     <table name="#power"> 9503 9702 9896 10084 10266 10440 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="#power"/>
     <set name="magicLvl" val="83"/>
     <set name="target" val="TARGET_ONE"/>
@@ -486,6 +487,7 @@
     <set name="weaponsAllowed" val="16392"/> <!-- Blunt/Big Blunt -->
     <set name="mpInitialConsume" val="3"/>
     <set name="mpConsume" val="15"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="target" val="TARGET_ONE"/>
     <set name="reuseDelay" val="3000"/>
     <set name="hitTime" val="1000"/>
@@ -503,10 +505,10 @@
     <set name="weaponsAllowed" val="262160"/> <!-- Dagger/Dual Daggers -->
     <set name="mpInitialConsume" val="15"/>
     <set name="mpConsume" val="61"/>
-    <set name="magicLvl" val="81"/> <!-- As a level 81 skill -->
+    <set name="magicLvl" val="81"/>
     <set name="power" val="7546"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="condition" val="16"/> <!-- Crit Condition, like in others blows-->
+    <set name="condition" val="16"/> <!-- Crit Condition -->
     <set name="reuseDelay" val="12000"/>
     <set name="hitTime" val="1000"/>
     <set name="skillType" val="BLOW"/>
@@ -945,6 +947,7 @@
     <table name="#power"> 2057 2164 2274 2388 2505 2625 2748 2875 3004 3136 3271 3408 3548 3690 3834 3980 4127 4275 4425 4575 4726 4878 5029 5180 5330 5479 5627 5773 5918 6060 6199 6335 6468 6598 6723 6844 6960 </table>
     <set name="weaponsAllowed" val="512"/> <!-- Dual Sword -->
     <set name="mpConsume" val="#mpConsume"/>
+    <set name="nextActionAttack" val="true"/>
     <set name="power" val="#power"/>
     <set name="reuseDelay" val="75000"/> <!-- Guess -->
     <set name="hitTime" val="1733"/>
