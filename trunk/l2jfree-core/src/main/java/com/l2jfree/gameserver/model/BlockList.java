@@ -31,8 +31,6 @@ public final class BlockList
 	private final L2PcInstance _owner;
 	private final Set<String> _set;
 	
-	private boolean _blockingAll = false;
-	
 	public BlockList(L2PcInstance owner)
 	{
 		_owner = owner;
@@ -87,7 +85,7 @@ public final class BlockList
 		if (player == null || player.isGM())
 			return false;
 		
-		return _blockingAll || _set.contains(player.getName());
+		return _owner.getMessageRefusal() || _set.contains(player.getName());
 	}
 	
 	public static boolean isBlocked(L2PcInstance listOwner, L2PcInstance player)
@@ -97,9 +95,9 @@ public final class BlockList
 	
 	public void setBlockingAll(boolean blockingAll)
 	{
-		_blockingAll = blockingAll;
+		_owner.setMessageRefusal(blockingAll);
 		
-		if (_blockingAll)
+		if (blockingAll)
 			_owner.sendPacket(SystemMessageId.MESSAGE_REFUSAL_MODE);
 		else
 			_owner.sendPacket(SystemMessageId.MESSAGE_ACCEPTANCE_MODE);
@@ -115,5 +113,4 @@ public final class BlockList
 		
 		_owner.sendMessage("");
 	}
-	
 }
