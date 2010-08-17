@@ -14387,7 +14387,6 @@ public enum SystemMessageId
 	 * Message: You have selected a 3 vs 3 class irrelevant team match. Do you wish to participate? +
 	 */
 	//OLYMPIAD_3VS3_CONFIRM(2465),
-	
 	/**
 	 * ID: 2466<BR>
 	 * Console Message: A pet on auxiliary mode cannot use skills.
@@ -15224,7 +15223,6 @@ public enum SystemMessageId
 	 * Console Message: You cannot purchase the airship because you do not meet the requirements.
 	 */
 	// CANT_PURCHASE_AIRSHIP(2726),
-	
 	/**
 	 * ID: 2727<br>
 	 * Message: You cannot mount because you do not meet the requirements.
@@ -15636,7 +15634,7 @@ public enum SystemMessageId
 	 */
 	TERRITORY_WAR_CHANNEL_FUNCTIONS_DEACTIVATED(2794),
 	
- 	/**
+	/**
 	 * ID: 2795<br>
 	 * Message: You've already requested a territory war in another territory elsewhere.
 	 */
@@ -15666,7 +15664,6 @@ public enum SystemMessageId
 	 */
 	THE_TERRITORY_WAR_WILL_END_IN_S1_MINUTES(2799),
 	
-	
 	/**
 	 * ID: 2900<br>
 	 * Message: $s1-second(s) to the end of territory war!
@@ -15684,7 +15681,6 @@ public enum SystemMessageId
 	 * Message: Territory war has ended.
 	 */
 	TERRITORY_WAR_HAS_ENDED(2904),
-	
 	
 	/**
 	 * ID: 2911 You've requested $c1 to be on your Friends List.
@@ -15704,13 +15700,11 @@ public enum SystemMessageId
 	 */
 	CLAN_S1_CAPTURED_S2_WARD(2913),
 	
-	
 	/**
 	 * ID: 2914<br>
 	 * Message: The territory war will begin in 20 minutes! Territory related functions (ie: battlefield channel, Disguise Scrolls, Transformations, etc...) can now be used.
 	 */
 	TERRITORY_WAR_BEGINS_IN_20_MINUTES(2914),
-	
 	
 	/**
 	 * ID: 2924<br>
@@ -15889,14 +15883,11 @@ public enum SystemMessageId
 	 */
 	S2_UNITS_OF_S1_REQUIRED(2961),
 	
-	
 	/**
 	 * ID: 2966<br>
 	 * Message: This is a Payment Request transaction. Please attach the item.
 	 */
 	PAYMENT_REQUEST_NO_ITEM(2966),
-	
-
 	
 	/**
 	 * ID: 2968<br>
@@ -16006,21 +15997,17 @@ public enum SystemMessageId
 	 */
 	CANT_CANCEL_DURING_ENCHANT(2985),
 	
-	
 	/**
 	 * ID: 2988<br>
 	 * Message: You could not cancel receipt because your inventory is full.
 	 */
 	CANT_CANCEL_INVENTORY_FULL(2988),
 	
-
-	
 	/**
 	 * ID: 3002<br>
 	 * Message: When the recipient doesn't exist or the character is deleted, sending mail is not possible.
 	 */
 	RECIPIENT_NOT_EXIST(3002),
-
 	
 	/**
 	 * ID: 3008<br>
@@ -16075,7 +16062,6 @@ public enum SystemMessageId
 	 * Message: Item selection is possible up to 8.
 	 */
 	ITEM_SELECTION_POSSIBLE_UP_TO_8(3016),
-
 	
 	/**
 	 * ID: 3019<br>
@@ -16088,8 +16074,6 @@ public enum SystemMessageId
 	 * Message: When not entering the amount for the payment request, you cannot send any mail.
 	 */
 	PAYMENT_AMOUNT_NOT_ENTERED(3020),
-	
-
 	
 	/**
 	 * ID: 3025<br>
@@ -16127,15 +16111,11 @@ public enum SystemMessageId
 	 */
 	YOU_CANT_CANCEL_RECEIVED_MAIL(3030),
 	
-
-	
 	/**
 	 * ID: 3059<br>
 	 * Message: $s1 did not receive it during the waiting time, so it was returned automatically.
 	 */
 	S1_NOT_RECEIVE_DURING_WAITING_TIME_MAIL_RETURNED(3059),
-	
-
 	
 	/**
 	 * ID: 3062<br>
@@ -16154,8 +16134,6 @@ public enum SystemMessageId
 	 * Message: There is an unread mail.
 	 */
 	UNREAD_MAIL(3064),
-	
-
 	
 	/**
 	 * ID: 3066<br>
@@ -16181,8 +16159,6 @@ public enum SystemMessageId
 	 */
 	DO_YOU_WANT_TO_CANCEL_TRANSACTION(3069),
 	
-	
-
 	/**
 	 * ID: 3072<br>
 	 * Message: $s1 acquired the attached item to your mail.
@@ -16206,8 +16182,6 @@ public enum SystemMessageId
 	 * Message: The allowed length for a title exceeded.
 	 */
 	ALLOWED_LENGTH_FOR_TITLE_EXCEEDED(3075),
-	
-
 	
 	/**
 	 * ID: 3077<br>

@@ -699,14 +699,14 @@ public final class GlobalRestrictions
 					activeChar.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE);
 				else
 					activeChar.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
+				break;
 			}
-			//$FALL-THROUGH$
 			case L2Zone.FLAG_DANGER:
 			{
 				if (player != null)
 					player.sendEtcStatusUpdate();
+				break;
 			}
-			//$FALL-THROUGH$
 			case L2Zone.FLAG_NOLANDING:
 			{
 				if (player != null && player.getMountType() == 2)
@@ -716,6 +716,7 @@ public final class GlobalRestrictions
 					else
 						player.exitedNoWyvernZone();
 				}
+				break;
 			}
 		}
 		

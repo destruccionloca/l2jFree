@@ -288,21 +288,21 @@
     </for>
     <enchant1for>
       <effect name="ImmobileBuff" time="#ench1time" val="0" abnormal="invulnerable" stackOrder="1" stackType="pd_up_special">
-        <add order="0x40" stat="pDef" val="#enchp123Def"/>
+        <add order="0x40" stat="pDef" val="#ench123pDef"/>
         <add order="0x40" stat="mDef" val="#ench123mDef"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </enchant1for>
     <enchant2for>
       <effect name="ImmobileBuff" time="30" val="0" abnormal="invulnerable" stackOrder="1" stackType="pd_up_special">
-        <add order="0x40" stat="pDef" val="#enchp123Def"/>
+        <add order="0x40" stat="pDef" val="#ench123pDef"/>
         <add order="0x40" stat="mDef" val="#ench123mDef"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
       </effect>
     </enchant2for>
     <enchant3for>
       <effect name="Buff" time="30" val="0" abnormal="invulnerable" stackOrder="1" stackType="pd_up_special">
-        <add order="0x40" stat="pDef" val="#enchp123Def"/>
+        <add order="0x40" stat="pDef" val="#ench123pDef"/>
         <add order="0x40" stat="mDef" val="#ench123mDef"/>
         <mul order="0x30" stat="cancelVuln" val="0.2"/>
         <mul order="0x30" stat="runSpd" val="#ench3runSpdPenalty"/>

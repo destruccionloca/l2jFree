@@ -313,6 +313,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (InstanceManager.getInstance().getInstance(getInstanceId()).isPvPInstance())
 					return false;
+				break;
 			}
 		}
 		
