@@ -701,7 +701,7 @@
       <player agathionId="16057"/>
     </cond>
   </skill>
-  <skill id="5958" levels="1" name="Agathion Cute Trick - Boy Teddy Bear">
+  <skill id="5958" levels="1" name="Agathion Cute Trick - Teddy Bear Boy">
     <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>
@@ -713,7 +713,7 @@
       <player agathionId="16059"/>
     </cond>
   </skill>
-  <skill id="5959" levels="1" name="Agathion Cute Trick - Girl Teddy Bear">
+  <skill id="5959" levels="1" name="Agathion Cute Trick - Teddy Bear Girl">
     <set name="reuseDelay" val="300000"/>
     <set name="hitTime" val="3000"/>
     <set name="staticReuse" val="true"/>

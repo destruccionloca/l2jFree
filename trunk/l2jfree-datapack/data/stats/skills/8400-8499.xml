@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "../../templates/skills.dtd">
+<list>
+  <skill id="8458" levels="1" name="Bracelet Weight Gauge Add">
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+  <skill id="8464" levels="1" name="Release the Seal on Agathion - Kid Rudolph">
+    <set name="reuseDelay" val="3000"/>
+    <set name="hitTime" val="3000"/>
+    <set name="staticHitTime" val="true"/>
+    <set name="target" val="TARGET_SELF"/>
+    <set name="skillType" val="AGATHION"/>
+    <set name="operateType" val="OP_ACTIVE"/>
+    <set name="npcId" val="1538"/>
+  </skill>
+  <skill id="8465" levels="1" name="Notifier">
+    <!-- It's time to return Santa Claus's gift that the Agathions gave you -->
+    <set name="target" val="TARGET_NONE"/>
+    <set name="skillType" val="NOTDONE"/>
+    <set name="operateType" val="OP_PASSIVE"/>
+  </skill>
+</list>
