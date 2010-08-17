@@ -50,7 +50,7 @@ public class ChatWhisper implements IChatHandler
 	{
 		L2PcInstance receiver = L2World.getInstance().getPlayer(target);
 
-		if (receiver != null && !receiver.isSilenceMode())
+		if (receiver != null && !(receiver.isGM() && receiver.getAppearance().isInvisible()))
 		{
 			if (!BlockList.isBlocked(receiver, activeChar) || activeChar.isGM())
 			{

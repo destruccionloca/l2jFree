@@ -13495,9 +13495,9 @@ public final class L2PcInstance extends L2Playable implements ICharacterInfo
 		// Are traps invisible for other chars than owner?
 		if (cha instanceof L2Trap)
 		{
-			final L2Trap trap = (L2Trap)cha;
+			final L2Trap trap = (L2Trap) cha;
 			
-			if (!trap.isDetected())
+			if (!trap.isDetected(this))
 				return false;
 		}
 		

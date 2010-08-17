@@ -26,11 +26,7 @@ public class Trap implements ISkillHandler
 {
 	private static final L2SkillType[]	SKILL_IDS	=
 													{ L2SkillType.DETECT_TRAP, L2SkillType.REMOVE_TRAP };
-
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.handler.ISkillHandler#useSkill(com.l2jfree.gameserver.model.actor.L2Character, com.l2jfree.gameserver.model.L2Skill, com.l2jfree.gameserver.model.actor.L2Character...)
-	 */
+	
 	@Override
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Character... targets)
 	{
@@ -45,17 +41,16 @@ public class Trap implements ISkillHandler
 				{
 					if (!(element instanceof L2TrapInstance))
 						continue;
-	
+					
 					L2TrapInstance target = (L2TrapInstance) element;
-	
 					if (target.isAlikeDead())
 						continue;
-	
+					
 					if (target.getLevel() <= skill.getPower())
 					{
-						target.setDetected();
+						target.setDetected(activeChar);
 						if (activeChar instanceof L2PcInstance)
-							((L2PcInstance)activeChar).sendMessage("A Trap has been detected!");
+							activeChar.getActingPlayer().sendMessage("A Trap has been detected!");
 					}
 				}
 				break;
@@ -66,30 +61,20 @@ public class Trap implements ISkillHandler
 				{
 					if (!(element instanceof L2TrapInstance))
 						continue;
-	
+					
 					L2TrapInstance target = (L2TrapInstance) element;
-	
-					if (!target.isDetected())
+					
+					if (!target.isDetected(activeChar) || target.getLevel() > skill.getPower())
 						continue;
-	
-					if (target.getLevel() > skill.getPower())
-						continue;
-	
-					L2PcInstance trapOwner = null;
-					trapOwner = target.getOwner();
-	
-					target.unSummon(trapOwner);
+					target.unSummon();
+					
 					if (activeChar instanceof L2PcInstance)
-						activeChar.sendPacket(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED);
+						activeChar.getActingPlayer().sendPacket(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED);
 				}
 			}
 		}
 	}
-
-	/**
-	 * 
-	 * @see com.l2jfree.gameserver.handler.ISkillHandler#getSkillIds()
-	 */
+	
 	@Override
 	public L2SkillType[] getSkillIds()
 	{

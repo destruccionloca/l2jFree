@@ -147,7 +147,7 @@ public final class L2TrapInstance extends L2Trap
 	@Override
 	protected boolean checkTarget(L2Character target)
 	{
-		if (!L2Skill.checkForAreaOffensiveSkills(this, target, getSkill(), _isInArena))
+		if (!L2Skill.checkAoEOffensiveSkillTarget(this, target, getSkill()))
 			return false;
 		
 		if (_isInArena)

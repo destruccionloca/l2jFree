@@ -51,7 +51,7 @@ public class SiegeFlag extends ISkillConditionChecker
 		
 		final L2PcInstance player = (L2PcInstance) activeChar;
 		
-		if (player.isInsideZone(L2Zone.FLAG_NO_HQ))
+		if (player.isInsideZone(L2Zone.FLAG_NOHQ))
 		{
 			player.sendPacket(SystemMessageId.NOT_SET_UP_BASE_HERE);
 			return false;

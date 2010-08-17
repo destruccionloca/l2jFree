@@ -14,6 +14,9 @@
  */
 package com.l2jfree.gameserver.model.actor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.l2jfree.gameserver.ThreadPoolManager;
 import com.l2jfree.gameserver.model.L2Skill;
 import com.l2jfree.gameserver.model.actor.instance.L2PcInstance;
@@ -38,6 +41,8 @@ public class L2Trap extends L2Character
 	private final int _lifeTime;
 	private int _timeRemaining;
 	
+	private List<L2Character> _detectors;
+	
 	/**
 	 * @param objectId
 	 * @param template
@@ -55,6 +60,8 @@ public class L2Trap extends L2Character
 		_skill = skill;
 		_lifeTime = lifeTime == 0 ? 30000 : lifeTime;
 		_timeRemaining = _lifeTime;
+		
+		_detectors = null;
 		
 		ThreadPoolManager.getInstance().schedule(new TrapTask(), TICK);
 	}
@@ -154,6 +161,11 @@ public class L2Trap extends L2Character
 	{
 		decayMe();
 		getKnownList().removeAllKnownObjects();
+		if (_detectors != null)
+		{
+			_detectors.clear();
+			_detectors = null;
+		}
 	}
 	
 	/**
@@ -245,7 +257,18 @@ public class L2Trap extends L2Character
 	 */
 	public void setDetected(L2Character detector)
 	{
+		if (_detectors == null)
+			_detectors = new ArrayList<L2Character>();
+		_detectors.add(detector);
 		sendInfo(detector.getActingPlayer());
+	}
+	
+	public boolean isDetected(L2Character cha)
+	{
+		if (cha == getOwner())
+			return true;
+		else
+			return _detectors != null ? _detectors.contains(cha) : false;
 	}
 	
 	/**
@@ -256,7 +279,7 @@ public class L2Trap extends L2Character
 	 */
 	protected boolean checkTarget(L2Character target)
 	{
-		return L2Skill.checkForAreaOffensiveSkills(this, target, _skill, false);
+		return L2Skill.checkAoEOffensiveSkillTarget(this, target, _skill);
 	}
 	
 	private class TrapTask implements Runnable
