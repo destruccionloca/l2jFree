@@ -8,23 +8,23 @@ from com.l2jfree.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "242_PossessorOfAPreciousSoul_2"
 
 #NPC
-VIRGIL = 31742
-KASSANDRA = 31743
-OGMAR = 31744
-FALLEN_UNICORN = 31746
-PURE_UNICORN = 31747
-CORNERSTONE = 31748
+VIRGIL            = 31742
+KASSANDRA         = 31743
+OGMAR             = 31744
+FALLEN_UNICORN    = 31746
+PURE_UNICORN      = 31747
+CORNERSTONE       = 31748
 MYSTERIOUS_KNIGHT = 31751
-ANGEL_CORPSE = 31752
-KALIS = 30759
-MATILD = 30738
+ANGEL_CORPSE      = 31752
+KALIS             = 30759
+MATILD            = 30738
 
 #QUEST ITEM
-VIRGILS_LETTER = 7677
-GOLDEN_HAIR = 7590
-ORB_OF_BINDING = 7595
+VIRGILS_LETTER     = 7677
+GOLDEN_HAIR        = 7590
+ORB_OF_BINDING     = 7595
 SORCERY_INGREDIENT = 7596
-CARADINE_LETTER = 7678
+CARADINE_LETTER    = 7678
 
 #CHANCE FOR HAIR DROP
 CHANCE_FOR_HAIR = 20
@@ -202,7 +202,7 @@ class Quest (JQuest) :
    return htmltext
 
  def onKill(self,npc,player,isPet):
-    # get a random party member that awaits for drops from this quest 
+    # get a random party member that awaits for drops from this quest
     partyMember = self.getRandomPartyMember(player,"awaitsDrops","1")
     if not partyMember : return
     st = partyMember.getQuestState(qn)
@@ -211,7 +211,7 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_itemget")
       if st.getQuestItemsCount(ORB_OF_BINDING) == 5 :
           st.unset("awaitsDrops")
-    return 
+    return
 
 QUEST       = Quest(242,qn,"Possessor of a Precious Soul - 2")
 

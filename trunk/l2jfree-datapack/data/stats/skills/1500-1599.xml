@@ -345,10 +345,10 @@
     </enchant2for>
   </skill>
   <skill id="1515" levels="1" name="Lightning Barrier" enchantLevels1="15" enchantLevels2="15" enchantLevels3="15">
-    <table name="#ench1power"> 11 11 12 12 13 14 14 15 16 16 17 18 18 19 20 </table> <!-- Need Verify -->
+    <table name="#ench1activationChance"> 11 11 12 12 13 14 14 15 16 16 17 18 18 19 20 </table> <!-- Need Verify -->
     <table name="#ench2mpInitialConsume"> 7 6 6 6 6 6 5 5 5 5 5 4 4 4 4 </table>
     <table name="#ench2mpConsume"> 28 26 26 25 24 24 22 21 20 20 20 18 17 16 16 </table>
-    <table name="#ench3Chance"> 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 </table> <!-- Need Verify -->
+    <table name="#ench3triggeredLevel"> 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 </table> <!-- Need Verify -->
     <set name="mpInitialConsume" val="7"/>
     <set name="mpConsume" val="29"/>
     <set name="isMagic" val="true"/>
@@ -363,10 +363,10 @@
       <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" chanceType="ON_ATTACKED" activationChance="10"/>
     </for>
     <enchant1for>
-      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" chanceType="ON_ATTACKED" activationChance="#ench1power"/>
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" chanceType="ON_ATTACKED" activationChance="#ench1activationChance"/>
     </enchant1for>
     <enchant3for>
-      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" triggeredLevel="#ench3Chance" chanceType="ON_ATTACKED" activationChance="10"/>
+      <effect name="ChanceSkillTrigger" time="1200" val="0" triggeredId="5592" triggeredLevel="#ench3triggeredLevel" chanceType="ON_ATTACKED" activationChance="10"/>
     </enchant3for>
   </skill>
   <skill id="1516" levels="1" name="Soul Strike" enchantLevels1="15" enchantLevels2="15">

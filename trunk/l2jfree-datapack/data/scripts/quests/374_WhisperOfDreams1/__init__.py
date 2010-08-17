@@ -90,7 +90,7 @@ class Quest (JQuest) :
     elif int(event) in SHOP_LIST.keys() :
        st.set("allow","0")
        st.rewardItems(57,SHOP_LIST[int(event)][2])
-       st.giveItems(int(event),SHOP_LIST[int(event)][1])
+       st.rewardItems(int(event),SHOP_LIST[int(event)][1])
        st.playSound("ItemSound.quest_finish")
        htmltext = "30515-11.htm"
     return htmltext

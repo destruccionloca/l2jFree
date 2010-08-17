@@ -81,7 +81,7 @@ class Quest (JQuest) :
          st.takeItems(K_HORN,-1)
          item=REWARDS[st.getRandom(len(REWARDS))]
          if ALT_RP_100 : item += 1
-         st.giveItems(item,1)
+         st.rewardItems(item,1)
          htmltext="30515-4.htm"
       else :
          htmltext = "30515-5.htm"
