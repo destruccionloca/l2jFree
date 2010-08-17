@@ -32,7 +32,7 @@
   <skill id="10009" levels="4" name="Grade Penalty - Weapon">
     <!-- Verified on Final & Epilogue, except magic fail rate -->
     <table name="#cAtk"> 0.9 0.8 0.7 0.6 </table>
-    <table name="#mFail"> 5000 6500 8000 9500 </table> <!-- Guess -->
+    <table name="#mFailRate"> 5000 6500 8000 9500 </table> <!-- Guess -->
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_PASSIVE"/>
@@ -43,7 +43,7 @@
       <mul order="0x30" stat="pAtkSpd" val="0.9"/>
       <mul order="0x30" stat="pAtk" val="0.9"/>
       <mul order="0x30" stat="cAtk" val="#cAtk"/>
-      <add order="0x40" stat="mFailRate" val="#mFail"/>
+      <add order="0x40" stat="mFailRate" val="#mFailRate"/>
     </for>
   </skill>
   <skill id="10010" levels="5" name="Grade Penalty - Armor">
