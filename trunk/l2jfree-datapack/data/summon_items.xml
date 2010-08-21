@@ -279,4 +279,64 @@
     <npcId val="13147"/>
     <summonType val="2"/>
   </item>
+  <!-- Deseloph -->
+  <item id="20908">
+    <npcId val="1562"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Hyum -->
+  <item id="20909">
+    <npcId val="1563"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Rekang -->
+  <item id="20910">
+    <npcId val="1564"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Lilias -->
+  <item id="20911">
+    <npcId val="1565"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Lapham -->
+  <item id="20912">
+    <npcId val="1566"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Mafum -->
+  <item id="20913">
+    <npcId val="1567"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Deseloph -->
+  <item id="20915">
+    <npcId val="1568"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Hyum -->
+  <item id="20916">
+    <npcId val="1569"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Rekang -->
+  <item id="20917">
+    <npcId val="1570"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Lilias -->
+  <item id="20918">
+    <npcId val="1571"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Lapham -->
+  <item id="20919">
+    <npcId val="1572"/>
+    <summonType val="1"/>
+  </item>
+  <!-- Improved Mafum -->
+  <item id="20920">
+    <npcId val="1573"/>
+    <summonType val="1"/>
+  </item>
 </list>
