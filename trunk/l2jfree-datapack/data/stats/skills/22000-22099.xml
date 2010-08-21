@@ -259,7 +259,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -272,7 +271,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -285,7 +283,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -298,7 +295,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -321,7 +317,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="100"/>
-    <set name="castRange" val="-1"/>
     <set name="isPotion" val="true"/>
     <for>
       <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="event_herb">
@@ -350,7 +345,6 @@
     <set name="skillType" val="BUFF"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="hitTime" val="100"/>
-    <set name="castRange" val="-1"/>
     <set name="isPotion" val="true"/>
     <for>
       <effect count="1" name="Buff" time="600" val="0" stackOrder="1" stackType="event_herb">
@@ -911,7 +905,7 @@
     <!-- Increases resistance to water type attacks by 20% for 1 hour -->
     <table name="#mpInitialConsume"> 8 </table>
     <table name="#mpConsume"> 31 </table>
-    <table name="#vuln"> 20 </table>
+    <table name="#waterRes"> 20 </table>
     <table name="#aggroPoints"> 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -926,7 +920,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="1" stackType="AquaAtr">
-        <add order="0x40" stat="waterRes" val="#vuln"/>
+        <add order="0x40" stat="waterRes" val="#waterRes"/>
       </effect>
     </for>
   </skill>
@@ -934,7 +928,7 @@
     <!-- Increases resistance to wind type attacks by 20% for 1 hour -->
     <table name="#mpInitialConsume"> 8 </table>
     <table name="#mpConsume"> 31 </table>
-    <table name="#vuln"> 20 </table>
+    <table name="#windRes"> 20 </table>
     <table name="#aggroPoints"> 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -949,7 +943,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="1" stackType="WindAtr">
-        <add order="0x40" stat="waterRes" val="#vuln"/>
+        <add order="0x40" stat="windRes" val="#windRes"/>
       </effect>
     </for>
   </skill>
@@ -957,7 +951,7 @@
     <!-- Increases resistance to fire type attacks by 20% for 1 hour -->
     <table name="#mpInitialConsume"> 8 </table>
     <table name="#mpConsume"> 31 </table>
-    <table name="#vuln"> 20 </table>
+    <table name="#fireRes"> 20 </table>
     <table name="#aggroPoints"> 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -972,7 +966,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="1" stackType="FireAtr">
-        <add order="0x40" stat="waterRes" val="#vuln"/>
+        <add order="0x40" stat="fireRes" val="#fireRes"/>
       </effect>
     </for>
   </skill>
@@ -980,7 +974,7 @@
     <!-- Increases resistance to divinity type attacks by 23% for 1 hour -->
     <table name="#mpInitialConsume"> 8 </table>
     <table name="#mpConsume"> 31 </table>
-    <table name="#vuln"> 20 </table>
+    <table name="#holyRes"> 20 </table>
     <table name="#aggroPoints"> 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -995,7 +989,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="1" stackType="HolyAtr">
-        <add order="0x40" stat="waterRes" val="#vuln"/>
+        <add order="0x40" stat="holyRes" val="#holyRes"/>
       </effect>
     </for>
   </skill>
@@ -1003,7 +997,7 @@
     <!-- Increases resistance to darkness type attacks by 23% for 1 hour -->
     <table name="#mpInitialConsume"> 8 </table>
     <table name="#mpConsume"> 31 </table>
-    <table name="#vuln"> 20 </table>
+    <table name="#darkRes"> 20 </table>
     <table name="#aggroPoints"> 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1018,7 +1012,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="1" stackType="DarkAtr">
-        <add order="0x40" stat="waterRes" val="#vuln"/>
+        <add order="0x40" stat="darkRes" val="#darkRes"/>
       </effect>
     </for>
   </skill>
@@ -1145,7 +1139,7 @@
     <!-- Increases HP Regeneration by 20% for 1 hour -->
     <table name="#mpInitialConsume"> 10 </table>
     <table name="#mpConsume"> 41 </table>
-    <table name="#rate"> 1.2 </table>
+    <table name="#regHp"> 1.2 </table>
     <table name="#aggroPoints"> 532 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1160,7 +1154,7 @@
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
       <effect name="Buff" time="3600" val="0" stackOrder="#rate" stackType="hp_regen_up">
-        <mul order="0x30" stat="regHp" val="#rate"/>
+        <mul order="0x30" stat="regHp" val="#regHp"/>
       </effect>
     </for>
   </skill>

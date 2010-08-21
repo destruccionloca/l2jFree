@@ -629,20 +629,35 @@
     <set name="skillType" val="MAKE_KILLABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="reuseDelay" val="8000"/> <!-- guess -->
     <set name="hitTime" val="500"/>
+    <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
-    <set name="reuseDelay" val="100"/>
     <set name="effectRange" val="400"/>
+    <cond msgId="113" addName="1">
+      <and>
+        <player flyMounted="False"/>
+        <target npcId="18463,18464,18465"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2359" levels="1" name="Magic Bottle">
     <set name="target" val="TARGET_ONE"/>
     <set name="skillType" val="MAKE_QUEST_DROPABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
+    <set name="reuseDelay" val="8000"/> <!-- guess -->
     <set name="hitTime" val="500"/>
+    <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="reuseDelay" val="100"/>
     <set name="effectRange" val="400"/>
+    <cond msgId="113" addName="1">
+      <and>
+        <player flyMounted="False"/>
+        <target npcId="22349,22350,22351,22352,22353"/>
+      </and>
+    </cond>
   </skill>
   <skill id="2360" levels="1" name="Water Dragon Claw">
     <set name="itemConsumeCount" val="1"/>

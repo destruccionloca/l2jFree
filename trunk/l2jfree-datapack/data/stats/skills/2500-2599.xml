@@ -341,7 +341,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -354,7 +353,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -367,7 +365,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -380,7 +377,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -393,7 +389,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -406,7 +401,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -419,7 +413,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -432,7 +425,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -445,7 +437,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -458,7 +449,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -471,7 +461,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -484,7 +473,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -497,7 +485,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -510,7 +497,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -523,7 +509,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -536,7 +521,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -549,7 +533,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -562,7 +545,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -575,7 +557,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -588,7 +569,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -601,7 +581,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -614,7 +593,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -627,7 +605,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -640,7 +617,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -653,7 +629,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -666,7 +641,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -679,7 +653,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -692,7 +665,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -705,7 +677,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -718,7 +689,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -731,7 +701,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -744,7 +713,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -757,7 +725,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -770,7 +737,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -783,7 +749,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -796,7 +761,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -809,7 +773,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -822,7 +785,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -835,7 +797,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -848,7 +809,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -861,7 +821,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -874,7 +833,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -887,7 +845,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -900,7 +857,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>
@@ -913,7 +869,6 @@
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="EXTRACTABLE"/>
     <set name="operateType" val="OP_ACTIVE"/>
-    <set name="castRange" val="-1"/>
     <cond msgId="129">
       <and>
         <player invSize="10"/>

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `grandboss_spawnlist` (
   `respawn_time` BIGINT NOT NULL DEFAULT 0,
   `currentHp` decimal(8,0) DEFAULT NULL,
   `currentMp` decimal(8,0) DEFAULT NULL,
-  PRIMARY KEY (`boss_id`,`loc_x`,`loc_y`,`loc_z`)
+  PRIMARY KEY (`boss_id`)
 ) DEFAULT CHARSET=utf8;
 
 -- This table stores spawn infos for all L2 bosses not currently managed by a lair instance.
@@ -24,3 +24,12 @@ INSERT IGNORE INTO `grandboss_spawnlist` VALUES
 -- (22215, 18229, -17975, -3219, 65140, 86400, 129600, 0, 340753, 2339),-- Tyrannosaurus (80)
 (22216, 19897, -9087, -2781, 2686,86400, 129600, 0, 340753, 2339),      -- Tyrannosaurus (80)
 (22217, 22827, -14698, -3080, 53946,86400, 129600, 0, 340753, 2339),    -- Tyrannosaurus (80)
+-- (29045, 0, 0, 0, 0, 0, 1216600, 11100, 0), -- Frintezza (85)
+-- (29046, 0, 0, 0, 0, 0, 1824900, 23310, 0), -- Scarlet Van Halisha (85)
+-- (29047, 174238, -89792, -5002, 0, 0, 898044, 4519, 0), -- Scarlet Van Halisha (85)
+-- (29099, 0, 0, 0, 0, 0, 1703893, 111000, 0), -- Baylor (83)
+-- (29118, 0, 0, 0, 0, 0, 94800, 1110000, 0), -- Beleth (87)
+-- (29150, 0, 0, 0, 0, 0, 8727677, 204995, 0), -- Ekimus (?)
+-- (29151, 0, 0, 0, 0, 0, 6690, 204995, 0), -- Feral (?)
+-- (29152, 0, 0, 0, 0, 0, 6690, 204995, 0), -- Feral (?)
+-- (29163, 0, 0, 0, 0, 0, 8727677, 204995, 0), -- Tiat (87)

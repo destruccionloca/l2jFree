@@ -229,7 +229,7 @@
           <target mindistance="100"/>
         </not>
         <player flyMounted="True"/>
-        <target npcId="18684 18685 18686 18687 18688 18689 18690 18691 18692"/>
+        <target npcId="18684,18685,18686,18687,18688,18689,18690,18691,18692"/>
       </and>
     </cond>
   </skill>
