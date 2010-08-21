@@ -45,10 +45,10 @@ import com.l2jfree.gameserver.network.SystemMessageId;
 import com.l2jfree.gameserver.network.serverpackets.DropItem;
 import com.l2jfree.gameserver.network.serverpackets.GetItem;
 import com.l2jfree.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.network.serverpackets.SpawnItem;
 import com.l2jfree.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jfree.gameserver.network.serverpackets.SystemMessage;
+import com.l2jfree.gameserver.network.serverpackets.L2GameServerPacket.ElementalOwner;
 import com.l2jfree.gameserver.skills.funcs.Func;
 import com.l2jfree.gameserver.skills.funcs.FuncOwner;
 import com.l2jfree.gameserver.taskmanager.SQLQueue;
@@ -183,7 +183,6 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		_item = item;
 		if (_item == null)
 			throw new IllegalArgumentException();
-		super.setName(_item.getName());
 		setCount(1);
 		_loc = ItemLocation.VOID;
 		_mana = _item.getDuration();
@@ -1566,6 +1565,12 @@ public final class L2ItemInstance extends L2Object implements FuncOwner, Element
 		output.append(getItem().getName());
 		output.append("(" + getCount() + ")");
 		return output.toString();
+	}
+	
+	@Override
+	public String getName()
+	{
+		return _item.getName();
 	}
 	
 	public void resetOwnerTimer()

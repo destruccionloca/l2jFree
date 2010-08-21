@@ -35,8 +35,8 @@ import org.apache.commons.logging.LogFactory;
 import com.l2jfree.Config;
 import com.l2jfree.gameserver.GameTimeController;
 import com.l2jfree.gameserver.Shutdown;
-import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ThreadPoolManager;
+import com.l2jfree.gameserver.Shutdown.DisableType;
 import com.l2jfree.gameserver.ai.CtrlEvent;
 import com.l2jfree.gameserver.ai.CtrlIntention;
 import com.l2jfree.gameserver.ai.L2CharacterAI;
@@ -54,10 +54,10 @@ import com.l2jfree.gameserver.model.L2ItemInstance;
 import com.l2jfree.gameserver.model.L2Object;
 import com.l2jfree.gameserver.model.L2Party;
 import com.l2jfree.gameserver.model.L2Skill;
-import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.L2World;
 import com.l2jfree.gameserver.model.L2WorldRegion;
 import com.l2jfree.gameserver.model.Location;
+import com.l2jfree.gameserver.model.L2Skill.SkillTargetType;
 import com.l2jfree.gameserver.model.actor.effects.CharEffects;
 import com.l2jfree.gameserver.model.actor.instance.L2AirShipInstance;
 import com.l2jfree.gameserver.model.actor.instance.L2BoatInstance;
@@ -73,8 +73,8 @@ import com.l2jfree.gameserver.model.actor.status.CharStatus;
 import com.l2jfree.gameserver.model.actor.view.CharLikeView;
 import com.l2jfree.gameserver.model.itemcontainer.Inventory;
 import com.l2jfree.gameserver.model.quest.Quest;
-import com.l2jfree.gameserver.model.quest.Quest.QuestEventType;
 import com.l2jfree.gameserver.model.quest.QuestState;
+import com.l2jfree.gameserver.model.quest.Quest.QuestEventType;
 import com.l2jfree.gameserver.model.restriction.global.GlobalRestrictions;
 import com.l2jfree.gameserver.model.zone.L2Zone;
 import com.l2jfree.gameserver.network.Disconnection;
@@ -6610,7 +6610,30 @@ public abstract class L2Character extends L2Object
 
 		return weaponItem.getRandomDamage();
 	}
-
+	
+	/**
+	 * Name of this object
+	 */
+	private String _name = "";
+	
+	/**
+	 * return the name
+	 * 
+	 * @return the name
+	 */
+	@Override
+	public String getName()
+	{
+		return _name;
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Override
+	public void setName(String name)
+	{
+		_name = (name == null ? "" : name.intern());
+	}
+	
 	@Override
 	public String toString()
 	{

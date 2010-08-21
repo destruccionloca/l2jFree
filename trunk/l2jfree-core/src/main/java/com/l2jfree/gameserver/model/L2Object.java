@@ -46,10 +46,6 @@ public abstract class L2Object implements L2Entity<Integer>
 	public static final L2Object[] EMPTY_ARRAY = new L2Object[0];
 	
 	/**
-	 * Name of this object
-	 */
-	private String _name;
-	/**
 	 * unique identifier
 	 */
 	private Integer _objectId;
@@ -73,7 +69,6 @@ public abstract class L2Object implements L2Entity<Integer>
 	protected L2Object(int objectId)
 	{
 		_objectId = L2Integer.valueOf(objectId);
-		_name = "";
 		_poly = initPoly();
 		_position = initPosition();
 	}
@@ -381,17 +376,14 @@ public abstract class L2Object implements L2Entity<Integer>
 	 * 
 	 * @return the name
 	 */
-	public final String getName()
-	{
-		return _name;
-	}
+	public abstract String getName();
 	
 	/**
 	 * @param value the name to set
 	 */
+	@Deprecated
 	public void setName(String name)
 	{
-		_name = (name == null ? "" : name.intern());
 	}
 	
 	/**
