@@ -127,26 +127,24 @@ of this directory a little bit.
 350980008.xml -> Manor Products: Rune
 350980009.xml -> Manor Products: Schuttgart
 
-356551001.xml -> Castle Merchant - magic related products (hear/face gear)
-356551002.xml -> Castle Merchant - bracelets
-356551003.xml -> Castle Merchant - t-shirts
-
 350980012.xml -> BlackSmith Lahm
 
-36142001.xml -> Suspicious Merchant
-36114001.xml -> Tanor Fortress Support Unit Captain - magic related products (hear/face gear)
-36114002.xml -> Tanor Fortress Support Unit Captain - bracelets
-36114003.xml -> Tanor Fortress Support Unit Captain - t-shirts
-36114004.xml -> Fortress Support Unit Captain - enchanted t-shirts
+90002001.xml -> Castle Merchant - Magic related products (hear/face gear)
+90002002.xml -> Castle Merchant - Bracelets
+90002003.xml -> Castle Merchant - Shirts
+90002004.xml -> Castle Merchant - Enchanted Shirts
+
+90001000.xml -> Suspicious Merchant
+90001001.xml -> Support Unit Captain - Magic related products (hear/face gear)
+90001002.xml -> Support Unit Captain - Bracelets
+90001003.xml -> Support Unit Captain - Shirts
+90001004.xml -> Support Unit Captain - Enchanted Shirts
 
 32326001.xml -> Yang - Elemental potions
 32326002.xml -> Yang - Elemental stones
 
 323780001.xml -> Fantasy Isle Paddies: Exchange Fantasy Isle coins for goodies
-356551001.xml -> Castle Merchant: Magic related products (hear/face gear)
-356551002.xml -> Castle Merchant: Bracelets
-356551003.xml -> Castle Merchant: T-Shirts
-356551004.xml -> Trade Shirt for Enchanted Shirt in castle
+
 364790001.xml -> Reputation Manager: PvP weapons, armors enhancement
 364790002.xml -> Reputation Manager: Removal of PvP enhancement
 364790003.xml -> Reputation Manager: Consumables

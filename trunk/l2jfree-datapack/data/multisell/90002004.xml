@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Castle Magician - Enchanted Shirt -->
-<list maintainEnchantment="true" xmlns="http://www.l2jfree.com"
+<list xmlns="http://www.l2jfree.com"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.l2jfree.com ../templates/exchange.xsd">
   <!-- Silk Shirt (C Grade) - Silk Shirt - HP -->
@@ -45,13 +45,13 @@
     <ingredient id="9912" count="390"/>
     <production id="10494" count="1"/>
   </item>
-  <!-- Thin Leather Shirt (B Grade) - Thin Leather Shirt - CP -->
+  <!-- Thin Leather Shirt (B Grade) - Thin Leather Shirt - MP -->
   <item id="8">
     <ingredient id="9580" count="1"/>
     <ingredient id="9912" count="390"/>
     <production id="10495" count="1"/>
   </item>
-  <!-- Thin Leather Shirt (B Grade) - Thin Leather Shirt - MP -->
+  <!-- Thin Leather Shirt (B Grade) - Thin Leather Shirt - CP -->
   <item id="9">
     <ingredient id="9580" count="1"/>
     <ingredient id="9912" count="195"/>
@@ -135,13 +135,13 @@
     <ingredient id="9912" count="2970"/>
     <production id="10512" count="1"/>
   </item>
-  <!-- Striped Mithril Shirt (S Grade) - Striped Mithril Shirt - HP -->
+  <!-- Striped Mithril Shirt (S Grade) - Striped Mithril Shirt - MP -->
   <item id="23">
     <ingredient id="9588" count="1"/>
     <ingredient id="9912" count="2970"/>
     <production id="10513" count="1"/>
   </item>
-  <!-- Striped Mithril Shirt (S Grade) - Striped Mithril Shirt - HP -->
+  <!-- Striped Mithril Shirt (S Grade) - Striped Mithril Shirt - CP -->
   <item id="24">
     <ingredient id="9588" count="1"/>
     <ingredient id="9912" count="1485"/>
