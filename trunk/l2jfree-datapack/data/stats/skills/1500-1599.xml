@@ -116,7 +116,7 @@
   </skill>
   <skill id="1506" levels="1" name="Blessing of Eva">
     <!-- Done by L2CDP -->
-    <set name="power" val="80"/> <!-- Need retail value -->
+    <set name="power" val="100"/>
     <set name="restoredCP" val="-1"/> <!-- Need retail value -->
     <set name="restoredHP" val="-1"/> <!-- Need retail value -->
     <set name="restoredMP" val="-1"/> <!-- Need retail value -->
@@ -131,6 +131,9 @@
     <set name="reuseDelay" val="1440000"/>
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
+    <for>
+      <!-- effect name="CancelDebuff" val="0" effectPower="25" effectType="CANCEL_DEBUFF"/ TODO: Needs Core-Side Support -->
+    </for>
   </skill>
   <skill id="1507" levels="1" name="Lord of Vampire">
     <set name="mpInitialConsume" val="7"/>

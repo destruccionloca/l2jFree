@@ -642,10 +642,10 @@
   <!-- Inflicts a powerful physical water attack on the enemy using the power of the talisman attached to the Sword of Fire and Water. -->
     <set name="mpInitialConsume" val="14"/>
     <set name="mpConsume" val="59"/>
-    <set name="reuseDelay" val="2000"/>
+    <set name="reuseDelay" val="13000"/>
     <set name="hitTime" val="2000"/>
     <set name="target" val="TARGET_ONE"/>
-    <set name="skillType" val="NOTDONE"/>
+    <set name="skillType" val="PDAM"/>
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="castRange" val="40"/>
     <set name="effectRange" val="400"/>

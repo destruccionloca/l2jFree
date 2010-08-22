@@ -20,7 +20,7 @@
     <for/>
   </item>
   <item id="13041" name="Water Attribute Enhancer">
-    <cond msgId="1518">
+    <cond msgId="113" addName="1">
       <player instanceid="43"/>
     </cond>
     <for/>

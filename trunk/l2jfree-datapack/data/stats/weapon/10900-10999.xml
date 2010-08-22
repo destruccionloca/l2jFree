@@ -405,7 +405,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Miser --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Miser -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="soulShotCount" val="2">
         <and>
           <game chance="19"/>
@@ -757,7 +758,8 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Towering Blow --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Towering Blow -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set val="80" order="0x08" stat="pAtkRange"/>
     </for>
   </item>

@@ -319,7 +319,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Quick Recovery -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.83" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -511,7 +512,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Miser --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Miser -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="soulShotCount" val="4">
         <and>
           <game chance="40"/>
@@ -527,7 +529,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Quick Recovery -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.8" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -559,7 +562,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Miser --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Miser -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="soulShotCount" val="4">
         <and>
           <game chance="40"/>
@@ -575,7 +579,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Cheap Shot -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
@@ -861,7 +866,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Miser --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Miser -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="soulShotCount" val="4">
         <and>
           <game chance="32"/>

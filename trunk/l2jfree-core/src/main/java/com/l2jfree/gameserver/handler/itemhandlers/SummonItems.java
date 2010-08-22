@@ -207,6 +207,7 @@ public class SummonItems implements IItemHandler
 			if (petSummon == null)
 				return;
 
+			petSummon.setShowSummonAnimation(true);
 			petSummon.setTitle(_activeChar.getName());
 
 			if (!petSummon.isRespawned())
@@ -235,7 +236,6 @@ public class SummonItems implements IItemHandler
 				petSummon.startFeed();
 
 			petSummon.setFollowStatus(true);
-			petSummon.setShowSummonAnimation(false); // shouldn't be this always true?
 			final int weaponId = petSummon.getWeapon();
 			final int armorId = petSummon.getArmor();
 			final int jewelId = petSummon.getJewel();

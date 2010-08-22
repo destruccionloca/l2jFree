@@ -149,7 +149,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Cheap Shot -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
@@ -162,7 +163,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Quick Recovery -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.85" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -285,7 +287,8 @@
       <set val="227" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Cheap Shot -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="MpConsume" val="2">
         <and>
           <game skill="false" chance="47"/>
@@ -302,7 +305,8 @@
       <set val="227" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Quick Recovery -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.85" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -359,7 +363,8 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Wide Blow --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Wide Blow -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set val="180" order="0x08" stat="pAtkAngle"/>
     </for>
   </item>
@@ -523,7 +528,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Cheap Shot -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul order="0x08" stat="MpConsume" val="0.88"/>
     </for>
   </item>
@@ -547,7 +553,8 @@
       <set val="303" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Quick Recovery -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.83" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -659,7 +666,8 @@
       <set val="227" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Cheap Shot -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="MpConsume" val="1">
         <and>
           <game skill="false" chance="30"/>
@@ -687,7 +695,8 @@
       <set val="227" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Quick Recovery --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Quick Recovery -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <mul val="0.83" order="0x30" stat="bowReuse"/>
     </for>
   </item>
@@ -890,7 +899,8 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Towering Blow --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Towering Blow -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set val="80" order="0x08" stat="pAtkRange"/>
     </for>
   </item>
@@ -903,7 +913,8 @@
       <set val="325" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Wide Blow --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Wide Blow -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set val="180" order="0x08" stat="pAtkAngle"/>
     </for>
   </item>
@@ -1109,7 +1120,8 @@
       <set val="293" order="0x08" stat="pAtkSpd"/>
       <enchant val="0" order="0x0C" stat="pAtk"/>
       <enchant val="0" order="0x0C" stat="mAtk"/>
-      <!-- SA: Cheap Shot --> <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
+      <!-- SA: Cheap Shot -->
+      <!-- TGS' Notes: There is no SA skill for this one. It's actually modified on the weapon itself. -->
       <set order="0x08" stat="MpConsume" val="1">
         <and>
           <game skill="false" chance="26"/>
