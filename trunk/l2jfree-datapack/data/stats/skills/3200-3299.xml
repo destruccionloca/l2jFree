@@ -1114,9 +1114,9 @@
     <set name="mpConsume" val="40"/>
     <set name="hitTime" val="1200"/>
     <set name="reuseDelay" val="15000"/>
+    <set name="staticReuse" val="true"/>
     <set name="staticHitTime" val="true"/>
     <set name="equipDelay" val="30000"/>
-    <set name="staticHitTime" val="true"/>
     <set name="target" val="TARGET_SELF"/>
     <set name="skillType" val="NEGATE"/>
     <set name="negateStats" val="ROOT"/>
