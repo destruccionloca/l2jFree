@@ -9084,26 +9084,26 @@ INSERT INTO `etcitem` VALUES
 (14679,'Saerom\'s Bead - A','','false','none',20,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (14680,'Saerom\'s Bead - S','','false','none',20,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (14681,'Saerom\'s Bead - S80','','false','none',20,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14682,'Greater Elixir of Life (No-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14683,'Greater Elixir of Life (D-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14684,'Greater Elixir of Life (C-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14685,'Greater Elixir of Life (B-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14686,'Greater Elixir of Life (A-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14687,'Greater Elixir of Life (S-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14688,'Greater Elixir of Mental Strength (No-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14689,'Greater Elixir of Mental Strength (D-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14690,'Greater Elixir of Mental Strength (C-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14691,'Greater Elixir of Mental Strength (B-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14692,'Greater Elixir of Mental Strength (A-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14693,'Greater Elixir of Mental Strength (S-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14694,'Greater Elixir of CP (No Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14695,'Greater Elixir of CP (D-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14696,'Greater Elixir of CP (C-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14697,'Greater Elixir of CP (B-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14698,'Greater Elixir of CP (A-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14699,'Greater Elixir of CP (S-Grade)','','false','none',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14700,'Greater Healing Potion','','false','potion',5,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
-(14701,'Greater Quick Healing Potion','','false','potion',180,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
+(14682,'Greater Elixir of Life (No-Grade)','','false','potion',5,'stackable','liquid','none',-1,-1,0,0,'true','true','true','true','true','Elixir','2860-1'),
+(14683,'Greater Elixir of Life (D-Grade)','','false','potion',5,'stackable','liquid','d',-1,-1,0,0,'true','true','true','true','true','Elixir','2860-2'),
+(14684,'Greater Elixir of Life (C-Grade)','','false','potion',5,'stackable','liquid','c',-1,-1,0,0,'true','true','true','true','true','Elixir','2860-3'),
+(14685,'Greater Elixir of Life (B-Grade)','','false','potion',5,'stackable','liquid','b',-1,-1,0,0,'true','true','true','true','true','Elixir','2860-4'),
+(14686,'Greater Elixir of Life (A-Grade)','','false','potion',5,'stackable','liquid','a',-1,-1,0,0,'true','true','true','true','true','Elixir','2860-5'),
+(14687,'Greater Elixir of Life (S-Grade)','','false','potion',5,'stackable','liquid','s',-1,-1,0,0,'true','true','true','true','true','Elixir','2860-6'),
+(14688,'Greater Elixir of Mental Strength (No-Grade)','','false','potion',5,'stackable','liquid','none',-1,-1,0,0,'true','true','true','true','true','Elixir','2861-1'),
+(14689,'Greater Elixir of Mental Strength (D-Grade)','','false','potion',5,'stackable','liquid','d',-1,-1,0,0,'true','true','true','true','true','Elixir','2861-2'),
+(14690,'Greater Elixir of Mental Strength (C-Grade)','','false','potion',5,'stackable','liquid','c',-1,-1,0,0,'true','true','true','true','true','Elixir','2861-3'),
+(14691,'Greater Elixir of Mental Strength (B-Grade)','','false','potion',5,'stackable','liquid','b',-1,-1,0,0,'true','true','true','true','true','Elixir','2861-4'),
+(14692,'Greater Elixir of Mental Strength (A-Grade)','','false','potion',5,'stackable','liquid','a',-1,-1,0,0,'true','true','true','true','true','Elixir','2861-5'),
+(14693,'Greater Elixir of Mental Strength (S-Grade)','','false','potion',5,'stackable','liquid','s',-1,-1,0,0,'true','true','true','true','true','Elixir','2861-6'),
+(14694,'Greater Elixir of CP (No Grade)','','false','potion',5,'stackable','liquid','none',-1,-1,0,0,'true','true','true','true','true','Elixir','2862-1'),
+(14695,'Greater Elixir of CP (D-Grade)','','false','potion',5,'stackable','liquid','d',-1,-1,0,0,'true','true','true','true','true','Elixir','2862-2'),
+(14696,'Greater Elixir of CP (C-Grade)','','false','potion',5,'stackable','liquid','c',-1,-1,0,0,'true','true','true','true','true','Elixir','2863-3'),
+(14697,'Greater Elixir of CP (B-Grade)','','false','potion',5,'stackable','liquid','b',-1,-1,0,0,'true','true','true','true','true','Elixir','2862-4'),
+(14698,'Greater Elixir of CP (A-Grade)','','false','potion',5,'stackable','liquid','a',-1,-1,0,0,'true','true','true','true','true','Elixir','2862-5'),
+(14699,'Greater Elixir of CP (S-Grade)','','false','potion',5,'stackable','liquid','s',-1,-1,0,0,'true','true','true','true','true','Elixir','2862-6'),
+(14700,'Greater Healing Potion','','false','potion',5,'stackable','liquid','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2863-1'),
+(14701,'Greater Quick Healing Potion','','false','potion',180,'stackable','liquid','none',-1,-1,0,0,'true','true','true','true','true','ItemSkills','2864-1'),
 (14702,'Agathion Auxiliary Stone: Enchant Weapon (D-Grade)','','false','none',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (14703,'Agathion Auxiliary Stone: Enchant Weapon (C-Grade)','','false','none',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
 (14704,'Agathion Auxiliary Stone: Enchant Weapon (B-Grade)','','false','none',120,'stackable','paper','none',-1,-1,0,0,'true','true','true','true','true','none',''),
@@ -10443,33 +10443,6 @@ UPDATE `etcitem` SET `skills_item` = '2947-1' WHERE `item_id` = 13721;
 UPDATE `etcitem` SET `dropable` = 'false', `tradeable` = 'false' WHERE `item_id` = '9702';
 UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN (9850,9851,9852);
 UPDATE `etcitem` SET `sellable` = 'false', `dropable` = 'false', `tradeable` = 'false', `depositable` = 'false' WHERE `item_id` IN (9850,9851,9852);
-
--- Greater Elixir (Spire)
-UPDATE `etcitem` SET `handler` = 'Elixir', `item_type` = 'potion', `material` = 'liquid' WHERE `item_id` BETWEEN 14682 AND 14699;
-UPDATE `etcitem` SET `crystal_type` = 'none' WHERE `item_id` IN (14682,14688,14694);
-UPDATE `etcitem` SET `crystal_type` = 'd' WHERE `item_id` IN (14683,14689,14695);
-UPDATE `etcitem` SET `crystal_type` = 'c' WHERE `item_id` IN (14684,14690,14696);
-UPDATE `etcitem` SET `crystal_type` = 'b' WHERE `item_id` IN (14685,14691,14697);
-UPDATE `etcitem` SET `crystal_type` = 'a' WHERE `item_id` IN (14686,14692,14698);
-UPDATE `etcitem` SET `crystal_type` = 's' WHERE `item_id` IN (14687,14693,14699);
-UPDATE `etcitem` SET `skills_item` = '2860-1' WHERE `item_id` = 14682;
-UPDATE `etcitem` SET `skills_item` = '2860-2' WHERE `item_id` = 14683;
-UPDATE `etcitem` SET `skills_item` = '2860-3' WHERE `item_id` = 14684;
-UPDATE `etcitem` SET `skills_item` = '2860-4' WHERE `item_id` = 14685;
-UPDATE `etcitem` SET `skills_item` = '2860-5' WHERE `item_id` = 14686;
-UPDATE `etcitem` SET `skills_item` = '2860-6' WHERE `item_id` = 14687;
-UPDATE `etcitem` SET `skills_item` = '2861-1' WHERE `item_id` = 14688;
-UPDATE `etcitem` SET `skills_item` = '2861-2' WHERE `item_id` = 14689;
-UPDATE `etcitem` SET `skills_item` = '2861-3' WHERE `item_id` = 14690;
-UPDATE `etcitem` SET `skills_item` = '2861-4' WHERE `item_id` = 14691;
-UPDATE `etcitem` SET `skills_item` = '2861-5' WHERE `item_id` = 14692;
-UPDATE `etcitem` SET `skills_item` = '2861-6' WHERE `item_id` = 14693;
-UPDATE `etcitem` SET `skills_item` = '2862-1' WHERE `item_id` = 14694;
-UPDATE `etcitem` SET `skills_item` = '2862-2' WHERE `item_id` = 14695;
-UPDATE `etcitem` SET `skills_item` = '2862-3' WHERE `item_id` = 14696;
-UPDATE `etcitem` SET `skills_item` = '2862-4' WHERE `item_id` = 14697;
-UPDATE `etcitem` SET `skills_item` = '2862-5' WHERE `item_id` = 14698;
-UPDATE `etcitem` SET `skills_item` = '2862-6' WHERE `item_id` = 14699;
 
 -- Book of Secret (Pailaka 1)
 UPDATE `etcitem` SET `handler` = 'Book' WHERE `item_id` IN (13130, 13131, 13132, 13133, 13134, 13135, 13136);

@@ -1342,7 +1342,7 @@
     <!-- Done by Znabty -->
     <table name="#pAtk"> 1.2 1.25 </table>
     <table name="#mpConsume"> 10 19 </table>
-    <table name="#stack"> 1 2 </table>
+    <table name="#stackOrder"> 1 2 </table>
     <table name="#aggroPoints"> 204 408 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="reuseDelay" val="45000"/>
@@ -1352,7 +1352,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="60" val="0" stackOrder="#stack" stackType="pa_up_special">
+      <effect name="Buff" time="60" val="0" stackOrder="#stackOrder" stackType="pa_up_special">
         <mul order="0x30" stat="pAtk" val="#pAtk"/>
       </effect>
     </for>
@@ -1616,7 +1616,7 @@
     <table name="#twohands"> 1.07 1.06 </table>
     <table name="#accCombat"> 2 4 </table>
     <table name="#mpConsume"> 11 25 </table>
-    <table name="#stack"> 1 2 </table>
+    <table name="#stackOrder"> 1 2 </table>
     <table name="#aggroPoints"> 235 523 </table>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_SELF"/>
@@ -1626,7 +1626,7 @@
     <set name="operateType" val="OP_ACTIVE"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="90" val="0" stackOrder="#stack" stackType="pa_up_special">
+      <effect name="Buff" time="90" val="0" stackOrder="#stackOrder" stackType="pa_up_special">
         <mul order="0x30" stat="pAtk" val="1.2"/>
         <mul order="0x30" stat="pAtk" val="#swordbluntpole">
           <using kind="Sword,Blunt,Pole"/>

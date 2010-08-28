@@ -623,7 +623,7 @@
   </skill>
   <skill id="4346" levels="4" name="Clan Hall: Mental Shield">
     <table name="#vuln"> 0.8 0.7 0.6 0.5 </table>
-    <table name="#stack"> 20 30 40 50 </table>
+    <table name="#stackOrder"> 20 30 40 50 </table>
     <table name="#mpInitialConsume"> 10 13 17 20 </table>
     <table name="#mpConsume"> 40 52 67 80 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -636,7 +636,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="MentalShield">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="MentalShield">
         <mul order="0x30" stat="rootVuln" val="#vuln"/>
         <mul order="0x30" stat="sleepVuln" val="#vuln"/>
         <mul order="0x30" stat="confusionVuln" val="#vuln"/>
@@ -703,7 +703,7 @@
   </skill>
   <skill id="4350" levels="4" name="Clan Hall: Resist Shock">
     <table name="#stunVuln"> 0.85 0.8 0.7 0.6 </table>
-    <table name="#stack"> 15 20 30 40 </table>
+    <table name="#stackOrder"> 15 20 30 40 </table>
     <table name="#mpInitialConsume"> 30 40 50 60 </table>
     <table name="#mpConsume"> 120 160 200 240 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -716,7 +716,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="ShockVuln">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="ShockVuln">
         <mul order="0x30" stat="stunVuln" val="#stunVuln"/>
       </effect>
     </for>
@@ -891,7 +891,7 @@
     <table name="#rCrit"> 0.2 0.25 0.3 </table>
     <table name="#mpInitialConsume"> 60 90 120 </table>
     <table name="#mpConsume"> 240 360 480 </table>
-    <table name="#stack"> 20 25 30 </table>
+    <table name="#stackOrder"> 20 25 30 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
     <set name="target" val="TARGET_ONE"/>
@@ -902,7 +902,7 @@
     <set name="castRange" val="400"/>
     <set name="effectRange" val="900"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="critical_prob_up">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="critical_prob_up">
         <basemul order="0x30" stat="rCrit" val="#rCrit"/>
       </effect>
     </for>

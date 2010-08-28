@@ -1020,7 +1020,7 @@
     <!-- Increases resistance to hold/sleep/abnormal mental attacks by 40 for 1 hour -->
     <table name="#mpInitialConsume"> 8 </table>
     <table name="#mpConsume"> 35 </table>
-    <table name="#stack"> 40 </table>
+    <table name="#stackOrder"> 40 </table>
     <table name="#aggroPoints"> 457 </table>
     <table name="#vuln"> 0.6 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
@@ -1035,7 +1035,7 @@
     <set name="effectRange" val="900"/>
     <set name="aggroPoints" val="#aggroPoints"/>
     <for>
-      <effect name="Buff" time="3600" val="0" stackOrder="#stack" stackType="MentalShield">
+      <effect name="Buff" time="3600" val="0" stackOrder="#stackOrder" stackType="MentalShield">
         <mul order="0x30" stat="rootVuln" val="#vuln"/>
         <mul order="0x30" stat="sleepVuln" val="#vuln"/>
         <mul order="0x30" stat="confusionVuln" val="#vuln"/>

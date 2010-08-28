@@ -1132,7 +1132,7 @@
     <table name="#mpInitialConsume"> 4 7 7 </table>
     <table name="#mpConsume"> 18 28 31 </table>
     <table name="#waterRes"> 10 15 20 </table>
-    <table name="#stack"> 1.1 1.15 1.2 </table>
+    <table name="#stackOrder"> 1.1 1.15 1.2 </table>
     <table name="#aggroPoints"> 243 379 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1148,7 +1148,7 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="AquaAtr">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="AquaAtr">
         <add order="0x40" stat="waterRes" val="#waterRes"/>
       </effect>
     </for>
@@ -1226,7 +1226,7 @@
     <table name="#mpInitialConsume"> 6 7 7 </table>
     <table name="#mpConsume"> 24 28 31 </table>
     <table name="#windRes"> 10 15 20 </table>
-    <table name="#stack"> 1.1 1.15 1.2 </table>
+    <table name="#stackOrder"> 1.1 1.15 1.2 </table>
     <table name="#aggroPoints"> 331 379 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1242,7 +1242,7 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="WindAtr">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="WindAtr">
         <add order="0x40" stat="windRes" val="#windRes"/>
       </effect>
     </for>
@@ -1266,7 +1266,7 @@
     <table name="#mpInitialConsume"> 6 7 7 </table>
     <table name="#mpConsume"> 24 28 31 </table>
     <table name="#fireRes"> 10 15 20 </table>
-    <table name="#stack"> 1.1 1.15 1.2 </table>
+    <table name="#stackOrder"> 1.1 1.15 1.2 </table>
     <table name="#aggroPoints"> 285 379 418 </table>
     <set name="mpInitialConsume" val="#mpInitialConsume"/>
     <set name="mpConsume" val="#mpConsume"/>
@@ -1282,7 +1282,7 @@
     <enchant2 name="mpConsume" val="#ench2mpConsume"/>
     <enchant2 name="mpInitialConsume" val="#ench2mpInitialConsume"/>
     <for>
-      <effect name="Buff" time="1200" val="0" stackOrder="#stack" stackType="FireAtr">
+      <effect name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="FireAtr">
         <add order="0x40" stat="fireRes" val="#fireRes"/>
       </effect>
     </for>
